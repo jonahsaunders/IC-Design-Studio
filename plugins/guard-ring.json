@@ -1,0 +1,1 @@
+{"id":"example.guard-ring","name":"Generic metal ring","version":"0.1.0","api_version":"1.0","capabilities":["commands"],"dependencies":[],"entry":"guard_ring.py","trust":"Run only trusted local code; worker isolation is not a security sandbox."}

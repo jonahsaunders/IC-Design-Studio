@@ -1,0 +1,100 @@
+"""Local, content-verified PDK revisions; never imply foundry qualification."""
+from __future__ import annotations
+import json,shutil,re,os
+from pathlib import Path
+from .model import clone,digest,file_digest,atomic_write,example,validate,uid
+
+class PDKRegistry:
+    def __init__(self,root): self.root=Path(root);self.root.mkdir(parents=True,exist_ok=True)
+    def install(self,manifest_path):
+        src=Path(manifest_path).resolve();base=src.parent;manifest=json.loads(src.read_text(encoding='utf-8'))
+        for key in ('id','revision'):
+            if not re.fullmatch(r'[A-Za-z0-9_-][A-Za-z0-9_.-]{0,100}',manifest.get(key,'')):raise ValueError('Invalid PDK '+key)
+        if manifest.get('schema')!=1:raise ValueError('Unsupported technology package schema.')
+        p=example('empty');p['pdk']=manifest['technology'];validate(p)
+        files=manifest.get('files',{})
+        if not files:raise ValueError('A technology package needs checksummed assets.')
+        for rel,sha in files.items():
+            path=(base/rel).resolve()
+            if Path(rel).is_absolute() or not path.is_relative_to(base) or path.is_symlink() or not path.is_file():raise ValueError('Unsafe or missing PDK asset: '+rel)
+            if file_digest(path)!=sha:raise ValueError('PDK asset checksum mismatch: '+rel)
+        key=manifest['id']+'@'+manifest['revision'];dest=self.root/key
+        if dest.exists():
+            if json.loads((dest/'package.json').read_text())!=manifest:raise ValueError('This revision is already installed with different contents. Use a new revision.')
+            self.verify(key);return key
+        stage=self.root/('_install_'+uid());stage.mkdir()
+        try:
+            for rel in files:
+                target=stage/rel;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(base/rel,target)
+            atomic_write(stage/'package.json',json.dumps(manifest,indent=2));os.replace(stage,dest)
+        finally:
+            if stage.exists():shutil.rmtree(stage)
+        return key
+    def register_local(self,path,progress=lambda message:None):
+        from .pdk_import import scan_local
+        manifest=scan_local(path,progress);key=manifest['id']+'@'+manifest['revision'];dest=self.root/key
+        if dest.exists():
+            previous=self.manifest(key)
+            if previous.get('files')!=manifest['files'] or previous.get('technology')!=manifest['technology']:raise ValueError('Catalog revision conflicts with installed metadata.')
+            if previous.get('source_root')!=manifest['source_root']:atomic_write(dest/'package.json',json.dumps(manifest,indent=2))
+            self.verify(key);return key
+        stage=self.root/('_install_'+uid());stage.mkdir()
+        try:
+            atomic_write(stage/'package.json',json.dumps(manifest,indent=2));os.replace(stage,dest)
+        finally:
+            if stage.exists():shutil.rmtree(stage)
+        return key
+    def entries(self):
+        entries=[]
+        for p in sorted(self.root.glob('*/package.json')):
+            if p.parent.name.startswith(('_install_','_removed_')):continue
+            try:entries.append(json.loads(p.read_text()))
+            except (ValueError,OSError):entries.append({'id':p.parent.name,'revision':'unreadable','error':'Cannot read registration metadata.'})
+        return entries
+    def manifest(self,key):
+        if not re.fullmatch(r'[A-Za-z0-9_-][A-Za-z0-9_.-]*@[A-Za-z0-9_-][A-Za-z0-9_.-]*',key):raise ValueError('Invalid package key.')
+        base=(self.root/key).resolve()
+        if not base.is_relative_to(self.root.resolve()):raise ValueError('Invalid package location.')
+        return json.loads((base/'package.json').read_text())
+    def verify(self,key):
+        manifest=self.manifest(key);base=Path(manifest.get('source_root',self.root/key)).resolve()
+        for rel,sha in manifest['files'].items():
+            path=(base/rel).resolve()
+            if not path.is_relative_to(base) or not path.is_file() or file_digest(path)!=sha:raise ValueError('Installed PDK asset missing or changed: '+rel+'. Restore the original folder or register a new revision.')
+        return manifest
+    def technology(self,key):
+        manifest=self.verify(key);tech=clone(manifest['technology']);tech['package_root']=str(Path(manifest.get('source_root',self.root/key)).resolve());tech['package_lock']={'id':manifest['id'],'revision':manifest['revision'],'manifest_hash':digest(manifest),'files':manifest['files']};return tech
+    def relocate(self,key,folder):
+        manifest=self.manifest(key);root=Path(folder).resolve()
+        for rel,sha in manifest['files'].items():
+            path=(root/rel).resolve()
+            if not path.is_relative_to(root) or not path.is_file() or file_digest(path)!=sha:raise ValueError('Folder does not match registered revision: '+rel)
+        manifest['source_root']=str(root)
+        atomic_write(self.root/key/'package.json',json.dumps(manifest,indent=2))
+        return self.technology(key)
+    def remove(self,key):
+        self.manifest(key)
+        # Retain every byte in a recoverable local archive. External PDK folders
+        # and projects already linked to them are never deleted here.
+        dest=self.root/('_removed_'+uid());os.replace(self.root/key,dest);return dest
+
+def model_lines(technology,corner='nominal'):
+    lock=technology.get('package_lock');root=Path(technology.get('package_root','')).resolve();lines=[]
+    binding=technology.get('simulation',{})
+    if not binding:return []
+    if not lock:raise ValueError('Install this PDK package before using its models.')
+    for rel,sha in lock['files'].items():
+        path=(root/rel).resolve()
+        if not path.is_relative_to(root) or not path.is_file() or file_digest(path)!=sha:raise ValueError('Locked PDK asset is missing or changed: '+rel)
+    for item in binding.get('includes',[]):
+        rel=item['path']
+        if rel not in lock['files']:raise ValueError('Model include is absent from the dependency lock.')
+        path=(root/rel).as_posix()
+        if any(c in path for c in ('"','\n','\r')):raise ValueError('Unsupported model path.')
+        section=item.get('sections',{}).get(corner,item.get('section'))
+        if item.get('sections') and corner not in item['sections']:raise ValueError('Missing model section for corner '+corner)
+        if section:
+            if not re.fullmatch('[A-Za-z0-9_]+',section):raise ValueError('Invalid model section.')
+            lines.append(f'.lib "{path}" {section}')
+        else:lines.append(f'.include "{path}"')
+    return lines

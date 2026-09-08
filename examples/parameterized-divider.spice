@@ -1,0 +1,6 @@
+* Reusable parameterized divider
+.subckt divider in out vss resistance=10k ratio=2
+R1 in out {resistance * ratio}
+R2 out vss {resistance}
+.ends divider
+.end

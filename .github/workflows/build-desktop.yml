@@ -1,0 +1,111 @@
+name: Build and verify desktop release
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+    paths: ["icstudio/**", "tests/**", "scripts/**", "native/**", "packaging/**", "examples/**", "plugins/**", "main.py", "requirements*.txt", ".github/workflows/build-desktop.yml"]
+  pull_request:
+    paths: ["icstudio/**", "tests/**", "scripts/**", "native/**", "packaging/**", "examples/**", "plugins/**", "main.py", "requirements*.txt", ".github/workflows/build-desktop.yml"]
+permissions:
+  contents: read
+jobs:
+  package:
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2022]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Linux desktop runtime libraries
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends \
+            libegl1 libgl1 libglx0 libglvnd0 libopengl0 libx11-6 libxcb1 \
+            libxcb-image0 libxcb-xkb1 libxcb-cursor0 libxcb-keysyms1 \
+            libxcb-render-util0 libxcb-icccm4 libxcb-util1 libxkbcommon-x11-0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install -r requirements-build.txt
+      - name: Build optional native core
+        run: python scripts/build_native.py
+      - name: Test core
+        run: python -m unittest discover -s tests -v
+      - name: Test native interface
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_smoke.py
+      - name: Test new desktop workflows
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_workflows.py
+      - name: Test manual wiring and keyboard commands
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_wiring.py
+      - name: Test net labels and grounds
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_labels.py
+      - name: Test recovery and job lifecycle
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_reliability.py
+      - name: Test project and PDK workspace
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_project_pdk.py
+      - name: Test lifecycle and reusable components
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_lifecycle.py
+      - name: Test desktop usability
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_usability.py
+      - name: Test linked layout workflow
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_silicon.py
+      - name: Test saved testbenches and physical hierarchy
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_hierarchy.py
+      - name: Install Windows installer compiler
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe")) {
+            choco install innosetup --yes --no-progress
+            if ($LASTEXITCODE -ne 0) { throw 'Inno Setup installation failed' }
+          }
+      - name: Package Linux
+        if: runner.os == 'Linux'
+        run: python scripts/package.py
+      - name: Build Windows installer
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./scripts/build_windows.ps1
+      - name: Verify installed Windows app
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./scripts/verify_windows.ps1
+      - name: Verify frozen Linux app
+        if: runner.os == 'Linux'
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: ./dist/ICDesignStudio/ICDesignStudio --release-test build/frozen-evidence
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ICDesignStudio-${{ matrix.os }}
+          path: |
+            dist/ICDesignStudio
+            dist/installers
+            build/windows-evidence
+            build/frozen-evidence
+            build/verification-0.8.0

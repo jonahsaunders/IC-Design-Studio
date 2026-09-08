@@ -1,0 +1,20 @@
+[
+  {
+    "pdk": "sky130A",
+    "revision": "b19a81c06779a79d",
+    "locked_files": 437,
+    "status": "passed"
+  },
+  {
+    "pdk": "gf180mcuC",
+    "revision": "a1610a6b160f44d6",
+    "locked_files": 33,
+    "status": "passed"
+  },
+  {
+    "pdk": "ihp-sg13g2",
+    "revision": "4a83d130587a7404",
+    "locked_files": 85,
+    "status": "passed"
+  }
+]

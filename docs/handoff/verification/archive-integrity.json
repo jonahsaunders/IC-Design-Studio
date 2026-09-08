@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "source_files_compared": 264,
+  "prior_source_paths_preserved": true,
+  "bundled_source_matches": true,
+  "bundled_executable_matches_verified_build": true,
+  "source_sha256": "10afe3ec5ae9e2d8302792f6ed267d1cb3c3554a45a58c9e9b65af8e95aa349a",
+  "linux_archive_sha256": "388a9123a3686626ad0688240df151c3694c12affc29ef16f243b92b2ed67fbb",
+  "linux_executable_sha256": "1cd5729e14d4cf945d78d93945122c22171c93cec17c6268971e9c1671a4de55"
+}

@@ -1,0 +1,2 @@
+PySide6-Essentials==6.8.3
+klayout==0.30.5

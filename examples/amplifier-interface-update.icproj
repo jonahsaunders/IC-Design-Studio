@@ -1,0 +1,769 @@
+{
+  "schema": 1,
+  "id": "bf6913e4db32483b",
+  "name": "Amplifier capture acceptance",
+  "revision": 5,
+  "top": "7eacf9c9220544fe",
+  "created": "2026-09-08T19:53:00+00:00",
+  "modified": "2026-09-08T19:53:01+00:00",
+  "pdk": {
+    "name": "Generic teaching process",
+    "revision": "generic-1",
+    "status": "unqualified",
+    "dbu_um": 0.001,
+    "grid": 5,
+    "layers": [
+      {
+        "name": "active",
+        "gds": 1,
+        "datatype": 0,
+        "color": "#64c77b",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "poly",
+        "gds": 2,
+        "datatype": 0,
+        "color": "#f18c89",
+        "width": 150,
+        "space": 180
+      },
+      {
+        "name": "contact",
+        "gds": 3,
+        "datatype": 0,
+        "color": "#d2d9de",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "metal1",
+        "gds": 4,
+        "datatype": 0,
+        "color": "#68a6f4",
+        "width": 200,
+        "space": 200
+      },
+      {
+        "name": "via1",
+        "gds": 5,
+        "datatype": 0,
+        "color": "#ddc086",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "metal2",
+        "gds": 6,
+        "datatype": 0,
+        "color": "#b49cef",
+        "width": 250,
+        "space": 250
+      },
+      {
+        "name": "nwell",
+        "gds": 7,
+        "datatype": 0,
+        "color": "#d2ab6a",
+        "width": 1000,
+        "space": 500
+      }
+    ]
+  },
+  "cells": [
+    {
+      "id": "7eacf9c9220544fe",
+      "name": "top",
+      "ports": [],
+      "devices": [
+        {
+          "id": "fc47af1f84014a6f",
+          "kind": "V",
+          "name": "VDD",
+          "x": 100,
+          "y": 100,
+          "rotation": 0,
+          "nets": {
+            "p": "vdd",
+            "n": "0"
+          },
+          "value": "1.8",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "net_labels": {
+            "p": "vdd",
+            "n": "0"
+          }
+        },
+        {
+          "id": "7a97b87120be4658",
+          "kind": "V",
+          "name": "VIN",
+          "x": 100,
+          "y": 350,
+          "rotation": 0,
+          "nets": {
+            "p": "vin",
+            "n": "0"
+          },
+          "value": ".65",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "net_labels": {
+            "p": "vin",
+            "n": "0"
+          }
+        },
+        {
+          "id": "5cc9d4bd829a4653",
+          "kind": "C",
+          "name": "CL",
+          "x": 650,
+          "y": 300,
+          "rotation": 0,
+          "nets": {
+            "p": "out",
+            "n": "0"
+          },
+          "value": "1p",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "net_labels": {
+            "p": "out",
+            "n": "0"
+          }
+        },
+        {
+          "id": "4dec6f62c2c146b7",
+          "kind": "X",
+          "name": "X1",
+          "x": 400,
+          "y": 200,
+          "rotation": 0,
+          "nets": {
+            "out": "out",
+            "vdd": "vdd",
+            "input": "vin",
+            "sense": "out"
+          },
+          "value": "1",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "cell": "977cf25570124902",
+          "net_labels": {
+            "out": "out",
+            "vdd": "vdd",
+            "input": "vin",
+            "sense": "out"
+          },
+          "symbol": {
+            "primitives": [
+              {
+                "kind": "rect",
+                "points": [
+                  [
+                    -40,
+                    -50
+                  ],
+                  [
+                    40,
+                    50
+                  ]
+                ]
+              }
+            ],
+            "pins": {
+              "out": [
+                0,
+                -50
+              ],
+              "vdd": [
+                0,
+                -150
+              ],
+              "input": [
+                -50,
+                100
+              ],
+              "sense": [
+                100,
+                100
+              ]
+            },
+            "pin_order": [
+              "out",
+              "vdd",
+              "input",
+              "sense"
+            ],
+            "pin_meta": {
+              "out": {
+                "id": "fd422eb9fea0486f",
+                "direction": "inout",
+                "role": "signal",
+                "bus": "",
+                "label_visible": true,
+                "required": true
+              },
+              "vdd": {
+                "id": "91b4343abecc40a3",
+                "direction": "inout",
+                "role": "signal",
+                "bus": "",
+                "label_visible": true,
+                "required": true
+              },
+              "input": {
+                "id": "c3b38b94e4004f77",
+                "direction": "in",
+                "role": "signal",
+                "bus": "",
+                "label_visible": true,
+                "required": true
+              },
+              "sense": {
+                "id": "42f6d9e77a294753",
+                "direction": "inout",
+                "role": "signal",
+                "bus": "",
+                "label_visible": true,
+                "required": true
+              }
+            },
+            "attributes": {}
+          }
+        }
+      ],
+      "shapes": [],
+      "wires": [],
+      "junctions": [],
+      "wiring_migration": "named_connections",
+      "labels": [],
+      "layout_instances": [
+        {
+          "id": "1a464798f9f74b3d",
+          "name": "X1",
+          "cell": "977cf25570124902",
+          "device_id": "4dec6f62c2c146b7",
+          "x": 10000,
+          "y": 20000,
+          "rotation": 90,
+          "mirror": true,
+          "nx": 1,
+          "ny": 1
+        }
+      ],
+      "layout_pins": []
+    },
+    {
+      "id": "977cf25570124902",
+      "name": "amplifier",
+      "ports": [
+        "out",
+        "vdd",
+        "input",
+        "sense"
+      ],
+      "devices": [
+        {
+          "id": "5cd0147b869a4d21",
+          "kind": "R",
+          "name": "RD",
+          "x": 0,
+          "y": -100,
+          "rotation": 0,
+          "nets": {
+            "p": "vdd",
+            "n": "out"
+          },
+          "value": "10k",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "net_labels": {
+            "p": "vdd",
+            "n": "out"
+          }
+        },
+        {
+          "id": "402d43e5672b4773",
+          "kind": "NMOS",
+          "name": "MN1",
+          "x": 0,
+          "y": 100,
+          "rotation": 0,
+          "nets": {
+            "d": "out",
+            "g": "input",
+            "s": "0",
+            "b": "0"
+          },
+          "value": "1",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "net_labels": {
+            "g": "input",
+            "s": "0"
+          }
+        },
+        {
+          "id": "07bfc7fa2bf54f91",
+          "kind": "R",
+          "name": "RSENSE",
+          "x": 300,
+          "y": 100,
+          "rotation": 0,
+          "nets": {
+            "p": "sense",
+            "n": "0"
+          },
+          "value": "1G",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "net_labels": {
+            "p": "sense",
+            "n": "0"
+          }
+        }
+      ],
+      "shapes": [
+        {
+          "id": "30449d3997b64352",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              -100,
+              -100
+            ],
+            [
+              100,
+              100
+            ]
+          ],
+          "device_id": "",
+          "net": "out"
+        },
+        {
+          "id": "9f6fb443cef64639",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              1900,
+              -100
+            ],
+            [
+              2100,
+              100
+            ]
+          ],
+          "device_id": "",
+          "net": "vdd"
+        },
+        {
+          "id": "eb0c72dfa55341dd",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              3900,
+              -100
+            ],
+            [
+              4100,
+              100
+            ]
+          ],
+          "device_id": "",
+          "net": "input"
+        },
+        {
+          "id": "bb65b25ca6cc4031",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              5900,
+              -100
+            ],
+            [
+              6100,
+              100
+            ]
+          ],
+          "device_id": "",
+          "net": "sense"
+        }
+      ],
+      "parameters": {},
+      "symbol": {
+        "primitives": [
+          {
+            "kind": "rect",
+            "points": [
+              [
+                -40,
+                -50
+              ],
+              [
+                40,
+                50
+              ]
+            ]
+          }
+        ],
+        "pins": {
+          "out": [
+            0,
+            -50
+          ],
+          "vdd": [
+            0,
+            -150
+          ],
+          "input": [
+            -50,
+            100
+          ],
+          "sense": [
+            100,
+            100
+          ]
+        },
+        "pin_order": [
+          "out",
+          "vdd",
+          "input",
+          "sense"
+        ],
+        "pin_meta": {
+          "out": {
+            "id": "fd422eb9fea0486f",
+            "direction": "inout",
+            "role": "signal",
+            "bus": "",
+            "label_visible": true,
+            "required": true
+          },
+          "vdd": {
+            "id": "91b4343abecc40a3",
+            "direction": "inout",
+            "role": "signal",
+            "bus": "",
+            "label_visible": true,
+            "required": true
+          },
+          "input": {
+            "id": "c3b38b94e4004f77",
+            "direction": "in",
+            "role": "signal",
+            "bus": "",
+            "label_visible": true,
+            "required": true
+          },
+          "sense": {
+            "id": "42f6d9e77a294753",
+            "direction": "inout",
+            "role": "signal",
+            "bus": "",
+            "label_visible": true,
+            "required": true
+          }
+        },
+        "attributes": {}
+      },
+      "wires": [
+        {
+          "id": "8cc80c401cf448f8",
+          "points": [
+            [
+              0,
+              -50
+            ],
+            [
+              10,
+              -50
+            ],
+            [
+              10,
+              50
+            ],
+            [
+              20,
+              50
+            ]
+          ],
+          "net": "out"
+        },
+        {
+          "id": "96c868a324364d40",
+          "points": [
+            [
+              20,
+              150
+            ],
+            [
+              40,
+              150
+            ],
+            [
+              40,
+              100
+            ],
+            [
+              50,
+              100
+            ]
+          ],
+          "net": "0"
+        }
+      ],
+      "junctions": [],
+      "layout_ports": [
+        {
+          "name": "out",
+          "layer": "metal1",
+          "point": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "vdd",
+          "layer": "metal1",
+          "point": [
+            2000,
+            0
+          ]
+        },
+        {
+          "name": "input",
+          "layer": "metal1",
+          "point": [
+            4000,
+            0
+          ]
+        },
+        {
+          "name": "sense",
+          "layer": "metal1",
+          "point": [
+            6000,
+            0
+          ]
+        }
+      ],
+      "layout_texts": [
+        {
+          "text": "out",
+          "layer": "metal1",
+          "x": 0,
+          "y": 0,
+          "rotation": 0
+        },
+        {
+          "text": "vdd",
+          "layer": "metal1",
+          "x": 2000,
+          "y": 0,
+          "rotation": 0
+        },
+        {
+          "text": "input",
+          "layer": "metal1",
+          "x": 4000,
+          "y": 0,
+          "rotation": 0
+        }
+      ],
+      "interface_history": [
+        {
+          "revision": 0,
+          "old_ports": [
+            "out",
+            "vdd",
+            "vin"
+          ],
+          "ports": [
+            "out",
+            "vdd",
+            "input",
+            "sense"
+          ],
+          "mapping": {
+            "out": "out",
+            "vdd": "vdd",
+            "vin": "input"
+          },
+          "disconnected": [],
+          "testbenches": [
+            {
+              "id": "dad649d11f344306",
+              "name": "amplifier_ac"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "analysis": {
+    "type": "tran",
+    "stop": "100u",
+    "step": "200n",
+    "start": "10",
+    "end": "10meg",
+    "points": 150,
+    "source": "V1",
+    "dc_start": "0",
+    "dc_stop": "1.8",
+    "dc_step": "0.01",
+    "temperature": 27
+  },
+  "waivers": [],
+  "testbenches": [
+    {
+      "id": "dad649d11f344306",
+      "name": "amplifier_ac",
+      "bench_cell": "7eacf9c9220544fe",
+      "dut_cell": "977cf25570124902",
+      "dut_instance": "4dec6f62c2c146b7",
+      "analysis": {
+        "type": "ac",
+        "stop": "100u",
+        "step": "200n",
+        "start": "10",
+        "end": "10meg",
+        "points": 20,
+        "source": "V1",
+        "dc_start": "0",
+        "dc_stop": "1.8",
+        "dc_step": "0.01",
+        "temperature": 27,
+        "corner": "nominal"
+      },
+      "initial_conditions": {},
+      "probes": [
+        "out",
+        "vdd",
+        "vin"
+      ],
+      "measurements": []
+    }
+  ],
+  "electrical_rules": {
+    "scope": "project",
+    "rules": {
+      "ERC.EMPTY": "error",
+      "ERC.GROUND": "error",
+      "ERC.SHORT": "error",
+      "ERC.DANGLING": "error",
+      "ERC.DRIVERS": "warning",
+      "ERC.UNDRIVEN": "warning",
+      "ERC.BUS.WIDTH": "error",
+      "ERC.BUS.MAPPING": "warning",
+      "SYMBOL.INTERFACE": "error",
+      "SYMBOL.OVERLAP": "warning",
+      "SYMBOL.UNUSED": "warning",
+      "LAYOUT.PORTS": "warning"
+    }
+  }
+}

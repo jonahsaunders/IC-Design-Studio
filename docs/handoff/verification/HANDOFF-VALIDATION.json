@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "manifest_verified": true,
+  "source_files_recovered": 264,
+  "linux_executable_matches": true,
+  "embedded_source_matches": true,
+  "portable_examples": [
+    "amplifier-interface-update.icproj",
+    "amplifier-testbench.icproj",
+    "editor-hierarchy.icproj",
+    "gf180-inverter.icproj",
+    "gf180-nmos-long.icproj",
+    "gf180-nmos-minimum.icproj",
+    "gf180-nmos-wide.icproj",
+    "gf180-pmos-long.icproj",
+    "gf180-pmos-minimum.icproj",
+    "gf180-pmos-wide.icproj",
+    "gf180mcuC-current_mirror.icproj",
+    "gf180mcuC-differential_pair.icproj",
+    "sky130-mirror.icproj",
+    "sky130-renamed-mirror.icproj",
+    "sky130A-current_mirror.icproj",
+    "sky130A-differential_pair.icproj"
+  ],
+  "pdk_roots_resolve_inside_recovery": true,
+  "generic_examples": [
+    "amplifier-interface-update.icproj",
+    "amplifier-testbench.icproj",
+    "editor-hierarchy.icproj"
+  ],
+  "generated_layout_audits_pass": true,
+  "note": "Clean directory recovery is not fresh-OS installation."
+}
