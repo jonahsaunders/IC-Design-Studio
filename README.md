@@ -4,8 +4,6 @@ Native desktop workspace for IC schematics, simulation and layout. Built with Py
 
 **Engineering preview.** Linux desktop/user acceptance and Windows qualification remain unexecuted. See [release status](docs/RELEASE_STATUS.md) for the validation boundaries.
 
-Uploading this project for the first time? Follow [UPLOAD_TO_GITHUB.md](UPLOAD_TO_GITHUB.md). The repository contains source, examples, tests and documentation. Standalone app bundles and the companion PDK/evidence archives are separate release assets.
-
 This release adds reviewed terminal updates across schematics, symbols, linked layouts and saved benches; configurable hierarchy-aware electrical checks; an occurrence and net cross-probe browser; clearer capture controls and overlap selection; and measured improvements to wire lookup, large-layout redraws and symbol rendering. Existing Xschem-inspired, Virtuoso-inspired and KLayout-inspired profiles and analog/process workflows remain. Read [the 0.13 guide](docs/UPDATE_0.13.md), [capability matrix](docs/CAPABILITY_MATRIX_0.13.md) and [desktop/user acceptance protocol](docs/DESKTOP_ACCEPTANCE_0.13.md).
 
 ## Run from source
