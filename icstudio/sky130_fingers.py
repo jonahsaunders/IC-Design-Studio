@@ -27,4 +27,5 @@ def generate(tech,d,x,y,spec):
     if len(sources)>1:wire('m1',[[sources[0],source_y],[sources[-1],source_y]],d['nets']['s'])
     wire('m1',[[drains[0],drain_y],[drain_x,drain_y],[drain_x,cy]],d['nets']['d'])
     for pin,pt in [('s',[columns[0],cy]),('d',[drain_x,cy]),('g',gates[0]),('b',[-2200,cy])]:pins.append({'id':uid(),'device_id':d['id'],'pin':pin,'layer':ls['m1'],'point':[x+pt[0],y+pt[1]]})
-    return {'shapes':shapes,'pins':pins,'record':{'device_id':d['id'],'spec':spec,'origin':[x,y]}}
+    from .layout_eco import roles
+    return roles({'shapes':shapes,'pins':pins,'record':{'device_id':d['id'],'spec':spec,'origin':[x,y]}})

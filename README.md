@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.21.0-4269e8" alt="Version 0.21.0">
+  <img src="https://img.shields.io/badge/version-0.22.0.dev9-4269e8" alt="Version 0.22.0.dev9">
   <img src="https://img.shields.io/badge/status-engineering_preview-f0b44d" alt="Engineering preview">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0--or--later-2f9d89" alt="GPL-3.0-or-later"></a>
   <img src="https://img.shields.io/badge/interface-native_Qt_6-58738f" alt="Native Qt 6 interface">
@@ -19,13 +19,29 @@
   <a href="examples/README.md">Examples</a> ·
   <a href="docs/PDK_GUIDE.md">Open PDKs</a> ·
   <a href="docs/ROADMAP.md">Roadmap</a> ·
-  <a href="docs/RELEASE_0.21.md">Release notes</a> ·
+  <a href="docs/DRAWING_0.22.md">Grid and path drawing</a> ·
   <a href="CONTRIBUTING.md">Contribute</a>
 </p>
 
 ![The native desktop showing a CMOS inverter, linked teaching layout and a completed transient waveform](docs/images/workspace.png)
 
 ## One workspace, from schematic to results
+
+**Development snapshot: 0.22.0.dev9.** Layout drawing now defaults to snapping to the visible grid, with an explicit snap toggle and fixed-spacing controls in **View → Grid Settings**. Rectangles support dragging or clicking opposite corners. Paths show their full width, include the endpoint on double-click, and finish at the pointer with Enter. Incomplete or rejected drafts remain visible with an explanation. See the [grid and drawing guide](docs/DRAWING_0.22.md), [previous snapping fixes](docs/GESTURES_0.22.md) and [performance update](docs/STABILITY_0.22.md). No new portable executable is included.
+
+**Validation:** 422 unit/integration tests and 53 offscreen GUI checks passed for dev9; seven simulator-dependent tests were skipped. Real synchronized storage and recovery checks passed on the validation host. Native Windows/macOS display and external process qualification remain open. See the [recorded validation and scope](docs/validation/0.22.0.dev9.json).
+
+![The dev9 layout editor showing a full-width Manhattan path preview, visible-grid snapping, and drawing instructions](docs/images/layout-drawing-dev9.png)
+
+| Layout task | Current controls |
+|---|---|
+| Set the grid | **View → Grid Settings**: snap on/off, visible or fixed spacing, lines/dots, contrast and major lines |
+| Draw a rectangle | Drag opposite corners or click both; the draft retains its grid while you pan or zoom |
+| Draw a path | Set layer and width, click start/bends, then double-click the endpoint or press **Enter** at the pointer |
+| Adjust the draft | **Tab** flips the Manhattan bend; **Backspace** removes the last click; **Escape** cancels |
+| Navigate and attach | Middle-button or Space-drag pans; **Objects on/off** controls snapping to visible geometry |
+
+The 0.22 development series also adds [alignment/distribution, connected edits, routing and hierarchy tools](docs/PRIORITIES_0.22.md), with the [development notes](docs/UPDATE_0.22.md) documenting their limits.
 
 IC Design Studio brings schematic capture, a simulation run table, waveform inspection and layout editing into one local application. Use it to learn circuit design, develop small analog blocks, migrate supported Xschem projects, and build reproducible experiments around open-source engines. No account or cloud service is required for local work.
 
@@ -43,7 +59,7 @@ This is an **engineering preview**. It has working end-to-end workflows and a gr
 
 ## Start in three steps
 
-1. **Open the app.** For the Windows portable package, extract the entire archive and launch `ICDesignStudio.exe`. Python, Qt and ngspice are included. See [download and platform guidance](docs/DOWNLOADS.md).
+1. **Get the current source and open the app.** Use **Code → Download ZIP**, extract it, and on Windows run `launch-windows.bat` with 64-bit Python 3.12 installed. On Linux/macOS, follow the source commands below. See [download and platform guidance](docs/DOWNLOADS.md).
 2. **Choose “Your first waveform.”** The startup gallery opens it as a fresh copy. This example uses the included educational solver and needs no PDK installation.
 3. **Press F5.** Inspect the output under **Results → Waveforms**, place markers, then save your own project with **Ctrl+S**.
 
@@ -52,36 +68,26 @@ Reopen the gallery any time with **File → Start here / example gallery**. Use 
 <details>
 <summary><strong>Run from source</strong> — Python 3.12</summary>
 
-From the repository directory:
+On Windows, install 64-bit Python 3.12 with the Python launcher, extract the archive, and double-click `launch-windows.bat` in the source directory. It prefers Python 3.12 and falls back to another installed Python 3 version; the bootstrap checks for 64-bit Python 3.12 or newer. Python 3.12 is the reference test version.
+
+Dependencies are installed into `%LOCALAPPDATA%\ICStudio\venvs\<project-key>`. This keeps deeply nested Qt resource files out of the long handoff extraction path. Each source directory and interpreter has its own environment. The launcher starts the app only after installation, `pip check` and native imports succeed. Failed setup is retried with package replacement on the next launch. A completed setup is reused; the previous project-local `.venv` is left untouched.
+
+If an older launcher reported a missing Qt file with pip's Windows long-path hint, opening successfully on a second attempt did not verify installation: it only proved `.venv\Scripts\python.exe` existed. Use this updated launcher to create a verified environment. For manual Windows setup, use a short location such as `C:\ICStudio` for the source and create a fresh virtual environment there; do not copy the incomplete `.venv` into it.
+
+On Linux/macOS, from the source directory:
 
 ```sh
-python -m venv .venv
-```
-
-Activate the environment:
-
-```sh
-# Linux / macOS
+python3.12 -m venv .venv
 source .venv/bin/activate
-```
-
-```powershell
-# Windows PowerShell
-.venv\Scripts\Activate.ps1
-```
-
-Then install and launch:
-
-```sh
 python -m pip install -r requirements.txt
 python main.py
 ```
 
-The repository does not contain a Windows simulator executable. Install a native ngspice and select it in **Tools → Engine diagnostics and paths**, or set `ICSTUDIO_NGSPICE` to its executable. The downloadable **Source** archive additionally includes the Windows ngspice runtime; the **GitHub** archive is the clean repository tree.
+The repository does not contain a Windows simulator executable. Install a native ngspice and select it in **Tools → Engine diagnostics and paths**, or set `ICSTUDIO_NGSPICE` to its executable. The first-waveform example works with the included educational solver. Current source downloads contain no prebuilt desktop app or native simulator.
 
 Open a saved design directly with `python main.py --project examples/native-divider.icproj`. Opening examples from the gallery is preferable for everyday exploration because it creates independent copies.
 
-Linux is exercised by the current regression suite. Windows execution is a release gate in CI; this locally prepared portable build has static packaging checks. macOS is a source workflow that still needs platform qualification.
+Linux is exercised by the current regression suite. The repository's desktop workflow defines additional Windows and simulator checks, but those are separate from the recorded dev9 validation. Windows/macOS native display qualification remains pending.
 
 </details>
 
@@ -153,7 +159,7 @@ Useful contributions include small failing circuits, reproducible PDK adapter te
 python -m unittest discover -s tests -v
 ```
 
-The [desktop CI workflow](.github/workflows/build-desktop.yml) also runs native Qt and real ngspice acceptance checks and builds desktop artifacts. The [maintainer release guide](docs/RELEASING.md) covers versioning, checksums and publication. A workflow file is not evidence that a hosted run has passed; see the [validation record](docs/RELEASE_0.21.md).
+The [desktop CI workflow](.github/workflows/build-desktop.yml) defines native Qt and real ngspice acceptance checks and builds desktop artifacts. It runs on pull requests, version tags, or manual dispatch. The [maintainer release guide](docs/RELEASING.md) covers versioning, checksums and publication. The [dev9 validation record](docs/validation/0.22.0.dev9.json) describes local execution; it does not claim a hosted Actions run passed.
 
 ## License
 

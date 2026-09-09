@@ -2,6 +2,7 @@
 from .layout import kdb,polygon,drc
 from .model import clone,digest
 from .spatial import SpatialIndex
+from .route_constraints import findings as route_findings
 
 
 def enclosure_rules(tech):
@@ -81,5 +82,31 @@ def full(p,cid):
     from .physical import connectivity
     from .analog_constraints import findings
     from .parametric import audit
-    issues=audit(p,cid)+drc(p,cid)+check_enclosures(p,cid,flatten_layout(p,cid))+findings(p,cid);check=connectivity(p,cid);issues+=check['issues']
+    issues=audit(p,cid)+drc(p,cid)+check_enclosures(p,cid,flatten_layout(p,cid))+findings(p,cid);check=connectivity(p,cid);issues+=check['issues']+route_findings(p,cid)
     return {'issues':issues,'guides':check['guides'],'qualification':'Declared geometry rules and physical terminal connectivity; process rule decks and extracted device comparison remain separate.'}
+
+
+class IncrementalChecks:
+    """Revision-independent geometry caches, owned by one serial caller."""
+    def __init__(self):self.scope=None
+    def check(self,p,cid):
+        from .layout_graph import GeometryGraph,IncrementalDRC
+        from .physical import connectivity
+        from .parametric import audit
+        from .analog_constraints import findings
+        c=next(c for c in p['cells'] if c['id']==cid)
+        if c.get('layout_instances'):
+            self.scope=None
+            return {**full(p,cid),'incremental':False,'reason':'Hierarchical checks use the complete expanded geometry.'}
+        scope=(p['id'],cid)
+        if self.scope!=scope:self.contacts=GeometryGraph();self.rules=IncrementalDRC();self.scope=scope
+        try:
+            self.contacts.sync(c['shapes'],p['pdk']);geometry=self.rules.check(p,cid,c['shapes'])
+            check=connectivity(p,cid,self.contacts)
+        except Exception:
+            # Do not retain a partially updated cache or suppress a check error.
+            self.scope=None
+            return {**full(p,cid),'incremental':False,'reason':'Complete check after local-cache fallback.'}
+        return {'issues':audit(p,cid)+geometry+findings(p,cid)+check['issues']+route_findings(p,cid),'guides':check['guides'],
+                'qualification':'Declared geometry rules and physical terminal connectivity; process rule decks and extracted device comparison remain separate.',
+                'incremental':True,'stats':{'contacts':dict(self.contacts.stats),'drc':dict(self.rules.stats)}}

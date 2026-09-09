@@ -10,11 +10,13 @@ from .canvas import Canvas
 from .plot import WavePlot,COLORS
 from .interchange import spice,export_layout,import_layout,export_handoff,export_csv,export_xschem
 
-class StudioCore(QMainWindow):
+from .recovery_ui import RecoveryUIMixin
+
+class StudioCore(RecoveryUIMixin,QMainWindow):
     def __init__(self,recover=True):
         super().__init__();self.setWindowTitle('IC Design Studio');self.resize(1440,930);self.setMinimumSize(900,600)
         self.settings=QSettings('ICDesignStudio','Studio');self.history=History(example());self.cid=self.project['top'];self.path=None;self.saved_hash=None;self.selection=[];self.net='';self.current_mode='schematic';self.jobs=[];self.result=None;self.issues=[];self.check_revision=None;self.process=None;self.active_job=None;self.rebuilding=False;self.form_fields={}
-        self.data_dir=Path(QStandardPaths.writableLocation(QStandardPaths.AppLocalDataLocation));self.data_dir.mkdir(parents=True,exist_ok=True);self.recovery_root=self.data_dir/'recovery';self.recovery_dir=self.recovery_root/uid();self.recovery_dir.mkdir(parents=True,exist_ok=True);self._recovered_from=None;self._disk_hash=None;self.jobs_dir=self.data_dir/'runs';self.jobs_dir.mkdir(exist_ok=True)
+        self.data_dir=Path(QStandardPaths.writableLocation(QStandardPaths.AppLocalDataLocation));self.data_dir.mkdir(parents=True,exist_ok=True);self.recovery_root=Path(self.settings.value('storage/recovery_root',str(self.data_dir/'recovery')));self.reset_recovery_status();self.recovery_dir=self.recovery_root/uid();self._recovered_from=None;self._disk_hash=None;self.jobs_dir=self.data_dir/'runs';self.jobs_dir.mkdir(exist_ok=True)
         self.dark=self.settings.value('appearance/theme','dark')!='light';self.make_ui();self.make_actions();self.apply_theme();self.refresh(True)
         if recover:QTimer.singleShot(100,self.offer_recovery)
     @property
@@ -50,7 +52,7 @@ class StudioCore(QMainWindow):
         if icon:a.setIcon(self.style().standardIcon(icon))
         a.triggered.connect(lambda checked=False:self.guard(fn));menu.addAction(a);return a
     def make_actions(self):
-        f=self.menuBar().addMenu('&File');self.action(f,'New project…',self.new_project,'Ctrl+N');self.action(f,'Open project…',self.open_project,'Ctrl+O');self.action(f,'Save',self.save,'Ctrl+S',QStyle.SP_DialogSaveButton);self.action(f,'Save as…',lambda:self.save(True),'Ctrl+Shift+S');f.addSeparator();self.action(f,'Import GDSII / OASIS…',self.import_gds);self.action(f,'Export reproducible handoff…',self.handoff,'Ctrl+E');self.action(f,'Export SPICE deck…',self.export_spice);self.action(f,'Export GDSII / OASIS…',self.export_gds);self.action(f,'Export Xschem package…',self.export_sch);self.action(f,'Export waveform CSV…',self.export_wave);self.action(f,'Save canvas image…',self.export_image);f.addSeparator();self.action(f,'Quit',self.close,'Ctrl+Q')
+        f=self.menuBar().addMenu('&File');self.action(f,'New project…',self.new_project,'Ctrl+N');self.action(f,'Open project…',self.open_project,'Ctrl+O');self.action(f,'Save',self.save,'Ctrl+S',QStyle.SP_DialogSaveButton);self.action(f,'Save as…',lambda:self.save(True),'Ctrl+Shift+S');f.addSeparator();self.action(f,'Import GDSII / OASIS…',self.import_gds);self.action(f,'Export reproducible handoff…',self.handoff,'Ctrl+E');self.action(f,'Export SPICE deck…',self.export_spice);self.action(f,'Export GDSII / OASIS…',self.export_gds);self.action(f,'Export Xschem package…',self.export_sch);self.action(f,'Export waveform CSV…',self.export_wave);self.action(f,'Save canvas image…',self.export_image);f.addSeparator();self.action(f,'Retry recovery save',self.retry_recovery);self.action(f,'Choose recovery folder…',self.choose_recovery_folder);self.action(f,'Quit',self.close,'Ctrl+Q')
         ed=self.menuBar().addMenu('&Edit');self.undo_action=self.action(ed,'Undo',self.undo,'Ctrl+Z',QStyle.SP_ArrowBack);self.redo_action=self.action(ed,'Redo',self.redo,'Ctrl+Shift+Z',QStyle.SP_ArrowForward);self.action(ed,'Duplicate',self.duplicate,'Ctrl+D');self.action(ed,'Delete selection',self.delete);self.action(ed,'Rotate 90°',self.rotate);self.action(ed,'Rename project…',self.rename_project);self.action(ed,'Command palette…',self.command_palette,'Ctrl+K')
         design=self.menuBar().addMenu('&Design');self.action(design,'Add cell…',self.add_cell);self.action(design,'Instantiate cell…',self.instantiate_cell);self.action(design,'Set active cell as top',lambda:self.commit(lambda p:p.update(top=self.cid),'Set top cell'));self.action(design,'Edit cell ports…',self.edit_ports);self.action(design,'Generate generic MOS geometry…',self.generate_mos);self.action(design,'Generate metal guard ring…',self.generate_ring);self.action(design,'Create layout array…',self.array_shapes)
         boolean=design.addMenu('Boolean geometry')
@@ -79,22 +81,23 @@ class StudioCore(QMainWindow):
             self.cell_combo.addItem(c['name'],c['id']);item=QTreeWidgetItem(root,[c['name']+('  · top' if c['id']==self.project['top'] else '')]);item.setData(0,Qt.UserRole,('cell',c['id']));item.setExpanded(c['id']==self.cid)
             for d in c['devices']:
                 it=QTreeWidgetItem(item,[d['name']+'  '+d['kind']]);it.setData(0,Qt.UserRole,('device',c['id'],d['id']))
-        self.cell_combo.setCurrentIndex(next(i for i,c in enumerate(self.project['cells']) if c['id']==self.cid));self.schematic.set_data(self.cell,self.project['pdk'],self.selection,self.net);self.layout.set_data(self.cell,self.project['pdk'],self.selection,self.net)
+        self.cell_combo.setCurrentIndex(next(i for i,c in enumerate(self.project['cells']) if c['id']==self.cid));self.schematic.set_data(self.cell,self.project['pdk'],self.selection,self.net);self.layout.set_data(self.cell,self.project['pdk'],self.selection,self.net,revision=self.project['revision'])
         self.layers.blockSignals(True);self.layers.clear()
         for l in self.project['pdk']['layers']:
             it=QListWidgetItem(l['name']);it.setForeground(QColor(l['color']));it.setFlags(it.flags()|Qt.ItemIsUserCheckable);it.setCheckState(Qt.Checked if l['name'] in self.layout.visible_layers else Qt.Unchecked);self.layers.addItem(it)
-        self.layers.blockSignals(False);self.undo_action.setEnabled(bool(self.history.undo_stack));self.redo_action.setEnabled(bool(self.history.redo_stack));self.save_label.setText('Saved' if self.saved_hash==digest(self.project) else 'Unsaved edits · recovery enabled');self.rebuilding=False;self.build_inspector();self.update_result_status()
+        self.layers.blockSignals(False);self.undo_action.setEnabled(bool(self.history.undo_stack));self.redo_action.setEnabled(bool(self.history.redo_stack));self.update_save_status();self.rebuilding=False;self.build_inspector();self.update_result_status()
         if fit:QTimer.singleShot(20,lambda:(self.schematic.fit(),self.layout.fit()))
     def commit(self,fn,label='Edit'):
         self.history.commit(fn,label)
-        try:recovery.write(self.project,self.recovery_dir,self.path)
-        except Exception as e:self.error('Recovery save failed; save your project now. '+str(e))
+        self.save_recovery()
         self.refresh()
     def undo(self):self.history.undo();self.persist_history()
     def redo(self):self.history.redo();self.persist_history()
-    def persist_history(self):recovery.write(self.project,self.recovery_dir,self.path);self.refresh()
+    def persist_history(self):
+        self.save_recovery()
+        self.refresh()
     def select(self,ids,mode=None):
-        self.selection=ids;self.current_mode=mode or self.current_mode;self.net='';self.schematic.set_data(self.cell,self.project['pdk'],ids);self.layout.set_data(self.cell,self.project['pdk'],ids);self.build_inspector()
+        self.selection=ids;self.current_mode=mode or self.current_mode;self.net='';self.schematic.set_data(self.cell,self.project['pdk'],ids);self.layout.set_data(self.cell,self.project['pdk'],ids,revision=self.project['revision']);self.build_inspector()
     def change_mode(self,i):
         self.schematic.setVisible(i!=1);self.layout.setVisible(i!=0);self.current_mode='layout' if i==1 else 'schematic';QTimer.singleShot(10,lambda:(self.schematic.fit(),self.layout.fit()));self.build_inspector()
     def change_tool(self,i):
@@ -208,6 +211,7 @@ class StudioCore(QMainWindow):
                     c[group].append(o)
         self.commit(edit,'Duplicate');self.select(newids)
     def set_project(self,p,path=None):
+        self.reset_recovery_status()
         self._disk_hash=file_digest(path) if path and Path(path).is_file() else None
         self.history=History(p);self.cid=p['top'];self.path=Path(path) if path else None;self.saved_hash=digest(p) if path else None;self.selection=[];self.net='';self.jobs=[];self.result=None;self.run_combo.clear();self.plot.result=None;self.plot.update();self.traces.clear();self.layer_combo.clear();self.layer_combo.addItems([l['name'] for l in p['pdk']['layers']]);self.layout.visible_layers={l['name'] for l in p['pdk']['layers']};self.issues=[];self.checks.setRowCount(0);self.refresh(True)
         for f in sorted((self.jobs_dir/p['id']).glob('*/result.json'),key=lambda f:f.stat().st_mtime_ns)[-30:]:
@@ -243,10 +247,15 @@ class StudioCore(QMainWindow):
         else:save_project(self.project,path)
         self._disk_hash=file_digest(path);self.path=path;self.saved_hash=digest(self.project);self.clear_recovery();self.settings.setValue('last_project',str(path));self.refresh();return True
     def clear_recovery(self):
+        self.reset_recovery_status()
         recovery.clear(self.recovery_dir/(self.project['id']+'.icproj'))
         if self._recovered_from:recovery.clear(self._recovered_from);self._recovered_from=None
     def offer_recovery(self):
-        items=recovery.candidates(self.recovery_root)
+        roots=[self.recovery_root]+[Path(v) for v in self.settings.value('storage/previous_recovery_roots',[]) or []]
+        unique={}
+        for root in roots:
+            for row in recovery.candidates(root):unique[str(row[0].resolve())]=row
+        items=sorted(unique.values(),key=lambda row:row[0].stat().st_mtime,reverse=True)
         if not items:return
         choices=[f'{i+1}. {p["name"]} · revision {p["revision"]}'+(' · previous valid snapshot' if fallback else '') for i,(_,p,fallback) in enumerate(items)]
         choice,ok=QInputDialog.getItem(self,'Recover edits','Recover an interrupted session (the saved project remains unchanged):',choices,0,False)
@@ -408,7 +417,7 @@ class StudioCore(QMainWindow):
                 rms=math.sqrt(sum(v*v for v in vals)/len(vals));measure.append(f'{name}: min {min(vals):.4g} · max {max(vals):.4g} · RMS {rms:.4g}')
         self.cursor_label.setText('   |   '.join(measure))
     def trace_selected(self,it):
-        self.net=it.text();self.schematic.set_data(self.cell,self.project['pdk'],self.selection,self.net);self.layout.set_data(self.cell,self.project['pdk'],self.selection,self.net)
+        self.net=it.text();self.schematic.set_data(self.cell,self.project['pdk'],self.selection,self.net);self.layout.set_data(self.cell,self.project['pdk'],self.selection,self.net,revision=self.project['revision'])
     def update_result_status(self):
         if not self.result:self.result_status.setText('No analysis yet');return
         stale=self.result['design_hash']!=design_digest(self.project);self.result_status.setText(('STALE · rerun after edits' if stale else 'Current revision')+'  ·  '+self.result['engine']);self.result_status.setStyleSheet('color:#d79342;' if stale else 'color:#19a79a;')
@@ -433,7 +442,7 @@ class StudioCore(QMainWindow):
         if not ok:return
         if len(reason.strip())<3:raise ValueError('Provide a meaningful waiver reason.')
         # Waivers are review metadata and do not change the design revision.
-        self.project['waivers'].append({'revision':self.check_revision,'fingerprint':self.issues[row]['fingerprint'],'reason':reason.strip(),'created':now()});recovery.write(self.project,self.recovery_dir,self.path);self.fill_checks();self.save_label.setText('Unsaved waiver · recovery enabled')
+        self.project['waivers'].append({'revision':self.check_revision,'fingerprint':self.issues[row]['fingerprint'],'reason':reason.strip(),'created':now()});self.save_recovery();self.fill_checks()
     def import_gds(self):
         path,_=QFileDialog.getOpenFileName(self,'Import physical layout','','Layout (*.gds *.gds2 *.oas)')
         if not path:return
@@ -562,8 +571,9 @@ from .xschem_workflow import XschemWorkflowMixin
 
 from .native_workspace import NativeWorkspaceMixin
 from .onboarding import OnboardingMixin
+from .layout_development_ui import LayoutDevelopmentMixin
 
-class Studio(OnboardingMixin,NativeWorkspaceMixin,XschemWorkflowMixin,VerificationWorkspaceMixin,PhysicalWorkspaceMixin,EngineeringWorkspaceMixin,SimulationWorkspaceMixin,HumanWorkspaceMixin,ConsistencyWorkspaceMixin,CaptureWorkspaceMixin,EditorWorkspaceMixin, LayoutToolsMixin, AnalogMixin, HierarchyMixin, SiliconMixin, LifecycleMixin, LayoutMixin, ProjectMixin, SchematicMixin, FeatureMixin, WorkspaceMixin, StudioCore):
+class Studio(LayoutDevelopmentMixin,OnboardingMixin,NativeWorkspaceMixin,XschemWorkflowMixin,VerificationWorkspaceMixin,PhysicalWorkspaceMixin,EngineeringWorkspaceMixin,SimulationWorkspaceMixin,HumanWorkspaceMixin,ConsistencyWorkspaceMixin,CaptureWorkspaceMixin,EditorWorkspaceMixin, LayoutToolsMixin, AnalogMixin, HierarchyMixin, SiliconMixin, LifecycleMixin, LayoutMixin, ProjectMixin, SchematicMixin, FeatureMixin, WorkspaceMixin, StudioCore):
     """Standalone desktop application with the document-focused workspace."""
     connect = SchematicMixin.connect
-    move = HierarchyMixin.move
+    move = LayoutDevelopmentMixin.move

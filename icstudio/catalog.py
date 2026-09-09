@@ -90,7 +90,12 @@ def create_device(technology, key, name, x=0, y=0):
     lock = technology.get('package_lock', {})
     d = device(entry['kind'], name, x, y, nets={pin: 'open_' + name + '_' + pin for pin in entry['pin_order']},
                model_ref={'pdk': lock['id'], 'revision': lock['revision'], 'device': key}, model_params={})
-    if entry.get('symbol'): d['symbol'] = clone(entry['symbol'])
+    if entry.get('symbol'):
+        d['symbol'] = clone(entry['symbol'])
+        # Older locked catalogs exposed the hidden body graphically but retained
+        # the original three-pin artwork order. Repair the new instance only.
+        if any(str(note).startswith('Hidden body net exposed as terminal ') for note in entry.get('notes',[])) and set(d['symbol']['pins'])==set(entry['pin_order']):
+            d['symbol']['pin_order']=list(entry['pin_order'])
     if d['kind'] in ('NMOS', 'PMOS'):
         for param in ('w', 'l'):
             d['params'][param] = f"{scalar(entry['parameters'][param]['default']) / entry.get('parameter_scale', {}).get(param, 1) * 1e6:.12g}u"

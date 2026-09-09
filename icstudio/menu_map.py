@@ -2,6 +2,7 @@
 
 GROUPS = {
  'File': ['New project…','Open project…','Save','Save as…','Close project','Projects…','Quit'],
+ 'File/Recovery': ['Retry recovery save','Choose recovery folder…'],
  'File/Import': ['Import GDSII / OASIS…','Import edited Xschem package…','Import Magic layout…','Import SPICE circuit…','Import SPICE component…','Review imported layout changes…','Open project folder…'],
  'File/Export': ['Export reproducible handoff…','Export SPICE deck…','Export GDSII / OASIS…','Export Xschem package…','Export waveform CSV…','Save canvas image…','Export structural Verilog…','Export saved SPICE testbench…','Save project folder…'],
  'File/Examples': ['New custom SKY130 inverter','New SKY130 ring oscillator','New PDK current mirror','New PDK differential pair','New GF180 3.3 V inverter'],

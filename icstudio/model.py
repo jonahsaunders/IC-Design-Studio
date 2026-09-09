@@ -65,6 +65,19 @@ def example(kind='rc'):
         p['analysis']['stop']='60u'; p['analysis']['step']='100n'
     return p
 
+def validate_shape(s,lnames):
+    if s['layer'] not in lnames: raise ValueError('Unknown layout layer.')
+    if s['kind'] not in ('rect','polygon','path'): raise ValueError('Unsupported geometry.')
+    pts=s.get('points',[])
+    if not 2<=len(pts)<=10000 or (s['kind']=='polygon' and len(pts)<3): raise ValueError('Invalid polygon/path.')
+    if s['kind']=='rect' and len(pts)!=2: raise ValueError('Rectangles require two corners.')
+    holes=s.get('holes',[])
+    if not isinstance(holes,list) or any(not isinstance(h,list) or len(h)<3 for h in holes): raise ValueError('Invalid polygon hole.')
+    for pt in pts+[pt for h in holes for pt in h]:
+        if not isinstance(pt,list) or len(pt)!=2 or any(not isinstance(v,int) or abs(v)>2**31-1 for v in pt): raise ValueError('Coordinates must be signed 32-bit nanometres for this release’s GDS path.')
+    if s['kind']=='path' and (not isinstance(s.get('width'),int) or s['width']<=0): raise ValueError('Path width must be positive.')
+    if s.get('net') and not NET.fullmatch(s['net']): raise ValueError('Invalid layout net label.')
+
 def validate(p):
     if not isinstance(p,dict) or p.get('schema')!=SCHEMA: raise ValueError('Unsupported project schema. This release reads schema 1.')
     if not isinstance(p.get('name'),str) or not p['name'].strip() or len(p['name'])>128: raise ValueError('Project name must be 1–128 characters.')
@@ -155,17 +168,7 @@ def validate(p):
                 if scalar(s['period'])<=0 or not 0<scalar(s['duty'])<1 or scalar(s['delay'])<0: raise ValueError('Invalid source timing.')
         for s in c['shapes']:
             objid(s['id'])
-            if s['layer'] not in lnames: raise ValueError('Unknown layout layer.')
-            if s['kind'] not in ('rect','polygon','path'): raise ValueError('Unsupported geometry.')
-            pts=s.get('points',[])
-            if not 2<=len(pts)<=10000 or (s['kind']=='polygon' and len(pts)<3): raise ValueError('Invalid polygon/path.')
-            if s['kind']=='rect' and len(pts)!=2: raise ValueError('Rectangles require two corners.')
-            holes=s.get('holes',[])
-            if not isinstance(holes,list) or any(not isinstance(h,list) or len(h)<3 for h in holes): raise ValueError('Invalid polygon hole.')
-            for pt in pts+[pt for h in holes for pt in h]:
-                if not isinstance(pt,list) or len(pt)!=2 or any(not isinstance(v,int) or abs(v)>2**31-1 for v in pt): raise ValueError('Coordinates must be signed 32-bit nanometres for this release’s GDS path.')
-            if s['kind']=='path' and (not isinstance(s.get('width'),int) or s['width']<=0): raise ValueError('Path width must be positive.')
-            if s.get('net') and not NET.fullmatch(s['net']): raise ValueError('Invalid layout net label.')
+            validate_shape(s,lnames)
     from .design_ops import validate_extras
     validate_extras(p,objid)
     from .wiring import validate_wiring
@@ -206,14 +209,26 @@ def flatten(p,cell_id=None):
     return out
 
 def atomic_write(path,data):
-    path=Path(path); path.parent.mkdir(parents=True,exist_ok=True)
-    fd,tmp=tempfile.mkstemp(prefix='.'+path.name+'.',dir=path.parent)
+    path=Path(path);tmp=None;stage='create the destination folder'
     try:
+        path.parent.mkdir(parents=True,exist_ok=True)
+        stage='create the temporary file'
+        fd,tmp=tempfile.mkstemp(prefix='.'+path.name+'.',dir=path.parent)
         with os.fdopen(fd,'wb') as f:
-            f.write(data if isinstance(data,bytes) else data.encode('utf-8')); f.flush(); os.fsync(f.fileno())
+            stage='write the temporary file'
+            f.write(data if isinstance(data,bytes) else data.encode('utf-8')); f.flush()
+            stage='synchronize the temporary file to storage'
+            os.fsync(f.fileno())
+        stage='replace the destination'
         os.replace(tmp,path)
+    except OSError as exc:
+        detail='The save did not complete. ' if stage=='replace the destination' else 'The destination was not replaced. '
+        raise OSError(exc.errno,'Could not '+stage+'. '+detail+str(exc.strerror),str(path)) from exc
     finally:
-        if os.path.exists(tmp): os.unlink(tmp)
+        if tmp is not None and os.path.exists(tmp):
+            # Cleanup failure must not hide the original write/sync error.
+            try:os.unlink(tmp)
+            except OSError:pass
 
 def save_project(p,path):
     validate(p); atomic_write(path,json.dumps(p,indent=2,ensure_ascii=False,allow_nan=False)+'\n')
@@ -230,14 +245,47 @@ def load_project(path):
 class History:
     def __init__(self,p): self.project=clone(validate(p)); self.undo_stack=[]; self.redo_stack=[]; self.serial=p['revision']
     def commit(self,fn,label='Edit'):
-        nxt=clone(self.project); fn(nxt); nxt['revision']=self.serial+1; nxt['modified']=now(); validate(nxt); self.serial+=1
-        self.undo_stack.append((clone(self.project),label)); self.undo_stack=self.undo_stack[-100:]; self.redo_stack=[]; self.project=nxt
+        from .history_delta import difference
+        nxt=clone(self.project); fn(nxt); nxt['revision']=self.serial+1; nxt['modified']=now(); validate(nxt)
+        delta=difference(self.project,nxt)
+        self.serial+=1;self.undo_stack.append((delta,label));self.undo_stack=self.undo_stack[-100:];self.redo_stack=[];self.project=nxt
+    def commit_layout_move(self,cid,ids,dx,dy,locked=()):
+        """Return False for complex edits requiring the general transaction."""
+        from .layout_transaction import propose
+        from .history_delta import difference
+        cached=getattr(self,'_layout_graph',None)
+        graph=cached[2] if cached and cached[:2]==(self.project['id'],cid) else None
+        result=propose(self.project,cid,ids,dx,dy,locked,graph)
+        if result is None:return False
+        nxt,graph,changed=result;nxt['revision']=self.serial+1;nxt['modified']=now()
+        # Unchanged branches are shared, so difference visits their roots only.
+        delta=difference(self.project,nxt)
+        self.serial+=1;self.undo_stack.append((delta,'Connected layout move'));self.undo_stack=self.undo_stack[-100:];self.redo_stack=[];self.project=nxt
+        self._layout_graph=(nxt['id'],cid,graph);self.layout_stats={**graph.stats,'shapes_replaced':len(changed),'indices':list(changed)}
+        return True
+    def commit_layout_arrange(self,cid,ids,edge,locked=(),offset=0,reference_edge=None,connected=False):
+        """Isolated, constrained flat-cell arrangement with shared unchanged data."""
+        from .layout_arrange import arrange
+        from .history_delta import difference
+        cell=next(c for c in self.project['cells'] if c['id']==cid)
+        if cell.get('layout_instances'):return False
+        cells=list(self.project['cells']);index=cells.index(cell);cells[index]={**cell};nxt={**self.project,'cells':cells}
+        nxt['revision']=self.serial+1;nxt['modified']=now()
+        arrange(nxt,cid,ids,edge,locked,offset,reference_edge,connected)
+        delta=difference(self.project,nxt);indices=[i for i,(a,b) in enumerate(zip(cell['shapes'],cells[index]['shapes'])) if a is not b]
+        self.serial+=1;self.undo_stack.append((delta,'Align / distribute layout selection'));self.undo_stack=self.undo_stack[-100:];self.redo_stack=[];self.project=nxt
+        self.layout_stats={'indices':indices,'shapes_replaced':len(indices)}
+        return True
     def undo(self):
         if not self.undo_stack: return
-        p,label=self.undo_stack.pop(); self.redo_stack.append((self.project,label)); self.serial+=1; p['revision']=self.serial; p['modified']=now(); self.project=p
+        from .history_delta import apply
+        delta,label=self.undo_stack[-1];p=apply(self.project,delta,False)
+        self.undo_stack.pop();self.redo_stack.append((delta,label));self.serial+=1;p['revision']=self.serial;p['modified']=now();self.project=p
     def redo(self):
         if not self.redo_stack: return
-        p,label=self.redo_stack.pop(); self.undo_stack.append((self.project,label)); self.serial+=1; p['revision']=self.serial; p['modified']=now(); self.project=p
+        from .history_delta import apply
+        delta,label=self.redo_stack[-1];p=apply(self.project,delta)
+        self.redo_stack.pop();self.undo_stack.append((delta,label));self.serial+=1;p['revision']=self.serial;p['modified']=now();self.project=p
 
 def erc(p,cid=None):
     from .electrical_rules import check

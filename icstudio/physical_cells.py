@@ -142,5 +142,9 @@ def transform_selection(p,cid,ids,dx=0,dy=0,rotation=0,mirror=False,pivot=(0,0),
                 for pin in c.get('layout_pins',[]):
                     if pin['device_id']==record['device_id']:pin['point']=point(pin['point'])
             record['origin']=point(record['origin'])
-            if rotation or mirror:record['transformed']=True
+            if (rotation or mirror) and (not record.get('transformed') or 'orientation' in record):
+                old=record.get('orientation',{'rotation':0,'mirror':False})
+                orientation=db.ICplxTrans(1,rotation,mirror,0,0)*db.ICplxTrans(1,old['rotation'],old['mirror'],0,0)
+                record['orientation']={'rotation':round(orientation.angle)%360,'mirror':orientation.is_mirror()}
+                record['transformed']=True
     return p

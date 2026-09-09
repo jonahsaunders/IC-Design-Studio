@@ -7,6 +7,7 @@ from PySide6.QtWidgets import (QWidget,QHBoxLayout,QVBoxLayout,QLabel,QComboBox,
  QListWidgetItem,QColorDialog,QMenu,QInputDialog,QApplication,QAbstractItemView)
 from .model import clone,digest,scalar,validate
 from . import editor_ops
+from .drawing_options import DrawingOptionsLayout
 
 KEYMAPS={
  'Studio':{'rectangle':'','polygon':'','path':'','move':'M','copy':'C','edge':'S','vertex':'','via':'V','properties':'Q','fit':'F','measure':'K','rotate':'R','back':'Shift+R','enter':'Shift+E','leave':'Ctrl+B'},
@@ -22,17 +23,28 @@ class EditorWorkspaceMixin:
         self.layout.unselectable_layers=set();self.layout.layer_styles={};self.layout.selection_types={'shapes','instances'}
         self.layout.editor_requested.connect(lambda cmd,args:self.guard(lambda:self.editor_execute(cmd,args)))
         self.layout.installEventFilter(self)
-        self.editor_options=QWidget();options=QVBoxLayout(self.editor_options);options.setContentsMargins(12,4,12,4);options.setSpacing(4);row=QHBoxLayout();row.setSpacing(8);options.addLayout(row);self.editor_main_row=row;self._editor_compact=None
+        self.editor_options=QWidget();options=QVBoxLayout(self.editor_options);options.setContentsMargins(12,4,12,4);options.setSpacing(4);row=DrawingOptionsLayout();options.addLayout(row);self.editor_main_row=row;self._editor_compact=None
         self.editor_secondary=QWidget();self.editor_secondary_row=QHBoxLayout(self.editor_secondary);self.editor_secondary_row.setContentsMargins(0,0,0,0);options.addWidget(self.editor_secondary);self.editor_secondary.hide()
         self.editor_tool=QLabel('Select');self.editor_tool.setMinimumWidth(68);row.addWidget(self.editor_tool)
         self.editor_width=QLineEdit('0.34');self.editor_width.setMaximumWidth(70);self.editor_width.setAccessibleName('Path width in micrometres')
-        self.editor_width_label=QLabel('Width µm');row.addWidget(self.editor_width_label);row.addWidget(self.editor_width)
-        self.editor_net=QComboBox();self.editor_net.setEditable(True);self.editor_net.setMinimumWidth(100);self.editor_net.setMaximumWidth(150);self.editor_net.setAccessibleName('Routing net');self.editor_net_label=QLabel('Net');row.addWidget(self.editor_net_label);row.addWidget(self.editor_net)
-        self.editor_snap=QComboBox();self.editor_snap.addItems(['Grid + objects','Grid only']);self.editor_snap.setAccessibleName('Layout snapping');row.addWidget(self.editor_snap)
+        self.editor_width_label=QLabel('Width µm');self.editor_width_label.setProperty('keepNext',True);row.addWidget(self.editor_width_label);row.addWidget(self.editor_width)
+        self.editor_net=QComboBox();self.editor_net.setEditable(True);self.editor_net.setMinimumWidth(100);self.editor_net.setMaximumWidth(150);self.editor_net.setAccessibleName('Routing net');self.editor_net_label=QLabel('Net');self.editor_net_label.setProperty('keepNext',True);row.addWidget(self.editor_net_label);row.addWidget(self.editor_net)
+        self.editor_snap=QComboBox();self.editor_snap.addItems(['Objects on','Objects off']);self.editor_snap.setAccessibleName('Layout snapping');self.editor_snap.setToolTip('Path and cursor route: snap to visible corners, edges, route centerlines and terminals. Locked objects can be used as references. Grid only disables object snapping.');row.addWidget(self.editor_snap)
         self.editor_via=QComboBox();self.editor_via.setMaximumWidth(180);self.editor_via.setAccessibleName('Via connection');row.addWidget(self.editor_via)
         self.editor_angle=QComboBox();self.editor_angle.addItems(['0°','90°','180°','270°']);self.editor_angle.setAccessibleName('Placement rotation');self.editor_angle.currentIndexChanged.connect(lambda i:(setattr(self.layout,'instance_angle',i*90),self.layout.update()));row.addWidget(self.editor_angle)
         self.editor_finish=self.button('Finish',fn=self.layout.finish_drawing);row.addWidget(self.editor_finish)
         self.editor_cancel=self.button('Cancel',fn=self.cancel_tool);row.addWidget(self.editor_cancel);row.addStretch()
+        drawing_row=DrawingOptionsLayout();options.addLayout(drawing_row)
+        self.editor_grid_snap=QCheckBox('Snap to grid');self.editor_grid_snap.setChecked(True);self.editor_grid_snap.setAccessibleName('Snap layout to grid')
+        self.editor_grid_snap.toggled.connect(lambda enabled:self.set_grid_snap(enabled));drawing_row.addWidget(self.editor_grid_snap)
+        self.editor_bends=QComboBox();self.editor_bends.addItems(['Manhattan bends','Free angle']);self.editor_bends.setAccessibleName('Path bend mode');drawing_row.addWidget(self.editor_bends)
+        self.editor_flip=self.button('Flip bend',fn=self.layout.flip_path_bend,tip='Switch horizontal/vertical bend order (Tab)');drawing_row.addWidget(self.editor_flip)
+        self.editor_back=self.button('Undo point',fn=self.layout.undo_drawing_point,tip='Remove the last clicked point and its automatic bend (Backspace)');drawing_row.addWidget(self.editor_back)
+        self.editor_points=QLabel();drawing_row.addWidget(self.editor_points);drawing_row.addStretch()
+        self.drawing_help=QLabel();self.drawing_help.setWordWrap(True);self.drawing_help.setAccessibleName('Drawing instructions');options.addWidget(self.drawing_help)
+        self.editor_bends.currentIndexChanged.connect(lambda i:(setattr(self.layout,'orthogonal',i==0),self.layout.drawing_changed()))
+        self.layout.draft_changed.connect(self.update_drawing_controls);self.layout.commit_shape_callback=self.commit_canvas_shape
+        self.editor_finish.setToolTip('Finish at the last clicked point. Enter in the canvas finishes a path at the pointer.')
         self.centralWidget().layout().insertWidget(2,self.editor_options)
         self.editor_width.editingFinished.connect(lambda:self.guard(self.apply_editor_options))
         self.editor_snap.currentIndexChanged.connect(lambda:self.guard(self.apply_editor_options))
@@ -64,13 +76,7 @@ class EditorWorkspaceMixin:
         for i in (2,3,4):self.tool_buttons[i].setVisible(active and not compact)
         self.tool_buttons[5].setVisible(not active or not compact)
         self.layout_via_button.setVisible(active and not compact)
-        if compact!=self._editor_compact:
-            self._editor_compact=compact
-            for widget in (self.editor_snap,self.editor_finish,self.editor_cancel):
-                self.editor_main_row.removeWidget(widget);self.editor_secondary_row.removeWidget(widget)
-                if compact:self.editor_secondary_row.addWidget(widget)
-                else:self.editor_main_row.insertWidget(self.editor_main_row.count()-1,widget)
-        self.editor_secondary.setVisible(compact)
+        self._editor_compact=False;self.editor_secondary.hide();self.fit_drawing_options()
         self.layer_table.setMinimumHeight(120 if self.height()<850 else 180)
         self.physical_tree.setMaximumHeight(80 if self.height()<850 else 200)
 
@@ -106,7 +112,7 @@ class EditorWorkspaceMixin:
         if not self.idle_edit():return
         if self.current_mode!='layout':self.mode_combo.setCurrentIndex(1)
         if tool in ('move_ref','copy_ref','edge','vertex') and not self.selection:raise ValueError('Select layout objects first.')
-        self.apply_editor_options();self.layout.cancel_gesture();self.layout.tool=tool;self._last_editor_command=lambda:self.start_layout_tool(tool)
+        self.apply_editor_options(require_width=tool=='path');self.layout.cancel_gesture();self.layout.tool=tool;self._last_editor_command=lambda:self.start_layout_tool(tool)
         if tool=='via':
             if not self.editor_via.count():raise ValueError('This technology has no qualified native via stack.')
             self._via_configuration=(self.cid,self.editor_via.currentText(),self.editor_net.currentText().strip())
@@ -118,14 +124,58 @@ class EditorWorkspaceMixin:
     def change_tool(self,index):
         super().change_tool(index)
         if getattr(self,'_editor_ready',False) and self.current_mode=='layout' and self.layout.tool!='select':
-            tool=self.layout.tool;self._last_editor_command=lambda:self.start_layout_tool(tool)
+            tool=self.layout.tool;self.apply_editor_options(require_width=tool=='path');self._last_editor_command=lambda:self.start_layout_tool(tool)
 
-    def apply_editor_options(self,*_):
+    def apply_editor_options(self,*_,require_width=None):
         if not getattr(self,'_editor_ready',False):return
-        width=round(scalar(self.editor_width.text())*1000);editor_ops.grid(self.project,width)
-        if width<=0:raise ValueError('Path width must be positive.')
-        self.layout.line_width=width;self.layout.snap_to_terminals=self.editor_snap.currentIndex()==0
+        if require_width is None:require_width=self.layout.tool=='path'
+        if require_width:
+            width=round(scalar(self.editor_width.text())*1000);editor_ops.grid(self.project,width)
+            if width<=0:raise ValueError('Path width must be positive.')
+            self.layout.line_width=width
+        self.layout.snap_to_terminals=self.editor_snap.currentIndex()==0;self.layout.snap_target=None;self.layout.update()
         if self.layout.tool=='via':self._via_configuration=(self.cid,self.editor_via.currentText(),self.editor_net.currentText().strip())
+
+    def update_drawing_controls(self):
+        if not getattr(self,'_editor_ready',False) or not hasattr(self,'drawing_help'):return
+        c=self.layout;tool=c.tool;count=len(c.drawing);path=tool=='path';polygon=tool=='polygon';drawing=path or polygon
+        self.editor_bends.setVisible(path);self.editor_flip.setVisible(path);self.editor_back.setVisible(drawing);self.editor_points.setVisible(drawing)
+        self.editor_bends.blockSignals(True);self.editor_bends.setCurrentIndex(0 if getattr(c,'orthogonal',True) else 1);self.editor_bends.blockSignals(False)
+        self.editor_flip.setEnabled(getattr(c,'orthogonal',True));self.editor_back.setEnabled(bool(count));self.editor_points.setText(f'{count} point'+('' if count==1 else 's'))
+        self.editor_finish.setEnabled(count>=(3 if polygon else 2));self.editor_finish.setText('Finish')
+        instructions={'path':'Click start and bends; double-click the endpoint to create. Enter: finish at pointer · Tab: flip bend · Backspace: undo point · Esc: cancel.',
+            'polygon':'Click vertices, then double-click the final vertex or choose Finish. Backspace removes a point; Esc cancels.',
+            'rect':'Click opposite corners, or drag between them. Corners follow the snap grid when enabled; Esc cancels.'}
+        text=instructions.get(tool,'')
+        if c.drawing_notice:text=c.drawing_notice+'\n'+text
+        self.drawing_help.setText(text);self.drawing_help.setVisible(bool(text));self.drawing_help.setToolTip(text)
+        self.fit_drawing_options()
+        if tool in instructions:self.tool_hint.setText({'path':'Path · double-click endpoint to finish · Enter finishes at pointer','polygon':'Polygon · click vertices · double-click to finish','rect':'Rectangle · click opposite corners or drag'}[tool])
+
+    def fit_drawing_options(self):
+        if not hasattr(self,'drawing_help'):return
+        width=max(100,self.editor_options.width())
+        self.editor_options.setFixedHeight(max(44,self.editor_options.layout().totalHeightForWidth(width)))
+
+    def commit_canvas_shape(self,shape):
+        c=self.layout;c.drawing_error=''
+        try:
+            if not self.idle_edit() or not self.flush_inspector():
+                c.drawing_error='Finish or correct the current property edit before placing geometry.';return False
+            self.apply_editor_options(require_width=shape['kind']=='path')
+            if shape['kind']=='path':shape['width']=c.line_width
+            if shape['layer'] in c.locked_layers:raise ValueError('Unlock the drawing layer first.')
+            shape['net']=self.editor_net.currentText().strip()
+            from .model import NET
+            if shape['net'] and not NET.fullmatch(shape['net']):raise ValueError('Use a valid routing net name.')
+            gate=getattr(c,'can_commit_shape',None)
+            if gate and not gate(shape):return False
+            self.add_shape(shape)
+            accepted=any(s['id']==shape['id'] for s in self.cell['shapes'])
+            if not accepted:c.drawing_error='The shape was not added. Correct the reported error and finish again.'
+            return accepted
+        except Exception as exc:
+            c.drawing_error=str(exc);self.statusBar().showMessage(c.drawing_error,12000);return False
 
     def sync_tools(self):
         super().sync_tools()
@@ -139,7 +189,7 @@ class EditorWorkspaceMixin:
         labels={'move_ref':'Move · click reference, then destination','copy_ref':'Copy · click reference, then destination','edge':'Stretch · drag a selected edge','vertex':'Vertex · drag a selected vertex','via':'Via · click to place · Esc exits'}
         self.editor_tool.setText(tool.replace('_ref','').title());self.editor_finish.setEnabled(tool in ('path','polygon'))
         if active and tool in labels:self.tool_hint.setText(labels[tool])
-        self.update_breadcrumb();self.adapt_tools()
+        self.update_drawing_controls();self.update_breadcrumb();self.adapt_tools()
 
     def refresh(self,fit=False):
         super().refresh(fit)
@@ -157,7 +207,7 @@ class EditorWorkspaceMixin:
         if not getattr(self,'_editor_ready',False):return super().render_physical_hierarchy()
         key=(id(self.project),self.project['revision'],self.cid,getattr(self.layout,'hierarchy_depth',None))
         if key in self._render_cache:
-            data,schematic=self._render_cache[key];self.layout.set_data(data,self.project['pdk'],self.selection,self.net);self.schematic.set_data(schematic,self.project['pdk'],self.selection,self.net)
+            data,schematic=self._render_cache[key];self.layout.set_data(data,self.project['pdk'],self.selection,self.net,revision=self.project['revision']);self.schematic.set_data(schematic,self.project['pdk'],self.selection,self.net)
         else:
             super().render_physical_hierarchy();self._render_cache={key:(self.layout.cell,self.schematic.cell)}
         self.layout.selection=list(dict.fromkeys(self.selection+[i['id'] for i in self.cell.get('layout_instances',[]) if i.get('device_id') in self.selection]));self.render_edit_context();self.layout.update()
@@ -375,7 +425,7 @@ class EditorWorkspaceMixin:
             place_via(p,cid,connection,point,net,self.layout.locked_layers)
         try:self.commit(edit,'Route layer transition with via')
         except Exception:restore_layer();raise
-        self.layout.drawing=[QPointF(*point)];self.layout.layer=layer;self._routing_layer=layer;self.layout.tool='path';self.layout.update()
+        self.layout.drawing=[QPointF(*point)];self.layout._drawing_undo=[];self.layout.drawing_changed();self.layout.layer=layer;self._routing_layer=layer;self.layout.tool='path';self.layout.update()
 
     def enter_edit_context(self):
         i=self.selected_physical_instance()
@@ -463,7 +513,11 @@ class EditorWorkspaceMixin:
         return result
 
     def eventFilter(self,obj,event):
-        if obj is getattr(self,'layout',None) and event.type()==QEvent.KeyPress and event.key()==Qt.Key_Tab:self.layout.editor_cycle();return True
+        if obj is getattr(self,'layout',None) and event.type() in (QEvent.KeyPress,QEvent.ShortcutOverride) and event.key()==Qt.Key_Tab:
+            if event.type()==QEvent.ShortcutOverride:event.accept()
+            elif self.layout.tool=='path':self.layout.flip_path_bend()
+            else:self.layout.editor_cycle()
+            return True
         return super().eventFilter(obj,event)
 
     def open_editor_doc(self,name):

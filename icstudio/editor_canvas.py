@@ -20,10 +20,14 @@ class EditorCanvasMixin:
             for i,t in enumerate(self.cell.get('layout_texts',[])):
                 box=QRectF(t['x'],t['y']-12/self.scale,max(10,len(t['text'])*7)/self.scale,16/self.scale)
                 if self.editor_allowed(t['layer']) and box.contains(pos):out.append({'id':'text:'+str(i),'editor_kind':'label','text':t})
-        for i in indexes:
-            s=self.cell['shapes'][i];kind='instances' if s.get('source_id') else 'shapes'
+        _,paths=self.layout_drawing_cache()
+        scene=self.cell.get('_layout_scene')
+        rows=[(s,None) for s in reversed(scene.query((pos.x()-margin,pos.y()-margin,pos.x()+margin,pos.y()+margin)))] if scene is not None else [(self.cell['shapes'][i],paths[i]) for i in indexes]
+        for s,path in rows:
+            kind='instances' if s.get('source_id') else 'shapes'
             if kind not in filters or not self.editor_allowed(s['layer']) or s['id'] in seen:continue
-            path=self.path(s)
+            if path is None:path=self.path(s)
+            elif scene is None:path=path.get()
             if s['kind']=='path':
                 stroker=QPainterPathStroker();stroker.setWidth(s['width']+2*margin);inside=stroker.createStroke(path).contains(pos)
             else:inside=path.contains(pos) or path.intersects(QRectF(pos.x()-margin,pos.y()-margin,2*margin,2*margin))
@@ -44,12 +48,16 @@ class EditorCanvasMixin:
 
     def editor_marquee(self,rect):
         ids=[];filters=getattr(self,'selection_types',{'shapes','instances'});inside=getattr(self,'box_mode','Crossing')=='Inside';boxes={};eligible=set()
-        for s in self.cell['shapes']:
+        scene=self.cell.get('_layout_scene')
+        shapes=scene.query((rect.left(),rect.top(),rect.right(),rect.bottom())) if scene is not None else self.cell['shapes']
+        for s in shapes:
             if ('instances' if s.get('source_id') else 'shapes') not in filters:continue
             box=self.bounds(s)
             boxes[s['id']]=boxes[s['id']].united(box) if s['id'] in boxes else box
             if self.editor_allowed(s['layer']):eligible.add(s['id'])
         for ident,box in boxes.items():
+            if scene is not None and inside:
+                b=scene.owner_bounds(ident);box=QRectF(b.left,b.bottom,b.width(),b.height())
             if ident in eligible and (rect.contains(box) if inside else rect.intersects(box)):ids.append(ident)
         if 'pins' in filters:
             ids += ['pin:'+p['id'] for p in self.cell.get('layout_pins',[]) if self.editor_allowed(p['layer']) and rect.contains(QPointF(*p['point']))]

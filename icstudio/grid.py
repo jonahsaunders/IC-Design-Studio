@@ -17,18 +17,48 @@ def visible_interval(base, scale, minimum=14):
 
 
 class GridMixin:
-    def snap_interval(self):
+    def manufacturing_grid(self):
         return 10 if self.mode == 'schematic' else self.tech.get('grid', 5)
 
+    def fixed_grid_interval(self):
+        base=self.manufacturing_grid()
+        requested=getattr(self,'grid_snap_step',base)
+        return max(base,round(requested/base)*base)
+
+    def grid_snap_active(self):
+        frozen=getattr(self,'_drawing_grid',None)
+        return frozen[0] if frozen else getattr(self,'grid_snap_enabled',True)
+
+    def snap_interval(self):
+        frozen=getattr(self,'_drawing_grid',None)
+        if frozen:return frozen[1]
+        if self.mode=='schematic':return 10
+        if getattr(self,'grid_snap_mode','visible')=='visible':return self.grid_interval()
+        return self.fixed_grid_interval()
+
     def grid_interval(self):
-        return visible_interval(self.snap_interval(), self.scale,
-                                getattr(self, 'grid_density', 14))
+        frozen=getattr(self,'_drawing_grid',None)
+        if frozen:return frozen[2]
+        base=self.fixed_grid_interval() if self.mode=='layout' and getattr(self,'grid_snap_mode','visible')=='fixed' else self.manufacturing_grid()
+        return visible_interval(base,self.scale,getattr(self,'grid_density',14))
+
+    def begin_drawing_grid(self):
+        if self.mode=='layout' and getattr(self,'_drawing_grid',None) is None:
+            self._drawing_grid=(self.grid_snap_active(),self.snap_interval(),self.grid_interval())
+            self.view_changed.emit()
+
+    def end_drawing_grid(self):
+        self._drawing_grid=None
+        self.view_changed.emit()
 
     def paint_grid(self, painter):
         style = getattr(self, 'grid_style', 'lines')
         if style == 'off':
             return
         step = self.grid_interval() * self.scale
+        # Freeze drawing coordinates through zoom, but bound rendering work
+        # when a user zooms far out in the middle of a shape.
+        if step<2:step*=math.ceil(2/step)
         painter.save()
         painter.setRenderHint(QPainter.Antialiasing, False)
         minor = QColor('#35465b' if self.dark else '#dce3ec')
@@ -49,15 +79,15 @@ class GridMixin:
             painter.setPen(pen)
             if style == 'dots':
                 points = [QPointF(x, y) for i, x in xs for j, y in ys
-                          if (i % 5 == 0 and j % 5 == 0) == strong]
+                          if (i % getattr(self,'grid_major_every',5) == 0 and j % getattr(self,'grid_major_every',5) == 0) == strong]
                 if points:
                     painter.drawPoints(points)
             else:
                 for i, x in xs:
-                    if (i % 5 == 0) == strong:
+                    if (i % getattr(self,'grid_major_every',5) == 0) == strong:
                         painter.drawLine(QPointF(x, 0), QPointF(x, self.height()))
                 for i, y in ys:
-                    if (i % 5 == 0) == strong:
+                    if (i % getattr(self,'grid_major_every',5) == 0) == strong:
                         painter.drawLine(QPointF(0, y), QPointF(self.width(), y))
         if getattr(self, 'grid_origin', True):
             painter.setPen(QPen(QColor('#7696b4' if self.dark else '#8aa5bd'), 1))

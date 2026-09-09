@@ -1,16 +1,18 @@
 @echo off
-setlocal
+setlocal EnableExtensions DisableDelayedExpansion
 cd /d "%~dp0"
-if not exist .venv\Scripts\python.exe (
-  py -3 -m venv .venv
-  if errorlevel 1 goto failure
-  .venv\Scripts\python.exe -m pip install -r requirements.txt
-  if errorlevel 1 goto failure
-)
-.venv\Scripts\python.exe main.py %*
+if errorlevel 1 goto failure
+py -3.12 --version >nul 2>&1
+if errorlevel 1 goto fallback
+py -3.12 scripts\source_bootstrap.py %*
+goto result
+:fallback
+py -3 scripts\source_bootstrap.py %*
+:result
 if errorlevel 1 goto failure
 exit /b 0
 :failure
-echo Setup or startup failed. Install 64-bit Python 3.12 and see README.md.
+echo Setup or startup failed. See the specific error above and README.md.
+echo If the py command is unavailable, install 64-bit Python 3.12 with the Python launcher.
 pause
 exit /b 1

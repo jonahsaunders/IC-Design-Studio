@@ -7,10 +7,10 @@ from .parametric import placement_inventory,install
 
 class PhysicalCheckThread(QThread):
     checked=Signal(object)
-    def __init__(self,p,cid,parent):super().__init__(parent);self.project=p;self.cid=cid
+    def __init__(self,p,cid,parent,checker=None):super().__init__(parent);self.project=p;self.cid=cid;self.checker=checker
     def run(self):
         from .live_geometry import full
-        try:result=full(self.project,self.cid)
+        try:result=self.checker.check(self.project,self.cid) if self.checker is not None else full(self.project,self.cid)
         except Exception as exc:result={'issues':[],'guides':[],'error':str(exc)}
         self.checked.emit({'project_id':self.project['id'],'revision':self.project['revision'],'cid':self.cid,'result':result})
 
@@ -18,6 +18,8 @@ class PhysicalCheckThread(QThread):
 class PhysicalWorkspaceMixin:
     def make_ui(self):
         super().make_ui();self._live_worker=None;self._live_pending=False
+        from .live_geometry import IncrementalChecks
+        self._live_checker=IncrementalChecks()
         page,v=self.engineering_page('Physical design assistant','Place schematic devices, review remaining connections and keep analog constraints visible while editing.')
         self.engineering_buttons(v,[('Place / regenerate…',self.parametric_dialog),('Contact array…',lambda:self.utility_generator('contact')),('Guard ring…',lambda:self.utility_generator('guard_ring')),('Check now',self.start_live_checks)])
         self.placement_table=self.simulation_table(['Device','Type','Placement','Missing terminals']);self.placement_table.cellClicked.connect(self.placement_selected);self.placement_table.cellDoubleClicked.connect(lambda *_:self.parametric_dialog());v.addWidget(self.placement_table)
@@ -117,7 +119,7 @@ class PhysicalWorkspaceMixin:
     def start_live_checks(self):
         if not self.cell['shapes'] and not self.cell.get('layout_instances'):return
         if self._live_worker is not None:self._live_pending=True;return
-        self.live_note.setText('Checking revision '+str(self.project['revision'])+'…');worker=PhysicalCheckThread(clone(self.project),self.cid,self);self._live_worker=worker;worker.checked.connect(self.live_checks_ready);worker.finished.connect(self.live_worker_done);worker.start()
+        self.live_note.setText('Checking revision '+str(self.project['revision'])+'…');worker=PhysicalCheckThread(clone(self.project),self.cid,self,self._live_checker);self._live_worker=worker;worker.checked.connect(self.live_checks_ready);worker.finished.connect(self.live_worker_done);worker.start()
     def live_worker_done(self):
         worker=self._live_worker;self._live_worker=None
         if worker:worker.deleteLater()
@@ -143,26 +145,27 @@ class PhysicalWorkspaceMixin:
             ids=place_via(p,cid,connection,[round(canvas.drag.x()),round(canvas.drag.y())],net,canvas.locked_layers);return [s for c in p['cells'] if c['id']==cid for s in c['shapes'] if s['id'] in ids]
         if canvas.tool=='rect' and canvas.anchor and canvas.drag:
             a,b=canvas.anchor,canvas.drag
-            if a.x()!=b.x() and a.y()!=b.y():return [{'id':'preview','kind':'rect','layer':canvas.layer,'points':[[int(a.x()),int(a.y())],[int(b.x()),int(b.y())]],'net':self.net or ''}]
+            if a.x()!=b.x() and a.y()!=b.y():return [{'id':'preview','kind':'rect','layer':canvas.layer,'points':[[int(a.x()),int(a.y())],[int(b.x()),int(b.y())]],'net':self.editor_net.currentText().strip()}]
         if canvas.tool=='path' and canvas.drawing and canvas.drag:
             points=canvas.drawing+canvas.path_preview(canvas.drag);pts=[]
             for pt in points:
                 pair=[int(pt.x()),int(pt.y())]
                 if not pts or pair!=pts[-1]:pts.append(pair)
-            if len(pts)>=2:return [{'id':'preview','kind':'path','layer':canvas.layer,'points':pts,'width':canvas.line_width,'net':self.net or ''}]
+            if len(pts)>=2:return [{'id':'preview','kind':'path','layer':canvas.layer,'points':pts,'width':canvas.line_width,'net':self.editor_net.currentText().strip()}]
         return []
     def update_geometry_preview(self):
         from .live_geometry import preview
         try:
-            shapes=self.geometry_candidates();issues=preview(self.project,self.cid,shapes) if shapes else [];self.layout.live_preview=shapes;self.layout.live_preview_blocked=bool(issues)
+            shapes=self.geometry_candidates();issues=preview(self.project,self.cid,shapes) if shapes else [];self.layout.live_preview=[] if self.layout.tool in ('path','rect') else shapes;self.layout.live_preview_blocked=bool(issues)
             if shapes:self.live_note.setText('Blocked: '+issues[0]['message'] if issues else 'Preview clear for declared local rules. Click to place; background connectivity checks follow.')
         except Exception as exc:self.layout.live_preview=[];self.live_note.setText(str(exc))
         self.layout.update()
     def can_commit_geometry(self,shape):
         if shape['kind']!='path' or not self.protect_routes.isChecked():return True
         from .live_geometry import preview
-        shape['net']=self.net or shape.get('net','');issues=preview(self.project,self.cid,[shape])
-        if issues:self.live_note.setText('Blocked: '+issues[0]['message']);self.statusBar().showMessage('Route blocked: '+issues[0]['message'],6000);return False
+        shape['net']=shape.get('net','');issues=preview(self.project,self.cid,[shape])
+        if issues:
+            self.layout.drawing_error='Route blocked: '+issues[0]['message'];self.live_note.setText(self.layout.drawing_error);self.statusBar().showMessage(self.layout.drawing_error,12000);return False
         return True
     def place_canvas_via(self,x,y):
         if self.protect_routes.isChecked() and self._via_configuration:

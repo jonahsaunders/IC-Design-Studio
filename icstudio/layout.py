@@ -6,8 +6,9 @@ def kdb():
     return db
 
 def polygon(s):
-    db=kdb();pts=[db.Point(*pt) for pt in s['points']]
-    if s['kind']=='rect': return db.Polygon(db.Box(pts[0],pts[1]))
+    db=kdb()
+    if s['kind']=='rect': return db.Polygon(db.Box(*s['points'][0],*s['points'][1]))
+    pts=[db.Point(*pt) for pt in s['points']]
     if s['kind']=='path': return db.Path(pts,s['width']).polygon()
     p=db.Polygon(pts)
     for hole in s.get('holes',[]): p.insert_hole([db.Point(*v) for v in hole])

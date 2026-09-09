@@ -11,7 +11,7 @@ class LayoutToolsMixin:
         super().make_ui(); self._via_configuration=None
         self.layout.via_requested.connect(lambda x,y:self.guard(lambda:self.place_canvas_via(x,y)))
         self.layout.stretch_requested.connect(lambda sid,segment,offset:self.guard(lambda:self.commit(
-            lambda p:stretch_path(p,self.cid,sid,segment,offset,self.layout.locked_layers),'Stretch path segment')))
+            lambda p:self.stretch_layout_path(p,self.cid,sid,segment,offset,self.layout.locked_layers),'Stretch path segment')))
         row=QHBoxLayout(); self.physical_probe=QComboBox();self.physical_probe.setAccessibleName('Physical comparison probe');row.addWidget(self.physical_probe,1)
         row.addWidget(self.button('Overlay before / after',fn=self.physical_overlay));row.addWidget(self.button('View findings',fn=self.physical_findings))
         v=self.results_tabs.widget(self.silicon_tab).layout();v.addLayout(row)
@@ -59,8 +59,11 @@ class LayoutToolsMixin:
         if not self.idle_edit():return
         s=self.selected_path();cid=self.cid;sid=s['id']
         return self.workflow_form('Stretch path segment',[('segment','Segment',[str(i+1) for i in range(len(s['points'])-1)]),('offset','Perpendicular offset (µm)','0.1')],
-            lambda v:self.commit(lambda p:stretch_path(p,cid,sid,int(v['segment'])-1,round(scalar(v['offset'])*1000),self.layout.locked_layers),'Stretch path segment'),
-            'Horizontal segments move in Y; vertical segments move in X. Connected bends follow. Terminals and ports retain their positions; check connectivity after stretching an endpoint.')
+            lambda v:self.commit(lambda p:self.stretch_layout_path(p,cid,sid,int(v['segment'])-1,round(scalar(v['offset'])*1000),self.layout.locked_layers),'Stretch path segment'),
+            'Horizontal segments move in Y; vertical segments move in X. With Preserve connections enabled, endpoints and branch anchors retain contact and edits that create opens or shorts are rejected.')
+
+    def stretch_layout_path(self,p,cid,sid,segment,offset,locked):
+        return stretch_path(p,cid,sid,segment,offset,locked)
 
     def stretch_mouse(self):
         if not self.idle_edit():return
@@ -68,10 +71,18 @@ class LayoutToolsMixin:
 
     def align_dialog(self):
         if not self.idle_edit():return
-        ids=list(self.selection);cid=self.cid;edges={'Left':'left','Right':'right','Top':'top','Bottom':'bottom','Horizontal center':'center_x','Vertical center':'center_y'}
-        return self.workflow_form('Align layout selection',[('edge','Align',list(edges))],
-            lambda v:self.commit(lambda p:align(p,cid,ids,edges[v['edge']],self.layout.locked_layers),'Align layout selection'),
-            'The first selected object stays fixed. Select complete device footprints and via stacks; their terminals move with them. Parent routing and cell ports stay at their saved coordinates. Check connectivity afterward.')
+        ids=list(self.selection);cid=self.cid;edges={'Left':'left','Right':'right','Top':'top','Bottom':'bottom','Horizontal center':'center_x','Vertical center':'center_y',
+            'Distribute horizontal centers':'distribute_x','Distribute vertical centers':'distribute_y','Equal horizontal gaps':'gap_x','Equal vertical gaps':'gap_y'}
+        refs={'Same edge':None,**{k:v for k,v in edges.items() if v in ('left','right','top','bottom','center_x','center_y')}}
+        return self.workflow_form('Align / distribute layout selection',[
+            ('edge','Arrange',list(edges)),('reference','Reference edge',list(refs)),('offset','Reference offset (µm)','0'),
+            ('routing','Attached routes',['Preserve connections','Keep coordinates'])],
+            lambda v:self.arrange_layout(cid,ids,edges[v['edge']],self.layout.locked_layers,
+                offset=round(scalar(v['offset'])*1000),reference_edge=refs[v['reference']],connected=v['routing']=='Preserve connections'),
+            'Alignment keeps the first selected group fixed. Distribution keeps the two outer groups fixed and ignores reference/offset. Complete footprints, PCells and arrays move together. Exact off-grid results are rejected. Preserve connections retargets attached Manhattan endpoints and rejects opens, shorts and spacing violations; named cell ports stay fixed.')
+
+    def arrange_layout(self,cid,ids,edge,locked=(),**options):
+        return self.commit(lambda p:align(p,cid,ids,edge,locked,**options),'Align / distribute layout selection')
 
     def cell_port_dialog(self):
         from .physical_cells import assign_port
@@ -148,7 +159,9 @@ class LayoutToolsMixin:
                 self.layout.connection_guides=[g for g in connectivity(self.project,self.cid)['guides'] if g['net']==net]
             raw=issue.get('bbox')
             if not raw:
-                shapes=[s for s in self.layout.cell['shapes'] if s['id'] in ids or s.get('device_id') in ids or (net and s.get('net')==net)]
+                scene=self.layout.cell.get('_layout_scene')
+                visible_shapes=scene.query((scene.bounds.left,scene.bounds.bottom,scene.bounds.right,scene.bounds.top)) if scene is not None else self.layout.cell['shapes']
+                shapes=[s for s in visible_shapes if s['id'] in ids or s.get('device_id') in ids or (net and s.get('net')==net)]
                 if shapes:
                     box=self.layout.bounds(shapes[0])
                     for s in shapes[1:]:box=box.united(self.layout.bounds(s))

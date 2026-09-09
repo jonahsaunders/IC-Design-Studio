@@ -129,7 +129,7 @@ class HierarchyMixin:
     def render_physical_hierarchy(self):
         super().render_physical_hierarchy()
         if self.cell.get('layout_instances'):
-            self.layout.set_data({**self.layout.cell,'layout_pins':terminals(self.project,self.cid)},self.project['pdk'],self.selection,self.net)
+            self.layout.set_data({**self.layout.cell,'layout_pins':terminals(self.project,self.cid)},self.project['pdk'],self.selection,self.net,revision=self.project['revision'])
             self.layout.selection=list(dict.fromkeys(self.selection+[i['id'] for i in self.cell['layout_instances'] if i.get('device_id') in self.selection]));self.layout.update()
     def select(self,ids,mode=None):
         super().select(ids,mode)
@@ -216,8 +216,8 @@ class HierarchyMixin:
         def apply(v):
             width=round(scalar(v['width'])*1000)
             if width<=0 or width%self.project['pdk']['grid']:raise ValueError('Path width must be positive and on the layout grid.')
-            self.layout.line_width=width;self.layout.orthogonal=v['mode']=='Manhattan';self.layout.snap_to_terminals=v['snap']=='Yes';self.statusBar().showMessage('Layout drawing settings updated.')
-        self.workflow_form('Layout drawing settings',[('width','Path width (µm)',str(self.layout.line_width/1000)),('mode','Path bends',['Manhattan','Free angle'] if self.layout.orthogonal else ['Free angle','Manhattan']),('snap','Snap to terminals / vertices',['Yes','No'] if self.layout.snap_to_terminals else ['No','Yes'])],apply,'Grid snapping is always active. Terminal and vertex snapping is applied while drawing paths; Manhattan mode inserts orthogonal bends.')
+            self.layout.line_width=width;self.editor_width.setText(f'{width/1000:g}');self.layout.orthogonal=v['mode']=='Manhattan';self.layout.snap_to_terminals=v['snap']=='Yes';self.editor_snap.setCurrentIndex(0 if self.layout.snap_to_terminals else 1);self.update_drawing_controls();self.statusBar().showMessage('Layout drawing settings updated.')
+        self.workflow_form('Layout drawing settings',[('width','Path width (µm)',str(self.layout.line_width/1000)),('mode','Path bends',['Manhattan','Free angle'] if self.layout.orthogonal else ['Free angle','Manhattan']),('snap','Snap to terminals / vertices',['Yes','No'] if self.layout.snap_to_terminals else ['No','Yes'])],apply,'Use View → Grid Settings to enable grid snapping and choose its spacing. Object snapping references nearby geometry; Manhattan mode inserts orthogonal bends.')
     def route_terminals_dialog(self):
         from .physical import route
         pins=terminals(self.project,self.cid);ds={d['id']:d for d in self.cell['devices']};choices={ds[i['device_id']]['name']+'.'+i['pin']:i for i in pins};cid=self.cid

@@ -68,8 +68,10 @@ class FeatureMixin:
         if any(d['kind']=='X' for d in self.cell['devices']):
             by={c['id']:c for c in self.project['cells']};devices=[{**d,'symbol':by[d['cell']]['symbol'],'symbol_context':{'symname':by[d['cell']]['name'],**by[d['cell']].get('parameters',{}),**d.get('parameters',{})}} if d['kind']=='X' and by[d['cell']].get('symbol') else d for d in self.cell['devices']];self.schematic.set_data({**self.cell,'devices':devices},self.project['pdk'],self.selection,self.net)
         if self.cell.get('layout_instances'):
-            from .design_ops import flatten_layout
-            self.layout.set_data({**self.cell,'shapes':flatten_layout(self.project,self.cid,getattr(self.layout,'hierarchy_depth',None))},self.project['pdk'],self.selection,self.net)
+            from .layout_scene import LayoutScene
+            if not hasattr(self,'_layout_scene'):self._layout_scene=LayoutScene()
+            scene=self._layout_scene.update(self.project,self.cid,getattr(self.layout,'hierarchy_depth',None))
+            self.layout.set_data({**self.cell,'_layout_scene':scene},self.project['pdk'],self.selection,self.net,revision=self.project['revision'])
     def move(self,ids,x,y,mode):
         instances=[i for i in self.cell.get('layout_instances',[]) if i['id'] in ids] if mode=='layout' else []
         if instances:

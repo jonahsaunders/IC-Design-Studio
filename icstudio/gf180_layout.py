@@ -74,7 +74,8 @@ def mos(tech,d,x=0,y=0):
         box('contact',px-110,py-110,px+110,py+110)
         box('m1',px-200,py-200,px+200,py+200,d['nets'][pin])
         pins.append({'id':uid(),'device_id':d['id'],'pin':pin,'layer':ls['m1'],'point':[x+px,y+py]})
-    return {'shapes':shapes,'pins':pins,'record':{'device_id':d['id'],'spec':spec,'origin':[x,y]}}
+    from .layout_eco import roles
+    return roles({'shapes':shapes,'pins':pins,'record':{'device_id':d['id'],'spec':spec,'origin':[x,y]}})
 
 
 def install_mos(p,cid,did,x=0,y=0):
@@ -85,10 +86,8 @@ def install_mos(p,cid,did,x=0,y=0):
 
 
 def regenerate_mos(p,cid,did):
-    c=next(c for c in p['cells'] if c['id']==cid);old=next((r for r in c.get('pdk_layouts',[]) if r['device_id']==did),None)
-    if not old or old.get('transformed'):raise ValueError('Regenerate the full cell after a device has been rotated or mirrored.')
-    d=resolved(p,cid,next(d for d in c['devices'] if d['id']==did));data=mos(p['pdk'],d,*old['origin'])
-    c['shapes']=[s for s in c['shapes'] if s.get('generated_device')!=did]+data['shapes'];c['layout_pins']=[v for v in c['layout_pins'] if v['device_id']!=did]+data['pins'];c['pdk_layouts']=[r for r in c['pdk_layouts'] if r['device_id']!=did]+[data['record']];validate(p)
+    from .layout_eco import regenerate
+    return regenerate(p,cid,did)
 
 
 def inverter_devices(p,cid):

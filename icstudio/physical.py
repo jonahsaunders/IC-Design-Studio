@@ -57,25 +57,17 @@ def route(p,cid,layer,start,end,width,net):
         if (db.Region(polygon(s))&blocked).is_empty():return s
     raise ValueError('No clear Manhattan route with up to two bends. Add an intermediate waypoint or choose another layer.')
 
-def connectivity(p,cid):
+def connectivity(p,cid,graph=None):
     """Compare explicit physical terminals using actual polygon contact, not device links."""
-    db=kdb();cell=next(c for c in p['cells'] if c['id']==cid);shapes=flatten_layout(p,cid)
-    conductors=set(p['pdk'].get('connectivity',{}).get('conductors',['metal1','metal2']))
-    vias=p['pdk'].get('connectivity',{}).get('vias',[['metal1','via1','metal2']]);allowed={(a,b) for a,v,b in vias for a,b in ((a,v),(v,a),(v,b),(b,v))}
-    layers=conductors|{v for _,v,_ in vias};shapes=[s for s in shapes if s['layer'] in layers]
-    if len(shapes)>20000:raise ValueError('Connectivity check is limited to 20,000 conducting shapes.')
-    polys=[polygon(s) for s in shapes];regions=[db.Region(poly) for poly in polys];parents=list(range(len(shapes)))
-    def find(i):
-        while parents[i]!=i:parents[i]=parents[parents[i]];i=parents[i]
-        return i
-    def union(a,b):parents[find(a)]=find(b)
-    index=SpatialIndex([((b.left,b.bottom,b.right,b.top),i) for i,poly in enumerate(polys) for b in [poly.bbox()]])
-    for i,poly in enumerate(polys):
-        b=poly.bbox()
-        for j in index.query((b.left,b.bottom,b.right,b.top)):
-            if j<=i:continue
-            a,b=shapes[i]['layer'],shapes[j]['layer']
-            if (a==b or (a,b) in allowed) and not regions[i].interacting(regions[j]).is_empty():union(i,j)
+    from .layout_graph import GeometryGraph
+    db=kdb();cell=next(c for c in p['cells'] if c['id']==cid)
+    if graph is None:graph=GeometryGraph().sync(flatten_layout(p,cid),p['pdk'])
+    shapes=[graph.records[k]['shape'] for k in graph.keys];polys=[graph.records[k]['poly'] for k in graph.keys];index=graph.index
+    root_ids={g:i for i,g in enumerate(dict.fromkeys(graph.groups[k] for k in graph.keys))}
+    roots_by_index=[root_ids[graph.groups[k]] for k in graph.keys]
+    def find(i):return roots_by_index[i]
+    members={}
+    for i,s in enumerate(shapes):members.setdefault(find(i),[]).append(s)
     from .physical_cells import terminals
     physical_pins=terminals(p,cid)
     issues=[];assignments={};expected={};ds={d['id']:d for d in cell['devices']};provided=set()
@@ -94,7 +86,7 @@ def connectivity(p,cid):
             if (d['id'],pin) not in provided:issue('LVS.MISSING_PIN',d['id'],f'{d["name"]}.{pin}: assign a physical terminal before checking connectivity.')
     for root,refs in assignments.items():
         nets={r[2] for r in refs}
-        if len(nets)>1:issue('LVS.SHORT',refs[0][0],'Conductors short schematic nets: '+', '.join(sorted(nets)),nets=sorted(nets),objects=list(dict.fromkeys(shapes[i]['id'] for i in range(len(shapes)) if find(i)==root)))
+        if len(nets)>1:issue('LVS.SHORT',refs[0][0],'Conductors short schematic nets: '+', '.join(sorted(nets)),nets=sorted(nets),objects=list(dict.fromkeys(s['id'] for s in members[root])))
     for i,s in enumerate(shapes):
         if s.get('net') and not s.get('instance_path'):
             refs=assignments.get(find(i),[]);names={r[2] for r in refs}
@@ -119,7 +111,7 @@ def connectivity(p,cid):
                 _,b,start,end=min(choices);guides.append({'net':net,'start':start,'end':end});reached.add(b);remaining.remove(b)
     if not physical_pins:issue('LVS.NO_TERMINALS','', 'No physical terminals are assigned; connectivity cannot be verified.')
     for i in issues:i['fingerprint']=digest({'revision':p['revision'],'code':i['code'],'object':i['object'],'message':i['message']})
-    return {'issues':issues,'guides':guides,'net_regions':[{'net':next(iter({r[2] for r in refs})),'shapes':[shapes[i] for i in range(len(shapes)) if find(i)==root]} for root,refs in assignments.items() if len({r[2] for r in refs})==1],'groups':[[shapes[i]['id'] for i in range(len(shapes)) if find(i)==root] for root in sorted({find(i) for i in range(len(shapes))})],'design_hash':design_digest(p),'qualification':'Terminal connectivity only; device recognition and foundry LVS require a qualified extraction deck.'}
+    return {'issues':issues,'guides':guides,'net_regions':[{'net':next(iter({r[2] for r in refs})),'shapes':members[root]} for root,refs in assignments.items() if len({r[2] for r in refs})==1],'groups':[[s['id'] for s in members[root]] for root in sorted(members)],'design_hash':design_digest(p),'qualification':'Terminal connectivity only; device recognition and foundry LVS require a qualified extraction deck.'}
 
 def capacitance_estimate(p,cid):
     """Ground-capacitance estimate from declared area/perimeter coefficients."""

@@ -27,11 +27,19 @@ def run(p,cid,settings,directory,progress=lambda *_:None):
     root=Path(directory).resolve();root.mkdir(parents=True,exist_ok=True)
     executable=Path(settings['executable']);text=settings['runset_text']
     if file_digest(executable)!=settings['executable_sha256'] or digest(text)!=settings['runset_hash']:raise ValueError('The planned KLayout executable or rule script changed. Plan a new verification run.')
-    script=root/'rules.drc';layout=root/'input.gds';report=root/'findings.lyrdb'
-    atomic_write(script,text);export_layout(p,layout);top=next(c['name'] for c in p['cells'] if c['id']==cid)
+    script=root/'rules.drc';layout=root/'input.gds';report=root/'findings.lyrdb';cwd=root
+    if settings.get('rule_bundle'):
+        from .rule_bundle import materialize
+        bundle=settings['rule_bundle']
+        if bundle['files'].get(bundle['entry'])!=text:raise ValueError('Rule bundle entry differs from the planned script.')
+        cwd=root/'rule-bundle';script=materialize(bundle,settings['bundle_hash'],cwd)
+        atomic_write(root/'rule-bundle.json',json.dumps({'sha256':settings['bundle_hash'],'entry':bundle['entry'],
+            'files':{name:digest(content) for name,content in bundle['files'].items()}},indent=2))
+    else:atomic_write(script,text)
+    export_layout(p,layout);top=next(c['name'] for c in p['cells'] if c['id']==cid)
     args=[str(executable),'-b','-r',str(script),'-rd','input='+str(layout),'-rd','top='+top,'-rd','report='+str(report)]
     atomic_write(root/'command.json',json.dumps(args,indent=2));progress(.05,'Running KLayout rule script')
-    try:log=execute(args,root,timeout=int(settings.get('timeout',600)),on_line=lambda line:progress(.5,line))
+    try:log=execute(args,cwd,timeout=int(settings.get('timeout',600)),on_line=lambda line:progress(.5,line))
     except Exception as exc:atomic_write(root/'engine.log',str(exc));raise
     atomic_write(root/'engine.log',log)
     if not report.is_file():raise ValueError('KLayout produced no report. The rule script must write its report to $report.')

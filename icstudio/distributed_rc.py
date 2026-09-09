@@ -9,7 +9,7 @@ from .layout import polygon,kdb
 from .spatial import SpatialIndex
 
 
-def extract(p,cid,section_nm=5000,coupling_distance_nm=5000):
+def extract(p,cid,section_nm=5000,coupling_distance_nm=5000,corner=None):
     from .physical import connectivity
     from .physical_cells import terminals
     c=next(c for c in p['cells'] if c['id']==cid)
@@ -17,7 +17,9 @@ def extract(p,cid,section_nm=5000,coupling_distance_nm=5000):
     if not 100<=section_nm<=1000000:raise ValueError('RC section length must be 0.1–1,000 µm.')
     check=connectivity(p,cid)
     if check['issues']:raise ValueError('Resolve physical connectivity findings before RC extraction: '+check['issues'][0]['message'])
-    coeff=p['pdk'].get('parasitics',{})
+    from .rc_calibration import coefficients
+    corner=corner or p['analysis'].get('corner','nominal')
+    coeff,calibration=coefficients(p['pdk'],corner)
     for layer,data in coeff.items():
         for key in ('sheet_ohm','cap_f_per_um2','edge_f_per_um','coupling_f_per_um'):
             if scalar(data.get(key,0))<0:raise ValueError(layer+': RC coefficients cannot be negative.')
@@ -149,7 +151,7 @@ def extract(p,cid,section_nm=5000,coupling_distance_nm=5000):
         while queue:
             for target in links.get(queue.pop(),set())-reached:reached.add(target);queue.append(target)
         if any(m['node'] not in reached for m in mapping if m['net']==net) or any(name(e[k]) not in reached for e in edges if e['net']==net for k in ('left','right')):raise ValueError('Physical contact cannot be represented by the centerline RC model on '+net+'. Use process extraction for this geometry.')
-    return {'schema':1,'design_hash':design_digest(p),'pdk_hash':digest(p['pdk']),'coefficient_hash':digest(coeff),'cell_id':cid,'resistors':resistors,'capacitors':capacitors,'terminal_mapping':mapping,'sections':len(edges),'settings':{'section_nm':section_nm,'coupling_distance_nm':coupling_distance_nm},'qualification':'Declared-coefficient Manhattan interconnect estimate: distributed path resistance, ground capacitance and same-layer parallel coupling. Pads are ideal; no device recognition, cross-layer coupling or field-solver qualification.'}
+    return {'schema':1,'design_hash':design_digest(p),'pdk_hash':digest(p['pdk']),'coefficient_hash':digest(coeff),'corner':corner,'calibration':calibration,'cell_id':cid,'resistors':resistors,'capacitors':capacitors,'terminal_mapping':mapping,'sections':len(edges),'settings':{'section_nm':section_nm,'coupling_distance_nm':coupling_distance_nm},'qualification':'Declared-coefficient Manhattan interconnect estimate: distributed path resistance, ground capacitance and same-layer parallel coupling. Pads are ideal; no device recognition, cross-layer coupling or field-solver qualification.'}
 
 
 def apply(p,cid,extraction):
@@ -175,7 +177,7 @@ def compare_job(p,job,directory,progress=lambda *_:None):
     from .simulation import run
     from .engines import run_ngspice
     from .specifications import evaluate_rows,for_job
-    cid=job['settings'].get('layout_cell',job['cell']);ext=extract(p,cid,int(job['settings'].get('section_nm',5000)));q=apply(p,cid,ext);analysis=job['settings']['analysis'];waves=[]
+    cid=job['settings'].get('layout_cell',job['cell']);ext=extract(p,cid,int(job['settings'].get('section_nm',5000)),corner=job['settings']['analysis'].get('corner',p['analysis'].get('corner','nominal')));q=apply(p,cid,ext);analysis=job['settings']['analysis'];waves=[]
     for i,source in enumerate((p,q)):
         (directory/('before' if i==0 else 'after')).mkdir(parents=True,exist_ok=True)
         notify=lambda f,m,i=i:progress((i+f)/2,m)

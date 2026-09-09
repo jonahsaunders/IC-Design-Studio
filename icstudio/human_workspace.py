@@ -11,6 +11,7 @@ from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLayout, QLabe
     QDialogButtonBox, QFormLayout, QMenu, QDockWidget, QMainWindow, QSizePolicy, QScrollArea)
 from .menu_map import GROUPS, ALIASES, title
 from .ui_style import icon, palette
+from .grid_settings import GridSettingsMixin
 
 
 class ElidingLabel(QLabel):
@@ -53,7 +54,7 @@ class FlowLayout(QLayout):
         return y+height+bottom-rect.y()
 
 
-class HumanWorkspaceMixin:
+class HumanWorkspaceMixin(GridSettingsMixin):
     def __init__(self, *args, **kwargs):
         self._human_ready = False
         self._layout_locked = False
@@ -120,6 +121,12 @@ class HumanWorkspaceMixin:
             canvas.grid_density = self.settings.value(key+'grid_density', 14, type=int)
             canvas.grid_contrast = self.settings.value(key+'grid_contrast', 65, type=int)
             canvas.grid_origin = self.settings.value(key+'grid_origin', True, type=bool)
+            canvas.grid_major_every=max(2,min(100,self.settings.value(key+'grid_major_every',5,type=int)))
+            if canvas.mode=='layout':
+                canvas.grid_snap_enabled=self.settings.value(key+'grid_snap_enabled',True,type=bool)
+                canvas.grid_snap_mode=self.settings.value(key+'grid_snap_mode','visible')
+                if canvas.grid_snap_mode not in ('visible','fixed'):canvas.grid_snap_mode='visible'
+                canvas.grid_snap_step=max(1,min(1000000000,self.settings.value(key+'grid_snap_step',5,type=int)))
             canvas.installEventFilter(self)
 
     def workspace_docks(self):
@@ -134,7 +141,8 @@ class HumanWorkspaceMixin:
         view.addSeparator()
         self.grid_toggle_action = self.action(view, 'Show grid', self.toggle_visible_grid, 'Ctrl+Shift+G')
         self.grid_toggle_action.setCheckable(True)
-        self.action(view, 'Grid settings…', self.grid_settings_dialog)
+        self.grid_settings_action=self.action(view,'Grid Settings…',self.grid_settings_dialog)
+        self.grid_snap_action=self.action(view,'Snap to grid',self.toggle_grid_snap);self.grid_snap_action.setCheckable(True)
         self.action(view, 'Zoom in', lambda:self.zoom_active(1.25))
         self.action(view, 'Zoom out', lambda:self.zoom_active(.8))
         self.action(self.task_menus['Help'], 'Workspace guide',
@@ -271,9 +279,9 @@ class HumanWorkspaceMixin:
         # Layer choice remains visible next to the routing controls.
         self.layer_caption.setParent(self.editor_options)
         self.layer_combo.setParent(self.editor_options)
-        self.editor_main_row.insertWidget(1, self.layer_caption)
+        self.layer_caption.setProperty('keepNext',True);self.editor_main_row.insertWidget(1, self.layer_caption)
         self.editor_main_row.insertWidget(2, self.layer_combo)
-        self.editor_snap.setToolTip('Snap to the process grid, with optional nearby terminal snapping')
+        self.editor_snap.setToolTip('Object snapping for paths and cursor routes. Visible objects can override the drawing grid; the target marker shows the exact feature.')
         self.capture_active.setProperty('role','badge')
         self.editor_tool.setProperty('role','badge')
         self.capture_path.hide()
@@ -341,16 +349,17 @@ class HumanWorkspaceMixin:
         super().update_canvas_footer()
         if not hasattr(self,'grid_button'): return
         c = self.layout if self.current_mode=='layout' else self.schematic
-        units = 'nm' if c.mode=='layout' else 'units'
-        visible = getattr(c,'grid_style','lines') != 'off'
-        spacing = f'{c.grid_interval():g}'
-        self.grid_button.setText(f'Grid {spacing} {units}' if visible else 'Grid off')
-        self.grid_button.setToolTip(f'{c.mode.title()} visible grid: {spacing} {units}. '
-            f'Placement snap: {c.snap_interval():g} {units}. Click to customize; Ctrl+Shift+G toggles visibility.')
-        self.grid_label.setText(f'Snap {c.snap_interval():g} {units}')
-        self.grid_label.show()
-        if hasattr(self,'grid_toggle_action'):
-            self.grid_toggle_action.setChecked(visible)
+        factor=1000 if c.mode=='layout' else 1;units='µm' if c.mode=='layout' else 'units'
+        visible=getattr(c,'grid_style','lines')!='off';spacing=f'{c.grid_interval()/factor:g}'
+        self.grid_button.setText(f'Grid {spacing} {units}' if visible else 'Grid hidden')
+        snap=f'{c.snap_interval()/factor:g} {units}' if c.grid_snap_active() else 'off'
+        self.grid_label.setText('Snap '+snap);self.grid_label.show()
+        self.grid_button.setToolTip(f'Visible spacing: {spacing} {units}. Snap: {snap}. Click for Grid Settings. Hiding the grid does not disable snapping.')
+        if hasattr(self,'grid_toggle_action'):self.grid_toggle_action.setChecked(visible)
+        if hasattr(self,'grid_snap_action'):
+            self.grid_snap_action.setEnabled(c.mode=='layout');self.grid_snap_action.setChecked(getattr(self.layout,'grid_snap_enabled',True))
+        if hasattr(self,'editor_grid_snap'):
+            self.editor_grid_snap.blockSignals(True);self.editor_grid_snap.setChecked(getattr(self.layout,'grid_snap_enabled',True));self.editor_grid_snap.blockSignals(False)
 
     def toggle_visible_grid(self):
         c = self.layout if self.current_mode=='layout' else self.schematic
@@ -360,40 +369,9 @@ class HumanWorkspaceMixin:
         self.persist_grid(c); c.update(); self.update_canvas_footer()
 
     def persist_grid(self, canvas):
-        for key in ('grid_style','grid_density','grid_contrast','grid_origin'):
+        for key in ('grid_style','grid_density','grid_contrast','grid_origin','grid_major_every','grid_snap_enabled','grid_snap_mode','grid_snap_step'):
+            if not hasattr(canvas,key):continue
             self.settings.setValue('display/'+canvas.mode+'/'+key,getattr(canvas,key))
-
-    def grid_settings_dialog(self):
-        dlg = QDialog(self); dlg.setWindowTitle('Drawing grids'); dlg.resize(450,340)
-        column = QVBoxLayout(dlg)
-        note = QLabel('Major lines mark every fifth visible interval. The grid adapts as you zoom.')
-        note.setWordWrap(True); column.addWidget(note)
-        tabs = QTabWidget(); column.addWidget(tabs); dlg.fields = {}
-        for c in (self.schematic,self.layout):
-            page = QWidget(); form = QFormLayout(page)
-            style = QComboBox()
-            for name,key in [('Lines','lines'),('Dots','dots'),('Hidden','off')]: style.addItem(name,key)
-            style.setCurrentIndex(style.findData(c.grid_style)); style.setAccessibleName(c.mode+' grid style')
-            contrast = QSlider(Qt.Horizontal); contrast.setRange(30,100); contrast.setValue(c.grid_contrast)
-            contrast.setAccessibleName(c.mode+' grid contrast')
-            density = QSlider(Qt.Horizontal); density.setRange(8,32); density.setValue(c.grid_density)
-            density.setAccessibleName(c.mode+' minimum grid spacing')
-            origin = QCheckBox('Emphasize the document origin'); origin.setChecked(c.grid_origin)
-            form.addRow('Display',style); form.addRow('Contrast',contrast); form.addRow('Spacing on screen',density); form.addRow(origin)
-            units = 'nm' if c.mode=='layout' else 'units'
-            snap = QLabel(f'Placement snap: {c.snap_interval():g} {units}\n'
-                + ('Defined by the active technology.' if c.mode=='layout' else 'Matches schematic pins and wire connections.'))
-            snap.setWordWrap(True); form.addRow(snap)
-            def change(*_, c=c,style=style,contrast=contrast,density=density,origin=origin):
-                c.grid_style=style.currentData(); c.grid_contrast=contrast.value()
-                c.grid_density=density.value(); c.grid_origin=origin.isChecked()
-                self.persist_grid(c); c.update(); self.update_canvas_footer()
-            style.currentIndexChanged.connect(change); contrast.valueChanged.connect(change)
-            density.valueChanged.connect(change); origin.toggled.connect(change)
-            tabs.addTab(page,c.mode.title()); dlg.fields[c.mode]=(style,contrast,density,origin)
-        tabs.setCurrentIndex(1 if self.current_mode=='layout' else 0)
-        buttons=QDialogButtonBox(QDialogButtonBox.Close); buttons.rejected.connect(dlg.reject);column.addWidget(buttons)
-        self._grid_dialog=dlg; dlg.show(); return dlg
 
     def zoom_active(self, factor):
         c=self.layout if self.current_mode=='layout' else self.schematic
@@ -517,7 +495,7 @@ class HumanWorkspaceMixin:
             'locked':self._layout_locked,'nav_tab':self.navtabs.currentIndex(),
             'inspector_tab':self.inspector_tabs.currentIndex(),'results_tab':self.results_tabs.currentIndex(),
             'ribbon':self.ribbon.currentIndex(),'grid':{c.mode:{k:getattr(c,k) for k in
-                ('grid_style','grid_density','grid_contrast','grid_origin')} for c in (self.schematic,self.layout)}}
+                ('grid_style','grid_density','grid_contrast','grid_origin','grid_major_every','grid_snap_enabled','grid_snap_mode','grid_snap_step') if hasattr(c,k)} for c in (self.schematic,self.layout)}}
         self.settings.setValue(key,json.dumps(data));self.settings.sync()
 
     def load_editor_workspace(self,name):
@@ -534,7 +512,7 @@ class HumanWorkspaceMixin:
         self.set_panel_lock(human.get('locked',False))
         for c in (self.schematic,self.layout):
             values=human.get('grid',{}).get(c.mode,{})
-            for key in ('grid_style','grid_density','grid_contrast','grid_origin'):
+            for key in ('grid_style','grid_density','grid_contrast','grid_origin','grid_major_every','grid_snap_enabled','grid_snap_mode','grid_snap_step'):
                 if key in values:setattr(c,key,values[key])
             self.persist_grid(c);c.update()
         self.sync_panel_buttons();self.sync_tools()

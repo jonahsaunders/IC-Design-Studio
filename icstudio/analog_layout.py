@@ -14,8 +14,8 @@ def mirror_devices(p, cid):
     if len(refs) != 1: raise ValueError('Connect exactly one reference device as a diode.')
     a = refs[0]; b = next(d for d in ds if d['id'] != a['id'])
     sa, sb = [specification(p['pdk'], d) for d in (a, b)]
-    if sa['dimensions_nm'] != sb['dimensions_nm'] or sa['values'] != sb['values'] or int(sa['values'].get('nf', 1)) != 1:
-        raise ValueError('This matching recipe requires equal W/L, equal parameters and one finger per device.')
+    if sa['dimensions_nm'] != sb['dimensions_nm'] or sa['values'] != sb['values']:
+        raise ValueError('This matching recipe requires equal W/L, equal parameters and equal finger counts per device.')
     ns = a['nets']; nb = b['nets']
     if not (ns['s'] == ns['b'] == nb['s'] == nb['b'] and ns['g'] == nb['g']
             and len({ns['s'], ns['g'], nb['d']}) == 3
@@ -32,7 +32,8 @@ def generate_mirror(p, cid, replace=False):
     for key in ('shapes', 'layout_pins', 'layout_ports', 'layout_texts', 'layout_instances', 'pdk_layouts'):
         c[key] = []
     ls = layers(p['pdk']); size = specification(p['pdk'], a)['dimensions_nm']
-    pitch = size['l'] + 7000
+    nf=int(specification(p['pdk'],a)['values'].get('nf',1))
+    pitch = (nf-1)*(size['l']+1000)+size['l']+10000
     for d, x in ((a, 0), (b, pitch)): install_mos(p, cid, d['id'], x, 0)
     pins = {(r['device_id'], r['pin']): r['point'] for r in c['layout_pins']}
     def wire(layer, points, net):

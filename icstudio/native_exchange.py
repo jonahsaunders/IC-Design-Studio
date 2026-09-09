@@ -68,7 +68,13 @@ def export_project(project,directory):
             if definition:s['attributes']['spice_sym_def']=definition
             output[path]=symbol_text(s,d['name'],fmt)
             lines.append(record_text(['C',path,str(d['x']),str(d['y']),str(d['rotation']//90),str(int(d.get('mirror',False))),property_text(props)]))
+        port_points={}
         def label(name,pt,kind='label',index=0):
+            # Reuse a port's own net label, keeping the port records in declared
+            # order below. Fixed coordinates can short a different nearby net;
+            # adding another port label on every export also accumulates copies.
+            if kind=='label' and name in c['ports'] and name not in port_points:
+                port_points[name]=pt;return
             lines.append(record_text(['C','symbols/studio_'+kind+'.sym',str(pt[0]),str(pt[1]),'0','0',property_text({'name':'studio_label'+str(len(lines)),'lab':name,'sim_pinnumber':str(index+1)})]))
         physical=graph(c,p,labels=False);named=set();positions=pins(c,p)
         for lab in c['labels']:
@@ -77,7 +83,13 @@ def export_project(project,directory):
             for pin,name in d['nets'].items():
                 group=physical[(d['id'],pin)]
                 if group not in named:label(name,positions[(d['id'],pin)]);named.add(group)
-        for i,port in enumerate(c['ports']):label(port,[-120,i*40],'iopin',i)
+        # Ports without a named contact stay electrically isolated. Place them
+        # beyond all pins, wire vertices and label anchors, including negatives.
+        port_x=-120
+        if any(port not in port_points for port in c['ports']):
+            contacts=list(positions.values())+[pt for w in c['wires'] for pt in w['points']]+[label_point(lab,c,p) for lab in c['labels']]
+            port_x=min([0]+[pt[0] for pt in contacts])-120
+        for i,port in enumerate(c['ports']):label(port,port_points.get(port,[port_x,i*40]),'iopin',i)
         for wire in c['wires']:
             for a,b in zip(wire['points'],wire['points'][1:]):
                 points=[a]+sorted([pt for pt in c['junctions'] if pt not in (a,b) and on_segment(pt,a,b)],key=lambda pt:math.dist(a,pt))+[b]

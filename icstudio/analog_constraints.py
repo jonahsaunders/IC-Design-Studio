@@ -71,12 +71,10 @@ def move_device(p,cid,did,dx,dy):
     c=next(c for c in p['cells'] if c['id']==cid)
     if any(v%p['pdk']['grid'] for v in (dx,dy)):raise ValueError('Constraint placement would leave the grid. Adjust dimensions or axis.')
     dx,dy=int(dx),int(dy)
-    for s in c['shapes']:
-        if s.get('device_id')==did:s['points']=[[x+dx,y+dy] for x,y in s['points']];s['holes']=[[[x+dx,y+dy] for x,y in hole] for hole in s.get('holes',[])]
-    for pin in c.get('layout_pins',[]):
-        if pin['device_id']==did:pin['point']=[pin['point'][0]+dx,pin['point'][1]+dy]
-    for i in c.get('layout_instances',[]):
-        if i.get('device_id')==did:i['x']+=dx;i['y']+=dy
+    from .layout_arrange import translated_cell
+    ids={s['id'] for s in c['shapes'] if s.get('device_id')==did}
+    ids.update(i['id'] for i in c.get('layout_instances',[]) if i.get('device_id')==did)
+    c.update(translated_cell(c,{ident:(dx,dy) for ident in ids}))
 
 
 def arrange(p,cid,row,pitch=10000):

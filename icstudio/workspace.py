@@ -180,9 +180,9 @@ class WorkspaceMixin:
             it=self.library_list.item(i);it.setIcon(icon(DEVICE_ICONS[it.data(Qt.UserRole+1)],t['muted']))
 
     def refresh(self,fit=False):
-        self.rebuilding=True
+        self.rebuilding=True;current_hash=digest(self.project)
         if not any(c['id']==self.cid for c in self.project['cells']):self.cid=self.project['top']
-        self.project_label.setText(self.project['name']);self.project_subtitle.setText('IC Design Studio   /   '+('Saved' if self.saved_hash==digest(self.project) else 'Unsaved changes'));self.revision_label.setText(f'r{self.project["revision"]}');self.setWindowTitle(self.project['name']+' — IC Design Studio '+__version__);self.cell_combo.clear();self.tree.clear()
+        self.project_label.setText(self.project['name']);self.project_subtitle.setText('IC Design Studio   /   '+('Saved' if self.saved_hash==current_hash else 'Unsaved changes'));self.revision_label.setText(f'r{self.project["revision"]}');self.setWindowTitle(self.project['name']+' — IC Design Studio '+__version__);self.cell_combo.clear();self.tree.clear()
         t=palette(self.dark)
         for c in self.project['cells']:
             self.cell_combo.addItem(c['name'],c['id']);item=QTreeWidgetItem(self.tree,[c['name']+('  · root' if c['id']==self.project['top'] else '')]);item.setIcon(0,icon('cell',t['muted']));item.setData(0,Qt.UserRole,('cell',c['id']));item.setExpanded(c['id']==self.cid)
@@ -190,14 +190,14 @@ class WorkspaceMixin:
                 sub=QTreeWidgetItem(item,[title]);sub.setIcon(0,icon('wire' if mode==0 else 'layers',t['muted']));sub.setData(0,Qt.UserRole,('view',c['id'],mode))
                 if c['id']==self.cid and mode==self.mode_combo.currentIndex():self.tree.setCurrentItem(sub)
         self.tree.setMaximumHeight(min(300,36*(len(self.project['cells'])+2)+10));self.cell_combo.setCurrentIndex(next(i for i,c in enumerate(self.project['cells']) if c['id']==self.cid))
-        self.schematic.set_data(self.cell,self.project['pdk'],self.selection,self.net);self.layout.set_data(self.cell,self.project['pdk'],self.selection,self.net)
+        self.schematic.set_data(self.cell,self.project['pdk'],self.selection,self.net);self.layout.set_data(self.cell,self.project['pdk'],self.selection,self.net,revision=self.project['revision'])
         self.outline.blockSignals(True);self.outline.clear()
         for d in self.cell['devices']:
             it=QListWidgetItem(d['name']+'   '+device_description(d));it.setData(Qt.UserRole,d['id']);it.setToolTip(d['name']+' · '+d.get('value',''));it.setIcon(icon(DEVICE_ICONS[d['kind']],t['muted']));self.outline.addItem(it);it.setSelected(d['id'] in self.selection)
         self.outline.blockSignals(False);self.nav_empty.setVisible(not self.cell['devices']);self.layers.blockSignals(True);self.layers.clear()
         for l in self.project['pdk']['layers']:
             it=QListWidgetItem(l['name']);it.setIcon(icon('layers',l['color']));it.setFlags(it.flags()|Qt.ItemIsUserCheckable);it.setCheckState(Qt.Checked if l['name'] in self.layout.visible_layers else Qt.Unchecked);self.layers.addItem(it)
-        self.layers.blockSignals(False);self.undo_action.setEnabled(bool(self.history.undo_stack));self.redo_action.setEnabled(bool(self.history.redo_stack));self.save_label.setText('Saved to disk' if self.saved_hash==digest(self.project) else 'Unsaved · recovery available');self.tech_name.setText(self.project['pdk']['name']);self.tech_detail.setText(self.project['pdk']['revision']+' · '+self.project['pdk'].get('status','unqualified'));self.rebuilding=False;self._inspector_dirty=False;self.build_inspector();self.update_result_status();self.filter_navigation();self.sync_tools()
+        self.layers.blockSignals(False);self.undo_action.setEnabled(bool(self.history.undo_stack));self.redo_action.setEnabled(bool(self.history.redo_stack));self.update_save_status(current_hash);self.tech_name.setText(self.project['pdk']['name']);self.tech_detail.setText(self.project['pdk']['revision']+' · '+self.project['pdk'].get('status','unqualified'));self.rebuilding=False;self._inspector_dirty=False;self.build_inspector();self.update_result_status();self.filter_navigation();self.sync_tools()
         if not getattr(self,'analysis_dirty',False):self.load_analysis()
         if fit:QTimer.singleShot(20,self.fit_active)
 
@@ -222,7 +222,7 @@ class WorkspaceMixin:
     def select(self,ids,mode=None):
         if self._selection_guard:return
         if not self.flush_inspector():return
-        self.selection=list(ids);self.current_mode=mode or self.current_mode;self.net='';linked=[s.get('device_id') for s in self.cell['shapes'] if s['id'] in ids and s.get('device_id')];self.schematic.set_data(self.cell,self.project['pdk'],list(dict.fromkeys(ids+linked)));self.layout.set_data(self.cell,self.project['pdk'],ids);self.build_inspector();self.outline.blockSignals(True)
+        self.selection=list(ids);self.current_mode=mode or self.current_mode;self.net='';linked=[s.get('device_id') for s in self.cell['shapes'] if s['id'] in ids and s.get('device_id')];self.schematic.set_data(self.cell,self.project['pdk'],list(dict.fromkeys(ids+linked)));self.layout.set_data(self.cell,self.project['pdk'],ids,revision=self.project['revision']);self.build_inspector();self.outline.blockSignals(True)
         for i in range(self.outline.count()):self.outline.item(i).setSelected(self.outline.item(i).data(Qt.UserRole) in ids)
         self.outline.blockSignals(False);self.sync_tools()
 

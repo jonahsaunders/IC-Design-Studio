@@ -63,7 +63,17 @@ class LayoutMixin:
     def set_hierarchy_depth(self,index):self.layout.hierarchy_depth=None if index==0 else index-1;self.render_physical_hierarchy();self.layout.update()
     def fit_selection(self):
         canvas=self.layout if self.current_mode=='layout' else self.schematic;objects=[s for s in canvas.cell['shapes' if self.current_mode=='layout' else 'devices'] if s['id'] in self.selection]
-        if not objects:return
-        box=canvas.bounds(objects[0])
-        for obj in objects[1:]:box=box.united(canvas.bounds(obj))
+        scene=canvas.cell.get('_layout_scene') if self.current_mode=='layout' else None
+        if scene is not None:
+            from PySide6.QtCore import QRectF
+            box=None
+            for ident in self.selection:
+                if ident not in scene.sources and ident not in scene.instances:continue
+                b=scene.owner_bounds(ident)
+                if not b.empty():box=QRectF(b.left,b.bottom,b.width(),b.height()) if box is None else box.united(QRectF(b.left,b.bottom,b.width(),b.height()))
+            if box is None:return
+        else:
+            if not objects:return
+            box=canvas.bounds(objects[0])
+            for obj in objects[1:]:box=box.united(canvas.bounds(obj))
         margin=max(box.width(),box.height())*.1+10;box.adjust(-margin,-margin,margin,margin);canvas.auto_fit=False;canvas.scale=min(canvas.width()/box.width(),canvas.height()/box.height());canvas.offset=QPointF(canvas.width()/2-box.center().x()*canvas.scale,canvas.height()/2-box.center().y()*canvas.scale);canvas.update();self.update_canvas_footer()

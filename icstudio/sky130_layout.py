@@ -83,7 +83,8 @@ def mos(tech,d,x=0,y=0):
         for key,half in [('licon',85),('li',170),('mcon',85),('m1',170)]:
             box(key,px-half,py-half,px+half,py+half,net if key in ('li','m1') else '')
         pins.append({'id':uid(),'device_id':d['id'],'pin':pin,'layer':ls['m1'],'point':[x+px,y+py]})
-    return {'shapes':shapes,'pins':pins,'record':{'device_id':d['id'],'spec':spec,'origin':[x,y]}}
+    from .layout_eco import roles
+    return roles({'shapes':shapes,'pins':pins,'record':{'device_id':d['id'],'spec':spec,'origin':[x,y]}})
 
 
 def install_mos(p,cid,did,x=0,y=0):
@@ -103,15 +104,8 @@ def configure_connectivity(tech):
 
 
 def regenerate_mos(p,cid,did):
-    c=next(c for c in p['cells'] if c['id']==cid)
-    old=next((r for r in c.get('pdk_layouts',[]) if r['device_id']==did),None)
-    if not old:raise ValueError('No generated footprint is linked to this device.')
-    if old.get('transformed'):raise ValueError('This footprint was rotated or mirrored. Regenerate the complete cell, or restore its original orientation before individual regeneration.')
-    d=resolved(p,cid,next(d for d in c['devices'] if d['id']==did));data=mos(p['pdk'],d,*old['origin'])
-    c['shapes']=[s for s in c['shapes'] if s.get('generated_device')!=did]+data['shapes']
-    c['layout_pins']=[pin for pin in c.get('layout_pins',[]) if pin['device_id']!=did]+data['pins']
-    c['pdk_layouts']=[r for r in c['pdk_layouts'] if r['device_id']!=did]+[data['record']]
-    validate(p)
+    from .layout_eco import regenerate
+    return regenerate(p,cid,did)
 
 
 def inverter_devices(p,cid):

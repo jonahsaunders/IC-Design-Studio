@@ -156,6 +156,7 @@ def scan_local(path, progress=lambda message: None):
             if ' @pinlist @body ' in fmt:
                 body='b' if family=='sky130' and set(symbol['pins'])==set('dgs') else 'body'
                 symbol['pins'][body]=[60,0]
+                symbol['pin_order']=list(symbol['pins'])
                 fmt=fmt.replace(' @pinlist @body ',' @pinlist ')
                 notes.append('Hidden body net exposed as terminal '+body+'; connect it explicitly.')
             # Parse only declarative pinlist/model/parameter formats. Unknown Tcl,

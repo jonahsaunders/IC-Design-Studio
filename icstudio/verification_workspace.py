@@ -66,7 +66,9 @@ class VerificationWorkspaceMixin:
         def submit(v):
             row={k:scalar(v[k]) for k in ('sheet_ohm','cap_f_per_um2','edge_f_per_um','coupling_f_per_um')}
             if row['sheet_ohm']<=0 or any(x<0 for x in row.values()):raise ValueError('Resistance must be positive and capacitance coefficients non-negative.')
-            row['source']=v['source'];self.commit(lambda p:p['pdk'].setdefault('parasitics',{}).update({v['layer']:row}),'Declare RC coefficients')
+            row['source']=v['source']
+            if self.project['pdk'].get('parasitic_corners'):raise ValueError('This project uses coupon-calibrated corners. Import revised coupon measurements to change the coefficients.')
+            self.commit(lambda p:p['pdk'].setdefault('parasitics',{}).update({v['layer']:row}),'Declare RC coefficients')
         return self.workflow_form('Interconnect coefficients',[('layer','Conductor',layers),('sheet_ohm','Sheet resistance (Ohm / square)','0.1'),('cap_f_per_um2','Ground capacitance (F / µm²)','0.02f'),('edge_f_per_um','Ground edge capacitance (F / µm)','0.01f'),('coupling_f_per_um','Parallel coupling (F / µm at 1 µm gap)','0.02f'),('source','Coefficient source / calibration evidence','Illustrative estimate; replace with calibrated values')],submit,'These values are estimates until you supply calibration evidence. Coupling uses inverse edge-gap scaling for parallel routes on the same layer. Wider physical coverage uses the process extraction workflow.')
     def rc_compare_dialog(self):
         cid=self.cid

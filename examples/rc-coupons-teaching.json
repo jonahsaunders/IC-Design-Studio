@@ -1,0 +1,60 @@
+{
+  "source": "Synthetic analytic coupon fixture, not measured process data",
+  "corner": "nominal",
+  "max_relative_error": 0.01,
+  "layers": {
+    "metal1": {
+      "resistance": [
+        {
+          "length_um": 10,
+          "width_um": 1,
+          "resistance_ohm": 1.2
+        },
+        {
+          "length_um": 30,
+          "width_um": 2,
+          "resistance_ohm": 1.7999999999999998
+        },
+        {
+          "length_um": 25,
+          "width_um": 3,
+          "resistance_ohm": 1.0
+        }
+      ],
+      "capacitance": [
+        {
+          "length_um": 10,
+          "width_um": 1,
+          "capacitance_f": 4.2e-16
+        },
+        {
+          "length_um": 20,
+          "width_um": 3,
+          "capacitance_f": 1.6600000000000002e-15
+        },
+        {
+          "length_um": 40,
+          "width_um": 2,
+          "capacitance_f": 2.4400000000000002e-15
+        }
+      ],
+      "coupling": [
+        {
+          "overlap_um": 10,
+          "gap_um": 1,
+          "capacitance_f": 3e-16
+        },
+        {
+          "overlap_um": 20,
+          "gap_um": 2,
+          "capacitance_f": 3e-16
+        },
+        {
+          "overlap_um": 30,
+          "gap_um": 3,
+          "capacitance_f": 3e-16
+        }
+      ]
+    }
+  }
+}

@@ -14,6 +14,8 @@ The current application has native schematic/layout editing, visible grids, reus
 
 ## 2. Make native design a strong destination
 
+Progress in [0.21.1.dev1](UPDATE_0.21.1.md): a small parameterized hierarchy now covers repeated connected moves, exact undo/redo, stable identities and reviewed exchange after source removal. Exported ports reuse their own net labels, avoiding collisions with other nets and repeated label growth. Broader editing and exchange qualification remains open.
+
 Expand parameterized hierarchy, bus editing, symbol authoring and supported model expressions. Improve connection-preserving move/stretch behavior on dense designs, with previews and predictable undo. Broaden migration fixtures across common open libraries, and improve the review of unsupported constructs.
 
 **Done when:** a representative hierarchical project can be imported, migrated, edited, exported, reimported and compared without unexplained topology or parameter changes. Native projects remain usable without Xschem installed.
@@ -26,6 +28,8 @@ Add managed, pinned downloads with progress, interruption/retry, storage estimat
 
 ## 4. Close the electrical–physical loop
 
+Progress in [0.22.0.dev1](UPDATE_0.22.md): connected translation/stretching with physical component guards, queued multilayer route proposals with vias, bounded length tuning and shields, a declarative PCell library, and captured relative KLayout rule dependencies. New geometry is traced to design and technology inputs. Broader process device qualification and calibrated hierarchical extraction remain open.
+
 Extend parametric device coverage and routing feedback. Improve hierarchical extraction, calibrated resistance/capacitance, coupling support, DRC/LVS cross-probing and review of stale physical links. Build process-specific tests around reusable blocks rather than isolated shapes.
 
 **Done when:** a declared process flow can trace a schematic change through regenerated geometry, verification, extraction and before/after specification results with reproducible inputs.
@@ -37,6 +41,8 @@ Build beyond the current finite-difference sensitivity and bounded sampled searc
 **Done when:** every new analysis has a numerical reference, a clear failure state, progress/cancellation behavior and saved inputs that reproduce the result.
 
 ## 6. Scale and collaborate
+
+Progress in [0.22.0.dev1](UPDATE_0.22.md): hierarchical file XOR by layer/datatype, exact area summaries, saved reference snapshots, geometry queries, tiled density and bounded fill/rounding. A reproducible 10,000-square GDS/OASIS workload checks the comparison path. This does not establish large-layout interactive viewport performance.
 
 Profile large schematics, geometry and waveform sets. Introduce measured rendering/indexing improvements, reusable project libraries and reviewable project diffs. Improve plugin/adapter boundaries and regression automation. Evaluate remote workers and team collaboration only after the local document and job model are reliable.
 

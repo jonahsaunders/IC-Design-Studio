@@ -11,7 +11,10 @@ def main(input_path,output_path):
         p=validate(job['project'])
         def progress(fraction,message): print(json.dumps({'progress':fraction,'message':message}),flush=True)
         kind=job['settings'].get('type')
-        if kind=='klayout_drc':
+        if kind in ('layout_route','layout_compare'):
+            from .layout_jobs import run
+            result=run(p,job['cell'],job['settings'],Path(output_path).parent,progress)
+        elif kind=='klayout_drc':
             from .klayout_verification import run
             result=run(p,job['cell'],job['settings'],Path(output_path).parent,progress)
         elif kind=='program':
