@@ -1,19 +1,19 @@
 # IC Design Studio 0.12.0 — schematic and symbol capture
 
 This release extends the native desktop application with familiar capture
-workflows for Xschem and Virtuoso users. Its editable profiles are inspired by
-those tools; they are starting points, not a promise of identical vendor behavior.
+workflows with editable Studio, Classic analog and Xschem-inspired profiles.
+These presets are starting points that can be customized.
 The complete 0.11 layout workspace and existing analog/process workflows remain.
 
 ## Work in the schematic
 
 Choose **Tools → Schematic command profile**. Keyboard bindings apply only while
 the schematic canvas has focus. Symbol editing has its own **Keys** dialog, and
-layout retains its separate Studio/Virtuoso/KLayout profiles. Duplicate bindings
+layout retains its separate Studio/Classic analog/KLayout profiles. Duplicate bindings
 are rejected. Each schematic profile also stores optional Ctrl-drag stretch and
 Alt-right-click wire cutting. Middle drag pans and the wheel zooms.
 
-| Command | Studio | Xschem-inspired | Virtuoso-inspired |
+| Command | Studio | Xschem-inspired | Classic analog |
 |---|---|---|---|
 | Component browser | I | Shift+I | I |
 | Wire / label / ground | W / L / G | W / L / G | W / L / G |
@@ -88,7 +88,7 @@ preserves additional styles only when the visible artwork has not changed.
 External artwork edits take precedence over that payload. No Tcl is executed.
 Generated package import still requires its original symbol lock: use the native
 symbol Import command to reconcile separately edited symbols before exporting a
-new package. This is not an arbitrary Xschem library or Cadence/OpenAccess reader.
+new package. This is not an arbitrary Xschem library or proprietary database reader.
 
 ## Turn circuitry into a reusable cell
 

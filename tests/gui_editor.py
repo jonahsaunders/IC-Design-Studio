@@ -23,7 +23,7 @@ view=Canvas('layout');shapes=[rect('metal1',0,0,1000,1000),rect('metal1',4000,0,
 for s in shapes:s.update(source_id=s['id'],id='placement')
 view.set_data({'shapes':shapes},p['pdk']);view.box_mode='Inside';assert not view.editor_marquee(QRectF(-10,-10,1100,1100));assert view.editor_marquee(QRectF(-10,-10,5020,1020))==['placement'];view.box_mode='Crossing';assert view.editor_marquee(QRectF(-10,-10,1100,1100))==['placement'];view.close();checks.append('inside marquee encloses complete physical instance; crossing includes intersections')
 # One-key profile commands and normal typing in property fields.
-w.set_keyboard_profile('Virtuoso-inspired',{});canvas.setFocus();QTest.keyClick(canvas,Qt.Key_R);assert canvas.tool=='rect';QTest.keyClick(canvas,Qt.Key_Escape);assert canvas.tool=='select'
+w.set_keyboard_profile('Classic analog',{});canvas.setFocus();QTest.keyClick(canvas,Qt.Key_R);assert canvas.tool=='rect';QTest.keyClick(canvas,Qt.Key_Escape);assert canvas.tool=='select'
 w.start_layout_tool('path');w.editor_width.setFocus();w.editor_width.selectAll();QTest.keyClicks(w.editor_width,'0.5');assert canvas.tool=='path';w.apply_editor_options();assert canvas.line_width==500;w.cancel_tool()
 with_error=False
 try:w.set_keyboard_profile('Studio',{'move':'R'})

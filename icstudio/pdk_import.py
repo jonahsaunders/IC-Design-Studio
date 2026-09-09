@@ -208,6 +208,14 @@ def scan_local(path, progress=lambda message: None):
             create_device(tech,key,'CHECK')
         except (ValueError,KeyError,IndexError,SyntaxError,ZeroDivisionError) as e:entry['unavailable']=str(e)
         catalog[key]=entry;files[rel]=file_digest(sym)
+    # Keep attribution and model compilation sources with managed copies.
+    for pattern in ('LICENSE*','COPYING*','NOTICE*','SOURCES*','UPSTREAM-LOCK.json','VERILOG-A-SOURCE-LOCK.json'):
+        for file in root.glob(pattern):
+            if file.is_file():files[file.relative_to(root).as_posix()]=file_digest(file)
+    if family=='ihp-sg13g2':
+        for file in (root/'libs.tech/verilog-a').rglob('*'):
+            if file.is_file() and file.suffix.lower() not in ('.osdi','.so','.dll','.o','.obj','.pyc'):
+                files[file.relative_to(root).as_posix()]=file_digest(file)
     # Immutable content identity includes symbols, models and layer presentation.
     tech.pop('package_lock',None);revision=digest({'files':files,'technology':tech})[:16];tech['revision']=revision
     return {'schema':1,'id':root.name,'revision':revision,'source_root':str(root),'family':family,'files':files,'technology':tech}

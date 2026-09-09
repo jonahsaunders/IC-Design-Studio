@@ -16,9 +16,15 @@ from .plot import WavePlot, COLORS
 from .ui_style import icon, palette, stylesheet, apply_native_window_theme
 from . import __version__
 
-DEVICE_NAMES={'R':'Resistor','C':'Capacitor','L':'Inductor','V':'Voltage source','I':'Current source','NMOS':'NMOS transistor','PMOS':'PMOS transistor','X':'Cell instance','PDK':'PDK device'}
-DEVICE_ICONS={'R':'resistor','C':'capacitor','L':'inductor','V':'voltage','I':'current','NMOS':'chip','PMOS':'chip','X':'cell','PDK':'chip'}
+DEVICE_NAMES={'R':'Resistor','C':'Capacitor','L':'Inductor','V':'Voltage source','I':'Current source','NMOS':'NMOS transistor','PMOS':'PMOS transistor','X':'Cell instance','PDK':'PDK device','XS':'Xschem component','SPICE':'Native SPICE component'}
+DEVICE_ICONS={'R':'resistor','C':'capacitor','L':'inductor','V':'voltage','I':'current','NMOS':'chip','PMOS':'chip','X':'cell','PDK':'chip','XS':'chip','SPICE':'chip'}
 ANALYSES={'tran':'Transient','op':'Operating point','dc':'DC sweep','ac':'AC response','noise':'Noise','study':'Study','post_layout':'Post-layout estimate','connectivity':'Physical connectivity','parasitics':'Capacitance estimate','drc':'Geometry DRC','deck':'SPICE testbench'}
+ANALYSES['xschem']='Xschem program'
+ANALYSES['program']='Native simulation program'
+
+def device_description(d):
+    info=d.get('native_spice')
+    return ('Simulation program' if info['type']=='program' else info['label']) if info else DEVICE_NAMES[d['kind']]
 
 def label(text='',role=None):
     w=QLabel(text)
@@ -187,7 +193,7 @@ class WorkspaceMixin:
         self.schematic.set_data(self.cell,self.project['pdk'],self.selection,self.net);self.layout.set_data(self.cell,self.project['pdk'],self.selection,self.net)
         self.outline.blockSignals(True);self.outline.clear()
         for d in self.cell['devices']:
-            it=QListWidgetItem(d['name']+'   '+DEVICE_NAMES[d['kind']]);it.setData(Qt.UserRole,d['id']);it.setToolTip(d['name']+' · '+d.get('value',''));it.setIcon(icon(DEVICE_ICONS[d['kind']],t['muted']));self.outline.addItem(it);it.setSelected(d['id'] in self.selection)
+            it=QListWidgetItem(d['name']+'   '+device_description(d));it.setData(Qt.UserRole,d['id']);it.setToolTip(d['name']+' · '+d.get('value',''));it.setIcon(icon(DEVICE_ICONS[d['kind']],t['muted']));self.outline.addItem(it);it.setSelected(d['id'] in self.selection)
         self.outline.blockSignals(False);self.nav_empty.setVisible(not self.cell['devices']);self.layers.blockSignals(True);self.layers.clear()
         for l in self.project['pdk']['layers']:
             it=QListWidgetItem(l['name']);it.setIcon(icon('layers',l['color']));it.setFlags(it.flags()|Qt.ItemIsUserCheckable);it.setCheckState(Qt.Checked if l['name'] in self.layout.visible_layers else Qt.Unchecked);self.layers.addItem(it)
@@ -351,10 +357,16 @@ class WorkspaceMixin:
             else:self.form.addWidget(self.button('Draw a rectangle','rect',lambda:self.set_tool(2),role='secondary'))
             self.form.addStretch();self._building_inspector=False;return
         obj=objects[0];self.inspected_id=obj['id'];is_device='nets' in obj;self._inspected_device=is_device
-        self.form.addWidget(label(obj['name'] if is_device else {'rect':'Rectangle','polygon':'Polygon','path':'Path'}[obj['kind']],'title'));self.form.addWidget(label(DEVICE_NAMES[obj['kind']] if is_device else obj['layer']+' geometry','muted'))
+        self.form.addWidget(label(obj['name'] if is_device else {'rect':'Rectangle','polygon':'Polygon','path':'Path'}[obj['kind']],'title'));self.form.addWidget(label(device_description(obj) if is_device else obj['layer']+' geometry','muted'))
         if is_device:
             f=self.section('Electrical');self.field('Designator',obj['name'],'Name',f)
-            if obj['kind'] not in ('NMOS','PMOS','X','PDK'):self.field('Value',obj['value'],form=f,placeholder='e.g. 10k')
+            if obj.get('native_spice'):
+                self.form.addWidget(self.button('Edit device parameters…',fn=lambda:self.edit_native_properties(obj['id'])))
+                f.addRow('Definition',label(obj['native_spice'].get('label','Simulation program')))
+            if obj['kind']=='XS':
+                self.form.addWidget(self.button('Edit Xschem properties…',fn=lambda:self.edit_xschem_properties(obj['id'])))
+                f.addRow('Symbol',label(obj['xschem']['reference']))
+            if obj['kind'] not in ('NMOS','PMOS','X','PDK','XS','SPICE'):self.field('Value',obj['value'],form=f,placeholder='e.g. 10k')
             if obj['kind'] in ('NMOS','PMOS'):
                 self.field('Width',obj['params']['w'],'param:w',f);self.field('Length',obj['params']['l'],'param:l',f)
             f=self.section('Connections')
@@ -376,7 +388,7 @@ class WorkspaceMixin:
         else:
             f=self.section('Assignment');layers=QComboBox();layers.addItems([l['name'] for l in self.project['pdk']['layers']]);layers.setCurrentText(obj['layer']);layers.currentIndexChanged.connect(self.inspector_changed);self.form_fields['layer']=layers;f.addRow('Layer',layers);self.field('Net',obj.get('net',''),form=f)
             linked=QComboBox();linked.addItem('None','')
-            for d in self.cell['devices']:linked.addItem(d['name']+' · '+DEVICE_NAMES[d['kind']],d['id'])
+            for d in self.cell['devices']:linked.addItem(d['name']+' · '+device_description(d),d['id'])
             linked.setCurrentIndex(max(0,linked.findData(obj.get('device_id',''))));linked.currentIndexChanged.connect(self.inspector_changed);self.form_fields['device_link']=linked;f.addRow('Component',linked)
             f=self.section('Geometry (µm)')
             if obj['kind']=='rect':
@@ -465,7 +477,7 @@ class WorkspaceMixin:
         if self._loading_analysis:return
         self.analysis_dirty=True;self.analysis_error.hide()
     def analysis_visibility(self,*args):
-        typ=self.analysis_type.currentData();visible={'tran':{'stop','step'},'op':set(),'dc':{'dc_start','dc_stop','dc_step'},'ac':{'start','end','points'},'noise':{'start','end','points','temperature'}}[typ]
+        typ=self.analysis_type.currentData();visible={'tran':{'stop','step'},'op':set(),'dc':{'dc_start','dc_stop','dc_step'},'ac':{'start','end','points'},'noise':{'start','end','points','temperature'},'xschem':set()}.get(typ,set())
         for k,w in self.analysis_fields.items():w.setVisible(k in visible);self.analysis_form.labelForField(w).setVisible(k in visible)
         self.analysis_source.setVisible(typ=='dc');self.analysis_form.labelForField(self.analysis_source).setVisible(typ=='dc')
         self.analysis_form.labelForField(self.analysis_fields['points']).setText('Points / decade' if self.analysis_engine.currentData()=='ngspice' and typ=='ac' else 'Points')

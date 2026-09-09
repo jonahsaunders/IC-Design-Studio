@@ -60,16 +60,8 @@ class SchematicMixin(NetLabelMixin):
 
     def move_wire_segment(self,ident,index,dx,dy):
         def edit(p):
-            c=next(c for c in p['cells'] if c['id']==self.cid);w=next(w for w in c['wires'] if w['id']==ident)
-            a,b=w['points'][index:index+2];shift=[0,dy] if a[1]==b[1] else [dx,0]
-            contacts={tuple(pt) for pt in wiring.pins(c,p).values()}|{tuple(pt) for other in c['wires'] if other['id']!=ident for pt in other['points']}|{tuple(pt) for pt in c.get('junctions',[])}
-            for label in c.get('labels',[]):
-                anchor=label['anchor']
-                if anchor['kind']=='wire' and anchor['id']==ident and wiring.on_segment(anchor['point'],a,b):anchor['point']=[anchor['point'][0]+shift[0],anchor['point'][1]+shift[1]]
-            w['points']=wiring.segment_drag(w['points'],index,dx,dy)
-            for point in contacts:
-                if list(point) not in (a,b) and wiring.on_segment(point,a,b) and any(shift):
-                    c['wires'].append({'id':uid(),'points':[list(point),[point[0]+shift[0],point[1]+shift[1]]]})
+            c=next(c for c in p['cells'] if c['id']==self.cid)
+            wiring.reshape_segment(c,ident,index,dx,dy,p)
         self.commit(edit,'Move wire segment')
 
     def move(self,ids,x,y,mode):

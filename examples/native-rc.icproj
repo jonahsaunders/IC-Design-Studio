@@ -1,0 +1,1033 @@
+{
+  "schema": 1,
+  "id": "927ccf8898d041e0",
+  "name": "Native RC extraction",
+  "revision": 0,
+  "top": "bd16f4a6acc24845",
+  "created": "2026-09-09T14:34:21+00:00",
+  "modified": "2026-09-09T14:34:21+00:00",
+  "pdk": {
+    "name": "Generic teaching process",
+    "revision": "generic-1",
+    "status": "unqualified",
+    "dbu_um": 0.001,
+    "grid": 5,
+    "layers": [
+      {
+        "name": "active",
+        "gds": 1,
+        "datatype": 0,
+        "color": "#64c77b",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "poly",
+        "gds": 2,
+        "datatype": 0,
+        "color": "#f18c89",
+        "width": 150,
+        "space": 180
+      },
+      {
+        "name": "contact",
+        "gds": 3,
+        "datatype": 0,
+        "color": "#d2d9de",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "metal1",
+        "gds": 4,
+        "datatype": 0,
+        "color": "#68a6f4",
+        "width": 200,
+        "space": 200
+      },
+      {
+        "name": "via1",
+        "gds": 5,
+        "datatype": 0,
+        "color": "#ddc086",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "metal2",
+        "gds": 6,
+        "datatype": 0,
+        "color": "#b49cef",
+        "width": 250,
+        "space": 250
+      },
+      {
+        "name": "nwell",
+        "gds": 7,
+        "datatype": 0,
+        "color": "#d2ab6a",
+        "width": 1000,
+        "space": 500
+      }
+    ],
+    "parasitics": {
+      "metal1": {
+        "sheet_ohm": 2,
+        "cap_f_per_um2": 1e-16,
+        "edge_f_per_um": 1e-17,
+        "coupling_f_per_um": 2e-17
+      }
+    }
+  },
+  "cells": [
+    {
+      "id": "bd16f4a6acc24845",
+      "name": "top",
+      "ports": [
+        "vout"
+      ],
+      "devices": [
+        {
+          "id": "a67358f8c3844f89",
+          "kind": "SPICE",
+          "name": "V1",
+          "x": 180,
+          "y": 260,
+          "rotation": 0,
+          "nets": {
+            "p": "vin",
+            "n": "0"
+          },
+          "value": "1",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "pulse",
+            "low": "0",
+            "high": "1",
+            "period": "10n",
+            "delay": "0.2n",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "symbol": {
+            "pins": {
+              "p": [
+                0,
+                -50
+              ],
+              "n": [
+                0,
+                50
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0,
+                    -50
+                  ],
+                  [
+                    0,
+                    -20
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0,
+                    20
+                  ],
+                  [
+                    0,
+                    50
+                  ]
+                ]
+              },
+              {
+                "kind": "ellipse",
+                "points": [
+                  [
+                    -20,
+                    -20
+                  ],
+                  [
+                    20,
+                    20
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -4,
+                    -7
+                  ],
+                  [
+                    4,
+                    -7
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0,
+                    -11
+                  ],
+                  [
+                    0,
+                    -3
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -4,
+                    8
+                  ],
+                  [
+                    4,
+                    8
+                  ]
+                ]
+              }
+            ],
+            "pin_order": [
+              "p",
+              "n"
+            ]
+          },
+          "native_spice": {
+            "version": 1,
+            "type": "device",
+            "label": "V",
+            "model_name": "V",
+            "tokens": [
+              {
+                "kind": "instance"
+              },
+              {
+                "kind": "literal",
+                "value": " "
+              },
+              {
+                "kind": "terminals"
+              },
+              {
+                "kind": "literal",
+                "value": " "
+              },
+              {
+                "kind": "parameter",
+                "value": "value"
+              }
+            ],
+            "parameters": {
+              "value": "PULSE(0 1 2e-10 1e-13 1e-13 5e-09 1e-08) AC 1"
+            },
+            "definition": ""
+          },
+          "symbol_context": {
+            "name": "V1",
+            "value": "PULSE(0 1 2e-10 1e-13 1e-13 5e-09 1e-08) AC 1"
+          },
+          "terminal_ids": {
+            "p": "t_609b53156d2567f57a2537b9",
+            "n": "t_a2a9915f8eaa6e83a24b2ba7"
+          },
+          "net_ids": {
+            "p": "n_f1b3157dbf6f61663bc7f034",
+            "n": "n_26f1a9ec10580b7094d8a529"
+          }
+        },
+        {
+          "id": "285b527b5b7c4818",
+          "kind": "SPICE",
+          "name": "R1",
+          "x": 420,
+          "y": 180,
+          "rotation": 270,
+          "nets": {
+            "p": "vin",
+            "n": "vout"
+          },
+          "value": "1k",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "symbol": {
+            "pins": {
+              "p": [
+                0,
+                -50
+              ],
+              "n": [
+                0,
+                50
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0,
+                    -50
+                  ],
+                  [
+                    0,
+                    -24
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0,
+                    24
+                  ],
+                  [
+                    0,
+                    50
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0,
+                    -24
+                  ],
+                  [
+                    7,
+                    -20
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    7,
+                    -20
+                  ],
+                  [
+                    -7,
+                    -12
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7,
+                    -12
+                  ],
+                  [
+                    7,
+                    -4
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    7,
+                    -4
+                  ],
+                  [
+                    -7,
+                    4
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7,
+                    4
+                  ],
+                  [
+                    7,
+                    12
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    7,
+                    12
+                  ],
+                  [
+                    -7,
+                    20
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7,
+                    20
+                  ],
+                  [
+                    0,
+                    24
+                  ]
+                ]
+              }
+            ],
+            "pin_order": [
+              "p",
+              "n"
+            ]
+          },
+          "native_spice": {
+            "version": 1,
+            "type": "device",
+            "label": "R",
+            "model_name": "R",
+            "tokens": [
+              {
+                "kind": "instance"
+              },
+              {
+                "kind": "literal",
+                "value": " "
+              },
+              {
+                "kind": "terminals"
+              },
+              {
+                "kind": "literal",
+                "value": " "
+              },
+              {
+                "kind": "parameter",
+                "value": "value"
+              }
+            ],
+            "parameters": {
+              "value": "1k"
+            },
+            "definition": ""
+          },
+          "symbol_context": {
+            "name": "R1",
+            "value": "1k"
+          },
+          "physical_binding": {
+            "version": 1,
+            "kind": "R",
+            "terminals": {
+              "p": "p",
+              "n": "n"
+            },
+            "parameters": {
+              "value": {
+                "name": "value",
+                "scale": 1
+              }
+            }
+          },
+          "terminal_ids": {
+            "p": "t_842e67e15dc732b9aa9f4843",
+            "n": "t_04db549abe6494ddb9cf560f"
+          },
+          "net_ids": {
+            "p": "n_f1b3157dbf6f61663bc7f034",
+            "n": "n_cb265ff921b074b9d06a8cca"
+          }
+        },
+        {
+          "id": "78510f1eab534efd",
+          "kind": "SPICE",
+          "name": "C1",
+          "x": 650,
+          "y": 260,
+          "rotation": 0,
+          "nets": {
+            "p": "vout",
+            "n": "0"
+          },
+          "value": "10f",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "symbol": {
+            "pins": {
+              "p": [
+                0,
+                -50
+              ],
+              "n": [
+                0,
+                50
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0,
+                    -50
+                  ],
+                  [
+                    0,
+                    -5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0,
+                    5
+                  ],
+                  [
+                    0,
+                    50
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -16,
+                    -5
+                  ],
+                  [
+                    16,
+                    -5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -16,
+                    5
+                  ],
+                  [
+                    16,
+                    5
+                  ]
+                ]
+              }
+            ],
+            "pin_order": [
+              "p",
+              "n"
+            ]
+          },
+          "native_spice": {
+            "version": 1,
+            "type": "device",
+            "label": "C",
+            "model_name": "C",
+            "tokens": [
+              {
+                "kind": "instance"
+              },
+              {
+                "kind": "literal",
+                "value": " "
+              },
+              {
+                "kind": "terminals"
+              },
+              {
+                "kind": "literal",
+                "value": " "
+              },
+              {
+                "kind": "parameter",
+                "value": "value"
+              }
+            ],
+            "parameters": {
+              "value": "10f"
+            },
+            "definition": ""
+          },
+          "symbol_context": {
+            "name": "C1",
+            "value": "10f"
+          },
+          "physical_binding": {
+            "version": 1,
+            "kind": "C",
+            "terminals": {
+              "p": "p",
+              "n": "n"
+            },
+            "parameters": {
+              "value": {
+                "name": "value",
+                "scale": 1
+              }
+            }
+          },
+          "terminal_ids": {
+            "p": "t_b3ad3a0aa425a62a3b891ed6",
+            "n": "t_53a00c43ec2e006e14dde467"
+          },
+          "net_ids": {
+            "p": "n_cb265ff921b074b9d06a8cca",
+            "n": "n_26f1a9ec10580b7094d8a529"
+          }
+        },
+        {
+          "id": "9e9da0c3ccbb4cc5",
+          "kind": "SPICE",
+          "name": "Analyses",
+          "x": 900,
+          "y": 100,
+          "rotation": 0,
+          "nets": {},
+          "value": "1",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "symbol": {
+            "pins": {},
+            "pin_order": [],
+            "pin_meta": {},
+            "attributes": {},
+            "primitives": [
+              {
+                "kind": "rect",
+                "points": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    180,
+                    45
+                  ]
+                ]
+              },
+              {
+                "kind": "text",
+                "points": [
+                  [
+                    8,
+                    8
+                  ],
+                  [
+                    170,
+                    35
+                  ]
+                ],
+                "text": "@name: simulation program",
+                "font_size": 9
+              }
+            ]
+          },
+          "native_spice": {
+            "version": 1,
+            "type": "program",
+            "text": ".control\nop\ntran 50p 2n\n.endc",
+            "only_toplevel": true
+          },
+          "symbol_context": {
+            "name": "Analyses"
+          },
+          "terminal_ids": {},
+          "net_ids": {}
+        }
+      ],
+      "shapes": [
+        {
+          "id": "59e4731d568c453e",
+          "kind": "rect",
+          "layer": "poly",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              10000,
+              1000
+            ]
+          ],
+          "device_id": "285b527b5b7c4818",
+          "net": "",
+          "pcell_role": "body",
+          "pcell_id": "7ca385bd5f8b40a6"
+        },
+        {
+          "id": "48298ea8ea024121",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              -500,
+              0
+            ],
+            [
+              500,
+              1000
+            ]
+          ],
+          "device_id": "285b527b5b7c4818",
+          "net": "vin",
+          "pcell_role": "positive",
+          "pcell_id": "7ca385bd5f8b40a6"
+        },
+        {
+          "id": "acf2e1f1e64f4faa",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              9500,
+              0
+            ],
+            [
+              10500,
+              1000
+            ]
+          ],
+          "device_id": "285b527b5b7c4818",
+          "net": "vout",
+          "pcell_role": "negative",
+          "pcell_id": "7ca385bd5f8b40a6"
+        },
+        {
+          "id": "33fce14afb7848ef",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              30000,
+              0
+            ],
+            [
+              33165,
+              3160
+            ]
+          ],
+          "device_id": "78510f1eab534efd",
+          "net": "vout",
+          "pcell_role": "bottom",
+          "pcell_id": "054ec7b9c0934216"
+        },
+        {
+          "id": "c34d43ee8b604bbe",
+          "kind": "rect",
+          "layer": "metal2",
+          "points": [
+            [
+              30000,
+              0
+            ],
+            [
+              33165,
+              3160
+            ]
+          ],
+          "device_id": "78510f1eab534efd",
+          "net": "0",
+          "pcell_role": "top",
+          "pcell_id": "054ec7b9c0934216"
+        },
+        {
+          "id": "route1",
+          "kind": "path",
+          "layer": "metal1",
+          "points": [
+            [
+              10000,
+              500
+            ],
+            [
+              31585,
+              500
+            ],
+            [
+              31585,
+              1580
+            ]
+          ],
+          "width": 400,
+          "net": "vout",
+          "device_id": ""
+        }
+      ],
+      "parametric_devices": [
+        {
+          "id": "7ca385bd5f8b40a6",
+          "device_id": "285b527b5b7c4818",
+          "spec": {
+            "x": 0,
+            "y": 0,
+            "width": 1000,
+            "kind": "resistor"
+          },
+          "electrical": {
+            "target": 1000.0,
+            "realized": 1000.0,
+            "unit": "Ohm"
+          },
+          "source_signature": "ccd6950e667908151e82f3edbfef8177f8ae102994a25258bc26db3e476fec63",
+          "rules_hash": "4f69b6f6ef0e8243653c942b2123609bd5b22f0cc450c529b0ad2b19013c5662",
+          "qualification": "Illustrative teaching geometry; electrical coefficients are declared examples, not calibrated process data.",
+          "geometry_signature": "495e937b922ec83fd884b027c2c2c11f249c0e5f284d61ee258c5e1240a45790",
+          "reference": {
+            "role": "body",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                10000,
+                1000
+              ]
+            ]
+          },
+          "binding": {
+            "version": 1,
+            "kind": "R",
+            "terminals": {
+              "p": "p",
+              "n": "n"
+            },
+            "parameters": {
+              "value": {
+                "name": "value",
+                "scale": 1
+              }
+            }
+          }
+        },
+        {
+          "id": "054ec7b9c0934216",
+          "device_id": "78510f1eab534efd",
+          "spec": {
+            "x": 30000,
+            "y": 0,
+            "kind": "capacitor"
+          },
+          "electrical": {
+            "target": 1.0000000000000002e-14,
+            "realized": 1.00014e-14,
+            "unit": "F"
+          },
+          "source_signature": "995d3e5375821be181921b0849b72dea99b598d685f7ca642e0d8a2a875909ab",
+          "rules_hash": "4f69b6f6ef0e8243653c942b2123609bd5b22f0cc450c529b0ad2b19013c5662",
+          "qualification": "Illustrative teaching geometry; electrical coefficients are declared examples, not calibrated process data.",
+          "geometry_signature": "e420bda18e9c5fb24e9a2d01d487304405ece2ab8cc3ede2620139c93e09173b",
+          "reference": {
+            "role": "bottom",
+            "points": [
+              [
+                30000,
+                0
+              ],
+              [
+                33165,
+                3160
+              ]
+            ]
+          },
+          "binding": {
+            "version": 1,
+            "kind": "C",
+            "terminals": {
+              "p": "p",
+              "n": "n"
+            },
+            "parameters": {
+              "value": {
+                "name": "value",
+                "scale": 1
+              }
+            }
+          }
+        }
+      ],
+      "layout_pins": [
+        {
+          "id": "67f20cc785f342a9",
+          "device_id": "285b527b5b7c4818",
+          "pin": "p",
+          "layer": "metal1",
+          "point": [
+            0,
+            500
+          ]
+        },
+        {
+          "id": "8c06eed99eac4681",
+          "device_id": "285b527b5b7c4818",
+          "pin": "n",
+          "layer": "metal1",
+          "point": [
+            10000,
+            500
+          ]
+        },
+        {
+          "id": "a87e904840fa4729",
+          "device_id": "78510f1eab534efd",
+          "pin": "p",
+          "layer": "metal1",
+          "point": [
+            31585,
+            1580
+          ]
+        },
+        {
+          "id": "84da5c0288d74e31",
+          "device_id": "78510f1eab534efd",
+          "pin": "n",
+          "layer": "metal2",
+          "point": [
+            31585,
+            1580
+          ]
+        }
+      ],
+      "layout_ports": [
+        {
+          "name": "vout",
+          "layer": "metal1",
+          "point": [
+            31585,
+            1580
+          ]
+        }
+      ],
+      "specifications": [
+        {
+          "name": "Output",
+          "expression": "final(V(\"vout\"))",
+          "min": ".5",
+          "max": "1.1",
+          "unit": "V"
+        }
+      ],
+      "electrical": {
+        "version": 1,
+        "nets": [
+          {
+            "id": "n_26f1a9ec10580b7094d8a529",
+            "name": "0",
+            "terminals": [
+              "t_53a00c43ec2e006e14dde467",
+              "t_a2a9915f8eaa6e83a24b2ba7"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_f1b3157dbf6f61663bc7f034",
+            "name": "vin",
+            "terminals": [
+              "t_609b53156d2567f57a2537b9",
+              "t_842e67e15dc732b9aa9f4843"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_cb265ff921b074b9d06a8cca",
+            "name": "vout",
+            "terminals": [
+              "t_04db549abe6494ddb9cf560f",
+              "t_b3ad3a0aa425a62a3b891ed6"
+            ],
+            "wires": []
+          }
+        ]
+      }
+    }
+  ],
+  "analysis": {
+    "type": "tran",
+    "stop": "2n",
+    "step": "0.05n",
+    "start": "10",
+    "end": "10meg",
+    "points": 150,
+    "source": "V1",
+    "dc_start": "0",
+    "dc_stop": "1.8",
+    "dc_step": "0.01",
+    "temperature": 27,
+    "engine": "ngspice"
+  },
+  "waivers": [],
+  "spice": {
+    "version": 1,
+    "assets": {},
+    "library_lock": {}
+  }
+}

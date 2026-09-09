@@ -1,0 +1,647 @@
+{
+  "schema": 1,
+  "libraries": {
+    "xschem": {
+      "revision": "3.4.4-1build1",
+      "source": "https://sourceforge.net/projects/xschem/",
+      "files": {
+        "xschem/COPYRIGHT": {
+          "sha256": "a90684e326aa4f5df152505b4c06d6a58dbe68eeb22257e698f957c3689adba0"
+        },
+        "xschem/devices/title-3.sym": {
+          "sha256": "8ad44598d7d1444b3e672e14591c509241c277b1ead370c95569c51433e9700d"
+        },
+        "xschem/devices/noconn.sym": {
+          "sha256": "3db654ea705fd51b11d507d5aaacbe05890258360ba6bc256bfbe97f7884beba"
+        },
+        "xschem/devices/launcher.sym": {
+          "sha256": "23b3ee518164bbc387d1fb916697df2e78132cdaaf1db24234868ba677c0b2e2"
+        },
+        "xschem/devices/opin.sym": {
+          "sha256": "4ea23d3f559ad26c3c8b4255483ed3789b157a04c539749b14277dfc267a24c5"
+        },
+        "xschem/devices/dac_bridge.sym": {
+          "sha256": "dd72635d1cc3790985d421d18df6701be7bfc1ab33841a51c17f061786042ba5"
+        },
+        "xschem/devices/flash_cell.sym": {
+          "sha256": "89ec57e642a3852f63106acf4e08294628aeebdb76779762417a02cbeb9dde9a"
+        },
+        "xschem/devices/ammeter.sym": {
+          "sha256": "5c676741487ac11351a0cb5f1c503076688aad2ac73f4476a74c030060356f0c"
+        },
+        "xschem/devices/nmos4.sym": {
+          "sha256": "fc990ea7a8a38266e4937f6e57cd29a9708e7faa73d4eddd0d9a8982c4b47b42"
+        },
+        "xschem/devices/switch_ngspice.sym": {
+          "sha256": "a82c2ee7333f57ce8a3853cb2decafdecb1987ee9871402869f51cb6f2bcb43c"
+        },
+        "xschem/devices/short.sym": {
+          "sha256": "1cdaf1a7120df8c73153ecb0f39528cb27b2fea8fbf0473a411dcd1672371206"
+        },
+        "xschem/devices/bus_connect_nolab.sym": {
+          "sha256": "71bd6221b27933e46e0a968a6357e54e500859b7f8a709730ae1e8afad193351"
+        },
+        "xschem/devices/capa-2.sym": {
+          "sha256": "9ea8c51ab42a8acc1f80d94d19ad8bbfbc0e65e05f3b2f2077dc30e808594927"
+        },
+        "xschem/devices/vcr.sym": {
+          "sha256": "8e9ea295c3d9c1e4591452b2669994e9fd74317889a748d677bf6fbafaef3e20"
+        },
+        "xschem/devices/isource_table.sym": {
+          "sha256": "7fb724b9dcca67f53554372e5dceae3b77b644c2b4311978743a312cf32cfae9"
+        },
+        "xschem/devices/crystal.sym": {
+          "sha256": "a572266d25084e346ba784f7e627a9372868fa37bf3df12692c7d4ef62f40151"
+        },
+        "xschem/devices/netlist_options.sym": {
+          "sha256": "1792323790c2eded40da644f6ec17586284292533bdf891b39b0c29234bc5307"
+        },
+        "xschem/devices/ind.sym": {
+          "sha256": "d89501d7e24372469216967b68b724f1d0bee06f553cbecedb848a65e1c33b3c"
+        },
+        "xschem/devices/conn_3x1.sym": {
+          "sha256": "fde926835ef6f335024ee2f51762904af329d1a4dcd5fdb65f5d5315bd32fabe"
+        },
+        "xschem/devices/pmosnat.sym": {
+          "sha256": "5328869badccc154cb2c05c3f4d4cad63c16adc0ea1163571ba1e209788f15b3"
+        },
+        "xschem/devices/netlist_not_shown.sym": {
+          "sha256": "011993a5c2ccbd88641b45f55785b6318b5a3d8a715adc9fe7e955db8f8b4b84"
+        },
+        "xschem/devices/pmos4.sym": {
+          "sha256": "a61d87732d36a28161acb7b3cd590cd1ec4d1328e471fdbc0d052b917ee17521"
+        },
+        "xschem/devices/vcvs.sym": {
+          "sha256": "348e63e22041d809c962e5d10547df4cb0124b01035a4677ff588a396f89982a"
+        },
+        "xschem/devices/port_attributes.sym": {
+          "sha256": "ddf79353ca7f74b930e60809ca7256c8c9f090ee2428ae9815f49fa3b5963b57"
+        },
+        "xschem/devices/vdd.sym": {
+          "sha256": "e5bea3555af0507cda77a7cd8223eecaaa8104f13339d3720f583a2cd0c072f5"
+        },
+        "xschem/devices/simulator_commands_shown.sym": {
+          "sha256": "717d176bb3a42ddd99cab90b0d83adb647bc3923a251c0e25d601494dcab9cf5"
+        },
+        "xschem/devices/switch.sym": {
+          "sha256": "27e82ce40a6a0662aca07fd75394185c52e812cea3347247aa19466ef2db1bc4"
+        },
+        "xschem/devices/ngspice_get_expr.sym": {
+          "sha256": "c2edab1414fc3c3e8a8d4901a342f2b2db7707dab57061fb42647238e87f8868"
+        },
+        "xschem/devices/capa.sym": {
+          "sha256": "47c0e324f10940ccc8a03d70bb924f22f29639268e728fe6d353f255e7578fb8"
+        },
+        "xschem/devices/conn_6x1.sym": {
+          "sha256": "c815ea7b1ab1363fe159a182a033d1308491bc891426fbf94f144ed94d8ed71d"
+        },
+        "xschem/devices/jumper.sym": {
+          "sha256": "26a74eaa837e34f1da4d09a7e2b0f75801898bfd67c3744fe89cd3ff994f5ed3"
+        },
+        "xschem/devices/arch_declarations.sym": {
+          "sha256": "16440cdf6c4fbc0a080b170444c50331e1afab1000641ec39cb7915b70210170"
+        },
+        "xschem/devices/pmoshv4.sym": {
+          "sha256": "9a75b7db8ac50ee93cbd071004dfba58bf4639e8f5dfd33b613707366476aede"
+        },
+        "xschem/devices/generic_pin.sym": {
+          "sha256": "f208b9b2ccc94c02c671c52ae2292fc646efe1addb91ef40f697c9473486978c"
+        },
+        "xschem/devices/pjfet.sym": {
+          "sha256": "49cbdf74a7b6790d8ce9ce04ade08aa135f710590a05cc0b9297d4093bd70291"
+        },
+        "xschem/devices/use.sym": {
+          "sha256": "c37e47907c0e94f09ae2a8118189210967fc1f3a007d2d563e03a665b39ac763"
+        },
+        "xschem/devices/verilog_delay.sym": {
+          "sha256": "7733a00087d29554091215e76533a8455ab8325e8c00e4233031e90085a6feab"
+        },
+        "xschem/devices/pmos-sub.sym": {
+          "sha256": "22451db3878f39803c9d0ff2e9347d5bc358f3acec3a11b8da4d7724888be12c"
+        },
+        "xschem/devices/package.sym": {
+          "sha256": "cf9d42549ea75f1bda5222158d2d0b645ff2e53885d7ef04fa142d2fa66603d1"
+        },
+        "xschem/devices/netlist_not_shown_at_end.sym": {
+          "sha256": "aa5d74a739b6cdddd42eb4492b2f5fae90b4356e3af1ca50a2a9cb7f5b6788cb"
+        },
+        "xschem/devices/lab_pin.sym": {
+          "sha256": "cee341b41b4fa5cfbbd4bba8645d4b54b23147ca1400a5c082a8a93742744a78"
+        },
+        "xschem/devices/var_res.sym": {
+          "sha256": "02468ad5bbd52d613b96e26fc1e2721a6a01f146608b364110a4e9f3f01eba30"
+        },
+        "xschem/devices/sqwsource.sym": {
+          "sha256": "d36a939cbdf3081331f382ad882832ca9a0a4875159ec3b6c6db2923768d170e"
+        },
+        "xschem/devices/iopin.sym": {
+          "sha256": "462c6dde4057a63c3105336cf5b0c6b905ac8a959a61fc0735259f5a5fae0ab5"
+        },
+        "xschem/devices/connector.sym": {
+          "sha256": "7b44f4b766a6c5345358ccd327838cf685b6325a51c11127c49b3fd974c8f249"
+        },
+        "xschem/devices/code_shown.sym": {
+          "sha256": "c824815cd0f2a4dbc034c9487aa6e05514b35f8ff29b524c4fdf84d825b2df50"
+        },
+        "xschem/devices/cccs.sym": {
+          "sha256": "e059f231babf045cac9865e95dca5a45a175809c8533047106cc8ad0ef89d9a9"
+        },
+        "xschem/devices/vsource.sym": {
+          "sha256": "157991f788870354c3675771fa3321a2a9e8969535c873352917d5ee4c951936"
+        },
+        "xschem/devices/isource_pwl.sym": {
+          "sha256": "6b6afb24b379a80be8292f2b35f725711ee8228377d6064ad19e45d115ad9b4c"
+        },
+        "xschem/devices/isource_arith.sym": {
+          "sha256": "2c6ddb4cb3d16755acfbd5b0be57d0761a9ef00e9de2d37470730f1878458734"
+        },
+        "xschem/devices/ipin.sym": {
+          "sha256": "9e77afac0a91598f1e372f1f4e2ef4732be12220940aca9ddeb4f699eb1a88cc"
+        },
+        "xschem/devices/conn_4x1.sym": {
+          "sha256": "5a25db88e6857242ae0499a6eb9b49d83ca4554ca3d1926a817e143cca658489"
+        },
+        "xschem/devices/netlist.sym": {
+          "sha256": "9aed7baa442beb50e0f9f44dedefb4792ef36532edba3c7d027ebf55ea964fe7"
+        },
+        "xschem/devices/netlist_at_end.sym": {
+          "sha256": "52af440466a1016c81a27b366cdadf1daa03d2b547dc800cf9189b9a417801f4"
+        },
+        "xschem/devices/conn_10x2.sym": {
+          "sha256": "abd0caea8f82bda4103a7685f7adaeae73cbcf36eefe1875c833dcd90b95ff0a"
+        },
+        "xschem/devices/simulator_commands.sym": {
+          "sha256": "ca4d531dea821d57803536af7479accbd0de317c79a14aa4656cc07a866e09db"
+        },
+        "xschem/devices/ngspice_probe.sym": {
+          "sha256": "7cde53f7ea7bfac37f2b6a38912d550e7965d9416aa73a7e65e6c54506f7f757"
+        },
+        "xschem/devices/attributes.sym": {
+          "sha256": "b225651ccd25f60e1f9d95e73bf47ef6bfe7241fb1689793fa7b27a37a9fcfce"
+        },
+        "xschem/devices/vccs.sym": {
+          "sha256": "a30ee6afef59144ffa9807a8be9f73012bc3135b8ffc69bb083bdbde2cf077d9"
+        },
+        "xschem/devices/res3.sym": {
+          "sha256": "069a3ce5623a45628b1dbd68959b1a2395d8def0e59f72d9f65d325d3e6e3c87"
+        },
+        "xschem/devices/res_ac.sym": {
+          "sha256": "67082383354bb90cfe74d7cc3798cee6ca13d6658dadf8f91a393edb70e09f84"
+        },
+        "xschem/devices/param_agauss.sym": {
+          "sha256": "059c59961bd7b4e2ef41118e419d4098e7a89a955b4bc9f4e7ad489280b9dfd1"
+        },
+        "xschem/devices/led.sym": {
+          "sha256": "2f7204be7131dd7b3f79e401da858c6726ab28d398493a974b0ad15eb4945755"
+        },
+        "xschem/devices/spice_probe_vdiff.sym": {
+          "sha256": "b8e1fd141173f6200f1a96217da9a9a6a18a6a269968adff62fa7377b44c5123"
+        },
+        "xschem/devices/zener.sym": {
+          "sha256": "1ec8b7d445de3b5f3504f85078049b6b4da351d8a243baa6b5f02cdea843a696"
+        },
+        "xschem/devices/gnd.sym": {
+          "sha256": "3bd6a0818e3c53d271541813784d29fcd7c9e4d0ec9124df7678fd391e8f03f5"
+        },
+        "xschem/devices/bus_tap.sym": {
+          "sha256": "d560592abf6a9f7c5d51d723ca2c24d5ab92f843a58c3da3cd619030bcb5230a"
+        },
+        "xschem/devices/isource.sym": {
+          "sha256": "91a9f3685583d76257443a1370b6e33a1bbb3e07d1493eb0c9d09f848f51da21"
+        },
+        "xschem/devices/rnmos4.sym": {
+          "sha256": "f10fec7b8afabc6f4a51793d5749730ca8260ca41da1eb41c91435d0204622c0"
+        },
+        "xschem/devices/architecture.sym": {
+          "sha256": "3924d248863df91d425e63cd40eae6dac6f9f69d2f741702b66bf900ebb365d2"
+        },
+        "xschem/devices/lab_show.sym": {
+          "sha256": "91844711406bab296dc887efad8754b9d4a6a4d96046fcd2b81d340500b18650"
+        },
+        "xschem/devices/vsource_arith.sym": {
+          "sha256": "c11d79055bb4ba2432484a88296e2c33cab517af4d88175bf597e06851f50164"
+        },
+        "xschem/devices/rgb_led.sym": {
+          "sha256": "83dfea5032f06e60d11484f5e8a389d9608625fdeb60ea0b66d81eabf254ead4"
+        },
+        "xschem/devices/bus_connect.sym": {
+          "sha256": "470d14a53a2d40726d3eb8a424a072e42ec0205effe9be6a210c679dc616178f"
+        },
+        "xschem/devices/delay_line.sym": {
+          "sha256": "e75fb8a97542cb787e2b01eadbc6314a9ed9573aee418cd591140903b6295257"
+        },
+        "xschem/devices/conn_14x1.sym": {
+          "sha256": "6617aa00b6af1ea0f59de292d0a4ad10a99b29755e88f6c6097c6feef17992e8"
+        },
+        "xschem/devices/pmos3.sym": {
+          "sha256": "f39d0ce7eefefa70aa6909adc07b99807a7f48487e5df0a63ac0596c5e2c4ee6"
+        },
+        "xschem/devices/adc_bridge.sym": {
+          "sha256": "90fd82e408fa73058dce0f2a0c4bb3939620e6b3d928b50ae3cc61b88dedd2df"
+        },
+        "xschem/devices/lab_wire.sym": {
+          "sha256": "acd8114bb93907e0e9132ab7f69a6f94d6fc10a1da88c11c9975144885ce210c"
+        },
+        "xschem/devices/vsource_pwl.sym": {
+          "sha256": "7d575d2e8001a3c27f9c6d6d2c048cce91a40fc2b229bf6dad3250beddf01b22"
+        },
+        "xschem/devices/param.sym": {
+          "sha256": "cee73b4562fd8d1ea52c8765bbaf359b4e68cbe65a53f3f439d1c78eac48cd6d"
+        },
+        "xschem/devices/njfet.sym": {
+          "sha256": "c1ad688205aeb45883c336d96d34d0dd0abae811fea3a4b9d5cc5cbe15ff6b33"
+        },
+        "xschem/devices/crystal-2.sym": {
+          "sha256": "8c226e7bc24d9e4d819bbb01a74de123d470d029331e3562309c50abd4abbbee"
+        },
+        "xschem/devices/verilog_timescale.sym": {
+          "sha256": "e6399fc347539f7c71e11179aa43c224e42968f976c8df76a2ebe768e08e973b"
+        },
+        "xschem/devices/assign.sym": {
+          "sha256": "fc7f8f5ba6a54876748ba7928559f5a27d6523750aa5e7d03124828b9c09f3ed"
+        },
+        "xschem/devices/title.sym": {
+          "sha256": "d6a6ad298fb64eb15839cccf4ae9cd72af209ca31667732f2c4279c0e1bd9fda"
+        },
+        "xschem/devices/switch_v_xyce.sym": {
+          "sha256": "321c9a3004ad99a6b6dc3cf72a0034ee0ade2da1853909492ffbe56622fa302c"
+        },
+        "xschem/devices/verilog_preprocessor.sym": {
+          "sha256": "f1d8a7a8f462e1e44c8a90321f012603f6377b8c78b454d794bfa1354c711db2"
+        },
+        "xschem/devices/spice_probe.sym": {
+          "sha256": "d7e30fceee671e1cb21979943552e8a3f37e1d98a2e61e34d561e1765ec1bbdd"
+        },
+        "xschem/devices/ngspice_get_value.sym": {
+          "sha256": "8cbb9d3b896e2a5fe938d03ab6453cc865b08c8adb0f1963c5b558a8e7d81eba"
+        },
+        "xschem/devices/device_param_probe.sym": {
+          "sha256": "392e32dcc7f463070561c6edeac8dca3c5f5b6095f02761e563cf7148ac311cb"
+        },
+        "xschem/devices/nmos-sub.sym": {
+          "sha256": "8725121c51312af868b5d592f5df10969aa9192c4c1300ae630a6ff4188659e4"
+        },
+        "xschem/devices/pmos.sym": {
+          "sha256": "a2c468bdc4816066d5cab3777443ab0795a9467320312a2f9e028079f34bbc40"
+        },
+        "xschem/devices/connect.sym": {
+          "sha256": "64346b6bbbb97fa8861145a3e649a94cc889115a68217067a10061dc1255d04a"
+        },
+        "xschem/devices/code.sym": {
+          "sha256": "7b6e2ebf18ceafed70d4cd7c9835286bea97b35b381db936b7c0c77a0805fef1"
+        },
+        "xschem/devices/title-2.sym": {
+          "sha256": "3b06a4c3e5f85e1d47be93e423d8bda96add9e32013c629e2b9df68950659961"
+        },
+        "xschem/devices/bsource.sym": {
+          "sha256": "c518a796dd79d0226d0c7ebafd6d544a424c6bd64118ef0acb4927a34d87f9e6"
+        },
+        "xschem/devices/nmos4_depl.sym": {
+          "sha256": "b933417564135f0aaaf6eae71821eed3e4214321fd50031ab4df38ac17c75687"
+        },
+        "xschem/devices/ccvs.sym": {
+          "sha256": "101f3a28ec79951f186478f1195f522b838f75598749d8479c5fd4de4fe6c075"
+        },
+        "xschem/devices/parax_cap.sym": {
+          "sha256": "106ab89677f26e595420ac37361d5135ed1d4fcf98916625ba420eaa9d9515fc"
+        },
+        "xschem/devices/nmos.sym": {
+          "sha256": "4a02f2e7ad255a89896958d6d631637ba6779ff61a8b43778ce878faf1072576"
+        },
+        "xschem/devices/lab_generic.sym": {
+          "sha256": "39605818c9a4ac3c46ab3572d0f98e4418e3a2c74a1b3306e467105a26140bd4"
+        },
+        "xschem/devices/nmos3.sym": {
+          "sha256": "089013f60747ebd06a6144ea962b5abf37c307d07a5ae773b188d46b93bf6413"
+        },
+        "xschem/devices/conn_8x1.sym": {
+          "sha256": "8c4b653313d1624c43c0e2498e2a2c05b3f109ce68391a9af2655cf46109ce36"
+        },
+        "xschem/devices/delay.sym": {
+          "sha256": "0d0bcc76bf7f49356d95cc5240d1f037ca4b4deb5a2df819cb63c76e340eae31"
+        },
+        "xschem/devices/npn.sym": {
+          "sha256": "24050ea07ed8f42354d5cc401cebcdf3d0bb72f38e6308c8e26d50544b1492c6"
+        },
+        "xschem/devices/diode.sym": {
+          "sha256": "64cfd79f589292ac105dd09f2f3c118a9b1f3e52e5848f31262af3b2e8eb4dfb"
+        },
+        "xschem/devices/package_not_shown.sym": {
+          "sha256": "a4f4ffe79308eb6955920518046e8a3dc0978bcaca895e55815280f2a4919d8c"
+        },
+        "xschem/devices/asrc.sym": {
+          "sha256": "01519dc7f770aaf4a53ed34032f68715f9272ef6e29b480ff85db8f1430c7b48"
+        },
+        "xschem/devices/k.sym": {
+          "sha256": "768ccee4399d4f5ba4aa11b8469b178b0fa818c866f833809c079ac01c60469a"
+        },
+        "xschem/devices/pnp.sym": {
+          "sha256": "b9ab23bc1f2b3c8fad3f16dfe59ebe36f4ec5b3b5a62a77fdebe8d5c3361cfff"
+        },
+        "xschem/devices/res.sym": {
+          "sha256": "212a3c296804ccbc7907253693f1db7fd1c9427945a23b3c44166e0456ee29c8"
+        }
+      }
+    },
+    "gf180mcu": {
+      "revision": "4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c",
+      "repository": "https://github.com/fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr",
+      "raw_base": "https://raw.githubusercontent.com/fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr/4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c/",
+      "scope": "Primitive schematic symbols and ngspice models; physical rule decks are separate.",
+      "files": {
+        "gf180mcu/symbols/nfet3_05v0.sym": {
+          "sha256": "4aa5f6d65cc5d0d56e9c04c1d60c9e0a104ca2365102d6bc991137682f752323",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet3_05v0.sym"
+        },
+        "gf180mcu/symbols/pnp_05p00x00p42.sym": {
+          "sha256": "579e110ec4db7257b02688de343150119f5814fb7410b1cd36f8c8ec59e45545",
+          "source": "cells/xschem/gf180mcu_fd_pr/pnp_05p00x00p42.sym"
+        },
+        "gf180mcu/symbols/ppolyf_u_2k_6p0.sym": {
+          "sha256": "bd70e0484cf3c6fc4bd24b438c581ad09802eb345d439520a203c3136025a902",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_u_2k_6p0.sym"
+        },
+        "gf180mcu/symbols/nfet_03v3_dss.sym": {
+          "sha256": "23a18c9c51a4ebd3de0f71755041e86ff07fcb926e89c8886db61b63eb2aabb8",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_03v3_dss.sym"
+        },
+        "gf180mcu/symbols/npn_00p54x04p00.sym": {
+          "sha256": "bc6ade3973feaf14e94008e3143f202e18465d2d62c152602adf29bd14846352",
+          "source": "cells/xschem/gf180mcu_fd_pr/npn_00p54x04p00.sym"
+        },
+        "gf180mcu/symbols/cap_nmos_03v3_b.sym": {
+          "sha256": "5254c8fb620cb0620a7266ee1b2f3284b69fea8d395051be43b9b39b7e532cbe",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_nmos_03v3_b.sym"
+        },
+        "gf180mcu/symbols/pfet_03v3_dss.sym": {
+          "sha256": "a89c1c9e641917dcde57a479157462997345ceeb8eaeacf62d2a8bf18fe7a72d",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet_03v3_dss.sym"
+        },
+        "gf180mcu/symbols/cap_pmos_03v3_b.sym": {
+          "sha256": "e02b7a5921d2cf23399e1a08bf4585fbff6510611a4e51fdc8727577d0f1b768",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_pmos_03v3_b.sym"
+        },
+        "gf180mcu/symbols/diode_pd2nw_06v0.sym": {
+          "sha256": "c230190bfee2ed14199cc53aa1cd4988b6b3be9dbb9a37e62003b8e19188011c",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_pd2nw_06v0.sym"
+        },
+        "gf180mcu/symbols/npn_00p54x16p00.sym": {
+          "sha256": "67676d10bd92f1f85d20fea3e4872b3e0d534bf67d442017b91102ba324fcc19",
+          "source": "cells/xschem/gf180mcu_fd_pr/npn_00p54x16p00.sym"
+        },
+        "gf180mcu/symbols/cap_nmos_06v0_b.sym": {
+          "sha256": "118604219fcefd9d00c52a638a74254f7b3115574f6d9c915a8be5ecb5dddb59",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_nmos_06v0_b.sym"
+        },
+        "gf180mcu/symbols/annotate_fet_params.sym": {
+          "sha256": "abcebfdd0ffda54f9e1ef4d8b1f50a4523975cb6da64bf48b37a046c73f930aa",
+          "source": "cells/xschem/gf180mcu_fd_pr/annotate_fet_params.sym"
+        },
+        "gf180mcu/symbols/cap_mim_2f0fF.sym": {
+          "sha256": "92b17e147decfc1db183bd19bf8765f10d138fc4e569bbfe5748a73f925a9a18",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_mim_2f0fF.sym"
+        },
+        "gf180mcu/symbols/cap_pmos_06v0.sym": {
+          "sha256": "33877b420814deada4ff8c64fdfabb84c13b9eef39ac1c80d86515e56ce6a92d",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_pmos_06v0.sym"
+        },
+        "gf180mcu/symbols/nwell.sym": {
+          "sha256": "f9b5203c4b48c9f75b3b3a1456e13c9aedf45e5add63a8ef2d7f8ae762310f0a",
+          "source": "cells/xschem/gf180mcu_fd_pr/nwell.sym"
+        },
+        "gf180mcu/symbols/rm2.sym": {
+          "sha256": "0a7288b32d05449f0027690774625c375aca9266eb5a1c152350408e0503d9f2",
+          "source": "cells/xschem/gf180mcu_fd_pr/rm2.sym"
+        },
+        "gf180mcu/symbols/cap_nmos_06v0.sym": {
+          "sha256": "3f88a8067186dac14c159803b970babd40c0f4899c97ff5bac0165656140a69a",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_nmos_06v0.sym"
+        },
+        "gf180mcu/symbols/diode_nw2ps_06v0.sym": {
+          "sha256": "08c9947c55bf067ea7ec290b02a4cbcd6152073d1b5244344fcd88555342264f",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_nw2ps_06v0.sym"
+        },
+        "gf180mcu/symbols/sc_diode.sym": {
+          "sha256": "1b03a2fd966c24ff302d22ca646005ec1e325f89fd8b9541b30e9615490f9b66",
+          "source": "cells/xschem/gf180mcu_fd_pr/sc_diode.sym"
+        },
+        "gf180mcu/symbols/rm3.sym": {
+          "sha256": "8af576380a2c0fe6e1296716860e3f77562e0086788a5b5f4b1284dd7bc60eab",
+          "source": "cells/xschem/gf180mcu_fd_pr/rm3.sym"
+        },
+        "gf180mcu/symbols/npn_05p00x05p00.sym": {
+          "sha256": "abf3b54c5377fef9040dca7c7babfc945d36f27038553d366f4f68d85af6ab48",
+          "source": "cells/xschem/gf180mcu_fd_pr/npn_05p00x05p00.sym"
+        },
+        "gf180mcu/symbols/npolyf_s.sym": {
+          "sha256": "2b6b157ee2877a56b7e354499dc7d2a472f615b7767d66b1aba79e7a3ae9d5d9",
+          "source": "cells/xschem/gf180mcu_fd_pr/npolyf_s.sym"
+        },
+        "gf180mcu/symbols/pfet_10v0_asym.sym": {
+          "sha256": "4106436c8730a72bad1651c2580f669f8154ae3b4fa43b6672df6baecb3c2504",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet_10v0_asym.sym"
+        },
+        "gf180mcu/symbols/annotate_op.sym": {
+          "sha256": "1bdbdfdc725bb41fd37fd9e89d4aa94737d1fb8b71a6fbdb16dc707b36f850a3",
+          "source": "cells/xschem/gf180mcu_fd_pr/annotate_op.sym"
+        },
+        "gf180mcu/symbols/ppolyf_s.sym": {
+          "sha256": "8b8377ff17ee37f525d7e09b98614db4225d74abd6a6713c382ee01635340b83",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_s.sym"
+        },
+        "gf180mcu/symbols/nfet_03v3.sym": {
+          "sha256": "f451747f63e5a586d5adc36c4fd4b9e6c1695532233565503d4c88a26a188476",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_03v3.sym"
+        },
+        "gf180mcu/symbols/pfet_06v0_dss.sym": {
+          "sha256": "3fcadbb041fe3d2c955ff85e423eec5475c202b878dfef2ce18ca3f95bb4c810",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet_06v0_dss.sym"
+        },
+        "gf180mcu/symbols/cap_pmos_03v3.sym": {
+          "sha256": "c5f8643f865aac7aa9a3b31a874fb039d929bb5d8e049393144d9221eb609dcb",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_pmos_03v3.sym"
+        },
+        "gf180mcu/symbols/diode_pd2nw_03v3.sym": {
+          "sha256": "10d38f1624180b3947cff4d2133c3bb39c419ac0e2fcb741dee351f88af1dcb4",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_pd2nw_03v3.sym"
+        },
+        "gf180mcu/symbols/ppolyf_u.sym": {
+          "sha256": "fc2ba2fc483f39d47770844dedfd95133eee206ce0c232ae870637572dff0378",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_u.sym"
+        },
+        "gf180mcu/symbols/diode_nd2ps_03v3.sym": {
+          "sha256": "33798148a5bd1e00b27a95d0754ccad6de7f553b3d4c5cb425c5a8c056a651e2",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_nd2ps_03v3.sym"
+        },
+        "gf180mcu/symbols/diode_nd2ps_06v0.sym": {
+          "sha256": "0874e52601322b6cf0445c6b3df733050193a582d5b9ff05f5498aad6f040e6b",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_nd2ps_06v0.sym"
+        },
+        "gf180mcu/symbols/diode_nw2ps_03v3.sym": {
+          "sha256": "30402ff33e2785b99c87882d597a43aa36827c4bb47e4cc861bc8cf2f8f219c6",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_nw2ps_03v3.sym"
+        },
+        "gf180mcu/symbols/pnp_10p00x10p00.sym": {
+          "sha256": "b2a0711d4c53515ef803ef48d560451613209c87aa7d1e9d7c98805d673ac763",
+          "source": "cells/xschem/gf180mcu_fd_pr/pnp_10p00x10p00.sym"
+        },
+        "gf180mcu/symbols/rm1.sym": {
+          "sha256": "aa0e916697128cde72d40738fc1501462ae9866b897b585b9e662d5a448f6f7e",
+          "source": "cells/xschem/gf180mcu_fd_pr/rm1.sym"
+        },
+        "gf180mcu/symbols/nfet3_03v3.sym": {
+          "sha256": "79d48461d42df91fa452af61d58ba215c01e7bc0dd4fcf9853479b0bd2d2b7e8",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet3_03v3.sym"
+        },
+        "gf180mcu/symbols/pfet_05v0.sym": {
+          "sha256": "7302798474269bc0e6c591508564034378f68bb8072cdcfc32e29229baa2b325",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet_05v0.sym"
+        },
+        "gf180mcu/symbols/nfet_06v0_nvt.sym": {
+          "sha256": "ab5c69d892be9acba70cbcbf2788dc5a8601be90a11565c9507bae6c74e91fad",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_06v0_nvt.sym"
+        },
+        "gf180mcu/symbols/pnp_05p00x05p00.sym": {
+          "sha256": "e24e0713a809a283ad05bca31ec2a47ea42bda9aec2e864c87a2cf75ac4e8379",
+          "source": "cells/xschem/gf180mcu_fd_pr/pnp_05p00x05p00.sym"
+        },
+        "gf180mcu/symbols/diode_dw2ps.sym": {
+          "sha256": "0b3f2f2160f59de701381114465dac353a2650f018774948f6b8e1867e6ff93d",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_dw2ps.sym"
+        },
+        "gf180mcu/symbols/diode_pw2dw.sym": {
+          "sha256": "4d678c297dc28490e599f3b14279477a25d05aaf085f3a121cdc9032668a2a52",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_pw2dw.sym"
+        },
+        "gf180mcu/symbols/pplus_u.sym": {
+          "sha256": "5b4eb89f1fd52fd3a6315e4643afe7afef996482cc04c535d7ef14b8510daeb8",
+          "source": "cells/xschem/gf180mcu_fd_pr/pplus_u.sym"
+        },
+        "gf180mcu/symbols/cap_pmos_06v0_b.sym": {
+          "sha256": "c78ea4dd8e6ec69c6f930068f8cef22db1f87e7eadcf0a053f2f217dd695df50",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_pmos_06v0_b.sym"
+        },
+        "gf180mcu/symbols/pfet3_05v0.sym": {
+          "sha256": "dd5efd003683b16d34d0485d2fc18f99da6eff73826660f6583cea86203ac789",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet3_05v0.sym"
+        },
+        "gf180mcu/symbols/ppolyf_u_2k.sym": {
+          "sha256": "ae29f6cf661b1ae3086988c03d253a7ef108036fab08eb01442c338b9e34c7fa",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_u_2k.sym"
+        },
+        "gf180mcu/symbols/nfet_06v0.sym": {
+          "sha256": "b41c6837912cf10234506a744fd0416ba6c8bc4923a44d9839c69d44d9e351b9",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_06v0.sym"
+        },
+        "gf180mcu/symbols/nfet3_06v0.sym": {
+          "sha256": "15591604f2888d549fee04ea30b0709c3a7723362dd8c82a949fc52be32d6518",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet3_06v0.sym"
+        },
+        "gf180mcu/symbols/pfet_03v3.sym": {
+          "sha256": "e5569acb216eeec3007832221538dc26d66f957ad96cd2fbaafa81db96bfd7a6",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet_03v3.sym"
+        },
+        "gf180mcu/symbols/cap_mim_1f0fF.sym": {
+          "sha256": "91b2ac5f48f2263faa4d1e84062bc1786c90986f3528128d663f465ebac508dc",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_mim_1f0fF.sym"
+        },
+        "gf180mcu/symbols/ppolyf_u_1k.sym": {
+          "sha256": "d3adf767c0a8d8fa81b552680f09c241bbbc58616acf32c505a92e41877d8ac1",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_u_1k.sym"
+        },
+        "gf180mcu/symbols/npn_00p54x02p00.sym": {
+          "sha256": "7b7fa4eac2ce12e7054d43388035e03f2ca27b94cd0cf457526b9714bb1c487a",
+          "source": "cells/xschem/gf180mcu_fd_pr/npn_00p54x02p00.sym"
+        },
+        "gf180mcu/symbols/pfet_06v0.sym": {
+          "sha256": "9a47ccf2735e8fa9c4080e6e72f365dbadcf51168e460aa5c9c7dc58139107e7",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet_06v0.sym"
+        },
+        "gf180mcu/symbols/nfet_06v0_dss.sym": {
+          "sha256": "0061fd15596846d8a64c54fcf2b12c31ccd930af8a085cf196acb34c871344fc",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_06v0_dss.sym"
+        },
+        "gf180mcu/symbols/npn_00p54x08p00.sym": {
+          "sha256": "92b39f46ba170ef51ce06e65f324b7670d4a37c8f51f1ca4d9a6f836aad57da2",
+          "source": "cells/xschem/gf180mcu_fd_pr/npn_00p54x08p00.sym"
+        },
+        "gf180mcu/symbols/cap_mim_analog.sym": {
+          "sha256": "d477dc1f714113229780207da84357e4d4f81b4b6299f83a1888fd9014fd2a48",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_mim_analog.sym"
+        },
+        "gf180mcu/symbols/pfet3_06v0.sym": {
+          "sha256": "5f3ba1c77bc90c18457eacd9d8dc7b26dc9e5f578d281dc775ea3fe9f1f567f7",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet3_06v0.sym"
+        },
+        "gf180mcu/symbols/cap_nmos_03v3.sym": {
+          "sha256": "d945b6bc9612c7a2b0cc5512d73bd846db0d1289def61da2e16f767a1514e429",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_nmos_03v3.sym"
+        },
+        "gf180mcu/symbols/pnp_10p00x00p42.sym": {
+          "sha256": "b0322b2007463ecfdb0881557ff9f9dbb782066448fd77c34af94507001f886f",
+          "source": "cells/xschem/gf180mcu_fd_pr/pnp_10p00x00p42.sym"
+        },
+        "gf180mcu/symbols/nplus_u.sym": {
+          "sha256": "418db297f4dc800a576803a443b60b779ff40c7d51306ffe9a18e106a9538e98",
+          "source": "cells/xschem/gf180mcu_fd_pr/nplus_u.sym"
+        },
+        "gf180mcu/symbols/nfet_05v0.sym": {
+          "sha256": "4f60de1d8802ebb943c769511494f25f8caf6f9677802beda774fdd8515a80a8",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_05v0.sym"
+        },
+        "gf180mcu/symbols/ppolyf_u_3k.sym": {
+          "sha256": "65373d3b5ddada0031d1a006927dc68dd5c26ac71c7ec504a148dba5ba5388c9",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_u_3k.sym"
+        },
+        "gf180mcu/symbols/cap_mim_1f5fF.sym": {
+          "sha256": "e0d19a29107dfdc26ce85d30b5907f33deb06f51cd46969f714790787cab6bfe",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_mim_1f5fF.sym"
+        },
+        "gf180mcu/symbols/npn_10p00x10p00.sym": {
+          "sha256": "e16571e7bdc23f85372c6efcfccfd54e0e4f5ba033847da7841fda11c1ee8a61",
+          "source": "cells/xschem/gf180mcu_fd_pr/npn_10p00x10p00.sym"
+        },
+        "gf180mcu/symbols/pfet3_03v3.sym": {
+          "sha256": "2fe62d55e5b0a73b5d586bee01ce4bf86ff7a88d66a3a0ba7fad103484785577",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet3_03v3.sym"
+        },
+        "gf180mcu/symbols/ppolyf_u_1k_6p0.sym": {
+          "sha256": "d99c514898616655727e338d883669153862c2315ab22cd0fec6c879cc20398b",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_u_1k_6p0.sym"
+        },
+        "gf180mcu/symbols/npolyf_u.sym": {
+          "sha256": "dd6695b7e5b5aa81382a5e77efd82bef48a2a87dea1894304d309daa7d0febc5",
+          "source": "cells/xschem/gf180mcu_fd_pr/npolyf_u.sym"
+        },
+        "gf180mcu/symbols/nfet_10v0_asym.sym": {
+          "sha256": "50eb0c2af2e78feeaabb21f7c434aa935ed2237c788d4267d67d847a4c2d11c2",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_10v0_asym.sym"
+        },
+        "gf180mcu/symbols/cap_mim_2p0fF.sym": {
+          "sha256": "4a781b7b3e6927c3ca85c289dfd74a8ad1a48124407054b24d1f7723e9eeea01",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_mim_2p0fF.sym"
+        },
+        "gf180mcu/models/sm141064_mim.spice": {
+          "sha256": "9b85cd009968d9aeb6b61046b24a63f39d6a463c4e4aee3949c8fd183c06666f",
+          "source": "models/ngspice/sm141064_mim.spice"
+        },
+        "gf180mcu/models/smbb000149.spice": {
+          "sha256": "8a8d44d5f13d4a097e86fab598e97e82bb726af1cc01eb6d500739766dfd9363",
+          "source": "models/ngspice/smbb000149.spice"
+        },
+        "gf180mcu/models/design.spice": {
+          "sha256": "7e222f050318388f37543a64fbd0be55cc15e4b93f57501a09f7c159c4c9e561",
+          "source": "models/ngspice/design.spice"
+        },
+        "gf180mcu/models/sm141064.spice": {
+          "sha256": "69a7ab877344a6d477fdd11440457f64e7ad88a624504a737a161da463de8bc8",
+          "source": "models/ngspice/sm141064.spice"
+        },
+        "gf180mcu/LICENSE": {
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source": "LICENSE"
+        }
+      }
+    }
+  }
+}

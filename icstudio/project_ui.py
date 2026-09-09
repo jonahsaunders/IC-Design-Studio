@@ -49,6 +49,7 @@ class ProjectMixin:
         for i in range(self.tree.topLevelItemCount()):
             item=self.tree.topLevelItem(i);cid=item.data(0,Qt.UserRole)[1];sub=QTreeWidgetItem(item,['Symbol']);sub.setData(0,Qt.UserRole,('symbol',cid,-1));sub.setIcon(0,icon('cell'))
         if hasattr(self,'corner_combo'):
+            self.corner_combo.setEnabled(True)
             sets=[set(i['sections']) for i in self.project['pdk'].get('simulation',{}).get('includes',[]) if i.get('sections')];corners=sorted(set.intersection(*sets)) if sets else ['nominal'];self.corner_combo.blockSignals(True);self.corner_combo.clear()
             for corner in corners:self.corner_combo.addItem(corner,corner)
             self.corner_combo.setCurrentIndex(max(0,self.corner_combo.findData(self.project['analysis'].get('corner','nominal'))));self.corner_combo.blockSignals(False)

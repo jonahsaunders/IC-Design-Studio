@@ -27,12 +27,13 @@ def assignments(parts):
     return out
 
 
-def import_spice(path,technology=None):
-    path=Path(path);text=path.read_text(encoding='utf-8')
+def import_spice(path,technology=None,*,text=None,top_name=None):
+    path=Path(path);text=path.read_text(encoding='utf-8') if text is None else text
     if len(text)>10_000_000:raise ValueError('SPICE import is limited to 10 MB.')
     p=example('empty');p['name']=path.stem
     if technology:p['pdk']=clone(technology)
     top=p['cells'][0];cells={};current=top;models={};rows=[];report=[]
+    if top_name:top['name']=top_name
     lines=re.sub(r'\n[ \t]*\+[ \t]*',' ',text).splitlines()
     for number,line in enumerate(lines,1):
         line=line.strip()
@@ -67,6 +68,7 @@ def import_spice(path,technology=None):
             (p if current is top else current).setdefault('parameters',{}).update(assignments(parts[1:]))
         elif command=='.op':p['analysis']['type']='op'
         elif command=='.tran' and len(parts)==3:p['analysis'].update(type='tran',step=parts[1],stop=parts[2])
+        elif command=='.ac' and len(parts)==5 and parts[1].lower()=='dec':p['analysis'].update(type='ac',points=int(parts[2]),start=parts[3],end=parts[4])
         elif command=='.temp' and len(parts)==2:p['analysis']['temperature']=scalar(parts[1])
         elif command=='.end':break
         elif command.startswith('.'):

@@ -1,0 +1,5 @@
+* IC Design Studio packaged circuit runtime initialization.
+* Analysis settings and compatibility mode are supplied by the run job.
+* This scalar-device runtime does not preload optional external code models.
+alias exit quit
+alias acct rusage all

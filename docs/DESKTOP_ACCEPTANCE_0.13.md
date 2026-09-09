@@ -21,7 +21,7 @@ investigate, not a reason to relabel an offscreen result as desktop acceptance.
 
 ## User sessions
 
-Recruit at least one regular Xschem user and one regular Virtuoso user. Record
+Recruit at least one regular Xschem user and one experienced analog schematic designer. Record
 experience and the chosen preset. Give each a copy of the amplifier example and
 these tasks, without a live walkthrough. Measure completion time, wrong actions,
 recoveries and requested help. Ask what they expected where behavior differed.

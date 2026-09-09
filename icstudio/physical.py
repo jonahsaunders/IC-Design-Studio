@@ -86,8 +86,10 @@ def connectivity(p,cid):
         roots={find(i) for i in hits}
         if len(roots)!=1:issue('LVS.AMBIGUOUS',d['id'],'Terminal lies on disconnected boundary geometry.');continue
         root=roots.pop();net=d['nets'][pin['pin']];assignments.setdefault(root,[]).append((d['id'],pin['pin'],net));expected.setdefault(net,set()).add(root)
+    from .native_analysis import sources
+    stimulus={v[0] for v in sources(p,cid)}
     for d in cell['devices']:
-        if d['kind'] in ('V','I'):continue # Testbench sources do not require silicon footprints.
+        if d['kind'] in ('V','I') or d['name'] in stimulus:continue # Testbench sources do not require silicon footprints.
         for pin in d['nets']:
             if (d['id'],pin) not in provided:issue('LVS.MISSING_PIN',d['id'],f'{d["name"]}.{pin}: assign a physical terminal before checking connectivity.')
     for root,refs in assignments.items():

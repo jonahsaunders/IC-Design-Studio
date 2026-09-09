@@ -19,17 +19,9 @@ The audit identified these concrete failures:
 - Mode changes refitted the canvas and discarded a user's chosen camera position.
 - Symbols, control chrome, selection feedback, and output status did not have a coherent system of visual emphasis.
 
-## Research and interpretation
+## Design principles
 
-Apple's current design principles emphasize purpose, agency, simplicity, hierarchy, and craft. The relevant lesson is to make the next useful action apparent and refine the complete interaction, including its intermediate states. This is guidance for the redesign, not a claim that the app is Apple-certified or conforms to every platform convention. [1]
-
-Apple's toolbar guidance calls for deliberate selection of commands and coherent grouping. The sidebar guidance supports visible navigation, disclosure of hierarchy, and a reliable way to hide or restore navigation when more canvas space is needed. [2, 3]
-
-Apple's label, accessibility, and data-entry guidance informed readable labels, differentiated text emphasis, persistent names for controls, visible keyboard focus, and validation at the point of editing. Testing both light and dark appearances is necessary; those visual checks do not establish complete screen-reader support. [4, 5, 6]
-
-Altium's environment documentation provides the more domain-specific reference. Its project navigation, editor-specific commands, dynamic Properties panel, collapsible property groups, and messages associated with design objects are useful patterns for an engineering workspace. Its panel system supports keeping frequently used information available while reclaiming design space when necessary. [7, 8]
-
-The redesign adapts these interaction principles to a standalone Qt application for Windows/Linux. It does not copy Apple's window decorations or Altium's artwork, proprietary components, or branding. Transparency and decorative effects were not priorities: dense geometry and waveform data need stable contrast.
+Use clear hierarchy, persistent control labels, visible focus, contextual commands and validation at the point of editing. Keep the large design canvas bordered by stable navigation and property areas. Use consistent light/dark appearances and restrained colors for dense geometry. Physical display and assistive-technology acceptance still require representative users.
 
 ## Implemented design decisions
 
@@ -75,12 +67,3 @@ A useful next evaluation is task-based: observe whether designers can open a pro
 
 Reviewed for this redesign:
 
-1. [Apple — Design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles)
-2. [Apple — Toolbars](https://developer.apple.com/design/human-interface-guidelines/toolbars)
-3. [Apple — Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars)
-4. [Apple — Labels](https://developer.apple.com/design/human-interface-guidelines/labels)
-5. [Apple — Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-6. [Apple — Text fields](https://developer.apple.com/design/human-interface-guidelines/text-fields)
-7. [Altium — Elements of the Environment](https://www.altium.com/documentation/altium-designer/design-environment-elements)
-8. [Altium — Working with Panels](https://www.altium.com/documentation/altium-designer/working-with-panels)
-9. [Altium — Modern Interface Experience](https://files.resources.altium.com/sites/default/files/uberflip_docs/file_807.pdf) (historical visual reference, not evidence of current feature status)

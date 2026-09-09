@@ -46,6 +46,8 @@ def mos_current(d,vd,vg,vs):
 
 class Circuit:
     def __init__(self,p,cid=None,temperature=27):
+        if p.get('spice',{}).get('version')==1:raise ValueError('Run this native project with ngspice using its simulation program.')
+        if p.get('xschem_exchange',{}).get('mode')=='compatible':raise ValueError('Run the imported Xschem program with ngspice from Analysis.')
         from .components import require_implementations
         require_implementations(p,cid or p['top'])
         self.ds=flatten(p,cid); self.nodes=sorted({n for d in self.ds for n in d['nets'].values()}-{'0'})
@@ -109,10 +111,19 @@ class Circuit:
         raise ValueError('MOS operating point did not converge after 120 iterations. Use ngspice or revise bias values.')
 
 def run(p,cid,settings,progress=lambda *_:None):
-    c=Circuit(p,cid,float(settings.get('temperature',27))); typ=settings['type']; xs=[]; data={n:[] for n in c.nodes}; op=c.point(); phase={}
+    if p.get('spice',{}).get('version')==1:raise ValueError('Run this native project with ngspice using its simulation program.')
+    if p.get('xschem_exchange',{}).get('mode')=='compatible':raise ValueError('Use Xschem/ngspice to simulate this imported project with its original models and program.')
+    c=Circuit(p,cid,float(settings.get('temperature',27))); typ=settings['type']; xs=[]; data={n:[] for n in c.nodes}; op=c.point(); phase={}; currents={name:[] for name in c.branches};currents.update({d['name']:[] for d in c.ds if d['kind'] in ('R','C')});current_phase={name:[] for name in currents}
     def record(x,y):
         xs.append(x)
         for n in c.nodes: data[n].append(y[c.index[n]])
+        for name,index in c.branches.items():currents[name].append(float(y[index]))
+        for d in c.ds:
+            if d['kind']=='R':currents[d['name']].append(float((c.voltage(y,d['nets']['p'])-c.voltage(y,d['nets']['n']))/scalar(d['value'])))
+            elif d['kind']=='C':
+                def voltage_at(net,index):return data[net][index] if net!='0' else 0.
+                current=scalar(d['value'])*((voltage_at(d['nets']['p'],-1)-voltage_at(d['nets']['n'],-1))-(voltage_at(d['nets']['p'],-2)-voltage_at(d['nets']['n'],-2)))/(xs[-1]-xs[-2]) if typ=='tran' and len(xs)>1 else 0.
+                currents[d['name']].append(current)
     if typ=='op': record(0,op)
     elif typ=='tran':
         stop=scalar(settings['stop']); step=scalar(settings['step'])
@@ -139,6 +150,10 @@ def run(p,cid,settings,progress=lambda *_:None):
             f=start*(end/start)**(i/(points-1));xs.append(f)
             if typ=='ac':
                 a,b=c.system(op,freq=f);y=solve(a,b)
+                for name,index in c.branches.items():currents[name].append(abs(y[index]));current_phase[name].append(math.degrees(cmath.phase(y[index])))
+                for d in c.ds:
+                    if d['kind'] in ('R','C'):
+                        current=(c.voltage(y,d['nets']['p'])-c.voltage(y,d['nets']['n']))*(1/scalar(d['value']) if d['kind']=='R' else 2j*math.pi*f*scalar(d['value']));currents[d['name']].append(abs(current));current_phase[d['name']].append(math.degrees(cmath.phase(current)))
                 for n in c.nodes:
                     v=y[c.index[n]];data[n].append(abs(v));phase[n].append(math.degrees(cmath.phase(v)))
             else:
@@ -150,4 +165,4 @@ def run(p,cid,settings,progress=lambda *_:None):
                 for n in c.nodes: data[n].append(math.sqrt(power[c.index[n]]))
             if i%max(1,points//100)==0: progress((i+1)/points,f'Frequency point {i+1}/{points}')
     else: raise ValueError('Unsupported analysis.')
-    return {'schema':1,'created':now(),'engine':'IC Studio teaching solver 0.1.0','engine_hash':digest({'implementation':ENGINE_SOURCE_HASH,'model':'square-law-no-body-effect'}),'project_id':p['id'],'revision':p['revision'],'design_hash':design_digest(p),'pdk_hash':digest(p['pdk']),'rule_hash':digest(p['pdk']['layers']),'cell_id':cid,'settings':settings,'x':xs,'x_label':{'op':'Operating point','tran':'Time (s)','dc':'Source value (V or A)','ac':'Frequency (Hz)','noise':'Frequency (Hz)'}[typ],'y_label':'Noise (V/√Hz)' if typ=='noise' else 'Voltage (V)','traces':data,'phase':phase,'operating_point':{n:op[j] for j,n in enumerate(c.nodes)},'warnings':['Generic educational models; no foundry qualification. MOS body effect, subthreshold current and device capacitances are not modeled.','1 pS conductance is added at each node for numeric conditioning.']}
+    return {'schema':1,'created':now(),'engine':'IC Studio teaching solver 0.1.0','engine_hash':digest({'implementation':ENGINE_SOURCE_HASH,'model':'square-law-no-body-effect'}),'project_id':p['id'],'revision':p['revision'],'design_hash':design_digest(p),'pdk_hash':digest(p['pdk']),'rule_hash':digest(p['pdk']['layers']),'cell_id':cid,'settings':settings,'x':xs,'x_label':{'op':'Operating point','tran':'Time (s)','dc':'Source value (V or A)','ac':'Frequency (Hz)','noise':'Frequency (Hz)'}[typ],'y_label':'Noise (V/√Hz)' if typ=='noise' else 'Voltage (V)','traces':data,'phase':phase,'currents':currents,'current_phase':current_phase if typ=='ac' else {},'operating_currents':{**{name:op[index] for name,index in c.branches.items()},**{d['name']:(c.voltage(op,d['nets']['p'])-c.voltage(op,d['nets']['n']))/scalar(d['value']) if d['kind']=='R' else 0. for d in c.ds if d['kind'] in ('R','C')}},'operating_point':{n:op[j] for j,n in enumerate(c.nodes)},'device_operating_point':__import__('icstudio.annotations',fromlist=['builtin_devices']).builtin_devices(p,cid,{n:op[j] for j,n in enumerate(c.nodes)}),'warnings':['Generic educational models; no foundry qualification. MOS body effect, subthreshold current and device capacitances are not modeled.','1 pS conductance is added at each node for numeric conditioning.']}

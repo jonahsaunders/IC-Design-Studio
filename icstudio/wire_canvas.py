@@ -130,10 +130,19 @@ class WireCanvasMixin:
     def draw_wires(self,p):
         t=palette(self.dark);color='#91a5c2' if self.dark else '#7187a6';chosen=set(self.selection);a=self.model(QPointF(0,0));b=self.model(QPointF(self.width(),self.height()));view=(min(a.x(),b.x())-10,min(a.y(),b.y())-10,max(a.x(),b.x())+10,max(a.y(),b.y())+10);_,_,_,_,segments,index=self.wire_spatial();visible={segments[i][0]['id'] for i in index.query(view)}
         def ink(wire):return t['accent'] if wire['id'] in chosen or (self.net and wire.get('net')==self.net) else color
-        for wire in self.cell.get('wires',[]):
-            if wire['id'] not in visible:continue
-            selected=wire['id'] in chosen;p.setPen(self.pen(ink(wire),2 if selected else 1.3));p.setBrush(Qt.NoBrush)
-            p.drawPolyline(QPolygonF([QPointF(*pt) for pt in wire['points']]))
+        wires=self.cell.get('wires',[])
+        if getattr(self,'_wire_draw_source',None) is not wires:
+            self._wire_draw_source=wires;base=QPainterPath();paths={}
+            for wire in wires:
+                points=wire['points'];path=QPainterPath(QPointF(*points[0]))
+                for pt in points[1:]:path.lineTo(QPointF(*pt))
+                base.addPath(path);paths[wire['id']]=path
+            self._wire_draw_base=base;self._wire_draw_paths=paths
+        p.setPen(self.pen(color,1.3));p.setBrush(Qt.NoBrush);p.drawPath(self._wire_draw_base)
+        for wire in wires:
+            selected=wire['id'] in chosen
+            if wire['id'] not in visible or not (selected or self.net and wire.get('net')==self.net):continue
+            p.setPen(self.pen(ink(wire),2 if selected else 1.3));p.drawPath(self._wire_draw_paths[wire['id']])
             if selected:
                 for pt in wire['points']:p.drawRect(QRectF(pt[0]-3/self.scale,pt[1]-3/self.scale,6/self.scale,6/self.scale))
         dots,bridges,self._wired_pins=self.wire_geometry();p.setPen(Qt.NoPen);p.setBrush(QColor(color))

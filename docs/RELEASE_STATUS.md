@@ -1,9 +1,12 @@
-# Current release: 0.13.0
+# Current source release: 0.17.1
 
-Read [UPDATE_0.13.md](UPDATE_0.13.md) and [CAPABILITY_MATRIX_0.13.md](CAPABILITY_MATRIX_0.13.md) for reviewed terminal updates, electrical-check policies, hierarchy cross-probing and the current capability boundaries.
+[UPDATE_0.17.1.md](UPDATE_0.17.1.md) documents dependency lookup and repair changes.
+254 core tests and 11 Xschem GUI workflow checks passed on the Linux build host.
+Windows discovery paths were covered through unit tests; the application was not
+run on Windows. No 0.17.1 binary was built. The earlier binary remains 0.17.0.
+The reported GF180MCUD schematic remains blocked by missing process assets and
+unsupported native conversion of its embedded ngspice program.
 
-This is an engineering preview. The original handoff's [release results](handoff/verification/RELEASE-RESULTS.json) record the checks executed during that release. Those results are preserved historical evidence, not results from a new GitHub Actions run. Earlier guides retain their original version and scope.
+[UPDATE_0.17.md](UPDATE_0.17.md) documents direct Xschem import, source-preserving export, supported constructs and limitations. [UPDATE_0.16.md](UPDATE_0.16.md) covers the broader design workflows. The verification archive distinguishes native tests, actual engine comparisons and environment-specific failures.
 
-Fresh-OS installation, real graphics sessions, experienced-user acceptance and Windows qualification remain unexecuted. See [the desktop acceptance protocol](DESKTOP_ACCEPTANCE_0.13.md) and [Windows release instructions](WINDOWS_RELEASE.md). Automated offscreen tests do not establish desktop acceptance.
-
-Full vendor parity, arbitrary Xschem script execution, OpenAccess, IHP physical support, physical differential-pair recipes, distributed resistance/EM extraction and fabrication signoff remain outside the implemented scope. Follow-up work is recorded in [NEXT.md](handoff/NEXT.md).
+The 0.17.0 release supplied source and a Linux x86_64 standalone app. Offscreen Qt and build-host checks do not establish fresh-OS compatibility, physical-display usability or general process qualification.

@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 SCHEMA = 1
-KINDS = ('R', 'C', 'L', 'V', 'I', 'NMOS', 'PMOS', 'X', 'PDK')
+KINDS = ('R', 'C', 'L', 'V', 'I', 'NMOS', 'PMOS', 'X', 'PDK', 'XS', 'SPICE')
 PINS = {'R':['p','n'],'C':['p','n'],'L':['p','n'],'V':['p','n'],'I':['p','n'],
         'NMOS':['d','g','s','b'],'PMOS':['d','g','s','b']}
 LAYERS = [
@@ -30,7 +30,7 @@ def file_digest(path):
     return h.hexdigest()
 
 def design_digest(p):
-    return digest({k:v for k,v in p.items() if k not in ("waivers","modified")})
+    return digest({k:v for k,v in p.items() if k not in ("waivers","modified","native_migration")})
 
 def scalar(text):
     if isinstance(text,(int,float)):
@@ -97,6 +97,7 @@ def validate(p):
     from .symbol_io import validate_symbol
     validate_catalog(tech)
     for c in cells:
+        if p.get('spice',{}).get('version')==1:c.setdefault('electrical',{'version':1,'nets':[]})
         objid(c['id']); ident(c['name'])
         if c['name'].casefold() in names: raise ValueError('Duplicate cell name.')
         names.add(c['name'].casefold()); dn=set(); net_case={}
@@ -117,8 +118,17 @@ def validate(p):
                 child=next(cc for cc in cells if cc['id']==d['cell']);pins=child['ports']
                 if set(d.get('parameters',{}))-set(child.get('parameters',{})):raise ValueError(d['name']+': unknown component parameter override.')
                 parameters({**child.get('parameters',{}),**{key:__import__('icstudio.design_ops',fromlist=['value']).value(raw,context) for key,raw in d.get('parameters',{}).items()}},parameters(p.get('parameters',{})))
+            elif k=='SPICE':
+                from .native_spice import validate_device
+                validate_device(d);pins=d['symbol']['pin_order']
+            elif k=='XS':
+                if not d.get('xschem') or not d.get('symbol'):raise ValueError('An Xschem component requires its source properties and symbol.')
+                pins=d['symbol']['pin_order']
             elif k=='PDK': pins=binding_for(tech,d)['pin_order']
             else: pins=PINS[k]
+            if d.get('native_spice'):
+                from .native_spice import validate_device
+                validate_device(d)
             binding=binding_for(tech,d)
             if binding and d.get('model_ref'): parameter_values(binding,d)
             if d.get('symbol'): validate_symbol(d['symbol'],pins)
@@ -131,7 +141,7 @@ def validate(p):
                 if not isinstance(d.get(axis),(int,float)) or not math.isfinite(d[axis]) or abs(d[axis])>1e7: raise ValueError('Invalid schematic position.')
             if type(d.get('mirror',False)) is not bool:raise ValueError('Invalid schematic mirror flag.')
             if d.get('rotation') not in (0,90,180,270): raise ValueError('Invalid rotation.')
-            if k not in ('X','NMOS','PMOS','PDK'):
+            if k not in ('X','NMOS','PMOS','PDK','SPICE'):
                 v=scalar(d['value'])
                 if k in ('R','C','L') and v<=0: raise ValueError(f'{k} value must be positive.')
             if k in ('NMOS','PMOS'):
@@ -159,9 +169,19 @@ def validate(p):
     from .design_ops import validate_extras
     validate_extras(p,objid)
     from .wiring import validate_wiring
-    for c in cells:validate_wiring(c,objid,p)
+    for c in cells:
+        validate_wiring(c,objid,p)
+        if 'electrical' in c and 'wires' not in c:
+            from .electrical_identity import synchronize
+            synchronize(c)
     from .testbenches import validate_testbenches
     validate_testbenches(p,objid)
+    from .analysis_plan import validate_plan
+    validate_plan(p)
+    from .specifications import validate_project as validate_specifications
+    validate_specifications(p)
+    from .analog_constraints import validate_constraints
+    validate_constraints(p)
     for cell in cells:flatten(p,cell['id'])
     return p
 

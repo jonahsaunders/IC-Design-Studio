@@ -19,7 +19,13 @@ class CaptureWorkspaceMixin:
         super().make_actions();menus={a.text().replace('&',''):a.menu() for a in self.menuBar().actions() if a.menu()};menu=menus['Design'].addMenu('Schematic editor');self.capture_menu=menu
         for title,fn in [('Move',lambda:self.capture_start('move')),('Stretch',lambda:self.capture_start('stretch')),('Copy',lambda:self.capture_start('copy')),('Cut wire',lambda:self.capture_start('cut')),('Rejoin two wires',self.capture_rejoin),('Mirror',self.capture_mirror),('Bulk parameters…',self.capture_properties),('Make cell from selection…',self.capture_make_cell),('Enter schematic',self.capture_enter),('Enter symbol',lambda:self.capture_enter(True)),('Return to parent',self.capture_leave),('Generate / edit active symbol',self.symbol_dialog),('Check and Save',self.check_and_save)]:self.action(menu,title,fn)
         self.action(menus['Tools'],'Schematic command profile…',self.capture_keyboard);self.capture_more=self.button('Capture ▾');self.capture_more.setMenu(menu);self.tool_layout.insertWidget(1,self.capture_more);self.more_tools.menu().addMenu(menu)
-    def set_capture_profile(self,name):self.capture_profile=name;self.capture_keys=bindings(self.settings,'schematic',name);self.capture_update()
+    def set_capture_profile(self,name):
+        from .capture_keys import SCHEMATIC
+        if name not in SCHEMATIC:
+            legacy=name;name='Classic analog' if name.endswith('-inspired') else 'Studio'
+            for prefix,suffix in [('capture/schematic/',''),('capture/mouse/','/cut'),('capture/mouse/','/stretch')]:
+                if self.settings.contains(prefix+legacy+suffix):self.settings.setValue(prefix+name+suffix,self.settings.value(prefix+legacy+suffix))
+        self.settings.setValue('capture/schematic/profile',name);self.capture_profile=name;self.capture_keys=bindings(self.settings,'schematic',name);self.capture_update()
     def capture_keyboard(self):self._capture_keys_dialog=profile_dialog(self,self.settings,'schematic',self.set_capture_profile)
     def capture_update(self):
         if not getattr(self,'_capture_ready',False):return
@@ -55,7 +61,7 @@ class CaptureWorkspaceMixin:
                 self.guard(lambda:self.capture_cut(self.schematic.model(e.position())));return True
             if e.type()==QEvent.MouseButtonPress and e.button()==Qt.LeftButton and e.modifiers()&Qt.ControlModifier and self.schematic.tool=='select' and self.settings.value('capture/mouse/'+self.capture_profile+'/stretch',True,type=bool):
                 hit=self.schematic.hit(self.schematic.model(e.position()))
-                if hit and 'kind' in hit and hit['kind'] in ('R','C','L','V','I','NMOS','PMOS','X','PDK'):
+                if hit and 'kind' in hit and hit['kind'] in ('R','C','L','V','I','NMOS','PMOS','X','PDK','XS','SPICE'):
                     if hit['id'] not in self.selection:self.select([hit['id']],'schematic')
                     self.capture_start('stretch');self._capture_anchor=self.schematic.snap(self.schematic.model(e.position()));self._capture_drag=True;return True
             if self.schematic.tool.startswith('capture_'):

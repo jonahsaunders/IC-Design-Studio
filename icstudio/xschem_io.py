@@ -33,7 +33,8 @@ def properties(text):
 
 def source_value(d,text):
     upper=text.upper();ac=re.search(r'\bAC\s+([^\s]+)',text,re.I)
-    if ac:d['source']['ac']=str(scalar(ac[1]))
+    d['source']['ac']=str(scalar(ac[1])) if ac else '0'
+    remainder=re.sub(r'\bAC\s+[^\s]+(?:\s+0(?:\.0*)?)?\s*$','',text,flags=re.I).strip()
     wave=re.search(r'(PULSE|SIN)\(([^)]*)\)',text,re.I)
     if wave:
         nums=[scalar(x) for x in wave[2].split()]
@@ -43,10 +44,12 @@ def source_value(d,text):
             if not math.isclose(rise,max(period*1e-5,1e-15),rel_tol=1e-5) or not math.isclose(fall,rise,rel_tol=1e-5):raise ValueError('Independent pulse rise/fall times cannot be represented by this source model.')
             d['source'].update(type='pulse',low=str(low),high=str(high),delay=str(delay),period=str(period),duty=str(width/period))
         else:
-            if len(nums)!=4 or nums[2]<=0:raise ValueError('Only four-parameter SIN sources are supported.')
+            if len(nums)==3:nums.append(0.)
+            if len(nums)!=4 or nums[2]<=0:raise ValueError('Only SIN offset/amplitude/frequency/optional-delay sources are supported.')
             d['source'].update(type='sine',low=str(nums[0]),high=str(nums[0]+nums[1]),period=str(1/nums[2]),delay=str(nums[3]))
+        if re.sub(r'(PULSE|SIN)\([^)]*\)','',remainder,flags=re.I).strip():raise ValueError('Unsupported source options or AC phase.')
     else:
-        part=re.sub(r'^DC\s+','',text,flags=re.I).split()[0];d['value']=str(scalar(part));d['source']['type']='dc'
+        part=re.sub(r'^DC\s+','',remainder,flags=re.I).strip();d['value']=str(scalar(part or '0'));d['source']['type']='dc'
 
 def import_package(path):
     path=Path(path).resolve();root=path if path.is_dir() else path.parent;project=root/'project.icproj'
@@ -82,8 +85,11 @@ def import_package(path):
         def on(pt,seg):
             x,y=pt;x1,y1,x2,y2=seg
             return abs((x-x1)*(y2-y1)-(y-y1)*(x2-x1))<1e-6 and min(x1,x2)-1e-6<=x<=max(x1,x2)+1e-6 and min(y1,y2)-1e-6<=y<=max(y1,y2)+1e-6
+        from .spatial import SpatialIndex
+        wire_index=SpatialIndex([((min(a[0],a[2])-1e-6,min(a[1],a[3])-1e-6,max(a[0],a[2])+1e-6,max(a[1],a[3])+1e-6),i) for i,(a,_) in enumerate(wires)])
         for i,(a,_) in enumerate(wires):
-            for j in range(i):
+            for j in wire_index.query((min(a[0],a[2])-1e-6,min(a[1],a[3])-1e-6,max(a[0],a[2])+1e-6,max(a[1],a[3])+1e-6)):
+                if j>=i:continue
                 b=wires[j][0]
                 if on(a[:2],b) or on(a[2:],b) or on(b[:2],a) or on(b[2:],a):parent[find(i)]=find(j)
         labels={}
@@ -91,7 +97,8 @@ def import_package(path):
             if lab:labels.setdefault(find(i),set()).add(lab)
         for point,lab in net_symbols:
             if not lab:raise ValueError('An exported net label is empty.')
-            for i,(seg,_) in enumerate(wires):
+            for i in wire_index.query((point[0]-1e-6,point[1]-1e-6,point[0]+1e-6,point[1]+1e-6)):
+                seg=wires[i][0]
                 if on(point,seg):labels.setdefault(find(i),set()).add(lab)
         if (port_symbols or explicit_ports) and (len(port_symbols)!=len(cell['ports']) or set(port_symbols)!=set(cell['ports'])):
             raise ValueError('External cell ports changed. Reconcile the component interface in Studio before importing.')

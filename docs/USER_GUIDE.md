@@ -1,3 +1,11 @@
+# 0.16 design workflows
+
+Read [UPDATE_0.17.md](UPDATE_0.17.md) for direct Xschem project import and export. Read [UPDATE_0.16.md](UPDATE_0.16.md) for specifications, calculated waveforms, individual variation cases, placement constraints, live rules, parametric devices, RC comparison and Xschem review. Results now use four workspace categories. Ctrl+K locates commands described by earlier guides.
+
+# 0.15 interaction update
+
+Open Analysis → Simulation Explorer for multiple simulation runs, Waveforms → Markers for exact X/Y checks, and Help → Compatibility matrix for supported open tool workflows. Read [UPDATE_0.15.md](UPDATE_0.15.md). The interface has task-specific menus and a Window menu. See [GUI_OVERHAUL.md](GUI_OVERHAUL.md) for current command locations, visible grids and workspace controls. Older menu paths below describe earlier versions; Ctrl+K finds the original command by name.
+
 # IC Design Studio user guide
 
 For the current saved-testbench and physical-hierarchy workflow, start with [UPDATE_0.8.md](UPDATE_0.8.md). The sections below document the underlying editors and earlier workflows.

@@ -11,8 +11,9 @@ from .wire_canvas import WireCanvasMixin
 
 from .label_canvas import LabelCanvasMixin
 from .editor_canvas import EditorCanvasMixin
+from .grid import GridMixin
 
-class Canvas(EditorCanvasMixin,LabelCanvasMixin,WireCanvasMixin,QWidget):
+class Canvas(GridMixin,EditorCanvasMixin,LabelCanvasMixin,WireCanvasMixin,QWidget):
     editor_requested=Signal(str,dict)
     label_requested=Signal(dict)
     wire_added=Signal(list);wire_segment_moved=Signal(str,int,float,float)
@@ -34,7 +35,7 @@ class Canvas(EditorCanvasMixin,LabelCanvasMixin,WireCanvasMixin,QWidget):
         self.update()
     def model(self,p):return QPointF((p.x()-self.offset.x())/self.scale,(p.y()-self.offset.y())/self.scale)
     def snap(self,p):
-        grid=10 if self.mode=='schematic' else self.tech.get('grid',5)
+        grid=self.snap_interval()
         if self.mode=='layout' and self.tool=='path' and self.cell and getattr(self,'snap_to_terminals',False):
             candidates=[pin['point'] for pin in self.cell.get('layout_pins',[])]+[port['point'] for port in self.cell.get('layout_ports',[])]
             margin=8/self.scale
@@ -79,21 +80,17 @@ class Canvas(EditorCanvasMixin,LabelCanvasMixin,WireCanvasMixin,QWidget):
         p=QPen(QColor(color),width);p.setCosmetic(True);return p
     def paintEvent(self,event):
         t=palette(self.dark);p=QPainter(self);p.setRenderHint(QPainter.Antialiasing);p.fillRect(self.rect(),QColor(t['canvas']));p.setPen(self.pen(t['grid'],1))
-        step=(20 if self.mode=='schematic' else 500)*self.scale
-        while step<18:step*=5
-        if step<200:
-            x=self.offset.x()%step
-            while x<self.width():
-                y=self.offset.y()%step
-                while y<self.height():p.drawPoint(QPointF(x,y));y+=step
-                x+=step
+        self.paint_grid(p)
         if not self.cell:return
         p.translate(self.offset);p.scale(self.scale,self.scale);view=QRectF(self.model(QPointF(0,0)),self.model(QPointF(self.width(),self.height())))
         original=self.cell
         if getattr(self,'capture_preview',None) is not None:self.cell=self.capture_preview
         if self.wire_drag and self.anchor and self.drag:
             ident,index=self.wire_drag;delta=self.drag-self.anchor
-            self.cell={**self.cell,'wires':[{**w,'points':wiring.segment_drag(w['points'],index,delta.x(),delta.y())} if w['id']==ident else w for w in self.cell.get('wires',[])]}
+            from .model import clone
+            self.cell=clone(self.cell)
+            try:wiring.reshape_segment(self.cell,ident,index,delta.x(),delta.y())
+            except ValueError:pass  # Preview stays reversible; commit reports conflicts.
         if self.moving and self.anchor and self.drag:
             delta=self.drag-self.anchor;group='devices' if self.mode=='schematic' else 'shapes';objects=[]
             for obj in self.cell[group]:
@@ -126,10 +123,14 @@ class Canvas(EditorCanvasMixin,LabelCanvasMixin,WireCanvasMixin,QWidget):
             a,b=self.ruler;p.setPen(self.pen(t['accent'],1.5));p.drawLine(a,b)
             length=math.hypot(b.x()-a.x(),b.y()-a.y())/(1000 if self.mode=='layout' else 1);p.save();p.translate((a+b)/2);p.scale(1/self.scale,1/self.scale);p.setFont(QFont('DejaVu Sans',10));p.drawText(QPointF(5,-8),f'{length:.4g} '+('µm' if self.mode=='layout' else 'units'));p.restore()
         p.resetTransform()
+        if self.mode=='schematic' and getattr(self,'simulation_annotation_label',''):
+            p.setPen(QColor('#e3a851' if self.simulation_annotation_label.startswith('STALE') else t['muted']));p.setFont(QFont('Sans Serif',9));p.drawText(QPointF(12,23),self.simulation_annotation_label)
         if not self.cell['devices' if self.mode=='schematic' else 'shapes'] and not self.placement and not (self.mode=='schematic' and self.cell.get('wires')):
             p.setPen(QColor(t['text']));p.setFont(QFont('DejaVu Sans',17,QFont.DemiBold));r=QRectF(self.rect());r.setHeight(r.height()-28);p.drawText(r,Qt.AlignCenter,'Build your circuit' if self.mode=='schematic' else 'Start your layout');p.setFont(QFont('DejaVu Sans',10));p.setPen(QColor(t['muted']));r=QRectF(self.rect());r.translate(0,22);p.drawText(r,Qt.AlignCenter,'Choose Place to add a component.' if self.mode=='schematic' else 'Choose a layer, then draw a rectangle, polygon, or path.')
     def draw_schematic(self,p,view):
         self.draw_wires(p)
+        if self.scale<.35 and len(self.cell['devices'])>50 and not self.cell.get('xschem') and not self.cell.get('electrical'):
+            self.draw_schematic_overview(p,view);return
         self.draw_labels(p)
         for d in self.cell['devices']:
             if not view.intersects(self.bounds(d)):continue
@@ -146,7 +147,7 @@ class Canvas(EditorCanvasMixin,LabelCanvasMixin,WireCanvasMixin,QWidget):
                 p.setPen(self.pen(fg,1.8))
             if d.get('symbol'):
                 from .symbol_editor import draw_symbol
-                draw_symbol(p,d['symbol'],fg,{'name':d['name'],'value':d['value'],'symname':d.get('cell',''),**d.get('params',{}),**d.get('parameters',{}),**d.get('symbol_context',{})})
+                draw_symbol(p,d['symbol'],fg,{'name':d['name'],'value':d['value'],'symname':d.get('cell',''),**d.get('params',{}),**d.get('parameters',{}),**d.get('symbol_context',{}),'name':d['name']})
             elif kind in ('R','C','V'):
                 pen=self.pen(fg,1.5);pen.setCapStyle(Qt.RoundCap);pen.setJoinStyle(Qt.RoundJoin);p.setPen(pen)
                 # Keep the electrical terminals at +/-50; only the ink changes.
@@ -174,12 +175,14 @@ class Canvas(EditorCanvasMixin,LabelCanvasMixin,WireCanvasMixin,QWidget):
                 else:p.drawLine(10,0,18,-5);p.drawLine(10,0,18,5)
             elif d.get('symbol'):
                 from .symbol_editor import draw_symbol
-                draw_symbol(p,d['symbol'],fg,{'name':d['name'],'value':d['value'],'symname':d.get('cell',''),**d.get('params',{}),**d.get('parameters',{}),**d.get('symbol_context',{})})
+                draw_symbol(p,d['symbol'],fg,{'name':d['name'],'value':d['value'],'symname':d.get('cell',''),**d.get('params',{}),**d.get('parameters',{}),**d.get('symbol_context',{}),'name':d['name']})
             else:
                 p.drawRect(QRectF(-40,-50,80,max(100,len(d['nets'])*20)));p.drawText(QRectF(-35,-15,70,30),Qt.AlignCenter,'CELL')
                 pos=pin_positions({**d,'x':0,'y':0,'rotation':0,'mirror':False})
                 for pin,(x,y) in pos.items():p.drawLine(x,y,-40 if x<0 else 40,y)
-            p.restore();p.setPen(QColor(fg));p.setFont(QFont('Sans Serif',11));p.drawText(QPointF(d['x']-20 if d['rotation'] in (90,270) else d['x']+37,d['y']-55 if d['rotation'] in (90,270) else d['y']-30),d['name']);p.setFont(QFont('Sans Serif',9));p.setPen(QColor(palette(self.dark)['muted']));p.drawText(QPointF(d['x']-20 if d['rotation'] in (90,270) else d['x']+37,d['y']-39 if d['rotation'] in (90,270) else d['y']-12),d.get('model_ref',{}).get('device','').split('/')[-1].replace('.sym','') if kind=='PDK' else d['value'] if kind not in ('NMOS','PMOS','X') else (d['params']['w']+' / '+d['params']['l'] if kind!='X' else 'hierarchy'))
+            p.restore()
+            if not d.get('xschem') and not d.get('native_spice'):
+                p.setPen(QColor(fg));p.setFont(QFont('Sans Serif',11));p.drawText(QPointF(d['x']-20 if d['rotation'] in (90,270) else d['x']+37,d['y']-55 if d['rotation'] in (90,270) else d['y']-30),d['name']);p.setFont(QFont('Sans Serif',9));p.setPen(QColor(palette(self.dark)['muted']));p.drawText(QPointF(d['x']-20 if d['rotation'] in (90,270) else d['x']+37,d['y']-39 if d['rotation'] in (90,270) else d['y']-12),d.get('model_ref',{}).get('device','').split('/')[-1].replace('.sym','') if kind=='PDK' else d['value'] if kind not in ('NMOS','PMOS','X') else (d['params']['w']+' / '+d['params']['l'] if kind!='X' else 'hierarchy'))
             for pin,(x,y) in pin_positions(d).items():
                 name=d.get('net_labels',d['nets'] if 'wires' not in self.cell else {}).get(pin,'')
                 p.setFont(QFont('Sans Serif',8))
@@ -188,10 +191,32 @@ class Canvas(EditorCanvasMixin,LabelCanvasMixin,WireCanvasMixin,QWidget):
                 if self.net and d['nets'].get(pin)==self.net:p.setPen(self.pen(palette(self.dark)['accent'],2.5));p.setBrush(Qt.NoBrush);p.drawEllipse(QPointF(x,y),6,6)
                 p.setPen(self.pen(fg,1));p.setBrush(QColor(fg) if connected else QColor(palette(self.dark)['canvas']));p.drawEllipse(QPointF(x,y),2.2,2.2)
         p.setPen(QColor(palette(self.dark)['muted']));p.setFont(QFont('Sans Serif',10))
+        for d in self.cell['devices']:
+            text=getattr(self,'simulation_annotations',{}).get(d['id'])
+            if text:
+                p.save();p.translate(d['x']+85,d['y']+20);p.scale(1/self.scale,1/self.scale);p.setFont(QFont('Sans Serif',8));p.setPen(QColor('#6fbcad' if self.dark else '#176b5b'));p.drawText(QRectF(0,0,200,145),Qt.TextWordWrap,text);p.restore()
         for note in self.cell.get('annotations',[]):
             p.drawText(QRectF(note['x'],note['y'],320,150),Qt.TextWordWrap,note['text'])
         for i,bus in enumerate(self.cell.get('buses',[])):
             p.drawText(QPointF(20,25+20*i),'Bus '+bus['name'])
+    def draw_schematic_overview(self,p,view):
+        # Cache visual-only overview strokes; electrical targets remain full precision.
+        if getattr(self,'_overview_source',None) is not self.cell['devices']:
+            from PySide6.QtGui import QTransform
+            self._overview_source=self.cell['devices'];normal=QPainterPath();paths={}
+            for d in self.cell['devices']:
+                path=QPainterPath();kind=d['kind']
+                if kind in ('R','C','L','V','I'):
+                    path.moveTo(0,-50);path.lineTo(0,50)
+                    if kind=='C':path.moveTo(-18,-6);path.lineTo(18,-6);path.moveTo(-18,6);path.lineTo(18,6)
+                    elif kind in ('V','I'):path.addEllipse(QRectF(-20,-20,40,40))
+                    else:path.addRect(QRectF(-9,-24,18,48))
+                else:path.addRect(QRectF(-38,-40,76,80))
+                transform=QTransform();transform.translate(d['x'],d['y']);transform.rotate(d['rotation']);transform.scale(-1 if d.get('mirror') else 1,1);path=transform.map(path);normal.addPath(path);paths[d['id']]=path
+            self._overview_base=normal;self._overview_paths=paths
+        p.setBrush(Qt.NoBrush);p.setPen(self.pen('#dee6f3' if self.dark else '#334259',1.3));p.drawPath(self._overview_base);p.setPen(self.pen(palette(self.dark)['accent'],2.3))
+        for ident in self.selection:
+            if ident in self._overview_paths:p.drawPath(self._overview_paths[ident])
     def path(self,s):
         pts=self.points(s);path=QPainterPath(pts[0])
         if s['kind']=='rect':path.addRect(QRectF(pts[0],pts[1]).normalized())
@@ -225,6 +250,8 @@ class Canvas(EditorCanvasMixin,LabelCanvasMixin,WireCanvasMixin,QWidget):
             pen,brush,col=inks[key];p.setPen(pen);p.setBrush(brush);p.drawPath(paths[i])
             if s.get('net') and self.cell.get('layout_label_mode')!='explicit' and boxes[i].width()*self.scale>35:
                 p.save();p.translate(*s['points'][0]);p.scale(1/self.scale,1/self.scale);p.setPen(col);p.setFont(QFont('Sans Serif',9));p.drawText(5,15,s['net']);p.restore()
+        for shape in getattr(self,'live_preview',[]):
+            p.setPen(self.pen('#f2737d' if getattr(self,'live_preview_blocked',False) else '#72c9b0',2));p.setBrush(Qt.NoBrush);p.drawPath(self.path(shape))
         for guide in getattr(self,'connection_guides',[]):
             pen=self.pen('#f0bd72',1.5);pen.setStyle(Qt.DashLine);p.setPen(pen);p.drawLine(QPointF(*guide['start']),QPointF(*guide['end']))
         if getattr(self,'finding_box',None):
@@ -333,7 +360,10 @@ class Canvas(EditorCanvasMixin,LabelCanvasMixin,WireCanvasMixin,QWidget):
         elif self.tool=='select' and self.moving and self.selection and distance>4 and (end-start).manhattanLength()>0:self.move_objects.emit(self.selection,end.x()-start.x(),end.y()-start.y())
         self.anchor=None;self.wire_drag=None;self.moving=False;self.marquee=False;self.update()
     def finish_drawing(self):
-        if len(self.drawing)>=(3 if self.tool=='polygon' else 2):self.shape_added.emit({'id':uid(),'kind':self.tool,'layer':self.layer,'points':[[int(p.x()),int(p.y())] for p in self.drawing],'width':self.line_width,'net':'','device_id':''})
+        if len(self.drawing)>=(3 if self.tool=='polygon' else 2):
+            shape={'id':uid(),'kind':self.tool,'layer':self.layer,'points':[[int(p.x()),int(p.y())] for p in self.drawing],'width':self.line_width,'net':'','device_id':''}
+            if getattr(self,'can_commit_shape',None) and not self.can_commit_shape(shape):return
+            self.shape_added.emit(shape)
         self.drawing=[];self.anchor=None;self.update()
     def mouseDoubleClickEvent(self,e):
         if self.tool=='connect':self.finish_wire();return

@@ -1,6 +1,6 @@
 # IC Design Studio 0.5.0 — Project and PDK workspaces
 
-This update continues the native PySide6 desktop application from the supplied 0.4.0 handover. It is an engineering release, not a claim of Altium, Xschem or KLayout feature parity.
+This update continues the native PySide6 desktop application from the supplied 0.4.0 handover. It is an engineering release, not a claim of complete Xschem or KLayout feature parity.
 
 ## Start here
 

@@ -1,0 +1,16 @@
+v {xschem version=3.4.4 file_version=1.2}
+G {}
+K {type=subcircuit format="@name @pinlist @symname resistance=@resistance width=@width" template="name=X1 resistance=10k width=10u" custom_note="preserve this attribute"}
+V {}
+S {}
+E {}
+B 4 -40 -40 40 40 {}
+T {@name} -25 5 0 0 0.2 0.2 {}
+B 5 -62 -22 -58 -18 {name=in dir=in sim_pinnumber=1}
+B 5 58 -22 62 -18 {name=out dir=out sim_pinnumber=2}
+B 5 -2 -62 2 -58 {name=vdd dir=in sim_pinnumber=3}
+B 5 -2 58 2 62 {name=vss dir=in sim_pinnumber=4}
+L 4 -60 -20 -40 -20 {}
+L 4 60 -20 40 -20 {}
+L 4 0 -60 0 -40 {}
+L 4 0 60 0 40 {}

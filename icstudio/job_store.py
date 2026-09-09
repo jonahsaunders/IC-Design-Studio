@@ -15,4 +15,8 @@ def read_result(path,project_id,require_complete=True):
     if result.get('project_id')!=project_id or job['project']['id']!=project_id:raise ValueError('Result belongs to a different project.')
     if result.get('cell_id')!=job['cell'] or result.get('design_hash')!=design_digest(job['project']):raise ValueError('Result does not match its saved input.')
     if not isinstance(result.get('traces'),dict) or not isinstance(result.get('x'),list):raise ValueError('Invalid result structure.')
+    if result.get('xschem_cases') or result.get('analysis_cases'):
+        # Raw captures travel with their saved job; do not retain a previous
+        # computer's absolute run directory when reopening copied results.
+        result['case_directory']=str(path.parent.resolve())
     return result

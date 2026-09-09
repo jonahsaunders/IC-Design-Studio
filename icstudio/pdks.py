@@ -8,6 +8,9 @@ class PDKRegistry:
     def __init__(self,root): self.root=Path(root);self.root.mkdir(parents=True,exist_ok=True)
     def install(self,manifest_path):
         src=Path(manifest_path).resolve();base=src.parent;manifest=json.loads(src.read_text(encoding='utf-8'))
+        # Managed packages must use their installed copies, even when exported
+        # from a registration that referred to a developer's original folder.
+        manifest.pop('source_root',None)
         for key in ('id','revision'):
             if not re.fullmatch(r'[A-Za-z0-9_-][A-Za-z0-9_.-]{0,100}',manifest.get(key,'')):raise ValueError('Invalid PDK '+key)
         if manifest.get('schema')!=1:raise ValueError('Unsupported technology package schema.')
@@ -26,6 +29,7 @@ class PDKRegistry:
         try:
             for rel in files:
                 target=stage/rel;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(base/rel,target)
+                if file_digest(target)!=files[rel]:raise ValueError('PDK asset changed during installation: '+rel)
             atomic_write(stage/'package.json',json.dumps(manifest,indent=2));os.replace(stage,dest)
         finally:
             if stage.exists():shutil.rmtree(stage)

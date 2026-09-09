@@ -19,6 +19,17 @@ def main(output):
         app=QApplication([]);app.setStyle('Fusion');QSettings('ICDesignStudio','Studio').clear();window=Studio(recover=False);window.resize(1440,940);window.show();QTest.qWait(100)
         assert window.dark;assert window.devicePixelRatioF()>=float(report['scale'])-.05
         report['checks'].append('native dark workspace and requested DPI scale')
+        assert window.schematic.grid_style=='lines' and window.layout.grid_style=='lines'
+        assert not window.unmapped_commands and 'Window' in window.task_menus
+        report['checks'].append('0.14 visible schematic/layout grids and complete reorganized command map')
+        grid_dialog=window.grid_settings_dialog();grid_dialog.fields['layout'][0].setCurrentIndex(1)
+        assert window.layout.grid_style=='dots';grid_dialog.reject();window.layout.grid_style='lines'
+        window.arrange_linked(Qt.Vertical);window.save_editor_workspace('Packaged workspace')
+        window.reset_workspace();window.load_editor_workspace('Packaged workspace')
+        assert window.canvases.orientation()==Qt.Vertical and window.mode_combo.currentIndex()==2
+        window.reset_workspace();dialog=window.configure_windows();QTest.qWait(20)
+        assert dialog.isVisible();dialog.grab().save(str(out/'configure-windows.png'));dialog.reject()
+        report['checks'].append('0.14 packaged grid controls, configurable windows and saved stacked views')
         p=example();window.set_project(p);p=clone(window.project);path=out/'Round trip with spaces.icproj';save_project(p,path);window.set_project(load_project(path),path)
         assert digest(window.project)==digest(p);report['checks'].append('save and reopen from a path containing spaces')
         d=window.cell['devices'][1];window.select([d['id']]);window.schematic.setFocus();old=d['rotation'];QTest.keyClick(window.schematic,Qt.Key_R);assert window.cell['devices'][1]['rotation']==(old+90)%360;window.undo();assert window.cell['devices'][1]['rotation']==old
@@ -27,6 +38,38 @@ def main(output):
         while window.process and time.monotonic()<deadline:QTest.qWait(20)
         assert not window.process,'Simulation worker timed out'
         assert window.result and len(window.result['x'])==501,window.console.toPlainText();report['checks'].append('background worker simulation returns 501 transient samples')
+        window.command_actions['Compatibility matrix'].trigger();QTest.qWait(20)
+        assert window._compatibility_dialog.isVisible() and window.compatibility_table.rowCount()==8
+        window._compatibility_dialog.close();report['checks'].append('0.15 shipped Help action opens the offline compatibility matrix')
+        window.parallel_jobs.setValue(2)
+        runs=[window.start_job(clone(window.project['analysis'])) for _ in range(3)]
+        assert [r['state'] for r in runs]==['Running','Running','Queued']
+        deadline=time.monotonic()+35
+        while window.run_manager.busy and time.monotonic()<deadline:QTest.qWait(20)
+        assert all(r['state']=='Complete' for r in runs),window.console.toPlainText()
+        assert window.simulation_runs.rowCount()==4
+        report['checks'].append('0.15 packaged parallel workers, queued dispatch and run table')
+        window.add_spec_row({'name':'Output limit','expression':'final(V("vout"))','min':'0','max':'1.81','unit':'V'});window.save_specifications()
+        assert window.result_categories.count()==4 and window.results_tabs.tabBar().isHidden()
+        from .wavecalc import evaluate as calculate
+        assert calculate('final(V("vout"))',window.result).values[0]>=0
+        dialog=window.wavecalc_dialog();assert len(dialog.plots)==1;dialog.close()
+        from .parametric import build
+        data=build(window.project,window.cid,None,{'kind':'contact','rows':2,'columns':2});assert len(data['shapes'])==6
+        from .distributed_rc import extract
+        from .exchange_review import review
+        from .run_environment import stamp
+        report['checks'].append('0.16 packaged specifications, grouped navigation, waveform calculator and parametric geometry')
+        from .measurements import evaluate
+        marker=window.plot.add_marker('XY',25e-6,1.8,'vout')
+        assert evaluate(window.result,marker)['verdict']=='PASS'
+        window.waveform_tools.open_manager();dialog=window.waveform_tools.dialog
+        assert dialog.isVisible() and 'PASS' in window.waveform_tools.csv_text()
+        dialog.close();report['checks'].append('0.15 packaged exact X/Y marker checks and measurement export')
+        window.analysis_type.setCurrentIndex(window.analysis_type.findData('tran'));window.add_simulation_setup()
+        path=out/'Analysis plan.icproj';save_project(window.project,path);window.set_project(load_project(path),path)
+        assert len(window.project['simulation_setups'])==1 and window.simulation_runs.rowCount()==4
+        report['checks'].append('0.15 saved analysis plan and durable result history reopen')
         from .lifecycle import duplicate_project
         from .model import uid
         copied=duplicate_project(window.project,out/('Independent copy '+uid()+'.icproj'))
@@ -87,7 +130,7 @@ def main(output):
         # Exercise 0.11 through the frozen Qt surface and packaged editor modules.
         from .layout import rect
         p=example('empty');c=p['cells'][0];c['shapes']=[rect('metal1',0,0,1000,1000)];sid=c['shapes'][0]['id']
-        window.set_project(p);window.mode_combo.setCurrentIndex(1);window.set_keyboard_profile('Virtuoso-inspired',{});window.activateWindow();window.layout.setFocus();QTest.qWait(30)
+        window.set_project(p);window.mode_combo.setCurrentIndex(1);window.set_keyboard_profile('Classic analog',{});window.activateWindow();window.layout.setFocus();QTest.qWait(30)
         QTest.keyClick(window.layout,Qt.Key_R);assert window.layout.tool=='rect';window.cancel_tool();window.select([sid],'layout');window.editor_execute('copy_ref',{'dx':2000,'dy':0});assert len(window.cell['shapes'])==2;window.undo();assert len(window.cell['shapes'])==1
         window.select([sid],'layout');dlg=window.editor_properties();assert dlg.fields['layer'].count()>1;dlg.close();report['checks'].append('packaged 0.11 keyboard profile, reference copy, undo and bulk property form')
         child={'id':uid(),'name':'context_unit','ports':[],'devices':[],'shapes':[rect('metal2',0,0,1000,1000)]};p['cells'].append(child);inst={'id':uid(),'name':'P1','cell':child['id'],'x':3000,'y':4000,'rotation':90,'mirror':True,'nx':1,'ny':1};c['layout_instances']=[inst]
@@ -120,6 +163,16 @@ def main(output):
                     assert not window.process,'Packaged physical comparison worker timed out'
                     r=window._characterization_result;assert r and r['status']=='passed',window.console.toPlainText();window.characterization_probe.setCurrentIndex(window.characterization_probe.count()-1);window.characterization_waveforms();assert len(window.characterization_plot.overlays)==1
                     report['checks'].append(family+' actual full DRC, LVS, extracted comparison and overlay from packaged worker')
+        from .xschem_project import apply_review as apply_direct,review_schematic,export_project
+        dialog=window.open_xschem_example();QTest.qWait(50);assert dialog.open_button.isEnabled(),dialog.record['errors'];p=apply_direct(dialog.record);dialog.reject();window.set_project(p);export_project(p,out/'xschem-direct');q=apply_direct(review_schematic(out/'xschem-direct/amplifier.sch'));assert q['id']==p['id'] and len(q['cells'])==2;window.set_project(q);window.mode_combo.setCurrentIndex(0);report['checks'].append('packaged direct Xschem dependency review, editable hierarchy, export and native identity restoration')
+        from .xschem_runtime import find_ngspice
+        bundled=find_ngspice()
+        if bundled:
+            window.settings.setValue('engine/ngspice',bundled);window.maybe_save=lambda:True;window.open_xschem_program_example();assert window.current_analysis_settings()['type']=='xschem';window.quick_run();deadline=time.monotonic()+45
+            while window.run_manager.busy and time.monotonic()<deadline:QTest.qWait(30)
+            assert not window.run_manager.busy,'Xschem program worker timed out';row=window.run_manager.rows[-1];assert row['state']=='Complete',row['log'];assert row['result']['program_status']=='Complete',row['result']['warnings'];assert len(row['result']['xschem_cases'])==6;window.refresh_xschem_cases();assert window.xschem_case_table.rowCount()==6
+            window.select_xschem_case_data(2);marker=window.plot.add_marker('XY',.0005,1.01,'out');assert evaluate(window.result,marker)['verdict']=='PASS';window.select_xschem_case_data(5);assert evaluate(window.result,marker)['verdict']=='FAIL';window.select_xschem_case_data(3);assert window.result['plot_kind']=='ac'
+            report['checks'].append('0.18 included offline Xschem symbols, bundled ngspice program worker, six cases, waveform selection and exact X/Y checks')
         window.fit_active();QTest.qWait(100);assert window.grab().save(str(out/'desktop.png'));assert not errors,errors;report['status']='passed'
     except Exception:report['error']=traceback.format_exc()
     finally:

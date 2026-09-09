@@ -210,7 +210,7 @@ class StudioCore(QMainWindow):
     def set_project(self,p,path=None):
         self._disk_hash=file_digest(path) if path and Path(path).is_file() else None
         self.history=History(p);self.cid=p['top'];self.path=Path(path) if path else None;self.saved_hash=digest(p) if path else None;self.selection=[];self.net='';self.jobs=[];self.result=None;self.run_combo.clear();self.plot.result=None;self.plot.update();self.traces.clear();self.layer_combo.clear();self.layer_combo.addItems([l['name'] for l in p['pdk']['layers']]);self.layout.visible_layers={l['name'] for l in p['pdk']['layers']};self.issues=[];self.checks.setRowCount(0);self.refresh(True)
-        for f in sorted((self.jobs_dir/p['id']).glob('*/result.json'))[-30:]:
+        for f in sorted((self.jobs_dir/p['id']).glob('*/result.json'),key=lambda f:f.stat().st_mtime_ns)[-30:]:
             try:
                 r=job_store.read_result(f,p['id']);self.add_result(r)
             except Exception:pass
@@ -512,7 +512,7 @@ class StudioCore(QMainWindow):
     def help_dialog(self):
         path=Path(getattr(sys,'_MEIPASS',Path(__file__).parent.parent))/'docs'/'USER_GUIDE.md';self.text_dialog('IC Design Studio help',path.read_text() if path.exists() else 'Open docs/USER_GUIDE.md in the source package.')
     def about(self):
-        self.text_dialog('About IC Design Studio',f'IC Design Studio {__version__}\nStandalone engineering preview\n\nNative Qt 6 desktop interface (PySide6), C++20 matrix solver, KLayout geometry library. No web server, account, or cloud connection is required.\n\nImplemented: manual wires, placed net labels and ground, whole-net inspection, session recovery, undo/redo, simulation/studies, layout editing, PDK bindings and a verified SKY130 standard-cell reference flow.\n\nNot a professional 1.0 or tapeout tool. General PDK qualification, distributed resistance extraction, unrestricted tool round trips, million-shape performance, signed distribution, Windows execution and external pilot gates remain open. See the release notes for the exact verified reference flow.\n\nNative core: '+('loaded' if __import__('icstudio.simulation',fromlist=['CORE']).CORE else 'Python fallback')+'\n\nQt / PySide6: LGPLv3 and component licenses. KLayout: GPLv2 or later. See THIRD_PARTY_NOTICES.md and bundled licenses. Application source is GPLv3-or-later.')
+        self.text_dialog('About IC Design Studio',f'IC Design Studio {__version__}\nStandalone engineering preview\n\nNative Qt 6 desktop interface (PySide6), C++20 matrix solver, KLayout geometry library. No web server, account, or cloud connection is required.\n\nImplemented: manual wires, placed net labels and ground, whole-net inspection, session recovery, undo/redo, simulation/studies, layout editing, PDK bindings and a verified SKY130 standard-cell reference flow.\n\nNot a professional 1.0 or tapeout tool. General PDK qualification, unrestricted scripted-library exchange, million-shape performance, signed distribution, Windows execution and external pilot gates remain open. See the release notes for the exact verified reference flow.\n\nNative core: '+('loaded' if __import__('icstudio.simulation',fromlist=['CORE']).CORE else 'Python fallback')+'\n\nQt / PySide6: LGPLv3 and component licenses. KLayout: GPLv2 or later. See THIRD_PARTY_NOTICES.md and bundled licenses. Application source is GPLv3-or-later.')
     def command_palette(self):
         dlg=QDialog(self);dlg.setWindowTitle('Command palette');dlg.resize(520,440);v=QVBoxLayout(dlg);q=QLineEdit();q.setPlaceholderText('Search commands…');v.addWidget(q);lst=QListWidget();v.addWidget(lst);actions=[a for a in self.findChildren(QAction) if a.text() and not a.menu() and a.isEnabled() and not a.text().startswith('&')]
         def fill():
@@ -549,8 +549,21 @@ from .editor_workspace import EditorWorkspaceMixin
 
 from .capture_workspace import CaptureWorkspaceMixin
 from .consistency_workspace import ConsistencyWorkspaceMixin
+from .human_workspace import HumanWorkspaceMixin
+from .simulation_workspace import SimulationWorkspaceMixin
 
-class Studio(ConsistencyWorkspaceMixin,CaptureWorkspaceMixin,EditorWorkspaceMixin, LayoutToolsMixin, AnalogMixin, HierarchyMixin, SiliconMixin, LifecycleMixin, LayoutMixin, ProjectMixin, SchematicMixin, FeatureMixin, WorkspaceMixin, StudioCore):
+from .engineering_workspace import EngineeringWorkspaceMixin
+
+from .physical_workspace import PhysicalWorkspaceMixin
+
+from .verification_workspace import VerificationWorkspaceMixin
+
+from .xschem_workflow import XschemWorkflowMixin
+
+from .native_workspace import NativeWorkspaceMixin
+from .onboarding import OnboardingMixin
+
+class Studio(OnboardingMixin,NativeWorkspaceMixin,XschemWorkflowMixin,VerificationWorkspaceMixin,PhysicalWorkspaceMixin,EngineeringWorkspaceMixin,SimulationWorkspaceMixin,HumanWorkspaceMixin,ConsistencyWorkspaceMixin,CaptureWorkspaceMixin,EditorWorkspaceMixin, LayoutToolsMixin, AnalogMixin, HierarchyMixin, SiliconMixin, LifecycleMixin, LayoutMixin, ProjectMixin, SchematicMixin, FeatureMixin, WorkspaceMixin, StudioCore):
     """Standalone desktop application with the document-focused workspace."""
     connect = SchematicMixin.connect
     move = HierarchyMixin.move

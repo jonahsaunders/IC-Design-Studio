@@ -1,0 +1,22 @@
+name: Feature proposal
+description: Describe a user task and a concrete improvement.
+title: "[Feature] "
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: What are you trying to accomplish?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Describe the smallest useful workflow and a sample design that demonstrates it.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: How would we know it works?
+      description: Suggest an expected result or acceptance check, and note related roadmap milestones.

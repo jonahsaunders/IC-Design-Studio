@@ -15,7 +15,7 @@ For a fresh design, install `sky130A/package.json` through **Tools → PDK manag
 
 The default circuit uses three inverters, each with WN=1 µm, WP=2 µm and L=0.15 µm. The fixture has a 1.8 V supply and 5 fF output load. Its 8 ns transient starts from explicit initial conditions and measures settled rising-edge periods from 2 to 8 ns. These startup conditions demonstrate simulation behavior; they do not prove silicon startup under noise, process mismatch or power ramp variation.
 
-![Native ring oscillator workspace](screenshots/ring-workflow-0.8.png)
+The current native workspace is described in [the interaction guide](UPDATE_0.15.md).
 
 ## Saved testbenches
 

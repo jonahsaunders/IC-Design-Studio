@@ -131,6 +131,9 @@ def rebuild(cell,project=None):
         wire['net']=assigned[root]
     for d in cell['devices']:
         for pin in d['nets']:d['nets'][pin]=assigned[groups[(d['id'],pin)]]
+    if 'electrical' in cell:
+        from .electrical_identity import synchronize
+        synchronize(cell)
 
 
 def validate_wiring(cell,objid,project):
@@ -242,35 +245,116 @@ def set_label(cell,device_id,pin,name,project=None):
     rebuild(cell,project)
 
 
-def segment_drag(points,index,dx,dy):
+def segment_drag(points,index,dx,dy,fixed_start=True,fixed_end=True):
+    """Slide a segment and its adjacent bends, retaining anchored outer ends.
+
+    The old segment vertices are replaced, not copied into the new path. This
+    makes repeated drags reversible without accumulating stair-step geometry.
+    """
     a,b=points[index:index+2]
     shift=[0,dy] if a[1]==b[1] else [dx,0]
+    if not any(shift):return clone(points)
     aa=[a[0]+shift[0],a[1]+shift[1]];bb=[b[0]+shift[0],b[1]+shift[1]]
-    return clean(points[:index+1]+[aa,bb]+points[index+1:])
+    prefix=points[:index] if index else ([a] if fixed_start else [])
+    suffix=points[index+2:] if index+2<len(points) else ([b] if fixed_end else [])
+    return clean(prefix+[aa,bb]+suffix)
+
+
+def retarget_path(points,start=None,end=None,protected=()):
+    """Adjust terminal leads in place; do not retain each previous elbow."""
+    path=clone(points);protected={tuple(p) for p in protected}
+    if len(path)==2 and start is not None and end is not None:
+        bend=[start[0],end[1]] if path[0][0]==path[1][0] else [end[0],start[1]]
+        return clean([start,bend,end])
+    for reverse,target in ((False,start),(True,end)):
+        if target is None:continue
+        if reverse:path.reverse()
+        old=path[0];target=list(target)
+        if old!=target:
+            if len(path)<2:path=[target];continue
+            next_pt=path[1]
+            elbow=[target[0],next_pt[1]] if old[0]==next_pt[0] else [next_pt[0],target[1]]
+            if len(path)>2 and tuple(next_pt) not in protected:
+                path=clean([target,elbow]+path[2:])
+            else:path=clean([target,elbow]+path[1:])
+        if reverse:path.reverse()
+    return path
+
+
+def reshape_segment(cell,ident,index,dx,dy,project=None):
+    """Keep pins/junctions fixed and stretch branch leads with the dragged run."""
+    from .net_labels import reconcile
+    old=clone(cell);wire=next(w for w in cell['wires'] if w['id']==ident)
+    a,b=wire['points'][index:index+2];shift=[0,dy] if a[1]==b[1] else [dx,0]
+    if not any(shift):return
+    fixed={tuple(p) for p in pins(cell,project).values()}|{tuple(p) for p in cell.get('junctions',[])}
+    fixed.update(tuple(l['anchor']['point']) for l in cell.get('labels',[]) if l['anchor']['kind']=='point')
+    others=[w for w in cell['wires'] if w['id']!=ident]
+    # An endpoint meeting the interior of another conductor remains a junction.
+    for pt in (a,b):
+        if any(pt not in (w['points'][0],w['points'][-1]) and any(on_segment(pt,c,d) for c,d in zip(w['points'],w['points'][1:])) for w in others):fixed.add(tuple(pt))
+    wire['points']=segment_drag(wire['points'],index,dx,dy,tuple(a) in fixed,tuple(b) in fixed)
+    for other in others:
+        start,end=other['points'][0],other['points'][-1]
+        move=lambda pt:[pt[0]+shift[0],pt[1]+shift[1]] if on_segment(pt,a,b) and tuple(pt) not in fixed else None
+        new_start,new_end=move(start),move(end)
+        if new_start is not None or new_end is not None:other['points']=retarget_path(other['points'],new_start,new_end,fixed)
+    for pt in sorted(fixed):
+        if on_segment(pt,a,b) and list(pt) not in (a,b):
+            cell['wires'].append({'id':uid(),'points':[list(pt),[pt[0]+shift[0],pt[1]+shift[1]]]})
+    for label in cell.get('labels',[]):
+        anchor=label['anchor']
+        if anchor['kind']=='wire' and anchor['id']==ident and on_segment(anchor['point'],a,b):
+            anchor['point']=[anchor['point'][0]+shift[0],anchor['point'][1]+shift[1]]
+    cell['wires']=[w for w in cell['wires'] if len(w['points'])>1]
+    reconcile(cell,old,project);rebuild(cell,project)
+    if 'electrical' in cell:
+        from .electrical_identity import require_preserved
+        require_preserved(old,cell)
 
 
 def keep_connections(cell,before,project=None,moved_wires=()):
-    """Stretch only the terminal leads; retain user-placed remote bends."""
+    """Batch terminal changes against one geometry snapshot, preserving branches."""
     if 'wires' not in cell:return
-    after=pins(cell,project);moved_wires=set(moved_wires)
+    electrical_before=clone(cell) if 'electrical' in cell else None
+    after=pins(cell,project);moved_wires=set(moved_wires);original=clone(cell['wires'])
+    changes={tuple(old):after[key] for key,old in before.items() if key in after and old!=after[key]}
+    if not changes:return
+    fixed={tuple(pt) for key,pt in before.items() if after.get(key)==pt}|{tuple(p) for p in cell.get('junctions',[])}
+    destinations={}
     for key,old in before.items():
-        new=after.get(key)
-        if new is None or new==old:continue
-        # A shared old terminal stays in place and receives a new branch.
-        shared=any(k!=key and k in after and pt==old and after[k]!=new for k,pt in before.items())
-        shared=shared or any(old not in (w['points'][0],w['points'][-1]) and any(on_segment(old,a,b) for a,b in zip(w['points'],w['points'][1:])) for w in cell['wires'] if w['id'] not in moved_wires)
-        attached=False
-        for wire in list(cell['wires']):
-            if wire['id'] in moved_wires:continue
-            pts=wire['points']
-            if not shared and (pts[0]==old or pts[-1]==old):
-                reverse=pts[-1]==old;path=list(reversed(pts)) if reverse else list(pts);next_pt=path[1]
-                elbow=[new[0],next_pt[1]] if old[0]==next_pt[0] else [next_pt[0],new[1]]
-                path=clean([new,elbow]+path[1:]);wire['points']=list(reversed(path)) if reverse else path;attached=True
-        if not attached and any(on_segment(old,a,b) for w in cell['wires'] if w['id'] not in moved_wires for a,b in zip(w['points'],w['points'][1:])):
+        if key in after:destinations.setdefault(tuple(old),set()).add(tuple(after[key]))
+    fixed.update(pt for pt,targets in destinations.items() if len(targets)>1)
+    fixed.update(tuple(l['anchor']['point']) for l in cell.get('labels',[]) if l['anchor']['kind']=='point')
+    # Shared vertices and branch contacts constrain adjacent bend adjustment.
+    contacts=set(fixed);records,index=segment_index({'wires':original});by_id={w['id']:w for w in original}
+    for w in original:
+        for pt in w['points']:
+            if any(records[j][0][1]!=w['id'] and on_segment(pt,*records[j][1:]) for j in index.query((*pt,*pt))):contacts.add(tuple(pt))
+    attached=set()
+    for wire in cell['wires']:
+        if wire['id'] in moved_wires:continue
+        pts=wire['points'];ends=[]
+        for pt in (pts[0],pts[-1]):
+            key=tuple(pt);target=changes.get(key)
+            if target is None:ends.append(None);continue
+            shared=key in fixed or any(records[j][0][1]!=wire['id'] and pt not in (by_id[records[j][0][1]]['points'][0],by_id[records[j][0][1]]['points'][-1]) and on_segment(pt,*records[j][1:]) for j in index.query((*pt,*pt)))
+            ends.append(target if target is not None and not shared else None)
+            if ends[-1] is not None:attached.add(key)
+        if all(pt is not None for pt in ends) and [ends[0][i]-pts[0][i] for i in (0,1)]==[ends[1][i]-pts[-1][i] for i in (0,1)] and not any(tuple(pt) in contacts for pt in pts[1:-1]):
+            delta=[ends[0][i]-pts[0][i] for i in (0,1)];wire['points']=[[pt[i]+delta[i] for i in (0,1)] for pt in pts]
+        elif any(pt is not None for pt in ends):wire['points']=retarget_path(pts,*ends,contacts)
+    branches=set()
+    for key,old in before.items():
+        new=after.get(key);coord=tuple(old)
+        if new is None or new==old or coord in attached or (coord,tuple(new)) in branches:continue
+        if any(records[j][0][1] not in moved_wires and on_segment(old,*records[j][1:]) for j in index.query((*old,*old))):
             path=clean([old,[new[0],old[1]],new])
-            if len(path)>1:cell['wires'].append({'id':uid(),'points':path})
+            if len(path)>1:cell['wires'].append({'id':uid(),'points':path});branches.add((coord,tuple(new)))
     cell['wires']=[w for w in cell['wires'] if len(w['points'])>1]
+    if electrical_before is not None:
+        from .electrical_identity import require_preserved
+        rebuild(cell,project);require_preserved(electrical_before,cell)
 
 
 def junction_points(cell,project=None):

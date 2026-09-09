@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="320" viewBox="0 0 1440 320" role="img" aria-labelledby="title desc">
+<title id="title">IC Design Studio</title><desc id="desc">Design. Simulate. Understand. An open circuit design workspace.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#111923"/><stop offset="1" stop-color="#1b2e43"/></linearGradient><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#7298c2" stroke-opacity=".12"/></pattern></defs>
+<rect width="1440" height="320" rx="18" fill="url(#bg)"/><rect width="1440" height="320" rx="18" fill="url(#grid)"/>
+<g font-family="Inter,Segoe UI,Arial,sans-serif"><text x="62" y="76" fill="#81bad6" font-size="17" letter-spacing="3">OPEN TOOLS. YOUR DESIGN.</text><text x="58" y="159" fill="#f1f6ff" font-size="66" font-weight="700">IC Design Studio</text><text x="62" y="218" fill="#aabed6" font-size="28">Design. Simulate. Understand.</text><text x="62" y="272" fill="#7f95b0" font-size="16">SCHEMATIC  /  SIMULATION  /  LAYOUT</text></g>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="1046" y="86" width="136" height="136" rx="14" stroke="#8baaf5" stroke-width="3"/>
+<path d="M1070 61V86M1100 61V86M1130 61V86M1160 61V86M1070 222V248M1100 222V248M1130 222V248M1160 222V248M1020 109H1046M1020 139H1046M1020 169H1046M1020 199H1046M1182 109H1208M1182 139H1208M1182 169H1208M1182 199H1208" stroke="#668ed8" stroke-width="3"/>
+<path d="M884 172H947V139H1020M1208 169H1270V105H1354M1208 199H1240V254H1345" stroke="#4c8d9c" stroke-width="2"/>
+<path d="M1068 167H1086L1098 132L1114 188L1130 119L1141 156H1160" stroke="#77dbc6" stroke-width="4"/></g>
+<g fill="#77dbc6"><circle cx="884" cy="172" r="5"/><circle cx="1354" cy="105" r="5"/><circle cx="1345" cy="254" r="5"/></g>
+</svg>

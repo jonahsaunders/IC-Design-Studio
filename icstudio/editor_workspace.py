@@ -10,7 +10,7 @@ from . import editor_ops
 
 KEYMAPS={
  'Studio':{'rectangle':'','polygon':'','path':'','move':'M','copy':'C','edge':'S','vertex':'','via':'V','properties':'Q','fit':'F','measure':'K','rotate':'R','back':'Shift+R','enter':'Shift+E','leave':'Ctrl+B'},
- 'Virtuoso-inspired':{'rectangle':'R','polygon':'Shift+P','path':'P','move':'M','copy':'C','edge':'S','vertex':'Shift+S','via':'O','properties':'Q','fit':'F','measure':'K','rotate':'Shift+R','back':'Ctrl+R','enter':'Shift+E','leave':'Ctrl+B'},
+ 'Classic analog':{'rectangle':'R','polygon':'Shift+P','path':'P','move':'M','copy':'C','edge':'S','vertex':'Shift+S','via':'O','properties':'Q','fit':'F','measure':'K','rotate':'Shift+R','back':'Ctrl+R','enter':'Shift+E','leave':'Ctrl+B'},
  'KLayout-inspired':{'rectangle':'B','polygon':'P','path':'Shift+P','move':'M','copy':'C','edge':'S','vertex':'V','via':'Shift+V','properties':'Q','fit':'F','measure':'K','rotate':'R','back':'Shift+R','enter':'Shift+E','leave':'Ctrl+B'}}
 for _keys in KEYMAPS.values():_keys['instance']='I'
 
@@ -95,7 +95,7 @@ class EditorWorkspaceMixin:
         self.action(menus['View'],'Save named workspace…',self.save_named_workspace)
         self.action(menus['View'],'Restore named workspace…',self.restore_named_workspace)
         self.action(menus['Tools'],'Layout keyboard profile…',self.keyboard_dialog)
-        self.action(menus['Help'],'0.11 capability matrix',lambda:self.open_editor_doc('CAPABILITY_MATRIX_0.11.md'))
+        self.action(menus['Help'],'Compatibility matrix',lambda:self.open_editor_doc('CAPABILITY_MATRIX_0.11.md'))
         self.repeat_action=self.action(menu,'Repeat last layout command',self.repeat_editor,'F4');self.repeat_action.setShortcutContext(Qt.WidgetShortcut);self.layout.addAction(self.repeat_action)
         self.layout_more=self.button('Edit ▾',tip='Move, copy, edge, vertex, hierarchy and geometry commands');self.layout_more.setMenu(menu);self.tool_layout.insertWidget(1,self.layout_more)
         self.layout_via_button=self.button('Via',fn=lambda:self.start_layout_tool('via'));self.tool_layout.insertWidget(2,self.layout_via_button)
@@ -223,6 +223,9 @@ class EditorWorkspaceMixin:
         self.layout.visible_layers=set(d.get('visible',names))&names;self.layout.unselectable_layers=set(d.get('unselectable',[]))&names;self.layout.locked_layers=set(d.get('locked',[]))&names;self.layout.layer_styles=d.get('styles',{});self.layout.update()
 
     def set_keyboard_profile(self,name,custom=None):
+        if name not in KEYMAPS and name.endswith('-inspired'):
+            legacy=name;name='Classic analog'
+            if custom is None and self.settings.contains('editor/custom/'+legacy):self.settings.setValue('editor/custom/'+name,self.settings.value('editor/custom/'+legacy))
         name=name if name in KEYMAPS else 'Studio';keys=dict(KEYMAPS[name])
         if custom is None:
             try:custom=json.loads(self.settings.value('editor/custom/'+name,'{}'))

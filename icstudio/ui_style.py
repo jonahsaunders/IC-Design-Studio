@@ -38,6 +38,24 @@ def icon(name, color='#606c7e', size=20):
     elif name=='rect':p.drawRect(QRectF(4,5,16,14))
     elif name=='polygon':poly([(4,7),(14,3),(21,11),(17,20),(5,18),(4,7)])
     elif name=='path':poly([(3,18),(9,18),(9,6),(20,6)])
+    elif name=='grid':
+        p.drawRect(QRectF(3,3,18,18))
+        for n in (9,15):line(n,3,n,21);line(3,n,21,n)
+    elif name=='label':poly([(3,7),(15,7),(21,12),(15,17),(3,17),(3,7)]);line(7,10,12,10);line(7,14,12,14)
+    elif name=='ground':line(12,3,12,11);line(4,11,20,11);line(7,15,17,15);line(10,19,14,19)
+    elif name=='move':
+        line(12,3,12,21);line(3,12,21,12)
+        for points in [[(9,6),(12,3),(15,6)],[(9,18),(12,21),(15,18)],[(6,9),(3,12),(6,15)],[(18,9),(21,12),(18,15)]]:poly(points)
+    elif name=='copy':p.drawRoundedRect(QRectF(8,8,13,13),1,1);poly([(16,5),(16,3),(3,3),(3,16),(5,16)])
+    elif name=='stretch':p.drawRect(QRectF(5,5,14,14));line(2,12,22,12);poly([(18,9),(22,12),(18,15)])
+    elif name=='mirror':
+        line(12,2,12,22);poly([(3,6),(9,12),(3,18),(3,6)]);poly([(21,6),(15,12),(21,18),(21,6)])
+    elif name=='cut':
+        p.drawEllipse(QRectF(3,15,6,6));p.drawEllipse(QRectF(15,15,6,6));line(6,16,18,3);line(18,16,6,3)
+    elif name=='via':p.drawRect(QRectF(4,4,16,16));p.drawEllipse(QRectF(8,8,8,8))
+    elif name=='vertex':poly([(4,19),(8,6),(20,10)]);p.drawRect(QRectF(5,3,6,6))
+    elif name=='align':line(3,3,3,21);p.drawRect(QRectF(6,5,14,5));p.drawRect(QRectF(6,14,9,5))
+    elif name=='float':poly([(9,3),(21,3),(21,15)]);line(21,3,10,14);poly([(6,6),(3,6),(3,21),(18,21),(18,18)])
     elif name=='ruler':
         p.drawRect(QRectF(3,7,18,10))
         for x in (7,11,15,19):line(x,7,x,11)
@@ -90,6 +108,16 @@ def stylesheet(dark=False):
     QMenu::item { padding: 8px 30px 8px 12px; border-radius: 4px; }
     QMenu::item:selected { background: %(tint)s; color: %(accent)s; }
     QMenu::separator { height: 1px; background: %(line)s; margin: 5px; }
+    QTabWidget#taskRibbon { background: %(bg)s; }
+    QTabWidget#taskRibbon::pane { background: %(bg)s; border-bottom: 1px solid %(line)s; }
+    QTabWidget#taskRibbon QTabBar::tab { padding: 5px 18px; font-size: 12px; }
+    QToolButton#taskButton { padding: 5px 8px; border: 1px solid transparent; border-radius: 5px; font-size: 12px; }
+    QToolButton#taskButton:hover { border-color: %(line)s; background: %(hover)s; }
+    QToolButton#taskButton:checked { border-color: %(accent)s; background: %(tint)s; color: %(accent)s; }
+    QToolButton#taskButton:focus { border-color: %(accent)s; }
+    QDockWidget::title { padding: 8px 10px; background: %(bg)s; font-weight: 600; border-bottom: 1px solid %(line)s; }
+    QDockWidget::close-button, QDockWidget::float-button { padding: 3px; border-radius: 3px; }
+    QDockWidget::close-button:hover, QDockWidget::float-button:hover { background: %(tint)s; }
     QPushButton, QToolButton { background: transparent; border: 1px solid transparent; padding: 6px 10px; border-radius: 5px; min-height: 18px; }
     QPushButton:hover, QToolButton:hover { background: %(hover)s; }
     QPushButton:pressed, QToolButton:pressed { background: %(tint)s; }
@@ -130,7 +158,7 @@ def stylesheet(dark=False):
     QDockWidget { background: %(panel)s; border: 0; }
     QDockWidget::separator { width: 1px; height: 1px; background: %(line)s; }
     QHeaderView::section { background: %(bg)s; color: %(muted)s; border: 0; border-bottom: 1px solid %(line)s; padding: 8px; text-align: left; }
-    QTableWidget { gridline-color: %(line)s; }
+    QTableWidget { gridline-color: %(line)s; alternate-background-color: %(bg)s; }
     QTableCornerButton::section { background: %(bg)s; border: 0; }
     QStatusBar { background: %(panel)s; border-top: 1px solid %(line)s; color: %(muted)s; font-size: 11px; }
     QStatusBar::item { border: 0; }
@@ -144,6 +172,10 @@ def stylesheet(dark=False):
     QScrollBar::handle:vertical { background: %(line)s; border-radius: 3px; min-height: 30px; }
     QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
     QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical { background: transparent; }
+    QScrollBar:horizontal { height: 9px; background: transparent; margin: 2px; }
+    QScrollBar::handle:horizontal { background: %(line)s; border-radius: 3px; min-width: 30px; }
+    QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal { width: 0; }
+    QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal { background: transparent; }
     QToolTip { background: %(panel)s; color: %(text)s; border: 1px solid %(line)s; padding: 6px; }
     ''' % t
 

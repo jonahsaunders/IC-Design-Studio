@@ -7,6 +7,30 @@ from .build_info import WORKFLOW_SOURCE_HASH
 
 METRICS=('final','min','max','mean','rms','peak_to_peak','peak_x')
 
+def targets(p,cid):
+    """Discover editable numeric targets without interpreting model expressions."""
+    out=[];cell=next(c for c in p['cells'] if c['id']==cid)
+    for d in cell['devices']:
+        candidates=[]
+        if d.get('native_spice',{}).get('type')=='program':continue
+        if d.get('native_spice',{}).get('type')=='device':
+            candidates=[d['name']+'.native.'+key for key in d['native_spice']['parameters']]
+            from .native_analysis import dc_parameter
+            try:dc_parameter(d);candidates.append(d['name']+'.native.dc_level')
+            except ValueError:pass
+        else:
+            if d['kind'] in ('R','C','L') or d['kind'] in ('V','I') and d['source']['type']=='dc':candidates.append(d['name']+'.value')
+            candidates += [d['name']+'.'+group+'.'+key for group in (('params',) if d['kind'] in ('NMOS','PMOS') else ('source',) if d['kind'] in ('V','I') else ()) for key in d.get(group,{}) if key!='type']
+        for target in candidates:
+            try:get_target(p,cid,target);out.append(target)
+            except (ValueError,TypeError,KeyError):pass
+    return out
+
+def supply_targets(p,cid):
+    from .native_analysis import sources
+    names={s[0] for s in sources(p,cid) if s[2]=='V'}
+    return [t for t in targets(p,cid) if t.split('.')[0] in names and (t.count('.')==1 and t.endswith('.value') or t.endswith('.native.dc_level'))]
+
 def measure(result, trace, metric='final'):
     if metric not in METRICS: raise ValueError('Unknown measurement: '+metric)
     if trace not in result['traces']: raise ValueError('Unknown measurement trace: '+trace)
@@ -28,7 +52,13 @@ def set_target(p, cid, target, value):
     d=next((d for d in cell['devices'] if d['name']==parts[0]),None)
     if d is None: raise ValueError('Target device not found: '+parts[0])
     field='.'.join(parts[1:])
-    if field=='value' and d['kind'] in ('R','C','L','V','I'):
+    if parts[1:]==['native','dc_level']:
+        from .native_analysis import dc_parameter
+        dc_parameter(d,value)
+    elif len(parts)==3 and parts[1]=='native' and parts[2] in d.get('native_spice',{}).get('parameters',{}):
+        d['native_spice']['parameters'][parts[2]]=str(scalar(value))
+        d.setdefault('symbol_context',{})[parts[2]]=str(scalar(value))
+    elif field=='value' and d['kind'] in ('R','C','L','V','I'):
         if d['kind'] in ('V','I') and d['source']['type']!='dc':raise ValueError('A pulsed source uses source.high or source.low; its DC value is inactive.')
         d['value']=str(scalar(value))
     elif len(parts)==3 and parts[1] in ('params','source') and parts[2] in d.get(parts[1],{}) and parts[2]!='type': d[parts[1]][parts[2]]=str(scalar(value))
@@ -37,6 +67,10 @@ def set_target(p, cid, target, value):
 def get_target(p,cid,target):
     parts=target.split('.');cell=next(c for c in p['cells'] if c['id']==cid)
     d=next(d for d in cell['devices'] if d['name']==parts[0])
+    if parts[1:]==['native','dc_level']:
+        from .native_analysis import dc_parameter
+        return dc_parameter(d)
+    if len(parts)==3 and parts[1]=='native':return scalar(d['native_spice']['parameters'][parts[2]])
     from .design_ops import resolved_device,parameters
     d=resolved_device(d,parameters(cell.get('parameters',{}),parameters(p.get('parameters',{}))))
     for key in parts[1:]: d=d[key]
@@ -44,6 +78,9 @@ def get_target(p,cid,target):
 
 def cases(p,cid,spec):
     kind=spec.get('kind','sweep');out=[]
+    if kind in ('sensitivity','optimization'):
+        from .design_search import cases as generate
+        return generate(p,cid,spec)
     if kind=='sweep':
         values=spec.get('values',[])
         if not values or len(values)>500: raise ValueError('Enter 1–500 sweep values.')
@@ -51,14 +88,18 @@ def cases(p,cid,spec):
     elif kind=='pvt':
         parts=spec['target'].split('.')
         supply=next((d for c in p['cells'] if c['id']==cid for d in c['devices'] if d['name']==parts[0]),None)
-        if not supply or supply['kind']!='V' or supply['source']['type']!='dc' or parts[1:]!=['value']:raise ValueError('PVT voltage sweeps require a DC voltage source target, such as VDD.value.')
+        if spec['target'] not in supply_targets(p,cid):raise ValueError('PVT requires a numeric DC voltage source target, such as VDD.value or VDD.native.value.')
         corners=spec.get('corners',['nominal']);volts=spec.get('voltages',[1.8]);temps=spec.get('temperatures',[27])
         if not corners or not volts or not temps or len(corners)*len(volts)*len(temps)>500: raise ValueError('PVT requires 1–500 combinations.')
         for corner,v,t in itertools.product(corners,volts,temps):
+            from .native_spice import native
+            if native(p):
+                from .native_analysis import corner_sections
+                if corner!='nominal' and corner not in corner_sections(p):raise ValueError('Undeclared embedded library corner: '+corner)
             config=p['pdk'].get('corners',{}).get(corner)
             sections=[item['sections'] for item in p['pdk'].get('simulation',{}).get('includes',[]) if item.get('sections')]
             model_corner=bool(sections) and all(corner in mapping for mapping in sections)
-            if (sections and not model_corner) or (corner!='nominal' and config is None and not model_corner): raise ValueError('Corner is not declared by the active technology: '+corner)
+            if not native(p) and ((sections and not model_corner) or (corner!='nominal' and config is None and not model_corner)): raise ValueError('Corner is not declared by the active technology: '+corner)
             t=scalar(t)
             if t<=-273.15: raise ValueError('Temperature must exceed absolute zero.')
             changes=clone((config or {}).get('overrides',{}));changes[spec['target']]=scalar(v)

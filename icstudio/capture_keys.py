@@ -6,12 +6,12 @@ from PySide6.QtWidgets import QDialog,QVBoxLayout,QComboBox,QTableWidget,QTableW
 SCHEMATIC={
  'Studio':{'place':'I','wire':'W','label':'L','ground':'G','move':'M','stretch':'Shift+S','copy':'C','properties':'Q','rotate':'R','mirror':'Shift+F','fit':'F','enter':'E','symbol':'Shift+E','leave':'Ctrl+B','undo':'Ctrl+Z','redo':'Ctrl+Shift+Z','check':'Shift+X','cut':'Shift+W','repeat':'F4'},
  'Xschem-inspired':{'place':'Shift+I','wire':'W','label':'L','ground':'G','move':'M','stretch':'Ctrl+M','copy':'C','properties':'Q','rotate':'Shift+R','mirror':'Shift+F','fit':'F','enter':'E','symbol':'I','leave':'Backspace','undo':'U','redo':'Shift+U','check':'Shift+X','cut':'Shift+W','zoom_out':'Ctrl+Z','zoom_in':'Shift+Z','repeat':'F4'},
- 'Virtuoso-inspired':{'place':'I','wire':'W','label':'L','ground':'G','move':'M','stretch':'S','copy':'C','properties':'Q','rotate':'R','mirror':'Shift+F','fit':'F','enter':'Shift+E','symbol':'Ctrl+E','leave':'Ctrl+B','undo':'U','redo':'Shift+U','check':'Shift+X','cut':'Shift+W','repeat':'F4'}}
+ 'Classic analog':{'place':'I','wire':'W','label':'L','ground':'G','move':'M','stretch':'S','copy':'C','properties':'Q','rotate':'R','mirror':'Shift+F','fit':'F','enter':'Shift+E','symbol':'Ctrl+E','leave':'Ctrl+B','undo':'U','redo':'Shift+U','check':'Shift+X','cut':'Shift+W','repeat':'F4'}}
 SYMBOL={name:{**{k:v for k,v in keys.items() if k in ('move','stretch','copy','properties','rotate','mirror','fit','undo','redo','zoom_in','zoom_out')},'line':'L','rect':'B','polygon':'P','arc':'A','text':'T','pin':'I','delete':'Delete'} for name,keys in SCHEMATIC.items()}
 
 def bindings(settings,view,name):
     presets=SCHEMATIC if view=='schematic' else SYMBOL
-    defaults=presets.get(name,presets['Studio'])
+    defaults=presets.get(name,presets['Classic analog'] if name.endswith('-inspired') else presets['Studio'])
     try:custom=json.loads(settings.value('capture/'+view+'/'+name,'{}'));return {key:custom.get(key,value) for key,value in defaults.items()}
     except (ValueError,TypeError):return dict(defaults)
 

@@ -111,6 +111,8 @@ def apply_symbol(project,cid,symbol,base=None):
     for parent,d in users:
         d['nets']={renames.get(pin,pin):n for pin,n in d['nets'].items() if pin not in removed};d['nets']={pin:d['nets'].get(pin,'N_'+d['id']+'_'+pin) for pin in order}
         d['net_labels']={renames.get(pin,pin):n for pin,n in d.get('net_labels',{}).items() if pin not in removed};d['symbol']=clone(s)
+        for token in d.get('native_spice', {}).get('tokens', []):
+            if token['kind'] == 'terminal': token['value'] = renames.get(token['value'], token['value'])
         for label in parent.get('labels',[]):
             a=label['anchor']
             if a.get('kind')=='pin' and a.get('id')==d['id']:a['pin']=renames.get(a['pin'],a['pin'])

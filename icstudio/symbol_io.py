@@ -47,7 +47,7 @@ def import_symbol(path,preserve_case=False):
     from .xschem_io import records, properties
     text = Path(path).read_text(encoding='utf-8')
     if len(text) > 2_000_000: raise ValueError('Symbol file is too large.')
-    symbol = {'pins': {}, 'primitives': [],'pin_meta':{},'pin_order':[]}; notes = []; metadata = {}
+    symbol = {'pins': {}, 'primitives': [],'pin_meta':{},'pin_order':[]}; notes = []; metadata = {}; pin_numbers={}
     for r in records(text):
         kind = r[0]
         if kind == 'K': metadata = properties(r[1])
@@ -56,7 +56,10 @@ def import_symbol(path,preserve_case=False):
             from .model import NET
             if not NET.fullmatch(name) or name=='0' or name in symbol['pins']: raise ValueError('Missing, invalid or duplicate symbol pin.')
             x1,y1,x2,y2 = map(float, r[2:6]); symbol['pins'][name] = [(x1+x2)/2,(y1+y2)/2]
-            symbol['pin_order'].append(name);symbol['pin_meta'][name]={'direction':props.get('dir','inout'),'role':props.get('sig_type','signal'),'bus':props.get('studio_bus',''),'label_visible':props.get('hide','false')!='true','required':props.get('studio_required','true')!='false'}
+            symbol['pin_order'].append(name)
+            if 'sim_pinnumber' in props:pin_numbers[name]=int(props['sim_pinnumber'])
+            role=props.get('sig_type','signal');role=role if role in ('signal','power','ground','clock','analog') else 'signal'
+            symbol['pin_meta'][name]={'direction':props.get('dir','inout'),'role':role,'bus':props.get('studio_bus',''),'label_visible':props.get('hide','false')!='true','required':props.get('studio_required','true')!='false'}
             if props.get('studio_pin_id'):symbol['pin_meta'][name]['id']=props['studio_pin_id']
         elif kind in ('L','B'):
             x1,y1,x2,y2 = map(float,r[2:6]); symbol['primitives'].append({'kind':'line' if kind=='L' else 'rect','points':[[x1,y1],[x2,y2]]})
@@ -81,6 +84,9 @@ def import_symbol(path,preserve_case=False):
         if stored.get('artwork_hash')==fingerprint:
             restored=stored['symbol'];validate_symbol(restored,restored['pins']);symbol['primitives']=restored['primitives']
         else:notes.append('External artwork edits imported; native-only styles were not restored.')
+    if pin_numbers and len(pin_numbers)==len(symbol['pins']):
+        if len(set(pin_numbers.values()))!=len(pin_numbers):raise ValueError('Duplicate sim_pinnumber makes the terminal order ambiguous.')
+        symbol['pin_order'].sort(key=pin_numbers.get)
     symbol['attributes']=metadata
     validate_symbol(symbol, symbol['pins'])
     return symbol, metadata, notes
@@ -88,7 +94,7 @@ def import_symbol(path,preserve_case=False):
 
 def symbol_text(symbol, name='X1', fmt='@name @pinlist', pins=None):
     validate_symbol(symbol, symbol['pins'])
-    def quote(value):return '"'+str(value).replace('\\','\\\\').replace('"','\\"').replace('{','\\{').replace('}','\\}').replace('\n',' ')+'"'
+    def quote(value):return '"'+str(value).replace('\\','\\\\').replace('"','\\"').replace('{','\\{').replace('}','\\}')+'"'
     attributes=dict(symbol.get('attributes',{}));attributes.setdefault('type','subcircuit');attributes.setdefault('format',fmt);attributes.setdefault('template','name='+name)
     if pins is not None:attributes.update(format=fmt,template='name='+name)
     import base64

@@ -24,6 +24,8 @@ def source_spec(d):
     return f'PULSE({scalar(s["low"]):.12g} {scalar(s["high"]):.12g} {scalar(s["delay"]):.12g} {edge:.12g} {edge:.12g} {period*scalar(s["duty"]):.12g} {period:.12g}) AC {ac:.12g}'
 
 def spice(p,cid=None,settings=None,hierarchical=True):
+    if p.get("spice",{}).get("version")==1:raise ValueError("Use File → Export SPICE deck to export the native circuit with its model files.")
+    if p.get('xschem_exchange',{}).get('mode')=='compatible':raise ValueError('Use File → Export SPICE deck to export this Xschem circuit with its preserved model files.')
     validate(p);cid=cid or p['top'];by={c['id']:c for c in p['cells']};lines=[f'* IC Design Studio / {p["name"]} / revision {p["revision"]}',f'* design-sha256 {digest(p)}','* Generic level-1 models. Not a qualified PDK netlist.'];models=[]
     from .components import require_implementations
     require_implementations(p,cid)
@@ -108,6 +110,15 @@ def import_layout(path):
     return read_layout(path)
 
 def export_xschem(p,directory):
+    if p.get("spice",{}).get("version")==1:
+        from .native_exchange import export_project
+        return export_project(p,directory)
+    if p.get('xschem_exchange',{}).get('mode')=='compatible':
+        from .xschem_compat import export_capture
+        return export_capture(p,directory)
+    if p.get('xschem_exchange'):
+        from .xschem_project import export_project
+        return export_project(p,directory)
     dest=Path(directory);dest.mkdir(parents=True,exist_ok=True);symbols=dest/'symbols';symbols.mkdir(exist_ok=True);by={c['id']:c for c in p['cells']}
     from .catalog import binding_for,parameter_values
     from .symbol_io import symbol_text

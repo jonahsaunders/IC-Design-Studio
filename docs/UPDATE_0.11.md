@@ -1,7 +1,7 @@
 # IC Design Studio 0.11.0 — native layout editor
 
-This release makes everyday layout work more familiar to engineers who use
-Virtuoso or KLayout. It extends the existing Python/PySide6 desktop application
+This release makes everyday layout work more familiar to engineers using
+classic analog workflows or KLayout. It extends the existing Python/PySide6 desktop application
 and preserves the 0.10 analog, verification and process workflows. The keyboard
 presets are editable, workflow-inspired starting points; they are not claims of
 exact vendor defaults or full product compatibility.
@@ -12,7 +12,7 @@ exact vendor defaults or full product compatibility.
    a cell and its Schematic, Layout or Symbol view. The browser shows the current
    project and links to the installed PDK device library.
 2. Choose **Tools → Layout keyboard profile**. Select Studio,
-   Virtuoso-inspired or KLayout-inspired and edit individual bindings. Conflicting
+   Classic analog or KLayout-inspired and edit individual bindings. Conflicting
    or reserved shortcuts are rejected. Bindings act only on the layout canvas;
    typing in forms and schematic shortcuts retain their normal behavior.
 3. Open the **Layers** tab. V controls visibility, S controls selectability,
@@ -40,7 +40,7 @@ snapping, via connection and cell rotation appear where relevant. Mouse previews
 show the reference displacement or live drawing dimensions. Escape cancels;
 Enter or Finish completes a path or polygon. F4 repeats the last layout tool.
 
-| Action | Virtuoso-inspired | KLayout-inspired |
+| Action | Classic analog | KLayout-inspired |
 |---|---|---|
 | Rectangle / polygon / path | R / Shift+P / P | B / P / Shift+P |
 | Move / copy by reference | M / C | M / C |

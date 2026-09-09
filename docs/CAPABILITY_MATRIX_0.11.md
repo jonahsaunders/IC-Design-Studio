@@ -1,15 +1,11 @@
 # Layout capability matrix — 0.11.0
 
-The product goal is familiar everyday interaction plus a broad layout toolset.
-Full coverage of commercial Virtuoso Layout Suite tiers and KLayout is a
-multi-release goal. This matrix describes IC Design Studio, not certification
-of compatibility with either product. Vendor assets and proprietary APIs are
-not bundled. “Bounded” means available only within the stated contract.
+This historical matrix describes the bounded layout capabilities in 0.11. The current in-app compatibility matrix is available from Help. External exchange support applies only to the stated contracts.
 
 | Area | Status in 0.11 | Remaining work |
 |---|---|---|
 | Native desktop, dark/light views, docking | Implemented; named workspaces and linked views | Real desktop-driver/platform qualification |
-| Library / cell / view navigation | Current project browser, PDK library link, existing hierarchy tree | Multi-library workspaces, cross-project references, OpenAccess interoperability |
+| Library / cell / view navigation | Current project browser, PDK library link, existing hierarchy tree | Multi-library workspaces, cross-project references, proprietary database interoperability |
 | Keyboard workflow | Three editable profiles, command search, repeat, cancel, finish | Broader customizable mouse gestures and vendor-trained user acceptance |
 | Layer palette | Independent V/S/L, colors/patterns, search, per-process revision preferences | Layer groups, richer purpose definitions, complete display-file import/export |
 | Selection | Object filters, overlap cycling, crossing/inside marquee | Rich queries, arbitrary hierarchy-path selections and advanced partial selection |
@@ -46,10 +42,9 @@ not bundled. “Bounded” means available only within the stated contract.
 
 Official reference families used to organize the roadmap:
 
-- Cadence Virtuoso Layout Suite: https://www.cadence.com/en_US/home/resources/datasheets/virtuoso-layout-suite-ds.html
 - KLayout advanced editing: https://www.klayout.de/doc/manual/editor_advanced.html
 - KLayout programming: https://www.klayout.de/doc/programming/introduction.html
 
 These references establish the breadth of the target. They do not imply that
 IC Design Studio implements each documented feature or accepts proprietary
-Cadence databases, SKILL programs or all KLayout macros.
+proprietary databases or scripts or all KLayout macros.
