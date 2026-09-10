@@ -38,6 +38,18 @@ class ReleaseQualificationTests(unittest.TestCase):
         expected = snapshot(project)
         for i in range(2):
             exported = export_project(project, self.root / f'export-{i}')
+            # Xschem interprets schematic overrides from the project search
+            # path. Each child must resolve there after relocating the export.
+            moved = self.root / f'relocated-{i}' / 'Project with spaces'
+            moved.parent.mkdir()
+            shutil.move(exported['directory'], moved)
+            from icstudio.xschem_project import records, properties
+            for symbol in moved.rglob('*.sym'):
+                attrs = properties(next(r[1] for r in records(symbol.read_text()) if r[0] == 'K'))
+                if attrs.get('type') == 'subcircuit':
+                    target = (moved / attrs['schematic']).resolve()
+                    self.assertTrue(target.is_relative_to(moved.resolve()) and target.is_file())
+            exported['directory'] = str(moved)
             record = review_project(Path(exported['directory']) / exported['top'])
             self.assertEqual(record['errors'], [])
             save_project(record['candidate'], self.root / 'reopened.icproj')

@@ -74,7 +74,9 @@ def export_project(project,directory):
                 alias=spice_name(d)
                 if alias!=d['name']:fmt=alias[:-len(d['name'])]+'@name'+fmt[len('@name'):]
             if d['kind']=='X':
-                child=by[d['cell']];stem=child['name'];attrs.update(type='subcircuit',schematic='../../'+child['name']+'.sch')
+                # Xschem resolves the schematic override through the project
+                # search path, not relative to this per-device symbol folder.
+                child=by[d['cell']];stem=child['name'];attrs.update(type='subcircuit',schematic=child['name']+'.sch')
                 defaults={**child.get('spice_parameters',{}),**child.get('parameters',{})}
                 props.update({k:str(v) for k,v in d.get('parameters',{}).items()})
                 if not info:fmt='@name @pinlist @symname'+''.join(' '+k+'=@'+k for k in defaults);props.update({k:str(props.get(k,v)) for k,v in defaults.items()})
