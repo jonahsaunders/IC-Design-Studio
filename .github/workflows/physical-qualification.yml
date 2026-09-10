@@ -1,0 +1,48 @@
+name: Pinned SKY130 physical qualification
+on:
+  workflow_call:
+  workflow_dispatch:
+  push:
+    branches: [main, experimental]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  sky130:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install physical engines and Python dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential pkg-config m4 tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev ngspice libegl1 libopengl0
+          python -m pip install -r requirements.txt
+      - name: Build compatible pinned Magic and Netgen
+        run: python scripts/build_physical_engines.py --output build/physical-engines
+      - name: Cache checksummed upstream archives
+        uses: actions/cache@v4
+        with:
+          path: build/sky130-downloads
+          key: sky130-physical-${{ hashFiles('examples/sky130-reference-assets.json') }}
+      - name: Fetch pinned physical inputs
+        run: python scripts/fetch_sky130_reference.py --physical-only --output build/qualification-pdk
+      - name: Recreate the locked adapter
+        run: python scripts/prepare_sky130_qualification.py --input build/qualification-pdk/sky130A --output build/physical-adapter/sky130A
+      - name: Qualify nominal inverter and deliberate DRC/LVS faults
+        run: python scripts/qualify_layout_process.py --pdk build/physical-adapter/sky130A --out build/physical-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sky130-physical-evidence
+          path: |
+            build/physical-evidence
+            build/physical-adapter/sky130A/package.json
+            build/qualification-pdk/upstream-lock.json
+            build/physical-engines/*-build.log
+            build/physical-engines/*-version.log
+            build/physical-engines/source-lock.json
+          if-no-files-found: error

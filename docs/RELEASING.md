@@ -1,6 +1,6 @@
 # Preparing and publishing a release
 
-This repository is prepared for public GitHub hosting. The local archive does not create a repository, push a tag or publish a release. The supplied desktop workflow has read-only repository permissions: tag pushes build artifacts but do not publish them automatically.
+This repository is prepared for public GitHub hosting. The local archive does not create a repository, push a tag or publish a release. The desktop and qualification workflows have read-only repository permissions. The separate manual draft-release workflow grants contents write only to its final job, after all verification succeeds. It creates a draft and never publishes it automatically.
 
 ## Repository setup
 
@@ -20,7 +20,7 @@ Use `docs/images/banner.svg` as the editable artwork source. The README screensh
 4. Build packages, inspect their contents and launch them on their target platforms. Static PE checks do not replace Windows execution. Sign Windows binaries only through the maintainer's signing infrastructure.
 5. Generate checksums over the final files. Attach validation records that match those files. Run the README link check after screenshots and docs are copied into the tree.
 
-The desktop workflow runs on manual dispatch, relevant pull requests and `v*` tags. It builds Linux and Windows artifacts and runs their available acceptance tests. Review the actual workflow run before promoting a release. The locally assembled portable Windows package has a different packaging route from the CI PyInstaller/installer build; qualify the exact asset being published.
+The desktop workflow runs on manual dispatch, every pull request, main/experimental pushes and `v*` tags. It builds Linux and Windows artifacts and runs their available acceptance tests. Review the actual workflow run before promoting a release. The locally assembled portable Windows package has a different packaging route from the CI PyInstaller/installer build; qualify the exact asset being published.
 
 ## Build source and repository archives
 
@@ -34,6 +34,20 @@ For Linux PyInstaller builds, set `ICSTUDIO_BUNDLED_NGSPICE` to the native execu
 
 ## Publish a reviewable release
 
-Create a **draft prerelease** for the matching tag. Use [RELEASE_0.21.md](RELEASE_0.21.md) as the starting notes, then update its validation section with the actual hosted run and exact artifacts. Upload application packages, matching source, optional PDK adapters, the validation record and checksums.
+Create a **draft prerelease** for the matching tag. Use [RELEASE_0.22.md](RELEASE_0.22.md) as the current notes, then update its validation section with the actual hosted run and exact artifacts. Upload application packages, matching source, optional PDK adapters, the validation record and checksums.
 
 Check the rendered README, release links and download instructions in the destination repository. Only then publish the draft. Keep the engineering-preview designation until the documented platform and process gates justify a stronger status. Do not attach an archive from another version to fill an unbuilt platform slot.
+
+## Automated draft preparation
+
+After merging the verified candidate, run **Prepare draft preview release** on `main`.
+It invokes desktop, interoperability and physical qualification on the same commit,
+then assembles verified assets and creates a draft prerelease with the current
+application version. It fails if that release already exists. See
+[qualification and repository setup](QUALIFICATION_0.22.md) for required checks,
+the reviewed main ruleset and remaining clean-machine acceptance.
+
+The desktop jobs run `scripts/prepare_release_payload.py` after installer/frozen
+checks. That script executes the extracted archive with isolated application
+settings and retains its hash. `scripts/assemble_prerelease.py` rejects a changed
+asset, different source commit, missing platform or unqualified archive.

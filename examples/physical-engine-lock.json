@@ -1,0 +1,12 @@
+{
+  "magic": {
+    "repository": "https://github.com/RTimothyEdwards/magic.git",
+    "version": "8.3.600",
+    "commit": "94edc2a23dc9e51c9ffd75734550acfc3ca69ee5"
+  },
+  "netgen": {
+    "repository": "https://github.com/RTimothyEdwards/netgen.git",
+    "version": "1.5.300",
+    "commit": "1de6f88f1eebb786efadecc28e9e0dde37e8c433"
+  }
+}

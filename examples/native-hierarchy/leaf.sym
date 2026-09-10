@@ -1,0 +1,6 @@
+v {xschem version=3.4.4 file_version=1.2}
+K {type=subcircuit format="@name @pinlist @symname r=@r" template="name=X1 r=1k"}
+B 5 -2 -32 2 -28 {name=p dir=inout}
+B 5 -2 28 2 32 {name=n dir=inout}
+B 4 -10 -20 10 20 {}
+T {@name} 15 -15 0 0 0.2 0.2 {}

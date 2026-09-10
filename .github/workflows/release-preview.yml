@@ -1,0 +1,69 @@
+name: Prepare draft preview release
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: preview-release
+  cancel-in-progress: false
+jobs:
+  desktop:
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/build-desktop.yml
+  interoperability:
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/interoperability.yml
+  physical:
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/physical-qualification.yml
+  draft:
+    needs: [desktop, interoperability, physical]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: release-*
+          path: build/release-inputs
+      - name: Verify version, commit and every desktop asset
+        env:
+          RELEASE_COMMIT: ${{ github.sha }}
+        run: python scripts/assemble_prerelease.py --input build/release-inputs --output release --commit "$RELEASE_COMMIT"
+      - uses: actions/download-artifact@v4
+        with:
+          name: sky130-physical-evidence
+          path: build/physical-release-evidence
+      - name: Include physical and interoperability evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: interoperability-ui-evidence
+          path: build/interoperability-release-evidence
+      - name: Complete evidence archives and checksums
+        run: |
+          python - <<'PY'
+          import hashlib, pathlib, shutil
+          from icstudio import __version__
+          for kind in ('physical', 'interoperability'):
+              shutil.make_archive(f'release/IC-Design-Studio-{__version__}-{kind}-Evidence', 'zip', f'build/{kind}-release-evidence')
+          files = sorted(p for p in pathlib.Path('release').iterdir() if p.is_file() and not p.name.startswith('SHA256SUMS'))
+          lines = []
+          for p in files:
+              with p.open('rb') as f: lines.append(hashlib.file_digest(f, 'sha256').hexdigest() + '  ' + p.name)
+          pathlib.Path(f'release/SHA256SUMS-{__version__}.txt').write_text('\n'.join(lines) + '\n')
+          PY
+      - name: Create a reviewable draft prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_COMMIT: ${{ github.sha }}
+        run: |
+          version=$(python -c 'from icstudio import __version__; print(__version__)')
+          gh release create "v$version" release/* --draft --prerelease --target "$RELEASE_COMMIT" --title "IC Design Studio $version — engineering preview" --notes-file docs/RELEASE_0.22.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: complete-prerelease
+          path: release
