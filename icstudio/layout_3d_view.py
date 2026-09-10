@@ -281,8 +281,10 @@ class OpenGLView(Camera, QOpenGLWidget):
                     continue
                 z, thickness = self.layer_z(i, layer)
                 color = QColor(layer.color)
-                program.setUniformValue('elevation', float(z))
-                program.setUniformValue('thickness', float(thickness))
+                # PySide6 exposes scalar named uniforms through the explicit
+                # 1f overload; setUniformValue(name, float) is not supported.
+                program.setUniformValue1f(program.uniformLocation('elevation'), float(z))
+                program.setUniformValue1f(program.uniformLocation('thickness'), float(thickness))
                 program.setUniformValue('color', QVector3D(color.redF(), color.greenF(), color.blueF()))
                 buffer.bind()
                 for name, offset in [('position', 0), ('normal', 12)]:
