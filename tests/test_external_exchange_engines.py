@@ -4,6 +4,7 @@ import re
 import shutil
 import tempfile
 import unittest
+from contextlib import contextmanager
 from pathlib import Path
 from icstudio.external_tools import xschem_netlist,magic_workspace,magic_workspace_export
 from icstudio.model import example,uid,file_digest
@@ -14,12 +15,27 @@ XSCHEM=os.environ.get('ICSTUDIO_TEST_XSCHEM') or shutil.which('xschem')
 MAGIC=os.environ.get('ICSTUDIO_TEST_MAGIC') or shutil.which('magic')
 
 
+@contextmanager
+def evidence_workspace(name):
+    """Retain failed destination-tool inputs and logs for CI diagnosis."""
+    with tempfile.TemporaryDirectory() as folder:
+        root=Path(folder)
+        try:yield root
+        finally:
+            if os.environ.get('ICSTUDIO_EXCHANGE_EVIDENCE'):
+                target=Path(os.environ['ICSTUDIO_EXCHANGE_EVIDENCE'])/name
+                shutil.copytree(root,target,dirs_exist_ok=True)
+
+
 class ExternalExchangeEngineTests(unittest.TestCase):
     @unittest.skipUnless(XSCHEM,'Set ICSTUDIO_TEST_XSCHEM or install Xschem for destination-tool tests.')
     def test_xschem_executes_vector_and_tcl_semantics_and_retains_evidence(self):
-        with tempfile.TemporaryDirectory() as folder:
-            root=Path(folder);source=root/'source';source.mkdir()
-            (source/'vector.sym').write_text('v {xschem version=3.4.7 file_version=1.2}\nK {type=primitive format="tcleval(@name @pinlist [expr {2*1000}])" template="name=R1"}\nB 5 -2 -32 2 -28 {name=p dir=inout}\nB 5 -2 28 2 32 {name=n dir=inout}\n')
+        with evidence_workspace('xschem') as root:
+            from icstudio.xschem_project import quoted
+            source=root/'source';source.mkdir()
+            # Quote vector names as Tcl data; their brackets are not commands.
+            expression=quoted('tcleval([concat {@name @pinlist } [expr {2*1000}]])')
+            (source/'vector.sym').write_text('v {xschem version=3.4.7 file_version=1.2}\nK {type=primitive format='+expression+' template="name=R1"}\nB 5 -2 -32 2 -28 {name=p dir=inout}\nB 5 -2 28 2 32 {name=n dir=inout}\n')
             path=source/'top.sch';path.write_text('v {xschem version=3.4.7 file_version=1.2}\nC {vector.sym} 0 0 0 0 {name=R[1:0]}\nC {lab_pin.sym} 0 -30 0 0 {name=p1 lab=data[1:0]}\nC {gnd.sym} 0 30 0 0 {name=g1 lab=GND}\n')
             report=xschem_netlist(path,root/'run',XSCHEM);self.assertEqual(report['status'],'complete')
             text='\n'.join(p.read_text() for p in (root/'run/netlists').glob('*.spice'))
@@ -33,8 +49,8 @@ class ExternalExchangeEngineTests(unittest.TestCase):
         candidates=[Path(os.environ['ICSTUDIO_TEST_MAGIC_TECH'])] if os.environ.get('ICSTUDIO_TEST_MAGIC_TECH') else [Path('/usr/lib/x86_64-linux-gnu/magic/sys/scmos.tech'),Path('/usr/local/lib/magic/sys/scmos.tech')]
         technology=next((p for p in candidates if p.is_file()),None)
         if technology is None:self.fail('The installed Magic test runtime must provide scmos.tech or ICSTUDIO_TEST_MAGIC_TECH.')
-        with tempfile.TemporaryDirectory() as folder:
-            root=Path(folder);p=example('empty');c=p['cells'][0];c['ports']=['A'];c['shapes']=[rect('metal1',0,0,4000,4000)]
+        with evidence_workspace('magic') as root:
+            p=example('empty');c=p['cells'][0];c['ports']=['A'];c['shapes']=[rect('metal1',0,0,4000,4000)]
             p['pdk']['layers']=[{'name':'metal1','gds':49,'datatype':1,'color':'#68a6f4','width':0,'space':0}]
             c['layout_ports']=[{'name':'A','point':[1000,1000],'layer':'metal1','class':'input','use':'signal'}]
             c['layout_texts']=[{'text':'A','x':1000,'y':1000,'layer':'metal1'}];c['layout_label_mode']='explicit'

@@ -69,6 +69,8 @@ Native device emission supports separate `format` and `lvs_format` definitions. 
 
 **Netlist with Xschem** executes the installed engine for vector buses, generated symbols and Tcl formats. It captures the source directory, declared library folders, bundled standard symbols, explicit startup configuration, engine identity, command, logs and output checksums. The selected startup file executes only when the user runs that workflow; ordinary import does not execute Tcl. Dynamic dependencies outside the captured roots require additional library roots. Native graphical editing remains scalar; the external engine is the path for full vector/Tcl semantics. The generated SPICE can be used by the existing external-testbench workflow, or imported when it meets the editable SPICE subset.
 
+Each run uses its own temporary directory. An empty netlist, unresolved Tcl output or a reported engine error marks the run as failed even if Xschem exits successfully. The failure includes a diagnostic and preserves `engine.log` with the captured inputs.
+
 ## Magic
 
 **Open Magic workspace** captures the current project and matching technology support folder, then creates native `.mag` cells and an extracted deck. Assigned labels are promoted to ports, ordered to match the schematic, and retain declared class/use/shape attributes. The extracted top's port sequence is checked, not just its set of names.
@@ -96,3 +98,5 @@ Run `python -m icstudio.cli <command> --help` for `xschem-netlist`, `magic-works
 Regression coverage includes concurrent edits and conflicts, copied IDs, property-only edits, stale/corrupt baselines, locked assets, reordered ports, scalar globals, separate LVS formats, subcircuit pin order and explicit geometry conversion. The same template tests use five small catalog fixtures, including a future process ID; those fixtures are API coverage, not real-PDK electrical qualification.
 
 KLayout tests extract a resistor from geometry, compare an independent SPICE reference and detect an injected resistance mismatch. Magic tests create native ports and cells, move a native instance and recover its identity. The external-engine CI workflow installs Magic, Xschem and ngspice and exercises vector/Tcl netlisting plus native migration simulation. Desktop tests exercise the secondary selector, conflict choices and undo and retain screenshots as CI artifacts.
+
+Both verification workflows run on pushes to `experimental`; no pull request to `main` is needed. Linux and Windows desktop jobs run independently. The external-engine workflow retains test inputs and engine logs in its artifact, including failed runs. Git checkout preserves exact source bytes on every platform so bundled-library and original-schematic checksums remain valid on Windows.

@@ -210,6 +210,10 @@ class EditorWorkspaceMixin:
             data,schematic=self._render_cache[key];self.layout.set_data(data,self.project['pdk'],self.selection,self.net,revision=self.project['revision']);self.schematic.set_data(schematic,self.project['pdk'],self.selection,self.net)
         else:
             super().render_physical_hierarchy();self._render_cache={key:(self.layout.cell,self.schematic.cell)}
+        # Cached geometry must not discard the current layout-to-schematic links.
+        linked=[obj['device_id'] for obj in self.cell['shapes']+self.cell.get('layout_instances',[])
+                if obj['id'] in self.selection and obj.get('device_id')] if self.current_mode=='layout' else []
+        self.schematic.selection=list(dict.fromkeys(self.selection+linked));self.schematic.update()
         self.layout.selection=list(dict.fromkeys(self.selection+[i['id'] for i in self.cell.get('layout_instances',[]) if i.get('device_id') in self.selection]));self.render_edit_context();self.layout.update()
 
     def set_project(self,p,path=None):

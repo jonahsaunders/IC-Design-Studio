@@ -1,7 +1,9 @@
 name: External tool interoperability
 on:
+  push:
+    branches: [experimental]
   pull_request:
-    paths: ['icstudio/**', 'tests/**', 'requirements.txt', '.github/workflows/interoperability.yml']
+    paths: ['icstudio/**', 'tests/**', 'requirements.txt', '.gitattributes', '.github/workflows/interoperability.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -10,6 +12,7 @@ jobs:
     runs-on: ubuntu-24.04
     env:
       QT_QPA_PLATFORM: offscreen
+      ICSTUDIO_EXCHANGE_EVIDENCE: build/external-exchange-evidence
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -24,11 +27,13 @@ jobs:
           command -v magic
           echo "ICSTUDIO_TEST_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
       - name: Verify contracts and real external exchanges
-        run: python -m unittest tests.test_interoperability tests.test_klayout_lvs_exchange tests.test_pdk_templates tests.test_external_exchange_engines tests.test_native_migration -v
+        run: python -m unittest tests.test_checkout_integrity tests.test_external_tools tests.test_interoperability tests.test_klayout_lvs_exchange tests.test_pdk_templates tests.test_external_exchange_engines tests.test_native_migration -v
       - name: Verify secondary technology selection and conflict resolution
         run: python tests/gui_interoperability.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: interoperability-ui-evidence
-          path: build/gui-interoperability/*.png
+          path: |
+            build/gui-interoperability/*.png
+            build/external-exchange-evidence

@@ -3,13 +3,15 @@ on:
   workflow_dispatch:
   push:
     tags: ['v*']
+    branches: [experimental]
   pull_request:
-    paths: ["icstudio/**", "tests/**", "scripts/**", "packaging/**", "examples/**", "docs/**", "README.md", "requirements*.txt", ".github/**"]
+    paths: ["icstudio/**", "tests/**", "scripts/**", "packaging/**", "examples/**", "docs/**", "README.md", "requirements*.txt", ".gitattributes", ".github/**"]
 permissions:
   contents: read
 jobs:
   package:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-24.04, windows-2022]
     runs-on: ${{ matrix.os }}

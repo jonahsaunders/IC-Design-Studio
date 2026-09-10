@@ -61,6 +61,7 @@ def xschem_netlist(source, output, executable='xschem', libraries=(), rcfile=Non
             text = text.replace(before,after)
         atomic_write(path,text)
     profile = output/'profile'; profile.mkdir()
+    temporary = output/'tmp'; temporary.mkdir()
     netlists = output/'netlists'; netlists.mkdir()
     startup = ''
     if rcfile:
@@ -70,22 +71,31 @@ def xschem_netlist(source, output, executable='xschem', libraries=(), rcfile=Non
     if any(os.pathsep in p for p in mappings.values()):raise ValueError('Xschem library paths cannot contain the platform path-list separator.')
     startup += 'set XSCHEM_LIBRARY_PATH '+tcl_word(os.pathsep.join(mappings.values()))+'\n'
     startup += 'set netlist_dir '+tcl_word(netlists)+'\nset USER_CONF_DIR '+tcl_word(profile)+'\n'
+    startup += 'set XSCHEM_TMP_DIR '+tcl_word(temporary.as_posix()+'/')+'\n'
     startup += 'set lvs_netlist '+('1' if mode=='lvs' else '0')+'\n'
     rc = output/'xschemrc'; atomic_write(rc,startup)
     staged = Path(mappings[str(source.parent)])/source.name
     command = [info['path'],'-x','-q','-n','-s','--rcfile',str(rc),'-o',str(netlists),str(staged)]
     atomic_write(output/'command.json',json.dumps(command,indent=2))
     inputs = {str(p.relative_to(output)):file_digest(p) for p in (output/'sources').rglob('*') if p.is_file()}
-    report = {'version':1,'created':now(),'tool':info,'mode':mode,'source':str(source),
+    temporary_environment={key:str(temporary) for key in ('TMPDIR','TMP','TEMP')}
+    report = {'version':1,'created':now(),'tool':info,'mode':mode,'source':str(source),'environment':temporary_environment,
               'inputs':inputs,'configuration_sha256':file_digest(rc),'status':'running',
               'scope':'Captured project and declared library roots. Dynamic references outside these roots require explicit additional libraries.'}
     atomic_write(output/'report.json',json.dumps(report,indent=2))
     try:
-        log = execute(command,staged.parent,timeout=300)
+        environment={**os.environ,**temporary_environment}
+        log = execute(command,staged.parent,timeout=300,env=environment)
         atomic_write(output/'engine.log',log)
-        if re.search(r'unable to open|FATAL|not found|error executing|SKIPPING',log,re.I): raise ValueError('Xschem reported a netlisting error; inspect engine.log.')
+        diagnostics=[line for line in log.splitlines() if re.search(r'unable to open|FATAL|not found|error executing|SKIPPING|tcleval\(\):.*failed',line,re.I)]
+        if diagnostics: raise ValueError('Xschem reported a netlisting error: '+diagnostics[0][:500]+'. See '+str(output/'engine.log'))
         decks = list(netlists.glob('*.spice'))+list(netlists.glob('*.cir'))
         if not decks: raise ValueError('Xschem produced no SPICE netlist.')
+        for deck in decks:
+            content=deck.read_text(encoding='utf-8',errors='replace')
+            if not content.strip():raise ValueError('Xschem produced an empty SPICE netlist. See '+str(output/'engine.log'))
+            if re.search(r'(?m)^\s*\?\s*$',content):
+                raise ValueError('Xschem emitted an unresolved Tcl value in '+deck.name+'. See '+str(output/'engine.log'))
         report.update(status='complete',netlists={p.name:file_digest(p) for p in decks})
     except Exception as exc:
         if not (output/'engine.log').is_file():atomic_write(output/'engine.log',str(exc))
