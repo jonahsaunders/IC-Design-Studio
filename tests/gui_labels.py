@@ -1,8 +1,9 @@
 """Actual mouse/keyboard placement, dragging, inspection and persistence."""
-import json,os,sys
+import argparse,json,os,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT));sys.path.insert(0,str(ROOT/'tests'))
-profile=ROOT/'build/label-profile';os.environ['XDG_DATA_HOME']=str(profile/'data');os.environ['XDG_CONFIG_HOME']=str(profile/'config')
+parser=argparse.ArgumentParser();parser.add_argument('--compact-canvas',action='store_true');args=parser.parse_args()
+profile=ROOT/'build/label-profile'/('compact' if args.compact_canvas else 'normal');os.environ['XDG_DATA_HOME']=str(profile/'data');os.environ['XDG_CONFIG_HOME']=str(profile/'config')
 from PySide6.QtCore import Qt,QEvent,QPointF,QSettings,QTimer
 from PySide6.QtGui import QMouseEvent
 from PySide6.QtWidgets import QApplication,QInputDialog
@@ -12,7 +13,7 @@ from icstudio.model import clone,digest,save_project,load_project
 from icstudio import net_labels
 from test_wiring import circuit
 errors=[]
-evidence=ROOT/'build/label-evidence';evidence.mkdir(parents=True,exist_ok=True)
+evidence=ROOT/'build/label-evidence'/('compact' if args.compact_canvas else 'normal');evidence.mkdir(parents=True,exist_ok=True)
 drag_states=[]
 def exception(t,v,tb):
  import traceback
@@ -23,8 +24,16 @@ sys.excepthook=exception
 app=QApplication([]);app.setStyle('Fusion');QSettings('ICDesignStudio','Studio').clear();w=Studio(False);w.resize(1440,940);w.show();QTest.qWait(100)
 w.error=lambda text:(_ for _ in ()).throw(AssertionError(text))
 p,cell=circuit();w.set_project(p);c=w.schematic;c.auto_fit=False;c.scale=1.3;c.offset=QPointF(40,90);c.setFocus();QTest.qWait(60)
+if args.compact_canvas:c.setFixedSize(250,220);QTest.qWait(60)
 def screen(pt):return (QPointF(*pt)*c.scale+c.offset).toPoint()
-def click(pt):QTest.mouseClick(c,Qt.LeftButton,pos=screen(pt));QTest.qWait(25)
+def center_on(pt):
+ c.auto_fit=False;c.offset=QPointF(c.rect().center())-QPointF(*pt)*c.scale;c.update()
+def click(pt):
+ # Inspector widths vary by platform. Pan an offscreen model point into
+ # the actual viewport before sending its click; never click outside it.
+ if not c.rect().adjusted(12,12,-12,-12).contains(screen(pt)):center_on(pt)
+ at=screen(pt);assert c.rect().contains(at),(pt,at,c.rect())
+ QTest.mouseClick(c,Qt.LeftButton,pos=at);QTest.qWait(25)
 def key(k,mod=Qt.NoModifier):QTest.keyClick(c,k,mod);QTest.qWait(25)
 key(Qt.Key_W);click([100,100]);click([400,100]);key(Qt.Key_Escape)
 def enter_name():
@@ -32,10 +41,14 @@ def enter_name():
 QTimer.singleShot(60,enter_name);key(Qt.Key_L);assert c.tool=='label';click([250,100]);assert w.cell['wires'][0]['net']=='out';label=w.cell['labels'][0];ident=label['id'];anchor=clone(label['anchor'])
 # Drag label text, preserve anchor and electrical name.
 # Placing the label rebuilds the inspector and can refit/resize the canvas.
-# Set a visible, fixed transform after those layout events have settled.
-QTest.qWait(60);c.auto_fit=False;c.scale=1.3;c.offset=QPointF(40,90)
+# Center the artwork in the actual viewport after layout has settled.
+# A fixed offset can put its model coordinates outside a narrow canvas.
+QTest.qWait(60);c.auto_fit=False;c.scale=1.3
 original_offset=clone(label['offset']);center=c.label_box(label).center()
+center_on([center.x(),center.y()])
 a=screen([center.x(),center.y()]);b=screen([center.x()+30,center.y()-30])
+drag_states.append({'event':'Viewport','size':[c.width(),c.height()],
+                    'start':[a.x(),a.y()],'end':[b.x(),b.y()]})
 assert c.rect().contains(a) and c.rect().contains(b),'Label drag is outside the canvas'
 hit=c.hit(c.model(QPointF(a)));assert hit and hit['id']==ident,'Drag must start on label artwork'
 delta=c.snap(c.model(QPointF(b)))-c.snap(c.model(QPointF(a)))
@@ -69,6 +82,6 @@ w.select([w.cell['labels'][0]['id']]);w.fit_active();QTest.qWait(80);assert w.gr
 w.resize(1000,720);QTest.qWait(80);assert w.grab().save(str(ROOT/'build/workspace-labels-compact-0.4.0.png'))
 w.saved_hash=digest(w.project);w.close();assert not errors,errors
 (evidence/'report.json').write_text(json.dumps({'status':'passed','platform':sys.platform,
- 'scale_factor':os.environ.get('QT_SCALE_FACTOR','1'),'drag_states':drag_states,
+ 'scale_factor':os.environ.get('QT_SCALE_FACTOR','1'),'compact_canvas':args.compact_canvas,'drag_states':drag_states,
  'checks':['Exact snapped artwork displacement','Anchor and net preserved','Undo and redo','Rename','Ground placement and rotation','Save and reopen']},indent=2),encoding='utf-8')
 print('PASS: L label dialog, click placement, artwork drag, N whole-net inspector, rename, G ground, R preview, delete/undo, save/reopen, compact workspace.')

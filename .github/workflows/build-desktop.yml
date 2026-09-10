@@ -99,6 +99,10 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_reliability.py
+      - name: Test labels in a narrow canvas
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_labels.py --compact-canvas
       - name: Test project and PDK workspace
         env:
           QT_QPA_PLATFORM: offscreen
