@@ -24,6 +24,7 @@ class Layer:
     thickness_um: float
     illustrative: bool = True
     visible: bool = True
+    custom: bool = False
     triangles: list = field(default_factory=list)
 
 

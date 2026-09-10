@@ -264,6 +264,9 @@ class OpenGLView(Camera, QOpenGLWidget):
         try:
             gl = self.context().functions()
             gl.glClearColor(BACKGROUND.redF(), BACKGROUND.greenF(), BACKGROUND.blueF(), 1.)
+            gl.glDepthMask(True)
+            gl.glDisable(0x0BE2)  # GL_BLEND; reset state after the QPainter overlay
+            gl.glDisable(0x0C11)  # GL_SCISSOR_TEST
             gl.glEnable(0x0B71)  # GL_DEPTH_TEST
             gl.glDepthFunc(0x0203)  # GL_LEQUAL
             gl.glClear(0x00004000 | 0x00000100)

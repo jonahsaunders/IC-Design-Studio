@@ -130,7 +130,7 @@ class Layout3DDialog(QDialog):
 
     def check_stale(self):
         if self.snapshot and self.snapshot != self.current_revision():
-            self.status.setText('Layout changed since this snapshot. Refresh from layout to view the current active cell.')
+            self.status.setText(f'Snapshot r{self.snapshot[1]}: layout changed. Refresh from layout to view the current active cell.')
 
     def refresh_mesh(self, preserve=True):
         previous = {layer.name: layer for layer in self.mesh.layers} if self.mesh and preserve else {}
@@ -160,6 +160,7 @@ class Layout3DDialog(QDialog):
             if old:
                 layer.z_um, layer.thickness_um = old.z_um, old.thickness_um
                 layer.visible, layer.illustrative = old.visible, old.illustrative
+                layer.custom = old.custom
         self.mesh, self.stack_key = mesh, stack_key
         self.snapshot = self.current_revision()
         self.view.set_mesh(mesh)
@@ -191,11 +192,12 @@ class Layout3DDialog(QDialog):
                 spin.setAccessibleName(layer.name + (' elevation in micrometres' if column == 1 else ' thickness in micrometres'))
                 spin.valueChanged.connect(lambda value, row=i, name=attr: self.edit_height(row, name, value))
                 self.table.setCellWidget(i, column, spin)
-            basis = QTableWidgetItem('Illustrative' if layer.illustrative else 'PDK')
+            basis = QTableWidgetItem('Custom' if layer.custom else 'Illustrative' if layer.illustrative else 'PDK')
             basis.setFlags(Qt.ItemIsEnabled | Qt.ItemIsSelectable)
             self.table.setItem(i, 3, basis)
         self.table.blockSignals(False)
-        self.stack_note.setText('Illustrative heights: layer order is not a fabrication stack.' if any(layer.illustrative for layer in self.mesh.layers) else
+        self.stack_note.setText('Custom display heights. These changes do not alter the PDK or project.' if any(layer.custom for layer in self.mesh.layers) else
+                                'Illustrative heights: layer order is not a fabrication stack.' if any(layer.illustrative for layer in self.mesh.layers) else
                                 'PDK-supplied heights. Source: ' + (self.mesh.source or 'unspecified'))
 
     def visibility_changed(self, item):
@@ -207,6 +209,7 @@ class Layout3DDialog(QDialog):
         if self.mesh:
             setattr(self.mesh.layers[row], name, value)
             self.mesh.layers[row].illustrative = True
+            self.mesh.layers[row].custom = True
             self.table.item(row, 3).setText('Custom')
             self.stack_note.setText('Custom display heights. These changes do not alter the PDK or project.')
             self.view.fit()

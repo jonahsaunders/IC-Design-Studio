@@ -50,7 +50,7 @@ def main():
         image = view.grabFramebuffer() if isinstance(view, OpenGLView) else view.grab().toImage()
         # The ring's hole must remain background at its center in a top view.
         matrix = view.matrix()
-        from PySide6.QtGui import QVector3D
+        from PySide6.QtGui import QVector3D, QColor
         origin = dialog.mesh.origin_um
         pt = matrix.map(QVector3D(5-origin[0], 4-origin[1], 0))
         x, y = round((pt.x()+1)*image.width()/2), round((1-pt.y())*image.height()/2)
@@ -59,6 +59,17 @@ def main():
         pt = matrix.map(QVector3D(5-origin[0], 1-origin[1], 0))
         x, y = round((pt.x()+1)*image.width()/2), round((1-pt.y())*image.height()/2)
         assert image.pixelColor(x,y).name() != BACKGROUND.name()
+        # Draw the higher solid first, then the lower solid: occlusion must
+        # follow Z rather than layer submission order, including after repaint.
+        from icstudio.layout_3d_view import shade
+        metal1 = next(l for l in dialog.mesh.layers if l.name == 'metal1')
+        original_z = metal1.z_um;metal1.z_um = 10;view.fit();QTest.qWait(50)
+        image = view.grabFramebuffer() if isinstance(view, OpenGLView) else view.grab().toImage()
+        pt = view.matrix().map(QVector3D(5-origin[0], 1-origin[1], 10))
+        x, y = round((pt.x()+1)*image.width()/2), round((1-pt.y())*image.height()/2)
+        expected = shade(QColor(metal1.color), (0,0,1));actual = image.pixelColor(x,y)
+        assert max(abs(a-b) for a,b in zip(actual.getRgb()[:3], expected.getRgb()[:3])) <= 2, (actual.name(),expected.name())
+        metal1.z_um=original_z;view.fit()
         checks.append('rendered material and open hole')
         view.preset('Isometric');view.setFocus();QTest.qWait(30)
         yaw = view.yaw
@@ -91,6 +102,7 @@ def main():
         dialog.check_stale();assert 'changed' in dialog.status.text()
         dialog.refresh_button.click()
         assert dialog.mesh.shape_count == 6 and dialog.mesh.layers[metal_row].z_um == 4.25
+        assert dialog.table.item(metal_row,3).text() == 'Custom'
         dialog.reset_stack();assert dialog.mesh.layers[metal_row].z_um != 4.25
         checks.append('layer controls PNG export read-only snapshot and refresh')
         # Reuse a mirrored/rotated cell as an array, then exercise the same window
