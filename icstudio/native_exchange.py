@@ -88,7 +88,12 @@ def export_project(project,directory):
             # Embedded model definitions retain root-relative dependencies.
             if definition:s['attributes']['spice_sym_def']=definition
             output[path]=symbol_text(s,d['name'],fmt)
-            lines.append(record_text(['C',path,str(d['x']),str(d['y']),str(d['rotation']//90),str(int(d.get('mirror',False))),property_text(props)]))
+            serialized = property_text(props)
+            if info and info['type'] == 'program':
+                # Xschem consumes one escape level while loading an instance and
+                # another when substituting @value. Keep literal SPICE quotes.
+                serialized = serialized.replace(chr(92)+'"', chr(92)*2+'"')
+            lines.append(record_text(['C',path,str(d['x']),str(d['y']),str(d['rotation']//90),str(int(d.get('mirror',False))),serialized]))
         port_points={}
         def label(name,pt,kind='label',index=0):
             # Reuse a port's own net label, keeping the port records in declared
