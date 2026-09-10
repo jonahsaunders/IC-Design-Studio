@@ -51,78 +51,118 @@ jobs:
       - name: Build optional native core
         run: python scripts/build_native.py
       - name: Test core
+        id: core_tests
         run: python -m unittest discover -s tests -v
       - name: Check repository release materials
         run: python scripts/check_release.py
       - name: Test guided examples and PDK setup
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_getting_started.py --evidence build/getting-started-evidence
       - name: Test native interface
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_smoke.py
       - name: Qualify native migration with real simulation
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_native_migration.py --evidence build/native-migration-evidence
       - name: Qualify graphical native analyses and exchange
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
         timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_native_workflows.py --evidence build/native-workflow-evidence
       - name: Test catalog migration and dependency linking
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_catalog_migration.py
       - name: Run six-case native testbench through the desktop interface
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_bandgap_compatibility.py
       - name: Test project hub and installed PDK revisions
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_project_hub.py
       - name: Test new desktop workflows
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_workflows.py
       - name: Test manual wiring and keyboard commands
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_wiring.py
       - name: Test net labels and grounds
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_labels.py
       - name: Test recovery and job lifecycle
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_reliability.py
       - name: Test labels in a narrow canvas
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_labels.py --compact-canvas
       - name: Test project and PDK workspace
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_project_pdk.py
       - name: Test lifecycle and reusable components
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_lifecycle.py
       - name: Test desktop usability
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_usability.py
       - name: Test linked layout workflow
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_silicon.py
       - name: Test saved testbenches and physical hierarchy
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_hierarchy.py
+      - name: Test hierarchy drawing in a narrow canvas
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_hierarchy.py --compact-canvas
       - name: Install Windows installer compiler
         if: runner.os == 'Windows'
         shell: pwsh
@@ -164,4 +204,5 @@ jobs:
             build/bandgap-gui-evidence
             build/project-hub-evidence
             build/label-evidence
+            build/project-pdk-evidence
             build/verification-0.8.0

@@ -1,6 +1,7 @@
 """Native Qt integration of project/PDK/symbol/layer workflows."""
 import os,sys,json,tempfile
 from pathlib import Path
+from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT));profile=ROOT/'build/gui-project-pdk-profile';profile.mkdir(parents=True,exist_ok=True);os.environ['XDG_DATA_HOME']=str(profile/'data');os.environ['XDG_CONFIG_HOME']=str(profile/'config')
 from PySide6.QtWidgets import QApplication,QFileDialog,QMessageBox
 from PySide6.QtCore import Qt,QPointF
@@ -29,8 +30,26 @@ if entry:
 w.set_project(example('empty'));w.add_shape(rect('metal1',0,0,1000,1000));w.add_shape(rect('metal2',1500,0,1000,1000));w.mode_combo.setCurrentIndex(1);w.layer_combo.setCurrentText('metal1');w.show_layers('solo');assert w.layout.visible_layers=={'metal1'};w.layout.locked_layers={'metal1'};assert w.layout.hit(QPointF(500,500)) is None;w.layout.locked_layers=set();assert w.layout.hit(QPointF(500,500)) is not None;w.show_layers('all');w.select([w.cell['shapes'][0]['id']],'layout');w.fit_selection();assert not w.layout.auto_fit
 # Project file save/index and recoverable deletion through the controller.
 with tempfile.TemporaryDirectory() as td:
- path=Path(td)/'managed.icproj';old_dialog=QFileDialog.getSaveFileName;QFileDialog.getSaveFileName=lambda *a,**k:(str(path),'');assert w.save();QFileDialog.getSaveFileName=old_dialog;assert w.project_index.entries()[0]['path']==str(path)
- old_question=QMessageBox.question;QMessageBox.question=lambda *a,**k:QMessageBox.Yes;w.delete_project_dialog();QMessageBox.question=old_question;assert not path.exists();record=next(r for r in w.project_index.deleted() if r['original']==str(path));w.project_index.restore(record);assert load_project(path)['name']=='Untitled circuit'
+ # Windows temporary paths may use short-name aliases. The index deliberately
+ # stores resolved paths. Exercise different path spellings on every platform,
+ # without requiring symlink privileges on Windows.
+ alias=Path(td)/'path alias';alias.mkdir();path=alias/'..'/'managed.icproj'
+ with patch.object(QFileDialog,'getSaveFileName',return_value=(str(path),'')):assert w.save()
+ canonical=path.resolve();entry=w.project_index.entries()[0]
+ assert entry['path']==str(canonical),(entry['path'],str(canonical),str(path))
+ assert Path(entry['path']).samefile(path),'Index points to a different saved file'
+ project_id=w.project['id'];assert entry['id']==project_id
+ with patch.object(QMessageBox,'question',return_value=QMessageBox.Yes):w.delete_project_dialog()
+ assert not path.exists() and not canonical.exists()
+ record=next(r for r in w.project_index.deleted() if r['original']==str(canonical))
+ assert record['original']==entry['path'] and Path(record['trashed']).is_file()
+ restored=w.project_index.restore(record)
+ assert restored.samefile(path) and load_project(path)['id']==project_id
+ assert load_project(path)['name']=='Untitled circuit'
+ evidence=ROOT/'build/project-pdk-evidence';evidence.mkdir(parents=True,exist_ok=True)
+ path_report={'status':'passed','platform':sys.platform,'selected_path':str(path),'indexed_path':entry['path'],
+              'canonical_path':str(canonical),'same_saved_file':True,'project_identity_restored':True}
+ (evidence/'path-lifecycle.json').write_text(json.dumps(path_report,indent=2),encoding='utf-8')
 # All new views open using their actual Qt controls.
 w.project_manager();QTest.qWait(30);w._projects_dialog.close();w.project_settings();QTest.qWait(30);w._settings_dialog.close();w.pdk_manager();QTest.qWait(30);w._pdk_dialog.close();w.symbol_dialog();QTest.qWait(30);w._symbol_dialog.close()
 assert not errors,errors
