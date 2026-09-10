@@ -67,6 +67,7 @@ jobs:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_native_migration.py --evidence build/native-migration-evidence
       - name: Qualify graphical native analyses and exchange
+        timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_native_workflows.py --evidence build/native-workflow-evidence
