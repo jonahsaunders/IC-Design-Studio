@@ -31,6 +31,8 @@
 
 Choose **07 · GF180 bandgap startup** in the gallery and press **F5** for a quick run of the supplied circuit. **08 · GF180 full characterization** preserves the exact original schematic and all 144 analyses. **09 · SKY130 transistor inverter** is a second real-PDK example. To build your own native project, choose **File → New project**: the [Project Hub](docs/PROJECT_HUB.md) shows installed revisions and the included GF180MCU/SKY130 packages immediately.
 
+The [six-case GF180 compatibility test](docs/BANDGAP_COMPATIBILITY.md) provides a shorter startup/DC/AC check and compares native migration and Xschem round trips against an independent simulation.
+
 See [simulation setup and validation](SIMULATION_SETUP.md). Windows portable assembly is checked on Linux; native Windows installer and desktop execution remain pending. The previous [grid and drawing improvements](docs/DRAWING_0.22.md) remain included.
 
 ![The dev9 layout editor showing a full-width Manhattan path preview, visible-grid snapping, and drawing instructions](docs/images/layout-drawing-dev9.png)

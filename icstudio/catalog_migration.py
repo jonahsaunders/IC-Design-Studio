@@ -48,9 +48,46 @@ def emit(device, technology, mode='simulation'):
         context=symbol_context(device,technology)
         copy['native_spice']['parameters'].update({k:context[k] for k in copy['native_spice']['parameters'] if k in context})
         return render(copy)
-    values=parameter_values(binding,device)
+    values=emitted_parameters(device,technology)
     return (instance_name(device,binding)+' '+' '.join(device['nets'][p] for p in binding['pin_order'])+
-            ' '+binding['model']+''.join(' '+k+'='+format(values[v],'.12g') for k,v in binding.get('emit_parameters',{}).items()))
+            ' '+binding['model']+''.join(' '+k+'='+v for k,v in values.items()))
+
+
+def emitted_parameters(device,technology):
+    """Keep validated live arithmetic in SPICE and avoid re-rounding source units.
+
+    Evaluating diffusion expressions into literals changes ngspice's parameter
+    evaluation and freezes those dimensions when the schematic is edited in
+    Xschem. Validate with the catalog, then let the simulator evaluate them.
+    """
+    from .catalog import binding_for,numeric_formula
+    binding=binding_for(technology,device);values=parameter_values(binding,device)
+    mapping=binding.get('emit_parameters',{});inverse={source:target for target,source in mapping.items()}
+    original=device.get('model_ref',{}).get('source_parameters',{});result={}
+    for target,source in mapping.items():
+        value=values[source];text=format(value,'.12g')
+        raw=device.get('model_params',{}).get(source,binding['parameters'][source]['default'])
+        raw=binding['parameters'][source].get('choices',{}).get(str(raw),raw)
+        # MOS dimensions are stored in SI units and already scaled by the catalog.
+        dimension=source in ('w','l') and device['kind'] in ('NMOS','PMOS')
+        if not dimension:
+            expression=str(raw).strip().strip('\\\"\'{}').lower()
+            try:numeric_formula(expression,{})
+            except (ValueError,SyntaxError):
+                names=set(re.findall(r'\b[A-Za-z_][A-Za-z0-9_]*\b',expression))&set(values)
+                if names<=set(inverse):
+                    expression=re.sub(r'\b[A-Za-z_][A-Za-z0-9_]*\b',lambda m:inverse.get(m[0],m[0]),expression)
+                    text="'"+expression+"'"
+        if text==format(value,'.12g') and target in original:
+            candidate=str(original[target]).strip()
+            try:
+                # Only numeric source spellings are reused; current live formulas
+                # come from editable parameters, never a stale source snapshot.
+                from .model import scalar
+                if math.isclose(scalar(candidate),value,rel_tol=1e-14,abs_tol=0):text=candidate
+            except ValueError:pass
+        result[target]=text
+    return result
 
 
 def check_embedded_catalog(project):
@@ -176,6 +213,7 @@ def _bind(device, technology, key, parts, order, index):
     preserved=clone(device);preserved.pop('native_spice',None)
     preserved.update({k:clone(result[k]) for k in ('kind','model_ref','model_params','params')})
     preserved['model_ref']['instance_prefix']=prefix
+    preserved['model_ref']['source_parameters']=clone(values)
     if device['native_spice'].get('lvs_tokens'):
         definition=clone(device['native_spice']);definition['tokens']=definition.pop('lvs_tokens')
         for token in definition['tokens']:

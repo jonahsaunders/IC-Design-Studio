@@ -50,17 +50,18 @@ def export_project(project,directory):
                     if info.get('lvs_tokens'):
                         attrs['lvs_format']=''.join(t.get('value','') if t['kind']=='literal' else {'instance':'@name','terminals':'@pinlist','terminal':'@@'+t.get('value',''),'parameter':'@'+t.get('value',''),'cell':'@symname'}[t['kind']] for t in info['lvs_tokens'])
             elif d.get('model_ref'):
-                from .catalog import binding_for,parameter_values
-                from .catalog_migration import instance_name
-                binding=binding_for(p['pdk'],d);values=parameter_values(binding,d)
+                from .catalog import binding_for
+                from .catalog_migration import instance_name,emitted_parameters
+                binding=binding_for(p['pdk'],d)
                 alias=instance_name(d,binding);prefix=alias[:-len(d['name'])]
-                props.update({key:format(values[source],'.12g') for key,source in binding.get('emit_parameters',{}).items()})
+                props.update(emitted_parameters(d,p['pdk']))
                 fmt=prefix+'@name '+' '.join('@@'+pin for pin in binding['pin_order'])+' '+binding['model']+''.join(' '+key+'=@'+key for key in binding.get('emit_parameters',{}))
                 stem=binding['model']
                 if d['model_ref'].get('lvs'):
                     from .catalog_migration import symbol_context
                     lvs=d['model_ref']['lvs'];context=symbol_context(d,p['pdk'])
-                    props.update({k:context.get(k,v) for k,v in lvs['parameters'].items()})
+                    required={token['value'] for token in lvs['tokens'] if token['kind']=='parameter'}
+                    props.update({k:context.get(k,v) for k,v in lvs['parameters'].items() if k in required and k not in props})
                     attrs['lvs_format']=''.join(t.get('value','') if t['kind']=='literal' else {'instance':'@name','terminals':'@pinlist','terminal':'@@'+t.get('value',''),'parameter':'@'+t.get('value',''),'cell':'@symname'}[t['kind']] for t in lvs['tokens'])
             elif d['kind'] in ('R','C','L'):props['value']=d['value']
             elif d['kind'] in ('V','I'):props['value']=source_spec(d)

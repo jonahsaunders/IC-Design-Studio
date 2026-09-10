@@ -26,7 +26,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y ngspice libegl1 libopengl0 libgl1 libglx0 libglvnd0 \
+          sudo apt-get install -y ngspice xschem libegl1 libopengl0 libgl1 libglx0 libglvnd0 \
             libx11-6 libxcb1 libxcb-image0 libxcb-xkb1 libxcb-cursor0 \
             libxcb-keysyms1 libxcb-render-util0 libxcb-icccm4 libxcb-util1 \
             libxcb-shape0 libxkbcommon-x11-0
@@ -45,6 +45,9 @@ jobs:
         run: python scripts/check_simulation_assets.py
       - name: Validate supplied GF180 bandgap startup
         run: python scripts/verify_bundled_simulation.py --output build/bundled-simulation-evidence
+      - name: Compare six-case testbench with independent Xschem simulation
+        if: runner.os == 'Linux'
+        run: python scripts/verify_bandgap_compatibility.py --output build/bandgap-compatibility-evidence
       - name: Build optional native core
         run: python scripts/build_native.py
       - name: Test core
@@ -71,6 +74,10 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_catalog_migration.py
+      - name: Run six-case native testbench through the desktop interface
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_bandgap_compatibility.py
       - name: Test project hub and installed PDK revisions
         env:
           QT_QPA_PLATFORM: offscreen
@@ -148,5 +155,7 @@ jobs:
             build/native-workflow-evidence
             build/getting-started-evidence
             build/bundled-simulation-evidence
+            build/bandgap-compatibility-evidence
+            build/bandgap-gui-evidence
             build/project-hub-evidence
             build/verification-0.8.0

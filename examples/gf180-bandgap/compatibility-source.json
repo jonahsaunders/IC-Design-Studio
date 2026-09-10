@@ -1,0 +1,8 @@
+{
+  "source_name": "5vfullv2(20260910-165347).sch",
+  "source_sha256": "cc996b59f7f5f800043f239ea0d2acd8386d6b9b36005ba8d2a763f1729b3112",
+  "reduced_sha256": "c80d0f745e4d3e813ef42584cd4bed21671119a6cb8364c57b018bb7ae5a361f",
+  "original_analyses": 144,
+  "reduced_analyses": 6,
+  "change_scope": "Only the NGSPICE component value was replaced; all other source bytes preserved."
+}
