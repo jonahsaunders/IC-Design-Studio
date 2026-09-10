@@ -116,10 +116,16 @@ def rebuild(cell,project=None):
         root=groups[('label',label['id'])];names.setdefault(root,set()).add(label['name']);members.setdefault(root,[])
     for values in names.values():
         if len(values)>1:raise ValueError('Wire joins conflicting labels: '+', '.join(sorted(values))+'. Rename or remove a label before moving this connection.')
+    # Preserve generated names when only a symbol's terminal roles change.
+    # Explicit labels still win, and splits/merges receive fresh names.
+    from .electrical_identity import terminal_id
+    terminals={(d['id'],pin):terminal_id(d,pin) for d in cell['devices'] for pin in d['nets']}
+    previous={frozenset(net['terminals']):net['name'] for net in cell.get('electrical',{}).get('nets',[])
+              if net['terminals'] and net['name'].startswith('N_')}
     reserved={name for values in names.values() for name in values};assigned={}
     for root,keys in members.items():
         if names.get(root):assigned[root]=next(iter(names[root]));continue
-        ident,pin=min(keys);name='N_'+ident+'_'+pin
+        ident,pin=min(keys);name=previous.get(frozenset(terminals[key] for key in keys),'N_'+ident+'_'+pin)
         while name in reserved:name+='x'
         reserved.add(name);assigned[root]=name
     for wire in cell['wires']:

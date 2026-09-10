@@ -21,6 +21,9 @@ assert dlg.findChild(QDialogButtonBox).button(QDialogButtonBox.Apply).isEnabled(
 assert w.cell['shapes'];assert len(w.cell['layout_pins'])==8;w.check_linked_layout();assert not w.issues,w.issues
 n=w.cell['devices'][0];w.select([n['id']],'schematic');assert n['id'] in w.layout.selection
 s=next(s for s in w.cell['shapes'] if s.get('device_id')==n['id']);w.select([s['id']],'layout');assert n['id'] in w.schematic.selection
+w.refresh();assert n['id'] in w.schematic.selection
+w.select([],'layout');assert not w.schematic.selection
+w.select([s['id']],'layout');assert n['id'] in w.schematic.selection
 before=clone(w.cell['shapes']);w.commit(lambda p:next(c for c in p['cells'] if c['id']==cid)['devices'][0]['params'].update(w='1.5u'),'Resize MOS');w.check_linked_layout();assert any(i['code']=='PDK.STALE' for i in w.issues)
 w.inverter_layout_dialog();dlg=w._review_dialog;dlg.findChild(QDialogButtonBox).button(QDialogButtonBox.Apply).click();assert not audit(w.project,cid);w.undo();assert w.cell['shapes']==before;assert audit(w.project,cid)
 w.redo();w.mode_combo.setCurrentIndex(2);w.refresh(True);w.open_silicon();QTest.qWait(70)

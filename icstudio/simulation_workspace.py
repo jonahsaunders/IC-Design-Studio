@@ -90,6 +90,7 @@ class SimulationWorkspaceMixin:
 
     def current_analysis_settings(self):
         a=clone(self.project['analysis']);typ=self.analysis_type.currentData()
+        a['engine']=self.analysis_engine.currentData()
         if typ not in ('tran','op','dc','ac','noise'):raise ValueError('Choose a circuit analysis first.')
         keys={'tran':{'stop','step'},'op':set(),'dc':{'dc_start','dc_stop','dc_step'},'ac':{'start','end','points'},'noise':{'start','end','points','temperature'}}[typ]
         a.update({k:self.analysis_fields[k].text().strip() for k in keys});a.update(type=typ,source=self.analysis_source.currentText(),points=int(a['points']),temperature=float(a['temperature']))

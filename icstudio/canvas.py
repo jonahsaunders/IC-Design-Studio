@@ -161,7 +161,8 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
                 p.setPen(self.pen(fg,1.8))
             if d.get('symbol'):
                 from .symbol_editor import draw_symbol
-                draw_symbol(p,d['symbol'],fg,{'name':d['name'],'value':d['value'],'symname':d.get('cell',''),**d.get('params',{}),**d.get('parameters',{}),**d.get('symbol_context',{}),'name':d['name']})
+                from .catalog_migration import symbol_context
+                draw_symbol(p,d['symbol'],fg,symbol_context(d,self.tech))
             elif kind in ('R','C','V'):
                 pen=self.pen(fg,1.5);pen.setCapStyle(Qt.RoundCap);pen.setJoinStyle(Qt.RoundJoin);p.setPen(pen)
                 # Keep the electrical terminals at +/-50; only the ink changes.
@@ -189,7 +190,8 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
                 else:p.drawLine(10,0,18,-5);p.drawLine(10,0,18,5)
             elif d.get('symbol'):
                 from .symbol_editor import draw_symbol
-                draw_symbol(p,d['symbol'],fg,{'name':d['name'],'value':d['value'],'symname':d.get('cell',''),**d.get('params',{}),**d.get('parameters',{}),**d.get('symbol_context',{}),'name':d['name']})
+                from .catalog_migration import symbol_context
+                draw_symbol(p,d['symbol'],fg,symbol_context(d,self.tech))
             else:
                 p.drawRect(QRectF(-40,-50,80,max(100,len(d['nets'])*20)));p.drawText(QRectF(-35,-15,70,30),Qt.AlignCenter,'CELL')
                 pos=pin_positions({**d,'x':0,'y':0,'rotation':0,'mirror':False})

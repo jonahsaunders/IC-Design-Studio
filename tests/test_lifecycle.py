@@ -25,7 +25,7 @@ class LifecycleTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td);p=example();a=root/'a.icproj';b=root/'b.icproj';index=ProjectIndex(root/'index')
             save_project(p,a);index.remember(p,a);a.rename(b);relocate_project(index,a,b)
-            self.assertEqual(index.entries()[0]['path'],str(b))
+            self.assertEqual(index.entries()[0]['path'],str(b.resolve()))
             save_project(example(),a)
             with self.assertRaisesRegex(ValueError,'different project'):relocate_project(index,b,a)
 

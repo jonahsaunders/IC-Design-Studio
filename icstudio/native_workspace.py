@@ -13,9 +13,10 @@ class NativeWorkspaceMixin:
     def make_actions(self):
         super().make_actions()
         self.action(self.task_menus['File'], 'Import and migrate Xschem project…', self.migrate_xschem_file)
-        self.action(self.task_menus['File'], 'Migrate current Xschem project…', self.migrate_current_project)
+        self.action(self.task_menus['File'], 'Migrate current project to native…', self.migrate_current_project)
         self.action(self.task_menus['Help'], 'Native migration report…', self.show_native_report)
         self.action(self.task_menus['Help'], 'Native workflow guide', lambda:self.open_editor_doc('UPDATE_0.20.md'))
+        self.action(self.task_menus['Help'], 'Native catalog migration guide', lambda:self.open_editor_doc('NATIVE_CATALOG_MIGRATION.md'))
         for title,name in [('Native divider and studies','native-divider.icproj'),('Native RC and extracted comparison','native-rc.icproj')]:
             self.action(self._task_submenus['File/Examples'],title,lambda name=name:self.open_engineering_example(name))
         self.action(self.task_menus['Layout'], 'Native device geometry mapping…', self.native_binding_dialog)
@@ -97,16 +98,21 @@ class NativeWorkspaceMixin:
 
     def migrate_current_project(self):
         from .native_migration import review
-        if self.project.get('native_migration'): return self.show_native_report()
-        if not self.flush_inspector(): return
+        if not self.flush_inspector() or not self.flush_analysis(): return
+        if native(self.project):
+            from .migration_ui import show
+            return show(self,project=clone(self.project))
         self.show_migration_review(review(self.project))
 
     def show_native_report(self):
         report = self.project.get('native_migration')
         if not report: raise ValueError('This project has no migration report. Use File → Import and migrate Xschem project.')
-        self.show_migration_review({'candidate': None, **{k: report[k] for k in ('status', 'items')}}, readonly=True)
+        self.show_migration_review({'candidate': None, 'status':report['status'], 'items':report['items']+report.get('catalog',{}).get('items',[])}, readonly=True)
 
     def show_migration_review(self, result, source=None, roots=None, readonly=False):
+        if not readonly:
+            from .migration_ui import show
+            return show(self,source=source,libraries=roots,project=None if source else clone(self.project),initial=result)
         dlg = QDialog(self); dlg.setWindowTitle('Native project migration'); dlg.resize(1050, 720)
         layout = QVBoxLayout(dlg)
         title = QLabel('Migration ' + ('complete' if result['status'] == 'Complete' else 'needs attention'))

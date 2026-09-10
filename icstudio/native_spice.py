@@ -15,12 +15,13 @@ def native(project):
     return project.get('spice', {}).get('version') == 1
 
 
-def render(device, child=None):
+def render(device, child=None, mode='simulation'):
     definition = device['native_spice']
     if definition['type'] == 'program':
         return definition['text']
     output = []
-    for token in definition['tokens']:
+    if mode not in ('simulation','lvs'):raise ValueError('Choose simulation or LVS emission.')
+    for token in definition.get('lvs_tokens',definition['tokens']) if mode=='lvs' else definition['tokens']:
         kind, value = token['kind'], token.get('value', '')
         if kind == 'literal': output.append(value)
         elif kind == 'instance': output.append(device['name'])
@@ -53,6 +54,7 @@ def validate_device(device):
             if 'tcleval' in value:
                 raise ValueError('Executable Xschem expressions must be migrated before editing this parameter.')
         render(device, {'name': 'child'})
+        if 'lvs_tokens' in definition:render(device, {'name':'child'}, 'lvs')
 
 
 def asset_path(ident):
@@ -61,13 +63,15 @@ def asset_path(ident):
     return 'models/' + ident + '.spice'
 
 
-def netlist(project, directory):
+def netlist(project, directory, mode='simulation'):
     from .wiring import rebuild
     from .interchange import source_spec, spice_name
     from .design_ops import parameters, resolved_device
     p = clone(project); validate(p)
     root = Path(directory).resolve(); root.mkdir(parents=True, exist_ok=True)
     assets = p['spice']['assets']
+    from .catalog_migration import check_embedded_catalog, emit
+    check_embedded_catalog(p)
     for ident, asset in assets.items():
         if hashlib.sha256(asset['text'].encode()).hexdigest() != asset['sha256']:
             raise ValueError('Model checksum mismatch: ' + asset.get('name', ident))
@@ -76,12 +80,13 @@ def netlist(project, directory):
     atomic_write(root / 'library-lock.json', json.dumps(p['spice'].get('library_lock', {}), indent=2))
     by = {c['id']: c for c in p['cells']}; top = by[p['top']]
     lines = ['* IC Design Studio native circuit: ' + p['name']]; definitions = set()
+    if p.get('global_nets'):lines.append('.global '+' '.join(p['global_nets']))
     if p.get('parameters'):
         lines.append('.param ' + ' '.join(k + '=' + str(v) for k, v in p['parameters'].items()))
     for c in [top] + [c for c in p['cells'] if c is not top]:
         rebuild(c, p)
         defaults = {**c.get('spice_parameters', {}), **c.get('parameters', {})}
-        if c is not top:
+        if c is not top or mode=='lvs':
             lines.append('.subckt ' + c['name'] + ' ' + ' '.join(c['ports']) + ''.join(' ' + k + '=' + str(v) for k, v in defaults.items()))
         elif defaults:
             lines.append('.param ' + ' '.join(k + '=' + str(v) for k, v in defaults.items()))
@@ -89,12 +94,14 @@ def netlist(project, directory):
         lines.extend(c.get('spice_statements', [])); commands = []
         for original in c['devices']:
             d = original; definition = d.get('native_spice')
+            if d.get('model_ref'):
+                lines.append(emit(d,p['pdk'],mode));continue
             if definition:
                 if definition['type'] == 'program':
                     if c is top or not definition.get('only_toplevel'):
                         commands.append(definition['text'])
                 else:
-                    lines.append(render(d, by.get(d.get('cell'))))
+                    lines.append(render(d, by.get(d.get('cell')), mode))
                     if definition.get('definition'): definitions.add(definition['definition'])
                 continue
             d = resolved_device(d, context); kind = d['kind']
@@ -111,9 +118,13 @@ def netlist(project, directory):
             else: raise ValueError(d['name'] + ': migrate or bind this device before native SPICE generation.')
             lines.append(name + ' ' + nets + ' ' + suffix)
         lines.extend(commands)
-        if c is not top: lines.append('.ends ' + c['name'])
+        if c is not top or mode=='lvs': lines.append('.ends ' + c['name'])
     lines.extend(sorted(definitions)); lines.append('.end')
-    text = '\n'.join(lines) + '\n'; atomic_write(root / 'source.cir', text)
+    text = '\n'.join(lines) + '\n'
+    if mode=='lvs':
+        from .native_analysis import circuit_text
+        text=circuit_text(text)+'.end\n'
+    atomic_write(root / 'source.cir', text)
     return text
 
 

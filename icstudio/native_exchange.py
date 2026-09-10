@@ -16,6 +16,8 @@ def export_project(project,directory):
     from .model import scalar
     import math
     p=clone(project);validate(p);root=Path(directory).resolve()
+    from .catalog_migration import check_embedded_catalog
+    check_embedded_catalog(p)
     if root.exists() and any(root.iterdir()):raise ValueError('Choose an empty Xschem export directory.')
     by={c['id']:c for c in p['cells']};output={};definitions=set();notes=[]
     for ident,asset in p['spice']['assets'].items():
@@ -26,6 +28,7 @@ def export_project(project,directory):
     for c in p['cells']:
         rebuild(c,p);statements=list(c.get('spice_statements',[]))
         if c['id']==p['top']:
+            if p.get('global_nets'):statements.append('.global '+' '.join(p['global_nets']))
             defaults={**p.get('parameters',{}),**c.get('spice_parameters',{}),**c.get('parameters',{})}
             if defaults:statements.append('.param '+' '.join(k+'='+str(v) for k,v in defaults.items()))
         lines=['v {xschem version=3.4.7 file_version=1.2}','G {}','K {'+property_text({'studio_cell_id':c['id']})+'}','V {}',record_text(['S','\n'.join(statements)]),'E {}']
@@ -44,6 +47,22 @@ def export_project(project,directory):
                             pieces.append(value)
                         else:pieces.append({'instance':'@name','terminals':'@pinlist','terminal':'@@'+value,'parameter':'@'+value,'cell':'@symname'}[kind])
                     fmt=''.join(pieces);props.update(info['parameters']);definition=info.get('definition','')
+                    if info.get('lvs_tokens'):
+                        attrs['lvs_format']=''.join(t.get('value','') if t['kind']=='literal' else {'instance':'@name','terminals':'@pinlist','terminal':'@@'+t.get('value',''),'parameter':'@'+t.get('value',''),'cell':'@symname'}[t['kind']] for t in info['lvs_tokens'])
+            elif d.get('model_ref'):
+                from .catalog import binding_for
+                from .catalog_migration import instance_name,emitted_parameters
+                binding=binding_for(p['pdk'],d)
+                alias=instance_name(d,binding);prefix=alias[:-len(d['name'])]
+                props.update(emitted_parameters(d,p['pdk']))
+                fmt=prefix+'@name '+' '.join('@@'+pin for pin in binding['pin_order'])+' '+binding['model']+''.join(' '+key+'=@'+key for key in binding.get('emit_parameters',{}))
+                stem=binding['model']
+                if d['model_ref'].get('lvs'):
+                    from .catalog_migration import symbol_context
+                    lvs=d['model_ref']['lvs'];context=symbol_context(d,p['pdk'])
+                    required={token['value'] for token in lvs['tokens'] if token['kind']=='parameter'}
+                    props.update({k:context.get(k,v) for k,v in lvs['parameters'].items() if k in required and k not in props})
+                    attrs['lvs_format']=''.join(t.get('value','') if t['kind']=='literal' else {'instance':'@name','terminals':'@pinlist','terminal':'@@'+t.get('value',''),'parameter':'@'+t.get('value',''),'cell':'@symname'}[t['kind']] for t in lvs['tokens'])
             elif d['kind'] in ('R','C','L'):props['value']=d['value']
             elif d['kind'] in ('V','I'):props['value']=source_spec(d)
             elif d['kind'] in ('NMOS','PMOS'):
@@ -51,7 +70,7 @@ def export_project(project,directory):
                 definition=f'.model {name} {d["kind"]} (level=1 vto={pol*scalar(pa["vto"])} kp={scalar(pa["kp"])} lambda={scalar(pa["lambda"])})'
                 props.update(model=name,w=pa['w'],l=pa['l']);fmt='@name @pinlist @model w=@w l=@l'
             elif d['kind']!='X':raise ValueError(d['name']+': no declared Xschem emission format.')
-            if not info:
+            if not info and not d.get('model_ref'):
                 alias=spice_name(d)
                 if alias!=d['name']:fmt=alias[:-len(d['name'])]+'@name'+fmt[len('@name'):]
             if d['kind']=='X':
@@ -105,11 +124,11 @@ def export_project(project,directory):
     return {'directory':str(root),'top':top,'files':len(output)+2,'notes':notes}
 
 
-def review_project(path,library_paths=()):
+def review_project(path,library_paths=(),file_locations=None):
     from .xschem_compat import CaptureReader
     from .xschem_project import properties
     from .native_migration import review
-    path=Path(path).resolve();root=path.parent;reader=CaptureReader(path,[root,*library_paths],None,{})
+    path=Path(path).resolve();root=path.parent;reader=CaptureReader(path,[root,*library_paths],None,file_locations or {})
     record={'mode':'native','source':str(path),'root':str(root),'candidate':None,'dependencies':reader.deps,'library_paths':[str(root)],'warnings':[],'errors':[],'stamp':{},'changes':[]}
     try:
         meta=json.loads((root/MANIFEST).read_text());basepath=root/'studio-project.icproj'
@@ -134,7 +153,18 @@ def review_project(path,library_paths=()):
             return mapping.get(v,v) if isinstance(v,str) else v
         converted=review(remap(capture))
         if converted['candidate'] is None or converted['status']!='Complete':raise ValueError('; '.join(r['detail'] for r in converted['items'] if r['status']!='Migrated'))
-        q=converted['candidate'];merged=clone(base);cells=[]
+        q=converted['candidate']
+        if base.get('spice',{}).get('catalog_binding'):
+            from .catalog_migration import review as catalog_review,rebase_embedded_proof
+            q['spice']['catalog_binding']=rebase_embedded_proof(base,q)
+            choices={d['id']:d['model_ref']['device'] for c in base['cells'] for d in c['devices'] if d.get('model_ref')}
+            rebound=catalog_review(q,base['pdk'],choices,require_complete=False)
+            q=rebound['candidate']
+            for cell in q['cells']:
+                for d in cell['devices']:
+                    if d['id'] in choices and not d.get('model_ref'):
+                        raise ValueError(d['name']+': external model changes require a new catalog migration review.')
+        merged=clone(base);cells=[]
         for c in q['cells']:
             prior=oldcells.get(c['id'])
             if prior:
@@ -146,10 +176,13 @@ def review_project(path,library_paths=()):
                     prev=old.get(d['id'])
                     if prev and set(prev['nets'])!=set(d['nets']) and any(pin['device_id']==d['id'] for pin in row.get('layout_pins',[])):raise ValueError(d['name']+': terminal edits require physical pin reconciliation in Studio.')
                     if prev and prev.get('physical_binding'):d['physical_binding']=clone(prev['physical_binding'])
-                    record['changes'].append({'cell':c['name'],'object':d['name'],'change':'Added' if not prev else 'Changed' if digest({k:prev.get(k) for k in ('name','x','y','rotation','mirror','nets','native_spice')})!=digest({k:d.get(k) for k in ('name','x','y','rotation','mirror','nets','native_spice')}) else 'Unchanged','before':str(prev.get('native_spice',{}).get('parameters',{})) if prev else '', 'after':str(d.get('native_spice',{}).get('parameters',{}))})
+                    fields=('name','x','y','rotation','mirror','nets','native_spice','model_ref','model_params','params')
+                    def parameters(device):return device.get('params',{})|device.get('model_params',{})|device.get('native_spice',{}).get('parameters',{})
+                    record['changes'].append({'cell':c['name'],'object':d['name'],'change':'Added' if not prev else 'Changed' if digest({k:prev.get(k) for k in fields})!=digest({k:d.get(k) for k in fields}) else 'Unchanged','before':str(parameters(prev)) if prev else '', 'after':str(parameters(d))})
                     def describe(obj):
                         if not obj:return ''
-                        info=obj.get('native_spice',{});value={'parameters':info.get('parameters',{}),'nets':obj['nets'],'position':[obj['x'],obj['y']],'rotation':obj['rotation'],'mirror':obj.get('mirror',False)}
+                        info=obj.get('native_spice',{});value={'parameters':parameters(obj),'nets':obj['nets'],'position':[obj['x'],obj['y']],'rotation':obj['rotation'],'mirror':obj.get('mirror',False)}
+                        if obj.get('model_ref'):value['model_ref']=obj['model_ref']
                         if info.get('type')=='program':value['program']=info['text']
                         return json.dumps(value,ensure_ascii=False)
                     record['changes'][-1].update(before=describe(prev),after=describe(d))
@@ -159,6 +192,8 @@ def review_project(path,library_paths=()):
             else:cells.append(c)
         cells += [clone(c) for c in base['cells'] if c['id'] not in {v['id'] for v in cells}]
         merged.update(cells=cells,top=q['top'],parameters=clone(q.get('parameters',{})),spice=q['spice'],native_migration=q['native_migration'],revision=base['revision']+1,modified=now())
+        if q.get('global_nets'):merged['global_nets']=clone(q['global_nets'])
+        else:merged.pop('global_nets',None)
         validate(merged);record['candidate']=merged;record['warnings']+=reader.warnings
         record['stamp']={**{str(k):v['sha256'] for k,v in reader.files.items()},str(root/MANIFEST):file_digest(root/MANIFEST),str(basepath):file_digest(basepath)}
     except (ValueError,OSError,KeyError,TypeError) as exc:record['errors'].append(str(exc))

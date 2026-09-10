@@ -42,6 +42,20 @@ class SetupWorker(QThread):
         self.completed.emit(result)
 
 
+class SetupDialog(QDialog):
+    def pending(self):
+        if not self.property('scanning'):return False
+        self.state.setText('Finishing the current item before closing. Completed registrations are retained.')
+        self.worker.requestInterruption();return True
+
+    def reject(self):
+        if not self.pending():super().reject()
+
+    def closeEvent(self,event):
+        if self.pending():event.ignore()
+        else:super().closeEvent(event)
+
+
 def label(text, large=False):
     widget = QLabel(text)
     widget.setWordWrap(True)
@@ -157,7 +171,7 @@ class OnboardingMixin:
         existing = getattr(self, '_pdk_dialog', None)
         if existing and existing.isVisible():
             existing.raise_(); return existing
-        dlg = QDialog(self); dlg.setWindowTitle('Open PDK setup'); dlg.resize(1080, 790)
+        dlg = SetupDialog(self); dlg.setWindowTitle('Open PDK setup'); dlg.resize(1080, 790)
         outer = QVBoxLayout(dlg); outer.setContentsMargins(24, 20, 24, 20)
         outer.addWidget(label('Bring your process into the workspace.', True))
         outer.addWidget(label('1  Find local PDKs     →     2  Check and register     →     3  Start a linked project'))
@@ -265,13 +279,6 @@ class OnboardingMixin:
         family.addItem('Build SKY130 / GF180MCU · open_pdks', 'https://github.com/fossi-foundation/open-pdks')
         guide_row.addWidget(family, 1); upstream = QPushButton('Open official guide'); upstream.clicked.connect(lambda: QDesktopServices.openUrl(QUrl(family.currentData()))); guide_row.addWidget(upstream)
         close = QPushButton('Done'); close.clicked.connect(dlg.close); guide_row.addWidget(close)
-        original_close = dlg.closeEvent
-        def closing(event):
-            if dlg.property('scanning'):
-                state.setText('Finishing the current item before closing. Completed registrations are retained.')
-                dlg.worker.requestInterruption(); event.ignore()
-            else: original_close(event)
-        dlg.closeEvent = closing; dlg.reject = dlg.close
         dlg.candidates, dlg.registered, dlg.state, dlg.tabs = candidates, registered, state, tabs
         dlg.start_operation, dlg.register_selected, dlg.link_revision = start, register, link
         self._pdk_dialog = dlg; self._setup_dialog = dlg; refresh(); dlg.show()

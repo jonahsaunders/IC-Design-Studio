@@ -83,8 +83,16 @@ def main(output):
         report['checks'].append('parameterized SPICE component import and instance override')
         window.runtime_dialog();QTest.qWait(30);window._runtime_dialog.close()
         report['checks'].append('native simulation runtime dialog')
+        hub=window.project_hub();QTest.qWait(30)
+        assert hub.isVisible() and hub.nav.currentItem().data(Qt.UserRole)=='pdks'
+        for identifier in ('sky130A','gf180mcuD'):
+            row=next(r for r in hub.rows if r['id']==identifier)
+            assert row['status'] in ('Installed','Available offline') and row['revision']
+            hub.select_pdk(row['key']);assert hub.revision.text().endswith(row['revision'])
+        hub.grab().save(str(out/'project-hub.png'));hub.reject()
+        report['checks'].append('project hub loads bundled PDKs and displays exact installed or available revisions')
         window.open_silicon();QTest.qWait(30);assert window.results_tabs.tabText(window.silicon_tab)=='Physical workflow'
-        assert 'Generate an editable SKY130 inverter layout' in window.silicon_status.text()
+        assert window.cell['name'] in window.silicon_status.text() and 'linked technology' in window.silicon_status.text()
         report['checks'].append('native physical workflow workspace')
         from .testbenches import create
         component_project['cells'][0]['devices'][0].pop('parameters',None)
@@ -174,7 +182,9 @@ def main(output):
             window.select_xschem_case_data(2);marker=window.plot.add_marker('XY',.0005,1.01,'out');assert evaluate(window.result,marker)['verdict']=='PASS';window.select_xschem_case_data(5);assert evaluate(window.result,marker)['verdict']=='FAIL';window.select_xschem_case_data(3);assert window.result['plot_kind']=='ac'
             report['checks'].append('0.18 included offline Xschem symbols, bundled ngspice program worker, six cases, waveform selection and exact X/Y checks')
         window.fit_active();QTest.qWait(100);assert window.grab().save(str(out/'desktop.png'));assert not errors,errors;report['status']='passed'
-    except Exception:report['error']=traceback.format_exc()
+    except Exception:
+        report['error']=traceback.format_exc()
+        if sys.stderr:print(report['error'],file=sys.stderr)
     finally:
         if window:
             if window.process:window.cancel_job();window.process.waitForFinished(3000)

@@ -101,11 +101,12 @@ class Reader:
 
     def resolve(self,ref,parent,kind):
         ref=ref.strip('"\'');parent=Path(parent)
-        if ref not in self.locations and any(x in ref for x in ('$','[',']','tcleval','\n','\r')):
-            self.errors.append(f'{parent.name}: dynamic {kind} path requires explicit resolution: {ref}');return None
-        candidates=([self.locations[ref]] if ref in self.locations else [(parent.parent/ref).resolve()]+[(root/ref).resolve() for root in self.roots])
+        scoped=str(parent.resolve())+'::'+ref
+        location=self.locations.get(scoped,self.locations.get(ref))
+        dynamic=location is None and any(x in ref for x in ('$','[',']','tcleval','\n','\r'))
+        candidates=([location] if location is not None else [] if dynamic else [(parent.parent/ref).resolve()]+[(root/ref).resolve() for root in self.roots])
         target=next((p for p in candidates if any(p.is_relative_to(root) for root in self.roots) and p.is_file()),None)
-        row={'kind':kind,'reference':ref,'parent':str(parent),'path':str(target) if target else '', 'status':('Located' if ref in self.locations else 'Found') if target else 'Missing','hint':dependency_hint(ref) if target is None else '','searched':[str(p) for p in candidates]}
+        row={'kind':kind,'reference':ref,'parent':str(parent),'path':str(target) if target else '', 'status':('Located' if location is not None else 'Found') if target else 'Missing','hint':('Dynamic path: locate the resolved file explicitly. ' if dynamic else '')+dependency_hint(ref) if target is None else '','searched':[str(p) for p in candidates]}
         if row not in self.deps:self.deps.append(row)
         if target is None:self.errors.append(f'{parent.name}: missing {kind} {ref}. '+row['hint'])
         return target
@@ -240,7 +241,7 @@ class Reader:
                         lab=props.get('lab',a.get('lab',''))
                         if kind=='label' and lab.casefold()=='gnd':lab='0'
                         if not NET.fullmatch(lab):raise ValueError('Unsupported net or bus label: '+lab)
-                        if a.get('global')=='true' and lab!='0':raise ValueError('Global non-ground labels require explicit hierarchy ports.')
+                        if props.get('global',a.get('global')) in ('true','1') and lab!='0':raise ValueError('Global nets use the native capture importer.')
                         view=device('X',props.get('name','label'),x,y,rotation=rot,mirror=bool(mirror),symbol=s,nets={p:lab for p in s['pins']});point=list(next(iter(pin_positions(view).values())))
                         ident=uid();c['labels'].append({'id':ident,'name':lab,'kind':'ground' if lab=='0' else 'net_label','anchor':{'kind':'point','point':point},'offset':[0,0] if lab=='0' else [10,-12],'rotation':rot})
                         info['label_id']=ident

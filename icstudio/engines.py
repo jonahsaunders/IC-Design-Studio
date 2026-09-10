@@ -158,13 +158,13 @@ def magic_extract(executable,gds,technology,top,output,profile='rc'):
     """Run Magic's extraction sequence with separate LVS and distributed-RC profiles."""
     gds=Path(gds).resolve();technology=Path(technology).resolve();output=Path(output).resolve()
     if not gds.is_file() or not technology.is_file():raise ValueError('GDS and technology files are required.')
-    if not top or profile not in ('lvs','rc'):raise ValueError('Choose a top cell and an LVS or RC profile.')
+    if not top or profile not in ('lvs','capacitance','rc'):raise ValueError('Choose a top cell and an LVS, capacitance or RC profile.')
     if output.exists() and any(output.iterdir()):raise ValueError('Use an empty extraction directory.')
     output.mkdir(parents=True,exist_ok=True)
-    script=f'gds read {tcl_word(gds)}\nload {tcl_word(top)}\nselect top cell\nextract do local\nextract all\n'
-    if profile=='rc':script+='ext2sim labels on\next2sim\nextresist tolerance 10\nextresist\n'
-    script+='ext2spice lvs\n'
-    if profile=='rc':script+='ext2spice cthresh 0\next2spice extresist on\n'
+    from .external_tools import extraction_commands
+    commands,settings=extraction_commands(profile)
+    atomic_write(output/'profile.json',json.dumps(settings,indent=2))
+    script=f'gds read {tcl_word(gds)}\nload {tcl_word(top)}\nselect top cell\nextract do local\n'+commands
     script+='ext2spice\nquit -noprompt\n';atomic_write(output/'extract.tcl',script)
     log=execute([executable,'-dnull','-noconsole','-T',str(technology)],output,input_text=script);atomic_write(output/'extraction.log',log)
     decks=list(output.glob('*.spice'))+list(output.glob('*.spc'))

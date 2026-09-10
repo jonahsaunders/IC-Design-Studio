@@ -60,6 +60,7 @@ def netlist(project,directory):
     for path,target in mapping.items():atomic_write(target,rewrite(files[path]['text'],path))
     atomic_write(directory/'model-files.json',json.dumps({str(target.relative_to(directory)):path for path,target in mapping.items()},indent=2))
     by={c['id']:c for c in p['cells']};top=by[p['top']];lines=['* '+p['name']+' — Xschem compatible netlist'];definitions=set()
+    if p.get('global_nets'):lines.append('.global '+' '.join(p['global_nets']))
     for c in [top]+[c for c in p['cells'] if c is not top]:
         rebuild(c,p)
         if c is not top:lines.append('.subckt '+c['name']+' '+' '.join(c['ports']))
@@ -76,8 +77,8 @@ def netlist(project,directory):
                 if c is top or props.get('only_toplevel','false') not in ('true','1'):commands.append(rewrite(props.get('value',''),c['xschem']['path']))
                 continue
             lines.append(format_device(d,by.get(d.get('cell'))))
-            definition=attrs.get('spice_sym_def')
-            if definition:definitions.add(definition)
+            definition=props.get('spice_sym_def',attrs.get('spice_sym_def'))
+            if definition:definitions.add(rewrite(definition,info['symbol_path']))
         lines.extend(commands)
         if c is not top:lines.append('.ends '+c['name'])
     lines.extend(sorted(definitions));lines.append('.end')

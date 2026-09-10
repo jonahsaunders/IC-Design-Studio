@@ -48,6 +48,10 @@ class CaptureReader(Reader):
                     s,attrs=self.symbol(sympath)
                     self.model_references(attrs.get('spice_sym_def', ''), sympath)
                 props={**properties(attrs.get('template','')),**original};kind=attrs.get('type','').lower();x,y=float(r[2]),float(r[3]);rot=int(r[4])*90;mirror=bool(int(r[5]))
+                if not missing and props.get('spice_sym_def',attrs.get('spice_sym_def')):
+                    from .xschem_semantics import ordered_symbol
+                    self.model_references(props.get('spice_sym_def',attrs.get('spice_sym_def','')),sympath)
+                    s=ordered_symbol(self,s,attrs,props,sympath)
                 info={'record_index':index,'symbol_path':str(sympath) if sympath else '', 'reference':r[1],'properties':props,'original_properties':original,'symbol':clone(s),'kind':kind,'missing':missing}
                 if kind in ('label','ipin','opin','iopin'):
                     lab=props.get('lab',attrs.get('lab',''));lab='0' if kind=='label' and lab.lower()=='gnd' else lab
@@ -77,6 +81,20 @@ class CaptureReader(Reader):
 
     def capture(self):
         top=self.load(self.top);p=example('empty');p.update(name=self.top.stem,cells=list(self.cells.values()),top=top['id'])
+        from .xschem_semantics import globals_in
+        globals_=[]
+        # Model-library .global statements remain in their selected .lib
+        # sections; hoisting every corner's declarations would change scope.
+        for c in p['cells']:
+            for info in c['xschem']['components']:
+                attrs=info['symbol'].get('attributes',{});props=info['properties']
+                if info.get('label_id') and props.get('global',attrs.get('global')) in ('true','1'):
+                    name=next(l['name'] for l in c['labels'] if l['id']==info['label_id'])
+                    if name!='0':globals_.append(name)
+                if info['kind']=='netlist_commands':globals_+=globals_in(props.get('value',''))
+            for record in c['xschem']['records']:
+                if record[0]=='S':globals_+=globals_in(record[1])
+        if globals_:p['global_nets']=list(dict.fromkeys(globals_))
         for c in p['cells']:
             rebuild(c,p)
             positions=pins(c,p)
@@ -95,7 +113,7 @@ def review_project(path,library_paths=(),technology=None,file_locations=None):
     from .native_exchange import MANIFEST
     if (Path(path).resolve().parent/MANIFEST).is_file():
         from .native_exchange import review_project as native_review
-        return native_review(path,library_paths)
+        return native_review(path,library_paths,file_locations)
     from .xschem_libraries import prepare
     roots,mapped,lock=prepare(path,library_paths,file_locations)
     # Keep the existing native conversion for supported teaching circuits.

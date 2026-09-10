@@ -84,7 +84,8 @@ class XschemWorkflowMixin:
     def analysis_visibility(self,*args):
         super().analysis_visibility(*args)
         if not hasattr(self,'xschem_controls'):return
-        active=compatible(self.project);self.xschem_controls.setVisible(active);self.analysis_engine.setEnabled(not active);self.analysis_type.setEnabled(not active)
+        from .engine_selection import requirement
+        active=compatible(self.project);self.xschem_controls.setVisible(active);self.analysis_engine.setEnabled(not requirement(self.project));self.analysis_type.setEnabled(not active)
         self.analysis_caption.setText('Model files and original device parameters are preserved. Measurements are reported by ngspice.' if active else 'Generic circuit models. Configure an external engine in Analysis → Engine setup.')
 
     def current_analysis_settings(self):

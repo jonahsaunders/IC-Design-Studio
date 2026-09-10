@@ -13,7 +13,7 @@ def run(p,testbench,output,tools,progress=lambda *_:None):
     out=Path(output).resolve()
     if out.exists() and any(out.iterdir()):raise ValueError('Choose a new or empty verification directory.')
     out.mkdir(parents=True,exist_ok=True);t=clone(get(p,testbench));cid=t['dut_cell'];by={c['id']:c for c in p['cells']};c=by[cid]
-    report={'schema':1,'app_version':__import__('icstudio').__version__,'created':now(),'status':'running','cell_id':cid,'cell_name':c['name'],'testbench_id':t['id'],'testbench_name':t['name'],'testbench':t,'design_hash':design_digest(p),'stages':[],'qualification':'Selected native process circuit hierarchy with a saved electrical testbench. Extracted capacitance only; distributed resistance and fabrication signoff are outside this flow.'};resolved={};assets={}
+    report={'schema':1,'app_version':__import__('icstudio').__version__,'created':now(),'status':'running','cell_id':cid,'cell_name':c['name'],'testbench_id':t['id'],'testbench_name':t['name'],'testbench':t,'design_hash':design_digest(p),'stages':[],'qualification':'Selected process circuit hierarchy with a saved electrical testbench. Extracted capacitance only; distributed resistance and fabrication signoff are outside this flow.'};resolved={};assets={}
     def publish():atomic_write(out/'report.json',json.dumps(report,indent=2,allow_nan=False))
     def stage(name,fn):
         row={'name':name,'status':'running'};report['stages'].append(row);publish();progress(len(report['stages'])/8,name.replace('_',' '))
@@ -24,8 +24,12 @@ def run(p,testbench,output,tools,progress=lambda *_:None):
         return row['evidence']
     def preflight():
         validate(p)
-        from .process_adapters import adapter
-        process=adapter(p['pdk'])
+        from .process_adapters import physical_adapter
+        process=physical_adapter(p['pdk'])
+        from .process_adapters import ADAPTERS
+        style=p['pdk'].get('interoperability',{}).get('tools',{}).get('magic',{}).get('drc_style','drc(full)' if process.id in ADAPTERS else None)
+        if not isinstance(style,str) or not style:raise ValueError('Declare the Magic drc_style in this PDK interoperability contract before saved-bench verification.')
+        report['magic_drc_style']=style
         errors=audit(p,cid)
         if errors:atomic_write(out/'link-findings.json',json.dumps(errors,indent=2));raise ValueError(errors[0]['message'])
         from .pdks import model_lines
@@ -58,7 +62,7 @@ def run(p,testbench,output,tools,progress=lambda *_:None):
             for i,port in enumerate(child['ports'],1):setup+='if {![port '+tcl_word(port)+' exists]} {error '+tcl_word('Missing child port '+child['name']+'.'+port)+'}\nport '+tcl_word(port)+' index '+str(i)+'\n'
         def magic(name,commands):return magic_script(resolved['magic'],assets['technology'],out/'layout.gds',c['name'],c['ports'],out/name,commands,setup)
         def drc():
-            commands='drc style drc(full)\ndrc ignore none\ndrc check\ndrc catchup\nputs "STUDIO_DRC_COUNT [drc list count total]"\nputs "STUDIO_DRC_STYLE [drc list style]"\n'
+            commands='drc style '+tcl_word(report['magic_drc_style'])+'\ndrc ignore none\ndrc check\ndrc catchup\nputs "STUDIO_DRC_COUNT [drc list count total]"\nputs "STUDIO_DRC_STYLE [drc list style]"\n'
             commands+='set f [open findings.tsv w]\nforeach {reason boxes} [drc listall why] {foreach coords $boxes {puts $f "[string map {\\t { } \\n { }} $reason]\\t[join $coords {,}]"}}\nclose $f\nputs "STUDIO_MAGIC_SCALE [cif scale out]"\n'
             commands+='set nav [open navigation.tsv w]\n'
             for key in reachable(p,cid,True):
@@ -67,17 +71,19 @@ def run(p,testbench,output,tools,progress=lambda *_:None):
                 commands+='foreach {reason boxes} [drc listall why] {foreach coords $boxes {puts $nav "$cellname\\t[string map {\\t { } \\n { }} $reason]\\t[join $coords {,}]\\t[cif scale out]"}}\nsave '+name+'\n'
             commands+='close $nav\n'
             log=magic('drc',commands);counts=re.findall(r'^STUDIO_DRC_COUNT (\d+)$',log,re.M)
-            if len(counts)!=1 or re.findall(r'^STUDIO_DRC_STYLE (.+)$',log,re.M)!=['drc(full)']:raise ValueError('Magic did not report an unambiguous full DRC result.')
+            if len(counts)!=1 or re.findall(r'^STUDIO_DRC_STYLE (.+)$',log,re.M)!=[report['magic_drc_style']]:raise ValueError('Magic did not report an unambiguous result for the declared DRC style.')
             report['drc_count']=int(counts[0])
             if report['drc_count']:raise ValueError(str(report['drc_count'])+' Magic DRC violations; see findings.tsv.')
-            return {'violations':0,'style':'drc(full)','log':'drc/console.log'}
+            return {'violations':0,'style':report['magic_drc_style'],'log':'drc/console.log'}
         stage('drc',drc)
         def extract(name,cap=False):
-            commands='extract all\next2spice lvs\next2spice hierarchy on\next2spice subcircuit top on\next2spice scale off\next2spice blackbox off\n'
-            if cap:commands+='ext2spice cthresh 0\n'
+            from .external_tools import extraction_commands
+            commands,profile=extraction_commands('capacitance' if cap else 'lvs')
+            atomic_write(out/name/'profile.json',json.dumps(profile,indent=2))
             magic(name,commands+'ext2spice -o extracted.spice')
             f=out/name/'extracted.spice';text=f.read_text();interface,_,_=subcircuit(text,c['name'])
-            if len(interface)!=len(c['ports']) or set(interface)!=set(c['ports']):raise ValueError('Extracted circuit ports differ from the saved interface: '+str(interface))
+            from .external_tools import check_extracted_interface
+            check_extracted_interface(f,c['name'],c['ports'],p['pdk'])
             caps=len(re.findall(r'^C\S+\s',text,re.I|re.M))
             if cap and not caps:raise ValueError('No parasitic capacitor declarations were extracted.')
             return {'deck':name+'/extracted.spice','sha256':file_digest(f),'capacitors':caps,'subcircuits':re.findall(r'^\.subckt (\S+)',text,re.M|re.I)}

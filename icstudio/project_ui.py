@@ -129,25 +129,7 @@ class ProjectMixin:
                 edit=QLineEdit(str(d.get('model_params',{}).get(key,meta['default'])));edit.setAccessibleName('PDK parameter '+key);edit.textEdited.connect(self.inspector_changed);section.form.addRow(key,edit);self.form_fields['modelparam:'+key]=edit
         self.form.insertWidget(self.form.count()-1,self.button('Edit symbol…',fn=self.edit_selected_symbol))
     def new_project(self):
-        if self.process:raise ValueError('Stop the active job before creating a project.')
-        dlg=QDialog(self);dlg.setWindowTitle('New project');v=QVBoxLayout(dlg);f=QFormLayout();v.addLayout(f);name=QLineEdit('Untitled circuit');f.addRow('Project name',name);template=QComboBox();template.addItems(['Empty circuit','RC low-pass','CMOS inverter','Custom SKY130 inverter','SKY130 ring oscillator']);f.addRow('Start from',template);pdk=QComboBox();self.fill_pdk_choices(pdk);f.addRow('Linked PDK',pdk);buttons=QDialogButtonBox(QDialogButtonBox.Ok|QDialogButtonBox.Cancel);v.addWidget(buttons);buttons.accepted.connect(dlg.accept);buttons.rejected.connect(dlg.reject)
-        if dlg.exec()!=QDialog.Accepted:return
-        tech=self.project['pdk'] if pdk.currentData()=='current' else self.pdk_registry.technology(pdk.currentData()) if pdk.currentData() else example('empty')['pdk']
-        custom_cid=None
-        if template.currentIndex()==4:
-            from .ring_oscillator import reference
-            p,custom_cid,_=reference(tech)
-        elif template.currentIndex()==3:
-            from .sky130_layout import reference_project
-            p,custom_cid=reference_project(tech)
-        else:
-            p=example(('empty','rc','inverter')[template.currentIndex()]);link_technology(p,tech)
-        p['name']=name.text().strip()
-        from .model import validate
-        validate(p)
-        if self.maybe_save():
-            self.set_project(p)
-            if custom_cid:self.cid=custom_cid;self.refresh(True);self.open_silicon()
+        return self.new_pdk_template(None)
     def fill_pdk_choices(self,combo):
         combo.addItem('No PDK · generic models',None)
         for e in self.pdk_registry.entries():

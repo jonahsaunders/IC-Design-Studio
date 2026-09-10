@@ -21,7 +21,7 @@ def main(argv):
     study=sub.add_parser('study');study.add_argument('project');study.add_argument('--spec',required=True);study.add_argument('--engine',choices=['builtin','ngspice'],default='builtin');study.add_argument('--executable',default='ngspice');study.add_argument('--output',required=True)
     extract=sub.add_parser('extract')
     for key in ('executable','gds','technology','top','output'):extract.add_argument('--'+key,required=True)
-    extract.add_argument('--profile',choices=['lvs','rc'],default='rc')
+    extract.add_argument('--profile',choices=['lvs','capacitance','rc'],default='rc')
     for cmd in ('parasitics','post-layout','verilog','project-folder'):
         p=sub.add_parser(cmd);p.add_argument('project');p.add_argument('--output',required=True)
     p=sub.add_parser('pdk');p.add_argument('action',choices=['install','register','list','activate','verify']);p.add_argument('--registry',required=True);p.add_argument('--manifest');p.add_argument('--folder');p.add_argument('--key');p.add_argument('--project');p.add_argument('--output')

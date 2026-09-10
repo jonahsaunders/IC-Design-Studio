@@ -5,6 +5,8 @@ from .model import load_project,atomic_write,clone,validate,uid,save_project
 
 def main(argv=None):
     argv=list(sys.argv[1:] if argv is None else argv)
+    from .interop_cli import COMMANDS as INTEROP_COMMANDS,main as interop
+    if argv and argv[0] in INTEROP_COMMANDS:return interop(argv)
     from .feature_cli import COMMANDS,main as features
     if argv and argv[0] in COMMANDS:return features(argv)
     parser=argparse.ArgumentParser(prog='ICDesignStudio --cli',description='Offline reproducible circuit design runner')

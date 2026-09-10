@@ -1,0 +1,4 @@
+# Preserve exact bytes on checkout, including on Windows. Bundled libraries,
+# PDKs and original schematic fixtures are protected by recorded SHA-256 hashes.
+# Disabling newline conversion does not disable Git's text diffs.
+* -text

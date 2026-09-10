@@ -29,7 +29,9 @@
 
 **Development snapshot: 0.22.0.dev10.** NGSpice setup is now part of the Windows source launcher and installer build. The prepared Windows portable ZIP includes Python, Qt, NGSpice 42, GF180MCU and SKY130 simulation PDK subsets. The source ZIP also includes the Windows NGSpice runtime; a clean GitHub export downloads and verifies it on first launch. No global PATH edits are needed.
 
-Choose **07 · GF180 bandgap startup** in the gallery and press **F5** for a quick run of the supplied circuit. **08 · GF180 full characterization** preserves the exact original schematic and all 144 analyses. **09 · SKY130 transistor inverter** is a second real-PDK example. To build your own native project, choose **Tools → Set up an open PDK → Use included PDKs**.
+Choose **07 · GF180 bandgap startup** in the gallery and press **F5** for a quick run of the supplied circuit. **08 · GF180 full characterization** preserves the exact original schematic and all 144 analyses. **09 · SKY130 transistor inverter** is a second real-PDK example. To build your own native project, choose **File → New project**: the [Project Hub](docs/PROJECT_HUB.md) shows installed revisions and the included GF180MCU/SKY130 packages immediately.
+
+The [six-case GF180 compatibility test](docs/BANDGAP_COMPATIBILITY.md) provides a shorter startup/DC/AC check and compares native migration and Xschem round trips against an independent simulation.
 
 See [simulation setup and validation](SIMULATION_SETUP.md). Windows portable assembly is checked on Linux; native Windows installer and desktop execution remain pending. The previous [grid and drawing improvements](docs/DRAWING_0.22.md) remain included.
 
@@ -44,6 +46,8 @@ See [simulation setup and validation](SIMULATION_SETUP.md). Windows portable ass
 | Navigate and attach | Middle-button or Space-drag pans; **Objects on/off** controls snapping to visible geometry |
 
 The 0.22 development series also adds [alignment/distribution, connected edits, routing and hierarchy tools](docs/PRIORITIES_0.22.md), with the [development notes](docs/UPDATE_0.22.md) documenting their limits.
+
+[External-tool interoperability](docs/INTEROPERABILITY.md) adds shared PDK contracts, reviewed layout merges, managed Magic workspaces, native simulation/LVS formats and KLayout LVS cross-probing. New circuit menus choose the circuit first and the PDK/model in a secondary selector, so additional registered technologies do not add menu entries.
 
 IC Design Studio brings schematic capture, a simulation run table, waveform inspection and layout editing into one local application. Use it to learn circuit design, develop small analog blocks, migrate supported Xschem projects, and build reproducible experiments around open-source engines. No account or cloud service is required for local work.
 
@@ -114,6 +118,8 @@ Follow the [example walkthroughs](examples/README.md), or try the [small hierarc
 ![The searchable example gallery with a short walkthrough and an Open a copy button](docs/images/start-here.png)
 
 ## Open PDKs with an explicit setup path
+
+Open **File → Project Hub → PDKs** to see exact revisions, installation folders, model counts and status. Several revisions can coexist. Choose **New project** in the hub to select a revision and starting circuit; an included package can install and create the project in one step. **Projects** lists saved designs with their linked revisions. The first-level menus stay technology neutral.
 
 Choose **Tools → Set up an open PDK**. The assistant can discover enabled installations under `PDK_ROOT`, Ciel and common local PDK folders. **Add folder** also accepts a parent containing several variants or the extracted companion adapter collection. Check the desired entries, choose **Check and register**, then **New project with this PDK**.
 

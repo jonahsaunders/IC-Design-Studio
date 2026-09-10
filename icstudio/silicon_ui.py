@@ -15,7 +15,7 @@ class SiliconMixin:
         super().make_actions()
         menus={a.text().replace('&',''):a.menu() for a in self.menuBar().actions() if a.menu()}
         for menu,entries in {
-            'File':[('New custom SKY130 inverter',self.new_silicon_example)],
+            'File':[('New PDK inverter…',self.new_silicon_example)],
             'Design':[('Generate PDK device layout…',self.mos_layout_dialog),('Generate inverter layout…',self.inverter_layout_dialog)],
             'Analysis':[('Verify custom inverter through silicon',self.run_silicon),('Check linked layout and show connections',self.check_linked_layout)],
             'View':[('Physical workflow',self.open_silicon)]}.items():
@@ -101,7 +101,7 @@ class SiliconMixin:
         if r and r['project_id']!=self.project['id']:self._silicon_result=None;r=None
         self.silicon_metrics.clear()
         if not r:
-            self.silicon_table.setRowCount(0);self.silicon_status.setText('Active cell: '+self.cell['name']+'. Generate an editable SKY130 inverter layout, then run Magic DRC, Netgen LVS, extraction and ngspice. Verification uses 1.8 V, a 5 fF load and the selected PDK corner.');return
+            self.silicon_table.setRowCount(0);self.silicon_status.setText('Active cell: '+self.cell['name']+'. Generate or import layout for the linked technology, then run physical verification with a saved testbench. Supply, loads and measurement limits come from that testbench.');return
         report=r['silicon_report'];stale=r['design_hash']!=design_digest(self.project)
         self.silicon_status.setText(('STALE — design changed. ' if stale else '')+report['status'].upper()+' · '+report.get('error',report['qualification']))
         self.silicon_table.setRowCount(len(report['stages']))

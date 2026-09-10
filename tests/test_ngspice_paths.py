@@ -32,20 +32,20 @@ class NgspicePathTests(unittest.TestCase):
         shipped=self.root/'icstudio/assets/runtime/ngspice';shipped.mkdir(parents=True);(shipped/'ngspice_con.exe').write_bytes(b'fixture')
         configured=self.root/'my ngspice.exe';configured.write_bytes(b'fixture')
         with patch('sys._MEIPASS',str(self.root),create=True),patch('sys.platform','win32'),patch('shutil.which',return_value=None),patch.dict(os.environ,{'ICSTUDIO_NGSPICE':str(configured)}):
-            self.assertEqual(find_ngspice(),str(configured));self.assertEqual(find_ngspice('"'+str(configured)+'"'),str(configured))
-            configured.unlink();self.assertEqual(find_ngspice(),str(shipped/'ngspice_con.exe'))
+            self.assertEqual(find_ngspice(),str(configured.resolve()));self.assertEqual(find_ngspice('"'+str(configured)+'"'),str(configured.resolve()))
+            configured.unlink();self.assertEqual(find_ngspice(),str((shipped/'ngspice_con.exe').resolve()))
 
     def test_upgrade_uses_current_bundled_runtime(self):
         old=self.root/'old release/icstudio/assets/runtime/ngspice/ngspice.exe';old.parent.mkdir(parents=True);old.touch()
         current=self.root/'icstudio/assets/runtime/ngspice/ngspice.exe';current.parent.mkdir(parents=True);current.touch()
         with patch('sys._MEIPASS',str(self.root),create=True),patch('sys.platform','win32'),patch('shutil.which',return_value=None),patch.dict(os.environ,{'ICSTUDIO_NGSPICE':''}):
-            self.assertEqual(find_ngspice(str(old)),str(current))
+            self.assertEqual(find_ngspice(str(old)),str(current.resolve()))
 
     def test_initializer_environment_is_child_local(self):
         engine=self.root/'engine';engine.mkdir();exe=engine/'ngspice';exe.touch()
         self.assertIsNone(runtime_environment(exe));(engine/'spinit').write_text('* initializer\n')
         with patch.dict(os.environ,{'SPICE_SCRIPTS':'parent choice'}):
-            self.assertEqual(runtime_environment(exe)['SPICE_SCRIPTS'],str(engine));self.assertEqual(os.environ['SPICE_SCRIPTS'],'parent choice')
+            self.assertEqual(runtime_environment(exe)['SPICE_SCRIPTS'],str(engine.resolve()));self.assertEqual(os.environ['SPICE_SCRIPTS'],'parent choice')
 
     @unittest.skipUnless(os.environ.get('ICSTUDIO_TEST_NGSPICE'),'Set ICSTUDIO_TEST_NGSPICE for the actual simulator regression')
     def test_actual_ngspice_nested_libraries_spaces_and_moved_export(self):

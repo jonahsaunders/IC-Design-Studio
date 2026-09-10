@@ -21,7 +21,6 @@ class LayoutToolsMixin:
     def make_actions(self):
         super().make_actions();menus={a.text().replace('&',''):a.menu() for a in self.menuBar().actions() if a.menu()}
         for title,fn in [('Place via…',self.via_dialog),('Stretch path segment…',self.stretch_dialog),('Stretch path with mouse',self.stretch_mouse),('Align layout selection…',self.align_dialog)]:self.action(menus['Design'],title,fn)
-        self.action(menus['File'],'New GF180 3.3 V inverter',self.new_gf180_inverter)
 
     def new_gf180_inverter(self):
         from .gf180_layout import reference_project
