@@ -169,6 +169,8 @@ def propose(p, cid, selections, locked=(), preserve_routes=True, origin=(0, 0), 
                 if any(s['layer'] in locked for s in _owned(c, did)): raise ValueError('Unlock every layer of the proposed footprint.')
                 if action == 'add': added += 1
             changes.append({**row, 'action': action})
+        # Reject newly recursive links before any hierarchy expansion.
+        validate(q)
         if preserve_routes:
             routes.extend(_retarget(p, q, ident, {r['device_id'] for r in local}, locked))
             from .layout_topology import partition, _check_clearance

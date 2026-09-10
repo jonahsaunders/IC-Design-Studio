@@ -72,6 +72,14 @@ class HierarchyECO(unittest.TestCase):
         p=example('empty');p['cells'][0]['devices']=[device('D','D1',nets={'p':'a','n':'0'})]
         self.assertEqual(inventory(p,p['top'])['devices'][0]['status'],'unsupported')
 
+    def test_physical_cycle_is_rejected_before_connectivity_expansion(self):
+        p=self.fixture();top,child=p['cells'];child['shapes']=[rect('metal1',0,0,600,600)]
+        child['layout_instances']=[dict(id='back',name='back',cell=top['id'],x=0,y=0)]
+        validate(p);original=clone(p)
+        with self.assertRaisesRegex(ValueError,'physical hierarchy'):
+            propose(p,top['id'],[(top['id'],top['devices'][0]['id'])])
+        self.assertEqual(p,original)
+
     def test_regeneration_retargets_attached_resistor_lead(self):
         from icstudio.parametric import install
         p=example('empty');c=p['cells'][0];d=device('R','R1',value='1k',nets={'p':'a','n':'b'});c['devices']=[d]
