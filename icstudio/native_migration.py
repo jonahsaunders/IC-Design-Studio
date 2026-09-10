@@ -212,19 +212,26 @@ def review(project):
     return {'candidate': None if blocked else p, 'status': status, 'items': rows}
 
 
-def review_path(path, libraries=()):
+def review_path(path, libraries=(), file_locations=None, technology=None, choices=None, require_complete=True):
     from .native_exchange import MANIFEST
     if (Path(path).resolve().parent/MANIFEST).is_file():
         from .native_exchange import review_project
-        record=review_project(path,libraries);candidate=record['candidate']
+        record=review_project(path,libraries,file_locations);candidate=record['candidate']
         items=[{'subject':'Xschem exchange','status':'Needs attention','detail':text} for text in record['errors']+record['warnings']]
         if candidate:items.append({'subject':'Native project','status':'Migrated','detail':'Reconciled native identities, electrical edits and linked physical views.'})
-        return {'candidate':candidate,'status':'Needs attention' if record['errors'] or record['warnings'] else 'Complete','items':items}
+        result={'candidate':candidate,'status':'Needs attention' if record['errors'] or record['warnings'] else 'Complete','items':items,
+                'dependencies':record['dependencies'],'stamp':record['stamp'],'source':str(path)}
+        if candidate and technology:
+            from .catalog_migration import review as catalog_review
+            matched=catalog_review(candidate,technology,choices,require_complete);result.update(matched)
+        return result
     from .xschem_libraries import prepare
     from .xschem_compat import CaptureReader
-    roots, locations, lock = prepare(path, libraries, None)
-    reader = CaptureReader(path, roots, None, locations)
+    reader=None
     try:
+        selected_roots=list(libraries)+([technology['package_root']] if technology and technology.get('package_root') else [])
+        roots, locations, lock = prepare(path, selected_roots, file_locations)
+        reader = CaptureReader(path, roots, None, locations)
         p = reader.capture(); p['xschem_exchange']['library_lock'] = lock
         result = review(p)
         for warning in reader.warnings:
@@ -232,9 +239,15 @@ def review_path(path, libraries=()):
         if reader.warnings:
             result['status'] = 'Needs attention'
             if result['candidate']: result['candidate']['native_migration']['status'] = 'Needs attention'
+        result.update(dependencies=reader.deps,stamp={str(k):v['sha256'] for k,v in reader.files.items()},source=str(reader.top))
+        if result['candidate'] and technology:
+            from .catalog_migration import review as catalog_review
+            matched=catalog_review(result['candidate'],technology,choices,require_complete)
+            result.update(matched)
         return result
     except (ValueError, OSError, KeyError) as exc:
-        return {'candidate': None, 'status': 'Needs attention', 'items': [{'subject': str(path), 'status': 'Needs attention', 'detail': str(exc)}]}
+        return {'candidate': None, 'status': 'Needs attention', 'items': [{'subject': str(path), 'status': 'Needs attention', 'detail': str(exc)}],
+                'dependencies':reader.deps if reader else [],'stamp':{},'source':str(path)}
 
 
 def export_report(project, path):
@@ -247,7 +260,22 @@ def main():
     parser = argparse.ArgumentParser(description='Migrate an Xschem project into an independent native project.')
     parser.add_argument('schematic'); parser.add_argument('--output', required=True, type=Path)
     parser.add_argument('--library', action='append', default=[])
-    args = parser.parse_args(); result = review_path(args.schematic, args.library)
+    parser.add_argument('--pdk-manifest',type=Path,help='Match devices to this checksummed native PDK package.json.')
+    parser.add_argument('--registry',type=Path,help='Directory for the selected PDK registration.')
+    parser.add_argument('--links',type=Path,help='JSON object mapping missing references (or parent::reference) to local files.')
+    parser.add_argument('--matches',type=Path,help='JSON object mapping cell/device names to catalog keys for ambiguous matches.')
+    parser.add_argument('--allow-unmatched',action='store_true',help='Save a draft retaining unmatched native SPICE devices.')
+    args = parser.parse_args();technology=None
+    if args.pdk_manifest:
+        if not args.registry:parser.error('--pdk-manifest requires --registry')
+        from .pdks import PDKRegistry
+        registry=PDKRegistry(args.registry);technology=registry.technology(registry.install(args.pdk_manifest))
+    def mapping(path):
+        if path is None:return None
+        value=json.loads(path.read_text(encoding='utf-8'))
+        if not isinstance(value,dict) or any(not isinstance(k,str) or not isinstance(v,str) for k,v in value.items()):parser.error(str(path)+' must contain a JSON object of string mappings.')
+        return value
+    result = review_path(args.schematic, args.library, mapping(args.links),technology,mapping(args.matches),not args.allow_unmatched)
     report_path = args.output.with_suffix('.migration.json')
     if args.output.exists(): parser.error('Choose a new output filename; migration never overwrites an existing project.')
     if result['candidate']:

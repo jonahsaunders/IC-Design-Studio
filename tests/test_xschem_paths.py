@@ -68,3 +68,27 @@ class XschemPathTests(unittest.TestCase):
     def test_selecting_devices_folder_also_resolves_qualified_references(self):
         lib=self.root/'external';lib.mkdir();shutil.move(self.path.parent/'devices',lib/'devices')
         r=review_schematic(self.path,[lib/'devices']);self.assertEqual(r['errors'],[])
+
+    def test_dynamic_symbol_is_visible_and_can_be_linked_for_native_migration(self):
+        from icstudio.native_migration import review_path
+        reference='$CUSTOM_LIBRARY/voltage.sym'
+        self.path.write_text(self.path.read_text().replace('devices/voltage.sym',reference))
+        record=review_path(self.path)
+        self.assertIsNone(record['candidate'])
+        self.assertTrue(any(d['reference']==reference and d['status']=='Missing' for d in record['dependencies']))
+        location=str(self.path.resolve())+'::'+reference
+        record=review_path(self.path,file_locations={location:self.path.parent/'devices/voltage.sym'})
+        self.assertIsNotNone(record['candidate'],record['items'])
+
+    def test_same_symbol_name_can_be_linked_separately_in_each_schematic(self):
+        from icstudio.xschem_project import Reader
+        one=self.root/'one';two=self.root/'two';one.mkdir();two.mkdir()
+        first=one/'part.sym';second=two/'part.sym';first.write_text('first');second.write_text('second')
+        parent1=one/'top.sch';parent2=two/'child.sch'
+        reader=Reader(self.path,[one,two],None,{str(parent1.resolve())+'::part.sym':second})
+        self.assertEqual(reader.resolve('part.sym',parent1,'Symbol'),second.resolve())
+        self.assertEqual(reader.resolve('part.sym',parent2,'Symbol'),second.resolve())
+        third=self.root/'replacement.sym';third.write_text('replacement')
+        reader=Reader(self.path,[one,two],None,{str(parent2.resolve())+'::part.sym':third})
+        self.assertEqual(reader.resolve('part.sym',parent1,'Symbol'),first.resolve())
+        self.assertEqual(reader.resolve('part.sym',parent2,'Symbol'),third.resolve())

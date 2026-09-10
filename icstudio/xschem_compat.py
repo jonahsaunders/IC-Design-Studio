@@ -113,7 +113,7 @@ def review_project(path,library_paths=(),technology=None,file_locations=None):
     from .native_exchange import MANIFEST
     if (Path(path).resolve().parent/MANIFEST).is_file():
         from .native_exchange import review_project as native_review
-        return native_review(path,library_paths)
+        return native_review(path,library_paths,file_locations)
     from .xschem_libraries import prepare
     roots,mapped,lock=prepare(path,library_paths,file_locations)
     # Keep the existing native conversion for supported teaching circuits.

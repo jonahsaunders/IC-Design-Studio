@@ -105,6 +105,10 @@ def deck(p, cid, settings, directory):
     aliases = {}; vectors = []
     cell = next(c for c in p['cells'] if c['id'] == cid)
     for d in cell['devices']:
+        if d.get('model_ref'):
+            from .catalog_migration import emit
+            alias=emit(d,p['pdk']).split()[0];aliases[alias.casefold()]=d['name']
+            if alias[0].upper()=='M':vectors+=['@'+alias+'['+k+']' for k in ('id','gm','vgs','vds','vdsat')]
         if d.get('native_spice', {}).get('type') == 'device' and d['kind'] != 'X':
             alias = render(d).split()[0]; aliases[alias.casefold()] = d['name']
             # Subcircuit models have no portable internal MOS path; never invent one.

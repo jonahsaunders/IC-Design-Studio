@@ -82,7 +82,7 @@ def show_review(window,path,library_paths=None,auto_open=False):
         else:status=f"Files located; {len(record['errors'])} import issue(s) remain. Open Review notes for the unsupported circuit or simulation constructs."
         if any('native setup conversion is not supported' in w for w in record['warnings']):status+=' This project also contains an ngspice control program that native import cannot convert.'
         state.setText(status);open_button.setEnabled(bool(project) and not record['errors'])
-        tabs.setTabText(2,'Review notes'+(f" ({len(record['errors'])} issues)" if record['errors'] else ''))
+        tabs.setTabText(3,'Review notes'+(f" ({len(record['errors'])} issues)" if record['errors'] else ''))
         first=next((i for i,d in enumerate(record['dependencies']) if d['status']=='Missing'),0)
         if record['dependencies']:dependencies.selectRow(first)
         selection()
@@ -100,7 +100,7 @@ def show_review(window,path,library_paths=None,auto_open=False):
         if item['kind']=='Native metadata':return
         chosen,_=QFileDialog.getOpenFileName(dlg,'Locate '+item['reference'],str(Path(file.text()).parent),'All files (*)')
         if not chosen:return
-        dlg.file_locations[item['reference']]=chosen
+        dlg.file_locations[str(Path(item['parent']).resolve())+'::'+item['reference']]=chosen
         existing=[s for s in paths.toPlainText().splitlines() if s.strip()]
         paths.setPlainText('\n'.join(library_folders(existing+[reference_folder(item['reference'],chosen)])))
         review()
@@ -111,6 +111,7 @@ def show_review(window,path,library_paths=None,auto_open=False):
 
     paths.textChanged.connect(lambda:open_button.setEnabled(False))
     dependencies.itemSelectionChanged.connect(selection)
+    dependencies.cellDoubleClicked.connect(lambda *_:window.guard(locate_file))
     add.clicked.connect(lambda:window.guard(add_folder));scan.clicked.connect(lambda:window.guard(review));locate.clicked.connect(lambda:window.guard(locate_file))
     copy.clicked.connect(lambda:QApplication.clipboard().setText(diagnostic_text(dlg.record)))
     buttons.accepted.connect(lambda:window.guard(accept));buttons.rejected.connect(dlg.reject)

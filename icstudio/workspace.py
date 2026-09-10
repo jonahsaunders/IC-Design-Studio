@@ -466,6 +466,7 @@ class WorkspaceMixin:
         self.analysis_dirty=False;self._loading_analysis=True;page,v=box(True,(16,16,16,18),12);v.addWidget(label('Analysis setup','title'));v.addWidget(label('Configure once. Run with F5.','muted'));self.analysis_type=QComboBox();self.analysis_type.setAccessibleName('Analysis type')
         for value,text in ANALYSES.items():self.analysis_type.addItem(text,value)
         v.addWidget(self.analysis_type);self.analysis_engine=QComboBox();self.analysis_engine.addItem('Built-in solver','builtin');self.analysis_engine.addItem('ngspice','ngspice');self.analysis_engine.setAccessibleName('Simulation engine');v.addWidget(label('ENGINE','section'));v.addWidget(self.analysis_engine)
+        self.engine_requirement=QLabel();self.engine_requirement.setWordWrap(True);v.addWidget(self.engine_requirement)
         fields=QWidget();self.analysis_form=QFormLayout(fields);self.analysis_form.setContentsMargins(0,8,0,8);self.analysis_form.setSpacing(10);self.analysis_form.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow);self.analysis_fields={}
         for key,title,hint in [('stop','Stop time','100u'),('step','Time step','200n'),('dc_start','Start (V / A)','0'),('dc_stop','Stop (V / A)','1.8'),('dc_step','Step (V / A)','10m'),('start','Start (Hz)','10'),('end','Stop (Hz)','1Meg'),('points','Points','100'),('temperature','Temperature (°C)','27')]:
             w=QLineEdit();w.setPlaceholderText(hint);w.setAccessibleName(title);w.textChanged.connect(self.analysis_changed);self.analysis_fields[key]=w;self.analysis_form.addRow(title,w)
@@ -483,6 +484,9 @@ class WorkspaceMixin:
         self.analysis_form.labelForField(self.analysis_fields['points']).setText('Points / decade' if self.analysis_engine.currentData()=='ngspice' and typ=='ac' else 'Points')
     def load_analysis(self):
         self._loading_analysis=True;a=self.project['analysis'];self.analysis_type.setCurrentIndex(self.analysis_type.findData(a['type']))
+        from .engine_selection import selected,requirement
+        reason=requirement(self.project);self.analysis_engine.setCurrentIndex(self.analysis_engine.findData(selected(self.project)))
+        self.analysis_engine.setEnabled(not reason);self.engine_requirement.setText(reason);self.engine_requirement.setVisible(bool(reason))
         for k,w in self.analysis_fields.items():w.setText(str(a[k]))
         self.analysis_source.clear()
         try:names=[d['name'] for d in flatten(self.project,self.cid) if d['kind'] in ('V','I')]
@@ -540,10 +544,20 @@ class WorkspaceMixin:
         self._inspector_dirty=False;self.analysis_dirty=False;self.check_revision=None;self._active_view_key=None;self._job_state='idle';self.plot.empty_message='Run an analysis to inspect voltages and measurements';self.cancel_tool();super().set_project(p,path);self.load_analysis();self.results_dock.setVisible(bool(self.result));self.navtabs.setCurrentIndex(0)
     def save(self,as_new=False):
         if not self.flush_inspector():return False
+        if not self.flush_analysis():return False
         return super().save(as_new)
     def maybe_save(self):
         if not self.flush_inspector():return False
+        if not self.flush_analysis():return False
         return super().maybe_save()
+    def flush_analysis(self):
+        if not getattr(self,'analysis_dirty',False):return True
+        try:
+            settings=self.current_analysis_settings();self.analysis_dirty=False
+            if settings!=self.project['analysis']:self.commit(lambda p:p.update(analysis=settings),'Analysis settings')
+            return True
+        except (ValueError,KeyError) as exc:
+            self.analysis_error.setText(str(exc));self.analysis_error.show();self.run_dialog();return False
     def commit(self,fn,label='Edit'):
         if not self.flush_inspector():return
         return super().commit(fn,label)

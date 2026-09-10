@@ -41,7 +41,8 @@ def spice(p,cid=None,settings=None,hierarchical=True):
             k=d['kind'];name=spice_name(d);nets=' '.join(d['nets'][pin] for pin in (by[d['cell']]['ports'] if k=='X' else list(d['nets']) if k=='PDK' else PINS[k]));suffix=''
             binding=binding_for(p['pdk'],d)
             if binding and d.get('model_ref'):
-                values=parameter_values(binding,d);name=binding['prefix']+'_'+d['name'].replace('/','_');nets=' '.join(d['nets'][pin] for pin in binding['pin_order']);suffix=binding['model']
+                from .catalog_migration import instance_name
+                values=parameter_values(binding,d);name=instance_name(d,binding);nets=' '.join(d['nets'][pin] for pin in binding['pin_order']);suffix=binding['model']
                 suffix+=''.join(f' {key}={values[source]:.12g}' for key,source in binding.get('emit_parameters',{}).items())
             elif binding and k!='X':
                 model=binding['model'];order=binding.get('pin_order',PINS[k]);prefix=binding.get('prefix','M' if k in ('NMOS','PMOS') else k)

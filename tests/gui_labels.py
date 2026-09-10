@@ -26,7 +26,7 @@ def enter_name():
  dlg=app.activeModalWidget();assert isinstance(dlg,QInputDialog);dlg.setTextValue('out');dlg.accept()
 QTimer.singleShot(60,enter_name);key(Qt.Key_L);assert c.tool=='label';click([250,100]);assert w.cell['wires'][0]['net']=='out';label=w.cell['labels'][0];ident=label['id'];anchor=clone(label['anchor'])
 # Drag label text, preserve anchor and electrical name.
-a=screen([270,80]);b=screen([300,50]);QTest.mousePress(c,Qt.LeftButton,pos=a);QTest.mouseMove(c,b);QTest.mouseRelease(c,Qt.LeftButton,pos=b);QTest.qWait(40)
+center=c.label_box(label).center();a=screen([center.x(),center.y()]);b=screen([center.x()+30,center.y()-30]);QTest.mousePress(c,Qt.LeftButton,pos=a);QTest.mouseMove(c,b,delay=30);QTest.mouseRelease(c,Qt.LeftButton,pos=b);QTest.qWait(40)
 assert w.cell['labels'][0]['anchor']==anchor;assert w.cell['labels'][0]['offset']!=label['offset'];assert w.cell['wires'][0]['net']=='out';w.undo();w.redo()
 # Whole net inspector and rename through the real property form.
 w.select([ident]);w.activateWindow();c.setFocus();QTest.qWait(30);key(Qt.Key_N);assert w.net=='out' and w.net_members.count()==2 and c.net=='out';w.select([ident]);f=w.form_fields['label:name'];f.setFocus();f.selectAll();QTest.keyClicks(f,'output');QTest.keyClick(f,Qt.Key_Return);QTest.qWait(40);assert w.cell['wires'][0]['net']=='output'

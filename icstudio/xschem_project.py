@@ -101,11 +101,12 @@ class Reader:
 
     def resolve(self,ref,parent,kind):
         ref=ref.strip('"\'');parent=Path(parent)
-        if ref not in self.locations and any(x in ref for x in ('$','[',']','tcleval','\n','\r')):
-            self.errors.append(f'{parent.name}: dynamic {kind} path requires explicit resolution: {ref}');return None
-        candidates=([self.locations[ref]] if ref in self.locations else [(parent.parent/ref).resolve()]+[(root/ref).resolve() for root in self.roots])
+        scoped=str(parent.resolve())+'::'+ref
+        location=self.locations.get(scoped,self.locations.get(ref))
+        dynamic=location is None and any(x in ref for x in ('$','[',']','tcleval','\n','\r'))
+        candidates=([location] if location is not None else [] if dynamic else [(parent.parent/ref).resolve()]+[(root/ref).resolve() for root in self.roots])
         target=next((p for p in candidates if any(p.is_relative_to(root) for root in self.roots) and p.is_file()),None)
-        row={'kind':kind,'reference':ref,'parent':str(parent),'path':str(target) if target else '', 'status':('Located' if ref in self.locations else 'Found') if target else 'Missing','hint':dependency_hint(ref) if target is None else '','searched':[str(p) for p in candidates]}
+        row={'kind':kind,'reference':ref,'parent':str(parent),'path':str(target) if target else '', 'status':('Located' if location is not None else 'Found') if target else 'Missing','hint':('Dynamic path: locate the resolved file explicitly. ' if dynamic else '')+dependency_hint(ref) if target is None else '','searched':[str(p) for p in candidates]}
         if row not in self.deps:self.deps.append(row)
         if target is None:self.errors.append(f'{parent.name}: missing {kind} {ref}. '+row['hint'])
         return target

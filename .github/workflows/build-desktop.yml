@@ -67,6 +67,10 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_native_workflows.py --evidence build/native-workflow-evidence
+      - name: Test catalog migration and dependency linking
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_catalog_migration.py
       - name: Test new desktop workflows
         env:
           QT_QPA_PLATFORM: offscreen

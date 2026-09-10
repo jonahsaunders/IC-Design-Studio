@@ -70,6 +70,8 @@ def netlist(project, directory, mode='simulation'):
     p = clone(project); validate(p)
     root = Path(directory).resolve(); root.mkdir(parents=True, exist_ok=True)
     assets = p['spice']['assets']
+    from .catalog_migration import check_embedded_catalog, emit
+    check_embedded_catalog(p)
     for ident, asset in assets.items():
         if hashlib.sha256(asset['text'].encode()).hexdigest() != asset['sha256']:
             raise ValueError('Model checksum mismatch: ' + asset.get('name', ident))
@@ -92,6 +94,8 @@ def netlist(project, directory, mode='simulation'):
         lines.extend(c.get('spice_statements', [])); commands = []
         for original in c['devices']:
             d = original; definition = d.get('native_spice')
+            if d.get('model_ref'):
+                lines.append(emit(d,p['pdk'],mode));continue
             if definition:
                 if definition['type'] == 'program':
                     if c is top or not definition.get('only_toplevel'):
