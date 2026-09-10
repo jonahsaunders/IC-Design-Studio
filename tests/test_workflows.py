@@ -122,6 +122,7 @@ class WorkflowTests(unittest.TestCase):
             def fake(args,cwd,**kwargs):scripts.append(kwargs['input_text']);(Path(cwd)/'top.spice').write_text('* fixture');return 'fixture runner'
             with patch('icstudio.engines.execute',side_effect=fake):
                 magic_extract('magic',gds,tech,'top',root/'lvs','lvs');magic_extract('magic',gds,tech,'top',root/'rc','rc')
-            self.assertNotIn('extresist tolerance',scripts[0]);self.assertIn('extresist tolerance',scripts[1]);self.assertIn('ext2spice cthresh 0',scripts[1])
+            self.assertNotIn('extresist all',scripts[0]);self.assertIn('extresist all',scripts[1]);self.assertIn('ext2spice cthresh 0',scripts[1])
+            self.assertNotIn('extresist tolerance',scripts[1])  # deprecated in current Magic
 
 if __name__=='__main__':unittest.main()

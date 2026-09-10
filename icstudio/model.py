@@ -17,7 +17,7 @@ LAYERS = [
  {'name':'nwell','gds':7,'datatype':0,'color':'#d2ab6a','width':1000,'space':500},
 ]
 NAME = re.compile(r'^[A-Za-z_][A-Za-z0-9_.$-]{0,63}$')
-NET = re.compile(r'^(0|[A-Za-z_][A-Za-z0-9_.$/\[\]-]{0,127})$')
+NET = re.compile(r'^(0|[A-Za-z_][A-Za-z0-9_.$/!\[\]-]{0,127})$')
 
 def uid(): return uuid.uuid4().hex[:16]
 def now(): return datetime.now(timezone.utc).isoformat(timespec='seconds')
@@ -93,6 +93,9 @@ def validate(p):
     objid(p.get('id'))
     if p.get('top') not in cellids: raise ValueError('Top cell is missing.')
     tech=p.get('pdk',{})
+    globals_=p.get('global_nets',[])
+    if not isinstance(globals_,list) or any(not isinstance(n,str) or not NET.fullmatch(n) for n in globals_) or len({n.casefold() for n in globals_})!=len(globals_):
+        raise ValueError('Global nets must be unique explicit scalar names.')
     if tech.get('dbu_um')!=0.001: raise ValueError('This release uses 1 nm integer database units (dbu_um = 0.001).')
     if not isinstance(tech.get('grid'),int) or tech['grid']<1: raise ValueError('Invalid database grid.')
     layers=tech.get('layers',[])
@@ -109,11 +112,14 @@ def validate(p):
     from .catalog import validate_catalog, binding_for, parameter_values
     from .symbol_io import validate_symbol
     validate_catalog(tech)
+    if 'interoperability' in tech:
+        from .interoperability import technology_contract
+        technology_contract(tech)
     for c in cells:
         if p.get('spice',{}).get('version')==1:c.setdefault('electrical',{'version':1,'nets':[]})
         objid(c['id']); ident(c['name'])
         if c['name'].casefold() in names: raise ValueError('Duplicate cell name.')
-        names.add(c['name'].casefold()); dn=set(); net_case={}
+        names.add(c['name'].casefold()); dn=set(); net_case={n.casefold():n for n in globals_}
         if len(c.get('ports',[]))>128 or len(set(c['ports']))!=len(c['ports']): raise ValueError('Invalid cell ports.')
         for port in c['ports']:
             if not NET.fullmatch(port) or port=='0':raise ValueError('Invalid cell port.')
@@ -199,7 +205,7 @@ def flatten(p,cell_id=None):
             from .wiring import rebuild
             c=clone(c);rebuild(c,p)
         context=parameters({**c.get('parameters',{}),**(overrides or {})},global_params)
-        def net(n): return '0' if n=='0' else mapping.get(n,path+n)
+        def net(n): return n if n=='0' or n in p.get('global_nets',[]) else mapping.get(n,path+n)
         for d in c['devices']:
             if d['kind']=='X': walk(d['cell'],path+d['name']+'/',{pin:net(n) for pin,n in d['nets'].items()},seen+[cid],{k:value(v,context) for k,v in d.get('parameters',{}).items()})
             else:

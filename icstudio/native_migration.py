@@ -11,7 +11,7 @@ INCLUDE = re.compile(r'(?im)^[^\S\n]*(\.include|\.inc|\.lib)[^\S\n]+("[^"\n]+"|\
 TOKEN = re.compile(r'@@?[A-Za-z_][A-Za-z0-9_]*|%[A-Za-z_][A-Za-z0-9_]*')
 
 
-def compile_device(device):
+def compile_device(device, mode='simulation'):
     """Compile the supported declarative subset once; never evaluate Tcl."""
     from .xschem_project import properties
     info = device['xschem']; attrs = info['symbol'].get('attributes', {})
@@ -25,7 +25,7 @@ def compile_device(device):
     if info['kind'] == 'netlist_commands':
         return {'version': 1, 'type': 'program', 'text': props.get('value', ''),
                 'only_toplevel': props.get('only_toplevel', 'false') in ('true', '1')}
-    fmt = props.get('format', attrs.get('format', ''))
+    fmt = props.get('lvs_format', attrs.get('lvs_format', props.get('format', attrs.get('format', '')))) if mode=='lvs' else props.get('format', attrs.get('format', ''))
     compact = re.sub(r'\s+', '', fmt.replace('\\', ''))
     if attrs.get('type') == 'vsource' and compact == 'tcleval([expr{@savecurrent?"@name@pinlist@value.saveI(?1@name)":"@name@pinlist@value"}])':
         fmt = '@name @pinlist @value'
@@ -53,9 +53,12 @@ def compile_device(device):
         else: raise ValueError('Missing symbol parameter ' + key)
         tokens.append(entry); offset = match.end()
     if offset < len(fmt): tokens.append({'kind': 'literal', 'value': fmt[offset:]})
-    return {'version': 1, 'type': 'device', 'label': Path(info['reference']).stem,
+    result = {'version': 1, 'type': 'device', 'label': Path(info['reference']).stem,
             'model_name': Path(info['reference']).stem, 'tokens': tokens,
-            'parameters': used, 'definition': attrs.get('spice_sym_def', '')}
+            'parameters': used, 'definition': props.get('spice_sym_def',attrs.get('spice_sym_def', ''))}
+    if mode=='simulation' and ('lvs_format' in attrs or 'lvs_format' in props):
+        alternate=compile_device(device,'lvs');result['lvs_tokens']=alternate['tokens'];result['parameters'].update(alternate['parameters'])
+    return result
 
 
 def review(project):
@@ -119,7 +122,7 @@ def review(project):
         # An archived object does not count as migrated functionality.
         for info in meta.get('components', []):
             if info.get('label_id') and info.get('properties', {}).get('global') in ('true', '1'):
-                item(info['reference'], 'Needs attention', 'Global label scope needs explicit native conversion.', c['id']); blocked = True
+                item(info['reference'], 'Migrated', 'Explicit global net scope retained across the hierarchy.', c['id'])
             if not info.get('device_id') and not info.get('label_id'):
                 kind = info['kind']
                 item(info['reference'], 'Needs attention', f'{kind or "Unsupported object"} remains in the recovery archive; its behavior has no native equivalent yet.', c['id'])

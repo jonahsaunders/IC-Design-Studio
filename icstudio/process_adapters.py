@@ -28,17 +28,9 @@ class ProcessAdapter:
 
     def engine_assets(self, technology):
         self.layers(technology)
-        root = Path(technology.get('package_root', '')).resolve()
-        locked = technology.get('package_lock', {}).get('files', {})
-        assets = {}
-        for name, relative in [('technology', self.technology_file), ('setup', self.setup_file)]:
-            path = (root / relative).resolve()
-            if not path.is_relative_to(root) or relative not in locked:
-                raise ValueError('Physical engine asset is absent from the PDK lock: ' + relative)
-            if not path.is_file() or file_digest(path) != locked[relative]:
-                raise ValueError('Locked physical engine asset is missing or changed: ' + relative)
-            assets[name] = path
-        return assets
+        from .interoperability import tool_asset
+        return {'technology':tool_asset(technology,'magic','technology',self.technology_file),
+                'setup':tool_asset(technology,'netgen','setup',self.setup_file)}
 
 
 SKY130 = ProcessAdapter('sky130A', 'sky130_layout', ('mos', 'inverter', 'ring', 'current_mirror'),
@@ -47,6 +39,30 @@ GF180 = ProcessAdapter('gf180mcuC', 'gf180_layout', ('mos', 'inverter'),
                        'libs.tech/magic/gf180mcuC.tech', 'libs.tech/netgen/gf180mcuC_setup.tcl',
                        drawing_datatype=0, label_datatype=10, port_datatypes=(10,))
 ADAPTERS = {SKY130.id: SKY130, GF180.id: GF180}
+
+
+class DeclaredProcessAdapter:
+    """Physical verification for any registered PDK with explicit locked decks."""
+    recipes = ()
+    def __init__(self,technology):
+        self.id=technology['package_lock']['id']
+        self.technology_file=technology['interoperability']['tools']['magic']['technology']
+        self.setup_file=technology['interoperability']['tools']['netgen']['setup']
+    def engine_assets(self,technology):
+        from .interoperability import tool_asset
+        return {'technology':tool_asset(technology,'magic','technology'),
+                'setup':tool_asset(technology,'netgen','setup')}
+    def implementation(self):
+        raise ValueError('This PDK supports external physical verification. Import its generated device geometry and assign terminals, or install a native geometry adapter.')
+
+
+def physical_adapter(technology):
+    key=technology.get('package_lock',{}).get('id')
+    if key in ADAPTERS:return ADAPTERS[key]
+    tools=technology.get('interoperability',{}).get('tools',{})
+    if tools.get('magic',{}).get('technology') and tools.get('netgen',{}).get('setup'):
+        return DeclaredProcessAdapter(technology)
+    raise ValueError('Configure matching locked Magic technology and Netgen setup files for this PDK revision.')
 
 
 def layer_datatypes(technology):
@@ -87,12 +103,15 @@ def capabilities(technology, installed=False):
     }
     expected = verified.get(lock.get('id'))
     if native and expected and lock.get('revision') == expected[0] and digest(lock.get('files', {})) == expected[1]: evidence = expected[2]
+    try:physical=physical_adapter(technology);physical.engine_assets(technology);external_verification=True
+    except (ValueError,OSError,KeyError):external_verification=False
     return {
         'installed': installed or bool(lock),
         'indexed': len(catalog),
         'placeable': sum(not b.get('unavailable') for b in catalog.values()),
         'simulation': bool(technology.get('simulation', {}).get('includes')),
         'native_layout': list(native.recipes) if native else [],
+        'external_verification':external_verification,
         'native_reason': reason,
         'physical_evidence': evidence,
         'runtime': 'IHP requires separately compiled OSDI models.' if lock.get('id') == 'ihp-sg13g2' else 'Model simulation requires configured ngspice and intact locked assets.',
@@ -106,6 +125,7 @@ def capability_text(technology, installed=False):
         f"Catalog: {c['placeable']} placeable / {c['indexed']} indexed symbols",
         'Model bindings: ' + ('available. ' + c['runtime'] if c['simulation'] else 'no model include binding'),
         'Native layout: ' + (', '.join(c['native_layout']) if c['native_layout'] else c['native_reason']),
+        'External physical verification: ' + ('locked decks available' if c['external_verification'] else 'configure matching locked decks'),
         'Release physical evidence: ' + c['physical_evidence'],
     ])
 

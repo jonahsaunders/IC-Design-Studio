@@ -32,6 +32,7 @@ def spice(p,cid=None,settings=None,hierarchical=True):
     from .pdks import model_lines
     if p['pdk'].get('simulation',{}).get('devices') or p['pdk'].get('simulation',{}).get('catalog'):lines[2]='* Explicit locked PDK model bindings. Qualification depends on the validated reference flow.'
     lines+=model_lines(p['pdk'],(settings or {}).get('corner','nominal'))
+    if p.get('global_nets'):lines.append('.global '+' '.join(p['global_nets']))
     if any(c.get('parameters') or any(d.get('parameters') for d in c['devices']) for c in p['cells']) or p.get('parameters'):hierarchical=False
     from .catalog import binding_for,parameter_values
     bindings=p['pdk'].get('simulation',{}).get('devices',{})
@@ -89,25 +90,54 @@ def export_layout(p,path):
     db=kdb();ly=db.Layout();ly.dbu=p['pdk']['dbu_um'];layers={l['name']:ly.layer(l['gds'],l['datatype']) for l in p['pdk']['layers']}
     by={c['id']:ly.create_cell(c['name']) for c in p['cells']}
     for c in p['cells']:
+        cell=by[c['id']];cell.set_property(125,'icstudio:'+c['id'])
+        for key,value in c.get('external_properties',[]):
+            if key!=125:cell.set_property(key,value)
+    for c in p['cells']:
         cell=by[c['id']]
         for inst in c.get('layout_instances',[]):
             tr=db.ICplxTrans(1,inst.get('rotation',0),inst.get('mirror',False),inst['x'],inst['y'])
             item=cell.insert(db.CellInstArray(by[inst['cell']].cell_index(),tr,db.Vector(*inst.get('a',[inst.get('dx',0),0])),db.Vector(*inst.get('b',[0,inst.get('dy',0)])),inst.get('nx',1),inst.get('ny',1)));item.set_property(126,'icstudio:'+inst['id'])
-        for text in c.get('layout_texts',[]):cell.shapes(layers[text['layer']]).insert(db.Text(text['text'],db.Trans(text.get('rotation',0)//90,text.get('mirror',False),text['x'],text['y'])))
+            item.set_property(125,'icstudio:'+c['id'])
+            for key,value in inst.get('external_properties',[]):
+                if key not in (125,126):item.set_property(key,value)
+        for text in c.get('layout_texts',[]):
+            item=cell.shapes(layers[text['layer']]).insert(db.Text(text['text'],db.Trans(text.get('rotation',0)//90,text.get('mirror',False),text['x'],text['y'])))
+            item.set_property(125,'icstudio:'+c['id'])
+            for key,value in text.get('external_properties',[]):
+                if key!=125:item.set_property(key,value)
         for s in c['shapes']:
-            item=cell.shapes(layers[s['layer']]).insert(polygon(s));item.set_property('icstudio_id',s['id'])
+            item=cell.shapes(layers[s['layer']]).insert(polygon(s));item.set_property(127,'icstudio:'+s['id'])
+            item.set_property(125,'icstudio:'+c['id'])
+            for key,value in s.get('external_properties',[]):
+                if key not in (125,126,127,'icstudio_id'):item.set_property(key,value)
             if s.get('net') and c.get('layout_label_mode')!='explicit':
                 x,y=s['points'][0];cell.shapes(layers[s['layer']]).insert(db.Text(s['net'],db.Trans(x,y)))
     ly.write(str(path));side=Path(str(path)+'.icstudio.json');save_project(p,side)
     atomic_write(str(path)+'.report.json',json.dumps({'format':Path(path).suffix,'design_hash':digest(p),'file_hash':file_digest(path),'preserved':['polygon geometry','holes','layer/datatype','cell names','1 nm units','net text labels'],'limits':['Explicit physical cell instances and arrays are preserved; schematic-only instances have no implicit physical placement.','PCell generators are flattened to geometry.','Sidecar retains device links and editable application metadata.'],'sidecar':side.name},indent=2))
+    from .interoperability import project_contract
+    atomic_write(str(path)+'.exchange.json',json.dumps({'version':1,'baseline_hash':file_digest(side),
+                 'layout_hash':file_digest(path),'contract':project_contract(p)},indent=2))
 
 def import_layout(path):
     path=Path(path);side=Path(str(path)+'.icstudio.json');report=Path(str(path)+'.report.json')
     if side.exists() and report.exists():
         r=json.loads(report.read_text())
+        manifest=Path(str(path)+'.exchange.json')
+        if manifest.is_file():
+            metadata=json.loads(manifest.read_text())
+            if metadata.get('version')!=1 or metadata.get('baseline_hash')!=file_digest(side):raise ValueError('The exchange baseline is missing or changed. Restore the original metadata files.')
         if r.get('file_hash')==file_digest(path):return load_project(side),['Unchanged export restored with sidecar metadata.']
+        if Path(str(path)+'.exchange.json').is_file():
+            from .layout_exchange import review
+            record=review(load_project(side),path)
+            if record['conflicts'] or record['errors']:raise ValueError('Open the original project and review the external layout conflicts before importing.')
+            return record['candidate'],record['notes']
     from .layout_import import read_layout
-    return read_layout(path)
+    project,notes=read_layout(path)
+    from .layout_source import retain
+    retain(project,path)
+    return project,notes
 
 def export_xschem(p,directory):
     if p.get("spice",{}).get("version")==1:
@@ -195,6 +225,8 @@ def export_technology(p,dest):
         for tag,text in [('name',l['name']),('source',f'{l["gds"]}/{l["datatype"]}@1'),('fill-color',l['color']),('frame-color',l['color']),('visible','true')]:SubElement(v,tag).text=text
     ElementTree(root).write(dest/'layers.lyp',encoding='utf-8',xml_declaration=True)
     atomic_write(dest/'technology.json',json.dumps(p['pdk'],indent=2))
+    from .interoperability import export_technology as export_contract
+    export_contract(p['pdk'],dest)
 
 def export_handoff(p,dest):
     dest=Path(dest)
@@ -218,6 +250,9 @@ def export_handoff(p,dest):
             atomic_write(deck,deck.read_text().replace(root,relroot))
         for project_file in list(dest.rglob('project.icproj'))+list(dest.rglob('*.icstudio.json')):
             portable=clone(p);portable['pdk']['package_root']=os.path.relpath(Path(p['pdk']['package_root']),project_file.parent.resolve()).replace('\\','/');save_project(portable,project_file)
+        for manifest in dest.glob('*.exchange.json'):
+            metadata=json.loads(manifest.read_text());side=Path(str(manifest).removesuffix('.exchange.json')+'.icstudio.json')
+            metadata['baseline_hash']=file_digest(side);atomic_write(manifest,json.dumps(metadata,indent=2))
     files={str(f.relative_to(dest)):file_digest(f) for f in dest.rglob('*') if f.is_file()}
     atomic_write(dest/'preservation-report.json',json.dumps({'revision':p['revision'],'files':files,'status':'engineering-preview','not_qualified':['arbitrary-design DRC/LVS and extraction correctness','unrestricted external-library round trips','Windows binary','fabrication signoff'],'verification':'An export does not certify this design. See UPDATE_0.8.md for the executed custom-inverter and external-edit fixtures; rerun physical verification after changes.','magic':'Generate native .mag through the separately installed Magic engine with a matching technology file.'},indent=2))
 

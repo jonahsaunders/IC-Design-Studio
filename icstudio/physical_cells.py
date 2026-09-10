@@ -24,9 +24,10 @@ def infer_ports(p,c):
     from .process_adapters import layer_datatypes
     drawing_type, _, port_types = layer_datatypes(p['pdk'])
     ls=p['pdk']['layers'];byname={l['name']:l for l in ls};result=[]
+    port_layers=p['pdk'].get('interoperability',{}).get('port_layers',{})
     for text in c.get('layout_texts',[]):
-        l=byname[text['layer']];drawing=next((n['name'] for n in ls if n['gds']==l['gds'] and n['datatype']==drawing_type),None)
-        if text['text'] in c['ports'] and l['datatype'] in port_types and drawing:
+        l=byname[text['layer']];drawing=next((name for name,label in port_layers.items() if label==text['layer']),None) or next((n['name'] for n in ls if n['gds']==l['gds'] and n['datatype']==drawing_type),None)
+        if text['text'] in c['ports'] and (text['layer'] in port_layers.values() or l['datatype'] in port_types) and drawing:
             port={'name':text['text'],'layer':drawing,'point':[text['x'],text['y']]}
             if port not in result:result.append(port)
     return result
@@ -71,7 +72,7 @@ def assign_port(p,cid,name,layer,point):
     if name not in c['ports']:raise ValueError('Choose a declared cell port.')
     from .process_adapters import layer_datatypes
     _, label_type, _ = layer_datatypes(p['pdk'])
-    label=next((l['name'] for l in ls if l['gds']==source['gds'] and l['datatype']==label_type),None)
+    label=p['pdk'].get('interoperability',{}).get('port_layers',{}).get(layer) or next((l['name'] for l in ls if l['gds']==source['gds'] and l['datatype']==label_type),None)
     if not label:raise ValueError('This layer has no mapped process port-label datatype '+str(label_type)+'.')
     c['layout_ports']=[r for r in ports(p,cid) if r['name']!=name]+[{'name':name,'layer':layer,'point':point}]
     c['layout_texts']=[t for t in c.get('layout_texts',[]) if t['text']!=name]+[{'layer':label,'text':name,'x':point[0],'y':point[1],'rotation':0}];c['layout_label_mode']='explicit'

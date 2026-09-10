@@ -45,6 +45,8 @@ See [simulation setup and validation](SIMULATION_SETUP.md). Windows portable ass
 
 The 0.22 development series also adds [alignment/distribution, connected edits, routing and hierarchy tools](docs/PRIORITIES_0.22.md), with the [development notes](docs/UPDATE_0.22.md) documenting their limits.
 
+[External-tool interoperability](docs/INTEROPERABILITY.md) adds shared PDK contracts, reviewed layout merges, managed Magic workspaces, native simulation/LVS formats and KLayout LVS cross-probing. New circuit menus choose the circuit first and the PDK/model in a secondary selector, so additional registered technologies do not add menu entries.
+
 IC Design Studio brings schematic capture, a simulation run table, waveform inspection and layout editing into one local application. Use it to learn circuit design, develop small analog blocks, migrate supported Xschem projects, and build reproducible experiments around open-source engines. No account or cloud service is required for local work.
 
 | Capture and organize | Simulate and understand | Build and verify |

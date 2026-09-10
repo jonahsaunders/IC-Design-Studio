@@ -66,6 +66,7 @@ def import_spice(path,technology=None,*,text=None,top_name=None):
                 p['analysis']['corner']='nominal' if 'nominal' in aliases else aliases[0]
         elif command=='.param':
             (p if current is top else current).setdefault('parameters',{}).update(assignments(parts[1:]))
+        elif command=='.global':p['global_nets']=list(dict.fromkeys(p.get('global_nets',[])+parts[1:]))
         elif command=='.op':p['analysis']['type']='op'
         elif command=='.tran' and len(parts)==3:p['analysis'].update(type='tran',step=parts[1],stop=parts[2])
         elif command=='.ac' and len(parts)==5 and parts[1].lower()=='dec':p['analysis'].update(type='ac',points=int(parts[2]),start=parts[3],end=parts[4])

@@ -22,7 +22,7 @@ def net_occurrences(p,root,name):
         nonlocal steps
         steps+=1
         if steps>10000:raise ValueError('Net probe exceeds 10,000 hierarchy occurrences.')
-        c=by[cid];localnets={n for d in c['devices'] for n in d['nets'].values()}|set(c['ports']);selected={n for n in localnets if n=='0' and name=='0' or mapping.get(n)==name}
+        c=by[cid];localnets={n for d in c['devices'] for n in d['nets'].values()}|set(c['ports']);selected={n for n in localnets if (n=='0' or n in p.get('global_nets',[])) and n==name or mapping.get(n)==name}
         for net in sorted(selected):rows.append({'root':root,'cell':cid,'path':list(path),'name':' / '.join(names),'net':net,'objects':[d['id'] for d in c['devices'] if net in d['nets'].values()]})
         for d in c['devices']:
             if d['kind']=='X':walk(d['cell'],path+[d['id']],names+[d['name']],{pin:name for pin,n in d['nets'].items() if n in selected})

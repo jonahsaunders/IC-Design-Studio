@@ -14,6 +14,9 @@ def main(input_path,output_path):
         if kind in ('layout_route','layout_compare'):
             from .layout_jobs import run
             result=run(p,job['cell'],job['settings'],Path(output_path).parent,progress)
+        elif kind=='klayout_lvs':
+            from .klayout_lvs import run
+            result=run(p,job['cell'],job['settings'],Path(output_path).parent,progress)
         elif kind=='klayout_drc':
             from .klayout_verification import run
             result=run(p,job['cell'],job['settings'],Path(output_path).parent,progress)

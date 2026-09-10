@@ -26,6 +26,7 @@ def export_project(project,directory):
     for c in p['cells']:
         rebuild(c,p);statements=list(c.get('spice_statements',[]))
         if c['id']==p['top']:
+            if p.get('global_nets'):statements.append('.global '+' '.join(p['global_nets']))
             defaults={**p.get('parameters',{}),**c.get('spice_parameters',{}),**c.get('parameters',{})}
             if defaults:statements.append('.param '+' '.join(k+'='+str(v) for k,v in defaults.items()))
         lines=['v {xschem version=3.4.7 file_version=1.2}','G {}','K {'+property_text({'studio_cell_id':c['id']})+'}','V {}',record_text(['S','\n'.join(statements)]),'E {}']
@@ -44,6 +45,8 @@ def export_project(project,directory):
                             pieces.append(value)
                         else:pieces.append({'instance':'@name','terminals':'@pinlist','terminal':'@@'+value,'parameter':'@'+value,'cell':'@symname'}[kind])
                     fmt=''.join(pieces);props.update(info['parameters']);definition=info.get('definition','')
+                    if info.get('lvs_tokens'):
+                        attrs['lvs_format']=''.join(t.get('value','') if t['kind']=='literal' else {'instance':'@name','terminals':'@pinlist','terminal':'@@'+t.get('value',''),'parameter':'@'+t.get('value',''),'cell':'@symname'}[t['kind']] for t in info['lvs_tokens'])
             elif d['kind'] in ('R','C','L'):props['value']=d['value']
             elif d['kind'] in ('V','I'):props['value']=source_spec(d)
             elif d['kind'] in ('NMOS','PMOS'):
@@ -159,6 +162,8 @@ def review_project(path,library_paths=()):
             else:cells.append(c)
         cells += [clone(c) for c in base['cells'] if c['id'] not in {v['id'] for v in cells}]
         merged.update(cells=cells,top=q['top'],parameters=clone(q.get('parameters',{})),spice=q['spice'],native_migration=q['native_migration'],revision=base['revision']+1,modified=now())
+        if q.get('global_nets'):merged['global_nets']=clone(q['global_nets'])
+        else:merged.pop('global_nets',None)
         validate(merged);record['candidate']=merged;record['warnings']+=reader.warnings
         record['stamp']={**{str(k):v['sha256'] for k,v in reader.files.items()},str(root/MANIFEST):file_digest(root/MANIFEST),str(basepath):file_digest(basepath)}
     except (ValueError,OSError,KeyError,TypeError) as exc:record['errors'].append(str(exc))

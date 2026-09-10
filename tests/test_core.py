@@ -75,10 +75,14 @@ class LayoutTests(unittest.TestCase):
                 file=Path(td)/('design'+ext);export_layout(p,file);ly=db.Layout();ly.read(str(file));self.assertEqual(ly.dbu,.001);r=db.Region(ly.top_cell().begin_shapes_rec(ly.layer(4,0)));expected=db.Region()
                 for s in p['cells'][0]['shapes']:expected.insert(polygon(s))
                 self.assertTrue((r^expected).is_empty());restored,_=import_layout(file);self.assertEqual(digest(restored),digest(p))
-    def test_external_edit_disables_sidecar(self):
+    def test_external_edit_reconciles_sidecar(self):
         db=kdb();p=example();p['cells'][0]['shapes']=[rect('metal1',0,0,1000,1000)]
         with tempfile.TemporaryDirectory() as td:
-            file=Path(td)/'changed.gds';export_layout(p,file);ly=db.Layout();ly.read(str(file));ly.top_cell().shapes(ly.layer(4,0)).insert(db.Box(2000,2000,3000,3000));ly.write(str(file));r,w=import_layout(file);self.assertEqual(len(r['cells'][0]['shapes']),2);self.assertEqual(len(r['cells'][0]['devices']),0);self.assertIn('hierarchy',w[0])
+            file=Path(td)/'changed.gds';export_layout(p,file);ly=db.Layout();ly.read(str(file));ly.top_cell().shapes(ly.layer(4,0)).insert(db.Box(2000,2000,3000,3000));ly.write(str(file));r,w=import_layout(file)
+            self.assertEqual(len(r['cells'][0]['shapes']),2)
+            self.assertEqual(r['cells'][0]['devices'],p['cells'][0]['devices'])
+            self.assertIn(p['cells'][0]['shapes'][0]['id'],[s['id'] for s in r['cells'][0]['shapes']])
+            self.assertFalse(any(s.get('device_id') for s in r['cells'][0]['shapes']))
     def test_drc_width_space_grid(self):
         p=example();p['cells'][0]['shapes']=[rect('metal1',0,0,100,1000),rect('metal1',151,0,100,1000)];codes={v['code'] for v in drc(p,p['top'])};self.assertTrue({'WIDTH','SPACE','GRID'}<=codes)
     def test_handoff_includes_loss_report(self):

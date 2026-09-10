@@ -240,7 +240,7 @@ class Reader:
                         lab=props.get('lab',a.get('lab',''))
                         if kind=='label' and lab.casefold()=='gnd':lab='0'
                         if not NET.fullmatch(lab):raise ValueError('Unsupported net or bus label: '+lab)
-                        if a.get('global')=='true' and lab!='0':raise ValueError('Global non-ground labels require explicit hierarchy ports.')
+                        if props.get('global',a.get('global')) in ('true','1') and lab!='0':raise ValueError('Global nets use the native capture importer.')
                         view=device('X',props.get('name','label'),x,y,rotation=rot,mirror=bool(mirror),symbol=s,nets={p:lab for p in s['pins']});point=list(next(iter(pin_positions(view).values())))
                         ident=uid();c['labels'].append({'id':ident,'name':lab,'kind':'ground' if lab=='0' else 'net_label','anchor':{'kind':'point','point':point},'offset':[0,0] if lab=='0' else [10,-12],'rotation':rot})
                         info['label_id']=ident
