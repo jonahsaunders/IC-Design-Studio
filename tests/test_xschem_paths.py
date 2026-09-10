@@ -17,21 +17,21 @@ class XschemPathTests(unittest.TestCase):
         self.path.write_text(self.path.read_text().replace('devices/voltage.sym','voltage.sym'))
         r=review_schematic(self.path,[install]);self.assertEqual(r['errors'],[])
         found={d['reference']:d['path'] for d in r['dependencies']}
-        self.assertEqual(found['voltage.sym'],str(lib/'devices/voltage.sym'))
-        self.assertEqual(found['devices/code.sym'],str(lib/'devices/code.sym'))
+        self.assertEqual(found['voltage.sym'],str((lib/'devices/voltage.sym').resolve()))
+        self.assertEqual(found['devices/code.sym'],str((lib/'devices/code.sym').resolve()))
 
     def test_explicit_library_order_wins_over_automatic_subfolders(self):
         first=self.root/'first';second=self.root/'second';(first/'devices').mkdir(parents=True);second.mkdir()
         folders=library_folders([first,second])
-        self.assertLess(folders.index(str(second)),folders.index(str(first/'devices')))
+        self.assertLess(folders.index(str(second.resolve())),folders.index(str((first/'devices').resolve())))
         self.assertEqual(library_folders([first,first]),library_folders([first]))
 
     def test_windows_discovery_and_shared_directory(self):
         programs=self.root/'Program Files';devices=programs/'xschem/share/xschem/xschem_library/devices';devices.mkdir(parents=True)
         with patch.dict(os.environ,{'ProgramFiles':str(programs)},clear=True),patch('icstudio.xschem_paths.sys.platform','win32'),patch('icstudio.xschem_paths.shutil.which',return_value=None):
-            self.assertIn(str(devices),default_libraries())
+            self.assertIn(str(devices.resolve()),default_libraries())
         with patch.dict(os.environ,{'XSCHEM_SHAREDIR':str(devices.parents[1])},clear=True),patch('icstudio.xschem_paths.shutil.which',return_value=None):
-            self.assertIn(str(devices),default_libraries())
+            self.assertIn(str(devices.resolve()),default_libraries())
 
     def test_located_absolute_model_exports_portably_and_is_fingerprinted(self):
         original='/foss/pdks/example/models/nmos.spice'
@@ -60,8 +60,8 @@ class XschemPathTests(unittest.TestCase):
 
     def test_selected_symbol_infers_library_root_and_hints(self):
         selected=self.root/'pdk/symbols/nfet.sym'
-        self.assertEqual(reference_folder('symbols/nfet.sym',selected),str(self.root/'pdk'))
-        self.assertEqual(reference_folder('/foss/models/a.spice',selected),str(selected.parent))
+        self.assertEqual(reference_folder('symbols/nfet.sym',selected),str((self.root/'pdk').resolve()))
+        self.assertEqual(reference_folder('/foss/models/a.spice',selected),str(selected.parent.resolve()))
         self.assertIn('Locate selected file',dependency_hint('/foss/models/a.spice'))
         self.assertIn('containing symbols/',dependency_hint('symbols/nfet.sym'))
 

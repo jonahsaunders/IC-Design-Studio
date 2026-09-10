@@ -89,7 +89,7 @@ class InteroperabilityTests(unittest.TestCase):
     def test_contract_aliases_units_and_locked_decks(self):
         tech=clone(self.p['pdk']);tech['interoperability']={'version':1,'net_aliases':{'VSS':'0'},'global_nets':['0','VDD!'],'tools':{'magic':{'technology':'process.tech'}}}
         (self.root/'process.tech').write_text('technology fixture');tech['package_root']=str(self.root);tech['package_lock']={'id':'fourth_pdk','revision':'r1','files':{'process.tech':file_digest(self.root/'process.tech')}}
-        contract=technology_contract(tech);self.assertEqual(contract['pdk']['id'],'fourth_pdk');self.assertEqual(tool_asset(tech,'magic','technology'),self.root/'process.tech')
+        contract=technology_contract(tech);self.assertEqual(contract['pdk']['id'],'fourth_pdk');self.assertEqual(tool_asset(tech,'magic','technology'),(self.root/'process.tech').resolve())
         self.assertTrue(compare_interfaces(['VSS','A'],['0','A'],contract['net_aliases'])['equal'])
         self.assertFalse(compare_interfaces(['A','Y'],['Y','A'])['equal'])
         tech['interoperability']['net_aliases']={'A':'B','B':'A'}

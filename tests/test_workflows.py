@@ -77,7 +77,7 @@ class WorkflowTests(unittest.TestCase):
             from icstudio.interchange import export_handoff,import_layout
             import shutil
             bound=example();bound['pdk']=locked;handoff=Path(td)/'handoff';export_handoff(bound,handoff);moved=Path(td)/'moved';shutil.move(handoff,moved);reloaded=load_project(moved/'project.icproj')
-            self.assertEqual(Path(reloaded['pdk']['package_root']),moved/'technology'/'package');self.assertTrue(model_lines(reloaded['pdk']));self.assertNotIn(str(Path(td)),(moved/'simulation.cir').read_text());physical,_=import_layout(moved/'layout.gds');self.assertEqual(physical['pdk']['package_root'],reloaded['pdk']['package_root'])
+            self.assertEqual(Path(reloaded['pdk']['package_root']),(moved/'technology'/'package').resolve());self.assertTrue(model_lines(reloaded['pdk']));self.assertNotIn(str(Path(td).resolve()),(moved/'simulation.cir').read_text());physical,_=import_layout(moved/'layout.gds');self.assertEqual(physical['pdk']['package_root'],reloaded['pdk']['package_root'])
             (Path(locked['package_root'])/'model.spice').write_text('* tamper')
             with self.assertRaises(ValueError):model_lines(locked)
             with self.assertRaises(ValueError):r.verify(key)

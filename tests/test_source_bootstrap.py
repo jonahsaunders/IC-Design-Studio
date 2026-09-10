@@ -27,7 +27,8 @@ class SourceBootstrapTests(unittest.TestCase):
 
     def test_deep_project_path_does_not_lengthen_environment(self):
         a=bootstrap.environment_path(self.project,self.root/'profile')
-        deep=self.project/('long folder '*10);deep.mkdir();(deep/'requirements.txt').write_text((self.project/'requirements.txt').read_text())
+        # Keep internal spaces without an invalid trailing space on Windows.
+        deep=self.project/('long folder '*10).rstrip();deep.mkdir();(deep/'requirements.txt').write_text((self.project/'requirements.txt').read_text())
         b=bootstrap.environment_path(deep,self.root/'profile')
         self.assertEqual(len(str(a)),len(str(b)));self.assertNotEqual(a,b)
         self.assertEqual(a,bootstrap.environment_path(self.project,self.root/'profile'))

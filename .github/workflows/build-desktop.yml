@@ -22,11 +22,14 @@ jobs:
           python-version: '3.12'
       - name: Install dependencies
         run: python -m pip install -r requirements-build.txt
-      - name: Install Linux simulation engine
+      - name: Install Linux simulation engine and desktop runtime
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y ngspice libegl1 libopengl0
+          sudo apt-get install -y ngspice libegl1 libopengl0 libgl1 libglx0 libglvnd0 \
+            libx11-6 libxcb1 libxcb-image0 libxcb-xkb1 libxcb-cursor0 \
+            libxcb-keysyms1 libxcb-render-util0 libxcb-icccm4 libxcb-util1 \
+            libxcb-shape0 libxkbcommon-x11-0
           echo "ICSTUDIO_TEST_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
           echo "ICSTUDIO_BUNDLED_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
       - name: Stage verified Windows simulation engine

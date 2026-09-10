@@ -30,7 +30,7 @@ class NativeCoreTests(unittest.TestCase):
         self.pe(0x8664 if ctypes.sizeof(ctypes.c_void_p)==8 else 0x14c);library=Mock();loader=Mock(return_value=library)
         with patch('icstudio.native_core.platform.machine',return_value='AMD64'):
             self.assertIs(load_native_core([self.root],'win32',loader),library)
-        loader.assert_called_once_with(str(self.root/'iccore.dll'))
+        loader.assert_called_once_with(str((self.root/'iccore.dll').resolve()))
         self.assertEqual(len(library.ic_solve.argtypes),4)
     def test_windows_rejects_wrong_architecture(self):
         self.pe(0x14c if ctypes.sizeof(ctypes.c_void_p)==8 else 0x8664);loader=Mock()
@@ -40,7 +40,7 @@ class NativeCoreTests(unittest.TestCase):
     def test_linux_and_macos_choose_only_their_file(self):
         for name in ('libiccore.so','libiccore.dylib','iccore.dll'):(self.root/name).write_bytes(b'test')
         for target,name in [('linux','libiccore.so'),('darwin','libiccore.dylib')]:
-            loader=Mock(return_value=Mock());load_native_core([self.root],target,loader);loader.assert_called_once_with(str(self.root/name))
+            loader=Mock(return_value=Mock());load_native_core([self.root],target,loader);loader.assert_called_once_with(str((self.root/name).resolve()))
     def test_load_error_or_missing_entry_uses_fallback(self):
         (self.root/'libiccore.so').write_bytes(b'test')
         for loader in [Mock(side_effect=OSError('bad binary')),Mock(return_value=object())]:
