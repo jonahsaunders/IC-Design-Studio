@@ -154,7 +154,8 @@ class HierarchicalScene(unittest.TestCase):
         rows=scene.query((-1,-1,2000000,2000000),render=True)
         self.assertTrue(rows[0]['_overview']);self.assertTrue(scene.stats['detail_reduced']);self.assertEqual(scene.stats['query_rows'],12000)
         rows=scene.query((10,10,100,100),cache=False)
-        self.assertEqual(len(rows),1);self.assertEqual(rows[0]['instance_path'],'array[0,0]/');self.assertFalse(scene.stats['detail_reduced'])
+        self.assertEqual(len(rows),1);self.assertEqual(rows[0]['instance_path'],'array[0,0]/');self.assertTrue(scene.stats['detail_reduced'])
+        scene.query((10,10,100,100),render=True);self.assertFalse(scene.stats['detail_reduced'])
 
     def test_depth_and_hierarchy_full_check_fallback(self):
         p=self.fixture();scene=LayoutScene().update(p,p['top'],0);self.assertEqual(scene.expanded_count,0);self.assertEqual(scene.query((-10000,-10000,10000,10000)),[])

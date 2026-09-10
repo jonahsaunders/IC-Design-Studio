@@ -72,13 +72,13 @@ class LayoutScene:
         # close-up should use the native hierarchy search instead of repeatedly
         # filtering thousands of old rows in Python.
         oversized=self.cache is not None and len(self.cache[1])>2000 and max(1,box.width())*max(1,box.height())*16<self.cache[0].width()*self.cache[0].height()
-        if cache and self.cache is not None and not self.stats.get('detail_reduced') and not oversized and self.cache[0].contains(db.Point(box.left,box.bottom)) and self.cache[0].contains(db.Point(box.right,box.top)):
+        if cache and self.cache is not None and len(self.cache[1])<=limit and not self.stats.get('detail_reduced') and not oversized and self.cache[0].contains(db.Point(box.left,box.bottom)) and self.cache[0].contains(db.Point(box.right,box.top)):
             return [s for s,b in self.cache[1] if b.touches(box)]
         window=box.enlarged(max(1000,int(max(box.width(),box.height())*.15))) if cache else box
         iterator=self.cells[self.cid].begin_shapes_rec_touching(self.layer,window)
         if self.depth is not None:iterator.max_depth=self.depth
         rows=[]
-        self.stats['detail_reduced']=False
+        if render:self.stats['detail_reduced']=False
         while not iterator.at_end():
             if len(rows)>=limit:
                 if not render:raise ValueError('Exact selection exceeds 100,000 shapes. Zoom in or select a hierarchy instance in the cell tree.')
