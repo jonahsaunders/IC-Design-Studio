@@ -3,8 +3,7 @@ import json
 from pathlib import Path
 from PySide6.QtWidgets import (QDialog, QVBoxLayout, QFormLayout, QLineEdit, QComboBox,
     QLabel, QDialogButtonBox, QPlainTextEdit, QFileDialog, QTableWidgetItem, QHeaderView)
-from .model import example, clone
-from .project_templates import TEMPLATES, model_choices
+from .model import clone
 
 
 class InteroperabilityMixin:
@@ -19,6 +18,7 @@ class InteroperabilityMixin:
         self.action(menu, 'Run KLayout LVS…', self.klayout_lvs_dialog)
         self.action(menu, 'Open KLayout LVS database…', self.klayout_lvs_import_dialog)
         self.action(menu, 'Restore original layout file…', self.restore_layout_source)
+        self.action(self.task_menus['File'], 'Project Hub…', self.project_hub)
         self.reindex_commands()
 
     def new_project(self):
@@ -34,61 +34,26 @@ class InteroperabilityMixin:
         return self.new_pdk_template('inverter')
 
     def new_pdk_template(self, initial_kind=None):
-        if self.process: raise ValueError('Stop the active job before creating a project.')
-        dlg = QDialog(self); dlg.setWindowTitle('New circuit project'); dlg.resize(680, 470)
-        outer = QVBoxLayout(dlg); form = QFormLayout(); outer.addLayout(form)
-        name = QLineEdit('Untitled circuit'); form.addRow('Project name', name)
-        template = QComboBox(); template.setAccessibleName('Circuit template')
-        for key, label in {'empty':'Empty circuit','rc':'RC low-pass',**TEMPLATES}.items(): template.addItem(label, key)
-        template.setCurrentIndex(max(0, template.findData(initial_kind))); form.addRow('Circuit', template)
-        pdk = QComboBox(); pdk.setAccessibleName('Circuit technology'); self.fill_pdk_choices(pdk); form.addRow('Technology / revision', pdk)
-        nmos = QComboBox(); pmos = QComboBox(); supply = QLineEdit('1.8')
-        nmos.setAccessibleName('NMOS model'); pmos.setAccessibleName('PMOS model'); supply.setAccessibleName('Supply voltage')
-        form.addRow('NMOS model', nmos); form.addRow('PMOS model', pmos); form.addRow('Supply (V)', supply)
-        note = QLabel('Choose models and a supply appropriate for the selected process. Templates are editable starting circuits; configure measurement limits before qualification.')
-        note.setWordWrap(True); outer.addWidget(note)
-        error = QLabel(); error.setWordWrap(True); outer.addWidget(error)
-        buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel); outer.addWidget(buttons)
-        def technology():
-            key = pdk.currentData()
-            return self.project['pdk'] if key == 'current' else self.pdk_registry.technology(key) if key else example('empty')['pdk']
-        def refresh():
-            try:
-                tech = technology(); kind = template.currentData()
-                for combo, polarity in ((nmos,'NMOS'),(pmos,'PMOS')):
-                    previous = combo.currentData(); combo.clear()
-                    if not tech.get('package_lock'): combo.addItem('Generic teaching model', None)
-                    for key, entry in model_choices(tech, polarity): combo.addItem(entry['model'] + ' · ' + key, key)
-                    idx = combo.findData(previous)
-                    if idx >= 0: combo.setCurrentIndex(idx)
-                form.setRowVisible(nmos, kind in TEMPLATES)
-                form.setRowVisible(pmos, kind in ('inverter','ring'))
-                form.setRowVisible(supply, kind in TEMPLATES)
-                ready = kind not in TEMPLATES or nmos.count() > 0 and (kind not in ('inverter','ring') or pmos.count() > 0)
-                buttons.button(QDialogButtonBox.Ok).setEnabled(ready)
-                error.setText('' if ready else 'This revision has no required four-terminal MOS models. Register its model catalog or choose another revision.')
-            except (ValueError, OSError) as exc: error.setText(str(exc)); buttons.button(QDialogButtonBox.Ok).setEnabled(False)
-        def accept():
-            try:
-                tech = technology(); kind = template.currentData(); cid = key = None
-                if kind in TEMPLATES:
-                    from .project_templates import create
-                    project, cid, key = create(tech, kind, supply.text(), nmos.currentData(), pmos.currentData())
-                else:
-                    from .catalog import link_technology
-                    project = example(kind); link_technology(project, tech)
-                project['name'] = name.text().strip()
-                from .model import validate
-                validate(project)
-                if self.maybe_save():
-                    self.set_project(project)
-                    if cid: self.cid = cid; self._selected_testbench = key; self.refresh(True)
-                    dlg.accept()
-            except (ValueError, OSError) as exc: error.setText(str(exc))
-        pdk.currentIndexChanged.connect(refresh); template.currentIndexChanged.connect(refresh)
-        buttons.accepted.connect(accept); buttons.rejected.connect(dlg.reject)
-        dlg.technology = pdk; dlg.template = template; dlg.nmos = nmos; dlg.pmos = pmos; dlg.supply = supply
-        self._template_dialog = dlg; refresh(); dlg.show(); return dlg
+        if self.process or self.run_manager.busy: raise ValueError('Wait for active runs to finish before creating a project.')
+        from .project_hub_ui import show
+        return show(self,'new',initial_kind)
+
+    def project_manager(self):
+        from .project_hub_ui import show
+        dialog=show(self,'projects');self._projects_dialog=dialog;return dialog
+
+    def project_hub(self):
+        from .project_hub_ui import show
+        return show(self,'pdks')
+
+    def manage_project_files(self):
+        return super().project_manager()
+
+    def closeEvent(self,event):
+        worker=getattr(self,'_project_hub_worker',None)
+        if worker and worker.isRunning():
+            self.statusBar().showMessage('Finishing the current PDK operation before closing.',10000);event.ignore();return
+        super().closeEvent(event)
 
     def export_tool_technology(self):
         directory = QFileDialog.getExistingDirectory(self, 'Export tool technology package')

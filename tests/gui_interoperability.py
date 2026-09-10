@@ -33,13 +33,17 @@ with tempfile.TemporaryDirectory() as folder:
         if menu:
             for entry in menu.actions():assert not re.search(r'sky130|gf180|\bihp\b',entry.text(),re.I),entry.text()
     dlg=window.new_project();QTest.qWait(30)
-    assert dlg.technology.count()>=6
+    assert len(dlg.rows)>=6
     assert all(not re.search(r'sky130|gf180|\bihp\b',dlg.template.itemText(i),re.I) for i in range(dlg.template.count()))
-    dlg.template.setCurrentIndex(dlg.template.findData('inverter'));dlg.technology.setCurrentIndex(dlg.technology.findData('ihp-sg13g2@fixture'))
+    dlg.template.setCurrentIndex(dlg.template.findData('inverter'));assert dlg.select_pdk('ihp-sg13g2@fixture')
     assert dlg.nmos.count()==1 and dlg.pmos.count()==1
     dlg.supply.setText('1.2');QTest.qWait(30);assert dlg.grab().save(str(profile/'new-circuit.png'))
     window.saved_hash=digest(window.project)
-    buttons=dlg.findChild(QDialogButtonBox);buttons.button(QDialogButtonBox.Ok).click();QTest.qWait(60)
+    buttons=dlg.findChild(QDialogButtonBox);buttons.button(QDialogButtonBox.Ok).click()
+    import time
+    deadline=time.monotonic()+30
+    while dlg.worker.isRunning() and time.monotonic()<deadline:app.processEvents();time.sleep(.01)
+    assert not dlg.worker.isRunning();QTest.qWait(60)
     assert not dlg.isVisible();assert window.project['pdk']['package_lock']['id']=='ihp-sg13g2';assert window.cell['ports']==['A','Y','VPWR','VGND']
     p=example();p['cells'][0]['shapes']=[rect('metal1',0,0,1000,1000)];window.set_project(p)
     path=root/'exchange.gds';export_layout(window.project,path)

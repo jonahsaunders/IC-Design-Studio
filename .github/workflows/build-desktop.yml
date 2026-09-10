@@ -71,6 +71,10 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_catalog_migration.py
+      - name: Test project hub and installed PDK revisions
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_project_hub.py
       - name: Test new desktop workflows
         env:
           QT_QPA_PLATFORM: offscreen
@@ -144,4 +148,5 @@ jobs:
             build/native-workflow-evidence
             build/getting-started-evidence
             build/bundled-simulation-evidence
+            build/project-hub-evidence
             build/verification-0.8.0

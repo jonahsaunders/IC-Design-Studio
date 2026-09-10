@@ -33,7 +33,9 @@ Press **F5**, then inspect its run and waveforms. Open **Analysis → Variation 
 
 ## Start your own process design
 
-Use **Tools → Set up an open PDK**. Discover or add a folder, register the desired variants, then choose **New project with this PDK**. This starts an empty design linked to a verified revision. Open **Devices**, search for a model and place it. The [PDK guide](PDK_GUIDE.md) explains process-specific prerequisites.
+Choose **File → New project** to open the [Project Hub](PROJECT_HUB.md). Pick a PDK revision, name your project and choose an empty circuit or a template. The included GF180MCU and SKY130 simulation packages appear immediately as **Available offline**; **Install PDK & create project** registers the selected package and starts your design.
+
+The hub's **PDKs** page lists installed revisions, folders and model counts. Use **Add PDK → Find installed PDKs** or **Add folder**, then **Check and register** for an existing local installation, including IHP. Close setup with **Done** to refresh the hub. Open **Devices** in the workspace to place models. The [PDK guide](PDK_GUIDE.md) explains process-specific prerequisites.
 
 Do not link an existing generic layout to a different process just to change the process name. Existing devices and mask layers need a valid mapping; use a new empty project for the first process exercise.
 

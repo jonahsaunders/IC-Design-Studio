@@ -83,6 +83,14 @@ def main(output):
         report['checks'].append('parameterized SPICE component import and instance override')
         window.runtime_dialog();QTest.qWait(30);window._runtime_dialog.close()
         report['checks'].append('native simulation runtime dialog')
+        hub=window.project_hub();QTest.qWait(30)
+        assert hub.isVisible() and hub.nav.currentItem().data(Qt.UserRole)=='pdks'
+        for identifier in ('sky130A','gf180mcuD'):
+            row=next(r for r in hub.rows if r['id']==identifier)
+            assert row['status'] in ('Installed','Available offline') and row['revision']
+            hub.select_pdk(row['key']);assert hub.revision.text().endswith(row['revision'])
+        hub.grab().save(str(out/'project-hub.png'));hub.reject()
+        report['checks'].append('project hub loads bundled PDKs and displays exact installed or available revisions')
         window.open_silicon();QTest.qWait(30);assert window.results_tabs.tabText(window.silicon_tab)=='Physical workflow'
         assert window.cell['name'] in window.silicon_status.text() and 'linked technology' in window.silicon_status.text()
         report['checks'].append('native physical workflow workspace')
