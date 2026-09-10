@@ -1,0 +1,7 @@
+v {xschem version=3.4.4 file_version=1.2}
+K {type=subcircuit format="@name @pinlist @symname rtop=@rtop rbottom=@rbottom cload=@cload" template="name=X1 rtop=1k rbottom=1k cload=10n"}
+B 5 -62 -2 -58 2 {name=vin dir=in}
+B 5 58 -2 62 2 {name=vout dir=out}
+B 5 -2 58 2 62 {name=vss dir=inout}
+B 4 -40 -20 40 40 {}
+T {@name} -20 -40 0 0 0.2 0.2 {}

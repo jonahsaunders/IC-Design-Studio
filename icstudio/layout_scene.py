@@ -35,7 +35,6 @@ class LayoutScene:
             for i,inst in enumerate(c.get('layout_instances',[])):instances[inst['id']]=(inst,i,c)
         self.by=by;self.sources=sources;self.instances=instances;self.cid=cid;self.depth=depth;self.cache=None;self.generation+=1;self._bounds_cache={}
         self.bounds,self.expanded_count=self._bounds(cid,depth)
-        if self.expanded_count>100000:raise ValueError('Flattened layout exceeds 100,000 shapes.')
         self.stats={'masters_rebuilt':rebuilt,'master_shapes':len(sources),'expanded_shapes':self.expanded_count,'query_rows':0}
         return self
 
@@ -64,20 +63,29 @@ class LayoutScene:
         child,_=self._bounds(inst['cell'],None if self.depth is None else self.depth-1)
         return self._instance_box(inst,child)
 
-    def query(self,box,*,cache=True):
+    def query(self,box,*,cache=True,render=False):
         """Return ordered shapes; point snapping can bypass the viewport cache."""
+        from .layout_limits import RENDER_ROWS, EXACT_QUERY_ROWS
+        limit=RENDER_ROWS if render else EXACT_QUERY_ROWS
         db=kdb();box=db.Box(math.floor(box[0]),math.floor(box[1]),math.ceil(box[2]),math.ceil(box[3]))
         # An overview cache can contain the whole design. A later point-pick or
         # close-up should use the native hierarchy search instead of repeatedly
         # filtering thousands of old rows in Python.
         oversized=self.cache is not None and len(self.cache[1])>2000 and max(1,box.width())*max(1,box.height())*16<self.cache[0].width()*self.cache[0].height()
-        if cache and self.cache is not None and not oversized and self.cache[0].contains(db.Point(box.left,box.bottom)) and self.cache[0].contains(db.Point(box.right,box.top)):
+        if cache and self.cache is not None and len(self.cache[1])<=limit and not self.stats.get('detail_reduced') and not oversized and self.cache[0].contains(db.Point(box.left,box.bottom)) and self.cache[0].contains(db.Point(box.right,box.top)):
             return [s for s,b in self.cache[1] if b.touches(box)]
         window=box.enlarged(max(1000,int(max(box.width(),box.height())*.15))) if cache else box
         iterator=self.cells[self.cid].begin_shapes_rec_touching(self.layer,window)
         if self.depth is not None:iterator.max_depth=self.depth
         rows=[]
+        if render:self.stats['detail_reduced']=False
         while not iterator.at_end():
+            if len(rows)>=limit:
+                if not render:raise ValueError('Exact selection exceeds 100,000 shapes. Zoom in or select a hierarchy instance in the cell tree.')
+                self.cache=None;self.stats.update(detail_reduced=True,query_rows=len(rows))
+                # A labeled outline represents the hierarchy extent, never fake metal.
+                b=self.bounds
+                return [{'id':'','kind':'rect','layer':next(iter(self.sources.values()))[0]['layer'],'points':[[b.left,b.bottom],[b.right,b.top]],'_overview':True}]
             source,index=self.sources[iterator.shape().property('id')];elements=iterator.path();order=[];owner=None;device_owner=None;path='';mapping={}
             for element in elements:
                 inst,i,cell=self.instances[element.inst().property('id')];ix=element.ia();iy=element.ib();order.extend((1,i,ix,iy))

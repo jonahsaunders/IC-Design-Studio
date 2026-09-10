@@ -25,7 +25,8 @@ class GeometryGraph:
             for a,v,b in vias:
                 for x,y in ((a,v),(v,a),(v,b),(b,v)):radii[x,y]=0
             shapes=[s for s in shapes if s['layer'] in conductors]
-            if len(shapes)>20000:raise ValueError('Connected editing supports at most 20,000 conducting shapes.')
+            from .layout_limits import CONTACT_SHAPES
+            if len(shapes)>CONTACT_SHAPES:raise ValueError(f'Connected editing supports at most {CONTACT_SHAPES:,} conducting shapes.')
         else:
             from .live_geometry import enclosure_rules
             radii={(l['name'],l['name']):l['space'] for l in tech['layers']}
@@ -64,6 +65,8 @@ class GeometryGraph:
                 b=target['box']
                 if box[0]>b[2]+distance or box[2]<b[0]-distance or box[1]>b[3]+distance or box[3]<b[1]-distance:continue
                 tests+=1
+                from .layout_limits import CONTACT_TESTS
+                if tests>CONTACT_TESTS:raise ValueError('Contact search exceeds 2,000,000 candidate pairs. Partition the dense cell before connected editing.')
                 if self.mode=='influence' or not row['region'].interacting(target['region']).is_empty():
                     edges[ident].add(other);edges[other].add(ident)
                     prior_group=self.groups.get(other)

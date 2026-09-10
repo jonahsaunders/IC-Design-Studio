@@ -22,7 +22,7 @@ class EditorCanvasMixin:
                 if self.editor_allowed(t['layer']) and box.contains(pos):out.append({'id':'text:'+str(i),'editor_kind':'label','text':t})
         _,paths=self.layout_drawing_cache()
         scene=self.cell.get('_layout_scene')
-        rows=[(s,None) for s in reversed(scene.query((pos.x()-margin,pos.y()-margin,pos.x()+margin,pos.y()+margin)))] if scene is not None else [(self.cell['shapes'][i],paths[i]) for i in indexes]
+        rows=[(s,None) for s in reversed(scene.query((pos.x()-margin,pos.y()-margin,pos.x()+margin,pos.y()+margin),cache=False))] if scene is not None else [(self.cell['shapes'][i],paths[i]) for i in indexes]
         for s,path in rows:
             kind='instances' if s.get('source_id') else 'shapes'
             if kind not in filters or not self.editor_allowed(s['layer']) or s['id'] in seen:continue
@@ -49,7 +49,7 @@ class EditorCanvasMixin:
     def editor_marquee(self,rect):
         ids=[];filters=getattr(self,'selection_types',{'shapes','instances'});inside=getattr(self,'box_mode','Crossing')=='Inside';boxes={};eligible=set()
         scene=self.cell.get('_layout_scene')
-        shapes=scene.query((rect.left(),rect.top(),rect.right(),rect.bottom())) if scene is not None else self.cell['shapes']
+        shapes=scene.query((rect.left(),rect.top(),rect.right(),rect.bottom()),cache=False) if scene is not None else self.cell['shapes']
         for s in shapes:
             if ('instances' if s.get('source_id') else 'shapes') not in filters:continue
             box=self.bounds(s)

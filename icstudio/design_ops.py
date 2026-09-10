@@ -79,7 +79,8 @@ def validate_extras(p,objid):
             if inst.get('rotation',0) not in (0,90,180,270):raise ValueError('Invalid layout instance rotation.')
             for key in ('x','y','dx','dy'):
                 if type(inst.get(key,0)) is not int or abs(inst.get(key,0))>2**31-1:raise ValueError('Layout placement requires integer nanometres.')
-            if not 1<=inst.get('nx',1)<=100 or not 1<=inst.get('ny',1)<=100:raise ValueError('Layout arrays require 1–100 rows/columns.')
+            from .layout_limits import MAX_ARRAY_AXIS
+            if any(type(inst.get(k,1)) is not int or not 1<=inst.get(k,1)<=MAX_ARRAY_AXIS for k in ('nx','ny')):raise ValueError(f'Layout arrays require 1–{MAX_ARRAY_AXIS} rows/columns.')
             for vector in ('a','b'):
                 if vector in inst and (len(inst[vector])!=2 or any(type(v) is not int or abs(v)>2**31-1 for v in inst[vector])):raise ValueError('Invalid layout array vector.')
         port_names=set()
@@ -96,10 +97,13 @@ def validate_extras(p,objid):
             if pin.get('layer') not in {l['name'] for l in p['pdk']['layers']}:raise ValueError('Unknown physical pin layer.')
             if len(pin.get('point',[]))!=2 or any(type(v) is not int or abs(v)>2**31-1 for v in pin['point']):raise ValueError('Invalid physical terminal position.')
         for bus in c.get('buses',[]):objid(bus['id']);bus_nets(bus['name'])
+    depths={}
     def walk(cid,seen):
         if cid in seen or len(seen)>12:raise ValueError('Recursive or excessively deep physical hierarchy.')
-        for inst in by[cid].get('layout_instances',[]):walk(inst['cell'],seen+[cid])
-    for cid in by:walk(cid,[])
+        if cid not in depths:depths[cid]=max((1+walk(i['cell'],seen|{cid}) for i in by[cid].get('layout_instances',[])),default=0)
+        if depths[cid]+len(seen)>12:raise ValueError('Recursive or excessively deep physical hierarchy.')
+        return depths[cid]
+    for cid in by:walk(cid,set())
 
 def flatten_layout(p,cid,max_depth=None):
     from .layout import polygon,shape_from_polygon,kdb
@@ -108,6 +112,7 @@ def flatten_layout(p,cid,max_depth=None):
         mapping=mapping or {}
         def net(n):return '0' if n=='0' else mapping.get(n,path+n) if n else ''
         for s in cell['shapes']:
+            if len(out)>=100000:raise ValueError('This operation expands at most 100,000 shapes. Choose a smaller physical cell or hierarchy depth.')
             if owner:
                 q=shape_from_polygon(polygon(s).transformed(transform),s['layer'],net(s.get('net','')),device_owner or s.get('device_id',''));q['id']=owner;q['source_id']=s['id'];q['instance_path']=path;out.append(q)
             else:out.append(s)

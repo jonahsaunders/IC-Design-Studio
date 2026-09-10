@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.22.0.dev10-4269e8" alt="Version 0.22.0.dev10">
+  <img src="https://img.shields.io/badge/version-0.22.0.dev12-4269e8" alt="Version 0.22.0.dev12">
   <img src="https://img.shields.io/badge/status-engineering_preview-f0b44d" alt="Engineering preview">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0--or--later-2f9d89" alt="GPL-3.0-or-later"></a>
   <img src="https://img.shields.io/badge/interface-native_Qt_6-58738f" alt="Native Qt 6 interface">
@@ -27,13 +27,13 @@
 
 ## One workspace, from schematic to results
 
-**Development snapshot: 0.22.0.dev10.** NGSpice setup is now part of the Windows source launcher and installer build. The prepared Windows portable ZIP includes Python, Qt, NGSpice 42, GF180MCU and SKY130 simulation PDK subsets. The source ZIP also includes the Windows NGSpice runtime; a clean GitHub export downloads and verifies it on first launch. No global PATH edits are needed.
+**Development snapshot: 0.22.0.dev12.** This release candidate adds reproducible desktop archives, parameterized hierarchy qualification and a pinned SKY130 physical gate. Windows packages include Python, Qt, NGSpice 42, GF180MCU and SKY130 simulation PDK subsets. Clean GitHub exports download and verify the Windows runtime on first launch. See the [release notes](docs/RELEASE_0.22.md) and [current release status](docs/RELEASE_STATUS.md).
 
 Choose **07 · GF180 bandgap startup** in the gallery and press **F5** for a quick run of the supplied circuit. **08 · GF180 full characterization** preserves the exact original schematic and all 144 analyses. **09 · SKY130 transistor inverter** is a second real-PDK example. To build your own native project, choose **File → New project**: the [Project Hub](docs/PROJECT_HUB.md) shows installed revisions and the included GF180MCU/SKY130 packages immediately.
 
 The [six-case GF180 compatibility test](docs/BANDGAP_COMPATIBILITY.md) provides a shorter startup/DC/AC check and compares native migration and Xschem round trips against an independent simulation.
 
-See [simulation setup and validation](SIMULATION_SETUP.md). Windows portable assembly is checked on Linux; native Windows installer and desktop execution remain pending. The previous [grid and drawing improvements](docs/DRAWING_0.22.md) remain included.
+See [simulation setup and validation](SIMULATION_SETUP.md). The dev10 Windows installer and Linux desktop passed hosted execution checks on September 10, 2026. Each new release candidate must pass its own archive and platform gates; see [the exact baseline evidence](docs/RELEASE_STATUS.md). The previous [grid and drawing improvements](docs/DRAWING_0.22.md) remain included.
 
 ![The dev9 layout editor showing a full-width Manhattan path preview, visible-grid snapping, and drawing instructions](docs/images/layout-drawing-dev9.png)
 
@@ -61,7 +61,7 @@ IC Design Studio brings schematic capture, a simulation run table, waveform insp
 
 **0.21 makes the first steps easier:** a searchable example gallery, six guided projects, background discovery of multiple PDK variants, batch registration, and a direct path from a registered PDK to a new project.
 
-This is an **engineering preview**. It has working end-to-end workflows and a growing regression suite; it is not a manufacturing signoff environment. Supported exchange subsets, model requirements and executed validation are documented in the [release notes](docs/RELEASE_0.21.md).
+This is an **engineering preview**. It has working end-to-end workflows and a growing regression suite; it is not a manufacturing signoff environment. Supported exchange subsets, model requirements and executed validation are documented in the [release notes](docs/RELEASE_0.22.md).
 
 ## Start in three steps
 
@@ -92,11 +92,11 @@ python main.py
 
 Install NGSpice through your Linux distribution (for Ubuntu: `sudo apt install ngspice`) or Homebrew on macOS (`brew install ngspice`). The Windows console executable cannot run on those platforms. Bundled model files are shared across platforms.
 
-The repository does not contain a Windows simulator executable. Install a native ngspice and select it in **Tools → Engine diagnostics and paths**, or set `ICSTUDIO_NGSPICE` to its executable. The first-waveform example works with the included educational solver. Current source downloads contain no prebuilt desktop app or native simulator.
+The Git repository contains no native simulator executable. The Windows source launcher downloads and verifies its pinned runtime. For a manual setup, install native ngspice and select it in **Tools → Engine diagnostics and paths**, or set `ICSTUDIO_NGSPICE`. The first-waveform example uses the included educational solver.
 
 Open a saved design directly with `python main.py --project examples/native-divider.icproj`. Opening examples from the gallery is preferable for everyday exploration because it creates independent copies.
 
-Linux is exercised by the current regression suite. The repository's desktop workflow defines additional Windows and simulator checks, but those are separate from the recorded dev9 validation. Windows/macOS native display qualification remains pending.
+Hosted regression and installer checks have executed on Linux and Windows Server 2022. Windows 10/11 consumer-machine acceptance and macOS qualification remain separate. Historical dev9/offscreen records are preserved as records of their original scope.
 
 </details>
 
@@ -170,7 +170,7 @@ Useful contributions include small failing circuits, reproducible PDK adapter te
 python -m unittest discover -s tests -v
 ```
 
-The [desktop CI workflow](.github/workflows/build-desktop.yml) defines native Qt and real ngspice acceptance checks and builds desktop artifacts. It runs on pull requests, version tags, or manual dispatch. The [maintainer release guide](docs/RELEASING.md) covers versioning, checksums and publication. The [dev9 validation record](docs/validation/0.22.0.dev9.json) describes local execution; it does not claim a hosted Actions run passed.
+The [desktop CI workflow](.github/workflows/build-desktop.yml) defines native Qt and real ngspice acceptance checks and builds desktop artifacts. It runs on every pull request, pushes to main/experimental, version tags, or manual dispatch. The [maintainer release guide](docs/RELEASING.md) covers versioning, checksums and publication. The [release status](docs/RELEASE_STATUS.md) distinguishes the hosted baseline from local historical records. See [qualification instructions](docs/QUALIFICATION_0.22.md) for the native, physical and draft-release gates.
 
 ## License
 

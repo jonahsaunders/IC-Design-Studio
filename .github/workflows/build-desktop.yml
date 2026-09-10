@@ -1,11 +1,11 @@
 name: Build and verify desktop release
 on:
+  workflow_call:
   workflow_dispatch:
   push:
     tags: ['v*']
-    branches: [experimental]
+    branches: [main, experimental]
   pull_request:
-    paths: ["icstudio/**", "tests/**", "scripts/**", "packaging/**", "examples/**", "docs/**", "README.md", "requirements*.txt", ".gitattributes", ".github/**"]
 permissions:
   contents: read
 jobs:
@@ -53,6 +53,12 @@ jobs:
       - name: Test core
         id: core_tests
         run: python -m unittest discover -s tests -v
+      - name: Qualify parameterized native hierarchy
+        run: python scripts/verify_native_hierarchy.py --output build/native-hierarchy-evidence
+      - name: Qualify large layouts, schematic-driven changes and concurrent editors
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_layout_expansion.py --out build/layout-expansion-evidence
       - name: Check repository release materials
         run: python scripts/check_release.py
       - name: Test guided examples and PDK setup
@@ -187,6 +193,16 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: ./dist/ICDesignStudio/ICDesignStudio --release-test build/frozen-evidence
+      - name: Assemble and execute release archives
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python scripts/prepare_release_payload.py --output build/release-payload
+      - name: Retain release payload
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ runner.os }}
+          path: build/release-payload
+          if-no-files-found: error
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -205,4 +221,7 @@ jobs:
             build/project-hub-evidence
             build/label-evidence
             build/project-pdk-evidence
+            build/layout-expansion-evidence
+            build/native-hierarchy-evidence
+            build/distribution-evidence
             build/verification-0.8.0

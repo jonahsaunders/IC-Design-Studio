@@ -42,6 +42,9 @@ def prepare_program(text,directory,settings):
     root=Path(directory).resolve();(root/'waveforms').mkdir(exist_ok=True);(root/'outputs').mkdir(exist_ok=True)
     selected=settings.get('probes','').strip()
     if not re.fullmatch(r'(?:[vi]\([A-Za-z0-9_.$:/+\[\]-]+\)\s*)*',selected):raise ValueError('Waveform probes use v(net) or i(source), separated by spaces.')
+    # ngspice treats brackets/operators as expression syntax unless the node
+    # name is quoted. Keep the public v(data[0]) selector, quote only emission.
+    selected=re.sub(r'([vi])\(([^)]+)\)',lambda m:m[1]+'('+('"'+m[2]+'"' if re.search(r'[$:/+\[\]-]',m[2]) else m[2])+')',selected)
     # Restrict only filesystem/OS actions. Ordinary ngspice control flow is kept.
     output_roots={}
     for line in text.splitlines():

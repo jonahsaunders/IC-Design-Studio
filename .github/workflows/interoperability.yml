@@ -1,9 +1,9 @@
 name: External tool interoperability
 on:
+  workflow_call:
   push:
-    branches: [experimental]
+    branches: [main, experimental]
   pull_request:
-    paths: ['icstudio/**', 'tests/**', 'requirements.txt', '.gitattributes', '.github/workflows/interoperability.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -30,6 +30,8 @@ jobs:
         run: python -m unittest tests.test_checkout_integrity tests.test_external_tools tests.test_interoperability tests.test_klayout_lvs_exchange tests.test_pdk_templates tests.test_external_exchange_engines tests.test_native_migration -v
       - name: Verify secondary technology selection and conflict resolution
         run: python tests/gui_interoperability.py
+      - name: Compare native hierarchy with independent Xschem netlisting
+        run: python scripts/verify_native_hierarchy.py --require-xschem --output build/native-hierarchy-exchange-evidence
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -37,3 +39,4 @@ jobs:
           path: |
             build/gui-interoperability/*.png
             build/external-exchange-evidence
+            build/native-hierarchy-exchange-evidence

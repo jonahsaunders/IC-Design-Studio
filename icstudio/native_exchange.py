@@ -74,7 +74,9 @@ def export_project(project,directory):
                 alias=spice_name(d)
                 if alias!=d['name']:fmt=alias[:-len(d['name'])]+'@name'+fmt[len('@name'):]
             if d['kind']=='X':
-                child=by[d['cell']];stem=child['name'];attrs.update(type='subcircuit',schematic='../../'+child['name']+'.sch')
+                # Xschem resolves the schematic override through the project
+                # search path, not relative to this per-device symbol folder.
+                child=by[d['cell']];stem=child['name'];attrs.update(type='subcircuit',schematic=child['name']+'.sch')
                 defaults={**child.get('spice_parameters',{}),**child.get('parameters',{})}
                 props.update({k:str(v) for k,v in d.get('parameters',{}).items()})
                 if not info:fmt='@name @pinlist @symname'+''.join(' '+k+'=@'+k for k in defaults);props.update({k:str(props.get(k,v)) for k,v in defaults.items()})
@@ -86,7 +88,12 @@ def export_project(project,directory):
             # Embedded model definitions retain root-relative dependencies.
             if definition:s['attributes']['spice_sym_def']=definition
             output[path]=symbol_text(s,d['name'],fmt)
-            lines.append(record_text(['C',path,str(d['x']),str(d['y']),str(d['rotation']//90),str(int(d.get('mirror',False))),property_text(props)]))
+            serialized = property_text(props)
+            if info and info['type'] == 'program':
+                # Xschem consumes one escape level while loading an instance and
+                # another when substituting @value. Keep literal SPICE quotes.
+                serialized = serialized.replace(chr(92)+'"', chr(92)*2+'"')
+            lines.append(record_text(['C',path,str(d['x']),str(d['y']),str(d['rotation']//90),str(int(d.get('mirror',False))),serialized]))
         port_points={}
         def label(name,pt,kind='label',index=0):
             # Reuse a port's own net label, keeping the port records in declared
