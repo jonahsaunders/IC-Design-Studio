@@ -32,10 +32,14 @@ jobs:
         shell: pwsh
         run: |
           python -m pip install py7zr==1.1.3
-          python scripts/stage_windows_ngspice.py
+          python scripts/stage_windows_ngspice.py --ensure
           if ($LASTEXITCODE -ne 0) { throw 'Runtime provisioning failed.' }
           $engine = (Resolve-Path 'icstudio/assets/runtime/ngspice/ngspice.exe').Path
           "ICSTUDIO_TEST_NGSPICE=$engine" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+      - name: Verify bundled simulation PDKs
+        run: python scripts/check_simulation_assets.py
+      - name: Validate supplied GF180 bandgap startup
+        run: python scripts/verify_bundled_simulation.py --output build/bundled-simulation-evidence
       - name: Build optional native core
         run: python scripts/build_native.py
       - name: Test core
@@ -130,4 +134,5 @@ jobs:
             build/native-migration-evidence
             build/native-workflow-evidence
             build/getting-started-evidence
+            build/bundled-simulation-evidence
             build/verification-0.8.0

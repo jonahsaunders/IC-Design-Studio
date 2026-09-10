@@ -26,3 +26,11 @@ GF180MCU primitive symbols and ngspice model files: Apache-2.0, upstream commit 
 ngspice 42: BSD-style and component-specific licenses retained in the runtime COPYING/copyright files. Windows console distribution: https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/42/ngspice-42_64.7z/download. Linux distribution: Ubuntu 42+ds-3build1; corresponding source: https://archive.ubuntu.com/ubuntu/pool/universe/n/ngspice/. Upstream source: https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/42/.
 
 The Windows portable package uses CPython 3.12.9, official win_amd64 wheels for the versions in requirements.txt, and Distlib native launchers distributed by pip 25.0.1. Runtime archive and file hashes are recorded in runtime-manifest.json. Python and Distlib licenses accompany those components. Distlib source: https://github.com/pypa/distlib. The application itself is supplied as editable Python source in the app folder.
+
+## Added bundled simulation PDKs in 0.22.0.dev10
+
+SKY130A primitive models, symbols and display layers are extracted from the checksum-pinned `common.tar.zst` and `sky130_fd_pr.tar.zst` assets of https://github.com/chipfoundry/volare/releases/tag/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392. Upstream headers and Apache-2.0/model and symbol license files are retained in `icstudio/assets/pdks/sky130A`. The bundled package includes only the primitive model include closure, primitive symbols and display map. Standard-cell libraries and physical verification decks are excluded.
+
+The GF180MCU D adapter reuses the existing pinned primitive files above, adds `.ngspice` compatibility aliases, and includes `tech/klayout/gf180mcu.lyp` from the same upstream revision. Original Apache-2.0 headers and license are retained. Each package records source provenance in `UPSTREAM-LOCK.json` and locks every distributed asset in `package.json`.
+
+The Windows source/build provisioner uses py7zr 1.1.3 (LGPL-2.1-or-later), https://github.com/miurahr/py7zr/tree/v1.1.3, installed by pip with its dependencies. It is a setup dependency; the prepared portable desktop does not include or require it. The portable desktop retains the original Python license and the license files from the pinned PySide6, Shiboken and KLayout wheels.

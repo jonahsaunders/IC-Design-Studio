@@ -1,0 +1,122 @@
+name: Package and publish simulation preview
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['docs/releases/0.22.0.dev10.md']
+permissions:
+  contents: read
+concurrency:
+  group: publish-simulation-preview
+  cancel-in-progress: false
+jobs:
+  package:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      QT_QPA_PLATFORM: offscreen
+      ICSTUDIO_TEST_NGSPICE: /usr/bin/ngspice
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install runtime and packaging dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ngspice libegl1 libopengl0
+          python -m pip install -r requirements-build.txt
+      - name: Read application version
+        id: version
+        run: python -c "from icstudio import __version__; print('version=' + __version__)" >> "$GITHUB_OUTPUT"
+      - name: Check models, documentation and real simulations
+        run: |
+          python scripts/check_simulation_assets.py
+          python scripts/check_release.py
+          python scripts/verify_bundled_simulation.py --output build/preview-evidence/simulations
+      - name: Build native core
+        run: python scripts/build_native.py
+      - name: Run regression suite
+        run: python -m unittest discover -s tests -v
+      - name: Check gallery and offline PDK setup
+        run: python tests/gui_getting_started.py --evidence build/preview-evidence/gallery
+      - name: Assemble and verify release packages
+        run: python scripts/prepare_preview_release.py --output release
+      - name: Retain validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-validation
+          path: build/preview-evidence
+      - name: Retain release assets
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-release
+          path: release/*
+          if-no-files-found: error
+  publish:
+    needs: package
+    if: github.repository == 'jonahsaunders/IC-Design-Studio' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: preview-release
+          path: release
+      - name: Publish verified assets as a prerelease
+        uses: actions/github-script@v7
+        env:
+          RELEASE_VERSION: ${{ needs.package.outputs.version }}
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const version = process.env.RELEASE_VERSION;
+            const tag = `v${version}`;
+            const repo = context.repo;
+            const files = fs.readdirSync('release').sort();
+            const required = [
+              `IC-Design-Studio-${version}-Windows-x64.zip`,
+              `IC-Design-Studio-${version}-Source.zip`,
+              `IC-Design-Studio-${version}-GitHub.zip`,
+              `IC-Design-Studio-${version}-Validation.json`,
+              `IC-Design-Studio-${version}-Package-Check.json`,
+              `SHA256SUMS-${version}.txt`
+            ];
+            if (required.some(name => !files.includes(name))) throw new Error('Missing release asset');
+            let release;
+            try {
+              release = (await github.rest.repos.getReleaseByTag({...repo, tag})).data;
+            } catch (error) {
+              if (error.status !== 404) throw error;
+            }
+            if (release && !release.draft) throw new Error('This version is already published; create a new version');
+            if (!release) {
+              const drafts = await github.paginate(github.rest.repos.listReleases, {...repo, per_page: 100});
+              release = drafts.find(item => item.tag_name === tag && item.draft);
+            }
+            const notes = fs.readFileSync(`docs/releases/${version}.md`, 'utf8');
+            const body = notes + `\n\nSource commit: ${context.sha}\n\n[Packaging run](https://github.com/${repo.owner}/${repo.repo}/actions/runs/${context.runId})\n`;
+            if (!release) {
+              release = (await github.rest.repos.createRelease({...repo, tag_name: tag,
+                target_commitish: context.sha, name: `IC Design Studio ${version}`,
+                body, draft: true, prerelease: true, make_latest: 'false'})).data;
+            }
+            const existing = await github.paginate(github.rest.repos.listReleaseAssets,
+              {...repo, release_id: release.id, per_page: 100});
+            for (const name of required) {
+              const old = existing.find(asset => asset.name === name);
+              if (old) await github.rest.repos.deleteReleaseAsset({...repo, asset_id: old.id});
+              const data = fs.readFileSync(path.join('release', name));
+              await github.rest.repos.uploadReleaseAsset({...repo, release_id: release.id, name, data,
+                headers: {'content-type': name.endsWith('.zip') ? 'application/zip' : 'application/octet-stream',
+                  'content-length': data.length}});
+            }
+            await github.rest.repos.updateRelease({...repo, release_id: release.id,
+              body, draft: false, prerelease: true, make_latest: 'false'});

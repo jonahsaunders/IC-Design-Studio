@@ -57,6 +57,20 @@ def prepare(path,libraries=(),locations=None):
             if any((root/ref).is_file() for root in [Path(path).parent]+[Path(r) for r in libraries]):continue
             if 'gf180mcu' in ref.lower() or ref.startswith('symbols/'):mapped[ref]=str((gf/'gf180mcu/symbols'/Path(ref).name).resolve())
     data=manifest();lock={key:{'revision':data['libraries'][key]['revision'],'source':data['libraries'][key].get('repository',data['libraries'][key].get('source'))} for key in selected}
+    if any('sky130_fd_pr' in ref for ref in symbol_refs) or re.search(r'sky130A[/\\]',text):
+        from .bundled_pdks import packages
+        sky=next(p for p in packages(verify=True) if p['name']=='sky130A')
+        base=Path(sky['path']);roots.extend([str(base),str(base/'libs.tech/xschem'),str(base/'libs.tech/xschem/sky130_fd_pr'),str(base/'libs.tech/ngspice')])
+        values='\n'.join([properties(r[6]).get('value','') for r in components]+[r[1] for r in records(text) if r[0]=='S' and len(r)>1])
+        for raw in re.findall(r'(?im)^\s*\.(?:include|inc|lib)\s+("[^"\n]+"|\'[^\'\n]+\'|\S+)',values):
+            ref=raw.strip('"\'');normalized=ref.replace('\\','/')
+            suffix=normalized.split('sky130A/',1)[-1] if 'sky130A/' in normalized else None
+            if not suffix or ref in mapped or Path(ref).is_file():continue
+            explicit=next((candidate for folder in libraries for candidate in (Path(folder)/'sky130A'/suffix,Path(folder)/suffix) if candidate.is_file()),None)
+            target=explicit or base/suffix
+            if target.is_file() and (explicit or target.resolve().is_relative_to(base.resolve())):mapped[ref]=str(target.resolve())
+        lock['sky130A']={'revision':sky['revision'],'source':'Bundled pinned SKY130 simulation package'}
+        if variant is None:variant='sky130A'
     return list(dict.fromkeys(roots)),mapped,{'libraries':lock,'variant':variant,'scope':'Schematic and simulation assets'}
 
 

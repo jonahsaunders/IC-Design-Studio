@@ -1,51 +1,39 @@
-# Get IC Design Studio
+# Download IC Design Studio
 
-The current source is **0.22.0.dev9**, an engineering preview. See the [grid and drawing update](DRAWING_0.22.md) and [recorded validation](validation/0.22.0.dev9.json).
+Use the [GitHub Releases page](https://github.com/jonahsaunders/IC-Design-Studio/releases) for packaged **0.22.0.dev10** prerelease downloads. Check the [release packaging workflow](https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/publish-preview.yml) if assets are still building.
 
-## Current source
+| Asset | Intended use |
+|---|---|
+| `IC-Design-Studio-0.22.0.dev10-Windows-x64.zip` | Portable desktop with Python, Qt, NGSpice 42 and offline GF180MCU/SKY130 simulation subsets |
+| `IC-Design-Studio-0.22.0.dev10-Source.zip` | Source plus staged Windows NGSpice runtime and the same PDK models; Python dependencies install on first setup |
+| `IC-Design-Studio-0.22.0.dev10-GitHub.zip` | Clean source tree and models; Windows launcher downloads NGSpice on first setup |
+| `IC-Design-Studio-0.22.0.dev10-Validation.json` | Recorded local simulation checks and explicit platform limits |
+| `SHA256SUMS-0.22.0.dev10.txt` | SHA-256 checksums of release assets |
 
-On the [repository page](https://github.com/jonahsaunders/IC-Design-Studio), choose **Code → Download ZIP** and extract it, or clone it:
+GitHub's automatic **Source code (zip)** and **Source code (tar.gz)** links do not contain a prebuilt application or Windows NGSpice executable.
 
-```sh
-git clone https://github.com/jonahsaunders/IC-Design-Studio.git
-cd IC-Design-Studio
-```
+## Windows quick start
 
-On Windows, install 64-bit Python 3.12 with the Python launcher and double-click `launch-windows.bat`. It installs verified dependencies in a short environment path under `%LOCALAPPDATA%\ICStudio\venvs` to avoid deeply nested Qt resource paths. Linux/macOS users should follow the [source setup instructions](../README.md).
+Extract the entire **Windows-x64 ZIP**, then double-click `ICDesignStudio.exe`. Keep its `app` and `python` folders beside it. Choose **07 · GF180 bandgap startup → Open a copy**, then **F5**. The portable app needs no first-launch downloads. Use `ICDesignStudio-Console.exe` for startup diagnostics.
 
-The source includes the educational solver. A native ngspice installation is required for ngspice analyses. There is no published dev9 portable executable. Native Windows/macOS display testing remains pending; recorded Linux/offscreen checks are linked above.
+This unsigned package targets Windows 10/11 x64. Linux simulation and static Windows package checks do not establish native Windows desktop qualification. See [simulation setup and validation limits](../SIMULATION_SETUP.md).
 
-## Historical prepared assets
+## Source setup
 
-The **0.21.0** files below describe earlier locally prepared release candidates. They do not contain the dev9 improvements. No assets were published on the [Releases page](https://github.com/jonahsaunders/IC-Design-Studio/releases) when this update was prepared. Use current source for dev9; do not treat the filenames below as download links.
+On Windows, install 64-bit Python 3.12, extract the source and run `launch-windows.bat`. On Linux/macOS, install a host-native NGSpice and follow the [README](../README.md). The PDK simulation subsets are included in every source download.
 
-| Asset | Who it is for | What it contains |
-|---|---|---|
-| `IC-Design-Studio-0.21.0-Windows-x64.zip` | Windows users | Portable app, Python, Qt, ngspice, docs and examples |
-| `IC-Design-Studio-0.21.0-GitHub.zip` | Repository maintainers and contributors | Clean source tree, README assets, tests, workflows and project templates; no native binaries |
-| `IC-Design-Studio-0.21.0-Source.zip` | Users running or modifying source | Application source plus the Windows ngspice runtime |
-| `IC-Design-Studio-0.21.0-PDK-Adapters.zip` | Users exploring the three supported process families | Pinned adapter subsets, hashes, notices and provenance; IHP Verilog-A source |
-| `IC-Design-Studio-0.21.0-Validation.json` | Release reviewers | Executed checks and explicit platform limits |
-| `SHA256SUMS-0.21.0.txt` | Anyone checking a download | SHA-256 hashes of the release files |
+## Verify a download
 
-### Historical Windows portable package
-
-Extract the **entire** Windows ZIP and launch `ICDesignStudio.exe`. Keep its `app` and `python` folders beside the launcher. Do not run it from inside the ZIP viewer. `ICDesignStudio-Console.exe` provides startup diagnostics. No separate Python or ngspice installation is needed for the included native examples.
-
-That portable package targets Windows 10/11 x64 and is unsigned. Its historical validation covered manifest and PE dependency checks, not native Windows execution. It is a separate artifact from this source update.
-
-### Check a historical archive
-
-On Linux:
+On Linux, place the downloaded release assets and checksum file in the same directory:
 
 ```sh
-sha256sum -c SHA256SUMS-0.21.0.txt
+sha256sum --ignore-missing -c SHA256SUMS-0.22.0.dev10.txt
 ```
 
 On Windows PowerShell:
 
 ```powershell
-Get-FileHash .\IC-Design-Studio-0.21.0-Windows-x64.zip -Algorithm SHA256
+Get-FileHash .\IC-Design-Studio-0.22.0.dev10-Windows-x64.zip -Algorithm SHA256
 ```
 
-Compare the hash with the corresponding line in the checksum file. The PDK companion is optional; begin with the included gallery before installing it.
+Compare the result with the matching line in `SHA256SUMS-0.22.0.dev10.txt`.

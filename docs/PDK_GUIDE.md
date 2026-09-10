@@ -2,6 +2,16 @@
 
 IC Design Studio has stock adapters for SKY130, GF180MCU and IHP SG13G2, plus a checksummed package interface for custom technologies. An adapter maps electrical models, device terminals and layout layers into the app. Successful registration does not prove that a particular model, corner or physical rule deck is qualified.
 
+## Included in 0.22.0.dev10
+
+Choose **Tools → Set up an open PDK → Use included PDKs**. GF180MCU (`gf180mcuD`) and SKY130 (`sky130A`) register from the application bundle without downloading anything. Select a registered revision and choose **New project with this PDK**. Imported GF180 and SKY130A schematics and the bundled examples resolve their libraries automatically.
+
+The bundle contains primitive simulation models, Xschem symbols, KLayout display layers, checksums and license files. It excludes standard cells, physical verification decks and IHP compiled OSDI libraries. The GF180 assets include 3.3 V and 5/6 V MOS devices, bipolar devices, resistors and capacitors used by the supplied bandgap. The `D` adapter uses the existing pinned GF180 primitive models; it is not a complete process-option installation.
+
+SKY130 keeps the complete primitive corner include closure. The compatible Xschem importer now permits 64 MB total (still 10 MB per file and 1,000 files), because that closure exceeds the former 30 MB limit. Exact model bytes remain locked in saved imported projects. Catalog-backed simulations also stage their model closure under simple relative filenames to support Windows user/profile paths with spaces.
+
+The current package revisions and model source hashes are in `icstudio/assets/pdks/collection.json` and each package's `UPSTREAM-LOCK.json`.
+
 ## Choose the easiest route
 
 | You have… | Use… |

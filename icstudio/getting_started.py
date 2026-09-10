@@ -19,7 +19,12 @@ def example_copy(entry):
     path = (root / entry['file']).resolve()
     if not path.is_relative_to(root):
         raise ValueError('Example path must be inside the examples folder.')
-    project = load_project(path)
+    if path.suffix.lower() == '.sch':
+        from .xschem_compat import review_project
+        from .xschem_project import apply_review
+        project = apply_review(review_project(path))
+    else:
+        project = load_project(path)
     # Independent documents must not pick up another copy's run history.
     project['id'] = uid()
     project['revision'] = 0
@@ -32,7 +37,7 @@ def default_pdk_roots(environ=None, home=None):
     paths = [Path(env[k]).expanduser() for k in ('PDK_ROOT', 'PDK_HOME') if env.get(k)]
     if env.get('PDK_ROOT') and env.get('PDK'):
         paths.append(Path(env['PDK_ROOT']).expanduser() / env['PDK'])
-    paths += [home / '.ciel', home / '.volare', home / '.local/share/pdk',
+    paths += [resource_root() / 'icstudio/assets/pdks', home / '.ciel', home / '.volare', home / '.local/share/pdk',
               Path('/usr/local/share/pdk'), Path('/usr/share/pdk')]
     return list(dict.fromkeys(paths))
 

@@ -102,3 +102,51 @@ def model_lines(technology,corner='nominal'):
             lines.append(f'.lib "{path}" {section}')
         else:lines.append(f'.include "{path}"')
     return lines
+
+
+def stage_model_deck(technology, text, directory):
+    """Make catalog-backed runs independent of profile paths and PDK locations.
+
+    ngspice 42 splits even quoted .lib filenames at spaces. Keep a checksummed
+    include closure under simple run-relative names, including self references.
+    """
+    import hashlib
+    lock = technology.get('package_lock')
+    if not lock or not technology.get('simulation'):
+        return text
+    source = Path(technology['package_root']).resolve()
+    output = Path(directory).resolve()
+    files = {(source / rel).resolve(): (rel, sha) for rel, sha in lock['files'].items()}
+    staged = {}
+    pattern = re.compile(r'(?im)^[^\S\n]*(\.include|\.inc|\.lib)[^\S\n]+("[^"\n]+"|\'[^\'\n]+\'|[^\s]+)([^\n]*)')
+
+    def rewrite(contents, parent=None):
+        def one(match):
+            if match[1].lower() == '.lib' and not match[3].strip():
+                return match[0]  # A section definition, not a file reference.
+            reference = match[2].strip('"\'')
+            path = ((parent.parent if parent else output) / reference).resolve()
+            if path not in files:
+                if parent is not None:
+                    raise ValueError('PDK model dependency is absent from its lock: ' + reference)
+                return match[0]
+            return match[1] + ' ' + stage(path) + match[3]
+        return pattern.sub(one, contents)
+
+    def stage(path):
+        if path in staged:
+            return staged[path]
+        relative, expected = files[path]
+        if not path.is_relative_to(source) or not path.is_file():
+            raise ValueError('Unsafe or missing locked PDK model: ' + relative)
+        data = path.read_bytes()
+        if hashlib.sha256(data).hexdigest() != expected:
+            raise ValueError('Locked PDK model changed while preparing the run: ' + relative)
+        name = 'pdk-models/' + hashlib.sha256((relative + '\0' + expected).encode()).hexdigest()[:24] + '.spice'
+        staged[path] = name
+        atomic_write(output / name, rewrite(data.decode('utf-8'), path))
+        return name
+
+    result = rewrite(text)
+    atomic_write(output / 'pdk-model-files.json', json.dumps({name: files[path][0] for path, name in staged.items()}, indent=2))
+    return result

@@ -163,14 +163,14 @@ class OnboardingMixin:
         outer.addWidget(label('1  Find local PDKs     →     2  Check and register     →     3  Start a linked project'))
         tabs = QTabWidget(); outer.addWidget(tabs, 1)
         discover_page = QWidget(); dv = QVBoxLayout(discover_page); tabs.addTab(discover_page, 'Find and install')
-        dv.addWidget(label('Choose an installed PDK, its parent folder, or an extracted package collection. Select the variants you want to register.'))
+        dv.addWidget(label('Use included PDKs installs the bundled GF180MCU and SKY130 simulation packages offline. You can also add another installed PDK or an extracted package collection.'))
         candidates = QListWidget(); candidates.setAccessibleName('Discovered PDKs'); dv.addWidget(candidates, 1)
         buttons = []; row = QHBoxLayout(); dv.addLayout(row)
         registered_page = QWidget(); pv = QVBoxLayout(registered_page); tabs.addTab(registered_page, 'Registered revisions')
         registered = QListWidget(); registered.setAccessibleName('Registered PDK revisions'); pv.addWidget(registered, 1)
         detail = label(''); detail.setTextInteractionFlags(Qt.TextSelectableByMouse); pv.addWidget(detail)
         project_row = QHBoxLayout(); pv.addLayout(project_row)
-        state = label('Choose Find installed PDKs or Add folder. You can use the example gallery without a PDK.'); outer.addWidget(state)
+        state = label('Choose Use included PDKs to start with GF180MCU or SKY130. Gallery examples already include their model setup.'); outer.addWidget(state)
         log = QTextBrowser(); log.setMaximumHeight(95); log.hide(); outer.addWidget(log)
         def selected():
             it = registered.currentItem()
@@ -244,7 +244,10 @@ class OnboardingMixin:
                     self.commit(lambda p: link_technology(p, tech), 'Link project to PDK'); self.sync_technology()
                 state.setText('Linked. Open Devices to choose a model; select a corner in the Analysis inspector. Save your project to retain the revision link.')
             except Exception as exc: state.setText(str(exc))
-        for text, fn in [('Find installed PDKs', lambda: start('discover', default_pdk_roots())), ('Add folder…', browse), ('Check and register', register)]:
+        def use_bundled():
+            from .bundled_pdks import packages
+            start('register', packages())
+        for text, fn in [('Use included PDKs', lambda: self.guard(use_bundled)), ('Find installed PDKs', lambda: start('discover', default_pdk_roots())), ('Add folder…', browse), ('Check and register', register)]:
             b = QPushButton(text); b.clicked.connect(fn); row.addWidget(b); buttons.append(b)
             if text == 'Check and register': b.setStyleSheet('background: #315ed4; color: white; padding: 9px; border-radius: 6px;')
         for text, fn in [('New project with this PDK', lambda: link(True)), ('Link current project', link),

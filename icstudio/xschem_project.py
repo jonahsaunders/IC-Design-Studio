@@ -137,7 +137,9 @@ class Reader:
         path=Path(path)
         if path in self.files:return self.files[path]['text']
         data=path.read_bytes();self.total_bytes+=len(data)
-        if len(data)>10_000_000 or self.total_bytes>30_000_000 or len(self.files)>=1000:raise ValueError('Xschem import is limited to 1,000 files, 10 MB per file and 30 MB total.')
+        # The pinned SKY130 primitive corner closure is about 34 MB. Retain a
+        # bounded import while allowing that standard open PDK to be portable.
+        if len(data)>10_000_000 or self.total_bytes>64_000_000 or len(self.files)>=1000:raise ValueError('Xschem import is limited to 1,000 files, 10 MB per file and 64 MB total.')
         text=data.decode('utf-8');self.files[path]={'text':text,'kind':kind,'sha256':hashlib.sha256(data).hexdigest()};return text
 
     def symbol(self,path):

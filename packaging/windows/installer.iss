@@ -2,6 +2,12 @@
   #error AppVersion must be passed to ISCC
 #endif
 #define AppName "IC Design Studio"
+#if !FileExists("..\..\dist\ICDesignStudio\_internal\icstudio\assets\runtime\ngspice\ngspice.exe")
+  #error Stage and verify NGSpice before compiling the installer (build-windows.bat).
+#endif
+#if !FileExists("..\..\dist\ICDesignStudio\_internal\icstudio\assets\pdks\collection.json")
+  #error The bundled simulation PDK collection is missing.
+#endif
 [Setup]
 AppId={{65CC59BF-792E-47B1-A540-9F67063181FC}
 AppName={#AppName}

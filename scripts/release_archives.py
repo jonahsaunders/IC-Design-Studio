@@ -22,7 +22,8 @@ def source_archive(destination,windows_runtime=None,repository=False):
     if windows_runtime is None and not repository and (bundled/'ngspice.exe').is_file():windows_runtime=bundled
     if repository:windows_runtime=None
     path=destination/f'IC-Design-Studio-{__version__}-{"GitHub" if repository else "Source"}.zip'
-    with zipfile.ZipFile(path,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+    temporary=path.with_suffix('.zip.partial')
+    with zipfile.ZipFile(temporary,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
         for file in sorted(ROOT.rglob('*')):
             rel=file.relative_to(ROOT)
             if rel.parts[:4]==('icstudio','assets','runtime','ngspice'):continue
@@ -31,8 +32,9 @@ def source_archive(destination,windows_runtime=None,repository=False):
                 z.write(file,Path('IC-Design-Studio')/rel)
         if windows_runtime:
             runtime=Path(windows_runtime)
-            for name in ('ngspice.exe','libomp140.x86_64.dll','spinit','COPYING.txt'):
+            for name in ('ngspice.exe','libomp140.x86_64.dll','spinit','COPYING.txt','runtime-manifest.json'):
                 z.write(runtime/name,Path('IC-Design-Studio/icstudio/assets/runtime/ngspice')/name)
+    temporary.replace(path)
     return path
 
 

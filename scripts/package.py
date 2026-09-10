@@ -1,7 +1,19 @@
-import os,subprocess,sys
+import os,shutil,subprocess,sys
 from pathlib import Path
 root=Path(__file__).resolve().parents[1]
 import hashlib
+sys.path.insert(0,str(root))
+from check_simulation_assets import check
+from icstudio.runtime_setup import check_ngspice
+check(root)
+if os.name=='nt':
+ from stage_windows_ngspice import ensure
+ ensure()
+else:
+ engine=os.environ.get('ICSTUDIO_BUNDLED_NGSPICE') or shutil.which('ngspice')
+ if not engine:raise ValueError('Install ngspice or set ICSTUDIO_BUNDLED_NGSPICE before packaging. Runtime-free releases are not supported.')
+ check_ngspice(engine)
+ os.environ['ICSTUDIO_BUNDLED_NGSPICE']=engine
 (root/"icstudio"/"build_info.py").write_text("ENGINE_SOURCE_HASH = "+repr(hashlib.sha256((root/"icstudio"/"simulation.py").read_bytes()).hexdigest())+"\nWORKFLOW_SOURCE_HASH = "+repr(hashlib.sha256(b"".join(f.name.encode()+f.read_bytes() for f in sorted((root/"icstudio").glob("*.py")) if f.name!="build_info.py")).hexdigest())+"\n")
 args=[sys.executable,'-m','PyInstaller','--noconfirm','--clean','--name','ICDesignStudio','--windowed','--onedir','--collect-all','klayout','--add-data',f'{root/"icstudio"/"assets"}{os.pathsep}icstudio/assets','--hidden-import','PySide6.QtSvg','--hidden-import','icstudio.cli','--hidden-import','icstudio.sdk','--add-data',f'{root/"docs"}{os.pathsep}docs','--add-data',f'{root/"examples"}{os.pathsep}examples','--add-data',f'{root/"licenses"}{os.pathsep}licenses']
 engine=os.environ.get('ICSTUDIO_BUNDLED_NGSPICE')
@@ -19,3 +31,5 @@ args.append(str(root/'main.py'));subprocess.run(args,cwd=root,check=True)
 
 from stage_linux_runtime import stage
 stage(root)
+
+check(root/'dist/ICDesignStudio/_internal',runtime=True)

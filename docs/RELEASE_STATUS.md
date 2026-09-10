@@ -1,12 +1,7 @@
-# Current source release: 0.17.1
+# Current delivery: 0.22.0.dev10
 
-[UPDATE_0.17.1.md](UPDATE_0.17.1.md) documents dependency lookup and repair changes.
-254 core tests and 11 Xschem GUI workflow checks passed on the Linux build host.
-Windows discovery paths were covered through unit tests; the application was not
-run on Windows. No 0.17.1 binary was built. The earlier binary remains 0.17.0.
-The reported GF180MCUD schematic remains blocked by missing process assets and
-unsupported native conversion of its embedded ngspice program.
+NGSpice is now provisioned and executed during Windows source setup and installer builds. The prepared portable Windows x64 app contains Python, Qt, the pinned NGSpice 42 console runtime, GF180MCU and SKY130 simulation subsets, and the supplied bandgap schematic.
 
-[UPDATE_0.17.md](UPDATE_0.17.md) documents direct Xschem import, source-preserving export, supported constructs and limitations. [UPDATE_0.16.md](UPDATE_0.16.md) covers the broader design workflows. The verification archive distinguishes native tests, actual engine comparisons and environment-specific failures.
+The gallery offers a short bandgap startup check, the original full characterization, and a SKY130 inverter. Native PDK projects can install both bundled model packages through **Use included PDKs**. Standard cells and physical signoff decks are outside this bundle.
 
-The 0.17.0 release supplied source and a Linux x86_64 standalone app. Offscreen Qt and build-host checks do not establish fresh-OS compatibility, physical-display usability or general process qualification.
+See [simulation setup](../SIMULATION_SETUP.md) and the [dev10 validation record](validation/0.22.0.dev10.json). Native Windows installer and desktop execution remain pending; prepared Windows bytes and Linux/offscreen execution are reported separately.

@@ -58,6 +58,9 @@ def prepare(project, environment, runner=subprocess.run, interpreter=None):
 
 def launch(project, environment, arguments, runner=subprocess.run, interpreter=None):
     python=prepare(project,environment,runner,interpreter)
+    print('Checking bundled NGSpice and simulation libraries…',flush=True)
+    run_checked([python,Path(project)/'scripts/stage_windows_ngspice.py','--ensure'],project,runner)
+    run_checked([python,Path(project)/'scripts/check_simulation_assets.py'],project,runner)
     return runner([str(python),str(Path(project)/'main.py'),*arguments],cwd=str(project),check=False).returncode
 
 

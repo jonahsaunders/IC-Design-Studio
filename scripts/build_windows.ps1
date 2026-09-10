@@ -8,6 +8,9 @@ function Run-Checked([string]$Program, [string[]]$Arguments) {
     if ($LASTEXITCODE -ne 0) { throw "$Program exited with $LASTEXITCODE" }
 }
 if (-not $SkipBuild) {
+    Run-Checked python @('scripts/stage_windows_ngspice.py','--ensure')
+    Run-Checked python @('scripts/check_simulation_assets.py')
+    $env:ICSTUDIO_TEST_NGSPICE = (Resolve-Path 'icstudio/assets/runtime/ngspice/ngspice.exe').Path
     $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
     if (Test-Path $vswhere) {
         $vs = & $vswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
@@ -22,6 +25,7 @@ if (-not $SkipBuild) {
     Run-Checked python @('scripts/package.py')
 }
 $version = (& python -c 'from icstudio import __version__; print(__version__)').Trim()
+Run-Checked python @('scripts/check_simulation_assets.py','--bundle','dist/ICDesignStudio/_internal','--runtime')
 Run-Checked python @('scripts/release_archives.py','--output','dist/installers')
 Copy-Item "dist/installers/IC-Design-Studio-$version-Source.zip" 'dist/ICDesignStudio/' -Force
 Copy-Item LICENSE,README.md,THIRD_PARTY_NOTICES.md 'dist/ICDesignStudio/' -Force

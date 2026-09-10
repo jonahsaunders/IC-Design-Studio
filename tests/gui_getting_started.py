@@ -13,6 +13,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--evidence', type=Path, default=ROOT / 'build/getting-started-evidence')
     parser.add_argument('--pdk-packages', type=Path)
+    parser.add_argument('--full', action='store_true', help='Also run long characterization examples')
     args = parser.parse_args(); out = args.evidence.resolve(); out.mkdir(parents=True, exist_ok=True)
     os.environ['XDG_DATA_HOME'] = str(out / 'profile/data')
     os.environ['XDG_CONFIG_HOME'] = str(out / 'profile/config')
@@ -50,10 +51,13 @@ def main():
         w.saved_hash = digest(w.project)
         assert w.open_gallery_example(entry)
         original = ROOT / 'examples' / entry['file']; before = file_digest(original)
+        if entry.get('long_running') and not args.full:
+            outcomes.append({'example': entry['id'], 'status': 'Opened; long simulation covered by verify_bundled_simulation.py --full'})
+            continue
         if entry['engine'] != 'none':
             count = len(w.run_manager.rows); w.quick_run()
             assert len(w.run_manager.rows) == count + 1, (entry['id'], w.analysis_error.text())
-            wait(lambda: w.run_manager.busy)
+            wait(lambda: w.run_manager.busy, timeout=3600 if entry.get('long_running') else 90)
             row = w.run_manager.rows[-1]
             assert row['state'] == 'Complete', (entry['id'], row['log'])
             result = row['result']; assert result['traces']
@@ -76,10 +80,16 @@ def main():
         setup.tabs.setCurrentIndex(0); setup.grab().save(str(out / 'pdk-setup.png'))
         setup.register_selected(); wait(lambda: setup.worker.isRunning(), 600); QTest.qWait(30)
         assert not setup.last_result['errors'], setup.last_result
-        assert len(setup.last_result['registered']) >= 4
+        assert len(setup.last_result['registered']) == setup.candidates.count()
     else:
         setup.grab().save(str(out / 'pdk-setup.png'))
     package_results = setup.last_result
+    from PySide6.QtWidgets import QPushButton
+    included = next(b for b in setup.findChildren(QPushButton) if b.text() == 'Use included PDKs')
+    included.click(); wait(lambda: setup.worker.isRunning(), 120); QTest.qWait(30)
+    assert not setup.last_result['errors'], setup.last_result
+    assert {w.pdk_registry.manifest(k)['family'] for k in setup.last_result['registered']} == {'sky130','gf180mcu'}
+    package_results['included_packages'] = list(setup.last_result['registered'])
     bad = out / 'damaged-package'; bad.mkdir(exist_ok=True); (bad / 'package.json').write_text('{')
     setup.start_operation('register', [{'name': 'Damaged package', 'kind': 'package', 'path': str(bad)},
                                       {'name': 'Teaching package', 'kind': 'package', 'path': str(ROOT / 'examples/pdk-educational')}])
@@ -87,7 +97,7 @@ def main():
     assert len(setup.last_result['errors']) == 1 and len(setup.last_result['registered']) == 1
     setup.close(); w.saved_hash = digest(w.project); w.close()
     report = {'version': __version__, 'status': 'passed', 'platform': sys.platform, 'examples': outcomes,
-              'checks': ['Search and empty gallery state', 'Independent example copies', 'Five short real worker runs',
+              'checks': ['Search and empty gallery state', 'Independent example copies', 'Short real worker runs including both bundled PDKs', 'One-click offline PDK installation',
                          'Expected divider voltage', 'Background PDK discovery and registration', 'New project linked to checksummed PDK'],
               'pdk_results': package_results, 'partial_failure_recovery': 'Valid package registered after a damaged package', 'errors': errors}
     (out / 'getting-started.json').write_text(json.dumps(report, indent=2)); print(json.dumps(report, indent=2))

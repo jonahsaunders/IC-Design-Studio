@@ -9,7 +9,7 @@ Status: implemented pipeline; not executed on Windows in the current delivery. T
 3. Extract the entire source ZIP. Run `build-windows.bat`.
 4. Deliverables appear in `dist/installers`: the Setup EXE, portable ZIP, complete source and checksums.
 
-The installed app includes Python, Qt and KLayout. It does not require a browser, server, account or a separately installed Python. External EDA tools and PDKs are configured separately.
+The installed app includes Python, Qt, KLayout, NGSpice 42, and GF180MCU/SKY130 simulation PDK subsets. It does not require a browser, server, account or a separately installed Python. The build stages and executes NGSpice before packaging and checks the final bundle. Additional PDKs, physical verification engines and IHP OSDI plugins are configured separately.
 
 The installer uses a per-user application directory and does not request administrator privileges. It offers optional desktop and .icproj Open With registration. User projects and application data are retained by uninstall. No publisher signature or automatic updater is configured.
 

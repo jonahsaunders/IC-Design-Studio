@@ -33,3 +33,9 @@ The inverter uses generic educational geometry and models. For the common-centro
 - [Educational PDK package](pdk-educational/package.json): a small checksummed package for learning the installation flow.
 
 Additional `.icproj` files are working development examples; the gallery provides the shortest introduction. Keep long PDK circuits out of routine smoke tests. Use a small representative circuit to test a new engine, model or adapter.
+
+## Included real-PDK simulations (dev10)
+
+The gallery includes the supplied GF180 bandgap in two forms: a short 5 V / 25 °C startup check and the byte-for-byte original 144-analysis characterization. A SKY130 1.8 V inverter is also included. Open a copy and press F5; bundled symbols and models resolve automatically.
+
+The original upload and its identity record are in `gf180-bandgap/`. The short variant changes only the simulation control block. See [simulation setup](../SIMULATION_SETUP.md) for output locations and validation scope.

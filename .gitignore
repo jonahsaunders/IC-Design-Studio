@@ -20,3 +20,6 @@ release*/
 .pytest_cache/
 .DS_Store
 Thumbs.db
+
+# Provisioned simulator runtime; committed models live under assets/pdks.
+icstudio/assets/runtime/ngspice/

@@ -63,6 +63,17 @@ class SourceBootstrapTests(unittest.TestCase):
         self.assertTrue(any('--force-reinstall' in cmd for cmd in self.calls))
         self.assertEqual(json.loads((self.environment/'icstudio-ready.json').read_text()),bootstrap.fingerprint(self.project))
 
+    def test_simulator_or_models_failure_blocks_gui_and_retries_next_launch(self):
+        for script in ('stage_windows_ngspice.py', 'check_simulation_assets.py'):
+            self.calls=[]
+            with self.subTest(script=script), self.assertRaisesRegex(RuntimeError,'not started'):
+                bootstrap.launch(self.project,self.environment,[],self.runner(lambda cmd:any(v.endswith(script) for v in cmd)))
+            self.assertFalse(any(str(self.project/'main.py') in cmd for cmd in self.calls))
+            self.calls=[]
+            bootstrap.launch(self.project,self.environment,[],self.runner())
+            self.assertTrue(any(any(v.endswith(script) for v in cmd) for cmd in self.calls))
+            self.assertEqual(self.calls[-1][1],str(self.project/'main.py'))
+
     def test_import_or_dependency_check_failure_never_marks_ready(self):
         for fail in (lambda cmd:cmd[-1]=='check',lambda cmd:'-c' in cmd):
             with self.subTest(fail=fail),self.assertRaises(RuntimeError):bootstrap.prepare(self.project,self.environment,self.runner(fail))
