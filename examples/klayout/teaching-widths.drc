@@ -1,7 +1,0 @@
-# Self-contained KLayout DRC example for the generic teaching technology.
-# Run from Studio: Verify > Run KLayout rule script.
-# This is a width-only demonstration, not a complete process rule deck.
-source($input, $top)
-report("Teaching metal widths", $report)
-input(4, 0).width(0.2.um).output("metal1.width", "Metal1 width below 0.2 um")
-input(6, 0).width(0.25.um).output("metal2.width", "Metal2 width below 0.25 um")

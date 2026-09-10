@@ -1,2 +1,0 @@
-* Level-1 reference model, illustrative only
-.model nch nmos (level=1 vto=0.45 kp=100u lambda=0.02)

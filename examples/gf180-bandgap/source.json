@@ -1,5 +1,0 @@
-{
-  "original_uploaded_name": "5vfullv2(20260910-015224).sch",
-  "original_sha256": "a05bdfeae80a59d56adc680874006dd4015f2cfd1e57a7e6d6e94cda4852465f",
-  "startup_changes": "Only the NGSPICE control block: one 5 V, 25 C, 3 ms startup transient. All geometry, device values and model includes retained."
-}

@@ -1,6 +1,0 @@
-cmake_minimum_required(VERSION 3.20)
-project(iccore VERSION 0.1.0 LANGUAGES CXX)
-add_library(iccore SHARED solver.cpp)
-target_compile_features(iccore PRIVATE cxx_std_20)
-set_target_properties(iccore PROPERTIES CXX_VISIBILITY_PRESET hidden)
-install(TARGETS iccore LIBRARY DESTINATION icstudio RUNTIME DESTINATION icstudio)

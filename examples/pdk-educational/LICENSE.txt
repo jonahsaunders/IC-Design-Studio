@@ -1,1 +1,0 @@
-These original example model declarations are part of IC Design Studio, GPL-3.0-or-later. They are educational approximations, not foundry models.

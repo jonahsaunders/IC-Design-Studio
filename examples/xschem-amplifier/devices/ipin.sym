@@ -1,9 +1,0 @@
-v {xschem version=3.4.4 file_version=1.2}
-G {}
-K {type=ipin format="*.ipin @lab" template="name=p lab=net" custom_note="preserve this attribute"}
-V {}
-S {}
-E {}
-B 4 -20 -20 20 20 {}
-T {@name} 25 -15 0 0 0.2 0.2 {}
-B 5 -2 -2 2 2 {name=p dir=inout sim_pinnumber=1}

@@ -1,9 +1,0 @@
-{
-  "release": "sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
-  "repository": "chipfoundry/volare",
-  "files": {
-    "common.tar.zst": "c7c155596a1fd1fcf6d5414dfcffcbbcf4e35b2b33160af97f4340e763c97406",
-    "sky130_fd_pr.tar.zst": "41dc9098541ed3329eba4ec7f5dfd1422eb09e94b623ea1f6dc3895f9ccebf63",
-    "sky130_fd_sc_hd.tar.zst": "d4081b3c0fbfa2afe31dba789c03157ad137ea08b11910e2c8b3ec81b2a61bf6"
-  }
-}
