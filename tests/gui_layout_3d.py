@@ -134,8 +134,9 @@ def main():
         if args.require_opengl:
             assert isinstance(dialog.view, OpenGLView) and not dialog.view.error
         renderer = type(dialog.view).__name__
-        dialog.close();QTest.qWait(30)
-        checks.append('close and reopen resource lifecycle')
+        QTest.keyClick(dialog, Qt.Key_Escape);QTest.qWait(30)
+        assert studio._layout_3d_dialog is None
+        checks.append('close Escape and reopen resource lifecycle')
         assert not errors, errors
         report = dict(status='passed', renderer=renderer, qt_platform=app.platformName(), checks=checks)
         (out/'report.json').write_text(json.dumps(report,indent=2));print(json.dumps(report))

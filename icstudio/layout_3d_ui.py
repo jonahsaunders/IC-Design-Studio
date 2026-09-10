@@ -233,12 +233,23 @@ class Layout3DDialog(QDialog):
         if not self.grab().save(path, 'PNG'):
             self.status.setText('Could not save the PNG. Choose a writable location.')
 
-    def closeEvent(self, event):
+    def release_view(self):
+        if getattr(self, '_released', False):
+            return
+        self._released = True
         self.timer.stop()
         if isinstance(self.view, OpenGLView):
             self.view.cleanup()
         if getattr(self.studio, '_layout_3d_dialog', None) is self:
             self.studio._layout_3d_dialog = None
+
+    def done(self, result):
+        # Escape/reject uses done() without sending a closeEvent.
+        self.release_view()
+        super().done(result)
+
+    def closeEvent(self, event):
+        self.release_view()
         super().closeEvent(event)
 
 
