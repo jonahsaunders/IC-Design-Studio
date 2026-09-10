@@ -1,6 +1,9 @@
 name: Prepare draft preview release
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [icstudio/__init__.py, .github/workflows/release-preview.yml]
 permissions:
   contents: read
 concurrency:

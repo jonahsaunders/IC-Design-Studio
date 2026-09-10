@@ -1,4 +1,7 @@
-# IC Design Studio 0.22.0.dev11 — engineering preview
+# IC Design Studio 0.22.0.dev12 — engineering preview
+
+The dev12 update adds [larger hierarchical layouts, schematic-driven review and concurrent cell/layer editing](LAYOUT_SCALE_AND_COLLABORATION.md). Review that guide for supported recipes, conflict handling and operation limits.
+
 
 This preview makes the existing design workflows reproducible as release gates.
 It includes the project hub, bundled GF180MCU/SKY130 simulation subsets, reviewed
@@ -49,4 +52,4 @@ Use the Windows installer or extract the complete portable ZIP. On Linux,
 extract the complete tarball and run `ICDesignStudio/ICDesignStudio`. Keep the
 runtime directories beside the executable. Each platform has a matching source
 ZIP; the Windows source includes its staged ngspice runtime. Check the final
-`SHA256SUMS-0.22.0.dev11.txt` before use. See [download guidance](DOWNLOADS.md).
+`SHA256SUMS-0.22.0.dev12.txt` before use. See [download guidance](DOWNLOADS.md).

@@ -40,23 +40,12 @@ class LayoutDevelopmentMixin:
         self.action(self.task_menus['Verify'],'Run bundled KLayout rules…',self.klayout_bundle_dialog)
         self.action(menu,'Review schematic changes in layout…',self.layout_eco_dialog)
         self.action(self.analysis_submenus['Post-layout'],'Calibrate RC from measurements…',self.rc_calibration_dialog)
-        self.action(self.task_menus['Help'],'Layout development guide',lambda:self.open_editor_doc('UPDATE_0.22.md'))
+        self.action(self.task_menus['Help'],'Layout development guide',lambda:self.open_editor_doc('LAYOUT_SCALE_AND_COLLABORATION.md'))
         self.reindex_commands()
 
     def layout_eco_dialog(self):
-        if not self.idle_edit():return
-        from .layout_eco import inventory,propose
-        report=inventory(self.project,self.cid);cid=self.cid
-        changed=[r['device_id'] for r in report['devices'] if r['status']=='changed']
-        summary='\n'.join(r['name']+' · '+r['status']+(' · '+r['detail'] if r['detail'] else '') for r in report['devices'])
-        summary+='\n\n'+str(len(report['connectivity']))+' connectivity findings. Missing and orphan footprints require explicit placement or deletion.'
-        if not changed:return self.text_dialog('Schematic / layout review',summary)
-        def submit(v):
-            def build():
-                candidate,detail=propose(self.project,cid,changed,self.layout.locked_layers,v['routing']=='Preserve connections')
-                return candidate,summary+'\n\nUpdate '+str(len(changed))+' footprints at saved placement/orientation; adjusted routes: '+str(len(detail['adjusted_routes']))+'. After update: '+str(len(detail['after']['connectivity']))+' connectivity findings. Rerun full DRC/LVS.'
-            return self.review_dialog('Apply schematic changes to layout',build)
-        return self.workflow_form('Schematic / layout review',[('routing','Attached routes',['Preserve connections','Keep coordinates'])],submit,summary)
+        from .layout_eco_ui import show
+        return show(self)
 
     def rc_calibration_dialog(self):
         path,_=QFileDialog.getOpenFileName(self,'Import RC coupon measurements','','JSON (*.json)')

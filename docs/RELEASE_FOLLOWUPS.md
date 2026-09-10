@@ -4,7 +4,7 @@ These are ready-to-post issue bodies, not assertions that issues or external
 acceptance checks have been completed. Attach evidence for the exact release
 commit and asset hashes. Keep a failed or blocked check open.
 
-## Qualify dev11 on clean Windows 10 and Windows 11 machines
+## Qualify dev12 on clean Windows 10 and Windows 11 machines
 
 The hosted Windows Server job does not establish consumer Windows compatibility.
 
@@ -49,7 +49,7 @@ chosen certificate or signing service and repository secret configuration.
   decision and keep the download instructions accurate.
 - [ ] Retain consumer-machine installation observations for the chosen approach.
 
-## Record the first complete dev11 qualification and draft release
+## Record the first complete dev12 qualification and draft release
 
 The workflows and ruleset are implementation/configuration; repository settings
 and successful hosted runs require separate evidence.

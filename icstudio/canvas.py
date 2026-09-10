@@ -137,6 +137,9 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
             a,b=self.ruler;p.setPen(self.pen(t['accent'],1.5));p.drawLine(a,b)
             length=math.hypot(b.x()-a.x(),b.y()-a.y())/(1000 if self.mode=='layout' else 1);p.save();p.translate((a+b)/2);p.scale(1/self.scale,1/self.scale);p.setFont(QFont('DejaVu Sans',10));p.drawText(QPointF(5,-8),f'{length:.4g} '+('µm' if self.mode=='layout' else 'units'));p.restore()
         p.resetTransform()
+        scene=self.cell.get('_layout_scene') if self.mode=='layout' else None
+        if scene is not None and scene.stats.get('detail_reduced'):
+            p.setPen(QColor(t['muted']));p.setFont(QFont('Sans Serif',10));p.drawText(QPointF(12,23),f"Hierarchy outline · {scene.expanded_count:,} expanded shapes · zoom in for geometry")
         if self.mode=='schematic' and getattr(self,'simulation_annotation_label',''):
             p.setPen(QColor('#e3a851' if self.simulation_annotation_label.startswith('STALE') else t['muted']));p.setFont(QFont('Sans Serif',9));p.drawText(QPointF(12,23),self.simulation_annotation_label)
         if not self.cell['devices' if self.mode=='schematic' else 'shapes'] and not getattr(self,'cursor_route_preview',[]) and not self.placement and not self.drawing and self.anchor is None and not (self.mode=='schematic' and self.cell.get('wires')) and not (self.mode=='layout' and self.cell.get('_layout_scene') and self.cell['_layout_scene'].expanded_count):
@@ -259,7 +262,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         delta=self.drag-self.anchor if self.moving and self.anchor is not None and self.drag is not None else None
         scene=self.cell.get('_layout_scene')
         if scene is not None:
-            def query(area):return scene.query((area.left(),area.top(),area.right(),area.bottom()))
+            def query(area):return scene.query((area.left(),area.top(),area.right(),area.bottom()),render=True)
             shapes=[(s,None) for s in query(view) if delta is None or s['id'] not in selection] if part!='moving' else []
             if delta is not None and part!='stationary':shapes.extend((s,delta) for s in query(view.translated(-delta)) if s['id'] in selection)
             scope=(id(scene),scene.generation)
@@ -281,6 +284,8 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
             if batch:p.drawRects(batch);batch.clear()
             batch_box=None
         for s,base_box,path,translation in rows:
+            if s.get('_overview'):
+                flush();p.save();pen=self.pen(theme['muted'],1);pen.setStyle(Qt.DashLine);p.setPen(pen);p.setBrush(Qt.NoBrush);p.drawRect(base_box);p.restore();continue
             box=base_box.translated(translation) if translation is not None else base_box
             if s['layer'] not in self.visible_layers or not view.intersects(box):continue
             if scene is None:path=path.get()
@@ -335,7 +340,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
             shapes=(row[0] for row in scene.sources.values()) if scene is not None else self.cell['shapes']
             self._vector_scale_free=self.cell.get('layout_label_mode')=='explicit' or not any(s.get('net') for s in shapes)
             self._vector_label_scope=label_scope
-        scale_free=self._vector_scale_free and not getattr(self,'batch_rectangles',False)
+        scale_free=self._vector_scale_free and not getattr(self,'batch_rectangles',False) and not (scene is not None and scene.stats.get('detail_reduced'))
         if self.moving and self.anchor is not None and self.drag is not None and getattr(self,'cache_layout_pictures',True):
             source=(id(scene),scene.generation) if scene is not None else (id(self.cell['shapes']),self._geometry_cache.revision)
             key=(source,self._layout_display_revision,self.scale,self.dark,tuple(self.selection),self.net,tuple(sorted(self.visible_layers)),repr(getattr(self,'layer_styles',{})),self.cell.get('layout_label_mode'),self.devicePixelRatioF())

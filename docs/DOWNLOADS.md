@@ -1,6 +1,6 @@
 # Get IC Design Studio
 
-Current source: **0.22.0.dev11**, an engineering-preview release candidate.
+Current source: **0.22.0.dev12**, an engineering-preview release candidate.
 Check the [Releases page](https://github.com/jonahsaunders/IC-Design-Studio/releases)
 for published downloads. A draft release or Actions artifact is not a published
 release. If there is no current release, use **Code → Download ZIP** and the
@@ -16,7 +16,7 @@ release. If there is no current release, use **Code → Download ZIP** and the
 | `Source-Windows.zip` | Matching Windows source, including its staged ngspice runtime |
 | `Source-Linux.zip` | Matching Linux application source; install native ngspice for source use |
 | `Validation-*.json` and `Evidence-*.zip` | Exact commit, package hashes and executed platform/numerical checks |
-| `SHA256SUMS-0.22.0.dev11.txt` | Final download checksums |
+| `SHA256SUMS-0.22.0.dev12.txt` | Final download checksums |
 
 Keep the complete runtime folder beside the executable. A clean GitHub source
 export contains no native binaries: the Windows launcher downloads the pinned
@@ -35,7 +35,7 @@ for custom engine paths and [the release guide](RELEASING.md) for maintainers.
 
 ## Verify a download
 
-On Linux, run `sha256sum -c SHA256SUMS-0.22.0.dev11.txt` in the download directory.
-On Windows, run `Get-FileHash .\IC-Design-Studio-0.22.0.dev11-Windows-x64-Setup.exe -Algorithm SHA256`
+On Linux, run `sha256sum -c SHA256SUMS-0.22.0.dev12.txt` in the download directory.
+On Windows, run `Get-FileHash .\IC-Design-Studio-0.22.0.dev12-Windows-x64-Setup.exe -Algorithm SHA256`
 and compare it with the matching line in the checksum file. Missing optional
 files in a full checksum inventory do not verify any files you did not download.

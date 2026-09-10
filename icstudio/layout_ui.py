@@ -21,9 +21,12 @@ class LayoutMixin:
         for i,l in enumerate(self.project['pdk']['layers']):
             it=self.layers.item(i);it.setData(Qt.UserRole,l['name']);it.setText(l['name']+f'  {l["gds"]}/{l["datatype"]}'+('  · locked' if l['name'] in self.layout.locked_layers else ''));it.setToolTip(f'{l["name"]}\nGDS {l["gds"]} / {l["datatype"]}\n'+('Locked for selection' if l['name'] in self.layout.locked_layers else 'Selectable'))
         self.layers.blockSignals(False);self.filter_layers();self.physical_tree.clear();by={c['id']:c for c in self.project['cells']}
+        displayed=set()
         def node(cid,parent,seen):
             c=by[cid];it=QTreeWidgetItem(parent,[c['name']]);it.setData(0,Qt.UserRole,cid);it.setIcon(0,icon('cell'));it.setExpanded(True)
-            if cid in seen:return
+            if cid in displayed:
+                it.setToolTip(0,'Shared master; double-click to inspect its children.');return it
+            displayed.add(cid)
             for inst in c.get('layout_instances',[]):
                 child=node(inst['cell'],it,seen|{cid});child.setText(0,inst['name']+' → '+by[inst['cell']]['name']+f'  [{inst.get("nx",1)}×{inst.get("ny",1)}]')
             return it

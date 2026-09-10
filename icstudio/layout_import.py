@@ -7,7 +7,8 @@ from .layout import kdb,shape_from_polygon
 def read_layout(path):
     db=kdb();ly=db.Layout();ly.read(str(path));p=example('empty');p['name']=path.stem;p['cells']=[];p['pdk']['layers']=[]
     factor=ly.dbu/.001;warnings=['Imported layout hierarchy and geometry. Schematic/device mappings require a matching Studio sidecar.'];by={};names=set()
-    if ly.cells()>100:raise ValueError('The native project limit is 100 cells. Import a smaller hierarchy.')
+    from .layout_limits import MAX_CELLS
+    if ly.cells()>MAX_CELLS:raise ValueError(f'The native project limit is {MAX_CELLS} cells. Import a smaller hierarchy.')
     def nm(value):
         v=value*factor
         if abs(v-round(v))>1e-6:raise ValueError('Layout coordinates do not fit the 1 nm database grid.')

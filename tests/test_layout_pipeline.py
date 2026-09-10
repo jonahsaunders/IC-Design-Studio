@@ -147,9 +147,14 @@ class HierarchicalScene(unittest.TestCase):
         def rows(shapes):return [(s['id'],s.get('source_id'),s.get('instance_path'),s.get('device_id'),s.get('net'),polygon(s).to_s()) for s in shapes]
         self.assertEqual(rows(actual),rows(expected))
 
-    def test_expanded_limit_is_preserved_without_expanding_array(self):
-        p=self.fixture();p['cells'][0]['layout_instances'][0].update(nx=500,ny=500)
-        with self.assertRaisesRegex(ValueError,'100,000'):LayoutScene().update(p,p['top'])
+    def test_large_overview_is_bounded_and_zoom_query_stays_exact(self):
+        p=self.fixture();p['cells'][0]['layout_instances'][0].update(nx=1000,ny=1000,a=[2000,0],b=[0,2000],rotation=0,mirror=False,x=0,y=0)
+        validate(p);scene=LayoutScene().update(p,p['top'])
+        self.assertEqual(scene.expanded_count,2000000);self.assertEqual(scene.stats['master_shapes'],2)
+        rows=scene.query((-1,-1,2000000,2000000),render=True)
+        self.assertTrue(rows[0]['_overview']);self.assertTrue(scene.stats['detail_reduced']);self.assertEqual(scene.stats['query_rows'],12000)
+        rows=scene.query((10,10,100,100),cache=False)
+        self.assertEqual(len(rows),1);self.assertEqual(rows[0]['instance_path'],'array[0,0]/');self.assertFalse(scene.stats['detail_reduced'])
 
     def test_depth_and_hierarchy_full_check_fallback(self):
         p=self.fixture();scene=LayoutScene().update(p,p['top'],0);self.assertEqual(scene.expanded_count,0);self.assertEqual(scene.query((-10000,-10000,10000,10000)),[])

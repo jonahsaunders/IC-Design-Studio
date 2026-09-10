@@ -51,3 +51,5 @@ The desktop jobs run `scripts/prepare_release_payload.py` after installer/frozen
 checks. That script executes the extracted archive with isolated application
 settings and retains its hash. `scripts/assemble_prerelease.py` rejects a changed
 asset, different source commit, missing platform or unqualified archive.
+
+A version change merged into `main` automatically starts **Prepare draft preview release**. Manual dispatch remains available. The workflow reruns all three qualifications for the merged commit and creates only a draft prerelease; publication remains a separate maintainer action.

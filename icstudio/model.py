@@ -83,7 +83,9 @@ def validate(p):
     if not isinstance(p.get('name'),str) or not p['name'].strip() or len(p['name'])>128: raise ValueError('Project name must be 1–128 characters.')
     if not isinstance(p.get('revision'),int) or p['revision']<0: raise ValueError('Invalid revision.')
     cells=p.get('cells',[])
-    if not isinstance(cells,list) or not 1<=len(cells)<=100: raise ValueError('A project needs 1–100 cells.')
+    from .layout_limits import MAX_CELLS, MAX_MASTER_SHAPES, MAX_PROJECT_SHAPES
+    if not isinstance(cells,list) or not 1<=len(cells)<=MAX_CELLS: raise ValueError(f'A project needs 1–{MAX_CELLS} cells.')
+    if sum(len(c.get('shapes',[])) for c in cells)>MAX_PROJECT_SHAPES: raise ValueError('Stored layout exceeds 1,000,000 master shapes.')
     ids=set(); cellids={c['id'] for c in cells}; names=set()
     def ident(value):
         if not isinstance(value,str) or not NAME.fullmatch(value): raise ValueError(f'Invalid identifier: {value!r}')
@@ -123,7 +125,7 @@ def validate(p):
         if len(c.get('ports',[]))>128 or len(set(c['ports']))!=len(c['ports']): raise ValueError('Invalid cell ports.')
         for port in c['ports']:
             if not NET.fullmatch(port) or port=='0':raise ValueError('Invalid cell port.')
-        if len(c.get('devices',[]))>500 or len(c.get('shapes',[]))>100000: raise ValueError('Preview design-size limit exceeded.')
+        if len(c.get('devices',[]))>500 or len(c.get('shapes',[]))>MAX_MASTER_SHAPES: raise ValueError('Preview design-size limit exceeded.')
         from .design_ops import parameters,resolved_device
         context=parameters(c.get('parameters',{}),parameters(p.get('parameters',{})))
         for original in c['devices']:
@@ -243,7 +245,7 @@ def load_project(path):
     if path.is_dir() or path.suffix=='.icstudio':
         from .project_store import load_directory
         return load_directory(path)
-    if path.stat().st_size>50*1024*1024: raise ValueError('Project exceeds 50 MiB preview limit.')
+    if path.stat().st_size>512*1024*1024: raise ValueError('Project exceeds the 512 MiB native project limit.')
     p=json.loads(path.read_text(encoding='utf-8'));package_root=p.get('pdk',{}).get('package_root')
     if package_root and not Path(package_root).is_absolute():p['pdk']['package_root']=str((path.parent/package_root).resolve())
     return validate(p)

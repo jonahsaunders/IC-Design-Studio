@@ -25,7 +25,7 @@ python tests/gui_layout_performance.py --out gui-performance
 
 On Windows, double-click `benchmark-windows.bat` after installing 64-bit Python 3.12. Results go to a timestamped folder under `benchmark-results`. This entry point is supplied for native measurement; it has not been executed on Windows in this handoff.
 
-Measurements use synthetic 1,000- and 10,000-shape layouts and compact arrays. The pipeline benchmark includes synchronous durable recovery; the Canvas benchmark excludes Studio overhead and solver work. Native Qt/KLayout allocations are excluded from Python allocation measurements. First-use compilation, overview cache rebuilds, general edits and full hierarchical checks remain more expensive than warm local operations. Existing 100-cell, 100,000 expanded-shape and 20,000 conducting-shape limits remain. Local checks do not qualify manufacturing decks, extracted devices or timing. No monitor FPS, Windows/macOS parity or universal latency guarantee is claimed.
+Measurements use synthetic 1,000- and 10,000-shape layouts and compact arrays. The pipeline benchmark includes synchronous durable recovery; the Canvas benchmark excludes Studio overhead and solver work. Native Qt/KLayout allocations are excluded from Python allocation measurements. First-use compilation, overview cache rebuilds, general edits and full hierarchical checks remain more expensive than warm local operations. The dev12 [capacity and collaboration update](LAYOUT_SCALE_AND_COLLABORATION.md) supersedes the original storage, viewport and connected-edit limits; flattening operations retain a separate 100,000-shape budget. Local checks do not qualify manufacturing decks, extracted devices or timing. No monitor FPS, Windows/macOS parity or universal latency guarantee is claimed.
 
 The enclosing handoff includes raw samples, CPU profiles, before/after comparisons and GUI evidence under `evidence/development-0.22-dev5/`. Six final-source GUI pixel/hierarchy checks passed. Complete pipeline timing was captured before final renderer refinements and is labeled with its measured hash. Later full-suite, recovery and worker tests encountered host `os.fsync` I/O errors, reproduced by a standalone probe; those durable-I/O gates remain blocked and must be rerun before release qualification.
 
@@ -56,7 +56,7 @@ The editor compares actual polygon components before and after an edit. Conducto
 
 Select complete generated footprints and via stacks. Process terminals and parametric-device terminals follow their owning footprints. Attached local Manhattan paths are retargeted. Stretching keeps route endpoints and branch anchors fixed; repeated branch stretching reuses its lead instead of adding one every time. Unsupported contacts, locked layers, collapsed paths, shorts and failed validation leave the document unchanged. Undo/redo uses the existing document transaction system.
 
-This does not repair a pre-existing open or short, recognize transistor connectivity from diffusion, or replace process LVS. Connected editing is bounded to 20,000 conducting shapes. Use explicit free geometry editing when intentionally changing topology, then verify the result.
+This does not repair a pre-existing open or short, recognize transistor connectivity from diffusion, or replace process LVS. Connected editing is bounded to 100,000 conducting shapes and 2,000,000 candidate contact pairs per update. Use explicit free geometry editing when intentionally changing topology, then verify the result.
 
 ## Plan, inspect and install a route
 

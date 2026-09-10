@@ -17,34 +17,8 @@ def partition(p, cid):
     if not c.get('layout_instances'):
         from .layout_graph import GeometryGraph
         graph=GeometryGraph();graph.sync(c['shapes'],p['pdk']);return graph.partition(p,cid)
-    db = kdb(); cfg = p['pdk'].get('connectivity', {})
-    vias = cfg.get('vias', [['metal1', 'via1', 'metal2']])
-    allowed = {(a, b) for lower, cut, upper in vias
-               for a, b in ((lower, cut), (cut, lower), (cut, upper), (upper, cut))}
-    layers = set(cfg.get('conductors', ['metal1', 'metal2'])) | {v for _, v, _ in vias}
-    shapes = [s for s in flatten_layout(p, cid) if s['layer'] in layers]
-    if len(shapes) > 20000: raise ValueError('Connected editing supports at most 20,000 conducting shapes.')
-    polys = [polygon(s) for s in shapes]; regions = [db.Region(v) for v in polys]
-    keys = [shape_key(s) for s in shapes]; parents = list(range(len(keys)))
-    def find(i):
-        while parents[i] != i: parents[i] = parents[parents[i]]; i = parents[i]
-        return i
-    def union(i, j): parents[find(i)] = find(j)
-    index = SpatialIndex([((b.left,b.bottom,b.right,b.top),i) for i,poly in enumerate(polys) for b in [poly.bbox()]])
-    for i, poly in enumerate(polys):
-        box = poly.bbox()
-        for j in index.query((box.left,box.bottom,box.right,box.top)):
-            a,b = shapes[i]['layer'],shapes[j]['layer']
-            if j > i and (a == b or (a,b) in allowed) and not regions[i].interacting(regions[j]).is_empty(): union(i,j)
-    anchors = [(('pin',v['id']),v) for v in terminals(p,cid)]
-    anchors += [(('port',v['name']),v) for v in ports(p,cid)]
-    for key, v in anchors:
-        i = len(keys); keys.append(key); parents.append(i); x,y = v['point']
-        for j in index.query((x,y,x,y)):
-            if shapes[j]['layer'] == v['layer'] and polys[j].inside(db.Point(x,y)): union(i,j)
-    groups = {}
-    for i,key in enumerate(keys): groups.setdefault(find(i),set()).add(key)
-    return {key:frozenset(group) for group in groups.values() for key in group}
+    from .layout_graph import GeometryGraph
+    return GeometryGraph().sync(flatten_layout(p,cid),p['pdk']).partition(p,cid)
 
 
 def require_preserved(before, after, cid):

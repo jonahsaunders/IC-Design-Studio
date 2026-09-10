@@ -15,7 +15,8 @@ def inspect(path):
     db=kdb();layout=db.Layout();layout.read(str(path))
     issues=[]
     if abs(layout.dbu-.001)>1e-12:issues.append('Source database unit is '+str(layout.dbu)+' µm; native coordinates use 0.001 µm.')
-    if layout.cells()>100:issues.append('Source exceeds the 100-cell native hierarchy limit.')
+    from .layout_limits import MAX_CELLS
+    if layout.cells()>MAX_CELLS:issues.append(f'Source exceeds the {MAX_CELLS}-cell native hierarchy limit.')
     for cell in layout.each_cell():
         for instance in cell.each_inst():
             tr=instance.cplx_trans
