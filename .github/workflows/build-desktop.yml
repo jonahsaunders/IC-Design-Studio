@@ -29,7 +29,7 @@ jobs:
           sudo apt-get install -y ngspice xschem libegl1 libopengl0 libgl1 libglx0 libglvnd0 \
             libx11-6 libxcb1 libxcb-image0 libxcb-xkb1 libxcb-cursor0 \
             libxcb-keysyms1 libxcb-render-util0 libxcb-icccm4 libxcb-util1 \
-            libxcb-shape0 libxkbcommon-x11-0
+            libxcb-shape0 libxkbcommon-x11-0 xvfb xauth libgl1-mesa-dri libglx-mesa0
           echo "ICSTUDIO_TEST_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
           echo "ICSTUDIO_BUNDLED_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
       - name: Stage verified Windows simulation engine
@@ -61,6 +61,18 @@ jobs:
         run: python tests/gui_layout_expansion.py --out build/layout-expansion-evidence
       - name: Check repository release materials
         run: python scripts/check_release.py
+      - name: Test 3D layout software viewer
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_layout_3d.py --out build/layout-3d-evidence
+      - name: Test 3D layout OpenGL rendering
+        if: runner.os == 'Linux'
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: xcb
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a -s '-screen 0 1440x1000x24' python tests/gui_layout_3d.py --require-opengl --out build/layout-3d-opengl-evidence
       - name: Test guided examples and PDK setup
         if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
         timeout-minutes: 5
@@ -222,6 +234,8 @@ jobs:
             build/label-evidence
             build/project-pdk-evidence
             build/layout-expansion-evidence
+            build/layout-3d-evidence
+            build/layout-3d-opengl-evidence
             build/native-hierarchy-evidence
             build/distribution-evidence
             build/verification-0.8.0

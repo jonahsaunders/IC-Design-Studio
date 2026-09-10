@@ -181,6 +181,15 @@ def main(output):
             assert not window.run_manager.busy,'Xschem program worker timed out';row=window.run_manager.rows[-1];assert row['state']=='Complete',row['log'];assert row['result']['program_status']=='Complete',row['result']['warnings'];assert len(row['result']['xschem_cases'])==6;window.refresh_xschem_cases();assert window.xschem_case_table.rowCount()==6
             window.select_xschem_case_data(2);marker=window.plot.add_marker('XY',.0005,1.01,'out');assert evaluate(window.result,marker)['verdict']=='PASS';window.select_xschem_case_data(5);assert evaluate(window.result,marker)['verdict']=='FAIL';window.select_xschem_case_data(3);assert window.result['plot_kind']=='ac'
             report['checks'].append('0.18 included offline Xschem symbols, bundled ngspice program worker, six cases, waveform selection and exact X/Y checks')
+        previous=clone(window.project);previous_path=window.path
+        from .layout import rect
+        p=example('empty');p['cells'][0]['shapes']=[rect('metal1',0,0,5000,3000),rect('metal2',1000,1000,2000,2000)]
+        window.set_project(p);before=digest(window.project);viewer=window.layout_3d_dialog();QTest.qWait(350)
+        assert viewer.mesh.shape_count==2 and viewer.mesh.triangle_count==24
+        viewer.z_scale_spin.setValue(2);viewer.view.preset('Isometric');QTest.qWait(30)
+        assert viewer.grab().save(str(out/'layout-3d.png'));assert digest(window.project)==before
+        renderer=type(viewer.view).__name__;viewer.close();QTest.qWait(30);window.set_project(previous,previous_path)
+        report['checks'].append('packaged 3D layout viewer, extrusion, display controls and PNG ('+renderer+')')
         window.fit_active();QTest.qWait(100);assert window.grab().save(str(out/'desktop.png'));assert not errors,errors;report['status']='passed'
     except Exception:
         report['error']=traceback.format_exc()

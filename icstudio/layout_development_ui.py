@@ -27,6 +27,7 @@ class LayoutDevelopmentMixin:
 
     def make_actions(self):
         super().make_actions();menu=self.task_menus['Layout']
+        self.action(menu,'3D layout viewer…',self.layout_3d_dialog)
         self.connected_layout_action=self.action(menu,'Preserve connections on move / stretch',lambda:None)
         self.connected_layout_action.setCheckable(True);self.connected_layout_action.setChecked(True)
         routing=menu.addMenu('Multilayer routing')
@@ -42,6 +43,10 @@ class LayoutDevelopmentMixin:
         self.action(self.analysis_submenus['Post-layout'],'Calibrate RC from measurements…',self.rc_calibration_dialog)
         self.action(self.task_menus['Help'],'Layout development guide',lambda:self.open_editor_doc('LAYOUT_SCALE_AND_COLLABORATION.md'))
         self.reindex_commands()
+
+    def layout_3d_dialog(self):
+        from .layout_3d_ui import show
+        return show(self)
 
     def layout_eco_dialog(self):
         from .layout_eco_ui import show

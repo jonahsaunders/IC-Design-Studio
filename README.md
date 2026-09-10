@@ -59,6 +59,10 @@ IC Design Studio brings schematic capture, a simulation run table, waveform insp
 | Dockable windows and searchable commands | Specifications, PVT cases and parameter studies | KLayout report navigation and external rule jobs |
 | Undo, recovery and revision-linked results | Sensitivity and bounded parameter search | Declared interconnect RC comparisons |
 
+**Layout → 3D layout viewer…** opens an interactive layer stack with orbit, pan,
+zoom, editable display heights, layer visibility, exploded views and PNG export.
+See the [3D viewer guide](docs/LAYOUT_3D.md) for physical-stack metadata and large-layout limits.
+
 **0.21 makes the first steps easier:** a searchable example gallery, six guided projects, background discovery of multiple PDK variants, batch registration, and a direct path from a registered PDK to a new project.
 
 This is an **engineering preview**. It has working end-to-end workflows and a growing regression suite; it is not a manufacturing signoff environment. Supported exchange subsets, model requirements and executed validation are documented in the [release notes](docs/RELEASE_0.22.md).
