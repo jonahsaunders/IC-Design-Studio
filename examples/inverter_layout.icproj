@@ -1,0 +1,469 @@
+{
+  "schema": 1,
+  "id": "88d3f3f83be44b69",
+  "name": "CMOS inverter",
+  "revision": 0,
+  "top": "368f7529ca364ab9",
+  "created": "2026-09-07T20:31:56+00:00",
+  "modified": "2026-09-07T20:31:56+00:00",
+  "pdk": {
+    "name": "Generic teaching process",
+    "revision": "generic-1",
+    "status": "unqualified",
+    "dbu_um": 0.001,
+    "grid": 5,
+    "layers": [
+      {
+        "name": "active",
+        "gds": 1,
+        "datatype": 0,
+        "color": "#64c77b",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "poly",
+        "gds": 2,
+        "datatype": 0,
+        "color": "#f18c89",
+        "width": 150,
+        "space": 180
+      },
+      {
+        "name": "contact",
+        "gds": 3,
+        "datatype": 0,
+        "color": "#d2d9de",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "metal1",
+        "gds": 4,
+        "datatype": 0,
+        "color": "#68a6f4",
+        "width": 200,
+        "space": 200
+      },
+      {
+        "name": "via1",
+        "gds": 5,
+        "datatype": 0,
+        "color": "#ddc086",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "metal2",
+        "gds": 6,
+        "datatype": 0,
+        "color": "#b49cef",
+        "width": 250,
+        "space": 250
+      },
+      {
+        "name": "nwell",
+        "gds": 7,
+        "datatype": 0,
+        "color": "#d2ab6a",
+        "width": 1000,
+        "space": 500
+      }
+    ]
+  },
+  "cells": [
+    {
+      "id": "368f7529ca364ab9",
+      "name": "top",
+      "ports": [],
+      "devices": [
+        {
+          "id": "5e4421189f374961",
+          "kind": "V",
+          "name": "VDD",
+          "x": 140,
+          "y": 180,
+          "rotation": 0,
+          "nets": {
+            "p": "vdd",
+            "n": "0"
+          },
+          "value": "1.8",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          }
+        },
+        {
+          "id": "1828d83e5e4642cc",
+          "kind": "V",
+          "name": "V1",
+          "x": 140,
+          "y": 390,
+          "rotation": 0,
+          "nets": {
+            "p": "vin",
+            "n": "0"
+          },
+          "value": "1.8",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "pulse",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "1u",
+            "duty": "0.5",
+            "ac": "1"
+          }
+        },
+        {
+          "id": "a6129cbde96a404a",
+          "kind": "PMOS",
+          "name": "MP1",
+          "x": 490,
+          "y": 200,
+          "rotation": 0,
+          "nets": {
+            "d": "vout",
+            "g": "vin",
+            "s": "vdd",
+            "b": "vdd"
+          },
+          "value": "1",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          }
+        },
+        {
+          "id": "89158ac6ca764b4c",
+          "kind": "NMOS",
+          "name": "MN1",
+          "x": 490,
+          "y": 390,
+          "rotation": 0,
+          "nets": {
+            "d": "vout",
+            "g": "vin",
+            "s": "0",
+            "b": "0"
+          },
+          "value": "1",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          }
+        },
+        {
+          "id": "4e634bfaef5b42cb",
+          "kind": "C",
+          "name": "CL",
+          "x": 730,
+          "y": 310,
+          "rotation": 0,
+          "nets": {
+            "p": "vout",
+            "n": "0"
+          },
+          "value": "20f",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          }
+        }
+      ],
+      "shapes": [
+        {
+          "id": "4a4424393c104604",
+          "kind": "rect",
+          "layer": "nwell",
+          "points": [
+            [
+              -500,
+              -700
+            ],
+            [
+              1980,
+              2700
+            ]
+          ],
+          "device_id": "a6129cbde96a404a",
+          "net": "vdd"
+        },
+        {
+          "id": "22db5e8bdce244d2",
+          "kind": "rect",
+          "layer": "active",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              1480,
+              2000
+            ]
+          ],
+          "device_id": "a6129cbde96a404a",
+          "net": ""
+        },
+        {
+          "id": "2614c133cf934264",
+          "kind": "rect",
+          "layer": "poly",
+          "points": [
+            [
+              500,
+              -300
+            ],
+            [
+              680,
+              2300
+            ]
+          ],
+          "device_id": "a6129cbde96a404a",
+          "net": "vin"
+        },
+        {
+          "id": "729e50a0dab2407d",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              90,
+              -100
+            ],
+            [
+              360,
+              2100
+            ]
+          ],
+          "device_id": "a6129cbde96a404a",
+          "net": "vdd"
+        },
+        {
+          "id": "0e50128046b248f4",
+          "kind": "rect",
+          "layer": "contact",
+          "points": [
+            [
+              150,
+              100
+            ],
+            [
+              300,
+              250
+            ]
+          ],
+          "device_id": "a6129cbde96a404a",
+          "net": "vdd"
+        },
+        {
+          "id": "d94af0dbba884b15",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              1070,
+              -100
+            ],
+            [
+              1340,
+              2100
+            ]
+          ],
+          "device_id": "a6129cbde96a404a",
+          "net": "vout"
+        },
+        {
+          "id": "b761aec8b8964b94",
+          "kind": "rect",
+          "layer": "contact",
+          "points": [
+            [
+              1130,
+              100
+            ],
+            [
+              1280,
+              250
+            ]
+          ],
+          "device_id": "a6129cbde96a404a",
+          "net": "vout"
+        },
+        {
+          "id": "f1da78b551504e9f",
+          "kind": "rect",
+          "layer": "active",
+          "points": [
+            [
+              0,
+              5000
+            ],
+            [
+              1480,
+              7000
+            ]
+          ],
+          "device_id": "89158ac6ca764b4c",
+          "net": ""
+        },
+        {
+          "id": "186e18bd465b4595",
+          "kind": "rect",
+          "layer": "poly",
+          "points": [
+            [
+              500,
+              4700
+            ],
+            [
+              680,
+              7300
+            ]
+          ],
+          "device_id": "89158ac6ca764b4c",
+          "net": "vin"
+        },
+        {
+          "id": "3a334f5da9eb4b97",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              90,
+              4900
+            ],
+            [
+              360,
+              7100
+            ]
+          ],
+          "device_id": "89158ac6ca764b4c",
+          "net": "0"
+        },
+        {
+          "id": "3a4d78eea9c1482f",
+          "kind": "rect",
+          "layer": "contact",
+          "points": [
+            [
+              150,
+              5100
+            ],
+            [
+              300,
+              5250
+            ]
+          ],
+          "device_id": "89158ac6ca764b4c",
+          "net": "0"
+        },
+        {
+          "id": "be72900fc3eb4351",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              1070,
+              4900
+            ],
+            [
+              1340,
+              7100
+            ]
+          ],
+          "device_id": "89158ac6ca764b4c",
+          "net": "vout"
+        },
+        {
+          "id": "d4e5be50364f4fce",
+          "kind": "rect",
+          "layer": "contact",
+          "points": [
+            [
+              1130,
+              5100
+            ],
+            [
+              1280,
+              5250
+            ]
+          ],
+          "device_id": "89158ac6ca764b4c",
+          "net": "vout"
+        }
+      ]
+    }
+  ],
+  "analysis": {
+    "type": "tran",
+    "stop": "60u",
+    "step": "100n",
+    "start": "10",
+    "end": "10meg",
+    "points": 150,
+    "source": "V1",
+    "dc_start": "0",
+    "dc_stop": "1.8",
+    "dc_step": "0.01",
+    "temperature": 27
+  },
+  "waivers": []
+}

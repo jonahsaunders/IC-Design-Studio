@@ -1,0 +1,22 @@
+.venv/
+__pycache__/
+*.pyc
+build/
+dist/
+*.spec
+*.so
+*.dll
+*.dylib
+*.obj
+*.exp
+*.lib
+
+# Local release and interpreter artifacts; keep .icproj examples versioned.
+release*/
+*.exe
+*.pyd
+*.o
+*.log
+.pytest_cache/
+.DS_Store
+Thumbs.db

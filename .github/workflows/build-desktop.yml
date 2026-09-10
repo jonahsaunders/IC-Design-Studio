@@ -1,0 +1,138 @@
+name: Build and verify desktop release
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+  pull_request:
+    paths: ["icstudio/**", "tests/**", "scripts/**", "packaging/**", "examples/**", "docs/**", "README.md", "requirements*.txt", ".github/**"]
+permissions:
+  contents: read
+jobs:
+  package:
+    strategy:
+      matrix:
+        os: [ubuntu-24.04, windows-2022]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install -r requirements-build.txt
+      - name: Install Linux simulation engine
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ngspice libegl1 libopengl0
+          echo "ICSTUDIO_TEST_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
+          echo "ICSTUDIO_BUNDLED_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
+      - name: Stage verified Windows simulation engine
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          python -m pip install py7zr==1.1.3
+          python scripts/stage_windows_ngspice.py --ensure
+          if ($LASTEXITCODE -ne 0) { throw 'Runtime provisioning failed.' }
+          $engine = (Resolve-Path 'icstudio/assets/runtime/ngspice/ngspice.exe').Path
+          "ICSTUDIO_TEST_NGSPICE=$engine" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+      - name: Verify bundled simulation PDKs
+        run: python scripts/check_simulation_assets.py
+      - name: Validate supplied GF180 bandgap startup
+        run: python scripts/verify_bundled_simulation.py --output build/bundled-simulation-evidence
+      - name: Build optional native core
+        run: python scripts/build_native.py
+      - name: Test core
+        run: python -m unittest discover -s tests -v
+      - name: Check repository release materials
+        run: python scripts/check_release.py
+      - name: Test guided examples and PDK setup
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_getting_started.py --evidence build/getting-started-evidence
+      - name: Test native interface
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_smoke.py
+      - name: Qualify native migration with real simulation
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_native_migration.py --evidence build/native-migration-evidence
+      - name: Qualify graphical native analyses and exchange
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_native_workflows.py --evidence build/native-workflow-evidence
+      - name: Test new desktop workflows
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_workflows.py
+      - name: Test manual wiring and keyboard commands
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_wiring.py
+      - name: Test net labels and grounds
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_labels.py
+      - name: Test recovery and job lifecycle
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_reliability.py
+      - name: Test project and PDK workspace
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_project_pdk.py
+      - name: Test lifecycle and reusable components
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_lifecycle.py
+      - name: Test desktop usability
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_usability.py
+      - name: Test linked layout workflow
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_silicon.py
+      - name: Test saved testbenches and physical hierarchy
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_hierarchy.py
+      - name: Install Windows installer compiler
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe")) {
+            choco install innosetup --yes --no-progress
+            if ($LASTEXITCODE -ne 0) { throw 'Inno Setup installation failed' }
+          }
+      - name: Package Linux
+        if: runner.os == 'Linux'
+        run: python scripts/package.py
+      - name: Build Windows installer
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./scripts/build_windows.ps1
+      - name: Verify installed Windows app
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./scripts/verify_windows.ps1
+      - name: Verify frozen Linux app
+        if: runner.os == 'Linux'
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: ./dist/ICDesignStudio/ICDesignStudio --release-test build/frozen-evidence
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ICDesignStudio-${{ matrix.os }}
+          path: |
+            dist/ICDesignStudio
+            dist/installers
+            build/windows-evidence
+            build/frozen-evidence
+            build/native-migration-evidence
+            build/native-workflow-evidence
+            build/getting-started-evidence
+            build/bundled-simulation-evidence
+            build/verification-0.8.0

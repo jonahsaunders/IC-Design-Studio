@@ -1,0 +1,701 @@
+{
+  "schema": 1,
+  "id": "f1b2f79afe25413d",
+  "name": "Common-centroid unit resistor array",
+  "revision": 0,
+  "top": "285acff3b14f43c4",
+  "created": "2026-09-09T02:40:14+00:00",
+  "modified": "2026-09-09T02:40:14+00:00",
+  "pdk": {
+    "name": "Generic teaching process",
+    "revision": "generic-1",
+    "status": "unqualified",
+    "dbu_um": 0.001,
+    "grid": 5,
+    "layers": [
+      {
+        "name": "active",
+        "gds": 1,
+        "datatype": 0,
+        "color": "#64c77b",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "poly",
+        "gds": 2,
+        "datatype": 0,
+        "color": "#f18c89",
+        "width": 150,
+        "space": 180
+      },
+      {
+        "name": "contact",
+        "gds": 3,
+        "datatype": 0,
+        "color": "#d2d9de",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "metal1",
+        "gds": 4,
+        "datatype": 0,
+        "color": "#68a6f4",
+        "width": 200,
+        "space": 200
+      },
+      {
+        "name": "via1",
+        "gds": 5,
+        "datatype": 0,
+        "color": "#ddc086",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "metal2",
+        "gds": 6,
+        "datatype": 0,
+        "color": "#b49cef",
+        "width": 250,
+        "space": 250
+      },
+      {
+        "name": "nwell",
+        "gds": 7,
+        "datatype": 0,
+        "color": "#d2ab6a",
+        "width": 1000,
+        "space": 500
+      }
+    ]
+  },
+  "cells": [
+    {
+      "id": "285acff3b14f43c4",
+      "name": "top",
+      "ports": [],
+      "devices": [
+        {
+          "id": "38cb37141bc74b6b",
+          "kind": "R",
+          "name": "R1",
+          "x": 200,
+          "y": 200,
+          "rotation": 0,
+          "nets": {
+            "p": "groupA",
+            "n": "0"
+          },
+          "value": "1k",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          }
+        },
+        {
+          "id": "31b58b5b02be439a",
+          "kind": "R",
+          "name": "R2",
+          "x": 400,
+          "y": 200,
+          "rotation": 0,
+          "nets": {
+            "p": "groupA",
+            "n": "0"
+          },
+          "value": "1k",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          }
+        },
+        {
+          "id": "9e03a312521842dc",
+          "kind": "R",
+          "name": "R3",
+          "x": 600,
+          "y": 200,
+          "rotation": 0,
+          "nets": {
+            "p": "groupB",
+            "n": "0"
+          },
+          "value": "1k",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          }
+        },
+        {
+          "id": "d8d3d9f0f275414f",
+          "kind": "R",
+          "name": "R4",
+          "x": 800,
+          "y": 200,
+          "rotation": 0,
+          "nets": {
+            "p": "groupB",
+            "n": "0"
+          },
+          "value": "1k",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          }
+        }
+      ],
+      "shapes": [
+        {
+          "id": "fdb3982cba66470f",
+          "kind": "rect",
+          "layer": "poly",
+          "points": [
+            [
+              -35000,
+              -500
+            ],
+            [
+              -25000,
+              500
+            ]
+          ],
+          "device_id": "38cb37141bc74b6b",
+          "net": "",
+          "pcell_role": "body",
+          "pcell_id": "208096a2a0f2437e",
+          "holes": []
+        },
+        {
+          "id": "24900936738c44ae",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              -35500,
+              -500
+            ],
+            [
+              -34500,
+              500
+            ]
+          ],
+          "device_id": "38cb37141bc74b6b",
+          "net": "groupA",
+          "pcell_role": "positive",
+          "pcell_id": "208096a2a0f2437e",
+          "holes": []
+        },
+        {
+          "id": "12e78105eb8044cf",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              -25500,
+              -500
+            ],
+            [
+              -24500,
+              500
+            ]
+          ],
+          "device_id": "38cb37141bc74b6b",
+          "net": "0",
+          "pcell_role": "negative",
+          "pcell_id": "208096a2a0f2437e",
+          "holes": []
+        },
+        {
+          "id": "0e4263c908884211",
+          "kind": "rect",
+          "layer": "poly",
+          "points": [
+            [
+              25000,
+              -500
+            ],
+            [
+              35000,
+              500
+            ]
+          ],
+          "device_id": "31b58b5b02be439a",
+          "net": "",
+          "pcell_role": "body",
+          "pcell_id": "1f0ea60f05af4004",
+          "holes": []
+        },
+        {
+          "id": "53a540a7c55f4776",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              24500,
+              -500
+            ],
+            [
+              25500,
+              500
+            ]
+          ],
+          "device_id": "31b58b5b02be439a",
+          "net": "groupA",
+          "pcell_role": "positive",
+          "pcell_id": "1f0ea60f05af4004",
+          "holes": []
+        },
+        {
+          "id": "9b6a21f716014379",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              34500,
+              -500
+            ],
+            [
+              35500,
+              500
+            ]
+          ],
+          "device_id": "31b58b5b02be439a",
+          "net": "0",
+          "pcell_role": "negative",
+          "pcell_id": "1f0ea60f05af4004",
+          "holes": []
+        },
+        {
+          "id": "e035851c5f794fb3",
+          "kind": "rect",
+          "layer": "poly",
+          "points": [
+            [
+              -15000,
+              -500
+            ],
+            [
+              -5000,
+              500
+            ]
+          ],
+          "device_id": "9e03a312521842dc",
+          "net": "",
+          "pcell_role": "body",
+          "pcell_id": "4335ed6c9a7541f0",
+          "holes": []
+        },
+        {
+          "id": "681a05761d3446c1",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              -15500,
+              -500
+            ],
+            [
+              -14500,
+              500
+            ]
+          ],
+          "device_id": "9e03a312521842dc",
+          "net": "groupB",
+          "pcell_role": "positive",
+          "pcell_id": "4335ed6c9a7541f0",
+          "holes": []
+        },
+        {
+          "id": "e0563e2fea774b8b",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              -5500,
+              -500
+            ],
+            [
+              -4500,
+              500
+            ]
+          ],
+          "device_id": "9e03a312521842dc",
+          "net": "0",
+          "pcell_role": "negative",
+          "pcell_id": "4335ed6c9a7541f0",
+          "holes": []
+        },
+        {
+          "id": "c5f484756edd4fd0",
+          "kind": "rect",
+          "layer": "poly",
+          "points": [
+            [
+              5000,
+              -500
+            ],
+            [
+              15000,
+              500
+            ]
+          ],
+          "device_id": "d8d3d9f0f275414f",
+          "net": "",
+          "pcell_role": "body",
+          "pcell_id": "409f4839945e4e1a",
+          "holes": []
+        },
+        {
+          "id": "77a5efaef7084496",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              4500,
+              -500
+            ],
+            [
+              5500,
+              500
+            ]
+          ],
+          "device_id": "d8d3d9f0f275414f",
+          "net": "groupB",
+          "pcell_role": "positive",
+          "pcell_id": "409f4839945e4e1a",
+          "holes": []
+        },
+        {
+          "id": "da562b26992c40a0",
+          "kind": "rect",
+          "layer": "metal1",
+          "points": [
+            [
+              14500,
+              -500
+            ],
+            [
+              15500,
+              500
+            ]
+          ],
+          "device_id": "d8d3d9f0f275414f",
+          "net": "0",
+          "pcell_role": "negative",
+          "pcell_id": "409f4839945e4e1a",
+          "holes": []
+        }
+      ],
+      "parametric_devices": [
+        {
+          "id": "208096a2a0f2437e",
+          "device_id": "38cb37141bc74b6b",
+          "spec": {
+            "x": 0,
+            "y": 0,
+            "width": 1000,
+            "kind": "resistor"
+          },
+          "electrical": {
+            "target": 1000.0,
+            "realized": 1000.0,
+            "unit": "Ohm"
+          },
+          "source_signature": "1e87299916121ecfd68ea838b769301ce0a05cfa2499cbcaf36f2b4fefb98b3e",
+          "rules_hash": "4f69b6f6ef0e8243653c942b2123609bd5b22f0cc450c529b0ad2b19013c5662",
+          "qualification": "Illustrative teaching geometry; electrical coefficients are declared examples, not calibrated process data.",
+          "geometry_signature": "a93eb98a661ee3019fe2f409be5245e37232b5cbf0930b9170b5a176397d703e",
+          "reference": {
+            "role": "body",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                10000,
+                1000
+              ]
+            ]
+          }
+        },
+        {
+          "id": "1f0ea60f05af4004",
+          "device_id": "31b58b5b02be439a",
+          "spec": {
+            "x": 20000,
+            "y": 0,
+            "width": 1000,
+            "kind": "resistor"
+          },
+          "electrical": {
+            "target": 1000.0,
+            "realized": 1000.0,
+            "unit": "Ohm"
+          },
+          "source_signature": "1e87299916121ecfd68ea838b769301ce0a05cfa2499cbcaf36f2b4fefb98b3e",
+          "rules_hash": "4f69b6f6ef0e8243653c942b2123609bd5b22f0cc450c529b0ad2b19013c5662",
+          "qualification": "Illustrative teaching geometry; electrical coefficients are declared examples, not calibrated process data.",
+          "geometry_signature": "a93eb98a661ee3019fe2f409be5245e37232b5cbf0930b9170b5a176397d703e",
+          "reference": {
+            "role": "body",
+            "points": [
+              [
+                20000,
+                0
+              ],
+              [
+                30000,
+                1000
+              ]
+            ]
+          }
+        },
+        {
+          "id": "4335ed6c9a7541f0",
+          "device_id": "9e03a312521842dc",
+          "spec": {
+            "x": 40000,
+            "y": 0,
+            "width": 1000,
+            "kind": "resistor"
+          },
+          "electrical": {
+            "target": 1000.0,
+            "realized": 1000.0,
+            "unit": "Ohm"
+          },
+          "source_signature": "cbb384f07fa13530e253e579a1a631702993d8f497afb90a6daac22886a01c28",
+          "rules_hash": "4f69b6f6ef0e8243653c942b2123609bd5b22f0cc450c529b0ad2b19013c5662",
+          "qualification": "Illustrative teaching geometry; electrical coefficients are declared examples, not calibrated process data.",
+          "geometry_signature": "5189a1fad66e63992f6c7d16f0b96fe3694011fd7a42543f5cd1e8512dae4854",
+          "reference": {
+            "role": "body",
+            "points": [
+              [
+                40000,
+                0
+              ],
+              [
+                50000,
+                1000
+              ]
+            ]
+          }
+        },
+        {
+          "id": "409f4839945e4e1a",
+          "device_id": "d8d3d9f0f275414f",
+          "spec": {
+            "x": 60000,
+            "y": 0,
+            "width": 1000,
+            "kind": "resistor"
+          },
+          "electrical": {
+            "target": 1000.0,
+            "realized": 1000.0,
+            "unit": "Ohm"
+          },
+          "source_signature": "cbb384f07fa13530e253e579a1a631702993d8f497afb90a6daac22886a01c28",
+          "rules_hash": "4f69b6f6ef0e8243653c942b2123609bd5b22f0cc450c529b0ad2b19013c5662",
+          "qualification": "Illustrative teaching geometry; electrical coefficients are declared examples, not calibrated process data.",
+          "geometry_signature": "5189a1fad66e63992f6c7d16f0b96fe3694011fd7a42543f5cd1e8512dae4854",
+          "reference": {
+            "role": "body",
+            "points": [
+              [
+                60000,
+                0
+              ],
+              [
+                70000,
+                1000
+              ]
+            ]
+          }
+        }
+      ],
+      "layout_pins": [
+        {
+          "id": "17a4e518fdae4383",
+          "device_id": "38cb37141bc74b6b",
+          "pin": "p",
+          "layer": "metal1",
+          "point": [
+            -35000,
+            0
+          ]
+        },
+        {
+          "id": "8d8a4c8109a845a0",
+          "device_id": "38cb37141bc74b6b",
+          "pin": "n",
+          "layer": "metal1",
+          "point": [
+            -25000,
+            0
+          ]
+        },
+        {
+          "id": "1f280423aa2548d8",
+          "device_id": "31b58b5b02be439a",
+          "pin": "p",
+          "layer": "metal1",
+          "point": [
+            25000,
+            0
+          ]
+        },
+        {
+          "id": "ffd5f16bb27d47b4",
+          "device_id": "31b58b5b02be439a",
+          "pin": "n",
+          "layer": "metal1",
+          "point": [
+            35000,
+            0
+          ]
+        },
+        {
+          "id": "4826c01ffa9e4225",
+          "device_id": "9e03a312521842dc",
+          "pin": "p",
+          "layer": "metal1",
+          "point": [
+            -15000,
+            0
+          ]
+        },
+        {
+          "id": "f875a2f1814f4340",
+          "device_id": "9e03a312521842dc",
+          "pin": "n",
+          "layer": "metal1",
+          "point": [
+            -5000,
+            0
+          ]
+        },
+        {
+          "id": "32aa989c51814a7b",
+          "device_id": "d8d3d9f0f275414f",
+          "pin": "p",
+          "layer": "metal1",
+          "point": [
+            5000,
+            0
+          ]
+        },
+        {
+          "id": "c9a31a33fbfb4424",
+          "device_id": "d8d3d9f0f275414f",
+          "pin": "n",
+          "layer": "metal1",
+          "point": [
+            15000,
+            0
+          ]
+        }
+      ],
+      "analog_constraints": [
+        {
+          "id": "9b812955131e4721",
+          "name": "ABBA centroid",
+          "kind": "common_centroid",
+          "members": [
+            "38cb37141bc74b6b",
+            "31b58b5b02be439a",
+            "9e03a312521842dc",
+            "d8d3d9f0f275414f"
+          ],
+          "groups": [
+            [
+              "38cb37141bc74b6b",
+              "31b58b5b02be439a"
+            ],
+            [
+              "9e03a312521842dc",
+              "d8d3d9f0f275414f"
+            ]
+          ]
+        },
+        {
+          "id": "2417cf1e916442fc",
+          "name": "Unit geometry matching",
+          "kind": "matching",
+          "members": [
+            "38cb37141bc74b6b",
+            "31b58b5b02be439a",
+            "9e03a312521842dc",
+            "d8d3d9f0f275414f"
+          ]
+        }
+      ]
+    }
+  ],
+  "analysis": {
+    "type": "tran",
+    "stop": "100u",
+    "step": "200n",
+    "start": "10",
+    "end": "10meg",
+    "points": 150,
+    "source": "V1",
+    "dc_start": "0",
+    "dc_stop": "1.8",
+    "dc_step": "0.01",
+    "temperature": 27
+  },
+  "waivers": []
+}

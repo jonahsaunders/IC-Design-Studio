@@ -1,0 +1,167 @@
+{
+  "application": "0.22.0.dev10",
+  "date": "2026-09-10",
+  "unit_tests": {
+    "total": 439,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "status": "passed",
+    "evidence": "dev10/unit-tests.txt"
+  },
+  "gui": {
+    "status": "passed",
+    "gallery_examples_opened": 9,
+    "short_simulation_runs": 7,
+    "offline_pdk_installation": "GF180MCU and SKY130 passed using Use included PDKs",
+    "evidence": "dev10/gui-getting-started.json"
+  },
+  "quick_real_simulations": [
+    {
+      "name": "gf180-startup",
+      "analyses": 1,
+      "status": "Complete",
+      "samples": 30035,
+      "final_voltages": {
+        "vref": 1.1950724331681608,
+        "avdd": 5.0
+      }
+    },
+    {
+      "name": "sky130-inverter",
+      "analyses": 1,
+      "status": "Complete",
+      "samples": 1226,
+      "final_voltages": {
+        "in": 1.8,
+        "out": 2.268067896847166e-07
+      }
+    }
+  ],
+  "bundled_pdks": [
+    {
+      "variant": "sky130A",
+      "revision": "46e2e8c2922fdcad",
+      "family": "sky130",
+      "assets": 396,
+      "indexed_symbols": 74,
+      "placeable_symbols": 71,
+      "manifest_sha256": "e90ac5776c80e36708e27a585094dc42ff6ca2f5deddb5301b9f67a1555cfd04"
+    },
+    {
+      "variant": "gf180mcuD",
+      "revision": "9394d9228663e22b",
+      "family": "gf180mcu",
+      "assets": 75,
+      "indexed_symbols": 68,
+      "placeable_symbols": 64,
+      "manifest_sha256": "504a519bd78e1b10f0544d67f3c374f8ab0d3ebf458853b74a8db7f0157d481c"
+    }
+  ],
+  "full_original_characterization": {
+    "status": "Complete",
+    "analyses": 144,
+    "analysis_types": {
+      "tran": 83,
+      "dc": 37,
+      "op": 12,
+      "ac": 12
+    },
+    "failed_cases": 0,
+    "program_diagnostics": [],
+    "measurements": 1544,
+    "original_schematic_sha256": "a05bdfeae80a59d56adc680874006dd4015f2cfd1e57a7e6d6e94cda4852465f",
+    "case_evidence": "dev10/bandgap-cases.json",
+    "checked_numeric_tables": [
+      {
+        "file": "dev10/bandgap-tables/brownout_restart.dat",
+        "rows": 9,
+        "columns": 9
+      },
+      {
+        "file": "dev10/bandgap-tables/clean_dc_125C.dat",
+        "rows": 53,
+        "columns": 7
+      },
+      {
+        "file": "dev10/bandgap-tables/clean_dc_25C.dat",
+        "rows": 53,
+        "columns": 7
+      },
+      {
+        "file": "dev10/bandgap-tables/clean_dc_m40C.dat",
+        "rows": 53,
+        "columns": 7
+      },
+      {
+        "file": "dev10/bandgap-tables/dense_clean_dc_temperature.dat",
+        "rows": 34,
+        "columns": 25
+      },
+      {
+        "file": "dev10/bandgap-tables/load_regulation_diagnostic.dat",
+        "rows": 30,
+        "columns": 7
+      },
+      {
+        "file": "dev10/bandgap-tables/output_impedance_keypoints.dat",
+        "rows": 2,
+        "columns": 8
+      },
+      {
+        "file": "dev10/bandgap-tables/psrr_5V_25C.dat",
+        "rows": 401,
+        "columns": 3
+      },
+      {
+        "file": "dev10/bandgap-tables/psrr_keypoints.dat",
+        "rows": 9,
+        "columns": 9
+      },
+      {
+        "file": "dev10/bandgap-tables/startup_18pt.dat",
+        "rows": 18,
+        "columns": 23
+      },
+      {
+        "file": "dev10/bandgap-tables/startup_ramp_sensitivity.dat",
+        "rows": 24,
+        "columns": 10
+      }
+    ],
+    "scope": "Every original analysis and small numeric output table completed. Circuit specification qualification and named companion decks remain separate."
+  },
+  "windows_portable": {
+    "status": "passed",
+    "verified_files": 1901,
+    "selected_x64_executables_and_runtime_dlls": true,
+    "windows_execution": false
+  },
+  "not_executed": [
+    "Native Windows desktop and installer execution",
+    "Native macOS execution",
+    "Foundry physical signoff or specification qualification"
+  ],
+  "execution_host": {
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.39",
+    "ngspice": "Ubuntu ngspice 42+ds-3build1 amd64",
+    "binary_sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+    "temporary_files": "Validation host lacks /tmp; the included validation-host-tempfile.c adapter directs C temporary files to writable workspace paths. It is not part of the shipped runtime.",
+    "metrics": "/proc/meminfo is unavailable in this host; NGSpice memory-statistics warnings are retained in the execution log."
+  },
+  "native_pdk_cases_in_folders_with_spaces": [
+    {
+      "pdk": "sky130A@46e2e8c2922fdcad",
+      "model": "sky130_fd_pr/nfet_01v8.sym",
+      "status": "passed",
+      "output_voltage": 1.383786102546654
+    },
+    {
+      "pdk": "gf180mcuD@9394d9228663e22b",
+      "model": "symbols/nfet_03v3.sym",
+      "status": "passed",
+      "output_voltage": 2.833554991327411
+    }
+  ],
+  "overall_status": "passed with documented platform limits"
+}

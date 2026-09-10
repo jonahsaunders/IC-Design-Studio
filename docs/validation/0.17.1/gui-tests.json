@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "checks": [
+    "Direct Xschem import is visible in File / Import",
+    "Dependency and hierarchy review enables supported import",
+    "Reviewed hierarchical amplifier opens as native editable geometry",
+    "Child schematic navigation and parameter expression edits support undo/redo",
+    "Imported device stretch preserves connections and hierarchy return",
+    "Export and reimport retain native electrical edits",
+    "Imported project saves and reopens with source preservation metadata",
+    "Missing dependencies block import with visible repair guidance",
+    "Locate selected file repairs a missing symbol and enables import",
+    "Copy diagnostic report includes actual resolution and search paths",
+    "Chosen library folders persist between import dialogs"
+  ],
+  "errors": []
+}

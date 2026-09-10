@@ -1,0 +1,38 @@
+[
+  {
+    "example": "rc",
+    "analysis": "tran",
+    "max_abs_voltage_difference": 0.03529411764013844,
+    "tolerance_volts": 0.04,
+    "ngspice_points": 563,
+    "builtin_points": 501,
+    "passed": true
+  },
+  {
+    "example": "rc",
+    "analysis": "ac",
+    "max_abs_voltage_difference": 1.4900904394765657e-05,
+    "tolerance_volts": 0.001,
+    "ngspice_points": 901,
+    "builtin_points": 150,
+    "passed": true
+  },
+  {
+    "example": "rc",
+    "analysis": "op",
+    "max_abs_voltage_difference": 0.0,
+    "tolerance_volts": 0.001,
+    "ngspice_points": 1,
+    "builtin_points": 1,
+    "passed": true
+  },
+  {
+    "example": "inverter",
+    "analysis": "dc",
+    "max_abs_voltage_difference": 0.0009112106847588564,
+    "tolerance_volts": 0.015,
+    "ngspice_points": 181,
+    "builtin_points": 181,
+    "passed": true
+  }
+]

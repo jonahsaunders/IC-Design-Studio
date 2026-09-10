@@ -1,0 +1,23 @@
+{
+  "application": "0.22.0.dev10",
+  "packages": [
+    {
+      "variant": "sky130A",
+      "revision": "46e2e8c2922fdcad",
+      "family": "sky130",
+      "assets": 396,
+      "indexed_symbols": 74,
+      "placeable_symbols": 71,
+      "manifest_sha256": "e90ac5776c80e36708e27a585094dc42ff6ca2f5deddb5301b9f67a1555cfd04"
+    },
+    {
+      "variant": "gf180mcuD",
+      "revision": "9394d9228663e22b",
+      "family": "gf180mcu",
+      "assets": 75,
+      "indexed_symbols": 68,
+      "placeable_symbols": 64,
+      "manifest_sha256": "504a519bd78e1b10f0544d67f3c374f8ab0d3ebf458853b74a8db7f0157d481c"
+    }
+  ]
+}

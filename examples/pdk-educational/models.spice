@@ -1,0 +1,3 @@
+* IC Design Studio original educational level-1 models; no foundry qualification.
+.model studio_n NMOS (LEVEL=1 VTO=0.45 KP=100u LAMBDA=0.02)
+.model studio_p PMOS (LEVEL=1 VTO=-0.45 KP=100u LAMBDA=0.02)
