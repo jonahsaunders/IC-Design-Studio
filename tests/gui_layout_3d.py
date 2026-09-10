@@ -30,7 +30,10 @@ def main():
     QSettings.setPath(QSettings.IniFormat, QSettings.UserScope, str(out/'profile/settings'))
     app = QApplication([]);app.setStyle('Fusion')
     errors = []
-    sys.excepthook = lambda kind, value, tb: errors.append(''.join(traceback.format_exception(kind, value, tb)))
+    def record_error(kind, value, tb):
+        errors.append(''.join(traceback.format_exception(kind, value, tb)))
+        sys.__excepthook__(kind, value, tb)
+    sys.excepthook = record_error
     studio = Studio(recover=False);studio.maybe_save = lambda: True
     studio.live_check.setChecked(False);studio.show()
     checks = []
@@ -136,6 +139,11 @@ def main():
         assert not errors, errors
         report = dict(status='passed', renderer=renderer, qt_platform=app.platformName(), checks=checks)
         (out/'report.json').write_text(json.dumps(report,indent=2));print(json.dumps(report))
+    except Exception:
+        (out/'report.json').write_text(json.dumps(dict(status='failed',error=traceback.format_exc()),indent=2))
+        if getattr(studio, '_layout_3d_dialog', None):
+            studio._layout_3d_dialog.grab().save(str(out/'failure.png'))
+        raise
     finally:
         if getattr(studio, '_layout_3d_dialog', None):studio._layout_3d_dialog.close()
         studio.close();app.processEvents()
