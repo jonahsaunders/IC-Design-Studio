@@ -204,6 +204,8 @@ def qualify(output, ngspice, xschem=None):
                     log = execute([ngspice, '-n', '-b', decks[0].resolve()], run_dir, timeout=60,
                                   env=runtime_environment(ngspice))
                     (dest / 'simulation.log').write_text(log, encoding='utf-8')
+                    if not all((run_dir / ('hierarchy-' + kind + '.raw')).is_file() for kind in KINDS):
+                        raise AssertionError('Independent Xschem deck did not produce every analysis.\n'+decks[0].read_text()+'\n'+log)
                     check_analytic(plots(run_dir), values)
                     row['xschem_reference_error_v'] = compare(expected, plots(run_dir))
                 review = review_project(schematic)
