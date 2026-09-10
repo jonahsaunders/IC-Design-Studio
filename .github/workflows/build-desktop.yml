@@ -159,4 +159,5 @@ jobs:
             build/bandgap-compatibility-evidence
             build/bandgap-gui-evidence
             build/project-hub-evidence
+            build/label-evidence
             build/verification-0.8.0
