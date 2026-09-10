@@ -137,6 +137,8 @@ class Session:
     def _state(self):
         s = _read(self.root)
         if s['id'] != self.workspace_id: raise ValueError('The shared workspace was replaced. Save your local project before joining it again.')
+        if type(s['revision']) is not int or s['revision'] < self.revision: raise ValueError('The shared workspace revision moved backwards. Save local work and resolve the restored journal before rejoining.')
+        if s['revision'] == self.revision and digest(s['project']) != digest(self.base): raise ValueError('The shared project changed without a publication revision. Restore the journal or join a new workspace.')
         return s
 
     def status(self):

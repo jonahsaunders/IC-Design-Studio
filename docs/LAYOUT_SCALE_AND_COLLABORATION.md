@@ -61,7 +61,7 @@ physical ports or repair arbitrary routing.
 Use **Layout → Concurrent editing → Create shared workspace** or **Join shared
 workspace**. A workspace directory contains an atomic project journal and an OS
 lock file. Editors must have trusted read/write access to the same directory and
-a filesystem that correctly implements cross-process file locks and atomic
+synchronized clocks and a filesystem that correctly implements cross-process file locks and atomic
 replacement. Cloud-sync folders and independent copied folders are unsupported;
 a hosted collaboration server, authentication and internet synchronization are
 not included. Validate a network filesystem's locking semantics before use.
@@ -88,7 +88,7 @@ No automatic geometric/DRC conflict resolution is implied by an object merge.
 Run physical verification after combining edits. All participants must resolve
 the same locked PDK assets locally when running external verification.
 
-Tests use two independent Python processes, expired/reclaimed leases, overlap,
+Tests use two independent Python processes, a crashed process holding the OS lock, expired/reclaimed leases, overlap,
 three-way conflicts, interrupted atomic writes and two complete desktop windows.
 Hosted Windows Server and Linux checks do not establish consumer Windows or
 arbitrary network-filesystem qualification.

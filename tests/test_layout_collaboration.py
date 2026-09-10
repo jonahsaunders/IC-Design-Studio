@@ -17,6 +17,16 @@ def worker(root,layer,ready,start,results):
     except Exception as exc:results.put(str(exc))
 
 
+def crash_holding_lock(root):
+    import os
+    from icstudio.layout_collaboration import _lock
+    with _lock(root):
+        # Simulate a process dying before atomic publication; the journal must
+        # stay intact and the OS must release the ownership lock.
+        (Path(root)/'interrupted-write.tmp').write_text('{"partial":')
+        os._exit(0)
+
+
 class ConcurrentLayout(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.root=Path(self.temp.name);self.p=example('empty');self.a=Session.create(self.root,self.p,'Alice');self.b=Session.join(self.root,'Bob')
@@ -51,6 +61,16 @@ class ConcurrentLayout(unittest.TestCase):
             with self.assertRaises(OSError):self.a.publish(q)
         self.assertEqual((self.root/'workspace.json').read_bytes(),before);self.assertEqual(self.a.base,self.p)
         self.assertEqual(len(self.a.publish(q)['cells'][0]['shapes']),1)
+
+    def test_real_process_crash_releases_lock_and_restored_revisions_are_rejected(self):
+        ctx=multiprocessing.get_context('spawn');child=ctx.Process(target=crash_holding_lock,args=(str(self.root),));child.start();child.join(20)
+        if child.is_alive():child.terminate();child.join();self.fail('Crashed editor did not exit.')
+        self.assertEqual(child.exitcode,0);self.assertEqual(self.a.status()['project'],self.p)
+        self.a.claim(self.p['top']);q=clone(self.p);q['cells'][0]['shapes'].append(rect('metal1',0,0,600,600));self.a.publish(q)
+        state=json.loads((self.root/'workspace.json').read_text());state['revision']=0;(self.root/'workspace.json').write_text(json.dumps(state))
+        with self.assertRaisesRegex(ValueError,'backwards'):self.a.publish(self.a.base)
+        state['revision']=1;state['project']['name']='Unversioned change';state['project_hash']=digest(state['project']);(self.root/'workspace.json').write_text(json.dumps(state))
+        with self.assertRaisesRegex(ValueError,'without a publication revision'):self.a.refresh(self.a.base)
 
     def test_separate_processes_publish_without_lost_updates(self):
         ctx=multiprocessing.get_context('spawn');ready=ctx.Queue();results=ctx.Queue();start=ctx.Event()
