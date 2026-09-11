@@ -141,7 +141,7 @@ class ConflictReview(QDialog):
             if self.studio.live_client is not self.client or self.client.conflict is not self.retained:
                 raise LiveError('This conflict has changed or the workspace was closed. Open a new review from the dashboard.')
             self.revision = self.client.revision
-        self.current = clone(self.client.project)
+            self.current = clone(self.client.project)
             self.rows = conflict_rows(self.retained, self.current)
             selected = self.cells.currentData()
             self.cells.blockSignals(True)
