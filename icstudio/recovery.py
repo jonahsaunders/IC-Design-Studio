@@ -1,11 +1,13 @@
 """Session-isolated recovery, with a validated previous snapshot fallback."""
 import json
 import hashlib
+from threading import RLock
 from pathlib import Path
 from .model import load_project,save_project,atomic_write,now,validate
 
 
 _verified_bytes={}
+_cache_lock=RLock()
 
 
 def write(project,directory,source=None,*,validated=False):
@@ -20,14 +22,15 @@ def write(project,directory,source=None,*,validated=False):
     data=(json.dumps(project,ensure_ascii=False,allow_nan=False,separators=(',',':'))+'\n').encode('utf-8')
     if path.exists():
         old=path.read_bytes();fingerprint=hashlib.sha256(old).hexdigest()
-        valid=_verified_bytes.get(str(path))==fingerprint
+        with _cache_lock:valid=_verified_bytes.get(str(path))==fingerprint
         if not valid:
             try:load_project(path);valid=True
             except (ValueError,KeyError,TypeError,json.JSONDecodeError):pass
         if valid:atomic_write(previous,old)
     atomic_write(path,data)
-    _verified_bytes[str(path)]=hashlib.sha256(data).hexdigest()
-    while len(_verified_bytes)>8:_verified_bytes.pop(next(iter(_verified_bytes)))
+    with _cache_lock:
+        _verified_bytes[str(path)]=hashlib.sha256(data).hexdigest()
+        while len(_verified_bytes)>8:_verified_bytes.pop(next(iter(_verified_bytes)))
     atomic_write(path.with_suffix('.origin.json'),json.dumps({'name':project['name'],'source':str(source) if source else None,'updated':now()}))
     return path
 
@@ -40,7 +43,7 @@ def read(path):
 
 def clear(path):
     path=Path(path)
-    _verified_bytes.pop(str(path),None)
+    with _cache_lock:_verified_bytes.pop(str(path),None)
     for p in (path,path.with_suffix('.previous.icproj'),path.with_suffix('.origin.json')):p.unlink(missing_ok=True)
 
 

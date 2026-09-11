@@ -74,7 +74,8 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         pts=obj['points'];xs=[p[0] for p in pts];ys=[p[1] for p in pts];w=obj.get('width',0)/2;return QRectF(min(xs)-w,min(ys)-w,max(xs)-min(xs)+2*w,max(ys)-min(ys)+2*w)
     def resizeEvent(self,event):
         if self.cell and getattr(self,"auto_fit",True):self.fit()
-        elif event.oldSize().isValid():self.offset+=QPointF((event.size().width()-event.oldSize().width())/2,(event.size().height()-event.oldSize().height())/2)
+        # Preserve coordinates under the pointer when selection changes a dock
+        # or tool row. Explicit Fit remains available after a window resize.
         super().resizeEvent(event)
     def fit(self):
         self.auto_fit=True
@@ -407,6 +408,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         self.label_placement=None;self.reset_wire_gesture();self.drawing=[];self.pending_pin=None;self.anchor=None;self.drag=None;self.pan=False;self.marquee=False;self.moving=False;self.press_screen=None;self.draft_changed.emit();self.view_changed.emit();self.update()
     def mousePressEvent(self,e):
         if self.pan:return
+        if self.tool=='select' and e.button()==Qt.LeftButton:self.auto_fit=False
         self.setFocus()
         if e.button()==Qt.MiddleButton or (self.space and e.button()==Qt.LeftButton):
             self.pan=True;self.auto_fit=False;self._pan_anchor=QPointF(e.position());self._pan_button=e.button();self.setCursor(Qt.ClosedHandCursor);self.update();return

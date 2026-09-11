@@ -33,7 +33,7 @@ class ProcessAdapter:
                 'setup':tool_asset(technology,'netgen','setup',self.setup_file)}
 
 
-SKY130 = ProcessAdapter('sky130A', 'sky130_layout', ('mos', 'inverter', 'ring', 'current_mirror'),
+SKY130 = ProcessAdapter('sky130A', 'sky130_layout', ('mos', 'inverter', 'ring', 'current_mirror', 'analog_bank'),
                        'libs.tech/magic/sky130A.tech', 'libs.tech/netgen/sky130A_setup.tcl')
 GF180 = ProcessAdapter('gf180mcuC', 'gf180_layout', ('mos', 'inverter'),
                        'libs.tech/magic/gf180mcuC.tech', 'libs.tech/netgen/gf180mcuC_setup.tcl',

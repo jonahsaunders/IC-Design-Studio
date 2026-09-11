@@ -70,3 +70,35 @@ def move_plain_shapes(project, cid, ids, dx, dy, locked=()):
         shapes[i] = shape
     cells = [{**c, 'shapes': shapes} if c['id'] == cid else c for c in project['cells']]
     return {**project, 'cells': cells}, indices
+
+
+def from_patch(before,after,patch,label,kind='edit'):
+    """Describe stable-index changes directly from the validated undo patch."""
+    if not patch or patch[0]!='dict':return describe(before,after,label,kind)
+    cp=patch[1].get('cells')
+    if cp and cp[0]!='list':return describe(before,after,label,kind)
+    cells=[];objects=set();removed=set();structure=False
+    for index,delta in (cp[1].items() if cp else []):
+        a,b=before['cells'][index],after['cells'][index]
+        if delta[0]!='dict' or a['id']!=b['id']:return describe(before,after,label,kind)
+        cells.append(b['id']);structure|=a.get('name')!=b.get('name') or a.get('ports')!=b.get('ports')
+        for field in COLLECTIONS:
+            change=delta[1].get(field)
+            if field in delta[2] or field in delta[3] or change and change[0]!='list':return describe(before,after,label,kind)
+            if not change:continue
+            for position in change[1]:
+                left=a[field][position].get('id');right=b[field][position].get('id')
+                objects.update(v for v in (left,right) if v)
+                if left and left!=right:removed.add(left)
+    return ChangeSet(after['id'],after['revision'],label,kind,tuple(cells),tuple(sorted(objects)),tuple(sorted(removed)),bool(structure),before['pdk']!=after['pdk'])
+
+
+def shape_patch(before,after,cid,indices):
+    from .history_delta import difference
+    index=next(i for i,c in enumerate(before['cells']) if c['id']==cid)
+    a,b=before['cells'][index]['shapes'],after['cells'][index]['shapes']
+    rows={i:difference(a[i],b[i]) for i in indices};rows={i:d for i,d in rows.items() if d is not None}
+    changes={key:difference(before[key],after[key]) for key in ('revision','modified')}
+    changes={key:d for key,d in changes.items() if d is not None}
+    if rows:changes['cells']=('list',{index:('dict',{'shapes':('list',rows)},{},{})})
+    return ('dict',changes,{},{})

@@ -3,7 +3,7 @@ from .model import example, clone, device, uid, validate
 from .catalog import link_technology, create_device
 
 TEMPLATES = {'inverter': 'Inverter', 'ring': 'Ring oscillator',
-             'current_mirror': 'Current mirror', 'differential_pair': 'Differential pair'}
+             'current_mirror': 'Current mirror', 'differential_pair': 'Differential pair', 'amplifier': 'Five-transistor amplifier'}
 
 
 def model_choices(technology, kind):
@@ -22,7 +22,7 @@ def create(technology, kind='inverter', supply=1.8, nmos=None, pmos=None):
     if supply <= 0: raise ValueError('Supply voltage must be positive.')
     catalog = technology.get('simulation', {}).get('catalog', {})
     selected = {'NMOS': nmos, 'PMOS': pmos}
-    for polarity in ('NMOS', 'PMOS') if kind in ('inverter', 'ring') else ('NMOS',):
+    for polarity in ('NMOS', 'PMOS') if kind in ('inverter', 'ring', 'amplifier') else ('NMOS',):
         choices = model_choices(technology, polarity)
         if selected[polarity] is None and choices: selected[polarity] = choices[0][0]
         if catalog and selected[polarity] not in {key for key, _ in choices}:
@@ -61,6 +61,19 @@ def create(technology, kind='inverter', supply=1.8, nmos=None, pmos=None):
         bench['devices'].append(device('X', 'XDUT', 420, 240, cell=cell['id'], nets=nets))
         bench['devices'].append(source('C', 'CL', '5f', 'out'))
         p['analysis'].update(type='tran', step='20p', stop='100n', uic=kind == 'ring')
+    elif kind=='amplifier':
+        cell['ports']=['INP','INN','OUT','BIAS','VDD','VSS']
+        for index,(name,polarity,nets,width) in enumerate([
+            ('M1','NMOS',['NREF','INP','TAIL','VSS'],'10u'),('M2','NMOS',['OUT','INN','TAIL','VSS'],'10u'),
+            ('M3','PMOS',['NREF','NREF','VDD','VDD'],'10u'),('M4','PMOS',['OUT','NREF','VDD','VDD'],'10u'),
+            ('M5','NMOS',['TAIL','BIAS','VSS','VSS'],'5u')]):
+            d=mos(cell,polarity,name,180+index*160,260,dict(zip(('d','g','s','b'),nets)));d['params'].update(w=width,l='1u')
+        bench['devices']=[source('V','VDD',supply,'vdd'),source('V','VCM',supply/2,'inn'),
+            source('V','VIN',0,'inp','inn'),source('V','VBIAS',supply*7/18,'bias'),source('C','CL','20f','out'),
+            device('X','XDUT',440,300,cell=cell['id'],nets={'INP':'inp','INN':'inn','OUT':'out','BIAS':'bias','VDD':'vdd','VSS':'0'})]
+        for d in bench['devices']:
+            if d['kind']=='V':d['source']['ac']='1' if d['name']=='VIN' else '0'
+        p['analysis'].update(type='op')
     else:
         cell['ports'] = ['IREF', 'OUT', 'VSS'] if kind == 'current_mirror' else ['INP','INN','OUTP','OUTN','TAIL','VSS']
         if kind == 'current_mirror':
@@ -83,6 +96,11 @@ def create(technology, kind='inverter', supply=1.8, nmos=None, pmos=None):
     testbench['analysis'] = clone(p['analysis'])
     if kind == 'ring': testbench.update(probes=['n1','n2','out'], initial_conditions={'n1':'0','n2':str(supply),'out':'0'})
     p['testbenches'] = [testbench]
+    if kind=='amplifier':
+        testbench['measurements']=[dict(name='output_bias',kind='voltage',node='out',min=str(supply/18),max=str(supply*17/18))]
+        ac=clone(testbench);ac.update(id=uid(),name='amplifier_ac');ac['analysis'].update(type='ac',start='10',end='100Meg',points=20)
+        ac['measurements']=[dict(name='low_frequency_gain',kind='voltage',node='out',at='10',min='5',max='10000')]
+        p['testbenches'].append(ac)
     p['template'] = {'version':1,'kind':kind,'supply':supply,'models':selected,
                      'status':'Editable starting circuit; choose device ratings and measurement limits for this process.'}
     return validate(p), cell['id'], testbench['id']

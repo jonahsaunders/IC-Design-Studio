@@ -2,7 +2,7 @@
 import uuid
 from PySide6.QtCore import Qt, QRectF
 from PySide6.QtWidgets import (QWidget,QVBoxLayout,QHBoxLayout,QComboBox,QPushButton,
-    QTreeWidget,QTreeWidgetItem,QPlainTextEdit,QCheckBox,QInputDialog,QFileDialog,QDialog)
+    QTreeWidget,QTreeWidgetItem,QPlainTextEdit,QCheckBox,QInputDialog,QFileDialog,QDialog,QHeaderView)
 from .model import clone,save_project,digest
 
 
@@ -50,9 +50,12 @@ class TeamReviewPanel(QWidget):
         self.button('Compare revisions',self.compare,row);self.button('Save checkpoint copy…',self.export_checkpoint,row);root.addLayout(row)
         self.decisions=note('');root.addWidget(self.decisions)
         self.comments=QTreeWidget();self.comments.setHeaderLabels(['Author / object','Comment','State']);self.comments.setAccessibleName('Checkpoint discussions');root.addWidget(self.comments,1)
+        self.comments.setMinimumHeight(160);self.comments.setWordWrap(True)
+        self.comments.header().setSectionResizeMode(0,QHeaderView.ResizeToContents);self.comments.header().setSectionResizeMode(1,QHeaderView.Stretch);self.comments.header().setSectionResizeMode(2,QHeaderView.ResizeToContents)
+        self.comments.itemDoubleClicked.connect(lambda *_:self.call(self.read_comment))
         self.comment=QPlainTextEdit();self.comment.setPlaceholderText('Ask a question or explain the change…');self.comment.setAccessibleName('New review comment');self.comment.setMaximumHeight(85);root.addWidget(self.comment)
         row=QHBoxLayout();self.anchor=QCheckBox('Attach to current selection');row.addWidget(self.anchor,1)
-        self.comment_button=self.button('Post comment',self.post_comment,row);self.button('Go to object',self.navigate,row);self.button('Resolve',self.resolve,row);root.addLayout(row)
+        self.comment_button=self.button('Post comment',self.post_comment,row);self.button('Read comment',self.read_comment,row);self.button('Go to object',self.navigate,row);self.button('Resolve',self.resolve,row);root.addLayout(row)
         row=QHBoxLayout();self.decision=QComboBox();self.decision.setAccessibleName('Review decision')
         for label,value in [('Request review','review_requested'),('Approve checkpoint','approved'),('Request changes','changes_requested')]:self.decision.addItem(label,value)
         row.addWidget(self.decision,1);self.decision_button=self.button('Record decision',self.decide,row);root.addLayout(row)
@@ -103,6 +106,7 @@ class TeamReviewPanel(QWidget):
 
     def load(self):
         def loaded(data):
+            self.loaded_version=data.get('review_version',self.loaded_version)
             selected=self.checkpoints.currentData();self.data=data;self.checkpoints.blockSignals(True);self.checkpoints.clear();self.other.clear();self.other.addItem('Compare with current layout',None)
             for c in data['checkpoints']:
                 label=c['name']+' · r'+str(c['revision']);self.checkpoints.addItem(label,c['id']);self.other.addItem(label,c['id'])
@@ -119,7 +123,7 @@ class TeamReviewPanel(QWidget):
         key=self.checkpoints.currentData();self.comments.clear();self.reports.clear()
         for row in self.data.get('comments',[]):
             if row['checkpoint']==key:
-                item=QTreeWidgetItem([row['author']+(' / '+row['object'] if row['object'] else ''),row['text'],row['status']]);item.setData(0,Qt.UserRole,row);self.comments.addTopLevelItem(item)
+                item=QTreeWidgetItem([row['author']+(' · attached object' if row['object'] else ''),row['text'],row['status']]);item.setData(0,Qt.UserRole,row);item.setToolTip(0,row['object']);item.setToolTip(1,row['text']);self.comments.addTopLevelItem(item)
         decisions=[r['author']+': '+r['status'].replace('_',' ')+((' · '+r['message']) if r['message'] else '') for r in self.data.get('decisions',[]) if r['checkpoint']==key]
         self.decisions.setText('\n'.join(decisions) or 'No review decision for this checkpoint yet.')
         for row in self.data.get('reports',[]):
@@ -148,8 +152,12 @@ class TeamReviewPanel(QWidget):
     def resolve(self):
         row=self.selected_comment();self.request(dict(action='resolve_comment',comment=row['id'],version=row['version'],status='resolved'),lambda _:self.load(),True)
 
+    def read_comment(self):
+        row=self.selected_comment();self.studio.text_dialog('Comment by '+row['author'],row['text'])
+
     def navigate(self):
         row=self.selected_comment();studio=self.studio;cell=next((c for c in studio.project['cells'] if c['id']==row['cell']),None)
+        if not studio.flush_inspector():return
         if cell is None or not row['object']:raise ValueError('This comment has no object available in the current layout. Compare its checkpoint instead.')
         fields=('shapes','layout_instances','layout_pins','devices','wires')
         field=next((f for f in fields if any(o.get('id')==row['object'] for o in cell.get(f,[]))),None)

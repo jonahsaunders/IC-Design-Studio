@@ -45,7 +45,7 @@ def handle(store,wid,token,request):
             comments=rows('SELECT c.*,a.name AS author FROM review_comments c JOIN actors a ON a.id=c.actor WHERE c.workspace=? ORDER BY c.created'),
             decisions=rows('SELECT c.*,a.name AS author FROM review_decisions c JOIN actors a ON a.id=c.actor WHERE c.workspace=? ORDER BY c.updated'),
             reports=rows('SELECT c.id,c.checkpoint,c.name,c.created,a.name AS author FROM review_reports c JOIN actors a ON a.id=c.actor WHERE c.workspace=? ORDER BY c.created'),
-            revision=store._workspace(wid)['revision'])
+            revision=store._workspace(wid)['revision'],review_version=db.execute('SELECT count(*) FROM review_requests WHERE workspace=?',(wid,)).fetchone()[0])
     if action=='checkpoint':
         c=checkpoint(db,wid,request.get('checkpoint'));return dict(project=json.loads(c['project']),revision=c['revision'],hash=c['hash'],name=c['name'])
     if action=='report':
@@ -63,7 +63,7 @@ def handle(store,wid,token,request):
     if action=='create_checkpoint':
         w=store._workspace(wid)
         if type(request.get('revision')) is not int or request['revision']!=w['revision']:raise LiveError('The shared layout changed. Synchronize before making a checkpoint.')
-        count,size=db.execute('SELECT count(*),coalesce(sum(length(project)),0) FROM review_checkpoints WHERE workspace=?',(wid,)).fetchone()
+        count,size=db.execute('SELECT count(*),coalesce(sum(length(CAST(project AS BLOB))),0) FROM review_checkpoints WHERE workspace=?',(wid,)).fetchone()
         if count>=25 or size+len(w['project'].encode())>64*1024*1024:raise LiveError('Workspace checkpoint storage is full. Export a copy and start a new workspace.',429)
         name=text(request.get('name'),'Checkpoint name',100)
         if db.execute('SELECT 1 FROM review_checkpoints WHERE workspace=? AND lower(name)=lower(?)',(wid,name)).fetchone():raise LiveError('Choose a different checkpoint name.')

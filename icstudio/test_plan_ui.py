@@ -48,6 +48,8 @@ class PlanEditor(QDialog):
         try:
             studio=self.window.studio
             if studio.project['id']!=self.identity:raise ValueError('The project changed. Open a new plan editor.')
+            if self.plan and next((p for p in studio.project.get('test_plans',[]) if p['id']==self.plan['id']),None)!=self.plan:
+                raise ValueError('This plan changed or was deleted. Close and reopen its editor before saving.')
             values=lambda w:[s.strip() for s in w.text().split(',') if s.strip()]
             plan=dict(id=self.plan.get('id',uid()),name=self.name.text().strip(),corners=values(self.corners),
                       temperatures=[scalar(v) for v in values(self.temperatures)],voltages=[scalar(v) for v in values(self.voltages)],entries=[],compare_layout=self.compare_layout.isChecked())
@@ -158,6 +160,8 @@ class TestPlanWindow(QDialog):
         row=next((r for r in self.studio.run_manager.rows if r['id']==key),None)
         if row is None:raise ValueError('Select a condition result in the matrix.')
         self.studio.open_simulation_explorer();self.studio.simulation_runs.selectRow(self.studio.run_manager.rows.index(row));self.studio.show_run_details();self.studio.open_selected_run()
+        if row.get('result',{}).get('silicon_report'):
+            self.studio._silicon_result=row['result'];self.studio.open_silicon()
 
     def retry(self):
         latest={}

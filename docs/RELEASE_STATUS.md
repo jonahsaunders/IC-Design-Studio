@@ -1,14 +1,13 @@
-# Release status — 0.22.0.dev13 candidate
+# Release status — 0.22.0.dev14 candidate
 
-Dev13 adds the Tools collaboration dashboard, automatic session discovery,
-administrator-authorized owner recovery, named reservations, visual conflict
-review and revision-checked workspace deletion. The local Python suite passed
-540 tests with nine external-tool skips. The three-editor desktop scenario checks
-dashboard navigation, reviewed reapplication, stale comparisons, owner recovery,
-personal undo, lost acknowledgements and unchanged journal persistence; the
-shared-folder desktop regression also passed. These local checks do not qualify
-consumer operating systems or downloadable binaries. Consult this candidate's
-PR and exact-commit CI results before preparing new release artifacts.
+Dev14 implements the six [engineering workflow areas](PROFESSIONAL_WORKFLOWS.md):
+precise editing, document/recovery services, parameterized physical variants,
+analog qualification, verification test plans, and revision-based team review.
+The Windows/Linux workflows include actual simulation, new desktop acceptance
+scenarios, failed-storage recovery and installed application checks. The physical
+gate adds 45 analog reference and deliberate-fault cases to the pinned inverter.
+Consult the exact commit’s Actions results before preparing release artifacts;
+this source update does not publish a release or claim commercial/foundry signoff.
 
 ## Historical release evidence
 

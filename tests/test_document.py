@@ -1,4 +1,5 @@
 import tempfile
+import os
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -45,6 +46,28 @@ class DocumentTests(unittest.TestCase):
         validate(p); self.assertEqual(len(flatten(p)), 1000)
         from icstudio.simulation import Circuit
         with self.assertRaisesRegex(ValueError, 'Choose ngspice'):Circuit(p, c['id'])
+
+    def test_patch_change_records_match_independent_document_comparison(self):
+        from icstudio.document import describe
+        h=History(example('rc'))
+        for edit in (lambda p:p['cells'][0]['devices'][1].update(value='2k'),
+                     lambda p:p['cells'][0].update(name='renamed'),
+                     lambda p:p['cells'][0]['devices'].pop(),
+                     lambda p:p['pdk'].update(name='Renamed technology')):
+            before=h.project;h.commit(edit,'Edit')
+            self.assertEqual(h.last_change,describe(before,h.project,'Edit'))
+            before=h.project;h.undo();self.assertEqual(h.last_change,describe(before,h.project,'Edit','undo'))
+            before=h.project;h.redo();self.assertEqual(h.last_change,describe(before,h.project,'Edit','redo'))
+
+    @unittest.skipUnless(os.environ.get('ICSTUDIO_TEST_NGSPICE'),'The desktop gates supply a real ngspice executable')
+    def test_thousand_device_ladder_runs_in_ngspice(self):
+        from icstudio.engines import run_ngspice
+        p=example('empty');c=p['cells'][0]
+        c['devices']=[device('R','R'+str(i),i*10,0,value='1k',nets={'p':'n'+str(i),'n':'0' if i==999 else 'n'+str(i+1)}) for i in range(1000)]
+        c['devices'].append(device('V','VDD',0,100,value='1',nets={'p':'n0','n':'0'}));validate(p)
+        with tempfile.TemporaryDirectory() as tmp:
+            r=run_ngspice(p,c['id'],{**p['analysis'],'type':'op'},os.environ['ICSTUDIO_TEST_NGSPICE'],Path(tmp))
+            self.assertAlmostEqual(r['traces']['n500'][0],.5,places=6)
 
 
 class RecoveryQueueTests(unittest.TestCase):

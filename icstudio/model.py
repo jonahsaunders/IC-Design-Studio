@@ -253,26 +253,25 @@ def load_project(path):
 
 class History:
     def __init__(self,p): self.project=clone(validate(p)); self.undo_stack=[]; self.redo_stack=[]; self.serial=p['revision']
-    def _record(self,before,label,kind='edit'):
-        from .document import describe
-        self.last_change=describe(before,self.project,label,kind)
+    def _record(self,before,label,kind='edit',patch=None):
+        from .document import from_patch
+        self.last_change=from_patch(before,self.project,patch,label,kind)
     def commit(self,fn,label='Edit'):
         from .history_delta import difference
         nxt=clone(self.project); fn(nxt); nxt['revision']=self.serial+1; nxt['modified']=now(); validate(nxt)
         delta=difference(self.project,nxt)
         before=self.project
         self.serial+=1;self.undo_stack.append((delta,label));self.undo_stack=self.undo_stack[-100:];self.redo_stack=[];self.project=nxt
-        self._record(before,label)
+        self._record(before,label,patch=delta)
     def commit_shape_move(self,cid,ids,dx,dy,locked=()):
-        from .document import move_plain_shapes
-        from .history_delta import difference
+        from .document import move_plain_shapes,shape_patch
         result=move_plain_shapes(self.project,cid,ids,dx,dy,locked)
         if result is None:return False
         nxt,indices=result;nxt['revision']=self.serial+1;nxt['modified']=now()
-        before=self.project;delta=difference(before,nxt)
+        before=self.project;delta=shape_patch(before,nxt,cid,indices)
         self.serial+=1;self.undo_stack.append((delta,'Move layout shapes'));self.undo_stack=self.undo_stack[-100:];self.redo_stack=[];self.project=nxt
         self.layout_stats={'indices':indices,'shapes_replaced':len(indices)}
-        self._record(before,'Move layout shapes')
+        self._record(before,'Move layout shapes',patch=delta)
         return True
     def commit_layout_move(self,cid,ids,dx,dy,locked=()):
         """Return False for complex edits requiring the general transaction."""
@@ -287,7 +286,7 @@ class History:
         delta=difference(self.project,nxt)
         before=self.project
         self.serial+=1;self.undo_stack.append((delta,'Connected layout move'));self.undo_stack=self.undo_stack[-100:];self.redo_stack=[];self.project=nxt
-        self._record(before,'Connected layout move')
+        self._record(before,'Connected layout move',patch=delta)
         self._layout_graph=(nxt['id'],cid,graph);self.layout_stats={**graph.stats,'shapes_replaced':len(changed),'indices':list(changed)}
         return True
     def commit_layout_arrange(self,cid,ids,edge,locked=(),offset=0,reference_edge=None,connected=False):
@@ -302,7 +301,7 @@ class History:
         delta=difference(self.project,nxt);indices=[i for i,(a,b) in enumerate(zip(cell['shapes'],cells[index]['shapes'])) if a is not b]
         before=self.project
         self.serial+=1;self.undo_stack.append((delta,'Align / distribute layout selection'));self.undo_stack=self.undo_stack[-100:];self.redo_stack=[];self.project=nxt
-        self._record(before,'Align / distribute layout selection')
+        self._record(before,'Align / distribute layout selection',patch=delta)
         self.layout_stats={'indices':indices,'shapes_replaced':len(indices)}
         return True
     def undo(self):
@@ -311,14 +310,15 @@ class History:
         delta,label=self.undo_stack[-1];p=apply(self.project,delta,False)
         before=self.project
         self.undo_stack.pop();self.redo_stack.append((delta,label));self.serial+=1;p['revision']=self.serial;p['modified']=now();self.project=p
-        self._record(before,label,'undo')
+        from .history_delta import reverse
+        self._record(before,label,'undo',reverse(delta))
     def redo(self):
         if not self.redo_stack: return
         from .history_delta import apply
         delta,label=self.redo_stack[-1];p=apply(self.project,delta)
         before=self.project
         self.redo_stack.pop();self.undo_stack.append((delta,label));self.serial+=1;p['revision']=self.serial;p['modified']=now();self.project=p
-        self._record(before,label,'redo')
+        self._record(before,label,'redo',delta)
 
 def erc(p,cid=None):
     from .electrical_rules import check

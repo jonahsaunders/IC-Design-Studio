@@ -80,14 +80,15 @@ def main():
                     from icstudio.layout import rect
                     c['shapes'].append(rect(ls['m1'],-12000,0,100,100));stage='drc'
                 elif fault=='route-open':
-                    from collections import Counter
                     from icstudio.physical import erase
-                    net=Counter(n for d in c['devices'] for n in d['nets'].values()).most_common(1)[0][0]
+                    # A cut in the mirror's VSS bus is still connected through
+                    # substrate taps. Cut a signal shared across the pair.
+                    net={'current_mirror':'IREF','differential_pair':'TAIL','amplifier':'NREF'}[kind]
                     y=c['analog_bank']['buses'][net];erase(c,ls['m2'],[10000,y-400,11000,y+400]);stage='lvs'
                 else:
                     shape=next(s for s in c['shapes'] if s['layer']==ls['poly'] and s.get('generated_device'));shape['points'][1][0]+=50;stage='lvs'
                 name=kind+'-'+fault;result=run(q,key,out/name,tools)
-                report['cases'].append(dict(name=name,type='deliberate_fault',expected_failure_stage=stage,status='passed' if accept_result(result,stage,out/name) else 'failed',engine_report=name+'/report.json'));publish()
+                report['cases'].append(dict(name=name,type='deliberate_fault',expected_failure_stage=stage,status='passed' if accept_result(result,stage,out/name) else 'failed',observed_status=result['status'],error=result.get('error'),engine_report=name+'/report.json'));publish()
         report['status']='passed' if all(c['status']=='passed' for c in report['cases']) else 'failed'
     except Exception as exc:report.update(status='failed',error=str(exc),traceback=traceback.format_exc())
     publish();print(json.dumps(report,indent=2));return 0 if report['status']=='passed' else 1

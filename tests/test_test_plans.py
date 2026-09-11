@@ -39,3 +39,16 @@ class TestPlansTests(unittest.TestCase):
         changed=row(1.2,'PASS');changed['job']['project']['cells'][0]['specifications'][0]['max']='2'
         cell=next(iter(compare(matrix([changed],group),old)['rows'][0]['values'].values()))
         self.assertNotIn('delta',cell)
+
+    def test_pre_and_post_layout_measurements_and_failed_stages_are_visible(self):
+        from icstudio.analog import reference
+        from tests.test_silicon import technology
+        p,cid,key=reference(technology());plan=dict(id='physical',name='Physical',entries=sources(p)[:1],corners=['nominal'],temperatures=[27],compare_layout=True)
+        def prepare_job(settings,engine,project,cid):return dict(settings=settings,engine=engine,project=project,cell=cid,executable='local')
+        job=prepare(p,plan,prepare_job)[0];self.assertEqual(job['settings']['type'],'silicon')
+        stages=[dict(name=stage,status='passed',evidence={'measurements':[dict(name='output_current',status='passed',value=value)]}) for stage,value in [('schematic_simulation',50e-6),('post_layout_simulation',51e-6)]]
+        stages.append(dict(name='lvs',status='failed',error='Circuit mismatch'))
+        rows=[dict(id='run',state='Complete',job=job,result={'silicon_report':{'stages':stages}})]
+        result=matrix(rows,job['case']['group']);by={r['name']:next(iter(r['values'].values())) for r in result['rows']}
+        self.assertEqual(by['output_current · schematic']['value'],50e-6);self.assertEqual(by['output_current · post-layout']['value'],51e-6)
+        self.assertEqual(by['lvs']['status'],'FAIL');self.assertEqual(by['drc']['status'],'ERROR')

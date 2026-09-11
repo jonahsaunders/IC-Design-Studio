@@ -2,6 +2,10 @@
 
 Our goal is an independent open design environment that makes circuit intent, experiments and physical implementation easy to follow. Compatibility with Xschem, ngspice, KLayout, Magic and Netgen remains part of that direction. This roadmap expresses priorities and acceptance criteria, not promised delivery dates.
 
+## Experimental dev14 implementation
+
+The [engineering workflow guide](PROFESSIONAL_WORKFLOWS.md) records the implemented document services, editing improvements, parameter variants, analog references, test matrices and team review, with measured performance and explicit qualification limits. The remaining priorities below continue beyond this increment.
+
 ## Foundation already available
 
 The current application has native schematic/layout editing, visible grids, reusable cells, saved simulation setups, run tables, waveform markers and calculations, specifications, parameter studies, reviewed Xschem migration/exchange, locked PDK adapters, linked physical geometry and external verification entry points. Version 0.21 adds guided examples and a PDK setup assistant. See [release notes](RELEASE_0.21.md) for what has actually been tested.

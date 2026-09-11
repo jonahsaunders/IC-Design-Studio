@@ -6,6 +6,7 @@ from pathlib import Path
 import sys
 import threading
 import time
+from unittest.mock import patch
 
 
 def main():
@@ -116,6 +117,22 @@ def main():
         wait(lambda: settled(v), 'View invitation did not join')
         checks.append('Share UI and view/edit invitation links join actual desktop windows')
 
+        dashboard.show();dashboard.tabs.setCurrentIndex(3);panel=dashboard.review_panel
+        wait(lambda:not panel.busy and panel.loaded_version is not None and settled(a),'Team review did not load')
+        with patch('icstudio.team_review_ui.QInputDialog.getText',return_value=('Initial layout',True)):panel.create()
+        wait(lambda:not panel.busy and panel.checkpoints.count()==1,'Checkpoint was not saved through HTTP')
+        checkpoint=panel.checkpoints.currentData();a.select([a.cell['shapes'][0]['id']],'layout')
+        panel.anchor.setChecked(True);panel.comment.setPlainText('Please check this connection before approval.');panel.post_comment()
+        wait(lambda:not panel.busy and panel.comments.topLevelItemCount()==1,'Object comment did not persist')
+        panel.comments.setCurrentItem(panel.comments.topLevelItem(0));a.select([],'layout');panel.navigate()
+        assert a.selection==[a.cell['shapes'][0]['id']]
+        panel.decision.setCurrentIndex(1);panel.decide();wait(lambda:not panel.busy and 'approved' in panel.decisions.text(),'Checkpoint approval did not persist')
+        other=b.collaboration_dashboard();other.tabs.setCurrentIndex(3);review=other.review_panel
+        wait(lambda:not review.busy and review.comments.topLevelItemCount()==1,'Second editor did not receive team review')
+        assert 'approved' in review.decisions.text()
+        panel.grab().save(str(out/'team-review.png'));dashboard.hide();other.hide()
+        checks.append('Named checkpoints, anchored comments, object navigation and revision-specific decisions synchronize between real desktop editors')
+
         a.move([a.cell['shapes'][0]['id']], 100, 0, 'layout')
         move(b, 1, 200)
         wait(lambda: settled(a) and settled(b) and a.live_client.revision == b.live_client.revision == 2, 'Disjoint edits failed')
@@ -133,6 +150,10 @@ def main():
         wait(lambda: settled(a) and a.live_client.revision == 4, 'Personal redo failed')
         wait(lambda: b.live_client.revision == 4, 'Bob did not receive redo')
         checks.append('Same-cell same-layer edits update automatically; personal undo preserves the other editor')
+        dashboard.show();dashboard.tabs.setCurrentIndex(3)
+        wait(lambda:not panel.busy,'Review was busy before comparison');panel.compare()
+        wait(lambda:hasattr(panel,'comparison'),'Revision comparison did not open');assert panel.comparison.table.topLevelItemCount()>0
+        panel.comparison.grab().save(str(out/'team-revision-comparison.png'));panel.comparison.close();dashboard.hide()
 
         cid, sid = a.cid, a.cell['shapes'][0]['id']
         a.live_client.presence = lambda: dict(cell=cid, selection=[sid], cursor=[100, 500])

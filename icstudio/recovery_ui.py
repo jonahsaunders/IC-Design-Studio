@@ -34,6 +34,10 @@ class RecoveryUIMixin:
         return True
 
     def update_save_status(self,current_hash=None):
+        if current_hash is None and getattr(self,'_recovery_queue',None) and self._recovery_queue.busy:
+            self.save_label.setText('Unsaved · recovery failed' if self._recovery_error else 'Unsaved · recovery pending')
+            self.save_label.setToolTip(self._recovery_error or ('Recovery folder: '+str(self.recovery_dir)))
+            return
         current_hash=current_hash or digest(self.project)
         if self.saved_hash==current_hash:text='Saved to disk'
         elif self._recovery_error:text='Unsaved · recovery failed'

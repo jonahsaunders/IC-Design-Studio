@@ -66,6 +66,16 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_live_collaboration.py --out build/live-collaboration-evidence
+      - name: Test precise editing, test plans, baselines and workflow guidance
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_professional_workflows.py --out build/professional-workflow-evidence
+      - name: Test asynchronous durable recovery and failed-storage handling
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_layout_stability.py --out build/recovery-workflow-evidence
       - name: Test 3D layout software viewer
         timeout-minutes: 5
         env:
@@ -241,6 +251,9 @@ jobs:
             build/layout-expansion-evidence
             build/live-collaboration-evidence/report.json
             build/live-collaboration-evidence/*.png
+            build/professional-workflow-evidence/report.json
+            build/professional-workflow-evidence/*.png
+            build/recovery-workflow-evidence/gui-stability.json
             build/layout-3d-evidence
             build/layout-3d-opengl-evidence
             build/native-hierarchy-evidence

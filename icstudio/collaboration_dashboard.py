@@ -138,7 +138,7 @@ class CollaborationDashboard(QDialog):
         self.tabs.addTab(scrolling_page(folder_page), 'Shared folder')
         from .team_review_ui import TeamReviewPanel
         self.review_panel=TeamReviewPanel(studio,self)
-        self.tabs.addTab(self.review_panel,'Team review')
+        self.tabs.addTab(scrolling_page(self.review_panel),'Team review')
         footer = QHBoxLayout()
         button('Setup and help', lambda: studio.open_editor_doc('LIVE_COLLABORATION.md'), footer)
         footer.addStretch()

@@ -12,6 +12,10 @@ can reach. Browser links launch the installed desktop app; there is no browser
 layout editor. The earlier shared-folder collaboration remains available under
 the dashboard’s **Shared folder** tab.
 
+## Revision-based team review
+
+Open **Tools → Collaboration → Team review** to create immutable named checkpoints, attach comments to objects, compare revisions, record decisions and share completed simulations or physical runs. Teammates can reproduce saved inputs with their own configured engines and matching PDK. The [workflow guide](PROFESSIONAL_WORKFLOWS.md#team-review) describes permissions, retry behavior and storage limits. Update the host server to dev14 for this tab.
+
 ## Find your way around
 
 All collaboration commands are grouped under **Tools → Collaboration**. The

@@ -42,6 +42,7 @@ class EditorCanvasMixin:
         if pos is None:return
         candidates=self.editor_candidates(pos) if self.mode=='layout' else self.capture_candidates(pos)
         if not candidates:return
+        self.auto_fit=False
         ids=[s['id'] for s in candidates];current=self.selection[0] if len(self.selection)==1 else None
         index=(ids.index(current)+1)%len(ids) if current in ids else 0
         self.selected.emit([ids[index]])

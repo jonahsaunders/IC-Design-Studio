@@ -118,7 +118,7 @@ def matrix(rows,group):
                 stage=next((s for s in physical.get('stages',[]) if s['name']==stage_name),{})
                 actual=stage if spec.get('check') else next((m for m in stage.get('evidence',{}).get('measurements',[]) if m['name']==spec['source_name']),None)
             state=row['state'].upper()
-            if state=='COMPLETE':state='ERROR' if actual is None else {'passed':'PASS','failed':'FAIL'}.get(actual.get('status'),actual.get('status','ERROR'))
+            if state=='COMPLETE':state='ERROR' if actual is None else {'passed':'PASS','failed':'FAIL','not_run':'NOT RUN','running':'RUNNING'}.get(actual.get('status'),actual.get('status','ERROR'))
             elif state in ('FAILED','CANCELLED'):state='ERROR' if state=='FAILED' else state
             item['values'][condition]=dict(status=state,value=actual.get('value') if actual else None,
                 margin=actual.get('margin') if actual else None,detail=(actual or {}).get('error',row.get('log','')),

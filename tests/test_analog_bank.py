@@ -8,7 +8,7 @@ from icstudio.model import clone, History, validate
 from icstudio.physical import connectivity
 from icstudio.interchange import export_layout
 from icstudio.testbenches import spice_testbench
-from test_silicon import technology
+from tests.test_silicon import technology
 
 
 class AnalogBankTests(unittest.TestCase):

@@ -33,7 +33,7 @@ class AnalogMixin:
         menus = {a.text().replace('&', ''): a.menu() for a in self.menuBar().actions() if a.menu()}
         self.action(menus['File'], 'New PDK current mirror', lambda: self.new_analog('current_mirror'))
         self.action(menus['File'], 'New PDK differential pair', lambda: self.new_analog('differential_pair'))
-        self.action(menus['File'], 'New SKY130 amplifier', lambda: self.new_analog('amplifier'))
+        self.action(menus['File'], 'New PDK amplifier', lambda: self.new_analog('amplifier'))
         self.action(menus['Analysis'], 'Configure saved-bench characterization…', self.characterization_dialog)
         self.action(menus['Analysis'], 'Run saved-bench characterization', self.run_characterization)
         self.action(menus['Design'], 'Generate current mirror layout…', self.mirror_layout_dialog)
