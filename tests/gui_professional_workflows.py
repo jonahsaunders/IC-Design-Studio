@@ -25,6 +25,7 @@ def main():
             QTest.qWait(20)
         raise AssertionError(description+' / '+str(errors))
     try:
+        assert not w.unmapped_commands,w.unmapped_commands
         p=example('rc');c=p['cells'][0]
         c['shapes']=[rect('metal1',0,0,1000,1000),rect('metal2',0,0,1000,1000)]
         second=clone(c['devices'][1]);second.update(id=uid(),name='R2');c['devices'].append(second)

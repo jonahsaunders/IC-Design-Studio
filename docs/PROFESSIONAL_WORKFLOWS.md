@@ -18,8 +18,8 @@ marked stale and never become a pass for the new revision.
 | Cycle overlapping objects | **Alt-click**, or **Tab** over the canvas |
 | Resolve parameterized physical instances | **Schematic-driven layout → Resolve parameter variants** |
 | Place missing and update changed devices | **Schematic-driven layout → Select missing and changed devices** |
-| Generate an analog reference bank | **Design → Generate analog reference layout** |
-| Create an amplifier | **File → New PDK amplifier**, then choose models and supply |
+| Generate an analog reference bank | **Layout → Generate → Generate analog reference layout** |
+| Create an amplifier | **File → Examples → New PDK amplifier**, then choose models and supply |
 | Compare multiple tests and corners | **Analysis → Verification test plans** |
 | Review with teammates | **Tools → Collaboration → Team review** |
 
