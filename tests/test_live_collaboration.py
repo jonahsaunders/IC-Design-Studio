@@ -258,6 +258,27 @@ class LiveCollaborationTests(unittest.TestCase):
             self.assertNotIn(self.inv['invite'], page)
             self.assertIn('icstudio://join', page)
 
+    def test_rejected_split_post_delivers_error_without_creating_workspace(self):
+        from http.client import HTTPConnection
+        raw = json.dumps(dict(project=self.p, name='Must not create')).encode()
+        for extra, expected in (({'Origin': 'https://untrusted.example'}, 403), ({'Content-Type': 'text/plain'}, 415)):
+            with self.subTest(status=expected):
+                connection = HTTPConnection('127.0.0.1', self.server.server_port, timeout=5)
+                try:
+                    connection.putrequest('POST', '/v2/workspaces')
+                    for name, value in {'Content-Type': 'application/json', 'Content-Length': str(len(raw)), 'Authorization': 'Bearer '+KEY, **extra}.items():
+                        connection.putheader(name, value)
+                    connection.endheaders()
+                    connection.send(raw[:1])
+                    time.sleep(.03)  # Body and headers need not arrive together.
+                    connection.send(raw[1:])
+                    response = connection.getresponse()
+                    self.assertEqual(response.status, expected)
+                    self.assertIn('error', json.loads(response.read()))
+                finally:
+                    connection.close()
+        self.assertEqual(self.store.db.execute('SELECT count(*) FROM workspaces').fetchone()[0], 1)
+
     def test_secrets_hashed_and_links_require_secure_remote_transport(self):
         for table in ('actors', 'invitations'):
             text = str([tuple(r) for r in self.store.db.execute('SELECT * FROM ' + table)])

@@ -91,16 +91,21 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         try:
-            if self.headers.get('Origin') or self.headers.get('Transfer-Encoding'):
+            if self.headers.get('Transfer-Encoding'):
                 raise LiveError('Use the desktop client for this API.', 403)
-            if self.headers.get_content_type() != 'application/json':
-                raise LiveError('JSON is required.', 415)
             length = int(self.headers.get('Content-Length', '-1'))
             if not 0 <= length <= MAX_BYTES:
                 raise LiveError('Request exceeds the 16 MiB limit.', 413)
             raw = self.rfile.read(length)
             if len(raw) != length:
                 raise LiveError('Incomplete request.', 400)
+            # Consume the bounded, framed body before closing a rejected POST.
+            # Closing with unread bytes can reset TCP and erase the response on
+            # Windows (RFC 9112 section 9.6). Never decode or authorize it first.
+            if self.headers.get('Origin'):
+                raise LiveError('Use the desktop client for this API.', 403)
+            if self.headers.get_content_type() != 'application/json':
+                raise LiveError('JSON is required.', 415)
             def invalid_constant(value):
                 raise ValueError('Non-finite JSON number')
             body = json.loads(raw, parse_constant=invalid_constant)
