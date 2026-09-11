@@ -38,7 +38,7 @@ class GeometryGraph:
             ident=key(shape);old=self.records.get(ident)
             signature=old['signature'] if trusted and old and old['shape'] is shape else (shape['layer'],geometry_key(shape))
             if old and old['signature']==signature:
-                record={**old,'shape':shape}
+                record=old if old['shape'] is shape else {**old,'shape':shape}
             else:
                 poly=polygon(shape);b=poly.bbox();record={'signature':signature,'poly':poly,'region':db.Region(poly),'box':(b.left,b.bottom,b.right,b.top),'shape':shape};changed.add(ident);built+=1
             records[ident]=record
@@ -46,14 +46,24 @@ class GeometryGraph:
         if reset:changed.update(records)
         ordered=list(records);boxes=tuple(records[k]['box'] for k in ordered)
         index=self.index if ordered==self.keys and self.index is not None and boxes==self.index.bounds else LayoutBoxIndex(boxes,self.index if ordered==self.keys else None)
-        edges={k:set(self.edges.get(k,())) for k in records} if changed else self.edges
+        # Graphs are shallow-forked for speculative edits. Copy adjacency only
+        # where it changes, retaining the previous graph if validation rejects
+        # the candidate. Large untouched components need no new sets.
+        edges=self.edges.copy() if changed else self.edges
+        copied=set()
+        def writable(ident):
+            if ident not in copied:
+                edges[ident]=set(edges.get(ident,()))
+                copied.add(ident)
+            return edges[ident]
+        for ident in removed:edges.pop(ident,None)
         affected=set(changed);affected_groups=set()
         for ident in changed:
             prior_group=self.groups.get(ident)
             if prior_group:affected_groups.add(prior_group)
             for neighbour in self.edges.get(ident,()):
-                if neighbour in edges:edges[neighbour].discard(ident)
-            if ident in edges:edges[ident]=set()
+                if neighbour in records:writable(neighbour).discard(ident)
+            if ident in records:edges[ident]=set();copied.add(ident)
         tests=0;radius_by_layer={a:max(r for (layer,_),r in radii.items() if layer==a) for a,_ in radii}
         for ident in changed & records.keys():
             row=records[ident];a=row['shape']['layer'];radius=radius_by_layer.get(a,0);box=row['box'];query=(box[0]-radius,box[1]-radius,box[2]+radius,box[3]+radius)
@@ -68,12 +78,13 @@ class GeometryGraph:
                 from .layout_limits import CONTACT_TESTS
                 if tests>CONTACT_TESTS:raise ValueError('Contact search exceeds 2,000,000 candidate pairs. Partition the dense cell before connected editing.')
                 if self.mode=='influence' or not row['region'].interacting(target['region']).is_empty():
-                    edges[ident].add(other);edges[other].add(ident)
+                    writable(ident).add(other);writable(other).add(ident)
                     prior_group=self.groups.get(other)
                     if prior_group:affected_groups.add(prior_group)
                     else:affected.add(other)
         for group in affected_groups:affected.update(group)
-        groups={k:g for k,g in self.groups.items() if k in records and k not in affected}
+        groups=self.groups.copy()
+        for ident in affected:groups.pop(ident,None)
         todo=(affected & records.keys()) | (records.keys()-groups.keys())
         while todo:
             start=todo.pop();component={start};pending=[start]
@@ -84,14 +95,17 @@ class GeometryGraph:
             for ident in component:groups[ident]=frozen
             todo.difference_update(component)
         self.records=records;self.keys=ordered;self.index=index;self.edges=edges;self.groups=groups;self.rules=rulekey;self.generation+=1
-        self.changed=changed;self.affected=affected & records.keys();self.stats={'polygons_built':built,'edge_tests':tests,'changed':len(changed),'affected':len(self.affected),'nodes':len(records)}
+        self.changed=changed;self.affected=affected & records.keys();self.stats={'polygons_built':built,'edge_tests':tests,'changed':len(changed),'affected':len(self.affected),'nodes':len(records),'adjacency_copies':len(copied)}
         return self
 
     def query(self,box):return [self.keys[i] for i in self.index.query(box)]
 
     def partition(self,p,cid):
         from .physical_cells import terminals,ports
-        converted={g:frozenset(('shape',*v) for v in g) for g in set(self.groups.values())}
+        cached=getattr(self,'_partition_groups',{});converted={}
+        for group in set(self.groups.values()):
+            converted[group]=cached[group] if group in cached else frozenset(('shape',*v) for v in group)
+        self._partition_groups=converted
         groups={('shape',*k):converted[g] for k,g in self.groups.items()}
         # Build each component's anchor set once. Polygon contact was already
         # calculated by the graph; labels alone never join physical components.

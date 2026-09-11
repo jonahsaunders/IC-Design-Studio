@@ -194,7 +194,7 @@ class SchematicCollaboration(unittest.TestCase):
     def test_retry_after_server_restart_applies_once_and_v1_is_rejected(self):
         req=self.request(self.a,lambda p:p['cells'][0]['devices'][0].update(value='14k'))
         self.accept(req);self.store.db.execute('PRAGMA user_version=1');self.stop();self.start()
-        self.assertEqual(self.store.db.execute('PRAGMA user_version').fetchone()[0],2)
+        self.assertEqual(self.store.db.execute('PRAGMA user_version').fetchone()[0],3)
         state=self.accept(req);self.assertEqual(state['revision'],1);self.assertEqual(state['acknowledged'],req['id'])
         self.assertEqual(post(self.url,'/v1/workspaces',dict(project=self.p,name='Old client'),KEY)[0],426)
 

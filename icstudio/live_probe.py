@@ -5,13 +5,14 @@ import threading
 import time
 
 from PySide6.QtTest import QTest
+from PySide6.QtCore import Qt
 
 from .layout import rect
 from .live_client import LiveClient
 from .live_protocol import invitation_link, parse_invitation
 from .live_server import Server
 from .live_store import Store
-from .model import clone, device, example
+from .model import clone, device, example, uid
 
 
 def run(window, output):
@@ -64,6 +65,29 @@ def run(window, output):
             window.layout.fit()
             QTest.qWait(50)
             assert window.grab().save(str(Path(output) / 'live-collaboration.png'))
+            # Exercise the bundled workflow worker and reviewer UI, not only
+            # their source-tree imports.
+            guide=window.design_workflow()
+            wait(lambda:guide.analysis is not None)
+            assert not guide.analysis.get('error'),guide.analysis
+            guide.close()
+            checkpoint=store.review(snapshot['workspace'],snapshot['token'],dict(action='create_checkpoint',id=uid(),revision=client.revision,name='Packaged review'))
+            invitation=store.invite(snapshot['workspace'],snapshot['token'],'review')
+            reviewer=store.join(snapshot['workspace'],invitation['invite'],'Packaged reviewer')
+            window.live_leave()
+            client=LiveClient(url,snapshot['workspace'],reviewer['token'],reviewer,root/'reviewer.json',window)
+            window.live_attach(client);panel=window.collaboration_dashboard(3).review_panel
+            wait(lambda:not panel.busy and panel.checkpoints.count()==1)
+            panel.refresh_state();assert panel.comment_button.isEnabled() and not panel.add_button.isEnabled()
+            panel.comment.setPlainText('Please inspect this checkpoint.');panel.comment_button.click()
+            wait(lambda:not panel.busy and panel.comments.topLevelItemCount()==1)
+            root_comment=panel.comments.topLevelItem(0).data(0,Qt.UserRole)
+            store.review(snapshot['workspace'],snapshot['token'],dict(action='reply',id=uid(),checkpoint=checkpoint['id'],parent=root_comment['id'],text='Inspected in the installed application.'))
+            wait(lambda:not panel.busy and panel.comments.topLevelItem(0).childCount()==1)
+            from .live_protocol import LiveError
+            try:client.editable()
+            except LiveError:pass
+            else:raise AssertionError('A packaged reviewer could edit the design.')
         finally:
             if window.live_client:
                 window.live_leave()
@@ -73,4 +97,4 @@ def run(window, output):
             thread.join(5)
             store.close()
             window.set_project(previous, path)
-    return 'packaged live HTTP server/client, invitation parsing, accepted edits and personal undo/redo'
+    return 'packaged live HTTP editing/undo, automatic workflow, reviewer authorization and threaded discussions'

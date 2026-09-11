@@ -67,7 +67,9 @@ def main():
         window.delete();assert not w.project['test_plans'];w.undo();assert w.project['test_plans']
         checks.append('Saved multi-test plan executes four independent jobs, shows exact-requirement baselines and can be deleted and restored')
         guide=w.design_workflow();assert guide.steps.rowCount()==6;guide.grab().save(str(out/'design-workflow.png'))
-        w.commit(lambda q:q.update(name='Changed after checks'),'Rename');guide.mark_changed();assert all(guide.steps.item(i,1).text()=='Refresh required' for i in range(6))
+        w.commit(lambda q:q.update(name='Changed after checks'),'Rename');guide.mark_changed();wait(lambda:guide.analysis is not None and guide.analysis_key[1]==w.project['revision'],'Workflow did not refresh the new revision automatically')
+        assert not guide.analysis.get('error'),guide.analysis
+        checks.append('Workflow checks update automatically after edits without a manual refresh')
         guide.close();window.close();w.finish_recovery()
         from icstudio.live_store import Store
         from icstudio.live_server import Server

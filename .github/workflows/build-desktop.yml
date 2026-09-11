@@ -76,6 +76,11 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_schematic_collaboration.py --out build/schematic-collaboration-evidence
+      - name: Test automatic workflows, linked change review and reviewer discussions
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_workflow_review.py --out build/workflow-review-evidence
       - name: Test asynchronous durable recovery and failed-storage handling
         timeout-minutes: 5
         env:
@@ -260,6 +265,8 @@ jobs:
             build/professional-workflow-evidence/*.png
             build/schematic-collaboration-evidence/report.json
             build/schematic-collaboration-evidence/*.png
+            build/workflow-review-evidence/report.json
+            build/workflow-review-evidence/*.png
             build/recovery-workflow-evidence/gui-stability.json
             build/layout-3d-evidence
             build/layout-3d-opengl-evidence

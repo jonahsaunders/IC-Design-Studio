@@ -146,6 +146,7 @@ class LiveCollaborationMixin:
         form = QFormLayout()
         self.live_role = QComboBox()
         self.live_role.addItem('Can view', 'view')
+        self.live_role.addItem('Can review · comment and approve', 'review')
         self.live_role.addItem('Can edit', 'edit')
         self.live_days = QSpinBox()
         self.live_days.setRange(1, 30)
@@ -452,7 +453,7 @@ class LiveCollaborationMixin:
         fill_reservations(self)
         if self._collaboration_dashboard:
             self._collaboration_dashboard.refresh_state()
-        editable = client.connected and client.info['role'] != 'view' and not client.pending and not client.conflict
+        editable = client.connected and client.info['role'] in ('owner', 'edit') and not client.pending and not client.conflict
         self.undo_action.setEnabled(editable and bool(client.info.get('undo')))
         self.redo_action.setEnabled(editable and bool(client.info.get('redo')))
 

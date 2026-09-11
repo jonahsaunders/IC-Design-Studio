@@ -24,7 +24,7 @@ def recent_sessions(directory, cancelled=lambda: False):
             if state.get('schema') not in (1, 2):
                 continue
             info = state['info']
-            if info.get('role') not in ('owner', 'view', 'edit'):
+            if info.get('role') not in ('owner', 'view', 'review', 'edit'):
                 raise ValueError('Invalid saved role')
             results.append(dict(path=str(path), name=str(state['project']['name'])[:120],
                                 server=server_url(state['server']), role=info['role'],

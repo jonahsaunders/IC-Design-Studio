@@ -2,6 +2,14 @@
 
 Our goal is an independent open design environment that makes circuit intent, experiments and physical implementation easy to follow. Compatibility with Xschem, ngspice, KLayout, Magic and Netgen remains part of that direction. This roadmap expresses priorities and acceptance criteria, not promised delivery dates.
 
+## Experimental dev16 implementation
+
+The [workflow and review update](WORKFLOW_REVIEW_0.22.md) adds automatic workflow
+checks, selected testbench context, visual ECO inspection, reviewer permissions
+and threaded checkpoint discussions. The next work includes realistic analog
+block qualification, broader matched layouts, durable offline review/edit queues,
+notifications and reducing recovery snapshot copying on the UI thread.
+
 ## Experimental dev14 implementation
 
 The [engineering workflow guide](PROFESSIONAL_WORKFLOWS.md) records the implemented document services, editing improvements, parameter variants, analog references, test matrices and team review, with measured performance and explicit qualification limits. The remaining priorities below continue beyond this increment.
@@ -48,7 +56,7 @@ Build beyond the current finite-difference sensitivity and bounded sampled searc
 
 Progress in [0.22.0.dev1](UPDATE_0.22.md): hierarchical file XOR by layer/datatype, exact area summaries, saved reference snapshots, geometry queries, tiled density and bounded fill/rounding. A reproducible 10,000-square GDS/OASIS workload checks the comparison path. This does not establish large-layout interactive viewport performance.
 
-Profile large schematics, geometry and waveform sets. Introduce measured rendering/indexing improvements, reusable project libraries and reviewable project diffs. Improve plugin/adapter boundaries and regression automation. Evaluate remote workers and team collaboration only after the local document and job model are reliable.
+Profile large schematics, geometry and waveform sets. Introduce measured rendering/indexing improvements, reusable project libraries and reviewable project diffs. Improve plugin/adapter boundaries and regression automation. Extend the existing schematic/layout collaboration with durable offline work and richer review coordination. Remote compute remains future work.
 
 **Done when:** published workload definitions and measured responsiveness justify the supported scale. Collaboration preserves revision identity, result provenance and recoverable edits.
 

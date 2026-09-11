@@ -21,6 +21,11 @@ def install(db):
         CREATE TABLE IF NOT EXISTS review_requests(id TEXT,workspace TEXT,actor TEXT,fingerprint TEXT,
             response TEXT,PRIMARY KEY(workspace,id));
     ''')
+    # Additive migration: existing comments become root discussions. The store
+    # upgrades user_version so older servers cannot misinterpret reviewer roles.
+    columns={row[1] for row in db.execute('PRAGMA table_info(review_comments)')}
+    if 'parent' not in columns:
+        db.execute("ALTER TABLE review_comments ADD COLUMN parent TEXT NOT NULL DEFAULT ''")
 
 
 def text(value,name,limit,empty=False):
@@ -38,7 +43,13 @@ def checkpoint(db,wid,key):
 def handle(store,wid,token,request):
     from .live_store import encode
     db=store.db;action=request.get('action');read_only=action in ('list','checkpoint','report')
-    actor=store._actor(wid,token,edit=not read_only)
+    actor=store._actor(wid,token)
+    if not read_only:
+        if action in ('comment','reply','resolve_comment','decide'):
+            if actor['role'] not in ('owner','edit','review'):
+                raise LiveError('A review or edit invitation is required to participate in discussions.',403)
+        else:
+            store._actor(wid,token,edit=True)
     if action=='list':
         def rows(query):return [dict(r) for r in db.execute(query,(wid,))]
         return dict(checkpoints=rows('SELECT c.id,c.name,c.revision,c.hash,c.created,a.name AS author FROM review_checkpoints c JOIN actors a ON a.id=c.actor WHERE c.workspace=? ORDER BY c.created DESC'),
@@ -70,9 +81,20 @@ def handle(store,wid,token,request):
         project=json.loads(w['project']);hash_=design_digest(project)
         db.execute('INSERT INTO review_checkpoints VALUES(?,?,?,?,?,?,?,?)',(ident,wid,actor['id'],name,w['revision'],hash_,w['project'],time.time()))
         response=dict(id=ident,revision=w['revision'],hash=hash_)
-    elif action=='comment':
+    elif action in ('comment','reply'):
+        parent=''
+        if action=='reply':
+            discussion=db.execute('SELECT * FROM review_comments WHERE workspace=? AND id=?',(wid,request.get('parent'))).fetchone()
+            if discussion is None:raise LiveError('Discussion unavailable.',404)
+            if discussion['parent']:raise LiveError('Reply to the root discussion.',400)
+            if discussion['checkpoint']!=request.get('checkpoint'):raise LiveError('The discussion belongs to a different checkpoint.',400)
+            if discussion['status']!='open':raise LiveError('Reopen this discussion before replying.')
+            parent=discussion['id']
         c=checkpoint(db,wid,request.get('checkpoint'));project=json.loads(c['project'])
-        cid=request.get('cell','');obj=request.get('object','')
+        cid=discussion['cell'] if parent else request.get('cell','')
+        obj=discussion['object'] if parent else request.get('object','')
+        if parent and any(request.get(k,v)!=v for k,v in (('cell',cid),('object',obj))):
+            raise LiveError('Replies inherit their discussion attachment.',400)
         if cid:
             cell=next((cell for cell in project['cells'] if cell['id']==cid),None)
             if cell is None:raise LiveError('The selected cell is absent from this checkpoint.')
@@ -82,11 +104,14 @@ def handle(store,wid,token,request):
         elif obj:raise LiveError('An object comment also needs its cell.',400)
         if db.execute('SELECT count(*) FROM review_comments WHERE workspace=?',(wid,)).fetchone()[0]>=500:raise LiveError('Workspace comment limit reached.',429)
         message=text(request.get('text'),'Comment',4000)
-        db.execute('INSERT INTO review_comments VALUES(?,?,?,?,?,?,?,?,?,?)',(ident,wid,c['id'],actor['id'],cid,obj,message,'open',1,time.time()))
+        db.execute('INSERT INTO review_comments VALUES(?,?,?,?,?,?,?,?,?,?,?)',(ident,wid,c['id'],actor['id'],cid,obj,message,'open',1,time.time(),parent))
+        if parent:
+            db.execute('UPDATE review_comments SET version=version+1 WHERE workspace=? AND id=?',(wid,parent))
         response=dict(id=ident,version=1)
     elif action=='resolve_comment':
         row=db.execute('SELECT * FROM review_comments WHERE workspace=? AND id=?',(wid,request.get('comment'))).fetchone()
         if row is None:raise LiveError('Comment unavailable.',404)
+        if row['parent']:raise LiveError('Resolve or reopen the whole discussion.',400)
         if row['actor']!=actor['id'] and actor['role']!='owner':raise LiveError('Only the comment author or workspace owner can resolve it.',403)
         if request.get('version')!=row['version']:raise LiveError('The comment changed. Refresh before updating it.')
         status=request.get('status')

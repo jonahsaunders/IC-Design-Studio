@@ -10,7 +10,7 @@ class RevisionComparison(QDialog):
     def __init__(self,parent,before,after):
         super().__init__(parent)
         from .collaboration_dashboard import note
-        from .collaboration_review_ui import GeometryView,description,show_schematics
+        from .collaboration_review_ui import GeometryView,description,show_schematics,object_title
         from .collaboration_document import diff, SCHEMATIC_FIELDS, STRUCTURE
         self.setWindowTitle('Compare design revisions');self.resize(1000,650)
         root=QVBoxLayout(self);root.addWidget(note('Changed geometry and objects. The left view is the saved checkpoint; the right view is the comparison revision.'))
@@ -28,8 +28,9 @@ class RevisionComparison(QDialog):
         def draw():
             local=[r for r in rows if r['cell']==self.cells.currentData()];self.table.clear();groups=[[],[]]
             for r in local[:2000]:
-                item=QTreeWidgetItem([r['field']+' / '+str(r['key']),description(r['before']),description(r['after'])])
+                item=QTreeWidgetItem([object_title(r,before,after),description(r['before']),description(r['after'])])
                 for col in range(3):item.setToolTip(col,item.text(col))
+                item.setToolTip(0,item.text(0)+'\n'+str(r['key']))
                 self.table.addTopLevelItem(item)
                 if r['field']=='shapes':
                     for i,key in enumerate(('before','after')):
@@ -50,7 +51,7 @@ class RevisionComparison(QDialog):
 
 class TeamReviewPanel(QWidget):
     def __init__(self,studio,parent=None):
-        super().__init__(parent);self.studio=studio;self.busy=False;self.client=None;self.data={};self.failed_request=None;self.loaded_version=None
+        super().__init__(parent);self.studio=studio;self.busy=False;self.client=None;self.data={};self.failed_request=None;self.loaded_version=None;self.reply_to=None;self.filled_checkpoint=None
         from .collaboration_dashboard import note
         root=QVBoxLayout(self);self.note=note('Join a live workspace to save checkpoints, discuss objects, and review exact revisions.');root.addWidget(self.note)
         row=QHBoxLayout();self.checkpoints=QComboBox();self.checkpoints.setAccessibleName('Review checkpoint');row.addWidget(self.checkpoints,1)
@@ -63,10 +64,13 @@ class TeamReviewPanel(QWidget):
         self.comments.header().setSectionResizeMode(0,QHeaderView.ResizeToContents);self.comments.header().setSectionResizeMode(1,QHeaderView.Stretch);self.comments.header().setSectionResizeMode(2,QHeaderView.ResizeToContents)
         self.comments.itemDoubleClicked.connect(lambda *_:self.call(self.read_comment))
         self.comment=QPlainTextEdit();self.comment.setPlaceholderText('Ask a question or explain the change…');self.comment.setAccessibleName('New review comment');self.comment.setMaximumHeight(85);root.addWidget(self.comment)
+        self.reply_note=note('');root.addWidget(self.reply_note)
         row=QHBoxLayout();self.anchor=QCheckBox('Attach to current selection');row.addWidget(self.anchor,1)
         self.anchor_kind=QComboBox();self.anchor_kind.addItems(['Object','Terminal','Highlighted net','Electrical finding']);self.anchor_kind.setAccessibleName('Comment attachment type');row.addWidget(self.anchor_kind)
         root.addLayout(row);row=QHBoxLayout()
-        self.comment_button=self.button('Post comment',self.post_comment,row);self.button('Read comment',self.read_comment,row);self.button('Go to object',self.navigate,row);self.button('Resolve',self.resolve,row);root.addLayout(row)
+        self.comment_button=self.button('Post comment',self.post_comment,row);self.button('Read comment',self.read_comment,row);self.button('Go to object',self.navigate,row);root.addLayout(row)
+        row=QHBoxLayout();self.reply_button=self.button('Reply to discussion',self.start_reply,row);self.cancel_reply_button=self.button('Cancel reply',self.cancel_reply,row);self.cancel_reply_button.hide()
+        self.resolve_button=self.button('Resolve / reopen',self.resolve,row);root.addLayout(row)
         row=QHBoxLayout();self.decision=QComboBox();self.decision.setAccessibleName('Review decision')
         for label,value in [('Request review','review_requested'),('Approve checkpoint','approved'),('Request changes','changes_requested')]:self.decision.addItem(label,value)
         row.addWidget(self.decision,1);self.decision_button=self.button('Record decision',self.decide,row);root.addLayout(row)
@@ -82,12 +86,18 @@ class TeamReviewPanel(QWidget):
         try:return fn()
         except Exception as exc:self.note.setText(str(exc))
 
-    def refresh_state(self):
+    def update_permissions(self):
         client=self.studio.live_client
-        edit=bool(client and client.connected and client.info['role']!='view')
-        for b in (self.add_button,self.comment_button,self.decision_button,self.share_button):b.setEnabled(edit and not self.busy)
+        edit=bool(client and client.connected and client.info['role'] in ('owner','edit'))
+        review=bool(client and client.connected and client.info['role'] in ('owner','edit','review'))
+        for b in (self.add_button,self.share_button):b.setEnabled(edit and not self.busy)
+        for b in (self.comment_button,self.decision_button,self.resolve_button):b.setEnabled(review and not self.busy)
+        self.reply_button.setEnabled(review and not self.busy and client.info.get('review_api',0)>=2)
+
+    def refresh_state(self):
+        client=self.studio.live_client;self.update_permissions()
         if self.client is not client:
-            self.client=client;self.data={};self.loaded_version=None;self.checkpoints.clear();self.comments.clear();self.reports.clear();self.failed_request=None;self.retry_button.hide()
+            self.client=client;self.data={};self.loaded_version=None;self.checkpoints.clear();self.comments.clear();self.reports.clear();self.failed_request=None;self.retry_button.hide();self.cancel_reply()
         if client and self.isVisible() and not self.busy and self.loaded_version!=client.info.get('review_version'):
             self.call(self.load)
 
@@ -101,9 +111,9 @@ class TeamReviewPanel(QWidget):
         if self.busy:raise ValueError('The previous review request is still running.')
         if mutation and self.failed_request and data is not self.failed_request[0]:raise ValueError('Retry the pending review action before submitting another one.')
         if mutation:data.setdefault('id',uuid.uuid4().hex)
-        self.busy=True
+        self.busy=True;self.update_permissions()
         def finished(status,result):
-            self.busy=False
+            self.busy=False;self.update_permissions()
             if self.studio.live_client is not client:return
             if status!=200:
                 self.note.setText(result.get('error','Review request failed.'))
@@ -113,7 +123,7 @@ class TeamReviewPanel(QWidget):
             self.failed_request=None;self.retry_button.hide();self.loaded_version=client.info.get('review_version')
             self.call(lambda:callback(result))
         try:client.transport.post(client.server,client.path+'/review',client.token,data,finished)
-        except Exception:self.busy=False;raise
+        except Exception:self.busy=False;self.update_permissions();raise
 
     def load(self):
         def loaded(data):
@@ -131,10 +141,20 @@ class TeamReviewPanel(QWidget):
         return key
 
     def fill(self):
-        key=self.checkpoints.currentData();self.comments.clear();self.reports.clear()
-        for row in self.data.get('comments',[]):
-            if row['checkpoint']==key:
-                item=QTreeWidgetItem([row['author']+(' · attached object' if row['object'] else ''),row['text'],row['status']]);item.setData(0,Qt.UserRole,row);item.setToolTip(0,row['object']);item.setToolTip(1,row['text']);self.comments.addTopLevelItem(item)
+        key=self.checkpoints.currentData();current=self.comments.currentItem()
+        selected=current.data(0,Qt.UserRole)['id'] if current else None
+        if self.filled_checkpoint!=key:self.cancel_reply()
+        self.filled_checkpoint=key;self.comments.clear();self.reports.clear()
+        rows=[r for r in self.data.get('comments',[]) if r['checkpoint']==key];items={}
+        for row in rows:
+            item=QTreeWidgetItem([row['author']+(' · attached object' if row['object'] else ''),row['text'],row['status'] if not row.get('parent') else 'Reply'])
+            item.setData(0,Qt.UserRole,row);item.setToolTip(0,row['object']);item.setToolTip(1,row['text']);items[row['id']]=item
+        for row in rows:
+            item=items[row['id']];parent=items.get(row.get('parent'))
+            if parent:parent.addChild(item);parent.setExpanded(True)
+            else:self.comments.addTopLevelItem(item)
+            if row['id']==selected:self.comments.setCurrentItem(item)
+        if self.reply_to and not any(r['id']==self.reply_to and r['status']=='open' for r in rows):self.cancel_reply()
         decisions=[r['author']+': '+r['status'].replace('_',' ')+((' · '+r['message']) if r['message'] else '') for r in self.data.get('decisions',[]) if r['checkpoint']==key]
         self.decisions.setText('\n'.join(decisions) or 'No review decision for this checkpoint yet.')
         for row in self.data.get('reports',[]):
@@ -149,7 +169,9 @@ class TeamReviewPanel(QWidget):
 
     def post_comment(self):
         data=dict(action='comment',checkpoint=self.selected(),text=self.comment.toPlainText(),cell='',object='')
-        if self.anchor.isChecked():
+        if self.reply_to:
+            data=dict(action='reply',checkpoint=self.selected(),parent=self.reply_to,text=self.comment.toPlainText())
+        elif self.anchor.isChecked():
             studio=self.studio;kind=self.anchor_kind.currentText()
             from .review_anchors import targets
             available=targets(studio.project,studio.cid,findings=kind=='Electrical finding')
@@ -168,7 +190,7 @@ class TeamReviewPanel(QWidget):
                 if len(studio.selection)!=1:raise ValueError('Select one object to attach the comment to.')
                 key=studio.selection[0].removeprefix('pin:')
             data.update(cell=studio.cid,object=key)
-        def posted(_):self.comment.clear();self.load()
+        def posted(_):self.comment.clear();self.cancel_reply();self.load()
         self.request(data,posted,True)
 
     def selected_comment(self):
@@ -177,7 +199,21 @@ class TeamReviewPanel(QWidget):
         return item.data(0,Qt.UserRole)
 
     def resolve(self):
-        row=self.selected_comment();self.request(dict(action='resolve_comment',comment=row['id'],version=row['version'],status='resolved'),lambda _:self.load(),True)
+        row=self.discussion();status='open' if row['status']=='resolved' else 'resolved'
+        self.request(dict(action='resolve_comment',comment=row['id'],version=row['version'],status=status),lambda _:self.load(),True)
+
+    def discussion(self):
+        row=self.selected_comment()
+        return next((r for r in self.data.get('comments',[]) if r['id']==row.get('parent')),row)
+
+    def start_reply(self):
+        row=self.discussion()
+        if row['status']!='open':raise ValueError('Reopen this discussion before replying.')
+        self.reply_to=row['id'];self.reply_note.setText('Replying to '+row['author']+': '+row['text'][:160])
+        self.comment_button.setText('Post reply');self.cancel_reply_button.show();self.anchor.setEnabled(False);self.anchor_kind.setEnabled(False);self.comment.setFocus()
+
+    def cancel_reply(self):
+        self.reply_to=None;self.reply_note.clear();self.comment_button.setText('Post comment');self.cancel_reply_button.hide();self.anchor.setEnabled(True);self.anchor_kind.setEnabled(True)
 
     def read_comment(self):
         row=self.selected_comment();self.studio.text_dialog('Comment by '+row['author'],row['text'])

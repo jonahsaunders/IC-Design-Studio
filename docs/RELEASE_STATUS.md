@@ -1,4 +1,10 @@
-# Release status — 0.22.0.dev15 candidate
+# Release status — 0.22.0.dev16 candidate
+
+Dev16 adds [automatic workflows and threaded review](WORKFLOW_REVIEW_0.22.md),
+with an explicit testbench context, visual ECO inspection and server-enforced
+reviewer permissions. The server database upgrades to version 3; document
+protocol 2 and shared-folder version 2 remain unchanged. Each platform must pass
+its exact-commit checks before its packages are considered qualified.
 
 Dev15 adds [schematic and layout collaboration](SCHEMATIC_COLLABORATION.md),
 protocol/database version 2, atomic hierarchy edits, electrical conflict detection,

@@ -6,10 +6,10 @@ constraint records are optional project data.
 
 ## Find the next action
 
-Open **Layout → Design workflow**. Select a circuit or its saved testbench to see
+In dev16, open **Schematic → Design workflow** or **Layout → Design workflow**. Select a circuit or its saved testbench to see
 device-link status, missing connections, matching findings and the latest
 physical comparison. The buttons open the existing editors and verification
-tools. After editing or switching cells, use **Refresh checks**. Old results are
+tools. Checks update automatically after editing or switching cells. Select the saved testbench in the workflow; its corner and temperature remain visible. Old results are
 marked stale and never become a pass for the new revision.
 
 | Task | Entry point |
@@ -115,7 +115,9 @@ Teammates can inspect the values and **Re-run saved input** with their local
 simulators and matching locked PDK. Local executable paths are rebuilt locally;
 the server does not independently attest to submitted simulation values.
 
-Editors and the owner can add review records; viewers can inspect them. Comments
+Dev16 reviewers can comment, reply and record decisions without design editing.
+Editors and the owner can also create checkpoints and share results; viewers can inspect them.
+See [the current review guide](WORKFLOW_REVIEW_0.22.md) for discussion permissions. Comments
 remain attached to their checkpoint even when an object is removed later. Use
 the comparison view to inspect the earlier geometry. Request identities make
 network retries idempotent. The dashboard scrolls on small displays.

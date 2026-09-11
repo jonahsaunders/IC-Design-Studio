@@ -15,7 +15,7 @@ def check_session(workspace, token, snapshot):
         raise LiveError('Update the collaboration server and all desktop clients for schematic and layout collaboration (protocol 2).')
     if any(not isinstance(value, str) or not ID.fullmatch(value) for value in (workspace, token, snapshot.get('actor'))):
         raise LiveError('Invalid server session identity.')
-    if snapshot.get('role') not in ('owner', 'view', 'edit') or type(snapshot.get('revision')) is not int or snapshot['revision'] < 0:
+    if snapshot.get('role') not in ('owner', 'view', 'review', 'edit') or type(snapshot.get('revision')) is not int or snapshot['revision'] < 0:
         raise LiveError('Invalid server session state.')
     if any(type(snapshot.get(k, 0)) is not int or not 0 <= snapshot.get(k, 0) <= 100 for k in ('undo', 'redo')):
         raise LiveError('Invalid server history state.')
@@ -145,8 +145,8 @@ class LiveClient(QObject):
     def editable(self):
         if self.managing:
             raise LiveError('Workspace management is in progress. Please wait before editing.')
-        if self.info['role'] == 'view':
-            raise LiveError('You have view access. Ask the owner for an edit invitation.')
+        if self.info['role'] not in ('owner', 'edit'):
+            raise LiveError('This session cannot edit the design. Ask the owner for an edit invitation.')
         if self.conflict:
             raise LiveError('Save or discard the retained conflicting edit in the live session panel first.')
         if self.pending:
@@ -179,7 +179,7 @@ class LiveClient(QObject):
 
     def reapply(self, revision):
         from .live_review import reapply_conflict
-        if not self.conflict or self.pending or not self.connected or self.info['role'] == 'view':
+        if not self.conflict or self.pending or not self.connected or self.info['role'] not in ('owner', 'edit'):
             raise LiveError('Reconnect and wait for synchronization before reapplying this edit.')
         if self.revision != revision:
             raise LiveError('The shared design changed. Refresh the comparison before reapplying.')

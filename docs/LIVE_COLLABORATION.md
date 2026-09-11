@@ -2,7 +2,7 @@
 
 This experimental feature shares schematics and layouts through a self-hosted server. Open
 **Tools → Collaboration → Share this project** to create a workspace, choose
-**Can view** or **Can edit**, and copy an expiring invitation. A collaborator
+**Can view**, **Can review**, or **Can edit**, and copy an expiring invitation. A collaborator
 opens the link in their browser and chooses **Open IC Design Studio**, or pastes
 the complete link into **Join a workspace** in the desktop app.
 
@@ -14,7 +14,7 @@ the dashboard’s **Shared folder** tab.
 
 ## Revision-based team review
 
-Open **Tools → Collaboration → Team review** to create immutable named checkpoints, attach comments to objects, compare revisions, record decisions and share completed simulations or physical runs. Teammates can reproduce saved inputs with their own configured engines and matching PDK. The [workflow guide](PROFESSIONAL_WORKFLOWS.md#team-review) describes permissions, retry behavior and storage limits. Update the server and every desktop client to dev15. See [schematic collaboration](SCHEMATIC_COLLABORATION.md) for the complete editing and review workflow.
+Open **Tools → Collaboration → Team review** to create immutable named checkpoints, attach comments to objects, compare revisions, record decisions and share completed simulations or physical runs. Teammates can reproduce saved inputs with their own configured engines and matching PDK. The [workflow guide](PROFESSIONAL_WORKFLOWS.md#team-review) describes permissions, retry behavior and storage limits. Use dev16 for [reviewer permissions and threaded discussions](WORKFLOW_REVIEW_0.22.md); it upgrades the server database to version 3 while retaining document protocol 2. See [schematic collaboration](SCHEMATIC_COLLABORATION.md) for the complete editing and review workflow.
 
 ## Find your way around
 
@@ -191,7 +191,9 @@ transfer are not part of this release.
 
 ## Server persistence and limits
 
-Dev15 upgrades the server database and shared-folder journal to version 2. All
+Dev15 upgraded the server database and shared-folder journal to version 2.
+Dev16 upgrades only the server database to version 3 for reviewer permissions
+and threaded discussions; see [the upgrade notes](WORKFLOW_REVIEW_0.22.md#upgrade-and-compatibility). All
 clients must update together. Existing projects, sessions and history are kept;
 old HTTP clients receive an update message. See [upgrade details](SCHEMATIC_COLLABORATION.md#updating-an-existing-team).
 

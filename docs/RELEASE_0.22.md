@@ -1,8 +1,14 @@
-# IC Design Studio 0.22.0.dev15 — engineering preview
+# IC Design Studio 0.22.0.dev16 — engineering preview
 
-Dev15 adds [shared schematic editing and review](SCHEMATIC_COLLABORATION.md). Update
+Dev16 adds [workflow and review improvements](WORKFLOW_REVIEW_0.22.md): automatic
+checks from either editor, remembered testbench context, linked device inspection,
+visual layout-update comparison, reviewer invitations and threaded discussions.
+Back up before upgrading the server database to version 3. Document protocol 2
+remains compatible; use dev16 desktops for the new review features.
+
+Dev15 added [shared schematic editing and review](SCHEMATIC_COLLABORATION.md). Update
 the server and all desktop clients together; the collaboration protocol and
-server database are version 2. The earlier feature notes below remain applicable.
+server database became version 2 in dev15. The earlier feature notes below remain applicable.
 
 Dev13 groups all collaboration tools under **Tools → Collaboration**. The
 dashboard discovers recent sessions, restores expired ownership with administrator

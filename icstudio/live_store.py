@@ -42,7 +42,7 @@ class Store:
         self.presence = {}
         self.db.execute('PRAGMA journal_mode=WAL')
         self.db.execute('PRAGMA synchronous=FULL')
-        if self.db.execute('PRAGMA user_version').fetchone()[0] not in (0, 1, 2):
+        if self.db.execute('PRAGMA user_version').fetchone()[0] not in (0, 1, 2, 3):
             raise ValueError('Unsupported collaboration database version.')
         self.db.executescript('''
             CREATE TABLE IF NOT EXISTS workspaces(id TEXT PRIMARY KEY, project TEXT, revision INTEGER);
@@ -57,10 +57,11 @@ class Store:
             CREATE TABLE IF NOT EXISTS leases(workspace TEXT, resource TEXT, actor TEXT, expires REAL,
                 PRIMARY KEY(workspace, resource));
             CREATE INDEX IF NOT EXISTS events_revision ON events(workspace, revision);
-            PRAGMA user_version=2;
+
         ''')
         from .live_review_store import install
         install(self.db)
+        self.db.execute('PRAGMA user_version=3')
         path.chmod(0o600)
 
     def close(self):
@@ -95,7 +96,7 @@ class Store:
                 raise LiveError('This invitation has expired or been revoked.', 403)
         if owner and row['role'] != 'owner':
             raise LiveError('Only the workspace owner can manage invitations.', 403)
-        if edit and row['role'] == 'view':
+        if edit and row['role'] not in ('owner', 'edit'):
             raise LiveError('This session can view the design. An edit invitation is required to change it.', 403)
         return row
 
@@ -126,8 +127,8 @@ class Store:
             return dict(result, workspace=wid, token=token)
 
     def invite(self, wid, token, role, days=7):
-        if role not in ('view', 'edit') or type(days) is not int or not 1 <= days <= 30:
-            raise LiveError('Choose view/edit permission and an expiry of 1–30 days.', 400)
+        if role not in ('view', 'review', 'edit') or type(days) is not int or not 1 <= days <= 30:
+            raise LiveError('Choose view/review/edit permission and an expiry of 1–30 days.', 400)
         with self.transaction():
             self._actor(wid, token, owner=True)
             count = self.db.execute('SELECT count(*) FROM invitations WHERE workspace=? AND revoked=0 AND expires>?',
@@ -193,7 +194,7 @@ class Store:
         w = self._workspace(wid)
         result = dict(revision=w['revision'], actor=actor['id'], name=actor['name'], role=actor['role'],
                       undo=len(json.loads(actor['undo'])), redo=len(json.loads(actor['redo'])))
-        result['review_api']=1
+        result['review_api']=2
         result['protocol']=PROTOCOL
         result['review_version']=self.db.execute('SELECT count(*) FROM review_requests WHERE workspace=?',(wid,)).fetchone()[0]
         if since != w['revision']:
@@ -240,7 +241,7 @@ class Store:
             self.presence[(wid, a['id'])] = dict(name=a['name'], role=a['role'], cell=cell, selection=selection,
                                                  cursor=cursor, view=view, seen=time.time())
             wanted = set()
-            if a['role'] != 'view' and selection:
+            if a['role'] in ('owner', 'edit') and selection:
                 project = json.loads(self._workspace(wid)['project'])
                 c = next((c for c in project['cells'] if c['id'] == cell), None)
                 if c:

@@ -11,6 +11,20 @@ from .live_review import conflict_rows, reapply_conflict
 from .model import clone
 
 
+def object_title(row, before, after):
+    value=row['after'] if isinstance(row['after'],dict) else row['before']
+    value=value if isinstance(value,dict) else {}
+    label=row['field'].replace('layout_','').replace('_',' ').title()
+    if value.get('name'):return label+' · '+str(value['name'])
+    owner=value.get('device_id') or value.get('generated_device')
+    if owner:
+        for project in (after,before):
+            cell=next((c for c in project['cells'] if c['id']==row['cell']),{})
+            device=next((d for d in cell.get('devices',[]) if d['id']==owner),None)
+            if device:return label+' · '+device['name']+(' · '+value['layer'] if value.get('layer') else '')
+    return label+(' · '+str(value['net']) if value.get('net') else ' · '+str(row['key']))
+
+
 class SchematicPicture(QGraphicsItem):
     def __init__(self, picture, bounds):
         super().__init__(); self.picture = picture; self.box = bounds

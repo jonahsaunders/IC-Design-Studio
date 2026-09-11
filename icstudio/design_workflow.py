@@ -1,68 +1,171 @@
-"""One place to advance a saved circuit from schematic changes to team review."""
-from PySide6.QtCore import Qt,QTimer
-from PySide6.QtWidgets import QDialog,QVBoxLayout,QHBoxLayout,QLabel,QPushButton,QTableWidget,QTableWidgetItem,QHeaderView,QAbstractItemView
-from .model import design_digest
+"""A shared, automatically refreshed circuit workflow for both editors."""
+from concurrent.futures import ThreadPoolExecutor
+from PySide6.QtCore import Qt, QTimer
+from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel, QPushButton,
+    QComboBox, QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView)
+from .model import clone
+
+
+def inspect_project(project, cid):
+    """Pure document inspection; the worker receives an isolated snapshot."""
+    from .layout_eco_hierarchy import inventory
+    from .analog_constraints import findings
+    from .physical import connectivity
+    report = inventory(project, cid)
+    constraints, connections = [], []
+    for cell in report['cells']:
+        constraints.extend(findings(project, cell))
+        connections.extend(connectivity(project, cell)['issues'])
+    return dict(inventory=report, constraints=constraints, connections=connections)
 
 
 class DesignWorkflow(QDialog):
-    def __init__(self,studio):
-        super().__init__(studio);self.studio=studio;self.identity=None
-        self.setWindowTitle('Design workflow');self.resize(840,620)
+    def __init__(self, studio):
+        super().__init__(studio)
+        self.studio=studio;self.identity=None;self.analysis_key=None;self.analysis=None
+        self.future=None;self.future_key=None;self.preferred={};self.cid=None;self.bench=None
+        self.executor=ThreadPoolExecutor(max_workers=1,thread_name_prefix='studio-workflow')
+        self.finished.connect(self.stop)
+        self.setWindowTitle('Design workflow');self.resize(880,680)
         root=QVBoxLayout(self);self.note=QLabel();self.note.setWordWrap(True);root.addWidget(self.note)
-        self.steps=QTableWidget(0,3);self.steps.setHorizontalHeaderLabels(['Step','Current state','Action']);self.steps.setAccessibleName('Design workflow steps')
-        self.steps.setEditTriggers(QAbstractItemView.NoEditTriggers);self.steps.horizontalHeader().setSectionResizeMode(1,QHeaderView.Stretch);root.addWidget(self.steps,1)
-        root.addWidget(QLabel('Latest physical comparison for this circuit'))
-        self.values=QTableWidget(0,5);self.values.setHorizontalHeaderLabels(['Measurement','Schematic','Post-layout','Change','Unit']);self.values.setEditTriggers(QAbstractItemView.NoEditTriggers);self.values.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch);root.addWidget(self.values)
+        row=QHBoxLayout();row.addWidget(QLabel('Saved testbench'))
+        self.testbench=QComboBox();self.testbench.setAccessibleName('Workflow testbench');row.addWidget(self.testbench,1)
+        self.corner=QLabel();row.addWidget(self.corner);root.addLayout(row)
+        self.testbench.currentIndexChanged.connect(self.choose_testbench)
+        self.next_action=QPushButton('Checking design…');self.next_action.setProperty('role','primary');root.addWidget(self.next_action)
+        self.next_action.clicked.connect(lambda:self.call(self.next_fn))
+        self.steps=QTableWidget(6,3);self.steps.setHorizontalHeaderLabels(['Step','Current state','Action'])
+        self.steps.setAccessibleName('Design workflow steps');self.steps.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.steps.horizontalHeader().setStretchLastSection(False)
+        self.steps.horizontalHeader().setSectionResizeMode(0,QHeaderView.ResizeToContents)
+        self.steps.horizontalHeader().setSectionResizeMode(1,QHeaderView.Stretch)
+        self.steps.horizontalHeader().setSectionResizeMode(2,QHeaderView.ResizeToContents)
+        self.steps.verticalHeader().hide();root.addWidget(self.steps,1)
+        root.addWidget(QLabel('Latest physical comparison for the selected testbench'))
+        self.values=QTableWidget(0,5);self.values.setHorizontalHeaderLabels(['Measurement','Schematic','Post-layout','Change','Unit'])
+        self.values.setEditTriggers(QAbstractItemView.NoEditTriggers);self.values.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch);root.addWidget(self.values)
         row=QHBoxLayout()
-        for text,fn in [('Refresh checks',self.refresh),('Open verification results',studio.open_silicon),('Close',self.close)]:
-            button=QPushButton(text);button.clicked.connect(lambda _=False,fn=fn:self.call(fn));row.addWidget(button)
-        root.addLayout(row);self.timer=QTimer(self);self.timer.setInterval(400);self.timer.timeout.connect(self.mark_changed);self.timer.start();self.refresh()
+        for title,fn in [('Refresh checks',self.refresh),('Open verification results',studio.open_silicon),('Close',self.close)]:
+            button=QPushButton(title);button.clicked.connect(lambda _=False,fn=fn:self.call(fn));row.addWidget(button)
+        root.addLayout(row)
+        self.timer=QTimer(self);self.timer.setInterval(250);self.timer.timeout.connect(self.mark_changed);self.timer.start()
+        self.refresh()
+
+    def stop(self, *_):
+        self.timer.stop();self.executor.shutdown(wait=False,cancel_futures=True)
 
     def call(self,fn):
         try:return fn()
         except Exception as exc:self.note.setText(str(exc))
 
+    def state_key(self):
+        s=self.studio
+        return (id(s.project),s.project['id'],s.project['revision'],s.cid,s._selected_testbench,
+                tuple((r['id'],r['state'],id(r.get('result'))) for r in s.run_manager.rows))
+
+    def choose_testbench(self):
+        s=self.studio;key=self.testbench.currentData()
+        s._selected_testbench=key
+        if key:
+            s.testbench_combo.setCurrentIndex(s.testbench_combo.findData(key))
+        if self.cid:self.preferred[(s.project['id'],self.cid)]=key
+        self.refresh()
+
+    def select_context(self):
+        s=self.studio;p=s.project
+        benches=[t for t in p.get('testbenches',[]) if s.cid in (t['dut_cell'],t['bench_cell'])]
+        keys={t['id'] for t in benches};remembered=self.preferred.get((p['id'],s.cid))
+        selected=s._selected_testbench if s._selected_testbench in keys else remembered
+        if selected not in keys:selected=benches[0]['id'] if len(benches)==1 else None
+        self.bench=next((t for t in benches if t['id']==selected),None)
+        self.cid=self.bench['dut_cell'] if self.bench else s.cid
+        self.testbench.blockSignals(True);self.testbench.clear();self.testbench.addItem('Choose a testbench…' if benches else 'No saved testbench for this cell',None)
+        for t in benches:self.testbench.addItem(t['name'],t['id'])
+        self.testbench.setCurrentIndex(max(0,self.testbench.findData(selected)));self.testbench.blockSignals(False)
+        if self.bench:self.preferred[(p['id'],self.cid)]=selected
+        settings=self.bench.get('analysis',{}) if self.bench else {}
+        self.corner.setText(('Corner: '+str(settings.get('corner','nominal'))+' · '+str(settings.get('temperature',27))+' °C') if self.bench else '')
+
     def mark_changed(self):
         if not self.isVisible():return
-        s=self.studio
-        if self.identity!=(s.project['id'],s.project['revision'],s.cid):
-            self.note.setText('The design or selected cell changed. Refresh checks before using the states below.')
-            for row in range(self.steps.rowCount()):self.steps.item(row,1).setText('Refresh required')
+        if self.future and self.future.done():
+            future,key=self.future,self.future_key;self.future=None
+            try:
+                result=future.result()
+                if key==(id(self.studio.project),self.studio.project['revision'],self.cid):
+                    self.analysis=result;self.analysis_key=key
+            except Exception as exc:
+                if key==(id(self.studio.project),self.studio.project['revision'],self.cid):
+                    self.analysis={'error':str(exc)};self.analysis_key=key
+            self.refresh();return
+        if self.identity!=self.state_key():self.refresh()
+        elif not self.analysis and not self.future:self.refresh()
 
     def refresh(self):
-        s=self.studio;p=s.project;cid=s.cid;self.identity=(p['id'],p['revision'],cid)
-        from .layout_eco import inventory
-        from .analog_constraints import findings
-        bench=next((t for t in p.get('testbenches',[]) if cid in (t['dut_cell'],t['bench_cell'])),None)
-        if bench:s._selected_testbench=bench['id'];cid=bench['dut_cell']
-        c=next(c for c in p['cells'] if c['id']==cid)
-        inv=inventory(p,cid);changed=[r for r in inv['devices'] if r['status']!='current'];constraints=findings(p,cid)
-        def circuit(fn):
-            if not s.flush_inspector():return
-            s.cid=cid;s.selection=[];s.mode_combo.setCurrentIndex(1);s.refresh(True);return fn()
-        result=next((row.get('result') for row in reversed(s.run_manager.rows) if row.get('result',{}).get('silicon_report',{}).get('cell_id')==cid and row['result'].get('project_id')==p['id']),None)
-        stale=bool(result and result['design_hash']!=design_digest(p));report=result.get('silicon_report',{}) if result else {}
-        status='Not run' if not result else ('Stale · ' if stale else '')+report.get('status','unknown').title()
-        steps=[('1. Electrical tests',bench['name'] if bench else 'Save a fixture and measurement limits','Choose tests',s.open_testbenches),
-            ('2. Schematic → layout',str(len(changed))+' missing, changed, or unsupported devices' if changed else 'All device links current','Review changes',lambda:circuit(s.layout_eco_dialog)),
-            ('3. Connections and matching',f"{len(inv['connectivity'])} connection findings; {len(constraints)} constraint findings",'Inspect connections',lambda:circuit(s.check_linked_layout)),
-            ('4. DRC, LVS and extraction',status,'Verify saved testbench',s.run_silicon),
-            ('5. Specifications and corners','Compare requirements across saved tests and operating conditions','Open test plans',s.test_plan_window),
-            ('6. Team review','Save a checkpoint, discuss objects, and share the verified inputs','Open collaboration',s.collaboration_dashboard)]
-        self.steps.setRowCount(len(steps))
+        s=self.studio;p=s.project;self.select_context();self.identity=self.state_key()
+        key=(id(p),p['revision'],self.cid)
+        if key!=self.analysis_key:self.analysis=None
+        editing=getattr(s,'_inspector_dirty',False) or any(
+            c.anchor is not None or c.drawing or c._rect_pending or c.moving or c.wire_points or c.wire_drag or c.placement
+            for c in (s.schematic,s.layout))
+        if self.analysis is None and self.future is None and not editing:
+            self.future_key=key;self.future=self.executor.submit(inspect_project,clone(p),self.cid)
+        self.render()
+
+    def circuit_action(self,fn):
+        s=self.studio
+        if not s.flush_inspector():return
+        if self.bench:s._selected_testbench=self.bench['id']
+        s.cid=self.cid;s.selection=[];s.refresh(True)
+        return fn()
+
+    def render(self):
+        s=self.studio;p=s.project;bench=self.bench;cid=self.cid
+        cell=next(c for c in p['cells'] if c['id']==cid)
+        data=self.analysis or {};pending=self.analysis is None;error=data.get('error')
+        changes=[r for r in data.get('inventory',{}).get('devices',[]) if r['status'] not in ('current','external')]
+        connections=data.get('connections',[]);constraints=data.get('constraints',[])
+        run=next((r for r in reversed(s.run_manager.rows) if bench and r.get('job',{}).get('settings',{}).get('testbench')==bench['id'] and
+                  r.get('result',{}).get('project_id')==p['id'] and r['result'].get('silicon_report',{}).get('cell_id')==cid),None)
+        result=run['result'] if run else None;report=result.get('silicon_report',{}) if result else {}
+        current_hash=data.get('inventory',{}).get('design_hash')
+        stale=bool(result and result['design_hash']!=current_hash)
+        status='Choose a testbench' if not bench else 'Not run' if not result else ('Checking revision · ' if pending else 'Stale · ' if stale else '')+report.get('status','unknown').title()
+        unknown='Checking…' if pending else 'Inspection needs attention' if error else None
+        review=lambda:self.circuit_action(s.layout_eco_dialog)
+        verify=lambda:self.circuit_action(s.run_silicon)
+        steps=[('1. Electrical tests',bench['name'] if bench else 'Choose or save a fixture and measurement limits','Choose tests',lambda:self.circuit_action(s.open_testbenches)),
+            ('2. Schematic → layout',unknown or (str(len(changes))+' devices need review' if changes else 'All device links current'),'Review changes',review),
+            ('3. Connections and matching',unknown or f'{len(connections)} connection findings; {len(constraints)} constraint findings','Inspect connections',lambda:self.circuit_action(s.check_linked_layout)),
+            ('4. DRC, LVS and extraction',status,'Verify selected testbench',verify),
+            ('5. Specifications and corners','Run saved tests across operating conditions','Open test plans',s.test_plan_window),
+            ('6. Team review','Discuss an exact checkpoint and its verification results','Open collaboration',s.collaboration_dashboard)]
         for row,(title,state,label,fn) in enumerate(steps):
             self.steps.setItem(row,0,QTableWidgetItem(title));self.steps.setItem(row,1,QTableWidgetItem(state))
             button=QPushButton(label);button.clicked.connect(lambda _=False,fn=fn:self.call(fn));self.steps.setCellWidget(row,2,button)
+            self.steps.setRowHeight(row,max(40,button.sizeHint().height()+6))
+            if row==3:button.setEnabled(bool(bench) and not pending and not error)
+        if not bench:index=0
+        elif pending or error:index=None
+        elif changes:index=1
+        elif connections or constraints:index=2
+        elif not result or stale or report.get('status')!='passed':index=3
+        else:index=4
+        self.next_fn=steps[index][3] if index is not None else self.refresh
+        self.next_action.setText('Next: '+steps[index][2] if index is not None else 'Checking design…' if pending else 'Retry design checks')
+        self.next_action.setEnabled(index is not None or bool(error))
         values=report.get('comparison',[]);self.values.setRowCount(len(values))
         for row,m in enumerate(values):
-            for col,v in enumerate([m['name'],m['before'],m['after'],m['delta'],m['unit']]):self.values.setItem(row,col,QTableWidgetItem(f'{v:.6g}' if isinstance(v,(int,float)) else str(v)))
-        self.note.setText(c['name']+' · revision '+str(p['revision'])+'. Complete each check after an electrical or layout change. '+('Comparison belongs to an older design.' if stale else ''))
+            for col,v in enumerate([m['name'],m['before'],m['after'],m['delta'],m['unit']]):
+                self.values.setItem(row,col,QTableWidgetItem(f'{v:.6g}' if isinstance(v,(int,float)) else str(v)))
+        self.note.setText(cell['name']+' · revision '+str(p['revision'])+'. '+(error or 'Checks update automatically after edits and completed jobs. ')+('Comparison belongs to an older design.' if stale and not pending else ''))
 
 
 def install(studio):
     def show():
         old=getattr(studio,'_design_workflow',None)
-        if old:old.close()
+        if old and old.isVisible():old.raise_();old.activateWindow();old.refresh();return old
         studio._design_workflow=DesignWorkflow(studio);studio._design_workflow.show();return studio._design_workflow
     studio.design_workflow=show
-    studio.action(studio.task_menus['Layout'],'Design workflow…',show)
+    for menu in ('Schematic','Layout'):
+        studio.action(studio.task_menus[menu],'Design workflow…',show)

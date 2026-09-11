@@ -58,8 +58,8 @@ To attach a comment, select **Attach to current selection**, then choose:
 The server validates attachments against the selected checkpoint. If the design
 has changed, save/select the appropriate checkpoint first. **Go to object** opens
 the current target. If a target was removed or renamed, inspect its checkpoint.
-Approvals apply only to their checkpoint. Viewers can inspect reviews; posting
-and recording decisions still require edit access.
+Approvals apply only to their checkpoint. Viewers can inspect reviews; dev16 adds a reviewer role for posting, threaded replies and decisions without editing.
+See [the workflow and review update](WORKFLOW_REVIEW_0.22.md).
 
 Conflicting component edits open a three-version schematic comparison: before
 your edit, the shared revision, and your retained proposal. Parameter conflicts
