@@ -1,5 +1,12 @@
 # Your first circuit
 
+## Bring your own open design
+
+For a larger example after the gallery, follow [real-project import](OPEN_PROJECTS.md).
+It covers a hierarchical SKY130 detector, layout attachment, saved native files,
+reproducible simulation and explicit LVS findings. Start with the included
+examples below if you are still configuring your simulator.
+
 Open IC Design Studio and choose **Your first waveform** from the startup gallery. Choose **Open a copy**, then press **F5**. This small RC circuit uses the included educational solver; it needs no external engine or PDK.
 
 ## Read the result

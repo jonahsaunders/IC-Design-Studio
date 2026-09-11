@@ -268,13 +268,15 @@ class EditorWorkspaceMixin:
 
     def save_layer_profile(self):
         if not getattr(self,'_editor_ready',False):return
-        self.settings.setValue(self.layer_profile_key(),json.dumps({'visible':sorted(self.layout.visible_layers),'unselectable':sorted(self.layout.unselectable_layers),'locked':sorted(self.layout.locked_layers),'styles':self.layout.layer_styles}))
+        self.settings.setValue(self.layer_profile_key(),json.dumps({'known':[l['name'] for l in self.project['pdk']['layers']],'visible':sorted(self.layout.visible_layers),'unselectable':sorted(self.layout.unselectable_layers),'locked':sorted(self.layout.locked_layers),'styles':self.layout.layer_styles}))
 
     def load_layer_profile(self):
         names={l['name'] for l in self.project['pdk']['layers']}
         try:d=json.loads(self.settings.value(self.layer_profile_key(),'{}'))
         except (ValueError,TypeError):d={}
-        self.layout.visible_layers=set(d.get('visible',names))&names;self.layout.unselectable_layers=set(d.get('unselectable',[]))&names;self.layout.locked_layers=set(d.get('locked',[]))&names;self.layout.layer_styles=d.get('styles',{});self.layout.update()
+        # An imported layout can extend the same PDK revision with more layers.
+        # Retain deliberate hiding, but do not hide previously unknown layers.
+        self.layout.visible_layers=(set(d.get('visible',names))|names-set(d.get('known',names)))&names;self.layout.unselectable_layers=set(d.get('unselectable',[]))&names;self.layout.locked_layers=set(d.get('locked',[]))&names;self.layout.layer_styles=d.get('styles',{});self.layout.update()
 
     def set_keyboard_profile(self,name,custom=None):
         if name not in KEYMAPS and name.endswith('-inspired'):

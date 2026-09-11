@@ -124,7 +124,7 @@ class SchematicCollaboration(unittest.TestCase):
         first, second = self.request(self.a, add), self.request(self.b, add)
         self.accept(first); self.assertEqual(self.api('edit', second, self.b)[0], 409)
         state = self.state(); req = self.request(state, lambda p: wiring.add_wire(p['cells'][0], [[100, 200], [200, 200]], p))
-        next(r for r in req['changes'] if r['field'] == 'wires')['after']['points'] = [[0, 0], [10, 10]]
+        next(r for r in req['changes'] if r['field'] == 'wires')['after']['points'] = [[0, 0], [0, 0]]
         self.assertEqual(self.api('edit', req, self.a)[0], 409); self.assertEqual(self.state()['revision'], 1)
 
     def test_server_rebuilds_forged_derived_connectivity(self):

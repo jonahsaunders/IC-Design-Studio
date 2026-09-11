@@ -1,5 +1,11 @@
 # Collaborating on schematics and layouts
 
+## Dev19 review recovery
+
+Submitted checkpoint discussions and decisions can now survive a lost response
+and app restart. [Review recovery](REVIEW_RECOVERY.md) explains retry and discard.
+This does not change document protocol 2 or allow a general offline edit queue.
+
 Available in **0.22.0.dev15**. Open **Tools → Collaboration**, share a project or
 join an invitation, and switch between **Schematic** and **Layout** normally.
 Both views use one workspace, revision history and set of review checkpoints.

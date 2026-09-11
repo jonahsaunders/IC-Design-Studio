@@ -63,7 +63,8 @@ def propose_layout_change(project,path):
             imported=db.Region();old=db.Region()
             for shape in source.shapes(idx).each():
                 if shape.is_text():
-                    t=shape.text;incoming_texts.append({'layer':layer,'text':t.string,'x':t.x,'y':t.y,'rotation':t.trans.angle*90,'mirror':t.trans.is_mirror()})
+                    t=shape.text;incoming_texts.append({'layer':layer,'text':t.string,'x':t.x,'y':t.y,'rotation':t.trans.angle*90,'mirror':t.trans.is_mirror(),
+                        'size':t.size,'font':t.font,'halign':int(t.halign),'valign':int(t.valign)})
                     properties=[[k,v] for k,v in shape.properties().items() if k!=125]
                     if properties:incoming_texts[-1]['external_properties']=properties
                     continue
@@ -127,9 +128,9 @@ def propose_layout_change(project,path):
         if properties_changed or shape_metadata_changed or cell_properties!=cell.get('external_properties',[]):
             different=True
             report.append(cell['name']+': object identities or external properties changed.')
-        def textkey(t):return (t['layer'],t['text'],t['x'],t['y'],t.get('rotation',0),t.get('mirror',False),digest(t.get('external_properties',[])))
+        def textkey(t):return (t['layer'],t['text'],t['x'],t['y'],t.get('rotation',0),t.get('mirror',False),digest(t.get('external_properties',[])),t.get('size',0),t.get('font',-1),t.get('halign',-1),t.get('valign',-1))
         expected=[textkey(t) for t in cell.get('layout_texts',[])]
-        if cell.get('layout_label_mode')!='explicit':expected += [(s['layer'],s['net'],*s['points'][0],0,False,digest([])) for s in cell['shapes'] if s.get('net')]
+        if cell.get('layout_label_mode')!='explicit':expected += [(s['layer'],s['net'],*s['points'][0],0,False,digest([]),0,-1,-1,-1) for s in cell['shapes'] if s.get('net')]
         texts_changed=sorted(expected)!=sorted(textkey(t) for t in incoming_texts)
         if texts_changed:
             different=True;cell['layout_texts']=incoming_texts;cell['layout_label_mode']='explicit';report.append(cell['name']+': apply external text labels. Verify terminal names and extracted LVS before using this layout.')

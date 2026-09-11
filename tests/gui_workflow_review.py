@@ -102,6 +102,29 @@ def main():
         b._collaboration_dashboard.grab().save(str(out/'reviewer-threads.png'))
         assert all(not lease['actor']==reviewer['actor'] for lease in store.sync(owner['workspace'],owner['token'])['leases'])
         checks.append('Two HTTP-connected desktops support reviewer comments, threaded replies, resolve/reopen and approvals without design edits')
+        # Deliver a real HTTP mutation, but lose the acknowledgement. Recreate
+        # the panel from disk, refresh it, then retry the original request ID.
+        request=dict(action='comment',id=uid(),checkpoint=other.selected(),text='Survives a lost acknowledgement')
+        post=b.live_client.transport.post
+        def lost_ack(server,path,token,data,finished):
+            return post(server,path,token,data,lambda status,result:finished(0,{'error':'Acknowledgement deliberately lost'}) if status==200 else finished(status,result))
+        with patch.object(b.live_client.transport,'post',side_effect=lost_ack):
+            other.request(request,lambda _:None,mutation=True)
+        wait(lambda:not other.busy and other.failed_request is not None,'Lost acknowledgement retained')
+        assert other.outbox.pending==request
+        other.hide()
+        from icstudio.team_review_ui import TeamReviewPanel
+        recovered=TeamReviewPanel(b);recovered.show();recovered.refresh_state()
+        wait(lambda:not recovered.busy and recovered.loaded_version is not None,'Review panel restored')
+        assert recovered.outbox.pending==request and recovered.retry_button.isVisible()
+        recovered.load();wait(lambda:not recovered.busy,'Read refresh after restart')
+        assert recovered.outbox.pending==request
+        recovered.retry_button.click()
+        wait(lambda:not recovered.busy and recovered.outbox.pending is None,'Durable retry completed')
+        comments=store.review(owner['workspace'],reviewer['token'],dict(action='list'))['comments']
+        assert sum(c['text']==request['text'] for c in comments)==1
+        recovered.close()
+        checks.append('A lost HTTP acknowledgement survives panel reconstruction and read refresh; retry creates exactly one comment')
         assert not errors,errors;result=dict(status='passed',checks=checks)
     except Exception:result=dict(status='failed',checks=checks,traceback=traceback.format_exc(),errors=errors)
     finally:

@@ -1,5 +1,14 @@
 # Experimental engineering workflows — dev14
 
+## Dev19 qualification increment
+
+Use the [open-project workflow](OPEN_PROJECTS.md) to reproduce the external SKY130
+overvoltage import and its explicit physical findings. [Review recovery](REVIEW_RECOVERY.md)
+preserves submitted actions through lost acknowledgements and restart. Unowned
+shape moves now avoid unrelated footprint grouping; the complete pipeline still
+measures rendering, recovery and checks separately. The full offline-edit queue
+and broader physical acceptance remain open.
+
 This update connects everyday editing, physical implementation, verification
 and team review. Existing projects remain readable; the new test plans and
 constraint records are optional project data.

@@ -1,5 +1,19 @@
 # The path forward
 
+## Experimental dev19: real-project evidence and review recovery
+
+The [real-project workflow](OPEN_PROJECTS.md) adds bounded Xschem array import,
+reviewed layout attachment, exact layout text exchange and a pinned overvoltage
+regression. The external detector's full LVS remains unresolved and is reported
+separately from import fidelity. [Submitted review actions](REVIEW_RECOVERY.md)
+now survive restart. Unowned layout selections avoid rebuilding unrelated
+footprint groups on each move.
+
+The next acceptance work is concrete: resolve the detector's physical findings;
+run physical LAN/VPN and consumer Windows/Linux checks; establish signing policy;
+then broaden recovery performance and offline editing. Hosted or loopback tests
+do not close the hardware acceptance items. Older milestones below are history.
+
 Our goal is an independent open design environment that makes circuit intent, experiments and physical implementation easy to follow. Compatibility with Xschem, ngspice, KLayout, Magic and Netgen remains part of that direction. This roadmap expresses priorities and acceptance criteria, not promised delivery dates.
 
 ## Experimental dev18 implementation

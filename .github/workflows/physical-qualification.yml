@@ -36,6 +36,22 @@ jobs:
         run: python scripts/qualify_layout_process.py --pdk build/physical-adapter/sky130A --out build/physical-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
       - name: Qualify analog references, corners, extraction and deliberate faults
         run: python scripts/qualify_analog_process.py --pdk build/physical-adapter/sky130A --out build/analog-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
+      - name: Fetch the pinned public overvoltage source
+        uses: actions/checkout@v4
+        with:
+          repository: LDFranck/sky130_vbl_ip__overvoltage
+          ref: 53cf579f63d34227af67f0189b49ee09185f1db5
+          path: build/open-project-source
+          persist-credentials: false
+      - name: Verify real-project import fidelity and record layout consistency
+        # The import regression must pass. This upstream design's full LVS is
+        # reported separately as needs_attention; --require-consistent is the
+        # stricter design-acceptance gate documented in OPEN_PROJECTS.md.
+        run: python scripts/qualify_open_project.py --source build/open-project-source --pdk build/qualification-pdk/sky130A --out build/open-project-evidence --compatibility native --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
+      - name: Exercise attachment and editing of the real project in Qt
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_open_project.py --schematic build/open-project-evidence/schematic.icproj --layout build/open-project-evidence/magic-import/imported.icproj --out build/open-project-evidence/desktop
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -43,6 +59,7 @@ jobs:
           path: |
             build/physical-evidence
             build/analog-evidence
+            build/open-project-evidence
             build/physical-adapter/sky130A/package.json
             build/qualification-pdk/upstream-lock.json
             build/physical-engines/*-build.log

@@ -27,12 +27,34 @@ def library_root(key):
 
 def prepare(path,libraries=(),locations=None):
     """Local/project libraries win. Standard installed assets are the fallback."""
-    text=Path(path).read_text(encoding='utf-8');roots=list(libraries);mapped=dict(locations or {});standard=library_root('xschem')
+    roots=list(libraries);mapped=dict(locations or {});standard=library_root('xschem')
+    # A top-level block can contain only local hierarchy symbols. Discover PDK
+    # families in its reachable child schematics before selecting bundled roots.
+    from .xschem_project import records,properties
+    pending=[Path(path).resolve()];seen=set();texts=[];total=0
+    while pending:
+        current=pending.pop()
+        if current in seen:continue
+        if len(seen)>=100:raise ValueError('Schematic hierarchy exceeds the supported size.')
+        seen.add(current)
+        if current.stat().st_size>10_000_000:raise ValueError('Schematic exceeds the 10 MB import limit.')
+        total+=current.stat().st_size
+        if total>64_000_000:raise ValueError('Schematic hierarchy exceeds the 64 MB import limit.')
+        source=current.read_text(encoding='utf-8');texts.append(source)
+        for record in records(source):
+            if record[0]!='C':continue
+            ref=record[1]
+            if any(token in ref for token in ('$','[',']','\n','\r')):continue
+            candidates=[current.parent/ref]+[Path(folder)/ref for folder in libraries]
+            symbol=next((candidate for candidate in candidates if candidate.is_file()),None)
+            if symbol:
+                child=symbol.with_suffix('.sch')
+                if child.is_file():pending.append(child.resolve())
+    text='\n'.join(texts)
     roots.extend([str(standard/'xschem'),str(standard/'xschem/devices')])
     selected=['xschem'];variant=None
     match=re.search(r'gf180mcu([ABCD])(?:[/\\]|\b)',text,re.I)
     gf_symbols={Path(rel).name for rel in manifest()['libraries']['gf180mcu']['files'] if rel.endswith('.sym')}
-    from .xschem_project import records,properties
     components=[r for r in records(text) if r[0]=='C'];symbol_refs=[r[1] for r in components]
     if match or any(Path(ref).name in gf_symbols for ref in symbol_refs):
         variant='gf180mcu'+match[1].upper() if match else 'gf180mcu';gf=library_root('gf180mcu');selected.append('gf180mcu');roots.extend([str(gf/'gf180mcu'),str(gf/'gf180mcu/symbols'),str(gf/'gf180mcu/models')])

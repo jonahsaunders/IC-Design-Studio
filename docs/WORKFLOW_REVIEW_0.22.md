@@ -1,5 +1,12 @@
 # Workflow and team review — 0.22.0.dev16
 
+## Dev19 recovery and import additions
+
+[Submitted review recovery](REVIEW_RECOVERY.md) extends the threaded review flow
+with durable retries across restart. [Real-project qualification](OPEN_PROJECTS.md)
+adds layout attachment and independently recorded import/physical results. The
+new attachment reviews cell names and does not create device-level LVS mappings.
+
 This increment improves the existing design workflow, linked layout-change
 inspection and checkpoint discussions. It does not add a new physical process
 qualification or increase the supported collaboration size limits.

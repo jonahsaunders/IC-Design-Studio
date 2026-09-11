@@ -152,7 +152,7 @@ def validate_wiring(cell,objid,project):
         if not isinstance(pts,list) or not 2<=len(pts)<=1000:raise ValueError('A wire requires 2–1,000 points.')
         points+=pts
         for a,b in zip(pts,pts[1:]):
-            if a==b or (a[0]!=b[0] and a[1]!=b[1]):raise ValueError('Wire segments must be nonzero and horizontal or vertical.')
+            if a==b:raise ValueError('Wire segments must have distinct endpoints.')
     junctions=cell.get('junctions',[])
     if not isinstance(junctions,list) or len(junctions)>5000:raise ValueError('Invalid junction list.')
     points+=junctions
@@ -258,7 +258,7 @@ def segment_drag(points,index,dx,dy,fixed_start=True,fixed_end=True):
     makes repeated drags reversible without accumulating stair-step geometry.
     """
     a,b=points[index:index+2]
-    shift=[0,dy] if a[1]==b[1] else [dx,0]
+    shift=[0,dy] if a[1]==b[1] else [dx,0] if a[0]==b[0] else [dx,dy]
     if not any(shift):return clone(points)
     aa=[a[0]+shift[0],a[1]+shift[1]];bb=[b[0]+shift[0],b[1]+shift[1]]
     prefix=points[:index] if index else ([a] if fixed_start else [])

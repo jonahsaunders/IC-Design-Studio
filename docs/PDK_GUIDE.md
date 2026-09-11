@@ -1,5 +1,13 @@
 # Open PDK setup
 
+## Import an existing PDK project
+
+The [overvoltage walkthrough](OPEN_PROJECTS.md) pins an external SKY130 source,
+uses bundled schematic symbols and a separately fetched physical technology,
+and records the actual layout/schematic comparison. Successful package discovery
+or geometry import is not physical qualification. The DUT and its qualification
+testbench are separate inputs.
+
 IC Design Studio has stock adapters for SKY130, GF180MCU and IHP SG13G2, plus a checksummed package interface for custom technologies. An adapter maps electrical models, device terminals and layout layers into the app. Successful registration does not prove that a particular model, corner or physical rule deck is qualified.
 
 ## Included in 0.22.0.dev10

@@ -1,5 +1,23 @@
 # Architecture additions in 0.8
 
+## Current dev19 additions
+
+`xschem_libraries.prepare` discovers PDK references through the reachable local
+schematic hierarchy. `xschem_vectors` resolves bounded vectors into scalar native
+devices after connectivity extraction. `layout_attach` validates a cell mapping
+and returns an isolated candidate without replacing schematic identities.
+`magic_dependencies` audits the native cell closure before conversion.
+
+`review_outbox` persists one submitted mutation before network dispatch, bound to
+server/workspace/actor. The review panel restores it independently of the design
+journal and retains the same server idempotency ID. Recovery snapshots still copy
+mutable project state before crossing the worker boundary. The selection fast
+path only skips ownership grouping when every selected shape is unowned.
+
+The [real-project script](../scripts/qualify_open_project.py) separates import
+fidelity, nominal simulation and physical consistency in its evidence schema.
+See [open projects](OPEN_PROJECTS.md) and [review recovery](REVIEW_RECOVERY.md).
+
 The existing schema 1 gains optional project `testbenches` and cell `layout_ports`. Older projects remain readable. A saved bench identifies its fixture cell, one DUT instance, analysis, initial conditions, observed nets and measurement definitions. `testbenches.py` validates these references and generates the same fixture around the native or extracted circuit. `testbench_ui.py` owns its native editor. Bench changes participate in the design digest and undo history.
 
 `physical_cells.py` links each physical placement to a schematic X instance, derives parent terminal coordinates from transformed child ports, maps nets while rendering hierarchy, and audits missing/duplicate placements and parameter variants. `ring_oscillator.py` reuses one inverter layout three times. `sky130_fingers.py` adds alternating shared source/drain diffusion with total W distributed over nf gates. Recorded source recipes are separate from proof of physical correctness.

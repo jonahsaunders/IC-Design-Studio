@@ -37,3 +37,7 @@ SKY130A primitive models, symbols and display layers are extracted from the chec
 The GF180MCU D adapter reuses the existing pinned primitive files above, adds `.ngspice` compatibility aliases, and includes `tech/klayout/gf180mcu.lyp` from the same upstream revision. Original Apache-2.0 headers and license are retained. Each package records source provenance in `UPSTREAM-LOCK.json` and locks every distributed asset in `package.json`.
 
 The Windows source/build provisioner uses py7zr 1.1.3 (LGPL-2.1-or-later), https://github.com/miurahr/py7zr/tree/v1.1.3, installed by pip with its dependencies. It is a setup dependency; the prepared portable desktop does not require it. The portable desktop retains the original Python license and the license files from the pinned PySide6, Shiboken, KLayout and cryptography wheels.
+
+## Optional overvoltage qualification source
+
+The external regression downloads LDFranck/sky130_vbl_ip__overvoltage at commit `53cf579f63d34227af67f0189b49ee09185f1db5`, an Apache-2.0 design by the Von Braun Labs contributors identified upstream. The source lock includes its LICENSE checksum. The design itself is not bundled. Generated evidence and screenshots derived from it retain this attribution. See [the reproduction guide](docs/OPEN_PROJECTS.md).

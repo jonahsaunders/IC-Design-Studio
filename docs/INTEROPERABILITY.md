@@ -1,5 +1,14 @@
 # Xschem, Magic and KLayout exchange
 
+## Dev19 real-project imports
+
+[Open-project qualification](OPEN_PROJECTS.md) documents the pinned SKY130 detector,
+array expansion, diagonal wiring, Magic dependency checks and retained conversion
+feedback. **File → Attach layout to schematic…** previews exact-name cell mappings
+and applies them as one undoable transaction. Existing mapped geometry is rejected;
+use external edit review for merges. A mapping is not an LVS result. Layout text
+size, font and alignment now survive import/export and external review.
+
 Circuit entry points are technology agnostic. **File → New project** chooses an empty circuit, RC filter, inverter, ring oscillator, current mirror or differential pair first. The dialog then selects a registered **Technology / revision**, catalog models and supply. **File → Examples** uses the same dialog. Registering another catalog adds it to that secondary selector without adding menu actions or code branches.
 
 All registered PDKs use this path, including SKY130, GF180 variants and IHP. Templates use the chosen model's terminal order, dimensions and emission scale. Supply voltage is explicit; an unavailable model is explained instead of being replaced with another process's model. A template is a starting circuit, not a qualified reference measurement.

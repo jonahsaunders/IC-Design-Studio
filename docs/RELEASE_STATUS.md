@@ -1,4 +1,49 @@
-# Release status — 0.22.0.dev18 candidate
+# Release status — 0.22.0.dev19 candidate
+
+Dev19 adds [real open-project import qualification](OPEN_PROJECTS.md), reviewed
+layout attachment, native array expansion, layout text preservation and
+[restart recovery for submitted review actions](REVIEW_RECOVERY.md). New imported
+layers remain visible when reloading saved layer preferences. Unowned shape moves
+avoid reconstructing unrelated footprint groups.
+
+## Executed dev19 source evidence
+
+The [local validation record](validation/0.22.0.dev19.json) records Linux/Python
+3.12 source execution, exact source/deck hashes and its environment limits.
+
+| Executed check | Result |
+|---|---|
+| Core regression | 607 tests, 3 environment skips; the skipped Magic exchange also passed separately with the pinned engine |
+| Pinned physical inverter | All 4 nominal and deliberate-fault cases passed |
+| Analog qualification | All 45 simulation, extraction and deliberate-fault cases passed |
+| Bundled PDK simulation | GF180 startup, SKY130 inverter and native catalog paths with spaces passed |
+| Review recovery desktop | 5 scenarios passed, including real lost HTTP acknowledgement, panel reconstruction and exactly-once retry |
+| Imported detector desktop | Reviewed attachment, exact undo/redo, move/undo, save/reopen, child navigation and visible layer restoration passed |
+| 3D software viewer | 5 desktop scenarios passed with the offscreen renderer |
+| Detector schematic | Native/reference and exported/reimported hierarchy matched through pinned Netgen |
+| Detector nominal DC | All 16 codes passed; switching thresholds 3.30–5.46 V matched the reference on the same 10 mV step |
+| Detector layout exchange | 38 cells and 1,368 cell/layer comparisons passed exact geometry, text and hierarchy checks |
+| Detector full physical consistency | **Needs attention:** strict LVS fails; fixed-width diagnosis exposes resistor length differences and child pin correspondence findings |
+| Detector app-default HSA | **Not qualified:** explicit run exceeded its 120-second timeout; successful DC evidence uses declared native SPICE compatibility |
+
+These results were produced from the dev19 working tree based on `c3e3503`.
+The sandbox needed a temporary-file path shim for ngspice and an offscreen Qt
+platform. They do not qualify packaged binaries, native displays or physical
+networks. The Windows/Linux and external-tool workflows must pass on this PR's
+exact commit. A release has not been published.
+
+For the 10,000-shape workload on this host, median commit time changed from
+40.59 to 34.77 ms and complete edit/check/recovery time from 259.17 to 236.67 ms.
+The baseline used three samples and dev19 five; these are small local samples,
+not a cross-machine performance guarantee. The evidence retains stage medians;
+recovery snapshot copying and broader workloads remain open.
+
+Physical LAN/VPN/firewall acceptance, consumer-machine installation/upgrade,
+accessibility, signing and macOS qualification remain tracked in
+[release follow-ups](RELEASE_FOLLOWUPS.md). General offline design editing and
+unsent review draft recovery also remain roadmap items.
+
+## Earlier candidate updates
 
 Dev18 adds [guided encrypted network hosting](LIVE_COLLABORATION.md#host-a-session-on-your-network),
 automatic host certificates, invitation-scoped trust, connection checks and
