@@ -136,6 +136,9 @@ class CollaborationDashboard(QDialog):
         folder_layout.addWidget(self.folder_active)
         folder_layout.addStretch()
         self.tabs.addTab(scrolling_page(folder_page), 'Shared folder')
+        from .team_review_ui import TeamReviewPanel
+        self.review_panel=TeamReviewPanel(studio,self)
+        self.tabs.addTab(self.review_panel,'Team review')
         footer = QHBoxLayout()
         button('Setup and help', lambda: studio.open_editor_doc('LIVE_COLLABORATION.md'), footer)
         footer.addStretch()
@@ -168,6 +171,7 @@ class CollaborationDashboard(QDialog):
         self.folder_status.setText('Connected as ' + s.layout_session.editor + '\n' + str(s.layout_session.root)
                                    if s.layout_session else 'You have not joined a shared folder.')
         self.update_recent_actions()
+        self.review_panel.refresh_state()
 
     def refresh_recent(self):
         if self.scan and self.scan.isRunning():

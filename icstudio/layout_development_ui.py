@@ -105,6 +105,12 @@ class LayoutDevelopmentMixin:
         self.layout.cursor_route_preview=result['shapes'];self.layout.cursor_route_blocked=not result['clear'];self.layout.update();self.statusBar().showMessage(result['message'])
 
     def move(self,ids,x,y,mode):
+        if mode=='layout' and not self.connected_layout_action.isChecked() and hasattr(self.history,'commit_shape_move'):
+            if not self.flush_inspector():return
+            if self.history.commit_shape_move(self.cid,ids,round(x),round(y),self.layout.locked_layers):
+                self.queue_recovery(validated=True)
+                self.refresh_layout_edit()
+                return
         if mode!='layout' or not self.connected_layout_action.isChecked():
             from .hierarchy_ui import HierarchyMixin
             return HierarchyMixin.move(self,ids,x,y,mode)
@@ -113,8 +119,8 @@ class LayoutDevelopmentMixin:
             if not self.history.commit_layout_move(self.cid,ids,round(x),round(y),self.layout.locked_layers):
                 from .layout_topology import move
                 return self.commit(lambda p:move(p,self.cid,ids,round(x),round(y),self.layout.locked_layers),'Connected layout move')
-            recovered=self.save_recovery(validated=True)
-            self.refresh_layout_edit(recovered)
+            self.queue_recovery(validated=True)
+            self.refresh_layout_edit()
         self.guard(edit)
 
     def arrange_layout(self,cid,ids,edge,locked=(),**options):
@@ -122,8 +128,8 @@ class LayoutDevelopmentMixin:
         if not self.history.commit_layout_arrange(cid,ids,edge,locked,**options):
             from .layout_tools_ui import LayoutToolsMixin
             return LayoutToolsMixin.arrange_layout(self,cid,ids,edge,locked,**options)
-        recovered=self.save_recovery(validated=True)
-        self.refresh_layout_edit(recovered)
+        self.queue_recovery(validated=True)
+        self.refresh_layout_edit()
 
     def refresh_layout_edit(self,recovered=True):
         """Geometry-only refresh; the cell tree, layers and circuit are unchanged."""

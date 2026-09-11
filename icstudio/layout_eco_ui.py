@@ -13,6 +13,16 @@ def show(studio):
     layout = QVBoxLayout(dlg)
     note = QLabel('Select the changes to preview. Shared cell masters are updated once. Missing devices use declared recipes; unsupported devices need an explicit physical implementation.'); note.setWordWrap(True); layout.addWidget(note)
     scope = QCheckBox('Include schematic hierarchy'); scope.setChecked(True); layout.addWidget(scope)
+    variants=QPushButton('Resolve parameter variants…');layout.addWidget(variants)
+    def specialize():
+        try:
+            from .physical_variants import propose as specialize_project
+            candidate,report=specialize_project(studio.project,cid)
+            details='\n'.join(r['instance']+' → '+r['variant'] for r in report['instances'])
+            details+='\n\n'+str(report['variants'])+' explicit cell variants. Resolved electrical values and nets match the original hierarchy. Existing geometry is retained; review its parameter updates and routing afterward.'
+            studio.review_dialog('Create physical parameter variants',lambda:(candidate,details));dlg.accept()
+        except Exception as exc:error.setText(str(exc))
+    variants.clicked.connect(specialize)
     table = QTableWidget(0, 5); table.setHorizontalHeaderLabels(['Apply', 'Cell / device', 'State', 'Action', 'Details']); table.horizontalHeader().setSectionResizeMode(4,QHeaderView.Stretch); layout.addWidget(table,1)
     table.setAccessibleName('Schematic-driven layout changes'); state = {}
     def populate():
@@ -23,6 +33,11 @@ def show(studio):
                 item=QTableWidgetItem(value);item.setFlags(Qt.ItemIsEnabled|Qt.ItemIsSelectable);table.setItem(i,j,item)
         table.resizeColumnsToContents()
     scope.toggled.connect(populate); populate()
+    select_missing=QPushButton('Select missing and changed devices');layout.addWidget(select_missing)
+    def select_actionable():
+        for i,row in enumerate(state['report']['devices']):
+            table.item(i,0).setCheckState(Qt.Checked if row['action'] in ('add','update','rebind') else Qt.Unchecked)
+    select_missing.clicked.connect(select_actionable)
     form = QFormLayout(); origin=QLineEdit('0, 0'); pitch=QLineEdit('20');form.addRow('New footprint origin X, Y (µm)',origin);form.addRow('New footprint pitch (µm)',pitch);layout.addLayout(form)
     preserve=QCheckBox('Preserve attached routes and surviving terminal connectivity');preserve.setChecked(True);layout.addWidget(preserve)
     error=QLabel();error.setWordWrap(True);layout.addWidget(error);button=QPushButton('Preview selected changes');layout.addWidget(button)

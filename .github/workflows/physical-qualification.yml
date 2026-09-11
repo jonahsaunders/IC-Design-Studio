@@ -34,12 +34,15 @@ jobs:
         run: python scripts/prepare_sky130_qualification.py --input build/qualification-pdk/sky130A --output build/physical-adapter/sky130A
       - name: Qualify nominal inverter and deliberate DRC/LVS faults
         run: python scripts/qualify_layout_process.py --pdk build/physical-adapter/sky130A --out build/physical-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
+      - name: Qualify analog references, corners, extraction and deliberate faults
+        run: python scripts/qualify_analog_process.py --pdk build/physical-adapter/sky130A --out build/analog-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: sky130-physical-evidence
           path: |
             build/physical-evidence
+            build/analog-evidence
             build/physical-adapter/sky130A/package.json
             build/qualification-pdk/upstream-lock.json
             build/physical-engines/*-build.log

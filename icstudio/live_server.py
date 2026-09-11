@@ -110,7 +110,7 @@ class Handler(BaseHTTPRequestHandler):
             if self.path == '/v1/workspaces':
                 result = store.create(token, body['project'], body['name'])
             else:
-                match = re.fullmatch(r'/v1/workspaces/([A-Za-z0-9_-]{1,80})/(join|sync|edit|invite|revoke|leave|recover-owner|delete)', self.path)
+                match = re.fullmatch(r'/v1/workspaces/([A-Za-z0-9_-]{1,80})/(join|sync|edit|invite|revoke|leave|recover-owner|delete|review)', self.path)
                 if not match:
                     raise LiveError('Unknown endpoint.', 404)
                 wid, action = match.groups()
@@ -128,6 +128,8 @@ class Handler(BaseHTTPRequestHandler):
                     result = store.recover_owner(wid, token, body['actor'])
                 elif action == 'delete':
                     result = store.delete_workspace(wid, token, body['revision'])
+                elif action == 'review':
+                    result = store.review(wid,token,body)
                 else:
                     result = store.leave(wid, token)
             self.reply(200, result)

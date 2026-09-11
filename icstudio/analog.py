@@ -13,6 +13,9 @@ PROCESSES = {
 
 
 def reference(technology, kind='current_mirror'):
+    if kind == 'amplifier':
+        from .analog_reference import amplifier
+        return amplifier(technology)
     if kind not in ('current_mirror', 'differential_pair'):
         raise ValueError('Choose current_mirror or differential_pair.')
     process = PROCESSES.get(technology.get('package_lock', {}).get('id'))

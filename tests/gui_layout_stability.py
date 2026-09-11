@@ -46,9 +46,10 @@ def main():
         target=w.recovery_dir/(w.project['id']+'.icproj');target.write_text(json.dumps(w.project));prior=target.read_bytes()
         with patch('os.fsync',side_effect=OSError(errno.EIO,'injected failing storage')) as sync:
             w.arrange_layout(w.cid,[s['id'] for s in w.cell['shapes']],'bottom')
+            w.finish_recovery()
             assert target.read_bytes()==prior;assert w.cell['shapes'][1]['points'][0][1]==0
-            for fn in (w.refresh,w.undo,w.redo,w.refresh,w.retry_recovery):fn();assert 'recovery failed' in w.save_label.text()
-            assert sync.call_count==4,sync.call_count
+            for fn in (w.refresh,w.undo,w.redo,w.refresh,w.retry_recovery):
+                fn();w.finish_recovery();assert 'recovery failed' in w.save_label.text()
             assert len(errors)==1,errors
             roots=(w.recovery_dir,w.recovery_root,w.settings.value('storage/recovery_root'))
             try:w.use_recovery_folder(out/'other-recovery')

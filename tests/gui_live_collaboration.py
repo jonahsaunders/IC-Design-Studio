@@ -82,7 +82,7 @@ def main():
         assert a.collaboration_action in a.task_menus['Tools'].actions()
         assert not any('collaboration' in action.text().lower() or 'Concurrent editing' in action.text()
                        for action in a.task_menus['Layout'].actions())
-        assert dashboard.tabs.count() == 3 and dashboard.share.isEnabled() and dashboard.join.isEnabled()
+        assert dashboard.tabs.count() == 4 and dashboard.share.isEnabled() and dashboard.join.isEnabled()
         wait(lambda: dashboard.scan.isFinished(), 'Recent workspace discovery did not finish')
         dashboard.resize(780, 600)
         QTest.qWait(100)

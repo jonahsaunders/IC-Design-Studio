@@ -33,9 +33,21 @@ class AnalogMixin:
         menus = {a.text().replace('&', ''): a.menu() for a in self.menuBar().actions() if a.menu()}
         self.action(menus['File'], 'New PDK current mirror', lambda: self.new_analog('current_mirror'))
         self.action(menus['File'], 'New PDK differential pair', lambda: self.new_analog('differential_pair'))
+        self.action(menus['File'], 'New SKY130 amplifier', lambda: self.new_analog('amplifier'))
         self.action(menus['Analysis'], 'Configure saved-bench characterization…', self.characterization_dialog)
         self.action(menus['Analysis'], 'Run saved-bench characterization', self.run_characterization)
         self.action(menus['Design'], 'Generate current mirror layout…', self.mirror_layout_dialog)
+        self.action(menus['Design'], 'Generate analog reference layout…', self.analog_bank_dialog)
+
+    def analog_bank_dialog(self):
+        if not self.idle_edit(): return
+        from .analog_bank import generate
+        cid = self.cid
+        def build():
+            p = clone(self.project); c = next(c for c in p['cells'] if c['id']==cid)
+            generate(p,cid,bool(c.get('analog_bank')))
+            return p, 'Place and connect 2–8 single-finger SKY130 MOS devices. Equal pairs receive matching and symmetry checks. This spacious reference layout includes body contacts and labelled ports. Regeneration replaces its geometry and routing; undo restores the previous design. Run physical verification after applying.'
+        return self.review_dialog('Generate analog reference layout',build)
 
     def mirror_layout_dialog(self):
         if not self.idle_edit(): return

@@ -59,6 +59,8 @@ class Store:
             CREATE INDEX IF NOT EXISTS events_revision ON events(workspace, revision);
             PRAGMA user_version=1;
         ''')
+        from .live_review_store import install
+        install(self.db)
         path.chmod(0o600)
 
     def close(self):
@@ -179,7 +181,8 @@ class Store:
             self._actor(wid, token, owner=True)
             if type(revision) is not int or revision != self._workspace(wid)['revision']:
                 raise LiveError('The shared layout changed. Refresh and save its latest version before deleting the workspace.')
-            for table in ('invitations', 'actors', 'events', 'versions', 'leases'):
+            from .live_review_store import TABLES
+            for table in ('invitations', 'actors', 'events', 'versions', 'leases', *TABLES):
                 self.db.execute('DELETE FROM ' + table + ' WHERE workspace=?', (wid,))
             self.db.execute('DELETE FROM workspaces WHERE id=?', (wid,))
         with self.lock:
@@ -190,6 +193,8 @@ class Store:
         w = self._workspace(wid)
         result = dict(revision=w['revision'], actor=actor['id'], name=actor['name'], role=actor['role'],
                       undo=len(json.loads(actor['undo'])), redo=len(json.loads(actor['redo'])))
+        result['review_api']=1
+        result['review_version']=self.db.execute('SELECT count(*) FROM review_requests WHERE workspace=?',(wid,)).fetchone()[0]
         if since != w['revision']:
             result['project'] = json.loads(w['project'])
         timestamp = time.time()
@@ -206,6 +211,10 @@ class Store:
         if actor['role'] == 'owner':
             result['invitations'] = [dict(r) for r in self.db.execute('SELECT id,role,expires,revoked FROM invitations WHERE workspace=? ORDER BY expires DESC', (wid,))]
         return result
+
+    def review(self,wid,token,request):
+        from .live_review_store import handle
+        with self.transaction():return handle(self,wid,token,request)
 
     def sync(self, wid, token, since=-1, presence=None):
         if type(since) is not int or since < -1:

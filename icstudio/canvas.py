@@ -410,6 +410,8 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         self.setFocus()
         if e.button()==Qt.MiddleButton or (self.space and e.button()==Qt.LeftButton):
             self.pan=True;self.auto_fit=False;self._pan_anchor=QPointF(e.position());self._pan_button=e.button();self.setCursor(Qt.ClosedHandCursor);self.update();return
+        if self.tool=='select' and e.button()==Qt.LeftButton and e.modifiers()&Qt.AltModifier:
+            self.editor_pointer=self.model(e.position());self.editor_cycle();return
         if e.button()==Qt.LeftButton and self.mode=='layout' and self.tool in ('rect','path','polygon'):self.begin_drawing_grid()
         if self.editor_press(e):return
         pos=self.snap(self.model(e.position()));self.drag=pos;self.press_screen=QPointF(e.position())
@@ -532,7 +534,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         if self.mode=='layout' and self.tool in ('path','polygon'):
             if e.key()==Qt.Key_Backspace:self.undo_drawing_point();return
             if e.key()==Qt.Key_Tab and self.tool=='path':self.flip_path_bend();return
-        if self.mode=='layout' and e.key()==Qt.Key_Tab:self.editor_cycle();return
+        if self.tool=='select' and e.key()==Qt.Key_Tab:self.editor_cycle();return
         if self.wire_key(e):return
         if e.key()==Qt.Key_Space:self.space=True;self.setCursor(Qt.OpenHandCursor)
         elif e.key()==Qt.Key_Escape:self.cancel_gesture();self.placement=None;self.tool='select';self.tool_cancelled.emit()

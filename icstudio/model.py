@@ -83,7 +83,7 @@ def validate(p):
     if not isinstance(p.get('name'),str) or not p['name'].strip() or len(p['name'])>128: raise ValueError('Project name must be 1–128 characters.')
     if not isinstance(p.get('revision'),int) or p['revision']<0: raise ValueError('Invalid revision.')
     cells=p.get('cells',[])
-    from .layout_limits import MAX_CELLS, MAX_MASTER_SHAPES, MAX_PROJECT_SHAPES
+    from .layout_limits import MAX_CELLS, MAX_MASTER_SHAPES, MAX_PROJECT_SHAPES, MAX_MASTER_DEVICES
     if not isinstance(cells,list) or not 1<=len(cells)<=MAX_CELLS: raise ValueError(f'A project needs 1–{MAX_CELLS} cells.')
     if sum(len(c.get('shapes',[])) for c in cells)>MAX_PROJECT_SHAPES: raise ValueError('Stored layout exceeds 1,000,000 master shapes.')
     ids=set(); cellids={c['id'] for c in cells}; names=set()
@@ -125,7 +125,7 @@ def validate(p):
         if len(c.get('ports',[]))>128 or len(set(c['ports']))!=len(c['ports']): raise ValueError('Invalid cell ports.')
         for port in c['ports']:
             if not NET.fullmatch(port) or port=='0':raise ValueError('Invalid cell port.')
-        if len(c.get('devices',[]))>500 or len(c.get('shapes',[]))>MAX_MASTER_SHAPES: raise ValueError('Preview design-size limit exceeded.')
+        if len(c.get('devices',[]))>MAX_MASTER_DEVICES or len(c.get('shapes',[]))>MAX_MASTER_SHAPES: raise ValueError('Cell exceeds the 5,000-device or 250,000-shape capacity.')
         from .design_ops import parameters,resolved_device
         context=parameters(c.get('parameters',{}),parameters(p.get('parameters',{})))
         for original in c['devices']:
@@ -212,7 +212,8 @@ def flatten(p,cell_id=None):
             if d['kind']=='X': walk(d['cell'],path+d['name']+'/',{pin:net(n) for pin,n in d['nets'].items()},seen+[cid],{k:value(v,context) for k,v in d.get('parameters',{}).items()})
             else:
                 dd=resolved_device(d,context); dd['name']=path+d['name']; dd['nets']={pin:net(n) for pin,n in d['nets'].items()}; out.append(dd)
-        if len(out)>500: raise ValueError('Flattened circuit exceeds the 500-device preview limit.')
+        from .layout_limits import MAX_FLAT_DEVICES
+        if len(out)>MAX_FLAT_DEVICES: raise ValueError('Flattened circuit exceeds the 50,000-device capacity. Work on a smaller hierarchy.')
     walk(cell_id or p['top'],'',{},[])
     return out
 
@@ -252,11 +253,27 @@ def load_project(path):
 
 class History:
     def __init__(self,p): self.project=clone(validate(p)); self.undo_stack=[]; self.redo_stack=[]; self.serial=p['revision']
+    def _record(self,before,label,kind='edit'):
+        from .document import describe
+        self.last_change=describe(before,self.project,label,kind)
     def commit(self,fn,label='Edit'):
         from .history_delta import difference
         nxt=clone(self.project); fn(nxt); nxt['revision']=self.serial+1; nxt['modified']=now(); validate(nxt)
         delta=difference(self.project,nxt)
+        before=self.project
         self.serial+=1;self.undo_stack.append((delta,label));self.undo_stack=self.undo_stack[-100:];self.redo_stack=[];self.project=nxt
+        self._record(before,label)
+    def commit_shape_move(self,cid,ids,dx,dy,locked=()):
+        from .document import move_plain_shapes
+        from .history_delta import difference
+        result=move_plain_shapes(self.project,cid,ids,dx,dy,locked)
+        if result is None:return False
+        nxt,indices=result;nxt['revision']=self.serial+1;nxt['modified']=now()
+        before=self.project;delta=difference(before,nxt)
+        self.serial+=1;self.undo_stack.append((delta,'Move layout shapes'));self.undo_stack=self.undo_stack[-100:];self.redo_stack=[];self.project=nxt
+        self.layout_stats={'indices':indices,'shapes_replaced':len(indices)}
+        self._record(before,'Move layout shapes')
+        return True
     def commit_layout_move(self,cid,ids,dx,dy,locked=()):
         """Return False for complex edits requiring the general transaction."""
         from .layout_transaction import propose
@@ -268,7 +285,9 @@ class History:
         nxt,graph,changed=result;nxt['revision']=self.serial+1;nxt['modified']=now()
         # Unchanged branches are shared, so difference visits their roots only.
         delta=difference(self.project,nxt)
+        before=self.project
         self.serial+=1;self.undo_stack.append((delta,'Connected layout move'));self.undo_stack=self.undo_stack[-100:];self.redo_stack=[];self.project=nxt
+        self._record(before,'Connected layout move')
         self._layout_graph=(nxt['id'],cid,graph);self.layout_stats={**graph.stats,'shapes_replaced':len(changed),'indices':list(changed)}
         return True
     def commit_layout_arrange(self,cid,ids,edge,locked=(),offset=0,reference_edge=None,connected=False):
@@ -281,19 +300,25 @@ class History:
         nxt['revision']=self.serial+1;nxt['modified']=now()
         arrange(nxt,cid,ids,edge,locked,offset,reference_edge,connected)
         delta=difference(self.project,nxt);indices=[i for i,(a,b) in enumerate(zip(cell['shapes'],cells[index]['shapes'])) if a is not b]
+        before=self.project
         self.serial+=1;self.undo_stack.append((delta,'Align / distribute layout selection'));self.undo_stack=self.undo_stack[-100:];self.redo_stack=[];self.project=nxt
+        self._record(before,'Align / distribute layout selection')
         self.layout_stats={'indices':indices,'shapes_replaced':len(indices)}
         return True
     def undo(self):
         if not self.undo_stack: return
         from .history_delta import apply
         delta,label=self.undo_stack[-1];p=apply(self.project,delta,False)
+        before=self.project
         self.undo_stack.pop();self.redo_stack.append((delta,label));self.serial+=1;p['revision']=self.serial;p['modified']=now();self.project=p
+        self._record(before,label,'undo')
     def redo(self):
         if not self.redo_stack: return
         from .history_delta import apply
         delta,label=self.redo_stack[-1];p=apply(self.project,delta)
+        before=self.project
         self.redo_stack.pop();self.undo_stack.append((delta,label));self.serial+=1;p['revision']=self.serial;p['modified']=now();self.project=p
+        self._record(before,label,'redo')
 
 def erc(p,cid=None):
     from .electrical_rules import check

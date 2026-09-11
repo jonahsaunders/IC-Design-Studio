@@ -7,18 +7,44 @@ from .model import digest, uid
 
 class RecoveryUIMixin:
     def reset_recovery_status(self):
+        if getattr(self,'_recovery_queue',None):self._recovery_queue.flush()
+        self._recovery_epoch=getattr(self,'_recovery_epoch',0)+1
         self._recovery_error=None;self._recovery_hash=None
+
+    def queue_recovery(self,*,validated=False):
+        if not getattr(self,'_recovery_queue',None):
+            from .recovery_queue import RecoveryQueue
+            self._recovery_queue=RecoveryQueue(self)
+            self._recovery_queue.completed.connect(self.recovery_completed)
+        self._recovery_queue.request(self.project,self.recovery_dir,self.path,
+                                     getattr(self,'_recovery_epoch',0),validated)
+        self.update_save_status()
+
+    def recovery_completed(self,result):
+        if (result['epoch']!=getattr(self,'_recovery_epoch',0) or
+            result['project_id']!=self.project['id'] or result['directory']!=str(self.recovery_dir)):
+            return
+        self._recovery_error=result['error']
+        if not result['error']:self._recovery_hash=result['hash']
+        else:self.statusBar().showMessage('Recovery failed: '+result['error']+' · File → Recovery to retry',12000)
+        self.update_save_status()
+
+    def finish_recovery(self,discard=False):
+        if getattr(self,'_recovery_queue',None):return self._recovery_queue.flush(discard)
+        return True
 
     def update_save_status(self,current_hash=None):
         current_hash=current_hash or digest(self.project)
         if self.saved_hash==current_hash:text='Saved to disk'
         elif self._recovery_error:text='Unsaved · recovery failed'
         elif self._recovery_hash==current_hash:text='Unsaved · recovery available'
+        elif getattr(self,'_recovery_queue',None) and self._recovery_queue.busy:text='Unsaved · recovery pending'
         else:text='Unsaved · recovery not yet written'
         self.save_label.setText(text)
         self.save_label.setToolTip(self._recovery_error or ('Recovery folder: '+str(self.recovery_dir)))
 
     def save_recovery(self,*,validated=False,notify=True):
+        self.finish_recovery(discard=True)
         try:
             recovery.write(self.project,self.recovery_dir,self.path,validated=validated)
         except Exception as exc:
@@ -44,6 +70,7 @@ class RecoveryUIMixin:
 
     def use_recovery_folder(self,folder):
         # Publish an actual durable snapshot before changing any session path.
+        self.finish_recovery()
         root=Path(folder).resolve();directory=root/uid()
         recovery.write(self.project,directory,self.path)
         previous=list(self.settings.value('storage/previous_recovery_roots',[]) or [])
