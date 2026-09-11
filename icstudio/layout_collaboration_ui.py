@@ -14,9 +14,8 @@ class CollaborationMixin:
         self.collaboration_timer.timeout.connect(self.renew_layout_claims)
 
     def make_actions(self):
-        super().make_actions();menu=self.task_menus['Layout'].addMenu('Concurrent editing')
-        for title,fn in [('Create shared workspace…',lambda:self.shared_layout_start(True)),('Join shared workspace…',lambda:self.shared_layout_start(False)),('Session and ownership…',self.shared_layout_dialog),('Publish layout changes',self.shared_layout_publish),('Refresh shared layout',self.shared_layout_refresh),('Leave shared workspace',self.shared_layout_leave)]:self.action(menu,title,fn)
-        self.reindex_commands()
+        # Both collaboration modes are reached through Tools → Collaboration.
+        super().make_actions()
 
     def set_project(self,p,path=None):
         if getattr(self,'layout_session',None):self.shared_layout_leave()

@@ -1,16 +1,32 @@
 # Live desktop layout collaboration
 
 This experimental feature shares a layout through a self-hosted server. Open
-**Layout → Live collaboration → Share layout** to create a workspace, choose
+**Tools → Collaboration → Share this project** to create a workspace, choose
 **Can view** or **Can edit**, and copy an expiring invitation. A collaborator
 opens the link in their browser and chooses **Open IC Design Studio**, or pastes
-the complete link into **Join with invitation** in the desktop app.
+the complete link into **Join a workspace** in the desktop app.
 
 This repository supplies the server and desktop client. It does not supply a
 running public service. A host must run the server at an address collaborators
 can reach. Browser links launch the installed desktop app; there is no browser
 layout editor. The earlier shared-folder collaboration remains available under
-**Layout → Concurrent editing**.
+the dashboard’s **Shared folder** tab.
+
+## Find your way around
+
+All collaboration commands are grouped under **Tools → Collaboration**. The
+command palette and status-bar button open the same dashboard.
+
+| Dashboard area | What you can do |
+|---|---|
+| **Start and resume** | Share, join, or resume a recent workspace without finding recovery files |
+| **Live workspace** | See teammates, recent edits, and who has reserved a cell, net or object |
+| **Invite people and manage access** | Create/revoke invitations, or save a copy and delete an owned workspace |
+| **Review conflicting edit** | Compare original, shared and retained geometry before choosing a resolution |
+| **Shared folder** | Create/join a folder, claim cells/layers, publish, refresh and leave |
+| **Back to layout** | Close the dashboard while collaboration continues |
+
+![Collaboration dashboard](images/collaboration-dashboard.png)
 
 ## Start a server
 
@@ -33,7 +49,7 @@ origin, forwarding to the loopback listener, or supply a valid TLS certificate:
 python -m icstudio.live_server --data ./private-live-data --listen 0.0.0.0 --port 8765 --certfile fullchain.pem --keyfile privkey.pem
 ```
 
-Use the reachable HTTPS origin in **Share layout**, for example
+Use the reachable HTTPS origin in **Share this project**, for example
 `https://layout.example.org`. A reverse proxy must allow 16 MiB JSON requests and
 forward the `Authorization` header. Do not cache API responses. Direct HTTP is
 accepted by the desktop client only on loopback addresses; non-loopback server
@@ -46,9 +62,9 @@ though running a source Python server gives the host a visible console.
 
 ## Share and join
 
-1. Open a project and choose **Share layout**. Enter the server origin, creation
+1. Open a project and choose **Share this project**. Enter the server origin, creation
    key and your name. Sharing copies the current project into a new workspace.
-2. The live panel lists participants and recent accepted edits. Choose an
+2. The **Live workspace** tab lists teammates, reservations and recent edits. Choose **Invite people and manage access**, then an
    invitation permission and expiry (1–30 days), then **Create and copy invitation**.
 3. Send the link to your collaborator. Anyone holding that link can join with its
    permission until it expires or is revoked. Names are display names, not
@@ -63,7 +79,7 @@ though running a source Python server gives the host a visible console.
 
 The Windows installer registers the `icstudio://` invitation handler and removes
 it on uninstall. Source checkouts, portable packages, Linux and macOS can always
-use the in-app **Join with invitation** command. They can also launch directly:
+use the in-app **Join a workspace** command. They can also launch directly:
 
 ```sh
 python main.py --join "FULL_INVITATION_LINK"
@@ -90,6 +106,10 @@ affected object or connected group after the client's base revision, the server
 rejects the edit. Reservations are checked again when committing; a race while
 acquiring a selection never grants permission to overwrite another edit.
 Connected moves and generated edits commit their complete change sets together.
+
+The reservation table names the owner and affected scope, including whole-net
+or whole-cell reservations, and shows the remaining lease time. Selecting an
+object still reserves it; this release does not change the conflict boundaries.
 
 **Undo and Redo apply to your accepted edits only.** They preserve disjoint edits
 by other participants and reject overlapping intervening edits, even when another
@@ -119,17 +139,53 @@ again. New edits pause until the pending transaction is settled. This version
 does not support accumulating independent offline edits.
 
 The private `live-sessions` folder under the app's user data directory retains
-session credentials, pending edits and conflict snapshots. **Resume saved live
-session** recovers one after restarting the app. Treat these files as credentials;
+session credentials, pending edits and conflict snapshots. **Resume workspace**
+in the dashboard recovers one after restarting the app. Treat these files as credentials;
 do not commit, email or upload them. They are separate from normal `.icproj`
 documents. Active sessions renew their seven-day inactivity expiry, but invitation
 expiry and revocation still apply.
 
+The dashboard discovers saved sessions in the background; choose **Resume
+workspace** to reopen one. Idle presence updates do not rewrite the full project
+journal.
+
 When a conflict occurs, the proposed project remains in the private recovery
-journal. Use **Save retained conflicting edit** to write an independent `.icproj`
-copy for review, or **Discard retained conflicting edit** to resume from the
-server's accepted state. **Leave and keep local copy** preserves the currently
-displayed project for ordinary saving and independent editing.
+journal. **Review conflicting edit** opens a read-only comparison of the original,
+current shared, and retained shapes on a common scale. Choose the affected cell,
+zoom or pan, and inspect object summaries. Structured objects are listed; their
+generated geometry is not reconstructed in this comparison.
+
+**Reapply to shared layout** accepts unchanged targets and supported translations
+of ordinary shapes, retaining shared changes. It rejects unsupported overlapping
+changes, deleted targets and conflicting generated geometry. The complete proposal
+is one server-validated transaction; a newer shared revision requires refreshing
+the comparison. The conflict is retained until acknowledgement, including across
+connection loss. This does not establish DRC/LVS correctness.
+
+**Save my version** writes an independent `.icproj` copy. **Use shared version**
+asks before discarding the retained edit. **Decide later** keeps the journal.
+**Leave workspace** preserves the displayed project for ordinary local editing.
+
+![Three-version conflict comparison](images/collaboration-conflict-review.png)
+
+## Recover ownership and remove old workspaces
+
+An owner who returns after the seven-day session expiry can choose **Recover
+owner access** beside the saved workspace or in the disconnected live session.
+Ask the server administrator for the workspace creation key. Recovery rotates
+the owner's session credential while preserving the actor identity, accepted
+edits, retry IDs and personal undo. Invitations and expired session tokens cannot
+authorize this operation. The previous owner session token becomes invalid.
+This recovery flow needs the saved owner journal; invitation-based rejoining
+does not restore ownership. View/edit invitees need a valid invitation to rejoin.
+
+To remove an unused workspace, open **Invite people and manage access → Save a
+copy and delete workspace**. After confirmation and a successful local save, the
+server removes that workspace, invitations, sessions and shared history in one
+transaction. Deletion requires ownership and the same shared revision as the saved
+copy; intervening edits reject it. It frees a workspace slot. Other participants'
+already-downloaded files are unaffected. Full archive/restore and ownership
+transfer are not part of this release.
 
 ## Server persistence and limits
 

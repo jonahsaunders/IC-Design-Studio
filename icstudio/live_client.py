@@ -86,6 +86,7 @@ class LiveClient(QObject):
         self.active = True
         self.connected = True
         self.busy = False
+        self.managing = False
         self.message = 'Live · ' + self.info['role']
         self.presence = lambda: {}
         self.can_install = lambda: True
@@ -138,6 +139,8 @@ class LiveClient(QObject):
         self.status_changed.emit(text)
 
     def editable(self):
+        if self.managing:
+            raise LiveError('Workspace management is in progress. Please wait before editing.')
         if self.info['role'] == 'view':
             raise LiveError('You have view access. Ask the owner for an edit invitation.')
         if self.conflict:
@@ -149,12 +152,16 @@ class LiveClient(QObject):
 
     def submit(self, project, label):
         self.editable()
+        self._submit(project, label)
+
+    def _submit(self, project, label, resolves_conflict=False):
         rows = changes(self.project, project)
         if not rows:
             return
         bounded_project(project)
         request = dict(id=uuid.uuid4().hex, revision=self.revision, changes=rows, label=label[:160], action='edit')
-        pending = dict(request=request, before=clone(self.project), proposed=clone(project))
+        pending = dict(request=request, before=clone(self.project), proposed=clone(project),
+                       resolves_conflict=resolves_conflict)
         self.pending = pending
         try:
             self.save_journal()  # Persist the request ID before any network mutation.
@@ -165,6 +172,17 @@ class LiveClient(QObject):
         self.say('Syncing layout edit…')
         self.changed.emit()
         self.tick()
+
+    def reapply(self, revision):
+        from .live_review import reapply_conflict
+        if not self.conflict or self.pending or not self.connected or self.info['role'] == 'view':
+            raise LiveError('Reconnect and wait for synchronization before reapplying this edit.')
+        if self.revision != revision:
+            raise LiveError('The shared layout changed. Refresh the comparison before reapplying.')
+        proposed = reapply_conflict(self.conflict, self.project)
+        if not changes(self.project, proposed):
+            raise LiveError('These changes are already in the shared layout. Choose Use shared version.')
+        self._submit(proposed, 'Reapply reviewed edit', resolves_conflict=True)
 
     def history_action(self, action):
         self.editable()
@@ -215,6 +233,7 @@ class LiveClient(QObject):
                 self.changed.emit()
                 return
             try:
+                old_info = {k: v for k, v in self.info.items() if k not in ('participants', 'leases', 'history', 'reservation_denied')}
                 check_session(self.workspace, self.token, result)
                 if result['actor'] != self.info['actor']:
                     raise LiveError('The server returned a different session identity.')
@@ -231,8 +250,12 @@ class LiveClient(QObject):
                     changed = True
                 self.info.update({k: v for k, v in result.items() if k not in ('project', 'token', 'revision')})
                 if editing:
+                    if self.pending and self.pending.get('resolves_conflict'):
+                        self.conflict = None
                     self.pending = None
-                self.save_journal()
+                new_info = {k: v for k, v in self.info.items() if k not in ('participants', 'leases', 'history', 'reservation_denied')}
+                if changed or editing or old_info != new_info:
+                    self.save_journal()
                 if self.conflict:
                     self.say('Conflict retained locally · save or discard it to continue')
                 elif self.pending:

@@ -154,6 +154,38 @@ class Store:
             result = self._snapshot(wid, self._actor(wid, token), -1)
             return dict(result, workspace=wid, token=token)
 
+    def recover_owner(self, wid, secret, actor_id):
+        """A server administrator can rotate a saved owner's expired credential.
+
+        Keep the actor ID so accepted edits, retry IDs and personal undo survive.
+        An invitation or expired session credential never authorizes recovery.
+        """
+        if not isinstance(secret, str) or not hmac.compare_digest(secret, self.create_key):
+            raise LiveError('Ask the server administrator for the workspace creation key.', 403)
+        with self.transaction():
+            self._workspace(wid)
+            actor = self.db.execute('SELECT * FROM actors WHERE workspace=? AND id=? AND role=?',
+                                    (wid, actor_id, 'owner')).fetchone()
+            if actor is None:
+                raise LiveError('This saved session is not the workspace owner.', 403)
+            token = secrets.token_urlsafe(32)
+            self.db.execute('UPDATE actors SET secret=?,expires=? WHERE id=?',
+                            (token_hash(token), time.time() + SESSION_SECONDS, actor_id))
+            return dict(self._snapshot(wid, self._actor(wid, token), -1), workspace=wid, token=token)
+
+    def delete_workspace(self, wid, token, revision):
+        """Delete one owned workspace atomically, freeing its capacity slot."""
+        with self.transaction():
+            self._actor(wid, token, owner=True)
+            if type(revision) is not int or revision != self._workspace(wid)['revision']:
+                raise LiveError('The shared layout changed. Refresh and save its latest version before deleting the workspace.')
+            for table in ('invitations', 'actors', 'events', 'versions', 'leases'):
+                self.db.execute('DELETE FROM ' + table + ' WHERE workspace=?', (wid,))
+            self.db.execute('DELETE FROM workspaces WHERE id=?', (wid,))
+        with self.lock:
+            self.presence = {k: v for k, v in self.presence.items() if k[0] != wid}
+        return {'deleted': True}
+
     def _snapshot(self, wid, actor, since):
         w = self._workspace(wid)
         result = dict(revision=w['revision'], actor=actor['id'], name=actor['name'], role=actor['role'],
@@ -167,7 +199,7 @@ class Store:
         colors = ['#64dfc0', '#ffba73', '#bca5ff', '#f18bbb', '#7bbfff', '#d5db75']
         result['participants'] = [dict(p, id=ident, color=colors[active.index(ident) % len(colors)]) for (workspace, ident), p in self.presence.items()
                                   if workspace == wid and ident in active and p['seen'] > timestamp - PRESENCE_SECONDS]
-        result['leases'] = [dict(r) for r in self.db.execute('SELECT resource,actor,expires FROM leases WHERE workspace=? AND expires>?', (wid, timestamp))
+        result['leases'] = [dict(r) for r in self.db.execute('SELECT l.resource,l.actor,l.expires,a.name FROM leases l JOIN actors a ON l.actor=a.id WHERE l.workspace=? AND l.expires>?', (wid, timestamp))
                             if r['actor'] in active]
         result['history'] = [dict(r) for r in self.db.execute('''SELECT e.revision,e.label,e.created,a.name FROM events e
             JOIN actors a ON e.actor=a.id WHERE e.workspace=? ORDER BY e.revision DESC LIMIT 20''', (wid,))]

@@ -6,9 +6,9 @@ import time
 
 from PySide6.QtCore import QPointF, QRectF, Qt
 from PySide6.QtGui import QColor, QCursor, QFont, QPen, QPolygonF
-from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QDockWidget, QFileDialog,
+from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QFileDialog,
     QFormLayout, QLabel, QLineEdit, QListWidget, QListWidgetItem, QPushButton,
-    QSpinBox, QVBoxLayout, QWidget)
+    QSpinBox, QVBoxLayout, QWidget, QTreeWidget, QMessageBox, QHBoxLayout)
 
 from .live_client import LiveClient, LiveHistory, Transport, check_session
 from .live_protocol import ID, LiveError, invitation_link, parse_invitation, server_url
@@ -67,27 +67,69 @@ class LiveCollaborationMixin:
         self.live_client = None
         super().make_ui()
         self.live_transport = Transport(self)
-        self.live_dock = QDockWidget('LIVE COLLABORATION', self)
-        self.live_dock.setObjectName('liveCollaboration')
-        host = QWidget()
+        self._collaboration_dashboard = None
+        host = self.live_session_widget = QWidget(self)
+        host.hide()
         v = QVBoxLayout(host)
         self.live_status = QLabel('No live session')
         self.live_status.setWordWrap(True)
         self.live_status.setAccessibleName('Live connection status')
         v.addWidget(self.live_status)
+        self.live_recover_button = QPushButton('Recover owner access…')
+        self.live_recover_button.clicked.connect(lambda: self.guard(lambda: self.live_recover_owner()))
+        v.addWidget(self.live_recover_button)
+        self.live_recover_button.hide()
+        top_actions = QHBoxLayout()
+        self.live_manage_button = QPushButton('Invite people and manage access…')
+        self.live_manage_button.setProperty('role', 'primary')
+        self.live_manage_button.clicked.connect(lambda: self.guard(self.live_manage_access))
+        top_actions.addWidget(self.live_manage_button)
+        leave = QPushButton('Leave workspace')
+        leave.setToolTip('Keep the displayed layout as an independent local copy')
+        leave.clicked.connect(lambda: self.guard(self.live_leave))
+        top_actions.addWidget(leave)
+        v.addLayout(top_actions)
+        activity = QHBoxLayout()
+        people = QVBoxLayout()
+        people.addWidget(QLabel('Your teammates'))
         self.live_people = QListWidget()
         self.live_people.setAccessibleName('Live participants')
-        self.live_people.setMinimumHeight(96)
+        self.live_people.setMinimumHeight(80)
         self.live_people.setMaximumHeight(120)
-        v.addWidget(self.live_people)
+        people.addWidget(self.live_people)
+        activity.addLayout(people, 1)
+        edits = QVBoxLayout()
+        edits.addWidget(QLabel('Recent shared edits'))
         self.live_history = QListWidget()
         self.live_history.setAccessibleName('Shared edit history')
-        self.live_history.setMinimumHeight(96)
-        self.live_history.setMaximumHeight(180)
-        v.addWidget(self.live_history)
-        self.live_owner = QWidget()
+        self.live_history.setMinimumHeight(80)
+        self.live_history.setMaximumHeight(120)
+        edits.addWidget(self.live_history)
+        activity.addLayout(edits, 2)
+        v.addLayout(activity)
+        v.addWidget(QLabel('Reserved objects'))
+        self.live_reservations = QTreeWidget()
+        self.live_reservations.setHeaderLabels(['Cell', 'Reserved scope', 'Reserved by', 'Renews in'])
+        self.live_reservations.setAccessibleName('Object reservations and their owners')
+        self.live_reservations.setRootIsDecorated(False)
+        self.live_reservations.setMinimumHeight(90)
+        self.live_reservations.setMaximumHeight(140)
+        self.live_reservations.setColumnWidth(1, 260)
+        v.addWidget(self.live_reservations)
+        self.live_reservation_note = QLabel()
+        self.live_reservation_note.setWordWrap(True)
+        v.addWidget(self.live_reservation_note)
+        self.live_manage = QDialog(self)
+        self.live_manage.setWindowTitle('Invite people and manage access')
+        self.live_manage.resize(560, 480)
+        management = QVBoxLayout(self.live_manage)
+        self.live_owner = QWidget(self.live_manage)
+        management.addWidget(self.live_owner)
         ov = QVBoxLayout(self.live_owner)
         ov.setContentsMargins(0, 0, 0, 0)
+        invitation_note = QLabel('Choose what your teammate can do, then copy an invitation to send them. You can revoke access here at any time.')
+        invitation_note.setWordWrap(True)
+        ov.addWidget(invitation_note)
         form = QFormLayout()
         self.live_role = QComboBox()
         self.live_role.addItem('Can view', 'view')
@@ -109,37 +151,55 @@ class LiveCollaborationMixin:
         revoke = QPushButton('Revoke selected invitation')
         revoke.clicked.connect(lambda: self.guard(self.live_revoke))
         ov.addWidget(revoke)
-        v.addWidget(self.live_owner)
+        self.live_review = QPushButton('Review conflicting edit…')
+        self.live_review.setProperty('role', 'primary')
+        self.live_review.clicked.connect(lambda: self.guard(self.live_review_conflict))
+        v.addWidget(self.live_review)
         self.live_copy = QPushButton('Save retained conflicting edit…')
         self.live_copy.clicked.connect(lambda: self.guard(self.live_save_conflict))
         v.addWidget(self.live_copy)
-        self.live_discard = QPushButton('Discard retained conflicting edit')
-        self.live_discard.clicked.connect(lambda: self.guard(self.live_discard_conflict))
+        self.live_discard = QPushButton('Use shared version…')
+        self.live_discard.clicked.connect(lambda: self.guard(self.live_confirm_discard))
         v.addWidget(self.live_discard)
-        leave = QPushButton('Leave and keep local copy')
-        leave.clicked.connect(lambda: self.guard(self.live_leave))
-        v.addWidget(leave)
-        self.live_dock.setWidget(host)
-        self.live_dock.setMinimumWidth(320)
-        self.addDockWidget(Qt.RightDockWidgetArea, self.live_dock)
-        self.live_dock.hide()
+        self.live_delete = QPushButton('Save a copy and delete workspace…')
+        self.live_delete.clicked.connect(lambda: self.guard(self.live_delete_workspace))
+        ov.addWidget(self.live_delete)
+        close_manage = QPushButton('Done')
+        close_manage.clicked.connect(self.live_manage.hide)
+        management.addWidget(close_manage)
+        self.collaboration_button = QPushButton('Collaboration')
+        self.collaboration_button.setToolTip('Open Tools → Collaboration')
+        self.collaboration_button.clicked.connect(lambda: self.guard(self.collaboration_dashboard))
+        self.statusBar().addPermanentWidget(self.collaboration_button)
 
     def make_actions(self):
         super().make_actions()
-        menu = self.task_menus['Layout'].addMenu('Live collaboration')
-        for title, fn in [('Share layout…', self.live_share_dialog), ('Join with invitation…', self.live_join_dialog),
-                          ('Resume saved live session…', self.live_resume_dialog), ('Participants and sharing', self.live_show),
-                          ('Leave and keep local copy', self.live_leave),
-                          ('Server setup and collaboration guide', lambda: self.open_editor_doc('LIVE_COLLABORATION.md'))]:
-            self.action(menu, title, fn)
+        self.collaboration_action = self.action(self.task_menus['Tools'], 'Collaboration…', self.collaboration_dashboard)
         self.reindex_commands()
 
+    def collaboration_dashboard(self, tab=None):
+        from .collaboration_dashboard import CollaborationDashboard
+        if self._collaboration_dashboard is None:
+            self._collaboration_dashboard = CollaborationDashboard(self)
+        dlg = self._collaboration_dashboard
+        dlg.refresh_state()
+        if tab is not None:
+            dlg.tabs.setCurrentIndex(tab)
+        dlg.refresh_recent()
+        dlg.show()
+        dlg.raise_()
+        dlg.activateWindow()
+        return dlg
+
     def live_show(self):
-        if not self.live_client:
-            raise LiveError('Share a layout or join with an invitation first.')
-        self.tabifyDockWidget(self.inspector, self.live_dock)
-        self.live_dock.show()
-        self.live_dock.raise_()
+        return self.collaboration_dashboard(1 if self.live_client else 0)
+
+    def live_manage_access(self):
+        if not self.live_client or self.live_client.info['role'] != 'owner':
+            raise LiveError('Only the workspace owner can manage invitations.')
+        self.live_manage.show()
+        self.live_manage.raise_()
+        return self.live_manage
 
     def shared_layout_start(self, create):
         if self.live_client:
@@ -155,6 +215,11 @@ class LiveCollaborationMixin:
         super().closeEvent(event)
         if event.isAccepted() and self.live_client:
             self.live_leave()
+        if event.isAccepted() and self._collaboration_dashboard:
+            scan = self._collaboration_dashboard.scan
+            if scan and scan.isRunning():
+                scan.requestInterruption()
+                scan.wait()
 
     def live_available(self):
         if self.live_client or self.layout_session:
@@ -298,6 +363,8 @@ class LiveCollaborationMixin:
         if not client:
             return
         self.live_status.setText(message)
+        self.collaboration_button.setText('Collaboration · ' + ('Needs review' if client.conflict else 'Connected' if client.connected else 'Reconnecting'))
+        self.live_recover_button.setVisible(client.info['role'] == 'owner' and not client.connected)
         self.live_people.clear()
         people = client.info.get('participants', [])
         for p in people:
@@ -310,6 +377,7 @@ class LiveCollaborationMixin:
         for event in client.info.get('history', []):
             self.live_history.addItem(str(event['revision']) + ' · ' + event['name'] + ' · ' + event['label'])
         self.live_owner.setVisible(client.info['role'] == 'owner')
+        self.live_manage_button.setVisible(client.info['role'] == 'owner')
         current = self.live_invitations.currentItem()
         selected = current.data(Qt.UserRole) if current else None
         self.live_invitations.clear()
@@ -322,6 +390,16 @@ class LiveCollaborationMixin:
                 self.live_invitations.setCurrentItem(item)
         self.live_copy.setVisible(bool(client.conflict and client.conflict.get('proposed')))
         self.live_discard.setVisible(bool(client.conflict))
+        self.live_review.setVisible(bool(client.conflict and client.conflict.get('proposed')))
+        self.live_review.setEnabled(not client.pending)
+        self.live_copy.setEnabled(not client.pending)
+        self.live_discard.setEnabled(not client.pending)
+        self.live_delete.setVisible(client.info['role'] == 'owner')
+        self.live_delete.setEnabled(client.connected and not client.pending and not client.conflict and not client.managing)
+        from .collaboration_dashboard import fill_reservations
+        fill_reservations(self)
+        if self._collaboration_dashboard:
+            self._collaboration_dashboard.refresh_state()
         editable = client.connected and client.info['role'] != 'view' and not client.pending and not client.conflict
         self.undo_action.setEnabled(editable and bool(client.info.get('undo')))
         self.redo_action.setEnabled(editable and bool(client.info.get('redo')))
@@ -355,7 +433,7 @@ class LiveCollaborationMixin:
 
     def live_save_conflict(self):
         client = self.live_client
-        if not client or not client.conflict or not client.conflict.get('proposed'):
+        if not client or client.pending or not client.conflict or not client.conflict.get('proposed'):
             return
         path, _ = QFileDialog.getSaveFileName(self, 'Save retained edit as an independent project', '', 'IC Studio project (*.icproj)')
         if path:
@@ -365,17 +443,148 @@ class LiveCollaborationMixin:
     def live_discard_conflict(self):
         client = self.live_client
         if client:
+            if client.pending:
+                raise LiveError('Wait for the reviewed edit to finish syncing before resolving this conflict.')
+            retained = client.conflict
             client.conflict = None
-            client.save_journal()
+            try:
+                client.save_journal()
+            except Exception:
+                client.conflict = retained
+                raise
             client.tick()
             self.live_update_panel(client.message)
 
+    def live_confirm_discard(self):
+        if QMessageBox.question(self, 'Use shared version?',
+                'This discards your retained conflicting edit. Save a separate copy first if you want to keep it.',
+                QMessageBox.Yes | QMessageBox.Cancel, QMessageBox.Cancel) == QMessageBox.Yes:
+            self.live_discard_conflict()
+
+    def live_review_conflict(self):
+        from .collaboration_review_ui import ConflictReview
+        if not self.live_client or not self.live_client.conflict:
+            raise LiveError('There is no conflicting edit to review.')
+        previous = getattr(self, '_live_conflict_review', None)
+        if previous:
+            previous.close()
+        dlg = ConflictReview(self)
+        self._live_conflict_review = dlg
+        dlg.show()
+        return dlg
+
     def live_resume_dialog(self):
-        if not self.live_available():
-            return
-        path, _ = QFileDialog.getOpenFileName(self, 'Resume a saved live session', str(self.data_dir / 'live-sessions'), 'Live session (*.json)')
-        if path and self.maybe_save():
+        return self.collaboration_dashboard(0)
+
+    def live_resume_path(self, path):
+        if self.live_available() and self.maybe_save():
             self.live_attach(LiveClient.resume(path, self))
+
+    def live_recover_owner(self, path=None):
+        client = self.live_client
+        if path is not None:
+            if not self.live_available() or not self.maybe_save():
+                return
+            client = LiveClient.resume(path, self)
+        if client is None or client.info['role'] != 'owner':
+            raise LiveError('Choose one of your owned workspaces to recover access.')
+        if client.busy:
+            raise LiveError('Wait for the current connection attempt to finish, then try again.')
+        dlg = QDialog(self)
+        dlg.setWindowTitle('Recover workspace ownership')
+        dlg.resize(520, 240)
+        layout = QVBoxLayout(dlg)
+        note = QLabel('Restore access to ' + client.project['name'] + '. Ask your server administrator for the workspace creation key. Your saved edits and personal undo are preserved.')
+        note.setWordWrap(True)
+        note.setTextFormat(Qt.PlainText)
+        layout.addWidget(note)
+        key = QLineEdit()
+        key.setEchoMode(QLineEdit.Password)
+        key.setAccessibleName('Workspace creation key')
+        form = QFormLayout()
+        form.addRow('Administrator key', key)
+        layout.addLayout(form)
+        error = QLabel()
+        error.setWordWrap(True)
+        error.setTextFormat(Qt.PlainText)
+        layout.addWidget(error)
+        restore = QPushButton('Restore owner access')
+        layout.addWidget(restore)
+        original = digest(self.project)
+        def start():
+            if client.busy:
+                error.setText('A connection attempt is finishing. Please try again in a moment.')
+                return
+            client.busy = True
+            restore.setEnabled(False)
+            def completed(status, result):
+                client.busy = False
+                restore.setEnabled(True)
+                if status != 200:
+                    error.setText(result.get('error', 'Could not recover access.'))
+                    return
+                try:
+                    check_session(client.workspace, result['token'], result)
+                    if result['actor'] != client.info['actor'] or result['role'] != 'owner':
+                        raise LiveError('The server returned a different owner identity.')
+                    client.token = result['token']
+                    client.save_journal()
+                    if self.live_client is client:
+                        client.active = True
+                        client.start()
+                    elif self.live_client is None and digest(self.project) == original:
+                        self.live_attach(client)
+                    else:
+                        error.setText('Access restored. Resume this workspace from the dashboard when you are ready.')
+                        return
+                    dlg.accept()
+                except Exception as exc:
+                    error.setText(str(exc))
+            try:
+                self.live_transport.post(client.server, client.path + '/recover-owner', key.text(),
+                                         dict(actor=client.info['actor']), completed)
+            except Exception as exc:
+                client.busy = False
+                restore.setEnabled(True)
+                error.setText(str(exc))
+        restore.clicked.connect(start)
+        self._live_recover_dialog = dlg
+        dlg.show()
+        return dlg
+
+    def live_delete_workspace(self):
+        client = self.live_client
+        if not client or client.pending or client.conflict or not client.connected or client.info['role'] != 'owner':
+            raise LiveError('Finish syncing and resolve retained edits before deleting your workspace.')
+        if QMessageBox.question(self, 'Delete shared workspace?',
+                'You will save a local copy first. The workspace and its shared history will then be permanently removed from the server, and everyone will lose access.',
+                QMessageBox.Yes | QMessageBox.Cancel, QMessageBox.Cancel) != QMessageBox.Yes:
+            return
+        path, _ = QFileDialog.getSaveFileName(self, 'Save a copy before deleting', '', 'IC Studio project (*.icproj)')
+        if not path:
+            return
+        revision = client.revision
+        save_project(client.project, path)
+        client.managing = True
+        self.live_update_panel(client.message)
+        def completed(status, result):
+            client.managing = False
+            if status != 200:
+                if self.live_client is client:
+                    self.live_update_panel(client.message)
+                self.error(result.get('error', 'Could not delete the workspace. Your local copy is saved.'))
+                return
+            if self.live_client is client:
+                self.live_leave()
+            client.journal.unlink(missing_ok=True)
+            self.statusBar().showMessage('Shared workspace deleted. Your saved local copy is ready to open.', 12000)
+            if self._collaboration_dashboard:
+                self._collaboration_dashboard.refresh_recent()
+        try:
+            client.transport.post(client.server, client.path + '/delete', client.token, dict(revision=revision), completed)
+        except Exception:
+            client.managing = False
+            raise
 
     def live_leave(self):
         client = self.live_client
@@ -384,6 +593,10 @@ class LiveCollaborationMixin:
             self.live_client = None
             self.history = History(clone(client.project))
             self.layout.live_presence = []
-            self.live_dock.hide()
+            self.collaboration_button.setText('Collaboration')
+            self.live_manage.hide()
             self.refresh()
+            if self._collaboration_dashboard:
+                self._collaboration_dashboard.refresh_state()
+                self._collaboration_dashboard.refresh_recent()
             self.statusBar().showMessage('Left live session. This local copy can be saved and edited independently.', 12000)

@@ -15,7 +15,7 @@ def main():
     out = args.out.resolve()
     out.mkdir(parents=True, exist_ok=True)
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-    from PySide6.QtCore import QSettings, QStandardPaths
+    from PySide6.QtCore import QSettings, QStandardPaths, Qt
     from PySide6.QtTest import QTest
     from PySide6.QtWidgets import QApplication, QLineEdit, QPushButton
     from PySide6.QtGui import QFontDatabase
@@ -78,6 +78,17 @@ def main():
         p['name'] = 'Shared analog layout'
         p['cells'][0]['shapes'] = [rect('metal1', 0, 0, 1600, 900), rect('metal1', 2400, 0, 1600, 900), rect('metal2', 700, 1700, 2600, 650)]
         a.set_project(p)
+        dashboard = a.collaboration_dashboard()
+        assert a.collaboration_action in a.task_menus['Tools'].actions()
+        assert not any('collaboration' in action.text().lower() or 'Concurrent editing' in action.text()
+                       for action in a.task_menus['Layout'].actions())
+        assert dashboard.tabs.count() == 3 and dashboard.share.isEnabled() and dashboard.join.isEnabled()
+        wait(lambda: dashboard.scan.isFinished(), 'Recent workspace discovery did not finish')
+        dashboard.resize(780, 600)
+        QTest.qWait(100)
+        assert dashboard.grab().save(str(out / 'collaboration-dashboard.png'))
+        dashboard.hide()
+        checks.append('Tools opens one dashboard with live and shared-folder tools, useful empty state and recent workspaces')
         dlg = a.live_share_dialog()
         fields = dlg.findChildren(QLineEdit)
         fields[0].setText(url)
@@ -132,8 +143,25 @@ def main():
         wait(lambda: b.live_client.conflict is not None, 'Reserved-object edit was not rejected')
         assert b.live_client.conflict['proposed']['cells'][0]['shapes'][0]['points'][0][0] == 400
         save_project(b.live_client.conflict['proposed'], out / 'retained-conflict.icproj')
-        b.live_discard_conflict()
-        wait(lambda: b.live_client.connected and settled(b), 'Conflict did not recover')
+        review = b.live_review_conflict()
+        QTest.qWait(80)
+        review.fit_views()
+        assert review.views[1].scene_model.items() and review.details.topLevelItemCount() == 1
+        assert any(b.live_reservations.topLevelItem(i).text(2) == 'Alice'
+                   for i in range(b.live_reservations.topLevelItemCount()))
+        assert review.grab().save(str(out / 'collaboration-conflict-review.png'))
+        move(a, 2, 50)
+        wait(lambda: b.live_client.revision == a.live_client.revision and settled(a), 'Remote edit did not reach conflict review')
+        assert not review.reapply_button.isEnabled(), 'Stale comparison allowed reapply'
+        a.live_client.presence = lambda: {}
+        wait(lambda: not any(l['actor'] == a.live_client.info['actor'] for l in b.live_client.info.get('leases', [])), 'Owner reservation did not release')
+        review.refresh_comparison()
+        assert review.reapply_button.isEnabled()
+        review.reapply_button.click()
+        wait(lambda: not b.live_client.conflict and settled(b), 'Reviewed edit did not acknowledge')
+        assert b.cell['shapes'][0]['points'][0][0] == 400
+        assert b.cell['shapes'][2]['points'][0][0] == 750, 'Reapply lost the remote edit'
+        checks.append('Visual review shows three versions, disables stale reapply, and preserves another editor’s accepted change')
         wait(lambda: any(p['name'] == 'Bob' and p.get('cursor') == [2900, 900] and p.get('selection') for p in a.layout.live_presence), 'Remote cursor and selection did not reach the owner canvas')
         a.raise_()
         a.layout.fit()
@@ -172,6 +200,7 @@ def main():
                     callback(status, data)
             return original_post(server_url, path, token, body, response)
         a.live_client.transport.post = lose_ack
+        third_before = a.cell['shapes'][2]['points'][0][0]
         move(a, 2, 100)
         wait(lambda: bool(dropped) and not a.live_client.busy, 'Lost-ack scenario did not execute')
         journal = a.live_client.journal
@@ -181,7 +210,7 @@ def main():
         assert resumed.pending
         a.live_attach(resumed)
         wait(lambda: settled(a) and a.live_client.revision == dropped[0], 'Saved request did not recover idempotently')
-        assert not a.live_client.pending and a.cell['shapes'][2]['points'][0][0] == 800
+        assert not a.live_client.pending and a.cell['shapes'][2]['points'][0][0] == third_before + 100
         checks.append('Restarting a desktop session replays an unacknowledged edit exactly once')
 
         wait(lambda: any(i['role'] == 'view' for i in a.live_client.info.get('invitations', [])), 'Invitations not restored')
@@ -190,6 +219,38 @@ def main():
         a.live_revoke()
         wait(lambda: not v.live_client.connected and 'revoked' in v.live_client.message, 'Revoked viewer remained connected')
         checks.append('Owner revocation disconnects an already joined viewer')
+        wait(lambda: settled(a), 'Owner did not settle before recovery check')
+        owner_id = a.live_client.info['actor']
+        journal = a.live_client.journal
+        expected_undo = a.live_client.info['undo']
+        a.live_leave()
+        store.db.execute('UPDATE actors SET expires=0 WHERE id=?', (owner_id,))
+        dashboard = a.collaboration_dashboard(0)
+        wait(lambda: dashboard.scan.isFinished(), 'Recent workspace discovery failed')
+        wait(lambda: any(dashboard.recent.item(i).data(Qt.UserRole)['path'] == str(journal)
+                         for i in range(dashboard.recent.count())), 'Saved owner workspace missing')
+        for i in range(dashboard.recent.count()):
+            if dashboard.recent.item(i).data(Qt.UserRole)['path'] == str(journal):
+                dashboard.recent.setCurrentRow(i)
+                break
+        dashboard.resume_button.click()
+        wait(lambda: a.live_client and not a.live_client.connected and not a.live_client.busy, 'Expired owner did not pause')
+        assert a.live_recover_button.isVisible()
+        recovery = a.live_recover_owner()
+        recovery.findChild(QLineEdit).setText(key)
+        button(recovery, 'Restore owner access').click()
+        wait(lambda: a.live_client.connected and settled(a), 'Owner recovery did not reconnect')
+        assert a.live_client.info['actor'] == owner_id and a.live_client.info['undo'] == expected_undo
+        a.collaboration_dashboard(1)
+        QTest.qWait(100)
+        assert dashboard.grab().save(str(out / 'collaboration-live-workspace.png'))
+        wait(lambda: settled(a), 'Owner polling did not settle')
+        journal_time = journal.stat().st_mtime_ns
+        QTest.qWait(1400)
+        assert journal.stat().st_mtime_ns == journal_time, 'Unchanged presence polls rewrote the project journal'
+        dashboard.hide()
+        assert a.live_client.active, 'Closing dashboard stopped collaboration'
+        checks.append('Dashboard resume and administrator recovery preserve owner identity and personal undo; idle polls do not rewrite journals')
         # Never retain invitation/session secrets in screenshots or tracked evidence.
         (out / 'report.json').write_text(json.dumps(dict(status='passed',platform=app.platformName(),checks=checks), indent=2))
         print(json.dumps(checks))

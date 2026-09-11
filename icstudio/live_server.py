@@ -78,7 +78,7 @@ class Handler(BaseHTTPRequestHandler):
         <title>Join IC Design Studio</title><style>body{font:18px system-ui;background:#101b27;color:#e8eef5;max-width:620px;margin:12vh auto;padding:28px}h1{font-size:32px}a{display:inline-block;background:#8de0c8;color:#102b2b;padding:14px 24px;border-radius:8px;font-weight:600;text-decoration:none}p{line-height:1.6}small{color:#abbccc}</style>
         <h1>Work on a layout together</h1><p>This invitation opens IC Design Studio on your computer.</p>
         <a id="join" hidden>Open IC Design Studio</a><p id="message"></p>
-        <small>If the app does not open, copy the full invitation link and choose Layout → Live collaboration → Join with invitation in the app. An installed desktop app is required.</small>
+        <small>If the app does not open, copy the full invitation link and choose Tools → Collaboration → Join a workspace in the app. An installed desktop app is required.</small>
         <script nonce="NONCE">const p=new URLSearchParams(location.hash.slice(1));
         if (/^[A-Za-z0-9_-]{1,80}$/.test(p.get('workspace')||'') && /^[A-Za-z0-9_-]{32,100}$/.test(p.get('invite')||'') && [...p.keys()].length===2) {
           const a=document.getElementById('join'); a.href='icstudio://join?server='+encodeURIComponent(location.origin)+location.hash; a.hidden=false;
@@ -110,7 +110,7 @@ class Handler(BaseHTTPRequestHandler):
             if self.path == '/v1/workspaces':
                 result = store.create(token, body['project'], body['name'])
             else:
-                match = re.fullmatch(r'/v1/workspaces/([A-Za-z0-9_-]{1,80})/(join|sync|edit|invite|revoke|leave)', self.path)
+                match = re.fullmatch(r'/v1/workspaces/([A-Za-z0-9_-]{1,80})/(join|sync|edit|invite|revoke|leave|recover-owner|delete)', self.path)
                 if not match:
                     raise LiveError('Unknown endpoint.', 404)
                 wid, action = match.groups()
@@ -124,6 +124,10 @@ class Handler(BaseHTTPRequestHandler):
                     result = store.invite(wid, token, body['role'], body.get('days', 7))
                 elif action == 'revoke':
                     result = store.revoke(wid, token, body['invitation'])
+                elif action == 'recover-owner':
+                    result = store.recover_owner(wid, token, body['actor'])
+                elif action == 'delete':
+                    result = store.delete_workspace(wid, token, body['revision'])
                 else:
                     result = store.leave(wid, token)
             self.reply(200, result)

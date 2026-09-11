@@ -1,4 +1,15 @@
-# IC Design Studio 0.22.0.dev12 — engineering preview
+# IC Design Studio 0.22.0.dev13 — engineering preview
+
+Dev13 groups all collaboration tools under **Tools → Collaboration**. The
+dashboard discovers recent sessions, restores expired ownership with administrator
+authorization, shows reservation owners, and reviews conflicting shapes before
+safe reapplication or saving a separate copy. Owned workspaces can be deleted
+after saving the exact shared revision. Idle presence polls no longer rewrite
+the full recovery journal. See [the collaboration guide](LIVE_COLLABORATION.md).
+
+The candidate also includes the [3D layout viewer](LAYOUT_3D.md) and live desktop
+collaboration from experimental PR #13. This version identifies new source and
+must qualify its own packages; the earlier dev12 draft contains different code.
 
 The dev12 update adds [larger hierarchical layouts, schematic-driven review and concurrent cell/layer editing](LAYOUT_SCALE_AND_COLLABORATION.md). Review that guide for supported recipes, conflict handling and operation limits.
 
@@ -52,4 +63,4 @@ Use the Windows installer or extract the complete portable ZIP. On Linux,
 extract the complete tarball and run `ICDesignStudio/ICDesignStudio`. Keep the
 runtime directories beside the executable. Each platform has a matching source
 ZIP; the Windows source includes its staged ngspice runtime. Check the final
-`SHA256SUMS-0.22.0.dev12.txt` before use. See [download guidance](DOWNLOADS.md).
+`SHA256SUMS-0.22.0.dev13.txt` before use. See [download guidance](DOWNLOADS.md).

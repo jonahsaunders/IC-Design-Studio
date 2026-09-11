@@ -1,4 +1,16 @@
-# Release status — 0.22.0.dev12 candidate
+# Release status — 0.22.0.dev13 candidate
+
+Dev13 adds the Tools collaboration dashboard, automatic session discovery,
+administrator-authorized owner recovery, named reservations, visual conflict
+review and revision-checked workspace deletion. The local Python suite passed
+540 tests with nine external-tool skips. The three-editor desktop scenario checks
+dashboard navigation, reviewed reapplication, stale comparisons, owner recovery,
+personal undo, lost acknowledgements and unchanged journal persistence; the
+shared-folder desktop regression also passed. These local checks do not qualify
+consumer operating systems or downloadable binaries. Consult this candidate's
+PR and exact-commit CI results before preparing new release artifacts.
+
+## Historical release evidence
 
 The current source adds release payload verification, native hierarchy/bus
 qualification and a pinned physical gate. A build is a release candidate until

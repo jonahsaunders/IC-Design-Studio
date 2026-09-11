@@ -62,8 +62,8 @@ The following section describes the shared-folder mode. The separate
 [live desktop collaboration mode](LIVE_COLLABORATION.md) adds a self-hosted
 network service, invitation permissions, automatic updates and personal undo.
 
-Use **Layout → Concurrent editing → Create shared workspace** or **Join shared
-workspace**. A workspace directory contains an atomic project journal and an OS
+Use **Tools → Collaboration → Shared folder → Create shared folder** or **Join
+shared folder**. A workspace directory contains an atomic project journal and an OS
 lock file. Editors must have trusted read/write access to the same directory and
 synchronized clocks and a filesystem that correctly implements cross-process file locks and atomic
 replacement. Cloud-sync folders and independent copied folders are unsupported;

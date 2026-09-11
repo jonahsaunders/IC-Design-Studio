@@ -208,6 +208,46 @@ class LiveCollaborationTests(unittest.TestCase):
         self.assertNotIn('project', result)
         self.assertEqual(self.api('sync', dict(revision=10), self.a)[0], 409)
 
+    def test_owner_recovery_rotates_expired_session_and_preserves_undo_and_retries(self):
+        request = self.move_request(self.a)
+        self.assertEqual(self.api('edit', request, self.a)[0], 200)
+        self.store.db.execute('UPDATE actors SET expires=0 WHERE id=?', (self.a['actor'],))
+        self.assertEqual(self.api('sync', {}, self.a)[0], 401)
+        endpoint = self.base + '/recover-owner'
+        self.assertEqual(post(self.url, endpoint, dict(actor=self.a['actor']), self.a['token'])[0], 403)
+        self.assertEqual(post(self.url, endpoint, dict(actor=self.b['actor']), KEY)[0], 403)
+        status, recovered = post(self.url, endpoint, dict(actor=self.a['actor']), KEY)
+        self.assertEqual((status, recovered['actor'], recovered['role'], recovered['undo']),
+                         (200, self.a['actor'], 'owner', 1))
+        self.assertNotEqual(recovered['token'], self.a['token'])
+        self.assertEqual(self.api('sync', {}, self.a)[0], 401)
+        self.assertEqual(self.api('edit', request, recovered)[1]['revision'], 1)
+        self.assertEqual(self.history(recovered, 'undo')[0], 200)
+        self.assertEqual(self.api('invite', dict(role='view'), recovered)[0], 200)
+
+    def test_workspace_delete_requires_owner_and_reviewed_revision_and_frees_capacity(self):
+        self.api('edit', self.move_request(self.a), self.a)
+        self.assertEqual(self.api('delete', dict(revision=1), self.b)[0], 403)
+        self.assertEqual(self.api('delete', dict(revision=0), self.a)[0], 409)
+        # Reach the documented workspace count using actual API-created projects.
+        for i in range(99):
+            self.store.create(KEY, self.p, 'Host')
+        with self.assertRaises(LiveError):
+            self.store.create(KEY, self.p, 'Host')
+        self.assertEqual(self.api('delete', dict(revision=1), self.a)[0], 200)
+        for table in ('actors', 'invitations', 'events', 'versions', 'leases'):
+            self.assertEqual(self.store.db.execute('SELECT count(*) FROM ' + table + ' WHERE workspace=?', (self.wid,)).fetchone()[0], 0)
+        self.store.create(KEY, self.p, 'Host')
+        self.assertNotEqual(self.api('sync', {}, self.b)[0], 200)
+        self.assertEqual(self.api('join', dict(invite=self.inv['invite'], name='Late'))[0], 403)
+
+    def test_reservations_name_owner_without_presence(self):
+        cid, sid = self.p['top'], self.p['cells'][0]['shapes'][0]['id']
+        self.api('sync', dict(presence=dict(cell=cid, selection=[sid])), self.a)
+        self.store.presence.clear()
+        _, state = self.api('sync', {}, self.b)
+        self.assertEqual(state['leases'][0]['name'], 'Alice')
+
     def test_network_boundary_rejects_browser_posts_and_non_json(self):
         self.assertEqual(post(self.url, self.base + '/sync', {}, self.a['token'], {'Origin': 'https://untrusted.example'})[0], 403)
         self.assertEqual(post(self.url, self.base + '/sync', {}, self.a['token'], {'Content-Type': 'text/plain'})[0], 415)
