@@ -138,6 +138,22 @@ def main():
         a.raise_()
         a.layout.fit()
         QTest.qWait(100)
+        # Verify a remote selection is actually painted, including the flat-cell
+        # path that has no hierarchical LayoutScene cache.
+        canvas_image = a.layout.grab().toImage()
+        bob = next(p for p in a.layout.live_presence if p['name'] == 'Bob')
+        from PySide6.QtGui import QColor
+        expected = QColor(bob['color'])
+        shape = a.cell['shapes'][1]
+        x0 = round(shape['points'][0][0] * a.layout.scale + a.layout.offset.x())
+        x1 = round(shape['points'][1][0] * a.layout.scale + a.layout.offset.x())
+        y0 = round(shape['points'][0][1] * a.layout.scale + a.layout.offset.y())
+        colored = 0
+        for x in range(max(0, x0-5), min(canvas_image.width(), x1+5)):
+            for y in range(max(0, y0-6), min(canvas_image.height(), y0+2)):
+                pixel = canvas_image.pixelColor(x, y)
+                colored += all(abs(a-b) < 8 for a,b in zip(pixel.getRgb()[:3], expected.getRgb()[:3]))
+        assert colored > 10, 'Remote selection outline was not painted'
         assert a.grab().save(str(out / 'live-participants.png'))
         checks.append('Colored presence and reservations synchronize; rejected edits remain available to save')
 

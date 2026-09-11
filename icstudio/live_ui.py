@@ -43,6 +43,14 @@ def paint_presence(canvas, painter):
                 rect = QRectF(b.left * canvas.scale + canvas.offset.x(), b.bottom * canvas.scale + canvas.offset.y(),
                               b.width() * canvas.scale, b.height() * canvas.scale).adjusted(-3, -3, 3, 3)
                 painter.drawRect(rect)
+        else:
+            selected = set(person.get('selection', [])[:100])
+            for shape in canvas.cell.get('shapes', []):
+                if shape['id'] in selected:
+                    b = canvas.bounds(shape)
+                    rect = QRectF(b.left() * canvas.scale + canvas.offset.x(), b.top() * canvas.scale + canvas.offset.y(),
+                                  b.width() * canvas.scale, b.height() * canvas.scale).adjusted(-3, -3, 3, 3)
+                    painter.drawRect(rect)
         point = person.get('cursor')
         if point is not None:
             x, y = point[0] * canvas.scale + canvas.offset.x(), point[1] * canvas.scale + canvas.offset.y()
