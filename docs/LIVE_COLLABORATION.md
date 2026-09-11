@@ -1,10 +1,11 @@
 # Live desktop schematic and layout collaboration
 
 This experimental feature shares schematics and layouts through a self-hosted server. Open
-**Tools → Collaboration → Share this project** to create a workspace, choose
-**Can view**, **Can review**, or **Can edit**, and copy an expiring invitation. A collaborator
-opens the link in their browser and chooses **Open IC Design Studio**, or pastes
-the complete link into **Join a workspace** in the desktop app.
+**Tools → Collaboration → Host a session…** to share on your local network or
+VPN. Choose a permission and copy an expiring invitation. A collaborator pastes
+the complete link into **Join a workspace** in the desktop app. Existing team
+servers remain available through **Use an existing team server…**. Their browser
+invitation page can also launch the installed desktop application.
 
 This repository supplies the server and desktop client. It does not supply a
 running public service. A host must run the server at an address collaborators
@@ -42,9 +43,9 @@ the packaged desktop app. The same button is available in **Share this project**
 
 This server accepts connections **only from this computer**. Invitations work in
 another IC Design Studio window on the same computer. To collaborate with people
-on other computers, choose **Use a team server** and enter your team's reachable
-HTTPS server address and administrator key. Switching to a team server clears
-the automatic local key.
+on other computers, use the dev18 **Host a session…** workflow below, or choose
+**Use a team server** and enter your team's reachable HTTPS server address and
+administrator key. Switching to a team server clears the automatic local key.
 
 Keep IC Design Studio open while hosting. Closing the dashboard leaves the
 server running; exiting the application stops it. **Stop local server** stops
@@ -60,6 +61,69 @@ address later, close that application and retry. An inline error explains
 startup failures; saved server data is retained. Only one app instance may host
 the same local server data at once. This does not provide public hosting, a
 network tunnel, or automatic HTTPS setup.
+
+## Host a session on your network
+
+Use dev18 or later on both computers. No scripts or manual certificate/key copying
+are needed in the packaged application.
+
+1. Open your project and choose **Tools → Collaboration → Host a session…**.
+2. Choose your local network or VPN interface, enter your name, and select
+   **Start hosting and share project**. The app generates the encryption
+   certificate and creation key, starts the server, and checks the connection
+   from your computer.
+3. Choose **Can edit schematics and layouts**, **Can review and comment**, or
+   **Can view**, then **Create and copy invitation**. Send the complete invitation
+   to your teammate. It expires in seven days; **Manage invitations…** offers
+   other expiry periods and revocation.
+4. Your teammate opens **Tools → Collaboration → Join a workspace**, pastes the
+   invitation and chooses **Check connection first**. This checks their encrypted
+   connection without joining or sending workspace credentials. They then enter
+   their name and join.
+5. Your hosting screen changes from waiting to **Teammate connection confirmed**.
+   Choose **Back to design** to continue working while hosting.
+
+Keep the host application running. Closing its dashboard leaves hosting active;
+exiting the application stops it. After leaving hosted workspaces, **Stop network
+server** stops listening without deleting saved data. **Resume workspace**
+automatically restarts an owned network host and preserves personal undo. If its
+private IP address changes, the app renews its address certificate while retaining
+its host identity, port and workspaces; copy a fresh invitation for other computers.
+
+Both computers need a route to the selected private IPv4 address. This works on a
+local network or a VPN that permits device-to-device connections. If a connection
+fails, the screen shows the port to allow through the host firewall on that trusted
+network. Guest Wi-Fi may isolate devices. A successful host self-check does not
+prove a teammate can reach it. The wizard does not configure firewalls, routers,
+port forwarding or an internet relay; use a reachable team HTTPS server for
+networks that cannot connect directly.
+
+The app stores the host identity, private keys, creation key, database and port
+under its private `network-collaboration` data directory. Back up that entire
+directory with the server stopped. Do not share its private key files. The
+invitation contains only the public host authority and expiring join credential;
+certificate trust is limited to requests for that session's server. Certificate,
+hostname and validity checks remain enabled, with no system trust-store changes.
+The server certificate renews automatically near expiry; the persistent host
+authority lasts ten years. A bad clock or damaged identity produces an error
+instead of silently replacing the authority. The old loopback and publicly
+trusted HTTPS invitation formats remain supported.
+
+## Edit annotations directly
+
+In the schematic canvas, click an annotation to highlight and select it. Drag to
+move it, Shift-click to add it to a selection, or draw a selection box around
+several notes. Double-click a note or press Enter to open its text and position
+in the inspector, then choose **Apply changes**. **Reset** discards the draft.
+Press Delete on the canvas to remove selected notes, or use **Delete annotation**
+in the inspector. Undo restores them. While typing in the text field, Delete edits
+the text. Duplication creates independent notes with new identities. The
+**Annotations** selection filter lets you select circuitry beneath a note.
+
+These edits synchronize through both live and shared-folder workspaces. Notes
+remain part of cell metadata in document protocol 2, so simultaneous annotation
+or metadata changes use conservative conflict checks. They are not electrical
+net labels. Layout text keeps its existing Labels selection and property controls.
 
 ## Start a team server (administrator setup)
 

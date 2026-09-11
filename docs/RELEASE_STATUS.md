@@ -1,4 +1,15 @@
-# Release status — 0.22.0.dev17 candidate
+# Release status — 0.22.0.dev18 candidate
+
+Dev18 adds [guided encrypted network hosting](LIVE_COLLABORATION.md#host-a-session-on-your-network),
+automatic host certificates, invitation-scoped trust, connection checks and
+saved HTTPS workspace restart. Schematic annotations support direct selection,
+dragging, text editing, duplication, deletion and personal undo in shared sessions.
+Source and packaged desktop acceptance exercise two editors over real HTTPS on
+an isolated loopback test interface, including wrong-certificate and hostname
+rejection. Physical LAN/VPN devices and firewall configurations require separate
+acceptance. Use dev18 desktops for certificate-bearing invitations; database 3,
+document protocol 2 and recovery journal 2 remain unchanged. Consult this commit's
+Windows/Linux Actions results for package qualification.
 
 Dev17 adds [button-driven local hosting](LIVE_COLLABORATION.md#start-a-local-server-with-a-button),
 automatic host key handling, persistent server identity and automatic restart

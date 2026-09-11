@@ -16,3 +16,6 @@ pyppmd==1.3.1
 pybcj==1.0.8
 multivolumefile==0.2.3
 inflate64==1.0.4
+cryptography==50.0.1
+cffi==2.1.1
+pycparser==3.0

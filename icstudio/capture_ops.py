@@ -8,7 +8,7 @@ def cell(project,cid):return next(c for c in project['cells'] if c['id']==cid)
 
 def transform(project,cid,ids,dx=0,dy=0,stretch=True,copy=False,mirror=False):
     c=cell(project,cid);old=clone(c);before=wiring.pins(c,project);ids=set(ids);mapping={};names={d['name'].casefold() for d in c['devices']}
-    for group in ('devices','wires','labels'):
+    for group in ('devices','wires','labels','annotations'):
         for obj in list(c.get(group,[])):
             if obj['id'] not in ids:continue
             if copy:
@@ -20,6 +20,9 @@ def transform(project,cid,ids,dx=0,dy=0,stretch=True,copy=False,mirror=False):
             if group=='devices':
                 obj['x']+=dx;obj['y']+=dy
                 if mirror:obj['mirror']=not obj.get('mirror',False)
+            elif group=='annotations':
+                obj['x']+=dx;obj['y']+=dy
+                if copy:obj.pop('xschem_record',None)
             elif group=='wires':obj['points']=[[x+dx,y+dy] for x,y in obj['points']]
             else:
                 a=obj['anchor']

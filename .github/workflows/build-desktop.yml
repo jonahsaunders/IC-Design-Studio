@@ -76,6 +76,11 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_professional_workflows.py --out build/professional-workflow-evidence
+      - name: Test encrypted hosting, peer trust and direct annotation editing
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_host_annotations.py --out build/host-annotation-evidence
       - name: Test shared schematics, connectivity, hierarchy and desktop recovery
         timeout-minutes: 5
         env:
@@ -266,6 +271,10 @@ jobs:
             build/layout-expansion-evidence
             build/live-collaboration-evidence/report.json
             build/live-collaboration-evidence/*.png
+            build/local-collaboration-evidence/report.json
+            build/local-collaboration-evidence/*.png
+            build/host-annotation-evidence/report.json
+            build/host-annotation-evidence/*.png
             build/professional-workflow-evidence/report.json
             build/professional-workflow-evidence/*.png
             build/schematic-collaboration-evidence/report.json

@@ -24,9 +24,9 @@ def main():
     pth=next(runtime.glob('python*._pth'));stdlib=next(runtime.glob('python*.zip'));pth.write_text(stdlib.name+'\n.\nLib/site-packages\n../app\nimport site\n',encoding='utf-8')
     site=runtime/'Lib/site-packages';site.mkdir(parents=True)
     wheels=list(args.wheels.glob('*.whl'))
-    if not all(any(w.name.lower().startswith(prefix) for w in wheels) for prefix in ('pyside6_essentials','shiboken6','klayout')):raise ValueError('Download all pinned Windows wheels first.')
+    if not all(any(w.name.lower().startswith(prefix) for w in wheels) for prefix in ('pyside6_essentials','shiboken6','klayout','cryptography','cffi','pycparser')):raise ValueError('Download all pinned Windows runtime wheels and their dependencies first.')
     for wheel in wheels:
-        if 'win_amd64' not in wheel.name:raise ValueError('Expected Windows x64 wheel: '+wheel.name)
+        if not (wheel.name.endswith('-win_amd64.whl') or wheel.name.endswith('-none-any.whl')):raise ValueError('Expected Windows x64 or pure Python wheel: '+wheel.name)
         with zipfile.ZipFile(wheel) as z:z.extractall(site)
     # The Essentials wheel contains optional plugins whose dependencies live in
     # Addons or external database clients. This QWidget application uses none

@@ -4,7 +4,7 @@ from pathlib import Path
 import uuid
 
 from PySide6.QtCore import QObject, QTimer, QUrl, Signal
-from PySide6.QtNetwork import QNetworkAccessManager, QNetworkReply, QNetworkRequest
+from PySide6.QtNetwork import QNetworkAccessManager, QNetworkReply, QNetworkRequest, QSslCertificate, QSslSocket, QSsl
 
 from .live_protocol import ID, MAX_BYTES, PROTOCOL, LiveError, bounded_project, changes, server_url
 from .model import atomic_write, clone, validate
@@ -22,12 +22,27 @@ def check_session(workspace, token, snapshot):
 
 
 class Transport(QObject):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, certificate='', origin=''):
         super().__init__(parent)
         self.manager = QNetworkAccessManager(self)
+        self.certificate, self.origin = certificate, origin
 
-    def post(self, server, path, token, data, callback):
+    def post(self, server, path, token, data, callback, certificate=None):
+        server = server_url(server)
+        if certificate is None:
+            if self.certificate and server != self.origin:
+                raise LiveError('This session certificate belongs to a different server.')
+            certificate = self.certificate
         request = QNetworkRequest(QUrl(server_url(server) + path))
+        if certificate:
+            if not server.startswith('https://'):
+                raise LiveError('A trusted host certificate requires HTTPS.')
+            from .network_tls import certificate_pem
+            config = request.sslConfiguration()
+            config.setCaCertificates(QSslCertificate.fromData(certificate_pem(certificate)))
+            config.setPeerVerifyMode(QSslSocket.VerifyPeer)
+            config.setProtocol(QSsl.TlsV1_2OrLater)
+            request.setSslConfiguration(config)
         request.setHeader(QNetworkRequest.ContentTypeHeader, 'application/json')
         request.setRawHeader(b'Authorization', ('Bearer ' + token).encode('ascii'))
         request.setAttribute(QNetworkRequest.RedirectPolicyAttribute, QNetworkRequest.ManualRedirectPolicy)
@@ -35,7 +50,12 @@ class Transport(QObject):
         payload = json.dumps(data, allow_nan=False, separators=(',', ':')).encode()
         if len(payload) > MAX_BYTES:
             raise LiveError('This edit exceeds the 16 MiB live request limit.')
-        reply = self.manager.post(request, payload)
+        # A setup/join request with new trust must not reuse another invitation's
+        # cached TLS connection. Session transports retain one fixed authority.
+        manager = QNetworkAccessManager(self) if certificate and certificate != self.certificate else self.manager
+        reply = manager.post(request, payload)
+        if manager is not self.manager:
+            reply.finished.connect(manager.deleteLater)
         chunks = bytearray()
         oversized = False
 
@@ -49,10 +69,15 @@ class Transport(QObject):
         def finished():
             read()
             status = reply.attribute(QNetworkRequest.HttpStatusCodeAttribute) or 0
-            network_error = reply.error() != QNetworkReply.NoError
+            network_error = reply.error()
             reply.deleteLater()
             if oversized:
                 callback(413, {'error': 'The server response exceeded the live-project limit.'})
+                return
+            if not status or (network_error != QNetworkReply.NoError and status < 400):
+                message = ('The secure connection could not be verified. Check the computer clock and ask the host for a fresh invitation; certificate checks remain enabled.'
+                           if network_error == QNetworkReply.SslHandshakeFailedError else 'Connection unavailable. Check that the host is running, both computers can reach the same network or VPN, and the host firewall allows the displayed port. Your pending edit is retained.')
+                callback(0, {'error': message})
                 return
             try:
                 result = json.loads(chunks)
@@ -61,8 +86,6 @@ class Transport(QObject):
             except (ValueError, UnicodeError):
                 result = {'error': 'The server returned an invalid response.'}
                 status = status if status >= 400 else 502
-            if not status or (network_error and status < 400):
-                status, result = 0, {'error': 'Connection unavailable. Reconnecting; your pending edit is retained.'}
             callback(status, result)
 
         reply.readyRead.connect(read)
@@ -74,12 +97,18 @@ class LiveClient(QObject):
     changed = Signal()
     status_changed = Signal(str)
 
-    def __init__(self, server, workspace, token, snapshot, journal, parent=None):
+    def __init__(self, server, workspace, token, snapshot, journal, parent=None, server_certificate=''):
         super().__init__(parent)
         check_session(workspace, token, snapshot)
         self.server, self.workspace, self.token = server_url(server), workspace, token
         self.journal = Path(journal)
-        self.transport = Transport(self)
+        self.server_certificate = server_certificate
+        if server_certificate:
+            from .network_tls import decode_certificate
+            decode_certificate(server_certificate)
+            if not self.server.startswith('https://'):
+                raise LiveError('A saved host certificate requires HTTPS.')
+        self.transport = Transport(self, certificate=server_certificate, origin=self.server)
         self.project = bounded_project(clone(snapshot['project']))
         self.revision = snapshot['revision']
         self.info = {k: v for k, v in snapshot.items() if k not in ('project', 'token')}
@@ -106,7 +135,7 @@ class LiveClient(QObject):
         self.journal.parent.chmod(0o700)
         state = dict(schema=2, server=self.server, workspace=self.workspace, token=self.token,
                      project=self.project, revision=self.revision, info=self.info,
-                     pending=self.pending, conflict=self.conflict)
+                     pending=self.pending, conflict=self.conflict, server_certificate=self.server_certificate)
         atomic_write(self.journal, json.dumps(state, allow_nan=False))
         self.journal.chmod(0o600)
 
@@ -124,7 +153,7 @@ class LiveClient(QObject):
             snapshot['protocol'] = PROTOCOL  # Legacy requests keep their IDs on the upgraded server.
         # Construction writes a new journal: use a separate path until pending data is restored.
         obj = cls(state['server'], state['workspace'], state['token'], snapshot,
-                  path.with_suffix('.loading'), parent)
+                  path.with_suffix('.loading'), parent, server_certificate=state.get('server_certificate', ''))
         obj.journal.unlink(missing_ok=True)
         obj.journal = path
         obj.pending, obj.conflict = state.get('pending'), state.get('conflict')

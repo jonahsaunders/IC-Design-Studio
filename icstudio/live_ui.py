@@ -11,7 +11,7 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QFileDialog,
     QSpinBox, QVBoxLayout, QWidget, QTreeWidget, QMessageBox, QHBoxLayout)
 
 from .live_client import LiveClient, LiveHistory, Transport, check_session
-from .live_protocol import ID, LiveError, invitation_link, parse_invitation, server_url
+from .live_protocol import ID, PROTOCOL, LiveError, invitation_link, parse_invitation_details, server_url
 from .model import History, clone, digest, save_project
 
 COLORS = ['#64dfc0', '#ffba73', '#bca5ff', '#f18bbb', '#7bbfff', '#d5db75']
@@ -37,7 +37,7 @@ def paint_presence(canvas, painter):
         painter.setBrush(Qt.NoBrush)
         if canvas.mode == 'schematic':
             selected = set(person.get('selection', []))
-            for obj in [*canvas.cell['devices'], *canvas.cell.get('wires', []), *canvas.cell.get('labels', []), *canvas.cell.get('buses', [])]:
+            for obj in [*canvas.cell['devices'], *canvas.cell.get('wires', []), *canvas.cell.get('labels', []), *canvas.cell.get('annotations', []), *canvas.cell.get('buses', [])]:
                 if obj['id'] in selected:
                     b = canvas.bounds(obj)
                     painter.drawRect(QRectF(b.left()*canvas.scale+canvas.offset.x(), b.top()*canvas.scale+canvas.offset.y(), b.width()*canvas.scale, b.height()*canvas.scale).adjusted(-3,-3,3,3))
@@ -264,6 +264,9 @@ class LiveCollaborationMixin:
         team_button.hide()
         setup.addWidget(local_button)
         setup.addWidget(team_button)
+        network_button = QPushButton('Host a session…')
+        network_button.clicked.connect(lambda: (dlg.reject(), self.host_session_dialog()))
+        setup.addWidget(network_button)
         v.addLayout(setup)
         form = QFormLayout()
         server = QLineEdit(str(self.settings.value('live/server', 'http://127.0.0.1:8765')))
@@ -280,6 +283,14 @@ class LiveCollaborationMixin:
         v.addWidget(error)
         button = QPushButton('Start sharing')
         v.addWidget(button)
+        check_button = QPushButton('Check server connection')
+        v.addWidget(check_button)
+        def check_server():
+            try:
+                self.live_check_server(server_url(server.text()), '', check_button, error)
+            except Exception as exc:
+                error.setText(str(exc))
+        check_button.clicked.connect(check_server)
 
         def update_local():
             local_button.setEnabled(host.state not in ('starting', 'stopping'))
@@ -358,7 +369,7 @@ class LiveCollaborationMixin:
         if not self.live_available():
             return
         dlg = QDialog(self)
-        dlg.setWindowTitle('Join live layout')
+        dlg.setWindowTitle('Join a workspace')
         dlg.resize(570, 240)
         v = QVBoxLayout(dlg)
         form = QFormLayout()
@@ -373,13 +384,22 @@ class LiveCollaborationMixin:
         v.addWidget(error)
         button = QPushButton('Join workspace')
         v.addWidget(button)
+        check_button = QPushButton('Check connection first')
+        v.addWidget(check_button)
+        def check():
+            try:
+                server, _, _, certificate = parse_invitation_details(invitation.text())
+                self.live_check_server(server, certificate, check_button, error)
+            except Exception as exc:
+                error.setText(str(exc))
+        check_button.clicked.connect(check)
 
         def join():
             try:
-                server, wid, secret = parse_invitation(invitation.text())
+                server, wid, secret, certificate = parse_invitation_details(invitation.text())
                 if not self.maybe_save():
                     return
-                self.live_connect(server, '/v2/workspaces/' + wid + '/join', '', dict(invite=secret, name=name.text()), dlg, button, error)
+                self.live_connect(server, '/v2/workspaces/' + wid + '/join', '', dict(invite=secret, name=name.text()), dlg, button, error, certificate=certificate)
             except Exception as exc:
                 error.setText(str(exc))
         button.clicked.connect(join)
@@ -387,7 +407,33 @@ class LiveCollaborationMixin:
         self._live_connect_dialog = dlg
         return dlg
 
-    def live_connect(self, server, path, token, body, dlg, button, error):
+    def host_session_dialog(self):
+        from .network_host_ui import HostSessionDialog
+        if not self.live_available():
+            return
+        previous = getattr(self, '_host_session_dialog', None)
+        if previous:
+            previous.close()
+        self._host_session_dialog = HostSessionDialog(self)
+        self._host_session_dialog.show()
+        return self._host_session_dialog
+
+    def live_check_server(self, server, certificate, button, message, completed=None):
+        button.setEnabled(False)
+        message.setText('Checking the connection from this computer…')
+        def done(status, result):
+            button.setEnabled(True)
+            good = status == 200 and result.get('service') == 'IC Design Studio' and result.get('protocol') == PROTOCOL
+            message.setText('Connection verified from this computer. You can join or share now.' if good else result.get('error', 'This address did not return a compatible IC Design Studio server. Check the address and server version.'))
+            if completed:
+                completed(good)
+        try:
+            self.live_transport.post(server, '/v2/check', '', {}, done, certificate=certificate)
+        except Exception:
+            button.setEnabled(True)
+            raise
+
+    def live_connect(self, server, path, token, body, dlg, button, error, certificate='', on_connected=None):
         original = digest(self.project)
         button.setEnabled(False)
         error.setText('Connecting…')
@@ -398,7 +444,7 @@ class LiveCollaborationMixin:
                 error.setText(snapshot.get('error', 'Could not connect.'))
                 return
             try:
-                client = self.live_new_client(server, snapshot)
+                client = self.live_new_client(server, snapshot, certificate)
                 if self.live_client or digest(self.project) != original:
                     client.active = False
                     error.setText('Your open project changed while connecting. The session is saved; use Resume saved live session to open it.')
@@ -406,15 +452,18 @@ class LiveCollaborationMixin:
                 self.settings.setValue('live/server', server)
                 self.settings.setValue('live/name', snapshot['name'])
                 self.live_attach(client)
-                dlg.accept()
+                if on_connected:
+                    on_connected(client)
+                else:
+                    dlg.accept()
             except Exception as exc:
                 error.setText(str(exc))
-        self.live_transport.post(server, path, token, body, done)
+        self.live_transport.post(server, path, token, body, done, certificate=certificate)
 
-    def live_new_client(self, server, snapshot):
+    def live_new_client(self, server, snapshot, certificate=''):
         check_session(snapshot['workspace'], snapshot['token'], snapshot)
         path = self.data_dir / 'live-sessions' / (snapshot['workspace'] + '-' + snapshot['actor'] + '.json')
-        return LiveClient(server, snapshot['workspace'], snapshot['token'], snapshot, path, self)
+        return LiveClient(server, snapshot['workspace'], snapshot['token'], snapshot, path, self, server_certificate=certificate)
 
     def live_attach(self, client):
         self.set_project(clone(client.project))
@@ -538,7 +587,7 @@ class LiveCollaborationMixin:
             if status != 200:
                 self.error(result.get('error', 'Invitation creation failed.'))
                 return
-            link = invitation_link(client.server, client.workspace, result['invite'])
+            link = invitation_link(client.server, client.workspace, result['invite'], client.server_certificate)
             QApplication.clipboard().setText(link)
             self.statusBar().showMessage('Invitation copied · ' + result['role'] + ' permission', 15000)
             client.tick()
@@ -607,12 +656,22 @@ class LiveCollaborationMixin:
             client = LiveClient.resume(path, self)
             from .local_collaboration import local_host
             host = local_host(self)
+            from .network_collaboration import network_host
+            network = network_host(self)
+            network_owned = network.owns_url(client.server) and client.server_certificate and client.server_certificate == network.saved_certificate()
             original = digest(self.project)
             def attach():
                 if self.isVisible() and not self.live_client and not self.layout_session and digest(self.project) == original:
+                    if network_owned:
+                        client.server = network.url
+                        client.transport.origin = network.url
+                        client.save_journal()
                     self.live_attach(client)
             if host.owns_url(client.server):
                 host.start(attach)
+            elif network_owned:
+                network.resume_address()
+                network.start(attach)
             else:
                 attach()
 
@@ -643,6 +702,11 @@ class LiveCollaborationMixin:
             key.setText(host.key)
             key.setReadOnly(True)
             note.setText('Restore access to ' + client.project['name'] + '. The local server key is supplied automatically. Your saved edits and personal undo are preserved.')
+        from .network_collaboration import network_host
+        network = network_host(self)
+        if network.state == 'running' and client.server == network.url and client.server_certificate == network.certificate:
+            key.setText(network.key);key.setReadOnly(True)
+            note.setText('The host key is supplied automatically. Restore owner access to ' + client.project['name'] + ' while preserving saved edits and personal undo.')
         form = QFormLayout()
         form.addRow('Administrator key', key)
         layout.addLayout(form)
@@ -683,7 +747,7 @@ class LiveCollaborationMixin:
                 except Exception as exc:
                     error.setText(str(exc))
             try:
-                self.live_transport.post(client.server, client.path + '/recover-owner', key.text(),
+                client.transport.post(client.server, client.path + '/recover-owner', key.text(),
                                          dict(actor=client.info['actor']), completed)
             except Exception as exc:
                 client.busy = False

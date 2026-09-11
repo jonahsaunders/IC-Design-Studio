@@ -2,6 +2,15 @@
 
 Our goal is an independent open design environment that makes circuit intent, experiments and physical implementation easy to follow. Compatibility with Xschem, ngspice, KLayout, Magic and Netgen remains part of that direction. This roadmap expresses priorities and acceptance criteria, not promised delivery dates.
 
+## Experimental dev18 implementation
+
+[Guided network hosting](LIVE_COLLABORATION.md#host-a-session-on-your-network)
+creates encrypted sessions with invitation-scoped trust, connection checks and
+saved host restart. Schematic notes support direct selection, text editing,
+dragging, deletion and undo, including in shared sessions. The next hosting work
+is qualification across physical LAN/VPN devices and firewall configurations;
+managed internet hosting and relay service remain separate work.
+
 ## Experimental dev17 implementation
 
 The [local server button](LIVE_COLLABORATION.md#start-a-local-server-with-a-button)

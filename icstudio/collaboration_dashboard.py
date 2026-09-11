@@ -77,10 +77,19 @@ class CollaborationDashboard(QDialog):
         overview = QVBoxLayout(self.overview)
         overview.setSpacing(12)
         actions = QHBoxLayout()
-        self.share = button('Share this project…', lambda: self.run(studio.live_share_dialog), actions, True)
+        self.share = button('Host a session…', lambda: self.run(studio.host_session_dialog), actions, True)
         self.join = button('Join a workspace…', lambda: self.run(studio.live_join_dialog), actions)
         overview.addLayout(actions)
-        overview.addWidget(note('Sharing starts a shared schematic and layout workspace on your team’s server. To join, paste the invitation your teammate sent you.'))
+        overview.addWidget(note('Host a shared schematic and layout on your network with automatic encrypted setup. To join, paste the complete invitation your teammate sent you.'))
+        from .network_collaboration import network_host
+        self.network_host = network_host(studio)
+        self.network_status = note('')
+        self.network_status.setAccessibleName('Network hosting status')
+        overview.addWidget(self.network_status)
+        network_actions = QHBoxLayout()
+        self.network_stop = button('Stop network server', self.network_host.stop, network_actions)
+        overview.addLayout(network_actions)
+        self.network_host.changed.connect(self.refresh_network)
         from .local_collaboration import local_host
         self.local_host = local_host(studio)
         local_group = QGroupBox('Start on this computer')
@@ -187,6 +196,21 @@ class CollaborationDashboard(QDialog):
         self.update_recent_actions()
         self.review_panel.refresh_state()
         self.refresh_local()
+        self.refresh_network()
+
+    def refresh_network(self):
+        host = self.network_host
+        self.network_status.setVisible(host.state != 'stopped' or bool(host.error))
+        self.network_stop.setVisible(host.state in ('running', 'stopping'))
+        active = any(getattr(w, 'live_client', None) and w.live_client.server == host.url for w in QApplication.topLevelWidgets())
+        self.network_stop.setEnabled(host.state == 'running' and not active)
+        self.network_stop.setToolTip('Leave hosted workspaces in this application before stopping. Saved workspaces are retained.')
+        if host.error:
+            self.network_status.setText(host.error.replace('local server', 'network server'))
+        elif host.state == 'running':
+            self.network_status.setText('Encrypted network hosting at ' + host.url + '. Keep this app open; use Join a workspace on the other computer to check its connection.')
+        else:
+            self.network_status.setText('Preparing encrypted network hosting…' if host.state == 'starting' else 'Stopping network hosting…')
 
     def refresh_local(self):
         host = self.local_host

@@ -46,6 +46,8 @@ class Handler(BaseHTTPRequestHandler):
     def setup(self):
         super().setup()
         self.connection.settimeout(10)
+        if isinstance(self.connection, ssl.SSLSocket):
+            self.connection.do_handshake()
 
     def log_message(self, *args):
         # Invitations and credentials must not enter request logs.
@@ -104,6 +106,9 @@ class Handler(BaseHTTPRequestHandler):
             body = json.loads(raw, parse_constant=invalid_constant)
             if not isinstance(body, dict):
                 raise LiveError('Expected a JSON object.', 400)
+            if self.path == '/v2/check':
+                from .live_protocol import PROTOCOL
+                return self.reply(200, {'service': 'IC Design Studio', 'protocol': PROTOCOL})
             header = self.headers.get('Authorization', '')
             token = header[7:] if header.startswith('Bearer ') and len(header) < 256 else ''
             store = self.server.store

@@ -1,7 +1,7 @@
 from __future__ import annotations
 import math
 from PySide6.QtCore import Qt,QPointF,QRectF,Signal
-from PySide6.QtGui import QPainter,QPen,QColor,QPainterPath,QFont,QPolygonF,QPicture
+from PySide6.QtGui import QPainter,QPen,QColor,QPainterPath,QFont,QFontMetricsF,QPolygonF,QPicture
 from PySide6.QtWidgets import QWidget
 from .interchange import pin_positions
 from .model import uid
@@ -63,6 +63,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
     def points(self,s):return [QPointF(*p) for p in s['points']]
     def bounds(self,obj):
         if self.mode=='schematic':
+            if 'text' in obj and 'nets' not in obj and 'points' not in obj:return self.annotation_box(obj)
             if obj.get('kind') in ('net_label','ground'):return self.label_box(obj)
             if 'points' in obj:
                 xs,ys=zip(*obj['points']);return QRectF(min(xs),min(ys),max(xs)-min(xs),max(ys)-min(ys)).adjusted(-5,-5,5,5)
@@ -80,7 +81,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
     def fit(self):
         self.auto_fit=True
         if not self.cell:return
-        objects=self.cell['devices' if self.mode=='schematic' else 'shapes']+(self.cell.get('wires',[])+self.cell.get('labels',[]) if self.mode=='schematic' else []);box=None
+        objects=self.cell['devices' if self.mode=='schematic' else 'shapes']+(self.cell.get('wires',[])+self.cell.get('labels',[])+self.cell.get('annotations',[]) if self.mode=='schematic' else []);box=None
         for o in objects:box=self.bounds(o) if box is None else box.united(self.bounds(o))
         scene=self.cell.get('_layout_scene') if self.mode=='layout' else None
         if scene is not None:
@@ -218,8 +219,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
             text=getattr(self,'simulation_annotations',{}).get(d['id'])
             if text:
                 p.save();p.translate(d['x']+85,d['y']+20);p.scale(1/self.scale,1/self.scale);p.setFont(QFont('Sans Serif',8));p.setPen(QColor('#6fbcad' if self.dark else '#176b5b'));p.drawText(QRectF(0,0,200,145),Qt.TextWordWrap,text);p.restore()
-        for note in self.cell.get('annotations',[]):
-            p.drawText(QRectF(note['x'],note['y'],320,150),Qt.TextWordWrap,note['text'])
+        self.draw_annotations(p)
         for i,bus in enumerate(self.cell.get('buses',[])):
             p.drawText(QPointF(20,25+20*i),'Bus '+bus['name'])
     def draw_schematic_overview(self,p,view):
@@ -240,6 +240,24 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         p.setBrush(Qt.NoBrush);p.setPen(self.pen('#dee6f3' if self.dark else '#334259',1.3));p.drawPath(self._overview_base);p.setPen(self.pen(palette(self.dark)['accent'],2.3))
         for ident in self.selection:
             if ident in self._overview_paths:p.drawPath(self._overview_paths[ident])
+        self.draw_annotations(p)
+
+    def annotation_box(self,note):
+        box=QFontMetricsF(QFont('Sans Serif',10)).boundingRect(QRectF(0,0,320,100000),Qt.TextWordWrap,note['text'])
+        box=QRectF(note['x'],note['y'],max(12,box.width()),max(16,box.height()))
+        if self.moving and self.anchor is not None and self.drag is not None and note['id'] in self.selection:
+            box.translate(self.drag-self.anchor)
+        return box.adjusted(-4,-4,4,4)
+
+    def draw_annotations(self,p):
+        t=palette(self.dark)
+        for note in self.cell.get('annotations',[]):
+            box=self.annotation_box(note);selected=note['id'] in self.selection
+            p.save();p.setFont(QFont('Sans Serif',10))
+            if selected:
+                fill=QColor(t['accent']);fill.setAlpha(35);p.setBrush(fill);p.setPen(self.pen(t['accent'],1.5));p.drawRoundedRect(box,3,3)
+            p.setPen(QColor(t['accent'] if selected else t['muted']))
+            p.drawText(QRectF(box.left()+4,box.top()+4,320,box.height()-8),Qt.TextWordWrap,note['text']);p.restore()
     def path(self,s):
         pts=self.points(s);path=QPainterPath(pts[0])
         if s['kind']=='rect':path.addRect(QRectF(pts[0],pts[1]).normalized())
@@ -508,10 +526,10 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         elif self.tool=='ruler':
             self.ruler=(start,end);self.message.emit(f'Distance: {math.hypot(end.x()-start.x(),end.y()-start.y())/(1000 if self.mode=="layout" else 1):.4f} '+('µm' if self.mode=='layout' else 'units'))
         elif self.tool=='select' and self.marquee and distance>4:
-            rect=QRectF(start,end).normalized();ids=[o['id'] for o in self.cell['devices' if self.mode=='schematic' else 'shapes']+(self.cell.get('wires',[])+self.cell.get('labels',[]) if self.mode=='schematic' else []) if (self.mode!='layout' or (o['layer'] in self.visible_layers and o['layer'] not in getattr(self,'locked_layers',set()))) and rect.intersects(self.bounds(o))]
+            rect=QRectF(start,end).normalized();ids=[o['id'] for o in self.cell['devices' if self.mode=='schematic' else 'shapes']+(self.cell.get('wires',[])+self.cell.get('labels',[])+self.cell.get('annotations',[]) if self.mode=='schematic' else []) if (self.mode!='layout' or (o['layer'] in self.visible_layers and o['layer'] not in getattr(self,'locked_layers',set()))) and rect.intersects(self.bounds(o))]
             if self.mode=='layout':ids=self.editor_marquee(rect)
             else:
-                filters=getattr(self,'capture_filters',{'devices','wires','labels'});allowed={o['id'] for group in filters for o in self.cell.get(group,[])};ids=[ident for ident in ids if ident in allowed]
+                filters=getattr(self,'capture_filters',{'devices','wires','labels','annotations'});allowed={o['id'] for group in filters for o in self.cell.get(group,[])};ids=[ident for ident in ids if ident in allowed]
             if e.modifiers()&(Qt.ControlModifier|Qt.ShiftModifier):ids=list(dict.fromkeys(self.selection+ids))
             self.selected.emit(ids)
         elif self.tool=='select' and self.moving and self.selection and distance>4 and (end-start).manhattanLength()>0:self.move_objects.emit(self.selection,end.x()-start.x(),end.y()-start.y())

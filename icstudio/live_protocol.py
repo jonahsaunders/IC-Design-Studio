@@ -99,11 +99,24 @@ def server_url(value):
     return urlunsplit((u.scheme, u.netloc, '', '', ''))
 
 
-def invitation_link(server, workspace, secret):
-    return server_url(server) + '/join#' + urlencode(dict(workspace=workspace, invite=secret))
+def invitation_link(server, workspace, secret, certificate=''):
+    origin = server_url(server)
+    data = dict(workspace=workspace, invite=secret)
+    if certificate:
+        from .network_tls import decode_certificate
+        decode_certificate(certificate)
+        if not origin.startswith('https://'):
+            raise LiveError('Certificate invitations require HTTPS.', 400)
+        data['cert'] = certificate
+        return 'icstudio://join?' + urlencode(dict(server=origin)) + '#' + urlencode(data)
+    return origin + '/join#' + urlencode(data)
 
 
 def parse_invitation(link):
+    return parse_invitation_details(link)[:3]
+
+
+def parse_invitation_details(link):
     if not isinstance(link, str) or len(link) > 4096:
         raise LiveError('Invalid invitation link.', 400)
     u = urlsplit(link.strip())
@@ -117,9 +130,15 @@ def parse_invitation(link):
     else:
         raise LiveError('Paste a complete IC Design Studio invitation link.', 400)
     data = parse_qs(u.fragment, strict_parsing=True)
-    if set(data) != {'workspace', 'invite'} or any(len(v) != 1 for v in data.values()):
+    if set(data) not in ({'workspace', 'invite'}, {'workspace', 'invite', 'cert'}) or any(len(v) != 1 for v in data.values()):
         raise LiveError('The invitation fragment is incomplete.', 400)
     workspace, secret = data['workspace'][0], data['invite'][0]
     if not ID.fullmatch(workspace) or not re.fullmatch(r'[A-Za-z0-9_-]{32,100}', secret):
         raise LiveError('Invalid invitation credentials.', 400)
-    return server, workspace, secret
+    certificate = data.get('cert', [''])[0]
+    if certificate:
+        from .network_tls import decode_certificate
+        decode_certificate(certificate)
+        if not server.startswith('https://'):
+            raise LiveError('Certificate invitations require HTTPS.', 400)
+    return server, workspace, secret, certificate

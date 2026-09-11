@@ -7,9 +7,10 @@ from . import wiring
 
 
 from .label_ui import NetLabelMixin
+from .annotation_ui import AnnotationMixin
 from . import net_labels
 
-class SchematicMixin(NetLabelMixin):
+class SchematicMixin(AnnotationMixin,NetLabelMixin):
     def make_ui(self):
         for cell in self.project['cells']:wiring.migrate(cell,self.project)
         super().make_ui()
@@ -70,6 +71,8 @@ class SchematicMixin(NetLabelMixin):
             c=next(c for c in p['cells'] if c['id']==self.cid)
             for d in c['devices']:
                 if d['id'] in ids:d['x']+=x;d['y']+=y
+            for n in c.get('annotations',[]):
+                if n['id'] in ids:n['x']+=x;n['y']+=y
             for w in c.get('wires',[]):
                 if w['id'] in ids:
                     w['points']=[[a+x,b+y] for a,b in w['points']]
@@ -88,6 +91,7 @@ class SchematicMixin(NetLabelMixin):
         def edit(p):
             c=next(c for c in p['cells'] if c['id']==self.cid)
             c['labels']=[l for l in c.get('labels',[]) if l['id'] not in ids]
+            c['annotations']=[n for n in c.get('annotations',[]) if n['id'] not in ids]
             c['devices']=[d for d in c['devices'] if d['id'] not in ids]
             if 'wires' in c:c['wires']=[w for w in c['wires'] if w['id'] not in ids]
             else:wiring.migrate(c,p)
@@ -103,7 +107,7 @@ class SchematicMixin(NetLabelMixin):
         def edit(p):
             c=next(c for c in p['cells'] if c['id']==self.cid);names={d['name'] for d in c['devices']}
             mapping={}
-            for group in ('devices','wires','labels'):
+            for group in ('devices','wires','labels','annotations'):
                 for item in list(c.get(group,[])):
                     if item['id'] not in ids:continue
                     new=clone(item);new['id']=uid();newids.append(new['id']);mapping[item['id']]=new['id']
@@ -111,6 +115,8 @@ class SchematicMixin(NetLabelMixin):
                         name=new['name'];i=2
                         while name+'_'+str(i) in names:i+=1
                         new['name']=name+'_'+str(i);names.add(new['name']);new['net_labels']={};new['x']+=40;new['y']+=40
+                    elif group=='annotations':
+                        new['x']+=40;new['y']+=40;new.pop('xschem_record',None)
                     elif group=='labels':
                         a=new['anchor']
                         if a.get('id') in mapping:
@@ -160,6 +166,10 @@ class SchematicMixin(NetLabelMixin):
 
     def build_inspector(self):
         if self.current_mode=='schematic' and self.net:return self.build_net_inspector()
+        notes=[n for n in self.cell.get('annotations',[]) if n['id'] in self.selection] if self.current_mode=='schematic' else []
+        if notes:
+            if len(self.selection)==1:return self.build_annotation_inspector(notes[0])
+            return self.build_annotation_group_inspector()
         labels=[l for l in self.cell.get('labels',[]) if l['id'] in self.selection] if self.current_mode=='schematic' else []
         if len(self.selection)==1 and labels:return self.build_label_inspector(labels[0])
         wires=[w for w in self.cell.get('wires',[]) if w['id'] in self.selection] if self.current_mode=='schematic' else []

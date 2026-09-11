@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.22.0.dev17-4269e8" alt="Version 0.22.0.dev17">
+  <img src="https://img.shields.io/badge/version-0.22.0.dev18-4269e8" alt="Version 0.22.0.dev18">
   <img src="https://img.shields.io/badge/status-engineering_preview-f0b44d" alt="Engineering preview">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0--or--later-2f9d89" alt="GPL-3.0-or-later"></a>
   <img src="https://img.shields.io/badge/interface-native_Qt_6-58738f" alt="Native Qt 6 interface">
@@ -27,7 +27,7 @@
 
 ## One workspace, from schematic to results
 
-**Development snapshot: 0.22.0.dev17.** Adds a [Start local server button](docs/LIVE_COLLABORATION.md#start-a-local-server-with-a-button), automatic creation-key handling and saved local-workspace restart. Includes automatic design-workflow checks, linked schematic/layout change inspection, reviewer permissions and threaded checkpoint discussions. See [workflow and review improvements](docs/WORKFLOW_REVIEW_0.22.md). See [schematic collaboration](docs/SCHEMATIC_COLLABORATION.md). See [engineering workflows](docs/PROFESSIONAL_WORKFLOWS.md). This release candidate adds reproducible desktop archives, parameterized hierarchy qualification and a pinned SKY130 physical gate. Windows packages include Python, Qt, NGSpice 42, GF180MCU and SKY130 simulation PDK subsets. Clean GitHub exports download and verify the Windows runtime on first launch. See the [release notes](docs/RELEASE_0.22.md) and [current release status](docs/RELEASE_STATUS.md).
+**Development snapshot: 0.22.0.dev18.** Adds [guided encrypted network hosting](docs/LIVE_COLLABORATION.md#host-a-session-on-your-network), automatic certificate/key handling, teammate connection checks, and direct annotation selection, editing, deletion and undo. Includes automatic design-workflow checks, linked schematic/layout change inspection, reviewer permissions and threaded checkpoint discussions. See [workflow and review improvements](docs/WORKFLOW_REVIEW_0.22.md). See [schematic collaboration](docs/SCHEMATIC_COLLABORATION.md). See [engineering workflows](docs/PROFESSIONAL_WORKFLOWS.md). This release candidate adds reproducible desktop archives, parameterized hierarchy qualification and a pinned SKY130 physical gate. Windows packages include Python, Qt, NGSpice 42, GF180MCU and SKY130 simulation PDK subsets. Clean GitHub exports download and verify the Windows runtime on first launch. See the [release notes](docs/RELEASE_0.22.md) and [current release status](docs/RELEASE_STATUS.md).
 
 Choose **07 · GF180 bandgap startup** in the gallery and press **F5** for a quick run of the supplied circuit. **08 · GF180 full characterization** preserves the exact original schematic and all 144 analyses. **09 · SKY130 transistor inverter** is a second real-PDK example. To build your own native project, choose **File → New project**: the [Project Hub](docs/PROJECT_HUB.md) shows installed revisions and the included GF180MCU/SKY130 packages immediately.
 

@@ -2,6 +2,7 @@
 import json
 from pathlib import Path
 import socket
+import ssl
 
 from PySide6.QtCore import QObject, QThread, QLockFile, Signal
 from PySide6.QtWidgets import QApplication
@@ -31,13 +32,36 @@ class LocalServer(Server):
         super().server_bind()
 
 
+class NetworkServer(LocalServer):
+    def __init__(self, address, store, context):
+        self.context = context
+        super().__init__(address, store)
+
+    def get_request(self):
+        connection, address = super().get_request()
+        connection.settimeout(10)
+        try:
+            return self.context.wrap_socket(connection, server_side=True, do_handshake_on_connect=False), address
+        except Exception:
+            connection.close()
+            raise
+
+    def handle_error(self, request, client_address):
+        # Failed handshakes carry no request and are expected for stale invites.
+        import sys
+        if not isinstance(sys.exception(), (ssl.SSLError, ConnectionError, TimeoutError)):
+            super().handle_error(request, client_address)
+
+
 class LocalServerWorker(QThread):
     ready = Signal(str, str)
     failed = Signal(str)
 
-    def __init__(self, directory, parent):
+    def __init__(self, directory, parent, address='127.0.0.1', encrypted=False):
         super().__init__(parent)
         self.directory = Path(directory)
+        self.address, self.encrypted = address, encrypted
+        self.certificate = ''
 
     def run(self):
         lock = None
@@ -52,8 +76,15 @@ class LocalServerWorker(QThread):
             key = load_creation_key(self.directory)
             port = saved_port(self.directory)
             store = Store(self.directory / 'collaboration.sqlite3', key)
+            context = None
+            if self.encrypted:
+                from .network_tls import host_certificates
+                path, self.certificate = host_certificates(self.directory, self.address)
+                context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+                context.minimum_version = ssl.TLSVersion.TLSv1_2
+                context.load_cert_chain(path)
             try:
-                server = LocalServer(('127.0.0.1', port), store)
+                server = NetworkServer((self.address, port), store, context) if context else LocalServer((self.address, port), store)
             except OSError as exc:
                 message = ('The saved local server address is unavailable. Close the application using port ' + str(port) + ' and retry. Your workspaces are retained.'
                            if port else 'No local listening address is available. Check whether your system permits local server connections, then retry.')
@@ -62,8 +93,13 @@ class LocalServerWorker(QThread):
             # on Windows where an open connection prevents file cleanup.
             server.daemon_threads = False
             server.timeout = 0.1
-            atomic_write(self.directory / 'server.json', json.dumps(dict(version=1, port=server.server_port)))
-            self.ready.emit('http://127.0.0.1:' + str(server.server_port), key)
+            record = dict(version=1, port=server.server_port)
+            if context:
+                old_path = self.directory / 'server.json'
+                old = json.loads(old_path.read_text(encoding='utf-8')) if old_path.exists() else {}
+                record.update(address=self.address, addresses=list(dict.fromkeys([self.address, *old.get('addresses', [])]))[:16])
+            atomic_write(self.directory / 'server.json', json.dumps(record))
+            self.ready.emit(('https://' if context else 'http://') + self.address + ':' + str(server.server_port), key)
             while not self.isInterruptionRequested():
                 server.handle_request()
         except Exception as exc:
@@ -86,6 +122,8 @@ class LocalCollaborationHost(QObject):
         self.worker = None
         self.state = 'stopped'
         self.url = self.key = self.error = ''
+        self.certificate = ''
+        self.worker_options = {}
         self.callbacks = []
 
     def owns_url(self, url):
@@ -107,7 +145,7 @@ class LocalCollaborationHost(QObject):
         if self.state == 'starting':
             return
         self.state, self.error = 'starting', ''
-        self.worker = LocalServerWorker(self.directory, self)
+        self.worker = LocalServerWorker(self.directory, self, **self.worker_options)
         self.worker.ready.connect(self._ready)
         self.worker.failed.connect(self._failed)
         self.worker.finished.connect(self._finished)
@@ -118,6 +156,7 @@ class LocalCollaborationHost(QObject):
         if self.state != 'starting':
             return
         self.url, self.key, self.state = url, key, 'running'
+        self.certificate = self.worker.certificate
         callbacks, self.callbacks = self.callbacks, []
         self.changed.emit()
         for callback in callbacks:
@@ -132,6 +171,7 @@ class LocalCollaborationHost(QObject):
             self.worker.deleteLater()
             self.worker = None
         self.url = self.key = ''
+        self.certificate = ''
         self.callbacks.clear()
         self.state = 'stopped'
         self.changed.emit()
@@ -148,6 +188,7 @@ class LocalCollaborationHost(QObject):
         if self.worker:
             self.worker.wait()
         self.url = self.key = ''
+        self.certificate = ''
         self.state = 'stopped'
 
 

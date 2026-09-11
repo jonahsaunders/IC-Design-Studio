@@ -46,7 +46,7 @@ class EditorCanvasMixin:
         ids=[s['id'] for s in candidates];current=self.selection[0] if len(self.selection)==1 else None
         index=(ids.index(current)+1)%len(ids) if current in ids else 0
         self.selected.emit([ids[index]])
-        item=candidates[index];name=item.get('name') or item.get('layer') or ('Wire' if 'points' in item else 'Label')
+        item=candidates[index];name=item.get('name') or item.get('layer') or ('Annotation' if 'text' in item else 'Wire' if 'points' in item else 'Label')
         self.message.emit(f'{name} · selection {index+1}/{len(ids)} · Alt+click cycles overlaps')
 
     def editor_marquee(self,rect):

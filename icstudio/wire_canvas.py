@@ -8,7 +8,8 @@ from .ui_style import palette
 
 class WireCanvasMixin:
     def capture_candidates(self,pos):
-        filters=getattr(self,'capture_filters',{'devices','wires','labels'});out=[]
+        filters=getattr(self,'capture_filters',{'devices','wires','labels','annotations'});out=[]
+        if 'annotations' in filters:out.extend(n for n in reversed(self.cell.get('annotations',[])) if self.annotation_box(n).contains(pos))
         if 'labels' in filters:out.extend(l for l in reversed(self.cell.get('labels',[])) if self.label_box(l).contains(pos))
         if 'devices' in filters:
             for d in reversed(self.cell['devices']):

@@ -194,6 +194,8 @@ def main(output):
         report['checks'].append(live_probe(window,out))
         from .local_collaboration_probe import run as local_server_probe
         report['checks'].append(local_server_probe(window,out))
+        from .host_annotations_probe import run as host_annotations_probe
+        report['checks'].append(host_annotations_probe(window,out))
         window.fit_active();QTest.qWait(100);assert window.grab().save(str(out/'desktop.png'));assert not errors,errors;report['status']='passed'
     except Exception:
         report['error']=traceback.format_exc()

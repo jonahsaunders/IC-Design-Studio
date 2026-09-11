@@ -1,4 +1,18 @@
-# IC Design Studio 0.22.0.dev17 — engineering preview
+# IC Design Studio 0.22.0.dev18 — engineering preview
+
+Dev18 adds **Tools → Collaboration → Host a session…** for computers on the
+same local network or a reachable VPN. The app generates and retains its host
+keys and certificates, copies invitations with scoped certificate trust, checks
+connections and confirms when a teammate joins. Saved hosted workspaces restart
+from the dashboard. A reachable team server remains available for other networks.
+See [network hosting](LIVE_COLLABORATION.md#host-a-session-on-your-network).
+
+Schematic annotations are now directly selectable on the canvas. Drag or box-select
+notes, double-click or press Enter to edit text and position, duplicate them, or
+press Delete. Undo restores deleted notes, including in live collaboration.
+The Annotations selection filter allows selection of circuitry underneath notes.
+Use dev18 on both computers for the new invitation format; no database or document
+protocol migration is introduced.
 
 Dev17 adds **Tools → Collaboration → Start local server**. The included server
 starts without commands and handles the creation key automatically. Saved local

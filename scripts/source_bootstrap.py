@@ -8,7 +8,7 @@ import subprocess
 import sys
 
 SCHEMA = 1
-CHECK_IMPORTS = 'from PySide6 import QtWidgets; import klayout.db'
+CHECK_IMPORTS = 'from PySide6 import QtWidgets; import klayout.db; from cryptography import x509; from cryptography.hazmat.primitives.asymmetric import ec; ec.generate_private_key(ec.SECP256R1())'
 
 
 def fingerprint(project, interpreter=None):

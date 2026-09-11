@@ -104,7 +104,7 @@ def run(window, output):
                 blocker.listen()
                 host.start()
                 wait(lambda: host.state == 'stopped' and bool(host.error), 'Occupied saved address was silently changed')
-                assert 'address is unavailable' in host.error
+                assert 'address is unavailable' in host.error, host.error
             # Resume starts the saved server; no key entry or new workspace.
             window.live_resume_path(journal)
             wait(lambda: host.state == 'running' and window.live_client and window.live_client.connected and not window.live_client.busy, 'Resume did not restart the server')
