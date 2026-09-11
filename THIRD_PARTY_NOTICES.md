@@ -41,3 +41,7 @@ The Windows source/build provisioner uses py7zr 1.1.3 (LGPL-2.1-or-later), https
 ## Optional overvoltage qualification source
 
 The external regression downloads LDFranck/sky130_vbl_ip__overvoltage at commit `53cf579f63d34227af67f0189b49ee09185f1db5`, an Apache-2.0 design by the Von Braun Labs contributors identified upstream. The source lock includes its LICENSE checksum. The design itself is not bundled. Generated evidence and screenshots derived from it retain this attribution. See [the reproduction guide](docs/OPEN_PROJECTS.md).
+
+## SKY130 resistor extraction backport in dev20
+
+The resistor definition block in [the correction lock](examples/open-projects/sky130-resistor-extraction.json) is from open_pdks commit `1689ac3f2dc763876eaf967227c7dfe831b031ae`, `sky130/magic/sky130.tech`. Copyright (c) 2020 R. Timothy Edwards; Apache-2.0. Its [license](examples/open-projects/LICENSE-open_pdks.txt), source URL and source hash are retained. The generated deck explicitly marks the backport; the full PDK is not bundled.

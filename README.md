@@ -6,7 +6,7 @@
   Build with open PDKs. Keep your project, models and verification evidence together.
 </p>
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.22.0.dev19-4269e8" alt="Version 0.22.0.dev19">
+  <img src="https://img.shields.io/badge/version-0.22.0.dev20-4269e8" alt="Version 0.22.0.dev20">
   <img src="https://img.shields.io/badge/status-engineering_preview-e9ad43" alt="Engineering preview">
   <a href=".github/workflows/build-desktop.yml"><img src="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml/badge.svg?branch=experimental" alt="Desktop qualification"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0--or--later-299e86" alt="GPL-3.0-or-later"></a>
@@ -26,16 +26,16 @@
 
 IC Design Studio is an open desktop environment for learning circuit design, developing analog blocks and working with existing open-source designs. Local work needs no account or hosted service. Projects retain editable native documents, reusable hierarchy, model dependencies and revision-linked results.
 
-**New in dev19:** hierarchical Xschem array import, preserved diagonal connectivity, reviewed attachment of layout to a schematic, faithful layout text export, and restart recovery for submitted review actions. A pinned SKY130 overvoltage project now exercises real import, simulation and physical comparison. [Read the update and its evidence](docs/OPEN_PROJECTS.md).
+**New in dev20:** the real SKY130 overvoltage detector passes strict full-circuit LVS with a verified upstream extraction correction. DC startup hints resolve its HSA convergence timeout, and a generated native testbench opens with both DUT views and embedded models. Hierarchical import, layout attachment and durable review recovery from dev19 remain included. [Read the update and its evidence](docs/OPEN_PROJECTS.md).
 
-This is an **engineering preview**. The overvoltage example has unresolved layout-versus-schematic findings; it is not advertised as a matched physical reference. The [release status](docs/RELEASE_STATUS.md) distinguishes automated tests, platform acceptance and release publication.
+This is an **engineering preview**. Detector LVS and nominal DC checks pass within the pinned workflow; source-to-GDS conversion warnings and broader PVT/transient qualification remain documented. The [release status](docs/RELEASE_STATUS.md) distinguishes automated tests, platform acceptance and release publication.
 
 ## Explore the workspace
 
 | Area | Features | Guide |
 |---|---|---|
 | **Schematic** | Devices, custom symbols, reusable cells, scalar buses, manual wires, labels and annotations; connection-preserving moves, terminal inspection and undo | [Native design](docs/PROFESSIONAL_WORKFLOWS.md) |
-| **Simulation** | ngspice operating point, transient, DC, AC and noise; imported control programs, queued runs, cancellation, logs and saved inputs | [Simulation setup](SIMULATION_SETUP.md) |
+| **Simulation** | ngspice operating point, transient, DC, AC and noise; optional DC startup guesses, imported control programs, queued runs, cancellation, logs and saved inputs | [Simulation setup](SIMULATION_SETUP.md) |
 | **Results** | Waveforms, voltage/current traces, markers, thresholds, calculations, measurements and revision-aware result history | [Getting started](docs/GETTING_STARTED.md) |
 | **Experiments** | Reusable testbenches, specifications, PVT matrices, parameter studies, sensitivity and bounded parameter search | [Engineering workflows](docs/PROFESSIONAL_WORKFLOWS.md) |
 | **Layout editing** | GDSII/OASIS hierarchy, rectangles, polygons, holes and paths; configurable grids, snapping, alignment, distribution, arrays, vias and routing tools | [Layout tools](docs/PRIORITIES_0.22.md) · [Drawing](docs/DRAWING_0.22.md) |
@@ -85,7 +85,7 @@ Windows packages include Python, Qt, ngspice and the bundled simulation subsets.
 |---|---|---|
 | [GF180 bandgap](docs/BANDGAP_COMPATIBILITY.md) | Startup, the six-case compatibility circuit, or the original 144-analysis characterization | Schematic and simulation compatibility; no matched physical layout claim |
 | [SKY130 transistor inverter](examples/README.md) | Import a transistor-level Xschem circuit and inspect switching | Bundled simulation models; separate pinned physical fixtures test DRC/LVS |
-| [SKY130 programmable overvoltage detector](docs/OPEN_PROJECTS.md) | Import seven schematic cells, expand resistor/MOS arrays, attach the Magic layout and compare all 16 trip codes | Import fidelity and physical consistency are separate gates; current full-layout LVS and app-default HSA simulation need attention |
+| [SKY130 programmable overvoltage detector](docs/OPEN_PROJECTS.md) | Import seven schematic cells, expand resistor/MOS arrays, attach the Magic layout and compare all 16 trip codes | Strict full-circuit LVS, three fault controls, HSA sweeps and a runnable native testbench; see the documented scope |
 | [Native analog references](docs/PROFESSIONAL_WORKFLOWS.md) | Current mirror, differential pair and amplifier testbenches, corners and physical faults | Bounded pinned SKY130 fixtures, not arbitrary circuit signoff |
 
 For the overvoltage project, **File → Import and migrate Xschem project** creates the native schematic. **File → Import Magic layout** converts its physical tree with the selected technology; **File → Attach layout to schematic** reviews matching cell names before applying one undoable change. The [reproduction guide](docs/OPEN_PROJECTS.md) pins the source, explains the legacy diode bridge and retains the actual LVS findings.
@@ -107,7 +107,7 @@ Bundled simulation subsets are not full PDK installations. Use [Ciel](https://gi
 
 ## What comes next
 
-The [roadmap](docs/ROADMAP.md) tracks concrete acceptance criteria: consumer Windows/Linux release checks, physical LAN/VPN testing, resolution of real-project LVS findings, larger editing/recovery workloads, and broader offline collaboration. Submitted review actions now survive restart; a general offline design-edit queue remains planned.
+The [roadmap](docs/ROADMAP.md) tracks concrete acceptance criteria: consumer Windows/Linux release checks, physical LAN/VPN testing, broader real-project physical and PVT coverage, larger editing/recovery workloads, and broader offline collaboration. Submitted review actions now survive restart; a general offline design-edit queue remains planned.
 
 ## Contribute and verify
 

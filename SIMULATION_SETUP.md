@@ -1,5 +1,18 @@
 # NGSpice and open PDK setup — 0.22.0.dev10
 
+For native DC sweeps that repeatedly enter convergence stepping, enable
+**Analysis → DC startup → Use first-point voltage guesses**. Studio solves the
+circuit at the sweep's starting source value and uses that point's voltages as
+initial guesses. The circuit, compatibility mode, temperature and solver
+accuracy remain unchanged. Existing user nodesets take precedence; internal
+simulator-only nodes are excluded. The startup deck, raw result and generated
+nodesets remain alongside the full sweep evidence.
+
+The [SKY130 detector guide](docs/OPEN_PROJECTS.md) generates a complete native
+bench with this option enabled and both schematic/layout views. Open
+`overvoltage-bench.icproj` and press F5 on `detector_dc_bench`.
+
+
 ## Fastest start on Windows
 
 1. Extract the whole `IC-Design-Studio-0.22.0.dev10-Windows-x64.zip`.

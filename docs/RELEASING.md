@@ -14,7 +14,7 @@ Use `docs/images/banner.svg` as the editable artwork source. The README screensh
 
 ## Release checks
 
-1. Update `icstudio/__init__.py`, the README version badge, release notes and versioned asset references together. `python scripts/check_release.py` checks consistency, all repository documentation links and example availability. The physical workflow also retains real-project import evidence; its separate full-layout/HSA limitations must remain visible in release notes.
+1. Update `icstudio/__init__.py`, the README version badge, release notes and versioned asset references together. `python scripts/check_release.py` checks consistency, all repository documentation links and example availability. The physical workflow also retains real-project import evidence; strict detector LVS, HSA sweeps and fault-detection gates must pass; remaining GDS-conversion and PVT scope limits stay visible in release notes.
 2. Run core tests and the desktop workflow on Windows and Linux. Keep the native migration, native analysis and getting-started evidence artifacts. Check a clean user profile and paths containing spaces.
 3. Review dependencies, corresponding-source availability and all bundled notices. When preparing PDK adapters, regenerate manifests with `scripts/prepare_pdk_collection.py` and preserve upstream provenance. Do not label installation or hash checks as foundry qualification.
 4. Build packages, inspect their contents and launch them on their target platforms. Static PE checks do not replace Windows execution. Sign Windows binaries only through the maintainer's signing infrastructure.

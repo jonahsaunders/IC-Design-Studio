@@ -251,6 +251,7 @@ class SimulationWorkspaceMixin:
         self.run_dialog();self._loading_analysis=True
         self.analysis_type.setCurrentIndex(self.analysis_type.findData(s['settings']['type']));self.analysis_engine.setCurrentIndex(self.analysis_engine.findData(s['engine']))
         for key,w in self.analysis_fields.items():w.setText(str(s['settings'][key]))
+        if hasattr(self,'native_dc_startup'):self.native_dc_startup.setChecked(s['settings'].get('dc_startup',False))
         self.analysis_source.setCurrentText(s['settings']['source']);self._loading_analysis=False;self.analysis_dirty=True;self.analysis_visibility()
 
     def rename_simulation_setup(self):

@@ -1,8 +1,12 @@
-# IC Design Studio 0.22.0.dev19 — engineering preview
+# IC Design Studio 0.22.0.dev20 — engineering preview
+
+## Dev20 — detector LVS and HSA convergence
+
+Corrects the locked SKY130 resistor extraction definitions using a checksum-bound upstream backport. Full-circuit extraction resolves internal well/port aliases, and strict LVS now passes with unchanged comparison tolerances. Three negative controls require detection of enable, child-pin and resistor-length faults. The HSA sweep uses the new optional first-point DC startup setting, with each circuit's own solved voltages as initial guesses. A generated native testbench includes both DUT views and embedded models. Physical CI now requires full consistency. See [reproduction and remaining scope](OPEN_PROJECTS.md) and [executed evidence](RELEASE_STATUS.md).
 
 ## Dev19 — real-project import and durable review
 
-Adds hierarchical vector import, diagonal wire preservation, reviewed schematic/layout attachment, Magic dependency auditing, GDS text fidelity, and restart recovery for submitted review actions. The real SKY130 detector regression separates faithful import from its unresolved full-layout LVS. See [open projects](OPEN_PROJECTS.md), [review recovery](REVIEW_RECOVERY.md) and [executed qualification](RELEASE_STATUS.md).
+Adds hierarchical vector import, diagonal wire preservation, reviewed schematic/layout attachment, Magic dependency auditing, GDS text fidelity, and restart recovery for submitted review actions. The real SKY130 detector regression separates faithful import from the full-layout LVS findings subsequently resolved in dev20. See [open projects](OPEN_PROJECTS.md), [review recovery](REVIEW_RECOVERY.md) and [executed qualification](RELEASE_STATUS.md).
 
 Dev18 adds **Tools → Collaboration → Host a session…** for computers on the
 same local network or a reachable VPN. The app generates and retains its host

@@ -1,13 +1,15 @@
 # Reproducing the 0.22 qualification gates
 
-## Dev19 external-project gate
+## Dev20 external-project gate
 
-The physical workflow also runs [the pinned overvoltage import regression](OPEN_PROJECTS.md).
-Source/reference and exported/reimported circuits must agree; native layout
-geometry/text/transforms must survive exchange; explicit default-SPICE trip-code sweeps (not app-default HSA qualification) and a
-negative LVS control must succeed. Its independent full-layout LVS is recorded as
-`needs_attention` until resolved. Use `--require-consistent` for strict design
-acceptance. This distinction is visible in JSON and is not a skipped failure.
+The physical workflow runs [the pinned overvoltage regression](OPEN_PROJECTS.md)
+with `--require-consistent`. Schematic import/roundtrip and layout geometry,
+text and transforms must match. All 16 codes run in HSA with first-point DC
+startup hints. Fresh extraction uses the checksummed upstream resistor correction
+and full-circuit comparison; strict LVS must pass. Deliberate enable, child-pin
+and resistor-length faults must fail. The generated native desktop testbench
+also runs through the app's graphical-analysis engine. Logs and raw results are
+retained on failure; CI no longer accepts `needs_attention` for this detector.
 
 ## Native hierarchy and scalar buses
 

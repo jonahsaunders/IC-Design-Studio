@@ -1,12 +1,47 @@
-# Release status — 0.22.0.dev19 candidate
+# Release status — 0.22.0.dev20 candidate
 
-Dev19 adds [real open-project import qualification](OPEN_PROJECTS.md), reviewed
+Dev20 resolves the detector's resistor extraction mismatch and internal pin-alias
+findings with a verified upstream technology backport and strict full-circuit
+LVS. The new optional DC startup setting supplies first-point voltage guesses,
+allowing HSA to complete without relaxing timeouts or accuracy. The generated
+native testbench includes both DUT views, supplies and embedded models.
+
+## Executed dev20 evidence
+
+The [validation record](validation/0.22.0.dev20.json) records the actual checks,
+source hashes and engine evidence. See [the reproduction guide](OPEN_PROJECTS.md)
+for commands, the extraction correction and the runnable testbench.
+
+| Check | Result |
+|---|---|
+| Core regressions | 611 tests; 3 environment skips |
+| Detector strict LVS | Full physical circuit matches uniquely; top pins equivalent; no property errors |
+| Negative controls | Enable open, child substrate miswire and 14.10→13.94 µm length fault all detected |
+| HSA detector sweeps | All 16 codes compared with the independent source reference, 301 points each |
+| Native desktop bench | Saved/reopened project runs in HSA through the app engine; code 0 agrees with the reference |
+| Desktop editing | Attachment, move/undo, both-view persistence, DC startup undo/reopen and the F5 analysis action checked in offscreen Qt |
+| Layout exchange | 38 cells; exact region, text and hierarchy/array comparisons |
+
+The HSA startup point and full sweep each retain the existing 120-second
+qualification limit. Solver and LVS tolerances remain unchanged. Local Linux
+execution needed the same temporary-file path shim and offscreen Qt platform
+as dev19. Package and platform claims require the exact commit's Windows/Linux
+Actions results; no signed release is implied.
+
+Two upstream HVI parent/child warnings remain in Magic's source-to-GDS conversion.
+This LVS result uses fresh extraction of the original native Magic cells; exact
+GDS/native/GDS roundtrip does not certify the earlier conversion step. Transient
+hysteresis, full PVT and extracted simulation remain outside this detector's
+nominal DC gate.
+
+
+The previous dev19 update added [real open-project import qualification](OPEN_PROJECTS.md), reviewed
 layout attachment, native array expansion, layout text preservation and
 [restart recovery for submitted review actions](REVIEW_RECOVERY.md). New imported
 layers remain visible when reloading saved layer preferences. Unowned shape moves
 avoid reconstructing unrelated footprint groups.
 
-## Executed dev19 source evidence
+## Earlier dev19 source evidence
 
 The [local validation record](validation/0.22.0.dev19.json) records Linux/Python
 3.12 source execution, exact source/deck hashes and its environment limits.
@@ -23,8 +58,8 @@ The [local validation record](validation/0.22.0.dev19.json) records Linux/Python
 | Detector schematic | Native/reference and exported/reimported hierarchy matched through pinned Netgen |
 | Detector nominal DC | All 16 codes passed; switching thresholds 3.30–5.46 V matched the reference on the same 10 mV step |
 | Detector layout exchange | 38 cells and 1,368 cell/layer comparisons passed exact geometry, text and hierarchy checks |
-| Detector full physical consistency | **Needs attention:** strict LVS fails; fixed-width diagnosis exposes resistor length differences and child pin correspondence findings |
-| Detector app-default HSA | **Not qualified:** explicit run exceeded its 120-second timeout; successful DC evidence uses declared native SPICE compatibility |
+| Detector full physical consistency | Historical dev19 failure; resolved by the dev20 extraction correction above |
+| Detector app-default HSA | Historical dev19 timeout; resolved for the dev20 bench using DC startup hints |
 
 These results were produced from the dev19 working tree based on `c3e3503`.
 The sandbox needed a temporary-file path shim for ngspice and an offscreen Qt

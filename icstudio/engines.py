@@ -99,10 +99,15 @@ def run_ngspice(p,cid,settings,executable,directory,progress=lambda *_:None):
         directive,aliases=save_directive(p,cid);text=spice(p,cid,settings,hierarchical=False)
         if settings['type']=='op':text=text.rsplit('.end',1)[0]+directive+'\n.end\n'
     from .pdks import stage_model_deck
-    text=stage_model_deck(p['pdk'],text,directory)
-    atomic_write(deck,preload(p,text,directory));atomic_write(directory/'runtime-lock.json',json.dumps({'osdi':verified(p)},indent=2));progress(.05,'Starting ngspice batch worker')
-    if raw.exists():raw.unlink()
+    text=preload(p,stage_model_deck(p['pdk'],text,directory),directory)
     from .spice_program import runtime_environment
+    if settings['type']=='dc' and settings.get('dc_startup',False):
+        from .dc_startup import seed_deck
+        progress(.03,'Solving the first DC point for convergence hints')
+        text=seed_deck(text,lambda raw,deck:ngspice_command(p,executable,raw,deck),
+                       directory,timeout=int(settings.get('timeout',180)),env=runtime_environment(executable))
+    atomic_write(deck,text);atomic_write(directory/'runtime-lock.json',json.dumps({'osdi':verified(p)},indent=2));progress(.05,'Starting ngspice batch worker')
+    if raw.exists():raw.unlink()
     try:log=execute(ngspice_command(p,executable,raw,deck),directory,timeout=int(settings.get('timeout',180)),env=runtime_environment(executable))
     except Exception as exc:
         atomic_write(directory/'engine.log',str(exc));raise

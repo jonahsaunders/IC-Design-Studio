@@ -1,6 +1,16 @@
 # Architecture additions in 0.8
 
-## Current dev19 additions
+## Current dev20 additions
+
+`dc_startup.seed_deck` solves the circuit at the first sweep point in the selected
+mode, preserves temperature and user nodesets, and supplies finite voltage hints
+for the full DC sweep. The native Analysis panel persists this optional setting.
+The original and startup decks, raw results and hints remain in the run directory.
+The detector workflow verifies a checksum-bound upstream resistor extraction
+backport, compares the flattened physical circuit strictly, and creates an editable
+bench with embedded models. No general LVS parser or tolerance is relaxed.
+
+## Dev19 additions
 
 `xschem_libraries.prepare` discovers PDK references through the reachable local
 schematic hierarchy. `xschem_vectors` resolves bounded vectors into scalar native

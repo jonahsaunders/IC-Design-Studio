@@ -69,31 +69,7 @@ def geometry_equal(first, second):
                 checks=['region XOR', 'text and text transforms', 'hierarchy and array transforms'])
 
 
-def fixed_width_diagnostic(executable, output, top):
-    """Expose dimensions behind the fixed-width/generic resistor model mismatch.
-
-    The bundled model specifies w=1.41; Magic's pinned technology documents
-    generic extraction for this device. Make that implicit width explicit for
-    diagnosis only. Preserve every terminal, length and multiplicity.
-    """
-    text = (output / 'native-lvs.spice').read_text()
-    pattern = r'(?m)^(X\S+\s+\S+\s+\S+\s+\S+\s+)sky130_fd_pr__res_xhigh_po_1p41(\s+[^\n]+)$'
-    text, count = re.subn(pattern, r'\1sky130_fd_pr__res_xhigh_po w=1.41\2', text)
-    if count != 140: raise ValueError('Fixed-width diagnostic expected 140 locked resistor declarations.')
-    atomic_write(output / 'fixed-width-lvs.spice', text)
-    log = netgen_lvs(executable, output / 'fixed-width-lvs.spice', top,
-                     output / 'source-layout' / (top + '.spice'), top,
-                     output / 'setup.tcl', output / 'fixed-width-diagnostic')
-    try: require_lvs_match(log); status = 'passed'
-    except ValueError: status = 'failed'
-    return dict(status=status, report='fixed-width-diagnostic/lvs.log',
-                declared_width_microns=1.41, declarations=count,
-                topology_matches=bool(re.search(r'Final result: Circuits match uniquely\.', log)),
-                dimension_findings=sorted(set(re.findall(r'(?m)^\s*L circuit1:[^\n]+', log))),
-                scope='Diagnostic model alias only; no geometry, length, tolerance or pin changes. Does not replace the strict LVS gate.')
-
-
-def simulations(project, reference, executable, output, compatibility='native'):
+def simulations(project, reference, executable, output, compatibility='hsa'):
     from icstudio.native_spice import netlist
     from icstudio.spice_program import read_plot
     top = next(c for c in project['cells'] if c['id'] == project['top'])
@@ -114,9 +90,12 @@ def simulations(project, reference, executable, output, compatibility='native'):
             deck += '\nVavdd avdd 0 3\nVdvdd dvdd 0 1.8\nVena ena 0 1.8\nVbg vbg 0 1.2\nIbias avdd ibias 600n\nRload ovout 0 1meg\n'
             deck += ''.join(f'Vbit{i} vtrip_{i} 0 {1.8 if code & (1 << i) else 0}\n' for i in range(4))
             deck += '.temp 27\n.dc Vavdd 3 6 .01\n.save v(ovout)\n.end\n'
-            atomic_write(folder / 'input.cir', deck)
             command=[executable, '-n', '-D', 'filetype=ascii']
             if compatibility=='hsa':command += ['-D', 'ngbehavior=hsa']
+            if compatibility=='hsa':
+                from icstudio.dc_startup import seed_deck
+                deck=seed_deck(deck,lambda raw,deck:command+['-b','-r',str(raw),str(deck)],folder)
+            atomic_write(folder / 'input.cir', deck)
             command += ['-b', '-r', str(folder / 'output.raw'), str(folder / 'input.cir')]
             try: log = execute(command, folder, timeout=120)
             except Exception as exc:
@@ -141,7 +120,7 @@ def simulations(project, reference, executable, output, compatibility='native'):
         atomic_write(output / 'completed-codes.json', json.dumps(results, indent=2))
     if any(b['trip_voltage'] <= a['trip_voltage'] for a, b in zip(results, results[1:])):
         raise ValueError('Trip thresholds are not strictly increasing.')
-    return dict(status='passed', compatibility=compatibility, corner='tt', temperature=27, dvdd=1.8, vbg=1.2,
+    return dict(status='passed', compatibility=compatibility, dc_startup=compatibility=='hsa', corner='tt', temperature=27, dvdd=1.8, vbg=1.2,
                 ibias=6e-7, supply_step=.01, tolerance=dict(relative=1e-3,absolute_voltage=2e-6,trip='same 10 mV step'), codes=results,
                 scope='Emitted-deck comparison in the declared compatibility mode; excludes transient timing, hysteresis, PVT and extracted simulation.')
 
@@ -167,7 +146,9 @@ def qualify(args):
         report['verified_source_files'] = len(lock['files'])
         top = lock['top']; tech = args.pdk.resolve() / 'libs.tech/magic/sky130A.tech'; setup = args.pdk.resolve() / 'libs.tech/netgen/sky130A_setup.tcl'
         report['tools'] = {k: execute([getattr(args,k), '--version' if k != 'netgen' else '-batch'], out, timeout=30)[:1500] for k in ('magic', 'netgen', 'ngspice')}
-        report['process'] = dict(technology_sha256=file_digest(tech), setup_sha256=file_digest(setup))
+        from scripts.prepare_open_project_technology import prepare
+        tech, correction = prepare(tech, out / 'technology')
+        report['process'] = dict(technology_sha256=file_digest(tech), setup_sha256=file_digest(setup), correction=correction)
         result = review_path(source / 'xschem' / (top + '.sch'), libraries=[source / 'xschem'])
         atomic_write(out / 'migration.json', json.dumps({k:v for k,v in result.items() if k != 'candidate'}, indent=2))
         p = result['candidate']
@@ -181,8 +162,8 @@ def qualify(args):
             'Diode simulation area scaled by 1e-12 into square microns for LVS only.',
             'Perimeter excluded by the pinned PDK policy; Magic pj treated as perim. Connectivity and MOS/resistor parameters unchanged.']
         atomic_write(out / 'setup.tcl', 'source ' + tcl_word(setup) + '\nforeach c {1 2} {\nproperty "-circuit$c sky130_fd_pr__diode_pw2nd_05v5" delete pj\n}\n')
-        def compare(name, other):
-            log = netgen_lvs(args.netgen, out / 'native-lvs.spice', top, other, top, out / 'setup.tcl', out / name)
+        def compare(name, other, schematic=None):
+            log = netgen_lvs(args.netgen, schematic or out / 'native-lvs.spice', top, other, top, out / 'setup.tcl', out / name)
             if not (out / name / 'lvs.log').is_file(): raise ValueError('Netgen produced no comparison report: ' + name)
             try: require_lvs_match(log); status = 'passed'
             except ValueError:
@@ -211,19 +192,45 @@ def qualify(args):
         publish()
         report['checks']['simulation'] = simulations(p, ref, args.ngspice, out / 'simulation', args.compatibility)
         publish()
+        from scripts.open_project_bench import create
+        from icstudio.engines import run_ngspice
+        bench = create(combined, out)
+        bench_run = out / 'bench-simulation'; bench_run.mkdir()
+        result = run_ngspice(bench, bench['top'], bench['analysis'], args.ngspice, bench_run)
+        from icstudio.spice_program import read_plot
+        reference_wave = read_plot(out / 'simulation/00-reference/output.raw')['traces']['ovout']
+        actual = result['traces']['ovout']
+        if len(actual) != 301 or any(not math.isfinite(a) or abs(a-b)>max(2e-6,1e-3*abs(b)) for a,b in zip(actual,reference_wave)):
+            raise ValueError('The saved desktop testbench differs from the reference sweep.')
+        report['checks']['desktop_testbench'] = dict(status='passed', project='overvoltage-bench.icproj',
+            compatibility='hsa', dc_startup=True, points=len(actual), code=0,
+            max_reference_error=max(abs(a-b) for a,b in zip(actual,reference_wave)),
+            scope='Saved/reopened project through the app graphical-analysis engine; both DUT views and model closure embedded.')
+        publish()
         native = out / 'source-layout'; shutil.copytree(source / 'mag', native)
-        script = 'load ' + tcl_word(top) + '\nselect top cell\n' + extraction_commands('lvs')[0] + 'ext2spice\nquit -noprompt\n'
+        script = 'load ' + tcl_word(top) + '\nselect top cell\n' + extraction_commands('lvs', {'hierarchy': False})[0] + 'ext2spice\nquit -noprompt\n'
         atomic_write(native / 'extract.tcl', script)
         atomic_write(native / 'extraction.log', execute([args.magic, '-dnull', '-noconsole', '-T', str(tech)], native, input_text=script))
         report['checks']['layout_schematic_lvs'] = compare('layout-schematic', native / (top + '.spice'))
-        report['checks']['layout_fixed_width_diagnostic'] = fixed_width_diagnostic(args.netgen, out, top)
-        # An intentional connectivity fault must fail even with diode normalization.
-        broken = (out / 'native-lvs.spice').read_text().replace(' ena ', ' disconnected_enable ', 1)
-        atomic_write(out / 'broken.spice', broken)
-        report['checks']['deliberate_fault'] = compare('deliberate-fault', out / 'broken.spice')
-        if report['checks']['deliberate_fault']['status'] != 'failed': raise ValueError('LVS failed to detect the deliberate open.')
-        report['checks']['deliberate_fault']['status'] = 'passed'
-        report['checks']['deliberate_fault']['observed_lvs'] = 'failed'
+        report['checks']['layout_schematic_lvs']['extraction'] = 'Full circuit, hierarchy off; all device properties and top pins compared.'
+        # Compare faults with the same independently extracted physical circuit.
+        # This proves flattening and the extraction correction do not mask real
+        # child wiring, external interface or resistor dimension defects.
+        original = (out / 'native-lvs.spice').read_text()
+        faults = {
+            'enable_open': (' ena ', ' disconnected_enable '),
+            'child_pin': ('x4 avdd dvdd vtrip[3] A NotA avss dvss level_shifter',
+                          'x4 avdd dvdd vtrip[3] A NotA dvdd dvss level_shifter'),
+            'resistor_length': ('res_xhigh_po_1p41 L=14.1 ', 'res_xhigh_po_1p41 L=13.94 '),
+        }
+        for name, (before, after) in faults.items():
+            if before not in original: raise ValueError('Fault target changed: ' + name)
+            broken = out / (name + '.spice')
+            atomic_write(broken, original.replace(before, after, 1))
+            finding = compare('fault-' + name, native / (top + '.spice'), broken)
+            if finding['status'] != 'failed': raise ValueError('LVS missed the deliberate ' + name)
+            finding.update(status='passed', observed_lvs='failed')
+            report['checks']['fault_' + name] = finding
         report['import_regression'] = 'passed'
         report['status'] = 'passed' if report['checks']['layout_schematic_lvs']['status'] == 'passed' else 'needs_attention'
     except Exception as exc:
@@ -238,8 +245,8 @@ def main():
     for key in ('source', 'pdk', 'out'): ap.add_argument('--' + key, type=Path, required=True)
     for key in ('magic', 'netgen', 'ngspice'): ap.add_argument('--' + key, default=shutil.which(key), required=not shutil.which(key))
     ap.add_argument('--require-consistent', action='store_true')
-    ap.add_argument('--compatibility', choices=('native','hsa'), default='native',
-                    help='Explicit ngspice mode for emitted-deck comparison. The app uses hsa; that mode is not yet qualified for this legacy diode source.')
+    ap.add_argument('--compatibility', choices=('native','hsa'), default='hsa',
+                    help='Explicit ngspice mode. HSA uses first-point DC startup; native is retained for independent comparison.')
     return qualify(ap.parse_args())
 
 

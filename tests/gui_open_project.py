@@ -3,6 +3,7 @@ import argparse
 import json
 import sys
 import traceback
+import time
 from pathlib import Path
 from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
@@ -11,6 +12,8 @@ ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 def main():
     ap=argparse.ArgumentParser()
     for name in ('schematic','layout','out'):ap.add_argument('--'+name,type=Path,required=True)
+    ap.add_argument('--bench', type=Path)
+    ap.add_argument('--ngspice')
     a=ap.parse_args();out=a.out.resolve();out.mkdir(parents=True,exist_ok=True)
     from PySide6.QtCore import QSettings,QStandardPaths
     from PySide6.QtWidgets import QApplication,QMessageBox
@@ -57,6 +60,26 @@ def main():
         assert any(s['layer'] in w.layout.visible_layers for s in w.layout.cell['shapes'])
         assert w.grab().save(str(out/'overvoltage-workspace.png'))
         checks.append('Combined native project saves, reopens and renders both views')
+        if a.bench:
+            w.set_project(load_project(a.bench))
+            assert w.cell['name']=='detector_dc_bench' and w.native_dc_startup.isChecked()
+            w.native_dc_startup.setChecked(False)
+            assert w.flush_analysis() and not w.project['analysis']['dc_startup']
+            w.undo(); assert w.project['analysis']['dc_startup'] and w.native_dc_startup.isChecked()
+            save_project(w.project,out/'bench-reopened.icproj');w.set_project(load_project(out/'bench-reopened.icproj'))
+            assert w.current_analysis_settings()['dc_startup']
+            checks.append('DC startup setting survives editing, undo and project reopening')
+            if a.ngspice: w.settings.setValue('engine/ngspice', a.ngspice)
+            w.quick_run()
+            deadline=time.monotonic()+180
+            while w.run_manager.busy and time.monotonic()<deadline: QTest.qWait(100)
+            assert w.run_manager.rows,errors
+            run=w.run_manager.rows[-1]
+            assert run['state']=='Complete',(run['state'],run.get('log'),errors)
+            wave=run['result']['traces']['ovout']
+            assert len(wave)==301 and wave[0]<.2 and wave[-1]>1.6
+            assert (run['path']/'dc-startup.nodeset').exists()
+            checks.append('F5 analysis action executes the saved detector bench in HSA and displays all 301 DC points')
         assert not errors,errors
         result['status']='passed'
     except Exception:result.update(error=traceback.format_exc(),errors=errors)
