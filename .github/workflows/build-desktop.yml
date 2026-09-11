@@ -61,6 +61,11 @@ jobs:
         run: python tests/gui_layout_expansion.py --out build/layout-expansion-evidence
       - name: Check repository release materials
         run: python scripts/check_release.py
+      - name: Test live desktop collaboration with three editors
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_live_collaboration.py --out build/live-collaboration-evidence
       - name: Test 3D layout software viewer
         timeout-minutes: 5
         env:
@@ -234,6 +239,8 @@ jobs:
             build/label-evidence
             build/project-pdk-evidence
             build/layout-expansion-evidence
+            build/live-collaboration-evidence/report.json
+            build/live-collaboration-evidence/*.png
             build/layout-3d-evidence
             build/layout-3d-opengl-evidence
             build/native-hierarchy-evidence

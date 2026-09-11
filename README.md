@@ -63,6 +63,12 @@ IC Design Studio brings schematic capture, a simulation run table, waveform insp
 zoom, editable display heights, layer visibility, exploded views and PNG export.
 See the [3D viewer guide](docs/LAYOUT_3D.md) for physical-stack metadata and large-layout limits.
 
+**Layout → Live collaboration** adds desktop invitation links with view/edit
+permissions, automatic layout updates, participant cursors, object reservations,
+personal undo and reconnect recovery. Run the included self-hosted server first;
+the repository does not include a deployed public service. See the
+[live collaboration guide](docs/LIVE_COLLABORATION.md) for setup and preview limits.
+
 **0.21 makes the first steps easier:** a searchable example gallery, six guided projects, background discovery of multiple PDK variants, batch registration, and a direct path from a registered PDK to a new project.
 
 This is an **engineering preview**. It has working end-to-end workflows and a growing regression suite; it is not a manufacturing signoff environment. Supported exchange subsets, model requirements and executed validation are documented in the [release notes](docs/RELEASE_0.22.md).

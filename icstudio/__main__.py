@@ -1,6 +1,9 @@
 import sys
 
 def main():
+    if len(sys.argv)>1 and sys.argv[1]=='--collaboration-server':
+        from .live_server import main as server
+        return server(sys.argv[2:])
     if len(sys.argv)>1 and sys.argv[1]=='--worker':
         from .worker import main as worker
         return worker(sys.argv[2],sys.argv[3])
@@ -27,7 +30,11 @@ def main():
     app.setWindowIcon(QIcon(str(Path(__file__).parent/'assets/app.svg')))
     window.setWindowIcon(app.windowIcon())
     window.show()
-    if '--project' not in sys.argv and '--smoke-test' not in sys.argv:
+    if '--join' in sys.argv:
+        index=sys.argv.index('--join')
+        link=sys.argv[index+1] if index+1<len(sys.argv) else ''
+        QTimer.singleShot(100,lambda:window.guard(lambda:window.live_join_dialog(link)))
+    if '--project' not in sys.argv and '--smoke-test' not in sys.argv and '--join' not in sys.argv:
         def welcome():
             window.offer_recovery()
             if not window._recovered_from and window.path is None and window.settings.value('onboarding/show', True, type=bool):

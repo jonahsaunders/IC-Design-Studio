@@ -38,6 +38,10 @@ Source: "..\..\dist\ICDesignStudio\*"; DestDir: "{app}"; Flags: ignoreversion re
 Name: "{group}\{#AppName}"; Filename: "{app}\ICDesignStudio.exe"
 Name: "{autodesktop}\{#AppName}"; Filename: "{app}\ICDesignStudio.exe"; Tasks: desktopicon
 [Registry]
+Root: HKA; Subkey: "Software\Classes\icstudio"; ValueType: string; ValueData: "URL:IC Design Studio invitation"; Flags: uninsdeletekey
+Root: HKA; Subkey: "Software\Classes\icstudio"; ValueType: string; ValueName: "URL Protocol"; ValueData: ""
+Root: HKA; Subkey: "Software\Classes\icstudio\DefaultIcon"; ValueType: string; ValueData: "{app}\ICDesignStudio.exe,0"
+Root: HKA; Subkey: "Software\Classes\icstudio\shell\open\command"; ValueType: string; ValueData: """{app}\ICDesignStudio.exe"" --join ""%1"""
 Root: HKA; Subkey: "Software\Classes\.icproj\OpenWithProgids"; ValueType: string; ValueName: "ICDesignStudio.Project"; ValueData: ""; Flags: uninsdeletevalue; Tasks: associate
 Root: HKA; Subkey: "Software\Classes\ICDesignStudio.Project"; ValueType: string; ValueData: "IC Design Studio project"; Flags: uninsdeletekey; Tasks: associate
 Root: HKA; Subkey: "Software\Classes\ICDesignStudio.Project\DefaultIcon"; ValueType: string; ValueData: "{app}\ICDesignStudio.exe,0"; Tasks: associate

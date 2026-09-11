@@ -190,6 +190,8 @@ def main(output):
         assert viewer.grab().save(str(out/'layout-3d.png'));assert digest(window.project)==before
         renderer=type(viewer.view).__name__;viewer.close();QTest.qWait(30);window.set_project(previous,previous_path)
         report['checks'].append('packaged 3D layout viewer, extrusion, display controls and PNG ('+renderer+')')
+        from .live_probe import run as live_probe
+        report['checks'].append(live_probe(window,out))
         window.fit_active();QTest.qWait(100);assert window.grab().save(str(out/'desktop.png'));assert not errors,errors;report['status']='passed'
     except Exception:
         report['error']=traceback.format_exc()

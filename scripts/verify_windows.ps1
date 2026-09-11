@@ -29,6 +29,9 @@ $shell = New-Object -ComObject WScript.Shell
 if ($shell.CreateShortcut($shortcut).TargetPath -ne $exe) { throw 'Start menu shortcut points to the wrong executable.' }
 $command = (Get-Item 'HKCU:\Software\Classes\ICDesignStudio.Project\shell\open\command').GetValue('')
 if ($command -ne "`"$exe`" --project `"%1`"") { throw 'Project association command is incorrect.' }
+$invitationCommand = (Get-Item 'HKCU:\Software\Classes\icstudio\shell\open\command').GetValue('')
+if ($invitationCommand -ne "`"$exe`" --join `"%1`"") { throw 'Invitation protocol command is incorrect.' }
 Wait-Checked (Join-Path $install 'unins000.exe') "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /LOG=`"$evidence\uninstall.log`""
 if (Test-Path $exe) { throw 'Uninstall left the application executable behind.' }
+if (Test-Path 'HKCU:\Software\Classes\icstudio') { throw 'Uninstall left the invitation protocol registered.' }
 @{status='passed';installed=$true;shortcuts=$true;association=$true;dpi=@(100,150,200);simulation=$true;uninstalled=$true;signing='not configured'} | ConvertTo-Json | Set-Content "$evidence\windows-release.json"

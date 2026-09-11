@@ -144,6 +144,9 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
             p.setPen(QColor('#e3a851' if self.simulation_annotation_label.startswith('STALE') else t['muted']));p.setFont(QFont('Sans Serif',9));p.drawText(QPointF(12,23),self.simulation_annotation_label)
         if not self.cell['devices' if self.mode=='schematic' else 'shapes'] and not getattr(self,'cursor_route_preview',[]) and not self.placement and not self.drawing and self.anchor is None and not (self.mode=='schematic' and self.cell.get('wires')) and not (self.mode=='layout' and self.cell.get('_layout_scene') and self.cell['_layout_scene'].expanded_count):
             p.setPen(QColor(t['text']));p.setFont(QFont('DejaVu Sans',17,QFont.DemiBold));r=QRectF(self.rect());r.setHeight(r.height()-28);p.drawText(r,Qt.AlignCenter,'Build your circuit' if self.mode=='schematic' else 'Start your layout');p.setFont(QFont('DejaVu Sans',10));p.setPen(QColor(t['muted']));r=QRectF(self.rect());r.translate(0,22);p.drawText(r,Qt.AlignCenter,'Choose Place to add a component.' if self.mode=='schematic' else 'Choose a layer, then draw a rectangle, polygon, or path.')
+        if getattr(self,'live_presence',None):
+            from .live_ui import paint_presence
+            paint_presence(self,p)
     def draw_schematic(self,p,view):
         self.draw_wires(p)
         if self.scale<.35 and len(self.cell['devices'])>50 and not self.cell.get('xschem') and not self.cell.get('electrical'):
