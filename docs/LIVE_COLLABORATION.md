@@ -32,7 +32,36 @@ command palette and status-bar button open the same dashboard.
 
 ![Collaboration dashboard](images/collaboration-dashboard.png)
 
-## Start a server
+## Start a local server with a button
+
+In dev17, open **Tools → Collaboration → Start and resume → Start local
+server**. The included server starts in the background. Enter your name and
+choose **Start sharing**. The app creates and supplies the workspace creation
+key automatically; no script, Python installation or file copying is needed in
+the packaged desktop app. The same button is available in **Share this project**.
+
+This server accepts connections **only from this computer**. Invitations work in
+another IC Design Studio window on the same computer. To collaborate with people
+on other computers, choose **Use a team server** and enter your team's reachable
+HTTPS server address and administrator key. Switching to a team server clears
+the automatic local key.
+
+Keep IC Design Studio open while hosting. Closing the dashboard leaves the
+server running; exiting the application stops it. **Stop local server** stops
+hosting after you leave local workspaces in this application. Workspaces, keys,
+invitations and accepted edits remain saved in the application's private data
+folder under `local-collaboration`. **Resume workspace** starts this saved
+server again automatically and restores the session, including personal undo.
+Owner recovery fills the key automatically while the local server is running.
+
+The app chooses an available loopback port on first use and retains that address
+for existing invitations and sessions. If another application occupies that
+address later, close that application and retry. An inline error explains
+startup failures; saved server data is retained. Only one app instance may host
+the same local server data at once. This does not provide public hosting, a
+network tunnel, or automatic HTTPS setup.
+
+## Start a team server (administrator setup)
 
 Use Python 3.12 with the application's `requirements.txt` installed:
 

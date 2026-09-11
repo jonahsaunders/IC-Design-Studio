@@ -1,4 +1,10 @@
-# IC Design Studio 0.22.0.dev16 — engineering preview
+# IC Design Studio 0.22.0.dev17 — engineering preview
+
+Dev17 adds **Tools → Collaboration → Start local server**. The included server
+starts without commands and handles the creation key automatically. Saved local
+workspaces restart from Resume, retaining their address, edits and personal undo.
+This hosts sessions on the same computer; other computers still need a team
+HTTPS server. See [setup and limitations](LIVE_COLLABORATION.md#start-a-local-server-with-a-button).
 
 Dev16 adds [workflow and review improvements](WORKFLOW_REVIEW_0.22.md): automatic
 checks from either editor, remembered testbench context, linked device inspection,

@@ -3,7 +3,7 @@ from datetime import datetime
 import time
 
 from PySide6.QtCore import Qt, QThread, Signal
-from PySide6.QtWidgets import (QDialog,
+from PySide6.QtWidgets import (QApplication, QDialog,
     QGroupBox, QHBoxLayout, QLabel, QListWidget, QListWidgetItem,
     QPushButton, QScrollArea, QTabWidget, QTreeWidget, QTreeWidgetItem, QSizePolicy,
     QVBoxLayout, QWidget)
@@ -81,6 +81,20 @@ class CollaborationDashboard(QDialog):
         self.join = button('Join a workspace…', lambda: self.run(studio.live_join_dialog), actions)
         overview.addLayout(actions)
         overview.addWidget(note('Sharing starts a shared schematic and layout workspace on your team’s server. To join, paste the invitation your teammate sent you.'))
+        from .local_collaboration import local_host
+        self.local_host = local_host(studio)
+        local_group = QGroupBox('Start on this computer')
+        local_layout = QVBoxLayout(local_group)
+        local_layout.addWidget(note('Start the included server without commands or copying a key. Sessions are available only on this computer. For teammates on other computers, use a team HTTPS server.'))
+        self.local_status = note('Server stopped. Saved workspaces are kept when you stop or close the app.')
+        self.local_status.setAccessibleName('Local collaboration server status')
+        local_layout.addWidget(self.local_status)
+        local_actions = QHBoxLayout()
+        self.local_start = button('Start local server', lambda: self.run(lambda: studio.live_share_dialog(local=True)), local_actions, True)
+        self.local_stop = button('Stop local server', self.local_host.stop, local_actions)
+        local_layout.addLayout(local_actions)
+        overview.addWidget(local_group)
+        self.local_host.changed.connect(self.refresh_local)
         recent_header = QHBoxLayout()
         recent_header.addWidget(note('Recent workspaces'))
         recent_header.addStretch()
@@ -172,6 +186,29 @@ class CollaborationDashboard(QDialog):
                                    if s.layout_session else 'You have not joined a shared folder.')
         self.update_recent_actions()
         self.review_panel.refresh_state()
+        self.refresh_local()
+
+    def refresh_local(self):
+        host = self.local_host
+        active = self.studio.live_client is not None or self.studio.layout_session is not None
+        self.local_start.setEnabled(not active and host.state not in ('starting', 'stopping'))
+        self.local_start.setText('Share from this computer…' if host.state == 'running' else 'Starting…' if host.state == 'starting' else 'Start local server')
+        self.local_stop.setVisible(host.state in ('running', 'stopping'))
+        using_host = any(getattr(w, 'live_client', None) and w.live_client.server == host.url
+                         for w in QApplication.topLevelWidgets())
+        self.local_stop.setEnabled(host.state == 'running' and not using_host)
+        self.local_stop.setToolTip('Leave local workspaces before stopping the server.' if using_host else 'Stop hosting; keep saved workspaces.')
+        if host.error:
+            message = host.error
+        elif host.state == 'running':
+            message = 'Running at ' + host.url + ' · This computer only. Keep IC Design Studio open to host. Saved workspaces can be resumed after restarting.'
+        elif host.state == 'starting':
+            message = 'Starting the included server and preparing your saved workspaces…'
+        elif host.state == 'stopping':
+            message = 'Stopping after accepted requests finish…'
+        else:
+            message = 'Server stopped. Saved workspaces are kept when you stop or close the app.'
+        self.local_status.setText(message)
 
     def refresh_recent(self):
         if self.scan and self.scan.isRunning():

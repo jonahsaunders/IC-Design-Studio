@@ -140,7 +140,7 @@ class LiveCollaborationMixin:
         management.addWidget(self.live_owner)
         ov = QVBoxLayout(self.live_owner)
         ov.setContentsMargins(0, 0, 0, 0)
-        invitation_note = QLabel('Choose what your teammate can do, then copy an invitation to send them. You can revoke access here at any time.')
+        invitation_note = self.live_invitation_note = QLabel('Choose what your teammate can do, then copy an invitation to send them. You can revoke access here at any time.')
         invitation_note.setWordWrap(True)
         ov.addWidget(invitation_note)
         form = QFormLayout()
@@ -242,18 +242,29 @@ class LiveCollaborationMixin:
             return False
         return True
 
-    def live_share_dialog(self):
+    def live_share_dialog(self, local=False):
         if self.live_client:
             return self.live_show()
         if not self.live_available():
             return
         dlg = QDialog(self)
-        dlg.setWindowTitle('Share layout')
+        dlg.setWindowTitle('Share this project')
         dlg.resize(570, 300)
         v = QVBoxLayout(dlg)
         note = QLabel('Share this project through your team’s server. Teammates can edit schematics and layouts, review changes, and share results. Everyone needs the current collaboration update. PDK settings stay fixed.')
         note.setWordWrap(True)
         v.addWidget(note)
+        from .local_collaboration import local_host
+        host = local_host(self)
+        local_mode = False
+        setup = QHBoxLayout()
+        local_button = QPushButton('Start local server')
+        local_button.setObjectName('startLocalServer')
+        team_button = QPushButton('Use a team server')
+        team_button.hide()
+        setup.addWidget(local_button)
+        setup.addWidget(team_button)
+        v.addLayout(setup)
         form = QFormLayout()
         server = QLineEdit(str(self.settings.value('live/server', 'http://127.0.0.1:8765')))
         key = QLineEdit()
@@ -265,13 +276,70 @@ class LiveCollaborationMixin:
         v.addLayout(form)
         error = QLabel()
         error.setWordWrap(True)
+        error.setTextFormat(Qt.PlainText)
         v.addWidget(error)
         button = QPushButton('Start sharing')
         v.addWidget(button)
 
+        def update_local():
+            local_button.setEnabled(host.state not in ('starting', 'stopping'))
+            local_button.setText('Use local server' if host.state == 'running' else 'Starting…' if host.state == 'starting' else 'Start local server')
+            if not local_mode:
+                return
+            button.setEnabled(host.state == 'running')
+            if host.state == 'running':
+                server.setText(host.url)
+                key.setText(host.key)
+                error.setText('Ready. Enter your name and choose Start sharing. Invitations work only on this computer.')
+            else:
+                key.clear()
+                error.setText(host.error or ('Starting the included server…' if host.state == 'starting' else 'Local server stopped. Choose Start local server to continue.'))
+
+        def choose_local():
+            nonlocal local_mode
+            local_mode = True
+            server.setReadOnly(True)
+            key.setReadOnly(True)
+            form.setRowVisible(key, False)
+            team_button.show()
+            note.setText('Host on this computer with automatic setup. Keep IC Design Studio open while hosting. Workspaces are saved for next time. Other computers need a team HTTPS server.')
+            host.start()
+            update_local()
+            name.setFocus()
+
+        def choose_team():
+            nonlocal local_mode
+            local_mode = False
+            key.clear()
+            server.clear()
+            server.setPlaceholderText('https://your-team-server')
+            server.setReadOnly(False)
+            key.setReadOnly(False)
+            form.setRowVisible(key, True)
+            team_button.hide()
+            note.setText('Use the HTTPS address and workspace creation key supplied by your team’s server administrator.')
+            error.clear()
+            button.setEnabled(True)
+            server.setFocus()
+
+        # Never carry the automatically supplied key to a different endpoint.
+        def address_changed():
+            if local_mode and server.text() != host.url:
+                key.clear()
+        server.textChanged.connect(address_changed)
+        local_button.clicked.connect(choose_local)
+        team_button.clicked.connect(choose_team)
+        host.changed.connect(update_local)
+        dlg.finished.connect(lambda *_: host.changed.disconnect(update_local))
+
         def start():
             try:
                 url = server_url(server.text())
+                if local_mode and (host.state != 'running' or url != host.url):
+                    raise LiveError('Start the local server before sharing.')
+                if not name.text().strip():
+                    name.setFocus()
+                    raise LiveError('Enter your name so teammates can recognize you.')
                 if len(key.text()) < 32:
                     raise LiveError('Enter the creation key supplied by your server administrator.')
                 if not self.flush_inspector():
@@ -282,6 +350,8 @@ class LiveCollaborationMixin:
         button.clicked.connect(start)
         dlg.show()
         self._live_connect_dialog = dlg
+        if local:
+            choose_local()
         return dlg
 
     def live_join_dialog(self, link=''):
@@ -411,6 +481,9 @@ class LiveCollaborationMixin:
         if not client:
             return
         self.live_status.setText(message)
+        from urllib.parse import urlsplit
+        local = urlsplit(client.server).hostname in ('127.0.0.1', 'localhost', '::1')
+        self.live_invitation_note.setText('This workspace is available only on this computer. Invitations can join from another IC Design Studio window here. For other computers, share through a team HTTPS server.' if local else 'Choose what your teammate can do, then copy an invitation to send them. You can revoke access here at any time.')
         self.collaboration_button.setText('Collaboration · ' + ('Needs review' if client.conflict else 'Connected' if client.connected else 'Reconnecting'))
         self.live_recover_button.setVisible(client.info['role'] == 'owner' and not client.connected)
         self.live_people.clear()
@@ -531,7 +604,17 @@ class LiveCollaborationMixin:
 
     def live_resume_path(self, path):
         if self.live_available() and self.maybe_save():
-            self.live_attach(LiveClient.resume(path, self))
+            client = LiveClient.resume(path, self)
+            from .local_collaboration import local_host
+            host = local_host(self)
+            original = digest(self.project)
+            def attach():
+                if self.isVisible() and not self.live_client and not self.layout_session and digest(self.project) == original:
+                    self.live_attach(client)
+            if host.owns_url(client.server):
+                host.start(attach)
+            else:
+                attach()
 
     def live_recover_owner(self, path=None):
         client = self.live_client
@@ -554,6 +637,12 @@ class LiveCollaborationMixin:
         key = QLineEdit()
         key.setEchoMode(QLineEdit.Password)
         key.setAccessibleName('Workspace creation key')
+        from .local_collaboration import local_host
+        host = local_host(self)
+        if host.state == 'running' and client.server == host.url:
+            key.setText(host.key)
+            key.setReadOnly(True)
+            note.setText('Restore access to ' + client.project['name'] + '. The local server key is supplied automatically. Your saved edits and personal undo are preserved.')
         form = QFormLayout()
         form.addRow('Administrator key', key)
         layout.addLayout(form)

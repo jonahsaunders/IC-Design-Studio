@@ -66,6 +66,11 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_live_collaboration.py --out build/live-collaboration-evidence
+      - name: Test button-driven local server setup and saved-workspace restart
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_local_collaboration.py --out build/local-collaboration-evidence
       - name: Test precise editing, test plans, baselines and workflow guidance
         timeout-minutes: 5
         env:

@@ -2,6 +2,13 @@
 
 Our goal is an independent open design environment that makes circuit intent, experiments and physical implementation easy to follow. Compatibility with Xschem, ngspice, KLayout, Magic and Netgen remains part of that direction. This roadmap expresses priorities and acceptance criteria, not promised delivery dates.
 
+## Experimental dev17 implementation
+
+The [local server button](LIVE_COLLABORATION.md#start-a-local-server-with-a-button)
+starts the included collaboration service, handles its key automatically and
+restarts saved local workspaces from the dashboard. Hosting remains limited to
+the same computer; a reachable HTTPS team server is required for other computers.
+
 ## Experimental dev16 implementation
 
 The [workflow and review update](WORKFLOW_REVIEW_0.22.md) adds automatic workflow

@@ -1,4 +1,10 @@
-# Release status — 0.22.0.dev16 candidate
+# Release status — 0.22.0.dev17 candidate
+
+Dev17 adds [button-driven local hosting](LIVE_COLLABORATION.md#start-a-local-server-with-a-button),
+automatic host key handling, persistent server identity and automatic restart
+when resuming saved local workspaces. Source and installed Windows/Linux checks
+exercise two editors, startup failures, credential isolation and undo after
+restart. This adds no database or document protocol migration.
 
 Dev16 adds [automatic workflows and threaded review](WORKFLOW_REVIEW_0.22.md),
 with an explicit testbench context, visual ECO inspection and server-enforced

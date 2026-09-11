@@ -192,6 +192,8 @@ def main(output):
         report['checks'].append('packaged 3D layout viewer, extrusion, display controls and PNG ('+renderer+')')
         from .live_probe import run as live_probe
         report['checks'].append(live_probe(window,out))
+        from .local_collaboration_probe import run as local_server_probe
+        report['checks'].append(local_server_probe(window,out))
         window.fit_active();QTest.qWait(100);assert window.grab().save(str(out/'desktop.png'));assert not errors,errors;report['status']='passed'
     except Exception:
         report['error']=traceback.format_exc()

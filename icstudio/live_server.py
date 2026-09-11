@@ -145,6 +145,24 @@ class Handler(BaseHTTPRequestHandler):
             self.reply(500, {'error': 'The server could not complete this request. Retry with the same edit ID.'})
 
 
+def load_creation_key(directory):
+    """Create the host credential once, shared by command-line and desktop hosts."""
+    directory = Path(directory)
+    directory.mkdir(parents=True, exist_ok=True)
+    directory.chmod(0o700)
+    key_path = directory / 'creation-key.txt'
+    try:
+        with key_path.open('x', encoding='utf-8') as f:
+            key_path.chmod(0o600)
+            f.write(secrets.token_urlsafe(32) + '\n')
+    except FileExistsError:
+        pass
+    key = key_path.read_text(encoding='utf-8').strip()
+    if not 32 <= len(key) <= 128 or not key.isascii() or not key.isprintable():
+        raise ValueError('The saved server key is invalid. Restore creation-key.txt from your server backup.')
+    return key
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description='Host IC Design Studio live layout collaboration')
     parser.add_argument('--data', type=Path, required=True, help='Private directory for the database and creation key')
@@ -161,16 +179,8 @@ def main(argv=None):
         local = False
     if not local and not args.certfile:
         parser.error('Non-loopback listeners require TLS. A reverse proxy can connect to the loopback listener.')
-    args.data.mkdir(parents=True, exist_ok=True)
-    args.data.chmod(0o700)
     key_path = args.data / 'creation-key.txt'
-    try:
-        with key_path.open('x', encoding='utf-8') as f:
-            key_path.chmod(0o600)
-            f.write(secrets.token_urlsafe(32) + '\n')
-    except FileExistsError:
-        pass
-    store = Store(args.data / 'collaboration.sqlite3', key_path.read_text().strip())
+    store = Store(args.data / 'collaboration.sqlite3', load_creation_key(args.data))
     server = Server((args.listen, args.port), store)
     if args.certfile:
         context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
