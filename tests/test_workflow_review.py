@@ -3,6 +3,7 @@ import sqlite3
 import tempfile
 import unittest
 from copy import copy
+from contextlib import closing
 from pathlib import Path
 from icstudio.model import example, clone, uid, device
 from icstudio.layout import rect
@@ -73,7 +74,7 @@ class ReviewerTests(unittest.TestCase):
         request=dict(action='comment',id=uid(),checkpoint=self.checkpoint,text='Old root')
         result=self.store.review(self.wid,self.owner['token'],request)
         self.store.close()
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute('ALTER TABLE review_comments DROP COLUMN parent');db.execute('PRAGMA user_version=2')
         self.store=Store(self.path,self.key)
         self.assertEqual(self.store.db.execute('PRAGMA user_version').fetchone()[0],3)
