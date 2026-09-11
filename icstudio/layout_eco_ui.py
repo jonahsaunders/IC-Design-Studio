@@ -48,8 +48,12 @@ def show(studio):
             from .layout_eco_review import device_impact
             info=device_impact(studio.project,row['cell_id'],row['device_id'])
             studio.cid=row['cell_id'];studio.selection=[];studio.mode_combo.setCurrentIndex(0 if mode=='schematic' else 1);studio.refresh(True)
-            ids=([row['device_id']] if info['device'] else [])+info['layout_objects']
-            studio.select(ids,mode)
+            schematic_ids=[row['device_id']] if info['device'] else []
+            studio.select(schematic_ids if mode=='schematic' else info['layout_objects'],mode)
+            # Each editor's command selection contains only its own objects.
+            # Keep the linked view highlighted without mixing IDs into edits.
+            studio.schematic.selection=schematic_ids;studio.schematic.update()
+            studio.layout.selection=info['layout_objects'];studio.layout.update()
             studio.statusBar().showMessage(info['summary'],15000)
         except Exception as exc:error.setText(str(exc))
     table.itemSelectionChanged.connect(inspect)

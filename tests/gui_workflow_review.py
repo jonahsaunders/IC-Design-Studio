@@ -54,6 +54,10 @@ def main():
         review=w.layout_eco_dialog();review.table.selectRow(0);assert 'bias' in review.impact.text() and '2k' in review.impact.text()
         review.schematic_button.click();assert w.mode_combo.currentIndex()==0 and d['id'] in w.selection
         review.physical_button.click();assert w.mode_combo.currentIndex()==1 and len(w.selection)>1
+        assert d['id'] not in w.selection and d['id'] in w.schematic.selection
+        geometry=clone(w.cell['shapes']);w.move(w.selection,5,0,'layout');assert w.cell['shapes']!=geometry
+        w.undo();assert w.cell['shapes']==geometry
+        review.close();review=w.layout_eco_dialog();review.table.selectRow(0)
         before=clone(w.project);review.table.item(0,0).setCheckState(Qt.Checked);review.preview_button.click()
         apply_dialog=w._review_dialog;assert apply_dialog.isVisible()
         compare=next(b for b in apply_dialog.findChildren(QPushButton) if b.text()=='Inspect geometry before and after');compare.click()
