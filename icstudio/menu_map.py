@@ -12,7 +12,7 @@ GROUPS = {
  'Schematic': ['Place component…','Place wire','Place net label…','Place ground','Move','Stretch','Copy','Mirror','Bulk parameters…','Component properties…','Instance parameters…','Enter schematic','Return to parent','Check and Save'],
  'Schematic/Symbols': ['New custom symbol…','Edit selected symbol…','Edit active cell symbol…','Enter symbol','Generate / edit active symbol','Replace selected PDK device…'],
  'Schematic/Annotations': ['Manage annotations…','Add annotation…','Connect selection to bus…'],
- 'Schematic/Selection filter': ['Devices','Wires','Labels'],
+ 'Schematic/Selection filter': ['Devices','Wires','Labels','Annotations'],
  'Layout': ['Rectangle','Polygon','Path','Move by reference','Copy by reference','Stretch edge','Edit vertex','Rotate layout clockwise','Rotate layout counterclockwise','Layout properties…','Align layout selection…','Layout drawing settings…','Repeat last layout command'],
  'Layout/Geometry': ['Union','Subtract from first','Intersection','Exclusive OR','Erase layout area…','Transform layout selection…','Size selected geometry…','Chop selected geometry…','Edit path vertices…'],
  'Layout/Cells and arrays': ['Create reusable layout cell…','Regenerate active layout cell…','Place physical cell / array…','Create layout array…','Place linked physical instance…','Enter selected physical cell','Return to parent cell','Edit selected cell in context','Return from context','Place physical cell…','Make selected instance a cell variant…','Resolve selected array','Flatten selected physical instances'],

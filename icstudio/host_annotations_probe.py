@@ -45,6 +45,7 @@ def select_note(window):
 
 
 def run(window, output):
+    assert not window.unmapped_commands, window.unmapped_commands
     original, path = clone(window.project), window.path
     original_save = window.maybe_save
     host = network_host(window)
