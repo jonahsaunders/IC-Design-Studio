@@ -1,5 +1,14 @@
 # Live desktop schematic and layout collaboration
 
+## Submitted review recovery in dev19
+
+The dashboard now persists submitted review actions before sending and restores
+them on resume. Retry retains the same request ID across a lost acknowledgement;
+read refreshes do not clear it. See [review recovery](REVIEW_RECOVERY.md) for
+supported actions, explicit discard and the distinction from unsent drafts or
+offline design editing. Physical LAN/VPN acceptance remains separate from the
+automated two-desktop HTTPS checks.
+
 This experimental feature shares schematics and layouts through a self-hosted server. Open
 **Tools → Collaboration → Host a session…** to share on your local network or
 VPN. Choose a permission and copy an expiring invitation. A collaborator pastes

@@ -6,6 +6,7 @@ from .layout import kdb,shape_from_polygon
 
 def read_layout(path):
     db=kdb();ly=db.Layout();ly.read(str(path));p=example('empty');p['name']=path.stem;p['cells']=[];p['pdk']['layers']=[]
+    p['pdk']['name']='Imported layout layers'
     factor=ly.dbu/.001;warnings=['Imported layout hierarchy and geometry. Schematic/device mappings require a matching Studio sidecar.'];by={};names=set()
     from .layout_limits import MAX_CELLS
     if ly.cells()>MAX_CELLS:raise ValueError(f'The native project limit is {MAX_CELLS} cells. Import a smaller hierarchy.')
@@ -14,7 +15,9 @@ def read_layout(path):
         if abs(v-round(v))>1e-6:raise ValueError('Layout coordinates do not fit the 1 nm database grid.')
         return round(v)
     for idx in ly.layer_indexes():
-        info=ly.get_info(idx);p['pdk']['layers'].append({'name':f'layer_{info.layer}_{info.datatype}','gds':info.layer,'datatype':info.datatype,'color':'#68a6f4','width':0,'space':0})
+        info=ly.get_info(idx)
+        colors=('#68a6f4','#bd98ef','#66c7ae','#e9b775','#e589a2','#83c4dc','#c0cc79')
+        p['pdk']['layers'].append({'name':f'layer_{info.layer}_{info.datatype}','gds':info.layer,'datatype':info.datatype,'color':colors[info.layer%len(colors)],'width':0,'space':0})
     if not p['pdk']['layers']:raise ValueError('No drawable layers in layout.')
     for cell in ly.each_cell():
         name=re.sub('[^A-Za-z0-9_.$-]','_',cell.name)[:55]
@@ -32,7 +35,8 @@ def read_layout(path):
             info=ly.get_info(idx);layer=f'layer_{info.layer}_{info.datatype}'
             for shape in cell.shapes(idx).each():
                 if shape.is_text():
-                    text=shape.text;c['layout_texts'].append({'layer':layer,'text':text.string,'x':nm(text.x),'y':nm(text.y),'rotation':text.trans.angle*90,'mirror':text.trans.is_mirror()})
+                    text=shape.text;c['layout_texts'].append({'layer':layer,'text':text.string,'x':nm(text.x),'y':nm(text.y),'rotation':text.trans.angle*90,'mirror':text.trans.is_mirror(),
+                        'size':nm(text.size),'font':text.font,'halign':int(text.halign),'valign':int(text.valign)})
                     properties=[[k,v] for k,v in shape.properties().items() if k!=125]
                     if properties:c['layout_texts'][-1]['external_properties']=properties
                     continue

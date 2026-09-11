@@ -1,5 +1,14 @@
 # Reproducing the 0.22 qualification gates
 
+## Dev19 external-project gate
+
+The physical workflow also runs [the pinned overvoltage import regression](OPEN_PROJECTS.md).
+Source/reference and exported/reimported circuits must agree; native layout
+geometry/text/transforms must survive exchange; explicit default-SPICE trip-code sweeps (not app-default HSA qualification) and a
+negative LVS control must succeed. Its independent full-layout LVS is recorded as
+`needs_attention` until resolved. Use `--require-consistent` for strict design
+acceptance. This distinction is visible in JSON and is not a skipped failure.
+
 ## Native hierarchy and scalar buses
 
 The source fixture is [dual-divider.sch](../examples/native-hierarchy/dual-divider.sch),

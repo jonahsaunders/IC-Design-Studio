@@ -1,5 +1,14 @@
 # Release follow-up issue drafts
 
+## Dev19 follow-up status
+
+Delivered in source: bounded external arrays, reviewed layout attachment, text
+presentation fidelity, submitted-review recovery and the reproducible external
+project gate. The [open-project report](OPEN_PROJECTS.md) keeps unresolved physical
+findings visible. Consumer Windows 10/11, interactive Linux/high-DPI, physical
+LAN/VPN and signing-policy issues remain open; automated source tests do not
+supply the missing hardware or signing evidence.
+
 These are ready-to-post issue bodies, not assertions that issues or external
 acceptance checks have been completed. Attach evidence for the exact release
 commit and asset hashes. Keep a failed or blocked check open.

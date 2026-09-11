@@ -131,8 +131,10 @@ def review(project):
                 item(c['name'], 'Needs attention', 'Schematic record ' + record[0] + ' is retained in the recovery archive.', c['id'])
             if record[0] == 'T' and len(record[1]) > 2000:
                 item(c['name'], 'Fixed representation', 'Long annotation is shortened in the native view; its full source remains archived.', c['id'])
-            if record[0] == 'N' and properties(record[-1]).get('bus'):
+            if record[0] == 'N' and properties(record[-1]).get('bus') and not meta.get('vector_expansion'):
                 item(c['name'], 'Needs attention', 'Vector wire semantics require scalar bus conversion.', c['id']); blocked = True
+        if meta.get('vector_expansion'):
+            item(c['name'], 'Migrated', 'Xschem arrays expanded into scalar devices with explicit terminal labels; original drawing retained in the source archive.', c['id'])
         c['spice_statements'] = []
         for r in meta.get('records', []):
             if r[0] == 'S' and r[1].strip():

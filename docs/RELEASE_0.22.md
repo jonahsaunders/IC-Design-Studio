@@ -1,4 +1,8 @@
-# IC Design Studio 0.22.0.dev18 — engineering preview
+# IC Design Studio 0.22.0.dev19 — engineering preview
+
+## Dev19 — real-project import and durable review
+
+Adds hierarchical vector import, diagonal wire preservation, reviewed schematic/layout attachment, Magic dependency auditing, GDS text fidelity, and restart recovery for submitted review actions. The real SKY130 detector regression separates faithful import from its unresolved full-layout LVS. See [open projects](OPEN_PROJECTS.md), [review recovery](REVIEW_RECOVERY.md) and [executed qualification](RELEASE_STATUS.md).
 
 Dev18 adds **Tools → Collaboration → Host a session…** for computers on the
 same local network or a reachable VPN. The app generates and retains its host

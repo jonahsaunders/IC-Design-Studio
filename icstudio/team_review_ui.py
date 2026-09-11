@@ -2,7 +2,7 @@
 import uuid
 from PySide6.QtCore import Qt, QRectF
 from PySide6.QtWidgets import (QWidget,QVBoxLayout,QHBoxLayout,QComboBox,QPushButton,
-    QTreeWidget,QTreeWidgetItem,QPlainTextEdit,QCheckBox,QInputDialog,QFileDialog,QDialog,QHeaderView)
+    QTreeWidget,QTreeWidgetItem,QPlainTextEdit,QCheckBox,QInputDialog,QFileDialog,QDialog,QHeaderView,QMessageBox)
 from .model import clone,save_project,digest
 
 
@@ -77,6 +77,9 @@ class TeamReviewPanel(QWidget):
         self.reports=QComboBox();self.reports.setAccessibleName('Shared verification result');root.addWidget(self.reports)
         row=QHBoxLayout();self.share_button=self.button('Share completed run…',self.share_report,row);self.button('Inspect result',self.inspect_report,row);self.button('Re-run saved input',self.rerun_report,row);root.addLayout(row)
         self.retry_button=self.button('Retry last action',self.retry,root);self.retry_button.hide()
+        self.outbox=None
+        self.pending_note=note('');root.addWidget(self.pending_note)
+        self.discard_button=self.button('Discard saved review action…',self.discard_pending,root);self.discard_button.hide()
         self.checkpoints.currentIndexChanged.connect(self.fill)
 
     def button(self,label,fn,layout):
@@ -93,11 +96,19 @@ class TeamReviewPanel(QWidget):
         for b in (self.add_button,self.share_button):b.setEnabled(edit and not self.busy)
         for b in (self.comment_button,self.decision_button,self.resolve_button):b.setEnabled(review and not self.busy)
         self.reply_button.setEnabled(review and not self.busy and client.info.get('review_api',0)>=2)
+        if hasattr(self,'outbox'):self.show_pending()
 
     def refresh_state(self):
         client=self.studio.live_client;self.update_permissions()
         if self.client is not client:
             self.client=client;self.data={};self.loaded_version=None;self.checkpoints.clear();self.comments.clear();self.reports.clear();self.failed_request=None;self.retry_button.hide();self.cancel_reply()
+            self.outbox=None
+            if client:
+                from .review_outbox import ReviewOutbox
+                try:self.outbox=ReviewOutbox(client.journal.with_suffix('.review-outbox'),client.server,client.workspace,client.info['actor'])
+                except (ValueError,OSError) as exc:self.pending_note.setText(str(exc));return
+                if self.outbox.pending:self.failed_request=(self.outbox.pending,lambda _:self.load())
+            self.show_pending()
         if client and self.isVisible() and not self.busy and self.loaded_version!=client.info.get('review_version'):
             self.call(self.load)
 
@@ -109,21 +120,29 @@ class TeamReviewPanel(QWidget):
         if client is None:raise ValueError('Share or join a live workspace first.')
         if not client.info.get('review_api'):raise ValueError('This server needs the team-review update. Ask the host to update IC Design Studio.')
         if self.busy:raise ValueError('The previous review request is still running.')
-        if mutation and self.failed_request and data is not self.failed_request[0]:raise ValueError('Retry the pending review action before submitting another one.')
-        if mutation:data.setdefault('id',uuid.uuid4().hex)
+        if mutation:
+            if self.outbox is None:raise ValueError('Review recovery storage is unavailable. Reopen the collaboration dashboard before posting.')
+            data.setdefault('id',uuid.uuid4().hex)
+            self.outbox.stage(data)
+            self.failed_request=(data,callback);self.show_pending()
         self.busy=True;self.update_permissions()
         def finished(status,result):
             self.busy=False;self.update_permissions()
             if self.studio.live_client is not client:return
             if status!=200:
                 self.note.setText(result.get('error','Review request failed.'))
-                if mutation and (not status or status>=500):self.failed_request=(data,callback);self.retry_button.show()
-                else:self.failed_request=None;self.retry_button.hide()
+                if mutation:
+                    self.call(lambda:self.outbox.failed(data['id'],result.get('error','Review request failed.')))
+                    self.show_pending()
                 return
-            self.failed_request=None;self.retry_button.hide();self.loaded_version=client.info.get('review_version')
+            if mutation:
+                try:self.outbox.acknowledge(data['id'])
+                except OSError as exc:self.note.setText('Action accepted; local recovery cleanup failed. Retry safely: '+str(exc));self.show_pending();return
+                self.failed_request=None;self.show_pending()
+            self.loaded_version=client.info.get('review_version')
             self.call(lambda:callback(result))
         try:client.transport.post(client.server,client.path+'/review',client.token,data,finished)
-        except Exception:self.busy=False;self.update_permissions();raise
+        except Exception:self.busy=False;self.update_permissions();self.show_pending();raise
 
     def load(self):
         def loaded(data):
@@ -283,3 +302,14 @@ class TeamReviewPanel(QWidget):
     def retry(self):
         if not self.failed_request:return
         data,callback=self.failed_request;self.request(data,callback,True)
+
+    def show_pending(self):
+        pending=self.outbox.pending if self.outbox else None
+        self.retry_button.setVisible(bool(pending));self.discard_button.setVisible(bool(pending))
+        self.retry_button.setEnabled(not self.busy);self.discard_button.setEnabled(not self.busy)
+        self.pending_note.setText(('Saved '+pending['action'].replace('_',' ')+' · retained across restart. '+self.outbox.error) if pending else '')
+
+    def discard_pending(self):
+        if self.busy or not self.outbox or not self.outbox.pending:return
+        if QMessageBox.question(self,'Discard saved review action','Discard the local retry? An action already accepted by the server remains in the discussion.',QMessageBox.Yes|QMessageBox.No,QMessageBox.No)!=QMessageBox.Yes:return
+        self.outbox.discard();self.failed_request=None;self.show_pending()

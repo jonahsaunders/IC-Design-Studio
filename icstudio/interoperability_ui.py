@@ -19,6 +19,7 @@ class InteroperabilityMixin:
         self.action(menu, 'Open KLayout LVS database…', self.klayout_lvs_import_dialog)
         self.action(menu, 'Restore original layout file…', self.restore_layout_source)
         self.action(self.task_menus['File'], 'Project Hub…', self.project_hub)
+        self.action(self.task_menus['File'], 'Attach layout to schematic…', self.attach_layout_dialog)
         self.reindex_commands()
 
     def new_project(self):
@@ -81,6 +82,24 @@ class InteroperabilityMixin:
                 ('top','Top cell',report['tops'])],submit,
                 explanation+'\nApplying this conversion flattens the selected hierarchy and rounds coordinates to 1 nm. Exact source bytes remain attached and can be restored from External tool exchange.')
         if self.maybe_save():self.set_project(project);self.mode_combo.setCurrentIndex(1);self.console.appendPlainText('\n'.join(notes))
+
+    def attach_layout_dialog(self):
+        from .interchange import import_layout
+        from .model import load_project, digest
+        from .layout_attach import matching_cells, attach
+        from PySide6.QtWidgets import QMessageBox
+        path,_=QFileDialog.getOpenFileName(self,'Attach layout to schematic','','Layout or imported Magic project (*.gds *.gds2 *.oas *.icproj)')
+        if not path:return
+        layout=load_project(path) if Path(path).suffix=='.icproj' else import_layout(path)[0]
+        baseline=digest(self.project);mapping=matching_cells(self.project,layout)
+        candidate=attach(self.project,layout,mapping)
+        names={c['id']:c['name'] for c in layout['cells']}
+        message='Attach layout to these schematic cells:\n'+ '\n'.join(names[k] for k in mapping)
+        message+='\n\nUnmatched layout cells remain separate in the hierarchy. This checks cell names; run extraction and LVS to establish electrical equivalence.'
+        if QMessageBox.question(self,'Review layout attachment',message)!=QMessageBox.Yes:return
+        if digest(self.project)!=baseline:raise ValueError('The project changed during review. Review the attachment again.')
+        self.commit(lambda p:p.update(candidate),'Attach reviewed layout')
+        self.mode_combo.setCurrentIndex(1)
 
     def restore_layout_source(self):
         from .layout_source import restore

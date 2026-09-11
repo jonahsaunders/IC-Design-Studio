@@ -1,0 +1,415 @@
+{
+  "schema": 1,
+  "version": "0.22.0.dev19",
+  "base_commit": "c3e350393b8aa3dcb038768b3af3cd2c9e9c9b41",
+  "scope": "Local working-tree source qualification; hosted exact-commit checks recorded by the PR.",
+  "environment": {
+    "platform": "Linux x86_64 glibc 2.39",
+    "python": "3.12.14",
+    "qt": "PySide6 Essentials 6.8.3 / offscreen",
+    "limitations": [
+      "ngspice uses a sandbox-only tmpfile path shim because /tmp is unavailable. Solver and model files are unmodified.",
+      "Independent Xschem execution unavailable locally; retained as a required hosted interoperability job.",
+      "No packaged-binary, physical LAN/VPN, native display, consumer Windows or macOS claim."
+    ]
+  },
+  "checks": {
+    "core": {
+      "status": "passed",
+      "tests": 607,
+      "skipped": 3,
+      "skips": [
+        "Magic executable not set in the full-suite environment; passed separately with pinned Magic.",
+        "Independent Xschem unavailable.",
+        "Windows-only atomic-replacement test on Linux."
+      ]
+    },
+    "magic_exchange": {
+      "status": "passed",
+      "tests": 1
+    },
+    "physical": {
+      "status": "passed",
+      "cases": 4
+    },
+    "analog": {
+      "status": "passed",
+      "cases": 45
+    },
+    "review_desktop": {
+      "status": "passed",
+      "checks": [
+        "Both editors share automatic workflow checks and an explicit testbench/corner that survives edits",
+        "Device impact links both views; a geometry preview applies as one undoable transaction",
+        "An open change review blocks preview after its source revision changes",
+        "Two HTTP-connected desktops support reviewer comments, threaded replies, resolve/reopen and approvals without design edits",
+        "A lost HTTP acknowledgement survives panel reconstruction and read refresh; retry creates exactly one comment"
+      ]
+    },
+    "import_desktop": {
+      "status": "passed",
+      "checks": [
+        "Reviewed attachment preserves schematic identities and applies as one undoable transaction",
+        "An imported hierarchical schematic instance moves and undoes exactly",
+        "Combined native project saves, reopens and renders both views"
+      ]
+    },
+    "software_3d_desktop": {
+      "status": "passed",
+      "renderer": "SoftwareView",
+      "qt_platform": "offscreen",
+      "checks": [
+        "rendered material and open hole",
+        "orbit pan zoom and keyboard fit",
+        "layer controls PNG export read-only snapshot and refresh",
+        "hierarchical transforms and bounded million-instance viewport",
+        "close Escape and reopen resource lifecycle"
+      ]
+    },
+    "bundled_simulation": {
+      "status": "passed",
+      "cases": [
+        {
+          "name": "gf180-startup",
+          "analyses": 1,
+          "status": "Complete",
+          "samples": 30035,
+          "final_voltages": {
+            "vref": 1.1950724331681608,
+            "avdd": 5.0
+          }
+        },
+        {
+          "name": "sky130-inverter",
+          "analyses": 1,
+          "status": "Complete",
+          "samples": 1226,
+          "final_voltages": {
+            "in": 1.8,
+            "out": 2.268067896847166e-07
+          }
+        }
+      ],
+      "native_pdk_cases": [
+        {
+          "pdk": "sky130A@46e2e8c2922fdcad",
+          "model": "sky130_fd_pr/nfet_01v8.sym",
+          "status": "passed",
+          "output_voltage": 1.383786102546654
+        },
+        {
+          "pdk": "gf180mcuD@9394d9228663e22b",
+          "model": "symbols/nfet_03v3.sym",
+          "status": "passed",
+          "output_voltage": 2.833554991327411
+        }
+      ]
+    },
+    "overvoltage": {
+      "schema": 1,
+      "status": "needs_attention",
+      "import_regression": "passed",
+      "source": {
+        "repository": "https://github.com/LDFranck/sky130_vbl_ip__overvoltage",
+        "commit": "53cf579f63d34227af67f0189b49ee09185f1db5",
+        "top": "sky130_vbl_ip__overvoltage",
+        "license": "Apache-2.0"
+      },
+      "checks": {
+        "schematic_reference": {
+          "status": "passed",
+          "report": "schematic-reference/lvs.log"
+        },
+        "schematic_roundtrip": {
+          "status": "passed",
+          "report": "schematic-roundtrip/lvs.log"
+        },
+        "layout_geometry": {
+          "status": "passed",
+          "cells": 38,
+          "cell_layers": 1368,
+          "checks": [
+            "region XOR",
+            "text and text transforms",
+            "hierarchy and array transforms"
+          ]
+        },
+        "simulation": {
+          "status": "passed",
+          "compatibility": "native",
+          "corner": "tt",
+          "temperature": 27,
+          "dvdd": 1.8,
+          "vbg": 1.2,
+          "ibias": 6e-07,
+          "supply_step": 0.01,
+          "tolerance": {
+            "relative": 0.001,
+            "absolute_voltage": 2e-06,
+            "trip": "same 10 mV step"
+          },
+          "codes": [
+            {
+              "code": 0,
+              "trip_voltage": 3.299999999999994,
+              "max_reference_error": 0.0001576641714189364,
+              "status": "passed"
+            },
+            {
+              "code": 1,
+              "trip_voltage": 3.429999999999991,
+              "max_reference_error": 5.857482229920663e-06,
+              "status": "passed"
+            },
+            {
+              "code": 2,
+              "trip_voltage": 3.579999999999988,
+              "max_reference_error": 1.634710438902509e-05,
+              "status": "passed"
+            },
+            {
+              "code": 3,
+              "trip_voltage": 3.739999999999984,
+              "max_reference_error": 1.1500941148989696e-05,
+              "status": "passed"
+            },
+            {
+              "code": 4,
+              "trip_voltage": 3.829999999999982,
+              "max_reference_error": 0.00017652244898802572,
+              "status": "passed"
+            },
+            {
+              "code": 5,
+              "trip_voltage": 4.009999999999978,
+              "max_reference_error": 1.0358548514943777e-05,
+              "status": "passed"
+            },
+            {
+              "code": 6,
+              "trip_voltage": 4.109999999999976,
+              "max_reference_error": 1.6073900323876344e-05,
+              "status": "passed"
+            },
+            {
+              "code": 7,
+              "trip_voltage": 4.319999999999972,
+              "max_reference_error": 4.333448784032967e-06,
+              "status": "passed"
+            },
+            {
+              "code": 8,
+              "trip_voltage": 4.439999999999969,
+              "max_reference_error": 0.00014452892907090842,
+              "status": "passed"
+            },
+            {
+              "code": 9,
+              "trip_voltage": 4.559999999999967,
+              "max_reference_error": 1.4310281954976745e-05,
+              "status": "passed"
+            },
+            {
+              "code": 10,
+              "trip_voltage": 4.689999999999964,
+              "max_reference_error": 5.130557552002202e-05,
+              "status": "passed"
+            },
+            {
+              "code": 11,
+              "trip_voltage": 4.819999999999961,
+              "max_reference_error": 2.8018410320740372e-06,
+              "status": "passed"
+            },
+            {
+              "code": 12,
+              "trip_voltage": 4.969999999999958,
+              "max_reference_error": 0.0007755887517129079,
+              "status": "passed"
+            },
+            {
+              "code": 13,
+              "trip_voltage": 5.119999999999955,
+              "max_reference_error": 0.0008204263966840042,
+              "status": "passed"
+            },
+            {
+              "code": 14,
+              "trip_voltage": 5.279999999999951,
+              "max_reference_error": 3.4076322199538822e-06,
+              "status": "passed"
+            },
+            {
+              "code": 15,
+              "trip_voltage": 5.459999999999948,
+              "max_reference_error": 3.410265649872457e-07,
+              "status": "passed"
+            }
+          ],
+          "scope": "Emitted-deck comparison in the declared compatibility mode; excludes transient timing, hysteresis, PVT and extracted simulation."
+        },
+        "layout_schematic_lvs": {
+          "status": "failed",
+          "report": "layout-schematic/lvs.log"
+        },
+        "deliberate_fault": {
+          "status": "passed",
+          "report": "deliberate-fault/lvs.log",
+          "observed_lvs": "failed"
+        },
+        "layout_fixed_width_diagnostic": {
+          "status": "failed",
+          "report": "fixed-width-diagnostic/lvs.log",
+          "declared_width_microns": 1.41,
+          "declarations": 140,
+          "topology_matches": true,
+          "dimension_findings": [
+            " L circuit1: 1.41   circuit2: 1.25   (delta=12%, cutoff=1%)",
+            " L circuit1: 14.1   circuit2: 13.94   (delta=1.14%, cutoff=1%)"
+          ],
+          "scope": "Diagnostic model alias only; no geometry, length, tolerance or pin changes. Does not replace the strict LVS gate."
+        }
+      },
+      "verified_source_files": 67,
+      "tools": {
+        "magic": "8.3.600\n",
+        "netgen": "Netgen 1.5.300 compiled on Fri Sep 11 14:32:36 EDT 2026\nWarning: netgen command 'format' use fully-qualified name '::netgen::format'\nWarning: netgen command 'global' use fully-qualified name '::netgen::global'\n",
+        "ngspice": "******\n** ngspice-42 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2023, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Sun Mar 31 20:15:14 UTC 2024\n******\n"
+      },
+      "process": {
+        "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+        "setup_sha256": "3b2e4eddc57b1d8dc531d95086a2c21b86709907ede11fcac676f37d501787e9"
+      },
+      "normalization": [
+        "Legacy XD diode notation mapped to D for the 17 locked declarations.",
+        "Diode simulation area scaled by 1e-12 into square microns for LVS only.",
+        "Perimeter excluded by the pinned PDK policy; Magic pj treated as perim. Connectivity and MOS/resistor parameters unchanged."
+      ],
+      "cells": {
+        "schematic": 7,
+        "layout": 38,
+        "attached": 6
+      }
+    },
+    "focused_final": {
+      "status": "passed",
+      "tests": 23
+    },
+    "documentation": {
+      "status": "passed",
+      "documents": 69,
+      "local_links": 262,
+      "gallery_examples": 9
+    }
+  },
+  "performance": {
+    "before": {
+      "version": "0.22.0.dev18",
+      "workloads": [
+        {
+          "shapes": 1000,
+          "samples": 3,
+          "median": {
+            "history_ms": 3.426,
+            "refresh_ms": 6.235,
+            "recovery_ms": 2.283,
+            "commit_total_ms": 9.874,
+            "first_paint_ms": 18.629,
+            "durability_wait_ms": 11.316,
+            "recovery_reopen_ms": 8.944,
+            "live_checks_ms": 6.407,
+            "complete_with_checks_ms": 65.672
+          }
+        },
+        {
+          "shapes": 10000,
+          "samples": 3,
+          "median": {
+            "history_ms": 32.615,
+            "refresh_ms": 8.152,
+            "recovery_ms": 17.705,
+            "commit_total_ms": 40.587,
+            "first_paint_ms": 22.556,
+            "durability_wait_ms": 108.835,
+            "recovery_reopen_ms": 205.028,
+            "live_checks_ms": 76.931,
+            "complete_with_checks_ms": 259.173
+          }
+        }
+      ]
+    },
+    "after": {
+      "version": "0.22.0.dev18",
+      "workloads": [
+        {
+          "shapes": 1000,
+          "samples": 5,
+          "median": {
+            "history_ms": 2.744,
+            "refresh_ms": 6.091,
+            "recovery_ms": 2.051,
+            "commit_total_ms": 11.543,
+            "first_paint_ms": 21.905,
+            "durability_wait_ms": 10.199,
+            "recovery_reopen_ms": 10.459,
+            "live_checks_ms": 6.21,
+            "complete_with_checks_ms": 64.518
+          }
+        },
+        {
+          "shapes": 10000,
+          "samples": 5,
+          "median": {
+            "history_ms": 26.367,
+            "refresh_ms": 7.515,
+            "recovery_ms": 17.59,
+            "commit_total_ms": 34.767,
+            "first_paint_ms": 19.905,
+            "durability_wait_ms": 102.307,
+            "recovery_reopen_ms": 201.706,
+            "live_checks_ms": 81.288,
+            "complete_with_checks_ms": 236.67
+          }
+        }
+      ]
+    },
+    "scope": "Single host; 3 baseline and 5 updated samples. Stage timings overlap; do not add stage medians."
+  },
+  "implementation_sha256": {
+    ".github/workflows/physical-qualification.yml": "04b549b6d9e561137f1eb9dc56d1d0f983e4f0d5eed740ac492e6b6b0d0f6945",
+    "icstudio/__init__.py": "8e4cba1cef5472d1d37af2a028c8b8340bdfac502b96bb43803888c1c31da013",
+    "icstudio/design_ops.py": "4008b4f06b4c45fd28f4d8e8984f8a60466c88259850f74471df248b6aa71d4e",
+    "icstudio/editor_workspace.py": "e074b6182c1ef3795344f6855017f9ec4f3d6bf7057971219a86795c5c7ef434",
+    "icstudio/engines.py": "5ac5360a5cf871709e42fefbbd81f3541e0a846bf8ddf74c71d000afdedba7c7",
+    "icstudio/import_review.py": "648dd7baffdf757fac3b2ed86831ba0eb487e4c0c7a4826b785211c17209e8fe",
+    "icstudio/interchange.py": "3c0f42a11913aa50f516d463d4f07d24150610fb14f60c368fe46eec9b568842",
+    "icstudio/interoperability_ui.py": "6869b9c7c8a3932d3daa82c31d0c038401edeea3c9c70bf55b149c337ea34aaf",
+    "icstudio/layout_arrange.py": "2bb81896eaf5a80e3c0bb6d421ff800ced848dc8a550d1918797bde743e68489",
+    "icstudio/layout_attach.py": "7bff67750ada406998b0a3d078b105b2c8d84a7783c7e99748a672b91338fc8e",
+    "icstudio/layout_import.py": "416422cb55778f35f0dfc556dd6c58eb4816ee76d0e1574b050684e2f40fcd42",
+    "icstudio/magic_dependencies.py": "ec33281674eb994a6f8e6aa03c1901a96ff44f9184be929061a6e828ad112ee5",
+    "icstudio/native_migration.py": "c913c7950c312c23e28fcee84467b397395f769f8d69b3b45eba372b1c5004e5",
+    "icstudio/review_outbox.py": "3c0b15b88e95812331c7ac5a9cc97804355b1d7fe5166cb44f8e232efa2dc8f1",
+    "icstudio/team_review_ui.py": "8cb87258e24804958fd0bd0e09c0ee3c2faa6d9918e0e3d9440851eb470c1aca",
+    "icstudio/wiring.py": "f2690f18c97f695cbf4e2e17f96fbd3b4c6efede4ed352af68fe77623ef98b6d",
+    "icstudio/xschem_compat.py": "bf7c86595e5a12028a92d4402d2f7c778e719b2c857c1a4f0ddcb5a268c0a8de",
+    "icstudio/xschem_libraries.py": "f0f0003561aeeb2029e053de2936252f5b9b47dc7fea2de9d1024f315dd4744b",
+    "icstudio/xschem_vectors.py": "e14cf75d547d2c83e1960455e2304e9b1e8e4997ad9dfb18e3e05a83b584333c",
+    "scripts/check_release.py": "ff4222337b1048ba60825dc12a1a4d88521741926336049a495ba8061722595d",
+    "scripts/qualify_open_project.py": "73a0e4bae232956e17017c495efb7b4fa69153e4565373e719b8048e19b45462",
+    "tests/gui_open_project.py": "575aff81fc52fc5b78896a02e84932d6a5d973e324306330722459720af25e19",
+    "tests/gui_workflow_review.py": "63c61249ac83a5c80d1f5c5b5c5042249d2ac9ab33b2715065e527330007e110",
+    "tests/test_layout_attach.py": "f9e2033afaef6cbb5ccf68aa87631163751b18d59121af417d12544b2d4988fd",
+    "tests/test_magic_dependencies.py": "46b52aaa22f089e00e0e81f134300b3b2d87fd0c586d4b4df333b11aa539827d",
+    "tests/test_review_outbox.py": "a8f5bd2a55eb0c5609a4fb874e3c11de0164f3118f228db55e0de64bbc028b0b",
+    "tests/test_schematic_collaboration.py": "004fdbc554c52c937ac470f459e7cf0d35b06447408492d8f2b2c0a8e57f1f86",
+    "tests/test_xschem_vectors.py": "ece7ab6054f126faf5bac7e0791db84a26fb54caf84dbbb83c12278c6dc93d00"
+  },
+  "not_executed": [
+    "Physical LAN/VPN and firewall combinations",
+    "Consumer Windows/Linux install and upgrade",
+    "macOS qualification",
+    "Code signing",
+    "Full detector PVT, hysteresis, timing and extracted simulation"
+  ]
+}

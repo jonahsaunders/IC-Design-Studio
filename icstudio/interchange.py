@@ -103,7 +103,10 @@ def export_layout(p,path):
             for key,value in inst.get('external_properties',[]):
                 if key not in (125,126):item.set_property(key,value)
         for text in c.get('layout_texts',[]):
-            item=cell.shapes(layers[text['layer']]).insert(db.Text(text['text'],db.Trans(text.get('rotation',0)//90,text.get('mirror',False),text['x'],text['y'])))
+            label=db.Text(text['text'],db.Trans(text.get('rotation',0)//90,text.get('mirror',False),text['x'],text['y']))
+            label.size=text.get('size',0);label.font=text.get('font',-1)
+            label.halign=type(label.halign)(text.get('halign',-1));label.valign=type(label.valign)(text.get('valign',-1))
+            item=cell.shapes(layers[text['layer']]).insert(label)
             item.set_property(125,'icstudio:'+c['id'])
             for key,value in text.get('external_properties',[]):
                 if key!=125:item.set_property(key,value)
