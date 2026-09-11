@@ -1,5 +1,5 @@
 from __future__ import annotations
-import copy, hashlib, json, math, os, re, tempfile, uuid
+import copy, hashlib, json, math, os, re, tempfile, time, uuid
 from pathlib import Path
 from datetime import datetime, timezone
 
@@ -217,6 +217,19 @@ def flatten(p,cell_id=None):
     walk(cell_id or p['top'],'',{},[])
     return out
 
+def _replace_with_retry(source,destination):
+    # Windows readers (including the recent-session scanner) can briefly deny
+    # replacement. Retry the same flushed file; never delete the destination or
+    # rewrite it in place. Persistent permissions and unrelated I/O errors fail.
+    delays=(.01,.02,.04,.08,.15)
+    for attempt in range(len(delays)+1):
+        try:
+            os.replace(source,destination)
+            return
+        except OSError as exc:
+            if getattr(exc,'winerror',None) not in (5,32,33) or attempt==len(delays):raise
+            time.sleep(delays[attempt])
+
 def atomic_write(path,data):
     path=Path(path);tmp=None;stage='create the destination folder'
     try:
@@ -229,7 +242,7 @@ def atomic_write(path,data):
             stage='synchronize the temporary file to storage'
             os.fsync(f.fileno())
         stage='replace the destination'
-        os.replace(tmp,path)
+        _replace_with_retry(tmp,path)
     except OSError as exc:
         detail='The save did not complete. ' if stage=='replace the destination' else 'The destination was not replaced. '
         raise OSError(exc.errno,'Could not '+stage+'. '+detail+str(exc.strerror),str(path)) from exc

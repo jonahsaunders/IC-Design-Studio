@@ -14,6 +14,11 @@ The Annotations selection filter allows selection of circuitry underneath notes.
 Use dev18 on both computers for the new invitation format; no database or document
 protocol migration is introduced.
 
+Atomic saves also retry brief Windows file-sharing errors for up to 300 ms,
+including when the recent-workspace scanner is reading a recovery journal.
+Persistent permission/storage failures still report an error and retain the
+previous file; saving never falls back to overwriting it in place.
+
 Dev17 adds **Tools → Collaboration → Start local server**. The included server
 starts without commands and handles the creation key automatically. Saved local
 workspaces restart from Resume, retaining their address, edits and personal undo.
