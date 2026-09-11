@@ -31,9 +31,15 @@ def main():
         second=clone(c['devices'][1]);second.update(id=uid(),name='R2');c['devices'].append(second)
         c['specifications']=[dict(name='Output range',expression='final(V("vout"))',min='0',max='2',unit='V')]
         p['simulation_setups']=[dict(name=title,cell=c['id'],engine='builtin',settings={**clone(p['analysis']),'type':kind}) for title,kind in [('Bias','op'),('Settling','tran')]]
-        w.set_project(p);w.connected_layout_action.setChecked(False);w.mode_combo.setCurrentIndex(1);w.select([c['shapes'][0]['id']],'layout')
+        w.set_project(p);w.connected_layout_action.setChecked(False);w.mode_combo.setCurrentIndex(1)
+        # Drain startup workspace restoration (120 ms) and deferred camera/layout
+        # events before starting a gesture. A real user cannot click a window
+        # before its first event-loop turn; runner speed must not decide the test.
+        assert QTest.qWaitForWindowExposed(w)
+        QTest.qWait(200)
+        w.select([c['shapes'][0]['id']],'layout')
         before=clone(w.project);dialog=w.precise_move();dialog.x.setText('2');dialog.preview_button.click();app.processEvents()
-        assert w.layout.moving and w.project==before
+        assert w.layout.moving and w.project==before, dict(moving=w.layout.moving,unchanged=w.project==before,status=dialog.status.text(),current=dialog.current(),mode=dialog.mode)
         dialog.reject();assert not w.layout.moving and w.project==before
         dialog=w.precise_move();dialog.x.setText('0.003');dialog.apply_button.click();assert w.project==before and 'multiple' in dialog.status.text()
         dialog.x.setText('2');dialog.apply_button.click();assert w.cell['shapes'][0]['points'][0]==[2000,0]
