@@ -10,25 +10,34 @@ class RevisionComparison(QDialog):
     def __init__(self,parent,before,after):
         super().__init__(parent)
         from .collaboration_dashboard import note
-        from .collaboration_review_ui import GeometryView,description
-        from .live_protocol import changes
-        self.setWindowTitle('Compare layout revisions');self.resize(1000,650)
+        from .collaboration_review_ui import GeometryView,description,show_schematics
+        from .collaboration_document import diff, SCHEMATIC_FIELDS, STRUCTURE
+        self.setWindowTitle('Compare design revisions');self.resize(1000,650)
         root=QVBoxLayout(self);root.addWidget(note('Changed geometry and objects. The left view is the saved checkpoint; the right view is the comparison revision.'))
-        rows=changes(before,after)
+        rows=diff(before,after)
         self.cells=QComboBox();self.cells.setAccessibleName('Changed cell');root.addWidget(self.cells)
         by={c['id']:c['name'] for c in before['cells']+after['cells']}
         for cid in dict.fromkeys(r['cell'] for r in rows):self.cells.addItem(by.get(cid,cid),cid)
+        self.view_mode=QComboBox();self.view_mode.addItems(['Layout','Schematic']);self.view_mode.setAccessibleName('Comparison view')
+        self.view_mode.setCurrentIndex(int(any(r['field'] in set(SCHEMATIC_FIELDS)|STRUCTURE for r in rows)));root.addWidget(self.view_mode)
         views=QHBoxLayout();self.views=[GeometryView('Checkpoint','#d58b2b'),GeometryView('Comparison','#427ce8')]
         for v in self.views:views.addWidget(v)
         root.addLayout(views,1);self.table=QTreeWidget();self.table.setHeaderLabels(['Object','Checkpoint','Comparison']);root.addWidget(self.table,1)
+        self.table.setColumnWidth(0,200);self.table.setColumnWidth(1,340);self.table.header().setStretchLastSection(True)
         self.status=note('');root.addWidget(self.status)
         def draw():
             local=[r for r in rows if r['cell']==self.cells.currentData()];self.table.clear();groups=[[],[]]
             for r in local[:2000]:
-                self.table.addTopLevelItem(QTreeWidgetItem([r['field']+' / '+str(r['key']),description(r['before']),description(r['after'])]))
+                item=QTreeWidgetItem([r['field']+' / '+str(r['key']),description(r['before']),description(r['after'])])
+                for col in range(3):item.setToolTip(col,item.text(col))
+                self.table.addTopLevelItem(item)
                 if r['field']=='shapes':
                     for i,key in enumerate(('before','after')):
                         if r[key]:groups[i].append(r[key])
+            if self.view_mode.currentIndex()==1:
+                show_schematics(self.views,[before,after],self.cells.currentData(),local)
+                self.status.setText(f'{len(local)} changed objects or settings. Complete cell schematics shown; first 2,000 changes listed.' if len(local)>2000 else f'{len(local)} changed objects or settings. Changed objects are highlighted; wheel to zoom and drag to pan.')
+                return
             points=[p for g in groups for s in g for p in s['points']]
             if len(points)>60000:groups=[[],[]];points=[]
             if points:
@@ -36,7 +45,7 @@ class RevisionComparison(QDialog):
             else:box=QRectF(-100,-100,200,200)
             for view,group in zip(self.views,groups):view.show_shapes(group,box)
             self.status.setText(f'{len(local)} changed objects in this cell. '+('First 2,000 listed; export the checkpoint for complete inspection.' if len(local)>2000 else 'Wheel to zoom; drag to pan.'))
-        self.cells.currentIndexChanged.connect(draw);draw()
+        self.cells.currentIndexChanged.connect(draw);self.view_mode.currentIndexChanged.connect(draw);draw()
 
 
 class TeamReviewPanel(QWidget):
@@ -55,6 +64,8 @@ class TeamReviewPanel(QWidget):
         self.comments.itemDoubleClicked.connect(lambda *_:self.call(self.read_comment))
         self.comment=QPlainTextEdit();self.comment.setPlaceholderText('Ask a question or explain the change…');self.comment.setAccessibleName('New review comment');self.comment.setMaximumHeight(85);root.addWidget(self.comment)
         row=QHBoxLayout();self.anchor=QCheckBox('Attach to current selection');row.addWidget(self.anchor,1)
+        self.anchor_kind=QComboBox();self.anchor_kind.addItems(['Object','Terminal','Highlighted net','Electrical finding']);self.anchor_kind.setAccessibleName('Comment attachment type');row.addWidget(self.anchor_kind)
+        root.addLayout(row);row=QHBoxLayout()
         self.comment_button=self.button('Post comment',self.post_comment,row);self.button('Read comment',self.read_comment,row);self.button('Go to object',self.navigate,row);self.button('Resolve',self.resolve,row);root.addLayout(row)
         row=QHBoxLayout();self.decision=QComboBox();self.decision.setAccessibleName('Review decision')
         for label,value in [('Request review','review_requested'),('Approve checkpoint','approved'),('Request changes','changes_requested')]:self.decision.addItem(label,value)
@@ -107,11 +118,11 @@ class TeamReviewPanel(QWidget):
     def load(self):
         def loaded(data):
             self.loaded_version=data.get('review_version',self.loaded_version)
-            selected=self.checkpoints.currentData();self.data=data;self.checkpoints.blockSignals(True);self.checkpoints.clear();self.other.clear();self.other.addItem('Compare with current layout',None)
+            selected=self.checkpoints.currentData();self.data=data;self.checkpoints.blockSignals(True);self.checkpoints.clear();self.other.clear();self.other.addItem('Compare with current design',None)
             for c in data['checkpoints']:
                 label=c['name']+' · r'+str(c['revision']);self.checkpoints.addItem(label,c['id']);self.other.addItem(label,c['id'])
             self.checkpoints.setCurrentIndex(max(0,self.checkpoints.findData(selected)));self.checkpoints.blockSignals(False);self.fill()
-            self.note.setText('Reviews belong to immutable checkpoints. New layout edits do not inherit an earlier approval.')
+            self.note.setText('Reviews belong to immutable checkpoints. New design edits do not inherit an earlier approval.')
         self.request({'action':'list'},loaded)
 
     def selected(self):
@@ -133,14 +144,30 @@ class TeamReviewPanel(QWidget):
         client=self.studio.live_client
         if client is None:raise ValueError('Join a workspace first.')
         if client.pending or client.conflict or client.busy:raise ValueError('Wait for edits to synchronize before saving a checkpoint.')
-        name,ok=QInputDialog.getText(self,'Save checkpoint','Checkpoint name',text='Layout r'+str(client.revision))
+        name,ok=QInputDialog.getText(self,'Save checkpoint','Checkpoint name',text='Design r'+str(client.revision))
         if ok:self.request(dict(action='create_checkpoint',revision=client.revision,name=name),lambda _:self.load(),True)
 
     def post_comment(self):
         data=dict(action='comment',checkpoint=self.selected(),text=self.comment.toPlainText(),cell='',object='')
         if self.anchor.isChecked():
-            if len(self.studio.selection)!=1:raise ValueError('Select one object to attach the comment to.')
-            data.update(cell=self.studio.cid,object=self.studio.selection[0].removeprefix('pin:'))
+            studio=self.studio;kind=self.anchor_kind.currentText()
+            from .review_anchors import targets
+            available=targets(studio.project,studio.cid,findings=kind=='Electrical finding')
+            if kind=='Highlighted net':
+                key='net:'+studio.net
+                if key not in available:raise ValueError('Highlight a schematic net before attaching this comment.')
+            elif kind in ('Terminal','Electrical finding'):
+                prefix='terminal:' if kind=='Terminal' else 'finding:'
+                choices={key:row for key,row in available.items() if key.startswith(prefix) and (kind!='Terminal' or any(i in studio.selection for i in row['objects']))}
+                if not choices:raise ValueError('Select a component first.' if kind=='Terminal' else 'There are no electrical findings for this cell.')
+                keys=list(choices);labels=[str(i+1)+' · '+choices[key]['label'] for i,key in enumerate(keys)]
+                label,ok=QInputDialog.getItem(self,'Attach comment',kind,labels,0,False)
+                if not ok:return
+                key=keys[labels.index(label)]
+            else:
+                if len(studio.selection)!=1:raise ValueError('Select one object to attach the comment to.')
+                key=studio.selection[0].removeprefix('pin:')
+            data.update(cell=studio.cid,object=key)
         def posted(_):self.comment.clear();self.load()
         self.request(data,posted,True)
 
@@ -158,11 +185,11 @@ class TeamReviewPanel(QWidget):
     def navigate(self):
         row=self.selected_comment();studio=self.studio;cell=next((c for c in studio.project['cells'] if c['id']==row['cell']),None)
         if not studio.flush_inspector():return
-        if cell is None or not row['object']:raise ValueError('This comment has no object available in the current layout. Compare its checkpoint instead.')
-        fields=('shapes','layout_instances','layout_pins','devices','wires')
-        field=next((f for f in fields if any(o.get('id')==row['object'] for o in cell.get(f,[]))),None)
-        if field is None:raise ValueError('This object was removed after the checkpoint. Compare revisions to inspect it.')
-        studio.cid=cell['id'];studio.mode_combo.setCurrentIndex(0 if field in ('devices','wires') else 1);studio.refresh(True);studio.select([('pin:' if field=='layout_pins' else '')+row['object']],'schematic' if field in ('devices','wires') else 'layout')
+        if cell is None or not row['object']:raise ValueError('This comment has no object available in the current design. Compare its checkpoint instead.')
+        from .review_anchors import targets
+        target=targets(studio.project,cell['id'],findings=row['object'].startswith('finding:')).get(row['object'])
+        if target is None:raise ValueError('This object or finding changed after the checkpoint. Compare revisions to inspect it.')
+        studio.cid=target.get('cell',cell['id']);studio.mode_combo.setCurrentIndex(0 if target['view']=='schematic' else 1);studio.net=target['net'];studio.refresh(True);studio.select(target['objects'],target['view'])
 
     def decide(self):
         self.request(dict(action='decide',checkpoint=self.selected(),status=self.decision.currentData(),text=self.comment.toPlainText()),lambda _:self.load(),True)

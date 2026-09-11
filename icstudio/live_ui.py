@@ -22,20 +22,26 @@ def person_color(ident):
 
 
 def paint_presence(canvas, painter):
-    if canvas.mode != 'layout' or not canvas.cell:
+    if not canvas.cell:
         return
     painter.save()
     painter.resetTransform()
     scene = canvas.cell.get('_layout_scene')
     for person in getattr(canvas, 'live_presence', []):
-        if person.get('cell') != canvas.cell['id'] or person.get('seen', 0) < time.time() - 20:
+        if person.get('view', 'layout') != canvas.mode or person.get('cell') != canvas.cell['id'] or person.get('seen', 0) < time.time() - 20:
             continue
         color = QColor(person.get('color', person_color(person['id'])))
         pen = QPen(color, 2)
         pen.setStyle(Qt.DashLine)
         painter.setPen(pen)
         painter.setBrush(Qt.NoBrush)
-        if scene:
+        if canvas.mode == 'schematic':
+            selected = set(person.get('selection', []))
+            for obj in [*canvas.cell['devices'], *canvas.cell.get('wires', []), *canvas.cell.get('labels', []), *canvas.cell.get('buses', [])]:
+                if obj['id'] in selected:
+                    b = canvas.bounds(obj)
+                    painter.drawRect(QRectF(b.left()*canvas.scale+canvas.offset.x(), b.top()*canvas.scale+canvas.offset.y(), b.width()*canvas.scale, b.height()*canvas.scale).adjusted(-3,-3,3,3))
+        elif scene:
             for ident in person.get('selection', [])[:100]:
                 if ident not in scene.sources and ident not in scene.instances:
                     continue
@@ -75,6 +81,12 @@ class LiveCollaborationMixin:
         self.live_status.setWordWrap(True)
         self.live_status.setAccessibleName('Live connection status')
         v.addWidget(self.live_status)
+        self.live_impact = QLabel('Schematic and layout share one revision. Recheck verification after changing the design.')
+        self.live_impact.setWordWrap(True);self.live_impact.setAccessibleName('Shared design verification status');v.addWidget(self.live_impact)
+        checks = QHBoxLayout()
+        erc = QPushButton('Check schematic');erc.clicked.connect(lambda: self.guard(lambda: self.check('ERC')));checks.addWidget(erc)
+        workflow = QPushButton('Review schematic and layout');workflow.clicked.connect(lambda: self.guard(self.design_workflow));checks.addWidget(workflow)
+        v.addLayout(checks)
         self.live_recover_button = QPushButton('Recover owner access…')
         self.live_recover_button.clicked.connect(lambda: self.guard(lambda: self.live_recover_owner()))
         v.addWidget(self.live_recover_button)
@@ -85,7 +97,7 @@ class LiveCollaborationMixin:
         self.live_manage_button.clicked.connect(lambda: self.guard(self.live_manage_access))
         top_actions.addWidget(self.live_manage_button)
         leave = QPushButton('Leave workspace')
-        leave.setToolTip('Keep the displayed layout as an independent local copy')
+        leave.setToolTip('Keep the displayed design as an independent local copy')
         leave.clicked.connect(lambda: self.guard(self.live_leave))
         top_actions.addWidget(leave)
         v.addLayout(top_actions)
@@ -93,6 +105,7 @@ class LiveCollaborationMixin:
         people = QVBoxLayout()
         people.addWidget(QLabel('Your teammates'))
         self.live_people = QListWidget()
+        self.live_people.itemDoubleClicked.connect(lambda item: self.guard(lambda: self.live_go_to_person(item)))
         self.live_people.setAccessibleName('Live participants')
         self.live_people.setMinimumHeight(80)
         self.live_people.setMaximumHeight(120)
@@ -237,7 +250,7 @@ class LiveCollaborationMixin:
         dlg.setWindowTitle('Share layout')
         dlg.resize(570, 300)
         v = QVBoxLayout(dlg)
-        note = QLabel('Share a snapshot of this project through your collaboration server. Participants edit layout; schematic and PDK settings remain fixed during the session.')
+        note = QLabel('Share this project through your team’s server. Teammates can edit schematics and layouts, review changes, and share results. Everyone needs the current collaboration update. PDK settings stay fixed.')
         note.setWordWrap(True)
         v.addWidget(note)
         form = QFormLayout()
@@ -262,7 +275,7 @@ class LiveCollaborationMixin:
                     raise LiveError('Enter the creation key supplied by your server administrator.')
                 if not self.flush_inspector():
                     return
-                self.live_connect(url, '/v1/workspaces', key.text(), dict(project=clone(self.project), name=name.text()), dlg, button, error)
+                self.live_connect(url, '/v2/workspaces', key.text(), dict(project=clone(self.project), name=name.text()), dlg, button, error)
             except Exception as exc:
                 error.setText(str(exc))
         button.clicked.connect(start)
@@ -284,10 +297,10 @@ class LiveCollaborationMixin:
         form.addRow('Invitation link', invitation)
         form.addRow('Your name', name)
         v.addLayout(form)
-        error = QLabel('Joining downloads the project and opens a desktop layout session.')
+        error = QLabel('Joining downloads the project and opens a shared schematic and layout session.')
         error.setWordWrap(True)
         v.addWidget(error)
-        button = QPushButton('Join layout')
+        button = QPushButton('Join workspace')
         v.addWidget(button)
 
         def join():
@@ -295,7 +308,7 @@ class LiveCollaborationMixin:
                 server, wid, secret = parse_invitation(invitation.text())
                 if not self.maybe_save():
                     return
-                self.live_connect(server, '/v1/workspaces/' + wid + '/join', '', dict(invite=secret, name=name.text()), dlg, button, error)
+                self.live_connect(server, '/v2/workspaces/' + wid + '/join', '', dict(invite=secret, name=name.text()), dlg, button, error)
             except Exception as exc:
                 error.setText(str(exc))
         button.clicked.connect(join)
@@ -336,24 +349,58 @@ class LiveCollaborationMixin:
         self.set_project(clone(client.project))
         self.live_client = client
         self.history = LiveHistory(client)
+        self._live_schematic_state = {}
         client.presence = self.live_presence_data
-        client.can_install = lambda: not (self.layout.anchor is not None or self.layout.drawing or self.layout._rect_pending or getattr(self, '_inspector_dirty', False))
+        client.can_install = self.live_can_install
         client.changed.connect(self.live_document_changed)
         client.status_changed.connect(self.live_update_panel)
-        self.mode_combo.setCurrentIndex(1)
         self.live_document_changed()
         self.live_show()
         client.start()
 
     def live_presence_data(self):
-        pos = self.layout.mapFromGlobal(QCursor.pos())
-        point = self.layout.model(QPointF(pos)) if self.layout.rect().contains(pos) else None
-        return dict(cell=self.cid, selection=[s for s in self.selection if isinstance(s, str) and ID.fullmatch(s)][:100],
+        canvas = self.schematic if self.mode_combo.currentIndex() == 0 else self.layout
+        pos = canvas.mapFromGlobal(QCursor.pos())
+        point = canvas.model(QPointF(pos)) if canvas.rect().contains(pos) else None
+        return dict(cell=self.cid, view=canvas.mode, selection=[s.removeprefix('pin:') for s in self.selection if isinstance(s, str) and ID.fullmatch(s.removeprefix('pin:'))][:100],
                     cursor=[point.x(), point.y()] if point is not None else None)
+
+    def live_can_install(self):
+        if any(dialog.isVisible() and dialog.windowModality() != Qt.NonModal
+               for dialog in self.findChildren(QDialog)):
+            return False  # A symbol/settings dialog must commit against its starting revision.
+        return not getattr(self, '_inspector_dirty', False) and not any(
+            canvas.anchor is not None or canvas.drawing or canvas._rect_pending or canvas.moving
+            or canvas.wire_points or canvas.wire_drag or canvas.placement
+            for canvas in (self.schematic, self.layout))
+
+    def live_go_to_person(self, item):
+        person = item.data(Qt.UserRole)
+        if not person or not self.flush_inspector(): return
+        if not self.live_can_install():
+            self.statusBar().showMessage('Finish or cancel your current edit before visiting a teammate.', 8000)
+            return
+        if person['cell'] not in {c['id'] for c in self.project['cells']}: return
+        self.cid = person['cell']; self.selection = []
+        self.mode_combo.setCurrentIndex(0 if person.get('view') == 'schematic' else 1)
+        self.refresh(True)
+        canvas = self.schematic if person.get('view') == 'schematic' else self.layout
+        if person.get('cursor'):
+            canvas.auto_fit = False
+            canvas.offset = QPointF(canvas.width()/2, canvas.height()/2) - QPointF(*person['cursor'])*canvas.scale
+            canvas.update()
+        if self._collaboration_dashboard: self._collaboration_dashboard.hide()
 
     def live_document_changed(self):
         if not self.live_client:
             return
+        from .collaboration_document import SCHEMATIC_FIELDS
+        state = {c['id']: digest({k:v for k,v in c.items() if k in set(SCHEMATIC_FIELDS)|{'ports','symbol','parameters'}}) for c in self.project['cells']}
+        previous = getattr(self, '_live_schematic_state', {})
+        if previous and state != previous:
+            names = [c['name'] for c in self.project['cells'] if previous.get(c['id']) != state[c['id']]]
+            self.live_impact.setText('Schematic updated: ' + (', '.join(names[:4]) or 'cell removed') + '. Review electrical checks and linked layout; previous verification may need to be rerun.')
+        self._live_schematic_state = state
         self.refresh()
         self.save_recovery()
         self.live_update_panel(self.live_client.message)
@@ -367,11 +414,16 @@ class LiveCollaborationMixin:
         self.live_recover_button.setVisible(client.info['role'] == 'owner' and not client.connected)
         self.live_people.clear()
         people = client.info.get('participants', [])
+        cells = {c['id']: c['name'] for c in self.project['cells']}
         for p in people:
-            item = QListWidgetItem(p['name'] + ' · ' + p['role'] + (' · you' if p['id'] == client.info['actor'] else ''))
+            item = QListWidgetItem(p['name'] + ' · ' + p.get('view', 'layout').title() + ' · ' + cells.get(p['cell'], '') + ' · ' + p['role'] + (' · you' if p['id'] == client.info['actor'] else ''))
+            item.setData(Qt.UserRole, p)
+            item.setToolTip('Double-click to visit this teammate’s view')
             item.setForeground(QColor(p.get('color', person_color(p['id']))))
             self.live_people.addItem(item)
         self.layout.live_presence = [p for p in people if p['id'] != client.info['actor']]
+        self.schematic.live_presence = self.layout.live_presence
+        self.schematic.update()
         self.layout.update()
         self.live_history.clear()
         for event in client.info.get('history', []):
@@ -593,6 +645,8 @@ class LiveCollaborationMixin:
             self.live_client = None
             self.history = History(clone(client.project))
             self.layout.live_presence = []
+            self.schematic.live_presence = []
+            self.schematic.update()
             self.collaboration_button.setText('Collaboration')
             self.live_manage.hide()
             self.refresh()

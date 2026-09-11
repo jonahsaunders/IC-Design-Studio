@@ -1,6 +1,6 @@
-# Live desktop layout collaboration
+# Live desktop schematic and layout collaboration
 
-This experimental feature shares a layout through a self-hosted server. Open
+This experimental feature shares schematics and layouts through a self-hosted server. Open
 **Tools → Collaboration → Share this project** to create a workspace, choose
 **Can view** or **Can edit**, and copy an expiring invitation. A collaborator
 opens the link in their browser and chooses **Open IC Design Studio**, or pastes
@@ -9,12 +9,12 @@ the complete link into **Join a workspace** in the desktop app.
 This repository supplies the server and desktop client. It does not supply a
 running public service. A host must run the server at an address collaborators
 can reach. Browser links launch the installed desktop app; there is no browser
-layout editor. The earlier shared-folder collaboration remains available under
+design editor. The earlier shared-folder collaboration remains available under
 the dashboard’s **Shared folder** tab.
 
 ## Revision-based team review
 
-Open **Tools → Collaboration → Team review** to create immutable named checkpoints, attach comments to objects, compare revisions, record decisions and share completed simulations or physical runs. Teammates can reproduce saved inputs with their own configured engines and matching PDK. The [workflow guide](PROFESSIONAL_WORKFLOWS.md#team-review) describes permissions, retry behavior and storage limits. Update the host server to dev14 for this tab.
+Open **Tools → Collaboration → Team review** to create immutable named checkpoints, attach comments to objects, compare revisions, record decisions and share completed simulations or physical runs. Teammates can reproduce saved inputs with their own configured engines and matching PDK. The [workflow guide](PROFESSIONAL_WORKFLOWS.md#team-review) describes permissions, retry behavior and storage limits. Update the server and every desktop client to dev15. See [schematic collaboration](SCHEMATIC_COLLABORATION.md) for the complete editing and review workflow.
 
 ## Find your way around
 
@@ -28,7 +28,7 @@ command palette and status-bar button open the same dashboard.
 | **Invite people and manage access** | Create/revoke invitations, or save a copy and delete an owned workspace |
 | **Review conflicting edit** | Compare original, shared and retained geometry before choosing a resolution |
 | **Shared folder** | Create/join a folder, claim cells/layers, publish, refresh and leave |
-| **Back to layout** | Close the dashboard while collaboration continues |
+| **Back to design** | Close the dashboard while collaboration continues |
 
 ![Collaboration dashboard](images/collaboration-dashboard.png)
 
@@ -73,10 +73,9 @@ though running a source Python server gives the host a visible console.
 3. Send the link to your collaborator. Anyone holding that link can join with its
    permission until it expires or is revoked. Names are display names, not
    independently verified identities.
-4. Invitees choose their name and join. Layout edits and presence update
+4. Invitees choose their name and join. Schematic and layout edits and presence update
    automatically. Colored cursors and selection outlines identify participants
-   viewing the same cell. The schematic and PDK can be inspected but cannot be
-   changed within this layout session.
+   viewing the same cell. Switch between schematic and layout without leaving. PDK settings stay fixed in the shared session.
 5. Select an invitation and choose **Revoke selected invitation** to prevent new
    joins and invalidate existing sessions created through it. Revocation cannot
    erase project copies already downloaded by a recipient.
@@ -123,8 +122,7 @@ saved live session** to retain your existing personal history.
 
 Layout transactions still require ordinary DRC/LVS and connectivity review.
 Object conflict detection does not prove geometric spacing, manufactured device
-correctness or foundry signoff. Schematic changes, technology changes, new cell
-creation and existing-object reordering require leaving the session. Existing
+correctness or foundry signoff. Technology changes and existing-object/cell reordering require leaving the session. Schematic editing, cell creation/deletion and supported symbol/port changes synchronize through the same transaction history. Existing
 layout text collections are treated as one atomic collection because they do
 not yet have stable individual IDs.
 
@@ -155,11 +153,11 @@ journal.
 
 When a conflict occurs, the proposed project remains in the private recovery
 journal. **Review conflicting edit** opens a read-only comparison of the original,
-current shared, and retained shapes on a common scale. Choose the affected cell,
-zoom or pan, and inspect object summaries. Structured objects are listed; their
+current shared, and retained design on a common scale. Choose the affected cell
+and Schematic or Layout view, zoom or pan, and inspect object summaries. Structured objects are listed; their
 generated geometry is not reconstructed in this comparison.
 
-**Reapply to shared layout** accepts unchanged targets and supported translations
+**Reapply to shared design** accepts unchanged targets and supported translations
 of ordinary shapes, retaining shared changes. It rejects unsupported overlapping
 changes, deleted targets and conflicting generated geometry. The complete proposal
 is one server-validated transaction; a newer shared revision requires refreshing
@@ -193,6 +191,10 @@ transfer are not part of this release.
 
 ## Server persistence and limits
 
+Dev15 upgrades the server database and shared-folder journal to version 2. All
+clients must update together. Existing projects, sessions and history are kept;
+old HTTP clients receive an update message. See [upgrade details](SCHEMATIC_COLLABORATION.md#updating-an-existing-team).
+
 SQLite stores accepted projects, edit history, request IDs, invitations and
 session identities in atomic transactions with full synchronization. Server
 restarts preserve accepted edits and personal history. Credentials are hashed
@@ -201,7 +203,7 @@ is transient. Claims expire after a crash. Keep the private data directory on
 storage with reliable local filesystem semantics; use a SQLite-consistent backup
 or stop the server before copying its database and WAL files.
 
-This prototype bounds each project to 8 MiB and 20,000 stored layout objects,
+This prototype bounds each project to 8 MiB and 20,000 stored schematic and layout objects,
 each edit to 2,000 changed objects, and requests/responses to 16 MiB. Hierarchical
 arrays retain their compact stored representation. Each workspace permits up to
 100 sessions and 100 active invitation links; the server permits 100 workspaces
@@ -210,8 +212,7 @@ capacity guarantees. History storage grows with accepted transactions; the host
 must monitor disk capacity and retain backups. A disk failure cannot publish
 half an edit, but it prevents further durable changes.
 
-The service has no hosted account management, tenant billing, SSO, schematic
-collaboration, internet discovery, NAT traversal, automatic deployment, binary
+The service has no hosted account management, tenant billing, SSO, internet discovery, NAT traversal, automatic deployment, binary
 asset transfer or browser editor. Participants must resolve simulation PDK assets
 locally. This is an engineering preview for small trusted teams.
 

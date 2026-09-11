@@ -76,7 +76,8 @@ def handle(store,wid,token,request):
         if cid:
             cell=next((cell for cell in project['cells'] if cell['id']==cid),None)
             if cell is None:raise LiveError('The selected cell is absent from this checkpoint.')
-            ids={o['id'] for field in ('devices','shapes','wires','layout_instances','layout_pins') for o in cell.get(field,[]) if 'id' in o}
+            from .review_anchors import targets
+            ids=targets(project,cid,findings=isinstance(obj,str) and obj.startswith('finding:'))
             if obj and obj not in ids:raise LiveError('The selected object is absent from this checkpoint.')
         elif obj:raise LiveError('An object comment also needs its cell.',400)
         if db.execute('SELECT count(*) FROM review_comments WHERE workspace=?',(wid,)).fetchone()[0]>=500:raise LiveError('Workspace comment limit reached.',429)

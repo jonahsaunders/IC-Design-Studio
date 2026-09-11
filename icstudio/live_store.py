@@ -11,8 +11,8 @@ import time
 import uuid
 
 from .model import clone, digest, now
-from .live_protocol import (LiveError, ID, apply_changes, bounded_project,
-                            checked_changes, inverse, overlaps, resources)
+from .live_protocol import (LiveError, ID, PROTOCOL, apply_changes, bounded_project,
+                            changes, checked_changes, inverse, overlaps, resources)
 
 LEASE_SECONDS = 12
 PRESENCE_SECONDS = 20
@@ -42,7 +42,7 @@ class Store:
         self.presence = {}
         self.db.execute('PRAGMA journal_mode=WAL')
         self.db.execute('PRAGMA synchronous=FULL')
-        if self.db.execute('PRAGMA user_version').fetchone()[0] not in (0, 1):
+        if self.db.execute('PRAGMA user_version').fetchone()[0] not in (0, 1, 2):
             raise ValueError('Unsupported collaboration database version.')
         self.db.executescript('''
             CREATE TABLE IF NOT EXISTS workspaces(id TEXT PRIMARY KEY, project TEXT, revision INTEGER);
@@ -57,7 +57,7 @@ class Store:
             CREATE TABLE IF NOT EXISTS leases(workspace TEXT, resource TEXT, actor TEXT, expires REAL,
                 PRIMARY KEY(workspace, resource));
             CREATE INDEX IF NOT EXISTS events_revision ON events(workspace, revision);
-            PRAGMA user_version=1;
+            PRAGMA user_version=2;
         ''')
         from .live_review_store import install
         install(self.db)
@@ -96,7 +96,7 @@ class Store:
         if owner and row['role'] != 'owner':
             raise LiveError('Only the workspace owner can manage invitations.', 403)
         if edit and row['role'] == 'view':
-            raise LiveError('This session can view the layout. An edit invitation is required to change it.', 403)
+            raise LiveError('This session can view the design. An edit invitation is required to change it.', 403)
         return row
 
     def _new_actor(self, wid, name, role, invitation=None):
@@ -180,7 +180,7 @@ class Store:
         with self.transaction():
             self._actor(wid, token, owner=True)
             if type(revision) is not int or revision != self._workspace(wid)['revision']:
-                raise LiveError('The shared layout changed. Refresh and save its latest version before deleting the workspace.')
+                raise LiveError('The shared design changed. Refresh and save its latest version before deleting the workspace.')
             from .live_review_store import TABLES
             for table in ('invitations', 'actors', 'events', 'versions', 'leases', *TABLES):
                 self.db.execute('DELETE FROM ' + table + ' WHERE workspace=?', (wid,))
@@ -194,6 +194,7 @@ class Store:
         result = dict(revision=w['revision'], actor=actor['id'], name=actor['name'], role=actor['role'],
                       undo=len(json.loads(actor['undo'])), redo=len(json.loads(actor['redo'])))
         result['review_api']=1
+        result['protocol']=PROTOCOL
         result['review_version']=self.db.execute('SELECT count(*) FROM review_requests WHERE workspace=?',(wid,)).fetchone()[0]
         if since != w['revision']:
             result['project'] = json.loads(w['project'])
@@ -227,6 +228,9 @@ class Store:
             self.db.execute('UPDATE actors SET expires=? WHERE id=?', (time.time() + SESSION_SECONDS, a['id']))
             self.db.execute('DELETE FROM leases WHERE expires<=?', (time.time(),))
             cell, selection, cursor = presence.get('cell'), presence.get('selection', []), presence.get('cursor')
+            view = presence.get('view', 'layout')
+            if view not in ('schematic', 'layout'):
+                raise LiveError('Choose schematic or layout presence.', 400)
             if cell is not None and (not isinstance(cell, str) or not ID.fullmatch(cell)):
                 raise LiveError('Invalid presence cell.', 400)
             if not isinstance(selection, list) or len(selection) > 100 or any(not isinstance(s, str) or not ID.fullmatch(s) for s in selection):
@@ -234,16 +238,17 @@ class Store:
             if cursor is not None and (not isinstance(cursor, list) or len(cursor) != 2 or any(type(n) not in (int, float) or not -2**31 < n < 2**31 for n in cursor)):
                 raise LiveError('Invalid cursor position.', 400)
             self.presence[(wid, a['id'])] = dict(name=a['name'], role=a['role'], cell=cell, selection=selection,
-                                                 cursor=cursor, seen=time.time())
+                                                 cursor=cursor, view=view, seen=time.time())
             wanted = set()
             if a['role'] != 'view' and selection:
                 project = json.loads(self._workspace(wid)['project'])
                 c = next((c for c in project['cells'] if c['id'] == cell), None)
                 if c:
-                    for field, key in (('shapes', 'id'), ('layout_instances', 'id')):
+                    fields = ('devices', 'wires', 'labels', 'buses') if view == 'schematic' else ('shapes', 'layout_instances', 'layout_pins')
+                    for field in fields:
                         for obj in c.get(field, []):
-                            if obj[key] in selection:
-                                wanted.update(resources([dict(cell=cell, field=field, key=obj[key], before=obj, after=obj)]))
+                            if obj['id'] in selection:
+                                wanted.update(resources([dict(cell=cell, field=field, key=obj['id'], before=obj, after=obj)], project))
             self.db.execute('DELETE FROM leases WHERE workspace=? AND actor=?', (wid, a['id']))
             leases = list(self.db.execute('SELECT * FROM leases WHERE workspace=? AND expires>?', (wid, time.time())))
             denied = any(overlaps(r, l['resource']) for r in wanted for l in leases)
@@ -280,7 +285,7 @@ class Store:
             elif action == 'edit':
                 rows = checked_changes(request.get('changes'))
                 base = request.get('revision')
-                label = request.get('label', 'Layout edit')
+                label = request.get('label', 'Design edit')
             else:
                 raise LiveError('Unknown edit action.', 400)
             w = self._workspace(wid)
@@ -288,7 +293,14 @@ class Store:
                 raise LiveError('Invalid or restored server revision.')
             if not rows or not isinstance(label, str) or not 1 <= len(label) <= 160:
                 raise LiveError('Empty edit or invalid edit label.', 400)
-            touched = resources(rows)
+            before = json.loads(w['project'])
+            q = apply_changes(before, rows)
+            # Store the canonical electrical effects too, so undo and retries
+            # restore the accepted transaction rather than untrusted derived nets.
+            canonical = changes(before, q)
+            if not canonical:
+                raise LiveError('This transaction makes no design change.')
+            touched = resources(rows, before, q) | resources(canonical, before, q)
             for version in self.db.execute('SELECT * FROM versions WHERE workspace=? AND revision>?', (wid, base)):
                 if action != 'edit' and version['actor'] == actor['id']:
                     continue
@@ -297,15 +309,14 @@ class Store:
             for lease in self.db.execute('SELECT * FROM leases WHERE workspace=? AND actor!=? AND expires>?', (wid, actor['id'], time.time())):
                 if any(overlaps(r, lease['resource']) for r in touched):
                     raise LiveError('An affected object or connected group is temporarily reserved by another editor.')
-            q = apply_changes(json.loads(w['project']), rows)
             revision = w['revision'] + 1
             q['revision'] += 1
             q['modified'] = now()
             self.db.execute('UPDATE workspaces SET project=?,revision=? WHERE id=?', (encode(q), revision, wid))
-            self.db.execute('INSERT INTO events VALUES(?,?,?,?,?,?,?,?)', (wid, opid, actor['id'], fingerprint, revision, encode(rows), label, time.time()))
+            self.db.execute('INSERT INTO events VALUES(?,?,?,?,?,?,?,?)', (wid, opid, actor['id'], fingerprint, revision, encode(canonical), label, time.time()))
             for r in touched:
                 self.db.execute('INSERT OR REPLACE INTO versions VALUES(?,?,?,?)', (wid, r, actor['id'], revision))
-            item = dict(changes=inverse(rows), revision=revision, label=entry['label'] if action != 'edit' else label)
+            item = dict(changes=inverse(canonical), revision=revision, label=entry['label'] if action != 'edit' else label)
             if action == 'undo':
                 undo.pop()
                 redo.append(item)

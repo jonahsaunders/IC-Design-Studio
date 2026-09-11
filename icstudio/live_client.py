@@ -6,11 +6,13 @@ import uuid
 from PySide6.QtCore import QObject, QTimer, QUrl, Signal
 from PySide6.QtNetwork import QNetworkAccessManager, QNetworkReply, QNetworkRequest
 
-from .live_protocol import ID, MAX_BYTES, LiveError, bounded_project, changes, server_url
+from .live_protocol import ID, MAX_BYTES, PROTOCOL, LiveError, bounded_project, changes, server_url
 from .model import atomic_write, clone, validate
 
 
 def check_session(workspace, token, snapshot):
+    if snapshot.get('protocol') != PROTOCOL:
+        raise LiveError('Update the collaboration server and all desktop clients for schematic and layout collaboration (protocol 2).')
     if any(not isinstance(value, str) or not ID.fullmatch(value) for value in (workspace, token, snapshot.get('actor'))):
         raise LiveError('Invalid server session identity.')
     if snapshot.get('role') not in ('owner', 'view', 'edit') or type(snapshot.get('revision')) is not int or snapshot['revision'] < 0:
@@ -97,12 +99,12 @@ class LiveClient(QObject):
 
     @property
     def path(self):
-        return '/v1/workspaces/' + self.workspace
+        return '/v2/workspaces/' + self.workspace
 
     def save_journal(self):
         self.journal.parent.mkdir(parents=True, exist_ok=True)
         self.journal.parent.chmod(0o700)
-        state = dict(schema=1, server=self.server, workspace=self.workspace, token=self.token,
+        state = dict(schema=2, server=self.server, workspace=self.workspace, token=self.token,
                      project=self.project, revision=self.revision, info=self.info,
                      pending=self.pending, conflict=self.conflict)
         atomic_write(self.journal, json.dumps(state, allow_nan=False))
@@ -114,10 +116,12 @@ class LiveClient(QObject):
         if path.stat().st_size > 64 * 1024 * 1024:
             raise LiveError('Recovery file exceeds 64 MiB.')
         state = json.loads(path.read_text(encoding='utf-8'))
-        if state.get('schema') != 1:
+        if state.get('schema') not in (1, 2):
             raise LiveError('Unsupported live-session recovery file.')
         # Do not overwrite the existing journal until the complete state has loaded.
         snapshot = dict(state['info'], project=state['project'], revision=state['revision'])
+        if state['schema'] == 1:
+            snapshot['protocol'] = PROTOCOL  # Legacy requests keep their IDs on the upgraded server.
         # Construction writes a new journal: use a separate path until pending data is restored.
         obj = cls(state['server'], state['workspace'], state['token'], snapshot,
                   path.with_suffix('.loading'), parent)
@@ -169,7 +173,7 @@ class LiveClient(QObject):
             self.pending = None
             raise
         self.project = clone(project)
-        self.say('Syncing layout edit…')
+        self.say('Syncing design edit…')
         self.changed.emit()
         self.tick()
 
@@ -178,10 +182,10 @@ class LiveClient(QObject):
         if not self.conflict or self.pending or not self.connected or self.info['role'] == 'view':
             raise LiveError('Reconnect and wait for synchronization before reapplying this edit.')
         if self.revision != revision:
-            raise LiveError('The shared layout changed. Refresh the comparison before reapplying.')
+            raise LiveError('The shared design changed. Refresh the comparison before reapplying.')
         proposed = reapply_conflict(self.conflict, self.project)
         if not changes(self.project, proposed):
-            raise LiveError('These changes are already in the shared layout. Choose Use shared version.')
+            raise LiveError('These changes are already in the shared design. Choose Use shared version.')
         self._submit(proposed, 'Reapply reviewed edit', resolves_conflict=True)
 
     def history_action(self, action):
@@ -228,7 +232,7 @@ class LiveClient(QObject):
                     self.changed.emit()
                     return
                 self.say(result.get('error', 'The server rejected the request.'))
-                if status in (401, 403) or (not editing and status == 409):
+                if status in (401, 403, 426) or (not editing and status in (404, 409)):
                     self.timer.stop()
                 self.changed.emit()
                 return
@@ -259,7 +263,7 @@ class LiveClient(QObject):
                 if self.conflict:
                     self.say('Conflict retained locally · save or discard it to continue')
                 elif self.pending:
-                    self.say('Syncing layout edit…')
+                    self.say('Syncing design edit…')
                 elif result.get('reservation_denied'):
                     self.say('Selection reserved by another editor · choose other objects')
                 else:

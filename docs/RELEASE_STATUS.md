@@ -1,4 +1,9 @@
-# Release status — 0.22.0.dev14 candidate
+# Release status — 0.22.0.dev15 candidate
+
+Dev15 adds [schematic and layout collaboration](SCHEMATIC_COLLABORATION.md),
+protocol/database version 2, atomic hierarchy edits, electrical conflict detection,
+schematic presence and checkpoint comparisons. Windows/Linux CI includes a new
+two-editor desktop acceptance run and installed schematic editing/review probes.
 
 Dev14 implements the six [engineering workflow areas](PROFESSIONAL_WORKFLOWS.md):
 precise editing, document/recovery services, parameterized physical variants,

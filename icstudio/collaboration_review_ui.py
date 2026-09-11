@@ -1,14 +1,23 @@
 """Read-only three-version geometry review for retained live edits."""
 from PySide6.QtCore import Qt, QRectF
-from PySide6.QtGui import QColor, QPainter, QPainterPath, QPen
+from PySide6.QtGui import QColor, QPainter, QPainterPath, QPen, QPicture
 from PySide6.QtWidgets import (QComboBox, QDialog, QGraphicsScene,
-    QGraphicsView, QHBoxLayout, QTreeWidget, QTreeWidgetItem,
+    QGraphicsView, QGraphicsItem, QHBoxLayout, QTreeWidget, QTreeWidgetItem,
     QVBoxLayout, QWidget)
 
 from .collaboration_dashboard import button, note
 from .live_protocol import LiveError, changes
 from .live_review import conflict_rows, reapply_conflict
 from .model import clone
+
+
+class SchematicPicture(QGraphicsItem):
+    def __init__(self, picture, bounds):
+        super().__init__(); self.picture = picture; self.box = bounds
+
+    def boundingRect(self): return self.box
+
+    def paint(self, painter, option, widget=None): painter.drawPicture(0, 0, self.picture)
 
 
 class GeometryView(QGraphicsView):
@@ -23,6 +32,7 @@ class GeometryView(QGraphicsView):
         self.setTransformationAnchor(QGraphicsView.AnchorUnderMouse)
         self.setMinimumSize(170, 190)
         self.bounds = QRectF(-1, -1, 2, 2)
+        self.auto_fit = True
 
     def show_shapes(self, shapes, bounds):
         self.scene_model.clear()
@@ -54,14 +64,60 @@ class GeometryView(QGraphicsView):
                 fill.setAlpha(70)
                 self.scene_model.addPath(path, pen, fill)
         self.bounds = bounds
+        self.auto_fit = True
         self.scene_model.setSceneRect(bounds)
         self.fitInView(bounds, Qt.KeepAspectRatio)
 
     def wheelEvent(self, event):
+        self.auto_fit = False
         factor = 1.2 if event.angleDelta().y() > 0 else 1 / 1.2
         if 1e-8 < self.transform().m11() * factor < 1e6:
             self.scale(factor, factor)
         event.accept()
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        if self.auto_fit: self.fitInView(self.bounds, Qt.KeepAspectRatio)
+
+    def prepare_schematic(self, project, cid, selected):
+        from .canvas import Canvas
+        self.scene_model.clear()
+        if hasattr(self, '_schematic_canvas'): self._schematic_canvas.deleteLater()
+        canvas = self._schematic_canvas = Canvas('schematic', self)
+        canvas.hide()
+        canvas.dark = self.palette().window().color().lightness() < 128
+        by = {c['id']: c for c in project['cells']}
+        cell = clone(by.get(cid, dict(id=cid, devices=[], shapes=[])))
+        for d in cell['devices']:
+            if d['kind'] == 'X' and by.get(d.get('cell'), {}).get('symbol'):
+                d['symbol'] = clone(by[d['cell']]['symbol'])
+        canvas.set_data(cell, project['pdk'], selected)
+        objects = [*cell['devices'], *cell.get('wires', []), *cell.get('labels', [])]
+        bounds = None
+        for obj in objects:
+            box = canvas.bounds(obj).adjusted(-20, -20, 100, 20)
+            bounds = box if bounds is None else bounds.united(box)
+        return bounds or QRectF(-100, -100, 200, 200)
+
+    def show_schematic(self, bounds):
+        picture = QPicture(); painter = QPainter(picture)
+        try: self._schematic_canvas.draw_schematic(painter, bounds)
+        finally: painter.end()
+        self.scene_model.addItem(SchematicPicture(picture, bounds))
+        self.auto_fit = True
+        self.bounds = bounds; self.scene_model.setSceneRect(bounds)
+        self.fitInView(bounds, Qt.KeepAspectRatio)
+
+
+def show_schematics(views, projects, cid, rows):
+    selected = [r['key'] for r in rows]
+    bounds = None
+    for view, project in zip(views, projects):
+        box = view.prepare_schematic(project, cid, selected)
+        bounds = box if bounds is None else bounds.united(box)
+    margin = max(bounds.width(), bounds.height(), 100) * .1
+    bounds = bounds.adjusted(-margin, -margin, margin, margin)
+    for view in views: view.show_schematic(bounds)
 
 
 def description(value):
@@ -69,12 +125,20 @@ def description(value):
         return 'Not present'
     if isinstance(value, list):
         return str(len(value)) + ' items'
+    if 'kind' in value and 'nets' in value:
+        parts = [value.get('name', value['kind']), 'Value: ' + str(value.get('value', ''))]
+        if value['kind'] in ('NMOS', 'PMOS'): parts.append('Parameters: ' + str(value.get('params', {})))
+        if value['kind'] in ('V', 'I'): parts.append('Source: ' + str(value.get('source', {})))
+        parts.append('Connections: ' + ', '.join(k + '=' + v for k, v in value['nets'].items()))
+        parts.append('Position: ' + str(value.get('x')) + ', ' + str(value.get('y')) + ' · rotation ' + str(value.get('rotation', 0)))
+        return '\n'.join(parts)
     if 'points' in value:
         points = value['points']
         return (value.get('kind', 'Shape').title() + ' · ' + value.get('layer', '') +
                 '\nOrigin ' + str(min(p[0] for p in points)) + ', ' + str(min(p[1] for p in points)) + ' nm' +
                 ('\nNet ' + value['net'] if value.get('net') else ''))
-    return ' · '.join(str(value[k]) for k in ('name', 'cell', 'layer', 'net') if k in value) or 'Structured layout object'
+    import json
+    return json.dumps(value, ensure_ascii=False, indent=2)[:4000]
 
 
 class ConflictReview(QDialog):
@@ -88,7 +152,7 @@ class ConflictReview(QDialog):
         self.setMinimumSize(660, 520)
         root = QVBoxLayout(self)
         root.setContentsMargins(22, 20, 22, 20)
-        root.addWidget(note('Your edit is saved. Compare it with the shared layout before choosing what to keep.'))
+        root.addWidget(note('Your edit is saved. Compare it with the shared design before choosing what to keep.'))
         self.status = note('')
         root.addWidget(self.status)
         controls = QHBoxLayout()
@@ -96,6 +160,10 @@ class ConflictReview(QDialog):
         self.cells = QComboBox()
         self.cells.setAccessibleName('Cell to compare')
         controls.addWidget(self.cells, 1)
+        self.view_mode = QComboBox()
+        self.view_mode.addItems(['Layout', 'Schematic'])
+        self.view_mode.setAccessibleName('Comparison view')
+        controls.addWidget(self.view_mode)
         button('Refresh comparison', self.refresh_comparison, controls)
         button('Fit views', self.fit_views, controls)
         root.addLayout(controls)
@@ -123,16 +191,19 @@ class ConflictReview(QDialog):
         self.details.setMaximumHeight(190)
         for i in range(4):
             self.details.setColumnWidth(i, 215)
+        self.details.setColumnWidth(0, 140)
+        self.details.header().setStretchLastSection(True)
         root.addWidget(self.details)
         self.explanation = note('')
         root.addWidget(self.explanation)
         actions = QHBoxLayout()
-        self.reapply_button = button('Reapply to shared layout', self.reapply, actions, True)
+        self.reapply_button = button('Reapply to shared design', self.reapply, actions, True)
         button('Save my version…', self.save_copy, actions)
         button('Use shared version…', self.use_shared, actions)
         button('Decide later', self.close, actions)
         root.addLayout(actions)
         self.cells.currentIndexChanged.connect(self.draw_comparison)
+        self.view_mode.currentIndexChanged.connect(self.draw_comparison)
         self.client.status_changed.connect(self.session_changed)
         self.refresh_comparison()
 
@@ -143,6 +214,10 @@ class ConflictReview(QDialog):
             self.revision = self.client.revision
             self.current = clone(self.client.project)
             self.rows = conflict_rows(self.retained, self.current)
+            from .collaboration_document import SCHEMATIC_FIELDS, STRUCTURE
+            self.view_mode.blockSignals(True)
+            self.view_mode.setCurrentIndex(int(any(r['field'] in set(SCHEMATIC_FIELDS) | STRUCTURE for r in self.rows)))
+            self.view_mode.blockSignals(False)
             selected = self.cells.currentData()
             self.cells.blockSignals(True)
             self.cells.clear()
@@ -157,7 +232,7 @@ class ConflictReview(QDialog):
                 proposed = reapply_conflict(self.retained, self.current)
                 self.can_reapply = bool(changes(self.current, proposed))
                 self.explanation.setText('Reapply keeps other editors’ changes and applies supported moves to the current geometry. The server checks the complete transaction again. Run physical checks after combining edits.' if self.can_reapply
-                                         else 'Your changes are already in the shared layout. Choose Use shared version to finish.')
+                                         else 'Your changes are already in the shared design. Choose Use shared version to finish.')
             except LiveError as exc:
                 self.can_reapply = False
                 self.explanation.setText(str(exc))
@@ -171,13 +246,19 @@ class ConflictReview(QDialog):
         self.details.clear()
         groups = [[], [], []]
         for row in rows:
-            self.details.addTopLevelItem(QTreeWidgetItem([
+            item = QTreeWidgetItem([
                 row['field'].replace('layout_', '').replace('_', ' ').title(),
-                description(row['before']), description(row['shared']), description(row['after'])]))
+                description(row['before']), description(row['shared']), description(row['after'])])
+            for col in range(4): item.setToolTip(col, item.text(col))
+            self.details.addTopLevelItem(item)
             if row['field'] == 'shapes':
                 for i, key in enumerate(('before', 'shared', 'after')):
                     if row[key] is not None:
                         groups[i].append(row[key])
+        if self.view_mode.currentIndex() == 1:
+            show_schematics(self.views, [self.retained['before'], self.current, self.retained['proposed']], self.cells.currentData(), rows)
+            self.geometry_note.setText('Complete cell schematics on the same scale. Changed objects are highlighted; connection and parameter changes are listed below.')
+            return
         count = sum(len(s['points']) + sum(len(h) for h in s.get('holes', [])) for group in groups for s in group)
         if count > 60000:
             groups = [[], [], []]
@@ -201,6 +282,7 @@ class ConflictReview(QDialog):
 
     def fit_views(self):
         for view in self.views:
+            view.auto_fit = True
             view.fitInView(view.bounds, Qt.KeepAspectRatio)
 
     def session_changed(self, *_):
@@ -209,7 +291,7 @@ class ConflictReview(QDialog):
         ready = valid and fresh and self.client.connected and not self.client.pending and self.client.info['role'] != 'view'
         self.reapply_button.setEnabled(ready and getattr(self, 'can_reapply', False))
         self.status.setText('Comparing shared revision ' + str(getattr(self, 'revision', '')) if ready
-                            else 'The shared layout changed or is syncing. Refresh the comparison when connected.' if valid
+                            else 'The shared design changed or is syncing. Refresh the comparison when connected.' if valid
                             else 'This review is no longer active. Return to the collaboration dashboard.')
 
     def reapply(self):

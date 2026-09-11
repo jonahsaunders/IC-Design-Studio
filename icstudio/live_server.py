@@ -107,10 +107,12 @@ class Handler(BaseHTTPRequestHandler):
             header = self.headers.get('Authorization', '')
             token = header[7:] if header.startswith('Bearer ') and len(header) < 256 else ''
             store = self.server.store
-            if self.path == '/v1/workspaces':
+            if self.path.startswith('/v1/'):
+                raise LiveError('Update IC Design Studio on all clients for schematic and layout collaboration (protocol 2). Your workspace is retained.', 426)
+            if self.path == '/v2/workspaces':
                 result = store.create(token, body['project'], body['name'])
             else:
-                match = re.fullmatch(r'/v1/workspaces/([A-Za-z0-9_-]{1,80})/(join|sync|edit|invite|revoke|leave|recover-owner|delete|review)', self.path)
+                match = re.fullmatch(r'/v2/workspaces/([A-Za-z0-9_-]{1,80})/(join|sync|edit|invite|revoke|leave|recover-owner|delete|review)', self.path)
                 if not match:
                     raise LiveError('Unknown endpoint.', 404)
                 wid, action = match.groups()

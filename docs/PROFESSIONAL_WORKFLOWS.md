@@ -101,10 +101,13 @@ status, baseline, delta and the originating run identity.
 
 ## Team review
 
+Dev15 adds [schematic and layout collaboration](SCHEMATIC_COLLABORATION.md), including
+shared hierarchy, schematic comparison and comments on terminals, nets and ERC findings.
+
 All collaboration tools remain inside **Tools → Collaboration**. Its new
 **Team review** tab provides named immutable checkpoints, object comments,
 resolved discussions, comparison views and revision-specific decisions. A new
-layout revision does not inherit an earlier approval.
+design revision does not inherit an earlier approval.
 
 Share a completed simulation or saved-testbench physical run with its checkpoint.
 The server checks the input/result identities and stores portable settings.

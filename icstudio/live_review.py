@@ -3,7 +3,7 @@ import json
 import math
 from pathlib import Path
 
-from .layout_collaboration import FIELDS, _entities
+from .collaboration_document import FIELDS, entities as _entities, value_at
 from .live_protocol import LiveError, apply_changes, changes, server_url
 from .model import clone
 
@@ -21,7 +21,7 @@ def recent_sessions(directory, cancelled=lambda: False):
             if path.is_symlink() or path.stat().st_size > 64 * 1024 * 1024:
                 continue
             state = json.loads(path.read_text(encoding='utf-8'))
-            if state.get('schema') != 1:
+            if state.get('schema') not in (1, 2):
                 continue
             info = state['info']
             if info.get('role') not in ('owner', 'view', 'edit'):
@@ -40,8 +40,7 @@ def conflict_rows(conflict, current):
     if not conflict or not conflict.get('proposed'):
         raise LiveError('This operation has no geometry preview. Save a local copy or use the shared version.')
     rows = changes(conflict['before'], conflict['proposed'])
-    cells = {c['id']: c for c in current['cells']}
-    return [dict(row, shared=_entities(cells.get(row['cell'], {}), row['field']).get(row['key'])) for row in rows]
+    return [dict(row, shared=value_at(current, row)) for row in rows]
 
 
 def translation(before, after):
@@ -103,7 +102,11 @@ def reservation_rows(project, info, timestamp):
             cell = cells.get(cid, {})
             owner = 'You' if lease['actor'] == info.get('actor') else lease.get('name', 'Another editor')
             if field == '*':
-                scope = 'Whole cell · connected or generated geometry'
+                scope = 'Whole project · hierarchy or settings' if cid == '*' else 'Whole cell · connected or generated geometry'
+            elif field == 'region':
+                scope = 'Schematic connection area'
+            elif field == 'device':
+                scope = 'Component ' + next((d['name'] for d in cell.get('devices', []) if d['id'] == key), key)
             elif field == 'net':
                 scope = 'Net ' + key
             else:

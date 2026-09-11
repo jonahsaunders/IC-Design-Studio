@@ -1,15 +1,16 @@
-"""Version 1 live-layout transactions and invitation links; no Qt or networking."""
+"""Version 2 schematic/layout transactions and invitation links; no Qt."""
 import ipaddress
 import json
 import re
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
-from .layout_collaboration import FIELDS, _changes, _entities
+from .collaboration_document import FIELDS, STRUCTURE, diff, install, resource, resources, overlaps
 from .model import clone, validate
 
 MAX_BYTES = 16 * 1024 * 1024
 MAX_OBJECTS = 20000
 MAX_CHANGES = 2000
+PROTOCOL = 2
 ID = re.compile(r'^[A-Za-z0-9_-]{1,80}$')
 
 
@@ -23,13 +24,12 @@ def bounded_project(project):
     if len(json.dumps(project, allow_nan=False).encode()) > MAX_BYTES // 2:
         raise LiveError('Live projects must be smaller than 8 MiB.', 413)
     if sum(len(c.get(f, [])) for c in project.get('cells', []) for f in FIELDS) > MAX_OBJECTS:
-        raise LiveError('Live projects support up to 20,000 stored layout objects.', 413)
+        raise LiveError('Live projects support up to 20,000 stored schematic and layout objects.', 413)
     return validate(project)
 
 
 def changes(before, after):
-    result = [dict(cell=c, field=f, key=k, before=a, after=b) for c, f, k, a, b in _changes(before, after)]
-    return checked_changes(result)
+    return checked_changes(diff(before, after))
 
 
 def checked_changes(rows):
@@ -40,7 +40,7 @@ def checked_changes(rows):
         if not isinstance(row, dict) or set(row) != {'cell', 'field', 'key', 'before', 'after'}:
             raise LiveError('Invalid layout transaction.', 400)
         c, f, k = row['cell'], row['field'], row['key']
-        if not isinstance(c, str) or not ID.fullmatch(c) or not isinstance(k, str) or len(k) > 128 or f not in FIELDS:
+        if not isinstance(c, str) or not ID.fullmatch(c) or not isinstance(k, str) or len(k) > 128 or f not in set(FIELDS) | STRUCTURE:
             raise LiveError('Invalid layout object identity.', 400)
         identity = (c, f, k)
         if identity in seen or row['before'] == row['after']:
@@ -49,58 +49,31 @@ def checked_changes(rows):
         for value in (row['before'], row['after']):
             if value is None:
                 continue
-            if f == 'layout_texts':
-                if k != 'texts' or not isinstance(value, list):
-                    raise LiveError('Invalid layout text collection.', 400)
+            if f in STRUCTURE:
+                if k != c or not isinstance(value, dict) or (f != 'project' and value.get('id') != c):
+                    raise LiveError('Invalid cell or project identity.', 400)
+            elif FIELDS[f] is None:
+                if k != ('texts' if f == 'layout_texts' else f) or not isinstance(value, list):
+                    raise LiveError('Invalid shared collection.', 400)
             elif not isinstance(value, dict) or value.get(FIELDS[f]) != k:
                 raise LiveError('An edit cannot change object identity.', 400)
+    replaced = {r['cell'] for r in rows if r['field'] == 'cells'}
+    if any(r['cell'] in replaced and r['field'] != 'cells' for r in rows):
+        raise LiveError('A cell replacement cannot also contain object edits.', 400)
+    if any(r['field'] in ('cell', 'project') and (r['before'] is None or r['after'] is None) for r in rows):
+        raise LiveError('Cell and project metadata cannot be removed.', 400)
     return rows
 
 
-def resource(cell, field, key):
-    return json.dumps([cell, field, key], separators=(',', ':'))
-
-
-def resources(rows):
-    """Reserve related generated geometry together; serialize edits to one net."""
-    result = set()
-    for row in rows:
-        c, f, k = row['cell'], row['field'], row['key']
-        result.add(resource(c, f, k))
-        values = [v for v in (row['before'], row['after']) if isinstance(v, dict)]
-        if f != 'shapes' or any(v.get('generated_device') or v.get('pcell_id') for v in values):
-            result.add(resource(c, '*', '*'))
-        for value in values:
-            if value.get('net'):
-                result.add(resource(c, 'net', value['net']))
-    return result
-
-
-def overlaps(a, b):
-    ac, af, ak = json.loads(a)
-    bc, bf, bk = json.loads(b)
-    return ac == bc and (af == '*' or bf == '*' or (af, ak) == (bf, bk))
-
-
 def apply_changes(project, rows):
-    q = clone(project)
-    cells = {c['id']: c for c in q['cells']}
-    for row in checked_changes(rows):
-        c = cells.get(row['cell'])
-        if c is None:
-            raise LiveError('The edited cell no longer exists.')
-        field, key = row['field'], row['key']
-        values = _entities(c, field)
-        if values.get(key) != row['before']:
-            raise LiveError('Another editor changed this object. Your proposed edit has been retained locally.')
-        if row['after'] is None:
-            values.pop(key, None)
-        else:
-            values[key] = clone(row['after'])
-        c[field] = values.get('texts', []) if FIELDS[field] is None else list(values.values())
-    # Recompute changes to prohibit metadata edits hidden inside object payloads.
-    changes(project, q)
-    return bounded_project(q)
+    try:
+        q = install(project, checked_changes(rows))
+        changes(project, q)
+        return bounded_project(q)
+    except LiveError:
+        raise
+    except (ValueError, KeyError, TypeError) as exc:
+        raise LiveError(str(exc)) from exc
 
 
 def inverse(rows):

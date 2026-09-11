@@ -39,10 +39,10 @@ class LiveCollaborationTests(unittest.TestCase):
         self.start_server()
         self.p = example('empty')
         self.p['cells'][0]['shapes'] = [rect('metal1', 0, 0, 600, 600), rect('metal1', 2000, 0, 600, 600)]
-        status, self.a = post(self.url, '/v1/workspaces', dict(project=self.p, name='Alice'), KEY)
+        status, self.a = post(self.url, '/v2/workspaces', dict(project=self.p, name='Alice'), KEY)
         self.assertEqual(status, 200)
         self.wid = self.a['workspace']
-        self.base = '/v1/workspaces/' + self.wid
+        self.base = '/v2/workspaces/' + self.wid
         _, self.inv = self.api('invite', dict(role='edit'), self.a)
         _, self.b = self.api('join', dict(invite=self.inv['invite'], name='Bob'))
 
@@ -139,7 +139,7 @@ class LiveCollaborationTests(unittest.TestCase):
         self.assertEqual(self.api('sync', {}, self.b)[0], 403)
         self.assertEqual(self.api('join', dict(invite=self.inv['invite'], name='Late'))[0], 403)
         self.assertEqual(self.api('sync', {})[0], 401)
-        self.assertEqual(post(self.url, '/v1/workspaces', dict(project=self.p, name='X'), 'wrong')[0], 403)
+        self.assertEqual(post(self.url, '/v2/workspaces', dict(project=self.p, name='X'), 'wrong')[0], 403)
 
     def test_selection_reservations_expire_and_disjoint_objects_remain_editable(self):
         cid, sid = self.p['top'], self.p['cells'][0]['shapes'][0]['id']
@@ -157,9 +157,9 @@ class LiveCollaborationTests(unittest.TestCase):
         p = clone(self.p)
         for s in p['cells'][0]['shapes']:
             s['net'] = 'signal'
-        status, a = post(self.url, '/v1/workspaces', dict(project=p, name='Alice'), KEY)
+        status, a = post(self.url, '/v2/workspaces', dict(project=p, name='Alice'), KEY)
         self.assertEqual(status, 200)
-        base = '/v1/workspaces/' + a['workspace']
+        base = '/v2/workspaces/' + a['workspace']
         _, inv = post(self.url, base + '/invite', dict(role='edit'), a['token'])
         _, b = post(self.url, base + '/join', dict(invite=inv['invite'], name='Bob'))
         self.assertEqual(post(self.url, base + '/edit', self.move_request(a), a['token'])[0], 200)
@@ -197,7 +197,7 @@ class LiveCollaborationTests(unittest.TestCase):
         req['changes'][0]['after']['id'] = 'another'
         self.assertEqual(self.api('edit', req, self.a)[0], 400)
         q = clone(self.p)
-        q['name'] = 'Changed schematic metadata'
+        q['pdk']['grid'] = 10
         with self.assertRaises(ValueError):
             changes(self.p, q)
         _, result = self.api('sync', {}, self.a)

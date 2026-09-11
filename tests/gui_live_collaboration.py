@@ -105,7 +105,7 @@ def main():
         assert parse_invitation(edit_link)[0] == url
         dlg = b.live_join_dialog(edit_link)
         dlg.findChildren(QLineEdit)[1].setText('Bob')
-        button(dlg, 'Join layout').click()
+        button(dlg, 'Join workspace').click()
         wait(lambda: settled(b), 'Edit invitation did not join')
         a.live_role.setCurrentIndex(0)
         a.live_invite()
@@ -113,7 +113,7 @@ def main():
         view_link = QApplication.clipboard().text()
         dlg = v.live_join_dialog(view_link)
         dlg.findChildren(QLineEdit)[1].setText('Viewer')
-        button(dlg, 'Join layout').click()
+        button(dlg, 'Join workspace').click()
         wait(lambda: settled(v), 'View invitation did not join')
         checks.append('Share UI and view/edit invitation links join actual desktop windows')
 

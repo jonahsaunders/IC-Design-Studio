@@ -11,7 +11,7 @@ from .live_client import LiveClient
 from .live_protocol import invitation_link, parse_invitation
 from .live_server import Server
 from .live_store import Store
-from .model import clone, example
+from .model import clone, device, example
 
 
 def run(window, output):
@@ -47,6 +47,20 @@ def run(window, output):
             window.redo()
             wait(lambda: client.pending is None and client.revision == 3)
             assert len(window.cell['shapes']) == 2
+            window.mode_combo.setCurrentIndex(0)
+            window.commit(lambda q: q['cells'][0]['devices'].append(device('R','Rshared',0,0)), 'Packaged schematic edit')
+            wait(lambda: client.pending is None and client.revision == 4)
+            assert window.cell['devices'][0]['name'] == 'Rshared'
+            from .team_review_ui import RevisionComparison
+            review = RevisionComparison(window, p, window.project)
+            review.show();QTest.qWait(50)
+            assert review.view_mode.currentIndex() == 1 and all(v.scene_model.items() for v in review.views)
+            assert review.grab().save(str(Path(output) / 'live-schematic-review.png'))
+            review.close()
+            window.undo()
+            wait(lambda: client.pending is None and client.revision == 5)
+            assert not window.cell['devices']
+            window.mode_combo.setCurrentIndex(1)
             window.layout.fit()
             QTest.qWait(50)
             assert window.grab().save(str(Path(output) / 'live-collaboration.png'))

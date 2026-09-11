@@ -13,7 +13,7 @@ from icstudio.model import validate
 
 
 def main():
-    docs = ['docs/PROFESSIONAL_WORKFLOWS.md', 'README.md', 'CONTRIBUTING.md', 'examples/README.md', 'docs/GETTING_STARTED.md', 'docs/LAYOUT_3D.md', 'docs/LIVE_COLLABORATION.md',
+    docs = ['docs/SCHEMATIC_COLLABORATION.md', 'docs/PROFESSIONAL_WORKFLOWS.md', 'README.md', 'CONTRIBUTING.md', 'examples/README.md', 'docs/GETTING_STARTED.md', 'docs/LAYOUT_3D.md', 'docs/LIVE_COLLABORATION.md',
             'docs/PDK_GUIDE.md', 'docs/PROJECT_HUB.md', 'docs/ROADMAP.md', 'docs/DOWNLOADS.md',
             'docs/RELEASING.md', 'docs/RELEASE_STATUS.md', 'docs/LAYOUT_SCALE_AND_COLLABORATION.md', 'docs/RELEASE_0.22.md', 'docs/QUALIFICATION_0.22.md', 'docs/RELEASE_FOLLOWUPS.md', 'docs/RELEASE_0.21.md', 'docs/UPDATE_0.21.1.md', 'docs/UPDATE_0.22.md', 'docs/PRIORITIES_0.22.md', 'docs/STABILITY_0.22.md', 'docs/GESTURES_0.22.md', 'docs/DRAWING_0.22.md']
     errors = []; links = 0
