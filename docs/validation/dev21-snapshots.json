@@ -1,0 +1,82 @@
+{
+  "host": "Linux-6.18.35-x86_64-with-glibc2.39",
+  "python": "3.12.14",
+  "workloads": [
+    {
+      "shapes": 1000,
+      "measurements": {
+        "full_copy": {
+          "samples_ms": [
+            5.361594001442427,
+            5.333771998266457,
+            4.61867600097321,
+            5.023674999392824,
+            4.659537000406999
+          ],
+          "median_ms": 5.023674999392824
+        },
+        "isolated_reuse": {
+          "samples_ms": [
+            2.963643000839511,
+            2.7806869984488003,
+            2.7275569991616067,
+            2.667067001311807,
+            2.923453001130838
+          ],
+          "median_ms": 2.7806869984488003
+        }
+      }
+    },
+    {
+      "shapes": 10000,
+      "measurements": {
+        "full_copy": {
+          "samples_ms": [
+            58.832235998124816,
+            76.72064500002307,
+            59.981007001624675,
+            86.1791790011921,
+            64.39319999844884
+          ],
+          "median_ms": 64.39319999844884
+        },
+        "isolated_reuse": {
+          "samples_ms": [
+            32.861196999874664,
+            27.989410002192017,
+            30.239709001762094,
+            28.222821001691045,
+            27.89490700160968
+          ],
+          "median_ms": 28.222821001691045
+        }
+      }
+    },
+    {
+      "shapes": 100000,
+      "measurements": {
+        "full_copy": {
+          "samples_ms": [
+            1063.6869219997607,
+            976.7119299976912,
+            941.1880140032736,
+            956.6099530020438,
+            953.414982999675
+          ],
+          "median_ms": 956.6099530020438
+        },
+        "isolated_reuse": {
+          "samples_ms": [
+            323.74312200045097,
+            270.67113000157406,
+            272.42583200131776,
+            271.5540140015946,
+            270.35731700016186
+          ],
+          "median_ms": 271.5540140015946
+        }
+      }
+    }
+  ],
+  "scope": "Snapshot preparation after an initial isolated snapshot, five samples per method. Includes scanning mutable source data; excludes initial copying, serialization, validation and disk writes. Local timings do not establish native desktop responsiveness."
+}

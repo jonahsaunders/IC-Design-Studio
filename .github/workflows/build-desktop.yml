@@ -17,6 +17,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+      - name: Configure Windows virtual desktop for native DPI checks
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Set-DisplayResolution -Width 1920 -Height 1080 -Force
+          Get-DisplayResolution
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -29,7 +35,7 @@ jobs:
           sudo apt-get install -y ngspice xschem libegl1 libopengl0 libgl1 libglx0 libglvnd0 \
             libx11-6 libxcb1 libxcb-image0 libxcb-xkb1 libxcb-cursor0 \
             libxcb-keysyms1 libxcb-render-util0 libxcb-icccm4 libxcb-util1 \
-            libxcb-shape0 libxkbcommon-x11-0 xvfb xauth libgl1-mesa-dri libglx-mesa0
+            libxcb-shape0 libxkbcommon-x11-0 xvfb xauth openbox x11-utils libgl1-mesa-dri libglx-mesa0
           echo "ICSTUDIO_TEST_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
           echo "ICSTUDIO_BUNDLED_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
       - name: Stage verified Windows simulation engine
@@ -41,6 +47,13 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Runtime provisioning failed.' }
           $engine = (Resolve-Path 'icstudio/assets/runtime/ngspice/ngspice.exe').Path
           "ICSTUDIO_TEST_NGSPICE=$engine" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+      - name: Check native Windows experimental gestures at 200 percent before packaging
+        if: runner.os == 'Windows'
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: windows
+          QT_SCALE_FACTOR: '2'
+        run: python tests/gui_experimental.py --out build/native-experimental-evidence
       - name: Verify bundled simulation PDKs
         run: python scripts/check_simulation_assets.py
       - name: Validate supplied GF180 bandgap startup
@@ -66,6 +79,11 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_feedback.py --out build/usability-feedback-evidence
+      - name: Test experimental component shortcuts, workflow, selection and window recovery
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_experimental.py --out build/experimental-evidence
       - name: Test via placement and Autovia through the layout editor
         timeout-minutes: 5
         env:
@@ -250,6 +268,14 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: ./dist/ICDesignStudio/ICDesignStudio --release-test build/frozen-evidence
+      - name: Verify frozen Linux app under X11 with a window manager at 150 percent scaling
+        if: runner.os == 'Linux'
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: xcb
+          QT_SCALE_FACTOR: '1.5'
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a -s "-screen 0 2560x1600x24" python scripts/verify_linux_x11.py
       - name: Assemble and execute release archives
         env:
           QT_QPA_PLATFORM: offscreen
@@ -269,6 +295,7 @@ jobs:
             dist/installers
             build/windows-evidence
             build/frozen-evidence
+            build/x11-evidence
             build/native-migration-evidence
             build/native-workflow-evidence
             build/getting-started-evidence
@@ -293,6 +320,8 @@ jobs:
             build/workflow-review-evidence/report.json
             build/workflow-review-evidence/*.png
             build/usability-feedback-evidence
+            build/experimental-evidence
+            build/native-experimental-evidence
             build/recovery-workflow-evidence/gui-stability.json
             build/layout-3d-evidence
             build/layout-3d-opengl-evidence

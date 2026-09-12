@@ -18,7 +18,12 @@ if (-not (Test-Path $exe)) { throw 'Installed executable is missing.' }
 foreach ($scale in @('1','1.5','2')) {
     $env:QT_SCALE_FACTOR = $scale
     Remove-Item Env:QT_QPA_PLATFORM -ErrorAction SilentlyContinue
-    Wait-Checked $exe "--release-test `"$evidence\dpi-$scale`""
+    try { Wait-Checked $exe "--release-test `"$evidence\dpi-$scale`"" }
+    catch {
+        $failedReport = "$evidence\dpi-$scale\release-test.json"
+        if (Test-Path $failedReport) { Get-Content $failedReport -Raw | Write-Output }
+        throw
+    }
     $report = Get-Content "$evidence\dpi-$scale\release-test.json" -Raw | ConvertFrom-Json
     if ($report.status -ne 'passed' -or -not $report.frozen) { throw 'Installed application probe failed.' }
 }

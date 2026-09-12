@@ -13,6 +13,9 @@ def main():
     if '--release-test' in sys.argv:
         from .release_probe import main as probe
         return probe(sys.argv[sys.argv.index('--release-test')+1])
+    if '--desktop-acceptance' in sys.argv:
+        from .desktop_acceptance import main as acceptance
+        return acceptance(sys.argv[sys.argv.index('--desktop-acceptance')+1])
     from PySide6.QtWidgets import QApplication
     from PySide6.QtCore import QTimer
     from .gui import Studio

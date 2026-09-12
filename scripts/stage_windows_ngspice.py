@@ -51,7 +51,8 @@ def stage(archive=None, target=None):
         record = {'version': '42', 'archive_url': URL, 'archive_sha256': SHA256,
                   'scope': 'Console SPICE runtime; optional XSPICE/OSDI plugins are separate.',
                   'files': {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(staged.iterdir())}}
-        (staged / 'runtime-manifest.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
+        # Keep this tracked manifest byte-identical on Windows and Linux.
+        (staged / 'runtime-manifest.json').write_bytes(json.dumps(record, indent=2).encode('utf-8'))
         verify_runtime_files(staged)
         if os.name == 'nt':
             check_ngspice(staged / 'ngspice.exe')

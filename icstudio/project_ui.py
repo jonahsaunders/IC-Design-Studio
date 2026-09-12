@@ -25,6 +25,8 @@ class ProjectMixin:
         if value and self.flush_inspector():self.commit(lambda p:p['analysis'].update(corner=value),'Model corner')
     def make_ui(self):
         self.project_index=ProjectIndex(self.data_dir/'workspace');self.pdk_registry=PDKRegistry(self.data_dir/'pdks');self._catalog_signature=None
+        from .component_preferences import ComponentPreferences, ComponentKeys
+        self.component_preferences=ComponentPreferences(self.settings,'standard')
         super().make_ui()
         pv=self.navtabs.widget(0).layout();row=QHBoxLayout()
         self.projects_button=self.button('Projects',fn=self.project_manager);row.addWidget(self.projects_button)
@@ -33,6 +35,11 @@ class ProjectMixin:
         lv=self.navtabs.widget(1).layout();self.library_category=QComboBox();self.library_category.addItems(['All devices','NMOS','PMOS','Resistors','Capacitors','Bipolar','Diodes','Other','Generic','Custom cells']);self.library_category.currentTextChanged.connect(self.filter_library);lv.insertWidget(1,self.library_category)
         self.library_source=QComboBox();self.library_source.setAccessibleName('Component source library');self.library_source.addItem('All sources',None);self.library_source.currentIndexChanged.connect(self.filter_library);lv.insertWidget(1,self.library_source)
         self.library_info=QLabel();self.library_info.setWordWrap(True);lv.insertWidget(3,self.library_info);self.library_list.currentItemChanged.connect(self.library_selected)
+        shortcuts=QHBoxLayout();self.library_collection=QComboBox();self.library_collection.addItems(['All components','Favorites','Recently placed']);self.library_collection.setAccessibleName('Component collection');shortcuts.addWidget(self.library_collection,1)
+        self.library_favorite=self.button('Add to favorites',fn=self.toggle_library_favorite);shortcuts.addWidget(self.library_favorite);lv.insertLayout(3,shortcuts)
+        self.library_collection.currentIndexChanged.connect(self.filter_library)
+        self.library_keys=ComponentKeys(self.library_search,self.library_list,lambda:self.place_library_button.click())
+        self.library_list.setUniformItemSizes(True)
         row=QHBoxLayout();row.addWidget(self.button('PDK manager…',fn=self.pdk_manager));row.addWidget(self.button('New symbol…',fn=self.new_symbol));lv.addLayout(row)
         self.refresh_library()
     def make_actions(self):
@@ -81,7 +88,7 @@ class ProjectMixin:
         from .component_sources import library_name
         source_by_key={key:library_name(key) for key in catalog}
         source_by_key={key:(self.project['pdk']['name'] if source=='Project definitions' else source) for key,source in source_by_key.items()}
-        current=self.library_source.currentData();self.library_source.blockSignals(True);self.library_source.clear();self.library_source.addItem('All sources',None)
+        current=self.component_preferences.source;self.library_source.blockSignals(True);self.library_source.clear();self.library_source.addItem('All sources',None)
         for source in ['Generic components','Project cells']+sorted(set(source_by_key.values())):self.library_source.addItem(source,source)
         self.library_source.setCurrentIndex(max(0,self.library_source.findData(current)));self.library_source.blockSignals(False)
         for i,kind in enumerate(('R','C','L','V','I','NMOS','PMOS'),1):
@@ -93,24 +100,48 @@ class ProjectMixin:
         for c in self.project['cells']:
             if c['id']==self.cid or not c['ports']:continue
             it=QListWidgetItem(c['name']+'\nCustom cell · '+str(len(c['ports']))+' terminals');it.setData(Qt.UserRole,{'cell':c['id']});it.setData(Qt.UserRole+1,'X');it.setData(Qt.UserRole+2,'Custom cells');it.setData(Qt.UserRole+4,'Project cells');it.setIcon(icon('cell'));self.library_list.addItem(it)
+        for i in range(self.library_list.count()):
+            it=self.library_list.item(i);value=it.data(Qt.UserRole)
+            if isinstance(value,dict):value={**value,'project':self.project['id']}
+            it.setData(Qt.UserRole+5,self.component_preferences.identity(it.data(Qt.UserRole+4),value))
+            it.setData(Qt.UserRole+6,it.text().casefold())
         self.filter_library()
     def filter_library(self,*args):
         if not hasattr(self,'library_category'):return super().filter_library(*args)
-        query=self.library_search.text().lower();category=self.library_category.currentText();first=None
+        query=self.library_search.text().casefold().split();category=self.library_category.currentText();first=None;visible=[]
         source=self.library_source.currentData() if hasattr(self,'library_source') else None
+        mode=self.library_collection.currentText() if hasattr(self,'library_collection') else 'All components'
+        self.component_preferences.source=source;self.component_preferences.save()
+        self.library_list.setUpdatesEnabled(False)
         for i in range(self.library_list.count()):
-            it=self.library_list.item(i);hidden=query not in it.text().lower() or (category!='All devices' and it.data(Qt.UserRole+2)!=category) or (source is not None and it.data(Qt.UserRole+4)!=source);it.setHidden(hidden)
+            it=self.library_list.item(i);hidden=not all(word in (it.data(Qt.UserRole+6) or it.text().casefold()) for word in query) or (category!='All devices' and it.data(Qt.UserRole+2)!=category) or (source is not None and it.data(Qt.UserRole+4)!=source) or not self.component_preferences.matches(it.data(Qt.UserRole+5),mode)
+            if it.isHidden()!=hidden:it.setHidden(hidden)
+            if not hidden:visible.append(it)
             if not hidden and first is None:first=it
-        self.library_list.setCurrentItem(first);self.library_selected(first)
+        current=self.library_list.currentItem();chosen=current if current in visible else first
+        self.library_list.setCurrentItem(chosen);self.library_list.setUpdatesEnabled(True);self.library_selected(chosen)
+    def toggle_library_favorite(self):
+        item=self.library_list.currentItem()
+        if item and not item.isHidden():
+            self.component_preferences.toggle(item.data(Qt.UserRole+5));self.filter_library()
+    def remember_library_placement(self,value):
+        for i in range(self.library_list.count()):
+            item=self.library_list.item(i)
+            if item.data(Qt.UserRole)==value:
+                self.component_preferences.used(item.data(Qt.UserRole+5));return
     def library_selected(self,item,*args):
         if not hasattr(self,'library_info'):return
         reason=item.data(Qt.UserRole+3) if item else ''
         self.place_library_button.setEnabled(bool(item) and not reason)
         self.library_info.setText(('Unavailable: '+reason) if reason else (item.toolTip() if item else 'No matching devices. Link a PDK in Project settings.'))
+        if hasattr(self,'library_favorite'):
+            self.library_favorite.setEnabled(bool(item))
+            self.library_favorite.setText('Remove favorite' if item and item.data(Qt.UserRole+5) in self.component_preferences.favorites else 'Add to favorites')
     def begin_placement(self,index):
         if isinstance(index,int):
             super().begin_placement(index)
             if self.schematic.placement and not self.project['pdk'].get('simulation',{}).get('devices'):self.schematic.placement['model_mode']='generic'
+            if self.schematic.placement:self.remember_library_placement(index)
             return
         if not self.flush_inspector():return
         self.mode_combo.setCurrentIndex(0);self.cancel_tool()
@@ -120,6 +151,7 @@ class ProjectMixin:
         else:
             e=self.project['pdk']['simulation']['catalog'][index];d=create_device(self.project['pdk'],index,self.next_device_name(e['kind']))
         self.schematic.placement=d;self.schematic.tool='place';self.schematic.drag=self.schematic.snap(self.schematic.model(self.schematic.rect().center()));self.schematic.setFocus();self.schematic.update();self.tool_hint.setText('Place '+d['name']+' · R rotates · click to place · Esc cancels');self.sync_tools()
+        self.remember_library_placement(index)
     def build_inspector(self):
         super().build_inspector()
         if not hasattr(self,'form'):return

@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/version-0.22.0.dev20-65d6bd?style=flat-square&amp;labelColor=182331" alt="Version 0.22.0.dev20"></a>
+  <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/version-0.22.0.dev21-65d6bd?style=flat-square&amp;labelColor=182331" alt="Version 0.22.0.dev21"></a>
   <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/status-engineering_preview-f0bc78?style=flat-square&amp;labelColor=182331" alt="Engineering preview"></a>
   <a href="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml"><img src="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml/badge.svg?branch=experimental" alt="Desktop build and verification"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0--or--later-9bbafa?style=flat-square&amp;labelColor=182331" alt="GPL-3.0-or-later license"></a>
@@ -331,7 +331,7 @@ Bundled simulation subsets contain models and symbols; full physical flows need 
 
 ## Project status
 
-**0.22.0.dev20 is an engineering preview.** Current source includes the overvoltage detector's strict LVS correction, HSA DC startup support, hierarchical imports, layout attachment, and durable review recovery. [Release status](docs/RELEASE_STATUS.md) records what has actually run and which desktop packages have been published.
+**0.22.0.dev21 is an engineering preview.** The [workflow and recovery update](docs/UPDATE_0.22_DEV21.md) adds component favorites and recent choices, a persistent design workflow, selection previews, unsent review drafts, faster recovery snapshots and identifiable experimental packages. [Release status](docs/RELEASE_STATUS.md) records what has actually run and which desktop packages have been published.
 
 The [roadmap](docs/ROADMAP.md) tracks consumer Windows/Linux acceptance, physical LAN/VPN testing, broader PVT/transient and real-project coverage, larger editing/recovery workloads, and offline collaboration. A passing fixture qualifies that recorded case; it does not establish arbitrary-design or fabrication signoff. Source-to-GDS warnings for the detector remain documented.
 

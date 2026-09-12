@@ -1,6 +1,6 @@
 """Revision-based team review inside the existing Tools collaboration dashboard."""
 import uuid
-from PySide6.QtCore import Qt, QRectF
+from PySide6.QtCore import Qt, QRectF, QTimer
 from PySide6.QtWidgets import (QWidget,QVBoxLayout,QHBoxLayout,QComboBox,QPushButton,
     QTreeWidget,QTreeWidgetItem,QPlainTextEdit,QCheckBox,QInputDialog,QFileDialog,QDialog,QHeaderView,QMessageBox)
 from .model import clone,save_project,digest
@@ -64,6 +64,11 @@ class TeamReviewPanel(QWidget):
         self.comments.header().setSectionResizeMode(0,QHeaderView.ResizeToContents);self.comments.header().setSectionResizeMode(1,QHeaderView.Stretch);self.comments.header().setSectionResizeMode(2,QHeaderView.ResizeToContents)
         self.comments.itemDoubleClicked.connect(lambda *_:self.call(self.read_comment))
         self.comment=QPlainTextEdit();self.comment.setPlaceholderText('Ask a question or explain the change…');self.comment.setAccessibleName('New review comment');self.comment.setMaximumHeight(85);root.addWidget(self.comment)
+        self.drafts=None;self._loading_draft=False;self.draft_error=None
+        self.comment.setEnabled(False)
+        self.draft_note=note('Unsent text is saved locally for this checkpoint.');root.addWidget(self.draft_note)
+        self.draft_timer=QTimer(self);self.draft_timer.setSingleShot(True);self.draft_timer.setInterval(150)
+        self.draft_timer.timeout.connect(self.flush_draft);self.comment.textChanged.connect(self.draft_changed)
         self.reply_note=note('');root.addWidget(self.reply_note)
         row=QHBoxLayout();self.anchor=QCheckBox('Attach to current selection');row.addWidget(self.anchor,1)
         self.anchor_kind=QComboBox();self.anchor_kind.addItems(['Object','Terminal','Highlighted net','Electrical finding']);self.anchor_kind.setAccessibleName('Comment attachment type');row.addWidget(self.anchor_kind)
@@ -80,7 +85,42 @@ class TeamReviewPanel(QWidget):
         self.outbox=None
         self.pending_note=note('');root.addWidget(self.pending_note)
         self.discard_button=self.button('Discard saved review action…',self.discard_pending,root);self.discard_button.hide()
-        self.checkpoints.currentIndexChanged.connect(self.fill)
+        self.checkpoints.currentIndexChanged.connect(lambda *_:self.call(self.fill))
+
+    def draft_changed(self):
+        if self._loading_draft:return
+        self.draft_note.setText('Saving draft locally…' if self.drafts and self.filled_checkpoint else 'Select a checkpoint to save this draft.')
+        self.draft_timer.start()
+
+    def flush_draft(self):
+        self.draft_timer.stop()
+        if self._loading_draft:return True
+        if not self.drafts or not self.filled_checkpoint:
+            return not bool(self.comment.toPlainText())
+        try:
+            self.drafts.save(self.filled_checkpoint,self.comment.toPlainText(),self.reply_to)
+            self.draft_error=None
+            self.draft_note.setText('Draft saved locally · not posted' if self.comment.toPlainText() else 'Unsent text is saved locally for this checkpoint.')
+            return True
+        except (OSError,ValueError) as exc:
+            self.draft_error=str(exc);self.draft_note.setText('Draft save failed. Text remains here; retry before closing. '+str(exc));return False
+
+    def restore_draft(self):
+        draft=self.drafts.get(self.filled_checkpoint) if self.drafts else dict(text='',reply='')
+        self._loading_draft=True
+        try:
+            self.comment.setPlainText(draft['text']);self.cancel_reply()
+            if draft['reply']:
+                self.reply_to=draft['reply'];self.comment_button.setText('Post reply');self.cancel_reply_button.show()
+                self.anchor.setEnabled(False);self.anchor_kind.setEnabled(False)
+                self.reply_note.setText('Restored reply to the saved discussion. Reopen a resolved discussion before posting.')
+            self.anchor.setChecked(False)
+            self.comment.setEnabled(bool(self.filled_checkpoint) and self.drafts is not None)
+            self.draft_note.setText('Draft recovery unavailable for this session.' if not self.drafts else 'Restored unsent draft · review attachments before posting' if draft['text'] else 'Unsent text is saved locally for this checkpoint.')
+        finally:self._loading_draft=False
+
+    def hideEvent(self,event):
+        self.flush_draft();super().hideEvent(event)
 
     def button(self,label,fn,layout):
         button=QPushButton(label);button.clicked.connect(lambda _=False:self.call(fn));layout.addWidget(button);return button
@@ -101,10 +141,16 @@ class TeamReviewPanel(QWidget):
     def refresh_state(self):
         client=self.studio.live_client;self.update_permissions()
         if self.client is not client:
+            if self.client and not self.flush_draft():return
+            self._loading_draft=True;self.drafts=None;self.filled_checkpoint=None;self.comment.setEnabled(False)
             self.client=client;self.data={};self.loaded_version=None;self.checkpoints.clear();self.comments.clear();self.reports.clear();self.failed_request=None;self.retry_button.hide();self.cancel_reply()
+            self.comment.clear();self._loading_draft=False
             self.outbox=None
             if client:
                 from .review_outbox import ReviewOutbox
+                from .review_drafts import ReviewDrafts
+                try:self.drafts=ReviewDrafts(client.journal.with_suffix('.review-drafts'),client.server,client.workspace,client.info['actor'])
+                except (ValueError,OSError) as exc:self.draft_note.setText('Draft recovery unavailable: '+str(exc))
                 try:self.outbox=ReviewOutbox(client.journal.with_suffix('.review-outbox'),client.server,client.workspace,client.info['actor'])
                 except (ValueError,OSError) as exc:self.pending_note.setText(str(exc));return
                 if self.outbox.pending:self.failed_request=(self.outbox.pending,lambda _:self.load())
@@ -118,6 +164,7 @@ class TeamReviewPanel(QWidget):
     def request(self,data,callback,mutation=False):
         client=self.studio.live_client
         if client is None:raise ValueError('Share or join a live workspace first.')
+        if self.client is not client:raise ValueError('Save the previous session draft before using this workspace.')
         if not client.info.get('review_api'):raise ValueError('This server needs the team-review update. Ask the host to update IC Design Studio.')
         if self.busy:raise ValueError('The previous review request is still running.')
         if mutation:
@@ -136,8 +183,18 @@ class TeamReviewPanel(QWidget):
                     self.show_pending()
                 return
             if mutation:
+                if self.drafts:
+                    try:self.drafts.acknowledge(data)
+                    except (OSError,ValueError) as exc:
+                        self.note.setText('Action accepted; draft cleanup failed. Retry safely: '+str(exc));self.show_pending();return
                 try:self.outbox.acknowledge(data['id'])
                 except OSError as exc:self.note.setText('Action accepted; local recovery cleanup failed. Retry safely: '+str(exc));self.show_pending();return
+                if (data.get('action') in ('comment','reply','decide') and self.filled_checkpoint==data.get('checkpoint')
+                        and self.comment.toPlainText()==data.get('text') and (self.reply_to or '')==data.get('parent','')):
+                    self.draft_timer.stop();self._loading_draft=True
+                    try:self.comment.clear();self.cancel_reply()
+                    finally:self._loading_draft=False
+                    self.draft_note.setText('Posted successfully. New unsent text will be saved locally.')
                 self.failed_request=None;self.show_pending()
             self.loaded_version=client.info.get('review_version')
             self.call(lambda:callback(result))
@@ -160,10 +217,14 @@ class TeamReviewPanel(QWidget):
         return key
 
     def fill(self):
+        if self._loading_draft:return
         key=self.checkpoints.currentData();current=self.comments.currentItem()
         selected=current.data(0,Qt.UserRole)['id'] if current else None
-        if self.filled_checkpoint!=key:self.cancel_reply()
-        self.filled_checkpoint=key;self.comments.clear();self.reports.clear()
+        if self.filled_checkpoint!=key:
+            if self.filled_checkpoint and not self.flush_draft():
+                self.checkpoints.blockSignals(True);self.checkpoints.setCurrentIndex(self.checkpoints.findData(self.filled_checkpoint));self.checkpoints.blockSignals(False);return
+            self.filled_checkpoint=key;self.restore_draft()
+        self.comments.clear();self.reports.clear()
         rows=[r for r in self.data.get('comments',[]) if r['checkpoint']==key];items={}
         for row in rows:
             item=QTreeWidgetItem([row['author']+(' · attached object' if row['object'] else ''),row['text'],row['status'] if not row.get('parent') else 'Reply'])
@@ -173,7 +234,8 @@ class TeamReviewPanel(QWidget):
             if parent:parent.addChild(item);parent.setExpanded(True)
             else:self.comments.addTopLevelItem(item)
             if row['id']==selected:self.comments.setCurrentItem(item)
-        if self.reply_to and not any(r['id']==self.reply_to and r['status']=='open' for r in rows):self.cancel_reply()
+        if self.reply_to and not any(r['id']==self.reply_to and r['status']=='open' for r in rows):
+            self.reply_note.setText('This discussion is resolved or unavailable. Your reply draft is retained; reopen the discussion or cancel reply.')
         decisions=[r['author']+': '+r['status'].replace('_',' ')+((' · '+r['message']) if r['message'] else '') for r in self.data.get('decisions',[]) if r['checkpoint']==key]
         self.decisions.setText('\n'.join(decisions) or 'No review decision for this checkpoint yet.')
         for row in self.data.get('reports',[]):
@@ -187,6 +249,7 @@ class TeamReviewPanel(QWidget):
         if ok:self.request(dict(action='create_checkpoint',revision=client.revision,name=name),lambda _:self.load(),True)
 
     def post_comment(self):
+        if not self.flush_draft():raise ValueError('Save the draft locally before posting. '+(self.draft_error or 'Select a checkpoint first.'))
         data=dict(action='comment',checkpoint=self.selected(),text=self.comment.toPlainText(),cell='',object='')
         if self.reply_to:
             data=dict(action='reply',checkpoint=self.selected(),parent=self.reply_to,text=self.comment.toPlainText())
@@ -209,7 +272,11 @@ class TeamReviewPanel(QWidget):
                 if len(studio.selection)!=1:raise ValueError('Select one object to attach the comment to.')
                 key=studio.selection[0].removeprefix('pin:')
             data.update(cell=studio.cid,object=key)
-        def posted(_):self.comment.clear();self.cancel_reply();self.load()
+        def posted(_):
+            if (self.filled_checkpoint==data['checkpoint'] and self.comment.toPlainText()==data['text']
+                    and (self.reply_to or '')==data.get('parent','')):
+                self.comment.clear();self.cancel_reply();self.flush_draft()
+            self.load()
         self.request(data,posted,True)
 
     def selected_comment(self):
@@ -230,9 +297,11 @@ class TeamReviewPanel(QWidget):
         if row['status']!='open':raise ValueError('Reopen this discussion before replying.')
         self.reply_to=row['id'];self.reply_note.setText('Replying to '+row['author']+': '+row['text'][:160])
         self.comment_button.setText('Post reply');self.cancel_reply_button.show();self.anchor.setEnabled(False);self.anchor_kind.setEnabled(False);self.comment.setFocus()
+        self.draft_changed()
 
     def cancel_reply(self):
         self.reply_to=None;self.reply_note.clear();self.comment_button.setText('Post comment');self.cancel_reply_button.hide();self.anchor.setEnabled(True);self.anchor_kind.setEnabled(True)
+        self.draft_changed()
 
     def read_comment(self):
         row=self.selected_comment();self.studio.text_dialog('Comment by '+row['author'],row['text'])
@@ -247,6 +316,7 @@ class TeamReviewPanel(QWidget):
         studio.cid=target.get('cell',cell['id']);studio.mode_combo.setCurrentIndex(0 if target['view']=='schematic' else 1);studio.net=target['net'];studio.refresh(True);studio.select(target['objects'],target['view'])
 
     def decide(self):
+        if not self.flush_draft():raise ValueError('Save the draft locally before recording a decision.')
         self.request(dict(action='decide',checkpoint=self.selected(),status=self.decision.currentData(),text=self.comment.toPlainText()),lambda _:self.load(),True)
 
     def export_checkpoint(self):
