@@ -18,16 +18,13 @@ class RoutingCancelled(ValueError):
 def via_recipes(tech):
     declared = tech.get('routing_vias')
     if declared is None:
-        from .layout_edit import via_options
-        try:
-            declared = [dict(name=n, lower=a, cut=cut, upper=b, size=size,
-                             enclosure=(pad-size)//2)
-                        for n, (a, cut, b, size, pad) in via_options(tech).items()]
-        except ValueError:
+        from .layout_edit import _native_via_recipes
+        declared = _native_via_recipes(tech)
+        if not declared:
             from .parametric import rules
             try:
                 cfg = rules(tech).get('contact', {})
-                declared = [dict(name='Declared contact', **cfg)] if cfg else []
+                declared = [dict(name='M1 to M2' if tech.get('revision')=='generic-1' else 'Declared contact', **cfg)] if cfg else []
             except ValueError:
                 declared = []
     layers = {l['name']: l for l in tech['layers']}; grid = tech['grid']; out = []
@@ -42,9 +39,16 @@ def via_recipes(tech):
         if v['size'] <= 0 or v['enclosure'] < 0 or v['size'] % (2*grid) or v['enclosure'] % grid:
             raise ValueError('Via dimensions must allow a centered, on-grid stack.')
         v['pad'] = v['size'] + 2*v['enclosure']
+        spacing = v.get('spacing', layers[v['cut']]['space'])
+        if type(spacing) is not int or spacing < 0 or spacing % grid:
+            raise ValueError('Via spacing must be non-negative integer nanometres on the project grid.')
+        v['spacing'] = max(spacing, layers[v['cut']]['space'])
         if v['size'] < layers[v['cut']]['width'] or any(v['pad'] < layers[v[k]]['width'] for k in ('lower', 'upper')):
             raise ValueError('Via recipe is smaller than declared layer minimum widths.')
-        v.setdefault('name', v['lower']+' to '+v['upper']); out.append(v)
+        v.setdefault('name', v['lower']+' to '+v['upper'])
+        if not isinstance(v['name'],str) or not v['name'].strip() or any(old['name']==v['name'] for old in out):
+            raise ValueError('Via recipes need unique, non-empty names.')
+        out.append(v)
     return out
 
 

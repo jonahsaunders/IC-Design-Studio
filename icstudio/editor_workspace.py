@@ -49,6 +49,7 @@ class EditorWorkspaceMixin:
         self.editor_width.editingFinished.connect(lambda:self.guard(self.apply_editor_options))
         self.editor_snap.currentIndexChanged.connect(lambda:self.guard(self.apply_editor_options))
         self.editor_net.currentTextChanged.connect(lambda:self.guard(self.apply_editor_options))
+        self.editor_via.currentTextChanged.connect(lambda:self.guard(self.apply_editor_options))
         self.breadcrumb=QLabel();self.breadcrumb.setWordWrap(True);self.breadcrumb.setContentsMargins(12,3,12,3);self.centralWidget().layout().insertWidget(1,self.breadcrumb)
         self.breadcrumb.setTextFormat(Qt.PlainText)
         # Keep the existing layer list as a synchronized compatibility surface.
@@ -110,11 +111,12 @@ class EditorWorkspaceMixin:
 
     def start_layout_tool(self,tool):
         if not self.idle_edit():return
+        if tool=='via' and not self.editor_via.count():
+            raise ValueError('This technology has no mapped via recipe. Declare routing_vias or link a technology with supported conductor and cut layers.')
         if self.current_mode!='layout':self.mode_combo.setCurrentIndex(1)
         if tool in ('move_ref','copy_ref','edge','vertex') and not self.selection:raise ValueError('Select layout objects first.')
         self.apply_editor_options(require_width=tool=='path');self.layout.cancel_gesture();self.layout.tool=tool;self._last_editor_command=lambda:self.start_layout_tool(tool)
         if tool=='via':
-            if not self.editor_via.count():raise ValueError('This technology has no qualified native via stack.')
             self._via_configuration=(self.cid,self.editor_via.currentText(),self.editor_net.currentText().strip())
         self.sync_tools();self.layout.setFocus();self.layout.update()
 
@@ -197,10 +199,12 @@ class EditorWorkspaceMixin:
         self.refresh_editor_layers();old=self.editor_net.currentText();self.editor_net.blockSignals(True);self.editor_net.clear();self.editor_net.addItem('')
         self.editor_net.addItems(sorted({n for d in self.cell['devices'] for n in d['nets'].values()}|{s.get('net','') for s in self.cell['shapes']} - {''}));self.editor_net.setCurrentText(old);self.editor_net.blockSignals(False)
         from .layout_edit import via_options
-        before=self.editor_via.currentText();self.editor_via.clear()
-        try:self.editor_via.addItems(list(via_options(self.project['pdk'])))
+        before=self.editor_via.currentText();self.editor_via.blockSignals(True);self.editor_via.clear()
+        try:self.editor_via.addItems(list(via_options(self.project)))
         except ValueError:pass
         if self.editor_via.findText(before)>=0:self.editor_via.setCurrentText(before)
+        self.editor_via.blockSignals(False)
+        if self.layout.tool=='via':self.apply_editor_options()
         self.update_breadcrumb();self.filter_editor_findings()
 
     def render_physical_hierarchy(self):
@@ -419,7 +423,7 @@ class EditorWorkspaceMixin:
         def restore_layer():
             self.layer_combo.blockSignals(True);self.layer_combo.setCurrentText(previous);self.layer_combo.blockSignals(False);self.layout.layer=previous;self._routing_layer=previous
         try:
-            connection=next((name for name,(a,cut,b,size,pad) in via_options(self.project['pdk']).items() if {a,b}=={previous,layer}),None)
+            connection=next((name for name,(a,cut,b,size,pad) in via_options(self.project).items() if {a,b}=={previous,layer}),None)
             if not connection:raise ValueError('No native via stack connects these layers. Finish the path before changing to an unrelated layer.')
         except ValueError:restore_layer();raise
         pts=[[round(pt.x()),round(pt.y())] for pt in self.layout.drawing];point=pts[-1];net=self.editor_net.currentText().strip();cid=self.cid

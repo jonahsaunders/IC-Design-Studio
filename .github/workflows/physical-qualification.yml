@@ -49,6 +49,10 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_open_project.py --schematic build/open-project-evidence/schematic.icproj --layout build/open-project-evidence/magic-import/imported.icproj --bench build/open-project-evidence/overvoltage-bench.icproj --out build/open-project-evidence/desktop
+      - name: Exercise vias and Autovia on the imported detector
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_layout_vias.py --project build/open-project-evidence/overvoltage-bench.icproj --out build/open-project-evidence/vias
       - uses: actions/upload-artifact@v4
         if: always()
         with:
