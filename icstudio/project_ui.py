@@ -31,6 +31,7 @@ class ProjectMixin:
         row.addWidget(self.button('Settings',fn=self.project_settings));pv.insertLayout(0,row)
         self.tree.setContextMenuPolicy(Qt.CustomContextMenu);self.tree.customContextMenuRequested.connect(self.project_context)
         lv=self.navtabs.widget(1).layout();self.library_category=QComboBox();self.library_category.addItems(['All devices','NMOS','PMOS','Resistors','Capacitors','Bipolar','Diodes','Other','Generic','Custom cells']);self.library_category.currentTextChanged.connect(self.filter_library);lv.insertWidget(1,self.library_category)
+        self.library_source=QComboBox();self.library_source.setAccessibleName('Component source library');self.library_source.addItem('All sources',None);self.library_source.currentIndexChanged.connect(self.filter_library);lv.insertWidget(1,self.library_source)
         self.library_info=QLabel();self.library_info.setWordWrap(True);lv.insertWidget(3,self.library_info);self.library_list.currentItemChanged.connect(self.library_selected)
         row=QHBoxLayout();row.addWidget(self.button('PDK manager…',fn=self.pdk_manager));row.addWidget(self.button('New symbol…',fn=self.new_symbol));lv.addLayout(row)
         self.refresh_library()
@@ -77,21 +78,28 @@ class ProjectMixin:
         signature=digest([self.cid,catalog,[(c['id'],c['name'],c['ports']) for c in self.project['cells']]])
         if signature==self._catalog_signature:return
         self._catalog_signature=signature;self.library_list.clear()
+        from .component_sources import library_name
+        source_by_key={key:library_name(key) for key in catalog}
+        source_by_key={key:(self.project['pdk']['name'] if source=='Project definitions' else source) for key,source in source_by_key.items()}
+        current=self.library_source.currentData();self.library_source.blockSignals(True);self.library_source.clear();self.library_source.addItem('All sources',None)
+        for source in ['Generic components','Project cells']+sorted(set(source_by_key.values())):self.library_source.addItem(source,source)
+        self.library_source.setCurrentIndex(max(0,self.library_source.findData(current)));self.library_source.blockSignals(False)
         for i,kind in enumerate(('R','C','L','V','I','NMOS','PMOS'),1):
-            it=QListWidgetItem(DEVICE_NAMES[kind]+'\nGeneric model');it.setData(Qt.UserRole,i);it.setData(Qt.UserRole+1,kind);it.setData(Qt.UserRole+2,'Generic');it.setIcon(icon(DEVICE_ICONS[kind]));self.library_list.addItem(it)
+            it=QListWidgetItem(DEVICE_NAMES[kind]+'\nGeneric model');it.setData(Qt.UserRole,i);it.setData(Qt.UserRole+1,kind);it.setData(Qt.UserRole+2,'Generic');it.setData(Qt.UserRole+4,'Generic components');it.setIcon(icon(DEVICE_ICONS[kind]));self.library_list.addItem(it)
         for key,e in sorted(catalog.items(),key=lambda pair:(pair[1].get('category','Other'),pair[1]['label'])):
-            it=QListWidgetItem(e['label']+'\n'+e.get('model',''));it.setData(Qt.UserRole,key);it.setData(Qt.UserRole+1,e.get('kind','PDK'));it.setData(Qt.UserRole+2,e.get('category','Other'));it.setData(Qt.UserRole+3,e.get('unavailable',''));it.setIcon(icon('chip'));it.setToolTip(e.get('unavailable') or 'Model: '+e['model']+'\nPins: '+', '.join(e.get('pin_order',[])))
+            it=QListWidgetItem(e['label']+'\n'+e.get('model',''));it.setData(Qt.UserRole,key);it.setData(Qt.UserRole+1,e.get('kind','PDK'));it.setData(Qt.UserRole+2,e.get('category','Other'));it.setData(Qt.UserRole+3,e.get('unavailable',''));it.setData(Qt.UserRole+4,source_by_key[key]);it.setIcon(icon('chip'));it.setToolTip(e.get('unavailable') or 'Model: '+e['model']+'\nPins: '+', '.join(e.get('pin_order',[])))
             if e.get('unavailable'):it.setForeground(QColor(palette(self.dark)['muted']))
             self.library_list.addItem(it)
         for c in self.project['cells']:
             if c['id']==self.cid or not c['ports']:continue
-            it=QListWidgetItem(c['name']+'\nCustom cell · '+str(len(c['ports']))+' terminals');it.setData(Qt.UserRole,{'cell':c['id']});it.setData(Qt.UserRole+1,'X');it.setData(Qt.UserRole+2,'Custom cells');it.setIcon(icon('cell'));self.library_list.addItem(it)
+            it=QListWidgetItem(c['name']+'\nCustom cell · '+str(len(c['ports']))+' terminals');it.setData(Qt.UserRole,{'cell':c['id']});it.setData(Qt.UserRole+1,'X');it.setData(Qt.UserRole+2,'Custom cells');it.setData(Qt.UserRole+4,'Project cells');it.setIcon(icon('cell'));self.library_list.addItem(it)
         self.filter_library()
     def filter_library(self,*args):
         if not hasattr(self,'library_category'):return super().filter_library(*args)
         query=self.library_search.text().lower();category=self.library_category.currentText();first=None
+        source=self.library_source.currentData() if hasattr(self,'library_source') else None
         for i in range(self.library_list.count()):
-            it=self.library_list.item(i);hidden=query not in it.text().lower() or (category!='All devices' and it.data(Qt.UserRole+2)!=category);it.setHidden(hidden)
+            it=self.library_list.item(i);hidden=query not in it.text().lower() or (category!='All devices' and it.data(Qt.UserRole+2)!=category) or (source is not None and it.data(Qt.UserRole+4)!=source);it.setHidden(hidden)
             if not hidden and first is None:first=it
         self.library_list.setCurrentItem(first);self.library_selected(first)
     def library_selected(self,item,*args):

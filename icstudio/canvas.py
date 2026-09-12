@@ -437,7 +437,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         pos=self.snap(self.model(e.position()));self.drag=pos;self.press_screen=QPointF(e.position())
         if e.button()==Qt.RightButton:
             if self.tool!='select':self.cancel_gesture();self.tool_cancelled.emit();return
-            hit=self.hit(pos)
+            hit=self.hit(self.model(e.position()))
             if hit and hit['id'] not in self.selection:self.selected.emit([hit['id']])
             elif not hit:self.selected.emit([])
             self.anchor=None;self.context_requested.emit(e.position().toPoint());return

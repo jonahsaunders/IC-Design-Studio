@@ -108,7 +108,7 @@ assert w.dockWidgetArea(w.inspector)==Qt.RightDockWidgetArea
 passed('Window controls float, redock, hide and restore panels; locking and reset work')
 QTest.mouseDClick(w.inspector.titleBarWidget(),Qt.LeftButton,pos=QPoint(30,14));QTest.qWait(30)
 assert w.inspector.isFloating()
-QTest.mouseClick(w.panel_float_buttons[1],Qt.LeftButton);assert not w.inspector.isFloating()
+QTest.mouseClick(w.inspector._floating_frame.dock_button,Qt.LeftButton);assert not w.inspector.isFloating()
 passed('Panel title double-click and visible float button both change native docking')
 
 w.arrange_linked(Qt.Vertical);QTest.qWait(50)

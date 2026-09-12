@@ -1,0 +1,45 @@
+{
+  "base_commit": "6b1e30f3d13c1dcb8d662523fd6cf4919f1b2a0d",
+  "scope": "source Linux offscreen Qt; consumer native display and hosted new-commit checks are separate",
+  "core": {
+    "tests": 628,
+    "skipped": 12,
+    "status": "passed"
+  },
+  "feedback": {
+    "checks": [
+      "Standard source/category/search filters, hierarchical preview and empty-result placement guard",
+      "Native and Xschem library filtering, duplicate labels in different sources, symbol preview and placement",
+      "Wire-first pointer selection preserves overlap cycling and explicit selection filters",
+      "Right-click enter schematic/return to parent uses the existing navigation stack and displays the active shortcut",
+      "All missing hierarchy devices placed once with reviewed Apply, undo/redo, save/reopen and no duplicate placement",
+      "Floating native border, real diagonal size-grip drag, repeated dock/undock and saved floating workspace restoration"
+    ],
+    "qt_platform": "offscreen",
+    "status": "passed"
+  },
+  "existing_gui": {
+    "capture": 9,
+    "workspace_overhaul": 15,
+    "layout_expansion": 3
+  },
+  "source_sha256": {
+    "icstudio/component_browser.py": "5f1f1f405e64c76b4635f88fca8c6684d67e0a29273af83f328a63262e828ade",
+    "icstudio/component_sources.py": "cfa0e213910aea9ecae9381f84c247aca934a02048344fcf278103cd75fb8653",
+    "icstudio/floating_panels.py": "28b50ecd74ea1bdff316639ab74e55b2b5ab38180d2c423cf8d305a617a1427f",
+    "icstudio/wire_canvas.py": "b31ab6a62bc1ba3c1ff1e57a34308161080c2bbffc9edbad1f877bc914040572",
+    "icstudio/capture_workspace.py": "75cc48c1b68409ad021bd112f687c052fa01d0b5b4180c38d191012009593fa0",
+    "icstudio/native_workspace.py": "4e88a1b3f5c51097b087422c44623ac2bdb7c2c5f9c840a404b5fd8bcd5ab5fa",
+    "icstudio/native_migration.py": "2ce3d0734bc09162774217b18eaafdbaaa3e2d322c1d796c7fa546055b0da42c",
+    "icstudio/native_exchange.py": "657d1e5be255c6c4ef04fb756abe1e8ff1fa9feb1b304c3506954f081238d7ee",
+    "icstudio/human_workspace.py": "1abf7dd058c1eee1cb8d8ad00e37ff1f5fe7b73735e93a03d12177940a1655c9",
+    "icstudio/project_ui.py": "6b40ce4fb48b3929f910b1c69f4b25674b4619fdd307fe99177f8eb770efc436",
+    "icstudio/layout_eco_ui.py": "366a3207081ef5aab7948c6093005fc920ac386e5d37d3fa2ddaff0e722eb059",
+    "icstudio/layout_development_ui.py": "29826e4c0297de614f43d59b8e349d26cc568ab47c5910d69ec6aadcbe6339fc",
+    "icstudio/xschem_workflow.py": "d1c5ac31d70a3419d91a4d5dcaa1239581bc188811d65a9c60f45c87f9fa1dc7",
+    "icstudio/canvas.py": "746ed18ca3e35864cfecf169e77fe479ae6a9a75f065032afd5c25b36218a536",
+    "icstudio/ui_style.py": "4ab22921726a1cc2c128f66cc34b4b7537a175941af325bf40ae58bf34d12de5",
+    "tests/gui_feedback.py": "90fb2167b34dc5e77e033dd4ae3c84e0aafd12cadebf5501d9387158d45c6c37",
+    "tests/test_component_sources.py": "f8f81b95f4b81c9e030e9b0cab87e0dd0190108b4998fdc98c11cd737a4ac543"
+  }
+}

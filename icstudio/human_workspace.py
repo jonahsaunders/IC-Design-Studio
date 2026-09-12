@@ -81,6 +81,8 @@ class HumanWorkspaceMixin(GridSettingsMixin):
             for button in (floating,close):button.setFixedSize(28,28);row.addWidget(button)
             self.panel_float_buttons.append(floating)
             dock.setTitleBarWidget(head)
+            from .floating_panels import FloatingPanel
+            dock._floating_frame=FloatingPanel(dock,head)
             if old: old.deleteLater()
             dock.setAllowedAreas(Qt.AllDockWidgetAreas)
             dock.setFeatures(QDockWidget.DockWidgetClosable | QDockWidget.DockWidgetMovable
@@ -256,11 +258,11 @@ class HumanWorkspaceMixin(GridSettingsMixin):
         self.ribbon_pages = {}
         specs = {
           'schematic': [
-            ('Draw', [('Select',lambda:self.set_tool(0),'select','select'),('Component','Place component…','plus','place'),('Wire','Place wire','wire','connect'),('Net label','Place net label…','label',None),('Ground','Place ground','ground',None)]),
+            ('Draw', [('Select',lambda:self.set_tool(0),'select','select'),('Component','Place component…','plus','place'),('Wire','Place wire','wire','connect'),('Net label','Place net label…','label',None),('Ground','Place ground','ground',None),('To layout',self.place_schematic_in_layout,'chip',None)]),
             ('Edit', [('Move','Move','move','capture_move'),('Stretch','Stretch','stretch','capture_stretch'),('Copy','Copy','copy','capture_copy'),('Rotate','Rotate clockwise','rotate',None),('Mirror','Mirror','mirror',None),('Cut wire','Cut wire','cut','capture_cut'),('Properties',self.reveal_properties,'inspector',None)]),
             ('Review', [('Check','Electrical rule check','check',None),('Inspect net','Inspect whole net','wire',None),('Measure',lambda:self.set_tool(5),'ruler','ruler'),('Cross-probe','Schematic / layout cross-probe…','split',None),('Symbol','Generate / edit active symbol','chip',None),('Check + save','Check and Save','save',None)])],
           'layout': [
-            ('Draw', [('Select',lambda:self.set_tool(0),'select','select'),('Rectangle','Rectangle','rect','rect'),('Polygon','Polygon','polygon','polygon'),('Path','Path','path','path'),('Via','Place via','via','via'),('Autovia','Autovia…','via',None),('Cell','Place physical cell…','chip','instance_place')]),
+            ('Draw', [('Select',lambda:self.set_tool(0),'select','select'),('Rectangle','Rectangle','rect','rect'),('Polygon','Polygon','polygon','polygon'),('Path','Path','path','path'),('Via','Place via','via','via'),('Autovia','Autovia…','via',None),('Cell','Place physical cell…','chip','instance_place'),('From schematic',self.place_schematic_in_layout,'chip',None)]),
             ('Edit', [('Move','Move by reference','move','move_ref'),('Copy','Copy by reference','copy','copy_ref'),('Stretch','Stretch edge','stretch','edge'),('Vertex','Edit vertex','vertex','vertex'),('Rotate','Rotate layout clockwise','rotate',None),('Align','Align layout selection…','align',None)]),
             ('Review', [('Measure','Ruler','ruler','ruler'),('Check DRC','Geometry DRC (generic rules)','check',None),('Connections','Check linked layout and show connections','wire',None),('Cross-probe','Schematic / layout cross-probe…','split',None),('Properties','Layout properties…','inspector',None)])]
         }
@@ -537,6 +539,24 @@ class HumanWorkspaceMixin(GridSettingsMixin):
                     if canvas.mode=='schematic' else ['Rectangle','Polygon','Path','Place via'])
             for key in keys:menu.addAction(self.command_actions[key])
             menu.addSeparator()
+        if canvas.mode=='schematic':
+            child=next((d for d in self.cell['devices'] if d['id'] in self.selection and d['kind']=='X'),None)
+            commands=[]
+            if child:commands += [('Enter schematic','enter',self.capture_enter),('Enter symbol','symbol',lambda:self.capture_enter(True))]
+            if self._capture_stack:commands.append(('Return to parent','leave',self.capture_leave))
+            for title, key, callback in commands:
+                shortcut=self.capture_keys.get(key,'')
+                menu.addAction(title+('\t'+shortcut if shortcut else ''),lambda checked=False,fn=callback:self.guard(fn))
+            if commands:menu.addSeparator()
+            menu.addAction('Place schematic devices in layout…',lambda:self.guard(self.place_schematic_in_layout))
+            candidates=canvas.capture_candidates(canvas.model(pos))
+            if len(candidates)>1:
+                overlaps=menu.addMenu('Select overlapping object')
+                for obj in candidates:
+                    name=obj.get('name') or ('Wire' if 'points' in obj else obj.get('text','Label'))
+                    overlaps.addAction(name,lambda checked=False,ident=obj['id']:self.select([ident],'schematic'))
+            menu.addSeparator()
+        self._canvas_context_menu=menu
         menu.addAction('Fit design',self.fit_active)
         menu.addAction('Grid settings…',self.grid_settings_dialog)
         menu.exec(canvas.mapToGlobal(pos))
