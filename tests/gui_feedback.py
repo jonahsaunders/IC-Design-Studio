@@ -112,7 +112,9 @@ def main():
 
         # A native frame supplies edges; the visible size grip supplies diagonal resizing.
         dock=w.results_dock;dock.show();dock.setFloating(True);QTest.qWait(100)
-        assert dock.titleBarWidget() is None and not dock.windowFlags()&Qt.FramelessWindowHint
+        assert dock.titleBarWidget() is None and dock._floating_frame.border.isVisible()
+        if app.platformName()!='xcb' and not app.platformName().startswith('wayland'):
+            assert not dock.windowFlags()&Qt.FramelessWindowHint
         grip=dock._floating_frame.grip;assert grip.isVisible()
         dock.move(20,20);dock.resize(480,360);QTest.qWait(30);start=dock.size();point=QPoint(7,7)
         QTest.mousePress(grip,Qt.LeftButton,Qt.NoModifier,point)

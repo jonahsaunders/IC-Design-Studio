@@ -2,7 +2,7 @@
 
 This increment targets `experimental`. It includes the earlier source/library
 selector, vector symbol previews, wire selection, bulk layout placement,
-hierarchy menu actions and native floating frames, plus the following work.
+hierarchy menu actions and floating frames, plus the following work.
 
 ## Components and selection
 
@@ -31,7 +31,10 @@ old findings immediately. Verification results retain their original revision.
 **Place missing devices** opens the existing reviewed layout transaction. It
 does not invent implementations for unsupported parts. The **Steps** and
 **Physical comparison** tabs retain the existing verification and review tools.
-The dock is saved with the workspace and can float using a native frame.
+The dock is saved with the workspace and can float with a platform title bar,
+an explicit contrasting border and a diagonal grip. Qt draws the title bar on
+X11/Wayland; Windows uses its native decoration. The grip handles resizing
+directly so its behavior does not depend on a platform modal resize loop.
 
 ## Durable unsent review drafts
 

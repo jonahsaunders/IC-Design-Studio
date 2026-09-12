@@ -4,11 +4,11 @@
     "Standard component library supports favorite filtering and Enter placement from search",
     "Hover and click agree at overlapping wire/device geometry; Tab cycles and filtering changes the preview",
     "Persistent workflow restores with the workspace, navigates findings, rejects stale rows and refreshes after edits",
-    "Native floating frame, diagonal resize, saved size restoration and recovery of an offscreen window",
+    "Visible floating border on all four edges, platform title bar, diagonal resize, saved size restoration and recovery of an offscreen window",
     "packaged live HTTP editing/undo, automatic workflow, reviewer authorization, threaded discussions and unsent reply recovery without auto-posting"
   ],
-  "component_open_ms": 126.63227699886193,
-  "component_filter_ms": 11.296597996988567,
+  "component_open_ms": 122.45962399902055,
+  "component_filter_ms": 10.07448100062902,
   "qt_platform": "offscreen",
   "status": "passed"
 }

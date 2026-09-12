@@ -15,6 +15,9 @@ def run(w, output):
     out=Path(output)/'experimental';out.mkdir(parents=True,exist_ok=True)
     before=clone(w.project);path=w.path;checks=[]
     app=QApplication.instance()
+    def move(widget, point):
+        # Deliver a Qt input event even when a platform cursor warp is ignored.
+        QTest.mouseMove(widget.window().windowHandle(),widget.mapTo(widget.window(),point))
     def wait(predicate, label, timeout=10):
         deadline=time.monotonic()+timeout
         while time.monotonic()<deadline:
@@ -59,13 +62,13 @@ def run(w, output):
         w.set_project(p);w.mode_combo.setCurrentIndex(0);canvas=w.schematic
         canvas.auto_fit=False;canvas.scale=1.5;canvas.offset=QPointF(180,100);app.processEvents()
         point=(canvas.offset+QPointF(0,40)*canvas.scale).toPoint()
-        QTest.mouseMove(canvas,point);app.processEvents();assert canvas.preselection['id']=='overlap-wire'
+        move(canvas,point);app.processEvents();assert canvas.preselection['id']=='overlap-wire'
         assert '2 overlapping' in canvas.selection_hint
         QTest.mouseClick(canvas,Qt.LeftButton,Qt.NoModifier,point);assert w.selection==['overlap-wire']
         QTest.keyClick(canvas,Qt.Key_Tab);assert w.selection==[resistor['id']]
         assert 'Click: Wire' in canvas.selection_hint
         canvas.grab().save(str(out/'selection-preview.png'))
-        canvas.capture_filters={'devices'};QTest.mouseMove(canvas,point+QPoint(1,0));assert canvas.preselection['id']==resistor['id']
+        canvas.capture_filters={'devices'};move(canvas,point+QPoint(1,0));assert canvas.preselection['id']==resistor['id']
         canvas.capture_filters={'devices','wires','labels','annotations'}
         canvas.fit();assert canvas.preselection is None and not canvas.selection_hint
         checks.append('Hover and click agree at overlapping wire/device geometry; Tab cycles and filtering changes the preview')
@@ -86,7 +89,16 @@ def run(w, output):
         checks.append('Persistent workflow restores with the workspace, navigates findings, rejects stale rows and refreshes after edits')
 
         dock=w.results_dock;dock.show();dock.setFloating(True);dock.move(30,30);dock.resize(480,320);QTest.qWait(50)
-        assert dock.titleBarWidget() is None and not dock.windowFlags()&Qt.FramelessWindowHint
+        assert dock.titleBarWidget() is None and dock._floating_frame.border.isVisible()
+        # Qt deliberately provides its own title bar on X11/Wayland.
+        if app.platformName()!='xcb' and not app.platformName().startswith('wayland'):
+            assert not dock.windowFlags()&Qt.FramelessWindowHint
+        from .ui_style import palette
+        from PySide6.QtGui import QColor
+        pixels=dock.grab().toImage();edge=QColor(palette(w.dark)['muted'])
+        for x,y in ((0,pixels.height()//2),(pixels.width()-1,pixels.height()//2),
+                    (pixels.width()//2,0),(pixels.width()//2,pixels.height()-1)):
+            assert pixels.pixelColor(x,y)==edge,('Floating border is not visible',x,y,pixels.pixelColor(x,y).name())
         grip=dock._floating_frame.grip;size=dock.size();pos=QPoint(7,7)
         QTest.mousePress(grip,Qt.LeftButton,Qt.NoModifier,pos);QTest.mouseMove(grip,pos+QPoint(70,55),30)
         QTest.mouseRelease(grip,Qt.LeftButton,Qt.NoModifier,pos+QPoint(70,55));app.processEvents()
@@ -98,7 +110,7 @@ def run(w, output):
         dock.move(-20000,-20000);dock._floating_frame.keep_visible()
         assert any(screen.availableGeometry().intersects(dock.geometry()) for screen in app.screens())
         dock.grab().save(str(out/'floating-results.png'));dock.setFloating(False);dock.hide()
-        checks.append('Native floating frame, diagonal resize, saved size restoration and recovery of an offscreen window')
+        checks.append('Visible floating border on all four edges, platform title bar, diagonal resize, saved size restoration and recovery of an offscreen window')
         target=out/'Project with spaces.icproj';save_project(w.project,target);restored=load_project(target)
         assert restored==w.project
         (out/'diagnostics.json').write_text(diagnostic_report(),encoding='utf-8')
