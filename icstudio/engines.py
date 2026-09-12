@@ -99,10 +99,15 @@ def run_ngspice(p,cid,settings,executable,directory,progress=lambda *_:None):
         directive,aliases=save_directive(p,cid);text=spice(p,cid,settings,hierarchical=False)
         if settings['type']=='op':text=text.rsplit('.end',1)[0]+directive+'\n.end\n'
     from .pdks import stage_model_deck
-    text=stage_model_deck(p['pdk'],text,directory)
-    atomic_write(deck,preload(p,text,directory));atomic_write(directory/'runtime-lock.json',json.dumps({'osdi':verified(p)},indent=2));progress(.05,'Starting ngspice batch worker')
-    if raw.exists():raw.unlink()
+    text=preload(p,stage_model_deck(p['pdk'],text,directory),directory)
     from .spice_program import runtime_environment
+    if settings['type']=='dc' and settings.get('dc_startup',False):
+        from .dc_startup import seed_deck
+        progress(.03,'Solving the first DC point for convergence hints')
+        text=seed_deck(text,lambda raw,deck:ngspice_command(p,executable,raw,deck),
+                       directory,timeout=int(settings.get('timeout',180)),env=runtime_environment(executable))
+    atomic_write(deck,text);atomic_write(directory/'runtime-lock.json',json.dumps({'osdi':verified(p)},indent=2));progress(.05,'Starting ngspice batch worker')
+    if raw.exists():raw.unlink()
     try:log=execute(ngspice_command(p,executable,raw,deck),directory,timeout=int(settings.get('timeout',180)),env=runtime_environment(executable))
     except Exception as exc:
         atomic_write(directory/'engine.log',str(exc));raise
@@ -198,11 +203,21 @@ def magic_import(executable,source,technology,output):
     if not source.is_file() or source.suffix.lower()!='.mag':raise ValueError('Choose an existing Magic .mag cell.')
     if not Path(technology).is_file():raise ValueError('A matching Magic technology file is required.')
     if output.exists() and any(output.iterdir()):raise ValueError('Choose an empty Magic import output directory.')
+    from .magic_dependencies import closure
+    dependencies=closure(source)
     output.mkdir(parents=True,exist_ok=True);target=output/'imported.gds'
-    search=tcl_word('+'+str(source.parent));script=f'path search {search}\nload {tcl_word(source.stem)}\ngds write {tcl_word(target)}\nquit -noprompt\n'
+    search=tcl_word('+'+str(source.parent));script=f'path search {search}\nload {tcl_word(source.stem)}\ngds write {tcl_word(target)}\nfeedback save {tcl_word(output/"feedback.txt")}\nputs STUDIO_IMPORT_COMPLETE\n'
+    script='if {[catch {\n'+script+'} err]} {puts stderr "STUDIO_IMPORT_ERROR $err"}\nquit -noprompt\n'
     atomic_write(output/'import.tcl',script)
     log=execute([executable,'-dnull','-noconsole','-T',str(Path(technology).resolve())],source.parent,input_text=script);atomic_write(output/'conversion.log',log)
-    if not target.exists():raise RuntimeError('Magic produced no GDS. Review the conversion log and technology selection.')
+    if not target.exists() or 'STUDIO_IMPORT_COMPLETE' not in log or 'STUDIO_IMPORT_ERROR' in log:raise RuntimeError('Magic import did not complete. Review the conversion log and technology selection.')
     from .interchange import import_layout
     from .model import save_project
-    project,report=import_layout(target);save_project(project,output/'imported.icproj');atomic_write(output/'import-report.json',json.dumps({'source':str(source),'source_hash':file_digest(source),'technology':file_digest(technology),'report':report},indent=2));return str(output/'imported.icproj')
+    project,report=import_layout(target)
+    feedback=output/'feedback.txt'
+    if feedback.is_file() and feedback.stat().st_size:
+        report.append('Magic reported conversion feedback. Inspect feedback.txt and conversion.log before verification.')
+    evidence={'source':str(source),'source_hash':file_digest(source),'dependencies':dependencies,'technology':file_digest(technology),'report':report,
+              'feedback':feedback.read_text(errors='replace') if feedback.is_file() else ''}
+    project['layout_source']['magic_import']=evidence
+    save_project(project,output/'imported.icproj');atomic_write(output/'import-report.json',json.dumps(evidence,indent=2));return str(output/'imported.icproj')

@@ -91,6 +91,9 @@ def validate_extras(p,objid):
         for text in c.get('layout_texts',[]):
             if text.get('layer') not in {l['name'] for l in p['pdk']['layers']} or not isinstance(text.get('text'),str) or len(text['text'])>10000:raise ValueError('Invalid layout text.')
             if any(type(text.get(k)) is not int or abs(text[k])>2**31-1 for k in ('x','y')) or text.get('rotation',0) not in (0,90,180,270):raise ValueError('Invalid layout text position.')
+            for key,low,high,default in (('size',0,2**31-1,0),('font',-1,255,-1),('halign',-1,2,-1),('valign',-1,2,-1)):
+                value=text.get(key,default)
+                if type(value) is not int or not low<=value<=high:raise ValueError('Invalid layout text presentation: '+key)
         for pin in c.get('layout_pins',[]):
             objid(pin['id']);d=next((d for d in c['devices'] if d['id']==pin.get('device_id')),None)
             if not d or pin.get('pin') not in d['nets']:raise ValueError('Physical terminal must reference an existing device pin.')

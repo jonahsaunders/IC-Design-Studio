@@ -17,6 +17,13 @@ def selection_groups(p, cid, ids, locked=()):
     chosen = set(ids)
     if not chosen or not chosen <= objects.keys() | instances.keys():
         raise ValueError('Select local shapes or cell instances.')
+    # Ordinary unowned shapes cannot belong to a footprint or via group.
+    # Avoid building a union-find for every unrelated shape on each drag.
+    if chosen <= objects.keys() and not any(objects[k].get(field) for k in chosen
+            for field in ('generated_device', 'via_group', 'pcell_id')):
+        if any(objects[k]['layer'] in locked for k in chosen):
+            raise ValueError('Unlock selected layers before arranging.')
+        return [{key} for key in dict.fromkeys(ids)]
     parent = {key: key for key in objects}; owners = {}
     def root(key):
         while parent[key] != key:

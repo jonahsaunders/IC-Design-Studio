@@ -8,6 +8,7 @@ The application code is GPL-3.0-or-later. Do not remove this source package, its
 | KLayout | 0.30.5 | GPL-2.0-or-later; https://github.com/KLayout/klayout/tree/v0.30.5 and https://www.klayout.de/ |
 | PyInstaller bootloader | 6.16.0 | GPL with distribution exception; https://github.com/pyinstaller/pyinstaller/tree/v6.16.0 |
 | Python runtime | 3.12 | Python Software Foundation license; https://www.python.org/downloads/source/ |
+| cryptography | 50.0.1 | Apache-2.0 OR BSD-3-Clause; https://github.com/pyca/cryptography/tree/50.0.1 |
 
 Exact wheel requirements are in requirements.txt. Dynamic Qt libraries can be replaced by compatible, modified libraries; no anti-modification restriction is added. The application source and build scripts are supplied. Standard Linux graphics/runtime libraries may be collected by the packager; their distribution copyright notices are included under licenses/system when collected. They retain their original licenses. Source locations for Ubuntu packages are https://packages.ubuntu.com/noble/ and https://archive.ubuntu.com/ubuntu/pool/; exact library filenames are visible in the binary bundle.
 
@@ -25,7 +26,9 @@ GF180MCU primitive symbols and ngspice model files: Apache-2.0, upstream commit 
 
 ngspice 42: BSD-style and component-specific licenses retained in the runtime COPYING/copyright files. Windows console distribution: https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/42/ngspice-42_64.7z/download. Linux distribution: Ubuntu 42+ds-3build1; corresponding source: https://archive.ubuntu.com/ubuntu/pool/universe/n/ngspice/. Upstream source: https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/42/.
 
-The Windows portable package uses CPython 3.12.9, official win_amd64 wheels for the versions in requirements.txt, and Distlib native launchers distributed by pip 25.0.1. Runtime archive and file hashes are recorded in runtime-manifest.json. Python and Distlib licenses accompany those components. Distlib source: https://github.com/pypa/distlib. The application itself is supplied as editable Python source in the app folder.
+The Windows portable package uses CPython 3.12.9, official win_amd64 and pure Python wheels for the runtime dependencies, and Distlib native launchers distributed by pip 25.0.1. Runtime archive and file hashes are recorded in runtime-manifest.json. Python and Distlib licenses accompany those components. Distlib source: https://github.com/pypa/distlib. The application itself is supplied as editable Python source in the app folder.
+
+Encrypted desktop hosting uses cryptography to generate its private host certificates. Its wheel includes OpenSSL and other components with their own notices. The frozen packager retains cryptography's distribution metadata and license directory, including its bundled-component notices, and dependency metadata. The portable assembler retains the complete wheel metadata and licenses, including CFFI and pycparser. Corresponding upstream sources: https://github.com/openssl/openssl, https://github.com/python-cffi/cffi and https://github.com/eliben/pycparser; the bundled metadata identifies their versions and licenses.
 
 ## Added bundled simulation PDKs in 0.22.0.dev10
 
@@ -33,4 +36,12 @@ SKY130A primitive models, symbols and display layers are extracted from the chec
 
 The GF180MCU D adapter reuses the existing pinned primitive files above, adds `.ngspice` compatibility aliases, and includes `tech/klayout/gf180mcu.lyp` from the same upstream revision. Original Apache-2.0 headers and license are retained. Each package records source provenance in `UPSTREAM-LOCK.json` and locks every distributed asset in `package.json`.
 
-The Windows source/build provisioner uses py7zr 1.1.3 (LGPL-2.1-or-later), https://github.com/miurahr/py7zr/tree/v1.1.3, installed by pip with its dependencies. It is a setup dependency; the prepared portable desktop does not include or require it. The portable desktop retains the original Python license and the license files from the pinned PySide6, Shiboken and KLayout wheels.
+The Windows source/build provisioner uses py7zr 1.1.3 (LGPL-2.1-or-later), https://github.com/miurahr/py7zr/tree/v1.1.3, installed by pip with its dependencies. It is a setup dependency; the prepared portable desktop does not require it. The portable desktop retains the original Python license and the license files from the pinned PySide6, Shiboken, KLayout and cryptography wheels.
+
+## Optional overvoltage qualification source
+
+The external regression downloads LDFranck/sky130_vbl_ip__overvoltage at commit `53cf579f63d34227af67f0189b49ee09185f1db5`, an Apache-2.0 design by the Von Braun Labs contributors identified upstream. The source lock includes its LICENSE checksum. The design itself is not bundled. Generated evidence and screenshots derived from it retain this attribution. See [the reproduction guide](docs/OPEN_PROJECTS.md).
+
+## SKY130 resistor extraction backport in dev20
+
+The resistor definition block in [the correction lock](examples/open-projects/sky130-resistor-extraction.json) is from open_pdks commit `1689ac3f2dc763876eaf967227c7dfe831b031ae`, `sky130/magic/sky130.tech`. Copyright (c) 2020 R. Timothy Edwards; Apache-2.0. Its [license](examples/open-projects/LICENSE-open_pdks.txt), source URL and source hash are retained. The generated deck explicitly marks the backport; the full PDK is not bundled.

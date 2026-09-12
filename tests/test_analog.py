@@ -121,7 +121,7 @@ class AnalogTests(unittest.TestCase):
         self.assertEqual(p,before)
 
     def test_capabilities_do_not_trust_catalog_or_metadata(self):
-        t=technology();c=capabilities(t);self.assertEqual(c['native_layout'],['mos','inverter','ring','current_mirror']);self.assertIn('No release',c['physical_evidence'])
+        t=technology();c=capabilities(t);self.assertEqual(c['native_layout'],['mos','inverter','ring','current_mirror','analog_bank']);self.assertIn('No release',c['physical_evidence'])
         t['package_lock']['id']='ihp-sg13g2';t['physical']={'native_generators':['pretend']}
         self.assertEqual(capabilities(t)['native_layout'],[])
         with self.assertRaisesRegex(ValueError,'not implemented'):adapter(t)

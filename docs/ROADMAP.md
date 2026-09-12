@@ -1,6 +1,48 @@
 # The path forward
 
+## Experimental dev20: detector consistency and runnable HSA bench
+
+The [real-project workflow](OPEN_PROJECTS.md) adds bounded Xschem array import,
+reviewed layout attachment, exact layout text exchange and a pinned overvoltage
+regression. The external detector now passes strict full-circuit LVS with a verified upstream
+extraction correction, and its HSA bench uses first-point startup hints. [Submitted review actions](REVIEW_RECOVERY.md)
+now survive restart. Unowned layout selections avoid rebuilding unrelated
+footprint groups on each move.
+
+The next acceptance work is concrete: investigate the remaining source-to-GDS HVI
+conversion warnings and broaden detector PVT/transient coverage; run physical LAN/VPN and consumer Windows/Linux checks; establish signing policy;
+then broaden recovery performance and offline editing. Hosted or loopback tests
+do not close the hardware acceptance items. Older milestones below are history.
+
 Our goal is an independent open design environment that makes circuit intent, experiments and physical implementation easy to follow. Compatibility with Xschem, ngspice, KLayout, Magic and Netgen remains part of that direction. This roadmap expresses priorities and acceptance criteria, not promised delivery dates.
+
+## Experimental dev18 implementation
+
+[Guided network hosting](LIVE_COLLABORATION.md#host-a-session-on-your-network)
+creates encrypted sessions with invitation-scoped trust, connection checks and
+saved host restart. Schematic notes support direct selection, text editing,
+dragging, deletion and undo, including in shared sessions. The next hosting work
+is qualification across physical LAN/VPN devices and firewall configurations;
+managed internet hosting and relay service remain separate work.
+
+## Experimental dev17 implementation
+
+The [local server button](LIVE_COLLABORATION.md#start-a-local-server-with-a-button)
+starts the included collaboration service, handles its key automatically and
+restarts saved local workspaces from the dashboard. Hosting remains limited to
+the same computer; a reachable HTTPS team server is required for other computers.
+
+## Experimental dev16 implementation
+
+The [workflow and review update](WORKFLOW_REVIEW_0.22.md) adds automatic workflow
+checks, selected testbench context, visual ECO inspection, reviewer permissions
+and threaded checkpoint discussions. The next work includes realistic analog
+block qualification, broader matched layouts, durable offline review/edit queues,
+notifications and reducing recovery snapshot copying on the UI thread.
+
+## Experimental dev14 implementation
+
+The [engineering workflow guide](PROFESSIONAL_WORKFLOWS.md) records the implemented document services, editing improvements, parameter variants, analog references, test matrices and team review, with measured performance and explicit qualification limits. The remaining priorities below continue beyond this increment.
 
 ## Foundation already available
 
@@ -44,7 +86,7 @@ Build beyond the current finite-difference sensitivity and bounded sampled searc
 
 Progress in [0.22.0.dev1](UPDATE_0.22.md): hierarchical file XOR by layer/datatype, exact area summaries, saved reference snapshots, geometry queries, tiled density and bounded fill/rounding. A reproducible 10,000-square GDS/OASIS workload checks the comparison path. This does not establish large-layout interactive viewport performance.
 
-Profile large schematics, geometry and waveform sets. Introduce measured rendering/indexing improvements, reusable project libraries and reviewable project diffs. Improve plugin/adapter boundaries and regression automation. Evaluate remote workers and team collaboration only after the local document and job model are reliable.
+Profile large schematics, geometry and waveform sets. Introduce measured rendering/indexing improvements, reusable project libraries and reviewable project diffs. Improve plugin/adapter boundaries and regression automation. Extend the existing schematic/layout collaboration with durable offline work and richer review coordination. Remote compute remains future work.
 
 **Done when:** published workload definitions and measured responsiveness justify the supported scale. Collaboration preserves revision identity, result provenance and recoverable edits.
 

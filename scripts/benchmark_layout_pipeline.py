@@ -6,6 +6,7 @@ Windows: run benchmark-windows.bat. Offscreen results are CPU/Qt evidence only.
 import argparse
 import cProfile
 import io
+import hashlib
 import json
 import os
 import platform
@@ -30,7 +31,9 @@ def main():
     from icstudio.model import example,clone,digest
     from icstudio.layout import rect
     from icstudio import recovery,__version__
-    from icstudio.build_info import WORKFLOW_SOURCE_HASH
+    # Source runs must identify the code actually measured, even when a prior
+    # packaging run left an older generated build_info.py in the checkout.
+    WORKFLOW_SOURCE_HASH=hashlib.sha256(b''.join(p.name.encode()+p.read_bytes() for p in sorted((args.source/'icstudio').glob('*.py')) if p.name!='build_info.py')).hexdigest()
     from icstudio.live_geometry import full
     QSettings.setDefaultFormat(QSettings.IniFormat);QSettings.setPath(QSettings.IniFormat,QSettings.UserScope,str(out/'qt-profile/settings'))
     app=QApplication([]);app.setStyle('Fusion');QSettings('ICDesignStudio','Studio').clear()
@@ -61,19 +64,22 @@ def main():
                 assert not errors,errors
                 assert w.cell['shapes'][0]['points']!=before['points']
                 start=time.perf_counter();w.layout.grab();paint_ms=(time.perf_counter()-start)*1000
+                start=time.perf_counter()
+                if hasattr(w,'finish_recovery'):w.finish_recovery()
+                durability_wait_ms=(time.perf_counter()-start)*1000
                 # The durable stage may use a journal in the current build; verify
                 # its recovery reader, not an assumption about its file format.
                 start=time.perf_counter();restored,_=recovery.read(w.recovery_dir/(p['id']+'.icproj'));read_ms=(time.perf_counter()-start)*1000
                 assert restored['cells']==w.project['cells']
                 start=time.perf_counter();check=(w.check_layout_incremental() if hasattr(w,'check_layout_incremental') else full(w.project,w.cid));check_ms=(time.perf_counter()-start)*1000
                 assert not check.get('error'),check
-                samples.append({**stages,'commit_total_ms':commit_ms,'first_paint_ms':paint_ms,'recovery_reopen_ms':read_ms,'live_checks_ms':check_ms,'complete_with_checks_ms':commit_ms+paint_ms+check_ms,'check_issue_count':len(check['issues']),'incremental_stats':check.get('stats',{}),'edit_stats':getattr(w.history,'layout_stats',{})})
+                samples.append({**stages,'commit_total_ms':commit_ms,'first_paint_ms':paint_ms,'durability_wait_ms':durability_wait_ms,'recovery_reopen_ms':read_ms,'live_checks_ms':check_ms,'complete_with_checks_ms':commit_ms+paint_ms+durability_wait_ms+check_ms,'check_issue_count':len(check['issues']),'incremental_stats':check.get('stats',{}),'edit_stats':getattr(w.history,'layout_stats',{})})
             # One separately profiled move avoids distorting the timing samples.
             profiler=cProfile.Profile();profiler.enable();w.move([c['shapes'][0]['id']],5,0,'layout');profiler.disable()
             stream=io.StringIO();pstats.Stats(profiler,stream=stream).strip_dirs().sort_stats('cumtime').print_stats(25)
             (out/f'profile-{count}.txt').write_text(stream.getvalue())
             rows.append({'shapes':count,'samples':samples,'median':{key:round(statistics.median(s[key] for s in samples),3) for key in samples[0] if key.endswith('_ms')}})
-        report={'version':__version__,'workflow_hash':WORKFLOW_SOURCE_HASH,'host':{'platform':platform.platform(),'python':platform.python_version(),'qt_platform':app.platformName()},'workloads':rows,'scope':'Full Studio connected move, synchronous durable recovery, first paint and live declared-rule/terminal checks. Timing stages can be nested; use totals rather than summing stage columns. No foundry deck or native Windows claim unless run there.'}
+        report={'version':__version__,'workflow_hash':WORKFLOW_SOURCE_HASH,'host':{'platform':platform.platform(),'python':platform.python_version(),'qt_platform':app.platformName()},'workloads':rows,'scope':'Full Studio connected move, first paint, wait for durable recovery, and live declared-rule/terminal checks. Timing stages can be nested; use totals rather than summing stage columns. No foundry deck or native Windows claim unless run there.'}
         (out/'pipeline.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
     finally:
         recovery.write=real_recovery;w.saved_hash=digest(w.project);w.close();app.processEvents()

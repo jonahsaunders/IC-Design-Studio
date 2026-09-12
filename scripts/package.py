@@ -16,6 +16,7 @@ else:
  os.environ['ICSTUDIO_BUNDLED_NGSPICE']=engine
 (root/"icstudio"/"build_info.py").write_text("ENGINE_SOURCE_HASH = "+repr(hashlib.sha256((root/"icstudio"/"simulation.py").read_bytes()).hexdigest())+"\nWORKFLOW_SOURCE_HASH = "+repr(hashlib.sha256(b"".join(f.name.encode()+f.read_bytes() for f in sorted((root/"icstudio").glob("*.py")) if f.name!="build_info.py")).hexdigest())+"\n")
 args=[sys.executable,'-m','PyInstaller','--noconfirm','--clean','--name','ICDesignStudio','--windowed','--onedir','--collect-all','klayout','--add-data',f'{root/"icstudio"/"assets"}{os.pathsep}icstudio/assets','--hidden-import','PySide6.QtSvg','--hidden-import','icstudio.cli','--hidden-import','icstudio.sdk','--add-data',f'{root/"docs"}{os.pathsep}docs','--add-data',f'{root/"examples"}{os.pathsep}examples','--add-data',f'{root/"licenses"}{os.pathsep}licenses']
+args+=['--recursive-copy-metadata','cryptography']
 engine=os.environ.get('ICSTUDIO_BUNDLED_NGSPICE')
 if engine:
  if not Path(engine).is_file():raise ValueError('ICSTUDIO_BUNDLED_NGSPICE must name the engine binary for this build platform.')

@@ -47,7 +47,7 @@ def run(p,testbench,output,tools,progress=lambda *_:None):
         return {'assets':locks,'tools':{n:{'path':v,'sha256':file_digest(v)} for n,v in resolved.items()},'corner':t['analysis'].get('corner','nominal'),'electrical_cells':[by[i]['name'] for i in reachable(p,cid)],'physical_cells':[by[i]['name'] for i in reachable(p,cid,True)],'connection_findings':len(findings)}
     try:
         stage('preflight',preflight)
-        physical=clone(p);physical.pop('testbenches',None);physical['top']=cid;physical['cells']=[clone(by[key]) for key in reachable(p,cid,True)]
+        physical=clone(p);physical.pop('testbenches',None);physical.pop('test_plans',None);physical['top']=cid;physical['cells']=[clone(by[key]) for key in reachable(p,cid,True)]
         from .interchange import export_layout
         export_layout(physical,out/'layout.gds');atomic_write(out/'schematic.spice',native_subcircuit(p,cid))
         def simulation(directory,source,interface=None):

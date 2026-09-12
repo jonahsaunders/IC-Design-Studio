@@ -8,7 +8,8 @@ from .ui_style import palette
 
 class WireCanvasMixin:
     def capture_candidates(self,pos):
-        filters=getattr(self,'capture_filters',{'devices','wires','labels'});out=[]
+        filters=getattr(self,'capture_filters',{'devices','wires','labels','annotations'});out=[]
+        if 'annotations' in filters:out.extend(n for n in reversed(self.cell.get('annotations',[])) if self.annotation_box(n).contains(pos))
         if 'labels' in filters:out.extend(l for l in reversed(self.cell.get('labels',[])) if self.label_box(l).contains(pos))
         if 'devices' in filters:
             for d in reversed(self.cell['devices']):
@@ -28,6 +29,7 @@ class WireCanvasMixin:
     def capture_cycle(self,pos):
         rows=self.capture_candidates(pos)
         if not rows:return
+        self.auto_fit=False
         ids=[o['id'] for o in rows];current=self.selection[0] if len(self.selection)==1 else None;i=(ids.index(current)+1)%len(ids) if current in ids else 0;self.selected.emit([ids[i]]);self.message.emit('Selection '+str(i+1)+'/'+str(len(ids))+' · Tab or Alt+click cycles overlaps')
     def wire_spatial(self):
         key=(self.cell.get('wires',()),self.cell['devices'],self.cell.get('junctions',()),self.cell.get('labels',()))

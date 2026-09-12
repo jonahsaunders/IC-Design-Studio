@@ -3,6 +3,8 @@ from .model import scalar
 
 
 def validate_plan(project):
+    from .test_plans import validate_plans
+    validate_plans(project)
     setups=project.get('simulation_setups',[])
     if not isinstance(setups,list) or len(setups)>100:raise ValueError('Use at most 100 named analysis setups.')
     cells={c['id'] for c in project['cells']}

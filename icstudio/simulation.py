@@ -50,7 +50,9 @@ class Circuit:
         if p.get('xschem_exchange',{}).get('mode')=='compatible':raise ValueError('Run the imported Xschem program with ngspice from Analysis.')
         from .components import require_implementations
         require_implementations(p,cid or p['top'])
-        self.ds=flatten(p,cid); self.nodes=sorted({n for d in self.ds for n in d['nets'].values()}-{'0'})
+        self.ds=flatten(p,cid)
+        if len(self.ds)>500:raise ValueError('The educational solver supports 500 devices. Choose ngspice for this circuit.')
+        self.nodes=sorted({n for d in self.ds for n in d['nets'].values()}-{'0'})
         from .catalog import binding_for
         if any(binding_for(p['pdk'],d) for d in self.ds):raise ValueError('The active PDK binds device models. Choose ngspice to use those models.')
         if temperature<=-273.15:raise ValueError('Temperature must exceed absolute zero.')

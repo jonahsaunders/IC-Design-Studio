@@ -15,7 +15,7 @@ def main(argv):
     a=sub.add_parser('magic-workspace-export');a.add_argument('workspace');a.add_argument('--output',required=True);a.add_argument('--executable',default='magic')
     a=sub.add_parser('layout-review');a.add_argument('project');a.add_argument('layout');a.add_argument('--output',required=True);a.add_argument('--choices');a.add_argument('--apply',action='store_true')
     a=sub.add_parser('tool-technology');a.add_argument('project');a.add_argument('--output',required=True)
-    a=sub.add_parser('pdk-template');a.add_argument('project');a.add_argument('--kind',choices=['inverter','ring','current_mirror','differential_pair'],required=True);a.add_argument('--supply',required=True);a.add_argument('--nmos');a.add_argument('--pmos');a.add_argument('--output',required=True)
+    a=sub.add_parser('pdk-template');a.add_argument('project');a.add_argument('--kind',choices=['inverter','ring','current_mirror','differential_pair','amplifier'],required=True);a.add_argument('--supply',required=True);a.add_argument('--nmos');a.add_argument('--pmos');a.add_argument('--output',required=True)
     a=sub.add_parser('klayout-lvs-report');a.add_argument('database');a.add_argument('--output',required=True)
     args=parser.parse_args(argv)
     try:

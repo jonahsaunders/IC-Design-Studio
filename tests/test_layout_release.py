@@ -57,11 +57,13 @@ class LayoutReleaseTests(unittest.TestCase):
         p,cid,c=self.mirror()
         with self.assertRaisesRegex(ValueError,'complete'):align(p,cid,[c['shapes'][0]['id'],c['shapes'][-1]['id']],'left')
 
-    def test_via_requires_assets_and_respects_locks(self):
+    def test_via_geometry_respects_locks_without_requiring_verification_engines(self):
         p,cid,c=self.mirror();old=clone(p)
         with self.assertRaisesRegex(ValueError,'Unlock'):place_via(p,cid,'M1 to M2',[0,0],'',['via'])
-        with self.assertRaisesRegex(ValueError,'PDK lock'):place_via(p,cid,'M1 to M2',[0,0])
         self.assertEqual(p,old)
+        self.assertEqual(len(place_via(p,cid,'M1 to M2',[0,0])),3)
+        from icstudio.process_adapters import adapter
+        with self.assertRaisesRegex(ValueError,'PDK lock'):adapter(p['pdk']).engine_assets(p['pdk'])
 
     def test_via_stack_physically_connects_two_layers(self):
         p,cid,c=self.mirror();c['shapes'] += [rect('m1',20000,20000,1000,340),rect('m2',20000,20000,340,1000)]

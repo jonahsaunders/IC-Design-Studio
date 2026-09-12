@@ -12,6 +12,7 @@ app=QApplication([]);w=Studio(False);w.show();QTest.qWait(70)
 f=profile/'shared.icproj';save_project(w.project,f);w.set_project(load_project(f),f);external=clone(w.project);external['name']='Another session';save_project(external,f);w.commit(lambda p:p.update(name='My edits'))
 try:w.save();raise AssertionError('External edits overwritten')
 except ValueError as e:assert 'changed on disk' in str(e)
+w.finish_recovery()
 assert load_project(f)['name']=='Another session';saved,_=recovery.read(w.recovery_dir/(w.project['id']+'.icproj'));assert saved['name']=='My edits'
 # A running job cannot publish into a different project; cancellation persists.
 w.start_job({**w.project['analysis'],'step':'5n'});job=w.active_job

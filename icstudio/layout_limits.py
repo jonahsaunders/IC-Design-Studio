@@ -1,5 +1,7 @@
 """Separate stored, rendered and electrically checked layout budgets."""
 MAX_CELLS = 2048
+MAX_MASTER_DEVICES = 5000
+MAX_FLAT_DEVICES = 50000
 MAX_MASTER_SHAPES = 250000
 MAX_PROJECT_SHAPES = 1000000
 MAX_ARRAY_AXIS = 1024

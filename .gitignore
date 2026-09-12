@@ -20,3 +20,11 @@ release*/
 .pytest_cache/
 .DS_Store
 Thumbs.db
+
+# Private collaboration state must never enter source distributions.
+private-live-data/
+live-sessions/
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+creation-key.txt

@@ -141,6 +141,7 @@ class PhysicalWorkspaceMixin:
         canvas=self.layout
         if canvas.tool=='via' and self._via_configuration and canvas.drag:
             p=clone(self.project);cid,connection,net=self._via_configuration
+            if cid!=self.cid:raise ValueError('The active cell changed. Start via placement again.')
             from .layout_edit import place_via
             ids=place_via(p,cid,connection,[round(canvas.drag.x()),round(canvas.drag.y())],net,canvas.locked_layers);return [s for c in p['cells'] if c['id']==cid for s in c['shapes'] if s['id'] in ids]
         if canvas.tool=='rect' and canvas.anchor and canvas.drag:
@@ -168,11 +169,15 @@ class PhysicalWorkspaceMixin:
             self.layout.drawing_error='Route blocked: '+issues[0]['message'];self.live_note.setText(self.layout.drawing_error);self.statusBar().showMessage(self.layout.drawing_error,12000);return False
         return True
     def place_canvas_via(self,x,y):
+        if self._via_configuration and self._via_configuration[0]!=self.cid:
+            raise ValueError('The active cell changed. Start via placement again.')
         if self.protect_routes.isChecked() and self._via_configuration:
             from .layout_edit import place_via
             from .live_geometry import preview
             p=clone(self.project);cid,connection,net=self._via_configuration;ids=place_via(p,cid,connection,[round(x),round(y)],net,self.layout.locked_layers);shapes=[s for c in p['cells'] if c['id']==cid for s in c['shapes'] if s['id'] in ids];issues=preview(self.project,cid,shapes)
-            if issues:self.live_note.setText('Blocked: '+issues[0]['message']);self.statusBar().showMessage('Via blocked: '+issues[0]['message'],6000);return
+            if issues:
+                self.live_note.setText('Blocked: '+issues[0]['message'])
+                raise ValueError('Via blocked: '+issues[0]['message'])
         return super().place_canvas_via(x,y)
     def closeEvent(self,event):
         if getattr(self,'_live_worker',None) is not None:

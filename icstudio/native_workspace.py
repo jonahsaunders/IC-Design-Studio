@@ -3,7 +3,7 @@ from pathlib import Path
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (QDialog, QVBoxLayout, QLabel, QDialogButtonBox,
     QFileDialog, QTableWidgetItem, QLineEdit, QFormLayout, QPlainTextEdit,
-    QListWidget, QListWidgetItem, QInputDialog)
+    QListWidget, QListWidgetItem, QInputDialog, QCheckBox)
 from .model import clone, uid, digest, scalar
 from .native_spice import native, netlist
 from .spice_program import probes, find_ngspice
@@ -188,6 +188,11 @@ class NativeWorkspaceMixin:
         self.native_noise_output.setPlaceholderText('out'); self.native_noise_output.textChanged.connect(self.analysis_changed)
         self.analysis_form.addRow('Noise output net', self.native_noise_output)
         self.native_noise_output.hide(); self.analysis_form.labelForField(self.native_noise_output).hide()
+        self.native_dc_startup = QCheckBox('Use first-point voltage guesses')
+        self.native_dc_startup.setToolTip('Solve the first DC point once and use its voltages as convergence hints. Hints are released before each final solution; accuracy limits stay unchanged.')
+        self.native_dc_startup.toggled.connect(self.analysis_changed)
+        self.analysis_form.addRow('DC startup', self.native_dc_startup)
+        self.native_dc_startup.hide(); self.analysis_form.labelForField(self.native_dc_startup).hide()
         return panel
 
     def load_analysis(self):
@@ -203,6 +208,7 @@ class NativeWorkspaceMixin:
             self.analysis_source.clear(); self.analysis_source.addItems([v[0] for v in sources(self.project, self.cid)])
             self.analysis_source.setCurrentText(self.project['analysis'].get('source', ''))
             self.native_noise_output.setText(self.project['analysis'].get('output', 'out'))
+            self.native_dc_startup.setChecked(self.project['analysis'].get('dc_startup', False))
             self._loading_analysis = False; self.analysis_dirty = False
             self.analysis_visibility()
 
@@ -211,6 +217,9 @@ class NativeWorkspaceMixin:
         if hasattr(self, 'native_noise_output'):
             visible = native(self.project) and self.analysis_type.currentData() == 'noise'
             self.native_noise_output.setVisible(visible); self.analysis_form.labelForField(self.native_noise_output).setVisible(visible)
+        if hasattr(self, 'native_dc_startup'):
+            visible = native(self.project) and self.analysis_type.currentData() == 'dc'
+            self.native_dc_startup.setVisible(visible); self.analysis_form.labelForField(self.native_dc_startup).setVisible(visible)
         if native(self.project) and hasattr(self, 'xschem_controls'):
             program = self.analysis_type.currentData() == 'program'
             self.xschem_controls.setVisible(program); self.analysis_engine.setEnabled(False); self.analysis_type.setEnabled(True)
@@ -228,6 +237,7 @@ class NativeWorkspaceMixin:
             from .native_analysis import validate_settings
             a = super().current_analysis_settings()
             a.update(temperature=self.analysis_fields['temperature'].text().strip(), corner=self.corner_combo.currentText() or 'nominal', output=self.native_noise_output.text().strip())
+            a['dc_startup'] = self.native_dc_startup.isChecked()
             a.pop('noise_source', None)
             validate_settings(self.project, self.cid, a); return a
         return super().current_analysis_settings()

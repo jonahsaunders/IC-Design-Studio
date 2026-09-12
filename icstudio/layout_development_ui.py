@@ -27,6 +27,7 @@ class LayoutDevelopmentMixin:
 
     def make_actions(self):
         super().make_actions();menu=self.task_menus['Layout']
+        self.action(menu,'3D layout viewer…',self.layout_3d_dialog)
         self.connected_layout_action=self.action(menu,'Preserve connections on move / stretch',lambda:None)
         self.connected_layout_action.setCheckable(True);self.connected_layout_action.setChecked(True)
         routing=menu.addMenu('Multilayer routing')
@@ -42,6 +43,10 @@ class LayoutDevelopmentMixin:
         self.action(self.analysis_submenus['Post-layout'],'Calibrate RC from measurements…',self.rc_calibration_dialog)
         self.action(self.task_menus['Help'],'Layout development guide',lambda:self.open_editor_doc('LAYOUT_SCALE_AND_COLLABORATION.md'))
         self.reindex_commands()
+
+    def layout_3d_dialog(self):
+        from .layout_3d_ui import show
+        return show(self)
 
     def layout_eco_dialog(self):
         from .layout_eco_ui import show
@@ -100,6 +105,12 @@ class LayoutDevelopmentMixin:
         self.layout.cursor_route_preview=result['shapes'];self.layout.cursor_route_blocked=not result['clear'];self.layout.update();self.statusBar().showMessage(result['message'])
 
     def move(self,ids,x,y,mode):
+        if mode=='layout' and not self.connected_layout_action.isChecked() and hasattr(self.history,'commit_shape_move'):
+            if not self.flush_inspector():return
+            if self.history.commit_shape_move(self.cid,ids,round(x),round(y),self.layout.locked_layers):
+                self.queue_recovery(validated=True)
+                self.refresh_layout_edit()
+                return
         if mode!='layout' or not self.connected_layout_action.isChecked():
             from .hierarchy_ui import HierarchyMixin
             return HierarchyMixin.move(self,ids,x,y,mode)
@@ -108,8 +119,8 @@ class LayoutDevelopmentMixin:
             if not self.history.commit_layout_move(self.cid,ids,round(x),round(y),self.layout.locked_layers):
                 from .layout_topology import move
                 return self.commit(lambda p:move(p,self.cid,ids,round(x),round(y),self.layout.locked_layers),'Connected layout move')
-            recovered=self.save_recovery(validated=True)
-            self.refresh_layout_edit(recovered)
+            self.queue_recovery(validated=True)
+            self.refresh_layout_edit()
         self.guard(edit)
 
     def arrange_layout(self,cid,ids,edge,locked=(),**options):
@@ -117,8 +128,8 @@ class LayoutDevelopmentMixin:
         if not self.history.commit_layout_arrange(cid,ids,edge,locked,**options):
             from .layout_tools_ui import LayoutToolsMixin
             return LayoutToolsMixin.arrange_layout(self,cid,ids,edge,locked,**options)
-        recovered=self.save_recovery(validated=True)
-        self.refresh_layout_edit(recovered)
+        self.queue_recovery(validated=True)
+        self.refresh_layout_edit()
 
     def refresh_layout_edit(self,recovered=True):
         """Geometry-only refresh; the cell tree, layers and circuit are unchanged."""
@@ -206,9 +217,11 @@ class LayoutDevelopmentMixin:
         for row in self.selected_simulation_runs():self.run_manager.enqueue(replay_job(row),self.jobs_dir,row['name']+' · rerun')
 
     def review_layout_proposal(self,proposal):
-        dlg=QDialog(self);dlg.setWindowTitle('Route proposal');v=QVBoxLayout(dlg)
+        autovia=proposal.get('kind')=='autovia'
+        dlg=QDialog(self);dlg.setWindowTitle('Autovia preview' if autovia else 'Route proposal');v=QVBoxLayout(dlg)
         lengths=proposal.get('lengths_nm',[proposal.get('length_nm',0)])
-        label=QLabel(f"{len(proposal['shapes'])} shapes · {proposal.get('via_count',sum(s['kind']=='rect' for s in proposal['shapes'])//3)} vias\nLengths: "+', '.join(f'{x/1000:g} µm' for x in lengths)+'\n'+proposal['qualification']);label.setWordWrap(True);v.addWidget(label)
+        detail=(f"{proposal['overlaps']} overlaps · {proposal['skipped_sites']} sites omitted (enclosure or existing cuts)" if autovia else 'Lengths: '+', '.join(f'{x/1000:g} µm' for x in lengths))
+        label=QLabel(f"{len(proposal['shapes'])} shapes · {proposal.get('via_count',sum(s['kind']=='rect' for s in proposal['shapes'])//3)} vias\n"+detail+'\n'+proposal['qualification']);label.setWordWrap(True);v.addWidget(label)
         source=next((row['job']['project'] for row in self.run_manager.rows if row.get('result',{}).get('layout_proposal',{}).get('route_group')==proposal['route_group']),None)
         if source is None and design_digest(self.project)==proposal['design_hash']:source=self.project
         if source is not None:
@@ -219,15 +232,21 @@ class LayoutDevelopmentMixin:
             preview=Canvas('layout',dlg);preview.tool='ruler';preview.locked_layers={l['name'] for l in source['pdk']['layers']}
             preview.set_data(cell,clone(source['pdk']),[s['id'] for s in proposal['shapes']]);v.addWidget(preview,2);dlg.preview=preview
             v.addWidget(QLabel('Proposed geometry is highlighted. Scroll to zoom; middle-drag to pan.'))
-        table=self.simulation_table(['Layer','Kind','Net','Length (µm)']);table.setRowCount(len(proposal['shapes']));v.addWidget(table)
+        table=self.simulation_table(['Layer','Kind','Net','Size (µm)' if autovia else 'Length (µm)']);table.setRowCount(len(proposal['shapes']));v.addWidget(table)
         from .layout_routing import length,install
+        if autovia:
+            from .layout_vias import install
         for i,s in enumerate(proposal['shapes']):
-            for j,value in enumerate((s['layer'],s['kind'],s.get('net',''),f'{length([s])/1000:g}')):table.setItem(i,j,QTableWidgetItem(str(value)))
-        error=QLabel();error.setWordWrap(True);v.addWidget(error);button=QPushButton('Install route');v.addWidget(button)
+            if autovia:
+                from .layout import polygon
+                box=polygon(s).bbox();size=f'{box.width()/1000:g} × {box.height()/1000:g}'
+            else:size=f'{length([s])/1000:g}'
+            for j,value in enumerate((s['layer'],s['kind'],s.get('net',''),size)):table.setItem(i,j,QTableWidgetItem(str(value)))
+        error=QLabel();error.setWordWrap(True);v.addWidget(error);button=QPushButton('Place vias' if autovia else 'Install route');v.addWidget(button)
         def accept():
             try:
                 if not self.idle_edit() or not self.flush_inspector():return
-                ids=[];self.commit(lambda p:ids.extend(install(p,proposal,self.layout.locked_layers)),'Install route proposal')
+                ids=[];self.commit(lambda p:ids.extend(install(p,proposal,self.layout.locked_layers)),'Autovia' if autovia else 'Install route proposal')
                 self.cid=proposal['cell_id'];self.refresh();self.mode_combo.setCurrentIndex(1);self.select(ids,'layout');self.layout.fit();dlg.accept()
             except Exception as exc:error.setText(str(exc))
         button.clicked.connect(accept);dlg.resize(850,780);self._layout_proposal_dialog=dlg;dlg.show()

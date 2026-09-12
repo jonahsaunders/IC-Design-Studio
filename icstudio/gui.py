@@ -89,12 +89,12 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
         if fit:QTimer.singleShot(20,lambda:(self.schematic.fit(),self.layout.fit()))
     def commit(self,fn,label='Edit'):
         self.history.commit(fn,label)
-        self.save_recovery()
+        self.queue_recovery()
         self.refresh()
     def undo(self):self.history.undo();self.persist_history()
     def redo(self):self.history.redo();self.persist_history()
     def persist_history(self):
-        self.save_recovery()
+        self.queue_recovery()
         self.refresh()
     def select(self,ids,mode=None):
         self.selection=ids;self.current_mode=mode or self.current_mode;self.net='';self.schematic.set_data(self.cell,self.project['pdk'],ids);self.layout.set_data(self.cell,self.project['pdk'],ids,revision=self.project['revision']);self.build_inspector()
@@ -247,6 +247,7 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
         else:save_project(self.project,path)
         self._disk_hash=file_digest(path);self.path=path;self.saved_hash=digest(self.project);self.clear_recovery();self.settings.setValue('last_project',str(path));self.refresh();return True
     def clear_recovery(self):
+        self.finish_recovery(discard=True)
         self.reset_recovery_status()
         recovery.clear(self.recovery_dir/(self.project['id']+'.icproj'))
         if self._recovered_from:recovery.clear(self._recovered_from);self._recovered_from=None
@@ -539,6 +540,10 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
             if ans!=QMessageBox.Yes:e.ignore();return
             self.cancel_job();self.process.waitForFinished(3000)
         if not self.maybe_save():e.ignore();return
+        try:
+            if getattr(self,'_recovery_queue',None):self._recovery_queue.shutdown()
+        except RuntimeError as exc:
+            self.error(str(exc));e.ignore();return
         self.settings.setValue('geometry',self.saveGeometry());e.accept()
 
 
@@ -576,8 +581,18 @@ from .layout_development_ui import LayoutDevelopmentMixin
 from .interoperability_ui import InteroperabilityMixin
 
 from .layout_collaboration_ui import CollaborationMixin
+from .live_ui import LiveCollaborationMixin
 
-class Studio(CollaborationMixin,InteroperabilityMixin,LayoutDevelopmentMixin,OnboardingMixin,NativeWorkspaceMixin,XschemWorkflowMixin,VerificationWorkspaceMixin,PhysicalWorkspaceMixin,EngineeringWorkspaceMixin,SimulationWorkspaceMixin,HumanWorkspaceMixin,ConsistencyWorkspaceMixin,CaptureWorkspaceMixin,EditorWorkspaceMixin, LayoutToolsMixin, AnalogMixin, HierarchyMixin, SiliconMixin, LifecycleMixin, LayoutMixin, ProjectMixin, SchematicMixin, FeatureMixin, WorkspaceMixin, StudioCore):
+class Studio(LiveCollaborationMixin,CollaborationMixin,InteroperabilityMixin,LayoutDevelopmentMixin,OnboardingMixin,NativeWorkspaceMixin,XschemWorkflowMixin,VerificationWorkspaceMixin,PhysicalWorkspaceMixin,EngineeringWorkspaceMixin,SimulationWorkspaceMixin,HumanWorkspaceMixin,ConsistencyWorkspaceMixin,CaptureWorkspaceMixin,EditorWorkspaceMixin, LayoutToolsMixin, AnalogMixin, HierarchyMixin, SiliconMixin, LifecycleMixin, LayoutMixin, ProjectMixin, SchematicMixin, FeatureMixin, WorkspaceMixin, StudioCore):
     """Standalone desktop application with the document-focused workspace."""
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        from .editing_assistant import install
+        install(self)
+        from .test_plan_ui import install as install_test_plans
+        install_test_plans(self)
+        from .design_workflow import install as install_workflow
+        install_workflow(self)
+        self.reindex_commands()
     connect = SchematicMixin.connect
     move = LayoutDevelopmentMixin.move

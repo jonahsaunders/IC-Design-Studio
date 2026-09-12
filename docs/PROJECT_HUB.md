@@ -1,5 +1,12 @@
 # Project Hub
 
+## Add existing schematic and layout views
+
+After migrating a schematic, **File → Attach layout to schematic…** can attach
+an imported Magic project or GDS/OASIS file to empty physical views by reviewed
+cell names. Existing layouts require external edit review. See the
+[real-project walkthrough](OPEN_PROJECTS.md) for the full sequence and LVS boundary.
+
 Open **File → New project** to start a design, **File → Project Hub** to inspect PDK installations, or the workspace's **Projects** button for saved designs.
 
 ![Project Hub showing the included process packages and their exact revisions](images/project-hub.png)

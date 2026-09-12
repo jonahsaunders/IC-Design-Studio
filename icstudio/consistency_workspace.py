@@ -13,8 +13,8 @@ class ConsistencyWorkspaceMixin:
         super().make_actions();menus={a.text().replace('&',''):a.menu() for a in self.menuBar().actions() if a.menu()}
         self.action(menus['Tools'],'Electrical check rules…',self.electrical_policy_dialog);self.action(menus['Design'],'Schematic / layout cross-probe…',self.open_cross_probe)
         self.action(self.capture_menu,'Check electrical rules',lambda:self.check('erc'));self.action(self.capture_menu,'Cross-probe hierarchy…',self.open_cross_probe)
-        menu=self.capture_menu.addMenu('Selection filter');self.schematic.capture_filters={'devices','wires','labels'}
-        for group in ('devices','wires','labels'):
+        menu=self.capture_menu.addMenu('Selection filter');self.schematic.capture_filters={'devices','wires','labels','annotations'}
+        for group in ('devices','wires','labels','annotations'):
             action=menu.addAction(group.title());action.setCheckable(True);action.setChecked(True);action.toggled.connect(lambda value,group=group:self.schematic.capture_filters.add(group) if value else self.schematic.capture_filters.discard(group))
     def capture_update(self):
         super().capture_update()

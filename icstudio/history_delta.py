@@ -7,6 +7,16 @@ editing callbacks still run on an isolated full working copy in model.History.
 from copy import deepcopy
 
 
+def reverse(delta):
+    if delta is None:return None
+    kind=delta[0]
+    if kind=='value':return (kind,delta[2],delta[1])
+    if kind=='dict':return (kind,{k:reverse(v) for k,v in delta[1].items()},delta[3],delta[2])
+    if kind=='list':return (kind,{k:reverse(v) for k,v in delta[1].items()})
+    if kind=='splice':return (kind,delta[1],delta[3],delta[2])
+    raise ValueError('Unknown history operation: '+str(kind))
+
+
 def difference(before, after):
     if before is after:return None
     if isinstance(before,dict) and isinstance(after,dict):

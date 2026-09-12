@@ -55,7 +55,8 @@ class CaptureReader(Reader):
                 info={'record_index':index,'symbol_path':str(sympath) if sympath else '', 'reference':r[1],'properties':props,'original_properties':original,'symbol':clone(s),'kind':kind,'missing':missing}
                 if kind in ('label','ipin','opin','iopin'):
                     lab=props.get('lab',attrs.get('lab',''));lab='0' if kind=='label' and lab.lower()=='gnd' else lab
-                    if not NET.fullmatch(lab):raise ValueError('Unsupported net label '+lab)
+                    from .xschem_vectors import net_name
+                    lab=net_name(c,lab)
                     view=device('XS',props.get('name','label'),x,y,rotation=rot,mirror=mirror,symbol=s,nets={p:lab for p in s['pins']});point=list(next(iter(pin_positions(view).values())))
                     ident=uid();c['labels'].append({'id':ident,'name':lab,'kind':'ground' if lab=='0' else 'net_label','anchor':{'kind':'point','point':point},'offset':[0,0] if lab=='0' else [10,-12],'rotation':rot});info['label_id']=ident
                     if kind!='label' and not interface:c['ports'].append(lab)
@@ -63,8 +64,11 @@ class CaptureReader(Reader):
                     pass  # Source record retained; imported actions are not executed.
                 else:
                     name=props.get('name','component_'+str(index))
-                    if not NAME.fullmatch(name):raise ValueError('Unsupported instance name '+name)
+                    from .xschem_vectors import instance_names
+                    expanded_names=instance_names(name)
+                    name=expanded_names[0]
                     d=device('XS',name,x,y,rotation=rot,mirror=mirror,symbol=clone(s),nets={p:'open' for p in s['pin_order']},xschem=info)
+                    if len(expanded_names)>1:d['_xschem_names']=expanded_names
                     d['symbol_context']=clone(props);d['symbol_context']['symname']=Path(r[1]).stem
                     if kind=='netlist_commands':
                         d['symbol']['primitives']=[{'kind':'rect','points':[[0,0],[180,45]]},{'kind':'text','points':[[8,8],[170,35]],'text':'@name: simulation program','font_size':9}];d['symbol']['pins']={};d['symbol']['pin_order']=[];d['symbol']['pin_meta']={};d['nets']={}
@@ -97,6 +101,8 @@ class CaptureReader(Reader):
         if globals_:p['global_nets']=list(dict.fromkeys(globals_))
         for c in p['cells']:
             rebuild(c,p)
+            from .xschem_vectors import expand
+            expand(c,p)
             positions=pins(c,p)
             for label in c['labels']:
                 point=label['anchor']['point'];hit=next((key for key,pt in positions.items() if pt==point),None)

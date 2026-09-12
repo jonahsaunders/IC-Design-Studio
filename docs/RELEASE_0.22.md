@@ -1,4 +1,58 @@
-# IC Design Studio 0.22.0.dev12 — engineering preview
+# IC Design Studio 0.22.0.dev20 — engineering preview
+
+## Dev20 — detector LVS and HSA convergence
+
+Corrects the locked SKY130 resistor extraction definitions using a checksum-bound upstream backport. Full-circuit extraction resolves internal well/port aliases, and strict LVS now passes with unchanged comparison tolerances. Three negative controls require detection of enable, child-pin and resistor-length faults. The HSA sweep uses the new optional first-point DC startup setting, with each circuit's own solved voltages as initial guesses. A generated native testbench includes both DUT views and embedded models. Physical CI now requires full consistency. See [reproduction and remaining scope](OPEN_PROJECTS.md) and [executed evidence](RELEASE_STATUS.md).
+
+## Dev19 — real-project import and durable review
+
+Adds hierarchical vector import, diagonal wire preservation, reviewed schematic/layout attachment, Magic dependency auditing, GDS text fidelity, and restart recovery for submitted review actions. The real SKY130 detector regression separates faithful import from the full-layout LVS findings subsequently resolved in dev20. See [open projects](OPEN_PROJECTS.md), [review recovery](REVIEW_RECOVERY.md) and [executed qualification](RELEASE_STATUS.md).
+
+Dev18 adds **Tools → Collaboration → Host a session…** for computers on the
+same local network or a reachable VPN. The app generates and retains its host
+keys and certificates, copies invitations with scoped certificate trust, checks
+connections and confirms when a teammate joins. Saved hosted workspaces restart
+from the dashboard. A reachable team server remains available for other networks.
+See [network hosting](LIVE_COLLABORATION.md#host-a-session-on-your-network).
+
+Schematic annotations are now directly selectable on the canvas. Drag or box-select
+notes, double-click or press Enter to edit text and position, duplicate them, or
+press Delete. Undo restores deleted notes, including in live collaboration.
+The Annotations selection filter allows selection of circuitry underneath notes.
+Use dev18 on both computers for the new invitation format; no database or document
+protocol migration is introduced.
+
+Atomic saves also retry brief Windows file-sharing errors for up to 300 ms,
+including when the recent-workspace scanner is reading a recovery journal.
+Persistent permission/storage failures still report an error and retain the
+previous file; saving never falls back to overwriting it in place.
+
+Dev17 adds **Tools → Collaboration → Start local server**. The included server
+starts without commands and handles the creation key automatically. Saved local
+workspaces restart from Resume, retaining their address, edits and personal undo.
+This hosts sessions on the same computer; other computers still need a team
+HTTPS server. See [setup and limitations](LIVE_COLLABORATION.md#start-a-local-server-with-a-button).
+
+Dev16 adds [workflow and review improvements](WORKFLOW_REVIEW_0.22.md): automatic
+checks from either editor, remembered testbench context, linked device inspection,
+visual layout-update comparison, reviewer invitations and threaded discussions.
+Back up before upgrading the server database to version 3. Document protocol 2
+remains compatible; use dev16 desktops for the new review features.
+
+Dev15 added [shared schematic editing and review](SCHEMATIC_COLLABORATION.md). Update
+the server and all desktop clients together; the collaboration protocol and
+server database became version 2 in dev15. The earlier feature notes below remain applicable.
+
+Dev13 groups all collaboration tools under **Tools → Collaboration**. The
+dashboard discovers recent sessions, restores expired ownership with administrator
+authorization, shows reservation owners, and reviews conflicting shapes before
+safe reapplication or saving a separate copy. Owned workspaces can be deleted
+after saving the exact shared revision. Idle presence polls no longer rewrite
+the full recovery journal. See [the collaboration guide](LIVE_COLLABORATION.md).
+
+The candidate also includes the [3D layout viewer](LAYOUT_3D.md) and live desktop
+collaboration from experimental PR #13. This version identifies new source and
+must qualify its own packages; the earlier dev12 draft contains different code.
 
 The dev12 update adds [larger hierarchical layouts, schematic-driven review and concurrent cell/layer editing](LAYOUT_SCALE_AND_COLLABORATION.md). Review that guide for supported recipes, conflict handling and operation limits.
 
@@ -52,4 +106,4 @@ Use the Windows installer or extract the complete portable ZIP. On Linux,
 extract the complete tarball and run `ICDesignStudio/ICDesignStudio`. Keep the
 runtime directories beside the executable. Each platform has a matching source
 ZIP; the Windows source includes its staged ngspice runtime. Check the final
-`SHA256SUMS-0.22.0.dev12.txt` before use. See [download guidance](DOWNLOADS.md).
+`SHA256SUMS-0.22.0.dev13.txt` before use. See [download guidance](DOWNLOADS.md).

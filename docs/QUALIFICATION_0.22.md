@@ -1,5 +1,16 @@
 # Reproducing the 0.22 qualification gates
 
+## Dev20 external-project gate
+
+The physical workflow runs [the pinned overvoltage regression](OPEN_PROJECTS.md)
+with `--require-consistent`. Schematic import/roundtrip and layout geometry,
+text and transforms must match. All 16 codes run in HSA with first-point DC
+startup hints. Fresh extraction uses the checksummed upstream resistor correction
+and full-circuit comparison; strict LVS must pass. Deliberate enable, child-pin
+and resistor-length faults must fail. The generated native desktop testbench
+also runs through the app's graphical-analysis engine. Logs and raw results are
+retained on failure; CI no longer accepts `needs_attention` for this detector.
+
 ## Native hierarchy and scalar buses
 
 The source fixture is [dual-divider.sch](../examples/native-hierarchy/dual-divider.sch),

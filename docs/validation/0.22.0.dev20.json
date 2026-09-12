@@ -1,0 +1,464 @@
+{
+  "schema": 1,
+  "version": "0.22.0.dev20",
+  "base_commit": "6d114e059185491d1695b4225ffa36829abf41ac",
+  "status": "passed",
+  "environment": {
+    "platform": "Linux",
+    "python": "3.12.14",
+    "ngspice": "42",
+    "magic": "8.3.600",
+    "netgen": "1.5.300",
+    "qt": "PySide6 6.8.3 offscreen",
+    "temporary_files": "Sandbox-only tmpfile redirect to the writable TMPDIR, same as dev19; no solver or model changes."
+  },
+  "core": {
+    "status": "passed",
+    "tests": 611,
+    "skipped": 3,
+    "seconds": 45.699,
+    "log_sha256": "bd7b2d8df58e813f8c6057a37f8a2f377b02c6646a2aeb782c84686f78e430e1"
+  },
+  "focused": {
+    "status": "passed",
+    "tests": 26,
+    "log_sha256": "d2ddcac9f4464b675cb319bb92456ec43b1b204c6a5575752adbaf21c8b0d3b8"
+  },
+  "open_project": {
+    "schema": 1,
+    "status": "passed",
+    "import_regression": "passed",
+    "source": {
+      "repository": "https://github.com/LDFranck/sky130_vbl_ip__overvoltage",
+      "commit": "53cf579f63d34227af67f0189b49ee09185f1db5",
+      "top": "sky130_vbl_ip__overvoltage",
+      "license": "Apache-2.0"
+    },
+    "checks": {
+      "schematic_reference": {
+        "status": "passed",
+        "report": "schematic-reference/lvs.log"
+      },
+      "schematic_roundtrip": {
+        "status": "passed",
+        "report": "schematic-roundtrip/lvs.log"
+      },
+      "layout_geometry": {
+        "status": "passed",
+        "cells": 38,
+        "cell_layers": 1368,
+        "checks": [
+          "region XOR",
+          "text and text transforms",
+          "hierarchy and array transforms"
+        ]
+      },
+      "simulation": {
+        "status": "passed",
+        "compatibility": "hsa",
+        "dc_startup": true,
+        "corner": "tt",
+        "temperature": 27,
+        "dvdd": 1.8,
+        "vbg": 1.2,
+        "ibias": 6e-07,
+        "supply_step": 0.01,
+        "tolerance": {
+          "relative": 0.001,
+          "absolute_voltage": 2e-06,
+          "trip": "same 10 mV step"
+        },
+        "codes": [
+          {
+            "code": 0,
+            "trip_voltage": 3.299999999999994,
+            "max_reference_error": 0.0006746189441129147,
+            "status": "passed"
+          },
+          {
+            "code": 1,
+            "trip_voltage": 3.429999999999991,
+            "max_reference_error": 0.0014411496650450495,
+            "status": "passed"
+          },
+          {
+            "code": 2,
+            "trip_voltage": 3.579999999999988,
+            "max_reference_error": 0.0003571082025759509,
+            "status": "passed"
+          },
+          {
+            "code": 3,
+            "trip_voltage": 3.739999999999984,
+            "max_reference_error": 0.0009776964760850326,
+            "status": "passed"
+          },
+          {
+            "code": 4,
+            "trip_voltage": 3.829999999999982,
+            "max_reference_error": 0.0004793447282638308,
+            "status": "passed"
+          },
+          {
+            "code": 5,
+            "trip_voltage": 4.009999999999978,
+            "max_reference_error": 0.0002586485837821062,
+            "status": "passed"
+          },
+          {
+            "code": 6,
+            "trip_voltage": 4.109999999999976,
+            "max_reference_error": 0.0005319287236680292,
+            "status": "passed"
+          },
+          {
+            "code": 7,
+            "trip_voltage": 4.319999999999972,
+            "max_reference_error": 0.0002672164925039411,
+            "status": "passed"
+          },
+          {
+            "code": 8,
+            "trip_voltage": 4.439999999999969,
+            "max_reference_error": 0.0002270532767869593,
+            "status": "passed"
+          },
+          {
+            "code": 9,
+            "trip_voltage": 4.559999999999967,
+            "max_reference_error": 0.0002638879490628465,
+            "status": "passed"
+          },
+          {
+            "code": 10,
+            "trip_voltage": 4.689999999999964,
+            "max_reference_error": 0.0001640459213079204,
+            "status": "passed"
+          },
+          {
+            "code": 11,
+            "trip_voltage": 4.819999999999961,
+            "max_reference_error": 0.00018029829228805028,
+            "status": "passed"
+          },
+          {
+            "code": 12,
+            "trip_voltage": 4.969999999999958,
+            "max_reference_error": 0.00024724139260312583,
+            "status": "passed"
+          },
+          {
+            "code": 13,
+            "trip_voltage": 5.119999999999955,
+            "max_reference_error": 0.0007370347939390509,
+            "status": "passed"
+          },
+          {
+            "code": 14,
+            "trip_voltage": 5.279999999999951,
+            "max_reference_error": 0.0002148314989258715,
+            "status": "passed"
+          },
+          {
+            "code": 15,
+            "trip_voltage": 5.459999999999948,
+            "max_reference_error": 0.0004470399232818778,
+            "status": "passed"
+          }
+        ],
+        "scope": "Emitted-deck comparison in the declared compatibility mode; excludes transient timing, hysteresis, PVT and extracted simulation."
+      },
+      "layout_schematic_lvs": {
+        "status": "passed",
+        "report": "layout-schematic/lvs.log",
+        "extraction": "Full circuit, hierarchy off; all device properties and top pins compared."
+      },
+      "fault_enable_open": {
+        "status": "passed",
+        "report": "fault-enable_open/lvs.log",
+        "observed_lvs": "failed"
+      },
+      "fault_child_pin": {
+        "status": "passed",
+        "report": "fault-child_pin/lvs.log",
+        "observed_lvs": "failed"
+      },
+      "fault_resistor_length": {
+        "status": "passed",
+        "report": "fault-resistor_length/lvs.log",
+        "observed_lvs": "failed"
+      },
+      "desktop_testbench": {
+        "status": "passed",
+        "project": "overvoltage-bench.icproj",
+        "compatibility": "hsa",
+        "dc_startup": true,
+        "points": 301,
+        "code": 0,
+        "max_reference_error": 0.00029493101422617407,
+        "scope": "Saved/reopened project through the app graphical-analysis engine; both DUT views and model closure embedded."
+      }
+    },
+    "verified_source_files": 67,
+    "tools": {
+      "magic": "8.3.600\n",
+      "netgen": "Netgen 1.5.300 compiled on Fri Sep 11 14:32:36 EDT 2026\nWarning: netgen command 'format' use fully-qualified name '::netgen::format'\nWarning: netgen command 'global' use fully-qualified name '::netgen::global'\n",
+      "ngspice": "******\n** ngspice-42 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2023, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Sun Mar 31 20:15:14 UTC 2024\n******\n"
+    },
+    "process": {
+      "technology_sha256": "700079a9f1d93ec15202b6c9d026c56c94adb63291ae73d429eefcbdd1792ce7",
+      "setup_sha256": "3b2e4eddc57b1d8dc531d95086a2c21b86709907ede11fcac676f37d501787e9",
+      "correction": {
+        "schema": 1,
+        "upstream_repository": "https://github.com/RTimothyEdwards/open_pdks",
+        "upstream_commit": "1689ac3f2dc763876eaf967227c7dfe831b031ae",
+        "upstream_path": "sky130/magic/sky130.tech",
+        "upstream_file_sha256": "5f96a22bd00169807b2228742e17a27e3624e5fb010c523447bbc4fee30a4f97",
+        "base_technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+        "result_technology_sha256": "700079a9f1d93ec15202b6c9d026c56c94adb63291ae73d429eefcbdd1792ce7",
+        "reason": "Restore the model length from the PCell contact overlap (0.08 microns at each end) and recognize fixed widths without legacy marker paint.",
+        "correction_lock_sha256": "237c33db4e8557d9dc8eb0c0e549990d55a8d73dd4a46334638a5c4a4ddf8104",
+        "technology": "/workspace/scratch/500ef7129133/IC-Design-Studio/build/dev20-open-project/technology/sky130A.tech"
+      }
+    },
+    "normalization": [
+      "Legacy XD diode notation mapped to D for the 17 locked declarations.",
+      "Diode simulation area scaled by 1e-12 into square microns for LVS only.",
+      "Perimeter excluded by the pinned PDK policy; Magic pj treated as perim. Connectivity and MOS/resistor parameters unchanged."
+    ],
+    "cells": {
+      "schematic": 7,
+      "layout": 38,
+      "attached": 6
+    }
+  },
+  "desktop": {
+    "status": "passed",
+    "checks": [
+      "Reviewed attachment preserves schematic identities and applies as one undoable transaction",
+      "An imported hierarchical schematic instance moves and undoes exactly",
+      "Combined native project saves, reopens and renders both views",
+      "DC startup setting survives editing, undo and project reopening",
+      "F5 analysis action executes the saved detector bench in HSA and displays all 301 DC points"
+    ]
+  },
+  "internal_node_filter": {
+    "status": "passed",
+    "points": 301,
+    "max_difference": 0.0,
+    "no_unresolvable_nodesets": true,
+    "scope": "Removing unresolvable internal-node hints leaves code 0 waveform bit-for-bit unchanged."
+  },
+  "execution_notes": [
+    "The saved-bench stage and offscreen F5 check were executed alongside the all-code qualification, using the same functions now called by CI.",
+    "The all-code run initially emitted simulator-internal #body nodes, which ngspice ignored. Final code excludes them. A repeated code-0 sweep is bit-for-bit identical with no unresolvable-node warnings; the desktop worker also ran the final filter.",
+    "Windows/Linux packages and external CI must qualify the published commit independently. No signed release or foundry signoff is claimed."
+  ],
+  "remaining_scope": [
+    "Two HVI parent/child warnings in source-to-GDS conversion remain. LVS uses fresh extraction of native Magic cells; geometry exchange verifies the converted GDS roundtrip.",
+    "Detector transient timing, hysteresis, full PVT and extracted simulation are outside this nominal DC gate."
+  ],
+  "changed_file_sha256": {
+    ".github/workflows/physical-qualification.yml": "e6a1fd6fb5c7b3cd2528c946db8ad49e1719b9cfa488f122a3b550535cba3e56",
+    "README.md": "2a3578949f9c8dcbfa5e004040bb1ac53c16934f7c0b1b4e9d88b07a4bf0019c",
+    "SIMULATION_SETUP.md": "4b6abc154cb154be3f32a4122dea4ed491a09c33788591be1cb658518d040b29",
+    "THIRD_PARTY_NOTICES.md": "59d7333d4eff4811ca8df784d18e81a33f6449d5959d1c6bd94ea0c172942f11",
+    "docs/ARCHITECTURE.md": "1aa7c225b5b76c2e9e6d1243e0ecce4b10855d421936f959ae3a4c1e98fe2910",
+    "docs/DOWNLOADS.md": "0925309193473ef426d02af55ada76a5c085e274c65752432e67e99e6e1712df",
+    "docs/INDEX.md": "ec09ba383e5eef6a30fb80cb6cad8edc9a7442433eb72457db703a0bd421788b",
+    "docs/OPEN_PROJECTS.md": "55623e895b7a9a94e36c54504a197bb551fa259558dcff2860b2680737bb0c12",
+    "docs/QUALIFICATION_0.22.md": "cd4604b86322d13f96fb8a06a29c870f6e3c62ad171bdc73b9f9414686e416ac",
+    "docs/RELEASE_0.22.md": "b8335bc18ed18d80726a5342e006307955b87d46ce611b16d23cc608339197bc",
+    "docs/RELEASE_STATUS.md": "bd794b3c6cd27168ceedc465e9c807463c1b7b9b90dd69815109610284111c06",
+    "docs/RELEASING.md": "a76028311e44b334fdc1cd577bfd0a57049ba4f2d5357a6ea5f34db672ce0388",
+    "docs/ROADMAP.md": "3ab892b0a0eeb6835b0b57f40c3a9af409aa9b41459306a503d84775ac1a6447",
+    "examples/open-projects/LICENSE-open_pdks.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "examples/open-projects/sky130-resistor-extraction.json": "237c33db4e8557d9dc8eb0c0e549990d55a8d73dd4a46334638a5c4a4ddf8104",
+    "icstudio/__init__.py": "108e0b47729633916f01d2bd357f520bc29130bd3f13d27a71193b0471b66ec1",
+    "icstudio/dc_startup.py": "3567a27a6b6197b6faa89bdc74d1782d882fbd16f34e64cff92693802e1d866d",
+    "icstudio/engines.py": "bf76e3e3e05a4992ab13f9535a9e6e66646b76534915cf6e7bcb27f905ecc4df",
+    "icstudio/native_analysis.py": "bab7bb1632ec197c98e24206b465a4b8e2f9deba230d9d3197d7230229c73404",
+    "icstudio/native_workspace.py": "980c9f018fc2bed79e8f0b827186c3d0c3ef787427158d20724a27a5d5e3ae97",
+    "icstudio/simulation_workspace.py": "4281f64e5482531c377ac8e9375944bd4c4cbdebfeb1482671bcc9b5bfd41760",
+    "scripts/open_project_bench.py": "da88f1f0f921dd15cebc9140b9e4aa6d559527b981fe5264463125dd389d47ea",
+    "scripts/prepare_open_project_technology.py": "bda8215983036f3e3d8e92926840b2c7d8d2127362d968fa21d2f5d8bbbd4dbc",
+    "scripts/qualify_open_project.py": "636eafebc203c0fe7e5de66f847da5a1a4f3154ea0fe49a394850224ddd9fa8c",
+    "tests/gui_open_project.py": "210aa87056ae012a10523d4557ff8ecd043466a934094e100351fd7337e5d41b",
+    "tests/test_dc_startup.py": "cfe4813dfaa631f8946b8f5700ab58b841a9068f36d3b659249416b8fe1e649b"
+  },
+  "evidence_sha256": {
+    "bench-simulation/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "bench-simulation/dc-startup.nodeset": "78f36e52a980891b84ede7c956b09fcde504f54d838ef78970e8e9155750482c",
+    "bench-simulation/engine.log": "02baa1b84fac875ef673c8b130569c60b515991c6c831b1b4845db8061d7a1bd",
+    "bench-simulation/input.cir": "8535dfcc1d303b3224b909eee0159d958bd1a9109b484b72841bc681aaa86970",
+    "fault-child_pin/lvs.log": "fa332acbd07e1d9c1b7d30620b4ce31e45435f2b83cacc69989a5e7dfa48fecc",
+    "fault-enable_open/lvs.log": "541ebbc606382faed4eca03676472bf38a81249b71913c1fcd53be04c6788cc0",
+    "fault-resistor_length/lvs.log": "8ddf2349f0783f0b242dc508fa5bf73b3447a833b966209c2f25a1ff97850afe",
+    "layout-schematic/lvs.log": "fda4e3240161aafbb2b11dca0937b4d552fa7193458f68e35c96911bae05449c",
+    "magic-import/feedback.txt": "64003ab92f698de27e9aef9c798d2ac99bb19902f2631aad7032ff2ad968deae",
+    "schematic-reference/lvs.log": "41cc1e60d8a7ab6ad2707fc3fd3d1ac4d15edd1a5df4f4db635f96da48a47c2b",
+    "schematic-roundtrip/lvs.log": "41cc1e60d8a7ab6ad2707fc3fd3d1ac4d15edd1a5df4f4db635f96da48a47c2b",
+    "simulation/00-native/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/00-native/dc-startup.nodeset": "8c687903fe3f36072a056999ed8233e0fd51302e72edc01c6462bc570681c4fe",
+    "simulation/00-native/engine.log": "8a2774bfc27e3db4e635544715c5328bcc54753edebedcbbe87af48e30a8bddb",
+    "simulation/00-native/input.cir": "e00838b11ae381dc634ae27344f019839ab899303e7c55e177d10716ef8400a8",
+    "simulation/00-native/output.raw": "4a27e57b9077b77ebae58ef24ec3526aaf7d4c348c108a6fc8a5f4366c8633d8",
+    "simulation/00-reference/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/00-reference/dc-startup.nodeset": "1d0179e8729527b61c04bce4a3bcde6850934a3dcfa84faa71ab0167c248447a",
+    "simulation/00-reference/engine.log": "a1529802d856d3b30ae311fe5ca06ca1eedde6d2948ba0f1bc7736fe7babb4d2",
+    "simulation/00-reference/input.cir": "d3e1415c6e8a65730c7dae62b1c9987aee4eb20ffef1ba16d30d520fbd0f2c32",
+    "simulation/00-reference/output.raw": "b046bf8d363850ccc3ab822ca21ee39ce6556529d692fc8ef985e6cdc2e99103",
+    "simulation/01-native/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/01-native/dc-startup.nodeset": "f325a10b7e3a863945c1ef22c35a042d8d17521bf5862800c66845f8e0f09fd6",
+    "simulation/01-native/engine.log": "9f65e11f8e69ac2e783e1321b5d5f6f71e21d38d151bc3986defa1f0fb1be585",
+    "simulation/01-native/input.cir": "925c5d1db8cd1a2c418bb0283e1e97abe0b43fe4a008cc05a280c2ab1c2f7579",
+    "simulation/01-native/output.raw": "16848e4ad142b4dd0554ff020f6c6d9ff125251b20e989a29d049747bc390f8f",
+    "simulation/01-reference/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/01-reference/dc-startup.nodeset": "dd399250509fc8598565dc928102f6387e9141c321598992b97e251e1d686075",
+    "simulation/01-reference/engine.log": "d0477f900a476cabf423f7093510f65428b04055e00a5d0c35e423d4231b08e6",
+    "simulation/01-reference/input.cir": "9c85f17bf3816567022051eccafb7d1a0ce473205ecbf0097e34125d907bd840",
+    "simulation/01-reference/output.raw": "b1307a928389f5e1c260045b80eb870a1777cfef1a50c4efce317cc51c372df2",
+    "simulation/02-native/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/02-native/dc-startup.nodeset": "83fc234d9d0f3485b648cd83744767452b4e7894ad55388dde1b7f0e24f74bf2",
+    "simulation/02-native/engine.log": "d6080b850d483e0f7039f4565e342ffa1a2b983ae3b8dcf1142a08abd69dfc68",
+    "simulation/02-native/input.cir": "3dc3e2ccde530b015b04ad22a8c152dacece4a218f93d758dc3faadc80adcba5",
+    "simulation/02-native/output.raw": "22237daf651afcbe16247f0f077ab443618307fac589070a88eb31775522a945",
+    "simulation/02-reference/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/02-reference/dc-startup.nodeset": "9243022209d202c8c754f274d55b5accc6350842eec3a6d61d4ae866569867ab",
+    "simulation/02-reference/engine.log": "70646b749581a7cf41a8a06cbc73efa1ea333c0124999b8eebf98b5711acb2b0",
+    "simulation/02-reference/input.cir": "94811b61075f730454370a9c4e25a8db6c42531a93c40c4457bfd68e38fec198",
+    "simulation/02-reference/output.raw": "84de72de6c40156ed0a496ecb360bbafd5813c1dfbba0358630455e37e206c46",
+    "simulation/03-native/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/03-native/dc-startup.nodeset": "1fb5e025c3cf2fed22c30dbb366b637d98de8838738e676793621a98e9055a43",
+    "simulation/03-native/engine.log": "fe6b3e9f42e32ba512fddc0f72abff84467537b0f66d76390b53c56867594b27",
+    "simulation/03-native/input.cir": "17a9ef1433a7a48d113dbe42bb5a9de8623b444d55d8c7d39074eadf89c406d9",
+    "simulation/03-native/output.raw": "41fb26178564c9cf3de7a6f51c8098fcba99769b049034f725e83de326d52317",
+    "simulation/03-reference/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/03-reference/dc-startup.nodeset": "d8e512559d017572613c6da62204ff713961d48f240603b77743f9a362ec182a",
+    "simulation/03-reference/engine.log": "6eb012ca971548263faafd8f2e515c5eceab1b08f68153aefcecdc332f5a3f18",
+    "simulation/03-reference/input.cir": "18cc5ebc15c1bf0ad213b2c5c9c208a3e630529308a73577dda14162d070ee20",
+    "simulation/03-reference/output.raw": "cd94fd12e6fc5a17453c9f778e3bc27b0c9fe043d3f73caad375fe93bf5da922",
+    "simulation/04-native/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/04-native/dc-startup.nodeset": "813e2218ec1012110de159257c577848d2d8bcfe28c3ff1f4098c49becb00554",
+    "simulation/04-native/engine.log": "19d3ece4c3e80dc9978424568279c78c8d39987693ee53653e503455459644a4",
+    "simulation/04-native/input.cir": "46214015f9e6e54fe3b6f4aff1c8ffc86359a80efe3adb9df651e7413d77f488",
+    "simulation/04-native/output.raw": "f2e6ca65124c64aa167a0f68c8f92e5b3789c5759b9136c203d9d1f307ac79ab",
+    "simulation/04-reference/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/04-reference/dc-startup.nodeset": "84f4366489443b0b409d50ba6915970e5f49193ae8e34873850041a2b92de72a",
+    "simulation/04-reference/engine.log": "93fd34eb3d6e5b44891be15d37d9f533e67aee692d2c698adc65827842e0a490",
+    "simulation/04-reference/input.cir": "e459dc6a89b2eece096bb6a1e7d1b13d61fa8a01490f9f6a52bc97df76ac9da2",
+    "simulation/04-reference/output.raw": "0dc8e5f0370828dd75e980297f1c96a4c5203c0964421e35b4d19a6996061718",
+    "simulation/05-native/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/05-native/dc-startup.nodeset": "878855c0352eb5515ab6bcdf44a138f0f3ba7d049fd864a142aec9961fa4b1db",
+    "simulation/05-native/engine.log": "a2c05c1501044dc38b62addf93c63e6ab494284f27d1af89407aa4bc14021e07",
+    "simulation/05-native/input.cir": "ed7ab12a4500e77b7d5fa54622a9d4056902830218fb753d577a394980cc0294",
+    "simulation/05-native/output.raw": "e6dfa501851df8e80e9013212f75f654e09f1f1ffa79e8b8f4425d674536bc1f",
+    "simulation/05-reference/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/05-reference/dc-startup.nodeset": "4b299eff7617f09530ceb570718ddd29643a2d6c0299516f99faf4a306607dd5",
+    "simulation/05-reference/engine.log": "c585ad60a1d0021292610cda7738a22d6317eff00d76147e57e05a0e886fd58b",
+    "simulation/05-reference/input.cir": "274399dde0b7b83df6175d38e8c78f8e39da31afa13de898af886d36eb38f65f",
+    "simulation/05-reference/output.raw": "9e4edcedec0e252fea18cede990180c5b6fc744bbc2f4e5c9f7a96e393560a13",
+    "simulation/06-native/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/06-native/dc-startup.nodeset": "6fa65a567e21a165f444492fbff6a3a5673e6c536da6347010ccbc0e97cfa336",
+    "simulation/06-native/engine.log": "b3e5bb9639ca426466de9e8f796e72f7ac01ffdbfb08f605a7ce1d696203e908",
+    "simulation/06-native/input.cir": "3b5b69f48a0eb2c6ead21a4a4e0351267931895ec84c7b140bcae8d038c3eba5",
+    "simulation/06-native/output.raw": "9324672e011bdc3fd3b4ceaedf1e07a30551a238f365d12484b03a46c8f1c431",
+    "simulation/06-reference/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/06-reference/dc-startup.nodeset": "fc5512d1012d2fe8f392b74f4c5f46fb4146fe73a96dd2aa82ab74a15ce3c073",
+    "simulation/06-reference/engine.log": "06be2f52ba36eb1af580bb257540394b3eaeabce006f918e58797401bce52965",
+    "simulation/06-reference/input.cir": "304ba7c5ec3f69e78114fade153e844c129eaf52d701ca9015ff463949229fd9",
+    "simulation/06-reference/output.raw": "05884b1371b6fd77841bd0f0201a8241fab438f667c2cb8cb8a100fff82647bd",
+    "simulation/07-native/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/07-native/dc-startup.nodeset": "aa7a5ba70cc403d00939aec587ed6a66f1e689d37e04e0070e92feab3bac1e16",
+    "simulation/07-native/engine.log": "53017bafd31ab885235ddd933be7be9296feddb06eb441327415fb4400f957b5",
+    "simulation/07-native/input.cir": "af1dfcc3880aef1996211ae8b91bdd2247a6eea291791965af555d12e676b8c7",
+    "simulation/07-native/output.raw": "4fd50cd8ab66712973b65d10da94c32a1ecf1998706712c3f6fe20ff5d9c02ad",
+    "simulation/07-reference/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/07-reference/dc-startup.nodeset": "3f43789686a716d14c6c2f2357af19764305a24a548498984e410fb75d1dd599",
+    "simulation/07-reference/engine.log": "206268fb75d05bbfc0ae9c7f64b8b094c49f129c8bd1b33ea82f6b5180c87d2c",
+    "simulation/07-reference/input.cir": "bc9ecaff4aeab13e83d12dd93b3f7451e5995a1097b5325d4ebbcf14d371ae6b",
+    "simulation/07-reference/output.raw": "fc84c76be1b0a11ed9d864ab4ce61b0ac109ef1d65f248131087f39611adb93f",
+    "simulation/08-native/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/08-native/dc-startup.nodeset": "636df06f14a7b4825e77d80dc56427b834bf642f6fb076025f4c72d10ffca236",
+    "simulation/08-native/engine.log": "ddffa7c70397fbdec799bfc299df798539e81dcaaa18954daede4dffedbc9b32",
+    "simulation/08-native/input.cir": "93ce5b023ba632f3065fed49368a0a0155111cd2b86b427c4f45f9854fdf94a0",
+    "simulation/08-native/output.raw": "10d5658dab6c41280dd8253eefa0fd59b6a0f2286670a7d4b2c37d0113f099e3",
+    "simulation/08-reference/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/08-reference/dc-startup.nodeset": "3383b511dfa7f34a6378cd71947e5fb9eb363a76d41fb0fdbdc1000a3ccfb465",
+    "simulation/08-reference/engine.log": "3638d7db8831cd5ebdf050e583af8d76d1546d6014e96cc417db6d678143ce00",
+    "simulation/08-reference/input.cir": "3fa2b71638a810166cb8a87eef5de59f9f8f73ee354ee95e1a906bd897d55dc0",
+    "simulation/08-reference/output.raw": "bb87d882a2cb3e9afcfce6b2b2342e9130d1e1278f4278a971be78d6012007ac",
+    "simulation/09-native/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/09-native/dc-startup.nodeset": "b87260ffda62c8c11fb989abc3e70f09b2cd072d7c645305cdeb75cd9e13aa25",
+    "simulation/09-native/engine.log": "01504b6747c18310db0077856ee1390bde3f343f7b6a940bbb0b39423d1ae904",
+    "simulation/09-native/input.cir": "84a0bb26d549630bbf2a8dc2561044e19b42914fe7980a0a6778016c50df1750",
+    "simulation/09-native/output.raw": "2062c478e84a9c00dacfefd5de16a341f5f62b3a00fbf2b693a1da4c1537b91b",
+    "simulation/09-reference/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/09-reference/dc-startup.nodeset": "007729587629de55f41033790a31e14968a6019f24c940492f34c4a029362c1e",
+    "simulation/09-reference/engine.log": "4760bcfb640d2b08ac5e99faeeb337a5eff7e33c2cde40bb25750f0f45baf677",
+    "simulation/09-reference/input.cir": "81786f39c441b25b6f007eba26e0efc7f68a79adfad5cf82759538db56630c20",
+    "simulation/09-reference/output.raw": "902079d7dc1ec496690cacb85317471b662078bb4f9373367d3d3f93899e4122",
+    "simulation/10-native/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/10-native/dc-startup.nodeset": "4a3a7345748fc5baf00a7d2d7b4e33770b7995eccb5bbd62e6e834f225c3c2c9",
+    "simulation/10-native/engine.log": "d319d67f421fd440b103e18d0c72498769bab6c826e7a2913f1d3b284f39d689",
+    "simulation/10-native/input.cir": "61cc9e563d87194c83144d4474a78a8734a618c666f37aa096280a7f3f354b17",
+    "simulation/10-native/output.raw": "a6d8d9940ccd3ba5e3c61a157c35f1c2b2a86a288e59bd46c3d65581fac3279e",
+    "simulation/10-reference/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/10-reference/dc-startup.nodeset": "561c23e082671b9c58ba1b98770c436b9331f4854132d6e5fceea2de356eb792",
+    "simulation/10-reference/engine.log": "45655408f2696bbe8305458b99a901d8474d3562eaf2d33dcd622c77283f9225",
+    "simulation/10-reference/input.cir": "1ffa6213fb4feb85d71edfd0c67b0424318c17447c60d9e2c8423d047f40ade3",
+    "simulation/10-reference/output.raw": "856e3daef82f846dbf3c09a91922ba84e89789df05c7030f1528bf457822e430",
+    "simulation/11-native/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/11-native/dc-startup.nodeset": "b2f72606ff16ed02a0d87e513b83a690c1b377693497668e15da3fa82745771b",
+    "simulation/11-native/engine.log": "7e3cec812da717f6729e5e02888cdfcc6baec9a434d49dae0f9384e81e8aaa32",
+    "simulation/11-native/input.cir": "2b3aa602ec99ded1e97d3c6628c96af42e25ffdbf63c31943a1db83d236cf4a6",
+    "simulation/11-native/output.raw": "11826d54525b7d165e346d393a856bc3082ed6ebb1465f28b371d41f65562979",
+    "simulation/11-reference/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/11-reference/dc-startup.nodeset": "4b92b9b647c2ed0853e485f4fddbec11b5c49a3b81db0d8d231361b9298b41f5",
+    "simulation/11-reference/engine.log": "6040538b4fb45d51ea4579eda10991296b999b51404534347077cb11a4412931",
+    "simulation/11-reference/input.cir": "e43fc264b665abfa34f56dce65dc90ce7d9519a2a5547fb0c2034b204e928d7d",
+    "simulation/11-reference/output.raw": "e9fc3ea71311f2233be4ee71459f644d5c7b00b014b4f222a5b3b5d98ad89c19",
+    "simulation/12-native/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/12-native/dc-startup.nodeset": "3c59a6255d1dd6d2e5bf9cc77d9108a55b3594552c44b2b45fa8374ff04e407a",
+    "simulation/12-native/engine.log": "6bd15d293a3ba0c873f76869fda62af1f80b1e7cae252d3a69fea6d4f0a25a98",
+    "simulation/12-native/input.cir": "601980013b8a78bab68e12f5bc62797a00f4a2badddb546cbc99cb220fcb98e8",
+    "simulation/12-native/output.raw": "bdd401a6fc9c9e5904605358e14b5a2fd102bec2d0f58030168458c3f0064cb2",
+    "simulation/12-reference/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/12-reference/dc-startup.nodeset": "08ef83ecded9b0971d049ab9ddad89f4bec1aa119a27ae5f8f1a676e761485c3",
+    "simulation/12-reference/engine.log": "f2a24ec4c78ce7c0fbe488964636c10df83b35a332ca4504fb852251be6a3e5d",
+    "simulation/12-reference/input.cir": "6451c4add991c8854673c50c18c2d9f1044966f6e78014507240f704f9c2efe4",
+    "simulation/12-reference/output.raw": "cf2201a4ef08dc7659eea84bd3d40b299624381d98de6356e42f37cdabc9e09e",
+    "simulation/13-native/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/13-native/dc-startup.nodeset": "fb6afd357a7b2d1b1a5611122b18bc6ec6f45af78f985766e6a1c1305dd15d7b",
+    "simulation/13-native/engine.log": "5b55518aef7c1ecea5b24dc7b37baad35020710c845b51cde48bbb81aa35e598",
+    "simulation/13-native/input.cir": "f51d3073ff869f4370558c25e0eff3ace4257373043aeb73d89f7e8a303e0fa1",
+    "simulation/13-native/output.raw": "ee61d06668f177cd9ca9fb0c6843ff4ee4f4fd90caa22df8541b6e5fd16f2791",
+    "simulation/13-reference/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/13-reference/dc-startup.nodeset": "a27f6f1567f4802388fbdadf7db3bf30264df2dcdb0247620742d451737fee9f",
+    "simulation/13-reference/engine.log": "6f02ec0bc72f0d4ee4ec02c7f494792e2cdeda8a46a8ad035a4680710a017922",
+    "simulation/13-reference/input.cir": "160593104fe68b8814fd3c68bec17aa62bc42eeedb3d72e6009d969d5c67ff16",
+    "simulation/13-reference/output.raw": "e0638a04da3d2cf43e2754e488310d615c1c3ede1be5d4499c64a5b3033c79f1",
+    "simulation/14-native/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/14-native/dc-startup.nodeset": "8c33acc48e83c5deb81722aadc50bbaeb8405bf3528beeb8bbb68cb689684cf1",
+    "simulation/14-native/engine.log": "bdae17e2ca09c74f3a4eabd174759169b98aa005410821204a969bad76fea185",
+    "simulation/14-native/input.cir": "8fe79df0884529cc7c7dae7471e8f644466ebbf5974004e3e231d074ca97ec25",
+    "simulation/14-native/output.raw": "dd562deb2ee320e2bc677444c7d2b5ad16fe8aacc822956fac08fd61a16061e4",
+    "simulation/14-reference/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/14-reference/dc-startup.nodeset": "8cb05e10eb869db90a73ebf8a030beea708e92db2a8032e3c463da43d80ff5cc",
+    "simulation/14-reference/engine.log": "7873956b08f2143bb543ab0d85dae858df70a66321b74b4aca9ee508a6e2969d",
+    "simulation/14-reference/input.cir": "54952d39051ef06fb147013dedc92c117b0805feb71c635b41a9044d6d1f1181",
+    "simulation/14-reference/output.raw": "a764732c01ed5d04d0f0264867222ac5ca1d9ac3c1f1294be3cec3b9503fcdc9",
+    "simulation/15-native/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/15-native/dc-startup.nodeset": "48e5706d9893c8684f8366305f50e10d27990ca5593c1e928b26a0c9e1728dc1",
+    "simulation/15-native/engine.log": "32190cf9ab383a3c598d8d238f96a2fde1bb4908d0b865611555554d505e6ab0",
+    "simulation/15-native/input.cir": "3c62d0dd2d6a34441c892241a9fad900a2dff6cb7b3394f0d05e25216dd2d860",
+    "simulation/15-native/output.raw": "099dd37e09288cb273ecb984712a53720eb2839199e1cd3361b9778feab5ed19",
+    "simulation/15-reference/dc-startup.json": "5df2781251007c00a8af69e8cf249c073c570c7ddf30c0b4975e0c268f7f6453",
+    "simulation/15-reference/dc-startup.nodeset": "848a9ff0cac9da06c9b06ec31cb5bcc09877c69a0e4d1995635ae5745293ff18",
+    "simulation/15-reference/engine.log": "8b1fabf81cb1467ffcbba89b9c7c73ef3e47f817397448571cc52e39bff56a6e",
+    "simulation/15-reference/input.cir": "b20b1b5dad39cca532e176d550e15a4e5c2fbe6a949e77da07cfc50f8e6eef5f",
+    "simulation/15-reference/output.raw": "000b61487ce45184de1c6d25fa831b5e0e177db28a0c3ba7907622a9c3a53b89",
+    "source-layout/extraction.log": "f758b15ff826abd2b75afd35f27e32d427e40486664596ab62ee887003b4fbda",
+    "technology/provenance.json": "95162f4606a929d1eb58a5162574e6e4684c1da5887d9cf8efdeecb7b59a5068"
+  }
+}

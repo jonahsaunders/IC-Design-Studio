@@ -14,9 +14,8 @@ class CollaborationMixin:
         self.collaboration_timer.timeout.connect(self.renew_layout_claims)
 
     def make_actions(self):
-        super().make_actions();menu=self.task_menus['Layout'].addMenu('Concurrent editing')
-        for title,fn in [('Create shared workspace…',lambda:self.shared_layout_start(True)),('Join shared workspace…',lambda:self.shared_layout_start(False)),('Session and ownership…',self.shared_layout_dialog),('Publish layout changes',self.shared_layout_publish),('Refresh shared layout',self.shared_layout_refresh),('Leave shared workspace',self.shared_layout_leave)]:self.action(menu,title,fn)
-        self.reindex_commands()
+        # Both collaboration modes are reached through Tools → Collaboration.
+        super().make_actions()
 
     def set_project(self,p,path=None):
         if getattr(self,'layout_session',None):self.shared_layout_leave()
@@ -63,25 +62,26 @@ class CollaborationMixin:
         self.statusBar().showMessage(title+' · shared revision '+str(self._session().revision),10000)
 
     def shared_layout_publish(self):
-        if self.idle_edit():self._shared_install(self._session().publish(self.project),'Publish shared layout')
+        if self.idle_edit():self._shared_install(self._session().publish(self.project),'Publish shared design')
 
     def shared_layout_refresh(self):
-        if self.idle_edit():self._shared_install(self._session().refresh(self.project),'Refresh shared layout')
+        if self.idle_edit():self._shared_install(self._session().refresh(self.project),'Refresh shared design')
 
     def shared_layout_dialog(self):
-        session=self._session();dlg=QDialog(self);dlg.setWindowTitle('Concurrent layout editing');dlg.resize(780,570);v=QVBoxLayout(dlg)
-        label=QLabel('Editor: '+session.editor+'\n'+str(session.root)+'\nClaim cells or separate layers before editing. Publication rejects expired claims, changes outside your partition and concurrent conflicts. Generated footprints and hierarchy require a whole-cell claim.');label.setWordWrap(True);v.addWidget(label)
+        session=self._session();dlg=QDialog(self);dlg.setWindowTitle('Shared schematic and layout editing');dlg.resize(780,570);v=QVBoxLayout(dlg)
+        label=QLabel('Editor: '+session.editor+'\n'+str(session.root)+'\nClaim cells or separate layers before editing. Publication rejects expired claims, changes outside your partition and concurrent conflicts. Schematic edits require a whole-cell claim. Cell creation, symbol/port interfaces and project settings require a whole-project claim.');label.setWordWrap(True);v.addWidget(label)
         status=QPlainTextEdit();status.setReadOnly(True);status.setAccessibleName('Shared layout ownership');v.addWidget(status)
         form=QFormLayout();cells=QComboBox()
+        cells.addItem('Whole project (hierarchy and settings)', '*')
         for c in self.project['cells']:cells.addItem(c['name'],c['id'])
         cells.setCurrentIndex(cells.findData(self.cid));layers=QLineEdit();layers.setPlaceholderText('Blank = whole cell; otherwise metal1, metal2');form.addRow('Cell',cells);form.addRow('Layers',layers);v.addLayout(form)
         error=QLabel();error.setWordWrap(True);v.addWidget(error)
         def refresh():
             s=session.status();by={c['id']:c['name'] for c in s['project']['cells']}
-            status.setPlainText('Shared revision '+str(s['revision'])+'\n'+'\n'.join(c['editor']+' · '+by[c['cell_id']]+' · '+(', '.join(c['layers']) if c['layers'] is not None else 'whole cell') for c in s['claims']))
+            status.setPlainText('Shared revision '+str(s['revision'])+'\n'+'\n'.join(c['editor']+' · '+by.get(c['cell_id'], 'Whole project')+' · '+(', '.join(c['layers']) if c['layers'] is not None else 'whole cell') for c in s['claims']))
         def act(fn):
             try:fn();refresh();error.clear()
             except Exception as exc:error.setText(str(exc))
-        for title,fn in [('Claim partition',lambda:session.claim(cells.currentData(),[s.strip() for s in layers.text().split(',')] if layers.text().strip() else None)),('Release my claims for this cell',lambda:session.release(cells.currentData())),('Publish changes',self.shared_layout_publish),('Refresh shared layout',self.shared_layout_refresh),('Refresh ownership',lambda:None)]:
+        for title,fn in [('Claim partition',lambda:session.claim(cells.currentData(),[s.strip() for s in layers.text().split(',')] if layers.text().strip() else None)),('Release my claims for this cell',lambda:session.release(cells.currentData())),('Publish changes',self.shared_layout_publish),('Refresh shared design',self.shared_layout_refresh),('Refresh ownership',lambda:None)]:
             button=QPushButton(title);button.clicked.connect(lambda checked=False,fn=fn:act(fn));v.addWidget(button)
         refresh();self._collaboration_dialog=dlg;dlg.show();return dlg

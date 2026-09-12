@@ -40,11 +40,14 @@ class EditorCanvasMixin:
     def editor_cycle(self):
         pos=getattr(self,'editor_pointer',None)
         if pos is None:return
-        candidates=self.editor_candidates(pos)
+        candidates=self.editor_candidates(pos) if self.mode=='layout' else self.capture_candidates(pos)
         if not candidates:return
+        self.auto_fit=False
         ids=[s['id'] for s in candidates];current=self.selection[0] if len(self.selection)==1 else None
         index=(ids.index(current)+1)%len(ids) if current in ids else 0
-        self.selected.emit([ids[index]]);self.message.emit(f'Selection {index+1}/{len(ids)} · Tab or Alt+click cycles overlaps')
+        self.selected.emit([ids[index]])
+        item=candidates[index];name=item.get('name') or item.get('layer') or ('Annotation' if 'text' in item else 'Wire' if 'points' in item else 'Label')
+        self.message.emit(f'{name} · selection {index+1}/{len(ids)} · Alt+click cycles overlaps')
 
     def editor_marquee(self,rect):
         ids=[];filters=getattr(self,'selection_types',{'shapes','instances'});inside=getattr(self,'box_mode','Crossing')=='Inside';boxes={};eligible=set()

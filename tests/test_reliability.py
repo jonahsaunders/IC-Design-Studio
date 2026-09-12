@@ -1,4 +1,4 @@
-import json,os,sys,subprocess,tempfile,time,unittest
+import json,os,sys,subprocess,tempfile,time,threading,unittest
 from pathlib import Path
 from unittest.mock import patch
 from icstudio.model import example,clone,digest,save_project,load_project,atomic_write,History,design_digest
@@ -7,6 +7,44 @@ from icstudio import recovery,job_store
 from icstudio.engines import execute
 
 class ReliabilityTests(unittest.TestCase):
+    def test_transient_windows_replace_errors_keep_original_until_commit(self):
+        for code in (5,32,33):
+            with self.subTest(winerror=code), tempfile.TemporaryDirectory() as td:
+                f=Path(td)/'journal.json';f.write_bytes(b'original');replace=os.replace;attempts=[]
+                error=PermissionError(13,'Windows reader holds the file');error.winerror=code
+                def transient(source,destination):
+                    self.assertEqual(f.read_bytes(),b'original')
+                    self.assertEqual(Path(source).read_bytes(),b'committed')
+                    attempts.append(source)
+                    if len(attempts)<3:raise error
+                    replace(source,destination)
+                with patch('icstudio.model.os.replace',side_effect=transient),patch('icstudio.model.time.sleep') as pause:
+                    atomic_write(f,b'committed')
+                self.assertEqual(f.read_bytes(),b'committed');self.assertEqual(len(set(attempts)),1)
+                self.assertEqual(pause.call_count,2);self.assertEqual(list(Path(td).iterdir()),[f])
+    def test_persistent_windows_replace_error_is_bounded_and_keeps_original(self):
+        with tempfile.TemporaryDirectory() as td:
+            f=Path(td)/'journal.json';f.write_bytes(b'original')
+            error=PermissionError(13,'Still locked');error.winerror=5
+            with patch('icstudio.model.os.replace',side_effect=error) as replace,patch('icstudio.model.time.sleep') as pause:
+                with self.assertRaisesRegex(OSError,'replace the destination'):atomic_write(f,b'new')
+                self.assertEqual(replace.call_count,6);self.assertAlmostEqual(sum(c.args[0] for c in pause.call_args_list),.3)
+            self.assertEqual(f.read_bytes(),b'original');self.assertEqual(list(Path(td).iterdir()),[f])
+    def test_unrelated_permission_error_is_not_retried(self):
+        with tempfile.TemporaryDirectory() as td:
+            f=Path(td)/'journal.json';f.write_bytes(b'original')
+            with patch('icstudio.model.os.replace',side_effect=PermissionError(13,'Denied')) as replace,patch('icstudio.model.time.sleep') as pause:
+                with self.assertRaises(OSError):atomic_write(f,b'new')
+                self.assertEqual(replace.call_count,1);pause.assert_not_called()
+            self.assertEqual(f.read_bytes(),b'original')
+    @unittest.skipUnless(os.name=='nt','Windows open handles deny atomic replacement')
+    def test_real_windows_reader_releases_file_during_atomic_save(self):
+        with tempfile.TemporaryDirectory() as td:
+            f=Path(td)/'journal.json';f.write_bytes(b'original');reader=f.open('rb')
+            timer=threading.Timer(.05,reader.close);timer.start()
+            try:atomic_write(f,b'committed')
+            finally:timer.join();reader.close()
+            self.assertEqual(f.read_bytes(),b'committed');self.assertEqual(list(Path(td).iterdir()),[f])
     def test_failed_atomic_replace_keeps_original(self):
         with tempfile.TemporaryDirectory() as td:
             f=Path(td)/'save.icproj';p=example();save_project(p,f);old=f.read_bytes();p['name']='Changed'

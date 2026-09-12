@@ -95,7 +95,7 @@ def deck(p,t,subcircuit_path,ports=None):
     bench['devices']=[d for d in bench['devices'] if d['id']!=instance['id']]
     # Keep explicit native pin nets while removing the DUT from the fixture deck.
     for key in ('wires','labels','junctions','layout_pins','layout_instances'):bench.pop(key,None)
-    q=clone(p);q.pop('testbenches',None);q['cells']=[bench];q['top']=bench['id'];q['analysis']=clone(t['analysis'])
+    q=clone(p);q.pop('testbenches',None);q.pop('test_plans',None);q['cells']=[bench];q['top']=bench['id'];q['analysis']=clone(t['analysis'])
     text=spice(q,bench['id'],t['analysis'],hierarchical=False);text=re.sub(r'^\.end\s*$','',text,flags=re.M|re.I)
     if t['analysis']['type']=='tran' and t['analysis'].get('uic'):text=re.sub(r'^(\.tran .+)$',r'\1 uic',text,flags=re.M)
     text+='\n.include "'+Path(subcircuit_path).resolve().as_posix()+'"\n'+spice_name(instance)+' '+' '.join(instance['nets'][port] for port in ports)+' '+dut['name']+'\n'

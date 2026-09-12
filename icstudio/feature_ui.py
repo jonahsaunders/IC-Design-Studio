@@ -184,6 +184,7 @@ class FeatureMixin:
         def submit(v):
             note={'id':uid(),'x':scalar(v['x']),'y':scalar(v['y']),'text':v['text']}
             self.commit(lambda p:next(c for c in p['cells'] if c['id']==self.cid).setdefault('annotations',[]).append(note),'Add annotation')
+            self.mode_combo.setCurrentIndex(0);self.cancel_tool();self.select([note['id']],'schematic');self.reveal_properties()
         self.workflow_form('Schematic annotation',[('text','Text',('',)),('x','X (schematic units)','200'),('y','Y (schematic units)','80')],submit)
     def bus_dialog(self):
         from .design_ops import connect_bus

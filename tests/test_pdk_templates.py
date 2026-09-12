@@ -34,8 +34,8 @@ class PDKTemplateTests(unittest.TestCase):
                     with self.subTest(pdk=identifier,template=template):
                         p,cid,key=create(technology,template,1.2,'nfet','pfet');validate(p)
                         self.assertEqual(p['pdk']['package_lock']['id'],identifier)
-                        text=spice(p);self.assertIn('nfet',text);self.assertIn('w=1 l=0.5',text)
-                        if template in ('inverter','ring'):self.assertIn('pfet',text)
+                        text=spice(p);self.assertIn('nfet',text);self.assertIn('w=10 l=1' if template=='amplifier' else 'w=1 l=0.5',text)
+                        if template in ('inverter','ring','amplifier'):self.assertIn('pfet',text)
                         bench=next(c for c in p['cells'] if c['id']==p['top']);sources=[d for d in bench['devices'] if d['kind'] in ('V','I','R','C')]
                         self.assertEqual(len({(d['x'],d['y']) for d in sources}),len(sources))
 

@@ -1,4 +1,123 @@
-# Release status — 0.22.0.dev12 candidate
+# Release status — 0.22.0.dev20 candidate
+
+Dev20 resolves the detector's resistor extraction mismatch and internal pin-alias
+findings with a verified upstream technology backport and strict full-circuit
+LVS. The new optional DC startup setting supplies first-point voltage guesses,
+allowing HSA to complete without relaxing timeouts or accuracy. The generated
+native testbench includes both DUT views, supplies and embedded models.
+
+## Executed dev20 evidence
+
+The [validation record](validation/0.22.0.dev20.json) records the actual checks,
+source hashes and engine evidence. See [the reproduction guide](OPEN_PROJECTS.md)
+for commands, the extraction correction and the runnable testbench.
+
+| Check | Result |
+|---|---|
+| Core regressions | 611 tests; 3 environment skips |
+| Detector strict LVS | Full physical circuit matches uniquely; top pins equivalent; no property errors |
+| Negative controls | Enable open, child substrate miswire and 14.10→13.94 µm length fault all detected |
+| HSA detector sweeps | All 16 codes compared with the independent source reference, 301 points each |
+| Native desktop bench | Saved/reopened project runs in HSA through the app engine; code 0 agrees with the reference |
+| Desktop editing | Attachment, move/undo, both-view persistence, DC startup undo/reopen and the F5 analysis action checked in offscreen Qt |
+| Layout exchange | 38 cells; exact region, text and hierarchy/array comparisons |
+
+The HSA startup point and full sweep each retain the existing 120-second
+qualification limit. Solver and LVS tolerances remain unchanged. Local Linux
+execution needed the same temporary-file path shim and offscreen Qt platform
+as dev19. Package and platform claims require the exact commit's Windows/Linux
+Actions results; no signed release is implied.
+
+Two upstream HVI parent/child warnings remain in Magic's source-to-GDS conversion.
+This LVS result uses fresh extraction of the original native Magic cells; exact
+GDS/native/GDS roundtrip does not certify the earlier conversion step. Transient
+hysteresis, full PVT and extracted simulation remain outside this detector's
+nominal DC gate.
+
+
+The previous dev19 update added [real open-project import qualification](OPEN_PROJECTS.md), reviewed
+layout attachment, native array expansion, layout text preservation and
+[restart recovery for submitted review actions](REVIEW_RECOVERY.md). New imported
+layers remain visible when reloading saved layer preferences. Unowned shape moves
+avoid reconstructing unrelated footprint groups.
+
+## Earlier dev19 source evidence
+
+The [local validation record](validation/0.22.0.dev19.json) records Linux/Python
+3.12 source execution, exact source/deck hashes and its environment limits.
+
+| Executed check | Result |
+|---|---|
+| Core regression | 607 tests, 3 environment skips; the skipped Magic exchange also passed separately with the pinned engine |
+| Pinned physical inverter | All 4 nominal and deliberate-fault cases passed |
+| Analog qualification | All 45 simulation, extraction and deliberate-fault cases passed |
+| Bundled PDK simulation | GF180 startup, SKY130 inverter and native catalog paths with spaces passed |
+| Review recovery desktop | 5 scenarios passed, including real lost HTTP acknowledgement, panel reconstruction and exactly-once retry |
+| Imported detector desktop | Reviewed attachment, exact undo/redo, move/undo, save/reopen, child navigation and visible layer restoration passed |
+| 3D software viewer | 5 desktop scenarios passed with the offscreen renderer |
+| Detector schematic | Native/reference and exported/reimported hierarchy matched through pinned Netgen |
+| Detector nominal DC | All 16 codes passed; switching thresholds 3.30–5.46 V matched the reference on the same 10 mV step |
+| Detector layout exchange | 38 cells and 1,368 cell/layer comparisons passed exact geometry, text and hierarchy checks |
+| Detector full physical consistency | Historical dev19 failure; resolved by the dev20 extraction correction above |
+| Detector app-default HSA | Historical dev19 timeout; resolved for the dev20 bench using DC startup hints |
+
+These results were produced from the dev19 working tree based on `c3e3503`.
+The sandbox needed a temporary-file path shim for ngspice and an offscreen Qt
+platform. They do not qualify packaged binaries, native displays or physical
+networks. The Windows/Linux and external-tool workflows must pass on this PR's
+exact commit. A release has not been published.
+
+For the 10,000-shape workload on this host, median commit time changed from
+40.59 to 34.77 ms and complete edit/check/recovery time from 259.17 to 236.67 ms.
+The baseline used three samples and dev19 five; these are small local samples,
+not a cross-machine performance guarantee. The evidence retains stage medians;
+recovery snapshot copying and broader workloads remain open.
+
+Physical LAN/VPN/firewall acceptance, consumer-machine installation/upgrade,
+accessibility, signing and macOS qualification remain tracked in
+[release follow-ups](RELEASE_FOLLOWUPS.md). General offline design editing and
+unsent review draft recovery also remain roadmap items.
+
+## Earlier candidate updates
+
+Dev18 adds [guided encrypted network hosting](LIVE_COLLABORATION.md#host-a-session-on-your-network),
+automatic host certificates, invitation-scoped trust, connection checks and
+saved HTTPS workspace restart. Schematic annotations support direct selection,
+dragging, text editing, duplication, deletion and personal undo in shared sessions.
+Source and packaged desktop acceptance exercise two editors over real HTTPS on
+an isolated loopback test interface, including wrong-certificate and hostname
+rejection. Physical LAN/VPN devices and firewall configurations require separate
+acceptance. Use dev18 desktops for certificate-bearing invitations; database 3,
+document protocol 2 and recovery journal 2 remain unchanged. Consult this commit's
+Windows/Linux Actions results for package qualification.
+
+Dev17 adds [button-driven local hosting](LIVE_COLLABORATION.md#start-a-local-server-with-a-button),
+automatic host key handling, persistent server identity and automatic restart
+when resuming saved local workspaces. Source and installed Windows/Linux checks
+exercise two editors, startup failures, credential isolation and undo after
+restart. This adds no database or document protocol migration.
+
+Dev16 adds [automatic workflows and threaded review](WORKFLOW_REVIEW_0.22.md),
+with an explicit testbench context, visual ECO inspection and server-enforced
+reviewer permissions. The server database upgrades to version 3; document
+protocol 2 and shared-folder version 2 remain unchanged. Each platform must pass
+its exact-commit checks before its packages are considered qualified.
+
+Dev15 adds [schematic and layout collaboration](SCHEMATIC_COLLABORATION.md),
+protocol/database version 2, atomic hierarchy edits, electrical conflict detection,
+schematic presence and checkpoint comparisons. Windows/Linux CI includes a new
+two-editor desktop acceptance run and installed schematic editing/review probes.
+
+Dev14 implements the six [engineering workflow areas](PROFESSIONAL_WORKFLOWS.md):
+precise editing, document/recovery services, parameterized physical variants,
+analog qualification, verification test plans, and revision-based team review.
+The Windows/Linux workflows include actual simulation, new desktop acceptance
+scenarios, failed-storage recovery and installed application checks. The physical
+gate adds 45 analog reference and deliberate-fault cases to the pinned inverter.
+Consult the exact commit’s Actions results before preparing release artifacts;
+this source update does not publish a release or claim commercial/foundry signoff.
+
+## Historical release evidence
 
 The current source adds release payload verification, native hierarchy/bus
 qualification and a pinned physical gate. A build is a release candidate until

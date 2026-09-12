@@ -1,4 +1,4 @@
-"""Recorded library hashes must survive Windows Git checkout settings."""
+"""Application sources must compile and locked assets must survive checkout."""
 import hashlib
 from pathlib import Path
 import shutil
@@ -7,6 +7,14 @@ import tempfile
 import unittest
 
 ROOT=Path(__file__).resolve().parents[1]
+
+
+class SourceSyntaxTests(unittest.TestCase):
+    def test_all_application_modules_compile(self):
+        # GUI modules are imported on demand, so core tests may never load them.
+        for path in sorted((ROOT/'icstudio').rglob('*.py')):
+            with self.subTest(path=path.relative_to(ROOT).as_posix()):
+                compile(path.read_bytes(), str(path), 'exec')
 
 
 @unittest.skipUnless(shutil.which('git'),'Git is required to exercise checkout conversion.')

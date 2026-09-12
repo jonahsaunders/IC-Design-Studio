@@ -207,11 +207,11 @@ class ProjectHub(QDialog):
                 for key,entry in model_choices(technology,polarity):combo.addItem(entry['model']+' · '+key,key)
             for combo,old in zip((self.nmos,self.pmos),old_models):
                 if old and combo.findData(old)>=0:combo.setCurrentIndex(combo.findData(old))
-            self.ready=kind not in TEMPLATES or self.nmos.count()>0 and (kind not in ('inverter','ring') or self.pmos.count()>0)
+            self.ready=kind not in TEMPLATES or self.nmos.count()>0 and (kind not in ('inverter','ring','amplifier') or self.pmos.count()>0)
             self.template_note.setText('Choose models and a supply appropriate for this process.' if self.ready and kind in TEMPLATES else '' if self.ready else 'This revision has no required four-terminal MOS models. Choose an empty circuit or another revision.')
         except (ValueError,OSError,KeyError) as exc:self.summary.setText(str(exc));self.template_note.setText(str(exc))
         kind=self.template.currentData()
-        self.form.setRowVisible(self.nmos,kind in TEMPLATES);self.form.setRowVisible(self.pmos,kind in ('inverter','ring'));self.form.setRowVisible(self.supply,kind in TEMPLATES)
+        self.form.setRowVisible(self.nmos,kind in TEMPLATES);self.form.setRowVisible(self.pmos,kind in ('inverter','ring','amplifier'));self.form.setRowVisible(self.supply,kind in TEMPLATES)
         self.create_button.setText('Install PDK & create project' if row['status']=='Available offline' else 'Create project');self.update_create()
 
     def update_create(self,*_):self.create_button.setEnabled(getattr(self,'ready',False) and bool(self.name.text().strip()) and not self.busy())

@@ -12,9 +12,9 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from icstudio import __version__
 
-EXCLUDED_DIRS={'build','dist','release','__pycache__','.git','.venv'}
+EXCLUDED_DIRS={'build','dist','release','__pycache__','.git','.venv','private-live-data','live-sessions'}
 SOURCE_DIRS={'icstudio','tests','native','scripts','docs','examples','packaging','plugins','licenses','.github'}
-EXCLUDED_SUFFIXES={'.pyc','.spec','.so','.dll','.dylib','.pyd','.o','.obj','.lib','.exp','.exe'}
+EXCLUDED_SUFFIXES={'.pyc','.spec','.so','.dll','.dylib','.pyd','.o','.obj','.lib','.exp','.exe','.sqlite3','.sqlite3-wal','.sqlite3-shm'}
 
 
 def source_archive(destination,windows_runtime=None,repository=False):
@@ -25,6 +25,7 @@ def source_archive(destination,windows_runtime=None,repository=False):
     with zipfile.ZipFile(path,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
         for file in sorted(ROOT.rglob('*')):
             rel=file.relative_to(ROOT)
+            if rel.name == 'creation-key.txt':continue
             if rel.parts[:4]==('icstudio','assets','runtime','ngspice'):continue
             if (len(rel.parts)>1 and rel.parts[0] not in SOURCE_DIRS) or (len(rel.parts)==1 and (rel.name.startswith(('tmp','pip-')) or rel.name in ('core',) or rel.suffix.lower() in ('.s','.log'))):continue
             if file.is_file() and not any(part in EXCLUDED_DIRS for part in rel.parts) and file.suffix.lower() not in EXCLUDED_SUFFIXES:

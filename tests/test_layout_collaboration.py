@@ -53,7 +53,7 @@ class ConcurrentLayout(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'active claim'):self.a.publish(a)
         self.b.claim(cid)
         q=clone(self.b.base);q['pdk']['grid']=10
-        with self.assertRaisesRegex(ValueError,'layout only'):self.b.publish(q)
+        with self.assertRaisesRegex(ValueError,'PDK settings'):self.b.publish(q)
 
     def test_interrupted_write_keeps_last_publication_and_local_base(self):
         self.a.claim(self.p['top']);q=clone(self.p);q['cells'][0]['shapes'].append(rect('metal1',0,0,600,600));before=(self.root/'workspace.json').read_bytes()

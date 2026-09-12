@@ -77,6 +77,7 @@ def validate_settings(p, cid, s):
         step, stop = scalar(s['step']), scalar(s['stop'])
         if not 0 < step <= stop or stop / step > 20000: raise ValueError('Use a positive time step and at most 20,000 steps.')
     if typ == 'dc':
+        if type(s.get('dc_startup', False)) is not bool: raise ValueError('DC startup must be enabled or disabled.')
         delta = scalar(s['dc_stop']) - scalar(s['dc_start']); step = scalar(s['dc_step'])
         if not step or not 0 <= delta / step <= 5000: raise ValueError('Use at most 5,001 DC points and a step toward the stop value.')
     if typ in ('ac', 'noise'):

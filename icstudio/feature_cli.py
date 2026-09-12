@@ -15,7 +15,7 @@ def main(argv):
     for command in ('mirror-layout','inverter-layout'):
         a=sub.add_parser(command);a.add_argument('project');a.add_argument('--cell',required=True);a.add_argument('--output',required=True);a.add_argument('--replace',action='store_true')
     a=sub.add_parser('ring-layout');a.add_argument('project');a.add_argument('--cell',required=True);a.add_argument('--output',required=True);a.add_argument('--replace',action='store_true')
-    a=sub.add_parser('analog');a.add_argument('project',help='Blank or existing project with the PDK to use');a.add_argument('--kind',choices=['current_mirror','differential_pair'],required=True);a.add_argument('--output',required=True)
+    a=sub.add_parser('analog');a.add_argument('project',help='Blank or existing project with the PDK to use');a.add_argument('--kind',choices=['current_mirror','differential_pair','amplifier'],required=True);a.add_argument('--output',required=True)
     a=sub.add_parser('characterize');a.add_argument('project');a.add_argument('--testbench',required=True);a.add_argument('--spec',help='Optional study JSON; defaults to the saved bench study');a.add_argument('--ngspice',default='ngspice');a.add_argument('--output',required=True)
     a.add_argument('--compare-layout',action='store_true');a.add_argument('--magic',default='magic');a.add_argument('--netgen',default='netgen')
     study=sub.add_parser('study');study.add_argument('project');study.add_argument('--spec',required=True);study.add_argument('--engine',choices=['builtin','ngspice'],default='builtin');study.add_argument('--executable',default='ngspice');study.add_argument('--output',required=True)

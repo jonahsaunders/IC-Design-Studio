@@ -1,5 +1,7 @@
 # Example projects
 
+For an external hierarchical SKY130 design, see the [overvoltage import and qualification walkthrough](../docs/OPEN_PROJECTS.md). Its source is pinned and downloaded explicitly; its current full-layout LVS needs attention.
+
 Use **File → Start here / example gallery** for guided examples that open as independent copies. All six gallery projects use embedded native definitions or generic teaching models; none needs a downloaded PDK. Five have short, saved analyses. The sixth is a placement exercise.
 
 | Order | Project | Expected result / exercise | Engine |
