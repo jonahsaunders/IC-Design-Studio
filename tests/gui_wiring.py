@@ -4,7 +4,8 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT));sys.path.insert(0,str(ROOT/'tests'))
 profile=ROOT/'build'/'wiring-profile';profile.mkdir(parents=True,exist_ok=True)
 os.environ['XDG_DATA_HOME']=str(profile/'data');os.environ['XDG_CONFIG_HOME']=str(profile/'config')
-from PySide6.QtCore import Qt,QPoint,QPointF,QSettings,QTimer
+from PySide6.QtCore import Qt,QPoint,QPointF,QSettings,QTimer,QEvent
+from PySide6.QtGui import QMouseEvent
 from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication,QMenu
 from icstudio.gui import Studio
@@ -63,9 +64,10 @@ assert w.cell['devices'][0]['nets']['p']==w.cell['devices'][1]['nets']['p'];key(
 p=example('empty');p['cells'][0].update(wires=[{'id':uid(),'points':[[100,100],[300,100]]},{'id':uid(),'points':[[200,40],[200,180]]}],junctions=[]);c=setup(p)
 a,b=w.cell['wires'];g=wiring.graph(w.cell);assert g[('wire',a['id'])]!=g[('wire',b['id'])]
 target=screen(c,[200,100]);assert c.rect().contains(target),(c.size(),target)
-# The QWidget overload only warps QCursor, which can produce no mouse event on
-# Windows offscreen. The QWindow overload delivers through Qt's input dispatcher.
-QTest.mouseMove(c.window().windowHandle(),c.mapTo(c.window(),target))
+# Offscreen Windows does not reliably synthesize hover from a cursor warp or
+# window-system event. Send a real Qt mouse event to the visible canvas instead.
+assert c.isVisible() and w.childAt(c.mapTo(w,target)) is c
+app.sendEvent(c,QMouseEvent(QEvent.MouseMove,QPointF(target),QPointF(c.mapToGlobal(target)),Qt.NoButton,Qt.NoButton,Qt.NoModifier))
 deadline=time.monotonic()+1
 while c.drag!=QPointF(200,100) and time.monotonic()<deadline:QTest.qWait(10)
 assert c.drag==QPointF(200,100),('Crossing hover was not delivered',c.drag)

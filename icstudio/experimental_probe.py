@@ -4,7 +4,8 @@ from pathlib import Path
 
 
 def run(w, output):
-    from PySide6.QtCore import Qt,QPoint,QPointF
+    from PySide6.QtCore import Qt,QPoint,QPointF,QEvent
+    from PySide6.QtGui import QMouseEvent
     from PySide6.QtWidgets import QApplication
     from PySide6.QtTest import QTest
     from .component_browser import ComponentBrowser
@@ -16,8 +17,12 @@ def run(w, output):
     before=clone(w.project);path=w.path;checks=[]
     app=QApplication.instance()
     def move(widget, point):
-        # Deliver a Qt input event even when a platform cursor warp is ignored.
-        QTest.mouseMove(widget.window().windowHandle(),widget.mapTo(widget.window(),point))
+        assert widget.isVisible() and widget.window().childAt(widget.mapTo(widget.window(),point)) is widget
+        if app.platformName() in ('offscreen','minimal'):
+            # These backends need explicit hover events; they have no real cursor.
+            app.sendEvent(widget,QMouseEvent(QEvent.MouseMove,QPointF(point),QPointF(widget.mapToGlobal(point)),Qt.NoButton,Qt.NoButton,Qt.NoModifier))
+        else:
+            QTest.mouseMove(widget,point);QTest.qWait(20)
     def wait(predicate, label, timeout=10):
         deadline=time.monotonic()+timeout
         while time.monotonic()<deadline:

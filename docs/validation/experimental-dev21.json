@@ -16,13 +16,13 @@
     "overhaul": 15,
     "recovery": 4,
     "platform": "offscreen",
-    "wiring": "passed locally with QWindow input dispatch; hosted validation pending"
+    "wiring": "passed locally with direct Qt hover dispatch to the visible canvas; hosted validation pending"
   },
   "evidence": {
     "dev21-snapshots.json": "a14e306491420ca5e8c44f3719b517322542c5c31217de8e9908d73962d8a5c9",
     "dev21-pipeline-before.json": "fa052981b2ca8af5d08982dea972a1a146c51a5b4453021635ef7962512a9cf0",
     "dev21-pipeline-after.json": "8adb77689b4c90a524b21b313fc1335a159e0d30b05d05f76d97aeeb54c6cf32",
-    "dev21-desktop.json": "4aa9d8565e6a673d59286ff90d4622f90246bb9b1577cc53c13b962a65f4c9fa",
+    "dev21-desktop.json": "64968656e6ce97fb095e1d5c98530718e224956f3fb5a80c1b80eead1b8697e8",
     "dev21-review.json": "18f52ca5a74e1977f3ba63b8a47f937c1ef5aa4906febdb18bbd6275b7ff4213",
     "dev21-recovery.json": "24a8596a2364b831223cc347fc29b3da030a34aff87e732f3b7777f47052509e"
   },
@@ -207,7 +207,7 @@
     "icstudio/layout_eco_hierarchy.py": "c5c6e931173bf8ce918d1a074f992bcddbb676fb7224e89784840b3d2d1240e3",
     "icstudio/native_exchange.py": "657d1e5be255c6c4ef04fb756abe1e8ff1fa9feb1b304c3506954f081238d7ee",
     "icstudio/sky130_fingers.py": "12ed8cc673ae4c6bf8a1c7f1d535b5347dac2b56ca388b318f255b70932e59ae",
-    "icstudio/experimental_probe.py": "360eb74ebc8e0304ff191604cd4e205343321d10d5431998132eb10a8c75ec39",
+    "icstudio/experimental_probe.py": "e64aff21e42059da5a7337e546328d2c820b9893477ebf374440c2d445065996",
     "icstudio/capture_workspace.py": "75cc48c1b68409ad021bd112f687c052fa01d0b5b4180c38d191012009593fa0",
     "icstudio/layout_eco_review.py": "190e5375239585f27194a08a2fd27f03246b34f1cf936ac7400731b988f5d7b1",
     "icstudio/network_collaboration.py": "909601cd32b1a3a91cc0d851d4a8f9acfff63ce65f1494566c6d7d97198e6f14",
@@ -299,7 +299,7 @@
     "tests/test_document.py": "3e2711524e9f0ecd9e50aeff818737fb3e5a278c109ca97bc56000740704e332",
     "tests/test_xschem_compatible.py": "31231fa1c33ff55f1fbd219f1f02056568209bfe6515520867c8051bb6ca68fa",
     "tests/test_sky130_flow.py": "4a7dcff8322b93e532092d53729c7b0d9521275117e05da99099734061164cee",
-    "tests/gui_wiring.py": "fa95e8731c8ed5f8d54470f65d01c96e7fa4f3007cdd40d858ee0f13f02ff1aa",
+    "tests/gui_wiring.py": "ea7e62d9def0c2c6ae278fde41660c6ef66aeb60094fb19b9402a65a704acf81",
     "tests/gui_capture_performance.py": "c54c619ee97099457a4ed7c1a5161eec3be36d2c6797fd6270cd3e0321539991",
     "tests/gui_layout_performance.py": "968f79dc9545a251d555ffa92e0e07be15ad30b3ece5e17324abb995fc328baf",
     "tests/test_external_tools.py": "cbd5eca36a4f57d7389ffc2eef3e6d2502524603ef4927183ca122bdec5e02d5",
