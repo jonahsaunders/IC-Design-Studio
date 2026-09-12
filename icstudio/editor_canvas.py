@@ -5,6 +5,51 @@ from PySide6.QtGui import QColor,QPen,QBrush,QPainterPathStroker
 
 
 class EditorCanvasMixin:
+    def clear_selection_preview(self):
+        self.preselection=None;self.selection_hint='';self.update()
+
+    @staticmethod
+    def selection_name(item):
+        if item.get('editor_kind')=='pin':return 'Pin '+item['pin'].get('name',item['pin']['id'])
+        if item.get('editor_kind')=='label':return 'Label '+item['text']['text']
+        if item.get('name'):return item['name']
+        if item.get('layer'):return item['layer']+' '+item.get('kind','shape')
+        if 'text' in item:return 'Note '+str(item['text'])[:40]
+        if 'points' in item:return 'Wire'+(' '+item['net'] if item.get('net') else '')
+        return 'Label '+item.get('net','')
+
+    def update_selection_preview(self,pos=None):
+        self.preselection=None;self.selection_hint=''
+        pos=pos if pos is not None else getattr(self,'editor_pointer',None)
+        if (pos is not None and self.cell and self.tool=='select' and not self.pan and
+                self.anchor is None and not self.placement):
+            rows=self.editor_candidates(pos) if self.mode=='layout' else self.capture_candidates(pos)
+            if rows:
+                self.preselection=rows[0];self.selection_hint='Click: '+self.selection_name(rows[0])
+                if len(rows)>1:
+                    ids=[row['id'] for row in rows];current=self.selection[0] if len(self.selection)==1 else None
+                    index=(ids.index(current)+1)%len(ids) if current in ids else 0
+                    self.selection_hint+=f' · {len(rows)} overlapping · Tab / Alt+click: '+self.selection_name(rows[index])
+        self.update()
+
+    def draw_selection_preview(self,p):
+        item=getattr(self,'preselection',None)
+        if not item or self.tool!='select' or self.anchor is not None or self.pan or self.placement:return
+        from .ui_style import palette
+        t=palette(self.dark);p.save();pen=self.pen(t['accent'],2);pen.setStyle(Qt.DashLine);p.setPen(pen);p.setBrush(Qt.NoBrush)
+        if item.get('editor_kind')=='pin':p.drawEllipse(QPointF(*item['pin']['point']),7/self.scale,7/self.scale)
+        elif item.get('editor_kind')=='label':
+            text=item['text'];p.drawRect(QRectF(text['x'],text['y']-12/self.scale,max(10,len(text['text'])*7)/self.scale,16/self.scale))
+        elif 'points' in item and (self.mode=='layout' or 'nets' not in item):
+            if self.mode=='layout':p.drawPath(self.path(item))
+            else:
+                from PySide6.QtGui import QPolygonF
+                p.drawPolyline(QPolygonF([QPointF(*pt) for pt in item['points']]))
+        else:p.drawRect(self.bounds(item))
+        p.resetTransform();p.setPen(QColor(t['text']));p.setBrush(QColor(t['panel']))
+        box=QRectF(10,self.height()-54,max(20,self.width()-20),44);p.drawRoundedRect(box,4,4)
+        p.drawText(box.adjusted(8,3,-8,-3),Qt.AlignVCenter|Qt.TextWordWrap,self.selection_hint);p.restore()
+
     def editor_allowed(self,layer):
         return layer in self.visible_layers and layer not in getattr(self,'unselectable_layers',set()) and layer not in getattr(self,'locked_layers',set())
 
@@ -48,6 +93,7 @@ class EditorCanvasMixin:
         self.selected.emit([ids[index]])
         item=candidates[index];name=item.get('name') or item.get('layer') or ('Annotation' if 'text' in item else 'Wire' if 'points' in item else 'Label')
         self.message.emit(f'{name} · selection {index+1}/{len(ids)} · Alt+click cycles overlaps')
+        self.update_selection_preview(pos)
 
     def editor_marquee(self,rect):
         ids=[];filters=getattr(self,'selection_types',{'shapes','instances'});inside=getattr(self,'box_mode','Crossing')=='Inside';boxes={};eligible=set()

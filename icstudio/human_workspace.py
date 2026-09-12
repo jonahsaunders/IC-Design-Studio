@@ -132,7 +132,7 @@ class HumanWorkspaceMixin(GridSettingsMixin):
             canvas.installEventFilter(self)
 
     def workspace_docks(self):
-        return (self.nav, self.inspector, self.results_dock)
+        return (self.nav, self.inspector, self.results_dock)+((self.workflow_dock,) if hasattr(self,'workflow_dock') else ())
 
     def make_actions(self):
         super().make_actions()
@@ -423,11 +423,14 @@ class HumanWorkspaceMixin(GridSettingsMixin):
         self._focus_panels=None
         if hasattr(self,'command_actions'):self.command_actions['Focus canvas'].setText('Focus canvas')
         self.set_panel_lock(False)
-        for dock,side in zip(self.workspace_docks(),(Qt.LeftDockWidgetArea,Qt.RightDockWidgetArea,Qt.BottomDockWidgetArea)):
+        for dock,side in zip(self.workspace_docks(),(Qt.LeftDockWidgetArea,Qt.RightDockWidgetArea,Qt.BottomDockWidgetArea,Qt.BottomDockWidgetArea)):
             dock.setFloating(False);self.addDockWidget(side,dock)
         mode={'Schematic':0,'Layout':1,'Simulation':0,'Review':2}.get(name,0)
         self.mode_combo.setCurrentIndex(mode)
         self.nav.show();self.inspector.show();self.results_dock.setVisible(name in ('Simulation','Review'))
+        if hasattr(self,'workflow_dock'):
+            self.tabifyDockWidget(self.results_dock,self.workflow_dock);self.workflow_dock.setVisible(name!='Simulation')
+            (self.results_dock if name=='Simulation' else self.workflow_dock).raise_()
         self.navtabs.setCurrentIndex(2 if mode==1 else 0)
         self.inspector_tabs.setCurrentIndex(1 if name=='Simulation' else 0)
         if name=='Review': self.results_tabs.setCurrentIndex(1)

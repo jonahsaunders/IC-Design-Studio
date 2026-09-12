@@ -334,7 +334,7 @@ class NativeWorkspaceMixin:
                     source = next(iter(sources)) if len(sources) == 1 else 'Project definitions'
                 identity = digest([source, definition['label'], definition.get('tokens'), definition.get('definition'), d.get('symbol')])
                 if identity in seen: continue
-                seen.add(identity); entries.append(dict(label=definition['label'], source=source, device=d))
+                seen.add(identity); entries.append(dict(label=definition['label'], source=source, device=d, key=identity))
         def preview(entry):
             d = entry['device']
             return d['symbol'], {**d.get('symbol_context', {}), 'name':'Preview', 'symname':entry['label']}
@@ -348,7 +348,7 @@ class NativeWorkspaceMixin:
             self.mode_combo.setCurrentIndex(0); self.cancel_tool(); self.schematic.placement = d; self.schematic.tool = 'place'
             self.schematic.drag = self.schematic.snap(self.schematic.model(self.schematic.rect().center()))
             self.schematic.setFocus(); self.schematic.update(); self.sync_tools()
-        dlg = ComponentBrowser(self, 'Project device library', entries, preview, place)
+        dlg = ComponentBrowser(self, 'Project device library', entries, preview, place, scope='native:'+self.project['id'])
         def standard():
             dlg.accept(); super(NativeWorkspaceMixin, self).show_library()
         dlg.add_button('Standard components and hierarchical cells…', standard)

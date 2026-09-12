@@ -63,9 +63,16 @@ class WorkspaceMixin:
         self.setMinimumSize(1000,680);self.resize(1440,900)
         geometry=self.settings.value('workspace/v2/geometry')
         if geometry:self.restoreGeometry(geometry)
+        from .window_geometry import keep_visible
+        keep_visible(self)
+        QApplication.instance().screenRemoved.connect(self.recover_window_geometry)
         state=self.settings.value('workspace/v2/state')
         if state:self.restoreState(state,2)
         self.results_dock.hide();self.sync_panel_buttons()
+
+    def recover_window_geometry(self,*_):
+        from .window_geometry import keep_visible
+        QTimer.singleShot(0,lambda:keep_visible(self))
 
     def button(self,text,icon_name=None,fn=None,role=None,tip=None,check=False):
         w=QPushButton(text);w.setCheckable(check);w.setCursor(Qt.PointingHandCursor);w.setAccessibleName(text or tip or icon_name)
@@ -318,11 +325,12 @@ class WorkspaceMixin:
             for i,text in [(2,'Rectangle'),(3,'Polygon'),(4,'Path')]:menu.addAction('Draw '+text.lower(),lambda x=i:self.set_tool(x))
         menu.addAction('Fit design',self.fit_active);menu.exec(canvas.mapToGlobal(pos))
     def focus_canvas(self):
+        docks=self.workspace_docks() if hasattr(self,'workspace_docks') else (self.nav,self.inspector,self.results_dock)
         if self._focus_panels is None:
-            self._focus_panels=[not d.isHidden() for d in (self.nav,self.inspector,self.results_dock)]
-            for d in (self.nav,self.inspector,self.results_dock):d.hide()
+            self._focus_panels=[not d.isHidden() for d in docks]
+            for d in docks:d.hide()
         else:
-            for d,on in zip((self.nav,self.inspector,self.results_dock),self._focus_panels):d.setVisible(on)
+            for d,on in zip(docks,self._focus_panels):d.setVisible(on)
             self._focus_panels=None
     def reset_workspace(self):
         self._focus_panels=None
