@@ -63,10 +63,13 @@ assert w.cell['devices'][0]['nets']['p']==w.cell['devices'][1]['nets']['p'];key(
 # Crossings are open; J deliberately adds/removes the dot.
 p=example('empty');p['cells'][0].update(wires=[{'id':uid(),'points':[[100,100],[300,100]]},{'id':uid(),'points':[[200,40],[200,180]]}],junctions=[]);c=setup(p)
 a,b=w.cell['wires'];g=wiring.graph(w.cell);assert g[('wire',a['id'])]!=g[('wire',b['id'])]
-target=screen(c,[200,100]);assert c.rect().contains(target),(c.size(),target)
+# Center the crossing in the visible viewport, which changes with dock sizes
+# and Windows font metrics. A point inside rect() may still be clipped by a parent.
+target=c.visibleRegion().boundingRect().center();c.offset=QPointF(target)-QPointF(200,100)*c.scale;c.update()
+assert c.rect().contains(target),(c.size(),target)
 # Offscreen Windows does not reliably synthesize hover from a cursor warp or
 # window-system event. Send a real Qt mouse event to the visible canvas instead.
-assert c.isVisible() and w.childAt(c.mapTo(w,target)) is c
+assert c.isVisible() and w.childAt(c.mapTo(w,target)) is c,(c.geometry(),c.visibleRegion().boundingRect(),target,w.childAt(c.mapTo(w,target)))
 app.sendEvent(c,QMouseEvent(QEvent.MouseMove,QPointF(target),QPointF(c.mapToGlobal(target)),Qt.NoButton,Qt.NoButton,Qt.NoModifier))
 deadline=time.monotonic()+1
 while c.drag!=QPointF(200,100) and time.monotonic()<deadline:QTest.qWait(10)

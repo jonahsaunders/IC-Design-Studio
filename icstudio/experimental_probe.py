@@ -17,12 +17,11 @@ def run(w, output):
     before=clone(w.project);path=w.path;checks=[]
     app=QApplication.instance()
     def move(widget, point):
-        assert widget.isVisible() and widget.window().childAt(widget.mapTo(widget.window(),point)) is widget
+        assert widget.isVisible() and widget.window().childAt(widget.mapTo(widget.window(),point)) is widget,(point,widget.geometry(),widget.visibleRegion().boundingRect())
+        QTest.mouseMove(widget,point);QTest.qWait(20)
         if app.platformName() in ('offscreen','minimal'):
             # These backends need explicit hover events; they have no real cursor.
             app.sendEvent(widget,QMouseEvent(QEvent.MouseMove,QPointF(point),QPointF(widget.mapToGlobal(point)),Qt.NoButton,Qt.NoButton,Qt.NoModifier))
-        else:
-            QTest.mouseMove(widget,point);QTest.qWait(20)
     def wait(predicate, label, timeout=10):
         deadline=time.monotonic()+timeout
         while time.monotonic()<deadline:
@@ -64,10 +63,11 @@ def run(w, output):
 
         p=example('empty');cell=p['cells'][0];resistor=device('R','R1',0,0);cell['devices']=[resistor]
         cell['wires']=[dict(id='overlap-wire',points=[[-40,40],[40,40]])]
-        w.set_project(p);w.mode_combo.setCurrentIndex(0);canvas=w.schematic
+        w.set_project(p);w.mode_combo.setCurrentIndex(0);canvas=w.schematic;QTest.qWait(100)
         canvas.auto_fit=False;canvas.scale=1.5;canvas.offset=QPointF(180,100);app.processEvents()
         point=(canvas.offset+QPointF(0,40)*canvas.scale).toPoint()
-        move(canvas,point);app.processEvents();assert canvas.preselection['id']=='overlap-wire'
+        move(canvas,point)
+        assert canvas.preselection and canvas.preselection['id']=='overlap-wire',dict(tool=canvas.tool,scale=canvas.scale,offset=str(canvas.offset),pointer=str(getattr(canvas,'editor_pointer',None)),anchor=str(canvas.anchor),hint=canvas.selection_hint)
         assert '2 overlapping' in canvas.selection_hint
         QTest.mouseClick(canvas,Qt.LeftButton,Qt.NoModifier,point);assert w.selection==['overlap-wire']
         QTest.keyClick(canvas,Qt.Key_Tab);assert w.selection==[resistor['id']]
@@ -93,7 +93,10 @@ def run(w, output):
         wait(lambda:guide.analysis_key and guide.analysis_key[1]==w.project['revision'],'Automatic workflow refresh')
         checks.append('Persistent workflow restores with the workspace, navigates findings, rejects stale rows and refreshes after edits')
 
-        dock=w.results_dock;dock.show();dock.setFloating(True);dock.move(30,30);dock.resize(480,320);QTest.qWait(50)
+        dock=w.results_dock;dock.show();dock.setFloating(True)
+        available=dock.screen().availableGeometry()
+        dock.move(available.topLeft()+QPoint(30,30))
+        dock.resize(min(480,available.width()-110),min(320,available.height()-100));QTest.qWait(50)
         assert dock.titleBarWidget() is None and dock._floating_frame.border.isVisible()
         # Qt deliberately provides its own title bar on X11/Wayland.
         if app.platformName()!='xcb' and not app.platformName().startswith('wayland'):
@@ -101,8 +104,9 @@ def run(w, output):
         from .ui_style import palette
         from PySide6.QtGui import QColor
         pixels=dock.grab().toImage();edge=QColor(palette(w.dark)['muted'])
-        for x,y in ((0,pixels.height()//2),(pixels.width()-1,pixels.height()//2),
-                    (pixels.width()//2,0),(pixels.width()//2,pixels.height()-1)):
+        # Sample inside the stroke: fractional DPI can blend the outermost pixel.
+        for x,y in ((1,pixels.height()//2),(pixels.width()-2,pixels.height()//2),
+                    (pixels.width()//2,1),(pixels.width()//2,pixels.height()-2)):
             assert pixels.pixelColor(x,y)==edge,('Floating border is not visible',x,y,pixels.pixelColor(x,y).name())
         grip=dock._floating_frame.grip;size=dock.size();pos=QPoint(7,7)
         QTest.mousePress(grip,Qt.LeftButton,Qt.NoModifier,pos);QTest.mouseMove(grip,pos+QPoint(70,55),30)
@@ -111,7 +115,7 @@ def run(w, output):
         saved=dock.geometry();w.save_editor_workspace('Experimental floating acceptance');dock.setFloating(False)
         w.load_editor_workspace('Experimental floating acceptance');QTest.qWait(50)
         assert dock.isFloating() and dock.titleBarWidget() is None and grip.isVisible()
-        assert (dock.size()-saved.size()).width() in range(-8,9)
+        assert (dock.size()-saved.size()).width() in range(-8,9),(saved,dock.geometry(),available)
         dock.move(-20000,-20000);dock._floating_frame.keep_visible()
         assert any(screen.availableGeometry().intersects(dock.geometry()) for screen in app.screens())
         dock.grab().save(str(out/'floating-results.png'));dock.setFloating(False);dock.hide()
