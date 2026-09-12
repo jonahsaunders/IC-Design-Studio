@@ -1,0 +1,46 @@
+{
+  "version": "0.22.0.dev22",
+  "branch": "experimental",
+  "base_commit": "07023e683575895c41e0991e989ed116ec372523",
+  "status": "local_checks_passed",
+  "core_suite": {
+    "total": 658,
+    "passed": 646,
+    "skipped": 12,
+    "command": "python -m unittest discover -s tests -v",
+    "note": "Full suite passed before the final RL-response regression was added. The final 21-test inductor suite, including that regression, also passed."
+  },
+  "inductor_core": {
+    "total": 21,
+    "passed": 21,
+    "command": "python -m unittest discover -s tests -p test_inductor.py -v"
+  },
+  "desktop": {
+    "platform": "offscreen",
+    "command": "QT_QPA_PLATFORM=offscreen python tests/gui_experimental.py --out build/inductor-final-desktop",
+    "inductor": {
+      "status": "passed",
+      "checks": [
+        "Tools menu, compact live preview, dimensions/orientation, invalid-input guard, linked labelled L and single-step undo/redo",
+        "Reopen from layout and placement checklist, stable regeneration identities, explicit estimate opt-in and saved recipe reload",
+        "Apply-time layer lock and stale design guards leave the design unchanged"
+      ],
+      "platform": "offscreen",
+      "estimated_h": 4.366216832859381e-09,
+      "shape_count": 29
+    },
+    "experimental_status": "passed"
+  },
+  "source_hashes": {
+    "icstudio/inductor.py": "be3e759233b5dc89a6e6e348a01fa05de49cb4c8f1c519764e3621339a09d886",
+    "icstudio/inductor_ui.py": "136d7160df0693001a723fd0bc79c3a1f21dc758fa82e01480e9cccc7d49c3be",
+    "icstudio/inductor_probe.py": "5fb5747c95a72515f17e06702d0ca7851bb4b9f565e1e8c952577019cdb76b90",
+    "tests/test_inductor.py": "1895a55a495d5cc8ab8485b08eabc2f6866c2095bbf4cbaa5556a65401a9a89c"
+  },
+  "limitations": [
+    "No local native Windows/X11 display; native DPI and frozen-package acceptance are separate hosted gates.",
+    "Twelve existing full-suite tests skip unavailable external engines/assets in this local environment.",
+    "DC formula and geometry acceptance do not qualify RF performance or a fabricated inductor."
+  ],
+  "hosted": "Exact-commit Actions desktop, physical and interoperability checks gate the experimental draft. Read each commit run for its result."
+}

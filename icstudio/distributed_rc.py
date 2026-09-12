@@ -10,6 +10,8 @@ from .spatial import SpatialIndex
 
 
 def extract(p,cid,section_nm=5000,coupling_distance_nm=5000,corner=None):
+    from .inductor import reject_parasitic_estimate
+    reject_parasitic_estimate(p,cid)
     from .physical import connectivity
     from .physical_cells import terminals
     c=next(c for c in p['cells'] if c['id']==cid)

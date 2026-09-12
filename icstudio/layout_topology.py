@@ -5,6 +5,7 @@ from .design_ops import flatten_layout
 from .physical_cells import terminals, ports, transform_selection
 from .spatial import SpatialIndex
 from .wiring import retarget_path, segment_drag, on_segment
+from .inductor import contact_shapes
 
 
 def shape_key(s):
@@ -16,18 +17,18 @@ def partition(p, cid):
     c=next(c for c in p['cells'] if c['id']==cid)
     if not c.get('layout_instances'):
         from .layout_graph import GeometryGraph
-        graph=GeometryGraph();graph.sync(c['shapes'],p['pdk']);return graph.partition(p,cid)
+        graph=GeometryGraph();graph.sync(contact_shapes(p,cid,c['shapes']),p['pdk']);return graph.partition(p,cid)
     from .layout_graph import GeometryGraph
-    return GeometryGraph().sync(flatten_layout(p,cid),p['pdk']).partition(p,cid)
+    return GeometryGraph().sync(contact_shapes(p,cid),p['pdk']).partition(p,cid)
 
 
 def require_preserved(before, after, cid):
     graph=None
     if not _cell(before,cid).get('layout_instances') and not _cell(after,cid).get('layout_instances'):
         from .layout_graph import GeometryGraph
-        graph=GeometryGraph().sync(_cell(before,cid)['shapes'],before['pdk'])
+        graph=GeometryGraph().sync(contact_shapes(before,cid,_cell(before,cid)['shapes']),before['pdk'])
         a=graph.partition(before,cid)
-        graph.sync(_cell(after,cid)['shapes'],after['pdk'])
+        graph.sync(contact_shapes(after,cid,_cell(after,cid)['shapes']),after['pdk'])
         b=graph.partition(after,cid)
     else:a=partition(before,cid);b=partition(after,cid)
     universe = set(a)
@@ -43,10 +44,17 @@ def _cell(p,cid): return next(c for c in p['cells'] if c['id']==cid)
 def _check_clearance(before, after, cid, graph=None):
     """Check edited conductors against other physical components, including unnamed metal."""
     c=_cell(after,cid)
+    if any(r.get('spec',{}).get('kind')=='inductor' for v in after['cells'] for r in v.get('parametric_devices',[])):
+        from .inductor import contact_findings
+        from .live_geometry import preview
+        old_shapes={s['id']:s for s in _cell(before,cid)['shapes']}
+        changed=[s for s in c['shapes'] if s!=old_shapes.get(s['id'])]
+        errors=preview(after,cid,changed)+contact_findings(after,cid)
+        if errors:raise ValueError(errors[0]['message'])
     if not c.get('layout_instances'):
         from .layout_graph import GeometryGraph,key
         prior={s['id']:s for s in _cell(before,cid)['shapes']};db=kdb()
-        if graph is None:graph=GeometryGraph().sync(c['shapes'],after['pdk'])
+        if graph is None:graph=GeometryGraph().sync(contact_shapes(after,cid,c['shapes']),after['pdk'])
         spacing={l['name']:l['space'] for l in after['pdk']['layers']}
         for s in c['shapes']:
             ident=key(s)

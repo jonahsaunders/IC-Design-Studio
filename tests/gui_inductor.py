@@ -1,4 +1,4 @@
-"""Source desktop acceptance for the six experimental usability priorities."""
+"""Source desktop entry point for the packaged inductor creator probe."""
 import argparse,json,sys,traceback
 from pathlib import Path
 from unittest.mock import patch
@@ -12,7 +12,7 @@ def main():
     from PySide6.QtCore import QSettings
     from PySide6.QtTest import QTest
     from icstudio.gui import Studio
-    from icstudio.experimental_probe import run
+    from icstudio.inductor_probe import run
     app=QApplication([]);app.setStyle('Fusion');errors=[];w=None
     sys.excepthook=lambda t,v,tb:(errors.append(str(v)),traceback.print_exception(t,v,tb))
     try:
@@ -21,13 +21,7 @@ def main():
             w=Studio(recover=False)
         w.error=lambda e:errors.append(str(e));w.maybe_save=lambda:True;w.live_check.setChecked(False)
         w.resize(1400,960);w.show();assert QTest.qWaitForWindowExposed(w)
-        report=run(w,out)
-        from icstudio.inductor_probe import run as inductor_probe
-        report['inductor']=inductor_probe(w,out)
-        report['checks'].extend(report['inductor']['checks'])
-        from icstudio.live_probe import run as live_probe
-        report['checks'].append(live_probe(w,out))
-        assert not errors,errors;report['status']='passed'
+        report=run(w,out);assert not errors,errors
     except Exception:report=dict(status='failed',error=traceback.format_exc(),errors=errors)
     finally:
         if w:w.close();app.processEvents()

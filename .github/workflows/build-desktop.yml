@@ -47,7 +47,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Runtime provisioning failed.' }
           $engine = (Resolve-Path 'icstudio/assets/runtime/ngspice/ngspice.exe').Path
           "ICSTUDIO_TEST_NGSPICE=$engine" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
-      - name: Check native Windows experimental gestures at 200 percent before packaging
+      - name: Check native Windows experimental gestures and inductor creator at 200 percent before packaging
         if: runner.os == 'Windows'
         timeout-minutes: 5
         env:
@@ -79,7 +79,7 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_feedback.py --out build/usability-feedback-evidence
-      - name: Test experimental component shortcuts, workflow, selection and window recovery
+      - name: Test experimental workflow, window recovery and inductor creator
         timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen

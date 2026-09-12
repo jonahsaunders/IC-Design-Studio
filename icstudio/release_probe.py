@@ -198,6 +198,9 @@ def main(output):
         from .experimental_probe import run as experimental_probe
         report['experimental']=experimental_probe(window,out)
         report['checks'].extend(report['experimental']['checks'])
+        from .inductor_probe import run as inductor_probe
+        report['inductor']=inductor_probe(window,out)
+        report['checks'].extend(report['inductor']['checks'])
         report['checks'].append(live_probe(window,out))
         from .local_collaboration_probe import run as local_server_probe
         report['checks'].append(local_server_probe(window,out))

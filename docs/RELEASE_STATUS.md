@@ -1,3 +1,12 @@
+# Experimental dev22: inductor creator
+
+The [dev22 update](UPDATE_0.22_DEV22.md) adds **Tools → Inductor creator…** to
+`experimental`. See the [creator guide](INDUCTOR_CREATOR.md) for its saved recipe,
+connectivity behavior and DC-estimate limits. Local evidence is recorded in
+[the dev22 validation record](validation/experimental-dev22.json). Exact-commit
+desktop, physical and interoperability Actions results gate each versioned draft.
+Earlier dev20/dev21 packages do not contain this feature.
+
 # Experimental dev21 source update
 
 The [dev21 workflow and recovery update](UPDATE_0.22_DEV21.md) targets `experimental`.

@@ -84,11 +84,14 @@ def plan(p, cid, ids, connection=None, max_vias=1024, locked=()):
         raise ValueError('Select only conductor shapes for the chosen via connections, without cuts or instances.')
     if any(local[key]['layer'] in locked for key in selected):
         raise ValueError('Unlock the selected conductor layers before using Autovia.')
+    from .inductor import contact_shapes
+    electrical_ids={s['id'] for s in contact_shapes(p,cid,cell['shapes'])}
+    if not selected<=electrical_ids:raise ValueError('Use inductor terminal pads for Autovia; winding-internal vias are owned by the inductor creator.')
     from .design_ops import flatten_layout
     from .layout_graph import GeometryGraph
     q = clone(p); q['pdk']=clone(tech); declare_connections(q['pdk'])
     shapes = flatten_layout(q, cid); db = kdb(); grid = p['pdk']['grid']
-    graph = GeometryGraph().sync(shapes, q['pdk'])
+    graph = GeometryGraph().sync(contact_shapes(q,cid,shapes), q['pdk'])
     groups, nets = _component_nets(q, cid, graph)
     regions = {}
     for key in sorted(selected):
@@ -151,7 +154,7 @@ def plan(p, cid, ids, connection=None, max_vias=1024, locked=()):
         raise ValueError('No new via fits the selected overlaps. Check conductor overlap, enclosure space and existing cuts.')
     # A blank conductor may bridge two differently named overlaps in one batch.
     # Rebuild topology for the entire proposal before any persistent mutation.
-    graph.sync(shapes+result, q['pdk'])
+    graph.sync(contact_shapes(q,cid,shapes+result), q['pdk'])
     after, after_nets = _component_nets(q, cid, graph)
     for shape in result:
         group = after[('shape', shape['id'], '', '')]
@@ -174,6 +177,9 @@ def install(p, proposal, locked=()):
     q = clone(p); q['pdk']=clone(technology(q)); declare_connections(q['pdk'])
     cell = next(c for c in q['cells'] if c['id'] == proposal['cell_id'])
     cell['shapes'].extend(clone(proposal['shapes']))
+    from .inductor import contact_findings
+    findings=contact_findings(q,cell['id'])
+    if findings:raise ValueError(findings[0]['message'])
     validate(q)
     next(c for c in p['cells'] if c['id'] == cell['id']).update(cell)
     p['pdk'] = q['pdk']

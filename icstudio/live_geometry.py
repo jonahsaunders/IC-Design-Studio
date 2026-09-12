@@ -110,7 +110,8 @@ class IncrementalChecks:
         scope=(p['id'],cid)
         if self.scope!=scope:self.contacts=GeometryGraph();self.rules=IncrementalDRC();self.scope=scope
         try:
-            self.contacts.sync(c['shapes'],p['pdk']);geometry=self.rules.check(p,cid,c['shapes'])
+            from .inductor import contact_shapes
+            self.contacts.sync(contact_shapes(p,cid,c['shapes']),p['pdk']);geometry=self.rules.check(p,cid,c['shapes'])
             check=connectivity(p,cid,self.contacts)
         except Exception:
             # Do not retain a partially updated cache or suppress a check error.

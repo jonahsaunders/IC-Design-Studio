@@ -13,6 +13,9 @@ from .wiring import retarget_path
 def propose(p,cid,ids,dx,dy,locked=(),graph=None):
     c=next(c for c in p['cells'] if c['id']==cid);chosen=set(ids)
     if c.get('layout_instances'):return None
+    # Device-boundary recognition and winding-contact checks require the full
+    # connected-edit path, including when moving a nearby unowned route.
+    if any(r.get('spec',{}).get('kind')=='inductor' for r in c.get('parametric_devices',[])):return None
     from .layout_edit import selection_groups
     selection_groups(p,cid,ids,locked)
     if any(type(v) is not int or v%p['pdk']['grid'] for v in (dx,dy)):raise ValueError('Transforms require grid-aligned integer coordinates.')
