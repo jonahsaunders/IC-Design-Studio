@@ -1,5 +1,6 @@
 """Native floating frames and an explicit diagonal resize grip for dock panels."""
-from PySide6.QtCore import QObject, QEvent
+from PySide6.QtCore import QObject, QEvent, QTimer
+from PySide6.QtGui import QGuiApplication
 from PySide6.QtWidgets import QSizeGrip, QPushButton
 
 
@@ -16,6 +17,14 @@ class FloatingPanel(QObject):
         self.dock_button.clicked.connect(lambda: dock.setFloating(False)); self.dock_button.hide()
         dock.installEventFilter(self)
         dock.topLevelChanged.connect(self.update_frame)
+        QGuiApplication.instance().screenRemoved.connect(self.screen_removed)
+
+    def screen_removed(self, *_):
+        QTimer.singleShot(0,self.keep_visible)
+
+    def keep_visible(self):
+        from .window_geometry import keep_visible
+        if self.dock.isFloating():keep_visible(self.dock)
 
     def update_frame(self, floating):
         if floating:
@@ -35,4 +44,5 @@ class FloatingPanel(QObject):
 
     def eventFilter(self, obj, event):
         if event.type() in (QEvent.Resize, QEvent.Show): self.position_grip()
+        if event.type()==QEvent.Show:QTimer.singleShot(0,self.keep_visible)
         return False

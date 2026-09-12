@@ -12,8 +12,12 @@ def main(output):
     from .model import example,digest,clone,save_project,load_project,atomic_write
     from . import __version__
     report={'version':__version__,'os':platform.platform(),'architecture':platform.machine(),'frozen':bool(getattr(sys,'frozen',False)),'scale':os.environ.get('QT_SCALE_FACTOR','1'),'checks':[],'status':'failed'};window=None;app=None;errors=[]
+    from .build_identity import identity
+    report['build']=identity()
     sys.excepthook=lambda t,v,tb:errors.append(''.join(traceback.format_exception(t,v,tb)))
     try:
+        if report['frozen']:
+            assert report['build']['commit']!='unknown' and report['build']['dirty'] is False,'Packaged source identity is missing'
         QStandardPaths.setTestModeEnabled(True)
         QSettings.setDefaultFormat(QSettings.IniFormat);QSettings.setPath(QSettings.IniFormat,QSettings.UserScope,str(out/'profile/settings'))
         app=QApplication([]);app.setStyle('Fusion');QSettings('ICDesignStudio','Studio').clear();window=Studio(recover=False);window.resize(1440,940);window.show();QTest.qWait(100)
@@ -191,6 +195,9 @@ def main(output):
         renderer=type(viewer.view).__name__;viewer.close();QTest.qWait(30);window.set_project(previous,previous_path)
         report['checks'].append('packaged 3D layout viewer, extrusion, display controls and PNG ('+renderer+')')
         from .live_probe import run as live_probe
+        from .experimental_probe import run as experimental_probe
+        report['experimental']=experimental_probe(window,out)
+        report['checks'].extend(report['experimental']['checks'])
         report['checks'].append(live_probe(window,out))
         from .local_collaboration_probe import run as local_server_probe
         report['checks'].append(local_server_probe(window,out))

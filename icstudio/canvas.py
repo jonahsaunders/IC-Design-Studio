@@ -26,6 +26,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
     def __init__(self,mode,parent=None):
         super().__init__(parent);self.mode=mode;self.cell=None;self.tech={};self.selection=[];self.net='';self.dark=False;self.tool='select';self.layer='metal1';self.line_width=200;self.scale=1.0 if mode=='schematic' else .08;self.offset=QPointF(40,50);self.anchor=None;self.drag=None;self.pan=False;self._pan_anchor=None;self._pan_button=None;self.snap_target=None;self.snap_to_terminals=True;self.space=False;self.pending_pin=None;self.drawing=[];self.visible_layers=set();self.setMinimumSize(250,220);self.setFocusPolicy(Qt.StrongFocus);self.setMouseTracking(True);self.setAccessibleName(mode+' design canvas');self.ruler=None;self.placement=None;self.marquee=False;self.moving=False;self._layers_initialized=False;self.press_screen=None;self.auto_fit=True;self.reset_wire_gesture();self._drawing_grid=None;self._drawing_undo=[];self._rect_pending=False;self.drawing_notice='';self.path_horizontal=True
     def set_data(self,cell,tech,selection=None,net='',revision=None,dirty_indices=None):
+        self.preselection=None;self.selection_hint=''
         self.cell=cell;self.tech=tech;self.selection=list(selection or []);self.net=net;self._layout_display_revision=getattr(self,'_layout_display_revision',0)+1
         if self.mode=='layout':
             from .layout_cache import LayoutGeometryCache
@@ -123,6 +124,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         if self.placement and self.drag:
             p.save();p.setOpacity(.55);self.cell={**original,'wires':[],'junctions':[],'labels':[],'devices':[{**self.placement,'x':self.drag.x(),'y':self.drag.y()}]};self.draw_schematic(p,view);self.cell=original;p.restore()
         self.draw_wire_preview(p)
+        self.draw_selection_preview(p)
         self.draw_label_preview(p)
         if self.anchor and self.drag and (self.tool in ('rect','ruler') or self.marquee):
             pen=self.pen(t['accent'],1.3);p.setPen(pen);p.setBrush(Qt.NoBrush)
@@ -481,6 +483,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         if self.pan:
             self.offset+=e.position()-self._pan_anchor;self._pan_anchor=QPointF(e.position());self.update();self.view_changed.emit();return
         self.editor_pointer=self.model(e.position())
+        if self.tool=='select':self.update_selection_preview(self.editor_pointer)
         pos=self.snap(self.model(e.position()));self.drag=pos
         if self.tool=='label':self.label_raw=self.model(e.position());self.update()
         if self.tool=='route_cursor' and self.mode=='layout':self.route_hover_requested.emit(pos.x(),pos.y());self.update();return
@@ -534,6 +537,10 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
             self.selected.emit(ids)
         elif self.tool=='select' and self.moving and self.selection and distance>4 and (end-start).manhattanLength()>0:self.move_objects.emit(self.selection,end.x()-start.x(),end.y()-start.y())
         self.anchor=None;self.wire_drag=None;self.moving=False;self.marquee=False;self.update()
+        if self.tool=='select':self.update_selection_preview(self.model(e.position()))
+    def leaveEvent(self,event):
+        self.preselection=None;self.selection_hint='';self.editor_pointer=None;self.update()
+        super().leaveEvent(event)
     def mouseDoubleClickEvent(self,e):
         if e.button()==Qt.MiddleButton or (self.space and e.button()==Qt.LeftButton):self.mousePressEvent(e);return
         if self.pan or e.button()!=Qt.LeftButton:return

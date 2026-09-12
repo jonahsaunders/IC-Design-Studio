@@ -14,7 +14,14 @@ else:
  if not engine:raise ValueError('Install ngspice or set ICSTUDIO_BUNDLED_NGSPICE before packaging. Runtime-free releases are not supported.')
  check_ngspice(engine)
  os.environ['ICSTUDIO_BUNDLED_NGSPICE']=engine
-(root/"icstudio"/"build_info.py").write_text("ENGINE_SOURCE_HASH = "+repr(hashlib.sha256((root/"icstudio"/"simulation.py").read_bytes()).hexdigest())+"\nWORKFLOW_SOURCE_HASH = "+repr(hashlib.sha256(b"".join(f.name.encode()+f.read_bytes() for f in sorted((root/"icstudio").glob("*.py")) if f.name!="build_info.py")).hexdigest())+"\n")
+from icstudio.build_identity import identity
+build=identity()
+if build['commit']=='unknown' or build['dirty'] is not False:
+ raise ValueError('Package a clean, committed source checkout so every binary has an exact source identity.')
+metadata=dict(ENGINE_SOURCE_HASH=hashlib.sha256((root/'icstudio'/'simulation.py').read_bytes()).hexdigest(),
+ WORKFLOW_SOURCE_HASH=hashlib.sha256(b''.join(f.name.encode()+f.read_bytes() for f in sorted((root/'icstudio').glob('*.py')) if f.name!='build_info.py')).hexdigest(),
+ BUILD_COMMIT=build['commit'],BUILD_BRANCH=build['branch'],BUILD_DIRTY=False)
+(root/'icstudio'/'build_info.py').write_text(''.join(key+' = '+repr(value)+'\n' for key,value in metadata.items()))
 args=[sys.executable,'-m','PyInstaller','--noconfirm','--clean','--name','ICDesignStudio','--windowed','--onedir','--collect-all','klayout','--add-data',f'{root/"icstudio"/"assets"}{os.pathsep}icstudio/assets','--hidden-import','PySide6.QtSvg','--hidden-import','icstudio.cli','--hidden-import','icstudio.sdk','--add-data',f'{root/"docs"}{os.pathsep}docs','--add-data',f'{root/"examples"}{os.pathsep}examples','--add-data',f'{root/"licenses"}{os.pathsep}licenses']
 args+=['--recursive-copy-metadata','cryptography']
 engine=os.environ.get('ICSTUDIO_BUNDLED_NGSPICE')

@@ -1,8 +1,14 @@
 # Get IC Design Studio
 
-Current development source: **0.22.0.dev20**. [Release status](RELEASE_STATUS.md) records the exact scope of the source, desktop and physical checks. New source does not imply a published or signed package.
+Current development source: **0.22.0.dev21**. [Release status](RELEASE_STATUS.md) records the exact scope of the source, desktop and physical checks. New source does not imply a published or signed package.
 
-The dev20 draft was assembled successfully from `6b1e30f3d13c1dcb8d662523fd6cf4919f1b2a0d`
+The [dev21 update](UPDATE_0.22_DEV21.md) is newer than the dev20 draft below.
+Use the dev21 PR's successful desktop workflow artifacts (`release-Windows` or
+`release-Linux`), or the experimental draft once its complete workflow succeeds.
+Check About for the exact source commit. Drafts remain maintainer-visible until
+publication.
+
+The earlier dev20 draft was assembled successfully from `6b1e30f3d13c1dcb8d662523fd6cf4919f1b2a0d`
 by [release run 34703715977](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/34703715977).
 Its Windows/Linux packages, source, evidence and checksums are uploaded. It remains
 a draft engineering preview pending consumer-machine acceptance and the signing decision.

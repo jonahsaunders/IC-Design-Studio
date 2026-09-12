@@ -2,22 +2,22 @@ name: Prepare draft preview release
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, experimental]
     paths: [icstudio/__init__.py, .github/workflows/release-preview.yml]
 permissions:
   contents: read
 concurrency:
-  group: preview-release
+  group: preview-release-${{ github.ref }}
   cancel-in-progress: false
 jobs:
   desktop:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/experimental'
     uses: ./.github/workflows/build-desktop.yml
   interoperability:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/experimental'
     uses: ./.github/workflows/interoperability.yml
   physical:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/experimental'
     uses: ./.github/workflows/physical-qualification.yml
   draft:
     needs: [desktop, interoperability, physical]
@@ -63,9 +63,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_COMMIT: ${{ github.sha }}
+          RELEASE_BRANCH: ${{ github.ref_name }}
         run: |
           version=$(python -c 'from icstudio import __version__; print(__version__)')
-          gh release create "v$version" release/* --draft --prerelease --target "$RELEASE_COMMIT" --title "IC Design Studio $version — engineering preview" --notes-file docs/RELEASE_0.22.md
+          tag="v$version"
+          if [ "$RELEASE_BRANCH" = experimental ]; then
+            tag="experimental-v$version-${RELEASE_COMMIT:0:8}"
+          fi
+          gh release create "$tag" release/* --draft --prerelease --target "$RELEASE_COMMIT" --title "IC Design Studio $version — $RELEASE_BRANCH preview" --notes-file docs/UPDATE_0.22_DEV21.md
       - uses: actions/upload-artifact@v4
         with:
           name: complete-prerelease

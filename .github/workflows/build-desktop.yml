@@ -66,6 +66,11 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_feedback.py --out build/usability-feedback-evidence
+      - name: Test experimental component shortcuts, workflow, selection and window recovery
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_experimental.py --out build/experimental-evidence
       - name: Test via placement and Autovia through the layout editor
         timeout-minutes: 5
         env:
@@ -293,6 +298,7 @@ jobs:
             build/workflow-review-evidence/report.json
             build/workflow-review-evidence/*.png
             build/usability-feedback-evidence
+            build/experimental-evidence
             build/recovery-workflow-evidence/gui-stability.json
             build/layout-3d-evidence
             build/layout-3d-opengl-evidence

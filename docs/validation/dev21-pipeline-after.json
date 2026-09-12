@@ -1,0 +1,502 @@
+{
+  "version": "0.22.0.dev21",
+  "workflow_hash": "834b07a86cb7bf3c7320c43ad0aa2be877e31a6a348a4f62221ddb511c91dd88",
+  "host": {
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "qt_platform": "offscreen"
+  },
+  "workloads": [
+    {
+      "shapes": 1000,
+      "canvas_size": [
+        1000,
+        400
+      ],
+      "samples": [
+        {
+          "history_ms": 24.415668998699402,
+          "refresh_ms": 5.87497699962114,
+          "recovery_ms": 2.177028000005521,
+          "commit_total_ms": 31.008046000351897,
+          "first_paint_ms": 18.168390000937507,
+          "durability_wait_ms": 10.47546500194585,
+          "recovery_reopen_ms": 10.19966999956523,
+          "live_checks_ms": 57.96915799874114,
+          "complete_with_checks_ms": 117.62105900197639,
+          "check_issue_count": 1,
+          "incremental_stats": {
+            "contacts": {
+              "polygons_built": 1000,
+              "edge_tests": 0,
+              "changed": 1000,
+              "affected": 1000,
+              "nodes": 1000,
+              "adjacency_copies": 1000
+            },
+            "drc": {
+              "polygons_built": 1000,
+              "edge_tests": 0,
+              "changed": 1000,
+              "affected": 1000,
+              "nodes": 1000,
+              "adjacency_copies": 1000,
+              "components_checked": 1000,
+              "components_total": 1000,
+              "shapes_checked": 1000
+            }
+          },
+          "edit_stats": {
+            "polygons_built": 1,
+            "edge_tests": 0,
+            "changed": 1,
+            "affected": 1,
+            "nodes": 1000,
+            "adjacency_copies": 1,
+            "shapes_replaced": 1,
+            "indices": [
+              0
+            ]
+          }
+        },
+        {
+          "history_ms": 2.310709998710081,
+          "refresh_ms": 6.410353998944629,
+          "recovery_ms": 2.181705000111833,
+          "commit_total_ms": 8.919162002712255,
+          "first_paint_ms": 17.27096799731953,
+          "durability_wait_ms": 8.337564999237657,
+          "recovery_reopen_ms": 9.089708000828978,
+          "live_checks_ms": 5.692902999726357,
+          "complete_with_checks_ms": 40.2205979989958,
+          "check_issue_count": 1,
+          "incremental_stats": {
+            "contacts": {
+              "polygons_built": 1,
+              "edge_tests": 0,
+              "changed": 1,
+              "affected": 1,
+              "nodes": 1000,
+              "adjacency_copies": 1
+            },
+            "drc": {
+              "polygons_built": 1,
+              "edge_tests": 0,
+              "changed": 1,
+              "affected": 1,
+              "nodes": 1000,
+              "adjacency_copies": 1,
+              "components_checked": 1,
+              "components_total": 1000,
+              "shapes_checked": 1
+            }
+          },
+          "edit_stats": {
+            "polygons_built": 1,
+            "edge_tests": 0,
+            "changed": 1,
+            "affected": 1,
+            "nodes": 1000,
+            "adjacency_copies": 1,
+            "shapes_replaced": 1,
+            "indices": [
+              0
+            ]
+          }
+        },
+        {
+          "history_ms": 2.121575002092868,
+          "refresh_ms": 5.895708996831672,
+          "recovery_ms": 2.065530999971088,
+          "commit_total_ms": 8.135101001244038,
+          "first_paint_ms": 16.923815997870406,
+          "durability_wait_ms": 8.354522000445286,
+          "recovery_reopen_ms": 33.38899099981063,
+          "live_checks_ms": 5.988527998852078,
+          "complete_with_checks_ms": 39.40196699841181,
+          "check_issue_count": 1,
+          "incremental_stats": {
+            "contacts": {
+              "polygons_built": 1,
+              "edge_tests": 0,
+              "changed": 1,
+              "affected": 1,
+              "nodes": 1000,
+              "adjacency_copies": 1
+            },
+            "drc": {
+              "polygons_built": 1,
+              "edge_tests": 0,
+              "changed": 1,
+              "affected": 1,
+              "nodes": 1000,
+              "adjacency_copies": 1,
+              "components_checked": 1,
+              "components_total": 1000,
+              "shapes_checked": 1
+            }
+          },
+          "edit_stats": {
+            "polygons_built": 1,
+            "edge_tests": 0,
+            "changed": 1,
+            "affected": 1,
+            "nodes": 1000,
+            "adjacency_copies": 1,
+            "shapes_replaced": 1,
+            "indices": [
+              0
+            ]
+          }
+        },
+        {
+          "history_ms": 2.4396439985139295,
+          "refresh_ms": 6.3386050023837015,
+          "recovery_ms": 21.824837000167463,
+          "commit_total_ms": 8.997709999675862,
+          "first_paint_ms": 16.761391001637094,
+          "durability_wait_ms": 62.52322599902982,
+          "recovery_reopen_ms": 13.509553999028867,
+          "live_checks_ms": 12.231810000230325,
+          "complete_with_checks_ms": 100.5141370005731,
+          "check_issue_count": 1,
+          "incremental_stats": {
+            "contacts": {
+              "polygons_built": 1,
+              "edge_tests": 0,
+              "changed": 1,
+              "affected": 1,
+              "nodes": 1000,
+              "adjacency_copies": 1
+            },
+            "drc": {
+              "polygons_built": 1,
+              "edge_tests": 0,
+              "changed": 1,
+              "affected": 1,
+              "nodes": 1000,
+              "adjacency_copies": 1,
+              "components_checked": 1,
+              "components_total": 1000,
+              "shapes_checked": 1
+            }
+          },
+          "edit_stats": {
+            "polygons_built": 1,
+            "edge_tests": 0,
+            "changed": 1,
+            "affected": 1,
+            "nodes": 1000,
+            "adjacency_copies": 1,
+            "shapes_replaced": 1,
+            "indices": [
+              0
+            ]
+          }
+        },
+        {
+          "history_ms": 2.5737159994605463,
+          "refresh_ms": 10.807636001118226,
+          "recovery_ms": 2.27631799862138,
+          "commit_total_ms": 13.624096998682944,
+          "first_paint_ms": 20.467221998842433,
+          "durability_wait_ms": 8.833481999317883,
+          "recovery_reopen_ms": 9.302948998083593,
+          "live_checks_ms": 5.991852998704417,
+          "complete_with_checks_ms": 48.91665399554768,
+          "check_issue_count": 1,
+          "incremental_stats": {
+            "contacts": {
+              "polygons_built": 1,
+              "edge_tests": 0,
+              "changed": 1,
+              "affected": 1,
+              "nodes": 1000,
+              "adjacency_copies": 1
+            },
+            "drc": {
+              "polygons_built": 1,
+              "edge_tests": 0,
+              "changed": 1,
+              "affected": 1,
+              "nodes": 1000,
+              "adjacency_copies": 1,
+              "components_checked": 1,
+              "components_total": 1000,
+              "shapes_checked": 1
+            }
+          },
+          "edit_stats": {
+            "polygons_built": 1,
+            "edge_tests": 0,
+            "changed": 1,
+            "affected": 1,
+            "nodes": 1000,
+            "adjacency_copies": 1,
+            "shapes_replaced": 1,
+            "indices": [
+              0
+            ]
+          }
+        }
+      ],
+      "median": {
+        "history_ms": 2.44,
+        "refresh_ms": 6.339,
+        "recovery_ms": 2.182,
+        "commit_total_ms": 8.998,
+        "first_paint_ms": 17.271,
+        "durability_wait_ms": 8.833,
+        "recovery_reopen_ms": 10.2,
+        "live_checks_ms": 5.992,
+        "complete_with_checks_ms": 48.917
+      }
+    },
+    {
+      "shapes": 10000,
+      "canvas_size": [
+        1000,
+        400
+      ],
+      "samples": [
+        {
+          "history_ms": 391.674451999279,
+          "refresh_ms": 10.01814600022044,
+          "recovery_ms": 13.05760399918654,
+          "commit_total_ms": 401.9549040021957,
+          "first_paint_ms": 18.498987999919336,
+          "durability_wait_ms": 95.0335029992857,
+          "recovery_reopen_ms": 170.4703450013767,
+          "live_checks_ms": 827.836448999733,
+          "complete_with_checks_ms": 1343.3238440011337,
+          "check_issue_count": 1,
+          "incremental_stats": {
+            "contacts": {
+              "polygons_built": 10000,
+              "edge_tests": 0,
+              "changed": 10000,
+              "affected": 10000,
+              "nodes": 10000,
+              "adjacency_copies": 10000
+            },
+            "drc": {
+              "polygons_built": 10000,
+              "edge_tests": 0,
+              "changed": 10000,
+              "affected": 10000,
+              "nodes": 10000,
+              "adjacency_copies": 10000,
+              "components_checked": 10000,
+              "components_total": 10000,
+              "shapes_checked": 10000
+            }
+          },
+          "edit_stats": {
+            "polygons_built": 1,
+            "edge_tests": 0,
+            "changed": 1,
+            "affected": 1,
+            "nodes": 10000,
+            "adjacency_copies": 1,
+            "shapes_replaced": 1,
+            "indices": [
+              0
+            ]
+          }
+        },
+        {
+          "history_ms": 27.34367800076143,
+          "refresh_ms": 8.119466998323333,
+          "recovery_ms": 12.959837000380503,
+          "commit_total_ms": 35.76976600015769,
+          "first_paint_ms": 19.223890001740074,
+          "durability_wait_ms": 76.06689100066433,
+          "recovery_reopen_ms": 87.47814599701087,
+          "live_checks_ms": 72.26999399790657,
+          "complete_with_checks_ms": 203.33054100046866,
+          "check_issue_count": 1,
+          "incremental_stats": {
+            "contacts": {
+              "polygons_built": 1,
+              "edge_tests": 0,
+              "changed": 1,
+              "affected": 1,
+              "nodes": 10000,
+              "adjacency_copies": 1
+            },
+            "drc": {
+              "polygons_built": 1,
+              "edge_tests": 0,
+              "changed": 1,
+              "affected": 1,
+              "nodes": 10000,
+              "adjacency_copies": 1,
+              "components_checked": 1,
+              "components_total": 10000,
+              "shapes_checked": 1
+            }
+          },
+          "edit_stats": {
+            "polygons_built": 1,
+            "edge_tests": 0,
+            "changed": 1,
+            "affected": 1,
+            "nodes": 10000,
+            "adjacency_copies": 1,
+            "shapes_replaced": 1,
+            "indices": [
+              0
+            ]
+          }
+        },
+        {
+          "history_ms": 25.146177998976782,
+          "refresh_ms": 7.87499899888644,
+          "recovery_ms": 13.429343998723198,
+          "commit_total_ms": 33.262700999330264,
+          "first_paint_ms": 17.932605001988122,
+          "durability_wait_ms": 74.81127999926684,
+          "recovery_reopen_ms": 210.62838099896908,
+          "live_checks_ms": 71.22924500072259,
+          "complete_with_checks_ms": 197.23583100130782,
+          "check_issue_count": 1,
+          "incremental_stats": {
+            "contacts": {
+              "polygons_built": 1,
+              "edge_tests": 0,
+              "changed": 1,
+              "affected": 1,
+              "nodes": 10000,
+              "adjacency_copies": 1
+            },
+            "drc": {
+              "polygons_built": 1,
+              "edge_tests": 0,
+              "changed": 1,
+              "affected": 1,
+              "nodes": 10000,
+              "adjacency_copies": 1,
+              "components_checked": 1,
+              "components_total": 10000,
+              "shapes_checked": 1
+            }
+          },
+          "edit_stats": {
+            "polygons_built": 1,
+            "edge_tests": 0,
+            "changed": 1,
+            "affected": 1,
+            "nodes": 10000,
+            "adjacency_copies": 1,
+            "shapes_replaced": 1,
+            "indices": [
+              0
+            ]
+          }
+        },
+        {
+          "history_ms": 26.85602299970924,
+          "refresh_ms": 7.610050000948831,
+          "recovery_ms": 13.674912999704247,
+          "commit_total_ms": 34.704793000855716,
+          "first_paint_ms": 17.958403997909045,
+          "durability_wait_ms": 75.04148700172664,
+          "recovery_reopen_ms": 84.93273199928808,
+          "live_checks_ms": 188.7153909992776,
+          "complete_with_checks_ms": 316.420074999769,
+          "check_issue_count": 1,
+          "incremental_stats": {
+            "contacts": {
+              "polygons_built": 1,
+              "edge_tests": 0,
+              "changed": 1,
+              "affected": 1,
+              "nodes": 10000,
+              "adjacency_copies": 1
+            },
+            "drc": {
+              "polygons_built": 1,
+              "edge_tests": 0,
+              "changed": 1,
+              "affected": 1,
+              "nodes": 10000,
+              "adjacency_copies": 1,
+              "components_checked": 1,
+              "components_total": 10000,
+              "shapes_checked": 1
+            }
+          },
+          "edit_stats": {
+            "polygons_built": 1,
+            "edge_tests": 0,
+            "changed": 1,
+            "affected": 1,
+            "nodes": 10000,
+            "adjacency_copies": 1,
+            "shapes_replaced": 1,
+            "indices": [
+              0
+            ]
+          }
+        },
+        {
+          "history_ms": 29.29185099856113,
+          "refresh_ms": 7.854227998905117,
+          "recovery_ms": 13.33694500135607,
+          "commit_total_ms": 37.38051199979964,
+          "first_paint_ms": 18.280709002283402,
+          "durability_wait_ms": 83.5041509999428,
+          "recovery_reopen_ms": 99.82843399848207,
+          "live_checks_ms": 73.92879200051539,
+          "complete_with_checks_ms": 213.09416400254122,
+          "check_issue_count": 1,
+          "incremental_stats": {
+            "contacts": {
+              "polygons_built": 1,
+              "edge_tests": 0,
+              "changed": 1,
+              "affected": 1,
+              "nodes": 10000,
+              "adjacency_copies": 1
+            },
+            "drc": {
+              "polygons_built": 1,
+              "edge_tests": 0,
+              "changed": 1,
+              "affected": 1,
+              "nodes": 10000,
+              "adjacency_copies": 1,
+              "components_checked": 1,
+              "components_total": 10000,
+              "shapes_checked": 1
+            }
+          },
+          "edit_stats": {
+            "polygons_built": 1,
+            "edge_tests": 0,
+            "changed": 1,
+            "affected": 1,
+            "nodes": 10000,
+            "adjacency_copies": 1,
+            "shapes_replaced": 1,
+            "indices": [
+              0
+            ]
+          }
+        }
+      ],
+      "median": {
+        "history_ms": 27.344,
+        "refresh_ms": 7.875,
+        "recovery_ms": 13.337,
+        "commit_total_ms": 35.77,
+        "first_paint_ms": 18.281,
+        "durability_wait_ms": 76.067,
+        "recovery_reopen_ms": 99.828,
+        "live_checks_ms": 73.929,
+        "complete_with_checks_ms": 213.094
+      }
+    }
+  ],
+  "scope": "Full Studio connected move, first paint, wait for durable recovery, and live declared-rule/terminal checks. Timing stages can be nested; use totals rather than summing stage columns. No foundry deck or native Windows claim unless run there."
+}

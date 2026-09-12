@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "10,000 component entries: source persistence, isolated favorites, recent choices, keyboard placement, cached previews and empty-result guard",
+    "Standard component library supports favorite filtering and Enter placement from search",
+    "Hover and click agree at overlapping wire/device geometry; Tab cycles and filtering changes the preview",
+    "Persistent workflow restores with the workspace, navigates findings, rejects stale rows and refreshes after edits",
+    "Native floating frame, diagonal resize, saved size restoration and recovery of an offscreen window",
+    "packaged live HTTP editing/undo, automatic workflow, reviewer authorization, threaded discussions and unsent reply recovery without auto-posting"
+  ],
+  "component_open_ms": 126.63227699886193,
+  "component_filter_ms": 11.296597996988567,
+  "qt_platform": "offscreen",
+  "status": "passed"
+}

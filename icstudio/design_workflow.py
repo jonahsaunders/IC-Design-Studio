@@ -1,8 +1,8 @@
 """A shared, automatically refreshed circuit workflow for both editors."""
 from concurrent.futures import ThreadPoolExecutor
 from PySide6.QtCore import Qt, QTimer
-from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel, QPushButton,
-    QComboBox, QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView)
+from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton,
+    QComboBox, QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView, QTabWidget)
 from .model import clone
 
 
@@ -19,14 +19,13 @@ def inspect_project(project, cid):
     return dict(inventory=report, constraints=constraints, connections=connections)
 
 
-class DesignWorkflow(QDialog):
+class DesignWorkflow(QWidget):
     def __init__(self, studio):
         super().__init__(studio)
         self.studio=studio;self.identity=None;self.analysis_key=None;self.analysis=None
         self.future=None;self.future_key=None;self.preferred={};self.cid=None;self.bench=None
         self.executor=ThreadPoolExecutor(max_workers=1,thread_name_prefix='studio-workflow')
-        self.finished.connect(self.stop)
-        self.setWindowTitle('Design workflow');self.resize(880,680)
+        self.stopped=False;self.finding_rows=[]
         root=QVBoxLayout(self);self.note=QLabel();self.note.setWordWrap(True);root.addWidget(self.note)
         row=QHBoxLayout();row.addWidget(QLabel('Saved testbench'))
         self.testbench=QComboBox();self.testbench.setAccessibleName('Workflow testbench');row.addWidget(self.testbench,1)
@@ -34,25 +33,58 @@ class DesignWorkflow(QDialog):
         self.testbench.currentIndexChanged.connect(self.choose_testbench)
         self.next_action=QPushButton('Checking design…');self.next_action.setProperty('role','primary');root.addWidget(self.next_action)
         self.next_action.clicked.connect(lambda:self.call(self.next_fn))
+        self.summary=QLabel();self.summary.setWordWrap(True);self.summary.setAccessibleName('Design progress');root.addWidget(self.summary)
+        self.tabs=QTabWidget();self.tabs.setMinimumHeight(170);root.addWidget(self.tabs,1)
         self.steps=QTableWidget(6,3);self.steps.setHorizontalHeaderLabels(['Step','Current state','Action'])
         self.steps.setAccessibleName('Design workflow steps');self.steps.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.steps.horizontalHeader().setStretchLastSection(False)
         self.steps.horizontalHeader().setSectionResizeMode(0,QHeaderView.ResizeToContents)
         self.steps.horizontalHeader().setSectionResizeMode(1,QHeaderView.Stretch)
         self.steps.horizontalHeader().setSectionResizeMode(2,QHeaderView.ResizeToContents)
-        self.steps.verticalHeader().hide();root.addWidget(self.steps,1)
-        root.addWidget(QLabel('Latest physical comparison for the selected testbench'))
+        self.steps.verticalHeader().hide();self.tabs.addTab(self.steps,'Steps')
+        self.finding_table=QTableWidget(0,3);self.finding_table.setHorizontalHeaderLabels(['State','Object','Details'])
+        self.finding_table.setAccessibleName('Actionable design findings');self.finding_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.finding_table.setSelectionBehavior(QAbstractItemView.SelectRows);self.finding_table.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.finding_table.horizontalHeader().setSectionResizeMode(2,QHeaderView.Stretch)
+        self.finding_table.cellDoubleClicked.connect(lambda *_:self.call(self.go_to_finding))
+        self.tabs.addTab(self.finding_table,'Findings')
         self.values=QTableWidget(0,5);self.values.setHorizontalHeaderLabels(['Measurement','Schematic','Post-layout','Change','Unit'])
-        self.values.setEditTriggers(QAbstractItemView.NoEditTriggers);self.values.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch);root.addWidget(self.values)
+        self.values.setEditTriggers(QAbstractItemView.NoEditTriggers);self.values.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch);self.tabs.addTab(self.values,'Physical comparison')
         row=QHBoxLayout()
-        for title,fn in [('Refresh checks',self.refresh),('Open verification results',studio.open_silicon),('Close',self.close)]:
+        for title,fn in [('Go to finding',self.go_to_finding),('Place missing devices',lambda:self.circuit_action(studio.place_schematic_in_layout)),('Verification results',studio.open_silicon)]:
             button=QPushButton(title);button.clicked.connect(lambda _=False,fn=fn:self.call(fn));row.addWidget(button)
         root.addLayout(row)
         self.timer=QTimer(self);self.timer.setInterval(250);self.timer.timeout.connect(self.mark_changed);self.timer.start()
         self.refresh()
 
     def stop(self, *_):
-        self.timer.stop();self.executor.shutdown(wait=False,cancel_futures=True)
+        if not self.stopped:
+            self.stopped=True;self.timer.stop();self.executor.shutdown(wait=False,cancel_futures=True)
+
+    def closeEvent(self,event):
+        if hasattr(self,'dock'):self.dock.hide()
+        super().closeEvent(event)
+
+    def showEvent(self,event):
+        super().showEvent(event)
+        if hasattr(self,'timer') and not self.stopped:self.refresh()
+
+    def go_to_finding(self):
+        if self.analysis_key!=(id(self.studio.project),self.studio.project['revision'],self.cid):
+            raise ValueError('The design changed. Wait for refreshed findings before navigating.')
+        index=self.finding_table.currentRow()
+        if index<0:raise ValueError('Select a row in Findings first.')
+        row=self.finding_rows[index];s=self.studio
+        if not s.flush_inspector():return
+        if self.analysis_key!=(id(s.project),s.project['revision'],self.cid):
+            raise ValueError('The design changed. Wait for refreshed findings before navigating.')
+        cid=row.get('cell_id',self.cid);cell=next(c for c in s.project['cells'] if c['id']==cid)
+        ids=row.get('objects') or [row.get('device_id') or row.get('object')]
+        schematic=bool(set(ids)&{d['id'] for d in cell['devices']})
+        known={o['id'] for field in ('devices','wires','labels','annotations','shapes','layout_instances','layout_pins') for o in cell.get(field,[])}
+        s.cancel_tool();s.cid=cid;s.selection=[];s.mode_combo.setCurrentIndex(0 if schematic else 1);s.refresh(True)
+        s.select([key for key in ids if key in known],'schematic' if schematic else 'layout')
+        s.statusBar().showMessage(row.get('detail',row.get('message','')),10000)
 
     def call(self,fn):
         try:return fn()
@@ -102,6 +134,7 @@ class DesignWorkflow(QDialog):
         elif not self.analysis and not self.future:self.refresh()
 
     def refresh(self):
+        if self.stopped:return
         s=self.studio;p=s.project;self.select_context();self.identity=self.state_key()
         key=(id(p),p['revision'],self.cid)
         if key!=self.analysis_key:self.analysis=None
@@ -125,6 +158,15 @@ class DesignWorkflow(QDialog):
         data=self.analysis or {};pending=self.analysis is None;error=data.get('error')
         changes=[r for r in data.get('inventory',{}).get('devices',[]) if r['status'] not in ('current','external')]
         connections=data.get('connections',[]);constraints=data.get('constraints',[])
+        missing=sum(r['status']=='missing' for r in changes);unsupported=sum(r['status']=='unsupported' for r in changes)
+        self.summary.setText('Checking design…' if pending else error or f'{missing} missing devices · {unsupported} unsupported · {len(connections)} connection findings · {len(constraints)} matching findings')
+        self.finding_rows=changes+connections+constraints
+        selected=self.finding_table.currentRow();self.finding_table.setRowCount(len(self.finding_rows))
+        for i,row in enumerate(self.finding_rows):
+            for col,text in enumerate([row.get('status',row.get('code','Finding')),row.get('cell','')+' / '+row.get('name',row.get('object','')),row.get('detail',row.get('message',''))]):
+                item=QTableWidgetItem(text);item.setToolTip(text);self.finding_table.setItem(i,col,item)
+        if self.finding_rows:self.finding_table.selectRow(max(0,min(selected,len(self.finding_rows)-1)))
+        self.tabs.setTabText(1,f'Findings ({len(self.finding_rows)})')
         run=next((r for r in reversed(s.run_manager.rows) if bench and r.get('job',{}).get('settings',{}).get('testbench')==bench['id'] and
                   r.get('result',{}).get('project_id')==p['id'] and r['result'].get('silicon_report',{}).get('cell_id')==cid),None)
         result=run['result'] if run else None;report=result.get('silicon_report',{}) if result else {}
@@ -162,10 +204,18 @@ class DesignWorkflow(QDialog):
 
 
 def install(studio):
+    guide=DesignWorkflow(studio);studio._design_workflow=guide
+    dock=studio.panel('Design workflow','designWorkflow',Qt.BottomDockWidgetArea,guide);guide.dock=dock;studio.workflow_dock=dock
+    dock.setAllowedAreas(Qt.AllDockWidgetAreas)
+    from .floating_panels import FloatingPanel
+    dock._floating_frame=FloatingPanel(dock,dock.titleBarWidget())
+    dock.setMinimumHeight(320);studio.tabifyDockWidget(studio.results_dock,dock);dock.raise_()
+    studio.resizeDocks([dock],[380],Qt.Vertical)
+    studio.restoreDockWidget(dock)
+    studio.set_panel_lock(studio._layout_locked)
     def show():
-        old=getattr(studio,'_design_workflow',None)
-        if old and old.isVisible():old.raise_();old.activateWindow();old.refresh();return old
-        studio._design_workflow=DesignWorkflow(studio);studio._design_workflow.show();return studio._design_workflow
+        dock.show();guide.show();dock.raise_();guide.refresh();return guide
     studio.design_workflow=show
     for menu in ('Schematic','Layout'):
         studio.action(studio.task_menus[menu],'Design workflow…',show)
+    studio.toolbar.addWidget(studio.button('Workflow',fn=show,tip='Show design progress and actionable findings'))

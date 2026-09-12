@@ -84,6 +84,15 @@ def run(window, output):
             root_comment=panel.comments.topLevelItem(0).data(0,Qt.UserRole)
             store.review(snapshot['workspace'],snapshot['token'],dict(action='reply',id=uid(),checkpoint=checkpoint['id'],parent=root_comment['id'],text='Inspected in the installed application.'))
             wait(lambda:not panel.busy and panel.comments.topLevelItem(0).childCount()==1)
+            panel.comments.setCurrentItem(panel.comments.topLevelItem(0));panel.start_reply()
+            panel.comment.setPlainText('Unsent packaged reply');assert panel.flush_draft();panel.hide()
+            from .team_review_ui import TeamReviewPanel
+            restored=TeamReviewPanel(window);restored.show();restored.refresh_state()
+            wait(lambda:not restored.busy and restored.loaded_version is not None)
+            assert restored.comment.toPlainText()=='Unsent packaged reply' and restored.reply_to==root_comment['id']
+            assert len(store.review(snapshot['workspace'],reviewer['token'],dict(action='list'))['comments'])==2
+            restored.comment.clear();assert restored.flush_draft();restored.close()
+            panel.comment.clear();assert panel.flush_draft()
             from .live_protocol import LiveError
             try:client.editable()
             except LiveError:pass
@@ -97,4 +106,4 @@ def run(window, output):
             thread.join(5)
             store.close()
             window.set_project(previous, path)
-    return 'packaged live HTTP editing/undo, automatic workflow, reviewer authorization and threaded discussions'
+    return 'packaged live HTTP editing/undo, automatic workflow, reviewer authorization, threaded discussions and unsent reply recovery without auto-posting'

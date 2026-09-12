@@ -1,3 +1,12 @@
+# Experimental dev21 source update
+
+The [dev21 workflow and recovery update](UPDATE_0.22_DEV21.md) targets `experimental`.
+Its versioned packages must pass checks for their own source commit. The dev20
+draft below does not contain these changes. Local and hosted validation for this
+update is recorded in [the dev21 validation record](validation/experimental-dev21.json).
+Native consumer and mixed-monitor acceptance remains pending; use the
+[native acceptance tool](NATIVE_DESKTOP_ACCEPTANCE.md) to record actual observations.
+
 # Release status — 0.22.0.dev20 candidate
 
 Dev20 resolves the detector's resistor extraction mismatch and internal pin-alias

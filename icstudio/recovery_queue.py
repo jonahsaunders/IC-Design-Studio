@@ -2,8 +2,9 @@
 from concurrent.futures import ThreadPoolExecutor
 from time import monotonic
 from PySide6.QtCore import QObject, QTimer, Signal
-from .model import clone, digest
+from .model import digest
 from . import recovery
+from .recovery_snapshot import isolate
 
 
 def write_snapshot(project, directory, source, validated):
@@ -21,6 +22,8 @@ class RecoveryQueue(QObject):
         self.first_pending = None
         self.last_error = None
         self.closed = False
+        self._snapshot = None
+        self.snapshot_ms = 0
         self.timer = QTimer(self)
         self.timer.setInterval(50)
         self.timer.timeout.connect(self.tick)
@@ -39,9 +42,13 @@ class RecoveryQueue(QObject):
 
     def dispatch(self):
         project, directory, source, epoch, validated, _ = self.pending
-        # UI callers may still own mutable metadata. Only an isolated snapshot
-        # crosses the thread boundary; serialization, validation and fsync do not.
-        snapshot = clone(project)
+        if self.active is not None:
+            raise RuntimeError('Wait for the preceding recovery writer before taking a snapshot.')
+        start = monotonic()
+        previous = self._snapshot if self._snapshot and self._snapshot['id'] == project['id'] else None
+        snapshot = isolate(project, previous)
+        self.snapshot_ms = (monotonic() - start) * 1000
+        self._snapshot = snapshot
         future = self.executor.submit(write_snapshot, snapshot, directory, source, validated)
         self.active = (future, dict(project_id=project['id'], revision=project['revision'],
                                     directory=str(directory), epoch=epoch))
@@ -89,3 +96,4 @@ class RecoveryQueue(QObject):
         self.flush()
         self.executor.shutdown(wait=True)
         self.closed = True
+        self._snapshot = None
