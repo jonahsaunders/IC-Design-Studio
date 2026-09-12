@@ -23,7 +23,7 @@
     "dev21-snapshots.json": "a14e306491420ca5e8c44f3719b517322542c5c31217de8e9908d73962d8a5c9",
     "dev21-pipeline-before.json": "fa052981b2ca8af5d08982dea972a1a146c51a5b4453021635ef7962512a9cf0",
     "dev21-pipeline-after.json": "8adb77689b4c90a524b21b313fc1335a159e0d30b05d05f76d97aeeb54c6cf32",
-    "dev21-desktop.json": "64968656e6ce97fb095e1d5c98530718e224956f3fb5a80c1b80eead1b8697e8",
+    "dev21-desktop.json": "2dd102112fa364a39de5fbdb46bce0fc0fd656d868a89924f67b7784adde568b",
     "dev21-review.json": "18f52ca5a74e1977f3ba63b8a47f937c1ef5aa4906febdb18bbd6275b7ff4213",
     "dev21-recovery.json": "24a8596a2364b831223cc347fc29b3da030a34aff87e732f3b7777f47052509e"
   },
@@ -208,7 +208,7 @@
     "icstudio/layout_eco_hierarchy.py": "c5c6e931173bf8ce918d1a074f992bcddbb676fb7224e89784840b3d2d1240e3",
     "icstudio/native_exchange.py": "657d1e5be255c6c4ef04fb756abe1e8ff1fa9feb1b304c3506954f081238d7ee",
     "icstudio/sky130_fingers.py": "12ed8cc673ae4c6bf8a1c7f1d535b5347dac2b56ca388b318f255b70932e59ae",
-    "icstudio/experimental_probe.py": "82b6de8edbf13222122bb819df0ebc9e8914c28c12a61873c406cb28c2120a00",
+    "icstudio/experimental_probe.py": "b5735d7e9bf763ceb44c45b59d2126cbd7860e2dc8add1e1cf9d81c421eaabfd",
     "icstudio/capture_workspace.py": "75cc48c1b68409ad021bd112f687c052fa01d0b5b4180c38d191012009593fa0",
     "icstudio/layout_eco_review.py": "190e5375239585f27194a08a2fd27f03246b34f1cf936ac7400731b988f5d7b1",
     "icstudio/network_collaboration.py": "909601cd32b1a3a91cc0d851d4a8f9acfff63ce65f1494566c6d7d97198e6f14",
@@ -242,7 +242,7 @@
     "icstudio/editor_ops.py": "836e0ab9dbf5a5da90b23632e436d0294df55aaf50987e5c282209b033db5a0c",
     "icstudio/recovery_snapshot.py": "9c586b025ac7f84279250d1dd95a0314d0a641e893edbb03e2f52f446a208bc4",
     "icstudio/xschem_runtime.py": "7456c39e76257e639968be4b57479ea9ffe4bb4996f50c1379b6504300183d4c",
-    "icstudio/release_probe.py": "b31e39c02762b823f6982fcd3412bbf962c586f8ce00de9b179923c92d4bd36c",
+    "icstudio/release_probe.py": "0b5987d8f393abc0dea1db7370e9ee455289a209c0a77f5630f4d5c5deecd503",
     "icstudio/ui_style.py": "75501caf955571aa096a518facc979fc64772c08532c602ad3eaf72029ee74af",
     "icstudio/gf180_layout.py": "34b15476f54f03eccda623a5364b565f3c44402e70c5068549214e50d2e811e8",
     "scripts/qualify_layout_process.py": "241f5843563520347b17e00e462f5ea6b637a7c3fcd8a576c7a97e2b937e6418",
@@ -419,11 +419,13 @@
     ".github/workflows/build-desktop.yml": "87377c357ad1203c4c9979b96f84e479a7c0d25682cc783b93caf381598b9724",
     ".github/workflows/release-preview.yml": "e58187d14c66f69d8f778e5d5054fc0fc2f18a9ae521d4ab0b31f9b563dd0051",
     ".github/workflows/physical-qualification.yml": "42ddca0a2cb3a74cef70a0f458d81c2f527ba4758267dbc05b6b13f22dddb119",
-    "scripts/verify_linux_x11.py": "fa6dde21e358d2425b75c4eaeb9c08be472cc1e648d65953bb72aa3b8bfdc530"
+    "scripts/verify_linux_x11.py": "fa6dde21e358d2425b75c4eaeb9c08be472cc1e648d65953bb72aa3b8bfdc530",
+    "scripts/verify_windows.ps1": "9904d3ffa5f8430c2d9ef4cffc0c5e81e41903f7bcd96f1deca452ea0aa33dfd"
   },
   "hosted_packages": "Local record before final hosted qualification. Earlier hosted failures led to explicit floating borders, direct diagonal resizing, X11-aware decoration checks and reliable Qt pointer dispatch. Final hosted statuses are recorded on PR 22.",
   "native_consumer_acceptance": "not executed: Windows 10/11, native Ubuntu, mixed-scale physical monitors, upgrade and accessibility need operator evidence",
   "native_guard": "--desktop-acceptance correctly records blocked status with offscreen Qt",
   "performance_notes": "The pipeline comparison fixes the layout canvas to 1000 by 400 logical pixels and closes the workflow dock. Five local samples per workload; no general native responsiveness claim. Snapshot benchmarks measure preparation after the initial copy. Large initial copies and scanning still run on the UI thread.",
-  "runtime_staging": "Ten local bundled-runtime tests passed, including extraction with a byte-stable manifest. Windows line-ending drift is fixed; final hosted packaging validation pending."
+  "runtime_staging": "Ten local bundled-runtime tests passed, including extraction with a byte-stable manifest. Windows line-ending drift is fixed; final hosted packaging validation pending.",
+  "native_hosted_progress": "Linux X11/Openbox at 150% and installed Windows at 100% passed. A 150% Windows pointer event was missing; the follow-up constrains targets to the display and forces a distinct cursor movement. Final commit qualification pending on PR 22."
 }

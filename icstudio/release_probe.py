@@ -12,7 +12,7 @@ def main(output):
     from .model import example,digest,clone,save_project,load_project,atomic_write
     from . import __version__
     report={'version':__version__,'os':platform.platform(),'architecture':platform.machine(),'frozen':bool(getattr(sys,'frozen',False)),'scale':os.environ.get('QT_SCALE_FACTOR','1'),'checks':[],'status':'failed'};window=None;app=None;errors=[]
-    from .build_identity import identity
+    from .build_identity import identity,diagnostic_report
     report['build']=identity()
     sys.excepthook=lambda t,v,tb:errors.append(''.join(traceback.format_exception(t,v,tb)))
     try:
@@ -211,5 +211,6 @@ def main(output):
         if window:
             if window.process:window.cancel_job();window.process.waitForFinished(3000)
             window.saved_hash=digest(window.project);window.close()
+        report['diagnostics']=json.loads(diagnostic_report())
         atomic_write(out/'release-test.json',json.dumps(report,indent=2))
     return 0 if report['status']=='passed' else 1

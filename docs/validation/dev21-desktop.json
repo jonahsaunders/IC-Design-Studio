@@ -7,8 +7,8 @@
     "Visible floating border on all four edges, platform title bar, diagonal resize, saved size restoration and recovery of an offscreen window",
     "packaged live HTTP editing/undo, automatic workflow, reviewer authorization, threaded discussions and unsent reply recovery without auto-posting"
   ],
-  "component_open_ms": 121.68786600159365,
-  "component_filter_ms": 12.433502000931185,
+  "component_open_ms": 163.09501700015971,
+  "component_filter_ms": 19.008475002920022,
   "qt_platform": "offscreen",
   "status": "passed"
 }

@@ -4,8 +4,8 @@ from pathlib import Path
 
 
 def run(w, output):
-    from PySide6.QtCore import Qt,QPoint,QPointF,QEvent
-    from PySide6.QtGui import QMouseEvent
+    from PySide6.QtCore import Qt,QPoint,QPointF,QEvent,QRect
+    from PySide6.QtGui import QMouseEvent,QCursor
     from PySide6.QtWidgets import QApplication
     from PySide6.QtTest import QTest
     from .component_browser import ComponentBrowser
@@ -18,6 +18,7 @@ def run(w, output):
     app=QApplication.instance()
     def move(widget, point):
         assert widget.isVisible() and widget.window().childAt(widget.mapTo(widget.window(),point)) is widget,(point,widget.geometry(),widget.visibleRegion().boundingRect())
+        QTest.mouseMove(widget,point+QPoint(2,0));QTest.qWait(15)
         QTest.mouseMove(widget,point);QTest.qWait(20)
         if app.platformName() in ('offscreen','minimal'):
             # These backends need explicit hover events; they have no real cursor.
@@ -64,10 +65,16 @@ def run(w, output):
         p=example('empty');cell=p['cells'][0];resistor=device('R','R1',0,0);cell['devices']=[resistor]
         cell['wires']=[dict(id='overlap-wire',points=[[-40,40],[40,40]])]
         w.set_project(p);w.mode_combo.setCurrentIndex(0);canvas=w.schematic;QTest.qWait(100)
-        canvas.auto_fit=False;canvas.scale=1.5;canvas.offset=QPointF(180,100);app.processEvents()
-        point=(canvas.offset+QPointF(0,40)*canvas.scale).toPoint()
+        if app.platformName() not in ('offscreen','minimal'):
+            w.move(w.screen().availableGeometry().topLeft()+QPoint(20,20));w.raise_();w.activateWindow();QTest.qWait(100)
+        visible=canvas.visibleRegion().boundingRect()
+        if app.platformName() not in ('offscreen','minimal'):
+            portions=[visible.intersected(QRect(canvas.mapFromGlobal(s.availableGeometry().topLeft()),s.availableGeometry().size())) for s in app.screens()]
+            visible=max(portions,key=lambda rect:rect.width()*rect.height())
+        assert visible.width()>10 and visible.height()>10,('Canvas has no reachable pointer area',visible)
+        point=visible.center();canvas.auto_fit=False;canvas.scale=1.5;canvas.offset=QPointF(point)-QPointF(0,40)*canvas.scale
         move(canvas,point)
-        assert canvas.preselection and canvas.preselection['id']=='overlap-wire',dict(tool=canvas.tool,scale=canvas.scale,offset=str(canvas.offset),pointer=str(getattr(canvas,'editor_pointer',None)),anchor=str(canvas.anchor),hint=canvas.selection_hint)
+        assert canvas.preselection and canvas.preselection['id']=='overlap-wire',dict(tool=canvas.tool,scale=canvas.scale,offset=str(canvas.offset),pointer=str(getattr(canvas,'editor_pointer',None)),cursor=str(QCursor.pos()),target=str(canvas.mapToGlobal(point)),screens=[str(s.availableGeometry()) for s in app.screens()],anchor=str(canvas.anchor),hint=canvas.selection_hint)
         assert '2 overlapping' in canvas.selection_hint
         QTest.mouseClick(canvas,Qt.LeftButton,Qt.NoModifier,point);assert w.selection==['overlap-wire']
         QTest.keyClick(canvas,Qt.Key_Tab);assert w.selection==[resistor['id']]
