@@ -208,7 +208,7 @@
     "icstudio/layout_eco_hierarchy.py": "c5c6e931173bf8ce918d1a074f992bcddbb676fb7224e89784840b3d2d1240e3",
     "icstudio/native_exchange.py": "657d1e5be255c6c4ef04fb756abe1e8ff1fa9feb1b304c3506954f081238d7ee",
     "icstudio/sky130_fingers.py": "12ed8cc673ae4c6bf8a1c7f1d535b5347dac2b56ca388b318f255b70932e59ae",
-    "icstudio/experimental_probe.py": "b5735d7e9bf763ceb44c45b59d2126cbd7860e2dc8add1e1cf9d81c421eaabfd",
+    "icstudio/experimental_probe.py": "81b54e11c8810dd243750b4354a56d74ff57c9d2d5af494ed6613ca5fc1b673e",
     "icstudio/capture_workspace.py": "75cc48c1b68409ad021bd112f687c052fa01d0b5b4180c38d191012009593fa0",
     "icstudio/layout_eco_review.py": "190e5375239585f27194a08a2fd27f03246b34f1cf936ac7400731b988f5d7b1",
     "icstudio/network_collaboration.py": "909601cd32b1a3a91cc0d851d4a8f9acfff63ce65f1494566c6d7d97198e6f14",
@@ -427,5 +427,6 @@
   "native_guard": "--desktop-acceptance correctly records blocked status with offscreen Qt",
   "performance_notes": "The pipeline comparison fixes the layout canvas to 1000 by 400 logical pixels and closes the workflow dock. Five local samples per workload; no general native responsiveness claim. Snapshot benchmarks measure preparation after the initial copy. Large initial copies and scanning still run on the UI thread.",
   "runtime_staging": "Ten local bundled-runtime tests passed, including extraction with a byte-stable manifest. Windows line-ending drift is fixed; final hosted packaging validation pending.",
-  "native_hosted_progress": "Linux X11/Openbox at 150% and installed Windows at 100% passed. A 150% Windows pointer event was missing; the follow-up constrains targets to the display and forces a distinct cursor movement. Final commit qualification pending on PR 22."
+  "native_hosted_progress": "Linux X11/Openbox at 150% and installed Windows at 100% passed. A 150% Windows pointer event was missing; the follow-up constrains targets to the display and forces a distinct cursor movement. Final commit qualification pending on PR 22.",
+  "native_setup_path": "Python native setup exercised with synthetic input on offscreen Qt at 150% and 200%; this is not native platform acceptance. Native hosted validation remains pending."
 }

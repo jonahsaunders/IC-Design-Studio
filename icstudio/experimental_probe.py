@@ -6,7 +6,7 @@ from pathlib import Path
 def run(w, output):
     from PySide6.QtCore import Qt,QPoint,QPointF,QEvent,QRect
     from PySide6.QtGui import QMouseEvent,QCursor
-    from PySide6.QtWidgets import QApplication
+    from PySide6.QtWidgets import QApplication,QWidget
     from PySide6.QtTest import QTest
     from .component_browser import ComponentBrowser
     from .component_preferences import ComponentPreferences
@@ -66,7 +66,7 @@ def run(w, output):
         cell['wires']=[dict(id='overlap-wire',points=[[-40,40],[40,40]])]
         w.set_project(p);w.mode_combo.setCurrentIndex(0);canvas=w.schematic;QTest.qWait(100)
         if app.platformName() not in ('offscreen','minimal'):
-            w.move(w.screen().availableGeometry().topLeft()+QPoint(20,20));w.raise_();w.activateWindow();QTest.qWait(100)
+            QWidget.move(w,w.screen().availableGeometry().topLeft()+QPoint(20,20));w.raise_();w.activateWindow();QTest.qWait(100)
         visible=canvas.visibleRegion().boundingRect()
         if app.platformName() not in ('offscreen','minimal'):
             portions=[visible.intersected(QRect(canvas.mapFromGlobal(s.availableGeometry().topLeft()),s.availableGeometry().size())) for s in app.screens()]
@@ -103,7 +103,7 @@ def run(w, output):
         dock=w.results_dock;dock.show();dock.setFloating(True)
         available=dock.screen().availableGeometry()
         dock.move(available.topLeft()+QPoint(30,30))
-        dock.resize(min(480,available.width()-110),min(320,available.height()-100));QTest.qWait(50)
+        dock.resize(min(480,available.width()-110),min(320,available.height()-130));QTest.qWait(50)
         assert dock.titleBarWidget() is None and dock._floating_frame.border.isVisible()
         # Qt deliberately provides its own title bar on X11/Wayland.
         if app.platformName()!='xcb' and not app.platformName().startswith('wayland'):
@@ -122,7 +122,8 @@ def run(w, output):
         saved=dock.geometry();w.save_editor_workspace('Experimental floating acceptance');dock.setFloating(False)
         w.load_editor_workspace('Experimental floating acceptance');QTest.qWait(50)
         assert dock.isFloating() and dock.titleBarWidget() is None and grip.isVisible()
-        assert (dock.size()-saved.size()).width() in range(-8,9),(saved,dock.geometry(),available)
+        delta=dock.size()-saved.size()
+        assert abs(delta.width())<=8 and abs(delta.height())<=8,(saved,dock.geometry(),available)
         dock.move(-20000,-20000);dock._floating_frame.keep_visible()
         assert any(screen.availableGeometry().intersects(dock.geometry()) for screen in app.screens())
         dock.grab().save(str(out/'floating-results.png'));dock.setFloating(False);dock.hide()
