@@ -416,7 +416,7 @@
     "tests/test_ngspice_paths.py": "3ccfa054e326f220a61dd8352dcb0d01d4a50523abab2c034821e14281f4756b",
     "tests/gui_layout_vias.py": "3ed521ad00c5db879c7d2a6f05b11aab9105915d20fddcb529525390af1de3e6",
     ".github/workflows/interoperability.yml": "ac14c2385f5414343b2820244134cbcccb0900add1739b36f10e0b90e2654ed0",
-    ".github/workflows/build-desktop.yml": "87377c357ad1203c4c9979b96f84e479a7c0d25682cc783b93caf381598b9724",
+    ".github/workflows/build-desktop.yml": "503cd0b647b2c2209539a2357c834d6aaa70e8e33063d7fc6bb929cc79348a4f",
     ".github/workflows/release-preview.yml": "e58187d14c66f69d8f778e5d5054fc0fc2f18a9ae521d4ab0b31f9b563dd0051",
     ".github/workflows/physical-qualification.yml": "42ddca0a2cb3a74cef70a0f458d81c2f527ba4758267dbc05b6b13f22dddb119",
     "scripts/verify_linux_x11.py": "fa6dde21e358d2425b75c4eaeb9c08be472cc1e648d65953bb72aa3b8bfdc530",
@@ -427,6 +427,6 @@
   "native_guard": "--desktop-acceptance correctly records blocked status with offscreen Qt",
   "performance_notes": "The pipeline comparison fixes the layout canvas to 1000 by 400 logical pixels and closes the workflow dock. Five local samples per workload; no general native responsiveness claim. Snapshot benchmarks measure preparation after the initial copy. Large initial copies and scanning still run on the UI thread.",
   "runtime_staging": "Ten local bundled-runtime tests passed, including extraction with a byte-stable manifest. Windows line-ending drift is fixed; final hosted packaging validation pending.",
-  "native_hosted_progress": "Linux X11/Openbox at 150% and installed Windows at 100% passed. A 150% Windows pointer event was missing; the follow-up constrains targets to the display and forces a distinct cursor movement. Final commit qualification pending on PR 22.",
+  "native_hosted_progress": "Linux X11 at 150% and installed Windows at 100% and 150% passed. The Windows runner defaulted to a 1024x768 display, leaving no reachable canvas at 200%; final CI configures 1920x1080 and runs native 200% gestures before packaging. Final qualification pending on PR 22.",
   "native_setup_path": "Python native setup exercised with synthetic input on offscreen Qt at 150% and 200%; this is not native platform acceptance. Native hosted validation remains pending."
 }

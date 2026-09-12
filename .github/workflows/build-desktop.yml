@@ -17,6 +17,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+      - name: Configure Windows virtual desktop for native DPI checks
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Set-DisplayResolution -Width 1920 -Height 1080 -Force
+          Get-DisplayResolution
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -41,6 +47,13 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Runtime provisioning failed.' }
           $engine = (Resolve-Path 'icstudio/assets/runtime/ngspice/ngspice.exe').Path
           "ICSTUDIO_TEST_NGSPICE=$engine" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+      - name: Check native Windows experimental gestures at 200 percent before packaging
+        if: runner.os == 'Windows'
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: windows
+          QT_SCALE_FACTOR: '2'
+        run: python tests/gui_experimental.py --out build/native-experimental-evidence
       - name: Verify bundled simulation PDKs
         run: python scripts/check_simulation_assets.py
       - name: Validate supplied GF180 bandgap startup
@@ -308,6 +321,7 @@ jobs:
             build/workflow-review-evidence/*.png
             build/usability-feedback-evidence
             build/experimental-evidence
+            build/native-experimental-evidence
             build/recovery-workflow-evidence/gui-stability.json
             build/layout-3d-evidence
             build/layout-3d-opengl-evidence

@@ -79,6 +79,10 @@ an available screen. Hosted execution does not prove consumer desktop behavior.
 Linux package CI also runs the frozen application under X11/Openbox at 150%
 scaling. Its virtual display is recorded separately from offscreen and physical
 consumer desktop observations.
+Windows CI uses a 1920×1080 virtual desktop, runs the experimental gestures
+natively at 200% before packaging, and checks the installed app at 100%, 150%
+and 200%. This avoids treating a 512×364 logical-pixel runner desktop as a
+usable full workbench while retaining the actual scaled input checks.
 
 Run the native acceptance tool on an installed Windows or Ubuntu desktop:
 
