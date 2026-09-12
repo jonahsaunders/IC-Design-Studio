@@ -20,7 +20,7 @@ class LayoutToolsMixin:
 
     def make_actions(self):
         super().make_actions();menus={a.text().replace('&',''):a.menu() for a in self.menuBar().actions() if a.menu()}
-        for title,fn in [('Place via…',self.via_dialog),('Stretch path segment…',self.stretch_dialog),('Stretch path with mouse',self.stretch_mouse),('Align layout selection…',self.align_dialog)]:self.action(menus['Design'],title,fn)
+        for title,fn in [('Place via…',self.via_dialog),('Autovia…',self.autovia_dialog),('Stretch path segment…',self.stretch_dialog),('Stretch path with mouse',self.stretch_mouse),('Align layout selection…',self.align_dialog)]:self.action(menus['Design'],title,fn)
 
     def new_gf180_inverter(self):
         from .gf180_layout import reference_project
@@ -30,23 +30,44 @@ class LayoutToolsMixin:
 
     def via_dialog(self):
         if not self.idle_edit():return
-        options=via_options(self.project['pdk'])
+        options=via_options(self.project)
+        if not options:raise ValueError('This technology has no mapped via recipe. Declare routing_vias or link a supported technology.')
+        cid=self.cid
         def submit(v):
+            if self.cid!=cid:raise ValueError('The active cell changed. Open the via dialog again.')
+            self.editor_via.setCurrentText(v['connection']);self.editor_net.setCurrentText(v['net'].strip())
+            self._via_configuration=(cid,v['connection'],v['net'].strip())
             if v['placement']=='Click canvas':
-                self._via_configuration=(self.cid,v['connection'],v['net'].strip());self.mode_combo.setCurrentIndex(1);self.layout.tool='via';self.layout.setFocus();self.statusBar().showMessage('Click to place vias on the layout grid. Escape exits placement.')
+                self.start_layout_tool('via');self.statusBar().showMessage('Click to place vias on the layout grid. Escape exits placement.')
             else:
-                ids=[]
-                def edit(p):ids.extend(place_via(p,self.cid,v['connection'],[round(scalar(v[k])*1000) for k in ('x','y')],v['net'].strip(),self.layout.locked_layers))
-                self.commit(edit,'Place via stack');self.mode_combo.setCurrentIndex(1);self.select(ids,'layout')
+                self.mode_combo.setCurrentIndex(1)
+                self.place_canvas_via(*[round(scalar(v[k])*1000) for k in ('x','y')])
         return self.workflow_form('Place via',[('connection','Connection',list(options)),('net','Net (optional)',self.net or ''),('placement','Placement',['Click canvas','Coordinates']),('x','X (µm)','0'),('y','Y (µm)','0')],submit,'Places the cut and both conductor enclosures as editable geometry. Run connectivity and full DRC after routing.')
 
     def place_canvas_via(self,x,y):
-        if not self._via_configuration:return
+        if not self.idle_edit() or not self.flush_inspector():return
+        if not self._via_configuration:raise ValueError('Choose a via connection before placing it.')
         cid,connection,net=self._via_configuration
         if cid!=self.cid:raise ValueError('The active cell changed. Start via placement again.')
         ids=[]
         def edit(p):ids.extend(place_via(p,cid,connection,[round(x),round(y)],net,self.layout.locked_layers))
         self.commit(edit,'Place via stack');self.select(ids,'layout')
+
+    def autovia_dialog(self):
+        if not self.idle_edit() or not self.flush_inspector():return
+        cid=self.cid;ids=list(self.selection);options=via_options(self.project)
+        if len(ids)<2:raise ValueError('Select overlapping conductor shapes, then choose Autovia.')
+        if not options:raise ValueError('This technology has no mapped via recipe. Declare routing_vias or link a supported technology.')
+        def submit(v):
+            if self.cid!=cid:raise ValueError('The active cell changed. Select the overlaps again.')
+            from .layout_vias import plan
+            proposal=plan(self.project,cid,ids,None if v['connection']=='Detect from selection' else v['connection'],
+                          max_vias=int(v['limit']),locked=self.layout.locked_layers)
+            self.review_layout_proposal(proposal)
+        return self.workflow_form('Autovia',[
+            ('connection','Connection',['Detect from selection']+list(options)),
+            ('limit','Maximum vias','1024')],submit,
+            'Fill selected conductor overlaps with via arrays. Review the preview, then place them in one undoable edit. Conflicting nets and locked layers are rejected; existing cuts are kept.')
 
     def selected_path(self):
         paths=[s for s in self.cell['shapes'] if s['id'] in self.selection and s['kind']=='path']

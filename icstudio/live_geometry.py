@@ -24,7 +24,8 @@ def enclosure_rules(tech):
 def check_enclosures(p,cid,shapes):
     db=kdb();out=[];regions={}
     for s in shapes:regions.setdefault(s['layer'],db.Region()).insert(polygon(s))
-    for rule in enclosure_rules(p['pdk']):
+    from .layout_vias import technology
+    for rule in enclosure_rules(technology(p)):
         cut=rule['cut'];outer=regions.get(rule['conductor'],db.Region());minimum=int(rule['minimum'])
         if minimum<0:raise ValueError('Enclosure must be non-negative.')
         for s in shapes:
@@ -40,6 +41,14 @@ _near_cache=[]
 def preview(p,cid,candidates):
     if not candidates:return []
     db=kdb();c=next(c for c in p['cells'] if c['id']==cid);layers={s['layer'] for s in candidates};rules={l['name']:l for l in p['pdk']['layers']};margin=max([max(l['space'],l['width']) for l in rules.values()]+[1000])*2
+    from .layout_routing import via_recipes
+    from .layout_vias import technology
+    tech=technology(p)
+    try:recipes=via_recipes(tech)
+    except ValueError:recipes=[] # Unmapped imported layouts still support ordinary geometry previews.
+    for recipe in recipes:
+        cut=recipe['cut'];rules[cut]={**rules[cut],'space':max(rules[cut]['space'],recipe['spacing'])}
+    margin=max(margin,2*max(l['space'] for l in rules.values()))
     box=polygon(candidates[0]).bbox()
     for s in candidates[1:]:box=box+polygon(s).bbox()
     window=box.enlarged(margin)
@@ -72,7 +81,7 @@ def preview(p,cid,candidates):
                 if not r.interacting(db.Region(polygon(old))).is_empty():out.append({'severity':'error','code':'SHORT','cell_id':cid,'object':old['id'],'message':candidate['net']+' would touch '+old['net']+' on '+layer+'.'})
     for candidate in candidates:
         if any(v%p['pdk']['grid'] for pt in candidate['points'] for v in pt):out.append({'severity':'error','code':'GRID','cell_id':cid,'object':candidate['id'],'message':'Candidate vertices are off the technology grid.'})
-    cuts={r['cut'] for r in enclosure_rules(p['pdk'])}
+    cuts={r['cut'] for r in enclosure_rules(tech)}
     if any(s['layer'] in cuts for s in candidates):out+=check_enclosures(p,cid,base+candidates)
     return out
 

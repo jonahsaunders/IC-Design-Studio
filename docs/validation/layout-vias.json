@@ -1,0 +1,56 @@
+{
+  "checks": [
+    "Via toolbar click creates three connected shapes; undo and redo are exact",
+    "Changing the SKY130 via dropdown changes the placed cut and conductors immediately",
+    "Locked layers reject canvas clicks atomically; coordinate dialog places the chosen via",
+    "Autovia preview is non-mutating; Place vias connects the overlap with nine vias",
+    "Autovia is one undoable edit and survives native save/reopen",
+    "GitHub overvoltage artifact: manual vias and Autovia use real SKY130 masks in level_shifter; undo preserves imported cells"
+  ],
+  "qt_platform": "offscreen",
+  "status": "passed",
+  "base_commit": "e0ae6c56d3de6a32dbdb5ba488b163b81442a5d9",
+  "platform": "Linux, Python 3.12, PySide6 6.8.3, KLayout 0.30.5",
+  "core_suite": {
+    "status": "passed",
+    "tests_run": 627,
+    "skipped": 12,
+    "command": "python -m unittest discover -s tests -v"
+  },
+  "layout_suite": {
+    "status": "passed",
+    "tests_run": 158,
+    "command": "python -m unittest discover -s tests -p 'test_layout_*.py' -v"
+  },
+  "desktop_command": "QT_QPA_PLATFORM=offscreen python tests/gui_layout_vias.py --project build/detector-via-check.icproj --out build/layout-vias-detector-evidence",
+  "detector_source": {
+    "repository": "jonahsaunders/IC-Design-Studio",
+    "workflow_run": 34644511505,
+    "artifact_id": 10281679794,
+    "member": "open-project-evidence/overvoltage-bench.icproj",
+    "sha256": "8ac53b029f6c05581050358372ae51e6c0719a2054134b7ba4307a98dd87be88"
+  },
+  "release_materials": {
+    "status": "passed",
+    "documents": 70,
+    "local_links": 275,
+    "gallery_examples": 9
+  },
+  "scope": "Offscreen Qt interaction, declared geometry and topology. No new native display, external process DRC/LVS or electrical simulation qualification.",
+  "source_sha256": {
+    "icstudio/editor_workspace.py": "8346051ecb83e8be07efd39e2cc2f6c7f40d5581f38879dab144694b96c0613c",
+    "icstudio/human_workspace.py": "c648d81d06e5325a6da6c868eb3ba95f51c790ef52366611fbda6c22f103bb7a",
+    "icstudio/layout_development_ui.py": "f30f1c30decb4dba4a6a54fcd51b5daae1f06f13f6302264594d438c6993d2ba",
+    "icstudio/layout_edit.py": "7b2cc057d13d2f572b4e9995b426659a782e90dec7a8a99c015b36a8299a597f",
+    "icstudio/layout_routing.py": "a29144c87ce30afe34a4b7876e11827cebe60a377be226a02a75adef2a9fe9ad",
+    "icstudio/layout_tools_ui.py": "1131978d159e4a52ba213099ca4ff4e089fad64653c1dd8d89defb04391d318b",
+    "icstudio/layout_vias.py": "19d06aea4388d678a0edc302c60b48c6e090b41aa7ec66d4b72c4d6ac2999280",
+    "icstudio/live_geometry.py": "d45d58ff4d7364ccda979e7471fb66417bce251e5ccb491e1714d626e4e9c649",
+    "icstudio/menu_map.py": "b86b5a0fc7e6331752101bcfe7cbd7fd40016895386ea0334a022e492b6ca396",
+    "icstudio/physical_workspace.py": "e119fa7661996a8b565d55e0144e094208adee7a24e4e4b948258b29087763d9",
+    "tests/gui_editor_process.py": "0311cbc3934e82da395957782f4e5cc7ec7498ff6153d9a23d539c0e80894ff2",
+    "tests/gui_layout_vias.py": "9252ba8b510ff5f5b2a006fa9e0e7fcfba06111c12ed5151d4f8dbea2fe97666",
+    "tests/test_layout_release.py": "ba23ace0a12c5e7261f613d177579d6bbd1ff78691357c26170f739b7bba6948",
+    "tests/test_layout_vias.py": "73d1cb021ef1a9c5e74ce4a39a68c110fd552862bff375a745e89d4452fd8773"
+  }
+}
