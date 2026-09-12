@@ -17,7 +17,8 @@ else:
 from icstudio.build_identity import identity
 build=identity()
 if build['commit']=='unknown' or build['dirty'] is not False:
- raise ValueError('Package a clean, committed source checkout so every binary has an exact source identity.')
+ subprocess.run(['git','status','--short','--untracked-files=normal'],cwd=root,check=False)
+ raise ValueError('Package a clean, committed source checkout so every binary has an exact source identity: '+repr(build))
 metadata=dict(ENGINE_SOURCE_HASH=hashlib.sha256((root/'icstudio'/'simulation.py').read_bytes()).hexdigest(),
  WORKFLOW_SOURCE_HASH=hashlib.sha256(b''.join(f.name.encode()+f.read_bytes() for f in sorted((root/'icstudio').glob('*.py')) if f.name!='build_info.py')).hexdigest(),
  BUILD_COMMIT=build['commit'],BUILD_BRANCH=build['branch'],BUILD_DIRTY=False)

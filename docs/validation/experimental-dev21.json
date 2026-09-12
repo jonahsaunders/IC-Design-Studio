@@ -4,8 +4,8 @@
   "base_commit": "b9db8d232a45cedef8d765ff085906b9464b570e",
   "status": "local_checks_passed",
   "core_suite": {
-    "total": 637,
-    "passed": 625,
+    "total": 638,
+    "passed": 626,
     "skipped": 12,
     "command": "QT_QPA_PLATFORM=offscreen .venv/bin/python -m unittest discover -s tests -v"
   },
@@ -254,7 +254,7 @@
     "scripts/assemble_windows.py": "77611a105f538d795919ff21c75943bffe05a18db4a8703e1ced3e233ded4620",
     "scripts/benchmark_recovery_snapshots.py": "57981b6548c9f029304e4972f99533b52814c69ff503041062aa3291808a7ccf",
     "scripts/compare_native_reference.py": "10feed9e176e6fe26d7e4ad7b401a9ae93371eb14010a6dcaf1328da28249cca",
-    "scripts/package.py": "e4f30153f254206d3d739acaf2cb9c3b7d05b9ac6568a377383b30ce3714eb06",
+    "scripts/package.py": "deaf7e532fc90198d7715e51aac6fbb9cc0c1390b702eafe09c179d06f533e6d",
     "scripts/qualify_analog_process.py": "cca3f12c2c40649a76f7a2c7f3446e644b0275996b65b15b03d07b344a1d2e64",
     "scripts/qualify_open_project.py": "636eafebc203c0fe7e5de66f847da5a1a4f3154ea0fe49a394850224ddd9fa8c",
     "scripts/benchmark_alignment.py": "5c3469cbb4db2497e1014d9ab2d8638ba6d144efdaa04cca6d9739f37e745035",
@@ -270,7 +270,7 @@
     "scripts/benchmark_layout.py": "c8173f335f16d3f1959b4ea51f869c5721e01a6420f38c109fd48f1b5c3e9cf9",
     "scripts/assemble_prerelease.py": "c7e29b4fb2cb1f60df248c256e691cedd49b0115fda86b624fec56a4a7326824",
     "scripts/benchmark_layout_pipeline.py": "2e28d4880f141fa942a4da2dca85ae3f99008f2ca04f748213d84ab7ba3b0bf5",
-    "scripts/stage_windows_ngspice.py": "37cbaa36afca15e0c92849bb141ed3b43df1ae4d0180ff1b7d3eee04a8a3b8d5",
+    "scripts/stage_windows_ngspice.py": "b96275917f3e98bcf3fe2672ea2ae643f7c6928f74b80a3d048b50d7f0a6c713",
     "scripts/prepare_open_project_technology.py": "bda8215983036f3e3d8e92926840b2c7d8d2127362d968fa21d2f5d8bbbd4dbc",
     "scripts/verify_bundled_simulation.py": "18ec3b71164e210b70f18bf92a4d2109a1c80bd0cb3121e7b96ff3e36bbe80d2",
     "scripts/verify_layout_release.py": "8cda9b488991e0fa35042ec571c2a9e5898595c1894e7f55ddde1fc5d44fb040",
@@ -411,7 +411,7 @@
     "tests/gui_consistency.py": "297c9105d2ebc783ecfc8bcef44ac73cf2b79064234f941273be27bc37fd36f8",
     "tests/test_magic_dependencies.py": "46b52aaa22f089e00e0e81f134300b3b2d87fd0c586d4b4df333b11aa539827d",
     "tests/test_native_migration.py": "95ba6268e33fde5eb521578f86ba463fdee26f7f76423a813bebf08d32346db2",
-    "tests/test_bundled_simulation.py": "ae1de504cf11a0d622e6898e885dc9539b5760036bd891cf6823b115ade0f71d",
+    "tests/test_bundled_simulation.py": "3cde4fb310dedd7af65378ab18ebe959393f1efd93200bed97aacd629aa94a9e",
     "tests/test_layout_stability.py": "cbe9b2f424d8034fc9a245be5bd777db7d3d7377ac8b22238e14ddd977dcfc5d",
     "tests/test_ngspice_paths.py": "3ccfa054e326f220a61dd8352dcb0d01d4a50523abab2c034821e14281f4756b",
     "tests/gui_layout_vias.py": "3ed521ad00c5db879c7d2a6f05b11aab9105915d20fddcb529525390af1de3e6",
@@ -424,5 +424,6 @@
   "hosted_packages": "Local record before final hosted qualification. Earlier hosted failures led to explicit floating borders, direct diagonal resizing, X11-aware decoration checks and reliable Qt pointer dispatch. Final hosted statuses are recorded on PR 22.",
   "native_consumer_acceptance": "not executed: Windows 10/11, native Ubuntu, mixed-scale physical monitors, upgrade and accessibility need operator evidence",
   "native_guard": "--desktop-acceptance correctly records blocked status with offscreen Qt",
-  "performance_notes": "The pipeline comparison fixes the layout canvas to 1000 by 400 logical pixels and closes the workflow dock. Five local samples per workload; no general native responsiveness claim. Snapshot benchmarks measure preparation after the initial copy. Large initial copies and scanning still run on the UI thread."
+  "performance_notes": "The pipeline comparison fixes the layout canvas to 1000 by 400 logical pixels and closes the workflow dock. Five local samples per workload; no general native responsiveness claim. Snapshot benchmarks measure preparation after the initial copy. Large initial copies and scanning still run on the UI thread.",
+  "runtime_staging": "Ten local bundled-runtime tests passed, including extraction with a byte-stable manifest. Windows line-ending drift is fixed; final hosted packaging validation pending."
 }
