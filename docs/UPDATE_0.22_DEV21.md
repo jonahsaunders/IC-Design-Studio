@@ -83,6 +83,8 @@ Windows CI uses a 1920×1080 virtual desktop, runs the experimental gestures
 natively at 200% before packaging, and checks the installed app at 100%, 150%
 and 200%. This avoids treating a 512×364 logical-pixel runner desktop as a
 usable full workbench while retaining the actual scaled input checks.
+Native hover checks wait for an observed mouse event after window activation;
+they do not substitute synthetic Qt events when native delivery is delayed.
 
 Run the native acceptance tool on an installed Windows or Ubuntu desktop:
 

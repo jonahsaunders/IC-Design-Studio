@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 def run(w, output):
-    from PySide6.QtCore import Qt,QPoint,QPointF,QEvent,QRect
+    from PySide6.QtCore import Qt,QPoint,QPointF,QEvent,QRect,QObject
     from PySide6.QtGui import QMouseEvent,QCursor
     from PySide6.QtWidgets import QApplication,QWidget
     from PySide6.QtTest import QTest
@@ -18,11 +18,34 @@ def run(w, output):
     app=QApplication.instance()
     def move(widget, point):
         assert widget.isVisible() and widget.window().childAt(widget.mapTo(widget.window(),point)) is widget,(point,widget.geometry(),widget.visibleRegion().boundingRect())
-        QTest.mouseMove(widget,point+QPoint(2,0));QTest.qWait(15)
-        QTest.mouseMove(widget,point);QTest.qWait(20)
         if app.platformName() in ('offscreen','minimal'):
             # These backends need explicit hover events; they have no real cursor.
+            QTest.mouseMove(widget,point+QPoint(2,0));QTest.qWait(15)
+            QTest.mouseMove(widget,point);QTest.qWait(20)
             app.sendEvent(widget,QMouseEvent(QEvent.MouseMove,QPointF(point),QPointF(widget.mapToGlobal(point)),Qt.NoButton,Qt.NoButton,Qt.NoModifier))
+            return
+        class Arrival(QObject):
+            arrived=False
+            def eventFilter(self,watched,event):
+                if event.type()==QEvent.MouseMove and (event.position()-QPointF(point)).manhattanLength()<=1:
+                    self.arrived=True
+                return False
+        arrival=Arrival();widget.installEventFilter(arrival)
+        try:
+            widget.window().raise_();widget.window().activateWindow()
+            assert QTest.qWaitForWindowActive(widget.window(),2000),'Native pointer target did not activate'
+            deadline=time.monotonic()+2
+            while time.monotonic()<deadline:
+                # A cursor warp may be coalesced during native window activation.
+                # Observe a delivered event; never inject one on native backends.
+                QTest.mouseMove(widget,point+QPoint(3,0));QTest.qWait(30)
+                arrival.arrived=False;QTest.mouseMove(widget,point)
+                until=min(deadline,time.monotonic()+.15)
+                while time.monotonic()<until:
+                    QTest.qWait(10)
+                    if arrival.arrived and widget.underMouse():return
+            raise AssertionError(dict(reason='Native hover event was not delivered',cursor=str(QCursor.pos()),target=str(widget.mapToGlobal(point)),active=repr(app.activeWindow()),under_pointer=repr(app.widgetAt(widget.mapToGlobal(point)))))
+        finally:widget.removeEventFilter(arrival)
     def wait(predicate, label, timeout=10):
         deadline=time.monotonic()+timeout
         while time.monotonic()<deadline:

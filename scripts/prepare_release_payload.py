@@ -58,6 +58,8 @@ def verify_distribution(archive, output):
     result = subprocess.run([str(executable), '--release-test', str(evidence)],
                             cwd=executable.parent, env=env, capture_output=True, timeout=240)
     (output / 'execution.log').write_bytes(result.stdout + result.stderr)
+    if result.returncode and (evidence / 'release-test.json').is_file():
+        print((evidence / 'release-test.json').read_text(encoding='utf-8'))
     require(result.returncode == 0, 'Extracted desktop probe failed; inspect distribution-evidence')
     report = json.loads((evidence / 'release-test.json').read_text())
     require(report['status'] == 'passed' and report['frozen'] and report['version'] == __version__,

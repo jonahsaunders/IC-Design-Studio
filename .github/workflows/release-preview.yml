@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main, experimental]
-    paths: [icstudio/__init__.py, .github/workflows/release-preview.yml]
+    paths: [icstudio/__init__.py, icstudio/experimental_probe.py, .github/workflows/release-preview.yml]
 permissions:
   contents: read
 concurrency:
