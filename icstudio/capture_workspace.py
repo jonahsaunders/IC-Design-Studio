@@ -13,7 +13,9 @@ class CaptureWorkspaceMixin:
         super().make_ui();self.schematic.capture_preview=None;self.schematic.installEventFilter(self)
         self.capture_bar=QWidget();column=QVBoxLayout(self.capture_bar);column.setContentsMargins(12,3,12,3);column.setSpacing(2);self.capture_path=QLabel();self.capture_path.setWordWrap(True);column.addWidget(self.capture_path);row=QHBoxLayout();column.addLayout(row);self.capture_repeat=QCheckBox('Repeat placement');self.capture_repeat.setChecked(self.settings.value('capture/repeat',True,type=bool));self.capture_repeat.toggled.connect(lambda value:self.settings.setValue('capture/repeat',value));row.addWidget(self.capture_repeat)
         row.addWidget(self.button('← Parent',fn=self.capture_leave));row.addWidget(self.button('Check and Save',fn=self.check_and_save));self.centralWidget().layout().insertWidget(2,self.capture_bar)
-        self.capture_preview_label=QLabel();self.capture_preview_label.setMinimumHeight(100);self.capture_preview_label.setMaximumHeight(140);self.capture_preview_label.setAlignment(Qt.AlignCenter);self.navtabs.widget(1).layout().insertWidget(2,self.capture_preview_label)
+        from .component_browser import SymbolPreview
+        self.capture_preview_label=SymbolPreview(self.dark);self.capture_preview_label.setMaximumHeight(150);self.navtabs.widget(1).layout().insertWidget(3,self.capture_preview_label)
+        self.library_selected(self.library_list.currentItem())
         self._capture_ready=True;self.capture_profile=self.settings.value('capture/schematic/profile','Studio');self.set_capture_profile(self.capture_profile);self.capture_update()
     def make_actions(self):
         super().make_actions();menus={a.text().replace('&',''):a.menu() for a in self.menuBar().actions() if a.menu()};menu=menus['Design'].addMenu('Schematic editor');self.capture_menu=menu
@@ -118,7 +120,9 @@ class CaptureWorkspaceMixin:
             seed['name']=self.next_device_name(seed['kind']);self.schematic.placement=seed;self.schematic.tool='place';self.schematic.drag=QPointF(x,y);self.schematic.update();self.canvas_message('Place '+seed['name']+' · rotate / mirror before placement · Esc finishes')
     def library_selected(self,item,*args):
         super().library_selected(item,*args)
-        if not hasattr(self,'capture_preview_label') or not item:return
+        if not hasattr(self,'capture_preview_label'):return
+        self.capture_preview_label.dark=self.dark;self.capture_preview_label.set_symbol()
+        if not item:return
         from .symbol_io import default_symbol,device_symbol
         from .symbol_geometry import draw
         from .catalog import create_device
@@ -127,8 +131,13 @@ class CaptureWorkspaceMixin:
             if isinstance(index,dict):child=capture_ops.cell(self.project,index['cell']);s=child.get('symbol') or default_symbol(child['ports'])
             elif isinstance(index,int):s=device_symbol(device(['','R','C','L','V','I','NMOS','PMOS'][index],'Preview'))
             else:d=create_device(self.project['pdk'],index,'Preview');s=d.get('symbol') or device_symbol(d)
-            pix=QPixmap(260,120);pix.fill(QColor('#15202c' if self.dark else '#f7f9fc'));p=QPainter(pix);p.setRenderHint(QPainter.Antialiasing);p.translate(130,60);pts=list(s['pins'].values())+[pt for item in s['primitives'] for pt in item['points']];extent=max([abs(v) for pt in pts for v in pt]+[60]);scale=50/extent;p.scale(scale,scale);draw(p,s,'#42cbb5',{'name':'Preview','symname':item.text().split('\n')[0]});p.end();self.capture_preview_label.setPixmap(pix)
-        except (ValueError,KeyError,IndexError):self.capture_preview_label.clear()
+            context={'name':'Preview','symname':item.text().split('\n')[0]}
+            if not isinstance(index,(dict,int)):
+                from .catalog_migration import symbol_context
+                context.update(symbol_context(d,self.project['pdk']))
+            self.capture_preview_label.set_symbol(s,context)
+        except (ValueError,KeyError,IndexError,StopIteration):self.capture_preview_label.set_symbol()
+
     def capture_properties(self):
         ds=[d for d in self.cell['devices'] if d['id'] in self.selection]
         if len(ds)<2:self.reveal_properties();return

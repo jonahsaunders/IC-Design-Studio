@@ -11,12 +11,13 @@ class WireCanvasMixin:
         filters=getattr(self,'capture_filters',{'devices','wires','labels','annotations'});out=[]
         if 'annotations' in filters:out.extend(n for n in reversed(self.cell.get('annotations',[])) if self.annotation_box(n).contains(pos))
         if 'labels' in filters:out.extend(l for l in reversed(self.cell.get('labels',[])) if self.label_box(l).contains(pos))
+        devices=[]
         if 'devices' in filters:
             for d in reversed(self.cell['devices']):
                 dx,dy=pos.x()-d['x'],pos.y()-d['y'];a=math.radians(-d['rotation']);x=dx*math.cos(a)-dy*math.sin(a);y=dx*math.sin(a)+dy*math.cos(a)
                 if not d.get('symbol') and d['kind'] in ('R','C','L','V','I'):
-                    if abs(x)<={'R':12,'C':20,'L':16,'V':24,'I':24}[d['kind']] and abs(y)<=53:out.append(d)
-                elif self.bounds(d).contains(pos):out.append(d)
+                    if abs(x)<={'R':12,'C':20,'L':16,'V':24,'I':24}[d['kind']] and abs(y)<=53:devices.append(d)
+                elif self.bounds(d).contains(pos):devices.append(d)
         if 'wires' in filters:
             _,_,_,_,segments,index=self.wire_spatial();limit=6/self.scale;seen=set();hits=[]
             for i in sorted(index.query((pos.x()-limit,pos.y()-limit,pos.x()+limit,pos.y()+limit)),reverse=True):
@@ -25,7 +26,7 @@ class WireCanvasMixin:
                 if distance<=limit:hits.append((distance,-i,wire))
             for _,_,wire in sorted(hits,key=lambda row:row[:2]):
                 if wire['id'] not in seen:out.append(wire);seen.add(wire['id'])
-        return out
+        return out+devices
     def capture_cycle(self,pos):
         rows=self.capture_candidates(pos)
         if not rows:return

@@ -1,11 +1,13 @@
 # Release follow-up issue drafts
 
-## Dev19 follow-up status
+## Current follow-up status
 
 Delivered in source: bounded external arrays, reviewed layout attachment, text
 presentation fidelity, submitted-review recovery and the reproducible external
-project gate. The [open-project report](OPEN_PROJECTS.md) keeps unresolved physical
-findings visible. Consumer Windows 10/11, interactive Linux/high-DPI, physical
+project gate. Dev20 resolved the strict detector LVS findings; the
+[open-project report](OPEN_PROJECTS.md) retains the remaining conversion and
+analysis limits. The [release status](RELEASE_STATUS.md) records the successful
+dev20 hosted checkpoint and draft; the dev12 checklist below is historical. Consumer Windows 10/11, interactive Linux/high-DPI, physical
 LAN/VPN and signing-policy issues remain open; automated source tests do not
 supply the missing hardware or signing evidence.
 

@@ -6,7 +6,7 @@ from PySide6.QtWidgets import (QDialog, QVBoxLayout, QLabel, QCheckBox, QPushBut
 from .model import clone, design_digest
 
 
-def show(studio):
+def show(studio, missing=False):
     if not studio.idle_edit(): return
     from .layout_eco_hierarchy import inventory, propose
     from .layout_development_ui import point, nm
@@ -67,11 +67,23 @@ def show(studio):
         table.resizeColumnsToContents()
         if rows:table.selectRow(0)
     scope.toggled.connect(populate); populate()
+    summary=QLabel();summary.setWordWrap(True);layout.addWidget(summary)
     select_missing=QPushButton('Select missing and changed devices');layout.addWidget(select_missing)
     def select_actionable():
         for i,row in enumerate(state['report']['devices']):
             table.item(i,0).setCheckState(Qt.Checked if row['action'] in ('add','update','rebind') else Qt.Unchecked)
     select_missing.clicked.connect(select_actionable)
+    select_all=QPushButton('Select all missing devices');layout.addWidget(select_all)
+    def select_unplaced():
+        rows=state['report']['devices']
+        for i,row in enumerate(rows):table.item(i,0).setCheckState(Qt.Checked if row['action']=='add' else Qt.Unchecked)
+        count=sum(r['action']=='add' for r in rows);unsupported=sum(r['status']=='unsupported' for r in rows)
+        summary.setText(f'{count} missing devices ready for placement; {unsupported} unsupported. Existing placements stay in place. Review unsupported rows for the required physical implementation. Sources and simulation-only components may have no layout.')
+    select_all.clicked.connect(select_unplaced)
+    if missing:
+        dlg.setWindowTitle('Place schematic devices in layout');select_unplaced()
+        scope.toggled.connect(lambda _:select_unplaced())
+
     form = QFormLayout(); origin=QLineEdit('0, 0'); pitch=QLineEdit('20');form.addRow('New footprint origin X, Y (µm)',origin);form.addRow('New footprint pitch (µm)',pitch);layout.addLayout(form)
     preserve=QCheckBox('Preserve attached routes and surviving terminal connectivity');preserve.setChecked(True);layout.addWidget(preserve)
     error=QLabel();error.setWordWrap(True);layout.addWidget(error);button=QPushButton('Preview selected changes');layout.addWidget(button)
@@ -103,4 +115,4 @@ def show(studio):
     starting=(id(studio.project),studio.project['revision'])
     timer=QTimer(dlg);timer.setInterval(300)
     timer.timeout.connect(lambda:check_revision() if starting!=(id(studio.project),studio.project['revision']) else None);timer.start()
-    button.clicked.connect(preview);dlg.table=table;dlg.preview_button=button;dlg.schematic_button=schematic_button;dlg.physical_button=physical_button;dlg.impact=impact;studio._layout_eco_dialog=dlg;dlg.show();return dlg
+    button.clicked.connect(preview);dlg.table=table;dlg.select_missing_button=select_all;dlg.summary=summary;dlg.preview_button=button;dlg.schematic_button=schematic_button;dlg.physical_button=physical_button;dlg.impact=impact;studio._layout_eco_dialog=dlg;dlg.show();return dlg

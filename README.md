@@ -100,6 +100,8 @@ Share a schematic or layout session, save a named checkpoint, and discuss the ex
 
 <sub>A local demonstration with two desktop clients. [Live editing](docs/LIVE_COLLABORATION.md) · [Review roles and discussions](docs/WORKFLOW_REVIEW_0.22.md).</sub>
 
+See the [component browser, bulk layout placement and floating-panel update](docs/USABILITY_FEEDBACK.md) for the latest development-source interaction improvements.
+
 ### A comfortable place to design
 
 Use the searchable example gallery to get moving, then arrange the workspace around your circuit. Dark and light themes, dockable panels, named workspaces, and command search keep frequently used tools close.

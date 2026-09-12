@@ -6,6 +6,32 @@ LVS. The new optional DC startup setting supplies first-point voltage guesses,
 allowing HSA to complete without relaxing timeouts or accuracy. The generated
 native testbench includes both DUT views, supplies and embedded models.
 
+## Confirmed dev20 hosted checkpoint
+
+The experimental branch was merged through [PR #13](https://github.com/jonahsaunders/IC-Design-Studio/pull/13)
+on September 12, 2026. Main commit `6b1e30f3d13c1dcb8d662523fd6cf4919f1b2a0d`
+contains the completed via/Autovia and README changes from PRs #16 and #17.
+[Release run 34703715977](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/34703715977)
+passed both desktop/package targets, interoperability and physical qualification,
+including the imported-detector Autovia test. Draft `v0.22.0.dev20` has all 12
+expected assets uploaded; it has not been published.
+
+The separate [main physical run 34703715839](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/34703715839)
+was cancelled during the final Autovia GUI step near its 30-minute job limit.
+The release workflow's physical job on the same commit passed in 29 minutes
+37 seconds. This is evidence of little aggregate timing margin, not proof of an
+application crash. Physical CI now separates inverter, analog, detector and
+desktop work while retaining the `sky130` aggregate check and release evidence
+artifact. Individual circuit timeouts, numerical tolerances and fault gates are
+unchanged. New source commits still need their own hosted results.
+
+Clean consumer Windows 10/11, native Ubuntu display/upgrade/accessibility,
+physical LAN/VPN and signing decisions remain outstanding. See issues
+[#8](https://github.com/jonahsaunders/IC-Design-Studio/issues/8),
+[#9](https://github.com/jonahsaunders/IC-Design-Studio/issues/9),
+[#10](https://github.com/jonahsaunders/IC-Design-Studio/issues/10) and
+[release follow-ups](RELEASE_FOLLOWUPS.md).
+
 ## Executed dev20 evidence
 
 The [validation record](validation/0.22.0.dev20.json) records the actual checks,
