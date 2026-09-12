@@ -61,6 +61,11 @@ jobs:
         run: python tests/gui_layout_expansion.py --out build/layout-expansion-evidence
       - name: Check repository release materials
         run: python scripts/check_release.py
+      - name: Test component browsing, selection, layout transfer and floating panels
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_feedback.py --out build/usability-feedback-evidence
       - name: Test via placement and Autovia through the layout editor
         timeout-minutes: 5
         env:
@@ -287,6 +292,7 @@ jobs:
             build/schematic-collaboration-evidence/*.png
             build/workflow-review-evidence/report.json
             build/workflow-review-evidence/*.png
+            build/usability-feedback-evidence
             build/recovery-workflow-evidence/gui-stability.json
             build/layout-3d-evidence
             build/layout-3d-opengl-evidence

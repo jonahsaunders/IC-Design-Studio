@@ -8,9 +8,14 @@ on:
 permissions:
   contents: read
 jobs:
-  sky130:
+  qualification:
+    name: qualify (${{ matrix.stage }})
+    strategy:
+      fail-fast: false
+      matrix:
+        stage: [inverter, analog, detector]
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -33,10 +38,15 @@ jobs:
       - name: Recreate the locked adapter
         run: python scripts/prepare_sky130_qualification.py --input build/qualification-pdk/sky130A --output build/physical-adapter/sky130A
       - name: Qualify nominal inverter and deliberate DRC/LVS faults
+        if: matrix.stage == 'inverter'
+        timeout-minutes: 5
         run: python scripts/qualify_layout_process.py --pdk build/physical-adapter/sky130A --out build/physical-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
       - name: Qualify analog references, corners, extraction and deliberate faults
+        if: matrix.stage == 'analog'
+        timeout-minutes: 15
         run: python scripts/qualify_analog_process.py --pdk build/physical-adapter/sky130A --out build/analog-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
       - name: Fetch the pinned public overvoltage source
+        if: matrix.stage == 'detector'
         uses: actions/checkout@v4
         with:
           repository: LDFranck/sky130_vbl_ip__overvoltage
@@ -44,19 +54,13 @@ jobs:
           path: build/open-project-source
           persist-credentials: false
       - name: Require detector strict LVS, fault detection and HSA simulation
+        if: matrix.stage == 'detector'
+        timeout-minutes: 22
         run: python scripts/qualify_open_project.py --source build/open-project-source --pdk build/qualification-pdk/sky130A --out build/open-project-evidence --require-consistent --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
-      - name: Exercise attachment and editing of the real project in Qt
-        env:
-          QT_QPA_PLATFORM: offscreen
-        run: python tests/gui_open_project.py --schematic build/open-project-evidence/schematic.icproj --layout build/open-project-evidence/magic-import/imported.icproj --bench build/open-project-evidence/overvoltage-bench.icproj --out build/open-project-evidence/desktop
-      - name: Exercise vias and Autovia on the imported detector
-        env:
-          QT_QPA_PLATFORM: offscreen
-        run: python tests/gui_layout_vias.py --project build/open-project-evidence/overvoltage-bench.icproj --out build/open-project-evidence/vias
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: sky130-physical-evidence
+          name: sky130-evidence-${{ matrix.stage }}
           path: |
             build/physical-evidence
             build/analog-evidence
@@ -66,4 +70,72 @@ jobs:
             build/physical-engines/*-build.log
             build/physical-engines/*-version.log
             build/physical-engines/source-lock.json
+          if-no-files-found: error
+
+  detector-desktop:
+    needs: qualification
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install desktop and simulation dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ngspice libegl1 libopengl0
+          python -m pip install -r requirements.txt
+      - uses: actions/download-artifact@v4
+        with:
+          name: sky130-evidence-detector
+          path: build
+      - name: Exercise attachment and editing of the real project in Qt
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_open_project.py --schematic build/open-project-evidence/schematic.icproj --layout build/open-project-evidence/magic-import/imported.icproj --bench build/open-project-evidence/overvoltage-bench.icproj --out build/open-project-evidence/desktop
+      - name: Exercise vias and Autovia on the imported detector
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_layout_vias.py --project build/open-project-evidence/overvoltage-bench.icproj --out build/open-project-evidence/vias
+      - name: Record desktop gate identity
+        if: always()
+        env:
+          SOURCE_COMMIT: ${{ github.sha }}
+        run: python -c "import json, os, pathlib; pathlib.Path('build/desktop-gate.json').write_text(json.dumps({'commit':os.environ['SOURCE_COMMIT']}))"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sky130-evidence-desktop
+          path: |
+            build/open-project-evidence/desktop
+            build/open-project-evidence/vias
+            build/desktop-gate.json
+          if-no-files-found: error
+
+  # Retain the required check name and the artifact consumed by draft releases.
+  sky130:
+    needs: [qualification, detector-desktop]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Require every physical and desktop gate
+        env:
+          QUALIFICATION_RESULT: ${{ needs.qualification.result }}
+          DESKTOP_RESULT: ${{ needs.detector-desktop.result }}
+        run: test "$QUALIFICATION_RESULT" = success && test "$DESKTOP_RESULT" = success
+      - uses: actions/download-artifact@v4
+        if: always()
+        with:
+          pattern: sky130-evidence-*
+          merge-multiple: true
+          path: build/physical-evidence-bundle
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sky130-physical-evidence
+          path: build/physical-evidence-bundle
           if-no-files-found: error

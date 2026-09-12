@@ -40,6 +40,8 @@ class LayoutDevelopmentMixin:
         for title,fn in [('Query layout…',self.layout_query_dialog),('Compare against GDSII / OASIS…',self.layout_compare_dialog),('Measure layer density…',self.layout_density_dialog),('Insert dummy fill…',self.layout_fill_dialog),('Round selected corners…',self.layout_round_dialog)]:self.action(inspect,title,fn)
         self.action(self.task_menus['Verify'],'Run bundled KLayout rules…',self.klayout_bundle_dialog)
         self.action(menu,'Review schematic changes in layout…',self.layout_eco_dialog)
+        transfer=self.action(self.task_menus['Schematic'],'Place schematic devices in layout…',self.place_schematic_in_layout)
+        menu.addAction(transfer)
         self.action(self.analysis_submenus['Post-layout'],'Calibrate RC from measurements…',self.rc_calibration_dialog)
         self.action(self.task_menus['Help'],'Layout development guide',lambda:self.open_editor_doc('LAYOUT_SCALE_AND_COLLABORATION.md'))
         self.reindex_commands()
@@ -47,6 +49,10 @@ class LayoutDevelopmentMixin:
     def layout_3d_dialog(self):
         from .layout_3d_ui import show
         return show(self)
+
+    def place_schematic_in_layout(self):
+        from .layout_eco_ui import show
+        return show(self, missing=True)
 
     def layout_eco_dialog(self):
         from .layout_eco_ui import show

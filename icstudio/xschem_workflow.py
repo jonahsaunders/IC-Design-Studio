@@ -138,18 +138,24 @@ class XschemWorkflowMixin:
     def show_library(self):
         if not compatible(self.project):return super().show_library()
         from .xschem_libraries import ASSETS
-        dlg=QDialog(self);dlg.setWindowTitle('Place Xschem component');dlg.resize(640,580);v=QVBoxLayout(dlg);search=QLineEdit();search.setPlaceholderText('Search included symbols…');v.addWidget(search);listing=QListWidget();v.addWidget(listing)
-        for folder,title in [(ASSETS/'gf180mcu/symbols','GF180MCU'),(ASSETS/'xschem/devices','Xschem')]:
+        from .component_browser import ComponentBrowser
+        from .xschem_compat import CaptureReader
+        entries = []
+        for folder, title in [(ASSETS/'gf180mcu/symbols', 'GF180MCU'), (ASSETS/'xschem/devices', 'Xschem')]:
             for path in sorted(folder.glob('*.sym')):
-                item=QListWidgetItem(path.stem+'  ·  '+title);item.setData(Qt.UserRole,str(path));listing.addItem(item)
-        search.textChanged.connect(lambda text:[listing.item(i).setHidden(text.casefold() not in listing.item(i).text().casefold()) for i in range(listing.count())])
-        def place(item):
-            if item:self.begin_xschem_placement(item.data(Qt.UserRole));dlg.accept()
-        listing.itemDoubleClicked.connect(lambda item:self.guard(lambda:place(item)));v.addWidget(self.button('Place selected',fn=lambda:self.guard(lambda:place(listing.currentItem()))))
+                entries.append(dict(label=path.stem, source=title, path=path))
+        def preview(entry):
+            path = entry['path']; symbol, attrs = CaptureReader(path, [path.parent], None).symbol(path)
+            return symbol, {**properties(attrs.get('template', '')), 'name':'Preview', 'symname':path.stem}
+        def place(entry):
+            if not self.flush_inspector(): return False
+            self.begin_xschem_placement(entry['path'])
+        dlg = ComponentBrowser(self, 'Place Xschem component', entries, preview, place)
         def custom():
-            path,_=QFileDialog.getOpenFileName(dlg,'Choose symbol','','Xschem symbol (*.sym)')
-            if path:self.begin_xschem_placement(path);dlg.accept()
-        v.addWidget(self.button('Choose another symbol file…',fn=lambda:self.guard(custom)));self._xschem_library_dialog=dlg;dlg.show()
+            path, _ = QFileDialog.getOpenFileName(dlg, 'Choose symbol', '', 'Xschem symbol (*.sym)')
+            if path and self.flush_inspector(): self.begin_xschem_placement(path); dlg.accept()
+        dlg.add_button('Choose another symbol file…', lambda:self.guard(custom))
+        self._xschem_library_dialog = dlg; dlg.show(); return dlg
 
     def begin_placement(self,index):
         if not compatible(self.project):return super().begin_placement(index)

@@ -181,6 +181,7 @@ def review_project(path,library_paths=(),file_locations=None):
                 if any(did not in kept for did in old if any(s.get('device_id')==did for s in row['shapes']) or any(pin['device_id']==did for pin in row.get('layout_pins',[]))):raise ValueError('An externally deleted device has linked physical geometry. Remove or detach its layout in Studio before repeating the exchange.')
                 for d in row['devices']:
                     prev=old.get(d['id'])
+                    if prev and prev.get('component_source'):d['component_source']=prev['component_source']
                     if prev and set(prev['nets'])!=set(d['nets']) and any(pin['device_id']==d['id'] for pin in row.get('layout_pins',[])):raise ValueError(d['name']+': terminal edits require physical pin reconciliation in Studio.')
                     if prev and prev.get('physical_binding'):d['physical_binding']=clone(prev['physical_binding'])
                     fields=('name','x','y','rotation','mirror','nets','native_spice','model_ref','model_params','params')

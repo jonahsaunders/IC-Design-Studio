@@ -12,6 +12,7 @@ Start with [Getting started](GETTING_STARTED.md), [real open-project imports](OP
 - [Xschem, Magic and KLayout exchange](INTEROPERABILITY.md)
 - [3D layout viewer](LAYOUT_3D.md)
 - [Via placement and Autovia](LAYOUT_VIAS.md)
+- [Component browsing, layout placement and floating panels](USABILITY_FEEDBACK.md)
 - [Large layouts, schematic-driven changes and concurrent editing](LAYOUT_SCALE_AND_COLLABORATION.md)
 - [Linux launch and setup checks](LINUX_SETUP.md)
 - [Live desktop schematic and layout collaboration](LIVE_COLLABORATION.md)

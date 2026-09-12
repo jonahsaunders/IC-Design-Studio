@@ -6,6 +6,7 @@ import tempfile
 from pathlib import Path
 from .model import clone, digest, now, validate, atomic_write, save_project, device
 from .native_spice import asset_path, render, netlist
+from .component_sources import imported_library
 
 INCLUDE = re.compile(r'(?im)^[^\S\n]*(\.include|\.inc|\.lib)[^\S\n]+("[^"\n]+"|\'[^\'\n]+\'|[^\s]+)([^\n]*)')
 TOKEN = re.compile(r'@@?[A-Za-z_][A-Za-z0-9_]*|%[A-Za-z_][A-Za-z0-9_]*')
@@ -164,6 +165,7 @@ def review(project):
                 identify_symbol(d['symbol'])
                 d['symbol_context'] = {**info['properties'], 'symname': Path(info['reference']).stem}
                 d['symbol']['attributes'] = {}
+                d['component_source'] = imported_library(info['reference'], info.get('symbol_path', ''))
                 d.pop('xschem')
                 item(d['name'], 'Migrated', 'Editable native simulation program.' if definition['type'] == 'program' else 'Native electrical definition, ordered pins and editable parameters.', c['id'], d['id'])
             except (ValueError, KeyError) as exc:

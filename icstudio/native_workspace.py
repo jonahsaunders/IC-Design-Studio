@@ -317,31 +317,42 @@ class NativeWorkspaceMixin:
 
     def show_library(self):
         if not native(self.project): return super().show_library()
-        dlg = QDialog(self); dlg.setWindowTitle('Project device library'); dlg.resize(640, 570)
-        layout = QVBoxLayout(dlg); search = QLineEdit(); search.setPlaceholderText('Find a native device definition…'); layout.addWidget(search)
-        listing = QListWidget(); layout.addWidget(listing); definitions = {}
+        from .component_browser import ComponentBrowser
+        from .model import digest
+        entries = []; seen = set()
         for c in self.project['cells']:
             for d in c['devices']:
-                if d.get('native_spice', {}).get('type') != 'device': continue
-                key = d['native_spice']['label']
-                if key in definitions: continue
-                definitions[key] = d; item = QListWidgetItem(key); listing.addItem(item)
-        search.textChanged.connect(lambda text: [listing.item(i).setHidden(text.casefold() not in listing.item(i).text().casefold()) for i in range(listing.count())])
-        def place():
-            item = listing.currentItem()
-            if not item: return
-            d = clone(definitions[item.text()]); prefix = ''.join(ch for ch in d['name'] if not ch.isdigit()) or 'X'
+                definition = d.get('native_spice', {})
+                if definition.get('type') != 'device': continue
+                source = d.get('component_source')
+                if not source:
+                    # Older native projects retained the original symbol files.
+                    files = self.project.get('native_migration', {}).get('archive', {}).get('source_files', {})
+                    from pathlib import PurePosixPath
+                    paths=[PurePosixPath(path.replace('\\','/')) for path in files]
+                    sources={path.parent.name for path in paths if path.suffix=='.sym' and path.stem==definition['label']}
+                    source = next(iter(sources)) if len(sources) == 1 else 'Project definitions'
+                identity = digest([source, definition['label'], definition.get('tokens'), definition.get('definition'), d.get('symbol')])
+                if identity in seen: continue
+                seen.add(identity); entries.append(dict(label=definition['label'], source=source, device=d))
+        def preview(entry):
+            d = entry['device']
+            return d['symbol'], {**d.get('symbol_context', {}), 'name':'Preview', 'symname':entry['label']}
+        def place(entry):
+            if not self.flush_inspector(): return False
+            d = clone(entry['device']); prefix = ''.join(ch for ch in d['name'] if not ch.isdigit()) or 'X'
             used = {d['name'].casefold() for d in self.cell['devices']}; number = 1
             while (prefix + str(number)).casefold() in used: number += 1
-            d.update(id=uid(), name=prefix + str(number)); d['symbol_context']['name'] = d['name']
+            d.update(id=uid(), name=prefix + str(number)); d.setdefault('symbol_context', {})['name'] = d['name']
             d.pop('net_labels', None); d.pop('terminal_ids', None); d.pop('net_ids', None)
-            self.cancel_tool(); self.schematic.placement = d; self.schematic.tool = 'place'; self.schematic.drag = self.schematic.snap(self.schematic.model(self.schematic.rect().center())); self.schematic.setFocus(); self.schematic.update(); dlg.accept()
-        listing.itemDoubleClicked.connect(lambda *_: self.guard(place))
-        layout.addWidget(self.button('Place selected', fn=lambda: self.guard(place)))
+            self.mode_combo.setCurrentIndex(0); self.cancel_tool(); self.schematic.placement = d; self.schematic.tool = 'place'
+            self.schematic.drag = self.schematic.snap(self.schematic.model(self.schematic.rect().center()))
+            self.schematic.setFocus(); self.schematic.update(); self.sync_tools()
+        dlg = ComponentBrowser(self, 'Project device library', entries, preview, place)
         def standard():
             dlg.accept(); super(NativeWorkspaceMixin, self).show_library()
-        layout.addWidget(self.button('Standard components and hierarchical cells…', fn=standard))
-        self._native_library_dialog = dlg; dlg.show()
+        dlg.add_button('Standard components and hierarchical cells…', standard)
+        self._native_library_dialog = dlg; dlg.show(); return dlg
 
     def place_device_at(self, x, y):
         seed = self.schematic.placement
