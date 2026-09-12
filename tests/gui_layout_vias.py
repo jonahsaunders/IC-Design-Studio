@@ -5,6 +5,7 @@ import os
 import sys
 import traceback
 from pathlib import Path
+from unittest.mock import patch
 
 
 def main():
@@ -27,8 +28,18 @@ def main():
     app=QApplication([]);app.setStyle('Fusion');checks=[];errors=[];w=None
     report={'checks':checks,'qt_platform':app.platformName()}
     try:
-        w=Studio(recover=False);w.error=lambda msg:errors.append(str(msg));w.maybe_save=lambda:True
+        # QSettings(org, app) uses the native Windows registry even after
+        # setDefaultFormat(IniFormat). Earlier CI steps can leave a Last session
+        # whose delayed restoration replaces our Layout/Draw selection.
+        settings=QSettings(str(out/'profile/via-test.ini'),QSettings.IniFormat)
+        settings.setFallbacksEnabled(False);settings.remove('editor/workspaces/Last session')
+        with patch('icstudio.gui.QSettings',return_value=settings), \
+                patch('icstudio.gui.QStandardPaths.writableLocation',return_value=str(out/'profile/data')):
+            w=Studio(recover=False)
+        w.error=lambda msg:errors.append(str(msg));w.maybe_save=lambda:True
         w.live_check.setChecked(False);w.resize(1440,1000);w.show()
+        assert QTest.qWaitForWindowExposed(w),'Layout test window did not open'
+        QTest.qWait(150)
         def setup(p):
             w.cancel_tool();w.set_project(p);w.mode_combo.setCurrentIndex(1);QTest.qWait(150)
             w.layout.auto_fit=False;w.layout.scale=.3;w.layout.offset=QPointF(100,100)
@@ -124,6 +135,10 @@ def main():
         report['status']='passed'
     except Exception:
         report.update(status='failed',error=traceback.format_exc(),errors=errors)
+        if w:
+            report['workspace']={'mode':w.mode_combo.currentText(),
+                                 'ribbon':w.ribbon.tabText(w.ribbon.currentIndex())}
+            w.grab().save(str(out/'failure.png'))
     finally:
         if w:w.saved_hash=digest(w.project);w.close();app.processEvents()
         (out/'report.json').write_text(json.dumps(report,indent=2)+'\n')

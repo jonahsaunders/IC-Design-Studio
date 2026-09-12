@@ -1,11 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="320" viewBox="0 0 1440 320" role="img" aria-labelledby="title desc">
-<title id="title">IC Design Studio</title><desc id="desc">Design. Simulate. Understand. An open circuit design workspace.</desc>
-<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#111923"/><stop offset="1" stop-color="#1b2e43"/></linearGradient><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#7298c2" stroke-opacity=".12"/></pattern></defs>
-<rect width="1440" height="320" rx="18" fill="url(#bg)"/><rect width="1440" height="320" rx="18" fill="url(#grid)"/>
-<g font-family="Inter,Segoe UI,Arial,sans-serif"><text x="62" y="76" fill="#81bad6" font-size="17" letter-spacing="3">OPEN TOOLS. YOUR DESIGN.</text><text x="58" y="159" fill="#f1f6ff" font-size="66" font-weight="700">IC Design Studio</text><text x="62" y="218" fill="#aabed6" font-size="28">Design. Simulate. Understand.</text><text x="62" y="272" fill="#7f95b0" font-size="16">SCHEMATIC  /  SIMULATION  /  LAYOUT</text></g>
-<g fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="1046" y="86" width="136" height="136" rx="14" stroke="#8baaf5" stroke-width="3"/>
-<path d="M1070 61V86M1100 61V86M1130 61V86M1160 61V86M1070 222V248M1100 222V248M1130 222V248M1160 222V248M1020 109H1046M1020 139H1046M1020 169H1046M1020 199H1046M1182 109H1208M1182 139H1208M1182 169H1208M1182 199H1208" stroke="#668ed8" stroke-width="3"/>
-<path d="M884 172H947V139H1020M1208 169H1270V105H1354M1208 199H1240V254H1345" stroke="#4c8d9c" stroke-width="2"/>
-<path d="M1068 167H1086L1098 132L1114 188L1130 119L1141 156H1160" stroke="#77dbc6" stroke-width="4"/></g>
-<g fill="#77dbc6"><circle cx="884" cy="172" r="5"/><circle cx="1354" cy="105" r="5"/><circle cx="1345" cy="254" r="5"/></g>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="460" viewBox="0 0 1600 460" role="img" aria-labelledby="title description">
+  <title id="title">IC Design Studio</title>
+  <desc id="description">From first waveform to physical layout. An open workspace for schematic capture, simulation, layout, and collaboration. Decorative mask and interconnect artwork.</desc>
+  <defs>
+    <linearGradient id="background" x2="1" y2="1"><stop stop-color="#101923"/><stop offset="1" stop-color="#192c38"/></linearGradient>
+    <linearGradient id="metal" x2="0" y2="1"><stop stop-color="#65d6bd"/><stop offset="1" stop-color="#479eaa"/></linearGradient>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#b5d6e4" opacity=".12"/></pattern>
+    <clipPath id="edge"><rect width="1600" height="460" rx="24"/></clipPath>
+  </defs>
+  <g clip-path="url(#edge)">
+    <rect width="1600" height="460" fill="url(#background)"/>
+    <rect x="935" width="665" height="460" fill="url(#grid)"/>
+    <path d="M0 0H1600" stroke="#65d6bd" stroke-width="6"/>
+    <g fill="none" stroke="#456477" stroke-width="2" opacity=".5">
+      <path d="M1090 95H1020V44H942M1360 95H1420V38H1560M1090 335H1006V408H920M1360 335H1420V412H1600"/>
+      <path d="M1080 215H978V180H913M1374 215H1476V282H1600"/>
+    </g>
+    <g transform="translate(1075 77)">
+      <rect x="0" y="0" width="308" height="288" rx="26" fill="#152530" stroke="#426574" stroke-width="2"/>
+      <rect x="21" y="21" width="266" height="246" rx="16" fill="none" stroke="#65d6bd" stroke-opacity=".45"/>
+      <g fill="#263e4a" stroke="#64838e">
+        <rect x="-14" y="46" width="28" height="12" rx="3"/><rect x="-14" y="87" width="28" height="12" rx="3"/><rect x="-14" y="128" width="28" height="12" rx="3"/><rect x="-14" y="169" width="28" height="12" rx="3"/><rect x="-14" y="210" width="28" height="12" rx="3"/>
+        <rect x="294" y="46" width="28" height="12" rx="3"/><rect x="294" y="87" width="28" height="12" rx="3"/><rect x="294" y="128" width="28" height="12" rx="3"/><rect x="294" y="169" width="28" height="12" rx="3"/><rect x="294" y="210" width="28" height="12" rx="3"/>
+      </g>
+      <g stroke-width="2">
+        <rect x="48" y="48" width="84" height="82" fill="#65d6bd" fill-opacity=".1" stroke="#65d6bd"/>
+        <rect x="176" y="48" width="84" height="82" fill="#65d6bd" fill-opacity=".1" stroke="#65d6bd"/>
+        <rect x="48" y="176" width="84" height="64" fill="#91acf0" fill-opacity=".12" stroke="#91acf0"/>
+        <rect x="176" y="176" width="84" height="64" fill="#91acf0" fill-opacity=".12" stroke="#91acf0"/>
+      </g>
+      <g stroke="#65d6bd" stroke-width="7" fill="none">
+        <path d="M71 68V108H197V68M112 68V151H238V68"/>
+      </g>
+      <g stroke="#f0bc78" stroke-width="7" fill="none"><path d="M90 193V94M218 220H154V120"/></g>
+      <g fill="#f0bc78"><rect x="83" y="87" width="14" height="14"/><rect x="147" y="113" width="14" height="14"/></g>
+      <g fill="#bdd9f5"><rect x="68" y="191" width="10" height="31"/><rect x="85" y="191" width="10" height="31"/><rect x="102" y="191" width="10" height="31"/><rect x="196" y="191" width="10" height="31"/><rect x="213" y="191" width="10" height="31"/><rect x="230" y="191" width="10" height="31"/></g>
+    </g>
+    <g font-family="Inter, Segoe UI, Arial, sans-serif">
+      <circle cx="73" cy="70" r="5" fill="#65d6bd"/>
+      <text x="92" y="77" fill="#87c9c0" font-size="18" font-weight="600" letter-spacing="3">OPEN TOOLS. YOUR DESIGN.</text>
+      <text x="64" y="190" fill="#f3f7fa" font-size="82" font-weight="750" letter-spacing="-3">IC Design Studio</text>
+      <text x="69" y="255" fill="#c0d2df" font-size="32">From first waveform to physical layout.</text>
+      <path d="M70 307H910" stroke="#354856"/>
+      <g font-size="17" font-weight="600" letter-spacing="1.3" fill="#a7bdcd">
+        <text x="70" y="352">SCHEMATIC</text><text x="286" y="352">SIMULATION</text><text x="517" y="352">LAYOUT</text><text x="686" y="352">COLLABORATION</text>
+      </g>
+      <g fill="#65d6bd"><circle cx="250" cy="346" r="3"/><circle cx="480" cy="346" r="3"/><circle cx="650" cy="346" r="3"/></g>
+      <text x="70" y="407" fill="#728c9e" font-size="17">Native desktop · Open PDKs · Reproducible projects</text>
+    </g>
+  </g>
 </svg>
