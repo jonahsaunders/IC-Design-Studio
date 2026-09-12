@@ -1,0 +1,57 @@
+{
+  "app_version": "0.22.0.dev20",
+  "qt_platform": "offscreen",
+  "captures": [
+    {
+      "file": "simulation-dark.png",
+      "description": "RC gallery example after an actual built-in transient simulation; dark theme.",
+      "width": 1600,
+      "height": 1000,
+      "sha256": "1a88f5712f654a7cb6926d0349ed56d3a86064de40f8bcae7aba7f7d01ccb373"
+    },
+    {
+      "file": "simulation-light.png",
+      "description": "The same completed RC simulation in the light theme.",
+      "width": 1600,
+      "height": 1000,
+      "sha256": "50f7bc23b3644c61124b5416a645e49c8d57de3f219571428f049abb54d0af3a"
+    },
+    {
+      "file": "example-gallery.png",
+      "description": "The nine built-in guided examples.",
+      "width": 1080,
+      "height": 740,
+      "sha256": "99c01c00801a3eae01705f5f0710b1a4618853d6aa0a93418e82d3c5c3427c44"
+    },
+    {
+      "file": "overvoltage-linked.png",
+      "description": "Unmodified imported SKY130 level_shifter schematic and attached layout.",
+      "width": 1600,
+      "height": 940,
+      "sha256": "3ce8ed015cb0e8fd4f94ede438f3ec9588d1a05544d3f332f9debeb967b48590"
+    },
+    {
+      "file": "overvoltage-layout.png",
+      "description": "The same imported cell in the layout editor; inspector hidden for more drawing space.",
+      "width": 1600,
+      "height": 940,
+      "sha256": "4a18e9aa0fbc0e238367cba639ca3be0d26861898afa689435207fe8ed680ab9"
+    },
+    {
+      "file": "overvoltage-3d.png",
+      "description": "Read-only 3D extrusion of the imported cell, with illustrative display heights and software rendering.",
+      "width": 1600,
+      "height": 940,
+      "sha256": "e223f77b45497df91966764baf7a91933bb3b2a6eff0382d5dfb9b3c29f2e665"
+    },
+    {
+      "file": "team-review.png",
+      "description": "Local two-client reviewer discussion from tests/gui_workflow_review.py; demo participants only.",
+      "width": 920,
+      "height": 700,
+      "sha256": "abf35474e1278a254d14f90d89422b0904665ac799aea2e43a75577d640e9c4a"
+    }
+  ],
+  "detector_project_sha256": "8ac53b029f6c05581050358372ae51e6c0719a2054134b7ba4307a98dd87be88",
+  "app_commit": "e0ae6c56d3de6a32dbdb5ba488b163b81442a5d9"
+}
