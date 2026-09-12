@@ -5,6 +5,9 @@ from PySide6.QtGui import QColor,QPen,QBrush,QPainterPathStroker
 
 
 class EditorCanvasMixin:
+    def clear_selection_preview(self):
+        self.preselection=None;self.selection_hint='';self.update()
+
     @staticmethod
     def selection_name(item):
         if item.get('editor_kind')=='pin':return 'Pin '+item['pin'].get('name',item['pin']['id'])

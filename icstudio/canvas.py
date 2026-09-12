@@ -25,6 +25,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
     route_point_requested=Signal(float,float);route_hover_requested=Signal(float,float)
     def __init__(self,mode,parent=None):
         super().__init__(parent);self.mode=mode;self.cell=None;self.tech={};self.selection=[];self.net='';self.dark=False;self.tool='select';self.layer='metal1';self.line_width=200;self.scale=1.0 if mode=='schematic' else .08;self.offset=QPointF(40,50);self.anchor=None;self.drag=None;self.pan=False;self._pan_anchor=None;self._pan_button=None;self.snap_target=None;self.snap_to_terminals=True;self.space=False;self.pending_pin=None;self.drawing=[];self.visible_layers=set();self.setMinimumSize(250,220);self.setFocusPolicy(Qt.StrongFocus);self.setMouseTracking(True);self.setAccessibleName(mode+' design canvas');self.ruler=None;self.placement=None;self.marquee=False;self.moving=False;self._layers_initialized=False;self.press_screen=None;self.auto_fit=True;self.reset_wire_gesture();self._drawing_grid=None;self._drawing_undo=[];self._rect_pending=False;self.drawing_notice='';self.path_horizontal=True
+        self.view_changed.connect(self.clear_selection_preview)
     def set_data(self,cell,tech,selection=None,net='',revision=None,dirty_indices=None):
         self.preselection=None;self.selection_hint=''
         self.cell=cell;self.tech=tech;self.selection=list(selection or []);self.net=net;self._layout_display_revision=getattr(self,'_layout_display_revision',0)+1

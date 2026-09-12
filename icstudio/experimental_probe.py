@@ -67,6 +67,7 @@ def run(w, output):
         canvas.grab().save(str(out/'selection-preview.png'))
         canvas.capture_filters={'devices'};QTest.mouseMove(canvas,point+QPoint(1,0));assert canvas.preselection['id']==resistor['id']
         canvas.capture_filters={'devices','wires','labels','annotations'}
+        canvas.fit();assert canvas.preselection is None and not canvas.selection_hint
         checks.append('Hover and click agree at overlapping wire/device geometry; Tab cycles and filtering changes the preview')
 
         guide=w.design_workflow();wait(lambda:guide.analysis is not None,'Workflow inspection')

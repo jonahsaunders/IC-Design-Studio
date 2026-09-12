@@ -62,7 +62,14 @@ assert w.cell['devices'][0]['nets']['p']==w.cell['devices'][1]['nets']['p'];key(
 # Crossings are open; J deliberately adds/removes the dot.
 p=example('empty');p['cells'][0].update(wires=[{'id':uid(),'points':[[100,100],[300,100]]},{'id':uid(),'points':[[200,40],[200,180]]}],junctions=[]);c=setup(p)
 a,b=w.cell['wires'];g=wiring.graph(w.cell);assert g[('wire',a['id'])]!=g[('wire',b['id'])]
-QTest.mouseMove(c,screen(c,[200,100]));key(c,Qt.Key_J);assert [200,100] in w.cell['junctions'];g=wiring.graph(w.cell);assert g[('wire',a['id'])]==g[('wire',b['id'])]
+target=screen(c,[200,100]);assert c.rect().contains(target),(c.size(),target)
+QTest.mouseMove(c,target)
+# Windows can queue a cursor move behind the immediately following key event.
+# Wait for the real move to arrive instead of editing the canvas pointer in the test.
+deadline=time.monotonic()+1
+while c.drag!=QPointF(200,100) and time.monotonic()<deadline:QTest.qWait(10)
+assert c.drag==QPointF(200,100),('Crossing hover was not delivered',c.drag)
+key(c,Qt.Key_J);assert [200,100] in w.cell['junctions'],('J did not toggle the crossing',c.drag,app.focusWidget());g=wiring.graph(w.cell);assert g[('wire',a['id'])]==g[('wire',b['id'])]
 key(c,Qt.Key_J);assert not w.cell['junctions']
 # Every top-level underlined mnemonic opens its menu using an actual Alt event.
 for action in w.menuBar().actions():

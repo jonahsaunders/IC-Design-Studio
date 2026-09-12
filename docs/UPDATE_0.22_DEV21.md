@@ -73,6 +73,9 @@ The packaged release probe includes component shortcuts, hover selection,
 workflow findings, diagonal floating resize, restored size and offscreen window
 recovery. Unplugging a display brings an unreachable floating title bar back to
 an available screen. Hosted execution does not prove consumer desktop behavior.
+Linux package CI also runs the frozen application under X11/Openbox at 150%
+scaling. Its virtual display is recorded separately from offscreen and physical
+consumer desktop observations.
 
 Run the native acceptance tool on an installed Windows or Ubuntu desktop:
 
