@@ -30,10 +30,6 @@ jobs:
         run: |
           wsl --update --web-download
           if ($LASTEXITCODE -ne 0) { throw 'WSL update failed.' }
-      - name: Verify installed digital runtime on this operating system
-        env:
-          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
-        run: python scripts/qualify_digital_runtime.py
       - name: Configure Windows virtual desktop for native DPI checks
         if: runner.os == 'Windows'
         shell: pwsh
@@ -43,6 +39,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Verify windowed Windows worker pipes
+        if: runner.os == 'Windows'
+        run: python -m unittest tests.test_windows_stdio -v
+      - name: Verify installed digital runtime on this operating system
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+        run: python scripts/qualify_digital_runtime.py
       - name: Install dependencies
         run: python -m pip install -r requirements-build.txt
       - name: Install Linux simulation engine and desktop runtime
