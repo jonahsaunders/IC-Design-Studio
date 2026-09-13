@@ -34,6 +34,12 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
+          # The included toolchain makes compilation long enough to reach the
+          # runner's display idle timeout. Native pointer tests need its display.
+          powercfg /change monitor-timeout-ac 0
+          if ($LASTEXITCODE -ne 0) { throw 'Could not keep the CI display available.' }
+          powercfg /change standby-timeout-ac 0
+          if ($LASTEXITCODE -ne 0) { throw 'Could not keep the CI runner awake.' }
           Set-DisplayResolution -Width 1920 -Height 1080 -Force
           Get-DisplayResolution
       - uses: actions/setup-python@v5

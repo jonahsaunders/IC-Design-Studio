@@ -3,6 +3,33 @@ import time
 from pathlib import Path
 
 
+def native_desktop():
+    """Read-only diagnostics distinguish native GUI failures from lost desktops."""
+    import os
+    if os.name!='nt':return {}
+    import ctypes
+    from ctypes import wintypes
+    user=ctypes.WinDLL('user32',use_last_error=True)
+    user.GetForegroundWindow.restype=wintypes.HANDLE
+    user.GetWindowTextW.argtypes=[wintypes.HANDLE,wintypes.LPWSTR,ctypes.c_int]
+    foreground=user.GetForegroundWindow();title=ctypes.create_unicode_buffer(512)
+    if foreground:user.GetWindowTextW(foreground,title,len(title))
+    result=dict(foreground=hex(foreground) if foreground else None,title=title.value)
+    user.OpenInputDesktop.argtypes=[wintypes.DWORD,wintypes.BOOL,wintypes.DWORD]
+    user.OpenInputDesktop.restype=wintypes.HANDLE
+    user.GetUserObjectInformationW.argtypes=[wintypes.HANDLE,ctypes.c_int,ctypes.c_void_p,wintypes.DWORD,ctypes.POINTER(wintypes.DWORD)]
+    user.CloseDesktop.argtypes=[wintypes.HANDLE]
+    desktop=user.OpenInputDesktop(0,False,1)
+    if desktop:
+        try:
+            name=ctypes.create_unicode_buffer(512);needed=wintypes.DWORD()
+            if user.GetUserObjectInformationW(desktop,2,name,ctypes.sizeof(name),ctypes.byref(needed)):result['input_desktop']=name.value
+            else:result['input_desktop_error']=ctypes.get_last_error()
+        finally:user.CloseDesktop(desktop)
+    else:result['input_desktop_error']=ctypes.get_last_error()
+    return result
+
+
 def run(w, output):
     from PySide6.QtCore import Qt,QPoint,QPointF,QEvent,QRect,QObject
     from PySide6.QtGui import QMouseEvent,QCursor
@@ -45,7 +72,7 @@ def run(w, output):
                     QTest.qWait(10)
                     if arrival.arrived and widget.underMouse():return
             widget.screen().grabWindow(0).save(str(out/'native-hover-failure.png'))
-            raise AssertionError(dict(reason='Native hover event was not delivered',cursor=str(QCursor.pos()),target=str(widget.mapToGlobal(point)),active=repr(app.activeWindow()),under_pointer=repr(app.widgetAt(widget.mapToGlobal(point)))))
+            raise AssertionError(dict(reason='Native hover event was not delivered',cursor=str(QCursor.pos()),target=str(widget.mapToGlobal(point)),active=repr(app.activeWindow()),under_pointer=repr(app.widgetAt(widget.mapToGlobal(point))),desktop=native_desktop()))
         finally:widget.removeEventFilter(arrival)
     def wait(predicate, label, timeout=10):
         deadline=time.monotonic()+timeout
