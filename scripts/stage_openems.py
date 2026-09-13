@@ -89,10 +89,18 @@ def source_archive(source, target):
     """Include the exact solver, bindings and fparser source with their licenses."""
     with zipfile.ZipFile(target, 'w', zipfile.ZIP_DEFLATED) as archive:
         for component in (source, source/'CSXCAD', source/'openEMS', source/'fparser'):
-            names = subprocess.check_output(['git', 'ls-files', '-z'], cwd=component).decode().split('\0')
-            for name in filter(None, names):
-                file = component/name
-                if file.is_file(): archive.write(file, file.relative_to(source))
+            entries = subprocess.check_output(['git', 'ls-files', '--stage', '-z'], cwd=component).decode().split('\0')
+            for entry in filter(None, entries):
+                metadata, name = entry.split('\t', 1); mode = metadata.split()[0]
+                file = component/name; relative = file.relative_to(source).as_posix()
+                if mode == '160000': continue  # submodules are archived separately
+                if mode == '120000':
+                    # Read the Git blob: Windows cannot always stat a directory
+                    # symlink even though checkout and compilation succeeded.
+                    link = subprocess.check_output(['git', 'show', 'HEAD:'+name], cwd=component)
+                    info = zipfile.ZipInfo(relative); info.create_system = 3
+                    info.external_attr = 0o120777 << 16; archive.writestr(info, link)
+                else: archive.write(file, relative)
 
 
 def collect_linux_libraries(native):

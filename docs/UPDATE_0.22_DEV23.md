@@ -35,11 +35,11 @@ foundry's material values. Complete supported profiles additionally export match
 solver GDS and absolute-position XML for gds2openEMS/gds2palace, preserving distinct
 GDS datatypes through recorded solver layer numbers. Missing data are reported.
 The optional [Run openEMS backend](OPENEMS.md) now prepares the volume model,
-checks an external solver Python installation, runs separate terminal excitations,
+automatically checks the included or selected solver Python, runs separate terminal excitations,
 and attaches matching results after energy-decay and optional finer-mesh checks.
 It includes progress, cancellation, time/cell limits and retained logs.
 
-The solver is installed separately. The automatic fixture uses two vertical ports
+Desktop packages include the solver and its dedicated Python runtime. The automatic fixture uses two vertical ports
 to a common top reference plane; results include the fixture and are not
 de-embedded. Dielectric loss tangent uses equivalent conductivity at the band
 centre. DC estimates and
