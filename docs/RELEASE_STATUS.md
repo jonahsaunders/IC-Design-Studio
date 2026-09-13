@@ -6,6 +6,9 @@ simulation, plus saved EM exchange and results. It targets `experimental`.
 The PDK profile extension adds a generic material/mapping editor, revision-bound
 reusable profiles and matched solver GDS/XML exchange. Support requires supplied
 physical data; no foundry-specific electrical qualification is inferred.
+The optional [openEMS integration](OPENEMS.md) adds local solver execution with
+an explicit measurement fixture. Its [validation record](validation/openems.json)
+separates synthetic process tests from actual field-solver execution.
 See the [creator guide](INDUCTOR_CREATOR.md) and
 [dev23 validation record](validation/experimental-dev23.json).
 Desktop package and physical/interoperability claims require the new commit's

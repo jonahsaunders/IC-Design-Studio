@@ -51,6 +51,7 @@ class CharacterizationDialog(QDialog):
         buttons=QHBoxLayout();layout.addLayout(buttons)
         for label,callback in (('Edit PDK profile…',self.edit_profile),('Load physical stackup…',self.load_stackup),('Export EM bundle…',self.export),('Import results…',self.import_results)):
             button=QPushButton(label);button.clicked.connect(callback);buttons.addWidget(button)
+        self.run_openems=QPushButton('Run openEMS…');self.run_openems.clicked.connect(self.openems);layout.addWidget(self.run_openems)
         self.plot=CharacterizationPlot();layout.addWidget(self.plot)
         self.summary=QLabel();self.summary.setWordWrap(True);layout.addWidget(self.summary)
         self.table=QTableWidget(0,4);self.table.setHorizontalHeaderLabels(['Frequency (Hz)','L (nH)','R (Ω)','Q'])
@@ -79,7 +80,12 @@ class CharacterizationDialog(QDialog):
                 self.plot.rows=result['rows'];srf=result['srf_hz']
                 bracket=result['srf_bracket_hz']
                 scope=result['evidence'].get('scope','context')
-                self.summary.setText((f'SRF bracket: {bracket[0]:.4g}–{bracket[1]:.4g} Hz · linear estimate {srf:.4g} Hz' if srf is not None else 'Self-resonance is not bracketed in the supplied frequency range.')+'\nCharacterized geometry: '+scope+'\nSource: '+result['evidence']['source'])
+                source=result['evidence']['source']
+                self.summary.setToolTip(source)
+                if result['evidence'].get('solver_run'):
+                    checked=result['evidence']['solver_run'].get('convergence',{}).get('mesh_checked',False)
+                    source='openEMS · two ports to a top reference plane · fixture-inclusive, no de-embedding.\n'+('Two-mesh Z/R agreement checked.' if checked else 'Mesh convergence NOT checked.')
+                self.summary.setText((f'SRF bracket: {bracket[0]:.4g}–{bracket[1]:.4g} Hz · linear estimate {srf:.4g} Hz' if srf is not None else 'Self-resonance is not bracketed in the supplied frequency range.')+'\nCharacterized geometry: '+scope+'\nSource: '+source)
                 rows=result['rows'];step=max(1,math.ceil(len(rows)/1000));shown=rows[::step]
                 if shown[-1] is not rows[-1]:shown.append(rows[-1])
                 self.table.setRowCount(len(shown))
@@ -107,6 +113,19 @@ class CharacterizationDialog(QDialog):
             self.project();self._profile=EMProfileDialog(self.owner,self)
             self._profile.finished.connect(self.refresh);self._profile.show()
         except (ValueError,KeyError) as exc:self.error.setText(str(exc))
+
+    def openems(self):
+        try:
+            from .openems_ui import OpenEMSDialog
+            self.project()
+            if getattr(self,'_openems',None) is not None and not self._openems.closed:
+                self._openems.show();self._openems.raise_();return
+            self._openems=OpenEMSDialog(self);self._openems.show()
+        except (ValueError,KeyError) as exc:self.error.setText(str(exc))
+
+    def done(self,result):
+        if getattr(self,'_openems',None) is not None:self._openems.reject()
+        super().done(result)
 
     def export(self):
         file,_=QFileDialog.getSaveFileName(self,'Export reproducible EM bundle','inductor-em.zip','ZIP (*.zip)')

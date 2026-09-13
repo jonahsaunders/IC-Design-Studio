@@ -90,6 +90,15 @@ def run(w,output):
         with patch('icstudio.em_profile_ui.QFileDialog.getOpenFileName',return_value=(str(profile_file),'JSON')):profile.load()
         assert not profile.error.text(),profile.error.text();profile.reject()
         checks.append('PDK profile editor, explicit layer aliases, invalid-data atomicity, reusable file and undo/redo')
+        from .openems_backend import DRIVER
+        assert DRIVER.is_file(), 'Packaged openEMS driver is missing'
+        em.openems();solver=em._openems;app.processEvents()
+        assert solver.isVisible() and solver.mesh_check.isChecked()
+        solver.python.setText(str(output/'missing-solver-python'));solver.start(False)
+        assert not solver.job.running and 'Choose the Python executable' in solver.status.text()
+        solver.python.clear();solver.status.setText('Select a solver Python environment, then check installation or run.')
+        assert solver.grab().save(str(output/'openems-setup.png'));solver.reject()
+        checks.append('Optional openEMS setup dialog, bundled external driver and missing-installation guard')
         bundle=output/'em-exchange.zip'
         with patch('icstudio.inductor_em_ui.QFileDialog.getSaveFileName',return_value=(str(bundle),'ZIP')):em.export()
         assert bundle.is_file(),em.error.text()

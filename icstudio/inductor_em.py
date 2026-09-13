@@ -203,6 +203,17 @@ def validate_results(data,current):
             srf=frequency[i-1]+(frequency[i]-frequency[i-1])*imag[i-1]/(imag[i-1]-imag[i]);break
     evidence={k:clone(data[k]) for k in ('schema','fingerprint','source','port_definition','frequency_hz','z_real_ohm','z_imag_ohm')}
     if 'scope' in data:evidence['scope']=data['scope']
+    if 'solver_run' in data:
+        run=data['solver_run']
+        if not isinstance(run,dict) or run.get('backend')!='openEMS':
+            raise ValueError('Unsupported structured solver evidence.')
+        for key in ('run_hash','driver_sha256'):
+            value=run.get(key)
+            if not isinstance(value,str) or len(value)!=64 or any(c not in '0123456789abcdef' for c in value):
+                raise ValueError('Solver evidence needs a valid '+key+'.')
+        if len(json.dumps(run,allow_nan=False))>100000:
+            raise ValueError('Structured solver evidence is limited to 100 KB.')
+        evidence['solver_run']=clone(run)
     if any(not math.isfinite(row[key]) for row in rows for key in ('inductance_h','resistance_ohm','q') if row[key] is not None):
         raise ValueError('Derived EM metrics overflow; check sample units and magnitudes.')
     return dict(evidence=evidence,evidence_hash=digest(evidence),rows=rows,srf_hz=srf,srf_bracket_hz=bracket,

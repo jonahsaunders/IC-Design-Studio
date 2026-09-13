@@ -260,8 +260,10 @@ Original, unmodified masks remain in `geometry.gds`.
 
 Coordinates use the original layout origin and 1 nm GDS database unit; XML heights
 are in µm. Use the P/N coordinates and mapped physical names to create the destination
-workflow's excitation port geometry. Port polygons, runnable model scripts and solver
-launch are **not** included yet. No IHP or other foundry stackup is substituted.
+workflow's excitation port geometry. This export does not include a runnable
+Mühlhaus workflow. The optional [Run openEMS integration](OPENEMS.md) uses the
+direct Python API with its own explicit port fixture. No IHP or other foundry
+stackup is substituted.
 Installing the workflow package alone does not install its field solver.
 
 The schema-2 manifest fingerprints the PDK identity, scope, geometry, context,

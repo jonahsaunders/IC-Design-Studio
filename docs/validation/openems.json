@@ -1,0 +1,252 @@
+{
+  "version": "0.22.0.dev23",
+  "base_commit": "6327f83906a20734e9ec2a3be623af82acaa7a0e",
+  "status": "local_checks_passed",
+  "core_suite": {
+    "command": "python -m unittest discover -s tests -v (also repeated with a guarded file-based unittest runner)",
+    "total": 692,
+    "passed": 680,
+    "skipped": 12,
+    "status": "passed"
+  },
+  "new_regressions": {
+    "core": 6,
+    "qt_subprocess": 5,
+    "command": "QT_QPA_PLATFORM=offscreen python -m unittest discover -s tests -p test_openems.py -v",
+    "covers": [
+      "All five shapes, four rotations, mirrors, exact physical masks and holes",
+      "PDK aliases, missing materials, port obstruction and units",
+      "Cancelled preparation and immutable model identity",
+      "Energy decay, nonconverged zero exit, excitation and frequency identity",
+      "Independent two-port conversion, mesh-loss comparison and evidence integrity",
+      "Real QProcess probe, four stages, responsive Qt event loop, cancellation, timeout, close, failures, retry and stale context/project rejection"
+    ]
+  },
+  "desktop": {
+    "status": "passed",
+    "command": "QT_QPA_PLATFORM=offscreen python tests/gui_inductor.py --out build/openems-desktop-review",
+    "new_check": "Packaged driver presence, optional solver dialog and missing executable guard; includes previous inductor workflow"
+  },
+  "native": {
+    "status": "passed",
+    "command": "python tests/probe_openems.py --python /path/to/solver/python --out build/native-em-smoke",
+    "engine": "openEMS v0.0.35 (unmodified Ubuntu Jammy binary)",
+    "python_binding": "openEMS 0.0.33; CSXCAD 0.6.2",
+    "python": "3.10.21",
+    "numpy": "1.23.5",
+    "matplotlib": "3.7.5",
+    "h5py": "3.10.0",
+    "scope": "isolated",
+    "geometry": "one-turn square; 4 um winding width; 2 um spacing; 12 um opening; 2 um via cuts",
+    "materials": "synthetic 1e5 S/m conductor/via layers in vacuum slabs; not PDK data",
+    "frequency_hz": [
+      500000000000.0,
+      1000000000000.0
+    ],
+    "samples": 11,
+    "requested_energy_db": -30,
+    "solver_run": {
+      "backend": "openEMS",
+      "run_hash": "6cd26e2bec4cbc292588419dda8f706bee0303d2908c6995db748856300491d5",
+      "driver_sha256": "bbd1bb46e59294df34afdf9d217f013cca17fe09aa4f62feb8c42be418e169c9",
+      "fixture": "Two vertical 50-ohm ports from P and N to a common top PEC reference plane; differential Z = Z11 + Z22 - Z12 - Z21. Fixture-inclusive; no port de-embedding. Five other boundaries use MUR absorption.",
+      "ports": [
+        {
+          "name": "P",
+          "start_um": [
+            -9.0,
+            -17.0,
+            7
+          ],
+          "stop_um": [
+            -7.0,
+            -15.0,
+            15.0
+          ]
+        },
+        {
+          "name": "N",
+          "start_um": [
+            -17.0,
+            -3.0,
+            7
+          ],
+          "stop_um": [
+            -15.0,
+            -1.0,
+            15.0
+          ]
+        }
+      ],
+      "bounds_um": [
+        [
+          -23.0,
+          -23.0,
+          -10.0
+        ],
+        [
+          15.0,
+          15.0,
+          17.0
+        ]
+      ],
+      "material_model": "Uniform isotropic volumes. Dielectric loss tangent is represented by equivalent constant conductivity at the band centre, added to declared conductivity.",
+      "loss_reference_hz": 750000000000.0,
+      "settings": {
+        "f_start_hz": 500000000000.0,
+        "f_stop_hz": 1000000000000.0,
+        "samples": 11,
+        "mesh_um": 2.0,
+        "margin_um": 5.0,
+        "reference_clearance_um": 5.0,
+        "end_db": -30.0,
+        "max_steps": 1000000,
+        "max_cells": 2000000,
+        "timeout_s": 600,
+        "threads": 1,
+        "mesh_check": false,
+        "mesh_tolerance": 0.05
+      },
+      "convergence": {
+        "energy_db": {
+          "base-1": -45.45,
+          "base-2": -43.89
+        },
+        "mesh_checked": false
+      },
+      "stages": {
+        "base-1": {
+          "versions": {
+            "python": "3.10.21",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.33",
+            "CSXCAD": "0.6.2"
+          },
+          "cells": 43248,
+          "mesh_lines": [
+            53,
+            51,
+            16
+          ]
+        },
+        "base-2": {
+          "versions": {
+            "python": "3.10.21",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.33",
+            "CSXCAD": "0.6.2"
+          },
+          "cells": 43248,
+          "mesh_lines": [
+            53,
+            51,
+            16
+          ]
+        }
+      }
+    },
+    "results": [
+      {
+        "frequency_hz": 500000000000.0,
+        "resistance_ohm": 116.2479784119419,
+        "inductance_h": 3.27878405885787e-11,
+        "q": 0.8860888638866041
+      },
+      {
+        "frequency_hz": 535886731268.1474,
+        "resistance_ohm": 118.32596833536195,
+        "inductance_h": 3.3064632780082214e-11,
+        "q": 0.9408849217166251
+      },
+      {
+        "frequency_hz": 574349177498.517,
+        "resistance_ohm": 121.82687484886694,
+        "inductance_h": 3.3525083511221986e-11,
+        "q": 0.9930763435592674
+      },
+      {
+        "frequency_hz": 615572206672.4586,
+        "resistance_ohm": 126.71421907950734,
+        "inductance_h": 3.3971088101350306e-11,
+        "q": 1.0369145716070334
+      },
+      {
+        "frequency_hz": 659753955386.446,
+        "resistance_ohm": 132.80319162168706,
+        "inductance_h": 3.436643309243749e-11,
+        "q": 1.072723555892636
+      },
+      {
+        "frequency_hz": 707106781186.5475,
+        "resistance_ohm": 140.05991499210376,
+        "inductance_h": 3.476144252845345e-11,
+        "q": 1.102678235411934
+      },
+      {
+        "frequency_hz": 757858283255.2002,
+        "resistance_ohm": 148.75849872358492,
+        "inductance_h": 3.523735393026985e-11,
+        "q": 1.127948761965894
+      },
+      {
+        "frequency_hz": 812252396356.2349,
+        "resistance_ohm": 159.6402583468713,
+        "inductance_h": 3.586794923316458e-11,
+        "q": 1.1466608745755624
+      },
+      {
+        "frequency_hz": 870550563296.1249,
+        "resistance_ohm": 174.1340199479729,
+        "inductance_h": 3.666143847833518e-11,
+        "q": 1.151594930919927
+      },
+      {
+        "frequency_hz": 933032991536.8059,
+        "resistance_ohm": 194.17438052303675,
+        "inductance_h": 3.7416843897730354e-11,
+        "q": 1.1296712926939017
+      },
+      {
+        "frequency_hz": 1000000000000.0,
+        "resistance_ohm": 218.55048002765048,
+        "inductance_h": 3.773683174617113e-11,
+        "q": 1.0849095675152594
+      }
+    ],
+    "srf_hz": null,
+    "qualification": "Synthetic native execution smoke test; no PDK, boundary or RF accuracy qualification",
+    "limitations": [
+      "Two port runs; native finer-mesh agreement was not assessed",
+      "No boundary/reference-plane independence or de-embedding assessment",
+      "No foundry PDK, measured inductor or Windows native-solver qualification",
+      "Broadband vacuum test stalled at -13.93 dB; narrower Gaussian band reached decay target; stalled results were rejected",
+      "Early compatibility test rejected NumPy 1.26; the old binding requires compatible NumPy"
+    ],
+    "base-1": {
+      "iterations": 22320,
+      "native_grid_cells": 43248,
+      "wall_s": 33.53,
+      "log_sha256": "21dc366bac514cab1a112e8ddd5feaca5e0bda7d03a0b04e4f89861e9557dd24"
+    },
+    "base-2": {
+      "iterations": 22320,
+      "native_grid_cells": 43248,
+      "wall_s": 33.2,
+      "log_sha256": "8129abafb5d985cc95440d58406139f9b978cba2b7b36cb072d0d141c90f0b2a"
+    }
+  },
+  "source_sha256": {
+    "icstudio/openems_backend.py": "2242af22ce30b60952f27b520c969b809109e9c695fb7a1993c6a0ad4fba042c",
+    "icstudio/openems_ui.py": "07b4094f8c392e515c878b7112f159b27f199ace19fa7667d23c5033064009fd",
+    "icstudio/assets/openems/driver.py": "bbd1bb46e59294df34afdf9d217f013cca17fe09aa4f62feb8c42be418e169c9",
+    "icstudio/inductor_em.py": "5f07f47c809a78f4477bfc5faf6b15b245633f8e773feb7c7003a652a676ec7f",
+    "tests/probe_openems.py": "8711fe5a090e4a0232364e2b9d3c7d7675ade14e31955dbc26fe32e2dc4d269b"
+  },
+  "documentation": {
+    "version": "0.22.0.dev23",
+    "status": "passed",
+    "documents": 78,
+    "local_links": 353,
+    "gallery_examples": 9
+  }
+}

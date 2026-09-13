@@ -146,7 +146,7 @@ def capabilities(tech):
         geometry = False; kinds = {}; reason = str(exc)
     issues = readiness(tech, tech.get('em_stackup'), kinds)
     return dict(geometry=geometry, geometry_reason=reason, profile_ready=not issues,
-                profile_issues=issues, solver_integrated=False)
+                profile_issues=issues, solver_integrated=True)
 
 
 def solver_stackup(stack, mapping):
