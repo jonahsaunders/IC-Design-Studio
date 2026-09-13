@@ -63,7 +63,8 @@ for name in suite + system:
         text += 'exec "$root/usr/bin/'+actual+'" --sysroot="${root:-/}" -B"$root/usr/bin/" "$@"\n'
     else:
         if name in ('python3','klayout','openroad'): text += 'export PYTHONHOME="$root/usr"\n'
-        text += 'exec "$root/usr/bin/'+name+'" "$@"\n'
+        executable = 'usr/lib/klayout/klayout' if name=='klayout' else 'usr/bin/'+name
+        text += 'exec "$root/'+executable+'" "$@"\n'
     (bindir/name).write_text(text); (bindir/name).chmod(0o755)
 
 # Replace absolute links with equivalent relative links so safe extraction to a

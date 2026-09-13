@@ -295,6 +295,11 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: ./scripts/verify_windows.ps1
+      - name: Qualify included digital engines through the frozen desktop
+        timeout-minutes: 20
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+        run: python scripts/verify_frozen_digital.py
       - name: Verify frozen Linux app
         if: runner.os == 'Linux'
         env:
@@ -360,5 +365,6 @@ jobs:
             build/native-hierarchy-evidence
             build/openems-native-evidence/report.json
             build/openems-native-evidence/*.log
+            build/digital-frozen-evidence
             build/distribution-evidence
             build/verification-0.8.0

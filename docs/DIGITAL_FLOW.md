@@ -58,6 +58,8 @@ Docker, then `python scripts/qualify_digital_runtime.py` on each target OS. User
 do not need Docker. `scripts/package.py` refuses a missing, damaged or unqualified
 payload. `ICSTUDIO_DIGITAL_PAYLOAD` and `ICSTUDIO_DIGITAL_STATE` let development/CI
 use isolated package and installation directories.
+Headless installs can use `ICDesignStudio --cli digital setup`; readiness is
+available as JSON with `ICDesignStudio --cli digital status`.
 
 ## A block from RTL to layout
 

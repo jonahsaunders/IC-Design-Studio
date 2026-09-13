@@ -45,13 +45,16 @@ def manifest():
     return data
 
 
-def wsl(args, timeout=60):
+def wsl(args, timeout=60, empty_list_ok=False):
     executable = shutil.which('wsl.exe')
     if not executable: raise ValueError('Windows Linux support is not enabled. Use Enable Windows Linux support, then restart Windows and retry setup.')
     result = subprocess.run([executable]+list(args), capture_output=True, timeout=timeout,
                             creationflags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0)
     def decode(data):
         return data.decode('utf-16-le' if b'\x00' in data else 'utf-8',errors='replace').strip().lstrip('\ufeff')
+    # WSL returns a nonzero code when no distributions are installed. Import is
+    # still the next operation, and reports a real feature/kernel error itself.
+    if result.returncode and empty_list_ok and list(args)==['--list','--quiet']: return ''
     if result.returncode: raise ValueError('Windows Linux support: '+decode(result.stdout+result.stderr)[-4000:])
     return decode(result.stdout)
 
@@ -175,7 +178,7 @@ def setup(progress=lambda message: None):
             raise ValueError('The included digital archive is missing or damaged. Repair the application installation.')
         if runtime['kind']=='wsl':
             progress('Preparing Studio’s private Windows Linux environment…')
-            distributions = wsl(['--list','--quiet']).splitlines()
+            distributions = wsl(['--list','--quiet'],empty_list_ok=True).splitlines()
             target = state/'wsl'/runtime['distro']; owner = target.with_suffix('.owner.json')
             if runtime['distro'] in [line.strip() for line in distributions]:
                 if not owner.is_file() or json.loads(owner.read_text()).get('sha256') != data['sha256']:
@@ -183,9 +186,7 @@ def setup(progress=lambda message: None):
             else:
                 target.parent.mkdir(parents=True,exist_ok=True)
                 if target.exists():
-                    if not owner.is_file() or json.loads(owner.read_text()).get('sha256')!=data['sha256']:
-                        raise ValueError('The proposed WSL installation folder is not owned by Studio: '+str(target))
-                    target.rename(target.with_name(target.name+'.interrupted-'+uuid.uuid4().hex))
+                    raise ValueError('A WSL installation folder already exists but its distribution was not listed. Restore Windows Linux support and retry. The folder was retained: '+str(target))
                 atomic_write(owner,json.dumps({'sha256':data['sha256']}))
                 wsl(['--import',runtime['distro'],str(target),str(archive),'--version','2'],timeout=900)
             wsl(['--distribution',runtime['distro'],'--exec','/bin/true'])

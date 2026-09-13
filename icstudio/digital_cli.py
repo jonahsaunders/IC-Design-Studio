@@ -10,6 +10,8 @@ def main(argv=None):
     from .model import atomic_write, load_project, save_project
     parser = argparse.ArgumentParser(prog='ICDesignStudio --cli digital')
     commands = parser.add_subparsers(dest='command', required=True)
+    commands.add_parser('setup',help='Install and verify the included digital runtime')
+    commands.add_parser('status',help='Report included runtime readiness as JSON')
     example = commands.add_parser('example'); example.add_argument('--output', required=True)
     example.add_argument('--design',choices=['counter','uart'],default='counter')
     capture = commands.add_parser('import'); capture.add_argument('manifest'); capture.add_argument('--output', required=True)
@@ -26,6 +28,10 @@ def main(argv=None):
     run.add_argument('--timeout',type=int,help='Per-command time limit in seconds')
     args = parser.parse_args(argv)
     try:
+        from . import digital_runtime
+        if args.command=='setup': return digital_runtime.main()
+        if args.command=='status':
+            info=digital_runtime.status(); print(json.dumps(info,indent=2)); return 0 if info['state']=='ready' else 1
         if args.command in ('example', 'import'):
             project = digital.counter_project()
             if args.command=='example' and args.design=='uart':
@@ -34,6 +40,7 @@ def main(argv=None):
             if args.command == 'import':
                 project['digital'] = digital.read_manifest(args.manifest)
                 project['name'] = project['digital']['top']
+            digital_runtime.defaults(project)
             save_project(project, args.output)
             print('Saved '+args.output); return 0
         project = load_project(args.project)
@@ -53,6 +60,7 @@ def main(argv=None):
         if args.timeout is not None:config['timeout']=args.timeout
         set_config(project,cid,config)
         tools = dict(item.split('=', 1) for item in args.tool)
+        if not any(tools.values()): digital_runtime.defaults(project,cid)
         job = digital_flow.prepare(project, args.stage, args.simulator, tools, cid, args.upstream, args.orfs)
         root = Path(args.output).resolve()
         if root.exists() and any(root.iterdir()):

@@ -214,6 +214,10 @@ class DigitalFlowWindow(QDockWidget):
         if cell_config(self.studio.project,self.cell_id) != self.base:
             raise ValueError('Saved digital sources changed. Reload them before applying this draft.')
         self.sync_file(); self.config.update(top=self.top.text().strip(), testbench=self.testbench.text().strip())
+        if 'platform' not in self.config:
+            from .digital_runtime import installed, platform
+            runtime=installed()
+            if runtime: self.config['platform']=platform(runtime)
         digital.validate_config(self.config)
         if not self.studio.flush_inspector(): return False
         candidate = clone(self.config)
