@@ -331,6 +331,19 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
+          name: desktop-diagnostics-${{ runner.os }}
+          path: |
+            build/digital-frozen-evidence
+            build/windows-evidence/install.log
+            build/windows-evidence/uninstall.log
+            build/windows-evidence/windows-release.json
+            build/windows-evidence/dpi-*/*.json
+            build/windows-evidence/dpi-*/experimental/*.png
+            build/native-experimental-evidence/**/*.json
+            build/native-experimental-evidence/**/*.png
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
           name: ICDesignStudio-${{ matrix.os }}
           path: |
             dist/ICDesignStudio
