@@ -14,7 +14,13 @@ def read_result(path,project_id,require_complete=True):
     result=json.loads(path.read_text());job=json.loads((path.parent/'input.json').read_text())
     if result.get('project_id')!=project_id or job['project']['id']!=project_id:raise ValueError('Result belongs to a different project.')
     if result.get('cell_id')!=job['cell'] or result.get('design_hash')!=design_digest(job['project']):raise ValueError('Result does not match its saved input.')
-    if not isinstance(result.get('traces'),dict) or not isinstance(result.get('x'),list):raise ValueError('Invalid result structure.')
+    if job.get('settings',{}).get('type')=='digital':
+        from .digital_flow import validate_result
+        from .digital import source_hash
+        validate_result(result,path.parent)
+        if result.get('settings')!=job['settings'] or result['digital_result'].get('source_hash')!=source_hash(job['project']['digital']):
+            raise ValueError('Digital result does not match its saved settings or sources.')
+    elif not isinstance(result.get('traces'),dict) or not isinstance(result.get('x'),list):raise ValueError('Invalid result structure.')
     if result.get('xschem_cases') or result.get('analysis_cases'):
         # Raw captures travel with their saved job; do not retain a previous
         # computer's absolute run directory when reopening copied results.

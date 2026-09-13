@@ -5,6 +5,9 @@ from .model import load_project,atomic_write,clone,validate,uid,save_project
 
 def main(argv=None):
     argv=list(sys.argv[1:] if argv is None else argv)
+    if argv and argv[0]=='digital':
+        from .digital_cli import main as digital
+        return digital(argv[1:])
     from .interop_cli import COMMANDS as INTEROP_COMMANDS,main as interop
     if argv and argv[0] in INTEROP_COMMANDS:return interop(argv)
     from .feature_cli import COMMANDS,main as features

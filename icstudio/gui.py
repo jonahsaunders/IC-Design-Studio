@@ -589,8 +589,9 @@ from .interoperability_ui import InteroperabilityMixin
 
 from .layout_collaboration_ui import CollaborationMixin
 from .live_ui import LiveCollaborationMixin
+from .digital_ui import DigitalMixin
 
-class Studio(LiveCollaborationMixin,CollaborationMixin,InteroperabilityMixin,LayoutDevelopmentMixin,OnboardingMixin,NativeWorkspaceMixin,XschemWorkflowMixin,VerificationWorkspaceMixin,PhysicalWorkspaceMixin,EngineeringWorkspaceMixin,SimulationWorkspaceMixin,HumanWorkspaceMixin,ConsistencyWorkspaceMixin,CaptureWorkspaceMixin,EditorWorkspaceMixin, LayoutToolsMixin, AnalogMixin, HierarchyMixin, SiliconMixin, LifecycleMixin, LayoutMixin, ProjectMixin, SchematicMixin, FeatureMixin, WorkspaceMixin, StudioCore):
+class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,InteroperabilityMixin,LayoutDevelopmentMixin,OnboardingMixin,NativeWorkspaceMixin,XschemWorkflowMixin,VerificationWorkspaceMixin,PhysicalWorkspaceMixin,EngineeringWorkspaceMixin,SimulationWorkspaceMixin,HumanWorkspaceMixin,ConsistencyWorkspaceMixin,CaptureWorkspaceMixin,EditorWorkspaceMixin, LayoutToolsMixin, AnalogMixin, HierarchyMixin, SiliconMixin, LifecycleMixin, LayoutMixin, ProjectMixin, SchematicMixin, FeatureMixin, WorkspaceMixin, StudioCore):
     """Standalone desktop application with the document-focused workspace."""
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
@@ -600,6 +601,8 @@ class Studio(LiveCollaborationMixin,CollaborationMixin,InteroperabilityMixin,Lay
         install_test_plans(self)
         from .design_workflow import install as install_workflow
         install_workflow(self)
+        from .digital_ui import install as install_digital
+        install_digital(self)
         self.reindex_commands()
     connect = SchematicMixin.connect
     move = LayoutDevelopmentMixin.move

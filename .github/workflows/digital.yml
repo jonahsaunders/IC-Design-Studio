@@ -1,0 +1,38 @@
+name: Digital flow
+on:
+  push:
+    branches: [main, experimental]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  digital:
+    runs-on: ubuntu-24.04
+    env:
+      QT_QPA_PLATFORM: offscreen
+      PYTHONPATH: tests
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install digital engines and desktop dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iverilog verilator yosys libegl1 libopengl0
+          python -m pip install -r requirements.txt
+          iverilog -V
+          verilator --version
+          yosys -V
+      - name: Verify digital inputs, real engines and analog compatibility
+        run: python -m unittest tests.test_digital tests.test_core tests.test_lifecycle tests.test_workflows -v
+      - name: Verify desktop digital workflow
+        run: python tests/gui_digital.py
+      - name: Check release documentation
+        run: python scripts/check_release.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: digital-flow-evidence
+          path: build/digital-ui

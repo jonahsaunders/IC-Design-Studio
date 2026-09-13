@@ -1,0 +1,125 @@
+{
+  "schema": 1,
+  "id": "c846082dff1d41eb",
+  "name": "Digital counter",
+  "revision": 0,
+  "top": "1f7bdc28978541ec",
+  "created": "2026-09-13T14:48:13+00:00",
+  "modified": "2026-09-13T14:48:13+00:00",
+  "pdk": {
+    "name": "Generic teaching process",
+    "revision": "generic-1",
+    "status": "unqualified",
+    "dbu_um": 0.001,
+    "grid": 5,
+    "layers": [
+      {
+        "name": "active",
+        "gds": 1,
+        "datatype": 0,
+        "color": "#64c77b",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "poly",
+        "gds": 2,
+        "datatype": 0,
+        "color": "#f18c89",
+        "width": 150,
+        "space": 180
+      },
+      {
+        "name": "contact",
+        "gds": 3,
+        "datatype": 0,
+        "color": "#d2d9de",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "metal1",
+        "gds": 4,
+        "datatype": 0,
+        "color": "#68a6f4",
+        "width": 200,
+        "space": 200
+      },
+      {
+        "name": "via1",
+        "gds": 5,
+        "datatype": 0,
+        "color": "#ddc086",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "metal2",
+        "gds": 6,
+        "datatype": 0,
+        "color": "#b49cef",
+        "width": 250,
+        "space": 250
+      },
+      {
+        "name": "nwell",
+        "gds": 7,
+        "datatype": 0,
+        "color": "#d2ab6a",
+        "width": 1000,
+        "space": 500
+      }
+    ]
+  },
+  "cells": [
+    {
+      "id": "1f7bdc28978541ec",
+      "name": "counter",
+      "ports": [],
+      "devices": [],
+      "shapes": []
+    }
+  ],
+  "analysis": {
+    "type": "tran",
+    "stop": "100u",
+    "step": "200n",
+    "start": "10",
+    "end": "10meg",
+    "points": 150,
+    "source": "V1",
+    "dc_start": "0",
+    "dc_stop": "1.8",
+    "dc_step": "0.01",
+    "temperature": 27
+  },
+  "waivers": [],
+  "digital": {
+    "version": 1,
+    "top": "counter",
+    "testbench": "counter_tb",
+    "include_dirs": [
+      "."
+    ],
+    "defines": {},
+    "waveform": "wave.vcd",
+    "timeout": 60,
+    "files": [
+      {
+        "path": "counter.sv",
+        "role": "rtl",
+        "text": "`timescale 1ns/1ps\nmodule counter(input wire clk, input wire reset, output reg [3:0] count);\n  always @(posedge clk)\n    if (reset) count <= 0;\n    else count <= count + 1'b1;\nendmodule\n"
+      },
+      {
+        "path": "counter_tb.sv",
+        "role": "testbench",
+        "text": "`timescale 1ns/1ps\nmodule counter_tb;\n  reg clk = 0;\n  reg reset = 1;\n  wire [3:0] count;\n  integer expected;\n  counter dut(.clk(clk), .reset(reset), .count(count));\n  always #5 clk = ~clk;\n  initial begin\n    $dumpfile(\"wave.vcd\");\n    $dumpvars(0, counter_tb);\n    @(negedge clk);\n    if (count !== 0) $fatal(1, \"Reset failed\");\n    reset = 0;\n    for (expected = 1; expected <= 20; expected = expected + 1) begin\n      @(negedge clk);\n      if (count !== expected[3:0]) $fatal(1, \"Counter mismatch\");\n    end\n    $display(\"Counter checks passed: reset, increment and wraparound\");\n    $finish;\n  end\n  initial begin #1000; $fatal(1, \"Testbench timed out\"); end\nendmodule\n"
+      },
+      {
+        "path": "constraints.sdc",
+        "role": "constraint",
+        "text": "create_clock -name core_clk -period 10 [get_ports clk]\nset_input_delay 1 -clock core_clk [get_ports reset]\nset_output_delay 1 -clock core_clk [get_ports count*]\n"
+      }
+    ]
+  }
+}
