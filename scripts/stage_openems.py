@@ -137,7 +137,10 @@ def collect_linux_libraries(native):
 
 def verify(target, files=True):
     record = json.loads((target/'runtime.json').read_text(encoding='utf-8'))
-    if record['recipe_revision'] != REVISION or record['platform'] != platform.system():
+    if (record['recipe_revision'] != REVISION or record['platform'] != platform.system()
+            or record.get('project_commit') != PROJECT_COMMIT
+            or record.get('python_version') != PYTHON_VERSION
+            or record.get('python_sha256') != PYTHON_HASHES.get(platform.system())):
         raise ValueError('Runtime recipe or platform changed')
     if files:
         for name, digest in record['files'].items():
@@ -157,6 +160,15 @@ def stage(target, cache):
     system = platform.system()
     if system not in PYTHON_HASHES or platform.machine().lower() not in ('amd64', 'x86_64'):
         raise ValueError('Bundled openEMS currently supports Windows x64 and Ubuntu 24.04+ x86_64 builds.')
+    # Repair only a directory identified as one of our own runtimes. A mistyped
+    # --target must not erase an unrelated, nonempty folder after the build.
+    if target.exists() and (not target.is_dir() or any(target.iterdir())):
+        try:
+            existing = json.loads((target/'runtime.json').read_text(encoding='utf-8'))
+        except (OSError, ValueError):
+            raise ValueError('Use an empty target folder or an existing IC Design Studio openEMS runtime.') from None
+        if not isinstance(existing, dict) or existing.get('project_commit') != PROJECT_COMMIT or 'recipe_revision' not in existing:
+            raise ValueError('The target belongs to another installation. Choose an empty folder.')
     cache.mkdir(parents=True, exist_ok=True)
     try:
         verify(target); print('Included openEMS runtime is ready.', flush=True); return target

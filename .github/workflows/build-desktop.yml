@@ -55,6 +55,7 @@ jobs:
             build/openems-runtime
             build/openems-downloads
           key: openems-${{ runner.os }}-${{ hashFiles('scripts/stage_openems.py', 'icstudio/openems_runtime.py') }}
+          restore-keys: openems-${{ runner.os }}-
       - name: Prepare included open-source openEMS and Python
         timeout-minutes: 30
         run: python scripts/stage_openems.py

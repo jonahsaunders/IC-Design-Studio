@@ -39,6 +39,16 @@ class RuntimeTests(unittest.TestCase):
             if os.name != 'nt': self.assertEqual(env['LD_LIBRARY_PATH'], str(root/'native/lib')+os.pathsep+str(root/'python/lib'))
             self.assertEqual(contaminated['PYTHONHOME'], 'app-python')
 
+    def test_runtime_builder_preserves_unrelated_target_folder(self):
+        from scripts.stage_openems import stage
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder); target = root/'My files'; target.mkdir()
+            file = target/'keep.txt'; file.write_text('unrelated user content')
+            with self.assertRaisesRegex(ValueError, 'empty target'):
+                stage(target, root/'cache')
+            self.assertEqual(file.read_text(), 'unrelated user content')
+            self.assertFalse((root/'cache').exists())
+
     def test_custom_interpreter_keeps_its_native_environment(self):
         with patch('sys.frozen', True, create=True):
             env = runtime.environment('/custom/python', dict(LD_LIBRARY_PATH='app', LD_LIBRARY_PATH_ORIG='custom', OPENEMS_INSTALL_PATH='custom-solver'))
