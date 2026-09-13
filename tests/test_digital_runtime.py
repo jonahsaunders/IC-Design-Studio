@@ -80,6 +80,23 @@ class DigitalRuntimeTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError,'proof failed'): runtime.setup()
         self.assertFalse(list(self.state.glob('ready-*.json')))
 
+    @unittest.skipIf(os.name=='nt','Unix executable permissions are restored inside Linux')
+    def test_native_flow_restores_scripts_after_windows_transfer(self):
+        from icstudio.digital_platform import pin_flow
+        flow=self.root/'flow'; (flow/'scripts').mkdir(parents=True)
+        (flow/'Makefile').write_text('all:\n\t./scripts/run.sh\n')
+        script=flow/'scripts/run.sh'; script.write_text('#!/bin/sh\nprintf ready\n'); script.chmod(0o600)
+        data=flow/'scripts/data.txt'; data.write_text('not executable'); data.chmod(0o600)
+        captured=pin_flow(flow)
+        backend.restore_flow_permissions({'settings':{'flow':captured}})
+        self.assertEqual(subprocess.check_output([str(script)]),b'ready')
+        self.assertEqual(data.stat().st_mode & 0o111,0)
+        self.assertEqual(pin_flow(flow)['fingerprint'],captured['fingerprint'])
+        script.write_text('#!/bin/sh\nprintf changed\n'); script.chmod(0o600)
+        with self.assertRaisesRegex(ValueError,'changed'):
+            backend.restore_flow_permissions({'settings':{'flow':captured}})
+        self.assertEqual(script.stat().st_mode & 0o111,0)
+
     def test_ready_record_expires_when_backend_changes(self):
         data=self.package(); location=runtime.location(data)
         # The test does not create or start a WSL distribution.

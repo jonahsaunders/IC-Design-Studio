@@ -60,6 +60,22 @@ def cancel(directory):
     atomic_write(Path(directory)/'digital-cancel','cancel\n')
 
 
+def restore_flow_permissions(job):
+    """Restore script execution after Windows copies inputs through the WSL share.
+
+    Win32 copy/stat cannot preserve Unix executable bits. Only verified, staged
+    flow scripts with an interpreter declaration receive owner execute access.
+    """
+    from .digital_platform import verify_flow
+    flow = job['settings'].get('flow')
+    if not flow: return
+    verify_flow(flow)
+    for record in flow['files']:
+        path = Path(flow['root'])/record['path']
+        with path.open('rb') as stream: script = stream.read(2)==b'#!'
+        if script: path.chmod(path.stat().st_mode | 0o100)
+
+
 def dispatch(job, directory, progress):
     from . import digital_flow, digital_runtime
     from .engines import execute
@@ -136,6 +152,7 @@ def native_run(work):
     from . import digital_flow
     work = Path(work); job = json.loads((work/'native-input.json').read_text())
     os.environ['ICSTUDIO_DIGITAL_NATIVE']='1'
+    restore_flow_permissions(job)
     job['environment'] = digital_flow.environment(job)
     atomic_write(work/'native-input.json',json.dumps(job,indent=2))
     output = work/'output'; output.mkdir()
