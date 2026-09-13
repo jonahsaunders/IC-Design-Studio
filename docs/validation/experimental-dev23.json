@@ -1,0 +1,72 @@
+{
+  "version": "0.22.0.dev23",
+  "base_commit": "cf6c166efa9c220e30952b018aa30eb5f0b7d843",
+  "target_branch": "experimental",
+  "status": "local_checks_passed",
+  "core_suite": {
+    "command": "python -m unittest discover -s tests -v",
+    "total": 677,
+    "passed": 665,
+    "skipped": 12
+  },
+  "inductor_coverage": {
+    "discovered_tests": 39,
+    "isolated_qt_worker_tests": 2,
+    "scope": [
+      "Five-shape mask continuity, grid, DRC, enclosure and transformed GDS/OASIS equivalence",
+      "Mohan equation transcription and independent rectangular Neumann quadrature",
+      "Target-L bounds, tolerance reporting, cancellation and distinct candidates",
+      "Declared DC resistance and shared SPICE/solver RL response; persistence and stale rejection",
+      "EM exact geometry/context/ports, impedance and Touchstone conversion, bounded SRF and result provenance",
+      "Qt stale completion, close/cancellation, error recovery and heartbeat responsiveness"
+    ]
+  },
+  "desktop": {
+    "platform": "offscreen",
+    "inductor_command": "QT_QPA_PLATFORM=offscreen python tests/gui_inductor.py --out build/inductor-final",
+    "inductor": {
+      "status": "passed",
+      "checks": [
+        "Tools menu, compact live preview, dimensions/orientation, invalid-input guard, linked labelled L and single-step undo/redo",
+        "Reopen from layout and placement checklist, stable regeneration identities, explicit estimate opt-in and saved recipe reload",
+        "Apply-time layer lock and stale design guards leave the design unchanged",
+        "Five shape previews, dimensions, model selection and rectangle aspect control",
+        "Responsive bounded target search, candidate selection, cancellation, explicit fixes and series-RL opt-in",
+        "EM bundle export, imported L/Q/SRF, project persistence and stale material-data rejection"
+      ],
+      "platform": "offscreen",
+      "estimated_h": 4.366216832859381e-09,
+      "shape_count": 29
+    },
+    "experimental_command": "QT_QPA_PLATFORM=offscreen python tests/gui_experimental.py --out build/dev23-desktop",
+    "experimental_status": "passed"
+  },
+  "source_hashes": {
+    "icstudio/inductor.py": "90a8ab2a870a9a86520b2e75fc3127a047a2a8c808df37a1bc3719592283d9c7",
+    "icstudio/inductor_design_probe.py": "869841cc947100592e8b872b85c8a562a0aa583bd51c5c80b693fc5f9559dd10",
+    "icstudio/inductor_electrical.py": "085bc54da2475a08230ca820f0108e38e58fa6d4e71fbf96d827ca4b23585bde",
+    "icstudio/inductor_em.py": "3d3bbf1cea8e169a27520db6fe1fd1622fd40ee1ee5eff4159adca501269a409",
+    "icstudio/inductor_em_ui.py": "c30fdee4e3edabf5a747a4701e16b5a9ba86c723bbbe86792690cd0c4d63e76e",
+    "icstudio/inductor_jobs.py": "40fe311cbd365f1c46436a006851511b53ff3f8e41ade40e442ab2af9a12efe9",
+    "icstudio/inductor_probe.py": "9da25c7cc63034e5e98f41f5681ac4010ef294fc0583f4b69eb0fe296ffc5fee",
+    "icstudio/inductor_shapes.py": "5f59d502573d1db73a2eba3094f8aa451c659dd10588102cc87fe0cf3100ef79",
+    "icstudio/inductor_synthesis.py": "cba28de24986d82a1d9872588a594a1dd7d581014ff7bea45fc591fb2b0d037f",
+    "icstudio/inductor_ui.py": "f2a9b81a9470679bd98905af51ea310bd16319620a370cd48b8f0b64c9de8de6",
+    "icstudio/interchange.py": "a9b54abbd6dc7f24f8af98b3e2702463787cbd372ab182e92c0cc85415ae5921",
+    "icstudio/parametric.py": "7b1d87d009302f881b57d155ac6125eefaba1bc4b8975f0adc9f684cdbbac1c6",
+    "icstudio/simulation.py": "145d938166250d00b531cfbbb86173a9231f7f9e748732d7fd7fec3af44b33ac",
+    "tests/gui_inductor.py": "91263638a00ec2d7744d7c16208464a22d836658f0777d8a6e9a8ed435ca95ab",
+    "tests/gui_inductor_jobs.py": "535795bca58b9b4b906f346f90bb0abfb77dea67ae45b04164f05343d287f6d6",
+    "tests/test_inductor.py": "1895a55a495d5cc8ab8485b08eabc2f6866c2095bbf4cbaa5556a65401a9a89c",
+    "tests/test_inductor_design.py": "7b83f85c10bd3e77981f21e7ddb2cb40e00d8877af0afa5b75045c803c7c220c",
+    "tests/test_inductor_em.py": "dc70d6df659e1fc95a2459dfec05a230bdfa63db48e011b55b528b764ecec405",
+    "tests/test_inductor_jobs.py": "bff546c01633c64dfe82acbe68cb944e7599ee05157c53d4f202cfc5e792495c"
+  },
+  "limitations": [
+    "Twelve environment-dependent full-suite tests skipped unavailable external engines/assets.",
+    "Local Qt acceptance used offscreen Linux, not a native Windows or X11 desktop.",
+    "Electrical/EM acceptance data are synthetic and do not establish process, field-solver or RF accuracy.",
+    "EM integration exports input/evidence and imports supported results; no field solver is included."
+  ],
+  "hosted": "The PR runs desktop packaging, external interoperability and physical qualification. No hosted result is asserted by this local record."
+}

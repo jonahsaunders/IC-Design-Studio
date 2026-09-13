@@ -1,3 +1,14 @@
+# Experimental dev23: inductor design and EM exchange
+
+The [dev23 update](UPDATE_0.22_DEV23.md) adds five spiral shapes, target-L search,
+background preview, actionable validation, declared DC resistance and opt-in RL
+simulation, plus saved EM exchange and results. It targets `experimental`.
+See the [creator guide](INDUCTOR_CREATOR.md) and
+[dev23 validation record](validation/experimental-dev23.json).
+Desktop package and physical/interoperability claims require the new commit's
+hosted checks; prior dev22 packages do not contain this upgrade. No EM solver or
+process-calibrated RF accuracy is asserted by the software acceptance tests.
+
 # Experimental dev22: inductor creator
 
 The [dev22 update](UPDATE_0.22_DEV22.md) adds **Tools → Inductor creator…** to

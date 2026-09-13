@@ -45,9 +45,11 @@ def mos_current(d,vd,vg,vs):
     return pol*sign*current
 
 class Circuit:
-    def __init__(self,p,cid=None,temperature=27):
+    def __init__(self,p,cid=None,temperature=27,corner=None):
         if p.get('spice',{}).get('version')==1:raise ValueError('Run this native project with ngspice using its simulation program.')
         if p.get('xschem_exchange',{}).get('mode')=='compatible':raise ValueError('Run the imported Xschem program with ngspice from Analysis.')
+        from .inductor_electrical import expand_series_rl
+        p=expand_series_rl(p,cid,corner)
         from .components import require_implementations
         require_implementations(p,cid or p['top'])
         self.ds=flatten(p,cid)
@@ -115,7 +117,7 @@ class Circuit:
 def run(p,cid,settings,progress=lambda *_:None):
     if p.get('spice',{}).get('version')==1:raise ValueError('Run this native project with ngspice using its simulation program.')
     if p.get('xschem_exchange',{}).get('mode')=='compatible':raise ValueError('Use Xschem/ngspice to simulate this imported project with its original models and program.')
-    c=Circuit(p,cid,float(settings.get('temperature',27))); typ=settings['type']; xs=[]; data={n:[] for n in c.nodes}; op=c.point(); phase={}; currents={name:[] for name in c.branches};currents.update({d['name']:[] for d in c.ds if d['kind'] in ('R','C')});current_phase={name:[] for name in currents}
+    c=Circuit(p,cid,float(settings.get('temperature',27)),settings.get('corner')); typ=settings['type']; xs=[]; data={n:[] for n in c.nodes}; op=c.point(); phase={}; currents={name:[] for name in c.branches};currents.update({d['name']:[] for d in c.ds if d['kind'] in ('R','C')});current_phase={name:[] for name in currents}
     def record(x,y):
         xs.append(x)
         for n in c.nodes: data[n].append(y[c.index[n]])

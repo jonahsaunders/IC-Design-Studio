@@ -1,93 +1,216 @@
 # Inductor creator
 
-Open **Tools → Inductor creator…** on `experimental` (0.22.0.dev22 or later).
-The tool creates an editable square spiral, a return conductor on the other
-layer of a mapped via stack, via arrays at both ends of that return, and P/N
-terminal pads. The preview shows both conductor layers and the terminal names.
+Open **Tools → Inductor creator…**. Dev23 adds five two-terminal spiral shapes,
+target-L search, background validation, declared DC resistance and EM exchange.
+Dev22 square recipes remain compatible, including geometry and stable IDs.
 
-## Create and link
+## Shapes and estimates
 
-1. Choose **New schematic inductor**, or select an existing standard schematic
-   `L` in the **Link to** list. Imported native subcircuits need their own
-   supported physical implementation.
-2. Set turns, trace width, spacing, inner opening and lead length. Dimensions
-   and origin coordinates are in µm. Select the via stack, spiral metal, via
-   rows/columns, rotation and mirroring. Scroll the form on smaller screens.
-3. Review the preview, outer winding dimensions, via count and estimated DC L.
-   Invalid geometry disables creation and explains the problem.
-4. Choose **Create inductor**. The app switches to layout and selects the new
-   footprint. Creation is one undoable edit, including the linked schematic L.
+| Shape | Geometry | DC winding estimate |
+|---|---|---|
+| Square | Original Manhattan spiral | Mohan square coefficients |
+| Rectangle | Independent X/Y inner openings | Thin-strip Neumann partial-inductance integral |
+| Hexagon | Six contracting support lines per turn | Mohan hexagonal coefficients |
+| Octagon | Eight contracting support lines per turn | Mohan octagonal coefficients |
+| Circle | Archimedean spiral, 128 segments per turn | Mohan circular coefficients |
 
-For a new L, give it a unique name beginning with L and two distinct net names.
-The tool creates attached schematic labels and sets its value to the estimate.
-For an existing L, its schematic value stays unchanged unless **Set schematic
-L to the estimate** is checked. The tool does not solve dimensions from a target
-inductance. It requires a declared via mapping and does not invent PDK data.
+Angled/curved mask vertices are snapped to the technology grid, with additional
+clearance for quantization and square via landing pads. Normal width, spacing,
+enclosure, collision and connectivity checks still apply. Each device has a
+winding, underpass, two via arrays and P/N pads. The complete footprint includes
+leads; winding dimensions exclude them.
 
-## Move and regenerate
+![Circular creator with synthetic resistance coefficients](images/dev23/circle.png)
 
-Select the complete footprint to move it with connected editing. Select one of
-its shapes and reopen **Tools → Inductor creator…** to edit its saved recipe.
-Selecting the schematic L and choosing **Place / regenerate…** also opens the
-creator. The selected device appears in the dialog automatically.
-
-Regeneration preserves the footprint's translated origin and keeps shape and
-terminal IDs when their roles remain. Changing dimensions can move terminals;
-the tool rejects changes that would detach an existing route or cell port.
-Keep those terminal positions or explicitly detach the affected route first.
-It also rejects locked layers and a design that changed after previewing.
-Undo manual edits to generated winding shapes before regenerating them.
-
-Recipes survive project save/reopen. GDSII and OASIS export retain the complete
-winding, return conductor and via geometry. The normal matching export sidecar
-also preserves the project's generator metadata.
-
-## Estimate and verification scope
-
-The estimate uses equation (2) and the square coefficients in Table II of
+Regular spirals use equation (2) and Table II in
 [Mohan et al., *Simple Accurate Expressions for Planar Spiral Inductances*,
-IEEE JSSC 34(10), 1999](https://web.stanford.edu/~boyd/papers/pdf/inductance_expressions.pdf)
-([DOI](https://doi.org/10.1109/4.792620)). With dimensions in metres:
+IEEE JSSC 34(10), 1999](https://doi.org/10.1109/4.792620):
 
 \[
-L=\frac{\mu_0 n^2 d_{avg}\,1.27}{2}
-\left[\ln\left(\frac{2.07}{\rho}\right)+0.18\rho+0.13\rho^2\right],
+L=\frac{\mu_0 n^2 d_{avg} c_1}{2}
+\left[\ln\left(\frac{c_2}{\rho}\right)+c_3\rho+c_4\rho^2\right],
 \quad d_{avg}=\frac{d_{out}+d_{in}}2,
 \quad \rho=\frac{d_{out}-d_{in}}{d_{out}+d_{in}}.
 \]
 
-Here `d_out = d_in + 2*n*width + 2*(n-1)*spacing`. The outer dimension excludes
-terminal leads. The default 3 turns, 10 µm width, 3 µm spacing and 80 µm opening
-give a 152 µm outer winding and an estimate of about 1.638 nH.
+| Shape | c₁ | c₂ | c₃ | c₄ |
+|---|---:|---:|---:|---:|
+| Square | 1.27 | 2.07 | 0.18 | 0.13 |
+| Hexagon | 1.09 | 2.23 | 0 | 0.17 |
+| Octagon | 1.07 | 2.29 | 0 | 0.19 |
+| Circle | 1 | 2.46 | 0 | 0.20 |
 
-This is a DC winding estimate. It excludes lead/underpass contributions,
-substrate loss, frequency-dependent resistance, Q and self-resonance. No
-process-calibrated RF accuracy is claimed. Use the actual process rule deck
-and a qualified EM/device extraction model before fabrication or RF signoff.
-Octagons, differential coils, transformers and automatic target-L sizing are
-outside this version.
+For legacy squares, `d_out = d_in + 2*n*width + 2*(n-1)*spacing`.
+Three turns, 10 µm width, 3 µm spacing and an 80 µm opening give a 152 µm
+winding and approximately 1.638 nH. The contracting polygon/circular recipes use
+the mean actual X/Y winding extents for outer diameter. Departure from concentric
+ideal geometry and polygonization introduce additional approximation; characterize
+the exact geometry for RF work.
 
-The app recognizes the intact saved recipe as a two-terminal inductor for
-terminal-connectivity checks. Its continuous winding is not counted as an
-ordinary wire between P and N. Full metal remains in drawing, DRC and export.
-External shorts remain detectable. Contacts to the winding outside its terminal
-pads produce `INDUCTOR.TAP`; changed or incomplete recipes produce
-`INDUCTOR.STALE` and lose that device-boundary treatment. This is explicit
-generator recognition, not foundry LVS. Interconnect capacitance and distributed
-RC estimators refuse cells containing these inductors because they do not
-characterize the winding's device parasitics.
+Rectangles do **not** reuse the square fit. Their Neumann integral includes
+signed parallel mutual terms and uses `exp(-1.5)*width` as a thin-strip geometric
+mean distance for self terms. A separate numerical quadrature checks the
+implementation. This assumes uniform current and negligible conductor thickness.
+
+L estimates exclude leads/underpass contributions, frequency-dependent resistance,
+substrate loss, Q and self-resonance. Model identities are saved in recipes.
+Neither these estimates nor synthetic acceptance fixtures establish RF accuracy
+or fabrication qualification. Center-tapped/differential coils and transformers
+are separate electrical configurations outside this five-shape update.
+
+## Manual creation and regeneration
+
+1. Select a shape and **New schematic inductor**, or an existing standard `L`.
+   Imported native subcircuits need their own supported physical implementation.
+2. Set turns, width, spacing, openings, leads, mapped metal/via stack, via arrays,
+   origin, rotation and mirror. Dimensions and coordinates are in µm.
+3. Review geometry, L/target mismatch, complete footprint and any DC R estimate.
+   The preview is dimmed while placement validation is pending.
+4. Resolve errors. **Apply suggested fix** explicitly adjusts an invalid field;
+   geometry collisions can be outlined in the preview.
+5. Choose **Create inductor**. The app selects the footprint in layout. Creation
+   is one undoable edit, including a new schematic L and attached P/N net labels.
+
+A new L needs a unique name beginning with L and distinct terminal nets; its
+value uses the estimate. Existing L values stay unchanged unless **Set schematic
+L to the estimate** is selected. Locked layers, invalid geometry and changed
+designs cannot be applied. Background workers use project snapshots, and outdated
+or closed-dialog completions cannot enable creation.
+
+Select the full footprint to move it with connected editing. Reopen the creator
+from a selected shape, or select its schematic L and use **Place / regenerate…**.
+Regeneration restores saved dimensions and the translated origin, retains IDs
+for unchanged roles, and refuses to detach terminal routes or ports. Undo manual
+winding edits first: they invalidate recipe recognition. Save/reopen and the
+matching GDSII/OASIS export sidecar preserve generator metadata and full metal.
+
+Intact windings count as two-terminal devices for connectivity, rather than plain
+shorts between P and N. External shorts remain visible. Contacts outside the pads
+produce `INDUCTOR.TAP`; changed/incomplete recipes produce `INDUCTOR.STALE`.
+Interconnect RC extraction remains blocked for cells containing these windings.
+
+## Target-L search
+
+Enter target nH, tolerance, maximum complete footprint X/Y and width/spacing
+ranges in **Target L**. Search retains shape, metal, leads, orientation, via arrays
+and the rectangle opening aspect ratio. It samples 1–32 turns and up to three
+widths/spacings per range, solving for on-grid openings. Distinct turn/width/spacing
+families are ranked by relative L error, then footprint area. This finite search
+does not guarantee a global optimum or calibrated RF performance.
+
+![Target-L candidate search](images/dev23/target-search.png)
+
+Select a row and **Use candidate** to run full placement validation.
+Candidate geometry checks alone do not establish clearance from existing layout.
+Results distinguish no legal footprint from legal candidates outside tolerance.
+Cancelling or changing inputs discards a search. Hover a candidate to inspect its
+width, spacing and full-precision footprint.
+
+## DC resistance and optional series RL
+
+DC R uses the selected corner's existing `pdk.parasitics`/`parasitic_corners`
+sheet coefficients for both conductors. Per-cut resistance must be declared in
+`pdk.via_resistance_ohm[via_recipe_name]` or `resistance_ohm` on that routing via.
+Missing data is never inferred. For example, these **PDK fields** are synthetic
+teaching values, not a process calibration:
+
+```json
+{
+  "parasitics": {
+    "metal1": {"sheet_ohm": 0.08},
+    "metal2": {"sheet_ohm": 0.04}
+  },
+  "via_resistance_ohm": {"M1 to M2": 2.0}
+}
+```
+
+R sums winding/P-lead `Rs*length/width`, underpass `Rs*length/width`, and
+`2*Rcut/(rows*columns)` for two parallel-cut arrays. This uniform-current estimate
+excludes spreading, temperature extrapolation, skin/proximity effects and
+substrate loss. Missing or invalid coefficients leave R unavailable.
+
+**Simulate with estimated series R** adds a resistor to simulation/export copies,
+shared by the teaching solver and SPICE writer. Editable schematic/layout data
+remain intact and the retained/updated L choice is honored. This option applies
+to ideal L devices, not inductors already bound to PDK models. Changed geometry,
+coefficients, selected corner or manually edited L invalidates the saved model;
+regenerate to accept updated estimates or uncheck the option.
+
+## EM exchange and imported results
+
+After creation, select the device and open **EM results → Open saved inductor
+characterization…**. This exchanges evidence with an external solver; no field
+solver or inferred process stackup is included.
+
+1. **Load physical stackup…** reads JSON into `pdk.em_stackup` as an undoable
+   edit. Illustrative 3D display heights are never treated as EM material data.
+2. **Export EM bundle…** writes ZIP entries `geometry.gds`, `manifest.json`,
+   `results-template.json` and instructions. GDS contains an isolated `INDUCTOR`
+   cell and a `CONTEXT` cell including winding and surrounding flattened metal.
+   Simulate **one** cell; do not superimpose both. The manifest records exact
+   geometry, P/N points/layers, mappings, recipe, process lock and stackup.
+3. Configure the external solver's mesh, boundaries, reference plane, substrate
+   and material treatment. Record solver/version, settings and convergence evidence.
+4. **Import results…** associates matching evidence with the saved recipe.
+   Changed winding, context, ports or stackup reject or mark the results stale.
+
+Stackup JSON needs `source` and 1–128 uniquely named `layers`. Every used metal
+and via must be mapped. Each layer declares `kind` (`conductor`, `via`,
+`dielectric`, or `substrate`), `z_um`, and positive `thickness_um`. Conductors/vias
+need positive `conductivity_s_m`; dielectric/substrate layers need positive
+`epsilon_r` and may declare nonnegative `loss_tangent`/`conductivity_s_m`.
+Include the dielectric/substrate environment. An example layer structure is:
+
+```json
+{
+  "name": "metal2", "kind": "conductor",
+  "z_um": 2, "thickness_um": 1, "conductivity_s_m": 30000000
+}
+```
+
+Those example numbers are illustrative; use actual process data. An incomplete
+stackup can be exported for inspection, but importing results requires completing
+it and re-exporting. The external solver must interpret materials and conductor
+cutouts in dielectric slabs; this exporter does not construct a solver volume mesh.
+
+### Supported result formats
+
+Impedance JSON retains `schema: 1`, `fingerprint` and `port_definition` from the
+template, supplies an actual `source`, and fills equal-length `frequency_hz`,
+`z_real_ohm`, `z_imag_ohm` arrays. Provide 2–10,000 finite samples at positive,
+strictly increasing frequencies. Negative differential resistance is unsupported.
+The convention is `V(P)-V(N)` with current entering P and leaving N.
+
+Touchstone **1.x** `.s1p`/`.s2p` supports S-parameters in RI, MA or DB,
+Hz/kHz/MHz/GHz, comments/line wraps and positive real reference impedance.
+Version 2 keyword blocks, other parameter types and singular S-to-Z conversions
+are rejected. Include a same-name `.json` sidecar retaining template schema,
+fingerprint and port definition, and naming the actual characterization source.
+One-port data describes P-to-N. Two-port data uses P and N against a common
+reference, with `Zdiff = Z11 + Z22 - Z12 - Z21`.
+
+![Imported synthetic impedance evidence](images/dev23/em-results.png)
+
+The viewer derives `L(f)=Im(Z)/(2πf)`, `R(f)=Re(Z)` and `Q(f)=Im(Z)/Re(Z)`
+where impedance is inductive and resistance positive. SRF is the first
+positive-to-nonpositive reactance **bracket**, with a linear estimate inside it.
+Sparse samples can make that estimate poor: refine the sweep around the bracket.
+No unobserved resonance is extrapolated. Imported metrics do not automatically
+replace the circuit model or establish solver/process accuracy.
 
 ## Reproduce acceptance
 
 ```sh
-python -m unittest discover -s tests -p test_inductor.py -v
+python -m unittest discover -s tests -p 'test_inductor*.py' -v
 QT_QPA_PLATFORM=offscreen python tests/gui_inductor.py --out build/inductor-evidence
+python -m unittest discover -s tests -v
+python scripts/check_release.py
 ```
 
-The same desktop probe runs through experimental acceptance and the frozen
-release probe. It covers the actual Tools action, compact preview, creation,
-undo/redo, saved regeneration, estimate opt-in, locks and stale previews.
-Windows native DPI and Linux X11 package jobs retain their own screenshots and
-reports. Core coverage also checks physical continuity, short/tap detection,
-transformed hierarchy, exported metal, via enclosure and incremental/full
-finding agreement.
+Tests cover shape continuity/grid/rules, transformed export, target constraints,
+independent rectangular quadrature, series-RL AC response, immutable edits,
+Touchstone conversion and evidence provenance. Qt checks cover stale completion,
+close/error recovery, shape controls, responsive search, fixes and EM exchange.
+The same desktop probe runs in experimental acceptance and frozen-package checks.
+Electrical/EM fixtures are synthetic references, not fabricated measurements.
+Native Windows/Linux and external engine claims require their own hosted runs.
