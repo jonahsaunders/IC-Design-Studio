@@ -116,8 +116,9 @@ def mapped(runner):
         libs=r.libraries()
         if len(libs)!=1:raise ValueError('Mapped synthesis currently requires one merged Liberty library per corner.')
         script='read_liberty -lib -ignore_miss_func '+quote(libs[0])+'\n'
-        script+=read_rtl(r.config)+'\nhierarchy -check -top '+r.config['top']+'\nsynth -flatten -top '+r.config['top']+'\n'
-        script+='dfflibmap -liberty '+quote(libs[0])+'\nabc -liberty '+quote(libs[0])+'\nclean\n'
+        script+=read_rtl(r.config)+'\nhierarchy -check -top '+r.config['top']+'\nsynth -noabc -flatten -top '+r.config['top']+'\n'
+        # ABC's retained workspace uses short relative paths, including in deeply nested jobs folders.
+        script+='dfflibmap -liberty '+quote(libs[0])+'\nabc -nocleanup -liberty '+quote(libs[0])+'\nclean\n'
         if r.platform['name']=='sky130hd':script+='hilomap -singleton -hicell sky130_fd_sc_hd__conb_1 HI -locell sky130_fd_sc_hd__conb_1 LO\n'
         script+='check -assert\nwrite_verilog -noattr ../netlist.v\nwrite_json ../netlist.json\n'
         script+='tee -o ../statistics.json stat -json -liberty '+quote(libs[0])+'\n'

@@ -73,6 +73,14 @@ jobs:
         run: python -m unittest tests.test_digital_implementation -v
       - name: Verify the docked implementation workspace
         run: python tests/gui_digital_implementation.py
+      - name: Print implementation failure evidence
+        if: failure()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          for p in Path('build/digital-acceptance').rglob('*.log'):
+              print(str(p), p.read_text(errors='replace')[-12000:], sep='\n')
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
