@@ -11,7 +11,7 @@ from PySide6.QtCore import (QObject, Signal, QRunnable, QThreadPool, QProcess,
 from PySide6.QtGui import QDesktopServices, QTextCursor
 from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QFormLayout,
     QLabel, QLineEdit, QPushButton, QFileDialog, QDoubleSpinBox, QSpinBox,
-    QCheckBox, QPlainTextEdit, QScrollArea, QWidget, QComboBox, QProgressBar)
+    QCheckBox, QPlainTextEdit, QScrollArea, QWidget, QComboBox, QProgressBar, QFrame)
 
 from . import openems_backend as backend, inductor_em, openems_runtime
 from .model import clone, uid, atomic_write
@@ -186,7 +186,11 @@ class OpenEMSDialog(QDialog):
         super().__init__(characterization); self.characterization = characterization
         self.owner = characterization.owner; self.closed = False
         self.setWindowTitle('Simulate inductor with openEMS'); self.resize(720, 650)
-        layout = QVBoxLayout(self)
+        shell = QVBoxLayout(self)
+        self.body_scroll = QScrollArea(); self.body_scroll.setWidgetResizable(True)
+        self.body_scroll.setFrameShape(QFrame.NoFrame)
+        body = QWidget(); layout = QVBoxLayout(body); self.body_scroll.setWidget(body)
+        shell.addWidget(self.body_scroll, 1)
         title = QLabel('Simulate your inductor'); title.setStyleSheet('font-size: 20px; font-weight: 600')
         layout.addWidget(title)
         note = QLabel('Choose a frequency range and run. Studio checks the solver, builds the model, and adds the results to your inductor.')
@@ -218,8 +222,7 @@ class OpenEMSDialog(QDialog):
         fixture.setWordWrap(True); layout.addWidget(fixture)
         self.advanced_toggle = QPushButton('Advanced settings'); self.advanced_toggle.setCheckable(True)
         layout.addWidget(self.advanced_toggle)
-        self.advanced = QScrollArea(); self.advanced.setWidgetResizable(True); self.advanced.setMinimumHeight(170)
-        advanced_widget = QWidget(); advanced_form = QFormLayout(advanced_widget); self.advanced.setWidget(advanced_widget)
+        self.advanced = QWidget(); advanced_form = QFormLayout(self.advanced)
         layout.addWidget(self.advanced); self.advanced.hide(); self.advanced_toggle.toggled.connect(self.advanced.setVisible)
         executable, _ = openems_runtime.discover(str(self.owner.settings.value('engine/openems_python', '')))
         self.python = QLineEdit(executable); self.python.setAccessibleName('openEMS Python executable')
@@ -252,7 +255,7 @@ class OpenEMSDialog(QDialog):
         self.cancel_button = QPushButton('Cancel run'); self.cancel_button.setEnabled(False)
         self.cancel_button.clicked.connect(lambda: self.job.cancel()); row.addWidget(self.cancel_button)
         self.folder = QPushButton('Open run folder'); self.folder.setEnabled(False); self.folder.clicked.connect(self.open_folder); row.addWidget(self.folder)
-        close = QPushButton('Close'); close.clicked.connect(self.reject); row.addWidget(close); layout.addLayout(row)
+        close = QPushButton('Close'); close.clicked.connect(self.reject); row.addWidget(close); shell.addLayout(row)
         self.job = OpenEMSJob(); self.job.changed.connect(self.changed); self.job.output.connect(self.append_log); self.job.completed.connect(self.completed)
         self.python.textChanged.connect(self.refresh_setup); self.refresh_setup()
         self.resize(min(self.width(), self.screen().availableGeometry().width()-40), min(self.height(), self.screen().availableGeometry().height()-60))

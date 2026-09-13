@@ -125,6 +125,15 @@ class JobTests(unittest.TestCase):
         self.assertEqual(self.dialog.fields['f_stop_hz'][0].value(), 4)
         self.assertEqual(self.dialog.quality.currentIndex(), 1)
 
+    def test_run_and_cancel_stay_visible_in_small_windows(self):
+        self.dialog.advanced_toggle.setChecked(True); self.dialog.log_toggle.setChecked(True)
+        self.dialog.resize(520, 400); self.app.processEvents()
+        self.assertLessEqual(self.dialog.height(), 400)
+        for button in (self.dialog.run, self.dialog.cancel_button, self.dialog.folder):
+            bottom = button.mapTo(self.dialog, button.rect().bottomRight()).y()
+            self.assertLess(bottom, self.dialog.height())
+        self.assertGreater(self.dialog.body_scroll.verticalScrollBar().maximum(), 0)
+
     def test_single_job_limit_and_missing_executable(self):
         self.dialog.python.setText(str(self.root/'absent'))
         self.dialog.start(False); self.assertFalse(self.dialog.job.running)
