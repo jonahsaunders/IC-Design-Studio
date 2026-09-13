@@ -1,6 +1,7 @@
 """Run inside the build image; create relocatable tools and a content lock."""
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -36,6 +37,25 @@ for folder in (Path('/usr/lib/x86_64-linux-gnu'), Path('/usr/lib/klayout'), Path
     for p in sorted(folder.glob('*.so*')):
         if p.is_file() and not p.name.startswith(excluded) and not (libraries/p.name).exists():
             (libraries/p.name).symlink_to(os.path.relpath(p, libraries))
+
+# Some dependencies live outside the default library directory (for example
+# PulseAudio's private library used by KLayout's Qt multimedia dependency).
+# Follow the actual loader closure, including Qt plugins, before relocation.
+queue=[Path('/usr/bin/openroad'),Path('/usr/bin/sta'),Path('/usr/lib/klayout/klayout'),
+       Path('/usr/bin/python3'),Path('/usr/bin/perl'),Path('/usr/bin/make')]
+queue+=list(Path('/usr/lib/x86_64-linux-gnu/qt5/plugins').rglob('*.so'))
+seen=set()
+while queue:
+    binary=queue.pop().resolve()
+    if binary in seen: continue
+    seen.add(binary)
+    dependencies=subprocess.check_output(['ldd',str(binary)],text=True)
+    if 'not found' in dependencies: raise ValueError('Unresolved digital library dependency:\n'+dependencies)
+    for name, filename in re.findall(r'^\s*(\S+)\s+=>\s+(/\S+)',dependencies,re.M):
+        if name.startswith(excluded): continue
+        target=libraries/name
+        if not target.exists(): target.symlink_to(os.path.relpath(filename,libraries))
+        queue.append(Path(filename))
 
 bindir = ROOT/'bin'; bindir.mkdir()
 suite = ('iverilog','vvp','verilator','verilator_coverage','yosys','yosys-abc','eqy','sby','bitwuzla')
