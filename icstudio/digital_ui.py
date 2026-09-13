@@ -391,6 +391,11 @@ class DigitalMixin:
         if window and window.dirty and not window.attempt(window.apply): return False
         return super().save(*args, **kwargs)
 
+    def undo(self):
+        window=getattr(self,'_digital_window',None)
+        if window and window.dirty and not window.attempt(window.apply):return
+        return super().undo()
+
     def maybe_save(self):
         window = getattr(self, '_digital_window', None)
         if window and window.dirty and not window.attempt(window.apply): return False
@@ -406,6 +411,8 @@ class DigitalMixin:
         super().refresh(fit)
         window = getattr(self, '_digital_window', None)
         if window and window.project_id == self.project['id']:
+            if window.cell_id not in {c['id'] for c in self.project['cells']}:
+                window.cell_id=self.cid;window.load_sources()
             if not window.dirty and window.base != cell_config(self.project,window.cell_id): window.load_sources()
             window.workspace.refresh_design()
             window.refresh_runs()

@@ -57,8 +57,8 @@ def main():
     d.workspace.refresh_comparison();assert d.workspace.comparison.rowCount()==4
     old=w.cid;created=[];w.commit(lambda p:created.append(digital_design.new_cell(p,'second',clone(p['digital']))),'New RTL block')
     d.workspace.switch_cell(created[0]);assert d.cell_id==created[0] and d.runs.count()==0
-    d.workspace.switch_cell(old);assert d.runs.count()==4
-    w.undo();assert len(w.project['cells'])==1
+    w.undo();assert len(w.project['cells'])==1 and d.cell_id==old
+    assert d.runs.count()==4
     report={'status':'passed','checks':['Docked workspace','Mapped symbol and source cross-probe','OpenSTA path table','Routed checkpoint preview','Timing-to-layout selection','Run comparisons','Independent cell RTL and undo'],
         'versions':physical['result']['digital_result']['versions'],'platform':p['digital']['platform']['revision']}
     (out/'report.json').write_text(json.dumps(report,indent=2));w.saved_hash=digest(w.project);w.close();print(json.dumps(report))

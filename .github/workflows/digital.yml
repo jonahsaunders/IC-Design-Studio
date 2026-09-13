@@ -43,6 +43,7 @@ jobs:
     env:
       QT_QPA_PLATFORM: offscreen
       ICSTUDIO_TEST_PHYSICAL: '1'
+      ICSTUDIO_TEST_EVIDENCE: build/digital-acceptance
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -76,4 +77,11 @@ jobs:
         if: always()
         with:
           name: digital-implementation-evidence
-          path: build/digital-implementation-ui
+          path: |
+            build/digital-implementation-ui
+            build/digital-acceptance/*/input.json
+            build/digital-acceptance/*/result.json
+            build/digital-acceptance/*/engine.log
+            build/digital-acceptance/*/netlist.v
+            build/digital-acceptance/*/equivalence.eqy
+            build/digital-acceptance/*/proof

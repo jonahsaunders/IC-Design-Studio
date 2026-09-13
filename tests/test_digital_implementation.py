@@ -110,13 +110,16 @@ ORFS=os.environ.get('ICSTUDIO_TEST_ORFS')
 class DigitalImplementationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.temporary=tempfile.TemporaryDirectory();cls.root=Path(cls.temporary.name)
+        evidence=os.environ.get('ICSTUDIO_TEST_EVIDENCE')
+        cls.temporary=None if evidence else tempfile.TemporaryDirectory()
+        cls.root=Path(evidence).resolve() if evidence else Path(cls.temporary.name)
         cls.project=digital.counter_project();cls.project['digital']['platform']=platform.from_orfs(ORFS)
         cls.project['digital']['timeout']=300
         cls.mapped=cls.root/'mapped';cls.result=cls.run_stage(cls.project,'mapped',cls.mapped)
 
     @classmethod
-    def tearDownClass(cls):cls.temporary.cleanup()
+    def tearDownClass(cls):
+        if cls.temporary:cls.temporary.cleanup()
 
     @classmethod
     def run_stage(cls,p,stage,root,upstream=None):
@@ -162,6 +165,7 @@ class DigitalImplementationTests(unittest.TestCase):
         result=json.loads((faulty/'result.json').read_text());result['digital_result']['artifacts']['netlist']=flow.artifact(faulty,netlist)
         atomic_write(faulty/'result.json',json.dumps(result))
         bad=self.run_stage(self.project,'equivalence',self.root/'inequivalent',faulty)
+        self.assertEqual((self.root/'inequivalent/netlist.v').read_text(),broken,'The proof must consume the injected gate-level fault')
         self.assertEqual(bad['digital_result']['verdict'],'FAIL',(self.root/'inequivalent/engine.log').read_text()[-5000:])
 
     @unittest.skipUnless(tool('openroad') and tool('klayout') and os.environ.get('ICSTUDIO_TEST_PHYSICAL'),'Set ICSTUDIO_TEST_PHYSICAL=1 for all ORFS stages')

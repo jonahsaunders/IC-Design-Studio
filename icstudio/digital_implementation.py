@@ -192,7 +192,9 @@ def equivalence(r):
         raise ValueError('EQY requires run and source paths without spaces. Use a space-free jobs folder.')
     gold=read_rtl(r.config)+'\n'
     gate='\n'.join('read_liberty -ignore_miss_func '+quote(p) for p in r.libraries())
-    script='[gold]\n'+gold+'prep -top '+r.config['top']+'\n\n[gate]\n'+gate+'\nread_verilog ../netlist.v\nprep -top '+r.config['top']+'\n\n[strategy sat]\nuse sat\ndepth 30\n'
+    script='[gold]\n'+gold+'prep -top '+r.config['top']+' -flatten\n\n[gate]\n'+gate+'\nread_verilog ../netlist.v\n'
+    script+='hierarchy -check -top '+r.config['top']+'\nflatten\ntechmap -autoproc -map +/simcells.v\nprep -top '+r.config['top']+'\n'
+    script+='\n[strategy sat]\nuse sat\ndepth 30\n'
     atomic_write(r.root/'equivalence.eqy',script)
     r.command([r.tools['eqy'],'--yosys',r.tools['yosys'],'-f','-d','../proof','../equivalence.eqy'],
               'Proving the captured mapped netlist',fraction=.6,allow_failure=True)
