@@ -16,11 +16,14 @@ def read_vcd(path):
     path = Path(path)
     if path.stat().st_size > MAX_VCD_BYTES:
         raise ValueError('VCD exceeds the 32 MiB preview limit. Reduce the dump scope or simulation duration.')
-    def tokens():
-        with path.open(encoding='ascii') as stream:
-            for line in stream:
-                yield from line.split()
-    stream = iter(tokens()); scopes = []; signals = []; changes = {}; widths = {}
+    # Own the file outside the lazy tokenizer so parse errors close it immediately,
+    # even when a caller retains the exception traceback (and its generator).
+    with path.open(encoding='ascii') as source:
+        return _read_tokens(word for line in source for word in line.split())
+
+
+def _read_tokens(stream):
+    scopes = []; signals = []; changes = {}; widths = {}
     ticks = 0; count = 0; value_bytes = 0; enddefs = False; timescale = None
     def section():
         words = []

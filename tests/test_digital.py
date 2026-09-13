@@ -122,6 +122,20 @@ $enddefinitions $end
         with patch.object(digital_waveform,'MAX_VALUE_BYTES',7), self.assertRaisesRegex(ValueError,'Decoded'):
             self.parse(self.HEADER+'#0 bx ! #1 bz !')
 
+    def test_invalid_waveform_closes_file_while_error_is_retained(self):
+        with tempfile.TemporaryDirectory() as td:
+            path=Path(td)/'wave.vcd';path.write_text(self.HEADER+'#10 b1 ! #9 b0 !')
+            source=path.open(encoding='ascii')
+            try:
+                with patch.object(Path,'open',return_value=source):
+                    try:digital_waveform.read_vcd(path)
+                    except ValueError as exc:
+                        self.assertIn('backwards',str(exc))
+                        self.assertTrue(source.closed,'A retained parse error must not lock its waveform file')
+                        path.unlink()
+                    else:self.fail('Invalid waveform was accepted')
+            finally:source.close()
+
 
 def tool(name):
     return os.environ.get('ICSTUDIO_TEST_'+name.upper()) or shutil.which(name)
