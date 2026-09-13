@@ -104,13 +104,16 @@ def compare_results(rows):
                     'platform':data.get('platform'), 'area_um2':values.get('area_um2'),
                     'power_w':data.get('power',{}).get('total_w'),
                     'cells':values.get('cells'),**timing,'elapsed_s':row.get('elapsed')})
-    if out:
-        baseline=out[0]
-        for item in out[1:]:
-            compatible=item['platform']==baseline['platform']
-            for metric in ('area_um2','cells','setup_worst_slack_ns','hold_worst_slack_ns','power_w'):
-                if compatible and isinstance(item.get(metric),(int,float)) and isinstance(baseline.get(metric),(int,float)):
-                    item[metric+'_delta']=item[metric]-baseline[metric]
+    baselines={}
+    for item in out:
+        key=(item['stage'],json.dumps(item['platform'],sort_keys=True))
+        if key not in baselines and item['state']=='Complete':baselines[key]=item
+        baseline=baselines.get(key)
+        if not baseline:continue
+        item['baseline']=baseline['name']
+        for metric in ('area_um2','cells','setup_worst_slack_ns','hold_worst_slack_ns','power_w'):
+            if isinstance(item.get(metric),(int,float)) and isinstance(baseline.get(metric),(int,float)):
+                item[metric+'_delta']=item[metric]-baseline[metric]
     return out
 
 

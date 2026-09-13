@@ -130,6 +130,15 @@ def artifact(root, path, allow_empty=False):
     return {'path': path.relative_to(root).as_posix(), 'sha256': file_digest(path), 'bytes': path.stat().st_size}
 
 
+def artifact_path(value):
+    # Engine-generated names may contain bus brackets and Yosys dollar identifiers.
+    # Unlike source paths these are only read/copied, never expanded by a shell.
+    if (not isinstance(value,str) or not value or len(value)>2048 or value.startswith('/')
+            or '\\' in value or '\x00' in value or any(p in ('','.','..') for p in value.split('/'))):
+        raise ValueError('Invalid relative digital artifact path.')
+    return value
+
+
 def validate_result(result, directory):
     data = result.get('digital_result')
     if (result.get('result_type') != 'digital' or not isinstance(data, dict)
@@ -146,7 +155,7 @@ def validate_result(result, directory):
     root = Path(directory).resolve()
     for record in data['artifacts'].values():
         if not isinstance(record, dict): raise ValueError('Invalid digital artifact record.')
-        relative = digital.relative_path(record.get('path'))
+        relative = artifact_path(record.get('path'))
         path = (root / relative).resolve()
         if not path.is_relative_to(root) or not path.is_file() or file_digest(path) != record.get('sha256'):
             raise ValueError('A captured digital artifact is missing or changed: '+relative)

@@ -5,6 +5,10 @@ The digital workspace is a dock in IC Design Studio. RTL, schematic symbols,
 netlists, timing, physical implementation, waveforms and regression reports share
 native cells, project revisions, undo, saving and the application's job queue.
 
+![Timing paths in the digital workspace](images/digital-timing.png)
+
+![Routed implementation in the digital workspace](images/digital-route.png)
+
 ## Stages and evidence
 
 | Stage | Engine | Captured result |
@@ -102,6 +106,8 @@ Diagnostics open their source line. The netlist browser links retained Yosys
 source attributes to RTL and selects matching physical instances. Timing paths
 highlight their cells when the result includes an upstream physical preview.
 Inserted/renamed objects with no retained source mapping are identified as such.
+Double-click an EQY partition to inspect its retained counterexample. A failed
+regression case can also open its waveform up to the assertion failure.
 Double-click a waveform signal to find its RTL declaration; fallback text matches
 are labeled as source searches. The comparison table shows run metrics and
 compatible-platform deltas; absent metrics remain absent.

@@ -66,6 +66,10 @@ class PhysicalView(QGraphicsView):
     def wheelEvent(self,event):
         factor=1.2 if event.angleDelta().y()>0 else 1/1.2;self.scale(factor,factor)
 
+    def resizeEvent(self,event):
+        super().resizeEvent(event)
+        if self.objects:self.fitInView(self.scene().itemsBoundingRect(),Qt.KeepAspectRatio)
+
 
 class Workspace:
     def __init__(self,window,root):
@@ -92,6 +96,8 @@ class Workspace:
         self.timing=table(['Check','Startpoint','Endpoint','Slack (ns)']);window.result_tabs.addTab(self.timing,'Timing')
         self.timing.cellClicked.connect(lambda row,col:self.probe_path(self.timing.item(row,0).data(Qt.UserRole)))
         self.proof=table(['Partition','Status','Strategies']);window.result_tabs.addTab(self.proof,'Equivalence')
+        self.proof.setToolTip('Double-click a partition to open its counterexample waveform, when available.')
+        self.proof.cellDoubleClicked.connect(lambda row,col:window.attempt(lambda:self.open_proof(self.proof.item(row,0).data(Qt.UserRole))))
         physical_page=QWidget();pv=QVBoxLayout(physical_page);self.physical_note=QLabel();self.physical_note.setWordWrap(True);pv.addWidget(self.physical_note)
         self.physical=PhysicalView(self);pv.addWidget(self.physical);window.result_tabs.addTab(physical_page,'Physical')
         self.regression=table(['Test','Simulator','Status','Line coverage (%)','Error']);window.result_tabs.addTab(self.regression,'Regression')
@@ -99,6 +105,7 @@ class Workspace:
         self.coverage_table=table(['Source','Line','Hits']);window.result_tabs.addTab(self.coverage_table,'Coverage')
         self.coverage_table.cellDoubleClicked.connect(lambda row,col:self.jump(self.coverage_table.item(row,0).data(Qt.UserRole)))
         self.comparison=table(['Run','Stage','State','Verdict','Cells','Area (µm²)','Δ area','Setup slack (ns)','Δ setup','Hold slack (ns)','Power estimate (W)','Δ power'])
+        self.comparison.setToolTip('Deltas use the earliest completed run at the same stage with the same platform and corner.')
         window.result_tabs.addTab(self.comparison,'Compare runs')
         window.signals.itemDoubleClicked.connect(lambda item:self.find_signal(item.text()))
 
@@ -323,13 +330,35 @@ class Workspace:
 
     def open_case(self,case):
         w=self.window;row=w.selected_run();path=row['path']/case['directory']
-        if not (path/'result.json').is_file():w.report.setPlainText(case.get('error','No result'));w.result_tabs.setCurrentWidget(w.report);return
+        if not (path/'result.json').is_file():
+            w.wave.set_data(None);w.signals.clear();w.report.setPlainText(case.get('error','No result'));w.result_tabs.setCurrentWidget(w.report)
+            if (path/'input.json').is_file():
+                job=json.loads((path/'input.json').read_text());cfg=design.config(job['project'],job['cell'])
+                from .digital import validate_config
+                validate_config(cfg)
+                trace=path/'sources'/cfg.get('waveform','wave.vcd')
+                if trace.is_file():
+                    from .digital_waveform import read_vcd
+                    self.show_waveform(read_vcd(trace));w.message.setText(case['name']+' · failed test; waveform ends at the failure')
+            return
         from .job_store import read_result
         result=read_result(path/'result.json',w.project_id);artifact=result['digital_result']['artifacts'].get('waveform')
         if artifact:
-            waveform=json.loads((path/artifact['path']).read_text());w.wave.set_data(waveform)
-            w.signals.blockSignals(True);w.signals.clear()
-            from PySide6.QtWidgets import QListWidgetItem
-            for index,signal in enumerate(waveform['signals']):
-                item=QListWidgetItem(signal['name']);item.setData(Qt.UserRole,index);item.setCheckState(Qt.Checked if index<12 else Qt.Unchecked);w.signals.addItem(item)
-            w.signals.blockSignals(False);w.result_tabs.setCurrentIndex(0)
+            self.show_waveform(json.loads((path/artifact['path']).read_text()));w.message.setText(case['name']+' · '+case['status'])
+
+    def show_waveform(self,waveform):
+        w=self.window;w.wave.cursor=0;w.wave.zoom=1;w.wave.set_data(waveform)
+        w.signals.blockSignals(True);w.signals.clear()
+        from PySide6.QtWidgets import QListWidgetItem
+        for index,signal in enumerate(waveform['signals']):
+            item=QListWidgetItem(signal['name']);item.setData(Qt.UserRole,index);item.setCheckState(Qt.Checked if index<12 else Qt.Unchecked);w.signals.addItem(item)
+        w.signals.blockSignals(False);w.result_tabs.setCurrentIndex(0)
+
+    def open_proof(self,partition):
+        w=self.window;row=w.selected_run()
+        from .digital_flow import validate_result
+        validate_result(row['result'],row['path'])
+        traces=[v for key,v in row['result']['digital_result']['artifacts'].items() if key.startswith('counterexample_') and partition['partition'] in Path(v['path']).parts]
+        if not traces:w.message.setText('No counterexample trace was produced for '+partition['partition']+'. Inspect its proof log.');return
+        from .digital_waveform import read_vcd
+        self.show_waveform(read_vcd(row['path']/traces[0]['path']));w.message.setText('EQY counterexample · '+partition['partition'])

@@ -1,6 +1,7 @@
 """Cell identity, proof outcomes, and actual RTL-to-layout acceptance runs."""
 import json
 import os
+import re
 import shutil
 import tempfile
 import unittest
@@ -13,6 +14,18 @@ from tests.test_digital import tool
 
 
 class DigitalWorkspaceModelTests(unittest.TestCase):
+    def test_generated_bus_artifact_paths_stay_confined(self):
+        self.assertEqual(flow.artifact_path('proof/count[0]/$sat.log'),'proof/count[0]/$sat.log')
+        for name in ('../file','proof/../../file','/absolute','proof//file','proof/./file'):
+            with self.assertRaises(ValueError):flow.artifact_path(name)
+
+    def test_comparison_uses_same_stage_and_platform_baseline(self):
+        def row(name,stage,area,corner='tt'):
+            return dict(id=name,name=name,state='Complete',job={'settings':{'stage':stage}},result={'digital_result':{'stage':stage,'platform':{'corner':corner},'statistics':{'area_um2':area}}})
+        rows=reports.compare_results([row('sim','simulate',None),row('first','mapped',100),row('second','mapped',125),row('slow','mapped',140,'ss')])
+        self.assertEqual(rows[2]['area_um2_delta'],25);self.assertEqual(rows[2]['baseline'],'first')
+        self.assertEqual(rows[3]['area_um2_delta'],0)
+
     def test_cell_views_survive_top_change_and_undo(self):
         p=digital.counter_project();original=p['top'];h=History(p)
         def change(p):
@@ -142,12 +155,14 @@ class DigitalImplementationTests(unittest.TestCase):
         self.assertEqual(good['digital_result']['verdict'],'PASS')
         # Inject a gate-level fault into a separate captured fixture, retaining the RTL reference.
         faulty=self.root/'faulty-gate';shutil.copytree(self.mapped,faulty)
-        netlist=faulty/'netlist.v';text=netlist.read_text();self.assertIn('sky130_fd_sc_hd__xor2_1',text)
-        netlist.write_text(text.replace('sky130_fd_sc_hd__xor2_1','sky130_fd_sc_hd__xnor2_1',1))
+        netlist=faulty/'netlist.v';text=netlist.read_text()
+        broken,count=re.subn(r'\.D\([^)]*\)',".D(1'b0)",text,count=1)
+        self.assertEqual(count,1,'Counter mapping must contain a state register')
+        netlist.write_text(broken)
         result=json.loads((faulty/'result.json').read_text());result['digital_result']['artifacts']['netlist']=flow.artifact(faulty,netlist)
         atomic_write(faulty/'result.json',json.dumps(result))
         bad=self.run_stage(self.project,'equivalence',self.root/'inequivalent',faulty)
-        self.assertEqual(bad['digital_result']['verdict'],'FAIL')
+        self.assertEqual(bad['digital_result']['verdict'],'FAIL',(self.root/'inequivalent/engine.log').read_text()[-5000:])
 
     @unittest.skipUnless(tool('openroad') and tool('klayout') and os.environ.get('ICSTUDIO_TEST_PHYSICAL'),'Set ICSTUDIO_TEST_PHYSICAL=1 for all ORFS stages')
     def test_physical_checkpoints_resume_gds_and_extracted_timing(self):

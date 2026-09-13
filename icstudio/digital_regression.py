@@ -90,8 +90,8 @@ def execute(runner):
             'scope':'Captured testbench assertions and process outcomes; no claim of exhaustive verification.'}
     runner.save_json('regression',report,'regression.json')
     for index,item in enumerate(results,1):
-        for name in ('engine.log','result.json','waveform.json','coverage.info'):
+        for name in ('engine.log','result.json','waveform.json','coverage.info','input.json','status.json','sources/'+runner.config.get('waveform','wave.vcd')):
             path=runner.root/item['directory']/name
-            if path.is_file():runner.add_artifact('case_'+str(index)+'_'+name.replace('.','_'),path)
+            if path.is_file() and path.stat().st_size:runner.add_artifact('case_'+str(index)+'_'+name.replace('.','_').replace('/','_'),path)
     return {'regression':report,'verdict':status,'statistics':{'passed':report['passed'],'total':report['total']},
             'summary':f"Regression {status} · {report['passed']}/{report['total']} cases passed"}
