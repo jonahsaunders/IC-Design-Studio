@@ -75,17 +75,23 @@ notices and equivalent source access when redistributing dependencies.
 
 ## Optional digital tools
 
-The initial digital integration invokes separately installed tools; it does not
+The digital integration invokes separately installed tools; it does not
 redistribute their binaries. Their source and licenses are available upstream:
 
 - Icarus Verilog: GPL-2.0-or-later, https://github.com/steveicarus/iverilog
 - Verilator: LGPL-3.0 or Artistic-2.0, https://verilator.org/guide/latest/copyright.html
 - Yosys: ISC, https://github.com/YosysHQ/yosys
-- EQY (exported configuration): ISC, https://github.com/YosysHQ/eqy
-- OpenROAD / OpenROAD Flow Scripts (exported configuration): BSD-3-Clause for
+- EQY: ISC, https://github.com/YosysHQ/eqy
+- OpenROAD / OpenROAD Flow Scripts: BSD-3-Clause for
   the main projects, with separately licensed dependencies and platform assets,
   https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts
 
 Future bundled toolchain distributions must include the applicable component
 notices and corresponding-source obligations. Generated Studio examples and
 configuration templates are part of this application's source distribution.
+
+- OpenSTA: GPL-3.0, https://github.com/The-OpenROAD-Project/OpenSTA
+
+Digital platform inputs retain their own licenses. CI downloads separately licensed
+engine distributions and records their versions; these binaries and full PDK trees
+are not included in the application source distribution.

@@ -334,9 +334,10 @@ Bundled simulation subsets contain models and symbols; full physical flows need 
 
 ## Project status
 
-The experimental branch includes an initial [digital flow](docs/DIGITAL_FLOW.md):
-embedded RTL/testbench editing, Icarus or Verilator simulation, native digital
-waveforms, Verilator lint, generic Yosys synthesis, and an EQY/ORFS handoff bundle.
+The experimental branch includes an integrated [digital flow](docs/DIGITAL_FLOW.md):
+per-cell RTL and symbols, Icarus/Verilator simulation and regression, mapped Yosys
+synthesis, OpenSTA timing, EQY proofs, staged ORFS implementation through GDS/SPEF,
+and source/netlist/physical inspection in a docked workspace.
 Open **Digital → New digital counter example**. External tools are installed
 separately; in-app equivalence and physical implementation are future increments.
 

@@ -17,8 +17,9 @@ def read_result(path,project_id,require_complete=True):
     if job.get('settings',{}).get('type')=='digital':
         from .digital_flow import validate_result
         from .digital import source_hash
+        from .digital_design import config
         validate_result(result,path.parent)
-        if result.get('settings')!=job['settings'] or result['digital_result'].get('source_hash')!=source_hash(job['project']['digital']):
+        if result.get('settings')!=job['settings'] or result['digital_result'].get('source_hash')!=source_hash(config(job['project'],job['cell'])):
             raise ValueError('Digital result does not match its saved settings or sources.')
     elif not isinstance(result.get('traces'),dict) or not isinstance(result.get('x'),list):raise ValueError('Invalid result structure.')
     if result.get('xschem_cases') or result.get('analysis_cases'):

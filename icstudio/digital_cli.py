@@ -11,16 +11,26 @@ def main(argv=None):
     parser = argparse.ArgumentParser(prog='ICDesignStudio --cli digital')
     commands = parser.add_subparsers(dest='command', required=True)
     example = commands.add_parser('example'); example.add_argument('--output', required=True)
+    example.add_argument('--design',choices=['counter','uart'],default='counter')
     capture = commands.add_parser('import'); capture.add_argument('manifest'); capture.add_argument('--output', required=True)
     export = commands.add_parser('export'); export.add_argument('project'); export.add_argument('--output', required=True)
     run = commands.add_parser('run'); run.add_argument('project'); run.add_argument('--output', required=True)
     run.add_argument('--stage', choices=digital_flow.STAGES, default='simulate')
     run.add_argument('--simulator', choices=['icarus', 'verilator'], default='icarus')
     run.add_argument('--tool', action='append', default=[], metavar='NAME=EXECUTABLE')
+    run.add_argument('--cell',help='Native cell ID (defaults to the bound digital cell)')
+    run.add_argument('--platform',help='Version-1 platform JSON manifest')
+    run.add_argument('--orfs',help='OpenROAD Flow Scripts checkout; captured for physical jobs')
+    run.add_argument('--orfs-platform',choices=['sky130hd','nangate45'],help='Import this platform from --orfs')
+    run.add_argument('--upstream',help='Completed mapped or physical run directory')
+    run.add_argument('--timeout',type=int,help='Per-command time limit in seconds')
     args = parser.parse_args(argv)
     try:
         if args.command in ('example', 'import'):
             project = digital.counter_project()
+            if args.command=='example' and args.design=='uart':
+                from .digital_examples import uart_project
+                project=uart_project()
             if args.command == 'import':
                 project['digital'] = digital.read_manifest(args.manifest)
                 project['name'] = project['digital']['top']
@@ -29,8 +39,21 @@ def main(argv=None):
         project = load_project(args.project)
         if args.command == 'export':
             print(digital_flow.export_flow(project['digital'], args.output)); return 0
+        from .digital_design import config as cell_config,set_config
+        cid=args.cell or project.get('digital_cell',project['top']);config=cell_config(project,cid)
+        if not config:raise ValueError('The selected cell has no RTL sources.')
+        if args.platform and args.orfs_platform:raise ValueError('Choose one platform import method.')
+        if args.platform:
+            from .digital_platform import read_manifest
+            config['platform']=read_manifest(args.platform)
+        if args.orfs_platform:
+            if not args.orfs:raise ValueError('--orfs-platform requires --orfs.')
+            from .digital_platform import from_orfs
+            config['platform']=from_orfs(args.orfs,args.orfs_platform)
+        if args.timeout is not None:config['timeout']=args.timeout
+        set_config(project,cid,config)
         tools = dict(item.split('=', 1) for item in args.tool)
-        job = digital_flow.prepare(project, args.stage, args.simulator, tools)
+        job = digital_flow.prepare(project, args.stage, args.simulator, tools, cid, args.upstream, args.orfs)
         root = Path(args.output).resolve()
         if root.exists() and any(root.iterdir()):
             raise ValueError('Choose an empty run directory.')

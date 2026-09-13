@@ -11,11 +11,17 @@ from . import digital
 from .engines import execute
 from .model import atomic_write, clone, design_digest, digest, file_digest, now, validate
 
-STAGES = ('simulate', 'lint', 'synth')
+STAGES = ('simulate', 'lint', 'elaborate', 'synth', 'mapped', 'timing', 'equivalence',
+          'floorplan', 'place', 'cts', 'route', 'finish', 'regression')
+ADVANCED = STAGES[4:]
 
 
 def tool_names(stage, simulator):
-    if stage == 'synth': return ('yosys',)
+    if stage in ('synth','elaborate','mapped'): return ('yosys',)
+    if stage == 'timing': return ('yosys','sta')
+    if stage == 'equivalence': return ('yosys','eqy')
+    if stage in ('floorplan','place','cts','route','finish'): return ('yosys','openroad','make') + (('klayout',) if stage=='finish' else ())
+    if stage == 'regression':return ()
     if stage == 'lint' or simulator == 'verilator': return ('verilator',)
     return ('iverilog', 'vvp')
 
@@ -24,29 +30,54 @@ def environment(job):
     from .build_info import WORKFLOW_SOURCE_HASH
     sources = {}
     if not getattr(sys, 'frozen', False):
-        for name in ('digital.py', 'digital_flow.py', 'digital_waveform.py', 'engines.py'):
+        for name in [p.name for p in Path(__file__).parent.glob('digital*.py')] + ['engines.py']:
             sources[name] = file_digest(Path(__file__).with_name(name))
-    return {'workflow_hash': WORKFLOW_SOURCE_HASH, 'engine': 'digital', 'sources': sources,
+    out = {'workflow_hash': WORKFLOW_SOURCE_HASH, 'engine': 'digital', 'sources': sources,
             'executables': {name: file_digest(path) for name, path in job['settings']['tools'].items()}}
+    from .digital_design import config as cell_config
+    config=cell_config(job['project'],job['cell'])
+    if job['settings']['stage'] in ADVANCED and 'platform' in config:
+        from .digital_platform import verify
+        out['platform']=verify(config['platform'])
+    if 'flow' in job['settings']:
+        from .digital_platform import verify_flow
+        out['flow']=verify_flow(job['settings']['flow'])
+    return out
 
 
-def prepare(project, stage='simulate', simulator='icarus', tools=None):
+def prepare(project, stage='simulate', simulator='icarus', tools=None, cell_id=None, upstream=None, orfs=None):
     project = clone(validate(project))
     if stage not in STAGES or simulator not in ('icarus', 'verilator'):
         raise ValueError('Choose a supported digital stage and simulator.')
-    config = project.get('digital')
+    from .digital_design import config as cell_config
+    cell_id=cell_id or project.get('digital_cell',project['top'])
+    config = cell_config(project,cell_id)
     digital.check_dependencies(config)
     if stage == 'simulate' and (not config.get('testbench') or not any(f['role'] == 'testbench' for f in config['files'])):
         raise ValueError('Set a testbench top and mark its source as Testbench.')
+    names=list(tool_names(stage, simulator))
+    if stage=='regression':
+        from .digital_regression import required_tools
+        names=required_tools(config)
+    if config.get('coverage') and stage=='simulate':
+        if simulator!='verilator':raise ValueError('Instrumented coverage requires Verilator simulation.')
+        names.append('verilator_coverage')
     resolved = {}
-    for name in tool_names(stage, simulator):
+    for name in names:
         value = (tools or {}).get(name) or shutil.which(name)
         path = Path(shutil.which(str(value)) or str(value)).resolve() if value else None
         if path is None or not path.is_file():
             raise ValueError(name+' is not installed. Set its executable in Digital flow → Tools.')
         resolved[name] = str(path)
-    job = {'project': project, 'cell': project['top'], 'engine': 'digital',
+    job = {'project': project, 'cell': cell_id, 'engine': 'digital',
            'settings': {'type': 'digital', 'stage': stage, 'simulator': simulator, 'tools': resolved}}
+    if stage in ADVANCED and stage!='regression' and 'platform' not in config:raise ValueError('Import a locked digital platform before running this stage.')
+    if upstream:
+        from .digital_implementation import capture_upstream
+        job['settings']['upstream']=capture_upstream(project,cell_id,upstream)
+    if stage in ('floorplan','place','cts','route','finish'):
+        from .digital_platform import pin_flow
+        job['settings']['flow']=pin_flow(orfs or '')
     job['environment'] = environment(job)
     return job
 
@@ -75,22 +106,26 @@ def compiler_args(config, simulation=False):
     return args
 
 
-def yosys_script(config):
+def read_rtl(config):
     quote = lambda s: '"'+s.replace('\\', '\\\\').replace('"', '\\"')+'"'
     flags = ['-I'+quote(path) for path in include_dirs(config)]
     flags += ['-D'+quote(name+('='+value if value else '')) for name, value in config.get('defines', {}).items()]
     files = [quote('./'+f['path']) for f in config['files'] if f['role'] == 'rtl']
+    return 'read_verilog -sv '+' '.join(flags+files)
+
+
+def yosys_script(config, elaborate=False):
     return '\n'.join([
-        'read_verilog -sv '+' '.join(flags+files),
+        read_rtl(config),
         'hierarchy -check -top '+config['top'],
-        'synth -top '+config['top'], 'check -assert',
+        'proc; opt_clean' if elaborate else 'synth -top '+config['top'], 'check -assert',
         'write_verilog -noattr ../netlist.v', 'write_json ../netlist.json',
         'tee -o ../statistics.json stat -json', ''])
 
 
-def artifact(root, path):
+def artifact(root, path, allow_empty=False):
     path = Path(path)
-    if not path.is_file() or path.stat().st_size == 0:
+    if not path.is_file() or path.stat().st_size == 0 and not allow_empty:
         raise ValueError('The digital tool did not produce '+path.name+'. Inspect its log.')
     return {'path': path.relative_to(root).as_posix(), 'sha256': file_digest(path), 'bytes': path.stat().st_size}
 
@@ -101,7 +136,11 @@ def validate_result(result, directory):
             or data.get('stage') not in STAGES or not isinstance(data.get('artifacts'), dict)
             or not isinstance(data.get('summary'), str)):
         raise ValueError('Invalid digital result structure.')
-    required = {'log'} | {'simulate': {'vcd','waveform'}, 'synth': {'netlist','hierarchy','statistics'}, 'lint': set()}[data['stage']]
+    required = {'log'} | {'simulate': {'vcd','waveform'}, 'synth': {'netlist','hierarchy','statistics'}, 'elaborate': {'netlist','hierarchy','statistics'},
+        'mapped':{'netlist','hierarchy','statistics'},'timing':{'netlist','timing'},'equivalence':{'netlist','equivalence'},
+        'floorplan':{'netlist','checkpoint','layout_preview'},'place':{'netlist','checkpoint','layout_preview'},
+        'cts':{'netlist','checkpoint','layout_preview'},'route':{'netlist','checkpoint','layout_preview'},
+        'finish':{'netlist','checkpoint','layout_preview','gds','spef'},'regression':{'regression'},'lint':set()}[data['stage']]
     if not required.issubset(data['artifacts']) or data['stage'] != result.get('settings',{}).get('stage'):
         raise ValueError('Digital result is missing the required artifacts or has a mismatched stage.')
     root = Path(directory).resolve()
@@ -114,7 +153,11 @@ def validate_result(result, directory):
 
 
 def run(job, directory, progress=lambda *_: None):
-    config = job['project']['digital']; settings = job['settings']; stage = settings['stage']
+    from .digital_design import config as cell_config
+    config = cell_config(job['project'],job['cell']); settings = job['settings']; stage = settings['stage']
+    if stage in ADVANCED:
+        from .digital_implementation import run as run_implementation
+        return run_implementation(job,directory,progress)
     if stage not in STAGES:
         raise ValueError('Unsupported digital stage.')
     if environment(job) != job.get('environment'):
@@ -141,17 +184,17 @@ def run(job, directory, progress=lambda *_: None):
                 progress(fraction, text[:1000])
             return execute(args, cwd, timeout=config.get('timeout', 60), on_line=line, env=process_env)
     for name, path in settings['tools'].items():
-        versions[name] = command([path, '--version' if name == 'verilator' else '-V'], .02, 'Checking '+name).strip()
+        versions[name] = command([path, '--version' if name.startswith('verilator') else '-V'], .02, 'Checking '+name).strip()
     tools = settings['tools']
-    if stage == 'synth':
-        script = root/'synth.ys'; atomic_write(script, yosys_script(config))
+    if stage in ('synth','elaborate'):
+        script = root/'synth.ys'; atomic_write(script, yosys_script(config,stage=='elaborate'))
         command([tools['yosys'], '-s', str(script)], .3, 'Synthesizing '+config['top'])
         for key, name in [('netlist', 'netlist.v'), ('hierarchy', 'netlist.json'), ('statistics', 'statistics.json')]:
             artifacts[key] = artifact(root, root/name)
         stats = json.loads((root/'statistics.json').read_text())
         modules = stats.get('modules', {})
         cells = sum(m.get('num_cells', 0) for m in modules.values())
-        summary = f'Synthesis complete · {cells} generic cells · no technology mapping or timing qualification'
+        summary = f'{"Elaboration" if stage=="elaborate" else "Synthesis"} complete · {cells} generic cells · no technology mapping or timing qualification'
     elif stage == 'lint':
         command([tools['verilator'], '--lint-only', '--top-module', config['top'], '-Wall'] + compiler_args(config), .3, 'Linting '+config['top'])
         summary = 'Lint completed without fatal diagnostics'
@@ -162,9 +205,17 @@ def run(job, directory, progress=lambda *_: None):
             command([tools['vvp'], '-n', str(program)], .6, 'Running testbench')
         else:
             objdir = root/'obj_dir'
-            command([tools['verilator'], '--binary', '--timing', '--trace', '--assert',
+            if config.get('coverage'):
+                from .digital_regression import coverage_main
+                atomic_write(root/'coverage_main.cpp',coverage_main())
+                build=['--cc','--exe','--build','--coverage-line','--prefix','Vstudio','../coverage_main.cpp']
+            else:build=['--binary']
+            command([tools['verilator']] + build + ['--timing', '--trace', '--assert',
                      '--top-module', config['testbench'], '--Mdir', '../obj_dir', '-o', 'simulation'] + compiler_args(config, True), .2, 'Building testbench')
             command([str(objdir/'simulation')], .6, 'Running testbench')
+            if config.get('coverage'):
+                command([tools['verilator_coverage'],'--write-info','../coverage.info','coverage.dat'],.85,'Collecting line coverage')
+                artifacts['coverage']=artifact(root,root/'coverage.info')
         wave = source / config.get('waveform', 'wave.vcd')
         artifacts['vcd'] = artifact(root, wave)
         from .digital_waveform import read_vcd
@@ -181,6 +232,12 @@ def run(job, directory, progress=lambda *_: None):
               'digital_result': {'stage': stage, 'source_hash': digital.source_hash(config),
                                  'summary': summary, 'versions': versions, 'environment': job['environment'],
                                  'artifacts': artifacts, 'statistics': stats if stage != 'lint' else {}}}
+    from .digital_reports import diagnostics, netlist_index, coverage_report
+    result['digital_result']['diagnostics']=diagnostics(log.read_text(),config['files'])
+    if 'hierarchy' in artifacts:
+        index=netlist_index(json.loads((root/'netlist.json').read_text()),config['files'])
+        atomic_write(root/'netlist_index.json',json.dumps(index));artifacts['netlist_index']=artifact(root,root/'netlist_index.json')
+    if 'coverage' in artifacts:result['digital_result']['coverage']=coverage_report(root/'coverage.info')
     validate_result(result, root)
     progress(1, summary)
     return result
@@ -205,7 +262,7 @@ def export_flow(config, directory):
         raise ValueError('Use simple identifiers and unspaced definitions for the initial ORFS handoff.')
     stage_sources(config, root/'sources')
     atomic_write(root/'synth.ys', yosys_script(config))
-    gold = yosys_script(config).split('hierarchy -check')[0]
+    gold = read_rtl(config)+'\n'
     eqy = ('[gold]\n'+gold+'prep -top '+config['top']+'\n\n[gate]\n'
            'read_verilog ../netlist.v\nprep -top '+config['top']+'\n\n'
            '[strategy simple]\nuse sat\ndepth 20\n')

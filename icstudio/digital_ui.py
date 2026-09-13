@@ -11,11 +11,12 @@ from PySide6.QtGui import QPainter, QColor, QPen, QFontDatabase, QSyntaxHighligh
 from PySide6.QtWidgets import (QDialog, QWidget, QVBoxLayout, QHBoxLayout, QLabel,
     QPushButton, QLineEdit, QComboBox, QPlainTextEdit, QListWidget, QListWidgetItem,
     QTabWidget, QSplitter, QFormLayout, QFileDialog, QInputDialog, QScrollArea,
-    QDialogButtonBox, QMessageBox)
+    QDialogButtonBox, QMessageBox, QDockWidget)
 
 from . import digital, digital_flow
 from .digital_waveform import value_at, format_value
 from .model import clone, digest, design_digest
+from .digital_design import config as cell_config, set_config
 
 
 class RTLHighlighter(QSyntaxHighlighter):
@@ -90,18 +91,21 @@ class DigitalWaveform(QWidget):
             self.update()
 
 
-class DigitalFlowWindow(QDialog):
+class DigitalFlowWindow(QDockWidget):
     def __init__(self, studio):
         super().__init__(studio); self.studio = studio; self.project_id = studio.project['id']
+        self.cell_id = studio.cid; self.setObjectName('digital_flow')
         self.base = None; self.config = None; self.dirty = False; self.loading = False; self.file_index = -1; self.display_key = None
         self.setWindowTitle('Digital flow'); self.resize(1200, 800)
-        root = QVBoxLayout(self); toolbar = QHBoxLayout(); root.addLayout(toolbar)
+        host=QWidget();self.setWidget(host);root = QVBoxLayout(host); toolbar = QHBoxLayout(); root.addLayout(toolbar)
         for text, callback in [('Import sources…', self.import_sources), ('Counter example', studio.new_digital_counter),
                                ('Tools…', self.configure_tools), ('Export flow bundle…', self.export)]:
             button = QPushButton(text); button.clicked.connect(lambda checked=False, fn=callback: self.attempt(fn)); toolbar.addWidget(button)
         toolbar.addStretch()
         self.stage = QComboBox()
-        for label, key in [('Simulate', 'simulate'), ('Lint', 'lint'), ('Synthesize', 'synth')]: self.stage.addItem(label, key)
+        for label, key in [('Simulate', 'simulate'), ('Lint', 'lint'), ('Elaborate','elaborate'),('Generic synthesis', 'synth'),
+                ('Mapped synthesis','mapped'),('Timing','timing'),('Equivalence','equivalence'),('Floorplan','floorplan'),
+                ('Place','place'),('Clock tree','cts'),('Route','route'),('Finish / GDS','finish'),('Regression','regression')]: self.stage.addItem(label, key)
         self.stage.setAccessibleName('Digital stage'); toolbar.addWidget(self.stage)
         self.simulator = QComboBox(); self.simulator.addItem('Icarus', 'icarus'); self.simulator.addItem('Verilator', 'verilator')
         self.simulator.setAccessibleName('Digital simulator'); toolbar.addWidget(self.simulator)
@@ -156,6 +160,8 @@ class DigitalFlowWindow(QDialog):
         self.runs.currentIndexChanged.connect(lambda: self.attempt(self.show_run)); self.signals.itemChanged.connect(self.signal_selection)
         self.radix.currentTextChanged.connect(self.change_radix)
         self.stage.currentIndexChanged.connect(lambda: self.simulator.setEnabled(self.stage.currentData() == 'simulate'))
+        from .digital_workspace import Workspace
+        self.workspace=Workspace(self,root)
         studio.run_manager.changed.connect(self.refresh_runs)
         self.load_sources(); self.refresh_runs()
 
@@ -171,7 +177,7 @@ class DigitalFlowWindow(QDialog):
 
     def load_sources(self):
         self.check_project(); self.loading = True
-        self.base = clone(self.studio.project.get('digital')); self.config = clone(self.base)
+        self.base = clone(cell_config(self.studio.project,self.cell_id)); self.config = clone(self.base)
         self.file_index = -1; self.files.clear(); self.editor.clear()
         self.top.setText((self.config or {}).get('top', '')); self.testbench.setText((self.config or {}).get('testbench', ''))
         if self.config:
@@ -179,6 +185,7 @@ class DigitalFlowWindow(QDialog):
         self.loading = False; self.dirty = False
         if self.files.count(): self.files.setCurrentRow(0)
         self.apply_button.setEnabled(False)
+        if hasattr(self,'workspace'):self.workspace.refresh_design()
 
     def reload_sources(self):
         if self.dirty and QMessageBox.question(self, 'Reload sources', 'Discard the unapplied source edits?') != QMessageBox.Yes: return
@@ -204,15 +211,15 @@ class DigitalFlowWindow(QDialog):
     def apply(self):
         self.check_project()
         if not self.config: raise ValueError('Import a digital manifest or open the counter example first.')
-        if self.studio.project.get('digital') != self.base:
+        if cell_config(self.studio.project,self.cell_id) != self.base:
             raise ValueError('Saved digital sources changed. Reload them before applying this draft.')
         self.sync_file(); self.config.update(top=self.top.text().strip(), testbench=self.testbench.text().strip())
         digital.validate_config(self.config)
         if not self.studio.flush_inspector(): return False
         candidate = clone(self.config)
         if candidate != self.base:
-            self.studio.commit(lambda p: p.update(digital=clone(candidate)), 'Edit digital sources')
-            if self.studio.project.get('digital') != candidate: return False
+            self.studio.commit(lambda p: set_config(p,self.cell_id,candidate), 'Edit digital sources')
+            if cell_config(self.studio.project,self.cell_id) != candidate: return False
         self.base = clone(candidate); self.dirty = False; self.apply_button.setEnabled(False)
         self.refresh_runs(); return True
 
@@ -223,7 +230,7 @@ class DigitalFlowWindow(QDialog):
         config = digital.read_manifest(path)
         if self.dirty and not self.apply(): return
         if not self.studio.idle_edit(): return
-        self.studio.commit(lambda p: p.update(digital=config), 'Import digital sources'); self.load_sources()
+        self.studio.commit(lambda p: set_config(p,self.cell_id,config), 'Import digital sources'); self.load_sources()
 
     def add_file(self):
         if not self.config: raise ValueError('Import a manifest or open the counter example first.')
@@ -254,7 +261,7 @@ class DigitalFlowWindow(QDialog):
     def configure_tools(self):
         dialog = QDialog(self); dialog.setWindowTitle('Digital tools'); layout = QVBoxLayout(dialog); form = QFormLayout(); layout.addLayout(form); edits = {}
         note = QLabel('Use installed open-source executables. Leave a path empty to discover the tool on PATH. Verilator simulation also needs a C++ compiler and make.'); note.setWordWrap(True); layout.addWidget(note)
-        for name in ('iverilog','vvp','verilator','yosys'):
+        for name in ('iverilog','vvp','verilator','verilator_coverage','yosys','eqy','sta','openroad','make','klayout'):
             edit = QLineEdit(self.studio.settings.value('engine/'+name,'')); edit.setAccessibleName(name+' executable'); form.addRow(name,edit); edits[name] = edit
         buttons = QDialogButtonBox(QDialogButtonBox.Save|QDialogButtonBox.Cancel); layout.addWidget(buttons); buttons.accepted.connect(dialog.accept); buttons.rejected.connect(dialog.reject)
         if dialog.exec():
@@ -264,8 +271,10 @@ class DigitalFlowWindow(QDialog):
         if not self.apply(): return
         if self.studio.process and self.studio.process not in self.studio.run_manager.processes:
             raise ValueError('Wait for the external job to finish first.')
-        tools = {name: self.studio.settings.value('engine/'+name,'') for name in ('iverilog','vvp','verilator','yosys')}
-        job = digital_flow.prepare(self.studio.project, self.stage.currentData(), self.simulator.currentData(), tools)
+        tools = self.workspace.tools()
+        upstream=self.selected_run() if self.workspace.use_selected.isChecked() else None
+        job = digital_flow.prepare(self.studio.project, self.stage.currentData(), self.simulator.currentData(), tools,
+            cell_id=self.cell_id,upstream=upstream['path'] if upstream else None,orfs=self.studio.settings.value('digital/orfs',''))
         row = self.studio.run_manager.enqueue(job, self.studio.jobs_dir, 'Digital '+self.stage.currentText().lower())
         self.refresh_runs(); self.runs.setCurrentIndex(self.runs.findData(row['id'])); self.tabs.setCurrentIndex(1)
         return row
@@ -273,10 +282,11 @@ class DigitalFlowWindow(QDialog):
     def refresh_runs(self):
         selected = self.runs.currentData(); self.runs.blockSignals(True); self.runs.clear()
         for row in self.studio.run_manager.rows:
-            if row['job']['settings'].get('type') == 'digital' and row['job']['project']['id'] == self.project_id:
+            if row['job']['settings'].get('type') == 'digital' and row['job']['project']['id'] == self.project_id and row['job']['cell']==self.cell_id:
                 self.runs.addItem(f"{row['name']} · {row['state']} · r{row['job']['project']['revision']}", row['id'])
         index = self.runs.findData(selected); self.runs.setCurrentIndex(index if index >= 0 else self.runs.count()-1); self.runs.blockSignals(False)
         self.attempt(self.show_run)
+        if hasattr(self,'workspace'):self.workspace.refresh_comparison()
 
     def selected_run(self):
         return next((r for r in self.studio.run_manager.rows if r['id'] == self.runs.currentData()), None)
@@ -284,11 +294,14 @@ class DigitalFlowWindow(QDialog):
     def show_run(self):
         row = self.selected_run()
         if not row:
-            self.summary.setText('No digital run yet'); self.wave.set_data(None); self.signals.clear(); self.report.clear(); self.netlist_view.clear(); return
+            self.summary.setText('No digital run yet'); self.wave.set_data(None); self.signals.clear(); self.report.clear(); self.netlist_view.clear()
+            if hasattr(self,'workspace'):self.workspace.show_result(None)
+            return
         result = row.get('result'); data = result.get('digital_result') if result else None
-        state = 'Current revision' if result and result['design_hash'] == design_digest(self.studio.project) else 'Saved earlier revision'
+        state = 'Current revision' if data and data['source_hash'] == digital.source_hash(cell_config(self.studio.project,self.cell_id)) else 'Saved earlier revision'
         self.summary.setText((data['summary']+' · '+state) if data else row['state']+f" · {row['progress']}%")
         self.report.setPlainText((json.dumps(data, indent=2) if data else '')+'\n'+row['log'][-30000:])
+        if hasattr(self,'workspace'):self.workspace.show_diagnostics(row)
         key = (row['id'], row['state'])
         if key == self.display_key: return
         self.display_key = key; self.signals.blockSignals(True); self.signals.clear(); self.wave.set_data(None); self.netlist_view.clear()
@@ -309,6 +322,7 @@ class DigitalFlowWindow(QDialog):
                     self.result_tabs.setCurrentIndex(0)
                 else: self.result_tabs.setCurrentIndex(1)
             else: self.result_tabs.setCurrentIndex(1)
+            if hasattr(self,'workspace'):self.workspace.show_result(row)
         finally: self.signals.blockSignals(False)
 
     def signal_selection(self):
@@ -331,26 +345,46 @@ class DigitalFlowWindow(QDialog):
         directory = QFileDialog.getExistingDirectory(self, 'Choose an empty flow bundle folder')
         if directory:
             digital_flow.export_flow(self.config,directory); self.message.setText('Exported Yosys/EQY inputs and SKY130 ORFS starting configuration. Physical flow has not run.')
-    def reject(self):
+    def closeEvent(self,event):
         if self.dirty:
             answer = QMessageBox.question(self,'Unapplied source edits','Apply the source edits before closing?',QMessageBox.Save|QMessageBox.Discard|QMessageBox.Cancel)
-            if answer == QMessageBox.Cancel or answer == QMessageBox.Save and not self.attempt(self.apply): return
-        self.dirty = False; super().reject()
+            if answer == QMessageBox.Cancel or answer == QMessageBox.Save and not self.attempt(self.apply):event.ignore();return
+        self.dirty = False; super().closeEvent(event)
 
 
 class DigitalMixin:
+    def prepare_simulation(self,settings,engine='builtin',project=None,cid=None):
+        if engine!='digital':return super().prepare_simulation(settings,engine,project,cid)
+        from .digital_workspace import TOOL_NAMES
+        p=clone(project or self.project);cid=cid or self.cid;case=settings.get('digital_case',{})
+        config=clone(cell_config(p,cid));config.pop('tests',None)
+        config.update(testbench=case['testbench'],defines={**config.get('defines',{}),**case.get('defines',{})},coverage=case.get('coverage',False))
+        set_config(p,cid,config)
+        tools={name:self.settings.value('engine/'+name,'') for name in TOOL_NAMES}
+        job=digital_flow.prepare(p,'simulate',case.get('simulator','icarus'),tools,cell_id=cid)
+        job['settings']['digital_case']=clone(case)
+        return job
+
     def digital_window(self):
         window = getattr(self, '_digital_window', None)
         if window is None or window.project_id != self.project['id']:
             if window:
                 window.dirty = False; window.close(); window.deleteLater()
             window = self._digital_window = DigitalFlowWindow(self)
+            self.addDockWidget(Qt.BottomDockWidgetArea,window)
+            self.tabifyDockWidget(self.results_dock,window)
+            self.resizeDocks([window],[500],Qt.Vertical)
         elif not window.dirty: window.load_sources(); window.refresh_runs()
         window.show(); window.raise_(); return window
 
     def new_digital_counter(self):
         if not self.idle_edit() or not self.maybe_save(): return
         self.set_project(digital.counter_project()); return self.digital_window()
+
+    def new_digital_uart(self):
+        if not self.idle_edit() or not self.maybe_save():return
+        from .digital_examples import uart_project
+        self.set_project(uart_project());return self.digital_window()
 
     def save(self, *args, **kwargs):
         window = getattr(self, '_digital_window', None)
@@ -372,7 +406,8 @@ class DigitalMixin:
         super().refresh(fit)
         window = getattr(self, '_digital_window', None)
         if window and window.project_id == self.project['id']:
-            if not window.dirty and window.base != self.project.get('digital'): window.load_sources()
+            if not window.dirty and window.base != cell_config(self.project,window.cell_id): window.load_sources()
+            window.workspace.refresh_design()
             window.refresh_runs()
 
     def add_result(self, result):
@@ -381,12 +416,13 @@ class DigitalMixin:
     def simulation_finished(self, row, result):
         if row['job']['settings'].get('type') != 'digital': return super().simulation_finished(row, result)
         self.sync_runs(); self.console.appendPlainText(row['name']+' · '+row['state']+'\n'+row['log'])
-        window = self.digital_window(); window.runs.setCurrentIndex(window.runs.findData(row['id'])); window.tabs.setCurrentIndex(1)
+        window = self.digital_window()
+        if window.cell_id==row['job']['cell']:window.runs.setCurrentIndex(window.runs.findData(row['id'])); window.tabs.setCurrentIndex(1)
 
     def open_selected_run(self):
         rows = self.selected_simulation_runs()
         if rows and rows[0]['job']['settings'].get('type') == 'digital':
-            window = self.digital_window(); window.runs.setCurrentIndex(window.runs.findData(rows[0]['id'])); window.tabs.setCurrentIndex(1); return
+            window = self.digital_window();window.workspace.switch_cell(rows[0]['job']['cell']); window.runs.setCurrentIndex(window.runs.findData(rows[0]['id'])); window.tabs.setCurrentIndex(1); return
         return super().open_selected_run()
 
 
@@ -394,3 +430,4 @@ def install(studio):
     menu = studio.menuBar().addMenu('Digital')
     studio.action(menu, 'Digital flow…', studio.digital_window)
     studio.action(menu, 'New digital counter example', studio.new_digital_counter)
+    studio.action(menu, 'New UART regression example', studio.new_digital_uart)

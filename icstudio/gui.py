@@ -16,7 +16,7 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
     def __init__(self,recover=True):
         super().__init__();self.setWindowTitle('IC Design Studio');self.resize(1440,930);self.setMinimumSize(900,600)
         self.settings=QSettings('ICDesignStudio','Studio');self.history=History(example());self.cid=self.project['top'];self.path=None;self.saved_hash=None;self.selection=[];self.net='';self.current_mode='schematic';self.jobs=[];self.result=None;self.issues=[];self.check_revision=None;self.process=None;self.active_job=None;self.rebuilding=False;self.form_fields={}
-        self.data_dir=Path(QStandardPaths.writableLocation(QStandardPaths.AppLocalDataLocation));self.data_dir.mkdir(parents=True,exist_ok=True);self.recovery_root=Path(self.settings.value('storage/recovery_root',str(self.data_dir/'recovery')));self.reset_recovery_status();self.recovery_dir=self.recovery_root/uid();self._recovered_from=None;self._disk_hash=None;self.jobs_dir=self.data_dir/'runs';self.jobs_dir.mkdir(exist_ok=True)
+        self.data_dir=Path(QStandardPaths.writableLocation(QStandardPaths.AppLocalDataLocation));self.data_dir.mkdir(parents=True,exist_ok=True);self.recovery_root=Path(self.settings.value('storage/recovery_root',str(self.data_dir/'recovery')));self.reset_recovery_status();self.recovery_dir=self.recovery_root/uid();self._recovered_from=None;self._disk_hash=None;self.jobs_dir=Path(self.settings.value('digital/jobs_dir',str(self.data_dir/'runs')));self.jobs_dir.mkdir(parents=True,exist_ok=True)
         self.dark=self.settings.value('appearance/theme','dark')!='light';self.make_ui();self.make_actions();self.apply_theme();self.refresh(True)
         if recover:QTimer.singleShot(100,self.offer_recovery)
     @property

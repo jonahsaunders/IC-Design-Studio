@@ -77,12 +77,27 @@ def validate_config(config):
     timeout = config.get('timeout', 60)
     if type(timeout) is not int or not 1 <= timeout <= 3600:
         raise ValueError('Digital timeout must be 1–3,600 seconds.')
+    if 'platform' in config:
+        from .digital_platform import validate as validate_platform
+        validate_platform(config['platform'])
+    if type(config.get('coverage',False)) is not bool:raise ValueError('Coverage must be enabled or disabled.')
+    if 'physical' in config:
+        from .digital_physical import validate_settings
+        validate_settings(config['physical'])
+    if 'tests' in config:
+        from .digital_regression import validate_tests
+        validate_tests(config['tests'])
     return config
 
 
 def validate_project(project):
     if 'digital' in project:
         validate_config(project['digital'])
+        project.setdefault('digital_cell',project['top'])
+    for cell in project['cells']:
+        if 'digital' in cell:validate_config(cell['digital'])
+    from .digital_design import validate_views
+    validate_views(project)
 
 
 def source_hash(config):
