@@ -4,6 +4,9 @@ from .build_info import WORKFLOW_SOURCE_HASH
 
 
 def stamp(job):
+    if job.get('engine')=='digital':
+        from .digital_flow import environment
+        return environment(job)
     out={'workflow_hash':WORKFLOW_SOURCE_HASH,'engine':job['engine']}
     if job['engine']=='ngspice':out['executable_sha256']=file_digest(job['executable'])
     return out

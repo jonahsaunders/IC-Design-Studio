@@ -334,6 +334,15 @@ Bundled simulation subsets contain models and symbols; full physical flows need 
 
 ## Project status
 
+The experimental branch includes an integrated [digital flow](docs/DIGITAL_FLOW.md):
+per-cell RTL and symbols, Icarus/Verilator simulation and regression, mapped Yosys
+synthesis, OpenSTA timing, EQY proofs, staged ORFS implementation through GDS/SPEF,
+and source/netlist/physical inspection in a docked workspace.
+Open **Digital → New digital counter example**. Release packaging includes a
+managed digital runtime and SKY130 HD platform, with first-install verification
+in **Digital flow → Tools**. Windows uses a private WSL 2 distribution; enabling
+Windows Linux support can require administrator approval and a restart.
+
 **0.22.0.dev23 is an engineering preview.** The [inductor design update](docs/UPDATE_0.22_DEV23.md) adds five shapes, target-L synthesis, background validation, optional DC series RL and EM characterization exchange with reusable PDK material/layer profiles. It includes the earlier [workflow and recovery improvements](docs/UPDATE_0.22_DEV21.md). [Release status](docs/RELEASE_STATUS.md) records validation and package status.
 
 The [roadmap](docs/ROADMAP.md) tracks consumer Windows/Linux acceptance, physical LAN/VPN testing, broader PVT/transient and real-project coverage, larger editing/recovery workloads, and offline collaboration. A passing fixture qualifies that recorded case; it does not establish arbitrary-design or fabrication signoff. Source-to-GDS warnings for the detector remain documented.

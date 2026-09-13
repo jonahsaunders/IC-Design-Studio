@@ -9,7 +9,10 @@ on:
 permissions:
   contents: read
 jobs:
+  digital-runtime:
+    uses: ./.github/workflows/digital-runtime.yml
   package:
+    needs: digital-runtime
     strategy:
       fail-fast: false
       matrix:
@@ -17,15 +20,40 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: digital-runtime-payload
+          path: build/digital-payload
+      - name: Prepare Windows Linux support for the included runtime
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          wsl --update --web-download
+          if ($LASTEXITCODE -ne 0) { throw 'WSL update failed.' }
       - name: Configure Windows virtual desktop for native DPI checks
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
+          # The included toolchain makes compilation long enough to reach the
+          # runner's display idle timeout. Native pointer tests need its display.
+          powercfg /change monitor-timeout-ac 0
+          if ($LASTEXITCODE -ne 0) { throw 'Could not keep the CI display available.' }
+          powercfg /change standby-timeout-ac 0
+          if ($LASTEXITCODE -ne 0) { throw 'Could not keep the CI runner awake.' }
           Set-DisplayResolution -Width 1920 -Height 1080 -Force
           Get-DisplayResolution
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Verify windowed Windows worker pipes
+        if: runner.os == 'Windows'
+        run: python -m unittest tests.test_windows_stdio -v
+      - name: Verify cross-platform installation and path contracts
+        run: python -m unittest tests.test_digital_runtime -v
+      - name: Verify installed digital runtime on this operating system
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+        run: python scripts/qualify_digital_runtime.py
       - name: Install dependencies
         run: python -m pip install -r requirements-build.txt
       - name: Install Linux simulation engine and desktop runtime
@@ -274,6 +302,11 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: ./scripts/build_windows.ps1
+      - name: Qualify included digital engines through the frozen desktop
+        timeout-minutes: 20
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+        run: python scripts/verify_frozen_digital.py
       - name: Verify installed Windows app
         if: runner.os == 'Windows'
         shell: pwsh
@@ -301,6 +334,19 @@ jobs:
           name: release-${{ runner.os }}
           path: build/release-payload
           if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: desktop-diagnostics-${{ runner.os }}
+          path: |
+            build/digital-frozen-evidence
+            build/windows-evidence/install.log
+            build/windows-evidence/uninstall.log
+            build/windows-evidence/windows-release.json
+            build/windows-evidence/dpi-*/*.json
+            build/windows-evidence/dpi-*/experimental/*.png
+            build/native-experimental-evidence/**/*.json
+            build/native-experimental-evidence/**/*.png
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -343,5 +389,6 @@ jobs:
             build/native-hierarchy-evidence
             build/openems-native-evidence/report.json
             build/openems-native-evidence/*.log
+            build/digital-frozen-evidence
             build/distribution-evidence
             build/verification-0.8.0

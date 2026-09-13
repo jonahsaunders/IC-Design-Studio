@@ -8,6 +8,15 @@ from icstudio.runtime_setup import check_ngspice
 check(root)
 from stage_openems import stage as stage_openems, verify as verify_openems
 solver_runtime = stage_openems(root/"build/openems-runtime", root/"build/openems-downloads")
+from icstudio.digital_runtime import manifest as digital_manifest, payload_root as digital_payload
+from icstudio.model import file_digest
+digital_data=digital_manifest()
+if not digital_data or file_digest(digital_payload()/digital_data['archive'])!=digital_data['sha256']:
+ raise ValueError('Stage the qualified digital runtime payload before packaging. See scripts/build_digital_runtime.py.')
+qualification=digital_payload()/('qualified-'+('Windows' if os.name=='nt' else 'Linux')+'.json')
+if not qualification.is_file():raise ValueError('The digital runtime must pass acceptance on this build platform before packaging.')
+import json
+if json.loads(qualification.read_text()).get('sha256')!=digital_data['sha256']:raise ValueError('The digital runtime acceptance record belongs to another archive.')
 if os.name=='nt':
  from stage_windows_ngspice import ensure
  ensure()
@@ -45,6 +54,12 @@ args.append(str(root/'main.py'));subprocess.run(args,cwd=root,check=True)
 solver_target = root/'dist/ICDesignStudio/_internal/icstudio/assets/runtime/openems'
 shutil.copytree(solver_runtime, solver_target, dirs_exist_ok=True)
 verify_openems(solver_target)
+
+digital_target=root/'dist/ICDesignStudio/_internal/icstudio/assets/runtime/digital'
+shutil.copytree(digital_payload(),digital_target,dirs_exist_ok=True)
+# The independent Linux interpreter runs this exact release's backend sources.
+shutil.copytree(root/'icstudio',digital_target/'backend/icstudio',
+ ignore=shutil.ignore_patterns('assets','__pycache__','*.pyc','*.so','*.dll','*.pyd'))
 
 from stage_linux_runtime import stage
 stage(root)

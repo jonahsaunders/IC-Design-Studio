@@ -193,6 +193,8 @@ def validate(p):
     validate_specifications(p)
     from .analog_constraints import validate_constraints
     validate_constraints(p)
+    from .digital import validate_project as validate_digital
+    validate_digital(p)
     for cell in cells:flatten(p,cell['id'])
     return p
 

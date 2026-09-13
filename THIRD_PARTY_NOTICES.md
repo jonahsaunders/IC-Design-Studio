@@ -72,3 +72,41 @@ The runtime's `runtime.json` records archive hashes, wheel hashes, packages and
 individual file integrity; `scripts/stage_openems.py` reproduces the runtime.
 This does not add an anti-modification restriction to any component. Retain
 notices and equivalent source access when redistributing dependencies.
+
+## Included digital tools
+
+Desktop release packaging includes a private Linux runtime (also used by the
+Windows app's private WSL distribution). The original OSS CAD Suite licenses are
+under `opt/icstudio/oss-cad-suite/license`; Ubuntu package copyright files are
+under `usr/share/doc`. `opt/icstudio/packages.tsv` records exact binary/source
+package versions, and the runtime manifest records the suite, OpenROAD and ORFS
+revisions. The reproducible engine download checksums and wrapper source are in
+`packaging/digital`. Their source and licenses are available upstream:
+
+- Icarus Verilog: GPL-2.0-or-later, https://github.com/steveicarus/iverilog
+- Verilator: LGPL-3.0 or Artistic-2.0, https://verilator.org/guide/latest/copyright.html
+- Yosys: ISC, https://github.com/YosysHQ/yosys
+- EQY: ISC, https://github.com/YosysHQ/eqy
+- SBY: ISC, https://github.com/YosysHQ/sby
+- Bitwuzla: MIT, https://github.com/bitwuzla/bitwuzla
+- KLayout: GPL-2.0-or-later, https://github.com/KLayout/klayout
+- GNU GCC and GNU make: https://www.gnu.org/software/gcc/ and
+  https://www.gnu.org/software/make/ (retain package-specific license notices)
+- OpenSTA: GPL-3.0, https://github.com/The-OpenROAD-Project/OpenSTA
+- OpenROAD / OpenROAD Flow Scripts: BSD-3-Clause for
+  the main projects, with separately licensed dependencies and platform assets,
+  https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts
+
+The complete OSS CAD Suite distribution, including its dependency notices and
+package inventory, comes from
+https://github.com/YosysHQ/oss-cad-suite-build/releases/tag/2026-09-13.
+Its upstream build recipes are at https://github.com/YosysHQ/oss-cad-suite-build.
+Ubuntu source packages are available from https://archive.ubuntu.com/ubuntu/;
+use the source package/version columns of `packages.tsv` to identify them.
+Retain component notices and equivalent corresponding-source access when
+redistributing the runtime. Generated Studio examples, installer and configuration
+templates are part of this application's source distribution.
+
+Digital platform inputs retain their own licenses. CI downloads separately licensed
+engine distributions and records their versions; these binaries and full PDK trees
+are not included in the application source distribution.

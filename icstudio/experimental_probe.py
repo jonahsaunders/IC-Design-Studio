@@ -3,6 +3,33 @@ import time
 from pathlib import Path
 
 
+def native_desktop():
+    """Read-only diagnostics distinguish native GUI failures from lost desktops."""
+    import os
+    if os.name!='nt':return {}
+    import ctypes
+    from ctypes import wintypes
+    user=ctypes.WinDLL('user32',use_last_error=True)
+    user.GetForegroundWindow.restype=wintypes.HANDLE
+    user.GetWindowTextW.argtypes=[wintypes.HANDLE,wintypes.LPWSTR,ctypes.c_int]
+    foreground=user.GetForegroundWindow();title=ctypes.create_unicode_buffer(512)
+    if foreground:user.GetWindowTextW(foreground,title,len(title))
+    result=dict(foreground=hex(foreground) if foreground else None,title=title.value)
+    user.OpenInputDesktop.argtypes=[wintypes.DWORD,wintypes.BOOL,wintypes.DWORD]
+    user.OpenInputDesktop.restype=wintypes.HANDLE
+    user.GetUserObjectInformationW.argtypes=[wintypes.HANDLE,ctypes.c_int,ctypes.c_void_p,wintypes.DWORD,ctypes.POINTER(wintypes.DWORD)]
+    user.CloseDesktop.argtypes=[wintypes.HANDLE]
+    desktop=user.OpenInputDesktop(0,False,1)
+    if desktop:
+        try:
+            name=ctypes.create_unicode_buffer(512);needed=wintypes.DWORD()
+            if user.GetUserObjectInformationW(desktop,2,name,ctypes.sizeof(name),ctypes.byref(needed)):result['input_desktop']=name.value
+            else:result['input_desktop_error']=ctypes.get_last_error()
+        finally:user.CloseDesktop(desktop)
+    else:result['input_desktop_error']=ctypes.get_last_error()
+    return result
+
+
 def run(w, output):
     from PySide6.QtCore import Qt,QPoint,QPointF,QEvent,QRect,QObject
     from PySide6.QtGui import QMouseEvent,QCursor
@@ -44,7 +71,8 @@ def run(w, output):
                 while time.monotonic()<until:
                     QTest.qWait(10)
                     if arrival.arrived and widget.underMouse():return
-            raise AssertionError(dict(reason='Native hover event was not delivered',cursor=str(QCursor.pos()),target=str(widget.mapToGlobal(point)),active=repr(app.activeWindow()),under_pointer=repr(app.widgetAt(widget.mapToGlobal(point)))))
+            widget.screen().grabWindow(0).save(str(out/'native-hover-failure.png'))
+            raise AssertionError(dict(reason='Native hover event was not delivered',cursor=str(QCursor.pos()),target=str(widget.mapToGlobal(point)),active=repr(app.activeWindow()),under_pointer=repr(app.widgetAt(widget.mapToGlobal(point))),desktop=native_desktop()))
         finally:widget.removeEventFilter(arrival)
     def wait(predicate, label, timeout=10):
         deadline=time.monotonic()+timeout
@@ -90,13 +118,30 @@ def run(w, output):
         w.set_project(p);w.mode_combo.setCurrentIndex(0);canvas=w.schematic;QTest.qWait(100)
         if app.platformName() not in ('offscreen','minimal'):
             QWidget.move(w,w.screen().availableGeometry().topLeft()+QPoint(20,20));w.raise_();w.activateWindow();QTest.qWait(100)
+            assert QTest.qWaitForWindowExposed(w,2000),'Native canvas window was not exposed'
+            assert QTest.qWaitForWindowActive(w,2000),'Native canvas window did not activate'
         visible=canvas.visibleRegion().boundingRect()
         if app.platformName() not in ('offscreen','minimal'):
             portions=[visible.intersected(QRect(canvas.mapFromGlobal(s.availableGeometry().topLeft()),s.availableGeometry().size())) for s in app.screens()]
             visible=max(portions,key=lambda rect:rect.width()*rect.height())
         assert visible.width()>10 and visible.height()>10,('Canvas has no reachable pointer area',visible)
-        point=visible.center();canvas.auto_fit=False;canvas.scale=1.5;canvas.offset=QPointF(point)-QPointF(0,40)*canvas.scale
-        move(canvas,point)
+        candidates=[visible.center()]
+        if app.platformName() not in ('offscreen','minimal'):
+            # Qt's point lookup can return None even for a working native input
+            # location. Require a delivered event, as move() always has, and try
+            # another location when native window occlusion blocks the center.
+            candidates += [QPoint(visible.left()+int(visible.width()*x),visible.top()+int(visible.height()*y))
+                           for y in (.25,.75) for x in (.25,.75)]
+        canvas.auto_fit=False;canvas.scale=1.5;pointer_attempts=[]
+        for point in candidates:
+            canvas.offset=QPointF(point)-QPointF(0,40)*canvas.scale;canvas.update();QTest.qWait(30)
+            try:move(canvas,point)
+            except AssertionError as exc:
+                if not exc.args or not isinstance(exc.args[0],dict) or exc.args[0].get('reason')!='Native hover event was not delivered':raise
+                pointer_attempts.append(exc.args[0])
+            else:break
+        else:raise AssertionError(dict(reason='No native canvas input was delivered',attempts=pointer_attempts))
+        pointer_evidence=dict(local=[point.x(),point.y()],attempts=len(pointer_attempts)+1,native=app.platformName() not in ('offscreen','minimal'))
         assert canvas.preselection and canvas.preselection['id']=='overlap-wire',dict(tool=canvas.tool,scale=canvas.scale,offset=str(canvas.offset),pointer=str(getattr(canvas,'editor_pointer',None)),cursor=str(QCursor.pos()),target=str(canvas.mapToGlobal(point)),screens=[str(s.availableGeometry()) for s in app.screens()],anchor=str(canvas.anchor),hint=canvas.selection_hint)
         assert '2 overlapping' in canvas.selection_hint
         QTest.mouseClick(canvas,Qt.LeftButton,Qt.NoModifier,point);assert w.selection==['overlap-wire']
@@ -154,6 +199,6 @@ def run(w, output):
         target=out/'Project with spaces.icproj';save_project(w.project,target);restored=load_project(target)
         assert restored==w.project
         (out/'diagnostics.json').write_text(diagnostic_report(),encoding='utf-8')
-        return dict(checks=checks,component_open_ms=open_ms,component_filter_ms=filter_ms,qt_platform=app.platformName())
+        return dict(checks=checks,component_open_ms=open_ms,component_filter_ms=filter_ms,qt_platform=app.platformName(),pointer=pointer_evidence)
     finally:
         w.cancel_tool();w.set_project(before,path)

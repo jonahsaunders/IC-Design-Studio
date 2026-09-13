@@ -11,7 +11,10 @@ def main(input_path,output_path):
         p=validate(job['project'])
         def progress(fraction,message): print(json.dumps({'progress':fraction,'message':message}),flush=True)
         kind=job['settings'].get('type')
-        if kind in ('layout_route','layout_compare'):
+        if kind=='digital':
+            from .digital_flow import run
+            result=run(job,Path(output_path).parent,progress)
+        elif kind in ('layout_route','layout_compare'):
             from .layout_jobs import run
             result=run(p,job['cell'],job['settings'],Path(output_path).parent,progress)
         elif kind=='klayout_lvs':
