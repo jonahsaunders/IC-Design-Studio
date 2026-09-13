@@ -23,6 +23,17 @@ def main(output):
         app=QApplication([]);app.setStyle('Fusion');QSettings('ICDesignStudio','Studio').clear();window=Studio(recover=False);window.resize(1440,940);window.show();QTest.qWait(100)
         assert window.dark;assert window.devicePixelRatioF()>=float(report['scale'])-.05
         report['checks'].append('native dark workspace and requested DPI scale')
+        if report['frozen']:
+            from . import openems_runtime
+            from .openems_ui import OpenEMSJob
+            solver, _ = openems_runtime.discover()
+            assert solver and openems_runtime.runtime_for(solver), 'Included openEMS runtime is missing'
+            check = OpenEMSJob(); outcome = []
+            check.completed.connect(lambda result, error: outcome.append((result, error)))
+            check.start(solver); deadline = time.monotonic()+45
+            while check.running and time.monotonic()<deadline: QTest.qWait(20)
+            assert outcome and not outcome[0][1], repr(outcome)
+            report['checks'].append('Included openEMS and Python auto-detected and executed from the packaged app')
         assert window.schematic.grid_style=='lines' and window.layout.grid_style=='lines'
         assert not window.unmapped_commands and 'Window' in window.task_menus
         report['checks'].append('0.14 visible schematic/layout grids and complete reorganized command map')

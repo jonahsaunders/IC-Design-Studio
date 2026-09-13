@@ -135,7 +135,7 @@ def placement_inventory(p,cid):
 
 
 def electrical_signature(d):
-    return digest({k:d.get(k) for k in ('kind','value','params','model_ref','model_params','nets','cell','parameters')}|{k:d[k] for k in ('native_spice','physical_binding') if k in d})
+    return digest({k:d.get(k) for k in ('kind','value','params','model_ref','model_params','nets','cell','parameters')}|{k:d[k] for k in ('native_spice','physical_binding','inductor_rl') if k in d})
 
 
 def geometry_signature(shapes):

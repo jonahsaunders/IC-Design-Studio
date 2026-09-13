@@ -36,6 +36,7 @@ class PhysicalWorkspaceMixin:
     def make_actions(self):
         super().make_actions()
         self.action(self.task_menus['Tools'],'Inductor creator…',self.inductor_creator)
+        self.action(self.task_menus['Tools'],'Physical EM profile…',self.physical_em_profile)
         self.action(self.task_menus['Layout'],'Placement and constraints',lambda:self.open_engineering_tab(self.physical_assistant_tab))
         self.action(self.task_menus['Route'],'Live routing feedback',lambda:self.open_engineering_tab(self.physical_assistant_tab))
         self.action(self.task_menus['Window'],'Placement and rules',lambda:self.open_engineering_tab(self.physical_assistant_tab));self.reindex_commands()
@@ -66,6 +67,10 @@ class PhysicalWorkspaceMixin:
             candidates.update(s['device_id'] for s in self.cell['shapes'] if s['id'] in selected and s.get('pcell_id') and any(r['id']==s['pcell_id'] and r['spec'].get('kind')=='inductor' for r in self.cell.get('parametric_devices',[])))
             if len(candidates)==1:did=candidates.pop()
         dialog=InductorDialog(self,did);self._inductor_dialog=dialog;dialog.show();return dialog
+    def physical_em_profile(self):
+        if not self.idle_edit():return
+        from .em_profile_ui import EMProfileDialog
+        dialog=EMProfileDialog(self);self._em_profile=dialog;dialog.show();return dialog
     def parametric_dialog(self):
         selected=[d for d in self.cell['devices'] if d['id'] in self.selection]
         if len(selected)!=1:

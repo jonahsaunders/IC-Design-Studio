@@ -26,6 +26,8 @@ def source_spec(d):
 def spice(p,cid=None,settings=None,hierarchical=True):
     if p.get("spice",{}).get("version")==1:raise ValueError("Use File → Export SPICE deck to export the native circuit with its model files.")
     if p.get('xschem_exchange',{}).get('mode')=='compatible':raise ValueError('Use File → Export SPICE deck to export this Xschem circuit with its preserved model files.')
+    from .inductor_electrical import expand_series_rl
+    p=expand_series_rl(p,cid,(settings or {}).get('corner'))
     validate(p);cid=cid or p['top'];by={c['id']:c for c in p['cells']};lines=[f'* IC Design Studio / {p["name"]} / revision {p["revision"]}',f'* design-sha256 {digest(p)}','* Generic level-1 models. Not a qualified PDK netlist.'];models=[]
     from .components import require_implementations
     require_implementations(p,cid)

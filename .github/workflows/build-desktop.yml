@@ -35,7 +35,8 @@ jobs:
           sudo apt-get install -y ngspice xschem libegl1 libopengl0 libgl1 libglx0 libglvnd0 \
             libx11-6 libxcb1 libxcb-image0 libxcb-xkb1 libxcb-cursor0 \
             libxcb-keysyms1 libxcb-render-util0 libxcb-icccm4 libxcb-util1 \
-            libxcb-shape0 libxkbcommon-x11-0 xvfb xauth openbox x11-utils libgl1-mesa-dri libglx-mesa0
+            libxcb-shape0 libxkbcommon-x11-0 xvfb xauth openbox x11-utils libgl1-mesa-dri libglx-mesa0 \
+            build-essential cmake libhdf5-dev libvtk9-dev libboost-all-dev libcgal-dev libtinyxml-dev
           echo "ICSTUDIO_TEST_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
           echo "ICSTUDIO_BUNDLED_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
       - name: Stage verified Windows simulation engine
@@ -47,6 +48,20 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Runtime provisioning failed.' }
           $engine = (Resolve-Path 'icstudio/assets/runtime/ngspice/ngspice.exe').Path
           "ICSTUDIO_TEST_NGSPICE=$engine" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+      - name: Cache included openEMS runtime
+        uses: actions/cache@v4
+        with:
+          path: |
+            build/openems-runtime
+            build/openems-downloads
+          key: openems-${{ runner.os }}-${{ hashFiles('scripts/stage_openems.py', 'icstudio/openems_runtime.py') }}
+          restore-keys: openems-${{ runner.os }}-
+      - name: Prepare included open-source openEMS and Python
+        timeout-minutes: 30
+        run: python scripts/stage_openems.py
+      - name: Run the included native openEMS solver
+        timeout-minutes: 12
+        run: python tests/probe_openems.py --out build/openems-native-evidence
       - name: Check native Windows experimental gestures and inductor creator at 200 percent before packaging
         if: runner.os == 'Windows'
         timeout-minutes: 5
@@ -326,5 +341,7 @@ jobs:
             build/layout-3d-evidence
             build/layout-3d-opengl-evidence
             build/native-hierarchy-evidence
+            build/openems-native-evidence/report.json
+            build/openems-native-evidence/*.log
             build/distribution-evidence
             build/verification-0.8.0

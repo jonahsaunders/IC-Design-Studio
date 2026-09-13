@@ -36,7 +36,8 @@ def run(w,output):
         wait(lambda:dialog.proposal is not None,'Edited spiral preview');assert dialog.proposal['outer_nm']==214000
         assert len(dialog.preview.paths)==29 and dialog.proposal['via_count']==8
         initial=clone(w.project);dialog.fields['spacing'].setValue(.01)
-        wait(lambda:bool(dialog.error.text()),'Invalid spacing feedback');assert not dialog.apply_button.isEnabled() and not dialog.preview.paths
+        wait(lambda:getattr(dialog.last_error,'field',None)=='spacing','Invalid spacing feedback');assert not dialog.apply_button.isEnabled() and dialog.preview.paths and dialog.preview.pending
+        assert dialog.fix_button.isVisible()
         assert w.project==initial
         dialog.fields['spacing'].setValue(3);wait(lambda:dialog.proposal is not None,'Corrected spacing preview')
         estimate=dialog.proposal['estimate_h'];QTest.qWait(30)
@@ -64,13 +65,16 @@ def run(w,output):
         checks.append('Reopen from layout and placement checklist, stable regeneration identities, explicit estimate opt-in and saved recipe reload')
 
         w.select(ids,'layout');action.trigger();dialog=w._inductor_dialog;initial=clone(w.project)
+        wait(lambda:dialog.proposal is not None,'Reopened asynchronous preview')
         w.layout.locked_layers.add('via1');click(dialog.apply_button)
         assert w.project==initial and not dialog.apply_button.isEnabled() and 'Unlock' in dialog.error.text()
-        w.layout.locked_layers.discard('via1');dialog.refresh_preview();assert dialog.proposal
+        w.layout.locked_layers.discard('via1');dialog.refresh_preview();wait(lambda:dialog.proposal is not None,'Unlocked asynchronous preview')
         w.commit(lambda p:p.update(name='Changed while preview was open'),'External design edit');initial=clone(w.project)
         click(dialog.apply_button);assert w.project==initial and 'design changed' in dialog.error.text() and not dialog.apply_button.isEnabled()
         dialog.reject();dialog=None;w.layout.fit();QTest.qWait(50);assert w.grab().save(str(out/'layout.png'))
         checks.append('Apply-time layer lock and stale design guards leave the design unchanged')
+        from .inductor_design_probe import run as design_probe
+        checks.extend(design_probe(w,out))
         return dict(status='passed',checks=checks,platform=app.platformName(),estimated_h=estimate,shape_count=len(w.cell['shapes']))
     finally:
         if dialog:dialog.close()

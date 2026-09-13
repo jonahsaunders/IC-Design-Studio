@@ -6,6 +6,8 @@ sys.path.insert(0,str(root))
 from check_simulation_assets import check
 from icstudio.runtime_setup import check_ngspice
 check(root)
+from stage_openems import stage as stage_openems, verify as verify_openems
+solver_runtime = stage_openems(root/"build/openems-runtime", root/"build/openems-downloads")
 if os.name=='nt':
  from stage_windows_ngspice import ensure
  ensure()
@@ -37,6 +39,12 @@ for name in filter(None,[native_library_name()]):
  if p.exists():args+=['--add-binary',f'{p}{os.pathsep}icstudio']
 if os.name=='nt':args+=['--icon',str(root/'icstudio/assets/app.ico')]
 args.append(str(root/'main.py'));subprocess.run(args,cwd=root,check=True)
+
+# Copy the independent interpreter verbatim after freezing. PyInstaller must
+# not rewrite its libraries or mix them with the application's Python/Qt.
+solver_target = root/'dist/ICDesignStudio/_internal/icstudio/assets/runtime/openems'
+shutil.copytree(solver_runtime, solver_target, dirs_exist_ok=True)
+verify_openems(solver_target)
 
 from stage_linux_runtime import stage
 stage(root)

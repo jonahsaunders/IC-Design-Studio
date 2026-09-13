@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main, experimental]
-    paths: [icstudio/__init__.py, icstudio/experimental_probe.py, icstudio/inductor_probe.py, .github/workflows/release-preview.yml]
+    paths: [icstudio/__init__.py, icstudio/experimental_probe.py, icstudio/inductor_probe.py, icstudio/inductor_design_probe.py, .github/workflows/release-preview.yml]
 permissions:
   contents: read
 concurrency:
@@ -70,7 +70,7 @@ jobs:
           if [ "$RELEASE_BRANCH" = experimental ]; then
             tag="experimental-v$version-${RELEASE_COMMIT:0:8}"
           fi
-          gh release create "$tag" release/* --draft --prerelease --target "$RELEASE_COMMIT" --title "IC Design Studio $version — $RELEASE_BRANCH preview" --notes-file docs/UPDATE_0.22_DEV22.md
+          gh release create "$tag" release/* --draft --prerelease --target "$RELEASE_COMMIT" --title "IC Design Studio $version — $RELEASE_BRANCH preview" --notes-file docs/UPDATE_0.22_DEV23.md
       - uses: actions/upload-artifact@v4
         with:
           name: complete-prerelease

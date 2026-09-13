@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/version-0.22.0.dev22-65d6bd?style=flat-square&amp;labelColor=182331" alt="Version 0.22.0.dev22"></a>
+  <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/version-0.22.0.dev23-65d6bd?style=flat-square&amp;labelColor=182331" alt="Version 0.22.0.dev23"></a>
   <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/status-engineering_preview-f0bc78?style=flat-square&amp;labelColor=182331" alt="Engineering preview"></a>
   <a href="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml"><img src="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml/badge.svg?branch=experimental" alt="Desktop build and verification"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0--or--later-9bbafa?style=flat-square&amp;labelColor=182331" alt="GPL-3.0-or-later license"></a>
@@ -219,11 +219,11 @@ Monte Carlo varies declared parameters; it does not imply foundry statistical mi
 | Hierarchy | Physical cells and regular arrays; reusable masters; edit in context; hierarchy depth; flattening; concrete parameter variants |
 | Connections | Manual vias and previewed Autovia arrays in selected conductor overlaps; coordinate and linked-terminal routing; saved route constraints; route preview; terminal and cell-port assignment; connected path editing |
 | Analog placement | Common-centroid, matching, symmetry, and spacing constraints; declared-rule resistor/capacitor/MOS/contact/guard-ring generators; supported PDK device recipes and analog reference layouts |
-| Inductor creator | Tools-menu square spiral generator; live preview; mapped underpass/via arrays; linked schematic L; estimated DC inductance; saved regeneration |
+| Inductor creator | Five spiral shapes; target-L search; background preview; linked schematic L; optional DC series RL; PDK profiles; included openEMS runtime; simple simulation controls and saved EM results |
 
 **Autovia:** select overlapping metal shapes, choose **Autovia**, review the preview, then choose **Place vias**. Manual placement and Autovia use the project's configured layers, including imported SKY130 layouts. [Via placement guide](docs/LAYOUT_VIAS.md).
 
-**Inductors:** choose **Tools → Inductor creator…** to create or regenerate a linked square spiral. The estimate covers DC winding inductance; RF characterization needs a qualified EM/device model. [Inductor creator guide](docs/INDUCTOR_CREATOR.md).
+**Inductors:** choose **Tools → Inductor creator…** to create or regenerate a linked spiral, search toward a target L, or exchange EM characterization. DC estimates and imported RF evidence have explicit model scopes. [Inductor creator guide](docs/INDUCTOR_CREATOR.md).
 
 [Drawing](docs/DRAWING_0.22.md) · [Layout tools](docs/PRIORITIES_0.22.md) · [Layout editor reference](docs/UPDATE_0.11.md) · [Parametric geometry](docs/UPDATE_0.16.md)
 
@@ -334,7 +334,7 @@ Bundled simulation subsets contain models and symbols; full physical flows need 
 
 ## Project status
 
-**0.22.0.dev22 is an engineering preview.** The [inductor creator update](docs/UPDATE_0.22_DEV22.md) adds square spiral generation, live preview, schematic linkage and saved regeneration to the Tools menu. It includes the earlier [workflow and recovery improvements](docs/UPDATE_0.22_DEV21.md). [Release status](docs/RELEASE_STATUS.md) records validation and package status.
+**0.22.0.dev23 is an engineering preview.** The [inductor design update](docs/UPDATE_0.22_DEV23.md) adds five shapes, target-L synthesis, background validation, optional DC series RL and EM characterization exchange with reusable PDK material/layer profiles. It includes the earlier [workflow and recovery improvements](docs/UPDATE_0.22_DEV21.md). [Release status](docs/RELEASE_STATUS.md) records validation and package status.
 
 The [roadmap](docs/ROADMAP.md) tracks consumer Windows/Linux acceptance, physical LAN/VPN testing, broader PVT/transient and real-project coverage, larger editing/recovery workloads, and offline collaboration. A passing fixture qualifies that recorded case; it does not establish arbitrary-design or fabrication signoff. Source-to-GDS warnings for the detector remain documented.
 

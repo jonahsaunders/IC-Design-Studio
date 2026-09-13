@@ -10,9 +10,38 @@ from .model import clone, device, digest, design_digest, scalar, uid, validate, 
 from .layout import rect, polygon, kdb
 from .layout_routing import via_recipes, via_shapes
 from .layout_vias import technology, declare_connections
+from .inductor_shapes import SHAPES, centerline
 
 MODEL = 'mohan-current-sheet-square-1'
 QUALIFICATION = 'Estimated DC inductance; excludes leads, substrate loss, Q and resonance. Run process DRC and qualified EM/device extraction for fabrication.'
+
+
+class ValidationError(ValueError):
+    """A field-specific failure with an explicit, optional repair proposal."""
+    def __init__(self, message, field=None, fixes=None, bbox=None):
+        super().__init__(message)
+        self.field = field
+        self.fixes = fixes or {}
+        self.bbox = bbox
+
+
+def limits(tech, spec):
+    grid = tech['grid']; layers = {l['name']:l for l in tech['layers']}
+    recipe = next((v for v in via_recipes(tech) if v['name']==spec.get('via')), None)
+    if not recipe or spec.get('metal') not in (recipe['lower'],recipe['upper']):
+        raise ValidationError('Select a mapped via stack and one of its conductor layers.', 'via')
+    other = recipe['lower'] if spec['metal']==recipe['upper'] else recipe['upper']
+    pitch = math.ceil((recipe['size']+recipe['spacing'])/(2*grid))*2*grid
+    array = max((spec[k]-1)*pitch+recipe['pad'] for k in ('via_rows','via_columns'))
+    snap = lambda n: math.ceil(n/(2*grid))*2*grid
+    margin = 4*grid if spec['shape'] not in ('square','rectangle') else 0
+    # Square landing pads extend beyond a curved/angled strip. Reserve a
+    # quarter-width at the seam rather than suggesting a process minimum that
+    # would immediately fail mask spacing at those pads.
+    landing = spec['width']/4 if margin else 0
+    return dict(width=snap(max(array,layers[spec['metal']]['width']+margin,layers[other]['width'])),
+                spacing=snap(layers[spec['metal']]['space']+margin+landing),
+                lead=snap(spec['width']+max(layers[spec['metal']]['space'],layers[other]['space'])))
 
 
 def rules_hash(tech):
@@ -37,16 +66,21 @@ def defaults(p):
 def geometry(tech, spec, did='', nets=None):
     """Pure bounded generator; no project edits, solver calls or inferred PDK data."""
     s=clone(spec); grid=tech['grid']; layers={l['name']:l for l in tech['layers']}
-    if s.get('kind')!='inductor' or s.get('shape')!='square':
-        raise ValueError('Choose the square spiral inductor recipe.')
+    if s.get('kind')!='inductor' or s.get('shape') not in SHAPES:
+        raise ValidationError('Choose square, rectangle, hexagon, octagon or circle.', 'shape')
     for key in ('turns','width','spacing','inner','lead','via_rows','via_columns','rotation','x','y'):
         if type(s.get(key)) is not int:raise ValueError(key+' must be an integer in database units.')
     if not 1<=s['turns']<=32 or not 1<=s['via_rows']<=8 or not 1<=s['via_columns']<=8:
         raise ValueError('Use 1–32 turns and 1–8 via rows/columns.')
     if s['rotation'] not in (0,90,180,270) or type(s.get('mirror')) is not bool:
         raise ValueError('Use a quarter-turn orientation and a boolean mirror setting.')
-    if any(s[k]<=0 or s[k]>2000000 or s[k]%(2*grid) for k in ('width','spacing','inner','lead')):
-        raise ValueError(f'Dimensions must be positive multiples of {2*grid} nm, at most 2,000 µm.')
+    dimensions = ['width','spacing','inner','lead']
+    if s['shape']=='rectangle':
+        s.setdefault('inner_y',s['inner']);dimensions.append('inner_y')
+    for key in dimensions:
+        if type(s[key]) is not int or s[key]<=0 or s[key]>2000000 or s[key]%(2*grid):
+            fix = max(2*grid,min(2000000//(2*grid)*(2*grid),round(s[key]/(2*grid))*(2*grid))) if type(s[key]) is int else 2*grid
+            raise ValidationError(f'{key}: use a positive multiple of {2*grid/1000:g} µm, at most 2,000 µm.',key,{key:fix})
     if any(abs(s[k])>100000000 or s[k]%grid for k in ('x','y')):
         raise ValueError('Place the origin on the technology grid within ±100 mm.')
     recipe=next((v for v in via_recipes(tech) if v['name']==s.get('via')),None)
@@ -54,17 +88,16 @@ def geometry(tech, spec, did='', nets=None):
         raise ValueError('Select a mapped via stack and one of its conductor layers.')
     metal=s['metal']; lower=recipe['lower'] if metal==recipe['upper'] else recipe['upper']
     width=s['width']; spacing=s['spacing']; n=s['turns']; inner=s['inner']; lead=s['lead']
-    if width<max(layers[metal]['width'],layers[lower]['width']) or spacing<layers[metal]['space']:
-        raise ValueError('Trace width or winding spacing is below the selected layer rules.')
-    if inner<max(width,spacing) or lead<width+max(layers[metal]['space'],layers[lower]['space']):
-        raise ValueError('The opening must be at least the trace width/spacing; leads need width plus clearance.')
-    pitch=width+spacing; outer=inner+2*n*width+2*(n-1)*spacing; radius=(outer-width)//2
-    if outer+2*lead>5000000:raise ValueError('The complete inductor must fit within 5 mm.')
-    p=[-radius,-radius-lead]; points=[p,[-radius,-radius]]
-    for i in range(n):
-        left=-radius+i*pitch; right=radius-i*pitch
-        points.extend([[right,left],[right,right],[left,right],[left,left+pitch]])
-    end=points[-1]; q=[-radius-lead,end[1]]
+    minimum = limits(tech,s)
+    for key in ('width','spacing','lead'):
+        if s[key]<minimum[key]:
+            raise ValidationError(f'{key}: this layer/via configuration requires at least {minimum[key]/1000:g} µm.',key,{key:minimum[key]})
+    for key in ('inner','inner_y') if s['shape']=='rectangle' else ('inner',):
+        if s[key]<max(width,spacing):
+            raise ValidationError(f'{key}: the opening must be at least {max(width,spacing)/1000:g} µm.',key,{key:max(width,spacing)})
+    line=centerline(s,grid);points=line['points'];p=line['p'];q=line['q'];end=points[-1]
+    outer=max(line['outer_x_nm'],line['outer_y_nm'])
+    if outer+2*lead>5000000:raise ValidationError('The complete inductor must fit within 5 mm.', 'inner')
     via_pitch=math.ceil((recipe['size']+recipe['spacing'])/(2*grid))*2*grid
     if max((s['via_columns']-1)*via_pitch+recipe['pad'],(s['via_rows']-1)*via_pitch+recipe['pad'])>width:
         raise ValueError('The via array does not fit the trace width. Widen the trace or use fewer vias.')
@@ -74,6 +107,14 @@ def geometry(tech, spec, did='', nets=None):
     def path(role,layer,pts):
         add(role,dict(id=uid(),kind='path',layer=layer,points=clone(pts),width=width,net=''))
     path('body.coil',metal,points);path('body.underpass',lower,[end,q])
+    if s['shape'] not in ('square','rectangle'):
+        # Snap mask vertices too, not only the path centerline. Persist the
+        # centerline separately for resistance calculations and EM provenance.
+        from .layout import shape_from_polygon
+        coil=shapes[0];poly=polygon(coil)
+        snapped=kdb().Polygon([kdb().Point(round(pt.x/grid)*grid,round(pt.y/grid)*grid) for pt in poly.each_point_hull()])
+        if poly.holes():raise ValidationError('The winding intersects itself. Increase spacing or the inner opening.','spacing')
+        shapes[0]={**shape_from_polygon(snapped,metal,device_id=did),'pcell_role':'body.coil'}
     add('body.inner_landing',rect(metal,end[0]-width//2,end[1]-width//2,width,width))
     for terminal,center in (('inner',end),('outer',q)):
         for row in range(s['via_rows']):
@@ -91,11 +132,14 @@ def geometry(tech, spec, did='', nets=None):
         return [x+s['x'],y+s['y']]
     for shape in shapes:shape['points']=[transform(pt) for pt in shape['points']]
     pins=[dict(id=uid(),device_id=did,pin=role,layer=metal,point=transform(pt)) for role,pt in (('p',p),('n',q))]
-    average=(outer+inner)*.5e-9; rho=(outer-inner)/(outer+inner)
-    inductance=4*math.pi*1e-7*n*n*average*1.27/2*(math.log(2.07/rho)+.18*rho+.13*rho*rho)
-    return dict(shapes=shapes,pins=pins,spec=s,estimate_h=inductance,outer_nm=outer,
-        winding_length_nm=sum(abs(a[0]-b[0])+abs(a[1]-b[1]) for a,b in zip(points,points[1:])),
-        via_count=2*s['via_rows']*s['via_columns'],model=MODEL,qualification=QUALIFICATION)
+    boxes=[polygon(shape).bbox() for shape in shapes];box=boxes[0]
+    for b in boxes[1:]:box=box+b
+    return dict(shapes=shapes,pins=pins,spec=s,estimate_h=line['estimate_h'],outer_nm=outer,
+        outer_x_nm=line['outer_x_nm'],outer_y_nm=line['outer_y_nm'],
+        footprint_nm=[box.width(),box.height()],
+        winding_length_nm=sum(math.dist(a,b) for a,b in zip(points,points[1:])),
+        underpass_length_nm=math.dist(end,q),
+        via_count=2*s['via_rows']*s['via_columns'],model=line['model'],qualification=QUALIFICATION)
 
 
 def build(p,cid,did,spec):
@@ -106,7 +150,7 @@ def build(p,cid,did,spec):
     if spec.get('kind')!='inductor':raise ValueError('Use Tools → Inductor creator to define the spiral dimensions first.')
     data=geometry(technology(p),spec,did,d['nets'])
     data['record']=dict(id=uid(),device_id=did,spec=data['spec'],
-        electrical=dict(target=scalar(d['value']),realized=data['estimate_h'],unit='H',model=MODEL),
+        electrical=dict(target=scalar(d['value']),realized=data['estimate_h'],unit='H',model=data['model']),
         source_signature=electrical_signature(d),rules_hash=rules_hash(technology(p)),qualification=QUALIFICATION)
     return data
 
@@ -200,7 +244,7 @@ def reject_parasitic_estimate(p,cid):
         raise ValueError('Spiral inductor parasitics require a qualified EM/device model. The interconnect RC estimator cannot characterize this winding.')
 
 
-def plan(p,cid,spec,did=None,name='L1',nets=None,use_estimate=False,locked=()):
+def plan(p,cid,spec,did=None,name='L1',nets=None,use_estimate=False,locked=(),series_rl=None):
     from .parametric import geometry_signature,electrical_signature
     from .live_geometry import preview
     q=clone(p);q['pdk']=clone(technology(q));declare_connections(q['pdk'])
@@ -227,9 +271,11 @@ def plan(p,cid,spec,did=None,name='L1',nets=None,use_estimate=False,locked=()):
             for pin,net in nets.items():add(c,net,dict(kind='pin',id=did,pin=pin),q)
         use_estimate=True
     validate(q)
+    if series_rl is None:series_rl=bool(d.get('inductor_rl'))
     data=build(q,cid,did,spec)
     if use_estimate:d['value']=format(data['estimate_h'],'.12g')
     r=data['record'];r.update(id=old['id'] if old else uid(),source_signature=electrical_signature(d))
+    if old and old.get('em_characterization'):r['em_characterization']=clone(old['em_characterization'])
     r['electrical']['target']=scalar(d['value']);by_role={s['pcell_role']:s['id'] for s in old_shapes}
     for shape in data['shapes']:
         shape['id']=by_role.get(shape['pcell_role'],shape['id']);shape['pcell_id']=r['id']
@@ -241,7 +287,7 @@ def plan(p,cid,spec,did=None,name='L1',nets=None,use_estimate=False,locked=()):
     old_ids={s['id'] for s in old_shapes}
     c['shapes']=[s for s in c['shapes'] if s['id'] not in old_ids]
     errors=preview(q,cid,data['shapes'])
-    if errors:raise ValueError('Geometry check: '+errors[0]['message'])
+    if errors:raise ValidationError('Geometry check: '+errors[0]['message'],bbox=errors[0].get('bbox'))
     # Capture actual external conductors and anchors, including via access on
     # the return layer. Internal recipe metal is never a routing attachment.
     if old:
@@ -250,6 +296,20 @@ def plan(p,cid,spec,did=None,name='L1',nets=None,use_estimate=False,locked=()):
         before=GeometryGraph().sync(foreign+[s for s in old_shapes if s['pcell_role'].startswith('port.')],q['pdk']).partition(p,cid)
     c['shapes'].extend(data['shapes']);c['layout_pins']=[v for v in c.get('layout_pins',[]) if v['device_id']!=did]+data['pins']
     c['parametric_devices']=[v for v in c.get('parametric_devices',[]) if v is not old]+[r]
+    from .inductor_electrical import resistance
+    data['resistance']=resistance(q['pdk'],data,q.get('analysis',{}).get('corner','nominal'))
+    r['electrical']['resistance']=data['resistance']
+    if series_rl:
+        from .catalog import binding_for
+        if binding_for(q['pdk'],d):
+            raise ValidationError('Series RL is for an ideal schematic L. This device already has a PDK model; use its characterized losses.','series_rl')
+        if data['resistance']['total_ohm'] is None:
+            raise ValidationError('Series RL requires declared sheet and via resistance: '+data['resistance']['reason'],'series_rl')
+        d['inductor_rl']=dict(resistance_ohm=data['resistance']['total_ohm'],
+                              source_hash=data['resistance']['source_hash'],
+                              value_h=scalar(d['value']),model='declared-dc-series-rl-1')
+    else:d.pop('inductor_rl',None)
+    r['source_signature']=electrical_signature(d)
     validate(q)
     if old:
         after=GeometryGraph().sync(contact_shapes(q,cid),q['pdk']).partition(q,cid)
@@ -266,6 +326,8 @@ def plan(p,cid,spec,did=None,name='L1',nets=None,use_estimate=False,locked=()):
         if v['code']=='LVS.SHORT' and digest({k:v.get(k) for k in ('code','object','message')}) not in old_shorts:raise ValueError(v['message'])
     return dict(project_id=p['id'],cell_id=cid,design_hash=design_digest(p),pdk=q['pdk'],cell=c,device_id=did,
         shapes=data['shapes'],pins=data['pins'],estimate_h=data['estimate_h'],outer_nm=data['outer_nm'],via_count=data['via_count'],qualification=QUALIFICATION,
+        outer_x_nm=data['outer_x_nm'],outer_y_nm=data['outer_y_nm'],footprint_nm=data['footprint_nm'],
+        resistance=data['resistance'],model=data['model'],spec=data['spec'],
         touched_layers=sorted({s['layer'] for s in old_shapes+data['shapes']}))
 
 

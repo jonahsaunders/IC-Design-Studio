@@ -1,0 +1,98 @@
+{
+  "version": "0.22.0.dev23",
+  "base_commit": "cf6c166efa9c220e30952b018aa30eb5f0b7d843",
+  "target_branch": "experimental",
+  "status": "local_checks_passed",
+  "core_suite": {
+    "command": "python -m unittest discover -s tests -v",
+    "total": 685,
+    "passed": 673,
+    "skipped": 12
+  },
+  "inductor_coverage": {
+    "discovered_tests": 47,
+    "isolated_qt_worker_tests": 2,
+    "scope": [
+      "Five-shape mask continuity, grid, DRC, enclosure and transformed GDS/OASIS equivalence",
+      "Mohan equation transcription and independent rectangular Neumann quadrature",
+      "Target-L bounds, tolerance reporting, cancellation and distinct candidates",
+      "Declared DC resistance and shared SPICE/solver RL response; persistence and stale rejection",
+      "EM exact geometry/context/ports, impedance and Touchstone conversion, bounded SRF and result provenance",
+      "Qt stale completion, close/cancellation, error recovery and heartbeat responsiveness",
+      "PDK-independent material profiles, aliases and revisions; five shapes across five synthetic PDK contracts; exact solver GDS datatype separation and context coverage"
+    ]
+  },
+  "desktop": {
+    "platform": "offscreen",
+    "inductor_command": "QT_QPA_PLATFORM=offscreen python tests/gui_inductor.py --out build/em-pdk-gui-final",
+    "inductor": {
+      "status": "passed",
+      "checks": [
+        "Tools menu, compact live preview, dimensions/orientation, invalid-input guard, linked labelled L and single-step undo/redo",
+        "Reopen from layout and placement checklist, stable regeneration identities, explicit estimate opt-in and saved recipe reload",
+        "Apply-time layer lock and stale design guards leave the design unchanged",
+        "Five shape previews, dimensions, model selection and rectangle aspect control",
+        "Responsive bounded target search, candidate selection, cancellation, explicit fixes and series-RL opt-in",
+        "PDK profile editor, explicit layer aliases, invalid-data atomicity, reusable file and undo/redo",
+        "EM bundle export, imported L/Q/SRF, project persistence and stale material-data rejection"
+      ],
+      "platform": "offscreen",
+      "estimated_h": 4.366216832859381e-09,
+      "shape_count": 29
+    },
+    "experimental_command": "QT_QPA_PLATFORM=offscreen python tests/gui_experimental.py --out build/em-pdk-desktop-final",
+    "experimental_status": "passed"
+  },
+  "source_hashes": {
+    "icstudio/em_profile_ui.py": "74f5e0ba4f92b8e4b9dc85174d56b41def56bc613701e483693b0a5ca6cc71c8",
+    "icstudio/em_technology.py": "e42e4cd2e1222303e396b9bc64a595c8ebf944a10614396f4ed01df22a4ed48d",
+    "icstudio/inductor.py": "90a8ab2a870a9a86520b2e75fc3127a047a2a8c808df37a1bc3719592283d9c7",
+    "icstudio/inductor_design_probe.py": "1cae0a575823a703588c695478de58ef91a8eddd239e75ac03696266c2fef9b7",
+    "icstudio/inductor_electrical.py": "085bc54da2475a08230ca820f0108e38e58fa6d4e71fbf96d827ca4b23585bde",
+    "icstudio/inductor_em.py": "10d6c582c59d21fd6f44f680a4cb44b79feeb2bdb7ee29ad912c2bca6c55096c",
+    "icstudio/inductor_em_ui.py": "516e10d9240cbe97e2001afc4db808fde4dd43be5cf9fe775870ba1dbb818b38",
+    "icstudio/inductor_jobs.py": "40fe311cbd365f1c46436a006851511b53ff3f8e41ade40e442ab2af9a12efe9",
+    "icstudio/inductor_probe.py": "9da25c7cc63034e5e98f41f5681ac4010ef294fc0583f4b69eb0fe296ffc5fee",
+    "icstudio/inductor_shapes.py": "5f59d502573d1db73a2eba3094f8aa451c659dd10588102cc87fe0cf3100ef79",
+    "icstudio/inductor_synthesis.py": "cba28de24986d82a1d9872588a594a1dd7d581014ff7bea45fc591fb2b0d037f",
+    "icstudio/inductor_ui.py": "590521225c1db56c13d24bbf21d4eb8933e0be2afaf4aed4f8de47a0e3da8825",
+    "icstudio/interchange.py": "a9b54abbd6dc7f24f8af98b3e2702463787cbd372ab182e92c0cc85415ae5921",
+    "icstudio/parametric.py": "7b1d87d009302f881b57d155ac6125eefaba1bc4b8975f0adc9f684cdbbac1c6",
+    "icstudio/physical_workspace.py": "8f67e84cc40c9256ec4e7541435fbf3a4e7b7283928f2bc7431792a849bdd1cc",
+    "icstudio/process_adapters.py": "944d917a4da3f8fdc06c90c97783fb22ce88717aed0861d0c89cf3ca938f0a2b",
+    "icstudio/simulation.py": "145d938166250d00b531cfbbb86173a9231f7f9e748732d7fd7fec3af44b33ac",
+    "tests/gui_inductor.py": "91263638a00ec2d7744d7c16208464a22d836658f0777d8a6e9a8ed435ca95ab",
+    "tests/gui_inductor_jobs.py": "d1e5dde1cec75313e52f35ade6ff765d081da5737206d76c49592895a88a0a65",
+    "tests/test_inductor.py": "1895a55a495d5cc8ab8485b08eabc2f6866c2095bbf4cbaa5556a65401a9a89c",
+    "tests/test_inductor_design.py": "7b83f85c10bd3e77981f21e7ddb2cb40e00d8877af0afa5b75045c803c7c220c",
+    "tests/test_inductor_em.py": "67e980cd367282a48bda9d44093554e75e2cd42f0d5b10285d4e681378d74711",
+    "tests/test_inductor_jobs.py": "bff546c01633c64dfe82acbe68cb944e7599ee05157c53d4f202cfc5e792495c",
+    "tests/test_inductor_pdks.py": "c7c398e2c36716256bd6fce778a8f655ad52b067a212fb34346939277ea70498"
+  },
+  "limitations": [
+    "Twelve environment-dependent full-suite tests skipped unavailable external engines/assets.",
+    "Local Qt acceptance used offscreen Linux, not a native Windows or X11 desktop.",
+    "Electrical/EM acceptance data are synthetic and do not establish process, field-solver or RF accuracy.",
+    "EM integration exports input/evidence and imports supported results; no field solver is included.",
+    "PDK coverage uses synthetic process contracts, not foundry RF data. XML/GDS exchange requires destination port/model setup and separately installed field solvers."
+  ],
+  "hosted": "The PR runs desktop packaging, external interoperability and physical qualification. No hosted result is asserted by this local record.",
+  "upstream_stackup_exchange": {
+    "scope": "Independent stackup-reader interoperability; no field solver execution or RF accuracy claim",
+    "readers": [
+      {
+        "package": "gds2openEMS 0.4.0",
+        "reader_sha256": "b2f950e0f52619bcf53ad779236526e2c96d00d3a3a5fcda81996c25bf50a969",
+        "cases": 25,
+        "status": "passed"
+      },
+      {
+        "package": "gds2palace 0.5.0",
+        "reader_sha256": "87a53e920c0c88108e1fcbff356df6a06593c1e6e5680028a257ca0a105be15b",
+        "cases": 25,
+        "status": "passed"
+      }
+    ]
+  },
+  "worker_lifecycle": "Windows failure on 08270ef was a close/drain timeout. The harness now uses a real Qt event loop, a visible owner, and an explicit worker barrier. Closed dialogs reject new work. Native Windows confirmation requires hosted CI."
+}
