@@ -49,7 +49,8 @@ while queue:
     binary=queue.pop().resolve()
     if binary in seen: continue
     seen.add(binary)
-    dependencies=subprocess.check_output(['ldd',str(binary)],text=True)
+    dependencies=subprocess.check_output(['ldd',str(binary)],text=True,
+                                         env={**os.environ,'LD_LIBRARY_PATH':str(libraries)})
     if 'not found' in dependencies: raise ValueError('Unresolved digital library dependency:\n'+dependencies)
     for name, filename in re.findall(r'^\s*(\S+)\s+=>\s+(/\S+)',dependencies,re.M):
         if name.startswith(excluded): continue

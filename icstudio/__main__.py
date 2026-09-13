@@ -1,6 +1,9 @@
 import sys
 
 def main():
+    if len(sys.argv)>1 and sys.argv[1] in ('--worker','--cli','--digital-setup','--collaboration-server'):
+        from .windows_stdio import connect
+        connect()
     if '--digital-setup' in sys.argv:
         from .digital_runtime import main as setup
         return setup()
