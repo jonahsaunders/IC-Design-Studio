@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import json
 import os
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import shutil
 import sys
 import tempfile
@@ -19,11 +19,11 @@ def translate(job, native_root, work):
     native = clone(job); settings = native['settings']; settings.pop('runtime')
     settings['host_source_hash'] = source_hash(config(job['project'],job['cell']))
     settings['host_environment'] = clone(job.get('environment',{}))
-    settings['tools'] = {name:str(Path(native_root)/path) for name,path in settings['tools'].items()}
+    settings['tools'] = {name:str(PurePosixPath(native_root)/path) for name,path in settings['tools'].items()}
     value = config(native['project'],native['cell'])
-    if 'platform' in value: value['platform']['root'] = str(Path(work)/'platform-input')
-    if 'flow' in settings: settings['flow']['root'] = str(Path(work)/'flow-input')
-    if 'upstream' in settings: settings['upstream']['root'] = str(Path(work)/'upstream-input')
+    if 'platform' in value: value['platform']['root'] = str(PurePosixPath(work)/'platform-input')
+    if 'flow' in settings: settings['flow']['root'] = str(PurePosixPath(work)/'flow-input')
+    if 'upstream' in settings: settings['upstream']['root'] = str(PurePosixPath(work)/'upstream-input')
     native.pop('environment',None)
     return native
 
