@@ -54,5 +54,12 @@ def main():
         from .model import digest
         window.saved_hash=digest(window.project)
         QTimer.singleShot(600,app.quit)
+    elif '--project' in sys.argv:
+        def digital_setup():
+            from .digital_runtime import status
+            if status()['state']=='setup':
+                from .digital_setup_ui import show
+                show(window,automatic=True)
+        QTimer.singleShot(200,digital_setup)
     return app.exec()
 if __name__=='__main__':raise SystemExit(main())

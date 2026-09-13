@@ -1,15 +1,31 @@
 """Build the release's Linux / private WSL runtime. Docker is a build dependency."""
 import argparse
 import json
+import posixpath
 from pathlib import Path
 import shutil
 import subprocess
 import sys
 import tempfile
+import tarfile
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from icstudio.model import file_digest
+
+
+def pack_filesystem(source, destination):
+    # Docker recreates system links such as /etc/mtab when a container is
+    # created. Normalize the exported filesystem as well as the image itself.
+    with tarfile.open(source,'r:') as src, tarfile.open(destination,'w:gz',compresslevel=1) as out:
+        for member in src:
+            if member.issym() and member.linkname.startswith('/'):
+                member.linkname=posixpath.relpath(member.linkname,posixpath.dirname('/'+member.name))
+            if member.islnk(): member.linkname=member.linkname.lstrip('/')
+            stream=src.extractfile(member) if member.isfile() else None
+            try: out.addfile(member,stream)
+            finally:
+                if stream: stream.close()
 
 
 def build(output):
@@ -23,7 +39,8 @@ def build(output):
     try:
         subprocess.run(['docker','cp',container+':/opt/icstudio/runtime.json',str(output/'manifest.json')],check=True)
         subprocess.run(['docker','export','--output',str(output/'runtime.tar'),container],check=True)
-        subprocess.run(['gzip','-f',str(output/'runtime.tar')],check=True)
+        pack_filesystem(output/'runtime.tar',output/'runtime.tar.gz')
+        (output/'runtime.tar').unlink()
     finally: subprocess.run(['docker','rm',container],check=True)
     metadata = json.loads((output/'manifest.json').read_text())
     metadata.update(archive='runtime.tar.gz',sha256=file_digest(output/'runtime.tar.gz'),

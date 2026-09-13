@@ -10,16 +10,28 @@ jobs:
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/cache/restore@v4
+        id: cache
+        with:
+          path: build/digital-payload
+          key: digital-runtime-${{ hashFiles('packaging/digital/**', 'scripts/build_digital_runtime.py', 'icstudio/digital_platform.py', 'icstudio/model.py') }}
       - name: Build the runtime filesystem
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           python scripts/build_digital_runtime.py
           docker image rm icstudio-digital-runtime
           docker builder prune --force
+      - uses: actions/cache/save@v4
+        if: steps.cache.outputs.cache-hit != 'true'
+        with:
+          path: build/digital-payload
+          key: ${{ steps.cache.outputs.cache-primary-key }}
       - name: Verify native installation with no user tool configuration
         env:
           ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
         run: python scripts/qualify_digital_runtime.py
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: digital-runtime-payload
           path: build/digital-payload

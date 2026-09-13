@@ -59,6 +59,8 @@ def prepare(project, stage='simulate', simulator='icarus', tools=None, cell_id=N
     config = cell_config(project,cell_id)
     from . import digital_runtime
     runtime = runtime or (digital_runtime.installed() if not any((tools or {}).values()) else None)
+    if not runtime and not any((tools or {}).values()) and os.environ.get('ICSTUDIO_DIGITAL_NATIVE')!='1' and digital_runtime.manifest():
+        raise ValueError('Finish Digital flow → Tools → Set up and verify before running with the included engines.')
     digital.check_dependencies(config)
     if stage == 'simulate' and (not config.get('testbench') or not any(f['role'] == 'testbench' for f in config['files'])):
         raise ValueError('Set a testbench top and mark its source as Testbench.')

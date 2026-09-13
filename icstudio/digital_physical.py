@@ -97,11 +97,14 @@ def execute(r):
         if file_digest(target)!=record['sha256']:raise ValueError('ORFS changed during capture.')
     work=r.root/'physical';result_dir=work/'results'/r.platform['name']/r.config['top']/'base'
     previous=r.settings.get('upstream',{});resume=False
-    if previous.get('stage') in STAGES and STAGES.index(previous['stage'])<STAGES.index(stage) and previous['source_hash']==source_hash(r.config):
+    expected_source=r.settings.get('host_source_hash',source_hash(r.config))
+    if previous.get('stage') in STAGES and STAGES.index(previous['stage'])<STAGES.index(stage) and previous['source_hash']==expected_source:
         old=verify_upstream(previous)
         if old['digital_result']['physical']['flow_fingerprint']!=flow['fingerprint']:
             raise ValueError('The ORFS version changed. Start a new floorplan before resuming physical implementation.')
-        if old['digital_result']['environment']['executables'].get('openroad')!=r.job['environment']['executables']['openroad']:
+        old_tools=old['digital_result']['environment']['executables']
+        current_tools=r.settings.get('host_environment',r.job['environment'])['executables']
+        if (old_tools.get('openroad') or old_tools.get('sha256'))!=(current_tools.get('openroad') or current_tools.get('sha256')):
             raise ValueError('OpenROAD changed. Start a new floorplan before resuming physical implementation.')
         for item in previous['artifacts'].values():
             if item['path'].startswith('physical/'):

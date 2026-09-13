@@ -194,6 +194,11 @@ def setup(progress=lambda message: None):
             if libc != 'glibc' or tuple(int(v) for v in version.split('.')[:2]) < (2,39):
                 raise ValueError('The included native Linux runtime requires glibc 2.39 or newer (Ubuntu 24.04 baseline).')
             target = Path(runtime['root'])
+            if target.is_dir():
+                try: identity(runtime,full=True)
+                except (OSError,ValueError,KeyError):
+                    progress('Retaining the damaged installation for diagnosis and restoring the included package…')
+                    target.rename(target.with_name(target.name+'.damaged-'+uuid.uuid4().hex))
             if not target.is_dir():
                 progress('Unpacking the included tools and SKY130 platform…')
                 target.parent.mkdir(parents=True,exist_ok=True)

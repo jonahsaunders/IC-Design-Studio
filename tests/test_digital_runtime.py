@@ -45,9 +45,19 @@ class DigitalRuntimeTests(unittest.TestCase):
                 out.addfile(item)
             with self.assertRaises(tarfile.FilterError): runtime.extract(archive,self.root/'extract')
 
+    @unittest.skipIf(os.name=='nt','Native tar symlink extraction is tested on Linux')
+    def test_builder_normalizes_docker_system_links_before_publication(self):
+        from scripts.build_digital_runtime import pack_filesystem
+        raw=self.root/'root.tar'; packed=self.root/'root.tar.gz'
+        with tarfile.open(raw,'w') as out:
+            item=tarfile.TarInfo('etc/mtab'); item.type=tarfile.SYMTYPE; item.linkname='/proc/mounts'; out.addfile(item)
+        pack_filesystem(raw,packed); runtime.extract(packed,self.root/'extracted')
+        link=self.root/'extracted/etc/mtab'
+        self.assertEqual(os.readlink(link),'../proc/mounts')
+        self.assertTrue(link.resolve().is_relative_to(self.root/'extracted'))
+
     def test_worker_translation_preserves_user_text_and_original_project(self):
         project=digital.counter_project(); project['digital']['files'][0]['text']+='\n// C:\\User Files\\source.sv is not an infrastructure path\n'
-        project['digital']['platform']={'root':r'C:\User Files\PDK','name':'fixture'}
         job={'project':project,'cell':project['top'],'settings':{'runtime':{'kind':'wsl'},'tools':{'yosys':'opt/icstudio/bin/yosys'},
              'flow':{'root':r'C:\Flow Files'},'upstream':{'root':r'C:\Old Run','result_sha256':'locked'}}}
         original=clone(job); native=backend.translate(job,'/','/var/tmp/job-123')
@@ -55,6 +65,7 @@ class DigitalRuntimeTests(unittest.TestCase):
         self.assertEqual(native['project']['digital']['files'],job['project']['digital']['files'])
         self.assertEqual(native['settings']['tools']['yosys'],'/opt/icstudio/bin/yosys')
         self.assertEqual(native['settings']['upstream']['root'],'/var/tmp/job-123/upstream-input')
+        self.assertEqual(native['settings']['host_source_hash'],digital.source_hash(project['digital']))
         self.assertNotIn('runtime',native['settings'])
 
     def test_failed_acceptance_never_marks_installation_ready(self):

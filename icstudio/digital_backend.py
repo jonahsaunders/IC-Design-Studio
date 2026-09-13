@@ -15,7 +15,10 @@ from .model import atomic_write, clone, design_digest, file_digest
 def translate(job, native_root, work):
     """Only translate infrastructure paths. Never rewrite user RTL/SDC strings."""
     from .digital_design import config
+    from .digital import source_hash
     native = clone(job); settings = native['settings']; settings.pop('runtime')
+    settings['host_source_hash'] = source_hash(config(job['project'],job['cell']))
+    settings['host_environment'] = clone(job.get('environment',{}))
     settings['tools'] = {name:str(Path(native_root)/path) for name,path in settings['tools'].items()}
     value = config(native['project'],native['cell'])
     if 'platform' in value: value['platform']['root'] = str(Path(work)/'platform-input')
@@ -115,6 +118,8 @@ def dispatch(job, directory, progress):
         result['settings'] = clone(job['settings']); result['design_hash'] = design_digest(job['project'])
         result['digital_result'].update(source_hash=source_hash(config(job['project'],job['cell'])),
                                         environment=clone(job['environment']),execution={'runtime':runtime,'native_environment':result['digital_result']['environment']})
+        if 'physical' in result['digital_result']:
+            result['digital_result']['physical']['upstream']=job['settings'].get('upstream',{}).get('root')
         result['digital_result']['artifacts']['backend_input'] = digital_flow.artifact(root,root/'backend-input.json')
         result['digital_result']['artifacts']['backend_result'] = digital_flow.artifact(root,root/'backend-result.json')
         digital_flow.validate_result(result,root)

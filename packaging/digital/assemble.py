@@ -62,7 +62,7 @@ for name in suite + system:
         actual = 'g++' if name in ('g++','c++') else 'gcc'
         text += 'exec "$root/usr/bin/'+actual+'" --sysroot="${root:-/}" -B"$root/usr/bin/" "$@"\n'
     else:
-        if name == 'python3': text += 'export PYTHONHOME="$root/usr"\n'
+        if name in ('python3','klayout','openroad'): text += 'export PYTHONHOME="$root/usr"\n'
         text += 'exec "$root/usr/bin/'+name+'" "$@"\n'
     (bindir/name).write_text(text); (bindir/name).chmod(0o755)
 
@@ -86,7 +86,7 @@ for base in ('usr','opt'):
     'oss_cad_suite':'2026-09-13', 'openroad':'26Q2-1164-g08f67ee5ec',
     'orfs':'eaba6576441bf7c1743ea56ecdb1904210ec02c2',
     'files_sha256':file_digest(ROOT/'files.json'),
-    'licenses':['usr/share/doc/*/copyright','opt/icstudio/oss-cad-suite/share','opt/icstudio/orfs/LICENSE'],
+    'licenses':['usr/share/doc/*/copyright','opt/icstudio/oss-cad-suite/license','opt/icstudio/orfs/LICENSE'],
     'sources':['https://github.com/YosysHQ/oss-cad-suite-build/releases/tag/2026-09-13',
                'https://github.com/The-OpenROAD-Project/OpenROAD/tree/08f67ee5ec',
                'https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/tree/eaba6576441bf7c1743ea56ecdb1904210ec02c2',

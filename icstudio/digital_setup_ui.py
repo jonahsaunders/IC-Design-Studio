@@ -39,11 +39,14 @@ class DigitalSetupDialog(QDialog):
 
     def setup(self):
         if self.process: return
+        manager=getattr(self.parent(),'run_manager',None)
+        if manager and manager.busy:
+            self.status.setText('Finish or stop the active jobs before verifying the runtime.'); return
         self.log.clear(); self.status.setText('Preparing the digital runtime…'); self.start.setEnabled(False); self.enable.setEnabled(False)
         self.close_button.setText('Stop setup')
         self.process=QProcess(self); self.process.setProcessChannelMode(QProcess.MergedChannels)
         self.process.readyReadStandardOutput.connect(self.read)
-        self.process.finished.connect(self.finished)
+        self.process.finished.connect(self.process_finished)
         self.process.errorOccurred.connect(lambda error:self.failed_start() if error==QProcess.FailedToStart else None)
         args=['--digital-setup']
         if not getattr(sys,'frozen',False): args.insert(0,str(Path(__file__).resolve().parents[1]/'main.py'))
@@ -61,9 +64,9 @@ class DigitalSetupDialog(QDialog):
         self.log.document().setMaximumBlockCount(1500)
 
     def failed_start(self):
-        self.log.appendPlainText('The setup worker could not start. Repair the application installation.'); self.finished(1)
+        self.log.appendPlainText('The setup worker could not start. Repair the application installation.'); self.process_finished(1)
 
-    def finished(self, code, *_):
+    def process_finished(self, code, *_):
         if not self.process: return
         self.read(); self.process.deleteLater(); self.process=None
         self.enable.setEnabled(True); self.close_button.setText('Close'); self.refresh()
