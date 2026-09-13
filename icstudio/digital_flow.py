@@ -19,7 +19,7 @@ ADVANCED = STAGES[4:]
 def tool_names(stage, simulator):
     if stage in ('synth','elaborate','mapped'): return ('yosys',)
     if stage == 'timing': return ('yosys','sta')
-    if stage == 'equivalence': return ('yosys','eqy')
+    if stage == 'equivalence': return ('yosys','eqy','sby','bitwuzla')
     if stage in ('floorplan','place','cts','route','finish'): return ('yosys','openroad','make') + (('klayout',) if stage=='finish' else ())
     if stage == 'regression':return ()
     if stage == 'lint' or simulator == 'verilator': return ('verilator',)
@@ -65,10 +65,15 @@ def prepare(project, stage='simulate', simulator='icarus', tools=None, cell_id=N
     resolved = {}
     for name in names:
         value = (tools or {}).get(name) or shutil.which(name)
+        if not value and stage=='equivalence' and 'yosys' in resolved:
+            sibling=Path(resolved['yosys']).with_name(name)
+            if sibling.is_file():value=str(sibling)
         path = Path(shutil.which(str(value)) or str(value)).resolve() if value else None
         if path is None or not path.is_file():
             raise ValueError(name+' is not installed. Set its executable in Digital flow → Tools.')
         resolved[name] = str(path)
+    if stage=='equivalence' and len({str(Path(p).parent) for p in resolved.values()})!=1:
+        raise ValueError('Use Yosys, EQY, SBY and Bitwuzla from the same toolchain bin directory so nested proof commands use the captured tools.')
     job = {'project': project, 'cell': cell_id, 'engine': 'digital',
            'settings': {'type': 'digital', 'stage': stage, 'simulator': simulator, 'tools': resolved}}
     if stage in ADVANCED and stage!='regression' and 'platform' not in config:raise ValueError('Import a locked digital platform before running this stage.')

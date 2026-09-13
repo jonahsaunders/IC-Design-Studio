@@ -55,6 +55,10 @@ class DigitalWorkspaceModelTests(unittest.TestCase):
                 status.write_text(value);self.assertEqual(reports.eqy_report(root)['status'],value)
             status.write_text('PASS');self.assertEqual(reports.eqy_report(root)['status'],'ERROR')
             (root/'PASS').touch();self.assertEqual(reports.eqy_report(root)['status'],'PASS')
+            other=status.parent.parent/'other/status';other.parent.mkdir();other.write_text('FAIL')
+            self.assertEqual(reports.eqy_report(root)['status'],'FAIL')
+            other.unlink();status.write_text('TIMEOUT');self.assertEqual(reports.eqy_report(root)['status'],'UNKNOWN')
+            status.unlink();self.assertEqual(reports.eqy_report(root)['status'],'ERROR')
 
     def test_unconstrained_timing_never_passes(self):
         with tempfile.TemporaryDirectory() as td:

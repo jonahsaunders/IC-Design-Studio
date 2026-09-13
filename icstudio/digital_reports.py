@@ -45,14 +45,15 @@ def eqy_report(directory):
     root=Path(directory);partitions={}
     for file in sorted((root/'strategies').glob('*/*/status')):
         text=file.read_text().split();status=text[0] if text else 'ERROR'
+        if status=='TIMEOUT':status='UNKNOWN'
         if status not in ('PASS','FAIL','UNKNOWN','ERROR'):status='ERROR'
         partitions.setdefault(file.parent.parent.name,[]).append({'strategy':file.parent.name,'status':status})
     rows=[]
     for name,strategies in partitions.items():
         states={s['status'] for s in strategies}
-        status='PASS' if 'PASS' in states else 'FAIL' if 'FAIL' in states else 'UNKNOWN' if 'UNKNOWN' in states else 'ERROR'
+        status='FAIL' if 'FAIL' in states else 'PASS' if 'PASS' in states else 'UNKNOWN' if 'UNKNOWN' in states else 'ERROR'
         rows.append({'partition':name,'status':status,'strategies':strategies})
-    if (root/'PASS').is_file() and all(p['status']=='PASS' for p in rows):status='PASS'
+    if rows and (root/'PASS').is_file() and all(p['status']=='PASS' for p in rows):status='PASS'
     elif any(p['status']=='FAIL' for p in rows):status='FAIL'
     elif any(p['status']=='UNKNOWN' for p in rows):status='UNKNOWN'
     else:status='ERROR'

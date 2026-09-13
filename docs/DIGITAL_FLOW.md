@@ -18,7 +18,7 @@ native cells, project revisions, undo, saving and the application's job queue.
 | Elaboration / generic synthesis | Yosys | Ports, hierarchy, generic netlist and source index |
 | Mapped synthesis | Yosys + locked Liberty | Standard-cell netlist, JSON index, cell count and area |
 | Timing | OpenSTA | Setup/hold paths, constraint checks, default-activity power estimate |
-| Equivalence | EQY + matching Yosys plugins | RTL versus the captured mapped netlist; partition outcomes and counterexamples |
+| Equivalence | EQY, Yosys, SBY and Bitwuzla | RTL versus the captured mapped netlist; partition outcomes and counterexamples |
 | Floorplan / place / clock tree / route | OpenROAD Flow Scripts | ODB checkpoints, DEF, physical netlist, placement/route preview and engine metrics |
 | Finish / GDS | ORFS, OpenROAD/OpenRCX, KLayout | Final GDS and extracted SPEF in addition to checkpoint evidence |
 | Regression | Saved Icarus/Verilator cases | Individual outcomes, retained failures, waveforms and optional Verilator line coverage |
@@ -73,7 +73,7 @@ The implementation CI pins:
 
 - ORFS `eaba6576441bf7c1743ea56ecdb1904210ec02c2` and its SKY130 HD platform;
 - OpenROAD `26Q2-1164-g08f67ee5ec` and OpenSTA 3.1.0 from its Ubuntu 24.04 package;
-- OSS CAD Suite `2026-09-13` for Yosys and EQY with matching plugins;
+- OSS CAD Suite `2026-09-13` for Yosys, EQY with matching plugins, SBY and Bitwuzla;
 - Ubuntu 24.04 Icarus, Verilator and KLayout packages for simulation/GDS conversion.
 
 Download archive checksums live in `.github/workflows/digital.yml`. A newer ORFS
@@ -119,8 +119,10 @@ Pre-layout timing has no extracted wire parasitics. Default propagated-activity
 power is an estimate, not a workload measurement. There is no multi-corner signoff
 claim or automatic false/multicycle-path correctness proof.
 
-EQY runs sequential SAT induction at depth 30 against the actual selected mapped
-netlist. **PASS**, **FAIL**, **UNKNOWN** and engine **ERROR** stay distinct. A
+EQY runs SBY/Bitwuzla induction at depth 30 with explicit undefined-state propagation
+against the actual selected mapped netlist. Use its four proof executables from
+the same toolchain `bin` directory; companions are discovered beside Yosys when
+absent from PATH. **PASS**, **FAIL**, **UNKNOWN** and engine **ERROR** stay distinct. A
 strategy timeout/unproved partition cannot produce PASS. State/reset assumptions
 and complex designs may need another strategy; counterexamples and proof logs
 are retained for investigation. A failed proof does not silently become a

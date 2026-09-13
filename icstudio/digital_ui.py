@@ -261,7 +261,7 @@ class DigitalFlowWindow(QDockWidget):
     def configure_tools(self):
         dialog = QDialog(self); dialog.setWindowTitle('Digital tools'); layout = QVBoxLayout(dialog); form = QFormLayout(); layout.addLayout(form); edits = {}
         note = QLabel('Use installed open-source executables. Leave a path empty to discover the tool on PATH. Verilator simulation also needs a C++ compiler and make.'); note.setWordWrap(True); layout.addWidget(note)
-        for name in ('iverilog','vvp','verilator','verilator_coverage','yosys','eqy','sta','openroad','make','klayout'):
+        for name in ('iverilog','vvp','verilator','verilator_coverage','yosys','eqy','sby','bitwuzla','sta','openroad','make','klayout'):
             edit = QLineEdit(self.studio.settings.value('engine/'+name,'')); edit.setAccessibleName(name+' executable'); form.addRow(name,edit); edits[name] = edit
         buttons = QDialogButtonBox(QDialogButtonBox.Save|QDialogButtonBox.Cancel); layout.addWidget(buttons); buttons.accepted.connect(dialog.accept); buttons.rejected.connect(dialog.reject)
         if dialog.exec():

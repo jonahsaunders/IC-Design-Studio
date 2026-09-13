@@ -14,7 +14,7 @@ from PySide6.QtWidgets import (QWidget,QVBoxLayout,QHBoxLayout,QLabel,QComboBox,
 from . import digital_design as design
 from .model import clone, scalar
 
-TOOL_NAMES=('iverilog','vvp','verilator','verilator_coverage','yosys','eqy','sta','openroad','make','klayout')
+TOOL_NAMES=('iverilog','vvp','verilator','verilator_coverage','yosys','eqy','sby','bitwuzla','sta','openroad','make','klayout')
 
 
 def table(columns):

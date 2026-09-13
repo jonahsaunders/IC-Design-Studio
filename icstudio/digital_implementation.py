@@ -195,8 +195,11 @@ def equivalence(r):
     gate='\n'.join('read_liberty -ignore_miss_func '+quote(p) for p in r.libraries())
     script='[gold]\n'+gold+'prep -top '+r.config['top']+' -flatten\n\n[gate]\n'+gate+'\nread_verilog ../netlist.v\n'
     script+='hierarchy -check -top '+r.config['top']+'\nflatten\ntechmap -autoproc -map +/simcells.v\nprep -top '+r.config['top']+'\n'
-    script+='\n[strategy sat]\nuse sat\ndepth 30\n'
+    # Encode undefined state explicitly; EQY's SAT strategy can prove this case vacuously.
+    script+='\n[strategy smtbmc]\nuse sby\nengine smtbmc bitwuzla\nxprop on\ndepth 30\n'
     atomic_write(r.root/'equivalence.eqy',script)
+    r.env['PATH']=str(Path(r.tools['eqy']).parent)+os.pathsep+r.env.get('PATH','')
+    r.env['YOSYS']=r.tools['yosys']
     r.command([r.tools['eqy'],'--yosys',r.tools['yosys'],'-f','-d','../proof','../equivalence.eqy'],
               'Proving the captured mapped netlist',fraction=.6,allow_failure=True)
     report=eqy_report(r.root/'proof');r.save_json('equivalence',report,'equivalence.json')

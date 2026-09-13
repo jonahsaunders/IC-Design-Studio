@@ -82,6 +82,8 @@ redistribute their binaries. Their source and licenses are available upstream:
 - Verilator: LGPL-3.0 or Artistic-2.0, https://verilator.org/guide/latest/copyright.html
 - Yosys: ISC, https://github.com/YosysHQ/yosys
 - EQY: ISC, https://github.com/YosysHQ/eqy
+- SBY: ISC, https://github.com/YosysHQ/sby
+- Bitwuzla: MIT, https://github.com/bitwuzla/bitwuzla
 - OpenSTA: GPL-3.0, https://github.com/The-OpenROAD-Project/OpenSTA
 - OpenROAD / OpenROAD Flow Scripts: BSD-3-Clause for
   the main projects, with separately licensed dependencies and platform assets,
