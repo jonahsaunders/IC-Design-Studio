@@ -105,6 +105,7 @@ def capabilities(technology, installed=False):
     if native and expected and lock.get('revision') == expected[0] and digest(lock.get('files', {})) == expected[1]: evidence = expected[2]
     try:physical=physical_adapter(technology);physical.engine_assets(technology);external_verification=True
     except (ValueError,OSError,KeyError):external_verification=False
+    from .em_technology import capabilities as em_capabilities
     return {
         'installed': installed or bool(lock),
         'indexed': len(catalog),
@@ -112,6 +113,7 @@ def capabilities(technology, installed=False):
         'simulation': bool(technology.get('simulation', {}).get('includes')),
         'native_layout': list(native.recipes) if native else [],
         'external_verification':external_verification,
+        'inductor_em':em_capabilities(technology),
         'native_reason': reason,
         'physical_evidence': evidence,
         'runtime': 'IHP requires separately compiled OSDI models.' if lock.get('id') == 'ihp-sg13g2' else 'Model simulation requires configured ngspice and intact locked assets.',
@@ -126,6 +128,9 @@ def capability_text(technology, installed=False):
         'Model bindings: ' + ('available. ' + c['runtime'] if c['simulation'] else 'no model include binding'),
         'Native layout: ' + (', '.join(c['native_layout']) if c['native_layout'] else c['native_reason']),
         'External physical verification: ' + ('locked decks available' if c['external_verification'] else 'configure matching locked decks'),
+        'Inductor geometry: ' + ('declared layer/via rules available' if c['inductor_em']['geometry'] else c['inductor_em']['geometry_reason']),
+        'Physical EM profile: ' + ('routing layers mapped; selected layout still requires checks' if c['inductor_em']['profile_ready']
+                                   else '; '.join(c['inductor_em']['profile_issues'][:3])),
         'Release physical evidence: ' + c['physical_evidence'],
     ])
 

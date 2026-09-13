@@ -149,7 +149,13 @@ class InductorDialog(QDialog):
     def build_em_tab(self):
         widget=QWidget();layout=QVBoxLayout(widget)
         note=QLabel('Create or regenerate the inductor first. Characterization exports the saved geometry, mapped layers, P/N ports and explicit physical stackup. Import solver impedance or Touchstone results to inspect L, Q and self-resonance.');note.setWordWrap(True);layout.addWidget(note)
+        profile=QPushButton('Edit physical EM profile for this PDK…');profile.clicked.connect(self.open_em_profile);layout.addWidget(profile)
         self.em_button=QPushButton('Open saved inductor characterization…');self.em_button.clicked.connect(self.open_em);layout.addWidget(self.em_button);layout.addStretch();self.tabs.addTab(widget,'EM results')
+
+    def open_em_profile(self):
+        from .em_profile_ui import EMProfileDialog
+        self._em_profile=EMProfileDialog(self.owner,self)
+        self._em_profile.finished.connect(self.schedule);self._em_profile.show()
 
     def open_em(self):
         from .inductor_em_ui import CharacterizationDialog
@@ -190,7 +196,7 @@ class InductorDialog(QDialog):
         self.apply_button.setText('Regenerate inductor' if record else 'Create inductor');self.loading=False;self.refresh_preview()
 
     def schedule(self,*_):
-        if self.loading:return
+        if self.loading or self.closed:return
         self.invalidate();self.cancel_search(clear=True);self.timer.start()
 
     def invalidate(self):
@@ -208,6 +214,7 @@ class InductorDialog(QDialog):
             via=self.via.currentData(),metal=self.metal.currentText(),rotation=self.rotation.currentData(),mirror=self.mirror.isChecked())
 
     def refresh_preview(self):
+        if self.closed:return
         self.timer.stop();self.invalidate()
         try:
             if self.owner.project['id']!=self.project_id or self.owner.cid!=self.cid:raise ValueError('The open project or cell changed. Close and reopen the creator.')
@@ -256,6 +263,7 @@ class InductorDialog(QDialog):
             if key in self.fields:self.fields[key].setValue(value/1000 if key not in ('turns','via_rows','via_columns') else value)
 
     def find_candidates(self):
+        if self.closed:return
         self.cancel_search(clear=True)
         # Search and preview use disjoint token ranges; editing cancels both.
         self.search_serial-=1;self.search_token=self.search_serial;token=self.search_token;v={k:s.value() for k,s in self.search_fields.items()}

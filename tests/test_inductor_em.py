@@ -40,7 +40,8 @@ class EMTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             path=Path(folder)/'em.zip';manifest=em.export_bundle(self.p,self.cid,self.did,path)
             with zipfile.ZipFile(path) as archive:
-                self.assertEqual(set(archive.namelist()),{'geometry.gds','manifest.json','results-template.json','README.txt'})
+                self.assertEqual(set(archive.namelist()),{'geometry.gds','manifest.json','results-template.json','README.txt',
+                    'solver-geometry.gds','stackup.xml','solver-layers.json'})
                 data=json.loads(archive.read('manifest.json'));self.assertEqual(data,manifest)
                 gds=Path(folder)/'geometry.gds';gds.write_bytes(archive.read('geometry.gds'))
                 layout=kdb().Layout();layout.read(str(gds));self.assertEqual(layout.dbu,.001)

@@ -2,10 +2,11 @@
 import os
 os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
 import time
+import threading
 import unittest
 from unittest.mock import patch
 
-from PySide6.QtCore import QObject,Signal,QTimer
+from PySide6.QtCore import QTimer,QEventLoop
 from PySide6.QtWidgets import QApplication,QWidget
 from PySide6.QtTest import QTest
 
@@ -22,18 +23,23 @@ class Owner(QWidget):
 
 class WorkerTests(unittest.TestCase):
     @classmethod
-    def setUpClass(cls):cls.app=QApplication.instance() or QApplication([])
+    def setUpClass(cls):
+        cls.app=QApplication.instance() or QApplication([])
+        cls.app.setQuitOnLastWindowClosed(False)
 
     def wait(self,condition):
-        deadline=time.monotonic()+5
-        while time.monotonic()<deadline:
-            self.app.processEvents()
-            if condition():return
-            QTest.qWait(5)
-        self.fail('Worker completion timed out')
+        # Use a real Qt event loop, as the application does. Repeated native
+        # qWait/processEvents calls can starve Python workers on Windows.
+        if condition():return
+        loop=QEventLoop();poll=QTimer();timeout=QTimer();timeout.setSingleShot(True)
+        poll.timeout.connect(lambda:loop.quit() if condition() else None)
+        timeout.timeout.connect(loop.quit);poll.start(5);timeout.start(5000)
+        try:loop.exec()
+        finally:poll.stop();timeout.stop()
+        self.assertTrue(condition(),'Worker completion timed out')
 
     def test_obsolete_completion_cannot_enable_apply_and_error_is_recoverable(self):
-        owner=Owner();original=inductor.plan
+        owner=Owner();owner.show();original=inductor.plan
         def slow(*args,**kwargs):
             time.sleep(.08)
             return original(*args,**kwargs)
@@ -47,14 +53,24 @@ class WorkerTests(unittest.TestCase):
             dialog.refresh_preview();self.wait(lambda:dialog.last_error is not None)
             self.assertIn('Injected',dialog.error.text());self.assertFalse(dialog.apply_button.isEnabled());self.assertTrue(dialog.preview.paths)
         dialog.refresh_preview();self.wait(lambda:dialog.proposal is not None)
-        dialog.close();owner.close()
+        dialog.close();self.wait(lambda:not dialog.jobs);owner.close()
 
     def test_close_cancels_pending_work_without_applying_project_changes(self):
-        owner=Owner();original=inductor.plan
-        def slow(*args,**kwargs):time.sleep(.08);return original(*args,**kwargs)
-        with patch('icstudio.inductor.plan',side_effect=slow):
-            dialog=InductorDialog(owner);dialog.show();self.wait(lambda:bool(dialog.preview.paths))
-            dialog.close();self.wait(lambda:not dialog.jobs)
+        owner=Owner();owner.show();original=inductor.plan;started=threading.Event();release=threading.Event()
+        def slow(*args,**kwargs):
+            started.set()
+            if not release.wait(5):raise RuntimeError('Test did not release worker')
+            return original(*args,**kwargs)
+        try:
+            with patch('icstudio.inductor.plan',side_effect=slow):
+                dialog=InductorDialog(owner);dialog.show();self.wait(started.is_set)
+                pending=list(dialog.jobs.values());dialog.close()
+                self.assertTrue(all(job.cancelled.is_set() for job in pending))
+                # Late UI callbacks must not enqueue more work after close.
+                dialog.refresh_preview();dialog.find_candidates();dialog.schedule()
+                self.assertEqual(list(dialog.jobs.values()),pending)
+                release.set();self.wait(lambda:not dialog.jobs)
+        finally:release.set()
         self.assertTrue(dialog.closed);self.assertFalse(owner.cell['devices']);self.assertFalse(owner.cell['shapes']);owner.close()
 
 

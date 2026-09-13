@@ -3,6 +3,9 @@
 The [dev23 update](UPDATE_0.22_DEV23.md) adds five spiral shapes, target-L search,
 background preview, actionable validation, declared DC resistance and opt-in RL
 simulation, plus saved EM exchange and results. It targets `experimental`.
+The PDK profile extension adds a generic material/mapping editor, revision-bound
+reusable profiles and matched solver GDS/XML exchange. Support requires supplied
+physical data; no foundry-specific electrical qualification is inferred.
 See the [creator guide](INDUCTOR_CREATOR.md) and
 [dev23 validation record](validation/experimental-dev23.json).
 Desktop package and physical/interoperability claims require the new commit's

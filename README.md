@@ -334,7 +334,7 @@ Bundled simulation subsets contain models and symbols; full physical flows need 
 
 ## Project status
 
-**0.22.0.dev23 is an engineering preview.** The [inductor design update](docs/UPDATE_0.22_DEV23.md) adds five shapes, target-L synthesis, background validation, optional DC series RL and EM characterization exchange. It includes the earlier [workflow and recovery improvements](docs/UPDATE_0.22_DEV21.md). [Release status](docs/RELEASE_STATUS.md) records validation and package status.
+**0.22.0.dev23 is an engineering preview.** The [inductor design update](docs/UPDATE_0.22_DEV23.md) adds five shapes, target-L synthesis, background validation, optional DC series RL and EM characterization exchange with reusable PDK material/layer profiles. It includes the earlier [workflow and recovery improvements](docs/UPDATE_0.22_DEV21.md). [Release status](docs/RELEASE_STATUS.md) records validation and package status.
 
 The [roadmap](docs/ROADMAP.md) tracks consumer Windows/Linux acceptance, physical LAN/VPN testing, broader PVT/transient and real-project coverage, larger editing/recovery workloads, and offline collaboration. A passing fixture qualifies that recorded case; it does not establish arbitrary-design or fabrication signoff. Source-to-GDS warnings for the detector remain documented.
 

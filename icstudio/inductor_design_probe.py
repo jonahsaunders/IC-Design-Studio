@@ -30,6 +30,13 @@ def run(w,output):
             dict(name='via1',kind='via',z_um=1.5,thickness_um=.5,conductivity_s_m=3e7),
             dict(name='metal2',kind='conductor',z_um=2,thickness_um=1,conductivity_s_m=3e7),
             dict(name='oxide',kind='dielectric',z_um=0,thickness_um=10,epsilon_r=3.9)]}
+        # PDK setup is available independently, including before via rules have
+        # been supplied and before an inductor can be generated.
+        incomplete=clone(p);incomplete['pdk']['routing_vias']=[];incomplete['pdk'].pop('em_stackup')
+        w.set_project(incomplete)
+        setup=next(a for a in w.task_menus['Tools'].actions() if a.text()=='Physical EM profile…')
+        setup.trigger();assert w._em_profile.isVisible();assert w._em_profile.layers.rowCount()==0
+        w._em_profile.reject()
         w.set_project(p);action=next(a for a in w.task_menus['Tools'].actions() if a.text()=='Inductor creator…')
         action.trigger();dialog=w._inductor_dialog
         for shape in inductor.SHAPES:
@@ -64,6 +71,25 @@ def run(w,output):
         wait(lambda:dialog.proposal is not None,'Saved generated coil')
         assert dialog.series_rl.isChecked();dialog.open_em();em=dialog._em_dialog
         assert em.parent() is dialog
+        # Author and reuse a profile through the actual editor. Physical names
+        # need not match layout names; bad material input must stay atomic.
+        em.edit_profile();profile=em._profile;app.processEvents()
+        original_profile=clone(w.project);profile.layers.item(0,3).setText('0');profile.apply()
+        assert w.project==original_profile and profile.error.text()
+        profile.layers.item(0,3).setText('0.5');profile.layers.item(0,0).setText('Return conductor')
+        for row in range(profile.mapping.rowCount()):
+            if profile.mapping.item(row,0).text()=='metal1':profile.mapping.item(row,2).setText('Return conductor')
+        profile_file=output/'synthetic-pdk-profile.json'
+        with patch('icstudio.em_profile_ui.QFileDialog.getSaveFileName',return_value=(str(profile_file),'JSON')):profile.save()
+        assert profile_file.is_file(),profile.error.text()
+        app.processEvents();assert profile.grab().save(str(output/'pdk-profile.png'))
+        profile.apply();assert not profile.isVisible(),profile.error.text()
+        assert w.project['pdk']['em_stackup']['layout_map']['metal1']=='Return conductor'
+        w.undo();assert w.project['pdk']==original_profile['pdk'];w.redo();em.refresh()
+        em.edit_profile();profile=em._profile
+        with patch('icstudio.em_profile_ui.QFileDialog.getOpenFileName',return_value=(str(profile_file),'JSON')):profile.load()
+        assert not profile.error.text(),profile.error.text();profile.reject()
+        checks.append('PDK profile editor, explicit layer aliases, invalid-data atomicity, reusable file and undo/redo')
         bundle=output/'em-exchange.zip'
         with patch('icstudio.inductor_em_ui.QFileDialog.getSaveFileName',return_value=(str(bundle),'ZIP')):em.export()
         assert bundle.is_file(),em.error.text()

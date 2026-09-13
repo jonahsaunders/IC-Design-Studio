@@ -28,6 +28,14 @@ JSON or supported Touchstone 1.x S-parameters, displays L(f), R(f), Q(f) and a
 bracketed SRF, and retains evidence through project save/reopen. Changes to
 geometry, surrounding metal or materials make characterization stale.
 
+EM setup now uses reusable PDK profiles with explicit layout-to-physical layer
+mapping, a material editor, revision binding, and isolated/context scope. Any
+process can supply the required data; none is selected by name or given another
+foundry's material values. Complete supported profiles additionally export matched
+solver GDS and absolute-position XML for gds2openEMS/gds2palace, preserving distinct
+GDS datatypes through recorded solver layer numbers. Missing data are reported.
+This prepares the exchange; ports, model scripts and solver execution remain external.
+
 This is an exchange workflow, not an included EM solver. DC estimates and
 synthetic acceptance fixtures do not qualify RF or fabrication performance.
 Differential/center-tapped configurations and transformers remain separate

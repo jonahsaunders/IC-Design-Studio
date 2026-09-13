@@ -13,41 +13,13 @@ from pathlib import Path
 
 from .model import clone, digest, atomic_write
 from .layout import kdb, polygon
+from .em_technology import validate_stackup, readiness, mapping_for, solver_stackup, technology_identity
 
 MAX_BYTES=8_000_000
 
 
-def validate_stackup(stack):
-    if not isinstance(stack,dict) or not isinstance(stack.get('source'),str) or not stack['source'].strip():
-        raise ValueError('EM stackup needs a named source and explicit physical layers.')
-    layers=stack.get('layers')
-    if not isinstance(layers,list) or not 1<=len(layers)<=128:
-        raise ValueError('EM stackup needs 1–128 layers.')
-    names=set()
-    for layer in layers:
-        if not isinstance(layer,dict):raise ValueError('Each stackup layer must be an object.')
-        name=layer.get('name');kind=layer.get('kind')
-        if not isinstance(name,str) or not name.strip() or name in names:
-            raise ValueError('Stackup layer names must be unique and nonempty.')
-        names.add(name)
-        if kind not in ('conductor','via','dielectric','substrate'):
-            raise ValueError(name+': choose conductor, via, dielectric or substrate.')
-        for key in ('z_um','thickness_um'):
-            value=layer.get(key)
-            if type(value) not in (int,float) or not math.isfinite(value) or (key=='thickness_um' and value<=0):
-                raise ValueError(name+': declare finite elevation and positive thickness in µm.')
-        keys=('conductivity_s_m',) if kind in ('conductor','via') else ('epsilon_r',)
-        for key in keys:
-            value=layer.get(key)
-            if type(value) not in (int,float) or not math.isfinite(value) or value<=0:
-                raise ValueError(name+': declare positive '+key+'.')
-        for key in ('loss_tangent','conductivity_s_m'):
-            if key in layer and (type(layer[key]) not in (int,float) or not math.isfinite(layer[key]) or layer[key]<0):
-                raise ValueError(name+': '+key+' must be finite and nonnegative.')
-    return clone(stack)
-
-
-def manifest(p,cid,did):
+def manifest(p,cid,did,scope='context'):
+    if scope not in ('context','isolated'):raise ValueError('Choose isolated inductor or surrounding layout for EM.')
     from . import inductor
     from .layout_vias import technology
     from .design_ops import flatten_layout
@@ -63,33 +35,42 @@ def manifest(p,cid,did):
     def physical(shape):
         return {k:clone(shape[k]) for k in ('kind','layer','points','holes','width','net') if k in shape}
     context=[physical(s) for s in flatten_layout(p,cid)]
-    stack=tech.get('em_stackup');missing=[]
-    if stack:
-        stack=validate_stackup(stack)
-        mapped={l['name']:l for l in stack['layers'] if l['kind'] in ('conductor','via')}
-        missing=sorted({s['layer'] for s in own}-mapped.keys())
-        if not any(l['kind'] in ('dielectric','substrate') for l in stack['layers']):missing.append('dielectric/substrate environment')
-    else:missing=['physical stackup with materials and substrate/dielectrics']
-    identity=dict(schema=1,project_id=p['id'],cell_id=cid,device_id=did,spec=spec,
+    stack=tech.get('em_stackup')
+    selected=context if scope=='context' else [physical(s) for s in own]
+    missing=readiness(tech,stack,{s['layer'] for s in selected},{s['layer'] for s in own})
+    mapping=mapping_for(tech,stack) if stack and not missing else {}
+    solver_missing=list(missing)
+    if not solver_missing:
+        try:solver_stackup(stack,{name:physical for name,physical in mapping.items() if name in {s['layer'] for s in selected}})
+        except ValueError as exc:solver_missing.append(str(exc))
+    identity=dict(schema=2,scope=scope,project_id=p['id'],cell_id=cid,device_id=did,spec=spec,
                   geometry=[physical(s) for s in own],context_geometry=context,pins=pins,
                   layer_map=[{k:l[k] for k in ('name','gds','datatype')} for l in tech['layers']],
+                  technology=technology_identity(tech),
                   process_lock=tech.get('package_lock'),stackup=stack,
                   port_definition='Differential voltage V(P)-V(N), current entering P and leaving N')
-    return {**identity,'fingerprint':digest(identity),'stackup_complete':not missing,'missing':missing,
+    return {**identity,'fingerprint':digest(identity),'stackup_complete':not missing,'missing':missing,'physical_layer_map':mapping,
+            'solver_stackup_complete':not solver_missing,'solver_missing':solver_missing,
             'qualification':'External solver input/evidence only. Solver setup, meshing, convergence and process qualification remain the characterization source responsibility.'}
 
 
-def export_bundle(p,cid,did,path):
-    data=manifest(p,cid,did);db=kdb();layout=db.Layout();layout.dbu=.001
+def export_bundle(p,cid,did,path,scope='context'):
+    data=manifest(p,cid,did,scope);db=kdb();layout=db.Layout();layout.dbu=.001
     mapping={l['name']:layout.layer(l['gds'],l['datatype']) for l in data['layer_map']}
     winding=layout.create_cell('INDUCTOR');context=layout.create_cell('CONTEXT')
     for shape in data['geometry']:winding.shapes(mapping[shape['layer']]).insert(polygon(shape))
     for shape in data['context_geometry']:context.shapes(mapping[shape['layer']]).insert(polygon(shape))
-    result_template=dict(schema=1,fingerprint=data['fingerprint'],source='REPLACE with solver, version, settings and convergence evidence',
+    result_template=dict(schema=1,scope=scope,fingerprint=data['fingerprint'],source='REPLACE with solver, version, settings and convergence evidence',
                          port_definition=data['port_definition'],frequency_hz=[],z_real_ohm=[],z_imag_ohm=[])
     instructions=(
         'INDUCTOR is the isolated winding; CONTEXT is the full flattened cell including the winding.\n'
-        'Choose ONE cell for simulation; do not superimpose both cells. Geometry units: 1 nm.\n'
+        'Choose ONE cell for simulation; do not superimpose both cells. Database unit: 1 nm.\n'
+        'The declared simulation scope is '+scope+'. Results must describe that scope.\n'
+        'When present, solver-geometry.gds (EM_MODEL) and stackup.xml are a matched pair for\n'
+        'the gds2openEMS/gds2palace absolute-position stackup format. Use these together.\n'
+        'solver-layers.json maps original layer/datatype pairs to unique solver layer numbers.\n'
+        'Configure excitation port geometry from the manifest pin coordinates/layers, plus\n'
+        'frequency sweep, mesh, boundaries and convergence. These files do not run a solver.\n'
         'Manifest pins identify P and N; use the documented differential voltage/current convention.\n'
         'A missing stackup is an incomplete exchange, not a runnable physical model. Supply explicit\n'
         'pdk.em_stackup in the application and re-export before importing results. Display heights are not used.\n'
@@ -108,6 +89,26 @@ def export_bundle(p,cid,did,path):
             archive.writestr('manifest.json',json.dumps(data,indent=2,allow_nan=False))
             archive.writestr('results-template.json',json.dumps(result_template,indent=2))
             archive.writestr('README.txt',instructions)
+            issues=list(data['solver_missing'])
+            if not issues:
+                try:
+                    selected=data['context_geometry'] if scope=='context' else data['geometry']
+                    used={s['layer'] for s in selected}
+                    mapped={name:physical for name,physical in data['physical_layer_map'].items() if name in used}
+                    xml,numbers=solver_stackup(data['stackup'],mapped)
+                    solver=db.Layout();solver.dbu=.001;cell=solver.create_cell('EM_MODEL')
+                    solver_layers={name:solver.layer(numbers[physical],0) for name,physical in mapped.items()}
+                    for shape in selected:
+                        if shape['layer'] in solver_layers:cell.shapes(solver_layers[shape['layer']]).insert(polygon(shape))
+                    solver_gds=Path(folder)/'solver.gds';solver.write(str(solver_gds))
+                    table=[{**layer,'physical':mapped[layer['name']],'solver_gds':numbers[mapped[layer['name']]],'solver_datatype':0}
+                           for layer in data['layer_map'] if layer['name'] in mapped]
+                    archive.writestr('solver-geometry.gds',solver_gds.read_bytes())
+                    archive.writestr('stackup.xml',xml)
+                    archive.writestr('solver-layers.json',json.dumps(dict(layers=table,
+                        excluded_layers=data['stackup'].get('excluded_layers',{})),indent=2))
+                except ValueError as exc:issues.append(str(exc))
+            if issues:archive.writestr('solver-setup-missing.txt','\n'.join(issues))
     atomic_write(path,output.getvalue())
     return data
 
@@ -178,6 +179,8 @@ def validate_results(data,current):
         raise ValueError('EM results belong to different geometry, context or stackup. Re-export and characterize the current design.')
     if data.get('port_definition')!=current['port_definition']:
         raise ValueError('EM port convention does not match the exported P/N definition.')
+    if data.get('scope','context')!=current['scope']:
+        raise ValueError('EM results use a different isolated/context simulation scope.')
     source=data.get('source','')
     if not isinstance(source,str) or not source.strip() or source.startswith('REPLACE') or len(source)>10000:
         raise ValueError('Name the actual solver/measurement source, settings and convergence evidence.')
@@ -199,6 +202,7 @@ def validate_results(data,current):
             bracket=[frequency[i-1],frequency[i]]
             srf=frequency[i-1]+(frequency[i]-frequency[i-1])*imag[i-1]/(imag[i-1]-imag[i]);break
     evidence={k:clone(data[k]) for k in ('schema','fingerprint','source','port_definition','frequency_hz','z_real_ohm','z_imag_ohm')}
+    if 'scope' in data:evidence['scope']=data['scope']
     if any(not math.isfinite(row[key]) for row in rows for key in ('inductance_h','resistance_ohm','q') if row[key] is not None):
         raise ValueError('Derived EM metrics overflow; check sample units and magnitudes.')
     return dict(evidence=evidence,evidence_hash=digest(evidence),rows=rows,srf_hz=srf,srf_bracket_hz=bracket,
@@ -206,7 +210,8 @@ def validate_results(data,current):
 
 
 def install_results(p,cid,did,data):
-    result=validate_results(data,manifest(p,cid,did))
+    if not isinstance(data,dict):raise ValueError('EM results must be a JSON object.')
+    result=validate_results(data,manifest(p,cid,did,data.get('scope','context')))
     c=next(c for c in p['cells'] if c['id']==cid)
     r=next(r for r in c['parametric_devices'] if r['device_id']==did)
     r['em_characterization']=result
@@ -219,7 +224,7 @@ def result_status(p,cid,did):
     result=r.get('em_characterization')
     if not result:return None,'No imported characterization.'
     try:
-        checked=validate_results(result['evidence'],manifest(p,cid,did))
+        checked=validate_results(result['evidence'],manifest(p,cid,did,result['evidence'].get('scope','context')))
         if checked!=result:raise ValueError('Stored characterization was modified; import the original evidence again.')
         return result,'Current characterization.'
     except (ValueError,KeyError,TypeError) as exc:return None,'Stale characterization: '+str(exc)

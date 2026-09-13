@@ -6,7 +6,7 @@ from pathlib import Path
 from PySide6.QtCore import Qt,QRectF,QPointF
 from PySide6.QtGui import QPainter,QPen,QColor,QPainterPath
 from PySide6.QtWidgets import (QDialog,QVBoxLayout,QHBoxLayout,QLabel,QPushButton,
-    QFileDialog,QTableWidget,QTableWidgetItem,QHeaderView,QWidget)
+    QFileDialog,QTableWidget,QTableWidgetItem,QHeaderView,QWidget,QComboBox)
 
 from . import inductor_em
 
@@ -45,8 +45,11 @@ class CharacterizationDialog(QDialog):
         self.setWindowTitle('Inductor EM characterization')
         screen=owner.screen().availableGeometry();self.resize(min(850,screen.width()-40),min(650,screen.height()-60))
         layout=QVBoxLayout(self);self.status=QLabel();self.status.setWordWrap(True);layout.addWidget(self.status)
+        scope_row=QHBoxLayout();scope_row.addWidget(QLabel('Simulation geometry'))
+        self.scope=QComboBox();self.scope.addItem('Inductor and surrounding layout','context');self.scope.addItem('Isolated inductor','isolated')
+        self.scope.setAccessibleName('EM simulation scope');scope_row.addWidget(self.scope);layout.addLayout(scope_row)
         buttons=QHBoxLayout();layout.addLayout(buttons)
-        for label,callback in (('Load physical stackup…',self.load_stackup),('Export EM bundle…',self.export),('Import results…',self.import_results)):
+        for label,callback in (('Edit PDK profile…',self.edit_profile),('Load physical stackup…',self.load_stackup),('Export EM bundle…',self.export),('Import results…',self.import_results)):
             button=QPushButton(label);button.clicked.connect(callback);buttons.addWidget(button)
         self.plot=CharacterizationPlot();layout.addWidget(self.plot)
         self.summary=QLabel();self.summary.setWordWrap(True);layout.addWidget(self.summary)
@@ -54,7 +57,8 @@ class CharacterizationDialog(QDialog):
         self.table.setEditTriggers(QTableWidget.NoEditTriggers);self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch);layout.addWidget(self.table,1)
         note=QLabel('Use a physical stackup with a named source. Touchstone files require a matching JSON sidecar. See the inductor creator guide for formats and units.');note.setWordWrap(True);layout.addWidget(note)
         self.error=QLabel();self.error.setWordWrap(True);layout.addWidget(self.error)
-        close=QPushButton('Close');close.clicked.connect(self.accept);layout.addWidget(close);self.refresh()
+        close=QPushButton('Close');close.clicked.connect(self.accept);layout.addWidget(close)
+        self.scope.currentIndexChanged.connect(self.refresh);self.refresh()
 
     def project(self):
         if self.owner.project['id']!=self.project_id:raise ValueError('The open project changed. Reopen characterization.')
@@ -65,13 +69,17 @@ class CharacterizationDialog(QDialog):
     def refresh(self):
         self.error.clear();self.plot.rows=[];self.table.setRowCount(0);self.summary.clear()
         try:
-            p=self.project();manifest=inductor_em.manifest(p,self.cid,self.did)
-            status='Physical stackup declared.' if manifest['stackup_complete'] else 'Incomplete EM stackup: '+', '.join(manifest['missing'])
+            p=self.project();manifest=inductor_em.manifest(p,self.cid,self.did,self.scope.currentData())
+            problems=manifest['solver_missing']
+            status='Physical profile and XML stackup ready for the selected geometry.' if not problems else 'EM setup needs attention: '+'; '.join(problems[:3])
+            if len(problems)>3:status+=f' · {len(problems)-3} more (see tooltip or exported diagnostics)'
+            self.status.setToolTip('\n'.join(problems))
             result,state=inductor_em.result_status(p,self.cid,self.did);self.status.setText(status+'\n'+state)
             if result:
                 self.plot.rows=result['rows'];srf=result['srf_hz']
                 bracket=result['srf_bracket_hz']
-                self.summary.setText((f'SRF bracket: {bracket[0]:.4g}–{bracket[1]:.4g} Hz · linear estimate {srf:.4g} Hz' if srf is not None else 'Self-resonance is not bracketed in the supplied frequency range.')+'\nSource: '+result['evidence']['source'])
+                scope=result['evidence'].get('scope','context')
+                self.summary.setText((f'SRF bracket: {bracket[0]:.4g}–{bracket[1]:.4g} Hz · linear estimate {srf:.4g} Hz' if srf is not None else 'Self-resonance is not bracketed in the supplied frequency range.')+'\nCharacterized geometry: '+scope+'\nSource: '+result['evidence']['source'])
                 rows=result['rows'];step=max(1,math.ceil(len(rows)/1000));shown=rows[::step]
                 if shown[-1] is not rows[-1]:shown.append(rows[-1])
                 self.table.setRowCount(len(shown))
@@ -86,17 +94,26 @@ class CharacterizationDialog(QDialog):
         file,_=QFileDialog.getOpenFileName(self,'Physical EM stackup','','JSON (*.json)')
         if not file:return
         try:
-            self.project();stack=inductor_em.validate_stackup(json.loads(inductor_em._read(file)))
+            from .em_technology import bind_stackup
+            from .layout_vias import technology
+            stack=bind_stackup(technology(self.project()),json.loads(inductor_em._read(file)))
             if not self.owner.idle_edit():return
             self.owner.commit(lambda p:p['pdk'].update(em_stackup=stack),'Load physical EM stackup');self.refresh()
         except (ValueError,OSError,KeyError) as exc:self.error.setText(str(exc))
+
+    def edit_profile(self):
+        try:
+            from .em_profile_ui import EMProfileDialog
+            self.project();self._profile=EMProfileDialog(self.owner,self)
+            self._profile.finished.connect(self.refresh);self._profile.show()
+        except (ValueError,KeyError) as exc:self.error.setText(str(exc))
 
     def export(self):
         file,_=QFileDialog.getSaveFileName(self,'Export reproducible EM bundle','inductor-em.zip','ZIP (*.zip)')
         if not file:return
         try:
-            manifest=inductor_em.export_bundle(self.project(),self.cid,self.did,Path(file));self.refresh()
-            self.error.setText('Exported '+Path(file).name+('. Physical stackup is incomplete; load it and re-export before characterization.' if not manifest['stackup_complete'] else '.'))
+            manifest=inductor_em.export_bundle(self.project(),self.cid,self.did,Path(file),self.scope.currentData());self.refresh()
+            self.error.setText('Exported '+Path(file).name+('. Solver files are incomplete; see solver-setup-missing.txt.' if not manifest['solver_stackup_complete'] else ' with matched solver GDS and XML stackup.'))
         except (ValueError,OSError,KeyError) as exc:self.error.setText(str(exc))
 
     def import_results(self):
