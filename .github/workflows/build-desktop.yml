@@ -296,15 +296,15 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: ./scripts/build_windows.ps1
-      - name: Verify installed Windows app
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: ./scripts/verify_windows.ps1
       - name: Qualify included digital engines through the frozen desktop
         timeout-minutes: 20
         env:
           ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
         run: python scripts/verify_frozen_digital.py
+      - name: Verify installed Windows app
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./scripts/verify_windows.ps1
       - name: Verify frozen Linux app
         if: runner.os == 'Linux'
         env:

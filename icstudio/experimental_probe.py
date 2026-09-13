@@ -44,6 +44,7 @@ def run(w, output):
                 while time.monotonic()<until:
                     QTest.qWait(10)
                     if arrival.arrived and widget.underMouse():return
+            widget.screen().grabWindow(0).save(str(out/'native-hover-failure.png'))
             raise AssertionError(dict(reason='Native hover event was not delivered',cursor=str(QCursor.pos()),target=str(widget.mapToGlobal(point)),active=repr(app.activeWindow()),under_pointer=repr(app.widgetAt(widget.mapToGlobal(point)))))
         finally:widget.removeEventFilter(arrival)
     def wait(predicate, label, timeout=10):
@@ -90,12 +91,29 @@ def run(w, output):
         w.set_project(p);w.mode_combo.setCurrentIndex(0);canvas=w.schematic;QTest.qWait(100)
         if app.platformName() not in ('offscreen','minimal'):
             QWidget.move(w,w.screen().availableGeometry().topLeft()+QPoint(20,20));w.raise_();w.activateWindow();QTest.qWait(100)
+            assert QTest.qWaitForWindowExposed(w,2000),'Native canvas window was not exposed'
+            assert QTest.qWaitForWindowActive(w,2000),'Native canvas window did not activate'
         visible=canvas.visibleRegion().boundingRect()
         if app.platformName() not in ('offscreen','minimal'):
             portions=[visible.intersected(QRect(canvas.mapFromGlobal(s.availableGeometry().topLeft()),s.availableGeometry().size())) for s in app.screens()]
             visible=max(portions,key=lambda rect:rect.width()*rect.height())
         assert visible.width()>10 and visible.height()>10,('Canvas has no reachable pointer area',visible)
-        point=visible.center();canvas.auto_fit=False;canvas.scale=1.5;canvas.offset=QPointF(point)-QPointF(0,40)*canvas.scale
+        point=visible.center()
+        if app.platformName() not in ('offscreen','minimal'):
+            # visibleRegion excludes Qt children, but cannot account for native
+            # window occlusion. Find an exposed point before arranging the test
+            # geometry under it; move() still requires an actual native event.
+            candidates=[point]+[QPoint(visible.left()+int(visible.width()*x),visible.top()+int(visible.height()*y))
+                                for y in (.25,.5,.75) for x in (.25,.5,.75)]
+            deadline=time.monotonic()+2;point=None
+            while point is None and time.monotonic()<deadline:
+                point=next((p for p in candidates if app.widgetAt(canvas.mapToGlobal(p)) is canvas),None)
+                if point is None:w.raise_();w.activateWindow();QTest.qWait(30)
+            if point is None:
+                canvas.screen().grabWindow(0).save(str(out/'native-canvas-obstructed.png'))
+                raise AssertionError(dict(reason='No exposed native canvas point',visible=str(visible),
+                                          window=str(w.frameGeometry()),active=repr(app.activeWindow())))
+        canvas.auto_fit=False;canvas.scale=1.5;canvas.offset=QPointF(point)-QPointF(0,40)*canvas.scale
         move(canvas,point)
         assert canvas.preselection and canvas.preselection['id']=='overlap-wire',dict(tool=canvas.tool,scale=canvas.scale,offset=str(canvas.offset),pointer=str(getattr(canvas,'editor_pointer',None)),cursor=str(QCursor.pos()),target=str(canvas.mapToGlobal(point)),screens=[str(s.availableGeometry()) for s in app.screens()],anchor=str(canvas.anchor),hint=canvas.selection_hint)
         assert '2 overlapping' in canvas.selection_hint
