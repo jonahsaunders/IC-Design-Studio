@@ -279,7 +279,7 @@ def export_flow(config, directory):
     gold = read_rtl(config)+'\n'
     eqy = ('[gold]\n'+gold+'prep -top '+config['top']+'\n\n[gate]\n'
            'read_verilog ../netlist.v\nprep -top '+config['top']+'\n\n'
-           '[strategy simple]\nuse sat\ndepth 20\n')
+           '[strategy smtbmc]\nuse sby\nengine smtbmc bitwuzla\nxprop on\ndepth 30\n')
     atomic_write(root/'equivalence.eqy', eqy)
     lines = ['# Generated starting configuration; qualify with a pinned ORFS/platform revision.',
              'ICSTUDIO_ROOT := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))',
@@ -300,7 +300,9 @@ From the sources directory:
 
 The EQY check compares RTL with the generic netlist produced above. It does
 not check the separate technology-mapped ORFS netlist. Inspect EQY's status;
-unproved/timeout is not a pass. The SAT strategy has a depth budget of 20.
+unproved/timeout is not a pass. Install matching Yosys, EQY, SBY and Bitwuzla
+executables on PATH. This uses explicit undefined-state propagation and
+SMT induction with a depth budget of 30.
 
 With a separately installed, pinned OpenROAD Flow Scripts checkout/platform:
   make -C /path/to/OpenROAD-flow-scripts/flow DESIGN_CONFIG=/absolute/path/to/config.mk

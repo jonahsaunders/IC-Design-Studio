@@ -72,7 +72,7 @@ class DigitalModelTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             root = digital_flow.export_flow(config,Path(td)/'flow')
             self.assertEqual((root/'sources/counter.sv').read_text(),config['files'][0]['text'])
-            self.assertIn('use sat',(root/'equivalence.eqy').read_text())
+            self.assertIn('engine smtbmc bitwuzla',(root/'equivalence.eqy').read_text())
             self.assertIn('PLATFORM = sky130hd',(root/'config.mk').read_text())
             self.assertEqual(json.loads((root/'manifest.json').read_text())['physical_status'],'not_run')
             with self.assertRaisesRegex(ValueError,'empty'): digital_flow.export_flow(config,root)

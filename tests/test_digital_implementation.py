@@ -171,6 +171,9 @@ class DigitalImplementationTests(unittest.TestCase):
         bad=self.run_stage(self.project,'equivalence',self.root/'inequivalent',faulty)
         self.assertEqual((self.root/'inequivalent/netlist.v').read_text(),broken,'The proof must consume the injected gate-level fault')
         self.assertEqual(bad['digital_result']['verdict'],'FAIL',(self.root/'inequivalent/engine.log').read_text()[-5000:])
+        traces=bad['digital_result']['equivalence']['counterexamples'];self.assertTrue(traces)
+        from icstudio.digital_waveform import read_vcd
+        self.assertTrue(read_vcd(self.root/'inequivalent/proof'/traces[0])['signals'])
 
     @unittest.skipUnless(tool('openroad') and tool('klayout') and os.environ.get('ICSTUDIO_TEST_PHYSICAL'),'Set ICSTUDIO_TEST_PHYSICAL=1 for all ORFS stages')
     def test_physical_checkpoints_resume_gds_and_extracted_timing(self):
