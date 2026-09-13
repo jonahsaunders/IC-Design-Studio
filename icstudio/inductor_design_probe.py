@@ -96,7 +96,8 @@ def run(w,output):
         assert solver.isVisible() and solver.mesh_check.isChecked()
         solver.python.setText(str(output/'missing-solver-python'));solver.start(False)
         assert not solver.job.running and 'Choose the Python executable' in solver.status.text()
-        solver.python.clear();solver.status.setText('Select a solver Python environment, then check installation or run.')
+        from . import openems_runtime
+        solver.python.setText(openems_runtime.discover()[0]);solver.status.setText('Ready when you are.')
         assert solver.grab().save(str(output/'openems-setup.png'));solver.reject()
         checks.append('Optional openEMS setup dialog, bundled external driver and missing-installation guard')
         bundle=output/'em-exchange.zip'

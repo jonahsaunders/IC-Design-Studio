@@ -45,3 +45,30 @@ The external regression downloads LDFranck/sky130_vbl_ip__overvoltage at commit 
 ## SKY130 resistor extraction backport in dev20
 
 The resistor definition block in [the correction lock](examples/open-projects/sky130-resistor-extraction.json) is from open_pdks commit `1689ac3f2dc763876eaf967227c7dfe831b031ae`, `sky130/magic/sky130.tech`. Copyright (c) 2020 R. Timothy Edwards; Apache-2.0. Its [license](examples/open-projects/LICENSE-open_pdks.txt), source URL and source hash are retained. The generated deck explicitly marks the backport; the full PDK is not bundled.
+
+## Included openEMS runtime
+
+The qualified Windows/Linux desktop packages include a separate openEMS 0.0.36
+runtime. openEMS is GPL-3.0-or-later; CSXCAD is LGPL-3.0-or-later; fparser retains
+its LGPL notices. Exact corresponding project/submodule source accompanies the
+runtime in `licenses/openEMS-corresponding-source.zip`, including the Linux
+VTK 9 CMake compatibility changes. The project revision is
+`d0d2e8dad8a02388f1919bbcdd29a67e9199dd2c`:
+https://github.com/thliebig/openEMS-Project/tree/d0d2e8dad8a02388f1919bbcdd29a67e9199dd2c.
+Windows uses the checksum-pinned official openEMS 0.0.36 archive. Linux builds
+without AppCSXCAD or MPI; its native dependency closure excludes glibc and retains
+Ubuntu package copyright files and exact versions under `licenses/system`.
+
+The separate CPython 3.11.16 distribution comes from python-build-standalone
+release 20260901 (PSF and component-specific licenses):
+https://github.com/astral-sh/python-build-standalone/releases/tag/20260901.
+Original Python and dependency license files are retained. NumPy 1.23.5 (BSD),
+Matplotlib 3.7.5 (Matplotlib license), h5py 3.10.0 (BSD) and their pinned dependencies
+retain their wheel metadata/license files. Their upstream sources are
+https://github.com/numpy/numpy/tree/v1.23.5,
+https://github.com/matplotlib/matplotlib/tree/v3.7.5 and
+https://github.com/h5py/h5py/tree/3.10.0.
+The runtime's `runtime.json` records archive hashes, wheel hashes, packages and
+individual file integrity; `scripts/stage_openems.py` reproduces the runtime.
+This does not add an anti-modification restriction to any component. Retain
+notices and equivalent source access when redistributing dependencies.

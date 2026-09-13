@@ -1,30 +1,64 @@
-# Optional openEMS inductor simulation
+# openEMS inductor simulation
 
-Save a generated inductor, open **EM results**, then choose **Run openEMS…**.
-Select the Python executable from an independently installed
-[openEMS environment](https://github.com/thliebig/openEMS-Project), and use
-**Check installation**. This imports NumPy, openEMS and CSXCAD and exercises
-their geometry/port APIs. It does not run a simulation. The selection is remembered
-locally; `ICSTUDIO_OPENEMS_PYTHON` supplies its initial default.
+## Quick start
 
-Install openEMS and its CSXCAD Python bindings using the upstream instructions.
-`pip install openEMS` is not a supported installation recipe. This integration
-does not require gds2openEMS, Octave, AppCSXCAD or a commercial simulator.
-The GPL-3.0 field solver remains an optional external dependency and is not bundled.
-Older bindings may need older NumPy: the local native acceptance environment used
-openEMS v0.0.35, CSXCAD v0.6.2, Python 3.10.21, NumPy 1.23.5, Matplotlib 3.7.5 and
-h5py 3.10.0. Its Python package reports openEMS 0.0.33; the native run banner
-reports v0.0.35. This is a tested compatibility combination, not a requirement to
-use those old solver releases. NumPy 1.26 failed the old geometry API check.
+The Windows x64 and Linux x86_64 desktop packages include **openEMS, its Python
+bindings and a dedicated Python runtime**. No separate installation, terminal
+commands, Python selection or paid simulator is needed. After extracting the
+complete desktop download:
 
-Source applications inherit the solver environment. Frozen applications remove
-their Python/Qt/library overrides before starting the external interpreter.
-If installation needs additional environment setup, select a local launcher
-that forwards all arguments to that Python. Studio passes an argument array and
-does not execute a shell command. Windows and Linux use native executable paths;
-automatic WSL path translation is not implemented.
+1. Create and save an inductor, then open **EM results → Run openEMS…**.
+2. Check the physical-layer status. If data are missing, choose **Set up physical
+   layers…** to load your process profile or enter its published values.
+3. Choose **From / To (GHz)** and click **Run simulation**.
+4. When the run finishes, close the simulation window to see L, R and Q versus
+   frequency. The result is saved with the project and can be undone.
 
-![Optional openEMS setup dialog](images/dev23/openems-setup.png)
+Studio automatically checks the included solver before every run, prepares the
+model, runs both terminal excitations, checks convergence and attaches matching
+results. The frequency range and options are remembered. **Verified result** is
+the initial default and compares two meshes; **Quick preview** runs one mesh and
+clearly marks mesh convergence as unchecked. Cancellation and time limits remain
+available in either mode.
+
+**Advanced settings** contains mesh and resource controls, solver selection and a
+manual installation check. **Show run details** opens the log; failures open it
+automatically. **Open run folder** retains inputs and diagnostics even on failure.
+
+All solver components are open source. The build recipe pins openEMS 0.0.36,
+CPython 3.11.16 and compatible Python packages. The runtime is separate from the
+application's Python/Qt environment. Original notices, exact openEMS/CSXCAD/fparser
+source and dependency provenance accompany it. See [third-party notices](../THIRD_PARTY_NOTICES.md).
+
+Physical process data are still required: installing a solver cannot determine
+metal thickness, conductivity, substrate properties or your actual fabrication
+stack. Profiles can be saved and reused. Studio identifies missing data directly
+and never fills them with guessed foundry values.
+
+![openEMS simulation controls](images/dev23/openems-setup.png)
+
+## Custom installations and source builds
+
+An existing installation can be selected under **Advanced settings → Solver
+Python**. The selection is remembered; `ICSTUDIO_OPENEMS_PYTHON` provides an
+explicit override. Missing saved paths fall back to the included runtime. **Use
+included solver** restores the packaged interpreter. No global Python, PATH or
+registry settings are changed.
+
+To prepare the same runtime from a source checkout, run
+`python scripts/stage_openems.py`. Windows requires no solver compiler. Linux
+build hosts use the Ubuntu 24.04 development dependencies listed in that script
+and in the desktop workflow. End users of the resulting package need none of
+those build tools. `scripts/package.py` requires and verifies the included runtime;
+a package cannot silently omit it. The separate legacy Windows source assembler
+is not the qualified desktop release path.
+
+The upstream [installation documentation](https://docs.openems.de/python/install.html)
+remains available for custom installations. `pip install openEMS` alone is not a
+supported setup recipe. This integration does not require gds2openEMS, Octave,
+AppCSXCAD or a commercial simulator. Automatic WSL path translation is not
+implemented. A failed included-runtime check can be repaired by re-extracting the
+complete desktop download.
 
 ## Physical model and fixture
 

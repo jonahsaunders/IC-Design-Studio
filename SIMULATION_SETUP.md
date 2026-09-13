@@ -1,7 +1,7 @@
 # NGSpice and open PDK setup — 0.22.0.dev10
 
 For optional inductor EM simulation, use **Inductor creator → EM results → Run
-openEMS** with a separately installed solver Python. The [openEMS guide](docs/OPENEMS.md)
+openEMS** with the included solver and Python runtime. The [openEMS guide](docs/OPENEMS.md)
 describes its fixture, PDK data, limits, convergence checks and retained files.
 
 For native DC sweeps that repeatedly enter convergence stepping, enable

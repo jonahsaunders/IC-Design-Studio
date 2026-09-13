@@ -71,7 +71,7 @@ class CharacterizationDialog(QDialog):
         self.error.clear();self.plot.rows=[];self.table.setRowCount(0);self.summary.clear()
         try:
             p=self.project();manifest=inductor_em.manifest(p,self.cid,self.did,self.scope.currentData())
-            problems=manifest['solver_missing']
+            problems=manifest['solver_missing'];self.solver_problems=problems
             status='Physical profile and XML stackup ready for the selected geometry.' if not problems else 'EM setup needs attention: '+'; '.join(problems[:3])
             if len(problems)>3:status+=f' · {len(problems)-3} more (see tooltip or exported diagnostics)'
             self.status.setToolTip('\n'.join(problems))

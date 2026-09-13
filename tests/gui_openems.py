@@ -34,6 +34,8 @@ class JobTests(unittest.TestCase):
         cls.app = QApplication.instance() or QApplication([]); cls.app.setQuitOnLastWindowClosed(False)
 
     def setUp(self):
+        self.exceptions = []; self.old_hook = sys.excepthook
+        sys.excepthook = lambda kind, value, tb: self.exceptions.append(str(value))
         self.temp = tempfile.TemporaryDirectory(); self.root = Path(self.temp.name)
         self.owner = Owner(self.root); self.owner.show()
         self.characterization = CharacterizationDialog(self.owner, self.owner.project['top'], self.owner.did)
@@ -44,6 +46,8 @@ class JobTests(unittest.TestCase):
     def tearDown(self):
         self.dialog.reject(); self.wait(lambda: not self.dialog.job.running)
         self.characterization.reject(); self.owner.close(); self.patch.stop(); self.temp.cleanup()
+        sys.excepthook = self.old_hook
+        self.assertEqual(self.exceptions, [], "Unhandled Qt callback exceptions")
 
     def wait(self, condition, seconds=10):
         if condition(): return
@@ -62,6 +66,7 @@ class JobTests(unittest.TestCase):
         self.assertEqual(self.owner.commits, 1, self.dialog.status.text()); self.assertGreater(len(ticks), 5)
         self.assertEqual(len(self.dialog.job.columns), 4)
         self.assertTrue(self.dialog.folder.isEnabled())
+        self.assertIn("ICSTUDIO_EM:", self.dialog.log.toPlainText())
         self.assertTrue((self.dialog.job.directory/'results.s2p').exists())
         result, _ = inductor_em.result_status(self.owner.project, self.owner.project['top'], self.owner.did)
         self.assertAlmostEqual(result['rows'][0]['inductance_h'], 2e-9, places=15)
@@ -98,6 +103,27 @@ class JobTests(unittest.TestCase):
         self.dialog.start(False); self.wait(lambda: self.dialog.job.mode == 'base-1')
         self.owner.project['id'] = 'another-project'; self.wait(lambda: not self.dialog.job.running)
         self.assertEqual(self.owner.commits, 0); self.assertIn('open project changed', self.dialog.status.text())
+
+    def test_automatic_setup_compact_controls_and_remembered_options(self):
+        from icstudio.openems_ui import OpenEMSDialog
+        self.dialog.reject()
+        self.owner.settings.setValue('engine/openems_settings', '{broken')
+        with patch('icstudio.openems_runtime.discover', return_value=(sys.executable, 'Included openEMS')):
+            self.dialog = OpenEMSDialog(self.characterization); self.dialog.show()
+        self.assertEqual(self.dialog.python.text(), sys.executable)
+        self.assertFalse(self.dialog.advanced.isVisible()); self.assertFalse(self.dialog.log.isVisible())
+        self.dialog.quality.setCurrentIndex(1)
+        self.assertFalse(self.dialog.mesh_check.isChecked()); self.assertIn('not checked', self.dialog.quality_note.text())
+        self.dialog.fields['samples'][0].setValue(3)
+        self.dialog.fields['f_start_hz'][0].setValue(2)
+        self.dialog.fields['f_stop_hz'][0].setValue(4)
+        self.dialog.run.click(); self.wait(lambda: not self.dialog.job.running)
+        self.assertEqual(self.owner.commits, 1, self.dialog.status.text())
+        self.assertEqual(len(self.dialog.job.columns), 2)
+        self.dialog.reject(); self.dialog = OpenEMSDialog(self.characterization)
+        self.assertEqual(self.dialog.fields['f_start_hz'][0].value(), 2)
+        self.assertEqual(self.dialog.fields['f_stop_hz'][0].value(), 4)
+        self.assertEqual(self.dialog.quality.currentIndex(), 1)
 
     def test_single_job_limit_and_missing_executable(self):
         self.dialog.python.setText(str(self.root/'absent'))

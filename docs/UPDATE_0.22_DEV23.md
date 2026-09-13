@@ -49,3 +49,14 @@ electrical topologies; this update adds the five two-terminal shapes.
 
 See the [creator guide](INDUCTOR_CREATOR.md) for formats, controls and verification
 commands, and [release status](RELEASE_STATUS.md) for local and hosted evidence.
+
+## Included solver and simpler controls
+
+Windows/Linux desktop builds now prepare and ship openEMS 0.0.36 with a dedicated
+CPython 3.11.16 environment and compatible NumPy/CSXCAD bindings. Users choose a
+frequency range and run; installation detection/checks and result attachment are
+automatic. Advanced controls and logs are collapsible, settings are remembered,
+and physical-profile fixes are reachable in the simulation dialog. Verified
+results compare two meshes; Quick preview explicitly omits that comparison.
+The release pipeline gates both platforms on native solver execution, runtime
+integrity/relocation and detection inside the frozen/extracted desktop.
