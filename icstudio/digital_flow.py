@@ -32,8 +32,13 @@ def environment(job):
     if not getattr(sys, 'frozen', False):
         for name in [p.name for p in Path(__file__).parent.glob('digital*.py')] + ['engines.py']:
             sources[name] = file_digest(Path(__file__).with_name(name))
+    runtime = job['settings'].get('runtime')
+    if runtime:
+        from .digital_runtime import identity
+        executables = identity(runtime)
+    else: executables = {name: file_digest(path) for name, path in job['settings']['tools'].items()}
     out = {'workflow_hash': WORKFLOW_SOURCE_HASH, 'engine': 'digital', 'sources': sources,
-            'executables': {name: file_digest(path) for name, path in job['settings']['tools'].items()}}
+            'executables': executables}
     from .digital_design import config as cell_config
     config=cell_config(job['project'],job['cell'])
     if job['settings']['stage'] in ADVANCED and 'platform' in config:
@@ -45,13 +50,15 @@ def environment(job):
     return out
 
 
-def prepare(project, stage='simulate', simulator='icarus', tools=None, cell_id=None, upstream=None, orfs=None):
+def prepare(project, stage='simulate', simulator='icarus', tools=None, cell_id=None, upstream=None, orfs=None, runtime=None):
     project = clone(validate(project))
     if stage not in STAGES or simulator not in ('icarus', 'verilator'):
         raise ValueError('Choose a supported digital stage and simulator.')
     from .digital_design import config as cell_config
     cell_id=cell_id or project.get('digital_cell',project['top'])
     config = cell_config(project,cell_id)
+    from . import digital_runtime
+    runtime = runtime or (digital_runtime.installed() if not any((tools or {}).values()) else None)
     digital.check_dependencies(config)
     if stage == 'simulate' and (not config.get('testbench') or not any(f['role'] == 'testbench' for f in config['files'])):
         raise ValueError('Set a testbench top and mark its source as Testbench.')
@@ -64,6 +71,9 @@ def prepare(project, stage='simulate', simulator='icarus', tools=None, cell_id=N
         names.append('verilator_coverage')
     resolved = {}
     for name in names:
+        if runtime:
+            resolved[name] = 'opt/icstudio/bin/'+name
+            continue
         value = (tools or {}).get(name) or shutil.which(name)
         if not value and stage=='equivalence' and 'yosys' in resolved:
             sibling=Path(resolved['yosys']).with_name(name)
@@ -76,13 +86,14 @@ def prepare(project, stage='simulate', simulator='icarus', tools=None, cell_id=N
         raise ValueError('Use Yosys, EQY, SBY and Bitwuzla from the same toolchain bin directory so nested proof commands use the captured tools.')
     job = {'project': project, 'cell': cell_id, 'engine': 'digital',
            'settings': {'type': 'digital', 'stage': stage, 'simulator': simulator, 'tools': resolved}}
+    if runtime: job['settings']['runtime'] = clone(runtime)
     if stage in ADVANCED and stage!='regression' and 'platform' not in config:raise ValueError('Import a locked digital platform before running this stage.')
     if upstream:
         from .digital_implementation import capture_upstream
         job['settings']['upstream']=capture_upstream(project,cell_id,upstream)
     if stage in ('floorplan','place','cts','route','finish'):
         from .digital_platform import pin_flow
-        job['settings']['flow']=pin_flow(orfs or '')
+        job['settings']['flow']=pin_flow(orfs) if orfs else digital_runtime.flow(runtime) if runtime else pin_flow('')
     job['environment'] = environment(job)
     return job
 
@@ -167,6 +178,9 @@ def validate_result(result, directory):
 
 
 def run(job, directory, progress=lambda *_: None):
+    if job['settings'].get('runtime'):
+        from .digital_backend import dispatch
+        return dispatch(job,directory,progress)
     from .digital_design import config as cell_config
     config = cell_config(job['project'],job['cell']); settings = job['settings']; stage = settings['stage']
     if stage in ADVANCED:

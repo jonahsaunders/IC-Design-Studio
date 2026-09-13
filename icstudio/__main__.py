@@ -1,6 +1,9 @@
 import sys
 
 def main():
+    if '--digital-setup' in sys.argv:
+        from .digital_runtime import main as setup
+        return setup()
     if len(sys.argv)>1 and sys.argv[1]=='--collaboration-server':
         from .live_server import main as server
         return server(sys.argv[2:])
@@ -42,6 +45,10 @@ def main():
             window.offer_recovery()
             if not window._recovered_from and window.path is None and window.settings.value('onboarding/show', True, type=bool):
                 window.start_here()
+            from .digital_runtime import status
+            if status()['state']=='setup':
+                from .digital_setup_ui import show
+                show(window,automatic=True)
         QTimer.singleShot(100, welcome)
     if '--smoke-test' in sys.argv:
         from .model import digest

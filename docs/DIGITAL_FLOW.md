@@ -23,11 +23,41 @@ native cells, project revisions, undo, saving and the application's job queue.
 | Finish / GDS | ORFS, OpenROAD/OpenRCX, KLayout | Final GDS and extracted SPEF in addition to checkpoint evidence |
 | Regression | Saved Icarus/Verilator cases | Individual outcomes, retained failures, waveforms and optional Verilator line coverage |
 
-Install the engines separately and set executable paths in **Tools**, or discover
-them on PATH. Verilator also needs its C++ build dependencies. Physical execution
-needs GNU make and a complete ORFS checkout. Use **Jobs folder** to choose a path
-without spaces for Verilator, EQY and ORFS. Tool installation and remote execution
-are not bundled; these engines run locally beneath the integrated desktop UI.
+## Included tools and first setup
+
+Release builds include the digital engines, their C++ compiler/build dependencies,
+Python, Tcl, shared libraries, a compatible ORFS revision and full SKY130 HD files.
+**Tools → Set up and verify** installs them under your user profile without PATH
+edits or individual tool downloads. Setup runs automatically on first ordinary
+launch, and the Windows installer also attempts setup before launching Studio.
+Allow several minutes and several GB of disk space. **Ready** requires successful
+Icarus simulation, UART regression with Verilator coverage, mapped synthesis,
+equivalence, timing, GDS/SPEF generation and extracted timing. Logs and results stay
+in the setup evidence directory. An installation failure never produces Ready.
+
+Linux x64 uses a private native runtime with an Ubuntu 24.04 / glibc 2.39 baseline.
+Windows x64 uses an app-owned WSL 2 distribution. If WSL is unavailable, **Enable
+Windows Linux support** invokes Windows' administrator prompt; Windows may require
+a reboot. Reopen Studio and retry setup afterward. The engines and platform are
+already included; users do not install a Linux distribution or set Linux paths.
+Setup does not replace or unregister other WSL distributions. User-installed
+runtimes and setup evidence survive an application uninstall.
+
+New digital projects receive the included SKY130 HD lock after setup succeeds.
+Existing platform selections and custom executable settings are preserved.
+**Custom tool paths** selects an external toolchain when any override is set;
+remaining tools then resolve from PATH. A source checkout without a built runtime
+continues to support this manual configuration. Custom Verilator needs a C++
+compiler and make, and custom physical runs need ORFS. Use a jobs path without
+spaces for those custom workflows. Managed jobs use private temporary Linux paths
+and copy their captured results back, including when the Windows jobs folder has
+spaces. Cancellation targets the job's process tree, not the entire distribution.
+
+Release builders run `python scripts/build_digital_runtime.py` on Linux with
+Docker, then `python scripts/qualify_digital_runtime.py` on each target OS. Users
+do not need Docker. `scripts/package.py` refuses a missing, damaged or unqualified
+payload. `ICSTUDIO_DIGITAL_PAYLOAD` and `ICSTUDIO_DIGITAL_STATE` let development/CI
+use isolated package and installation directories.
 
 ## A block from RTL to layout
 
@@ -36,8 +66,9 @@ are not bundled; these engines run locally beneath the integrated desktop UI.
 2. Select **Elaborate** or **Mapped synthesis**, run, then **Publish symbol**.
    The compiler's actual scalar and bus ports become native schematic terminals.
    Choose the cell selector or **New RTL cell** to maintain independent blocks.
-3. Use **Platform** to capture `sky130hd` or `nangate45` from ORFS, or import an
-   explicit manifest. **Constraints** generates an editable clock and I/O SDC.
+3. Use the included SKY130 HD platform, or use **Platform** to capture another
+   `sky130hd` / `nangate45` ORFS revision or an explicit manifest.
+   **Constraints** generates an editable clock and I/O SDC.
    **Floorplan** controls die/core rectangles in micrometres, density and threads.
 4. Run **Mapped synthesis**. Select that completed run and check **Use selected
    mapped run** before running **Timing** and **Equivalence**. Both consume its
@@ -74,9 +105,17 @@ The implementation CI pins:
 - ORFS `eaba6576441bf7c1743ea56ecdb1904210ec02c2` and its SKY130 HD platform;
 - OpenROAD `26Q2-1164-g08f67ee5ec` and OpenSTA 3.1.0 from its Ubuntu 24.04 package;
 - OSS CAD Suite `2026-09-13` for Yosys, EQY with matching plugins, SBY and Bitwuzla;
-- Ubuntu 24.04 Icarus, Verilator and KLayout packages for simulation/GDS conversion.
+- The included package uses OSS CAD Suite's Icarus and Verilator, and Ubuntu
+  24.04 KLayout/compiler packages; the separate implementation CI also tests
+  Ubuntu's Icarus and Verilator.
 
-Download archive checksums live in `.github/workflows/digital.yml`. A newer ORFS
+Download archive checksums live in `packaging/digital/Dockerfile` and
+`.github/workflows/digital.yml`. The generated package manifest records the
+exported image/archive identity, exact installed package versions and a file lock.
+Base OS package updates are captured and must pass the release acceptance again;
+the Docker recipe alone is not a bit-for-bit reproducible OS package lock.
+Licenses and package copyright files are retained in the runtime alongside source
+locations. A newer ORFS
 checkout may require newer OpenROAD APIs. The selected scripts are executed as
 captured; the app does not patch them or quietly downgrade a failed stage.
 
@@ -95,8 +134,9 @@ A custom platform manifest sits beside its files:
 ```
 
 Include every supporting file needed by the platform configuration. The maximum
-capture is 1 GiB / 10,000 files. This is an explicit file lock, not a complete
-lock of transitive operating-system/compiler libraries. Engine versions, selected
+capture is 1 GiB / 10,000 files. Custom installations lock the selected files,
+without capturing all transitive operating-system/compiler libraries. The managed
+runtime additionally checks its included files before dispatch. Engine versions, selected
 executable hashes, runner source hashes, input snapshots, commands, logs and
 artifact checksums remain available in each run directory.
 

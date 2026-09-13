@@ -259,8 +259,12 @@ class DigitalFlowWindow(QDockWidget):
             candidate = {**self.config, **values}; digital.validate_config(candidate); self.config = candidate; self.edited()
 
     def configure_tools(self):
+        from .digital_setup_ui import show
+        return show(self.studio,custom=self.configure_custom_tools)
+
+    def configure_custom_tools(self):
         dialog = QDialog(self); dialog.setWindowTitle('Digital tools'); layout = QVBoxLayout(dialog); form = QFormLayout(); layout.addLayout(form); edits = {}
-        note = QLabel('Use installed open-source executables. Leave a path empty to discover the tool on PATH. Verilator simulation also needs a C++ compiler and make.'); note.setWordWrap(True); layout.addWidget(note)
+        note = QLabel('Leave every path empty to use the verified included runtime. Setting any custom path selects your external toolchain, with remaining tools discovered on PATH. Custom Verilator needs a C++ compiler and make.'); note.setWordWrap(True); layout.addWidget(note)
         for name in ('iverilog','vvp','verilator','verilator_coverage','yosys','eqy','sby','bitwuzla','sta','openroad','make','klayout'):
             edit = QLineEdit(self.studio.settings.value('engine/'+name,'')); edit.setAccessibleName(name+' executable'); form.addRow(name,edit); edits[name] = edit
         buttons = QDialogButtonBox(QDialogButtonBox.Save|QDialogButtonBox.Cancel); layout.addWidget(buttons); buttons.accepted.connect(dialog.accept); buttons.rejected.connect(dialog.reject)
@@ -366,6 +370,8 @@ class DigitalMixin:
         return job
 
     def digital_window(self):
+        from .digital_setup_ui import apply_defaults
+        apply_defaults(self)
         window = getattr(self, '_digital_window', None)
         if window is None or window.project_id != self.project['id']:
             if window:
@@ -379,12 +385,16 @@ class DigitalMixin:
 
     def new_digital_counter(self):
         if not self.idle_edit() or not self.maybe_save(): return
-        self.set_project(digital.counter_project()); return self.digital_window()
+        from .digital_runtime import defaults
+        project=digital.counter_project(); defaults(project)
+        self.set_project(project); return self.digital_window()
 
     def new_digital_uart(self):
         if not self.idle_edit() or not self.maybe_save():return
         from .digital_examples import uart_project
-        self.set_project(uart_project());return self.digital_window()
+        from .digital_runtime import defaults
+        project=uart_project(); defaults(project)
+        self.set_project(project);return self.digital_window()
 
     def save(self, *args, **kwargs):
         window = getattr(self, '_digital_window', None)

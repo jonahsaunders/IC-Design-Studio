@@ -9,7 +9,10 @@ on:
 permissions:
   contents: read
 jobs:
+  digital-runtime:
+    uses: ./.github/workflows/digital-runtime.yml
   package:
+    needs: digital-runtime
     strategy:
       fail-fast: false
       matrix:
@@ -17,6 +20,20 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: digital-runtime-payload
+          path: build/digital-payload
+      - name: Prepare Windows Linux support for the included runtime
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          wsl --update --web-download
+          if ($LASTEXITCODE -ne 0) { throw 'WSL update failed.' }
+      - name: Verify installed digital runtime on this operating system
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+        run: python scripts/qualify_digital_runtime.py
       - name: Configure Windows virtual desktop for native DPI checks
         if: runner.os == 'Windows'
         shell: pwsh
