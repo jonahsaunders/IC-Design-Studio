@@ -50,6 +50,9 @@ def main():
     assert s.centralWidget() is d and not s.toolbar.isVisible()
     assert all(not dock.isVisible() for dock,_ in s._digital_panels)
     assert s.minimumSizeHint().width()<=1280
+    d.shell.mode(1);d.result_tabs.setCurrentWidget(d.workspace.timing_split);QTest.qWait(50)
+    assert d.workspace.timing.isVisible() and d.workspace.linked_physical.isVisible()
+    assert all(size>0 for size in d.workspace.timing_split.sizes())
     d.shell.mode(2)
     geometry={'die':[0,0,100,100],'components':[{'name':f'u{i}','master':'inv','x':i%150*.6,'y':i//150*.6,'width':.5,'height':.5} for i in range(22500)],
               'segments':[{'net':'clock','layer':'met2','points':[[0,50],[100,50]]}], 'pins':[]}
@@ -61,7 +64,7 @@ def main():
     s.leave_digital_workspace();assert s.centralWidget() is not d
     assert s.digital_window() is d;QTest.qWait(50)
     s.saved_hash=digest(s.project);s.close();QTest.qWait(20)
-    print(json.dumps({'status':'passed','checks':['Captured flow resume','Queued cancellation','Persistent plan state','Central workspace lifecycle','1280px layout','22,500 indexed instances','Density/layer controls','Light and dark modes']}))
+    print(json.dumps({'status':'passed','checks':['Captured flow resume','Queued cancellation','Persistent plan state','Central workspace lifecycle','1280px layout','Simultaneous timing and physical panes','22,500 indexed instances','Density/layer controls','Light and dark modes']}))
 
 
 if __name__=='__main__':main()

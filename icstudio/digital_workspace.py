@@ -58,7 +58,7 @@ class Workspace:
         self.diagnostics.cellDoubleClicked.connect(lambda row,col:self.jump(self.diagnostics.item(row,0).data(Qt.UserRole)))
         self.netlist=table(['Module','Object','Kind','Cell type']);window.result_tabs.addTab(self.netlist,'Netlist browser')
         self.netlist.cellClicked.connect(lambda row,col:self.probe(self.netlist.item(row,0).data(Qt.UserRole)))
-        self.timing=table(['Corner','Check','Startpoint','Endpoint','Slack (ns)']);window.result_tabs.addTab(self.timing,'Timing')
+        self.timing=table(['Corner','Check','Startpoint','Endpoint','Slack (ns)'])
         self.timing.cellClicked.connect(lambda row,col:self.probe_path(self.timing.item(row,0).data(Qt.UserRole)))
         self.proof=table(['Partition','Status','Strategies']);window.result_tabs.addTab(self.proof,'Equivalence')
         self.proof.setToolTip('Double-click a partition to open its counterexample waveform, when available.')
@@ -74,7 +74,8 @@ class Workspace:
         pv.addWidget(self.physical);window.result_tabs.addTab(physical_page,'Physical')
         from PySide6.QtWidgets import QSplitter
         self.timing_split=QSplitter(Qt.Vertical);self.linked_physical=PhysicalView(self);self.timing_split.addWidget(self.timing);self.timing_split.addWidget(self.linked_physical)
-        # Replace the old timing tab with a simultaneous path/physical document.
+        # Construct directly in the splitter: reparenting an inactive tab retains
+        # Qt's explicit hidden state and collapses the timing table to zero height.
         window.result_tabs.insertTab(5,self.timing_split,'Timing');self.timing_split.setSizes([250,450])
         self.regression=table(['Test','Simulator','Status','Line coverage (%)','Error']);window.result_tabs.addTab(self.regression,'Regression')
         self.regression.cellDoubleClicked.connect(lambda row,col:window.attempt(lambda:self.open_case(self.regression.item(row,0).data(Qt.UserRole))))
