@@ -47,7 +47,14 @@ def main():
     assert d.wave.data and d.wave.data['timescale']=='1ps'
     assert 'Current inputs' in d.summary.text()
     assert not w.jobs,'Digital payload was sent to the analog plot'
-    d.shell.mode(1);d.wave.cursor_b=185000;d.wave.cursor=165000;d.wave.update();QTest.qWait(80);d.grab().save(str(out/'waveforms.png'))
+    d.shell.mode(1);QTest.qWait(80)
+    from PySide6.QtCore import Qt,QPoint
+    left,width=d.wave.plot_geometry();end=d.wave.data['end_tick']
+    QTest.mouseClick(d.wave,Qt.LeftButton,Qt.NoModifier,QPoint(round(left+width*.25),80))
+    QTest.mouseClick(d.wave,Qt.LeftButton,Qt.ShiftModifier,QPoint(round(left+width*.75),80))
+    assert abs(d.wave.cursor-end*.25)<=end/width
+    assert abs(d.wave.cursor_b-end*.75)<=end/width
+    d.wave.cursor_b=185000;d.wave.cursor=165000;d.wave.update();QTest.qWait(80);d.grab().save(str(out/'waveforms.png'))
     d.files.setCurrentRow(0);d.editor.insertPlainText('// New revision\n');assert d.apply()
     assert 'earlier inputs' in d.summary.text()
     d.shell.show_captured({'path':'counter.sv','line':3})

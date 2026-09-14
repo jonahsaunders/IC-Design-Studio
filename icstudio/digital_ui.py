@@ -36,13 +36,17 @@ class DigitalWaveform(QWidget):
     def __init__(self):
         super().__init__(); self.data = None; self.signals = []; self.zoom = 1; self.cursor = 0; self.cursor_b = 0; self.radix = 'hex'
         self.setAccessibleName('Digital waveforms; click to inspect exact simulation ticks')
-        self.setMinimumSize(500, 220)
+        self.setMinimumSize(280, 220)
 
     def set_data(self, data, signals=None):
         self.data = data
         self.signals = (signals if signals is not None else data['signals'][:12]) if data else []
-        self.setMinimumSize(500 if self.zoom == 1 else min(50000, 900*self.zoom), max(220, 70+len(self.signals)*38))
+        self.setMinimumSize(280 if self.zoom == 1 else min(50000, 900*self.zoom), max(220, 88+len(self.signals)*38))
         self.update()
+
+    def plot_geometry(self):
+        left = min(260, max(100, round(self.width()*.36)))
+        return left, max(1, self.width()-left-20)
 
     def paintEvent(self, event):
         painter = QPainter(self); painter.fillRect(event.rect(), self.palette().base())
@@ -50,17 +54,19 @@ class DigitalWaveform(QWidget):
             painter.setPen(self.palette().text().color())
             painter.drawText(self.rect(), Qt.AlignCenter, 'Run a digital testbench to inspect its waveform')
             return
-        left = 260; width = max(1, self.width()-left-20); end = max(1, self.data['end_tick'])
+        left, width = self.plot_geometry(); end = max(1, self.data['end_tick'])
         x = lambda tick: left + tick/end*width
         painter.setPen(self.palette().text().color())
         painter.drawText(12, 22, f"A {self.cursor} · B {self.cursor_b} · Δ {abs(self.cursor_b-self.cursor)} × {self.data['timescale']}")
-        for i in range(9):
-            tick = round(end*i/8); xpos = x(tick)
-            painter.setPen(QColor('#758595')); painter.drawLine(QPointF(xpos, 35), QPointF(xpos, self.height()))
-            painter.drawText(QRectF(xpos-35, 15, 70, 20), Qt.AlignCenter, str(tick))
+        intervals = max(1, min(8, int(width/80)))
+        for i in range(intervals+1):
+            tick = round(end*i/intervals); xpos = x(tick)
+            painter.setPen(QColor('#758595')); painter.drawLine(QPointF(xpos, 53), QPointF(xpos, self.height()))
+            label_x = min(self.width()-70, max(left, xpos-35))
+            painter.drawText(QRectF(label_x, 33, 70, 20), Qt.AlignCenter, str(tick))
         # Paint only visible lanes and transitions; the scroll area clips large traces.
         for i, signal in enumerate(self.signals):
-            y = 65+i*38
+            y = 83+i*38
             if y+20 < event.rect().top() or y-25 > event.rect().bottom(): continue
             events = self.data['changes'][signal['code']]
             value = format_value(value_at(events, self.cursor, signal['width']), self.radix)
@@ -88,11 +94,12 @@ class DigitalWaveform(QWidget):
                                          painter.fontMetrics().elidedText(format_value(bits, self.radix), Qt.ElideRight, int(b-a-4)))
                     prev = None
         for tick,color in ((self.cursor,'#e87886'),(self.cursor_b,'#8dadf7')):
-            painter.setPen(QPen(QColor(color), 1.5)); painter.drawLine(QPointF(x(tick), 34), QPointF(x(tick), self.height()))
+            painter.setPen(QPen(QColor(color), 1.5)); painter.drawLine(QPointF(x(tick), 52), QPointF(x(tick), self.height()))
 
     def mousePressEvent(self, event):
         if self.data:
-            tick = max(0, min(self.data['end_tick'], round((event.position().x()-260)/max(1,self.width()-280)*self.data['end_tick'])))
+            left, width = self.plot_geometry()
+            tick = max(0, min(self.data['end_tick'], round((event.position().x()-left)/width*self.data['end_tick'])))
             if event.modifiers() & Qt.ShiftModifier: self.cursor_b = tick
             else: self.cursor = tick
             self.update()
@@ -356,7 +363,7 @@ class DigitalFlowWindow(QDockWidget):
                     waveform = open_waveform(row['path']/data['artifacts']['waveform']['path'])
                     self.wave.cursor = 0; self.wave.cursor_b = 0; self.wave.zoom = 1; self.wave.set_data(waveform)
                     for index, signal in enumerate(waveform['signals']):
-                        item = QListWidgetItem(signal['name']); item.setFlags(item.flags()|Qt.ItemIsUserCheckable); item.setData(Qt.UserRole,index)
+                        item = QListWidgetItem(signal['name']); item.setToolTip(signal['name']); item.setFlags(item.flags()|Qt.ItemIsUserCheckable); item.setData(Qt.UserRole,index)
                         item.setCheckState(Qt.Checked if index < 12 else Qt.Unchecked); self.signals.addItem(item)
                     self.result_tabs.setCurrentIndex(0)
                 else: self.result_tabs.setCurrentIndex(1)
