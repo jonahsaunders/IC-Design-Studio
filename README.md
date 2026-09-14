@@ -20,6 +20,7 @@
   <a href="docs/DOWNLOADS.md">Downloads</a> &nbsp;·&nbsp;
   <a href="#explore-the-workspace">Feature tour</a> &nbsp;·&nbsp;
   <a href="#design-digital-blocks-from-rtl-to-gds">Digital design</a> &nbsp;·&nbsp;
+  <a href="#create-and-characterize-spiral-inductors">Inductor creator</a> &nbsp;·&nbsp;
   <a href="#feature-reference">All features</a> &nbsp;·&nbsp;
   <a href="docs/INDEX.md">Documentation</a> &nbsp;·&nbsp;
   <a href="CONTRIBUTING.md">Contribute</a>
@@ -83,7 +84,7 @@ Digital design now occupies the main window, with a source and hierarchy navigat
 
 [![The native digital workspace in Debug mode: counter RTL, simulated waveforms with two cursors, a source navigator, design inspector, and implementation stage strip.](docs/images/digital-workspace.png)](docs/DIGITAL_WORKSPACE.md)
 
-<sub>Actual app capture of the counter example. The document layout draws on Apple's macOS interface guidance; linked timing and physical selection takes inspiration from Altium's cross-probing. [Workspace guide and design references](docs/DIGITAL_WORKSPACE.md).</sub>
+<sub>Actual app capture of the counter example, with RTL editing and waveform inspection in the same workspace. [Workspace controls and shortcuts](docs/DIGITAL_WORKSPACE.md).</sub>
 
 | Work on a block | What the workspace provides |
 |---|---|
@@ -102,6 +103,28 @@ Switch between **Schematic**, **Layout**, and **Linked views** while staying in 
 [![The real SKY130 overvoltage detector's level_shifter cell, with its native schematic and imported physical layout side by side.](docs/images/readme/overvoltage-linked.png)](docs/OPEN_PROJECTS.md)
 
 <sub>The level shifter from the Apache-2.0 overvoltage design by the Von Braun Labs contributors. Cell-view attachment and device-level LVS correspondence are separate. [Source, attribution, and reproduction](docs/OPEN_PROJECTS.md).</sub>
+
+### Create and characterize spiral inductors
+
+Open **Tools → Inductor creator…** to build a **square, rectangular, hexagonal, octagonal, or circular** two-terminal spiral. Link its layout to a new or existing schematic inductor, set dimensions manually, or search toward a target inductance within your footprint and design-rule constraints.
+
+[![The inductor creator showing a circular spiral, turns and trace dimensions, P/N terminals, mapped metal and via layers, and estimated inductance and DC resistance.](docs/images/dev23/circle.png)](docs/INDUCTOR_CREATOR.md)
+
+<sub>Actual creator capture using synthetic resistance coefficients. The preview shows the winding, underpass, terminals, dimensions, and estimates before creation.</sub>
+
+| Capability | What you can do |
+|---|---|
+| **Shape and layout** | Set turns, width, spacing, inner openings, leads, metal/via stack, via arrays, origin, rotation and mirroring; rectangles have independent X/Y openings |
+| **Target-L search** | Enter target inductance, tolerance, maximum footprint and width/spacing ranges; compare candidates by inductance error and area, then validate the selected candidate against the existing layout |
+| **Preview and editing** | Inspect geometry and placement checks in the background; review suggested fixes; create or regenerate the linked schematic/layout device as one undoable edit; retain recipes through save/reopen |
+| **Circuit estimates** | Inspect winding inductance and DC resistance when conductor/via coefficients are available; optionally set schematic L to the estimate or use estimated series resistance in simulation/export copies |
+| **Physical PDK profiles** | Map layout layers to physical materials; enter thickness, conductivity and dielectric/substrate properties; save and reuse profiles tied to the process revision; choose an isolated inductor or surrounding-layout context |
+| **Included openEMS simulation** | Choose a frequency band and run the packaged Windows/Linux solver; inspect progress and logs, cancel runs, and compare two meshes with **Verified result** or use a single-mesh **Quick preview** |
+| **Results and exchange** | Inspect L(f), R(f), Q(f) and a sampled self-resonance bracket; save characterization with the project; export geometry and physical stackup bundles, or import matching impedance JSON and supported Touchstone S-parameters; identify results made stale by design changes |
+
+**Run an EM simulation:** create and save the inductor, open **EM results → Run openEMS…**, complete **Set up physical layers…** if needed, choose **From / To (GHz)**, and click **Run simulation**. Desktop packages include the solver and its dedicated Python runtime; physical process data come from your PDK profile. Results include the excitation fixture and are not de-embedded. Analytical L/R estimates and EM characterization have different model scopes.
+
+[Creator controls, target search and model scope](docs/INDUCTOR_CREATOR.md) · [openEMS setup, convergence and results](docs/OPENEMS.md) · [Physical PDK profiles](docs/INDUCTOR_CREATOR.md#pdk-profiles).
 
 ### Inspect the layers in 3D
 
@@ -148,6 +171,7 @@ Use the searchable example gallery to get moving, then arrange the workspace aro
 |---|---|
 | Try another circuit | [Nine guided examples](examples/README.md) |
 | Design a digital block | **Digital → New digital counter example**, **New UART regression example**, or **New APB FIFO peripheral** · [Digital flow guide](docs/DIGITAL_FLOW.md) |
+| Create a spiral inductor | **Tools → Inductor creator…** · [Creation, target-L search and EM simulation](#create-and-characterize-spiral-inductors) |
 | Use real transistor models | [Open PDK setup](docs/PDK_GUIDE.md) |
 | Bring an existing design | [Xschem, Magic, and KLayout exchange](docs/INTEROPERABILITY.md) |
 | Find a command | **Ctrl+K** |
@@ -270,7 +294,7 @@ Monte Carlo varies declared parameters; it does not imply foundry statistical mi
 
 **Autovia:** select overlapping metal shapes, choose **Autovia**, review the preview, then choose **Place vias**. Manual placement and Autovia use the project's configured layers, including imported SKY130 layouts. [Via placement guide](docs/LAYOUT_VIAS.md).
 
-**Inductors:** choose **Tools → Inductor creator…** to create or regenerate a linked spiral, search toward a target L, or exchange EM characterization. DC estimates and imported RF evidence have explicit model scopes. [Inductor creator guide](docs/INDUCTOR_CREATOR.md).
+**Inductors:** choose **Tools → Inductor creator…** to create or regenerate a linked spiral, search toward a target L, run the included openEMS solver, or exchange EM characterization. [Feature tour](#create-and-characterize-spiral-inductors) · [Inductor creator guide](docs/INDUCTOR_CREATOR.md) · [openEMS simulation](docs/OPENEMS.md).
 
 [Drawing](docs/DRAWING_0.22.md) · [Layout tools](docs/PRIORITIES_0.22.md) · [Layout editor reference](docs/UPDATE_0.11.md) · [Parametric geometry](docs/UPDATE_0.16.md)
 
