@@ -43,6 +43,12 @@ start a new target to include subsequent source edits. Interrupted plans survive
 restart. Reuse requires compatible stage inputs, the recorded engine environment
 and verified artifacts. Explicit upstream selection remains available.
 
+Equivalence checks top-level observable outputs against the captured RTL, with
+inferred memories lowered and undefined state encoded explicitly. Internal alias
+names are excluded as cut points; their driving logic remains in the proof. The
+inductive strategy has a depth of 30 and the run's timeout, so larger blocks can
+remain unproven. No reset sequence is assumed to force a passing result.
+
 The constraints dialog provides clock and I/O tables, uncertainty/transition,
 driving cell, load, synthesis frontend/budget, selected library corners and editable
 SDC. Generated SDC owns its file only when explicitly selected. For generated
