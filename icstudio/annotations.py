@@ -15,24 +15,32 @@ def builtin_devices(p,cid,voltages):
     return out
 
 
-def readouts(p,cid,result,x=None):
-    if result is None or result.get('project_id')!=p['id'] or result.get('cell_id')!=cid:return {},'Select a result for this cell.'
+def readouts(p,cid,result,x=None,instance_path=None):
+    if result is None or result.get('project_id')!=p['id']:return {},'Select a result for this cell.'
+    from .analog_debug import contexts
+    root=result.get('cell_id')
+    if root not in {c['id'] for c in p['cells']}:return {},'The result cell is absent from this revision.'
+    matches=[c for c in contexts(p,root) if c['cell_id']==cid and (instance_path is None or c['path']==instance_path)]
+    if len(matches)!=1:return {},'Select the specific hierarchy instance in the saved-run inspector.'
+    context=matches[0]
     stale=result.get('design_hash')!=design_digest(p);cell=next(c for c in p['cells'] if c['id']==cid);op=result.get('operating_point',{});volts={k.casefold():v for k,v in op.items()};volts['0']=0.;label='Operating point'
     if result.get('case'):
         label+=' · case '+str(result['case']['index'])
-        stale=result['case'].get('base_design_hash')!=design_digest(p)
+        stale=stale and result['case'].get('base_design_hash')!=design_digest(p)
     if x is not None:
         from .measurements import sample_at
         if result.get('settings',{}).get('type') in ('ac','noise'):return {},'Select an operating-point or time-domain run for annotations.'
         volts={k.casefold():sample_at(result,k,x) for k in result['traces']};volts['0']=0.;label=f'Sample X={x:g}'
     result_rows={}
     for d in cell['devices']:
-        parts=[pin+' '+f'{volts[net.casefold()]:.4g} V' for pin,net in d['nets'].items() if volts.get(net.casefold()) is not None]
-        device=result.get('device_operating_point',{}).get(d['name'],{}) if x is None else {}
+        nets={pin:context['nets'][net] for pin,net in d['nets'].items()}
+        parts=[pin+' '+f'{volts[net.casefold()]:.4g} V' for pin,net in nets.items() if volts.get(net.casefold()) is not None]
+        name=context['path']+d['name']
+        device={k.casefold():v for k,v in result.get('device_operating_point',{}).items()}.get(name.casefold(),{}) if x is None else {}
         for key,unit in (('id','A'),('gm','S'),('headroom','V')):
             if key in device:parts.append(f'{key} {device[key]:.4g} {unit}')
         if 'region' in device:parts.append(device['region'])
-        current=result.get('operating_currents',{}).get(d['name']) if x is None else None
+        current={k.casefold():v for k,v in result.get('operating_currents',{}).items()}.get(name.casefold()) if x is None else None
         if current is not None:parts.append(f'I {current:.4g} A')
         if parts:result_rows[d['id']]='\n'.join(parts)
     return result_rows,('STALE · ' if stale else '')+label+' · '+result.get('engine','')

@@ -158,6 +158,11 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_professional_workflows.py --out build/professional-workflow-evidence
+      - name: Test analog workspace, saved-run inspection and requirement retries
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_analog_workspace.py --out build/analog-workspace-evidence
       - name: Test encrypted hosting, peer trust and direct annotation editing
         timeout-minutes: 5
         env:

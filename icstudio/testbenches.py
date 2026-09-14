@@ -176,6 +176,8 @@ def simulate(p,t,executable,directory,subcircuit_path=None,ports=None,progress=l
             for field in ('currents','current_phase'):
                 if spice_name(d).lower() in r.get(field,{}):r[field][d['name'].lower()]=r[field][spice_name(d).lower()]
     r['testbench_id']=t['id'];r['settings']=clone(t['analysis']);r['measurements']=measure(r,t);r['warnings']=['Saved testbench: '+t['name']+'. '+('Extracted circuit' if ports else 'Schematic circuit')+'.']
+    from .specifications import evaluate_rows
+    r['specifications']=evaluate_rows(t.get('specifications',fixture.get('specifications',[])),r)
     atomic_write(directory/'result.json',json.dumps(r,allow_nan=False));return r
 
 

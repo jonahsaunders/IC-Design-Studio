@@ -52,3 +52,14 @@ class TestPlansTests(unittest.TestCase):
         result=matrix(rows,job['case']['group']);by={r['name']:next(iter(r['values'].values())) for r in result['rows']}
         self.assertEqual(by['output_current · schematic']['value'],50e-6);self.assertEqual(by['output_current · post-layout']['value'],51e-6)
         self.assertEqual(by['lvs']['status'],'FAIL');self.assertEqual(by['drc']['status'],'ERROR')
+
+    def test_physical_plan_includes_scalar_specifications_on_both_implementations(self):
+        from icstudio.analog import reference
+        from tests.test_silicon import technology
+        p,cid,key=reference(technology());p['testbenches'][0]['specifications']=[dict(name='Bias',expression='final(V("out"))',min='0',max='1',unit='V')]
+        plan=dict(id='physical',name='Physical',entries=sources(p)[:1],corners=['nominal'],temperatures=[27],compare_layout=True)
+        job=prepare(p,plan,lambda settings,engine,project,cid:dict(settings=settings,engine=engine,project=project,cell=cid,executable='local'))[0]
+        stages=[dict(name=stage,status='passed',evidence={'specifications':[dict(name='Bias',status=status,value=value)]}) for stage,status,value in [('schematic_simulation','PASS',.8),('post_layout_simulation','FAIL',1.2)]]
+        result=matrix([dict(id='run',state='Complete',job=job,result={'silicon_report':{'stages':stages}})],job['case']['group'])
+        by={r['name']:next(iter(r['values'].values())) for r in result['rows']}
+        self.assertEqual(by['Bias · schematic']['status'],'PASS');self.assertEqual(by['Bias · post-layout']['status'],'FAIL')

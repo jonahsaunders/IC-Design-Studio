@@ -103,16 +103,7 @@ def deck(p, cid, settings, directory):
         if typ == 'dc': command = f'.dc {source} {scalar(s["dc_start"]):.12g} {scalar(s["dc_stop"]):.12g} {scalar(s["dc_step"]):.12g}'
         else: command = f'.noise v({s["output"]}) {source} dec {int(s["points"])} {scalar(s["start"]):.12g} {scalar(s["end"]):.12g}'
     if typ == 'ac': command = f'.ac dec {int(s["points"])} {scalar(s["start"]):.12g} {scalar(s["end"]):.12g}'
-    aliases = {}; vectors = []
-    cell = next(c for c in p['cells'] if c['id'] == cid)
-    for d in cell['devices']:
-        if d.get('model_ref'):
-            from .catalog_migration import emit
-            alias=emit(d,p['pdk']).split()[0];aliases[alias.casefold()]=d['name']
-            if alias[0].upper()=='M':vectors+=['@'+alias+'['+k+']' for k in ('id','gm','vgs','vds','vdsat')]
-        if d.get('native_spice', {}).get('type') == 'device' and d['kind'] != 'X':
-            alias = render(d).split()[0]; aliases[alias.casefold()] = d['name']
-            # Subcircuit models have no portable internal MOS path; never invent one.
-            if alias[0].upper() == 'M': vectors += ['@' + alias + '[' + k + ']' for k in ('id', 'gm', 'vgs', 'vds', 'vdsat')]
-    if typ == 'op': text += '.save all ' + ' '.join(vectors) + '\n'
+    from .operating_data import native_save
+    directive,aliases=native_save(p,cid)
+    if typ == 'op': text += directive + '\n'
     return text + f'.temp {scalar(s.get("temperature", 27)):.12g}\n' + command + '\n.end\n', aliases

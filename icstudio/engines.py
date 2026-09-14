@@ -118,7 +118,7 @@ def run_ngspice(p,cid,settings,executable,directory,progress=lambda *_:None):
     if typ=='op':xs=list(range(len(rows)))
     for j,n in enumerate(variables):
         if n.startswith('v(') and n.endswith(')') and not n.startswith('v(@'):
-            name=n[2:-1];traces[name]=[abs(r[j]) if is_complex else r[j] for r in rows]
+            name=aliases.get('v:'+n[2:-1].casefold(),n[2:-1]);traces[name]=[abs(r[j]) if is_complex else r[j] for r in rows]
             if is_complex:phase[name]=[math.degrees(cmath.phase(r[j])) for r in rows]
     if typ=='noise' and 'onoise_spectrum' in variables:
         j=variables.index('onoise_spectrum');traces={settings['output']:[float(r[j]) for r in rows]}

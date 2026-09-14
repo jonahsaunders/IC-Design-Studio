@@ -5,7 +5,7 @@ from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel, QComboBox,
     QPushButton, QTableWidget, QTableWidgetItem, QHeaderView, QCheckBox, QLineEdit,
-    QFormLayout, QDialogButtonBox, QFileDialog, QAbstractItemView)
+    QFormLayout, QDialogButtonBox, QFileDialog, QAbstractItemView, QPlainTextEdit)
 from .model import clone, uid, scalar, atomic_write
 from .test_plans import sources, validate_plans, prepare, matrix, compare
 
@@ -22,6 +22,10 @@ class PlanEditor(QDialog):
         for label,widget in [('Plan name',self.name),('Model corners',self.corners),('Temperatures (°C)',self.temperatures),('Supply voltages (V; optional)',self.voltages)]:
             widget.setAccessibleName(label);form.addRow(label,widget)
         root.addLayout(form)
+        self.variables=QPlainTextEdit('\n'.join(k+' = '+str(v) for k,v in self.plan.get('variables',{}).items()))
+        self.variables.setAccessibleName('Plan design variable overrides');self.variables.setMaximumHeight(75)
+        self.variables.setPlaceholderText('Optional project variable overrides, one name = value per line')
+        form.addRow('Design variable overrides',self.variables)
         self.compare_layout=QCheckBox('Compare schematic and post-layout, including DRC and LVS')
         self.compare_layout.setChecked(self.plan.get('compare_layout',False));root.addWidget(self.compare_layout)
         note=QLabel('Use comma-separated analog conditions. RTL cases run once with their saved definitions; they are not repeated or qualified as analog PVT tests. Analog voltage sweeps need a DC supply target.')
@@ -53,6 +57,8 @@ class PlanEditor(QDialog):
             values=lambda w:[s.strip() for s in w.text().split(',') if s.strip()]
             plan=dict(id=self.plan.get('id',uid()),name=self.name.text().strip(),corners=values(self.corners),
                       temperatures=[scalar(v) for v in values(self.temperatures)],voltages=[scalar(v) for v in values(self.voltages)],entries=[],compare_layout=self.compare_layout.isChecked())
+            from .analog_workspace import assignments
+            plan['variables']=assignments(self.variables.toPlainText())
             for i,entry in enumerate(self.entries):
                 if self.table.item(i,0).checkState()==Qt.Checked:
                     plan['entries'].append(dict(entry,supply=self.table.item(i,2).text().strip()))
@@ -148,6 +154,7 @@ class TestPlanWindow(QDialog):
                 if value is not None:text+=f' · {value:.6g} {row["unit"]}'
                 if 'delta' in cell:text+=f' · Δ {cell["delta"]:+.4g}'
                 item=QTableWidgetItem(text);item.setData(Qt.UserRole,cell.get('run_id'));item.setToolTip(str(row['definition'])+'\n'+str(cell.get('detail',''))+'\nMargin: '+str(cell.get('margin')))
+                item.setData(Qt.UserRole+1,row['definition'])
                 if cell.get('status') in ('FAIL','ERROR'):item.setForeground(QColor('#d35c54'))
                 elif cell.get('status')=='PASS':item.setForeground(QColor('#31936c'))
                 self.table.setItem(i,j,item)
@@ -162,14 +169,19 @@ class TestPlanWindow(QDialog):
         self.studio.open_simulation_explorer();self.studio.simulation_runs.selectRow(self.studio.run_manager.rows.index(row));self.studio.show_run_details();self.studio.open_selected_run()
         if row.get('result',{}).get('silicon_report'):
             self.studio._silicon_result=row['result'];self.studio.open_silicon()
+        from .analog_run_ui import RunInspector
+        self.run_inspector=RunInspector(self.studio,row);self.run_inspector.show()
+        definition=item.data(Qt.UserRole+1)
+        if definition:self.run_inspector.call(lambda:self.run_inspector.focus_requirement(definition))
 
     def retry(self):
         latest={}
         for row in self.studio.run_manager.rows:
             case=row['job'].get('case',{})
             if case.get('group')==self.runs.currentData():latest[case['index']]=row
-        rows=[r for r in latest.values() if r['state'] in ('Failed','Cancelled')]
-        if not rows:raise ValueError('This run has no failed or cancelled jobs to retry.')
+        failed_ids={v['run_id'] for entry in matrix(self.studio.run_manager.rows,self.runs.currentData())['rows'] for v in entry['values'].values() if v['status'] in ('FAIL','ERROR','CANCELLED')}
+        rows=[r for r in latest.values() if r['state'] in ('Failed','Cancelled','Complete') and r['id'] in failed_ids]
+        if not rows:raise ValueError('This run has no failed requirements, errors, or cancelled jobs to retry.')
         self.studio.run_manager.enqueue_many([clone(r['job']) for r in rows],self.studio.jobs_dir,[r['name']+' · retry' for r in rows])
 
     def export(self):

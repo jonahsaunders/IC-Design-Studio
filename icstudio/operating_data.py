@@ -5,12 +5,52 @@ from .catalog import binding_for
 from .interchange import spice_name
 
 
+def mos_vectors(alias, name, binding, aliases):
+    """Subcircuit internals are opt-in metadata tied to the model definition."""
+    internal=(binding or {}).get('operating_point_device')
+    if internal:
+        if not isinstance(internal,str) or not re.fullmatch(r'(?:x[A-Za-z0-9_$-]+\.)*m[A-Za-z0-9_$-]+',internal,re.I):
+            raise ValueError('operating_point_device must be an explicit relative MOS instance path.')
+        alias='m.'+alias+'.'+internal
+    elif alias[0].upper()!='M':return []
+    aliases[alias.casefold()]=name
+    return ['@'+alias+'['+k+']' for k in ('id','gm','vgs','vds','vdsat')]
+
+
+def native_save(project,cid):
+    from .native_spice import render
+    from .catalog_migration import emit
+    from .analog_debug import contexts
+    by={c['id']:c for c in project['cells']};aliases={};vectors=[]
+    context_by={c['path']:c for c in contexts(project,cid)}
+    def walk(key,path,spice_path):
+        cell=by[key];context=context_by[path]
+        for net,flat in context['nets'].items():
+            if flat==path+net:aliases['v:'+('.'.join(spice_path+[net])).casefold()]=flat
+        for d in cell['devices']:
+            native=d.get('native_spice',{})
+            if native.get('type')=='program':continue
+            binding=binding_for(project['pdk'],d) if d.get('model_ref') else None
+            local=emit(d,project['pdk']).split()[0] if d.get('model_ref') else render(d,by.get(d.get('cell'))).split()[0] if native else d['name'] if d['kind']=='X' else spice_name(d)
+            if d['kind']=='X':walk(d['cell'],path+d['name']+'/',spice_path+[local]);continue
+            alias=local[0]+'.'+'.'.join(spice_path+[local]) if spice_path else local
+            name=path+d['name'];aliases[alias.casefold()]=name
+            metadata=binding or native
+            if metadata.get('operating_point_device'):
+                # Subcircuit calls carry no extra primitive prefix inside the path.
+                alias='.'.join(spice_path+[local])
+            if d['kind'] in ('NMOS','PMOS') or local[0].upper()=='M' or binding or metadata.get('operating_point_device'):
+                vectors.extend(mos_vectors(alias,name,metadata,aliases))
+    walk(cid,'',[])
+    return '.save all '+' '.join(vectors),aliases
+
+
 def save_directive(p,cid):
     aliases={};vectors=[]
     for d in flatten(p,cid):
         binding=binding_for(p['pdk'],d);alias=(binding['prefix']+'_'+d['name'].replace('/','_')) if binding else spice_name(d);aliases[alias.casefold()]=d['name']
-        if d['kind'] in ('NMOS','PMOS') and (not binding or binding.get('prefix')=='M'):
-            vectors.extend('@'+alias+'['+key+']' for key in ('id','gm','vgs','vds','vdsat'))
+        if d['kind'] in ('NMOS','PMOS'):
+            vectors.extend(mos_vectors(alias,d['name'],binding,aliases))
     return '.save all '+ ' '.join(vectors),aliases
 
 

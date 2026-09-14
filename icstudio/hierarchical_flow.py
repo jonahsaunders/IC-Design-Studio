@@ -51,7 +51,7 @@ def run(p,testbench,output,tools,progress=lambda *_:None):
         from .interchange import export_layout
         export_layout(physical,out/'layout.gds');atomic_write(out/'schematic.spice',native_subcircuit(p,cid))
         def simulation(directory,source,interface=None):
-            r=simulate(p,t,resolved['ngspice'],out/directory,source,interface);m=r['measurements'];m.update(waveform_file=directory+'/result.json',waveform_sha256=file_digest(out/directory/'result.json'));report['stages'][-1]['evidence']=m
+            r=simulate(p,t,resolved['ngspice'],out/directory,source,interface);m=r['measurements'];m.update(specifications=r.get('specifications',[]),waveform_file=directory+'/result.json',waveform_sha256=file_digest(out/directory/'result.json'));report['stages'][-1]['evidence']=m
             if m['status']!='passed':raise ValueError('; '.join(i['name']+': '+i.get('error','failed') for i in m['measurements'] if i['status']!='passed'))
             return m
         pre=stage('schematic_simulation',lambda:simulation('schematic',out/'schematic.spice'))
@@ -98,6 +98,8 @@ def run(p,testbench,output,tools,progress=lambda *_:None):
         from .pdks import model_lines
         model_lines(p['pdk'],t['analysis'].get('corner','nominal'))
         if any(file_digest(Path(f))!=sha for f,sha in report['stages'][0]['evidence']['assets'].items()):raise ValueError('Physical technology changed during verification.')
+        failed_specs=[m for s in report['stages'] for m in s.get('evidence',{}).get('specifications',[]) if m['status']!='PASS']
+        if failed_specs:raise ValueError('Saved design specifications failed: '+', '.join(m['name'] for m in failed_specs))
         report['status']='passed'
     except InterruptedError:raise
     except Exception as e:
@@ -105,6 +107,8 @@ def run(p,testbench,output,tools,progress=lambda *_:None):
         for name in STAGES:
             if name not in {s['name'] for s in report['stages']}:report['stages'].append({'name':name,'status':'not_run'})
     finally:
+        from .analog_debug import comparison_rows
+        report['requirement_comparison']=comparison_rows(report)
         # Retain comparable values even when a post-layout measurement exceeds a limit.
         measured={s['name']:s.get('evidence',{}).get('measurements',[]) for s in report['stages']}
         before={m['name']:m for m in measured.get('schematic_simulation',[])}
