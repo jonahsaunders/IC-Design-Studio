@@ -235,6 +235,10 @@ def equivalence(r):
     state_points='rename -hide t:$*dff* %co x:* %% w:* %D\n'
     script='[gold]\n'+gold+'prep -top '+r.config['top']+' -flatten'+normalize+state_points+'\n[gate]\n'+gate+'\nread_verilog ../netlist.v\n'
     script+='hierarchy -check -top '+r.config['top']+'\nflatten\ntechmap -autoproc -map +/simcells.v\nprep -top '+r.config['top']+normalize
+    # Carry the proved gold state definitions into consuming partitions. Memory
+    # optimizations can duplicate an address register without preserving its
+    # name; those gates still need the history behind a matched pointer/count.
+    script+='\n[partition *]\namend *\n'
     # Encode undefined state explicitly; EQY's SAT strategy can prove this case vacuously.
     script+='\n[strategy smtbmc]\nuse sby\nengine smtbmc bitwuzla\nxprop on\ndepth 30\n'
     atomic_write(r.root/'equivalence.eqy',script)
