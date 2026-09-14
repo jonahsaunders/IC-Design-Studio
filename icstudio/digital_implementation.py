@@ -226,15 +226,15 @@ def equivalence(r):
         raise ValueError('EQY requires run and source paths without spaces. Use a space-free jobs folder.')
     gold=read_rtl(r.config)+'\n'
     gate='\n'.join('read_liberty -ignore_miss_func '+quote(p) for p in r.libraries())
-    # Lower inferred memories before xprop. Match only top-level ports: synthesis
-    # can canonicalize hierarchical aliases differently, creating invalid cuts
-    # (for example count and fifo.count) if every surviving name is matched.
-    # Hiding internal names preserves their logic and all observable outputs.
-    normalize='\nmemory_map\nopt_clean\nrename -hide w:*\n'
-    script='[gold]\n'+gold+'prep -top '+r.config['top']+' -flatten'+normalize+'\n[gate]\n'+gate+'\nread_verilog ../netlist.v\n'
+    # Lower memories before xprop. Follow EQY's synthesized-NERV recipe: retain
+    # ports and direct FF outputs as match points, hiding combinational aliases.
+    # Otherwise count and fifo.count can become inconsistent independent cuts.
+    # State boundaries let induction establish FIFO memory/pointer invariants;
+    # each boundary is itself proved, with all output logic retained.
+    normalize='\nmemory_map\nopt_clean\n'
+    state_points='rename -hide t:$*dff* %co x:* %% w:* %D\n'
+    script='[gold]\n'+gold+'prep -top '+r.config['top']+' -flatten'+normalize+state_points+'\n[gate]\n'+gate+'\nread_verilog ../netlist.v\n'
     script+='hierarchy -check -top '+r.config['top']+'\nflatten\ntechmap -autoproc -map +/simcells.v\nprep -top '+r.config['top']+normalize
-    # Outputs reused internally must retain their driving cone as well.
-    script+='\n[collect *]\nbind *\n'
     # Encode undefined state explicitly; EQY's SAT strategy can prove this case vacuously.
     script+='\n[strategy smtbmc]\nuse sby\nengine smtbmc bitwuzla\nxprop on\ndepth 30\n'
     atomic_write(r.root/'equivalence.eqy',script)

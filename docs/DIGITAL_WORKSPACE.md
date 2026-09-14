@@ -44,8 +44,9 @@ restart. Reuse requires compatible stage inputs, the recorded engine environment
 and verified artifacts. Explicit upstream selection remains available.
 
 Equivalence checks top-level observable outputs against the captured RTL, with
-inferred memories lowered and undefined state encoded explicitly. Internal alias
-names are excluded as cut points; their driving logic remains in the proof. The
+inferred memories lowered and undefined state encoded explicitly. Ports and direct
+register outputs are proved as match points; combinational aliases are excluded
+as cut points and their driving logic remains in the proof. The
 inductive strategy has a depth of 30 and the run's timeout, so larger blocks can
 remain unproven. No reset sequence is assumed to force a passing result.
 
