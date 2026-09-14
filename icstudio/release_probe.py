@@ -12,13 +12,28 @@ def main(output):
     from .model import example,digest,clone,save_project,load_project,atomic_write
     from . import __version__
     report={'version':__version__,'os':platform.platform(),'architecture':platform.machine(),'frozen':bool(getattr(sys,'frozen',False)),'scale':os.environ.get('QT_SCALE_FACTOR','1'),'checks':[],'status':'failed'};window=None;app=None;errors=[]
+    from .build_identity import identity,diagnostic_report
+    report['build']=identity()
     sys.excepthook=lambda t,v,tb:errors.append(''.join(traceback.format_exception(t,v,tb)))
     try:
+        if report['frozen']:
+            assert report['build']['commit']!='unknown' and report['build']['dirty'] is False,'Packaged source identity is missing'
         QStandardPaths.setTestModeEnabled(True)
         QSettings.setDefaultFormat(QSettings.IniFormat);QSettings.setPath(QSettings.IniFormat,QSettings.UserScope,str(out/'profile/settings'))
         app=QApplication([]);app.setStyle('Fusion');QSettings('ICDesignStudio','Studio').clear();window=Studio(recover=False);window.resize(1440,940);window.show();QTest.qWait(100)
         assert window.dark;assert window.devicePixelRatioF()>=float(report['scale'])-.05
         report['checks'].append('native dark workspace and requested DPI scale')
+        if report['frozen']:
+            from . import openems_runtime
+            from .openems_ui import OpenEMSJob
+            solver, _ = openems_runtime.discover()
+            assert solver and openems_runtime.runtime_for(solver), 'Included openEMS runtime is missing'
+            check = OpenEMSJob(); outcome = []
+            check.completed.connect(lambda result, error: outcome.append((result, error)))
+            check.start(solver); deadline = time.monotonic()+45
+            while check.running and time.monotonic()<deadline: QTest.qWait(20)
+            assert outcome and not outcome[0][1], repr(outcome)
+            report['checks'].append('Included openEMS and Python auto-detected and executed from the packaged app')
         assert window.schematic.grid_style=='lines' and window.layout.grid_style=='lines'
         assert not window.unmapped_commands and 'Window' in window.task_menus
         report['checks'].append('0.14 visible schematic/layout grids and complete reorganized command map')
@@ -191,6 +206,12 @@ def main(output):
         renderer=type(viewer.view).__name__;viewer.close();QTest.qWait(30);window.set_project(previous,previous_path)
         report['checks'].append('packaged 3D layout viewer, extrusion, display controls and PNG ('+renderer+')')
         from .live_probe import run as live_probe
+        from .experimental_probe import run as experimental_probe
+        report['experimental']=experimental_probe(window,out)
+        report['checks'].extend(report['experimental']['checks'])
+        from .inductor_probe import run as inductor_probe
+        report['inductor']=inductor_probe(window,out)
+        report['checks'].extend(report['inductor']['checks'])
         report['checks'].append(live_probe(window,out))
         from .local_collaboration_probe import run as local_server_probe
         report['checks'].append(local_server_probe(window,out))
@@ -204,5 +225,6 @@ def main(output):
         if window:
             if window.process:window.cancel_job();window.process.waitForFinished(3000)
             window.saved_hash=digest(window.project);window.close()
+        report['diagnostics']=json.loads(diagnostic_report())
         atomic_write(out/'release-test.json',json.dumps(report,indent=2))
     return 0 if report['status']=='passed' else 1

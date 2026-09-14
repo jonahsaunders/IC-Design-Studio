@@ -1,0 +1,104 @@
+name: Digital flow
+on:
+  push:
+    branches: [main, experimental]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  digital:
+    runs-on: ubuntu-24.04
+    env:
+      QT_QPA_PLATFORM: offscreen
+      PYTHONPATH: tests
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install digital engines and desktop dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iverilog verilator yosys libegl1 libopengl0
+          python -m pip install -r requirements.txt
+          iverilog -V
+          verilator --version
+          yosys -V
+      - name: Verify digital inputs, real engines and analog compatibility
+        run: python -m unittest tests.test_digital tests.test_digital_implementation tests.test_digital_runtime tests.test_digital_workspace tests.test_core tests.test_lifecycle tests.test_workflows -v
+      - name: Verify desktop digital workflow
+        run: python tests/gui_digital.py
+      - name: Verify linked workspace, queue resume and large placement inspection
+        run: python tests/gui_digital_workspace.py
+      - name: Verify setup subprocess and failed-package UI
+        run: python tests/gui_digital_setup.py
+      - name: Check release documentation
+        run: python scripts/check_release.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: digital-flow-evidence
+          path: |
+            build/digital-ui
+            build/digital-setup-ui
+            build/digital-workspace-ui
+
+  implementation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      QT_QPA_PLATFORM: offscreen
+      ICSTUDIO_TEST_PHYSICAL: '1'
+      ICSTUDIO_TEST_EVIDENCE: build/digital-acceptance
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/checkout@v4
+        with:
+          repository: The-OpenROAD-Project/OpenROAD-flow-scripts
+          ref: eaba6576441bf7c1743ea56ecdb1904210ec02c2
+          path: build/orfs
+          persist-credentials: false
+      - name: Install pinned implementation toolchain
+        id: toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y klayout iverilog verilator make g++ libegl1 libopengl0
+          python -m pip install -r requirements.txt
+          curl --fail --location --retry 3 -o build/oss-cad-suite.tgz https://github.com/YosysHQ/oss-cad-suite-build/releases/download/2026-09-13/oss-cad-suite-linux-x64-20260913.tgz
+          echo '3df702b34cb83ed7bc540c02fa26008b7cfa379b645f441f0de876a84873da6b  build/oss-cad-suite.tgz' | sha256sum --check
+          tar -xzf build/oss-cad-suite.tgz -C build
+          curl --fail --location --retry 3 -o build/openroad.deb https://vaultlink.precisioninno.com/api/releases/26Q2-1164-g08f67ee5ec/openroad_26Q2-1164-g08f67ee5ec_amd64-ubuntu-24.04.deb/download
+          echo 'f3f1eeaa18f327503f72cc45dcef5b1514ec2e89726ec53b4553bf4f951168a3  build/openroad.deb' | sha256sum --check
+          sudo apt-get install -y "$PWD/build/openroad.deb"
+          echo "ICSTUDIO_TEST_YOSYS=$PWD/build/oss-cad-suite/bin/yosys" >> "$GITHUB_ENV"
+          echo "ICSTUDIO_TEST_EQY=$PWD/build/oss-cad-suite/bin/eqy" >> "$GITHUB_ENV"
+          echo "ICSTUDIO_TEST_ORFS=$PWD/build/orfs" >> "$GITHUB_ENV"
+      - name: Require real mapped timing, equivalence, fault detection and RTL to GDS
+        run: python -m unittest tests.test_digital_implementation -v
+      - name: Verify the linked digital implementation workspace
+        if: ${{ !cancelled() && steps.toolchain.outcome == 'success' }}
+        run: python tests/gui_digital_implementation.py
+      - name: Print implementation failure evidence
+        if: failure()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          for p in Path('build/digital-acceptance').rglob('*.log'):
+              print(str(p), p.read_text(errors='replace')[-12000:], sep='\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: digital-implementation-evidence
+          path: |
+            build/digital-implementation-ui
+            build/digital-acceptance/*/input.json
+            build/digital-acceptance/*/result.json
+            build/digital-acceptance/*/engine.log
+            build/digital-acceptance/*/netlist.v
+            build/digital-acceptance/*/equivalence.eqy
+            build/digital-acceptance/*/proof

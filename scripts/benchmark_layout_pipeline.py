@@ -38,6 +38,9 @@ def main():
     QSettings.setDefaultFormat(QSettings.IniFormat);QSettings.setPath(QSettings.IniFormat,QSettings.UserScope,str(out/'qt-profile/settings'))
     app=QApplication([]);app.setStyle('Fusion');QSettings('ICDesignStudio','Studio').clear()
     w=Studio(recover=False);w.maybe_save=lambda:True;errors=[];w.error=lambda value:errors.append(str(value));w.resize(1400,900);w.show();app.processEvents()
+    # Compare equal canvas workloads even when versions add new dock panels.
+    if hasattr(w,'workflow_dock'):w.workflow_dock.hide()
+    w.layout.setFixedSize(1000,400);app.processEvents()
     w.live_check.setChecked(False);w.preview_timer.stop();rows=[]
     real_recovery=recovery.write;real_refresh=w.refresh;stages={}
     def timed(name,fn):
@@ -78,7 +81,7 @@ def main():
             profiler=cProfile.Profile();profiler.enable();w.move([c['shapes'][0]['id']],5,0,'layout');profiler.disable()
             stream=io.StringIO();pstats.Stats(profiler,stream=stream).strip_dirs().sort_stats('cumtime').print_stats(25)
             (out/f'profile-{count}.txt').write_text(stream.getvalue())
-            rows.append({'shapes':count,'samples':samples,'median':{key:round(statistics.median(s[key] for s in samples),3) for key in samples[0] if key.endswith('_ms')}})
+            rows.append({'shapes':count,'canvas_size':[w.layout.width(),w.layout.height()],'samples':samples,'median':{key:round(statistics.median(s[key] for s in samples),3) for key in samples[0] if key.endswith('_ms')}})
         report={'version':__version__,'workflow_hash':WORKFLOW_SOURCE_HASH,'host':{'platform':platform.platform(),'python':platform.python_version(),'qt_platform':app.platformName()},'workloads':rows,'scope':'Full Studio connected move, first paint, wait for durable recovery, and live declared-rule/terminal checks. Timing stages can be nested; use totals rather than summing stage columns. No foundry deck or native Windows claim unless run there.'}
         (out/'pipeline.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
     finally:

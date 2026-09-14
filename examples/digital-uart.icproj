@@ -1,0 +1,139 @@
+{
+  "schema": 1,
+  "id": "8649900677c8445c",
+  "name": "Digital UART transmitter",
+  "revision": 0,
+  "top": "d8c4d3db79384b7c",
+  "created": "2026-09-13T15:44:54+00:00",
+  "modified": "2026-09-13T15:44:54+00:00",
+  "pdk": {
+    "name": "Generic teaching process",
+    "revision": "generic-1",
+    "status": "unqualified",
+    "dbu_um": 0.001,
+    "grid": 5,
+    "layers": [
+      {
+        "name": "active",
+        "gds": 1,
+        "datatype": 0,
+        "color": "#64c77b",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "poly",
+        "gds": 2,
+        "datatype": 0,
+        "color": "#f18c89",
+        "width": 150,
+        "space": 180
+      },
+      {
+        "name": "contact",
+        "gds": 3,
+        "datatype": 0,
+        "color": "#d2d9de",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "metal1",
+        "gds": 4,
+        "datatype": 0,
+        "color": "#68a6f4",
+        "width": 200,
+        "space": 200
+      },
+      {
+        "name": "via1",
+        "gds": 5,
+        "datatype": 0,
+        "color": "#ddc086",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "metal2",
+        "gds": 6,
+        "datatype": 0,
+        "color": "#b49cef",
+        "width": 250,
+        "space": 250
+      },
+      {
+        "name": "nwell",
+        "gds": 7,
+        "datatype": 0,
+        "color": "#d2ab6a",
+        "width": 1000,
+        "space": 500
+      }
+    ]
+  },
+  "cells": [
+    {
+      "id": "d8c4d3db79384b7c",
+      "name": "uart_tx",
+      "ports": [],
+      "devices": [],
+      "shapes": []
+    }
+  ],
+  "analysis": {
+    "type": "tran",
+    "stop": "100u",
+    "step": "200n",
+    "start": "10",
+    "end": "10meg",
+    "points": 150,
+    "source": "V1",
+    "dc_start": "0",
+    "dc_stop": "1.8",
+    "dc_step": "0.01",
+    "temperature": 27
+  },
+  "waivers": [],
+  "digital": {
+    "version": 1,
+    "top": "uart_tx",
+    "testbench": "uart_tb",
+    "include_dirs": [
+      "."
+    ],
+    "defines": {},
+    "waveform": "wave.vcd",
+    "timeout": 180,
+    "files": [
+      {
+        "path": "uart_tx.sv",
+        "role": "rtl",
+        "text": "`timescale 1ns/1ps\nmodule uart_tx #(parameter integer DIVISOR = 4)(\n  input wire clk, input wire reset, input wire send, input wire [7:0] data,\n  output reg tx, output reg busy\n);\n  reg [9:0] frame;\n  reg [3:0] bit_index;\n  integer ticks;\n  always @(posedge clk) begin\n    if (reset) begin\n      tx <= 1; busy <= 0; frame <= 10'h3ff; bit_index <= 0; ticks <= 0;\n    end else if (!busy) begin\n      if (send) begin\n        frame <= {1'b1, data, 1'b0}; tx <= 0; busy <= 1;\n        bit_index <= 0; ticks <= DIVISOR - 1;\n      end\n    end else if (ticks != 0) ticks <= ticks - 1;\n    else if (bit_index == 9) begin busy <= 0; tx <= 1; end\n    else begin\n      bit_index <= bit_index + 1'b1; tx <= frame[bit_index + 1'b1];\n      ticks <= DIVISOR - 1;\n    end\n  end\nendmodule\n"
+      },
+      {
+        "path": "uart_tb.sv",
+        "role": "testbench",
+        "text": "`timescale 1ns/1ps\nmodule uart_tb;\n  reg clk = 0;\n  reg reset = 1;\n  reg send = 0;\n  reg [7:0] data = 0;\n  wire tx, busy;\n  uart_tx dut(.clk(clk),.reset(reset),.send(send),.data(data),.tx(tx),.busy(busy));\n  always #5 clk = ~clk;\n  task check_frame(input [7:0] value);\n    reg [9:0] expected;\n    integer bit_number;\n    begin\n      expected = {1'b1, value, 1'b0};\n      @(negedge clk); data = value; send = 1;\n      @(negedge clk); send = 0;\n      if (!busy) $fatal(1,\"UART did not accept a byte\");\n      for (bit_number=0; bit_number<10; bit_number=bit_number+1) begin\n        if (tx !== expected[bit_number]) $fatal(1,\"UART frame bit mismatch\");\n        repeat (4) @(negedge clk);\n      end\n      if (busy || tx !== 1'b1) $fatal(1,\"UART did not return to idle\");\n    end\n  endtask\n  initial begin\n    $dumpfile(\"wave.vcd\"); $dumpvars(0,uart_tb);\n    repeat (2) @(negedge clk);\n    if (tx !== 1'b1 || busy !== 1'b0) $fatal(1,\"UART reset failed\");\n    reset = 0;\n    check_frame(8'h00); check_frame(8'ha5); check_frame(8'hff);\n    $display(\"UART checks passed: reset, start/data/stop bits and idle\");\n    $finish;\n  end\n  initial begin #10000; $fatal(1,\"UART test timed out\"); end\nendmodule\n"
+      },
+      {
+        "path": "constraints.sdc",
+        "role": "constraint",
+        "text": "create_clock -name core_clk -period 10 [get_ports clk]\nset_input_delay 1 -clock core_clk [get_ports {reset send data*}]\nset_output_delay 1 -clock core_clk [get_ports {tx busy}]\n"
+      }
+    ],
+    "tests": [
+      {
+        "name": "UART frames / Icarus",
+        "testbench": "uart_tb",
+        "simulator": "icarus"
+      },
+      {
+        "name": "UART frames / Verilator",
+        "testbench": "uart_tb",
+        "simulator": "verilator",
+        "coverage": true
+      }
+    ]
+  },
+  "digital_cell": "d8c4d3db79384b7c"
+}

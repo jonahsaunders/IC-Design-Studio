@@ -16,7 +16,7 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
     def __init__(self,recover=True):
         super().__init__();self.setWindowTitle('IC Design Studio');self.resize(1440,930);self.setMinimumSize(900,600)
         self.settings=QSettings('ICDesignStudio','Studio');self.history=History(example());self.cid=self.project['top'];self.path=None;self.saved_hash=None;self.selection=[];self.net='';self.current_mode='schematic';self.jobs=[];self.result=None;self.issues=[];self.check_revision=None;self.process=None;self.active_job=None;self.rebuilding=False;self.form_fields={}
-        self.data_dir=Path(QStandardPaths.writableLocation(QStandardPaths.AppLocalDataLocation));self.data_dir.mkdir(parents=True,exist_ok=True);self.recovery_root=Path(self.settings.value('storage/recovery_root',str(self.data_dir/'recovery')));self.reset_recovery_status();self.recovery_dir=self.recovery_root/uid();self._recovered_from=None;self._disk_hash=None;self.jobs_dir=self.data_dir/'runs';self.jobs_dir.mkdir(exist_ok=True)
+        self.data_dir=Path(QStandardPaths.writableLocation(QStandardPaths.AppLocalDataLocation));self.data_dir.mkdir(parents=True,exist_ok=True);self.recovery_root=Path(self.settings.value('storage/recovery_root',str(self.data_dir/'recovery')));self.reset_recovery_status();self.recovery_dir=self.recovery_root/uid();self._recovered_from=None;self._disk_hash=None;self.jobs_dir=Path(self.settings.value('digital/jobs_dir',str(self.data_dir/'runs')));self.jobs_dir.mkdir(parents=True,exist_ok=True)
         self.dark=self.settings.value('appearance/theme','dark')!='light';self.make_ui();self.make_actions();self.apply_theme();self.refresh(True)
         if recover:QTimer.singleShot(100,self.offer_recovery)
     @property
@@ -522,7 +522,9 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
     def help_dialog(self):
         path=Path(getattr(sys,'_MEIPASS',Path(__file__).parent.parent))/'docs'/'USER_GUIDE.md';self.text_dialog('IC Design Studio help',path.read_text() if path.exists() else 'Open docs/USER_GUIDE.md in the source package.')
     def about(self):
-        self.text_dialog('About IC Design Studio',f'IC Design Studio {__version__}\nStandalone engineering preview\n\nNative Qt 6 desktop interface (PySide6), C++20 matrix solver, KLayout geometry library. No web server, account, or cloud connection is required.\n\nImplemented: manual wires, placed net labels and ground, whole-net inspection, session recovery, undo/redo, simulation/studies, layout editing, PDK bindings and a verified SKY130 standard-cell reference flow.\n\nNot a professional 1.0 or tapeout tool. General PDK qualification, unrestricted scripted-library exchange, million-shape performance, signed distribution, Windows execution and external pilot gates remain open. See the release notes for the exact verified reference flow.\n\nNative core: '+('loaded' if __import__('icstudio.simulation',fromlist=['CORE']).CORE else 'Python fallback')+'\n\nQt / PySide6: LGPLv3 and component licenses. KLayout: GPLv2 or later. See THIRD_PARTY_NOTICES.md and bundled licenses. Application source is GPLv3-or-later.')
+        from .build_identity import identity,diagnostic_report
+        build=identity()
+        self.text_dialog('About IC Design Studio',f'IC Design Studio {__version__}\nExperimental engineering preview\nSource commit: {build["commit"]}\nBranch: {build["branch"]}\nLocal changes: {build["dirty"]}\n\nNative Qt desktop interface, C++ matrix solver and KLayout geometry.\n\nSee the bundled release status for the tested process flows and platform limits.\n\nDiagnostic report (copy this with a bug report):\n'+diagnostic_report()+'\n\nQt / PySide6: LGPLv3 and component licenses. KLayout: GPLv2 or later. Application source: GPLv3-or-later. See THIRD_PARTY_NOTICES.md and bundled licenses.')
     def command_palette(self):
         dlg=QDialog(self);dlg.setWindowTitle('Command palette');dlg.resize(520,440);v=QVBoxLayout(dlg);q=QLineEdit();q.setPlaceholderText('Search commands…');v.addWidget(q);lst=QListWidget();v.addWidget(lst);actions=[a for a in self.findChildren(QAction) if a.text() and not a.menu() and a.isEnabled() and not a.text().startswith('&')]
         def fill():
@@ -540,10 +542,15 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
             if ans!=QMessageBox.Yes:e.ignore();return
             self.cancel_job();self.process.waitForFinished(3000)
         if not self.maybe_save():e.ignore();return
+        dashboard=getattr(self,'_collaboration_dashboard',None)
+        if dashboard and not dashboard.review_panel.flush_draft():
+            self.error('The review draft could not be saved. Keep this window open and retry, or copy the text before clearing it.');e.ignore();return
         try:
             if getattr(self,'_recovery_queue',None):self._recovery_queue.shutdown()
         except RuntimeError as exc:
             self.error(str(exc));e.ignore();return
+        workflow=getattr(self,'_design_workflow',None)
+        if workflow:workflow.stop()
         self.settings.setValue('geometry',self.saveGeometry());e.accept()
 
 
@@ -582,8 +589,9 @@ from .interoperability_ui import InteroperabilityMixin
 
 from .layout_collaboration_ui import CollaborationMixin
 from .live_ui import LiveCollaborationMixin
+from .digital_ui import DigitalMixin
 
-class Studio(LiveCollaborationMixin,CollaborationMixin,InteroperabilityMixin,LayoutDevelopmentMixin,OnboardingMixin,NativeWorkspaceMixin,XschemWorkflowMixin,VerificationWorkspaceMixin,PhysicalWorkspaceMixin,EngineeringWorkspaceMixin,SimulationWorkspaceMixin,HumanWorkspaceMixin,ConsistencyWorkspaceMixin,CaptureWorkspaceMixin,EditorWorkspaceMixin, LayoutToolsMixin, AnalogMixin, HierarchyMixin, SiliconMixin, LifecycleMixin, LayoutMixin, ProjectMixin, SchematicMixin, FeatureMixin, WorkspaceMixin, StudioCore):
+class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,InteroperabilityMixin,LayoutDevelopmentMixin,OnboardingMixin,NativeWorkspaceMixin,XschemWorkflowMixin,VerificationWorkspaceMixin,PhysicalWorkspaceMixin,EngineeringWorkspaceMixin,SimulationWorkspaceMixin,HumanWorkspaceMixin,ConsistencyWorkspaceMixin,CaptureWorkspaceMixin,EditorWorkspaceMixin, LayoutToolsMixin, AnalogMixin, HierarchyMixin, SiliconMixin, LifecycleMixin, LayoutMixin, ProjectMixin, SchematicMixin, FeatureMixin, WorkspaceMixin, StudioCore):
     """Standalone desktop application with the document-focused workspace."""
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
@@ -593,6 +601,8 @@ class Studio(LiveCollaborationMixin,CollaborationMixin,InteroperabilityMixin,Lay
         install_test_plans(self)
         from .design_workflow import install as install_workflow
         install_workflow(self)
+        from .digital_ui import install as install_digital
+        install_digital(self)
         self.reindex_commands()
     connect = SchematicMixin.connect
     move = LayoutDevelopmentMixin.move

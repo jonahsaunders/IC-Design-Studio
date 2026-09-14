@@ -67,6 +67,8 @@ def import_component(project, path, selected):
 
 
 def require_implementations(project, cid):
+    from .digital_design import require_analog_implementations
+    require_analog_implementations(project,cid)
     by = {c['id']:c for c in project['cells']}; seen=set()
     def walk(key):
         if key in seen:return

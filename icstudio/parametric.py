@@ -19,6 +19,9 @@ def rules(tech):
 
 def build(p,cid,did,spec):
     cell=next(c for c in p['cells'] if c['id']==cid);d=next((d for d in cell['devices'] if d['id']==did),None);kind=spec.get('kind') or {'R':'resistor','C':'capacitor','NMOS':'mos','PMOS':'mos'}.get((d or {}).get('kind'))
+    if kind=='inductor' or d and d['kind']=='L':
+        from .inductor import build as inductor_build
+        return inductor_build(p,cid,did,spec)
     if d and d.get('native_spice'):
         from .native_physical import build as native_build
         return native_build(p,cid,did,spec)
@@ -92,6 +95,14 @@ def build(p,cid,did,spec):
 
 
 def install(p,cid,did,spec,record_id=None):
+    if spec.get('kind')=='inductor':
+        from .inductor import plan,install as install_inductor,current_spec
+        cell=next(c for c in p['cells'] if c['id']==cid)
+        old=next((r for r in cell.get('parametric_devices',[]) if r.get('device_id')==did),None)
+        if old:
+            position=current_spec(cell,old);spec={**spec,'x':position['x'],'y':position['y']}
+        proposal=plan(p,cid,spec,did=did);install_inductor(p,proposal)
+        return next(r for r in cell['parametric_devices'] if r['device_id']==did)
     cell=next(c for c in p['cells'] if c['id']==cid);records=cell.setdefault('parametric_devices',[]);old=next((r for r in records if r['id']==record_id or did and r['device_id']==did),None)
     if did and not old and any(s.get('device_id')==did for s in cell['shapes']):raise ValueError('This device already has a footprint. Select its original regeneration workflow.')
     if old:
@@ -124,7 +135,7 @@ def placement_inventory(p,cid):
 
 
 def electrical_signature(d):
-    return digest({k:d.get(k) for k in ('kind','value','params','model_ref','model_params','nets','cell','parameters')}|{k:d[k] for k in ('native_spice','physical_binding') if k in d})
+    return digest({k:d.get(k) for k in ('kind','value','params','model_ref','model_params','nets','cell','parameters')}|{k:d[k] for k in ('native_spice','physical_binding','inductor_rl') if k in d})
 
 
 def geometry_signature(shapes):
@@ -142,7 +153,12 @@ def audit(p,cid):
         elif r.get('geometry_signature')!=geometry_signature([s for s in c['shapes'] if s.get('pcell_id')==r['id']]):message='Generated geometry was changed or deleted. Review or regenerate the footprint.';code='PCELL.EDITED'
         else:
             try:
-                if r.get('rules_hash')!=digest(rules(p['pdk'])):message='Technology generator rules changed. Regenerate the footprint.'
+                if r.get('spec',{}).get('kind')=='inductor':
+                    from .inductor import rules_hash
+                    from .layout_vias import technology
+                    expected=rules_hash(technology(p))
+                else:expected=digest(rules(p['pdk']))
+                if r.get('rules_hash')!=expected:message='Technology generator rules changed. Regenerate the footprint.'
             except ValueError:message='The original parametric rules are no longer available.'
         if message:out.append({'severity':'error','code':code,'cell_id':cid,'object':r.get('device_id',''),'objects':[s['id'] for s in c['shapes'] if s.get('pcell_id')==r['id']],'message':(d['name']+': ' if d else '')+message,'fingerprint':digest([r['id'],message,p['revision']])})
     return out

@@ -93,6 +93,22 @@ class BundledSimulationTests(unittest.TestCase):
                 stage_windows.stage(archive, root/'runtime')
             self.assertFalse((root/'runtime/ngspice.exe').exists())
 
+    def test_staged_manifest_has_platform_independent_bytes(self):
+        import py7zr
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);source=root/'Spice64';(source/'bin').mkdir(parents=True);(source/'docs').mkdir()
+            for name in ('ngspice_con.exe','libomp140.x86_64.dll'):(source/'bin'/name).write_bytes(b'runtime fixture')
+            (source/'docs/COPYING').write_bytes(b'license\n')
+            init=root/'icstudio/assets/ngspice/spinit';init.parent.mkdir(parents=True);init.write_bytes(b'set ngbehavior=all\n')
+            archive=root/'fixture.7z'
+            with py7zr.SevenZipFile(archive,'w') as package:package.writeall(source,'Spice64')
+            checksum=hashlib.sha256(archive.read_bytes()).hexdigest()
+            # The tiny fixture needs no host memory probing (unavailable in some sandboxes).
+            with patch.object(stage_windows,'ROOT',root),patch.object(stage_windows,'SHA256',checksum),patch.object(stage_windows,'check_ngspice'),patch('py7zr.py7zr.get_memory_limit',return_value=16*1024*1024):
+                stage_windows.stage(archive,root/'runtime')
+            manifest=root/'runtime/runtime-manifest.json';record=verify_runtime_files(manifest.parent)
+            self.assertEqual(manifest.read_bytes(),json.dumps(record,indent=2).encode('utf-8'))
+
     def test_all_bundled_pdks_verify_without_network(self):
         with patch('urllib.request.urlopen', side_effect=AssertionError('offline')):
             entries = packages(verify=True)

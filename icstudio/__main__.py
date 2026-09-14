@@ -1,6 +1,12 @@
 import sys
 
 def main():
+    if len(sys.argv)>1 and sys.argv[1] in ('--worker','--cli','--digital-setup','--collaboration-server'):
+        from .windows_stdio import connect
+        connect()
+    if '--digital-setup' in sys.argv:
+        from .digital_runtime import main as setup
+        return setup()
     if len(sys.argv)>1 and sys.argv[1]=='--collaboration-server':
         from .live_server import main as server
         return server(sys.argv[2:])
@@ -13,6 +19,9 @@ def main():
     if '--release-test' in sys.argv:
         from .release_probe import main as probe
         return probe(sys.argv[sys.argv.index('--release-test')+1])
+    if '--desktop-acceptance' in sys.argv:
+        from .desktop_acceptance import main as acceptance
+        return acceptance(sys.argv[sys.argv.index('--desktop-acceptance')+1])
     from PySide6.QtWidgets import QApplication
     from PySide6.QtCore import QTimer
     from .gui import Studio
@@ -39,10 +48,21 @@ def main():
             window.offer_recovery()
             if not window._recovered_from and window.path is None and window.settings.value('onboarding/show', True, type=bool):
                 window.start_here()
+            from .digital_runtime import status
+            if status()['state']=='setup':
+                from .digital_setup_ui import show
+                show(window,automatic=True)
         QTimer.singleShot(100, welcome)
     if '--smoke-test' in sys.argv:
         from .model import digest
         window.saved_hash=digest(window.project)
         QTimer.singleShot(600,app.quit)
+    elif '--project' in sys.argv:
+        def digital_setup():
+            from .digital_runtime import status
+            if status()['state']=='setup':
+                from .digital_setup_ui import show
+                show(window,automatic=True)
+        QTimer.singleShot(200,digital_setup)
     return app.exec()
 if __name__=='__main__':raise SystemExit(main())

@@ -58,10 +58,15 @@ def verify_distribution(archive, output):
     result = subprocess.run([str(executable), '--release-test', str(evidence)],
                             cwd=executable.parent, env=env, capture_output=True, timeout=240)
     (output / 'execution.log').write_bytes(result.stdout + result.stderr)
+    if result.returncode and (evidence / 'release-test.json').is_file():
+        print((evidence / 'release-test.json').read_text(encoding='utf-8'))
     require(result.returncode == 0, 'Extracted desktop probe failed; inspect distribution-evidence')
     report = json.loads((evidence / 'release-test.json').read_text())
     require(report['status'] == 'passed' and report['frozen'] and report['version'] == __version__,
             'Extracted application report does not qualify this release')
+    commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+    require(report.get('build',{}).get('commit')==commit and report['build']['dirty'] is False,
+            'Extracted application was built from a different source commit')
     return {'status': 'passed', 'archive': archive.name, 'archive_sha256': checksum(archive),
             'clean_application_profile': True, 'paths_with_spaces': True,
             'report': report, 'display': 'native' if os.name == 'nt' else 'offscreen'}

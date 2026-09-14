@@ -24,7 +24,7 @@ class PlanEditor(QDialog):
         root.addLayout(form)
         self.compare_layout=QCheckBox('Compare schematic and post-layout, including DRC and LVS')
         self.compare_layout.setChecked(self.plan.get('compare_layout',False));root.addWidget(self.compare_layout)
-        note=QLabel('Use comma-separated conditions. Choose the tests to run; a voltage sweep requires a DC supply target for each test. Requirements come from the saved testbench or cell.')
+        note=QLabel('Use comma-separated analog conditions. RTL cases run once with their saved definitions; they are not repeated or qualified as analog PVT tests. Analog voltage sweeps need a DC supply target.')
         note.setWordWrap(True);root.addWidget(note)
         available=sources(window.studio.project);saved={e['id']:e for e in self.plan.get('entries',[])}
         self.entries=[clone(saved.get(e['id'],e)) for e in available]
@@ -140,7 +140,7 @@ class TestPlanWindow(QDialog):
         if self.baseline.currentData():self.data=compare(self.data,matrix(self.studio.run_manager.rows,self.baseline.currentData()))
         rows=self.data['rows'];conditions=self.data['conditions']
         if self.failed.isChecked():rows=[r for r in rows if any(v['status'] in ('FAIL','ERROR','CANCELLED') or v.get('regressed') for v in r['values'].values())]
-        self.table.setColumnCount(2+len(conditions));self.table.setHorizontalHeaderLabels(['Test','Requirement']+[f'{c} / {t:g} °C'+(f' / {v:g} V' if v is not None else '') for c,t,v in conditions]);self.table.setRowCount(len(rows))
+        self.table.setColumnCount(2+len(conditions));self.table.setHorizontalHeaderLabels(['Test','Requirement']+[('RTL simulation' if t is None else f'{c} / {t:g} °C'+(f' / {v:g} V' if v is not None else '')) for c,t,v in conditions]);self.table.setRowCount(len(rows))
         for i,row in enumerate(rows):
             self.table.setItem(i,0,QTableWidgetItem(row['test']));self.table.setItem(i,1,QTableWidgetItem(row['name']))
             for j,condition in enumerate(conditions,2):

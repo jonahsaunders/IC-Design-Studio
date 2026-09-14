@@ -60,8 +60,9 @@ def route(p,cid,layer,start,end,width,net):
 def connectivity(p,cid,graph=None):
     """Compare explicit physical terminals using actual polygon contact, not device links."""
     from .layout_graph import GeometryGraph
+    from .inductor import contact_shapes,contact_findings
     db=kdb();cell=next(c for c in p['cells'] if c['id']==cid)
-    if graph is None:graph=GeometryGraph().sync(flatten_layout(p,cid),p['pdk'])
+    if graph is None:graph=GeometryGraph().sync(contact_shapes(p,cid),p['pdk'])
     shapes=[graph.records[k]['shape'] for k in graph.keys];polys=[graph.records[k]['poly'] for k in graph.keys];index=graph.index
     root_ids={g:i for i,g in enumerate(dict.fromkeys(graph.groups[k] for k in graph.keys))}
     roots_by_index=[root_ids[graph.groups[k]] for k in graph.keys]
@@ -70,7 +71,7 @@ def connectivity(p,cid,graph=None):
     for i,s in enumerate(shapes):members.setdefault(find(i),[]).append(s)
     from .physical_cells import terminals
     physical_pins=terminals(p,cid)
-    issues=[];assignments={};expected={};ds={d['id']:d for d in cell['devices']};provided=set()
+    issues=contact_findings(p,cid);assignments={};expected={};ds={d['id']:d for d in cell['devices']};provided=set()
     def issue(code,obj,message,**extra):issues.append({'severity':'error','code':code,'cell_id':cid,'object':obj,'message':message,**extra})
     for pin in physical_pins:
         d=ds[pin['device_id']];provided.add((d['id'],pin['pin']));x,y=pin['point'];hits=[i for i in index.query((x,y,x,y)) if shapes[i]['layer']==pin['layer'] and polys[i].inside(db.Point(x,y))]
@@ -115,6 +116,8 @@ def connectivity(p,cid,graph=None):
 
 def capacitance_estimate(p,cid):
     """Ground-capacitance estimate from declared area/perimeter coefficients."""
+    from .inductor import reject_parasitic_estimate
+    reject_parasitic_estimate(p,cid)
     db=kdb();coeff=p['pdk'].get('parasitics',{});grouped={}
     if not coeff:raise ValueError('Technology has no area/perimeter capacitance coefficients. Supply calibrated coefficients or use Magic extraction.')
     check=connectivity(p,cid)

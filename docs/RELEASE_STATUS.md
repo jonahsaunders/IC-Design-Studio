@@ -1,3 +1,38 @@
+# Experimental dev23: inductor design and EM exchange
+
+The [dev23 update](UPDATE_0.22_DEV23.md) adds five spiral shapes, target-L search,
+background preview, actionable validation, declared DC resistance and opt-in RL
+simulation, plus saved EM exchange and results. It targets `experimental`.
+The PDK profile extension adds a generic material/mapping editor, revision-bound
+reusable profiles and matched solver GDS/XML exchange. Support requires supplied
+physical data; no foundry-specific electrical qualification is inferred.
+The [openEMS integration](OPENEMS.md) includes the solver and Python in desktop packages, with simple controls and
+an explicit measurement fixture. Its [validation record](validation/openems.json)
+separates synthetic process tests from actual field-solver execution.
+See the [creator guide](INDUCTOR_CREATOR.md) and
+[dev23 validation record](validation/experimental-dev23.json).
+Desktop package and physical/interoperability claims require the new commit's
+hosted checks; prior dev22 packages do not contain this upgrade. Native execution
+checks do not establish process-calibrated RF accuracy.
+
+# Experimental dev22: inductor creator
+
+The [dev22 update](UPDATE_0.22_DEV22.md) adds **Tools → Inductor creator…** to
+`experimental`. See the [creator guide](INDUCTOR_CREATOR.md) for its saved recipe,
+connectivity behavior and DC-estimate limits. Local evidence is recorded in
+[the dev22 validation record](validation/experimental-dev22.json). Exact-commit
+desktop, physical and interoperability Actions results gate each versioned draft.
+Earlier dev20/dev21 packages do not contain this feature.
+
+# Experimental dev21 source update
+
+The [dev21 workflow and recovery update](UPDATE_0.22_DEV21.md) targets `experimental`.
+Its versioned packages must pass checks for their own source commit. The dev20
+draft below does not contain these changes. Local and hosted validation for this
+update is recorded in [the dev21 validation record](validation/experimental-dev21.json).
+Native consumer and mixed-monitor acceptance remains pending; use the
+[native acceptance tool](NATIVE_DESKTOP_ACCEPTANCE.md) to record actual observations.
+
 # Release status — 0.22.0.dev20 candidate
 
 Dev20 resolves the detector's resistor extraction mismatch and internal pin-alias

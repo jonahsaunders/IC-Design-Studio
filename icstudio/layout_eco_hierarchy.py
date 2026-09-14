@@ -22,7 +22,8 @@ def _recipe(p, cid, d):
     from .parametric import build
     c = {**_cell(p, cid), 'devices': [_resolved(p, cid, d)]}
     q = {**p, 'cells': [c]}
-    build(q, cid, d['id'], {})
+    saved=next((r['spec'] for r in c.get('parametric_devices',[]) if r.get('device_id')==d['id']),{})
+    build(q, cid, d['id'], saved)
     return 'parametric'
 
 
@@ -50,8 +51,13 @@ def inventory(p, cid, hierarchy=True):
                         from .parametric import geometry_signature, rules
                         from .model import digest
                         r = generic[did]
+                        if r['spec'].get('kind')=='inductor':
+                            from .inductor import rules_hash
+                            from .layout_vias import technology
+                            expected_rules=rules_hash(technology(p))
+                        else:expected_rules=digest(rules(p['pdk']))
                         if (r['source_signature'] != electrical_signature(_resolved(p, ident, d)) or
-                            r['rules_hash'] != digest(rules(p['pdk'])) or
+                            r['rules_hash'] != expected_rules or
                             r['geometry_signature'] != geometry_signature([s for s in c['shapes'] if s.get('pcell_id') == r['id']])):
                             row.update(status='changed', action='update', detail='Parameters, terminal nets, recipe or generated geometry changed.')
                     elif did in physical:

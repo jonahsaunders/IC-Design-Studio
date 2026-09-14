@@ -35,6 +35,8 @@ class PhysicalWorkspaceMixin:
 
     def make_actions(self):
         super().make_actions()
+        self.action(self.task_menus['Tools'],'Inductor creator…',self.inductor_creator)
+        self.action(self.task_menus['Tools'],'Physical EM profile…',self.physical_em_profile)
         self.action(self.task_menus['Layout'],'Placement and constraints',lambda:self.open_engineering_tab(self.physical_assistant_tab))
         self.action(self.task_menus['Route'],'Live routing feedback',lambda:self.open_engineering_tab(self.physical_assistant_tab))
         self.action(self.task_menus['Window'],'Placement and rules',lambda:self.open_engineering_tab(self.physical_assistant_tab));self.reindex_commands()
@@ -56,6 +58,19 @@ class PhysicalWorkspaceMixin:
             for j,value in enumerate((c.get('name',c['kind']),c['kind'],', '.join(ds.get(d,'Deleted') for d in c['members']),'Needs attention' if failed else 'Satisfied')):self.constraint_table.setItem(i,j,QTableWidgetItem(value))
     def placement_selected(self,row,col):
         if 0<=row<len(self._placement_rows):self.select([self._placement_rows[row]['id']],'schematic')
+    def inductor_creator(self,did=None):
+        if not self.idle_edit():return
+        from .inductor_ui import InductorDialog
+        if did is None:
+            selected=set(self.selection)
+            candidates={d['id'] for d in self.cell['devices'] if d['id'] in selected and d['kind']=='L' and not d.get('native_spice')}
+            candidates.update(s['device_id'] for s in self.cell['shapes'] if s['id'] in selected and s.get('pcell_id') and any(r['id']==s['pcell_id'] and r['spec'].get('kind')=='inductor' for r in self.cell.get('parametric_devices',[])))
+            if len(candidates)==1:did=candidates.pop()
+        dialog=InductorDialog(self,did);self._inductor_dialog=dialog;dialog.show();return dialog
+    def physical_em_profile(self):
+        if not self.idle_edit():return
+        from .em_profile_ui import EMProfileDialog
+        dialog=EMProfileDialog(self);self._em_profile=dialog;dialog.show();return dialog
     def parametric_dialog(self):
         selected=[d for d in self.cell['devices'] if d['id'] in self.selection]
         if len(selected)!=1:
@@ -63,6 +78,7 @@ class PhysicalWorkspaceMixin:
             if i>=0:selected=[d for d in self.cell['devices'] if d['id']==self._placement_rows[i]['id']]
         if len(selected)!=1:raise ValueError('Select one device in the placement checklist or schematic.')
         d=selected[0];did=d['id'];cid=self.cid;record=next((r for r in self.cell.get('parametric_devices',[]) if r['device_id']==did),None);spec=record['spec'] if record else {}
+        if d['kind']=='L' and not d.get('native_spice'):return self.inductor_creator(did)
         if d.get('native_spice') and d['kind']!='X' and not d.get('physical_binding'):
             return self.native_binding_dialog(did)
         def submit(v):

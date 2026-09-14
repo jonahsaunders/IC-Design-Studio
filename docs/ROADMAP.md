@@ -1,5 +1,13 @@
 # The path forward
 
+## Experimental dev21: workflow and recovery
+
+The [dev21 update](UPDATE_0.22_DEV21.md) adds component shortcuts, a persistent
+workflow panel, hover selection, unsent review draft recovery, reuse of isolated
+recovery snapshots and an explicit native desktop acceptance tool. Remaining
+work includes consumer hardware acceptance, broader physical qualification,
+general offline design editing and further measured responsiveness improvements.
+
 ## Experimental dev20: detector consistency and runnable HSA bench
 
 The [real-project workflow](OPEN_PROJECTS.md) adds bounded Xschem array import,

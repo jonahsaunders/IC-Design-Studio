@@ -150,7 +150,7 @@ class XschemWorkflowMixin:
         def place(entry):
             if not self.flush_inspector(): return False
             self.begin_xschem_placement(entry['path'])
-        dlg = ComponentBrowser(self, 'Place Xschem component', entries, preview, place)
+        dlg = ComponentBrowser(self, 'Place Xschem component', entries, preview, place, scope='xschem')
         def custom():
             path, _ = QFileDialog.getOpenFileName(dlg, 'Choose symbol', '', 'Xschem symbol (*.sym)')
             if path and self.flush_inspector(): self.begin_xschem_placement(path); dlg.accept()

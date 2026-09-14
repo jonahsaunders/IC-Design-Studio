@@ -125,6 +125,36 @@ def main():
         assert sum(c['text']==request['text'] for c in comments)==1
         recovered.close()
         checks.append('A lost HTTP acknowledgement survives panel reconstruction and read refresh; retry creates exactly one comment')
+        recovered.show();wait(lambda:not recovered.busy,'Composer ready')
+        recovered.comments.setCurrentItem(recovered.comments.topLevelItem(0));recovered.start_reply()
+        reply_id=recovered.reply_to;checkpoint_id=recovered.selected()
+        recovered.comment.setPlainText('Unsent reply survives restart.');wait(lambda:not recovered.draft_timer.isActive(),'Draft persisted')
+        assert recovered.drafts.get(checkpoint_id)['reply']==reply_id
+        original_count=len(store.review(owner['workspace'],reviewer['token'],dict(action='list'))['comments'])
+        recovered.close()
+        restored=TeamReviewPanel(b);restored.show();restored.refresh_state()
+        wait(lambda:not restored.busy and restored.loaded_version is not None,'Unsent draft restored')
+        assert restored.comment.toPlainText()=='Unsent reply survives restart.' and restored.reply_to==reply_id
+        assert len(store.review(owner['workspace'],reviewer['token'],dict(action='list'))['comments'])==original_count
+        # The previous draft stays durable if an updated draft cannot be synced.
+        with patch('icstudio.review_drafts.atomic_write',side_effect=OSError('injected draft storage failure')):
+            restored.comment.setPlainText('New text during failed storage');assert not restored.flush_draft()
+            assert restored.comment.toPlainText()=='New text during failed storage'
+            assert restored.drafts.get(checkpoint_id)['text']=='Unsent reply survives restart.'
+        assert restored.flush_draft()
+        # Delay a real successful acknowledgement while the composer is edited.
+        callbacks=[]
+        def delayed(server,path,token,data,finished):
+            return post(server,path,token,data,lambda status,result:callbacks.append((finished,status,result)))
+        with patch.object(b.live_client.transport,'post',side_effect=delayed):restored.post_comment()
+        wait(lambda:bool(callbacks),'Delayed HTTP acknowledgement')
+        restored.comment.setPlainText('A newer draft must not be erased.');assert restored.flush_draft()
+        callback,status,payload=callbacks.pop(0);callback(status,payload)
+        wait(lambda:not restored.busy,'Acknowledged comment refresh')
+        assert restored.comment.toPlainText()=='A newer draft must not be erased.'
+        assert restored.drafts.get(checkpoint_id)['text']=='A newer draft must not be erased.'
+        restored.grab().save(str(out/'unsent-review-draft.png'));restored.close()
+        checks.append('Unsent reply recovery preserves checkpoint/thread, never auto-posts, survives failed storage and retains newer text after a delayed HTTP acknowledgement')
         assert not errors,errors;result=dict(status='passed',checks=checks)
     except Exception:result=dict(status='failed',checks=checks,traceback=traceback.format_exc(),errors=errors)
     finally:

@@ -156,7 +156,7 @@ def stylesheet(dark=False):
     QScrollArea > QWidget > QWidget { background: %(panel)s; }
     QSplitter::handle { background: %(line)s; width: 1px; height: 1px; }
     QDockWidget { background: %(panel)s; border: 0; }
-    QDockWidget[floatingPanel="true"] { border: 2px solid %(muted)s; }
+    QFrame#floatingPanelBorder { background: transparent; border: 2px solid %(muted)s; }
     QDockWidget::separator { width: 1px; height: 1px; background: %(line)s; }
     QHeaderView::section { background: %(bg)s; color: %(muted)s; border: 0; border-bottom: 1px solid %(line)s; padding: 8px; text-align: left; }
     QTableWidget { gridline-color: %(line)s; alternate-background-color: %(bg)s; }

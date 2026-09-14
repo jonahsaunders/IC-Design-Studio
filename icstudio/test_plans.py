@@ -11,6 +11,14 @@ def sources(project):
     for i,s in enumerate(project.get('simulation_setups',[])):
         if s['settings']['type'] in ('op','tran','dc','ac','noise'):
             entries.append(dict(id='setup:'+str(i),name=s['name'],cell=s['cell'],engine=s['engine'],settings=clone(s['settings'])))
+    from .digital_design import config
+    for c in project['cells']:
+        rtl=config(project,c['id'])
+        if not rtl:continue
+        cases=rtl.get('tests') or ([{'name':'Default test','testbench':rtl['testbench'],'simulator':'icarus'}] if rtl.get('testbench') else [])
+        for index,case in enumerate(cases):
+            entries.append(dict(id='digital:'+c['id']+':'+str(index),name=c['name']+' · '+case['name'],cell=c['id'],engine='digital',
+                                settings={'type':'digital','stage':'simulate','digital_case':clone(case)}))
     return entries
 
 
@@ -30,8 +38,16 @@ def validate_plans(project):
             if not isinstance(entry.get('id'),str) or not entry['id'] or entry['id'] in entry_ids:raise ValueError('Each plan test needs a unique identity.')
             entry_ids.add(entry['id'])
             if entry.get('cell') not in cells:raise ValueError('A saved test plan refers to a missing cell. Edit or delete the plan first.')
-            if entry.get('engine') not in ('builtin','ngspice'):raise ValueError('Unknown test plan engine.')
+            if entry.get('engine') not in ('builtin','ngspice','digital'):raise ValueError('Unknown test plan engine.')
             settings=entry.get('settings',{})
+            if entry.get('engine')=='digital':
+                from .digital_design import config
+                from .digital_regression import validate_tests
+                if not config(project,entry['cell']):raise ValueError('A test plan references a cell without RTL.')
+                if settings.get('type')!='digital' or settings.get('stage')!='simulate':raise ValueError('Digital plan entries must be simulation tests.')
+                validate_tests([settings.get('digital_case',{})])
+                if plan.get('compare_layout'):raise ValueError('Use a separate analog layout-comparison plan; RTL tests do not represent analog extracted simulation.')
+                continue
             if settings.get('type') not in ('op','tran','dc','ac','noise','testbench'):raise ValueError('Unsupported analysis in test plan.')
             if plan.get('compare_layout') and settings.get('type')!='testbench':raise ValueError('Layout comparison requires saved testbenches for every selected test.')
             if settings['type']=='testbench':
@@ -53,7 +69,16 @@ def prepare(project,plan,prepare_job):
     from .model import validate
     validate_plans({**project,'test_plans':[plan]})
     group=uid();jobs=[];base=design_digest(project)
-    for entry,corner,temp,voltage in itertools.product(plan['entries'],plan['corners'],plan['temperatures'],plan.get('voltages') or [None]):
+    conditions=[]
+    for entry in plan['entries']:
+        conditions += [(entry,'RTL',None,None)] if entry['engine']=='digital' else list(itertools.product([entry],plan['corners'],plan['temperatures'],plan.get('voltages') or [None]))
+    for entry,corner,temp,voltage in conditions:
+        if entry['engine']=='digital':
+            job=prepare_job(clone(entry['settings']),'digital',clone(project),entry['cell'])
+            job['case']={'group':group,'index':len(jobs)+1,'plan_id':plan['id'],'plan_name':plan['name'],
+                'entry_id':entry['id'],'test_name':entry['name'],'kind':'test_plan','base_design_hash':base,
+                'labels':{'corner':'RTL','temperature':None,'voltage':None}}
+            job['case']['fingerprint']=digest({k:v for k,v in job.items() if k!='case'});jobs.append(job);continue
         p=clone(project);settings=clone(entry['settings']);temp=scalar(temp)
         model_lines(p['pdk'],corner)
         for target,value in p['pdk'].get('corners',{}).get(corner,{}).get('overrides',{}).items():set_target(p,entry['cell'],target,value)
@@ -78,6 +103,8 @@ def prepare(project,plan,prepare_job):
 
 
 def requirements(job):
+    if job['settings']['type']=='digital':
+        return [dict(name='Testbench execution',definition=digest(job['settings'].get('digital_case',{})),unit='',digital=True)]
     from .specifications import for_job
     rows=[dict(r,definition=digest(r)) for r in for_job(job)]
     key=job.get('settings',{}).get('testbench')
@@ -113,6 +140,8 @@ def matrix(rows,group):
             item=items.setdefault(key,dict(key=key,test=case['test_name'],name=spec['name'],unit=spec.get('unit',''),definition=spec,values={}))
             results=measurements if spec.get('measurement') else specs
             actual=next((r for r in results if r['name']==spec['name']),None)
+            if spec.get('digital') and row.get('result',{}).get('result_type')=='digital':
+                actual={'status':'passed','value':1}
             if spec.get('stage'):
                 stage_name={'schematic':'schematic_simulation','post-layout':'post_layout_simulation'}.get(spec['stage'],spec['stage'])
                 stage=next((s for s in physical.get('stages',[]) if s['name']==stage_name),{})

@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "checks": [
+    "Both editors share automatic workflow checks and an explicit testbench/corner that survives edits",
+    "Device impact links both views; a geometry preview applies as one undoable transaction",
+    "An open change review blocks preview after its source revision changes",
+    "Two HTTP-connected desktops support reviewer comments, threaded replies, resolve/reopen and approvals without design edits",
+    "A lost HTTP acknowledgement survives panel reconstruction and read refresh; retry creates exactly one comment",
+    "Unsent reply recovery preserves checkpoint/thread, never auto-posts, survives failed storage and retains newer text after a delayed HTTP acknowledgement"
+  ]
+}

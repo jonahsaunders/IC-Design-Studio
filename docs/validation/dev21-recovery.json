@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "name": "deferred_visible_paths_and_picking",
+      "status": "passed",
+      "initial_paths_built": 88,
+      "total_shapes": 10000
+    },
+    {
+      "name": "array_drag_pixel_equivalence_across_cache_boundaries",
+      "status": "passed"
+    },
+    {
+      "name": "failed_recovery_survives_refresh_undo_redo_retry_and_folder_rejection",
+      "status": "passed",
+      "injected_failure": true
+    },
+    {
+      "name": "actual_durable_recovery_retry",
+      "status": "passed",
+      "error": null
+    }
+  ],
+  "version": "0.22.0.dev21",
+  "workflow_hash": "f0e587ce29e6af5ec0c85d511c57a684d8fa46ba58629b5c179e6c72fba51983",
+  "qt_platform": "offscreen"
+}
