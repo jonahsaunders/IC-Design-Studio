@@ -12,9 +12,8 @@ from .digital_design import config as cell_config
 
 
 def logic_identity(config):
-    return digest({'top':config['top'],'files':[f for f in config['files'] if f['role'] in ('rtl','include','data')],
-                   'include_dirs':config.get('include_dirs',['.']),'defines':config.get('defines',{}),
-                   'platform':{k:config.get('platform',{}).get(k) for k in ('fingerprint','corner')}})
+    from .digital_identity import logic_key
+    return logic_key(config)
 
 
 def capture_upstream(project,cid,directory):
@@ -85,7 +84,8 @@ class Runner:
         atomic_write(self.root/filename,json.dumps(data,indent=2));self.add_artifact(key,self.root/filename)
 
     def libraries(self):
-        return [self.root/'platform'/p for p in self.platform['corners'][self.platform['corner']]]
+        corner = getattr(self, 'timing_corner', None) or self.platform['corner']
+        return [self.root/'platform'/p for p in self.platform['corners'][corner]]
 
     def versions_check(self):
         for name,path in self.tools.items():
@@ -118,7 +118,18 @@ def mapped(runner):
         script='read_liberty -lib -ignore_miss_func '+quote(libs[0])+'\n'
         script+=read_rtl(r.config)+'\nhierarchy -check -top '+r.config['top']+'\nsynth -noabc -flatten -top '+r.config['top']+'\n'
         # ABC's retained workspace uses short relative paths, including in deeply nested jobs folders.
-        script+='dfflibmap -liberty '+quote(libs[0])+'\nabc -nocleanup -liberty '+quote(libs[0])+'\nclean\n'
+        from .digital_constraints import synthesis_settings
+        intent = synthesis_settings(r.config)
+        abc = 'abc -nocleanup -liberty ' + quote(libs[0])
+        if 'delay_ns' in intent:
+            abc += ' -D ' + str(intent['delay_ns'] * 1000)
+        if intent.get('driving_cell'):
+            constraint = r.root/'abc.constr'
+            atomic_write(constraint, 'set_driving_cell ' + intent['driving_cell'] + '\nset_load ' + str(intent.get('load_pf', 0) * 1000) + '\n')
+            abc += ' -constr ' + quote(constraint)
+            r.add_artifact('synthesis_constraints', constraint)
+        r.save_json('synthesis_intent', intent, 'synthesis_intent.json')
+        script += 'dfflibmap -liberty ' + quote(libs[0]) + '\n' + abc + '\nclean\n'
         if r.platform['name']=='sky130hd':script+='hilomap -singleton -hicell sky130_fd_sc_hd__conb_1 HI -locell sky130_fd_sc_hd__conb_1 LO\n'
         script+='check -assert\nwrite_verilog -noattr ../netlist.v\nwrite_json ../netlist.json\n'
         script+='tee -o ../statistics.json stat -json -liberty '+quote(libs[0])+'\n'
@@ -126,6 +137,11 @@ def mapped(runner):
         for key,name in (('netlist','netlist.v'),('hierarchy','netlist.json'),('statistics','statistics.json')):r.add_artifact(key,r.root/name)
     from .digital_reports import netlist_index
     data=json.loads((r.root/'netlist.json').read_text());index=netlist_index(data,r.config['files'])
+    if upstream and (r.root/'netlist_index.json').is_file():
+        retained={(i['module'],i['kind'],i['name']):i for i in json.loads((r.root/'netlist_index.json').read_text())}
+        for item in index:
+            old=retained.get((item['module'],item['kind'],item['name']),{})
+            if not item['locations']:item['locations']=old.get('locations',[]);item['mapping']=old.get('mapping','unmapped')
     r.save_json('netlist_index',index,'netlist_index.json')
     module=data['modules'][r.config['top']]
     unmapped=[name for name,c in module.get('cells',{}).items() if c['type'].startswith('$')]
@@ -153,6 +169,8 @@ def timing_script(r):
               'check_setup -verbose > '+tcl_word(r.root/'timing_checks.txt'),
               'report_checks -path_delay min_max -group_count 50 -format full_clock_expanded > '+tcl_word(r.root/'timing_full.txt'),
               'report_power > '+tcl_word(r.root/'power.txt'),
+              'report_tns > '+tcl_word(r.root/'timing_totals.txt'),
+              'report_check_types -max_slew -max_capacitance -max_fanout -violators > '+tcl_word(r.root/'electrical_checks.txt'),
               'set out [open '+tcl_word(r.root/'timing_paths.tsv')+' w]',
               '''foreach {kind delay} {setup max hold min} {
   foreach path [find_timing_paths -path_delay $delay -group_count 50 -sort_by_slack] {
@@ -169,20 +187,35 @@ close $out''']
 
 def timing(r):
     from .digital_reports import timing_report
-    data=mapped(r);atomic_write(r.root/'timing.tcl',timing_script(r))
-    r.command([r.tools['sta'],'-no_init','-exit',str(r.root/'timing.tcl')],'Analyzing setup and hold timing',fraction=.6)
-    report=timing_report(r.root);report['parasitics']='extracted SPEF' if 'spef' in r.artifacts else 'No extracted interconnect; pre-layout estimate'
-    r.save_json('timing',report,'timing.json')
-    r.add_artifact('timing_full',r.root/'timing_full.txt')
-    r.add_artifact('power_report',r.root/'power.txt')
+    data=mapped(r);corners=r.config.get('timing_corners',[r.platform['corner']]);reports=[];powers=[]
     from .digital_reports import power_report
-    data['power']=power_report(r.root/'power.txt')
+    for corner in corners:
+        r.timing_corner=corner;atomic_write(r.root/'timing.tcl',timing_script(r))
+        r.command([r.tools['sta'],'-no_init','-exit',str(r.root/'timing.tcl')],'Analyzing setup and hold · '+corner,fraction=.6)
+        report=timing_report(r.root);report['corner']=corner
+        report['parasitics']='extracted SPEF' if 'spef' in r.artifacts else 'No extracted interconnect; pre-layout estimate'
+        for path in report['paths']:path['corner']=corner
+        reports.append(report);powers.append({'corner':corner,**power_report(r.root/'power.txt')})
+        folder=r.root/'timing-corners'/corner;folder.mkdir(parents=True)
+        for name in ('timing.tcl','timing_full.txt','timing_checks.txt','timing_units.txt','timing_paths.tsv','timing_totals.txt','electrical_checks.txt','power.txt'):
+            shutil.copy2(r.root/name,folder/name);r.add_artifact('corner_'+corner+'_'+name.replace('.','_'),folder/name)
+    r.timing_corner=None
+    report=clone(reports[0]);report['corners']=reports;report['paths']=[p for c in reports for p in c['paths']]
+    states={c['status'] for c in reports};report['status']=next((s for s in ('INCOMPLETE','FAIL') if s in states),'PASS')
+    report['summary']={key:min(values) for key in ('setup_worst_slack_ns','hold_worst_slack_ns') if (values:=[c['summary'][key] for c in reports if c['summary'].get(key) is not None])}
+    for key in ('setup_reported_violations','hold_reported_violations'):
+        report['summary'][key]=sum(c['summary'].get(key,0) for c in reports)
+    totals=[c['summary']['setup_total_negative_slack_ns'] for c in reports if 'setup_total_negative_slack_ns' in c['summary']]
+    if totals:report['summary']['setup_total_negative_slack_ns']=min(totals)
+    report['scope']='Selected library corners with the captured netlist and parasitics. RC corner variation requires separately extracted SPEF.'
+    r.save_json('timing',report,'timing.json');r.add_artifact('timing_full',r.root/'timing_full.txt');r.add_artifact('power_report',r.root/'power.txt')
+    data['power']={**powers[0],'corners':powers}
     upstream=r.settings.get('upstream',{})
     if 'layout_preview' in upstream.get('artifacts',{}):
         verify_upstream(upstream)
         shutil.copy2(Path(upstream['root'])/upstream['artifacts']['layout_preview']['path'],r.root/'layout_preview.json')
         r.add_artifact('layout_preview',r.root/'layout_preview.json')
-    return {**data,'timing':report,'verdict':report['status'],'summary':'Timing '+report['status']+' · '+r.platform['corner']+' · '+report['parasitics']}
+    return {**data,'timing':report,'verdict':report['status'],'summary':'Timing '+report['status']+' · '+', '.join(corners)+' · '+report['parasitics']}
 
 
 def equivalence(r):
@@ -225,7 +258,9 @@ def run(job,directory,progress):
         data=execute(r)
     r.add_artifact('log',r.log)
     from .digital_reports import diagnostics
+    from .digital_identity import fingerprints, stage_key
     data.update(stage=stage,source_hash=source_hash(r.config),logic_hash=logic_identity(r.config),
+                fingerprints=fingerprints(r.config),input_key=stage_key(r.config,stage,r.settings.get('simulator','icarus')),
                 platform={key:r.platform.get(key) for key in ('name','corner','revision','fingerprint')} if r.platform else None,
                 versions=r.versions,environment=job['environment'],artifacts=r.artifacts,
                 diagnostics=diagnostics(r.log.read_text(),r.config['files']))

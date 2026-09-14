@@ -1,13 +1,14 @@
 # Integrated digital design
 
-Open **Digital → New digital counter example** or **New UART regression example**.
-The digital workspace is a dock in IC Design Studio. RTL, schematic symbols,
+Open **Digital → New digital counter example**, **New UART regression example**, or
+**New APB FIFO peripheral**. Digital design occupies the main document workspace. RTL, schematic symbols,
 netlists, timing, physical implementation, waveforms and regression reports share
 native cells, project revisions, undo, saving and the application's job queue.
 
-![Timing paths in the digital workspace](images/digital-timing.png)
+![Digital source and waveform workspace](images/digital-workspace.png)
 
-![Routed implementation in the digital workspace](images/digital-route.png)
+See [workspace commands and design decisions](DIGITAL_WORKSPACE.md) for the pane
+layout, target runs, constraints, language server, indexed waveforms and macro export.
 
 ## Stages and evidence
 
@@ -72,18 +73,20 @@ available as JSON with `ICDesignStudio --cli digital status`.
    `sky130hd` / `nangate45` ORFS revision or an explicit manifest.
    **Constraints** generates an editable clock and I/O SDC.
    **Floorplan** controls die/core rectangles in micrometres, density and threads.
-4. Run **Mapped synthesis**. Select that completed run and check **Use selected
-   mapped run** before running **Timing** and **Equivalence**. Both consume its
-   exact netlist. Without a selected upstream, each stage first maps current RTL.
-5. Run **Floorplan**, then select its result for **Place**, and continue through
-   **Clock tree**, **Route**, and **Finish / GDS**. Each run captures its own
-   checkpoint. A compatible selected earlier physical stage is resumed in a new
-   directory; changes to RTL, platform, physical inputs or flow prevent reuse.
-6. Select the finish result and run **Timing** to use its SPEF and propagated
-   clocks with the current SDC. **Attach routed GDS** brings the generated hierarchy
-   into the selected native cell, retaining RTL and its symbol. Signal terminals
-   are mapped through captured DEF/GDS layer information. Existing layout is not
-   overwritten; use the normal layout review workflow to reconcile replacements.
+4. Choose **Run to placement**, **Run to routing**, or **Run to GDS**. The durable
+   target plan maps RTL, builds each required physical stage, then runs timing.
+   **Verify block** runs lint, simulation/regression, mapping, equivalence and timing.
+   A failed or incomplete check stops the plan. Resume rechecks the captured inputs
+   and artifacts; a new target captures current edits.
+5. Compatible results are reused automatically. **Run stage** also selects a
+   compatible upstream netlist/checkpoint. **Pin selected upstream run** gives
+   explicit control for an experiment. Raw SDC edits invalidate timing/physical
+   results; generated clock/I/O intent also drives the synthesis budget.
+6. Select the finish result and **More → Attach implemented macro** to bring its
+   generated hierarchy into the native cell, retaining RTL and its symbol.
+   **More → Export implemented macro** writes GDS, abstract LEF, netlist, SDC,
+   SPEF and terminal/provenance metadata. The bundle does not contain a
+   characterized macro Liberty model. DRC/LVS are separate checks.
 
 The view table links RTL, symbol, schematic, layout and explicitly attached
 netlist/physical/extracted views. Saved views show when their sources are stale.
@@ -144,19 +147,23 @@ artifact checksums remain available in each run directory.
 
 ## Inspection and verification
 
-Diagnostics open their source line. The netlist browser links retained Yosys
+Run diagnostics open their captured source revision in a read-only pane.
+Live language-server diagnostics open the working copy. The netlist browser links retained Yosys
 source attributes to RTL and selects matching physical instances. Timing paths
-highlight their cells when the result includes an upstream physical preview.
+remain visible above a linked physical view and highlight their cells when the
+result includes an upstream physical preview.
 Inserted/renamed objects with no retained source mapping are identified as such.
 Double-click an EQY partition to inspect its retained counterexample. A failed
 regression case can also open its waveform up to the assertion failure.
 Double-click a waveform signal to find its RTL declaration; fallback text matches
 are labeled as source searches. The comparison table shows run metrics and
-compatible-platform deltas; absent metrics remain absent.
+deltas only for matching constraints, technology, synthesis settings, corners,
+parasitic mode and engine context; absent metrics remain absent.
 
 Timing **INCOMPLETE** includes missing clocks/I/O constraints or no analyzable
-paths. **FAIL** means a reported path violates timing. Reports cover up to 50 paths
-per group for setup and hold at the selected corner, with full textual evidence.
+paths. **FAIL** means a reported path or electrical slew/capacitance/fanout check violates constraints. Reports cover up to 50 paths
+per group for setup and hold at each selected library corner, with full textual
+evidence, total negative slack and per-corner reports.
 Pre-layout timing has no extracted wire parasitics. Default propagated-activity
 power is an estimate, not a workload measurement. There is no multi-corner signoff
 claim or automatic false/multicycle-path correctness proof.
@@ -172,7 +179,8 @@ successful physical qualification.
 
 **Test cases** saves named testbench tops, simulators, definitions and optional
 Verilator line coverage. **Regression** runs all cases, retaining a failed case
-while continuing the others. The UART example tests reset, start/data/stop bits
+while continuing the others. The APB example tests bus setup/access, FIFO ordering/full/empty/wraparound,
+invalid accesses, reset and interrupt masking. The UART example tests reset, start/data/stop bits
 for three byte patterns, and return to idle. Coverage describes instrumented code;
 it does not establish exhaustive functional verification. Saved RTL cases also
 appear in verification plans alongside analog testbenches. An RTL test runs once,
@@ -180,8 +188,8 @@ not once per analog temperature or supply corner. This is shared test management
 coupled analog/digital transient simulation is not implemented. An RTL-only symbol
 is rejected as an analog circuit model until it has a schematic implementation.
 
-The physical preview displays cell outlines and signal-route centerlines, bounded
-to 20,000 visible instances and 50,000 segments. Inspect GDS in the native layout
+The physical preview uses indexed cell outlines and batched signal-route
+centerlines, retaining all instances and routes within the captured preview limits. Inspect GDS in the native layout
 editor for shapes. Finishing ORFS is separate from foundry-qualified DRC/LVS,
 antenna, EM/IR and fabrication signoff. Existing native verification tools remain
 available, with their own supported process/model scope.
@@ -222,9 +230,10 @@ Testbenches must terminate, use `$fatal(1, "reason")` on mismatches, and emit VC
 with `$dumpfile`/`$dumpvars`. The viewer preserves integer ticks, vector widths,
 aliases and X/Z values, with signal selection, cursor, zoom and radix controls.
 Verilator's predominantly two-state behavior differs from Icarus. Language support
-is engine-specific. The bit-vector VCD reader supports 32 MiB, 2,048 declarations,
-4,096 bits per signal, 200,000 changes and 64 MiB decoded values. Real/string dumps
-and FST are unsupported; reduce dump scope/duration for larger designs.
+is engine-specific. Large bit-vector VCDs use a paged SQLite index with limits of
+2 GiB, 100,000 declarations, 4,096 bits per signal and 20 million changes. Small
+traces retain the bounded JSON representation. Real/string dumps and FST remain
+unsupported; reduce dump scope/duration above these limits.
 
 ## CLI and validation
 

@@ -7,11 +7,12 @@ def attach(project,cid,result,directory):
     from pathlib import Path
     import json
     from .digital_flow import validate_result
-    from .digital_design import identity
+    from .digital_design import config
+    from .digital_identity import current
     from .interchange import import_layout
     from .layout_attach import attach as attach_cells
     validate_result(result,directory)
-    if result['project_id']!=project['id'] or result['cell_id']!=cid or result['digital_result']['source_hash']!=identity(project,cid):
+    if result['project_id']!=project['id'] or result['cell_id']!=cid or not current(result['digital_result'],config(project,cid)):
         raise ValueError('Choose a current physical result for this digital cell.')
     record=result['digital_result']['artifacts'].get('gds')
     if not record:raise ValueError('The physical run has no completed GDS artifact.')

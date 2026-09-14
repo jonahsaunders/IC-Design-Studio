@@ -129,6 +129,8 @@ def read_rtl(config):
     flags = ['-I'+quote(path) for path in include_dirs(config)]
     flags += ['-D'+quote(name+('='+value if value else '')) for name, value in config.get('defines', {}).items()]
     files = [quote('./'+f['path']) for f in config['files'] if f['role'] == 'rtl']
+    if config.get('synthesis', {}).get('frontend') == 'slang':
+        return 'plugin -i slang\nread_slang --top ' + config['top'] + ' ' + ' '.join(flags+files)
     return 'read_verilog -sv '+' '.join(flags+files)
 
 
@@ -248,8 +250,9 @@ def run(job, directory, progress=lambda *_: None):
                 artifacts['coverage']=artifact(root,root/'coverage.info')
         wave = source / config.get('waveform', 'wave.vcd')
         artifacts['vcd'] = artifact(root, wave)
-        from .digital_waveform import read_vcd
-        waveform = read_vcd(wave)
+        from .digital_trace_store import capture
+        waveform = capture(wave, root)
+        if waveform.get('storage') == 'sqlite': artifacts['waveform_index'] = artifact(root, root/'waveform.sqlite')
         atomic_write(root/'waveform.json', json.dumps(waveform, separators=(',', ':')))
         artifacts['waveform'] = artifact(root, root/'waveform.json')
         summary = f"Simulation complete · {len(waveform['signals'])} signals · {waveform['event_count']} transitions"
@@ -263,6 +266,8 @@ def run(job, directory, progress=lambda *_: None):
                                  'summary': summary, 'versions': versions, 'environment': job['environment'],
                                  'artifacts': artifacts, 'statistics': stats if stage != 'lint' else {}}}
     from .digital_reports import diagnostics, netlist_index, coverage_report
+    from .digital_identity import fingerprints, stage_key
+    result['digital_result'].update(fingerprints=fingerprints(config), input_key=stage_key(config, stage, settings['simulator']))
     result['digital_result']['diagnostics']=diagnostics(log.read_text(),config['files'])
     if 'hierarchy' in artifacts:
         index=netlist_index(json.loads((root/'netlist.json').read_text()),config['files'])

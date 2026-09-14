@@ -36,7 +36,9 @@ def netlist_index(data, files):
             for name,item in items.items():
                 out.append({'module':module,'name':name,'kind':kind,'type':item.get('type',''),
                             'locations':source_locations(item.get('attributes',{}),files),
-                            'connections':item.get('connections',{}),'bits':item.get('bits',[])})
+                            'connections':item.get('connections',{}),'bits':item.get('bits',[]),
+                            'port_directions':item.get('port_directions',{}),
+                            'mapping':'compiler source' if item.get('attributes',{}).get('src') else 'unmapped'})
                 if len(out)>=100000:raise ValueError('The native netlist index supports at most 100,000 objects.')
     return out
 
@@ -77,9 +79,17 @@ def timing_report(directory):
     for kind in ('setup','hold'):
         paths=[p for p in rows if p['check']==kind]
         summary[kind+'_worst_slack_ns']=min((p['slack_ns'] for p in paths),default=None)
+        summary[kind+'_reported_violations']=sum(p['slack_ns'] < 0 for p in paths)
     status='INCOMPLETE' if unconstrained or not rows else 'FAIL' if any(p['slack_ns']<0 for p in rows) else 'PASS'
+    totals=(root/'timing_totals.txt').read_text() if (root/'timing_totals.txt').is_file() else ''
+    match=re.search(r'tns(?:\s+(?:max|min))?\s+(-?[0-9.eE+]+)',totals,re.I)
+    if match and math.isfinite(float(match[1])):summary['setup_total_negative_slack_ns']=float(match[1])
+    electrical=(root/'electrical_checks.txt').read_text() if (root/'electrical_checks.txt').is_file() else ''
+    if re.search(r'VIOLATED',electrical,re.I) and status=='PASS':status='FAIL'
     return {'status':status,'paths':rows,'summary':summary,'unconstrained':unconstrained,
-            'checks':checks,'units':units,'scope':'Reported paths for the selected library corner; inspect constraints and path coverage.'}
+            'checks':checks,'units':units,'electrical_checks':electrical,
+            'electrical_status':'FAIL' if re.search(r'VIOLATED',electrical,re.I) else 'No reported violations' if electrical else 'Unavailable',
+            'scope':'Reported paths for the selected library corner; inspect constraints and path coverage.'}
 
 
 def coverage_report(path):
@@ -96,6 +106,7 @@ def coverage_report(path):
 
 
 def compare_results(rows):
+    from .digital_identity import comparison_context
     out=[]
     for row in rows:
         data=(row.get('result') or {}).get('digital_result',{})
@@ -104,10 +115,12 @@ def compare_results(rows):
                     'state':row['state'],'verdict':data.get('verdict',''), 'source_hash':data.get('source_hash'),
                     'platform':data.get('platform'), 'area_um2':values.get('area_um2'),
                     'power_w':data.get('power',{}).get('total_w'),
-                    'cells':values.get('cells'),**timing,'elapsed_s':row.get('elapsed')})
+                    'cells':values.get('cells'),**timing,'elapsed_s':row.get('elapsed'),
+                    'context':comparison_context(row.get('result') or {}),
+                    'parasitics':data.get('timing',{}).get('parasitics','—')})
     baselines={}
     for item in out:
-        key=(item['stage'],json.dumps(item['platform'],sort_keys=True))
+        key=json.dumps(item['context'],sort_keys=True)
         if key not in baselines and item['state']=='Complete':baselines[key]=item
         baseline=baselines.get(key)
         if not baseline:continue

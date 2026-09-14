@@ -6,8 +6,8 @@ from PySide6.QtWidgets import (QDialog,QVBoxLayout,QHBoxLayout,QLabel,QComboBox,
 from . import interface_update as migration
 
 class InterfaceReview(QDialog):
-    def __init__(self,studio,cid,symbol,base,done):
-        super().__init__(studio);self.studio=studio;self.cid=cid;self.symbol=symbol;self.base=base;self.on_applied=done;self.prepared=None;self.loading=False
+    def __init__(self,studio,cid,symbol,base,done,finalize=None):
+        super().__init__(studio);self.studio=studio;self.cid=cid;self.symbol=symbol;self.base=base;self.on_applied=done;self.prepared=None;self.loading=False;self.finalize=finalize
         self.setWindowTitle('Review electrical interface update');self.resize(920,690);self.setWindowModality(Qt.WindowModal);v=QVBoxLayout(self)
         note=QLabel('Map existing terminals to the proposed interface. Disconnect preserves wire stubs; added terminals need an explicit connection or remain unconnected. Apply commits every view together; Undo restores the complete update.');note.setWordWrap(True);v.addWidget(note)
         self.tabs=QTabWidget();v.addWidget(self.tabs);self.mapping=QTableWidget(0,2);self.mapping.setHorizontalHeaderLabels(['Existing terminal','Proposed terminal']);self.mapping.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch);self.tabs.addTab(self.mapping,'Terminal mapping')
@@ -49,7 +49,11 @@ class InterfaceReview(QDialog):
             for i in range(self.connections.rowCount()):connections.setdefault(self.connections.item(i,0).data(Qt.UserRole),{})[self.connections.item(i,1).text()]=self.connections.item(i,2).text().strip()
             for i in range(self.physical.rowCount()):
                 layer=self.physical.cellWidget(i,1).currentText();physical[self.physical.item(i,0).text()]={'layer':layer,'point':[int(self.physical.item(i,j).text()) for j in (2,3)]} if layer else None
-            self.prepared=migration.plan(self.studio.project,self.cid,self.symbol,self.base,mapping,connections,physical,self.drop_probes.isChecked());impact=self.prepared['impact'];lines=['REVIEW · '+str(len(impact['instances']))+' instance(s), '+str(len(impact['physical_ports']))+' existing physical port(s), '+str(len(impact['testbenches']))+' affected saved bench(es).','', 'Terminal order: '+', '.join(self.symbol['pin_order']),'Added: '+(', '.join(impact['added']) or 'none'),'Removed: '+(', '.join(impact['removed']) or 'none')]
+            self.prepared=migration.plan(self.studio.project,self.cid,self.symbol,self.base,mapping,connections,physical,self.drop_probes.isChecked())
+            if self.finalize:
+                from .model import validate,digest
+                self.finalize(self.prepared['candidate']);validate(self.prepared['candidate']);self.prepared['candidate_hash']=digest(self.prepared['candidate'])
+            impact=self.prepared['impact'];lines=['REVIEW · '+str(len(impact['instances']))+' instance(s), '+str(len(impact['physical_ports']))+' existing physical port(s), '+str(len(impact['testbenches']))+' affected saved bench(es).','', 'Terminal order: '+', '.join(self.symbol['pin_order']),'Added: '+(', '.join(impact['added']) or 'none'),'Removed: '+(', '.join(impact['removed']) or 'none')]
             lines+=['Map '+old+' → '+(new or 'Disconnect') for old,new in mapping.items() if old!=new]
             lines+=['Instance: '+u['cell_name']+'/'+u['name']+(' · linked layout' if u['physical'] else '')+' · '+json.dumps(u['nets'],sort_keys=True) for u in impact['instances']]
             lines+=['Disconnect '+r['instance']+'.'+r['pin']+' from '+r['net'] for r in impact['disconnected']]

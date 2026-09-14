@@ -22,8 +22,8 @@ def read_vcd(path):
         return _read_tokens(word for line in source for word in line.split())
 
 
-def _read_tokens(stream):
-    scopes = []; signals = []; changes = {}; widths = {}
+def _read_tokens(stream, sink=None):
+    scopes = []; signals = []; changes = {}; widths = {}; previous = {}
     ticks = 0; count = 0; value_bytes = 0; enddefs = False; timescale = None
     def section():
         words = []
@@ -53,7 +53,7 @@ def _read_tokens(stream):
                 kind, size, code, name = body[:4]; width = int(size)
                 if kind in ('real', 'realtime', 'string'):
                     raise ValueError('The digital viewer supports bit-vector VCD signals; remove real/string dumps.')
-                if not 1 <= width <= MAX_WIDTH or len(signals) >= MAX_SIGNALS:
+                if not 1 <= width <= MAX_WIDTH or len(signals) >= (100000 if sink else MAX_SIGNALS):
                     raise ValueError('VCD preview supports 2,048 signals of at most 4,096 bits. Reduce the dump scope.')
                 if code in widths and widths[code] != width:
                     raise ValueError('VCD aliases disagree on signal width.')
@@ -80,12 +80,15 @@ def _read_tokens(stream):
         if code not in widths or not re.fullmatch('[01xz]+', value) or len(value) > widths[code]:
             raise ValueError('Invalid VCD signal value.')
         value = value.rjust(widths[code], value[0] if value[0] in 'xz' else '0')
-        if not changes[code] or changes[code][-1][1] != value:
+        if previous.get(code) != value:
+            previous[code] = value
             value_bytes += len(value)
-            if value_bytes > MAX_VALUE_BYTES:
+            if sink is None and value_bytes > MAX_VALUE_BYTES:
                 raise ValueError('Decoded VCD values exceed the 64 MiB preview limit. Reduce the dump scope.')
-            changes[code].append([ticks, value]); count += 1
-            if count > MAX_EVENTS:
+            if sink is not None: sink(code, ticks, value)
+            else: changes[code].append([ticks, value])
+            count += 1
+            if count > (20000000 if sink else MAX_EVENTS):
                 raise ValueError('VCD exceeds 200,000 preview transitions. Reduce the dump scope or duration.')
     if not enddefs or not signals or not timescale:
         raise ValueError('VCD must contain timescale, signal declarations and enddefinitions.')
@@ -101,4 +104,5 @@ def value_at(events, tick, width):
 def format_value(bits, radix='hex'):
     if radix == 'binary' or any(c in bits for c in 'xz'):
         return bits
+    if radix == 'signed': return str(int(bits,2) - (1 << len(bits) if bits[0]=='1' else 0))
     return str(int(bits, 2)) if radix == 'unsigned' else format(int(bits, 2), '0'+str((len(bits)+3)//4)+'x')

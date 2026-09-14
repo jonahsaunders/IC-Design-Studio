@@ -26,9 +26,11 @@ jobs:
           verilator --version
           yosys -V
       - name: Verify digital inputs, real engines and analog compatibility
-        run: python -m unittest tests.test_digital tests.test_digital_implementation tests.test_digital_runtime tests.test_core tests.test_lifecycle tests.test_workflows -v
+        run: python -m unittest tests.test_digital tests.test_digital_implementation tests.test_digital_runtime tests.test_digital_workspace tests.test_core tests.test_lifecycle tests.test_workflows -v
       - name: Verify desktop digital workflow
         run: python tests/gui_digital.py
+      - name: Verify linked workspace, queue resume and large placement inspection
+        run: python tests/gui_digital_workspace.py
       - name: Verify setup subprocess and failed-package UI
         run: python tests/gui_digital_setup.py
       - name: Check release documentation
@@ -40,6 +42,7 @@ jobs:
           path: |
             build/digital-ui
             build/digital-setup-ui
+            build/digital-workspace-ui
 
   implementation:
     runs-on: ubuntu-24.04
@@ -75,7 +78,7 @@ jobs:
           echo "ICSTUDIO_TEST_ORFS=$PWD/build/orfs" >> "$GITHUB_ENV"
       - name: Require real mapped timing, equivalence, fault detection and RTL to GDS
         run: python -m unittest tests.test_digital_implementation -v
-      - name: Verify the docked implementation workspace
+      - name: Verify the linked digital implementation workspace
         run: python tests/gui_digital_implementation.py
       - name: Print implementation failure evidence
         if: failure()
