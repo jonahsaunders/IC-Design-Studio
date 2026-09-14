@@ -20,6 +20,8 @@ def main(argv=None):
     run.add_argument('--stage', choices=digital_flow.STAGES, default='simulate')
     run.add_argument('--simulator', choices=['icarus', 'verilator'], default='icarus')
     run.add_argument('--tool', action='append', default=[], metavar='NAME=EXECUTABLE')
+    run.add_argument('--toolchain', choices=['auto','included','custom'], default='auto',
+                     help='Use included tools or an external toolchain (auto preserves --tool/PATH behavior)')
     run.add_argument('--cell',help='Native cell ID (defaults to the bound digital cell)')
     run.add_argument('--platform',help='Version-1 platform JSON manifest')
     run.add_argument('--orfs',help='OpenROAD Flow Scripts checkout; captured for physical jobs')
@@ -63,8 +65,10 @@ def main(argv=None):
         if args.timeout is not None:config['timeout']=args.timeout
         set_config(project,cid,config)
         tools = dict(item.split('=', 1) for item in args.tool)
-        if not any(tools.values()): digital_runtime.defaults(project,cid)
-        job = digital_flow.prepare(project, args.stage, args.simulator, tools, cid, args.upstream, args.orfs)
+        if args.toolchain == 'included' and (any(tools.values()) or args.orfs):
+            raise ValueError('Use --toolchain custom with --tool or --orfs overrides.')
+        if args.toolchain != 'custom' and not any(tools.values()): digital_runtime.defaults(project,cid)
+        job = digital_flow.prepare(project, args.stage, args.simulator, tools, cid, args.upstream, args.orfs, toolchain=args.toolchain)
         root = Path(args.output).resolve()
         if root.exists() and any(root.iterdir()):
             raise ValueError('Choose an empty run directory.')

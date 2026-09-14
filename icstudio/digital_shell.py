@@ -84,6 +84,8 @@ class DigitalShell(QObject):
         controls = QHBoxLayout(); cv.addLayout(controls)
         controls.addWidget(QLabel('Stage')); controls.addWidget(window.stage); controls.addWidget(window.simulator)
         window.run_button.setText('Run stage'); controls.addWidget(window.run_button)
+        self.tools_button=self.button(controls, 'Included tools', window.configure_tools)
+        self.tools_button.setAccessibleName('Digital tools and setup')
         controls.addStretch(); self.button(controls, 'Constraints', window.workspace.constraints, 'settings')
         more = QToolButton(); more.setText('More'); more.setPopupMode(QToolButton.InstantPopup); menu = QMenu(more)
         for text, callback in (('Language server…', lambda:window.language.start()), ('Stop language server', lambda:window.language.stop()), ('Remove source', window.remove_file), ('Reload saved sources', window.reload_sources), ('Physical settings…', window.workspace.physical_settings), ('Regression cases…', window.workspace.test_cases),
@@ -342,6 +344,9 @@ class DigitalShell(QObject):
 
     def refresh(self, *_):
         w = self.w
+        if w.studio.project['id'] != w.project_id: return
+        from .digital_tools import selection
+        self.tools_button.setText('Custom tools' if selection(w.studio.settings)['toolchain']=='custom' else 'Included tools')
         from .digital_design import cell
         self.title.setText(cell(w.studio.project, w.cell_id)['name'])
         self.source_changed()

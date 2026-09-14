@@ -60,7 +60,7 @@ jobs:
         if: runner.os == 'Windows'
         run: python -m unittest tests.test_windows_stdio -v
       - name: Verify cross-platform installation and path contracts
-        run: python -m unittest tests.test_digital_runtime -v
+        run: python -m unittest tests.test_digital_runtime tests.test_digital_tools -v
       - name: Verify installed digital runtime on this operating system
         env:
           ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
@@ -196,6 +196,11 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_getting_started.py --evidence build/getting-started-evidence
+      - name: Verify digital first-run guidance and safe continuation
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_digital_first_run.py
       - name: Test native interface
         if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
         timeout-minutes: 5
@@ -351,6 +356,7 @@ jobs:
           name: desktop-diagnostics-${{ runner.os }}
           path: |
             build/digital-frozen-evidence
+            build/digital-first-run-ui
             build/windows-evidence/install.log
             build/windows-evidence/uninstall.log
             build/windows-evidence/windows-release.json

@@ -50,7 +50,7 @@ def environment(job):
     return out
 
 
-def prepare(project, stage='simulate', simulator='icarus', tools=None, cell_id=None, upstream=None, orfs=None, runtime=None):
+def prepare(project, stage='simulate', simulator='icarus', tools=None, cell_id=None, upstream=None, orfs=None, runtime=None, toolchain='auto'):
     project = clone(validate(project))
     if stage not in STAGES or simulator not in ('icarus', 'verilator'):
         raise ValueError('Choose a supported digital stage and simulator.')
@@ -58,9 +58,20 @@ def prepare(project, stage='simulate', simulator='icarus', tools=None, cell_id=N
     cell_id=cell_id or project.get('digital_cell',project['top'])
     config = cell_config(project,cell_id)
     from . import digital_runtime
-    runtime = runtime or (digital_runtime.installed() if not any((tools or {}).values()) else None)
-    if not runtime and not any((tools or {}).values()) and os.environ.get('ICSTUDIO_DIGITAL_NATIVE')!='1' and digital_runtime.manifest():
-        raise ValueError('Finish Digital flow → Tools → Set up and verify before running with the included engines.')
+    if toolchain not in ('auto', 'included', 'custom'):
+        raise ValueError('Choose Included tools or Custom tools.')
+    native = os.environ.get('ICSTUDIO_DIGITAL_NATIVE') == '1'
+    custom = toolchain == 'custom' or toolchain == 'auto' and any((tools or {}).values())
+    if toolchain == 'included':
+        tools = {}; orfs = None
+    if custom:
+        runtime = None
+    elif not runtime:
+        runtime = digital_runtime.installed()
+    if not runtime and not custom and not native:
+        info = digital_runtime.status()
+        if toolchain == 'included' or getattr(sys, 'frozen', False) or info['state'] != 'unavailable':
+            raise ValueError(info['message']+' Open Digital tools and choose Set up and verify, or run --cli digital setup.')
     digital.check_dependencies(config)
     if stage == 'simulate' and (not config.get('testbench') or not any(f['role'] == 'testbench' for f in config['files'])):
         raise ValueError('Set a testbench top and mark its source as Testbench.')
@@ -82,7 +93,7 @@ def prepare(project, stage='simulate', simulator='icarus', tools=None, cell_id=N
             if sibling.is_file():value=str(sibling)
         path = Path(shutil.which(str(value)) or str(value)).resolve() if value else None
         if path is None or not path.is_file():
-            raise ValueError(name+' is not installed. Set its executable in Digital flow → Tools.')
+            raise ValueError('Custom tools: '+name+' was not found. Open Digital tools and select Included tools, or correct its custom executable path.')
         resolved[name] = str(path)
     if stage=='equivalence' and len({str(Path(p).parent) for p in resolved.values()})!=1:
         raise ValueError('Use Yosys, EQY, SBY and Bitwuzla from the same toolchain bin directory so nested proof commands use the captured tools.')

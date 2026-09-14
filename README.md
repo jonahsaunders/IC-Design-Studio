@@ -94,7 +94,7 @@ Digital design now occupies the main window, with a source and hierarchy navigat
 
 **Try it:** open **Digital → New digital counter example**, **New UART regression example**, or **New APB FIFO peripheral**. In the digital workspace, use **Tools → Set up and verify** to prepare the included runtime, then run a simulation. Choose **Verify block** for lint, simulation/regression, synthesis, equivalence and timing, or **Run to placement / routing / GDS** to build the required implementation stages automatically. Failed, unproven, or incomplete checks stop the target; compatible results can be reused and interrupted plans resumed.
 
-Release packaging includes the digital engines and a locked SKY130 HD platform. Linux uses a private native runtime; Windows uses an app-owned WSL 2 distribution. Enabling Windows Linux support may require administrator approval and a restart. Source checkouts can use custom tool paths. [Runtime setup and first implementation](docs/DIGITAL_FLOW.md#included-tools-and-first-setup) · [Detailed digital feature inventory](#digital-design-verification-and-implementation).
+Desktop packages include the digital engines and a locked SKY130 HD platform. **Included tools** is the default: first launch guides setup, and clicking Run before setup finishes continues your request when the tools are ready. Linux uses a private native runtime; Windows uses an app-owned WSL 2 distribution. Enabling Windows Linux support may require administrator approval and a restart. Source checkouts need a built runtime or an explicit **Custom tools** selection. [Runtime setup and first implementation](docs/DIGITAL_FLOW.md#included-tools-and-first-setup) · [Detailed digital feature inventory](#digital-design-verification-and-implementation).
 
 ### One cell. Both views.
 
@@ -181,6 +181,8 @@ Use the searchable example gallery to get moving, then arrange the workspace aro
 
 <details>
 <summary><strong>Run from source</strong> · Python 3.12</summary>
+
+For digital design with automatic tool setup, use the [complete desktop package](docs/DOWNLOADS.md). Git clones and GitHub source ZIPs do not include the generated digital runtime. Developers can build it or select **Custom tools**; installing the Python requirements alone does not install the digital engines.
 
 **Windows:** install 64-bit Python 3.12, extract the source to a short path such as `C:\ICStudio`, and double-click `launch-windows.bat`. The launcher creates an isolated environment under `%LOCALAPPDATA%\ICStudio`, downloads and verifies the pinned ngspice runtime, and checks dependencies and a real simulation before opening the app.
 

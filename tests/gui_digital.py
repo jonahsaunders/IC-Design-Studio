@@ -24,6 +24,7 @@ def main():
     def exception(t,v,tb):errors.append(str(v));sys.__excepthook__(t,v,tb)
     sys.excepthook=exception
     w=Studio(recover=False);w.error=errors.append;w.jobs_dir=out/'runs with spaces'
+    w.settings.setValue('digital/toolchain','custom')
     for name in ('iverilog','vvp'):
         path=os.environ.get('ICSTUDIO_TEST_'+name.upper()) or shutil.which(name)
         if not path:raise RuntimeError('Install '+name+' or set ICSTUDIO_TEST_'+name.upper())

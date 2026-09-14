@@ -50,5 +50,6 @@ Root: HKA; Subkey: "Software\Classes\ICDesignStudio.Project"; ValueType: string;
 Root: HKA; Subkey: "Software\Classes\ICDesignStudio.Project\DefaultIcon"; ValueType: string; ValueData: "{app}\ICDesignStudio.exe,0"; Tasks: associate
 Root: HKA; Subkey: "Software\Classes\ICDesignStudio.Project\shell\open\command"; ValueType: string; ValueData: """{app}\ICDesignStudio.exe"" --project ""%1"""; Tasks: associate
 [Run]
-Filename: "{app}\ICDesignStudio.exe"; Parameters: "--digital-setup"; StatusMsg: "Configuring and verifying digital tools (Windows Linux support must be enabled)…"; Flags: waituntilterminated skipifsilent
+; First launch shows progress, Windows support setup and retry in Studio.
+; A hidden setup worker here made failures invisible on a fresh Windows PC.
 Filename: "{app}\ICDesignStudio.exe"; Description: "Launch {#AppName}"; Flags: nowait postinstall skipifsilent

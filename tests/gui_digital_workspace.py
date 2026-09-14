@@ -26,6 +26,7 @@ def main():
             for row in rows:row['state']='Cancelled'
     class Window(QObject):
         def apply(self):return True
+        def ensure_tools(self,*args):return True
     with tempfile.TemporaryDirectory() as td:
         p=counter_project();w=Window();q=Queue();w.studio=SimpleNamespace(project=p,run_manager=q,jobs_dir=td,settings=SimpleNamespace(value=lambda *a:''))
         w.project_id=p['id'];w.cell_id=p['top'];w.config=p['digital'];w.workspace=SimpleNamespace(tools=lambda:{})

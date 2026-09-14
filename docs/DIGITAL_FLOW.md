@@ -26,11 +26,18 @@ layout, target runs, constraints, language server, indexed waveforms and macro e
 
 ## Included tools and first setup
 
+![Included digital tools and guided setup](images/digital-first-run.png)
+
 Release builds include the digital engines, their C++ compiler/build dependencies,
 Python, Tcl, shared libraries, a compatible ORFS revision and full SKY130 HD files.
-**Tools → Set up and verify** installs them under your user profile without PATH
-edits or individual tool downloads. Setup runs automatically on first ordinary
-launch, and the Windows installer also attempts setup before launching Studio.
+**Included tools** is the default, even if an older installation saved custom
+executable paths. First launch opens visible setup with progress, details and
+retry. **Run stage** and **Run to…** also open setup when needed and continue the
+requested run after success, provided the design and run selection have not changed.
+Closing setup cancels that pending request. You can keep editing during setup.
+**Included tools → Set up and verify** installs the tools under your user profile
+without PATH edits or individual tool downloads. The Windows installer launches
+Studio for visible setup instead of running an invisible installation check.
 Allow several minutes and several GB of disk space. **Ready** requires successful
 Icarus simulation, UART regression with Verilator coverage, mapped synthesis,
 equivalence, timing, GDS/SPEF generation and extracted timing. Logs and results stay
@@ -45,10 +52,14 @@ Setup does not replace or unregister other WSL distributions. User-installed
 runtimes and setup evidence survive an application uninstall.
 
 New digital projects receive the included SKY130 HD lock after setup succeeds.
-Existing platform selections and custom executable settings are preserved.
-**Custom tool paths** selects an external toolchain when any override is set;
-remaining tools then resolve from PATH. A source checkout without a built runtime
-continues to support this manual configuration. Custom Verilator needs a C++
+Existing platform selections and saved custom executable paths are preserved.
+To use external tools, explicitly choose **Custom tools** in the digital tools
+dialog, then **Configure custom tools**. Remaining tools resolve from PATH.
+Switching back to **Included tools** ignores saved executable and ORFS paths
+without deleting them. The active selection is visible beside **Run stage**.
+A source checkout without a built runtime offers links to the desktop downloads
+and experimental builds, or the same explicit custom configuration.
+Custom Verilator needs a C++
 compiler and make, and custom physical runs need ORFS. Use a jobs path without
 spaces for those custom workflows. Managed jobs use private temporary Linux paths
 and copy their captured results back, including when the Windows jobs folder has
@@ -61,6 +72,15 @@ payload. `ICSTUDIO_DIGITAL_PAYLOAD` and `ICSTUDIO_DIGITAL_STATE` let development
 use isolated package and installation directories.
 Headless installs can use `ICDesignStudio --cli digital setup`; readiness is
 available as JSON with `ICDesignStudio --cli digital status`.
+CLI runs accept `--toolchain included` or `--toolchain custom`. The default `auto`
+preserves source CLI `--tool`/PATH behavior; a packaged application with a missing
+payload reports an incomplete installation instead of falling back to PATH.
+
+If the application reports missing packaged tools, reinstall the desktop package
+or extract the **entire** portable archive. A GitHub source ZIP and a lone copied
+executable do not contain a usable desktop runtime. On Windows, enabling WSL may
+require internet access for Windows components, administrator approval and a
+restart; the digital engines and SKY130 platform themselves are already bundled.
 
 ## A block from RTL to layout
 
