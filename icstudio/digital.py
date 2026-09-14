@@ -87,6 +87,16 @@ def validate_config(config):
     if 'tests' in config:
         from .digital_regression import validate_tests
         validate_tests(config['tests'])
+    if 'constraints' in config:
+        from .digital_constraints import validate as validate_constraints
+        validate_constraints(config['constraints'])
+    if 'synthesis' in config:
+        from .digital_constraints import synthesis_settings
+        synthesis_settings(config)
+    if 'timing_corners' in config:
+        corners = config['timing_corners']
+        if not isinstance(corners, list) or not corners or len(corners) != len(set(corners)) or any(c not in config.get('platform', {}).get('corners', {}) for c in corners):
+            raise ValueError('Select unique timing corners from the locked platform.')
     return config
 
 

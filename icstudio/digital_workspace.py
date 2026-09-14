@@ -20,6 +20,7 @@ TOOL_NAMES=('iverilog','vvp','verilator','verilator_coverage','yosys','eqy','sby
 def table(columns):
     widget=QTableWidget(0,len(columns));widget.setHorizontalHeaderLabels(columns)
     widget.setEditTriggers(QAbstractItemView.NoEditTriggers);widget.setSelectionBehavior(QAbstractItemView.SelectRows)
+    widget.setShowGrid(False);widget.setAlternatingRowColors(True);widget.verticalHeader().hide()
     widget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents);widget.horizontalHeader().setStretchLastSection(True)
     return widget
 
@@ -32,43 +33,7 @@ def fill(widget,rows,fields):
             item.setData(Qt.UserRole,row);widget.setItem(i,j,item)
 
 
-class PhysicalView(QGraphicsView):
-    def __init__(self,workspace):
-        super().__init__();self.workspace=workspace;self.setScene(QGraphicsScene(self));self.objects={}
-        self.setDragMode(QGraphicsView.ScrollHandDrag);self.setAccessibleName('Physical placement and signal routing')
-        self.scene().selectionChanged.connect(self.selected)
-
-    def load(self,data):
-        self.scene().clear();self.objects={}
-        if not data:return
-        x1,y1,x2,y2=data['die'];self.scene().addRect(QRectF(x1,-y2,x2-x1,y2-y1),QPen(QColor('#92a0b8'),0))
-        for component in data['components'][:20000]:
-            item=self.scene().addRect(QRectF(component['x'],-component['y']-component['height'],component['width'],component['height']),
-                                      QPen(QColor('#51c9b5'),0),QBrush(QColor('#245b58')))
-            item.setData(0,component['name']);item.setToolTip(component['name']+'\n'+component['master']);item.setFlag(QGraphicsItem.ItemIsSelectable)
-            self.objects[component['name']]=item
-        for segment in data['segments'][:50000]:
-            a,b=segment['points'];item=self.scene().addLine(a[0],-a[1],b[0],-b[1],QPen(QColor('#ae90e8'),0))
-            item.setToolTip(segment['net']+' · '+segment['layer'])
-        self.fitInView(self.scene().itemsBoundingRect(),Qt.KeepAspectRatio)
-
-    def highlight(self,names):
-        self.scene().blockSignals(True);self.scene().clearSelection()
-        for name in names:
-            item=self.objects.get(name)
-            if item:item.setSelected(True)
-        self.scene().blockSignals(False)
-
-    def selected(self):
-        items=self.scene().selectedItems()
-        if items:self.workspace.probe_object(items[0].data(0))
-
-    def wheelEvent(self,event):
-        factor=1.2 if event.angleDelta().y()>0 else 1/1.2;self.scale(factor,factor)
-
-    def resizeEvent(self,event):
-        super().resizeEvent(event)
-        if self.objects:self.fitInView(self.scene().itemsBoundingRect(),Qt.KeepAspectRatio)
+from .digital_physical_view import PhysicalView
 
 
 class Workspace:
@@ -93,19 +58,31 @@ class Workspace:
         self.diagnostics.cellDoubleClicked.connect(lambda row,col:self.jump(self.diagnostics.item(row,0).data(Qt.UserRole)))
         self.netlist=table(['Module','Object','Kind','Cell type']);window.result_tabs.addTab(self.netlist,'Netlist browser')
         self.netlist.cellClicked.connect(lambda row,col:self.probe(self.netlist.item(row,0).data(Qt.UserRole)))
-        self.timing=table(['Check','Startpoint','Endpoint','Slack (ns)']);window.result_tabs.addTab(self.timing,'Timing')
+        self.timing=table(['Corner','Check','Startpoint','Endpoint','Slack (ns)'])
         self.timing.cellClicked.connect(lambda row,col:self.probe_path(self.timing.item(row,0).data(Qt.UserRole)))
         self.proof=table(['Partition','Status','Strategies']);window.result_tabs.addTab(self.proof,'Equivalence')
         self.proof.setToolTip('Double-click a partition to open its counterexample waveform, when available.')
         self.proof.cellDoubleClicked.connect(lambda row,col:window.attempt(lambda:self.open_proof(self.proof.item(row,0).data(Qt.UserRole))))
-        physical_page=QWidget();pv=QVBoxLayout(physical_page);self.physical_note=QLabel();self.physical_note.setWordWrap(True);pv.addWidget(self.physical_note)
-        self.physical=PhysicalView(self);pv.addWidget(self.physical);window.result_tabs.addTab(physical_page,'Physical')
+        physical_page=QWidget();self.physical_page=physical_page;pv=QVBoxLayout(physical_page);self.physical_note=QLabel();self.physical_note.setWordWrap(True);pv.addWidget(self.physical_note)
+        self.physical=PhysicalView(self)
+        filters=QHBoxLayout();pv.addLayout(filters)
+        for label,key,checked in (('Cells','cells',True),('Routes','routes',True),('Density','density',False)):
+            check=QCheckBox(label);check.setChecked(checked);check.toggled.connect(lambda value,k=key:self.physical.set_filters(**{k:value}));filters.addWidget(check)
+        self.layers=QComboBox();self.layers.addItem('All layers','');self.layers.currentIndexChanged.connect(lambda:self.physical.set_filters(layer=self.layers.currentData() or ''));filters.addWidget(self.layers)
+        self.button(filters,'Fit',self.physical.fit)
+        self.physical_search=QLineEdit();self.physical_search.setPlaceholderText('Find instance or net…');self.physical_search.returnPressed.connect(lambda:self.physical.find(self.physical_search.text()));pv.addWidget(self.physical_search)
+        pv.addWidget(self.physical);window.result_tabs.addTab(physical_page,'Physical')
+        from PySide6.QtWidgets import QSplitter
+        self.timing_split=QSplitter(Qt.Vertical);self.linked_physical=PhysicalView(self);self.timing_split.addWidget(self.timing);self.timing_split.addWidget(self.linked_physical)
+        # Construct directly in the splitter: reparenting an inactive tab retains
+        # Qt's explicit hidden state and collapses the timing table to zero height.
+        window.result_tabs.insertTab(5,self.timing_split,'Timing');self.timing_split.setSizes([250,450])
         self.regression=table(['Test','Simulator','Status','Line coverage (%)','Error']);window.result_tabs.addTab(self.regression,'Regression')
         self.regression.cellDoubleClicked.connect(lambda row,col:window.attempt(lambda:self.open_case(self.regression.item(row,0).data(Qt.UserRole))))
         self.coverage_table=table(['Source','Line','Hits']);window.result_tabs.addTab(self.coverage_table,'Coverage')
         self.coverage_table.cellDoubleClicked.connect(lambda row,col:self.jump(self.coverage_table.item(row,0).data(Qt.UserRole)))
         self.comparison=table(['Run','Stage','State','Verdict','Cells','Area (µm²)','Δ area','Setup slack (ns)','Δ setup','Hold slack (ns)','Power estimate (W)','Δ power'])
-        self.comparison.setToolTip('Deltas use the earliest completed run at the same stage with the same platform and corner.')
+        self.comparison.setToolTip('Deltas require the same stage, technology, constraints, synthesis settings, timing corners, parasitic mode and engine environment.')
         window.result_tabs.addTab(self.comparison,'Compare runs')
         window.signals.itemDoubleClicked.connect(lambda item:self.find_signal(item.text()))
 
@@ -130,6 +107,8 @@ class Workspace:
         if not cid or cid==w.cell_id:return
         if w.dirty and not w.apply():return
         w.cell_id=cid;w.display_key=None;self.current_key=None;w.load_sources();w.refresh_runs()
+        if hasattr(w,'flow'):w.flow.restore()
+        if hasattr(w,'shell'):w.shell.key=None;w.shell.refresh()
 
     def new_cell(self):
         from .digital import counter_project
@@ -142,37 +121,59 @@ class Workspace:
     def open_view(self,layout):
         w=self.window
         if w.dirty and not w.apply():return
+        w.studio.leave_digital_workspace()
         w.studio.cid=w.cell_id;w.studio.selection=[];w.studio.mode_combo.setCurrentIndex(1 if layout else 0);w.studio.refresh(True)
 
     def open_bound_view(self,row):
         w=self.window;record=self.views.item(row,0).data(Qt.UserRole)
         if record['name']=='Schematic':return self.open_view(False)
         if record['name']=='Layout':return self.open_view(True)
-        if record['name']=='RTL':w.tabs.setCurrentIndex(0);return
+        if record['name']=='RTL':w.reveal_source();return
         if record.get('directory'):
             match=next((r for r in w.studio.run_manager.rows if str(r['path'])==record['directory']),None)
             if not match:raise ValueError('The saved view run is unavailable. Restore its captured run folder.')
-            w.runs.setCurrentIndex(w.runs.findData(match['id']));w.tabs.setCurrentIndex(1)
+            w.runs.setCurrentIndex(w.runs.findData(match['id']));w.reveal_results()
 
     def publish(self):
         w=self.window
         if not w.apply():return
         row=w.selected_run()
         if not row or not row.get('result'):raise ValueError('Select a completed elaboration or synthesis run first.')
-        w.studio.commit(lambda p:design.publish_interface(p,w.cell_id,row['result'],row['path']),'Publish digital cell symbol')
-        self.refresh_design();self.open_view(False)
+        symbol,interface=design.interface_proposal(w.studio.project,w.cell_id,row['result'],row['path'])
+        c=design.cell(w.studio.project,w.cell_id)
+        if c['ports'] and c['ports']!=symbol['pin_order']:
+            from .interface_ui import InterfaceReview
+            def finalize(candidate):
+                design.cell(candidate,w.cell_id)['digital_interface']=interface
+                design.bind_result(candidate,w.cell_id,row['result'],row['path'],'Netlist')
+            dialog=InterfaceReview(w.studio,w.cell_id,symbol,c.get('symbol'),self.refresh_design,finalize)
+            dialog.exec()
+        else:
+            w.studio.commit(lambda p:design.publish_interface(p,w.cell_id,row['result'],row['path']),'Publish digital cell symbol')
+            self.refresh_design()
+        w.message.setText('Published interface uses scalar electrical terminals with bus metadata. Open Cell views to inspect its symbol.')
 
     def attach_layout(self):
         w=self.window;row=w.selected_run()
         if not row or not row.get('result'):raise ValueError('Select a completed physical run first.')
         from .digital_flow import validate_result
         validate_result(row['result'],row['path']);data=row['result']['digital_result']
-        if data['source_hash']!=design.identity(w.studio.project,w.cell_id):raise ValueError('The physical result is stale. Implement the current inputs before attaching it.')
+        from .digital_identity import current
+        if not current(data,design.config(w.studio.project,w.cell_id)):raise ValueError('The physical result is stale. Implement the current inputs before attaching it.')
         record=data['artifacts'].get('gds')
         if not record:raise ValueError('Run Finish / GDS before attaching the physical macro.')
         from .digital_layout import attach
         w.studio.commit(lambda p:attach(p,w.cell_id,row['result'],row['path']),'Attach implemented digital macro')
         self.open_view(True)
+
+    def export_macro(self):
+        row=self.window.selected_run()
+        if not row or not row.get('result'):raise ValueError('Select a completed Finish / GDS run.')
+        path,_=QFileDialog.getSaveFileName(self.window,'Export implemented macro','','Macro bundle (*.zip)')
+        if path:
+            from .digital_macro import export
+            export(row['result'],row['path'],path)
+            self.window.message.setText('Exported macro geometry, terminals, netlist, constraints, parasitics and provenance.')
 
     def import_platform(self):
         from .digital_platform import from_orfs,read_manifest
@@ -203,35 +204,23 @@ class Workspace:
         return {key:edit.text() for key,edit in edits.items()} if d.exec() else None
 
     def constraints(self):
+        from .digital_constraints_ui import ConstraintEditor
         w=self.window
         if not w.config:raise ValueError('Open an RTL cell first.')
-        values=self.form('Generate clock and I/O constraints',[
-            ('port','Clock port','clk'),('name','Clock name','core_clk'),('period','Period (ns)',10),
-            ('inputs','Input port patterns','reset'),('input_delay','Input delay (ns)',1),
-            ('outputs','Output port patterns','count*'),('output_delay','Output delay (ns)',1)])
-        if values is None:return
-        from .engines import tcl_word
-        period=scalar(values['period'])
-        if period<=0:raise ValueError('The clock period must be positive.')
-        lines=['create_clock -name '+tcl_word(values['name'])+' -period '+str(period)+' [get_ports '+tcl_word(values['port'])+']']
-        for direction in ('input','output'):
-            patterns=values[direction+'s'].split();delay=scalar(values[direction+'_delay'])
-            if patterns:lines.append('set_'+direction+'_delay '+str(delay)+' -clock '+tcl_word(values['name'])+' [get_ports '+tcl_word(' '.join(patterns))+']')
-        w.sync_file();files=w.config['files'];index=next((i for i,f in enumerate(files) if f['role']=='constraint'),None)
-        if index is None:
-            files.append({'path':'constraints.sdc','role':'constraint','text':''});index=len(files)-1;w.files.addItem('constraints.sdc')
-        files[index]['text']='\n'.join(lines)+'\n';w.file_index=-1;w.files.setCurrentRow(index);w.select_file(index);w.edited();w.tabs.setCurrentIndex(0)
+        w.sync_file();dialog=ConstraintEditor(w,w.config)
+        if dialog.exec() and dialog.value:
+            w.config=dialog.value;w.loading=True;w.file_index=-1;w.files.clear()
+            w.files.addItems([f['path'] for f in w.config['files']]);w.loading=False
+            w.files.setCurrentRow(next(i for i,f in enumerate(w.config['files']) if f['role']=='constraint'))
+            w.edited();w.reveal_source()
 
     def physical_settings(self):
-        from .digital_physical import DEFAULTS,validate_settings
+        from .digital_physical_ui import PhysicalEditor
         w=self.window
         if not w.config:raise ValueError('Open an RTL cell first.')
-        values={**DEFAULTS,**w.config.get('physical',{})}
-        edits=self.form('Physical implementation settings',[(key,label,' '.join(map(str,values[key])) if isinstance(values[key],list) else values[key]) for key,label in
-            [('die_area','Die x1 y1 x2 y2 (µm)'),('core_area','Core x1 y1 x2 y2 (µm)'),('place_density','Placement density'),('threads','Threads')]])
-        if edits is None:return
-        values={key:[scalar(s) for s in value.split()] if key.endswith('area') else int(value) if key=='threads' else scalar(value) for key,value in edits.items()}
-        validate_settings(values);w.config['physical']=values;w.edited()
+        dialog=PhysicalEditor(w,w.config.get('physical',{}))
+        if dialog.exec() and dialog.value:
+            w.config['physical']=dialog.value;w.edited()
 
     def jobs_folder(self):
         w=self.window
@@ -274,22 +263,25 @@ class Workspace:
         if key==self.current_key:return
         self.current_key=key;self.index=[]
         for widget in (self.netlist,self.timing,self.proof,self.regression,self.coverage_table):widget.setRowCount(0)
-        self.physical.load(None);self.physical_note.clear()
+        self.physical.load(None);self.linked_physical.load(None);self.physical_note.clear()
         if not row or not row.get('result'):return
         data=row['result']['digital_result'];artifacts=data['artifacts']
         if 'netlist_index' in artifacts:
             self.index=json.loads((row['path']/artifacts['netlist_index']['path']).read_text())
             fill(self.netlist,self.index[:20000],['module','name','kind','type'])
-        fill(self.timing,data.get('timing',{}).get('paths',[]),['check','startpoint','endpoint','slack_ns'])
+        fill(self.timing,data.get('timing',{}).get('paths',[]),['corner','check','startpoint','endpoint','slack_ns'])
         fill(self.proof,data.get('equivalence',{}).get('partitions',[]),['partition','status','strategies'])
         if 'layout_preview' in artifacts:
-            preview=json.loads((row['path']/artifacts['layout_preview']['path']).read_text());self.physical.load(preview)
-            self.physical_note.setText(preview['scope']+f" Displaying {min(20000,len(preview['components']))}/{len(preview['components'])} instances and {min(50000,len(preview['segments']))}/{len(preview['segments'])} segments.")
+            preview=json.loads((row['path']/artifacts['layout_preview']['path']).read_text());self.physical.load(preview);self.linked_physical.load(preview)
+            self.layers.blockSignals(True);self.layers.clear();self.layers.addItem('All layers','')
+            for layer in self.physical.layers:self.layers.addItem(layer,layer)
+            self.layers.blockSignals(False)
+            self.physical_note.setText(preview['scope']+f" {len(preview['components'])} instances · {len(preview['segments'])} segments.")
         cases=[{**case,'percent':(case.get('coverage') or {}).get('percent')} for case in data.get('regression',{}).get('cases',[])]
         fill(self.regression,cases,['name','simulator','status','percent','error'])
         coverage=[{'path':file['path'],**line} for file in data.get('coverage',{}).get('files',[]) for line in file['lines']]
         fill(self.coverage_table,coverage[:20000],['path','line','hits'])
-        target=self.timing if 'timing' in data else self.proof if 'equivalence' in data else self.regression if 'regression' in data else self.physical.parentWidget() if 'physical' in data else None
+        target=self.timing_split if 'timing' in data else self.proof if 'equivalence' in data else self.regression if 'regression' in data else self.physical.parentWidget() if 'physical' in data else None
         if target:self.window.result_tabs.setCurrentWidget(target)
 
     def refresh_comparison(self):
@@ -298,15 +290,24 @@ class Workspace:
         fill(self.comparison,compare_results(rows),['name','stage','state','verdict','cells','area_um2','area_um2_delta','setup_worst_slack_ns','setup_worst_slack_ns_delta','hold_worst_slack_ns','power_w','power_w_delta'])
 
     def jump(self,location):
+        if hasattr(self.window, 'shell'):
+            self.window.shell.show_captured(location)
+            return
         w=self.window;path=location.get('path','');files=(w.config or {}).get('files',[])
         index=next((i for i,f in enumerate(files) if path==f['path'] or path.endswith('/'+f['path'])),None)
         if index is None:w.message.setText('This location is outside the captured RTL sources.');return
         w.files.setCurrentRow(index);block=w.editor.document().findBlockByLineNumber(max(0,int(location.get('line',1))-1))
         if block.isValid():w.editor.setTextCursor(QTextCursor(block));w.editor.centerCursor()
-        w.tabs.setCurrentIndex(0)
+        w.reveal_source()
 
     def probe(self,item):
-        self.physical.highlight([item['name']])
+        if hasattr(self.window,'shell'):
+            from .digital_inspection import Selection
+            row=self.window.selected_run()
+            selection=Selection(row['id'] if row else '',self.window.cell_id,item['module'],item['name'],item['kind'])
+            self.window.shell.inspect(item,selection)
+        self.physical.highlight([item['name']], [item['name']] if item['kind']=='net' else [])
+        self.linked_physical.highlight([item['name']], [item['name']] if item['kind']=='net' else [])
         if item.get('locations'):self.jump(item['locations'][0])
         else:self.window.message.setText('No retained RTL source location for '+item['name']+'.')
 
@@ -315,14 +316,23 @@ class Workspace:
         if item:self.probe(item)
 
     def probe_path(self,path):
-        names={pin.rsplit('/',1)[0] for pin in path.get('pins',[]) if '/' in pin};self.physical.highlight(names)
+        names={pin.rsplit('/',1)[0] for pin in path.get('pins',[]) if '/' in pin};self.physical.highlight(names);self.linked_physical.highlight(names)
         self.window.message.setText(path['startpoint']+' → '+path['endpoint']+f" · {path['slack_ns']:.6g} ns slack")
+        if hasattr(self.window,'shell'):
+            shell=self.window.shell;shell.selection_title.setText(path['check'].title()+' timing path')
+            shell.selection_details.setPlainText('\n'.join([path['startpoint'],'→ '+path['endpoint'],f"Slack: {path['slack_ns']:.6g} ns",'','Path pins:',*path.get('pins',[])]))
+            # Keep the timing table visible. A linked physical pane can be opened explicitly.
 
     def find_signal(self,name):
+        from .digital_inspection import sources_for_signal
+        candidates=sources_for_signal(self.index,name)
+        if len(candidates)==1 and candidates[0].get('locations'):return self.jump(candidates[0]['locations'][0])
+        if len(candidates)>1:
+            self.window.message.setText('Multiple hierarchy matches. Select the intended object in the hierarchy navigator.');return
         short=re.sub(r'\[.*\]$','',name.rsplit('.',1)[-1])
-        item=next((x for x in self.index if x['kind']=='net' and x['name']==short and x.get('locations')),None)
-        if item:return self.jump(item['locations'][0])
-        for file in (self.window.config or {}).get('files',[]):
+        row=self.window.selected_run()
+        captured=design.config(row['job']['project'],row['job']['cell']) if row else self.window.config
+        for file in (captured or {}).get('files',[]):
             if file['role']=='rtl':
                 for line,text in enumerate(file['text'].splitlines(),1):
                     if re.search(r'\b'+re.escape(short)+r'\b',text):
@@ -344,10 +354,11 @@ class Workspace:
         from .job_store import read_result
         result=read_result(path/'result.json',w.project_id);artifact=result['digital_result']['artifacts'].get('waveform')
         if artifact:
-            self.show_waveform(json.loads((path/artifact['path']).read_text()));w.message.setText(case['name']+' · '+case['status'])
+            from .digital_trace_store import open_waveform
+            self.show_waveform(open_waveform(path/artifact['path']));w.message.setText(case['name']+' · '+case['status'])
 
     def show_waveform(self,waveform):
-        w=self.window;w.wave.cursor=0;w.wave.zoom=1;w.wave.set_data(waveform)
+        w=self.window;w.wave.cursor=0;w.wave.cursor_b=0;w.wave.zoom=1;w.wave.set_data(waveform)
         w.signals.blockSignals(True);w.signals.clear()
         from PySide6.QtWidgets import QListWidgetItem
         for index,signal in enumerate(waveform['signals']):

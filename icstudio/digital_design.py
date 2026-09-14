@@ -38,7 +38,9 @@ def views(project, cid):
            {'name': 'Schematic', 'state': 'Available' if c['devices'] else 'Absent'},
            {'name': 'Layout', 'state': 'Available' if c['shapes'] or c.get('layout_instances') else 'Absent'}]
     for name, record in c.get('digital_views', {}).items():
-        out.append({'name': name, 'state': 'Current' if record['source_hash'] == source else 'Stale', **record})
+        from .digital_identity import stage_key
+        fresh=record['input_key']==stage_key(config(project,cid),record['stage']) if record.get('input_key') and source else record['source_hash']==source
+        out.append({'name': name, 'state': 'Current' if fresh else 'Stale', **record})
     return out
 
 
@@ -50,12 +52,14 @@ def bind_result(project, cid, result, directory, view):
     record = {'source_hash': result['digital_result']['source_hash'],
               'directory': str(Path(directory).resolve()), 'stage': result['digital_result']['stage'],
               'artifacts': clone(result['digital_result']['artifacts'])}
+    if result['digital_result'].get('input_key'):record['input_key']=result['digital_result']['input_key']
     cell(project, cid).setdefault('digital_views', {})[view] = record
 
 
-def publish_interface(project, cid, result, directory):
+def interface_proposal(project, cid, result, directory):
     """Use the compiler's elaborated ports, never a regular-expression HDL parser."""
-    if identity(project, cid) != result['digital_result']['source_hash']:
+    from .digital_identity import current
+    if not current(result['digital_result'],config(project,cid)):
         raise ValueError('The RTL changed. Compile the current sources before publishing the symbol.')
     from .digital_flow import validate_result
     validate_result(result, directory)
@@ -71,22 +75,27 @@ def publish_interface(project, cid, result, directory):
         for pin in names:
             ports.append(pin); (right if info['direction'] == 'output' else left).append(pin)
             metadata[pin] = {'direction': {'input':'in','output':'out','inout':'inout'}[info['direction']],
-                             'role': 'clock' if name in ('clk','clock') else 'signal', 'required': True}
+                             'role': 'clock' if name in ('clk','clock') else 'signal', 'required': True,
+                             'bus': f'{name}[{offset+count-1}:{offset}]' if count>1 else ''}
     if len(ports) > 128: raise ValueError('The schematic symbol supports at most 128 scalar pins; publish a smaller block.')
     c = cell(project,cid)
-    if c['ports'] and c['ports'] != ports:
-        if c['devices'] or any(d.get('cell') == cid for q in project['cells'] for d in q['devices']):
-            raise ValueError('The port interface changed on a wired block. Reconcile its instance connections before replacing the symbol.')
     pins = {}
     for side, names in ((-1,left),(1,right)):
         pitch = min(20, 850/max(1,len(names)))
         for i, name in enumerate(names): pins[name] = [side*120, (i-(len(names)-1)/2)*pitch]
     height = max(40,min(450,max(len(left),len(right))*10+10))
-    c['ports'] = ports
-    c['symbol'] = {'pins': pins, 'pin_order': ports, 'pin_meta': metadata,
+    symbol = {'pins': pins, 'pin_order': ports, 'pin_meta': metadata,
                    'primitives': [{'kind':'rect','points':[[-100,-height],[100,height]]},
                                   {'kind':'text','points':[[-85,-10],[85,10]],'text':c['name'][:100]}]}
-    c['digital_interface'] = {'source_hash':identity(project,cid), 'ports':clone(module['ports'])}
+    return symbol, {'source_hash':identity(project,cid), 'ports':clone(module['ports'])}
+
+
+def publish_interface(project, cid, result, directory):
+    symbol, interface = interface_proposal(project,cid,result,directory)
+    c=cell(project,cid);ports=symbol['pin_order']
+    if c['ports'] and c['ports']!=ports and (c['devices'] or any(d.get('cell')==cid for q in project['cells'] for d in q['devices'])):
+        raise ValueError('Review the changed interface and its instance connections before publishing.')
+    c.update(ports=ports,symbol=symbol,digital_interface=interface)
     bind_result(project,cid,result,directory,'Netlist')
     return ports
 

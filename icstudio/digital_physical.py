@@ -12,10 +12,12 @@ from .model import atomic_write, file_digest
 STAGES = ('floorplan','place','cts','route','finish')
 CHECKPOINTS = {'floorplan':'2_floorplan','place':'3_place','cts':'4_cts','route':'5_route','finish':'6_final'}
 DEFAULTS = {'die_area':[0,0,100,100],'core_area':[10,10,90,90],'place_density':0.6,'threads':2}
+OPTIONS = {'min_routing_layer','max_routing_layer','macro_halo_um','pin_constraints','macro_placements',
+           'io_constraints_tcl','macro_placement_tcl','pdn_tcl'}
 
 
 def validate_settings(settings):
-    if not isinstance(settings,dict) or set(settings)-set(DEFAULTS):raise ValueError('Unknown physical implementation setting.')
+    if not isinstance(settings,dict) or set(settings)-set(DEFAULTS)-OPTIONS:raise ValueError('Unknown physical implementation setting.')
     for name in ('die_area','core_area'):
         rect=settings.get(name,DEFAULTS[name])
         if not isinstance(rect,list) or len(rect)!=4 or any(type(x) not in (int,float) or not math.isfinite(x) for x in rect) or rect[0]>=rect[2] or rect[1]>=rect[3]:
@@ -26,6 +28,43 @@ def validate_settings(settings):
     if type(density) not in (int,float) or not .05<=density<=.95:raise ValueError('Placement density must be between 0.05 and 0.95.')
     threads=settings.get('threads',2)
     if type(threads) is not int or not 1<=threads<=64:raise ValueError('Use 1–64 implementation threads.')
+    for key in ('min_routing_layer','max_routing_layer'):
+        if settings.get(key) and not re.fullmatch(r'[A-Za-z0-9_]+',settings[key]):raise ValueError('Use a routing-layer identifier.')
+    halo=settings.get('macro_halo_um',0)
+    if type(halo) not in (int,float) or not math.isfinite(halo) or halo<0:raise ValueError('Macro halo must be nonnegative micrometres.')
+    for key in ('io_constraints_tcl','macro_placement_tcl','pdn_tcl'):
+        if not isinstance(settings.get(key,''),str) or len(settings.get(key,''))>1024*1024:raise ValueError('Physical Tcl must be at most 1 MiB.')
+    pins=settings.get('pin_constraints',[])
+    if not isinstance(pins,list) or len(pins)>256:raise ValueError('Use at most 256 pin groups.')
+    for pin in pins:
+        if not isinstance(pin,dict) or not isinstance(pin.get('pins'),str) or not pin['pins'].strip() or pin.get('edge') not in ('top','bottom','left','right'):
+            raise ValueError('Pin groups need a pattern and top/bottom/left/right edge.')
+    macros=settings.get('macro_placements',[])
+    if not isinstance(macros,list) or len(macros)>1000:raise ValueError('Use at most 1,000 macro placements.')
+    for macro in macros:
+        if not isinstance(macro,dict) or not isinstance(macro.get('name'),str) or not macro['name'].strip():raise ValueError('Each macro needs its instance name.')
+        if macro.get('orientation','R0') not in ('R0','R90','R180','R270','MX','MY','MXR90','MYR90'):raise ValueError('Invalid macro orientation.')
+        if any(type(macro.get(k)) not in (int,float) or not math.isfinite(macro[k]) for k in ('x','y')):raise ValueError('Macro positions must be finite micrometres.')
+
+
+def write_options(r, settings):
+    """Translate reviewed physical intent into captured ORFS inputs."""
+    from .digital_implementation import tcl_word
+    lines=[]
+    for key,var in (('min_routing_layer','MIN_ROUTING_LAYER'),('max_routing_layer','MAX_ROUTING_LAYER')):
+        if settings.get(key):lines.append('export '+var+' = '+settings[key])
+    if settings.get('macro_halo_um'):
+        halo=str(settings['macro_halo_um']);lines += ['export MACRO_PLACE_HALO = '+halo+' '+halo, 'export MACRO_BLOCKAGE_HALO = '+halo]
+    pins=['set_io_pin_constraint -pin_names '+tcl_word(p['pins'])+' -region '+tcl_word(p['edge']+':*') for p in settings.get('pin_constraints',[])]
+    macros=['place_macro -macro_name '+tcl_word(m['name'])+' -location '+tcl_word(str(m['x'])+' '+str(m['y']))+' -orientation '+m.get('orientation','R0') for m in settings.get('macro_placements',[])]
+    scripts={'IO_CONSTRAINTS':'\n'.join(pins)+'\n'+settings.get('io_constraints_tcl',''),
+             'MACRO_PLACEMENT_TCL':'\n'.join(macros)+'\n'+settings.get('macro_placement_tcl',''),
+             'PDN_TCL':settings.get('pdn_tcl','')}
+    for variable,text in scripts.items():
+        if text.strip():
+            path=r.root/(variable.lower()+'.tcl');atomic_write(path,text+'\n');r.add_artifact(variable.lower(),path)
+            lines.append('export '+variable+' = '+str(path))
+    return lines
 
 
 def preview(def_file, lefs):
@@ -98,8 +137,11 @@ def execute(r):
     work=r.root/'physical';result_dir=work/'results'/r.platform['name']/r.config['top']/'base'
     previous=r.settings.get('upstream',{});resume=False
     expected_source=r.settings.get('host_source_hash',source_hash(r.config))
-    if previous.get('stage') in STAGES and STAGES.index(previous['stage'])<STAGES.index(stage) and previous['source_hash']==expected_source:
-        old=verify_upstream(previous)
+    old = verify_upstream(previous) if previous else None
+    from .digital_identity import stage_key
+    compatible = bool(old and (old['digital_result'].get('input_key') == stage_key(r.config, previous['stage'])
+                              if old['digital_result'].get('input_key') else previous['source_hash'] == expected_source))
+    if previous.get('stage') in STAGES and STAGES.index(previous['stage'])<STAGES.index(stage) and compatible:
         if old['digital_result']['physical']['flow_fingerprint']!=flow['fingerprint']:
             raise ValueError('The ORFS version changed. Start a new floorplan before resuming physical implementation.')
         old_tools=old['digital_result']['environment']['executables']
@@ -126,6 +168,7 @@ def execute(r):
            'export CORE_AREA = '+' '.join(str(v) for v in settings['core_area']),
            'export PLACE_DENSITY = '+str(settings['place_density']),
            'export NUM_CORES = '+str(settings['threads']), 'export SKIP_REPORT_METRICS = 0']
+    lines += write_options(r,settings)
     atomic_write(r.root/'config.mk','\n'.join(lines)+'\n')
     command=[r.tools['make'],'-f',str(flow_root/'Makefile'),'DESIGN_CONFIG='+str(r.root/'config.mk'),
              'WORK_HOME='+str(work),'OPENROAD_EXE='+r.tools['openroad'],'YOSYS_EXE='+r.tools['yosys'],
@@ -150,13 +193,19 @@ foreach library [[ord::get_db] getLibs] {
 }
 '''
     script+='write_def '+tcl_word(r.root/'snapshot.def')+'\nwrite_verilog -remove_cells $physical_only '+tcl_word(r.root/'physical.v')+'\n'
+    from .digital_odb import script as database_script
+    script += database_script(r.root/'database.json')
+    if stage=='finish':script+='write_abstract_lef '+tcl_word(r.root/'macro.lef')+'\n'
     atomic_write(r.root/'snapshot.tcl','if {[catch {\n'+script+'\n} message]} {puts stderr $message; exit 1}\n')
     r.command([r.tools['openroad'],'-no_init','-exit',str(r.root/'snapshot.tcl')],'Reading the '+stage+' layout checkpoint',fraction=.9)
     r.add_artifact('checkpoint',checkpoint);r.add_artifact('def',r.root/'snapshot.def')
+    r.add_artifact('database',r.root/'database.json')
     r.add_artifact('mapped_input',seed)
     shutil.copy2(r.root/'physical.v',r.root/'netlist.v');r.add_artifact('netlist',r.root/'netlist.v')
     lefs=[r.root/'platform'/f['path'] for f in r.platform['files'] if f['path'].endswith('.lef')]
     geometry=preview(r.root/'snapshot.def',lefs)
+    from .digital_odb import merge_preview
+    geometry=merge_preview(geometry,r.root/'database.json')
     # Record the stream layer mapping beside the DEF; attachment never guesses GDS layer numbers.
     stream_layers={}
     for record in r.platform['files']:
@@ -176,8 +225,10 @@ foreach library [[ord::get_db] getLibs] {
     locations={(i['module'],i['kind'],i['name']):i['locations'] for i in previous_index}
     for item in index:
         item['locations']=locations.get((item['module'],item['kind'],item['name']),[])
+        item['mapping'] = 'retained name' if item['locations'] else 'unmapped physical object'
     r.save_json('netlist_index',index,'netlist_index.json');r.add_artifact('hierarchy',r.root/'netlist.json');r.add_artifact('statistics',r.root/'statistics.json')
     if stage=='finish':
+        r.add_artifact('lef',r.root/'macro.lef')
         for key,suffix in (('gds','.gds'),('spef','.spef')):r.add_artifact(key,result_dir/('6_final'+suffix))
     metrics={}
     for path in sorted(work.rglob('*.json')):

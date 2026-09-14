@@ -132,6 +132,16 @@ class DigitalImplementationTests(unittest.TestCase):
         result=flow.run(job,root);atomic_write(root/'result.json',json.dumps(result));job_store.state(root,'complete')
         return job_store.read_result(root/'result.json',p['id'])
 
+    def test_hierarchical_apb_peripheral_maps_and_proves(self):
+        from icstudio.digital_apb_example import apb_project
+        p=apb_project();p['digital']['platform']=clone(self.project['digital']['platform']);p['digital']['timeout']=300
+        mapped=self.root/'apb-mapped';result=self.run_stage(p,'mapped',mapped)
+        self.assertGreater(result['digital_result']['statistics']['cells'],20)
+        self.assertAlmostEqual(json.loads((mapped/'synthesis_intent.json').read_text())['delay_ns'],17.9)
+        if tool('eqy'):
+            proof=self.run_stage(p,'equivalence',self.root/'apb-equivalent',mapped)
+            self.assertEqual(proof['digital_result']['verdict'],'PASS')
+
     def test_mapped_cells_published_symbol_and_stale_rejection(self):
         result=self.result;self.assertGreater(result['digital_result']['statistics']['area_um2'],0)
         data=json.loads((self.mapped/'netlist.json').read_text());cells=data['modules']['counter']['cells']
@@ -183,9 +193,12 @@ class DigitalImplementationTests(unittest.TestCase):
         for stage in ('floorplan','place','cts','route','finish'):
             root=self.root/stage;result=self.run_stage(p,stage,root,previous)
             self.assertEqual(result['digital_result']['physical']['resumed'],stage!='floorplan')
-            self.assertGreater(len(json.loads((root/'layout_preview.json').read_text())['components']),0)
+            geometry=json.loads((root/'layout_preview.json').read_text());self.assertGreater(len(geometry['components']),0)
+            self.assertEqual(geometry['database'],'OpenDB checkpoint');self.assertIn('database_id',geometry['components'][0])
             previous=root
         self.assertGreater((previous/'physical/results/sky130hd/counter/base/6_final.gds').stat().st_size,1000)
+        from icstudio.digital_macro import export
+        contract=export(result,previous,self.root/'counter-macro.zip');self.assertEqual(contract['top'],'counter');self.assertIn('lef',contract['artifacts'])
         from icstudio.digital_layout import attach
         attach(p,p['top'],result,previous);validate(p)
         c=design.cell(p,p['top']);self.assertTrue(c['layout_instances']);self.assertEqual({v['name'] for v in c['layout_ports']},set(c['ports']))

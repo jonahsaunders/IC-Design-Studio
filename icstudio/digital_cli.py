@@ -13,7 +13,7 @@ def main(argv=None):
     commands.add_parser('setup',help='Install and verify the included digital runtime')
     commands.add_parser('status',help='Report included runtime readiness as JSON')
     example = commands.add_parser('example'); example.add_argument('--output', required=True)
-    example.add_argument('--design',choices=['counter','uart'],default='counter')
+    example.add_argument('--design',choices=['counter','uart','apb'],default='counter')
     capture = commands.add_parser('import'); capture.add_argument('manifest'); capture.add_argument('--output', required=True)
     export = commands.add_parser('export'); export.add_argument('project'); export.add_argument('--output', required=True)
     run = commands.add_parser('run'); run.add_argument('project'); run.add_argument('--output', required=True)
@@ -37,6 +37,9 @@ def main(argv=None):
             if args.command=='example' and args.design=='uart':
                 from .digital_examples import uart_project
                 project=uart_project()
+            if args.command=='example' and args.design=='apb':
+                from .digital_apb_example import apb_project
+                project=apb_project()
             if args.command == 'import':
                 project['digital'] = digital.read_manifest(args.manifest)
                 project['name'] = project['digital']['top']

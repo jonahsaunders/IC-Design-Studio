@@ -28,6 +28,17 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
+          # WSL opens its first-run welcome window when the runtime is imported.
+          # It can steal native pointer input from the installed-app DPI probe.
+          # Mark onboarding complete for this disposable CI user before any WSL
+          # setup; keep real native input checks enabled at every scale factor.
+          # https://github.com/microsoft/WSL/blob/bc5abef10cc49b8d58c6ee93d8da066f76d225be/src/windows/service/exe/LxssUserSession.cpp
+          $wslKey = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Lxss'
+          New-Item -Path $wslKey -Force -ErrorAction Stop | Out-Null
+          New-ItemProperty -Path $wslKey -Name OOBEComplete -PropertyType DWord -Value 1 -Force -ErrorAction Stop | Out-Null
+          if ((Get-ItemPropertyValue -Path $wslKey -Name OOBEComplete -ErrorAction Stop) -ne 1) {
+            throw 'Could not suppress WSL onboarding on the CI desktop.'
+          }
           wsl --update --web-download
           if ($LASTEXITCODE -ne 0) { throw 'WSL update failed.' }
       - name: Configure Windows virtual desktop for native DPI checks

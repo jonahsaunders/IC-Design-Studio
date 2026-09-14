@@ -4,8 +4,8 @@
 
 <p align="center">
   <strong>An open desktop workspace for circuit design.</strong><br>
-  Draw schematics, run simulations, build layouts, and review designs together.<br>
-  Keep your cells, models, testbenches, and results in one project.
+  Draw schematics, simulate circuits and RTL, implement digital blocks, and review designs together.<br>
+  Keep your cells, sources, models, testbenches, layouts, and results in one project.
 </p>
 
 <p align="center">
@@ -19,6 +19,7 @@
   <a href="#start-in-three-steps"><strong>Get started</strong></a> &nbsp;·&nbsp;
   <a href="docs/DOWNLOADS.md">Downloads</a> &nbsp;·&nbsp;
   <a href="#explore-the-workspace">Feature tour</a> &nbsp;·&nbsp;
+  <a href="#design-digital-blocks-from-rtl-to-gds">Digital design</a> &nbsp;·&nbsp;
   <a href="#feature-reference">All features</a> &nbsp;·&nbsp;
   <a href="docs/INDEX.md">Documentation</a> &nbsp;·&nbsp;
   <a href="CONTRIBUTING.md">Contribute</a>
@@ -76,6 +77,24 @@ Start with a small circuit, or bring an existing open design. Local design work 
 </tr>
 </table>
 
+### Design digital blocks from RTL to GDS
+
+Digital design now occupies the main window, with a source and hierarchy navigator, central documents, and a contextual inspector. Switch between **Design**, **Debug**, and **Implement** to edit RTL, inspect waveforms, or follow timing paths into the physical layout. Adjustable panes, remembered layouts, light/dark themes, and keyboard controls keep the workspace usable on smaller screens.
+
+[![The native digital workspace in Debug mode: counter RTL, simulated waveforms with two cursors, a source navigator, design inspector, and implementation stage strip.](docs/images/digital-workspace.png)](docs/DIGITAL_WORKSPACE.md)
+
+<sub>Actual app capture of the counter example. The document layout draws on Apple's macOS interface guidance; linked timing and physical selection takes inspiration from Altium's cross-probing. [Workspace guide and design references](docs/DIGITAL_WORKSPACE.md).</sub>
+
+| Work on a block | What the workspace provides |
+|---|---|
+| **Design** | Independent RTL cells, source search, compiler hierarchy, optional language-server diagnostics/completion/definitions, and reviewable schematic-symbol interfaces |
+| **Debug** | Icarus/Verilator simulation and regression, paged waveforms with two cursors and edge/value search, retained failures, captured source snapshots, and working-copy diffs |
+| **Implement** | Clock/I/O/electrical constraints, mapped synthesis, formal equivalence, resumable targets through placement/routing/GDS, linked timing and physical inspection, and macro export |
+
+**Try it:** open **Digital → New digital counter example**, **New UART regression example**, or **New APB FIFO peripheral**. In the digital workspace, use **Tools → Set up and verify** to prepare the included runtime, then run a simulation. Choose **Verify block** for lint, simulation/regression, synthesis, equivalence and timing, or **Run to placement / routing / GDS** to build the required implementation stages automatically. Failed, unproven, or incomplete checks stop the target; compatible results can be reused and interrupted plans resumed.
+
+Release packaging includes the digital engines and a locked SKY130 HD platform. Linux uses a private native runtime; Windows uses an app-owned WSL 2 distribution. Enabling Windows Linux support may require administrator approval and a restart. Source checkouts can use custom tool paths. [Runtime setup and first implementation](docs/DIGITAL_FLOW.md#included-tools-and-first-setup) · [Detailed digital feature inventory](#digital-design-verification-and-implementation).
+
 ### One cell. Both views.
 
 Switch between **Schematic**, **Layout**, and **Linked views** while staying in the same cell. Import an existing schematic, attach its physical hierarchy, and inspect the design at the level that matters.
@@ -128,10 +147,12 @@ Use the searchable example gallery to get moving, then arrange the workspace aro
 | Your next step | Where to go |
 |---|---|
 | Try another circuit | [Nine guided examples](examples/README.md) |
+| Design a digital block | **Digital → New digital counter example**, **New UART regression example**, or **New APB FIFO peripheral** · [Digital flow guide](docs/DIGITAL_FLOW.md) |
 | Use real transistor models | [Open PDK setup](docs/PDK_GUIDE.md) |
 | Bring an existing design | [Xschem, Magic, and KLayout exchange](docs/INTEROPERABILITY.md) |
 | Find a command | **Ctrl+K** |
 | Switch the active view | **Alt+1** schematic · **Alt+2** layout · **Alt+3** linked |
+| Switch digital workspace mode | **Ctrl+Alt+1** Design · **Ctrl+Alt+2** Debug · **Ctrl+Alt+3** Implement · **Circuit workspace** returns to schematic/layout |
 | Restore panels | **Window → Reset workspace** |
 
 <details>
@@ -188,6 +209,32 @@ Expand a category for the detailed inventory. Features requiring an external eng
 | Calculations and export | Saved multi-panel plots; complex AC arithmetic, phase and dB; FFT for uniform time samples; derivatives and integrals; RMS, peaks, crossings, settling, frequency, and delay measurements; schematic readouts; CSV export |
 
 [Simulation setup](SIMULATION_SETUP.md) · [Native analyses](docs/UPDATE_0.20.md) · [Waveform tools](docs/UPDATE_0.16.md)
+
+</details>
+
+<a id="digital-design-verification-and-implementation"></a>
+<details>
+<summary><strong>Digital design, verification, and implementation</strong></summary>
+
+| Capability | Included tools |
+|---|---|
+| Main-window workspace | Design/Debug/Implement modes; searchable source and compiler-hierarchy navigator; contextual inspector; remembered pane sizes and visibility; light/dark themes; keyboard mode switching; Current/Stale/Failed/Running stage states |
+| RTL cells and source editing | Independent per-cell sources and undo; explicit file roles, compilation order, includes and defines; source search and go-to-line; captured run snapshots and working-copy diffs; optional stdio SystemVerilog language-server diagnostics, completion and definitions |
+| Simulation and regression | Icarus and Verilator; saved testbench cases and definitions; retained assertions, failures and waveforms; optional Verilator line coverage; RTL cases in shared verification plans |
+| Digital waveform inspection | Four-state values and aliases; binary, hex, unsigned and signed display; two cursors and delta readout; filtering and saved signal sets; edge/value search; source-declaration navigation; streaming SQLite indexes and on-demand pages for large VCDs |
+| Synthesis and equivalence | Verilator lint; Yosys elaboration, hierarchy and mapped standard-cell synthesis; optional slang frontend; EQY/SBY/Bitwuzla equivalence against captured RTL, including inferred memories; distinct PASS/FAIL/UNKNOWN/ERROR outcomes and retained counterexamples |
+| Target execution | **Verify block** and **Run to placement/routing/GDS**; dependency planning; compatible-result reuse; explicit upstream selection; queued cancellation; persistent stop/resume across restarts; captured inputs, tool identities, logs and artifact checksums |
+| Timing and synthesis constraints | Clock and I/O tables; uncertainty and transition; driving cells and loads; electrical limits; synthesis frontend and delay budget; selected Liberty corners; generated or manually maintained SDC with explicit ownership |
+| Timing inspection | OpenSTA setup/hold paths, total negative slack, electrical violations and per-library-corner reports; power estimates; extracted SPEF timing; simultaneous timing/physical selection; compatible-run metric comparisons |
+| Physical implementation | ORFS floorplan, placement, clock tree, routing and GDS/extraction stages; die/core bounds, density and threads; routing-layer bounds, pin-edge groups, fixed macros and halos; captured I/O, macro-placement and PDN Tcl |
+| Connected inspection | Compiler hierarchy and bounded logic cones; source/netlist/physical cross-probing; OpenDB instance identity, transformed geometry, orientation and terminal connectivity; indexed instance selection, batched signal routes, net/layer filters, search and placement-density bins |
+| Native cell integration | Compiler-derived schematic symbols with bus metadata and scalar terminals; review and undo for interface changes across instances, physical ports and testbenches; revision-aware RTL/symbol/schematic/layout and attached netlist/extracted views |
+| Implemented macro exchange | Attach generated physical hierarchy to a native cell; export GDS, abstract LEF, netlist, SDC, SPEF and terminal/provenance metadata |
+| Runtime and examples | Included, verified digital toolchain and SKY130 HD platform; Linux native and Windows private WSL 2 execution; optional custom toolchains; counter, UART and hierarchical APB FIFO examples with regression and deliberate-fault coverage; digital CLI workflows |
+
+**Scope:** language-server support needs a separately installed server, and the optional slang frontend needs its matching Yosys plugin. Native symbols support up to 128 scalar terminals. Large-VCD support is bounded to 2 GiB and 20 million changes; FST and real/string dumps are unsupported. Power and density are estimates, and library-corner timing sweeps do not establish physical signoff. Coupled analog/digital transient simulation, per-instance analog/digital view substitution, foundry-qualified signoff, and characterized macro Liberty generation remain outside this flow.
+
+[Workspace controls and limits](docs/DIGITAL_WORKSPACE.md) · [Engines, setup, constraints and CLI](docs/DIGITAL_FLOW.md)
 
 </details>
 
@@ -330,18 +377,11 @@ Choose the circuit and technology in **File → Project Hub**. Register included
 | **IHP SG13G2** | Installed `ihp-sg13g2` adapter | Compatible ngspice and compiled OSDI models |
 | **Custom technology** | Checksummed package interface | Explicit terminal, layer, model, and verification bindings |
 
-Bundled simulation subsets contain models and symbols; full physical flows need additional PDK assets. [Set up a PDK](docs/PDK_GUIDE.md) · [Simulation runtime](SIMULATION_SETUP.md) · [Third-party sources](THIRD_PARTY_NOTICES.md)
+Bundled analog simulation subsets contain models and symbols; analog physical verification needs matching PDK assets and decks. The managed digital runtime separately includes the full, locked SKY130 HD platform used by its implementation flow. [Set up a PDK](docs/PDK_GUIDE.md) · [Digital platform locks](docs/DIGITAL_FLOW.md#technology-locks-and-supported-versions) · [Simulation runtime](SIMULATION_SETUP.md) · [Third-party sources](THIRD_PARTY_NOTICES.md)
 
 ## Project status
 
-The experimental branch includes an integrated [digital flow](docs/DIGITAL_FLOW.md):
-per-cell RTL and symbols, Icarus/Verilator simulation and regression, mapped Yosys
-synthesis, OpenSTA timing, EQY proofs, staged ORFS implementation through GDS/SPEF,
-and source/netlist/physical inspection in a docked workspace.
-Open **Digital → New digital counter example**. Release packaging includes a
-managed digital runtime and SKY130 HD platform, with first-install verification
-in **Digital flow → Tools**. Windows uses a private WSL 2 distribution; enabling
-Windows Linux support can require administrator approval and a restart.
+The experimental branch includes the [main-window digital workspace](docs/DIGITAL_WORKSPACE.md) and [integrated RTL-to-GDS flow](docs/DIGITAL_FLOW.md), including resumable targets, structured constraints, indexed waveforms, and linked source/timing/physical inspection. See the [digital feature tour](#design-digital-blocks-from-rtl-to-gds) for an entry point.
 
 **0.22.0.dev23 is an engineering preview.** The [inductor design update](docs/UPDATE_0.22_DEV23.md) adds five shapes, target-L synthesis, background validation, optional DC series RL and EM characterization exchange with reusable PDK material/layer profiles. It includes the earlier [workflow and recovery improvements](docs/UPDATE_0.22_DEV21.md). [Release status](docs/RELEASE_STATUS.md) records validation and package status.
 
@@ -356,7 +396,7 @@ python -m unittest discover -s tests -v
 python scripts/check_release.py
 ```
 
-[Desktop builds](.github/workflows/build-desktop.yml) · [External interoperability](.github/workflows/interoperability.yml) · [Physical qualification](.github/workflows/physical-qualification.yml) · [Screenshot sources](docs/images/readme/README.md)
+[Desktop builds](.github/workflows/build-desktop.yml) · [Digital flow and implementation qualification](.github/workflows/digital.yml) · [External interoperability](.github/workflows/interoperability.yml) · [Physical qualification](.github/workflows/physical-qualification.yml) · [Screenshot sources](docs/images/readme/README.md)
 
 <p align="center">
   <br>

@@ -20,25 +20,33 @@ from .digital_design import config as cell_config, set_config
 
 
 class RTLHighlighter(QSyntaxHighlighter):
+    def __init__(self,document,dark=True):
+        super().__init__(document);self.dark=dark
+
     def highlightBlock(self, text):
         for pattern, color in [(r'\b(module|endmodule|input|output|wire|reg|logic|integer|always|always_ff|always_comb|begin|end|if|else|initial|for|parameter|localparam|assign|posedge|negedge)\b', '#91a9ff'),
                                (r'\$[a-zA-Z_]+|`[a-zA-Z_]+', '#d7a8e8'),
                                (r'"(?:\\.|[^"\\])*"', '#dfba7b'), (r'//.*$', '#7c9388')]:
+            if not self.dark:color={'#91a9ff':'#3156b5','#d7a8e8':'#834492','#dfba7b':'#815b14','#7c9388':'#47745a'}[color]
             style = QTextCharFormat(); style.setForeground(QColor(color))
             for match in re.finditer(pattern,text): self.setFormat(match.start(),match.end()-match.start(),style)
 
 
 class DigitalWaveform(QWidget):
     def __init__(self):
-        super().__init__(); self.data = None; self.signals = []; self.zoom = 1; self.cursor = 0; self.radix = 'hex'
+        super().__init__(); self.data = None; self.signals = []; self.zoom = 1; self.cursor = 0; self.cursor_b = 0; self.radix = 'hex'
         self.setAccessibleName('Digital waveforms; click to inspect exact simulation ticks')
-        self.setMinimumSize(500, 220)
+        self.setMinimumSize(280, 220)
 
     def set_data(self, data, signals=None):
         self.data = data
         self.signals = (signals if signals is not None else data['signals'][:12]) if data else []
-        self.setMinimumSize(500 if self.zoom == 1 else min(50000, 900*self.zoom), max(220, 70+len(self.signals)*38))
+        self.setMinimumSize(280 if self.zoom == 1 else min(50000, 900*self.zoom), max(220, 88+len(self.signals)*38))
         self.update()
+
+    def plot_geometry(self):
+        left = min(260, max(100, round(self.width()*.36)))
+        return left, max(1, self.width()-left-20)
 
     def paintEvent(self, event):
         painter = QPainter(self); painter.fillRect(event.rect(), self.palette().base())
@@ -46,17 +54,19 @@ class DigitalWaveform(QWidget):
             painter.setPen(self.palette().text().color())
             painter.drawText(self.rect(), Qt.AlignCenter, 'Run a digital testbench to inspect its waveform')
             return
-        left = 260; width = max(1, self.width()-left-20); end = max(1, self.data['end_tick'])
+        left, width = self.plot_geometry(); end = max(1, self.data['end_tick'])
         x = lambda tick: left + tick/end*width
         painter.setPen(self.palette().text().color())
-        painter.drawText(12, 22, f"Cursor: {self.cursor} ticks · tick = {self.data['timescale']}")
-        for i in range(9):
-            tick = round(end*i/8); xpos = x(tick)
-            painter.setPen(QColor('#758595')); painter.drawLine(QPointF(xpos, 35), QPointF(xpos, self.height()))
-            painter.drawText(QRectF(xpos-35, 15, 70, 20), Qt.AlignCenter, str(tick))
+        painter.drawText(12, 22, f"A {self.cursor} · B {self.cursor_b} · Δ {abs(self.cursor_b-self.cursor)} × {self.data['timescale']}")
+        intervals = max(1, min(8, int(width/80)))
+        for i in range(intervals+1):
+            tick = round(end*i/intervals); xpos = x(tick)
+            painter.setPen(QColor('#758595')); painter.drawLine(QPointF(xpos, 53), QPointF(xpos, self.height()))
+            label_x = min(self.width()-70, max(left, xpos-35))
+            painter.drawText(QRectF(label_x, 33, 70, 20), Qt.AlignCenter, str(tick))
         # Paint only visible lanes and transitions; the scroll area clips large traces.
         for i, signal in enumerate(self.signals):
-            y = 65+i*38
+            y = 83+i*38
             if y+20 < event.rect().top() or y-25 > event.rect().bottom(): continue
             events = self.data['changes'][signal['code']]
             value = format_value(value_at(events, self.cursor, signal['width']), self.radix)
@@ -83,11 +93,15 @@ class DigitalWaveform(QWidget):
                         painter.drawText(QRectF(a+2, y-18, b-a-4, 22), Qt.AlignCenter,
                                          painter.fontMetrics().elidedText(format_value(bits, self.radix), Qt.ElideRight, int(b-a-4)))
                     prev = None
-        painter.setPen(QPen(QColor('#e87886'), 1.5)); painter.drawLine(QPointF(x(self.cursor), 34), QPointF(x(self.cursor), self.height()))
+        for tick,color in ((self.cursor,'#e87886'),(self.cursor_b,'#8dadf7')):
+            painter.setPen(QPen(QColor(color), 1.5)); painter.drawLine(QPointF(x(tick), 52), QPointF(x(tick), self.height()))
 
     def mousePressEvent(self, event):
         if self.data:
-            self.cursor = max(0, min(self.data['end_tick'], round((event.position().x()-260)/max(1,self.width()-280)*self.data['end_tick'])))
+            left, width = self.plot_geometry()
+            tick = max(0, min(self.data['end_tick'], round((event.position().x()-left)/width*self.data['end_tick'])))
+            if event.modifiers() & Qt.ShiftModifier: self.cursor_b = tick
+            else: self.cursor = tick
             self.update()
 
 
@@ -125,9 +139,10 @@ class DigitalFlowWindow(QDockWidget):
         self.role = QComboBox()
         for role in digital.ROLES: self.role.addItem(role.title(), role)
         self.role.setAccessibleName('Digital file role'); ev.addWidget(self.role)
-        self.editor = QPlainTextEdit(); self.editor.setFont(QFontDatabase.systemFont(QFontDatabase.FixedFont)); self.editor.setAccessibleName('RTL source editor'); ev.addWidget(self.editor)
+        from .digital_editor import SourceEditor
+        self.editor = SourceEditor(); self.editor.setFont(QFontDatabase.systemFont(QFontDatabase.FixedFont)); self.editor.setAccessibleName('RTL source editor'); ev.addWidget(self.editor)
         self.editor.setStyleSheet('QPlainTextEdit { font-family: monospace; font-size: 13px; }')
-        self.highlighter = RTLHighlighter(self.editor.document())
+        self.highlighter = RTLHighlighter(self.editor.document(),studio.dark)
         splitter.addWidget(editor_host); splitter.setSizes([230, 850])
         actions = QHBoxLayout(); source_layout.addLayout(actions)
         self.apply_button = QPushButton('Apply sources'); self.apply_button.clicked.connect(lambda: self.attempt(self.apply)); actions.addWidget(self.apply_button)
@@ -141,17 +156,17 @@ class DigitalFlowWindow(QDockWidget):
         self.summary = QLabel('No digital run yet'); self.summary.setWordWrap(True); rv.addWidget(self.summary)
         self.result_tabs = QTabWidget(); rv.addWidget(self.result_tabs, 1)
         wave_page = QWidget(); wv = QVBoxLayout(wave_page); wave_controls = QHBoxLayout(); wv.addLayout(wave_controls)
-        self.radix = QComboBox(); self.radix.addItems(['hex', 'binary', 'unsigned']); wave_controls.addWidget(QLabel('Bus display')); wave_controls.addWidget(self.radix)
+        self.radix = QComboBox(); self.radix.addItems(['hex', 'binary', 'unsigned', 'signed']); wave_controls.addWidget(QLabel('Bus display')); wave_controls.addWidget(self.radix)
         for text, factor in [('Zoom in', 2), ('Zoom out', .5)]:
             button = QPushButton(text); button.clicked.connect(lambda checked=False, f=factor: self.zoom(f)); wave_controls.addWidget(button)
-        wave_controls.addStretch(); split = QSplitter(); wv.addWidget(split)
+        wave_controls.addStretch(); self.wave_controls = wave_controls; self.wave_layout = wv; split = QSplitter(); wv.addWidget(split)
         self.signals = QListWidget(); self.signals.setMaximumWidth(260); self.signals.setAccessibleName('Visible digital signals'); split.addWidget(self.signals)
         scroll = QScrollArea(); scroll.setWidgetResizable(True); self.wave = DigitalWaveform(); scroll.setWidget(self.wave); split.addWidget(scroll)
         self.result_tabs.addTab(wave_page, 'Waveforms')
         self.report = QPlainTextEdit(); self.report.setReadOnly(True); self.result_tabs.addTab(self.report, 'Report and log')
         self.netlist_view = QPlainTextEdit(); self.netlist_view.setReadOnly(True)
         self.netlist_view.setStyleSheet('QPlainTextEdit { font-family: monospace; }')
-        self.netlist_highlighter = RTLHighlighter(self.netlist_view.document())
+        self.netlist_highlighter = RTLHighlighter(self.netlist_view.document(),studio.dark)
         self.result_tabs.addTab(self.netlist_view, 'Synthesized Verilog')
         self.tabs.addTab(result_page, 'Runs and results')
         self.message = QLabel(); self.message.setWordWrap(True); root.addWidget(self.message)
@@ -164,6 +179,24 @@ class DigitalFlowWindow(QDockWidget):
         self.workspace=Workspace(self,root)
         studio.run_manager.changed.connect(self.refresh_runs)
         self.load_sources(); self.refresh_runs()
+        from .digital_shell import rebuild
+        rebuild(self)
+        from .digital_wave_tools import WaveTools
+        self.wave_tools = WaveTools(self)
+        from .digital_lsp import LanguageClient
+        self.language = LanguageClient(self)
+
+    def reveal_source(self):
+        if hasattr(self, 'shell'):
+            self.shell.reveal_source()
+        else:
+            self.tabs.setCurrentIndex(0)
+
+    def reveal_results(self):
+        if hasattr(self, 'shell'):
+            self.shell.analysis.show()
+        else:
+            self.tabs.setCurrentIndex(1)
 
     def attempt(self, function):
         try:
@@ -280,11 +313,13 @@ class DigitalFlowWindow(QDockWidget):
         if self.studio.process and self.studio.process not in self.studio.run_manager.processes:
             raise ValueError('Wait for the external job to finish first.')
         tools = self.workspace.tools()
-        upstream=self.selected_run() if self.workspace.use_selected.isChecked() else None
+        from .digital_planning import latest_upstream
+        upstream = self.selected_run() if self.workspace.use_selected.isChecked() else latest_upstream(
+            self.studio.run_manager.rows, self.studio.project, self.cell_id, self.stage.currentData())
         job = digital_flow.prepare(self.studio.project, self.stage.currentData(), self.simulator.currentData(), tools,
             cell_id=self.cell_id,upstream=upstream['path'] if upstream else None,orfs=self.studio.settings.value('digital/orfs',''))
         row = self.studio.run_manager.enqueue(job, self.studio.jobs_dir, 'Digital '+self.stage.currentText().lower())
-        self.refresh_runs(); self.runs.setCurrentIndex(self.runs.findData(row['id'])); self.tabs.setCurrentIndex(1)
+        self.refresh_runs(); self.runs.setCurrentIndex(self.runs.findData(row['id'])); self.reveal_results()
         return row
 
     def refresh_runs(self):
@@ -295,6 +330,7 @@ class DigitalFlowWindow(QDockWidget):
         index = self.runs.findData(selected); self.runs.setCurrentIndex(index if index >= 0 else self.runs.count()-1); self.runs.blockSignals(False)
         self.attempt(self.show_run)
         if hasattr(self,'workspace'):self.workspace.refresh_comparison()
+        if hasattr(self,'shell'):self.shell.refresh()
 
     def selected_run(self):
         return next((r for r in self.studio.run_manager.rows if r['id'] == self.runs.currentData()), None)
@@ -306,7 +342,8 @@ class DigitalFlowWindow(QDockWidget):
             if hasattr(self,'workspace'):self.workspace.show_result(None)
             return
         result = row.get('result'); data = result.get('digital_result') if result else None
-        state = 'Current revision' if data and data['source_hash'] == digital.source_hash(cell_config(self.studio.project,self.cell_id)) else 'Saved earlier revision'
+        from .digital_identity import current
+        state = 'Current inputs' if data and current(data,cell_config(self.studio.project,self.cell_id),row['job']['settings'].get('simulator','icarus')) else 'Captured earlier inputs'
         self.summary.setText((data['summary']+' · '+state) if data else row['state']+f" · {row['progress']}%")
         self.report.setPlainText((json.dumps(data, indent=2) if data else '')+'\n'+row['log'][-30000:])
         if hasattr(self,'workspace'):self.workspace.show_diagnostics(row)
@@ -322,16 +359,19 @@ class DigitalFlowWindow(QDockWidget):
                         text = source.read(4*1024*1024)
                     self.netlist_view.setPlainText(text+('\n// Preview limited to 4 MiB; full netlist retained in the run folder.' if path.stat().st_size > 4*1024*1024 else ''))
                 if 'waveform' in data['artifacts']:
-                    waveform = json.loads((row['path']/data['artifacts']['waveform']['path']).read_text())
-                    self.wave.cursor = 0; self.wave.zoom = 1; self.wave.set_data(waveform)
+                    from .digital_trace_store import open_waveform
+                    waveform = open_waveform(row['path']/data['artifacts']['waveform']['path'])
+                    self.wave.cursor = 0; self.wave.cursor_b = 0; self.wave.zoom = 1; self.wave.set_data(waveform)
                     for index, signal in enumerate(waveform['signals']):
-                        item = QListWidgetItem(signal['name']); item.setFlags(item.flags()|Qt.ItemIsUserCheckable); item.setData(Qt.UserRole,index)
+                        item = QListWidgetItem(signal['name']); item.setToolTip(signal['name']); item.setFlags(item.flags()|Qt.ItemIsUserCheckable); item.setData(Qt.UserRole,index)
                         item.setCheckState(Qt.Checked if index < 12 else Qt.Unchecked); self.signals.addItem(item)
                     self.result_tabs.setCurrentIndex(0)
                 else: self.result_tabs.setCurrentIndex(1)
             else: self.result_tabs.setCurrentIndex(1)
             if hasattr(self,'workspace'):self.workspace.show_result(row)
         finally: self.signals.blockSignals(False)
+        if hasattr(self,'wave_tools'): self.wave_tools.restore()
+        if hasattr(self,'shell'): self.shell.refresh()
 
     def signal_selection(self):
         if self.wave.data:
@@ -357,10 +397,68 @@ class DigitalFlowWindow(QDockWidget):
         if self.dirty:
             answer = QMessageBox.question(self,'Unapplied source edits','Apply the source edits before closing?',QMessageBox.Save|QMessageBox.Discard|QMessageBox.Cancel)
             if answer == QMessageBox.Cancel or answer == QMessageBox.Save and not self.attempt(self.apply):event.ignore();return
+        if hasattr(self, 'shell'):self.shell.save_layout()
+        if hasattr(self,'language'):self.language.stop()
         self.dirty = False; super().closeEvent(event)
 
 
 class DigitalMixin:
+    def enter_digital_workspace(self, window):
+        if self.centralWidget() is window:
+            return
+        self._circuit_center = self.takeCentralWidget();self._circuit_center.hide()
+        self._digital_panels = [(d, d.isVisible()) for d in self.findChildren(QDockWidget) if d is not window]
+        for dock, visible in self._digital_panels:
+            dock.hide()
+        self._digital_toolbar_visible = self.toolbar.isVisible(); self.toolbar.hide()
+        self.removeDockWidget(window); self.setCentralWidget(window); window.show();self.statusBar().showMessage('Digital workspace')
+
+    def leave_digital_workspace(self):
+        window = getattr(self, '_digital_window', None)
+        if not window or self.centralWidget() is not window:
+            return
+        if window.dirty and not window.attempt(window.apply):
+            return
+        window.shell.save_layout(); self.takeCentralWidget()
+        self.setCentralWidget(self._circuit_center);self._circuit_center.show(); self._circuit_center = None
+        window.setParent(self); window.hide()
+        for dock, visible in getattr(self, '_digital_panels', []):
+            dock.setVisible(visible)
+        self.toolbar.setVisible(getattr(self, '_digital_toolbar_visible', True))
+        if getattr(self,'_deferred_editor_restore',False):
+            self._deferred_editor_restore=False;super().restore_last_editor_workspace()
+
+    def restore_last_editor_workspace(self):
+        window=getattr(self,'_digital_window',None)
+        if window and self.centralWidget() is window:
+            self._deferred_editor_restore=True;return
+        return super().restore_last_editor_workspace()
+
+    def apply_theme(self):
+        super().apply_theme()
+        window=getattr(self,'_digital_window',None)
+        if window and hasattr(window,'shell'):
+            window.shell.style();window.shell.refresh()
+            for highlighter in (window.highlighter,window.netlist_highlighter,window.shell.captured_highlighter):
+                highlighter.dark=self.dark;highlighter.rehighlight()
+
+    def closeEvent(self,event):
+        window=getattr(self,'_digital_window',None)
+        active=window and self.centralWidget() is window
+        if active:
+            if window.dirty and not window.attempt(window.apply):event.ignore();return
+            self.leave_digital_workspace()
+        super().closeEvent(event)
+        if window:
+            if event.isAccepted():window.language.stop()
+            elif active:self.enter_digital_workspace(window)
+
+    def quick_run(self):
+        window = getattr(self, '_digital_window', None)
+        if window and self.centralWidget() is window:
+            return window.attempt(window.run)
+        return super().quick_run()
+
     def prepare_simulation(self,settings,engine='builtin',project=None,cid=None):
         if engine!='digital':return super().prepare_simulation(settings,engine,project,cid)
         from .digital_workspace import TOOL_NAMES
@@ -379,13 +477,11 @@ class DigitalMixin:
         window = getattr(self, '_digital_window', None)
         if window is None or window.project_id != self.project['id']:
             if window:
+                self.leave_digital_workspace()
                 window.dirty = False; window.close(); window.deleteLater()
             window = self._digital_window = DigitalFlowWindow(self)
-            self.addDockWidget(Qt.BottomDockWidgetArea,window)
-            self.tabifyDockWidget(self.results_dock,window)
-            self.resizeDocks([window],[500],Qt.Vertical)
         elif not window.dirty: window.load_sources(); window.refresh_runs()
-        window.show(); window.raise_(); return window
+        self.enter_digital_workspace(window); window.show(); window.raise_(); return window
 
     def new_digital_counter(self):
         if not self.idle_edit() or not self.maybe_save(): return
@@ -399,6 +495,12 @@ class DigitalMixin:
         from .digital_runtime import defaults
         project=uart_project(); defaults(project)
         self.set_project(project);return self.digital_window()
+
+    def new_digital_apb(self):
+        if not self.idle_edit() or not self.maybe_save():return
+        from .digital_apb_example import apb_project
+        from .digital_runtime import defaults
+        project=apb_project();defaults(project);self.set_project(project);return self.digital_window()
 
     def save(self, *args, **kwargs):
         window = getattr(self, '_digital_window', None)
@@ -417,6 +519,9 @@ class DigitalMixin:
 
     def set_project(self, p, path=None):
         window = getattr(self, '_digital_window', None)
+        if window:
+            if window.dirty and not window.attempt(window.apply):return False
+            self.leave_digital_workspace()
         super().set_project(p, path)
         if window:
             window.dirty = False; window.close(); window.deleteLater(); self._digital_window = None
@@ -437,13 +542,13 @@ class DigitalMixin:
     def simulation_finished(self, row, result):
         if row['job']['settings'].get('type') != 'digital': return super().simulation_finished(row, result)
         self.sync_runs(); self.console.appendPlainText(row['name']+' · '+row['state']+'\n'+row['log'])
-        window = self.digital_window()
-        if window.cell_id==row['job']['cell']:window.runs.setCurrentIndex(window.runs.findData(row['id'])); window.tabs.setCurrentIndex(1)
+        window = getattr(self,'_digital_window',None)
+        if window and window.project_id==row['job']['project']['id'] and window.cell_id==row['job']['cell']:window.runs.setCurrentIndex(window.runs.findData(row['id'])); window.reveal_results()
 
     def open_selected_run(self):
         rows = self.selected_simulation_runs()
         if rows and rows[0]['job']['settings'].get('type') == 'digital':
-            window = self.digital_window();window.workspace.switch_cell(rows[0]['job']['cell']); window.runs.setCurrentIndex(window.runs.findData(rows[0]['id'])); window.tabs.setCurrentIndex(1); return
+            window = self.digital_window();window.workspace.switch_cell(rows[0]['job']['cell']); window.runs.setCurrentIndex(window.runs.findData(rows[0]['id'])); window.reveal_results(); return
         return super().open_selected_run()
 
 
@@ -452,3 +557,7 @@ def install(studio):
     studio.action(menu, 'Digital flow…', studio.digital_window)
     studio.action(menu, 'New digital counter example', studio.new_digital_counter)
     studio.action(menu, 'New UART regression example', studio.new_digital_uart)
+    studio.action(menu, 'New APB FIFO peripheral', studio.new_digital_apb)
+    menu.addSeparator()
+    for label,target in (('Verify digital block','verify'),('Run digital block to placement','place'),('Run digital block to GDS','finish')):
+        studio.action(menu,label,lambda t=target:studio.digital_window().flow.start(t))
