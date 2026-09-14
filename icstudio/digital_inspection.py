@@ -48,8 +48,13 @@ def cone(index, module, name, depth=2, limit=80):
                     if len(selected) >= limit:
                         truncated = True; continue
                     selected[other] = level + 1; todo.append(other)
-                edge = (other, key, bit) if direction == 'output' else (key, other, bit)
-                edges.add(edge)
+                here = [d for n,p,d in peers if n==key]
+                if item['kind']=='net':
+                    edges.add((other,key,bit) if direction=='output' else (key,other,bit))
+                elif direction=='output' and any(d in ('input','inout') for d in here):
+                    edges.add((other,key,bit))
+                elif direction in ('input','inout') and any(d in ('output','inout') for d in here):
+                    edges.add((key,other,bit))
     return {'nodes': [{**objects[key], 'distance': distance} for key, distance in selected.items()],
             'edges': [{'source': a, 'target': b, 'bit': bit} for a, b, bit in sorted(edges) if a in selected and b in selected],
             'truncated': truncated}

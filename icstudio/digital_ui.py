@@ -20,10 +20,14 @@ from .digital_design import config as cell_config, set_config
 
 
 class RTLHighlighter(QSyntaxHighlighter):
+    def __init__(self,document,dark=True):
+        super().__init__(document);self.dark=dark
+
     def highlightBlock(self, text):
         for pattern, color in [(r'\b(module|endmodule|input|output|wire|reg|logic|integer|always|always_ff|always_comb|begin|end|if|else|initial|for|parameter|localparam|assign|posedge|negedge)\b', '#91a9ff'),
                                (r'\$[a-zA-Z_]+|`[a-zA-Z_]+', '#d7a8e8'),
                                (r'"(?:\\.|[^"\\])*"', '#dfba7b'), (r'//.*$', '#7c9388')]:
+            if not self.dark:color={'#91a9ff':'#3156b5','#d7a8e8':'#834492','#dfba7b':'#815b14','#7c9388':'#47745a'}[color]
             style = QTextCharFormat(); style.setForeground(QColor(color))
             for match in re.finditer(pattern,text): self.setFormat(match.start(),match.end()-match.start(),style)
 
@@ -131,7 +135,7 @@ class DigitalFlowWindow(QDockWidget):
         from .digital_editor import SourceEditor
         self.editor = SourceEditor(); self.editor.setFont(QFontDatabase.systemFont(QFontDatabase.FixedFont)); self.editor.setAccessibleName('RTL source editor'); ev.addWidget(self.editor)
         self.editor.setStyleSheet('QPlainTextEdit { font-family: monospace; font-size: 13px; }')
-        self.highlighter = RTLHighlighter(self.editor.document())
+        self.highlighter = RTLHighlighter(self.editor.document(),studio.dark)
         splitter.addWidget(editor_host); splitter.setSizes([230, 850])
         actions = QHBoxLayout(); source_layout.addLayout(actions)
         self.apply_button = QPushButton('Apply sources'); self.apply_button.clicked.connect(lambda: self.attempt(self.apply)); actions.addWidget(self.apply_button)
@@ -155,7 +159,7 @@ class DigitalFlowWindow(QDockWidget):
         self.report = QPlainTextEdit(); self.report.setReadOnly(True); self.result_tabs.addTab(self.report, 'Report and log')
         self.netlist_view = QPlainTextEdit(); self.netlist_view.setReadOnly(True)
         self.netlist_view.setStyleSheet('QPlainTextEdit { font-family: monospace; }')
-        self.netlist_highlighter = RTLHighlighter(self.netlist_view.document())
+        self.netlist_highlighter = RTLHighlighter(self.netlist_view.document(),studio.dark)
         self.result_tabs.addTab(self.netlist_view, 'Synthesized Verilog')
         self.tabs.addTab(result_page, 'Runs and results')
         self.message = QLabel(); self.message.setWordWrap(True); root.addWidget(self.message)
@@ -426,7 +430,10 @@ class DigitalMixin:
     def apply_theme(self):
         super().apply_theme()
         window=getattr(self,'_digital_window',None)
-        if window and hasattr(window,'shell'):window.shell.style()
+        if window and hasattr(window,'shell'):
+            window.shell.style();window.shell.refresh()
+            for highlighter in (window.highlighter,window.netlist_highlighter,window.shell.captured_highlighter):
+                highlighter.dark=self.dark;highlighter.rehighlight()
 
     def closeEvent(self,event):
         window=getattr(self,'_digital_window',None)

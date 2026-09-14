@@ -7,7 +7,7 @@ PHYSICAL = ('floorplan', 'place', 'cts', 'route', 'finish')
 
 def fingerprints(config):
     platform = config.get('platform', {})
-    technology = {k: platform.get(k) for k in ('fingerprint', 'corner')}
+    technology = {k: platform.get(k) for k in ('fingerprint', 'corner', 'corners', 'name', 'directory')}
     rtl = {'top': config['top'], 'files': [f for f in config['files'] if f['role'] in ('rtl', 'include', 'data')],
            'defines': config.get('defines', {}), 'include_dirs': config.get('include_dirs', ['.']),
            'bindings': config.get('bindings', {})}
@@ -31,7 +31,7 @@ def stage_key(config, stage, simulator='icarus'):
             'lint': ('rtl',), 'elaborate': ('rtl', 'synthesis'), 'synth': ('rtl', 'synthesis'),
             'mapped': ('rtl', 'technology', 'synthesis'),
             'equivalence': ('rtl', 'technology', 'synthesis'),
-            'timing': ('rtl', 'technology', 'synthesis', 'constraints', 'corners')}
+            'timing': ('rtl', 'technology', 'synthesis', 'constraints', 'corners', 'physical')}
     if stage in PHYSICAL:
         selected = {k: f[k] for k in ('rtl', 'technology', 'synthesis', 'constraints')}
         # Route-layer edits don't invalidate placement. Pin/macro/PDN edits do.
@@ -71,6 +71,6 @@ def comparison_context(result):
             'constraints': f.get('constraints', data.get('source_hash')),
             'synthesis': f.get('synthesis'), 'corners': f.get('corners'),
             'parasitics': timing.get('parasitics'),
-            'physical': f.get('physical') if 'physical' in data else None,
+            'physical': f.get('physical') if 'physical' in data or data.get('stage')=='timing' else None,
             'tools': data.get('environment', {}).get('executables'),
             'workflow': data.get('environment', {}).get('sources')}

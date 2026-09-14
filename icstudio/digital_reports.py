@@ -88,7 +88,7 @@ def timing_report(directory):
     if re.search(r'VIOLATED',electrical,re.I) and status=='PASS':status='FAIL'
     return {'status':status,'paths':rows,'summary':summary,'unconstrained':unconstrained,
             'checks':checks,'units':units,'electrical_checks':electrical,
-            'electrical_status':'FAIL' if re.search(r'VIOLATED',electrical,re.I) else 'No reported violations' if electrical else 'Unavailable',
+            'electrical_status':'FAIL' if re.search(r'VIOLATED',electrical,re.I) else 'No reported violations' if (root/'electrical_checks.txt').is_file() else 'Unavailable',
             'scope':'Reported paths for the selected library corner; inspect constraints and path coverage.'}
 
 

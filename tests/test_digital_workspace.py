@@ -52,6 +52,13 @@ class IntentTests(unittest.TestCase):
         self.assertEqual(identity.stage_key(a,'place'),identity.stage_key(b,'place'))
         self.assertNotEqual(identity.stage_key(a,'route'),identity.stage_key(b,'route'))
 
+    def test_library_binding_and_physical_intent_affect_analysis_identity(self):
+        a=clone(self.config);a['platform']={'fingerprint':'files','corner':'tt','corners':{'tt':['a.lib']}}
+        b=clone(a);b['platform']['corners']['tt']=['b.lib']
+        self.assertNotEqual(identity.stage_key(a,'mapped'),identity.stage_key(b,'mapped'))
+        b=clone(a);b['physical']={'place_density':.7}
+        self.assertNotEqual(identity.stage_key(a,'timing'),identity.stage_key(b,'timing'))
+
     def test_flow_targets_and_upstream_selection(self):
         p=digital.counter_project();cid=p['top']
         self.assertEqual(sequence('route',p['digital']),['mapped','floorplan','place','cts','route','timing'])
@@ -108,6 +115,13 @@ class TraceTests(unittest.TestCase):
         decoder=Decoder();out=[]
         for i in range(0,len(encoded),7):out+=decoder.feed(encoded[i:i+7])
         self.assertEqual(out,data);self.assertEqual(decoder.buffer,b'')
+
+    def test_logic_cone_does_not_connect_two_load_pins_as_driver_and_sink(self):
+        from icstudio.digital_inspection import cone
+        index=[{'module':'top','name':name,'kind':'cell','connections':{'P':[2]},'port_directions':{'P':direction}} for name,direction in (('driver','output'),('a','input'),('b','input'))]
+        graph=cone(index,'top','a')
+        pairs={(e['source'],e['target']) for e in graph['edges']}
+        self.assertEqual(pairs,{('driver','a'),('driver','b')})
 
     def test_hierarchy_ambiguity_is_explicit(self):
         from icstudio.digital_inspection import sources_for_signal

@@ -32,7 +32,7 @@ class DigitalShell(QObject):
     def __init__(self, window):
         super().__init__(window)
         self.w = window; self.key = None; self.source_key = None; self.loading = False
-        self.selection = None; self.legacy = window.widget()
+        self.icon_buttons=[];self.selection = None; self.legacy = window.widget()
         # Extract the useful editors from the former nested dock layout.
         source_page = window.tabs.widget(0)
         source_split = source_page.findChild(QSplitter)
@@ -105,7 +105,7 @@ class DigitalShell(QObject):
         self.captured_editor = SourceEditor(); self.captured_editor.setReadOnly(True); self.captured_editor.setFont(window.editor.font())
         self.captured_editor.setAccessibleName('Read-only source from selected run'); cap.addWidget(self.captured_editor, 1)
         from .digital_ui import RTLHighlighter
-        self.captured_highlighter = RTLHighlighter(self.captured_editor.document()); self.source_stack.addWidget(captured)
+        self.captured_highlighter = RTLHighlighter(self.captured_editor.document(),window.studio.dark); self.source_stack.addWidget(captured)
         self.source_mode.currentIndexChanged.connect(self.change_source_mode)
         self.captured_files.currentIndexChanged.connect(self.load_captured_file)
         source_actions = QHBoxLayout(); sv.addLayout(source_actions); source_actions.addWidget(window.apply_button)
@@ -174,6 +174,7 @@ class DigitalShell(QObject):
 
     def style(self):
         p = palette(self.w.studio.dark)
+        for button,name in self.icon_buttons:button.setIcon(icon(name,p['muted']))
         self.host.setStyleSheet('''
             QWidget#digitalHeader { border-bottom: 1px solid %(line)s; }
             QWidget#digitalNavigator, QWidget#digitalInspector { background: %(panel)s; }
@@ -189,6 +190,7 @@ class DigitalShell(QObject):
     def button(self, layout, text, callback, image=None, tip=None):
         button = QPushButton(text); button.setAccessibleName(tip or text)
         if image:
+            self.icon_buttons.append((button,image))
             button.setIcon(icon(image, palette(self.w.studio.dark)['muted']))
         if tip:
             button.setToolTip(tip)
@@ -365,6 +367,8 @@ class DigitalShell(QObject):
             current_rows = [r for r in candidates if usable(r,w.studio.project,w.cell_id)]
             latest = candidates[-1] if candidates else None
             state = 'Current' if current_rows else 'Stale' if latest and latest['state']=='Complete' else latest['state'] if latest else 'Not run'
+            verdict=data_of(latest).get('verdict') if latest else None
+            if verdict in ('FAIL','UNKNOWN','ERROR','INCOMPLETE'):state=verdict.title()
             if latest and latest['state'] in ('Running','Queued','Stopping'):
                 state = latest['state']
             item = QTableWidgetItem(state); item.setTextAlignment(Qt.AlignCenter)

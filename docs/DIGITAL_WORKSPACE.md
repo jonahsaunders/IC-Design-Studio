@@ -75,7 +75,7 @@ connectivity. Physical display uses indexed instance rectangles and batched rout
 paths, without the old 20,000-instance/50,000-segment display truncation. Filters,
 net/instance search and placement-density bins help inspect larger blocks. Density
 is occupied area per spatial bin, not a routing-congestion prediction. The DEF
-route preview still caps input at 128 MiB and 500,000 segments. It displays signal
+route preview still caps input at 128 MiB, 100,000 placed instances and 500,000 segments. It displays signal
 centerlines; final GDS remains the geometry used for layout/DRC inspection.
 
 Published symbols use compiler ports with bus metadata and scalar electrical

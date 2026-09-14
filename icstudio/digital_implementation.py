@@ -76,9 +76,9 @@ class Runner:
             if not allow_failure:raise
             return str(exc)
 
-    def add_artifact(self,key,path):
+    def add_artifact(self,key,path,allow_empty=False):
         from .digital_flow import artifact
-        self.artifacts[key]=artifact(self.root,Path(path))
+        self.artifacts[key]=artifact(self.root,Path(path),allow_empty=allow_empty)
 
     def save_json(self,key,data,filename):
         atomic_write(self.root/filename,json.dumps(data,indent=2));self.add_artifact(key,self.root/filename)
@@ -131,7 +131,7 @@ def mapped(runner):
         r.save_json('synthesis_intent', intent, 'synthesis_intent.json')
         script += 'dfflibmap -liberty ' + quote(libs[0]) + '\n' + abc + '\nclean\n'
         if r.platform['name']=='sky130hd':script+='hilomap -singleton -hicell sky130_fd_sc_hd__conb_1 HI -locell sky130_fd_sc_hd__conb_1 LO\n'
-        script+='check -assert\nwrite_verilog -noattr ../netlist.v\nwrite_json ../netlist.json\n'
+        script+='delete t:$scopeinfo\ncheck -assert\nwrite_verilog -noattr ../netlist.v\nwrite_json ../netlist.json\n'
         script+='tee -o ../statistics.json stat -json -liberty '+quote(libs[0])+'\n'
         atomic_write(r.root/'mapped.ys',script);r.command([r.tools['yosys'],'-s',str(r.root/'mapped.ys')],'Mapping '+r.config['top']+' to '+r.platform['name'])
         for key,name in (('netlist','netlist.v'),('hierarchy','netlist.json'),('statistics','statistics.json')):r.add_artifact(key,r.root/name)
@@ -198,7 +198,7 @@ def timing(r):
         reports.append(report);powers.append({'corner':corner,**power_report(r.root/'power.txt')})
         folder=r.root/'timing-corners'/corner;folder.mkdir(parents=True)
         for name in ('timing.tcl','timing_full.txt','timing_checks.txt','timing_units.txt','timing_paths.tsv','timing_totals.txt','electrical_checks.txt','power.txt'):
-            shutil.copy2(r.root/name,folder/name);r.add_artifact('corner_'+corner+'_'+name.replace('.','_'),folder/name)
+            shutil.copy2(r.root/name,folder/name);r.add_artifact('corner_'+corner+'_'+name.replace('.','_'),folder/name,allow_empty=True)
     r.timing_corner=None
     report=clone(reports[0]);report['corners']=reports;report['paths']=[p for c in reports for p in c['paths']]
     states={c['status'] for c in reports};report['status']=next((s for s in ('INCOMPLETE','FAIL') if s in states),'PASS')
@@ -208,7 +208,7 @@ def timing(r):
     totals=[c['summary']['setup_total_negative_slack_ns'] for c in reports if 'setup_total_negative_slack_ns' in c['summary']]
     if totals:report['summary']['setup_total_negative_slack_ns']=min(totals)
     report['scope']='Selected library corners with the captured netlist and parasitics. RC corner variation requires separately extracted SPEF.'
-    r.save_json('timing',report,'timing.json');r.add_artifact('timing_full',r.root/'timing_full.txt');r.add_artifact('power_report',r.root/'power.txt')
+    r.save_json('timing',report,'timing.json');r.add_artifact('timing_full',r.root/'timing_full.txt',allow_empty=True);r.add_artifact('power_report',r.root/'power.txt')
     data['power']={**powers[0],'corners':powers}
     upstream=r.settings.get('upstream',{})
     if 'layout_preview' in upstream.get('artifacts',{}):

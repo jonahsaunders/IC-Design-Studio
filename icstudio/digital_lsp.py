@@ -4,7 +4,7 @@ from pathlib import Path
 import tempfile
 from urllib.parse import unquote,urlparse
 
-from PySide6.QtCore import QObject,QProcess,QTimer,Qt
+from PySide6.QtCore import QObject,QProcess,QTimer,Qt,QUrl
 from PySide6.QtGui import QKeySequence,QShortcut,QTextCursor
 from PySide6.QtWidgets import QFileDialog,QInputDialog,QMenu
 
@@ -96,7 +96,7 @@ class LanguageClient(QObject):
                 if self.sync_kind==2:
                     lines=old[1].split('\n');change['range']={'start':{'line':0,'character':0},'end':{'line':len(lines)-1,'character':len(lines[-1].encode('utf-16-le'))//2}}
                 self.send({'method':'textDocument/didChange','params':{'textDocument':{'uri':uri,'version':old[0]+1},'contentChanges':[change]}});self.documents[uri]=(old[0]+1,source['text'])
-            if source['path']==self.w.files.currentItem().text():self.uri=uri
+            if self.w.files.currentItem() and source['path']==self.w.files.currentItem().text():self.uri=uri
 
     def params(self):
         self.sync()
@@ -138,7 +138,7 @@ class LanguageClient(QObject):
 
     def open_location(self,location):
         if not self.folder:return
-        uri=location['uri'];path=Path(unquote(urlparse(uri).path)).resolve()
+        uri=location['uri'];path=Path(QUrl(uri).toLocalFile()).resolve()
         if not path.is_relative_to(self.root):self.w.message.setText('Definition is outside the captured source workspace: '+str(path));return
         relative=path.relative_to(self.root).as_posix();index=next((i for i,f in enumerate(self.w.config['files']) if f['path']==relative),None)
         if index is None:return
@@ -156,7 +156,7 @@ class LanguageClient(QObject):
                     if params['uri'] not in self.documents:continue
                     if params.get('version',self.documents[params['uri']][0])!=self.documents[params['uri']][0]:continue
                     for d in params['diagnostics']:
-                        rows.append({**d,'uri':params['uri'],'path':Path(unquote(urlparse(params['uri']).path)).name,'line':d['range']['start']['line']+1})
+                        rows.append({**d,'uri':params['uri'],'path':Path(QUrl(params['uri']).toLocalFile()).name,'line':d['range']['start']['line']+1})
                     from .digital_workspace import fill
                     fill(self.diagnostics,rows,['path','line','severity','message'])
                 elif message.get('id') in self.pending:
@@ -172,4 +172,4 @@ class LanguageClient(QObject):
         if self.process.state()!=QProcess.NotRunning:self.send({'method':'exit'});self.process.terminate();self.process.waitForFinished(1000)
         if self.process.state()!=QProcess.NotRunning:self.process.kill();self.process.waitForFinished(1000)
         if self.folder:self.folder.cleanup();self.folder=None
-        self.pending={};self.documents={};self.uri=None;self.decoder=Decoder()
+        self.pending={};self.documents={};self.uri=None;self.decoder=Decoder();self.diagnostics.setRowCount(0)
