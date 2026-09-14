@@ -25,6 +25,7 @@ def main():
     sys.excepthook=exception
     p=digital.counter_project();p['digital']['platform']=digital_platform.from_orfs(os.environ['ICSTUDIO_TEST_ORFS']);p['digital']['timeout']=300
     w=Studio(recover=False);w.error=errors.append;w.jobs_dir=out/'runs'
+    w.settings.setValue('digital/toolchain','custom')
     for name in ('yosys','sta','openroad','make'):
         path=os.environ.get('ICSTUDIO_TEST_'+name.upper()) or shutil.which(name)
         if not path:raise RuntimeError('Install '+name)

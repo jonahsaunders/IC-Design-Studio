@@ -39,8 +39,9 @@ def manifest():
     path = payload_root()/'manifest.json'
     if not path.is_file(): return None
     data = json.loads(path.read_text())
-    if (data.get('schema') != 1 or data.get('system') != 'ubuntu-24.04-x86_64'
-            or data.get('archive') != 'runtime.tar.gz' or not re.fullmatch('[0-9a-f]{64}',data.get('sha256',''))):
+    if (not isinstance(data, dict) or data.get('schema') != 1 or data.get('system') != 'ubuntu-24.04-x86_64'
+            or data.get('archive') != 'runtime.tar.gz' or not isinstance(data.get('sha256'), str)
+            or not re.fullmatch('[0-9a-f]{64}',data['sha256'])):
         raise ValueError('The included digital runtime manifest is invalid. Repair the application installation.')
     return data
 
@@ -72,17 +73,28 @@ def location(data):
 def status():
     try:
         data = manifest()
-        if not data: return {'state':'unavailable','message':'This source checkout has no included runtime. Custom tool paths remain available.'}
+        if not data:
+            if getattr(sys, 'frozen', False):
+                return {'state':'error', 'reason':'package_missing',
+                        'message':'The digital tools are missing from this application. Reinstall the complete desktop package, or extract the entire portable archive.'}
+            return {'state':'unavailable', 'reason':'source_checkout',
+                    'message':'This source checkout does not include the digital tools. Get the desktop package for automatic setup, or select Custom tools to use an existing installation.'}
+        if not (payload_root()/data['archive']).is_file():
+            return {'state':'error', 'reason':'package_missing',
+                    'message':'The included digital archive is missing. Reinstall the complete desktop package, or extract the entire portable archive.'}
         record = state_root()/('ready-'+data['sha256']+'.json')
         if not record.is_file(): return {'state':'setup','message':'The included digital tools need their first-run verification.'}
         ready = json.loads(record.read_text()); runtime = location(data)
+        if not isinstance(ready,dict):
+            return {'state':'setup','message':'The digital setup record is invalid. Run setup again to restore it.'}
         if ready.get('runtime') != runtime or ready.get('manifest') != digest(data) or ready.get('backend') != backend_identity():
             return {'state':'setup','message':'The digital runtime changed. Run setup again.'}
         if not (Path(runtime['root'])/'opt/icstudio/runtime.json').is_file():
             return {'state':'setup','message':'The digital runtime is missing. Run setup to restore it.'}
         return {'state':'ready','message':'Ready · SKY130 HD · simulation, synthesis, proof, timing and RTL to GDS verified',
                 'runtime':runtime,'evidence':ready['evidence']}
-    except (OSError,ValueError,KeyError) as exc: return {'state':'error','message':str(exc)}
+    except (OSError,ValueError,KeyError,TypeError) as exc:
+        return {'state':'error', 'reason':'runtime_error', 'message':str(exc)}
 
 
 def installed():

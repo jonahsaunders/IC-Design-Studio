@@ -30,6 +30,7 @@ while dialog.process and time.monotonic()<deadline: app.processEvents(); time.sl
 assert dialog.process is None,'Setup subprocess did not finish'
 assert status()['state']!='ready'
 assert 'damaged' in dialog.log.toPlainText(),dialog.log.toPlainText()
+assert 'damaged' in (Path(os.environ['ICSTUDIO_DIGITAL_STATE'])/'last-setup.log').read_text()
 assert dialog.start.isEnabled()
 assert 'did not complete' in dialog.status.text()
 QTest.qWait(100); dialog.grab().save(str(out/'failed-package.png'))

@@ -106,10 +106,12 @@ def controller_type():
                 raise ValueError('Stop the current flow before starting another target.')
             if not w.apply():
                 return
+            if not w.ensure_tools(lambda:self.start(target),'the requested flow'): return
+            from .digital_tools import selection
             config = clone(w.config)
             self.record = {'version': 1, 'id': uid(), 'created': now(), 'target': target,
                            'project': clone(w.studio.project), 'cell': w.cell_id,
-                           'tools': w.workspace.tools(), 'orfs': w.studio.settings.value('digital/orfs', ''),
+                           **selection(w.studio.settings),
                            'simulator': w.simulator.currentData(), 'state': 'Running',
                            'steps': [{'stage': s, 'state': 'Pending'} for s in sequence(target, config)]}
             self.path = Path(w.studio.jobs_dir)/w.project_id/'plans'/(self.record['id']+'.json')
@@ -128,7 +130,7 @@ def controller_type():
                 rows = w.studio.run_manager.rows
                 upstream = latest_upstream(rows, r['project'], r['cell'], step['stage'])
                 job = prepare(r['project'], step['stage'], r['simulator'], r['tools'], cell_id=r['cell'],
-                              upstream=upstream['path'] if upstream else None, orfs=r['orfs'])
+                              upstream=upstream['path'] if upstream else None, orfs=r['orfs'], toolchain=r.get('toolchain','auto'))
                 cached = matching_result(rows, job)
                 if cached:
                     step.update(state='Reused', run=cached['id']); self.save()

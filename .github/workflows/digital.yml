@@ -26,13 +26,15 @@ jobs:
           verilator --version
           yosys -V
       - name: Verify digital inputs, real engines and analog compatibility
-        run: python -m unittest tests.test_digital tests.test_digital_implementation tests.test_digital_runtime tests.test_digital_workspace tests.test_core tests.test_lifecycle tests.test_workflows -v
+        run: python -m unittest tests.test_digital tests.test_digital_implementation tests.test_digital_runtime tests.test_digital_tools tests.test_digital_workspace tests.test_core tests.test_lifecycle tests.test_workflows -v
       - name: Verify desktop digital workflow
         run: python tests/gui_digital.py
       - name: Verify linked workspace, queue resume and large placement inspection
         run: python tests/gui_digital_workspace.py
       - name: Verify setup subprocess and failed-package UI
         run: python tests/gui_digital_setup.py
+      - name: Verify first-run guidance and continuation after setup
+        run: python tests/gui_digital_first_run.py
       - name: Check release documentation
         run: python scripts/check_release.py
       - uses: actions/upload-artifact@v4
@@ -42,6 +44,7 @@ jobs:
           path: |
             build/digital-ui
             build/digital-setup-ui
+            build/digital-first-run-ui
             build/digital-workspace-ui
 
   implementation:

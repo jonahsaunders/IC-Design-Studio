@@ -89,7 +89,9 @@ class Workspace:
     def button(self,layout,title,callback):
         b=QPushButton(title);b.clicked.connect(lambda checked=False:self.window.attempt(callback));layout.addWidget(b);return b
 
-    def tools(self):return {name:self.window.studio.settings.value('engine/'+name,'') for name in TOOL_NAMES}
+    def tools(self):
+        from .digital_tools import selection
+        return selection(self.window.studio.settings)['tools']
 
     def refresh_design(self):
         w=self.window;self.cells.blockSignals(True);self.cells.clear()

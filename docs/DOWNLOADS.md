@@ -1,52 +1,77 @@
 # Get IC Design Studio
 
-Current development source: **0.22.0.dev21**. [Release status](RELEASE_STATUS.md) records the exact scope of the source, desktop and physical checks. New source does not imply a published or signed package.
+For the easiest digital-design experience, install a **complete desktop package**.
+It includes Python, the application, digital engines, compiler dependencies and
+the SKY130 HD platform. You do not need to install Icarus, Verilator, Yosys or
+OpenROAD separately.
 
-The [dev21 update](UPDATE_0.22_DEV21.md) is newer than the dev20 draft below.
-Use the dev21 PR's successful desktop workflow artifacts (`release-Windows` or
-`release-Linux`), or the experimental draft once its complete workflow succeeds.
-Check About for the exact source commit. Drafts remain maintainer-visible until
-publication.
+## Choose your download
 
-The earlier dev20 draft was assembled successfully from `6b1e30f3d13c1dcb8d662523fd6cf4919f1b2a0d`
-by [release run 34703715977](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/34703715977).
-Its Windows/Linux packages, source, evidence and checksums are uploaded. It remains
-a draft engineering preview pending consumer-machine acceptance and the signing decision.
-Check the [Releases page](https://github.com/jonahsaunders/IC-Design-Studio/releases)
-for published downloads. A draft release or Actions artifact is not a published
-release. If there is no current release, use **Code → Download ZIP** and the
-[source setup instructions](../README.md#start-in-three-steps).
+Use the [Releases page](https://github.com/jonahsaunders/IC-Design-Studio/releases)
+for published packages. Development source is **0.22.0.dev23**; a source update
+does not necessarily have a published desktop release.
 
-## Release assets
+For the experimental branch, open a successful
+[Build and verify desktop release run](https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Aexperimental).
+Download its **release-Windows** or **release-Linux** artifact, then extract that
+artifact to find the desktop package, matching validation record and checksums.
+Downloading Actions artifacts requires a GitHub sign-in. Draft releases are
+visible to maintainers until published.
 
-| Asset suffix | Use |
+| Asset suffix | What to do |
 |---|---|
-| `Windows-x64-Setup.exe` | Install the app, bundled ngspice and simulation PDK subsets |
-| `Windows-x64-Portable.zip` | Extract the entire archive and launch `ICDesignStudio/ICDesignStudio.exe` |
-| `Linux-x86_64.tar.gz` | Extract and run `ICDesignStudio/ICDesignStudio`; targets Ubuntu 24.04 |
-| `Source-Windows.zip` | Matching Windows source, including its staged ngspice runtime |
-| `Source-Linux.zip` | Matching Linux application source; install native ngspice for source use |
-| `Validation-*.json` and `Evidence-*.zip` | Exact commit, package hashes and executed platform/numerical checks |
-| `SHA256SUMS-0.22.0.dev20.txt` | Final download checksums |
+| `Windows-x64-Setup.exe` | Run the installer, then launch Studio |
+| `Windows-x64-Portable.zip` | Extract the entire archive, then open `ICDesignStudio/ICDesignStudio.exe` |
+| `Linux-x86_64.tar.gz` | Extract the entire archive, then run `ICDesignStudio/ICDesignStudio` |
+| `Source-Windows.zip` / `Source-Linux.zip` | Developer source; these are not the complete digital desktop runtime |
+| `Validation-*.json` / `Evidence-*.zip` | Build identity and the checks performed on that package |
+| `SHA256SUMS-*.txt` | Checksums for the matching downloads |
 
-Keep the complete runtime folder beside the executable. A clean GitHub source
-export contains no native binaries: the Windows launcher downloads the pinned
-ngspice runtime, verifies its hash and executes a small installation check.
-Python dependencies need internet during source setup. The first-waveform
-example uses the included educational solver and requires no external PDK.
+Keep `_internal` and all its contents beside the executable. Copying only the
+executable, or using **Code → Download ZIP**, does not install the digital tools.
+Check **About** for the exact source commit and compare it with the downloaded
+build. The version number alone may identify multiple experimental builds.
 
-The previous embedded-Python portable handoff used `app/` and `python/` folders.
-It is different from the PyInstaller portable ZIP now built and extracted by CI.
-Only the validation record for the exact downloaded file establishes what ran.
+## First launch
 
-See [current release status](RELEASE_STATUS.md) for the confirmed dev20 hosted
-baseline and remaining consumer-platform checks. Windows builds are unsigned;
-macOS has no qualified binary. Read [simulation setup](../SIMULATION_SETUP.md)
-for custom engine paths and [the release guide](RELEASING.md) for maintainers.
+1. Launch Studio. **Included tools (recommended)** is selected automatically.
+2. Let the visible setup finish. Progress, detailed logs and retry are available
+   in the setup window. Allow several minutes and several GB of free disk space.
+3. Open **Digital → New digital counter example**, then press **F5**. If setup
+   is still needed, Run opens it and continues after success. Editing the design
+   during setup asks you to click Run again so an unexpected design is not run.
+
+On **Windows x64**, the full digital flow uses Studio's private WSL 2
+distribution. If requested, click **Enable Windows Linux support**, accept the
+Windows administrator prompt, restart Windows and reopen Studio. Windows
+components may need internet access; the digital engines and platform are
+already in the desktop package. Existing WSL distributions are preserved.
+
+On **Linux x64**, the included native runtime targets Ubuntu 24.04 and requires
+glibc 2.39 or newer. macOS has no qualified desktop package.
+
+## If setup needs attention
+
+| What Studio reports | Next step |
+|---|---|
+| Source checkout has no included tools | Use the desktop package, or explicitly select Custom tools for development |
+| Included archive or tools are missing | Reinstall the desktop package or extract the entire portable archive |
+| Windows Linux support is unavailable | Enable it in the setup window, restart if requested, then retry |
+| Setup did not complete | Expand setup details; correct the reported problem and retry. Open setup logs for retained evidence |
+| Custom tool cannot be found | Select Included tools to use Studio's runtime, or correct the custom executable path |
+
+Saved custom paths do not disable included tools. Choose **Custom tools**
+explicitly when you want your own installation. Switching modes preserves those
+paths. Existing project platform selections are also preserved.
+
+The [digital guide](DIGITAL_FLOW.md) covers supported tools, platform locks,
+custom configurations and headless setup. [Release status](RELEASE_STATUS.md)
+records acceptance scope; passing CI does not establish all consumer-machine
+configurations. Windows packages currently have no configured signing step.
 
 ## Verify a download
 
-On Linux, run `sha256sum -c SHA256SUMS-0.22.0.dev20.txt` in the download directory.
-On Windows, run `Get-FileHash .\IC-Design-Studio-0.22.0.dev20-Windows-x64-Setup.exe -Algorithm SHA256`
-and compare it with the matching line in the checksum file. Missing optional
-files in a full checksum inventory do not verify any files you did not download.
+On Linux, run `sha256sum -c SHA256SUMS-0.22.0.dev23.txt` in the download directory.
+On Windows, run `Get-FileHash .\IC-Design-Studio-0.22.0.dev23-Windows-x64-Setup.exe -Algorithm SHA256`
+and compare it with the matching checksum file. Use the filenames supplied with
+your exact build. A checksum for another build does not verify your download.

@@ -48,10 +48,8 @@ def main():
             window.offer_recovery()
             if not window._recovered_from and window.path is None and window.settings.value('onboarding/show', True, type=bool):
                 window.start_here()
-            from .digital_runtime import status
-            if status()['state']=='setup':
-                from .digital_setup_ui import show
-                show(window,automatic=True)
+            from .digital_setup_ui import startup
+            startup(window)
         QTimer.singleShot(100, welcome)
     if '--smoke-test' in sys.argv:
         from .model import digest
@@ -59,10 +57,8 @@ def main():
         QTimer.singleShot(600,app.quit)
     elif '--project' in sys.argv:
         def digital_setup():
-            from .digital_runtime import status
-            if status()['state']=='setup':
-                from .digital_setup_ui import show
-                show(window,automatic=True)
+            from .digital_setup_ui import startup
+            startup(window)
         QTimer.singleShot(200,digital_setup)
     return app.exec()
 if __name__=='__main__':raise SystemExit(main())
