@@ -163,6 +163,11 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_analog_workspace.py --out build/analog-workspace-evidence
+      - name: Test analog optimizer and workspace accessibility
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_analog_optimizer.py --out build/analog-optimizer-evidence
       - name: Test encrypted hosting, peer trust and direct annotation editing
         timeout-minutes: 5
         env:

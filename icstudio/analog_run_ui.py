@@ -1,6 +1,6 @@
 """Saved circuit, probes and physical evidence viewed without replacing a document."""
 import json
-from PySide6.QtCore import Qt,QPointF,QRectF
+from PySide6.QtCore import Qt,QPointF,QRectF,QEvent
 from PySide6.QtWidgets import (QDialog,QVBoxLayout,QHBoxLayout,QLabel,QTabWidget,QWidget,QComboBox,
     QPushButton,QSplitter,QPlainTextEdit)
 from .model import clone,design_digest
@@ -8,6 +8,7 @@ from .analog_debug import contexts,operating_rows,convergence_hints,comparison_r
 from .analog_workspace_ui import table,fill
 from .canvas import Canvas
 from .plot import WavePlot
+from .analog_widgets import actions,label,scroll
 
 
 class RunInspector(QDialog):
@@ -24,27 +25,34 @@ class RunInspector(QDialog):
         self.probe=QComboBox();self.probe.setAccessibleName('Saved voltage or current probe');selectors.addWidget(self.probe,1);layout.addLayout(selectors)
         split=QSplitter();self.schematic=Canvas('schematic');self.schematic.dark=studio.dark;self.plot=WavePlot();self.plot.dark=studio.dark;split.addWidget(self.schematic);split.addWidget(self.plot);layout.addWidget(split,2)
         self.devices=table(['Instance','Id / branch current (A)','gm (S)','Bias margin (V)','Region / evidence']);self.devices.setAccessibleName('Saved device operating points');layout.addWidget(self.devices,1)
-        self.devices.cellClicked.connect(self.select_device);self.schematic.selected.connect(self.select_canvas_device)
+        self.devices.cellClicked.connect(self.select_device);self.devices.itemActivated.connect(lambda *_:self.call(lambda:self.select_device(self.devices.currentRow())));self.schematic.selected.connect(self.select_canvas_device)
         self.hierarchy.currentIndexChanged.connect(self.show_context);self.probe.currentIndexChanged.connect(self.show_probe)
         self.plot.cursor_changed.connect(self.cursor_sample)
         page=QWidget();layout=QVBoxLayout(page);self.tabs.addTab(page,'Verification and deltas')
         self.stages=table(['Stage','State','Details']);layout.addWidget(self.stages)
         self.comparisons=table(['Requirement','Before','After','Delta','Unit','Before status','After status','Details']);layout.addWidget(self.comparisons)
-        bar=QHBoxLayout()
-        for title,fn in [('Schematic waveforms',lambda:self.physical_wave('schematic')),('Extracted waveforms',lambda:self.physical_wave('post-layout')),('Overlay both',self.overlay)]:
-            button=QPushButton(title);button.clicked.connect(lambda _=False,fn=fn:self.call(fn));bar.addWidget(button)
-        layout.addLayout(bar)
+        actions(layout,[('Schematic waveforms',lambda:self.physical_wave('schematic')),('Extracted waveforms',lambda:self.physical_wave('post-layout')),('Overlay both',self.overlay)],self.call)
         split=QSplitter();self.findings=table(['Rule','Cell / object','Details']);split.addWidget(self.findings);self.layout_canvas=Canvas('layout');self.layout_canvas.dark=studio.dark;split.addWidget(self.layout_canvas);layout.addWidget(split,2)
         self.findings.cellClicked.connect(lambda i,j:self.call(lambda:self.locate_finding(i)))
-        log=QPlainTextEdit();log.setReadOnly(True);self.tabs.addTab(log,'Diagnostics and input')
+        self.findings.itemActivated.connect(lambda *_:self.call(lambda:self.locate_finding(self.findings.currentRow())))
+        log=QPlainTextEdit();log.setReadOnly(True);log.setAccessibleName('Saved simulation diagnostics and input');self.tabs.addTab(log,'Diagnostics and input')
         raw=row.get('log','')+'\n'+self.result.get('log','');hints=convergence_hints(raw)
         log.setPlainText('\n\n'.join(h['title']+'\n'+h['detail'] for h in hints)+'\n\nSaved analysis\n'+json.dumps(row['job']['settings'],indent=2)+'\n\nSaved variables\n'+json.dumps(self.project.get('parameters',{}),indent=2)+'\n\nEngine log\n'+raw)
         self.populate_wave();self.populate_verification()
+        for i in range(2):
+            page=self.tabs.widget(i);title=self.tabs.tabText(i);self.tabs.removeTab(i);self.tabs.insertTab(i,scroll(page),title)
+        self.setMinimumSize(760,560)
         if self.result.get('silicon_report'):self.tabs.setCurrentIndex(1)
 
     def call(self,fn):
         try:return fn()
         except Exception as exc:self.note.setText(str(exc))
+
+    def changeEvent(self,event):
+        if event.type()==QEvent.PaletteChange:
+            for key in ('schematic','layout_canvas','plot'):
+                if hasattr(self,key):getattr(self,key).dark=self.studio.dark;getattr(self,key).update()
+        super().changeEvent(event)
 
     def focus_requirement(self,definition):
         """Follow exact saved V/I references; do not guess a derived trace."""

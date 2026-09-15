@@ -5,9 +5,10 @@ from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel, QComboBox,
     QPushButton, QTableWidget, QTableWidgetItem, QHeaderView, QCheckBox, QLineEdit,
-    QFormLayout, QDialogButtonBox, QFileDialog, QAbstractItemView, QPlainTextEdit)
+    QFormLayout, QDialogButtonBox, QFileDialog, QAbstractItemView, QPlainTextEdit, QProgressBar)
 from .model import clone, uid, scalar, atomic_write
 from .test_plans import sources, validate_plans, prepare, matrix, compare
+from .analog_widgets import actions, label as field_label
 
 
 class PlanEditor(QDialog):
@@ -73,21 +74,19 @@ class TestPlanWindow(QDialog):
     def __init__(self,studio):
         super().__init__(studio);self.studio=studio;self.project_id=studio.project['id'];self.data=None
         self.setWindowTitle('Verification test plans');self.resize(1000,650)
-        root=QVBoxLayout(self);bar=QHBoxLayout();self.plans=QComboBox();self.plans.setAccessibleName('Saved test plan');bar.addWidget(self.plans,1)
-        for name,fn in [('New plan…',lambda:self.edit()),('Edit plan…',lambda:self.edit(self.plan())),('Delete plan',self.delete),('Run plan',self.run)]:
-            b=QPushButton(name);b.clicked.connect(lambda _=False,fn=fn:self.call(fn));bar.addWidget(b)
-        root.addLayout(bar)
+        root=QVBoxLayout(self);self.plans=QComboBox();root.addWidget(field_label('Saved test &plan',self.plans));root.addWidget(self.plans)
+        self.plan_buttons=actions(root,[('New plan…',lambda:self.edit()),('Edit plan…',lambda:self.edit(self.plan())),('Delete plan',self.delete),('Run plan',self.run)],self.call,'Run plan')
         row=QHBoxLayout();self.runs=QComboBox();self.runs.setAccessibleName('Test plan run');self.baseline=QComboBox();self.baseline.setAccessibleName('Baseline run')
         row.addWidget(QLabel('Run'));row.addWidget(self.runs,1);row.addWidget(QLabel('Compare with'));row.addWidget(self.baseline,1);root.addLayout(row)
         self.note=QLabel('Save a testbench or analysis setup, then create a plan. Each cell shows a requirement under one operating condition.')
         self.note.setWordWrap(True);root.addWidget(self.note)
+        self.progress=QProgressBar();self.progress.setAccessibleName('Completed test plan simulations');self.progress.setTextVisible(False);root.addWidget(self.progress)
         self.failed=QCheckBox('Show only failures, errors, and regressions');root.addWidget(self.failed)
         self.table=QTableWidget();self.table.setAccessibleName('Specifications by operating condition');self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents);root.addWidget(self.table,1)
-        actions=QHBoxLayout()
-        for name,fn in [('Open selected run',self.open_run),('Retry failed / cancelled',self.retry),('Export CSV…',self.export),('Close',self.close)]:
-            b=QPushButton(name);b.clicked.connect(lambda _=False,fn=fn:self.call(fn));actions.addWidget(b)
-        root.addLayout(actions)
+        self.result_buttons=actions(root,[('Open selected run',self.open_run),('Retry failed / cancelled',self.retry),('Cancel remaining',self.cancel),('Export CSV…',self.export),('Close',self.close)],self.call)
+        self.table.itemSelectionChanged.connect(self.selection_changed)
+        self.table.itemActivated.connect(lambda *_:self.call(self.open_run))
         self.timer=QTimer(self);self.timer.setSingleShot(True);self.timer.setInterval(180);self.timer.timeout.connect(self.refresh)
         studio.run_manager.changed.connect(self.schedule)
         self.plans.currentIndexChanged.connect(self.refresh);self.runs.currentIndexChanged.connect(self.render);self.baseline.currentIndexChanged.connect(self.render);self.failed.toggled.connect(self.render)
@@ -142,6 +141,7 @@ class TestPlanWindow(QDialog):
         self.render()
 
     def render(self):
+        previous=(self.table.currentRow(),self.table.currentColumn())
         self.data=matrix(self.studio.run_manager.rows,self.runs.currentData())
         if self.baseline.currentData():self.data=compare(self.data,matrix(self.studio.run_manager.rows,self.baseline.currentData()))
         rows=self.data['rows'];conditions=self.data['conditions']
@@ -155,12 +155,25 @@ class TestPlanWindow(QDialog):
                 if 'delta' in cell:text+=f' · Δ {cell["delta"]:+.4g}'
                 item=QTableWidgetItem(text);item.setData(Qt.UserRole,cell.get('run_id'));item.setToolTip(str(row['definition'])+'\n'+str(cell.get('detail',''))+'\nMargin: '+str(cell.get('margin')))
                 item.setData(Qt.UserRole+1,row['definition'])
-                if cell.get('status') in ('FAIL','ERROR'):item.setForeground(QColor('#d35c54'))
-                elif cell.get('status')=='PASS':item.setForeground(QColor('#31936c'))
+                if cell.get('status') in ('FAIL','ERROR'):item.setForeground(QColor('#ff929f' if self.studio.dark else '#bc2940'))
+                elif cell.get('status')=='PASS':item.setForeground(QColor('#76c9b1' if self.studio.dark else '#17755e'))
                 self.table.setItem(i,j,item)
+        if 0<=previous[0]<self.table.rowCount() and 0<=previous[1]<self.table.columnCount():self.table.setCurrentCell(*previous)
+        selected=[r for r in self.studio.run_manager.rows if r['job'].get('case',{}).get('group')==self.runs.currentData() and self.runs.currentData()]
+        done=sum(r['state'] in ('Complete','Failed','Cancelled','Interrupted') for r in selected)
+        self.progress.setRange(0,max(1,len(selected)));self.progress.setValue(done);self.progress.setFormat('%v / %m simulations finished' if selected else 'No runs yet')
+        for button in self.plan_buttons[1:]:button.setEnabled(self.plans.count()>0)
+        self.result_buttons[1].setEnabled(bool(selected));self.result_buttons[2].setEnabled(any(r['state'] in ('Queued','Running','Stopping') for r in selected));self.result_buttons[3].setEnabled(bool(self.data['rows']))
+        self.selection_changed()
         if self.data['rows']:
             cells=[v for r in self.data['rows'] for v in r['values'].values()]
-            self.note.setText(f"{len(self.data['rows'])} requirements · {sum(v['status']=='PASS' for v in cells)} passed · {sum(v['status'] in ('FAIL','ERROR') for v in cells)} failed/error. Values belong to the run's saved revision. Baseline deltas require identical requirements and conditions.")
+            self.note.setText(f"{done}/{len(selected)} simulations finished. {len(self.data['rows'])} requirements · {sum(v['status']=='PASS' for v in cells)} passed · {sum(v['status'] in ('FAIL','ERROR') for v in cells)} failed/error. Values belong to the run's saved revision. Baseline deltas require identical requirements and conditions.")
+
+    def selection_changed(self):
+        item=self.table.currentItem();self.result_buttons[0].setEnabled(bool(item and item.data(Qt.UserRole)))
+
+    def cancel(self):
+        self.studio.run_manager.cancel([r for r in self.studio.run_manager.rows if self.runs.currentData() and r['job'].get('case',{}).get('group')==self.runs.currentData()])
 
     def open_run(self):
         item=self.table.currentItem();key=item.data(Qt.UserRole) if item else None

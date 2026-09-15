@@ -28,7 +28,7 @@ def main():
         c['specifications']=[dict(name='Output',expression='final(V("vout"))',min='0',max='2',unit='V')]
         p['simulation_setups']=[dict(name='Settling',cell=c['id'],engine='builtin',settings=clone(p['analysis']))]
         w.set_project(p);window=w.open_analog_workspace();QTest.qWait(150)
-        assert window.tabs.count()==4
+        assert window.tabs.count()==5
         window.variables.setPlainText('load = 12k');window.save_setup();assert w.project['parameters']['load']=='12k'
         w.undo();assert w.project['parameters']['load']=='10k';window.reload_setup()
         editor=window.edit();editor.variables.setPlainText('load = 20k');editor.temperatures.setText('0, 27');editor.save()

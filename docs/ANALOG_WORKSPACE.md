@@ -4,6 +4,11 @@ Open **Simulate → Analog design workspace** (also available under Layout and
 Verify). The workspace connects setup, results, layout updates, and retained
 verification evidence without replacing the circuit you are editing.
 
+**Optimize** adds [bounded circuit search and a gm/Id explorer](ANALOG_OPTIMIZER.md),
+including PVT requirements, saved candidate review, and undoable application.
+The [GUI audit](ANALOG_GUI_AUDIT.md) records improvements against Apple's Human
+Interface Guidelines and the platform/accessibility checks still outstanding.
+
 ![Analog setup with design variables and measurement limits](images/analog-workspace/setup.png)
 
 ## Setup and PVT results
@@ -24,7 +29,8 @@ verification evidence without replacing the circuit you are editing.
 
 Setup edits use the normal commit and undo history. A concurrent change to
 variables or requirements blocks saving a stale editor. Switching requirement
-owners retains drafts inside the window; **Reload setup** discards those drafts.
+owners retains drafts inside the window, including after closing/reopening it.
+**Reload setup** asks before discarding drafts. Save edits before starting runs.
 
 ## Debugging a saved run
 
