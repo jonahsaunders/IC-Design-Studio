@@ -17,6 +17,16 @@ def mos_vectors(alias, name, binding, aliases):
     return ['@'+alias+'['+k+']' for k in ('id','gm','vgs','vds','vdsat')]
 
 
+def characterization_binding(project, cid, instance, binding):
+    fixture = project.get('gmid_fixture', {})
+    if fixture.get('cell') != cid or fixture.get('device') != instance['id']: return binding
+    # Recheck the pinned adapter at execution; the embedded catalog signature
+    # and model-closure proof remain untouched by readout metadata.
+    from .analog_characterization import contract
+    adapter = contract(project, cid, instance['name'])
+    return {**(binding or {}), 'operating_point_device': adapter['internal']}
+
+
 def native_save(project,cid):
     from .native_spice import render
     from .catalog_migration import emit
@@ -31,6 +41,7 @@ def native_save(project,cid):
             native=d.get('native_spice',{})
             if native.get('type')=='program':continue
             binding=binding_for(project['pdk'],d) if d.get('model_ref') else None
+            binding=characterization_binding(project,cid,d,binding)
             local=emit(d,project['pdk']).split()[0] if d.get('model_ref') else render(d,by.get(d.get('cell'))).split()[0] if native else d['name'] if d['kind']=='X' else spice_name(d)
             if d['kind']=='X':walk(d['cell'],path+d['name']+'/',spice_path+[local]);continue
             alias=local[0]+'.'+'.'.join(spice_path+[local]) if spice_path else local
@@ -48,7 +59,7 @@ def native_save(project,cid):
 def save_directive(p,cid):
     aliases={};vectors=[]
     for d in flatten(p,cid):
-        binding=binding_for(p['pdk'],d);alias=(binding['prefix']+'_'+d['name'].replace('/','_')) if binding else spice_name(d);aliases[alias.casefold()]=d['name']
+        binding=characterization_binding(p,cid,d,binding_for(p['pdk'],d));alias=(binding['prefix']+'_'+d['name'].replace('/','_')) if binding else spice_name(d);aliases[alias.casefold()]=d['name']
         if d['kind'] in ('NMOS','PMOS'):
             vectors.extend(mos_vectors(alias,d['name'],binding,aliases))
     return '.save all '+ ' '.join(vectors),aliases

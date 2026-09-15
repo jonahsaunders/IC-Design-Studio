@@ -93,6 +93,21 @@ def validate_settings(p, cid, s):
 def deck(p, cid, settings, directory):
     validate_settings(p, cid, settings)
     q = clone(p); q['top'] = cid
+    fixture = next(c for c in q['cells'] if c['id'] == cid)
+    source_id = fixture.get('analog_model_scope')
+    if source_id and source_id != cid:
+        source = next(c for c in q['cells'] if c['id'] == source_id)
+        # A guided fixture is now the root. Preserve the original root's model
+        # environment once at that scope, on this run clone only.
+        statements = source.get('spice_statements', [])
+        source['spice_statements'] = []
+        for d in source['devices']:
+            program = d.get('native_spice', {})
+            if program.get('type') == 'program' and program.get('only_toplevel', True):
+                statements += circuit_text(program['text']).splitlines()
+                program['text'] = ''
+        fixture['spice_statements'] = clone(statements) + fixture.get('spice_statements', [])
+        fixture['spice_parameters'] = {**source.get('spice_parameters', {}), **source.get('parameters', {}), **fixture.get('spice_parameters', {})}
     text = circuit_text(netlist(q, directory)); typ = settings['type']; corner = settings.get('corner', 'nominal')
     if corner != 'nominal':
         text = '\n'.join(LIB.sub(lambda m: m[1] + '"' + next(v for v in m.groups()[1:4] if v) + '" ' + corner, line) for line in text.splitlines()) + '\n'

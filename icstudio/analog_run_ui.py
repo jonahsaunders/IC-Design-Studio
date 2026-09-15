@@ -24,7 +24,7 @@ class RunInspector(QDialog):
         selectors=QHBoxLayout();self.hierarchy=QComboBox();self.hierarchy.setAccessibleName('Saved circuit instance');selectors.addWidget(self.hierarchy,1)
         self.probe=QComboBox();self.probe.setAccessibleName('Saved voltage or current probe');selectors.addWidget(self.probe,1);layout.addLayout(selectors)
         split=QSplitter();self.schematic=Canvas('schematic');self.schematic.dark=studio.dark;self.plot=WavePlot();self.plot.dark=studio.dark;split.addWidget(self.schematic);split.addWidget(self.plot);layout.addWidget(split,2)
-        self.devices=table(['Instance','Id / branch current (A)','gm (S)','Bias margin (V)','Region / evidence']);self.devices.setAccessibleName('Saved device operating points');layout.addWidget(self.devices,1)
+        self.devices=table(['Instance','Id / branch current (A)','gm (S)','gm/Id (1/V)','Bias margin (V)','Region / evidence']);self.devices.setAccessibleName('Saved device operating points');layout.addWidget(self.devices,1)
         self.devices.cellClicked.connect(self.select_device);self.devices.itemActivated.connect(lambda *_:self.call(lambda:self.select_device(self.devices.currentRow())));self.schematic.selected.connect(self.select_canvas_device)
         self.hierarchy.currentIndexChanged.connect(self.show_context);self.probe.currentIndexChanged.connect(self.show_probe)
         self.plot.cursor_changed.connect(self.cursor_sample)
@@ -38,6 +38,12 @@ class RunInspector(QDialog):
         log=QPlainTextEdit();log.setReadOnly(True);log.setAccessibleName('Saved simulation diagnostics and input');self.tabs.addTab(log,'Diagnostics and input')
         raw=row.get('log','')+'\n'+self.result.get('log','');hints=convergence_hints(raw)
         log.setPlainText('\n\n'.join(h['title']+'\n'+h['detail'] for h in hints)+'\n\nSaved analysis\n'+json.dumps(row['job']['settings'],indent=2)+'\n\nSaved variables\n'+json.dumps(self.project.get('parameters',{}),indent=2)+'\n\nEngine log\n'+raw)
+        from .specifications import for_job,evaluate_rows
+        self.requirement_rows=evaluate_rows(for_job(row['job']),self.result) if self.result else []
+        self.requirements=table(['Requirement','Status','Value','Unit','Expression','Details']);self.requirements.setAccessibleName('Saved requirements; activate to inspect waveform and connected devices')
+        fill(self.requirements,[[r.get(k,'') for k in ('name','status','value','unit','expression','error')] for r in self.requirement_rows])
+        self.tabs.addTab(self.requirements,'Requirements');self.requirements.cellClicked.connect(lambda i,j:self.call(lambda:self.focus_requirement(self.requirement_rows[i])))
+        self.requirements.itemActivated.connect(lambda *_:self.call(lambda:self.focus_requirement(self.requirement_rows[self.requirements.currentRow()])))
         self.populate_wave();self.populate_verification()
         for i in range(2):
             page=self.tabs.widget(i);title=self.tabs.tabText(i);self.tabs.removeTab(i);self.tabs.insertTab(i,scroll(page),title)
@@ -57,6 +63,9 @@ class RunInspector(QDialog):
     def focus_requirement(self,definition):
         """Follow exact saved V/I references; do not guess a derived trace."""
         import ast
+        if definition.get('device'):
+            index=next((i for i,r in enumerate(self.device_rows) if r['name'].casefold()==definition['device'].casefold()),None)
+            if index is not None:self.select_device(index);self.devices.selectRow(index);self.tabs.setCurrentIndex(0);self.note.setText(definition['name']+' · '+self.note.text());return
         if definition.get('stage') in ('schematic','post-layout'):
             self.physical_wave(definition['stage'])
         probes=[]
@@ -67,11 +76,18 @@ class RunInspector(QDialog):
                     probes.extend(('voltage' if node.func.id=='V' else 'current',arg.value) for arg in node.args if isinstance(arg,ast.Constant) and isinstance(arg.value,str))
         elif definition.get('node'):probes=[('voltage',definition['node'])]
         elif definition.get('source'):probes=[('current',definition['source'])]
+        self.tabs.setCurrentIndex(0)
+        from .analog_debug import requirement_waveform
+        derived=requirement_waveform(self.wave,definition)
+        found=False
         for kind,name in probes:
             for index in range(self.probe.count()):
                 candidate=self.probe.itemData(index)
                 if candidate[0]==kind and candidate[1].casefold()==name.casefold():
-                    self.probe.setCurrentIndex(index);self.note.setText(definition.get('name','Requirement')+' · '+self.probe.currentText());return
+                    self.probe.setCurrentIndex(index);self.focus_probe(kind,name);found=True;break
+            if found:break
+        if derived:self.plot.set_result(derived,list(derived['traces']))
+        self.note.setText(definition.get('name','Requirement')+' · '+(derived.get('expression','') if derived else self.probe.currentText() if found else 'No matching saved waveform')+' · highlighted devices share a referenced net; this does not establish the cause of failure.')
 
     def populate_wave(self):
         cid=self.wave.get('cell_id',self.row['job']['cell'])
@@ -80,7 +96,7 @@ class RunInspector(QDialog):
         for c in self.contexts:self.hierarchy.addItem((c['path'].rstrip('/') or 'Top')+' · '+by[c['cell_id']]['name'],c)
         self.hierarchy.blockSignals(False)
         self.device_rows=operating_rows(self.project,cid,self.wave)
-        fill(self.devices,[[r['name'],r['values'].get('id',r['values'].get('current')),r['values'].get('gm'),r['values'].get('headroom'),r['values'].get('region',r['values'].get('source','No saved device vectors'))] for r in self.device_rows])
+        fill(self.devices,[[r['name'],r['values'].get('id',r['values'].get('current')),r['values'].get('gm'),r['values'].get('gmid'),r['values'].get('headroom'),r['values'].get('region',r['values'].get('source','No saved device vectors'))] for r in self.device_rows])
         self.probe.blockSignals(True);self.probe.clear()
         for name in self.wave.get('traces',{}):self.probe.addItem('V('+name+')',('voltage',name))
         for name in self.wave.get('currents',{}):self.probe.addItem('I('+name+')',('current',name))
@@ -165,3 +181,22 @@ class RunInspector(QDialog):
         common=[n for n in before.get('traces',{}) if n in after.get('traces',{})]
         if not common:raise ValueError('No matching saved voltage probes are available.')
         self.plot.set_result(before,common[:4],after);self.tabs.setCurrentIndex(0);self.note.setText('Schematic and extracted waveforms · identical saved testbench')
+
+    def focus_probe(self,kind,name):
+        if kind=='current':
+            for i,r in enumerate(self.device_rows):
+                if r['name'].casefold()==name.casefold():
+                    index=next(n for n,c in enumerate(self.contexts) if c['path']==r['path'])
+                    self.hierarchy.setCurrentIndex(index);self.schematic.selection=[r['object']];self.devices.selectRow(i);self.schematic.update();return
+        matches=[(i,c,net) for i,c in enumerate(self.contexts) for net,flat in c['nets'].items() if flat.casefold()==name.casefold()]
+        if not matches:return
+        i,context,net=max(matches,key=lambda row:len(row[1]['path']))
+        self.hierarchy.setCurrentIndex(i);self.schematic.net=net
+        self.schematic.selection=[d['id'] for d in self.schematic.cell['devices'] if net in d['nets'].values()];self.schematic.update()
+
+    def focus_parameter(self,cid,target):
+        matches=[i for i,c in enumerate(self.contexts) if c['cell_id']==cid]
+        if not matches:raise ValueError('The parameter cell is not in this saved test hierarchy.')
+        self.hierarchy.setCurrentIndex(matches[0]);name=target.split('.')[0]
+        self.schematic.selection=[d['id'] for d in self.schematic.cell['devices'] if d['name']==name];self.schematic.update();self.tabs.setCurrentIndex(0)
+        self.note.setText(target+' · saved sensitivity probe. Shared master parameters affect all instances; linked parameters were varied together.')

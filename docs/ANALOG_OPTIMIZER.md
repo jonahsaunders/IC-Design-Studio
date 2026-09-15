@@ -6,6 +6,24 @@ No additional optimization package or new simulator is required.
 
 ![Circuit search and candidate review](images/analog-workspace/optimizer.png)
 
+## Guided starting point
+
+Open **Setup → Guided design setup** (also available in Circuit search). Choose
+an amplifier, differential pair or current mirror, then map the DUT's exposed
+ports. **Add teaching example** supplies an editable generic DUT when starting
+from an empty project. Enter explicit DC voltages for any unused bias ports.
+
+Enter supply, load, gain, bandwidth and power goals; settling time is optional.
+The current-mirror template uses reference current, ratio, tolerance and output
+compliance instead. Additional stimulus and sweep settings sit behind a disclosure
+control. **Preview setup** shows the actual requirements and expressions.
+**Create setup** adds fixture cells, saved analyses, editable testbenches and a
+PVT plan in one undoable operation. The fixtures reference the original DUT, so
+subsequent sizing changes reach every test. No simulation runs until requested.
+Native saved testbenches use ngspice and preserve the original root model scope.
+
+![Review generated analyses and measurements](images/analog-workspace/guided-setup.png)
+
 ## Circuit search
 
 1. In **Setup**, save an analysis or testbench and its scalar measurement limits.
@@ -31,10 +49,38 @@ No additional optimization package or new simulator is required.
 6. Optionally enable **Add gm/Id and bias limits**, choose an operating-point test
    and MOS instance, and enter minimum/maximum gm/Id and/or minimum bias margin.
    Missing required device values fail the candidate.
-7. Choose a simulation budget and **Run search**. Every grid candidate runs every
-   test and PVT condition. The total must fit the budget, with an absolute maximum
-   of 500 jobs. Overlapping plan, supply, or corner overrides are rejected instead
+7. Choose **Adaptive · sensitivity first** or **Exhaustive grid**, a simulation
+   budget, and **Run search**. Every proposed candidate runs every test and PVT
+   condition. The total must fit the budget, with an absolute maximum of 500 jobs. Overlapping plan, supply, or corner overrides are rejected instead
    of silently cancelling a search parameter.
+
+Use **Add trade-off objective** to add up to two further objectives, possibly
+from other tests in the plan. Results show each objective separately, with its
+unit and direction; the exact expressions remain in the review text and CSV.
+A **Pareto** candidate passes every constraint and has no other passing tested
+candidate that is at least as good in every objective and better in one. There
+is no single automatically preferred candidate for a multi-objective experiment.
+
+Adaptive mode begins at the nearest allowed saved/seeded parameter values and
+runs independent neighboring probes. **Show parameter sensitivity** reports
+local finite differences of worst-condition metrics, scaled over the requested
+parameter range. Linked parameters move together, and the worst PVT condition
+can change, so these are local trends rather than causal explanations.
+
+Further adaptive candidates use deterministic bounded pattern search around
+measured promising/Pareto points, with global grid coverage when local proposals
+are exhausted. Samples define discrete parameter resolution. This is not
+Bayesian optimization and does not guarantee a global optimum. The simulation
+budget includes all test/PVT jobs for the initial probes and later candidates;
+manual retries are additional executions of existing conditions.
+
+Adaptive batches are checkpointed before enqueueing and continue while the
+workspace is hidden. Cancel pauses further proposals. After application restart,
+an incomplete experiment stays paused until **Resume incomplete**. Saved
+settings can be restored with **Reuse experiment settings** for a new run on the
+current design. Engine changes reject replay of old unfinished jobs.
+
+![Adaptive multi-objective results](images/analog-workspace/adaptive-tradeoffs.png)
 
 Ranking uses the worst objective condition: maximum value when minimizing,
 minimum value when maximizing, or maximum absolute error when targeting a value.
@@ -43,7 +89,8 @@ valid, and all saved limits, testbench measurements, and enabled device limits
 pass. Failed, missing, cancelled, and interrupted work remains visible.
 
 Select a candidate to review current/proposed parameters and failure details.
-Choose a saved condition and **Inspect saved run** to see its original circuit,
+Use **Show failed requirement** to open its exact saved waveform and referenced
+net/devices, or choose a saved condition and **Inspect saved run** to see its original circuit,
 waveforms, and diagnostics. **Apply selected candidate** becomes available after
 the search finishes and the selected candidate passes. Applying checks the
 original design identity again and uses the normal undo history. A changed
@@ -88,6 +135,43 @@ width-normalized density/sizing unavailable for native or catalog-bound devices,
 where model units, fingers, multiplicity, and internal subcircuit paths can differ.
 Their explicit numeric sizing parameters can still be swept in Circuit search.
 
+## Isolated-device characterization library
+
+Open **Optimize → gm/Id explorer → Device characterization library**. Choose an
+existing MOS device, comma-separated lengths, forward gate/drain biases, reverse
+body biases, temperatures and deterministic corners. **Characterize / reuse
+cache** either runs the isolated fixtures or reuses an exact matching cache.
+The **Size and transfer** tab accepts a gm/Id and absolute drain-current target
+and displays estimated W, L and forward gate bias. Select an estimate to populate
+an adaptive search's sizing ranges and initial seed; it does not edit the circuit.
+Set the appropriate circuit bias in the editable fixture and verify the search.
+
+The process adapter supports the pinned standard SKY130 `nfet_01v8`/`pfet_01v8`
+models with direct W/L emission, `nf=1`, and `m=mult=1`. It validates the model's
+micrometre parameter scale, four terminals, locked definition checksum and exact
+internal MOS path. Other native/catalog models remain usable in the in-circuit
+explorer when they expose gm/Id, but do not receive invented width conventions.
+The isolated process fixture uses the installed locked PDK model environment;
+native DUT-specific model overrides must be verified in the actual circuit.
+
+Library dimensions are metres, amperes, siemens and volts. Forward VGS/VDS mean
+VSG/VSD for PMOS; positive VSB denotes reverse body bias for either polarity.
+Density is `abs(Id)/total_drawn_W` in A/m. The generic teaching library supports
+only zero body bias, 27 °C and nominal corner, with its square-law limitations.
+
+Each experiment is bounded to 500 simulations. Tables retain signed Id/gm,
+absolute gm/Id, density, bias, captured headroom, sample status and source run
+fingerprints. Cache identity includes the model/geometry contract, locked model
+assets, grid and engine/workflow identity. Invalid samples remain explicit.
+Multilinear interpolation requires complete enclosing samples and forbids
+extrapolation or crossing missing data. Inverse gm/Id lookup exposes multiple
+bias crossings as separate choices. Width scaling is an initial estimate,
+especially when narrow-width effects change the model behavior.
+
+![Measured model lookup table](images/analog-workspace/characterization-library.png)
+
+![Review sizing suggestions](images/analog-workspace/sizing-suggestions.png)
+
 ## Model and release boundaries
 
 - The bundled teaching solver works without an external installation. Its
@@ -98,10 +182,9 @@ Their explicit numeric sizing parameters can still be swept in Circuit search.
 - Process simulation uses the existing ngspice setup and model assets. The tool
   does not generate PDK curves from generic equations or invent hidden device
   vectors. Existing engine identity checks govern resumed jobs.
-- This release implements an exhaustive bounded grid and single-parameter
-  in-circuit gm/Id sweeps. It does not implement adaptive/Bayesian optimization,
-  an isolated-device multidimensional LUT library, statistical yield optimization,
-  or Pareto-front search.
+- The adaptive search is bounded and deterministic. Statistical yield
+  optimization, Bayesian search, and automatic gm/C/fT characterization are
+  outside this implementation. No missing capacitance/noise metrics are estimated.
 - Optimization accepts analog schematic analyses/testbenches and PVT plans.
   After applying a candidate, use **Layout and constraints** and **Verification
   runs** to update layout and validate extracted performance. An optimizer pass
@@ -124,3 +207,12 @@ worker jobs and checks cancel/resume, apply/undo, saved-run inspection, gm/Id
 readouts, CSV export, accessibility metadata, keyboard activation, and compact /
 enlarged-text layouts in both appearances. See the
 [Apple HIG audit](ANALOG_GUI_AUDIT.md) for its scope and remaining limitations.
+
+
+`tests/test_analog_experiments.py` covers generated fixtures, native model scope,
+adaptive sensitivity/budgets, Pareto constraints, cache identity, interpolation,
+missing samples and sizing. Real ngspice/SKY130 tests cover both polarities,
+body bias, temperature, corners and native saved testbenches when
+`ICSTUDIO_TEST_NGSPICE` is set. `tests/gui_analog_experiments.py` exercises the
+new flows through actual Qt widgets and worker jobs, including hidden-window
+continuation, cache reuse and saved requirement/sensitivity navigation.

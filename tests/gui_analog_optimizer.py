@@ -53,6 +53,7 @@ def main():
         plan = source_plan(entry); plan.update(id=uid(), name='RC temperature checks', temperatures=[0, 80]); p['test_plans'] = [plan]
         w.set_project(p); window = w.open_analog_workspace(); window.tabs.setCurrentIndex(4); page = window.optimizer
         assert page.start_button.isEnabled() and not page.apply_button.isEnabled()
+        page.strategy.setCurrentIndex(page.strategy.findData('grid'))
         page.axes.cellWidget(0, 0).setCurrentText('R1.value'); page.axes.item(0, 3).setText('3'); page.goal.setCurrentIndex(page.goal.findData('maximize'))
         baseline = clone(w.project); w.run_manager.limit = 0
         page.start_search(); assert len(w.run_manager.rows) == 6 and all(r['state'] == 'Queued' for r in w.run_manager.rows)

@@ -42,6 +42,7 @@ class AnalogWorkspace(TestPlanWindow):
     def build_setup(self):
         layout=QVBoxLayout(self.setup)
         note=QLabel('Save design variables and measurement limits here. Add analyses or testbenches, then create a PVT plan in Results matrix. Each run retains its circuit and requirements.');note.setWordWrap(True);layout.addWidget(note)
+        self.buttons(layout,[('Guided design setup…',self.guided_setup)],'Guided design setup…')
         self.scope=QComboBox();layout.addWidget(label('Measurement &owner',self.scope));layout.addWidget(self.scope)
         self.variables=QPlainTextEdit();self.variables.setMaximumHeight(110);self.variables.setAccessibleName('Project design variables');self.variables.setPlaceholderText('bias = 1.2\nload = 10k');layout.addWidget(QLabel('Project design variables · name = value'));layout.addWidget(self.variables)
         self.specs=table(['Name','Expression','Minimum','Maximum','Unit'],True);self.specs.setAccessibleName('Analog measurement limits');layout.addWidget(self.specs,1)
@@ -126,6 +127,11 @@ class AnalogWorkspace(TestPlanWindow):
             self.studio.setup_table.selectRow(int(entry['id'].split(':')[1]));self.studio.edit_simulation_setup()
         else:
             self.studio.testbench_combo.setCurrentIndex(self.studio.testbench_combo.findData(entry['settings']['testbench']));self.studio.edit_testbench()
+
+    def guided_setup(self):
+        self.require_saved_setup()
+        from .analog_guided_ui import GuidedSetup
+        self.guide=GuidedSetup(self);self.guide.show()
 
     def new_analysis(self):
         self.studio.add_simulation_setup();self.refresh_sources()

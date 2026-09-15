@@ -119,3 +119,19 @@ generator identity and sizing, and atomic multi-group centroid placement.
 `tests/gui_analog_workspace.py --out build/analog-workspace` exercises setup
 save/undo, queued PVT jobs, matrix navigation, stale-editor rejection, failed
 requirement retries, and saved-layout marker navigation in the real Qt desktop.
+
+
+## Guided experiments and linked diagnostics
+
+**Setup → Guided design setup** creates editable amplifier, differential-pair
+and current-mirror fixtures and measurement plans. The optimizer now supports
+adaptive sensitivity-first search, up to three objectives, and a reusable
+isolated-device gm/Id library. See [the optimizer guide](ANALOG_OPTIMIZER.md).
+
+Activate a failed requirement to inspect its captured derived waveform and
+highlight devices connected to a referenced net in the saved hierarchy.
+Sensitivity rows open the saved parameter-probe circuit. MOS annotations and
+tables include captured gm/Id alongside current, gm and bias margin. These links
+show relevant evidence; they do not assert which device caused a failure.
+
+![Failed requirement linked to the saved circuit](images/analog-workspace/failure-navigation.png)

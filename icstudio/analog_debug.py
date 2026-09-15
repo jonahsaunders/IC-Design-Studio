@@ -34,6 +34,10 @@ def operating_rows(project, root, result):
             if d['kind'] == 'X' or d.get('native_spice', {}).get('type') == 'program':
                 continue
             name = context['path'] + d['name']; values = clone(devices.get(name.casefold(), {}))
+            if values.get('gm') is not None and abs(values.get('id',0)) > 1e-18:
+                import math
+                ratio=abs(values['gm']/values['id'])
+                if math.isfinite(ratio):values['gmid']=ratio
             if name.casefold() in currents: values['current'] = currents[name.casefold()]
             pins = {pin: context['nets'][net] for pin, net in d['nets'].items()}
             rows.append(dict(cell_id=context['cell_id'], path=context['path'], object=d['id'], name=name,
@@ -68,3 +72,16 @@ def comparison_rows(report):
                              before_status=a.get('status', 'NOT RUN'), after_status=b.get('status', 'NOT RUN'),
                              detail='Units differ; values cannot be compared.' if a and b and not comparable else a.get('error', '') or b.get('error', '')))
     return rows
+
+
+def requirement_waveform(result, definition):
+    """Find the largest plottable subexpression, preserving saved units and data."""
+    import ast
+    from .wavecalc import parse, plot_result
+    if not definition.get('expression'): return None
+    root = parse(definition['expression'])
+    for node in ast.walk(root):
+        if not isinstance(node, (ast.Call, ast.BinOp)): continue
+        try: return plot_result(result, ast.unparse(node), definition.get('name', 'Requirement waveform'))
+        except (ValueError, KeyError, TypeError, ArithmeticError): continue
+    return None

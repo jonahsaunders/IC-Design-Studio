@@ -39,6 +39,9 @@ def readouts(p,cid,result,x=None,instance_path=None):
         device={k.casefold():v for k,v in result.get('device_operating_point',{}).items()}.get(name.casefold(),{}) if x is None else {}
         for key,unit in (('id','A'),('gm','S'),('headroom','V')):
             if key in device:parts.append(f'{key} {device[key]:.4g} {unit}')
+        if device.get('gm') is not None and abs(device.get('id', 0)) > 1e-18:
+            ratio=abs(device['gm']/device['id'])
+            if math.isfinite(ratio):parts.append(f'gm/Id {ratio:.4g} 1/V')
         if 'region' in device:parts.append(device['region'])
         current={k.casefold():v for k,v in result.get('operating_currents',{}).items()}.get(name.casefold()) if x is None else None
         if current is not None:parts.append(f'I {current:.4g} A')

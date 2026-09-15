@@ -2,7 +2,7 @@
 
 Audited 2026-09-15 against Apple's Human Interface Guidelines. Scope: Setup,
 Results matrix, Layout and constraints, Verification runs, the new Optimize tab,
-and the saved-run inspector. The existing desktop is Qt on Windows/Linux; Apple
+the guided setup, characterization library, and the saved-run inspector. The existing desktop is Qt on Windows/Linux; Apple
 guidance is used as a design review framework, not as a claim of native macOS
 implementation or Apple certification.
 
@@ -88,3 +88,30 @@ Consulted the official guidance and its indexed text on the audit date:
 The application keeps its existing Qt design language and Windows/Linux behavior;
 the changes apply Apple's principles of clarity, adaptation, feedback, user
 control, and accessibility without introducing an imitation Apple-only shell.
+
+
+## Follow-up: guided design, characterization and adaptive results
+
+The follow-up desktop acceptance (`tests/gui_analog_experiments.py`) exercises
+preview/invalidation/atomic creation, Pareto comparison, hidden-window adaptive
+continuation, model-cache reuse, sizing transfer, failed-measurement navigation,
+and schematic-linked sensitivity. Light/dark compact dialogs, control reachability
+and native Qt accessibility names were checked. Screenshots were then inspected.
+
+Changes made during this review:
+
+- Hide unused bias rows once ports have assigned roles; keep advanced stimulus
+  settings behind a disclosure and scroll to the generated proposal for review.
+- Separate measured characterization from sizing/transfer in two named tabs.
+  Place gm/Id and current density first in the table, with the bias condition
+  visible alongside them.
+- Give each objective its own results column. Put full expressions and exact
+  values in the selected-candidate review and retain full-precision CSV output.
+- Show failed-requirement controls only when relevant. Place sensitivity behind
+  a disclosure so ordinary candidate review remains compact.
+- Restore saved experiment settings explicitly and preserve undo for generated
+  fixtures and candidate application. Sizing transfer only populates search fields.
+
+These checks extend the earlier HIG review; the platform, custom-canvas and
+assistive-technology limitations above still apply. No Apple certification or
+unperformed native-platform accessibility testing is claimed.

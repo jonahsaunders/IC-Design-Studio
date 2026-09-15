@@ -75,7 +75,11 @@ def is_op(project, entry):
     return settings['type'] == 'op'
 
 
-def prepare(project, cid, plan, spec, prepare_job):
+def objectives(spec):
+    return spec.get('objectives') or ([spec['objective']] if spec.get('objective') else [])
+
+
+def prepare(project, cid, plan, spec, prepare_job, _changes=None):
     """Validate the entire experiment before any jobs are saved or enqueued."""
     from .wavecalc import parse, UNITS
     test_plans.validate_plans({**project, 'test_plans': [plan]})
@@ -84,17 +88,21 @@ def prepare(project, cid, plan, spec, prepare_job):
     kind = spec.get('kind', 'analog_optimizer')
     if kind not in KINDS:
         raise ValueError('Unknown analog optimizer mode.')
-    changes = grid(project, cid, spec['axes'])
+    if spec.get('strategy') == 'adaptive' and _changes is None:
+        from .analog_adaptive import start
+        return start(project, cid, plan, spec, prepare_job)
+    changes = grid(project, cid, spec['axes']) if _changes is None else _changes
     nconditions = len(plan['entries']) * len(plan['corners']) * len(plan['temperatures']) * max(1, len(plan.get('voltages', [])))
     budget = int(spec.get('budget', 100))
     if not 1 <= budget <= 500 or len(changes) * nconditions > budget:
         raise ValueError(f'This grid needs {len(changes) * nconditions} simulations. Reduce samples/PVT conditions or raise the budget (maximum 500).')
     entries = {e['id']: e for e in plan['entries']}
     if kind == 'analog_optimizer':
-        objective = spec['objective']
-        if objective['entry_id'] not in entries or objective['goal'] not in ('minimize', 'maximize', 'target') or objective.get('unit', '') not in UNITS:
-            raise ValueError('Choose an objective test, goal and supported unit.')
-        parse(objective['expression']); scalar(objective.get('target', 0))
+        if not 1 <= len(objectives(spec)) <= 3: raise ValueError('Choose one to three objectives.')
+        for objective in objectives(spec):
+            if objective['entry_id'] not in entries or objective['goal'] not in ('minimize', 'maximize', 'target') or objective.get('unit', '') not in UNITS:
+                raise ValueError('Choose an objective test, goal and supported unit.')
+            parse(objective['expression']); scalar(objective.get('target', 0))
     gm = spec.get('gmid')
     if kind == 'analog_gmid' and (len(entries) != 1 or not gm):
         raise ValueError('The gm/Id explorer requires one operating-point test and a MOS instance.')
@@ -220,7 +228,7 @@ def evaluate(manifest, rows):
     for job in manifest['jobs']:
         case = job['case']; index = case['index']; row = current.get(index)
         item = candidates.setdefault(case['candidate'], dict(candidate=case['candidate'], changes=case['changes'],
-                state='Pending', values=[], scores=[], failures=[], points=[], runs=[], complete=0, total=0))
+                state='Pending', values=[], scores=[], failures=[], failure_details=[], metrics=[dict(values=[], scores=[]) for _ in objectives(spec)], points=[], runs=[], complete=0, total=0))
         item['total'] += 1
         if row: item['runs'].append(row['id'])
         state = row['state'] if row else 'Not queued'
@@ -238,7 +246,12 @@ def evaluate(manifest, rows):
                 settings=next(t for t in job['project']['testbenches'] if t['id']==settings['testbench'])['analysis']
             if result.get('settings')!=settings:
                 raise ValueError('Saved result analysis differs from the planned condition.')
-            item['failures'] += _requirements(job, result)
+            failed = _requirements(job, result)
+            item['failures'] += failed
+            from .specifications import for_job, evaluate_rows
+            for definition in evaluate_rows(for_job(job), result):
+                if definition['status'] != 'PASS':
+                    item['failure_details'].append(dict(run_id=row['id'], definition=definition, condition=case['labels'], test=case['test_name']))
             gm = spec.get('gmid')
             if gm and case['entry_id'] == gm['entry_id']:
                 point = read_gmid(job, result, gm['device'])
@@ -247,27 +260,41 @@ def evaluate(manifest, rows):
                 for key, operator in (('min', lambda a, b: a >= b), ('max', lambda a, b: a <= b)):
                     if gm.get(key) not in (None, '') and not operator(point['gmid'], scalar(gm[key])):
                         item['failures'].append('gm/Id ' + key + ' limit failed')
+                        item['failure_details'].append(dict(run_id=row['id'],definition=dict(name='gm/Id '+key+' limit failed',device=gm['device']),condition=case['labels'],test=case['test_name']))
                 if gm.get('headroom') not in (None, '') and ('headroom' not in point or point['headroom'] < scalar(gm['headroom'])):
                     item['failures'].append('Bias margin missing or below its minimum')
-            if spec['kind'] == 'analog_optimizer' and case['entry_id'] == spec['objective']['entry_id']:
-                objective = spec['objective']; signal = expression(objective['expression'], result)
+                    item['failure_details'].append(dict(run_id=row['id'],definition=dict(name='Bias margin missing or below its minimum',device=gm['device']),condition=case['labels'],test=case['test_name']))
+            for n, objective in enumerate(objectives(spec)):
+                if case['entry_id'] != objective['entry_id']: continue
+                signal = expression(objective['expression'], result)
                 if signal.x is not None or signal.unit != UNITS[objective.get('unit', '')]:
                     raise ValueError('Objective must produce one scalar with the declared unit.')
                 value = scalar(signal.real_values()[0]); goal = objective['goal']
                 score = abs(value - scalar(objective.get('target', 0))) if goal == 'target' else value if goal == 'minimize' else -value
-                item['values'].append(value); item['scores'].append(score)
+                item['metrics'][n]['values'].append(value); item['metrics'][n]['scores'].append(score)
+                if n == 0: item['values'].append(value); item['scores'].append(score)
         except (ValueError, KeyError, TypeError, ArithmeticError) as exc:
             item['failures'].append(case['test_name'] + ': ' + str(exc))
+            item['failure_details'].append(dict(run_id=row['id'], definition=dict(name=str(exc)), condition=case['labels'], test=case['test_name']))
     for item in candidates.values():
         item['failures'] = list(dict.fromkeys(item['failures']))
         finished = item['complete'] == item['total']
         item['state'] = 'Failed' if item['failures'] else 'Passed' if finished else 'Pending'
+        for metric in item['metrics']:
+            metric['score'] = max(metric['scores']) if metric['scores'] else None
+            metric['value'] = metric['values'][metric['scores'].index(metric['score'])] if metric['scores'] else None
         item['score'] = max(item['scores']) if item['scores'] else None
         item['worst_value'] = item['values'][item['scores'].index(item['score'])] if item['scores'] else None
     passing = [c for c in candidates.values() if c['state'] == 'Passed' and c['score'] is not None]
-    best = min(passing, key=lambda c: (c['score'], c['candidate'])) if passing else None
-    return dict(candidates=list(candidates.values()), best=best, terminal=terminal, total=len(manifest['jobs']),
-                complete=terminal == len(manifest['jobs']), current=current)
+    passing = [c for c in passing if all(m['score'] is not None for m in c['metrics'])]
+    front = [c for c in passing if not any(
+        all(a['score'] <= b['score'] for a, b in zip(other['metrics'], c['metrics'])) and
+        any(a['score'] < b['score'] for a, b in zip(other['metrics'], c['metrics'])) for other in passing)]
+    for item in candidates.values(): item['pareto'] = item in front
+    best = min(passing, key=lambda c: (c['score'], c['candidate'])) if passing and len(objectives(spec)) == 1 else None
+    batch_complete = terminal == len(manifest['jobs'])
+    return dict(candidates=list(candidates.values()), best=best, pareto=[c['candidate'] for c in front], terminal=terminal, total=len(manifest['jobs']),
+                batch_complete=batch_complete, complete=batch_complete and manifest.get('adaptive', {}).get('done', True), current=current)
 
 
 def apply_candidate(project, manifest, rows, candidate):
