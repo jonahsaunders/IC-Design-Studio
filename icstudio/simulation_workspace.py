@@ -83,7 +83,7 @@ class SimulationWorkspaceMixin:
 
     def open_simulation_explorer(self):
         self.results_dock.show();self.results_tabs.setCurrentIndex(self.simulation_tab)
-        self.resizeDocks([self.results_dock],[500],Qt.Vertical)
+        self.resizeDocks([self.results_dock],[min(380,max(220,self.height()*2//5))],Qt.Vertical)
 
     def show_waveform_tools(self):
         self.results_dock.show();self.results_tabs.setCurrentIndex(0);self.waveform_tools.open_manager()

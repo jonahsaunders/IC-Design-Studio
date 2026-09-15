@@ -93,6 +93,21 @@ def validate_settings(p, cid, s):
 def deck(p, cid, settings, directory):
     validate_settings(p, cid, settings)
     q = clone(p); q['top'] = cid
+    fixture = next(c for c in q['cells'] if c['id'] == cid)
+    source_id = fixture.get('analog_model_scope')
+    if source_id and source_id != cid:
+        source = next(c for c in q['cells'] if c['id'] == source_id)
+        # A guided fixture is now the root. Preserve the original root's model
+        # environment once at that scope, on this run clone only.
+        statements = source.get('spice_statements', [])
+        source['spice_statements'] = []
+        for d in source['devices']:
+            program = d.get('native_spice', {})
+            if program.get('type') == 'program' and program.get('only_toplevel', True):
+                statements += circuit_text(program['text']).splitlines()
+                program['text'] = ''
+        fixture['spice_statements'] = clone(statements) + fixture.get('spice_statements', [])
+        fixture['spice_parameters'] = {**source.get('spice_parameters', {}), **source.get('parameters', {}), **fixture.get('spice_parameters', {})}
     text = circuit_text(netlist(q, directory)); typ = settings['type']; corner = settings.get('corner', 'nominal')
     if corner != 'nominal':
         text = '\n'.join(LIB.sub(lambda m: m[1] + '"' + next(v for v in m.groups()[1:4] if v) + '" ' + corner, line) for line in text.splitlines()) + '\n'
@@ -103,16 +118,7 @@ def deck(p, cid, settings, directory):
         if typ == 'dc': command = f'.dc {source} {scalar(s["dc_start"]):.12g} {scalar(s["dc_stop"]):.12g} {scalar(s["dc_step"]):.12g}'
         else: command = f'.noise v({s["output"]}) {source} dec {int(s["points"])} {scalar(s["start"]):.12g} {scalar(s["end"]):.12g}'
     if typ == 'ac': command = f'.ac dec {int(s["points"])} {scalar(s["start"]):.12g} {scalar(s["end"]):.12g}'
-    aliases = {}; vectors = []
-    cell = next(c for c in p['cells'] if c['id'] == cid)
-    for d in cell['devices']:
-        if d.get('model_ref'):
-            from .catalog_migration import emit
-            alias=emit(d,p['pdk']).split()[0];aliases[alias.casefold()]=d['name']
-            if alias[0].upper()=='M':vectors+=['@'+alias+'['+k+']' for k in ('id','gm','vgs','vds','vdsat')]
-        if d.get('native_spice', {}).get('type') == 'device' and d['kind'] != 'X':
-            alias = render(d).split()[0]; aliases[alias.casefold()] = d['name']
-            # Subcircuit models have no portable internal MOS path; never invent one.
-            if alias[0].upper() == 'M': vectors += ['@' + alias + '[' + k + ']' for k in ('id', 'gm', 'vgs', 'vds', 'vdsat')]
-    if typ == 'op': text += '.save all ' + ' '.join(vectors) + '\n'
+    from .operating_data import native_save
+    directive,aliases=native_save(p,cid)
+    if typ == 'op': text += directive + '\n'
     return text + f'.temp {scalar(s.get("temperature", 27)):.12g}\n' + command + '\n.end\n', aliases

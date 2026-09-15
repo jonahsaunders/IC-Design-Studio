@@ -1,0 +1,287 @@
+{
+  "menus": {
+    "File": [
+      "Start here / example gallery\u2026",
+      "&New project\u2026",
+      "&Open project\u2026",
+      "&Open project folder\u2026",
+      "&Save",
+      "S&ave as\u2026",
+      "",
+      "Close project",
+      "Projects\u2026",
+      "",
+      "Recovery",
+      "Import",
+      "Export",
+      "Examples",
+      "",
+      "&Quit",
+      "Import and migrate Xschem project\u2026",
+      "Migrate current project to native\u2026",
+      "Project Hub\u2026",
+      "Attach layout to schematic\u2026"
+    ],
+    "Edit": [
+      "&Undo",
+      "&Redo",
+      "",
+      "&Duplicate",
+      "De&lete selection",
+      "&Rotate clockwise",
+      "R&otate counterclockwise",
+      "",
+      "&Command palette\u2026",
+      "Move selection precisely\u2026"
+    ],
+    "View": [
+      "&Fit design",
+      "Fit layout\tF",
+      "Ruler\tK",
+      "&Toggle light / dark",
+      "Schematic",
+      "Layout",
+      "Linked views",
+      "",
+      "Show grid",
+      "Grid Settings\u2026",
+      "Snap to grid",
+      "Zoom in",
+      "Zoom out",
+      "Reset workspace"
+    ],
+    "Design": [
+      "&Add cell\u2026",
+      "&Instantiate cell\u2026",
+      "",
+      "&Set active cell as top",
+      "&Edit cell ports\u2026",
+      "&Cell parameters\u2026",
+      "Rename active cell\u2026",
+      "Make cell from selection\u2026",
+      "",
+      "Library / cell / view browser\u2026",
+      "Project settings\u2026",
+      "Manage project",
+      "Design workflow\u2026"
+    ],
+    "Schematic": [
+      "Place c&omponent\u2026",
+      "P&lace wire",
+      "&Place net label\u2026",
+      "P&lace ground",
+      "",
+      "Move",
+      "Stretch",
+      "Copy",
+      "Mirror",
+      "",
+      "Bulk parameters\u2026",
+      "Cell definition properties\u2026",
+      "&Instance parameters\u2026",
+      "",
+      "Enter schematic",
+      "Return to parent",
+      "Check and Save",
+      "Symbols",
+      "Annotations",
+      "Selection filter",
+      "Place schematic devices in layout\u2026"
+    ],
+    "Layout": [
+      "Rectangle",
+      "Polygon",
+      "Path",
+      "",
+      "Move by reference\tM",
+      "Copy by reference\tC",
+      "Stretch edge\tS",
+      "Edit vertex",
+      "Rotate layout clockwise\tR",
+      "Rotate layout counterclockwise\tShift+R",
+      "",
+      "Layout properties\u2026\tQ",
+      "Align layout selection\u2026",
+      "Layout drawing settings\u2026",
+      "Repeat last layout command",
+      "Geometry",
+      "Cells and arrays",
+      "Generate",
+      "Placement and constraints",
+      "Native device geometry mapping\u2026",
+      "3D layout viewer\u2026",
+      "Preserve connections on move / stretch",
+      "Multilayer routing",
+      "PCell library",
+      "Inspection and finishing",
+      "Review schematic changes in layout\u2026",
+      "Place schematic devices in layout\u2026"
+    ],
+    "Route": [
+      "Place via\tV",
+      "Place via\u2026",
+      "Autovia\u2026",
+      "Route linked terminals\u2026",
+      "&Route between coordinates\u2026",
+      "",
+      "&Assign physical terminal\u2026",
+      "Assign cell layout port\u2026",
+      "Stretch path segment\u2026",
+      "Stretch path with mouse",
+      "",
+      "Cut wire",
+      "Rejoin two wires",
+      "&Toggle junction at pointer",
+      "Live routing feedback"
+    ],
+    "Simulate": [
+      "Design specifications",
+      "Variation cases",
+      "Waveform calculator\u2026",
+      "Simulation Explorer",
+      "Analysis setup\u2026",
+      "",
+      "&Run analysis",
+      "Run enabled setups",
+      "Stop selected simulation",
+      "Stop all simulations",
+      "",
+      "Testbenches",
+      "Studies",
+      "Post-layout",
+      "Engine setup",
+      "Waveforms",
+      "Program analyses",
+      "Edit simulation program\u2026",
+      "Verification test plans\u2026",
+      "Analog design workspace\u2026"
+    ],
+    "Verify": [
+      "&Electrical rule check",
+      "Electrical check rules\u2026",
+      "&Geometry DRC (generic rules)",
+      "&Device mapping audit",
+      "",
+      "&Inspect whole net",
+      "Schematic / layout cross-probe\u2026",
+      "Check linked layout and show connections",
+      "&Physical terminal connectivity",
+      "",
+      "Physical workflow",
+      "Physical verification",
+      "Run KLayout rule script\u2026",
+      "Open KLayout findings\u2026",
+      "Run bundled KLayout rules\u2026"
+    ],
+    "Tools": [
+      "&Engine diagnostics and paths\u2026",
+      "Layout keyboard profile\u2026",
+      "Schematic command profile\u2026",
+      "&Convert GDS through Magic\u2026",
+      "Technology",
+      "Inductor creator\u2026",
+      "Physical EM profile\u2026",
+      "Set up an open PDK\u2026",
+      "External tool exchange",
+      "Collaboration\u2026"
+    ],
+    "Window": [
+      "&Project",
+      "&Inspector",
+      "&Results",
+      "Focus canvas",
+      "R&eset workspace",
+      "Save named workspace\u2026",
+      "Restore named workspace\u2026",
+      "",
+      "Configure windows\u2026",
+      "Lock panel positions",
+      "Linked views side by side",
+      "Linked views stacked",
+      "Device library",
+      "Layers",
+      "Analysis setup",
+      "Workspace presets",
+      "Simulation Explorer",
+      "Specifications",
+      "Variation cases",
+      "Placement and rules",
+      "Design workflow"
+    ],
+    "Help": [
+      "&Searchable help\u2026",
+      "&About and release status",
+      "&Keyboard shortcuts and wiring",
+      "Compatibility matrix",
+      "Workspace guide",
+      "Design workflow guide",
+      "Xschem import and export guide",
+      "Included Xschem libraries",
+      "Native migration report\u2026",
+      "Native workflow guide",
+      "Native catalog migration guide",
+      "Getting started",
+      "Project roadmap",
+      "Layout development guide"
+    ],
+    "Digital": [
+      "Digital flow\u2026",
+      "New digital counter example",
+      "New UART regression example",
+      "New APB FIFO peripheral",
+      "",
+      "Verify digital block",
+      "Run digital block to placement",
+      "Run digital block to GDS"
+    ]
+  },
+  "result_groups": [
+    {
+      "category": "Analysis",
+      "pages": [
+        "Simulation Explorer",
+        "Specifications",
+        "Variation cases",
+        "Testbenches",
+        "Characterization",
+        "Program analyses"
+      ]
+    },
+    {
+      "category": "Waveforms",
+      "pages": [
+        "Waveforms",
+        "Studies"
+      ]
+    },
+    {
+      "category": "Layout",
+      "pages": [
+        "Placement & rules"
+      ]
+    },
+    {
+      "category": "Verification",
+      "pages": [
+        "Checks",
+        "Physical workflow",
+        "Extracted comparison"
+      ]
+    },
+    {
+      "category": "Job log",
+      "pages": [
+        "Job log"
+      ]
+    }
+  ],
+  "navigator": [
+    "Project",
+    "Devices",
+    "Layers"
+  ],
+  "inspector": [
+    "Properties",
+    "Analysis"
+  ]
+}

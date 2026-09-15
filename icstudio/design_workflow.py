@@ -1,6 +1,7 @@
 """A shared, automatically refreshed circuit workflow for both editors."""
 from concurrent.futures import ThreadPoolExecutor
 from PySide6.QtCore import Qt, QTimer
+from PySide6.QtGui import QShortcut, QKeySequence
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton,
     QComboBox, QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView, QTabWidget)
 from .model import clone
@@ -205,17 +206,28 @@ class DesignWorkflow(QWidget):
 
 def install(studio):
     guide=DesignWorkflow(studio);studio._design_workflow=guide
-    dock=studio.panel('Design workflow','designWorkflow',Qt.BottomDockWidgetArea,guide);guide.dock=dock;studio.workflow_dock=dock
+    from .analog_widgets import scroll
+    dock=studio.panel('Design workflow','designWorkflow',Qt.BottomDockWidgetArea,scroll(guide));guide.dock=dock;studio.workflow_dock=dock
     dock.setAllowedAreas(Qt.AllDockWidgetAreas)
     from .floating_panels import FloatingPanel
     dock._floating_frame=FloatingPanel(dock,dock.titleBarWidget())
-    dock.setMinimumHeight(320);studio.tabifyDockWidget(studio.results_dock,dock);dock.raise_()
-    studio.resizeDocks([dock],[380],Qt.Vertical)
-    studio.restoreDockWidget(dock)
+    dock.setMinimumHeight(180)
+    # Do not introduce a large visible dock during startup or tabify its minimum
+    # size with Results. Saved workspace restoration remains explicit.
+    studio.restoreDockWidget(dock);dock.hide()
+    close=next(b for b in dock.titleBarWidget().findChildren(QPushButton) if 'Hide' in b.toolTip())
+    close.setText('Close');close.setFixedWidth(76);close.setAccessibleName('Close design workflow')
+    guide.close_shortcut=QShortcut(QKeySequence('Escape'),guide)
+    guide.close_shortcut.setContext(Qt.WidgetWithChildrenShortcut);guide.close_shortcut.activated.connect(dock.hide)
     studio.set_panel_lock(studio._layout_locked)
     def show():
-        dock.show();guide.show();dock.raise_();guide.refresh();return guide
+        was_hidden=dock.isHidden();dock.show();guide.show();dock.raise_();guide.refresh()
+        if was_hidden and not dock.isFloating():studio.resizeDocks([dock],[max(180,min(300,studio.height()//3))],Qt.Vertical)
+        guide.next_action.setFocus();return guide
     studio.design_workflow=show
-    for menu in ('Schematic','Layout'):
-        studio.action(studio.task_menus[menu],'Design workflow…',show)
-    studio.toolbar.addWidget(studio.button('Workflow',fn=show,tip='Show design progress and actionable findings'))
+    studio.action(studio.task_menus['Design'],'Design workflow…',show)
+    studio.task_menus['Window'].addAction(dock.toggleViewAction())
+    button=studio.button('Workflow',fn=lambda:dock.hide() if not dock.isHidden() else show(),check=True,tip='Show or close design workflow (Escape closes the focused workflow)')
+    studio.workflow_button=button;dock.visibilityChanged.connect(lambda _:button.setChecked(not dock.isHidden()))
+    studio.toolbar.addWidget(button)
+    studio.action(studio.task_menus['View'],'Reset workspace',studio.reset_workspace,'Ctrl+Shift+0')

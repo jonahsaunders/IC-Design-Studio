@@ -65,7 +65,9 @@ def main(output):
         assert window.simulation_runs.rowCount()==4
         report['checks'].append('0.15 packaged parallel workers, queued dispatch and run table')
         window.add_spec_row({'name':'Output limit','expression':'final(V("vout"))','min':'0','max':'1.81','unit':'V'});window.save_specifications()
-        assert window.result_categories.count()==4 and window.results_tabs.tabBar().isHidden()
+        assert window.result_categories.count()==5 and window.results_tabs.tabBar().isHidden()
+        groups=dict(window.result_groups)
+        assert groups['Layout']==[window.physical_assistant_tab] and window.silicon_tab in groups['Verification'] and groups['Job log']==[2]
         from .wavecalc import evaluate as calculate
         assert calculate('final(V("vout"))',window.result).values[0]>=0
         dialog=window.wavecalc_dialog();assert len(dialog.plots)==1;dialog.close()

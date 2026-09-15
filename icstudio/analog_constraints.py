@@ -30,6 +30,8 @@ def validate_constraints(p):
             # Deleted members remain an explicit finding, allowing ordinary deletion/undo.
             if row['kind']=='symmetry' and len(row['members'])!=2:raise ValueError('Symmetry needs exactly two devices.')
             if row['kind']=='common_centroid' and (not row.get('groups') or any(not g for g in row['groups']) or set(sum(row['groups'],[]))!=set(row['members'])):raise ValueError('Common-centroid groups must cover the selected devices.')
+            if len(set(row['members'])) != len(row['members']) or row['kind']=='common_centroid' and len(sum(row['groups'],[])) != len(row['members']):
+                raise ValueError('Each device must occur exactly once in a constraint and its groups.')
             if row.get('axis','x') not in ('x','y'):raise ValueError('Symmetry axis must be x or y.')
             if not isinstance(row.get('coordinate',0),(int,float)) or not math.isfinite(row.get('coordinate',0)):raise ValueError('Symmetry coordinate must be numeric.')
 
@@ -77,15 +79,38 @@ def move_device(p,cid,did,dx,dy):
     c.update(translated_cell(c,{ident:(dx,dy) for ident in ids}))
 
 
-def arrange(p,cid,row,pitch=10000):
+def arrange(p,cid,row,pitch=10000,columns=None):
+    """Atomic placement; every group receives point-symmetric unit pairs."""
+    q=clone(p)
+    _arrange(q,cid,row,pitch,columns)
+    from .model import validate
+    validate(q)
+    p.clear();p.update(q)
+
+
+def _arrange(p,cid,row,pitch,columns):
+    validate_constraints({**p,'cells':[dict(next(c for c in p['cells'] if c['id']==cid),analog_constraints=[row])]})
+    if not isinstance(pitch,(int,float)) or not math.isfinite(pitch) or pitch<=0 or pitch%p['pdk']['grid']:
+        raise ValueError('Use a positive pitch on the technology grid.')
     kind=row['kind'];axis=0 if row.get('axis','x')=='x' else 1;coordinate=row.get('coordinate',0)
     if kind=='symmetry':
         a,b=[footprint(p,cid,did)[2] for did in row['members']];target=list(a);target[axis]=2*coordinate-a[axis];move_device(p,cid,row['members'][1],target[0]-b[0],target[1]-b[1])
     elif kind=='common_centroid':
         groups=row['groups']
-        if len(groups)!=2 or len(groups[0])!=len(groups[1]) or len(groups[0])%2:raise ValueError('Automatic common-centroid placement supports two equal groups with an even number of unit devices (ABBA pairs).')
-        order=[]
-        for i in range(0,len(groups[0]),2):order.extend([groups[0][i],groups[1][i],groups[1][i+1],groups[0][i+1]])
-        for index,did in enumerate(order):
-            center=footprint(p,cid,did)[2];target=((index-(len(order)-1)/2)*pitch,0);move_device(p,cid,did,target[0]-center[0],target[1]-center[1])
+        if len(groups)<2 or any(len(g)%2 for g in groups):raise ValueError('Automatic common-centroid placement requires at least two groups with an even number of explicit unit devices in each.')
+        count=sum(map(len,groups));columns=count if columns is None else columns
+        if type(columns)!=int or columns<2 or columns>count or columns%2:raise ValueError('Use an even column count between 2 and the number of unit devices.')
+        height=math.ceil(count/columns)
+        points=[((x-(columns-1)/2)*pitch,(y-(height-1)/2)*pitch) for y in range(height) for x in range(columns//2)]
+        points.sort(key=lambda pt:(pt[0]**2+pt[1]**2,pt[1],pt[0]))
+        pairs=[]
+        for i in range(max(map(len,groups))//2):
+            pairs.extend((g[2*i],g[2*i+1]) for g in groups if 2*i<len(g))
+        for (first,second),(x,y) in zip(pairs,points):
+            for did,target in ((first,[x,y]),(second,[-x,-y])):
+                target[axis]+=coordinate;center=footprint(p,cid,did)[2]
+                move_device(p,cid,did,target[0]-center[0],target[1]-center[1])
     else:raise ValueError('This constraint checks geometry; use the device generator to correct matching or guard coverage.')
+    boxes=[footprint(p,cid,did)[1] for did in row['members']]
+    if any(a.left<b.right and b.left<a.right and a.bottom<b.top and b.bottom<a.top for i,a in enumerate(boxes) for b in boxes[i+1:]):
+        raise ValueError('The arranged footprints overlap. Increase the pitch or adjust the symmetry axis.')

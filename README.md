@@ -39,6 +39,10 @@
 
 ## Explore the workspace
 
+The [analog design workspace](docs/ANALOG_WORKSPACE.md) brings design variables,
+test plans, saved-run debugging, device generation, layout updates, and physical
+verification together. Open it from **Analysis → Analog design workspace**.
+
 Start with a small circuit, or bring an existing open design. Local design work needs no account or hosted service. The native `.icproj` format keeps editable documents and revision-linked evidence together.
 
 <table>

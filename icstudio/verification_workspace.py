@@ -16,10 +16,13 @@ class VerificationWorkspaceMixin:
         super().set_project(p,path)
         if hasattr(self,'rc_table') and (not self.result or 'rc_comparison' not in self.result):self._rc_result=None;self.rc_table.setRowCount(0);self.rc_note.setText('Run an extracted comparison for this project.')
     def install_results_navigation(self):
-        self.result_groups=[('Simulation',[self.simulation_tab,self.spec_tab,self.cases_tab,self.testbench_tab,self.characterization_tab]),('Waveforms',[0,self.study_tab]),('Physical',[self.physical_assistant_tab,self.silicon_tab,self.rc_tab]),('Checks',[1,2])]
+        self.result_groups=[('Analysis',[self.simulation_tab,self.spec_tab,self.cases_tab,self.testbench_tab,self.characterization_tab]),
+            ('Waveforms',[0,self.study_tab]),('Layout',[self.physical_assistant_tab]),
+            ('Verification',[1,self.silicon_tab,self.rc_tab]),('Job log',[2])]
         # Keep controller page identities stable while replacing the long scrolling strip.
         host=QWidget();layout=QVBoxLayout(host);layout.setContentsMargins(0,0,0,0);layout.setSpacing(0);self.result_categories=QTabBar();self.result_sections=QTabBar();self.result_categories.setAccessibleName('Results workspace');self.result_sections.setAccessibleName('Results page')
         for name,indices in self.result_groups:self.result_categories.addTab(name)
+        for bar in (self.result_categories,self.result_sections):bar.setUsesScrollButtons(True);bar.setExpanding(False)
         layout.addWidget(self.result_categories);layout.addWidget(self.result_sections);self.results_tabs.tabBar().hide();self.results_tabs.setParent(host);layout.addWidget(self.results_tabs);self.results_dock.setWidget(host);self._result_nav_sync=False;self._result_last={}
         self.result_categories.currentChanged.connect(self.choose_result_category);self.result_sections.currentChanged.connect(self.choose_result_section);self.results_tabs.currentChanged.connect(self.sync_result_navigation);self.sync_result_navigation(self.results_tabs.currentIndex())
     def choose_result_category(self,group):

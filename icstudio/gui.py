@@ -599,6 +599,8 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
         install(self)
         from .test_plan_ui import install as install_test_plans
         install_test_plans(self)
+        from .analog_workspace import install as install_analog_workspace
+        install_analog_workspace(self)
         from .design_workflow import install as install_workflow
         install_workflow(self)
         from .digital_ui import install as install_digital
