@@ -1,6 +1,6 @@
 # Analog optimizer
 
-Open **Simulate → Analog design workspace → Optimize**. This tool runs the
+Open **Analysis → Analog design workspace → Optimize**. This tool runs the
 existing analog simulators and retains every candidate as a separate saved job.
 No additional optimization package or new simulator is required.
 
@@ -37,10 +37,14 @@ Native saved testbenches use ngspice and preserve the original root model scope.
    For example, maximize `final(V("vout"))`, with `V` as the unit. Use the waveform
    calculator's supported scalar functions for gain, delay, settling, and other
    measurements appropriate to the chosen analysis.
-4. Add one to three parameter axes. Each has lower/upper bounds and a sample
+4. Add one to eight parameter axes. Each has lower/upper bounds and a sample
    count. SI prefixes such as `2u`, `10k`, and `100n` are supported. Project
    variables use `@name`; instance fields use existing names such as
-   `M1.params.w`, `R1.value`, or a native device parameter.
+   `M1.params.w`, `R1.value`, or a native device parameter. Choose **Linear**,
+   **Logarithmic** (positive bounds), or **Integer** spacing. Integer samples are
+   deduplicated; finger counts/multiplicities and their links must remain positive
+   integers. Declared editable catalog fields such as `M1.model_params.nf` are
+   available alongside native fields. Derived catalog expressions remain live.
 5. Optional matching/ratio links share an axis: in **Linked target = ratio**,
    enter `M2.params.w = 1` for equal widths, or `M2.params.w = 2` for twice the
    swept width. Separate multiple links with commas. Every target may occur only
@@ -49,9 +53,10 @@ Native saved testbenches use ngspice and preserve the original root model scope.
 6. Optionally enable **Add gm/Id and bias limits**, choose an operating-point test
    and MOS instance, and enter minimum/maximum gm/Id and/or minimum bias margin.
    Missing required device values fail the candidate.
-7. Choose **Adaptive · sensitivity first** or **Exhaustive grid**, a simulation
-   budget, and **Run search**. Every proposed candidate runs every test and PVT
-   condition. The total must fit the budget, with an absolute maximum of 500 jobs. Overlapping plan, supply, or corner overrides are rejected instead
+7. Choose **Adaptive · sensitivity first**, **Gaussian process · experimental**,
+   or **Exhaustive grid**, a simulation budget, and **Run search**. Every passing
+   candidate must complete every test and PVT condition. The total must fit the
+   budget, with an absolute maximum of 500 jobs. Overlapping plan, supply, or corner overrides are rejected instead
    of silently cancelling a search parameter.
 
 Use **Add trade-off objective** to add up to two further objectives, possibly
@@ -68,11 +73,42 @@ parameter range. Linked parameters move together, and the worst PVT condition
 can change, so these are local trends rather than causal explanations.
 
 Further adaptive candidates use deterministic bounded pattern search around
-measured promising/Pareto points, with global grid coverage when local proposals
-are exhausted. Samples define discrete parameter resolution. This is not
-Bayesian optimization and does not guarantee a global optimum. The simulation
+measured promising/Pareto points, including paired parameter moves, with global
+grid coverage when local proposals are exhausted. Samples define discrete
+parameter resolution. Adaptive pattern search does not guarantee a global optimum. The simulation
 budget includes all test/PVT jobs for the initial probes and later candidates;
 manual retries are additional executions of existing conditions.
+
+**Candidates per adaptive batch** accepts 1–8. Independent candidates can use the
+existing parallel job queue; each next batch waits for the preceding batch's
+required evidence. All proposals are persisted before execution. A changed engine
+environment stops continuation instead of mixing incomparable evidence.
+
+**Screen operating points before expensive tests** runs all saved OP conditions
+first. Candidates that fail these checks are **Screened out**; their remaining
+analyses are never queued or represented as simulated. Accepted candidates still
+complete all required tests and PVT conditions before they can pass or apply.
+The progress display counts executed jobs separately from avoided jobs. The
+budget conservatively reserves the full plan per candidate; screening savings
+are not used to silently increase the number of candidates. Cancel and restart
+pause deferred stages until explicit resume.
+
+The optional Gaussian-process backend learns from measured candidates. It uses
+a fixed RBF kernel, rotating normalized objective weights, expected improvement,
+and an approximate feasibility surrogate. Training is bounded to 64 observations
+and proposals to 256 per step. It has no additional package dependency. Predicted
+values guide search only; they never appear as verified measurements or yield
+probabilities. This option remains experimental and adaptive remains the default.
+
+An equal-budget ngspice-46 benchmark used 24 simulations per method and circuit:
+
+| Circuit / measured goal | Adaptive | Gaussian process |
+| --- | ---: | ---: |
+| Divider: minimum supply current within output limits | 9.00 µA | 83.11 µA |
+| MOS: absolute error from a 20 µA current target | 3.65 µA | 0.225 µA |
+
+These two small deterministic examples show different strengths, not a general
+advantage. Reproduce with `scripts/benchmark_analog_search.py --executable /path/to/ngspice --out benchmark.json`.
 
 Adaptive batches are checkpointed before enqueueing and continue while the
 workspace is hidden. Cancel pauses further proposals. After application restart,
@@ -160,13 +196,34 @@ Density is `abs(Id)/total_drawn_W` in A/m. The generic teaching library supports
 only zero body bias, 27 °C and nominal corner, with its square-law limitations.
 
 Each experiment is bounded to 500 simulations. Tables retain signed Id/gm,
-absolute gm/Id, density, bias, captured headroom, sample status and source run
+absolute gm/Id, density, bias, captured headroom, gds, intrinsic gain, available
+intrinsic capacitances, sample status and source run
 fingerprints. Cache identity includes the model/geometry contract, locked model
 assets, grid and engine/workflow identity. Invalid samples remain explicit.
 Multilinear interpolation requires complete enclosing samples and forbids
 extrapolation or crossing missing data. Inverse gm/Id lookup exposes multiple
 bias crossings as separate choices. Width scaling is an initial estimate,
 especially when narrow-width effects change the model behavior.
+
+Choose **Plot measurement** to inspect current density, gm/Id, gds, intrinsic
+gain (`abs(gm)/gds`), intrinsic Cgg, or the intrinsic speed estimate
+`abs(gm)/(2πCgg)`. **Compare characterized lengths** overlays the same bias slice
+for each measured L. Exact values and source identities are available through
+**Export measured data**. Missing neighboring capacitances remain unavailable
+during interpolation; derived gain/speed metrics use interpolated raw vectors.
+
+The SKY130 adapter captures signed Cgg/Cgs/Cgd/Cgb charge derivatives. The speed
+estimate excludes overlap capacitance, wiring and circuit loading and is not
+circuit bandwidth. The teaching solver supplies gds from its actual current
+model but does not invent device capacitances. Zero/nonpositive gds or Cgg does
+not produce infinite gain or speed.
+
+**Size and transfer → Verify selected sizing with SPICE** creates a separate saved
+ngspice job with the proposed W/L and bias. Both |Id| and gm/Id must be within 5%
+of their targets for **Verified**; otherwise the errors are displayed as
+**Outside tolerance**. Engine identity and circuit snapshot must match the saved
+job. This checks isolated width scaling; circuit search must still verify the
+actual DUT bias, performance requirements, and full PVT plan.
 
 ![Measured model lookup table](images/analog-workspace/characterization-library.png)
 
@@ -182,9 +239,9 @@ especially when narrow-width effects change the model behavior.
 - Process simulation uses the existing ngspice setup and model assets. The tool
   does not generate PDK curves from generic equations or invent hidden device
   vectors. Existing engine identity checks govern resumed jobs.
-- The adaptive search is bounded and deterministic. Statistical yield
-  optimization, Bayesian search, and automatic gm/C/fT characterization are
-  outside this implementation. No missing capacitance/noise metrics are estimated.
+- Searches are bounded and deterministic. Statistical yield optimization and
+  noise characterization remain outside this implementation. No missing device
+  capacitance/noise values are invented. The optional GP backend is experimental.
 - Optimization accepts analog schematic analyses/testbenches and PVT plans.
   After applying a candidate, use **Layout and constraints** and **Verification
   runs** to update layout and validate extracted performance. An optimizer pass

@@ -115,3 +115,71 @@ Changes made during this review:
 These checks extend the earlier HIG review; the platform, custom-canvas and
 assistive-technology limitations above still apply. No Apple certification or
 unperformed native-platform accessibility testing is claimed.
+
+## Navigation and optimizer follow-up
+
+The navigation audit covers all top-level menus, editor view tabs, navigator and
+inspector tabs, every grouped results page, Design workflow, and the analog
+workspace's setup/search/characterization dialogs. Apple's guidance on
+[modality](https://developer.apple.com/design/human-interface-guidelines/modality),
+[windows](https://developer.apple.com/design/human-interface-guidelines/windows),
+[toolbars](https://developer.apple.com/design/human-interface-guidelines/toolbars),
+and [the menu bar](https://developer.apple.com/design/human-interface-guidelines/the-menu-bar)
+informs the following placement and dismissal decisions.
+
+| Finding | Resolution |
+| --- | --- |
+| Analog design appeared in Analysis, Layout and Verify. | Analysis is the single menu home. The command palette now uses the visible name Analysis instead of the old internal Simulate key. |
+| Opening Design workflow compressed the canvas; its minimum size also affected Results. | Start hidden, remove automatic tabification with Results, use a compact scrollable panel and keep a labeled Close button outside the scroll area. |
+| Reset reopened Design workflow, preventing an obvious return to the initial editor. | Reset restores the schematic arrangement with the workflow closed. Add View → Reset workspace and Ctrl/Command+Shift+0; retain the Window command. |
+| Workflow entry points offered no obvious toggle. | The Workflow toolbar button shows and closes the panel. Escape closes the focused workflow. Window exposes its visibility toggle; Design contains its task entry. |
+| Closing the analog workspace could leave auxiliary dialogs in view. | Close its child dialogs, retain setup drafts, and explain that running jobs continue. Cancel in guided setup is independent of setup validation. |
+| Placement tools, physical verification and logs were mixed together. | Separate Layout, Verification and Job log categories; retain stable controller page identities and remembered page selection. |
+| Simulation and engineering panels requested 480–500 pixels regardless of window height. | Bound their initial height relative to the current window; controls remain scrollable. |
+| Digital appeared after Help and was absent from the shared command index. | Place Digital with task menus before Tools, keep Help last, and index Digital commands. |
+| Open project folder was in Import. | Move it beside other project-opening commands in File. |
+| Characterization data lacked gain/speed context and explicit dismissal. | Add named measurement selection, signed capacitance columns, length comparisons with a legend, full-precision CSV, model limitations, SPICE verification status and Close. |
+| Faster search could hide unexecuted tests or blur prediction and evidence. | Label Screened out separately, count avoided runs, and permit Apply only after all required conditions pass. Predictions only propose future jobs. |
+
+### Reviewed placement
+
+| Surface | Contents and rationale |
+| --- | --- |
+| Editor tabs | Schematic, Layout, Linked views: representations of the same editable design. |
+| Navigator | Project hierarchy, Devices library, Layers: selecting and finding design objects. Layers remains contextual to layout. |
+| Inspector | Properties and Analysis: settings for the current selection/cell. |
+| Analysis | Analog workspace, simulation setup, specifications, testbenches, variation/characterization, program analyses: planning and running electrical experiments. |
+| Waveforms | Saved waveforms and study plots: inspecting electrical results. |
+| Layout | Placement and rules: constructing physical geometry and managing constraints. |
+| Verification | Checks, physical workflow evidence, extracted comparisons: checking the design and its physical implementation. |
+| Job log | Execution diagnostics, distinct from design-rule findings. |
+| Analog workspace | Setup, results matrix, optimization, physical handoff and verification views remain together for continuity. Their presence does not create duplicate top-level analog launchers. |
+
+### Acceptance and limits
+
+`tests/gui_optimizer_refinement.py` records a complete navigation inventory and
+screenshots. It checks each results page's category, compact/normal panel closing,
+Escape and toolbar toggling, restoration of canvas space, named arrangements,
+reset with retained drafts, staged execution using real worker processes, and
+native Qt accessible names. With `ICSTUDIO_TEST_NGSPICE` set, it also executes the
+SPICE sizing verification through the desktop queue. The new check is included
+in the desktop CI workflow.
+
+The numerical tests check eight axes without expanding the Cartesian product,
+logarithmic/integer spacing, declared catalog finger counts, paired proposals,
+batch budgets/replay, missing capacitance data, signed device vectors and
+screening/verification gates. Real ngspice-46 checks cover standard SKY130 NMOS
+and PMOS at two body biases, two temperatures and two corners, plus sizing
+verification. The separate equal-budget benchmark is recorded in
+[optimizer documentation](ANALOG_OPTIMIZER.md).
+
+![Compact workflow with visible Close and retained canvas](images/analog-workspace/workflow-navigation.png)
+
+![Measured device gain and selectable tradeoff data](images/analog-workspace/device-tradeoffs.png)
+
+This is an implementation audit using Apple's guidance, not a claim that every
+dialog in the application has undergone native platform accessibility testing.
+Physical Windows/Linux displays, high DPI, macOS/VoiceOver if supported, and
+semantic access to custom canvas elements remain the platform checks listed
+above. Specialized import/export and digital setup dialogs retain their existing
+flows; the new review covers their navigation locations rather than every field.

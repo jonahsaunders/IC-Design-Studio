@@ -14,7 +14,12 @@ def mos_vectors(alias, name, binding, aliases):
         alias='m.'+alias+'.'+internal
     elif alias[0].upper()!='M':return []
     aliases[alias.casefold()]=name
-    return ['@'+alias+'['+k+']' for k in ('id','gm','vgs','vds','vdsat')]
+    keys=['id','gm','gds','vgs','vds','vdsat']
+    # Intrinsic charge derivatives are only requested by the pinned BSIM4
+    # characterization adapter, never guessed for arbitrary imported models.
+    if (binding or {}).get('characterization_capacitances'):
+        keys += ['cgg','cgs','cgd','cgb']
+    return ['@'+alias+'['+k+']' for k in keys]
 
 
 def characterization_binding(project, cid, instance, binding):
@@ -24,7 +29,8 @@ def characterization_binding(project, cid, instance, binding):
     # and model-closure proof remain untouched by readout metadata.
     from .analog_characterization import contract
     adapter = contract(project, cid, instance['name'])
-    return {**(binding or {}), 'operating_point_device': adapter['internal']}
+    return {**(binding or {}), 'operating_point_device': adapter['internal'],
+            'characterization_capacitances':bool(adapter['internal'])}
 
 
 def native_save(project,cid):
@@ -71,7 +77,7 @@ def extras(variables,rows,complex_data=False,aliases=None):
         n=raw.casefold()
         # Internal device vectors can be wrapped as i(@m1[id]) or v(@m1[gm]).
         internal=n[2:-1] if (n.startswith('i(') or n.startswith('v(')) and n.endswith(')') else n
-        match=re.fullmatch(r'@([^\[\]]+)\[(id|gm|vgs|vds|vdsat)\]',internal)
+        match=re.fullmatch(r'@([^\[\]]+)\[(id|gm|gds|cgg|cgs|cgd|cgb|vgs|vds|vdsat)\]',internal)
         if match and not complex_data and len(rows)==1:
             alias,key=match.groups();value=float(rows[0][j])
             if math.isfinite(value):devices.setdefault(aliases.get(alias,alias),{})[key]=value

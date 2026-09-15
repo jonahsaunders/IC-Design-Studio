@@ -23,5 +23,5 @@ def install(studio):
         window.refresh_plans();window.show();window.raise_()
         return window
     studio.open_analog_workspace=show
-    for menu in ('Simulate','Layout','Verify'):
-        studio.action(studio.task_menus[menu],'Analog design workspace…',show)
+    # Simulate is the internal key for the user-facing Analysis menu.
+    studio.action(studio.task_menus['Simulate'],'Analog design workspace…',show)

@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "checks": [
+    "Every results page has one task category; analog design has one Analysis menu entry and matching command-palette location",
+    "Compact and normal workflows close by title button, Escape and toolbar toggle; canvas space returns; named arrangements still restore",
+    "Real workers run three OP checks and only two transient checks; screened candidate cannot apply and saved screening settings restore",
+    "Real ngspice verifies proposed isolated sizing within the current and gm/Id tolerance",
+    "Eight editable axes, logarithmic selector, measured intrinsic gain, length overlays, honest unavailable capacitance and accessible sizing-verification control",
+    "Reset closes analog workspace and preserves its draft when reopened"
+  ],
+  "platform": "offscreen"
+}

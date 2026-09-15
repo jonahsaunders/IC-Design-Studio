@@ -12,6 +12,7 @@ def builtin_devices(p,cid,voltages):
         over=vgs-min(vds,0)-scalar(d['params']['vto']);headroom=abs(vds)-max(over,0)
         gm=(mos_current(d,vd,vg+1e-6,vs)-mos_current(d,vd,vg-1e-6,vs))/2e-6
         out[d['name']]={'id':mos_current(d,vd,vg,vs),'gm':gm,'vgs':vg-vs,'vds':vd-vs,'headroom':headroom,'region':'cutoff' if over<=0 else 'saturation' if headroom>=0 else 'linear','source':'teaching square-law model'}
+        out[d['name']]['gds']=(mos_current(d,vd+1e-6,vg,vs)-mos_current(d,vd-1e-6,vg,vs))/2e-6
     return out
 
 

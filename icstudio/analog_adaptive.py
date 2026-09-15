@@ -12,7 +12,7 @@ from . import analog_optimizer as opt
 
 def axes(project, cid, spec):
     requested = spec['axes']
-    if not 1 <= len(requested) <= 3: raise ValueError('Choose one to three adjustable parameters.')
+    if not 1 <= len(requested) <= opt.MAX_AXES: raise ValueError(f'Choose one to {opt.MAX_AXES} adjustable parameters.')
     grids, used = [], set()
     for axis in requested:
         values = opt.grid(project, cid, [axis])
@@ -29,7 +29,11 @@ def delta(grids, coordinate):
 def start(project, cid, plan, spec, prepare_job):
     if spec.get('kind', 'analog_optimizer') != 'analog_optimizer': raise ValueError('Adaptive search requires circuit objectives.')
     grids = axes(project, cid, spec)
-    center = [min(range(len(grid)), key=lambda i: abs(grid[i][axis['target']] - scalar(spec.get('initial', {}).get(axis['target'], opt.get_target(project, cid, axis['target']))))) for grid, axis in zip(grids, spec['axes'])]
+    center=[]
+    for grid,axis in zip(grids,spec['axes']):
+        initial=scalar(spec.get('initial',{}).get(axis['target'],opt.get_target(project,cid,axis['target'])))
+        metric=math.log if axis.get('scale')=='log' and initial>0 else lambda v:v
+        center.append(min(range(len(grid)),key=lambda i:abs(metric(grid[i][axis['target']])-metric(initial))))
     seed = [center]; probes = []
     for n, grid in enumerate(grids):
         pair = []
@@ -41,15 +45,22 @@ def start(project, cid, plan, spec, prepare_job):
     conditions = len(plan['entries']) * len(plan['corners']) * len(plan['temperatures']) * max(1, len(plan.get('voltages', [])))
     limit = int(spec.get('budget', 100)) // conditions
     if limit < len(seed): raise ValueError(f'Sensitivity first needs at least {len(seed) * conditions} simulations for the baseline and independent parameter probes.')
+    batch_size=int(spec.get('batch_size',1))
+    if batch_size!=scalar(spec.get('batch_size',1)) or not 1<=batch_size<=8:raise ValueError('Use 1–8 candidates per batch.')
     m = opt.prepare(project, cid, plan, spec, prepare_job, _changes=[delta(grids, p) for p in seed])
     m['adaptive'] = dict(project=clone(project), coordinates=seed, probes=probes, max_candidates=min(limit, math.prod(map(len, grids))),
                          active=True, done=len(seed) >= min(limit, math.prod(map(len, grids))), batches=1, reason='')
+    if m['adaptive']['done']:m['adaptive'].update(active=False,reason='All budgeted candidates proposed.')
     return m
 
 
 def next_coordinate(manifest, report):
     state = manifest['adaptive']; grids = axes(state['project'], manifest['cell_id'], manifest['spec'])
     seen = {tuple(c) for c in state['coordinates']}
+    if manifest['spec'].get('strategy')=='surrogate':
+        from .analog_surrogate import propose
+        proposal=propose(manifest,report,grids)
+        if proposal is not None:return proposal
     # Feasible Pareto points guide local proposals. Before feasibility, retain
     # the measured objectives and prefer fewer failed requirements.
     measured = [c for c in report['candidates'] if c['metrics'] and all(m['score'] is not None for m in c['metrics'])]
@@ -66,6 +77,12 @@ def next_coordinate(manifest, report):
             rotate = (state['batches'] - 1) % len(front); centers = front[rotate:] + front[:rotate] + [c for c in centers if not c['pareto']]
         for c in centers:
             point = state['coordinates'][c['candidate'] - 1]
+            # Joint moves expose interactions that one-variable probes miss.
+            for i,j in itertools.combinations(range(len(grids)),2):
+                for a,b in ((1,1),(-1,-1),(1,-1),(-1,1)):
+                    proposal=list(point)
+                    for n,sign in ((i,a),(j,b)):proposal[n]=max(0,min(len(grids[n])-1,point[n]+sign))
+                    if tuple(proposal) not in seen:return proposal
             for distance in (max(1, max(len(g) for g in grids) // (2 ** min(8, state['batches']))), 1):
                 for n, grid in enumerate(grids):
                     for sign in (-1, 1):
@@ -91,13 +108,20 @@ def advance(manifest, rows, prepare_job):
         state.update(active=False, reason='Paused after interruption. Resume retries unfinished simulations.'); return m, []
     if len(state['coordinates']) >= state['max_candidates']:
         state.update(done=True, active=False, reason='Simulation budget reached.'); return m, []
-    point = next_coordinate(m, report)
-    if point is None: state.update(done=True, active=False, reason='Every grid point has been tested.'); return m, []
     grids = axes(state['project'], m['cell_id'], m['spec'])
-    batch = opt.prepare(state['project'], m['cell_id'], m['plan'], m['spec'], prepare_job, _changes=[delta(grids, point)])['jobs']
-    candidate = len(state['coordinates']) + 1
-    for n, job in enumerate(batch, len(m['jobs']) + 1): job['case'].update(group=m['id'], index=n, candidate=candidate)
-    m['jobs'].extend(batch); state['coordinates'].append(point); state['batches'] += 1
+    batch=[]
+    for _ in range(min(int(m['spec'].get('batch_size',1)),state['max_candidates']-len(state['coordinates']))):
+        point=next_coordinate(m,report)
+        if point is None:break
+        part=opt.prepare(state['project'],m['cell_id'],m['plan'],m['spec'],prepare_job,_changes=[delta(grids,point)])['jobs']
+        for job in part:
+            original=next(j for j in m['jobs'] if j['case']['entry_id']==job['case']['entry_id'])
+            if job.get('environment')!=original.get('environment'):raise ValueError('The simulation environment changed. Start a new experiment before comparing further candidates.')
+        candidate=len(state['coordinates'])+1
+        for n,job in enumerate(part,len(m['jobs'])+1):job['case'].update(group=m['id'],index=n,candidate=candidate)
+        m['jobs'].extend(part);state['coordinates'].append(point);batch.extend(part)
+    state['batches']+=1
+    if not batch:state.update(done=True,active=False,reason='Every grid point has been tested.')
     if len(state['coordinates']) >= state['max_candidates']: state.update(done=True, active=False, reason='Simulation budget reached.')
     return m, batch
 

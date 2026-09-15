@@ -1,8 +1,16 @@
 # Analog design workspace
 
-Open **Simulate → Analog design workspace** (also available under Layout and
-Verify). The workspace connects setup, results, layout updates, and retained
+Open **Analysis → Analog design workspace**. Analysis is its single menu home.
+The workspace connects setup, results, layout updates, and retained
 verification evidence without replacing the circuit you are editing.
+
+**Close** returns to the editor and closes the workspace's auxiliary dialogs;
+setup drafts remain available when reopened and running jobs continue. Use
+**View → Reset workspace** (Ctrl/Command+Shift+0), also available in Window, to
+restore the initial schematic arrangement. This resets panels, not project data.
+The separate **Design → Design workflow** panel is closed initially. Its visible
+**Close** button, the **Workflow** toolbar toggle, or Escape while focused dismiss
+it. Named workspace arrangements remain available in Window.
 
 **Optimize** adds [bounded circuit search and a gm/Id explorer](ANALOG_OPTIMIZER.md),
 including PVT requirements, saved candidate review, and undoable application.

@@ -28,7 +28,8 @@ class GuidedSetup(QDialog):
             w.textChanged.connect(self.invalidate)
         self.preview_table=table(['Test','Requirement','Expression','Minimum','Maximum','Unit']);self.preview_table.setAccessibleName('Proposed analyses and requirements');layout.addWidget(self.preview_table)
         self.note=label('');root.addWidget(self.note)
-        self.preview_button,self.create_button,_=actions(root,[('Preview setup',self.preview),('Create setup',self.create),('Cancel',self.reject)],self.call,'Create setup');self.create_button.setEnabled(False)
+        self.preview_button,self.create_button,cancel=actions(root,[('Preview setup',self.preview),('Create setup',self.create),('Cancel',self.reject)],self.call,'Create setup');self.create_button.setEnabled(False)
+        cancel.clicked.disconnect();cancel.clicked.connect(self.reject)
         self.template.currentIndexChanged.connect(self.template_changed);self.dut.currentIndexChanged.connect(self.roles);self.engine.currentIndexChanged.connect(self.invalidate);self.name.textChanged.connect(self.invalidate);self.ports.itemChanged.connect(self.invalidate)
         self.refresh();self.template_changed()
 

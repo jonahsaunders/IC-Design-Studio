@@ -11,7 +11,7 @@ from PySide6.QtGui import QPainter, QColor, QPen, QFontDatabase, QSyntaxHighligh
 from PySide6.QtWidgets import (QDialog, QWidget, QVBoxLayout, QHBoxLayout, QLabel,
     QPushButton, QLineEdit, QComboBox, QPlainTextEdit, QListWidget, QListWidgetItem,
     QTabWidget, QSplitter, QFormLayout, QFileDialog, QInputDialog, QScrollArea,
-    QDialogButtonBox, QMessageBox, QDockWidget)
+    QDialogButtonBox, QMessageBox, QDockWidget, QMenu)
 
 from . import digital, digital_flow
 from .digital_waveform import value_at, format_value
@@ -553,7 +553,9 @@ class DigitalMixin:
 
 
 def install(studio):
-    menu = studio.menuBar().addMenu('Digital')
+    menu = QMenu('&Digital',studio)
+    studio.menuBar().insertMenu(studio.task_menus['Tools'].menuAction(),menu)
+    studio.task_menus['Digital']=menu
     studio.action(menu, 'Digital flow…', studio.digital_window)
     studio.action(menu, 'New digital counter example', studio.new_digital_counter)
     studio.action(menu, 'New UART regression example', studio.new_digital_uart)

@@ -14,7 +14,9 @@ from .catalog import binding_for, parameter_values
 from . import analog_optimizer as opt
 
 DIMENSIONS = ('length', 'vgs', 'vds', 'vsb', 'temperature')
-VERSION = 1
+VERSION = 2
+RAW_METRICS = ('id','gm','gds','cgg','cgs','cgd','cgb','headroom')
+METRICS = RAW_METRICS + ('gmid','current_density','intrinsic_gain','gm_cgg','ft_estimate')
 
 
 def contract(project, root, name):
@@ -115,7 +117,7 @@ def collect(manifest, rows):
                      run_ids=candidate['runs'], fingerprint=job['case']['fingerprint'])
         if candidate['state'] == 'Passed' and candidate['points']:
             captured = candidate['points'][0]
-            point.update(values={k:captured[k] for k in ('id','gm','gmid','vgs','vds','headroom','source') if k in captured})
+            point.update(values={k:captured[k] for k in (*METRICS,'vgs','vds','source') if k in captured})
             point['values']['current_density'] = abs(captured['id']) / lib['width']
         points.append(point)
     return dict(schema=VERSION,key=lib['key'],identity=lib['identity'],samples=lib['samples'],width=lib['width'],
@@ -150,14 +152,18 @@ def interpolate(table, query):
         if x in values: brackets.append([(x, 1.)]); continue
         hi = next(v for v in values if v > x); lo = max(v for v in values if v < x)
         brackets.append([(lo,(hi-x)/(hi-lo)),(hi,(x-lo)/(hi-lo))])
-    by = {tuple(p['condition'][k] for k in (*DIMENSIONS,'corner')):p for p in table['points']}; out = {}; sources = []
+    by = {tuple(p['condition'][k] for k in (*DIMENSIONS,'corner')):p for p in table['points']}; out = {}; sources = []; available=None
     for corner in itertools.product(*brackets):
         coordinates = [p[0] for p in corner]; weight = math.prod(p[1] for p in corner)
         point = by.get(tuple(coordinates + [query['corner']]))
         if not point or point['status'] != 'Passed' or not point.get('values'): raise ValueError('A required neighboring sample is unavailable. Interpolation across missing data is disabled.')
-        for key in ('id','gm','gmid','current_density'):
+        keys={k for k in (*RAW_METRICS,'gmid','current_density') if point['values'].get(k) is not None}
+        available=keys if available is None else available & keys
+        for key in keys:
             value = scalar(point['values'][key]); out[key] = out.get(key,0.) + weight * value
         sources.extend(point['run_ids'])
+    out={k:v for k,v in out.items() if k in available}
+    out.update(opt.device_metrics(out))
     out.update(run_ids=list(dict.fromkeys(sources)), interpolated=any(len(b)>1 for b in brackets)); return out
 
 
@@ -179,6 +185,32 @@ def size(table, query, desired_gmid, desired_current):
             if round(vgs,14) in used: continue
             used.add(round(vgs,14)); point = interpolate(table,{**query,'vgs':vgs})
             estimates.append(dict(width=current/point['current_density'], vgs=vgs, length=scalar(query['length']),
-                                  desired_current=current, desired_gmid=target, run_ids=point['run_ids']))
+                                  desired_current=current, desired_gmid=target, condition={**query,'vgs':vgs},
+                                  metrics={k:point[k] for k in METRICS if k in point}, run_ids=point['run_ids']))
     if not estimates: raise ValueError('The requested gm/Id has no complete bracketing samples. Extend the VGS sweep; no extrapolation was used.')
     return estimates
+
+
+def prepare_verification(manifest, estimate, prepare_job):
+    """Measure the proposed W/L at its proposed bias in a new ngspice job."""
+    project=clone(manifest['jobs'][0]['project']);cid=project['top']
+    mos=next(d for c in project['cells'] if c['id']==cid for d in c['devices'] if d['name']=='MCHAR')
+    mos['params'].update(w=str(scalar(estimate['width'])),l=str(scalar(estimate['length'])))
+    condition=estimate['condition']
+    spec={k:[condition[k]] for k in (*DIMENSIONS,'corner')};spec['engine']='ngspice'
+    result=prepare(project,cid,'MCHAR',spec,prepare_job)
+    result['name']='SPICE sizing verification';result['sizing_verification']=dict(source=manifest['id'],estimate=clone(estimate),relative_tolerance=.05)
+    return result
+
+
+def verification_result(manifest, rows):
+    table=collect(manifest,rows);point=table['points'][0];spec=manifest['sizing_verification'];estimate=spec['estimate']
+    result=dict(state=point['status'],run_ids=point['run_ids'],error=point['error'])
+    if point['status']=='Passed':
+        job=manifest['jobs'][0];saved=next((r.get('result',{}) for r in rows if r['id'] in point['run_ids']),{})
+        if not saved.get('engine','').startswith('ngspice') or saved.get('engine_hash')!=job.get('environment',{}).get('executable_sha256'):
+            return dict(state='Failed',run_ids=point['run_ids'],error='Sizing verification requires results from the recorded ngspice executable.')
+        values=point['values'];current=abs(values['id']);gmid=values['gmid']
+        errors=dict(current=current/estimate['desired_current']-1,gmid=gmid/estimate['desired_gmid']-1)
+        result.update(state='Verified' if all(abs(v)<=spec['relative_tolerance'] for v in errors.values()) else 'Outside tolerance',values=values,relative_errors=errors)
+    return result

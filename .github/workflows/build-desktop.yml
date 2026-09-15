@@ -173,6 +173,11 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_analog_experiments.py --out build/analog-experiment-evidence
+      - name: Test workspace recovery, richer device data and staged searches
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_optimizer_refinement.py --out build/optimizer-refinement-evidence
       - name: Test encrypted hosting, peer trust and direct annotation editing
         timeout-minutes: 5
         env:
@@ -371,6 +376,7 @@ jobs:
           name: desktop-diagnostics-${{ runner.os }}
           path: |
             build/analog-experiment-evidence
+            build/optimizer-refinement-evidence
             build/digital-frozen-evidence
             build/digital-first-run-ui
             build/windows-evidence/install.log

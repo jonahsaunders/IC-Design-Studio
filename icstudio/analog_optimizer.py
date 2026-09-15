@@ -16,13 +16,35 @@ TERMINAL = ('Complete', 'Failed', 'Cancelled', 'Interrupted')
 def targets(project, cid):
     from .design_ops import parameters
     resolved = parameters(project.get('parameters', {}))
-    return ['@' + k for k, v in resolved.items() if isinstance(v, (int, float))] + studies.targets(project, cid)
+    out=['@' + k for k, v in resolved.items() if isinstance(v, (int, float))] + studies.targets(project, cid)
+    from .catalog import binding_for,parameter_values
+    for d in next(c for c in project['cells'] if c['id']==cid)['devices']:
+        if d.get('native_spice'):continue  # Native parameters already have explicit targets.
+        binding=binding_for(project['pdk'],d)
+        if not binding:continue
+        try:values=parameter_values(binding,d)
+        except (ValueError,TypeError):continue
+        for key,rule in binding.get('parameters',{}).items():
+            if key not in ('w','l') and not rule.get('derived') and not rule.get('choices') and key in values:
+                out.append(d['name']+'.model_params.'+key)
+    return out
+
+
+def catalog_target(project,cid,target):
+    parts=target.split('.')
+    if len(parts)!=3 or parts[1]!='model_params':return None
+    d=next(d for c in project['cells'] if c['id']==cid for d in c['devices'] if d['name']==parts[0])
+    return d,parts[2]
 
 
 def get_target(project, cid, target):
     if target.startswith('@'):
         from .design_ops import parameters
         return scalar(parameters(project.get('parameters', {}))[target[1:]])
+    catalog=catalog_target(project,cid,target)
+    if catalog:
+        from .catalog import binding_for,parameter_values
+        d,key=catalog;return scalar(parameter_values(binding_for(project['pdk'],d),d)[key])
     return studies.get_target(project, cid, target)
 
 
@@ -31,20 +53,34 @@ def set_target(project, cid, target, value):
         raise ValueError('Choose an existing numeric parameter: ' + target)
     if target.startswith('@'):
         project['parameters'][target[1:]] = str(scalar(value))
+    elif catalog_target(project,cid,target):
+        d,key=catalog_target(project,cid,target);d.setdefault('model_params',{})[key]=str(scalar(value))
     else:
         studies.set_target(project, cid, target, value)
 
 
+MAX_AXES = 8
+
+
+def axis_values(axis):
+    lo,hi=scalar(axis['lower']),scalar(axis['upper']);count=int(axis['count']);scale=axis.get('scale','linear')
+    if count!=scalar(axis['count']) or not 2<=count<=500 or not lo<hi:
+        raise ValueError('Each parameter needs increasing bounds and 2–500 samples.')
+    if scale not in ('linear','log','integer'):raise ValueError('Choose linear, logarithmic, or integer parameter spacing.')
+    if scale=='log' and lo<=0:raise ValueError('Logarithmic bounds must be positive.')
+    if scale=='integer' and (lo!=int(lo) or hi!=int(hi)):raise ValueError('Integer parameters need integer bounds.')
+    values=[math.exp(math.log(lo)+(math.log(hi)-math.log(lo))*i/(count-1)) if scale=='log' else lo+(hi-lo)*i/(count-1) for i in range(count)]
+    values[0],values[-1]=lo,hi
+    return sorted(set(round(v) for v in values)) if scale=='integer' else values
+
+
 def grid(project, cid, axes):
-    if not 1 <= len(axes) <= 3:
-        raise ValueError('Choose one to three adjustable parameters.')
+    if not 1 <= len(axes) <= MAX_AXES:
+        raise ValueError(f'Choose one to {MAX_AXES} adjustable parameters.')
     used, grids = set(), []
     available = targets(project, cid)
     for axis in axes:
-        lo, hi = scalar(axis['lower']), scalar(axis['upper'])
-        count = int(axis['count'])
-        if count != scalar(axis['count']) or not 2 <= count <= 500 or not lo < hi:
-            raise ValueError('Each parameter needs increasing bounds and 2–500 samples.')
+        values=axis_values(axis)
         members = {axis['target']: 1.}
         for link in axis.get('links', []):
             target, ratio = link['target'], scalar(link['ratio'])
@@ -55,7 +91,11 @@ def grid(project, cid, axes):
             if target not in available or target in used:
                 raise ValueError('Each adjustable or linked parameter must exist and occur once: ' + target)
             used.add(target)
-        grids.append([{t: (lo + (hi - lo) * i / (count - 1)) * ratio for t, ratio in members.items()} for i in range(count)])
+        part=[{t:v*ratio for t,ratio in members.items()} for v in values]
+        for target in members:
+            if target.rsplit('.',1)[-1].lower() in ('nf','m','mult') and any(v[target]<1 or not math.isclose(v[target],round(v[target]),abs_tol=1e-12) for v in part):
+                raise ValueError('Finger counts and multiplicities must be positive integers, including linked values: '+target)
+        grids.append(part)
     if math.prod(map(len, grids)) > 500:
         raise ValueError('Reduce the grid to at most 500 candidates.')
     return [{k: v for part in combination for k, v in part.items()} for combination in itertools.product(*grids)]
@@ -88,7 +128,9 @@ def prepare(project, cid, plan, spec, prepare_job, _changes=None):
     kind = spec.get('kind', 'analog_optimizer')
     if kind not in KINDS:
         raise ValueError('Unknown analog optimizer mode.')
-    if spec.get('strategy') == 'adaptive' and _changes is None:
+    if spec.get('strategy') not in (None,'grid','adaptive','surrogate'):raise ValueError('Unknown search strategy.')
+    if spec.get('screen_op') and not any(is_op(project,e) for e in plan['entries']):raise ValueError('Operating-point screening needs an OP analysis in this plan.')
+    if spec.get('strategy') in ('adaptive','surrogate') and _changes is None:
         from .analog_adaptive import start
         return start(project, cid, plan, spec, prepare_job)
     changes = grid(project, cid, spec['axes']) if _changes is None else _changes
@@ -134,7 +176,7 @@ def prepare(project, cid, plan, spec, prepare_job, _changes=None):
             job['case']['fingerprint'] = digest({k: v for k, v in job.items() if k != 'case'})
             jobs.append(job)
     return dict(schema=1, id=group, created=now(), name=spec.get('name') or ('gm/Id sweep' if kind == 'analog_gmid' else 'Analog search'),
-                project_id=project['id'], base_design_hash=base, cell_id=cid,
+                project_id=project['id'], base_design_hash=base, cell_id=cid, execution_active=True,
                 spec={**clone(spec), 'kind': kind}, plan=clone(plan), jobs=jobs)
 
 
@@ -192,11 +234,25 @@ def read_gmid(job, result, name):
     out = {**geometry, 'id': current, 'gm': gm, 'gmid': abs(gm / current),
            'current_density': abs(current) / geometry['width'] if geometry['width'] and geometry['width'] > 0 else None,
            'source': values.get('source', result.get('engine', ''))}
-    for key in ('vgs', 'vds', 'headroom'):
+    for key in ('vgs', 'vds', 'headroom', 'gds', 'cgg', 'cgs', 'cgd', 'cgb'):
         if values.get(key) is not None: out[key] = scalar(values[key])
+    out.update(device_metrics(out))
     if not all(math.isfinite(out[k]) for k in ('gmid', 'current_density') if out[k] is not None):
         raise ValueError('Nonfinite gm/Id or current density.')
     return out
+
+
+def device_metrics(values):
+    """Derived intrinsic metrics; absence/zero conductance is not infinite gain.
+
+    BSIM capacitances retain their signed charge-derivative convention. The
+    speed estimate uses positive intrinsic Cgg and excludes overlap/interconnect.
+    """
+    gm=abs(values['gm']);out={}
+    if values.get('gds',0)>0:out['intrinsic_gain']=gm/values['gds']
+    if values.get('cgg',0)>0:
+        out['gm_cgg']=gm/values['cgg'];out['ft_estimate']=out['gm_cgg']/(2*math.pi)
+    return {k:v for k,v in out.items() if math.isfinite(v)}
 
 
 def width_estimate(point, desired_current):
@@ -220,16 +276,48 @@ def _requirements(job, result):
     return failures
 
 
+def screening_rejections(manifest, rows):
+    if not manifest['spec'].get('screen_op'):return set()
+    jobs=[j for j in manifest['jobs'] if j['settings']['type']=='op']
+    if not jobs:return set()
+    spec={**manifest['spec'],'screen_op':False,'objectives':[]};spec.pop('objective',None)
+    subset={**manifest,'spec':spec,'jobs':jobs};subset.pop('adaptive',None)
+    report=evaluate(subset,rows);current=report['current']
+    return {c['candidate'] for c in report['candidates'] if c['state']=='Failed' and all(
+        current.get(j['case']['index'],{}).get('state') in ('Complete','Failed') for j in jobs if j['case']['candidate']==c['candidate'])}
+
+
+def eligible_jobs(manifest, jobs, rows):
+    """Defer expensive tests until every OP condition passes its saved limits."""
+    if not manifest['spec'].get('screen_op'):return jobs
+    current=variation_runs.latest(manifest,rows);rejected=screening_rejections(manifest,rows)
+    out=[]
+    for job in jobs:
+        if job['settings']['type']=='op':out.append(job);continue
+        candidate=job['case']['candidate']
+        screening=[j for j in manifest['jobs'] if j['case']['candidate']==candidate and j['settings']['type']=='op']
+        if candidate not in rejected and all(current.get(j['case']['index'],{}).get('state')=='Complete' for j in screening):out.append(job)
+    return out
+
+
+def ready_jobs(manifest,rows):
+    current=variation_runs.latest(manifest,rows)
+    return eligible_jobs(manifest,[j for j in manifest['jobs'] if j['case']['index'] not in current],rows)
+
+
 def evaluate(manifest, rows):
     """Rank worst-condition objective scores; retain errors and incomplete cases."""
     from .wavecalc import evaluate as expression, UNITS
     current = variation_runs.latest(manifest, rows)
     spec, candidates, terminal = manifest['spec'], {}, 0
+    rejected=screening_rejections(manifest,rows);skipped=0
     for job in manifest['jobs']:
         case = job['case']; index = case['index']; row = current.get(index)
         item = candidates.setdefault(case['candidate'], dict(candidate=case['candidate'], changes=case['changes'],
                 state='Pending', values=[], scores=[], failures=[], failure_details=[], metrics=[dict(values=[], scores=[]) for _ in objectives(spec)], points=[], runs=[], complete=0, total=0))
         item['total'] += 1
+        if not row and case['candidate'] in rejected and job['settings']['type']!='op':
+            skipped+=1;continue
         if row: item['runs'].append(row['id'])
         state = row['state'] if row else 'Not queued'
         terminal += state in TERMINAL
@@ -280,6 +368,7 @@ def evaluate(manifest, rows):
         item['failures'] = list(dict.fromkeys(item['failures']))
         finished = item['complete'] == item['total']
         item['state'] = 'Failed' if item['failures'] else 'Passed' if finished else 'Pending'
+        if item['candidate'] in rejected:item['state']='Screened out'
         for metric in item['metrics']:
             metric['score'] = max(metric['scores']) if metric['scores'] else None
             metric['value'] = metric['values'][metric['scores'].index(metric['score'])] if metric['scores'] else None
@@ -292,9 +381,9 @@ def evaluate(manifest, rows):
         any(a['score'] < b['score'] for a, b in zip(other['metrics'], c['metrics'])) for other in passing)]
     for item in candidates.values(): item['pareto'] = item in front
     best = min(passing, key=lambda c: (c['score'], c['candidate'])) if passing and len(objectives(spec)) == 1 else None
-    batch_complete = terminal == len(manifest['jobs'])
+    batch_complete = terminal+skipped == len(manifest['jobs'])
     return dict(candidates=list(candidates.values()), best=best, pareto=[c['candidate'] for c in front], terminal=terminal, total=len(manifest['jobs']),
-                batch_complete=batch_complete, complete=batch_complete and manifest.get('adaptive', {}).get('done', True), current=current)
+                skipped=skipped,batch_complete=batch_complete, complete=batch_complete and manifest.get('adaptive', {}).get('done', True), current=current)
 
 
 def apply_candidate(project, manifest, rows, candidate):

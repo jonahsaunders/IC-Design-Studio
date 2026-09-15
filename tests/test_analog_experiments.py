@@ -237,6 +237,16 @@ class NativeFixtureTests(unittest.TestCase):
             self.assertGreater(len({p['values']['id'] for p in table['points']}),4)
             for point in table['points']:
                 v=point['values'];self.assertGreater(v['gmid'],0);self.assertAlmostEqual(v['current_density']*table['width'],abs(v['id']))
+                self.assertGreater(v['gds'],0);self.assertGreater(v['cgg'],0)
+                self.assertAlmostEqual(v['intrinsic_gain'],abs(v['gm'])/v['gds'])
+                self.assertGreater(v['ft_estimate'],0)
+            point=table['points'][0];values=point['values']
+            estimate=dict(width=table['width'],length=point['condition']['length'],condition=point['condition'],desired_current=abs(values['id']),desired_gmid=values['gmid'])
+            verification=lib.prepare_verification(m,estimate,prepare);job=verification['jobs'][0]
+            with tempfile.TemporaryDirectory() as directory:
+                result=run_ngspice(job['project'],job['cell'],job['settings'],executable,Path(directory))
+            verified=lib.verification_result(verification,[dict(id='verify',job=job,state='Complete',result=result)])
+            self.assertEqual(verified['state'],'Verified',verified)
 
     @unittest.skipUnless(os.environ.get('ICSTUDIO_TEST_NGSPICE'),'Native guided testbench qualification runs in desktop CI.')
     def test_real_native_guided_saved_testbench(self):

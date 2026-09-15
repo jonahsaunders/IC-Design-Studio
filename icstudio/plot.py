@@ -65,7 +65,7 @@ class WavePlot(QWidget):
         for nindex,name in enumerate(self.names):
             for series,(result,is_old) in enumerate([(self.result,False)]+[(r,False) for r in getattr(self,'overlays',[])]+[(self.compare,True)]):
                 if not result or name not in result['traces']:continue
-                color_index=series if getattr(self,'overlays',[]) else list(self.result['traces']).index(name)
+                color_index=result.get('color_index',series if getattr(self,'overlays',[]) else list(self.result['traces']).index(name))
                 pen=QPen(QColor(trace_colors(self.dark)[color_index%6]),1.1 if is_old else 2);pen.setStyle(Qt.DashLine if is_old else Qt.SolidLine);p.setPen(pen);path=QPainterPath();xs=result['x'];ys=result['traces'][name];stride=max(1,len(xs)//max(200,self.width()*2))
                 indices=list(range(0,len(xs),stride))
                 if xs and indices[-1]!=len(xs)-1:indices.append(len(xs)-1)

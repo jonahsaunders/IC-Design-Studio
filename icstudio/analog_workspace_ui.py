@@ -2,7 +2,7 @@
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QShortcut,QKeySequence
 from PySide6.QtWidgets import (QWidget,QVBoxLayout,QHBoxLayout,QLabel,QPushButton,QTabWidget,
-    QComboBox,QTableWidget,QTableWidgetItem,QAbstractItemView,QPlainTextEdit,QHeaderView,QMessageBox)
+    QComboBox,QTableWidget,QTableWidgetItem,QAbstractItemView,QPlainTextEdit,QHeaderView,QMessageBox,QDialog)
 from .model import clone
 from .test_plan_ui import TestPlanWindow
 from .analog_workspace import assignments
@@ -24,11 +24,16 @@ class AnalogWorkspace(TestPlanWindow):
         self.optimizer=OptimizerPage(self);self.tabs.addTab(scroll(self.optimizer),'Optimize')
         self.tabs.setAccessibleName('Analog workspace sections')
         self.close_button=QPushButton('Close');self.close_button.clicked.connect(self.close);self.close_button.setAutoDefault(False)
-        footer=QHBoxLayout();footer.addWidget(label('Setup drafts stay in this window. Save before running.'));footer.addStretch();footer.addWidget(self.close_button);root.addLayout(footer)
+        footer=QHBoxLayout();footer.addWidget(label('Close returns to the editor. Drafts are retained; running jobs continue.'));footer.addStretch();footer.addWidget(self.close_button);root.addLayout(footer)
         self.save_shortcut=QShortcut(QKeySequence.Save,self);self.save_shortcut.activated.connect(lambda:self.call(self.save_setup))
         for b in self.findChildren(QPushButton):b.setAutoDefault(False)
         self.result_buttons[-1].hide()
         self.analyses.itemActivated.connect(lambda *_:self.call(self.edit_analysis))
+
+    def closeEvent(self,event):
+        for dialog in self.findChildren(QDialog):
+            if dialog.isVisible():dialog.close()
+        super().closeEvent(event)
 
     def call(self,fn):
         try:

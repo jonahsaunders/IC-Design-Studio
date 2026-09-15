@@ -86,7 +86,7 @@ class OptimizerPage(QWidget):
         self.start_button, _ = actions(layout, [('Run search', self.start_search), ('Guided design setup…', self.workspace.guided_setup)], self.call, 'Run search')
         form = self.form(layout)
         self.source = combo('Analysis or PVT plan'); self.field(form, '&Test or PVT plan', self.source)
-        self.strategy = combo('Search strategy'); self.strategy.addItem('Adaptive · sensitivity first', 'adaptive'); self.strategy.addItem('Exhaustive grid', 'grid'); self.field(form, 'Search method', self.strategy)
+        self.strategy = combo('Search strategy'); self.strategy.addItem('Adaptive · sensitivity first', 'adaptive'); self.strategy.addItem('Gaussian process · experimental', 'surrogate'); self.strategy.addItem('Exhaustive grid', 'grid'); self.field(form, 'Search method', self.strategy)
         self.parameter_cell = combo('Cell containing adjustable parameters'); self.field(form, 'Parameter &cell', self.parameter_cell)
         self.objective_test = combo('Objective test'); self.field(form, 'Objective test', self.objective_test)
         self.goal = combo('Optimization direction')
@@ -101,7 +101,7 @@ class OptimizerPage(QWidget):
         self.more_objectives = table(['Test', 'Expression', 'Goal', 'Unit', 'Target'], True); self.more_objectives.setAccessibleName('Additional trade-off objectives'); self.more_objectives.setMaximumHeight(130); layout.addWidget(self.more_objectives)
         buttons = actions(layout, [('Add trade-off objective', self.add_objective), ('Remove objective', lambda: self.more_objectives.removeRow(self.more_objectives.currentRow()))], self.call); selection_actions(self.more_objectives, [buttons[1]])
         self.limits_note = label('All saved scalar limits and testbench measurements are hard constraints.'); layout.addWidget(self.limits_note)
-        self.axes = table(['Parameter', 'Lower', 'Upper', 'Samples', 'Linked target = ratio'], True); self.axes.setAccessibleName('Adjustable parameters and matching ratios'); layout.addWidget(self.axes)
+        self.axes = table(['Parameter', 'Lower', 'Upper', 'Samples', 'Linked target = ratio', 'Spacing'], True); self.axes.setAccessibleName('Adjustable parameters and matching ratios'); layout.addWidget(self.axes)
         self.axes.setMaximumHeight(155)
         for column,width in enumerate((145,70,70,65,200)):self.axes.setColumnWidth(column,width)
         self.axis_buttons = actions(layout, [('Add parameter', self.add_axis), ('Remove parameter', lambda: self.axes.removeRow(self.axes.currentRow()))], self.call)
@@ -112,6 +112,10 @@ class OptimizerPage(QWidget):
         for title, w in [('Operating-point test', self.gm_test), ('MOS instance', self.gm_device), ('Minimum gm/Id (1/V)', self.gm_min), ('Maximum gm/Id (1/V)', self.gm_max), ('Minimum bias margin (V)', self.gm_margin)]: self.field(gm_form, title, w)
         layout.addWidget(self.gm_fields); self.gm_fields.hide(); self.gm_limit.toggled.connect(self.gm_fields.setVisible)
         self.budget = QSpinBox(); self.budget.setRange(1, 500); self.budget.setValue(100); self.field(form, 'Simulation budget', self.budget)
+        self.batch_size=QSpinBox();self.batch_size.setRange(1,8);self.field(form,'Candidates per adaptive batch',self.batch_size)
+        self.screen_op=QCheckBox('Screen operating points before expensive tests');self.screen_op.setAccessibleName(self.screen_op.text());layout.addWidget(self.screen_op)
+        self.screen_op.setToolTip('Reject candidates that fail any saved OP requirement. Every accepted candidate still runs all tests and PVT conditions. The budget reserves the full plan for each candidate.')
+        self.strategy.currentIndexChanged.connect(lambda:self.batch_size.setEnabled(self.strategy.currentData()!='grid'))
         self.refresh_button, self.restore_button = actions(layout, [('Refresh saved setup', self.refresh_sources), ('Reuse experiment settings', self.restore_settings)], self.call)
         self.start_button.setToolTip('Run the selected search across every saved condition (Ctrl/Command+Return). Samples set each parameter’s discrete resolution.')
         layout.addStretch(1)
@@ -189,15 +193,21 @@ class OptimizerPage(QWidget):
 
     def add_axis(self):
         cid = self.parameter_cell.currentData()
-        if not cid or self.axes.rowCount() >= 3: return
+        if not cid or self.axes.rowCount() >= optimizer.MAX_AXES: return
         available = optimizer.targets(self.studio.project, cid)
         if not available: return
         i = self.axes.rowCount(); self.axes.insertRow(i); choice = combo('Adjustable parameter ' + str(i + 1)); choice.addItems(available); choice.setCurrentIndex(min(i, len(available) - 1)); self.axes.setCellWidget(i, 0, choice)
+        spacing=combo('Spacing for parameter '+str(i+1))
+        for title,value in [('Linear','linear'),('Logarithmic','log'),('Integer','integer')]:spacing.addItem(title,value)
+        self.axes.setCellWidget(i,5,spacing)
         from PySide6.QtWidgets import QTableWidgetItem
         def defaults():
             row=next((r for r in range(self.axes.rowCount()) if self.axes.cellWidget(r,0) is choice),None)
             if row is None:return
             value = optimizer.get_target(self.studio.project, cid, choice.currentText()); lo, hi = sorted((value * .5, value * 1.5)) if value else (-1., 1.)
+            integer=choice.currentText().rsplit('.',1)[-1].lower() in ('nf','m','mult')
+            spacing.setCurrentIndex(spacing.findData('integer' if integer else 'linear'))
+            if integer:lo,hi=max(1,int(value)-1),max(2,int(value)+1)
             for j, text in enumerate((f'{lo:.6g}', f'{hi:.6g}', '5', ''), 1): self.axes.setItem(row, j, QTableWidgetItem(text))
         choice.currentTextChanged.connect(defaults); defaults()
 
@@ -211,7 +221,7 @@ class OptimizerPage(QWidget):
                 parts = pair.split('=')
                 if len(parts) != 2: raise ValueError('Use linked target = ratio, for example M2.params.w = 1.')
                 links.append(dict(target=parts[0].strip(), ratio=parts[1].strip()))
-            out.append(dict(target=self.axes.cellWidget(i, 0).currentText(), lower=values[0], upper=values[1], count=values[2], links=links))
+            out.append(dict(target=self.axes.cellWidget(i, 0).currentText(), lower=values[0], upper=values[1], count=values[2], links=links,scale=self.axes.cellWidget(i,5).currentData()))
         return out
 
     def start_search(self):
@@ -223,6 +233,7 @@ class OptimizerPage(QWidget):
         spec = dict(kind='analog_optimizer', name='Search · ' + plan['name'], axes=self.axes_spec(), budget=self.budget.value(), strategy=self.strategy.currentData(),
                     objective=dict(entry_id=self.objective_test.currentData()['id'], expression=self.expression.text(), unit=self.unit.currentText(), goal=self.goal.currentData(), target=self.target.text()))
         spec['objectives'] = [clone(spec['objective'])] + self.extra_objectives()
+        spec.update(batch_size=self.batch_size.value(),screen_op=self.screen_op.isChecked())
         if getattr(self, 'seed_values', None): spec['initial'] = {k:v for k,v in self.seed_values.items() if k in {a['target'] for a in spec['axes']}}
         if self.gm_limit.isChecked(): spec['gmid'] = dict(entry_id=self.gm_test.currentData()['id'], device=self.gm_device.currentText(), min=self.gm_min.text(), max=self.gm_max.text(), headroom=self.gm_margin.text())
         self.queue(optimizer.prepare(self.studio.project, self.parameter_cell.currentData(), plan, spec, self.studio.prepare_simulation))
@@ -248,12 +259,15 @@ class OptimizerPage(QWidget):
         if plan not in current:raise ValueError('This saved test or plan changed. Refresh saved setup before running.')
 
     def enqueue(self, manifest, jobs):
+        jobs=optimizer.eligible_jobs(manifest,jobs,self.studio.run_manager.rows)
+        if not jobs:return
         names = [manifest['name'] + ' · candidate ' + str(j['case']['candidate']) + ' · ' + j['case']['test_name'] + ' · ' + condition_text(j['case']['labels']) for j in jobs]
         self.studio.run_manager.enqueue_many(jobs, self.studio.jobs_dir, names)
 
     def load_history(self):
         self.manifests = [m for m in variation_runs.load(self.studio.jobs_dir, self.project_id) if m.get('spec', {}).get('kind') in optimizer.KINDS and not m.get('library')]
         for m in self.manifests:
+            m['execution_active']=False
             if m.get('adaptive'): m['adaptive']['active'] = False
         self.fill_history()
 
@@ -277,7 +291,7 @@ class OptimizerPage(QWidget):
             for b in self.review_buttons: b.setEnabled(False)
             self.estimate_button.setEnabled(False); return
         previous = self.results.currentRow(); self.report = optimizer.evaluate(m, self.studio.run_manager.rows); report = self.report
-        self.progress.setRange(0, report['total']); self.progress.setValue(report['terminal']); self.progress.setFormat('%v / %m simulations finished')
+        self.progress.setRange(0, report['total']-report['skipped']); self.progress.setValue(report['terminal']); self.progress.setFormat('%v / %m simulations finished')
         self.experiment_gmid = m['spec']['kind'] == 'analog_gmid'; candidates = report['candidates']
         self.results.blockSignals(True)
         if self.experiment_gmid:
@@ -299,7 +313,9 @@ class OptimizerPage(QWidget):
         if 0 <= previous < len(candidates): self.results.selectRow(previous)
         self.results.blockSignals(False)
         passed = sum(c['state'] == 'Passed' for c in candidates); failed = sum(c['state'] == 'Failed' for c in candidates)
-        best = report['best']; status = f"{report['terminal']}/{report['total']} simulations finished. {passed} passed · {failed} failed · {len(candidates) - passed - failed} pending."
+        screened=sum(c['state']=='Screened out' for c in candidates)
+        best = report['best']; status = f"{report['terminal']}/{report['total']-report['skipped']} simulations finished. {passed} passed · {failed} failed · {screened} screened out · {len(candidates) - passed - failed - screened} pending."
+        if report['skipped']:status+=f" {report['skipped']} expensive simulations avoided."
         if best: status += f" Best {'tested ' if not report['complete'] else ''}candidate: {best['candidate']}."
         if m.get('adaptive'): status += f" Adaptive budget: {m['spec']['budget']} simulations; " + ('finished.' if report['complete'] else 'running.' if m['adaptive']['active'] else 'paused.')
         if len(optimizer.objectives(m['spec'])) > 1: status += f" {len(report['pareto'])} Pareto candidates; select the trade-off you prefer."
@@ -308,7 +324,7 @@ class OptimizerPage(QWidget):
         if design_digest(self.studio.project) != m['base_design_hash']: status += ' Current design differs; applying is disabled.'
         self.summary.setText(status)
         self.cancel_button.setEnabled(any(r['state'] in optimizer.ACTIVE for r in report['current'].values()) or m.get('adaptive', {}).get('active', False))
-        self.resume_button.setEnabled(bool(variation_runs.pending(m, self.studio.run_manager.rows)) or bool(m.get('adaptive') and not m['adaptive']['done'] and not m['adaptive']['active']))
+        self.resume_button.setEnabled(bool(optimizer.eligible_jobs(m,variation_runs.pending(m, self.studio.run_manager.rows),self.studio.run_manager.rows)) or bool(m.get('adaptive') and not m['adaptive']['done'] and not m['adaptive']['active']))
         from .analog_adaptive import sensitivity
         self.sensitivities = sensitivity(m, report); fill(self.sensitivity_table, [[r[k] for k in ('target', 'objective', 'span_effect', 'unit')] for r in self.sensitivities])
         self.sensitivity_toggle.setVisible(bool(self.sensitivities)); self.sensitivity_table.setVisible(bool(self.sensitivities) and self.sensitivity_toggle.isChecked()); self.sensitivity_table.setToolTip('Local finite differences of worst-condition metrics. Double-click a parameter to inspect its saved probe circuit. Linked parameters move together; this is not causal attribution.')
@@ -364,12 +380,14 @@ class OptimizerPage(QWidget):
 
     def cancel(self):
         m = self.manifest()
+        if m:m['execution_active']=False;variation_runs.save(m,self.studio.jobs_dir)
         if m and m.get('adaptive'): m['adaptive']['active'] = False; variation_runs.save(m, self.studio.jobs_dir)
         if self.report: self.studio.run_manager.cancel(list(self.report['current'].values()))
 
     def resume(self):
         m = self.manifest()
         if m:
+            m['execution_active']=True;variation_runs.save(m,self.studio.jobs_dir)
             if m.get('adaptive'): m['adaptive']['active'] = not m['adaptive']['done']; variation_runs.save(m, self.studio.jobs_dir)
             self.enqueue(m, variation_runs.pending(m, self.studio.run_manager.rows)); self.schedule()
 
@@ -407,6 +425,10 @@ class OptimizerPage(QWidget):
     def tick(self):
         from .analog_adaptive import advance
         for i, manifest in enumerate(self.manifests):
+            if manifest['spec'].get('screen_op') and manifest.get('execution_active',False):
+                try:self.enqueue(manifest,optimizer.ready_jobs(manifest,self.studio.run_manager.rows))
+                except Exception as exc:
+                    manifest['execution_active']=False;variation_runs.save(manifest,self.studio.jobs_dir);self.summary.setText(str(exc));continue
             if not manifest.get('adaptive', {}).get('active'): continue
             try:
                 updated, jobs = advance(manifest, self.studio.run_manager.rows, self.studio.prepare_simulation)
@@ -449,12 +471,14 @@ class OptimizerPage(QWidget):
         for axis in m['spec']['axes']:
             self.add_axis(); i = self.axes.rowCount() - 1; self.axes.cellWidget(i, 0).setCurrentText(axis['target'])
             for j, text in enumerate((axis['lower'], axis['upper'], axis['count'], ', '.join(v['target'] + ' = ' + str(v['ratio']) for v in axis.get('links', []))), 1): self.axes.setItem(i,j,QTableWidgetItem(str(text)))
+            spacing=self.axes.cellWidget(i,5);spacing.setCurrentIndex(spacing.findData(axis.get('scale','linear')))
         def objective(o):
             self.objective_test.setCurrentIndex(next(i for i in range(self.objective_test.count()) if self.objective_test.itemData(i)['id'] == o['entry_id']))
             self.expression.setText(o['expression']); self.goal.setCurrentIndex(self.goal.findData(o['goal'])); self.unit.setCurrentText(o.get('unit', '')); self.target.setText(str(o.get('target', 0)))
         definitions = optimizer.objectives(m['spec']); self.more_objectives.setRowCount(0)
         for o in definitions[1:]: objective(o); self.add_objective()
         objective(definitions[0]); self.strategy.setCurrentIndex(self.strategy.findData(m['spec'].get('strategy', 'grid'))); self.budget.setValue(m['spec'].get('budget', 100))
+        self.batch_size.setValue(m['spec'].get('batch_size',1));self.screen_op.setChecked(m['spec'].get('screen_op',False))
         self.seed_values = clone(m['spec'].get('initial', {})); gm = m['spec'].get('gmid'); self.gm_limit.setChecked(bool(gm))
         if gm:
             self.gm_test.setCurrentIndex(next(i for i in range(self.gm_test.count()) if self.gm_test.itemData(i)['id'] == gm['entry_id'])); self.gm_device.setCurrentText(gm['device'])
