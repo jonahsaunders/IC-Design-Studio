@@ -26,6 +26,7 @@ jobs:
           path: build/digital-payload
       - name: Prepare Windows Linux support for the included runtime
         if: runner.os == 'Windows'
+        timeout-minutes: 5
         shell: pwsh
         run: |
           # WSL opens its first-run welcome window when the runtime is imported.
@@ -39,8 +40,22 @@ jobs:
           if ((Get-ItemPropertyValue -Path $wslKey -Name OOBEComplete -ErrorAction Stop) -ne 1) {
             throw 'Could not suppress WSL onboarding on the CI desktop.'
           }
-          wsl --update --web-download
-          if ($LASTEXITCODE -ne 0) { throw 'WSL update failed.' }
+          # Reuse a working runner installation. Updating unconditionally makes
+          # every build depend on the WSL download service (which can return 403).
+          # https://learn.microsoft.com/en-us/windows/wsl/basic-commands
+          wsl --status
+          if ($LASTEXITCODE -ne 0) {
+            wsl --update --web-download
+            if ($LASTEXITCODE -ne 0) {
+              Write-Warning 'WSL web download failed; trying the Microsoft Store update channel.'
+              wsl --update
+              if ($LASTEXITCODE -ne 0) { throw 'WSL setup failed through both update channels.' }
+            }
+            wsl --status
+            if ($LASTEXITCODE -ne 0) { throw 'WSL is still unavailable after updating.' }
+          }
+          # The mandatory digital-runtime qualification below imports a WSL 2
+          # distribution and runs the included engines before packaging.
       - name: Configure Windows virtual desktop for native DPI checks
         if: runner.os == 'Windows'
         shell: pwsh

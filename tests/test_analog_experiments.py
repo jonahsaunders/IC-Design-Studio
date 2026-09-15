@@ -47,6 +47,22 @@ class GuidedTests(unittest.TestCase):
         for d in fixture['devices']:
             if d['name'] in ('VDD','VLOAD'):self.assertIn('i('+spice_name(d)+')',text)
 
+    def test_saved_testbench_export_isolates_named_setups_without_editing_project(self):
+        from icstudio.testbenches import spice_testbench
+        p,cid=guided.teaching_example(example('empty'),'amplifier')
+        c=next(c for c in p['cells'] if c['id']==cid)
+        q,_=guided.generate(p,cid,dict(template='amplifier',ports=guided.port_defaults(c,'amplifier'),engine='ngspice'))
+        before=clone(q)
+        self.assertGreater(len({s['cell'] for s in q['simulation_setups']}),1)
+        for t in q['testbenches']:
+            with self.subTest(analysis=t['analysis']['type']):
+                text=spice_testbench(q,t)
+                self.assertIn('.'+t['analysis']['type'],text)
+                self.assertIn('.subckt '+c['name']+' ',text)
+                self.assertEqual(text.lower().splitlines().count('.end'),1)
+        self.assertEqual(q,before)
+        validate(q)
+
     def test_port_mapping_unused_bias_and_duplicate_names_are_checked(self):
         p,cid=guided.teaching_example(example('empty'),'amplifier');c=next(c for c in p['cells'] if c['id']==cid);roles=guided.port_defaults(c,'amplifier')
         with self.assertRaisesRegex(ValueError,'distinct'):guided.generate(p,cid,dict(template='amplifier',ports={**roles,'output':roles['input']}))
