@@ -35,19 +35,23 @@ def main():
         w=window();assert QTest.qWaitForWindowExposed(w);QTest.qWait(200)
         p,cid,first=reference(technology());second=clone(p['testbenches'][0]);second.update(id=uid(),name='hot_corner');second['analysis']['temperature']=85;p['testbenches'].append(second)
         w.set_project(p);w.cid=cid;w._selected_testbench=second['id'];w.refresh(True)
-        guide=w.design_workflow();wait(lambda:guide.analysis is not None,'Initial automatic checks')
+        workflow_actions=[(name,a) for name,menu in w.task_menus.items() for a in menu.actions() if a.text()=='Design workflow…']
+        assert [name for name,_ in workflow_actions]==['Design'],workflow_actions
+        workflow_action=workflow_actions[0][1];workflow_action.trigger()
+        guide=w._design_workflow;wait(lambda:guide.analysis is not None,'Initial automatic checks')
         assert not guide.analysis.get('error'),guide.analysis
         assert guide.testbench.currentData()==second['id'] and '85' in guide.corner.text()
-        w.mode_combo.setCurrentIndex(0);w.design_workflow();assert w._design_workflow is guide and guide.testbench.currentData()==second['id']
-        w.mode_combo.setCurrentIndex(1);w.design_workflow();assert guide.testbench.currentData()==second['id']
+        w.mode_combo.setCurrentIndex(0);workflow_action.trigger();assert w._design_workflow is guide and guide.testbench.currentData()==second['id']
+        w.mode_combo.setCurrentIndex(1);workflow_action.trigger();assert guide.testbench.currentData()==second['id']
         guide.testbench.setCurrentIndex(guide.testbench.findData(first));assert w._selected_testbench==first
         w.commit(lambda q:q.update(name='Renamed while workflow open'),'Rename')
         wait(lambda:guide.analysis_key and guide.analysis_key[1]==w.project['revision'],'Automatic revision refresh')
         assert guide.testbench.currentData()==first
-        assert any(a.text()=='Design workflow…' for a in w.task_menus['Schematic'].actions())
-        assert any(a.text()=='Design workflow…' for a in w.task_menus['Layout'].actions())
+        guide.close();assert not w.workflow_dock.isVisible()
+        workflow_action.trigger();assert w.workflow_dock.isVisible() and w._design_workflow is guide
+        assert guide.testbench.currentData()==first
         guide.grab().save(str(out/'workflow-context.png'));guide.close()
-        checks.append('Both editors share automatic workflow checks and an explicit testbench/corner that survives edits')
+        checks.append('One Design menu entry serves both editors; workflow testbench/corner survives edits and close/reopen')
 
         p=example('empty');c=p['cells'][0];d=device('R','Rbias',200,200,value='1k',nets={'p':'bias','n':'0'});c['devices']=[d]
         install(p,c['id'],d['id'],{});w.set_project(p);w.commit(lambda q:q['cells'][0]['devices'][0].update(value='2k'),'Resize resistor')

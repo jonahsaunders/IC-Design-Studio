@@ -553,7 +553,7 @@ class DigitalMixin:
 
 
 def install(studio):
-    menu = QMenu('&Digital',studio)
+    menu = QMenu('D&igital',studio)
     studio.menuBar().insertMenu(studio.task_menus['Tools'].menuAction(),menu)
     studio.task_menus['Digital']=menu
     studio.action(menu, 'Digital flow…', studio.digital_window)
