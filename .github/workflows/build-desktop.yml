@@ -193,6 +193,11 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_optimizer_refinement.py --out build/optimizer-refinement-evidence
+      - name: Qualify advanced analog optimization and staged verification
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_analog_advanced.py --out build/analog-advanced-evidence
       - name: Test encrypted hosting, peer trust and direct annotation editing
         timeout-minutes: 5
         env:
@@ -392,6 +397,7 @@ jobs:
           path: |
             build/analog-experiment-evidence
             build/optimizer-refinement-evidence
+            build/analog-advanced-evidence
             build/digital-frozen-evidence
             build/digital-first-run-ui
             build/windows-evidence/install.log

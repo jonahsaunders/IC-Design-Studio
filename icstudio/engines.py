@@ -92,12 +92,16 @@ def run_ngspice(p,cid,settings,executable,directory,progress=lambda *_:None):
     directory=Path(directory).resolve();deck=directory/'input.cir';raw=directory/'result.raw'
     from .operating_data import save_directive,extras
     from .native_spice import native
+    analysis_settings={**settings,'type':'op'} if settings['type']=='pz' else settings
     if native(p):
         from .native_analysis import deck as native_deck
-        text,aliases=native_deck(p,cid,settings,directory)
+        text,aliases=native_deck(p,cid,analysis_settings,directory)
     else:
-        directive,aliases=save_directive(p,cid);text=spice(p,cid,settings,hierarchical=False)
+        directive,aliases=save_directive(p,cid);text=spice(p,cid,analysis_settings,hierarchical=False)
         if settings['type']=='op':text=text.rsplit('.end',1)[0]+directive+'\n.end\n'
+    if settings.get('diagnostic'):
+        from .analog_diagnostics import alter_deck
+        text=alter_deck(p,cid,settings,text)
     from .pdks import stage_model_deck
     text=preload(p,stage_model_deck(p['pdk'],text,directory),directory)
     from .spice_program import runtime_environment
@@ -114,6 +118,11 @@ def run_ngspice(p,cid,settings,executable,directory,progress=lambda *_:None):
     atomic_write(directory/'engine.log',log)
     if not raw.exists():raise ValueError('ngspice produced no raw file. See the engine log.')
     variables,rows,is_complex=parse_raw(raw);typ=settings['type'];traces={};phase={}
+    if typ=='pz':
+        from .analog_diagnostics import pole_zero_report
+        return dict(schema=1,created=now(),engine='ngspice · pole/zero',engine_hash=file_digest(executable),project_id=p['id'],revision=p['revision'],
+            design_hash=design_digest(p),pdk_hash=digest(p['pdk']),rule_hash=digest(p['pdk']['layers']),cell_id=cid,settings=settings,x=[],traces={},
+            x_label='Complex plane',diagnostics=pole_zero_report(variables,rows),log=log,warnings=[])
     scale=0;xs=[abs(r[scale]) if is_complex else r[scale] for r in rows]
     if typ=='op':xs=list(range(len(rows)))
     for j,n in enumerate(variables):
@@ -126,7 +135,15 @@ def run_ngspice(p,cid,settings,executable,directory,progress=lambda *_:None):
     exe_path=Path(executable) if Path(executable).is_file() else Path(shutil.which(executable) or executable)
     currents,current_phase,devices=extras(variables,rows,is_complex,aliases)
     progress(1,'ngspice completed')
-    return {'schema':1,'created':now(),'engine':'ngspice · native graphical analysis' if native(p) else 'ngspice (installed executable)','engine_hash':file_digest(exe_path),'project_id':p['id'],'revision':p['revision'],'design_hash':design_digest(p),'pdk_hash':digest(p['pdk']),'rule_hash':digest(p['pdk']['layers']),'cell_id':cid,'settings':settings,'x':xs,'x_label':{'tran':'Time (s)','dc':'Source value','ac':'Frequency (Hz)','noise':'Frequency (Hz)','op':'Operating point'}[typ],'y_label':'Noise (V/√Hz)' if typ=='noise' else 'Voltage magnitude (V)' if is_complex else 'Voltage (V)','traces':traces,'phase':phase,'operating_point':{n:v[0] for n,v in traces.items()} if typ=='op' else {},'currents':currents,'current_phase':current_phase,'device_operating_point':devices if typ=='op' else {},'operating_currents':{n:v[0] for n,v in currents.items()} if typ=='op' else {},'warnings':['This graphical run excludes saved control-program commands and uses embedded circuit/model definitions. AC and noise points are per decade.'] if native(p) else ['Locked technology model bindings are used when configured; otherwise generic level-1 models apply. External AC points are points per decade.'],'log':log}
+    result={'schema':1,'created':now(),'engine':'ngspice · native graphical analysis' if native(p) else 'ngspice (installed executable)','engine_hash':file_digest(exe_path),'project_id':p['id'],'revision':p['revision'],'design_hash':design_digest(p),'pdk_hash':digest(p['pdk']),'rule_hash':digest(p['pdk']['layers']),'cell_id':cid,'settings':settings,'x':xs,'x_label':{'tran':'Time (s)','dc':'Source value','ac':'Frequency (Hz)','noise':'Frequency (Hz)','op':'Operating point'}[typ],'y_label':'Noise (V/√Hz)' if typ=='noise' else 'Voltage magnitude (V)' if is_complex else 'Voltage (V)','traces':traces,'phase':phase,'operating_point':{n:v[0] for n,v in traces.items()} if typ=='op' else {},'currents':currents,'current_phase':current_phase,'device_operating_point':devices if typ=='op' else {},'operating_currents':{n:v[0] for n,v in currents.items()} if typ=='op' else {},'warnings':['This graphical run excludes saved control-program commands and uses embedded circuit/model definitions. AC and noise points are per decade.'] if native(p) else ['Locked technology model bindings are used when configured; otherwise generic level-1 models apply. External AC points are points per decade.'],'log':log}
+    if settings.get('diagnostic'):
+        from .analog_diagnostics import noise_report,startup_report,loop_report,bias_report
+        c=settings['diagnostic'];kind=c['kind']
+        if kind=='noise':result['diagnostics']=noise_report(variables,rows)
+        elif kind=='startup':result['diagnostics']=startup_report(result,c)
+        elif kind=='loop':result['diagnostics']=loop_report(result,c['numerator'],c['denominator'],c['sign'])
+        elif kind=='bias':result['diagnostics']=bias_report(result)
+    return result
 
 def tcl_word(value):
     # Literal Tcl word: prevent substitutions and preserve spaces/Unicode.

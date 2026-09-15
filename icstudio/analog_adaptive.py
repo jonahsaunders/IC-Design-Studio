@@ -43,6 +43,7 @@ def start(project, cid, plan, spec, prepare_job):
             pair.append(seed.index(point) + 1)
         probes.append(pair)
     conditions = len(plan['entries']) * len(plan['corners']) * len(plan['temperatures']) * max(1, len(plan.get('voltages', [])))
+    conditions*=1+int(spec.get('workflow',{}).get('retries',0))
     limit = int(spec.get('budget', 100)) // conditions
     if limit < len(seed): raise ValueError(f'Sensitivity first needs at least {len(seed) * conditions} simulations for the baseline and independent parameter probes.')
     batch_size=int(spec.get('batch_size',1))
@@ -57,13 +58,17 @@ def start(project, cid, plan, spec, prepare_job):
 def next_coordinate(manifest, report):
     state = manifest['adaptive']; grids = axes(state['project'], manifest['cell_id'], manifest['spec'])
     seen = {tuple(c) for c in state['coordinates']}
+    if manifest['spec'].get('strategy')=='bayesian':
+        from .analog_bayesian import propose
+        proposal=propose(manifest,report,grids)
+        if proposal is not None:return proposal
     if manifest['spec'].get('strategy')=='surrogate':
         from .analog_surrogate import propose
         proposal=propose(manifest,report,grids)
         if proposal is not None:return proposal
     # Feasible Pareto points guide local proposals. Before feasibility, retain
     # the measured objectives and prefer fewer failed requirements.
-    measured = [c for c in report['candidates'] if c['metrics'] and all(m['score'] is not None for m in c['metrics'])]
+    measured = [c for c in report['candidates'] if c['metrics'] and not c.get('evidence_errors') and all(m['score'] is not None for m in c['metrics'])]
     if measured:
         ranges = [(min(c['metrics'][i]['score'] for c in measured), max(c['metrics'][i]['score'] for c in measured)) for i in range(len(measured[0]['metrics']))]
         def rank(c):
@@ -118,7 +123,9 @@ def advance(manifest, rows, prepare_job):
             original=next(j for j in m['jobs'] if j['case']['entry_id']==job['case']['entry_id'])
             if job.get('environment')!=original.get('environment'):raise ValueError('The simulation environment changed. Start a new experiment before comparing further candidates.')
         candidate=len(state['coordinates'])+1
-        for n,job in enumerate(part,len(m['jobs'])+1):job['case'].update(group=m['id'],index=n,candidate=candidate)
+        for n,job in enumerate(part,len(m['jobs'])+1):
+            job['case'].update(group=m['id'],index=n,candidate=candidate)
+            if state.get('proposal_evidence'):job['case']['proposal']=clone(state['proposal_evidence'])
         m['jobs'].extend(part);state['coordinates'].append(point);batch.extend(part)
     state['batches']+=1
     if not batch:state.update(done=True,active=False,reason='Every grid point has been tested.')

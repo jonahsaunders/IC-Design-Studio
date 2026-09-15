@@ -183,3 +183,30 @@ Physical Windows/Linux displays, high DPI, macOS/VoiceOver if supported, and
 semantic access to custom canvas elements remain the platform checks listed
 above. Specialized import/export and digital setup dialogs retain their existing
 flows; the new review covers their navigation locations rather than every field.
+
+## Advanced optimizer follow-up
+
+The six advanced optimization additions share one closable **Advanced analyses**
+window under Optimize. Categories separate global sensitivity, robustness,
+electrical diagnostics, model fidelity and verification workflow. Constrained
+Bayesian search is a method in the existing Circuit search selector.
+
+The initial implementation gave exact evidence too much vertical space on a
+700×600 window. Screenshot review led to a disclosure for exact evidence,
+scrollable configuration, a permanently reachable Run action and wrapping
+bottom actions. Each category now filters its own saved experiments; workflow
+configuration hides unrelated experiment results. Errors retain their own
+message area rather than disappearing on the next progress update.
+
+Tables show sensitivity indices/intervals, explicit tolerance outcomes,
+noise-source magnitudes, complex poles/zeros, startup window outcomes, loop
+margins, or per-device region/headroom. Text labels distinguish coarse from
+full SPICE and model predictions from measured results. Exact data remains
+available without interacting with a custom plot. No result depends on color.
+
+`tests/gui_analog_advanced.py` checks both appearances at a compact size, category
+controls, Qt accessible names, actual job execution/reuse, generated reports,
+Escape/Close, Reset, retained drafts and full-SPICE application. Closing retains
+the existing editor and saved job history. These are offscreen Qt acceptance
+checks, not physical-platform or VoiceOver certification; the earlier platform
+and custom-canvas accessibility limits still apply.

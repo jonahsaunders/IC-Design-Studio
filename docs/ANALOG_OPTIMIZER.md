@@ -53,7 +53,7 @@ Native saved testbenches use ngspice and preserve the original root model scope.
 6. Optionally enable **Add gm/Id and bias limits**, choose an operating-point test
    and MOS instance, and enter minimum/maximum gm/Id and/or minimum bias margin.
    Missing required device values fail the candidate.
-7. Choose **Adaptive · sensitivity first**, **Gaussian process · experimental**,
+7. Choose **Adaptive · sensitivity first**, **Constrained Bayesian · trade-offs**, **Gaussian process · experimental**,
    or **Exhaustive grid**, a simulation budget, and **Run search**. Every passing
    candidate must complete every test and PVT condition. The total must fit the
    budget, with an absolute maximum of 500 jobs. Overlapping plan, supply, or corner overrides are rejected instead
@@ -239,9 +239,10 @@ actual DUT bias, performance requirements, and full PVT plan.
 - Process simulation uses the existing ngspice setup and model assets. The tool
   does not generate PDK curves from generic equations or invent hidden device
   vectors. Existing engine identity checks govern resumed jobs.
-- Searches are bounded and deterministic. Statistical yield optimization and
-  noise characterization remain outside this implementation. No missing device
-  capacitance/noise values are invented. The optional GP backend is experimental.
+- Searches are bounded and reproducible. Advanced studies support explicit
+  statistical verification and captured ngspice noise contributors, with the
+  model and sampling limits below. No missing capacitance/noise values are
+  invented, and sampled pass fractions are not a manufacturing-yield guarantee.
 - Optimization accepts analog schematic analyses/testbenches and PVT plans.
   After applying a candidate, use **Layout and constraints** and **Verification
   runs** to update layout and validate extracted performance. An optimizer pass
@@ -273,3 +274,175 @@ body bias, temperature, corners and native saved testbenches when
 `ICSTUDIO_TEST_NGSPICE` is set. `tests/gui_analog_experiments.py` exercises the
 new flows through actual Qt widgets and worker jobs, including hidden-window
 continuation, cache reuse and saved requirement/sensitivity navigation.
+
+## Advanced analyses
+
+Open **Analysis → Analog design workspace → Optimize → Circuit search →
+Advanced analyses…**. Choose a category and use **Run selected study**. The
+window uses Circuit search's selected saved plan, parameter cell, axes,
+objectives and simulation budget. Each category shows its own saved experiments.
+**Show exact selected evidence** reveals full precision and source details;
+**Inspect saved run** opens the original circuit/waveforms. **Export report**
+writes portable JSON with conditions, measurements, assumptions and run/tool
+identities. A report is also saved automatically with the experiment's job data.
+
+This is a modeless window: **Close**, Escape, or **View → Reset workspace**
+returns to the editor and preserves draft controls. Queued work continues when
+hidden. **Pause** cancels queued/running jobs for that experiment and prevents
+further proposals. **Resume** retries incomplete jobs. Restarted experiments
+remain paused until explicitly resumed. None of the analysis actions edits the
+schematic; only the explicit full-SPICE finalist Apply action changes parameters,
+through the normal undo history.
+
+### 1. Global sensitivity
+
+**Morris** reports signed mean elementary effect, absolute mean effect (μ*),
+standard deviation (σ), and a 95% bootstrap interval for μ*. A large σ can
+indicate nonlinearity, interaction, or both. Effects are scaled over each
+parameter's configured range and retain the objective's unit.
+
+**Sobol** reports Jansen first-order and total-order estimates and bootstrap
+intervals. The difference helps identify interactions. Sampling uses seeded
+independent pick-freeze pairs on the configured discrete grids; this is not a
+low-discrepancy Sobol-sequence sampler. Before duplicate reuse, R Morris
+trajectories cost R(D+1) candidates and N Sobol base pairs cost N(D+2). Every
+candidate runs the entire saved plan, and preparation rejects an excessive
+budget before enqueueing. Results are conditional on those ranges, spacing and
+independent grid-coordinate distributions; linked targets form one input.
+
+Missing/invalid samples are not imputed or silently discarded. All sampled
+objectives must exist before their index is reported. A flat output has undefined
+Sobol indices. Finite-sample estimates outside [0,1] are shown without clipping;
+wide intervals indicate that a larger study is needed. These are model
+sensitivities, not causal attribution or proof of a global optimum.
+
+### 2. Constrained Bayesian search
+
+Choose **Constrained Bayesian · trade-offs** in the main search menu. Separate
+Matérn 5/2 Gaussian processes fit each objective and up to six common, most
+limiting normalized constraints. Length scales are fitted by bounded marginal
+likelihood search. The proposal uses a Monte Carlo estimate of expected
+hypervolume improvement, weighted by modeled feasibility. Before a feasible
+design exists, it prioritizes reduced predicted constraint violation. Pending
+parallel candidates receive a proximity penalty.
+
+Training is bounded to 32 measured observations and the proposal pool to 96
+untried coordinates, with 12 posterior draws per proposal. This keeps the
+standard-library implementation practical and requires no ML runtime download.
+It is an approximate constrained EHVI strategy, not qNEHVI or a claim of
+state-of-the-art sample efficiency. The original adaptive and simpler GP modes
+remain available.
+
+Candidate review retains predicted means, uncertainty, fitted length scales and
+modeled constraints. Predictions are exclusively proposal evidence. Every saved
+requirement, including ones omitted from the surrogate, must pass measured
+verification. Solver errors, missing measurements and engine-identity mismatches
+are excluded from model training instead of being learned as physical failures.
+
+### 3. Robustness and worst conditions
+
+Add uncertain parameters or **Use search ranges**. Include `temperature` or
+`supply` to vary operating conditions; supply requires an explicit supply target
+for each plan entry. Varying temperature/supply replaces that dimension's saved
+grid while retaining the other PVT dimensions. Plan/corner overrides that mask a
+varied circuit parameter are rejected.
+
+**Search worst conditions** starts with nominal and individual boundary probes,
+then alternates local refinement around the worst measured normalized violation
+with stratified global coverage. It finds adverse measured conditions within the
+declared bounds; it does not certify the global worst case.
+
+**User-declared tolerances** supports normal and uniform variations with absolute
+or relative standard deviation. Relative `0.01` means 1%. Uniform half-width is
+√3σ. Normal variables may share a Gaussian factor; the correlation of two rows
+is the product of their factor loadings. Distinct factors are independent.
+Invalid physical samples abort preparation with their values rather than being
+clipped/resampled. Integer finger/multiplicity variables belong in an integer
+circuit search, not a continuous tolerance distribution.
+
+**Validated PDK statistical model** requires the existing PDK contract's
+`validated`, `evidence` and explicit numeric `variations` mappings. Unsupported
+foundry statistical decks are not guessed or converted automatically. Results
+report pass/fail/unresolved trials and a Wilson 95% binomial interval only after
+all trials return valid evidence. Declared component-tolerance pass fractions
+are labeled separately from PDK statistical results; neither is universal yield.
+
+Enable **Validate the selected passing Circuit search candidate** to build a
+separate verification snapshot from that candidate. The report links to its
+original experiment and parameter values. It does not optimize distribution
+parameters or silently apply the candidate.
+
+### 4. Electrical diagnostics
+
+Choose a saved graphical analysis or a single-entry PVT plan for its cell.
+Diagnostics retain the plan's conditions. The table shows captured quantities
+directly; exact values and model limitations are available in selected evidence.
+
+| Diagnostic | Captured evidence and assumptions |
+| --- | --- |
+| Noise contributors | ngspice `.noise` source vectors; output and input-referred RMS noise integrated over the sampled band. Device subtotals overlap component rows and must not be summed together. Integration uses trapezoidal squared amplitude density, so sweep resolution matters. |
+| Poles and zeros | ngspice `.pz` for explicitly named input/output port pairs: real/imaginary parts in rad/s and magnitude in Hz, with RHP entries marked. Transfer-function cancellations and unobserved modes can hide internal instability. |
+| Supply ramp and startup | Cross-product of entered supply ramp times and initial node voltages, plus saved PVT. The generated deck replaces one top-level supply with a PWL ramp and uses `.ic`/UIC. The last 20% of saved samples must remain within the output window. Final voltage, observed settling time and extrema are retained. |
+| Loop gain and margins | AC data from a user-built injection fixture. Choose return/injection nets and polarity for characteristic `1 + T`. All sampled unity-gain and negative-real-axis crossings are reported with interpolated margins. No crossing means unavailable, not infinite margin. Multiple crossings/open-loop RHP poles require a Nyquist/fixture review. |
+| Device bias | Per-device region when explicitly reported, gm/Id, and model VDSAT headroom across conditions. Missing regions stay unavailable; a negative headroom is labeled below model VDSAT. Saturation and weak/moderate/strong inversion are not interchangeable classifications. |
+
+Noise, PZ, startup and loop diagnostics use ngspice; bias readouts also support
+the teaching solver's explicitly reported regions. They operate on the current
+snapshot, not an automatically generated valid loop-break fixture. The detailed
+saved input deck is inspectable. Electrical diagnostics do not automatically
+become new hard search constraints: save the corresponding scalar requirements
+in the plan when they should gate ordinary candidate verification.
+
+### 5. Coarse/full SPICE refinement
+
+Select an ngspice plan with AC, noise or transient analysis. Configure a pool of
+coarse candidates, a smaller number of full candidates (at least three), a
+resolution factor and seed. Coarse runs reduce points per decade or increase
+transient step. Circuit topology, device models, sizing, corners and analysis
+limits remain the same. Every full candidate uses the original saved plan.
+
+Three paired candidates initialize GP models of full-minus-coarse objective and
+constraint scores. Promotions use corrected predictions and uncertainty, while
+reports retain the coarse and full measurements in distinct rows. A failed or
+unavailable cheap measurement never establishes passing performance. The budget
+reserves `(coarse candidates + full candidates) × saved conditions` jobs.
+
+Only **Apply full-SPICE finalist** can change the design, after the study finishes
+and that candidate passes all full-resolution requirements and engine/snapshot
+checks. Coarse predictions never satisfy verification. This implementation uses
+two numerical SPICE fidelities; it does not claim reduced-model or extracted-RC
+surrogates. Use the existing layout/ECO and extracted verification workflow after
+applying a changed design. Changing sizing does not validate an old extraction.
+
+### 6. Ordered verification and automation
+
+In **Verification workflow**, load the selected plan's tests and assign every
+test to exactly one named stage. **Use workflow in Circuit search** configures
+the next search. The default suggestions are bias, frequency response,
+transient, and final checks; empty stages are omitted. Plans can use different
+names/order. Existing experiments retain their captured configuration.
+
+All conditions in earlier stages must pass before a later stage is queued.
+Physical performance failure screens out the candidate and counts later jobs
+as avoided. Simulation/measurement errors block advancement. Zero, one or two
+automatic retries repeat exact failed simulation inputs; performance failures
+and cancellations are not automatically retried. The search budget reserves
+retry capacity. A total worker-time limit sums parallel worker time and stops
+remaining jobs when exhausted; a new search can use a larger budget.
+
+Optional exact-result reuse checks the complete circuit, settings, executable,
+workflow and model identities. It also verifies currently installed locked
+model/OSDI assets, rejects nonfinite/mismatched results, and excludes results
+whose inspection requires external raw artifacts. Reuse creates a new saved
+result with a source-run reference and zero worker time. Reports include every
+candidate, failure, skipped case, condition, fingerprint and tool identity.
+
+`tests/test_analog_advanced.py` checks analytic Morris/Sobol examples, fitted GP
+behavior, exact hypervolume, correlated variation, confidence intervals,
+worst-condition refinement, stage gates, retry/time budgets, identity-safe reuse,
+diagnostic calculations and full-resolution promotion. Real ngspice checks cover
+RC noise, poles and startup when `ICSTUDIO_TEST_NGSPICE` is set.
+`tests/gui_analog_advanced.py` runs actual Qt workers, exercises the categories,
+cached stages, reports, closing/reset, and real SPICE refinement/application. It
+is included in Windows/Linux desktop CI. Local offscreen checks do not replace
+physical display, assistive-technology or large-circuit qualification.

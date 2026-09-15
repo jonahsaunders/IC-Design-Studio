@@ -86,7 +86,7 @@ class OptimizerPage(QWidget):
         self.start_button, _ = actions(layout, [('Run search', self.start_search), ('Guided design setup…', self.workspace.guided_setup)], self.call, 'Run search')
         form = self.form(layout)
         self.source = combo('Analysis or PVT plan'); self.field(form, '&Test or PVT plan', self.source)
-        self.strategy = combo('Search strategy'); self.strategy.addItem('Adaptive · sensitivity first', 'adaptive'); self.strategy.addItem('Gaussian process · experimental', 'surrogate'); self.strategy.addItem('Exhaustive grid', 'grid'); self.field(form, 'Search method', self.strategy)
+        self.strategy = combo('Search strategy'); self.strategy.addItem('Adaptive · sensitivity first', 'adaptive'); self.strategy.addItem('Constrained Bayesian · trade-offs', 'bayesian'); self.strategy.addItem('Gaussian process · experimental', 'surrogate'); self.strategy.addItem('Exhaustive grid', 'grid'); self.field(form, 'Search method', self.strategy)
         self.parameter_cell = combo('Cell containing adjustable parameters'); self.field(form, 'Parameter &cell', self.parameter_cell)
         self.objective_test = combo('Objective test'); self.field(form, 'Objective test', self.objective_test)
         self.goal = combo('Optimization direction')
@@ -115,6 +115,8 @@ class OptimizerPage(QWidget):
         self.batch_size=QSpinBox();self.batch_size.setRange(1,8);self.field(form,'Candidates per adaptive batch',self.batch_size)
         self.screen_op=QCheckBox('Screen operating points before expensive tests');self.screen_op.setAccessibleName(self.screen_op.text());layout.addWidget(self.screen_op)
         self.screen_op.setToolTip('Reject candidates that fail any saved OP requirement. Every accepted candidate still runs all tests and PVT conditions. The budget reserves the full plan for each candidate.')
+        self.workflow=None;self.workflow_note=label('');layout.addWidget(self.workflow_note)
+        actions(layout,[('Advanced analyses…',self.open_advanced),('Export comparison report…',self.export_report)],self.call)
         self.strategy.currentIndexChanged.connect(lambda:self.batch_size.setEnabled(self.strategy.currentData()!='grid'))
         self.refresh_button, self.restore_button = actions(layout, [('Refresh saved setup', self.refresh_sources), ('Reuse experiment settings', self.restore_settings)], self.call)
         self.start_button.setToolTip('Run the selected search across every saved condition (Ctrl/Command+Return). Samples set each parameter’s discrete resolution.')
@@ -230,13 +232,19 @@ class OptimizerPage(QWidget):
         plan = self.source.currentData()
         if not plan: raise ValueError('Save an analysis or testbench in Setup first.')
         self.verify_source(plan)
+        self.queue(optimizer.prepare(self.studio.project, self.parameter_cell.currentData(), plan, self.search_spec(), self.studio.prepare_simulation))
+
+    def search_spec(self):
+        plan=self.source.currentData()
+        if not plan or not self.objective_test.currentData():raise ValueError('Choose a saved objective test.')
         spec = dict(kind='analog_optimizer', name='Search · ' + plan['name'], axes=self.axes_spec(), budget=self.budget.value(), strategy=self.strategy.currentData(),
                     objective=dict(entry_id=self.objective_test.currentData()['id'], expression=self.expression.text(), unit=self.unit.currentText(), goal=self.goal.currentData(), target=self.target.text()))
         spec['objectives'] = [clone(spec['objective'])] + self.extra_objectives()
         spec.update(batch_size=self.batch_size.value(),screen_op=self.screen_op.isChecked())
         if getattr(self, 'seed_values', None): spec['initial'] = {k:v for k,v in self.seed_values.items() if k in {a['target'] for a in spec['axes']}}
         if self.gm_limit.isChecked(): spec['gmid'] = dict(entry_id=self.gm_test.currentData()['id'], device=self.gm_device.currentText(), min=self.gm_min.text(), max=self.gm_max.text(), headroom=self.gm_margin.text())
-        self.queue(optimizer.prepare(self.studio.project, self.parameter_cell.currentData(), plan, spec, self.studio.prepare_simulation))
+        if self.workflow:spec['workflow']=clone(self.workflow);spec['screen_op']=False
+        return spec
 
     def start_gmid(self):
         if not self.studio.flush_inspector(): return
@@ -262,10 +270,10 @@ class OptimizerPage(QWidget):
         jobs=optimizer.eligible_jobs(manifest,jobs,self.studio.run_manager.rows)
         if not jobs:return
         names = [manifest['name'] + ' · candidate ' + str(j['case']['candidate']) + ' · ' + j['case']['test_name'] + ' · ' + condition_text(j['case']['labels']) for j in jobs]
-        self.studio.run_manager.enqueue_many(jobs, self.studio.jobs_dir, names)
+        self.studio.run_manager.enqueue_many(jobs, self.studio.jobs_dir, names,reuse=manifest['spec'].get('workflow',{}).get('reuse',False))
 
     def load_history(self):
-        self.manifests = [m for m in variation_runs.load(self.studio.jobs_dir, self.project_id) if m.get('spec', {}).get('kind') in optimizer.KINDS and not m.get('library')]
+        self.manifests = [m for m in variation_runs.load(self.studio.jobs_dir, self.project_id) if m.get('spec', {}).get('kind') in optimizer.KINDS and not m.get('library') and not m.get('advanced')]
         for m in self.manifests:
             m['execution_active']=False
             if m.get('adaptive'): m['adaptive']['active'] = False
@@ -320,6 +328,8 @@ class OptimizerPage(QWidget):
         if m.get('adaptive'): status += f" Adaptive budget: {m['spec']['budget']} simulations; " + ('finished.' if report['complete'] else 'running.' if m['adaptive']['active'] else 'paused.')
         if len(optimizer.objectives(m['spec'])) > 1: status += f" {len(report['pareto'])} Pareto candidates; select the trade-off you prefer."
         if m.get('adaptive', {}).get('reason'): status += ' ' + m['adaptive']['reason']
+        if m.get('pause_reason'):status+=' '+m['pause_reason']
+        if m['spec'].get('workflow'):status+=' Stages: '+' → '.join(s['name'] for s in m['spec']['workflow']['stages'])+'.'
         if self.experiment_gmid: status += ' gm/Id uses |gm/Id|; teaching models omit subthreshold current and capacitances.'
         if design_digest(self.studio.project) != m['base_design_hash']: status += ' Current design differs; applying is disabled.'
         self.summary.setText(status)
@@ -361,6 +371,9 @@ class OptimizerPage(QWidget):
             self.details.setPlainText('Parameter cell: ' + cell['name'] + ' (shared master parameters affect every instance).\n' + '\n'.join(before) + '\n' + ('\n'.join(c['failures']) if c['failures'] else f"{c['complete']}/{c['total']} simulations complete; " + ("all captured checks pass." if c['state'] == 'Passed' else "waiting for saved checks.")) + ('\n' + '; '.join(dict.fromkeys(p['source'] for p in c['points'])) if c['points'] else ''))
         if c and c['metrics']:
             self.details.appendPlainText('\n'.join(o['goal'].title() + ' ' + o['expression'] + ': ' + ('unavailable' if metric['value'] is None else f"{metric['value']:.9g}") + ' ' + o.get('unit', '') for o,metric in zip(optimizer.objectives(m['spec']), c['metrics'])))
+        if c:
+            proposal=next((j['case'].get('proposal') for j in m['jobs'] if j['case']['candidate']==c['candidate'] and j['case'].get('proposal')),None)
+            if proposal:self.details.appendPlainText('Proposal evidence (predictions only):\n'+json.dumps(proposal,indent=2))
         self.inspect_button.setEnabled(bool(c and c['runs']))
         self.apply_button.setEnabled(bool(c and not self.experiment_gmid and c['state'] == 'Passed' and self.report['complete'] and design_digest(self.studio.project) == m['base_design_hash']))
         self.estimate_button.setEnabled(bool(c and self.experiment_gmid and c['points'] and c['points'][0].get('current_density')))
@@ -387,6 +400,9 @@ class OptimizerPage(QWidget):
     def resume(self):
         m = self.manifest()
         if m:
+            from .analog_automation import exhausted
+            if exhausted(m,self.studio.run_manager.rows):raise ValueError('This experiment exhausted its worker-time budget. Reuse its settings with a larger budget in a new search.')
+            m.pop('pause_reason',None);m.pop('report_path',None)
             m['execution_active']=True;variation_runs.save(m,self.studio.jobs_dir)
             if m.get('adaptive'): m['adaptive']['active'] = not m['adaptive']['done']; variation_runs.save(m, self.studio.jobs_dir)
             self.enqueue(m, variation_runs.pending(m, self.studio.run_manager.rows)); self.schedule()
@@ -424,11 +440,27 @@ class OptimizerPage(QWidget):
 
     def tick(self):
         from .analog_adaptive import advance
+        from . import analog_automation as automation
         for i, manifest in enumerate(self.manifests):
-            if manifest['spec'].get('screen_op') and manifest.get('execution_active',False):
-                try:self.enqueue(manifest,optimizer.ready_jobs(manifest,self.studio.run_manager.rows))
+            if manifest.get('execution_active',False):
+                if automation.exhausted(manifest,self.studio.run_manager.rows):
+                    manifest['execution_active']=False;manifest['pause_reason']='Worker-time budget exhausted; remaining jobs cancelled.'
+                    if manifest.get('adaptive'):manifest['adaptive']['active']=False
+                    self.studio.run_manager.cancel(list(variation_runs.latest(manifest,self.studio.run_manager.rows).values()));variation_runs.save(manifest,self.studio.jobs_dir);continue
+                try:
+                    self.enqueue(manifest,optimizer.ready_jobs(manifest,self.studio.run_manager.rows))
+                    if manifest['spec'].get('workflow'):self.enqueue(manifest,automation.retries(manifest,self.studio.run_manager.rows))
                 except Exception as exc:
-                    manifest['execution_active']=False;variation_runs.save(manifest,self.studio.jobs_dir);self.summary.setText(str(exc));continue
+                    manifest['execution_active']=False
+                    if manifest.get('adaptive'):manifest['adaptive']['active']=False
+                    manifest['pause_reason']=str(exc);variation_runs.save(manifest,self.studio.jobs_dir);self.summary.setText(str(exc));continue
+                result=optimizer.evaluate(manifest,self.studio.run_manager.rows)
+                if result['complete']:
+                    manifest['execution_active']=False;automation.save_report(manifest,automation.report(manifest,self.studio.run_manager.rows),self.studio.jobs_dir);variation_runs.save(manifest,self.studio.jobs_dir)
+                elif manifest['spec'].get('workflow') and automation.blocked(manifest,self.studio.run_manager.rows):
+                    manifest['execution_active']=False;manifest['pause_reason']='A stage has unresolved simulation evidence. Retry or inspect its saved run before resuming.'
+                    if manifest.get('adaptive'):manifest['adaptive']['active']=False
+                    variation_runs.save(manifest,self.studio.jobs_dir)
             if not manifest.get('adaptive', {}).get('active'): continue
             try:
                 updated, jobs = advance(manifest, self.studio.run_manager.rows, self.studio.prepare_simulation)
@@ -439,6 +471,20 @@ class OptimizerPage(QWidget):
                 manifest['adaptive'].update(active=False, reason=str(exc)); variation_runs.save(manifest, self.studio.jobs_dir)
                 self.summary.setText('Adaptive search paused: ' + str(exc))
         self.render()
+        if any(m.get('execution_active') for m in self.manifests):self.timer.start(1000)
+
+    def open_advanced(self):
+        if not getattr(self,'advanced_dialog',None):
+            from .analog_advanced_ui import AdvancedAnalyses
+            self.advanced_dialog=AdvancedAnalyses(self)
+        self.advanced_dialog.refresh_context();self.advanced_dialog.show();self.advanced_dialog.raise_()
+
+    def export_report(self):
+        from .analog_automation import report,report_document
+        m=self.manifest()
+        if not m:raise ValueError('Select a saved experiment to export.')
+        path,_=QFileDialog.getSaveFileName(self,'Export optimizer comparison report','analog-comparison.json','JSON (*.json)')
+        if path:atomic_write(path,json.dumps(report_document(m,report(m,self.studio.run_manager.rows)),indent=2,allow_nan=False))
 
     def inspect_failure(self):
         failure = self.failure_choice.currentData()
@@ -479,6 +525,7 @@ class OptimizerPage(QWidget):
         for o in definitions[1:]: objective(o); self.add_objective()
         objective(definitions[0]); self.strategy.setCurrentIndex(self.strategy.findData(m['spec'].get('strategy', 'grid'))); self.budget.setValue(m['spec'].get('budget', 100))
         self.batch_size.setValue(m['spec'].get('batch_size',1));self.screen_op.setChecked(m['spec'].get('screen_op',False))
+        self.workflow=clone(m['spec'].get('workflow'));self.screen_op.setEnabled(not bool(self.workflow));self.workflow_note.setText('Workflow: '+' → '.join(s['name'] for s in self.workflow['stages']) if self.workflow else '')
         self.seed_values = clone(m['spec'].get('initial', {})); gm = m['spec'].get('gmid'); self.gm_limit.setChecked(bool(gm))
         if gm:
             self.gm_test.setCurrentIndex(next(i for i in range(self.gm_test.count()) if self.gm_test.itemData(i)['id'] == gm['entry_id'])); self.gm_device.setCurrentText(gm['device'])

@@ -8,7 +8,7 @@ import math
 from .model import clone, scalar, validate, digest, design_digest, uid, now
 from . import studies, test_plans, variation_runs
 
-KINDS = ('analog_optimizer', 'analog_gmid')
+KINDS = ('analog_optimizer', 'analog_gmid', 'analog_diagnostics')
 ACTIVE = ('Queued', 'Running', 'Stopping')
 TERMINAL = ('Complete', 'Failed', 'Cancelled', 'Interrupted')
 
@@ -128,13 +128,16 @@ def prepare(project, cid, plan, spec, prepare_job, _changes=None):
     kind = spec.get('kind', 'analog_optimizer')
     if kind not in KINDS:
         raise ValueError('Unknown analog optimizer mode.')
-    if spec.get('strategy') not in (None,'grid','adaptive','surrogate'):raise ValueError('Unknown search strategy.')
+    if spec.get('strategy') not in (None,'grid','adaptive','surrogate','bayesian'):raise ValueError('Unknown search strategy.')
+    from .analog_automation import validate as validate_workflow
+    validate_workflow(plan,spec.get('workflow'))
     if spec.get('screen_op') and not any(is_op(project,e) for e in plan['entries']):raise ValueError('Operating-point screening needs an OP analysis in this plan.')
-    if spec.get('strategy') in ('adaptive','surrogate') and _changes is None:
+    if spec.get('strategy') in ('adaptive','surrogate','bayesian') and _changes is None:
         from .analog_adaptive import start
         return start(project, cid, plan, spec, prepare_job)
     changes = grid(project, cid, spec['axes']) if _changes is None else _changes
     nconditions = len(plan['entries']) * len(plan['corners']) * len(plan['temperatures']) * max(1, len(plan.get('voltages', [])))
+    nconditions*=1+int(spec.get('workflow',{}).get('retries',0))
     budget = int(spec.get('budget', 100))
     if not 1 <= budget <= 500 or len(changes) * nconditions > budget:
         raise ValueError(f'This grid needs {len(changes) * nconditions} simulations. Reduce samples/PVT conditions or raise the budget (maximum 500).')
@@ -283,12 +286,15 @@ def screening_rejections(manifest, rows):
     spec={**manifest['spec'],'screen_op':False,'objectives':[]};spec.pop('objective',None)
     subset={**manifest,'spec':spec,'jobs':jobs};subset.pop('adaptive',None)
     report=evaluate(subset,rows);current=report['current']
-    return {c['candidate'] for c in report['candidates'] if c['state']=='Failed' and all(
+    return {c['candidate'] for c in report['candidates'] if c['state']=='Failed' and not c.get('evidence_errors') and c['complete']==c['total'] and all(
         current.get(j['case']['index'],{}).get('state') in ('Complete','Failed') for j in jobs if j['case']['candidate']==c['candidate'])}
 
 
 def eligible_jobs(manifest, jobs, rows):
     """Defer expensive tests until every OP condition passes its saved limits."""
+    if manifest['spec'].get('workflow'):
+        from .analog_automation import eligible
+        return eligible(manifest,jobs,rows)
     if not manifest['spec'].get('screen_op'):return jobs
     current=variation_runs.latest(manifest,rows);rejected=screening_rejections(manifest,rows)
     out=[]
@@ -310,25 +316,32 @@ def evaluate(manifest, rows):
     from .wavecalc import evaluate as expression, UNITS
     current = variation_runs.latest(manifest, rows)
     spec, candidates, terminal = manifest['spec'], {}, 0
-    rejected=screening_rejections(manifest,rows);skipped=0
+    rejected=set() if spec.get('workflow') else screening_rejections(manifest,rows);skipped=0;gates=None
+    if spec.get('workflow'):
+        from .analog_automation import gate_states,omitted
+        gates=gate_states(manifest,rows);rejected=set(gates['rejected'])
     for job in manifest['jobs']:
         case = job['case']; index = case['index']; row = current.get(index)
         item = candidates.setdefault(case['candidate'], dict(candidate=case['candidate'], changes=case['changes'],
-                state='Pending', values=[], scores=[], failures=[], failure_details=[], metrics=[dict(values=[], scores=[]) for _ in objectives(spec)], points=[], runs=[], complete=0, total=0))
+                state='Pending', values=[], scores=[], failures=[], failure_details=[], evidence_errors=[],constraints={}, metrics=[dict(values=[], scores=[]) for _ in objectives(spec)], points=[], runs=[], complete=0, total=0))
         item['total'] += 1
-        if not row and case['candidate'] in rejected and job['settings']['type']!='op':
+        if not row and (omitted(manifest,job,gates) if gates is not None else case['candidate'] in rejected and job['settings']['type']!='op'):
             skipped+=1;continue
         if row: item['runs'].append(row['id'])
         state = row['state'] if row else 'Not queued'
         terminal += state in TERMINAL
         if state != 'Complete':
-            if state in TERMINAL: item['failures'].append(case['test_name'] + ': ' + state)
+            if state in TERMINAL:
+                item['failures'].append(case['test_name'] + ': ' + state)
+                item['evidence_errors'].append(dict(test=case['test_name'],kind='simulation',state=state))
             continue
         item['complete'] += 1
         result = row.get('result', {})
         try:
             if result.get('project_id') != manifest['project_id'] or result.get('design_hash') != design_digest(job['project']) or result.get('cell_id') != job['cell']:
                 raise ValueError('Saved result identity does not match its circuit snapshot.')
+            if job['engine']=='ngspice' and result.get('engine_hash')!=job.get('environment',{}).get('executable_sha256'):
+                raise ValueError('Saved result executable does not match the planned ngspice engine.')
             settings=job['settings']
             if settings['type']=='testbench':
                 settings=next(t for t in job['project']['testbenches'] if t['id']==settings['testbench'])['analysis']
@@ -336,8 +349,31 @@ def evaluate(manifest, rows):
                 raise ValueError('Saved result analysis differs from the planned condition.')
             failed = _requirements(job, result)
             item['failures'] += failed
+            measured={m['name']:m for m in result.get('measurements',{}).get('measurements',[])}
+            for required in test_plans.requirements(job):
+                if not required.get('measurement'):continue
+                actual=measured.get(required['name'],{})
+                try:
+                    if actual.get('status') not in ('PASS','passed','FAIL','failed'):raise ValueError('Missing measurement status')
+                    value=scalar(actual['value']);low=scalar(actual['minimum']) if required['kind']=='range' else value;high=scalar(actual['maximum']) if required['kind']=='range' else value
+                    limits=[(scalar(required['min'])-low,scalar(required['min']))] if 'min' in required else []
+                    if 'max' in required:limits.append((high-scalar(required['max']),scalar(required['max'])))
+                    if limits:
+                        key=case['entry_id']+' / measurement / '+required['name'];violation=max(delta/max(abs(bound),1e-30) for delta,bound in limits)
+                        item['constraints'][key]=max(item['constraints'].get(key,-math.inf),violation)
+                        if violation>0:
+                            item['failures'].append(required['name']+': measured limit failed')
+                            item['failure_details'].append(dict(run_id=row['id'],definition=required,condition=case['labels'],test=case['test_name']))
+                except (KeyError,ValueError,TypeError) as exc:
+                    item['evidence_errors'].append(dict(test=case['test_name'],kind='measurement',detail=required['name']+': '+str(exc)))
+                    item['failures'].append(required['name']+': missing or invalid measurement')
             from .specifications import for_job, evaluate_rows
             for definition in evaluate_rows(for_job(job), result):
+                if definition['status']=='ERROR':item['evidence_errors'].append(dict(test=case['test_name'],kind='measurement',detail=definition['error']))
+                elif definition['margin'] is not None:
+                    scale=max([abs(scalar(definition[k])) for k in ('min','max') if definition.get(k) not in (None,'')]+[1e-30])
+                    key=case['entry_id']+' / '+definition['name']
+                    item['constraints'][key]=max(item['constraints'].get(key,-math.inf),-definition['margin']/scale)
                 if definition['status'] != 'PASS':
                     item['failure_details'].append(dict(run_id=row['id'], definition=definition, condition=case['labels'], test=case['test_name']))
             gm = spec.get('gmid')
@@ -345,11 +381,19 @@ def evaluate(manifest, rows):
                 point = read_gmid(job, result, gm['device'])
                 point.update(index=index, run_id=row['id'], labels=case['labels'])
                 item['points'].append(point)
+                for key in ('min','max','headroom'):
+                    if gm.get(key) in (None,''):continue
+                    limit=scalar(gm[key]);value=point.get('headroom') if key=='headroom' else point['gmid']
+                    if value is not None:
+                        name=case['entry_id']+' / '+gm['device']+' '+key
+                        violation=(value-limit if key=='max' else limit-value)/max(abs(limit),1e-12)
+                        item['constraints'][name]=max(item['constraints'].get(name,-math.inf),violation)
                 for key, operator in (('min', lambda a, b: a >= b), ('max', lambda a, b: a <= b)):
                     if gm.get(key) not in (None, '') and not operator(point['gmid'], scalar(gm[key])):
                         item['failures'].append('gm/Id ' + key + ' limit failed')
                         item['failure_details'].append(dict(run_id=row['id'],definition=dict(name='gm/Id '+key+' limit failed',device=gm['device']),condition=case['labels'],test=case['test_name']))
                 if gm.get('headroom') not in (None, '') and ('headroom' not in point or point['headroom'] < scalar(gm['headroom'])):
+                    if 'headroom' not in point:item['evidence_errors'].append(dict(test=case['test_name'],kind='measurement',detail='Bias margin unavailable'))
                     item['failures'].append('Bias margin missing or below its minimum')
                     item['failure_details'].append(dict(run_id=row['id'],definition=dict(name='Bias margin missing or below its minimum',device=gm['device']),condition=case['labels'],test=case['test_name']))
             for n, objective in enumerate(objectives(spec)):
@@ -362,6 +406,7 @@ def evaluate(manifest, rows):
                 item['metrics'][n]['values'].append(value); item['metrics'][n]['scores'].append(score)
                 if n == 0: item['values'].append(value); item['scores'].append(score)
         except (ValueError, KeyError, TypeError, ArithmeticError) as exc:
+            item['evidence_errors'].append(dict(test=case['test_name'],kind='invalid evidence',detail=str(exc)))
             item['failures'].append(case['test_name'] + ': ' + str(exc))
             item['failure_details'].append(dict(run_id=row['id'], definition=dict(name=str(exc)), condition=case['labels'], test=case['test_name']))
     for item in candidates.values():
@@ -387,6 +432,8 @@ def evaluate(manifest, rows):
 
 
 def apply_candidate(project, manifest, rows, candidate):
+    if manifest.get('advanced'):
+        raise ValueError('Advanced analysis is read-only evidence. Reuse the measured parameters in a circuit search before applying a design.')
     if manifest['spec']['kind'] != 'analog_optimizer':
         raise ValueError('Use a circuit search to validate and apply parameters from a gm/Id sweep.')
     if design_digest(project) != manifest['base_design_hash']:
