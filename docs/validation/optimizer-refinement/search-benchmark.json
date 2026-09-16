@@ -1,0 +1,70 @@
+{
+  "engine": "ngspice",
+  "engine_sha256": "091eb631d71999a7335a44aead55aaa34f3aed39e1c8d5711e8f8d2d1de81877",
+  "budget": 24,
+  "results": [
+    {
+      "circuit": "Resistor divider",
+      "strategy": "adaptive",
+      "simulations": 24,
+      "passing": 23,
+      "best_score": 9e-06,
+      "best_value": 9e-06,
+      "objective": {
+        "entry_id": "op",
+        "expression": "abs(final(I(\"VS\")))",
+        "unit": "A",
+        "goal": "minimize"
+      },
+      "elapsed_seconds": 0.8576082870004029
+    },
+    {
+      "circuit": "Resistor divider",
+      "strategy": "surrogate",
+      "simulations": 24,
+      "passing": 5,
+      "best_score": 8.310577735756096e-05,
+      "best_value": 8.310577735756096e-05,
+      "objective": {
+        "entry_id": "op",
+        "expression": "abs(final(I(\"VS\")))",
+        "unit": "A",
+        "goal": "minimize"
+      },
+      "elapsed_seconds": 1.0512581069997395
+    },
+    {
+      "circuit": "MOS bias and sizing",
+      "strategy": "adaptive",
+      "simulations": 24,
+      "passing": 24,
+      "best_score": 3.652473056940491e-06,
+      "best_value": 2.365247305694049e-05,
+      "objective": {
+        "entry_id": "op",
+        "expression": "abs(final(I(\"VD\")))",
+        "unit": "A",
+        "goal": "target",
+        "target": "20u"
+      },
+      "elapsed_seconds": 0.8857059769998159
+    },
+    {
+      "circuit": "MOS bias and sizing",
+      "strategy": "surrogate",
+      "simulations": 24,
+      "passing": 18,
+      "best_score": 2.2486852134043166e-07,
+      "best_value": 2.022486852134043e-05,
+      "objective": {
+        "entry_id": "op",
+        "expression": "abs(final(I(\"VD\")))",
+        "unit": "A",
+        "goal": "target",
+        "target": "20u"
+      },
+      "elapsed_seconds": 1.0246470590009267
+    }
+  ],
+  "scope": "Two deterministic reference circuits; these results do not establish a general speed or quality advantage."
+}

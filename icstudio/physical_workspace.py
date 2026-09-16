@@ -94,9 +94,18 @@ class PhysicalWorkspaceMixin:
                     if any(s.get('generated_device')==did for s in c['shapes']):regenerate_mos(p,cid,did)
                     else:install_mos(p,cid,did,x,y)
                     return
-                install(p,cid,did,{'x':x,'y':y,'width':width or (1000 if d['kind']=='R' else 0),'fingers':int(v['fingers'])})
+                install(p,cid,did,{'x':x,'y':y,'width':width or (1000 if d['kind']=='R' else 0),'fingers':int(v['fingers']),
+                    'contact_rows':int(v.get('contact_rows',0)),'dummies':int(v.get('dummies',0)),
+                    'diffusion':v.get('diffusion','shared'),'guard':v.get('guard','No')=='Yes'})
             self.commit(edit,'Generate linked device');self.mode_combo.setCurrentIndex(1);self.select([did],'layout');self.layout.fit()
-        return self.workflow_form('Place / regenerate '+d['name'],[('x','X (µm)',str(spec.get('x',0)/1000)),('y','Y (µm)',str(spec.get('y',0)/1000)),('width','Resistor / capacitor width (µm; blank = automatic)',str(spec.get('width','')/1000) if spec.get('width') else ''),('fingers','Generic MOS fingers',str(spec.get('fingers',1)))],submit,'Uses the schematic value or W/L. Regeneration retains device and terminal IDs and preserves a translated placement. Process models use their native supported MOS recipes.')
+        from .catalog import binding_for
+        process=bool(binding_for(self.project['pdk'],d))
+        fields=[('x','X (µm)',str(spec.get('x',0)/1000)),('y','Y (µm)',str(spec.get('y',0)/1000)),('width','Resistor / capacitor width (µm; blank = automatic)',str(spec.get('width','')/1000) if spec.get('width') else ''),('fingers','Teaching MOS fingers',str(spec.get('fingers',1)))]
+        if process:fields=fields[:2]
+        if not process and (d['kind'] in ('NMOS','PMOS') or d.get('physical_binding',{}).get('kind') in ('NMOS','PMOS')):
+            ordered=lambda selected,choices:[selected]+[c for c in choices if c!=selected]
+            fields += [('contact_rows','Contacts per diffusion column (0 = fit)',str(spec.get('contact_rows',0))),('dummies','Poly edge dummies per side',str(spec.get('dummies',0))),('diffusion','Finger diffusion',ordered(spec.get('diffusion','shared'),['shared','isolated'])),('guard','Contacted bulk guard ring',ordered('Yes' if spec.get('guard') else 'No',['No','Yes']))]
+        return self.workflow_form('Place / regenerate '+d['name'],fields,submit,'Uses schematic values and preserves translated placement. Teaching MOS arrays have contacted fingers, optional poly-only edge dummies, and a bulk guard ring; they are illustrative geometry. Process devices retain their supported native recipes and schematic nf. Check connections and DRC/LVS after regeneration.')
     def utility_generator(self,kind):
         fields=[('x','X (µm)','0'),('y','Y (µm)','0'),('net','Net','0')]+([('rows','Rows','2'),('columns','Columns','2')] if kind=='contact' else [('width','Outer width (µm)','20'),('height','Outer height (µm)','20'),('thickness','Ring thickness (µm)','0.6')]);cid=self.cid
         def submit(v):
@@ -123,8 +132,8 @@ class PhysicalWorkspaceMixin:
         i=self.constraint_table.currentRow()
         if i<0:raise ValueError('Select a constraint.')
         cid=self.cid;row=clone(self.cell['analog_constraints'][i])
-        def submit(v):self.commit(lambda p:arrange(p,cid,row,round(scalar(v['pitch'])*1000)),'Arrange constrained devices');self.layout.fit()
-        return self.workflow_form('Arrange constrained devices',[('pitch','Common-centroid pitch (µm)','10')],submit,'Symmetry holds the first device fixed. Automatic common-centroid uses ABBA pairs of explicit unit devices. Existing routes stay in place; remaining connections update after placement.')
+        def submit(v):self.commit(lambda p:arrange(p,cid,row,round(scalar(v['pitch'])*1000),int(v['columns']) if v['columns'].strip() else None),'Arrange constrained devices');self.layout.fit()
+        return self.workflow_form('Arrange constrained devices',[('pitch','Common-centroid pitch (µm)','10'),('columns','Even column count (blank = one row)','')],submit,'Symmetry holds the first device fixed. Common-centroid supports two or more even-sized groups, including unequal ratios. Each pair is reflected through the center; multiple rows form a 2D array. Overlapping or off-grid placement is rejected. Existing routes stay in place; check remaining connections afterward.')
     def remove_constraint(self):
         i=self.constraint_table.currentRow();cid=self.cid
         if i>=0:self.commit(lambda p:next(c for c in p['cells'] if c['id']==cid)['analog_constraints'].pop(i),'Remove analog constraint')

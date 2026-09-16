@@ -11,7 +11,7 @@ def rules(tech):
         return {'qualification':'Illustrative teaching geometry; electrical coefficients are declared examples, not calibrated process data.',
           'resistor':{'body':'poly','terminal':'metal1','sheet_ohm':100.,'min_width':500},
           'capacitor':{'bottom':'metal1','top':'metal2','f_per_um2':1e-15},
-          'mos':{'active':'active','gate':'poly','terminal':'metal1','well':'nwell'},
+          'mos':{'active':'active','gate':'poly','terminal':'metal1','well':'nwell','cut':'contact','gate_metal':'metal2','via':'via1'},
           'contact':{'lower':'metal1','cut':'via1','upper':'metal2','size':150,'enclosure':100},
           'guard_ring':{'metal':'metal1','active':'active','cut':'contact','cut_size':150,'pitch':400,'enclosure':100}}
     raise ValueError('This technology has no declared parametric-device rules. Use a supported process MOS recipe or register pcell_rules with explicit layer mappings and coefficients.')
@@ -57,18 +57,19 @@ def build(p,cid,did,spec):
         if not d or d['kind'] not in ('NMOS','PMOS'):raise ValueError('Choose a MOS instance.')
         from .catalog import binding_for
         if binding_for(p['pdk'],d):raise ValueError('Use the process MOS generator for a bound model. Generic geometry cannot replace a process footprint.')
-        nf=int(spec.get('fingers',1))
-        if not 1<=nf<=64:raise ValueError('Use 1–64 fingers.')
-        w=snap(scalar(d['params']['w'])*1e9/nf);length=snap(scalar(d['params']['l'])*1e9)
-        pitch=length+1000;total=nf*pitch+500;metal=cfg['terminal'];pad=snap(max(400,ls[metal]['width']))
-        box('active',cfg['active'],0,0,total,w)
-        if d['kind']=='PMOS':box('well',cfg['well'],-1000,-1000,total+2000,w+2000)
-        for i in range(nf):box('gate'+str(i),cfg['gate'],500+i*pitch,-600,length,w+1200,d['nets']['g'])
-        box('gate_bus',cfg['gate'],500,-600,(nf-1)*pitch+length,200,d['nets']['g'])
-        for name,pt in [('s',[0,snap(w/2)]),('d',[total,snap(w/2)]),('g',[500,-500]),('b',[-1000,-1200])]:
-            box(name,metal,pt[0]-snap(pad/2),pt[1]-snap(pad/2),pad,pad,d['nets'][name]);pin(name,metal,pt)
-        # This pedagogical footprint records topology; it is not a process-recognized transistor.
-        electrical={'width_nm':w*nf,'length_nm':length,'fingers':nf}
+        from .mos_array import generate
+        electrical=generate(d,spec,cfg,ls,grid,box,pin)
+        if spec.get('guard'):
+            margin=snap(1500);t=snap(600)
+            left=min(pt[0] for s in shapes for pt in s['points'])-margin
+            bottom=min(pt[1] for s in shapes for pt in s['points'])-margin
+            right=max(pt[0] for s in shapes for pt in s['points'])+margin
+            top=max(pt[1] for s in shapes for pt in s['points'])+margin
+            ring=build(p,cid,None,dict(kind='guard_ring',x=left,y=bottom,width=right-left,height=top-bottom,thickness=t,net=d['nets']['b']))
+            for s in ring['shapes']:s.update(device_id=did,pcell_role='guard_'+s['pcell_role'])
+            shapes.extend(ring['shapes'])
+            bulk=next(v for v in pins if v['pin']=='b')['point']
+            box('guard_tie',cfg['terminal'],left-x,bulk[1]-y-100,bulk[0]-left,200,d['nets']['b'])
     elif kind=='contact':
         size=int(cfg['size']);enc=int(cfg['enclosure']);nx=int(spec.get('columns',1));ny=int(spec.get('rows',1));pitch=snap(size+ls[cfg['cut']]['space']);net=spec.get('net','0')
         if not 1<=nx<=32 or not 1<=ny<=32:raise ValueError('Contact arrays support 1–32 rows and columns.')

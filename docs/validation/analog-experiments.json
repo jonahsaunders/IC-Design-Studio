@@ -1,0 +1,65 @@
+{
+  "date": "2026-09-15",
+  "workflow_hash": "4ee9e172fac9850b802d289dfb69dc7daa31a1ee73c8dc1f028939069aee560d",
+  "unit_regression": {
+    "tests": 811,
+    "passed": true,
+    "skipped": 31,
+    "failures": [],
+    "errors": []
+  },
+  "desktop_acceptance": {
+    "guided_adaptive_characterization": {
+      "status": "passed",
+      "checks": [
+        "Guided fixture preview, invalidation after edits, atomic creation and optimizer/PVT plan selection",
+        "Failed gain opens captured transfer waveform and connected DUT devices; saved OP contains gm/Id annotations",
+        "Adaptive continuation while workspace hidden, hard budget, multiple Pareto choices and schematic-linked sensitivity",
+        "Isolated measured lookup, sizing interpolation, unchanged circuit, search seed transfer and zero-job cache reuse",
+        "Light/dark compact layouts, reachable controls and native Qt accessibility names"
+      ],
+      "platform": "offscreen"
+    },
+    "optimizer": {
+      "status": "passed",
+      "checks": [
+        "Immutable PVT candidate search, cancel/resume, worst-condition ranking and saved-run inspection",
+        "Review/apply/undo and stale-circuit rejection",
+        "Captured MOS gm/Id, bias plot, width estimate, CSV export and durable experiment reload",
+        "Qt accessibility names, keyboard row navigation/action activation and preserved unsaved drafts",
+        "All five tabs at 800\u00d7640 and 1180\u00d7980, light/dark appearances, enlarged text and wrapping actions"
+      ],
+      "limits": [
+        "Qt offscreen on Linux; macOS VoiceOver, native menu conventions and hardware display checks remain unverified."
+      ]
+    },
+    "workspace": {
+      "status": "passed",
+      "checks": [
+        "Setup save/undo",
+        "Immutable PVT overrides",
+        "Result matrix to saved circuit and probes",
+        "Stale setup rejection",
+        "Completed requirement failure retry",
+        "Saved verification geometry navigation"
+      ]
+    }
+  },
+  "focused_regression": {
+    "tests": 66,
+    "passed": true,
+    "skipped": 10
+  },
+  "release_documentation": {
+    "passed": true,
+    "documents": 83,
+    "local_links": 387,
+    "gallery_examples": 9
+  },
+  "limits": [
+    "Local desktop: Qt offscreen on Linux. Native Windows/Linux display and assistive-technology checks remain distinct.",
+    "No local ngspice executable. Engine-dependent tests run when ICSTUDIO_TEST_NGSPICE is set; Windows/Linux desktop CI configures it.",
+    "SKY130 characterization: standard 1.8 V NMOS/PMOS, nf=m=mult=1, direct W/L emission. No arbitrary-model width normalization.",
+    "Adaptive pattern search is bounded; no global optimum, yield or extracted-performance claim."
+  ]
+}

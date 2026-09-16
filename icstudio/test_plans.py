@@ -30,6 +30,11 @@ def validate_plans(project):
         ids.add(plan['id']);name=plan.get('name','').strip()
         if not 1<=len(name)<=100 or name.casefold() in names:raise ValueError('Test plan names must be unique and contain 1–100 characters.')
         names.add(name.casefold())
+        variables=plan.get('variables',{})
+        if not isinstance(variables,dict) or len(variables)>100 or set(variables)-set(project.get('parameters',{})):
+            raise ValueError('Plan variables must refer to existing project design variables (at most 100).')
+        from .design_ops import parameters
+        parameters({**project.get('parameters',{}),**variables})
         if type(plan.get('compare_layout',False)) is not bool:raise ValueError('Choose whether to compare schematic and post-layout results.')
         entries=plan.get('entries',[])
         if not isinstance(entries,list) or not 1<=len(entries)<=30:raise ValueError('Choose 1–30 tests in a plan.')
@@ -41,6 +46,7 @@ def validate_plans(project):
             if entry.get('engine') not in ('builtin','ngspice','digital'):raise ValueError('Unknown test plan engine.')
             settings=entry.get('settings',{})
             if entry.get('engine')=='digital':
+                if variables:raise ValueError('Use a separate analog plan for analog design-variable overrides.')
                 from .digital_design import config
                 from .digital_regression import validate_tests
                 if not config(project,entry['cell']):raise ValueError('A test plan references a cell without RTL.')
@@ -79,8 +85,12 @@ def prepare(project,plan,prepare_job):
                 'entry_id':entry['id'],'test_name':entry['name'],'kind':'test_plan','base_design_hash':base,
                 'labels':{'corner':'RTL','temperature':None,'voltage':None}}
             job['case']['fingerprint']=digest({k:v for k,v in job.items() if k!='case'});jobs.append(job);continue
-        p=clone(project);settings=clone(entry['settings']);temp=scalar(temp)
-        model_lines(p['pdk'],corner)
+        p=clone(project);p.setdefault('parameters',{}).update(clone(plan.get('variables',{})));settings=clone(entry['settings']);temp=scalar(temp)
+        from .native_spice import native
+        if native(p):
+            from .native_analysis import corner_sections
+            if corner!='nominal' and corner not in corner_sections(p):raise ValueError('Undeclared embedded library corner: '+corner)
+        else:model_lines(p['pdk'],corner)
         for target,value in p['pdk'].get('corners',{}).get(corner,{}).get('overrides',{}).items():set_target(p,entry['cell'],target,value)
         if voltage is not None:
             target=entry.get('supply','')
@@ -96,6 +106,7 @@ def prepare(project,plan,prepare_job):
         if settings['type']=='testbench':job['settings']['executable']=job['executable']
         job['case']={'group':group,'index':len(jobs)+1,'plan_id':plan['id'],'plan_name':plan['name'],
                      'entry_id':entry['id'],'test_name':entry['name'],'kind':'test_plan','base_design_hash':base,
+                     'variables':clone(plan.get('variables',{})),
                      'labels':{'corner':corner,'temperature':temp,'voltage':scalar(voltage) if voltage is not None else None}}
         job['case']['fingerprint']=digest({k:v for k,v in job.items() if k!='case'})
         jobs.append(job)
@@ -114,7 +125,7 @@ def requirements(job):
     if job['settings']['type']=='silicon':
         from .silicon_flow import STAGES
         rows=[dict(m,name=m['name']+' · '+stage,source_name=m['name'],stage=stage,definition=digest([m,stage]))
-              for m in rows if m.get('measurement') for stage in ('schematic','post-layout')]
+              for m in rows for stage in ('schematic','post-layout')]
         rows += [dict(name=stage.replace('_',' '),stage=stage,check=True,definition=digest(['physical stage',stage]),unit='') for stage in STAGES]
     return rows
 
@@ -145,7 +156,7 @@ def matrix(rows,group):
             if spec.get('stage'):
                 stage_name={'schematic':'schematic_simulation','post-layout':'post_layout_simulation'}.get(spec['stage'],spec['stage'])
                 stage=next((s for s in physical.get('stages',[]) if s['name']==stage_name),{})
-                actual=stage if spec.get('check') else next((m for m in stage.get('evidence',{}).get('measurements',[]) if m['name']==spec['source_name']),None)
+                actual=stage if spec.get('check') else next((m for m in stage.get('evidence',{}).get('measurements' if spec.get('measurement') else 'specifications',[]) if m['name']==spec['source_name']),None)
             state=row['state'].upper()
             if state=='COMPLETE':state='ERROR' if actual is None else {'passed':'PASS','failed':'FAIL','not_run':'NOT RUN','running':'RUNNING'}.get(actual.get('status'),actual.get('status','ERROR'))
             elif state in ('FAILED','CANCELLED'):state='ERROR' if state=='FAILED' else state

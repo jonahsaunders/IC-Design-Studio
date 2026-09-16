@@ -59,6 +59,9 @@ def main(input_path,output_path):
         else:
             from .engines import run_ngspice
             result=run_ngspice(p,job['cell'],job['settings'],job['executable'],Path(output_path).parent,progress)
+        if job.get('engine','builtin')=='builtin' and job['settings'].get('diagnostic',{}).get('kind')=='bias':
+            from .analog_diagnostics import bias_report
+            result['diagnostics']=bias_report(result)
         from .specifications import attach
         attach(job,result)
         atomic_write(output_path,json.dumps(result,allow_nan=False)); print(json.dumps({'complete':True}),flush=True);return 0

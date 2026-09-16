@@ -19,18 +19,34 @@ class RunManager(QObject):
     @property
     def processes(self):return [r['process'] for r in self.rows if r.get('process') is not None]
 
-    def enqueue(self,job,root,name):
+    def enqueue(self,job,root,name,cached=None):
         path=Path(root)/job['project']['id']/(now().replace(':','-')+'_'+uid());path.mkdir(parents=True)
         atomic_write(path/'input.json',json.dumps(job,allow_nan=False))
         atomic_write(path/'run.json',json.dumps({'name':name,'created':now(),'order':time.time_ns()}))
         row={'id':path.name,'name':name,'job':clone(job),'path':path,'state':'Queued','progress':0,'elapsed':0.,'log':'','buffer':'','process':None,'started':None}
+        if cached is not None:
+            result=clone(cached['result']);result['case']=clone(job.get('case',{}))
+            result['reused_from']={'run_id':cached['id'],'source_elapsed':cached.get('elapsed',0),'exact_input':True}
+            atomic_write(path/'result.json',json.dumps(result,allow_nan=False))
+            row.update(state='Complete',progress=100,result=result,log='Reused exact saved input from '+cached['id'])
+            atomic_write(path/'output.log',row['log']);self.rows.append(row)
+            job_store.state(path,'complete',elapsed=0,reused_from=cached['id']);self.changed.emit();return row
         self.rows.append(row);job_store.state(path,'queued');self.changed.emit();self.pump();return row
 
-    def enqueue_many(self,jobs,root,names):
+    def enqueue_many(self,jobs,root,names,reuse=False):
         if len(jobs)!=len(names):raise ValueError('Every case needs a name.')
+        from .analog_automation import reusable,cache_key
+        cache={}
+        if reuse:
+            for row in self.rows:
+                if row['state']=='Complete':cache.setdefault(cache_key(row['job']),[]).append(row)
         self.scheduling=True;self.blockSignals(True);out=[]
         try:
-            for job,name in zip(jobs,names):out.append(self.enqueue(job,root,name))
+            for job,name in zip(jobs,names):
+                key=cache_key(job) if reuse else None
+                cached=reusable(job,cache.get(key,[])) if reuse else None
+                row=self.enqueue(job,root,name,cached=cached);out.append(row)
+                if reuse and row['state']=='Complete':cache.setdefault(key,[]).append(row)
         finally:self.scheduling=False;self.blockSignals(False);self.changed.emit();self.pump()
         return out
 

@@ -74,7 +74,7 @@ class EngineeringWorkspaceMixin:
         layout.addWidget(widget);return widget
     def add_engineering_tab(self,page,title):
         scroll=QScrollArea();scroll.setWidgetResizable(True);scroll.setWidget(page);return self.results_tabs.addTab(scroll,title)
-    def open_engineering_tab(self,index):self.results_dock.show();self.results_tabs.setCurrentIndex(index);self.resizeDocks([self.results_dock],[480],Qt.Vertical)
+    def open_engineering_tab(self,index):self.results_dock.show();self.results_tabs.setCurrentIndex(index);self.resizeDocks([self.results_dock],[min(380,max(220,self.height()*2//5))],Qt.Vertical)
 
     def make_actions(self):
         super().make_actions();menu=self.task_menus['Simulate'];first=menu.actions()[0]

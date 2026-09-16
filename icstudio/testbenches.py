@@ -95,13 +95,28 @@ def deck(p,t,subcircuit_path,ports=None):
     bench['devices']=[d for d in bench['devices'] if d['id']!=instance['id']]
     # Keep explicit native pin nets while removing the DUT from the fixture deck.
     for key in ('wires','labels','junctions','layout_pins','layout_instances'):bench.pop(key,None)
-    q=clone(p);q.pop('testbenches',None);q.pop('test_plans',None);q['cells']=[bench];q['top']=bench['id'];q['analysis']=clone(t['analysis'])
+    q=clone(p)
+    # The fixture deck contains only this bench and uses the saved analysis
+    # below. Project-wide setups can still reference the removed DUT/benches.
+    for key in ('testbenches','test_plans','simulation_setups'):q.pop(key,None)
+    q['cells']=[bench];q['top']=bench['id'];q['analysis']=clone(t['analysis'])
     text=spice(q,bench['id'],t['analysis'],hierarchical=False);text=re.sub(r'^\.end\s*$','',text,flags=re.M|re.I)
     if t['analysis']['type']=='tran' and t['analysis'].get('uic'):text=re.sub(r'^(\.tran .+)$',r'\1 uic',text,flags=re.M)
     text+='\n.include "'+Path(subcircuit_path).resolve().as_posix()+'"\n'+spice_name(instance)+' '+' '.join(instance['nets'][port] for port in ports)+' '+dut['name']+'\n'
     if t.get('initial_conditions'):text+='.ic '+' '.join('v('+n+')='+str(scalar(v)) for n,v in t['initial_conditions'].items())+'\n'
     source_names={d['name']:spice_name(d) for d in bench['devices'] if d['kind']=='V'}
-    current_sources=sorted({source_names[m['source']] for m in t.get('measurements',[]) if m['kind']=='current'})
+    current_sources={source_names[m['source']] for m in t.get('measurements',[]) if m['kind']=='current'}
+    # Scalar requirements can also depend on fixture supply currents (power).
+    # Retain their explicitly named voltage-source branches in the saved deck.
+    import ast
+    from .wavecalc import parse
+    by_name={name.casefold():emitted for name,emitted in source_names.items()}
+    for requirement in t.get('specifications',bench.get('specifications',[])):
+        for node in ast.walk(parse(requirement['expression'])):
+            if isinstance(node,ast.Call) and isinstance(node.func,ast.Name) and node.func.id=='I' and len(node.args)==1 and isinstance(node.args[0],ast.Constant) and isinstance(node.args[0].value,str):
+                emitted=by_name.get(node.args[0].value.casefold())
+                if emitted:current_sources.add(emitted)
+    current_sources=sorted(current_sources)
     text+='.save '+' '.join(['v('+n+')' for n in t['probes']]+['i('+n+')' for n in current_sources])+'\n.end\n'
     return text
 
@@ -165,10 +180,21 @@ def measure(result,t):
 def simulate(p,t,executable,directory,subcircuit_path=None,ports=None,progress=lambda *_:None):
     from .engines import run_deck
     directory=Path(directory);directory.mkdir(parents=True,exist_ok=True)
-    if subcircuit_path is None:
-        subcircuit_path=directory/'schematic.spice';atomic_write(subcircuit_path,native_subcircuit(p,t['dut_cell']))
-    path=directory/'testbench.cir';atomic_write(path,deck(p,t,subcircuit_path,ports))
-    r=run_deck(p,t['bench_cell'],{'type':'deck','deck':str(path)},executable,directory,progress);r['x_label']={'tran':'Time (s)','op':'Operating point','ac':'Frequency (Hz)','dc':'Source value'}[t['analysis']['type']]
+    if p.get('spice', {}).get('version') == 1 and subcircuit_path is None:
+        from .engines import run_ngspice
+        q = clone(p)
+        if t.get('initial_conditions'):
+            fixture = next(c for c in q['cells'] if c['id'] == t['bench_cell'])
+            fixture.setdefault('spice_statements', []).append('.ic ' + ' '.join('v(' + n + ')=' + str(scalar(v)) for n,v in t['initial_conditions'].items()))
+        r = run_ngspice(q,t['bench_cell'],t['analysis'],executable,directory,progress)
+        # Initial conditions belong to the saved testbench, already part of p.
+        from .model import design_digest
+        r['design_hash'] = design_digest(p)
+    else:
+        if subcircuit_path is None:
+            subcircuit_path=directory/'schematic.spice';atomic_write(subcircuit_path,native_subcircuit(p,t['dut_cell']))
+        path=directory/'testbench.cir';atomic_write(path,deck(p,t,subcircuit_path,ports))
+        r=run_deck(p,t['bench_cell'],{'type':'deck','deck':str(path)},executable,directory,progress);r['x_label']={'tran':'Time (s)','op':'Operating point','ac':'Frequency (Hz)','dc':'Source value'}[t['analysis']['type']]
     from .interchange import spice_name
     fixture=next(c for c in p['cells'] if c['id']==t['bench_cell'])
     for d in fixture['devices']:
@@ -176,6 +202,8 @@ def simulate(p,t,executable,directory,subcircuit_path=None,ports=None,progress=l
             for field in ('currents','current_phase'):
                 if spice_name(d).lower() in r.get(field,{}):r[field][d['name'].lower()]=r[field][spice_name(d).lower()]
     r['testbench_id']=t['id'];r['settings']=clone(t['analysis']);r['measurements']=measure(r,t);r['warnings']=['Saved testbench: '+t['name']+'. '+('Extracted circuit' if ports else 'Schematic circuit')+'.']
+    from .specifications import evaluate_rows
+    r['specifications']=evaluate_rows(t.get('specifications',fixture.get('specifications',[])),r)
     atomic_write(directory/'result.json',json.dumps(r,allow_nan=False));return r
 
 

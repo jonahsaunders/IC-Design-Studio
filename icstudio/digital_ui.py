@@ -11,7 +11,7 @@ from PySide6.QtGui import QPainter, QColor, QPen, QFontDatabase, QSyntaxHighligh
 from PySide6.QtWidgets import (QDialog, QWidget, QVBoxLayout, QHBoxLayout, QLabel,
     QPushButton, QLineEdit, QComboBox, QPlainTextEdit, QListWidget, QListWidgetItem,
     QTabWidget, QSplitter, QFormLayout, QFileDialog, QInputDialog, QScrollArea,
-    QDialogButtonBox, QMessageBox, QDockWidget)
+    QDialogButtonBox, QMessageBox, QDockWidget, QMenu)
 
 from . import digital, digital_flow
 from .digital_waveform import value_at, format_value
@@ -299,30 +299,31 @@ class DigitalFlowWindow(QDockWidget):
         from .digital_setup_ui import show
         return show(self.studio,custom=self.configure_custom_tools)
 
+    def ensure_tools(self, continuation, description='your run'):
+        from .digital_setup_ui import ensure
+        return ensure(self,continuation,description)
+
     def configure_custom_tools(self):
-        dialog = QDialog(self); dialog.setWindowTitle('Digital tools'); layout = QVBoxLayout(dialog); form = QFormLayout(); layout.addLayout(form); edits = {}
-        note = QLabel('Leave every path empty to use the verified included runtime. Setting any custom path selects your external toolchain, with remaining tools discovered on PATH. Custom Verilator needs a C++ compiler and make.'); note.setWordWrap(True); layout.addWidget(note)
-        for name in ('iverilog','vvp','verilator','verilator_coverage','yosys','eqy','sby','bitwuzla','sta','openroad','make','klayout'):
-            edit = QLineEdit(self.studio.settings.value('engine/'+name,'')); edit.setAccessibleName(name+' executable'); form.addRow(name,edit); edits[name] = edit
-        buttons = QDialogButtonBox(QDialogButtonBox.Save|QDialogButtonBox.Cancel); layout.addWidget(buttons); buttons.accepted.connect(dialog.accept); buttons.rejected.connect(dialog.reject)
-        if dialog.exec():
-            for name, edit in edits.items(): self.studio.settings.setValue('engine/'+name, edit.text().strip())
+        from .digital_setup_ui import configure_custom_tools
+        return configure_custom_tools(self.studio,self)
 
     def run(self):
         if not self.apply(): return
         if self.studio.process and self.studio.process not in self.studio.run_manager.processes:
             raise ValueError('Wait for the external job to finish first.')
-        tools = self.workspace.tools()
+        if not self.ensure_tools(self.run,'the selected stage'): return
+        from .digital_tools import selection
         from .digital_planning import latest_upstream
         upstream = self.selected_run() if self.workspace.use_selected.isChecked() else latest_upstream(
             self.studio.run_manager.rows, self.studio.project, self.cell_id, self.stage.currentData())
-        job = digital_flow.prepare(self.studio.project, self.stage.currentData(), self.simulator.currentData(), tools,
-            cell_id=self.cell_id,upstream=upstream['path'] if upstream else None,orfs=self.studio.settings.value('digital/orfs',''))
+        job = digital_flow.prepare(self.studio.project, self.stage.currentData(), self.simulator.currentData(),
+            cell_id=self.cell_id,upstream=upstream['path'] if upstream else None,**selection(self.studio.settings))
         row = self.studio.run_manager.enqueue(job, self.studio.jobs_dir, 'Digital '+self.stage.currentText().lower())
         self.refresh_runs(); self.runs.setCurrentIndex(self.runs.findData(row['id'])); self.reveal_results()
         return row
 
     def refresh_runs(self):
+        if self.studio.project['id'] != self.project_id: return
         selected = self.runs.currentData(); self.runs.blockSignals(True); self.runs.clear()
         for row in self.studio.run_manager.rows:
             if row['job']['settings'].get('type') == 'digital' and row['job']['project']['id'] == self.project_id and row['job']['cell']==self.cell_id:
@@ -461,13 +462,12 @@ class DigitalMixin:
 
     def prepare_simulation(self,settings,engine='builtin',project=None,cid=None):
         if engine!='digital':return super().prepare_simulation(settings,engine,project,cid)
-        from .digital_workspace import TOOL_NAMES
+        from .digital_tools import selection
         p=clone(project or self.project);cid=cid or self.cid;case=settings.get('digital_case',{})
         config=clone(cell_config(p,cid));config.pop('tests',None)
         config.update(testbench=case['testbench'],defines={**config.get('defines',{}),**case.get('defines',{})},coverage=case.get('coverage',False))
         set_config(p,cid,config)
-        tools={name:self.settings.value('engine/'+name,'') for name in TOOL_NAMES}
-        job=digital_flow.prepare(p,'simulate',case.get('simulator','icarus'),tools,cell_id=cid)
+        job=digital_flow.prepare(p,'simulate',case.get('simulator','icarus'),cell_id=cid,**selection(self.settings))
         job['settings']['digital_case']=clone(case)
         return job
 
@@ -553,7 +553,9 @@ class DigitalMixin:
 
 
 def install(studio):
-    menu = studio.menuBar().addMenu('Digital')
+    menu = QMenu('D&igital',studio)
+    studio.menuBar().insertMenu(studio.task_menus['Tools'].menuAction(),menu)
+    studio.task_menus['Digital']=menu
     studio.action(menu, 'Digital flow…', studio.digital_window)
     studio.action(menu, 'New digital counter example', studio.new_digital_counter)
     studio.action(menu, 'New UART regression example', studio.new_digital_uart)

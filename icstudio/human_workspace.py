@@ -229,7 +229,7 @@ class HumanWorkspaceMixin(GridSettingsMixin):
                 for action in menu.actions():
                     if action not in self._menu_action_refs:self._menu_action_refs.append(action)
             except RuntimeError:pass
-        for name, menu in self.task_menus.items(): visit(menu, name)
+        for name, menu in self.task_menus.items(): visit(menu, menu.title().replace('&',''))
         self._commands = entries
 
     def ribbon_button(self, layout, text, command, glyph, tool=None):
@@ -429,8 +429,7 @@ class HumanWorkspaceMixin(GridSettingsMixin):
         self.mode_combo.setCurrentIndex(mode)
         self.nav.show();self.inspector.show();self.results_dock.setVisible(name in ('Simulation','Review'))
         if hasattr(self,'workflow_dock'):
-            self.tabifyDockWidget(self.results_dock,self.workflow_dock);self.workflow_dock.setVisible(name!='Simulation')
-            (self.results_dock if name=='Simulation' else self.workflow_dock).raise_()
+            self.workflow_dock.hide()
         self.navtabs.setCurrentIndex(2 if mode==1 else 0)
         self.inspector_tabs.setCurrentIndex(1 if name=='Simulation' else 0)
         if name=='Review': self.results_tabs.setCurrentIndex(1)
@@ -441,7 +440,12 @@ class HumanWorkspaceMixin(GridSettingsMixin):
         self.sync_panel_buttons();self.sync_tools()
         self.statusBar().showMessage(name+' workspace · customize from Window',5000)
 
-    def reset_workspace(self): self.apply_workspace_preset('Schematic')
+    def reset_workspace(self):
+        # A reset restores the editor, including when a modeless assistant is open.
+        for name in ('analog_workspace',):
+            window=getattr(self,name,None)
+            if window:window.close()
+        self.apply_workspace_preset('Schematic')
 
     def configure_windows(self):
         dlg=QDialog(self);dlg.setWindowTitle('Configure windows');dlg.resize(520,380)
