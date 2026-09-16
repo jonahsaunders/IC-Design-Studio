@@ -4,7 +4,7 @@
 
 <p align="center">
   <strong>An open desktop workspace for circuit design.</strong><br>
-  Draw schematics, simulate circuits and RTL, implement digital blocks, and review designs together.<br>
+  Draw schematics, optimize analog circuits, simulate RTL, implement digital blocks, and review designs together.<br>
   Keep your cells, sources, models, testbenches, layouts, and results in one project.
 </p>
 
@@ -19,6 +19,7 @@
   <a href="#start-in-three-steps"><strong>Get started</strong></a> &nbsp;·&nbsp;
   <a href="docs/DOWNLOADS.md">Downloads</a> &nbsp;·&nbsp;
   <a href="#explore-the-workspace">Feature tour</a> &nbsp;·&nbsp;
+  <a href="#design-and-optimize-analog-circuits">Analog design</a> &nbsp;·&nbsp;
   <a href="#design-digital-blocks-from-rtl-to-gds">Digital design</a> &nbsp;·&nbsp;
   <a href="#create-and-characterize-spiral-inductors">Inductor creator</a> &nbsp;·&nbsp;
   <a href="#feature-reference">All features</a> &nbsp;·&nbsp;
@@ -38,10 +39,6 @@
 </p>
 
 ## Explore the workspace
-
-The [analog design workspace](docs/ANALOG_WORKSPACE.md) brings design variables,
-test plans, saved-run debugging, device generation, layout updates, and physical
-verification together. Open it from **Analysis → Analog design workspace**.
 
 Start with a small circuit, or bring an existing open design. Local design work needs no account or hosted service. The native `.icproj` format keeps editable documents and revision-linked evidence together.
 
@@ -81,6 +78,34 @@ Start with a small circuit, or bring an existing open design. Local design work 
 </td>
 </tr>
 </table>
+
+### Design and optimize analog circuits
+
+Open **Analysis → Analog design workspace** to take an analog circuit from design goals through sizing, simulation, layout updates, and verification. **Setup**, **Results matrix**, **Optimize**, **Layout and constraints**, and **Verification runs** keep the workflow connected to your editable circuit and its saved evidence.
+
+[![Analog circuit search with bounded parameters, multiple objectives, and saved candidate trade-offs.](docs/images/analog-workspace/adaptive-tradeoffs.png)](docs/ANALOG_OPTIMIZER.md)
+
+<sub>Adaptive search and candidate review in the analog workspace. Each candidate retains its simulation inputs, measurements, and failures for inspection.</sub>
+
+| Work on a circuit | What the workspace provides |
+|---|---|
+| **Set goals and tests** | Guided amplifier, differential-pair, and current-mirror fixtures; editable testbenches; design variables and measurement limits; process/voltage/temperature (PVT) plans |
+| **Search and size** | Bounded adaptive, constrained Bayesian, experimental Gaussian-process, or grid search; matching/ratio links; up to three objectives with Pareto trade-offs; gm/Id and bias limits |
+| **Characterize devices** | In-circuit gm/Id sweeps; reusable isolated-device characterization; measured length/bias comparisons; initial sizing suggestions and separate SPICE sizing checks |
+| **Investigate performance** | Saved-circuit and waveform inspection; failed-requirement navigation; local and global sensitivity; robustness studies; ngspice noise, poles/zeros, startup, and loop-gain diagnostics |
+| **Verify and apply** | Ordered verification stages, bounded retries, exact-result reuse, and coarse/full SPICE refinement; review and undoable application of passing candidates; linked layout updates and schematic/extracted comparison |
+
+**Try it:**
+
+1. Open **Setup → Guided design setup**, select a supported circuit template, map the DUT ports, and enter your goals. **Add teaching example** supplies an editable generic DUT if you are starting from an empty project. Preview and create the generated analyses, testbenches, and PVT plan.
+2. In **Optimize → Circuit search**, select the saved plan, choose the parameter cell and bounds, set an objective and simulation budget, then choose **Run search**. Use **Optimize → gm/Id explorer** for operating-point sweeps or its **Device characterization library** for initial sizing.
+3. Inspect each candidate's measurements and failed requirements. After the search finishes, **Apply selected candidate** is available for a passing candidate whose original design still matches. Review layout changes and run physical verification after changing the circuit.
+
+The optimizer uses the existing simulators and needs no extra optimization package. Guided native testbenches and process-model characterization use ngspice; process work also needs suitable model assets. The included teaching solver supports local experiments with a limited square-law MOS model, without subthreshold current, body effect, or device capacitances. Search predictions and initial sizing estimates require simulation verification; a passing candidate is limited to the saved tests and conditions. Physical verification still needs matching process assets and engines.
+
+Closing the workspace returns to the editor while queued jobs continue. Interrupted searches remain paused after an application restart until explicitly resumed.
+
+[Workspace setup, debugging, and layout](docs/ANALOG_WORKSPACE.md) · [Optimizer, gm/Id, and characterization](docs/ANALOG_OPTIMIZER.md) · [Advanced analyses and verification automation](docs/ANALOG_OPTIMIZER.md#advanced-analyses) · [Detailed analog feature inventory](#analog-design-optimization-and-verification).
 
 ### Design digital blocks from RTL to GDS
 
@@ -174,6 +199,7 @@ Use the searchable example gallery to get moving, then arrange the workspace aro
 | Your next step | Where to go |
 |---|---|
 | Try another circuit | [Nine guided examples](examples/README.md) |
+| Design and optimize an analog circuit | **Analysis → Analog design workspace → Setup → Guided design setup** · [Analog feature tour](#design-and-optimize-analog-circuits) |
 | Design a digital block | **Digital → New digital counter example**, **New UART regression example**, or **New APB FIFO peripheral** · [Digital flow guide](docs/DIGITAL_FLOW.md) |
 | Create a spiral inductor | **Tools → Inductor creator…** · [Creation, target-L search and EM simulation](#create-and-characterize-spiral-inductors) |
 | Use real transistor models | [Open PDK setup](docs/PDK_GUIDE.md) |
@@ -268,20 +294,28 @@ Expand a category for the detailed inventory. Features requiring an external eng
 
 </details>
 
+<a id="analog-design-optimization-and-verification"></a>
 <details>
-<summary><strong>Testbenches, characterization, and design studies</strong></summary>
+<summary><strong>Analog design, optimization, and verification</strong></summary>
 
 | Capability | Included tools |
 |---|---|
+| Workspace and guided setup | Project variables and measurement limits; editable amplifier, differential-pair, and current-mirror fixtures; generated analyses, testbenches, and PVT plans; retained setup drafts |
 | Reusable tests | Saved circuit testbenches; configured analyses and stimuli; repeatable measurements; specification limits and pass/fail results |
 | Variation | Parameter sweeps; process/voltage/temperature matrices; seeded Monte Carlo parameter variation; technology-declared statistical bindings; individual case review, editing, and enable/disable controls |
-| Exploration | Finite-difference sensitivity; bounded sampled parameter search; review and undo when applying a candidate |
+| Circuit search | Adaptive sensitivity-first, constrained Bayesian, experimental Gaussian-process, and exhaustive-grid methods; 1–8 parameter axes; linear/log/integer spacing; matching/ratio links; up to three objectives and measured Pareto candidates; gm/Id and bias limits |
+| Candidate review and recovery | Worst-condition ranking; captured parameters and requirements; failed-waveform and saved-hierarchy navigation; pause/resume and reusable experiment settings; full-precision CSV export; design-identity checks and undoable application |
+| gm/Id and device characterization | Captured operating-point sweeps; isolated-device cache tied to model and engine identities; measured current density, conductance, intrinsic gain/capacitance/speed where available; length comparisons; sizing suggestions and separate SPICE verification |
+| Sensitivity and robustness | Local finite differences; Morris and Sobol global sensitivity; bounded worst-condition search; user-declared tolerances; explicitly validated PDK statistical bindings; saved conditions, assumptions, and reports |
+| Electrical diagnostics | ngspice noise contributors, poles/zeros, supply-ramp startup, and loop gain from a user-built injection fixture; captured device bias across conditions; saved decks and source evidence |
 | Verification plans | Multiple tests and operating conditions; parallel job execution; saved-input resume/retry; baseline deltas; requirement matrices, margins, and distributions; CSV reports |
+| Verification automation | Operating-point screening; ordered test stages; bounded retries and worker-time budgets; identity-checked exact-result reuse; coarse/full SPICE refinement with full-resolution finalist verification; portable JSON reports |
+| Layout connection | Device placement and regeneration; schematic-change review; matching and multi-group common-centroid constraints; unrouted-connection inspection |
 | Physical comparison | Schematic versus post-layout measurements; extracted-SPICE testbenches; retained DRC/LVS stages and failure evidence |
 
-Monte Carlo varies declared parameters; it does not imply foundry statistical mismatch qualification. Parameter search evaluates bounded samples.
+**Scope:** circuit searches use a finite simulation budget, with at most 500 jobs. Passing candidates must satisfy every required saved test and PVT condition; predictions and coarse runs cannot establish full-resolution passing performance. Missing model vectors remain unavailable, intrinsic device speed is not circuit bandwidth, and sampled tolerance/statistical pass fractions do not establish manufacturing yield. Updated sizing needs fresh layout/extracted verification.
 
-[Test plans](docs/PROFESSIONAL_WORKFLOWS.md) · [Studies and search](docs/UPDATE_0.20.md)
+[Analog workspace](docs/ANALOG_WORKSPACE.md) · [Optimizer and device characterization](docs/ANALOG_OPTIMIZER.md) · [Advanced analyses](docs/ANALOG_OPTIMIZER.md#advanced-analyses) · [Test plans](docs/PROFESSIONAL_WORKFLOWS.md)
 
 </details>
 
@@ -411,7 +445,9 @@ Bundled analog simulation subsets contain models and symbols; analog physical ve
 
 ## Project status
 
-The experimental branch includes the [main-window digital workspace](docs/DIGITAL_WORKSPACE.md) and [integrated RTL-to-GDS flow](docs/DIGITAL_FLOW.md), including resumable targets, structured constraints, indexed waveforms, and linked source/timing/physical inspection. See the [digital feature tour](#design-digital-blocks-from-rtl-to-gds) for an entry point.
+The experimental branch includes the [analog design workspace](docs/ANALOG_WORKSPACE.md) and [analog optimizer](docs/ANALOG_OPTIMIZER.md): guided setup, bounded circuit search, gm/Id characterization, advanced analyses, and verification automation. Start with the [analog feature tour](#design-and-optimize-analog-circuits); the guides document simulator/model limits and validation scope.
+
+It also includes the [main-window digital workspace](docs/DIGITAL_WORKSPACE.md) and [integrated RTL-to-GDS flow](docs/DIGITAL_FLOW.md), including resumable targets, structured constraints, indexed waveforms, and linked source/timing/physical inspection. See the [digital feature tour](#design-digital-blocks-from-rtl-to-gds) for an entry point.
 
 **0.22.0.dev23 is an engineering preview.** The [inductor design update](docs/UPDATE_0.22_DEV23.md) adds five shapes, target-L synthesis, background validation, optional DC series RL and EM characterization exchange with reusable PDK material/layer profiles. It includes the earlier [workflow and recovery improvements](docs/UPDATE_0.22_DEV21.md). [Release status](docs/RELEASE_STATUS.md) records validation and package status.
 
