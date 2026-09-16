@@ -3,6 +3,7 @@
 Build assets with scripts/build_vga_playground.py before running this test.
 """
 import json
+import faulthandler
 import os
 from pathlib import Path
 import sys
@@ -17,6 +18,7 @@ os.environ['XDG_CONFIG_HOME'] = str(OUT / 'profile/config')
 
 
 def main():
+    faulthandler.enable()
     from PySide6.QtWidgets import QApplication
     from PySide6.QtCore import Qt
     from PySide6.QtTest import QTest
@@ -35,6 +37,7 @@ def main():
     studio = Studio(recover=False); studio.error = errors.append
     studio.set_project(counter_project()); studio.resize(1440, 960); studio.show()
     window = studio.digital_window(); window.show_vga(); preview = window.vga
+    print('VGA view opened', flush=True)
 
     def wait(condition, seconds=45):
         end = time.monotonic() + seconds
@@ -53,10 +56,12 @@ def main():
         return json.loads(js('JSON.stringify(window.icstudioVga.status)'))
 
     wait(lambda: preview.ready)
+    print('VGA bridge ready', flush=True)
     assert len(preview.presets) == 8
     original_cell = window.cell_id
     cells = len(studio.project['cells'])
     preview.create_cell()
+    print('VGA cell created', flush=True)
     wait(lambda: state()['state'] == 'running')
     wait(lambda: state()['frames'] > 1)
     assert window.cell_id != original_cell and len(studio.project['cells']) == cells + 1

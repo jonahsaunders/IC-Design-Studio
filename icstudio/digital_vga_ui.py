@@ -18,6 +18,7 @@ class VGAPlayground(QWidget):
         self.server = None
         self.view = None
         self.ready = False
+        self.loaded_ok = False
         self.closed = False
         self.last_inputs = None
         self.presets = []
@@ -79,8 +80,8 @@ class VGAPlayground(QWidget):
             self.view.setContextMenuPolicy(Qt.NoContextMenu)
             self.profile = QWebEngineProfile(self.view)  # Off the record: no browsing state on disk.
             self.interceptor = LocalRequests(self.profile); self.profile.setUrlRequestInterceptor(self.interceptor)
-            page = LocalPage(self.profile, self.view); self.view.setPage(page)
-            page.renderProcessTerminated.connect(self.renderer_stopped)
+            self.page = LocalPage(self.profile, self.view); self.view.setPage(self.page)
+            self.page.renderProcessTerminated.connect(self.renderer_stopped)
             self.view.loadFinished.connect(self.loaded)
             self.content.addWidget(self.view)
             self.deadline = time.monotonic() + 30
@@ -95,13 +96,14 @@ class VGAPlayground(QWidget):
 
     def loaded(self, success):
         if self.closed: return
+        self.loaded_ok = success
         if not success:
             self.note.setText('VGA Playground could not load. Reload the preview to try again.')
             self.poll.stop(); return
         self.poll_status()
 
     def poll_status(self):
-        if not self.view or self.closed: return
+        if not self.view or self.closed or not self.loaded_ok: return
         expression = 'window.icstudioVga && JSON.stringify(window.icstudioVga.' + ('status' if self.ready else 'presets') + ')'
         self.view.page().runJavaScript(expression, self.receive_status)
 
@@ -164,7 +166,7 @@ class VGAPlayground(QWidget):
         self.note.setText('The VGA renderer stopped. Your sources are still in Studio. Reload the preview to continue.')
 
     def reload(self):
-        self.last_inputs = None; self.ready = False; self.create.setEnabled(False)
+        self.last_inputs = None; self.ready = False; self.loaded_ok = False; self.create.setEnabled(False)
         self.deadline = time.monotonic() + 30
         if self.view: self.view.reload()
         else: self.start()
