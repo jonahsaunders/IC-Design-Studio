@@ -26,6 +26,10 @@ else:
  check_ngspice(engine)
  os.environ['ICSTUDIO_BUNDLED_NGSPICE']=engine
 from icstudio.build_identity import identity
+from icstudio.digital_vga import REVISION as vga_revision
+vga_assets=root/'build/vga-playground/dist'
+if not (vga_assets/'icstudio-build.json').is_file() or json.loads((vga_assets/'icstudio-build.json').read_text())['revision']!=vga_revision:
+ raise ValueError('Build the pinned VGA Playground before packaging: python scripts/build_vga_playground.py')
 build=identity()
 if build['commit']=='unknown' or build['dirty'] is not False:
  subprocess.run(['git','status','--short','--untracked-files=normal'],cwd=root,check=False)
@@ -36,6 +40,7 @@ metadata=dict(ENGINE_SOURCE_HASH=hashlib.sha256((root/'icstudio'/'simulation.py'
 (root/'icstudio'/'build_info.py').write_text(''.join(key+' = '+repr(value)+'\n' for key,value in metadata.items()))
 args=[sys.executable,'-m','PyInstaller','--noconfirm','--clean','--name','ICDesignStudio','--windowed','--onedir','--collect-all','klayout','--add-data',f'{root/"icstudio"/"assets"}{os.pathsep}icstudio/assets','--hidden-import','PySide6.QtSvg','--hidden-import','icstudio.cli','--hidden-import','icstudio.sdk','--add-data',f'{root/"docs"}{os.pathsep}docs','--add-data',f'{root/"examples"}{os.pathsep}examples','--add-data',f'{root/"licenses"}{os.pathsep}licenses']
 args+=['--recursive-copy-metadata','cryptography']
+args+=['--hidden-import','PySide6.QtWebEngineWidgets','--add-data',f'{vga_assets}{os.pathsep}icstudio/assets/vga-playground']
 engine=os.environ.get('ICSTUDIO_BUNDLED_NGSPICE')
 if engine:
  if not Path(engine).is_file():raise ValueError('ICSTUDIO_BUNDLED_NGSPICE must name the engine binary for this build platform.')

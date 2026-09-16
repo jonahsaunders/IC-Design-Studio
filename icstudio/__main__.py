@@ -23,8 +23,9 @@ def main():
         from .desktop_acceptance import main as acceptance
         return acceptance(sys.argv[sys.argv.index('--desktop-acceptance')+1])
     from PySide6.QtWidgets import QApplication
-    from PySide6.QtCore import QTimer
+    from PySide6.QtCore import QTimer, Qt
     from .gui import Studio
+    QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
     app=QApplication(sys.argv);app.setApplicationName('IC Design Studio');app.setOrganizationName('ICDesignStudio');app.setStyle('Fusion');window=Studio(recover=False)
     if '--project' in sys.argv:
         from .model import load_project

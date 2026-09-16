@@ -14,6 +14,26 @@ Exact wheel requirements are in requirements.txt. Dynamic Qt libraries can be re
 
 Review licenses and provide continuing equivalent access to complete corresponding source for the versions you distribute before a public/commercial release. This delivery has not completed the blueprint's independent legal/compliance release review.
 
+## VGA Playground
+
+The digital VGA preview uses Tiny Tapeout VGA Playground at commit
+`3e3c77e46ae7bd51609f680851aabb81a30564a6` (GPL-3.0), including its
+8bitworkshop-derived simulator. The native-editor adapter is part of Studio's
+GPL-3.0-or-later source. Upstream: https://github.com/TinyTapeout/vga-playground/tree/3e3c77e46ae7bd51609f680851aabb81a30564a6.
+The preset Verilog retains its Apache-2.0 headers and license texts; common
+modules retain their separate upstream notices.
+
+The build includes adapted upstream sources in `vga-playground-source.zip`,
+the GPL text and dependency notices under the preview's `licenses/` directory.
+It uses the upstream-provided Verilator WebAssembly artifact; Verilator is
+LGPL-3.0 OR Artistic-2.0 (https://github.com/verilator/verilator). Binaryen is
+Apache-2.0 (https://github.com/WebAssembly/binaryen); dependency versions are
+recorded in the included upstream package-lock.json. Qt WebEngine/Chromium
+component licenses and corresponding sources are supplied by the matching Qt
+6.8.3 distribution linked above. The upstream WASM compiler's complete build
+provenance is not established by the Studio adapter; retain the upstream source
+and component notices when redistributing it.
+
 ## Optional SKY130 reference evidence
 
 The separately supplied SKY130 reference bundle contains a subset of the SkyWater open PDK and generated derivatives of its inverter. Copyright 2020 The SkyWater PDK Authors and other notices retained in the original files. These assets are distributed under Apache-2.0; see licenses/Apache-2.0.txt and their file headers. The app's reference fetch script points to the pinned upstream Volare distribution. Magic and Netgen used for verification are external tools. ngspice is included in the 0.18 desktop packages.
