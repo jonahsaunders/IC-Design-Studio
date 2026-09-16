@@ -48,13 +48,17 @@ class Section(QWidget):
             if on_toggle:on_toggle(on)
         self.button.toggled.connect(toggle)
 
-class WindowThemeFilter(QObject):
+class WindowThemeObserver(QObject):
     def __init__(self, parent):
         super().__init__(parent);self.dark=True
-    def eventFilter(self,obj,event):
-        if event.type()==QEvent.Show and isinstance(obj,QWidget) and obj.isWindow():
-            apply_native_window_theme(obj,self.dark)
-        return False
+        # A global Python event filter forces PySide to wrap WebEngine's private
+        # QObjects. In Qt 6.8 this can recursively emit DynamicPropertyChange
+        # while creating the wrapper and crash before eventFilter is entered.
+        # Observe top-level focus instead; native title bars need only windows.
+        parent.focusWindowChanged.connect(self.refresh)
+    def refresh(self,*_):
+        for window in self.parent().topLevelWidgets():
+            if window.isVisible():apply_native_window_theme(window,self.dark)
 
 class WorkspaceMixin:
     def __init__(self,*args,**kwargs):
@@ -173,7 +177,7 @@ class WorkspaceMixin:
         for role,value in [(QPalette.Window,t['panel']),(QPalette.Base,t['field']),(QPalette.AlternateBase,t['bg']),(QPalette.WindowText,t['text']),(QPalette.Text,t['text']),(QPalette.Button,t['panel']),(QPalette.ButtonText,t['text']),(QPalette.Highlight,t['tint']),(QPalette.HighlightedText,t['accent']),(QPalette.ToolTipBase,t['panel']),(QPalette.ToolTipText,t['text'])]:q.setColor(role,QColor(value))
         app=QApplication.instance();app.setPalette(q)
         if not hasattr(app,'studio_window_theme'):
-            app.studio_window_theme=WindowThemeFilter(app);app.installEventFilter(app.studio_window_theme)
+            app.studio_window_theme=WindowThemeObserver(app)
         app.studio_window_theme.dark=self.dark
         for window in app.topLevelWidgets():
             if window.isVisible():apply_native_window_theme(window,self.dark)

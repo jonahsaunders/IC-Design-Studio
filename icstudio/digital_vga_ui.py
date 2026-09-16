@@ -78,7 +78,9 @@ class VGAPlayground(QWidget):
             self.view = QWebEngineView(self)
             self.view.setAccessibleName('Interactive VGA display and inputs')
             self.view.setContextMenuPolicy(Qt.NoContextMenu)
-            self.profile = QWebEngineProfile(self.view)  # Off the record: no browsing state on disk.
+            # Created after the view and parented beside it: destroy the page
+            # before its off-the-record profile during widget teardown.
+            self.profile = QWebEngineProfile(self)
             self.interceptor = LocalRequests(self.profile); self.profile.setUrlRequestInterceptor(self.interceptor)
             self.page = LocalPage(self.profile, self.view); self.view.setPage(self.page)
             self.page.renderProcessTerminated.connect(self.renderer_stopped)
