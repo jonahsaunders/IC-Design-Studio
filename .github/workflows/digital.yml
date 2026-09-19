@@ -1,5 +1,6 @@
 name: Digital flow
 on:
+  workflow_call:
   push:
     branches: [main, experimental]
   pull_request:

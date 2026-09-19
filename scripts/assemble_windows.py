@@ -19,12 +19,17 @@ def main():
     (ROOT/'icstudio/build_info.py').write_text('ENGINE_SOURCE_HASH = '+repr(hashlib.sha256((ROOT/'icstudio/simulation.py').read_bytes()).hexdigest())+'\nWORKFLOW_SOURCE_HASH = '+repr(hashlib.sha256(b''.join(p.name.encode()+p.read_bytes() for p in sorted((ROOT/'icstudio').glob('*.py')) if p.name!='build_info.py')).hexdigest())+'\n')
     for name in ('icstudio','docs','examples','licenses','native','scripts','tests','packaging','.github'):shutil.copytree(ROOT/name,app/name,ignore=ignored)
     for name in ('main.py','requirements.txt','requirements-build.txt','README.md','SIMULATION_SETUP.md','CONTRIBUTING.md','LICENSE','THIRD_PARTY_NOTICES.md'):shutil.copy2(ROOT/name,app/name)
+    from icstudio.digital_vga import REVISION
+    vga=ROOT/'build/vga-playground/dist'
+    if not (vga/'icstudio-build.json').is_file() or json.loads((vga/'icstudio-build.json').read_text())['revision']!=REVISION:
+        raise ValueError('Run python scripts/build_vga_playground.py before assembling the desktop.')
+    shutil.copytree(vga,app/'icstudio/assets/vga-playground')
     runtime=target/'python';runtime.mkdir()
     with zipfile.ZipFile(args.python) as z:z.extractall(runtime)
     pth=next(runtime.glob('python*._pth'));stdlib=next(runtime.glob('python*.zip'));pth.write_text(stdlib.name+'\n.\nLib/site-packages\n../app\nimport site\n',encoding='utf-8')
     site=runtime/'Lib/site-packages';site.mkdir(parents=True)
     wheels=list(args.wheels.glob('*.whl'))
-    if not all(any(w.name.lower().startswith(prefix) for w in wheels) for prefix in ('pyside6_essentials','shiboken6','klayout','cryptography','cffi','pycparser')):raise ValueError('Download all pinned Windows runtime wheels and their dependencies first.')
+    if not all(any(w.name.lower().startswith(prefix) for w in wheels) for prefix in ('pyside6_essentials','pyside6_addons','shiboken6','klayout','cryptography','cffi','pycparser')):raise ValueError('Download all pinned Windows runtime wheels and their dependencies first.')
     for wheel in wheels:
         if not (wheel.name.endswith('-win_amd64.whl') or wheel.name.endswith('-none-any.whl')):raise ValueError('Expected Windows x64 or pure Python wheel: '+wheel.name)
         with zipfile.ZipFile(wheel) as z:z.extractall(site)

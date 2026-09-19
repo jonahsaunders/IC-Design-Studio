@@ -54,7 +54,7 @@ def main():
         assert w.project==before;page.results.selectRow(3);assert page.apply_button.isEnabled();page.inspect_sensitivity(0);assert page.inspector.schematic.selection;page.inspector.close()
         page.budget.setValue(1);page.restore_settings();assert page.budget.value()==7 and page.more_objectives.rowCount()==1
         screenshot(ws,'adaptive-tradeoffs.png');checks.append('Adaptive continuation while workspace hidden, hard budget, multiple Pareto choices and schematic-linked sensitivity')
-        page.open_library();dialog=page.library_dialog;dialog.sweeps['length'].setText('1u');dialog.sweeps['vgs'].setText('.55, .65, .75, .85');dialog.sweeps['vds'].setText('1.8');dialog.start()
+        page.open_library();dialog=page.library_dialog;assert dialog.logicalDpiX()>0;dialog.sweeps['length'].setText('1u');dialog.sweeps['vgs'].setText('.55, .65, .75, .85');dialog.sweeps['vds'].setText('1.8');dialog.start()
         wait(lambda:dialog.data and dialog.data['complete']);assert all(p['status']=='Passed' for p in dialog.data['points']),dialog.note.text()
         dialog.query['gmid'].setText('10');dialog.estimate();assert dialog.estimates;before=clone(w.project);dialog.seed();assert w.project==before
         assert page.axes.rowCount()==2 and page.seed_values;count=len(w.run_manager.rows);dialog.start();assert len(w.run_manager.rows)==count and 'Reused' in dialog.note.text()

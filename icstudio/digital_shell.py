@@ -88,7 +88,7 @@ class DigitalShell(QObject):
         self.tools_button.setAccessibleName('Digital tools and setup')
         controls.addStretch(); self.button(controls, 'Constraints', window.workspace.constraints, 'settings')
         more = QToolButton(); more.setText('More'); more.setPopupMode(QToolButton.InstantPopup); menu = QMenu(more)
-        for text, callback in (('Language server…', lambda:window.language.start()), ('Stop language server', lambda:window.language.stop()), ('Remove source', window.remove_file), ('Reload saved sources', window.reload_sources), ('Physical settings…', window.workspace.physical_settings), ('Regression cases…', window.workspace.test_cases),
+        for text, callback in (('VGA Playground', window.show_vga), ('Language server…', lambda:window.language.start()), ('Stop language server', lambda:window.language.stop()), ('Remove source', window.remove_file), ('Reload saved sources', window.reload_sources), ('Physical settings…', window.workspace.physical_settings), ('Regression cases…', window.workspace.test_cases),
                                ('Tools and setup…', window.configure_tools), ('Jobs folder…', window.workspace.jobs_folder),
                                ('Publish symbol', window.workspace.publish), ('Attach implemented macro', window.workspace.attach_layout),
                                ('Export implemented macro…', window.workspace.export_macro), ('Export flow bundle…', window.export), ('Reset digital layout', self.reset_layout)):

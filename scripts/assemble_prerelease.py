@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from icstudio import __version__
 from scripts.prepare_release_payload import checksum, require
+from scripts.verify_packaged_vga import validate as validate_vga
 
 
 def assemble(inputs, output, commit):
@@ -26,10 +27,12 @@ def assemble(inputs, output, commit):
                 'Duplicate or unsupported platform')
         platforms.add(data['platform'])
         require(data['distribution']['status'] == 'passed', 'Archive execution is not qualified')
+        validate_vga(data['distribution'].get('vga', {}), commit)
         require(data['assets'].get(data['distribution']['archive']) == data['distribution']['archive_sha256'],
                 'Archive execution and payload hashes differ')
         if data['platform'] == 'Windows':
             require(data['installer']['status'] == 'passed', 'Windows installer execution is not qualified')
+            validate_vga(data['installer'].get('vga', {}), commit)
         for name, expected in data['assets'].items():
             require(Path(name).name == name and name not in files, 'Invalid or duplicate asset name')
             path = record.parent / name

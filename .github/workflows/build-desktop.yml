@@ -82,12 +82,17 @@ jobs:
         run: python scripts/qualify_digital_runtime.py
       - name: Install dependencies
         run: python -m pip install -r requirements-build.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Build pinned offline VGA Playground
+        run: python scripts/build_vga_playground.py --test
       - name: Install Linux simulation engine and desktop runtime
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y ngspice xschem libegl1 libopengl0 libgl1 libglx0 libglvnd0 \
-            libx11-6 libxcb1 libxcb-image0 libxcb-xkb1 libxcb-cursor0 \
+            libx11-6 libxtst6 libxkbfile1 libnss3 libasound2t64 libxcb1 libxcb-image0 libxcb-xkb1 libxcb-cursor0 \
             libxcb-keysyms1 libxcb-render-util0 libxcb-icccm4 libxcb-util1 \
             libxcb-shape0 libxkbcommon-x11-0 xvfb xauth openbox x11-utils libgl1-mesa-dri libglx-mesa0 \
             build-essential cmake libhdf5-dev libvtk9-dev libboost-all-dev libcgal-dev libtinyxml-dev
@@ -399,6 +404,8 @@ jobs:
             build/optimizer-refinement-evidence
             build/analog-advanced-evidence
             build/digital-frozen-evidence
+            build/distribution-evidence/vga
+            build/windows-evidence/vga
             build/digital-first-run-ui
             build/windows-evidence/install.log
             build/windows-evidence/uninstall.log

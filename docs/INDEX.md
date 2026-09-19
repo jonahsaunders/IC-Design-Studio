@@ -4,6 +4,12 @@ Start with [Getting started](GETTING_STARTED.md), [real open-project imports](OP
 
 ## Guides and reference
 
+- [Analog design workspace](ANALOG_WORKSPACE.md)
+- [Analog optimization and verification](ANALOG_OPTIMIZER.md)
+- [Digital workspace](DIGITAL_WORKSPACE.md)
+- [Offline VGA Playground](VGA_PLAYGROUND.md)
+- [Native desktop acceptance](NATIVE_DESKTOP_ACCEPTANCE.md)
+
 - [Architecture and current extensions](ARCHITECTURE.md)
 - [Six-case GF180 bandgap compatibility test](BANDGAP_COMPATIBILITY.md)
 - [Get IC Design Studio](DOWNLOADS.md)
@@ -21,8 +27,8 @@ Start with [Getting started](GETTING_STARTED.md), [real open-project imports](OP
 - [Open PDK setup](PDK_GUIDE.md)
 - [Engineering workflows](PROFESSIONAL_WORKFLOWS.md)
 - [Project Hub](PROJECT_HUB.md)
-- [Release follow-up issue drafts](RELEASE_FOLLOWUPS.md)
-- [Release status — 0.22.0.dev20 candidate](RELEASE_STATUS.md)
+- [Release acceptance tracking](RELEASE_FOLLOWUPS.md)
+- [Current release status](RELEASE_STATUS.md)
 - [Preparing and publishing a release](RELEASING.md)
 - [Recovery of submitted review actions](REVIEW_RECOVERY.md)
 - [The path forward](ROADMAP.md)
@@ -37,6 +43,7 @@ Start with [Getting started](GETTING_STARTED.md), [real open-project imports](OP
 
 These documents retain their original version scope. New notes explicitly supersede older behavior; historical test results do not qualify a new release.
 
+- [IC Design Studio 0.22.0.dev24 — packaged VGA qualification](UPDATE_0.22_DEV24.md)
 - [Layout capability matrix — 0.11.0](CAPABILITY_MATRIX_0.11.md)
 - [0.12 capture capability ledger](CAPABILITY_MATRIX_0.12.md)
 - [0.13 capability ledger](CAPABILITY_MATRIX_0.13.md)

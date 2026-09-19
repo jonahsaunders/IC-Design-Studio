@@ -179,12 +179,20 @@ class DigitalFlowWindow(QDockWidget):
         self.workspace=Workspace(self,root)
         studio.run_manager.changed.connect(self.refresh_runs)
         self.load_sources(); self.refresh_runs()
+        from .digital_vga_ui import VGAPlayground
+        self.vga = VGAPlayground(self)
+        self.result_tabs.addTab(self.vga, 'VGA Playground')
         from .digital_shell import rebuild
         rebuild(self)
         from .digital_wave_tools import WaveTools
         self.wave_tools = WaveTools(self)
         from .digital_lsp import LanguageClient
         self.language = LanguageClient(self)
+
+    def show_vga(self):
+        self.shell.mode(1)
+        self.shell.source_mode.setCurrentIndex(0)
+        self.result_tabs.setCurrentWidget(self.vga)
 
     def reveal_source(self):
         if hasattr(self, 'shell'):
@@ -240,6 +248,7 @@ class DigitalFlowWindow(QDockWidget):
         if not self.loading:
             self.dirty = True; self.apply_button.setEnabled(True)
             self.message.setText('Source edits will be saved to the project when applied or run.')
+            if hasattr(self, 'vga'): self.vga.schedule()
 
     def apply(self):
         self.check_project()
@@ -400,6 +409,7 @@ class DigitalFlowWindow(QDockWidget):
             if answer == QMessageBox.Cancel or answer == QMessageBox.Save and not self.attempt(self.apply):event.ignore();return
         if hasattr(self, 'shell'):self.shell.save_layout()
         if hasattr(self,'language'):self.language.stop()
+        if hasattr(self,'vga'):self.vga.shutdown()
         self.dirty = False; super().closeEvent(event)
 
 
@@ -451,7 +461,8 @@ class DigitalMixin:
             self.leave_digital_workspace()
         super().closeEvent(event)
         if window:
-            if event.isAccepted():window.language.stop()
+            if event.isAccepted():
+                window.language.stop(); window.vga.shutdown()
             elif active:self.enter_digital_workspace(window)
 
     def quick_run(self):

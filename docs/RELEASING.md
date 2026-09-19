@@ -34,16 +34,17 @@ For Linux PyInstaller builds, set `ICSTUDIO_BUNDLED_NGSPICE` to the native execu
 
 ## Publish a reviewable release
 
-Create a **draft prerelease** for the matching tag. Use [RELEASE_0.22.md](RELEASE_0.22.md) as the current notes, then update its validation section with the actual hosted run and exact artifacts. Upload application packages, matching source, optional PDK adapters, the validation record and checksums.
+Create a **draft prerelease** for the matching tag. Use [UPDATE_0.22_DEV24.md](UPDATE_0.22_DEV24.md) as the current notes, then update its validation section with the actual hosted run and exact artifacts. Upload application packages, matching source, optional PDK adapters, the validation record and checksums.
 
 Check the rendered README, release links and download instructions in the destination repository. Only then publish the draft. Keep the engineering-preview designation until the documented platform and process gates justify a stronger status. Do not attach an archive from another version to fill an unbuilt platform slot.
 
 ## Automated draft preparation
 
-After merging the verified candidate, run **Prepare draft preview release** on `main`.
-It invokes desktop, interoperability and physical qualification on the same commit,
+Run **Prepare draft preview release** on `experimental` for a reviewable branch
+candidate, or on `main` after merging its verified PR.
+It invokes desktop, interoperability, physical, digital and VGA qualification on the same commit,
 then assembles verified assets and creates a draft prerelease with the current
-application version. It fails if that release already exists. See
+application version. It fails if that release already exists. Experimental tags include the commit prefix. See
 [qualification and repository setup](QUALIFICATION_0.22.md) for required checks,
 the reviewed main ruleset and remaining clean-machine acceptance.
 
@@ -52,4 +53,19 @@ checks. That script executes the extracted archive with isolated application
 settings and retains its hash. `scripts/assemble_prerelease.py` rejects a changed
 asset, different source commit, missing platform or unqualified archive.
 
-A version change merged into `main` automatically starts **Prepare draft preview release**. Manual dispatch remains available. The workflow reruns all three qualifications for the merged commit and creates only a draft prerelease; publication remains a separate maintainer action.
+A version change pushed to `experimental` or merged into `main` automatically starts **Prepare draft preview release**. Manual dispatch remains available. The workflow reruns all five qualifications for the merged commit and creates only a draft prerelease; publication remains a separate maintainer action.
+
+## VGA package evidence
+
+The installed Windows executable and both extracted archives run
+`--vga-test OUTPUT`. `scripts/verify_packaged_vga.py` selects the native Windows
+display or Linux Xvfb, prevents successful external HTTP(S) access, and validates
+the report against the exact clean commit/version. Release assembly requires all
+eight presets to pass for every distributed desktop and the Windows installer.
+Audio rendering state is automated; speaker quality remains manual.
+
+Digital and VGA workflows are reusable required draft jobs, and their evidence
+archives are included in the final checksums. Notes are selected from the current
+application version; update the matching versioned document, README badge and
+download examples together. `scripts/check_release.py` rejects missing current
+notes. See [release acceptance](RELEASE_FOLLOWUPS.md) for publication gates.

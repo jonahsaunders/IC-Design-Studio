@@ -8,7 +8,7 @@ OpenROAD separately.
 ## Choose your download
 
 Use the [Releases page](https://github.com/jonahsaunders/IC-Design-Studio/releases)
-for published packages. Development source is **0.22.0.dev23**; a source update
+for published packages. Development source is **0.22.0.dev24**; a source update
 does not necessarily have a published desktop release.
 
 For the experimental branch, open a successful
@@ -71,7 +71,7 @@ configurations. Windows packages currently have no configured signing step.
 
 ## Verify a download
 
-On Linux, run `sha256sum -c SHA256SUMS-0.22.0.dev23.txt` in the download directory.
-On Windows, run `Get-FileHash .\IC-Design-Studio-0.22.0.dev23-Windows-x64-Setup.exe -Algorithm SHA256`
+On Linux, run `sha256sum -c SHA256SUMS-0.22.0.dev24.txt` in the download directory.
+On Windows, run `Get-FileHash .\IC-Design-Studio-0.22.0.dev24-Windows-x64-Setup.exe -Algorithm SHA256`
 and compare it with the matching checksum file. Use the filenames supplied with
 your exact build. A checksum for another build does not verify your download.

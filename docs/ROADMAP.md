@@ -1,5 +1,21 @@
 # The path forward
 
+## Current dev24 priority: qualify the integrated desktop
+
+The analog workspace now includes guided design, device lookup, richer searches
+and staged verification. The digital workspace includes guided runtime setup and
+linked implementation; VGA adds offline interactive rendering with eight presets.
+The [dev24 update](UPDATE_0.22_DEV24.md) adds packaged VGA acceptance and release
+gates for these delivered features. Older milestones below describe their original
+scope and are not a current unimplemented-feature list.
+
+The next gate is the exact candidate commit passing all five hosted workflows,
+followed by recorded consumer Windows/Linux, physical LAN/VPN and signing-policy
+acceptance in [the current tracker](RELEASE_FOLLOWUPS.md). After qualification,
+prioritize remaining HVI conversion warnings, detector PVT/transient/extracted
+coverage, measured recovery/rendering performance and general offline design edits.
+
+
 ## Experimental dev21: workflow and recovery
 
 The [dev21 update](UPDATE_0.22_DEV21.md) adds component shortcuts, a persistent

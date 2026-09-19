@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/version-0.22.0.dev23-65d6bd?style=flat-square&amp;labelColor=182331" alt="Version 0.22.0.dev23"></a>
+  <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/version-0.22.0.dev24-65d6bd?style=flat-square&amp;labelColor=182331" alt="Version 0.22.0.dev24"></a>
   <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/status-engineering_preview-f0bc78?style=flat-square&amp;labelColor=182331" alt="Engineering preview"></a>
   <a href="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml"><img src="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml/badge.svg?branch=experimental" alt="Desktop build and verification"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0--or--later-9bbafa?style=flat-square&amp;labelColor=182331" alt="GPL-3.0-or-later license"></a>
@@ -277,6 +277,7 @@ Expand a category for the detailed inventory. Features requiring an external eng
 | Main-window workspace | Design/Debug/Implement modes; searchable source and compiler-hierarchy navigator; contextual inspector; remembered pane sizes and visibility; light/dark themes; keyboard mode switching; Current/Stale/Failed/Running stage states |
 | RTL cells and source editing | Independent per-cell sources and undo; explicit file roles, compilation order, includes and defines; source search and go-to-line; captured run snapshots and working-copy diffs; optional stdio SystemVerilog language-server diagnostics, completion and definitions |
 | Simulation and regression | Icarus and Verilator; saved testbench cases and definitions; retained assertions, failures and waveforms; optional Verilator line coverage; RTL cases in shared verification plans |
+| VGA Playground | Offline embedded Tiny Tapeout preview beside the native RTL editor; eight project-owned presets; keyboard/Gamepad inputs, opt-in audio, pause/resume and reload |
 | Digital waveform inspection | Four-state values and aliases; binary, hex, unsigned and signed display; two cursors and delta readout; filtering and saved signal sets; edge/value search; source-declaration navigation; streaming SQLite indexes and on-demand pages for large VCDs |
 | Synthesis and equivalence | Verilator lint; Yosys elaboration, hierarchy and mapped standard-cell synthesis; optional slang frontend; EQY/SBY/Bitwuzla equivalence against captured RTL, including inferred memories; distinct PASS/FAIL/UNKNOWN/ERROR outcomes and retained counterexamples |
 | Target execution | **Verify block** and **Run to placement/routing/GDS**; dependency planning; compatible-result reuse; explicit upstream selection; queued cancellation; persistent stop/resume across restarts; captured inputs, tool identities, logs and artifact checksums |
@@ -290,7 +291,7 @@ Expand a category for the detailed inventory. Features requiring an external eng
 
 **Scope:** language-server support needs a separately installed server, and the optional slang frontend needs its matching Yosys plugin. Native symbols support up to 128 scalar terminals. Large-VCD support is bounded to 2 GiB and 20 million changes; FST and real/string dumps are unsupported. Power and density are estimates, and library-corner timing sweeps do not establish physical signoff. Coupled analog/digital transient simulation, per-instance analog/digital view substitution, foundry-qualified signoff, and characterized macro Liberty generation remain outside this flow.
 
-[Workspace controls and limits](docs/DIGITAL_WORKSPACE.md) · [Engines, setup, constraints and CLI](docs/DIGITAL_FLOW.md)
+[VGA Playground](docs/VGA_PLAYGROUND.md) · [Workspace controls and limits](docs/DIGITAL_WORKSPACE.md) · [Engines, setup, constraints and CLI](docs/DIGITAL_FLOW.md)
 
 </details>
 
@@ -449,7 +450,7 @@ The experimental branch includes the [analog design workspace](docs/ANALOG_WORKS
 
 It also includes the [main-window digital workspace](docs/DIGITAL_WORKSPACE.md) and [integrated RTL-to-GDS flow](docs/DIGITAL_FLOW.md), including resumable targets, structured constraints, indexed waveforms, and linked source/timing/physical inspection. See the [digital feature tour](#design-digital-blocks-from-rtl-to-gds) for an entry point.
 
-**0.22.0.dev23 is an engineering preview.** The [inductor design update](docs/UPDATE_0.22_DEV23.md) adds five shapes, target-L synthesis, background validation, optional DC series RL and EM characterization exchange with reusable PDK material/layer profiles. It includes the earlier [workflow and recovery improvements](docs/UPDATE_0.22_DEV21.md). [Release status](docs/RELEASE_STATUS.md) records validation and package status.
+**0.22.0.dev24 is an engineering preview.** The [dev24 update](docs/UPDATE_0.22_DEV24.md) brings together the analog design workspace, included digital toolchain and offline VGA Playground, and adds exact-package VGA qualification. [Release status](docs/RELEASE_STATUS.md) distinguishes source validation, hosted packages and pending consumer acceptance.
 
 The [roadmap](docs/ROADMAP.md) tracks consumer Windows/Linux acceptance, physical LAN/VPN testing, broader PVT/transient and real-project coverage, larger editing/recovery workloads, and offline collaboration. A passing fixture qualifies that recorded case; it does not establish arbitrary-design or fabrication signoff. Source-to-GDS warnings for the detector remain documented.
 

@@ -1,0 +1,12 @@
+/* Studio owns the editor and preset picker. Only the simulator lives here. */
+* { box-sizing: border-box; }
+body { margin: 0; background: #000; color: #eee; }
+header, #preset-bar, #editor-panel { display: none !important; }
+main { display: block; overflow: hidden; }
+#vga-canvas-container { max-width: 100%; width: 100%; height: 100%; display: flex; flex-direction: column; }
+#vga-canvas { display: block; width: 100%; height: 100%; max-height: none; object-fit: contain; }
+#input-values { flex-wrap: wrap; }
+.canvas-wrapper { flex: 1; min-height: 0; }
+#input-values, #gamepad-pmod-inputs, .status-bar { flex-shrink: 0; }
+#input-values button { color: #ddd; }
+#error-overlay { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 100%; overflow: auto; }

@@ -16,6 +16,7 @@ def main(output):
     from .model import atomic_write
     from .experimental_probe import run
     out=Path(output).resolve();out.mkdir(parents=True,exist_ok=True)
+    QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
     app=QApplication([]);app.setStyle('Fusion')
     report=json.loads(diagnostic_report());report.update(status='pending',observations=[],package=None)
     if app.platformName() in ('offscreen','minimal'):
@@ -42,7 +43,8 @@ def main(output):
         'Move floating windows between differently scaled monitors; resize every edge and corner',
         'Save the window arrangement, disconnect a monitor, restart and recover reachable windows',
         'Cancel a simulation, run another successfully, and check recovery after an interrupted session',
-        'Upgrade from the previous build; retain user settings and projects; check accessibility'
+        'Upgrade from the previous build; retain user settings and projects; check accessibility',
+        'Use VGA offline: eight presets, actual audio output, keyboard/Gamepad controls, pause, reload and save/reopen'
     ]
     table=QTableWidget(len(tasks),3);table.setHorizontalHeaderLabels(['Observed task','Result','Notes / environment']);table.setWordWrap(True)
     table.horizontalHeader().setSectionResizeMode(0,QHeaderView.Stretch);table.horizontalHeader().setSectionResizeMode(2,QHeaderView.Stretch)

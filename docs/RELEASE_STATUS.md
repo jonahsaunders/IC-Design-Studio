@@ -1,3 +1,24 @@
+# Current candidate — 0.22.0.dev24
+
+The [dev24 update](UPDATE_0.22_DEV24.md) includes the analog design workspace,
+included digital implementation tools and offline VGA Playground. It fixes the
+Qt characterization plot-selector collision that stopped both desktop jobs at
+`45c3ccb`, and adds required installed/extracted-package VGA qualification.
+
+New hosted checks are required for this candidate. Earlier dev23 draft assets
+and green source-only VGA checks do not qualify these packages. Consult the
+[experimental Actions runs](https://github.com/jonahsaunders/IC-Design-Studio/actions?query=branch%3Aexperimental)
+for the exact candidate commit. Draft creation requires desktop, interoperability,
+physical, digital and VGA success; reports and checksums must identify that same
+commit. No public release or consumer acceptance is implied.
+
+Consumer Windows/Linux, physical LAN/VPN and the signing policy are tracked in
+[release acceptance](RELEASE_FOLLOWUPS.md), including reopened issues #8–#10 and
+new issue #31. Native speaker quality, mixed-monitor behavior and accessibility
+remain manual observations. Use [native acceptance](NATIVE_DESKTOP_ACCEPTANCE.md).
+
+The sections below retain historical version-specific evidence and limitations.
+
 # Experimental dev23: inductor design and EM exchange
 
 The [dev23 update](UPDATE_0.22_DEV23.md) adds five spiral shapes, target-L search,
