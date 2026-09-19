@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from icstudio import __version__
 from scripts.release_archives import source_archive
+from scripts.verify_packaged_vga import verify as verify_vga
 
 
 def checksum(path):
@@ -67,9 +68,10 @@ def verify_distribution(archive, output):
     commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     require(report.get('build',{}).get('commit')==commit and report['build']['dirty'] is False,
             'Extracted application was built from a different source commit')
+    vga = verify_vga(executable, output / 'vga', commit)
     return {'status': 'passed', 'archive': archive.name, 'archive_sha256': checksum(archive),
             'clean_application_profile': True, 'paths_with_spaces': True,
-            'report': report, 'display': 'native' if os.name == 'nt' else 'offscreen'}
+            'report': report, 'vga': vga, 'display': 'native' if os.name == 'nt' else 'offscreen; VGA uses Xvfb'}
 
 
 def prepare(output):

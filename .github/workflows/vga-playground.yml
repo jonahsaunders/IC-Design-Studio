@@ -1,8 +1,10 @@
 name: Verify VGA Playground
 on:
+  workflow_call:
   push:
     paths:
       - 'icstudio/digital*'
+      - 'icstudio/vga_probe.py'
       - 'icstudio/__main__.py'
       - 'icstudio/workspace.py'
       - 'packaging/vga/**'
@@ -13,6 +15,9 @@ on:
   pull_request:
     paths:
       - 'icstudio/digital*'
+      - 'icstudio/vga_probe.py'
+      - 'icstudio/__main__.py'
+      - 'requirements*.txt'
       - 'icstudio/workspace.py'
       - 'packaging/vga/**'
       - 'scripts/build_vga_playground.py'

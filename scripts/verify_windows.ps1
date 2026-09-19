@@ -28,6 +28,8 @@ foreach ($scale in @('1','1.5','2')) {
     if ($report.status -ne 'passed' -or -not $report.frozen) { throw 'Installed application probe failed.' }
 }
 Remove-Item Env:QT_SCALE_FACTOR -ErrorAction SilentlyContinue
+python scripts/verify_packaged_vga.py --executable "$exe" --output "$evidence/vga"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows VGA qualification failed.' }
 $shortcut = Join-Path ([Environment]::GetFolderPath('Programs')) 'IC Design Studio\IC Design Studio.lnk'
 if (-not (Test-Path $shortcut)) { throw 'Start menu shortcut is missing.' }
 $shell = New-Object -ComObject WScript.Shell
@@ -39,4 +41,4 @@ if ($invitationCommand -ne "`"$exe`" --join `"%1`"") { throw 'Invitation protoco
 Wait-Checked (Join-Path $install 'unins000.exe') "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /LOG=`"$evidence\uninstall.log`""
 if (Test-Path $exe) { throw 'Uninstall left the application executable behind.' }
 if (Test-Path 'HKCU:\Software\Classes\icstudio') { throw 'Uninstall left the invitation protocol registered.' }
-@{status='passed';installed=$true;shortcuts=$true;association=$true;dpi=@(100,150,200);simulation=$true;uninstalled=$true;signing='not configured'} | ConvertTo-Json | Set-Content "$evidence\windows-release.json"
+@{status='passed';installed=$true;shortcuts=$true;association=$true;dpi=@(100,150,200);simulation=$true;vga=(Get-Content "$evidence/vga/probe/vga-test.json" -Raw | ConvertFrom-Json);uninstalled=$true;signing='not configured'} | ConvertTo-Json -Depth 12 | Set-Content "$evidence\windows-release.json"

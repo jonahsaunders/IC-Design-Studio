@@ -30,6 +30,9 @@ def main():
                 errors.append(name + ': missing local target ' + ref)
     readme = (ROOT / 'README.md').read_text(encoding='utf-8')
     if 'version-' + __version__ + '-' not in readme: errors.append('README badge differs from application version.')
+    match = re.fullmatch(r'(\d+\.\d+)\.0\.dev(\d+)', __version__)
+    if match and not (ROOT / 'docs' / f'UPDATE_{match[1]}_DEV{match[2]}.md').is_file():
+        errors.append('Missing release notes for the current development version.')
     tag = os.environ.get('GITHUB_REF', '')
     if tag.startswith('refs/tags/v') and tag != 'refs/tags/v' + __version__:
         errors.append('Release tag differs from application version: ' + tag)

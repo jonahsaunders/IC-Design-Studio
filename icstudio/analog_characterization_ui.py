@@ -28,14 +28,14 @@ class CharacterizationLibrary(QDialog):
         actions(layout,[('Characterize / reuse cache',self.start),('Cancel remaining',self.cancel),('Resume unfinished',self.resume)],self.call,'Characterize / reuse cache')
         self.history=QComboBox();self.history.setAccessibleName('Saved device characterizations');layout.addWidget(label('Saved characterization',self.history));layout.addWidget(self.history);self.history.currentIndexChanged.connect(self.select_history)
         self.results=table(['State','gm/Id (1/V)','Id/W (A/m)','Forward VGS (V)','L (m)','Condition','gds (S)','gm/gds','Cgg (F)','Cgs (F)','Cgd (F)','Cgb (F)','Intrinsic fT estimate (Hz)']);self.results.setAccessibleName('Captured model characterization points');layout.addWidget(self.results)
-        self.metric=QComboBox()
-        for title,key,unit in [('gm/Id','gmid','1/V'),('Current density','current_density','A/m'),('Intrinsic gain · gm/gds','intrinsic_gain','V/V'),('Output conductance','gds','S'),('Intrinsic gate capacitance','cgg','F'),('Intrinsic speed estimate · gm/(2πCgg)','ft_estimate','Hz')]:self.metric.addItem(title,(key,unit))
-        layout.addWidget(label('Plot measurement',self.metric));layout.addWidget(self.metric)
+        self.plot_metric=QComboBox()
+        for title,key,unit in [('gm/Id','gmid','1/V'),('Current density','current_density','A/m'),('Intrinsic gain · gm/gds','intrinsic_gain','V/V'),('Output conductance','gds','S'),('Intrinsic gate capacitance','cgg','F'),('Intrinsic speed estimate · gm/(2πCgg)','ft_estimate','Hz')]:self.plot_metric.addItem(title,(key,unit))
+        layout.addWidget(label('Plot measurement',self.plot_metric));layout.addWidget(self.plot_metric)
         self.compare_lengths=QCheckBox('Compare characterized lengths at this bias condition');layout.addWidget(self.compare_lengths)
         self.plot=WavePlot();self.plot.dark=self.studio.dark;self.plot.setAccessibleName('Measured gm/Id for the selected length and bias slice');layout.addWidget(self.plot)
         self.plot_legend=label('');self.plot_legend.setAccessibleName('Lengths shown in the device plot');layout.addWidget(self.plot_legend)
         self.results.itemSelectionChanged.connect(self.select_point)
-        self.metric.currentIndexChanged.connect(self.update_plot);self.compare_lengths.toggled.connect(self.update_plot)
+        self.plot_metric.currentIndexChanged.connect(self.update_plot);self.compare_lengths.toggled.connect(self.update_plot)
         layout.addWidget(label('Capacitances are signed intrinsic charge derivatives from the supported process model. The fT estimate excludes overlap, wiring and circuit loading. Missing values are unavailable; the teaching model has no capacitances.'))
         actions(layout,[('Export measured data…',self.export)],self.call)
         sizing=QWidget();layout=QVBoxLayout(sizing);self.tabs.addTab(scroll(sizing),'Size and transfer');layout.addWidget(label('Select a characterized bias slice, enter your gm/Id and current targets, then review the suggested dimensions. Width scaling is an initial estimate that needs circuit verification.'))
@@ -126,7 +126,7 @@ class CharacterizationLibrary(QDialog):
         i=self.results.currentRow()
         if not self.data or not 0<=i<len(self.data['points']):return
         point=self.data['points'][i];condition=point['condition']
-        key,unit=self.metric.currentData();datasets=[];names=[]
+        key,unit=self.plot_metric.currentData();datasets=[];names=[]
         lengths=self.data['samples']['length'] if self.compare_lengths.isChecked() else [condition['length']]
         for color_index,length in enumerate(lengths):
             rows=[p for p in self.data['points'] if p['condition']['length']==length and all(p['condition'][k]==condition[k] for k in ('vds','vsb','temperature','corner'))]
@@ -136,7 +136,7 @@ class CharacterizationLibrary(QDialog):
                 if value is not None:current.append((p['condition']['vgs'],value))
                 elif current:segments.append(current);current=[]
             if current:segments.append(current)
-            name=f'{self.metric.currentText()} · L={length:.4g} m';names.append(name)
+            name=f'{self.plot_metric.currentText()} · L={length:.4g} m';names.append(name)
             datasets += [dict(x=[p[0] for p in segment],traces={name:[p[1] for p in segment]},settings={'type':'dc'},x_label='Forward VGS / VSG (V)',plot_unit=unit,color_index=color_index) for segment in segments]
         self.plot.empty_message='This measurement is unavailable for the selected model or bias.'
         self.plot.set_result(datasets[0] if datasets else None,names,overlays=datasets[1:])

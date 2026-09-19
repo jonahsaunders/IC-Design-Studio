@@ -77,3 +77,17 @@ input controls and VGA decoding remain the basis of the preview.
 The build includes the adapted source as `vga-playground-source.zip`, its GPL
 license, upstream attribution, preset notices, and npm dependency licenses.
 See [third-party notices](../THIRD_PARTY_NOTICES.md) for component source links.
+
+## Reproduce desktop qualification
+
+After building source assets, run `python tests/gui_digital_vga.py --out build/vga-check`.
+On Linux use a native display or Xvfb with `QT_QPA_PLATFORM=xcb`. The same probe is
+embedded in the application: `ICDesignStudio --vga-test OUTPUT`. It writes an
+explicit success/failure report, screenshots for every preset and a saved project.
+
+Release CI runs the installed Windows executable and both extracted archives
+through `scripts/verify_packaged_vga.py`. It requires bundled assets, all eight
+rendered presets and a clean build identity matching the candidate. Source-only,
+missing, stale and incomplete reports cannot qualify release assets. The probe
+checks native controls, Web Audio state, pause, error recovery, reload and teardown;
+actual sound quality and physical display behavior remain consumer acceptance.

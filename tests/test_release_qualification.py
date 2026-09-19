@@ -6,6 +6,7 @@ import tempfile
 import unittest
 
 from icstudio import __version__
+from icstudio.digital_vga import PRESET_IDS
 from icstudio.model import clone, load_project, save_project
 from icstudio.native_exchange import export_project, review_project
 from icstudio.native_migration import review_path
@@ -83,10 +84,13 @@ class ReleaseQualificationTests(unittest.TestCase):
             directory.mkdir(parents=True)
             archive = directory / (platform + '.zip')
             archive.write_bytes(b'test archive payload')
+            vga = {'status': 'passed', 'version': __version__, 'frozen': True,
+                   'build': {'commit': 'a' * 40, 'dirty': False},
+                   'presets': [{'id': name, 'status': 'passed'} for name in PRESET_IDS]}
             data = {'schema': 1, 'status': 'passed', 'version': __version__, 'commit': 'a' * 40,
                     'platform': platform, 'assets': {archive.name: checksum(archive)},
-                    'distribution': {'status': 'passed', 'archive': archive.name, 'archive_sha256': checksum(archive)},
-                    'installer': {'status': 'passed'} if platform == 'Windows' else None}
+                    'distribution': {'status': 'passed', 'archive': archive.name, 'archive_sha256': checksum(archive), 'vga': vga},
+                    'installer': {'status': 'passed', 'vga': vga} if platform == 'Windows' else None}
             (directory / f'IC-Design-Studio-{__version__}-Validation-{platform}.json').write_text(json.dumps(data))
         return inputs
 
@@ -110,6 +114,26 @@ class ReleaseQualificationTests(unittest.TestCase):
     def test_release_rejects_evidence_from_another_commit(self):
         with self.assertRaisesRegex(ValueError, 'exact selected version and commit'):
             assemble(self.payloads(), self.root / 'release', 'b' * 40)
+
+    def test_release_rejects_missing_stale_source_only_or_incomplete_vga_evidence(self):
+        inputs = self.payloads()
+        record = inputs / 'Windows' / f'IC-Design-Studio-{__version__}-Validation-Windows.json'
+        original = json.loads(record.read_text())
+        for location in ('distribution', 'installer'):
+            for defect in ('missing', 'stale', 'source', 'incomplete', 'duplicate', 'failed'):
+                with self.subTest(location=location, defect=defect):
+                    data = clone(original)
+                    vga = data[location]['vga']
+                    if defect == 'missing': data[location].pop('vga')
+                    elif defect == 'stale': vga['build']['commit'] = 'b' * 40
+                    elif defect == 'source': vga['frozen'] = False
+                    elif defect == 'incomplete': vga['presets'].pop()
+                    elif defect == 'duplicate': vga['presets'][1]['id'] = vga['presets'][0]['id']
+                    elif defect == 'failed': vga['presets'][0]['status'] = 'failed'
+                    record.write_text(json.dumps(data))
+                    output = self.root / 'release'
+                    with self.assertRaises(ValueError): assemble(inputs, output, 'a' * 40)
+                    self.assertFalse(output.exists())
 
     def test_lvs_tool_failure_is_not_an_expected_fault_pass(self):
         directory = self.root / 'case'

@@ -404,6 +404,8 @@ jobs:
             build/optimizer-refinement-evidence
             build/analog-advanced-evidence
             build/digital-frozen-evidence
+            build/distribution-evidence/vga
+            build/windows-evidence/vga
             build/digital-first-run-ui
             build/windows-evidence/install.log
             build/windows-evidence/uninstall.log

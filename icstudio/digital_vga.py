@@ -12,6 +12,7 @@ from . import digital
 
 UPSTREAM = 'https://github.com/TinyTapeout/vga-playground'
 REVISION = '3e3c77e46ae7bd51609f680851aabb81a30564a6'
+PRESET_IDS = ('stripes', 'music', 'rings', 'logo', 'conway', 'checkers', 'drop', 'gamepad')
 
 
 def assets():
