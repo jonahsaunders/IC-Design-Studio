@@ -10,6 +10,8 @@ from .build_info import WORKFLOW_SOURCE_HASH
 def run(p, testbench, spec, tools, directory, progress=lambda *_: None):
     from .hierarchical_flow import run as verify
     validate(p); t = clone(get(p, testbench)); samples = prepared_cases(p, t, spec)
+    from .physical_extraction import normalize_extraction, EXTRACTION_MODES
+    extraction = normalize_extraction(t.get('physical_extraction'))
     directory = Path(directory).resolve()
     if directory.exists() and any(directory.iterdir()): raise ValueError('Choose a new or empty comparison directory.')
     directory.mkdir(parents=True, exist_ok=True)
@@ -22,7 +24,8 @@ def run(p, testbench, spec, tools, directory, progress=lambda *_: None):
               'status': 'running', 'characterization_rows': [], 'summary': {'runs': len(samples), 'passed': 0, 'failed': 0},
               'layout_comparison': True, 'evidence_directory': str(directory),
               'x': [], 'x_label': 'Study run', 'y_label': '', 'traces': {}, 'phase': {}, 'operating_point': {},
-              'warnings': ['Every case requires schematic limits, full DRC, unique LVS without property errors, capacitance extraction and post-layout limits. Distributed resistance is outside this flow.']}
+              'physical_extraction': extraction,
+              'warnings': ['Every case requires schematic limits, full DRC, unique LVS without property errors, '+EXTRACTION_MODES[extraction['mode']].lower()+' and post-layout limits. Qualification is limited to recorded evidence; no fabrication signoff.']}
     atomic_write(directory/'input.json', json.dumps({'project': p, 'testbench': t, 'study': spec}, indent=2))
     def publish(): atomic_write(directory/'report.json', json.dumps(result, indent=2, allow_nan=False))
     publish()
@@ -37,6 +40,8 @@ def run(p, testbench, spec, tools, directory, progress=lambda *_: None):
             row.update(status=report['status'], physical_report=f'case-{i:04d}/report.json',
                        physical_report_sha256=file_digest(work/'report.json'), stages=report['stages'],
                        comparison=report.get('comparison', []), error=report.get('error', ''))
+            row.update(conditions=report.get('conditions', {}), physical_extraction=report.get('physical_extraction', extraction),
+                       provenance=report.get('provenance', {}), measurement_comparison=report.get('measurement_comparison', []))
             for stage, prefix, field in (('schematic', '', 'before_measurements'), ('post-layout', 'post_', 'measurements')):
                 path = work/stage/'result.json'
                 if path.is_file():

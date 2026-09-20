@@ -2,6 +2,15 @@
 import itertools
 from .model import clone, uid, scalar, digest, design_digest
 
+MAX_PLAN_CASES = 10000
+MAX_INTERACTIVE_CASES = 200
+
+
+def case_count(plan):
+    """Count the actual expansion; digital tests have no analog conditions."""
+    analog = len(plan.get('corners', []))*len(plan.get('temperatures', []))*max(1,len(plan.get('voltages', [])))
+    return sum(1 if entry.get('engine') == 'digital' else analog for entry in plan.get('entries', []))
+
 
 def sources(project):
     entries=[]
@@ -66,25 +75,34 @@ def validate_plans(project):
         for v in voltages:scalar(v)
         if len({scalar(t) for t in temperatures})!=len(temperatures) or len({scalar(v) for v in voltages})!=len(voltages):
             raise ValueError('Temperatures and supply voltages must be unique.')
-        if len(entries)*len(corners)*len(temperatures)*max(1,len(voltages))>200:raise ValueError('A test plan supports at most 200 cases.')
+        if case_count(plan)>MAX_PLAN_CASES:raise ValueError('A test plan supports at most 10,000 cases; split larger plans.')
 
 
 def prepare(project,plan,prepare_job):
+    """Interactive jobs remain small; campaigns consume iter_prepare lazily."""
+    if case_count(plan)>MAX_INTERACTIVE_CASES:
+        raise ValueError('Plans above 200 cases need a resumable campaign. Choose Create campaign.')
+    return list(iter_prepare(project,plan,prepare_job))
+
+
+def iter_prepare(project,plan,prepare_job,group=None):
+    """Yield one immutable job at a time without building the Cartesian product."""
     from .studies import set_target, supply_targets
     from .pdks import model_lines
     from .model import validate
     validate_plans({**project,'test_plans':[plan]})
-    group=uid();jobs=[];base=design_digest(project)
-    conditions=[]
-    for entry in plan['entries']:
-        conditions += [(entry,'RTL',None,None)] if entry['engine']=='digital' else list(itertools.product([entry],plan['corners'],plan['temperatures'],plan.get('voltages') or [None]))
-    for entry,corner,temp,voltage in conditions:
+    group=group or uid();base=design_digest(project)
+    conditions=itertools.chain.from_iterable(
+        [(entry,'RTL',None,None)] if entry['engine']=='digital' else
+        itertools.product([entry],plan['corners'],plan['temperatures'],plan.get('voltages') or [None])
+        for entry in plan['entries'])
+    for index,(entry,corner,temp,voltage) in enumerate(conditions,1):
         if entry['engine']=='digital':
             job=prepare_job(clone(entry['settings']),'digital',clone(project),entry['cell'])
-            job['case']={'group':group,'index':len(jobs)+1,'plan_id':plan['id'],'plan_name':plan['name'],
+            job['case']={'group':group,'index':index,'plan_id':plan['id'],'plan_name':plan['name'],
                 'entry_id':entry['id'],'test_name':entry['name'],'kind':'test_plan','base_design_hash':base,
                 'labels':{'corner':'RTL','temperature':None,'voltage':None}}
-            job['case']['fingerprint']=digest({k:v for k,v in job.items() if k!='case'});jobs.append(job);continue
+            job['case']['fingerprint']=digest({k:v for k,v in job.items() if k!='case'});yield job;continue
         p=clone(project);p.setdefault('parameters',{}).update(clone(plan.get('variables',{})));settings=clone(entry['settings']);temp=scalar(temp)
         from .native_spice import native
         if native(p):
@@ -104,13 +122,12 @@ def prepare(project,plan,prepare_job):
         validate(p)
         job=prepare_job(settings,entry['engine'],p,entry['cell'])
         if settings['type']=='testbench':job['settings']['executable']=job['executable']
-        job['case']={'group':group,'index':len(jobs)+1,'plan_id':plan['id'],'plan_name':plan['name'],
+        job['case']={'group':group,'index':index,'plan_id':plan['id'],'plan_name':plan['name'],
                      'entry_id':entry['id'],'test_name':entry['name'],'kind':'test_plan','base_design_hash':base,
                      'variables':clone(plan.get('variables',{})),
                      'labels':{'corner':corner,'temperature':temp,'voltage':scalar(voltage) if voltage is not None else None}}
         job['case']['fingerprint']=digest({k:v for k,v in job.items() if k!='case'})
-        jobs.append(job)
-    return jobs
+        yield job
 
 
 def requirements(job):
@@ -124,9 +141,13 @@ def requirements(job):
         rows += [dict(m,definition=digest(m),measurement=True,unit='A' if m['kind']=='current' else 'V' if m['kind'] in ('voltage','range') else 'Hz' if m['kind']=='frequency' else 's') for m in bench.get('measurements',[])]
     if job['settings']['type']=='silicon':
         from .silicon_flow import STAGES
+        if job['settings'].get('testbench'):
+            from .hierarchical_flow import VERIFICATION_STAGES
+            STAGES=VERIFICATION_STAGES
         rows=[dict(m,name=m['name']+' · '+stage,source_name=m['name'],stage=stage,definition=digest([m,stage]))
               for m in rows for stage in ('schematic','post-layout')]
         rows += [dict(name=stage.replace('_',' '),stage=stage,check=True,definition=digest(['physical stage',stage]),unit='') for stage in STAGES]
+        rows += [dict(name='Physical workflow',stage='workflow',check=True,definition=digest(['physical workflow status']),unit='')]
     return rows
 
 
@@ -157,8 +178,9 @@ def matrix(rows,group):
                 stage_name={'schematic':'schematic_simulation','post-layout':'post_layout_simulation'}.get(spec['stage'],spec['stage'])
                 stage=next((s for s in physical.get('stages',[]) if s['name']==stage_name),{})
                 actual=stage if spec.get('check') else next((m for m in stage.get('evidence',{}).get('measurements' if spec.get('measurement') else 'specifications',[]) if m['name']==spec['source_name']),None)
+                if spec['stage']=='workflow':actual=physical
             state=row['state'].upper()
-            if state=='COMPLETE':state='ERROR' if actual is None else {'passed':'PASS','failed':'FAIL','not_run':'NOT RUN','running':'RUNNING'}.get(actual.get('status'),actual.get('status','ERROR'))
+            if state=='COMPLETE':state='ERROR' if actual is None else {'passed':'PASS','failed':'FAIL','blocked':'FAIL','not_run':'NOT RUN','running':'RUNNING'}.get(actual.get('status'),actual.get('status','ERROR'))
             elif state in ('FAILED','CANCELLED'):state='ERROR' if state=='FAILED' else state
             item['values'][condition]=dict(status=state,value=actual.get('value') if actual else None,
                 margin=actual.get('margin') if actual else None,detail=(actual or {}).get('error',row.get('log','')),

@@ -122,7 +122,7 @@ def _check_instance(p, cid, d):
             raise ValueError(d['name']+': resolve native instance overrides into a concrete physical cell variant first.')
 
 
-def propose(p, cid, selections, locked=(), preserve_routes=True, origin=(0, 0), pitch=20000, hierarchy=True):
+def propose(p, cid, selections, locked=(), preserve_routes=True, origin=(0, 0), pitch=20000, hierarchy=True, strict_constraints=False):
     """Selected (cell ID, device ID) pairs become one reviewable transaction."""
     report = inventory(p, cid, hierarchy); rows = {(r['cell_id'], r['device_id']): r for r in report['devices']}
     chosen = set(map(tuple, selections))
@@ -130,7 +130,7 @@ def propose(p, cid, selections, locked=(), preserve_routes=True, origin=(0, 0), 
     grid = p['pdk']['grid']
     if len(origin) != 2 or any(type(v) is not int or v % grid for v in origin) or type(pitch) is not int or pitch <= 0 or pitch % grid:
         raise ValueError('Use a positive placement pitch and origin on the technology grid.')
-    q = clone(p); changes = []; routes = []; affected = []
+    q = clone(p); changes = []; routes = []; affected = []; centers=[]
     for ident in report['cells']:
         local = [r for r in report['devices'] if r['cell_id'] == ident and (ident, r['device_id']) in chosen]
         if not local: continue
@@ -177,6 +177,8 @@ def propose(p, cid, selections, locked=(), preserve_routes=True, origin=(0, 0), 
             changes.append({**row, 'action': action})
         # Reject newly recursive links before any hierarchy expansion.
         validate(q)
+        from .analog_constraints import preserve_centers
+        centers.extend(dict(cell_id=ident,**row) for row in preserve_centers(p,q,ident,{r['device_id'] for r in local if r['action']=='update'}))
         if preserve_routes:
             routes.extend(_retarget(p, q, ident, {r['device_id'] for r in local}, locked))
             from .layout_topology import partition, _check_clearance
@@ -187,10 +189,13 @@ def propose(p, cid, selections, locked=(), preserve_routes=True, origin=(0, 0), 
     validate(q)
     # Shared-master changes affect ancestor connectivity as well as edited cells.
     from .physical import connectivity
-    findings = {}
-    for ident in report['cells']:
-        if ident in affected or any(child in affected for child in reachable(q, ident, physical=True)):
-            try: findings[ident] = connectivity(q, ident)['issues']
-            except ValueError as exc: findings[ident] = [{'code': 'ECO.CHECK_LIMIT', 'message': str(exc)}]
-    report.update(changes=changes, affected_cells=affected, adjusted_routes=routes, connectivity=findings, after=inventory(q, cid, hierarchy))
+    findings = {}; constraint_findings={}
+    from .route_constraints import enforce,affected_cells
+    for ident in affected_cells(q,affected):
+        constraint_findings[ident]=enforce(p,q,ident,strict_constraints)
+        try: findings[ident] = connectivity(q, ident)['issues']
+        except ValueError as exc: findings[ident] = [{'code': 'ECO.CHECK_LIMIT', 'message': str(exc)}]
+    report.update(changes=changes, affected_cells=affected, adjusted_routes=routes, preserved_centers=centers,
+                  connectivity=findings, constraint_findings=constraint_findings, strict_constraints=strict_constraints,
+                  candidate_hash=design_digest(q), after=inventory(q, cid, hierarchy))
     return q, report

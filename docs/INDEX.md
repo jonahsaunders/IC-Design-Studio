@@ -6,6 +6,7 @@ Start with [Getting started](GETTING_STARTED.md), [real open-project imports](OP
 
 - [Analog design workspace](ANALOG_WORKSPACE.md)
 - [Analog optimization and verification](ANALOG_OPTIMIZER.md)
+- [Integrated analog extraction, layout constraints and verification campaigns](ANALOG_CLOSURE.md)
 - [Digital workspace](DIGITAL_WORKSPACE.md)
 - [Offline VGA Playground](VGA_PLAYGROUND.md)
 - [Native desktop acceptance](NATIVE_DESKTOP_ACCEPTANCE.md)

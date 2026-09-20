@@ -1,7 +1,7 @@
 import sys
 
 def main():
-    if len(sys.argv)>1 and sys.argv[1] in ('--worker','--cli','--digital-setup','--collaboration-server'):
+    if len(sys.argv)>1 and sys.argv[1] in ('--worker','--cli','--digital-setup','--collaboration-server','--campaign'):
         from .windows_stdio import connect
         connect()
     if '--digital-setup' in sys.argv:
@@ -10,6 +10,9 @@ def main():
     if len(sys.argv)>1 and sys.argv[1]=='--collaboration-server':
         from .live_server import main as server
         return server(sys.argv[2:])
+    if len(sys.argv)>1 and sys.argv[1]=='--campaign':
+        from .verification_campaigns import main as campaigns
+        return campaigns(sys.argv[2:])
     if len(sys.argv)>1 and sys.argv[1]=='--worker':
         from .worker import main as worker
         return worker(sys.argv[2],sys.argv[3])

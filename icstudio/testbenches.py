@@ -44,6 +44,9 @@ def validate_testbenches(p,objid=lambda _:None):
         for n,v in t.get('initial_conditions',{}).items():
             if typ!='tran' or n not in nets or n=='0':raise ValueError('Initial conditions require a transient bench net.')
             scalar(v)
+        if 'physical_extraction' in t:
+            from .physical_extraction import normalize_extraction
+            normalize_extraction(t['physical_extraction'])
         measures=t.get('measurements',[]);mn=set()
         if len(measures)>64:raise ValueError('At most 64 measurements per bench.')
         for m in measures:

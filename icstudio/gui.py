@@ -603,6 +603,8 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
         install_analog_workspace(self)
         from .design_workflow import install as install_workflow
         install_workflow(self)
+        from .automation_ui import install as install_automation
+        install_automation(self)
         from .digital_ui import install as install_digital
         install_digital(self)
         self.reindex_commands()

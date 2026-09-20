@@ -182,17 +182,21 @@ and displays estimated W, L and forward gate bias. Select an estimate to populat
 an adaptive search's sizing ranges and initial seed; it does not edit the circuit.
 Set the appropriate circuit bias in the editable fixture and verify the search.
 
-The process adapter supports the pinned standard SKY130 `nfet_01v8`/`pfet_01v8`
-models with direct W/L emission, `nf=1`, and `m=mult=1`. It validates the model's
-micrometre parameter scale, four terminals, locked definition checksum and exact
-internal MOS path. Other native/catalog models remain usable in the in-circuit
+The process adapter supports pinned standard SKY130 `nfet_01v8`/`pfet_01v8`
+and GF180 `nfet_03v3`/`pfet_03v3` models. It validates the process-specific
+W/L scale, four terminals, locked definition checksum and exact internal MOS
+path. Supported SKY130 per-finger symbols and emitted parallel multiplicity
+have explicit aggregate-width normalization; sizing returns the original symbol
+W convention. The desktop shows Symbol W and Aggregate W separately. See the
+[device contract and physical limits](ANALOG_CLOSURE.md#process-devices-and-sizing).
+Other native/catalog models remain usable in the in-circuit
 explorer when they expose gm/Id, but do not receive invented width conventions.
 The isolated process fixture uses the installed locked PDK model environment;
 native DUT-specific model overrides must be verified in the actual circuit.
 
 Library dimensions are metres, amperes, siemens and volts. Forward VGS/VDS mean
 VSG/VSD for PMOS; positive VSB denotes reverse body bias for either polarity.
-Density is `abs(Id)/total_drawn_W` in A/m. The generic teaching library supports
+Density is `abs(Id)/(total_drawn_W * parallel_multiplicity)` in A/m. The generic teaching library supports
 only zero body bias, 27 °C and nominal corner, with its square-law limitations.
 
 Each experiment is bounded to 500 simulations. Tables retain signed Id/gm,
@@ -212,7 +216,7 @@ for each measured L. Exact values and source identities are available through
 **Export measured data**. Missing neighboring capacitances remain unavailable
 during interpolation; derived gain/speed metrics use interpolated raw vectors.
 
-The SKY130 adapter captures signed Cgg/Cgs/Cgd/Cgb charge derivatives. The speed
+The supported process adapters capture signed Cgg/Cgs/Cgd/Cgb charge derivatives. The speed
 estimate excludes overlap capacitance, wiring and circuit loading and is not
 circuit bandwidth. The teaching solver supplies gds from its actual current
 model but does not invent device capacitances. Zero/nonpositive gds or Cgg does

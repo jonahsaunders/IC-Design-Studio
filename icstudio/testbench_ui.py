@@ -5,6 +5,37 @@ from .model import clone,validate
 from .testbenches import create
 
 
+def extraction_editor(seed):
+    """Keep the saved electrical fixture and its parasitic model together."""
+    from .physical_extraction import EXTRACTION_MODES, normalize_extraction
+    options=normalize_extraction(seed.get('physical_extraction'))
+    page=QWidget();layout=QVBoxLayout(page);form=QFormLayout();layout.addLayout(form)
+    mode=QComboBox();mode.setAccessibleName('Physical extraction model')
+    for key,title in EXTRACTION_MODES.items():mode.addItem(title,key)
+    mode.setCurrentIndex(mode.findData(options['mode']));form.addRow('Parasitic model',mode)
+    fields={}
+    for key,title,default in [('section_nm','Maximum RC section (nm)',5000),('coupling_distance_nm','Coupling search distance (nm)',5000),('corner','RC calibration corner','')]:
+        field=QLineEdit(str(options.get(key,default)));field.setAccessibleName(title);fields[key]=field;form.addRow(title,field)
+    fields['corner'].setPlaceholderText('Follow the testbench model corner')
+    note=QLabel();note.setWordWrap(True);layout.addWidget(note);layout.addStretch()
+    def changed():
+        calibrated=mode.currentData()=='calibrated_rc'
+        for field in fields.values():field.setVisible(calibrated);form.labelForField(field).setVisible(calibrated)
+        descriptions={
+            'capacitance':'Use the locked process extraction deck for capacitance. This mode omits distributed wire resistance.',
+            'rc':'Use the locked process extraction deck for distributed resistance and capacitance. Unsupported deck or geometry capabilities stop verification; the flow does not fall back to capacitance only.',
+            'calibrated_rc':'Use the project’s explicit interconnect calibration on supported routed geometry. A matching calibration, complete device-to-route mapping and supported topology are required. Process DRC and LVS still run. This model does not establish foundry signoff.'}
+        note.setText(descriptions[mode.currentData()])
+    def value():
+        result={'mode':mode.currentData()}
+        if result['mode']=='calibrated_rc':
+            result.update({key:field.text().strip() for key,field in fields.items() if key!='corner' or field.text().strip()})
+        return normalize_extraction(result)
+    mode.currentIndexChanged.connect(changed);changed()
+    page.mode=mode;page.fields=fields;page.value=value
+    return page
+
+
 def editor(studio,original=None):
     p=studio.project;choices=[c for c in p['cells'] if len([d for d in c['devices'] if d['kind']=='X'])==1]
     if not choices:raise ValueError('Create a bench schematic containing one circuit instance, supplies and loads first.')
@@ -25,6 +56,7 @@ def editor(studio,original=None):
             visible=key in {'tran':['step','stop'],'op':[],'ac':['start','end','points'],'dc':['source','dc_start','dc_stop','dc_step']}[typ];dlg.fields[key].setVisible(visible);form.labelForField(dlg.fields[key]).setVisible(visible)
         dlg.uic.setVisible(typ=='tran')
     kind.currentTextChanged.connect(mode);mode();tabs.addTab(general,'Analysis and fixture')
+    dlg.extraction=extraction_editor(seed);tabs.addTab(dlg.extraction,'Physical extraction')
     page=QWidget();nv=QVBoxLayout(page);nv.addWidget(QLabel('Check the nets to save as waveforms. Blank initial voltage leaves the node unspecified.'));nets=QTableWidget(0,2);nets.setHorizontalHeaderLabels(['Observe net','Initial voltage (V)']);nets.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch);nv.addWidget(nets);dlg.nets=nets;tabs.addTab(page,'Probes and startup')
     def fill_nets():
         c=next(c for c in choices if c['id']==bench.currentData());names=sorted({n for d in c['devices'] for n in d['nets'].values()}-{'0'});nets.setRowCount(len(names))
@@ -51,6 +83,7 @@ def editor(studio,original=None):
             t=clone(seed);t['name']=dlg.fields['name'].text().strip();c=next(c for c in choices if c['id']==bench.currentData());instance=next(d for d in c['devices'] if d['kind']=='X');t.update(bench_cell=c['id'],dut_cell=instance['cell'],dut_instance=instance['id'])
             typ=kind.currentText();active={'corner','temperature'}|set({'tran':['step','stop'],'op':[],'ac':['start','end','points'],'dc':['source','dc_start','dc_stop','dc_step']}[typ]);t['analysis']={k:w.text().strip() for k,w in dlg.fields.items() if k in active};t['analysis'].update(type=typ,uic=dlg.uic.isChecked() if typ=='tran' else False)
             if typ=='ac':t['analysis']['points']=int(t['analysis']['points'])
+            t['physical_extraction']=dlg.extraction.value()
             t['probes']=[nets.item(i,0).text() for i in range(nets.rowCount()) if nets.item(i,0).checkState()==Qt.Checked];t['initial_conditions']={nets.item(i,0).text():nets.item(i,1).text().strip() for i in range(nets.rowCount()) if nets.item(i,1).text().strip()};t['measurements']=[]
             for row in range(table.rowCount()):
                 m=clone(records[row])

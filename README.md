@@ -105,6 +105,8 @@ The optimizer uses the existing simulators and needs no extra optimization packa
 
 Closing the workspace returns to the editor while queued jobs continue. Interrupted searches remain paused after an application restart until explicitly resumed.
 
+Saved testbenches can select process capacitance, distributed RC or calibrated interconnect extraction. Constrained layout updates preserve matching and routing intent, while durable campaigns run up to 10,000 verification cases with resumable workers. **Tools → Hierarchy and design automation…** provides reviewed, undoable batch edits. See [integrated analog workflows and supported scope](docs/ANALOG_CLOSURE.md).
+
 [Workspace setup, debugging, and layout](docs/ANALOG_WORKSPACE.md) · [Optimizer, gm/Id, and characterization](docs/ANALOG_OPTIMIZER.md) · [Advanced analyses and verification automation](docs/ANALOG_OPTIMIZER.md#advanced-analyses) · [Detailed analog feature inventory](#analog-design-optimization-and-verification).
 
 ### Design digital blocks from RTL to GDS

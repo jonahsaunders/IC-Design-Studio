@@ -14,7 +14,8 @@ def mirror_devices(p, cid):
     if len(refs) != 1: raise ValueError('Connect exactly one reference device as a diode.')
     a = refs[0]; b = next(d for d in ds if d['id'] != a['id'])
     sa, sb = [specification(p['pdk'], d) for d in (a, b)]
-    if sa['dimensions_nm'] != sb['dimensions_nm'] or sa['values'] != sb['values']:
+    from .analog_constraints import electrical_signature
+    if sa['dimensions_nm'] != sb['dimensions_nm'] or electrical_signature(p,cid,a) != electrical_signature(p,cid,b):
         raise ValueError('This matching recipe requires equal W/L, equal parameters and equal finger counts per device.')
     ns = a['nets']; nb = b['nets']
     if not (ns['s'] == ns['b'] == nb['s'] == nb['b'] and ns['g'] == nb['g']

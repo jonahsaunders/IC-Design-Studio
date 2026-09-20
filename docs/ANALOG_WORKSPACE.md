@@ -116,8 +116,10 @@ opens in this inspector using its embedded before/after waveforms.
 Magic, Netgen, ngspice and the matching process assets are still required for the
 process flow. The teaching simulator supports local analog experiments out of
 the box. This change does not bundle new process engines, introduce a new solver,
-or claim foundry signoff. The physical flow retains its existing capacitance-only
-extraction limits; distributed resistance uses the separate calibrated RC flow.
+or claim foundry signoff. Saved testbenches now select process capacitance,
+process distributed RC or supported calibrated interconnect RC. The selected
+model, conditions and checked provenance are retained in each run. See
+[extraction settings and limits](ANALOG_CLOSURE.md#saved-extraction-models).
 
 ## Validation
 

@@ -5,6 +5,25 @@ from .layout import polygon,kdb
 
 KINDS=('symmetry','matching','common_centroid','guard_ring')
 
+
+def electrical_signature(p,cid,d):
+    """Compare known process models by emitted dimensions, not symbol spelling."""
+    native=d.get('native_spice',{})
+    if not native and d.get('model_ref'):
+        from .catalog import binding_for
+        from .sky130_layout import resolved
+        from .process_mos import dimensions
+        actual=resolved(p,cid,d);binding=binding_for(p['pdk'],actual)
+        try:spec=dimensions(p['pdk'],actual,binding)
+        except ValueError:pass  # Other PDKs retain their exact declared parameters.
+        else:
+            emit=binding.get('emit_parameters',{'w':'w','l':'l'})
+            return (d['kind'],spec['model'],{key:spec['values'][source] for key,source in emit.items()},d.get('physical_binding'))
+    electrical={k:native.get(k) for k in ('tokens','parameters','model_name','definition')} if native else None
+    return (d['kind'],d.get('model_ref'),d.get('model_params',{}),d.get('cell'),d.get('parameters',{}),
+            d.get('value') if d['kind'] in ('R','C','L') else d.get('params'),electrical,d.get('physical_binding'))
+
+
 def footprint(p,cid,did):
     c=next(c for c in p['cells'] if c['id']==cid);shapes=[s for s in c['shapes'] if s.get('device_id')==did]
     from .design_ops import flatten_layout
@@ -38,24 +57,32 @@ def validate_constraints(p):
 
 def findings(p,cid):
     c=next(c for c in p['cells'] if c['id']==cid);ds={d['id']:d for d in c['devices']};out=[]
-    for row in c.get('analog_constraints',[]):
+    for index,row in enumerate(c.get('analog_constraints',[])):
+        metrics={};placed=[]
         try:
-            if any(did not in ds for did in row['members']):raise ValueError('A constraint member was deleted.')
+            metrics['missing_members']=sum(did not in ds for did in row['members'])
+            if metrics['missing_members']:raise ValueError('A constraint member was deleted.')
             placed=[footprint(p,cid,did) for did in row['members']];kind=row['kind']
             if kind=='symmetry':
                 a,b=[v[2] for v in placed];axis=0 if row.get('axis','x')=='x' else 1;other=1-axis
-                if a[axis]+b[axis]!=2*row.get('coordinate',0) or a[other]!=b[other]:raise ValueError('Device centers are not symmetric about the saved axis.')
+                metrics['axis_error_nm']=abs(a[axis]+b[axis]-2*row.get('coordinate',0))
+                metrics['transverse_error_nm']=abs(a[other]-b[other])
+                if metrics['axis_error_nm'] or metrics['transverse_error_nm']:raise ValueError('Device centers are not symmetric about the saved axis.')
             elif kind=='matching':
-                signatures=[]
+                signatures=[];geometries=[]
                 for did,(shapes,box,center) in zip(row['members'],placed):
                     d=ds[did];regions={}
                     for shape in shapes:regions.setdefault(shape['layer'],kdb().Region()).insert(polygon(shape).transformed(kdb().Trans(-box.left,-box.bottom)))
-                    native=d.get('native_spice',{});electrical={k:native.get(k) for k in ('tokens','parameters','model_name','definition')} if native else None
-                    signatures.append((d['kind'],d.get('model_ref'),d.get('model_params',{}),d.get('cell'),d.get('parameters',{}),d.get('value') if d['kind'] in ('R','C','L') else d.get('params'),electrical,d.get('physical_binding'),{k:v.merged().to_s() for k,v in regions.items()}))
-                if any(s!=signatures[0] for s in signatures[1:]):raise ValueError('Matched devices differ in electrical parameters, geometry or orientation.')
+                    geometries.append(regions)
+                    signatures.append((electrical_signature(p,cid,d),{k:v.merged().to_s() for k,v in regions.items()}))
+                metrics['electrical_mismatches']=sum(s[:-1]!=signatures[0][:-1] for s in signatures[1:])
+                metrics['geometry_mismatches']=sum(s[-1]!=signatures[0][-1] for s in signatures[1:])
+                metrics['geometry_error_nm2']=sum((regions.get(layer,kdb().Region()) ^ geometries[0].get(layer,kdb().Region())).area() for regions in geometries[1:] for layer in regions.keys() | geometries[0].keys())
+                if metrics['electrical_mismatches'] or metrics['geometry_mismatches']:raise ValueError('Matched devices differ in electrical parameters, geometry or orientation.')
             elif kind=='common_centroid':
                 centers={did:value[2] for did,value in zip(row['members'],placed)};group_centers=[tuple(sum(centers[i][axis] for i in group)/len(group) for axis in (0,1)) for group in row['groups']]
-                if any(a!=group_centers[0] for a in group_centers[1:]):raise ValueError('Device-group centroids do not coincide.')
+                metrics['centroid_error_nm']=max(math.dist(a,b) for a in group_centers for b in group_centers)
+                if metrics['centroid_error_nm']:raise ValueError('Device-group centroids do not coincide.')
             elif kind=='guard_ring':
                 ring=next((r for r in c.get('parametric_devices',[]) if r['id']==row.get('ring')),None)
                 if not ring:raise ValueError('The assigned guard ring is missing.')
@@ -63,10 +90,37 @@ def findings(p,cid):
                 reference=ring.get('reference',{});anchor=next((s for s in c['shapes'] if s.get('pcell_id')==ring['id'] and s.get('pcell_role')==reference.get('role')),None)
                 if anchor:x+=anchor['points'][0][0]-reference['points'][0][0];y+=anchor['points'][0][1]-reference['points'][0][1]
                 inner=kdb().Box(x+t,y+t,x+spec['width']-t,y+spec['height']-t)
-                if any(not (inner.left<=box.left and inner.right>=box.right and inner.bottom<=box.bottom and inner.top>=box.top) for _,box,_ in placed):raise ValueError('A protected footprint extends outside the guard-ring opening.')
+                metrics['enclosure_error_nm']=max(max(inner.left-box.left,box.right-inner.right,inner.bottom-box.bottom,box.top-inner.top,0) for _,box,_ in placed)
+                if metrics['enclosure_error_nm']:raise ValueError('A protected footprint extends outside the guard-ring opening.')
         except (ValueError,KeyError) as exc:
-            out.append({'severity':'error','code':'ANALOG.'+row['kind'].upper(),'object':row['members'][0],'objects':row['members'],'cell_id':cid,'message':row.get('name',row['kind'])+': '+str(exc),'fingerprint':digest([row,str(exc),p['revision']])})
+            shape_ids=[s['id'] for s in c['shapes'] if s.get('device_id') in row['members'] or s.get('generated_device') in row['members']]
+            shape_ids += [i['id'] for i in c.get('layout_instances',[]) if i.get('device_id') in row['members']]
+            boxes=[[box.left,box.bottom,box.right,box.top] for _,box,_ in placed]
+            bbox=[min(v[0] for v in boxes),min(v[1] for v in boxes),max(v[2] for v in boxes),max(v[3] for v in boxes)] if boxes else None
+            out.append({'severity':'error','code':'ANALOG.'+row['kind'].upper(),'constraint_id':row.get('id',str(index)),
+                        'object':row['members'][0],'objects':row['members'],'shape_ids':shape_ids,'boxes':boxes,'bbox':bbox,
+                        'metrics':metrics,'cell_id':cid,'message':row.get('name',row['kind'])+': '+str(exc),
+                        'remediation':'Review all members together; regenerate equal devices, restore the saved placement, or revise the explicit constraint.',
+                        'fingerprint':digest([cid,row,str(exc)])})
     return out
+
+
+def preserve_centers(before,after,cid,device_ids):
+    """Keep saved analog placement through resizing before attached-route repair.
+
+    Unconstrained devices retain the generator's origin convention. A half-grid
+    center change cannot be hidden by rounding; the user must change dimensions.
+    """
+    c=next(c for c in before['cells'] if c['id']==cid)
+    members={did for row in c.get('analog_constraints',[]) for did in row['members']}
+    moved=[]
+    for did in sorted(members & set(device_ids)):
+        try: old=footprint(before,cid,did)[2];new=footprint(after,cid,did)[2]
+        except ValueError:continue  # Missing/orphaned members remain explicit findings.
+        dx,dy=old[0]-new[0],old[1]-new[1]
+        if dx or dy:
+            move_device(after,cid,did,dx,dy);moved.append({'device_id':did,'delta_nm':[dx,dy]})
+    return moved
 
 
 def move_device(p,cid,did,dx,dy):
@@ -85,6 +139,8 @@ def arrange(p,cid,row,pitch=10000,columns=None):
     _arrange(q,cid,row,pitch,columns)
     from .model import validate
     validate(q)
+    from .route_constraints import enforce_affected
+    enforce_affected(p,q,[cid])
     p.clear();p.update(q)
 
 

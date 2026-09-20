@@ -195,21 +195,21 @@ class LayoutDevelopmentMixin:
         def submit(v):
             args={**self.route_arguments(v),'nets':[v['net1'].strip(),v['net2'].strip()],
                 'starts':[{'layer':v['start_layer'],'point':point(v['start'+str(i)])} for i in (1,2)],
-                'ends':[{'layer':v['end_layer'],'point':point(v['end'+str(i)])} for i in (1,2)],'tolerance':nm(v['tolerance'])}
+                'ends':[{'layer':v['end_layer'],'point':point(v['end'+str(i)])} for i in (1,2)],'tolerance':nm(v['tolerance']),'match_layers':v['match_layers']=='Match each layer'}
             self.enqueue_layout(cid,{'type':'layout_route','operation':'matched_pair','arguments':args},'Matched route proposal')
         fields=self.route_fields()+[('net1','First net','plus'),('net2','Second net','minus'),
             ('start1','First start X, Y (µm)','0, 0'),('end1','First end X, Y (µm)','5, 0'),
-            ('start2','Second start X, Y (µm)','0, 5'),('end2','Second end X, Y (µm)','7, 5'),('tolerance','Length tolerance (µm)','0')]
-        return self.workflow_form('Plan matched pair',fields,submit,'Matches geometric centreline length. Automatic tuning requires one straight shorter route and a clear detour corridor. Electrical matching requires extraction.')
+            ('start2','Second start X, Y (µm)','0, 5'),('end2','Second end X, Y (µm)','7, 5'),('tolerance','Length tolerance (µm)','0'),('match_layers','Layer matching',['Match each layer','Match total length'])]
+        return self.workflow_form('Plan matched pair',fields,submit,'Preserves declared length, width, via and endpoint constraints. Match each layer also checks per-layer length. Automatic tuning requires one straight shorter route and a clear detour corridor. Electrical matching requires extraction.')
 
     def shield_route_dialog(self):
         if not self.idle_edit():return
         s=self.selected_path();cid=self.cid;sid=s['id'];fields=self.route_fields()
         fields=[f for f in fields if f[0] not in ('start_layer','end_layer')]
         from .layout_routing import conductors
-        fields += [('ground_layer','Reference layer',conductors(self.project['pdk'])),('ground','Reference X, Y (µm)','0, 0'),('net','Reference net','0'),('gap','Signal-to-shield gap (µm)','0.5')]
+        fields += [('ground_layer','Reference layer',conductors(self.project['pdk'])),('ground','Reference X, Y (µm)','0, 0'),('net','Reference net','0'),('gap','Signal-to-shield gap (µm)','0.5'),('max_gap','Maximum allowed shield gap (µm)','0.5')]
         def submit(v):
-            args={**self.route_arguments(v),'sid':sid,'ground':{'layer':v['ground_layer'],'point':point(v['ground'])},'net':v['net'].strip(),'gap':nm(v['gap'])}
+            args={**self.route_arguments(v),'sid':sid,'ground':{'layer':v['ground_layer'],'point':point(v['ground'])},'net':v['net'].strip(),'gap':nm(v['gap']),'max_gap':nm(v['max_gap'])}
             self.enqueue_layout(cid,{'type':'layout_route','operation':'shield','arguments':args},'Grounded shield proposal')
         return self.workflow_form('Shield selected route',fields,submit,'Creates two shields beside a straight route and routes each to an existing conductor labeled with the reference net.')
 

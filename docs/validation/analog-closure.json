@@ -1,0 +1,96 @@
+{
+  "baseline_commit": "0f83dead7a25090ad97e3e07648d86248bd4e661",
+  "scope": "Local source verification of the analog workflow changes; the pre-existing dev24 release does not include or qualify this tree.",
+  "source_identity": {
+    "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+    "sources": "947be9e63a072586abbe7eb15edfcbf7c6c02fc793898b48b7492cf6fda9e18b"
+  },
+  "checks": [
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "status": "passed",
+      "tests": 909,
+      "skipped": 34,
+      "seconds": 116.571,
+      "completion": "Explicit subprocess completion and unittest summary captured."
+    },
+    {
+      "command": "ICSTUDIO_TEST_NGSPICE=<ngspice42> PYTHONPATH=tests:. python -m unittest tests.test_process_mos tests.test_physical_extraction tests.test_native_workflows.NativeWorkflowTests.test_native_distributed_rc_changes_waveform_with_same_requirements -v",
+      "status": "passed",
+      "tests": 21,
+      "skipped": 0,
+      "seconds": 48.024,
+      "log": "analog-closure-real-ngspice.txt"
+    },
+    {
+      "command": "ICSTUDIO_TEST_NGSPICE=<ngspice42> PYTHONPATH=tests:. python -m unittest tests.test_process_mos.ProcessMosTests.test_real_gf180_polarities_fingers_multiplicity_and_sizing tests.test_analog_experiments.NativeFixtureTests.test_real_sky130_polarities_body_temperature_corners_and_density -v",
+      "status": "passed",
+      "tests": 2,
+      "seconds": 201.568,
+      "output": "Tool console; generated fixture evidence was temporary."
+    },
+    {
+      "command": "QT_QPA_PLATFORM=offscreen python tests/gui_analog_closure.py --out build/closure-extraction-gui",
+      "status": "passed",
+      "checks": [
+        "Saved extraction validation, revision identity, undo/redo and save/reopen",
+        "Workspace fixture editing and selected extraction label",
+        "Strict ECO and per-layer route matching controls"
+      ]
+    },
+    {
+      "command": "QT_QPA_PLATFORM=offscreen python tests/gui_design_automation.py --output build/design-automation-ui",
+      "status": "passed"
+    },
+    {
+      "command": "QT_QPA_PLATFORM=offscreen python tests/gui_campaigns.py -v",
+      "status": "passed",
+      "tests": 3,
+      "seconds": 8.005
+    },
+    {
+      "command": "QT_QPA_PLATFORM=offscreen python tests/gui_professional_workflows.py --out build/closure-professional-gui",
+      "status": "passed"
+    },
+    {
+      "command": "QT_QPA_PLATFORM=offscreen python tests/gui_analog_experiments.py --out build/closure-analog-experiments",
+      "status": "passed"
+    },
+    {
+      "command": "QT_QPA_PLATFORM=offscreen python tests/gui_optimizer_refinement.py --out build/closure-optimizer-refinement",
+      "status": "passed"
+    },
+    {
+      "command": "QT_QPA_PLATFORM=offscreen python scripts/benchmark_design_automation.py --output build/design-automation-benchmark.json",
+      "status": "passed",
+      "report": "analog-closure-benchmark.json"
+    },
+    {
+      "command": "python scripts/check_release.py",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "environment": {
+    "python": "3.12.14",
+    "system": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "pyside": "6.8.3",
+    "klayout": "0.30.5",
+    "display": "Qt offscreen",
+    "ngspice": "42, Ubuntu binary extracted under build/runtime",
+    "test_runtime_adaptation": "Local libXft and relocated ngspice code-model paths; test-only tmpfile/64 shim directs simulator temporary files to a writable workspace directory. No workaround is in product code."
+  },
+  "limits": [
+    "Process RC execution with actual Magic/Netgen was not qualified here: isolated build was blocked by missing pkg-config and Tcl/Tk development/runtime dependencies.",
+    "Calibrated RC evidence is for supported flat Manhattan geometry and explicit calibration corners, not foundry signoff.",
+    "Physical generators retain their existing bounded device recipes and multiplicity limits.",
+    "Shared campaign workers require identical paths/tools and separately qualified filesystem locking; no cross-host/NFS qualification was performed.",
+    "Offscreen GUI evidence and lifecycle timings do not qualify frozen Windows/Linux packages, consumer displays, or full Studio/native-display latency."
+  ],
+  "inconclusive_attempts": [
+    "An initial full-discovery tool session ended without a unittest summary. It was not counted; the subsequently captured full run completed all 909 tests."
+  ]
+}

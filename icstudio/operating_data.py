@@ -22,9 +22,11 @@ def mos_vectors(alias, name, binding, aliases):
     return ['@'+alias+'['+k+']' for k in keys]
 
 
-def characterization_binding(project, cid, instance, binding):
+def characterization_binding(project, cid, instance, binding, checked=None):
     fixture = project.get('gmid_fixture', {})
-    if fixture.get('cell') != cid or fixture.get('device') != instance['id']: return binding
+    if fixture.get('cell') != cid or fixture.get('device') != instance['id']:
+        from .process_mos import readout_binding
+        return readout_binding(project['pdk'], instance, binding, checked)
     # Recheck the pinned adapter at execution; the embedded catalog signature
     # and model-closure proof remain untouched by readout metadata.
     from .analog_characterization import contract
@@ -35,21 +37,27 @@ def characterization_binding(project, cid, instance, binding):
 
 def native_save(project,cid):
     from .native_spice import render
-    from .catalog_migration import emit
+    from .catalog_migration import instance_name
     from .analog_debug import contexts
-    by={c['id']:c for c in project['cells']};aliases={};vectors=[]
+    from .design_ops import parameters, resolved_device, value
+    by={c['id']:c for c in project['cells']};aliases={};vectors=[];checked={}
     context_by={c['path']:c for c in contexts(project,cid)}
-    def walk(key,path,spice_path):
+    global_parameters=parameters(project.get('parameters',{}))
+    def walk(key,path,spice_path,overrides=None):
         cell=by[key];context=context_by[path]
+        values=parameters({**cell.get('parameters',{}),**(overrides or {})},global_parameters)
         for net,flat in context['nets'].items():
             if flat==path+net:aliases['v:'+('.'.join(spice_path+[net])).casefold()]=flat
         for d in cell['devices']:
             native=d.get('native_spice',{})
             if native.get('type')=='program':continue
             binding=binding_for(project['pdk'],d) if d.get('model_ref') else None
-            binding=characterization_binding(project,cid,d,binding)
-            local=emit(d,project['pdk']).split()[0] if d.get('model_ref') else render(d,by.get(d.get('cell'))).split()[0] if native else d['name'] if d['kind']=='X' else spice_name(d)
-            if d['kind']=='X':walk(d['cell'],path+d['name']+'/',spice_path+[local]);continue
+            # Resolve parameter overrides in this hierarchy instance before
+            # checking its dimension contract; readout aliases retain its path.
+            resolved=resolved_device(d,values) if binding else d
+            binding=characterization_binding(project,cid,resolved,binding,checked)
+            local=instance_name(d,binding) if d.get('model_ref') else render(d,by.get(d.get('cell'))).split()[0] if native else d['name'] if d['kind']=='X' else spice_name(d)
+            if d['kind']=='X':walk(d['cell'],path+d['name']+'/',spice_path+[local],{k:value(v,values) for k,v in d.get('parameters',{}).items()});continue
             alias=local[0]+'.'+'.'.join(spice_path+[local]) if spice_path else local
             name=path+d['name'];aliases[alias.casefold()]=name
             metadata=binding or native
@@ -63,9 +71,9 @@ def native_save(project,cid):
 
 
 def save_directive(p,cid):
-    aliases={};vectors=[]
+    aliases={};vectors=[];checked={}
     for d in flatten(p,cid):
-        binding=characterization_binding(p,cid,d,binding_for(p['pdk'],d));alias=(binding['prefix']+'_'+d['name'].replace('/','_')) if binding else spice_name(d);aliases[alias.casefold()]=d['name']
+        binding=characterization_binding(p,cid,d,binding_for(p['pdk'],d),checked);alias=(binding['prefix']+'_'+d['name'].replace('/','_')) if binding else spice_name(d);aliases[alias.casefold()]=d['name']
         if d['kind'] in ('NMOS','PMOS'):
             vectors.extend(mos_vectors(alias,d['name'],binding,aliases))
     return '.save all '+ ' '.join(vectors),aliases

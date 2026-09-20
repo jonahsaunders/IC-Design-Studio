@@ -196,14 +196,17 @@ def install(p, proposal, locked=()):
     c['shapes'].extend(clone(proposal['shapes']))
     c.setdefault('routing_records',[]).append({k:clone(v) for k,v in proposal.items() if k!='shapes'} | {'shape_ids':[s['id'] for s in proposal['shapes']]})
     validate(q)
+    from .route_constraints import enforce_affected
+    enforce_affected(p,q,[proposal['cell_id']])
     target=next(c for c in p['cells'] if c['id']==proposal['cell_id']); target.update(c)
     return [s['id'] for s in proposal['shapes']]
 
 
-def matched_pair(p, cid, starts, ends, nets, width, tolerance=0, **options):
+def matched_pair(p, cid, starts, ends, nets, width, tolerance=0, match_layers=True, **options):
     if len(starts)!=2 or len(ends)!=2 or len(nets)!=2 or nets[0]==nets[1]:
         raise ValueError('A matched pair needs two distinct nets and two endpoint pairs.')
     if type(tolerance) is not int or tolerance<0: raise ValueError('Length tolerance must be non-negative nanometres.')
+    if type(match_layers) is not bool: raise ValueError('Layer matching must be enabled or disabled explicitly.')
     a=plan(p,cid,starts[0],ends[0],nets[0],width,**options); q=clone(p)
     next(c for c in q['cells'] if c['id']==cid)['shapes'].extend(clone(a['shapes']))
     b=plan(q,cid,starts[1],ends[1],nets[1],width,**options)
@@ -230,13 +233,21 @@ def matched_pair(p, cid, starts, ends, nets, width, tolerance=0, **options):
         shorter['length_nm']=length(shorter['shapes'])
     shapes=a['shapes']+b['shapes']; group=uid()
     for s in shapes:s['route_group']=group
-    return {'version':1,'project_id':p['id'],'cell_id':cid,'design_hash':design_digest(p),'shapes':shapes,
+    from .route_constraints import route_metrics,endpoint_anchor
+    measured=[route_metrics(r['shapes']) for r in (a,b)]
+    if measured[0]['vias']!=measured[1]['vias']:
+        raise ValueError('Matched routing requires equal via counts and layer transitions. Choose corresponding endpoint layers and clear corridors.')
+    if match_layers and any(abs(measured[0]['layers_nm'].get(layer,0)-measured[1]['layers_nm'].get(layer,0))>tolerance for layer in measured[0]['layers_nm'].keys() | measured[1]['layers_nm'].keys()):
+        raise ValueError('Total lengths match, but per-layer lengths do not. Reserve corresponding routing layers or explicitly disable layer matching.')
+    return {'version':2,'project_id':p['id'],'cell_id':cid,'design_hash':design_digest(p),'shapes':shapes,
             'route_group':group,'kind':'matched_pair','nets':nets,'lengths_nm':[a['length_nm'],b['length_nm']],
             'skew_nm':abs(a['length_nm']-b['length_nm']),'tolerance_nm':tolerance,
-            'via_count':a['via_count']+b['via_count'],'qualification':'Matched geometric length only; parasitic and electrical matching require extraction.'}
+            'matching':{'width_nm':width,'match_layers':match_layers,'layer_tolerance_nm':tolerance},
+            'endpoints':[[endpoint_anchor(p,cid,start),endpoint_anchor(p,cid,end)] for start,end in zip(starts,ends)],
+            'via_count':a['via_count']+b['via_count'],'qualification':'Matched width, geometric length, via transitions and optionally per-layer length; electrical matching requires extraction.'}
 
 
-def shield(p, cid, sid, ground, net='0', width=400, gap=500, **options):
+def shield(p, cid, sid, ground, net='0', width=400, gap=500, max_gap=None, **options):
     """Generate two shields for a straight local path and route their ground ties."""
     c=next(c for c in p['cells'] if c['id']==cid); s=next((s for s in c['shapes'] if s['id']==sid),None)
     if not s or s['kind']!='path' or len(s['points'])!=2:raise ValueError('Select a straight two-point signal path for shielding.')
@@ -247,6 +258,8 @@ def shield(p, cid, sid, ground, net='0', width=400, gap=500, **options):
         raise ValueError('Choose a ground tie point on an existing conductor labeled with the reference net.')
     grid=p['pdk']['grid'];rules={l['name']:l for l in p['pdk']['layers']}
     if type(gap) is not int or gap<rules[s['layer']]['space'] or gap%grid:raise ValueError('Shield gap must meet spacing and grid rules.')
+    max_gap=gap+grid if max_gap is None else max_gap
+    if type(max_gap) is not int or max_gap<gap or max_gap%grid:raise ValueError('Maximum shield gap must be on-grid and at least the minimum gap.')
     if type(width) is not int or width<rules[s['layer']]['width'] or width%(2*grid):raise ValueError('Use an on-grid shield width above the layer minimum.')
     a,b=s['points'];axis=1 if a[1]==b[1] else 0
     if a==b or a[0]!=b[0] and a[1]!=b[1]:raise ValueError('Shielding needs a straight Manhattan path.')
@@ -260,6 +273,6 @@ def shield(p, cid, sid, ground, net='0', width=400, gap=500, **options):
         next(c for c in q['cells'] if c['id']==cid)['shapes'].extend(tie['shapes']);all_shapes+=tie['shapes']
     group=uid()
     for shape in all_shapes:shape.update(route_group=group,generated_route=True)
-    return {'version':1,'project_id':p['id'],'cell_id':cid,'design_hash':design_digest(p),'shapes':all_shapes,
-            'route_group':group,'kind':'shield','net':net,'signal_id':sid,'gap_nm':gap,'ground':clone(ground),
+    return {'version':2,'project_id':p['id'],'cell_id':cid,'design_hash':design_digest(p),'shapes':all_shapes,
+            'route_group':group,'kind':'shield','net':net,'signal_id':sid,'signal_net':s['net'],'gap_nm':gap,'max_gap_nm':max_gap,'ground':clone(ground),
             'length_nm':length(all_shapes),'qualification':'Two geometric shields with routed ties to the chosen point. Verify that point is on the intended reference net.'}
