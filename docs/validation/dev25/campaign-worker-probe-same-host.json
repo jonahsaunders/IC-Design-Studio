@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "status": "same_host_smoke_only",
+  "directory": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/campaign-worker-probe-local",
+  "nonce": "d888445ff70f4b8e8b2254dcdaa55920",
+  "leader": {
+    "hostname": "localhost",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "sqlite": "3.53.1",
+    "pid": 5,
+    "unix_time": 1789922628.69687
+  },
+  "follower": {
+    "hostname": "localhost",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "sqlite": "3.53.1",
+    "pid": 6,
+    "unix_time": 1789922628.8021176
+  },
+  "peer_write_excluded": true,
+  "leader_commit_visible_to_peer": true,
+  "peer_commit_visible_to_leader": true,
+  "distinct_hostnames": false,
+  "qualification": "Observed SQLite rollback-journal lock exclusion and synchronized commits on this exact mount. Physical host placement, clock synchronization and campaign crash recovery require separate recorded acceptance."
+}

@@ -151,12 +151,13 @@ def create(directory, project, plan, prepare_job):
                               pdk_hash=digest(job['project']['pdk']),
                               models=clone(job['project']['pdk'].get('package_lock', {})),
                               embedded_models=clone(job['project'].get('spice', {}).get('library_lock', {})),
-                              conditions=clone(case['labels']), seeds=_seeds(job['project']) | _seeds(job['settings'], '/settings'))
+                              conditions=clone(case['labels']), seeds=_seeds(job['project']) | _seeds(job['settings'], '/settings') | _seeds(case,'/case'))
+            if case.get('statistics'):provenance['statistics']=clone(case['statistics'])
             job['campaign_provenance'] = provenance
             path = stage / 'cases' / f'{index:05d}' / 'input.json'
             atomic_write(path, _json(job))
             connection.execute('INSERT INTO cases(case_index,name,labels,input_hash,updated) VALUES (?,?,?,?,?)',
-                               (index, case['test_name'], _json(case['labels']), file_digest(path), now()))
+                               (index, case['test_name'], _json({**case['labels'],'entry_id':case['entry_id']}), file_digest(path), now()))
             if index % 100 == 0:connection.commit()
         connection.commit(); connection.close(); connection = None
         os.rename(stage, destination)
@@ -200,6 +201,16 @@ class Campaign:
         with self.connect() as db:
             where = "WHERE state IN ('Failed','Interrupted','Cancelled') OR (state='Complete' AND json_extract(summary,'$.failed')>0)" if failures_only else ''
             return [dict(row) for row in db.execute('SELECT * FROM cases ' + where + ' ORDER BY case_index LIMIT ? OFFSET ?', (limit, offset))]
+
+    def statistics(self):
+        """Statistical trials, not the correlated test/PVT cases, are the denominator."""
+        from .campaign_statistics import report
+        with self.connect() as db:
+            def rows():
+                for row in db.execute('SELECT labels,state,summary FROM cases ORDER BY case_index'):
+                    labels=json.loads(row['labels'])
+                    yield dict(labels=labels,entry_id=labels.get('entry_id'),state=row['state'],summary=json.loads(row['summary']) if row['summary'] else None)
+            return report(self.manifest['plan'],rows())
 
     def job(self, index):
         with self.connect() as db:row = db.execute('SELECT input_hash FROM cases WHERE case_index=?', (index,)).fetchone()
@@ -319,6 +330,7 @@ def _execute(campaign, claim, stop, timeout, lease_seconds):
     attempt.mkdir()
     try:
         job = campaign.job(index)
+        if job.get('preparation_error'):raise ValueError(job['preparation_error'])
         def verify_provenance():
             if source_identity() != campaign.manifest['source']:
                 raise ValueError('Studio source changed since capture; use the original application or create a new campaign.')
@@ -394,7 +406,8 @@ def main(argv=None):
     build.add_argument('--ngspice', default='ngspice'); build.add_argument('--magic', default='magic'); build.add_argument('--netgen', default='netgen')
     execute = sub.add_parser('run'); execute.add_argument('directory'); execute.add_argument('--workers', type=int, default=2)
     execute.add_argument('--timeout', type=float, default=3600); execute.add_argument('--trust-project', action='store_true')
-    for name in ('status', 'pause', 'resume', 'retry-failed'):
+    execute.add_argument('--lease-seconds',type=float,default=60)
+    for name in ('status', 'statistics', 'pause', 'resume', 'retry-failed'):
         sub.add_parser(name).add_argument('directory')
     export = sub.add_parser('export'); export.add_argument('directory'); export.add_argument('--output', required=True)
     probe = sub.add_parser('lock-probe', help=argparse.SUPPRESS); probe.add_argument('database')
@@ -433,11 +446,15 @@ def main(argv=None):
         if args.command == 'run':
             stop = threading.Event()
             for kind in (signal.SIGINT, signal.SIGTERM):signal.signal(kind, lambda *_:stop.set())
-            counts = run(args.directory, args.workers, args.timeout, stop, args.trust_project)
+            counts = run(args.directory, args.workers, args.timeout, stop, args.trust_project,args.lease_seconds)
             print(_json(counts));return 2 if counts.get('Failed') or counts['specification_failures'] or counts.get('Complete',0)!=counts['total'] else 0
         if args.command == 'pause':campaign.pause()
         if args.command in ('resume', 'retry-failed'):campaign.resume(args.command == 'retry-failed')
         if args.command == 'export':campaign.export(args.output)
+        if args.command == 'statistics':
+            report=campaign.statistics()
+            if report is None:raise ValueError('This is a deterministic PVT campaign; it has no statistical yield estimate.')
+            print(_json(report));return 0
         print(_json(campaign.counts()));return 0
     except Exception as exc:
         print(_json({'error': str(exc)}), file=sys.stderr);return 1

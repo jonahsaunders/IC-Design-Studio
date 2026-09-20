@@ -54,6 +54,12 @@ def draw(project, cid, plan, variables, count, seed, method, center=None):
             column=[(i+rng.random())/max(1,remaining) for i in range(remaining)];rng.shuffle(column);columns.append(column)
         coords.extend([list(p) for p in zip(*columns)])
         return [{v['target']:scalar(v['lower'])+x*(scalar(v['upper'])-scalar(v['lower'])) for v,x in zip(variables,p)} for p in coords[:count]]
+    return list(iter_tolerance(project,cid,plan,variables,count,seed))
+
+
+def iter_tolerance(project,cid,plan,variables,count,seed):
+    """Stream the same seeded shared-factor draws used by robustness studies."""
+    rng=random.Random(int(seed))
     for _ in range(count):
         shared={v['group']:rng.gauss(0,1) for v in variables if v.get('group')};point={}
         for v in variables:
@@ -63,8 +69,7 @@ def draw(project, cid, plan, variables, count, seed, method, center=None):
                 rho=scalar(v.get('rho',1 if v.get('group') else 0))
                 z=rho*shared.get(v.get('group'),0)+math.sqrt(max(0,1-rho*rho))*rng.gauss(0,1)
             point[v['target']]=mean+sigma*z
-        output.append(point)
-    return output
+        yield point
 
 
 def batch(project, cid, plan, spec, scenarios, prepare_job):
@@ -89,6 +94,7 @@ def batch(project, cid, plan, spec, scenarios, prepare_job):
 
 
 def prepare(project, cid, plan, spec, prepare_job, variables, method='worst', count=20, seed=1, model=None, validation_of=None):
+    if plan.get('statistics'):raise ValueError('This plan already defines statistical trials. Run its durable campaign, or use a plan without trials for a separate robustness study.')
     if method not in ('worst','tolerance','statistical'):raise ValueError('Choose worst conditions, declared tolerances, or a validated statistical model.')
     variables=clone(variables);evidence=None
     if method=='statistical':

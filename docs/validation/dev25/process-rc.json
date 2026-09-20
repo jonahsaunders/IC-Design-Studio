@@ -1,0 +1,2734 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "name": "metal1-independent-rc-coupon",
+      "type": "independent_rc_reference",
+      "status": "passed",
+      "evidence": {
+        "reference": {
+          "length_um": 100.0,
+          "width_um": 1.0,
+          "port_inset_um": 0.5,
+          "sheet_ohm": 0.125,
+          "area_af_per_um2": 25.78,
+          "edge_af_per_um": 40.57,
+          "load_ohm": 100.0,
+          "resistance_relative_tolerance": 0.02,
+          "capacitance_relative_tolerance": 0.05,
+          "capacitance_conservation_relative_tolerance": 0.0001
+        },
+        "profile": {
+          "hierarchy": true,
+          "blackbox": false,
+          "merge": "none",
+          "scale": false,
+          "capacitance_threshold": 0.0,
+          "resistance_threshold": 0,
+          "distributed_resistance": true
+        },
+        "coupons": [
+          {
+            "length_um": 100.0,
+            "resistance_ohm": 279.7769999999999,
+            "capacitance_f": 1.1147660310000003e-14,
+            "terminal_capacitance_matrix": {
+              "terminals": [
+                "IN",
+                "DRAIN",
+                "VSS"
+              ],
+              "frequency_hz": 1000,
+              "expected_f": [
+                [
+                  1.1147660310000002e-14,
+                  -8.56031e-18,
+                  -1.1139100000000001e-14
+                ],
+                [
+                  -8.56031e-18,
+                  1.0616721e-16,
+                  -9.76069e-17
+                ],
+                [
+                  -1.1139100000000001e-14,
+                  -9.76069e-17,
+                  1.1236706900000001e-14
+                ]
+              ],
+              "ac_admittance_f": [
+                [
+                  1.1147660310000003e-14,
+                  -8.56031e-18,
+                  -1.1139100000000003e-14
+                ],
+                [
+                  -8.56031e-18,
+                  1.0616721e-16,
+                  -9.760690000000001e-17
+                ],
+                [
+                  -1.1139100000000003e-14,
+                  -9.760690000000001e-17,
+                  1.1236706900000004e-14
+                ]
+              ],
+              "max_absolute_error_f": 3.1554436208840472e-30,
+              "deck_sha256": {
+                "0.cir": "4d781bba9e6791250429353109ac3052a8453d9737b12feae8e454639f7e3741",
+                "1.cir": "6491ee2989c22d6d2e94e792a0f86aba1a2593994e39ce286d18af6f65448578",
+                "2.cir": "c8478537d092ae2febc382fb5745e52426dd389b72e3c8e44ac0d4c50023303a"
+              },
+              "scope": "Every terminal excited against all others at AC ground; includes signed mutual terms and substrate capacitance."
+            },
+            "capacitance_reference_f": 1.114766e-14,
+            "ac_admittance_capacitance_f": 1.1147660310000003e-14,
+            "capacitance_reference_sha256": "4b9b8c08d6107def6dc394793d3afec0f9ce39a7fc83e752608efe41510364f2",
+            "admittance_probe_sha256": "ac76d02b76a64d242d2a947068604778dc9e86b0f99f57ecb34d04f57e76166d",
+            "transfer_v": 0.2633124175502993,
+            "extracted_sha256": "fd44a534e7ac3966f3eea82f7668fc2ef39869c693fa90291d468e79927728cd",
+            "linear_probe_sha256": "c8f92133e5b29f5fce26c8b5b9bcb182c8bd273378fc63031309448653644c51",
+            "gate_node": "IN.t0"
+          },
+          {
+            "length_um": 200.0,
+            "resistance_ohm": 292.277,
+            "capacitance_f": 2.183966031e-14,
+            "terminal_capacitance_matrix": {
+              "terminals": [
+                "IN",
+                "DRAIN",
+                "VSS"
+              ],
+              "frequency_hz": 1000,
+              "expected_f": [
+                [
+                  2.183966031e-14,
+                  -8.56031e-18,
+                  -2.18311e-14
+                ],
+                [
+                  -8.56031e-18,
+                  1.0616721e-16,
+                  -9.76069e-17
+                ],
+                [
+                  -2.18311e-14,
+                  -9.76069e-17,
+                  2.19287069e-14
+                ]
+              ],
+              "ac_admittance_f": [
+                [
+                  2.1839660310000004e-14,
+                  -8.560309999999999e-18,
+                  -2.183109999999999e-14
+                ],
+                [
+                  -8.560309999999999e-18,
+                  1.0616721e-16,
+                  -9.760690000000001e-17
+                ],
+                [
+                  -2.183109999999999e-14,
+                  -9.760690000000001e-17,
+                  2.19287069e-14
+                ]
+              ],
+              "max_absolute_error_f": 9.466330862652142e-30,
+              "deck_sha256": {
+                "0.cir": "b1d885eaf3ec5134ed6f8104983d9e7550d2288a27ab6bad145aa18a8a4732f7",
+                "1.cir": "ea143207c8687ca0d0d0fe8203014652b0432e00b6cae43da90db5b1cc137170",
+                "2.cir": "1d891df6e274991329b42d35f61ffcded8f3899c3bd4ed094e34f3ef14a29b7b"
+              },
+              "scope": "Every terminal excited against all others at AC ground; includes signed mutual terms and substrate capacitance."
+            },
+            "capacitance_reference_f": 2.183966e-14,
+            "ac_admittance_capacitance_f": 2.1839660310000004e-14,
+            "capacitance_reference_sha256": "7e0e4c5303dee6fa7cfb36aa46a159e2afb71940bd281e86096dd21a3dfcda46",
+            "admittance_probe_sha256": "5139d10d0e4b0d4e03801c094a8bd0d65426c392c41fa241533c21e8b0620a5a",
+            "transfer_v": 0.254921904674503,
+            "extracted_sha256": "66f738f01680789c830f1aab07a2d8e872a838fab211ea6980cf346b94c493e6",
+            "linear_probe_sha256": "3fd6a241a3abed0cad59a2918dc3a70247844f9c55c165d98580bb92a718108b",
+            "gate_node": "IN.t0"
+          }
+        ],
+        "expected_delta_resistance_ohm": 12.5,
+        "measured_delta_resistance_ohm": 12.500000000000114,
+        "expected_delta_capacitance_f": 1.0692000000000001e-14,
+        "extracted_delta_capacitance_f": 1.0691999999999998e-14,
+        "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+        "scope": "100/200 \u00b5m straight metal1 leads with the same device contact; differencing cancels contact/end effects. Pinned deck model, not measured silicon or field-solver calibration."
+      }
+    },
+    {
+      "name": "current_mirror_op-nominal-27",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "output_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": 5.119161848199383e-05
+          },
+          {
+            "name": "bias_voltage",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.7660257435607942
+          }
+        ],
+        "probes": [
+          "force",
+          "out",
+          "ref"
+        ]
+      }
+    },
+    {
+      "name": "current_mirror_dc-nominal-27",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 181,
+        "measurements": [
+          {
+            "name": "output_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": 5.119161848909926e-05
+          },
+          {
+            "name": "bias_voltage",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.7660257435607942
+          }
+        ],
+        "probes": [
+          "force",
+          "out",
+          "ref"
+        ]
+      }
+    },
+    {
+      "name": "current_mirror_op-ss-27",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "output_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": 5.108088204508476e-05
+          },
+          {
+            "name": "bias_voltage",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.7930527738511223
+          }
+        ],
+        "probes": [
+          "force",
+          "out",
+          "ref"
+        ]
+      }
+    },
+    {
+      "name": "current_mirror_dc-ss-27",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 181,
+        "measurements": [
+          {
+            "name": "output_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": 5.108088204508476e-05
+          },
+          {
+            "name": "bias_voltage",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.7930527738511223
+          }
+        ],
+        "probes": [
+          "force",
+          "out",
+          "ref"
+        ]
+      }
+    },
+    {
+      "name": "current_mirror_op-ff-27",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "output_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": 5.130406145070765e-05
+          },
+          {
+            "name": "bias_voltage",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.7397239592241371
+          }
+        ],
+        "probes": [
+          "force",
+          "out",
+          "ref"
+        ]
+      }
+    },
+    {
+      "name": "current_mirror_dc-ff-27",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 181,
+        "measurements": [
+          {
+            "name": "output_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": 5.130406145070765e-05
+          },
+          {
+            "name": "bias_voltage",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.7397239592241371
+          }
+        ],
+        "probes": [
+          "force",
+          "out",
+          "ref"
+        ]
+      }
+    },
+    {
+      "name": "current_mirror_op-nominal-0",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "output_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": 5.120820235759993e-05
+          },
+          {
+            "name": "bias_voltage",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.7745214132731001
+          }
+        ],
+        "probes": [
+          "force",
+          "out",
+          "ref"
+        ]
+      }
+    },
+    {
+      "name": "current_mirror_dc-nominal-0",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 181,
+        "measurements": [
+          {
+            "name": "output_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": 5.120820235759993e-05
+          },
+          {
+            "name": "bias_voltage",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.7745214132731001
+          }
+        ],
+        "probes": [
+          "force",
+          "out",
+          "ref"
+        ]
+      }
+    },
+    {
+      "name": "current_mirror_op-nominal-85",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "output_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": 5.117253748920803e-05
+          },
+          {
+            "name": "bias_voltage",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.7496533912099168
+          }
+        ],
+        "probes": [
+          "force",
+          "out",
+          "ref"
+        ]
+      }
+    },
+    {
+      "name": "current_mirror_dc-nominal-85",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 181,
+        "measurements": [
+          {
+            "name": "output_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": 5.11725374821026e-05
+          },
+          {
+            "name": "bias_voltage",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.7496533912099168
+          }
+        ],
+        "probes": [
+          "force",
+          "out",
+          "ref"
+        ]
+      }
+    },
+    {
+      "name": "current_mirror_op-physical-nominal-27",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "current_mirror_op-physical-nominal-27/report.json",
+      "condition": {
+        "corner": "nominal",
+        "temperature": 27
+      },
+      "evidence": {
+        "resistors": 15,
+        "capacitors": 20,
+        "sum_resistance_ohm": 9523.646447000001,
+        "sum_capacitance_f": 1.1143920000000001e-14,
+        "deck_sha256": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe",
+        "measurements": [
+          {
+            "name": "output_current",
+            "unit": "A",
+            "before": 5.119161848199383e-05,
+            "after": 5.080590793239605e-05,
+            "delta": -3.8571054959778123e-07,
+            "relative_delta": -0.007534642604305455,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "bias_voltage",
+            "unit": "V",
+            "before": 0.7660257435607942,
+            "after": 0.7793595210917604,
+            "delta": 0.013333777530966207,
+            "relative_delta": 0.01740643528373534,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "current_mirror_dc-physical-nominal-27",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "current_mirror_dc-physical-nominal-27/report.json",
+      "condition": {
+        "corner": "nominal",
+        "temperature": 27
+      },
+      "evidence": {
+        "resistors": 15,
+        "capacitors": 20,
+        "sum_resistance_ohm": 9523.646447000001,
+        "sum_capacitance_f": 1.1143920000000001e-14,
+        "deck_sha256": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe",
+        "measurements": [
+          {
+            "name": "output_current",
+            "unit": "A",
+            "before": 5.119161848909926e-05,
+            "after": 5.080590793239519e-05,
+            "delta": -3.857105567040692e-07,
+            "relative_delta": -0.007534642742077052,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "bias_voltage",
+            "unit": "V",
+            "before": 0.7660257435607942,
+            "after": 0.7793607495817547,
+            "delta": 0.013335006020960494,
+            "relative_delta": 0.017408039002676397,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "current_mirror_op-physical-ss-27",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "current_mirror_op-physical-ss-27/report.json",
+      "condition": {
+        "corner": "ss",
+        "temperature": 27
+      },
+      "evidence": {
+        "resistors": 15,
+        "capacitors": 20,
+        "sum_resistance_ohm": 9523.646447000001,
+        "sum_capacitance_f": 1.1143920000000001e-14,
+        "deck_sha256": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe",
+        "measurements": [
+          {
+            "name": "output_current",
+            "unit": "A",
+            "before": 5.108088204508476e-05,
+            "after": 5.071999013134959e-05,
+            "delta": -3.6089191373517293e-07,
+            "relative_delta": -0.0070651073216912,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "bias_voltage",
+            "unit": "V",
+            "before": 0.7930527738511223,
+            "after": 0.8064573877964295,
+            "delta": 0.013404613945307231,
+            "relative_delta": 0.016902549725932418,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "current_mirror_dc-physical-ss-27",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "current_mirror_dc-physical-ss-27/report.json",
+      "condition": {
+        "corner": "ss",
+        "temperature": 27
+      },
+      "evidence": {
+        "resistors": 15,
+        "capacitors": 20,
+        "sum_resistance_ohm": 9523.646447000001,
+        "sum_capacitance_f": 1.1143920000000001e-14,
+        "deck_sha256": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe",
+        "measurements": [
+          {
+            "name": "output_current",
+            "unit": "A",
+            "before": 5.108088204508476e-05,
+            "after": 5.071999013134959e-05,
+            "delta": -3.6089191373517293e-07,
+            "relative_delta": -0.0070651073216912,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "bias_voltage",
+            "unit": "V",
+            "before": 0.7930527738511223,
+            "after": 0.8064585689010552,
+            "delta": 0.01340579504993289,
+            "relative_delta": 0.01690403903996624,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "current_mirror_op-physical-ff-27",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "current_mirror_op-physical-ff-27/report.json",
+      "condition": {
+        "corner": "ff",
+        "temperature": 27
+      },
+      "evidence": {
+        "resistors": 15,
+        "capacitors": 20,
+        "sum_resistance_ohm": 9523.646447000001,
+        "sum_capacitance_f": 1.1143920000000001e-14,
+        "deck_sha256": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe",
+        "measurements": [
+          {
+            "name": "output_current",
+            "unit": "A",
+            "before": 5.130406145070765e-05,
+            "after": 5.089353284181124e-05,
+            "delta": -4.105286088964126e-07,
+            "relative_delta": -0.008001873483073923,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "bias_voltage",
+            "unit": "V",
+            "before": 0.7397239592241371,
+            "after": 0.752980940854654,
+            "delta": 0.013256981630516806,
+            "relative_delta": 0.017921525273321488,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "current_mirror_dc-physical-ff-27",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "current_mirror_dc-physical-ff-27/report.json",
+      "condition": {
+        "corner": "ff",
+        "temperature": 27
+      },
+      "evidence": {
+        "resistors": 15,
+        "capacitors": 20,
+        "sum_resistance_ohm": 9523.646447000001,
+        "sum_capacitance_f": 1.1143920000000001e-14,
+        "deck_sha256": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe",
+        "measurements": [
+          {
+            "name": "output_current",
+            "unit": "A",
+            "before": 5.130406145070765e-05,
+            "after": 5.089353284181211e-05,
+            "delta": -4.1052860889553844e-07,
+            "relative_delta": -0.008001873483056884,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "bias_voltage",
+            "unit": "V",
+            "before": 0.7397239592241371,
+            "after": 0.7529822195518759,
+            "delta": 0.013258260327738802,
+            "relative_delta": 0.01792325388736197,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "current_mirror_op-physical-nominal-0",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "current_mirror_op-physical-nominal-0/report.json",
+      "condition": {
+        "corner": "nominal",
+        "temperature": 0
+      },
+      "evidence": {
+        "resistors": 15,
+        "capacitors": 20,
+        "sum_resistance_ohm": 9523.646447000001,
+        "sum_capacitance_f": 1.1143920000000001e-14,
+        "deck_sha256": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe",
+        "measurements": [
+          {
+            "name": "output_current",
+            "unit": "A",
+            "before": 5.120820235759993e-05,
+            "after": 5.080052846335829e-05,
+            "delta": -4.0767389424164313e-07,
+            "relative_delta": -0.007961105359542841,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "bias_voltage",
+            "unit": "V",
+            "before": 0.7745214132731001,
+            "after": 0.7878608001870442,
+            "delta": 0.013339386913944096,
+            "relative_delta": 0.01722274773214122,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "current_mirror_dc-physical-nominal-0",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "current_mirror_dc-physical-nominal-0/report.json",
+      "condition": {
+        "corner": "nominal",
+        "temperature": 0
+      },
+      "evidence": {
+        "resistors": 15,
+        "capacitors": 20,
+        "sum_resistance_ohm": 9523.646447000001,
+        "sum_capacitance_f": 1.1143920000000001e-14,
+        "deck_sha256": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe",
+        "measurements": [
+          {
+            "name": "output_current",
+            "unit": "A",
+            "before": 5.120820235759993e-05,
+            "after": 5.080052846335829e-05,
+            "delta": -4.0767389424164313e-07,
+            "relative_delta": -0.007961105359542841,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "bias_voltage",
+            "unit": "V",
+            "before": 0.7745214132731001,
+            "after": 0.787862036484111,
+            "delta": 0.013340623211010927,
+            "relative_delta": 0.017224343939871108,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "current_mirror_op-physical-nominal-85",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "current_mirror_op-physical-nominal-85/report.json",
+      "condition": {
+        "corner": "nominal",
+        "temperature": 85
+      },
+      "evidence": {
+        "resistors": 15,
+        "capacitors": 20,
+        "sum_resistance_ohm": 9523.646447000001,
+        "sum_capacitance_f": 1.1143920000000001e-14,
+        "deck_sha256": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe",
+        "measurements": [
+          {
+            "name": "output_current",
+            "unit": "A",
+            "before": 5.117253748920803e-05,
+            "after": 5.08240591049515e-05,
+            "delta": -3.4847838425653544e-07,
+            "relative_delta": -0.006809871101858636,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "bias_voltage",
+            "unit": "V",
+            "before": 0.7496533912099168,
+            "after": 0.762975190884805,
+            "delta": 0.013321799674888224,
+            "relative_delta": 0.0177706121670273,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "current_mirror_dc-physical-nominal-85",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "current_mirror_dc-physical-nominal-85/report.json",
+      "condition": {
+        "corner": "nominal",
+        "temperature": 85
+      },
+      "evidence": {
+        "resistors": 15,
+        "capacitors": 20,
+        "sum_resistance_ohm": 9523.646447000001,
+        "sum_capacitance_f": 1.1143920000000001e-14,
+        "deck_sha256": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe",
+        "measurements": [
+          {
+            "name": "output_current",
+            "unit": "A",
+            "before": 5.11725374821026e-05,
+            "after": 5.082405910495236e-05,
+            "delta": -3.484783771502407e-07,
+            "relative_delta": -0.006809870963934898,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "bias_voltage",
+            "unit": "V",
+            "before": 0.7496533912099168,
+            "after": 0.7629764168096025,
+            "delta": 0.013323025599685678,
+            "relative_delta": 0.017772247489179948,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "current_mirror-stale-extraction",
+      "type": "deliberate_stale_evidence",
+      "status": "passed",
+      "source_sha256": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe",
+      "expected_sha256": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe",
+      "changed_sha256": "37c58c84c54a0fb7d04fdbd317c9b606444e1cb46f8c16c909dadc4d2e539ead",
+      "observed_error": "Physical extraction or input evidence changed during verification."
+    },
+    {
+      "name": "current_mirror-narrow-metal",
+      "type": "deliberate_fault",
+      "expected_failure_stage": "drc",
+      "status": "passed",
+      "observed_status": "failed",
+      "error": "2 Magic DRC violations; see findings.tsv.",
+      "engine_report": "current_mirror-narrow-metal/report.json"
+    },
+    {
+      "name": "current_mirror-route-open",
+      "type": "deliberate_fault",
+      "expected_failure_stage": "lvs",
+      "status": "passed",
+      "observed_status": "failed",
+      "error": "Netgen did not establish a unique match with equivalent connected pins and no property errors. See lvs/lvs.log.",
+      "engine_report": "current_mirror-route-open/report.json"
+    },
+    {
+      "name": "current_mirror-wrong-channel-length",
+      "type": "deliberate_fault",
+      "expected_failure_stage": "lvs",
+      "status": "passed",
+      "observed_status": "failed",
+      "error": "Netgen did not establish a unique match with equivalent connected pins and no property errors. See lvs/lvs.log.",
+      "engine_report": "current_mirror-wrong-channel-length/report.json"
+    },
+    {
+      "name": "current_mirror-route-short",
+      "type": "deliberate_fault",
+      "expected_failure_stage": "lvs_extraction_or_lvs",
+      "status": "passed",
+      "observed_status": "failed",
+      "error": "Extracted port order differs from the schematic: {'equal': False, 'expected': ['IREF', 'OUT', 'VSS'], 'actual': ['OUT', 'VSS'], 'same_members': False, 'permutation': None}",
+      "engine_report": "current_mirror-route-short/report.json"
+    },
+    {
+      "name": "differential_pair_op-nominal-27",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "differential_output",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.0
+          },
+          {
+            "name": "output_p",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.299999732061917
+          },
+          {
+            "name": "output_n",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.299999732061917
+          }
+        ],
+        "probes": [
+          "inn",
+          "inp",
+          "outn",
+          "outp",
+          "tail",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "differential_pair_dc-nominal-27",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 81,
+        "measurements": [
+          {
+            "name": "differential_output",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": -8.413408858487514e-16
+          },
+          {
+            "name": "output_p",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.2999997320619172
+          },
+          {
+            "name": "output_n",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.2999997320619179
+          }
+        ],
+        "probes": [
+          "inn",
+          "inp",
+          "outn",
+          "outp",
+          "tail",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "differential_pair_op-ss-27",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "differential_output",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.0
+          },
+          {
+            "name": "output_p",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.29999964971117
+          },
+          {
+            "name": "output_n",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.29999964971117
+          }
+        ],
+        "probes": [
+          "inn",
+          "inp",
+          "outn",
+          "outp",
+          "tail",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "differential_pair_dc-ss-27",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 81,
+        "measurements": [
+          {
+            "name": "differential_output",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": -1.7399276464047375e-15
+          },
+          {
+            "name": "output_p",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.2999996497111692
+          },
+          {
+            "name": "output_n",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.2999996497111708
+          }
+        ],
+        "probes": [
+          "inn",
+          "inp",
+          "outn",
+          "outp",
+          "tail",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "differential_pair_op-ff-27",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "differential_output",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.0
+          },
+          {
+            "name": "output_p",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.299999795927583
+          },
+          {
+            "name": "output_n",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.299999795927583
+          }
+        ],
+        "probes": [
+          "inn",
+          "inp",
+          "outn",
+          "outp",
+          "tail",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "differential_pair_dc-ff-27",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 81,
+        "measurements": [
+          {
+            "name": "differential_output",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": -8.309325449928906e-16
+          },
+          {
+            "name": "output_p",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.2999997959275822
+          },
+          {
+            "name": "output_n",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.2999997959275829
+          }
+        ],
+        "probes": [
+          "inn",
+          "inp",
+          "outn",
+          "outp",
+          "tail",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "differential_pair_op-nominal-0",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "differential_output",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.0
+          },
+          {
+            "name": "output_p",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.299999632122728
+          },
+          {
+            "name": "output_n",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.299999632122728
+          }
+        ],
+        "probes": [
+          "inn",
+          "inp",
+          "outn",
+          "outp",
+          "tail",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "differential_pair_dc-nominal-0",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 81,
+        "measurements": [
+          {
+            "name": "differential_output",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": -8.257283745649602e-16
+          },
+          {
+            "name": "output_p",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.2999996321227272
+          },
+          {
+            "name": "output_n",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.2999996321227278
+          }
+        ],
+        "probes": [
+          "inn",
+          "inp",
+          "outn",
+          "outp",
+          "tail",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "differential_pair_op-nominal-85",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "differential_output",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.0
+          },
+          {
+            "name": "output_p",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.299999776626557
+          },
+          {
+            "name": "output_n",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.299999776626557
+          }
+        ],
+        "probes": [
+          "inn",
+          "inp",
+          "outn",
+          "outp",
+          "tail",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "differential_pair_dc-nominal-85",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 81,
+        "measurements": [
+          {
+            "name": "differential_output",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 2.42861286636753e-16
+          },
+          {
+            "name": "output_p",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.2999997766265572
+          },
+          {
+            "name": "output_n",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 1.2999997766265567
+          }
+        ],
+        "probes": [
+          "inn",
+          "inp",
+          "outn",
+          "outp",
+          "tail",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "differential_pair_op-physical-nominal-27",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "differential_pair_op-physical-nominal-27/report.json",
+      "condition": {
+        "corner": "nominal",
+        "temperature": 27
+      },
+      "evidence": {
+        "resistors": 10,
+        "capacitors": 68,
+        "sum_resistance_ohm": 3841.4795599999998,
+        "sum_capacitance_f": 2.61549038e-14,
+        "deck_sha256": "8731aadb5c14f63d7c037235766f980acf133a76be8af1489ea5621f84348fe4",
+        "measurements": [
+          {
+            "name": "differential_output",
+            "unit": "V",
+            "before": 0.0,
+            "after": -0.0023233534531859057,
+            "delta": -0.0023233534531859057,
+            "relative_delta": null,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_p",
+            "unit": "V",
+            "before": 1.299999732061917,
+            "after": 1.298838096860652,
+            "delta": -0.0011616352012648878,
+            "relative_delta": -0.0008935657236039807,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_n",
+            "unit": "V",
+            "before": 1.299999732061917,
+            "after": 1.301161450313838,
+            "delta": 0.0011617182519210179,
+            "relative_delta": 0.0008936296087372478,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "differential_pair_dc-physical-nominal-27",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "differential_pair_dc-physical-nominal-27/report.json",
+      "condition": {
+        "corner": "nominal",
+        "temperature": 27
+      },
+      "evidence": {
+        "resistors": 10,
+        "capacitors": 68,
+        "sum_resistance_ohm": 3841.4795599999998,
+        "sum_capacitance_f": 2.61549038e-14,
+        "deck_sha256": "8731aadb5c14f63d7c037235766f980acf133a76be8af1489ea5621f84348fe4",
+        "measurements": [
+          {
+            "name": "differential_output",
+            "unit": "V",
+            "before": -8.413408858487514e-16,
+            "after": -0.002323353453185668,
+            "delta": -0.0023233534531848267,
+            "relative_delta": -2761488823690.066,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_p",
+            "unit": "V",
+            "before": 1.2999997320619172,
+            "after": 1.2988380968606532,
+            "delta": -0.0011616352012639997,
+            "relative_delta": -0.0008935657236032973,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_n",
+            "unit": "V",
+            "before": 1.2999997320619179,
+            "after": 1.3011614503138387,
+            "delta": 0.0011617182519207958,
+            "relative_delta": 0.0008936296087370764,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "differential_pair_op-physical-ss-27",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "differential_pair_op-physical-ss-27/report.json",
+      "condition": {
+        "corner": "ss",
+        "temperature": 27
+      },
+      "evidence": {
+        "resistors": 10,
+        "capacitors": 68,
+        "sum_resistance_ohm": 3841.4795599999998,
+        "sum_capacitance_f": 2.61549038e-14,
+        "deck_sha256": "49aacd23a89912767e494cb21760e42f324ce3b91672e923228b94e513f8a7bf",
+        "measurements": [
+          {
+            "name": "differential_output",
+            "unit": "V",
+            "before": 0.0,
+            "after": -0.0022586463063649642,
+            "delta": -0.0022586463063649642,
+            "relative_delta": null,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_p",
+            "unit": "V",
+            "before": 1.29999964971117,
+            "after": 1.298870379837556,
+            "delta": -0.0011292698736140583,
+            "relative_delta": -0.0008686693676147959,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_n",
+            "unit": "V",
+            "before": 1.29999964971117,
+            "after": 1.301129026143921,
+            "delta": 0.001129376432750906,
+            "relative_delta": 0.0008687513362036884,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "differential_pair_dc-physical-ss-27",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "differential_pair_dc-physical-ss-27/report.json",
+      "condition": {
+        "corner": "ss",
+        "temperature": 27
+      },
+      "evidence": {
+        "resistors": 10,
+        "capacitors": 68,
+        "sum_resistance_ohm": 3841.4795599999998,
+        "sum_capacitance_f": 2.61549038e-14,
+        "deck_sha256": "49aacd23a89912767e494cb21760e42f324ce3b91672e923228b94e513f8a7bf",
+        "measurements": [
+          {
+            "name": "differential_output",
+            "unit": "V",
+            "before": -1.7399276464047375e-15,
+            "after": -0.0022586463063658437,
+            "delta": -0.002258646306364104,
+            "relative_delta": -1298126569246.2612,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_p",
+            "unit": "V",
+            "before": 1.2999996497111692,
+            "after": 1.2988703798375552,
+            "delta": -0.0011292698736140583,
+            "relative_delta": -0.0008686693676147964,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_n",
+            "unit": "V",
+            "before": 1.2999996497111708,
+            "after": 1.3011290261439208,
+            "delta": 0.0011293764327500178,
+            "relative_delta": 0.0008687513362030047,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "differential_pair_op-physical-ff-27",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "differential_pair_op-physical-ff-27/report.json",
+      "condition": {
+        "corner": "ff",
+        "temperature": 27
+      },
+      "evidence": {
+        "resistors": 10,
+        "capacitors": 68,
+        "sum_resistance_ohm": 3841.4795599999998,
+        "sum_capacitance_f": 2.61549038e-14,
+        "deck_sha256": "49aacd23a89912767e494cb21760e42f324ce3b91672e923228b94e513f8a7bf",
+        "measurements": [
+          {
+            "name": "differential_output",
+            "unit": "V",
+            "before": 0.0,
+            "after": -0.002381401757473922,
+            "delta": -0.002381401757473922,
+            "relative_delta": null,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_p",
+            "unit": "V",
+            "before": 1.299999795927583,
+            "after": 1.2988091271208,
+            "delta": -0.0011906688067830906,
+            "relative_delta": -0.0009158992259175841,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_n",
+            "unit": "V",
+            "before": 1.299999795927583,
+            "after": 1.301190528878274,
+            "delta": 0.0011907329506908315,
+            "relative_delta": 0.0009159485673928226,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "differential_pair_dc-physical-ff-27",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "differential_pair_dc-physical-ff-27/report.json",
+      "condition": {
+        "corner": "ff",
+        "temperature": 27
+      },
+      "evidence": {
+        "resistors": 10,
+        "capacitors": 68,
+        "sum_resistance_ohm": 3841.4795599999998,
+        "sum_capacitance_f": 2.61549038e-14,
+        "deck_sha256": "49aacd23a89912767e494cb21760e42f324ce3b91672e923228b94e513f8a7bf",
+        "measurements": [
+          {
+            "name": "differential_output",
+            "unit": "V",
+            "before": -8.309325449928906e-16,
+            "after": -0.0023814017574767844,
+            "delta": -0.0023814017574759535,
+            "relative_delta": -2865938723697.877,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_p",
+            "unit": "V",
+            "before": 1.2999997959275822,
+            "after": 1.2988091271207982,
+            "delta": -0.0011906688067839788,
+            "relative_delta": -0.0009158992259182679,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_n",
+            "unit": "V",
+            "before": 1.2999997959275829,
+            "after": 1.3011905288782748,
+            "delta": 0.0011907329506919417,
+            "relative_delta": 0.0009159485673936768,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "differential_pair_op-physical-nominal-0",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "differential_pair_op-physical-nominal-0/report.json",
+      "condition": {
+        "corner": "nominal",
+        "temperature": 0
+      },
+      "evidence": {
+        "resistors": 10,
+        "capacitors": 68,
+        "sum_resistance_ohm": 3841.4795599999998,
+        "sum_capacitance_f": 2.61549038e-14,
+        "deck_sha256": "8731aadb5c14f63d7c037235766f980acf133a76be8af1489ea5621f84348fe4",
+        "measurements": [
+          {
+            "name": "differential_output",
+            "unit": "V",
+            "before": 0.0,
+            "after": -0.0024420052732119224,
+            "delta": -0.0024420052732119224,
+            "relative_delta": null,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_p",
+            "unit": "V",
+            "before": 1.299999632122728,
+            "after": 1.298778685638325,
+            "delta": -0.0012209464844030737,
+            "relative_delta": -0.0009391898691612928,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_n",
+            "unit": "V",
+            "before": 1.299999632122728,
+            "after": 1.301220690911537,
+            "delta": 0.0012210587888088487,
+            "relative_delta": 0.0009392762571901813,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "differential_pair_dc-physical-nominal-0",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "differential_pair_dc-physical-nominal-0/report.json",
+      "condition": {
+        "corner": "nominal",
+        "temperature": 0
+      },
+      "evidence": {
+        "resistors": 10,
+        "capacitors": 68,
+        "sum_resistance_ohm": 3841.4795599999998,
+        "sum_capacitance_f": 2.61549038e-14,
+        "deck_sha256": "8731aadb5c14f63d7c037235766f980acf133a76be8af1489ea5621f84348fe4",
+        "measurements": [
+          {
+            "name": "differential_output",
+            "unit": "V",
+            "before": -8.257283745649602e-16,
+            "after": -0.0024420052732116726,
+            "delta": -0.002442005273210847,
+            "relative_delta": -2957395371689.185,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_p",
+            "unit": "V",
+            "before": 1.2999996321227272,
+            "after": 1.2987786856383252,
+            "delta": -0.0012209464844019635,
+            "relative_delta": -0.0009391898691604395,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_n",
+            "unit": "V",
+            "before": 1.2999996321227278,
+            "after": 1.3012206909115367,
+            "delta": 0.0012210587888088487,
+            "relative_delta": 0.0009392762571901815,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "differential_pair_op-physical-nominal-85",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "differential_pair_op-physical-nominal-85/report.json",
+      "condition": {
+        "corner": "nominal",
+        "temperature": 85
+      },
+      "evidence": {
+        "resistors": 10,
+        "capacitors": 68,
+        "sum_resistance_ohm": 3841.4795599999998,
+        "sum_capacitance_f": 2.61549038e-14,
+        "deck_sha256": "8731aadb5c14f63d7c037235766f980acf133a76be8af1489ea5621f84348fe4",
+        "measurements": [
+          {
+            "name": "differential_output",
+            "unit": "V",
+            "before": 0.0,
+            "after": -0.002114604123368169,
+            "delta": -0.002114604123368169,
+            "relative_delta": null,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_p",
+            "unit": "V",
+            "before": 1.299999776626557,
+            "after": 1.298942409480185,
+            "delta": -0.0010573671463720569,
+            "relative_delta": -0.0008133594831192039,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_n",
+            "unit": "V",
+            "before": 1.299999776626557,
+            "after": 1.301057013603553,
+            "delta": 0.001057236976996112,
+            "relative_delta": 0.0008132593528128106,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "differential_pair_dc-physical-nominal-85",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "differential_pair_dc-physical-nominal-85/report.json",
+      "condition": {
+        "corner": "nominal",
+        "temperature": 85
+      },
+      "evidence": {
+        "resistors": 10,
+        "capacitors": 68,
+        "sum_resistance_ohm": 3841.4795599999998,
+        "sum_capacitance_f": 2.61549038e-14,
+        "deck_sha256": "8731aadb5c14f63d7c037235766f980acf133a76be8af1489ea5621f84348fe4",
+        "measurements": [
+          {
+            "name": "differential_output",
+            "unit": "V",
+            "before": 2.42861286636753e-16,
+            "after": -0.0021146041233688403,
+            "delta": -0.002114604123369083,
+            "relative_delta": -8707044884151.879,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_p",
+            "unit": "V",
+            "before": 1.2999997766265572,
+            "after": 1.298942409480184,
+            "delta": -0.001057367146373167,
+            "relative_delta": -0.0008133594831200578,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "output_n",
+            "unit": "V",
+            "before": 1.2999997766265567,
+            "after": 1.301057013603553,
+            "delta": 0.0010572369769963341,
+            "relative_delta": 0.0008132593528129815,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "differential_pair-stale-extraction",
+      "type": "deliberate_stale_evidence",
+      "status": "passed",
+      "source_sha256": "8731aadb5c14f63d7c037235766f980acf133a76be8af1489ea5621f84348fe4",
+      "expected_sha256": "8731aadb5c14f63d7c037235766f980acf133a76be8af1489ea5621f84348fe4",
+      "changed_sha256": "8a6b460141543f7a619796efb49c7b8989791fa13701e0126f6ec82f19bb869a",
+      "observed_error": "Physical extraction or input evidence changed during verification."
+    },
+    {
+      "name": "differential_pair-narrow-metal",
+      "type": "deliberate_fault",
+      "expected_failure_stage": "drc",
+      "status": "passed",
+      "observed_status": "failed",
+      "error": "2 Magic DRC violations; see findings.tsv.",
+      "engine_report": "differential_pair-narrow-metal/report.json"
+    },
+    {
+      "name": "differential_pair-route-open",
+      "type": "deliberate_fault",
+      "expected_failure_stage": "lvs",
+      "status": "passed",
+      "observed_status": "failed",
+      "error": "Netgen did not establish a unique match with equivalent connected pins and no property errors. See lvs/lvs.log.",
+      "engine_report": "differential_pair-route-open/report.json"
+    },
+    {
+      "name": "differential_pair-wrong-channel-length",
+      "type": "deliberate_fault",
+      "expected_failure_stage": "lvs",
+      "status": "passed",
+      "observed_status": "failed",
+      "error": "Netgen did not establish a unique match with equivalent connected pins and no property errors. See lvs/lvs.log.",
+      "engine_report": "differential_pair-wrong-channel-length/report.json"
+    },
+    {
+      "name": "differential_pair-route-short",
+      "type": "deliberate_fault",
+      "expected_failure_stage": "lvs_extraction_or_lvs",
+      "status": "passed",
+      "observed_status": "failed",
+      "error": "Extracted port order differs from the schematic: {'equal': False, 'expected': ['INP', 'INN', 'OUTP', 'OUTN', 'TAIL', 'VSS'], 'actual': ['INP', 'OUTP', 'OUTN', 'TAIL', 'VSS'], 'same_members': False, 'permutation': None}",
+      "engine_report": "differential_pair-route-short/report.json"
+    },
+    {
+      "name": "amplifier_op-nominal-27",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "output_bias",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.696037949757113
+          },
+          {
+            "name": "supply_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": -9.273492174451115e-06
+          }
+        ],
+        "probes": [
+          "bias",
+          "inn",
+          "inp",
+          "out",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "amplifier_ac-nominal-27",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 141,
+        "measurements": [
+          {
+            "name": "low_frequency_gain",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 130.05117759857953
+          }
+        ],
+        "probes": [
+          "bias",
+          "inn",
+          "inp",
+          "out",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "amplifier_op-ss-27",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "output_bias",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.6875761402775198
+          },
+          {
+            "name": "supply_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": -6.52177443935531e-06
+          }
+        ],
+        "probes": [
+          "bias",
+          "inn",
+          "inp",
+          "out",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "amplifier_ac-ss-27",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 141,
+        "measurements": [
+          {
+            "name": "low_frequency_gain",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 129.7083787603055
+          }
+        ],
+        "probes": [
+          "bias",
+          "inn",
+          "inp",
+          "out",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "amplifier_op-ff-27",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "output_bias",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.704169763758685
+          },
+          {
+            "name": "supply_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": -1.286930593116797e-05
+          }
+        ],
+        "probes": [
+          "bias",
+          "inn",
+          "inp",
+          "out",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "amplifier_ac-ff-27",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 141,
+        "measurements": [
+          {
+            "name": "low_frequency_gain",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 129.2082108551011
+          }
+        ],
+        "probes": [
+          "bias",
+          "inn",
+          "inp",
+          "out",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "amplifier_op-nominal-0",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "output_bias",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.66798081296924
+          },
+          {
+            "name": "supply_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": -7.64341258517598e-06
+          }
+        ],
+        "probes": [
+          "bias",
+          "inn",
+          "inp",
+          "out",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "amplifier_ac-nominal-0",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 141,
+        "measurements": [
+          {
+            "name": "low_frequency_gain",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 130.72332082201999
+          }
+        ],
+        "probes": [
+          "bias",
+          "inn",
+          "inp",
+          "out",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "amplifier_op-nominal-85",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "output_bias",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.7584741316251613
+          },
+          {
+            "name": "supply_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": -1.254550838705043e-05
+          }
+        ],
+        "probes": [
+          "bias",
+          "inn",
+          "inp",
+          "out",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "amplifier_ac-nominal-85",
+      "status": "passed",
+      "type": "independent_simulation",
+      "measurements": {
+        "status": "passed",
+        "samples": 141,
+        "measurements": [
+          {
+            "name": "low_frequency_gain",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 125.64126065025398
+          }
+        ],
+        "probes": [
+          "bias",
+          "inn",
+          "inp",
+          "out",
+          "vdd"
+        ]
+      }
+    },
+    {
+      "name": "amplifier_op-physical-nominal-27",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "amplifier_op-physical-nominal-27/report.json",
+      "condition": {
+        "corner": "nominal",
+        "temperature": 27
+      },
+      "evidence": {
+        "resistors": 32,
+        "capacitors": 348,
+        "sum_resistance_ohm": 22320.933367,
+        "sum_capacitance_f": 1.0718206600000001e-13,
+        "deck_sha256": "a19cd495a73c3c65cb483723fa7eb64ef8d083ad90a8500796bdfda067f98804",
+        "measurements": [
+          {
+            "name": "output_bias",
+            "unit": "V",
+            "before": 0.696037949757113,
+            "after": 0.6841483475201308,
+            "delta": -0.01188960223698221,
+            "relative_delta": -0.017081830439175286,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "supply_current",
+            "unit": "A",
+            "before": -9.273492174451115e-06,
+            "after": -8.911037424258472e-06,
+            "delta": 3.624547501926423e-07,
+            "relative_delta": 0.039085033272710505,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "amplifier_ac-physical-nominal-27",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "amplifier_ac-physical-nominal-27/report.json",
+      "condition": {
+        "corner": "nominal",
+        "temperature": 27
+      },
+      "evidence": {
+        "resistors": 32,
+        "capacitors": 348,
+        "sum_resistance_ohm": 22320.933367,
+        "sum_capacitance_f": 1.0718206600000001e-13,
+        "deck_sha256": "a19cd495a73c3c65cb483723fa7eb64ef8d083ad90a8500796bdfda067f98804",
+        "measurements": [
+          {
+            "name": "low_frequency_gain",
+            "unit": "V",
+            "before": 130.05117759857953,
+            "after": 128.81064461840873,
+            "delta": -1.2405329801707978,
+            "relative_delta": -0.009538806207506016,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "amplifier_op-physical-ss-27",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "amplifier_op-physical-ss-27/report.json",
+      "condition": {
+        "corner": "ss",
+        "temperature": 27
+      },
+      "evidence": {
+        "resistors": 32,
+        "capacitors": 348,
+        "sum_resistance_ohm": 22320.933367,
+        "sum_capacitance_f": 1.0718206600000001e-13,
+        "deck_sha256": "1a196238b16ad82c73c1b1de51685169112b6293a13f1d674c218cb0a65cb761",
+        "measurements": [
+          {
+            "name": "output_bias",
+            "unit": "V",
+            "before": 0.6875761402775198,
+            "after": 0.6790362922694894,
+            "delta": -0.008539848008030426,
+            "relative_delta": -0.012420221569328408,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "supply_current",
+            "unit": "A",
+            "before": -6.52177443935531e-06,
+            "after": -6.324120223957785e-06,
+            "delta": 1.976542153975247e-07,
+            "relative_delta": 0.03030681561214239,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "amplifier_ac-physical-ss-27",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "amplifier_ac-physical-ss-27/report.json",
+      "condition": {
+        "corner": "ss",
+        "temperature": 27
+      },
+      "evidence": {
+        "resistors": 32,
+        "capacitors": 348,
+        "sum_resistance_ohm": 22320.933367,
+        "sum_capacitance_f": 1.0718206600000001e-13,
+        "deck_sha256": "1a196238b16ad82c73c1b1de51685169112b6293a13f1d674c218cb0a65cb761",
+        "measurements": [
+          {
+            "name": "low_frequency_gain",
+            "unit": "V",
+            "before": 129.7083787603055,
+            "after": 128.81987044239312,
+            "delta": -0.8885083179123683,
+            "relative_delta": -0.006850045667090532,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "amplifier_op-physical-ff-27",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "amplifier_op-physical-ff-27/report.json",
+      "condition": {
+        "corner": "ff",
+        "temperature": 27
+      },
+      "evidence": {
+        "resistors": 32,
+        "capacitors": 348,
+        "sum_resistance_ohm": 22320.933367,
+        "sum_capacitance_f": 1.0718206600000001e-13,
+        "deck_sha256": "1a196238b16ad82c73c1b1de51685169112b6293a13f1d674c218cb0a65cb761",
+        "measurements": [
+          {
+            "name": "output_bias",
+            "unit": "V",
+            "before": 0.704169763758685,
+            "after": 0.688165716784149,
+            "delta": -0.016004046974536057,
+            "relative_delta": -0.022727540712782653,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "supply_current",
+            "unit": "A",
+            "before": -1.286930593116797e-05,
+            "after": -1.224067099656057e-05,
+            "delta": 6.286349346073998e-07,
+            "relative_delta": 0.04884761757702245,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "amplifier_ac-physical-ff-27",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "amplifier_ac-physical-ff-27/report.json",
+      "condition": {
+        "corner": "ff",
+        "temperature": 27
+      },
+      "evidence": {
+        "resistors": 32,
+        "capacitors": 348,
+        "sum_resistance_ohm": 22320.933367,
+        "sum_capacitance_f": 1.0718206600000001e-13,
+        "deck_sha256": "1a196238b16ad82c73c1b1de51685169112b6293a13f1d674c218cb0a65cb761",
+        "measurements": [
+          {
+            "name": "low_frequency_gain",
+            "unit": "V",
+            "before": 129.2082108551011,
+            "after": 127.52206633745739,
+            "delta": -1.6861445176437115,
+            "relative_delta": -0.013049824825255237,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "amplifier_op-physical-nominal-0",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "amplifier_op-physical-nominal-0/report.json",
+      "condition": {
+        "corner": "nominal",
+        "temperature": 0
+      },
+      "evidence": {
+        "resistors": 32,
+        "capacitors": 348,
+        "sum_resistance_ohm": 22320.933367,
+        "sum_capacitance_f": 1.0718206600000001e-13,
+        "deck_sha256": "a19cd495a73c3c65cb483723fa7eb64ef8d083ad90a8500796bdfda067f98804",
+        "measurements": [
+          {
+            "name": "output_bias",
+            "unit": "V",
+            "before": 0.66798081296924,
+            "after": 0.6580139755666305,
+            "delta": -0.009966837402609396,
+            "relative_delta": -0.014920843846256348,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "supply_current",
+            "unit": "A",
+            "before": -7.64341258517598e-06,
+            "after": -7.366448778786672e-06,
+            "delta": 2.769638063893076e-07,
+            "relative_delta": 0.036235621628808216,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "amplifier_ac-physical-nominal-0",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "amplifier_ac-physical-nominal-0/report.json",
+      "condition": {
+        "corner": "nominal",
+        "temperature": 0
+      },
+      "evidence": {
+        "resistors": 32,
+        "capacitors": 348,
+        "sum_resistance_ohm": 22320.933367,
+        "sum_capacitance_f": 1.0718206600000001e-13,
+        "deck_sha256": "a19cd495a73c3c65cb483723fa7eb64ef8d083ad90a8500796bdfda067f98804",
+        "measurements": [
+          {
+            "name": "low_frequency_gain",
+            "unit": "V",
+            "before": 130.72332082201999,
+            "after": 129.6305305634072,
+            "delta": -1.09279025861278,
+            "relative_delta": -0.008359566233025978,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "amplifier_op-physical-nominal-85",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "amplifier_op-physical-nominal-85/report.json",
+      "condition": {
+        "corner": "nominal",
+        "temperature": 85
+      },
+      "evidence": {
+        "resistors": 32,
+        "capacitors": 348,
+        "sum_resistance_ohm": 22320.933367,
+        "sum_capacitance_f": 1.0718206600000001e-13,
+        "deck_sha256": "a19cd495a73c3c65cb483723fa7eb64ef8d083ad90a8500796bdfda067f98804",
+        "measurements": [
+          {
+            "name": "output_bias",
+            "unit": "V",
+            "before": 0.7584741316251613,
+            "after": 0.7430781123552972,
+            "delta": -0.015396019269864114,
+            "relative_delta": -0.020298674177424474,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "supply_current",
+            "unit": "A",
+            "before": -1.254550838705043e-05,
+            "after": -1.200718409562207e-05,
+            "delta": 5.383242914283604e-07,
+            "relative_delta": 0.04290972313119035,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "amplifier_ac-physical-nominal-85",
+      "type": "physical",
+      "status": "passed",
+      "engine_report": "amplifier_ac-physical-nominal-85/report.json",
+      "condition": {
+        "corner": "nominal",
+        "temperature": 85
+      },
+      "evidence": {
+        "resistors": 32,
+        "capacitors": 348,
+        "sum_resistance_ohm": 22320.933367,
+        "sum_capacitance_f": 1.0718206600000001e-13,
+        "deck_sha256": "a19cd495a73c3c65cb483723fa7eb64ef8d083ad90a8500796bdfda067f98804",
+        "measurements": [
+          {
+            "name": "low_frequency_gain",
+            "unit": "V",
+            "before": 125.64126065025398,
+            "after": 124.29854960318343,
+            "delta": -1.3427110470705514,
+            "relative_delta": -0.010686863854448576,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "integrity_verified": true
+      }
+    },
+    {
+      "name": "amplifier-stale-extraction",
+      "type": "deliberate_stale_evidence",
+      "status": "passed",
+      "source_sha256": "a19cd495a73c3c65cb483723fa7eb64ef8d083ad90a8500796bdfda067f98804",
+      "expected_sha256": "a19cd495a73c3c65cb483723fa7eb64ef8d083ad90a8500796bdfda067f98804",
+      "changed_sha256": "1a956ca69747a180e70b777d4f6497d5e20fd21709058012a2f86167f7a88065",
+      "observed_error": "Physical extraction or input evidence changed during verification."
+    },
+    {
+      "name": "amplifier-narrow-metal",
+      "type": "deliberate_fault",
+      "expected_failure_stage": "drc",
+      "status": "passed",
+      "observed_status": "failed",
+      "error": "2 Magic DRC violations; see findings.tsv.",
+      "engine_report": "amplifier-narrow-metal/report.json"
+    },
+    {
+      "name": "amplifier-route-open",
+      "type": "deliberate_fault",
+      "expected_failure_stage": "lvs",
+      "status": "passed",
+      "observed_status": "failed",
+      "error": "Netgen did not establish a unique match with equivalent connected pins and no property errors. See lvs/lvs.log.",
+      "engine_report": "amplifier-route-open/report.json"
+    },
+    {
+      "name": "amplifier-wrong-channel-length",
+      "type": "deliberate_fault",
+      "expected_failure_stage": "lvs",
+      "status": "passed",
+      "observed_status": "failed",
+      "error": "Netgen did not establish a unique match with equivalent connected pins and no property errors. See lvs/lvs.log.",
+      "engine_report": "amplifier-wrong-channel-length/report.json"
+    },
+    {
+      "name": "amplifier-route-short",
+      "type": "deliberate_fault",
+      "expected_failure_stage": "lvs_extraction_or_lvs",
+      "status": "passed",
+      "observed_status": "failed",
+      "error": "Extracted port order differs from the schematic: {'equal': False, 'expected': ['INP', 'INN', 'OUT', 'BIAS', 'VDD', 'VSS'], 'actual': ['INP', 'OUT', 'BIAS', 'VDD', 'VSS'], 'same_members': False, 'permutation': None}",
+      "engine_report": "amplifier-route-short/report.json"
+    }
+  ],
+  "extraction": "rc",
+  "workers": 4,
+  "circuits": [
+    "current_mirror",
+    "differential_pair",
+    "amplifier"
+  ],
+  "conditions": [
+    [
+      "nominal",
+      27
+    ],
+    [
+      "ss",
+      27
+    ],
+    [
+      "ff",
+      27
+    ],
+    [
+      "nominal",
+      0
+    ],
+    [
+      "nominal",
+      85
+    ]
+  ],
+  "scope": "Only the listed single-finger references and conditions; actual process distributed RC, independent metal1 coupon and stale-evidence rejection.",
+  "source": {
+    "commit": "46658f81b378743f39bbc10d4c83c5b8ceb583d1",
+    "files": {
+      "scripts/qualify_analog_process.py": "bd8e068089e9ba3f1b400e26068f69bab4ec2bf79da2bbf0b7eda64d747a3446",
+      "scripts/qualify_process_rc.py": "c4a755f1174b83d9696db797b5a47457a276292a2a64c78f36f99b4fb4feb561",
+      "icstudio/hierarchical_flow.py": "5a8eb485491be0c588a9a2bb2351fc1747f3b82894e1957fd20f06aed911ff34",
+      "icstudio/external_tools.py": "0a0847ca4680020039127546db16dea3ac80b69f1fa8abc19db214e4a1682be4"
+    },
+    "implementation_sha256": "595b64ea4b9db5a07c7eae7ca98837328bb358d1bfe29bd991588edfeb520215",
+    "manifest": "source-files.json",
+    "manifest_sha256": "d2cc7b24a6d269f51e3f37d44afccbe00ffa35ab556465288c67e0d2d18df32a",
+    "final_implementation_sha256": "595b64ea4b9db5a07c7eae7ca98837328bb358d1bfe29bd991588edfeb520215",
+    "verified_unchanged": true
+  },
+  "tools": {
+    "magic": {
+      "path": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/magic-run",
+      "sha256": "fa89bcfea9816d2cb4902deeff44c2199ac048fffb1303348fa5191ecf6c29cb",
+      "version_file": "magic-version.log",
+      "version_sha256": "374631470fd896b551d28a26fafd5af90d205a0af0d09f5ab9d796371d6be261"
+    },
+    "netgen": {
+      "path": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/netgen-run",
+      "sha256": "c415bb25c7152f14f2ec2fb0a747cd138bd764e9044cb845e7f686a64acf1458",
+      "version_file": "netgen-version.log",
+      "version_sha256": "2440d38de07e7a1293b3d3a0aecdc160b7856c46422c799f28695ad24989c333"
+    },
+    "ngspice": {
+      "path": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/ngspice-run",
+      "sha256": "b04ec82707ddc54aa258be26462f28315b18f7d5a6c8e15ca0deb662b6b99dae",
+      "version_file": "ngspice-version.log",
+      "version_sha256": "d18ced87a01768ec53b4682c549f1182be38030c71159f071a008b747a8f04be"
+    }
+  },
+  "process": {
+    "id": "sky130A",
+    "revision": "01b4bb7a87cc7fe5",
+    "manifest_sha256": "1834052fc256e65e8ac7270b4f5e11a8d2b2ad2571249e0f5ebe41bce110b9c4"
+  }
+}

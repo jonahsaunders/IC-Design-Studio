@@ -1,8 +1,8 @@
 {
   "id": "sky130A",
-  "revision": "f29eb101fe485dfd",
+  "revision": "01b4bb7a87cc7fe5",
   "files_hash": "910ebca2612f9f71b49962457c3e2b26b2b72e61af47c75685d244b59dce71b6",
-  "manifest_sha256": "3c86c0c95ef54fa885eaa0394d2913a03c2a636c4e4944bc591908444103fa2c",
+  "manifest_sha256": "1834052fc256e65e8ac7270b4f5e11a8d2b2ad2571249e0f5ebe41bce110b9c4",
   "upstream_lock": "sky130-reference-assets.json",
   "scope": "Nominal SKY130 1.8 V inverter; narrow metal, route open and channel-length faults"
 }

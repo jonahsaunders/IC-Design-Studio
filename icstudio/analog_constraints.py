@@ -84,7 +84,7 @@ def findings(p,cid):
                 metrics['centroid_error_nm']=max(math.dist(a,b) for a in group_centers for b in group_centers)
                 if metrics['centroid_error_nm']:raise ValueError('Device-group centroids do not coincide.')
             elif kind=='guard_ring':
-                ring=next((r for r in c.get('parametric_devices',[]) if r['id']==row.get('ring')),None)
+                ring=next((r for r in c.get('parametric_devices',[])+c.get('process_guards',[]) if r['id']==row.get('ring')),None)
                 if not ring:raise ValueError('The assigned guard ring is missing.')
                 spec=ring['spec'];x,y=spec['x'],spec['y'];t=spec['thickness'];
                 reference=ring.get('reference',{});anchor=next((s for s in c['shapes'] if s.get('pcell_id')==ring['id'] and s.get('pcell_role')==reference.get('role')),None)

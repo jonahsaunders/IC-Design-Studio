@@ -1,0 +1,21 @@
+test_cross_instance_parallel_coupling_is_retained (tests.test_rc_hierarchy.HierarchicalRcTests.test_cross_instance_parallel_coupling_is_retained) ... ok
+test_mim_mask_keeps_distinct_plates_in_the_rc_network (tests.test_rc_hierarchy.HierarchicalRcTests.test_mim_mask_keeps_distinct_plates_in_the_rc_network) ... ok
+test_nested_instances_and_tampered_mapping_fail_closed (tests.test_rc_hierarchy.HierarchicalRcTests.test_nested_instances_and_tampered_mapping_fail_closed) ... ok
+test_repeated_master_keeps_paths_and_independent_series_resistance (tests.test_rc_hierarchy.HierarchicalRcTests.test_repeated_master_keeps_paths_and_independent_series_resistance) ... ok
+test_rotation_mirror_and_source_mapping_are_deterministic (tests.test_rc_hierarchy.HierarchicalRcTests.test_rotation_mirror_and_source_mapping_are_deterministic) ... ok
+test_two_levels_keep_the_same_saved_bench_and_real_transfer (tests.test_rc_hierarchy.HierarchicalRcTests.test_two_levels_keep_the_same_saved_bench_and_real_transfer) ... ok
+test_unreconciled_instances_arrays_and_parameter_overrides_rejected (tests.test_rc_hierarchy.HierarchicalRcTests.test_unreconciled_instances_arrays_and_parameter_overrides_rejected) ... ok
+test_calibrated_choice_rejects_missing_changed_corner_and_geometry_faults (tests.test_physical_extraction.PhysicalExtractionTests.test_calibrated_choice_rejects_missing_changed_corner_and_geometry_faults) ... ok
+test_calibrated_network_does_not_bypass_process_verification_gates (tests.test_physical_extraction.PhysicalExtractionTests.test_calibrated_network_does_not_bypass_process_verification_gates) ... ok
+test_calibrated_parallel_coupling_matches_ac_crosstalk_transfer (tests.test_physical_extraction.PhysicalExtractionTests.test_calibrated_parallel_coupling_matches_ac_crosstalk_transfer) ... ok
+test_comparison_retains_failed_missing_and_zero_baseline_values (tests.test_physical_extraction.PhysicalExtractionTests.test_comparison_retains_failed_missing_and_zero_baseline_values) ... ok
+test_mutation_after_simulation_fails_explicit_integrity_stage (tests.test_physical_extraction.PhysicalExtractionTests.test_mutation_after_simulation_fails_explicit_integrity_stage) ... ok
+test_network_rejects_changed_values_cell_and_revision (tests.test_physical_extraction.PhysicalExtractionTests.test_network_rejects_changed_values_cell_and_revision) ... ok
+test_path_port_resistance_changes_exact_dc_transfer (tests.test_physical_extraction.PhysicalExtractionTests.test_path_port_resistance_changes_exact_dc_transfer) ... ok
+test_real_saved_bench_comparison_across_conditions (tests.test_physical_extraction.PhysicalExtractionTests.test_real_saved_bench_comparison_across_conditions) ... ok
+test_saved_configuration_rejects_incompatible_or_unsafe_choices (tests.test_physical_extraction.PhysicalExtractionTests.test_saved_configuration_rejects_incompatible_or_unsafe_choices) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 2.087s
+
+OK

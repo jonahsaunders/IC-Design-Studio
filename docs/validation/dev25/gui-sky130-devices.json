@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "platform": "offscreen",
+  "checks": [
+    "Selected catalog MiM uses the native generate/review/apply workflow and one undo restores its unplaced schematic",
+    "Tied dummy adds schematic MOS, contacted footprint and four persistent straps atomically; undo/redo preserves device identity",
+    "Locked metal blocks guard review without mutation; unlocked review adds contacted guard, physical tie and selected-device constraint in one history transaction",
+    "Save/reopen retains guard, dummy, process footprint and insulated MiM connectivity records"
+  ]
+}

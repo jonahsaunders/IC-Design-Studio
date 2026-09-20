@@ -1,0 +1,392 @@
+{
+  "schema": 2,
+  "app_version": "0.22.0.dev25",
+  "created": "2026-09-20T16:58:27+00:00",
+  "status": "failed",
+  "cell_id": "469b749b124a43b6",
+  "cell_name": "current_mirror",
+  "testbench_id": "64e0f7f71b3a4910",
+  "testbench_name": "current_mirror_op",
+  "testbench": {
+    "id": "64e0f7f71b3a4910",
+    "name": "current_mirror_op",
+    "bench_cell": "2aa2649ae36a466b",
+    "dut_cell": "469b749b124a43b6",
+    "dut_instance": "855153b3ad4e4e64",
+    "analysis": {
+      "type": "op",
+      "stop": "100u",
+      "step": "200n",
+      "start": "10",
+      "end": "10meg",
+      "points": 150,
+      "source": "V1",
+      "dc_start": "0",
+      "dc_stop": "1.8",
+      "dc_step": "0.01",
+      "temperature": 27,
+      "corner": "nominal"
+    },
+    "initial_conditions": {},
+    "probes": [
+      "force",
+      "out",
+      "ref"
+    ],
+    "measurements": [
+      {
+        "name": "output_current",
+        "kind": "current",
+        "source": "VSENSE",
+        "min": "40u",
+        "max": "60u"
+      },
+      {
+        "name": "bias_voltage",
+        "kind": "voltage",
+        "node": "ref",
+        "min": "0",
+        "max": "1.8"
+      }
+    ],
+    "characterization": {
+      "kind": "sweep",
+      "target": "VOUT.value",
+      "values": [
+        0.9,
+        1.2,
+        1.5
+      ]
+    },
+    "physical_extraction": {
+      "mode": "rc"
+    }
+  },
+  "design_hash": "a44dd94beb1ee4056aafa455b1dd9ea62c7ebdcf81834d5a2e33ada22572baac",
+  "revision": 0,
+  "stages": [
+    {
+      "name": "preflight",
+      "status": "passed",
+      "evidence": {
+        "assets": {
+          "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/passive-adapter/sky130A/libs.tech/magic/sky130A.tech": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+          "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/passive-adapter/sky130A/libs.tech/netgen/sky130A_setup.tcl": "3b2e4eddc57b1d8dc531d95086a2c21b86709907ede11fcac676f37d501787e9"
+        },
+        "tools": {
+          "magic": {
+            "path": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/magic-run",
+            "sha256": "fa89bcfea9816d2cb4902deeff44c2199ac048fffb1303348fa5191ecf6c29cb",
+            "version_file": "magic-version.log",
+            "version_sha256": "374631470fd896b551d28a26fafd5af90d205a0af0d09f5ab9d796371d6be261"
+          },
+          "netgen": {
+            "path": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/netgen-run",
+            "sha256": "c415bb25c7152f14f2ec2fb0a747cd138bd764e9044cb845e7f686a64acf1458",
+            "version_file": "netgen-version.log",
+            "version_sha256": "2440d38de07e7a1293b3d3a0aecdc160b7856c46422c799f28695ad24989c333"
+          },
+          "ngspice": {
+            "path": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/ngspice-run",
+            "sha256": "b04ec82707ddc54aa258be26462f28315b18f7d5a6c8e15ca0deb662b6b99dae",
+            "version_file": "ngspice-version.log",
+            "version_sha256": "d18ced87a01768ec53b4682c549f1182be38030c71159f071a008b747a8f04be"
+          }
+        },
+        "corner": "nominal",
+        "electrical_cells": [
+          "current_mirror"
+        ],
+        "physical_cells": [
+          "current_mirror"
+        ],
+        "connection_findings": 1
+      }
+    },
+    {
+      "name": "schematic_simulation",
+      "status": "passed",
+      "evidence": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "output_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": 5.119161848199383e-05
+          },
+          {
+            "name": "bias_voltage",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.7660257435607942
+          }
+        ],
+        "probes": [
+          "force",
+          "out",
+          "ref"
+        ],
+        "specifications": [],
+        "diagnostics": null,
+        "analysis": {
+          "type": "op",
+          "stop": "100u",
+          "step": "200n",
+          "start": "10",
+          "end": "10meg",
+          "points": 150,
+          "source": "V1",
+          "dc_start": "0",
+          "dc_stop": "1.8",
+          "dc_step": "0.01",
+          "temperature": 27,
+          "corner": "nominal"
+        },
+        "effective_analysis": {
+          "type": "op",
+          "stop": "100u",
+          "step": "200n",
+          "start": "10",
+          "end": "10meg",
+          "points": 150,
+          "source": "V1",
+          "dc_start": "0",
+          "dc_stop": "1.8",
+          "dc_step": "0.01",
+          "temperature": 27,
+          "corner": "nominal"
+        },
+        "waveform_file": "schematic/result.json",
+        "waveform_sha256": "25c3c7d2f98c4b57076fa8ca57e37c29d9e703ca19d9d7327990f0b8b4272763"
+      }
+    },
+    {
+      "name": "drc",
+      "status": "passed",
+      "evidence": {
+        "violations": 0,
+        "style": "drc(full)",
+        "log": "drc/console.log"
+      }
+    },
+    {
+      "name": "lvs_extraction",
+      "status": "failed",
+      "error": "Extracted port order differs from the schematic: {'equal': False, 'expected': ['IREF', 'OUT', 'VSS'], 'actual': ['OUT', 'VSS'], 'same_members': False, 'permutation': None}"
+    },
+    {
+      "name": "lvs",
+      "status": "not_run"
+    },
+    {
+      "name": "capacitance_extraction",
+      "status": "not_run"
+    },
+    {
+      "name": "post_layout_simulation",
+      "status": "not_run"
+    },
+    {
+      "name": "integrity",
+      "status": "not_run"
+    }
+  ],
+  "qualification": "Saved-testbench process verification. Qualification applies only to the recorded circuit, extraction model and operating condition; no fabrication signoff. Process distributed RC uses the recorded Magic profile and technology deck.",
+  "physical_extraction": {
+    "mode": "rc"
+  },
+  "conditions": {
+    "model_corner": "nominal",
+    "temperature": 27,
+    "analysis": {
+      "type": "op",
+      "stop": "100u",
+      "step": "200n",
+      "start": "10",
+      "end": "10meg",
+      "points": 150,
+      "source": "V1",
+      "dc_start": "0",
+      "dc_stop": "1.8",
+      "dc_step": "0.01",
+      "temperature": 27,
+      "corner": "nominal"
+    },
+    "sources": [
+      {
+        "name": "IREF",
+        "kind": "I",
+        "value": "50u",
+        "source": {
+          "type": "dc",
+          "low": "0",
+          "high": "1.8",
+          "period": "20u",
+          "delay": "0",
+          "duty": "0.5",
+          "ac": "1"
+        },
+        "nets": {
+          "p": "0",
+          "n": "ref"
+        }
+      },
+      {
+        "name": "VOUT",
+        "kind": "V",
+        "value": "1.2",
+        "source": {
+          "type": "dc",
+          "low": "0",
+          "high": "1.8",
+          "period": "20u",
+          "delay": "0",
+          "duty": "0.5",
+          "ac": "1"
+        },
+        "nets": {
+          "p": "force",
+          "n": "0"
+        }
+      },
+      {
+        "name": "VSENSE",
+        "kind": "V",
+        "value": "0",
+        "source": {
+          "type": "dc",
+          "low": "0",
+          "high": "1.8",
+          "period": "20u",
+          "delay": "0",
+          "duty": "0.5",
+          "ac": "1"
+        },
+        "nets": {
+          "p": "force",
+          "n": "out"
+        }
+      }
+    ]
+  },
+  "magic_drc_style": "drc(full)",
+  "drc_count": 0,
+  "error": "Extracted port order differs from the schematic: {'equal': False, 'expected': ['IREF', 'OUT', 'VSS'], 'actual': ['OUT', 'VSS'], 'same_members': False, 'permutation': None}",
+  "requirement_comparison": [
+    {
+      "name": "output_current",
+      "kind": "measurements",
+      "unit": "A",
+      "before": 5.119161848199383e-05,
+      "after": null,
+      "delta": null,
+      "before_status": "passed",
+      "after_status": "NOT RUN",
+      "detail": ""
+    },
+    {
+      "name": "bias_voltage",
+      "kind": "measurements",
+      "unit": "V",
+      "before": 0.7660257435607942,
+      "after": null,
+      "delta": null,
+      "before_status": "passed",
+      "after_status": "NOT RUN",
+      "detail": ""
+    }
+  ],
+  "measurement_comparison": [
+    {
+      "name": "output_current",
+      "unit": "A",
+      "before": 5.119161848199383e-05,
+      "after": null,
+      "delta": null,
+      "relative_delta": null,
+      "before_status": "passed",
+      "after_status": "not_run",
+      "regressed": false,
+      "error": "Measurement units changed."
+    },
+    {
+      "name": "bias_voltage",
+      "unit": "V",
+      "before": 0.7660257435607942,
+      "after": null,
+      "delta": null,
+      "relative_delta": null,
+      "before_status": "passed",
+      "after_status": "not_run",
+      "regressed": false,
+      "error": "Measurement units changed."
+    }
+  ],
+  "comparison": [],
+  "provenance": {
+    "design_hash": "a44dd94beb1ee4056aafa455b1dd9ea62c7ebdcf81834d5a2e33ada22572baac",
+    "revision": 0,
+    "pdk_hash": "bfb089b9dbff915ecfe89fc68b4c421f45f64dde65ae2b1d330a4b39366a093a",
+    "testbench_hash": "af82cac3a641a4552d90ffdd0fa471262f0dadd2862e4d6fb14d7c087f5306f3",
+    "extraction_hash": "cf6ddd161e4fa94a3f5672f44ebe88decced76f4f5ca290401ed3080c92f9cbe",
+    "files": {
+      "layout.gds": "6742a987095ab96c72af6ad56821e23769ea0de8d52171aef59e1b73d43a4b21",
+      "schematic.spice": "fb8332aec25b13989845ff12acfe153d13f828d95d5102ccfb11acd932ad3540",
+      "input.icproj": "c39a81c2a658e95ba6ffb2dc0b99fcf1dcfbf67d39fd9973fc5faeed967c7fb5",
+      "testbench.json": "4ace37fc6e26aa163becd19422845e5c5d9378c037a2357e7e157176baec38cc"
+    }
+  },
+  "findings": [
+    {
+      "severity": "error",
+      "code": "LVS.SHORT",
+      "cell_id": "469b749b124a43b6",
+      "object": "fb05325e61f145bd",
+      "message": "Conductors short schematic nets: IREF, OUT",
+      "nets": [
+        "IREF",
+        "OUT"
+      ],
+      "objects": [
+        "86e9db0bfffa46ce",
+        "d69241a2a86845d1",
+        "c31b39972a6e41aa",
+        "58158888fdbf49be",
+        "70b08523d58e4ebe",
+        "a199138663d54859",
+        "b551049ed7454289",
+        "f685563628ed4a0d",
+        "aa3682dc61fd460c",
+        "9a7cdedb46774204",
+        "68c8b68d39ac45f5",
+        "37d36724d3344c6e",
+        "a02c9fd705e14198",
+        "ba133ce45be64d76",
+        "4dc11a1786fc4703",
+        "02e59ff2cbb54e82",
+        "5af405b58d264fdb",
+        "cb2a85a3022e4efd",
+        "73a6d01801f649a8",
+        "c6b1cad4b80f4223",
+        "72477ae85b68468f",
+        "9b2afb875fdd4202",
+        "41602f6c44ac4134",
+        "bdbf0fcd47e749e2",
+        "4a3e3a1e663a4d54",
+        "a2f73fd6966444c0",
+        "795b300585714888",
+        "9f2ace24b5e34a2d",
+        "35ed88c5f9cb42db",
+        "03f370f6337d4a99",
+        "7dc0252f14624456"
+      ],
+      "fingerprint": "a0e648035b041e957c4b808aad23e950cae7edb47a4436656e1a0ee700c102da",
+      "source": "connection-findings.json",
+      "source_design_hash": "a44dd94beb1ee4056aafa455b1dd9ea62c7ebdcf81834d5a2e33ada22572baac"
+    }
+  ]
+}

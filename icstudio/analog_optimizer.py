@@ -136,7 +136,7 @@ def prepare(project, cid, plan, spec, prepare_job, _changes=None):
         from .analog_adaptive import start
         return start(project, cid, plan, spec, prepare_job)
     changes = grid(project, cid, spec['axes']) if _changes is None else _changes
-    nconditions = len(plan['entries']) * len(plan['corners']) * len(plan['temperatures']) * max(1, len(plan.get('voltages', [])))
+    nconditions = test_plans.case_count(plan)
     nconditions*=1+int(spec.get('workflow',{}).get('retries',0))
     budget = int(spec.get('budget', 100))
     if not 1 <= budget <= 500 or len(changes) * nconditions > budget:

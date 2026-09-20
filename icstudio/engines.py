@@ -56,23 +56,40 @@ def execute(args,cwd,timeout=180,input_text=None,on_line=None,env=None):
         if prior is not None:signal.signal(signal.SIGTERM,prior)
 
 def parse_raw(path):
-    text=Path(path).read_text(encoding='utf-8',errors='strict');header,body=text.split('Values:',1)
+    """Read one ASCII plot, including wide extracted-noise contributor sets.
+
+    Bound the complete matrix as well as either dimension, and stream value
+    lines so the source text and a second list of strings do not share memory
+    with a large numerical matrix.
+    """
     import re
-    count=int(re.search(r'No\. Variables:\s*(\d+)',header)[1]);points=int(re.search(r'No\. Points:\s*(\d+)',header)[1]);complex_data='complex' in re.search(r'Flags:\s*(.+)',header)[1]
-    variables=[]
-    for line in header.rsplit('Variables:',1)[1].strip().splitlines():
-        parts=line.split()
-        if len(parts)>=3:variables.append(parts[1])
-    if len(variables)!=count or points>1000000 or count>10000:raise ValueError('Unsupported raw-file dimensions.')
-    values=[line.strip() for line in body.strip().splitlines() if line.strip()];rows=[];pos=0
-    for i in range(points):
-        row=[]
-        for j in range(count):
-            line=values[pos];pos+=1;part=line.split()[-1]
-            if complex_data:
-                real,imag=part.split(',');row.append(complex(float(real),float(imag)))
-            else:row.append(float(part))
-        rows.append(row)
+    with Path(path).open(encoding='utf-8',errors='strict') as stream:
+        lines=[];size=0
+        for line in stream:
+            if line.strip()=='Values:':break
+            size+=len(line)
+            if size>16*1024*1024:raise ValueError('Unsupported raw-file header size.')
+            lines.append(line)
+        else:raise ValueError('The raw file contains no ASCII values.')
+        header=''.join(lines)
+        try:
+            count=int(re.search(r'No\. Variables:\s*(\d+)',header)[1]);points=int(re.search(r'No\. Points:\s*(\d+)',header)[1])
+            complex_data='complex' in re.search(r'Flags:\s*(.+)',header)[1]
+            variables=[line.split()[1] for line in header.rsplit('Variables:',1)[1].strip().splitlines() if len(line.split())>=3]
+        except (TypeError,IndexError,ValueError) as exc:raise ValueError('Malformed raw-file header.') from exc
+        if len(variables)!=count or not 0<count<=50000 or not 0<points<=1000000 or count*points>10000000:
+            raise ValueError('Unsupported raw-file dimensions (maximum 50,000 vectors and 10 million values).')
+        rows=[];values=(line.split()[-1] for line in stream if line.strip())
+        try:
+            for i in range(points):
+                row=[]
+                for j in range(count):
+                    part=next(values)
+                    if complex_data:
+                        real,imag=part.split(',');row.append(complex(float(real),float(imag)))
+                    else:row.append(float(part))
+                rows.append(row)
+        except (StopIteration,ValueError) as exc:raise ValueError('Incomplete or malformed raw-file values.') from exc
     return variables,rows,complex_data
 
 def ngspice_command(project,executable,raw,deck):
@@ -184,14 +201,30 @@ def magic_extract(executable,gds,technology,top,output,profile='rc'):
     if output.exists() and any(output.iterdir()):raise ValueError('Use an empty extraction directory.')
     output.mkdir(parents=True,exist_ok=True)
     from .external_tools import extraction_commands
+    from .silicon_flow import magic_script
     commands,settings=extraction_commands(profile)
     atomic_write(output/'profile.json',json.dumps(settings,indent=2))
-    script=f'gds read {tcl_word(gds)}\nload {tcl_word(top)}\nselect top cell\nextract do local\n'+commands
-    script+='ext2spice\nquit -noprompt\n';atomic_write(output/'extract.tcl',script)
-    log=execute([executable,'-dnull','-noconsole','-T',str(technology)],output,input_text=script);atomic_write(output/'extraction.log',log)
-    decks=list(output.glob('*.spice'))+list(output.glob('*.spc'))
-    if not decks:raise RuntimeError('Magic returned no extracted SPICE deck. Inspect extraction.log.')
-    report={'engine':'Magic','profile':profile,'gds_hash':file_digest(gds),'technology_hash':file_digest(technology),'script_hash':file_digest(output/'extract.tcl'),'decks':{p.name:file_digest(p) for p in decks},'qualification':'Requires destination-tool and PDK-specific regression; engine completion is not foundry signoff.'}
+    try:
+        log=magic_script(executable,technology,gds,top,[],output,
+                         'extract do local\n'+commands+'ext2spice -o extracted.spice')
+    except Exception as exc:
+        logs=[p.read_text() for p in (output/'resistance-console.log',output/'console.log') if p.is_file()]
+        atomic_write(output/'extraction.log','\n'.join(logs+[str(exc)]));raise
+    atomic_write(output/'extraction.log',log)
+    # Keep the legacy final-script alias while retaining both exact RC phases.
+    atomic_write(output/'extract.tcl',(output/'run.tcl').read_bytes())
+    deck=output/'extracted.spice'
+    if not deck.is_file():raise RuntimeError('Magic returned no extracted SPICE deck. Inspect extraction.log.')
+    normalization=output/'rc-normalization.json'
+    if normalization.is_file():
+        settings['capacitance_normalization']=json.loads(normalization.read_text())
+        atomic_write(output/'profile.json',json.dumps(settings,indent=2))
+    report={'engine':'Magic','profile':profile,'gds_hash':file_digest(gds),'technology_hash':file_digest(technology),
+            'script_hash':file_digest(output/'extract.tcl'),
+            'scripts':{p.name:file_digest(p) for p in output.glob('*.tcl')},
+            'decks':{deck.name:file_digest(deck)},
+            'files':{p.name:file_digest(p) for p in output.iterdir() if p.is_file()},
+            'qualification':'Requires destination-tool and PDK-specific regression; engine completion is not foundry signoff.'}
     atomic_write(output/'extraction.json',json.dumps(report,indent=2));return report
 
 
@@ -210,9 +243,34 @@ def run_deck(p,cid,settings,executable,directory,progress=lambda *_:None):
         if name.startswith('i(') and name.endswith(')'):
             source=name[2:-1];currents[source]=[abs(r[j]) if complex_data else r[j] for r in rows]
             if complex_data:current_phase[source]=[math.degrees(cmath.phase(r[j])) for r in rows]
-    if not traces:raise ValueError('The deck produced no node-voltage traces.')
+    analysis=settings.get('analysis',{})
+    devices={}
+    if analysis.get('type')=='op':
+        from .operating_data import extras
+        currents,current_phase,devices=extras(variables,rows,complex_data,settings.get('bias_capture',{}).get('aliases',{}))
+        xs=list(range(len(rows)))
+    if analysis.get('type')=='noise' and 'onoise_spectrum' in variables:
+        index=variables.index('onoise_spectrum');traces={analysis['output'].lower():[float(row[index]) for row in rows]}
+    if not traces:raise ValueError('The deck produced no node-voltage or requested noise traces.')
     progress(1,'External testbench completed')
-    return {'schema':1,'created':now(),'engine':'ngspice external testbench','engine_hash':file_digest(Path(executable) if Path(executable).is_file() else Path(shutil.which(executable))),'project_id':p['id'],'revision':p['revision'],'design_hash':design_digest(p),'pdk_hash':digest(p['pdk']),'rule_hash':digest(p['pdk']['layers']),'cell_id':cid,'settings':settings,'deck_hash':file_digest(deck),'x':xs,'x_label':variables[0],'y_label':'Voltage magnitude (V)' if complex_data else 'Voltage (V)','traces':traces,'phase':phase,'currents':currents,'current_phase':current_phase,'operating_point':{},'warnings':['External deck connectivity is not automatically proven equivalent to the active schematic. Run LVS and retain its extraction report. Included model dependencies must be locked separately.'],'log':log}
+    result={'schema':1,'created':now(),'engine':'ngspice external testbench','engine_hash':file_digest(Path(executable) if Path(executable).is_file() else Path(shutil.which(executable))),'project_id':p['id'],'revision':p['revision'],'design_hash':design_digest(p),'pdk_hash':digest(p['pdk']),'rule_hash':digest(p['pdk']['layers']),'cell_id':cid,'settings':settings,'deck_hash':file_digest(deck),'x':xs,'x_label':variables[0],'y_label':'Noise (V/√Hz)' if analysis.get('type')=='noise' else 'Voltage magnitude (V)' if complex_data else 'Voltage (V)','traces':traces,'phase':phase,'currents':currents,'current_phase':current_phase,'operating_point':{},'warnings':['External deck connectivity is not automatically proven equivalent to the active schematic. Run LVS and retain its extraction report. Included model dependencies must be locked separately.'],'log':log}
+    if analysis.get('type')=='op':
+        result.update(operating_point={name:values[0] for name,values in traces.items()},
+                      operating_currents={name:values[0] for name,values in currents.items()},device_operating_point=devices)
+    if analysis.get('diagnostic'):
+        from .analog_diagnostics import noise_report,startup_report,loop_report,bias_report
+        config=dict(analysis['diagnostic']);kind=config['kind']
+        for key in ('output','numerator','denominator'):
+            if key in config:config[key]=config[key].lower()
+        if kind=='noise':result['diagnostics']=noise_report(variables,rows)
+        elif kind=='startup':result['diagnostics']=startup_report(result,config)
+        elif kind=='loop':result['diagnostics']=loop_report({**result,'settings':analysis},config['numerator'],config['denominator'],config['sign'])
+        elif kind=='bias':
+            if settings.get('bias_capture'):
+                from .saved_bias import annotate
+                annotate(result,settings['bias_capture'])
+            else:result['diagnostics']=bias_report(result)
+    return result
 
 def magic_import(executable,source,technology,output):
     """Convert an existing Magic cell tree through its real technology engine."""

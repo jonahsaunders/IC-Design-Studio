@@ -1,0 +1,306 @@
+{
+  "status": "passed",
+  "case_counts": {
+    "independent_rc_reference": 1,
+    "independent_simulation": 30,
+    "physical": 30,
+    "deliberate_stale_evidence": 3,
+    "deliberate_fault": 12
+  },
+  "command": ".venv/bin/python scripts/qualify_analog_process.py --extraction rc --workers 4 --pdk build/passive-adapter/sky130A --out build/analog-rc-final --magic build/runtime/magic-run --netgen build/runtime/netgen-run --ngspice build/runtime/ngspice-run (engine paths resolved absolute)",
+  "report": "../process-rc.json",
+  "report_sha256": "925092fa82089e9bf2f1f28d16782d08638db8a69db853a664d00b9ca4949dd2",
+  "implementation_sha256": "595b64ea4b9db5a07c7eae7ca98837328bb358d1bfe29bd991588edfeb520215",
+  "implementation_unchanged": true,
+  "scope": "Selected unchanged final real-engine evidence; full case inputs, model assets and reports remain in build/CI artifacts. Log filenames append .txt for source-control retention. Fixed pinned extraction coefficients, listed transistor process/temperature conditions and saved OP/DC/AC analyses; area-weighted capacitance model, not measured silicon or a spatial field solver.",
+  "files": {
+    "source-files.json": {
+      "source": "build/analog-rc-final/source-files.json",
+      "sha256": "d2cc7b24a6d269f51e3f37d44afccbe00ffa35ab556465288c67e0d2d18df32a",
+      "bytes": 31672
+    },
+    "metal1-rc-coupon/comparison.json": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/comparison.json",
+      "sha256": "bc274dc7563c81f0b19b522d9e65840c3b50ddedfb9305d0ec2731fb96431cf2",
+      "bytes": 5301
+    },
+    "metal1-rc-coupon/100/extraction/extracted.spice": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/extraction/extracted.spice",
+      "sha256": "fd44a534e7ac3966f3eea82f7668fc2ef39869c693fa90291d468e79927728cd",
+      "bytes": 668
+    },
+    "metal1-rc-coupon/100/extraction/raw-export.spice": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/extraction/raw-export.spice",
+      "sha256": "732c512460e81bb282508636c100c40b41bd6f94875967f52caa2fa4feada016",
+      "bytes": 453
+    },
+    "metal1-rc-coupon/100/extraction/rc_coupon.raw.ext": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/extraction/rc_coupon.raw.ext",
+      "sha256": "23789579b59fbb24c0e58af39c97324037d5e58bddb54b1972dc145256a0f9c8",
+      "bytes": 991
+    },
+    "metal1-rc-coupon/100/extraction/rc_coupon.raw.res.ext": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/extraction/rc_coupon.raw.res.ext",
+      "sha256": "361a4b47b1caf6d64337eece8f6689e9f71b3b0d301f04e191c78f3442ad265a",
+      "bytes": 467
+    },
+    "metal1-rc-coupon/100/extraction/rc-normalization.json": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/extraction/rc-normalization.json",
+      "sha256": "8a617ec107996a035dfed7b2d0f4d8bc21db99a2e4ded1690fd448635290e13d",
+      "bytes": 3986
+    },
+    "metal1-rc-coupon/100/extraction/resistance-run.tcl": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/extraction/resistance-run.tcl",
+      "sha256": "9049f2d5bfa987428403bed8516b6a6c4ef63674bfc18cc3c1f6216f114ad25a",
+      "bytes": 777
+    },
+    "metal1-rc-coupon/100/extraction/run.tcl": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/extraction/run.tcl",
+      "sha256": "d93819634299b0270f7c6f685a70de99890722583ed1069479551c3c85760e58",
+      "bytes": 777
+    },
+    "metal1-rc-coupon/100/extraction/console.log.txt": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/extraction/console.log",
+      "sha256": "f17234df87d6cc7b66007a4d2ead7b327e04c6305a609bafd74c651abeda7d16",
+      "bytes": 800
+    },
+    "metal1-rc-coupon/100/capacitance-reference/rc_coupon.ext": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/capacitance-reference/rc_coupon.ext",
+      "sha256": "23789579b59fbb24c0e58af39c97324037d5e58bddb54b1972dc145256a0f9c8",
+      "bytes": 991
+    },
+    "metal1-rc-coupon/100/transfer.cir": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/transfer.cir",
+      "sha256": "c8f92133e5b29f5fce26c8b5b9bcb182c8bd273378fc63031309448653644c51",
+      "bytes": 125
+    },
+    "metal1-rc-coupon/100/simulation/deck.raw": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/simulation/deck.raw",
+      "sha256": "8f59ab5cb8ed89342b75e9182829f341c2e3dad13c5c446960c923d5a3aeaf49",
+      "bytes": 228
+    },
+    "metal1-rc-coupon/100/admittance.cir": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/admittance.cir",
+      "sha256": "ac76d02b76a64d242d2a947068604778dc9e86b0f99f57ecb34d04f57e76166d",
+      "bytes": 400
+    },
+    "metal1-rc-coupon/100/admittance/deck.raw": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/admittance/deck.raw",
+      "sha256": "b50ee1ff0c8d23a89138a0c3052e32c5c02461f9d93ee25af5bd059903de9e28",
+      "bytes": 391
+    },
+    "metal1-rc-coupon/100/maxwell/comparison.json": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/maxwell/comparison.json",
+      "sha256": "19048a29ad6ab72530a124f1bef91fa29048912f8d69dcc4f2f1d8927eeb178d",
+      "bytes": 1110
+    },
+    "metal1-rc-coupon/100/maxwell/0.cir": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/maxwell/0.cir",
+      "sha256": "4d781bba9e6791250429353109ac3052a8453d9737b12feae8e454639f7e3741",
+      "bytes": 613
+    },
+    "metal1-rc-coupon/100/maxwell/0/deck.raw": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/maxwell/0/deck.raw",
+      "sha256": "48c01cb81467746921eb24bdbbb85287a6e967af02070f5aea2f2a9f27cfb3d1",
+      "bytes": 500
+    },
+    "metal1-rc-coupon/100/maxwell/1.cir": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/maxwell/1.cir",
+      "sha256": "6491ee2989c22d6d2e94e792a0f86aba1a2593994e39ce286d18af6f65448578",
+      "bytes": 616
+    },
+    "metal1-rc-coupon/100/maxwell/1/deck.raw": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/maxwell/1/deck.raw",
+      "sha256": "20918f579f6b08a9500a0c999b5bbc482531256b0f9a2d36178f452d595a3d47",
+      "bytes": 504
+    },
+    "metal1-rc-coupon/100/maxwell/2.cir": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/maxwell/2.cir",
+      "sha256": "c8478537d092ae2febc382fb5745e52426dd389b72e3c8e44ac0d4c50023303a",
+      "bytes": 614
+    },
+    "metal1-rc-coupon/100/maxwell/2/deck.raw": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/100/maxwell/2/deck.raw",
+      "sha256": "d10ae2314dc967dc9efd81288c0c257f6a370ff59bb60512ad57de8e9cc2f06b",
+      "bytes": 502
+    },
+    "metal1-rc-coupon/200/extraction/extracted.spice": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/extraction/extracted.spice",
+      "sha256": "66f738f01680789c830f1aab07a2d8e872a838fab211ea6980cf346b94c493e6",
+      "bytes": 667
+    },
+    "metal1-rc-coupon/200/extraction/raw-export.spice": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/extraction/raw-export.spice",
+      "sha256": "3b6d586ae986533a28301731f58c0ce22bd970cc1af60ac0f72d932ea7ae867b",
+      "bytes": 456
+    },
+    "metal1-rc-coupon/200/extraction/rc_coupon.raw.ext": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/extraction/rc_coupon.raw.ext",
+      "sha256": "4cc146fe8544d0dbf0c2d1ff96fd26fb5ef5486d56a7db22db897a83ee021c08",
+      "bytes": 994
+    },
+    "metal1-rc-coupon/200/extraction/rc_coupon.raw.res.ext": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/extraction/rc_coupon.raw.res.ext",
+      "sha256": "5d48adb4d9b9e30fd30a982fb817a1a0cc905d6a2086b5c2f36501c6a2e32db0",
+      "bytes": 467
+    },
+    "metal1-rc-coupon/200/extraction/rc-normalization.json": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/extraction/rc-normalization.json",
+      "sha256": "3719f42410dbf139515f3f9cbd5c17f723011dcdf90a89274bb1ec8f5336e5b8",
+      "bytes": 3954
+    },
+    "metal1-rc-coupon/200/extraction/resistance-run.tcl": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/extraction/resistance-run.tcl",
+      "sha256": "ecd4d190caa69867e2d1e09a60368bc3d90fd6c04d9505266f15205d777b6933",
+      "bytes": 777
+    },
+    "metal1-rc-coupon/200/extraction/run.tcl": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/extraction/run.tcl",
+      "sha256": "9fe30096403ab0e1b2c0eb1b248c63f37a844ed9af80ea6dd770cab51cab63fd",
+      "bytes": 777
+    },
+    "metal1-rc-coupon/200/extraction/console.log.txt": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/extraction/console.log",
+      "sha256": "f17234df87d6cc7b66007a4d2ead7b327e04c6305a609bafd74c651abeda7d16",
+      "bytes": 800
+    },
+    "metal1-rc-coupon/200/capacitance-reference/rc_coupon.ext": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/capacitance-reference/rc_coupon.ext",
+      "sha256": "4cc146fe8544d0dbf0c2d1ff96fd26fb5ef5486d56a7db22db897a83ee021c08",
+      "bytes": 994
+    },
+    "metal1-rc-coupon/200/transfer.cir": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/transfer.cir",
+      "sha256": "3fd6a241a3abed0cad59a2918dc3a70247844f9c55c165d98580bb92a718108b",
+      "bytes": 125
+    },
+    "metal1-rc-coupon/200/simulation/deck.raw": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/simulation/deck.raw",
+      "sha256": "a400b21f9a4cf7559f5bd507539f9410715b9d98ec58a31b6d1285824789037f",
+      "bytes": 228
+    },
+    "metal1-rc-coupon/200/admittance.cir": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/admittance.cir",
+      "sha256": "5139d10d0e4b0d4e03801c094a8bd0d65426c392c41fa241533c21e8b0620a5a",
+      "bytes": 397
+    },
+    "metal1-rc-coupon/200/admittance/deck.raw": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/admittance/deck.raw",
+      "sha256": "94954e93c19c88d63cbb7b6d7601a1f3f3dceb87e009900a79f24aff963b09b3",
+      "bytes": 391
+    },
+    "metal1-rc-coupon/200/maxwell/comparison.json": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/maxwell/comparison.json",
+      "sha256": "740b53a0470160ee36f154b9dc4f97d35bac981df52eeba895eafc724d2c27d6",
+      "bytes": 1082
+    },
+    "metal1-rc-coupon/200/maxwell/0.cir": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/maxwell/0.cir",
+      "sha256": "b1d885eaf3ec5134ed6f8104983d9e7550d2288a27ab6bad145aa18a8a4732f7",
+      "bytes": 610
+    },
+    "metal1-rc-coupon/200/maxwell/0/deck.raw": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/maxwell/0/deck.raw",
+      "sha256": "2cc684c5cd76e182ea1a3916e883cb666740b19c286ca2f5e1d45c9543effdc7",
+      "bytes": 500
+    },
+    "metal1-rc-coupon/200/maxwell/1.cir": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/maxwell/1.cir",
+      "sha256": "ea143207c8687ca0d0d0fe8203014652b0432e00b6cae43da90db5b1cc137170",
+      "bytes": 613
+    },
+    "metal1-rc-coupon/200/maxwell/1/deck.raw": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/maxwell/1/deck.raw",
+      "sha256": "b22ba389dce0602a1ebd7bc4098ee03cf74f4271a530d5c7fd7f0470d1ee33c6",
+      "bytes": 504
+    },
+    "metal1-rc-coupon/200/maxwell/2.cir": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/maxwell/2.cir",
+      "sha256": "1d891df6e274991329b42d35f61ffcded8f3899c3bd4ed094e34f3ef14a29b7b",
+      "bytes": 611
+    },
+    "metal1-rc-coupon/200/maxwell/2/deck.raw": {
+      "source": "build/analog-rc-final/metal1-rc-coupon/200/maxwell/2/deck.raw",
+      "sha256": "b141f475db48447f2499efa9a945095e7d6c25e06abba81e0d77f050a9cbc7a9",
+      "bytes": 502
+    },
+    "current_mirror_op-physical-nominal-27/report.json": {
+      "source": "build/analog-rc-final/current_mirror_op-physical-nominal-27/report.json",
+      "sha256": "c09d356a76f3d7baf97a34efe8e9ed51fcc61d073553c8409a2ddac6bf04e420",
+      "bytes": 24736
+    },
+    "current_mirror_op-physical-nominal-27/schematic.spice": {
+      "source": "build/analog-rc-final/current_mirror_op-physical-nominal-27/schematic.spice",
+      "sha256": "09a3cf96586e354d6be31367615192c5515a83b089b0f2f02d553e6f60ad710f",
+      "bytes": 634
+    },
+    "current_mirror_op-physical-nominal-27/parasitics/extracted.spice": {
+      "source": "build/analog-rc-final/current_mirror_op-physical-nominal-27/parasitics/extracted.spice",
+      "sha256": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe",
+      "bytes": 1667
+    },
+    "current_mirror_op-physical-nominal-27/parasitics/raw-export.spice": {
+      "source": "build/analog-rc-final/current_mirror_op-physical-nominal-27/parasitics/raw-export.spice",
+      "sha256": "90647008bd15324129a5c5831e98b41494439c9c0d1cdfcc0c7c14626212dacd",
+      "bytes": 1168
+    },
+    "current_mirror_op-physical-nominal-27/parasitics/rc-normalization.json": {
+      "source": "build/analog-rc-final/current_mirror_op-physical-nominal-27/parasitics/rc-normalization.json",
+      "sha256": "171590bfedc208a1b2c643e91ee5c60b55d94dfc537d71c52530f6fead151394",
+      "bytes": 4337
+    },
+    "current_mirror_op-physical-nominal-27/parasitics/console.log.txt": {
+      "source": "build/analog-rc-final/current_mirror_op-physical-nominal-27/parasitics/console.log",
+      "sha256": "c2be56aeafc9f18a6eed2a9252c1cdfb26ea9a5298ea81729f7fc8819d790fc1",
+      "bytes": 805
+    },
+    "current_mirror_op-physical-nominal-27/lvs/lvs.log.txt": {
+      "source": "build/analog-rc-final/current_mirror_op-physical-nominal-27/lvs/lvs.log",
+      "sha256": "4c627f3bfa2df57d05d73e88d66a49e18de341648ceaeacf087d7c5e4c761f34",
+      "bytes": 2294
+    },
+    "current_mirror_op-physical-nominal-27/drc/console.log.txt": {
+      "source": "build/analog-rc-final/current_mirror_op-physical-nominal-27/drc/console.log",
+      "sha256": "b369f31d425bbf396d6eddb0e0cb3298aadd68db6ef222c53bd40a2829592c18",
+      "bytes": 956
+    },
+    "current_mirror_op-physical-nominal-27/schematic/deck.raw": {
+      "source": "build/analog-rc-final/current_mirror_op-physical-nominal-27/schematic/deck.raw",
+      "sha256": "ed506f1c64c6c6adc7de840ad47400af40d2e9beaf232cc46d1639bbea548f7c",
+      "bytes": 384
+    },
+    "current_mirror_op-physical-nominal-27/post-layout/deck.raw": {
+      "source": "build/analog-rc-final/current_mirror_op-physical-nominal-27/post-layout/deck.raw",
+      "sha256": "dd67904910cf90f2ff9f060cc136943a0326c03ab0e6ffd583671668521509cb",
+      "bytes": 384
+    },
+    "magic-version.log.txt": {
+      "source": "build/analog-rc-final/magic-version.log",
+      "sha256": "374631470fd896b551d28a26fafd5af90d205a0af0d09f5ab9d796371d6be261",
+      "bytes": 8
+    },
+    "netgen-version.log.txt": {
+      "source": "build/analog-rc-final/netgen-version.log",
+      "sha256": "2440d38de07e7a1293b3d3a0aecdc160b7856c46422c799f28695ad24989c333",
+      "bytes": 210
+    },
+    "ngspice-version.log.txt": {
+      "source": "build/analog-rc-final/ngspice-version.log",
+      "sha256": "d18ced87a01768ec53b4682c549f1182be38030c71159f071a008b747a8f04be",
+      "bytes": 449
+    }
+  },
+  "regression": {
+    "command": "PYTHONPATH=tests:scripts:. .venv/bin/python -m unittest tests.test_process_rc_qualification tests.test_interoperability -v",
+    "status": "passed",
+    "tests": 27,
+    "file": "../process-rc-unit-tests.txt",
+    "sha256": "81270febc9741ce34b7d5c7ce9dacac23f21c6b02ecae67495e8585533bf6cda"
+  },
+  "source_commit_meaning": {
+    "base_commit": "46658f81b378743f39bbc10d4c83c5b8ceb583d1",
+    "note": "The raw report source.commit is local base HEAD during pre-commit qualification. That base commit does not contain this dev25 implementation. source-files.json records exact hashes of the uncommitted candidate that was actually tested; implementation_sha256 identifies that manifest, verified unchanged before and after all76 cases.",
+    "candidate_source_manifest": "source-files.json",
+    "candidate_implementation_sha256": "595b64ea4b9db5a07c7eae7ca98837328bb358d1bfe29bd991588edfeb520215"
+  }
+}

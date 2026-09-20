@@ -1,0 +1,425 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "name": "cap-2x2",
+      "status": "passed",
+      "physical": {
+        "drc_count": 0,
+        "expected_failure": null,
+        "extracted_sha256": "51919ba38689de69adc105fe0de0cb59ba2fe9ef2211678a40052badb0152bd0",
+        "lvs_log_sha256": "8f16b3309340e045555333a6c82681bd1e4a07e9e0a88ca6f6a8651b1cdbaf46"
+      },
+      "measurements": [
+        {
+          "corner": "nominal",
+          "temperature": 27,
+          "unit": "F",
+          "schematic": 9.302250000000001e-15,
+          "extracted": 9.302250000000001e-15,
+          "independent": 9.302250000000001e-15
+        },
+        {
+          "corner": "ss",
+          "temperature": 0,
+          "unit": "F",
+          "schematic": 9.302250000000001e-15,
+          "extracted": 9.302250000000001e-15,
+          "independent": 9.302250000000001e-15
+        },
+        {
+          "corner": "ff",
+          "temperature": 85,
+          "unit": "F",
+          "schematic": 9.302250000000001e-15,
+          "extracted": 9.302250000000001e-15,
+          "independent": 9.302250000000001e-15
+        }
+      ]
+    },
+    {
+      "name": "cap-10x10",
+      "status": "passed",
+      "physical": {
+        "drc_count": 0,
+        "expected_failure": null,
+        "extracted_sha256": "ce1635f35f3a65d844d52eba15c3d9349d7f935e66abdf9089b7714314d934e0",
+        "lvs_log_sha256": "8f16b3309340e045555333a6c82681bd1e4a07e9e0a88ca6f6a8651b1cdbaf46"
+      },
+      "measurements": [
+        {
+          "corner": "nominal",
+          "temperature": 27,
+          "unit": "F",
+          "schematic": 2.0658224999999998e-13,
+          "extracted": 2.0658224999999998e-13,
+          "independent": 2.0658224999999998e-13
+        },
+        {
+          "corner": "ss",
+          "temperature": 0,
+          "unit": "F",
+          "schematic": 2.0658224999999998e-13,
+          "extracted": 2.0658224999999998e-13,
+          "independent": 2.0658224999999998e-13
+        },
+        {
+          "corner": "ff",
+          "temperature": 85,
+          "unit": "F",
+          "schematic": 2.0658224999999998e-13,
+          "extracted": 2.0658224999999998e-13,
+          "independent": 2.0658224999999998e-13
+        }
+      ]
+    },
+    {
+      "name": "cap-30x30",
+      "status": "passed",
+      "physical": {
+        "drc_count": 0,
+        "expected_failure": null,
+        "extracted_sha256": "a5e5876312dc051c84203d8dfff515c84aa8349bac65a5a2692f469c427a1f08",
+        "lvs_log_sha256": "8f16b3309340e045555333a6c82681bd1e4a07e9e0a88ca6f6a8651b1cdbaf46"
+      },
+      "measurements": [
+        {
+          "corner": "nominal",
+          "temperature": 27,
+          "unit": "F",
+          "schematic": 1.8197822500000002e-12,
+          "extracted": 1.8197822500000002e-12,
+          "independent": 1.8197822500000002e-12
+        },
+        {
+          "corner": "ss",
+          "temperature": 0,
+          "unit": "F",
+          "schematic": 1.8197822500000002e-12,
+          "extracted": 1.8197822500000002e-12,
+          "independent": 1.8197822500000002e-12
+        },
+        {
+          "corner": "ff",
+          "temperature": 85,
+          "unit": "F",
+          "schematic": 1.8197822500000002e-12,
+          "extracted": 1.8197822500000002e-12,
+          "independent": 1.8197822500000002e-12
+        }
+      ]
+    },
+    {
+      "name": "res-0.5x1.65",
+      "status": "passed",
+      "physical": {
+        "drc_count": 0,
+        "expected_failure": null,
+        "extracted_sha256": "b2238583051ded99356ff320ec327168974bb49fd43495f06ca0ff47fdc7919f",
+        "lvs_log_sha256": "7dba8c3583dd69e21ff182e9531fadf8ea2ea1f054fb86c52e1bae3bcff3f45f"
+      },
+      "measurements": [
+        {
+          "corner": "nominal",
+          "temperature": 27,
+          "unit": "ohm",
+          "schematic": 158.63575496122203,
+          "extracted": 158.63575496122203,
+          "independent": 158.63575496122203
+        },
+        {
+          "corner": "ss",
+          "temperature": 0,
+          "unit": "ohm",
+          "schematic": 154.92632804220003,
+          "extracted": 154.92632804220003,
+          "independent": 154.92632804220003
+        },
+        {
+          "corner": "ff",
+          "temperature": 85,
+          "unit": "ohm",
+          "schematic": 167.26622471295005,
+          "extracted": 167.26622471295005,
+          "independent": 167.26622471295005
+        }
+      ]
+    },
+    {
+      "name": "res-1x20",
+      "status": "passed",
+      "physical": {
+        "drc_count": 0,
+        "expected_failure": null,
+        "extracted_sha256": "eb37aced77b07a122d808ebafa2e8e205e11b4ec2e4b4d4791fb2aebb26dbf68",
+        "lvs_log_sha256": "7dba8c3583dd69e21ff182e9531fadf8ea2ea1f054fb86c52e1bae3bcff3f45f"
+      },
+      "measurements": [
+        {
+          "corner": "nominal",
+          "temperature": 27,
+          "unit": "ohm",
+          "schematic": 961.4288179468001,
+          "extracted": 961.4288179468001,
+          "independent": 961.4288179468001
+        },
+        {
+          "corner": "ss",
+          "temperature": 0,
+          "unit": "ohm",
+          "schematic": 938.9474426800002,
+          "extracted": 938.9474426800002,
+          "independent": 938.9474426800002
+        },
+        {
+          "corner": "ff",
+          "temperature": 85,
+          "unit": "ohm",
+          "schematic": 1013.7346952299999,
+          "extracted": 1013.7346952299999,
+          "independent": 1013.7346952299999
+        }
+      ]
+    },
+    {
+      "name": "res-10x100",
+      "status": "passed",
+      "physical": {
+        "drc_count": 0,
+        "expected_failure": null,
+        "extracted_sha256": "4dcf7a81cc910bdcb56c10d4254a57e8745d2c487697e56e2e7bfef37b397498",
+        "lvs_log_sha256": "7dba8c3583dd69e21ff182e9531fadf8ea2ea1f054fb86c52e1bae3bcff3f45f"
+      },
+      "measurements": [
+        {
+          "corner": "nominal",
+          "temperature": 27,
+          "unit": "ohm",
+          "schematic": 480.71440897340005,
+          "extracted": 480.71440897340005,
+          "independent": 480.71440897340005
+        },
+        {
+          "corner": "ss",
+          "temperature": 0,
+          "unit": "ohm",
+          "schematic": 469.4737213399999,
+          "extracted": 469.4737213399999,
+          "independent": 469.4737213399999
+        },
+        {
+          "corner": "ff",
+          "temperature": 85,
+          "unit": "ohm",
+          "schematic": 506.86734761499997,
+          "extracted": 506.86734761499997,
+          "independent": 506.86734761499997
+        }
+      ]
+    },
+    {
+      "name": "psub-2x1",
+      "status": "passed",
+      "physical": {
+        "drc_count": 0,
+        "expected_failure": null,
+        "extracted_sha256": "05ac47bbb0586b4261ecd0305e50b5d0d60b57900e1f5bf49cf8a06212c74703",
+        "lvs_log_sha256": "b01faee846c838ee496d73bcc2e3c6af9639b09dae87a8b0b69f3e67794f82f7"
+      }
+    },
+    {
+      "name": "nwell-2x1",
+      "status": "passed",
+      "physical": {
+        "drc_count": 0,
+        "expected_failure": null,
+        "extracted_sha256": "64c8ba592643326f283022705e447139365dcbe8ccb273687347065c5a7aa3f3",
+        "lvs_log_sha256": "125a902cb0dba596db9f0894d02ba122fad09affb52492333652e6a87a49ec3b"
+      }
+    },
+    {
+      "name": "nmos-wide-30x0.5",
+      "status": "passed",
+      "physical": {
+        "drc_count": 0,
+        "expected_failure": null,
+        "extracted_sha256": "b5a515592de735658aa7507dae796b5a3478a232896a82aad66bde5722eb52ae",
+        "lvs_log_sha256": "b01faee846c838ee496d73bcc2e3c6af9639b09dae87a8b0b69f3e67794f82f7"
+      }
+    },
+    {
+      "name": "pmos-wide-30x0.5",
+      "status": "passed",
+      "physical": {
+        "drc_count": 0,
+        "expected_failure": null,
+        "extracted_sha256": "daf843fef6dbeceea593f333e6e562ffe76413c9c6b6fbd181d8d7623feb3503",
+        "lvs_log_sha256": "125a902cb0dba596db9f0894d02ba122fad09affb52492333652e6a87a49ec3b"
+      }
+    },
+    {
+      "name": "mim-wrong-width",
+      "status": "passed",
+      "physical": {
+        "drc_count": 0,
+        "expected_failure": "lvs",
+        "extracted_sha256": "1805e7d6b1af0567db67c65d1a9abca767eee9756f02b5932919922fb9935695",
+        "lvs_log_sha256": "449a2d03f8ddf0efcd59e1c7805ee206d3b3cda2c1f9c6e8a878bdd34d77d7fe"
+      }
+    },
+    {
+      "name": "poly-wrong-length",
+      "status": "passed",
+      "physical": {
+        "drc_count": 0,
+        "expected_failure": "lvs",
+        "extracted_sha256": "989e31791b776aff65901f358f0d42f489b199029732d5fba6aa089fe2954527",
+        "lvs_log_sha256": "5328eee11ab612610654d3ccedfa6742796553c1672ee655938cf913c2b30f40"
+      }
+    },
+    {
+      "name": "dummy-gate-open",
+      "status": "passed",
+      "physical": {
+        "drc_count": 0,
+        "expected_failure": "lvs",
+        "extracted_sha256": "40ee29799c8f791a81ef6bf795702119c1a997781f9d949b26047662915153ff",
+        "lvs_log_sha256": "6386836218b5ffcdba18c3e77174a96681d30595ba4b1e4c35dc7d3c6ab109ca"
+      }
+    },
+    {
+      "name": "guard-contact-spacing",
+      "status": "passed",
+      "physical": {
+        "drc_count": 2,
+        "expected_failure": "drc"
+      }
+    }
+  ],
+  "scope": "Listed bounded geometry and deterministic PVT probes only; no arbitrary-layout or foundry signoff.",
+  "tools": {
+    "magic": {
+      "sha256": "fa89bcfea9816d2cb4902deeff44c2199ac048fffb1303348fa5191ecf6c29cb",
+      "version_sha256": "374631470fd896b551d28a26fafd5af90d205a0af0d09f5ab9d796371d6be261"
+    },
+    "netgen": {
+      "sha256": "c415bb25c7152f14f2ec2fb0a747cd138bd764e9044cb845e7f686a64acf1458",
+      "version_sha256": "2440d38de07e7a1293b3d3a0aecdc160b7856c46422c799f28695ad24989c333"
+    },
+    "ngspice": {
+      "sha256": "b04ec82707ddc54aa258be26462f28315b18f7d5a6c8e15ca0deb662b6b99dae",
+      "version_sha256": "d18ced87a01768ec53b4682c549f1182be38030c71159f071a008b747a8f04be"
+    }
+  },
+  "process": {
+    "id": "sky130A",
+    "revision": "01b4bb7a87cc7fe5",
+    "manifest_sha256": "1834052fc256e65e8ac7270b4f5e11a8d2b2ad2571249e0f5ebe41bce110b9c4"
+  },
+  "source": {
+    "icstudio/sky130_devices.py": "fd2ef896c739738639cd8091fe6ff085695b9babd8a3a66b7275fa66967f7f2f",
+    "icstudio/sky130_layout.py": "a45a3a796e47158d72ac8f5bf44e521fec7be61c73dc513ec403d96b5aa4240c",
+    "icstudio/contact_rules.py": "05d3ea7ce39fee05418f65f0224a7785a6f0a299a2f9ad6ef52a1a89e0846df9",
+    "icstudio/layout_graph.py": "1e2b82c8e37a049f303dfa76740175826d302258a8e1127ba42f7e6c28b488e4",
+    "scripts/qualify_sky130_devices.py": "b56d7b4685b68094ace4badbe85c367d6f4265c6cf367d3c8b91a0ab6493b27e"
+  },
+  "schema": 1,
+  "raw_report_sha256": "4d2175c41f6762b990b37e50949ddd9de5f542c1f1bac0371ed0c40854aa4cab",
+  "retained_files": {
+    "sky130-devices/magic-version.log": "374631470fd896b551d28a26fafd5af90d205a0af0d09f5ab9d796371d6be261",
+    "sky130-devices/netgen-version.log": "2440d38de07e7a1293b3d3a0aecdc160b7856c46422c799f28695ad24989c333",
+    "sky130-devices/ngspice-version.log": "d18ced87a01768ec53b4682c549f1182be38030c71159f071a008b747a8f04be",
+    "sky130-devices/cap-2x2/schematic.spice": "e60c7a700168c64d4a7fd31ca5bbb546a1687c55c37086b841bfdedff369bf22",
+    "sky130-devices/cap-2x2/magic-extracted.spice": "51919ba38689de69adc105fe0de0cb59ba2fe9ef2211678a40052badb0152bd0",
+    "sky130-devices/cap-2x2/magic-console.log": "519895a43d2afa254d8a6b27646fc2af4555879fc32704eaa5551691d451c69a",
+    "sky130-devices/cap-2x2/lvs-lvs.log": "8f16b3309340e045555333a6c82681bd1e4a07e9e0a88ca6f6a8651b1cdbaf46",
+    "sky130-devices/cap-2x2/probes-nominal-27.raw": "4e20376e8d7fb46a992c2df1bbd9373771b4ebfb69de3d0e8882b23e41af0681",
+    "sky130-devices/cap-2x2/probes-ss-0.raw": "5525e6f6bc18e6ccd9f6e20a526751d52786ba215bfc010148c8bb736371727e",
+    "sky130-devices/cap-2x2/probes-ff-85.raw": "2ed893b098a27d9ca7d677feeb5ffaf80c04f5a6036c28d3e2ac2f87f0a255f9",
+    "sky130-devices/cap-10x10/schematic.spice": "061d9cd1c134f52118b6c801e0be9eb1ad41193e663e4d7263bbabea492b4013",
+    "sky130-devices/cap-10x10/magic-extracted.spice": "ce1635f35f3a65d844d52eba15c3d9349d7f935e66abdf9089b7714314d934e0",
+    "sky130-devices/cap-10x10/magic-console.log": "519895a43d2afa254d8a6b27646fc2af4555879fc32704eaa5551691d451c69a",
+    "sky130-devices/cap-10x10/lvs-lvs.log": "8f16b3309340e045555333a6c82681bd1e4a07e9e0a88ca6f6a8651b1cdbaf46",
+    "sky130-devices/cap-10x10/probes-nominal-27.raw": "b30ad21819bfe4e1f898219589d8f2f24ec51450d856ec5a34a084c713444524",
+    "sky130-devices/cap-10x10/probes-ss-0.raw": "e870ad3cbe1f401ae031294f2af2d4390bb3c67de90bb8456fc700f76dfb2127",
+    "sky130-devices/cap-10x10/probes-ff-85.raw": "ca694317488e3bf80b0eeaaf35a2c0983cb8042dcec54f69b0a68ea197aa9c00",
+    "sky130-devices/cap-30x30/schematic.spice": "df6621e5d8904a0ce80d0890be9bb71461dd68486332e1918977e0b0e4d71110",
+    "sky130-devices/cap-30x30/magic-extracted.spice": "a5e5876312dc051c84203d8dfff515c84aa8349bac65a5a2692f469c427a1f08",
+    "sky130-devices/cap-30x30/magic-console.log": "519895a43d2afa254d8a6b27646fc2af4555879fc32704eaa5551691d451c69a",
+    "sky130-devices/cap-30x30/lvs-lvs.log": "8f16b3309340e045555333a6c82681bd1e4a07e9e0a88ca6f6a8651b1cdbaf46",
+    "sky130-devices/cap-30x30/probes-nominal-27.raw": "858c2e61fb741e7373be703be35b45331725c479c137bf5029a57cef4e36435c",
+    "sky130-devices/cap-30x30/probes-ss-0.raw": "f7515258a3247132de3ef36cccb85771da6cee640f651bb3ab28c93a05a26791",
+    "sky130-devices/cap-30x30/probes-ff-85.raw": "c8f68c8545a0272b144804bc43790a15ce9fb7bccfa8db9332458a0f85341d51",
+    "sky130-devices/res-0.5x1.65/schematic.spice": "c59643e930512eb0b71def480639d6ed96ae65ce7eea261349c883158921dbb2",
+    "sky130-devices/res-0.5x1.65/magic-extracted.spice": "b2238583051ded99356ff320ec327168974bb49fd43495f06ca0ff47fdc7919f",
+    "sky130-devices/res-0.5x1.65/magic-console.log": "519895a43d2afa254d8a6b27646fc2af4555879fc32704eaa5551691d451c69a",
+    "sky130-devices/res-0.5x1.65/lvs-lvs.log": "7dba8c3583dd69e21ff182e9531fadf8ea2ea1f054fb86c52e1bae3bcff3f45f",
+    "sky130-devices/res-0.5x1.65/probes-nominal-27.raw": "9fe771bad717a7a114f9c298958cfc80a93aa162a3b39d50ffbfe7cabc3524c6",
+    "sky130-devices/res-0.5x1.65/probes-ss-0.raw": "b2dc1db3c717f655ac1982c76220dc2159a4673c39448a634659c9b4c04eaaaf",
+    "sky130-devices/res-0.5x1.65/probes-ff-85.raw": "4daacdfd3e682c4f81722062f63ba5c3f5f0a070c4ed2f289ea586d40345f4e7",
+    "sky130-devices/res-1x20/schematic.spice": "c743a2b78637c56f617abdb46f255d80577b8a337ffac59f715d53ac5931de74",
+    "sky130-devices/res-1x20/magic-extracted.spice": "eb37aced77b07a122d808ebafa2e8e205e11b4ec2e4b4d4791fb2aebb26dbf68",
+    "sky130-devices/res-1x20/magic-console.log": "519895a43d2afa254d8a6b27646fc2af4555879fc32704eaa5551691d451c69a",
+    "sky130-devices/res-1x20/lvs-lvs.log": "7dba8c3583dd69e21ff182e9531fadf8ea2ea1f054fb86c52e1bae3bcff3f45f",
+    "sky130-devices/res-1x20/probes-nominal-27.raw": "51dc44d1efa3ff0226f91142610871b4b8db20d3cc75aca3a88f55a57975b93e",
+    "sky130-devices/res-1x20/probes-ss-0.raw": "0ae16e310ca79cec7a96703cf935937181e9422c3817649f6189ab3bf653919b",
+    "sky130-devices/res-1x20/probes-ff-85.raw": "fa3d3f330748d5345cd6658098f17897d5dadf420a2ae32ff40904bef056d3c5",
+    "sky130-devices/res-10x100/schematic.spice": "2eec8cf81f795760d8726d633d9cc8e865bc7e1e71520dd58e2ca26c69f468d2",
+    "sky130-devices/res-10x100/magic-extracted.spice": "4dcf7a81cc910bdcb56c10d4254a57e8745d2c487697e56e2e7bfef37b397498",
+    "sky130-devices/res-10x100/magic-console.log": "519895a43d2afa254d8a6b27646fc2af4555879fc32704eaa5551691d451c69a",
+    "sky130-devices/res-10x100/lvs-lvs.log": "7dba8c3583dd69e21ff182e9531fadf8ea2ea1f054fb86c52e1bae3bcff3f45f",
+    "sky130-devices/res-10x100/probes-nominal-27.raw": "f7155ceac00822ba8acd4c1fd9ae5ae79c451dd72ac65ba11a8f4e2514687e64",
+    "sky130-devices/res-10x100/probes-ss-0.raw": "fe00cb54a17f062daf4551d6a9c782d1a8f4d63977e99c80f7b01fcd95e10ccf",
+    "sky130-devices/res-10x100/probes-ff-85.raw": "72f53c27f2fa46f8912f21163d95cd6f90f5827e52578a11f21158c280ff6dc1",
+    "sky130-devices/psub-2x1/schematic.spice": "f95488a3539172e267d0909c7d527927ed3f1fe32ddd4c6aee60217f553cbb11",
+    "sky130-devices/psub-2x1/magic-extracted.spice": "05ac47bbb0586b4261ecd0305e50b5d0d60b57900e1f5bf49cf8a06212c74703",
+    "sky130-devices/psub-2x1/magic-console.log": "3048de400e529debdc9466be28da27fcc52469e04aed09c297a320019c862615",
+    "sky130-devices/psub-2x1/lvs-lvs.log": "b01faee846c838ee496d73bcc2e3c6af9639b09dae87a8b0b69f3e67794f82f7",
+    "sky130-devices/nwell-2x1/schematic.spice": "35b663b82e0a9ce5b0300c9a1479e1f7e7ed200d31ec61e6d956f7e457f3d846",
+    "sky130-devices/nwell-2x1/magic-extracted.spice": "64c8ba592643326f283022705e447139365dcbe8ccb273687347065c5a7aa3f3",
+    "sky130-devices/nwell-2x1/magic-console.log": "3048de400e529debdc9466be28da27fcc52469e04aed09c297a320019c862615",
+    "sky130-devices/nwell-2x1/lvs-lvs.log": "125a902cb0dba596db9f0894d02ba122fad09affb52492333652e6a87a49ec3b",
+    "sky130-devices/nmos-wide-30x0.5/schematic.spice": "517ecd4beaca4bcafeb29d252e27f55acb7528d00eb44bf1e7934d7d529c9122",
+    "sky130-devices/nmos-wide-30x0.5/magic-extracted.spice": "b5a515592de735658aa7507dae796b5a3478a232896a82aad66bde5722eb52ae",
+    "sky130-devices/nmos-wide-30x0.5/magic-console.log": "3048de400e529debdc9466be28da27fcc52469e04aed09c297a320019c862615",
+    "sky130-devices/nmos-wide-30x0.5/lvs-lvs.log": "b01faee846c838ee496d73bcc2e3c6af9639b09dae87a8b0b69f3e67794f82f7",
+    "sky130-devices/pmos-wide-30x0.5/schematic.spice": "8ae21a06707469f4a67aeb04e2b94c9c95d4b2328ead37913dc7fd99cb6cdf4a",
+    "sky130-devices/pmos-wide-30x0.5/magic-extracted.spice": "daf843fef6dbeceea593f333e6e562ffe76413c9c6b6fbd181d8d7623feb3503",
+    "sky130-devices/pmos-wide-30x0.5/magic-console.log": "3048de400e529debdc9466be28da27fcc52469e04aed09c297a320019c862615",
+    "sky130-devices/pmos-wide-30x0.5/lvs-lvs.log": "125a902cb0dba596db9f0894d02ba122fad09affb52492333652e6a87a49ec3b",
+    "sky130-devices/mim-wrong-width/schematic.spice": "31ad4625521395a2d4b255cb61cbf22dde09fd7f605d0e32868d54cad9c376f1",
+    "sky130-devices/mim-wrong-width/magic-extracted.spice": "1805e7d6b1af0567db67c65d1a9abca767eee9756f02b5932919922fb9935695",
+    "sky130-devices/mim-wrong-width/magic-console.log": "519895a43d2afa254d8a6b27646fc2af4555879fc32704eaa5551691d451c69a",
+    "sky130-devices/mim-wrong-width/lvs-lvs.log": "449a2d03f8ddf0efcd59e1c7805ee206d3b3cda2c1f9c6e8a878bdd34d77d7fe",
+    "sky130-devices/poly-wrong-length/schematic.spice": "01ad8a81c35c592e4ed45effd441b4d23a9d4828472d5422744cd2408633a240",
+    "sky130-devices/poly-wrong-length/magic-extracted.spice": "989e31791b776aff65901f358f0d42f489b199029732d5fba6aa089fe2954527",
+    "sky130-devices/poly-wrong-length/magic-console.log": "519895a43d2afa254d8a6b27646fc2af4555879fc32704eaa5551691d451c69a",
+    "sky130-devices/poly-wrong-length/lvs-lvs.log": "5328eee11ab612610654d3ccedfa6742796553c1672ee655938cf913c2b30f40",
+    "sky130-devices/dummy-gate-open/schematic.spice": "a1eeb4ce21b69aae342bf379464158a265e3cb6f822e15e590faa5204528fb01",
+    "sky130-devices/dummy-gate-open/magic-extracted.spice": "40ee29799c8f791a81ef6bf795702119c1a997781f9d949b26047662915153ff",
+    "sky130-devices/dummy-gate-open/magic-console.log": "3048de400e529debdc9466be28da27fcc52469e04aed09c297a320019c862615",
+    "sky130-devices/dummy-gate-open/lvs-lvs.log": "6386836218b5ffcdba18c3e77174a96681d30595ba4b1e4c35dc7d3c6ab109ca",
+    "sky130-devices/guard-contact-spacing/schematic.spice": "f51f0527adbf001b26c8531940f858d42e4ec28e94719d1f847263e59b608ca6",
+    "sky130-devices/guard-contact-spacing/magic-extracted.spice": "64c8ba592643326f283022705e447139365dcbe8ccb273687347065c5a7aa3f3",
+    "sky130-devices/guard-contact-spacing/magic-console.log": "eb88ffe031840aff626bce9705e98eb32aef714daf134771a69c55e7f5721ee0"
+  },
+  "command": ".venv/bin/python scripts/qualify_sky130_devices.py --pdk build/passive-adapter/sky130A --out build/sky130-devices-final --magic build/runtime/magic-run --netgen build/runtime/netgen-run --ngspice build/runtime/ngspice-run",
+  "limits": [
+    "Only the listed deterministic device coupons and 1 kHz terminal probes are qualified. Arbitrary arrangements still require DRC/LVS and extraction.",
+    "MiM c0 is the top electrode; c1 is the metal3 bottom electrode. Multiplicity must be one; use explicit parallel devices.",
+    "The tested ss/ff library selections use identical deterministic MiM values. This is not capacitor process-distribution qualification.",
+    "Guard and dummy physical checks cover the explicit tied fixtures; substrate isolation, latch-up and manufacturing signoff are outside this evidence."
+  ],
+  "catalog_correction": {
+    "bundled_revision": "24bc6d0bfd6a0224",
+    "source_symbol": "libs.tech/xschem/sky130_fd_pr/res_generic_po.sym",
+    "source_symbol_sha256": "d79e2be1ce6dbf839616735be663c5dd01049f2966821303f0239a103061ebdf",
+    "source_format": "@name @pinlist sky130_fd_pr__@model W=@W L=@L m=@mult",
+    "source_default_name": "R1",
+    "previous_prefix": "X",
+    "corrected_prefix": "R",
+    "model_source": "libs.tech/ngspice/sky130_fd_pr__model__r+c.model.spice",
+    "model_assets_changed": false,
+    "existing_projects": "Existing revision-bound catalogs remain unchanged; explicitly reindex/migrate to use the corrected physical resistor recipe."
+  }
+}

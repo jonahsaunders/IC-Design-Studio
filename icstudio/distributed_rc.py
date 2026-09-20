@@ -15,7 +15,13 @@ def extract(p,cid,section_nm=5000,coupling_distance_nm=5000,corner=None):
     from .physical import connectivity
     from .physical_cells import terminals,ports
     c=next(c for c in p['cells'] if c['id']==cid)
-    if c.get('layout_instances') or any(d['kind']=='X' for d in c['devices']):raise ValueError('The coefficient RC estimator requires a flat physical cell. Use the existing process extraction flow for hierarchy.')
+    if c.get('layout_instances') or any(d['kind']=='X' for d in c['devices']):
+        from .rc_hierarchy import flatten_for_rc
+        flat,hierarchy=flatten_for_rc(p,cid)
+        result=extract(flat,cid,section_nm,coupling_distance_nm,corner)
+        result.update(schema=3,design_hash=design_digest(p),hierarchy=hierarchy)
+        result.pop('network_hash',None);result['network_hash']=digest(result)
+        return result
     physical_ports=ports(p,cid)
     if {port['name'] for port in physical_ports}!=set(c.get('ports',[])):
         raise ValueError('Assign every circuit port to one physical location before RC extraction.')
@@ -83,12 +89,14 @@ def extract(p,cid,section_nm=5000,coupling_distance_nm=5000,corner=None):
             pt=project(line,((box.left+box.right)/2,(box.bottom+box.top)/2))
             if poly.inside(kdb().Point(round(pt[0]),round(pt[1]))):line['points'].add(pt);union(key,node(linekey(line,pt)))
     vias=p['pdk'].get('connectivity',{}).get('vias',[['metal1','via1','metal2']]);joins={(a,b) for a,v,b in vias for a,b in ((a,v),(v,a),(v,b),(b,v))};padindex=SpatialIndex([((b.left,b.bottom,b.right,b.top),i) for i,(_,s,_) in enumerate(padrefs) for b in [polygon(s).bbox()]])
+    from .contact_rules import blocked_regions,interacts
+    blockers=blocked_regions(c['shapes'],p['pdk'])
     for i,(net,s,key) in enumerate(padrefs):
         r=kdb().Region(polygon(s));box=polygon(s).bbox()
         for j in padindex.query((box.left,box.bottom,box.right,box.top)):
             if j<=i:continue
             n,t,target=padrefs[j]
-            if (s['layer']==t['layer'] or (s['layer'],t['layer']) in joins) and not r.interacting(kdb().Region(polygon(t))).is_empty():union(key,target)
+            if (s['layer']==t['layer'] or (s['layer'],t['layer']) in joins) and interacts(s,t,r,kdb().Region(polygon(t)),blockers):union(key,target)
     ds={d['id']:d for d in c['devices']};pins={};anchors={}
     for pin in terminals(p,cid):
         pt=pin['point'];net=ds[pin['device_id']]['nets'][pin['pin']];hits=[]
@@ -174,6 +182,14 @@ def apply(p,cid,extraction):
     if extraction['design_hash']!=design_digest(p) or extraction['pdk_hash']!=digest(p['pdk']):raise ValueError('RC extraction is stale. Extract the current design again.')
     if extraction.get('cell_id')!=cid:raise ValueError('RC extraction belongs to another circuit cell.')
     if extraction.get('network_hash')!=digest({k:v for k,v in extraction.items() if k!='network_hash'}):raise ValueError('RC extraction network or provenance changed. Extract the current design again.')
+    if extraction.get('hierarchy'):
+        from .rc_hierarchy import flatten_for_rc
+        flat,hierarchy=flatten_for_rc(p,cid)
+        if hierarchy!=extraction['hierarchy']:
+            raise ValueError('RC hierarchy mapping changed. Extract the current design again.')
+        network=clone(extraction);network.pop('hierarchy');network.update(schema=2,design_hash=design_digest(flat))
+        network.pop('network_hash');network['network_hash']=digest(network)
+        return apply(flat,cid,network)
     q=clone(p);c=next(c for c in q['cells'] if c['id']==cid)
     from .wiring import rebuild
     if 'wires' in c:rebuild(c,q)

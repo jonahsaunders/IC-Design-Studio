@@ -1,0 +1,9 @@
+* Absolute distributed-capacitance conservation probe
+R1 IN IN.t0 279.777
+C0 0 IN 8.56e-18
+C2 IN 0 1.945957e-14
+C3 IN.t0 0 2.3984e-16
+VDRIVE IN 0 AC 1
+.ac lin 2 1000 1001
+.save i(vdrive) v(IN.t0)
+.end

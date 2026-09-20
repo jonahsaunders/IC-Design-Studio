@@ -1,0 +1,16 @@
+Title: * independent terminal admittance probes
+Date: Sun Sep 20 13:00:34  2026
+Plotname: AC Analysis
+Flags: complex
+No. Variables: 4
+No. Points: 1       
+Variables:
+	0	frequency	frequency
+	1	i(vp_schematic)	current
+	2	i(vp_extracted)	current
+	3	i(vp_independent)	current
+Values:
+0		1.000000000000000e+03,4.662614626051070e-310
+	-1.015349919221048e-21,-5.844776052371131e-11
+	-1.015349919221049e-21,-5.844776052371131e-11
+	-1.015349919221048e-21,-5.844776052371131e-11

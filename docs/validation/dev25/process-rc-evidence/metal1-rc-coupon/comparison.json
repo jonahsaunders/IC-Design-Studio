@@ -1,0 +1,48 @@
+{
+  "reference": {
+    "length_um": 100.0,
+    "width_um": 1.0,
+    "port_inset_um": 0.5,
+    "sheet_ohm": 0.125,
+    "area_af_per_um2": 25.78,
+    "edge_af_per_um": 40.57,
+    "load_ohm": 100.0,
+    "resistance_relative_tolerance": 0.02,
+    "capacitance_relative_tolerance": 0.05
+  },
+  "profile": {
+    "hierarchy": true,
+    "blackbox": false,
+    "merge": "none",
+    "scale": false,
+    "capacitance_threshold": 0.0,
+    "resistance_threshold": 0,
+    "distributed_resistance": true
+  },
+  "coupons": [
+    {
+      "length_um": 100.0,
+      "resistance_ohm": 279.7769999999999,
+      "capacitance_f": 1.970797e-14,
+      "transfer_v": 0.2633124175502993,
+      "extracted_sha256": "80798430e5846044d5527b34e7157574917fd5112f0a52fdec07d7114dee91a0",
+      "linear_probe_sha256": "c8f92133e5b29f5fce26c8b5b9bcb182c8bd273378fc63031309448653644c51",
+      "gate_node": "IN.t0"
+    },
+    {
+      "length_um": 200.0,
+      "resistance_ohm": 292.277,
+      "capacitance_f": 3.039997e-14,
+      "transfer_v": 0.254921904674503,
+      "extracted_sha256": "6d6f1c0bc99e0d705bcf813dde3a3bd10352c1d6048103956feafe6774b892bc",
+      "linear_probe_sha256": "3fd6a241a3abed0cad59a2918dc3a70247844f9c55c165d98580bb92a718108b",
+      "gate_node": "IN.t0"
+    }
+  ],
+  "expected_delta_resistance_ohm": 12.5,
+  "measured_delta_resistance_ohm": 12.500000000000114,
+  "expected_delta_capacitance_f": 1.0692000000000001e-14,
+  "extracted_delta_capacitance_f": 1.0692e-14,
+  "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+  "scope": "100/200 \u00b5m straight metal1 leads with the same device contact; differencing cancels contact/end effects. Pinned deck model, not measured silicon or field-solver calibration."
+}

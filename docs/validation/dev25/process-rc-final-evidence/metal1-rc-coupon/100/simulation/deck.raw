@@ -1,0 +1,10 @@
+Title: * independent extracted-resistor coupon transfer
+Date: Sun Sep 20 13:34:50  2026
+Plotname: Operating Point
+Flags: real
+No. Variables: 1
+No. Points: 1       
+Variables:
+	0	v(in.t0)	voltage
+Values:
+0		2.633124175502993e-01

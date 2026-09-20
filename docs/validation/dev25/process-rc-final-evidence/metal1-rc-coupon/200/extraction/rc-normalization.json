@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "algorithm": "magic-flat-capacitance-conservation-v1",
+  "top": "rc_coupon",
+  "implementation_sha256": "7ade65ec645580ca6c8d967be39989350fa0574a5e335b3b8aa691e3ce331bf8",
+  "scope": "Flat distributed Magic resistance with area weighted lumped original ground and mutual capacitance; not a spatial field solver.",
+  "units": "attofarads",
+  "original_scale": [
+    1000.0,
+    1.0,
+    1000000.0
+  ],
+  "resistance_scale": [
+    1000.0,
+    1.0,
+    1000000.0
+  ],
+  "equations": {
+    "ground": "C_i = C_original_ground * w_i",
+    "mutual": "C_ij = C_original_mutual * w_i * w_j",
+    "weights": "w_i = positive_raw_rnode_C_i / sum(positive_raw_rnode_C)"
+  },
+  "weights_scope": "Normalized positive extresist rnode C follows its area redistribution. Raw C magnitudes are discarded.",
+  "nets": {
+    "DRAIN": {
+      "original_ground_af": 97.6069,
+      "rnode_count": 2,
+      "nodes": [
+        "DRAIN.t0",
+        "DRAIN"
+      ],
+      "weights": {
+        "DRAIN.t0": 0.6540534162898306,
+        "DRAIN": 0.3459465837101694
+      },
+      "fallback": null
+    },
+    "IN": {
+      "original_ground_af": 21831.1,
+      "rnode_count": 2,
+      "nodes": [
+        "IN.t0",
+        "IN"
+      ],
+      "weights": {
+        "IN.t0": 0.045502302836087555,
+        "IN": 0.9544976971639124
+      },
+      "fallback": null
+    },
+    "VSS": {
+      "original_ground_af": 0.0,
+      "rnode_count": 3,
+      "nodes": [
+        "VSS.t1",
+        "VSS.t0",
+        "VSS"
+      ],
+      "weights": {
+        "VSS": 1.0
+      },
+      "fallback": {
+        "method": "nearest-original-node-origin",
+        "anchor": "VSS",
+        "original_xy": [
+          -220,
+          50
+        ],
+        "anchor_xy": [
+          -220,
+          50
+        ]
+      }
+    }
+  },
+  "mutual_pairs": 1,
+  "generated_mutual_capacitors": 4,
+  "max_capacitors": 50000,
+  "generated_ground_capacitors": 4,
+  "resistor_count": 4,
+  "conservation": {
+    "status": "passed",
+    "matrix_entries": 4,
+    "maximum_error_af": 0.0,
+    "relative_tolerance": 1e-12,
+    "absolute_tolerance_af": 1e-12,
+    "entries": [
+      {
+        "a": "DRAIN",
+        "b": "DRAIN",
+        "original_af": 106.16721,
+        "normalized_af": 106.16721
+      },
+      {
+        "a": "DRAIN",
+        "b": "IN",
+        "original_af": -8.56031,
+        "normalized_af": -8.56031
+      },
+      {
+        "a": "IN",
+        "b": "IN",
+        "original_af": 21839.66031,
+        "normalized_af": 21839.66031
+      },
+      {
+        "a": "VSS",
+        "b": "VSS",
+        "original_af": 0.0,
+        "normalized_af": 0.0
+      }
+    ]
+  },
+  "files": {
+    "rc_coupon.raw.ext": "4cc146fe8544d0dbf0c2d1ff96fd26fb5ef5486d56a7db22db897a83ee021c08",
+    "rc_coupon.raw.res.ext": "5d48adb4d9b9e30fd30a982fb817a1a0cc905d6a2086b5c2f36501c6a2e32db0",
+    "rc_coupon.ext": "7491fba96126daac8e177ab85394db8827d40eb88e242e95895d3422827d2432",
+    "rc_coupon.res.ext": "cb7fb0768d63b32ed538ebb44c2e4e836fe559ef23276548f854e55ddd6b653d",
+    "raw-export.spice": "3b6d586ae986533a28301731f58c0ce22bd970cc1af60ac0f72d932ea7ae867b",
+    "extracted.spice": "66f738f01680789c830f1aab07a2d8e872a838fab211ea6980cf346b94c493e6"
+  },
+  "export": {
+    "status": "passed",
+    "raw_file": "raw-export.spice",
+    "file": "extracted.spice",
+    "raw_sha256": "3b6d586ae986533a28301731f58c0ce22bd970cc1af60ac0f72d932ea7ae867b",
+    "sha256": "66f738f01680789c830f1aab07a2d8e872a838fab211ea6980cf346b94c493e6",
+    "removed_quantized_capacitors": 8,
+    "full_precision_capacitors": 8,
+    "resistor_graph": "exact original named edge multiset preserved",
+    "non_capacitor_lines": "preserved byte for byte",
+    "quantization_reason": "Supported Magic esSIvalue emits C below 1 aF as zero; all parasitic C is serialized at 17 significant digits.",
+    "matrix_entries": 4,
+    "maximum_error_af": 3.637978807091713e-12,
+    "relative_tolerance": 1e-12,
+    "absolute_tolerance_af": 1e-12
+  }
+}

@@ -46,7 +46,7 @@ def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=Non
         choice.update(normalize_extraction(physical_extraction if physical_extraction is not None else t.get('physical_extraction')))
         report['physical_extraction']=clone(choice)
         report['qualification'] += {'capacitance':' Process capacitance only; no distributed resistance.',
-                                   'rc':' Process distributed RC uses the recorded Magic profile and technology deck.',
+                                   'rc':' Flat unaliased process RC retains Magic resistance and conserves the original capacitance matrix using area weighted lumped C; mutual capacitance locations are approximate.',
                                    'calibrated_rc':' Coupon-calibrated Manhattan interconnect on LVS-matched schematic devices; ideal pads, no device extraction, cross-layer coupling or field-solver qualification.'}[choice['mode']]
         if choice['mode']=='calibrated_rc':
             from .physical_extraction import calibrated_network
@@ -86,7 +86,7 @@ def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=Non
         export_layout(physical,out/'layout.gds');atomic_write(out/'schematic.spice',native_subcircuit(p,cid))
         generated.update({name:file_digest(out/name) for name in ('layout.gds','schematic.spice','input.icproj','testbench.json')})
         def simulation(directory,source,interface=None):
-            r=simulate(p,t,resolved['ngspice'],out/directory,source,interface);m=r['measurements'];m.update(specifications=r.get('specifications',[]),waveform_file=directory+'/result.json',waveform_sha256=file_digest(out/directory/'result.json'));report['stages'][-1]['evidence']=m
+            r=simulate(p,t,resolved['ngspice'],out/directory,source,interface);m=r['measurements'];m.update(specifications=r.get('specifications',[]),diagnostics=r.get('diagnostics'),analysis=clone(r['settings']),effective_analysis=r.get('effective_analysis'),waveform_file=directory+'/result.json',waveform_sha256=file_digest(out/directory/'result.json'));report['stages'][-1]['evidence']=m
             if m['status']!='passed':raise ValueError('; '.join(i['name']+': '+i.get('error','failed') for i in m['measurements'] if i['status']!='passed'))
             return m
         stage('schematic_simulation',lambda:simulation('schematic',out/'schematic.spice'))
@@ -127,6 +127,12 @@ def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=Non
             else:
                 commands,profile=extraction_commands(selected)
                 magic(name,commands+'ext2spice -o extracted.spice')
+                if selected=='rc':
+                    normalization=out/name/'rc-normalization.json'
+                    profile['capacitance_normalization']=json.loads(normalization.read_text())
+                    # Both raw engine output and the exact corrected export
+                    # belong to this run's immutable integrity boundary.
+                    generated.update({name+'/'+part.name:file_digest(part) for part in (out/name).iterdir() if part.is_file()})
             atomic_write(out/name/'profile.json',json.dumps(profile,indent=2))
             f=out/name/'extracted.spice';text=f.read_text();interface,_,_=subcircuit(text,c['name'])
             from .external_tools import check_extracted_interface

@@ -1,0 +1,155 @@
+{
+  "reference": {
+    "length_um": 100.0,
+    "width_um": 1.0,
+    "port_inset_um": 0.5,
+    "sheet_ohm": 0.125,
+    "area_af_per_um2": 25.78,
+    "edge_af_per_um": 40.57,
+    "load_ohm": 100.0,
+    "resistance_relative_tolerance": 0.02,
+    "capacitance_relative_tolerance": 0.05,
+    "capacitance_conservation_relative_tolerance": 0.0001
+  },
+  "profile": {
+    "hierarchy": true,
+    "blackbox": false,
+    "merge": "none",
+    "scale": false,
+    "capacitance_threshold": 0.0,
+    "resistance_threshold": 0,
+    "distributed_resistance": true
+  },
+  "coupons": [
+    {
+      "length_um": 100.0,
+      "resistance_ohm": 279.7769999999999,
+      "capacitance_f": 1.1147660310000003e-14,
+      "terminal_capacitance_matrix": {
+        "terminals": [
+          "IN",
+          "DRAIN",
+          "VSS"
+        ],
+        "frequency_hz": 1000,
+        "expected_f": [
+          [
+            1.1147660310000002e-14,
+            -8.56031e-18,
+            -1.1139100000000001e-14
+          ],
+          [
+            -8.56031e-18,
+            1.0616721e-16,
+            -9.76069e-17
+          ],
+          [
+            -1.1139100000000001e-14,
+            -9.76069e-17,
+            1.1236706900000001e-14
+          ]
+        ],
+        "ac_admittance_f": [
+          [
+            1.1147660310000003e-14,
+            -8.56031e-18,
+            -1.1139100000000003e-14
+          ],
+          [
+            -8.56031e-18,
+            1.0616721e-16,
+            -9.760690000000001e-17
+          ],
+          [
+            -1.1139100000000003e-14,
+            -9.760690000000001e-17,
+            1.1236706900000004e-14
+          ]
+        ],
+        "max_absolute_error_f": 3.1554436208840472e-30,
+        "deck_sha256": {
+          "0.cir": "4d781bba9e6791250429353109ac3052a8453d9737b12feae8e454639f7e3741",
+          "1.cir": "6491ee2989c22d6d2e94e792a0f86aba1a2593994e39ce286d18af6f65448578",
+          "2.cir": "c8478537d092ae2febc382fb5745e52426dd389b72e3c8e44ac0d4c50023303a"
+        },
+        "scope": "Every terminal excited against all others at AC ground; includes signed mutual terms and substrate capacitance."
+      },
+      "capacitance_reference_f": 1.114766e-14,
+      "ac_admittance_capacitance_f": 1.1147660310000003e-14,
+      "capacitance_reference_sha256": "4b9b8c08d6107def6dc394793d3afec0f9ce39a7fc83e752608efe41510364f2",
+      "admittance_probe_sha256": "ac76d02b76a64d242d2a947068604778dc9e86b0f99f57ecb34d04f57e76166d",
+      "transfer_v": 0.2633124175502993,
+      "extracted_sha256": "fd44a534e7ac3966f3eea82f7668fc2ef39869c693fa90291d468e79927728cd",
+      "linear_probe_sha256": "c8f92133e5b29f5fce26c8b5b9bcb182c8bd273378fc63031309448653644c51",
+      "gate_node": "IN.t0"
+    },
+    {
+      "length_um": 200.0,
+      "resistance_ohm": 292.277,
+      "capacitance_f": 2.183966031e-14,
+      "terminal_capacitance_matrix": {
+        "terminals": [
+          "IN",
+          "DRAIN",
+          "VSS"
+        ],
+        "frequency_hz": 1000,
+        "expected_f": [
+          [
+            2.183966031e-14,
+            -8.56031e-18,
+            -2.18311e-14
+          ],
+          [
+            -8.56031e-18,
+            1.0616721e-16,
+            -9.76069e-17
+          ],
+          [
+            -2.18311e-14,
+            -9.76069e-17,
+            2.19287069e-14
+          ]
+        ],
+        "ac_admittance_f": [
+          [
+            2.1839660310000004e-14,
+            -8.560309999999999e-18,
+            -2.183109999999999e-14
+          ],
+          [
+            -8.560309999999999e-18,
+            1.0616721e-16,
+            -9.760690000000001e-17
+          ],
+          [
+            -2.183109999999999e-14,
+            -9.760690000000001e-17,
+            2.19287069e-14
+          ]
+        ],
+        "max_absolute_error_f": 9.466330862652142e-30,
+        "deck_sha256": {
+          "0.cir": "b1d885eaf3ec5134ed6f8104983d9e7550d2288a27ab6bad145aa18a8a4732f7",
+          "1.cir": "ea143207c8687ca0d0d0fe8203014652b0432e00b6cae43da90db5b1cc137170",
+          "2.cir": "1d891df6e274991329b42d35f61ffcded8f3899c3bd4ed094e34f3ef14a29b7b"
+        },
+        "scope": "Every terminal excited against all others at AC ground; includes signed mutual terms and substrate capacitance."
+      },
+      "capacitance_reference_f": 2.183966e-14,
+      "ac_admittance_capacitance_f": 2.1839660310000004e-14,
+      "capacitance_reference_sha256": "7e0e4c5303dee6fa7cfb36aa46a159e2afb71940bd281e86096dd21a3dfcda46",
+      "admittance_probe_sha256": "5139d10d0e4b0d4e03801c094a8bd0d65426c392c41fa241533c21e8b0620a5a",
+      "transfer_v": 0.254921904674503,
+      "extracted_sha256": "66f738f01680789c830f1aab07a2d8e872a838fab211ea6980cf346b94c493e6",
+      "linear_probe_sha256": "3fd6a241a3abed0cad59a2918dc3a70247844f9c55c165d98580bb92a718108b",
+      "gate_node": "IN.t0"
+    }
+  ],
+  "expected_delta_resistance_ohm": 12.5,
+  "measured_delta_resistance_ohm": 12.500000000000114,
+  "expected_delta_capacitance_f": 1.0692000000000001e-14,
+  "extracted_delta_capacitance_f": 1.0691999999999998e-14,
+  "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+  "scope": "100/200 \u00b5m straight metal1 leads with the same device contact; differencing cancels contact/end effects. Pinned deck model, not measured silicon or field-solver calibration."
+}

@@ -13,9 +13,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        stage: [inverter, analog, detector]
+        stage: [inverter, analog, analog-rc, devices, two-stage-opamp, detector]
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: ${{ matrix.stage == 'two-stage-opamp' && 90 || 45 }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -45,6 +45,18 @@ jobs:
         if: matrix.stage == 'analog'
         timeout-minutes: 15
         run: python scripts/qualify_analog_process.py --pdk build/physical-adapter/sky130A --out build/analog-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
+      - name: Qualify distributed RC across process, temperature and saved voltage sweeps
+        if: matrix.stage == 'analog-rc'
+        timeout-minutes: 35
+        run: python scripts/qualify_analog_process.py --extraction rc --workers 4 --pdk build/physical-adapter/sky130A --out build/analog-rc-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
+      - name: Qualify process passive devices, contacted guards and deliberate faults
+        if: matrix.stage == 'devices'
+        timeout-minutes: 20
+        run: python scripts/qualify_sky130_devices.py --pdk build/physical-adapter/sky130A --out build/device-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
+      - name: Qualify two-stage opamp before and after ECO across full PVT
+        if: matrix.stage == 'two-stage-opamp'
+        timeout-minutes: 65
+        run: python scripts/qualify_two_stage_opamp.py --pdk build/physical-adapter/sky130A --output build/two-stage-opamp-evidence --extraction rc --full-pvt --workers 4 --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --ngspice /usr/bin/ngspice
       - name: Fetch the pinned public overvoltage source
         if: matrix.stage == 'detector'
         uses: actions/checkout@v4
@@ -64,6 +76,9 @@ jobs:
           path: |
             build/physical-evidence
             build/analog-evidence
+            build/analog-rc-evidence
+            build/device-evidence
+            build/two-stage-opamp-evidence
             build/open-project-evidence
             build/physical-adapter/sky130A/package.json
             build/qualification-pdk/upstream-lock.json
