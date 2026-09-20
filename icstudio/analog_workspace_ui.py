@@ -182,18 +182,35 @@ class AnalogWorkspace(TestPlanWindow):
         layout=QVBoxLayout(self.verification_page)
         note=QLabel('Inspect DRC/LVS locations and compare schematic/extracted requirements using each run’s saved circuit. Select a saved testbench to launch physical verification.');note.setWordWrap(True);layout.addWidget(note)
         self.verify_bench=QComboBox();layout.addWidget(label('Verification &testbench',self.verify_bench));layout.addWidget(self.verify_bench)
+        self.verify_extraction=QLabel();self.verify_extraction.setWordWrap(True);layout.addWidget(self.verify_extraction)
+        self.verify_bench.currentIndexChanged.connect(self.describe_extraction)
         self.verification=table(['Run','Revision','State','Flow']);layout.addWidget(self.verification,1)
-        bs=self.buttons(layout,[('Inspect selected run',self.inspect_verification),('Run saved testbench verification',self.run_verification),('Refresh',self.refresh_verification)],'Run saved testbench verification')
+        bs=self.buttons(layout,[('Inspect selected run',self.inspect_verification),('Run saved testbench verification',self.run_verification),('Edit fixture / extraction…',self.edit_verification_bench),('Refresh',self.refresh_verification)],'Run saved testbench verification')
         selection_actions(self.verification,[bs[0]]);self.verify_run_button=bs[1]
+        self.verify_edit_button=bs[2]
         self.verification.itemActivated.connect(lambda *_:self.call(self.inspect_verification))
         self.verification.cellDoubleClicked.connect(lambda *_:self.call(self.inspect_verification))
     def refresh_verification(self):
         old=self.verify_bench.currentData();self.verify_bench.clear()
         for bench in self.studio.project.get('testbenches',[]):self.verify_bench.addItem(bench['name'],bench['id'])
         self.verify_run_button.setEnabled(bool(self.verify_bench.count()))
+        self.verify_edit_button.setEnabled(bool(self.verify_bench.count()))
         if self.verify_bench.findData(old)>=0:self.verify_bench.setCurrentIndex(self.verify_bench.findData(old))
         self.verification_rows=[r for r in self.studio.run_manager.rows if r['job']['project']['id']==self.project_id and r['job']['settings']['type'] in ('silicon','rc_compare','drc','lvs','erc')]
         fill(self.verification,[[r['name'],r['job']['project']['revision'],r['state'],r['job']['settings']['type']] for r in self.verification_rows])
+        self.describe_extraction()
+    def describe_extraction(self,*_):
+        from .physical_extraction import EXTRACTION_MODES,normalize_extraction
+        bench=next((b for b in self.studio.project.get('testbenches',[]) if b['id']==self.verify_bench.currentData()),None)
+        if bench is None:self.verify_extraction.setText('Save a testbench to configure physical extraction.');return
+        options=normalize_extraction(bench.get('physical_extraction'))
+        text=EXTRACTION_MODES[options['mode']]+' · model corner '+str(bench['analysis'].get('corner','nominal'))
+        if options['mode']=='calibrated_rc':text+=' · RC corner '+options.get('corner','follows model corner')
+        self.verify_extraction.setText(text)
+    def edit_verification_bench(self):
+        self.require_saved_setup();key=self.verify_bench.currentData()
+        if key is None:raise ValueError('Select a saved testbench.')
+        self.studio.testbench_combo.setCurrentIndex(self.studio.testbench_combo.findData(key));self.studio.edit_testbench()
     def run_verification(self):
         self.require_saved_setup()
         key=self.verify_bench.currentData()

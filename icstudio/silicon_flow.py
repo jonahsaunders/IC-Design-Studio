@@ -140,7 +140,8 @@ def job(p,cid,settings,directory,progress):
     output=Path(directory)/'physical-flow'
     if settings.get('testbench'):
         from .hierarchical_flow import run as hierarchical_run
-        report=hierarchical_run(p,settings['testbench'],output,settings.get('tools',{}),progress);cid=report['cell_id']
+        overrides={'physical_extraction':settings['physical_extraction']} if 'physical_extraction' in settings else {}
+        report=hierarchical_run(p,settings['testbench'],output,settings.get('tools',{}),progress,**overrides);cid=report['cell_id']
     else:report=run(p,cid,output,settings.get('tools',{}),progress)
     issues=[]
     if report['status']!='passed':issues.append({'severity':'error','code':'PHYSICAL.'+report['status'].upper(),'object':'','message':report.get('error','Physical workflow incomplete'),'fingerprint':digest(report)})

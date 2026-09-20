@@ -91,8 +91,10 @@ not arbitrary designs, other PDKs, distributed resistance or fabrication signoff
 
 Save testbenches or ordinary analysis setups, then create a test plan. Choose the
 tests, model corners and temperatures. A voltage sweep also needs a declared DC
-supply target for every selected test. Plans support up to 200 cases; each job
-gets an isolated input and the normal durable scheduler handles execution.
+supply target for every selected test. Plans support up to 10,000 cases. Up to
+200 jobs can use the normal interactive scheduler; larger plans use
+[durable campaigns](ANALOG_CLOSURE.md#durable-campaigns) with bounded case capture,
+resumable workers and paged results. Each job retains an isolated input.
 
 The matrix shows each requirement under each operating condition. Failures,
 cancelled jobs, absent measurements and incomplete physical stages remain visible.

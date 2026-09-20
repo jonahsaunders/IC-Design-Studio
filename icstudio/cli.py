@@ -5,6 +5,12 @@ from .model import load_project,atomic_write,clone,validate,uid,save_project
 
 def main(argv=None):
     argv=list(sys.argv[1:] if argv is None else argv)
+    if argv and argv[0]=='automation':
+        from .automation_cli import main as automation
+        return automation(argv[1:])
+    if argv and argv[0]=='campaign':
+        from .verification_campaigns import main as campaign
+        return campaign(argv[1:])
     if argv and argv[0]=='digital':
         from .digital_cli import main as digital
         return digital(argv[1:])
@@ -74,7 +80,10 @@ def rpc():
             request=json.loads(line)
             if request.get('jsonrpc')!='2.0':raise ValueError('jsonrpc must be 2.0')
             method=request['method'];params=request.get('params',{})
-            if method=='capabilities':result={'api':'1.0','methods':['capabilities','validate','simulate','erc','connectivity','parasitics'],'schema':1,'limits':{'solver_unknowns':80,'transient_steps':20000}}
+            if method=='capabilities':result={'api':'1.0','methods':['capabilities','validate','simulate','erc','connectivity','parasitics','automation.capabilities','automation.inspect','automation.preview','automation.apply'],'schema':1,'limits':{'solver_unknowns':80,'transient_steps':20000}}
+            elif method.startswith('automation.'):
+                from .design_automation import dispatch
+                result=dispatch(method,params)
             elif method=='validate':result={'valid':bool(validate(params['project']))}
             elif method=='simulate':
                 from .simulation import run

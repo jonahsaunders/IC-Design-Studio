@@ -1,0 +1,225 @@
+{
+  "workloads": [
+    {
+      "workload": "saved amplifier testbench",
+      "schema": 1,
+      "project_id": "08c6e3a919224219",
+      "base_revision": 4,
+      "project_hash": "6198f34554539cb44dd6c9690733b573e60e97af99438d09b2f8ae707048a6c4",
+      "batch_hash": "ae6bf864558856461b43aed73a7340dd68593b7a82e2eb70b0a28e97efbd7410",
+      "iterations": 3,
+      "environment": {
+        "python": "3.12.14",
+        "system": "Linux-6.18.44-x86_64-with-glibc2.39"
+      },
+      "size": {
+        "cells": 2,
+        "devices": 6,
+        "shapes": 0,
+        "wires": 2
+      },
+      "checks": {
+        "undo_restores_design": true,
+        "redo_restores_edit": true,
+        "save_reopens_exactly": true,
+        "recovery_restores_exactly": true
+      },
+      "scope": "command/edit/undo/redo/save/reopen/recovery and two offscreen canvases",
+      "rendered_cell_id": "f3c893bd7d864d31",
+      "timings_ms": {
+        "edit": {
+          "samples": [
+            9.177183999781846,
+            7.355572999586002,
+            4.864780999923823
+          ],
+          "median": 7.355572999586002,
+          "max": 9.177183999781846
+        },
+        "undo": {
+          "samples": [
+            0.10525099969527218,
+            0.06705200030410197,
+            0.05957100074738264
+          ],
+          "median": 0.06705200030410197,
+          "max": 0.10525099969527218
+        },
+        "redo": {
+          "samples": [
+            0.041621000491431914,
+            0.039269998524105176,
+            0.0373719994968269
+          ],
+          "median": 0.039269998524105176,
+          "max": 0.041621000491431914
+        },
+        "save": {
+          "samples": [
+            7.786452000800637,
+            18.086070998833748,
+            7.80853499963996
+          ],
+          "median": 7.80853499963996,
+          "max": 18.086070998833748
+        },
+        "reopen": {
+          "samples": [
+            4.232748000504216,
+            3.6285869991843356,
+            6.463191000875668
+          ],
+          "median": 4.232748000504216,
+          "max": 6.463191000875668
+        },
+        "recovery_write": {
+          "samples": [
+            5.189061999772093,
+            5.342964001101791,
+            7.001597001362825
+          ],
+          "median": 5.342964001101791,
+          "max": 7.001597001362825
+        },
+        "recovery_read": {
+          "samples": [
+            3.7438599993038224,
+            3.2876949990168214,
+            5.550239000513102
+          ],
+          "median": 3.7438599993038224,
+          "max": 5.550239000513102
+        },
+        "total": {
+          "samples": [
+            805.248548000236,
+            172.92036100116093,
+            192.70403900009114
+          ],
+          "median": 192.70403900009114,
+          "max": 805.248548000236
+        },
+        "canvas_render": {
+          "samples": [
+            773.686684000495,
+            133.76649900055781,
+            158.8158710001153
+          ],
+          "median": 158.8158710001153,
+          "max": 773.686684000495
+        }
+      }
+    },
+    {
+      "workload": "synthetic 500 devices and 10000 distinct shapes",
+      "schema": 1,
+      "project_id": "f24d04d4033e40e5",
+      "base_revision": 0,
+      "project_hash": "7a10f2f4e619c24750d7af3d0c74c39578578aa6e024ba983adcf92d8eaec3d3",
+      "batch_hash": "3b6ac3234e7bf6aa50c96183d993c53cea64897c1a5f651fffdcaac33223ae98",
+      "iterations": 3,
+      "environment": {
+        "python": "3.12.14",
+        "system": "Linux-6.18.44-x86_64-with-glibc2.39"
+      },
+      "size": {
+        "cells": 1,
+        "devices": 500,
+        "shapes": 10000,
+        "wires": 0
+      },
+      "checks": {
+        "undo_restores_design": true,
+        "redo_restores_edit": true,
+        "save_reopens_exactly": true,
+        "recovery_restores_exactly": true
+      },
+      "scope": "command/edit/undo/redo/save/reopen/recovery and two offscreen canvases",
+      "rendered_cell_id": "f7e4d48123e04f71",
+      "timings_ms": {
+        "edit": {
+          "samples": [
+            540.2040589997341,
+            553.2501449997653,
+            569.9177039987262
+          ],
+          "median": 553.2501449997653,
+          "max": 569.9177039987262
+        },
+        "undo": {
+          "samples": [
+            0.13344800026970915,
+            0.1451070002076449,
+            0.17130200103565585
+          ],
+          "median": 0.1451070002076449,
+          "max": 0.17130200103565585
+        },
+        "redo": {
+          "samples": [
+            0.11889400047948584,
+            0.14362100046128035,
+            0.12118199992983136
+          ],
+          "median": 0.12118199992983136,
+          "max": 0.14362100046128035
+        },
+        "save": {
+          "samples": [
+            324.76243400014937,
+            277.7906339997571,
+            263.43911600088177
+          ],
+          "median": 277.7906339997571,
+          "max": 324.76243400014937
+        },
+        "reopen": {
+          "samples": [
+            145.86776299984194,
+            116.69776199960324,
+            109.79012099960528
+          ],
+          "median": 116.69776199960324,
+          "max": 145.86776299984194
+        },
+        "recovery_write": {
+          "samples": [
+            111.51607499959937,
+            104.38169400003972,
+            105.60705199895892
+          ],
+          "median": 105.60705199895892,
+          "max": 111.51607499959937
+        },
+        "recovery_read": {
+          "samples": [
+            167.9238480010099,
+            134.76574500054994,
+            109.05077000097663
+          ],
+          "median": 134.76574500054994,
+          "max": 167.9238480010099
+        },
+        "total": {
+          "samples": [
+            2291.001163999681,
+            1890.856605999943,
+            1899.9452680000104
+          ],
+          "median": 1899.9452680000104,
+          "max": 2291.001163999681
+        },
+        "canvas_render": {
+          "samples": [
+            786.9045000006736,
+            491.2531649988523,
+            531.9130830012
+          ],
+          "median": 531.9130830012,
+          "max": 786.9045000006736
+        }
+      }
+    }
+  ],
+  "qualification": "Measured build-host lifecycle and CPU offscreen canvas rendering. Full Studio refresh, external engines and native display latency are excluded."
+}

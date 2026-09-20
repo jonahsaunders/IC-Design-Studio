@@ -168,7 +168,7 @@ class LayoutToolsMixin:
         key=issue.get('cell_id',self.cid)
         if key not in {c['id'] for c in self.project['cells']}:return
         if key!=self.cid:self.cid=key;self.selection=[];self.refresh(True)
-        ids=list(issue.get('objects',[])) or ([issue['object']] if issue.get('object') else [])
+        ids=list(issue.get('shape_ids',[])) or list(issue.get('objects',[])) or ([issue['object']] if issue.get('object') else [])
         net=issue.get('net','');self.net=net
         if net:
             ids=list(dict.fromkeys(ids+[s['id'] for s in self.cell['shapes'] if s.get('net')==net]))
@@ -189,5 +189,5 @@ class LayoutToolsMixin:
                     self.layout.visible_layers.update(s['layer'] for s in shapes)
             if raw:
                 box=QRectF(QPointF(*raw[:2]),QPointF(*raw[2:])).normalized();self.layout.finding_box=list(raw);box.adjust(-500,-500,500,500);self.layout.auto_fit=False;self.layout.scale=min(self.layout.width()/box.width(),self.layout.height()/box.height());self.layout.offset=QPointF(self.layout.rect().center())-box.center()*self.layout.scale
-            self.layout.update();self.statusBar().showMessage(self.cell['name']+': '+issue['message']);return
+            self.layout.update();self.statusBar().showMessage(self.cell['name']+': '+issue['message']+(' '+issue['remediation'] if issue.get('remediation') else ''));return
         return super().check_selected(row,col)

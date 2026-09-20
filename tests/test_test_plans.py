@@ -63,3 +63,17 @@ class TestPlansTests(unittest.TestCase):
         result=matrix([dict(id='run',state='Complete',job=job,result={'silicon_report':{'stages':stages}})],job['case']['group'])
         by={r['name']:next(iter(r['values'].values())) for r in result['rows']}
         self.assertEqual(by['Bias · schematic']['status'],'PASS');self.assertEqual(by['Bias · post-layout']['status'],'FAIL')
+
+    def test_overall_physical_failure_cannot_be_hidden_by_passed_stages(self):
+        from icstudio.analog import reference
+        from icstudio.hierarchical_flow import VERIFICATION_STAGES
+        from tests.test_silicon import technology
+        p,cid,key=reference(technology());plan=dict(id='physical',name='Physical',entries=sources(p)[:1],corners=['nominal'],temperatures=[27],compare_layout=True)
+        job=prepare(p,plan,lambda settings,engine,project,cid:dict(settings=settings,engine=engine,project=project,cell=cid,executable='local'))[0]
+        report={'status':'failed','error':'Final source integrity mismatch',
+                'stages':[{'name':stage,'status':'passed'} for stage in VERIFICATION_STAGES]}
+        result=matrix([dict(id='run',state='Complete',job=job,result={'silicon_report':report})],job['case']['group'])
+        by={r['name']:next(iter(r['values'].values())) for r in result['rows']}
+        self.assertEqual(by['Physical workflow']['status'],'FAIL')
+        self.assertIn('integrity mismatch',by['Physical workflow']['detail'])
+        self.assertEqual(by['integrity']['status'],'PASS')

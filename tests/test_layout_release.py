@@ -73,7 +73,10 @@ class LayoutReleaseTests(unittest.TestCase):
     def gf_tech(self,root):
         # Synthetic locked assets test adapter mechanics; real engine qualification is separate.
         t=technology();t['package_lock']['id']='gf180mcuC';t['package_root']=str(root);t['layers']=[]
-        for kind,model in [('NMOS','nfet_03v3'),('PMOS','pfet_03v3')]:t['simulation']['catalog'][kind]['model']=model
+        for kind,model in [('NMOS','nfet_03v3'),('PMOS','pfet_03v3')]:
+            binding=t['simulation']['catalog'][kind];binding['model']=model
+            binding['parameter_scale']={'w':1,'l':1}
+            binding['parameters']['w']['default']='1u';binding['parameters']['l']['default']='.28u'
         for rel in ('libs.tech/magic/gf180mcuC.tech','libs.tech/netgen/gf180mcuC_setup.tcl'):
             f=root/rel;f.parent.mkdir(parents=True,exist_ok=True);f.write_text('Synthetic unit-test asset\n');t['package_lock']['files'][rel]=file_digest(f)
         return t

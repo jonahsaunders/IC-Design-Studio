@@ -24,7 +24,7 @@ class CharacterizationLibrary(QDialog):
         self.sweeps={};defaults=dict(length='0.5u, 1u',vgs='0.5, 0.6, 0.7, 0.8, 0.9, 1.0',vds='1.0, 1.8',vsb='0',temperature='27',corner='nominal')
         for key,title in [('length','Lengths (m)'),('vgs','Forward VGS / VSG (V)'),('vds','Forward VDS / VSD (V)'),('vsb','Reverse body bias (V)'),('temperature','Temperatures (°C)'),('corner','Model corners')]:
             w=QLineEdit(defaults[key]);self.sweeps[key]=w;form.addRow(label(title+' · comma separated',w),w)
-        layout.addWidget(label('SI suffixes are accepted (0.5u = 0.5 µm). Process library: standard SKY130 1.8 V MOS, one finger and one device. Generic teaching tables omit weak inversion and body/temperature effects.'))
+        layout.addWidget(label('SI suffixes are accepted (0.5u = 0.5 µm). Supported process tables use locked standard SKY130 1.8 V or GF180 3.3 V MOS definitions. Finger count and parallel multiplicity follow the selected device. Generic teaching tables omit weak inversion and body/temperature effects.'))
         actions(layout,[('Characterize / reuse cache',self.start),('Cancel remaining',self.cancel),('Resume unfinished',self.resume)],self.call,'Characterize / reuse cache')
         self.history=QComboBox();self.history.setAccessibleName('Saved device characterizations');layout.addWidget(label('Saved characterization',self.history));layout.addWidget(self.history);self.history.currentIndexChanged.connect(self.select_history)
         self.results=table(['State','gm/Id (1/V)','Id/W (A/m)','Forward VGS (V)','L (m)','Condition','gds (S)','gm/gds','Cgg (F)','Cgs (F)','Cgd (F)','Cgb (F)','Intrinsic fT estimate (Hz)']);self.results.setAccessibleName('Captured model characterization points');layout.addWidget(self.results)
@@ -42,7 +42,8 @@ class CharacterizationLibrary(QDialog):
         query_form=QFormLayout();query_form.setRowWrapPolicy(QFormLayout.WrapLongRows);layout.addLayout(query_form);self.query={}
         for key,title,value in [('length','Sizing length (m)','0.5u'),('vds','Forward drain bias (V)','1.0'),('vsb','Reverse body bias (V)','0'),('temperature','Sizing temperature (°C)','27'),('corner','Sizing corner','nominal'),('gmid','Target gm/Id (1/V)','10'),('current','Target |Id| (A)','10u')]:
             w=QLineEdit(value);self.query[key]=w;query_form.addRow(label(title,w),w)
-        self.suggestions=table(['Estimated W (m)','L (m)','Forward gate bias (V)','Target |Id| (A)','Target gm/Id (1/V)']);self.suggestions.setAccessibleName('Initial sizing alternatives requiring circuit verification');self.suggestions.setColumnWidth(2,205);layout.addWidget(self.suggestions)
+        self.suggestions=table(['Symbol W (m)','Aggregate W (m)','L (m)','Forward gate bias (V)','Target |Id| (A)','Target gm/Id (1/V)']);self.suggestions.setAccessibleName('Initial sizing alternatives requiring circuit verification');self.suggestions.setColumnWidth(3,205);layout.addWidget(self.suggestions)
+        self.width_convention=label('Symbol W is the value transferred to the circuit. Aggregate W includes all fingers and parallel copies used to normalize current density.');layout.addWidget(self.width_convention)
         actions(layout,[('Estimate sizing',self.estimate),('Use selected sizing in search',self.seed),('Inspect selected saved point',self.inspect)],self.call,'Estimate sizing')
         self.verify_button=actions(layout,[('Verify selected sizing with SPICE',self.verify_sizing)],self.call)[0];self.verify_button.setEnabled(False)
         self.suggestions.itemSelectionChanged.connect(lambda:self.verify_button.setEnabled(self.suggestions.currentRow()>=0))
@@ -149,7 +150,7 @@ class CharacterizationLibrary(QDialog):
         if not self.data:raise ValueError('Characterize a device or choose a saved table first.')
         query={k:w.text().strip() for k,w in self.query.items()}
         self.estimates=library.size(self.data,query,query['gmid'],query['current'])
-        fill(self.suggestions,[[e[k] for k in ('width','length','vgs','desired_current','desired_gmid')] for e in self.estimates]);self.suggestions.selectRow(0)
+        fill(self.suggestions,[[e['width'],e.get('total_width',e['width']),*[e[k] for k in ('length','vgs','desired_current','desired_gmid')]] for e in self.estimates]);self.suggestions.selectRow(0)
         self.tabs.setCurrentIndex(1)
         self.note.setText('Initial estimates from interpolation at the requested L and bias. Multiple crossings are separate choices. Circuit search must verify width scaling and the actual bias.')
 

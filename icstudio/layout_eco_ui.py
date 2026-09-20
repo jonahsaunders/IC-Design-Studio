@@ -86,15 +86,19 @@ def show(studio, missing=False):
 
     form = QFormLayout(); origin=QLineEdit('0, 0'); pitch=QLineEdit('20');form.addRow('New footprint origin X, Y (µm)',origin);form.addRow('New footprint pitch (µm)',pitch);layout.addLayout(form)
     preserve=QCheckBox('Preserve attached routes and surviving terminal connectivity');preserve.setChecked(True);layout.addWidget(preserve)
+    strict=QCheckBox('Require all analog and route constraints to pass');strict.setAccessibleName('Require clean layout constraints')
+    strict.setToolTip('By default, an update may retain existing findings but cannot introduce or worsen them. Enable this to require a fully clean result.');layout.addWidget(strict)
     error=QLabel();error.setWordWrap(True);layout.addWidget(error);button=QPushButton('Preview selected changes');layout.addWidget(button)
     def preview():
         try:
             if state['report']['design_hash'] != design_digest(studio.project): raise ValueError('The project changed. Reopen this review.')
             chosen=[(r['cell_id'],r['device_id']) for i,r in enumerate(state['report']['devices']) if table.item(i,0).checkState()==Qt.Checked]
-            candidate,report=propose(studio.project,cid,chosen,studio.layout.locked_layers,preserve.isChecked(),point(origin.text()),nm(pitch.text()),scope.isChecked())
+            candidate,report=propose(studio.project,cid,chosen,studio.layout.locked_layers,preserve.isChecked(),point(origin.text()),nm(pitch.text()),scope.isChecked(),strict_constraints=strict.isChecked())
             text='\n'.join(r['cell']+' / '+r['name']+': '+r['action'] for r in report['changes'])
             text+='\n\n'+str(len(report['affected_cells']))+' edited masters; '+str(len(report['adjusted_routes']))+' adjusted routes.\n'
             text+='\n'.join(next(c['name'] for c in candidate['cells'] if c['id']==k)+': '+str(len(v))+' connectivity findings' for k,v in report['connectivity'].items())
+            text+='\n'+str(len(report.get('preserved_centers',[])))+' constrained device centers preserved.'
+            text+='\n'+str(sum(len(v) for v in report.get('constraint_findings',{}).values()))+' remaining constraint findings; '+('all constraints must pass.' if strict.isChecked() else 'no new or worsened findings allowed.')
             text+='\n\nApply is one undoable transaction. Independent routes remain after orphan removal. Run full DRC/LVS after reviewing every affected parent.'
             from .layout_eco_review import proposal_summary
             text+='\n\n'+proposal_summary(studio.project,candidate,report)
@@ -104,7 +108,9 @@ def show(studio, missing=False):
                 from .team_review_ui import RevisionComparison
                 studio._eco_comparison=RevisionComparison(studio._review_dialog,before,candidate);studio._eco_comparison.view_mode.setCurrentIndex(0);studio._eco_comparison.show()
             compare.clicked.connect(comparison)
-            studio.review_dialog('Apply schematic-driven layout changes',lambda:(candidate,text),controls);dlg.accept()
+            from .layout_eco import apply as apply_eco
+            studio.review_dialog('Apply schematic-driven layout changes',lambda:(candidate,text),controls,
+                                apply_candidate=lambda target,reviewed:apply_eco(target,reviewed,report));dlg.accept()
         except Exception as exc:error.setText(str(exc))
     def check_revision():
         stale=state['report']['design_hash']!=design_digest(studio.project)
@@ -115,4 +121,4 @@ def show(studio, missing=False):
     starting=(id(studio.project),studio.project['revision'])
     timer=QTimer(dlg);timer.setInterval(300)
     timer.timeout.connect(lambda:check_revision() if starting!=(id(studio.project),studio.project['revision']) else None);timer.start()
-    button.clicked.connect(preview);dlg.table=table;dlg.select_missing_button=select_all;dlg.summary=summary;dlg.preview_button=button;dlg.schematic_button=schematic_button;dlg.physical_button=physical_button;dlg.impact=impact;studio._layout_eco_dialog=dlg;dlg.show();return dlg
+    button.clicked.connect(preview);dlg.table=table;dlg.select_missing_button=select_all;dlg.summary=summary;dlg.preview_button=button;dlg.strict_constraints=strict;dlg.schematic_button=schematic_button;dlg.physical_button=physical_button;dlg.impact=impact;studio._layout_eco_dialog=dlg;dlg.show();return dlg

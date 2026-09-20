@@ -178,6 +178,26 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_professional_workflows.py --out build/professional-workflow-evidence
+      - name: Test saved extraction and constraint review controls
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_analog_closure.py --out build/analog-closure-evidence
+      - name: Test hierarchy navigation and atomic design automation
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_design_automation.py --output build/design-automation-evidence
+      - name: Test campaign paging, background capture and worker recovery
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_campaigns.py -v
+      - name: Measure editing, rendering and document lifecycle
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python scripts/benchmark_design_automation.py --output build/design-automation-benchmark.json
       - name: Test analog workspace, saved-run inspection and requirement retries
         timeout-minutes: 5
         env:
@@ -400,6 +420,11 @@ jobs:
         with:
           name: desktop-diagnostics-${{ runner.os }}
           path: |
+            build/analog-closure-evidence/*.json
+            build/analog-closure-evidence/*.png
+            build/design-automation-evidence/*.json
+            build/design-automation-evidence/*.png
+            build/design-automation-benchmark.json
             build/analog-experiment-evidence
             build/optimizer-refinement-evidence
             build/analog-advanced-evidence

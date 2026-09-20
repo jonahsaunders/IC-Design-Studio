@@ -67,7 +67,7 @@ def inventory(p, cid):
     return {'design_hash': design_digest(p), 'cell_id': cid, 'devices': rows, 'connectivity': check['issues']}
 
 
-def propose(p, cid, device_ids, locked=(), preserve_routes=True):
+def propose(p, cid, device_ids, locked=(), preserve_routes=True, strict_constraints=False):
     """Parameters and terminals update at their saved origins; no device deletion."""
     report = inventory(p, cid); eligible = {r['device_id'] for r in report['devices'] if r['status'] == 'changed'}
     chosen = set(device_ids)
@@ -76,6 +76,8 @@ def propose(p, cid, device_ids, locked=(), preserve_routes=True):
     if any(s['layer'] in locked and s.get('generated_device') in chosen for s in c['shapes']):
         raise ValueError('Unlock every layer of the updated footprints.')
     for did in chosen: regenerate(q, cid, did)
+    from .analog_constraints import preserve_centers
+    centers=preserve_centers(p,q,cid,chosen)
     cell = next(c for c in q['cells'] if c['id'] == cid)
     changed_routes = []
     if preserve_routes:
@@ -102,11 +104,20 @@ def propose(p, cid, device_ids, locked=(), preserve_routes=True):
         from .layout_topology import _check_clearance
         _check_clearance(p, q, cid)
     validate(q)
-    report.update(updated=sorted(chosen), adjusted_routes=changed_routes, after=inventory(q, cid))
+    from .route_constraints import enforce_affected
+    constraints=enforce_affected(p,q,[cid],strict_constraints)
+    report.update(updated=sorted(chosen), adjusted_routes=changed_routes, preserved_centers=centers,
+                  constraint_findings=constraints, strict_constraints=strict_constraints,
+                  candidate_hash=design_digest(q), after=inventory(q, cid))
     return q, report
 
 
 def apply(p, candidate, report):
     if report['design_hash'] != design_digest(p): raise ValueError('Layout update review is stale. Review the current schematic again.')
+    if report.get('candidate_hash') and report['candidate_hash']!=design_digest(candidate):
+        raise ValueError('The reviewed layout candidate changed. Preview the update again.')
     validate(candidate)
+    from .route_constraints import enforce
+    for cid in report.get('constraint_findings',{report['cell_id']:[]}):
+        enforce(p,candidate,cid,report.get('strict_constraints',False))
     p.clear(); p.update(clone(candidate))

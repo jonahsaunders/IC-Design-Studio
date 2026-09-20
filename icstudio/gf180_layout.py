@@ -44,11 +44,11 @@ def specification(tech, d):
     values = parameter_values(b,d)
     if any(values.get(k,1) != 1 for k in ('nf','m','mult')):
         raise ValueError('GF180 native geometry supports one finger and multiplicity one.')
-    if any(b.get('emit_parameters',{}).get(k) != k for k in ('w','l')):
-        raise ValueError('Use a standard GF180 symbol without dimension transformations.')
+    from .process_mos import dimensions
+    geometry = dimensions(tech, d, b)
     size = {}
     for k,minimum,maximum in (('w',1000,10000),('l',280,2000)):
-        raw = scalar(d['params'][k])*1e9; n = round(raw)
+        raw = (geometry['total_width'] if k == 'w' else geometry['length'])*1e9; n = round(raw)
         if abs(raw-n)>1e-6 or n%5 or not minimum<=n<=maximum:
             raise ValueError(f'{d["name"]}: {k.upper()} must be {minimum/1000:g}–{maximum/1000:g} µm on the 5 nm grid.')
         size[k] = n

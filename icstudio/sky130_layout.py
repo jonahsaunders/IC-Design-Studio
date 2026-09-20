@@ -37,23 +37,22 @@ def specification(tech, d):
     if not b or b['model'] != MODELS.get(d['kind']) or set(d['nets']) != {'d','g','s','b'}:
         raise ValueError(d['name']+': select a standard four-terminal SKY130 nfet_01v8 or pfet_01v8.')
     values = parameter_values(b,d)
+    from .process_mos import dimensions
+    geometry = dimensions(tech, d, b)
     nf=values.get('nf',1)
     if nf!=int(nf) or not 1<=nf<=8 or any(values.get(k,1)!=1 for k in ('m','mult')):
         raise ValueError(d['name']+': this layout supports 1–8 fingers and multiplicity 1.')
     size = {}
     for k, minimum in (('w',420),('l',150)):
-        raw = scalar(d['params'][k])*1e9
+        raw = (geometry['total_width'] if k == 'w' else geometry['length'])*1e9
         value = round(raw)
         if abs(raw-value)>1e-6 or value%5 or not minimum<=value<=10000:
             raise ValueError(d['name']+f': {k.upper()} must be on the 5 nm grid, from {minimum/1000:g} to 10 µm.')
         size[k]=value
     if size['w']%int(nf) or size['w']//int(nf)<420 or (size['w']//int(nf))%5:
         raise ValueError(d['name']+': total W divided by nf must be at least 0.42 µm on the 5 nm grid.')
-    # Only the standard catalog's width/length emission is accepted. Symbol variants
-    # that transform W (e.g. per-finger templates) require their own geometry adapter.
-    emit=b.get('emit_parameters',{})
-    if emit.get('w')!='w' or emit.get('l')!='l':
-        raise ValueError('This symbol transforms dimensions; select the standard MOS catalog entry.')
+    # The shared contract resolves the catalog's explicit per-finger W * nf
+    # template to total W. Geometry and netlisting now use the same dimensions.
     return {'api':API,'model_ref':clone(d.get('model_ref')),'model':b['model'],
             'kind':d['kind'],'dimensions_nm':size,'values':values,'nets':clone(d['nets'])}
 
