@@ -229,10 +229,11 @@ def stale_evidence_probe(report, source, directory):
     source=Path(source);directory=Path(directory);directory.mkdir(parents=True)
     extraction=next(s['evidence'] for s in report['stages'] if s['name']=='capacitance_extraction')
     original=source/extraction['deck'];copy=directory/'extracted.spice'
-    text=original.read_text();atomic_write(copy,text)
+    # Integrity hashes cover bytes; text I/O would normalize CRLF evidence.
+    data=original.read_bytes();atomic_write(copy,data)
     locked={'extracted.spice':file_digest(copy)}
     verify_integrity(directory,locked,{}, {})
-    atomic_write(copy,text+'\n* Deliberately stale qualification evidence\n')
+    atomic_write(copy,data+b'\n* Deliberately stale qualification evidence\n')
     try:verify_integrity(directory,locked,{}, {})
     except ValueError as error:
         return {'status':'passed','source_sha256':file_digest(original),
