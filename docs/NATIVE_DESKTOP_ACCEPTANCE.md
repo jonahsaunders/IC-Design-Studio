@@ -1,11 +1,11 @@
 # Native Windows and Ubuntu acceptance
 
-Use the exact dev24 installer/portable archive whose source commit passed the
+Use the exact dev25 installer/portable archive whose source commit passed the
 desktop, interoperability, physical, digital and VGA workflows. Launch without a preinstalled
 Python or EDA toolchain. Keep the complete application directory together.
 
-Run `ICDesignStudio.exe --desktop-acceptance acceptance-dev24` on Windows, or
-`./ICDesignStudio --desktop-acceptance acceptance-dev24` on Ubuntu. Use a fresh
+Run `ICDesignStudio.exe --desktop-acceptance acceptance-dev25` on Windows, or
+`./ICDesignStudio --desktop-acceptance acceptance-dev25` on Ubuntu. Use a fresh
 output directory for each OS/build/display configuration. Select the downloaded
 installer or archive in the acceptance window so its SHA-256 is retained.
 

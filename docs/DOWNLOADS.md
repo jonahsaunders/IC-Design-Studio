@@ -8,11 +8,13 @@ OpenROAD separately.
 ## Choose your download
 
 Use the [Releases page](https://github.com/jonahsaunders/IC-Design-Studio/releases)
-for published packages. Development source is **0.22.0.dev24**; a source update
+for published packages. Development source is **0.22.0.dev25**; a source update
 does not necessarily have a published desktop release.
 
-For the experimental branch, open a successful
-[Build and verify desktop release run](https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Aexperimental).
+For the dev25 source candidate, open a successful
+[Build and verify desktop release run](https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Acodex%2Fanalog-reference-qualification)
+from its PR into `experimental`. No completed dev25 package run is recorded in
+these source notes. Earlier experimental artifacts have different source identities.
 Download its **release-Windows** or **release-Linux** artifact, then extract that
 artifact to find the desktop package, matching validation record and checksums.
 Downloading Actions artifacts requires a GitHub sign-in. Draft releases are
@@ -71,7 +73,7 @@ configurations. Windows packages currently have no configured signing step.
 
 ## Verify a download
 
-On Linux, run `sha256sum -c SHA256SUMS-0.22.0.dev24.txt` in the download directory.
-On Windows, run `Get-FileHash .\IC-Design-Studio-0.22.0.dev24-Windows-x64-Setup.exe -Algorithm SHA256`
+On Linux, run `sha256sum -c SHA256SUMS-0.22.0.dev25.txt` in the download directory.
+On Windows, run `Get-FileHash .\IC-Design-Studio-0.22.0.dev25-Windows-x64-Setup.exe -Algorithm SHA256`
 and compare it with the matching checksum file. Use the filenames supplied with
 your exact build. A checksum for another build does not verify your download.

@@ -9,9 +9,9 @@
 </p>
 
 <p align="center">
-  <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/version-0.22.0.dev24-65d6bd?style=flat-square&amp;labelColor=182331" alt="Version 0.22.0.dev24"></a>
+  <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/version-0.22.0.dev25-65d6bd?style=flat-square&amp;labelColor=182331" alt="Version 0.22.0.dev25"></a>
   <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/status-engineering_preview-f0bc78?style=flat-square&amp;labelColor=182331" alt="Engineering preview"></a>
-  <a href="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml"><img src="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml/badge.svg?branch=experimental" alt="Desktop build and verification"></a>
+  <a href="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Acodex%2Fanalog-reference-qualification"><img src="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml/badge.svg?branch=codex%2Fanalog-reference-qualification" alt="Candidate desktop build and verification"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0--or--later-9bbafa?style=flat-square&amp;labelColor=182331" alt="GPL-3.0-or-later license"></a>
 </p>
 
@@ -105,7 +105,7 @@ The optimizer uses the existing simulators and needs no extra optimization packa
 
 Closing the workspace returns to the editor while queued jobs continue. Interrupted searches remain paused after an application restart until explicitly resumed.
 
-Saved testbenches can select process capacitance, distributed RC or calibrated interconnect extraction. Constrained layout updates preserve matching and routing intent, while durable campaigns run up to 10,000 verification cases with resumable workers. **Tools → Hierarchy and design automation…** provides reviewed, undoable batch edits. See [integrated analog workflows and supported scope](docs/ANALOG_CLOSURE.md).
+Saved testbenches can select process capacitance, bounded flat process RC or calibrated interconnect extraction with supported physical hierarchy. Process RC preserves the actual resistor graph and reconstructs the original capacitance matrix with recorded approximation limits. Constrained layout updates preserve matching and routing intent, while durable campaigns run up to 10,000 verification cases with resumable workers. **Tools → Hierarchy and design automation…** provides reviewed, undoable batch edits. See [integrated analog workflows and supported scope](docs/ANALOG_CLOSURE.md).
 
 [Workspace setup, debugging, and layout](docs/ANALOG_WORKSPACE.md) · [Optimizer, gm/Id, and characterization](docs/ANALOG_OPTIMIZER.md) · [Advanced analyses and verification automation](docs/ANALOG_OPTIMIZER.md#advanced-analyses) · [Detailed analog feature inventory](#analog-design-optimization-and-verification).
 
@@ -221,7 +221,7 @@ For digital design with automatic tool setup, use the [complete desktop package]
 **Linux / macOS:**
 
 ```sh
-git clone --branch experimental https://github.com/jonahsaunders/IC-Design-Studio.git
+git clone --branch codex/analog-reference-qualification https://github.com/jonahsaunders/IC-Design-Studio.git
 cd IC-Design-Studio
 python3.12 -m venv .venv
 source .venv/bin/activate
@@ -305,20 +305,21 @@ Expand a category for the detailed inventory. Features requiring an external eng
 |---|---|
 | Workspace and guided setup | Project variables and measurement limits; editable amplifier, differential-pair, and current-mirror fixtures; generated analyses, testbenches, and PVT plans; retained setup drafts |
 | Reusable tests | Saved circuit testbenches; configured analyses and stimuli; repeatable measurements; specification limits and pass/fail results |
+| Two-stage amplifier reference | Editable SKY130 Miller amplifier with process MIM compensation; saved bias, gain, loop-margin, integrated-noise and startup requirements |
 | Variation | Parameter sweeps; process/voltage/temperature matrices; seeded Monte Carlo parameter variation; technology-declared statistical bindings; individual case review, editing, and enable/disable controls |
 | Circuit search | Adaptive sensitivity-first, constrained Bayesian, experimental Gaussian-process, and exhaustive-grid methods; 1–8 parameter axes; linear/log/integer spacing; matching/ratio links; up to three objectives and measured Pareto candidates; gm/Id and bias limits |
 | Candidate review and recovery | Worst-condition ranking; captured parameters and requirements; failed-waveform and saved-hierarchy navigation; pause/resume and reusable experiment settings; full-precision CSV export; design-identity checks and undoable application |
 | gm/Id and device characterization | Captured operating-point sweeps; isolated-device cache tied to model and engine identities; measured current density, conductance, intrinsic gain/capacitance/speed where available; length comparisons; sizing suggestions and separate SPICE verification |
 | Sensitivity and robustness | Local finite differences; Morris and Sobol global sensitivity; bounded worst-condition search; user-declared tolerances; explicitly validated PDK statistical bindings; saved conditions, assumptions, and reports |
 | Electrical diagnostics | ngspice noise contributors, poles/zeros, supply-ramp startup, and loop gain from a user-built injection fixture; captured device bias across conditions; saved decks and source evidence |
-| Verification plans | Multiple tests and operating conditions; parallel job execution; saved-input resume/retry; baseline deltas; requirement matrices, margins, and distributions; CSV reports |
+| Verification plans | Multiple tests and operating conditions; parallel job execution; saved-input resume/retry; baseline deltas; requirement matrices; durable seeded statistical campaigns with per-condition and joint results; CSV reports |
 | Verification automation | Operating-point screening; ordered test stages; bounded retries and worker-time budgets; identity-checked exact-result reuse; coarse/full SPICE refinement with full-resolution finalist verification; portable JSON reports |
 | Layout connection | Device placement and regeneration; schematic-change review; matching and multi-group common-centroid constraints; unrouted-connection inspection |
-| Physical comparison | Schematic versus post-layout measurements; extracted-SPICE testbenches; retained DRC/LVS stages and failure evidence |
+| Physical comparison | Saved process-capacitance, process-RC or calibrated interconnect selection; bounded linked-hierarchy extraction; schematic versus post-layout measurements; retained DRC/LVS, integrity and failure evidence |
 
 **Scope:** circuit searches use a finite simulation budget, with at most 500 jobs. Passing candidates must satisfy every required saved test and PVT condition; predictions and coarse runs cannot establish full-resolution passing performance. Missing model vectors remain unavailable, intrinsic device speed is not circuit bandwidth, and sampled tolerance/statistical pass fractions do not establish manufacturing yield. Updated sizing needs fresh layout/extracted verification.
 
-[Analog workspace](docs/ANALOG_WORKSPACE.md) · [Optimizer and device characterization](docs/ANALOG_OPTIMIZER.md) · [Advanced analyses](docs/ANALOG_OPTIMIZER.md#advanced-analyses) · [Test plans](docs/PROFESSIONAL_WORKFLOWS.md)
+[Analog workspace](docs/ANALOG_WORKSPACE.md) · [Optimizer and device characterization](docs/ANALOG_OPTIMIZER.md) · [Reference diagnostics and statistical campaigns](docs/ANALOG_REFERENCE_WORKFLOW.md) · [Advanced analyses](docs/ANALOG_OPTIMIZER.md#advanced-analyses) · [Test plans](docs/PROFESSIONAL_WORKFLOWS.md)
 
 </details>
 
@@ -452,7 +453,7 @@ The experimental branch includes the [analog design workspace](docs/ANALOG_WORKS
 
 It also includes the [main-window digital workspace](docs/DIGITAL_WORKSPACE.md) and [integrated RTL-to-GDS flow](docs/DIGITAL_FLOW.md), including resumable targets, structured constraints, indexed waveforms, and linked source/timing/physical inspection. See the [digital feature tour](#design-digital-blocks-from-rtl-to-gds) for an entry point.
 
-**0.22.0.dev24 is an engineering preview.** The [dev24 update](docs/UPDATE_0.22_DEV24.md) brings together the analog design workspace, included digital toolchain and offline VGA Playground, and adds exact-package VGA qualification. [Release status](docs/RELEASE_STATUS.md) distinguishes source validation, hosted packages and pending consumer acceptance.
+**0.22.0.dev25 is an engineering preview.** The [dev25 update](docs/UPDATE_0.22_DEV25.md) adds saved amplifier diagnostics, statistical campaigns and bounded calibrated hierarchy, and binds release assets to their execution evidence. [Release status](docs/RELEASE_STATUS.md) distinguishes source validation, hosted packages and pending consumer acceptance.
 
 The [roadmap](docs/ROADMAP.md) tracks consumer Windows/Linux acceptance, physical LAN/VPN testing, broader PVT/transient and real-project coverage, larger editing/recovery workloads, and offline collaboration. A passing fixture qualifies that recorded case; it does not establish arbitrary-design or fabrication signoff. Source-to-GDS warnings for the detector remain documented.
 

@@ -1,0 +1,7 @@
+* Numerically resolved schematic reference
+.subckt device_coupon VREF
+* IC Design Studio / Untitled circuit / revision 0
+* design-sha256 1bbcec66c22ac5a04f501aa97538e7df1f22bf6aa0f82b578dc712d7a8bc6a71
+* Explicit locked PDK model bindings. Qualification depends on the validated reference flow.
+X_MDUMMY VREF VREF VREF VREF sky130_fd_pr__nfet_01v8 ad=8.7 as=8.7 l=0.5 m=1 mult=1 nf=1 nrd=0.00966666666667 nrs=0.00966666666667 pd=60.58 ps=60.58 sa=0 sb=0 sd=0 w=30
+.ends device_coupon

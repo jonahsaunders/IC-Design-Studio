@@ -54,7 +54,7 @@ def via_recipes(tech):
 
 def conductors(tech):
     via = via_recipes(tech)
-    return list(dict.fromkeys(tech.get('connectivity', {}).get('conductors', [])
+    return list(dict.fromkeys(tech.get('routing_conductors', tech.get('connectivity', {}).get('conductors', []))
                              or [v[k] for v in via for k in ('lower', 'upper')]
                              or [l['name'] for l in tech['layers'] if l['name'].startswith('metal')]))
 

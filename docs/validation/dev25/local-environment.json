@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "scope": "Local Linux source qualification. Relocated test engines and an ngspice temporary-file adapter; no packaged or consumer-machine acceptance.",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "python": "3.12.14",
+  "packages": {
+    "PySide6_Essentials": "6.8.3",
+    "PySide6_Addons": "6.8.3",
+    "klayout": "0.30.5"
+  },
+  "physical_sources": {
+    "magic": {
+      "repository": "https://github.com/RTimothyEdwards/magic.git",
+      "version": "8.3.600",
+      "commit": "94edc2a23dc9e51c9ffd75734550acfc3ca69ee5"
+    },
+    "netgen": {
+      "repository": "https://github.com/RTimothyEdwards/netgen.git",
+      "version": "1.5.300",
+      "commit": "1de6f88f1eebb786efadecc28e9e0dde37e8c433"
+    }
+  },
+  "files": {
+    "build/runtime/ngspice/usr/bin/ngspice": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+    "build/runtime/tmpfile_adapter.c": "42ad890eb79d75d10176a1435ebf1a24e3cd4ae0031d93d64181eea579815466",
+    "build/runtime/tmpfile_adapter.so": "65b36d407f2c9ff9e501c09c15439f330fa54271d1f06394b3e0adf23e67bb90",
+    "build/runtime/ngspice-run": "b04ec82707ddc54aa258be26462f28315b18f7d5a6c8e15ca0deb662b6b99dae",
+    "build/runtime/magic-run": "fa89bcfea9816d2cb4902deeff44c2199ac048fffb1303348fa5191ecf6c29cb",
+    "build/runtime/netgen-run": "c415bb25c7152f14f2ec2fb0a747cd138bd764e9044cb845e7f686a64acf1458",
+    "build/physical-engines/installed/bin/ext2sim": "010b266108114a105bcc9fe2282d3a56e76b2621112c54c61cf88694e6f50e92",
+    "build/physical-engines/installed/bin/ext2spice": "41617013f4557b1b3a6b97e27216f2011d16342b197aa532fcf8f0dc6dd9d4cb",
+    "build/physical-engines/installed/bin/magic": "8683d5df2d01f679809a003056819efeb975c4110c6321e88474b69f8ee5206d",
+    "build/physical-engines/installed/bin/netgen": "071e6935c01047ee51bb53394b961e0fee50e145d7fa01d85e7af5c7b7b34bb8",
+    "build/physical-engines/installed/lib/magic/tcl/tclmagic.so": "58b46e469e6d4f8c059287a304797bfd9520f3186c2c297fad9443f66196f559",
+    "build/physical-engines/installed/lib/netgen/tcl/tclnetgen.so": "e4502bcef487fd2e1625b5a523f13c6060ceae4aec567ef5415391a67e635b79"
+  },
+  "wrappers": {
+    "build/runtime/ngspice-run": "#!/bin/sh\nruntime_dir=\"$(CDPATH= cd -- \"$(dirname -- \"$0\")\" && pwd)/ngspice\"\nexport LD_LIBRARY_PATH=\"$runtime_dir/usr/lib/x86_64-linux-gnu${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\"\nexport SPICE_SCRIPTS=\"$runtime_dir/usr/share/ngspice/scripts\"\nexport ICSTUDIO_TEST_TMPDIR=\"$runtime_dir/../tmp\"\nexport LD_PRELOAD=\"$runtime_dir/../tmpfile_adapter.so${LD_PRELOAD:+:$LD_PRELOAD}\"\nexec \"$runtime_dir/usr/bin/ngspice\" \"$@\"\n",
+    "build/runtime/magic-run": "#!/bin/sh\nphysical_runtime=\"/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/physical\"\nexport LD_LIBRARY_PATH=\"$physical_runtime/usr/lib/x86_64-linux-gnu:/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/ngspice/usr/lib/x86_64-linux-gnu${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\"\nexport TCL_LIBRARY=\"$physical_runtime/usr/share/tcltk/tcl8.6\"\nexport TK_LIBRARY=\"$physical_runtime/usr/share/tcltk/tk8.6\"\nexport TMPDIR=\"/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/tmp\"\nexec \"/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/physical-engines/installed/bin/magic\" \"$@\"\n",
+    "build/runtime/netgen-run": "#!/bin/sh\nphysical_runtime=\"/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/physical\"\nexport LD_LIBRARY_PATH=\"$physical_runtime/usr/lib/x86_64-linux-gnu:/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/ngspice/usr/lib/x86_64-linux-gnu${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\"\nexport TCL_LIBRARY=\"$physical_runtime/usr/share/tcltk/tcl8.6\"\nexport TK_LIBRARY=\"$physical_runtime/usr/share/tcltk/tk8.6\"\nexport TMPDIR=\"/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/tmp\"\nexec \"/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/physical-engines/installed/bin/netgen\" \"$@\"\n"
+  },
+  "ngspice_tempfile_adapter_source": "#include <stdio.h>\n#include <stdlib.h>\n#include <unistd.h>\n#include <limits.h>\n#include <errno.h>\n\n/* Test-host adaptation only: this sandbox has no writable /tmp. */\nFILE *tmpfile(void) {\n    const char *root = getenv(\"ICSTUDIO_TEST_TMPDIR\");\n    char path[PATH_MAX];\n    if (!root || snprintf(path, sizeof(path), \"%s/ngspice-XXXXXX\", root) >= (int)sizeof(path)) {\n        errno = EINVAL; return NULL;\n    }\n    int fd = mkstemp(path);\n    if (fd < 0) return NULL;\n    unlink(path);\n    FILE *stream = fdopen(fd, \"w+\");\n    if (!stream) close(fd);\n    return stream;\n}\nFILE *tmpfile64(void) { return tmpfile(); }\n",
+  "adaptations": [
+    "Magic and Netgen built from recorded source pins against locally extracted Tcl/Tk; headless engine invocation.",
+    "The ngspice42 binary is unmodified. LD_PRELOAD redirects temporary files into this workspace because system /tmp is not writable.",
+    "Actual engine outputs are retained by each qualifier; synthetic coupon tests are identified separately."
+  ]
+}

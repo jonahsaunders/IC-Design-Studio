@@ -1,0 +1,468 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-09-20T17:32:17.942664+00:00",
+  "status": "passed",
+  "algorithm": "magic-flat-capacitance-conservation-v1",
+  "scope": "Flat distributed Magic resistance with area weighted lumped original ground and mutual capacitance; not a spatial field solver.",
+  "fixture": "Initial qualified reference two_stage_opamp physical extraction; this report isolates RC normalization/export correctness, not final amplifier PVT acceptance.",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "engine": {
+    "repository": "https://github.com/RTimothyEdwards/magic.git",
+    "version": "8.3.600",
+    "commit": "94edc2a23dc9e51c9ffd75734550acfc3ca69ee5"
+  },
+  "engine_binary_sha256": "8683d5df2d01f679809a003056819efeb975c4110c6321e88474b69f8ee5206d",
+  "engine_wrapper_sha256": "fa89bcfea9816d2cb4902deeff44c2199ac048fffb1303348fa5191ecf6c29cb",
+  "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+  "implementation_sha256": "7ade65ec645580ca6c8d967be39989350fa0574a5e335b3b8aa691e3ce331bf8",
+  "proof_implementation_sha256": "7ade65ec645580ca6c8d967be39989350fa0574a5e335b3b8aa691e3ce331bf8",
+  "test_file_sha256": "666f0e87c10f763f4535d409d539eba3e83ad89485cb5f48bc4e51298a6cf7df",
+  "source_derivation": {
+    "verification": "Exact pinned local upstream git checkout read; remote page retrieval unavailable in this environment.",
+    "references": [
+      {
+        "url": "https://github.com/RTimothyEdwards/magic/blob/94edc2a23dc9e51c9ffd75734550acfc3ca69ee5/resis/ResReadExt.c#L217-L237",
+        "claim": "Original NODE records copy location/type but omit intrinsic capacitance.",
+        "source_sha256": "fe59c375b5d3720655f83a56af370314686e41759b58c60f0dc6aadd52e10d9f"
+      },
+      {
+        "url": "https://github.com/RTimothyEdwards/magic/blob/94edc2a23dc9e51c9ffd75734550acfc3ca69ee5/resis/ResReadExt.c#L519-L542",
+        "claim": "Original CAP values enter node capacitance without aF-to-fF conversion.",
+        "source_sha256": "fe59c375b5d3720655f83a56af370314686e41759b58c60f0dc6aadd52e10d9f"
+      },
+      {
+        "url": "https://github.com/RTimothyEdwards/magic/blob/94edc2a23dc9e51c9ffd75734550acfc3ca69ee5/resis/ResRex.c#L995-L1000",
+        "claim": "Raw accumulated node capacitance becomes rg_nodecap.",
+        "source_sha256": "146e9e4ce4a20bfefb59558f372f669ae373a771399600a0b652bb1079be6b1d"
+      },
+      {
+        "url": "https://github.com/RTimothyEdwards/magic/blob/94edc2a23dc9e51c9ffd75734550acfc3ca69ee5/resis/ResSimple.c#L621-L648",
+        "claim": "Area-weight redistribution multiplies presumed fF by FEMTOTOATTO=1000.",
+        "source_sha256": "c9e80a323f12b0b40ac9be9c89bfe610f5ed4e500799b17d143276c9c6d76ba4"
+      },
+      {
+        "url": "https://github.com/RTimothyEdwards/magic/blob/94edc2a23dc9e51c9ffd75734550acfc3ca69ee5/resis/ResPrint.c#L275-L289",
+        "claim": "Distributed rnode capacitance is written in extraction capacitance units.",
+        "source_sha256": "ba2081f5d7c8ca2d7a8d4027e83d4b399a557e53e35e706dd53a10835d9cbdfc"
+      },
+      {
+        "url": "https://github.com/RTimothyEdwards/magic/blob/94edc2a23dc9e51c9ffd75734550acfc3ca69ee5/extflat/EFread.c#L228-L277",
+        "claim": "SCALE cscale multiplies original capacitance values into internal aF.",
+        "source_sha256": "e2e05d082081f813f1a52c11d1600e68fc0d82e807c2003eba53334226caed22"
+      },
+      {
+        "url": "https://github.com/RTimothyEdwards/magic/blob/94edc2a23dc9e51c9ffd75734550acfc3ca69ee5/extflat/EFint.h#L59-L78",
+        "claim": "Killed internal nodes also remove connected original capacitance.",
+        "source_sha256": "bddb29fa80200770446bd70862bbf4c5c86767beaf6d1a757358ebce22825ac9"
+      },
+      {
+        "url": "https://github.com/RTimothyEdwards/magic/blob/94edc2a23dc9e51c9ffd75734550acfc3ca69ee5/ext2spice/ext2spice.c#L3477-L3543",
+        "claim": "esSIvalue leaves C below1aF unscaled then formats five fixed decimal places, producing zero.",
+        "source_sha256": "6ce3145aba2136c349da80628b8904bd20eaf3b41618f58fa89e3bfa57d048aa"
+      }
+    ]
+  },
+  "method": "Independent final-SPICE parser forms R connected components, maps original node names to those components, collapses every full-precision C, and checks all35entries against raw original extraction; it does not read normalizer weights or use its matrix function.",
+  "original_scales": [
+    1000.0,
+    1.0,
+    1000000.0
+  ],
+  "resistance_scales": [
+    1000.0,
+    1.0,
+    1000000.0
+  ],
+  "equations": {
+    "ground": "C_i = C_original_ground * w_i",
+    "mutual": "C_ij = C_original_mutual * w_i * w_j",
+    "weights": "w_i = positive_raw_rnode_C_i / sum(positive_raw_rnode_C)"
+  },
+  "nets": {
+    "OUT": {
+      "rnode_count": 8,
+      "positive_weights": 8,
+      "ground_af": 52969.2,
+      "fallback": null
+    },
+    "a_3700_0#": {
+      "rnode_count": 6,
+      "positive_weights": 6,
+      "ground_af": 5872.36,
+      "fallback": null
+    },
+    "IBIAS": {
+      "rnode_count": 8,
+      "positive_weights": 8,
+      "ground_af": 12559.8,
+      "fallback": null
+    },
+    "a_1900_0#": {
+      "rnode_count": 4,
+      "positive_weights": 4,
+      "ground_af": 6521.89,
+      "fallback": null
+    },
+    "INP": {
+      "rnode_count": 2,
+      "positive_weights": 2,
+      "ground_af": 3088.22,
+      "fallback": null
+    },
+    "INN": {
+      "rnode_count": 2,
+      "positive_weights": 2,
+      "ground_af": 2369.16,
+      "fallback": null
+    },
+    "a_5500_0#": {
+      "rnode_count": 8,
+      "positive_weights": 8,
+      "ground_af": 22099.7,
+      "fallback": null
+    },
+    "VDD": {
+      "rnode_count": 12,
+      "positive_weights": 12,
+      "ground_af": 38303.5,
+      "fallback": null
+    },
+    "VSS": {
+      "rnode_count": 3821,
+      "positive_weights": 1,
+      "ground_af": 0.0,
+      "fallback": {
+        "method": "nearest-original-node-origin",
+        "anchor": "VSS",
+        "original_xy": [
+          -1200,
+          -2100
+        ],
+        "anchor_xy": [
+          -1200,
+          -2100
+        ]
+      }
+    }
+  },
+  "export": {
+    "status": "passed",
+    "raw_file": "raw-export.spice",
+    "file": "extracted.spice",
+    "raw_sha256": "216c24ccce25e32b21ccb1b227a5b69d03d846b0ae4147dd413a507875988260",
+    "sha256": "dffca893cf377779b72448b66bb9c26a72bf0b84493f3ffb6ecab87964206350",
+    "removed_quantized_capacitors": 1054,
+    "full_precision_capacitors": 1054,
+    "resistor_graph": "exact original named edge multiset preserved",
+    "non_capacitor_lines": "preserved byte for byte",
+    "quantization_reason": "Supported Magic esSIvalue emits C below 1 aF as zero; all parasitic C is serialized at 17 significant digits.",
+    "matrix_entries": 35,
+    "maximum_error_af": 2.9103830456733704e-11,
+    "relative_tolerance": 1e-12,
+    "absolute_tolerance_af": 1e-12
+  },
+  "independent_check": {
+    "status": "passed",
+    "resistor_count": 6872,
+    "capacitor_count": 1054,
+    "matrix_entries": 35,
+    "maximum_error_af": 2.9103830456733704e-11,
+    "relative_tolerance": 1e-12,
+    "absolute_tolerance_af": 1e-12,
+    "all_non_capacitor_bytes_preserved": true,
+    "matrix": [
+      {
+        "a": "IBIAS",
+        "b": "IBIAS",
+        "original_af": 18613.208,
+        "exported_af": 18613.208,
+        "absolute_error_af": 0.0
+      },
+      {
+        "a": "IBIAS",
+        "b": "INN",
+        "original_af": -2148.57,
+        "exported_af": -2148.5700000000006,
+        "absolute_error_af": 4.547473508864641e-13
+      },
+      {
+        "a": "IBIAS",
+        "b": "INP",
+        "original_af": -464.506,
+        "exported_af": -464.506,
+        "absolute_error_af": 0.0
+      },
+      {
+        "a": "IBIAS",
+        "b": "OUT",
+        "original_af": -821.724,
+        "exported_af": -821.7239999999999,
+        "absolute_error_af": 1.1368683772161603e-13
+      },
+      {
+        "a": "IBIAS",
+        "b": "VDD",
+        "original_af": -752.326,
+        "exported_af": -752.3260000000006,
+        "absolute_error_af": 5.684341886080801e-13
+      },
+      {
+        "a": "IBIAS",
+        "b": "a_1900_0#",
+        "original_af": -623.036,
+        "exported_af": -623.0360000000004,
+        "absolute_error_af": 4.547473508864641e-13
+      },
+      {
+        "a": "IBIAS",
+        "b": "a_3700_0#",
+        "original_af": -915.126,
+        "exported_af": -915.1260000000003,
+        "absolute_error_af": 3.410605131648481e-13
+      },
+      {
+        "a": "IBIAS",
+        "b": "a_5500_0#",
+        "original_af": -328.12,
+        "exported_af": -328.12000000000023,
+        "absolute_error_af": 2.2737367544323206e-13
+      },
+      {
+        "a": "INN",
+        "b": "INN",
+        "original_af": 7727.3965929000005,
+        "exported_af": 7727.3965929000005,
+        "absolute_error_af": 0.0
+      },
+      {
+        "a": "INN",
+        "b": "INP",
+        "original_af": -2036.17,
+        "exported_af": -2036.17,
+        "absolute_error_af": 0.0
+      },
+      {
+        "a": "INN",
+        "b": "OUT",
+        "original_af": -0.116205,
+        "exported_af": -0.116205,
+        "absolute_error_af": 0.0
+      },
+      {
+        "a": "INN",
+        "b": "a_1900_0#",
+        "original_af": -661.901,
+        "exported_af": -661.9010000000001,
+        "absolute_error_af": 1.1368683772161603e-13
+      },
+      {
+        "a": "INN",
+        "b": "a_3700_0#",
+        "original_af": -511.425,
+        "exported_af": -511.425,
+        "absolute_error_af": 0.0
+      },
+      {
+        "a": "INN",
+        "b": "a_5500_0#",
+        "original_af": -0.0543879,
+        "exported_af": -0.05438790000000001,
+        "absolute_error_af": 6.938893903907228e-18
+      },
+      {
+        "a": "INP",
+        "b": "INP",
+        "original_af": 9980.328081,
+        "exported_af": 9980.328081,
+        "absolute_error_af": 0.0
+      },
+      {
+        "a": "INP",
+        "b": "OUT",
+        "original_af": -0.268081,
+        "exported_af": -0.268081,
+        "absolute_error_af": 0.0
+      },
+      {
+        "a": "INP",
+        "b": "a_1900_0#",
+        "original_af": -879.899,
+        "exported_af": -879.8989999999999,
+        "absolute_error_af": 1.1368683772161603e-13
+      },
+      {
+        "a": "INP",
+        "b": "a_3700_0#",
+        "original_af": -2886.89,
+        "exported_af": -2886.89,
+        "absolute_error_af": 0.0
+      },
+      {
+        "a": "INP",
+        "b": "a_5500_0#",
+        "original_af": -624.375,
+        "exported_af": -624.3749999999999,
+        "absolute_error_af": 1.1368683772161603e-13
+      },
+      {
+        "a": "OUT",
+        "b": "OUT",
+        "original_af": 231589.752286,
+        "exported_af": 231589.752286,
+        "absolute_error_af": 0.0
+      },
+      {
+        "a": "OUT",
+        "b": "VDD",
+        "original_af": -1367.74,
+        "exported_af": -1367.7400000000002,
+        "absolute_error_af": 2.2737367544323206e-13
+      },
+      {
+        "a": "OUT",
+        "b": "a_1900_0#",
+        "original_af": -319.204,
+        "exported_af": -319.2040000000001,
+        "absolute_error_af": 1.1368683772161603e-13
+      },
+      {
+        "a": "OUT",
+        "b": "a_3700_0#",
+        "original_af": -4259.5,
+        "exported_af": -4259.500000000002,
+        "absolute_error_af": 1.8189894035458565e-12
+      },
+      {
+        "a": "OUT",
+        "b": "a_5500_0#",
+        "original_af": -171852.0,
+        "exported_af": -171852.00000000003,
+        "absolute_error_af": 2.9103830456733704e-11
+      },
+      {
+        "a": "VDD",
+        "b": "VDD",
+        "original_af": 48314.27599999999,
+        "exported_af": 48314.276000000005,
+        "absolute_error_af": 1.4551915228366852e-11
+      },
+      {
+        "a": "VDD",
+        "b": "a_1900_0#",
+        "original_af": -2737.27,
+        "exported_af": -2737.2700000000013,
+        "absolute_error_af": 1.3642420526593924e-12
+      },
+      {
+        "a": "VDD",
+        "b": "a_3700_0#",
+        "original_af": -1929.49,
+        "exported_af": -1929.4900000000014,
+        "absolute_error_af": 1.3642420526593924e-12
+      },
+      {
+        "a": "VDD",
+        "b": "a_5500_0#",
+        "original_af": -3223.95,
+        "exported_af": -3223.9500000000003,
+        "absolute_error_af": 4.547473508864641e-13
+      },
+      {
+        "a": "VSS",
+        "b": "VSS",
+        "original_af": 0.0,
+        "exported_af": 0.0,
+        "absolute_error_af": 0.0
+      },
+      {
+        "a": "a_1900_0#",
+        "b": "a_1900_0#",
+        "original_af": 15751.239999999998,
+        "exported_af": 15751.240000000002,
+        "absolute_error_af": 3.637978807091713e-12
+      },
+      {
+        "a": "a_1900_0#",
+        "b": "a_3700_0#",
+        "original_af": -608.48,
+        "exported_af": -608.48,
+        "absolute_error_af": 0.0
+      },
+      {
+        "a": "a_1900_0#",
+        "b": "a_5500_0#",
+        "original_af": -3399.56,
+        "exported_af": -3399.560000000001,
+        "absolute_error_af": 9.094947017729282e-13
+      },
+      {
+        "a": "a_3700_0#",
+        "b": "a_3700_0#",
+        "original_af": 17798.418999999994,
+        "exported_af": 17798.419000000005,
+        "absolute_error_af": 1.0913936421275139e-11
+      },
+      {
+        "a": "a_3700_0#",
+        "b": "a_5500_0#",
+        "original_af": -815.148,
+        "exported_af": -815.1480000000001,
+        "absolute_error_af": 1.1368683772161603e-13
+      },
+      {
+        "a": "a_5500_0#",
+        "b": "a_5500_0#",
+        "original_af": 202342.9073879,
+        "exported_af": 202342.90738790002,
+        "absolute_error_af": 2.9103830456733704e-11
+      }
+    ]
+  },
+  "retention": {
+    "retained_original_ext": {
+      "path": "docs/validation/dev25/magic-rc-original.ext",
+      "sha256": "0cba705dc56cd7acc19a8de6cd525e6f8723fcec53ea85a629c3fa4f569a127c",
+      "bytes": 4356
+    },
+    "working_evidence_directory": "build/magic-rc-conservation-final",
+    "large_files_policy": "Full raw/normalized R files and SPICE remain in the generated working evidence directory; not copied into tracked docs. Their exact SHA256 and byte lengths follow. No PDK assets or upstream source files copied.",
+    "files": {
+      "export.log": {
+        "sha256": "ca721633e44072e5bc717d54ad8852cefdb7ad31bf8655dd00c115d2ef51be2a",
+        "bytes": 639
+      },
+      "export.tcl": {
+        "sha256": "dcb0e88b3dd8cf45d8a54b3d63013cb12c695cdb831aeb6cef1763b23a783fad",
+        "bytes": 296
+      },
+      "extracted.spice": {
+        "sha256": "dffca893cf377779b72448b66bb9c26a72bf0b84493f3ffb6ecab87964206350",
+        "bytes": 277702
+      },
+      "raw-export.spice": {
+        "sha256": "216c24ccce25e32b21ccb1b227a5b69d03d846b0ae4147dd413a507875988260",
+        "bytes": 249024
+      },
+      "rc-normalization.json": {
+        "sha256": "ea94dc97df7b87383beb094bf6d0c99e59a551e6d9abae10316bbb0eef62d537",
+        "bytes": 91025
+      },
+      "two_stage_opamp.ext": {
+        "sha256": "14ee17dee426bbb070783b4834b2d8eacb8b1ff79d882ed74a0685f2a19192c0",
+        "bytes": 3544
+      },
+      "two_stage_opamp.raw.ext": {
+        "sha256": "0cba705dc56cd7acc19a8de6cd525e6f8723fcec53ea85a629c3fa4f569a127c",
+        "bytes": 4356
+      },
+      "two_stage_opamp.raw.res.ext": {
+        "sha256": "53a4571b67a536b39fb3c5463672677656b486d2a10a106e26cc3d89332d61b4",
+        "bytes": 378707
+      },
+      "two_stage_opamp.res.ext": {
+        "sha256": "490d6be4937ab1ec2c12ab987021c0a9420d220a3378201a329880bc4b14732b",
+        "bytes": 424824
+      }
+    }
+  }
+}

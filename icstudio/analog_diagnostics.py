@@ -13,12 +13,16 @@ def integrate(x, y):
 def noise_report(variables, rows):
     if 'onoise_spectrum' not in variables or 'inoise_spectrum' not in variables:raise ValueError('Input/output noise spectra were not returned.')
     x=[float(r[0]) for r in rows]
-    power={n:integrate(x,[float(r[j])**2 for r in rows]) for j,n in enumerate(variables) if n.startswith(('onoise_','inoise_'))}
-    total=power['onoise_spectrum']; names=[n for n in power if n.startswith('onoise_') and n!='onoise_spectrum']
+    power={n:integrate(x,[float(r[j])**2 for r in rows]) for j,n in enumerate(variables) if n.startswith(('onoise_','inoise_','onoise.','inoise.'))}
+    total=power['onoise_spectrum']; names=[n for n in power if n.startswith(('onoise_','onoise.')) and n!='onoise_spectrum']
     # SPICE returns both device totals and their component vectors. Prefix
     # parents are displayed as subtotals; they must not be added to children.
+    # Indexed prefix lookup stays linear in name length for large extracted
+    # networks, whose resistor noise vectors can number in the tens of thousands.
+    name_set=set(names)
+    parents={n[:i] for n in names for i,char in enumerate(n) if char in '._' and n[:i] in name_set}
     sources=[dict(vector=n,rms_V=math.sqrt(max(0,power[n])),fraction_of_output=power[n]/total if total>0 else None,
-                  subtotal=any(other.startswith(n+'_') for other in names if other!=n)) for n in names]
+                  subtotal=n in parents) for n in names]
     sources.sort(key=lambda r:r['rms_V'],reverse=True)
     return dict(kind='noise',band_Hz=[x[0],x[-1]],output_rms_V=math.sqrt(max(0,total)),input_rms_V=math.sqrt(max(0,power['inoise_spectrum'])),
         contributors=sources,scope='Trapezoidal integration of squared amplitude density over the sampled band. Device subtotals overlap their components; do not sum all rows.')

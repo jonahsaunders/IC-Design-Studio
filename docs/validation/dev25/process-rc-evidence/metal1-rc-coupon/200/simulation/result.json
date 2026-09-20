@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "created": "2026-09-20T16:46:12+00:00",
+  "engine": "ngspice external testbench",
+  "engine_hash": "b04ec82707ddc54aa258be26462f28315b18f7d5a6c8e15ca0deb662b6b99dae",
+  "project_id": "0ca62598ecd44c80",
+  "revision": 0,
+  "design_hash": "399f6c2ae343540d4b674e6ed28dd53ca708f772971c079b4b9acf63c614650e",
+  "pdk_hash": "bfb089b9dbff915ecfe89fc68b4c421f45f64dde65ae2b1d330a4b39366a093a",
+  "rule_hash": "8053213f0596b0e9dc7c8069d9834c3f29aa4690c9dc864e1519f1cc75cb9e29",
+  "cell_id": "0ebb42e204934b34",
+  "settings": {
+    "type": "deck",
+    "deck": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/analog-rc-qualified/metal1-rc-coupon/200/transfer.cir"
+  },
+  "deck_hash": "3fd6a241a3abed0cad59a2918dc3a70247844f9c55c165d98580bb92a718108b",
+  "x": [
+    0.254921904674503
+  ],
+  "x_label": "v(in.t0)",
+  "y_label": "Voltage (V)",
+  "traces": {
+    "in.t0": [
+      0.254921904674503
+    ]
+  },
+  "phase": {},
+  "currents": {},
+  "current_phase": {},
+  "operating_point": {},
+  "warnings": [
+    "External deck connectivity is not automatically proven equivalent to the active schematic. Run LVS and retain its extraction report. Included model dependencies must be locked separately."
+  ],
+  "log": "Using SPARSE 1.3 as Direct Linear Solver\n\nNote: Compatibility modes selected: hs a\n\n\nCircuit: * independent extracted-resistor coupon transfer\n\nASCII raw file \"/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/analog-rc-qualified/metal1-rc-coupon/200/simulation/deck.raw\"\nDoing analysis at TEMP = 27.000000 and TNOM = 27.000000\n\nNo. of Data Columns : 1  \n\nNo. of Data Rows : 1\n\nTotal analysis time (seconds) = 0\n\nTotal elapsed time (seconds) = 0.011 \n\nTotal DRAM available = 22039.312 MB.\nDRAM currently available = 17191.379 MB.\nMaximum ngspice program size =   21.359 MB.\nCurrent ngspice program size =    9.613 MB.\n\nShared ngspice pages =    7.645 MB.\nText (code) pages =    6.156 MB.\nStack = 0 bytes.\nLibrary pages =    2.102 MB.\n\n"
+}

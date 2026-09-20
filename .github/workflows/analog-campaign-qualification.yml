@@ -1,0 +1,51 @@
+name: Statistical campaign qualification
+on:
+  workflow_call:
+  workflow_dispatch:
+  push:
+    branches: [main, experimental]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  campaign:
+    name: 1152 ngspice cases and coordinator recovery
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install ngspice and desktop dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ngspice libegl1 libopengl0
+          python -m pip install -r requirements.txt
+      - name: Verify numerical sampling, trial identity, intervals and replay
+        timeout-minutes: 3
+        run: python -m unittest tests.test_campaign_statistics tests.test_verification_campaigns tests.test_test_plans -v
+      - name: Verify statistical editor, trial matrix and saved yield in Qt
+        timeout-minutes: 3
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_campaigns.py -v
+      - name: Execute 1152 real ngspice PVT and statistical cases with an abrupt crash
+        timeout-minutes: 10
+        run: python scripts/qualify_statistical_campaign.py --output build/statistical-campaign-qualification --executable /usr/bin/ngspice --trials 128 --workers 4 --deadline 540 --snapshot
+      - name: Record CI source identity and execution scope
+        if: always()
+        env:
+          SOURCE_COMMIT: ${{ github.sha }}
+          SOURCE_RUN: ${{ github.run_id }}
+        run: |
+          python -c "import json, os, pathlib; p=pathlib.Path('build/campaign-gate.json'); p.parent.mkdir(exist_ok=True); p.write_text(json.dumps({'commit':os.environ['SOURCE_COMMIT'],'run_id':os.environ['SOURCE_RUN'],'scope':'One-host ngspice sampling, throughput and abrupt coordinator recovery; two-host acceptance not run.'},indent=2))"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: statistical-campaign-evidence
+          path: |
+            build/statistical-campaign-qualification
+            build/campaign-gate.json
+          if-no-files-found: error
+          retention-days: 30

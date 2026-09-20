@@ -16,7 +16,8 @@ class SiliconMixin:
         menus={a.text().replace('&',''):a.menu() for a in self.menuBar().actions() if a.menu()}
         for menu,entries in {
             'File':[('New PDK inverter…',self.new_silicon_example)],
-            'Design':[('Generate PDK device layout…',self.mos_layout_dialog),('Generate inverter layout…',self.inverter_layout_dialog)],
+            'Design':[('Generate PDK device layout…',self.mos_layout_dialog),('Generate inverter layout…',self.inverter_layout_dialog),
+                      ('Generate contacted SKY130 guard…',self.process_guard_dialog),('Add tied SKY130 MOS dummy…',self.process_dummy_dialog)],
             'Analysis':[('Verify custom inverter through silicon',self.run_silicon),('Check linked layout and show connections',self.check_linked_layout)],
             'View':[('Physical workflow',self.open_silicon)]}.items():
             for title,fn in entries:self.action(menus[menu],title,fn)
@@ -44,19 +45,34 @@ class SiliconMixin:
     def mos_layout_dialog(self):
         if not self.idle_edit():return
         d=next((d for d in self.cell['devices'] if d['id'] in self.selection),None)
-        if len(self.selection)!=1 or d is None:raise ValueError('Select one supported schematic MOS device first.')
+        if len(self.selection)!=1 or d is None:raise ValueError('Select one supported schematic MOS, MiM capacitor or poly resistor first.')
         did=d['id'];cid=self.cid
         if any(r['device_id']==did for r in self.cell.get('pdk_layouts',[])):
             def build():
                 from .process_adapters import regenerate_mos
                 p=clone(self.project);regenerate_mos(p,cid,did)
+                from .sky130_devices_ui import check_layers
+                check_layers(self,p,cid)
                 return p,'Replace the linked footprint of '+d['name']+' using its current W/L, model and nets. Manual edits to its generated shapes are replaced. Existing routes and port labels remain at their coordinates. Check connections and rerun DRC/LVS after applying.'
-            self.review_dialog('Regenerate linked device layout',build);return
+            from .sky130_devices_ui import apply_candidate
+            self.review_dialog('Regenerate linked device layout',build,apply_candidate=apply_candidate(self,cid));return
         def submit(v):
             from .model import scalar
             x,y=[round(scalar(v[k])*1000) for k in ('x','y')]
-            self.commit(lambda p:install_mos(p,cid,did,x,y),'Generate PDK device layout');self.mode_combo.setCurrentIndex(1);self.refresh(True)
-        self.workflow_form('Generate linked PDK device',[('x','X (µm)','0'),('y','Y (µm)','0')],submit,'SKY130: standard 1.8 V MOS, 1–8 fingers. GF180: standard 3.3 V MOS, one finger, W 1–10 µm and L 0.28–2 µm. Dimensions follow the schematic; each device has four contacted terminals.')
+            from .sky130_devices_ui import check_layers,apply_candidate
+            def build():
+                p=clone(self.project);install_mos(p,cid,did,x,y);check_layers(self,p,cid)
+                return p,'Generate the linked footprint of '+d['name']+' with its schematic dimensions and model. Review terminal connections, then run process DRC/LVS.'
+            self.review_dialog('Generate PDK device layout',build,apply_candidate=apply_candidate(self,cid))
+        return self.workflow_form('Generate linked PDK device',[('x','X (µm)','0'),('y','Y (µm)','0')],submit,'SKY130: 1.8 V MOS, MiM m3_1 capacitor (2–30 µm W/L), and generic poly resistor (W 0.5–10 µm, L 1.65–100 µm). Passives use catalog W/L in µm and multiplicity one. GF180: standard 3.3 V MOS. Dimensions follow the schematic; physical terminals follow the process model.')
+
+    def process_guard_dialog(self):
+        from .sky130_devices_ui import guard_dialog
+        return guard_dialog(self)
+
+    def process_dummy_dialog(self):
+        from .sky130_devices_ui import dummy_dialog
+        return dummy_dialog(self)
 
     def inverter_layout_dialog(self):
         if not self.idle_edit():return

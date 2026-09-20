@@ -32,6 +32,9 @@ def layers(tech):
 
 
 def specification(tech, d):
+    if d['kind']=='PDK':
+        from .sky130_devices import specification as passive_specification
+        return passive_specification(tech,d)
     layers(tech)
     b = binding_for(tech,d)
     if not b or b['model'] != MODELS.get(d['kind']) or set(d['nets']) != {'d','g','s','b'}:
@@ -44,25 +47,34 @@ def specification(tech, d):
         raise ValueError(d['name']+': this layout supports 1–8 fingers and multiplicity 1.')
     size = {}
     for k, minimum in (('w',420),('l',150)):
+        maximum=30000 if k=='w' else 10000
         raw = (geometry['total_width'] if k == 'w' else geometry['length'])*1e9
         value = round(raw)
-        if abs(raw-value)>1e-6 or value%5 or not minimum<=value<=10000:
-            raise ValueError(d['name']+f': {k.upper()} must be on the 5 nm grid, from {minimum/1000:g} to 10 µm.')
+        if abs(raw-value)>1e-6 or value%5 or not minimum<=value<=maximum:
+            raise ValueError(d['name']+f': {k.upper()} must be on the 5 nm grid, from {minimum/1000:g} to {maximum/1000:g} µm.')
         size[k]=value
     if size['w']%int(nf) or size['w']//int(nf)<420 or (size['w']//int(nf))%5:
         raise ValueError(d['name']+': total W divided by nf must be at least 0.42 µm on the 5 nm grid.')
     # The shared contract resolves the catalog's explicit per-finger W * nf
     # template to total W. Geometry and netlisting now use the same dimensions.
-    return {'api':API,'model_ref':clone(d.get('model_ref')),'model':b['model'],
+    result={'api':API,'model_ref':clone(d.get('model_ref')),'model':b['model'],
             'kind':d['kind'],'dimensions_nm':size,'values':values,'nets':clone(d['nets'])}
+    if d.get('physical_dummy'):
+        if len(set(d['nets'].values()))!=1:raise ValueError('A physical MOS dummy requires every terminal tied to the same reference net.')
+        result['dummy']=True
+    return result
 
 
 def mos(tech,d,x=0,y=0):
+    if d['kind']=='PDK':
+        from .sky130_devices import geometry
+        return geometry(tech,d,x,y)
     spec=specification(tech,d);ls=layers(tech);w,l=(spec['dimensions_nm'][k] for k in ('w','l'))
     if any(type(v) is not int or v%5 for v in (x,y)):raise ValueError('Placement must be on the 5 nm grid.')
     if int(spec['values'].get('nf',1))>1:
         from .sky130_fingers import generate
-        return generate(tech,d,x,y,spec)
+        from .sky130_devices import finish_mos
+        return finish_mos(tech,d,generate(tech,d,x,y,spec))
     shapes=[];pins=[]
     def box(key,a,b,c,e,net=''):
         s=rect(ls[key],x+a,y+b,c-a,e-b,d['id'],net);s['generated_device']=d['id'];shapes.append(s)
@@ -83,7 +95,8 @@ def mos(tech,d,x=0,y=0):
             box(key,px-half,py-half,px+half,py+half,net if key in ('li','m1') else '')
         pins.append({'id':uid(),'device_id':d['id'],'pin':pin,'layer':ls['m1'],'point':[x+px,y+py]})
     from .layout_eco import roles
-    return roles({'shapes':shapes,'pins':pins,'record':{'device_id':d['id'],'spec':spec,'origin':[x,y]}})
+    from .sky130_devices import finish_mos
+    return finish_mos(tech,d,roles({'shapes':shapes,'pins':pins,'record':{'device_id':d['id'],'spec':spec,'origin':[x,y]}}))
 
 
 def install_mos(p,cid,did,x=0,y=0):
@@ -98,8 +111,15 @@ def install_mos(p,cid,did,x=0,y=0):
 
 def configure_connectivity(tech):
     ls=layers(tech)
-    tech['connectivity']={'conductors':[ls['li'],ls['m1'],ls['m2']],
-        'vias':[[ls['li'],ls['mcon'],ls['m1']],[ls['m1'],ls['via'],ls['m2']]]}
+    cfg=tech.setdefault('connectivity',{})
+    cfg['conductors']=list(dict.fromkeys(cfg.get('conductors',[])+[ls['li'],ls['m1'],ls['m2']]))
+    for row in [[ls['li'],ls['mcon'],ls['m1']],[ls['m1'],ls['via'],ls['m2']]]:
+        if row not in cfg.setdefault('vias',[]):cfg['vias'].append(row)
+    # Full indexed SKY130 technologies include the MiM masks; minimal legacy
+    # fixtures retain their MOS-only connectivity mapping.
+    if any((v['gds'],v['datatype'])==(89,44) for v in tech['layers']):
+        from .sky130_devices import configure_connectivity as configure_devices
+        configure_devices(tech)
 
 
 def regenerate_mos(p,cid,did):

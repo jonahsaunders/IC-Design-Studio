@@ -1,0 +1,24 @@
+test_bound_model_rejects_teaching_backend (tests.test_workflows.WorkflowTests.test_bound_model_rejects_teaching_backend) ... ok
+test_bus_connection_and_verilog (tests.test_workflows.WorkflowTests.test_bus_connection_and_verilog) ... ok
+test_connectivity_detects_real_shorts_and_opens (tests.test_workflows.WorkflowTests.test_connectivity_detects_real_shorts_and_opens) ... ok
+test_directory_commit_failure_and_corruption (tests.test_workflows.WorkflowTests.test_directory_commit_failure_and_corruption) ... ok
+test_expression_does_not_execute_code (tests.test_workflows.WorkflowTests.test_expression_does_not_execute_code) ... ok
+test_extraction_stale_guard_and_post_layout_response (tests.test_workflows.WorkflowTests.test_extraction_stale_guard_and_post_layout_response) ... ok
+test_generator_hierarchy_array_and_export (tests.test_workflows.WorkflowTests.test_generator_hierarchy_array_and_export) ... ok
+test_import_xor_review_and_no_silent_apply (tests.test_workflows.WorkflowTests.test_import_xor_review_and_no_silent_apply) ... ok
+test_magic_extraction_profiles_are_distinct (tests.test_workflows.WorkflowTests.test_magic_extraction_profiles_are_distinct) ... ok
+test_monte_carlo_seed_and_sigma (tests.test_workflows.WorkflowTests.test_monte_carlo_seed_and_sigma) ... ok
+test_parameterized_hierarchy_resolves_overrides (tests.test_workflows.WorkflowTests.test_parameterized_hierarchy_resolves_overrides) ... ok
+test_pdk_pin_lock_verify_and_tamper (tests.test_workflows.WorkflowTests.test_pdk_pin_lock_verify_and_tamper) ... ok
+test_pvt_missing_corner_and_temperature_gate (tests.test_workflows.WorkflowTests.test_pvt_missing_corner_and_temperature_gate) ... ok
+test_resistor_temperature_coefficient (tests.test_workflows.WorkflowTests.test_resistor_temperature_coefficient) ... ok
+test_route_avoids_obstacle_and_erase_preserves_area (tests.test_workflows.WorkflowTests.test_route_avoids_obstacle_and_erase_preserves_area) ... ok
+test_spatial_index_agrees_with_linear_query (tests.test_workflows.WorkflowTests.test_spatial_index_agrees_with_linear_query) ... ok
+test_sweep_is_immutable_and_changes_response (tests.test_workflows.WorkflowTests.test_sweep_is_immutable_and_changes_response) ... ok
+test_unlabeled_conductors_use_extracted_terminal_net (tests.test_workflows.WorkflowTests.test_unlabeled_conductors_use_extracted_terminal_net) ... ok
+test_xschem_continued_edit_import (tests.test_workflows.WorkflowTests.test_xschem_continued_edit_import) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.335s
+
+OK

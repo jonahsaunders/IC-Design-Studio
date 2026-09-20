@@ -1,0 +1,235 @@
+{
+  "schema": 1,
+  "qualification_status": "passed",
+  "hostname": "localhost",
+  "source": {
+    "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+    "sources": "2dc6ef2282a46884574db64b6b855a32e1c63cc40dea147d06b2499e16b8de41"
+  },
+  "executable": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/ngspice-run",
+  "executable_sha256": "b04ec82707ddc54aa258be26462f28315b18f7d5a6c8e15ca0deb662b6b99dae",
+  "engine_version": "******\n** ngspice-42 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2023, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Sun Mar 31 20:15:14 UTC 2024\n******",
+  "trials": 128,
+  "cases": 1152,
+  "workers": 4,
+  "capture_seconds": 5.4498774469993805,
+  "scope": "Ideal resistor-divider numerical and scheduler qualification using user-declared tolerances. No process or silicon yield qualification.",
+  "two_host": {
+    "status": "not_run",
+    "reason": "This workload uses one physical host; see CAMPAIGN_WORKER_ACCEPTANCE.md."
+  },
+  "fault": {
+    "kind": "abrupt coordinator termination",
+    "exit_code": -9,
+    "case": 13,
+    "prior_token": "da9df353edee4097",
+    "input_sha256": "c537124e04938c0acf6aa65ddeaa64a2298f09e9575b6439fcea4fc874c05587",
+    "counts_after_crash": {
+      "Complete": 12,
+      "Queued": 1136,
+      "Running": 4,
+      "total": 1152,
+      "specification_failures": 0,
+      "paused": false
+    },
+    "unresolved_after_crash": 127,
+    "recovery_seconds": 119.92467278899858,
+    "immutable_input_preserved": true,
+    "stale_publication_rejected": true
+  },
+  "completed_cases": 1152,
+  "execution_seconds": 120.17228009899918,
+  "throughput_cases_per_second": 9.586237350668311,
+  "peak_worker_tree_resident_bytes": 108568576,
+  "memory_measurement": "Sampled /proc resident bytes, coordinator plus descendants; shared pages may be counted more than once.",
+  "maximum_divider_ratio_absolute_error": 2.209232796701599e-12,
+  "attempts": 1156,
+  "retried_cases": 4,
+  "statistics": {
+    "kind": "correlated",
+    "seed": 20260920,
+    "model": null,
+    "scope": "User-declared tolerances; this is not foundry manufacturing yield.",
+    "confidence_method": "95% Wilson binomial interval over independent trials; shared PVT cases are not independent samples.",
+    "pvt": [
+      {
+        "corner": "nominal",
+        "temperature": -40.0,
+        "voltage": 1.62,
+        "trials": 128,
+        "passed": 99,
+        "failed": 29,
+        "unresolved": 0,
+        "pass_fraction": 0.7734375,
+        "confidence_95": [
+          0.6935732116243923,
+          0.8373675154135328
+        ],
+        "unresolved_bounds": [
+          0.7734375,
+          0.7734375
+        ]
+      },
+      {
+        "corner": "nominal",
+        "temperature": -40.0,
+        "voltage": 1.8,
+        "trials": 128,
+        "passed": 99,
+        "failed": 29,
+        "unresolved": 0,
+        "pass_fraction": 0.7734375,
+        "confidence_95": [
+          0.6935732116243923,
+          0.8373675154135328
+        ],
+        "unresolved_bounds": [
+          0.7734375,
+          0.7734375
+        ]
+      },
+      {
+        "corner": "nominal",
+        "temperature": -40.0,
+        "voltage": 1.98,
+        "trials": 128,
+        "passed": 99,
+        "failed": 29,
+        "unresolved": 0,
+        "pass_fraction": 0.7734375,
+        "confidence_95": [
+          0.6935732116243923,
+          0.8373675154135328
+        ],
+        "unresolved_bounds": [
+          0.7734375,
+          0.7734375
+        ]
+      },
+      {
+        "corner": "nominal",
+        "temperature": 27.0,
+        "voltage": 1.62,
+        "trials": 128,
+        "passed": 99,
+        "failed": 29,
+        "unresolved": 0,
+        "pass_fraction": 0.7734375,
+        "confidence_95": [
+          0.6935732116243923,
+          0.8373675154135328
+        ],
+        "unresolved_bounds": [
+          0.7734375,
+          0.7734375
+        ]
+      },
+      {
+        "corner": "nominal",
+        "temperature": 27.0,
+        "voltage": 1.8,
+        "trials": 128,
+        "passed": 99,
+        "failed": 29,
+        "unresolved": 0,
+        "pass_fraction": 0.7734375,
+        "confidence_95": [
+          0.6935732116243923,
+          0.8373675154135328
+        ],
+        "unresolved_bounds": [
+          0.7734375,
+          0.7734375
+        ]
+      },
+      {
+        "corner": "nominal",
+        "temperature": 27.0,
+        "voltage": 1.98,
+        "trials": 128,
+        "passed": 99,
+        "failed": 29,
+        "unresolved": 0,
+        "pass_fraction": 0.7734375,
+        "confidence_95": [
+          0.6935732116243923,
+          0.8373675154135328
+        ],
+        "unresolved_bounds": [
+          0.7734375,
+          0.7734375
+        ]
+      },
+      {
+        "corner": "nominal",
+        "temperature": 125.0,
+        "voltage": 1.62,
+        "trials": 128,
+        "passed": 99,
+        "failed": 29,
+        "unresolved": 0,
+        "pass_fraction": 0.7734375,
+        "confidence_95": [
+          0.6935732116243923,
+          0.8373675154135328
+        ],
+        "unresolved_bounds": [
+          0.7734375,
+          0.7734375
+        ]
+      },
+      {
+        "corner": "nominal",
+        "temperature": 125.0,
+        "voltage": 1.8,
+        "trials": 128,
+        "passed": 99,
+        "failed": 29,
+        "unresolved": 0,
+        "pass_fraction": 0.7734375,
+        "confidence_95": [
+          0.6935732116243923,
+          0.8373675154135328
+        ],
+        "unresolved_bounds": [
+          0.7734375,
+          0.7734375
+        ]
+      },
+      {
+        "corner": "nominal",
+        "temperature": 125.0,
+        "voltage": 1.98,
+        "trials": 128,
+        "passed": 99,
+        "failed": 29,
+        "unresolved": 0,
+        "pass_fraction": 0.7734375,
+        "confidence_95": [
+          0.6935732116243923,
+          0.8373675154135328
+        ],
+        "unresolved_bounds": [
+          0.7734375,
+          0.7734375
+        ]
+      }
+    ],
+    "joint": {
+      "trials": 128,
+      "passed": 99,
+      "failed": 29,
+      "unresolved": 0,
+      "pass_fraction": 0.7734375,
+      "confidence_95": [
+        0.6935732116243923,
+        0.8373675154135328
+      ],
+      "unresolved_bounds": [
+        0.7734375,
+        0.7734375
+      ]
+    }
+  },
+  "artifact_bytes": 21465663
+}

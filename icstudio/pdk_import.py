@@ -111,7 +111,7 @@ def scan_local(path, progress=lambda message: None):
                 if match:sections[alias]=match
                 elif sections:sections[alias]=sections['nominal']
     files,texts=dependencies(root,masters)
-    models={}
+    models={};primitives={}
     for rel,text in texts.items():
         for m in re.finditer(r'^\s*\.subckt\s+(\S+)\s+([^\n]+)',re.sub(r'\n\s*\+\s*',' ',text),re.M|re.I):
             pins=[]
@@ -120,7 +120,10 @@ def scan_local(path, progress=lambda message: None):
                 pins.append(token)
             models[m[1].lower()]={'pins':pins,'file':rel,'prefix':'X'}
         for m in re.finditer(r'^\s*\.model\s+(\S+)\s+(\w+)',text,re.M|re.I):
-            models.setdefault(m[1].lower(),{'pins':None,'file':rel,'prefix':{'d':'D','npn':'Q','pnp':'Q'}.get(m[2].lower(),'M')})
+            prefix={'d':'D','npn':'Q','pnp':'Q','r':'R','c':'C','l':'L'}.get(m[2].lower(),'M')
+            definition={'pins':None,'file':rel,'prefix':prefix}
+            models.setdefault(m[1].lower(),definition)
+            primitives.setdefault((m[1].lower(),prefix),definition)
     layers,lyps=layer_table(root)
     for file in lyps:files[file.relative_to(root).as_posix()]=file_digest(file)
     # Managed installations must retain the same physical rule/setup assets as
@@ -169,6 +172,14 @@ def scan_local(path, progress=lambda message: None):
             entry['model']=model
             definition=models.get(model.lower())
             if definition is None:raise ValueError('Model is absent from the selected ngspice library closure.')
+            # A literal @name uses the SPICE device prefix from its declared
+            # template name. It must not become X merely because the library
+            # also defines a same-named Monte Carlo wrapper subcircuit.
+            template_name=defaults.get('name','')
+            if match[1]=='@name' and 'spiceprefix' not in defaults and re.fullmatch(r'[RCLDQM][A-Za-z0-9_]+',template_name,re.I):
+                explicit=template_name[0].upper()
+                definition=primitives.get((model.lower(),explicit))
+                if definition is None:raise ValueError('The @name template requires a matching primitive .model declaration.')
             if definition['pins'] is not None and len(definition['pins'])!=len(symbol['pins']):raise ValueError('Symbol and model terminal counts differ; explicit pin mapping is required.')
             prefix=defaults.get('spiceprefix',match[1][0] if not match[1].startswith('@') else definition['prefix']).upper()
             emitted={};computed={};remaining=match[3]

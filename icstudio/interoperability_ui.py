@@ -28,7 +28,11 @@ class InteroperabilityMixin:
     def new_silicon_example(self): return self.new_pdk_template('inverter')
     def new_gf180_inverter(self): return self.new_pdk_template('inverter')
     def new_ring(self): return self.new_pdk_template('ring')
-    def new_analog(self, kind): return self.new_pdk_template(kind)
+    def new_analog(self, kind):
+        if kind=='two_stage_opamp':
+            if self.process or self.run_manager.busy:raise ValueError('Wait for active runs to finish before creating a project.')
+            return super().new_analog(kind)
+        return self.new_pdk_template(kind)
 
     def sky130_reference_dialog(self):
         # Reference creation and verification now share the selected PDK/model path.

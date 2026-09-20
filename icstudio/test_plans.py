@@ -1,5 +1,6 @@
 """Reusable multi-test plans and specification matrices over immutable jobs."""
 import itertools
+import math
 from .model import clone, uid, scalar, digest, design_digest
 
 MAX_PLAN_CASES = 10000
@@ -9,7 +10,8 @@ MAX_INTERACTIVE_CASES = 200
 def case_count(plan):
     """Count the actual expansion; digital tests have no analog conditions."""
     analog = len(plan.get('corners', []))*len(plan.get('temperatures', []))*max(1,len(plan.get('voltages', [])))
-    return sum(1 if entry.get('engine') == 'digital' else analog for entry in plan.get('entries', []))
+    trials=(plan.get('statistics') or {}).get('count',1)
+    return sum(1 if entry.get('engine') == 'digital' else analog*trials for entry in plan.get('entries', []))
 
 
 def sources(project):
@@ -75,7 +77,9 @@ def validate_plans(project):
         for v in voltages:scalar(v)
         if len({scalar(t) for t in temperatures})!=len(temperatures) or len({scalar(v) for v in voltages})!=len(voltages):
             raise ValueError('Temperatures and supply voltages must be unique.')
-        if case_count(plan)>MAX_PLAN_CASES:raise ValueError('A test plan supports at most 10,000 cases; split larger plans.')
+        from .campaign_statistics import configuration
+        configuration(project,plan)
+        if case_count(plan)>MAX_PLAN_CASES:raise ValueError('A test plan supports at most 10,000 cases, including statistical trials; split larger plans.')
 
 
 def prepare(project,plan,prepare_job):
@@ -86,6 +90,33 @@ def prepare(project,plan,prepare_job):
 
 
 def iter_prepare(project,plan,prepare_job,group=None):
+    """Expand shared seeded trials across all saved tests and PVT conditions."""
+    from .campaign_statistics import configuration,samples
+    from .analog_optimizer import set_target,get_target
+    validate_plans({**project,'test_plans':[plan]})
+    source=clone(project);source.setdefault('parameters',{}).update(clone(plan.get('variables',{})))
+    spec=configuration(source,plan)
+    if spec is None:
+        yield from _iter_conditions(project,plan,prepare_job,group)
+        return
+    base=design_digest(project);group=group or uid();index=0
+    conditions=clone(plan);conditions.pop('statistics',None);conditions['variables']={}
+    for trial,changes in samples(source,plan,spec):
+        sample=clone(source)
+        for target,value in changes.items():set_target(sample,spec['cell'],target,value)
+        for job in _iter_conditions(sample,conditions,prepare_job,group,invalid_base=source):
+            for target,value in changes.items():
+                if job.get('preparation_error'):break
+                if not math.isclose(get_target(job['project'],spec['cell'],target),value,rel_tol=1e-12,abs_tol=1e-30):
+                    raise ValueError('A PVT or plan override masks the statistical target '+target+'. Choose distinct PVT supply and statistical targets.')
+            index+=1;case=job['case'];case.update(index=index,base_design_hash=base,variables=clone(plan.get('variables',{})))
+            case['labels'].update(trial=trial,seed=spec['seed'])
+            case['statistics']={k:clone(spec[k]) for k in ('kind','seed','cell','sampling','model','model_evidence','scope') if k in spec}
+            case['statistics'].update(trial=trial,changes=clone(changes),configuration_hash=digest(spec))
+            yield job
+
+
+def _iter_conditions(project,plan,prepare_job,group=None,invalid_base=None):
     """Yield one immutable job at a time without building the Cartesian product."""
     from .studies import set_target, supply_targets
     from .pdks import model_lines
@@ -119,8 +150,18 @@ def iter_prepare(project,plan,prepare_job,group=None):
             bench=next(t for t in p['testbenches'] if t['id']==settings['testbench'])
             bench['analysis'].update(corner=corner,temperature=temp)
             if plan.get('compare_layout'):settings['type']='silicon'
-        validate(p)
-        job=prepare_job(settings,entry['engine'],p,entry['cell'])
+        preparation_error=None
+        try:validate(p)
+        except ValueError as exc:
+            if invalid_base is None:raise
+            preparation_error='Invalid statistical realization: '+str(exc)+' Samples were not clipped or resampled.'
+        # GUI preparation may validate the project while selecting its runner.
+        # Use the nominal design for that selection, then retain the exact failed
+        # realization. Workers reject the marker before executing any analysis.
+        prepared_project=clone(invalid_base) if preparation_error else p
+        job=prepare_job(settings,entry['engine'],prepared_project,entry['cell'])
+        if preparation_error:
+            job['project']=p;job['preparation_error']=preparation_error
         if settings['type']=='testbench':job['settings']['executable']=job['executable']
         job['case']={'group':group,'index':index,'plan_id':plan['id'],'plan_name':plan['name'],
                      'entry_id':entry['id'],'test_name':entry['name'],'kind':'test_plan','base_design_hash':base,
@@ -138,7 +179,8 @@ def requirements(job):
     key=job.get('settings',{}).get('testbench')
     bench=next((t for t in job['project'].get('testbenches',[]) if t['id']==key),None)
     if bench:
-        rows += [dict(m,definition=digest(m),measurement=True,unit='A' if m['kind']=='current' else 'V' if m['kind'] in ('voltage','range') else 'Hz' if m['kind']=='frequency' else 's') for m in bench.get('measurements',[])]
+        from .saved_bench_diagnostics import MEASUREMENTS
+        rows += [dict(m,definition=digest(m),measurement=True,unit=MEASUREMENTS.get(m['kind'],'A' if m['kind']=='current' else 'V' if m['kind'] in ('voltage','range') else 'Hz' if m['kind']=='frequency' else 's')) for m in bench.get('measurements',[])]
     if job['settings']['type']=='silicon':
         from .silicon_flow import STAGES
         if job['settings'].get('testbench'):
@@ -160,7 +202,7 @@ def matrix(rows,group):
         if case.get('kind')=='test_plan' and case.get('group')==group:chosen[(case['entry_id'],digest(case['labels']))]=row
     conditions=[];items={}
     for row in chosen.values():
-        job=row['job'];case=job['case'];condition=tuple(case['labels'].get(k) for k in ('corner','temperature','voltage'))
+        job=row['job'];case=job['case'];condition=condition_key(case['labels'])
         if condition not in conditions:conditions.append(condition)
         expected=requirements(job)
         if not expected:expected=[dict(name='No saved requirements',definition='missing',unit='')]
@@ -186,6 +228,18 @@ def matrix(rows,group):
                 margin=actual.get('margin') if actual else None,detail=(actual or {}).get('error',row.get('log','')),
                 run_id=row['id'],project_hash=design_digest(job['project']))
     return dict(conditions=conditions,rows=list(items.values()))
+
+
+def condition_key(labels):
+    base=tuple(labels.get(k) for k in ('corner','temperature','voltage'))
+    return base+(labels['trial'],labels.get('seed')) if 'trial' in labels else base
+
+
+def condition_name(condition):
+    c,t,v=condition[:3]
+    text='RTL simulation' if t is None else f'{c} / {t:g} °C'+(f' / {v:g} V' if v is not None else '')
+    if len(condition)>3:text+=f' / trial {condition[3]} / seed {condition[4]}'
+    return text
 
 
 def compare(current,baseline):

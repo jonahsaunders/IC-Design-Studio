@@ -29,10 +29,32 @@ def require(condition, message):
         raise ValueError(message)
 
 
+def validate_desktop_report(report, commit):
+    require(report.get('status') == 'passed' and report.get('frozen') is True
+            and report.get('version') == __version__
+            and report.get('build', {}).get('commit') == commit
+            and report['build'].get('dirty') is False,
+            'Desktop execution evidence must match the exact clean packaged version and commit')
+
+
+def validate_installer(report, commit, name, sha256):
+    require(report.get('status') == 'passed' and report.get('version') == __version__
+            and report.get('commit') == commit,
+            'Windows installer evidence must match the selected version and commit')
+    require(report.get('installer') == name and report.get('installer_sha256') == sha256,
+            'Windows installer execution and payload hashes differ')
+    probes = report.get('probes', [])
+    require(len(probes) == 3 and {str(probe.get('scale')) for probe in probes} == {'1', '1.5', '2'},
+            'Windows installation must pass all three DPI execution probes')
+    for probe in probes:
+        validate_desktop_report(probe, commit)
+
+
 def verify_distribution(archive, output):
     """Run from the archive, with isolated app settings and no engine overrides."""
     archive, output = Path(archive).resolve(), Path(output).resolve()
     require(not output.exists(), 'Use a new distribution evidence directory')
+    archive_sha256 = checksum(archive)
     extracted = output / 'Extracted app with spaces'
     extracted.mkdir(parents=True)
     if archive.suffix == '.zip':
@@ -63,13 +85,11 @@ def verify_distribution(archive, output):
         print((evidence / 'release-test.json').read_text(encoding='utf-8'))
     require(result.returncode == 0, 'Extracted desktop probe failed; inspect distribution-evidence')
     report = json.loads((evidence / 'release-test.json').read_text())
-    require(report['status'] == 'passed' and report['frozen'] and report['version'] == __version__,
-            'Extracted application report does not qualify this release')
     commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
-    require(report.get('build',{}).get('commit')==commit and report['build']['dirty'] is False,
-            'Extracted application was built from a different source commit')
+    validate_desktop_report(report, commit)
     vga = verify_vga(executable, output / 'vga', commit)
-    return {'status': 'passed', 'archive': archive.name, 'archive_sha256': checksum(archive),
+    require(checksum(archive) == archive_sha256, 'Distribution archive changed during execution')
+    return {'status': 'passed', 'archive': archive.name, 'archive_sha256': archive_sha256,
             'clean_application_profile': True, 'paths_with_spaces': True,
             'report': report, 'vga': vga, 'display': 'native' if os.name == 'nt' else 'offscreen; VGA uses Xvfb'}
 
@@ -88,7 +108,7 @@ def prepare(output):
             require(original.is_file(), 'Missing release package: ' + original.name)
             packages.append(Path(shutil.copy2(original, output / original.name)))
         installer = json.loads((ROOT / 'build/windows-evidence/windows-release.json').read_text())
-        require(installer['status'] == 'passed', 'Installed Windows package has not passed')
+        validate_installer(installer, commit, packages[0].name, checksum(packages[0]))
         archive = packages[1]
     else:
         bundle = ROOT / 'dist/ICDesignStudio'

@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "platform": "offscreen",
+  "checks": [
+    "Existing example and layout submenus retain live op-amp actions, linked SKY130 scope, active-job guard and non-mutating layout preview",
+    "Bias, AC loop, noise and startup diagnostics survive desktop edit, validation, undo and redo with unchanged measurement limits",
+    "All four op-amp fixtures and PVT plan survive save/reopen",
+    "Noise editor displays its input source, output spectrum and integrated measurement types"
+  ]
+}

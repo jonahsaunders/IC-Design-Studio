@@ -17,19 +17,28 @@ Changing it invalidates results for the previous design identity.
 | Model | Behavior and requirements |
 |---|---|
 | Process capacitance | Existing Magic capacitance profile using the locked process deck. Distributed wire resistance is omitted. |
-| Process distributed RC | Runs the explicit Magic resistance/capacitance profile. Missing resistance or unsupported output fails the extraction stage; there is no silent fallback. |
-| Calibrated interconnect RC | Uses the project's checked coupon calibration on supported flat Manhattan geometry. Section size, coupling search distance and an optional separate RC corner are saved with the testbench. |
+| Process distributed RC | Runs the explicit Magic resistance profile on flat, unaliased input and reconstructs the original capacitance matrix using recorded area weights. Missing resistance or unsupported output fails extraction. See the [correction and limits](ANALOG_REFERENCE_WORKFLOW.md). |
+| Calibrated interconnect RC | Uses the project's checked coupon calibration on Manhattan geometry. Dev25 adds bounded linked physical hierarchy; see the [reference workflow](ANALOG_REFERENCE_WORKFLOW.md). Section size, coupling search distance and an optional separate RC corner are saved with the testbench. |
 
 The process flow retains preflight, schematic simulation, DRC, LVS extraction,
 LVS comparison and post-layout simulation. A final integrity stage verifies
 recorded inputs, generated files, process assets and executables. A late integrity
 failure makes the overall result fail even when earlier numerical stages passed.
 Saved measurement comparisons retain failures, missing values, units and deltas.
+Dev25 retains original and normalized Magic extraction files after an actual
+AC check exposed capacitance redistribution errors in the pinned engine. The
+correction conserves original-net capacitance totals and mutual terms; it does
+not establish spatial capacitance accuracy. Process RC remains flat and
+unaliased, while bounded hierarchical interconnect uses calibrated extraction.
 
 The calibrated mode requires complete terminal/port mapping and connected
 geometry. External ports on route interiors split the resistor network correctly.
-It rejects unsupported hierarchy, changed calibrations and stale/tampered
-networks. Coupling is bounded by the selected search distance; pad/via resistance
+Dev25 also accepts reconciled schematic/layout instances with orthogonal
+placements and shared-master dimensions, preserving path geometry and coupling
+across instances. Unsupported native SPICE scopes, unmatched placements,
+electrical arrays without explicit instances and incompatible parameter overrides
+remain rejected. Changed calibrations and stale/tampered networks are rejected.
+Coupling is bounded by the selected search distance; pad/via resistance
 idealization and the calibration's own limits remain visible. Temperature does
 not invent new interconnect coefficients. Select an explicit calibrated corner
 when a different interconnect condition is needed.
@@ -81,6 +90,10 @@ remediation. Older length-only records retain their original meaning.
 These checks preserve declared layout intent. Electrical matching still needs
 extracted verification. Existing generic poly dummy patterns and guard geometry
 retain their teaching-model status.
+The [dev25 process recipes](ANALOG_REFERENCE_WORKFLOW.md) add separately defined
+contacted SKY130 guards and explicit schematic-tied MOS dummies, alongside
+bounded MiM and poly-resistor geometry. Their process/electrical evidence does
+not extend to the older generic patterns.
 
 ## Durable campaigns
 

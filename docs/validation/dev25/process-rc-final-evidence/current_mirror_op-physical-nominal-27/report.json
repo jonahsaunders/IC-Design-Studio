@@ -1,0 +1,689 @@
+{
+  "schema": 2,
+  "app_version": "0.22.0.dev25",
+  "created": "2026-09-20T17:35:36+00:00",
+  "status": "passed",
+  "cell_id": "957828e0e7c34b42",
+  "cell_name": "current_mirror",
+  "testbench_id": "ffc376c34fa34c4c",
+  "testbench_name": "current_mirror_op",
+  "testbench": {
+    "id": "ffc376c34fa34c4c",
+    "name": "current_mirror_op",
+    "bench_cell": "aef52b8b2be642f9",
+    "dut_cell": "957828e0e7c34b42",
+    "dut_instance": "40e15cf5a82d458e",
+    "analysis": {
+      "type": "op",
+      "stop": "100u",
+      "step": "200n",
+      "start": "10",
+      "end": "10meg",
+      "points": 150,
+      "source": "V1",
+      "dc_start": "0",
+      "dc_stop": "1.8",
+      "dc_step": "0.01",
+      "temperature": 27,
+      "corner": "nominal"
+    },
+    "initial_conditions": {},
+    "probes": [
+      "force",
+      "out",
+      "ref"
+    ],
+    "measurements": [
+      {
+        "name": "output_current",
+        "kind": "current",
+        "source": "VSENSE",
+        "min": "40u",
+        "max": "60u"
+      },
+      {
+        "name": "bias_voltage",
+        "kind": "voltage",
+        "node": "ref",
+        "min": "0",
+        "max": "1.8"
+      }
+    ],
+    "characterization": {
+      "kind": "sweep",
+      "target": "VOUT.value",
+      "values": [
+        0.9,
+        1.2,
+        1.5
+      ]
+    },
+    "physical_extraction": {
+      "mode": "rc"
+    }
+  },
+  "design_hash": "3d87bb52a23568e3ce63504b05001e1dddabb3a2e7f25f46b7ca4c71982c71fe",
+  "revision": 0,
+  "stages": [
+    {
+      "name": "preflight",
+      "status": "passed",
+      "evidence": {
+        "assets": {
+          "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/passive-adapter/sky130A/libs.tech/magic/sky130A.tech": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+          "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/passive-adapter/sky130A/libs.tech/netgen/sky130A_setup.tcl": "3b2e4eddc57b1d8dc531d95086a2c21b86709907ede11fcac676f37d501787e9"
+        },
+        "tools": {
+          "magic": {
+            "path": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/magic-run",
+            "sha256": "fa89bcfea9816d2cb4902deeff44c2199ac048fffb1303348fa5191ecf6c29cb",
+            "version_file": "magic-version.log",
+            "version_sha256": "374631470fd896b551d28a26fafd5af90d205a0af0d09f5ab9d796371d6be261"
+          },
+          "netgen": {
+            "path": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/netgen-run",
+            "sha256": "c415bb25c7152f14f2ec2fb0a747cd138bd764e9044cb845e7f686a64acf1458",
+            "version_file": "netgen-version.log",
+            "version_sha256": "2440d38de07e7a1293b3d3a0aecdc160b7856c46422c799f28695ad24989c333"
+          },
+          "ngspice": {
+            "path": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/ngspice-run",
+            "sha256": "b04ec82707ddc54aa258be26462f28315b18f7d5a6c8e15ca0deb662b6b99dae",
+            "version_file": "ngspice-version.log",
+            "version_sha256": "d18ced87a01768ec53b4682c549f1182be38030c71159f071a008b747a8f04be"
+          }
+        },
+        "corner": "nominal",
+        "electrical_cells": [
+          "current_mirror"
+        ],
+        "physical_cells": [
+          "current_mirror"
+        ],
+        "connection_findings": 0
+      }
+    },
+    {
+      "name": "schematic_simulation",
+      "status": "passed",
+      "evidence": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "output_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": 5.119161848199383e-05
+          },
+          {
+            "name": "bias_voltage",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.7660257435607942
+          }
+        ],
+        "probes": [
+          "force",
+          "out",
+          "ref"
+        ],
+        "specifications": [],
+        "diagnostics": null,
+        "analysis": {
+          "type": "op",
+          "stop": "100u",
+          "step": "200n",
+          "start": "10",
+          "end": "10meg",
+          "points": 150,
+          "source": "V1",
+          "dc_start": "0",
+          "dc_stop": "1.8",
+          "dc_step": "0.01",
+          "temperature": 27,
+          "corner": "nominal"
+        },
+        "effective_analysis": {
+          "type": "op",
+          "stop": "100u",
+          "step": "200n",
+          "start": "10",
+          "end": "10meg",
+          "points": 150,
+          "source": "V1",
+          "dc_start": "0",
+          "dc_stop": "1.8",
+          "dc_step": "0.01",
+          "temperature": 27,
+          "corner": "nominal"
+        },
+        "waveform_file": "schematic/result.json",
+        "waveform_sha256": "bdf7d1383e7dda360f5789820b51661719c01f5eb517df38243c3c029bb61ed7"
+      }
+    },
+    {
+      "name": "drc",
+      "status": "passed",
+      "evidence": {
+        "violations": 0,
+        "style": "drc(full)",
+        "log": "drc/console.log"
+      }
+    },
+    {
+      "name": "lvs_extraction",
+      "status": "passed",
+      "evidence": {
+        "deck": "lvs-extraction/extracted.spice",
+        "sha256": "71896a8de8541e696761d7e16f3a769d77c24ec426553f7ae8c3351885c304ad",
+        "capacitors": 0,
+        "resistors": 0,
+        "mode": "lvs",
+        "profile": {
+          "hierarchy": true,
+          "blackbox": false,
+          "merge": "none",
+          "scale": false,
+          "capacitance_threshold": "infinite",
+          "resistance_threshold": "infinite",
+          "distributed_resistance": false
+        },
+        "profile_file": "lvs-extraction/profile.json",
+        "profile_sha256": "04f694af90420d0c3a3c0e908088410ad1e47c42eb8f0f9db531f5b8f3190d7f",
+        "subcircuits": [
+          "current_mirror"
+        ]
+      }
+    },
+    {
+      "name": "lvs",
+      "status": "passed",
+      "evidence": {
+        "unique_match": true,
+        "log": "lvs/lvs.log"
+      }
+    },
+    {
+      "name": "capacitance_extraction",
+      "status": "passed",
+      "evidence": {
+        "deck": "parasitics/extracted.spice",
+        "sha256": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe",
+        "capacitors": 20,
+        "resistors": 15,
+        "mode": "rc",
+        "profile": {
+          "hierarchy": true,
+          "blackbox": false,
+          "merge": "none",
+          "scale": false,
+          "capacitance_threshold": 0.0,
+          "resistance_threshold": 0,
+          "distributed_resistance": true,
+          "capacitance_normalization": {
+            "schema_version": 1,
+            "algorithm": "magic-flat-capacitance-conservation-v1",
+            "top": "current_mirror",
+            "implementation_sha256": "7ade65ec645580ca6c8d967be39989350fa0574a5e335b3b8aa691e3ce331bf8",
+            "scope": "Flat distributed Magic resistance with area weighted lumped original ground and mutual capacitance; not a spatial field solver.",
+            "units": "attofarads",
+            "original_scale": [
+              1000.0,
+              1.0,
+              1000000.0
+            ],
+            "resistance_scale": [
+              1000.0,
+              1.0,
+              1000000.0
+            ],
+            "equations": {
+              "ground": "C_i = C_original_ground * w_i",
+              "mutual": "C_ij = C_original_mutual * w_i * w_j",
+              "weights": "w_i = positive_raw_rnode_C_i / sum(positive_raw_rnode_C)"
+            },
+            "weights_scope": "Normalized positive extresist rnode C follows its area redistribution. Raw C magnitudes are discarded.",
+            "nets": {
+              "OUT": {
+                "original_ground_af": 3810.42,
+                "rnode_count": 2,
+                "nodes": [
+                  "OUT.t0",
+                  "OUT"
+                ],
+                "weights": {
+                  "OUT.t0": 0.3202307221125706,
+                  "OUT": 0.6797692778874294
+                },
+                "fallback": null
+              },
+              "IREF": {
+                "original_ground_af": 6158.06,
+                "rnode_count": 6,
+                "nodes": [
+                  "IREF.t2",
+                  "IREF.t1",
+                  "IREF.n0",
+                  "IREF.t0",
+                  "IREF.n1",
+                  "IREF"
+                ],
+                "weights": {
+                  "IREF.t2": 0.15994429322454007,
+                  "IREF.t1": 0.14059324993481168,
+                  "IREF.n0": 0.3863700459529853,
+                  "IREF.t0": 0.15492319687810654,
+                  "IREF.n1": 0.13857698454324144,
+                  "IREF": 0.01959222946631497
+                },
+                "fallback": null
+              },
+              "VSS": {
+                "original_ground_af": 0.0,
+                "rnode_count": 9,
+                "nodes": [
+                  "VSS.t1",
+                  "VSS.n0",
+                  "VSS.t2",
+                  "VSS.t3",
+                  "VSS.n1",
+                  "VSS.n2",
+                  "VSS.t0",
+                  "VSS.n3",
+                  "VSS"
+                ],
+                "weights": {
+                  "VSS": 1.0
+                },
+                "fallback": {
+                  "method": "nearest-original-node-origin",
+                  "anchor": "VSS",
+                  "original_xy": [
+                    -600,
+                    2080
+                  ],
+                  "anchor_xy": [
+                    -600,
+                    2080
+                  ]
+                }
+              }
+            },
+            "mutual_pairs": 1,
+            "generated_mutual_capacitors": 12,
+            "max_capacitors": 50000,
+            "generated_ground_capacitors": 8,
+            "resistor_count": 15,
+            "conservation": {
+              "status": "passed",
+              "matrix_entries": 4,
+              "maximum_error_af": 0.0,
+              "relative_tolerance": 1e-12,
+              "absolute_tolerance_af": 1e-12,
+              "entries": [
+                {
+                  "a": "IREF",
+                  "b": "IREF",
+                  "original_af": 7333.5,
+                  "normalized_af": 7333.5
+                },
+                {
+                  "a": "IREF",
+                  "b": "OUT",
+                  "original_af": -1175.44,
+                  "normalized_af": -1175.44
+                },
+                {
+                  "a": "OUT",
+                  "b": "OUT",
+                  "original_af": 4985.860000000001,
+                  "normalized_af": 4985.860000000001
+                },
+                {
+                  "a": "VSS",
+                  "b": "VSS",
+                  "original_af": 0.0,
+                  "normalized_af": 0.0
+                }
+              ]
+            },
+            "files": {
+              "current_mirror.raw.ext": "596e4c6dd522c5ad4bed0e213fbb14869a9a53894d3856d513399247147e3c7e",
+              "current_mirror.raw.res.ext": "7e952bb704bf5fad5007c61915e719beb23a1322ef645ef6e674ab159bd83d30",
+              "current_mirror.ext": "15a8c1b708552c262d2d5d61285009968e7d6b87f95c40436253ce6074539cd3",
+              "current_mirror.res.ext": "baefc53d7a1a0d521052f9dcc29a4891e598aa5da275a75f0a5b92aaab1d505f",
+              "raw-export.spice": "90647008bd15324129a5c5831e98b41494439c9c0d1cdfcc0c7c14626212dacd",
+              "extracted.spice": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe"
+            },
+            "export": {
+              "status": "passed",
+              "raw_file": "raw-export.spice",
+              "file": "extracted.spice",
+              "raw_sha256": "90647008bd15324129a5c5831e98b41494439c9c0d1cdfcc0c7c14626212dacd",
+              "sha256": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe",
+              "removed_quantized_capacitors": 20,
+              "full_precision_capacitors": 20,
+              "resistor_graph": "exact original named edge multiset preserved",
+              "non_capacitor_lines": "preserved byte for byte",
+              "quantization_reason": "Supported Magic esSIvalue emits C below 1 aF as zero; all parasitic C is serialized at 17 significant digits.",
+              "matrix_entries": 4,
+              "maximum_error_af": 1.8189894035458565e-12,
+              "relative_tolerance": 1e-12,
+              "absolute_tolerance_af": 1e-12
+            }
+          }
+        },
+        "profile_file": "parasitics/profile.json",
+        "profile_sha256": "450d0c7850d6cc8619137b1491dd710674c53a8ff5eabe7d529ac05e3d4dca9b",
+        "subcircuits": [
+          "current_mirror"
+        ]
+      }
+    },
+    {
+      "name": "post_layout_simulation",
+      "status": "passed",
+      "evidence": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "output_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": 5.080590793239605e-05
+          },
+          {
+            "name": "bias_voltage",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.7793595210917604
+          }
+        ],
+        "probes": [
+          "force",
+          "out",
+          "ref"
+        ],
+        "specifications": [],
+        "diagnostics": null,
+        "analysis": {
+          "type": "op",
+          "stop": "100u",
+          "step": "200n",
+          "start": "10",
+          "end": "10meg",
+          "points": 150,
+          "source": "V1",
+          "dc_start": "0",
+          "dc_stop": "1.8",
+          "dc_step": "0.01",
+          "temperature": 27,
+          "corner": "nominal"
+        },
+        "effective_analysis": {
+          "type": "op",
+          "stop": "100u",
+          "step": "200n",
+          "start": "10",
+          "end": "10meg",
+          "points": 150,
+          "source": "V1",
+          "dc_start": "0",
+          "dc_stop": "1.8",
+          "dc_step": "0.01",
+          "temperature": 27,
+          "corner": "nominal"
+        },
+        "waveform_file": "post-layout/result.json",
+        "waveform_sha256": "f5121671e63f7766d9939579838a006f68ca25bb3ae787a7ae1f4de7edba9cc5"
+      }
+    },
+    {
+      "name": "integrity",
+      "status": "passed",
+      "evidence": {
+        "files": {
+          "layout.gds": "fddf254fb7fae9dc112098d200fd9a6c724ddf4a8162db7eb4b58733b3814dd6",
+          "schematic.spice": "09a3cf96586e354d6be31367615192c5515a83b089b0f2f02d553e6f60ad710f",
+          "input.icproj": "631f6e00ae488ff91d1852bf0879e1b1e40eda0f4441788e3e445f6e158d1d35",
+          "testbench.json": "76ecb3bed6552248c5e4268da70695bc2d02e71cf7195a60318474f122ab6548",
+          "lvs-extraction/extracted.spice": "71896a8de8541e696761d7e16f3a769d77c24ec426553f7ae8c3351885c304ad",
+          "lvs-extraction/profile.json": "04f694af90420d0c3a3c0e908088410ad1e47c42eb8f0f9db531f5b8f3190d7f",
+          "parasitics/startup.tcl": "01887fdece1b24a8dfadd6a97d34df7c8318080cffe110488bb878520954fcf8",
+          "parasitics/resistance-run.tcl": "2a4b684345901443a6bc62de63729af5b92687bb7e8143089ed350ce11ffcb78",
+          "parasitics/resistance-console.log": "1a0e83946b2a91e5aad0783f923b8cf6f11175db502189b6384150714edf56f2",
+          "parasitics/run.tcl": "c002453880802b8595e3c8d257bf35dc3881b31b3a17698773d8917403cbeb07",
+          "parasitics/current_mirror.nodes": "8fdd41ddca56ebdf73d5c4c1bf7fdcf4cf836cca5cdd42eedb9b5ca80452e495",
+          "parasitics/raw-export.spice": "90647008bd15324129a5c5831e98b41494439c9c0d1cdfcc0c7c14626212dacd",
+          "parasitics/extracted.spice": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe",
+          "parasitics/rc-normalization.json": "171590bfedc208a1b2c643e91ee5c60b55d94dfc537d71c52530f6fead151394",
+          "parasitics/current_mirror.res.ext": "baefc53d7a1a0d521052f9dcc29a4891e598aa5da275a75f0a5b92aaab1d505f",
+          "parasitics/current_mirror.raw.res.ext": "7e952bb704bf5fad5007c61915e719beb23a1322ef645ef6e674ab159bd83d30",
+          "parasitics/current_mirror.sim": "035eba6a990458f0d0616bdf0da4f95f53aa08548a1c2b327ecb6bb7ba34b2c4",
+          "parasitics/console.log": "c2be56aeafc9f18a6eed2a9252c1cdfb26ea9a5298ea81729f7fc8819d790fc1",
+          "parasitics/current_mirror.raw.ext": "596e4c6dd522c5ad4bed0e213fbb14869a9a53894d3856d513399247147e3c7e",
+          "parasitics/current_mirror.ext": "15a8c1b708552c262d2d5d61285009968e7d6b87f95c40436253ce6074539cd3",
+          "parasitics/profile.json": "450d0c7850d6cc8619137b1491dd710674c53a8ff5eabe7d529ac05e3d4dca9b"
+        },
+        "assets": {
+          "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/passive-adapter/sky130A/libs.tech/magic/sky130A.tech": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+          "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/passive-adapter/sky130A/libs.tech/netgen/sky130A_setup.tcl": "3b2e4eddc57b1d8dc531d95086a2c21b86709907ede11fcac676f37d501787e9"
+        },
+        "tools": {
+          "magic": {
+            "path": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/magic-run",
+            "sha256": "fa89bcfea9816d2cb4902deeff44c2199ac048fffb1303348fa5191ecf6c29cb",
+            "version_file": "magic-version.log",
+            "version_sha256": "374631470fd896b551d28a26fafd5af90d205a0af0d09f5ab9d796371d6be261"
+          },
+          "netgen": {
+            "path": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/netgen-run",
+            "sha256": "c415bb25c7152f14f2ec2fb0a747cd138bd764e9044cb845e7f686a64acf1458",
+            "version_file": "netgen-version.log",
+            "version_sha256": "2440d38de07e7a1293b3d3a0aecdc160b7856c46422c799f28695ad24989c333"
+          },
+          "ngspice": {
+            "path": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/ngspice-run",
+            "sha256": "b04ec82707ddc54aa258be26462f28315b18f7d5a6c8e15ca0deb662b6b99dae",
+            "version_file": "ngspice-version.log",
+            "version_sha256": "d18ced87a01768ec53b4682c549f1182be38030c71159f071a008b747a8f04be"
+          }
+        },
+        "verified": true
+      }
+    }
+  ],
+  "qualification": "Saved-testbench process verification. Qualification applies only to the recorded circuit, extraction model and operating condition; no fabrication signoff. Flat unaliased process RC retains Magic resistance and conserves the original capacitance matrix using area weighted lumped C; mutual capacitance locations are approximate.",
+  "physical_extraction": {
+    "mode": "rc"
+  },
+  "conditions": {
+    "model_corner": "nominal",
+    "temperature": 27,
+    "analysis": {
+      "type": "op",
+      "stop": "100u",
+      "step": "200n",
+      "start": "10",
+      "end": "10meg",
+      "points": 150,
+      "source": "V1",
+      "dc_start": "0",
+      "dc_stop": "1.8",
+      "dc_step": "0.01",
+      "temperature": 27,
+      "corner": "nominal"
+    },
+    "sources": [
+      {
+        "name": "IREF",
+        "kind": "I",
+        "value": "50u",
+        "source": {
+          "type": "dc",
+          "low": "0",
+          "high": "1.8",
+          "period": "20u",
+          "delay": "0",
+          "duty": "0.5",
+          "ac": "1"
+        },
+        "nets": {
+          "p": "0",
+          "n": "ref"
+        }
+      },
+      {
+        "name": "VOUT",
+        "kind": "V",
+        "value": "1.2",
+        "source": {
+          "type": "dc",
+          "low": "0",
+          "high": "1.8",
+          "period": "20u",
+          "delay": "0",
+          "duty": "0.5",
+          "ac": "1"
+        },
+        "nets": {
+          "p": "force",
+          "n": "0"
+        }
+      },
+      {
+        "name": "VSENSE",
+        "kind": "V",
+        "value": "0",
+        "source": {
+          "type": "dc",
+          "low": "0",
+          "high": "1.8",
+          "period": "20u",
+          "delay": "0",
+          "duty": "0.5",
+          "ac": "1"
+        },
+        "nets": {
+          "p": "force",
+          "n": "out"
+        }
+      }
+    ]
+  },
+  "magic_drc_style": "drc(full)",
+  "drc_count": 0,
+  "requirement_comparison": [
+    {
+      "name": "output_current",
+      "kind": "measurements",
+      "unit": "A",
+      "before": 5.119161848199383e-05,
+      "after": 5.080590793239605e-05,
+      "delta": -3.8571054959778123e-07,
+      "before_status": "passed",
+      "after_status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "bias_voltage",
+      "kind": "measurements",
+      "unit": "V",
+      "before": 0.7660257435607942,
+      "after": 0.7793595210917604,
+      "delta": 0.013333777530966207,
+      "before_status": "passed",
+      "after_status": "passed",
+      "detail": ""
+    }
+  ],
+  "measurement_comparison": [
+    {
+      "name": "output_current",
+      "unit": "A",
+      "before": 5.119161848199383e-05,
+      "after": 5.080590793239605e-05,
+      "delta": -3.8571054959778123e-07,
+      "relative_delta": -0.007534642604305455,
+      "before_status": "passed",
+      "after_status": "passed",
+      "regressed": false,
+      "error": ""
+    },
+    {
+      "name": "bias_voltage",
+      "unit": "V",
+      "before": 0.7660257435607942,
+      "after": 0.7793595210917604,
+      "delta": 0.013333777530966207,
+      "relative_delta": 0.01740643528373534,
+      "before_status": "passed",
+      "after_status": "passed",
+      "regressed": false,
+      "error": ""
+    }
+  ],
+  "comparison": [
+    {
+      "name": "output_current",
+      "unit": "A",
+      "before": 5.119161848199383e-05,
+      "after": 5.080590793239605e-05,
+      "delta": -3.8571054959778123e-07,
+      "relative_delta": -0.007534642604305455,
+      "before_status": "passed",
+      "after_status": "passed",
+      "regressed": false,
+      "error": ""
+    },
+    {
+      "name": "bias_voltage",
+      "unit": "V",
+      "before": 0.7660257435607942,
+      "after": 0.7793595210917604,
+      "delta": 0.013333777530966207,
+      "relative_delta": 0.01740643528373534,
+      "before_status": "passed",
+      "after_status": "passed",
+      "regressed": false,
+      "error": ""
+    }
+  ],
+  "provenance": {
+    "design_hash": "3d87bb52a23568e3ce63504b05001e1dddabb3a2e7f25f46b7ca4c71982c71fe",
+    "revision": 0,
+    "pdk_hash": "363ad7e051aca516cdc73a12fe13066c0551ca553d7333eb3ff95a4ed99dad48",
+    "testbench_hash": "9b920629ec0ce59f56adac291aba5ef697c09eab0f7ca763bfff5df731fed73f",
+    "extraction_hash": "cf6ddd161e4fa94a3f5672f44ebe88decced76f4f5ca290401ed3080c92f9cbe",
+    "files": {
+      "layout.gds": "fddf254fb7fae9dc112098d200fd9a6c724ddf4a8162db7eb4b58733b3814dd6",
+      "schematic.spice": "09a3cf96586e354d6be31367615192c5515a83b089b0f2f02d553e6f60ad710f",
+      "input.icproj": "631f6e00ae488ff91d1852bf0879e1b1e40eda0f4441788e3e445f6e158d1d35",
+      "testbench.json": "76ecb3bed6552248c5e4268da70695bc2d02e71cf7195a60318474f122ab6548",
+      "lvs-extraction/extracted.spice": "71896a8de8541e696761d7e16f3a769d77c24ec426553f7ae8c3351885c304ad",
+      "lvs-extraction/profile.json": "04f694af90420d0c3a3c0e908088410ad1e47c42eb8f0f9db531f5b8f3190d7f",
+      "parasitics/startup.tcl": "01887fdece1b24a8dfadd6a97d34df7c8318080cffe110488bb878520954fcf8",
+      "parasitics/resistance-run.tcl": "2a4b684345901443a6bc62de63729af5b92687bb7e8143089ed350ce11ffcb78",
+      "parasitics/resistance-console.log": "1a0e83946b2a91e5aad0783f923b8cf6f11175db502189b6384150714edf56f2",
+      "parasitics/run.tcl": "c002453880802b8595e3c8d257bf35dc3881b31b3a17698773d8917403cbeb07",
+      "parasitics/current_mirror.nodes": "8fdd41ddca56ebdf73d5c4c1bf7fdcf4cf836cca5cdd42eedb9b5ca80452e495",
+      "parasitics/raw-export.spice": "90647008bd15324129a5c5831e98b41494439c9c0d1cdfcc0c7c14626212dacd",
+      "parasitics/extracted.spice": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe",
+      "parasitics/rc-normalization.json": "171590bfedc208a1b2c643e91ee5c60b55d94dfc537d71c52530f6fead151394",
+      "parasitics/current_mirror.res.ext": "baefc53d7a1a0d521052f9dcc29a4891e598aa5da275a75f0a5b92aaab1d505f",
+      "parasitics/current_mirror.raw.res.ext": "7e952bb704bf5fad5007c61915e719beb23a1322ef645ef6e674ab159bd83d30",
+      "parasitics/current_mirror.sim": "035eba6a990458f0d0616bdf0da4f95f53aa08548a1c2b327ecb6bb7ba34b2c4",
+      "parasitics/console.log": "c2be56aeafc9f18a6eed2a9252c1cdfb26ea9a5298ea81729f7fc8819d790fc1",
+      "parasitics/current_mirror.raw.ext": "596e4c6dd522c5ad4bed0e213fbb14869a9a53894d3856d513399247147e3c7e",
+      "parasitics/current_mirror.ext": "15a8c1b708552c262d2d5d61285009968e7d6b87f95c40436253ce6074539cd3",
+      "parasitics/profile.json": "450d0c7850d6cc8619137b1491dd710674c53a8ff5eabe7d529ac05e3d4dca9b"
+    }
+  },
+  "findings": []
+}

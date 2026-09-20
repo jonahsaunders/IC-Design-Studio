@@ -183,6 +183,30 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_analog_closure.py --out build/analog-closure-evidence
+      - name: Test saved amplifier diagnostics and reference workflow
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_reference_workflow.py --out build/analog-reference-evidence
+      - name: Test linked process devices, contacted guards and tied dummies
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_sky130_devices.py --out build/sky130-devices-ui-evidence
+      - name: Measure full desktop analog workloads on Windows
+        if: runner.os == 'Windows'
+        timeout-minutes: 10
+        env:
+          QT_QPA_PLATFORM: windows
+          QT_SCALE_FACTOR: '1'
+        run: python tests/gui_analog_scale.py --out build/analog-scale-evidence --iterations 3 --display-class native
+      - name: Measure full desktop analog workloads under X11
+        if: runner.os == 'Linux'
+        timeout-minutes: 10
+        env:
+          QT_QPA_PLATFORM: xcb
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a -s '-screen 0 1920x1080x24' python tests/gui_analog_scale.py --out build/analog-scale-evidence --iterations 3 --display-class virtual
       - name: Test hierarchy navigation and atomic design automation
         timeout-minutes: 5
         env:
@@ -422,6 +446,12 @@ jobs:
           path: |
             build/analog-closure-evidence/*.json
             build/analog-closure-evidence/*.png
+            build/analog-reference-evidence/*.json
+            build/analog-reference-evidence/*.png
+            build/sky130-devices-ui-evidence/*.json
+            build/sky130-devices-ui-evidence/*.png
+            build/analog-scale-evidence/report.json
+            build/analog-scale-evidence/**/*.png
             build/design-automation-evidence/*.json
             build/design-automation-evidence/*.png
             build/design-automation-benchmark.json

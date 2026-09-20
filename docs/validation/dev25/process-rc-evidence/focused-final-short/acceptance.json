@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "command": "Focused final short: load preserved fault input.icproj, hierarchical_flow.run, accept_short_result",
+  "observed_status": "failed",
+  "observed_error": "Extracted port order differs from the schematic: {'equal': False, 'expected': ['IREF', 'OUT', 'VSS'], 'actual': ['OUT', 'VSS'], 'same_members': False, 'permutation': None}",
+  "engine_report_sha256": "1549773e3628fc05e8837b93a1dd1c32311a4b5f955d35c29df40120cb74b4cc",
+  "harness_sha256": "3d78f7fe687dc58effb929a7a45a8f79c56e67dec17ed3f8aa3659235380d7f8"
+}

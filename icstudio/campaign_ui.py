@@ -72,6 +72,8 @@ class CampaignWindow(QDialog):
         self.pause=QPushButton('Pause');self.pause.clicked.connect(lambda:self.call(self.stop));controls.addWidget(self.pause)
         self.retry=QPushButton('Retry failures');self.retry.clicked.connect(lambda:self.call(lambda:self.run(True)));controls.addWidget(self.retry)
         self.failed=QCheckBox('Failures only');self.failed.toggled.connect(self.filter_changed);controls.addWidget(self.failed)
+        statistics=QPushButton('Statistical results…');statistics.setEnabled(bool(self.campaign.manifest['plan'].get('statistics')))
+        statistics.clicked.connect(lambda:self.call(self.show_statistics));controls.addWidget(statistics)
         self.table=QTableWidget(0,7);self.table.setHorizontalHeaderLabels(['Case','Test','Conditions','State','Attempt','Passed / failed','Details'])
         self.table.setAccessibleName('Campaign results, one hundred cases per page')
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers);self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
@@ -102,6 +104,7 @@ class CampaignWindow(QDialog):
             detail=row['error'] or '; '.join(v['name']+': '+v['status'] for v in summary.get('requirements',[]) if v['status']!='PASS')
             labels=json.loads(row['labels']);conditions='RTL simulation' if labels.get('temperature') is None else f"{labels['corner']} · {labels['temperature']:g} °C"
             if labels.get('voltage') is not None:conditions+=f" · {labels['voltage']:g} V"
+            if labels.get('trial') is not None:conditions+=f" · trial {labels['trial']} · seed {labels['seed']}"
             values=[row['case_index'],row['name'],conditions,row['state'],row['attempts'],
                     f"{summary.get('passed',0)} / {summary.get('failed',0)}" if summary else '',detail]
             for j,value in enumerate(values):
@@ -163,6 +166,10 @@ class CampaignWindow(QDialog):
         row=self.campaign.row(self.rows[index]['case_index'])
         from .analog_run_ui import RunInspector
         self.inspector=RunInspector(self.studio,row);self.inspector.show()
+
+    def show_statistics(self):
+        from .campaign_statistics_ui import StatisticsReport
+        self.statistics_window=StatisticsReport(self,self.campaign);self.statistics_window.show()
 
     def export(self):
         path,_=QFileDialog.getSaveFileName(self,'Export campaign summaries','campaign.csv','CSV (*.csv)')

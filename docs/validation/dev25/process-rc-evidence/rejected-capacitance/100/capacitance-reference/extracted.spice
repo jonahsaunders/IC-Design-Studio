@@ -1,0 +1,9 @@
+* NGSPICE file created from rc_coupon.ext - technology: sky130A
+
+.subckt rc_coupon IN DRAIN VSS
+X0 DRAIN IN VSS VSS sky130_fd_pr__nfet_01v8 ad=0.8 pd=3.6 as=0.8 ps=3.6 w=1 l=0.5
+C0 DRAIN IN 0.00856f
+C1 DRAIN VSS 0.09761f
+C2 IN VSS 11.1391f
+.ends
+

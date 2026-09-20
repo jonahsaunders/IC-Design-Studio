@@ -1,0 +1,8 @@
+* Numerically resolved schematic reference
+.subckt current_mirror IREF OUT VSS
+* IC Design Studio / Current mirror · SkyWater SKY130 · sky130A / revision 0
+* design-sha256 21d3e4f88bcce1e9c6553ec9281ad7ecb4439ca1ca4b11ca9ef3186aba4f596a
+* Explicit locked PDK model bindings. Qualification depends on the validated reference flow.
+X_MREF IREF IREF VSS VSS sky130_fd_pr__nfet_01v8 ad=2.9 as=2.9 l=1 m=1 mult=1 nf=1 nrd=0.029 nrs=0.029 pd=20.58 ps=20.58 sa=0 sb=0 sd=0 w=10
+X_MOUT OUT IREF VSS VSS sky130_fd_pr__nfet_01v8 ad=2.9 as=2.9 l=1 m=1 mult=1 nf=1 nrd=0.029 nrs=0.029 pd=20.58 ps=20.58 sa=0 sb=0 sd=0 w=10
+.ends current_mirror
