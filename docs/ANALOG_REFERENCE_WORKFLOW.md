@@ -11,7 +11,7 @@ Link the complete, matching SKY130A process in PDK manager. Simulation model
 subsets alone do not supply Magic extraction or Netgen setup files. Preserve the
 package lock and configure the actual Magic, Netgen and ngspice executables.
 
-Choose **File → New SKY130 two-stage op-amp** to create an editable reference
+Choose **File → Examples → New SKY130 two-stage op-amp** to create an editable reference
 using the linked technology. The equivalent source API uses the PDK from a
 project you have already configured:
 
@@ -68,8 +68,8 @@ failed measurements, missing crossings and failed startup cases rather than
 removing them from the comparison. Source execution does not qualify physical
 geometry: perform the process flow below for the actual edited layout.
 
-Choose **Design → Generate two-stage op-amp layout…** for the reference's bounded
-physical recipe. Review the generated geometry and use the schematic-driven
+Select the `two_stage_opamp` DUT cell, then choose **Layout → Generate → Generate
+two-stage op-amp layout…** for its bounded physical recipe. Review the generated geometry and use the schematic-driven
 update flow after resizing supported devices. The source equivalent is
 `generate_layout(project, dut_cell_id, replace=False)` from
 `icstudio.two_stage_opamp`; replacement is explicit. A generated layout remains

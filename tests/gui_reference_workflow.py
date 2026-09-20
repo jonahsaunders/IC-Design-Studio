@@ -11,10 +11,10 @@ def main():
     out=parser.parse_args().out.resolve();out.mkdir(parents=True,exist_ok=True)
     root=Path(__file__).resolve().parents[1];sys.path.insert(0,str(root))
     from PySide6.QtCore import QSettings,QStandardPaths
-    from PySide6.QtWidgets import QApplication,QDialogButtonBox,QTabWidget
+    from PySide6.QtWidgets import QApplication,QDialogButtonBox,QTabWidget,QPlainTextEdit
     from PySide6.QtTest import QTest
     from icstudio.gui import Studio
-    from icstudio.model import clone,design_digest,load_project,save_project
+    from icstudio.model import clone,design_digest,example,load_project,save_project
     from icstudio.two_stage_opamp import reference
     package_root=root/'icstudio/assets/pdks/sky130A'
     package=json.loads((package_root/'package.json').read_text())
@@ -26,9 +26,37 @@ def main():
     studio.show();checks=[]
     try:
         project,cid,key=reference(tech);studio.set_project(project)
-        actions={a.text().replace('&','') for a in studio.findChildren(__import__('PySide6.QtGui',fromlist=['QAction']).QAction)}
-        assert 'New SKY130 two-stage op-amp' in actions
-        assert 'Generate two-stage op-amp layout…' in actions
+        reference_action=studio.command_actions['New SKY130 two-stage op-amp']
+        layout_action=studio.command_actions['Generate two-stage op-amp layout…']
+        assert reference_action in studio._task_submenus['File/Examples'].actions()
+        assert reference_action not in studio.task_menus['File'].actions()
+        assert layout_action in studio._task_submenus['Layout/Generate'].actions()
+        assert layout_action not in studio.task_menus['Design'].actions()
+        assert reference_action.isEnabled()
+        studio.set_project(example('empty'));unsupported=design_digest(studio.project)
+        reference_action.trigger();app.processEvents()
+        assert errors and 'linked SKY130A' in errors.pop()
+        assert design_digest(studio.project)==unsupported
+        studio.set_project(project);blocked=design_digest(studio.project)
+        studio.process=object()
+        try:
+            reference_action.trigger();app.processEvents()
+            assert errors and 'active runs' in errors.pop()
+            assert design_digest(studio.project)==blocked
+        finally:studio.process=None
+        reference_action.trigger();app.processEvents()
+        assert not errors,errors
+        assert studio.project['id']!=project['id']
+        assert studio.project['pdk']['package_lock']==project['pdk']['package_lock']
+        assert {t['name'] for t in studio.project['testbenches']}=={'opamp_op','opamp_ac','opamp_noise','opamp_startup'}
+        studio.cid=next(c['id'] for c in studio.project['cells'] if c.get('opamp_reference'));studio.refresh(True)
+        original=design_digest(studio.project)
+        layout_action.trigger();app.processEvents()
+        preview=studio._review_dialog
+        assert preview.isVisible() and preview.findChild(QDialogButtonBox).button(QDialogButtonBox.Apply).isEnabled()
+        assert 'SKY130' in preview.findChild(QPlainTextEdit).toPlainText()
+        preview.reject();assert design_digest(studio.project)==original
+        checks.append('Existing example and layout submenus retain live op-amp actions, linked SKY130 scope, active-job guard and non-mutating layout preview')
         before=clone(studio.project)
         for name in ('opamp_op','opamp_ac','opamp_noise','opamp_startup'):
             seed=next(t for t in studio.project['testbenches'] if t['name']==name)

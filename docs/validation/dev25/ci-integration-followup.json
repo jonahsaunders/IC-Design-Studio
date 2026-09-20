@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "created": "2026-09-20T18:25:55+00:00",
+  "status": "focused_integration_checks_passed",
+  "qualified_parent_commit": "4ce77713a26b34e1e46ff7cde9788c6aa4be5b2a",
+  "source": {
+    "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+    "sources": "1ebea4cbe42a8dd058fa919541935e09730f6442754587a9d78cdde14f898dfc"
+  },
+  "scope": "Menu registration and reference-action dispatch plus required VGA workflow triggers. Original numerical qualification remains tied to its original source; the qualified op-amp numerical implementation files are unchanged. This is not full hosted package acceptance.",
+  "gui": {
+    "status": "passed",
+    "scope": "Menu placement and bounded op-amp reference action dispatch; numerical implementations and original retained evidence unchanged.",
+    "product_files": {
+      "icstudio/menu_map.py": {
+        "before_sha256": "8d2fe07d36b19709fb4343e3b504d3031ac8ca8e575a6d9d900d86024bdfbfb3",
+        "after_sha256": "3b1d9487631a2cb4d6d67018d3e0823aa1a3289e1e767bc4132ef2c5e96691e5"
+      },
+      "icstudio/interoperability_ui.py": {
+        "before_sha256": "6869b9c7c8a3932d3daa82c31d0c038401edeea3c9c70bf55b149c337ea34aaf",
+        "after_sha256": "c52924c72ad0378d8be1267b0ceb5463f97e810c66d7d65f787e11710bef5602"
+      }
+    },
+    "qualified_numerical_implementation_integrity": {
+      "status": "passed",
+      "changed": []
+    },
+    "checks": [
+      {
+        "command": "QT_QPA_PLATFORM=offscreen .venv/bin/python tests/gui_interoperability.py --out build/post-publication-menu-interoperability-final",
+        "exit_code": 0,
+        "status": "passed",
+        "result": "Neutral menus, extensible secondary PDK/model selection, reviewed layout conflicts and undo."
+      },
+      {
+        "command": "QT_QPA_PLATFORM=offscreen .venv/bin/python tests/gui_reference_workflow.py --out build/post-publication-menu-reference-pass",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "docs/validation/dev25/gui-reference-followup.json",
+        "report_sha256": "1513b16619e25d238fde0a2ddf492dd79d735494ab02a34ad99fba7b6fc49e74"
+      }
+    ]
+  },
+  "workflow": {
+    "required_vga_push_and_pr_unfiltered": true,
+    "job_and_permissions_unchanged": true,
+    "local_workflow_tests": 19
+  },
+  "initial_hosted_results": {
+    "commit": "4ce77713a26b34e1e46ff7cde9788c6aa4be5b2a",
+    "interoperability": {
+      "status": "failed_menu_contract",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/35528637778"
+    },
+    "statistics": {
+      "status": "passed",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/35528638011"
+    },
+    "digital": {
+      "status": "passed",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/35528637837"
+    }
+  },
+  "hosted_followup": "must_be_checked_on_new_commit",
+  "files": {
+    ".github/workflows/vga-playground.yml": "1d032adc25fb00bb27756d455b92b650f1603d67285fc2b93cb7797c26e8a707",
+    "docs/ANALOG_REFERENCE_WORKFLOW.md": "6050b8355f11b60fcb3d8555ec3f3559267d26f303d6e8278e788f263515438c",
+    "docs/RELEASE_STATUS.md": "3c4555b1ce903982ff3a187bfdb669ac0be86c8e606b71fb10739a7888d426b3",
+    "icstudio/interoperability_ui.py": "c52924c72ad0378d8be1267b0ceb5463f97e810c66d7d65f787e11710bef5602",
+    "icstudio/menu_map.py": "3b1d9487631a2cb4d6d67018d3e0823aa1a3289e1e767bc4132ef2c5e96691e5",
+    "tests/gui_interoperability.py": "1330cab59511bdd701f4ee7274616b48e3e47d9470c5b2e2713767f5d10f0381",
+    "tests/gui_reference_workflow.py": "888f9b0f0f6259f451bd6f517b8855f3115ce566fb72f44c194cc1cb8b512a35"
+  },
+  "evidence": {
+    "docs/validation/dev25/gui-reference-followup.json": "1513b16619e25d238fde0a2ddf492dd79d735494ab02a34ad99fba7b6fc49e74",
+    "docs/validation/dev25/workflow-tests-followup.txt": "608912ec0127719b4273a07357581787b7993f7ac642f62c56311178368b909b"
+  }
+}

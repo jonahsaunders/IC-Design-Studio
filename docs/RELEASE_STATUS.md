@@ -2,8 +2,9 @@
 
 The [dev25 update](UPDATE_0.22_DEV25.md) follows the integrated analog workflow
 merged into `experimental` at `46658f81b378743f39bbc10d4c83c5b8ceb583d1`.
-The candidate is prepared on `codex/analog-reference-qualification` for a separate
-PR into `experimental`; it is not part of the older PR #32 until merged.
+The candidate is published on `codex/analog-reference-qualification` in
+[draft PR #34](https://github.com/jonahsaunders/IC-Design-Studio/pull/34), targeting
+`experimental`; it is not part of the older PR #32 until merged.
 Its release assembly requires complete desktop/source/evidence payloads and binds
 Windows acceptance to the exact installer bytes and all installed DPI probes.
 
@@ -14,6 +15,18 @@ Use the [candidate Actions runs](https://github.com/jonahsaunders/IC-Design-Stud
 to review desktop/package, interoperability, pinned physical, digital, VGA and statistical
 results for the selected commit. Version numbers alone are insufficient because
 multiple experimental commits can share one development version.
+
+The local numerical qualification below was published in commit
+`4ce77713a26b34e1e46ff7cde9788c6aa4be5b2a`. Its first hosted run exposed a
+menu-placement regression and a path filter that omitted the required VGA gate.
+Live action checks also exposed a callback routed to an unsupported generic
+template. The follow-up puts the process-specific reference commands in their
+existing Examples/Generate submenus, dispatches reference creation to its actual
+factory with the active-run guard, and runs VGA on every push and PR. The
+[integration follow-up record](validation/dev25/ci-integration-followup.json)
+identifies the changed files and focused checks; the original numerical evidence
+remains tied to its original source. Hosted acceptance of the follow-up commit
+must be checked independently.
 
 The [retained local core run](validation/dev25/core-tests.json) completed 984 tests
 with 35 skipped and no failures. Separate actual-ngspice RC and saved-bias checks

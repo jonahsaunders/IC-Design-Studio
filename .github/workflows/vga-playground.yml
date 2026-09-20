@@ -1,28 +1,9 @@
 name: Verify VGA Playground
 on:
   workflow_call:
+  # Required release gate: shared desktop/source changes must also run VGA checks.
   push:
-    paths:
-      - 'icstudio/digital*'
-      - 'icstudio/vga_probe.py'
-      - 'icstudio/__main__.py'
-      - 'icstudio/workspace.py'
-      - 'packaging/vga/**'
-      - 'scripts/build_vga_playground.py'
-      - 'tests/*digital*vga*'
-      - 'requirements*.txt'
-      - '.github/workflows/vga-playground.yml'
   pull_request:
-    paths:
-      - 'icstudio/digital*'
-      - 'icstudio/vga_probe.py'
-      - 'icstudio/__main__.py'
-      - 'requirements*.txt'
-      - 'icstudio/workspace.py'
-      - 'packaging/vga/**'
-      - 'scripts/build_vga_playground.py'
-      - 'tests/*digital*vga*'
-      - '.github/workflows/vga-playground.yml'
   workflow_dispatch:
 permissions:
   contents: read
