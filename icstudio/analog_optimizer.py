@@ -25,7 +25,10 @@ def targets(project, cid):
         try:values=parameter_values(binding,d)
         except (ValueError,TypeError):continue
         for key,rule in binding.get('parameters',{}).items():
-            if key not in ('w','l') and not rule.get('derived') and not rule.get('choices') and key in values:
+            # MOS width/length already have geometry targets; PDK passives
+            # expose these dimensions only through their model parameters.
+            duplicate_geometry = d['kind'] in ('NMOS', 'PMOS') and key in ('w', 'l')
+            if not duplicate_geometry and not rule.get('derived') and not rule.get('choices') and key in values:
                 out.append(d['name']+'.model_params.'+key)
     return out
 

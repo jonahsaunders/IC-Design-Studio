@@ -20,7 +20,11 @@ class GettingStartedTests(unittest.TestCase):
             first, second = example_copy(entry), example_copy(entry)
             validate(first)
             self.assertNotEqual(first['id'], second['id'])
-            self.assertFalse(first['pdk'].get('package_root'))
+            if first['pdk'].get('package_root'):
+                # Native PDK examples may reference the bundled, locked models.
+                from icstudio.pdks import model_lines
+                self.assertTrue(Path(first['pdk']['package_root']).is_relative_to(resource_root()))
+                self.assertTrue(model_lines(first['pdk']))
             self.assertEqual(file_digest(path), before)
             self.assertTrue(entry['steps'])
         with self.assertRaisesRegex(ValueError, 'inside'):

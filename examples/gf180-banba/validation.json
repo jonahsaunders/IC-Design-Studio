@@ -1,0 +1,566 @@
+{
+  "schema": 1,
+  "project_sha256": "ac2b421ff4d76fd5e33f817a363840673e206d238d2f468fa123609317e6ec95",
+  "design_hash": "a58d1c0a5c01fae2663deafd307cfe72c083b8994725c43d82555a259c78dadc",
+  "engine": "ngspice",
+  "engine_sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+  "pdk_revision": "9394d9228663e22b",
+  "erc_issues": [],
+  "baseline": {
+    "vref": 0.6210884477382982,
+    "supply_current": 7.893979687722177e-05
+  },
+  "selected": {
+    "vref": 0.5959100370240207,
+    "supply_current": 7.6987034800024e-05,
+    "va": 0.7031137472212448,
+    "vb": 0.7033525360140326
+  },
+  "startup": {
+    "final_vref": 0.5959098704282589,
+    "peak_vref": 2.71929008318293,
+    "specifications": [
+      {
+        "name": "Reference initial window",
+        "expression": "final(V(\"VREF\"))",
+        "unit": "V",
+        "min": ".5",
+        "max": ".7",
+        "status": "PASS",
+        "value": 0.5959098704282589,
+        "margin": 0.09590987042825894,
+        "error": ""
+      },
+      {
+        "name": "Startup overshoot limit",
+        "expression": "max(V(\"VREF\"))",
+        "unit": "V",
+        "max": ".75",
+        "status": "FAIL",
+        "value": 2.71929008318293,
+        "margin": -1.9692900831829299,
+        "error": ""
+      }
+    ]
+  },
+  "optimizer": {
+    "complete": true,
+    "simulations": 27,
+    "best": {
+      "candidate": 9,
+      "changes": {
+        "RPTAT.model_params.l": 1.1e-05,
+        "ROUT.model_params.l": 4.9999999999999996e-05
+      },
+      "state": "Passed",
+      "values": [
+        0.5956120894154638,
+        0.5959100370240207,
+        0.5941886435479099
+      ],
+      "scores": [
+        0.004387910584536137,
+        0.0040899629759793,
+        0.005811356452090077
+      ],
+      "failures": [],
+      "failure_details": [],
+      "evidence_errors": [],
+      "constraints": {
+        "setup:0 / Reference initial window": -0.13455520506844273
+      },
+      "metrics": [
+        {
+          "values": [
+            0.5956120894154638,
+            0.5959100370240207,
+            0.5941886435479099
+          ],
+          "scores": [
+            0.004387910584536137,
+            0.0040899629759793,
+            0.005811356452090077
+          ],
+          "score": 0.005811356452090077,
+          "value": 0.5941886435479099
+        }
+      ],
+      "points": [],
+      "runs": [
+        "25",
+        "26",
+        "27"
+      ],
+      "complete": 3,
+      "total": 3,
+      "score": 0.005811356452090077,
+      "worst_value": 0.5941886435479099,
+      "pareto": true
+    },
+    "candidates": [
+      {
+        "candidate": 1,
+        "changes": {
+          "RPTAT.model_params.l": 9e-06,
+          "ROUT.model_params.l": 4.6e-05
+        },
+        "state": "Passed",
+        "values": [
+          0.5874103484305496,
+          0.5997455110847834,
+          0.615671154039394
+        ],
+        "scores": [
+          0.012589651569450355,
+          0.00025448891521662187,
+          0.01567115403939401
+        ],
+        "failures": [],
+        "failure_details": [],
+        "evidence_errors": [],
+        "constraints": {
+          "setup:0 / Reference initial window": -0.12046977994372282
+        },
+        "metrics": [
+          {
+            "values": [
+              0.5874103484305496,
+              0.5997455110847834,
+              0.615671154039394
+            ],
+            "scores": [
+              0.012589651569450355,
+              0.00025448891521662187,
+              0.01567115403939401
+            ],
+            "score": 0.01567115403939401,
+            "value": 0.615671154039394
+          }
+        ],
+        "points": [],
+        "runs": [
+          "1",
+          "2",
+          "3"
+        ],
+        "complete": 3,
+        "total": 3,
+        "score": 0.01567115403939401,
+        "worst_value": 0.615671154039394,
+        "pareto": false
+      },
+      {
+        "candidate": 2,
+        "changes": {
+          "RPTAT.model_params.l": 9e-06,
+          "ROUT.model_params.l": 4.8e-05
+        },
+        "state": "Passed",
+        "values": [
+          0.6127627310565341,
+          0.6256884116691313,
+          0.6423336444558762
+        ],
+        "scores": [
+          0.012762731056534138,
+          0.025688411669131272,
+          0.042333644455876174
+        ],
+        "failures": [],
+        "failure_details": [],
+        "evidence_errors": [],
+        "constraints": {
+          "setup:0 / Reference initial window": -0.08238050792017687
+        },
+        "metrics": [
+          {
+            "values": [
+              0.6127627310565341,
+              0.6256884116691313,
+              0.6423336444558762
+            ],
+            "scores": [
+              0.012762731056534138,
+              0.025688411669131272,
+              0.042333644455876174
+            ],
+            "score": 0.042333644455876174,
+            "value": 0.6423336444558762
+          }
+        ],
+        "points": [],
+        "runs": [
+          "4",
+          "5",
+          "6"
+        ],
+        "complete": 3,
+        "total": 3,
+        "score": 0.042333644455876174,
+        "worst_value": 0.6423336444558762,
+        "pareto": false
+      },
+      {
+        "candidate": 3,
+        "changes": {
+          "RPTAT.model_params.l": 9e-06,
+          "ROUT.model_params.l": 4.9999999999999996e-05
+        },
+        "state": "Passed",
+        "values": [
+          0.6381118925199246,
+          0.6516279687252633,
+          0.6689926204965742
+        ],
+        "scores": [
+          0.03811189251992464,
+          0.05162796872526332,
+          0.06899262049657418
+        ],
+        "failures": [],
+        "failure_details": [],
+        "evidence_errors": [],
+        "constraints": {
+          "setup:0 / Reference initial window": -0.044296256433465436
+        },
+        "metrics": [
+          {
+            "values": [
+              0.6381118925199246,
+              0.6516279687252633,
+              0.6689926204965742
+            ],
+            "scores": [
+              0.03811189251992464,
+              0.05162796872526332,
+              0.06899262049657418
+            ],
+            "score": 0.06899262049657418,
+            "value": 0.6689926204965742
+          }
+        ],
+        "points": [],
+        "runs": [
+          "7",
+          "8",
+          "9"
+        ],
+        "complete": 3,
+        "total": 3,
+        "score": 0.06899262049657418,
+        "worst_value": 0.6689926204965742,
+        "pareto": false
+      },
+      {
+        "candidate": 4,
+        "changes": {
+          "RPTAT.model_params.l": 9.999999999999999e-06,
+          "ROUT.model_params.l": 4.6e-05
+        },
+        "state": "Passed",
+        "values": [
+          0.5659835624158595,
+          0.5716341635700488,
+          0.577912699486387
+        ],
+        "scores": [
+          0.034016437584140524,
+          0.028365836429951163,
+          0.022087300513612962
+        ],
+        "failures": [],
+        "failure_details": [],
+        "evidence_errors": [],
+        "constraints": {
+          "setup:0 / Reference initial window": -0.09426223202265636
+        },
+        "metrics": [
+          {
+            "values": [
+              0.5659835624158595,
+              0.5716341635700488,
+              0.577912699486387
+            ],
+            "scores": [
+              0.034016437584140524,
+              0.028365836429951163,
+              0.022087300513612962
+            ],
+            "score": 0.034016437584140524,
+            "value": 0.5659835624158595
+          }
+        ],
+        "points": [],
+        "runs": [
+          "10",
+          "11",
+          "12"
+        ],
+        "complete": 3,
+        "total": 3,
+        "score": 0.034016437584140524,
+        "worst_value": 0.5659835624158595,
+        "pareto": false
+      },
+      {
+        "candidate": 5,
+        "changes": {
+          "RPTAT.model_params.l": 9.999999999999999e-06,
+          "ROUT.model_params.l": 4.8e-05
+        },
+        "state": "Passed",
+        "values": [
+          0.5904123662448795,
+          0.5963627959926806,
+          0.6029425528309175
+        ],
+        "scores": [
+          0.009587633755120506,
+          0.0036372040073193723,
+          0.0029425528309174886
+        ],
+        "failures": [],
+        "failure_details": [],
+        "evidence_errors": [],
+        "constraints": {
+          "setup:0 / Reference initial window": -0.1291605232069707
+        },
+        "metrics": [
+          {
+            "values": [
+              0.5904123662448795,
+              0.5963627959926806,
+              0.6029425528309175
+            ],
+            "scores": [
+              0.009587633755120506,
+              0.0036372040073193723,
+              0.0029425528309174886
+            ],
+            "score": 0.009587633755120506,
+            "value": 0.5904123662448795
+          }
+        ],
+        "points": [],
+        "runs": [
+          "13",
+          "14",
+          "15"
+        ],
+        "complete": 3,
+        "total": 3,
+        "score": 0.009587633755120506,
+        "worst_value": 0.5904123662448795,
+        "pareto": false
+      },
+      {
+        "candidate": 6,
+        "changes": {
+          "RPTAT.model_params.l": 9.999999999999999e-06,
+          "ROUT.model_params.l": 4.9999999999999996e-05
+        },
+        "state": "Passed",
+        "values": [
+          0.6148382190658083,
+          0.6210884477382982,
+          0.6279693921356603
+        ],
+        "scores": [
+          0.014838219065808289,
+          0.02108844773829821,
+          0.027969392135660298
+        ],
+        "failures": [],
+        "failure_details": [],
+        "evidence_errors": [],
+        "constraints": {
+          "setup:0 / Reference initial window": -0.10290086837762812
+        },
+        "metrics": [
+          {
+            "values": [
+              0.6148382190658083,
+              0.6210884477382982,
+              0.6279693921356603
+            ],
+            "scores": [
+              0.014838219065808289,
+              0.02108844773829821,
+              0.027969392135660298
+            ],
+            "score": 0.027969392135660298,
+            "value": 0.6279693921356603
+          }
+        ],
+        "points": [],
+        "runs": [
+          "16",
+          "17",
+          "18"
+        ],
+        "complete": 3,
+        "total": 3,
+        "score": 0.027969392135660298,
+        "worst_value": 0.6279693921356603,
+        "pareto": false
+      },
+      {
+        "candidate": 7,
+        "changes": {
+          "RPTAT.model_params.l": 1.1e-05,
+          "ROUT.model_params.l": 4.6e-05
+        },
+        "state": "Passed",
+        "values": [
+          0.5482833438964264,
+          0.5484580478447512,
+          0.5468210339283954
+        ],
+        "scores": [
+          0.051716656103573566,
+          0.051541952155248816,
+          0.05317896607160455
+        ],
+        "failures": [],
+        "failure_details": [],
+        "evidence_errors": [],
+        "constraints": {
+          "setup:0 / Reference initial window": -0.06688719132627918
+        },
+        "metrics": [
+          {
+            "values": [
+              0.5482833438964264,
+              0.5484580478447512,
+              0.5468210339283954
+            ],
+            "scores": [
+              0.051716656103573566,
+              0.051541952155248816,
+              0.05317896607160455
+            ],
+            "score": 0.05317896607160455,
+            "value": 0.5468210339283954
+          }
+        ],
+        "points": [],
+        "runs": [
+          "19",
+          "20",
+          "21"
+        ],
+        "complete": 3,
+        "total": 3,
+        "score": 0.05317896607160455,
+        "worst_value": 0.5468210339283954,
+        "pareto": false
+      },
+      {
+        "candidate": 8,
+        "changes": {
+          "RPTAT.model_params.l": 1.1e-05,
+          "ROUT.model_params.l": 4.8e-05
+        },
+        "state": "Passed",
+        "values": [
+          0.5719490868854804,
+          0.5721853938741879,
+          0.5705061590926123
+        ],
+        "scores": [
+          0.02805091311451957,
+          0.027814606125812102,
+          0.029493840907387714
+        ],
+        "failures": [],
+        "failure_details": [],
+        "evidence_errors": [],
+        "constraints": {
+          "setup:0 / Reference initial window": -0.10072308441801753
+        },
+        "metrics": [
+          {
+            "values": [
+              0.5719490868854804,
+              0.5721853938741879,
+              0.5705061590926123
+            ],
+            "scores": [
+              0.02805091311451957,
+              0.027814606125812102,
+              0.029493840907387714
+            ],
+            "score": 0.029493840907387714,
+            "value": 0.5705061590926123
+          }
+        ],
+        "points": [],
+        "runs": [
+          "22",
+          "23",
+          "24"
+        ],
+        "complete": 3,
+        "total": 3,
+        "score": 0.029493840907387714,
+        "worst_value": 0.5705061590926123,
+        "pareto": false
+      },
+      {
+        "candidate": 9,
+        "changes": {
+          "RPTAT.model_params.l": 1.1e-05,
+          "ROUT.model_params.l": 4.9999999999999996e-05
+        },
+        "state": "Passed",
+        "values": [
+          0.5956120894154638,
+          0.5959100370240207,
+          0.5941886435479099
+        ],
+        "scores": [
+          0.004387910584536137,
+          0.0040899629759793,
+          0.005811356452090077
+        ],
+        "failures": [],
+        "failure_details": [],
+        "evidence_errors": [],
+        "constraints": {
+          "setup:0 / Reference initial window": -0.13455520506844273
+        },
+        "metrics": [
+          {
+            "values": [
+              0.5956120894154638,
+              0.5959100370240207,
+              0.5941886435479099
+            ],
+            "scores": [
+              0.004387910584536137,
+              0.0040899629759793,
+              0.005811356452090077
+            ],
+            "score": 0.005811356452090077,
+            "value": 0.5941886435479099
+          }
+        ],
+        "points": [],
+        "runs": [
+          "25",
+          "26",
+          "27"
+        ],
+        "complete": 3,
+        "total": 3,
+        "score": 0.005811356452090077,
+        "worst_value": 0.5941886435479099,
+        "pareto": true
+      }
+    ]
+  },
+  "limitations": [
+    "Only nominal process corner and three temperatures checked.",
+    "Startup overshoot fails; no loop-gain, mismatch, load or extracted-layout qualification."
+  ]
+}

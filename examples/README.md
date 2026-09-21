@@ -41,3 +41,7 @@ Additional `.icproj` files are working development examples; the gallery provide
 The gallery includes the supplied GF180 bandgap in two forms: a short 5 V / 25 °C startup check and the byte-for-byte original 144-analysis characterization. A SKY130 1.8 V inverter is also included. Open a copy and press F5; bundled symbols and models resolve automatically.
 
 The original upload and its identity record are in `gf180-bandgap/`. The short variant changes only the simulation control block. See [simulation setup](../SIMULATION_SETUP.md) for output locations and validation scope.
+
+## Native Banba design exercise
+
+[GF180MCU Banba bandgap](gf180-banba/README.md) starts a new 3.3 V current-mode reference from editable native schematics. It includes a transistor-level amplifier, startup circuit, two testbench sheets and a 27-simulation resistor search. The saved candidate produces about 0.596 V at 27 °C. Fast startup still overshoots and is explicitly marked as a failing requirement; this is an unfinished analog design exercise.
