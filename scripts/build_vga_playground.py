@@ -47,6 +47,22 @@ def build(source=None, run_tests=False):
             raise ValueError('A preset now needs a distinct license: ' + str(license_file))
     shutil.copy2(ROOT / 'packaging/vga/studio.ts', src / 'src/index.ts')
     shutil.copy2(ROOT / 'packaging/vga/studio.spec.ts', src / 'src/studio.spec.ts')
+    shutil.copy2(ROOT / 'packaging/vga/audio-lifecycle.spec.ts', src / 'src/audio-lifecycle.spec.ts')
+    audio_player = src / 'src/AudioPlayer.ts'
+    text = audio_player.read_text(encoding='utf-8')
+    # Worklet loading is asynchronous. Hiding the preview can cancel playback
+    # before it finishes; the upstream unconditional resume then undoes that
+    # suspension when the user returns to the preview. Reuse the player's
+    # pending playback request, which suspend() already clears.
+    text = replace_once(text, "      this.audioCtx.resume().then(() => {\n"
+                        "        console.log('Audio playback started');\n"
+                        "      });",
+                        "      if (this.resumeScheduled) {\n"
+                        "        this.audioCtx.resume().then(() => {\n"
+                        "          console.log('Audio playback started');\n"
+                        "        });\n"
+                        "      }")
+    audio_player.write_text(text, encoding='utf-8')
     with (src / 'src/index.css').open('a', encoding='utf-8') as stream:
         stream.write('\n' + (ROOT / 'packaging/vga/studio.css').read_text(encoding='utf-8'))
     html = (src / 'index.html').read_text(encoding='utf-8')
