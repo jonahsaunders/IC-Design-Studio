@@ -202,9 +202,10 @@ class WorkspaceMixin:
                 if c['id']==self.cid and mode==self.mode_combo.currentIndex():self.tree.setCurrentItem(sub)
         self.tree.setMaximumHeight(min(300,36*(len(self.project['cells'])+2)+10));self.cell_combo.setCurrentIndex(next(i for i,c in enumerate(self.project['cells']) if c['id']==self.cid))
         self.schematic.set_data(self.cell,self.project['pdk'],self.selection,self.net);self.layout.set_data(self.cell,self.project['pdk'],self.selection,self.net,revision=self.project['revision'])
-        self.outline.blockSignals(True);self.outline.clear()
+        self.outline.blockSignals(True);self.outline.clear();outline_icons={}
         for d in self.cell['devices']:
-            it=QListWidgetItem(d['name']+'   '+device_description(d));it.setData(Qt.UserRole,d['id']);it.setToolTip(d['name']+' · '+d.get('value',''));it.setIcon(icon(DEVICE_ICONS[d['kind']],t['muted']));self.outline.addItem(it);it.setSelected(d['id'] in self.selection)
+            if d['kind'] not in outline_icons:outline_icons[d['kind']]=icon(DEVICE_ICONS[d['kind']],t['muted'])
+            it=QListWidgetItem(d['name']+'   '+device_description(d));it.setData(Qt.UserRole,d['id']);it.setToolTip(d['name']+' · '+d.get('value',''));it.setIcon(outline_icons[d['kind']]);self.outline.addItem(it);it.setSelected(d['id'] in self.selection)
         self.outline.blockSignals(False);self.nav_empty.setVisible(not self.cell['devices']);self.layers.blockSignals(True);self.layers.clear()
         for l in self.project['pdk']['layers']:
             it=QListWidgetItem(l['name']);it.setIcon(icon('layers',l['color']));it.setFlags(it.flags()|Qt.ItemIsUserCheckable);it.setCheckState(Qt.Checked if l['name'] in self.layout.visible_layers else Qt.Unchecked);self.layers.addItem(it)

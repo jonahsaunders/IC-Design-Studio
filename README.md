@@ -221,7 +221,7 @@ For digital design with automatic tool setup, use the [complete desktop package]
 **Linux / macOS:**
 
 ```sh
-git clone --branch codex/analog-reference-qualification https://github.com/jonahsaunders/IC-Design-Studio.git
+git clone --branch experimental https://github.com/jonahsaunders/IC-Design-Studio.git
 cd IC-Design-Studio
 python3.12 -m venv .venv
 source .venv/bin/activate

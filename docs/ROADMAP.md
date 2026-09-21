@@ -17,6 +17,9 @@ The current acceptance sequence is:
 1. Qualify the exact candidate on all six hosted workflows, then collect clean
    Windows/Linux, physical LAN/VPN and signing-policy observations. Keep earlier
    drafts tied to their own commits. See [release gates](RELEASE_FOLLOWUPS.md).
+   The existing dev25 draft at `a88cfe1cfe20254638b7bd97ec9128e843578282`
+   passed its six hosted gates. Follow the [acceptance handoff](DEV25_ACCEPTANCE_HANDOFF.md)
+   for the still-open manual checks; later experimental changes need fresh gates.
 2. Maintain the [76-case process-RC qualification](validation/dev25/process-rc.json)
    on the selected candidate, using saved benches, operating conditions and
    deliberate geometry/netlist faults with pinned Magic, Netgen and ngspice.
@@ -42,11 +45,14 @@ conversion warnings, broader detector PVT/transient checks, general offline
 editing, managed internet hosting and measured desktop responsiveness.
 
 The [dev25 desktop measurements](validation/dev25/desktop-scale.json) now provide
-a correctness and timing baseline for two workloads under offscreen Qt 6.8.3.
+a historical correctness and timing baseline for two workloads under offscreen Qt 6.8.3.
 The three-level amplifier bank's median schematic/layout edits are 137/206 ms;
 the synthetic 500-device, 10,000-shape workload takes 1.70/1.74 s. Reduce that
-large-edit latency and define explicit response-time budgets before claiming
-responsiveness acceptance. Repeat the checks on native consumer displays;
+large-edit latency before claiming responsiveness acceptance. The
+[experimental follow-up](DESKTOP_RESPONSIVENESS.md) removes redundant copying
+and icon drawing and introduces a 1,500 ms regression ceiling for every measured
+edit/undo/redo sample. Sub-200 ms native editing remains a further goal.
+Repeat the checks on native consumer displays;
 offscreen repaint timings do not measure hardware presentation latency.
 
 ## Experimental dev21: workflow and recovery

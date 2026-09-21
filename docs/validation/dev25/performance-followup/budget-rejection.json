@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "negative_test": "An intentionally impossible 1 ms edit budget returns exit 1 and records all 16 workload/stage failures.",
+  "requested_max_edit_ms": 1,
+  "observed_report_status": "failed",
+  "exceeded": [
+    "hierarchical-analog/layout_edit_and_full_refresh",
+    "hierarchical-analog/layout_undo_and_full_refresh",
+    "hierarchical-analog/layout_redo_and_full_refresh",
+    "hierarchical-analog/layout_restore_and_full_refresh",
+    "hierarchical-analog/edit_and_full_refresh",
+    "hierarchical-analog/undo_and_full_refresh",
+    "hierarchical-analog/redo_and_full_refresh",
+    "hierarchical-analog/unsaved_edit_and_refresh",
+    "synthetic-large/layout_edit_and_full_refresh",
+    "synthetic-large/layout_undo_and_full_refresh",
+    "synthetic-large/layout_redo_and_full_refresh",
+    "synthetic-large/layout_restore_and_full_refresh",
+    "synthetic-large/edit_and_full_refresh",
+    "synthetic-large/undo_and_full_refresh",
+    "synthetic-large/redo_and_full_refresh",
+    "synthetic-large/unsaved_edit_and_refresh"
+  ],
+  "source": {
+    "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+    "sources": "0dc1f702bc4699498410f29e5cf6717fdde7b2abca6666ca9466b0be7c6e7a4a"
+  },
+  "source_unchanged": true
+}

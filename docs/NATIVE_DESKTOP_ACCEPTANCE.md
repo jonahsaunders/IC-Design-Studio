@@ -1,7 +1,9 @@
 # Native Windows and Ubuntu acceptance
 
 Use the exact dev25 installer/portable archive whose source commit passed the
-desktop, interoperability, physical, digital and VGA workflows. Launch without a preinstalled
+desktop, interoperability, physical, digital, VGA and statistical workflows. The
+[dev25 handoff](DEV25_ACCEPTANCE_HANDOFF.md) identifies the existing draft and
+package digests; later experimental changes require newly qualified packages. Launch without a preinstalled
 Python or EDA toolchain. Keep the complete application directory together.
 
 Run `ICDesignStudio.exe --desktop-acceptance acceptance-dev25` on Windows, or

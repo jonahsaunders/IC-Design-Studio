@@ -5,6 +5,12 @@ acceptance have separate completion criteria. Attach the exact source commit,
 package SHA-256 and observations; a closed issue without evidence does not
 qualify a platform or distribution policy.
 
+The existing dev25 draft passed all six hosted gates at
+`a88cfe1cfe20254638b7bd97ec9128e843578282`. The
+[acceptance handoff](DEV25_ACCEPTANCE_HANDOFF.md) provides its package digests,
+native commands and the outstanding signing/LAN/VPN checks. All four manual
+gates below remain open; later experimental source changes require fresh packages.
+
 | Gate | Tracking | Required evidence |
 |---|---|---|
 | Clean Windows 10/11 | [#8](https://github.com/jonahsaunders/IC-Design-Studio/issues/8) | Install without Python/EDA tools, first simulation, real PDK example, save/reopen, cancellation/recovery, paths with spaces, portable archive, upgrades, 100/150/200% and mixed-monitor scaling, keyboard/screen-reader review, uninstall preserving projects. |

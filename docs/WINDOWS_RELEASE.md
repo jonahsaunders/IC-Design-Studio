@@ -1,6 +1,9 @@
 # Build and verify the Windows desktop release
 
-Status: implemented pipeline; not executed on Windows in the current delivery. The source archive is platform-neutral and contains no Linux shared libraries.
+Status: the dev25 [hosted release run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/35550664971)
+passed Windows Server 2022 installer execution, installed DPI probes and portable
+archive checks at `a88cfe1cfe20254638b7bd97ec9128e843578282`. Clean consumer
+Windows 10/11 acceptance remains open. See the [acceptance handoff](DEV25_ACCEPTANCE_HANDOFF.md).
 
 ## Build on Windows 10/11 x64
 
@@ -19,10 +22,12 @@ Run `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify_windows.
 
 Evidence is saved under `build/windows-evidence`. The frozen executable's `--release-test <directory>` mode writes a machine-readable report and screenshot, including a real worker simulation. The GitHub Actions workflow runs core and GUI regression tests before installer verification, then retains build/evidence artifacts even on failure.
 
-This automated smoke coverage still needs a completed Windows run and human checks for display transitions, accessibility, installation upgrade behavior and normal keyboard/mouse use. Passing a build alone is not a Windows qualification result.
+The hosted run completed these automated checks. Human checks for display transitions,
+accessibility, installation upgrade behavior and normal keyboard/mouse use still
+need consumer-machine records. Passing hosted execution alone does not close them.
 
 Installer references: https://jrsoftware.org/ishelp/topic_setup_architecturesallowed.htm and https://jrsoftware.org/ishelp/topic_setup_privilegesrequired.htm.
 
-## 0.6–0.8 verification additions
+## Historical 0.6–0.8 verification additions
 
 The desktop CI job also runs gui_project_pdk.py, gui_lifecycle.py, gui_usability.py , gui_silicon.py and gui_hierarchy.py before packaging. The installed-app probe verifies independent project duplication, parameterized SPICE component import, the simulation runtime dialog the physical workflow tab, and saved-testbench editor/persistence in addition to save/reopen, keyboard and worker checks. The workflow provisions Inno Setup when it is missing. These definitions have been prepared and Linux-tested where applicable, but still require execution on Windows. The actual Magic/Netgen/ngspice physical flow is qualified on Linux only; automatic Windows/WSL tool installation and path translation are not implemented.

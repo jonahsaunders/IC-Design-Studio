@@ -27,7 +27,10 @@ class SchematicMixin(AnnotationMixin,NetLabelMixin):
     def commit(self,fn,label='Edit'):
         def transaction(p):
             if getattr(self,'_capture_raw_transaction',False):fn(p);return
-            before={c['id']:clone(c) for c in p['cells']}
+            # History already isolated p from the published project before
+            # invoking us. Connectivity repair only reads the previous cells;
+            # copying them again duplicated every untouched layout shape.
+            before={c['id']:c for c in self.project['cells']}
             fn(p)
             for cell in p['cells']:
                 old=before.get(cell['id'])

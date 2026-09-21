@@ -23,6 +23,12 @@ import traceback
 
 
 ROOT = Path(__file__).resolve().parents[1]
+EDIT_STAGES = (
+    'layout_edit_and_full_refresh', 'layout_undo_and_full_refresh',
+    'layout_redo_and_full_refresh', 'layout_restore_and_full_refresh',
+    'edit_and_full_refresh', 'undo_and_full_refresh',
+    'redo_and_full_refresh', 'unsaved_edit_and_refresh',
+)
 
 
 def memory_reader():
@@ -136,10 +142,11 @@ def main(argv=None):
     parser.add_argument('--iterations', type=int, default=3)
     parser.add_argument('--display-class', choices=('auto', 'offscreen', 'virtual', 'native'), default='auto')
     parser.add_argument('--max-stage-ms', type=float, help='Optional maximum for any measured foreground stage.')
+    parser.add_argument('--max-edit-ms', type=float, help='Maximum for every edit/undo/redo sample, including immediate refresh/repaint; excludes loading and saving.')
     parser.add_argument('--max-rss-mib', type=float, help='Optional sampled process RSS maximum.')
     args = parser.parse_args(argv)
     if not 1 <= args.iterations <= 20: parser.error('Use 1–20 iterations.')
-    for value in (args.max_stage_ms, args.max_rss_mib):
+    for value in (args.max_stage_ms, args.max_edit_ms, args.max_rss_mib):
         if value is not None and (not math.isfinite(value) or value <= 0): parser.error('Budgets must be finite and positive.')
     out = args.out.resolve(); out.mkdir(parents=True, exist_ok=True)
     os.environ['XDG_CONFIG_HOME'] = str(out / 'profile/config')
@@ -216,8 +223,9 @@ def main(argv=None):
                 'live_layout_checks': studio.live_check.isChecked()},
             timing_scope='Foreground Studio operation, queued immediate Qt work and synchronous QWidget repaint. Recovery completion measured separately. Startup includes a 200 ms deferred-restoration drain.',
             qualification='Recorded source/workloads/backend only. No external simulation, live DRC, GPU/display presentation latency, assistive technology or consumer-hardware qualification.',
-            budgets={'max_stage_ms': args.max_stage_ms, 'max_rss_mib': args.max_rss_mib,
-                     'status': 'not_configured' if args.max_stage_ms is None and args.max_rss_mib is None else 'pending'})
+            budgets={'max_stage_ms': args.max_stage_ms, 'max_edit_ms': args.max_edit_ms,
+                     'edit_stages': list(EDIT_STAGES), 'max_rss_mib': args.max_rss_mib,
+                     'status': 'not_configured' if all(v is None for v in (args.max_stage_ms,args.max_edit_ms,args.max_rss_mib)) else 'pending'})
         for name, project, edit_cid, description in workloads():
             work = out / name; work.mkdir(exist_ok=True)
             save_project(project, work / 'input.icproj')
@@ -326,6 +334,9 @@ def main(argv=None):
         if args.max_stage_ms is not None and report['startup_ms'] > args.max_stage_ms:
             exceeded.append('startup')
         for row in report['workloads']:
+            if args.max_edit_ms is not None:
+                exceeded += [row['name'] + '/' + key for key in EDIT_STAGES
+                             if row['timings_ms'][key]['max'] > args.max_edit_ms]
             if args.max_stage_ms is not None:
                 exceeded += [row['name'] + '/' + key for key, value in row['timings_ms'].items() if value['max'] > args.max_stage_ms]
             if args.max_rss_mib is not None:
