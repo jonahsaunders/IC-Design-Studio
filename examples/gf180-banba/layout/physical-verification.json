@@ -1,32 +1,928 @@
 {
   "schema": 1,
-  "status": "blocked",
-  "gds_sha256": "8bf57a6d4fb171ce870f85408c403c4449467196b5272a8fb2bb69a27e03d19d",
-  "deck_repository": "https://github.com/efabless/globalfoundries-pdk-libs-gf180mcu_fd_pv",
-  "deck_commit": "05e7b6adf19edf942969c1c9625f02fd87874f06",
-  "generated_deck_sha256": "6dc75a3d23e55c806bdc71241fbe5bdf94b731d9bb780ba52ad53ef11c999774",
-  "layer_definitions_sha256": "7e4832a2966d4124ee0e475063c5365cf698b70233287fdbf60465aecb3402c3",
-  "runtime": "KLayout 0.28.15 / Ubuntu 24.04 package",
-  "runtime_sha256": "219093e3347e402aefecc49432d6e2ab1830c4983b980e83078b77d270a04c2e",
-  "flags": {
-    "variant": "B",
-    "metal_level": "4LM",
-    "metal_top": "11K",
-    "mim_option": "B",
-    "topcell": "banba_layout",
-    "feol": true,
-    "beol": true,
-    "conn_drc": true,
-    "offgrid": true,
-    "run_mode": "flat",
-    "threads": 2
+  "project_sha256": "62cecbee9ea7f99e3067cda6db1e0afd954edeaed820d617a23fe6e8de70cca8",
+  "gds_sha256": "5a9c8bb450768f8d09b1c9d0043a10e25f0de1ea64fc43f5932c251e1813b6dd",
+  "variant": "B: 4LM, MIM B 2fF, top metal 11K",
+  "pv_commit": "05e7b6adf19edf942969c1c9625f02fd87874f06",
+  "open_pdks_commit": "aa3fc215a80d32437b8cca1cb3fdee819d18c4c9",
+  "signoff": false,
+  "tools": {
+    "klayout": {
+      "launcher_sha256": "ca9842dd94a9b2e3390873402ef1cf497151241908f43cf3ac6d7131a1839026",
+      "version_log": "KLayout 0.28.16\n"
+    },
+    "magic": {
+      "launcher_sha256": "439cd76ff88c9712dd5dc59b634e8fd9b47f2a97e6efaf67bbcccd1238757c5c",
+      "version_log": "8.3.684\n"
+    },
+    "ngspice": {
+      "launcher_sha256": "1c42558d09d2edc5e5875e295be53c81c37ea5d5f6674e00c5ecdc300719cd8a",
+      "version_log": "******\n** ngspice-42 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2023, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Sun Mar 31 20:15:14 UTC 2024\n******\n"
+    }
   },
-  "result": "Standalone KLayout crashed during embedded Python interpreter initialization, before the rule deck executed. No foundry DRC result database was produced.",
-  "observed_error": "Ruby reports SIGSEGV; native backtrace enters libpython3.12 PyUnicode_New from pya::PythonInterpreter construction.",
-  "foundry_drc": "unverified",
-  "foundry_lvs": "not run",
-  "density": "not run",
-  "antenna": "not run",
-  "parasitic_extraction": "not run",
-  "rerun": "python /path/to/gf180-pv/klayout/drc/run_drc.py --path=banba-layout.gds --variant=B --topcell=banba_layout --run_dir=/new/drc --thr=2"
+  "drc": {
+    "exit_code": 1,
+    "reports": {
+      "banba-layout_main.lyrdb": {
+        "items": 0,
+        "rules": {}
+      },
+      "banba-layout_density.lyrdb": {
+        "items": 314,
+        "rules": {
+          "PL.8": 64,
+          "M1.4": 148,
+          "M2.4": 102
+        }
+      },
+      "banba-layout_antenna.lyrdb": {
+        "items": 0,
+        "rules": {}
+      }
+    }
+  },
+  "lvs": {
+    "passed": true,
+    "pairs": {
+      "net": 56,
+      "device": 103,
+      "pin": 3
+    },
+    "circuits": [
+      {
+        "layout": "banba_layout",
+        "schematic": "BANBA_LAYOUT",
+        "status": "Match"
+      }
+    ]
+  },
+  "technology_sha256": "e3282c833847f07db3d49210e9e96b6d711ab7d815537fd9c9746a74c27a3e5b",
+  "capacitance": {
+    "status": "passed",
+    "devices": 103,
+    "capacitances": 175,
+    "total_capacitance_f": 2.36606343e-12,
+    "ports": [
+      "VDD",
+      "VREF",
+      "VSS"
+    ],
+    "sha256": "0d9d5151676a41f6ea878b31e0a099dd67b6bb522cffb344899424817cae186b"
+  },
+  "rc": {
+    "status": "blocked",
+    "reason": "Magic 8.3.684 crashes during distributed resistance extraction; rejected output is incomplete."
+  },
+  "simulation": {
+    "scope": "C-only extraction, measured MOS junction geometry; no distributed wire R.",
+    "load_f": 5e-12,
+    "pvt": [
+      {
+        "corner": "nominal",
+        "temperature": -40,
+        "supply": 2.7,
+        "vref": 0.599685633252959,
+        "supply_current": 3.916082634975928e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.5996856324804186,
+            "peak_vref": 0.599685637573658,
+            "settling_seconds": 7.291850532151949e-05,
+            "tail_peak_to_peak": 5.368530431315577e-08,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5996856210405377,
+            "peak_vref": 0.6480878331950863,
+            "settling_seconds": 4.555000000000026e-05,
+            "tail_peak_to_peak": 6.197625739279289e-07,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5996856332083331,
+            "peak_vref": 0.6035224459506229,
+            "settling_seconds": 0.0006128171005330411,
+            "tail_peak_to_peak": 1.7729595569448975e-11,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "nominal",
+        "temperature": -40,
+        "supply": 3.6,
+        "vref": 0.5997009794700494,
+        "supply_current": 4.221056080336658e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.5997009791853379,
+            "peak_vref": 0.5997009791853379,
+            "settling_seconds": 7.047211797208825e-05,
+            "tail_peak_to_peak": 2.459544001798264e-08,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5997009795973618,
+            "peak_vref": 0.6871656039952314,
+            "settling_seconds": 5.881668766924269e-05,
+            "tail_peak_to_peak": 6.943438823903136e-09,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5997009794804236,
+            "peak_vref": 0.6040282329215056,
+            "settling_seconds": 0.0004818356599180869,
+            "tail_peak_to_peak": 3.078504118292358e-11,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "nominal",
+        "temperature": 125,
+        "supply": 2.7,
+        "vref": 0.5996652858758054,
+        "supply_current": 4.53675655102113e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.5996652858900969,
+            "peak_vref": 0.5996652858900969,
+            "settling_seconds": 6.53363007564782e-05,
+            "tail_peak_to_peak": 2.004882371231531e-09,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5996652858804902,
+            "peak_vref": 0.5996652858844002,
+            "settling_seconds": 5.095000000000039e-05,
+            "tail_peak_to_peak": 1.4390388880514138e-09,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5996652858592412,
+            "peak_vref": 0.6401752284934141,
+            "settling_seconds": 0.0005959799999999995,
+            "tail_peak_to_peak": 1.1536438471182464e-11,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "nominal",
+        "temperature": 125,
+        "supply": 3.6,
+        "vref": 0.5998218041902847,
+        "supply_current": 4.878585657346675e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.5998218049136212,
+            "peak_vref": 0.5998218049136212,
+            "settling_seconds": 6.33225403640885e-05,
+            "tail_peak_to_peak": 1.9768939818476383e-09,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5998218047623809,
+            "peak_vref": 0.6793165866287362,
+            "settling_seconds": 5.222000579606186e-05,
+            "tail_peak_to_peak": 9.580373161455213e-10,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5998218047427615,
+            "peak_vref": 0.6448287881699151,
+            "settling_seconds": 0.0004600448049703479,
+            "tail_peak_to_peak": 9.53748191534487e-12,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "ff",
+        "temperature": -40,
+        "supply": 2.7,
+        "vref": 0.5990598084282914,
+        "supply_current": 4.92206929610787e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.5990597903928322,
+            "peak_vref": 0.5990597903997573,
+            "settling_seconds": 5.380509697909104e-05,
+            "tail_peak_to_peak": 6.842382216376564e-11,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5990597903707797,
+            "peak_vref": 0.6128294449014593,
+            "settling_seconds": 2.264999999999997e-05,
+            "tail_peak_to_peak": 1.69641856118119e-10,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5990597903447646,
+            "peak_vref": 0.6020216242720852,
+            "settling_seconds": 0.0005911464460295952,
+            "tail_peak_to_peak": 1.9862222977451438e-11,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "ff",
+        "temperature": -40,
+        "supply": 3.6,
+        "vref": 0.5990801114757787,
+        "supply_current": 5.301856063304144e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.5990801043636254,
+            "peak_vref": 0.5990801043636254,
+            "settling_seconds": 4.799476579597474e-05,
+            "tail_peak_to_peak": 3.7146175024815875e-11,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5990801043580017,
+            "peak_vref": 0.6459609723799733,
+            "settling_seconds": 2.863311677038152e-05,
+            "tail_peak_to_peak": 9.05953090324374e-12,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5990801043039272,
+            "peak_vref": 0.6024158726912993,
+            "settling_seconds": 0.000459064202941116,
+            "tail_peak_to_peak": 2.672806420633833e-11,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "ff",
+        "temperature": 125,
+        "supply": 2.7,
+        "vref": 0.5988986492937587,
+        "supply_current": 5.699440260432517e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.5988986493575825,
+            "peak_vref": 0.5988986493681827,
+            "settling_seconds": 4.660486315731286e-05,
+            "tail_peak_to_peak": 1.0240142067630131e-11,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5988986493205201,
+            "peak_vref": 0.608197818892171,
+            "settling_seconds": 2.364999999999996e-05,
+            "tail_peak_to_peak": 5.014433313021982e-12,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5988986492957742,
+            "peak_vref": 0.6312502240094323,
+            "settling_seconds": 0.0005568521268883023,
+            "tail_peak_to_peak": 1.2587153541687712e-11,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "ff",
+        "temperature": 125,
+        "supply": 3.6,
+        "vref": 0.5990981020927432,
+        "supply_current": 6.12486459102815e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.5990981021393542,
+            "peak_vref": 0.5990981021525875,
+            "settling_seconds": 4.492026034568315e-05,
+            "tail_peak_to_peak": 1.3564926959475088e-11,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5990981021098685,
+            "peak_vref": 0.6343369514155824,
+            "settling_seconds": 2.792869601288186e-05,
+            "tail_peak_to_peak": 3.822941962994264e-12,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5990981020902151,
+            "peak_vref": 0.6346815678527675,
+            "settling_seconds": 0.0004261198867026483,
+            "tail_peak_to_peak": 1.2115974890036796e-11,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "ss",
+        "temperature": -40,
+        "supply": 2.7,
+        "vref": 0.6015699578794091,
+        "supply_current": 3.247950390457657e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.6015699386324607,
+            "peak_vref": 0.6015699603150889,
+            "settling_seconds": 9.536113430865068e-05,
+            "tail_peak_to_peak": 1.9299252161930625e-06,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.6015675427606882,
+            "peak_vref": 0.6171258993170858,
+            "settling_seconds": 3.591013773317728e-05,
+            "tail_peak_to_peak": 3.703110981023716e-05,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.6015699578944974,
+            "peak_vref": 0.6058432062401651,
+            "settling_seconds": 0.0006724315760371406,
+            "tail_peak_to_peak": 1.4167389483787929e-09,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "ss",
+        "temperature": -40,
+        "supply": 3.6,
+        "vref": 0.601579580827571,
+        "supply_current": 3.502609560506313e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.6015795252358492,
+            "peak_vref": 0.6015795252358492,
+            "settling_seconds": 9.098458005294153e-05,
+            "tail_peak_to_peak": 1.4555819742856357e-06,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.6015796124091481,
+            "peak_vref": 0.7461064172025371,
+            "settling_seconds": 8.89535611011272e-05,
+            "tail_peak_to_peak": 1.3133431477907465e-06,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.6015795807537048,
+            "peak_vref": 0.6066568615107527,
+            "settling_seconds": 0.000530897329388809,
+            "tail_peak_to_peak": 2.483113714646379e-11,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "ss",
+        "temperature": 125,
+        "supply": 2.7,
+        "vref": 0.6029768083813061,
+        "supply_current": 3.771545973949448e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.6029767984775454,
+            "peak_vref": 0.6029768030597161,
+            "settling_seconds": 8.539178402061798e-05,
+            "tail_peak_to_peak": 3.0607256429338037e-07,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.6029768039995561,
+            "peak_vref": 0.6029768052725808,
+            "settling_seconds": 8.117980227339731e-05,
+            "tail_peak_to_peak": 4.067849644906474e-07,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.6029768083554068,
+            "peak_vref": 0.6531619830264834,
+            "settling_seconds": 0.0006479799999999952,
+            "tail_peak_to_peak": 5.945022252262788e-12,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "ss",
+        "temperature": 125,
+        "supply": 3.6,
+        "vref": 0.6031073116484054,
+        "supply_current": 4.057051405427477e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.6031073059086287,
+            "peak_vref": 0.6031073059086287,
+            "settling_seconds": 8.086154964180186e-05,
+            "tail_peak_to_peak": 2.277549197016171e-07,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.603107315824702,
+            "peak_vref": 0.7251788670452746,
+            "settling_seconds": 8.342623985404544e-05,
+            "tail_peak_to_peak": 1.688849036174389e-07,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.6031073116461089,
+            "peak_vref": 0.6593368215560318,
+            "settling_seconds": 0.0005046415485275563,
+            "tail_peak_to_peak": 5.335509811743577e-12,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "fs",
+        "temperature": -40,
+        "supply": 2.7,
+        "vref": 0.5996893498497466,
+        "supply_current": 3.88793761289407e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.5996893496894518,
+            "peak_vref": 0.599689356549735,
+            "settling_seconds": 7.616451770613904e-05,
+            "tail_peak_to_peak": 6.480338776704286e-08,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5996893507834409,
+            "peak_vref": 0.6785841839530298,
+            "settling_seconds": 6.344445065869344e-05,
+            "tail_peak_to_peak": 1.7059031509614186e-07,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.599689349867914,
+            "peak_vref": 0.6030351731257874,
+            "settling_seconds": 0.0006805073460810251,
+            "tail_peak_to_peak": 2.064648452204665e-11,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "fs",
+        "temperature": -40,
+        "supply": 3.6,
+        "vref": 0.5997034977211113,
+        "supply_current": 4.191839446850838e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.5997034974543671,
+            "peak_vref": 0.5997034974543671,
+            "settling_seconds": 6.48116166726314e-05,
+            "tail_peak_to_peak": 2.0247485688074107e-08,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5997034979369069,
+            "peak_vref": 0.7251479251339182,
+            "settling_seconds": 6.371890096365187e-05,
+            "tail_peak_to_peak": 1.7204470070808497e-08,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5997034976278136,
+            "peak_vref": 0.6036509695451695,
+            "settling_seconds": 0.0005289177681855377,
+            "tail_peak_to_peak": 1.801181426230869e-11,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "fs",
+        "temperature": 125,
+        "supply": 2.7,
+        "vref": 0.599677338729021,
+        "supply_current": 4.504566061156966e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.5996773387873627,
+            "peak_vref": 0.5996773387873627,
+            "settling_seconds": 6.48331762211872e-05,
+            "tail_peak_to_peak": 2.379071051272774e-09,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5996773387856001,
+            "peak_vref": 0.6613015876057414,
+            "settling_seconds": 5.015000000000037e-05,
+            "tail_peak_to_peak": 1.5404706399380075e-09,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5996773387641796,
+            "peak_vref": 0.6520021680030195,
+            "settling_seconds": 0.0006439624284883764,
+            "tail_peak_to_peak": 1.1709411218419064e-11,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "fs",
+        "temperature": 125,
+        "supply": 3.6,
+        "vref": 0.5998456864230061,
+        "supply_current": 4.844857649105865e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.5998456864062617,
+            "peak_vref": 0.5998456864062617,
+            "settling_seconds": 6.150231205926043e-05,
+            "tail_peak_to_peak": 1.9123945760313177e-09,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.599845686427636,
+            "peak_vref": 0.7325154646146013,
+            "settling_seconds": 6.585000000000075e-05,
+            "tail_peak_to_peak": 2.142326649412496e-09,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5998456863950392,
+            "peak_vref": 0.6589290263589116,
+            "settling_seconds": 0.000496575376722145,
+            "tail_peak_to_peak": 1.360256352000988e-11,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "sf",
+        "temperature": -40,
+        "supply": 2.7,
+        "vref": 0.5996877626809614,
+        "supply_current": 3.944405154976912e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.5996877620056412,
+            "peak_vref": 0.5996877665614848,
+            "settling_seconds": 7.360407932918921e-05,
+            "tail_peak_to_peak": 5.7246545615008415e-08,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5996876812931542,
+            "peak_vref": 0.6020669571027042,
+            "settling_seconds": 6.261583084605708e-05,
+            "tail_peak_to_peak": 5.792458781184173e-06,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5996877626536102,
+            "peak_vref": 0.604376461954203,
+            "settling_seconds": 0.0005704717845519238,
+            "tail_peak_to_peak": 2.1133428340647242e-11,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "sf",
+        "temperature": -40,
+        "supply": 3.6,
+        "vref": 0.5997045687727951,
+        "supply_current": 4.25042424142523e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.5997045685203907,
+            "peak_vref": 0.5997045685203907,
+            "settling_seconds": 7.074628523886289e-05,
+            "tail_peak_to_peak": 3.305829410216177e-08,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5997045686815171,
+            "peak_vref": 0.632085318973202,
+            "settling_seconds": 3.376544825860097e-05,
+            "tail_peak_to_peak": 3.365107792419053e-08,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5997045687227055,
+            "peak_vref": 0.6042524029502252,
+            "settling_seconds": 0.0004412359456226212,
+            "tail_peak_to_peak": 1.9740320489347596e-11,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "sf",
+        "temperature": 125,
+        "supply": 2.7,
+        "vref": 0.5996752896117393,
+        "supply_current": 4.569393217777305e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.5996752895980955,
+            "peak_vref": 0.5996752895980955,
+            "settling_seconds": 6.554278498105412e-05,
+            "tail_peak_to_peak": 2.852306502099111e-09,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5996752895964281,
+            "peak_vref": 0.599675289598221,
+            "settling_seconds": 7.024785305886394e-05,
+            "tail_peak_to_peak": 2.6209873160709662e-09,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5996752896010922,
+            "peak_vref": 0.6259162430670482,
+            "settling_seconds": 0.000520211128979078,
+            "tail_peak_to_peak": 8.165579323815564e-12,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "corner": "sf",
+        "temperature": 125,
+        "supply": 3.6,
+        "vref": 0.5998212715950182,
+        "supply_current": 4.912725462145853e-05,
+        "retry_reason": null,
+        "ramps": [
+          {
+            "final_vref": 0.5998212715936034,
+            "peak_vref": 0.5998212715936299,
+            "settling_seconds": 6.331489516440412e-05,
+            "tail_peak_to_peak": 2.06871308972012e-09,
+            "ramp": "100n",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5998212715934494,
+            "peak_vref": 0.6196990990501743,
+            "settling_seconds": 2.486082179902302e-05,
+            "tail_peak_to_peak": 1.200468613404837e-10,
+            "ramp": "10u",
+            "settling_limit_seconds": 0.00025,
+            "retry_reason": null,
+            "passed": true
+          },
+          {
+            "final_vref": 0.5998212715668179,
+            "peak_vref": 0.6246728460600292,
+            "settling_seconds": 0.0003971212094553249,
+            "tail_peak_to_peak": 1.013811257166708e-11,
+            "ramp": "1m",
+            "settling_limit_seconds": 0.00125,
+            "retry_reason": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      }
+    ],
+    "nominal": {
+      "vref": 0.6006157061019364,
+      "supply_current": 4.438554095964237e-05,
+      "retry_reason": null
+    },
+    "passed": true
+  },
+  "remaining": [
+    "DRC closure: M1.4, M2.4, PL.8.",
+    "Complete, terminal-verified distributed RC extraction and post-RC electrical qualification."
+  ],
+  "magic_source_commit": "4f53bb3091d1e4a9b2009a58f157a8a4331d4c84",
+  "script_sha256": "f5e5f6c68387a996cdd0b09b97b9fb893b9671502c8bb126751c056e65fda227",
+  "evidence": "physical-evidence/manifest.json",
+  "density_percent": {
+    "poly": 1.1001116290959887,
+    "M1": 0.3083318685272966,
+    "M2": 0.6929025253325127
+  },
+  "change": {
+    "device": "COUT",
+    "original_tile_side_um": 90,
+    "revised_tile_side_um": 91.5,
+    "tiles": 25,
+    "baseline_peak_v": 0.7554110009953097,
+    "revised_peak_v": 0.7461064172025371
+  }
 }
