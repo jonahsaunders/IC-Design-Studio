@@ -70,7 +70,7 @@ def render(out):
         ax.set_aspect('equal');ax.tick_params(colors='#b7c6ce');ax.xaxis.label.set_color('#b7c6ce');ax.yaxis.label.set_color('#b7c6ce')
         for spine in ax.spines.values():spine.set_color('#42515a')
         ax.set_title(title,loc='left',color='white',fontsize=17,pad=22)
-        ax.text(0,-.17,'GF180 · 4-metal / MIM-B · first routed layout · native checks only; foundry signoff pending',transform=ax.transAxes,color='#b7c6ce',fontsize=9)
+        ax.text(0,-.17,'GF180 · 4-metal / MIM-B · revised output filter · full physical closure pending',transform=ax.transAxes,color='#b7c6ce',fontsize=9)
         fig.savefig(path,dpi=180,bbox_inches='tight',facecolor=fig.get_facecolor());plt.close(fig)
     groups=c['banba_layout']['groups']
     overview=[g for g in groups if g['kind']!='MOS' and g['name'] not in ('RCA','RCB')]

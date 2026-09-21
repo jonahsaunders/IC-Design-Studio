@@ -50,6 +50,11 @@ class Builder:
         self.p['id'] = stable('project')
         core = next(c for c in self.p['cells'] if c['name'] == 'banba_core')
         self.original = {d['name'].replace('/', '_'):d for d in flatten(self.p, core['id'])}
+        # Post-C extraction found 755.4 mV startup overshoot at ss/-40 C/3.6 V
+        # with a 10 us ramp (limit 750 mV). Increase the output filter's total
+        # side from 450 to 457.5 um: 25 tiles of 91.5 um, each below 10,000 um2.
+        # Keep the original second-pass hierarchy available for comparison.
+        self.original['COUT']['model_params'].update(w='457.5u', l='457.5u')
         self.c = dict(id=stable('physical-cell'), name='banba_layout', ports=['VDD','VSS','VREF'],
                       devices=[], shapes=[], layout_pins=[], layout_ports=[], layout_texts=[],
                       layout_label_mode='explicit', annotations=[])
@@ -62,7 +67,8 @@ class Builder:
         self.count = 0
         self.access = []
         self.groups = []
-        self.changes = []
+        self.changes = [dict(device='COUT', change='post-capacitance startup overshoot repair',
+                            original_total_side_um=450, revised_total_side_um=457.5)]
         self.ls = {}
         tech = self.p['pdk']
         for key, pair in MASKS.items():
@@ -322,9 +328,9 @@ class Builder:
         self.c['annotations']=[dict(id=stable('note'),x=50,y=-60,text='PHYSICAL IMPLEMENTATION · explicit resistor sections, MIM tiles and PNP units\nOriginal second-pass hierarchy remains in this project. Native terminal checks are not foundry LVS.')]
         self.c['banba_layout']=dict(version=1,source_sha256=file_digest(SOURCE),upstream=UPSTREAM,
             changes=self.changes,groups=self.groups,bus_tracks_nm=self.tracks,pnp_centers_nm=self.pnp_centers,
-            qualification='First routed layout. Native terminal connectivity and bounded width/space/grid screening; no foundry DRC/LVS or parasitic extraction.')
+            qualification='Routed layout with revised output capacitor. Verification evidence is external and valid only for matching artifact hashes; see physical-verification.json.')
         self.p['design_notes']=dict(stage='First routed Banba layout',physical_cell=self.c['id'],
-            limitations='No foundry DRC/LVS, density/antenna signoff, mismatch or extracted parasitic qualification. Sparse bus routing prioritizes inspectability over area.')
+            limitations='Full physical closure remains pending. Consult physical-verification.json for DRC/LVS and capacitance-only results; die-level density, complete distributed RC and mismatch remain unqualified.')
         validate(self.p)
         return self.p
 

@@ -1,0 +1,15 @@
+test_faults_are_rejected_before_simulation (tests.test_gf180_banba_physical.PhysicalReferenceTests.test_faults_are_rejected_before_simulation) ... ok
+test_multiplicity_is_never_silently_lost (tests.test_gf180_banba_physical.PhysicalReferenceTests.test_multiplicity_is_never_silently_lost) ... ok
+test_pnp_patch_preserves_bounded_model_selection (tests.test_gf180_banba_physical.PhysicalReferenceTests.test_pnp_patch_preserves_bounded_model_selection) ... ok
+test_reader_keeps_terminal_order_and_geometry (tests.test_gf180_banba_physical.PhysicalReferenceTests.test_reader_keeps_terminal_order_and_geometry) ... ok
+test_symmetric_devices_and_extracted_junctions_are_accepted (tests.test_gf180_banba_physical.PhysicalReferenceTests.test_symmetric_devices_and_extracted_junctions_are_accepted) ... ok
+test_complete_implementation_and_equal_pnp_centroids (tests.test_gf180_banba_layout.BanbaLayoutTests.test_complete_implementation_and_equal_pnp_centroids) ... ok
+test_displaced_pnp_unit_breaks_the_saved_centroid_constraint (tests.test_gf180_banba_layout.BanbaLayoutTests.test_displaced_pnp_unit_breaks_the_saved_centroid_constraint) ... ok
+test_mim_dielectric_is_required_and_not_mistaken_for_a_via (tests.test_gf180_banba_layout.BanbaLayoutTests.test_mim_dielectric_is_required_and_not_mistaken_for_a_via) ... ok
+test_removed_reference_bus_is_detected (tests.test_gf180_banba_layout.BanbaLayoutTests.test_removed_reference_bus_is_detected) ... ok
+test_shorted_power_rails_are_detected (tests.test_gf180_banba_layout.BanbaLayoutTests.test_shorted_power_rails_are_detected) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 2.050s
+
+OK

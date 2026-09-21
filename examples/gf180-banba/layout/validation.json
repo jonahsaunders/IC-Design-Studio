@@ -9,10 +9,10 @@
   "bbox_um": [
     -16.0,
     -60.4,
-    828.6,
-    498.6
+    836.1,
+    506.1
   ],
-  "area_mm2": 0.4721314,
+  "area_mm2": 0.48271465,
   "erc": [],
   "connectivity": [],
   "geometry": [],
@@ -28,6 +28,12 @@
     ]
   },
   "changes": [
+    {
+      "device": "COUT",
+      "change": "post-capacitance startup overshoot repair",
+      "original_total_side_um": 450,
+      "revised_total_side_um": 457.5
+    },
     {
       "device": "Q2",
       "change": "eight explicit parallel 5 \u00d7 5 \u00b5m PNPs",
@@ -59,10 +65,10 @@
       "change": "parallel MIM tiles on 5 nm grid",
       "count": 25,
       "tile_um": [
-        90.0,
-        90.0
+        91.5,
+        91.5
       ],
-      "plate_area_um2": 202500.0
+      "plate_area_um2": 209306.25
     },
     {
       "device": "XSTART_CTRACK",
@@ -89,5 +95,5 @@
   "foundry_drc": "not run",
   "foundry_lvs": "not run",
   "pex": "not run",
-  "project_sha256": "59119c3a989de244a99999e0a14a19e32e672fe8515a8c3a83812d9abc68bf4f"
+  "project_sha256": "62cecbee9ea7f99e3067cda6db1e0afd954edeaed820d617a23fe6e8de70cca8"
 }
