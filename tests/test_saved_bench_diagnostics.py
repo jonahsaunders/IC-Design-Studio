@@ -70,10 +70,12 @@ class SavedDiagnostics(unittest.TestCase):
         p,t=fixture('tran')
         p['cells'][0]['devices'][0]['value']='.8'
         t['analysis']['uic']=True
-        text=deck(p,t,Path('/tmp/extracted.spice'))
-        self.assertIn('PWL(0 0 1e-05 0.8 0.0001 0.8)',text)
-        self.assertEqual(text.lower().count(' uic'),1)
-        self.assertIn('.include "/tmp/extracted.spice"',text)
+        with tempfile.TemporaryDirectory(prefix='saved diagnostics ') as folder:
+            extracted=Path(folder)/'extracted circuit.spice'
+            text=deck(p,t,extracted)
+            self.assertIn('PWL(0 0 1e-05 0.8 0.0001 0.8)',text)
+            self.assertEqual(text.lower().count(' uic'),1)
+            self.assertIn('.include "'+extracted.resolve().as_posix()+'"',text)
 
     @unittest.skipUnless(ENGINE.is_file(),'Set ICSTUDIO_TEST_NGSPICE for real saved diagnostic verification')
     def test_actual_resistor_noise_matches_thermal_noise_and_extracted_resistance(self):

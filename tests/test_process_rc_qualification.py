@@ -63,14 +63,20 @@ class ProcessRcQualificationTests(unittest.TestCase):
             process_evidence(report,ROOT)
 
     def test_stale_copy_is_rejected_and_original_retained(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root=Path(tmp);source=root/'source';source.mkdir();deck=source/'extracted.spice'
-            deck.write_text('R0 IN gate 12.5\nC0 gate VSS 10.692f\n');before=file_digest(deck)
-            report={'stages':[{'name':'capacitance_extraction','evidence':{'deck':'extracted.spice'}}]}
-            evidence=stale_evidence_probe(report,source,root/'probe')
-            self.assertEqual(evidence['status'],'passed');self.assertEqual(file_digest(deck),before)
-            self.assertEqual(evidence['source_sha256'],evidence['expected_sha256'])
-            self.assertNotEqual(evidence['changed_sha256'],before)
+        for newline in (b'\n',b'\r\n'):
+            with self.subTest(newline=newline),tempfile.TemporaryDirectory() as tmp:
+                root=Path(tmp);source=root/'source';source.mkdir();deck=source/'extracted.spice'
+                original=newline.join((b'R0 IN gate 12.5',b'C0 gate VSS 10.692f',b''))
+                deck.write_bytes(original);before=file_digest(deck)
+                report={'stages':[{'name':'capacitance_extraction','evidence':{'deck':'extracted.spice'}}]}
+                evidence=stale_evidence_probe(report,source,root/'probe')
+                self.assertEqual(evidence['status'],'passed');self.assertEqual(file_digest(deck),before)
+                self.assertEqual(deck.read_bytes(),original)
+                self.assertEqual(evidence['source_sha256'],evidence['expected_sha256'])
+                self.assertEqual(evidence['expected_sha256'],before)
+                self.assertNotEqual(evidence['changed_sha256'],before)
+                self.assertEqual((root/'probe/extracted.spice').read_bytes(),
+                                 original+b'\n* Deliberately stale qualification evidence\n')
 
     def test_condition_scope_rejects_statistical_and_nonphysical_temperature(self):
         import argparse
