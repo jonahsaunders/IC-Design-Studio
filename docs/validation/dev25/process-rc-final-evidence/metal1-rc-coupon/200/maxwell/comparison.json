@@ -1,0 +1,49 @@
+{
+  "terminals": [
+    "IN",
+    "DRAIN",
+    "VSS"
+  ],
+  "frequency_hz": 1000,
+  "expected_f": [
+    [
+      2.183966031e-14,
+      -8.56031e-18,
+      -2.18311e-14
+    ],
+    [
+      -8.56031e-18,
+      1.0616721e-16,
+      -9.76069e-17
+    ],
+    [
+      -2.18311e-14,
+      -9.76069e-17,
+      2.19287069e-14
+    ]
+  ],
+  "ac_admittance_f": [
+    [
+      2.1839660310000004e-14,
+      -8.560309999999999e-18,
+      -2.183109999999999e-14
+    ],
+    [
+      -8.560309999999999e-18,
+      1.0616721e-16,
+      -9.760690000000001e-17
+    ],
+    [
+      -2.183109999999999e-14,
+      -9.760690000000001e-17,
+      2.19287069e-14
+    ]
+  ],
+  "max_absolute_error_f": 9.466330862652142e-30,
+  "deck_sha256": {
+    "0.cir": "b1d885eaf3ec5134ed6f8104983d9e7550d2288a27ab6bad145aa18a8a4732f7",
+    "1.cir": "ea143207c8687ca0d0d0fe8203014652b0432e00b6cae43da90db5b1cc137170",
+    "2.cir": "1d891df6e274991329b42d35f61ffcded8f3899c3bd4ed094e34f3ef14a29b7b"
+  },
+  "scope": "Every terminal excited against all others at AC ground; includes signed mutual terms and substrate capacitance."
+}

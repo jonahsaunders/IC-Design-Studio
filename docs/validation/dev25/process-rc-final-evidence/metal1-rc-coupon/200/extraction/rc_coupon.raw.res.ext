@@ -1,0 +1,13 @@
+scale 1000 1 1e+06
+rnode "VSS.t1" 0 0 0 50 0
+rnode "VSS.t0" 0 0 25 50 0
+rnode "VSS" 0 0 -220 50 0
+resist "VSS" "VSS.t1" 254.925
+resist "VSS" "VSS.t0" 5670.97
+rnode "IN.t0" 0 389.514 25 50 0
+rnode "IN" 0 8170.8 -19925 -60 0
+resist "IN" "IN.t0" 292.277
+rnode "DRAIN.t0" 0 5598.9 50 50 0
+rnode "DRAIN" 0 2961.41 100 50 0
+resist "DRAIN" "DRAIN.t0" 254.3
+device msubckt sky130_fd_pr__nfet_01v8 0 0 1 1  "VSS.t0" "IN.t0" 100 0 "VSS.t1" 100 8000,360 "DRAIN.t0" 100 8000,360

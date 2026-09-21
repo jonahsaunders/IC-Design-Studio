@@ -1,0 +1,7 @@
+* Independent extracted-resistor coupon transfer
+R1 IN IN.t0 279.777
+VDRIVE IN 0 1
+RLOAD IN.t0 0 100
+.op
+.save v(IN.t0)
+.end

@@ -13,9 +13,18 @@ def extract(p,cid,section_nm=5000,coupling_distance_nm=5000,corner=None):
     from .inductor import reject_parasitic_estimate
     reject_parasitic_estimate(p,cid)
     from .physical import connectivity
-    from .physical_cells import terminals
+    from .physical_cells import terminals,ports
     c=next(c for c in p['cells'] if c['id']==cid)
-    if c.get('layout_instances'):raise ValueError('The coefficient RC estimator requires a flat physical cell. Use the existing process extraction flow for hierarchy.')
+    if c.get('layout_instances') or any(d['kind']=='X' for d in c['devices']):
+        from .rc_hierarchy import flatten_for_rc
+        flat,hierarchy=flatten_for_rc(p,cid)
+        result=extract(flat,cid,section_nm,coupling_distance_nm,corner)
+        result.update(schema=3,design_hash=design_digest(p),hierarchy=hierarchy)
+        result.pop('network_hash',None);result['network_hash']=digest(result)
+        return result
+    physical_ports=ports(p,cid)
+    if {port['name'] for port in physical_ports}!=set(c.get('ports',[])):
+        raise ValueError('Assign every circuit port to one physical location before RC extraction.')
     if not 100<=section_nm<=1000000:raise ValueError('RC section length must be 0.1–1,000 µm.')
     check=connectivity(p,cid)
     if check['issues']:raise ValueError('Resolve physical connectivity findings before RC extraction: '+check['issues'][0]['message'])
@@ -80,12 +89,14 @@ def extract(p,cid,section_nm=5000,coupling_distance_nm=5000,corner=None):
             pt=project(line,((box.left+box.right)/2,(box.bottom+box.top)/2))
             if poly.inside(kdb().Point(round(pt[0]),round(pt[1]))):line['points'].add(pt);union(key,node(linekey(line,pt)))
     vias=p['pdk'].get('connectivity',{}).get('vias',[['metal1','via1','metal2']]);joins={(a,b) for a,v,b in vias for a,b in ((a,v),(v,a),(v,b),(b,v))};padindex=SpatialIndex([((b.left,b.bottom,b.right,b.top),i) for i,(_,s,_) in enumerate(padrefs) for b in [polygon(s).bbox()]])
+    from .contact_rules import blocked_regions,interacts
+    blockers=blocked_regions(c['shapes'],p['pdk'])
     for i,(net,s,key) in enumerate(padrefs):
         r=kdb().Region(polygon(s));box=polygon(s).bbox()
         for j in padindex.query((box.left,box.bottom,box.right,box.top)):
             if j<=i:continue
             n,t,target=padrefs[j]
-            if (s['layer']==t['layer'] or (s['layer'],t['layer']) in joins) and not r.interacting(kdb().Region(polygon(t))).is_empty():union(key,target)
+            if (s['layer']==t['layer'] or (s['layer'],t['layer']) in joins) and interacts(s,t,r,kdb().Region(polygon(t)),blockers):union(key,target)
     ds={d['id']:d for d in c['devices']};pins={};anchors={}
     for pin in terminals(p,cid):
         pt=pin['point'];net=ds[pin['device_id']]['nets'][pin['pin']];hits=[]
@@ -99,6 +110,20 @@ def extract(p,cid,section_nm=5000,coupling_distance_nm=5000,corner=None):
         if not hits:raise ValueError('Terminal cannot be represented by the RC centerline/pad model.')
         for target in hits[1:]:union(hits[0],target)
         pins[(pin['device_id'],pin['pin'])]=hits[0];anchors.setdefault(net,hits[0])
+    # A cell's external node is its physical port, including ports on paths.
+    # Add a split before creating edges: attaching later can bypass route resistance.
+    for port in physical_ports:
+        pt=port['point'];hits=[]
+        for net,s,key in padrefs:
+            if s['layer']==port['layer'] and polygon(s).inside(kdb().Point(*pt)):hits.append(key)
+        for i in index.query((pt[0],pt[1],pt[0],pt[1])):
+            line=lines[i]
+            if line['layer']!=port['layer']:continue
+            q=project(line,pt)
+            if math.dist(q,pt)<=line['width']/2:line['points'].add(q);hits.append(node(linekey(line,q)))
+        if not hits:raise ValueError('Physical port '+port['name']+' cannot be represented by the RC centerline/pad model.')
+        for target in hits[1:]:union(hits[0],target)
+        anchors[port['name']]=hits[0]
     edges=[]
     for line in lines:
         points=sorted(line['points']);data=coeff[line['layer']];sheet=scalar(data['sheet_ohm'])
@@ -106,11 +131,6 @@ def extract(p,cid,section_nm=5000,coupling_distance_nm=5000,corner=None):
             length=math.dist(a,b)
             if length:edges.append({**{k:v for k,v in line.items() if k not in ('a','b','points')},'a':a,'b':b,'left':node(linekey(line,a)),'right':node(linekey(line,b)),'resistance':sheet*length/line['width']})
     if len(edges)>2000:raise ValueError('More than 2,000 RC sections. Increase section length or use process extraction.')
-    # Named cell ports anchor the externally observable net at their physical location.
-    for port in c.get('layout_ports',[]):
-        pt=port['point']
-        for net,s,key in padrefs:
-            if s['layer']==port['layer'] and polygon(s).inside(kdb().Point(*pt)):anchors[port['name']]=key;break
     names={root(key):net for net,key in anchors.items()};counter=0
     used={n for d in c['devices'] for n in d['nets'].values()}
     def name(key):
@@ -153,11 +173,23 @@ def extract(p,cid,section_nm=5000,coupling_distance_nm=5000,corner=None):
         while queue:
             for target in links.get(queue.pop(),set())-reached:reached.add(target);queue.append(target)
         if any(m['node'] not in reached for m in mapping if m['net']==net) or any(name(e[k]) not in reached for e in edges if e['net']==net for k in ('left','right')):raise ValueError('Physical contact cannot be represented by the centerline RC model on '+net+'. Use process extraction for this geometry.')
-    return {'schema':1,'design_hash':design_digest(p),'pdk_hash':digest(p['pdk']),'coefficient_hash':digest(coeff),'corner':corner,'calibration':calibration,'cell_id':cid,'resistors':resistors,'capacitors':capacitors,'terminal_mapping':mapping,'sections':len(edges),'settings':{'section_nm':section_nm,'coupling_distance_nm':coupling_distance_nm},'qualification':'Declared-coefficient Manhattan interconnect estimate: distributed path resistance, ground capacitance and same-layer parallel coupling. Pads are ideal; no device recognition, cross-layer coupling or field-solver qualification.'}
+    result={'schema':2,'design_hash':design_digest(p),'revision':p['revision'],'pdk_hash':digest(p['pdk']),'coefficient_hash':digest(coeff),'corner':corner,'calibration':calibration,'cell_id':cid,'resistors':resistors,'capacitors':capacitors,'terminal_mapping':mapping,'sections':len(edges),'settings':{'section_nm':section_nm,'coupling_distance_nm':coupling_distance_nm},'qualification':'Declared-coefficient Manhattan interconnect estimate: distributed path resistance, ground capacitance and same-layer parallel coupling. Pads are ideal; no device recognition, cross-layer coupling or field-solver qualification.'}
+    result['network_hash']=digest(result)
+    return result
 
 
 def apply(p,cid,extraction):
     if extraction['design_hash']!=design_digest(p) or extraction['pdk_hash']!=digest(p['pdk']):raise ValueError('RC extraction is stale. Extract the current design again.')
+    if extraction.get('cell_id')!=cid:raise ValueError('RC extraction belongs to another circuit cell.')
+    if extraction.get('network_hash')!=digest({k:v for k,v in extraction.items() if k!='network_hash'}):raise ValueError('RC extraction network or provenance changed. Extract the current design again.')
+    if extraction.get('hierarchy'):
+        from .rc_hierarchy import flatten_for_rc
+        flat,hierarchy=flatten_for_rc(p,cid)
+        if hierarchy!=extraction['hierarchy']:
+            raise ValueError('RC hierarchy mapping changed. Extract the current design again.')
+        network=clone(extraction);network.pop('hierarchy');network.update(schema=2,design_hash=design_digest(flat))
+        network.pop('network_hash');network['network_hash']=digest(network)
+        return apply(flat,cid,network)
     q=clone(p);c=next(c for c in q['cells'] if c['id']==cid)
     from .wiring import rebuild
     if 'wires' in c:rebuild(c,q)
@@ -176,18 +208,61 @@ def apply(p,cid,extraction):
 
 
 def compare_job(p,job,directory,progress=lambda *_:None):
+    from pathlib import Path
+    import json
     from .simulation import run
     from .engines import run_ngspice
     from .specifications import evaluate_rows,for_job
-    cid=job['settings'].get('layout_cell',job['cell']);ext=extract(p,cid,int(job['settings'].get('section_nm',5000)),corner=job['settings']['analysis'].get('corner',p['analysis'].get('corner','nominal')));q=apply(p,cid,ext);analysis=job['settings']['analysis'];waves=[]
+    from .model import atomic_write,file_digest
+    from .physical_extraction import calibrated_network,measurement_comparison
+    from .testbenches import get,simulate
+    directory=Path(directory);directory.mkdir(parents=True,exist_ok=True)
+    settings=job['settings'];key=job.get('testbench_id') or settings.get('testbench')
+    bench=clone(get(p,key)) if key else None
+    if bench:
+        bench['analysis'].update(settings.get('analysis',{}))
+    analysis=clone(bench['analysis'] if bench else settings['analysis'])
+    cid=settings.get('layout_cell',bench['dut_cell'] if bench else job['cell'])
+    if bench and cid!=bench['dut_cell']:
+        raise ValueError('Extract the saved testbench circuit, not a different layout cell.')
+    choice=settings.get('physical_extraction',bench.get('physical_extraction') if bench else None)
+    if choice:
+        ext,q=calibrated_network(p,cid,choice,analysis.get('corner','nominal'))
+    else:
+        ext=extract(p,cid,int(settings.get('section_nm',5000)),int(settings.get('coupling_distance_nm',5000)),corner=analysis.get('corner',p['analysis'].get('corner','nominal')))
+        q=apply(p,cid,ext)
+    atomic_write(directory/'extraction.json',json.dumps(ext,indent=2,allow_nan=False))
+    waves=[];evidence=[]
     for i,source in enumerate((p,q)):
-        (directory/('before' if i==0 else 'after')).mkdir(parents=True,exist_ok=True)
+        work=directory/('before' if i==0 else 'after');work.mkdir(parents=True,exist_ok=True)
         notify=lambda f,m,i=i:progress((i+f)/2,m)
-        if job.get('testbench_id'):
-            from .testbenches import simulate,get
-            wave=simulate(source,get(source,job['testbench_id']),job['executable'],directory/('before' if i==0 else 'after'),progress=notify)
-        else:wave=run(source,job['cell'],analysis,notify) if job['engine']=='builtin' else run_ngspice(source,job['cell'],analysis,job['executable'],directory/('before' if i==0 else 'after'),notify)
+        if bench:
+            if job['engine']!='ngspice':raise ValueError('Saved testbench comparison requires ngspice.')
+            wave=simulate(source,bench,job['executable'],work,progress=notify)
+        else:
+            wave=run(source,job['cell'],analysis,notify) if job['engine']=='builtin' else run_ngspice(source,job['cell'],analysis,job['executable'],work,notify)
+        wave['implementation_hash']=design_digest(source)
+        wave['design_hash']=design_digest(p)
+        atomic_write(work/'result.json',json.dumps(wave,allow_nan=False))
+        evidence.append({'waveform_file':work.name+'/result.json','waveform_sha256':file_digest(work/'result.json'),
+                         'implementation_hash':wave['implementation_hash'],'engine':wave.get('engine'),'engine_hash':wave.get('engine_hash')})
         waves.append(wave)
     specs=for_job(job);before,after=[evaluate_rows(specs,w) for w in waves]
     rows=[{'name':a['name'],'before':a,'after':b,'delta':b['value']-a['value'] if a['value'] is not None and b['value'] is not None else None} for a,b in zip(before,after)]
-    result={**waves[1],'design_hash':design_digest(p),'revision':p['revision'],'settings':{'type':'rc_compare','analysis':analysis},'extraction':ext,'specifications':after,'rc_comparison':rows,'before_waveform':waves[0],'after_waveform':waves[1]};return result
+    measured=[w.get('measurements',{}).get('measurements',[]) for w in waves]
+    comparison=measurement_comparison(*measured)
+    for row in comparison:
+        a=next((m for m in measured[0] if m['name']==row['name']),{})
+        b=next((m for m in measured[1] if m['name']==row['name']),{})
+        rows.append({'name':row['name'],'before':{'unit':row['unit'],'status':'not_run',**a,'value':a.get('value')},
+                     'after':{'unit':row['unit'],'status':'not_run',**b,'value':b.get('value')},'delta':row['delta'],'measurement':True})
+    conditions={'model_corner':analysis.get('corner','nominal'),'rc_corner':ext['corner'],'temperature':analysis.get('temperature',27)}
+    provenance={'design_hash':design_digest(p),'revision':p['revision'],'pdk_hash':digest(p['pdk']),
+                'testbench_hash':digest(bench) if bench else None,'analysis_hash':digest(analysis),
+                'extraction_file':'extraction.json','extraction_sha256':file_digest(directory/'extraction.json'),
+                'coefficient_hash':ext['coefficient_hash'],'network_hash':ext['network_hash'],'waveforms':evidence}
+    passed=all(r.get('status')=='PASS' for r in before+after) and all(r.get('status')=='passed' for rs in measured for r in rs)
+    return {**waves[1],'design_hash':design_digest(p),'revision':p['revision'],'settings':{**clone(settings),'analysis':analysis},
+            'status':'passed' if passed else 'failed','conditions':conditions,'extraction':ext,'provenance':provenance,
+            'evidence_directory':str(directory.resolve()),'specifications':after,'rc_comparison':rows,
+            'measurement_comparison':comparison,'before_waveform':waves[0],'after_waveform':waves[1]}

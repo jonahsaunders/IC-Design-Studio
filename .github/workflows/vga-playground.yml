@@ -1,0 +1,41 @@
+name: Verify VGA Playground
+on:
+  workflow_call:
+  # Required release gate: shared desktop/source changes must also run VGA checks.
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install Qt desktop dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb xauth libegl1 libopengl0 libgl1 libxtst6 libxkbfile1 libnss3 libasound2t64 libxkbcommon-x11-0 libxcb-cursor0 libxcb-icccm4 libxcb-keysyms1 libxcb-shape0 libxcb-xinerama0
+          python -m pip install -r requirements.txt
+      - name: Build and test pinned simulator
+        run: python scripts/build_vga_playground.py --test
+      - name: Test source exchange and local assets
+        run: python -m unittest tests.test_digital_vga -v
+      - name: Verify live embedded rendering and project lifecycle
+        env:
+          QT_QPA_PLATFORM: xcb
+          QTWEBENGINE_CHROMIUM_FLAGS: --disable-gpu
+          QT_QUICK_BACKEND: software
+        run: xvfb-run -a python tests/gui_digital_vga.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vga-playground-evidence
+          path: build/digital-vga-ui

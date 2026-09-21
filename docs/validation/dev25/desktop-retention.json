@@ -1,0 +1,72 @@
+[
+  {
+    "source": "build/saved-bias-final-tests.log",
+    "retained": "docs/validation/dev25/saved-bias-tests.txt",
+    "sha256": "103175a707a2fd8a79f6129b69ef626223196d3da23463aa45d147b76d8d5730"
+  },
+  {
+    "source": "build/statistical-campaign-qualification/statistical-editor.png",
+    "retained": "docs/validation/dev25/images/statistical-editor.png",
+    "sha256": "b4c0c74bff073f9a013b6b3eace316d930e3deb327b2865d180f2e3a8266c787"
+  },
+  {
+    "source": "build/statistical-campaign-qualification/statistical-results.png",
+    "retained": "docs/validation/dev25/images/statistical-results.png",
+    "sha256": "e617323da8aea1ea640d176844402351aa6bf26e503b6d9f47e6b9faad0c8ae8"
+  },
+  {
+    "source": "build/gui-sky130-devices-final/sky130-devices.png",
+    "retained": "docs/validation/dev25/images/sky130-devices.png",
+    "sha256": "dd20ac569eaa7ad09e2606c89f0f9738df5a11b4635d9c02faf8fd9ef81bb3aa"
+  },
+  {
+    "source": "build/analog-scale-final/report.json",
+    "retained": "docs/validation/dev25/desktop-scale.json",
+    "sha256": "286b68314b461768c5094c682d021cd3c617ef1d7eac008f3d5d7d3b16a6c463"
+  },
+  {
+    "source": "build/analog-scale-final/hierarchical-analog/schematic.png",
+    "retained": "docs/validation/dev25/images/scale-hierarchical-analog-schematic.png",
+    "sha256": "25fbd5d8a005437eb286f3be833357e8a5c5f99b88bca479c8f0a5eea2f2561a"
+  },
+  {
+    "source": "build/analog-scale-final/hierarchical-analog/layout.png",
+    "retained": "docs/validation/dev25/images/scale-hierarchical-analog-layout.png",
+    "sha256": "78a632dcb9ec76a126c06ae59504fb573719c30b82fd5342bfdbf65bf1ffae1e"
+  },
+  {
+    "source": "build/analog-scale-final/synthetic-large/schematic.png",
+    "retained": "docs/validation/dev25/images/scale-synthetic-large-schematic.png",
+    "sha256": "72f95c7f5d210fc667e5ff848a856a7b4a6e64bbd5f5d35f830f49f6a3331fe9"
+  },
+  {
+    "source": "build/analog-scale-final/synthetic-large/layout.png",
+    "retained": "docs/validation/dev25/images/scale-synthetic-large-layout.png",
+    "sha256": "1920918afc1eb24466298e254df8829ccbc0b4a423e41d6c9e7ae936cd70237c"
+  },
+  {
+    "source": "build/dev25-reference-qualified/report.json",
+    "retained": "docs/validation/dev25/gui-reference.json",
+    "sha256": "3c44b73f9ba238877dcfb5946f1259019f011fed1f20cc647dece929a4252e62"
+  },
+  {
+    "source": "build/dev25-reference-qualified/opamp_ac-diagnostics.png",
+    "retained": "docs/validation/dev25/images/opamp_ac-diagnostics.png",
+    "sha256": "227f7b755673042923a69d26d1df967837ace40ac23623af627a246acd1544fa"
+  },
+  {
+    "source": "build/dev25-reference-qualified/opamp_startup-diagnostics.png",
+    "retained": "docs/validation/dev25/images/opamp_startup-diagnostics.png",
+    "sha256": "6fd3b2c585eb41709ce075f203e0c8509a2abdd26cbaec55989267675ce4e12c"
+  },
+  {
+    "source": "build/dev25-reference-qualified/opamp_op-diagnostics.png",
+    "retained": "docs/validation/dev25/images/opamp_op-diagnostics.png",
+    "sha256": "f6c728560cde2aa6197be3ad305473087bd6179ad219642715acd0a1ef312bbc"
+  },
+  {
+    "source": "build/dev25-reference-qualified/opamp_noise-diagnostics.png",
+    "retained": "docs/validation/dev25/images/opamp_noise-diagnostics.png",
+    "sha256": "6f94de5aca3e18228e80174e88ca0c9611a749a7d4be0217bb4a1d28190b4de8"
+  }
+]

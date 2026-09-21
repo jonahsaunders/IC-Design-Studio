@@ -1,0 +1,511 @@
+{
+  "schema": 2,
+  "app_version": "0.22.0.dev25",
+  "created": "2026-09-20T16:49:40+00:00",
+  "status": "passed",
+  "cell_id": "469b749b124a43b6",
+  "cell_name": "current_mirror",
+  "testbench_id": "64e0f7f71b3a4910",
+  "testbench_name": "current_mirror_op",
+  "testbench": {
+    "id": "64e0f7f71b3a4910",
+    "name": "current_mirror_op",
+    "bench_cell": "2aa2649ae36a466b",
+    "dut_cell": "469b749b124a43b6",
+    "dut_instance": "855153b3ad4e4e64",
+    "analysis": {
+      "type": "op",
+      "stop": "100u",
+      "step": "200n",
+      "start": "10",
+      "end": "10meg",
+      "points": 150,
+      "source": "V1",
+      "dc_start": "0",
+      "dc_stop": "1.8",
+      "dc_step": "0.01",
+      "temperature": 27,
+      "corner": "nominal"
+    },
+    "initial_conditions": {},
+    "probes": [
+      "force",
+      "out",
+      "ref"
+    ],
+    "measurements": [
+      {
+        "name": "output_current",
+        "kind": "current",
+        "source": "VSENSE",
+        "min": "40u",
+        "max": "60u"
+      },
+      {
+        "name": "bias_voltage",
+        "kind": "voltage",
+        "node": "ref",
+        "min": "0",
+        "max": "1.8"
+      }
+    ],
+    "characterization": {
+      "kind": "sweep",
+      "target": "VOUT.value",
+      "values": [
+        0.9,
+        1.2,
+        1.5
+      ]
+    },
+    "physical_extraction": {
+      "mode": "rc"
+    }
+  },
+  "design_hash": "bdbb3f6d0feb9999a54721987dfd7167fb234a1adb40c32792e13a1643f54ae2",
+  "revision": 0,
+  "stages": [
+    {
+      "name": "preflight",
+      "status": "passed",
+      "evidence": {
+        "assets": {
+          "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/passive-adapter/sky130A/libs.tech/magic/sky130A.tech": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+          "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/passive-adapter/sky130A/libs.tech/netgen/sky130A_setup.tcl": "3b2e4eddc57b1d8dc531d95086a2c21b86709907ede11fcac676f37d501787e9"
+        },
+        "tools": {
+          "magic": {
+            "path": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/magic-run",
+            "sha256": "fa89bcfea9816d2cb4902deeff44c2199ac048fffb1303348fa5191ecf6c29cb",
+            "version_file": "magic-version.log",
+            "version_sha256": "374631470fd896b551d28a26fafd5af90d205a0af0d09f5ab9d796371d6be261"
+          },
+          "netgen": {
+            "path": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/netgen-run",
+            "sha256": "c415bb25c7152f14f2ec2fb0a747cd138bd764e9044cb845e7f686a64acf1458",
+            "version_file": "netgen-version.log",
+            "version_sha256": "2440d38de07e7a1293b3d3a0aecdc160b7856c46422c799f28695ad24989c333"
+          },
+          "ngspice": {
+            "path": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/ngspice-run",
+            "sha256": "b04ec82707ddc54aa258be26462f28315b18f7d5a6c8e15ca0deb662b6b99dae",
+            "version_file": "ngspice-version.log",
+            "version_sha256": "d18ced87a01768ec53b4682c549f1182be38030c71159f071a008b747a8f04be"
+          }
+        },
+        "corner": "nominal",
+        "electrical_cells": [
+          "current_mirror"
+        ],
+        "physical_cells": [
+          "current_mirror"
+        ],
+        "connection_findings": 0
+      }
+    },
+    {
+      "name": "schematic_simulation",
+      "status": "passed",
+      "evidence": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "output_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": 5.119161848199383e-05
+          },
+          {
+            "name": "bias_voltage",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.7660257435607942
+          }
+        ],
+        "probes": [
+          "force",
+          "out",
+          "ref"
+        ],
+        "specifications": [],
+        "diagnostics": null,
+        "analysis": {
+          "type": "op",
+          "stop": "100u",
+          "step": "200n",
+          "start": "10",
+          "end": "10meg",
+          "points": 150,
+          "source": "V1",
+          "dc_start": "0",
+          "dc_stop": "1.8",
+          "dc_step": "0.01",
+          "temperature": 27,
+          "corner": "nominal"
+        },
+        "effective_analysis": {
+          "type": "op",
+          "stop": "100u",
+          "step": "200n",
+          "start": "10",
+          "end": "10meg",
+          "points": 150,
+          "source": "V1",
+          "dc_start": "0",
+          "dc_stop": "1.8",
+          "dc_step": "0.01",
+          "temperature": 27,
+          "corner": "nominal"
+        },
+        "waveform_file": "schematic/result.json",
+        "waveform_sha256": "7e6763ab50bcdeedd37c96c0aca6a005ee9f9ee1a4f60b1431e5698d89c3d3f0"
+      }
+    },
+    {
+      "name": "drc",
+      "status": "passed",
+      "evidence": {
+        "violations": 0,
+        "style": "drc(full)",
+        "log": "drc/console.log"
+      }
+    },
+    {
+      "name": "lvs_extraction",
+      "status": "passed",
+      "evidence": {
+        "deck": "lvs-extraction/extracted.spice",
+        "sha256": "71896a8de8541e696761d7e16f3a769d77c24ec426553f7ae8c3351885c304ad",
+        "capacitors": 0,
+        "resistors": 0,
+        "mode": "lvs",
+        "profile": {
+          "hierarchy": true,
+          "blackbox": false,
+          "merge": "none",
+          "scale": false,
+          "capacitance_threshold": "infinite",
+          "resistance_threshold": "infinite",
+          "distributed_resistance": false
+        },
+        "profile_file": "lvs-extraction/profile.json",
+        "profile_sha256": "04f694af90420d0c3a3c0e908088410ad1e47c42eb8f0f9db531f5b8f3190d7f",
+        "subcircuits": [
+          "current_mirror"
+        ]
+      }
+    },
+    {
+      "name": "lvs",
+      "status": "passed",
+      "evidence": {
+        "unique_match": true,
+        "log": "lvs/lvs.log"
+      }
+    },
+    {
+      "name": "capacitance_extraction",
+      "status": "passed",
+      "evidence": {
+        "deck": "parasitics/extracted.spice",
+        "sha256": "ad0e8ac920198c99cd1fbcfae22c3255d2a3e1f071c1361b1a2cf0f0354a280e",
+        "capacitors": 9,
+        "resistors": 15,
+        "mode": "rc",
+        "profile": {
+          "hierarchy": true,
+          "blackbox": false,
+          "merge": "none",
+          "scale": false,
+          "capacitance_threshold": 0.0,
+          "resistance_threshold": 0,
+          "distributed_resistance": true
+        },
+        "profile_file": "parasitics/profile.json",
+        "profile_sha256": "414cf5aa7a06913464c519e71fcb8c140e4fe659f80a06b3e5dfb0bb95e66f51",
+        "subcircuits": [
+          "current_mirror"
+        ]
+      }
+    },
+    {
+      "name": "post_layout_simulation",
+      "status": "passed",
+      "evidence": {
+        "status": "passed",
+        "samples": 1,
+        "measurements": [
+          {
+            "name": "output_current",
+            "kind": "current",
+            "status": "passed",
+            "unit": "A",
+            "value": 5.080590793239519e-05
+          },
+          {
+            "name": "bias_voltage",
+            "kind": "voltage",
+            "status": "passed",
+            "unit": "V",
+            "value": 0.7793595210917591
+          }
+        ],
+        "probes": [
+          "force",
+          "out",
+          "ref"
+        ],
+        "specifications": [],
+        "diagnostics": null,
+        "analysis": {
+          "type": "op",
+          "stop": "100u",
+          "step": "200n",
+          "start": "10",
+          "end": "10meg",
+          "points": 150,
+          "source": "V1",
+          "dc_start": "0",
+          "dc_stop": "1.8",
+          "dc_step": "0.01",
+          "temperature": 27,
+          "corner": "nominal"
+        },
+        "effective_analysis": {
+          "type": "op",
+          "stop": "100u",
+          "step": "200n",
+          "start": "10",
+          "end": "10meg",
+          "points": 150,
+          "source": "V1",
+          "dc_start": "0",
+          "dc_stop": "1.8",
+          "dc_step": "0.01",
+          "temperature": 27,
+          "corner": "nominal"
+        },
+        "waveform_file": "post-layout/result.json",
+        "waveform_sha256": "96946a46931f6443ad47ca582e69ae936b131278738d62f18a05d1580a1b2339"
+      }
+    },
+    {
+      "name": "integrity",
+      "status": "passed",
+      "evidence": {
+        "files": {
+          "layout.gds": "422a1778378cc780be106755ec09e355a62882aecc59bb08fbba6a7bb2eb5858",
+          "schematic.spice": "dec87e8051a57f187389fabc95a8ab856ec2c22c7a3cc8ef199b4419b54d6e44",
+          "input.icproj": "9a3c958381dc513b4efcbc92ba99fa87ff682c3f9ff5de73b72d9ec14588d342",
+          "testbench.json": "4ace37fc6e26aa163becd19422845e5c5d9378c037a2357e7e157176baec38cc",
+          "lvs-extraction/extracted.spice": "71896a8de8541e696761d7e16f3a769d77c24ec426553f7ae8c3351885c304ad",
+          "lvs-extraction/profile.json": "04f694af90420d0c3a3c0e908088410ad1e47c42eb8f0f9db531f5b8f3190d7f",
+          "parasitics/extracted.spice": "ad0e8ac920198c99cd1fbcfae22c3255d2a3e1f071c1361b1a2cf0f0354a280e",
+          "parasitics/profile.json": "414cf5aa7a06913464c519e71fcb8c140e4fe659f80a06b3e5dfb0bb95e66f51"
+        },
+        "assets": {
+          "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/passive-adapter/sky130A/libs.tech/magic/sky130A.tech": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+          "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/passive-adapter/sky130A/libs.tech/netgen/sky130A_setup.tcl": "3b2e4eddc57b1d8dc531d95086a2c21b86709907ede11fcac676f37d501787e9"
+        },
+        "tools": {
+          "magic": {
+            "path": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/magic-run",
+            "sha256": "fa89bcfea9816d2cb4902deeff44c2199ac048fffb1303348fa5191ecf6c29cb",
+            "version_file": "magic-version.log",
+            "version_sha256": "374631470fd896b551d28a26fafd5af90d205a0af0d09f5ab9d796371d6be261"
+          },
+          "netgen": {
+            "path": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/netgen-run",
+            "sha256": "c415bb25c7152f14f2ec2fb0a747cd138bd764e9044cb845e7f686a64acf1458",
+            "version_file": "netgen-version.log",
+            "version_sha256": "2440d38de07e7a1293b3d3a0aecdc160b7856c46422c799f28695ad24989c333"
+          },
+          "ngspice": {
+            "path": "/workspace/scratch/f4bfc77609d9/IC-Design-Studio/build/runtime/ngspice-run",
+            "sha256": "b04ec82707ddc54aa258be26462f28315b18f7d5a6c8e15ca0deb662b6b99dae",
+            "version_file": "ngspice-version.log",
+            "version_sha256": "d18ced87a01768ec53b4682c549f1182be38030c71159f071a008b747a8f04be"
+          }
+        },
+        "verified": true
+      }
+    }
+  ],
+  "qualification": "Saved-testbench process verification. Qualification applies only to the recorded circuit, extraction model and operating condition; no fabrication signoff. Process distributed RC uses the recorded Magic profile and technology deck.",
+  "physical_extraction": {
+    "mode": "rc"
+  },
+  "conditions": {
+    "model_corner": "nominal",
+    "temperature": 27,
+    "analysis": {
+      "type": "op",
+      "stop": "100u",
+      "step": "200n",
+      "start": "10",
+      "end": "10meg",
+      "points": 150,
+      "source": "V1",
+      "dc_start": "0",
+      "dc_stop": "1.8",
+      "dc_step": "0.01",
+      "temperature": 27,
+      "corner": "nominal"
+    },
+    "sources": [
+      {
+        "name": "IREF",
+        "kind": "I",
+        "value": "50u",
+        "source": {
+          "type": "dc",
+          "low": "0",
+          "high": "1.8",
+          "period": "20u",
+          "delay": "0",
+          "duty": "0.5",
+          "ac": "1"
+        },
+        "nets": {
+          "p": "0",
+          "n": "ref"
+        }
+      },
+      {
+        "name": "VOUT",
+        "kind": "V",
+        "value": "1.2",
+        "source": {
+          "type": "dc",
+          "low": "0",
+          "high": "1.8",
+          "period": "20u",
+          "delay": "0",
+          "duty": "0.5",
+          "ac": "1"
+        },
+        "nets": {
+          "p": "force",
+          "n": "0"
+        }
+      },
+      {
+        "name": "VSENSE",
+        "kind": "V",
+        "value": "0",
+        "source": {
+          "type": "dc",
+          "low": "0",
+          "high": "1.8",
+          "period": "20u",
+          "delay": "0",
+          "duty": "0.5",
+          "ac": "1"
+        },
+        "nets": {
+          "p": "force",
+          "n": "out"
+        }
+      }
+    ]
+  },
+  "magic_drc_style": "drc(full)",
+  "drc_count": 0,
+  "requirement_comparison": [
+    {
+      "name": "output_current",
+      "kind": "measurements",
+      "unit": "A",
+      "before": 5.119161848199383e-05,
+      "after": 5.080590793239519e-05,
+      "delta": -3.8571054959863504e-07,
+      "before_status": "passed",
+      "after_status": "passed",
+      "detail": ""
+    },
+    {
+      "name": "bias_voltage",
+      "kind": "measurements",
+      "unit": "V",
+      "before": 0.7660257435607942,
+      "after": 0.7793595210917591,
+      "delta": 0.013333777530964874,
+      "before_status": "passed",
+      "after_status": "passed",
+      "detail": ""
+    }
+  ],
+  "measurement_comparison": [
+    {
+      "name": "output_current",
+      "unit": "A",
+      "before": 5.119161848199383e-05,
+      "after": 5.080590793239519e-05,
+      "delta": -3.8571054959863504e-07,
+      "relative_delta": -0.007534642604322133,
+      "before_status": "passed",
+      "after_status": "passed",
+      "regressed": false,
+      "error": ""
+    },
+    {
+      "name": "bias_voltage",
+      "unit": "V",
+      "before": 0.7660257435607942,
+      "after": 0.7793595210917591,
+      "delta": 0.013333777530964874,
+      "relative_delta": 0.0174064352837336,
+      "before_status": "passed",
+      "after_status": "passed",
+      "regressed": false,
+      "error": ""
+    }
+  ],
+  "comparison": [
+    {
+      "name": "output_current",
+      "unit": "A",
+      "before": 5.119161848199383e-05,
+      "after": 5.080590793239519e-05,
+      "delta": -3.8571054959863504e-07,
+      "relative_delta": -0.007534642604322133,
+      "before_status": "passed",
+      "after_status": "passed",
+      "regressed": false,
+      "error": ""
+    },
+    {
+      "name": "bias_voltage",
+      "unit": "V",
+      "before": 0.7660257435607942,
+      "after": 0.7793595210917591,
+      "delta": 0.013333777530964874,
+      "relative_delta": 0.0174064352837336,
+      "before_status": "passed",
+      "after_status": "passed",
+      "regressed": false,
+      "error": ""
+    }
+  ],
+  "provenance": {
+    "design_hash": "bdbb3f6d0feb9999a54721987dfd7167fb234a1adb40c32792e13a1643f54ae2",
+    "revision": 0,
+    "pdk_hash": "bfb089b9dbff915ecfe89fc68b4c421f45f64dde65ae2b1d330a4b39366a093a",
+    "testbench_hash": "af82cac3a641a4552d90ffdd0fa471262f0dadd2862e4d6fb14d7c087f5306f3",
+    "extraction_hash": "cf6ddd161e4fa94a3f5672f44ebe88decced76f4f5ca290401ed3080c92f9cbe",
+    "files": {
+      "layout.gds": "422a1778378cc780be106755ec09e355a62882aecc59bb08fbba6a7bb2eb5858",
+      "schematic.spice": "dec87e8051a57f187389fabc95a8ab856ec2c22c7a3cc8ef199b4419b54d6e44",
+      "input.icproj": "9a3c958381dc513b4efcbc92ba99fa87ff682c3f9ff5de73b72d9ec14588d342",
+      "testbench.json": "4ace37fc6e26aa163becd19422845e5c5d9378c037a2357e7e157176baec38cc",
+      "lvs-extraction/extracted.spice": "71896a8de8541e696761d7e16f3a769d77c24ec426553f7ae8c3351885c304ad",
+      "lvs-extraction/profile.json": "04f694af90420d0c3a3c0e908088410ad1e47c42eb8f0f9db531f5b8f3190d7f",
+      "parasitics/extracted.spice": "ad0e8ac920198c99cd1fbcfae22c3255d2a3e1f071c1361b1a2cf0f0354a280e",
+      "parasitics/profile.json": "414cf5aa7a06913464c519e71fcb8c140e4fe659f80a06b3e5dfb0bb95e66f51"
+    }
+  },
+  "findings": []
+}

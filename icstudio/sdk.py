@@ -4,20 +4,13 @@ from pathlib import Path
 from .model import clone,validate,History
 
 def apply_commands(project,commands):
-    if not isinstance(commands,list) or len(commands)>10000:raise ValueError('Invalid command batch.')
-    history=History(project)
-    def apply(p):
-        for cmd in commands:
-            cell=next(c for c in p['cells'] if c['id']==cmd['cell_id'])
-            if cmd['type']=='add_shape':cell['shapes'].append(cmd['shape'])
-            elif cmd['type']=='add_device':cell['devices'].append(cmd['device'])
-            elif cmd['type']=='set_parameter':
-                d=next(d for d in cell['devices'] if d['id']==cmd['device_id'])
-                if cmd['name']=='value':d['value']=cmd['value']
-                elif cmd['name'] in ('w','l','vto','kp','lambda'):d['params'][cmd['name']]=cmd['value']
-                else:raise ValueError('Unsupported parameter.')
-            else:raise ValueError('Unsupported command.')
-    history.commit(apply,'Plugin command batch');return history.project
+    from .design_automation import envelope,commit_batch
+    history=History(clone(project))
+    # Legacy trusted plugins may still return a command list. Versioned plugins
+    # can return an envelope and have stale project/revision checks enforced.
+    if commands==[]:return history.project
+    request=envelope(history.project,commands,'Plugin command batch') if isinstance(commands,list) else commands
+    commit_batch(history,request);return history.project
 
 def run_plugin(manifest,project):
     file=Path(manifest).resolve();m=json.loads(file.read_text())

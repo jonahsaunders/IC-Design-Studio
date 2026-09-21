@@ -1,11 +1,11 @@
 # Native Windows and Ubuntu acceptance
 
-Use the exact dev21 installer/portable archive whose source commit passed the
-desktop, interoperability and physical workflows. Launch without a preinstalled
+Use the exact dev25 installer/portable archive whose source commit passed the
+desktop, interoperability, physical, digital and VGA workflows. Launch without a preinstalled
 Python or EDA toolchain. Keep the complete application directory together.
 
-Run `ICDesignStudio.exe --desktop-acceptance acceptance-dev21` on Windows, or
-`./ICDesignStudio --desktop-acceptance acceptance-dev21` on Ubuntu. Use a fresh
+Run `ICDesignStudio.exe --desktop-acceptance acceptance-dev25` on Windows, or
+`./ICDesignStudio --desktop-acceptance acceptance-dev25` on Ubuntu. Use a fresh
 output directory for each OS/build/display configuration. Select the downloaded
 installer or archive in the acceptance window so its SHA-256 is retained.
 
@@ -20,6 +20,7 @@ in the notes. Screenshots and a saved project make failures reproducible.
 | 100%, 150%, 200% scaling | Controls, labels, focus indicators and symbol previews remain usable. Restart between OS scale configurations where required. |
 | Mixed display scaling | Move the main and floating windows between differently scaled monitors; resize all edges and four corners. |
 | Monitor removal and restoration | Save an arrangement on the second monitor, disconnect it, restart, and reach each title bar and resize handle. Reconnect and repeat. |
+| Offline VGA Playground | With external network access unavailable, render all eight presets; check real audio output, keyboard/Gamepad controls, pause/resume, reload and save/reopen. |
 | Interrupted work | Cancel a long simulation, run another, restart after interruption, and inspect the last durable design and unsent review draft. |
 | Upgrade and accessibility | Upgrade from the prior candidate, preserve projects/settings, and use keyboard navigation and a screen reader on principal controls. |
 

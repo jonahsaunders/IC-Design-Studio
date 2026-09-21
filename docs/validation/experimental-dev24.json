@@ -1,0 +1,65 @@
+{
+  "version": "0.22.0.dev24",
+  "baseline_commit": "45c3ccb27e91ffeea3d70dbeab8547591612a50a",
+  "scope": "Local Linux source verification of the dev24 working tree; packaged qualification requires hosted exact-commit evidence.",
+  "checks": [
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "status": "passed",
+      "tests": 849,
+      "skipped": 31
+    },
+    {
+      "command": "QT_QPA_PLATFORM=offscreen python tests/gui_analog_experiments.py --out build/analog-experiment-evidence",
+      "status": "passed"
+    },
+    {
+      "command": "QT_QPA_PLATFORM=offscreen python tests/gui_optimizer_refinement.py --out build/optimizer-refinement-evidence",
+      "status": "passed"
+    },
+    {
+      "command": "python scripts/build_vga_playground.py --test",
+      "status": "passed",
+      "simulator_tests": 94
+    },
+    {
+      "command": "python tests/gui_digital_vga.py --out build/vga-source-offscreen",
+      "status": "passed",
+      "presets": 8,
+      "checks": [
+        "Native input and Gamepad controls",
+        "Opt-in audio and pause",
+        "Invalid-source recovery",
+        "Reload",
+        "Project save/reopen and switching",
+        "Server shutdown"
+      ]
+    },
+    {
+      "command": "python -m unittest tests.test_release_qualification tests.test_digital_vga -v",
+      "status": "passed",
+      "tests": 14
+    },
+    {
+      "command": "python scripts/check_release.py",
+      "status": "passed",
+      "documents": 85,
+      "local_links": 415,
+      "gallery_examples": 9
+    }
+  ],
+  "environment": {
+    "python": "3.12.14",
+    "pyside": "6.8.3",
+    "display": "offscreen",
+    "renderer": "software; local root sandbox required Chromium --no-sandbox",
+    "system_libraries": "libXtst and libxkbfile extracted into the local workspace; no system installation"
+  },
+  "not_executed": [
+    "Windows and Linux frozen/installed VGA qualification (hosted workflow required)",
+    "Consumer Windows 10/11 and Ubuntu displays, mixed monitors and accessibility",
+    "Actual speaker quality",
+    "Physical LAN/VPN acceptance",
+    "Signing policy or signatures"
+  ]
+}

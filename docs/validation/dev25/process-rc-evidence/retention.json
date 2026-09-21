@@ -1,0 +1,207 @@
+{
+  "scope": "Selected unchanged real-engine evidence. Full case inputs, model assets and reports remain in build/CI artifacts. Log filenames append .txt for source-control retention.",
+  "files": {
+    "metal1-rc-coupon/comparison.json": {
+      "source": "build/analog-rc-qualified/metal1-rc-coupon/comparison.json",
+      "sha256": "39f2eb4df78780e13f788560851fe02d669bfc98f6f672e84df04fe679512ae9",
+      "bytes": 1741
+    },
+    "metal1-rc-coupon/100/extraction/extracted.spice": {
+      "source": "build/analog-rc-qualified/metal1-rc-coupon/100/extraction/extracted.spice",
+      "sha256": "80798430e5846044d5527b34e7157574917fd5112f0a52fdec07d7114dee91a0",
+      "bytes": 394
+    },
+    "metal1-rc-coupon/100/extraction/console.log.txt": {
+      "source": "build/analog-rc-qualified/metal1-rc-coupon/100/extraction/console.log",
+      "sha256": "666ce58d36523613f09340b34f93b9a5d3b7198310e8e898a262e41f85666619",
+      "bytes": 1014
+    },
+    "metal1-rc-coupon/100/extraction/run.tcl": {
+      "source": "build/analog-rc-qualified/metal1-rc-coupon/100/extraction/run.tcl",
+      "sha256": "8b7e308e252cfca44d164e1e217287d79be2eccfdf857f2fbae7b4dcd11c8661",
+      "bytes": 832
+    },
+    "metal1-rc-coupon/100/transfer.cir": {
+      "source": "build/analog-rc-qualified/metal1-rc-coupon/100/transfer.cir",
+      "sha256": "c8f92133e5b29f5fce26c8b5b9bcb182c8bd273378fc63031309448653644c51",
+      "bytes": 125
+    },
+    "metal1-rc-coupon/100/simulation/result.json": {
+      "source": "build/analog-rc-qualified/metal1-rc-coupon/100/simulation/result.json",
+      "sha256": "7bc86e1b5efd38875f1ffb1a11f73a50b0000ee300292605df5e7dae554dc53e",
+      "bytes": 2007
+    },
+    "metal1-rc-coupon/100/simulation/deck.raw": {
+      "source": "build/analog-rc-qualified/metal1-rc-coupon/100/simulation/deck.raw",
+      "sha256": "c4ef867927b4ce6c091bf7c08487440d402ff002eb27a5e1348b859cb434249f",
+      "bytes": 228
+    },
+    "metal1-rc-coupon/100/simulation/engine.log.txt": {
+      "source": "build/analog-rc-qualified/metal1-rc-coupon/100/simulation/engine.log",
+      "sha256": "633b99ca2da9d8e81fe5b7117b9048643b84e2303440b24d978efe0148ac4a35",
+      "bytes": 744
+    },
+    "metal1-rc-coupon/200/extraction/extracted.spice": {
+      "source": "build/analog-rc-qualified/metal1-rc-coupon/200/extraction/extracted.spice",
+      "sha256": "6d6f1c0bc99e0d705bcf813dde3a3bd10352c1d6048103956feafe6774b892bc",
+      "bytes": 393
+    },
+    "metal1-rc-coupon/200/extraction/console.log.txt": {
+      "source": "build/analog-rc-qualified/metal1-rc-coupon/200/extraction/console.log",
+      "sha256": "e6d8cc170d84c0d3500ef92199e72b700ded4342e3555963d74c9bfb14355521",
+      "bytes": 1014
+    },
+    "metal1-rc-coupon/200/extraction/run.tcl": {
+      "source": "build/analog-rc-qualified/metal1-rc-coupon/200/extraction/run.tcl",
+      "sha256": "b2ddd7de0d0eaab43d64d15bcfd095310926d6bdcb41affbaa2dc5fe34c937eb",
+      "bytes": 832
+    },
+    "metal1-rc-coupon/200/transfer.cir": {
+      "source": "build/analog-rc-qualified/metal1-rc-coupon/200/transfer.cir",
+      "sha256": "3fd6a241a3abed0cad59a2918dc3a70247844f9c55c165d98580bb92a718108b",
+      "bytes": 125
+    },
+    "metal1-rc-coupon/200/simulation/result.json": {
+      "source": "build/analog-rc-qualified/metal1-rc-coupon/200/simulation/result.json",
+      "sha256": "7029dcf76d6b5240b14f2e690fa5f1f0a88fc9b467102c3a4505366c30db33c5",
+      "bytes": 2001
+    },
+    "metal1-rc-coupon/200/simulation/deck.raw": {
+      "source": "build/analog-rc-qualified/metal1-rc-coupon/200/simulation/deck.raw",
+      "sha256": "4f78873b6ad1bc8b1c88cd9848cf8d712dca4c8385fcdf899218b94a79e798f1",
+      "bytes": 228
+    },
+    "metal1-rc-coupon/200/simulation/engine.log.txt": {
+      "source": "build/analog-rc-qualified/metal1-rc-coupon/200/simulation/engine.log",
+      "sha256": "9062f46c9d667a21d7cb8c9a060c392b9c601db7212a9faeb4f9767a31bd74a3",
+      "bytes": 740
+    },
+    "current_mirror_op-physical-nominal-27/report.json": {
+      "source": "build/analog-rc-qualified/current_mirror_op-physical-nominal-27/report.json",
+      "sha256": "e9a04d44a17b23f9d8d90d41819f9ad0cdfe7f7a2c93afcbc803b006735b9f09",
+      "bytes": 15918
+    },
+    "current_mirror_op-physical-nominal-27/schematic.spice": {
+      "source": "build/analog-rc-qualified/current_mirror_op-physical-nominal-27/schematic.spice",
+      "sha256": "dec87e8051a57f187389fabc95a8ab856ec2c22c7a3cc8ef199b4419b54d6e44",
+      "bytes": 634
+    },
+    "current_mirror_op-physical-nominal-27/parasitics/extracted.spice": {
+      "source": "build/analog-rc-qualified/current_mirror_op-physical-nominal-27/parasitics/extracted.spice",
+      "sha256": "ad0e8ac920198c99cd1fbcfae22c3255d2a3e1f071c1361b1a2cf0f0354a280e",
+      "bytes": 881
+    },
+    "current_mirror_op-physical-nominal-27/parasitics/console.log.txt": {
+      "source": "build/analog-rc-qualified/current_mirror_op-physical-nominal-27/parasitics/console.log",
+      "sha256": "9d530f6c7349abb445b614fbdeca4a6f47fcae03d86c4f89d195dd8a03c04036",
+      "bytes": 1031
+    },
+    "current_mirror_op-physical-nominal-27/parasitics/run.tcl": {
+      "source": "build/analog-rc-qualified/current_mirror_op-physical-nominal-27/parasitics/run.tcl",
+      "sha256": "23ebe40878bd0b31d75d162f7365b171f001f738ac93171447e50ccf7fb7e64f",
+      "bytes": 854
+    },
+    "current_mirror_op-physical-nominal-27/lvs/lvs.log.txt": {
+      "source": "build/analog-rc-qualified/current_mirror_op-physical-nominal-27/lvs/lvs.log",
+      "sha256": "4c627f3bfa2df57d05d73e88d66a49e18de341648ceaeacf087d7c5e4c761f34",
+      "bytes": 2294
+    },
+    "current_mirror_op-physical-nominal-27/drc/console.log.txt": {
+      "source": "build/analog-rc-qualified/current_mirror_op-physical-nominal-27/drc/console.log",
+      "sha256": "b369f31d425bbf396d6eddb0e0cb3298aadd68db6ef222c53bd40a2829592c18",
+      "bytes": 956
+    },
+    "current_mirror_op-physical-nominal-27/schematic/result.json": {
+      "source": "build/analog-rc-qualified/current_mirror_op-physical-nominal-27/schematic/result.json",
+      "sha256": "7e6763ab50bcdeedd37c96c0aca6a005ee9f9ee1a4f60b1431e5698d89c3d3f0",
+      "bytes": 2703
+    },
+    "current_mirror_op-physical-nominal-27/schematic/deck.raw": {
+      "source": "build/analog-rc-qualified/current_mirror_op-physical-nominal-27/schematic/deck.raw",
+      "sha256": "d50523d4a2eb88689d6ff25da4da1946acfec2a569dfb9ead6367fba646266a0",
+      "bytes": 384
+    },
+    "current_mirror_op-physical-nominal-27/post-layout/result.json": {
+      "source": "build/analog-rc-qualified/current_mirror_op-physical-nominal-27/post-layout/result.json",
+      "sha256": "96946a46931f6443ad47ca582e69ae936b131278738d62f18a05d1580a1b2339",
+      "bytes": 2705
+    },
+    "current_mirror_op-physical-nominal-27/post-layout/deck.raw": {
+      "source": "build/analog-rc-qualified/current_mirror_op-physical-nominal-27/post-layout/deck.raw",
+      "sha256": "7ee9206cb6b8148df5d20339900ed99c9279ce2f3d4f9704db6cf4851e846934",
+      "bytes": 384
+    },
+    "magic-version.log.txt": {
+      "source": "build/analog-rc-qualified/magic-version.log",
+      "sha256": "374631470fd896b551d28a26fafd5af90d205a0af0d09f5ab9d796371d6be261",
+      "bytes": 8
+    },
+    "netgen-version.log.txt": {
+      "source": "build/analog-rc-qualified/netgen-version.log",
+      "sha256": "2440d38de07e7a1293b3d3a0aecdc160b7856c46422c799f28695ad24989c333",
+      "bytes": 210
+    },
+    "ngspice-version.log.txt": {
+      "source": "build/analog-rc-qualified/ngspice-version.log",
+      "sha256": "d18ced87a01768ec53b4682c549f1182be38030c71159f071a008b747a8f04be",
+      "bytes": 449
+    },
+    "focused-final-short/acceptance.json": {
+      "source": "build/process-rc-final-short/acceptance.json",
+      "sha256": "fa2f54aac014586165d595d3f5ddee3ac3762ae2b91552cf1ba90fde3fb568b6",
+      "bytes": 547
+    },
+    "focused-final-short/report.json": {
+      "source": "build/process-rc-final-short/report.json",
+      "sha256": "1549773e3628fc05e8837b93a1dd1c32311a4b5f955d35c29df40120cb74b4cc",
+      "bytes": 11029
+    },
+    "focused-final-short/schematic.spice": {
+      "source": "build/process-rc-final-short/schematic.spice",
+      "sha256": "fb8332aec25b13989845ff12acfe153d13f828d95d5102ccfb11acd932ad3540",
+      "bytes": 634
+    },
+    "focused-final-short/lvs-extraction/extracted.spice": {
+      "source": "build/process-rc-final-short/lvs-extraction/extracted.spice",
+      "sha256": "300ed33420fc74b8c9d8cea30c675eaa8b9da0429d1e87d4377ae8821aa8aa1e",
+      "bytes": 264
+    },
+    "focused-final-short/lvs-extraction/console.log.txt": {
+      "source": "build/process-rc-final-short/lvs-extraction/console.log",
+      "sha256": "6442512538ae797c69c9276667498184c67b7ce425dacb317fdfdba4d70e13ff",
+      "bytes": 974
+    },
+    "physical-engine-source-lock.json": {
+      "source": "build/physical-engines/source-lock.json",
+      "sha256": "2295293820dad207a3d201266cbdf95e104a318b6914fc48b9aa2ab101142c7c",
+      "bytes": 339
+    },
+    "rejected-capacitance/comparison.json": {
+      "source": "build/process-rc-cap-conservation-bug2/comparison.json",
+      "sha256": "0d94a60b734ec73e8127991a3114edb1bdde8d7b0c6d0a80539d0922c35d319f",
+      "bytes": 2419
+    },
+    "rejected-capacitance/100/capacitance-reference/extracted.spice": {
+      "source": "build/process-rc-cap-conservation-bug2/100/capacitance-reference/extracted.spice",
+      "sha256": "4b9b8c08d6107def6dc394793d3afec0f9ce39a7fc83e752608efe41510364f2",
+      "bytes": 247
+    },
+    "rejected-capacitance/100/admittance.cir": {
+      "source": "build/process-rc-cap-conservation-bug2/100/admittance.cir",
+      "sha256": "b6d66d5d4561e8bec36838518e258a49a17255e36a619910e8219e39663cba4f",
+      "bytes": 201
+    },
+    "rejected-capacitance/100/admittance/deck.raw": {
+      "source": "build/process-rc-cap-conservation-bug2/100/admittance/deck.raw",
+      "sha256": "c406f5c4fef05377a877c0ed1c90a5c8d859105dfaa951cfdea967a8bafdcbad",
+      "bytes": 391
+    },
+    "rejected-capacitance/100/admittance/result.json": {
+      "source": "build/process-rc-cap-conservation-bug2/100/admittance/result.json",
+      "sha256": "8bdf0fdd77864c5eecb9c3a943935bc54ef61ace858224d163fce1ec3c5b9078",
+      "bytes": 2171
+    }
+  },
+  "status": "superseded_diagnostic_evidence",
+  "limitation": "These initial outputs exposed a pinned Magic capacitor-unit defect. Differential wire checks and low-frequency circuit measurements did not validate absolute capacitance or broadband response. They are not the final corrected RC qualification."
+}

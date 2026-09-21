@@ -1,0 +1,9 @@
+test_actual_generic_mos_reports_saturation_and_below_vdsat (tests.test_saved_bias.SavedBiasTests.test_actual_generic_mos_reports_saturation_and_below_vdsat) ... ok
+test_actual_sky130_internal_path_and_extracted_names (tests.test_saved_bias.SavedBiasTests.test_actual_sky130_internal_path_and_extracted_names) ... ok
+test_bias_requires_op_and_unknown_subcircuit_fields_remain_absent (tests.test_saved_bias.SavedBiasTests.test_bias_requires_op_and_unknown_subcircuit_fields_remain_absent) ... ok
+test_implementation_changed_during_readout_is_rejected (tests.test_saved_bias.SavedBiasTests.test_implementation_changed_during_readout_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 21.820s
+
+OK

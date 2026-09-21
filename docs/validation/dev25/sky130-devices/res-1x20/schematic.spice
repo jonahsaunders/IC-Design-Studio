@@ -1,0 +1,7 @@
+* Numerically resolved schematic reference
+.subckt device_coupon P N
+* IC Design Studio / Untitled circuit / revision 0
+* design-sha256 8773efb68479cf6123227f98600400f51b9b7c674e58e3a539c6e091dbdddbdf
+* Explicit locked PDK model bindings. Qualification depends on the validated reference flow.
+R_R1 P N sky130_fd_pr__res_generic_po l=20 m=1 w=1
+.ends device_coupon

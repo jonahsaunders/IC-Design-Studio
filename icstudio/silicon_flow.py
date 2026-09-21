@@ -29,15 +29,29 @@ def magic_script(executable,technology,gds,cell,ports,directory,commands,setup="
     for i,port in enumerate(ports,1):
         word=tcl_word(port)
         script+='if {![port '+word+' exists]} {error '+tcl_word('Missing layout port '+port)+'}\nport '+word+' index '+str(i)+'\n'
-    script+=commands+'\nputs STUDIO_MAGIC_COMPLETE\n'
-    wrapped='if {[catch {\n'+script+'} err]} {puts stderr "STUDIO_MAGIC_ERROR $err"}\nquit -noprompt\n'
-    atomic_write(directory/'run.tcl',wrapped)
-    try:log=execute([executable,'-dnull','-noconsole','-rcfile',str(rc)],directory,timeout=240,input_text=wrapped)
-    except Exception as e:atomic_write(directory/'console.log',str(e));raise
-    atomic_write(directory/'console.log',log)
-    if 'STUDIO_MAGIC_COMPLETE' not in log or re.search(r'STUDIO_MAGIC_ERROR|contained errors|Malformed line|Illegal keyword|Error:.*required by this techfile|invalid command name',log,re.I):
-        raise ValueError('Magic could not complete the commands. See '+str(directory/'console.log'))
-    return log
+    def invoke(body,script_name='run.tcl',log_name='console.log'):
+        wrapped='if {[catch {\n'+script+body+'\nputs STUDIO_MAGIC_COMPLETE\n} err]} {puts stderr "STUDIO_MAGIC_ERROR $err"}\nquit -noprompt\n'
+        atomic_write(directory/script_name,wrapped)
+        try:log=execute([executable,'-dnull','-noconsole','-rcfile',str(rc)],directory,timeout=240,input_text=wrapped)
+        except Exception as e:atomic_write(directory/log_name,str(e));raise
+        atomic_write(directory/log_name,log)
+        if 'STUDIO_MAGIC_COMPLETE' not in log or re.search(r'STUDIO_MAGIC_ERROR|contained errors|Malformed line|Illegal keyword|Error:.*required by this techfile|invalid command name|exttospice:\s*(?:integer|numeric) value.*expected',log,re.I):
+            raise ValueError('Magic could not complete the commands. See '+str(directory/log_name))
+        return log
+    marker='# STUDIO_NORMALIZE_MAGIC_RC_V1'
+    if marker not in commands:return invoke(commands)
+    if commands.count(marker)!=1:raise ValueError('Ambiguous Magic RC normalization boundary.')
+    resistance,export=commands.split(marker)
+    # The pinned Magic 8.3.600 profile mixes fF/aF and loses original C.
+    # Keep its resistor/device topology, rebuild conserved C, and only then
+    # export in a fresh process so ext2spice reads the corrected files.
+    first=invoke(resistance,'resistance-run.tcl','resistance-console.log')
+    from .magic_rc import normalize,finalize
+    normalize(directory,cell)
+    settings='\n'.join(line for line in resistance.splitlines() if line.startswith('ext2spice '))
+    second=invoke(settings+'\n'+export)
+    finalize(directory,cell)
+    return first+'\n'+second
 
 
 def run(p,cid,output,tools,progress=lambda *_:None):
@@ -140,7 +154,8 @@ def job(p,cid,settings,directory,progress):
     output=Path(directory)/'physical-flow'
     if settings.get('testbench'):
         from .hierarchical_flow import run as hierarchical_run
-        report=hierarchical_run(p,settings['testbench'],output,settings.get('tools',{}),progress);cid=report['cell_id']
+        overrides={'physical_extraction':settings['physical_extraction']} if 'physical_extraction' in settings else {}
+        report=hierarchical_run(p,settings['testbench'],output,settings.get('tools',{}),progress,**overrides);cid=report['cell_id']
     else:report=run(p,cid,output,settings.get('tools',{}),progress)
     issues=[]
     if report['status']!='passed':issues.append({'severity':'error','code':'PHYSICAL.'+report['status'].upper(),'object':'','message':report.get('error','Physical workflow incomplete'),'fingerprint':digest(report)})

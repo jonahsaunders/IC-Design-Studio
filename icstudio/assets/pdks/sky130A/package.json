@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "id": "sky130A",
-  "revision": "46e2e8c2922fdcad",
+  "revision": "24bc6d0bfd6a0224",
   "family": "sky130",
   "files": {
     "libs.tech/ngspice/sky130.lib.spice": "5efa041a988893c1a3580d0ecd57870ea3146b27741c7d42b56baaa336b9549e",
@@ -403,7 +403,7 @@
   },
   "technology": {
     "name": "SkyWater SKY130 \u00b7 sky130A",
-    "revision": "46e2e8c2922fdcad",
+    "revision": "24bc6d0bfd6a0224",
     "status": "local assets indexed \u00b7 device simulation unverified",
     "dbu_um": 0.001,
     "grid": 5,
@@ -25092,7 +25092,7 @@
             "m",
             "p"
           ],
-          "prefix": "X",
+          "prefix": "R",
           "parameters": {
             "l": {
               "default": "1",
@@ -25352,7 +25352,7 @@
               "template": "name=R1\nW=1\nL=1\nmodel=res_generic_po\nmult=1"
             }
           },
-          "model_source": "libs.tech/ngspice/r+c.mrp1monte.spice",
+          "model_source": "libs.tech/ngspice/sky130_fd_pr__model__r+c.model.spice",
           "notes": []
         },
         "sky130_fd_pr/res_high_po.sym": {

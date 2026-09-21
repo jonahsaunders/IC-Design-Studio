@@ -19,6 +19,8 @@ class GeometryGraph:
 
     def sync(self,shapes,tech,trusted=False):
         db=kdb();connect=tech.get('connectivity',{});vias=connect.get('vias',[['metal1','via1','metal2']])
+        from .contact_rules import blocked_regions,interacts
+        blockers=blocked_regions(shapes,tech) if self.mode=='contact' else {}
         conductors=set(connect.get('conductors',['metal1','metal2']))|{v for _,v,_ in vias}
         if self.mode=='contact':
             radii={(l,l):0 for l in conductors}
@@ -32,7 +34,7 @@ class GeometryGraph:
             radii={(l['name'],l['name']):l['space'] for l in tech['layers']}
             for rule in enclosure_rules(tech):
                 for a,b in ((rule['cut'],rule['conductor']),(rule['conductor'],rule['cut'])):radii[a,b]=max(radii.get((a,b),0),int(rule['minimum']))
-        rulekey=repr(tech);reset=rulekey!=self.rules
+        rulekey=repr(tech)+repr([(sorted(key),value.to_s()) for key,value in blockers.items()]);reset=rulekey!=self.rules
         records={};changed=set();built=0
         for shape in shapes:
             ident=key(shape);old=self.records.get(ident)
@@ -77,7 +79,7 @@ class GeometryGraph:
                 tests+=1
                 from .layout_limits import CONTACT_TESTS
                 if tests>CONTACT_TESTS:raise ValueError('Contact search exceeds 2,000,000 candidate pairs. Partition the dense cell before connected editing.')
-                if self.mode=='influence' or not row['region'].interacting(target['region']).is_empty():
+                if self.mode=='influence' or interacts(row['shape'],target['shape'],row['region'],target['region'],blockers):
                     writable(ident).add(other);writable(other).add(ident)
                     prior_group=self.groups.get(other)
                     if prior_group:affected_groups.add(prior_group)

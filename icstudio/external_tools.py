@@ -116,12 +116,19 @@ def extraction_commands(profile='lvs', overrides=None):
             from .model import scalar
             if scalar(value)<0: raise ValueError('Extraction thresholds cannot be negative.')
             settings[key] = scalar(value)
+            if key=='resistance_threshold':
+                if settings[key] != int(settings[key]) or settings[key] > 2147483646:
+                    raise ValueError('Magic resistance thresholds must be whole numbers from 0 to 2147483646, or infinite.')
+                settings[key] = int(settings[key])
+    if settings['distributed_resistance'] and settings['capacitance_threshold'] != 0:
+        raise ValueError('Conserved Magic RC requires a zero capacitance threshold.')
     lines = ['extract all','ext2spice lvs','ext2spice subcircuit top on','ext2spice renumber off','ext2spice global off']
     for key in ('hierarchy','blackbox','scale'): lines.append('ext2spice '+key+' '+('on' if settings[key] else 'off'))
     lines += ['ext2spice merge '+settings['merge'], 'ext2spice cthresh '+str(settings['capacitance_threshold']),
               'ext2spice rthresh '+str(settings['resistance_threshold'])]
     if settings['distributed_resistance']:
-        lines += ['ext2sim labels on','ext2sim','extresist all','ext2spice extresist on']
+        lines += ['ext2sim labels on','ext2sim','extresist all',
+                  '# STUDIO_NORMALIZE_MAGIC_RC_V1','ext2spice extresist on']
     else: lines.append('ext2spice extresist off')
     return '\n'.join(lines)+'\n',settings
 
@@ -177,6 +184,8 @@ def magic_workspace(project, cid, output, executable='magic', technology=None, p
     deck = output/'native'/'extracted.spice'
     if not deck.is_file(): raise ValueError('Magic produced no extracted netlist.')
     interface=check_extracted_interface(deck,by[cid]['name'],by[cid]['ports'],project['pdk'])
+    normalization=output/'native'/'rc-normalization.json'
+    if normalization.is_file():settings['capacitance_normalization']=json.loads(normalization.read_text())
     report = {'version':1,'created':now(),'tool':info,'project_hash':digest(project),'top':by[cid]['name'],
               'profile':profile,'settings':settings,'interface':interface,'technology_file':staged_tech.relative_to(output).as_posix(),'technology_sha256':file_digest(staged_tech),
               'files':{p.relative_to(output).as_posix():file_digest(p) for p in output.rglob('*') if p.is_file()},

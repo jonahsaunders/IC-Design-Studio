@@ -5,6 +5,7 @@ from .model import load_project,atomic_write
 def main(input_path,output_path):
     try:
         job=json.loads(Path(input_path).read_text(encoding='utf-8'))
+        if job.get('preparation_error'):raise ValueError(job['preparation_error'])
         from .run_environment import verify
         verify(job)
         from .model import validate

@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "algorithm": "magic-flat-capacitance-conservation-v1",
+  "top": "rc_coupon",
+  "implementation_sha256": "7ade65ec645580ca6c8d967be39989350fa0574a5e335b3b8aa691e3ce331bf8",
+  "scope": "Flat distributed Magic resistance with area weighted lumped original ground and mutual capacitance; not a spatial field solver.",
+  "units": "attofarads",
+  "original_scale": [
+    1000.0,
+    1.0,
+    1000000.0
+  ],
+  "resistance_scale": [
+    1000.0,
+    1.0,
+    1000000.0
+  ],
+  "equations": {
+    "ground": "C_i = C_original_ground * w_i",
+    "mutual": "C_ij = C_original_mutual * w_i * w_j",
+    "weights": "w_i = positive_raw_rnode_C_i / sum(positive_raw_rnode_C)"
+  },
+  "weights_scope": "Normalized positive extresist rnode C follows its area redistribution. Raw C magnitudes are discarded.",
+  "nets": {
+    "DRAIN": {
+      "original_ground_af": 97.6069,
+      "rnode_count": 2,
+      "nodes": [
+        "DRAIN.t0",
+        "DRAIN"
+      ],
+      "weights": {
+        "DRAIN.t0": 0.6540534162898306,
+        "DRAIN": 0.3459465837101694
+      },
+      "fallback": null
+    },
+    "IN": {
+      "original_ground_af": 11139.1,
+      "rnode_count": 2,
+      "nodes": [
+        "IN.t0",
+        "IN"
+      ],
+      "weights": {
+        "IN.t0": 0.028018131110611133,
+        "IN": 0.971981868889389
+      },
+      "fallback": null
+    },
+    "VSS": {
+      "original_ground_af": 0.0,
+      "rnode_count": 3,
+      "nodes": [
+        "VSS.t1",
+        "VSS.t0",
+        "VSS"
+      ],
+      "weights": {
+        "VSS": 1.0
+      },
+      "fallback": {
+        "method": "nearest-original-node-origin",
+        "anchor": "VSS",
+        "original_xy": [
+          -220,
+          50
+        ],
+        "anchor_xy": [
+          -220,
+          50
+        ]
+      }
+    }
+  },
+  "mutual_pairs": 1,
+  "generated_mutual_capacitors": 4,
+  "max_capacitors": 50000,
+  "generated_ground_capacitors": 4,
+  "resistor_count": 4,
+  "conservation": {
+    "status": "passed",
+    "matrix_entries": 4,
+    "maximum_error_af": 1.8189894035458565e-12,
+    "relative_tolerance": 1e-12,
+    "absolute_tolerance_af": 1e-12,
+    "entries": [
+      {
+        "a": "DRAIN",
+        "b": "DRAIN",
+        "original_af": 106.16721,
+        "normalized_af": 106.16721
+      },
+      {
+        "a": "DRAIN",
+        "b": "IN",
+        "original_af": -8.56031,
+        "normalized_af": -8.56031
+      },
+      {
+        "a": "IN",
+        "b": "IN",
+        "original_af": 11147.660310000001,
+        "normalized_af": 11147.660310000003
+      },
+      {
+        "a": "VSS",
+        "b": "VSS",
+        "original_af": 0.0,
+        "normalized_af": 0.0
+      }
+    ]
+  },
+  "files": {
+    "rc_coupon.raw.ext": "23789579b59fbb24c0e58af39c97324037d5e58bddb54b1972dc145256a0f9c8",
+    "rc_coupon.raw.res.ext": "361a4b47b1caf6d64337eece8f6689e9f71b3b0d301f04e191c78f3442ad265a",
+    "rc_coupon.ext": "a0f8cef854381f2710ea887f363b6d548f03775115c08960595a7b433fd950f2",
+    "rc_coupon.res.ext": "dd56be44a188ca9619d6c6f2fa9caca7e4a61ffe032d401dd9e9553c8c7f59a9",
+    "raw-export.spice": "732c512460e81bb282508636c100c40b41bd6f94875967f52caa2fa4feada016",
+    "extracted.spice": "fd44a534e7ac3966f3eea82f7668fc2ef39869c693fa90291d468e79927728cd"
+  },
+  "export": {
+    "status": "passed",
+    "raw_file": "raw-export.spice",
+    "file": "extracted.spice",
+    "raw_sha256": "732c512460e81bb282508636c100c40b41bd6f94875967f52caa2fa4feada016",
+    "sha256": "fd44a534e7ac3966f3eea82f7668fc2ef39869c693fa90291d468e79927728cd",
+    "removed_quantized_capacitors": 8,
+    "full_precision_capacitors": 8,
+    "resistor_graph": "exact original named edge multiset preserved",
+    "non_capacitor_lines": "preserved byte for byte",
+    "quantization_reason": "Supported Magic esSIvalue emits C below 1 aF as zero; all parasitic C is serialized at 17 significant digits.",
+    "matrix_entries": 4,
+    "maximum_error_af": 3.637978807091713e-12,
+    "relative_tolerance": 1e-12,
+    "absolute_tolerance_af": 1e-12
+  }
+}

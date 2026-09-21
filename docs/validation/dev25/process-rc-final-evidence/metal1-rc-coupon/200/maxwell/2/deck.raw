@@ -1,0 +1,18 @@
+Title: * independent full terminal capacitance matrix
+Date: Sun Sep 20 13:34:53  2026
+Plotname: AC Analysis
+Flags: complex
+No. Variables: 5
+No. Points: 1       
+Variables:
+	0	frequency	frequency
+	1	i(v0)	current
+	2	i(v1)	current
+	3	i(v2)	current
+	4	v(vss)	voltage
+Values:
+0		1.000000000000000e+03,4.672701680133517e-310
+	1.138690740253943e-20,1.371688467595682e-10
+	4.003981412790452e-23,6.132822399593472e-13
+	-1.142694721666733e-20,-1.377821289995276e-10
+	1.000000000000000e+00,0.000000000000000e+00

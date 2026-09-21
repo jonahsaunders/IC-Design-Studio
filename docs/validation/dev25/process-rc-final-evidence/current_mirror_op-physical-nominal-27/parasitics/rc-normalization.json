@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "algorithm": "magic-flat-capacitance-conservation-v1",
+  "top": "current_mirror",
+  "implementation_sha256": "7ade65ec645580ca6c8d967be39989350fa0574a5e335b3b8aa691e3ce331bf8",
+  "scope": "Flat distributed Magic resistance with area weighted lumped original ground and mutual capacitance; not a spatial field solver.",
+  "units": "attofarads",
+  "original_scale": [
+    1000.0,
+    1.0,
+    1000000.0
+  ],
+  "resistance_scale": [
+    1000.0,
+    1.0,
+    1000000.0
+  ],
+  "equations": {
+    "ground": "C_i = C_original_ground * w_i",
+    "mutual": "C_ij = C_original_mutual * w_i * w_j",
+    "weights": "w_i = positive_raw_rnode_C_i / sum(positive_raw_rnode_C)"
+  },
+  "weights_scope": "Normalized positive extresist rnode C follows its area redistribution. Raw C magnitudes are discarded.",
+  "nets": {
+    "OUT": {
+      "original_ground_af": 3810.42,
+      "rnode_count": 2,
+      "nodes": [
+        "OUT.t0",
+        "OUT"
+      ],
+      "weights": {
+        "OUT.t0": 0.3202307221125706,
+        "OUT": 0.6797692778874294
+      },
+      "fallback": null
+    },
+    "IREF": {
+      "original_ground_af": 6158.06,
+      "rnode_count": 6,
+      "nodes": [
+        "IREF.t2",
+        "IREF.t1",
+        "IREF.n0",
+        "IREF.t0",
+        "IREF.n1",
+        "IREF"
+      ],
+      "weights": {
+        "IREF.t2": 0.15994429322454007,
+        "IREF.t1": 0.14059324993481168,
+        "IREF.n0": 0.3863700459529853,
+        "IREF.t0": 0.15492319687810654,
+        "IREF.n1": 0.13857698454324144,
+        "IREF": 0.01959222946631497
+      },
+      "fallback": null
+    },
+    "VSS": {
+      "original_ground_af": 0.0,
+      "rnode_count": 9,
+      "nodes": [
+        "VSS.t1",
+        "VSS.n0",
+        "VSS.t2",
+        "VSS.t3",
+        "VSS.n1",
+        "VSS.n2",
+        "VSS.t0",
+        "VSS.n3",
+        "VSS"
+      ],
+      "weights": {
+        "VSS": 1.0
+      },
+      "fallback": {
+        "method": "nearest-original-node-origin",
+        "anchor": "VSS",
+        "original_xy": [
+          -600,
+          2080
+        ],
+        "anchor_xy": [
+          -600,
+          2080
+        ]
+      }
+    }
+  },
+  "mutual_pairs": 1,
+  "generated_mutual_capacitors": 12,
+  "max_capacitors": 50000,
+  "generated_ground_capacitors": 8,
+  "resistor_count": 15,
+  "conservation": {
+    "status": "passed",
+    "matrix_entries": 4,
+    "maximum_error_af": 0.0,
+    "relative_tolerance": 1e-12,
+    "absolute_tolerance_af": 1e-12,
+    "entries": [
+      {
+        "a": "IREF",
+        "b": "IREF",
+        "original_af": 7333.5,
+        "normalized_af": 7333.5
+      },
+      {
+        "a": "IREF",
+        "b": "OUT",
+        "original_af": -1175.44,
+        "normalized_af": -1175.44
+      },
+      {
+        "a": "OUT",
+        "b": "OUT",
+        "original_af": 4985.860000000001,
+        "normalized_af": 4985.860000000001
+      },
+      {
+        "a": "VSS",
+        "b": "VSS",
+        "original_af": 0.0,
+        "normalized_af": 0.0
+      }
+    ]
+  },
+  "files": {
+    "current_mirror.raw.ext": "596e4c6dd522c5ad4bed0e213fbb14869a9a53894d3856d513399247147e3c7e",
+    "current_mirror.raw.res.ext": "7e952bb704bf5fad5007c61915e719beb23a1322ef645ef6e674ab159bd83d30",
+    "current_mirror.ext": "15a8c1b708552c262d2d5d61285009968e7d6b87f95c40436253ce6074539cd3",
+    "current_mirror.res.ext": "baefc53d7a1a0d521052f9dcc29a4891e598aa5da275a75f0a5b92aaab1d505f",
+    "raw-export.spice": "90647008bd15324129a5c5831e98b41494439c9c0d1cdfcc0c7c14626212dacd",
+    "extracted.spice": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe"
+  },
+  "export": {
+    "status": "passed",
+    "raw_file": "raw-export.spice",
+    "file": "extracted.spice",
+    "raw_sha256": "90647008bd15324129a5c5831e98b41494439c9c0d1cdfcc0c7c14626212dacd",
+    "sha256": "18f6cadfc1874dd2258644ff580e887091cc9706d14331a4d242f603dfbd66fe",
+    "removed_quantized_capacitors": 20,
+    "full_precision_capacitors": 20,
+    "resistor_graph": "exact original named edge multiset preserved",
+    "non_capacitor_lines": "preserved byte for byte",
+    "quantization_reason": "Supported Magic esSIvalue emits C below 1 aF as zero; all parasitic C is serialized at 17 significant digits.",
+    "matrix_entries": 4,
+    "maximum_error_af": 1.8189894035458565e-12,
+    "relative_tolerance": 1e-12,
+    "absolute_tolerance_af": 1e-12
+  }
+}

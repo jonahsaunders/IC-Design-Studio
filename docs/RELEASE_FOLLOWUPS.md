@@ -1,82 +1,48 @@
-# Release follow-up issue drafts
+# Release acceptance tracking
 
-## Current follow-up status
+The current candidate is **0.22.0.dev25**. Automated qualification and manual
+acceptance have separate completion criteria. Attach the exact source commit,
+package SHA-256 and observations; a closed issue without evidence does not
+qualify a platform or distribution policy.
 
-Delivered in source: bounded external arrays, reviewed layout attachment, text
-presentation fidelity, submitted-review recovery and the reproducible external
-project gate. Dev20 resolved the strict detector LVS findings; the
-[open-project report](OPEN_PROJECTS.md) retains the remaining conversion and
-analysis limits. The [release status](RELEASE_STATUS.md) records the successful
-dev20 hosted checkpoint and draft; the dev12 checklist below is historical. Consumer Windows 10/11, interactive Linux/high-DPI, physical
-LAN/VPN and signing-policy issues remain open; automated source tests do not
-supply the missing hardware or signing evidence.
+| Gate | Tracking | Required evidence |
+|---|---|---|
+| Clean Windows 10/11 | [#8](https://github.com/jonahsaunders/IC-Design-Studio/issues/8) | Install without Python/EDA tools, first simulation, real PDK example, save/reopen, cancellation/recovery, paths with spaces, portable archive, upgrades, 100/150/200% and mixed-monitor scaling, keyboard/screen-reader review, uninstall preserving projects. |
+| Native Ubuntu 24.04 | [#9](https://github.com/jonahsaunders/IC-Design-Studio/issues/9) | Clean archive launch, simulation and PDK workflow, settings migration, display/scaling, keyboard/accessibility and required OS runtime libraries. |
+| Windows signing policy | [#10](https://github.com/jonahsaunders/IC-Design-Studio/issues/10) | Maintainer chooses signing infrastructure or explicitly accepts an unsigned engineering preview; record the decision and actual consumer installation behavior. If signed, verify signatures before final checksums. |
+| Physical LAN/VPN | [#31](https://github.com/jonahsaunders/IC-Design-Studio/issues/31) | Separate physical clients, TLS trust and rejection, invitations/revocation, concurrent edits, interruption/reconnect/restart and exactly-once recovery across intended firewalls/VPNs. |
 
-These are ready-to-post issue bodies, not assertions that issues or external
-acceptance checks have been completed. Attach evidence for the exact release
-commit and asset hashes. Keep a failed or blocked check open.
+Issues #8–#10 were reopened because their earlier closures contained unchecked
+acceptance lists and no completion records. Historical dev12 issue #11 and old
+release evidence remain historical; they do not qualify current packages.
+Some issue titles still name dev24. Keep those checks open until a record names
+the candidate actually tested; do not reuse the old draft's package identity for
+dev25.
 
-## Qualify dev12 on clean Windows 10 and Windows 11 machines
+Both consumer-platform checks include VGA without external network access:
+all eight presets, actual sound, keyboard/Gamepad controls, hide/resume, invalid
+RTL, reload, save/reopen and project switching. Use the
+[native acceptance tool](NATIVE_DESKTOP_ACCEPTANCE.md) and attach its JSON,
+screenshots and sanitized logs. Leave `Not run`, failed or blocked items open.
 
-The hosted Windows Server job does not establish consumer Windows compatibility.
+## Automated candidate gates
 
-- [ ] Record OS edition/build, release commit, installer/portable SHA-256 and
-  display scale for each machine.
-- [ ] Install without a preinstalled Python or EDA toolchain; obtain the first
-  waveform using the included engine, then run a real supported PDK example.
-- [ ] Save, close and reopen the project; cancel a simulation and verify that
-  subsequent simulation and recovery work.
-- [ ] Check 100%, 150% and 200% display scale, keyboard navigation, focus and
-  a screen-reader pass through the principal controls.
-- [ ] Verify shortcuts, file association, paths with spaces and the portable ZIP.
-- [ ] Upgrade from the prior candidate; preserve projects and user settings.
-- [ ] Uninstall and check that user projects are retained.
-- [ ] Attach observations, screenshots and logs; link separate defects for any
-  failed acceptance item before publishing the prerelease.
+1. Run desktop/package, external interoperability, pinned physical, digital, VGA
+   and statistical campaign workflows on the selected source commit. Inspect failures and retained
+   evidence before promoting the candidate.
+2. Windows installation and Windows/Linux archive execution must include passing
+   frozen VGA reports with all eight presets and the same clean commit/version.
+   The Windows record must also match the setup executable's name and SHA-256
+   and retain all three installed DPI probe reports. Each platform requires the
+   expected application, corresponding source and evidence assets.
+   The statistical evidence must identify the same commit/run and complete the
+   1,152-case numerical workload with crash recovery and resolved trial results.
+3. Prepare a draft with matching source, applications, qualification evidence and
+   checksums. Version changes on `experimental` or `main` trigger draft preparation;
+   manual dispatch remains available.
+4. Review the four manual gates above before public publication. A passing draft
+   workflow never publishes automatically or marks manual acceptance complete.
 
-## Qualify the Linux archive on a clean Ubuntu 24.04 desktop
-
-CI runs the extracted archive with an isolated application profile and offscreen
-Qt. An interactive desktop must still be checked.
-
-- [ ] Record OS/display environment, release commit and archive SHA-256.
-- [ ] Extract the complete archive to a path with spaces on a machine without
-  a preinstalled Python or EDA toolchain; launch the packaged executable.
-- [ ] Obtain a waveform, run a supported real-PDK example, save/reopen and test
-  cancellation/recovery.
-- [ ] Review native display scaling, keyboard navigation and accessibility.
-- [ ] Exercise settings migration from the prior candidate.
-- [ ] Attach logs and screenshots, documenting any external runtime libraries
-  required by the tested OS image.
-
-## Decide and document Windows signing for public distribution
-
-The candidate's Windows executables are unsigned. Signing requires a maintainer's
-chosen certificate or signing service and repository secret configuration.
-
-- [ ] Record the selected signing approach and release policy.
-- [ ] If signing is adopted, sign before package execution and checksum creation;
-  verify the signature on the exact downloadable installer and executable.
-- [ ] If releasing an unsigned engineering preview, explicitly record that
-  decision and keep the download instructions accurate.
-- [ ] Retain consumer-machine installation observations for the chosen approach.
-
-## Record the first complete dev12 qualification and draft release
-
-The workflows and ruleset are implementation/configuration; repository settings
-and successful hosted runs require separate evidence.
-
-- [ ] Push the implementation branch and open its PR; retain the two desktop,
-  `exchange` and `sky130` results for the same commit.
-- [ ] Inspect the independent Xschem hierarchy results and the physical nominal,
-  narrow-metal, open-route and changed-channel-length reports. A tool startup
-  error must never be accepted as an expected design failure.
-- [ ] Apply or update the **Verified main** ruleset once check names exist;
-  inspect the active settings and merge through the required checks.
-- [ ] Dispatch **Prepare draft preview release** on the merged `main` commit.
-- [ ] Inspect the draft's version, commit, source archives, executable packages,
-  validation records, evidence and SHA256SUMS.
-- [ ] Link the consumer-platform/signing decisions above. Publish only after
-  the remaining acceptance items have been reviewed.
-
-See [the qualification guide](QUALIFICATION_0.22.md) for commands and scope,
-and [release status](RELEASE_STATUS.md) for the historical hosted baseline.
+No signing credential, signing service or unsigned-publication policy is selected
+by this source change. General offline editing, managed internet hosting, macOS
+qualification and broader process signoff remain separate roadmap work.

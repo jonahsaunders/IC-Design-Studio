@@ -125,13 +125,26 @@ def install(p,cid,did,spec,record_id=None):
 def placement_inventory(p,cid):
     from .physical_cells import terminals
     c=next(c for c in p['cells'] if c['id']==cid);pins=terminals(p,cid);rows=[]
+    # This checklist refreshes after every Studio edit. Build ownership once,
+    # rather than scanning all layout geometry for each schematic device.
+    assigned_by_device={}
+    for pin in pins:assigned_by_device.setdefault(pin['device_id'],set()).add(pin['pin'])
+    placed=set()
+    for objects in (c['shapes'],c.get('layout_instances',[])):
+        for obj in objects:
+            owner=obj.get('device_id')
+            if isinstance(owner,str):placed.add(owner)
+    native_sources=None
     for d in c['devices']:
         if d['kind'] in ('V','I'):continue
         if d.get('native_spice'):
-            from .native_analysis import sources
-            if not d['nets'] or d['name'] in {v[0] for v in sources(p,cid)}:continue
-        assigned={v['pin'] for v in pins if v['device_id']==d['id']};missing=set(d['nets'])-assigned;shapes=[s for s in c['shapes'] if s.get('device_id')==d['id']];instances=[i for i in c.get('layout_instances',[]) if i.get('device_id')==d['id']]
-        rows.append({'id':d['id'],'name':d['name'],'kind':d['kind'],'state':'Unplaced' if not shapes and not instances else 'Terminals missing' if missing else 'Placed','missing':sorted(missing)})
+            if not d['nets']:continue
+            if native_sources is None:
+                from .native_analysis import sources
+                native_sources={v[0] for v in sources(p,cid)}
+            if d['name'] in native_sources:continue
+        missing=set(d['nets'])-assigned_by_device.get(d['id'],set())
+        rows.append({'id':d['id'],'name':d['name'],'kind':d['kind'],'state':'Unplaced' if d['id'] not in placed else 'Terminals missing' if missing else 'Placed','missing':sorted(missing)})
     return rows
 
 

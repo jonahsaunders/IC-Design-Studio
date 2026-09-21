@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "platform": "offscreen",
+  "checks": [
+    "Bias, AC loop, noise and startup diagnostics survive desktop edit, validation, undo and redo with unchanged measurement limits",
+    "All four op-amp fixtures and PVT plan survive save/reopen",
+    "Noise editor displays its input source, output spectrum and integrated measurement types"
+  ]
+}

@@ -34,10 +34,22 @@ class AnalogMixin:
         self.action(menus['File'], 'New PDK current mirror', lambda: self.new_analog('current_mirror'))
         self.action(menus['File'], 'New PDK differential pair', lambda: self.new_analog('differential_pair'))
         self.action(menus['File'], 'New PDK amplifier', lambda: self.new_analog('amplifier'))
+        self.action(menus['File'], 'New SKY130 two-stage op-amp', lambda: self.new_analog('two_stage_opamp'))
         self.action(menus['Analysis'], 'Configure saved-bench characterization…', self.characterization_dialog)
         self.action(menus['Analysis'], 'Run saved-bench characterization', self.run_characterization)
         self.action(menus['Design'], 'Generate current mirror layout…', self.mirror_layout_dialog)
         self.action(menus['Design'], 'Generate analog reference layout…', self.analog_bank_dialog)
+        self.action(menus['Design'], 'Generate two-stage op-amp layout…', self.two_stage_layout_dialog)
+
+    def two_stage_layout_dialog(self):
+        if not self.idle_edit():return
+        from .two_stage_opamp import generate_layout
+        cid=self.cid
+        def build():
+            p=clone(self.project);c=next(c for c in p['cells'] if c['id']==cid)
+            generate_layout(p,cid,bool(c.get('opamp_layout')))
+            return p,'Generate the supported SKY130 op-amp geometry, including its compensation device and matching constraints. Review the result, then run the saved physical verification requirements.'
+        return self.review_dialog('Generate two-stage op-amp layout',build)
 
     def analog_bank_dialog(self):
         if not self.idle_edit(): return
@@ -66,8 +78,12 @@ class AnalogMixin:
         return super().inverter_layout_dialog()
 
     def new_analog(self, kind):
-        from .analog import reference
-        p, cid, key = reference(self.project['pdk'], kind)
+        if kind=='two_stage_opamp':
+            from .two_stage_opamp import reference
+            p,cid,key=reference(self.project['pdk'])
+        else:
+            from .analog import reference
+            p, cid, key = reference(self.project['pdk'], kind)
         if not self.maybe_save(): return
         self.set_project(p); self._selected_testbench = key; self.cid = p['top']; self.mode_combo.setCurrentIndex(0); self.refresh(True); self.open_testbenches()
 
@@ -158,7 +174,8 @@ class AnalogMixin:
             values += ['; '.join([row.get('error', '')]+[m.get('error', '') for m in row['measurements']]).strip('; ')]
             for col, value in enumerate(values): table.setItem(i, col, QTableWidgetItem(f'{value:.6g}' if isinstance(value,float) else str(value)))
         probe = self.characterization_probe; probe.blockSignals(True); probe.clear()
-        for n in r['testbench']['probes']: probe.addItem('V(' + n + ')', ('voltage', n.lower()))
+        observed=[r['testbench']['analysis']['output']] if r['testbench']['analysis']['type']=='noise' else r['testbench']['probes']
+        for n in observed: probe.addItem(('Noise at ' if r['testbench']['analysis']['type']=='noise' else 'V(') + n + ('' if r['testbench']['analysis']['type']=='noise' else ')'), ('voltage', n.lower()))
         for n in sorted({m['source'] for m in measures if m['kind']=='current'}): probe.addItem('I(' + n + ')', ('current', n.lower()))
         probe.blockSignals(False)
         if rows: table.selectRow(0)
@@ -178,7 +195,7 @@ class AnalogMixin:
             for stage in stages:
                 wave = clone(read_case(r, index, stage))
                 wave['traces'] = {probe: wave['currents' if kind=='current' else 'traces'][probe]}
-                wave['plot_unit'] = 'A' if kind=='current' else 'V'
+                wave['plot_unit'] = 'A' if kind=='current' else 'V/√Hz' if r['testbench']['analysis']['type']=='noise' else 'V'
                 samples.append(wave); legend.append(f'Run {index+1}'+(' · '+stage if r.get('layout_comparison') else ''))
         plot = self.characterization_plot; plot.dark = self.layout.dark; plot.set_result(samples[0], [probe], overlays=samples[1:])
         self.characterization_legend.setText(' · '.join(f'<span style="color:{trace_colors(plot.dark)[i%6]}">{label}</span>' for i,label in enumerate(legend)) + (' · STALE' if r['design_hash'] != design_digest(self.project) else ''))

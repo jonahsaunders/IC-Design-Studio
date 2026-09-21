@@ -1,0 +1,16 @@
+Title: * ic design studio / current mirror · skywater sky130 · sky130a / revision 0
+Date: Sun Sep 20 12:49:51  2026
+Plotname: Operating Point
+Flags: real
+No. Variables: 4
+No. Points: 1       
+Variables:
+	0	v(force)	voltage
+	1	v(out)	voltage
+	2	v(ref)	voltage
+	3	i(vsense)	current
+Values:
+0		1.200000000000000e+00
+	1.200000000000000e+00
+	7.660257435607942e-01
+	5.119161848199383e-05

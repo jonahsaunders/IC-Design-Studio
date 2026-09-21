@@ -7,7 +7,7 @@ from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel, QCombo
     QPushButton, QTableWidget, QTableWidgetItem, QHeaderView, QCheckBox, QLineEdit,
     QFormLayout, QDialogButtonBox, QFileDialog, QAbstractItemView, QPlainTextEdit, QProgressBar)
 from .model import clone, uid, scalar, atomic_write
-from .test_plans import sources, validate_plans, prepare, matrix, compare
+from .test_plans import sources, validate_plans, prepare, matrix, compare, case_count, MAX_INTERACTIVE_CASES, condition_name
 from .analog_widgets import actions, label as field_label
 
 
@@ -29,6 +29,8 @@ class PlanEditor(QDialog):
         form.addRow('Design variable overrides',self.variables)
         self.compare_layout=QCheckBox('Compare schematic and post-layout, including DRC and LVS')
         self.compare_layout.setChecked(self.plan.get('compare_layout',False));root.addWidget(self.compare_layout)
+        self.statistics_config=clone(self.plan.get('statistics'))
+        self.statistics_button=QPushButton('Statistical verification…');self.statistics_button.clicked.connect(self.edit_statistics);root.addWidget(self.statistics_button)
         note=QLabel('Use comma-separated analog conditions. RTL cases run once with their saved definitions; they are not repeated or qualified as analog PVT tests. Analog voltage sweeps need a DC supply target.')
         note.setWordWrap(True);root.addWidget(note)
         available=sources(window.studio.project);saved={e['id']:e for e in self.plan.get('entries',[])}
@@ -60,6 +62,7 @@ class PlanEditor(QDialog):
                       temperatures=[scalar(v) for v in values(self.temperatures)],voltages=[scalar(v) for v in values(self.voltages)],entries=[],compare_layout=self.compare_layout.isChecked())
             from .analog_workspace import assignments
             plan['variables']=assignments(self.variables.toPlainText())
+            if self.statistics_config:plan['statistics']=clone(self.statistics_config)
             for i,entry in enumerate(self.entries):
                 if self.table.item(i,0).checkState()==Qt.Checked:
                     plan['entries'].append(dict(entry,supply=self.table.item(i,2).text().strip()))
@@ -69,19 +72,33 @@ class PlanEditor(QDialog):
             self.window.refresh_plans(plan['id']);self.accept()
         except Exception as exc:self.error.setText(str(exc))
 
+    def edit_statistics(self):
+        from .campaign_statistics_ui import StatisticsEditor
+        plan={**self.plan,'entries':[entry for i,entry in enumerate(self.entries) if self.table.item(i,0).checkState()==Qt.Checked],
+              'corners':['nominal'],'temperatures':[27],'voltages':[]}
+        dialog=StatisticsEditor(self,self.window.studio.project,plan,self.statistics_config)
+        if dialog.exec()==QDialog.Accepted:
+            self.statistics_config=clone(dialog.value)
+            self.statistics_button.setText('Statistical verification…'+(f" · {dialog.value['count']} trials" if dialog.value else ''))
+
 
 class TestPlanWindow(QDialog):
     def __init__(self,studio):
-        super().__init__(studio);self.studio=studio;self.project_id=studio.project['id'];self.data=None
+        super().__init__(studio);self.studio=studio;self.project_id=studio.project['id'];self.data=None;self.condition_page=0
         self.setWindowTitle('Verification test plans');self.resize(1000,650)
         root=QVBoxLayout(self);self.plans=QComboBox();root.addWidget(field_label('Saved test &plan',self.plans));root.addWidget(self.plans)
         self.plan_buttons=actions(root,[('New plan…',lambda:self.edit()),('Edit plan…',lambda:self.edit(self.plan())),('Delete plan',self.delete),('Run plan',self.run)],self.call,'Run plan')
+        actions(root,[('Create resumable campaign…',self.create_campaign),('Open campaign…',self.open_campaign)],self.call)
         row=QHBoxLayout();self.runs=QComboBox();self.runs.setAccessibleName('Test plan run');self.baseline=QComboBox();self.baseline.setAccessibleName('Baseline run')
         row.addWidget(QLabel('Run'));row.addWidget(self.runs,1);row.addWidget(QLabel('Compare with'));row.addWidget(self.baseline,1);root.addLayout(row)
         self.note=QLabel('Save a testbench or analysis setup, then create a plan. Each cell shows a requirement under one operating condition.')
         self.note.setWordWrap(True);root.addWidget(self.note)
         self.progress=QProgressBar();self.progress.setAccessibleName('Completed test plan simulations');self.progress.setTextVisible(False);root.addWidget(self.progress)
         self.failed=QCheckBox('Show only failures, errors, and regressions');root.addWidget(self.failed)
+        paging=QHBoxLayout();root.addLayout(paging)
+        self.previous_conditions=QPushButton('Previous conditions');self.previous_conditions.clicked.connect(lambda:self.move_conditions(-1));paging.addWidget(self.previous_conditions)
+        self.condition_label=QLabel();paging.addWidget(self.condition_label)
+        self.next_conditions=QPushButton('Next conditions');self.next_conditions.clicked.connect(lambda:self.move_conditions(1));paging.addWidget(self.next_conditions)
         self.table=QTableWidget();self.table.setAccessibleName('Specifications by operating condition');self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents);root.addWidget(self.table,1)
         self.result_buttons=actions(root,[('Open selected run',self.open_run),('Retry failed / cancelled',self.retry),('Cancel remaining',self.cancel),('Export CSV…',self.export),('Close',self.close)],self.call)
@@ -122,10 +139,28 @@ class TestPlanWindow(QDialog):
 
     def run(self):
         if not self.studio.flush_inspector():return
+        if case_count(self.plan())>MAX_INTERACTIVE_CASES:return self.create_campaign()
         jobs=prepare(self.studio.project,self.plan(),self.studio.prepare_simulation)
         names=[j['case']['test_name']+' · '+str(j['case']['labels']) for j in jobs]
         self.studio.run_manager.enqueue_many(jobs,self.studio.jobs_dir,names)
         self.refresh();self.runs.setCurrentIndex(self.runs.count()-1)
+
+    def create_campaign(self):
+        if not self.studio.flush_inspector():return
+        parent=QFileDialog.getExistingDirectory(self,'Choose a folder for the new campaign')
+        if not parent:return
+        from pathlib import Path
+        from .campaign_ui import prepare_campaign
+        self.capture=prepare_campaign(self.studio,clone(self.plan()),Path(parent)/('campaign-'+uid()),self.note)
+
+    def open_campaign(self):
+        path=QFileDialog.getExistingDirectory(self,'Open a saved campaign folder')
+        if path:
+            from .campaign_ui import show
+            show(self.studio,path)
+
+    def move_conditions(self,direction):
+        self.condition_page=max(0,self.condition_page+direction);self.render()
 
     def refresh(self):
         if self.studio.project['id']!=self.project_id:return
@@ -144,9 +179,13 @@ class TestPlanWindow(QDialog):
         previous=(self.table.currentRow(),self.table.currentColumn())
         self.data=matrix(self.studio.run_manager.rows,self.runs.currentData())
         if self.baseline.currentData():self.data=compare(self.data,matrix(self.studio.run_manager.rows,self.baseline.currentData()))
-        rows=self.data['rows'];conditions=self.data['conditions']
+        rows=self.data['rows'];all_conditions=self.data['conditions']
+        self.condition_page=min(self.condition_page,max(0,(len(all_conditions)-1)//40))
+        first=self.condition_page*40;conditions=all_conditions[first:first+40]
+        self.previous_conditions.setEnabled(self.condition_page>0);self.next_conditions.setEnabled(first+40<len(all_conditions))
+        self.condition_label.setText(f'Conditions {first+1 if conditions else 0}–{first+len(conditions)} of {len(all_conditions)}')
         if self.failed.isChecked():rows=[r for r in rows if any(v['status'] in ('FAIL','ERROR','CANCELLED') or v.get('regressed') for v in r['values'].values())]
-        self.table.setColumnCount(2+len(conditions));self.table.setHorizontalHeaderLabels(['Test','Requirement']+[('RTL simulation' if t is None else f'{c} / {t:g} °C'+(f' / {v:g} V' if v is not None else '')) for c,t,v in conditions]);self.table.setRowCount(len(rows))
+        self.table.setColumnCount(2+len(conditions));self.table.setHorizontalHeaderLabels(['Test','Requirement']+[condition_name(c) for c in conditions]);self.table.setRowCount(len(rows))
         for i,row in enumerate(rows):
             self.table.setItem(i,0,QTableWidgetItem(row['test']));self.table.setItem(i,1,QTableWidgetItem(row['name']))
             for j,condition in enumerate(conditions,2):
@@ -200,9 +239,9 @@ class TestPlanWindow(QDialog):
     def export(self):
         path,_=QFileDialog.getSaveFileName(self,'Export test plan matrix','test-plan.csv','CSV (*.csv)')
         if not path:return
-        stream=io.StringIO();writer=csv.writer(stream);writer.writerow(['test','requirement','corner','temperature_C','voltage_V','status','value','unit','margin','baseline','delta','run_id'])
+        stream=io.StringIO();writer=csv.writer(stream);writer.writerow(['test','requirement','corner','temperature_C','voltage_V','trial','seed','status','value','unit','margin','baseline','delta','run_id'])
         for row in self.data['rows']:
-            for condition,cell in row['values'].items():writer.writerow([row['test'],row['name'],*condition,cell['status'],cell['value'],row['unit'],cell['margin'],cell.get('baseline',''),cell.get('delta',''),cell['run_id']])
+            for condition,cell in row['values'].items():writer.writerow([row['test'],row['name'],*(condition if len(condition)>3 else condition+('','')),cell['status'],cell['value'],row['unit'],cell['margin'],cell.get('baseline',''),cell.get('delta',''),cell['run_id']])
         atomic_write(path,stream.getvalue())
 
 

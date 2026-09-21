@@ -48,7 +48,7 @@ class LifecycleMixin:
             self.commit(lambda p:relink_assets(p,path),'Relink PDK assets')
             self.statusBar().showMessage('PDK folder relinked; every locked file matches.',8000)
 
-    def review_dialog(self,title,build,controls=None):
+    def review_dialog(self,title,build,controls=None,apply_candidate=None):
         """Preview and apply the same candidate; reject stale previews."""
         dlg=QDialog(self);dlg.setWindowTitle(title);dlg.resize(800,540);dlg.setWindowModality(Qt.WindowModal)
         layout=QVBoxLayout(dlg)
@@ -60,14 +60,18 @@ class LifecycleMixin:
         def preview():
             apply.setEnabled(False)
             try:
-                candidate,report=build();state.update(candidate=candidate,source=digest(self.project))
+                candidate,report=build();state.update(candidate=candidate,candidate_hash=digest(candidate),source=digest(self.project))
                 text.setPlainText(report);error.clear();apply.setEnabled(True)
             except Exception as exc:error.setText(str(exc))
         def commit():
             try:
                 if not self.idle_edit():return
                 if digest(self.project)!=state['source']:raise ValueError('Project changed. Preview again before applying.')
-                self.commit(lambda p:(p.clear(),p.update(clone(state['candidate']))),title)
+                if digest(state['candidate'])!=state['candidate_hash']:raise ValueError('Preview changed. Preview again before applying.')
+                def install(p):
+                    if apply_candidate:apply_candidate(p,state['candidate'])
+                    else:p.clear();p.update(clone(state['candidate']))
+                self.commit(install,title)
                 self.sync_technology();dlg.accept()
             except Exception as exc:error.setText(str(exc))
         layout.insertWidget(layout.count()-1,self.button('Preview changes',fn=preview))

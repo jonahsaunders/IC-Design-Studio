@@ -4,6 +4,7 @@ packaging==26.3
 pyinstaller==6.16.0
 pyinstaller-hooks-contrib==2026.7
 PySide6_Essentials==6.8.3
+PySide6_Addons==6.8.3
 setuptools==84.0.0
 shiboken6==6.8.3
 py7zr==1.1.3

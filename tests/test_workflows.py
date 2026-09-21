@@ -117,12 +117,28 @@ class WorkflowTests(unittest.TestCase):
 
     def test_magic_extraction_profiles_are_distinct(self):
         from icstudio.engines import magic_extract
+        from tests.test_magic_rc import ORIGINAL,RESISTANCE
+        from tests.test_magic_rc_flow import EXTRACTED
         with tempfile.TemporaryDirectory() as td:
             root=Path(td);gds=root/'a.gds';tech=root/'tech';gds.write_bytes(b'fixture');tech.write_text('fixture');scripts=[]
-            def fake(args,cwd,**kwargs):scripts.append(kwargs['input_text']);(Path(cwd)/'top.spice').write_text('* fixture');return 'fixture runner'
-            with patch('icstudio.engines.execute',side_effect=fake):
-                magic_extract('magic',gds,tech,'top',root/'lvs','lvs');magic_extract('magic',gds,tech,'top',root/'rc','rc')
-            self.assertNotIn('extresist all',scripts[0]);self.assertIn('extresist all',scripts[1]);self.assertIn('ext2spice cthresh 0',scripts[1])
+            def fake(args,cwd,**kwargs):
+                script=kwargs['input_text'];scripts.append(script)
+                if 'extresist all' in script:
+                    (Path(cwd)/'top.ext').write_text(ORIGINAL);(Path(cwd)/'top.res.ext').write_text(RESISTANCE)
+                else:(Path(cwd)/'extracted.spice').write_text(EXTRACTED)
+                return 'STUDIO_MAGIC_COMPLETE\n'
+            with patch('icstudio.silicon_flow.execute',side_effect=fake):
+                lvs=magic_extract('magic',gds,tech,'top',root/'lvs','lvs')
+                rc=magic_extract('magic',gds,tech,'top',root/'rc','rc')
+            self.assertEqual(len(scripts),3)
+            self.assertNotIn('extresist all',scripts[0]);self.assertIn('extresist all',scripts[1]);self.assertNotIn('extresist all',scripts[2])
+            self.assertIn('extract do local',scripts[1]);self.assertIn('ext2spice cthresh 0',scripts[1])
             self.assertNotIn('extresist tolerance',scripts[1])  # deprecated in current Magic
+            self.assertEqual(set(rc['decks']),{'extracted.spice'});self.assertNotIn('raw-export.spice',rc['decks'])
+            self.assertIn('raw-export.spice',rc['files']);self.assertNotIn('raw-export.spice',lvs['files'])
+            normalization=json.loads((root/'rc/rc-normalization.json').read_text())
+            self.assertEqual(normalization['export']['status'],'passed')
+            self.assertEqual(rc['decks']['extracted.spice'],normalization['export']['sha256'])
+            self.assertEqual(rc['script_hash'],file_digest(root/'rc/run.tcl'))
 
 if __name__=='__main__':unittest.main()

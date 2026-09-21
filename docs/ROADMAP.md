@@ -1,5 +1,54 @@
 # The path forward
 
+## Current dev25 priorities
+
+The [integrated analog workflow](ANALOG_CLOSURE.md) is available in source:
+saved extraction models, explicit MOS-device semantics, constrained layout ECOs,
+durable verification campaigns and transactional scripted edits. The
+[dev25 update](UPDATE_0.22_DEV25.md) continues from that implementation. Older
+milestones below retain their original scope and are not an unimplemented-feature
+list.
+Dev25 adds saved amplifier diagnostics, seeded statistical campaign results and
+bounded calibrated hierarchy; the [reference guide](ANALOG_REFERENCE_WORKFLOW.md)
+defines their supported configurations.
+
+The current acceptance sequence is:
+
+1. Qualify the exact candidate on all six hosted workflows, then collect clean
+   Windows/Linux, physical LAN/VPN and signing-policy observations. Keep earlier
+   drafts tied to their own commits. See [release gates](RELEASE_FOLLOWUPS.md).
+2. Maintain the [76-case process-RC qualification](validation/dev25/process-rc.json)
+   on the selected candidate, using saved benches, operating conditions and
+   deliberate geometry/netlist faults with pinned Magic, Netgen and ngspice.
+   The current normalized process path is flat and unaliased, with numeric
+   interconnect R, MOS and MiM subcircuits. Validate the conserved original C
+   matrix and AC behavior after the pinned-engine correction; earlier process-RC
+   evidence is superseded. Broader physical hierarchy and model-backed resistor
+   RC require separate support and qualification.
+3. Maintain the [216-pair amplifier qualification](validation/dev25/two-stage-opamp.json)
+   across its 27 conditions, four saved fixtures and matched-pair layout update.
+   Extend load, bias and geometry support only with new unchanged-requirement
+   schematic/extracted comparisons and physical checks.
+4. Preserve the [1,152-case statistical baseline](validation/dev25/statistical-campaign.json)
+   and its final-source smoke, durable recovery and uncertainty reporting.
+   Run the [two-host protocol](CAMPAIGN_WORKER_ACCEPTANCE.md); physical worker
+   hosts and shared-filesystem locking still need separate evidence.
+5. Qualify calibrated extraction across its supported hierarchy while preserving port
+   maps, instance parameters, coupling scope, revision identity and failure gates.
+
+Consumer hardware, two-host campaign behavior and foundry signoff cannot be
+inferred from source tests. Remaining longer-term work also includes HVI
+conversion warnings, broader detector PVT/transient checks, general offline
+editing, managed internet hosting and measured desktop responsiveness.
+
+The [dev25 desktop measurements](validation/dev25/desktop-scale.json) now provide
+a correctness and timing baseline for two workloads under offscreen Qt 6.8.3.
+The three-level amplifier bank's median schematic/layout edits are 137/206 ms;
+the synthetic 500-device, 10,000-shape workload takes 1.70/1.74 s. Reduce that
+large-edit latency and define explicit response-time budgets before claiming
+responsiveness acceptance. Repeat the checks on native consumer displays;
+offscreen repaint timings do not measure hardware presentation latency.
+
 ## Experimental dev21: workflow and recovery
 
 The [dev21 update](UPDATE_0.22_DEV21.md) adds component shortcuts, a persistent

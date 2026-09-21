@@ -1,0 +1,6 @@
+* NGSPICE file created from device_coupon.ext - technology: sky130A
+
+.subckt device_coupon VREF
+X0 VREF VREF VREF VREF sky130_fd_pr__pfet_01v8 ad=24 pd=61.6 as=48 ps=123.2 w=30 l=0.5
+.ends
+

@@ -2,19 +2,19 @@
 
 All dimensions are SI. VGS/VDS are polarity-normalized forward biases; VSB is
 positive reverse body bias for either polarity. Width means total drawn width,
-with exactly one finger and one parallel device in the supported PDK adapter.
+with explicit finger and parallel-device conventions in the supported PDK adapters.
 """
 import itertools
 import json
 import math
 import re
 from pathlib import Path
-from .model import clone, scalar, flatten, device, uid, validate, digest, design_digest, file_digest, now, atomic_write, example
-from .catalog import binding_for, parameter_values
+from .model import clone, scalar, flatten, device, uid, validate, digest, design_digest, now, atomic_write, example
+from .catalog import binding_for
 from . import analog_optimizer as opt
 
 DIMENSIONS = ('length', 'vgs', 'vds', 'vsb', 'temperature')
-VERSION = 2
+VERSION = 3
 RAW_METRICS = ('id','gm','gds','cgg','cgs','cgd','cgb','headroom')
 METRICS = RAW_METRICS + ('gmid','current_density','intrinsic_gain','gm_cgg','ft_estimate')
 
@@ -22,30 +22,19 @@ METRICS = RAW_METRICS + ('gmid','current_density','intrinsic_gain','gm_cgg','ft_
 def contract(project, root, name):
     d = next((d for d in flatten(project, root) if d['name'].casefold() == name.casefold()), None)
     if not d or d['kind'] not in ('NMOS', 'PMOS') or d.get('native_spice'):
-        raise ValueError('Characterization supports generic MOS and the linked standard SKY130 1.8 V catalog MOS. Native/imported model adapters are not yet qualified.')
+        raise ValueError('Characterization supports generic MOS and linked standard SKY130 1.8 V or GF180 3.3 V catalog MOS. Native/imported model adapters are not yet supported.')
     binding = binding_for(project['pdk'], d)
     out = dict(version=VERSION, polarity=1 if d['kind'] == 'NMOS' else -1, width=scalar(d['params']['w']),
                convention='total drawn W in metres; nf=1, m=1; polarity-normalized VGS/VDS and reverse VSB',
                model='teaching square-law', internal=None, device=d)
     if binding:
-        model = binding['model']; expected = 'sky130_fd_pr__' + ('nfet' if d['kind'] == 'NMOS' else 'pfet') + '_01v8'
-        if model != expected or binding.get('prefix') != 'X' or binding.get('pin_order') != ['d','g','s','b']:
-            raise ValueError('This process model has no qualified width/current adapter. Use the circuit gm/Id explorer for raw gm/Id.')
-        if binding.get('parameter_scale') != {'w': 1e6, 'l': 1e6}:
-            raise ValueError('The SKY130 adapter requires micrometre W/L model parameters.')
-        values = parameter_values(binding, d)
-        if any(values.get(k, 1) != 1 for k in ('nf', 'm', 'mult')):
-            raise ValueError('Characterize a single finger and a single device (nf=m=mult=1).')
-        if binding.get('emit_parameters', {'w':'w','l':'l'}).get('w') != 'w' or binding.get('emit_parameters', {'w':'w','l':'l'}).get('l') != 'l':
-            raise ValueError('The model W/L emission does not match the adapter.')
-        rel = 'libs.ref/sky130_fd_pr/spice/' + model + '.pm3.spice'
-        lock = project['pdk'].get('package_lock', {}); root_path = Path(project['pdk'].get('package_root', '')).resolve(); path = root_path / rel
-        if not lock.get('files', {}).get(rel) or not path.is_file() or file_digest(path) != lock['files'][rel]:
-            raise ValueError('The locked SKY130 model definition is missing or changed. Repair the PDK package first.')
-        text = path.read_text(encoding='utf-8'); internal = 'm' + model
-        if not re.search(r'^' + re.escape(internal) + r'\s+d\s+g\s+s\s+b\s+' + re.escape(model) + r'__model\s+l\s*=\s*\{l\}\s+w\s*=\s*\{w\}\s+nf\s*=\s*\{nf\}', text, re.M | re.I):
-            raise ValueError('The pinned model internal device differs from this adapter.')
-        out.update(model=model, internal=internal, binding=clone(binding), model_definition_sha256=lock['files'][rel])
+        from .process_mos import definition
+        dimensions = definition(project['pdk'], d, binding)
+        out.update(**{k:v for k,v in dimensions.items() if k != 'values'}, binding=clone(binding))
+        # Density is per aggregate drawn width, including parallel multiplicity;
+        # estimated symbol W is recovered with width_parameter_factor below.
+        out['width'] = dimensions['effective_width']
+        out['width_parameter_factor'] = dimensions['width_factor'] * dimensions['multiplicity']
     return out
 
 
@@ -59,7 +48,7 @@ def grid(spec, process):
         if key == 'temperature' and min(values) <= -273.15: raise ValueError('Invalid temperature.')
         out[key] = sorted(values)
     out['corner'] = list(dict.fromkeys(spec.get('corner', ['nominal'])))
-    if process and any(c not in ('nominal','tt','ff','ss','sf','fs','ll','hh','hl','lh') for c in out['corner']): raise ValueError('Use deterministic process corners for reusable tables. Monte Carlo characterization requires a recorded random-seed workflow.')
+    if process and any(c not in ('nominal','typical','tt','ff','ss','sf','fs','ll','hh','hl','lh') for c in out['corner']): raise ValueError('Use deterministic process corners for reusable tables. Monte Carlo characterization requires a recorded random-seed workflow.')
     if not out['corner'] or any(not isinstance(c, str) for c in out['corner']): raise ValueError('Select at least one model corner.')
     count = math.prod(map(len, out.values()))
     if count > 500: raise ValueError(f'This characterization needs {count} simulations. Limit the library grid to 500 per experiment.')
@@ -71,6 +60,10 @@ def grid(spec, process):
 def prepare(project, root, name, spec, prepare_job):
     from .run_environment import stamp
     adapter = contract(project, root, name); process = bool(adapter.get('binding')); samples = grid(spec, process)
+    if process:
+        from .process_mos import corners
+        unavailable = set(samples['corner']) - set(corners(project['pdk']))
+        if unavailable: raise ValueError('The locked process includes do not support corners: ' + ', '.join(sorted(unavailable)))
     engine = spec.get('engine', 'ngspice' if process else 'builtin')
     if project.get('spice', {}).get('version') == 1 and engine != 'ngspice': raise ValueError('Native projects require ngspice for characterization.')
     if engine not in ('builtin', 'ngspice') or process and engine != 'ngspice': raise ValueError('Process characterization requires ngspice.')
@@ -107,7 +100,7 @@ def prepare(project, root, name, spec, prepare_job):
     return dict(schema=1,id=group,created=now(),name='Library · '+name,project_id=project['id'],base_design_hash=base,cell_id=root,
                 spec=dict(kind='analog_gmid', axes=[dict(target='vgs', lower=min(samples['vgs']), upper=max(samples['vgs']), count=len(samples['vgs']))],
                           gmid=dict(entry_id='characterize', device='MCHAR')), jobs=jobs,
-                library=dict(key=key, identity=identity, width=adapter['width'], samples=samples, source_device=name))
+                library=dict(key=key, identity=identity, width=adapter['width'], width_parameter_factor=adapter.get('width_parameter_factor',1), samples=samples, source_device=name))
 
 
 def collect(manifest, rows):
@@ -121,7 +114,7 @@ def collect(manifest, rows):
             point['values']['current_density'] = abs(captured['id']) / lib['width']
         points.append(point)
     return dict(schema=VERSION,key=lib['key'],identity=lib['identity'],samples=lib['samples'],width=lib['width'],
-                complete=report['complete'],points=points,created=manifest['created'])
+                complete=report['complete'],points=points,created=manifest['created'], width_parameter_factor=lib.get('width_parameter_factor',1))
 
 
 def save_cache(table, directory):
@@ -184,7 +177,7 @@ def size(table, query, desired_gmid, desired_current):
             vgs = a + (b-a)*(target-p['gmid'])/(q['gmid']-p['gmid'])
             if round(vgs,14) in used: continue
             used.add(round(vgs,14)); point = interpolate(table,{**query,'vgs':vgs})
-            estimates.append(dict(width=current/point['current_density'], vgs=vgs, length=scalar(query['length']),
+            estimates.append(dict(width=current/point['current_density']/table.get('width_parameter_factor',1), total_width=current/point['current_density'], vgs=vgs, length=scalar(query['length']),
                                   desired_current=current, desired_gmid=target, condition={**query,'vgs':vgs},
                                   metrics={k:point[k] for k in METRICS if k in point}, run_ids=point['run_ids']))
     if not estimates: raise ValueError('The requested gm/Id has no complete bracketing samples. Extend the VGS sweep; no extrapolation was used.')

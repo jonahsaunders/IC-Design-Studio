@@ -1,8 +1,9 @@
 """Exercise neutral menu entry points and conflict resolution in real Qt."""
-import os,sys,re,tempfile
+import argparse,os,sys,re,tempfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
-profile=ROOT/'build/gui-interoperability';profile.mkdir(parents=True,exist_ok=True)
+parser=argparse.ArgumentParser();parser.add_argument('--out',type=Path,default=ROOT/'build/gui-interoperability')
+profile=parser.parse_args().out.resolve();profile.mkdir(parents=True,exist_ok=True)
 os.environ['XDG_DATA_HOME']=str(profile/'data');os.environ['XDG_CONFIG_HOME']=str(profile/'config')
 from PySide6.QtWidgets import QApplication,QDialogButtonBox,QComboBox,QMessageBox
 from PySide6.QtCore import QTimer

@@ -1,3 +1,104 @@
+# Current source candidate — 0.22.0.dev25
+
+The [dev25 update](UPDATE_0.22_DEV25.md) follows the integrated analog workflow
+merged into `experimental` at `46658f81b378743f39bbc10d4c83c5b8ceb583d1`.
+The candidate is published on `codex/analog-reference-qualification` in
+[draft PR #34](https://github.com/jonahsaunders/IC-Design-Studio/pull/34), targeting
+`experimental`; it is not part of the older PR #32 until merged.
+Its release assembly requires complete desktop/source/evidence payloads and binds
+Windows acceptance to the exact installer bytes and all installed DPI probes.
+
+No dev25 packaged-platform result or public release is recorded here. The
+[preceding analog source validation](validation/analog-closure.json) and older
+draft assets have their own source identities. They do not qualify this candidate.
+Use the [candidate Actions runs](https://github.com/jonahsaunders/IC-Design-Studio/actions?query=branch%3Acodex%2Fanalog-reference-qualification)
+to review desktop/package, interoperability, pinned physical, digital, VGA and statistical
+results for the selected commit. Version numbers alone are insufficient because
+multiple experimental commits can share one development version.
+
+The local numerical qualification below was published in commit
+`4ce77713a26b34e1e46ff7cde9788c6aa4be5b2a`. Its first hosted run exposed a
+menu-placement regression and a path filter that omitted the required VGA gate.
+Live action checks also exposed a callback routed to an unsupported generic
+template. The follow-up puts the process-specific reference commands in their
+existing Examples/Generate submenus, dispatches reference creation to its actual
+factory with the active-run guard, and runs VGA on every push and PR. The
+[integration follow-up record](validation/dev25/ci-integration-followup.json)
+identifies the changed files and focused checks; the original numerical evidence
+remains tied to its original source. Hosted acceptance of the follow-up commit
+must be checked independently.
+
+The [retained local core run](validation/dev25/core-tests.json) completed 984 tests
+with 35 skipped and no failures. Separate actual-ngspice RC and saved-bias checks
+and [offscreen Qt reference checks](validation/dev25/gui-reference.json) retain
+their own evidence. These checks cover the recorded source and host.
+
+The [local statistical workload](validation/dev25/statistical-campaign.json)
+completed 1,152 actual ngspice cases, verified analytical results and recovered
+from abrupt coordinator termination. A [final-source smoke](validation/dev25/statistical-campaign-final-source.json)
+rechecked 36 cases after additional input guards. These are one-host source
+checks; the [local worker probe](validation/dev25/campaign-worker-probe-same-host.json)
+explicitly reports same-host scope. The new required hosted statistical gate has
+not been recorded as passed here.
+
+The [bounded SKY130 device qualification](validation/dev25/sky130-devices.json)
+passed 14 cases with actual engines, including ten DRC/LVS-clean coupons and four
+detected faults. [Offscreen Qt device dialogs](validation/dev25/gui-sky130-devices.json)
+passed their four checks. These records identify their tested geometries and
+model limitations; they do not qualify arbitrary layouts or package execution.
+
+[Desktop scale measurements](validation/dev25/desktop-scale.json) passed all
+recorded correctness checks under offscreen Qt 6.8.3. The synthetic 500-device,
+10,000-shape workload still takes about 1.7 seconds per schematic/layout edit
+including full refresh. No latency budget was configured, so the passing record
+does not close the responsiveness gap or native consumer-desktop acceptance.
+
+The initial process-RC run is [superseded diagnostic evidence](validation/dev25/process-rc-evidence/retention.json):
+AC/admittance checks exposed capacitance redistribution defects in pinned Magic
+8.3.600. The [bounded correction](ANALOG_REFERENCE_WORKFLOW.md) preserves the
+actual resistance graph while conserving the original capacitance matrix.
+The [corrected process-RC qualification](validation/dev25/process-rc.json) passed
+all 76 cases with unchanged implementation, including real AC coupon-matrix
+checks, complete saved-bench physical flows and deliberate fault/evidence
+rejections. Its transistor-condition and pinned-deck scope remains explicit.
+The [two-stage amplifier](validation/dev25/two-stage-opamp.json) passed all
+216 schematic/extracted case pairs across 27 PVT combinations, four fixtures
+and two geometries. Both geometries passed full DRC and unique LVS. The matched
+input-pair length update preserved device IDs and saved requirements; executed
+implementation hashes remained unchanged. The
+[aggregate source record](validation/analog-reference-qualification.json)
+retains these identities and the bounded scope of each local result.
+
+Consumer Windows/Linux, physical LAN/VPN and the signing policy remain tracked
+in [release acceptance](RELEASE_FOLLOWUPS.md): issues #8–#10 and #31. Their
+historical dev24 wording does not establish dev25 acceptance. Native speaker
+quality, mixed-monitor behavior and accessibility need recorded observations
+from the exact packages. Use [native acceptance](NATIVE_DESKTOP_ACCEPTANCE.md).
+
+## Preceding integrated-analog baseline
+
+All five required PR workflows for the earlier `experimental` head
+`46658f81b378743f39bbc10d4c83c5b8ceb583d1` completed successfully:
+[Windows/Linux desktop](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/35522448103),
+[external interoperability](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/35522447935),
+[pinned physical](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/35522447887),
+[digital](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/35522447931)
+and [VGA](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/35522447971).
+The [desktop push run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/35522444768)
+also passed. These runs precede the dev25 changes, corrected RC profile and new
+statistical gate. They do not qualify the pending dev25 branch or its packages.
+
+## Historical dev24 package checkpoint
+
+The [dev24 draft](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/untagged-e3e5d7e577374e15b9ff)
+targets `0f83dead7a25090ad97e3e07648d86248bd4e661` and has 14 assets. Its
+[draft preparation run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/35465920816)
+passed all five required workflows. The draft remains unpublished. That commit
+fixed the Qt characterization plot-selector collision and added exact-package
+VGA checks; it precedes the integrated analog-workflow changes and dev25.
+
+The sections below retain historical version-specific evidence and limitations.
+
 # Experimental dev23: inductor design and EM exchange
 
 The [dev23 update](UPDATE_0.22_DEV23.md) adds five spiral shapes, target-L search,

@@ -78,9 +78,9 @@ def main():
         spacing=page.axes.cellWidget(0,5);spacing.setCurrentIndex(spacing.findData('log'));assert page.axes_spec()[0]['scale']=='log'
         page.open_library();dialog=page.library_dialog;dialog.sweeps['length'].setText('.5u, 1u');dialog.sweeps['vgs'].setText('.55,.65,.75,.85');dialog.sweeps['vds'].setText('1.8');dialog.start()
         wait(lambda:dialog.data and dialog.data['complete']);assert all('intrinsic_gain' in v['values'] for v in dialog.data['points'])
-        dialog.metric.setCurrentIndex(2);dialog.compare_lengths.setChecked(True);assert dialog.plot.overlays
-        dialog.metric.setCurrentIndex(4);assert dialog.plot.result is None
-        dialog.metric.setCurrentIndex(2);dialog.query['gmid'].setText('10');dialog.estimate();assert dialog.verify_button.isEnabled()
+        dialog.plot_metric.setCurrentIndex(2);dialog.compare_lengths.setChecked(True);assert dialog.plot.overlays
+        dialog.plot_metric.setCurrentIndex(4);assert dialog.plot.result is None
+        dialog.plot_metric.setCurrentIndex(2);dialog.query['gmid'].setText('10');dialog.estimate();assert dialog.verify_button.isEnabled()
         if os.environ.get('ICSTUDIO_TEST_NGSPICE'):
             from icstudio.analog_characterization import verification_result
             w.settings.setValue('engine/ngspice',os.environ['ICSTUDIO_TEST_NGSPICE']);dialog.verify_sizing()
@@ -91,7 +91,7 @@ def main():
         for dark in (False,True):
             w.dark=dark;w.apply_theme();dialog.plot.dark=dark;dialog.resize(800,640);dialog.tabs.setCurrentIndex(0);shot(dialog,'device-data-'+('dark' if dark else 'light')+'.png')
         dialog.setup_toggle.setChecked(False);dialog.resize(1050,920);dialog.tabs.widget(0).verticalScrollBar().setValue(0);shot(dialog,'measured-device-data.png')
-        for widget in (dialog.metric,dialog.results,dialog.verify_button,page.screen_op,page.batch_size):
+        for widget in (dialog.plot_metric,dialog.results,dialog.verify_button,page.screen_op,page.batch_size):
             interface=QAccessible.queryAccessibleInterface(widget);assert interface and interface.text(QAccessible.Name)
         checks.append('Eight editable axes, logarithmic selector, measured intrinsic gain, length overlays, honest unavailable capacitance and accessible sizing-verification control')
         dialog.show();ws.variables.setPlainText('unsaved_bias = 0.9');w.reset_workspace();app.processEvents();assert not ws.isVisible() and not dialog.isVisible() and w.workflow_dock.isHidden()

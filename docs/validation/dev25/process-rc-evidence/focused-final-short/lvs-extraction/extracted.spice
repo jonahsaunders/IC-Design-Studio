@@ -1,0 +1,7 @@
+* NGSPICE file created from current_mirror.ext - technology: sky130A
+
+.subckt current_mirror OUT VSS
+X0 OUT OUT VSS VSS sky130_fd_pr__nfet_01v8 ad=8 pd=21.6 as=8 ps=21.6 w=10 l=1
+X1 OUT OUT VSS VSS sky130_fd_pr__nfet_01v8 ad=8 pd=21.6 as=8 ps=21.6 w=10 l=1
+.ends
+

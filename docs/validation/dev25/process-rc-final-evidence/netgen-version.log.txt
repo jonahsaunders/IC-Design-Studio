@@ -1,0 +1,3 @@
+Netgen 1.5.300 compiled on Sun Sep 20 12:31:48 EDT 2026
+Warning: netgen command 'format' use fully-qualified name '::netgen::format'
+Warning: netgen command 'global' use fully-qualified name '::netgen::global'

@@ -1,0 +1,130 @@
+{
+  "schema": 1,
+  "created": "2026-09-20T18:12:06+00:00",
+  "app_version": "0.22.0.dev25",
+  "status": "local_source_qualification_passed",
+  "base_commit": "46658f81b378743f39bbc10d4c83c5b8ceb583d1",
+  "source": {
+    "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+    "sources": "d46db62a6c5eaa7a43ce34e7c2e36ba66d189fe59b887d9ef700952e108b766e"
+  },
+  "source_identity_note": "These runs preceded the candidate commit. File hashes identify the tested working-tree source; the base commit does not contain the dev25 changes.",
+  "core": {
+    "tests": 984,
+    "skipped": 35,
+    "failures": 0,
+    "source_unchanged": true
+  },
+  "process_rc": {
+    "status": "passed",
+    "cases": 76,
+    "case_types": {
+      "independent_rc_reference": 1,
+      "independent_simulation": 30,
+      "physical": 30,
+      "deliberate_stale_evidence": 3,
+      "deliberate_fault": 12
+    },
+    "implementation_unchanged": true,
+    "scope": "Only the listed single-finger references and conditions; actual process distributed RC, independent metal1 coupon and stale-evidence rejection.",
+    "capacitance_model": "Flat, unaliased original capacitance matrix distributed using recorded normalized area weights; conserved matrix does not establish spatial coupling accuracy."
+  },
+  "two_stage_opamp": {
+    "status": "passed",
+    "pvt_conditions": 27,
+    "fixtures": 4,
+    "geometries": 2,
+    "schematic_extracted_case_pairs": 216,
+    "implementation_integrity": {
+      "status": "passed",
+      "changed": []
+    },
+    "full_report_sha256": "fd4eda3adf68c5c3d3a5aeda08e8ec8168cf841e9a32506e850a83aec8161c9c",
+    "eco": {
+      "device_ids_preserved": true,
+      "requirements_preserved": true,
+      "change": "M1/M2 L:1um\u21921.1um",
+      "report": "eco.json"
+    },
+    "scope": "Only the listed conditions and exact two-stage reference. External ideal bias current; process parasitics follow the recorded extraction deck. No silicon correlation or foundry signoff."
+  },
+  "physical_devices": {
+    "status": "passed",
+    "cases": 14,
+    "scope": "Listed bounded geometry and deterministic PVT probes only; no arbitrary-layout or foundry signoff."
+  },
+  "statistics": {
+    "recorded_workload_cases": 1152,
+    "recorded_workload_trials": 128,
+    "recorded_workload_source": {
+      "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+      "sources": "2dc6ef2282a46884574db64b6b855a32e1c63cc40dea147d06b2499e16b8de41"
+    },
+    "final_source_smoke_cases": 36,
+    "final_source_smoke_source": {
+      "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+      "sources": "d46db62a6c5eaa7a43ce34e7c2e36ba66d189fe59b887d9ef700952e108b766e"
+    },
+    "scope": "Ideal resistor-divider numerical and scheduler qualification using user-declared tolerances. No process or silicon yield qualification.",
+    "two_host": {
+      "status": "not_run",
+      "reason": "This workload uses one physical host; see CAMPAIGN_WORKER_ACCEPTANCE.md."
+    },
+    "immutable_inputs_and_stale_rejection": true
+  },
+  "desktop": {
+    "status": "correctness_passed",
+    "backend": "offscreen",
+    "display_class": "offscreen",
+    "workloads": 2,
+    "iterations_per_workload": 3,
+    "latency_budgets": {
+      "max_stage_ms": null,
+      "max_rss_mib": null,
+      "status": "not_configured",
+      "exceeded": []
+    },
+    "scope": "Recorded source/workloads/backend only. No external simulation, live DRC, GPU/display presentation latency, assistive technology or consumer-hardware qualification.",
+    "remaining_performance_gap": "The 500-device/10000-shape workload has approximately 1.7-second median foreground edits on this measured host."
+  },
+  "release": {
+    "candidate_hosted_ci": "not_yet_run",
+    "public_release": "not_published",
+    "required_workflows": [
+      "desktop",
+      "interoperability",
+      "physical",
+      "digital",
+      "vga",
+      "statistics"
+    ],
+    "note": "Hosted package results must be associated with their recorded commit and exact artifacts. Earlier experimental/dev24 assets do not qualify this candidate."
+  },
+  "remaining_acceptance": [
+    "Exact candidate Windows/Linux package execution in hosted CI",
+    "Clean consumer Windows/Linux native display, accessibility and audio acceptance",
+    "Actual separate-host campaign and physical LAN/VPN acceptance",
+    "Signing policy"
+  ],
+  "evidence": {
+    "docs/validation/dev25/core-tests.json": "ead2ca8f20a650476dd142fe0326b5afe174e15f925ac3afb989d3a753f65947",
+    "docs/validation/dev25/core-tests.txt": "42bbe161493086b5dbfd00e7652a0e3be00f9d3c50f082c82357c25be657117c",
+    "docs/validation/dev25/process-rc.json": "925092fa82089e9bf2f1f28d16782d08638db8a69db853a664d00b9ca4949dd2",
+    "docs/validation/dev25/process-rc-unit-tests.txt": "81270febc9741ce34b7d5c7ce9dacac23f21c6b02ecae67495e8585533bf6cda",
+    "docs/validation/dev25/process-rc-final-evidence/retention.json": "324f52d03f10d059c2787bcc4f45fe55c60a24aa602831a52c07fa1db91cb197",
+    "docs/validation/dev25/process-rc-final-evidence/source-files.json": "d2cc7b24a6d269f51e3f37d44afccbe00ffa35ab556465288c67e0d2d18df32a",
+    "docs/validation/dev25/magic-rc-conservation.json": "891ee0d20fd587fb92c3d09c623bba132aed89a674a44aac14616914009c6355",
+    "docs/validation/dev25/two-stage-opamp.json": "f6b7a3f0a5bc21cffad625b19b9baff64832155b9bb3c96293c6b358aec1ee48",
+    "docs/validation/dev25/sky130-devices.json": "6d2cdb6095795a5e433662ead7fc3cf531e506983f334151d5f87cc0f944ce65",
+    "docs/validation/dev25/rc-tests.txt": "551193a498e76c44a6c1e9ff71aec4a6334ecbbbb2a6c8ee5f238bfa99ea8bcb",
+    "docs/validation/dev25/saved-bias-tests.txt": "103175a707a2fd8a79f6129b69ef626223196d3da23463aa45d147b76d8d5730",
+    "docs/validation/dev25/gui-reference.json": "3c44b73f9ba238877dcfb5946f1259019f011fed1f20cc647dece929a4252e62",
+    "docs/validation/dev25/gui-sky130-devices.json": "98e17657e96d0966f17a91045e6d233a1f59ef9b98b1a7e877360c913accb8c0",
+    "docs/validation/dev25/statistical-campaign.json": "d37cda2ecd79c2339864ed1252eda7a815f12c447239e7c29e21d7efa0b43031",
+    "docs/validation/dev25/statistical-campaign-final-source.json": "8a8fa8d13469ca951c24176f7966f353312b64967dfd84f9309c8ebab7279c55",
+    "docs/validation/dev25/campaign-worker-probe-same-host.json": "cf5465d0e2ff952fdff610b2f3f3a66179a147d7e93c93c4511f396b9b4e5906",
+    "docs/validation/dev25/desktop-scale.json": "286b68314b461768c5094c682d021cd3c617ef1d7eac008f3d5d7d3b16a6c463",
+    "docs/validation/dev25/desktop-retention.json": "d7c4f59e4bbd0e7b9ed57664a6e335c52fb4e5db61a72192a3f773451bf99ad2",
+    "docs/validation/dev25/local-environment.json": "d493830c9f2d815f2edc72aa0a9164b5253868e39354ec4f1f9fb356976e2795"
+  }
+}

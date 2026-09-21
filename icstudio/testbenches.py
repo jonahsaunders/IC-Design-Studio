@@ -26,32 +26,40 @@ def validate_testbenches(p,objid=lambda _:None):
         nets={n for d in bench['devices'] for n in d['nets'].values()}
         if '0' not in nets:raise ValueError('Ground the testbench using net 0.')
         a=t.get('analysis',{});typ=a.get('type')
-        if typ not in ('tran','op','ac','dc'):raise ValueError('Saved testbenches support transient, operating point, AC and DC.')
+        if typ not in ('tran','op','ac','dc','noise'):raise ValueError('Saved testbenches support transient, operating point, AC, DC and noise.')
         if scalar(a.get('temperature',27))<=-273.15:raise ValueError('Invalid testbench temperature.')
         if not isinstance(a.get('corner','nominal'),str):raise ValueError('Choose a model corner.')
         if typ=='tran':
             if not 0<scalar(a.get('step',0))<=scalar(a.get('stop',0)):raise ValueError('Transient step must be positive and no greater than stop time.')
             if scalar(a['stop'])/scalar(a['step'])>200000:raise ValueError('Use at most 200,000 requested transient intervals.')
             if type(a.get('uic',False)) is not bool:raise ValueError('Use initial conditions must be true or false.')
-        elif typ=='ac':
+        elif typ in ('ac','noise'):
             if not 0<scalar(a.get('start',0))<scalar(a.get('end',0)) or not 1<=int(a.get('points',0))<=10000:raise ValueError('Invalid AC range or points per decade.')
+            if typ=='noise' and (a.get('output') not in nets or a.get('output')=='0' or not any(d['kind']=='V' and d['name']==a.get('noise_source',a.get('source')) for d in bench['devices'])):raise ValueError('Noise requires a connected output and an independent fixture voltage source.')
         elif typ=='dc':
             if not any(d['name']==a.get('source') and d['kind']=='V' for d in bench['devices']):raise ValueError('DC sweep requires a voltage source in the bench.')
             start,stop,step=[scalar(a.get(k,0)) for k in ('dc_start','dc_stop','dc_step')]
             if not step or (stop-start)*step<=0 or abs((stop-start)/step)>200000:raise ValueError('Invalid DC sweep range.')
         probes=t.get('probes',[])
         if not probes or len(probes)>64 or len(probes)!=len(set(probes)) or any(n not in nets or n=='0' for n in probes):raise ValueError('Choose 1–64 distinct non-ground testbench nets to observe.')
+        from .saved_bench_diagnostics import validate as validate_diagnostic, MEASUREMENTS, validate_measurement
+        validate_diagnostic(p,t)
         for n,v in t.get('initial_conditions',{}).items():
             if typ!='tran' or n not in nets or n=='0':raise ValueError('Initial conditions require a transient bench net.')
             scalar(v)
+        if 'physical_extraction' in t:
+            from .physical_extraction import normalize_extraction
+            normalize_extraction(t['physical_extraction'])
         measures=t.get('measurements',[]);mn=set()
         if len(measures)>64:raise ValueError('At most 64 measurements per bench.')
         for m in measures:
             if not NAME.fullmatch(m.get('name','')) or m['name'].casefold() in mn:raise ValueError('Measurement names must be unique identifiers.')
             mn.add(m['name'].casefold())
             kind=m.get('kind')
-            if kind not in ('frequency','delay','range','voltage','current'):raise ValueError('Supported measurements: frequency, delay, range, voltage and source current.')
-            if kind=='current':
+            if kind not in ('frequency','delay','range','voltage','current',*MEASUREMENTS):raise ValueError('Choose a supported waveform or saved diagnostic measurement.')
+            if typ=='noise' and kind not in ('input_noise','output_noise'):raise ValueError('Noise benches use integrated input/output noise measurements in volts; spectrum samples are voltage density, not voltage.')
+            if kind in MEASUREMENTS:validate_measurement(t,m)
+            elif kind=='current':
                 if not any(d['kind']=='V' and d['name']==m.get('source') for d in bench['devices']):raise ValueError('Current measurements need a voltage source in the fixture (positive from its + to − terminal).')
             elif m.get('node') not in probes:raise ValueError('Measurement nodes must be saved probes.')
             if m.get('reference') and (kind!='voltage' or m['reference'] not in probes):raise ValueError('A differential voltage reference must be another saved probe.')
@@ -86,9 +94,11 @@ def native_subcircuit(p,cid):
     return '* Numerically resolved schematic reference\n.subckt '+c['name']+' '+' '.join(c['ports'])+'\n'+'\n'.join(lines)+'\n.ends '+c['name']+'\n'
 
 
-def deck(p,t,subcircuit_path,ports=None):
+def deck(p,t,subcircuit_path,ports=None,bias_capture=None):
     from .interchange import spice,spice_name
     from .sky130_flow import subcircuit
+    from .saved_bench_diagnostics import settings as diagnostic_settings
+    t=clone(t);t['analysis']=diagnostic_settings(p,t)
     by={c['id']:c for c in p['cells']};bench=clone(by[t['bench_cell']]);dut=by[t['dut_cell']];instance=next(d for d in bench['devices'] if d['id']==t['dut_instance'])
     ports=ports or dut['ports']
     if len(ports)!=len(dut['ports']) or set(ports)!=set(dut['ports']):raise ValueError('Extracted circuit interface differs from the saved bench.')
@@ -117,7 +127,21 @@ def deck(p,t,subcircuit_path,ports=None):
                 emitted=by_name.get(node.args[0].value.casefold())
                 if emitted:current_sources.add(emitted)
     current_sources=sorted(current_sources)
-    text+='.save '+' '.join(['v('+n+')' for n in t['probes']]+['i('+n+')' for n in current_sources])+'\n.end\n'
+    if t['analysis']['type']!='noise':text+='.save '+' '.join(['v('+n+')' for n in t['probes']]+['i('+n+')' for n in current_sources])+'\n'
+    if t['analysis'].get('diagnostic',{}).get('kind')=='bias':
+        if bias_capture is None:
+            from .saved_bias import capture
+            path=Path(subcircuit_path)
+            source=path.read_bytes().decode('utf-8') if path.is_file() else native_subcircuit(p,t['dut_cell'])
+            bias_capture=capture(p,t,source,schematic=not path.is_file())
+        text+=bias_capture['directive']+'\n'
+    text+='.end\n'
+    if t['analysis'].get('diagnostic'):
+        from .analog_diagnostics import alter_deck
+        # alter_deck identifies only the fixture's top-level supply. The DUT
+        # .include (schematic or extracted) remains byte-for-byte untouched.
+        if t['analysis']['diagnostic']['kind']=='startup':text=re.sub(r'^(\.tran[^\n]*)\s+uic\s*$',r'\1',text,flags=re.M|re.I)
+        text=alter_deck(p,t['bench_cell'],t['analysis'],text)
     return text
 
 
@@ -136,6 +160,13 @@ def measure(result,t):
     for m in t.get('measurements',[]):
         row={'name':m['name'],'kind':m['kind'],'status':'failed'};rows.append(row)
         try:
+            from .saved_bench_diagnostics import MEASUREMENTS,measurement
+            if m['kind'] in MEASUREMENTS:
+                val,details=measurement(result,m['kind']);row.update(details,value=val)
+                if not math.isfinite(val):raise ValueError('Diagnostic measurement is not finite.')
+                if 'min' in m and val<scalar(m['min']):raise ValueError('Measured result is below the configured minimum.')
+                if 'max' in m and val>scalar(m['max']):raise ValueError('Measured result is above the configured maximum.')
+                row['status']='passed';continue
             ys=result.get('currents',{})[m['source'].lower()] if m['kind']=='current' else traces[m['node'].lower()]
             if m.get('reference'):
                 other=traces[m['reference'].lower()]
@@ -179,6 +210,9 @@ def measure(result,t):
 
 def simulate(p,t,executable,directory,subcircuit_path=None,ports=None,progress=lambda *_:None):
     from .engines import run_deck
+    from .saved_bench_diagnostics import settings as diagnostic_settings
+    saved_analysis=clone(t['analysis'])
+    t=clone(t);t['analysis']=diagnostic_settings(p,t)
     directory=Path(directory);directory.mkdir(parents=True,exist_ok=True)
     if p.get('spice', {}).get('version') == 1 and subcircuit_path is None:
         from .engines import run_ngspice
@@ -191,17 +225,28 @@ def simulate(p,t,executable,directory,subcircuit_path=None,ports=None,progress=l
         from .model import design_digest
         r['design_hash'] = design_digest(p)
     else:
+        schematic=subcircuit_path is None
         if subcircuit_path is None:
             subcircuit_path=directory/'schematic.spice';atomic_write(subcircuit_path,native_subcircuit(p,t['dut_cell']))
-        path=directory/'testbench.cir';atomic_write(path,deck(p,t,subcircuit_path,ports))
-        r=run_deck(p,t['bench_cell'],{'type':'deck','deck':str(path)},executable,directory,progress);r['x_label']={'tran':'Time (s)','op':'Operating point','ac':'Frequency (Hz)','dc':'Source value'}[t['analysis']['type']]
+        capture=None
+        if t['analysis'].get('diagnostic',{}).get('kind')=='bias':
+            from .saved_bias import capture as prepare_bias
+            capture=prepare_bias(p,t,Path(subcircuit_path).read_bytes().decode('utf-8'),schematic=schematic)
+        path=directory/'testbench.cir';atomic_write(path,deck(p,t,subcircuit_path,ports,capture))
+        settings={'type':'deck','deck':str(path),'analysis':clone(t['analysis'])}
+        if capture is not None:settings['bias_capture']=capture
+        r=run_deck(p,t['bench_cell'],settings,executable,directory,progress);r['x_label']={'tran':'Time (s)','op':'Operating point','ac':'Frequency (Hz)','dc':'Source value','noise':'Frequency (Hz)'}[t['analysis']['type']]
+        if capture is not None:
+            from .model import file_digest
+            if file_digest(subcircuit_path)!=capture['implementation_sha256']:
+                raise ValueError('The included bias implementation changed during simulation. Run the saved bench again.')
     from .interchange import spice_name
     fixture=next(c for c in p['cells'] if c['id']==t['bench_cell'])
     for d in fixture['devices']:
         if d['kind']=='V':
             for field in ('currents','current_phase'):
                 if spice_name(d).lower() in r.get(field,{}):r[field][d['name'].lower()]=r[field][spice_name(d).lower()]
-    r['testbench_id']=t['id'];r['settings']=clone(t['analysis']);r['measurements']=measure(r,t);r['warnings']=['Saved testbench: '+t['name']+'. '+('Extracted circuit' if ports else 'Schematic circuit')+'.']
+    r['testbench_id']=t['id'];r['settings']=saved_analysis;r['effective_analysis']=clone(t['analysis']);r['measurements']=measure(r,t);r['warnings']=['Saved testbench: '+t['name']+'. '+('Extracted circuit' if ports else 'Schematic circuit')+'.']
     from .specifications import evaluate_rows
     r['specifications']=evaluate_rows(t.get('specifications',fixture.get('specifications',[])),r)
     atomic_write(directory/'result.json',json.dumps(r,allow_nan=False));return r

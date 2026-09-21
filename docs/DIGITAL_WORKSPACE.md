@@ -93,6 +93,11 @@ not introduce a second, incompatible bus connectivity model.
 
 ## Waveforms and language tools
 
+**More → VGA Playground** opens an interactive Tiny Tapeout VGA preview beside
+the native source editor. Eight presets can be added as project-owned RTL cells;
+working-copy edits recompile the display. See [VGA Playground](VGA_PLAYGROUND.md)
+for controls, the supported interface, source setup and packaging.
+
 Waveforms support four-state values, aliases, binary/hex/unsigned/signed display,
 saved signal sets, signal filtering, edge/value search, and two cursors (click A,
 Shift-click B). Large VCDs stream into a SQLite transition index; the viewer reads
