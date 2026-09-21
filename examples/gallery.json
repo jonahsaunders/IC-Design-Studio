@@ -164,5 +164,20 @@
       "Run the fast, medium and slow supply-startup analyses. Their fixtures retain explicit output, peak and settling limits.",
       "Use the saved PVT plans in the analog workspace. The three searches and before/after measurements are documented in examples/gf180-banba/pass2/README.md."
     ]
+  },
+  {
+    "id": "gf180-banba-layout",
+    "title": "12 · Lay out the Banba bandgap",
+    "file": "gf180-banba/layout/banba-layout.icproj",
+    "category": "Schematic + layout",
+    "engine": "ngspice",
+    "mode": 0,
+    "summary": "Routed GF180 Banba with a 1:8 PNP array, matched devices, segmented resistors and MIM capacitors.",
+    "expected": "A 0.472 mm² first layout with native geometry/connectivity checks. Segmented schematic: about 0.6006 V and 44.4 µA; foundry signoff and extracted performance remain open.",
+    "steps": [
+      "Select banba_layout in the cell selector and choose Layout. Inspect the linked devices and saved matching constraints.",
+      "Run native terminal connectivity and geometry checks. Inspect the GDS and qualification limits in examples/gf180-banba/layout/README.md.",
+      "Select tb_dc or a saved startup fixture to simulate the segmented implementation. Original second-pass cells remain available for comparison."
+    ]
   }
 ]

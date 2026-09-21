@@ -1,0 +1,19 @@
+{
+  "format": ".gds",
+  "design_hash": "863d3125bc83374ff65b709c0c6d892a1a27146dfce5133ce3248b8b20769141",
+  "file_hash": "8bf57a6d4fb171ce870f85408c403c4449467196b5272a8fb2bb69a27e03d19d",
+  "preserved": [
+    "polygon geometry",
+    "holes",
+    "layer/datatype",
+    "cell names",
+    "1 nm units",
+    "net text labels"
+  ],
+  "limits": [
+    "Explicit physical cell instances and arrays are preserved; schematic-only instances have no implicit physical placement.",
+    "PCell generators are flattened to geometry.",
+    "Sidecar retains device links and editable application metadata."
+  ],
+  "sidecar": "banba-layout.gds.icstudio.json"
+}

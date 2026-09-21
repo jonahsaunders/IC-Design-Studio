@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "display": "offscreen",
+  "checks": [
+    "Opened the saved project in Studio",
+    "Selected banba_layout and displayed all physical geometry",
+    "Rendered 103 devices and 293 explicit terminal mappings"
+  ],
+  "errors": []
+}

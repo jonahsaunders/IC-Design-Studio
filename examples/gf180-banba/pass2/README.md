@@ -2,6 +2,8 @@
 
 Open **Start here / example gallery → Improve the Banba bandgap → Open a copy**, or open [`banba.icproj`](banba.icproj). Keep the checkout's folder structure so the bundled GF180MCU models resolve. The [first-pass schematic](../README.md) remains available for comparison.
 
+The [first routed layout](../layout/README.md) now provides an editable native project, GDS, explicit resistor/capacitor segmentation and new model checks. Its native geometry/connectivity checks pass; full foundry verification and extracted performance remain open.
+
 This pass lowers amplifier/startup bias, retunes the PTAT/output resistor ratio, and adds supply-tracking and output-filter capacitors. It remains a **3.3 V, unbuffered schematic design with a 5 pF external load**, using actual GF180MCU devices. It does not demonstrate sub-1-V supply operation or fabrication readiness.
 
 ![Measured first- and second-pass performance](performance.png)

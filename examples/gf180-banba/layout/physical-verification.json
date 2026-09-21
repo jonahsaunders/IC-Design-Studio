@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "status": "blocked",
+  "gds_sha256": "8bf57a6d4fb171ce870f85408c403c4449467196b5272a8fb2bb69a27e03d19d",
+  "deck_repository": "https://github.com/efabless/globalfoundries-pdk-libs-gf180mcu_fd_pv",
+  "deck_commit": "05e7b6adf19edf942969c1c9625f02fd87874f06",
+  "generated_deck_sha256": "6dc75a3d23e55c806bdc71241fbe5bdf94b731d9bb780ba52ad53ef11c999774",
+  "layer_definitions_sha256": "7e4832a2966d4124ee0e475063c5365cf698b70233287fdbf60465aecb3402c3",
+  "runtime": "KLayout 0.28.15 / Ubuntu 24.04 package",
+  "runtime_sha256": "219093e3347e402aefecc49432d6e2ab1830c4983b980e83078b77d270a04c2e",
+  "flags": {
+    "variant": "B",
+    "metal_level": "4LM",
+    "metal_top": "11K",
+    "mim_option": "B",
+    "topcell": "banba_layout",
+    "feol": true,
+    "beol": true,
+    "conn_drc": true,
+    "offgrid": true,
+    "run_mode": "flat",
+    "threads": 2
+  },
+  "result": "Standalone KLayout crashed during embedded Python interpreter initialization, before the rule deck executed. No foundry DRC result database was produced.",
+  "observed_error": "Ruby reports SIGSEGV; native backtrace enters libpython3.12 PyUnicode_New from pya::PythonInterpreter construction.",
+  "foundry_drc": "unverified",
+  "foundry_lvs": "not run",
+  "density": "not run",
+  "antenna": "not run",
+  "parasitic_extraction": "not run",
+  "rerun": "python /path/to/gf180-pv/klayout/drc/run_drc.py --path=banba-layout.gds --variant=B --topcell=banba_layout --run_dir=/new/drc --thr=2"
+}
