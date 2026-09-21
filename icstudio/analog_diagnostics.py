@@ -74,7 +74,9 @@ def loop_report(result, numerator, denominator, sign=1):
 
 
 def startup_report(result, config):
-    x=result['x']; values=result['traces'].get(config['output'])
+    # SPICE net names are case-insensitive; ngspice often lowercases vectors
+    # even when the schematic and diagnostic retain the user's spelling.
+    x=result['x']; values={name.casefold():v for name,v in result['traces'].items()}.get(config['output'].casefold())
     if not values or len(x)!=len(values) or len(x)<2:raise ValueError('Startup output was not captured.')
     lower,upper=scalar(config['minimum']),scalar(config['maximum'])
     tail=scalar(config.get('tail_fraction',.2));start=x[-1]-(x[-1]-x[0])*tail

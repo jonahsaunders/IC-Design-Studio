@@ -1,5 +1,7 @@
 # GF180MCU Banba bandgap — first schematic
 
+The [second pass](pass2/README.md) preserves this baseline and adds lower-power biasing, resistor retuning, and startup/output filtering, with broader model checks and reproducible optimizer results.
+
 Open **File → Start here / example gallery → Build a Banba bandgap → Open a copy** on the experimental branch. Alternatively, open `examples/gf180-banba/banba.icproj` from this checkout. The native project uses the included, checksummed `gf180mcuD` package; ngspice is required for simulation. Keep the repository's folder structure when opening the project directly.
 
 This is a new, editable design, independent of the imported 5 V bandgap example. It implements the current-summing idea in [Banba et al., *A CMOS Bandgap Reference Circuit with Sub-1-V Operation*, JSSC, 1999](https://doi.org/10.1109/4.760378). **This implementation assumes a 3.3 V supply; it does not claim sub-1-V supply operation.**

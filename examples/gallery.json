@@ -149,5 +149,20 @@
       "Open the analog workspace and select the saved temperature plan. Use Circuit search with the settings in examples/gf180-banba/README.md.",
       "Run the saved power-on startup analysis. Inspect its failing overshoot specification before further optimization."
     ]
+  },
+  {
+    "id": "gf180-banba-pass2",
+    "title": "11 · Improve the Banba bandgap",
+    "file": "gf180-banba/pass2/banba.icproj",
+    "category": "Analog design",
+    "engine": "ngspice",
+    "mode": 0,
+    "summary": "Second-pass GF180MCU Banba with lower bias, retuned resistors, startup filtering, and three analog optimizer searches.",
+    "expected": "About 0.6006 V and 44.4 µA at 3.3 V / 27 °C. Tested startup peaks stay below 0.75 V; larger on-chip capacitors trade area and settling time for lower overshoot.",
+    "steps": [
+      "Open a copy and inspect banba_core, error_amplifier and startup. Run the saved operating-point analysis.",
+      "Run the fast, medium and slow supply-startup analyses. Their fixtures retain explicit output, peak and settling limits.",
+      "Use the saved PVT plans in the analog workspace. The three searches and before/after measurements are documented in examples/gf180-banba/pass2/README.md."
+    ]
   }
 ]

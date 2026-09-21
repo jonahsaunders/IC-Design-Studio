@@ -175,6 +175,18 @@ class DiagnosticMathTests(unittest.TestCase):
         d=diagnostic.bias_report(dict(device_operating_point={'M1':dict(id=1e-5,gm=1e-4,vds=.3,vdsat=.4)}))['devices'][0]
         self.assertIsNone(d['region']);self.assertEqual(d['bias_status'],'Below model VDSAT');self.assertAlmostEqual(d['gm_Id_per_V'],10)
 
+    def test_startup_finds_ngspice_vectors_without_changing_net_spelling(self):
+        result=dict(x=[0,1,2,3,4],traces={'vref':[0,.5,.6,.6,.6]})
+        config=dict(output='VREF',minimum=.594,maximum=.606,tail_fraction=.5,ramp=1)
+        before=clone(result);saved_config=clone(config)
+        report=diagnostic.startup_report(result,config)
+        self.assertTrue(report['passed']);self.assertEqual(report['settled_by_s'],2)
+        self.assertEqual(result,before);self.assertEqual(config,saved_config)
+        result['traces']={'VrEf':result['traces']['vref']}
+        self.assertEqual(diagnostic.startup_report(result,config),report)
+        config['output']='unconnected'
+        with self.assertRaisesRegex(ValueError,'not captured'):diagnostic.startup_report(result,config)
+
     def test_diagnostic_deck_edits_only_connected_top_level_source(self):
         p=rc_project();c=dict(kind='startup',source='V1',output='out',initial_node='out',minimum=0,maximum=1,supply=1,ramp='1u',stop='10u',initial_voltage='.2')
         text='test\nV1 in 0 DC 1\n.subckt fixture a\nV1 a 0 1\n.ends\n.tran 1n 10u\n.end\n'
