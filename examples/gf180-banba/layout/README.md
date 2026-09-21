@@ -66,6 +66,8 @@ The revised GDS was checked with the pinned GF180 verification package, physical
 
 Poly, M1 and M2 cover approximately **1.100%, 0.308% and 0.693%** of the macro envelope. The respective whole-die minima are **14%, 30% and 30%**. These are outstanding findings, not waivers. The available design has no chip floorplan or surrounding fill context. Fill must obey the process keepouts, including the MIM exclusion, and must be followed by verification and extraction of the filled layout. Arbitrarily enlarging this macro or adding conductive metal solely to change the density denominator is not a qualified repair.
 
+The [dummy-metal rules](https://gf180mcu-pdk.readthedocs.io/en/latest/physical_verification/design_manual/drm_13_3.html) specify 2 × 2 µm tiles, 1.2 µm layout spacing and 6 µm clearance from MIM areas. Expanding the actual FuseTop polygons by 6 µm occupies 312,700.244 µm² of the 482,714.650 µm² envelope, leaving 35.220% before any routing or other keepouts. A regular 3.2 µm-pitch fill pattern has 39.063% occupancy, so even an optimistic area estimate adds only about 13.758% metal coverage. Filling the existing footprint is therefore insufficient for the 30% target. Closure requires the surrounding chip floorplan or a reviewed floorplan/circuit redesign, followed by fresh DRC, LVS and extracted simulations.
+
 The supplied Magic PNP declarations incorrectly put the emitter in the substrate slot and test the area of an absent second terminal. The verification script generates a corrected technology file with explicit emitter/collector terminals and emitter-area bounds, preserving all four supported PNP model choices and the C/B/E model pin order. All nine extracted PNPs then match the independently verified 5 × 5 µm schematic devices. The upstream checkout and the layout remain unchanged.
 
 Capacitance-only simulation does **not** qualify distributed wire resistance. Magic 8.3.600 produces a negative RC redistribution weight. A diagnostic build of 8.3.684 produces an incomplete resistance graph and a missing PNP source-connection warning; its normal build crashes on the revised layout. These outputs are refused by the checks; no negative weights are clamped and no missing connections are invented. Splitting `ext2sim` and `extresist` into separate processes helped the earlier diagnostic runs, but did not resolve distributed RC extraction.
@@ -106,3 +108,13 @@ python -m unittest tests.test_gf180_banba_physical tests.test_gf180_banba_layout
 ```
 
 The physical verification command deliberately exits nonzero while density or RC closure remains incomplete. It retains reports, commands, raw extraction, simulation decks, waveforms and logs. A passing capacitance-only simulation never changes the overall signoff status.
+
+To reproduce **only DRC and LVS**, without Magic, ngspice or an `open_pdks` checkout:
+
+```sh
+python scripts/verify_gf180_banba_physical.py --drc-lvs-only \
+  --pv /path/to/globalfoundries-pdk-libs-gf180mcu_fd_pv \
+  --klayout /path/to/klayout --out /new/drc-lvs-results
+```
+
+This still runs geometry, density and antenna checks, plus strict LVS. Its exit code is zero only when every requested check passes. Missing/malformed reports and nonzero engine exits fail the check even when available reports contain no markers. The current layout correctly exits **1** for PL.8/M1.4/M2.4 while recording successful LVS. `physical-verification.json` records the scope, artifact hashes and separate DRC/LVS results; `signoff` remains false. KLayout 0.28.16 reproduced all 314 density markers and the 103-device/56-net/3-port match on 2026-09-21.

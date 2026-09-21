@@ -1,6 +1,15 @@
+from contextlib import redirect_stdout, redirect_stderr
+import io
+import json
+from pathlib import Path
+import shutil
+import sys
+import tempfile
 import unittest
+from unittest.mock import patch
 
-from scripts.verify_gf180_banba_physical import cdl, check_extracted, fix_pnp_technology
+from scripts import verify_gf180_banba_physical as physical
+from scripts.verify_gf180_banba_physical import cdl, check_extracted, fix_pnp_technology, drc_results
 
 
 REFERENCE = '''.subckt banba_layout VDD VSS VREF
@@ -54,6 +63,86 @@ class PhysicalReferenceTests(unittest.TestCase):
         self.assertEqual(fixed.count('device msubcircuit'), 4)
         with self.assertRaisesRegex(ValueError, 'declarations changed'):
             fix_pnp_technology(fixed)
+
+
+class PhysicalGateTests(unittest.TestCase):
+    def setUp(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        self.root = Path(temporary.name)
+
+    def reports(self, directory, density=False):
+        directory.mkdir(parents=True, exist_ok=True)
+        for deck in ('main', 'density', 'antenna'):
+            item = "<item><category>'M1.4'</category></item>" if density and deck == 'density' else ''
+            (directory/f'banba-layout_{deck}.lyrdb').write_text(
+                '<report-database><categories/><items>'+item+'</items></report-database>')
+
+    def test_engine_failure_cannot_pass_with_empty_reports(self):
+        self.reports(self.root)
+        result = drc_results(self.root, 'banba-layout', 1)
+        self.assertFalse(result['passed'])
+        self.assertIn('engine failed', physical.drc_remaining(result)[0])
+        self.assertTrue(drc_results(self.root, 'banba-layout', 0)['passed'])
+
+    def test_density_findings_fail_even_if_wrapper_exits_zero(self):
+        self.reports(self.root, density=True)
+        result = drc_results(self.root, 'banba-layout', 0)
+        self.assertFalse(result['passed'])
+        self.assertEqual(physical.drc_remaining(result), ['DRC closure: M1.4.'])
+
+    def test_unrelated_report_cannot_replace_a_missing_deck(self):
+        self.reports(self.root)
+        (self.root/'banba-layout_antenna.lyrdb').rename(self.root/'other.lyrdb')
+        with self.assertRaisesRegex(ValueError, 'missing banba-layout_antenna'):
+            drc_results(self.root, 'banba-layout', 0)
+
+    def test_malformed_output_cannot_pass_as_zero_findings(self):
+        for text in ['<wrong><categories/><items/></wrong>', '<report-database/>',
+                     '<report-database><categories/><items><item/></items></report-database>']:
+            with self.subTest(text=text):
+                self.reports(self.root)
+                (self.root/'banba-layout_main.lyrdb').write_text(text)
+                with self.assertRaises(ValueError):
+                    drc_results(self.root, 'banba-layout', 0)
+
+    def test_drc_lvs_scope_uses_no_extractor_and_retains_density_failure(self):
+        # Use the real saved 103-device comparison. Only external process
+        # execution is replaced; reference generation and report parsing run.
+        for density, lvs_exit, expected in [(False, 0, 0), (True, 0, 1), (False, 1, 1)]:
+            output = self.root/f'run-{density}-{lvs_exit}'
+            phases = []
+            def command(args, folder, name, env=None):
+                phases.append(name)
+                folder.mkdir(parents=True, exist_ok=True)
+                (folder/(name+'.log')).write_text('test engine\n')
+                if name == 'drc':
+                    self.reports(output/'drc', density=density)
+                elif name == 'lvs':
+                    (output/'lvs').mkdir()
+                    shutil.copyfile(physical.EXAMPLE/'physical-evidence/comparison.lvsdb',
+                                    output/'lvs/banba-layout.lvsdb')
+                    return lvs_exit
+                return 0
+            with self.subTest(density=density, lvs_exit=lvs_exit), \
+                    patch.object(physical, 'locked_checkout') as lock, \
+                    patch.object(physical, 'command', side_effect=command), \
+                    redirect_stdout(io.StringIO()):
+                code = physical.main(['--drc-lvs-only', '--pv', str(self.root),
+                    '--klayout', sys.executable, '--out', str(output)])
+            self.assertEqual(code, expected)
+            self.assertEqual(phases, ['klayout-version', 'drc', 'lvs'])
+            self.assertEqual(lock.call_count, 1)
+            report = json.loads((output/'physical-verification.json').read_text())
+            self.assertFalse(report['signoff'])
+            self.assertEqual(report['lvs']['pairs']['device'], 103)
+            self.assertEqual(report['passed'], expected == 0)
+            self.assertEqual(report['scope'], 'drc-lvs')
+
+    def test_full_scope_still_requires_extraction_engines(self):
+        with redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as error:
+            physical.main(['--pv', str(self.root), '--klayout', sys.executable, '--out', str(self.root)])
+        self.assertEqual(error.exception.code, 2)
 
 
 if __name__ == '__main__':
