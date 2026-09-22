@@ -1,0 +1,106 @@
+[
+  {
+    "cell": "startup",
+    "plan": "banba_startup_pvt",
+    "spec": {
+      "kind": "analog_optimizer",
+      "name": "Banba second-pass startup sizing",
+      "strategy": "grid",
+      "budget": 120,
+      "axes": [
+        {
+          "target": "CTRACK.model_params.w",
+          "lower": "160u",
+          "upper": "210u",
+          "count": 4,
+          "links": [
+            {
+              "target": "CTRACK.model_params.l",
+              "ratio": 1
+            }
+          ]
+        },
+        {
+          "target": "MNKICK.params.w",
+          "lower": ".35u",
+          "upper": ".65u",
+          "count": 3
+        }
+      ],
+      "objective": {
+        "entry_id": "setup:1",
+        "expression": "max(V(\"VREF\"))",
+        "unit": "V",
+        "goal": "minimize"
+      }
+    }
+  },
+  {
+    "cell": "banba_core",
+    "plan": "banba_accuracy",
+    "spec": {
+      "kind": "analog_optimizer",
+      "name": "Banba second-pass accuracy sizing",
+      "strategy": "grid",
+      "budget": 150,
+      "axes": [
+        {
+          "target": "RPTAT.model_params.l",
+          "lower": "10.8u",
+          "upper": "11u",
+          "count": 5
+        },
+        {
+          "target": "ROUT.model_params.l",
+          "lower": "50u",
+          "upper": "50.2u",
+          "count": 5
+        }
+      ],
+      "objective": {
+        "entry_id": "setup:0",
+        "expression": "final(V(\"VREF\"))",
+        "unit": "V",
+        "goal": "target",
+        "target": ".6"
+      },
+      "gmid": {
+        "entry_id": "setup:0",
+        "device": "XDUT/XAMP/MPA",
+        "min": "8",
+        "max": "22",
+        "headroom": ".1"
+      }
+    }
+  },
+  {
+    "cell": "banba_core",
+    "plan": "banba_ramp_corners",
+    "spec": {
+      "kind": "analog_optimizer",
+      "name": "Banba output filter with three startup ramps",
+      "strategy": "grid",
+      "budget": 150,
+      "axes": [
+        {
+          "target": "COUT.model_params.w",
+          "lower": "350u",
+          "upper": "550u",
+          "count": 5,
+          "links": [
+            {
+              "target": "COUT.model_params.l",
+              "ratio": 1
+            }
+          ]
+        }
+      ],
+      "objective": {
+        "entry_id": "setup:1",
+        "expression": "settling(V(\"VREF\"), .6, .03)",
+        "unit": "s",
+        "goal": "minimize"
+      }
+    }
+  }
+]

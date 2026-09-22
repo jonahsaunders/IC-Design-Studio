@@ -33,9 +33,21 @@ def symbol_context(device, technology):
     context={'name':device['name'],'value':device['value'],'symname':device.get('cell',''),
              **device.get('params',{}),**device.get('parameters',{}),**device.get('symbol_context',{})}
     if device.get('model_ref'):
-        values=parameter_values(binding_for(technology,device),device)
+        binding=binding_for(technology,device)
+        symbolic_geometry = device['kind'] in ('NMOS','PMOS') and any(
+            str(device['params'][k]).startswith('{') for k in ('w','l'))
+        if symbolic_geometry:
+            # The canvas has no instance parameter scope. Preserve the visible
+            # expressions; netlisting resolves them in the hierarchy context.
+            values={k:rule['default'] for k,rule in binding.get('parameters',{}).items()}
+            values.update(device.get('model_params',{}))
+            values.update({k:device['params'][k] for k in ('w','l')})
+        else:
+            values=parameter_values(binding,device)
         for key in set(context)|set(values):
-            if key.lower() in values:context[key]=format(values[key.lower()],'.12g')
+            if key.lower() in values:
+                raw=values[key.lower()]
+                context[key]=str(raw) if symbolic_geometry else format(raw,'.12g')
     context['name']=device['name'];return context
 
 

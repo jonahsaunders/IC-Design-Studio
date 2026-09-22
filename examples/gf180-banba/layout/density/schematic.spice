@@ -1,0 +1,109 @@
+* Numerically resolved schematic reference
+.subckt banba_layout VDD VSS VREF
+* IC Design Studio / GF180MCU Banba bandgap — first routed layout / revision 0
+* design-sha256 50126a3b185450b6df8193addd70e2cf81ce5c7ad6c75725a1561745c95ffc87
+* Explicit locked PDK model bindings. Qualification depends on the validated reference flow.
+X_MP1 VA CTRL VDD VDD pfet_03v3 l=4e-06 w=8e-06 nf=1 ad=1.44e-12 as=1.44e-12 pd=1.636e-05 ps=1.636e-05 nrd=0.0225 nrs=0.0225 sa=0 sb=0 sd=0 m=1
+X_MP2 VB CTRL VDD VDD pfet_03v3 l=4e-06 w=8e-06 nf=1 ad=1.44e-12 as=1.44e-12 pd=1.636e-05 ps=1.636e-05 nrd=0.0225 nrs=0.0225 sa=0 sb=0 sd=0 m=1
+X_MP3 VREF CTRL VDD VDD pfet_03v3 l=4e-06 w=8e-06 nf=1 ad=1.44e-12 as=1.44e-12 pd=1.636e-05 ps=1.636e-05 nrd=0.0225 nrs=0.0225 sa=0 sb=0 sd=0 m=1
+X_XAMP_MPA XAMP_NMIR VA XAMP_TAIL VDD pfet_03v3 l=2e-06 w=2.4e-05 nf=1 ad=4.32e-12 as=4.32e-12 pd=4.836e-05 ps=4.836e-05 nrd=0.0075 nrs=0.0075 sa=0 sb=0 sd=0 m=1
+X_XAMP_MPB XAMP_GAIN VB XAMP_TAIL VDD pfet_03v3 l=2e-06 w=2.4e-05 nf=1 ad=4.32e-12 as=4.32e-12 pd=4.836e-05 ps=4.836e-05 nrd=0.0075 nrs=0.0075 sa=0 sb=0 sd=0 m=1
+X_XAMP_MNA XAMP_NMIR XAMP_NMIR VSS VSS nfet_03v3 l=2e-06 w=4e-06 nf=1 ad=7.2e-13 as=7.2e-13 pd=8.36e-06 ps=8.36e-06 nrd=0.045 nrs=0.045 sa=0 sb=0 sd=0 m=1
+X_XAMP_MNB XAMP_GAIN XAMP_NMIR VSS VSS nfet_03v3 l=2e-06 w=4e-06 nf=1 ad=7.2e-13 as=7.2e-13 pd=8.36e-06 ps=8.36e-06 nrd=0.045 nrs=0.045 sa=0 sb=0 sd=0 m=1
+X_XAMP_MPBIAS XAMP_PBIAS XAMP_PBIAS VDD VDD pfet_03v3 l=4e-06 w=4e-06 nf=1 ad=7.2e-13 as=7.2e-13 pd=8.36e-06 ps=8.36e-06 nrd=0.045 nrs=0.045 sa=0 sb=0 sd=0 m=1
+X_XAMP_MPTAIL XAMP_TAIL XAMP_PBIAS VDD VDD pfet_03v3 l=4e-06 w=8e-06 nf=1 ad=1.44e-12 as=1.44e-12 pd=1.636e-05 ps=1.636e-05 nrd=0.0225 nrs=0.0225 sa=0 sb=0 sd=0 m=1
+X_XAMP_MPLOAD CTRL XAMP_PBIAS VDD VDD pfet_03v3 l=8e-06 w=4e-06 nf=1 ad=7.2e-13 as=7.2e-13 pd=8.36e-06 ps=8.36e-06 nrd=0.045 nrs=0.045 sa=0 sb=0 sd=0 m=1
+X_XAMP_MNOUT CTRL XAMP_GAIN VSS VSS nfet_03v3 l=2e-06 w=4e-06 nf=1 ad=7.2e-13 as=7.2e-13 pd=8.36e-06 ps=8.36e-06 nrd=0.045 nrs=0.045 sa=0 sb=0 sd=0 m=1
+X_XSTART_MSENSE XSTART_DET CTRL VDD VDD pfet_03v3 l=8e-06 w=1e-06 nf=1 ad=1.8e-13 as=1.8e-13 pd=2.36e-06 ps=2.36e-06 nrd=0.18 nrs=0.18 sa=0 sb=0 sd=0 m=1
+X_XSTART_MNSENSE XSTART_KICK XSTART_DET VSS VSS nfet_03v3 l=1e-06 w=8e-06 nf=1 ad=1.44e-12 as=1.44e-12 pd=1.636e-05 ps=1.636e-05 nrd=0.0225 nrs=0.0225 sa=0 sb=0 sd=0 m=1
+X_XSTART_MNKICK CTRL XSTART_KICK VSS VSS nfet_03v3 l=4e-06 w=5e-07 nf=1 ad=9e-14 as=9e-14 pd=1.36e-06 ps=1.36e-06 nrd=0.36 nrs=0.36 sa=0 sb=0 sd=0 m=1
+X_Q2_1 VSS VSS VE2 pnp_05p00x05p00 m=1
+X_Q2_2 VSS VSS VE2 pnp_05p00x05p00 m=1
+X_Q2_3 VSS VSS VE2 pnp_05p00x05p00 m=1
+X_Q2_4 VSS VSS VE2 pnp_05p00x05p00 m=1
+X_Q1 VSS VSS VA pnp_05p00x05p00 m=1
+X_Q2_5 VSS VSS VE2 pnp_05p00x05p00 m=1
+X_Q2_6 VSS VSS VE2 pnp_05p00x05p00 m=1
+X_Q2_7 VSS VSS VE2 pnp_05p00x05p00 m=1
+X_Q2_8 VSS VSS VE2 pnp_05p00x05p00 m=1
+X_RCA VSS VA VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_RCB VSS VB VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_RPTAT VE2 VB VSS ppolyf_u_1k r_width=1e-06 r_length=1.085e-05 m=1
+X_ROUT VSS VREF VSS ppolyf_u_1k r_width=1e-06 r_length=5.015e-05 m=1
+X_XAMP_RBIAS_01 XAMP_RBIAS_series_1 XAMP_PBIAS VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XAMP_RBIAS_02 XAMP_RBIAS_series_2 XAMP_RBIAS_series_1 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XAMP_RBIAS_03 XAMP_RBIAS_series_3 XAMP_RBIAS_series_2 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XAMP_RBIAS_04 XAMP_RBIAS_series_4 XAMP_RBIAS_series_3 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XAMP_RBIAS_05 XAMP_RBIAS_series_5 XAMP_RBIAS_series_4 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XAMP_RBIAS_06 XAMP_RBIAS_series_6 XAMP_RBIAS_series_5 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XAMP_RBIAS_07 XAMP_RBIAS_series_7 XAMP_RBIAS_series_6 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XAMP_RBIAS_08 XAMP_RBIAS_series_8 XAMP_RBIAS_series_7 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XAMP_RBIAS_09 XAMP_RBIAS_series_9 XAMP_RBIAS_series_8 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XAMP_RBIAS_10 VSS XAMP_RBIAS_series_9 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RDET_01 XSTART_RDET_series_1 XSTART_DET VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RDET_02 XSTART_RDET_series_2 XSTART_RDET_series_1 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RDET_03 XSTART_RDET_series_3 XSTART_RDET_series_2 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RDET_04 XSTART_RDET_series_4 XSTART_RDET_series_3 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RDET_05 XSTART_RDET_series_5 XSTART_RDET_series_4 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RDET_06 XSTART_RDET_series_6 XSTART_RDET_series_5 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RDET_07 XSTART_RDET_series_7 XSTART_RDET_series_6 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RDET_08 XSTART_RDET_series_8 XSTART_RDET_series_7 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RDET_09 XSTART_RDET_series_9 XSTART_RDET_series_8 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RDET_10 XSTART_RDET_series_10 XSTART_RDET_series_9 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RDET_11 XSTART_RDET_series_11 XSTART_RDET_series_10 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RDET_12 XSTART_RDET_series_12 XSTART_RDET_series_11 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RDET_13 XSTART_RDET_series_13 XSTART_RDET_series_12 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RDET_14 XSTART_RDET_series_14 XSTART_RDET_series_13 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RDET_15 XSTART_RDET_series_15 XSTART_RDET_series_14 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RDET_16 VSS XSTART_RDET_series_15 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_01 XSTART_RPULL_series_1 VDD VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_02 XSTART_RPULL_series_2 XSTART_RPULL_series_1 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_03 XSTART_RPULL_series_3 XSTART_RPULL_series_2 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_04 XSTART_RPULL_series_4 XSTART_RPULL_series_3 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_05 XSTART_RPULL_series_5 XSTART_RPULL_series_4 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_06 XSTART_RPULL_series_6 XSTART_RPULL_series_5 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_07 XSTART_RPULL_series_7 XSTART_RPULL_series_6 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_08 XSTART_RPULL_series_8 XSTART_RPULL_series_7 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_09 XSTART_RPULL_series_9 XSTART_RPULL_series_8 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_10 XSTART_RPULL_series_10 XSTART_RPULL_series_9 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_11 XSTART_RPULL_series_11 XSTART_RPULL_series_10 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_12 XSTART_RPULL_series_12 XSTART_RPULL_series_11 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_13 XSTART_RPULL_series_13 XSTART_RPULL_series_12 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_14 XSTART_RPULL_series_14 XSTART_RPULL_series_13 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_15 XSTART_RPULL_series_15 XSTART_RPULL_series_14 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_16 XSTART_RPULL_series_16 XSTART_RPULL_series_15 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_17 XSTART_RPULL_series_17 XSTART_RPULL_series_16 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_18 XSTART_RPULL_series_18 XSTART_RPULL_series_17 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_19 XSTART_RPULL_series_19 XSTART_RPULL_series_18 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_XSTART_RPULL_20 XSTART_KICK XSTART_RPULL_series_19 VSS ppolyf_u_1k r_width=1e-06 r_length=0.0001 m=1
+X_COUT_1_1 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_1_2 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_1_3 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_1_4 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_1_5 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_2_1 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_2_2 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_2_3 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_2_4 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_2_5 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_3_1 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_3_2 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_3_3 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_3_4 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_3_5 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_4_1 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_4_2 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_4_3 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_4_4 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_4_5 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_5_1 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_5_2 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_5_3 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_5_4 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_COUT_5_5 VREF VSS cap_mim_2f0_m3m4_noshield c_width=9.15e-05 c_length=9.15e-05 m=1
+X_XSTART_CTRACK_1_1 VDD CTRL cap_mim_2f0_m3m4_noshield c_width=9.667e-05 c_length=9.667e-05 m=1
+X_XSTART_CTRACK_1_2 VDD CTRL cap_mim_2f0_m3m4_noshield c_width=9.667e-05 c_length=9.667e-05 m=1
+X_XSTART_CTRACK_2_1 VDD CTRL cap_mim_2f0_m3m4_noshield c_width=9.667e-05 c_length=9.667e-05 m=1
+X_XSTART_CTRACK_2_2 VDD CTRL cap_mim_2f0_m3m4_noshield c_width=9.667e-05 c_length=9.667e-05 m=1
+X_XAMP_CMILLER XAMP_GAIN CTRL cap_mim_2f0_m3m4_noshield c_width=4.472e-05 c_length=4.472e-05 m=1
+.ends banba_layout

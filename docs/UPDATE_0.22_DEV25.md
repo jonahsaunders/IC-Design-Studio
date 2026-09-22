@@ -2,8 +2,9 @@
 
 This source preview follows the [integrated analog workflow](ANALOG_CLOSURE.md)
 merged into `experimental` at `46658f81b378743f39bbc10d4c83c5b8ceb583d1`.
-Dev25 is proposed separately from `codex/analog-reference-qualification`; the
-current experimental-to-main PR #32 does not yet include this increment.
+Dev25 and its Windows follow-up were merged into `experimental` in PRs #34/#35;
+PR #32 then merged the same tree into `main` at
+`a88cfe1cfe20254638b7bd97ec9128e843578282`.
 It retains saved extraction choices, checked process-device semantics, constrained
 layout updates and durable verification campaigns. The digital implementation
 workspace and offline eight-preset VGA Playground remain included.
@@ -150,9 +151,14 @@ check. Actual two-host acceptance remains unexecuted; use the
 The [retained workload record](validation/dev25/statistical-campaign.json) and
 [36-case final-source smoke](validation/dev25/statistical-campaign-final-source.json)
 identify the executed sources and their scope. The hosted statistical workflow
-is a required sixth draft gate; no remote result is claimed by these local records.
+is a required sixth draft gate. It subsequently passed in the
+[dev25 release run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/35550664971);
+these local records retain their original scope.
 
-Dev25 is a source candidate. The earlier dev24 draft at
+Dev25 has an unpublished, hosted-qualified draft at the main commit above.
+All six release gates passed; consumer-machine acceptance and the signing
+decision remain open. See the [acceptance handoff](DEV25_ACCEPTANCE_HANDOFF.md).
+Later experimental source changes need fresh qualification. The earlier dev24 draft at
 `0f83dead7a25090ad97e3e07648d86248bd4e661` contains different source and does not
 qualify these changes. The [historical local analog validation](validation/analog-closure.json)
 belongs to the preceding source increment. Consult [release status](RELEASE_STATUS.md)

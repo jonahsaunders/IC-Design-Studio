@@ -134,5 +134,50 @@
       "Inspect in and out under Simulate → Program analyses.",
       "Choose Tools → Set up an open PDK → Use included PDKs to start your own native SKY130 project."
     ]
+  },
+  {
+    "id": "gf180-banba",
+    "title": "10 · Build a Banba bandgap",
+    "file": "gf180-banba/banba.icproj",
+    "category": "Analog design",
+    "engine": "ngspice",
+    "mode": 0,
+    "summary": "Native GF180MCU Banba current-mode reference, transistor-level amplifier and startup, with resistor search.",
+    "expected": "At 3.3 V / 27 °C the screened schematic gives about 0.596 V and 77 µA. Fast startup overshoots to 2.72 V: this is an unfinished design exercise.",
+    "steps": [
+      "Open a copy. Select banba_core to inspect the editable circuit, or run F5 on tb_dc for the operating point.",
+      "Open the analog workspace and select the saved temperature plan. Use Circuit search with the settings in examples/gf180-banba/README.md.",
+      "Run the saved power-on startup analysis. Inspect its failing overshoot specification before further optimization."
+    ]
+  },
+  {
+    "id": "gf180-banba-pass2",
+    "title": "11 · Improve the Banba bandgap",
+    "file": "gf180-banba/pass2/banba.icproj",
+    "category": "Analog design",
+    "engine": "ngspice",
+    "mode": 0,
+    "summary": "Second-pass GF180MCU Banba with lower bias, retuned resistors, startup filtering, and three analog optimizer searches.",
+    "expected": "About 0.6006 V and 44.4 µA at 3.3 V / 27 °C. Tested startup peaks stay below 0.75 V; larger on-chip capacitors trade area and settling time for lower overshoot.",
+    "steps": [
+      "Open a copy and inspect banba_core, error_amplifier and startup. Run the saved operating-point analysis.",
+      "Run the fast, medium and slow supply-startup analyses. Their fixtures retain explicit output, peak and settling limits.",
+      "Use the saved PVT plans in the analog workspace. The three searches and before/after measurements are documented in examples/gf180-banba/pass2/README.md."
+    ]
+  },
+  {
+    "id": "gf180-banba-layout",
+    "title": "12 · Lay out the Banba bandgap",
+    "file": "gf180-banba/layout/banba-layout.icproj",
+    "category": "Schematic + layout",
+    "engine": "ngspice",
+    "mode": 0,
+    "summary": "Routed GF180 Banba with a 1:8 PNP array, matched devices, segmented resistors and MIM capacitors.",
+    "expected": "A 0.472 mm² first layout with native geometry/connectivity checks. Segmented schematic: about 0.6006 V and 44.4 µA; foundry signoff and extracted performance remain open.",
+    "steps": [
+      "Select banba_layout in the cell selector and choose Layout. Inspect the linked devices and saved matching constraints.",
+      "Run native terminal connectivity and geometry checks. Inspect the GDS and qualification limits in examples/gf180-banba/layout/README.md.",
+      "Select tb_dc or a saved startup fixture to simulate the segmented implementation. Original second-pass cells remain available for comparison."
+    ]
   }
 ]

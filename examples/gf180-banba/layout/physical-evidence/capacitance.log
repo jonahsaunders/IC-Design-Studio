@@ -1,0 +1,75 @@
+
+Magic 8.3 revision 684 - Compiled on Mon Sep 21 16:57:30 EDT 2026.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+Using NULL graphics device.
+Processing system .magicrc file
+Switching to WIRING tool.
+Switching to NETLIST tool.
+Switching to PICK tool.
+Switching to BOX tool.
+Loading "capacitance.tcl" from command line.
+Input style import: scaleFactor=10, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    obsactive mvobsactive filldiff fillpoly m1hole obsm1 fillm1 obsv1 m2hole obsm2 fillm2 obsv2 m3hole obsm3 fillm3 m4hole obsm4 fillm4 glass fillblock lvstext obscomment 
+10 Magic internal units = 1 Lambda
+Warning: Calma reading is not undoable!  I hope that's OK.
+Library written using GDS-II Release 6.0
+Library name: LIB
+Reading "banba_layout".
+Moving label "VA" from metal1 to via1 in cell banba_layout.
+Moving label "CTRL" from metal1 to via1 in cell banba_layout.
+Moving label "VB" from metal1 to via1 in cell banba_layout.
+Moving label "XAMP_TAIL" from metal1 to via1 in cell banba_layout.
+Moving label "XAMP_NMIR" from metal1 to via1 in cell banba_layout.
+Moving label "XAMP_GAIN" from metal1 to via1 in cell banba_layout.
+Moving label "XAMP_PBIAS" from metal1 to via1 in cell banba_layout.
+Moving label "XSTART_DET" from metal1 to via1 in cell banba_layout.
+Moving label "XSTART_KICK" from metal1 to via1 in cell banba_layout.
+Moving label "VE2" from metal1 to pdiffc in cell banba_layout.
+Moving label "XAMP_RBIAS_series_1" from metal1 to polycontact in cell banba_layout.
+Moving label "XAMP_RBIAS_series_2" from metal1 to polycontact in cell banba_layout.
+Moving label "XAMP_RBIAS_series_3" from metal1 to polycontact in cell banba_layout.
+Moving label "XAMP_RBIAS_series_4" from metal1 to polycontact in cell banba_layout.
+Moving label "XAMP_RBIAS_series_5" from metal1 to polycontact in cell banba_layout.
+Moving label "XAMP_RBIAS_series_6" from metal1 to polycontact in cell banba_layout.
+Moving label "XAMP_RBIAS_series_7" from metal1 to polycontact in cell banba_layout.
+Moving label "XAMP_RBIAS_series_8" from metal1 to polycontact in cell banba_layout.
+Moving label "XAMP_RBIAS_series_9" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_1" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_2" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_3" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_4" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_5" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_6" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_7" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_8" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_9" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_10" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_11" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_12" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_13" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_14" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_15" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_1" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_2" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_3" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_4" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_5" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_6" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_7" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_8" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_9" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_10" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_11" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_12" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_13" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_14" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_15" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_16" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_17" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_18" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_19" from metal1 to polycontact in cell banba_layout.
+Extracting banba_layout into banba_layout.ext:
+Processing banba_layout
+exttospice finished.

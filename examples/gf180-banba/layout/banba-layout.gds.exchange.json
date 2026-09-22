@@ -1,0 +1,5458 @@
+{
+  "version": 1,
+  "baseline_hash": "8bc394029549f4536ced6fad616ba2aa614fe86d16a648bc2b07c65e2961cfd2",
+  "layout_hash": "5a9c8bb450768f8d09b1c9d0043a10e25f0de1ea64fc43f5932c251e1813b6dd",
+  "contract": {
+    "version": 1,
+    "project_id": "fa4133740447ed44",
+    "technology": {
+      "version": 1,
+      "pdk": {
+        "id": "gf180mcuD",
+        "revision": "9394d9228663e22b",
+        "files_hash": "cb55fb015b4f7a8713197b9f5f4a95675551febebb42ef92d40418164cb7c6f5"
+      },
+      "dbu_um": 0.001,
+      "grid_nm": 5,
+      "layers": [
+        {
+          "name": "layer_",
+          "layer": 1,
+          "datatype": 222,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "layer__5_222",
+          "layer": 5,
+          "datatype": 222,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "layer__12_222",
+          "layer": 12,
+          "datatype": 222,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "layer__14_222",
+          "layer": 14,
+          "datatype": 222,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "layer__15_222",
+          "layer": 15,
+          "datatype": 222,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_nwell",
+          "layer": 21,
+          "datatype": 0,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_comp",
+          "layer": 22,
+          "datatype": 0,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_poly",
+          "layer": 30,
+          "datatype": 0,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_pplus",
+          "layer": 31,
+          "datatype": 0,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_nplus",
+          "layer": 32,
+          "datatype": 0,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_contact",
+          "layer": 33,
+          "datatype": 0,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_m1",
+          "layer": 34,
+          "datatype": 0,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_via1",
+          "layer": 35,
+          "datatype": 0,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_m2",
+          "layer": 36,
+          "datatype": 0,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_via2",
+          "layer": 38,
+          "datatype": 0,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_m3",
+          "layer": 42,
+          "datatype": 0,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_via3",
+          "layer": 40,
+          "datatype": 0,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_m4",
+          "layer": 46,
+          "datatype": 0,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_sab",
+          "layer": 49,
+          "datatype": 0,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_resistor",
+          "layer": 62,
+          "datatype": 0,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_fusetop",
+          "layer": 75,
+          "datatype": 0,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_res_mk",
+          "layer": 110,
+          "datatype": 5,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_cap_mk",
+          "layer": 117,
+          "datatype": 5,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_mim_l_mk",
+          "layer": 117,
+          "datatype": 10,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_lvs_bjt",
+          "layer": 118,
+          "datatype": 5,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_drc_bjt",
+          "layer": 127,
+          "datatype": 5,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_m1_label",
+          "layer": 34,
+          "datatype": 10,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_m2_label",
+          "layer": 36,
+          "datatype": 10,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_m3_label",
+          "layer": 42,
+          "datatype": 10,
+          "purpose": "unspecified"
+        },
+        {
+          "name": "banba_m4_label",
+          "layer": 46,
+          "datatype": 10,
+          "purpose": "unspecified"
+        }
+      ],
+      "devices": {
+        "symbols/cap_mim_1f0fF.sym": {
+          "model": "cap_mim_1f0fF",
+          "prefix": "X",
+          "terminals": [
+            "g",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "c_width": "w",
+            "c_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/cap_mim_1f5fF.sym": {
+          "model": "cap_mim_1f5fF",
+          "prefix": "X",
+          "terminals": [
+            "g",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "c_width": "w",
+            "c_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/cap_mim_2f0fF.sym": {
+          "model": "cap_mim_2f0fF",
+          "prefix": "X",
+          "terminals": [
+            "g",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "c_width": "w",
+            "c_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/cap_mim_2p0fF.sym": {
+          "model": "cap_mim_2f0fF",
+          "prefix": "X",
+          "terminals": [
+            "g",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "c_width": "w",
+            "c_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/cap_mim_analog.sym": {
+          "model": "cap_mim_2f0_m3m4_noshield",
+          "prefix": "X",
+          "terminals": [
+            "g",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "c_width": "w",
+            "c_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/cap_nmos_03v3.sym": {
+          "model": "cap_nmos_03v3",
+          "prefix": "X",
+          "terminals": [
+            "g",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "c_width": "w",
+            "c_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/cap_nmos_03v3_b.sym": {
+          "model": "cap_nmos_03v3_b",
+          "prefix": "X",
+          "terminals": [
+            "g",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "c_width": "w",
+            "c_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/cap_nmos_06v0.sym": {
+          "model": "cap_nmos_06v0",
+          "prefix": "X",
+          "terminals": [
+            "g",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "c_width": "w",
+            "c_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/cap_nmos_06v0_b.sym": {
+          "model": "cap_nmos_06v0_b",
+          "prefix": "X",
+          "terminals": [
+            "g",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "c_width": "w",
+            "c_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/cap_pmos_03v3.sym": {
+          "model": "cap_pmos_03v3",
+          "prefix": "X",
+          "terminals": [
+            "g",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "c_width": "w",
+            "c_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/cap_pmos_03v3_b.sym": {
+          "model": "cap_pmos_03v3_b",
+          "prefix": "X",
+          "terminals": [
+            "g",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "c_width": "w",
+            "c_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/cap_pmos_06v0.sym": {
+          "model": "cap_pmos_06v0",
+          "prefix": "X",
+          "terminals": [
+            "g",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "c_width": "w",
+            "c_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/cap_pmos_06v0_b.sym": {
+          "model": "cap_pmos_06v0_b",
+          "prefix": "X",
+          "terminals": [
+            "g",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "c_width": "w",
+            "c_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/diode_dw2ps.sym": {
+          "model": "diode_dw2ps",
+          "prefix": "D",
+          "terminals": [
+            "p",
+            "m"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "area": "emit_area",
+            "pj": "emit_pj",
+            "m": "m"
+          },
+          "parameters": {
+            "emit_area": {
+              "default": "r_w * r_l ",
+              "positive": false,
+              "integer": false,
+              "derived": true
+            },
+            "emit_pj": {
+              "default": "2*r_w + 2*r_l ",
+              "positive": false,
+              "integer": false,
+              "derived": true
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "r_l": {
+              "default": "1u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "r_w": {
+              "default": "1u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/diode_nd2ps_03v3.sym": {
+          "model": "diode_nd2ps_03v3",
+          "prefix": "D",
+          "terminals": [
+            "p",
+            "m"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "area": "emit_area",
+            "pj": "emit_pj",
+            "m": "m"
+          },
+          "parameters": {
+            "emit_area": {
+              "default": "r_w * r_l ",
+              "positive": false,
+              "integer": false,
+              "derived": true
+            },
+            "emit_pj": {
+              "default": "2*r_w + 2*r_l ",
+              "positive": false,
+              "integer": false,
+              "derived": true
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "r_l": {
+              "default": "1u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "r_w": {
+              "default": "1u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/diode_nd2ps_06v0.sym": {
+          "model": "diode_nd2ps_06v0",
+          "prefix": "D",
+          "terminals": [
+            "p",
+            "m"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "area": "emit_area",
+            "pj": "emit_pj",
+            "m": "m"
+          },
+          "parameters": {
+            "emit_area": {
+              "default": "r_w * r_l ",
+              "positive": false,
+              "integer": false,
+              "derived": true
+            },
+            "emit_pj": {
+              "default": "2*r_w + 2*r_l ",
+              "positive": false,
+              "integer": false,
+              "derived": true
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "r_l": {
+              "default": "1u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "r_w": {
+              "default": "1u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/diode_nw2ps_03v3.sym": {
+          "model": "diode_nw2ps_03v3",
+          "prefix": "D",
+          "terminals": [
+            "p",
+            "m"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "area": "emit_area",
+            "pj": "emit_pj",
+            "m": "m"
+          },
+          "parameters": {
+            "emit_area": {
+              "default": "r_w * r_l ",
+              "positive": false,
+              "integer": false,
+              "derived": true
+            },
+            "emit_pj": {
+              "default": "2*r_w + 2*r_l ",
+              "positive": false,
+              "integer": false,
+              "derived": true
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "r_l": {
+              "default": "1u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "r_w": {
+              "default": "1u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/diode_nw2ps_06v0.sym": {
+          "model": "diode_nw2ps_06v0",
+          "prefix": "D",
+          "terminals": [
+            "p",
+            "m"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "area": "emit_area",
+            "pj": "emit_pj",
+            "m": "m"
+          },
+          "parameters": {
+            "emit_area": {
+              "default": "r_w * r_l ",
+              "positive": false,
+              "integer": false,
+              "derived": true
+            },
+            "emit_pj": {
+              "default": "2*r_w + 2*r_l ",
+              "positive": false,
+              "integer": false,
+              "derived": true
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "r_l": {
+              "default": "1u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "r_w": {
+              "default": "1u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/diode_pd2nw_03v3.sym": {
+          "model": "diode_pd2nw_03v3",
+          "prefix": "D",
+          "terminals": [
+            "p",
+            "m"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "area": "emit_area",
+            "pj": "emit_pj",
+            "m": "m"
+          },
+          "parameters": {
+            "emit_area": {
+              "default": "r_w * r_l ",
+              "positive": false,
+              "integer": false,
+              "derived": true
+            },
+            "emit_pj": {
+              "default": "2*r_w + 2*r_l ",
+              "positive": false,
+              "integer": false,
+              "derived": true
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "r_l": {
+              "default": "1u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "r_w": {
+              "default": "1u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/diode_pd2nw_06v0.sym": {
+          "model": "diode_pd2nw_06v0",
+          "prefix": "D",
+          "terminals": [
+            "p",
+            "m"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "area": "emit_area",
+            "pj": "emit_pj",
+            "m": "m"
+          },
+          "parameters": {
+            "emit_area": {
+              "default": "r_w * r_l ",
+              "positive": false,
+              "integer": false,
+              "derived": true
+            },
+            "emit_pj": {
+              "default": "2*r_w + 2*r_l ",
+              "positive": false,
+              "integer": false,
+              "derived": true
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "r_l": {
+              "default": "1u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "r_w": {
+              "default": "1u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/diode_pw2dw.sym": {
+          "model": "diode_pw2dw",
+          "prefix": "D",
+          "terminals": [
+            "p",
+            "m"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "area": "emit_area",
+            "pj": "emit_pj",
+            "m": "m"
+          },
+          "parameters": {
+            "emit_area": {
+              "default": "r_w * r_l ",
+              "positive": false,
+              "integer": false,
+              "derived": true
+            },
+            "emit_pj": {
+              "default": "2*r_w + 2*r_l ",
+              "positive": false,
+              "integer": false,
+              "derived": true
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "r_l": {
+              "default": "3u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "r_w": {
+              "default": "3u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/nfet3_03v3.sym": {
+          "model": "nfet_03v3",
+          "prefix": "X",
+          "terminals": [
+            "d",
+            "g",
+            "s",
+            "body"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "l": "l",
+            "w": "w",
+            "nf": "nf",
+            "ad": "ad",
+            "as": "as",
+            "pd": "pd",
+            "ps": "ps",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "m": "m"
+          },
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "l": {
+              "default": "0.28u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "nf": {
+              "default": "1",
+              "positive": true,
+              "integer": true,
+              "derived": false
+            },
+            "nrd": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "nrs": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sa": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sb": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sd": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.22u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/nfet3_05v0.sym": {
+          "model": "nfet_05v0",
+          "prefix": "X",
+          "terminals": [
+            "d",
+            "g",
+            "s",
+            "body"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "l": "l",
+            "w": "w",
+            "nf": "nf",
+            "ad": "ad",
+            "as": "as",
+            "pd": "pd",
+            "ps": "ps",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "m": "m"
+          },
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "l": {
+              "default": "0.60u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "nf": {
+              "default": "1",
+              "positive": true,
+              "integer": true,
+              "derived": false
+            },
+            "nrd": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "nrs": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sa": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sb": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sd": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.30u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/nfet3_06v0.sym": {
+          "model": "nfet_06v0",
+          "prefix": "X",
+          "terminals": [
+            "d",
+            "g",
+            "s",
+            "body"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "l": "l",
+            "w": "w",
+            "nf": "nf",
+            "ad": "ad",
+            "as": "as",
+            "pd": "pd",
+            "ps": "ps",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "m": "m"
+          },
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "l": {
+              "default": "0.70u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "nf": {
+              "default": "1",
+              "positive": true,
+              "integer": true,
+              "derived": false
+            },
+            "nrd": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "nrs": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sa": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sb": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sd": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.30u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/nfet_03v3.sym": {
+          "model": "nfet_03v3",
+          "prefix": "X",
+          "terminals": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "l": "l",
+            "w": "w",
+            "nf": "nf",
+            "ad": "ad",
+            "as": "as",
+            "pd": "pd",
+            "ps": "ps",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "m": "m"
+          },
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "l": {
+              "default": "0.28u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "nf": {
+              "default": "1",
+              "positive": true,
+              "integer": true,
+              "derived": false
+            },
+            "nrd": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "nrs": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sa": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sb": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sd": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.22u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/nfet_03v3_dss.sym": {
+          "model": "nfet_03v3_dss",
+          "prefix": "X",
+          "terminals": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "l": "l",
+            "w": "w",
+            "nf": "nf",
+            "ad": "ad",
+            "as": "as",
+            "pd": "pd",
+            "ps": "ps",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "d_sab": "d_sab",
+            "s_sab": "s_sab",
+            "m": "m"
+          },
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "d_sab": {
+              "default": "3.78u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "l": {
+              "default": "0.28u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "nf": {
+              "default": "1",
+              "positive": true,
+              "integer": true,
+              "derived": false
+            },
+            "nrd": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "nrs": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "s_sab": {
+              "default": "0.28u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sa": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sb": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sd": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.22u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/nfet_05v0.sym": {
+          "model": "nfet_05v0",
+          "prefix": "X",
+          "terminals": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "l": "l",
+            "w": "w",
+            "nf": "nf",
+            "ad": "ad",
+            "as": "as",
+            "pd": "pd",
+            "ps": "ps",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "m": "m"
+          },
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "l": {
+              "default": "0.60u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "nf": {
+              "default": "1",
+              "positive": true,
+              "integer": true,
+              "derived": false
+            },
+            "nrd": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "nrs": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sa": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sb": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sd": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.30u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/nfet_06v0.sym": {
+          "model": "nfet_06v0",
+          "prefix": "X",
+          "terminals": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "l": "l",
+            "w": "w",
+            "nf": "nf",
+            "ad": "ad",
+            "as": "as",
+            "pd": "pd",
+            "ps": "ps",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "m": "m"
+          },
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "l": {
+              "default": "0.70u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "nf": {
+              "default": "1",
+              "positive": true,
+              "integer": true,
+              "derived": false
+            },
+            "nrd": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "nrs": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sa": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sb": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sd": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.30u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/nfet_06v0_dss.sym": {
+          "model": "nfet_06v0_dss",
+          "prefix": "X",
+          "terminals": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "l": "l",
+            "w": "w",
+            "nf": "nf",
+            "ad": "ad",
+            "as": "as",
+            "pd": "pd",
+            "ps": "ps",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "d_sab": "d_sab",
+            "s_sab": "s_sab",
+            "m": "m"
+          },
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "d_sab": {
+              "default": "3.78u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "l": {
+              "default": "0.70u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "nf": {
+              "default": "1",
+              "positive": true,
+              "integer": true,
+              "derived": false
+            },
+            "nrd": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "nrs": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "s_sab": {
+              "default": "0.28u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sa": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sb": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sd": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.30u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/nfet_06v0_nvt.sym": {
+          "model": "nfet_06v0",
+          "prefix": "X",
+          "terminals": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "l": "l",
+            "w": "w",
+            "nf": "nf",
+            "ad": "ad",
+            "as": "as",
+            "pd": "pd",
+            "ps": "ps",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "m": "m"
+          },
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "l": {
+              "default": "1.80u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "nf": {
+              "default": "1",
+              "positive": true,
+              "integer": true,
+              "derived": false
+            },
+            "nrd": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "nrs": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sa": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sb": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sd": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.80u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/nplus_u.sym": {
+          "model": "nplus_u",
+          "prefix": "X",
+          "terminals": [
+            "m",
+            "p",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "r_width": "w",
+            "r_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/npn_00p54x02p00.sym": {
+          "model": "npn_00p54x02p00",
+          "prefix": "X",
+          "terminals": [
+            "c",
+            "b",
+            "e",
+            "s"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "m": "m"
+          },
+          "parameters": {
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/npn_00p54x04p00.sym": {
+          "model": "npn_00p54x04p00",
+          "prefix": "X",
+          "terminals": [
+            "c",
+            "b",
+            "e",
+            "s"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "m": "m"
+          },
+          "parameters": {
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/npn_00p54x08p00.sym": {
+          "model": "npn_00p54x08p00",
+          "prefix": "X",
+          "terminals": [
+            "c",
+            "b",
+            "e",
+            "s"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "m": "m"
+          },
+          "parameters": {
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/npn_00p54x16p00.sym": {
+          "model": "npn_00p54x16p00",
+          "prefix": "X",
+          "terminals": [
+            "c",
+            "b",
+            "e",
+            "s"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "m": "m"
+          },
+          "parameters": {
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/npn_05p00x05p00.sym": {
+          "model": "npn_05p00x05p00",
+          "prefix": "X",
+          "terminals": [
+            "c",
+            "b",
+            "e",
+            "s"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "m": "m"
+          },
+          "parameters": {
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/npn_10p00x10p00.sym": {
+          "model": "npn_10p00x10p00",
+          "prefix": "X",
+          "terminals": [
+            "c",
+            "b",
+            "e",
+            "s"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "m": "m"
+          },
+          "parameters": {
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/npolyf_s.sym": {
+          "model": "npolyf_s",
+          "prefix": "X",
+          "terminals": [
+            "m",
+            "p",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "r_width": "w",
+            "r_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/npolyf_u.sym": {
+          "model": "npolyf_u",
+          "prefix": "X",
+          "terminals": [
+            "m",
+            "p",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "r_width": "w",
+            "r_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/nwell.sym": {
+          "model": "nwell",
+          "prefix": "X",
+          "terminals": [
+            "m",
+            "p",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "r_width": "w",
+            "r_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "3e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "3e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/pfet3_03v3.sym": {
+          "model": "pfet_03v3",
+          "prefix": "X",
+          "terminals": [
+            "d",
+            "g",
+            "s",
+            "body"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "l": "l",
+            "w": "w",
+            "nf": "nf",
+            "ad": "ad",
+            "as": "as",
+            "pd": "pd",
+            "ps": "ps",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "m": "m"
+          },
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "l": {
+              "default": "0.28u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "nf": {
+              "default": "1",
+              "positive": true,
+              "integer": true,
+              "derived": false
+            },
+            "nrd": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "nrs": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sa": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sb": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sd": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.22u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/pfet3_05v0.sym": {
+          "model": "pfet_05v0",
+          "prefix": "X",
+          "terminals": [
+            "d",
+            "g",
+            "s",
+            "body"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "l": "l",
+            "w": "w",
+            "nf": "nf",
+            "ad": "ad",
+            "as": "as",
+            "pd": "pd",
+            "ps": "ps",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "m": "m"
+          },
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "l": {
+              "default": "0.50u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "nf": {
+              "default": "1",
+              "positive": true,
+              "integer": true,
+              "derived": false
+            },
+            "nrd": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "nrs": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sa": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sb": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sd": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.30u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/pfet3_06v0.sym": {
+          "model": "pfet_06v0",
+          "prefix": "X",
+          "terminals": [
+            "d",
+            "g",
+            "s",
+            "body"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "l": "l",
+            "w": "w",
+            "nf": "nf",
+            "ad": "ad",
+            "as": "as",
+            "pd": "pd",
+            "ps": "ps",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "m": "m"
+          },
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "l": {
+              "default": "0.55u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "nf": {
+              "default": "1",
+              "positive": true,
+              "integer": true,
+              "derived": false
+            },
+            "nrd": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "nrs": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sa": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sb": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sd": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.30u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/pfet_03v3.sym": {
+          "model": "pfet_03v3",
+          "prefix": "X",
+          "terminals": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "l": "l",
+            "w": "w",
+            "nf": "nf",
+            "ad": "ad",
+            "as": "as",
+            "pd": "pd",
+            "ps": "ps",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "m": "m"
+          },
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "l": {
+              "default": "0.28u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "nf": {
+              "default": "1",
+              "positive": true,
+              "integer": true,
+              "derived": false
+            },
+            "nrd": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "nrs": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sa": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sb": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sd": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.22u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/pfet_03v3_dss.sym": {
+          "model": "pfet_03v3_dss",
+          "prefix": "X",
+          "terminals": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "l": "l",
+            "w": "w",
+            "nf": "nf",
+            "ad": "ad",
+            "as": "as",
+            "pd": "pd",
+            "ps": "ps",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "d_sab": "d_sab",
+            "s_sab": "s_sab",
+            "m": "m"
+          },
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "d_sab": {
+              "default": "2.78u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "l": {
+              "default": "0.28u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "nf": {
+              "default": "1",
+              "positive": true,
+              "integer": true,
+              "derived": false
+            },
+            "nrd": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "nrs": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "s_sab": {
+              "default": "0.28u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sa": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sb": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sd": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.22u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/pfet_05v0.sym": {
+          "model": "pfet_05v0",
+          "prefix": "X",
+          "terminals": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "l": "l",
+            "w": "w",
+            "nf": "nf",
+            "ad": "ad",
+            "as": "as",
+            "pd": "pd",
+            "ps": "ps",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "m": "m"
+          },
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "l": {
+              "default": "0.50u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "nf": {
+              "default": "1",
+              "positive": true,
+              "integer": true,
+              "derived": false
+            },
+            "nrd": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "nrs": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sa": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sb": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sd": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.30u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/pfet_06v0.sym": {
+          "model": "pfet_06v0",
+          "prefix": "X",
+          "terminals": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "l": "l",
+            "w": "w",
+            "nf": "nf",
+            "ad": "ad",
+            "as": "as",
+            "pd": "pd",
+            "ps": "ps",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "m": "m"
+          },
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "l": {
+              "default": "0.55u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "nf": {
+              "default": "1",
+              "positive": true,
+              "integer": true,
+              "derived": false
+            },
+            "nrd": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "nrs": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sa": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sb": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sd": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.30u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/pfet_06v0_dss.sym": {
+          "model": "pfet_06v0_dss",
+          "prefix": "X",
+          "terminals": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "l": "l",
+            "w": "w",
+            "nf": "nf",
+            "ad": "ad",
+            "as": "as",
+            "pd": "pd",
+            "ps": "ps",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "d_sab": "d_sab",
+            "s_sab": "s_sab",
+            "m": "m"
+          },
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.18u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "d_sab": {
+              "default": "2.78u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "l": {
+              "default": "0.50u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "nf": {
+              "default": "1",
+              "positive": true,
+              "integer": true,
+              "derived": false
+            },
+            "nrd": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "nrs": {
+              "default": "0.18u / w",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.18u)",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "s_sab": {
+              "default": "0.28u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sa": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sb": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "sd": {
+              "default": "0",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.30u",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/pnp_05p00x00p42.sym": {
+          "model": "pnp_05p00x00p42",
+          "prefix": "X",
+          "terminals": [
+            "c",
+            "b",
+            "e"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "m": "m"
+          },
+          "parameters": {
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/pnp_05p00x05p00.sym": {
+          "model": "pnp_05p00x05p00",
+          "prefix": "X",
+          "terminals": [
+            "c",
+            "b",
+            "e"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "m": "m"
+          },
+          "parameters": {
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/pnp_10p00x00p42.sym": {
+          "model": "pnp_10p00x00p42",
+          "prefix": "X",
+          "terminals": [
+            "c",
+            "b",
+            "e"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "m": "m"
+          },
+          "parameters": {
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/pnp_10p00x10p00.sym": {
+          "model": "pnp_10p00x10p00",
+          "prefix": "X",
+          "terminals": [
+            "c",
+            "b",
+            "e"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "m": "m"
+          },
+          "parameters": {
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/pplus_u.sym": {
+          "model": "pplus_u",
+          "prefix": "X",
+          "terminals": [
+            "m",
+            "p",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "r_width": "w",
+            "r_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/ppolyf_s.sym": {
+          "model": "ppolyf_s",
+          "prefix": "X",
+          "terminals": [
+            "m",
+            "p",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "r_width": "w",
+            "r_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/ppolyf_u.sym": {
+          "model": "ppolyf_u",
+          "prefix": "X",
+          "terminals": [
+            "m",
+            "p",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "r_width": "w",
+            "r_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/ppolyf_u_1k.sym": {
+          "model": "ppolyf_u_1k",
+          "prefix": "X",
+          "terminals": [
+            "m",
+            "p",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "r_width": "w",
+            "r_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/ppolyf_u_1k_6p0.sym": {
+          "model": "ppolyf_u_1k_6p0",
+          "prefix": "X",
+          "terminals": [
+            "m",
+            "p",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "r_width": "w",
+            "r_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/ppolyf_u_2k.sym": {
+          "model": "ppolyf_u_2k",
+          "prefix": "X",
+          "terminals": [
+            "m",
+            "p",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "r_width": "w",
+            "r_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/ppolyf_u_2k_6p0.sym": {
+          "model": "ppolyf_u_2k_6p0",
+          "prefix": "X",
+          "terminals": [
+            "m",
+            "p",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "r_width": "w",
+            "r_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/ppolyf_u_3k.sym": {
+          "model": "ppolyf_u_3k",
+          "prefix": "X",
+          "terminals": [
+            "m",
+            "p",
+            "b"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "r_width": "w",
+            "r_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "1e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/rm1.sym": {
+          "model": "rm1",
+          "prefix": "X",
+          "terminals": [
+            "m",
+            "p"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "r_width": "w",
+            "r_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "0.6e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.6e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/rm2.sym": {
+          "model": "rm2",
+          "prefix": "X",
+          "terminals": [
+            "m",
+            "p"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "r_width": "w",
+            "r_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "0.6e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.6e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/rm3.sym": {
+          "model": "rm3",
+          "prefix": "X",
+          "terminals": [
+            "m",
+            "p"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "r_width": "w",
+            "r_length": "l",
+            "m": "m"
+          },
+          "parameters": {
+            "l": {
+              "default": "0.6e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "w": {
+              "default": "0.6e-6",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        },
+        "symbols/sc_diode.sym": {
+          "model": "sc_diode",
+          "prefix": "D",
+          "terminals": [
+            "p",
+            "m"
+          ],
+          "parameter_scale": {
+            "w": 1,
+            "l": 1
+          },
+          "emit_parameters": {
+            "area": "emit_area",
+            "pj": "emit_pj",
+            "m": "m"
+          },
+          "parameters": {
+            "emit_area": {
+              "default": "r_w * r_l ",
+              "positive": false,
+              "integer": false,
+              "derived": true
+            },
+            "emit_pj": {
+              "default": "2*r_w + 2*r_l ",
+              "positive": false,
+              "integer": false,
+              "derived": true
+            },
+            "m": {
+              "default": "1",
+              "positive": true,
+              "integer": false,
+              "derived": false
+            },
+            "r_l": {
+              "default": "1u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            },
+            "r_w": {
+              "default": "1u",
+              "positive": false,
+              "integer": false,
+              "derived": false
+            }
+          },
+          "semantics": {}
+        }
+      },
+      "global_nets": [
+        "0"
+      ],
+      "net_aliases": {},
+      "tools": {}
+    },
+    "cells": [
+      {
+        "id": "3235118ec2deb20d",
+        "name": "banba_layout",
+        "ports": [
+          "VDD",
+          "VSS",
+          "VREF"
+        ],
+        "instances": [
+          {
+            "id": "ab0bb85646fc19ad",
+            "name": "MP1",
+            "cell": null,
+            "terminals": {
+              "d": "VA",
+              "g": "CTRL",
+              "s": "VDD",
+              "b": "VDD"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/pfet_03v3.sym"
+            }
+          },
+          {
+            "id": "904515d1e8014164",
+            "name": "MP2",
+            "cell": null,
+            "terminals": {
+              "d": "VB",
+              "g": "CTRL",
+              "s": "VDD",
+              "b": "VDD"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/pfet_03v3.sym"
+            }
+          },
+          {
+            "id": "7621a2d7988f3232",
+            "name": "MP3",
+            "cell": null,
+            "terminals": {
+              "d": "VREF",
+              "g": "CTRL",
+              "s": "VDD",
+              "b": "VDD"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/pfet_03v3.sym"
+            }
+          },
+          {
+            "id": "a547ce68bf23e73b",
+            "name": "XAMP_MPA",
+            "cell": null,
+            "terminals": {
+              "d": "XAMP_NMIR",
+              "g": "VA",
+              "s": "XAMP_TAIL",
+              "b": "VDD"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/pfet_03v3.sym"
+            }
+          },
+          {
+            "id": "c10ae487be14f408",
+            "name": "XAMP_MPB",
+            "cell": null,
+            "terminals": {
+              "d": "XAMP_GAIN",
+              "g": "VB",
+              "s": "XAMP_TAIL",
+              "b": "VDD"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/pfet_03v3.sym"
+            }
+          },
+          {
+            "id": "cede12c88117530b",
+            "name": "XAMP_MNA",
+            "cell": null,
+            "terminals": {
+              "d": "XAMP_NMIR",
+              "g": "XAMP_NMIR",
+              "s": "VSS",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/nfet_03v3.sym"
+            }
+          },
+          {
+            "id": "3e46ad305d261e8e",
+            "name": "XAMP_MNB",
+            "cell": null,
+            "terminals": {
+              "d": "XAMP_GAIN",
+              "g": "XAMP_NMIR",
+              "s": "VSS",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/nfet_03v3.sym"
+            }
+          },
+          {
+            "id": "fe10e46d48ca0e74",
+            "name": "XAMP_MPBIAS",
+            "cell": null,
+            "terminals": {
+              "d": "XAMP_PBIAS",
+              "g": "XAMP_PBIAS",
+              "s": "VDD",
+              "b": "VDD"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/pfet_03v3.sym"
+            }
+          },
+          {
+            "id": "0fa84ed981031793",
+            "name": "XAMP_MPTAIL",
+            "cell": null,
+            "terminals": {
+              "d": "XAMP_TAIL",
+              "g": "XAMP_PBIAS",
+              "s": "VDD",
+              "b": "VDD"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/pfet_03v3.sym"
+            }
+          },
+          {
+            "id": "80e800264c3efbbc",
+            "name": "XAMP_MPLOAD",
+            "cell": null,
+            "terminals": {
+              "d": "CTRL",
+              "g": "XAMP_PBIAS",
+              "s": "VDD",
+              "b": "VDD"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/pfet_03v3.sym"
+            }
+          },
+          {
+            "id": "01a869ea189a059e",
+            "name": "XAMP_MNOUT",
+            "cell": null,
+            "terminals": {
+              "d": "CTRL",
+              "g": "XAMP_GAIN",
+              "s": "VSS",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/nfet_03v3.sym"
+            }
+          },
+          {
+            "id": "04af86d1309874a2",
+            "name": "XSTART_MSENSE",
+            "cell": null,
+            "terminals": {
+              "d": "XSTART_DET",
+              "g": "CTRL",
+              "s": "VDD",
+              "b": "VDD"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/pfet_03v3.sym"
+            }
+          },
+          {
+            "id": "fc623fdc8fd0a3a5",
+            "name": "XSTART_MNSENSE",
+            "cell": null,
+            "terminals": {
+              "d": "XSTART_KICK",
+              "g": "XSTART_DET",
+              "s": "VSS",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/nfet_03v3.sym"
+            }
+          },
+          {
+            "id": "3e8dfd1b8a2b4b23",
+            "name": "XSTART_MNKICK",
+            "cell": null,
+            "terminals": {
+              "d": "CTRL",
+              "g": "XSTART_KICK",
+              "s": "VSS",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/nfet_03v3.sym"
+            }
+          },
+          {
+            "id": "daeaa42dc60e19d9",
+            "name": "Q2_1",
+            "cell": null,
+            "terminals": {
+              "c": "VSS",
+              "b": "VSS",
+              "e": "VE2"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/pnp_05p00x05p00.sym"
+            }
+          },
+          {
+            "id": "57404909d46cf312",
+            "name": "Q2_2",
+            "cell": null,
+            "terminals": {
+              "c": "VSS",
+              "b": "VSS",
+              "e": "VE2"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/pnp_05p00x05p00.sym"
+            }
+          },
+          {
+            "id": "826f8fcd237c383e",
+            "name": "Q2_3",
+            "cell": null,
+            "terminals": {
+              "c": "VSS",
+              "b": "VSS",
+              "e": "VE2"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/pnp_05p00x05p00.sym"
+            }
+          },
+          {
+            "id": "497e95fc4139abb2",
+            "name": "Q2_4",
+            "cell": null,
+            "terminals": {
+              "c": "VSS",
+              "b": "VSS",
+              "e": "VE2"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/pnp_05p00x05p00.sym"
+            }
+          },
+          {
+            "id": "fd468e5d0cad063e",
+            "name": "Q1",
+            "cell": null,
+            "terminals": {
+              "c": "VSS",
+              "b": "VSS",
+              "e": "VA"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/pnp_05p00x05p00.sym"
+            }
+          },
+          {
+            "id": "c0e1eb221858f4f4",
+            "name": "Q2_5",
+            "cell": null,
+            "terminals": {
+              "c": "VSS",
+              "b": "VSS",
+              "e": "VE2"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/pnp_05p00x05p00.sym"
+            }
+          },
+          {
+            "id": "cb985ec74eb2b6a9",
+            "name": "Q2_6",
+            "cell": null,
+            "terminals": {
+              "c": "VSS",
+              "b": "VSS",
+              "e": "VE2"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/pnp_05p00x05p00.sym"
+            }
+          },
+          {
+            "id": "e8308d9830e3c535",
+            "name": "Q2_7",
+            "cell": null,
+            "terminals": {
+              "c": "VSS",
+              "b": "VSS",
+              "e": "VE2"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/pnp_05p00x05p00.sym"
+            }
+          },
+          {
+            "id": "71d53ae39ad9f209",
+            "name": "Q2_8",
+            "cell": null,
+            "terminals": {
+              "c": "VSS",
+              "b": "VSS",
+              "e": "VE2"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/pnp_05p00x05p00.sym"
+            }
+          },
+          {
+            "id": "ec640b0bff6d78be",
+            "name": "RCA",
+            "cell": null,
+            "terminals": {
+              "p": "VA",
+              "m": "VSS",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "519d8798bf552f9c",
+            "name": "RCB",
+            "cell": null,
+            "terminals": {
+              "p": "VB",
+              "m": "VSS",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "177e1163b449ce0c",
+            "name": "RPTAT",
+            "cell": null,
+            "terminals": {
+              "p": "VB",
+              "m": "VE2",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "60104ba062e56c20",
+            "name": "ROUT",
+            "cell": null,
+            "terminals": {
+              "p": "VREF",
+              "m": "VSS",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "c6b4281583db9a5a",
+            "name": "XAMP_RBIAS_01",
+            "cell": null,
+            "terminals": {
+              "p": "XAMP_PBIAS",
+              "m": "XAMP_RBIAS_series_1",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "c4fe9963b48837ce",
+            "name": "XAMP_RBIAS_02",
+            "cell": null,
+            "terminals": {
+              "p": "XAMP_RBIAS_series_1",
+              "m": "XAMP_RBIAS_series_2",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "87ca3c7ac8f6e38b",
+            "name": "XAMP_RBIAS_03",
+            "cell": null,
+            "terminals": {
+              "p": "XAMP_RBIAS_series_2",
+              "m": "XAMP_RBIAS_series_3",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "817563a40c380ffe",
+            "name": "XAMP_RBIAS_04",
+            "cell": null,
+            "terminals": {
+              "p": "XAMP_RBIAS_series_3",
+              "m": "XAMP_RBIAS_series_4",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "67644840e9c3b8ba",
+            "name": "XAMP_RBIAS_05",
+            "cell": null,
+            "terminals": {
+              "p": "XAMP_RBIAS_series_4",
+              "m": "XAMP_RBIAS_series_5",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "430bcfaaaa0874be",
+            "name": "XAMP_RBIAS_06",
+            "cell": null,
+            "terminals": {
+              "p": "XAMP_RBIAS_series_5",
+              "m": "XAMP_RBIAS_series_6",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "ae4090c43534ab5e",
+            "name": "XAMP_RBIAS_07",
+            "cell": null,
+            "terminals": {
+              "p": "XAMP_RBIAS_series_6",
+              "m": "XAMP_RBIAS_series_7",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "f3612fc0a5ba303d",
+            "name": "XAMP_RBIAS_08",
+            "cell": null,
+            "terminals": {
+              "p": "XAMP_RBIAS_series_7",
+              "m": "XAMP_RBIAS_series_8",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "0d207544af871328",
+            "name": "XAMP_RBIAS_09",
+            "cell": null,
+            "terminals": {
+              "p": "XAMP_RBIAS_series_8",
+              "m": "XAMP_RBIAS_series_9",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "76fb061eded35c5c",
+            "name": "XAMP_RBIAS_10",
+            "cell": null,
+            "terminals": {
+              "p": "XAMP_RBIAS_series_9",
+              "m": "VSS",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "82e00ddbe8c576bb",
+            "name": "XSTART_RDET_01",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_DET",
+              "m": "XSTART_RDET_series_1",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "5ffe62c6f8246306",
+            "name": "XSTART_RDET_02",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RDET_series_1",
+              "m": "XSTART_RDET_series_2",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "762dab1bb5ab0244",
+            "name": "XSTART_RDET_03",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RDET_series_2",
+              "m": "XSTART_RDET_series_3",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "90ef1acacc4b22d6",
+            "name": "XSTART_RDET_04",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RDET_series_3",
+              "m": "XSTART_RDET_series_4",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "04af8c893da654f7",
+            "name": "XSTART_RDET_05",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RDET_series_4",
+              "m": "XSTART_RDET_series_5",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "8938bc51110e4735",
+            "name": "XSTART_RDET_06",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RDET_series_5",
+              "m": "XSTART_RDET_series_6",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "0bf064605e57c38e",
+            "name": "XSTART_RDET_07",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RDET_series_6",
+              "m": "XSTART_RDET_series_7",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "cda968b96eb5bb4a",
+            "name": "XSTART_RDET_08",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RDET_series_7",
+              "m": "XSTART_RDET_series_8",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "8ad070be32bacd11",
+            "name": "XSTART_RDET_09",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RDET_series_8",
+              "m": "XSTART_RDET_series_9",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "0fb6dca440a61934",
+            "name": "XSTART_RDET_10",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RDET_series_9",
+              "m": "XSTART_RDET_series_10",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "c76c04b3e1736bfa",
+            "name": "XSTART_RDET_11",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RDET_series_10",
+              "m": "XSTART_RDET_series_11",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "c8e235b2d8691610",
+            "name": "XSTART_RDET_12",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RDET_series_11",
+              "m": "XSTART_RDET_series_12",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "f5c150388bde6fd5",
+            "name": "XSTART_RDET_13",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RDET_series_12",
+              "m": "XSTART_RDET_series_13",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "d37e0fefe2f2aa3f",
+            "name": "XSTART_RDET_14",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RDET_series_13",
+              "m": "XSTART_RDET_series_14",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "182dfad4f89ab41e",
+            "name": "XSTART_RDET_15",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RDET_series_14",
+              "m": "XSTART_RDET_series_15",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "0a7d0a7ff8aa389d",
+            "name": "XSTART_RDET_16",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RDET_series_15",
+              "m": "VSS",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "684569a01523ac8b",
+            "name": "XSTART_RPULL_01",
+            "cell": null,
+            "terminals": {
+              "p": "VDD",
+              "m": "XSTART_RPULL_series_1",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "53f5d5270e12ba38",
+            "name": "XSTART_RPULL_02",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_1",
+              "m": "XSTART_RPULL_series_2",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "40de856bde44078c",
+            "name": "XSTART_RPULL_03",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_2",
+              "m": "XSTART_RPULL_series_3",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "1b3dd9ef1826b6a2",
+            "name": "XSTART_RPULL_04",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_3",
+              "m": "XSTART_RPULL_series_4",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "6d2c8a9c5fe3a876",
+            "name": "XSTART_RPULL_05",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_4",
+              "m": "XSTART_RPULL_series_5",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "a4721b14ac950526",
+            "name": "XSTART_RPULL_06",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_5",
+              "m": "XSTART_RPULL_series_6",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "c60c91bbab7a4f9f",
+            "name": "XSTART_RPULL_07",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_6",
+              "m": "XSTART_RPULL_series_7",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "aa0d197129c44b88",
+            "name": "XSTART_RPULL_08",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_7",
+              "m": "XSTART_RPULL_series_8",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "4d44e78cf2d8f8f9",
+            "name": "XSTART_RPULL_09",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_8",
+              "m": "XSTART_RPULL_series_9",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "6ee70d18f1e1d39f",
+            "name": "XSTART_RPULL_10",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_9",
+              "m": "XSTART_RPULL_series_10",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "d2657201e58e9ff9",
+            "name": "XSTART_RPULL_11",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_10",
+              "m": "XSTART_RPULL_series_11",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "23f274ca068e7a41",
+            "name": "XSTART_RPULL_12",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_11",
+              "m": "XSTART_RPULL_series_12",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "82339dd475686056",
+            "name": "XSTART_RPULL_13",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_12",
+              "m": "XSTART_RPULL_series_13",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "d9b41efd7609c5dc",
+            "name": "XSTART_RPULL_14",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_13",
+              "m": "XSTART_RPULL_series_14",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "f23da4afbc2e8ac1",
+            "name": "XSTART_RPULL_15",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_14",
+              "m": "XSTART_RPULL_series_15",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "ed9b918067ce8cfa",
+            "name": "XSTART_RPULL_16",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_15",
+              "m": "XSTART_RPULL_series_16",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "a7c7b1e0cb60ff59",
+            "name": "XSTART_RPULL_17",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_16",
+              "m": "XSTART_RPULL_series_17",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "c0a4fb3635dc017a",
+            "name": "XSTART_RPULL_18",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_17",
+              "m": "XSTART_RPULL_series_18",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "1a472625f387b13c",
+            "name": "XSTART_RPULL_19",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_18",
+              "m": "XSTART_RPULL_series_19",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "2a833271267bd405",
+            "name": "XSTART_RPULL_20",
+            "cell": null,
+            "terminals": {
+              "p": "XSTART_RPULL_series_19",
+              "m": "XSTART_KICK",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/ppolyf_u_1k.sym"
+            }
+          },
+          {
+            "id": "5ee8bc42b2e98525",
+            "name": "COUT_1_1",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "1aa9b3bf0724d5da",
+            "name": "COUT_1_2",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "d4c59d554a1d1fff",
+            "name": "COUT_1_3",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "466a65342a07b65d",
+            "name": "COUT_1_4",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "9a1f5b7281ad2f32",
+            "name": "COUT_1_5",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "db6f40a1be954804",
+            "name": "COUT_2_1",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "2f467a3fc9f414e3",
+            "name": "COUT_2_2",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "efb796fcb7b605dd",
+            "name": "COUT_2_3",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "bd8565fcb3836854",
+            "name": "COUT_2_4",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "c5c788774fdb70cd",
+            "name": "COUT_2_5",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "12bf3f1e53ed3b3f",
+            "name": "COUT_3_1",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "68574bce8cf33561",
+            "name": "COUT_3_2",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "f2c070b486f6ce5b",
+            "name": "COUT_3_3",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "b9ee529400bd79c2",
+            "name": "COUT_3_4",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "232448c40a3d34fb",
+            "name": "COUT_3_5",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "641a3eeb1cf5e01e",
+            "name": "COUT_4_1",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "b2488e7815579de4",
+            "name": "COUT_4_2",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "8e353f0c26446126",
+            "name": "COUT_4_3",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "573070bb0193a1c4",
+            "name": "COUT_4_4",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "a58012c9d9662e1d",
+            "name": "COUT_4_5",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "ae1a0a26b3109e0c",
+            "name": "COUT_5_1",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "f0d68ae32688db41",
+            "name": "COUT_5_2",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "ef131da7371de0d1",
+            "name": "COUT_5_3",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "9fa2b2ead47af8d9",
+            "name": "COUT_5_4",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "ecc602c53ed020e9",
+            "name": "COUT_5_5",
+            "cell": null,
+            "terminals": {
+              "g": "VREF",
+              "b": "VSS"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "4368267be13bac4a",
+            "name": "XSTART_CTRACK_1_1",
+            "cell": null,
+            "terminals": {
+              "g": "VDD",
+              "b": "CTRL"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "ddb07e05308477ad",
+            "name": "XSTART_CTRACK_1_2",
+            "cell": null,
+            "terminals": {
+              "g": "VDD",
+              "b": "CTRL"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "25976a993c973598",
+            "name": "XSTART_CTRACK_2_1",
+            "cell": null,
+            "terminals": {
+              "g": "VDD",
+              "b": "CTRL"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "2727b4d870d3bd5b",
+            "name": "XSTART_CTRACK_2_2",
+            "cell": null,
+            "terminals": {
+              "g": "VDD",
+              "b": "CTRL"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          },
+          {
+            "id": "3c9e2cadc5c24dab",
+            "name": "XAMP_CMILLER",
+            "cell": null,
+            "terminals": {
+              "g": "XAMP_GAIN",
+              "b": "CTRL"
+            },
+            "model_ref": {
+              "pdk": "gf180mcuD",
+              "revision": "9394d9228663e22b",
+              "device": "symbols/cap_mim_analog.sym"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

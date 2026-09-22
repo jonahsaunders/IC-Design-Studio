@@ -201,7 +201,7 @@ def validate(p):
     return p
 
 def flatten(p,cell_id=None):
-    by={c['id']:c for c in p['cells']}; out=[]
+    by={c['id']:c for c in p['cells']}; out=[]; electrical={}
     from .design_ops import parameters,resolved_device,value
     global_params=parameters(p.get("parameters",{}))
     def walk(cid,path,mapping,seen,overrides=None):
@@ -209,7 +209,15 @@ def flatten(p,cell_id=None):
         c=by[cid]
         if 'wires' in c:
             from .wiring import rebuild
-            c=clone(c);rebuild(c,p)
+            # Connectivity depends on the master, not its instance parameters.
+            # Rebuild once per call, isolating the objects rebuild can mutate.
+            # Copying physical geometry here made every analysis-panel refresh
+            # proportional to the entire layout, even for a schematic move.
+            if cid not in electrical:
+                c={**c,'devices':clone(c['devices']),'wires':clone(c['wires'])}
+                rebuild(c,p)
+                electrical[cid]=c
+            c=electrical[cid]
         context=parameters({**c.get('parameters',{}),**(overrides or {})},global_params)
         def net(n): return n if n=='0' or n in p.get('global_nets',[]) else mapping.get(n,path+n)
         for d in c['devices']:

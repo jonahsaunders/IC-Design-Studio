@@ -1,0 +1,863 @@
+{
+  "schema": 1,
+  "project_sha256": "59119c3a989de244a99999e0a14a19e32e672fe8515a8c3a83812d9abc68bf4f",
+  "engine_sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+  "pdk_revision": "9394d9228663e22b",
+  "comparison": {
+    "pass2": {
+      "vref": 0.6006160412324152,
+      "supply_current": 4.439819238569579e-05,
+      "startup": {
+        "final_vref": 0.6006160414109597,
+        "peak_vref": 0.6006160414345023,
+        "settling_seconds": 9.784755885373796e-05,
+        "tail_peak_to_peak": 4.2429606494920336e-09
+      },
+      "temperatures": [
+        {
+          "temperature": -40,
+          "vref": 0.5996625079953599
+        },
+        {
+          "temperature": -20,
+          "vref": 0.6000330688157711
+        },
+        {
+          "temperature": 0,
+          "vref": 0.6003348770520609
+        },
+        {
+          "temperature": 27,
+          "vref": 0.6006160412324152
+        },
+        {
+          "temperature": 50,
+          "vref": 0.6007150941917203
+        },
+        {
+          "temperature": 75,
+          "vref": 0.6006407591335325
+        },
+        {
+          "temperature": 100,
+          "vref": 0.6003388561965839
+        },
+        {
+          "temperature": 125,
+          "vref": 0.5997761577174344
+        }
+      ],
+      "temperature_span": 0.0010525861963603944,
+      "box_tc_ppm": 10.627495830914635
+    },
+    "segmented_layout": {
+      "vref": 0.6006157053149824,
+      "supply_current": 4.438554266478552e-05,
+      "startup": {
+        "final_vref": 0.6006157054543346,
+        "peak_vref": 0.6006157054543346,
+        "settling_seconds": 9.860561240660458e-05,
+        "tail_peak_to_peak": 4.443020951150345e-09
+      },
+      "temperatures": [
+        {
+          "temperature": -40,
+          "vref": 0.599662137883077
+        },
+        {
+          "temperature": -20,
+          "vref": 0.6000327028271315
+        },
+        {
+          "temperature": 0,
+          "vref": 0.600334606752919
+        },
+        {
+          "temperature": 27,
+          "vref": 0.6006157053149824
+        },
+        {
+          "temperature": 50,
+          "vref": 0.6007147709244152
+        },
+        {
+          "temperature": 75,
+          "vref": 0.6006404444579388
+        },
+        {
+          "temperature": 100,
+          "vref": 0.6003385346700039
+        },
+        {
+          "temperature": 125,
+          "vref": 0.5997758041238006
+        }
+      ],
+      "temperature_span": 0.0010526330413381801,
+      "box_tc_ppm": 10.627974680720792
+    }
+  },
+  "pvt": [
+    {
+      "corner": "nominal",
+      "temperature": -40,
+      "supply": 2.7,
+      "vref": 0.599685630565807,
+      "supply_current": 3.916082849464166e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5996856310037151,
+          "peak_vref": 0.5996859262912613,
+          "settling_seconds": 7.539255152100795e-05,
+          "tail_peak_to_peak": 1.1749138473238219e-07,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5996856337832587,
+          "peak_vref": 0.5996968508066395,
+          "settling_seconds": 6.075000000000063e-05,
+          "tail_peak_to_peak": 2.7886942222110633e-07,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.5996856312519226,
+          "peak_vref": 0.6034968865306237,
+          "settling_seconds": 0.0006154799999999979,
+          "tail_peak_to_peak": 1.407713945411615e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "nominal",
+      "temperature": -40,
+      "supply": 3.6,
+      "vref": 0.599700975222842,
+      "supply_current": 4.221056300351459e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.59970097513402,
+          "peak_vref": 0.5997009751723199,
+          "settling_seconds": 6.927546805636603e-05,
+          "tail_peak_to_peak": 1.4273395354535978e-08,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5997009755215978,
+          "peak_vref": 0.5997009755625655,
+          "settling_seconds": 3.805000000000008e-05,
+          "tail_peak_to_peak": 6.347826486674535e-09,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.5997009763214881,
+          "peak_vref": 0.6040186959884692,
+          "settling_seconds": 0.0004854800000000085,
+          "tail_peak_to_peak": 1.4405920900628644e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "nominal",
+      "temperature": 125,
+      "supply": 2.7,
+      "vref": 0.5996652850773204,
+      "supply_current": 4.536756306062009e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5996652851728186,
+          "peak_vref": 0.5996652856439495,
+          "settling_seconds": 6.428809951718324e-05,
+          "tail_peak_to_peak": 1.4823362537441653e-09,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5996652843471341,
+          "peak_vref": 0.5996652844559608,
+          "settling_seconds": 6.135000000000064e-05,
+          "tail_peak_to_peak": 1.3066572268627397e-09,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.5996652845002991,
+          "peak_vref": 0.6412836821480056,
+          "settling_seconds": 0.0005954799999999996,
+          "tail_peak_to_peak": 2.2785584530282676e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "nominal",
+      "temperature": 125,
+      "supply": 3.6,
+      "vref": 0.5998218044388153,
+      "supply_current": 4.878585384434033e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.599821804299026,
+          "peak_vref": 0.5998218043252526,
+          "settling_seconds": 6.105011864382004e-05,
+          "tail_peak_to_peak": 1.322873699471927e-09,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5998218042824862,
+          "peak_vref": 0.6545207999294261,
+          "settling_seconds": 3.965000000000012e-05,
+          "tail_peak_to_peak": 2.6918089979233173e-10,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.5998218051932068,
+          "peak_vref": 0.6461722298835636,
+          "settling_seconds": 0.0004599800000000079,
+          "tail_peak_to_peak": 1.8664181311578432e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "ff",
+      "temperature": -40,
+      "supply": 2.7,
+      "vref": 0.5990598051895507,
+      "supply_current": 4.922069582153435e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.599059786729951,
+          "peak_vref": 0.5990597867794624,
+          "settling_seconds": 5.292344229272856e-05,
+          "tail_peak_to_peak": 2.3665247539383927e-10,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5990597867842149,
+          "peak_vref": 0.5990597872114805,
+          "settling_seconds": 4.465000000000024e-05,
+          "tail_peak_to_peak": 1.1044809511417952e-10,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.5990597870510678,
+          "peak_vref": 0.601885956396578,
+          "settling_seconds": 0.000602979999999999,
+          "tail_peak_to_peak": 2.4112778440610327e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "ff",
+      "temperature": -40,
+      "supply": 3.6,
+      "vref": 0.5990801069829481,
+      "supply_current": 5.30185635295917e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5990801000012436,
+          "peak_vref": 0.599080100057712,
+          "settling_seconds": 5.04473717427466e-05,
+          "tail_peak_to_peak": 3.905757939293153e-10,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.599080100339222,
+          "peak_vref": 0.5990801003464156,
+          "settling_seconds": 4.095000000000015e-05,
+          "tail_peak_to_peak": 3.294620132265891e-11,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.5990801000472862,
+          "peak_vref": 0.6023705322616997,
+          "settling_seconds": 0.0004709800000000082,
+          "tail_peak_to_peak": 1.4920509272542404e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "ff",
+      "temperature": 125,
+      "supply": 2.7,
+      "vref": 0.598898647920683,
+      "supply_current": 5.69944003239701e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5988986469853339,
+          "peak_vref": 0.5988986475688344,
+          "settling_seconds": 4.594744987610297e-05,
+          "tail_peak_to_peak": 6.938984942195248e-10,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5988986468461734,
+          "peak_vref": 0.5988986469280446,
+          "settling_seconds": 3.645000000000004e-05,
+          "tail_peak_to_peak": 1.0356293600466415e-10,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.5988986480436488,
+          "peak_vref": 0.6319797665659922,
+          "settling_seconds": 0.0005569800000000028,
+          "tail_peak_to_peak": 1.8584822569778225e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "ff",
+      "temperature": 125,
+      "supply": 3.6,
+      "vref": 0.5990981021230154,
+      "supply_current": 6.12486431827996e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5990981016359506,
+          "peak_vref": 0.5990981018734676,
+          "settling_seconds": 4.377691265944821e-05,
+          "tail_peak_to_peak": 3.4826386219322103e-10,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5990981014005727,
+          "peak_vref": 0.6147346662452942,
+          "settling_seconds": 1.965e-05,
+          "tail_peak_to_peak": 5.087164023365176e-11,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.599098101633524,
+          "peak_vref": 0.6356327641366134,
+          "settling_seconds": 0.0004264800000000071,
+          "tail_peak_to_peak": 1.1353029627514388e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "ss",
+      "temperature": -40,
+      "supply": 2.7,
+      "vref": 0.6015699548758167,
+      "supply_current": 3.247950554819615e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.6015700771499027,
+          "peak_vref": 0.6015801593488792,
+          "settling_seconds": 9.084959106793136e-05,
+          "tail_peak_to_peak": 8.84133527645492e-06,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.6015704657933436,
+          "peak_vref": 0.6016215828624512,
+          "settling_seconds": 9.180784094426246e-05,
+          "tail_peak_to_peak": 1.9947697781574902e-05,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.601569954588489,
+          "peak_vref": 0.6058723903967415,
+          "settling_seconds": 0.000673979999999993,
+          "tail_peak_to_peak": 7.82148568134744e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "ss",
+      "temperature": -40,
+      "supply": 3.6,
+      "vref": 0.6015795773520071,
+      "supply_current": 3.502609737385479e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.60157954125875,
+          "peak_vref": 0.60157954125875,
+          "settling_seconds": 8.966052426665577e-05,
+          "tail_peak_to_peak": 9.735237763708326e-07,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.6015795671421411,
+          "peak_vref": 0.6218560411968954,
+          "settling_seconds": 2.904999999999991e-05,
+          "tail_peak_to_peak": 5.022707725288456e-07,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.6015795767951083,
+          "peak_vref": 0.6066874534745437,
+          "settling_seconds": 0.0005324800000000049,
+          "tail_peak_to_peak": 2.613913530069567e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "ss",
+      "temperature": 125,
+      "supply": 2.7,
+      "vref": 0.6029768069188454,
+      "supply_current": 3.771545710517737e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.6029768004555524,
+          "peak_vref": 0.6029768058994411,
+          "settling_seconds": 8.579686359511181e-05,
+          "tail_peak_to_peak": 2.1370882918869682e-07,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.6029768033262977,
+          "peak_vref": 0.6029768061774199,
+          "settling_seconds": 8.861268167040956e-05,
+          "tail_peak_to_peak": 2.0551518797873314e-07,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.6029768062341697,
+          "peak_vref": 0.6545910479837217,
+          "settling_seconds": 0.0006474799999999952,
+          "tail_peak_to_peak": 2.515693209304004e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "ss",
+      "temperature": 125,
+      "supply": 3.6,
+      "vref": 0.6031073110008218,
+      "supply_current": 4.057051126760071e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.603107307493611,
+          "peak_vref": 0.603107307493611,
+          "settling_seconds": 7.828918998205303e-05,
+          "tail_peak_to_peak": 1.4196543440814224e-07,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.603107311214857,
+          "peak_vref": 0.6785392438723339,
+          "settling_seconds": 6.615000000000075e-05,
+          "tail_peak_to_peak": 4.575986645161123e-08,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.6031073108961738,
+          "peak_vref": 0.6611909468377403,
+          "settling_seconds": 0.0005039800000000073,
+          "tail_peak_to_peak": 5.073936826249792e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "fs",
+      "temperature": -40,
+      "supply": 2.7,
+      "vref": 0.5996893591090287,
+      "supply_current": 3.887937886295216e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5996893464972965,
+          "peak_vref": 0.599689350648162,
+          "settling_seconds": 6.988381514804494e-05,
+          "tail_peak_to_peak": 4.165132849731634e-08,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5996893467290748,
+          "peak_vref": 0.5996977173612364,
+          "settling_seconds": 3.08499999999999e-05,
+          "tail_peak_to_peak": 8.041113841450453e-08,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.5996893479288298,
+          "peak_vref": 0.6030140292915052,
+          "settling_seconds": 0.0006864799999999919,
+          "tail_peak_to_peak": 1.856659270771388e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "fs",
+      "temperature": -40,
+      "supply": 3.6,
+      "vref": 0.5997034937895136,
+      "supply_current": 4.191839651559737e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.599703493334583,
+          "peak_vref": 0.599703493334583,
+          "settling_seconds": 6.906238992289184e-05,
+          "tail_peak_to_peak": 1.4569723871815654e-08,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5997034937738718,
+          "peak_vref": 0.6281992837863476,
+          "settling_seconds": 2.314999999999996e-05,
+          "tail_peak_to_peak": 5.4800530779886e-10,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.5997034945699805,
+          "peak_vref": 0.6036331325247346,
+          "settling_seconds": 0.0005344800000000047,
+          "tail_peak_to_peak": 2.0056978300431183e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "fs",
+      "temperature": 125,
+      "supply": 2.7,
+      "vref": 0.5996773369061095,
+      "supply_current": 4.504565808330354e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5996773377130252,
+          "peak_vref": 0.599677337714936,
+          "settling_seconds": 6.391109362942585e-05,
+          "tail_peak_to_peak": 1.450658815294048e-09,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5996773371175665,
+          "peak_vref": 0.6182659378697531,
+          "settling_seconds": 2.874999999999991e-05,
+          "tail_peak_to_peak": 4.3305481423061565e-10,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.5996773369240831,
+          "peak_vref": 0.6530453765064395,
+          "settling_seconds": 0.0006434799999999955,
+          "tail_peak_to_peak": 2.5342983267506725e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "fs",
+      "temperature": 125,
+      "supply": 3.6,
+      "vref": 0.5998456862055581,
+      "supply_current": 4.8448573693936e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5998456862308293,
+          "peak_vref": 0.5998456862361595,
+          "settling_seconds": 6.004851554319669e-05,
+          "tail_peak_to_peak": 1.225102019830615e-09,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5998456857863607,
+          "peak_vref": 0.7080610317790053,
+          "settling_seconds": 5.615000000000052e-05,
+          "tail_peak_to_peak": 8.961921205141721e-10,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.5998456847544895,
+          "peak_vref": 0.6602795599973262,
+          "settling_seconds": 0.000495980000000008,
+          "tail_peak_to_peak": 1.110808112159134e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "sf",
+      "temperature": -40,
+      "supply": 2.7,
+      "vref": 0.5996877597190053,
+      "supply_current": 3.944405378922296e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5996877472713122,
+          "peak_vref": 0.5996995077616202,
+          "settling_seconds": 7.754613613099398e-05,
+          "tail_peak_to_peak": 5.350408373017146e-07,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5996877545255374,
+          "peak_vref": 0.5997374906018796,
+          "settling_seconds": 8.05500000000011e-05,
+          "tail_peak_to_peak": 1.3014386872622907e-06,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.5996877596514041,
+          "peak_vref": 0.6038878798273872,
+          "settling_seconds": 0.0005754800000000013,
+          "tail_peak_to_peak": 2.765944140392662e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "sf",
+      "temperature": -40,
+      "supply": 3.6,
+      "vref": 0.5997045661121024,
+      "supply_current": 4.250424487349148e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5997045648236414,
+          "peak_vref": 0.5997045648236414,
+          "settling_seconds": 6.969535689727321e-05,
+          "tail_peak_to_peak": 1.4976189288695707e-08,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5997045648575426,
+          "peak_vref": 0.5997045648762093,
+          "settling_seconds": 6.305000000000068e-05,
+          "tail_peak_to_peak": 1.2349265721134373e-08,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.5997045654883254,
+          "peak_vref": 0.6041650317471341,
+          "settling_seconds": 0.0004464800000000076,
+          "tail_peak_to_peak": 1.8543089286282566e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "sf",
+      "temperature": 125,
+      "supply": 2.7,
+      "vref": 0.599675289163618,
+      "supply_current": 4.569392986292773e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5996752897926082,
+          "peak_vref": 0.5996752897926082,
+          "settling_seconds": 6.463055656019524e-05,
+          "tail_peak_to_peak": 1.6117271961491042e-09,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5996752898520651,
+          "peak_vref": 0.5996752898900266,
+          "settling_seconds": 6.911788922958654e-05,
+          "tail_peak_to_peak": 1.6647742073772065e-09,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.5996752893077941,
+          "peak_vref": 0.627113430947165,
+          "settling_seconds": 0.0005199800000000059,
+          "tail_peak_to_peak": 2.1746393574773037e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "sf",
+      "temperature": 125,
+      "supply": 3.6,
+      "vref": 0.5998212710682695,
+      "supply_current": 4.912725196896702e-05,
+      "ramps": [
+        {
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.599821272268357,
+          "peak_vref": 0.5998212722868126,
+          "settling_seconds": 6.220567238008735e-05,
+          "tail_peak_to_peak": 1.1904009999952336e-09,
+          "passed": true
+        },
+        {
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "final_vref": 0.5998212720703425,
+          "peak_vref": 0.5998212721556413,
+          "settling_seconds": 3.955000000000011e-05,
+          "tail_peak_to_peak": 4.0743974860646404e-10,
+          "passed": true
+        },
+        {
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "final_vref": 0.5998212713013152,
+          "peak_vref": 0.6262104996410943,
+          "settling_seconds": 0.0003964800000000063,
+          "tail_peak_to_peak": 2.078666128113582e-10,
+          "passed": true
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "qualification": "Segmented schematic simulation; no extracted interconnect resistance/capacitance.",
+  "limits": {
+    "vref": [
+      0.57,
+      0.63
+    ],
+    "supply_current": 7e-05,
+    "startup_peak": 0.75,
+    "tail_ripple": 0.0006
+  },
+  "limitations": [
+    "Fixed 5 pF bench load; no mismatch, trimming, noise or return-ratio verification.",
+    "Combined bundled process corners, not an independent device-family matrix."
+  ],
+  "passed": true,
+  "executed_project_sha256": "57c3a124146bac0f3ff1eb8c16e63e823d8736ec6c34c7a18d3fea11e8608b34",
+  "delivery_check": {
+    "status": "passed",
+    "difference": "Seven analog placement constraints added after simulation; all other project fields, including every device, net, model, parameter, fixture and shape, are identical.",
+    "constraints_added": 7
+  }
+}

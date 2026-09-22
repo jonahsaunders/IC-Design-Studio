@@ -11,7 +11,7 @@
 <p align="center">
   <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/version-0.22.0.dev25-65d6bd?style=flat-square&amp;labelColor=182331" alt="Version 0.22.0.dev25"></a>
   <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/status-engineering_preview-f0bc78?style=flat-square&amp;labelColor=182331" alt="Engineering preview"></a>
-  <a href="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Acodex%2Fanalog-reference-qualification"><img src="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml/badge.svg?branch=codex%2Fanalog-reference-qualification" alt="Candidate desktop build and verification"></a>
+  <a href="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Aexperimental"><img src="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml/badge.svg?branch=experimental" alt="Experimental desktop build and verification"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0--or--later-9bbafa?style=flat-square&amp;labelColor=182331" alt="GPL-3.0-or-later license"></a>
 </p>
 
@@ -20,6 +20,7 @@
   <a href="docs/DOWNLOADS.md">Downloads</a> &nbsp;·&nbsp;
   <a href="#explore-the-workspace">Feature tour</a> &nbsp;·&nbsp;
   <a href="#design-and-optimize-analog-circuits">Analog design</a> &nbsp;·&nbsp;
+  <a href="#build-a-gf180mcu-banba-bandgap">Banba example</a> &nbsp;·&nbsp;
   <a href="#design-digital-blocks-from-rtl-to-gds">Digital design</a> &nbsp;·&nbsp;
   <a href="#create-and-characterize-spiral-inductors">Inductor creator</a> &nbsp;·&nbsp;
   <a href="#feature-reference">All features</a> &nbsp;·&nbsp;
@@ -109,6 +110,54 @@ Saved testbenches can select process capacitance, bounded flat process RC or cal
 
 [Workspace setup, debugging, and layout](docs/ANALOG_WORKSPACE.md) · [Optimizer, gm/Id, and characterization](docs/ANALOG_OPTIMIZER.md) · [Advanced analyses and verification automation](docs/ANALOG_OPTIMIZER.md#advanced-analyses) · [Detailed analog feature inventory](#analog-design-optimization-and-verification).
 
+### Run repeatable analog verification
+
+Keep operating-point, loop-gain, noise and startup diagnostics with their saved testbenches, then compare measurements against the same limits across PVT conditions. The editable **SKY130 two-stage op-amp** includes all four fixtures and a schematic/extracted workflow. Statistical plans add repeatable seeds, numeric parameter distributions and shared factors for correlated component tolerances.
+
+<table>
+<tr>
+<td width="50%" valign="top">
+<a href="docs/validation/dev25/images/statistical-editor.png"><img src="docs/validation/dev25/images/statistical-editor.png" alt="Statistical plan editor with 128 trials, a repeatable seed, and two resistor tolerances sharing a correlation factor." width="100%"></a>
+<p><strong>Save the variation model.</strong><br>Reuse each sampled realization across the plan's tests and operating conditions.</p>
+</td>
+<td width="50%" valign="top">
+<a href="docs/validation/dev25/images/statistical-results.png"><img src="docs/validation/dev25/images/statistical-results.png" alt="Completed statistical campaign showing passing, failing and unresolved trials, pass fractions and confidence intervals for nine operating conditions." width="100%"></a>
+<p><strong>Inspect the completed trials.</strong><br>Review per-condition and joint results, including failures and unresolved cases.</p>
+</td>
+</tr>
+</table>
+
+<sub>Actual editor and result captures from a 128-trial, nine-condition divider campaign. These are user-declared component tolerances; the pass fraction does not establish manufacturing yield.</sub>
+
+**Try it:** open **Verification test plans → Edit plan → Statistical verification…**. Choose the parameter distributions and seed, run the campaign, then inspect **Statistical results…**. [Reference circuits and diagnostics](docs/ANALOG_REFERENCE_WORKFLOW.md) · [Statistical campaign guide](docs/ANALOG_REFERENCE_WORKFLOW.md#run-repeatable-statistical-campaigns).
+
+### Build a GF180MCU Banba bandgap
+
+Follow a native design from its first schematic through a second optimization pass and a routed layout. This **3.3 V, approximately 0.6 V Banba reference** uses GF180MCU transistors, a 1:8 PNP ratio, process resistors and MIM capacitors, with a transistor-level amplifier and startup circuit. The saved projects include editable hierarchy, testbenches and optimizer evidence.
+
+<table>
+<tr>
+<td width="50%" valign="top">
+<a href="examples/gf180-banba/pass2/banba_core.png"><img src="examples/gf180-banba/pass2/banba_core.png" alt="Editable second-pass Banba schematic with three PMOS mirror branches, a 1:8 PNP pair, CTAT and PTAT resistors, amplifier and startup cells." width="100%"></a>
+<p><strong>Capture the reference.</strong><br>The second-pass core retains explicit body connections and matched resistor dimensions.</p>
+</td>
+<td width="50%" valign="top">
+<a href="examples/gf180-banba/pass2/optimizer.png"><img src="examples/gf180-banba/pass2/optimizer.png" alt="Banba output-filter search in the analog optimizer, with 150 completed simulations, passing and failing candidates, and saved startup measurements." width="100%"></a>
+<p><strong>Search against saved requirements.</strong><br>Three bounded searches ran 420 ngspice simulations across startup, accuracy and output-filter sizing.</p>
+</td>
+</tr>
+</table>
+
+[![The Banba project open in Studio's layout editor, with the active-device bank, segmented resistors, tiled MIM capacitors, routed nets and mask-layer controls.](examples/gf180-banba/layout/studio-layout.png)](examples/gf180-banba/layout/README.md)
+
+<sub>Actual native layout: 103 devices in an 844.6 × 559.0 µm footprint (0.472 mm²), with a common-centroid PNP array, saved matching constraints, substrate guard and tiled capacitors. [Annotated overview](examples/gf180-banba/layout/layout-overview.png) · [Matched-device detail](examples/gf180-banba/layout/layout-core.png).</sub>
+
+The second schematic pass reaches **600.616 mV at 44.40 µA**, with a sampled **10.63 ppm/°C** temperature coefficient over −40 to 125 °C at nominal process and 3.3 V. Lower current and reduced startup overshoot trade against slower settling, larger capacitor area and weaker 1 kHz supply rejection. See the [before/after plots and conditions](examples/gf180-banba/pass2/README.md#measured-results).
+
+**Layout status:** native electrical, terminal-connectivity, bounded geometry and matching checks pass. The segmented schematic passes 20 corner/supply operating points and 60 startup runs. These electrical results are **before parasitic extraction**; full foundry DRC/LVS and extracted performance remain unverified. The layout uses a four-metal GF180 stack with MIM option B; its bundled `gf180mcuD` simulation models do not define a complete physical D stack. [Layout details and verification scope](examples/gf180-banba/layout/README.md).
+
+**Try it:** open **File → Start here / example gallery**, then **Improve the Banba bandgap** or **Lay out the Banba bandgap → Open a copy**. In the layout example, select **banba_layout → Layout**. [First schematic](examples/gf180-banba/README.md) · [Second pass and optimizer](examples/gf180-banba/pass2/README.md) · [Native layout project](examples/gf180-banba/layout/banba-layout.icproj) · [GDS and reproduction](examples/gf180-banba/layout/README.md#files-and-reproduction).
+
 ### Design digital blocks from RTL to GDS
 
 Digital design now occupies the main window, with a source and hierarchy navigator, central documents, and a contextual inspector. Switch between **Design**, **Debug**, and **Implement** to edit RTL, inspect waveforms, or follow timing paths into the physical layout. Adjustable panes, remembered layouts, light/dark themes, and keyboard controls keep the workspace usable on smaller screens.
@@ -126,6 +175,16 @@ Digital design now occupies the main window, with a source and hierarchy navigat
 **Try it:** open **Digital → New digital counter example**, **New UART regression example**, or **New APB FIFO peripheral**. In the digital workspace, use **Tools → Set up and verify** to prepare the included runtime, then run a simulation. Choose **Verify block** for lint, simulation/regression, synthesis, equivalence and timing, or **Run to placement / routing / GDS** to build the required implementation stages automatically. Failed, unproven, or incomplete checks stop the target; compatible results can be reused and interrupted plans resumed.
 
 Desktop packages include the digital engines and a locked SKY130 HD platform. **Included tools** is the default: first launch guides setup, and clicking Run before setup finishes continues your request when the tools are ready. Linux uses a private native runtime; Windows uses an app-owned WSL 2 distribution. Enabling Windows Linux support may require administrator approval and a restart. Source checkouts need a built runtime or an explicit **Custom tools** selection. [Runtime setup and first implementation](docs/DIGITAL_FLOW.md#included-tools-and-first-setup) · [Detailed digital feature inventory](#digital-design-verification-and-implementation).
+
+### Preview RTL in the VGA Playground
+
+Edit project-owned Verilog beside a live Tiny Tapeout VGA preview. Choose from **Stripes, Music, Rings, Logo, Conway, Checkers, Drop and Gamepad**, create an RTL cell, then change its source and inspect the display. Keyboard/Gamepad inputs, reset, pause/resume and opt-in audio are available in the embedded view.
+
+[![The Rings preset running in the native digital workspace, with its Verilog source on the left and colorful concentric rings in the embedded VGA display.](docs/images/readme/vga-playground.png)](docs/VGA_PLAYGROUND.md)
+
+<sub>Actual app capture of the Tiny Tapeout Rings preset. The preview runs offline after setup and stays with the native source editor. [Upstream attribution and licenses](docs/VGA_PLAYGROUND.md#upstream-and-attribution).</sub>
+
+**Try it:** in the digital flow, open **More → VGA Playground**, choose a preset and click **Create RTL cell**. Desktop packages include the renderer; source checkouts need the [VGA asset build](docs/VGA_PLAYGROUND.md#source-setup-and-desktop-packaging). A visual preview complements the separate simulation, synthesis, timing and physical checks. [VGA controls and supported interface](docs/VGA_PLAYGROUND.md).
 
 ### One cell. Both views.
 
@@ -182,7 +241,7 @@ Use the searchable example gallery to get moving, then arrange the workspace aro
 <table>
 <tr>
 <td width="50%" valign="top">
-<a href="docs/GETTING_STARTED.md"><img src="docs/images/readme/example-gallery.png" alt="The example gallery with nine guided circuits, setup requirements, and expected results." width="100%"></a>
+<a href="docs/GETTING_STARTED.md"><img src="docs/images/readme/example-gallery.png" alt="The example gallery with guided circuits, setup requirements, and expected results." width="100%"></a>
 <p><strong>Learn with a working circuit.</strong><br>Each gallery example opens as an independent copy with its analysis and next steps ready.</p>
 </td>
 <td width="50%" valign="top">
@@ -200,9 +259,11 @@ Use the searchable example gallery to get moving, then arrange the workspace aro
 
 | Your next step | Where to go |
 |---|---|
-| Try another circuit | [Nine guided examples](examples/README.md) |
+| Try another circuit | [Guided examples](examples/README.md) |
 | Design and optimize an analog circuit | **Analysis → Analog design workspace → Setup → Guided design setup** · [Analog feature tour](#design-and-optimize-analog-circuits) |
+| Explore the Banba design | **Example gallery → Improve the Banba bandgap** or **Lay out the Banba bandgap** · [Schematic, optimization and layout](#build-a-gf180mcu-banba-bandgap) |
 | Design a digital block | **Digital → New digital counter example**, **New UART regression example**, or **New APB FIFO peripheral** · [Digital flow guide](docs/DIGITAL_FLOW.md) |
+| Try interactive VGA | **Digital flow → More → VGA Playground** · [Live RTL preview](#preview-rtl-in-the-vga-playground) |
 | Create a spiral inductor | **Tools → Inductor creator…** · [Creation, target-L search and EM simulation](#create-and-characterize-spiral-inductors) |
 | Use real transistor models | [Open PDK setup](docs/PDK_GUIDE.md) |
 | Bring an existing design | [Xschem, Magic, and KLayout exchange](docs/INTEROPERABILITY.md) |
@@ -221,7 +282,7 @@ For digital design with automatic tool setup, use the [complete desktop package]
 **Linux / macOS:**
 
 ```sh
-git clone --branch codex/analog-reference-qualification https://github.com/jonahsaunders/IC-Design-Studio.git
+git clone --branch experimental https://github.com/jonahsaunders/IC-Design-Studio.git
 cd IC-Design-Studio
 python3.12 -m venv .venv
 source .venv/bin/activate
@@ -429,6 +490,7 @@ General offline design-edit queuing remains planned. [Collaboration limits and h
 |---|---|---|
 | **SKY130 overvoltage detector** | Hierarchical schematic, attached Magic layout, and a portable native DC testbench with embedded models | Strict full-circuit LVS with the pinned extraction correction; all 16 HSA trip codes and three deliberate fault controls. [Reproduce it](docs/OPEN_PROJECTS.md) |
 | **GF180 bandgap reference** | A quick startup run, a six-case compatibility circuit, or the original 144-analysis characterization | Schematic/simulation compatibility across captured, native, and exported paths. [Project guide](docs/BANDGAP_COMPATIBILITY.md) |
+| **Native GF180MCU Banba reference** | Editable schematic, second-pass optimizer searches and a routed layout with segmented resistors and tiled MIM capacitors | Saved ngspice results and passing native layout checks; foundry DRC/LVS and extraction remain open. [Schematic and optimization](examples/gf180-banba/pass2/README.md) · [Layout](examples/gf180-banba/layout/README.md) |
 | **SKY130 transistor inverter** | Transistor-level Xschem import and switching behavior with included models | Simulation example plus separate pinned physical fixtures. [Examples](examples/README.md) · [Physical reference](docs/SKY130_REFERENCE.md) |
 | **Native analog references** | Current mirror, differential pair, and amplifier designs; saved operating-point/AC tests and corner comparisons | Bounded SKY130 simulation and physical flows with deliberate defects. [Engineering guide](docs/PROFESSIONAL_WORKFLOWS.md) |
 

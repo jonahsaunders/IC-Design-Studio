@@ -1,0 +1,15 @@
+{
+  "platform": "Linux x86_64",
+  "magic_commit": "4f53bb3091d1e4a9b2009a58f157a8a4331d4c84",
+  "klayout": "0.28.16",
+  "magic": "8.3.684",
+  "ngspice": "42",
+  "files": {
+    "klayout": "5a0fb60d0e2128ccab82cef157042568323989077f64d4bba830674fccd75ff5",
+    "tclmagic.so": "ce87a60850db8448f55de89384e697a4cd817c6c439bebcc3772d7108c034041",
+    "magicdnull": "28f1f4ace53234ff25de67e16552a2ee4bae6f32fae9796c80fbe7e115db25e2",
+    "ngspice": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+    "tmpfile-env.c": "245c7d174e9c2b1b9624d9cf0e3dc378c69ea24850ad19eabd1282caf93fedad",
+    "tmpfile-env.so": "4a0ed51fb0e6ef44716f3b84862466f94c8bda7d81c59fc98a5de37e4b669a8b"
+  }
+}

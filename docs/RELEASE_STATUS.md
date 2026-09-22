@@ -1,20 +1,26 @@
-# Current source candidate — 0.22.0.dev25
+# Dev25 draft and experimental follow-up
 
-The [dev25 update](UPDATE_0.22_DEV25.md) follows the integrated analog workflow
-merged into `experimental` at `46658f81b378743f39bbc10d4c83c5b8ceb583d1`.
-The candidate is published on `codex/analog-reference-qualification` in
-[draft PR #34](https://github.com/jonahsaunders/IC-Design-Studio/pull/34), targeting
-`experimental`; it is not part of the older PR #32 until merged.
-Its release assembly requires complete desktop/source/evidence payloads and binds
-Windows acceptance to the exact installer bytes and all installed DPI probes.
+As reviewed on 2026-09-21, [PR #34](https://github.com/jonahsaunders/IC-Design-Studio/pull/34)
+and the Windows evidence fixes in [PR #35](https://github.com/jonahsaunders/IC-Design-Studio/pull/35)
+are merged into `experimental` at `a2df5e81654e7509f82aa9dceaf099cc476f4d6a`.
+[PR #32](https://github.com/jonahsaunders/IC-Design-Studio/pull/32) merged that tree
+into `main` at `a88cfe1cfe20254638b7bd97ec9128e843578282`.
 
-No dev25 packaged-platform result or public release is recorded here. The
-[preceding analog source validation](validation/analog-closure.json) and older
-draft assets have their own source identities. They do not qualify this candidate.
-Use the [candidate Actions runs](https://github.com/jonahsaunders/IC-Design-Studio/actions?query=branch%3Acodex%2Fanalog-reference-qualification)
-to review desktop/package, interoperability, pinned physical, digital, VGA and statistical
-results for the selected commit. Version numbers alone are insufficient because
-multiple experimental commits can share one development version.
+The [dev25 draft](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/untagged-a3463df6d52385cb7532)
+targets the latter commit and contains 16 application, source, validation,
+evidence and checksum assets. Its [release run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/35550664971)
+passed all six required workflows: desktop/package, external interoperability,
+pinned physical, digital, VGA and statistical campaigns. Hosted Windows Server
+2022 installed-app checks and Windows/Linux archive execution passed. This is
+an unpublished draft, not consumer Windows/Linux or physical-network acceptance.
+
+The [review record](validation/dev25/release-acceptance-review.json) retains
+the exact commits, source tree, jobs and GitHub-reported asset digests. Use the
+[acceptance handoff](DEV25_ACCEPTANCE_HANDOFF.md) for the remaining physical
+checks and signing decision. Package bytes were not independently re-hashed in
+this source follow-up. Version numbers alone are insufficient: new performance
+changes on `experimental` are not covered by the existing draft's package results
+and require their own hosted qualification before packaging or promotion.
 
 The local numerical qualification below was published in commit
 `4ce77713a26b34e1e46ff7cde9788c6aa4be5b2a`. Its first hosted run exposed a
@@ -25,8 +31,8 @@ existing Examples/Generate submenus, dispatches reference creation to its actual
 factory with the active-run guard, and runs VGA on every push and PR. The
 [integration follow-up record](validation/dev25/ci-integration-followup.json)
 identifies the changed files and focused checks; the original numerical evidence
-remains tied to its original source. Hosted acceptance of the follow-up commit
-must be checked independently.
+remains tied to its original source. The successful hosted release run above
+covers the subsequently merged implementation, including the Windows fixes.
 
 The [retained local core run](validation/dev25/core-tests.json) completed 984 tests
 with 35 skipped and no failures. Separate actual-ngspice RC and saved-bias checks
@@ -38,8 +44,8 @@ completed 1,152 actual ngspice cases, verified analytical results and recovered
 from abrupt coordinator termination. A [final-source smoke](validation/dev25/statistical-campaign-final-source.json)
 rechecked 36 cases after additional input guards. These are one-host source
 checks; the [local worker probe](validation/dev25/campaign-worker-probe-same-host.json)
-explicitly reports same-host scope. The new required hosted statistical gate has
-not been recorded as passed here.
+explicitly reports same-host scope. The required hosted statistical gate passed
+in release run 35550664971; physical two-host acceptance remains open.
 
 The [bounded SKY130 device qualification](validation/dev25/sky130-devices.json)
 passed 14 cases with actual engines, including ten DRC/LVS-clean coupons and four
@@ -47,11 +53,12 @@ detected faults. [Offscreen Qt device dialogs](validation/dev25/gui-sky130-devic
 passed their four checks. These records identify their tested geometries and
 model limitations; they do not qualify arbitrary layouts or package execution.
 
-[Desktop scale measurements](validation/dev25/desktop-scale.json) passed all
-recorded correctness checks under offscreen Qt 6.8.3. The synthetic 500-device,
-10,000-shape workload still takes about 1.7 seconds per schematic/layout edit
-including full refresh. No latency budget was configured, so the passing record
-does not close the responsiveness gap or native consumer-desktop acceptance.
+The historical [desktop scale measurements](validation/dev25/desktop-scale.json)
+recorded about 1.7 seconds per synthetic 500-device/10,000-shape edit without a
+latency budget. The experimental [responsiveness follow-up](DESKTOP_RESPONSIVENESS.md)
+retains a new same-host comparison and enforces a 1,500 ms ceiling on every
+edit/undo/redo sample. Its source-only offscreen results do not qualify the
+existing draft, consumer displays or an immediate-response target.
 
 The initial process-RC run is [superseded diagnostic evidence](validation/dev25/process-rc-evidence/retention.json):
 AC/admittance checks exposed capacitance redistribution defects in pinned Magic
@@ -86,7 +93,7 @@ All five required PR workflows for the earlier `experimental` head
 and [VGA](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/35522447971).
 The [desktop push run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/35522444768)
 also passed. These runs precede the dev25 changes, corrected RC profile and new
-statistical gate. They do not qualify the pending dev25 branch or its packages.
+statistical gate. They do not qualify the later dev25 implementation or packages.
 
 ## Historical dev24 package checkpoint
 

@@ -1,0 +1,236 @@
+{
+  "schema": 1,
+  "observed_date": "2026-09-21",
+  "candidate_version": "0.22.0.dev25",
+  "experimental_commit": "a2df5e81654e7509f82aa9dceaf099cc476f4d6a",
+  "package_commit": "a88cfe1cfe20254638b7bd97ec9128e843578282",
+  "source_tree": "2777d8ff2f1996b73faa2b68029352965960095f",
+  "release": {
+    "id": 392660427,
+    "tag": "v0.22.0.dev25",
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/untagged-a3463df6d52385cb7532",
+    "draft": true,
+    "prerelease": true
+  },
+  "qualification": {
+    "run_id": 35550664971,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/35550664971",
+    "jobs": [
+      {
+        "id": 106184685305,
+        "name": "interoperability / exchange",
+        "conclusion": "success"
+      },
+      {
+        "id": 106184685392,
+        "name": "physical / qualify (two-stage-opamp)",
+        "conclusion": "success"
+      },
+      {
+        "id": 106184685412,
+        "name": "physical / qualify (analog)",
+        "conclusion": "success"
+      },
+      {
+        "id": 106184685429,
+        "name": "statistics / 1152 ngspice cases and coordinator recovery",
+        "conclusion": "success"
+      },
+      {
+        "id": 106184685451,
+        "name": "physical / qualify (detector)",
+        "conclusion": "success"
+      },
+      {
+        "id": 106184685453,
+        "name": "physical / qualify (devices)",
+        "conclusion": "success"
+      },
+      {
+        "id": 106184685457,
+        "name": "digital / digital",
+        "conclusion": "success"
+      },
+      {
+        "id": 106184685464,
+        "name": "physical / qualify (inverter)",
+        "conclusion": "success"
+      },
+      {
+        "id": 106184685471,
+        "name": "physical / qualify (analog-rc)",
+        "conclusion": "success"
+      },
+      {
+        "id": 106184685475,
+        "name": "desktop / digital-runtime / runtime",
+        "conclusion": "success"
+      },
+      {
+        "id": 106184685479,
+        "name": "digital / implementation",
+        "conclusion": "success"
+      },
+      {
+        "id": 106184685482,
+        "name": "vga / preview",
+        "conclusion": "success"
+      },
+      {
+        "id": 106186099277,
+        "name": "desktop / package (windows-2022)",
+        "conclusion": "success"
+      },
+      {
+        "id": 106186099301,
+        "name": "desktop / package (ubuntu-24.04)",
+        "conclusion": "success"
+      },
+      {
+        "id": 106189605397,
+        "name": "physical / detector-desktop",
+        "conclusion": "success"
+      },
+      {
+        "id": 106190164113,
+        "name": "physical / sky130",
+        "conclusion": "success"
+      },
+      {
+        "id": 106194443554,
+        "name": "draft",
+        "conclusion": "success"
+      }
+    ],
+    "scope": "Existing hosted GitHub Actions results, reviewed through job status and decoded desktop logs. No consumer hardware run was performed in this follow-up."
+  },
+  "assets": [
+    {
+      "id": 578048859,
+      "name": "IC-Design-Studio-0.22.0.dev25-digital-Evidence.zip",
+      "bytes": 37041713,
+      "github_digest": "sha256:784462a54ec4e113569a2914d974984d1e1c07d2a9529ff6a145b87a78c66f5c"
+    },
+    {
+      "id": 578048757,
+      "name": "IC-Design-Studio-0.22.0.dev25-Evidence-Linux.zip",
+      "bytes": 82846666,
+      "github_digest": "sha256:91039a50650b7ad25eb5bfb2de09386afda1d5740bc8e2011dc4e5078b954e5e"
+    },
+    {
+      "id": 578048762,
+      "name": "IC-Design-Studio-0.22.0.dev25-Evidence-Windows.zip",
+      "bytes": 49992785,
+      "github_digest": "sha256:ddae836aa8ef533ca600718c983f5d153e84f7031c7f9ac6f496ddd148e05709"
+    },
+    {
+      "id": 578048918,
+      "name": "IC-Design-Studio-0.22.0.dev25-interoperability-Evidence.zip",
+      "bytes": 1575851,
+      "github_digest": "sha256:91eea2502249121202761f7134122cf9e4e41f6023663dea6f6ae7be5a4a6d46"
+    },
+    {
+      "id": 578048759,
+      "name": "IC-Design-Studio-0.22.0.dev25-Linux-x86_64.tar.gz",
+      "bytes": 1714549279,
+      "github_digest": "sha256:1096a4a651a02c87767d86193074ec33f9a96e7f672f1a897dc941bac7c5abb3"
+    },
+    {
+      "id": 578048931,
+      "name": "IC-Design-Studio-0.22.0.dev25-physical-Evidence.zip",
+      "bytes": 1081776462,
+      "github_digest": "sha256:3a19de60ea91cd934e63f0f0cd93967d1fe41ff7ab3e036a1dee5b314591b9e0"
+    },
+    {
+      "id": 578048761,
+      "name": "IC-Design-Studio-0.22.0.dev25-Source-Linux.zip",
+      "bytes": 16179776,
+      "github_digest": "sha256:9935765261d6cebdb14a532e665ee0a7ba95b85786e6300cf57940ba954ba106"
+    },
+    {
+      "id": 578048760,
+      "name": "IC-Design-Studio-0.22.0.dev25-Source-Windows.zip",
+      "bytes": 19509567,
+      "github_digest": "sha256:f97c6f4be9deac2ad2bb59e8f7ebab956faef2a34d2064430e2d8a4f4cf7d0d3"
+    },
+    {
+      "id": 578048819,
+      "name": "IC-Design-Studio-0.22.0.dev25-Statistical-Validation.json",
+      "bytes": 750,
+      "github_digest": "sha256:e4fa157ed2f8636de6d45dd318e84addab988c58cbbff93d817710253a001b8b"
+    },
+    {
+      "id": 578048935,
+      "name": "IC-Design-Studio-0.22.0.dev25-statistics-Evidence.zip",
+      "bytes": 12542454,
+      "github_digest": "sha256:c7beb4cea14528b3e8227e9fc1f34b3b85c2e26687b18231c0c7d1f4dbcc084a"
+    },
+    {
+      "id": 578048821,
+      "name": "IC-Design-Studio-0.22.0.dev25-Validation-Linux.json",
+      "bytes": 10970,
+      "github_digest": "sha256:2739bf15db8ad9bf6eab3359f14437fd876dd382437acf794231b0dca55b32e8"
+    },
+    {
+      "id": 578048834,
+      "name": "IC-Design-Studio-0.22.0.dev25-Validation-Windows.json",
+      "bytes": 37596,
+      "github_digest": "sha256:cb0a9f2431554337c68c93d2d9d20685ee35e3521274c34f34dcc0522e1fde4e"
+    },
+    {
+      "id": 578048961,
+      "name": "IC-Design-Studio-0.22.0.dev25-vga-Evidence.zip",
+      "bytes": 2115193,
+      "github_digest": "sha256:9405f044779352a58f6639b99980c4d878a19f6aa0bebf49607bdd1a68c5a1c6"
+    },
+    {
+      "id": 578048838,
+      "name": "IC-Design-Studio-0.22.0.dev25-Windows-x64-Portable.zip",
+      "bytes": 1642465379,
+      "github_digest": "sha256:7d3149eaed4baec170b4f3c03d4e3f6ba1685bf8a51dc1d64c71c8ebaaa4bd79"
+    },
+    {
+      "id": 578048842,
+      "name": "IC-Design-Studio-0.22.0.dev25-Windows-x64-Setup.exe",
+      "bytes": 1477859309,
+      "github_digest": "sha256:36385a2882ee2292bbb0c775bf9fbd507256e26d70a6a4d8b307ea79903efe54"
+    },
+    {
+      "id": 578048975,
+      "name": "SHA256SUMS-0.22.0.dev25.txt",
+      "bytes": 1771,
+      "github_digest": "sha256:8b30bed077e804a0aa6877a153174f81c089890dc7fd08e19cbded5e23663b28"
+    }
+  ],
+  "manual_acceptance": [
+    {
+      "gate": "Windows 10/11",
+      "issue": 8,
+      "status": "not_run",
+      "reason": "No clean consumer Windows machines are available in this Linux workspace."
+    },
+    {
+      "gate": "Ubuntu 24.04 native desktop",
+      "issue": 9,
+      "status": "not_run",
+      "reason": "This workspace has no native display, mixed-monitor setup, audio/gamepad or assistive-technology session."
+    },
+    {
+      "gate": "Windows signing policy",
+      "issue": 10,
+      "status": "decision_required",
+      "reason": "No maintainer choice of signing service/certificate or unsigned public preview has been provided. Existing draft stays unpublished."
+    },
+    {
+      "gate": "Physical LAN/VPN collaboration",
+      "issue": 31,
+      "status": "not_run",
+      "reason": "No separate physical clients or intended LAN/VPN/firewall environments are accessible."
+    }
+  ],
+  "limits": [
+    "Asset digests are GitHub release metadata; package bytes were not independently re-downloaded or hashed in this follow-up.",
+    "Downloaded artifact file references returned HTTP 403 in this workspace; hosted logs and job metadata were available.",
+    "This record qualifies only the existing package commit. Later experimental source changes need fresh hosted package qualification."
+  ]
+}

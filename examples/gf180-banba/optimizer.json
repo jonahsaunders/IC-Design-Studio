@@ -1,0 +1,31 @@
+{
+  "cell": "banba_core",
+  "plan": "banba_temperature",
+  "spec": {
+    "kind": "analog_optimizer",
+    "name": "Banba resistor-ratio screening",
+    "strategy": "grid",
+    "budget": 81,
+    "axes": [
+      {
+        "target": "RPTAT.model_params.l",
+        "lower": "9u",
+        "upper": "11u",
+        "count": 3
+      },
+      {
+        "target": "ROUT.model_params.l",
+        "lower": "46u",
+        "upper": "50u",
+        "count": 3
+      }
+    ],
+    "objective": {
+      "entry_id": "setup:0",
+      "expression": "final(V(\"VREF\"))",
+      "unit": "V",
+      "goal": "target",
+      "target": ".6"
+    }
+  }
+}

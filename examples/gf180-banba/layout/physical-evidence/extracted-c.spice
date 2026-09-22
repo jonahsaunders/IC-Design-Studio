@@ -1,0 +1,292 @@
+* NGSPICE file created from banba_layout.ext - technology: gf180mcuB
+
+.subckt banba_layout VDD VREF VSS
+X0 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X1 XAMP_NMIR XAMP_NMIR VSS VSS nfet_03v3 ad=3.2p pd=9.6u as=3.2p ps=9.6u w=4u l=2u
+X2 VSS VSS VE2 pnp_05p00x05p00
+**devattr s=1000000,4000
+X3 CTRL XSTART_KICK VSS VSS nfet_03v3 ad=0.4p pd=2.6u as=0.4p ps=2.6u w=0.5u l=4u
+X4 VB CTRL VDD VDD pfet_03v3 ad=6.4p pd=17.6u as=6.4p ps=17.6u w=8u l=4u
+X5 XSTART_RDET_series_10 XSTART_RDET_series_9 VSS ppolyf_u_1k r_width=1u r_length=100u
+X6 XSTART_RPULL_series_18 XSTART_RPULL_series_19 VSS ppolyf_u_1k r_width=1u r_length=100u
+X7 XSTART_RDET_series_4 XSTART_RDET_series_3 VSS ppolyf_u_1k r_width=1u r_length=100u
+X8 XAMP_RBIAS_series_2 XAMP_RBIAS_series_1 VSS ppolyf_u_1k r_width=1u r_length=100u
+X9 XSTART_RPULL_series_12 XSTART_RPULL_series_13 VSS ppolyf_u_1k r_width=1u r_length=100u
+X10 XAMP_RBIAS_series_8 XAMP_RBIAS_series_9 VSS ppolyf_u_1k r_width=1u r_length=100u
+X11 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X12 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X13 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X14 VREF VSS VSS ppolyf_u_1k r_width=1u r_length=50.15u
+X15 XSTART_RPULL_series_6 XSTART_RPULL_series_5 VSS ppolyf_u_1k r_width=1u r_length=100u
+X16 VSS VSS VE2 pnp_05p00x05p00
+**devattr s=1000000,4000
+X17 XAMP_TAIL XAMP_PBIAS VDD VDD pfet_03v3 ad=6.4p pd=17.6u as=6.4p ps=17.6u w=8u l=4u
+X18 XSTART_RDET_series_12 XSTART_RDET_series_11 VSS ppolyf_u_1k r_width=1u r_length=100u
+X19 VA CTRL VDD VDD pfet_03v3 ad=6.4p pd=17.6u as=6.4p ps=17.6u w=8u l=4u
+X20 XSTART_RPULL_series_14 XSTART_RPULL_series_13 VSS ppolyf_u_1k r_width=1u r_length=100u
+X21 VDD CTRL cap_mim_2f0_m3m4_noshield c_width=96.67u c_length=96.67u
+X22 XSTART_RPULL_series_8 XSTART_RPULL_series_7 VSS ppolyf_u_1k r_width=1u r_length=100u
+X23 XSTART_RDET_series_6 XSTART_RDET_series_5 VSS ppolyf_u_1k r_width=1u r_length=100u
+X24 XAMP_RBIAS_series_4 XAMP_RBIAS_series_3 VSS ppolyf_u_1k r_width=1u r_length=100u
+X25 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X26 XSTART_DET CTRL VDD VDD pfet_03v3 ad=0.8p pd=3.6u as=0.8p ps=3.6u w=1u l=8u
+X27 VDD XSTART_RPULL_series_1 VSS ppolyf_u_1k r_width=1u r_length=100u
+X28 VSS VSS VA pnp_05p00x05p00
+**devattr s=1000000,4000
+X29 VREF CTRL VDD VDD pfet_03v3 ad=6.4p pd=17.6u as=6.4p ps=17.6u w=8u l=4u
+X30 VSS VSS VE2 pnp_05p00x05p00
+**devattr s=1000000,4000
+X31 XSTART_RDET_series_14 XSTART_RDET_series_13 VSS ppolyf_u_1k r_width=1u r_length=100u
+X32 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X33 XSTART_RDET_series_8 XSTART_RDET_series_7 VSS ppolyf_u_1k r_width=1u r_length=100u
+X34 XSTART_RPULL_series_16 XSTART_RPULL_series_15 VSS ppolyf_u_1k r_width=1u r_length=100u
+X35 XSTART_DET XSTART_RDET_series_1 VSS ppolyf_u_1k r_width=1u r_length=100u
+X36 XSTART_RPULL_series_2 XSTART_RPULL_series_3 VSS ppolyf_u_1k r_width=1u r_length=100u
+X37 XSTART_RPULL_series_10 XSTART_RPULL_series_9 VSS ppolyf_u_1k r_width=1u r_length=100u
+X38 XAMP_RBIAS_series_6 XAMP_RBIAS_series_5 VSS ppolyf_u_1k r_width=1u r_length=100u
+X39 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X40 XSTART_RDET_series_8 XSTART_RDET_series_9 VSS ppolyf_u_1k r_width=1u r_length=100u
+X41 XSTART_RPULL_series_18 XSTART_RPULL_series_17 VSS ppolyf_u_1k r_width=1u r_length=100u
+X42 XSTART_RDET_series_2 XSTART_RDET_series_3 VSS ppolyf_u_1k r_width=1u r_length=100u
+X43 VSS XSTART_RDET_series_15 VSS ppolyf_u_1k r_width=1u r_length=100u
+X44 VSS VSS VE2 pnp_05p00x05p00
+**devattr s=1000000,4000
+X45 VA VSS VSS ppolyf_u_1k r_width=1u r_length=100u
+X46 XAMP_NMIR VA XAMP_TAIL VDD pfet_03v3 ad=19.2p pd=49.6u as=19.2p ps=49.6u w=24u l=2u
+X47 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X48 XAMP_RBIAS_series_8 XAMP_RBIAS_series_7 VSS ppolyf_u_1k r_width=1u r_length=100u
+X49 XSTART_RPULL_series_12 XSTART_RPULL_series_11 VSS ppolyf_u_1k r_width=1u r_length=100u
+X50 VSS VSS VE2 pnp_05p00x05p00
+**devattr s=1000000,4000
+X51 XAMP_PBIAS XAMP_RBIAS_series_1 VSS ppolyf_u_1k r_width=1u r_length=100u
+X52 XSTART_RPULL_series_4 XSTART_RPULL_series_5 VSS ppolyf_u_1k r_width=1u r_length=100u
+X53 VSS VSS VE2 pnp_05p00x05p00
+**devattr s=1000000,4000
+X54 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X55 XAMP_GAIN XAMP_NMIR VSS VSS nfet_03v3 ad=3.2p pd=9.6u as=3.2p ps=9.6u w=4u l=2u
+X56 VDD CTRL cap_mim_2f0_m3m4_noshield c_width=96.67u c_length=96.67u
+X57 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X58 XSTART_RDET_series_10 XSTART_RDET_series_11 VSS ppolyf_u_1k r_width=1u r_length=100u
+X59 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X60 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X61 XSTART_KICK XSTART_RPULL_series_19 VSS ppolyf_u_1k r_width=1u r_length=100u
+X62 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X63 XSTART_RDET_series_4 XSTART_RDET_series_5 VSS ppolyf_u_1k r_width=1u r_length=100u
+X64 XAMP_RBIAS_series_2 XAMP_RBIAS_series_3 VSS ppolyf_u_1k r_width=1u r_length=100u
+X65 XSTART_RPULL_series_6 XSTART_RPULL_series_7 VSS ppolyf_u_1k r_width=1u r_length=100u
+X66 VSS XAMP_RBIAS_series_9 VSS ppolyf_u_1k r_width=1u r_length=100u
+X67 CTRL XAMP_PBIAS VDD VDD pfet_03v3 ad=3.2p pd=9.6u as=3.2p ps=9.6u w=4u l=8u
+X68 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X69 XSTART_KICK XSTART_DET VSS VSS nfet_03v3 ad=6.4p pd=17.6u as=6.4p ps=17.6u w=8u l=1u
+X70 XSTART_RDET_series_12 XSTART_RDET_series_13 VSS ppolyf_u_1k r_width=1u r_length=100u
+X71 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X72 XAMP_GAIN VB XAMP_TAIL VDD pfet_03v3 ad=19.2p pd=49.6u as=19.2p ps=49.6u w=24u l=2u
+X73 XSTART_RDET_series_6 XSTART_RDET_series_7 VSS ppolyf_u_1k r_width=1u r_length=100u
+X74 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X75 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X76 XSTART_RPULL_series_14 XSTART_RPULL_series_15 VSS ppolyf_u_1k r_width=1u r_length=100u
+X77 VSS VSS VE2 pnp_05p00x05p00
+**devattr s=1000000,4000
+X78 XSTART_RPULL_series_2 XSTART_RPULL_series_1 VSS ppolyf_u_1k r_width=1u r_length=100u
+X79 VSS VSS VE2 pnp_05p00x05p00
+**devattr s=1000000,4000
+X80 XAMP_RBIAS_series_4 XAMP_RBIAS_series_5 VSS ppolyf_u_1k r_width=1u r_length=100u
+X81 XSTART_RPULL_series_8 XSTART_RPULL_series_9 VSS ppolyf_u_1k r_width=1u r_length=100u
+X82 VB VSS VSS ppolyf_u_1k r_width=1u r_length=100u
+X83 XAMP_PBIAS XAMP_PBIAS VDD VDD pfet_03v3 ad=3.2p pd=9.6u as=3.2p ps=9.6u w=4u l=4u
+X84 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X85 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X86 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X87 VDD CTRL cap_mim_2f0_m3m4_noshield c_width=96.67u c_length=96.67u
+X88 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X89 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X90 XAMP_GAIN CTRL cap_mim_2f0_m3m4_noshield c_width=44.72u c_length=44.72u
+X91 VB VE2 VSS ppolyf_u_1k r_width=1u r_length=10.85u
+X92 XSTART_RDET_series_14 XSTART_RDET_series_15 VSS ppolyf_u_1k r_width=1u r_length=100u
+X93 XSTART_RPULL_series_16 XSTART_RPULL_series_17 VSS ppolyf_u_1k r_width=1u r_length=100u
+X94 XSTART_RDET_series_2 XSTART_RDET_series_1 VSS ppolyf_u_1k r_width=1u r_length=100u
+X95 CTRL XAMP_GAIN VSS VSS nfet_03v3 ad=3.2p pd=9.6u as=3.2p ps=9.6u w=4u l=2u
+X96 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X97 XAMP_RBIAS_series_6 XAMP_RBIAS_series_7 VSS ppolyf_u_1k r_width=1u r_length=100u
+X98 XSTART_RPULL_series_4 XSTART_RPULL_series_3 VSS ppolyf_u_1k r_width=1u r_length=100u
+X99 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X100 VREF VSS cap_mim_2f0_m3m4_noshield c_width=91.5u c_length=91.5u
+X101 VDD CTRL cap_mim_2f0_m3m4_noshield c_width=96.67u c_length=96.67u
+X102 XSTART_RPULL_series_10 XSTART_RPULL_series_11 VSS ppolyf_u_1k r_width=1u r_length=100u
+C0 XAMP_TAIL CTRL 0.35791f
+C1 XSTART_RDET_series_11 XSTART_RDET_series_13 0.00522f
+C2 XAMP_PBIAS XSTART_KICK 0.17168f
+C3 XSTART_RDET_series_7 XSTART_RDET_series_9 0.00522f
+C4 XAMP_RBIAS_series_9 XAMP_RBIAS_series_7 0.00522f
+C5 XSTART_RDET_series_4 XSTART_RDET_series_2 0.00522f
+C6 CTRL XAMP_RBIAS_series_3 0.00684f
+C7 XSTART_RPULL_series_11 XSTART_RPULL_series_9 0.00522f
+C8 VA XAMP_PBIAS 0.56851f
+C9 XSTART_RDET_series_5 XSTART_RDET_series_3 0.00522f
+C10 VDD XSTART_RPULL_series_2 0.00814f
+C11 VB VE2 0.1132f
+C12 XAMP_TAIL XAMP_PBIAS 2.8715f
+C13 XAMP_GAIN VDD 0.91007f
+C14 VDD XSTART_DET 0.31394f
+C15 XSTART_RPULL_series_4 XSTART_RPULL_series_6 0.00522f
+C16 VREF XAMP_GAIN 0.48555f
+C17 VREF XSTART_DET 0.33733f
+C18 XSTART_RDET_series_8 XSTART_RDET_series_6 0.00522f
+C19 VDD XSTART_KICK 0.207f
+C20 CTRL XAMP_RBIAS_series_9 0.00684f
+C21 XAMP_GAIN XAMP_NMIR 2.66296f
+C22 VREF XSTART_KICK 0.36323f
+C23 XSTART_RPULL_series_12 XSTART_KICK 0.00565f
+C24 CTRL XAMP_PBIAS 0.87264f
+C25 XSTART_RDET_series_12 XSTART_RDET_series_14 0.00522f
+C26 VDD XSTART_RDET_series_2 0
+C27 XSTART_RPULL_series_5 XSTART_RPULL_series_7 0.00522f
+C28 XSTART_RPULL_series_5 XSTART_RPULL_series_3 0.00522f
+C29 VDD XSTART_RDET_series_8 0
+C30 VDD VA 3.85923f
+C31 VREF VA 0.24063f
+C32 VA XAMP_NMIR 1.59672f
+C33 XSTART_RPULL_series_12 XSTART_RPULL_series_10 0.00522f
+C34 VDD XAMP_TAIL 3.50353f
+C35 VREF XAMP_TAIL 0.37982f
+C36 XAMP_GAIN VB 1.31535f
+C37 XAMP_GAIN VE2 1.02418f
+C38 XSTART_DET VE2 0.34437f
+C39 XAMP_TAIL XAMP_NMIR 0.91543f
+C40 XSTART_KICK VE2 0.37028f
+C41 VDD CTRL 41.7781f
+C42 XSTART_RDET_series_8 XSTART_RDET_series_10 0.00522f
+C43 VREF CTRL 0.51775f
+C44 CTRL XAMP_NMIR 0.52226f
+C45 XSTART_RDET_series_4 XSTART_RDET_series_6 0.00522f
+C46 XSTART_RDET_series_15 XSTART_RDET_series_13 0.00522f
+C47 VDD XSTART_RDET_series_12 0
+C48 VDD XSTART_RDET_series_14 0
+C49 VA VB 1.3257f
+C50 XSTART_RPULL_series_15 XSTART_RPULL_series_17 0.00522f
+C51 VA VE2 1.57474f
+C52 XSTART_RPULL_series_19 XSTART_RPULL_series_17 0.00522f
+C53 XSTART_RPULL_series_8 XSTART_KICK 0.00565f
+C54 XAMP_RBIAS_series_8 XAMP_RBIAS_series_6 0.00522f
+C55 XAMP_RBIAS_series_2 XAMP_PBIAS 0.00814f
+C56 XAMP_TAIL VB 1.44849f
+C57 XSTART_RDET_series_4 VDD 0
+C58 XAMP_TAIL VE2 0.37982f
+C59 XSTART_RPULL_series_14 XSTART_RPULL_series_12 0.00522f
+C60 VDD XAMP_PBIAS 6.35784f
+C61 XAMP_RBIAS_series_1 XSTART_KICK 0.003f
+C62 VREF XAMP_PBIAS 0.5748f
+C63 XSTART_RDET_series_5 XSTART_RDET_series_7 0.00522f
+C64 XAMP_NMIR XAMP_PBIAS 1.34772f
+C65 XSTART_RPULL_series_2 XSTART_KICK 0.00565f
+C66 XAMP_GAIN XSTART_DET 0.36529f
+C67 CTRL VB 0.95464f
+C68 CTRL VE2 0.7236f
+C69 XSTART_RPULL_series_8 XSTART_RPULL_series_10 0.00522f
+C70 XSTART_RDET_series_11 XSTART_RDET_series_9 0.00522f
+C71 XAMP_GAIN XSTART_KICK 0.38352f
+C72 XSTART_DET XSTART_KICK 4.68133f
+C73 XAMP_RBIAS_series_4 XAMP_RBIAS_series_6 0.00522f
+C74 XSTART_RPULL_series_16 XSTART_KICK 0.00565f
+C75 XSTART_RDET_series_12 XSTART_RDET_series_10 0.00522f
+C76 XSTART_KICK XAMP_RBIAS_series_5 0.003f
+C77 VDD XSTART_RDET_series_6 0
+C78 XSTART_DET XSTART_RDET_series_2 0.00814f
+C79 XAMP_RBIAS_series_5 XAMP_RBIAS_series_7 0.00522f
+C80 XSTART_KICK XAMP_RBIAS_series_7 0.003f
+C81 XSTART_RPULL_series_18 XSTART_RPULL_series_16 0.00522f
+C82 XAMP_GAIN VA 0.51094f
+C83 XSTART_RPULL_series_11 XSTART_RPULL_series_13 0.00522f
+C84 XSTART_DET VA 0.34755f
+C85 XSTART_RPULL_series_18 XSTART_KICK 0.01855f
+C86 XAMP_RBIAS_series_2 XAMP_RBIAS_series_4 0.00522f
+C87 XAMP_PBIAS VB 3.60943f
+C88 VREF VDD 0.75003f
+C89 VA XSTART_KICK 0.37346f
+C90 XAMP_RBIAS_series_1 XAMP_RBIAS_series_3 0.00522f
+C91 XAMP_PBIAS VE2 0.5748f
+C92 XSTART_RPULL_series_10 XSTART_KICK 0.00565f
+C93 XSTART_RDET_series_3 XSTART_RDET_series_1 0.00522f
+C94 VDD XAMP_NMIR 1.10915f
+C95 XAMP_GAIN XAMP_TAIL 0.96692f
+C96 XSTART_DET XAMP_TAIL 1.7243f
+C97 CTRL XAMP_RBIAS_series_1 0.00684f
+C98 VREF XAMP_NMIR 0.46691f
+C99 XAMP_TAIL XSTART_KICK 0.13254f
+C100 XSTART_RPULL_series_4 XSTART_RPULL_series_2 0.00522f
+C101 XSTART_RPULL_series_8 XSTART_RPULL_series_6 0.00522f
+C102 XAMP_RBIAS_series_3 XAMP_RBIAS_series_5 0.00522f
+C103 XAMP_RBIAS_series_3 XSTART_KICK 0.003f
+C104 XAMP_GAIN CTRL 4.26002f
+C105 XSTART_DET CTRL 0.49804f
+C106 CTRL XAMP_RBIAS_series_5 0.00684f
+C107 XSTART_RPULL_series_9 XSTART_RPULL_series_7 0.00522f
+C108 CTRL XSTART_KICK 0.57071f
+C109 XSTART_RPULL_series_4 XSTART_KICK 0.00565f
+C110 XAMP_TAIL VA 1.48956f
+C111 VDD XSTART_RDET_series_10 0
+C112 XSTART_RPULL_series_15 XSTART_RPULL_series_13 0.00522f
+C113 CTRL XAMP_RBIAS_series_7 0.00684f
+C114 VDD VB 3.08737f
+C115 VDD VE2 2.71432f
+C116 XSTART_RPULL_series_1 XSTART_RPULL_series_3 0.00522f
+C117 VREF VB 0.23884f
+C118 XSTART_RPULL_series_6 XSTART_KICK 0.00565f
+C119 VREF VE2 4.25544f
+C120 XSTART_RPULL_series_14 XSTART_RPULL_series_16 0.00522f
+C121 XAMP_NMIR VB 0.12274f
+C122 VA CTRL 3.13491f
+C123 XSTART_RPULL_series_14 XSTART_KICK 0.00565f
+C124 XAMP_NMIR VE2 0.45655f
+C125 XAMP_RBIAS_series_9 XSTART_KICK 0.003f
+C126 XAMP_GAIN XAMP_PBIAS 0.89368f
+C127 XSTART_DET XAMP_PBIAS 1.96692f
+C128 CTRL VSS 0.47601p
+C129 XAMP_TAIL VSS 90.65318f
+C130 XSTART_RDET_series_1 VSS 0.79894f
+C131 XSTART_RDET_series_2 VSS 0.76813f
+C132 XSTART_RDET_series_3 VSS 0.78892f
+C133 XSTART_RDET_series_4 VSS 0.76821f
+C134 XSTART_RDET_series_5 VSS 0.78892f
+C135 VE2 VSS 1.4567p
+C136 XSTART_RDET_series_6 VSS 0.76821f
+C137 XSTART_RDET_series_7 VSS 0.78892f
+C138 XSTART_RDET_series_8 VSS 0.76821f
+C139 XSTART_RDET_series_9 VSS 0.78892f
+C140 XSTART_RDET_series_10 VSS 0.76821f
+C141 XSTART_RDET_series_11 VSS 0.78892f
+C142 XAMP_RBIAS_series_1 VSS 0.79894f
+C143 XSTART_RDET_series_12 VSS 0.76821f
+C144 XAMP_RBIAS_series_2 VSS 0.76813f
+C145 XSTART_RDET_series_13 VSS 0.78892f
+C146 XAMP_RBIAS_series_3 VSS 0.78892f
+C147 XSTART_RDET_series_14 VSS 0.78103f
+C148 XAMP_RBIAS_series_4 VSS 0.76821f
+C149 XSTART_RDET_series_15 VSS 0.79894f
+C150 XAMP_RBIAS_series_5 VSS 0.78892f
+C151 XAMP_RBIAS_series_6 VSS 0.76821f
+C152 XAMP_RBIAS_series_7 VSS 0.78892f
+C153 XAMP_RBIAS_series_8 VSS 0.78103f
+C154 XAMP_RBIAS_series_9 VSS 0.79894f
+C155 XSTART_RPULL_series_1 VSS 0.79894f
+C156 XSTART_RPULL_series_2 VSS 0.76248f
+C157 XSTART_RPULL_series_3 VSS 0.78892f
+C158 XSTART_RPULL_series_4 VSS 0.76256f
+C159 XSTART_RPULL_series_5 VSS 0.78892f
+C160 XSTART_RPULL_series_6 VSS 0.76256f
+C161 XSTART_RPULL_series_7 VSS 0.78892f
+C162 XSTART_RPULL_series_8 VSS 0.76256f
+C163 XSTART_RPULL_series_9 VSS 0.78892f
+C164 XSTART_RPULL_series_10 VSS 0.76256f
+C165 XSTART_RPULL_series_11 VSS 0.78892f
+C166 XSTART_RPULL_series_12 VSS 0.76256f
+C167 XSTART_RPULL_series_13 VSS 0.78892f
+C168 XSTART_RPULL_series_14 VSS 0.76256f
+C169 XSTART_RPULL_series_15 VSS 0.78892f
+C170 XSTART_RPULL_series_16 VSS 0.76256f
+C171 XSTART_RPULL_series_17 VSS 0.78892f
+C172 XSTART_RPULL_series_18 VSS 0.76248f
+C173 XSTART_RPULL_series_19 VSS 0.79894f
+C174 XSTART_KICK VSS 0.18785p
+.ends
+

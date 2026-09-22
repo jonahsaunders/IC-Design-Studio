@@ -1,0 +1,36 @@
+{
+  "unmodified-deck": {
+    "expected_failure_detected": true,
+    "gds_sha256": "7e5d1ddd293d9386247460b7b1b85fb76a34bfbc1c0986ad54b26c377f9c0518",
+    "deck_sha256": "692a5043e191acc245954cf985eb1d35ca4701a4f710e990e789366e3b3717ea",
+    "rules": {
+      "PL.8": 64
+    }
+  },
+  "missing-poly": {
+    "expected_failure_detected": true,
+    "gds_sha256": "2a270297d8b686aa49de836322e73d5779366304591439decfb51f8aa1f09f2c",
+    "deck_sha256": "9ad0f7ed04c002d2d78f2cb5a4c96f47799c7260dca008a9aa9c0ffd18cc43d4",
+    "rules": {
+      "PL.8": 64
+    }
+  },
+  "missing-m2": {
+    "expected_failure_detected": true,
+    "gds_sha256": "ab33031a83033aa45fb79bf6195723a8de62c75fd69a3bba43ff4e2ac6079a25",
+    "deck_sha256": "9ad0f7ed04c002d2d78f2cb5a4c96f47799c7260dca008a9aa9c0ffd18cc43d4",
+    "rules": {
+      "M2.4": 102
+    }
+  },
+  "unfilled-core": {
+    "expected_failure_detected": true,
+    "gds_sha256": "5a9c8bb450768f8d09b1c9d0043a10e25f0de1ea64fc43f5932c251e1813b6dd",
+    "deck_sha256": "9ad0f7ed04c002d2d78f2cb5a4c96f47799c7260dca008a9aa9c0ffd18cc43d4",
+    "rules": {
+      "PL.8": 64,
+      "M1.4": 148,
+      "M2.4": 102
+    }
+  }
+}

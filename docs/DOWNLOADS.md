@@ -11,11 +11,12 @@ Use the [Releases page](https://github.com/jonahsaunders/IC-Design-Studio/releas
 for published packages. Development source is **0.22.0.dev25**; a source update
 does not necessarily have a published desktop release.
 
-For the dev25 source candidate, open a successful
-[Build and verify desktop release run](https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Acodex%2Fanalog-reference-qualification)
-from its PR into `experimental`. No completed dev25 package run is recorded in
-these source notes. Earlier experimental artifacts have different source identities.
-Download its **release-Windows** or **release-Linux** artifact, then extract that
+The [dev25 draft](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/untagged-a3463df6d52385cb7532)
+and successful [release run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/35550664971)
+contain packages built from `a88cfe1cfe20254638b7bd97ec9128e843578282`.
+They remain unpublished pending the [manual acceptance checks](DEV25_ACCEPTANCE_HANDOFF.md).
+Later `experimental` changes need a new package run; use the exact source identity.
+Download the run's **release-Windows** or **release-Linux** artifact, then extract that
 artifact to find the desktop package, matching validation record and checksums.
 Downloading Actions artifacts requires a GitHub sign-in. Draft releases are
 visible to maintainers until published.

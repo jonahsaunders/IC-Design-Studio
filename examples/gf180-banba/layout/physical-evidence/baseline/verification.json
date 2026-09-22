@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "project_sha256": "59119c3a989de244a99999e0a14a19e32e672fe8515a8c3a83812d9abc68bf4f",
+  "gds_sha256": "8bf57a6d4fb171ce870f85408c403c4449467196b5272a8fb2bb69a27e03d19d",
+  "variant": "B: 4LM, MIM B 2fF, top metal 11K",
+  "pv_commit": "05e7b6adf19edf942969c1c9625f02fd87874f06",
+  "open_pdks_commit": "aa3fc215a80d32437b8cca1cb3fdee819d18c4c9",
+  "signoff": false,
+  "tools": {
+    "klayout": {
+      "launcher_sha256": "ca9842dd94a9b2e3390873402ef1cf497151241908f43cf3ac6d7131a1839026",
+      "version_log": "KLayout 0.28.16\n"
+    },
+    "magic": {
+      "version": "8.3.684",
+      "source_commit": "4f53bb3091d1e4a9b2009a58f157a8a4331d4c84",
+      "evidence": "capacitance.log"
+    },
+    "ngspice": {
+      "launcher_sha256": "1c42558d09d2edc5e5875e295be53c81c37ea5d5f6674e00c5ecdc300719cd8a",
+      "version_log": "******\n** ngspice-42 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2023, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Sun Mar 31 20:15:14 UTC 2024\n******\n"
+    }
+  },
+  "drc": {
+    "exit_code": 1,
+    "reports": {
+      "banba-layout_main.lyrdb": {
+        "items": 0,
+        "rules": {}
+      },
+      "banba-layout_density.lyrdb": {
+        "items": 314,
+        "rules": {
+          "PL.8": 64,
+          "M1.4": 148,
+          "M2.4": 102
+        }
+      },
+      "banba-layout_antenna.lyrdb": {
+        "items": 0,
+        "rules": {}
+      }
+    }
+  },
+  "lvs": {
+    "passed": true,
+    "pairs": {
+      "net": 56,
+      "device": 103,
+      "pin": 3
+    },
+    "circuits": [
+      {
+        "layout": "banba_layout",
+        "schematic": "BANBA_LAYOUT",
+        "status": "Match"
+      }
+    ]
+  },
+  "note": "Baseline before capacitor repair; Magic C extraction was generated in a separate checked run.",
+  "capacitance_engine": "Magic 8.3.684",
+  "rc": {
+    "status": "blocked",
+    "reason": "Missing PNP source connection and incomplete resistance graph in 8.3.684; negative RC redistribution weight in 8.3.600."
+  },
+  "capacitance": {
+    "status": "passed",
+    "devices": 103,
+    "capacitances": 175,
+    "total_capacitance_f": 2.32824343e-12,
+    "ports": [
+      "VDD",
+      "VREF",
+      "VSS"
+    ]
+  }
+}

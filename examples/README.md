@@ -2,7 +2,7 @@
 
 For an external hierarchical SKY130 design, see the [overvoltage import and qualification walkthrough](../docs/OPEN_PROJECTS.md). Its source is pinned and downloaded explicitly; its current full-layout LVS needs attention.
 
-Use **File → Start here / example gallery** for guided examples that open as independent copies. All six gallery projects use embedded native definitions or generic teaching models; none needs a downloaded PDK. Five have short, saved analyses. The sixth is a placement exercise.
+Use **File → Start here / example gallery** for guided examples that open as independent copies. The first six projects below use embedded native definitions or generic teaching models; none needs a downloaded PDK. Five have short, saved analyses. The sixth is a placement exercise. Later entries include real-PDK simulations and the Banba design sequence described below.
 
 | Order | Project | Expected result / exercise | Engine |
 |---|---|---|---|
@@ -41,3 +41,17 @@ Additional `.icproj` files are working development examples; the gallery provide
 The gallery includes the supplied GF180 bandgap in two forms: a short 5 V / 25 °C startup check and the byte-for-byte original 144-analysis characterization. A SKY130 1.8 V inverter is also included. Open a copy and press F5; bundled symbols and models resolve automatically.
 
 The original upload and its identity record are in `gf180-bandgap/`. The short variant changes only the simulation control block. See [simulation setup](../SIMULATION_SETUP.md) for output locations and validation scope.
+
+## Native Banba design exercise
+
+Follow the GF180MCU Banba reference through three gallery entries. Each opens an independent project copy using the bundled models and ngspice.
+
+| Gallery entry | What to explore | Status |
+|---|---|---|
+| 10 · [Build a Banba bandgap](gf180-banba/README.md) | Native core, transistor-level amplifier, startup circuit, two testbenches and a 27-simulation resistor search | About 0.596 V at 27 °C; fast startup overshoots and retains a failing requirement |
+| 11 · [Improve the Banba bandgap](gf180-banba/pass2/README.md) | Revised bias and startup, three optimizer searches with 420 simulations, before/after performance plots and independent PVT checks | About 0.601 V at 44.40 µA nominal; lower current and overshoot trade against settling, capacitor area and mid-band supply rejection |
+| 12 · [Lay out the Banba bandgap](gf180-banba/layout/README.md) | Routed native layout and GDS, 1:8 common-centroid PNP array, matching constraints, segmented resistors and tiled MIM capacitors | Native checks and segmented schematic simulations pass; full foundry DRC/LVS and extracted performance remain open |
+
+[![The routed Banba example in the native layout editor.](gf180-banba/layout/studio-layout.png)](gf180-banba/layout/README.md)
+
+Select **banba_layout → Layout** in the third project. These examples use a 3.3 V supply and an unbuffered output with a 5 pF external testbench load; they do not establish fabrication readiness. See the linked guides for measured conditions, trade-offs and reproduction steps.

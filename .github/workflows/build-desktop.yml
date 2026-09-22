@@ -26,7 +26,7 @@ jobs:
           path: build/digital-payload
       - name: Prepare Windows Linux support for the included runtime
         if: runner.os == 'Windows'
-        timeout-minutes: 5
+        timeout-minutes: 10
         shell: pwsh
         run: |
           # WSL opens its first-run welcome window when the runtime is imported.
@@ -49,7 +49,29 @@ jobs:
             if ($LASTEXITCODE -ne 0) {
               Write-Warning 'WSL web download failed; trying the Microsoft Store update channel.'
               wsl --update
-              if ($LASTEXITCODE -ne 0) { throw 'WSL setup failed through both update channels.' }
+              if ($LASTEXITCODE -ne 0) {
+                # Server 2022 images can lack the kernel while BOTH update
+                # channels return HTTP 403. Microsoft's documented offline
+                # install uses the MSI from microsoft/WSL releases instead.
+                # https://learn.microsoft.com/en-us/windows/wsl/install#offline-install
+                Write-Warning 'WSL update channels failed; installing the pinned Microsoft release MSI.'
+                $msi = Join-Path $env:RUNNER_TEMP 'wsl.2.6.3.0.x64.msi'
+                $evidence = New-Item -ItemType Directory -Path 'build/windows-evidence' -Force
+                $installLog = Join-Path $evidence.FullName 'wsl-install.log'
+                Invoke-WebRequest -Uri 'https://github.com/microsoft/WSL/releases/download/2.6.3/wsl.2.6.3.0.x64.msi' -OutFile $msi -MaximumRetryCount 3 -RetryIntervalSec 5
+                $expected = '562c79aba6ce9b6e9170f069d31e3717f10d76dd8bfbee39b07eae0ca4a02ca0'
+                if ((Get-FileHash -LiteralPath $msi -Algorithm SHA256).Hash.ToLowerInvariant() -ne $expected) {
+                  throw 'WSL installer checksum mismatch.'
+                }
+                $installer = Start-Process msiexec.exe -ArgumentList @('/i', "`"$msi`"", '/quiet', '/norestart', '/l*v', "`"$installLog`"") -Wait -PassThru
+                if ($installer.ExitCode -notin @(0, 3010)) {
+                  Get-Content -LiteralPath $installLog -Tail 80 -ErrorAction SilentlyContinue
+                  throw "WSL MSI installation failed with exit code $($installer.ExitCode)."
+                }
+                if ($installer.ExitCode -eq 3010) {
+                  Write-Warning 'The WSL installer requested a restart; runtime qualification must still pass on this runner.'
+                }
+              }
             }
             wsl --status
             if ($LASTEXITCODE -ne 0) { throw 'WSL is still unavailable after updating.' }
@@ -199,14 +221,14 @@ jobs:
         env:
           QT_QPA_PLATFORM: windows
           QT_SCALE_FACTOR: '1'
-        run: python tests/gui_analog_scale.py --out build/analog-scale-evidence --iterations 3 --display-class native
+        run: python tests/gui_analog_scale.py --out build/analog-scale-evidence --iterations 3 --display-class native --max-edit-ms 1500
       - name: Measure full desktop analog workloads under X11
         if: runner.os == 'Linux'
         timeout-minutes: 10
         env:
           QT_QPA_PLATFORM: xcb
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: xvfb-run -a -s '-screen 0 1920x1080x24' python tests/gui_analog_scale.py --out build/analog-scale-evidence --iterations 3 --display-class virtual
+        run: xvfb-run -a -s '-screen 0 1920x1080x24' python tests/gui_analog_scale.py --out build/analog-scale-evidence --iterations 3 --display-class virtual --max-edit-ms 1500
       - name: Test hierarchy navigation and atomic design automation
         timeout-minutes: 5
         env:
@@ -463,6 +485,7 @@ jobs:
             build/windows-evidence/vga
             build/digital-first-run-ui
             build/windows-evidence/install.log
+            build/windows-evidence/wsl-install.log
             build/windows-evidence/uninstall.log
             build/windows-evidence/windows-release.json
             build/windows-evidence/dpi-*/*.json

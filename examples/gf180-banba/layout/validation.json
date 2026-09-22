@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "source_sha256": "180df2407fdf88322dabbc0f62941de49c525009be1d0ca31aa6c39586a76dbe",
+  "physical_cell": "3235118ec2deb20d",
+  "devices": 103,
+  "shapes": 5522,
+  "terminals": 293,
+  "nets": 56,
+  "bbox_um": [
+    -16.0,
+    -60.4,
+    836.1,
+    506.1
+  ],
+  "area_mm2": 0.48271465,
+  "erc": [],
+  "connectivity": [],
+  "geometry": [],
+  "matching": [],
+  "pnp_centroids_nm": {
+    "Q1": [
+      275200.0,
+      20200.0
+    ],
+    "Q2": [
+      275200.0,
+      20200.0
+    ]
+  },
+  "changes": [
+    {
+      "device": "COUT",
+      "change": "post-capacitance startup overshoot repair",
+      "original_total_side_um": 450,
+      "revised_total_side_um": 457.5
+    },
+    {
+      "device": "Q2",
+      "change": "eight explicit parallel 5 \u00d7 5 \u00b5m PNPs",
+      "count": 8
+    },
+    {
+      "device": "XAMP_RBIAS",
+      "change": "series resistor sections",
+      "count": 10,
+      "unit_length_um": 100.0,
+      "total_length_um": 1000.0
+    },
+    {
+      "device": "XSTART_RDET",
+      "change": "series resistor sections",
+      "count": 16,
+      "unit_length_um": 100.0,
+      "total_length_um": 1600.0
+    },
+    {
+      "device": "XSTART_RPULL",
+      "change": "series resistor sections",
+      "count": 20,
+      "unit_length_um": 100.0,
+      "total_length_um": 2000.0
+    },
+    {
+      "device": "COUT",
+      "change": "parallel MIM tiles on 5 nm grid",
+      "count": 25,
+      "tile_um": [
+        91.5,
+        91.5
+      ],
+      "plate_area_um2": 209306.25
+    },
+    {
+      "device": "XSTART_CTRACK",
+      "change": "parallel MIM tiles on 5 nm grid",
+      "count": 4,
+      "tile_um": [
+        96.67,
+        96.67
+      ],
+      "plate_area_um2": 37380.3556
+    },
+    {
+      "device": "XAMP_CMILLER",
+      "change": "parallel MIM tiles on 5 nm grid",
+      "count": 1,
+      "tile_um": [
+        44.72,
+        44.72
+      ],
+      "plate_area_um2": 1999.8784
+    }
+  ],
+  "qualification": "Terminal connectivity only; device recognition and foundry LVS require a qualified extraction deck.",
+  "foundry_drc": "not run",
+  "foundry_lvs": "not run",
+  "pex": "not run",
+  "project_sha256": "62cecbee9ea7f99e3067cda6db1e0afd954edeaed820d617a23fe6e8de70cca8"
+}

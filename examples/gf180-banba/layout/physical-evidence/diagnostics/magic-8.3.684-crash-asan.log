@@ -1,0 +1,210 @@
+
+Magic 8.3 revision 684 - Compiled on Mon Sep 21 16:44:36 EDT 2026.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=16384]
+Using NULL graphics device.
+Processing system .magicrc file
+Switching to WIRING tool.
+Switching to NETLIST tool.
+Switching to PICK tool.
+Switching to BOX tool.
+Loading "extract.tcl" from command line.
+Input style import: scaleFactor=10, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    obsactive mvobsactive filldiff fillpoly m1hole obsm1 fillm1 obsv1 m2hole obsm2 fillm2 obsv2 m3hole obsm3 fillm3 m4hole obsm4 fillm4 glass fillblock lvstext obscomment 
+10 Magic internal units = 1 Lambda
+Warning: Calma reading is not undoable!  I hope that's OK.
+Library written using GDS-II Release 6.0
+Library name: LIB
+Reading "banba_layout".
+Moving label "VA" from metal1 to via1 in cell banba_layout.
+Moving label "CTRL" from metal1 to via1 in cell banba_layout.
+Moving label "VB" from metal1 to via1 in cell banba_layout.
+Moving label "XAMP_TAIL" from metal1 to via1 in cell banba_layout.
+Moving label "XAMP_NMIR" from metal1 to via1 in cell banba_layout.
+Moving label "XAMP_GAIN" from metal1 to via1 in cell banba_layout.
+Moving label "XAMP_PBIAS" from metal1 to via1 in cell banba_layout.
+Moving label "XSTART_DET" from metal1 to via1 in cell banba_layout.
+Moving label "XSTART_KICK" from metal1 to via1 in cell banba_layout.
+Moving label "VE2" from metal1 to pdiffc in cell banba_layout.
+Moving label "XAMP_RBIAS_series_1" from metal1 to polycontact in cell banba_layout.
+Moving label "XAMP_RBIAS_series_2" from metal1 to polycontact in cell banba_layout.
+Moving label "XAMP_RBIAS_series_3" from metal1 to polycontact in cell banba_layout.
+Moving label "XAMP_RBIAS_series_4" from metal1 to polycontact in cell banba_layout.
+Moving label "XAMP_RBIAS_series_5" from metal1 to polycontact in cell banba_layout.
+Moving label "XAMP_RBIAS_series_6" from metal1 to polycontact in cell banba_layout.
+Moving label "XAMP_RBIAS_series_7" from metal1 to polycontact in cell banba_layout.
+Moving label "XAMP_RBIAS_series_8" from metal1 to polycontact in cell banba_layout.
+Moving label "XAMP_RBIAS_series_9" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_1" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_2" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_3" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_4" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_5" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_6" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_7" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_8" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_9" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_10" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_11" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_12" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_13" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_14" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RDET_series_15" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_1" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_2" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_3" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_4" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_5" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_6" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_7" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_8" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_9" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_10" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_11" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_12" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_13" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_14" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_15" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_16" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_17" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_18" from metal1 to polycontact in cell banba_layout.
+Moving label "XSTART_RPULL_series_19" from metal1 to polycontact in cell banba_layout.
+Extracting banba_layout into banba_layout.ext:
+Processing banba_layout
+exttosim finished.
+Note:  This option has been deprecated and is unused.
+Extracting XSTART_KICK
+Extracting VB
+Extracting VA
+=================================================================
+==5==ERROR: AddressSanitizer: heap-use-after-free on address 0x5080009b36bc at pc 0x7f9927e49467 bp 0x7ffda4303480 sp 0x7ffda4303470
+READ of size 4 at 0x5080009b36bc thread T0
+    #0 0x7f9927e49466 in ResAddTerminalPlumbing /workspace/scratch/3ead7ec2ec0c/magic-684/resis/ResUtils.c:219
+    #1 0x7f9927e4e070 in ResAddDevPlumbing /workspace/scratch/3ead7ec2ec0c/magic-684/resis/ResUtils.c:570
+    #2 0x7f9927e07422 in ResExtractNet /workspace/scratch/3ead7ec2ec0c/magic-684/resis/ResMain.c:1510
+    #3 0x7f9927e3148c in ResProcessNode /workspace/scratch/3ead7ec2ec0c/magic-684/resis/ResRex.c:1272
+    #4 0x7f9927e31def in ResCheckExtNodes /workspace/scratch/3ead7ec2ec0c/magic-684/resis/ResRex.c:1389
+    #5 0x7f9927e2a1dc in ExtResisForDef /workspace/scratch/3ead7ec2ec0c/magic-684/resis/ResRex.c:131
+    #6 0x7f9927e2e325 in CmdExtResis /workspace/scratch/3ead7ec2ec0c/magic-684/resis/ResRex.c:763
+    #7 0x7f9927de2539 in WindExecute /workspace/scratch/3ead7ec2ec0c/magic-684/windows/windMain.c:443
+    #8 0x7f9927c14078 in DBWcommands /workspace/scratch/3ead7ec2ec0c/magic-684/dbwind/DBWprocs.c:996
+    #9 0x7f9927dd5f67 in WindSendCommand /workspace/scratch/3ead7ec2ec0c/magic-684/windows/windSend.c:263
+    #10 0x7f9927dbe55f in TxTclDispatch /workspace/scratch/3ead7ec2ec0c/magic-684/textio/txCommands.c:1525
+    #11 0x7f9928189f87 in _tcl_dispatch /workspace/scratch/3ead7ec2ec0c/magic-684/tcltk/tclmagic.c:499
+    #12 0x7f992bc982dd in TclInvokeStringCommand (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0x3c2dd) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #13 0x7f992bc9a2f8 in TclNRRunCallbacks (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0x3e2f8) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #14 0x7f992bc9b6bb  (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0x3f6bb) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #15 0x7f992bd4969c in Tcl_FSEvalFileEx (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0xed69c) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #16 0x7f992bd47e6f in Tcl_EvalFile (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0xebe6f) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #17 0x7f9927ee5cff in mainInitFinal /workspace/scratch/3ead7ec2ec0c/magic-684/utils/main.c:1213
+    #18 0x7f992818c3b3 in _magic_startup /workspace/scratch/3ead7ec2ec0c/magic-684/tcltk/tclmagic.c:930
+    #19 0x7f992bc982dd in TclInvokeStringCommand (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0x3c2dd) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #20 0x7f992bc9a2f8 in TclNRRunCallbacks (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0x3e2f8) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #21 0x7f992bc9b6bb  (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0x3f6bb) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #22 0x7f992bd4969c in Tcl_FSEvalFileEx (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0xed69c) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #23 0x7f992bd47e6f in Tcl_EvalFile (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0xebe6f) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #24 0x7f992bd51c96 in Tcl_SourceRCFile (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0xf5c96) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #25 0x7f992bd521c0 in Tcl_MainEx (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0xf61c0) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #26 0x55b0f7f776cb in main /workspace/scratch/3ead7ec2ec0c/magic-684/tcltk/magicdnull.c:57
+    #27 0x7f992ba4f1c9  (/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9) (BuildId: 274eec488d230825a136fa9c4d85370fed7a0a5e)
+    #28 0x7f992ba4f28a in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28a) (BuildId: 274eec488d230825a136fa9c4d85370fed7a0a5e)
+    #29 0x55b0f7f77254 in _start (/workspace/scratch/3ead7ec2ec0c/eda-built-684/lib/magic/tcl/magicdnull+0x1254) (BuildId: 720ed255e842d609add7833699b9f6c9da31fb28)
+
+0x5080009b36bc is located 28 bytes inside of 88-byte region [0x5080009b36a0,0x5080009b36f8)
+freed by thread T0 here:
+    #0 0x7f992bf054d8 in free ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:52
+    #1 0x7f9927ee62d0 in freeMagicLegacy /workspace/scratch/3ead7ec2ec0c/magic-684/utils/malloc.c:151
+    #2 0x7f99280817ac in efFreeConn /workspace/scratch/3ead7ec2ec0c/magic-684/extflat/EFbuild.c:2596
+    #3 0x7f992807d333 in efConnectionFreeLinkedList /workspace/scratch/3ead7ec2ec0c/magic-684/extflat/EFbuild.c:1621
+    #4 0x7f9928081bf5 in EFDone /workspace/scratch/3ead7ec2ec0c/magic-684/extflat/EFdef.c:123
+    #5 0x7f9927f0034e in CmdExtToSim /workspace/scratch/3ead7ec2ec0c/magic-684/ext2sim/ext2sim.c:702
+    #6 0x7f9927de2539 in WindExecute /workspace/scratch/3ead7ec2ec0c/magic-684/windows/windMain.c:443
+    #7 0x7f9927c14078 in DBWcommands /workspace/scratch/3ead7ec2ec0c/magic-684/dbwind/DBWprocs.c:996
+    #8 0x7f9927dd5f67 in WindSendCommand /workspace/scratch/3ead7ec2ec0c/magic-684/windows/windSend.c:263
+    #9 0x7f9927dbe55f in TxTclDispatch /workspace/scratch/3ead7ec2ec0c/magic-684/textio/txCommands.c:1525
+    #10 0x7f9928189f87 in _tcl_dispatch /workspace/scratch/3ead7ec2ec0c/magic-684/tcltk/tclmagic.c:499
+    #11 0x7f992bc982dd in TclInvokeStringCommand (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0x3c2dd) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #12 0x7f992bc9a2f8 in TclNRRunCallbacks (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0x3e2f8) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #13 0x7f992bc9b6bb  (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0x3f6bb) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #14 0x7f992bd4969c in Tcl_FSEvalFileEx (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0xed69c) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #15 0x7f992bd47e6f in Tcl_EvalFile (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0xebe6f) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #16 0x7f9927ee5cff in mainInitFinal /workspace/scratch/3ead7ec2ec0c/magic-684/utils/main.c:1213
+    #17 0x7f992818c3b3 in _magic_startup /workspace/scratch/3ead7ec2ec0c/magic-684/tcltk/tclmagic.c:930
+    #18 0x7f992bc982dd in TclInvokeStringCommand (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0x3c2dd) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #19 0x7f992bc9a2f8 in TclNRRunCallbacks (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0x3e2f8) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #20 0x7f992bc9b6bb  (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0x3f6bb) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #21 0x7f992bd4969c in Tcl_FSEvalFileEx (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0xed69c) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #22 0x7f992bd47e6f in Tcl_EvalFile (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0xebe6f) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #23 0x7f992bd51c96 in Tcl_SourceRCFile (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0xf5c96) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #24 0x7f992bd521c0 in Tcl_MainEx (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0xf61c0) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #25 0x55b0f7f776cb in main /workspace/scratch/3ead7ec2ec0c/magic-684/tcltk/magicdnull.c:57
+    #26 0x7f992ba4f1c9  (/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9) (BuildId: 274eec488d230825a136fa9c4d85370fed7a0a5e)
+    #27 0x7f992ba4f28a in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28a) (BuildId: 274eec488d230825a136fa9c4d85370fed7a0a5e)
+    #28 0x55b0f7f77254 in _start (/workspace/scratch/3ead7ec2ec0c/eda-built-684/lib/magic/tcl/magicdnull+0x1254) (BuildId: 720ed255e842d609add7833699b9f6c9da31fb28)
+
+previously allocated by thread T0 here:
+    #0 0x7f992bf069c7 in malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:69
+    #1 0x7f9927ee6272 in mallocMagicLegacy /workspace/scratch/3ead7ec2ec0c/magic-684/utils/malloc.c:120
+    #2 0x7f992807e740 in efBuildCap /workspace/scratch/3ead7ec2ec0c/magic-684/extflat/EFbuild.c:1926
+    #3 0x7f992808ea5a in efReadDef /workspace/scratch/3ead7ec2ec0c/magic-684/extflat/EFread.c:275
+    #4 0x7f992808d8b0 in EFReadFile /workspace/scratch/3ead7ec2ec0c/magic-684/extflat/EFread.c:105
+    #5 0x7f9927eff822 in CmdExtToSim /workspace/scratch/3ead7ec2ec0c/magic-684/ext2sim/ext2sim.c:618
+    #6 0x7f9927de2539 in WindExecute /workspace/scratch/3ead7ec2ec0c/magic-684/windows/windMain.c:443
+    #7 0x7f9927c14078 in DBWcommands /workspace/scratch/3ead7ec2ec0c/magic-684/dbwind/DBWprocs.c:996
+    #8 0x7f9927dd5f67 in WindSendCommand /workspace/scratch/3ead7ec2ec0c/magic-684/windows/windSend.c:263
+    #9 0x7f9927dbe55f in TxTclDispatch /workspace/scratch/3ead7ec2ec0c/magic-684/textio/txCommands.c:1525
+    #10 0x7f9928189f87 in _tcl_dispatch /workspace/scratch/3ead7ec2ec0c/magic-684/tcltk/tclmagic.c:499
+    #11 0x7f992bc982dd in TclInvokeStringCommand (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0x3c2dd) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #12 0x7f992bc9a2f8 in TclNRRunCallbacks (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0x3e2f8) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #13 0x7f992bc9b6bb  (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0x3f6bb) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #14 0x7f992bd4969c in Tcl_FSEvalFileEx (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0xed69c) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #15 0x7f992bd47e6f in Tcl_EvalFile (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0xebe6f) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #16 0x7f9927ee5cff in mainInitFinal /workspace/scratch/3ead7ec2ec0c/magic-684/utils/main.c:1213
+    #17 0x7f992818c3b3 in _magic_startup /workspace/scratch/3ead7ec2ec0c/magic-684/tcltk/tclmagic.c:930
+    #18 0x7f992bc982dd in TclInvokeStringCommand (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0x3c2dd) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #19 0x7f992bc9a2f8 in TclNRRunCallbacks (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0x3e2f8) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #20 0x7f992bc9b6bb  (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0x3f6bb) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #21 0x7f992bd4969c in Tcl_FSEvalFileEx (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0xed69c) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #22 0x7f992bd47e6f in Tcl_EvalFile (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0xebe6f) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #23 0x7f992bd51c96 in Tcl_SourceRCFile (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0xf5c96) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #24 0x7f992bd521c0 in Tcl_MainEx (/workspace/scratch/3ead7ec2ec0c/eda-runtime/usr/lib/x86_64-linux-gnu/libtcl8.6.so+0xf61c0) (BuildId: 0769f00e94733abac57202713e06b656efe6b6f4)
+    #25 0x55b0f7f776cb in main /workspace/scratch/3ead7ec2ec0c/magic-684/tcltk/magicdnull.c:57
+    #26 0x7f992ba4f1c9  (/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9) (BuildId: 274eec488d230825a136fa9c4d85370fed7a0a5e)
+    #27 0x7f992ba4f28a in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28a) (BuildId: 274eec488d230825a136fa9c4d85370fed7a0a5e)
+    #28 0x55b0f7f77254 in _start (/workspace/scratch/3ead7ec2ec0c/eda-built-684/lib/magic/tcl/magicdnull+0x1254) (BuildId: 720ed255e842d609add7833699b9f6c9da31fb28)
+
+SUMMARY: AddressSanitizer: heap-use-after-free /workspace/scratch/3ead7ec2ec0c/magic-684/resis/ResUtils.c:219 in ResAddTerminalPlumbing
+Shadow bytes around the buggy address:
+  0x5080009b3400: fa fa fa fa fd fd fd fd fd fd fd fd fd fd fd fa
+  0x5080009b3480: fa fa fa fa fd fd fd fd fd fd fd fd fd fd fd fa
+  0x5080009b3500: fa fa fa fa fd fd fd fd fd fd fd fd fd fd fd fa
+  0x5080009b3580: fa fa fa fa fd fd fd fd fd fd fd fd fd fd fd fa
+  0x5080009b3600: fa fa fa fa fd fd fd fd fd fd fd fd fd fd fd fa
+=>0x5080009b3680: fa fa fa fa fd fd fd[fd]fd fd fd fd fd fd fd fa
+  0x5080009b3700: fa fa fa fa fd fd fd fd fd fd fd fd fd fd fd fa
+  0x5080009b3780: fa fa fa fa fd fd fd fd fd fd fd fd fd fd fd fa
+  0x5080009b3800: fa fa fa fa fd fd fd fd fd fd fd fd fd fd fd fa
+  0x5080009b3880: fa fa fa fa fd fd fd fd fd fd fd fd fd fd fd fa
+  0x5080009b3900: fa fa fa fa fd fd fd fd fd fd fd fd fd fd fd fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==5==ABORTING

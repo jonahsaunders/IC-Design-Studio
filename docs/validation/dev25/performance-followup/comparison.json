@@ -1,0 +1,521 @@
+{
+  "schema": 1,
+  "baseline_commit": "a2df5e81654e7509f82aa9dceaf099cc476f4d6a",
+  "candidate_identity": "Modified source hashes, measured before commit; the base commit does not identify the implementation.",
+  "scope": "Source-only, Linux Qt offscreen; three iterations per workload on the same host. No packaged or consumer-display acceptance.",
+  "reports": {
+    "baseline": {
+      "path": "baseline.json",
+      "sha256": "0959d8b3822bbdbd8007fd7dd30213ee417e79784a2c3dedd7114cf584b7ab65",
+      "status": "passed",
+      "source": {
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "sources": "1ebea4cbe42a8dd058fa919541935e09730f6442754587a9d78cdde14f898dfc"
+      },
+      "source_unchanged": true,
+      "budgets": {
+        "max_stage_ms": null,
+        "max_rss_mib": null,
+        "status": "not_configured",
+        "exceeded": []
+      }
+    },
+    "optimized": {
+      "path": "optimized.json",
+      "sha256": "de70198292d217b3dae2492a44a34f71fed108ae2041d32e95165929d27099f3",
+      "status": "passed",
+      "source": {
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "sources": "0dc1f702bc4699498410f29e5cf6717fdde7b2abca6666ca9466b0be7c6e7a4a"
+      },
+      "source_unchanged": true,
+      "budgets": {
+        "max_stage_ms": null,
+        "max_edit_ms": 1500.0,
+        "edit_stages": [
+          "layout_edit_and_full_refresh",
+          "layout_undo_and_full_refresh",
+          "layout_redo_and_full_refresh",
+          "layout_restore_and_full_refresh",
+          "edit_and_full_refresh",
+          "undo_and_full_refresh",
+          "redo_and_full_refresh",
+          "unsaved_edit_and_refresh"
+        ],
+        "max_rss_mib": null,
+        "status": "passed",
+        "exceeded": []
+      }
+    }
+  },
+  "source_files": {
+    "icstudio/model.py": {
+      "baseline_sha256": "1c2f4afd014d8969a97d879083e7df4314f2a1ecd02073b78312e25d2fcbcd9c",
+      "optimized_sha256": "3043e43db237b73b5d8e5200765565d6ed2a5ae42085a052fd01b41991c38c8a"
+    },
+    "icstudio/schematic_ui.py": {
+      "baseline_sha256": "f3ae96750c43f800495aa6ec081a49d5dc7512cd7996467058749fa3d7f740b0",
+      "optimized_sha256": "4c134fc50c515bd05d0faa52e4fb9089b93843dc5f809a57386da378024e7a2c"
+    },
+    "icstudio/workspace.py": {
+      "baseline_sha256": "bafb789e06f9dd3496a31762bbc6d4ff6fff356f617afa819dd5466c8130caa0",
+      "optimized_sha256": "097b8a6d20a15cbd5a9465bedf6a76481ab54a894239046b8e63ed8264007d31"
+    },
+    "tests/gui_analog_scale.py": {
+      "baseline_sha256": "cdc036743aeb1d92c088a04956bc75fc58a45b874af8c43e2ecba1dae4a9c8d4",
+      "optimized_sha256": "1d0c85c1a07d023b4c3d9563beceed7caca2fd9ee0ca56132c1c2abd78ecaf84"
+    }
+  },
+  "workloads": [
+    {
+      "name": "hierarchical-analog",
+      "stages": {
+        "load_full_studio": {
+          "baseline_ms": {
+            "median": 174.13495400023749,
+            "max": 178.47223300032056
+          },
+          "optimized_ms": {
+            "median": 107.91106599981504,
+            "max": 121.08502899991436
+          },
+          "median_reduction_percent": 38.03
+        },
+        "full_refresh": {
+          "baseline_ms": {
+            "median": 96.48796700003004,
+            "max": 97.89114299974244
+          },
+          "optimized_ms": {
+            "median": 77.98463299968716,
+            "max": 80.46523900020475
+          },
+          "median_reduction_percent": 19.18
+        },
+        "open_hierarchy_layout": {
+          "baseline_ms": {
+            "median": 126.73476999998456,
+            "max": 139.64704799991523
+          },
+          "optimized_ms": {
+            "median": 111.86206200000015,
+            "max": 128.2403800000793
+          },
+          "median_reduction_percent": 11.74
+        },
+        "layout_selection": {
+          "baseline_ms": {
+            "median": 57.67202000015459,
+            "max": 64.18125200025315
+          },
+          "optimized_ms": {
+            "median": 54.00250799993955,
+            "max": 60.29859000000215
+          },
+          "median_reduction_percent": 6.36
+        },
+        "layout_mouse_pan": {
+          "baseline_ms": {
+            "median": 34.37084600000162,
+            "max": 37.11939300001177
+          },
+          "optimized_ms": {
+            "median": 33.937929999865446,
+            "max": 35.36382999982379
+          },
+          "median_reduction_percent": 1.26
+        },
+        "layout_edit_and_full_refresh": {
+          "baseline_ms": {
+            "median": 148.01405699972747,
+            "max": 167.37040999987585
+          },
+          "optimized_ms": {
+            "median": 108.55449100017722,
+            "max": 124.57023999968442
+          },
+          "median_reduction_percent": 26.66
+        },
+        "layout_undo_and_full_refresh": {
+          "baseline_ms": {
+            "median": 110.66542599974127,
+            "max": 149.43611100034104
+          },
+          "optimized_ms": {
+            "median": 97.64259800022046,
+            "max": 99.65670700012197
+          },
+          "median_reduction_percent": 11.77
+        },
+        "layout_redo_and_full_refresh": {
+          "baseline_ms": {
+            "median": 111.71898500015232,
+            "max": 119.53943799971967
+          },
+          "optimized_ms": {
+            "median": 94.37843799969414,
+            "max": 95.28572600038387
+          },
+          "median_reduction_percent": 15.52
+        },
+        "layout_restore_and_full_refresh": {
+          "baseline_ms": {
+            "median": 102.24874599998657,
+            "max": 108.49622800014913
+          },
+          "optimized_ms": {
+            "median": 88.97220100016057,
+            "max": 111.5807439996388
+          },
+          "median_reduction_percent": 12.98
+        },
+        "open_hierarchy_schematic": {
+          "baseline_ms": {
+            "median": 115.30226700006097,
+            "max": 148.86165799998707
+          },
+          "optimized_ms": {
+            "median": 98.73694299994895,
+            "max": 103.95851099974607
+          },
+          "median_reduction_percent": 14.37
+        },
+        "schematic_selection": {
+          "baseline_ms": {
+            "median": 70.0421940000524,
+            "max": 73.41091499984032
+          },
+          "optimized_ms": {
+            "median": 68.42513199990208,
+            "max": 78.40484799999103
+          },
+          "median_reduction_percent": 2.31
+        },
+        "edit_and_full_refresh": {
+          "baseline_ms": {
+            "median": 98.80189800014705,
+            "max": 177.80529299989212
+          },
+          "optimized_ms": {
+            "median": 72.129281999878,
+            "max": 72.45787499959988
+          },
+          "median_reduction_percent": 27.0
+        },
+        "undo_and_full_refresh": {
+          "baseline_ms": {
+            "median": 59.74776199991538,
+            "max": 63.84303400000135
+          },
+          "optimized_ms": {
+            "median": 61.9652970003699,
+            "max": 71.96631199985859
+          },
+          "median_reduction_percent": -3.71
+        },
+        "redo_and_full_refresh": {
+          "baseline_ms": {
+            "median": 60.97321600009309,
+            "max": 64.841222999803
+          },
+          "optimized_ms": {
+            "median": 59.190568000303756,
+            "max": 61.54930200000308
+          },
+          "median_reduction_percent": 2.92
+        },
+        "save_and_full_refresh": {
+          "baseline_ms": {
+            "median": 102.62529300007373,
+            "max": 105.59089399976074
+          },
+          "optimized_ms": {
+            "median": 83.70806699986133,
+            "max": 108.49468800006434
+          },
+          "median_reduction_percent": 18.43
+        },
+        "unsaved_edit_and_refresh": {
+          "baseline_ms": {
+            "median": 93.05414399977963,
+            "max": 103.09502300015083
+          },
+          "optimized_ms": {
+            "median": 77.11447599967869,
+            "max": 88.67279400010375
+          },
+          "median_reduction_percent": 17.13
+        },
+        "queued_recovery_completion": {
+          "baseline_ms": {
+            "median": 49.546220999673096,
+            "max": 67.20640999992611
+          },
+          "optimized_ms": {
+            "median": 29.795051999826683,
+            "max": 39.29413299965745
+          },
+          "median_reduction_percent": 39.86
+        },
+        "recovery_read": {
+          "baseline_ms": {
+            "median": 40.774860000055924,
+            "max": 41.174427999976615
+          },
+          "optimized_ms": {
+            "median": 29.86882400000468,
+            "max": 31.100929000331234
+          },
+          "median_reduction_percent": 26.75
+        },
+        "reopen_saved_full_studio": {
+          "baseline_ms": {
+            "median": 183.85156800013647,
+            "max": 188.05683000027784
+          },
+          "optimized_ms": {
+            "median": 120.96985800008042,
+            "max": 123.87868599989815
+          },
+          "median_reduction_percent": 34.2
+        },
+        "restore_recovery_full_studio": {
+          "baseline_ms": {
+            "median": 157.1169439998812,
+            "max": 159.112900999844
+          },
+          "optimized_ms": {
+            "median": 105.69662600028096,
+            "max": 118.67668400009279
+          },
+          "median_reduction_percent": 32.73
+        }
+      }
+    },
+    {
+      "name": "synthetic-large",
+      "stages": {
+        "load_full_studio": {
+          "baseline_ms": {
+            "median": 2293.1126190001123,
+            "max": 2346.01938600008
+          },
+          "optimized_ms": {
+            "median": 1996.9585670000924,
+            "max": 2039.3037480002931
+          },
+          "median_reduction_percent": 12.91
+        },
+        "full_refresh": {
+          "baseline_ms": {
+            "median": 395.3432939997583,
+            "max": 463.5649739998371
+          },
+          "optimized_ms": {
+            "median": 204.13572200004637,
+            "max": 207.98813999999766
+          },
+          "median_reduction_percent": 48.36
+        },
+        "open_hierarchy_layout": {
+          "baseline_ms": {
+            "median": 556.1486639999202,
+            "max": 591.2139430001844
+          },
+          "optimized_ms": {
+            "median": 391.7295210003431,
+            "max": 554.8418029998174
+          },
+          "median_reduction_percent": 29.56
+        },
+        "layout_selection": {
+          "baseline_ms": {
+            "median": 313.1300330001068,
+            "max": 418.14265400034856
+          },
+          "optimized_ms": {
+            "median": 277.0860350001385,
+            "max": 306.7756619998363
+          },
+          "median_reduction_percent": 11.51
+        },
+        "layout_mouse_pan": {
+          "baseline_ms": {
+            "median": 90.26925900025162,
+            "max": 100.10526899986871
+          },
+          "optimized_ms": {
+            "median": 81.45921799996358,
+            "max": 94.02138299992657
+          },
+          "median_reduction_percent": 9.76
+        },
+        "layout_edit_and_full_refresh": {
+          "baseline_ms": {
+            "median": 1338.0297350004184,
+            "max": 1571.556924000106
+          },
+          "optimized_ms": {
+            "median": 887.8426750002291,
+            "max": 1130.4379839998546
+          },
+          "median_reduction_percent": 33.65
+        },
+        "layout_undo_and_full_refresh": {
+          "baseline_ms": {
+            "median": 821.5447140000833,
+            "max": 874.59814299973
+          },
+          "optimized_ms": {
+            "median": 611.1029190001318,
+            "max": 694.7613350002939
+          },
+          "median_reduction_percent": 25.62
+        },
+        "layout_redo_and_full_refresh": {
+          "baseline_ms": {
+            "median": 799.2188739999619,
+            "max": 924.1934589999801
+          },
+          "optimized_ms": {
+            "median": 593.427378999877,
+            "max": 596.3183669996397
+          },
+          "median_reduction_percent": 25.75
+        },
+        "layout_restore_and_full_refresh": {
+          "baseline_ms": {
+            "median": 881.6691019997052,
+            "max": 954.3466579998494
+          },
+          "optimized_ms": {
+            "median": 643.4921220002252,
+            "max": 682.5460989998646
+          },
+          "median_reduction_percent": 27.01
+        },
+        "open_hierarchy_schematic": {
+          "baseline_ms": {
+            "median": 417.6475809999829,
+            "max": 456.0431970003265
+          },
+          "optimized_ms": {
+            "median": 264.21299399999043,
+            "max": 339.88906400009
+          },
+          "median_reduction_percent": 36.74
+        },
+        "schematic_selection": {
+          "baseline_ms": {
+            "median": 122.39300000010189,
+            "max": 124.6505399999478
+          },
+          "optimized_ms": {
+            "median": 156.02854000007937,
+            "max": 167.13957100000698
+          },
+          "median_reduction_percent": -27.48
+        },
+        "edit_and_full_refresh": {
+          "baseline_ms": {
+            "median": 1136.4827870002046,
+            "max": 1138.3883100002095
+          },
+          "optimized_ms": {
+            "median": 954.6125749998282,
+            "max": 1000.4476670001168
+          },
+          "median_reduction_percent": 16.0
+        },
+        "undo_and_full_refresh": {
+          "baseline_ms": {
+            "median": 702.6475060001758,
+            "max": 722.9784759997528
+          },
+          "optimized_ms": {
+            "median": 505.96790800000235,
+            "max": 527.3070709999956
+          },
+          "median_reduction_percent": 27.99
+        },
+        "redo_and_full_refresh": {
+          "baseline_ms": {
+            "median": 675.4467380001188,
+            "max": 787.7193389999775
+          },
+          "optimized_ms": {
+            "median": 555.9960439995848,
+            "max": 565.6244410001818
+          },
+          "median_reduction_percent": 17.68
+        },
+        "save_and_full_refresh": {
+          "baseline_ms": {
+            "median": 670.5149520003033,
+            "max": 702.6988440002242
+          },
+          "optimized_ms": {
+            "median": 487.565381999957,
+            "max": 493.15680399968187
+          },
+          "median_reduction_percent": 27.28
+        },
+        "unsaved_edit_and_refresh": {
+          "baseline_ms": {
+            "median": 1130.2152260000184,
+            "max": 1445.160746000056
+          },
+          "optimized_ms": {
+            "median": 1014.851878999707,
+            "max": 1079.3139710003743
+          },
+          "median_reduction_percent": 10.21
+        },
+        "queued_recovery_completion": {
+          "baseline_ms": {
+            "median": 56.907359000433644,
+            "max": 58.141605999935564
+          },
+          "optimized_ms": {
+            "median": 59.652813999946375,
+            "max": 159.6531430000141
+          },
+          "median_reduction_percent": -4.82
+        },
+        "recovery_read": {
+          "baseline_ms": {
+            "median": 305.50159499989604,
+            "max": 306.12478000011834
+          },
+          "optimized_ms": {
+            "median": 162.31211300009818,
+            "max": 289.39418499976455
+          },
+          "median_reduction_percent": 46.87
+        },
+        "reopen_saved_full_studio": {
+          "baseline_ms": {
+            "median": 1225.7566950002001,
+            "max": 1264.6790740000142
+          },
+          "optimized_ms": {
+            "median": 824.4362170003114,
+            "max": 876.4692049999212
+          },
+          "median_reduction_percent": 32.74
+        },
+        "restore_recovery_full_studio": {
+          "baseline_ms": {
+            "median": 921.5766300003452,
+            "max": 998.2394639996528
+          },
+          "optimized_ms": {
+            "median": 644.349578999936,
+            "max": 644.5935140000074
+          },
+          "median_reduction_percent": 30.08
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "source_files_sha256": {
+    "icstudio/model.py": "3043e43db237b73b5d8e5200765565d6ed2a5ae42085a052fd01b41991c38c8a",
+    "icstudio/schematic_ui.py": "4c134fc50c515bd05d0faa52e4fb9089b93843dc5f809a57386da378024e7a2c",
+    "icstudio/workspace.py": "097b8a6d20a15cbd5a9465bedf6a76481ab54a894239046b8e63ed8264007d31",
+    "tests/gui_analog_scale.py": "1d0c85c1a07d023b4c3d9563beceed7caca2fd9ee0ca56132c1c2abd78ecaf84",
+    "tests/test_flatten_isolation.py": "c302d0f1f9534be0f1a2d4bc2afb71c1dcb68adaa4dc6ed67bb9dd3754467d6a"
+  },
+  "core": {
+    "command": "QT_QPA_PLATFORM=offscreen python -m unittest discover -s tests -v",
+    "tests": 988,
+    "duration_seconds": 110.219,
+    "skipped": 39,
+    "log": "core-tests.txt"
+  },
+  "gui": [
+    {
+      "command": "QT_QPA_PLATFORM=offscreen python tests/gui_wiring.py",
+      "status": "passed",
+      "log": "gui-wiring.txt"
+    },
+    {
+      "command": "QT_QPA_PLATFORM=offscreen python tests/gui_live_collaboration.py --out ../live-collaboration-followup",
+      "status": "passed",
+      "log": "gui-live.txt",
+      "scope": "Three Qt editors with a same-host HTTP server; not physical LAN/VPN acceptance."
+    }
+  ],
+  "release_materials": {
+    "command": "python scripts/check_release.py",
+    "status": "passed",
+    "documents": 91,
+    "local_links": 519,
+    "gallery_examples": 9
+  },
+  "benchmark": "comparison.json",
+  "negative_budget_check": "budget-rejection.json",
+  "limitations": [
+    "39 skipped core checks require unavailable external tools or platform capabilities; see log reasons.",
+    "No consumer-machine, signing-policy, physical LAN/VPN or final packaged qualification is claimed."
+  ]
+}
