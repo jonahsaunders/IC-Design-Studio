@@ -1,0 +1,18 @@
+[
+  "/workspace/scratch/9c821bae05d8/toolchain/bin/klayout",
+  "-b",
+  "-r",
+  "/workspace/scratch/9c821bae05d8/gf180-pv/klayout/drc/rule_decks/density.drc",
+  "-rd",
+  "input=/workspace/scratch/9c821bae05d8/IC-Design-Studio/build/banba-density-candidate/banba-density.gds",
+  "-rd",
+  "report=/workspace/scratch/9c821bae05d8/IC-Design-Studio/build/banba-density-check/negative-controls/unmodified-deck.lyrdb",
+  "-rd",
+  "topcell=banba_layout",
+  "-rd",
+  "metal_level=4LM",
+  "-rd",
+  "metal_top=11K",
+  "-rd",
+  "thr=2"
+]

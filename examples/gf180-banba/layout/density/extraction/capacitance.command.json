@@ -1,0 +1,6 @@
+[
+  "/workspace/scratch/9c821bae05d8/toolchain/bin/magic",
+  "-dnull",
+  "-noconsole",
+  "capacitance.tcl"
+]

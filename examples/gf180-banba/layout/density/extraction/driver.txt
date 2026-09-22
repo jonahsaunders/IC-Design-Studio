@@ -1,0 +1,25 @@
+import sys, json, re
+from pathlib import Path
+sys.path.insert(0, str(Path.cwd()))
+from scripts import verify_gf180_banba_physical as v
+from icstudio.model import load_project, file_digest
+from icstudio.testbenches import native_subcircuit
+base=Path.cwd().parent
+o=(Path.cwd()/'build/banba-density-check').resolve()
+gds=(Path.cwd()/'build/banba-density-candidate/banba-density.gds').resolve()
+p=load_project(v.EXAMPLE/'banba-layout.icproj')
+tech=o/'gf180mcuB.tech'
+assert v.command([sys.executable, base/'open-pdks/common/preproc.py', base/'open-pdks/gf180mcu/magic/gf180mcu.tech',tech,'-DTECHNAME=gf180mcuB','-DREVISION='+v.OPEN_PDKS_COMMIT,'-DMETALS4','-DMIM','-DTHICKMET1P1','-DHRPOLY1K','-DMAGIC_CURRENT=8.3'],o,'technology')==0
+tech.write_text(v.fix_pnp_technology(tech.read_text()))
+f=o/'extraction';f.mkdir()
+(f/'capacitance.tcl').write_text(v.magic_script(p, tech, gds)+('extract do local\nextract all\next2spice lvs\next2spice merge none\next2spice cthresh 0\next2spice -o extracted-c.spice\nsave banba_layout\nquit -noprompt\n'))
+rc=v.command([base/'toolchain/bin/magic','-dnull','-noconsole','capacitance.tcl'],f,'capacitance')
+log=(f/'capacitance.log').read_text().replace("Warning: Calma reading is not undoable!  I hope that's OK.", '')
+assert rc==0 and not re.search(r"error|warning|do not match|missing|couldn't load|unknown command",log,re.I), (rc,log[-3000:])
+reference=native_subcircuit(p,v.cell(p,'banba_layout')['id'])
+report=v.check_extracted(reference,(f/'extracted-c.spice').read_text())
+report.update(gds_sha256=file_digest(gds),technology_sha256=file_digest(tech),sha256=file_digest(f/'extracted-c.spice'),open_pdks_commit=v.OPEN_PDKS_COMMIT,scope='C-only; distributed RC not qualified',signoff=False)
+(o/'capacitance-check.json').write_text(json.dumps(report,indent=2)+'\n')
+print(json.dumps(report,indent=2),flush=True)
+s=v.simulate(p,f/'extracted-c.spice',base/'toolchain/bin/ngspice',o/'simulation',report['ports'])
+print('Simulation passed:',s['passed'],flush=True)

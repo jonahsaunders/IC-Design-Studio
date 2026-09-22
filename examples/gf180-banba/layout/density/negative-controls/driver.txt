@@ -1,0 +1,28 @@
+import sys, json, subprocess
+from pathlib import Path
+from collections import Counter
+import xml.etree.ElementTree as ET
+import klayout.db as k
+sys.path.insert(0, str(Path.cwd()))
+from icstudio.model import file_digest
+base=Path.cwd(); out=base/'build/banba-density-check/negative-controls'; out.mkdir()
+exe=base.parent/'toolchain/bin/klayout'
+patched=base/'build/banba-density-check/drc-deck/rule_decks/density.drc'
+original=base.parent/'gf180-pv/klayout/drc/rule_decks/density.drc'
+source=base/'build/banba-density-candidate/banba-density.gds'
+reports={}
+for name, removed, deck in [('unmodified-deck',None,original), ('missing-poly',(30,4),patched), ('missing-m2',(36,4),patched), ('unfilled-core',None,patched)]:
+    gds=source
+    if removed:
+        layout=k.Layout();layout.read(str(source));layout.clear_layer(layout.layer(*removed));gds=out/(name+'.gds');layout.write(str(gds))
+    elif name=='unfilled-core':gds=base/'examples/gf180-banba/layout/banba-layout.gds'
+    report=out/(name+'.lyrdb')
+    args=[str(exe),'-b','-r',str(deck),'-rd','input='+str(gds),'-rd','report='+str(report),'-rd','topcell=banba_layout','-rd','metal_level=4LM','-rd','metal_top=11K','-rd','thr=2']
+    (out/(name+'.command.json')).write_text(json.dumps(args,indent=2)+'\n')
+    with (out/(name+'.log')).open('w') as f:run=subprocess.run(args,stdout=f,stderr=subprocess.STDOUT,timeout=180)
+    assert run.returncode==0
+    counts=Counter((i.findtext('category') or '').strip("'") for i in ET.parse(report).findall('./items/item'))
+    assert counts and ('PL.8' in counts if name!='missing-m2' else 'M2.4' in counts), counts
+    reports[name]=dict(expected_failure_detected=True,gds_sha256=file_digest(gds),deck_sha256=file_digest(deck),rules=dict(counts))
+    print(name,dict(counts),flush=True)
+(out/'summary.json').write_text(json.dumps(reports,indent=2)+'\n')

@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "devices": 103,
+  "capacitances": 175,
+  "total_capacitance_f": 2.36606343e-12,
+  "ports": [
+    "VDD",
+    "VREF",
+    "VSS"
+  ],
+  "gds_sha256": "7e5d1ddd293d9386247460b7b1b85fb76a34bfbc1c0986ad54b26c377f9c0518",
+  "technology_sha256": "e3282c833847f07db3d49210e9e96b6d711ab7d815537fd9c9746a74c27a3e5b",
+  "sha256": "0b342b349bb2439d5dba8cabb6ae886ae2b6f0c63a340f869d0763f96c1505ae",
+  "open_pdks_commit": "aa3fc215a80d32437b8cca1cb3fdee819d18c4c9",
+  "scope": "C-only; distributed RC not qualified",
+  "signoff": false,
+  "fill_coupling_qualified": false,
+  "fill_coupling_limitation": "Pinned Magic technology does not extract dummy-fill capacitance; fill-only .ext cells contain only substrate records.",
+  "magic_version": "8.3.684",
+  "magic_commit": "4f53bb3091d1e4a9b2009a58f157a8a4331d4c84",
+  "ngspice_version": "42"
+}

@@ -3,6 +3,8 @@
 Distributed RC is attempted and must satisfy the existing conservation validator.
 Density and RC failures remain failures: this script never issues signoff or
 changes the input layout to satisfy a report. Use a new output directory.
+Use --drc-lvs-only to run all three DRC decks and strict LVS without requiring
+Magic, ngspice or open_pdks. A successful check is not fabrication signoff.
 """
 import argparse
 from collections import Counter
@@ -12,6 +14,7 @@ import math
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
 import xml.etree.ElementTree as ET
@@ -149,6 +152,47 @@ def locked_checkout(path, expected):
         raise ValueError('Use the clean pinned upstream checkout: ' + str(path))
 
 
+def drc_results(directory, stem, exit_code):
+    """Require complete reports and successful execution, not just no markers."""
+    reports = {}
+    for deck in ('main', 'density', 'antenna'):
+        path = directory / f'{stem}_{deck}.lyrdb'
+        if not path.is_file():
+            raise ValueError('Incomplete DRC/antenna/density output: missing ' + path.name)
+        root = ET.parse(path).getroot()
+        if root.tag != 'report-database' or root.find('items') is None or root.find('categories') is None:
+            raise ValueError('Malformed DRC report: ' + path.name)
+        counts = Counter()
+        for item in root.findall('./items/item'):
+            category = (item.findtext('category') or '').strip("'")
+            if not category:
+                raise ValueError('DRC marker has no category: ' + path.name)
+            counts[category] += 1
+        reports[path.name] = dict(items=sum(counts.values()), rules=dict(counts))
+    return dict(exit_code=exit_code, passed=exit_code == 0 and not any(
+        row['items'] for row in reports.values()), reports=reports)
+
+
+def drc_remaining(result):
+    rules = sorted({rule for data in result['reports'].values() for rule in data['rules']})
+    remaining = ['DRC closure: ' + ', '.join(rules) + '.'] if rules else []
+    if result['exit_code'] and not rules:
+        remaining.append('DRC engine failed despite empty reports; inspect drc.log.')
+    return remaining
+
+
+def include_dummy_poly(text):
+    """Count both datatypes of the same physical Poly2 mask for PL.8.
+
+    The pinned density deck already unions drawn/dummy metal but omits 30/4.
+    Keep the 14% threshold and the entire-die denominator unchanged.
+    """
+    original = 'poly2 = get_polygons(30, 0)\n'
+    if text.count(original) != 1:
+        raise ValueError('Pinned density Poly2 declaration changed.')
+    return text.replace(original, 'poly2 = get_polygons(30, 0) + get_polygons(30, 4)\n')
+
+
 def magic_script(p, technology, gds):
     lines = ['drc off', 'tech load '+tcl_word(technology), 'scalegrid 1 10',
              'gds read '+tcl_word(gds), 'load banba_layout', 'select top cell']
@@ -242,39 +286,61 @@ def verify(a):
     output.mkdir(parents=True, exist_ok=True)
     if any(output.iterdir()):
         raise ValueError('Choose an empty output directory.')
-    locked_checkout(a.pv, PV_COMMIT); locked_checkout(a.open_pdks, OPEN_PDKS_COMMIT)
+    locked_checkout(a.pv, PV_COMMIT)
+    if not a.drc_lvs_only:
+        locked_checkout(a.open_pdks, OPEN_PDKS_COMMIT)
     p = load_project(EXAMPLE/'banba-layout.icproj')
     reference = native_subcircuit(p, cell(p, 'banba_layout')['id'])
     (output/'schematic.spice').write_text(reference)
     (output/'schematic.cdl').write_text(cdl(reference))
     env = dict(os.environ, PATH=str(a.klayout.parent)+os.pathsep+os.environ['PATH'])
-    gds = EXAMPLE/'banba-layout.gds'
+    gds = a.gds or EXAMPLE/'banba-layout.gds'
     report = dict(schema=1, project_sha256=file_digest(EXAMPLE/'banba-layout.icproj'),
         gds_sha256=file_digest(gds), variant='B: 4LM, MIM B 2fF, top metal 11K',
-        pv_commit=PV_COMMIT, open_pdks_commit=OPEN_PDKS_COMMIT, signoff=False)
+        pv_commit=PV_COMMIT, signoff=False, passed=False,
+        scope='drc-lvs' if a.drc_lvs_only else 'drc-lvs-extraction-simulation')
+    if not a.drc_lvs_only:
+        report['open_pdks_commit'] = OPEN_PDKS_COMMIT
     report['tools'] = {}
-    for name, executable, args in [('klayout', a.klayout, ['-b', '-v']),
-                                   ('magic', a.magic, ['--version']), ('ngspice', a.ngspice, ['--version'])]:
-        command([executable, *args], output, name+'-version')
+    engines = [('klayout', a.klayout, ['-b', '-v'])]
+    if not a.drc_lvs_only:
+        engines += [('magic', a.magic, ['--version']), ('ngspice', a.ngspice, ['--version'])]
+    for name, executable, args in engines:
+        if command([executable, *args], output, name+'-version'):
+            raise ValueError(name + ' version probe failed; inspect its log.')
         report['tools'][name] = dict(launcher_sha256=file_digest(executable),
                                      version_log=(output/(name+'-version.log')).read_text())
-    rc = command([sys.executable, a.pv/'klayout/drc/run_drc.py', '--path='+str(gds), '--variant=B',
+    drc_runner = a.pv/'klayout/drc/run_drc.py'
+    if a.include_dummy_poly:
+        staged = output/'drc-deck'
+        shutil.copytree(a.pv/'klayout/drc', staged, ignore=shutil.ignore_patterns('testing', '__pycache__'))
+        density = staged/'rule_decks/density.drc'
+        original_hash = file_digest(density)
+        density.write_text(include_dummy_poly(density.read_text()))
+        report['density_deck_correction'] = dict(
+            reason='Include dummy Poly2 30/4 in physical mask coverage; retain PL.8 at 14%.',
+            original_sha256=original_hash, corrected_sha256=file_digest(density),
+            path=str(density))
+        drc_runner = staged/'run_drc.py'
+    rc = command([sys.executable, drc_runner, '--path='+str(gds), '--variant=B',
         '--topcell=banba_layout', '--run_dir='+str(output/'drc'), '--thr=2', '--density', '--antenna'], output, 'drc', env)
-    report['drc'] = dict(exit_code=rc, reports={})
-    for path in (output/'drc').glob('*.lyrdb'):
-        counts = Counter(item.findtext('category').strip("'") for item in ET.parse(path).findall('./items/item'))
-        report['drc']['reports'][path.name] = dict(items=sum(counts.values()), rules=dict(counts))
-    if len(report['drc']['reports']) != 3:
-        raise ValueError('Incomplete DRC/antenna/density output.')
+    report['drc'] = drc_results(output/'drc', gds.stem, rc)
+    report['remaining'] = drc_remaining(report['drc']) + ['Strict LVS has not completed.']
+    (output/'physical-verification.json').write_text(json.dumps(report, indent=2)+'\n')
     rc = command([sys.executable, a.pv/'klayout/lvs/run_lvs.py', '--layout='+str(gds),
         '--netlist='+str(output/'schematic.cdl'), '--variant=B', '--topcell=banba_layout',
         '--run_dir='+str(output/'lvs'), '--lvs_sub=VSS', '--run_mode=flat', '--thr=2',
         '--net_only', '--top_lvl_pins'], output, 'lvs', env)
-    comparison = read_database(output/'lvs/banba-layout.lvsdb')
+    comparison = read_database(output/'lvs'/f'{gds.stem}.lvsdb')
     counts = Counter(row['kind'] for row in comparison['rows'])
     passed = (rc == 0 and comparison['matched'] and all(row['status'] == 'Match' for row in comparison['rows'])
               and counts['device'] == len(devices(reference)))
-    report['lvs'] = dict(passed=passed, pairs=dict(counts), circuits=comparison['circuits'])
+    report['lvs'] = dict(exit_code=rc, passed=passed, pairs=dict(counts), circuits=comparison['circuits'])
+    report['remaining'] = drc_remaining(report['drc']) + ([] if passed else ['Strict LVS failed.'])
+    if a.drc_lvs_only:
+        report['passed'] = report['drc']['passed'] and passed
+        (output/'physical-verification.json').write_text(json.dumps(report, indent=2)+'\n')
+        return report
     (output/'physical-verification.json').write_text(json.dumps(report, indent=2)+'\n')
     if not passed:
         raise ValueError('Strict LVS failed; extracted simulation refused.')
@@ -321,20 +387,36 @@ def verify(a):
     (output/'physical-verification.json').write_text(json.dumps(report, indent=2)+'\n')
     report['simulation'] = simulate(p, folder/'extracted-c.spice', a.ngspice,
                                      output/'simulation', report['capacitance']['ports'])
-    failed_rules = sorted({rule for data in report['drc']['reports'].values() for rule in data['rules']})
-    report['remaining'] = ['Complete, terminal-verified distributed RC extraction and post-RC electrical qualification.']
-    if failed_rules:
-        report['remaining'].insert(0, 'DRC closure: '+', '.join(failed_rules)+'.')
+    report['remaining'] = drc_remaining(report['drc']) + [
+        'Complete, terminal-verified distributed RC extraction and post-RC electrical qualification.']
     if not report['simulation']['passed']:
         report['remaining'].append('Failed C-only electrical requirements; inspect simulation rows.')
     (output/'physical-verification.json').write_text(json.dumps(report, indent=2)+'\n')
     return report
 
 
-if __name__ == '__main__':
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    for name in ['pv', 'open-pdks', 'klayout', 'magic', 'ngspice', 'out']:
+    parser.add_argument('--drc-lvs-only', action='store_true',
+                        help='Run geometry, density, antenna and strict LVS; no extraction or simulation.')
+    parser.add_argument('--gds', type=lambda s: Path(s).resolve(),
+                        help='Verify a finished GDS against the saved Banba circuit.')
+    parser.add_argument('--include-dummy-poly', action='store_true',
+                        help='Correct the pinned PL.8 mask accounting to include Poly2 fill datatype 4.')
+    for name in ['pv', 'klayout', 'out']:
         parser.add_argument('--'+name, type=lambda s: Path(s).resolve(), required=True)
-    result = verify(parser.parse_args())
-    print(json.dumps({key: result[key] for key in ['lvs', 'capacitance', 'rc', 'remaining']}, indent=2))
-    sys.exit(0 if result['signoff'] else 1)
+    for name in ['open-pdks', 'magic', 'ngspice']:
+        parser.add_argument('--'+name, type=lambda s: Path(s).resolve())
+    args = parser.parse_args(argv)
+    if not args.drc_lvs_only:
+        missing = [name for name in ['open-pdks', 'magic', 'ngspice'] if getattr(args, name.replace('-', '_')) is None]
+        if missing:
+            parser.error('Full verification requires ' + ', '.join('--'+name for name in missing))
+    result = verify(args)
+    print(json.dumps({key: result[key] for key in
+        ['scope', 'passed', 'signoff', 'drc', 'lvs', 'capacitance', 'rc', 'remaining'] if key in result}, indent=2))
+    return 0 if result['passed'] else 1
+
+
+if __name__ == '__main__':
+    sys.exit(main())
