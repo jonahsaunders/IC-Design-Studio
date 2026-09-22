@@ -1,0 +1,832 @@
+{
+  "scope": "C-only extraction, measured MOS junction geometry; no distributed wire R.",
+  "load_f": 5e-12,
+  "pvt": [
+    {
+      "corner": "nominal",
+      "temperature": -40,
+      "supply": 2.7,
+      "vref": 0.599685633252959,
+      "supply_current": 3.916082634975928e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.5996856324849918,
+          "peak_vref": 0.5996856375720029,
+          "settling_seconds": 7.291850532151779e-05,
+          "tail_peak_to_peak": 5.368270195038605e-08,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5996856210379616,
+          "peak_vref": 0.6480878331938883,
+          "settling_seconds": 4.555000000000026e-05,
+          "tail_peak_to_peak": 6.197665262108742e-07,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5996856332048636,
+          "peak_vref": 0.6035224459520454,
+          "settling_seconds": 0.0006128171005271252,
+          "tail_peak_to_peak": 2.1415980100414345e-11,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "nominal",
+      "temperature": -40,
+      "supply": 3.6,
+      "vref": 0.5997009794700494,
+      "supply_current": 4.221056080336658e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.5997009791861622,
+          "peak_vref": 0.5997009791861622,
+          "settling_seconds": 7.047211797216665e-05,
+          "tail_peak_to_peak": 2.4598799219788248e-08,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5997009795969761,
+          "peak_vref": 0.6871656040026077,
+          "settling_seconds": 5.881668766924796e-05,
+          "tail_peak_to_peak": 6.944836039579627e-09,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5997009794588342,
+          "peak_vref": 0.6040282329292862,
+          "settling_seconds": 0.0004818356599499861,
+          "tail_peak_to_peak": 3.214495336578693e-11,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "nominal",
+      "temperature": 125,
+      "supply": 2.7,
+      "vref": 0.5996652858758054,
+      "supply_current": 4.53675655102113e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.5996652858915936,
+          "peak_vref": 0.5996652858915936,
+          "settling_seconds": 6.533630075644512e-05,
+          "tail_peak_to_peak": 2.0058894545371686e-09,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5996652858810071,
+          "peak_vref": 0.599665285883977,
+          "settling_seconds": 5.095000000000039e-05,
+          "tail_peak_to_peak": 1.4376113632863508e-09,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.599665285861877,
+          "peak_vref": 0.6401752284893852,
+          "settling_seconds": 0.0005959799999999995,
+          "tail_peak_to_peak": 8.729461598022681e-12,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "nominal",
+      "temperature": 125,
+      "supply": 3.6,
+      "vref": 0.5998218041902847,
+      "supply_current": 4.878585657346675e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.5998218049135126,
+          "peak_vref": 0.5998218049135126,
+          "settling_seconds": 6.332254036393902e-05,
+          "tail_peak_to_peak": 1.9778908511014492e-09,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5998218047647493,
+          "peak_vref": 0.6793165866276566,
+          "settling_seconds": 5.222000579606171e-05,
+          "tail_peak_to_peak": 9.557336033694241e-10,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5998218047407993,
+          "peak_vref": 0.6448287881700282,
+          "settling_seconds": 0.0004600448049704636,
+          "tail_peak_to_peak": 1.2694623130471427e-11,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "ff",
+      "temperature": -40,
+      "supply": 2.7,
+      "vref": 0.5990598084282914,
+      "supply_current": 4.92206929610787e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.5990597903939862,
+          "peak_vref": 0.5990597903991326,
+          "settling_seconds": 5.380509697909089e-05,
+          "tail_peak_to_peak": 7.184119965586433e-11,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5990597903723504,
+          "peak_vref": 0.6128294449011211,
+          "settling_seconds": 2.264999999999997e-05,
+          "tail_peak_to_peak": 1.6824430737472085e-10,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5990597903483976,
+          "peak_vref": 0.6020216242803818,
+          "settling_seconds": 0.0005911464460295955,
+          "tail_peak_to_peak": 2.0759394203651027e-11,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "ff",
+      "temperature": -40,
+      "supply": 3.6,
+      "vref": 0.5990801114757787,
+      "supply_current": 5.301856063304144e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.599080104357527,
+          "peak_vref": 0.5990801043611511,
+          "settling_seconds": 4.799476579596071e-05,
+          "tail_peak_to_peak": 2.8720692490935562e-11,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5990801043540209,
+          "peak_vref": 0.6459609723820454,
+          "settling_seconds": 2.863311677038162e-05,
+          "tail_peak_to_peak": 1.0076162126892996e-11,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.599080104303865,
+          "peak_vref": 0.6024158726966622,
+          "settling_seconds": 0.000459064202941089,
+          "tail_peak_to_peak": 2.6076252268580902e-11,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "ff",
+      "temperature": 125,
+      "supply": 2.7,
+      "vref": 0.5988986492937587,
+      "supply_current": 5.699440260432517e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.5988986493581238,
+          "peak_vref": 0.5988986493682577,
+          "settling_seconds": 4.660486315712712e-05,
+          "tail_peak_to_peak": 7.724376693829527e-12,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.598898649320153,
+          "peak_vref": 0.6081978189016072,
+          "settling_seconds": 2.364999999999996e-05,
+          "tail_peak_to_peak": 3.683275906496419e-12,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.598898649295812,
+          "peak_vref": 0.6312502240103711,
+          "settling_seconds": 0.0005568521268883862,
+          "tail_peak_to_peak": 9.82658399095726e-12,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "ff",
+      "temperature": 125,
+      "supply": 3.6,
+      "vref": 0.5990981020927432,
+      "supply_current": 6.12486459102815e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.5990981021400099,
+          "peak_vref": 0.5990981021516848,
+          "settling_seconds": 4.492026034565319e-05,
+          "tail_peak_to_peak": 1.1674883282353221e-11,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5990981021101955,
+          "peak_vref": 0.6343369514147797,
+          "settling_seconds": 2.792869601288159e-05,
+          "tail_peak_to_peak": 3.4819924721318785e-12,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5990981020846098,
+          "peak_vref": 0.6346815678560054,
+          "settling_seconds": 0.0004261198867016658,
+          "tail_peak_to_peak": 1.3464895864956361e-11,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "ss",
+      "temperature": -40,
+      "supply": 2.7,
+      "vref": 0.6015699578794091,
+      "supply_current": 3.247950390457657e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.6015699386320716,
+          "peak_vref": 0.6015699603157283,
+          "settling_seconds": 9.536113430864949e-05,
+          "tail_peak_to_peak": 1.9299270503925214e-06,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.6015675427611594,
+          "peak_vref": 0.6171258993212498,
+          "settling_seconds": 3.591013773317854e-05,
+          "tail_peak_to_peak": 3.703111021191585e-05,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.6015699578952403,
+          "peak_vref": 0.605843206243315,
+          "settling_seconds": 0.0006724315760388999,
+          "tail_peak_to_peak": 1.4176219087502773e-09,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "ss",
+      "temperature": -40,
+      "supply": 3.6,
+      "vref": 0.601579580827571,
+      "supply_current": 3.502609560506313e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.6015795252351536,
+          "peak_vref": 0.6015795252351536,
+          "settling_seconds": 9.098458005264349e-05,
+          "tail_peak_to_peak": 1.4555805267768562e-06,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.6015796124108099,
+          "peak_vref": 0.746106417197974,
+          "settling_seconds": 8.895356110250326e-05,
+          "tail_peak_to_peak": 1.3133410509125198e-06,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.6015795807484337,
+          "peak_vref": 0.606656861517007,
+          "settling_seconds": 0.0005308973293867976,
+          "tail_peak_to_peak": 2.4077739801953157e-11,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "ss",
+      "temperature": 125,
+      "supply": 2.7,
+      "vref": 0.6029768083813061,
+      "supply_current": 3.771545973949448e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.6029767984776145,
+          "peak_vref": 0.6029768030587414,
+          "settling_seconds": 8.539178402061728e-05,
+          "tail_peak_to_peak": 3.0607171963570323e-07,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.6029768039983749,
+          "peak_vref": 0.6029768052741654,
+          "settling_seconds": 8.117980227338823e-05,
+          "tail_peak_to_peak": 4.067851819833379e-07,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.6029768083532543,
+          "peak_vref": 0.6531619830226668,
+          "settling_seconds": 0.0006479799999999952,
+          "tail_peak_to_peak": 7.010725333600476e-12,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "ss",
+      "temperature": 125,
+      "supply": 3.6,
+      "vref": 0.6031073116484054,
+      "supply_current": 4.057051405427477e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.6031073059096616,
+          "peak_vref": 0.6031073059096616,
+          "settling_seconds": 8.086154964178683e-05,
+          "tail_peak_to_peak": 2.2775434094235436e-07,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.6031073158255045,
+          "peak_vref": 0.7251788670446769,
+          "settling_seconds": 8.342623985404548e-05,
+          "tail_peak_to_peak": 1.6888497356148946e-07,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.6031073116479942,
+          "peak_vref": 0.6593368215574366,
+          "settling_seconds": 0.0005046415485280063,
+          "tail_peak_to_peak": 7.370437593579027e-12,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "fs",
+      "temperature": -40,
+      "supply": 2.7,
+      "vref": 0.5996893498497466,
+      "supply_current": 3.88793761289407e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.5996893496880114,
+          "peak_vref": 0.599689356550355,
+          "settling_seconds": 7.61645177061323e-05,
+          "tail_peak_to_peak": 6.480891101556807e-08,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.599689350784596,
+          "peak_vref": 0.6785841839547038,
+          "settling_seconds": 6.344445065869313e-05,
+          "tail_peak_to_peak": 1.7059138401886997e-07,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5996893498700515,
+          "peak_vref": 0.6030351731209711,
+          "settling_seconds": 0.0006805073460697016,
+          "tail_peak_to_peak": 1.9987345112326693e-11,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "fs",
+      "temperature": -40,
+      "supply": 3.6,
+      "vref": 0.5997034977211113,
+      "supply_current": 4.191839446850838e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.5997034974549615,
+          "peak_vref": 0.5997034974549615,
+          "settling_seconds": 6.481161667260493e-05,
+          "tail_peak_to_peak": 2.0247809873197298e-08,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5997034979388093,
+          "peak_vref": 0.7251479251317119,
+          "settling_seconds": 6.371890096365178e-05,
+          "tail_peak_to_peak": 1.7203148461319984e-08,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5997034976289093,
+          "peak_vref": 0.6036509695369485,
+          "settling_seconds": 0.0005289177681782355,
+          "tail_peak_to_peak": 1.5405565712001135e-11,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "fs",
+      "temperature": 125,
+      "supply": 2.7,
+      "vref": 0.599677338729021,
+      "supply_current": 4.504566061156966e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.5996773387876608,
+          "peak_vref": 0.599677338787681,
+          "settling_seconds": 6.483317622114402e-05,
+          "tail_peak_to_peak": 2.3813956362417343e-09,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5996773387871089,
+          "peak_vref": 0.6613015876029906,
+          "settling_seconds": 5.015000000000037e-05,
+          "tail_peak_to_peak": 1.5381665940950029e-09,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5996773387648756,
+          "peak_vref": 0.65200216800127,
+          "settling_seconds": 0.0006439624284877023,
+          "tail_peak_to_peak": 1.0652589921278377e-11,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "fs",
+      "temperature": 125,
+      "supply": 3.6,
+      "vref": 0.5998456864230061,
+      "supply_current": 4.844857649105865e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.5998456864063376,
+          "peak_vref": 0.5998456864063376,
+          "settling_seconds": 6.1502312059226e-05,
+          "tail_peak_to_peak": 1.9114996252511673e-09,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5998456864302794,
+          "peak_vref": 0.7325154646152761,
+          "settling_seconds": 6.585000000000075e-05,
+          "tail_peak_to_peak": 2.140288279939284e-09,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5998456863899256,
+          "peak_vref": 0.6589290263594254,
+          "settling_seconds": 0.0004965753767191041,
+          "tail_peak_to_peak": 1.2807310767470881e-11,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "sf",
+      "temperature": -40,
+      "supply": 2.7,
+      "vref": 0.5996877626809614,
+      "supply_current": 3.944405154976912e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.5996877620030673,
+          "peak_vref": 0.5996877665621623,
+          "settling_seconds": 7.360407932916065e-05,
+          "tail_peak_to_peak": 5.725009444290663e-08,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5996876812901146,
+          "peak_vref": 0.6020669571019659,
+          "settling_seconds": 6.261583085164125e-05,
+          "tail_peak_to_peak": 5.7924538457987396e-06,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.599687762659652,
+          "peak_vref": 0.6043764619530858,
+          "settling_seconds": 0.0005704717845231379,
+          "tail_peak_to_peak": 2.3686053118865402e-11,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "sf",
+      "temperature": -40,
+      "supply": 3.6,
+      "vref": 0.5997045687727951,
+      "supply_current": 4.25042424142523e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.5997045685224408,
+          "peak_vref": 0.5997045685224408,
+          "settling_seconds": 7.074628524108037e-05,
+          "tail_peak_to_peak": 3.306062434926815e-08,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5997045686862985,
+          "peak_vref": 0.6320853189861907,
+          "settling_seconds": 3.376544825859946e-05,
+          "tail_peak_to_peak": 3.365168110835981e-08,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5997045687165067,
+          "peak_vref": 0.6042524029495552,
+          "settling_seconds": 0.000441235945614003,
+          "tail_peak_to_peak": 1.9002355244879254e-11,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "sf",
+      "temperature": 125,
+      "supply": 2.7,
+      "vref": 0.5996752896117393,
+      "supply_current": 4.569393217777305e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.5996752895985465,
+          "peak_vref": 0.5996752895985465,
+          "settling_seconds": 6.554278498106065e-05,
+          "tail_peak_to_peak": 2.850279123833843e-09,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.599675289598009,
+          "peak_vref": 0.5996752895993712,
+          "settling_seconds": 7.02478530588938e-05,
+          "tail_peak_to_peak": 2.623258055223232e-09,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5996752895975171,
+          "peak_vref": 0.6259162430687263,
+          "settling_seconds": 0.0005202111289784047,
+          "tail_peak_to_peak": 6.824873999278225e-12,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "corner": "sf",
+      "temperature": 125,
+      "supply": 3.6,
+      "vref": 0.5998212715950182,
+      "supply_current": 4.912725462145853e-05,
+      "retry_reason": null,
+      "ramps": [
+        {
+          "final_vref": 0.5998212715932271,
+          "peak_vref": 0.5998212715932271,
+          "settling_seconds": 6.331489516441305e-05,
+          "tail_peak_to_peak": 2.067984117282151e-09,
+          "ramp": "100n",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5998212715935101,
+          "peak_vref": 0.619699099053511,
+          "settling_seconds": 2.486082179915738e-05,
+          "tail_peak_to_peak": 1.2017109529693926e-10,
+          "ramp": "10u",
+          "settling_limit_seconds": 0.00025,
+          "retry_reason": null,
+          "passed": true
+        },
+        {
+          "final_vref": 0.5998212715716501,
+          "peak_vref": 0.6246728460587916,
+          "settling_seconds": 0.0003971212094355334,
+          "tail_peak_to_peak": 8.687162100784462e-12,
+          "ramp": "1m",
+          "settling_limit_seconds": 0.00125,
+          "retry_reason": null,
+          "passed": true
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "nominal": {
+    "vref": 0.6006157061019364,
+    "supply_current": 4.438554095964237e-05,
+    "retry_reason": null
+  },
+  "passed": true
+}

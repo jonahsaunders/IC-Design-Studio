@@ -1,0 +1,90 @@
+{
+  "passed": true,
+  "core_masks_unchanged": true,
+  "fill": {
+    "comp": {
+      "tiles": 44793,
+      "area_um2": 1119825.0
+    },
+    "poly": {
+      "tiles": 44793,
+      "area_um2": 1404708.48
+    },
+    "m1": {
+      "tiles": 281017,
+      "area_um2": 1124068.0
+    },
+    "m2": {
+      "tiles": 280918,
+      "area_um2": 1123672.0
+    },
+    "m3": {
+      "tiles": 280846,
+      "area_um2": 1123384.0
+    },
+    "m4": {
+      "tiles": 280917,
+      "area_um2": 1123668.0
+    }
+  },
+  "density_percent": {
+    "comp": 30.938319224065904,
+    "poly": 38.896700752915564,
+    "m1": 31.049533915489608,
+    "m2": 31.08981984489445,
+    "m3": 38.144191090697575,
+    "m4": 37.93642766973276
+  },
+  "density_limits_percent": {
+    "comp": [
+      25,
+      70
+    ],
+    "poly": [
+      14,
+      100
+    ],
+    "m1": [
+      30,
+      100
+    ],
+    "m2": [
+      30,
+      100
+    ],
+    "m3": [
+      30,
+      100
+    ],
+    "m4": [
+      30,
+      100
+    ]
+  },
+  "area_mm2": 3.62503465,
+  "bounds_um": [
+    -616.0,
+    -660.4,
+    1436.1,
+    1106.1
+  ],
+  "schema": 1,
+  "source_sha256": "5a9c8bb450768f8d09b1c9d0043a10e25f0de1ea64fc43f5932c251e1813b6dd",
+  "gds_sha256": "7e5d1ddd293d9386247460b7b1b85fb76a34bfbc1c0986ad54b26c377f9c0518",
+  "generator_sha256": "9e64cdb75df5542e0952f965077d4c6e2a6d98629a204edc691888d6b263a165",
+  "halo_um": 600,
+  "arrays": 7674,
+  "klayout_python_version": "0.30.5",
+  "original_area_mm2": 0.48271464999999997,
+  "signoff": false,
+  "policy": {
+    "edge_um": 30,
+    "circuit_clearance_um": 20,
+    "exclusion_clearance_um": 30,
+    "poly_comp_pitch_um": 8,
+    "poly_comp_stagger_um": 1.6,
+    "metal_pitch_um": 3.2,
+    "metal_stagger_um": 0.5,
+    "adjacent_metal_offset_um": 0.5
+  }
+}

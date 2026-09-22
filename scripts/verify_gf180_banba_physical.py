@@ -14,6 +14,7 @@ import math
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
 import xml.etree.ElementTree as ET
@@ -180,6 +181,18 @@ def drc_remaining(result):
     return remaining
 
 
+def include_dummy_poly(text):
+    """Count both datatypes of the same physical Poly2 mask for PL.8.
+
+    The pinned density deck already unions drawn/dummy metal but omits 30/4.
+    Keep the 14% threshold and the entire-die denominator unchanged.
+    """
+    original = 'poly2 = get_polygons(30, 0)\n'
+    if text.count(original) != 1:
+        raise ValueError('Pinned density Poly2 declaration changed.')
+    return text.replace(original, 'poly2 = get_polygons(30, 0) + get_polygons(30, 4)\n')
+
+
 def magic_script(p, technology, gds):
     lines = ['drc off', 'tech load '+tcl_word(technology), 'scalegrid 1 10',
              'gds read '+tcl_word(gds), 'load banba_layout', 'select top cell']
@@ -281,7 +294,7 @@ def verify(a):
     (output/'schematic.spice').write_text(reference)
     (output/'schematic.cdl').write_text(cdl(reference))
     env = dict(os.environ, PATH=str(a.klayout.parent)+os.pathsep+os.environ['PATH'])
-    gds = EXAMPLE/'banba-layout.gds'
+    gds = a.gds or EXAMPLE/'banba-layout.gds'
     report = dict(schema=1, project_sha256=file_digest(EXAMPLE/'banba-layout.icproj'),
         gds_sha256=file_digest(gds), variant='B: 4LM, MIM B 2fF, top metal 11K',
         pv_commit=PV_COMMIT, signoff=False, passed=False,
@@ -297,7 +310,19 @@ def verify(a):
             raise ValueError(name + ' version probe failed; inspect its log.')
         report['tools'][name] = dict(launcher_sha256=file_digest(executable),
                                      version_log=(output/(name+'-version.log')).read_text())
-    rc = command([sys.executable, a.pv/'klayout/drc/run_drc.py', '--path='+str(gds), '--variant=B',
+    drc_runner = a.pv/'klayout/drc/run_drc.py'
+    if a.include_dummy_poly:
+        staged = output/'drc-deck'
+        shutil.copytree(a.pv/'klayout/drc', staged, ignore=shutil.ignore_patterns('testing', '__pycache__'))
+        density = staged/'rule_decks/density.drc'
+        original_hash = file_digest(density)
+        density.write_text(include_dummy_poly(density.read_text()))
+        report['density_deck_correction'] = dict(
+            reason='Include dummy Poly2 30/4 in physical mask coverage; retain PL.8 at 14%.',
+            original_sha256=original_hash, corrected_sha256=file_digest(density),
+            path=str(density))
+        drc_runner = staged/'run_drc.py'
+    rc = command([sys.executable, drc_runner, '--path='+str(gds), '--variant=B',
         '--topcell=banba_layout', '--run_dir='+str(output/'drc'), '--thr=2', '--density', '--antenna'], output, 'drc', env)
     report['drc'] = drc_results(output/'drc', gds.stem, rc)
     report['remaining'] = drc_remaining(report['drc']) + ['Strict LVS has not completed.']
@@ -306,7 +331,7 @@ def verify(a):
         '--netlist='+str(output/'schematic.cdl'), '--variant=B', '--topcell=banba_layout',
         '--run_dir='+str(output/'lvs'), '--lvs_sub=VSS', '--run_mode=flat', '--thr=2',
         '--net_only', '--top_lvl_pins'], output, 'lvs', env)
-    comparison = read_database(output/'lvs/banba-layout.lvsdb')
+    comparison = read_database(output/'lvs'/f'{gds.stem}.lvsdb')
     counts = Counter(row['kind'] for row in comparison['rows'])
     passed = (rc == 0 and comparison['matched'] and all(row['status'] == 'Match' for row in comparison['rows'])
               and counts['device'] == len(devices(reference)))
@@ -374,6 +399,10 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--drc-lvs-only', action='store_true',
                         help='Run geometry, density, antenna and strict LVS; no extraction or simulation.')
+    parser.add_argument('--gds', type=lambda s: Path(s).resolve(),
+                        help='Verify a finished GDS against the saved Banba circuit.')
+    parser.add_argument('--include-dummy-poly', action='store_true',
+                        help='Correct the pinned PL.8 mask accounting to include Poly2 fill datatype 4.')
     for name in ['pv', 'klayout', 'out']:
         parser.add_argument('--'+name, type=lambda s: Path(s).resolve(), required=True)
     for name in ['open-pdks', 'magic', 'ngspice']:

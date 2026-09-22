@@ -1,0 +1,18 @@
+[
+  "/workspace/scratch/9c821bae05d8/toolchain/bin/klayout",
+  "-b",
+  "-r",
+  "/workspace/scratch/9c821bae05d8/IC-Design-Studio/build/banba-density-check/drc-deck/rule_decks/density.drc",
+  "-rd",
+  "input=/workspace/scratch/9c821bae05d8/IC-Design-Studio/build/banba-density-check/negative-controls/missing-m2.gds",
+  "-rd",
+  "report=/workspace/scratch/9c821bae05d8/IC-Design-Studio/build/banba-density-check/negative-controls/missing-m2.lyrdb",
+  "-rd",
+  "topcell=banba_layout",
+  "-rd",
+  "metal_level=4LM",
+  "-rd",
+  "metal_top=11K",
+  "-rd",
+  "thr=2"
+]

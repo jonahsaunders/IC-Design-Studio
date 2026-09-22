@@ -1,0 +1,14 @@
+[
+  "/workspace/scratch/9c821bae05d8/IC-Design-Studio/.venv/bin/python",
+  "/workspace/scratch/9c821bae05d8/gf180-pv/klayout/lvs/run_lvs.py",
+  "--layout=/workspace/scratch/9c821bae05d8/IC-Design-Studio/build/banba-density-candidate/banba-density.gds",
+  "--netlist=/workspace/scratch/9c821bae05d8/IC-Design-Studio/build/banba-density-check/schematic.cdl",
+  "--variant=B",
+  "--topcell=banba_layout",
+  "--run_dir=/workspace/scratch/9c821bae05d8/IC-Design-Studio/build/banba-density-check/lvs",
+  "--lvs_sub=VSS",
+  "--run_mode=flat",
+  "--thr=2",
+  "--net_only",
+  "--top_lvl_pins"
+]

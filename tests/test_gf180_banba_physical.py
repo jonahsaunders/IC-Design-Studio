@@ -64,6 +64,18 @@ class PhysicalReferenceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'declarations changed'):
             fix_pnp_technology(fixed)
 
+    def test_poly_density_correction_only_changes_mask_accounting(self):
+        original = ('poly2 = get_polygons(30, 0)\n'
+                    'if (poly2.area / CHIP.area) * 100 < 14\n'
+                    '  poly2.output("PL.8")\nend\n')
+        corrected = physical.include_dummy_poly(original)
+        self.assertEqual(corrected.splitlines()[1:], original.splitlines()[1:])
+        self.assertEqual(corrected.splitlines()[0],
+                         'poly2 = get_polygons(30, 0) + get_polygons(30, 4)')
+        for changed in [corrected, original*2, original.replace('30, 0', '30, 1')]:
+            with self.subTest(changed=changed), self.assertRaisesRegex(ValueError, 'declaration changed'):
+                physical.include_dummy_poly(changed)
+
 
 class PhysicalGateTests(unittest.TestCase):
     def setUp(self):
@@ -143,6 +155,42 @@ class PhysicalGateTests(unittest.TestCase):
         with redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as error:
             physical.main(['--pv', str(self.root), '--klayout', sys.executable, '--out', str(self.root)])
         self.assertEqual(error.exception.code, 2)
+
+    def test_finished_gds_uses_its_own_reports_and_an_isolated_deck_copy(self):
+        pv = self.root/'pv'
+        density = pv/'klayout/drc/rule_decks/density.drc'
+        density.parent.mkdir(parents=True)
+        original = 'poly2 = get_polygons(30, 0)\nif (poly2.area / CHIP.area) * 100 < 14\nend\n'
+        density.write_text(original)
+        gds = self.root/'finished.gds'; gds.write_bytes(b'test input')
+        output = self.root/'verification'
+        def command(args, folder, name, env=None):
+            folder.mkdir(parents=True, exist_ok=True)
+            (folder/(name+'.log')).write_text('test engine\n')
+            if name == 'drc':
+                self.assertIn('--path='+str(gds), args)
+                self.assertEqual(args[1], output/'drc-deck/run_drc.py')
+                self.reports(output/'drc')
+                for path in (output/'drc').glob('*.lyrdb'):
+                    path.rename(path.with_name(path.name.replace('banba-layout', 'finished')))
+            elif name == 'lvs':
+                (output/'lvs').mkdir()
+                shutil.copyfile(physical.EXAMPLE/'physical-evidence/comparison.lvsdb',
+                                output/'lvs/finished.lvsdb')
+            return 0
+        with patch.object(physical, 'locked_checkout'), patch.object(physical, 'command', side_effect=command), \
+                redirect_stdout(io.StringIO()):
+            code = physical.main(['--drc-lvs-only', '--include-dummy-poly', '--gds', str(gds),
+                '--pv', str(pv), '--klayout', sys.executable, '--out', str(output)])
+        self.assertEqual(code, 0)
+        self.assertEqual(density.read_text(), original)
+        self.assertEqual((output/'drc-deck/rule_decks/density.drc').read_text(),
+                         physical.include_dummy_poly(original))
+        report = json.loads((output/'physical-verification.json').read_text())
+        self.assertIn('density_deck_correction', report)
+        self.assertNotEqual(report['density_deck_correction']['original_sha256'],
+                            report['density_deck_correction']['corrected_sha256'])
+        self.assertEqual(report['gds_sha256'], physical.file_digest(gds))
 
 
 if __name__ == '__main__':

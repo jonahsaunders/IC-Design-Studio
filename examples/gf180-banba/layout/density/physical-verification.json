@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "project_sha256": "62cecbee9ea7f99e3067cda6db1e0afd954edeaed820d617a23fe6e8de70cca8",
+  "gds_sha256": "7e5d1ddd293d9386247460b7b1b85fb76a34bfbc1c0986ad54b26c377f9c0518",
+  "variant": "B: 4LM, MIM B 2fF, top metal 11K",
+  "pv_commit": "05e7b6adf19edf942969c1c9625f02fd87874f06",
+  "signoff": false,
+  "passed": true,
+  "scope": "drc-lvs",
+  "tools": {
+    "klayout": {
+      "launcher_sha256": "4304ba395eecd372746a413821c30572a0b980cec58180347150657562d0c39f",
+      "version_log": "KLayout 0.28.16\n"
+    }
+  },
+  "density_deck_correction": {
+    "reason": "Include dummy Poly2 30/4 in physical mask coverage; retain PL.8 at 14%.",
+    "original_sha256": "692a5043e191acc245954cf985eb1d35ca4701a4f710e990e789366e3b3717ea",
+    "corrected_sha256": "9ad0f7ed04c002d2d78f2cb5a4c96f47799c7260dca008a9aa9c0ffd18cc43d4",
+    "path": "/workspace/scratch/9c821bae05d8/IC-Design-Studio/build/banba-density-check/drc-deck/rule_decks/density.drc"
+  },
+  "drc": {
+    "exit_code": 0,
+    "passed": true,
+    "reports": {
+      "banba-density_main.lyrdb": {
+        "items": 0,
+        "rules": {}
+      },
+      "banba-density_density.lyrdb": {
+        "items": 0,
+        "rules": {}
+      },
+      "banba-density_antenna.lyrdb": {
+        "items": 0,
+        "rules": {}
+      }
+    }
+  },
+  "remaining": [],
+  "lvs": {
+    "exit_code": 0,
+    "passed": true,
+    "pairs": {
+      "net": 56,
+      "device": 103,
+      "pin": 3
+    },
+    "circuits": [
+      {
+        "layout": "banba_layout",
+        "schematic": "BANBA_LAYOUT",
+        "status": "Match"
+      }
+    ]
+  }
+}

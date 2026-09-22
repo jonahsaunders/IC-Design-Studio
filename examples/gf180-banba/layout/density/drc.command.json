@@ -1,0 +1,11 @@
+[
+  "/workspace/scratch/9c821bae05d8/IC-Design-Studio/.venv/bin/python",
+  "/workspace/scratch/9c821bae05d8/IC-Design-Studio/build/banba-density-check/drc-deck/run_drc.py",
+  "--path=/workspace/scratch/9c821bae05d8/IC-Design-Studio/build/banba-density-candidate/banba-density.gds",
+  "--variant=B",
+  "--topcell=banba_layout",
+  "--run_dir=/workspace/scratch/9c821bae05d8/IC-Design-Studio/build/banba-density-check/drc",
+  "--thr=2",
+  "--density",
+  "--antenna"
+]
