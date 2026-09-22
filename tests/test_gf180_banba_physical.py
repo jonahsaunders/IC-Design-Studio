@@ -81,7 +81,9 @@ class PhysicalGateTests(unittest.TestCase):
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
-        self.root = Path(temporary.name)
+        # Match the verifier's resolved CLI paths, including Windows 8.3 TEMP
+        # aliases such as RUNNER~1 and symlinked temporary directories.
+        self.root = Path(temporary.name).resolve()
 
     def reports(self, directory, density=False):
         directory.mkdir(parents=True, exist_ok=True)
