@@ -17,13 +17,14 @@ def main():
     os.environ['XDG_DATA_HOME'] = str(out/'profile/data')
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
     from PySide6.QtCore import QPoint, QPointF, QSettings, Qt
-    from PySide6.QtGui import QWheelEvent
+    from PySide6.QtGui import QImage, QWheelEvent
     from PySide6.QtTest import QTest
-    from PySide6.QtWidgets import QApplication, QFileDialog
+    from PySide6.QtWidgets import QApplication, QFileDialog, QMessageBox
     from unittest.mock import patch
     from icstudio.gui import Studio
     from icstudio.layout import rect
     from icstudio.layout_3d_view import OpenGLView, BACKGROUND
+    from icstudio.view_screenshot import screenshot_name, screenshot_size
     from icstudio.model import digest, example
     from test_layout_3d import fixture
     QSettings.setDefaultFormat(QSettings.IniFormat)
@@ -62,6 +63,32 @@ def main():
         pt = matrix.map(QVector3D(5-origin[0], 1-origin[1], 0))
         x, y = round((pt.x()+1)*image.width()/2), round((1-pt.y())*image.height()/2)
         assert image.pixelColor(x,y).name() != BACKGROUND.name()
+        # The export renders only the scene at a higher resolution, with the
+        # same projection and no controls, title, axes or navigation help.
+        def camera_state():
+            return (view.yaw, view.pitch, view.zoom, view.pan.x(), view.pan.y(),
+                    view.z_scale, view.explode, view.radius, view.center_z,
+                    view.center_xy, view.width(), view.height(),
+                    [(l.visible, l.z_um, l.thickness_um, l.color) for l in dialog.mesh.layers])
+        camera_before = camera_state()
+        image = view.screenshot_image()
+        assert image.size() == screenshot_size(view.width(), view.height())
+        assert camera_state() == camera_before and digest(studio.project) == before
+        pt = matrix.map(QVector3D(5-origin[0], 4-origin[1], 0))
+        x, y = round((pt.x()+1)*image.width()/2), round((1-pt.y())*image.height()/2)
+        assert image.pixelColor(x,y).name() == BACKGROUND.name()
+        pt = matrix.map(QVector3D(5-origin[0], 1-origin[1], 0))
+        x, y = round((pt.x()+1)*image.width()/2), round((1-pt.y())*image.height()/2)
+        assert image.pixelColor(x,y).name() != BACKGROUND.name()
+        visibility = [layer.visible for layer in dialog.mesh.layers]
+        for layer in dialog.mesh.layers:layer.visible = False
+        hidden = view.screenshot_image()
+        # A completely hidden mesh has no HUD burned into its screenshot.
+        background = QImage(hidden.size(), hidden.format());background.fill(BACKGROUND)
+        assert hidden == background
+        for layer, visible in zip(dialog.mesh.layers, visibility):layer.visible = visible
+        view.update();QTest.qWait(30)
+        checks.append('high-resolution viewport export preserves projection and omits overlays')
         # Draw the higher solid first, then the lower solid: occlusion must
         # follow Z rather than layer submission order, including after repaint.
         from icstudio.layout_3d_view import shade
@@ -71,6 +98,10 @@ def main():
         pt = view.matrix().map(QVector3D(5-origin[0], 1-origin[1], 10))
         x, y = round((pt.x()+1)*image.width()/2), round((1-pt.y())*image.height()/2)
         expected = shade(QColor(metal1.color), (0,0,1));actual = image.pixelColor(x,y)
+        assert max(abs(a-b) for a,b in zip(actual.getRgb()[:3], expected.getRgb()[:3])) <= 2, (actual.name(),expected.name())
+        image = view.screenshot_image()
+        x, y = round((pt.x()+1)*image.width()/2), round((1-pt.y())*image.height()/2)
+        actual = image.pixelColor(x,y)
         assert max(abs(a-b) for a,b in zip(actual.getRgb()[:3], expected.getRgb()[:3])) <= 2, (actual.name(),expected.name())
         metal1.z_um=original_z;view.fit()
         checks.append('rendered material and open hole')
@@ -98,9 +129,26 @@ def main():
         assert dialog.mesh.layers[metal_row].z_um == 4.25
         assert digest(studio.project) == before and not studio.history.undo_stack
         QTest.qWait(40);dialog.grab().save(str(out/'layout-3d.png'))
-        with patch.object(QFileDialog, 'getSaveFileName', return_value=(str(out/'saved-view'), 'PNG')):
+        with patch.object(QFileDialog, 'getSaveFileName', return_value=(str(out/'saved-view'), 'PNG')), \
+                patch.object(QMessageBox, 'question', return_value=QMessageBox.Yes):
             dialog.save_button.click()
         assert (out/'saved-view.png').is_file()
+        image = QImage(str(out/'saved-view.png'))
+        assert image.size() == screenshot_size(view.width(), view.height())
+        camera_before = camera_state()
+        with patch.object(QFileDialog, 'getSaveFileName', return_value=('', 'PNG')), \
+                patch.object(view, 'screenshot_image') as render:
+            dialog.save_button.click()
+            render.assert_not_called()
+        with patch.object(QFileDialog, 'getSaveFileName', return_value=(str(out/'failed-view.png'), 'PNG')), \
+                patch.object(view, 'screenshot_image', side_effect=RuntimeError('Screenshot fixture failure')), \
+                patch.object(QMessageBox, 'warning') as warning:
+            dialog.save_button.click()
+            warning.assert_called_once()
+            assert 'Screenshot fixture failure' in warning.call_args.args[2]
+        assert not (out/'failed-view.png').exists()
+        assert camera_state() == camera_before and digest(studio.project) == before
+        checks.append('PNG screenshot button, cancellation and export failure preserve the view')
         studio.commit(lambda p:p['cells'][0]['shapes'].append(rect('metal1',12000,0,1000,1000)), '3D refresh fixture')
         dialog.check_stale();assert 'changed' in dialog.status.text()
         dialog.refresh_button.click()
@@ -115,6 +163,10 @@ def main():
             dict(id='array',name='array',cell=tile['id'],x=0,y=0,rotation=90,mirror=True,
                  nx=2,ny=2,a=[16000,0],b=[0,16000])])
         p['cells'].append(top);p['top']=top['id'];studio.set_project(p)
+        with patch('icstudio.layout_3d_ui.save_view_screenshot') as save:
+            dialog.save_image()
+            assert save.call_args.args[2] == screenshot_name(dialog.snapshot_cell_name, 'layout-3d')
+            assert dialog.snapshot_cell_name != studio.cell['name']
         dialog.refresh_button.click();assert dialog.mesh.shape_count == 20
         QTest.qWait(40);dialog.grab().save(str(out/'layout-3d-hierarchy.png'))
         p = example('empty');top=p['cells'][0]

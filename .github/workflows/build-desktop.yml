@@ -289,6 +289,11 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_layout_stability.py --out build/recovery-workflow-evidence
+      - name: Test clean schematic and layout screenshots
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_screenshots.py --out build/view-screenshot-evidence
       - name: Test 3D layout software viewer
         timeout-minutes: 5
         env:
@@ -538,6 +543,7 @@ jobs:
             build/native-experimental-evidence
             build/recovery-workflow-evidence/gui-stability.json
             build/layout-3d-evidence
+            build/view-screenshot-evidence
             build/layout-3d-opengl-evidence
             build/native-hierarchy-evidence
             build/openems-native-evidence/report.json

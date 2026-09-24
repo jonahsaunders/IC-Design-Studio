@@ -20,7 +20,7 @@ solid geometry and are not drawn in 3D.
 | Vertical scale | Exaggerate vertical dimensions |
 | Explode gap | Separate successive layers for inspection |
 | Refresh from layout | Replace the snapshot with the current active cell |
-| Save PNG | Save the view together with region, revision and stack information |
+| Screenshot… | Save a clean, high-resolution PNG of the current camera view |
 
 The viewer is read-only. Its display controls do not change layout, PDK metadata,
 connectivity, undo history or saved project data. Edits in the main window mark
@@ -28,6 +28,11 @@ the snapshot as stale; click Refresh to update it. Refresh retains display
 overrides within the same project and PDK. Reset restores PDK/default heights;
 closing the window discards overrides. Switching projects or changing PDK stack
 metadata resets the stack. A failed refresh clears the old geometry.
+
+Screenshots preserve the current camera, visible layers, colors and displayed
+heights. They contain the rendered layout without the surrounding controls or
+navigation overlays. See [View screenshots](VIEW_SCREENSHOTS.md) for framing,
+resolution and screenshots of the schematic and 2D layout views.
 
 ## Layer heights
 

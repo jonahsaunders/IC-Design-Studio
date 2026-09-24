@@ -151,9 +151,9 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         if getattr(self,'live_presence',None):
             from .live_ui import paint_presence
             paint_presence(self,p)
-    def draw_schematic(self,p,view):
+    def draw_schematic(self,p,view,*,force_detail=False):
         self.draw_wires(p)
-        if self.scale<.35 and len(self.cell['devices'])>50 and not self.cell.get('xschem') and not self.cell.get('electrical'):
+        if not force_detail and self.scale<.35 and len(self.cell['devices'])>50 and not self.cell.get('xschem') and not self.cell.get('electrical'):
             self.draw_schematic_overview(p,view);return
         self.draw_labels(p)
         for d in self.cell['devices']:

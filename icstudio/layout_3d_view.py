@@ -2,12 +2,16 @@
 from array import array
 import math
 
-from PySide6.QtCore import QPointF, Qt, QTimer, Signal
-from PySide6.QtGui import (QColor, QMatrix4x4, QPainter, QPen, QPolygonF,
+from PySide6.QtCore import QPointF, QRectF, Qt, QTimer, Signal
+from PySide6.QtGui import (QColor, QImage, QMatrix4x4, QPainter, QPen, QPolygonF,
                           QVector3D, QOpenGLContext, QOffscreenSurface, QSurfaceFormat)
 from PySide6.QtWidgets import QApplication, QWidget
-from PySide6.QtOpenGL import QOpenGLBuffer, QOpenGLShader, QOpenGLShaderProgram
+from PySide6.QtOpenGL import (QOpenGLBuffer, QOpenGLFramebufferObject,
+                             QOpenGLFramebufferObjectFormat, QOpenGLShader,
+                             QOpenGLShaderProgram)
 from PySide6.QtOpenGLWidgets import QOpenGLWidget
+
+from .view_screenshot import screenshot_size
 
 BACKGROUND = QColor('#101b2c')
 
@@ -136,7 +140,14 @@ class SoftwareView(Camera, QWidget):
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.fillRect(self.rect(), BACKGROUND)
+        self.draw_scene(painter, self.width(), self.height())
+        painter.setRenderHint(QPainter.Antialiasing)
+        self.hud(painter)
+        painter.end()
+
+    def draw_scene(self, painter, width, height):
+        bounds = QRectF(0, 0, width, height)
+        painter.fillRect(bounds, BACKGROUND)
         if self.mesh:
             matrix, rotation, faces = self.matrix(), self.rotation(), []
             for i, layer in enumerate(self.mesh.layers):
@@ -149,9 +160,9 @@ class SoftwareView(Camera, QWidget):
                     if rotation.mapVector(QVector3D(*normal)).z() <= 0:
                         continue
                     points = [matrix.map(QVector3D(v[0], v[1], z + v[2] * thickness)) for v in (a, b, c)]
-                    screen = QPolygonF([QPointF((v.x() + 1) * self.width() / 2,
-                                                (1 - v.y()) * self.height() / 2) for v in points])
-                    if not screen.boundingRect().intersects(self.rect().toRectF()):
+                    screen = QPolygonF([QPointF((v.x() + 1) * width / 2,
+                                                (1 - v.y()) * height / 2) for v in points])
+                    if not screen.boundingRect().intersects(bounds):
                         continue
                     if normal not in colors:
                         colors[normal] = shade(color, normal)
@@ -161,9 +172,23 @@ class SoftwareView(Camera, QWidget):
             for _, screen, color in sorted(faces, key=lambda f: f[0], reverse=True):
                 painter.setBrush(color)
                 painter.drawPolygon(screen)
-        painter.setRenderHint(QPainter.Antialiasing)
-        self.hud(painter)
-        painter.end()
+
+    def screenshot_image(self, scale=2):
+        """Render the current viewport at export resolution without its HUD."""
+        size = screenshot_size(self.width(), self.height(), scale)
+        # Antialias the finished scene, rather than each triangle: blending
+        # shared triangle edges independently leaves seams across solid faces.
+        # The same size limit bounds temporary memory for large viewports.
+        render_size = screenshot_size(size.width(), size.height(), 2)
+        image = QImage(render_size, QImage.Format_ARGB32_Premultiplied)
+        if image.isNull():
+            raise RuntimeError('Unable to allocate the screenshot image.')
+        painter = QPainter(image)
+        try:
+            self.draw_scene(painter, render_size.width(), render_size.height())
+        finally:
+            painter.end()
+        return image if render_size == size else image.scaled(size, Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
 
 
 def gl_format():
@@ -258,45 +283,49 @@ class OpenGLView(Camera, QOpenGLWidget):
                 self.buffers.append((buffer, len(values) // 6))
         self.dirty = False
 
+    def draw_scene(self):
+        """Draw solids into the current framebuffer, without widget overlays."""
+        gl = self.context().functions()
+        gl.glClearColor(BACKGROUND.redF(), BACKGROUND.greenF(), BACKGROUND.blueF(), 1.)
+        gl.glDepthMask(True)
+        gl.glDisable(0x0BE2)  # GL_BLEND; reset state after the QPainter overlay
+        gl.glDisable(0x0C11)  # GL_SCISSOR_TEST
+        gl.glEnable(0x0B71)  # GL_DEPTH_TEST
+        gl.glDepthFunc(0x0203)  # GL_LEQUAL
+        gl.glClear(0x00004000 | 0x00000100)
+        if self.dirty:
+            self.upload()
+        program = self.program
+        program.bind()
+        program.setUniformValue('mvp', self.matrix())
+        for i, (buffer, count) in enumerate(self.buffers):
+            layer = self.mesh.layers[i]
+            if not layer.visible or not count:
+                continue
+            z, thickness = self.layer_z(i, layer)
+            color = QColor(layer.color)
+            # PySide6 exposes scalar named uniforms through the explicit
+            # 1f overload; setUniformValue(name, float) is not supported.
+            program.setUniformValue1f(program.uniformLocation('elevation'), float(z))
+            program.setUniformValue1f(program.uniformLocation('thickness'), float(thickness))
+            program.setUniformValue('color', QVector3D(color.redF(), color.greenF(), color.blueF()))
+            buffer.bind()
+            for name, offset in [('position', 0), ('normal', 12)]:
+                location = program.attributeLocation(name)
+                program.enableAttributeArray(location)
+                program.setAttributeBuffer(location, 0x1406, offset, 3, 24)  # GL_FLOAT
+            gl.glDrawArrays(0x0004, 0, count)  # GL_TRIANGLES
+            for name in ('position', 'normal'):
+                program.disableAttributeArray(program.attributeLocation(name))
+            buffer.release()
+        program.release()
+        gl.glDisable(0x0B71)
+
     def paintGL(self):
         if self.error or not self.program:
             return
         try:
-            gl = self.context().functions()
-            gl.glClearColor(BACKGROUND.redF(), BACKGROUND.greenF(), BACKGROUND.blueF(), 1.)
-            gl.glDepthMask(True)
-            gl.glDisable(0x0BE2)  # GL_BLEND; reset state after the QPainter overlay
-            gl.glDisable(0x0C11)  # GL_SCISSOR_TEST
-            gl.glEnable(0x0B71)  # GL_DEPTH_TEST
-            gl.glDepthFunc(0x0203)  # GL_LEQUAL
-            gl.glClear(0x00004000 | 0x00000100)
-            if self.dirty:
-                self.upload()
-            program = self.program
-            program.bind()
-            program.setUniformValue('mvp', self.matrix())
-            for i, (buffer, count) in enumerate(self.buffers):
-                layer = self.mesh.layers[i]
-                if not layer.visible or not count:
-                    continue
-                z, thickness = self.layer_z(i, layer)
-                color = QColor(layer.color)
-                # PySide6 exposes scalar named uniforms through the explicit
-                # 1f overload; setUniformValue(name, float) is not supported.
-                program.setUniformValue1f(program.uniformLocation('elevation'), float(z))
-                program.setUniformValue1f(program.uniformLocation('thickness'), float(thickness))
-                program.setUniformValue('color', QVector3D(color.redF(), color.greenF(), color.blueF()))
-                buffer.bind()
-                for name, offset in [('position', 0), ('normal', 12)]:
-                    location = program.attributeLocation(name)
-                    program.enableAttributeArray(location)
-                    program.setAttributeBuffer(location, 0x1406, offset, 3, 24)  # GL_FLOAT
-                gl.glDrawArrays(0x0004, 0, count)  # GL_TRIANGLES
-                for name in ('position', 'normal'):
-                    program.disableAttributeArray(program.attributeLocation(name))
-                buffer.release()
-            program.release()
-            gl.glDisable(0x0B71)
+            self.draw_scene()
             painter = QPainter(self)
             painter.setRenderHint(QPainter.Antialiasing)
             self.hud(painter)
@@ -304,3 +333,39 @@ class OpenGLView(Camera, QOpenGLWidget):
         except Exception as exc:
             self.error = str(exc)
             QTimer.singleShot(0, lambda: self.failed.emit(self.error))
+
+    def screenshot_image(self, scale=2):
+        """Render a depth-buffered image without resizing or grabbing the widget."""
+        if not self.isValid() or self.error or not self.program:
+            raise RuntimeError('The 3D renderer is not ready. Try again after the view appears.')
+        size = screenshot_size(self.width(), self.height(), scale)
+        self.makeCurrent()
+        gl = self.context().functions()
+        framebuffer = None
+        try:
+            fmt = QOpenGLFramebufferObjectFormat()
+            fmt.setAttachment(QOpenGLFramebufferObject.CombinedDepthStencil)
+            fmt.setSamples(4)
+            framebuffer = QOpenGLFramebufferObject(size, fmt)
+            if not framebuffer.isValid():
+                # Some drivers support the widget's framebuffer but cannot
+                # allocate a multisample export target at this size.
+                framebuffer = None
+                fmt.setSamples(0)
+                framebuffer = QOpenGLFramebufferObject(size, fmt)
+            if not framebuffer.isValid() or not framebuffer.bind():
+                raise RuntimeError('Unable to allocate the 3D screenshot framebuffer.')
+            gl.glViewport(0, 0, size.width(), size.height())
+            self.draw_scene()
+            image = framebuffer.toImage()
+            if image.isNull():
+                raise RuntimeError('Unable to read the 3D screenshot image.')
+            return image
+        finally:
+            gl.glBindFramebuffer(0x8D40, self.defaultFramebufferObject())  # GL_FRAMEBUFFER
+            ratio = self.devicePixelRatioF()
+            gl.glViewport(0, 0, round(self.width() * ratio), round(self.height() * ratio))
+            # Destroy the export's GPU resources while this context is current.
+            framebuffer = None
+            self.doneCurrent()
+            self.update()

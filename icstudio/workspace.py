@@ -104,6 +104,8 @@ class WorkspaceMixin:
             canvas.selected.connect(lambda ids,c=canvas:self.select(ids,c.mode));canvas.move_objects.connect(lambda ids,x,y,c=canvas:self.move(ids,x,y,c.mode));canvas.message.connect(self.canvas_message);canvas.connect_pins.connect(self.connect);canvas.shape_added.connect(self.add_shape)
             canvas.placement_requested.connect(self.place_device_at);canvas.tool_cancelled.connect(self.cancel_tool);canvas.context_requested.connect(lambda pos,c=canvas:self.canvas_context(c,pos));canvas.inspect_requested.connect(self.reveal_properties);canvas.view_changed.connect(self.update_canvas_footer)
         foot,fl=box(False,(14,4,10,4),8,'canvasFooter');self.tool_hint=label('Select · click an object to edit','muted');fl.addWidget(self.tool_hint,1);self.grid_label=label('10 unit grid','muted');fl.addWidget(self.grid_label);self.zoom_label=label('100%','muted');fl.addWidget(self.zoom_label);self.fit_button=self.button('Fit','fit',self.fit_active,tip='Fit design (F)');fl.addWidget(self.fit_button);cv.addWidget(foot)
+        self.screenshot_button=self.button('Screenshot','camera',self.screenshot_active,tip='Save a clean, high-resolution PNG of the current view')
+        fl.insertWidget(fl.indexOf(self.fit_button),self.screenshot_button)
         self.setCentralWidget(center)
         # Navigation separates document hierarchy from the objects in the active cell.
         navbody,nv=box(True,spacing=0,name='sidebarBody');self.navtabs=QTabWidget();nv.addWidget(self.navtabs)
@@ -326,6 +328,23 @@ class WorkspaceMixin:
     def place_device_at(self,x,y):
         if not self.schematic.placement:return
         d=clone(self.schematic.placement);d['id']=uid();d.update(x=x,y=y);self.cancel_tool();self.commit(lambda p:next(c for c in p['cells'] if c['id']==self.cid)['devices'].append(d),'Place '+d['name']);self.select([d['id']],'schematic');self.reveal_properties();self.schematic.setFocus()
+    def screenshot_active(self):
+        if self.mode_combo.currentIndex()==2:
+            menu=QMenu(self)
+            menu.addAction('Schematic screenshot…',lambda:self.save_canvas_screenshot(self.schematic))
+            menu.addAction('Layout screenshot…',lambda:self.save_canvas_screenshot(self.layout))
+            menu.exec(self.screenshot_button.mapToGlobal(self.screenshot_button.rect().bottomLeft()))
+            menu.deleteLater()
+        else:
+            self.save_canvas_screenshot(self.layout if self.mode_combo.currentIndex()==1 else self.schematic)
+
+    def save_canvas_screenshot(self,canvas):
+        from .view_screenshot import canvas_image,save_view_screenshot,screenshot_name
+        name=screenshot_name(self.cell['name'],canvas.mode)
+        path=save_view_screenshot(self,lambda:canvas_image(canvas),name,'Save '+canvas.mode+' screenshot')
+        if path:self.statusBar().showMessage('Screenshot saved: '+path,8000)
+        return path
+
     def fit_active(self):
         for c in (self.schematic,self.layout):
             if c.isVisible():c.fit()
@@ -333,6 +352,14 @@ class WorkspaceMixin:
     def update_canvas_footer(self):
         if not hasattr(self,'zoom_label'):return
         active=self.layout if self.current_mode=='layout' else self.schematic;self.zoom_label.setText(f'{active.scale*100:.0f}%');self.grid_label.setText(f'{self.project["pdk"].get("grid",5)} nm grid' if self.current_mode=='layout' else '10 unit grid')
+        self.adapt_screenshot_button()
+    def adapt_screenshot_button(self):
+        if not hasattr(self,'screenshot_button'):return
+        compact=self.screenshot_button.parentWidget().width()<560
+        if compact==getattr(self,'_screenshot_compact',None):return
+        self._screenshot_compact=compact
+        self.screenshot_button.setText('' if compact else 'Screenshot')
+        self.screenshot_button.setFixedWidth(40 if compact else self.screenshot_button.sizeHint().width())
     def canvas_message(self,text):
         if text.startswith('X '):self.statusBar().showMessage(text)
         else:self.tool_hint.setText(text)
@@ -603,6 +630,7 @@ class WorkspaceMixin:
         super().resizeEvent(event)
         if hasattr(self,'tool_buttons'):QTimer.singleShot(0,self.adapt_tools)
     def adapt_tools(self):
+        self.adapt_screenshot_button()
         compact=self.toolstrip.width()<740
         names={0:'Select',1:'Wire',2:'Rectangle',3:'Polygon',4:'Path',5:'Measure'}
         for i,b in self.tool_buttons.items():

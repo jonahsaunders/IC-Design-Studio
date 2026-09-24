@@ -25,6 +25,8 @@ def icon(name, color='#606c7e', size=20):
     elif name=='plus':line(12,5,12,19);line(5,12,19,12)
     elif name=='close':line(6,6,18,18);line(18,6,6,18)
     elif name=='search':p.drawEllipse(QRectF(4,3,12,12));line(15,14,21,20)
+    elif name=='camera':
+        p.drawRoundedRect(QRectF(3,7,18,13),2,2);poly([(7,7),(9,4),(15,4),(17,7)]);p.drawEllipse(QRectF(8,10,8,8))
     elif name=='play':p.setBrush(QColor(color));p.drawPolygon(QPolygonF([QPointF(7,4),QPointF(20,12),QPointF(7,20)]))
     elif name=='stop':p.drawRoundedRect(QRectF(6,6,12,12),2,2)
     elif name in ('undo','redo'):
