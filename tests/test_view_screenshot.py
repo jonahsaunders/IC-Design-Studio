@@ -45,7 +45,12 @@ class ScreenshotTests(unittest.TestCase):
                 writer.return_value.write.return_value = False
                 writer.return_value.errorString.return_value = 'write failed'
                 with self.assertRaisesRegex(OSError, 'write failed'): write_png(image, target)
+                # Retain the device as a writer or traceback can, so cleanup
+                # cannot rely on garbage collection to release a Windows lock.
+                output = writer.call_args.args[0]
+                self.assertFalse(output.isOpen(), 'Failed export left its temporary file open')
             self.assertEqual(target.read_bytes(), original)
+            self.assertEqual(list(Path(folder).iterdir()), [target])
 
     def test_appended_extension_never_silently_replaces_an_existing_image(self):
         with tempfile.TemporaryDirectory() as folder:

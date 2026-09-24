@@ -100,6 +100,9 @@ def write_png(image, path):
     finally:
         if output.isOpen():
             output.cancelWriting()
+            # Cancellation only marks the write as failed. Commit discards the
+            # temporary file and closes its handle even if a writer retains it.
+            output.commit()
 
 
 def save_view_screenshot(parent, renderer, suggested_name, title='Save screenshot'):
