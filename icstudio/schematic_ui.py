@@ -84,7 +84,19 @@ class SchematicMixin(AnnotationMixin,NetLabelMixin):
                         if a['kind']=='wire' and a['id']==w['id']:a['point']=[a['point'][0]+x,a['point'][1]+y]
             for l in c.get('labels',[]):
                 if l['id'] in ids and not (l['anchor'].get('id') in ids):l['offset']=[l['offset'][0]+x,l['offset'][1]+y]
-        self.guard(lambda:self.commit(edit,'Move selection'))
+        def commit_move():
+            fast=getattr(self.history,'commit_schematic_transform',None)
+            # A free-standing label drag moves artwork while Capture Move
+            # relocates its electrical anchor. Keep the existing command for
+            # that case, remote sessions and edits that change named nets.
+            point_labels=any(l['id'] in ids and l['anchor']['kind']=='point' for l in self.cell.get('labels',[]))
+            normalized_labels=all('net_labels' in d for d in self.cell['devices'])
+            if fast and not getattr(self,'live_client',None) and 'wires' in self.cell and not point_labels and normalized_labels:
+                if not self.flush_inspector():return
+                if fast(self.cid,ids,x,y,label='Move selection'):
+                    self.queue_recovery(validated=True);self.refresh();return
+            self.commit(edit,'Move selection')
+        self.guard(commit_move)
 
     def delete(self):
         if isinstance(QApplication.focusWidget(),(QLineEdit,QPlainTextEdit)):return

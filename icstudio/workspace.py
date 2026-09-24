@@ -10,7 +10,7 @@ from PySide6.QtWidgets import (QApplication, QWidget, QVBoxLayout, QHBoxLayout, 
     QScrollArea, QLineEdit, QPlainTextEdit, QTableWidget, QTableWidgetItem,
     QAbstractItemView, QHeaderView, QProgressBar, QCheckBox, QMenu, QDialog,
     QDialogButtonBox, QSizePolicy, QButtonGroup, QStackedWidget, QDoubleSpinBox)
-from .model import clone, device, uid, digest, design_digest, scalar, validate, flatten
+from .model import clone, device, uid, digest, design_digest, scalar, validate, flatten, History
 from .canvas import Canvas
 from .plot import WavePlot, COLORS
 from .ui_style import icon, palette, stylesheet, apply_native_window_theme
@@ -201,17 +201,35 @@ class WorkspaceMixin:
                 sub=QTreeWidgetItem(item,[title]);sub.setIcon(0,icon('wire' if mode==0 else 'layers',t['muted']));sub.setData(0,Qt.UserRole,('view',c['id'],mode))
                 if c['id']==self.cid and mode==self.mode_combo.currentIndex():self.tree.setCurrentItem(sub)
         self.tree.setMaximumHeight(min(300,36*(len(self.project['cells'])+2)+10));self.cell_combo.setCurrentIndex(next(i for i,c in enumerate(self.project['cells']) if c['id']==self.cid))
-        self.schematic.set_data(self.cell,self.project['pdk'],self.selection,self.net);self.layout.set_data(self.cell,self.project['pdk'],self.selection,self.net,revision=self.project['revision'])
-        self.outline.blockSignals(True);self.outline.clear();outline_icons={}
-        for d in self.cell['devices']:
-            if d['kind'] not in outline_icons:outline_icons[d['kind']]=icon(DEVICE_ICONS[d['kind']],t['muted'])
-            it=QListWidgetItem(d['name']+'   '+device_description(d));it.setData(Qt.UserRole,d['id']);it.setToolTip(d['name']+' · '+d.get('value',''));it.setIcon(outline_icons[d['kind']]);self.outline.addItem(it);it.setSelected(d['id'] in self.selection)
-        self.outline.blockSignals(False);self.nav_empty.setVisible(not self.cell['devices']);self.layers.blockSignals(True);self.layers.clear()
+        self.schematic.set_data(self.cell,self.project['pdk'],self.selection,self.net);self.layout.set_data(self.cell,self.project['pdk'],self.selection,self.net,revision=self.project['revision'],immutable=isinstance(self.history,History))
+        self.refresh_outline();self.nav_empty.setVisible(not self.cell['devices']);self.layers.blockSignals(True);self.layers.clear()
         for l in self.project['pdk']['layers']:
             it=QListWidgetItem(l['name']);it.setIcon(icon('layers',l['color']));it.setFlags(it.flags()|Qt.ItemIsUserCheckable);it.setCheckState(Qt.Checked if l['name'] in self.layout.visible_layers else Qt.Unchecked);self.layers.addItem(it)
         self.layers.blockSignals(False);self.undo_action.setEnabled(bool(self.history.undo_stack));self.redo_action.setEnabled(bool(self.history.redo_stack));self.update_save_status(current_hash);self.tech_name.setText(self.project['pdk']['name']);self.tech_detail.setText(self.project['pdk']['revision']+' · '+self.project['pdk'].get('status','unqualified'));self.rebuilding=False;self._inspector_dirty=False;self.build_inspector();self.update_result_status();self.filter_navigation();self.sync_tools()
         if not getattr(self,'analysis_dirty',False):self.load_analysis()
         if fit:QTimer.singleShot(20,self.fit_active)
+
+    def refresh_outline(self):
+        """Keep Qt rows alive when an edit only changes design geometry.
+
+        Compare displayed values, rather than project identity: undo, loading a
+        project and ordinary transactions may all replace the source objects.
+        """
+        rows=[(d['id'],d['name']+'   '+device_description(d),d['name']+' · '+d.get('value',''),d['kind']) for d in self.cell['devices']]
+        previous=getattr(self,'_outline_rows',[]);theme_changed=getattr(self,'_outline_dark',None)!=self.dark
+        structural=[r[0] for r in previous]!=[r[0] for r in rows] or self.outline.count()!=len(rows)
+        selected=set(self.selection);outline_icons={};self.outline.blockSignals(True)
+        if structural:self.outline.clear()
+        for i,row in enumerate(rows):
+            ident,title,tooltip,kind=row;it=QListWidgetItem() if structural else self.outline.item(i)
+            if structural or row!=previous[i]:
+                it.setText(title);it.setToolTip(tooltip);it.setData(Qt.UserRole,ident)
+            if structural or theme_changed or kind!=previous[i][3]:
+                if kind not in outline_icons:outline_icons[kind]=icon(DEVICE_ICONS[kind],palette(self.dark)['muted'])
+                it.setIcon(outline_icons[kind])
+            if structural:self.outline.addItem(it)
+            if it.isSelected()!=(ident in selected):it.setSelected(ident in selected)
+        self.outline.blockSignals(False);self._outline_rows=rows;self._outline_dark=self.dark
 
     def filter_navigation(self,*args):
         q=self.project_search.text().lower()
@@ -501,10 +519,12 @@ class WorkspaceMixin:
         reason=requirement(self.project);self.analysis_engine.setCurrentIndex(self.analysis_engine.findData(selected(self.project)))
         self.analysis_engine.setEnabled(not reason);self.engine_requirement.setText(reason);self.engine_requirement.setVisible(bool(reason))
         for k,w in self.analysis_fields.items():w.setText(str(a[k]))
-        self.analysis_source.clear()
-        try:names=[d['name'] for d in flatten(self.project,self.cid) if d['kind'] in ('V','I')]
+        from .analysis_sources import source_names
+        try:names=source_names(self.project,self.cid)
         except ValueError:names=[]
-        self.analysis_source.addItems(names);self.analysis_source.setCurrentText(a['source']);self._loading_analysis=False;self.analysis_dirty=False;self.analysis_visibility()
+        if [self.analysis_source.itemText(i) for i in range(self.analysis_source.count())]!=names:
+            self.analysis_source.clear();self.analysis_source.addItems(names)
+        self.analysis_source.setCurrentText(a['source']);self._loading_analysis=False;self.analysis_dirty=False;self.analysis_visibility()
     def run_dialog(self):
         self.inspector.show();self.inspector_tabs.setCurrentIndex(1);self.analysis_type.setFocus()
     def quick_run(self):

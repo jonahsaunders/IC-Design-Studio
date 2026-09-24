@@ -104,6 +104,32 @@ class GeometryCacheTests(unittest.TestCase):
         self.shapes[0]['points'][0][0]=-20;self.built.clear();self.cache.update(self.shapes)
         self.assertEqual(self.built,['0']);self.assertEqual(self.cache.index.query((-20,0,-20,0)),[0])
 
+    def test_immutable_snapshots_skip_unchanged_geometry_and_update_replaced_rows(self):
+        from unittest.mock import patch
+        from icstudio.layout_cache import geometry_key
+        self.cache.update(self.shapes,1,immutable=True);display=self.cache.display_revision;index=self.cache.index
+        with patch('icstudio.layout_cache.geometry_key',wraps=geometry_key) as geometry:
+            self.cache.update(self.shapes,2,immutable=True)
+            self.assertEqual(geometry.call_count,0);self.assertIs(self.cache.index,index)
+            changed=list(self.shapes);changed[0]={**changed[0],'points':[[-10,0],[5,5]]}
+            self.cache.update(changed,3,immutable=True)
+            self.assertEqual(geometry.call_count,1)
+        self.assertGreater(self.cache.display_revision,display)
+        self.assertEqual(self.cache.index.query((-10,0,-10,0)),[0])
+        self.cache.update(self.shapes,4,immutable=True)
+        self.assertEqual(self.cache.index.query((-10,0,-10,0)),[])
+
+    def test_display_revision_tracks_metadata_and_snapshot_restore(self):
+        self.cache.update(self.shapes,1,immutable=True);initial=self.cache.display_revision
+        unchanged=deepcopy(self.shapes);self.cache.update(unchanged,2)
+        self.assertEqual(self.cache.display_revision,initial)
+        for field,value in (('net','signal'),('layer','metal2'),('device_id','linked')):
+            changed=deepcopy(unchanged);changed[0][field]=value
+            before=self.cache.display_revision;self.cache.update(changed,3)
+            self.assertGreater(self.cache.display_revision,before)
+            before=self.cache.display_revision;self.cache.update(unchanged,2)
+            self.assertGreater(self.cache.display_revision,before)
+
     def test_metadata_reorder_removal_and_layer_changes(self):
         self.cache.update(self.shapes,1);paths=list(self.cache.paths);self.built.clear()
         changed=deepcopy(list(reversed(self.shapes)));changed[0]['layer']='metal2';changed[0]['net']='a'

@@ -49,13 +49,21 @@ class PhysicalWorkspaceMixin:
 
     def refresh_placement(self):
         from .analog_constraints import findings
-        self._placement_rows=placement_inventory(self.project,self.cid);self.placement_table.setRowCount(len(self._placement_rows))
+        self._placement_rows=placement_inventory(self.project,self.cid)
+        if self.placement_table.rowCount()!=len(self._placement_rows):self.placement_table.setRowCount(len(self._placement_rows))
         for i,row in enumerate(self._placement_rows):
-            for j,value in enumerate((row['name'],row['kind'],row['state'],', '.join(row['missing']))):self.placement_table.setItem(i,j,QTableWidgetItem(value))
-        ds={d['id']:d['name'] for d in self.cell['devices']};constraints=self.cell.get('analog_constraints',[]);issues=findings(self.project,self.cid);self.constraint_table.setRowCount(len(constraints))
+            for j,value in enumerate((row['name'],row['kind'],row['state'],', '.join(row['missing']))):
+                item=self.placement_table.item(i,j)
+                if item is None:self.placement_table.setItem(i,j,QTableWidgetItem(value))
+                elif item.text()!=value:item.setText(value)
+        ds={d['id']:d['name'] for d in self.cell['devices']};constraints=self.cell.get('analog_constraints',[]);issues=findings(self.project,self.cid)
+        if self.constraint_table.rowCount()!=len(constraints):self.constraint_table.setRowCount(len(constraints))
         for i,c in enumerate(constraints):
             failed=any(v['message'].startswith(c.get('name',c['kind'])+':') for v in issues)
-            for j,value in enumerate((c.get('name',c['kind']),c['kind'],', '.join(ds.get(d,'Deleted') for d in c['members']),'Needs attention' if failed else 'Satisfied')):self.constraint_table.setItem(i,j,QTableWidgetItem(value))
+            for j,value in enumerate((c.get('name',c['kind']),c['kind'],', '.join(ds.get(d,'Deleted') for d in c['members']),'Needs attention' if failed else 'Satisfied')):
+                item=self.constraint_table.item(i,j)
+                if item is None:self.constraint_table.setItem(i,j,QTableWidgetItem(value))
+                elif item.text()!=value:item.setText(value)
     def placement_selected(self,row,col):
         if 0<=row<len(self._placement_rows):self.select([self._placement_rows[row]['id']],'schematic')
     def inductor_creator(self,did=None):

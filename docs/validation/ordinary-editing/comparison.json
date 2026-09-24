@@ -1,0 +1,353 @@
+{
+  "schema": 1,
+  "baseline_commit": "03780af9dc5bd5acb95859c39964c81a2849fdd9",
+  "baseline_report": "baseline.json",
+  "optimized_report": "optimized.json",
+  "strict_budget_trial": "trial-500ms.json",
+  "baseline_source": {
+    "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+    "sources": "d1d1e3a9928914529cf5d46ca063a147dccda7fea9a3844ca43d8cd7576d71dc"
+  },
+  "optimized_source": {
+    "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+    "sources": "a6afde346e6cc1b621d6d5947f2e492f9a39488bf2e9d340defa845abdba1eec"
+  },
+  "harness_sha256": "cd456f5f3796a5620a6c270c1032835c5fe3e02df8bb60992bb58accbd783f57",
+  "command": "QT_QPA_PLATFORM=offscreen python tests/gui_analog_scale.py --out <fresh-directory> --iterations 3 --command-path interactive --electrical-ledger",
+  "optimized_budget_argument": "--max-edit-ms 750",
+  "environment": {
+    "python": "3.12.14",
+    "system": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "qt": "6.8.3",
+    "pyside": "6.8.3",
+    "qt_platform": "offscreen",
+    "display_class": "offscreen",
+    "display_class_source": "backend inference",
+    "screen": {
+      "name": "",
+      "width": 800,
+      "height": 800,
+      "logical_dpi": 96.0,
+      "physical_dpi_reported": 100.0,
+      "refresh_hz_reported": 60.0,
+      "device_pixel_ratio": 1.0
+    },
+    "window_size": [
+      1440,
+      960
+    ],
+    "style": "fusion",
+    "renderer": {
+      "pipeline": "Qt QWidget backing store; QPainter in Canvas.paintEvent",
+      "screenshot_paint_engine": "Raster",
+      "screenshot_format": "Format_RGB32"
+    },
+    "live_layout_checks": false
+  },
+  "scope": "Foreground Studio operation, queued immediate Qt work and synchronous QWidget repaint. Recovery completion measured separately. Startup includes a 200 ms deferred-restoration drain.",
+  "qualification": "Recorded source/workloads/backend only. No external simulation, live DRC, GPU/display presentation latency, assistive technology or consumer-hardware qualification.",
+  "checks": "Both compared runs passed all nine workload iterations, including topology, exact undo/redo, save/reopen and latest unsaved recovery. Source unchanged within each run. 500 ms trial passed correctness but failed its timing ceiling.",
+  "results": [
+    {
+      "workload": "hierarchical-analog",
+      "size": {
+        "masters": 3,
+        "local_devices": 22,
+        "local_shapes": 44,
+        "physical_instances": 17,
+        "expanded_top_shapes": 704
+      },
+      "timings_ms": {
+        "layout_edit_and_full_refresh": {
+          "baseline": {
+            "median": 100.38577900013479,
+            "max": 119.18382099975133
+          },
+          "optimized": {
+            "median": 85.04314099991461,
+            "max": 115.31280600001992
+          },
+          "median_speedup": 1.1804100579990993
+        },
+        "layout_undo_and_full_refresh": {
+          "baseline": {
+            "median": 77.42455900006462,
+            "max": 90.70587799988061
+          },
+          "optimized": {
+            "median": 72.37959199983379,
+            "max": 90.79352899971127
+          },
+          "median_speedup": 1.0697015119986089
+        },
+        "layout_redo_and_full_refresh": {
+          "baseline": {
+            "median": 76.17890799974703,
+            "max": 84.77511999990384
+          },
+          "optimized": {
+            "median": 68.52224299973386,
+            "max": 71.13642400008757
+          },
+          "median_speedup": 1.1117398477461238
+        },
+        "layout_restore_and_full_refresh": {
+          "baseline": {
+            "median": 86.9868330000827,
+            "max": 94.11391300000105
+          },
+          "optimized": {
+            "median": 68.677862000186,
+            "max": 72.7900580000096
+          },
+          "median_speedup": 1.2665920351429565
+        },
+        "edit_and_full_refresh": {
+          "baseline": {
+            "median": 61.709582999810664,
+            "max": 73.08966700020392
+          },
+          "optimized": {
+            "median": 51.8021959996986,
+            "max": 62.86830499993812
+          },
+          "median_speedup": 1.1912541893044402
+        },
+        "undo_and_full_refresh": {
+          "baseline": {
+            "median": 53.189845999895624,
+            "max": 56.28079899997829
+          },
+          "optimized": {
+            "median": 56.95620099959342,
+            "max": 57.61363400006303
+          },
+          "median_speedup": 0.933872784111344
+        },
+        "redo_and_full_refresh": {
+          "baseline": {
+            "median": 53.755365000142774,
+            "max": 59.810932999880606
+          },
+          "optimized": {
+            "median": 55.159257000013895,
+            "max": 58.10873700011143
+          },
+          "median_speedup": 0.9745483881359974
+        },
+        "unsaved_edit_and_refresh": {
+          "baseline": {
+            "median": 62.570898000103625,
+            "max": 62.74430899975414
+          },
+          "optimized": {
+            "median": 52.25616600000649,
+            "max": 54.41681199999948
+          },
+          "median_speedup": 1.1973878451032143
+        }
+      }
+    },
+    {
+      "workload": "synthetic-large",
+      "size": {
+        "masters": 1,
+        "local_devices": 500,
+        "local_shapes": 10000,
+        "physical_instances": 0,
+        "expanded_top_shapes": 10000
+      },
+      "timings_ms": {
+        "layout_edit_and_full_refresh": {
+          "baseline": {
+            "median": 882.8598119998787,
+            "max": 992.0587070000693
+          },
+          "optimized": {
+            "median": 300.14868300031594,
+            "max": 321.0830910002187
+          },
+          "median_speedup": 2.9414082486543824
+        },
+        "layout_undo_and_full_refresh": {
+          "baseline": {
+            "median": 540.2404290002778,
+            "max": 605.0053829999342
+          },
+          "optimized": {
+            "median": 350.54626000010103,
+            "max": 488.56602800015025
+          },
+          "median_speedup": 1.5411387615435466
+        },
+        "layout_redo_and_full_refresh": {
+          "baseline": {
+            "median": 505.73946499980593,
+            "max": 616.2708409997322
+          },
+          "optimized": {
+            "median": 360.26056899981995,
+            "max": 450.69797199994355
+          },
+          "median_speedup": 1.4038157614747415
+        },
+        "layout_restore_and_full_refresh": {
+          "baseline": {
+            "median": 515.0158500000543,
+            "max": 548.443423000208
+          },
+          "optimized": {
+            "median": 347.9995949996919,
+            "max": 351.8362450004133
+          },
+          "median_speedup": 1.4799323257847765
+        },
+        "edit_and_full_refresh": {
+          "baseline": {
+            "median": 885.7194340002934,
+            "max": 1125.718331000371
+          },
+          "optimized": {
+            "median": 181.21776799989675,
+            "max": 275.0056439999753
+          },
+          "median_speedup": 4.887597081544444
+        },
+        "undo_and_full_refresh": {
+          "baseline": {
+            "median": 481.96828299978733,
+            "max": 586.1896880001041
+          },
+          "optimized": {
+            "median": 369.003963999603,
+            "max": 484.82455700013816
+          },
+          "median_speedup": 1.306133077205387
+        },
+        "redo_and_full_refresh": {
+          "baseline": {
+            "median": 407.46069499982696,
+            "max": 424.698066000019
+          },
+          "optimized": {
+            "median": 182.64337700020405,
+            "max": 191.68276599975798
+          },
+          "median_speedup": 2.230908679482923
+        },
+        "unsaved_edit_and_refresh": {
+          "baseline": {
+            "median": 1080.8126139995693,
+            "max": 1204.9195160002455
+          },
+          "optimized": {
+            "median": 172.9689320000034,
+            "max": 452.28957500012257
+          },
+          "median_speedup": 6.248593903554587
+        }
+      }
+    },
+    {
+      "workload": "synthetic-large-identities",
+      "size": {
+        "masters": 1,
+        "local_devices": 500,
+        "local_shapes": 10000,
+        "physical_instances": 0,
+        "expanded_top_shapes": 10000
+      },
+      "timings_ms": {
+        "layout_edit_and_full_refresh": {
+          "baseline": {
+            "median": 1733.633472999827,
+            "max": 1861.0172060002697
+          },
+          "optimized": {
+            "median": 331.1650030000237,
+            "max": 388.3766649996687
+          },
+          "median_speedup": 5.23495374600227
+        },
+        "layout_undo_and_full_refresh": {
+          "baseline": {
+            "median": 879.5009969999228,
+            "max": 1020.3898570002821
+          },
+          "optimized": {
+            "median": 434.0863249999529,
+            "max": 525.5955029997494
+          },
+          "median_speedup": 2.0260969911918285
+        },
+        "layout_redo_and_full_refresh": {
+          "baseline": {
+            "median": 871.8188140001075,
+            "max": 1042.4028530001124
+          },
+          "optimized": {
+            "median": 396.751196999503,
+            "max": 589.7264969999014
+          },
+          "median_speedup": 2.197394287889696
+        },
+        "layout_restore_and_full_refresh": {
+          "baseline": {
+            "median": 917.1206760001951,
+            "max": 1002.7437880003163
+          },
+          "optimized": {
+            "median": 369.71654500030127,
+            "max": 514.3074830002661
+          },
+          "median_speedup": 2.480604907739381
+        },
+        "edit_and_full_refresh": {
+          "baseline": {
+            "median": 2020.2256799998395,
+            "max": 2208.285166999758
+          },
+          "optimized": {
+            "median": 350.8339740001247,
+            "max": 381.5627580002001
+          },
+          "median_speedup": 5.75835246788021
+        },
+        "undo_and_full_refresh": {
+          "baseline": {
+            "median": 801.9289610001579,
+            "max": 867.2573440003362
+          },
+          "optimized": {
+            "median": 227.78467199987062,
+            "max": 587.4217589998807
+          },
+          "median_speedup": 3.520557173401963
+        },
+        "redo_and_full_refresh": {
+          "baseline": {
+            "median": 799.941595999826,
+            "max": 857.907232999878
+          },
+          "optimized": {
+            "median": 642.0382239994069,
+            "max": 745.1613559996986
+          },
+          "median_speedup": 1.2459407650479155
+        },
+        "unsaved_edit_and_refresh": {
+          "baseline": {
+            "median": 2427.5193339999532,
+            "max": 2576.7877170001157
+          },
+          "optimized": {
+            "median": 227.34241200032557,
+            "max": 347.76593900005537
+          },
+          "median_speedup": 10.677811116020344
+        }
+      }
+    }
+  ]
+}

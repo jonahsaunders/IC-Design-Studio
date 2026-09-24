@@ -221,14 +221,14 @@ jobs:
         env:
           QT_QPA_PLATFORM: windows
           QT_SCALE_FACTOR: '1'
-        run: python tests/gui_analog_scale.py --out build/analog-scale-evidence --iterations 3 --display-class native --max-edit-ms 1500
+        run: python tests/gui_analog_scale.py --out build/analog-scale-evidence --iterations 3 --command-path interactive --electrical-ledger --display-class native --max-edit-ms 1500
       - name: Measure full desktop analog workloads under X11
         if: runner.os == 'Linux'
         timeout-minutes: 10
         env:
           QT_QPA_PLATFORM: xcb
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: xvfb-run -a -s '-screen 0 1920x1080x24' python tests/gui_analog_scale.py --out build/analog-scale-evidence --iterations 3 --display-class virtual --max-edit-ms 1500
+        run: xvfb-run -a -s '-screen 0 1920x1080x24' python tests/gui_analog_scale.py --out build/analog-scale-evidence --iterations 3 --command-path interactive --electrical-ledger --display-class virtual --max-edit-ms 1500
       - name: Test hierarchy navigation and atomic design automation
         timeout-minutes: 5
         env:
@@ -360,6 +360,14 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_wiring.py
+      - name: Test editing presentation reuse and guarded moves
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: |
+          python tests/gui_refresh_reuse.py
+          python tests/gui_layout_cache_refresh.py
       - name: Test net labels and grounds
         if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
         timeout-minutes: 5

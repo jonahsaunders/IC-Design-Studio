@@ -51,6 +51,15 @@ class CaptureWorkspaceMixin:
         previous=self._capture_raw_transaction;self._capture_raw_transaction=True
         try:self.commit(fn,label);return True
         finally:self._capture_raw_transaction=previous
+    def capture_transform(self,ids,dx=0,dy=0,*,stretch=True,copy=False,mirror=False,label='Move schematic selection'):
+        if not self.flush_inspector():return None
+        # LiveHistory must keep its server-authoritative transaction path.
+        fast=getattr(self.history,'commit_schematic_transform',None)
+        if not copy and not getattr(self,'live_client',None) and fast and fast(self.cid,ids,dx,dy,stretch=stretch,mirror=mirror,label=label):
+            self.queue_recovery(validated=True);self.refresh();return list(ids)
+        result=[]
+        def edit(p):result.extend(capture_ops.transform(p,self.cid,ids,dx,dy,stretch=stretch,copy=copy,mirror=mirror))
+        return result if self.capture_commit(edit,label) else None
     def eventFilter(self,obj,e):
         if obj is getattr(self,'schematic',None) and getattr(self,'_capture_ready',False):
             cmd=command_for(e,self.capture_keys)
@@ -89,15 +98,15 @@ class CaptureWorkspaceMixin:
         canvas=self.schematic;point=canvas.snap(canvas.model(screen));command=canvas.tool.removeprefix('capture_')
         if command=='cut':self.capture_cut(canvas.model(screen));return
         if self._capture_anchor is None:self._capture_anchor=point;self.canvas_message(command.title()+': choose destination.');return
-        delta=point-self._capture_anchor;ids=list(self.selection);result=[]
-        def edit(p):result.extend(capture_ops.transform(p,self.cid,ids,delta.x(),delta.y(),stretch=command=='stretch',copy=command=='copy'))
-        if self.capture_commit(edit,command.title()+' schematic selection'):self.cancel_tool();self.select(result,'schematic')
+        delta=point-self._capture_anchor;ids=list(self.selection)
+        result=self.capture_transform(ids,delta.x(),delta.y(),stretch=command=='stretch',copy=command=='copy',label=command.title()+' schematic selection')
+        if result is not None:self.cancel_tool();self.select(result,'schematic')
     def capture_hover(self,screen):
         canvas=self.schematic;point=canvas.snap(canvas.model(screen));canvas.drag=point
         if self._capture_anchor is not None:
             delta=point-self._capture_anchor;key=(id(self.project),tuple(self.selection),canvas.tool,delta.x(),delta.y())
             if getattr(self,'_capture_preview_key',None)==key:return
-            self._capture_preview_key=key;p={**self.project,'cells':[clone(c) if c['id']==self.cid else c for c in self.project['cells']]}
+            self._capture_preview_key=key;p={**self.project,'cells':[wiring.schematic_snapshot(c) if c['id']==self.cid else c for c in self.project['cells']]}
             try:
                 capture_ops.transform(p,self.cid,self.selection,delta.x(),delta.y(),stretch=canvas.tool=='capture_stretch',copy=canvas.tool=='capture_copy');canvas.capture_preview=capture_ops.cell(p,self.cid);canvas.update()
             except ValueError as e:canvas.capture_preview=None;self.canvas_message(str(e))
@@ -113,7 +122,7 @@ class CaptureWorkspaceMixin:
         ids=list(self.selection);self.capture_commit(lambda p:capture_ops.rejoin(p,self.cid,ids),'Rejoin schematic wires')
     def capture_mirror(self):
         if self.schematic.placement:self.schematic.placement['mirror']=not self.schematic.placement.get('mirror',False);self.schematic.update();return
-        self.capture_commit(lambda p:capture_ops.transform(p,self.cid,self.selection,mirror=True),'Mirror schematic devices')
+        self.capture_transform(self.selection,mirror=True,label='Mirror schematic devices')
     def place_device_at(self,x,y):
         seed=clone(self.schematic.placement);super().place_device_at(x,y)
         if seed and self.capture_repeat.isChecked():
