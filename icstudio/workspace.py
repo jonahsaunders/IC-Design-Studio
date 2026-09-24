@@ -10,7 +10,7 @@ from PySide6.QtWidgets import (QApplication, QWidget, QVBoxLayout, QHBoxLayout, 
     QScrollArea, QLineEdit, QPlainTextEdit, QTableWidget, QTableWidgetItem,
     QAbstractItemView, QHeaderView, QProgressBar, QCheckBox, QMenu, QDialog,
     QDialogButtonBox, QSizePolicy, QButtonGroup, QStackedWidget, QDoubleSpinBox)
-from .model import clone, device, uid, digest, design_digest, scalar, validate, flatten
+from .model import clone, device, uid, digest, design_digest, scalar, validate, flatten, History
 from .canvas import Canvas
 from .plot import WavePlot, COLORS
 from .ui_style import icon, palette, stylesheet, apply_native_window_theme
@@ -104,6 +104,8 @@ class WorkspaceMixin:
             canvas.selected.connect(lambda ids,c=canvas:self.select(ids,c.mode));canvas.move_objects.connect(lambda ids,x,y,c=canvas:self.move(ids,x,y,c.mode));canvas.message.connect(self.canvas_message);canvas.connect_pins.connect(self.connect);canvas.shape_added.connect(self.add_shape)
             canvas.placement_requested.connect(self.place_device_at);canvas.tool_cancelled.connect(self.cancel_tool);canvas.context_requested.connect(lambda pos,c=canvas:self.canvas_context(c,pos));canvas.inspect_requested.connect(self.reveal_properties);canvas.view_changed.connect(self.update_canvas_footer)
         foot,fl=box(False,(14,4,10,4),8,'canvasFooter');self.tool_hint=label('Select · click an object to edit','muted');fl.addWidget(self.tool_hint,1);self.grid_label=label('10 unit grid','muted');fl.addWidget(self.grid_label);self.zoom_label=label('100%','muted');fl.addWidget(self.zoom_label);self.fit_button=self.button('Fit','fit',self.fit_active,tip='Fit design (F)');fl.addWidget(self.fit_button);cv.addWidget(foot)
+        self.screenshot_button=self.button('Screenshot','camera',self.screenshot_active,tip='Save a clean, high-resolution PNG of the current view')
+        fl.insertWidget(fl.indexOf(self.fit_button),self.screenshot_button)
         self.setCentralWidget(center)
         # Navigation separates document hierarchy from the objects in the active cell.
         navbody,nv=box(True,spacing=0,name='sidebarBody');self.navtabs=QTabWidget();nv.addWidget(self.navtabs)
@@ -201,17 +203,35 @@ class WorkspaceMixin:
                 sub=QTreeWidgetItem(item,[title]);sub.setIcon(0,icon('wire' if mode==0 else 'layers',t['muted']));sub.setData(0,Qt.UserRole,('view',c['id'],mode))
                 if c['id']==self.cid and mode==self.mode_combo.currentIndex():self.tree.setCurrentItem(sub)
         self.tree.setMaximumHeight(min(300,36*(len(self.project['cells'])+2)+10));self.cell_combo.setCurrentIndex(next(i for i,c in enumerate(self.project['cells']) if c['id']==self.cid))
-        self.schematic.set_data(self.cell,self.project['pdk'],self.selection,self.net);self.layout.set_data(self.cell,self.project['pdk'],self.selection,self.net,revision=self.project['revision'])
-        self.outline.blockSignals(True);self.outline.clear();outline_icons={}
-        for d in self.cell['devices']:
-            if d['kind'] not in outline_icons:outline_icons[d['kind']]=icon(DEVICE_ICONS[d['kind']],t['muted'])
-            it=QListWidgetItem(d['name']+'   '+device_description(d));it.setData(Qt.UserRole,d['id']);it.setToolTip(d['name']+' · '+d.get('value',''));it.setIcon(outline_icons[d['kind']]);self.outline.addItem(it);it.setSelected(d['id'] in self.selection)
-        self.outline.blockSignals(False);self.nav_empty.setVisible(not self.cell['devices']);self.layers.blockSignals(True);self.layers.clear()
+        self.schematic.set_data(self.cell,self.project['pdk'],self.selection,self.net);self.layout.set_data(self.cell,self.project['pdk'],self.selection,self.net,revision=self.project['revision'],immutable=isinstance(self.history,History))
+        self.refresh_outline();self.nav_empty.setVisible(not self.cell['devices']);self.layers.blockSignals(True);self.layers.clear()
         for l in self.project['pdk']['layers']:
             it=QListWidgetItem(l['name']);it.setIcon(icon('layers',l['color']));it.setFlags(it.flags()|Qt.ItemIsUserCheckable);it.setCheckState(Qt.Checked if l['name'] in self.layout.visible_layers else Qt.Unchecked);self.layers.addItem(it)
         self.layers.blockSignals(False);self.undo_action.setEnabled(bool(self.history.undo_stack));self.redo_action.setEnabled(bool(self.history.redo_stack));self.update_save_status(current_hash);self.tech_name.setText(self.project['pdk']['name']);self.tech_detail.setText(self.project['pdk']['revision']+' · '+self.project['pdk'].get('status','unqualified'));self.rebuilding=False;self._inspector_dirty=False;self.build_inspector();self.update_result_status();self.filter_navigation();self.sync_tools()
         if not getattr(self,'analysis_dirty',False):self.load_analysis()
         if fit:QTimer.singleShot(20,self.fit_active)
+
+    def refresh_outline(self):
+        """Keep Qt rows alive when an edit only changes design geometry.
+
+        Compare displayed values, rather than project identity: undo, loading a
+        project and ordinary transactions may all replace the source objects.
+        """
+        rows=[(d['id'],d['name']+'   '+device_description(d),d['name']+' · '+d.get('value',''),d['kind']) for d in self.cell['devices']]
+        previous=getattr(self,'_outline_rows',[]);theme_changed=getattr(self,'_outline_dark',None)!=self.dark
+        structural=[r[0] for r in previous]!=[r[0] for r in rows] or self.outline.count()!=len(rows)
+        selected=set(self.selection);outline_icons={};self.outline.blockSignals(True)
+        if structural:self.outline.clear()
+        for i,row in enumerate(rows):
+            ident,title,tooltip,kind=row;it=QListWidgetItem() if structural else self.outline.item(i)
+            if structural or row!=previous[i]:
+                it.setText(title);it.setToolTip(tooltip);it.setData(Qt.UserRole,ident)
+            if structural or theme_changed or kind!=previous[i][3]:
+                if kind not in outline_icons:outline_icons[kind]=icon(DEVICE_ICONS[kind],palette(self.dark)['muted'])
+                it.setIcon(outline_icons[kind])
+            if structural:self.outline.addItem(it)
+            if it.isSelected()!=(ident in selected):it.setSelected(ident in selected)
+        self.outline.blockSignals(False);self._outline_rows=rows;self._outline_dark=self.dark
 
     def filter_navigation(self,*args):
         q=self.project_search.text().lower()
@@ -308,6 +328,23 @@ class WorkspaceMixin:
     def place_device_at(self,x,y):
         if not self.schematic.placement:return
         d=clone(self.schematic.placement);d['id']=uid();d.update(x=x,y=y);self.cancel_tool();self.commit(lambda p:next(c for c in p['cells'] if c['id']==self.cid)['devices'].append(d),'Place '+d['name']);self.select([d['id']],'schematic');self.reveal_properties();self.schematic.setFocus()
+    def screenshot_active(self):
+        if self.mode_combo.currentIndex()==2:
+            menu=QMenu(self)
+            menu.addAction('Schematic screenshot…',lambda:self.save_canvas_screenshot(self.schematic))
+            menu.addAction('Layout screenshot…',lambda:self.save_canvas_screenshot(self.layout))
+            menu.exec(self.screenshot_button.mapToGlobal(self.screenshot_button.rect().bottomLeft()))
+            menu.deleteLater()
+        else:
+            self.save_canvas_screenshot(self.layout if self.mode_combo.currentIndex()==1 else self.schematic)
+
+    def save_canvas_screenshot(self,canvas):
+        from .view_screenshot import canvas_image,save_view_screenshot,screenshot_name
+        name=screenshot_name(self.cell['name'],canvas.mode)
+        path=save_view_screenshot(self,lambda:canvas_image(canvas),name,'Save '+canvas.mode+' screenshot')
+        if path:self.statusBar().showMessage('Screenshot saved: '+path,8000)
+        return path
+
     def fit_active(self):
         for c in (self.schematic,self.layout):
             if c.isVisible():c.fit()
@@ -315,6 +352,14 @@ class WorkspaceMixin:
     def update_canvas_footer(self):
         if not hasattr(self,'zoom_label'):return
         active=self.layout if self.current_mode=='layout' else self.schematic;self.zoom_label.setText(f'{active.scale*100:.0f}%');self.grid_label.setText(f'{self.project["pdk"].get("grid",5)} nm grid' if self.current_mode=='layout' else '10 unit grid')
+        self.adapt_screenshot_button()
+    def adapt_screenshot_button(self):
+        if not hasattr(self,'screenshot_button'):return
+        compact=self.screenshot_button.parentWidget().width()<560
+        if compact==getattr(self,'_screenshot_compact',None):return
+        self._screenshot_compact=compact
+        self.screenshot_button.setText('' if compact else 'Screenshot')
+        self.screenshot_button.setFixedWidth(40 if compact else self.screenshot_button.sizeHint().width())
     def canvas_message(self,text):
         if text.startswith('X '):self.statusBar().showMessage(text)
         else:self.tool_hint.setText(text)
@@ -501,10 +546,12 @@ class WorkspaceMixin:
         reason=requirement(self.project);self.analysis_engine.setCurrentIndex(self.analysis_engine.findData(selected(self.project)))
         self.analysis_engine.setEnabled(not reason);self.engine_requirement.setText(reason);self.engine_requirement.setVisible(bool(reason))
         for k,w in self.analysis_fields.items():w.setText(str(a[k]))
-        self.analysis_source.clear()
-        try:names=[d['name'] for d in flatten(self.project,self.cid) if d['kind'] in ('V','I')]
+        from .analysis_sources import source_names
+        try:names=source_names(self.project,self.cid)
         except ValueError:names=[]
-        self.analysis_source.addItems(names);self.analysis_source.setCurrentText(a['source']);self._loading_analysis=False;self.analysis_dirty=False;self.analysis_visibility()
+        if [self.analysis_source.itemText(i) for i in range(self.analysis_source.count())]!=names:
+            self.analysis_source.clear();self.analysis_source.addItems(names)
+        self.analysis_source.setCurrentText(a['source']);self._loading_analysis=False;self.analysis_dirty=False;self.analysis_visibility()
     def run_dialog(self):
         self.inspector.show();self.inspector_tabs.setCurrentIndex(1);self.analysis_type.setFocus()
     def quick_run(self):
@@ -583,6 +630,7 @@ class WorkspaceMixin:
         super().resizeEvent(event)
         if hasattr(self,'tool_buttons'):QTimer.singleShot(0,self.adapt_tools)
     def adapt_tools(self):
+        self.adapt_screenshot_button()
         compact=self.toolstrip.width()<740
         names={0:'Select',1:'Wire',2:'Rectangle',3:'Polygon',4:'Path',5:'Measure'}
         for i,b in self.tool_buttons.items():

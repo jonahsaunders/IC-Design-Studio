@@ -1,13 +1,15 @@
 """Nonmodal 3D snapshot of the active layout; never edits project geometry."""
 from PySide6.QtCore import QPointF, Qt, QTimer
 from PySide6.QtGui import QColor
-from PySide6.QtWidgets import (QComboBox, QDialog, QDoubleSpinBox, QFileDialog,
+from PySide6.QtWidgets import (QComboBox, QDialog, QDoubleSpinBox,
                                QHBoxLayout, QHeaderView, QLabel, QPushButton,
                                QSplitter, QTableWidget, QTableWidgetItem,
                                QVBoxLayout, QWidget)
 
 from .layout_3d import build_mesh
 from .layout_3d_view import OpenGLView, SoftwareView, opengl_available
+from .ui_style import icon
+from .view_screenshot import save_view_screenshot, screenshot_name
 
 
 class Layout3DDialog(QDialog):
@@ -31,7 +33,8 @@ class Layout3DDialog(QDialog):
             button = QPushButton(name)
             button.clicked.connect(lambda checked=False, n=name: self.view.fit() if n == 'Fit' else self.view.preset(n))
             bar.addWidget(button)
-        self.save_button = QPushButton('Save PNG…')
+        self.save_button = QPushButton(icon('camera'), 'Screenshot…')
+        self.save_button.setToolTip('Save a clean, high-resolution PNG of the current 3D view')
         self.save_button.clicked.connect(self.save_image)
         bar.addWidget(self.save_button)
         root.addLayout(bar)
@@ -163,6 +166,7 @@ class Layout3DDialog(QDialog):
                 layer.custom = old.custom
         self.mesh, self.stack_key = mesh, stack_key
         self.snapshot = self.current_revision()
+        self.snapshot_cell_name = self.studio.cell['name']
         self.view.set_mesh(mesh)
         self.populate_layers()
         self.save_button.setEnabled(bool(mesh.triangle_count))
@@ -224,14 +228,9 @@ class Layout3DDialog(QDialog):
         self.refresh_mesh(preserve=False)
 
     def save_image(self):
-        path, _ = QFileDialog.getSaveFileName(self, 'Save 3D layout image', 'layout-3d.png', 'PNG image (*.png)')
-        if not path:
-            return
-        if not path.lower().endswith('.png'):
-            path += '.png'
-        # Include stack provenance, region and snapshot revision in the image.
-        if not self.grab().save(path, 'PNG'):
-            self.status.setText('Could not save the PNG. Choose a writable location.')
+        return save_view_screenshot(self, self.view.screenshot_image,
+                                    screenshot_name(self.snapshot_cell_name, 'layout-3d'),
+                                    'Save 3D layout screenshot')
 
     def release_view(self):
         if getattr(self, '_released', False):

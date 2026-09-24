@@ -197,11 +197,18 @@ def validate(p):
     validate_records(p)
     from .digital import validate_project as validate_digital
     validate_digital(p)
-    for cell in cells:flatten(p,cell['id'])
+    # validate_wiring already rebuilt every master above. Reuse that state for
+    # hierarchy checks instead of repeatedly copying and rebuilding each master
+    # for every possible root. The cache lives only within this validation.
+    electrical={c['id']:c for c in cells if 'wires' in c}
+    for cell in cells:_flatten(p,cell['id'],electrical)
     return p
 
 def flatten(p,cell_id=None):
-    by={c['id']:c for c in p['cells']}; out=[]; electrical={}
+    return _flatten(p,cell_id,{})
+
+def _flatten(p,cell_id,electrical):
+    by={c['id']:c for c in p['cells']}; out=[]
     from .design_ops import parameters,resolved_device,value
     global_params=parameters(p.get("parameters",{}))
     def walk(cid,path,mapping,seen,overrides=None):
@@ -288,15 +295,26 @@ class History:
         before=self.project
         self.serial+=1;self.undo_stack.append((delta,label));self.undo_stack=self.undo_stack[-100:];self.redo_stack=[];self.project=nxt
         self._record(before,label,patch=delta)
-    def commit_shape_move(self,cid,ids,dx,dy,locked=()):
+    def commit_schematic_transform(self,cid,ids,dx=0,dy=0,*,stretch=True,mirror=False,label='Move schematic selection'):
+        """Fast geometry-only capture command; False requires full validation."""
+        from .schematic_transaction import propose
+        from .history_delta import difference
+        nxt=propose(self.project,cid,ids,dx,dy,stretch=stretch,mirror=mirror)
+        if nxt is None:return False
+        nxt['revision']=self.serial+1;nxt['modified']=now()
+        before=self.project;delta=difference(before,nxt)
+        self.serial+=1;self.undo_stack.append((delta,label));self.undo_stack=self.undo_stack[-100:];self.redo_stack=[];self.project=nxt
+        self._record(before,label,patch=delta)
+        return True
+    def commit_shape_move(self,cid,ids,dx,dy,locked=(),label='Move layout shapes'):
         from .document import move_plain_shapes,shape_patch
         result=move_plain_shapes(self.project,cid,ids,dx,dy,locked)
         if result is None:return False
         nxt,indices=result;nxt['revision']=self.serial+1;nxt['modified']=now()
         before=self.project;delta=shape_patch(before,nxt,cid,indices)
-        self.serial+=1;self.undo_stack.append((delta,'Move layout shapes'));self.undo_stack=self.undo_stack[-100:];self.redo_stack=[];self.project=nxt
+        self.serial+=1;self.undo_stack.append((delta,label));self.undo_stack=self.undo_stack[-100:];self.redo_stack=[];self.project=nxt
         self.layout_stats={'indices':indices,'shapes_replaced':len(indices)}
-        self._record(before,'Move layout shapes',patch=delta)
+        self._record(before,label,patch=delta)
         return True
     def commit_layout_move(self,cid,ids,dx,dy,locked=()):
         """Return False for complex edits requiring the general transaction."""

@@ -38,6 +38,10 @@ This example requires ngspice. It is included in the Windows portable package. F
 
 Press **F5**, then inspect its run and waveforms. Open **Analysis → Variation cases** to explore parameter studies. For this native circuit, the resistor parameter target is `R1.native.value`. [Native analysis details](UPDATE_0.20.md) explain sensitivity, bounded search and specifications.
 
+To share a clean circuit or layout image, use **Screenshot** beside **Fit**.
+The 3D layout window has its own **Screenshot…** button.
+[View screenshots](VIEW_SCREENSHOTS.md) explains framing and image resolution.
+
 ## Start your own process design
 
 Choose **File → New project** to open the [Project Hub](PROJECT_HUB.md). Pick a PDK revision, name your project and choose an empty circuit or a template. The included GF180MCU and SKY130 simulation packages appear immediately as **Available offline**; **Install PDK & create project** registers the selected package and starts your design.

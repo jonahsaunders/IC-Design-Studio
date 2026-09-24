@@ -8,6 +8,16 @@ import math
 from .model import uid, clone, NET
 
 
+def schematic_snapshot(cell):
+    """Snapshot mutable capture state without copying unrelated layout data.
+
+    Connection repair only reads the other cell fields. Keeping those branches
+    shared prevents schematic gestures from copying every physical shape.
+    """
+    fields = ('devices', 'wires', 'labels', 'annotations', 'junctions', 'electrical')
+    return {**cell, **{key: clone(cell[key]) for key in fields if key in cell}}
+
+
 def clean(points):
     out=[]
     for point in points:
@@ -143,6 +153,12 @@ def rebuild(cell,project=None):
 
 
 def validate_wiring(cell,objid,project):
+    validate_wiring_structure(cell,objid,project)
+    rebuild(cell,project)
+
+
+def validate_wiring_structure(cell,objid,project):
+    """Validate stored capture fields; callers separately rebuild connectivity."""
     if 'wires' not in cell:return
     wires=cell['wires']
     if not isinstance(wires,list) or len(wires)>5000:raise ValueError('A cell supports at most 5,000 wires.')
@@ -162,7 +178,6 @@ def validate_wiring(cell,objid,project):
     for d in cell['devices']:
         labels=d.get('net_labels',{})
         if not isinstance(labels,dict) or any(pin not in d['nets'] or not isinstance(name,str) or not NET.fullmatch(name) for pin,name in labels.items()):raise ValueError('Invalid pin net label. Use 0 for ground.')
-    rebuild(cell,project)
 
 
 def migrate(cell,project=None):
@@ -290,7 +305,7 @@ def retarget_path(points,start=None,end=None,protected=()):
 def reshape_segment(cell,ident,index,dx,dy,project=None):
     """Keep pins/junctions fixed and stretch branch leads with the dragged run."""
     from .net_labels import reconcile
-    old=clone(cell);wire=next(w for w in cell['wires'] if w['id']==ident)
+    old=schematic_snapshot(cell);wire=next(w for w in cell['wires'] if w['id']==ident)
     a,b=wire['points'][index:index+2];shift=[0,dy] if a[1]==b[1] else [dx,0]
     if not any(shift):return
     fixed={tuple(p) for p in pins(cell,project).values()}|{tuple(p) for p in cell.get('junctions',[])}
@@ -322,10 +337,12 @@ def reshape_segment(cell,ident,index,dx,dy,project=None):
 def keep_connections(cell,before,project=None,moved_wires=()):
     """Batch terminal changes against one geometry snapshot, preserving branches."""
     if 'wires' not in cell:return
-    electrical_before=clone(cell) if 'electrical' in cell else None
-    after=pins(cell,project);moved_wires=set(moved_wires);original=clone(cell['wires'])
+    after=pins(cell,project);moved_wires=set(moved_wires)
     changes={tuple(old):after[key] for key,old in before.items() if key in after and old!=after[key]}
     if not changes:return
+    from .electrical_identity import partition
+    electrical_before=partition(cell) if 'electrical' in cell else None
+    original=clone(cell['wires'])
     fixed={tuple(pt) for key,pt in before.items() if after.get(key)==pt}|{tuple(p) for p in cell.get('junctions',[])}
     destinations={}
     for key,old in before.items():
@@ -359,8 +376,9 @@ def keep_connections(cell,before,project=None,moved_wires=()):
             if len(path)>1:cell['wires'].append({'id':uid(),'points':path});branches.add((coord,tuple(new)))
     cell['wires']=[w for w in cell['wires'] if len(w['points'])>1]
     if electrical_before is not None:
-        from .electrical_identity import require_preserved
-        rebuild(cell,project);require_preserved(electrical_before,cell)
+        rebuild(cell,project)
+        if electrical_before != partition(cell):
+            raise ValueError('This move would change electrical connections. Move to a clear location, or use an explicit connection edit.')
 
 
 def junction_points(cell,project=None):

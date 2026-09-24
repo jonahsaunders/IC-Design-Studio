@@ -100,7 +100,7 @@ class HumanWorkspaceMixin(GridSettingsMixin):
         self.grid_label.hide()
         self.grid_button = self.button('Grid', 'grid', self.grid_settings_dialog,
                                        tip='Visible grid and placement spacing for each editor')
-        footer.insertWidget(footer.count()-2, self.grid_button)
+        footer.insertWidget(footer.indexOf(self.zoom_label), self.grid_button)
         self.zoom_label.setMinimumWidth(40)
         # Each result view can scroll independently when docked into a narrow
         # panel. Its large tables/toolbars must not overlap the design inspector.

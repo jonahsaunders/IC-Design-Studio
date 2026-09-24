@@ -1,13 +1,17 @@
 """One ordered recovery writer with coalescing and a synchronous lifecycle fence."""
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import Future, ThreadPoolExecutor
+import pickle
 from time import monotonic
 from PySide6.QtCore import QObject, QTimer, Signal
 from .model import digest
 from . import recovery
-from .recovery_snapshot import isolate
 
 
-def write_snapshot(project, directory, source, validated):
+def _write_snapshot(snapshot, directory, source, validated):
+    # This buffer is created only by dispatch below, never read from a file or
+    # external input. Keep Python types intact until the normal validator runs.
+    # The worker owns this tree, including any normalization during validation.
+    project = pickle.loads(snapshot)
     recovery.write(project, directory, source, validated=validated)
     return digest(project)
 
@@ -22,7 +26,6 @@ class RecoveryQueue(QObject):
         self.first_pending = None
         self.last_error = None
         self.closed = False
-        self._snapshot = None
         self.snapshot_ms = 0
         self.timer = QTimer(self)
         self.timer.setInterval(50)
@@ -45,11 +48,23 @@ class RecoveryQueue(QObject):
         if self.active is not None:
             raise RuntimeError('Wait for the preceding recovery writer before taking a snapshot.')
         start = monotonic()
-        previous = self._snapshot if self._snapshot and self._snapshot['id'] == project['id'] else None
-        snapshot = isolate(project, previous)
+        future = None
+        try:
+            # Capture immutable bytes before returning to the event loop. The C
+            # serializer avoids a Python visit to every geometry scalar, and
+            # unlike source-identity reuse this observes legacy in-place edits.
+            # Pickle is exclusively an in-process ownership boundary; the
+            # durable recovery file remains validated JSON. It also preserves
+            # invalid types (e.g. tuple corners) for the validator to reject.
+            snapshot = pickle.dumps(project, protocol=pickle.HIGHEST_PROTOCOL)
+        except Exception as exc:
+            # Encoding failures have the same visible recovery-failure path as
+            # validation/storage failures; never escape from a timer callback.
+            future = Future()
+            future.set_exception(exc)
         self.snapshot_ms = (monotonic() - start) * 1000
-        self._snapshot = snapshot
-        future = self.executor.submit(write_snapshot, snapshot, directory, source, validated)
+        if future is None:
+            future = self.executor.submit(_write_snapshot, snapshot, directory, source, validated)
         self.active = (future, dict(project_id=project['id'], revision=project['revision'],
                                     directory=str(directory), epoch=epoch))
         self.pending = self.first_pending = None
@@ -96,4 +111,3 @@ class RecoveryQueue(QObject):
         self.flush()
         self.executor.shutdown(wait=True)
         self.closed = True
-        self._snapshot = None

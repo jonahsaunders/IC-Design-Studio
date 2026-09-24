@@ -6,8 +6,8 @@ from .symbol_geometry import enriched
 
 def cell(project,cid):return next(c for c in project['cells'] if c['id']==cid)
 
-def transform(project,cid,ids,dx=0,dy=0,stretch=True,copy=False,mirror=False):
-    c=cell(project,cid);old=clone(c);before=wiring.pins(c,project);ids=set(ids);mapping={};names={d['name'].casefold() for d in c['devices']}
+def transform(project,cid,ids,dx=0,dy=0,stretch=True,copy=False,mirror=False,*,_before=None):
+    c=cell(project,cid);old=wiring.schematic_snapshot(c) if _before is None else _before;before=wiring.pins(c,project);ids=set(ids);mapping={};names={d['name'].casefold() for d in c['devices']}
     for group in ('devices','wires','labels','annotations'):
         for obj in list(c.get(group,[])):
             if obj['id'] not in ids:continue
@@ -37,7 +37,7 @@ def transform(project,cid,ids,dx=0,dy=0,stretch=True,copy=False,mirror=False):
     return list(mapping.values()) if copy else list(ids)
 
 def cut_wire(project,cid,wire_id,index,point,gap=10):
-    c=cell(project,cid);old=clone(c);w=next(w for w in c['wires'] if w['id']==wire_id);a,b=w['points'][index:index+2];q=wiring.nearest(point,a,b);axis=0 if a[1]==b[1] else 1;direction=1 if b[axis]>a[axis] else -1
+    c=cell(project,cid);old=wiring.schematic_snapshot(c);w=next(w for w in c['wires'] if w['id']==wire_id);a,b=w['points'][index:index+2];q=wiring.nearest(point,a,b);axis=0 if a[1]==b[1] else 1;direction=1 if b[axis]>a[axis] else -1
     left=list(q);right=list(q);left[axis]-=direction*gap/2;right[axis]+=direction*gap/2
     if not all(wiring.on_segment(pt,a,b) and pt not in (a,b) for pt in (left,right)):raise ValueError('Cut inside a segment, at least 10 units from either end.')
     contacts=list(wiring.pins(c,project).values())+c.get('junctions',[])

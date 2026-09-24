@@ -26,15 +26,16 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
     def __init__(self,mode,parent=None):
         super().__init__(parent);self.mode=mode;self.cell=None;self.tech={};self.selection=[];self.net='';self.dark=False;self.tool='select';self.layer='metal1';self.line_width=200;self.scale=1.0 if mode=='schematic' else .08;self.offset=QPointF(40,50);self.anchor=None;self.drag=None;self.pan=False;self._pan_anchor=None;self._pan_button=None;self.snap_target=None;self.snap_to_terminals=True;self.space=False;self.pending_pin=None;self.drawing=[];self.visible_layers=set();self.setMinimumSize(250,220);self.setFocusPolicy(Qt.StrongFocus);self.setMouseTracking(True);self.setAccessibleName(mode+' design canvas');self.ruler=None;self.placement=None;self.marquee=False;self.moving=False;self._layers_initialized=False;self.press_screen=None;self.auto_fit=True;self.reset_wire_gesture();self._drawing_grid=None;self._drawing_undo=[];self._rect_pending=False;self.drawing_notice='';self.path_horizontal=True
         self.view_changed.connect(self.clear_selection_preview)
-    def set_data(self,cell,tech,selection=None,net='',revision=None,dirty_indices=None):
+    def set_data(self,cell,tech,selection=None,net='',revision=None,dirty_indices=None,*,immutable=False):
         self.preselection=None;self.selection_hint=''
-        self.cell=cell;self.tech=tech;self.selection=list(selection or []);self.net=net;self._layout_display_revision=getattr(self,'_layout_display_revision',0)+1
+        self.cell=cell;self.tech=tech;self.selection=list(selection or []);self.net=net
         if self.mode=='layout':
             from .layout_cache import LayoutGeometryCache
             if not hasattr(self,'_geometry_cache'):
                 self._geometry_cache=LayoutGeometryCache(self.bounds,lambda shape:self.path(shape),deferred=True)
             if dirty_indices is not None:self._geometry_cache.update_dirty(cell['shapes'],revision,dirty_indices)
-            else:self._geometry_cache.update(cell['shapes'],revision)
+            else:self._geometry_cache.update(cell['shapes'],revision,immutable=immutable)
+            self._layout_display_revision=(self._geometry_cache.display_revision,tuple((l['name'],l['color']) for l in tech['layers']))
             self._spatial=self._geometry_cache.index
             from .spatial import SpatialIndex
             self._snap_terminals=SpatialIndex(((t['point'][0],t['point'][1],t['point'][0],t['point'][1]),t) for group in ('layout_pins','layout_ports') for t in cell.get(group,[]))
@@ -103,8 +104,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         if getattr(self,'capture_preview',None) is not None:self.cell=self.capture_preview
         if self.wire_drag and self.anchor and self.drag:
             ident,index=self.wire_drag;delta=self.drag-self.anchor
-            from .model import clone
-            self.cell=clone(self.cell)
+            self.cell=wiring.schematic_snapshot(self.cell)
             try:wiring.reshape_segment(self.cell,ident,index,delta.x(),delta.y())
             except ValueError:pass  # Preview stays reversible; commit reports conflicts.
         if self.mode=='schematic' and self.moving and self.anchor and self.drag:
@@ -117,8 +117,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
                 objects.append(obj)
             self.cell={**self.cell,group:objects}
             if self.mode=='schematic':
-                from .model import clone
-                self.cell=clone(self.cell);wiring.keep_connections(self.cell,wiring.pins(original))
+                self.cell=wiring.schematic_snapshot(self.cell);wiring.keep_connections(self.cell,wiring.pins(original))
         if self.mode=='schematic':self.draw_schematic(p,view)
         else:self.editor_background(p,view);self.draw_layout(p,view);self.editor_overlay(p)
         self.cell=original
@@ -152,9 +151,9 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         if getattr(self,'live_presence',None):
             from .live_ui import paint_presence
             paint_presence(self,p)
-    def draw_schematic(self,p,view):
+    def draw_schematic(self,p,view,*,force_detail=False):
         self.draw_wires(p)
-        if self.scale<.35 and len(self.cell['devices'])>50 and not self.cell.get('xschem') and not self.cell.get('electrical'):
+        if not force_detail and self.scale<.35 and len(self.cell['devices'])>50 and not self.cell.get('xschem') and not self.cell.get('electrical'):
             self.draw_schematic_overview(p,view);return
         self.draw_labels(p)
         for d in self.cell['devices']:
@@ -359,7 +358,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
                 self._layout_drag_picture=(key,area,picture)
             p.save();p.translate(delta);p.drawPicture(QPointF(0,0),self._layout_drag_picture[2]);p.restore();return
         previous_scale=getattr(self,'_last_picture_scale',self.scale);self._last_picture_scale=self.scale
-        source=(id(scene),scene.generation) if scene is not None else (id(self.cell['shapes']),self._geometry_cache.revision)
+        source=(id(scene),scene.generation) if scene is not None else (id(self._geometry_cache),self._geometry_cache.display_revision)
         label_scope=(source,self._layout_display_revision,self.cell.get('layout_label_mode'))
         if getattr(self,'_vector_label_scope',None)!=label_scope:
             shapes=(row[0] for row in scene.sources.values()) if scene is not None else self.cell['shapes']
@@ -367,7 +366,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
             self._vector_label_scope=label_scope
         scale_free=self._vector_scale_free and not getattr(self,'batch_rectangles',False) and not (scene is not None and scene.stats.get('detail_reduced'))
         if self.moving and self.anchor is not None and self.drag is not None and getattr(self,'cache_layout_pictures',True):
-            source=(id(scene),scene.generation) if scene is not None else (id(self.cell['shapes']),self._geometry_cache.revision)
+            source=(id(scene),scene.generation) if scene is not None else (id(self._geometry_cache),self._geometry_cache.display_revision)
             key=(source,self._layout_display_revision,self.scale,self.dark,tuple(self.selection),self.net,tuple(sorted(self.visible_layers)),repr(getattr(self,'layer_styles',{})),self.cell.get('layout_label_mode'),self.devicePixelRatioF())
             cache=getattr(self,'_stationary_drag_picture',None)
             if cache is None or cache[0]!=key or not cache[1].contains(view):
@@ -378,7 +377,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
             p.save();p.drawPicture(QPointF(0,0),self._stationary_drag_picture[2]);p.restore()
             return self.draw_layout_geometry(p,view,'moving')
         if self.moving or self.scale!=previous_scale and not scale_free or not getattr(self,'cache_layout_pictures',True):return self.draw_layout_geometry(p,view)
-        scene=self.cell.get('_layout_scene');source=(id(scene),scene.generation) if scene is not None else (id(self.cell['shapes']),self._geometry_cache.revision)
+        scene=self.cell.get('_layout_scene');source=(id(scene),scene.generation) if scene is not None else (id(self._geometry_cache),self._geometry_cache.display_revision)
         key=(source,self._layout_display_revision,None if scale_free else self.scale,self.dark,tuple(self.selection),self.net,tuple(sorted(self.visible_layers)),repr(getattr(self,'layer_styles',{})),self.cell.get('layout_label_mode'),getattr(self,'batch_rectangles',False),self.devicePixelRatioF())
         cache=getattr(self,'_layout_picture',None)
         if cache is None or cache[0]!=key or not cache[1].contains(view):

@@ -196,14 +196,17 @@ class EditorWorkspaceMixin:
     def refresh(self,fit=False):
         super().refresh(fit)
         if not getattr(self,'_editor_ready',False):return
-        self.refresh_editor_layers();old=self.editor_net.currentText();self.editor_net.blockSignals(True);self.editor_net.clear();self.editor_net.addItem('')
-        self.editor_net.addItems(sorted({n for d in self.cell['devices'] for n in d['nets'].values()}|{s.get('net','') for s in self.cell['shapes']} - {''}));self.editor_net.setCurrentText(old);self.editor_net.blockSignals(False)
+        self.refresh_editor_layers()
+        nets=['']+sorted(({n for d in self.cell['devices'] for n in d['nets'].values()}|{s.get('net','') for s in self.cell['shapes']})-{''})
+        if nets!=getattr(self,'_editor_net_items',None):
+            old=self.editor_net.currentText();self.editor_net.blockSignals(True);self.editor_net.clear();self.editor_net.addItems(nets);self.editor_net.setCurrentText(old);self.editor_net.blockSignals(False);self._editor_net_items=nets
         from .layout_edit import via_options
-        before=self.editor_via.currentText();self.editor_via.blockSignals(True);self.editor_via.clear()
-        try:self.editor_via.addItems(list(via_options(self.project)))
-        except ValueError:pass
-        if self.editor_via.findText(before)>=0:self.editor_via.setCurrentText(before)
-        self.editor_via.blockSignals(False)
+        try:vias=list(via_options(self.project))
+        except ValueError:vias=[]
+        if vias!=getattr(self,'_editor_via_items',None):
+            before=self.editor_via.currentText();self.editor_via.blockSignals(True);self.editor_via.clear();self.editor_via.addItems(vias)
+            if self.editor_via.findText(before)>=0:self.editor_via.setCurrentText(before)
+            self.editor_via.blockSignals(False);self._editor_via_items=vias
         if self.layout.tool=='via':self.apply_editor_options()
         self.update_breadcrumb();self.filter_editor_findings()
 
@@ -236,13 +239,15 @@ class EditorWorkspaceMixin:
             current=self.layer_combo.currentText();self.layer_combo.blockSignals(True);self.layer_combo.clear();self.layer_combo.addItems(names)
             if current in names:self.layer_combo.setCurrentText(current)
             self.layer_combo.blockSignals(False);self.layout.layer=self.layer_combo.currentText();self._routing_layer=self.layout.layer
+        rows=tuple((l['name'],l['gds'],l['datatype'],self.layout.layer_styles.get(l['name'],{}).get('color',l['color']),self.layout.layer_styles.get(l['name'],{}).get('pattern','Solid'),l['name'] in self.layout.visible_layers,l['name'] not in self.layout.unselectable_layers,l['name'] in self.layout.locked_layers) for l in layers)
+        if rows==getattr(self,'_editor_layer_rows',None):return
         self.layer_table.blockSignals(True);self.layer_table.setRowCount(len(layers))
         for i,l in enumerate(layers):
             name=l['name'];s=self.layout.layer_styles.get(name,{});item=QTableWidgetItem(name+'  '+str(l['gds'])+'/'+str(l['datatype']));item.setToolTip(item.text());item.setData(Qt.UserRole,name);item.setForeground(QColor(s.get('color',l['color'])));self.layer_table.setItem(i,0,item)
             for col,on,tip in [(1,name in self.layout.visible_layers,'Visible'),(2,name not in self.layout.unselectable_layers,'Selectable'),(3,name in self.layout.locked_layers,'Locked against editing')]:
                 it=QTableWidgetItem();it.setFlags(Qt.ItemIsEnabled|Qt.ItemIsUserCheckable);it.setCheckState(Qt.Checked if on else Qt.Unchecked);it.setToolTip(tip);self.layer_table.setItem(i,col,it)
             it=QTableWidgetItem(s.get('pattern','Solid'));it.setToolTip('Double-click to change color and fill pattern');self.layer_table.setItem(i,4,it)
-        self.layer_table.blockSignals(False);self.filter_editor_layers()
+        self.layer_table.blockSignals(False);self._editor_layer_rows=rows;self.filter_editor_layers()
 
     def editor_layer_changed(self,row,col):
         if col not in (1,2,3):return
@@ -321,6 +326,18 @@ class EditorWorkspaceMixin:
     def editor_execute(self,command,args):
         if not self.idle_edit():return
         cid=self.cid;ids=list(self.selection);locked=self.layout.locked_layers;new=[]
+        # Reference moves have the same isolated geometry edit as plain drags.
+        # Keep grouped/owned shapes and live sessions on their normal command
+        # path, including the complete-footprint and via-stack checks below.
+        if command=='move_ref' and not getattr(self,'live_client',None) and hasattr(self.history,'commit_shape_move'):
+            chosen=set(ids);shapes=[s for s in self.cell['shapes'] if s['id'] in chosen]
+            ownership=('device_id','generated_device','generated_route','pcell_id','via_id','via_group','connected_lead')
+            if len(shapes)==len(chosen) and not any(s.get(key) for s in shapes for key in ownership):
+                if self.history.commit_shape_move(cid,ids,args['dx'],args['dy'],locked,label='Move by reference'):
+                    self.queue_recovery(validated=True)
+                    # Run the ordinary presentation updates, including editing
+                    # context, hierarchy symbols and stale result indicators.
+                    self.refresh();return
         def apply(p):
             if command=='move_ref':
                 from .layout_edit import selection_groups
