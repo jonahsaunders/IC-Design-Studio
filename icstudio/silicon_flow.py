@@ -106,7 +106,7 @@ def run(p,cid,output,tools,progress=lambda *_:None):
         pre=stage('schematic_simulation',simulate)
         def magic(name,commands):return magic_script(resolved['magic'],assets['technology'],out/'layout.gds',c['name'],c['ports'],out/name,commands)
         def drc():
-            commands='drc style drc(full)\ndrc ignore none\ndrc check\ndrc catchup\nputs "STUDIO_DRC_COUNT [drc list count total]"\nputs "STUDIO_DRC_STYLE [drc list style]"\n'
+            commands='snap internal\nselect top cell\nbox values {*}[select bbox]\nbox grow c 10um\ndrc style drc(full)\ndrc ignore none\ndrc check\ndrc catchup\nputs "STUDIO_DRC_COUNT [drc list count total]"\nputs "STUDIO_DRC_STYLE [drc list style]"\n'
             commands+='set f [open findings.tsv w]\nforeach {reason boxes} [drc listall why] {foreach coords $boxes {puts $f "[string map {\\t { } \\n { }} $reason]\\t[join $coords {,}]"}}\nclose $f\n'
             commands+='puts "STUDIO_MAGIC_SCALE [cif scale out]"\nsave '+tcl_word(c['name'])
             log=magic('drc',commands);matches=re.findall(r'^STUDIO_DRC_COUNT\s+(\d+)\s*$',log,re.M)

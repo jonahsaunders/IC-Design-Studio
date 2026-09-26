@@ -15,7 +15,7 @@ jobs:
       matrix:
         stage: [inverter, analog, analog-rc, devices, two-stage-opamp, detector]
     runs-on: ubuntu-24.04
-    timeout-minutes: ${{ matrix.stage == 'two-stage-opamp' && 90 || 45 }}
+    timeout-minutes: ${{ matrix.stage == 'two-stage-opamp' && 90 || matrix.stage == 'detector' && 60 || 45 }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -24,7 +24,7 @@ jobs:
       - name: Install physical engines and Python dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential pkg-config m4 tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev ngspice libegl1 libopengl0
+          sudo apt-get install -y build-essential pkg-config m4 tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev ngspice klayout xschem libegl1 libopengl0
           python -m pip install -r requirements.txt
       - name: Build compatible pinned Magic and Netgen
         run: python scripts/build_physical_engines.py --output build/physical-engines
@@ -41,6 +41,16 @@ jobs:
         if: matrix.stage == 'inverter'
         timeout-minutes: 5
         run: python scripts/qualify_layout_process.py --pdk build/physical-adapter/sky130A --out build/physical-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
+      - name: Check exact full-deck width and spacing boundaries
+        if: matrix.stage == 'inverter'
+        timeout-minutes: 5
+        run: python scripts/qualify_drc_boundaries.py --technology build/qualification-pdk/sky130A/libs.tech/magic/sky130A.tech --out build/physical-evidence/drc-boundaries --magic "$PWD/build/physical-engines/installed/bin/magic"
+      - name: Exercise real desktop physical checks and repair
+        if: matrix.stage == 'inverter'
+        timeout-minutes: 10
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_physical_qualification.py --pdk build/physical-adapter/sky130A --out build/physical-evidence/desktop --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --ngspice /usr/bin/ngspice
       - name: Qualify analog references, corners, extraction and deliberate faults
         if: matrix.stage == 'analog'
         timeout-minutes: 15
@@ -69,6 +79,10 @@ jobs:
         if: matrix.stage == 'detector'
         timeout-minutes: 22
         run: python scripts/qualify_open_project.py --source build/open-project-source --pdk build/qualification-pdk/sky130A --out build/open-project-evidence --require-consistent --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
+      - name: Verify detector streams after independent export and reimport
+        if: matrix.stage == 'detector'
+        timeout-minutes: 15
+        run: python scripts/qualify_reference_exchange.py --detector build/open-project-evidence --out build/detector-exchange --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -80,6 +94,7 @@ jobs:
             build/device-evidence
             build/two-stage-opamp-evidence
             build/open-project-evidence
+            build/detector-exchange
             build/physical-adapter/sky130A/package.json
             build/qualification-pdk/upstream-lock.json
             build/physical-engines/*-build.log

@@ -152,7 +152,9 @@ def main():
         baseline,elapsed=external(original,out/'xschem-reference',args.xschem,args.ngspice,[original.parent/'devices'])
         report['reference']={'status':'passed','seconds':elapsed,'measurements':summary(baseline)};checkpoint()
         from icstudio.xschem_compat import review_project
-        record=review_project(args.source)
+        # Both independent tools and Studio must capture the same pinned models.
+        # A host's unrelated /foss PDK must not replace the bundled reference.
+        record=review_project(original)
         if record['errors'] or record['candidate']['xschem_exchange']['unresolved']:raise AssertionError('Unresolved source dependencies')
         capture=record['candidate'];save_project(capture,out/'capture.icproj')
         print('Running Studio preserved import…',flush=True)

@@ -325,6 +325,14 @@ def verify(a):
     rc = command([sys.executable, drc_runner, '--path='+str(gds), '--variant=B',
         '--topcell=banba_layout', '--run_dir='+str(output/'drc'), '--thr=2', '--density', '--antenna'], output, 'drc', env)
     report['drc'] = drc_results(output/'drc', gds.stem, rc)
+    drc_log = (output/'drc.log').read_text(errors='replace')
+    # The pinned upstream wrapper intentionally exits 1 for completed findings.
+    # Preserve that code and distinguish it from execution/parser failures.
+    report['drc']['completed_with_findings'] = bool(rc == 1 and
+        'Klayout DRC run is not clean.' in drc_log and 'Violated rules are :' in drc_log and
+        len(re.findall(r'(?i)DRC Total Run time', drc_log)) == 3 and
+        all(re.search(r'(?i)' + deck + r' DRC Total Run time', drc_log) for deck in ('main', 'antenna')) and
+        not re.search(r'Traceback|Segmentation fault|ERROR:|Killed|command not found', drc_log))
     report['remaining'] = drc_remaining(report['drc']) + ['Strict LVS has not completed.']
     (output/'physical-verification.json').write_text(json.dumps(report, indent=2)+'\n')
     rc = command([sys.executable, a.pv/'klayout/lvs/run_lvs.py', '--layout='+str(gds),

@@ -120,7 +120,7 @@ def export_layout(p,path):
             if s.get('net') and c.get('layout_label_mode')!='explicit':
                 x,y=s['points'][0];cell.shapes(layers[s['layer']]).insert(db.Text(s['net'],db.Trans(x,y)))
     ly.write(str(path));side=Path(str(path)+'.icstudio.json');save_project(p,side)
-    atomic_write(str(path)+'.report.json',json.dumps({'format':Path(path).suffix,'design_hash':digest(p),'file_hash':file_digest(path),'preserved':['polygon geometry','holes','layer/datatype','cell names','1 nm units','net text labels'],'limits':['Explicit physical cell instances and arrays are preserved; schematic-only instances have no implicit physical placement.','PCell generators are flattened to geometry.','Sidecar retains device links and editable application metadata.'],'sidecar':side.name},indent=2))
+    atomic_write(str(path)+'.report.json',json.dumps({'format':Path(path).suffix,'design_hash':digest(p),'file_hash':file_digest(path),'preserved':['polygon geometry','holes','layer/datatype','cell names','1 nm units','net text labels'],'limits':['Explicit physical cell instances and arrays are preserved; schematic-only instances have no implicit physical placement.','PCell generators are flattened to geometry.','Sidecar retains device links and editable application metadata.',*(['OASIS stores text strings and anchor points but does not preserve text size, orientation, font or alignment.'] if Path(path).suffix.lower() in ('.oas','.oasis') else [])],'sidecar':side.name},indent=2))
     from .interoperability import project_contract
     atomic_write(str(path)+'.exchange.json',json.dumps({'version':1,'baseline_hash':file_digest(side),
                  'layout_hash':file_digest(path),'contract':project_contract(p)},indent=2))

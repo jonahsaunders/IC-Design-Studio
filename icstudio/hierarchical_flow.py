@@ -97,12 +97,12 @@ def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=Non
             for i,port in enumerate(child['ports'],1):setup+='if {![port '+tcl_word(port)+' exists]} {error '+tcl_word('Missing child port '+child['name']+'.'+port)+'}\nport '+tcl_word(port)+' index '+str(i)+'\n'
         def magic(name,commands):return magic_script(resolved['magic'],assets['technology'],out/'layout.gds',c['name'],c['ports'],out/name,commands,setup)
         def drc():
-            commands='drc style '+tcl_word(report['magic_drc_style'])+'\ndrc ignore none\ndrc check\ndrc catchup\nputs "STUDIO_DRC_COUNT [drc list count total]"\nputs "STUDIO_DRC_STYLE [drc list style]"\n'
+            commands='snap internal\nselect top cell\nbox values {*}[select bbox]\nbox grow c 10um\ndrc style '+tcl_word(report['magic_drc_style'])+'\ndrc ignore none\ndrc check\ndrc catchup\nputs "STUDIO_DRC_COUNT [drc list count total]"\nputs "STUDIO_DRC_STYLE [drc list style]"\n'
             commands+='set f [open findings.tsv w]\nforeach {reason boxes} [drc listall why] {foreach coords $boxes {puts $f "[string map {\\t { } \\n { }} $reason]\\t[join $coords {,}]"}}\nclose $f\nputs "STUDIO_MAGIC_SCALE [cif scale out]"\n'
             commands+='set nav [open navigation.tsv w]\n'
             for key in reachable(p,cid,True):
                 name=tcl_word(by[key]['name'])
-                commands+='load '+name+'\nselect top cell\ndrc catchup\nset cellname '+name+'\n'
+                commands+='load '+name+'\nselect top cell\nbox values {*}[select bbox]\nbox grow c 10um\ndrc catchup\nset cellname '+name+'\n'
                 commands+='foreach {reason boxes} [drc listall why] {foreach coords $boxes {puts $nav "$cellname\\t[string map {\\t { } \\n { }} $reason]\\t[join $coords {,}]\\t[cif scale out]"}}\nsave '+name+'\n'
             commands+='close $nav\n'
             log=magic('drc',commands);counts=re.findall(r'^STUDIO_DRC_COUNT (\d+)$',log,re.M)

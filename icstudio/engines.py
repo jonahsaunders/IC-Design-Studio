@@ -272,7 +272,7 @@ def run_deck(p,cid,settings,executable,directory,progress=lambda *_:None):
             else:result['diagnostics']=bias_report(result)
     return result
 
-def magic_import(executable,source,technology,output):
+def magic_import(executable,source,technology,output,flatten=False):
     """Convert an existing Magic cell tree through its real technology engine."""
     source=Path(source).resolve();output=Path(output).resolve()
     if not source.is_file() or source.suffix.lower()!='.mag':raise ValueError('Choose an existing Magic .mag cell.')
@@ -281,18 +281,35 @@ def magic_import(executable,source,technology,output):
     from .magic_dependencies import closure
     dependencies=closure(source)
     output.mkdir(parents=True,exist_ok=True);target=output/'imported.gds'
-    search=tcl_word('+'+str(source.parent));script=f'path search {search}\nload {tcl_word(source.stem)}\ngds write {tcl_word(target)}\nfeedback save {tcl_word(output/"feedback.txt")}\nputs STUDIO_IMPORT_COMPLETE\n'
+    search=tcl_word('+'+str(source.parent));script=f'path search {search}\nload {tcl_word(source.stem)}\n'
+    if flatten:
+        from .model import uid
+        flat_name='studio_flat_'+uid()
+        script+='flatten -dotoplabels '+tcl_word(flat_name)+'\nload '+tcl_word(flat_name)+'\n'
+    script+=f'gds write {tcl_word(target)}\nfeedback save {tcl_word(output/"feedback.txt")}\nputs STUDIO_IMPORT_COMPLETE\n'
     script='if {[catch {\n'+script+'} err]} {puts stderr "STUDIO_IMPORT_ERROR $err"}\nquit -noprompt\n'
     atomic_write(output/'import.tcl',script)
-    log=execute([executable,'-dnull','-noconsole','-T',str(Path(technology).resolve())],source.parent,input_text=script);atomic_write(output/'conversion.log',log)
+    # A user/project .magicrc can override -T, change processes, or exit before
+    # import. Bind this run to only the explicitly selected technology.
+    startup=output/'startup.tcl';atomic_write(startup,'tech load '+tcl_word(Path(technology).resolve())+'\n')
+    log=execute([executable,'-dnull','-noconsole','-rcfile',str(startup)],source.parent,input_text=script);atomic_write(output/'conversion.log',log)
     if not target.exists() or 'STUDIO_IMPORT_COMPLETE' not in log or 'STUDIO_IMPORT_ERROR' in log:raise RuntimeError('Magic import did not complete. Review the conversion log and technology selection.')
+    if flatten:
+        # Restore the original public interface name, without reconstructing a
+        # hierarchy that the user explicitly chose to flatten.
+        import klayout.db as db
+        layout=db.Layout();layout.read(str(target))
+        if len(layout.top_cells())!=1 or layout.top_cell().name!=flat_name:raise ValueError('Unexpected flattened Magic top cell.')
+        layout.top_cell().name=source.stem;layout.write(str(target))
     from .interchange import import_layout
     from .model import save_project
     project,report=import_layout(target)
     feedback=output/'feedback.txt'
     if feedback.is_file() and feedback.stat().st_size:
         report.append('Magic reported conversion feedback. Inspect feedback.txt and conversion.log before verification.')
+    if flatten:report.append('Explicit flattened conversion: one physical cell; original Magic source hierarchy is preserved in its source files. Run fresh DRC/LVS on this conversion.')
     evidence={'source':str(source),'source_hash':file_digest(source),'dependencies':dependencies,'technology':file_digest(technology),'report':report,
+              'hierarchy_mode':'flattened' if flatten else 'preserved',
               'feedback':feedback.read_text(errors='replace') if feedback.is_file() else ''}
     project['layout_source']['magic_import']=evidence
     save_project(project,output/'imported.icproj');atomic_write(output/'import-report.json',json.dumps(evidence,indent=2));return str(output/'imported.icproj')

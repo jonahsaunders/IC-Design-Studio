@@ -40,17 +40,20 @@ The PDK setup already excludes perim; do not discard any other property.
     return result
 
 
-def geometry_equal(first, second):
+def geometry_equal(first, second, *, text_presentation=True):
     """Compare every cell/layer region, text and placement without Studio sidecars."""
     import klayout.db as db
     layouts = []
     for path in (first, second):
         ly = db.Layout(); ly.read(str(path)); layouts.append(ly)
     a, b = layouts
-    if a.dbu != b.dbu: raise ValueError('Layout database units changed.')
+    # GDS real encoding can round 0.001 to 0.0009999999999999998.
+    # Permit floating-point representation noise, never grid rescaling.
+    if not math.isclose(a.dbu,b.dbu,rel_tol=1e-12,abs_tol=0): raise ValueError('Layout database units changed.')
     if {c.name for c in a.each_cell()} != {c.name for c in b.each_cell()}: raise ValueError('Layout cell set changed.')
     layers = {(ly.get_info(i).layer, ly.get_info(i).datatype) for ly in layouts for i in ly.layer_indexes()}
     checked = 0
+    presentation_changes = 0
     for c in a.each_cell():
         other = b.cell(c.name)
         def instances(cell, ly):
@@ -62,11 +65,17 @@ def geometry_equal(first, second):
             rb = db.Region(other.shapes(ib)) if ib is not None else db.Region()
             if not (ra ^ rb).is_empty(): raise ValueError('Geometry changed: ' + c.name + ' / ' + str(pair))
             def labels(cell, index):
-                return sorted(str(s.text) for s in cell.shapes(index).each() if s.is_text()) if index is not None else []
+                texts = [s.text for s in cell.shapes(index).each() if s.is_text()] if index is not None else []
+                return sorted(str(t) if text_presentation else (t.string, t.x, t.y) for t in texts)
             if labels(c, ia) != labels(other, ib): raise ValueError('Layout text changed: ' + c.name)
+            if not text_presentation:
+                def styled(cell, index):
+                    return sorted(str(s.text) for s in cell.shapes(index).each() if s.is_text()) if index is not None else []
+                presentation_changes += styled(c, ia) != styled(other, ib)
             checked += 1
     return dict(status='passed', cells=a.cells(), cell_layers=checked,
-                checks=['region XOR', 'text and text transforms', 'hierarchy and array transforms'])
+                text_presentation_compared=text_presentation, presentation_changed_cell_layers=presentation_changes,
+                checks=['region XOR', 'text and text transforms' if text_presentation else 'label strings and anchor positions', 'hierarchy and array transforms'])
 
 
 def simulations(project, reference, executable, output, compatibility='hsa'):
@@ -210,7 +219,8 @@ def qualify(args):
         native = out / 'source-layout'; shutil.copytree(source / 'mag', native)
         script = 'load ' + tcl_word(top) + '\nselect top cell\n' + extraction_commands('lvs', {'hierarchy': False})[0] + 'ext2spice\nquit -noprompt\n'
         atomic_write(native / 'extract.tcl', script)
-        atomic_write(native / 'extraction.log', execute([args.magic, '-dnull', '-noconsole', '-T', str(tech)], native, input_text=script))
+        atomic_write(native / 'startup.tcl', 'tech load ' + tcl_word(tech) + '\n')
+        atomic_write(native / 'extraction.log', execute([args.magic, '-dnull', '-noconsole', '-rcfile', str(native / 'startup.tcl')], native, input_text=script))
         report['checks']['layout_schematic_lvs'] = compare('layout-schematic', native / (top + '.spice'))
         report['checks']['layout_schematic_lvs']['extraction'] = 'Full circuit, hierarchy off; all device properties and top pins compared.'
         # Compare faults with the same independently extracted physical circuit.
@@ -235,6 +245,12 @@ def qualify(args):
         report['status'] = 'passed' if report['checks']['layout_schematic_lvs']['status'] == 'passed' else 'needs_attention'
     except Exception as exc:
         report.update(status='failed', import_regression='failed', error=str(exc), traceback=traceback.format_exc())
+    publish()
+    # Bind downstream exchange checks to this exact executed reference and
+    # conversion. Archived success must not certify subsequently edited inputs.
+    report['artifacts'] = {path.relative_to(out).as_posix(): file_digest(path)
+                           for path in out.rglob('*') if path.is_file()
+                           and path.suffix in ('.spice', '.gds', '.mag', '.tech', '.tcl', '.icproj')}
     publish()
     print(json.dumps(dict(status=report['status'], import_regression=report['import_regression'], report=str(out / 'qualification.json')), indent=2))
     return 0 if report['import_regression'] == 'passed' and (not args.require_consistent or report['status'] == 'passed') else 1

@@ -28,8 +28,11 @@ jobs:
   statistics:
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/experimental'
     uses: ./.github/workflows/analog-campaign-qualification.yml
+  reference-compatibility:
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/experimental'
+    uses: ./.github/workflows/reference-compatibility.yml
   draft:
-    needs: [desktop, interoperability, physical, digital, vga, statistics]
+    needs: [desktop, interoperability, physical, digital, vga, statistics, reference-compatibility]
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -70,6 +73,11 @@ jobs:
         with:
           name: statistical-campaign-evidence
           path: build/statistics-release-evidence
+      - name: Include real-reference compatibility evidence
+        uses: actions/download-artifact@v4
+        with:
+          pattern: reference-*
+          path: build/reference-release-evidence
       - name: Complete evidence archives and checksums
         env:
           RELEASE_COMMIT: ${{ github.sha }}
@@ -81,7 +89,7 @@ jobs:
           from scripts.assemble_prerelease import validate_statistical_qualification
           statistics = validate_statistical_qualification('build/statistics-release-evidence', os.environ['RELEASE_COMMIT'], os.environ['RELEASE_RUN'])
           pathlib.Path(f'release/IC-Design-Studio-{__version__}-Statistical-Validation.json').write_text(json.dumps(statistics, indent=2) + '\n')
-          for kind in ('physical', 'interoperability', 'digital', 'vga', 'statistics'):
+          for kind in ('physical', 'interoperability', 'digital', 'vga', 'statistics', 'reference'):
               shutil.make_archive(f'release/IC-Design-Studio-{__version__}-{kind}-Evidence', 'zip', f'build/{kind}-release-evidence')
           files = sorted(p for p in pathlib.Path('release').iterdir() if p.is_file() and not p.name.startswith('SHA256SUMS'))
           lines = []

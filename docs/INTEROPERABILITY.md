@@ -109,3 +109,7 @@ Regression coverage includes concurrent edits and conflicts, copied IDs, propert
 KLayout tests extract a resistor from geometry, compare an independent SPICE reference and detect an injected resistance mismatch. Magic tests create native ports and cells, move a native instance and recover its identity. The external-engine CI workflow installs Magic, Xschem and ngspice and exercises vector/Tcl netlisting plus native migration simulation. Desktop tests exercise the secondary selector, conflict choices and undo and retain screenshots as CI artifacts.
 
 Both verification workflows run on pushes to `experimental`; no pull request to `main` is needed. Linux and Windows desktop jobs run independently. The external-engine workflow retains test inputs and engine logs in its artifact, including failed runs. Git checkout preserves exact source bytes on every platform so bundled-library and original-schematic checksums remain valid on Windows.
+
+## Real reference qualification
+
+See [Reference compatibility](REFERENCE_COMPATIBILITY.md) for the bandgap and LDFranck detector matrix, full DRC/LVS after exchange, real physical fault controls, exact tool versions and remaining unsupported routes. Magic import now offers an explicit flattened route and isolates startup from source-folder configuration. OASIS export reports its text-presentation limitations.

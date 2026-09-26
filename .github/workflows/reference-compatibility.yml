@@ -1,0 +1,71 @@
+name: Reference design compatibility
+on:
+  workflow_call:
+  workflow_dispatch:
+  push:
+    branches: [main, experimental]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  bandgap-schematic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the destination schematic tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xschem ngspice libegl1 libopengl0
+          python -m pip install -r requirements.txt
+      - name: Compare the real bandgap through Xschem and all Studio paths
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python scripts/verify_bandgap_compatibility.py --output build/bandgap-compatibility --xschem /usr/bin/xschem --ngspice /usr/bin/ngspice
+      - name: Exercise the six analyses through the desktop
+        env:
+          QT_QPA_PLATFORM: offscreen
+          ICSTUDIO_TEST_NGSPICE: /usr/bin/ngspice
+        run: python tests/gui_bandgap_compatibility.py --evidence build/bandgap-desktop
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reference-bandgap-schematic
+          path: |
+            build/bandgap-compatibility
+            build/bandgap-desktop
+          compression-level: 1
+          if-no-files-found: error
+  bandgap-physical:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: efabless/globalfoundries-pdk-libs-gf180mcu_fd_pv
+          ref: 05e7b6adf19edf942969c1c9625f02fd87874f06
+          path: build/gf180-pv
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install KLayout and the locked Python dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y klayout libegl1 libopengl0
+          python -m pip install -r requirements.txt docopt jinja2
+      - name: Qualify exchange, full DRC/LVS and deliberate physical faults
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python scripts/qualify_gf180_exchange.py --pv build/gf180-pv --klayout /usr/bin/klayout --out build/gf180-exchange
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reference-bandgap-physical
+          path: build/gf180-exchange
+          compression-level: 1
+          if-no-files-found: error

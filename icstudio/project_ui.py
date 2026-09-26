@@ -390,8 +390,14 @@ class ProjectMixin:
         if not tech:return
         exe=self.settings.value('engine/magic','') or shutil.which('magic')
         if not exe:raise ValueError('Configure the Magic executable in Engine diagnostics first.')
+        modes=['Keep editable cell hierarchy','Flatten for verification (one cell)']
+        mode,accepted=QInputDialog.getItem(self,'Magic layout conversion',
+            'Choose how to convert the layout. Flattening can resolve interactions between overlapping cells; the original files are kept.',modes,0,False)
+        if not accepted:return
         output=self.data_dir/'imports'/uid()
-        self.start_cli_job(['magic-import','--source',source,'--technology',tech,'--executable',exe,'--output',str(output)],'Magic import')
+        arguments=['magic-import','--source',source,'--technology',tech,'--executable',exe,'--output',str(output)]
+        if mode==modes[1]:arguments.append('--flatten')
+        self.start_cli_job(arguments,'Magic import')
         process=self.process
         def opened(code,status):
             if code==0 and not self.cancelled and (output/'imported.icproj').exists():
