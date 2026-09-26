@@ -1,0 +1,16 @@
+{
+  "xschem": {
+    "repository": "https://github.com/StefanSchippers/xschem.git",
+    "version": "3.4.8",
+    "commit": "b69f793f83383d4e59cdb66aa431375b5a9966cc",
+    "version_args": ["-x", "-q", "--version"]
+  },
+  "ngspice": {
+    "repository": "https://git.code.sf.net/p/ngspice/ngspice",
+    "version": "ngspice-46",
+    "commit": "ebdaf58ec76a06ffaac7e0f138360dd1cf5ee4b6",
+    "autogen": true,
+    "configure": ["--with-x=no", "--with-klu", "--enable-xspice", "--enable-cider"],
+    "require_klu": true
+  }
+}

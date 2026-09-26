@@ -1,0 +1,100 @@
+diff --git a/resis/ResRex.c b/resis/ResRex.c
+index ea3a24e..0dfa287 100644
+--- a/resis/ResRex.c
++++ b/resis/ResRex.c
+@@ -1222,8 +1222,18 @@ ResProcessNode(
+     	TxError("Node %s has force label but no drive point or "
+ 			"driving device\n", node->name);
+     }
++    /* In all-net mode passive-only interconnects have no FET driver.
++     * The original node has an electrical origin on its own conductor. */
++    if (resisdata->rg_devloc == NULL && (ResOptionsFlags & ResOpt_ExtractAll)
++            && node->type != TT_SPACE && node->location.p_x != INFINITY
++            && node->location.p_y != INFINITY)
++    {
++        resisdata->rg_devloc = &node->location;
++        resisdata->rg_ttype = node->type;
++        resisdata->rg_status |= DRIVEONLY;
++    }
+     if (resisdata->rg_devloc == NULL)
+-	return 1;
++        return 1;
+ 
+     /*
+      * Extract the net if:
+diff --git a/resis/ResUtils.c b/resis/ResUtils.c
+index e8d9004..c624b92 100644
+--- a/resis/ResUtils.c
++++ b/resis/ResUtils.c
+@@ -213,6 +213,9 @@ ResAddTerminalPlumbing(
+ 	else
+ 	    t1 = TiGetTypeExact(tp1);
+ 
++        /* Implicit bulk space has no finite conductor to traverse. */
++        if (t1 == TT_SPACE) continue;
++
+ 	/* Top */
+ 	for (tp2 = RT(tp1); RIGHT(tp2) > LEFT(tp1); tp2 = BL(tp2))
+ 	{
+@@ -323,6 +326,9 @@ ResUnmarkTerminal(
+ 	else
+ 	    t1 = TiGetTypeExact(tp1);
+ 
++        /* Implicit bulk space has no finite conductor to traverse. */
++        if (t1 == TT_SPACE) continue;
++
+ 	/* Top */
+ 	for (tp2 = RT(tp1); RIGHT(tp2) > LEFT(tp1); tp2 = BL(tp2))
+ 	{
+@@ -883,6 +889,25 @@ ResFreeDevTiles(TileList)
+  *-------------------------------------------------------------------------
+  */
+ 
++typedef struct {
++    HashTable *table;
++    Tile *device;
++    int terminal;
++} ResCrossPlane;
++
++static int
++resRecordCrossPlane(Tile *tile, TileType dinfo, ClientData data)
++{
++    ResCrossPlane *record = (ResCrossPlane *)data;
++    HashEntry *entry = HashFind(record->table, (char *)tile);
++    resDevTerm *item = (resDevTerm *)mallocMagic(sizeof(resDevTerm));
++    item->rdt_term = record->terminal;
++    item->rdt_tile = record->device;
++    item->rdt_next = (resDevTerm *)HashGetValue(entry);
++    HashSetValue(entry, (char *)item);
++    return 0;
++}
++
+ void
+ ResPreProcessDevices(TileList, DeviceList, Def, devNodeTable)
+     ResDevTile		*TileList;
+@@ -1017,21 +1042,10 @@ ResPreProcessDevices(TileList, DeviceList, Def, devNodeTable)
+ 		    {
+ 			if (PlaneMaskHasPlane(pmask, pNum))
+ 			{
+-			    tp = PlaneGetHint(Def->cd_planes[pNum]);
+-			    GOTOPOINT(tp, &(TileList->area.r_ll));
+-			    PlaneSetHint(Def->cd_planes[pNum], tp);
+-
+-			    ttype = TiGetType(tp);
+-			    if (TTMaskHasType(&termMask, ttype))
+-			    {
+-				he = HashFind(devNodeTable, (char *)tp);
+-			        resdevList = (resDevTerm *)HashGetValue(he);
+-			        resdevRec = (resDevTerm *)mallocMagic(sizeof(resDevTerm));
+-				resdevRec->rdt_term = i;
+-			        resdevRec->rdt_tile = tile;
+-			        resdevRec->rdt_next = resdevList;
+-			        HashSetValue(he, (char *)resdevRec);
+-			    }
++                            ResCrossPlane record = {devNodeTable, tile, i};
++                            DBSrPaintArea((Tile *)NULL, Def->cd_planes[pNum],
++                                &TileList->area, &termMask, resRecordCrossPlane,
++                                (ClientData)&record);
+ 			}
+ 		    }
+ 		}

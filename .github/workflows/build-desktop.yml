@@ -450,7 +450,14 @@ jobs:
       - name: Verify installed Windows app
         if: runner.os == 'Windows'
         shell: pwsh
-        run: ./scripts/verify_windows.ps1
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+        run: |
+          python scripts/fetch_sky130_reference.py --physical-only --output build/qualification-pdk
+          if ($LASTEXITCODE -ne 0) { throw 'Physical PDK preparation failed.' }
+          python scripts/prepare_sky130_qualification.py --input build/qualification-pdk/sky130A --output build/physical-adapter/sky130A
+          if ($LASTEXITCODE -ne 0) { throw 'Physical adapter preparation failed.' }
+          ./scripts/verify_windows.ps1
       - name: Verify frozen Linux app
         if: runner.os == 'Linux'
         env:

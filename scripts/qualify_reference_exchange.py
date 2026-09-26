@@ -64,7 +64,7 @@ def layout_routes(source, output, klayout):
         save_project(again, native)
         final = output / ('reimported-' + suffix + '.gds')
         export_layout(load_project(native), final)
-        geometry_equal(source, final, text_presentation=suffix != 'oas')
+        geometry_equal(source, final)
         paths['studio-' + suffix] = exported
         paths['klayout-' + suffix] = external
         paths['reimported-' + suffix] = final
@@ -82,7 +82,7 @@ def layout_routes(source, output, klayout):
     return paths, dict(warnings=warnings, paths={k: str(v) for k, v in paths.items()},
                        source_sha256=file_digest(source), comparisons=comparisons,
                        comparison='per-cell/layer XOR, label strings/anchors, hierarchy, arrays, database units',
-                       limits=['OASIS does not preserve text orientation, size, font or alignment; GDS presentation is compared strictly.'],
+                       limits=['OASIS appearance uses optional property 124; these tests require it to survive KLayout and restore exact GDS presentation. Other tools may discard it.'],
                        sidecars_used=False, external_edit='add text, reimport, remove text, compare original')
 
 
@@ -212,8 +212,11 @@ def qualify(args):
     def schematic_exchange():
         from icstudio.external_tools import xschem_netlist
         from scripts.qualify_open_project import normalized_diodes
+        from icstudio.native_exchange import export_project
         dest=report.output/'independent-xschem'
-        source=inputs/'xschem-roundtrip'/(state['top']+'.sch')
+        exported=report.output/'current-xschem-export'
+        export_project(load_project(inputs/'schematic.icproj'),exported)
+        source=exported/(state['top']+'.sch')
         record=xschem_netlist(source,dest,state['xschem'],mode='lvs')
         decks=list((dest/'netlists').glob('*.spice'))
         if len(decks)!=1:raise ValueError('Expected one independent Xschem netlist.')
@@ -287,9 +290,25 @@ def qualify(args):
         if result['drc']['count']:raise ValueError('Hierarchical stream conversion has DRC findings; inspect physical/hierarchical-diagnostic.')
         return result
     report.case('detector-studio-hierarchical-stream',hierarchical_diagnostic)
+    def canonical_magic_stream():
+        from icstudio.engines import magic_import
+        from icstudio.stream_contract import compare
+        folder=report.output/'canonical-magic-import'
+        magic_import(state['magic'],inputs/'source-layout'/(state['top']+'.mag'),state['technology'],folder)
+        record=json.loads((folder/'import-report.json').read_text())
+        compare(folder/'magic-raw.gds',folder/'imported.gds')
+        verification=folder/'physical'
+        result=magic_verify(folder/'imported.gds',state['top'],state['technology'],verification,state['magic'],
+                            input_style='sky130()',pin_layers=SKY130_PIN_LAYERS,label_layers=SKY130_LABEL_LAYERS)
+        if result['drc']['count']:raise ValueError('Canonical Magic import fails DRC.')
+        result['lvs']=compare_lvs(state['netgen'],state['reference'],verification/'extracted.spice',state['top'],state['setup'],verification/'lvs')
+        result['stream_normalization']=record['stream_normalization']
+        return result
+    report.case('detector-canonical-magic-hierarchical-stream',canonical_magic_stream)
     def raw_magic_stream():
         folder=report.output/'physical/raw-magic-stream'
-        result=magic_verify(inputs/'magic-import/imported.gds',state['top'],state['technology'],folder,state['magic'],
+        raw=report.output/'canonical-magic-import/magic-raw.gds'
+        result=magic_verify(raw,state['top'],state['technology'],folder,state['magic'],
                             input_style='sky130()',pin_layers=SKY130_PIN_LAYERS,label_layers=SKY130_LABEL_LAYERS)
         if result['drc']['count']:
             raise ValueError(f"Raw hierarchical Magic stream has {result['drc']['count']} DRC findings. See physical/raw-magic-stream/physical.json.")
@@ -316,7 +335,7 @@ def qualify(args):
             return result
         report.case('detector-reject-' + name, action)
     report.blocked('virtuoso-exchange', 'Requires an actual licensed Virtuoso installation and matching PDK; open-source results do not qualify this route.')
-    report.blocked('installed-windows-physical-tools', 'Magic/Netgen execution is qualified on Linux here. Native Windows/managed remote execution must be exercised separately.')
+    report.blocked('installed-windows-physical-tools', 'Separate Windows gate: tests/gui_physical_qualification.py --managed. This Linux exchange suite makes no Windows execution claim.')
     return report.finish()
 
 

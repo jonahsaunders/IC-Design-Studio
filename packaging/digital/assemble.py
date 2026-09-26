@@ -2,6 +2,7 @@
 import json
 import os
 import re
+import shlex
 from pathlib import Path
 import shutil
 import subprocess
@@ -43,6 +44,8 @@ for folder in (Path('/usr/lib/x86_64-linux-gnu'), Path('/usr/lib/klayout'), Path
 # Follow the actual loader closure, including Qt plugins, before relocation.
 queue=[Path('/usr/bin/openroad'),Path('/usr/bin/sta'),Path('/usr/lib/klayout/klayout'),
        Path('/usr/bin/python3'),Path('/usr/bin/perl'),Path('/usr/bin/make')]
+queue+=list((ROOT/'physical/installed/lib').rglob('*.so'))
+queue+=list((ROOT/'python/lib').rglob('*.so'))
 queue+=list(Path('/usr/lib/x86_64-linux-gnu/qt5/plugins').rglob('*.so'))
 seen=set()
 while queue:
@@ -59,8 +62,33 @@ while queue:
         queue.append(Path(filename))
 
 bindir = ROOT/'bin'; bindir.mkdir()
+# The upstream Netgen launcher/initializer embeds its build prefix. Source
+# the same initializer with the bundled Tcl interpreter after binding its
+# library location to CAD_ROOT, so native per-user Linux extraction relocates.
+netgen_init=ROOT/'physical/installed/lib/netgen/tcl/netgen.tcl'
+netgen_text=netgen_init.read_text()
+needle='load /opt/icstudio/physical/installed/lib/netgen/tcl/tclnetgen.so'
+if netgen_text.count('\n'+needle+'\n')!=1:raise ValueError('Pinned Netgen initializer changed.')
+netgen_init.write_text(netgen_text.replace('\n'+needle+'\n','\nload [file join $env(CAD_ROOT) netgen tcl tclnetgen.so]\n'))
+# The upstream batch interpreter also embeds its build prefix. Recompile the
+# same small launcher with a CAD_ROOT-relative startup script; Tcl_Main still
+# owns stdin, events and command evaluation exactly as in upstream Magic.
+magic_source=ROOT/'physical/magic/tcltk/magicdnull.c'
+magic_text=magic_source.read_text()
+needle='Tcl_SetVar(interp, "tcl_rcFileName", TCL_DIR "/magic.tcl", TCL_GLOBAL_ONLY);'
+if magic_text.count(needle)!=1:raise ValueError('Pinned Magic batch initializer changed.')
+replacement='''const char *root = Tcl_GetVar2(interp, "env", "CAD_ROOT", TCL_GLOBAL_ONLY);
+    if (root == NULL) {
+        Tcl_SetResult(interp, "CAD_ROOT must name the managed Magic library", TCL_STATIC);
+        return TCL_ERROR;
+    }
+    Tcl_SetVar2Ex(interp, "tcl_rcFileName", NULL,
+        Tcl_ObjPrintf("%s/magic/tcl/magic.tcl", root), TCL_GLOBAL_ONLY);'''
+magic_source.write_text(magic_text.replace(needle,replacement))
+subprocess.run(['cc',str(magic_source),'-o',str(ROOT/'physical/installed/lib/magic/tcl/magicdnull'),
+                *shlex.split(subprocess.check_output(['pkg-config','--cflags','--libs','tcl'],text=True))],check=True)
 suite = ('iverilog','vvp','verilator','verilator_coverage','yosys','yosys-abc','eqy','sby','bitwuzla')
-system = ('openroad','sta','klayout','make','perl','python3','gcc','g++','cc','c++','as','ld','ar','ranlib')
+system = ('openroad','sta','klayout','make','perl','python3','gcc','g++','cc','c++','as','ld','ar','ranlib','magic','netgen','ngspice')
 header = '''#!/bin/sh
 set -eu
 root=$(CDPATH= cd -- "$(dirname -- "$0")/../../.." && pwd)
@@ -82,8 +110,13 @@ for name in suite + system:
     elif name in ('gcc','g++','cc','c++'):
         actual = 'g++' if name in ('g++','c++') else 'gcc'
         text += 'exec "$root/usr/bin/'+actual+'" --sysroot="${root:-/}" -B"$root/usr/bin/" "$@"\n'
+    elif name in ('magic','netgen'):
+        text += 'export CAD_ROOT="$runtime/physical/installed/lib"\n'
+        if name=='netgen':text += 'exec "$root/usr/bin/tclsh8.6" "$CAD_ROOT/netgen/tcl/netgen.tcl" "$@"\n'
+        else:text += 'exec "$runtime/physical/installed/bin/'+name+'" "$@"\n'
     else:
         if name in ('python3','klayout','openroad'): text += 'export PYTHONHOME="$root/usr"\n'
+        if name=='python3':text += 'export PYTHONPATH="$runtime/python/lib/python3.12/site-packages"\n'
         executable = 'usr/lib/klayout/klayout' if name=='klayout' else 'usr/bin/'+name
         text += 'exec "$root/'+executable+'" "$@"\n'
     (bindir/name).write_text(text); (bindir/name).chmod(0o755)
@@ -108,8 +141,10 @@ for base in ('usr','opt'):
     'oss_cad_suite':'2026-09-13', 'openroad':'26Q2-1164-g08f67ee5ec',
     'orfs':'eaba6576441bf7c1743ea56ecdb1904210ec02c2',
     'files_sha256':file_digest(ROOT/'files.json'),
-    'licenses':['usr/share/doc/*/copyright','opt/icstudio/oss-cad-suite/license','opt/icstudio/orfs/LICENSE'],
+    'licenses':['usr/share/doc/*/copyright','opt/icstudio/oss-cad-suite/license','opt/icstudio/orfs/LICENSE','opt/icstudio/physical/licenses'],
+    'physical_source_lock':json.loads((ROOT/'physical/source-lock.json').read_text()),
     'sources':['https://github.com/YosysHQ/oss-cad-suite-build/releases/tag/2026-09-13',
                'https://github.com/The-OpenROAD-Project/OpenROAD/tree/08f67ee5ec',
                'https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/tree/eaba6576441bf7c1743ea56ecdb1904210ec02c2',
+               'https://github.com/RTimothyEdwards/magic','https://github.com/RTimothyEdwards/netgen',
                'https://archive.ubuntu.com/ubuntu/']}, indent=2))

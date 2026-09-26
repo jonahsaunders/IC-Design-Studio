@@ -109,7 +109,7 @@ class RunManager(QObject):
             if row['state']=='Queued':row['state']='Cancelled';job_store.state(row['path'],'cancelled')
             elif row['state']=='Running':
                 row['state']='Stopping';proc=row['process']
-                if row['job'].get('settings',{}).get('runtime'):
+                if row['job'].get('settings',{}).get('runtime') or row['job'].get('settings',{}).get('physical_runtime'):
                     from .digital_backend import cancel
                     cancel(row['path'])
                 if os.name=='nt':subprocess.run(['taskkill','/PID',str(proc.processId()),'/T','/F'],capture_output=True)

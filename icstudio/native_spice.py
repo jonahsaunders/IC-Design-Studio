@@ -38,6 +38,8 @@ def render(device, child=None, mode='simulation'):
 
 def validate_device(device):
     definition = device.get('native_spice', {})
+    if definition.get('diode_geometry') not in (None,'pre46-scale-1e-6'):
+        raise ValueError('Unsupported explicit diode geometry convention.')
     if definition.get('version') != 1 or definition.get('type') not in ('device', 'program'):
         raise ValueError('Invalid native electrical definition for ' + device['name'])
     if not device.get('symbol'):
@@ -95,13 +97,21 @@ def netlist(project, directory, mode='simulation'):
         for original in c['devices']:
             d = original; definition = d.get('native_spice')
             if d.get('model_ref'):
-                lines.append(emit(d,p['pdk'],mode));continue
+                line=emit(d,p['pdk'],mode)
+                if mode=='simulation' and d['model_ref'].get('diode_geometry')=='pre46-scale-1e-6':
+                    from .ngspice_compat import declare
+                    line=declare(line)
+                lines.append(line);continue
             if definition:
                 if definition['type'] == 'program':
                     if c is top or not definition.get('only_toplevel'):
                         commands.append(definition['text'])
                 else:
-                    lines.append(render(d, by.get(d.get('cell')), mode))
+                    line=render(d, by.get(d.get('cell')), mode)
+                    if mode=='simulation' and definition.get('diode_geometry')=='pre46-scale-1e-6':
+                        from .ngspice_compat import declare
+                        line=declare(line)
+                    lines.append(line)
                     if definition.get('definition'): definitions.add(definition['definition'])
                 continue
             d = resolved_device(d, context); kind = d['kind']

@@ -22,7 +22,7 @@ GROUPS = {
  'Simulate/Studies': ['Parameter sweep / PVT / Monte Carlo…','Rerun saved study','Configure saved-bench characterization…','Run saved-bench characterization'],
  'Verify': ['Electrical rule check','Electrical check rules…','Geometry DRC (generic rules)','Device mapping audit','Inspect whole net','Schematic / layout cross-probe…','Check linked layout and show connections','Physical terminal connectivity','Physical workflow'],
  'Verify/Physical verification': ['Verify custom inverter through silicon','Verify saved testbench layout','Compare netlists with Netgen…','Create PDK reference circuit…','Extract layout through Magic…','Estimate ground capacitance'],
- 'Tools': ['Engine diagnostics and paths…','Layout keyboard profile…','Schematic command profile…','Convert GDS through Magic…'],
+ 'Tools': ['Engine diagnostics and paths…','Physical tools setup…','Layout keyboard profile…','Schematic command profile…','Convert GDS through Magic…'],
  'Tools/Technology': ['Import technology descriptor…','Technology and qualification status','Installed PDK revisions…','PDK manager…','Relink project PDK folder…','Migrate PDK revision…'],
  'View': ['Fit design','Fit layout','Ruler','Toggle light / dark'],
  'Window': ['Project','Inspector','Results','Focus canvas','Reset workspace','Save named workspace…','Restore named workspace…'],

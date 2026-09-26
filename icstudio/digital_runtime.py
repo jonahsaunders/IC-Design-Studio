@@ -224,6 +224,10 @@ def setup(progress=lambda message: None):
         from .digital_setup_probe import qualify
         evidence = state/'checks'/uuid.uuid4().hex
         qualify(runtime,evidence,progress)
+        if {'magic','netgen','ngspice'} <= set(data.get('tools',[])):
+            from .physical_runtime_probe import qualify as qualify_physical
+            progress('Checking DRC, strict LVS and deliberate physical failures…')
+            qualify_physical(runtime,evidence/'physical-tools',progress)
         record = {'runtime':runtime,'manifest':digest(data),'backend':backend_identity(),'checked':now(),'evidence':str(evidence)}
         atomic_write(ready,json.dumps(record,indent=2))
         progress('Ready. Digital engines and SKY130 HD passed the installation checks.')

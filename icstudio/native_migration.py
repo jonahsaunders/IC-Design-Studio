@@ -57,6 +57,9 @@ def compile_device(device, mode='simulation'):
     result = {'version': 1, 'type': 'device', 'label': Path(info['reference']).stem,
             'model_name': Path(info['reference']).stem, 'tokens': tokens,
             'parameters': used, 'definition': props.get('spice_sym_def',attrs.get('spice_sym_def', ''))}
+    from .ngspice_compat import legacy_symbol
+    if legacy_symbol(attrs,info['properties']) or attrs.get('studio_diode_geometry')=='pre46-scale-1e-6':
+        result['diode_geometry']='pre46-scale-1e-6'
     if mode=='simulation' and ('lvs_format' in attrs or 'lvs_format' in props):
         alternate=compile_device(device,'lvs');result['lvs_tokens']=alternate['tokens'];result['parameters'].update(alternate['parameters'])
     return result

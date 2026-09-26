@@ -34,8 +34,12 @@ def main(input_path,output_path):
             from .distributed_rc import compare_job
             result=compare_job(p,job,Path(output_path).parent,progress)
         elif kind=='silicon':
-            from .silicon_flow import job as silicon_job
-            result=silicon_job(p,job['cell'],job['settings'],Path(output_path).parent,progress)
+            if job['settings'].get('physical_runtime'):
+                from .physical_backend import dispatch
+                result=dispatch(job,Path(output_path).parent,progress)
+            else:
+                from .silicon_flow import job as silicon_job
+                result=silicon_job(p,job['cell'],job['settings'],Path(output_path).parent,progress)
         elif kind=='testbench':
             from .testbenches import get,simulate,compare_implementation
             runner=compare_implementation if job['settings'].get('compare_implementation') else simulate

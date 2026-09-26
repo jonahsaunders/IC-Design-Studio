@@ -76,7 +76,10 @@ def netlist(project,directory):
             if info['kind']=='netlist_commands':
                 if c is top or props.get('only_toplevel','false') not in ('true','1'):commands.append(rewrite(props.get('value',''),c['xschem']['path']))
                 continue
-            lines.append(format_device(d,by.get(d.get('cell'))))
+            line=format_device(d,by.get(d.get('cell')))
+            from .ngspice_compat import legacy_symbol,declare
+            if legacy_symbol(attrs,props) or attrs.get('studio_diode_geometry')=='pre46-scale-1e-6':line=declare(line)
+            lines.append(line)
             definition=props.get('spice_sym_def',attrs.get('spice_sym_def'))
             if definition:definitions.add(rewrite(definition,info['symbol_path']))
         lines.extend(commands)

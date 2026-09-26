@@ -86,6 +86,12 @@ def simulations(project, reference, executable, output, compatibility='hsa'):
     split = text.lower().index('.subckt ')
     native = '.subckt ' + top['name'] + ' ' + ' '.join(top['ports']) + '\n' + text[:split] + '.ends ' + top['name'] + '\n' + text[split:]
     other = circuit_text(normalized_diodes(reference, True, False))
+    from icstudio.ngspice_compat import declare,prepare as prepare_compatibility,MARKER
+    # The locked source explicitly declares the legacy lvsdiode area convention.
+    def declared(circuit):
+        return '\n'.join(declare(line) if re.match(r'^D\S+\s+\S+\s+\S+\s+sky130_fd_pr__diode_pw2nd_05v5\b',line) else line for line in circuit.splitlines())+'\n'
+    other=declared(other)
+    if MARKER not in native:native=declared(native)
     models = ROOT / 'icstudio/assets/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice'
     results = []
     for code in range(16):
@@ -101,6 +107,7 @@ def simulations(project, reference, executable, output, compatibility='hsa'):
             deck += '.temp 27\n.dc Vavdd 3 6 .01\n.save v(ovout)\n.end\n'
             command=[executable, '-n', '-D', 'filetype=ascii']
             if compatibility=='hsa':command += ['-D', 'ngbehavior=hsa']
+            deck=prepare_compatibility(deck,executable,folder)
             if compatibility=='hsa':
                 from icstudio.dc_startup import seed_deck
                 deck=seed_deck(deck,lambda raw,deck:command+['-b','-r',str(raw),str(deck)],folder)

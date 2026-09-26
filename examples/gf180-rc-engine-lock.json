@@ -1,0 +1,9 @@
+{
+  "magic": {
+    "version": "8.3.684",
+    "patch_sha256": "29f8e0e7b206e208aca33f85e90a9aeff027531a930e39d99dbc4d5b8b76bbc6",
+    "patch": "packaging/physical/magic-gf180-rc.patch",
+    "repository": "https://github.com/RTimothyEdwards/magic.git",
+    "commit": "4f53bb3091d1e4a9b2009a58f157a8a4331d4c84"
+  }
+}

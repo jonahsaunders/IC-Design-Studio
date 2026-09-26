@@ -25,7 +25,7 @@ from collections import Counter
 from .model import atomic_write, file_digest
 
 
-MAX_CAPACITORS = 50_000
+MAX_CAPACITORS = 100_000
 ALGORITHM = 'magic-flat-capacitance-conservation-v1'
 _ORIGINAL_KEYS = {'timestamp', 'version', 'tech', 'style', 'scale', 'resistclasses',
                   'parameters', 'port', 'node', 'substrate', 'cap', 'device', 'fet', 'attr'}
@@ -105,7 +105,7 @@ def _matrix(ground, coupling):
     return {key: math.fsum(values) for key, values in terms.items()}
 
 
-def normalize(directory, top, *, max_capacitors=MAX_CAPACITORS):
+def normalize(directory, top, *, max_capacitors=50_000):
     """Rewrite flat ``top.ext``/``top.res.ext`` and return provenance evidence.
 
     Call after ``extresist all`` and before ``ext2spice extresist on`` export.
@@ -116,7 +116,7 @@ def normalize(directory, top, *, max_capacitors=MAX_CAPACITORS):
     if not isinstance(top, str) or not re.fullmatch(r'[A-Za-z0-9_][A-Za-z0-9_.-]*', top):
         raise ValueError('Magic RC top must be a plain cell name.')
     if type(max_capacitors) is not int or not 0 < max_capacitors <= MAX_CAPACITORS:
-        raise ValueError('Magic RC capacitance expansion budget must be 1–50000.')
+        raise ValueError('Magic RC capacitance expansion budget must be 1–100000.')
     directory = Path(directory).resolve()
     original_path = directory / (top + '.ext')
     resistance_path = directory / (top + '.res.ext')

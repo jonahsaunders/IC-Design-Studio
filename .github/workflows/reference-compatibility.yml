@@ -8,6 +8,101 @@ on:
 permissions:
   contents: read
 jobs:
+  modern-schematic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: LDFranck/sky130_vbl_ip__overvoltage
+          ref: 53cf579f63d34227af67f0189b49ee09185f1db5
+          path: build/open-project-source
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install engine build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential pkg-config m4 autoconf automake libtool bison flex tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev libreadline-dev libsuitesparse-dev libegl1 libopengl0 klayout
+          python -m pip install -r requirements.txt
+      - name: Build both exact modern schematic tools and stable physical tools
+        run: |
+          python scripts/build_physical_engines.py --lock examples/modern-schematic-engine-lock.json --output build/modern-engines
+          python scripts/build_physical_engines.py --output build/physical-engines
+      - name: Compare all six bandgap analyses through four paths
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python scripts/verify_bandgap_compatibility.py --output build/modern-bandgap --xschem "$PWD/build/modern-engines/installed/bin/xschem" --ngspice "$PWD/build/modern-engines/installed/bin/ngspice"
+      - name: Qualify modern destination semantics
+        env:
+          QT_QPA_PLATFORM: offscreen
+          ICSTUDIO_TEST_XSCHEM: ${{ github.workspace }}/build/modern-engines/installed/bin/xschem
+        run: python -m unittest tests.test_external_exchange_engines -v
+      - name: Prepare locked detector PDK
+        run: python scripts/fetch_sky130_reference.py --physical-only --output build/qualification-pdk
+      - name: Require detector LVS, injected faults and every modern trip code
+        run: python scripts/qualify_open_project.py --source build/open-project-source --pdk build/qualification-pdk/sky130A --out build/modern-detector --require-consistent --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --ngspice "$PWD/build/modern-engines/installed/bin/ngspice"
+      - name: Require fresh detector exchange through modern Xschem
+        run: python scripts/qualify_reference_exchange.py --detector build/modern-detector --out build/modern-exchange --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout --xschem "$PWD/build/modern-engines/installed/bin/xschem"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reference-modern-schematic
+          path: |
+            build/modern-bandgap
+            build/modern-detector
+            build/modern-exchange
+            build/modern-engines/*-build.log
+            build/modern-engines/*-version.log
+            build/modern-engines/source-lock.json
+          compression-level: 1
+          if-no-files-found: error
+  bandgap-rc:
+    needs: bandgap-physical
+    runs-on: ubuntu-24.04
+    timeout-minutes: 210
+    strategy:
+      fail-fast: false
+      matrix:
+        corner: [nominal, ff, ss, fs, sf]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: RTimothyEdwards/open_pdks
+          ref: aa3fc215a80d32437b8cca1cb3fdee819d18c4c9
+          path: build/open-pdks
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install extraction and simulator build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential pkg-config m4 autoconf automake libtool bison flex tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev libreadline-dev libsuitesparse-dev libegl1 libopengl0
+          python -m pip install -r requirements.txt
+      - name: Build the isolated patched extractor and pinned sparse solver
+        run: |
+          python scripts/build_physical_engines.py --lock examples/gf180-rc-engine-lock.json --output build/gf180-engines
+          python scripts/build_physical_engines.py --lock examples/modern-schematic-engine-lock.json --only ngspice --output build/modern-engines
+      - name: Require complete extraction, terminal equivalence, fill controls and post-RC startup
+        run: python scripts/qualify_gf180_rc.py --open-pdks build/open-pdks --magic "$PWD/build/gf180-engines/installed/bin/magic" --ngspice "$PWD/build/modern-engines/installed/bin/ngspice" --corner "${{ matrix.corner }}" --out build/gf180-rc
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reference-bandgap-rc-${{ matrix.corner }}
+          path: |
+            build/gf180-rc
+            build/gf180-engines/*-build.log
+            build/gf180-engines/*-version.log
+            build/gf180-engines/source-lock.json
+            build/modern-engines/*-build.log
+            build/modern-engines/*-version.log
+            build/modern-engines/source-lock.json
+          compression-level: 1
+          if-no-files-found: error
   bandgap-schematic:
     runs-on: ubuntu-24.04
     timeout-minutes: 25

@@ -65,7 +65,11 @@ def propose_layout_change(project,path):
                 if shape.is_text():
                     t=shape.text;incoming_texts.append({'layer':layer,'text':t.string,'x':t.x,'y':t.y,'rotation':t.trans.angle*90,'mirror':t.trans.is_mirror(),
                         'size':t.size,'font':t.font,'halign':int(t.halign),'valign':int(t.valign)})
-                    properties=[[k,v] for k,v in shape.properties().items() if k!=125]
+                    from .text_presentation import PROPERTY,restore,owned
+                    appearance=shape.property(PROPERTY)
+                    if str(path).lower().endswith(('.oas','.oasis')) and owned(appearance):
+                        restore(incoming_texts[-1],appearance,info.layer,info.datatype,ly.dbu)
+                    properties=[[k,v] for k,v in shape.properties().items() if k!=125 and not (k==PROPERTY and owned(appearance))]
                     if properties:incoming_texts[-1]['external_properties']=properties
                     continue
                 poly=shape.polygon;imported.insert(poly);matches=old_by_poly[signature(layer,poly)]
