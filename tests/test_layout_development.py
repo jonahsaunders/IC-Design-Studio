@@ -317,7 +317,7 @@ class RuleBundleTests(unittest.TestCase):
             self.assertEqual(restored.read_text(),"load './helpers/width.rb'\n")
             self.assertEqual((restored.parent/'helpers/width.rb').read_text(),'width = 0.14\n')
 
-    def test_traversal_stale_content_and_symlinks_rejected(self):
+    def test_traversal_and_stale_content_rejected(self):
         from icstudio.rule_bundle import capture,materialize
         from icstudio.model import digest
         with tempfile.TemporaryDirectory() as tmp:
@@ -325,9 +325,17 @@ class RuleBundleTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'paths'):materialize(bundle,digest(bundle),root/'run')
             good={'version':1,'entry':'main.drc','files':{'main.drc':'old'}};expected=digest(good);good['files']['main.drc']='new'
             with self.assertRaisesRegex(ValueError,'changed'):materialize(good,expected,root/'run')
-            (root/'main.drc').write_text('ok');(root/'link.rb').symlink_to(root/'main.drc')
-            with self.assertRaisesRegex(ValueError,'symbolic'):capture(root/'main.drc')
             self.assertFalse((root/'run').exists())
+
+    def test_symlinks_rejected_when_platform_can_create_them(self):
+        from icstudio.rule_bundle import capture
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);(root/'main.drc').write_text('ok')
+            try:(root/'link.rb').symlink_to(root/'main.drc')
+            except OSError as exc:
+                if getattr(exc,'winerror',None)==1314:self.skipTest('Windows requires Developer Mode or symlink privilege for this fixture.')
+                raise
+            with self.assertRaisesRegex(ValueError,'symbolic'):capture(root/'main.drc')
 
 
 if __name__=='__main__':unittest.main()

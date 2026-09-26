@@ -186,6 +186,8 @@ def validate(p):
             from .electrical_identity import synchronize
             synchronize(c)
     from .testbenches import validate_testbenches
+    from .implementation_views import validate_views
+    validate_views(p,objid)
     validate_testbenches(p,objid)
     from .analysis_plan import validate_plan
     validate_plan(p)

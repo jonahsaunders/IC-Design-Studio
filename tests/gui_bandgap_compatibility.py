@@ -10,7 +10,7 @@ def main():
     args=parser.parse_args();out=args.evidence.resolve();out.mkdir(parents=True,exist_ok=True)
     os.environ['XDG_DATA_HOME']=str(out/'profile/data');os.environ['XDG_CONFIG_HOME']=str(out/'profile/config')
     from PySide6.QtWidgets import QApplication,QDialogButtonBox,QFileDialog
-    from PySide6.QtCore import QSettings
+    from PySide6.QtCore import QSettings,QStandardPaths
     from PySide6.QtTest import QTest
     from icstudio.gui import Studio
     from icstudio.model import digest,load_project
@@ -21,6 +21,8 @@ def main():
     errors=[]
     def exception(t,v,tb):errors.append(''.join(traceback.format_exception(t,v,tb)));traceback.print_exception(t,v,tb)
     sys.excepthook=exception
+    QSettings.setDefaultFormat(QSettings.IniFormat);QSettings.setPath(QSettings.IniFormat,QSettings.UserScope,str(out/'profile/settings'))
+    QStandardPaths.writableLocation=staticmethod(lambda kind:str(out/'profile'/str(kind.value)))
     app=QApplication([]);app.setStyle('Fusion');QSettings('ICDesignStudio','Studio').clear()
     w=Studio(recover=False);w.error=lambda message:errors.append(str(message));w.resize(1550,950);w.show()
     engine=find_ngspice(os.environ.get('ICSTUDIO_TEST_NGSPICE',''))

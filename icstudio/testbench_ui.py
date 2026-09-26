@@ -50,13 +50,17 @@ def editor(studio,original=None):
     a=seed['analysis'];kind=QComboBox();kind.addItems(['tran','op','ac','dc','noise']);kind.setCurrentText(a['type']);dlg.analysis_type=kind;form.addRow('Analysis',kind)
     for key,label,default in [('corner','Model corner','nominal'),('temperature','Temperature (°C)',27),('step','Transient step','2p'),('stop','Transient stop','8n'),('start','Frequency start (Hz)','10'),('end','Frequency end (Hz)','10G'),('points','Frequency points / decade',100),('source','DC source name','VDD'),('dc_start','DC start','0'),('dc_stop','DC stop','1.8'),('dc_step','DC step','.01'),('noise_source','Noise input voltage source','VIN'),('output','Noise output net',seed['probes'][0])]:field(key,label,a.get(key,default))
     dlg.uic=QCheckBox('Start transient from the initial conditions below (UIC)');dlg.uic.setChecked(a.get('uic',False));form.addRow(dlg.uic)
+    dlg.dc_startup=QCheckBox('Settle startup before the DC sweep');dlg.dc_startup.setChecked(a.get('dc_startup',False));form.addRow(dlg.dc_startup)
     def mode():
         typ=kind.currentText()
         for key in ('step','stop','start','end','points','source','dc_start','dc_stop','dc_step','noise_source','output'):
             visible=key in {'tran':['step','stop'],'op':[],'ac':['start','end','points'],'dc':['source','dc_start','dc_stop','dc_step'],'noise':['start','end','points','noise_source','output']}[typ];dlg.fields[key].setVisible(visible);form.labelForField(dlg.fields[key]).setVisible(visible)
         dlg.uic.setVisible(typ=='tran')
+        dlg.dc_startup.setVisible(typ=='dc')
     kind.currentTextChanged.connect(mode);mode();tabs.addTab(general,'Analysis and fixture')
     dlg.extraction=extraction_editor(seed);tabs.addTab(dlg.extraction,'Physical extraction')
+    from .implementation_views_ui import editor as implementation_editor
+    dlg.implementation=implementation_editor(p,seed,bench);tabs.addTab(dlg.implementation,'Circuit implementation')
     from .saved_bench_diagnostics_ui import editor as diagnostics_editor
     dlg.diagnostics=diagnostics_editor(seed,kind,dlg.fields);tabs.addTab(dlg.diagnostics,'Diagnostics')
     page=QWidget();nv=QVBoxLayout(page);nv.addWidget(QLabel('Check the nets to save as waveforms. Blank initial voltage leaves the node unspecified.'));nets=QTableWidget(0,2);nets.setHorizontalHeaderLabels(['Observe net','Initial voltage (V)']);nets.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch);nv.addWidget(nets);dlg.nets=nets;tabs.addTab(page,'Probes and startup')
@@ -91,9 +95,12 @@ def editor(studio,original=None):
             t=clone(seed);t['name']=dlg.fields['name'].text().strip();c=next(c for c in choices if c['id']==bench.currentData());instance=next(d for d in c['devices'] if d['kind']=='X');t.update(bench_cell=c['id'],dut_cell=instance['cell'],dut_instance=instance['id'])
             typ=kind.currentText();active={'corner','temperature'}|set({'tran':['step','stop'],'op':[],'ac':['start','end','points'],'dc':['source','dc_start','dc_stop','dc_step'],'noise':['start','end','points','noise_source','output']}[typ]);t['analysis']={k:w.text().strip() for k,w in dlg.fields.items() if k in active};t['analysis'].update(type=typ,uic=dlg.uic.isChecked() if typ=='tran' else False)
             if typ in ('ac','noise'):t['analysis']['points']=int(t['analysis']['points'])
+            if typ=='dc':t['analysis']['dc_startup']=dlg.dc_startup.isChecked()
             diagnostic=dlg.diagnostics.value()
             if diagnostic:t['analysis']['diagnostic']=diagnostic
             t['physical_extraction']=dlg.extraction.value()
+            if dlg.implementation.value():t['implementation_view']=dlg.implementation.value()
+            else:t.pop('implementation_view',None)
             t['probes']=[nets.item(i,0).text() for i in range(nets.rowCount()) if nets.item(i,0).checkState()==Qt.Checked];t['initial_conditions']={nets.item(i,0).text():nets.item(i,1).text().strip() for i in range(nets.rowCount()) if nets.item(i,1).text().strip()};t['measurements']=[]
             for row in range(table.rowCount()):
                 m=clone(records[row])
@@ -102,7 +109,12 @@ def editor(studio,original=None):
                     if value:m[key]=value
                     else:m.pop(key,None)
                 t['measurements'].append(m)
-            q=clone(studio.project);q['testbenches']=[b for b in q.get('testbenches',[]) if b['id']!=t['id']]+[t];validate(q)
-            studio._selected_testbench=t['id'];studio.commit(lambda p:p.update(testbenches=q['testbenches']),'Save testbench');dlg.accept();studio.open_testbenches()
+            q=clone(studio.project);q['testbenches']=[b for b in q.get('testbenches',[]) if b['id']!=t['id']]+[t]
+            if dlg.implementation.pending:q.setdefault('implementation_views',[]).extend(clone(dlg.implementation.pending))
+            validate(q)
+            def install(p):
+                p['testbenches']=q['testbenches']
+                if 'implementation_views' in q:p['implementation_views']=q['implementation_views']
+            studio._selected_testbench=t['id'];studio.commit(install,'Save testbench');dlg.accept();studio.open_testbenches()
         except Exception as e:error.setText(str(e))
     buttons.accepted.connect(save);buttons.rejected.connect(dlg.reject);studio._testbench_dialog=dlg;dlg.show();return dlg

@@ -33,7 +33,9 @@ class LayoutScene:
                 self.signatures[ident]=signature;rebuilt+=1
             for i,s in enumerate(c['shapes']):sources[s['id']]=(s,i)
             for i,inst in enumerate(c.get('layout_instances',[])):instances[inst['id']]=(inst,i,c)
-        self.by=by;self.sources=sources;self.instances=instances;self.cid=cid;self.depth=depth;self.cache=None;self.generation+=1;self._bounds_cache={}
+        self.by=by;self.sources=sources;self.instances=instances;self.cid=cid;self.depth=depth;self.cache=None;self.generation+=1
+        self.devices={c['id']:{d['id']:d for d in c['devices']} for c in by.values()}
+        if rebuilt or not hasattr(self,'_bounds_cache'):self._bounds_cache={}
         self.bounds,self.expanded_count=self._bounds(cid,depth)
         self.stats={'masters_rebuilt':rebuilt,'master_shapes':len(sources),'expanded_shapes':self.expanded_count,'query_rows':0}
         return self
@@ -63,6 +65,40 @@ class LayoutScene:
         child,_=self._bounds(inst['cell'],None if self.depth is None else self.depth-1)
         return self._instance_box(inst,child)
 
+    def _overview(self,window):
+        """Bounded physical-cell outlines; exact picking still uses native search."""
+        cell=self.by[self.cid];rows=[]
+        layer=next(iter(self.sources.values()))[0]['layer']
+        if len(cell['shapes'])<=1000:
+            rows.extend(s for s in cell['shapes'] if polygon(s).bbox().touches(window))
+        if self.depth!=0:
+            for inst in cell.get('layout_instances',[]):
+                child,_=self._bounds(inst['cell'],None if self.depth is None else self.depth-1)
+                box=self._instance_box(inst,child)
+                if box.empty() or not box.touches(window):continue
+                rows.append({'id':inst['id'],'kind':'rect','layer':layer,
+                             'points':[[box.left,box.bottom],[box.right,box.top]],
+                             '_overview':True,'overview_label':inst['name']})
+                if len(rows)>=2000:break
+        if not rows or len(cell['shapes'])>1000 or len(rows)>=2000:
+            box=self.bounds
+            rows.insert(0,{'id':'','kind':'rect','layer':layer,
+                           'points':[[box.left,box.bottom],[box.right,box.top]],'_overview':True})
+        self.cache=None;self.stats.update(detail_reduced=True,overview_rows=len(rows))
+        return rows
+
+    def _path_context(self,key,contexts):
+        if key in contexts:return contexts[key]
+        order=[];owner=None;device_owner=None;path='';mapping={}
+        for ident,ix,iy in key:
+            inst,i,cell=self.instances[ident];order.extend((1,i,ix,iy))
+            device=self.devices[cell['id']].get(inst.get('device_id'))
+            def net(n):return '0' if n=='0' else mapping.get(n,path+n) if n else ''
+            mapped={pin:net(n) for pin,n in device['nets'].items()} if device else {}
+            owner=owner or inst['id'];device_owner=device_owner or inst.get('device_id')
+            path+=inst['name']+f'[{ix},{iy}]/';mapping=mapped
+        result=(tuple(order),owner,device_owner,path,mapping);contexts[key]=result;return result
+
     def query(self,box,*,cache=True,render=False):
         """Return ordered shapes; point snapping can bypass the viewport cache."""
         from .layout_limits import RENDER_ROWS, EXACT_QUERY_ROWS
@@ -75,24 +111,24 @@ class LayoutScene:
         if cache and self.cache is not None and len(self.cache[1])<=limit and not self.stats.get('detail_reduced') and not oversized and self.cache[0].contains(db.Point(box.left,box.bottom)) and self.cache[0].contains(db.Point(box.right,box.top)):
             return [s for s,b in self.cache[1] if b.touches(box)]
         window=box.enlarged(max(1000,int(max(box.width(),box.height())*.15))) if cache else box
+        self.stats.update(query_rows=0,paths_resolved=0,overview_rows=0)
+        if render and self.expanded_count>limit and window.contains(db.Point(self.bounds.left,self.bounds.bottom)) and window.contains(db.Point(self.bounds.right,self.bounds.top)):
+            return self._overview(window)
         iterator=self.cells[self.cid].begin_shapes_rec_touching(self.layer,window)
         if self.depth is not None:iterator.max_depth=self.depth
-        rows=[]
+        rows=[];contexts={}
         if render:self.stats['detail_reduced']=False
         while not iterator.at_end():
             if len(rows)>=limit:
                 if not render:raise ValueError('Exact selection exceeds 100,000 shapes. Zoom in or select a hierarchy instance in the cell tree.')
                 self.cache=None;self.stats.update(detail_reduced=True,query_rows=len(rows))
-                # A labeled outline represents the hierarchy extent, never fake metal.
-                b=self.bounds
-                return [{'id':'','kind':'rect','layer':next(iter(self.sources.values()))[0]['layer'],'points':[[b.left,b.bottom],[b.right,b.top]],'_overview':True}]
-            source,index=self.sources[iterator.shape().property('id')];elements=iterator.path();order=[];owner=None;device_owner=None;path='';mapping={}
-            for element in elements:
-                inst,i,cell=self.instances[element.inst().property('id')];ix=element.ia();iy=element.ib();order.extend((1,i,ix,iy))
-                def net(n):return '0' if n=='0' else mapping.get(n,path+n) if n else ''
-                device=next((d for d in cell['devices'] if d['id']==inst.get('device_id')),None)
-                mapped={pin:net(n) for pin,n in device['nets'].items()} if device else {}
-                owner=owner or inst['id'];device_owner=device_owner or inst.get('device_id');path+=inst['name']+f'[{ix},{iy}]/';mapping=mapped
+                return self._overview(window)
+            source,index=self.sources[iterator.shape().property('id')]
+            elements=iterator.path()
+            if elements:
+                key=tuple((element.inst().property('id'),element.ia(),element.ib()) for element in elements)
+                prefix,owner,device_owner,path,mapping=self._path_context(key,contexts);order=list(prefix)
+            else:order=[];owner=None;device_owner=None;path='';mapping={}
             if owner:
                 poly=iterator.shape().polygon.transformed(iterator.trans());netname=source.get('net','');netname='0' if netname=='0' else mapping.get(netname,path+netname) if netname else ''
                 if poly.is_box():
@@ -106,5 +142,5 @@ class LayoutScene:
             order.extend((0,index));rows.append((tuple(order),shape,poly.bbox()));iterator.next()
         rows.sort(key=lambda row:row[0])
         if cache:self.cache=(window,[(s,b) for _,s,b in rows])
-        self.stats['query_rows']=len(rows)
+        self.stats.update(query_rows=len(rows),paths_resolved=len(contexts))
         return [s for _,s,b in rows if b.touches(box)]
