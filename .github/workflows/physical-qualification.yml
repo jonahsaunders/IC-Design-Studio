@@ -135,7 +135,9 @@ jobs:
     needs: [qualification, detector-desktop]
     if: always()
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    # The full evidence archive is several GiB; download, recompression and
+    # upload need their own budget after the physical gates have passed.
+    timeout-minutes: 30
     steps:
       - name: Require every physical and desktop gate
         env:
@@ -153,4 +155,5 @@ jobs:
         with:
           name: sky130-physical-evidence
           path: build/physical-evidence-bundle
+          compression-level: 1
           if-no-files-found: error
