@@ -7,6 +7,10 @@ an intentionally defective design means the defect was detected; it never
 means that design is clean. Missing engines, timeouts and incomplete reports
 cannot produce a passing required check.
 
+The follow-up [compatibility repairs](REFERENCE_COMPATIBILITY_REPAIRS.md)
+describe the managed Windows runtime, canonical hierarchical import, modern
+schematic adapters, experimental GF180 RC/fill gate and licensed-site handoff.
+
 ## Scope and reference designs
 
 | Reference | Check | Required outcome |
@@ -16,6 +20,7 @@ cannot produce a passing required check.
 | GF180 Banba filled candidate | Recreate fill, compare archived geometry, run three complete DRC decks and LVS | Zero DRC findings with the audited dummy-poly correction; strict LVS passes |
 | LDFranck SKY130 overvoltage detector | Independent Xschem netlisting; native Magic; explicit flat conversion; Studio/KLayout GDS/OASIS; Magic save/reopen | Fresh full DRC has zero findings and strict LVS matches on each qualified route |
 | Detector after Studio hierarchical export | Fresh full DRC and flat electrical comparison | Zero findings and strict LVS, while retaining the editing hierarchy |
+| Canonical hierarchical Magic import | Exact raw/canonical stream comparison, fresh full DRC and strict LVS | Geometry, labels and hierarchy unchanged; zero findings and strict LVS |
 | Raw hierarchical Magic detector stream | Diagnostic, retained separately | Currently fails: 288 DRC findings and an LVS mismatch in the tested tool/deck combination |
 | SKY130 metal1 fixtures | Real full-deck width and spacing at 135, 140 and 145 nm | 135 nm fails the expected rule with nearby coordinates; 140/145 nm pass |
 | Source desktop | Queue physical verification, edit, navigate, undo, rerun, missing engine | Pass, stale, failed, repaired pass and blocked states are visibly distinct |
@@ -70,13 +75,17 @@ its completion markers and exact parsed findings, not just that exit code.
 - **Magic hierarchy conversion:** native source verification, raw Magic stream
   conversion and Studio's rewritten stream are distinct results. The raw
   hierarchical stream fails even though its Studio rewrite passes in this
-  combination. Existing HVI conversion feedback is retained. The explicit
+  combination. Import now re-encodes the stream with KLayout and requires exact
+  geometry, text presentation, hierarchy and database units before accepting
+  that canonical route. Existing HVI conversion feedback is retained. The explicit
   **Flatten for verification** import option provides a separately qualified
   one-cell route; it leaves original source files intact.
 - **OASIS text:** geometry, label strings, anchors, hierarchy, array transforms
   and database units are compared independently of Studio sidecars. Text size,
-  orientation, font and alignment are not standard OASIS features. These losses
-  are reported, not called lossless; GDS presentation remains strictly compared.
+  orientation, font and alignment are not standard OASIS features. Studio now
+  carries them in an optional anchored property and tests restoration after an
+  independent KLayout rewrite. Tools that discard that property still lose
+  presentation; changed label strings or positions are never restored from it.
   See [KLayout's text documentation](https://www.klayout.org/klayout-pypi/overview/geometry/texts/).
 - **Startup isolation:** import selects an explicit startup file and technology,
   so a source-folder `.magicrc` cannot override the PDK or stop the conversion.
@@ -111,19 +120,23 @@ reported route is failed or blocked. Reports include the commit, working-tree
 state, source hashes, platform and actual tool versions, so local modified-tree
 evidence cannot be mistaken for an untouched release build.
 
-## Unqualified combinations
+## Additional gates and remaining limits
 
 Local reference runs used Xschem **3.4.4**, ngspice **42**, standalone KLayout
 **0.30.9**, Python KLayout **0.30.5**, and the pinned physical engines above.
-Windows source-desktop and Python tests run separately from the Linux physical
-engines. Packaged Windows/Linux smoke tests remain separate CI checks.
+Windows now runs physical verification through the included private WSL
+runtime. Both positive and negative installation checks are required, with a
+separate installed/frozen desktop acceptance test in Windows package CI.
 
-Exploratory Xschem **3.4.8RC** emitted unresolved source-template values and
-ngspice **46** did not reproduce the detector's required switching behavior.
-Those combinations are not qualified. A newer executable is not silently
-treated as equivalent to the recorded baseline.
+The initial Xschem **3.4.8RC** and ngspice **46** failures are covered by explicit
+source-template, headless Tcl, port-direction and declared diode-units adapters.
+The modern CI gate builds exact commits and repeats all four bandgap paths,
+all 16 detector trip codes and fresh physical exchange. The GF180 RC gate uses
+a separately pinned patched extractor and requires all five PVT corner jobs,
+terminal equivalence, capacitance conservation and near/absent/far fill controls.
 
-Licensed Virtuoso/OpenAccess import, native Windows physical engines, GF180
-distributed RC/fill coupling and foundry signoff remain unqualified. The test
-matrix records those limits explicitly. DRC/LVS success does not establish
+Licensed Virtuoso/OpenAccess import remains unqualified without a licensed
+machine and matching PDK. A prepared handoff is not a Cadence result. The Windows
+backend is Linux/WSL, and the GF180 fill result is bounded by the open-PDK
+interaction model. The test matrix records those limits. DRC/LVS success does not establish
 parasitic accuracy, reliability, all-device PDK coverage or fabrication signoff.
