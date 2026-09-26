@@ -37,8 +37,9 @@ def main(input_path,output_path):
             from .silicon_flow import job as silicon_job
             result=silicon_job(p,job['cell'],job['settings'],Path(output_path).parent,progress)
         elif kind=='testbench':
-            from .testbenches import get,simulate
-            result=simulate(p,get(p,job['settings']['testbench']),job['settings']['executable'],Path(output_path).parent,progress=progress)
+            from .testbenches import get,simulate,compare_implementation
+            runner=compare_implementation if job['settings'].get('compare_implementation') else simulate
+            result=runner(p,get(p,job['settings']['testbench']),job['settings']['executable'],Path(output_path).parent,progress=progress)
         elif kind=='characterization':
             from .characterization import run
             result=run(p,job['settings']['testbench'],job['settings']['study'],job['executable'],Path(output_path).parent/'characterization',progress,tools=job['settings'].get('tools'))

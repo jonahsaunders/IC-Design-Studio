@@ -1,0 +1,298 @@
+{
+  "status": "passed",
+  "checks": {
+    "banba": {
+      "status": "passed",
+      "source_sha256": "0d9d5151676a41f6ea878b31e0a099dd67b6bb522cffb344899424817cae186b",
+      "comparison": {
+        "status": "passed",
+        "measurements": [
+          {
+            "name": "reference_voltage",
+            "unit": "V",
+            "before": 0.6006157045186313,
+            "after": 0.6006157061262032,
+            "delta": 1.6075718534125372e-09,
+            "relative_delta": 2.6765398262453687e-09,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "specifications": [
+          {
+            "name": "Reference window",
+            "unit": "V",
+            "before": 0.6006157045186313,
+            "after": 0.6006157061262032,
+            "delta": 1.6075718534125372e-09,
+            "relative_delta": 2.6765398262453687e-09,
+            "before_status": "PASS",
+            "after_status": "PASS",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "Supply current ceiling",
+            "unit": "A",
+            "before": 4.43855426612332e-05,
+            "after": 4.438554096107186e-05,
+            "delta": -1.7001613401086864e-12,
+            "relative_delta": -3.830439458823211e-08,
+            "before_status": "PASS",
+            "after_status": "PASS",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "schematic_result": "schematic/result.json",
+        "implementation_result": "implementation/result.json",
+        "qualification": "Same saved fixture and limits. This comparison does not establish DRC, LVS or extraction accuracy."
+      },
+      "project": "banba-views.icproj"
+    },
+    "franck": {
+      "status": "passed",
+      "source_commit": "53cf579f63d34227af67f0189b49ee09185f1db5",
+      "source_files": 67,
+      "layout_netlist_sha256": "5dbb09f3fdc176830b5a93472ec55e284717e1e087d89044ddb10cdd74accb85",
+      "comparison": {
+        "status": "passed",
+        "measurements": [
+          {
+            "name": "low_endpoint",
+            "unit": "V",
+            "before": 3.886009221119771e-08,
+            "after": 3.885974051287905e-08,
+            "delta": -3.516983186607217e-13,
+            "relative_delta": -9.050372725553602e-06,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          },
+          {
+            "name": "high_endpoint",
+            "unit": "V",
+            "before": 1.775181158681887,
+            "after": 1.775181505970715,
+            "delta": 3.4728882791768e-07,
+            "relative_delta": 1.956357108789674e-07,
+            "before_status": "passed",
+            "after_status": "passed",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "specifications": [
+          {
+            "name": "Code zero rising trip",
+            "unit": "V",
+            "before": 3.295122662025197,
+            "after": 3.2951235807319588,
+            "delta": 9.187067617766331e-07,
+            "relative_delta": 2.788080614917054e-07,
+            "before_status": "PASS",
+            "after_status": "PASS",
+            "regressed": false,
+            "error": ""
+          }
+        ],
+        "schematic_result": "schematic/result.json",
+        "implementation_result": "implementation/result.json",
+        "qualification": "Same saved fixture and limits. This comparison does not establish DRC, LVS or extraction accuracy."
+      },
+      "project": "franck-views.icproj",
+      "scope": "Original archived layout netlist, nominal 27 C rising DC, code zero; no fresh LVS or extraction."
+    },
+    "layout_performance": {
+      "status": "passed",
+      "scope": "Native KLayout spatial query and unchanged scene update, excluding Qt presentation and live checks.",
+      "source_hashes": {
+        "current": "50687f558aec46d916cc0257b1ff922d56eaa038d13c0dd629bff778b5d4d606",
+        "baseline": "b4ab5907c7a24282b81ec40a04879903d2a4123075e7b6d4516fa8ba61a6e0bb"
+      },
+      "workloads": {
+        "bandgap_core": {
+          "current": {
+            "overview_ms": [
+              37.42710000369698,
+              31.142099993303418,
+              32.29719994124025,
+              35.942799993790686,
+              36.03590000420809,
+              51.04579997714609,
+              38.10230002272874
+            ],
+            "overview_median_ms": 36.03590000420809,
+            "unchanged_update_ms": [
+              33.00900000613183,
+              11.46449998486787,
+              26.553699979558587,
+              11.45270001143217,
+              9.467399911954999,
+              13.038599980063736,
+              14.926400035619736
+            ],
+            "update_median_ms": 13.038599980063736,
+            "master_shapes": 5522,
+            "expanded_shapes": 5522,
+            "render_rows": 5522,
+            "detail_rows": 1,
+            "detail_sha256": "ae5dfaa09f38ed24e52de6f652ca4f676c3fd480c29c61cc4e6b0cd03a069bf6",
+            "input_sha256": "62cecbee9ea7f99e3067cda6db1e0afd954edeaed820d617a23fe6e8de70cca8"
+          },
+          "baseline": {
+            "overview_ms": [
+              33.30760006792843,
+              35.03829997498542,
+              30.68229998461902,
+              27.11179992184043,
+              21.117900032550097,
+              32.153100008144975,
+              31.236000009812415
+            ],
+            "overview_median_ms": 31.236000009812415,
+            "unchanged_update_ms": [
+              44.89259992260486,
+              54.04770001769066,
+              31.437100027687848,
+              42.70130000077188,
+              23.22859992273152,
+              53.336899960413575,
+              26.012999936938286
+            ],
+            "update_median_ms": 42.70130000077188,
+            "master_shapes": 5522,
+            "expanded_shapes": 5522,
+            "render_rows": 5522,
+            "detail_rows": 1,
+            "detail_sha256": "ae5dfaa09f38ed24e52de6f652ca4f676c3fd480c29c61cc4e6b0cd03a069bf6",
+            "input_sha256": "62cecbee9ea7f99e3067cda6db1e0afd954edeaed820d617a23fe6e8de70cca8"
+          }
+        },
+        "bandgap_fill": {
+          "current": {
+            "overview_ms": [
+              25.51019995007664,
+              19.442099961452186,
+              23.43009994365275,
+              23.64919998217374,
+              20.039300085045397,
+              26.00079996045679,
+              26.965499971993268
+            ],
+            "overview_median_ms": 23.64919998217374,
+            "unchanged_update_ms": [
+              37.54000004846603,
+              51.95520003326237,
+              36.65429993998259,
+              54.226300097070634,
+              27.758899959735572,
+              43.05249999742955,
+              23.69219996035099
+            ],
+            "update_median_ms": 37.54000004846603,
+            "master_shapes": 5529,
+            "expanded_shapes": 1218807,
+            "render_rows": 2001,
+            "detail_rows": 1,
+            "detail_sha256": "2c497c187a747e4668f5d7879192c93b45911470d28ab88f8e4844a03b033336",
+            "input_sha256": "7e5d1ddd293d9386247460b7b1b85fb76a34bfbc1c0986ad54b26c377f9c0518"
+          },
+          "baseline": {
+            "overview_ms": [
+              129.53919998835772,
+              128.450799966231,
+              128.58139991294593,
+              112.676199991256,
+              147.3077000118792,
+              93.50219997577369,
+              106.31860001012683
+            ],
+            "overview_median_ms": 128.450799966231,
+            "unchanged_update_ms": [
+              124.6147999772802,
+              108.35570003837347,
+              115.58360001072288,
+              132.87029997445643,
+              157.48089994303882,
+              173.72329998761415,
+              148.70230003725737
+            ],
+            "update_median_ms": 132.87029997445643,
+            "master_shapes": 5529,
+            "expanded_shapes": 1218807,
+            "render_rows": 1,
+            "detail_rows": 1,
+            "detail_sha256": "2c497c187a747e4668f5d7879192c93b45911470d28ab88f8e4844a03b033336",
+            "input_sha256": "7e5d1ddd293d9386247460b7b1b85fb76a34bfbc1c0986ad54b26c377f9c0518"
+          }
+        }
+      }
+    }
+  },
+  "scope": "Source execution; archived extracted netlists, no new physical-engine qualification.",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "ngspice_sha256": "f86062f3bb1016dcf1552a57f38954891b4e71aee6defbebde6de589ee55682f",
+  "implementation_sources": {
+    "icstudio/testbenches.py": "bcac95a9c0ae12be06988570cf3a820338674a4206bd9ce7886d0c600038e531",
+    "icstudio/implementation_views.py": "618a99e750869c7aa60880c8e3db840e52cca43a05be5c497a0aac4b98184911",
+    "icstudio/catalog.py": "9ec02006afb2835c3be9ddb3db5ad03540b382f0d6ad53559295229505a0fc81",
+    "icstudio/dc_startup.py": "7ca5f62a6c5724fe5834b27828f4bc1f612edf9aa8ab0e5eed6b6535a6f3da08",
+    "scripts/qualify_reference_views.py": "7b6a3d0548ae6e9a5f7a16fc7675f0595b1051c161091e8ccd55eb1cf70732e3"
+  },
+  "date": "2026-09-26",
+  "platform": "Windows, Python 3.12.14, PySide6 6.8.3, KLayout 0.30.5, ngspice 42",
+  "baseline_commit": "0ffa9102cea629b69b2de5c380f7d5ec91788b77",
+  "gui": {
+    "status": "passed",
+    "platform": "offscreen",
+    "checks": [
+      "Cancel leaves the source project unchanged",
+      "Save commits the named view, selection and DC startup in one transaction",
+      "Undo, redo and reopen retain the selection",
+      "Real ngspice comparison runs through the desktop worker and displays measurements and requirements",
+      "Original bandgap MTAIL updates live diffusion formulas and blank restores the PDK default"
+    ]
+  },
+  "original_bandgap_gui": {
+    "status": "passed",
+    "platform": "win32",
+    "analysis_count": 6,
+    "native_models": 60,
+    "startup_vref_v": 1.195072524644429,
+    "program_status": "Complete",
+    "checks": [
+      "Native catalog migration UI",
+      "Save and reopen",
+      "Real GUI simulation worker",
+      "Six completed cases",
+      "Five startup measurements",
+      "Transient/DC/AC waveform switching"
+    ],
+    "errors": []
+  },
+  "unit_tests": {
+    "command": "python -m unittest discover -s tests -q",
+    "run": 1055,
+    "passed": 1035,
+    "skipped": 20,
+    "errors": 0,
+    "failures": 0,
+    "seconds": 324.455,
+    "environment": {
+      "ICSTUDIO_TEST_NGSPICE": "ngspice 42",
+      "QT_QPA_PLATFORM": "offscreen",
+      "PYTHONPATH": ".;tests"
+    }
+  },
+  "limits": [
+    "Captured archived netlists; no new Magic, Netgen, DRC/LVS or RC accuracy qualification.",
+    "Franck: one nominal rising DC code-zero case, not all codes, PVT or falling hysteresis.",
+    "Timings exclude Qt painting and live checks; collected on one shared Windows host. The small core overview was slower in this sample.",
+    "20 test skips include unavailable external tools and Windows symlink fixture privilege.",
+    "Source execution only; no packaged release built."
+  ]
+}

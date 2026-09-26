@@ -5,6 +5,7 @@ arithmetic interpreter; unsupported symbols remain visible with a reason.
 """
 from __future__ import annotations
 import ast, math, operator, re
+from functools import lru_cache
 from .model import clone, device, scalar, PINS
 
 IDENT = re.compile(r'^[A-Za-z_][A-Za-z0-9_.$-]{0,127}$')
@@ -32,18 +33,24 @@ def binding_for(technology, instance):
     return simulation.get('devices', {}).get(instance['kind'])
 
 
-def numeric_formula(text, context):
-    text = str(text).strip().strip('\\\"\'{}').strip()
-    try:
-        return scalar(text)
-    except ValueError:
-        pass
+@lru_cache(maxsize=2048)
+def _formula_tree(text):
     if len(text) > 1000:
         raise ValueError('Model expression is too long.')
     text = re.sub(r'(?<![\w.])(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?(?:meg|[tgkmunpf])\b',lambda m:repr(scalar(m[0])),text,flags=re.I)
     tree = ast.parse(text, mode='eval')
     if len(list(ast.walk(tree))) > 150:
         raise ValueError('Model expression is too complex.')
+    return tree
+
+
+def numeric_formula(text, context):
+    text = str(text).strip().strip('\\\"\'{}').strip()
+    try:
+        return scalar(text)
+    except ValueError:
+        pass
+    tree = _formula_tree(text)
     ops = {ast.Add: operator.add, ast.Sub: operator.sub, ast.Mult: operator.mul, ast.Div: operator.truediv}
     functions = {'int': int, 'abs': abs, 'min': min, 'max': max, 'sqrt': math.sqrt}
     def visit(n):
@@ -58,6 +65,16 @@ def numeric_formula(text, context):
     return value
 
 
+def _check_parameter(key, val, rule):
+    if not math.isfinite(val):raise ValueError(key+' must be finite.')
+    if rule.get('choices') and val not in rule['choices'].values():raise ValueError(key+' must be one of '+', '.join(rule['choices']))
+    if rule.get('positive') and val<=0:raise ValueError(key+' must be positive.')
+    if rule.get('integer') and val!=int(val):raise ValueError(key+' must be a whole number.')
+    for bound,op in (('minimum',operator.lt),('maximum',operator.gt)):
+        if bound in rule and op(val,scalar(rule[bound])):raise ValueError(key+' is outside its PDK '+bound+' of '+str(rule[bound])+'.')
+    return val
+
+
 def parameter_values(binding, instance):
     definitions = binding.get('parameters', {})
     overrides = instance.get('model_params', {})
@@ -67,7 +84,7 @@ def parameter_values(binding, instance):
     resolved = {}
     if instance['kind'] in ('NMOS', 'PMOS'):
         for key in ('w', 'l'):
-            resolved[key] = scalar(instance['params'][key]) * binding.get('parameter_scale', {}).get(key, 1)
+            resolved[key] = _check_parameter(key,scalar(instance['params'][key]) * binding.get('parameter_scale', {}).get(key, 1),definitions.get(key,{}))
             pending.pop(key, None)
     for _ in range(len(pending) + 1):
         for key, raw in list(pending.items()):
@@ -75,12 +92,21 @@ def parameter_values(binding, instance):
             raw = rule.get('choices',{}).get(str(raw),raw)
             try: val = numeric_formula(raw, resolved)
             except (ValueError, SyntaxError, ZeroDivisionError): continue
-            if rule.get('choices') and val not in rule['choices'].values():raise ValueError(key+' must be one of '+', '.join(rule['choices']))
-            if rule.get('positive') and val <= 0: raise ValueError(key + ' must be positive.')
-            if rule.get('integer') and val != int(val): raise ValueError(key + ' must be a whole number.')
-            resolved[key] = val; del pending[key]
+            resolved[key] = _check_parameter(key,val,rule); del pending[key]
         if not pending: return resolved
     raise ValueError('Cannot resolve PDK parameters: ' + ', '.join(pending))
+
+
+def parameter_details(binding, instance):
+    values=parameter_values(binding,instance);rows=[]
+    for key,rule in binding.get('parameters',{}).items():
+        intrinsic=instance['kind'] in ('NMOS','PMOS') and key in ('w','l')
+        override=key in instance.get('model_params',{}) and not intrinsic
+        raw=instance['params'][key] if intrinsic else instance.get('model_params',{}).get(key,rule['default'])
+        rows.append({'name':key,'expression':str(raw),'value':values[key],
+                     'source':'device dimension' if intrinsic else 'override' if override else 'default',
+                     'unit':rule.get('unit','model units'),'derived':bool(rule.get('derived'))})
+    return rows
 
 
 def create_device(technology, key, name, x=0, y=0):
@@ -134,6 +160,10 @@ def validate_catalog(tech):
         if entry['kind'] in PINS and set(pins) != set(PINS[entry['kind']]): raise ValueError('Model terminal mismatch.')
         for k in entry.get('parameters', {}):
             if not IDENT.fullmatch(k): raise ValueError('Invalid model parameter.')
+            rule=entry['parameters'][k]
+            for bound in ('minimum','maximum'):
+                if bound in rule:scalar(rule[bound])
+            if 'minimum' in rule and 'maximum' in rule and scalar(rule['minimum'])>scalar(rule['maximum']):raise ValueError('PDK parameter minimum exceeds maximum: '+k)
         for key, source in entry.get('emit_parameters', {}).items():
             if not IDENT.fullmatch(key) or source not in entry.get('parameters', {}): raise ValueError('Invalid netlist parameter mapping.')
 

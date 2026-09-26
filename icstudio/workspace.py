@@ -481,7 +481,9 @@ class WorkspaceMixin:
                         else:obj['nets'][key[4:]]=val
                     elif key.startswith('param:'):obj['params'][key[6:]]=val
                     elif key.startswith('instanceparam:'):obj.setdefault('parameters',{})[key[14:]]=val
-                    elif key.startswith('modelparam:'):obj.setdefault('model_params',{})[key[11:]]=val
+                    elif key.startswith('modelparam:'):
+                        if val:obj.setdefault('model_params',{})[key[11:]]=val
+                        else:obj.setdefault('model_params',{}).pop(key[11:],None)
                     elif key.startswith('source:'):obj['source'][key[7:]]=val
             else:
                 def nm(key):

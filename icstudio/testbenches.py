@@ -19,6 +19,9 @@ def validate_testbenches(p,objid=lambda _:None):
         names.add(name.casefold())
         if t.get('bench_cell') not in by or t.get('dut_cell') not in by or t['bench_cell']==t['dut_cell']:raise ValueError('Testbench and circuit must be separate existing cells.')
         bench=by[t['bench_cell']];dut=by[t['dut_cell']]
+        if t.get('implementation_view'):
+            from .implementation_views import get as get_view
+            get_view(p,t['implementation_view'],t['dut_cell'],require_current=False)
         instances=[d for d in bench['devices'] if d['kind']=='X']
         if len(instances)!=1 or instances[0]['id']!=t.get('dut_instance') or instances[0]['cell']!=dut['id']:raise ValueError('A saved bench needs exactly one circuit instance; put hierarchy inside the circuit cell.')
         if instances[0].get('parameters'):raise ValueError('Use a concrete circuit cell for physical verification; testbench instance parameter overrides are unsupported.')
@@ -37,6 +40,7 @@ def validate_testbenches(p,objid=lambda _:None):
             if not 0<scalar(a.get('start',0))<scalar(a.get('end',0)) or not 1<=int(a.get('points',0))<=10000:raise ValueError('Invalid AC range or points per decade.')
             if typ=='noise' and (a.get('output') not in nets or a.get('output')=='0' or not any(d['kind']=='V' and d['name']==a.get('noise_source',a.get('source')) for d in bench['devices'])):raise ValueError('Noise requires a connected output and an independent fixture voltage source.')
         elif typ=='dc':
+            if type(a.get('dc_startup',False)) is not bool:raise ValueError('DC startup must be enabled or disabled.')
             if not any(d['name']==a.get('source') and d['kind']=='V' for d in bench['devices']):raise ValueError('DC sweep requires a voltage source in the bench.')
             start,stop,step=[scalar(a.get(k,0)) for k in ('dc_start','dc_stop','dc_step')]
             if not step or (stop-start)*step<=0 or abs((stop-start)/step)>200000:raise ValueError('Invalid DC sweep range.')
@@ -94,7 +98,7 @@ def native_subcircuit(p,cid):
     return '* Numerically resolved schematic reference\n.subckt '+c['name']+' '+' '.join(c['ports'])+'\n'+'\n'.join(lines)+'\n.ends '+c['name']+'\n'
 
 
-def deck(p,t,subcircuit_path,ports=None,bias_capture=None):
+def deck(p,t,subcircuit_path,ports=None,bias_capture=None,subcircuit_name=None):
     from .interchange import spice,spice_name
     from .sky130_flow import subcircuit
     from .saved_bench_diagnostics import settings as diagnostic_settings
@@ -108,11 +112,31 @@ def deck(p,t,subcircuit_path,ports=None,bias_capture=None):
     q=clone(p)
     # The fixture deck contains only this bench and uses the saved analysis
     # below. Project-wide setups can still reference the removed DUT/benches.
-    for key in ('testbenches','test_plans','simulation_setups'):q.pop(key,None)
+    for key in ('testbenches','test_plans','simulation_setups','implementation_views'):q.pop(key,None)
     q['cells']=[bench];q['top']=bench['id'];q['analysis']=clone(t['analysis'])
-    text=spice(q,bench['id'],t['analysis'],hierarchical=False);text=re.sub(r'^\.end\s*$','',text,flags=re.M|re.I)
+    if p.get('spice',{}).get('version')==1:
+        from .native_analysis import circuit_text, deck as native_deck
+        # A migrated fixture's models may live in the original source root.
+        # Keep that environment while replacing the DUT by its captured view.
+        scope=bench.pop('analog_model_scope',None) or p['top']
+        statements=[];seen=set()
+        for cid in (scope,t['dut_cell']):
+            if cid==bench['id'] or cid in seen:continue
+            seen.add(cid);source=by[cid]
+            statements.extend(source.get('spice_statements',[]))
+            for d in source['devices']:
+                if d.get('native_spice',{}).get('type')=='program':
+                    statements.append(circuit_text(d['native_spice']['text']))
+            bench['spice_parameters']={**source.get('spice_parameters',{}),**source.get('parameters',{}),**bench.get('spice_parameters',{})}
+        bench['spice_statements']=statements+bench.get('spice_statements',[])
+        text,_=native_deck(q,bench['id'],t['analysis'],Path(subcircuit_path).parent)
+    else:
+        text=spice(q,bench['id'],t['analysis'],hierarchical=False)
+    text=re.sub(r'^\.end\s*$','',text,flags=re.M|re.I)
     if t['analysis']['type']=='tran' and t['analysis'].get('uic'):text=re.sub(r'^(\.tran .+)$',r'\1 uic',text,flags=re.M)
-    text+='\n.include "'+Path(subcircuit_path).resolve().as_posix()+'"\n'+spice_name(instance)+' '+' '.join(instance['nets'][port] for port in ports)+' '+dut['name']+'\n'
+    target=subcircuit_name or dut['name']
+    if not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_.$-]*',target):raise ValueError('Invalid implementation subcircuit name.')
+    text+='\n.include "'+Path(subcircuit_path).resolve().as_posix()+'"\n'+spice_name(instance)+' '+' '.join(instance['nets'][port] for port in ports)+' '+target+'\n'
     if t.get('initial_conditions'):text+='.ic '+' '.join('v('+n+')='+str(scalar(v)) for n,v in t['initial_conditions'].items())+'\n'
     source_names={d['name']:spice_name(d) for d in bench['devices'] if d['kind']=='V'}
     current_sources={source_names[m['source']] for m in t.get('measurements',[]) if m['kind']=='current'}
@@ -195,8 +219,15 @@ def measure(result,t):
             else:
                 if 'at' in m and a['type']!='op':
                     at=scalar(m['at']);pair=next(((x,y,z,w) for x,y,z,w in zip(xs,xs[1:],ys,ys[1:]) if min(x,y)<=at<=max(x,y)),None)
-                    if pair is None:raise ValueError('Measurement coordinate is outside returned samples.')
-                    x,y,z,w=pair;val=z if y==x else z+(w-z)*(at-x)/(y-x)
+                    # Repeated simulator steps can land a few ulps short of
+                    # the requested endpoint. Accept that endpoint, never a
+                    # genuinely out-of-range extrapolation.
+                    if pair is None:
+                        edge=next((i for i in (0,-1) if math.isclose(at,xs[i],rel_tol=1e-12,abs_tol=0)),None)
+                        if edge is None:raise ValueError('Measurement coordinate is outside returned samples.')
+                        val=ys[edge]
+                    else:
+                        x,y,z,w=pair;val=z if y==x else z+(w-z)*(at-x)/(y-x)
                 else:val=ys[-1]
                 row['unit']='A' if kind=='current' else 'V'
             if not math.isfinite(val):raise ValueError('Measurement is not finite.')
@@ -214,6 +245,11 @@ def simulate(p,t,executable,directory,subcircuit_path=None,ports=None,progress=l
     saved_analysis=clone(t['analysis'])
     t=clone(t);t['analysis']=diagnostic_settings(p,t)
     directory=Path(directory);directory.mkdir(parents=True,exist_ok=True)
+    selected_view=None;subcircuit_name=None
+    if subcircuit_path is None and t.get('implementation_view'):
+        from .implementation_views import stage,get as get_view
+        selected_view=get_view(p,t['implementation_view'],t['dut_cell'])
+        subcircuit_path,ports,subcircuit_name=stage(p,selected_view['id'],t['dut_cell'],directory)
     if p.get('spice', {}).get('version') == 1 and subcircuit_path is None:
         from .engines import run_ngspice
         q = clone(p)
@@ -232,7 +268,14 @@ def simulate(p,t,executable,directory,subcircuit_path=None,ports=None,progress=l
         if t['analysis'].get('diagnostic',{}).get('kind')=='bias':
             from .saved_bias import capture as prepare_bias
             capture=prepare_bias(p,t,Path(subcircuit_path).read_bytes().decode('utf-8'),schematic=schematic)
-        path=directory/'testbench.cir';atomic_write(path,deck(p,t,subcircuit_path,ports,capture))
+        path=directory/'testbench.cir';atomic_write(path,deck(p,t,subcircuit_path,ports,capture,subcircuit_name))
+        from .pdks import stage_model_deck
+        from .osdi import preload
+        atomic_write(path,preload(p,stage_model_deck(p['pdk'],path.read_text(encoding='utf-8'),directory),directory))
+        if t['analysis']['type']=='dc' and t['analysis'].get('dc_startup',False):
+            from .dc_startup import seed_deck
+            from .engines import ngspice_command
+            atomic_write(path,seed_deck(path.read_text(encoding='utf-8'),lambda raw,source:ngspice_command(p,executable,raw,source),directory))
         settings={'type':'deck','deck':str(path),'analysis':clone(t['analysis'])}
         if capture is not None:settings['bias_capture']=capture
         r=run_deck(p,t['bench_cell'],settings,executable,directory,progress);r['x_label']={'tran':'Time (s)','op':'Operating point','ac':'Frequency (Hz)','dc':'Source value','noise':'Frequency (Hz)'}[t['analysis']['type']]
@@ -246,13 +289,60 @@ def simulate(p,t,executable,directory,subcircuit_path=None,ports=None,progress=l
         if d['kind']=='V':
             for field in ('currents','current_phase'):
                 if spice_name(d).lower() in r.get(field,{}):r[field][d['name'].lower()]=r[field][spice_name(d).lower()]
-    r['testbench_id']=t['id'];r['settings']=saved_analysis;r['effective_analysis']=clone(t['analysis']);r['measurements']=measure(r,t);r['warnings']=['Saved testbench: '+t['name']+'. '+('Extracted circuit' if ports else 'Schematic circuit')+'.']
+    r['testbench_id']=t['id'];r['settings']=saved_analysis;r['effective_analysis']=clone(t['analysis']);r['measurements']=measure(r,t);r.setdefault('warnings',[]).append('Saved testbench: '+t['name']+'. '+('Extracted circuit' if ports else 'Schematic circuit')+'.')
+    if selected_view:
+        from .implementation_views import get as get_view
+        from .model import file_digest
+        get_view(p,selected_view['id'],t['dut_cell'])
+        if file_digest(subcircuit_path)!=selected_view['sha256']:raise ValueError('The captured implementation changed during simulation.')
+        r['implementation_view']={k:clone(selected_view[k]) for k in ('id','name','kind','top','sha256','source_fingerprint','qualification')}
+        r['warnings'].append(selected_view['qualification'])
     from .specifications import evaluate_rows
     r['specifications']=evaluate_rows(t.get('specifications',fixture.get('specifications',[])),r)
     atomic_write(directory/'result.json',json.dumps(r,allow_nan=False));return r
 
 
-def spice_testbench(p,t):
+def compare_implementation(p,t,executable,directory,progress=lambda *_:None):
+    """Run one unchanged fixture against its schematic and captured cell view."""
+    from .implementation_views import get as get_view
+    from .physical_extraction import measurement_comparison
+    get_view(p,t.get('implementation_view'),t['dut_cell'])
+    root=Path(directory);baseline=clone(t);baseline.pop('implementation_view',None)
+    before=simulate(p,baseline,executable,root/'schematic',progress=lambda f,m:progress(f*.5,m))
+    after=simulate(p,t,executable,root/'implementation',progress=lambda f,m:progress(.5+f*.5,m))
+    rows=measurement_comparison(before['measurements']['measurements'],after['measurements']['measurements'])
+    specs=measurement_comparison(before.get('specifications',[]),after.get('specifications',[]))
+    passed=all(r.get('status') in ('passed','PASS') for r in before['measurements']['measurements']+after['measurements']['measurements']+before.get('specifications',[])+after.get('specifications',[]))
+    has_limits=bool(specs) or any('min' in m or 'max' in m for m in t.get('measurements',[]))
+    after['implementation_comparison']={'status':('passed' if has_limits else 'completed') if passed else 'failed','measurements':rows,'specifications':specs,
+        'schematic_result':'schematic/result.json','implementation_result':'implementation/result.json',
+        'qualification':'Same saved fixture and limits. This comparison does not establish DRC, LVS or extraction accuracy.'}
+    after['warnings'].append(after['implementation_comparison']['qualification'])
+    atomic_write(root/'comparison.json',json.dumps(after['implementation_comparison'],indent=2,allow_nan=False))
+    return after
+
+
+def spice_testbench(p,t,directory=None):
     """One SPICE file with the saved fixture and resolved circuit definition."""
-    marker=Path('__studio_dut_definition__.spice').resolve()
+    if t['analysis'].get('dc_startup'):
+        raise ValueError('This bench requires a DC startup solve. Run it in Studio and use the resulting testbench.cir with its model files and converged nodesets.')
+    if p.get('spice',{}).get('version')==1 and directory is None:
+        raise ValueError('Choose an export directory to retain the embedded model files.')
+    marker=(Path(directory) if directory else Path.cwd())/'__studio_dut_definition__.spice';marker=marker.resolve()
+    if t.get('implementation_view'):
+        from .implementation_views import get as get_view
+        view=get_view(p,t['implementation_view'],t['dut_cell'])
+        dut=next(c for c in p['cells'] if c['id']==t['dut_cell']);mapping={pin.lower():pin for pin in dut['ports']}
+        text=deck(p,t,marker,[mapping[pin.lower()] for pin in view['ports']],subcircuit_name=view['top'])
+        return text.replace('.include "'+marker.as_posix()+'"',view['netlist'].rstrip())
+    if p.get('spice',{}).get('version')==1:
+        from .native_analysis import deck as native_deck
+        from .saved_bench_diagnostics import settings as diagnostic_settings
+        q=clone(p)
+        if t.get('initial_conditions'):
+            bench=next(c for c in q['cells'] if c['id']==t['bench_cell'])
+            bench.setdefault('spice_statements',[]).append('.ic '+' '.join('v('+n+')='+str(scalar(v)) for n,v in t['initial_conditions'].items()))
+        settings=diagnostic_settings(p,t);text=native_deck(q,t['bench_cell'],settings,directory)[0]
+        if settings['type']=='tran' and settings.get('uic'):text=re.sub(r'^(\.tran .+)$',r'\1 uic',text,flags=re.M)
+        return text
     return deck(p,t,marker).replace('.include "'+marker.as_posix()+'"',native_subcircuit(p,t['dut_cell']).rstrip())
