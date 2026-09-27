@@ -9,7 +9,7 @@ from .native_spice import asset_path, render, netlist
 from .component_sources import imported_library
 
 INCLUDE = re.compile(r'(?im)^[^\S\n]*(\.include|\.inc|\.lib)[^\S\n]+("[^"\n]+"|\'[^\'\n]+\'|[^\s]+)([^\n]*)')
-TOKEN = re.compile(r'@@?[A-Za-z_][A-Za-z0-9_]*|%[A-Za-z_][A-Za-z0-9_]*')
+from .xschem_semantics import FORMAT_TOKEN as TOKEN
 
 
 def compile_device(device, mode='simulation'):
@@ -18,7 +18,7 @@ def compile_device(device, mode='simulation'):
     info = device['xschem']; attrs = info['symbol'].get('attributes', {})
     props = {**properties(attrs.get('template', '')), **info['properties']}
     if info.get('missing'): raise ValueError('The symbol is missing.')
-    for attribute in ('extra', 'spice_stop'):
+    for attribute in ('spice_stop',):
         if props.get(attribute, attrs.get(attribute)) not in (None, '', 'false', '0'):
             raise ValueError('Symbol behavior ' + attribute + ' needs a native implementation.')
     if props.get('spice_ignore', attrs.get('spice_ignore')) == 'short':
@@ -27,6 +27,11 @@ def compile_device(device, mode='simulation'):
         return {'version': 1, 'type': 'program', 'text': props.get('value', ''),
                 'only_toplevel': props.get('only_toplevel', 'false') in ('true', '1')}
     fmt = props.get('lvs_format', attrs.get('lvs_format', props.get('format', attrs.get('format', '')))) if mode=='lvs' else props.get('format', attrs.get('format', ''))
+    extra=props.get('extra',attrs.get('extra',''))
+    if extra not in (None,'','false','0'):
+        keys=extra.split();referenced={m[1].lstrip('@%') for m in TOKEN.finditer(fmt)}
+        if not keys or any(not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]*',k) or k not in props or k not in referenced for k in keys) or 'extra' in referenced:
+            raise ValueError('Symbol behavior extra needs explicit declarative attributes in its format.')
     compact = re.sub(r'\s+', '', fmt.replace('\\', ''))
     if attrs.get('type') == 'vsource' and compact == 'tcleval([expr{@savecurrent?"@name@pinlist@value.saveI(?1@name)":"@name@pinlist@value"}])':
         fmt = '@name @pinlist @value'
@@ -37,7 +42,7 @@ def compile_device(device, mode='simulation'):
     tokens = []; offset = 0; used = {}
     for match in TOKEN.finditer(fmt):
         if match.start() > offset: tokens.append({'kind': 'literal', 'value': fmt[offset:match.start()]})
-        token = match[0]; key = token.lstrip('@%')
+        token = match[1]; key = token.lstrip('@%')
         if token.startswith('@@'):
             if key not in device['nets']: raise ValueError('Unknown terminal ' + key)
             entry = {'kind': 'terminal', 'value': key}

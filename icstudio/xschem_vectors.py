@@ -1,13 +1,14 @@
 """Bounded scalar expansion of Xschem instance arrays and labelled bundles.
 
-Supports scalar names and a single ascending/descending [start:end] range.
+Supports scalar names and a single ascending/descending [start:end] or
+[start..end] range used by older Xschem schematics.
 Electrical fan-out is resolved before changing drawing positions. More complex
 Xschem repetition/slice expressions remain explicit import errors.
 """
 import re
 from .model import NAME, NET, clone, uid
 
-RANGE = re.compile(r'([A-Za-z_][A-Za-z0-9_.$-]*)\[(\d+):(\d+)\]')
+RANGE = re.compile(r'([A-Za-z_][A-Za-z0-9_.$-]*)\[(\d+)(?::|\.\.)(\d+)\]')
 INDEX = re.compile(r'([A-Za-z_][A-Za-z0-9_.$-]*)\[(\d+)\]')
 MAX_VECTOR = 128
 

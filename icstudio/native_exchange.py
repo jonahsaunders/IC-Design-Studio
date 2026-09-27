@@ -39,17 +39,11 @@ def export_project(project,directory):
                 if info['type']=='program':
                     fmt='@value';attrs.update(type='netlist_commands');props.update(value=info['text'],only_toplevel='true' if info.get('only_toplevel') else 'false')
                 else:
-                    pieces=[]
-                    for token in info['tokens']:
-                        kind=token['kind'];value=token.get('value','')
-                        if kind=='literal':
-                            if re.search(r'[@%][A-Za-z_]',value):raise ValueError(d['name']+': literal text resembles an Xschem substitution; export this device as SPICE instead.')
-                            pieces.append(value)
-                        else:pieces.append({'instance':'@name','terminals':'@pinlist','terminal':'@@'+value,'parameter':'@'+value,'cell':'@symname'}[kind])
-                    fmt=''.join(pieces);props.update(info['parameters']);definition=info.get('definition','')
+                    from .xschem_semantics import emission_format
+                    fmt=emission_format(info['tokens']);props.update(info['parameters']);definition=info.get('definition','')
                     if info.get('diode_geometry'):attrs['studio_diode_geometry']=info['diode_geometry']
                     if info.get('lvs_tokens'):
-                        attrs['lvs_format']=''.join(t.get('value','') if t['kind']=='literal' else {'instance':'@name','terminals':'@pinlist','terminal':'@@'+t.get('value',''),'parameter':'@'+t.get('value',''),'cell':'@symname'}[t['kind']] for t in info['lvs_tokens'])
+                        attrs['lvs_format']=emission_format(info['lvs_tokens'])
             elif d.get('model_ref'):
                 from .catalog import binding_for
                 from .catalog_migration import instance_name,emitted_parameters
@@ -64,7 +58,8 @@ def export_project(project,directory):
                     lvs=d['model_ref']['lvs'];context=symbol_context(d,p['pdk'])
                     required={token['value'] for token in lvs['tokens'] if token['kind']=='parameter'}
                     props.update({k:context.get(k,v) for k,v in lvs['parameters'].items() if k in required and k not in props})
-                    attrs['lvs_format']=''.join(t.get('value','') if t['kind']=='literal' else {'instance':'@name','terminals':'@pinlist','terminal':'@@'+t.get('value',''),'parameter':'@'+t.get('value',''),'cell':'@symname'}[t['kind']] for t in lvs['tokens'])
+                    from .xschem_semantics import emission_format
+                    attrs['lvs_format']=emission_format(lvs['tokens'])
             elif d['kind'] in ('R','C','L'):props['value']=d['value']
             elif d['kind'] in ('V','I'):props['value']=source_spec(d)
             elif d['kind'] in ('NMOS','PMOS'):

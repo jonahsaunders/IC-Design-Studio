@@ -9,6 +9,34 @@ from icstudio.stream_contract import canonicalize, compare
 
 
 class StreamCompatibilityTests(unittest.TestCase):
+    def test_singleton_array_vector_may_normalize_but_used_pitch_must_match(self):
+        import struct
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);ly=db.Layout();ly.dbu=.001
+            child=ly.create_cell('child');top=ly.create_cell('top')
+            child.shapes(ly.layer(68,20)).insert(db.Box(0,0,100,100))
+            top.insert(db.CellInstArray(child.cell_index(),db.Trans(1000,2000),db.Vector(0,0),db.Vector(500,0),1,3))
+            ly.write(str(root/'canonical.gds'))
+            raw=bytearray((root/'canonical.gds').read_bytes());offset=0;array=False
+            while offset<len(raw):
+                size,tag=struct.unpack_from('>HH',raw,offset)
+                if tag==0x0b00:array=True
+                if array and tag==0x1003:
+                    # Legacy Magic records a pitch for the unused first axis.
+                    struct.pack_into('>ii',raw,offset+20,1000,2370)
+                    break
+                offset+=size
+            self.assertLess(offset,len(raw))
+            (root/'legacy.gds').write_bytes(raw)
+            canonicalize(root/'legacy.gds',root/'rewritten.gds')
+            inst=next(top.each_inst());inst.b=db.Vector(-500,0);inst.trans=db.Trans(2000,2000)
+            ly.write(str(root/'reversed.gds'))
+            compare(root/'legacy.gds',root/'reversed.gds')
+            inst=next(top.each_inst());inst.b=db.Vector(501,0)
+            ly.write(str(root/'moved.gds'))
+            with self.assertRaisesRegex(ValueError,'Placements changed'):
+                compare(root/'legacy.gds',root/'moved.gds')
+
     def test_oasis_appearance_survives_external_rewrite_without_sidecar(self):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td); p=example('empty'); c=p['cells'][0]

@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        stage: [inverter, analog, analog-rc, devices, two-stage-opamp, detector]
+        stage: [inverter, analog, analog-rc, devices, two-stage-opamp, detector, public-layouts]
     runs-on: ubuntu-24.04
     timeout-minutes: ${{ matrix.stage == 'two-stage-opamp' && 90 || matrix.stage == 'detector' && 60 || 45 }}
     steps:
@@ -83,6 +83,21 @@ jobs:
         if: matrix.stage == 'detector'
         timeout-minutes: 15
         run: python scripts/qualify_reference_exchange.py --detector build/open-project-evidence --out build/detector-exchange --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
+      - name: Fetch the pinned standard-cell library for mixed public designs
+        if: matrix.stage == 'public-layouts'
+        run: python scripts/fetch_sky130_reference.py --output build/public-full-pdk --cache build/sky130-downloads
+      - name: Require public source, Xschem, GDS, OASIS, DRC and LVS comparisons
+        if: matrix.stage == 'public-layouts'
+        timeout-minutes: 20
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python scripts/qualify_public_layouts.py --source build/public-sources --pdk build/physical-adapter/sky130A --standard-cells build/public-full-pdk/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_fd_sc_hd.spice --xschem-libraries build/public-full-pdk/sky130A/libs.tech/xschem --out build/public-layout-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
+      - name: Exercise public layouts through the desktop DRC and LVS action
+        if: matrix.stage == 'public-layouts'
+        timeout-minutes: 15
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_public_layouts.py --evidence build/public-layout-evidence --pdk build/physical-adapter/sky130A --out build/public-layout-evidence/desktop-linux --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -95,6 +110,7 @@ jobs:
             build/two-stage-opamp-evidence
             build/open-project-evidence
             build/detector-exchange
+            build/public-layout-evidence
             build/physical-adapter/sky130A/package.json
             build/qualification-pdk/upstream-lock.json
             build/physical-engines/*-build.log

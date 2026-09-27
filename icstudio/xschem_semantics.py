@@ -3,6 +3,24 @@ import re
 from pathlib import Path
 from .model import NET, clone
 
+# Xschem's doubled backslash terminates an attribute before a literal suffix,
+# e.g. @prefix\\\\inv_1. Consume only that declarative token separator.
+FORMAT_TOKEN=re.compile(r'(@@?[A-Za-z_][A-Za-z0-9_]*|%[A-Za-z_][A-Za-z0-9_]*)(?:\\\\(?=[A-Za-z0-9_]))?')
+
+
+def emission_format(tokens):
+    """Serialize native tokens without joining an attribute to its suffix."""
+    pieces=[];previous=None
+    for token in tokens:
+        kind=token['kind'];value=token.get('value','')
+        if kind=='literal':
+            if re.search(r'[@%][A-Za-z_]',value):raise ValueError('Literal text resembles an Xschem substitution; export this device as SPICE instead.')
+            if previous not in (None,'literal') and re.match(r'[A-Za-z0-9_]',value):pieces.append('\\'*2)
+            pieces.append(value)
+        else:pieces.append({'instance':'@name','terminals':'@pinlist','terminal':'@@'+value,'parameter':'@'+value,'cell':'@symname'}[kind])
+        previous=kind
+    return ''.join(pieces)
+
 
 def globals_in(text):
     text=re.sub(r'\n\s*\+\s*',' ',text)

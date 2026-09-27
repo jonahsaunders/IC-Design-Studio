@@ -33,7 +33,13 @@ def render(device, child=None, mode='simulation'):
                 raise ValueError(device['name'] + ': missing native parameter ' + value)
             output.append(str(definition['parameters'][value]))
         else: raise ValueError('Unknown native device token: ' + kind)
-    return ''.join(output)
+    text=''.join(output)
+    if mode=='lvs' and re.search(r'\bsky130_fd_pr__cap_var_(?:lvt|hvt)\b',text):
+        # These PDK subcircuits default VM to 1. Its explicit simulation
+        # default is absent from Magic extraction and older Xschem decks.
+        # Retain m, W/L and every non-unit VM; never discard multiplicity.
+        text=re.sub(r'(?i)\s+VM\s*=\s*(?:1(?:\.0*)?|1(?:\.0*)?e[+-]?0)(?=\s|$)','',text)
+    return text
 
 
 def validate_device(device):

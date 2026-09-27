@@ -153,7 +153,10 @@ def run(p,cid,output,tools,progress=lambda *_:None,blocked_reason=None):
 
 def job(p,cid,settings,directory,progress):
     output=Path(directory)/'physical-flow'
-    if settings.get('testbench'):
+    if settings.get('verification_mode')=='drc_lvs':
+        from .layout_verification import run as verify_layout
+        report=verify_layout(p,cid,output,settings.get('tools',{}),settings['reference'],progress,blocked_reason=settings.get('physical_blocked_reason'))
+    elif settings.get('testbench'):
         from .hierarchical_flow import run as hierarchical_run
         overrides={'physical_extraction':settings['physical_extraction']} if 'physical_extraction' in settings else {}
         report=hierarchical_run(p,settings['testbench'],output,settings.get('tools',{}),progress,blocked_reason=settings.get('physical_blocked_reason'),**overrides);cid=report['cell_id']

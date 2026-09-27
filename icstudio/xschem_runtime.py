@@ -23,7 +23,7 @@ def format_device(d,child=None):
         if props.get('savecurrent') in ('true','1'):fmt+='\n.save i(@name)'
     if 'tcleval' in fmt:raise ValueError(d['name']+': this custom symbol uses a Tcl netlisting program. Export the project and netlist it in Xschem.')
     def replace(m):
-        token=m[0]
+        token=m[1]
         if token.startswith('@@'):
             if token[2:] not in d['nets']:raise ValueError(d['name']+': unknown terminal '+token)
             return d['nets'][token[2:]]
@@ -33,7 +33,8 @@ def format_device(d,child=None):
             if key in ('extra','spiceprefix'):return ''
             raise ValueError(d['name']+': missing symbol parameter '+key)
         return str(props[key])
-    line=re.sub(r'@@?[A-Za-z_][A-Za-z0-9_]*|%[A-Za-z_][A-Za-z0-9_]*',replace,fmt)
+    from .xschem_semantics import FORMAT_TOKEN
+    line=FORMAT_TOKEN.sub(replace,fmt)
     if not line.strip():raise ValueError(d['name']+': no SPICE format is defined.')
     if 'tcleval' in line:raise ValueError(d['name']+': dynamic Tcl parameters require Xschem netlisting.')
     return line

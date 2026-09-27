@@ -433,7 +433,7 @@ Expand a category for the detailed inventory. Features requiring an external eng
 
 Native rules and RC estimates use declared technology data. Foundry qualification is limited to the exact processes and fixtures in the evidence; see the [qualification guide](docs/QUALIFICATION_0.22.md).
 
-[Physical workflows](docs/PROFESSIONAL_WORKFLOWS.md) · [RC estimation scope](docs/UPDATE_0.16.md) · [External verification](docs/INTEROPERABILITY.md)
+[Physical workflows](docs/PROFESSIONAL_WORKFLOWS.md) · [RC estimation scope](docs/UPDATE_0.16.md) · [External verification](docs/INTEROPERABILITY.md) · [Public-design DRC/LVS compatibility](docs/PUBLIC_DESIGN_COMPATIBILITY.md)
 
 </details>
 

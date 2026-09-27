@@ -56,8 +56,18 @@ class VectorImportTests(unittest.TestCase):
     def test_expression_limits(self):
         self.assertEqual(signals('a[0:2]'),['a[0]','a[1]','a[2]'])
         self.assertEqual(instance_names('M5[0:1]'),['M5__0','M5__1'])
+        self.assertEqual(instance_names('x_decap_[1..3]'),['x_decap___1','x_decap___2','x_decap___3'])
+        self.assertEqual(signals('a[2..0]'),['a[2]','a[1]','a[0]'])
         for value in ('a[0:128]','a[0:3:2]','2*a[3:0]','a,b'):
             with self.assertRaises(ValueError):signals(value)
+
+    def test_legacy_dotted_ranges_expand_electrically(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            record=review_path(fixture(Path(tmp),name='R[2..0]',positive='node[2..0]',negative='node[3..1]'))
+            p=record['candidate'];self.assertIsNotNone(p,record['items'])
+            rows=[d for d in p['cells'][0]['devices'] if d['name'].startswith('R__')]
+            self.assertEqual([(d['name'],list(d['nets'].values())) for d in rows],
+                [('R__2',['node[2]','node[3]']),('R__1',['node[1]','node[2]']),('R__0',['node[0]','node[1]'])])
 
     def test_diagonal_crossing_remains_two_nets_and_can_move_with_undo(self):
         from icstudio.model import example, History, uid, validate

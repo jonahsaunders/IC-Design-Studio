@@ -145,8 +145,16 @@ class Reader:
 
     def symbol(self,path):
         if path not in self.symbols:
-            text=self.read(path,'Symbol');s,_,notes=import_symbol(path,preserve_case=True)
-            attrs=next((properties(r[1]) for r in records(text) if r[0]=='K'),{});attrs.pop('studio_symbol_v2',None);s['attributes']=clone(attrs)
+            text=self.read(path,'Symbol');raw=records(text)
+            attrs=next((properties(r[1]) for r in raw if r[0]=='K'),{});attrs.pop('studio_symbol_v2',None)
+            # Page frames and launchers are archived, not electrical symbols.
+            # Standard Xschem title artwork extends beyond the symbol editor's
+            # bounds. Do not validate or execute that inactive artwork as a device.
+            if attrs.get('type','').lower() in ('logo','launcher','graph') and not any(r[0]=='B' and r[1]=='5' for r in raw):
+                s={'pins':{},'pin_order':[],'pin_meta':{},'primitives':[]}
+                notes=['Non-electrical artwork retained in the source archive.']
+            else:s,_,notes=import_symbol(path,preserve_case=True)
+            s['attributes']=clone(attrs)
             self.symbols[path]=(s,attrs);self.warnings.extend(path.name+': '+n for n in notes)
         return self.symbols[path]
 

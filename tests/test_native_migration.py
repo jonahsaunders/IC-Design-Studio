@@ -52,6 +52,36 @@ class NativeMigrationTests(unittest.TestCase):
         path = divider(self.root/'source'); capture = review_project(path)['candidate']; before = digest(capture)
         review(capture); self.assertEqual(digest(capture), before)
 
+    def test_standard_title_block_does_not_block_electrical_migration(self):
+        path=divider(self.root/'source')
+        path.write_text(path.read_text()+'\nC {devices/title.sym} 0 0 0 0 {name=l1 author="Test author"}\n')
+        record=review_path(path);p=record['candidate']
+        self.assertIsNotNone(p,record['items'])
+        self.assertIn('R1',netlist(p,self.root/'deck'))
+        archived=p['native_migration']['archive']['source_files']
+        title=next(v for k,v in archived.items() if k.endswith('/title.sym') or k.endswith('\\title.sym'))
+        self.assertIn('1020',title['text'])
+        self.assertFalse(any(d['name']=='l1' for c in p['cells'] for d in c['devices']))
+
+    def test_standard_cell_supply_attributes_and_model_suffix_are_preserved(self):
+        from icstudio.xschem_project import quoted
+        source=self.root/'standard.sch';symbol=self.root/'inv.sym'
+        fmt='@name @@A @VGND @VNB @VPB @VPWR @@Y @prefix'+'\\'*2+'inv_1'
+        symbol.write_text('v {xschem version=3.1.0 file_version=1.2}\nK {type=primitive format='+quoted(fmt)+
+            ' template="name=X1 VGND=0 VNB=0 VPB=VDD VPWR=VDD prefix=sky130_fd_sc_hd__" extra="VGND VNB VPB VPWR prefix"}\n'
+            'B 5 -42 -2 -38 2 {name=A dir=in}\nB 5 38 -2 42 2 {name=Y dir=out}\n')
+        source.write_text('v {xschem version=3.1.0 file_version=1.2}\nC {inv.sym} 0 0 0 0 {name=X1}\n'
+            'C {devices/lab_pin.sym} -40 0 0 0 {name=p1 lab=input}\nC {devices/lab_pin.sym} 40 0 0 0 {name=p2 lab=output}\n')
+        r=review_path(source);p=r['candidate'];self.assertIsNotNone(p,r['items'])
+        self.assertIn('X1 input 0 0 VDD VDD output sky130_fd_sc_hd__inv_1',netlist(p,self.root/'deck',mode='lvs'))
+        from icstudio.interchange import export_xschem
+        export_xschem(p,self.root/'exported')
+        reopened=review_path(self.root/'exported/standard.sch')
+        self.assertIsNotNone(reopened['candidate'],reopened['items'])
+        self.assertIn('X1 input 0 0 VDD VDD output sky130_fd_sc_hd__inv_1',netlist(reopened['candidate'],self.root/'reopened-deck',mode='lvs'))
+        symbol.write_text(symbol.read_text().replace('extra="VGND VNB VPB VPWR prefix"','extra="unknown_behavior"'))
+        self.assertIsNone(review_path(source)['candidate'])
+
     def test_edit_value_and_designator_updates_emission(self):
         p = self.migrate(); d = next(d for d in p['cells'][0]['devices'] if d['name']=='R1')
         d['native_spice']['parameters']['value'] = '3k'; d['name'] = 'Rchanged'
