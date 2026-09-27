@@ -472,7 +472,7 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
             if not (self.layout if self.current_mode=='layout' else self.schematic).grab().save(path):raise ValueError('Could not write image.')
     def engine_dialog(self):
         from .engines import diagnostics
-        config={n:self.settings.value('engine/'+n,'') for n in ('ngspice','klayout','magic','netgen')};ds=diagnostics(config);vals=self.simple_form('Engine diagnostics & paths',{d['name']:d['path'] for d in ds},'KLayout geometry is bundled. These optional paths select custom tools. Windows physical verification uses the included Linux runtime when Magic and Netgen paths are empty; use Physical tools setup first.')
+        config={n:self.settings.value('engine/'+n,'') for n in ('ngspice','klayout','magic','netgen')};ds=diagnostics(config);vals=self.simple_form('Engine diagnostics & paths',{d['name']:d['path'] for d in ds},'KLayout geometry is bundled. These optional paths select custom tools. Physical verification uses the included runtime when Magic and Netgen paths are empty. Physical tools setup selects included or custom tools; an explicit Included selection overrides these saved custom paths.')
         if vals:
             for key,path in vals.items():
                 if path and not Path(path).is_file():raise ValueError(f'{key}: executable path does not exist.')

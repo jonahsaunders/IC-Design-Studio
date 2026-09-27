@@ -12,7 +12,7 @@ ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 def main(arguments=None):
     ap=argparse.ArgumentParser(description=__doc__)
     for name in ('pdk','out'):ap.add_argument('--'+name,type=Path,required=True)
-    ap.add_argument('--managed',action='store_true',help='Use the installed private WSL runtime from the Windows worker.')
+    ap.add_argument('--managed',action='store_true',help='Use the installed Linux or private WSL runtime from the desktop worker.')
     for name in ('magic','netgen','ngspice'):ap.add_argument('--'+name,default='')
     a=ap.parse_args(arguments);out=a.out.resolve();out.mkdir(parents=True,exist_ok=True)
     os.environ['XDG_DATA_HOME']=str(out/'profile/data');os.environ['XDG_CONFIG_HOME']=str(out/'profile/config')
@@ -46,13 +46,15 @@ def main(arguments=None):
         w.live_check.setChecked(False);w.set_project(p);w.cid=cid;w.refresh(True);w.resize(1400,960);w.show()
         for name in ('magic','netgen','ngspice'):w.settings.setValue('engine/'+name,getattr(a,name))
         if a.managed:
-            assert os.name=='nt','The managed qualification must exercise Windows/WSL.'
             w.settings.setValue('physical/toolchain','included')
+            # Included selection must override saved custom paths and PATH discovery.
+            for name in ('magic','netgen','ngspice'):
+                w.settings.setValue('engine/'+name,str(out/('unselected custom '+name)))
         w.run_silicon();r=wait('nominal');assert r['status']=='passed',r
         if a.managed:
-            assert r['execution']['runtime']['kind']=='wsl'
+            assert r['execution']['runtime']['kind']==('wsl' if os.name=='nt' else 'linux')
             assert r['execution']['received_files']
-            result['scope']='Real Windows Qt worker with installed private WSL tools; '+('frozen application.' if getattr(sys,'frozen',False) else 'source GUI.')
+            result['scope']=('Real Windows Qt worker with installed private WSL tools; ' if os.name=='nt' else 'Real Linux Qt worker with installed managed tools; ')+('frozen application.' if getattr(sys,'frozen',False) else 'source GUI.')
         checks.append('Real queued DRC, LVS, extraction and before/after simulation pass')
         original=clone(w.cell['shapes'])
         def break_layout(project):
@@ -73,7 +75,7 @@ def main(arguments=None):
         checks.append('Undo repairs the layout and a fresh verification passes')
         tools={name:getattr(a,name) for name in ('magic','netgen','ngspice')}
         tools['magic']=str(out/'missing magic executable')
-        w.start_job({'type':'silicon','tools':tools});r=wait('missing-engine')
+        w.start_job({'type':'silicon','tools':tools,'physical_toolchain':'custom'});r=wait('missing-engine')
         assert r['status']=='blocked',r
         assert 'BLOCKED' in w.silicon_status.text()
         checks.append('A missing physical executable is shown as blocked, never passed')

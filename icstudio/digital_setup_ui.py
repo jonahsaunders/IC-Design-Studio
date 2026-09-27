@@ -1,6 +1,7 @@
 """Nonblocking setup and repair for the included digital engines."""
 import json
 import os
+import shutil
 from pathlib import Path
 import sys
 
@@ -34,7 +35,8 @@ class DigitalSetupDialog(QDialog):
         self.mode.addItem('Included tools (recommended)', 'included'); self.mode.addItem('Custom tools', 'custom')
         from .digital_tools import selection
         settings=getattr(parent,'settings',None)
-        self.mode.setCurrentIndex(1 if settings and (settings.value('physical/toolchain','included') if physical else selection(settings)['toolchain'])=='custom' else 0)
+        fallback='custom' if settings and any(settings.value('engine/'+name,'') or shutil.which(name) for name in ('magic','netgen')) else 'included'
+        self.mode.setCurrentIndex(1 if settings and (settings.value('physical/toolchain',fallback) if physical else selection(settings)['toolchain'])=='custom' else 0)
         self.mode.currentIndexChanged.connect(self.select_mode); layout.addWidget(self.mode)
         self.status=QLabel(); self.status.setWordWrap(True); layout.addWidget(self.status)
         self.next_action=QLabel(); self.next_action.setWordWrap(True); layout.addWidget(self.next_action)

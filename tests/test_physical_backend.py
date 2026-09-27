@@ -33,6 +33,27 @@ class PhysicalBackendTests(unittest.TestCase):
                     self.assertEqual(report.get('testbench_id'),testbench)
                     self.assertEqual(len(report['stages']),8 if testbench else 7)
 
+    def test_included_selection_uses_linux_and_wsl_even_with_saved_custom_paths(self):
+        p=example('empty');p['pdk']['package_lock']={'files':{'process.tech':'0'*64}}
+        for kind in ('linux','wsl'):
+            runtime={'kind':kind,'root':'runtime root','sha256':'a'*64}
+            for config in ({},{'magic':'saved custom magic','netgen':'saved custom netgen'}):
+                job={'project':p,'settings':{'type':'silicon','tools':config,'physical_toolchain':'included'}}
+                with patch('icstudio.physical_backend.available',return_value=runtime):
+                    self.assertIs(prepare(job),job)
+                self.assertEqual(job['settings']['physical_runtime'],runtime)
+                self.assertEqual(job['settings']['tools'],config)
+
+    def test_custom_selection_never_reuses_an_included_runtime(self):
+        for mode,tools in (('custom',{}),('auto',{'magic':'configured executable'})):
+            job={'settings':{'type':'silicon','tools':tools,'physical_toolchain':mode,
+                             'physical_runtime':{'kind':'linux'},'physical_blocked_reason':'old failure'}}
+            with patch('icstudio.physical_backend.available',side_effect=AssertionError('Custom selection must not inspect the included runtime.')):
+                self.assertIs(prepare(job),job)
+            self.assertNotIn('physical_runtime',job['settings'])
+            self.assertNotIn('physical_blocked_reason',job['settings'])
+            self.assertEqual(job['settings']['tools'],tools)
+
     def test_locked_pdk_transfer_rebases_only_infrastructure(self):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td);source=root/'PDK with spaces';source.mkdir()

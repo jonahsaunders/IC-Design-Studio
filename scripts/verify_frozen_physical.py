@@ -1,4 +1,4 @@
-"""Require real physical checks from the installed Windows application."""
+"""Require real physical checks from the packaged Linux or Windows application."""
 import argparse
 import json
 import os
@@ -23,4 +23,4 @@ if __name__=='__main__':
     if report['build']['commit']!=expected['commit'] or report['build']['dirty'] is not False:
         raise ValueError('Installed physical evidence belongs to a different or dirty build.')
     if report['executable_sha256']!=file_digest(a.executable):raise ValueError('Installed executable changed.')
-    print('Installed Windows DRC/LVS, fault navigation and repair passed.')
+    print('Packaged DRC/LVS, fault navigation and repair passed.')

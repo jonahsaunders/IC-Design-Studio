@@ -18,17 +18,17 @@ missing vias, shorts, resistor-width changes and missing/extra interface pins.
 It now exports the captured native schematic with the current exporter before
 asking a separate Xschem process to produce its reference netlist.
 
-## Windows physical verification
+## Linux and Windows physical verification
 
 The included Linux/private WSL runtime now contains pinned Magic and Netgen,
 ngspice and the locked KLayout Python module. Tools > Physical tools setup
 performs positive and negative DRC/LVS controls before recording readiness.
-The Windows Qt worker transfers the locked PDK and captured job into a private
+The Qt worker transfers the locked PDK and captured job into a private
 Linux work directory, then verifies an inventory of every returned artifact.
 Source design identity is restored for navigation while native evidence remains
 available. Cancellation uses the existing supervised process-tree protocol.
 
-Custom engine paths retain their existing behavior. Standalone interactive
+Unconfigured jobs can use the included runtime on Linux and Windows. Explicitly selecting Included tools overrides saved custom paths; selecting Custom tools preserves them. Existing configured paths retain their behavior when no selection has been saved. Standalone interactive
 Magic editing and native `.mag` conversion still require explicitly configured
 external tools; the managed runtime supports Studio's physical verification job.
 
@@ -37,7 +37,8 @@ nominal verification, stale results after an edit, deliberate DRC failure,
 navigation to its geometry, undo and fresh verification, and missing-engine
 blocking. `--physical-acceptance` runs the same probe inside the frozen app.
 Windows installer acceptance requires this test before uninstalling the exact
-installed build; it checks the executable hash and clean source commit.
+installed build, and Linux packaging runs it on the frozen application. Both
+check the executable hash and clean source commit.
 
 ## GF180 distributed RC and fill
 

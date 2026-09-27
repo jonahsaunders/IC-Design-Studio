@@ -19,13 +19,15 @@ def available():
 
 
 def prepare(job):
-    """Only an unconfigured Windows physical job uses the included runtime."""
-    if os.name!='nt' or job['settings'].get('type')!='silicon':return job
+    """Resolve an included or unconfigured physical job on Linux and Windows."""
+    if job['settings'].get('type')!='silicon':return job
+    mode=job['settings'].get('physical_toolchain','auto')
     config=job['settings'].get('tools',{})
-    if config.get('magic') or config.get('netgen'):return job
     job['settings'].pop('physical_runtime',None)
     job['settings'].pop('physical_blocked_reason',None)
+    if mode=='custom' or (mode=='auto' and (config.get('magic') or config.get('netgen'))):return job
     try:
+        if mode not in ('auto','included'):raise ValueError('Unknown physical toolchain selection.')
         if not job['project']['pdk'].get('package_lock',{}).get('files'):
             raise ValueError('Managed physical verification requires a checksummed PDK package.')
         runtime=available()
