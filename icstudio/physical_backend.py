@@ -23,8 +23,18 @@ def prepare(job):
     if os.name!='nt' or job['settings'].get('type')!='silicon':return job
     config=job['settings'].get('tools',{})
     if config.get('magic') or config.get('netgen'):return job
-    runtime=available()
-    if not runtime:raise ValueError('Set up the included physical tools from Tools → Physical tools setup before verification.')
+    job['settings'].pop('physical_runtime',None)
+    job['settings'].pop('physical_blocked_reason',None)
+    try:
+        if not job['project']['pdk'].get('package_lock',{}).get('files'):
+            raise ValueError('Managed physical verification requires a checksummed PDK package.')
+        runtime=available()
+        if not runtime:raise ValueError('Set up the included physical tools from Tools → Physical tools setup before verification.')
+    except (OSError,ValueError) as exc:
+        # Preserve the normal queued preflight report for incomplete setup.
+        # A synchronous exception would discard its stages and bench identity.
+        job['settings']['physical_blocked_reason']=str(exc)
+        return job
     job['settings']['physical_runtime']=runtime
     return job
 

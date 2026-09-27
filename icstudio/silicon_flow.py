@@ -54,7 +54,7 @@ def magic_script(executable,technology,gds,cell,ports,directory,commands,setup="
     return first+'\n'+second
 
 
-def run(p,cid,output,tools,progress=lambda *_:None):
+def run(p,cid,output,tools,progress=lambda *_:None,blocked_reason=None):
     out=Path(output).resolve()
     if out.exists() and any(out.iterdir()):raise ValueError('Use an empty physical verification output directory.')
     out.mkdir(parents=True,exist_ok=True)
@@ -69,6 +69,7 @@ def run(p,cid,output,tools,progress=lambda *_:None):
         except Exception as e:item['status']='failed';item['error']=str(e);publish();raise
         publish();return item['evidence']
     def preflight():
+        if blocked_reason:raise ValueError(blocked_reason)
         validate(p);inverter_devices(p,cid)
         findings=audit(p,cid)
         if findings:raise ValueError(findings[0]['message'])
@@ -155,8 +156,8 @@ def job(p,cid,settings,directory,progress):
     if settings.get('testbench'):
         from .hierarchical_flow import run as hierarchical_run
         overrides={'physical_extraction':settings['physical_extraction']} if 'physical_extraction' in settings else {}
-        report=hierarchical_run(p,settings['testbench'],output,settings.get('tools',{}),progress,**overrides);cid=report['cell_id']
-    else:report=run(p,cid,output,settings.get('tools',{}),progress)
+        report=hierarchical_run(p,settings['testbench'],output,settings.get('tools',{}),progress,blocked_reason=settings.get('physical_blocked_reason'),**overrides);cid=report['cell_id']
+    else:report=run(p,cid,output,settings.get('tools',{}),progress,blocked_reason=settings.get('physical_blocked_reason'))
     issues=[]
     if report['status']!='passed':issues.append({'severity':'error','code':'PHYSICAL.'+report['status'].upper(),'object':'','message':report.get('error','Physical workflow incomplete'),'fingerprint':digest(report)})
     if 'findings' in report:issues.extend(report['findings'])

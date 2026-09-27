@@ -2,11 +2,37 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 from icstudio.model import example,clone,file_digest
-from icstudio.physical_backend import stage,receive
+from icstudio.physical_backend import stage,receive,prepare
 
 
 class PhysicalBackendTests(unittest.TestCase):
+    def test_missing_setup_is_a_queued_blocked_report_with_bench_identity(self):
+        from tests.test_silicon import technology
+        from icstudio.sky130_layout import reference_project
+        from icstudio.ring_oscillator import reference
+        from icstudio.silicon_flow import job as run_job
+        p,cid=reference_project(technology())
+        hierarchy,hcid,bench=reference(technology())
+        for project,cell,testbench in ((p,cid,None),(hierarchy,hcid,bench)):
+            for locked in (False,True):
+                project['pdk']['package_lock']['files']={'dummy.tech':'0'*64} if locked else {}
+                settings={'type':'silicon','tools':{}}
+                if testbench:settings['testbench']=testbench
+                request={'project':project,'cell':cell,'settings':settings}
+                with patch('icstudio.physical_backend.os.name','nt'),patch('icstudio.physical_backend.available',return_value=None):
+                    self.assertIs(prepare(request),request)
+                self.assertNotIn('physical_runtime',settings)
+                with tempfile.TemporaryDirectory() as tmp:
+                    result=run_job(project,cell,settings,tmp,lambda *_:None)
+                    report=result['silicon_report']
+                    self.assertEqual(report['status'],'blocked')
+                    self.assertEqual(report['error'],settings['physical_blocked_reason'])
+                    self.assertTrue(all(s['status']=='not_run' for s in report['stages'][1:]))
+                    self.assertEqual(report.get('testbench_id'),testbench)
+                    self.assertEqual(len(report['stages']),8 if testbench else 7)
+
     def test_locked_pdk_transfer_rebases_only_infrastructure(self):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td);source=root/'PDK with spaces';source.mkdir()

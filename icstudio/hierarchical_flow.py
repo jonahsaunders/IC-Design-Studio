@@ -32,7 +32,7 @@ def record_stage(report,name,fn,publish,progress):
     return row['evidence']
 
 
-def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=None):
+def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=None,blocked_reason=None):
     out=Path(output).resolve()
     if out.exists() and any(out.iterdir()):raise ValueError('Choose a new or empty verification directory.')
     out.mkdir(parents=True,exist_ok=True);t=clone(get(p,testbench));cid=t['dut_cell'];by={c['id']:c for c in p['cells']};c=by[cid]
@@ -41,6 +41,7 @@ def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=Non
     def stage(name,fn):
         return record_stage(report,name,fn,publish,progress)
     def preflight():
+        if blocked_reason:raise ValueError(blocked_reason)
         validate(p)
         from .physical_extraction import normalize_extraction
         choice.update(normalize_extraction(physical_extraction if physical_extraction is not None else t.get('physical_extraction')))
