@@ -106,8 +106,11 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None)
             path=path.resolve();resolved[name]=dict(path=str(path),sha256=file_digest(path))
             atomic_write(out/(name+'-version.log'),execute([str(path),'-batch' if name=='netgen' else '--version'],out,timeout=20))
         save_project(p,out/'input.icproj');atomic_write(out/'schematic.spice',ref['text'])
-        files.update({n:file_digest(out/n) for n in ('input.icproj','schematic.spice')})
-        return dict(assets={str(v):file_digest(v) for v in assets.values()},tools=resolved,reference=report['reference'])
+        from .native_spice import lvs_defaults
+        comparison,defaults=lvs_defaults(ref['text']);atomic_write(out/'schematic-lvs.spice',comparison)
+        report['reference_defaults']=defaults
+        files.update({n:file_digest(out/n) for n in ('input.icproj','schematic.spice','schematic-lvs.spice')})
+        return dict(assets={str(v):file_digest(v) for v in assets.values()},tools=resolved,reference=report['reference'],model_defaults=defaults)
     try:
         pre=stage('preflight',preflight)
         def stream():
@@ -142,7 +145,7 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None)
             return dict(deck='lvs-extraction/extracted.spice',sha256=files['lvs-extraction/extracted.spice'])
         stage('lvs_extraction',extract)
         def lvs():
-            log=netgen_lvs(resolved['netgen']['path'],out/'schematic.spice',ref['top'],out/'lvs-extraction/extracted.spice',c['name'],assets['setup'],out/'lvs')
+            log=netgen_lvs(resolved['netgen']['path'],out/'schematic-lvs.spice',ref['top'],out/'lvs-extraction/extracted.spice',c['name'],assets['setup'],out/'lvs')
             require_lvs_match(log);return dict(unique_match=True,log='lvs/lvs.log')
         try:stage('lvs',lvs)
         except (ValueError,OSError) as exc:failures.append(str(exc))

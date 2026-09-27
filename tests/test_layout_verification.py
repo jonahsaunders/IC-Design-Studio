@@ -52,5 +52,14 @@ class LayoutVerificationTests(unittest.TestCase):
         self.assertIn('VM=2',render(device('2'),mode='lvs'))
         self.assertIn('VM=1',render(device('1','unknown_model'),mode='lvs'))
 
+    def test_external_varactor_defaults_preserve_unrelated_parameters_and_source(self):
+        from icstudio.native_spice import lvs_defaults
+        source='* sky130_fd_pr__cap_var_lvt VM=1\n.subckt sky130_fd_pr__cap_var_lvt a b VM=1\nXC1 a b sky130_fd_pr__cap_var_lvt\n+ VM=1.0 W=2 L=1 m=3\nXC2 a b sky130_fd_pr__cap_var_lvt VM=2\nXC3 a b other_model VM=1\nXC4 a b sky130_fd_pr__cap_var_lvt VM={gain}\n.ends\n'
+        text,changes=lvs_defaults(source)
+        self.assertEqual(text,source.replace('sky130_fd_pr__cap_var_lvt\n+ VM=1.0 W=2','sky130_fd_pr__cap_var_lvt W=2'))
+        self.assertEqual(changes,[dict(instance='XC1',parameter='VM',default='1')])
+        ambiguous='XC1 a b sky130_fd_pr__cap_var_lvt VM=2 VM=1'
+        self.assertEqual(lvs_defaults(ambiguous),(ambiguous,[]))
+
 
 if __name__=='__main__':unittest.main()

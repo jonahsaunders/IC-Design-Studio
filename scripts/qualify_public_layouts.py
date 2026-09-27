@@ -36,6 +36,7 @@ def fetch(destination):
         if not path.is_file():
             url=entry['repository'].replace('https://github.com/','https://raw.githubusercontent.com/')+'/'+entry['commit']+'/'+relative
             with urllib.request.urlopen(url,timeout=60) as response:data=response.read(20_000_001)
+            if len(data)>20_000_000:raise ValueError('Source file exceeds the 20 MB download limit: '+relative)
             if hashlib.sha256(data).hexdigest()!=sha:raise ValueError('Source checksum mismatch: '+relative)
             path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(data)
         if file_digest(path)!=sha:raise ValueError('Pinned source changed: '+str(path))
@@ -43,10 +44,10 @@ def fetch(destination):
     return lock
 
 
-def inline_netlist(path, *, known=None):
+def inline_netlist(path, *, known=None, include_root=None):
     """Inline only selected local include closures; retain their exact hashes."""
     files={};active=set();size=0;known=known or {}
-    def read(file):
+    def read(file,base=None):
         nonlocal size
         file=Path(file).resolve()
         if file in active:raise ValueError('Recursive schematic include.')
@@ -54,10 +55,10 @@ def inline_netlist(path, *, known=None):
         if size>20_000_000 or len(files)>1000:raise ValueError('Reference include closure exceeds its budget.')
         files[str(file)]=file_digest(file)
         def include(match):
-            name=match[1].strip('"\'');return read(known.get(name,file.parent/name))
+            name=match[1].strip('"\'');return read(known.get(name,(base or file.parent)/name))
         result=re.sub(r'(?im)^\s*\.(?:include|inc)\s+("[^"\n]+"|\'[^\'\n]+\'|\S+)\s*$',include,data)
         active.remove(file);return result
-    return read(path),files
+    return read(path,include_root),files
 
 
 def linked_layout(path,technology,top):
@@ -73,6 +74,8 @@ def qualify(a):
     pdk=a.pdk.resolve();m=json.loads((pdk/'package.json').read_text());tech=clone(m['technology'])
     tech['package_root']=str(pdk);tech['package_lock']={k:m[k] for k in ('id','revision','files')}
     tools=dict(magic=report.tool('magic',a.magic,['--version']),netgen=report.tool('netgen',a.netgen,['-batch']))
+    tools['xschem']=report.tool('xschem',a.xschem,['-x','-q','--version'])
+    report.data['lock_hashes']['examples/modern-schematic-engine-lock.json']=file_digest(ROOT/'examples/modern-schematic-engine-lock.json')
     technology=pdk/'libs.tech/magic/sky130A.tech';setup=pdk/'libs.tech/netgen/sky130A_setup.tcl'
     std=a.standard_cells.resolve();symbols=a.xschem_libraries.resolve()
     if not std.is_file():raise ValueError('Supply the pinned standard-cell SPICE library.')
@@ -116,6 +119,24 @@ def qualify(a):
             require_lvs_match(netgen_lvs(tools['netgen'],folder/'native-selfcontained.spice',topname,directory/'selfcontained.spice',topname,setup,directory/'lvs'))
             return dict(status='passed')
         report.case(name+'-xschem-roundtrip',schematic_roundtrip)
+        def independent_xschem():
+            from icstudio.external_tools import xschem_netlist
+            from icstudio.native_spice import lvs_defaults
+            reftop=state['reference']['top'];directory=folder/'independent-xschem'
+            record=xschem_netlist(folder/'xschem'/(reftop+'.sch'),directory,tools['xschem'],mode='lvs')
+            decks=list((directory/'netlists').glob('*.spice'))
+            if len(decks)!=1:raise ValueError('Expected one independently generated Xschem netlist.')
+            # Xschem emits includes relative to its captured schematic working
+            # directory. Root .subckt comments are its standalone bench wrapper.
+            text,inputs=inline_netlist(decks[0],include_root=directory/'sources/0')
+            text=re.sub(r'(?im)^\*\*\s*(\.subckt\s+'+re.escape(reftop)+r'\b[^\n]*)',r'\1',text)
+            text=re.sub(r'(?im)^\*\*\s*(\.ends\b[^\n]*)',r'\1',text)
+            atomic_write(directory/'raw-selfcontained.spice',text)
+            text,defaults=lvs_defaults(text);atomic_write(directory/'comparison.spice',text)
+            require_lvs_match(netgen_lvs(tools['netgen'],folder/'native-selfcontained.spice',reftop,directory/'comparison.spice',reftop,setup,directory/'lvs'))
+            state['external_reference']=reference((directory/'raw-selfcontained.spice').read_text(),reftop)
+            return dict(tool=record['tool'],included_files=inputs,model_defaults=defaults,root_wrapper='Enabled the existing ordered Xschem .subckt declaration; device connections retained.')
+        report.case(name+'-independent-xschem',independent_xschem)
         def import_geometry():
             if name=='amplifier':
                 magic_import(tools['magic'],a.source/'fulgor/mag/opamp_v1.mag',technology,folder/'magic-import')
@@ -151,7 +172,10 @@ def qualify(a):
             report.case(name+'-'+route+'-drc-lvs',action)
         if 'reference' in state and 'layout' in state:
             atomic_write(folder/'reference.json',json.dumps(state['reference'],indent=2))
-            desktop.append(dict(name=name,project=name+'/layout.icproj',reference=name+'/native-selfcontained.spice',top=state['reference']['top'],expected='failed' if name=='amplifier' else 'passed'))
+            desktop_ref='independent-xschem/raw-selfcontained.spice' if 'external_reference' in state else 'native-selfcontained.spice'
+            desktop.append(dict(name=name,project=name+'/layout.icproj',reference=name+'/'+desktop_ref,top=state['reference']['top'],expected='failed' if name=='amplifier' else 'passed'))
+        if 'external_reference' in state and 'layout' in state:
+            report.case(name+'-external-xschem-drc-lvs',lambda:physical(state['layout'],folder/'physical-xschem',state['external_reference']))
         if name=='comparator' and 'layout' in state:
             def fault(kind):
                 p=clone(state['layout']);ref=clone(state['reference']);cell=next(c for c in p['cells'] if c['id']==p['top'])
@@ -209,6 +233,7 @@ def main():
     ap=argparse.ArgumentParser(description=__doc__)
     for name in ('source','pdk','standard-cells','xschem-libraries','out'):ap.add_argument('--'+name,type=Path,required=True)
     for name in ('magic','netgen'):ap.add_argument('--'+name,required=True)
+    ap.add_argument('--xschem',default='xschem')
     a=ap.parse_args();return qualify(a)
 
 

@@ -52,8 +52,10 @@ therefore qualified separately from the desktop examples.
 - Declarative standard-cell supply attributes and doubled-backslash model-name
   separators survive native migration and Xschem export/reimport.
 - The explicit SKY130 varactor simulation default `VM=1` is omitted from native
-  LVS emission, consistent with its model default and Magic extraction. Width,
-  length, `m` and all non-unit `VM` values remain checked; simulation is unchanged.
+  LVS emission, consistent with its model default and Magic extraction. External
+  references receive the same recorded normalization in a separate comparison
+  file; their original bytes are retained. Width, length, `m`, expressions and
+  all non-unit `VM` values remain checked; simulation is unchanged.
 - Stream comparison accepts equivalent array traversal reversal and unused
   singleton pitch normalization. Actual placement, pitch, multiplicity,
   geometry, labels and units must still agree.
@@ -66,6 +68,7 @@ engines with `scripts/build_physical_engines.py`.
 
 ```sh
 python scripts/fetch_sky130_reference.py --output build/public-full-pdk
+python scripts/build_physical_engines.py --lock examples/modern-schematic-engine-lock.json --only xschem --output build/public-xschem
 python scripts/qualify_public_layouts.py \
   --source build/public-sources \
   --pdk build/physical-adapter/sky130A \
@@ -73,7 +76,8 @@ python scripts/qualify_public_layouts.py \
   --xschem-libraries build/public-full-pdk/sky130A/libs.tech/xschem \
   --out build/public-layout-evidence \
   --magic "$PWD/build/physical-engines/installed/bin/magic" \
-  --netgen "$PWD/build/physical-engines/installed/bin/netgen"
+  --netgen "$PWD/build/physical-engines/installed/bin/netgen" \
+  --xschem "$PWD/build/public-xschem/installed/bin/xschem"
 QT_QPA_PLATFORM=offscreen python tests/gui_public_layouts.py \
   --evidence build/public-layout-evidence \
   --pdk build/physical-adapter/sky130A \
@@ -94,7 +98,9 @@ reference/library hashes, original and rewritten streams, native projects,
 full DRC findings, strict Netgen reports, source-engine identities and an
 artifact manifest. It checks GDS and OASIS after an independent KLayout rewrite
 without Studio sidecars, and compares migrated and reopened Xschem circuits
-against the author's electrical netlist. Deliberate DRC and device-width LVS
+against the author's electrical netlist. Pinned Xschem independently netlists
+the exports; those generated circuits must also match and retain the expected
+layout DRC/LVS result. Deliberate DRC and device-width LVS
 faults must fail. The desktop probe also edits, navigates and undoes a real
 physical defect.
 

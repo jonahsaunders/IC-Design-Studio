@@ -15,6 +15,21 @@ def native(project):
     return project.get('spice', {}).get('version') == 1
 
 
+def lvs_defaults(text):
+    """Canonicalize only explicit, literal unit defaults of known PDK devices."""
+    changes=[]
+    def instance(match):
+        original=match[0];logical=re.sub(r'\n[ \t]*\+[ \t]*',' ',original)
+        if not re.search(r'(?i)\ssky130_fd_pr__cap_var_(?:lvt|hvt)(?=\s|$)',logical):return original
+        if len(re.findall(r'(?i)\sVM\s*=',logical))!=1:return original
+        # VM defaults to 1 in these PDK subcircuits. Never discard m, W/L,
+        # a non-unit VM, an expression, or a similarly named unknown model.
+        canonical,count=re.subn(r'(?i)[ \t]+VM[ \t]*=[ \t]*(?:1(?:\.0*)?|1(?:\.0*)?e[+-]?0)(?=\s|$)','',logical)
+        if count:changes.append(dict(instance=logical.split()[0],parameter='VM',default='1'))
+        return canonical if count else original
+    return re.sub(r'(?im)^[ \t]*x\S+[^\n]*(?:\n[ \t]*\+[^\n]*)*',instance,text),changes
+
+
 def render(device, child=None, mode='simulation'):
     definition = device['native_spice']
     if definition['type'] == 'program':
@@ -34,11 +49,7 @@ def render(device, child=None, mode='simulation'):
             output.append(str(definition['parameters'][value]))
         else: raise ValueError('Unknown native device token: ' + kind)
     text=''.join(output)
-    if mode=='lvs' and re.search(r'\bsky130_fd_pr__cap_var_(?:lvt|hvt)\b',text):
-        # These PDK subcircuits default VM to 1. Its explicit simulation
-        # default is absent from Magic extraction and older Xschem decks.
-        # Retain m, W/L and every non-unit VM; never discard multiplicity.
-        text=re.sub(r'(?i)\s+VM\s*=\s*(?:1(?:\.0*)?|1(?:\.0*)?e[+-]?0)(?=\s|$)','',text)
+    if mode=='lvs':text,_=lvs_defaults(text)
     return text
 
 

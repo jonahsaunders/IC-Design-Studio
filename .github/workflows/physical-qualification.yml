@@ -86,12 +86,15 @@ jobs:
       - name: Fetch the pinned standard-cell library for mixed public designs
         if: matrix.stage == 'public-layouts'
         run: python scripts/fetch_sky130_reference.py --output build/public-full-pdk --cache build/sky130-downloads
+      - name: Build pinned Xschem for independent public schematic netlisting
+        if: matrix.stage == 'public-layouts'
+        run: python scripts/build_physical_engines.py --lock examples/modern-schematic-engine-lock.json --only xschem --output build/public-xschem
       - name: Require public source, Xschem, GDS, OASIS, DRC and LVS comparisons
         if: matrix.stage == 'public-layouts'
         timeout-minutes: 20
         env:
           QT_QPA_PLATFORM: offscreen
-        run: python scripts/qualify_public_layouts.py --source build/public-sources --pdk build/physical-adapter/sky130A --standard-cells build/public-full-pdk/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_fd_sc_hd.spice --xschem-libraries build/public-full-pdk/sky130A/libs.tech/xschem --out build/public-layout-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
+        run: python scripts/qualify_public_layouts.py --source build/public-sources --pdk build/physical-adapter/sky130A --standard-cells build/public-full-pdk/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_fd_sc_hd.spice --xschem-libraries build/public-full-pdk/sky130A/libs.tech/xschem --out build/public-layout-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --xschem "$PWD/build/public-xschem/installed/bin/xschem"
       - name: Exercise public layouts through the desktop DRC and LVS action
         if: matrix.stage == 'public-layouts'
         timeout-minutes: 15
@@ -111,6 +114,9 @@ jobs:
             build/open-project-evidence
             build/detector-exchange
             build/public-layout-evidence
+            build/public-xschem/*-build.log
+            build/public-xschem/*-version.log
+            build/public-xschem/source-lock.json
             build/physical-adapter/sky130A/package.json
             build/qualification-pdk/upstream-lock.json
             build/physical-engines/*-build.log
