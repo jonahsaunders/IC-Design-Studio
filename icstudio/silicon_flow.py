@@ -21,10 +21,26 @@ def testbench(p,cid):
 
 
 def magic_script(executable,technology,gds,cell,ports,directory,commands,setup=""):
+    from .native_vectors import ports as scalar_ports
+    ports=scalar_ports(ports)
     directory=Path(directory);directory.mkdir(parents=True,exist_ok=True)
     rc=directory/'startup.tcl'
     atomic_write(rc,'tech load '+tcl_word(technology)+'\ndrc euclidean on\n')
     script='gds read '+tcl_word(gds)+'\n'+setup+'load '+tcl_word(cell)+'\nselect top cell\nbox values 0 0 0 0\n'
+    marker='# STUDIO_NORMALIZE_MAGIC_RC_V1'
+    if marker in commands:
+        # Extract connected geometry in one coordinate system.  Magic's
+        # -dotoplabels keeps the external interface and prevents repeated child
+        # labels from joining otherwise unrelated instance-local nets.  The
+        # user's GDS and editable masters remain untouched.
+        source='studio_rc_source_'+uid()
+        script+='set studio_rc_children [cellname list children '+tcl_word(cell)+']\n'
+        script+='if {[llength $studio_rc_children] > 0} {\n'
+        script+='cellname rename '+tcl_word(cell)+' '+tcl_word(source)+'\n'
+        script+='load '+tcl_word(source)+'\nflatten -dotoplabels '+tcl_word(cell)+'\n'
+        script+='load '+tcl_word(cell)+'\nselect top cell\n'
+        script+='if {[llength [cellname list children '+tcl_word(cell)+']] != 0} {error "Incomplete RC hierarchy flattening"}\n'
+        script+='puts "STUDIO_RC_FLATTENED [llength $studio_rc_children]"\n}\n'
     # GDS label datatypes carry net names. Give the named interface a stable port order.
     for i,port in enumerate(ports,1):
         word=tcl_word(port)
@@ -38,19 +54,37 @@ def magic_script(executable,technology,gds,cell,ports,directory,commands,setup="
         if 'STUDIO_MAGIC_COMPLETE' not in log or re.search(r'STUDIO_MAGIC_ERROR|contained errors|Malformed line|Illegal keyword|Error:.*required by this techfile|invalid command name|exttospice:\s*(?:integer|numeric) value.*expected',log,re.I):
             raise ValueError('Magic could not complete the commands. See '+str(directory/log_name))
         return log
-    marker='# STUDIO_NORMALIZE_MAGIC_RC_V1'
     if marker not in commands:return invoke(commands)
     if commands.count(marker)!=1:raise ValueError('Ambiguous Magic RC normalization boundary.')
     resistance,export=commands.split(marker)
+    if 'extresist simplify ' not in resistance:
+        resistance=resistance.replace('extresist all', 'extresist simplify off\nextresist all')
+    # Retain the engine's physical-device parameters before any R rewiring.
+    # The same model, geometry, scale and merge settings must survive export.
+    thresholds='\n'.join(line for line in resistance.splitlines()
+                          if line.startswith(('ext2spice cthresh ', 'ext2spice rthresh ')))
+    reference='ext2spice extresist off\next2spice cthresh infinite\next2spice rthresh infinite\n'
+    reference+='ext2spice -o device-reference.spice\n'+thresholds+'\n'
+    resistance=resistance.replace('ext2sim labels on',reference+'ext2sim labels on')
     # The pinned Magic 8.3.600 profile mixes fF/aF and loses original C.
     # Keep its resistor/device topology, rebuild conserved C, and only then
     # export in a fresh process so ext2spice reads the corrected files.
     first=invoke(resistance,'resistance-run.tcl','resistance-console.log')
     from .magic_rc import normalize,finalize
-    normalize(directory,cell)
-    settings='\n'.join(line for line in resistance.splitlines() if line.startswith('ext2spice '))
+    normalized=normalize(directory,cell,require_device_reference=True)
+    if Path(gds).is_file():
+        normalized['physical_hierarchy']={'mode':'flattened-geometry-with-top-level-labels',
+            'source_gds_sha256':file_digest(gds),'top':cell,
+            'flattened':bool(re.search(r'^STUDIO_RC_FLATTENED [1-9][0-9]*$',first,re.M)),
+            'scope':'Instance transforms and cross-instance conductors are resolved by Magic before extraction. Child labels are omitted; original GDS and cell masters are preserved.'}
+        atomic_write(directory/'rc-normalization.json',json.dumps(normalized,indent=2,allow_nan=False))
+    settings='\n'.join(line for line in resistance.splitlines()
+                      if line.startswith('ext2spice ') and not line.startswith('ext2spice -o '))
     second=invoke(settings+'\n'+export)
-    finalize(directory,cell)
+    normalized=finalize(directory,cell)
+    from .rc_islands import prune
+    prune(directory/'extracted.spice',directory/'electrical.spice',
+          physical_devices=[d['name'] for d in normalized.get('devices',[]) if d.get('name')])
     return first+'\n'+second
 
 

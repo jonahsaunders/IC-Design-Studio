@@ -1,0 +1,215 @@
+{
+  "status": "passed",
+  "scope": "Pinned GF180 finite-range absent/near/far metal coupons and equipotential zero-charge floating reduction; no general filled-layout integration or field solver.",
+  "evidence_root": "floating-fill",
+  "files": {
+    "qualification.json": "1a40a163f022f3ff67dae836bfe25fd0a95b80dff4a80b63d9f7ceff0439892c",
+    "m1/absent/fill_control.ext": "1abde3e5fd35f85f8a8694655716fcd26a7ceff8ef7582c634954e4f16e295f2",
+    "m1/absent/floating-reduction.json": "f98228603399aa7153a5d46b634e6481818255f9c69675b84078df84e8a51fdf",
+    "m1/absent/engine.log": "7a562e3740f4ac7d3276e8a3a3ae1d8e0dcd7a35c392aafc85b6b03798ecc8f5",
+    "m1/near/fill_control.ext": "a7d88ca219445796c9b19c95dbf609189cb64b55feeaa1e13f73591f399b774c",
+    "m1/near/floating-reduction.json": "ebae8f0573f846508aef9c74a8910c2eebaa7222676fd4d4e843aa90eaa64f42",
+    "m1/near/engine.log": "e4f503dbc9b9b0ed24124daeb2c640571ccad0b0f8f987f906bcf960e902b4de",
+    "m1/far/fill_control.ext": "be2d7c9dcb421e85ab197e4be53c62f07baa14d86228032dfb2157a3b66fa0ac",
+    "m1/far/floating-reduction.json": "52fa66e9d2aca24d22c17c0c0892863d7c1c96466d2ac3e9f63fbf6b446f5d11",
+    "m1/far/engine.log": "abeb69b3d3d8004edcb9fe266dfd889588680f74ad65bcfeb0bb24be5d0a9b6e",
+    "m2/absent/fill_control.ext": "87208b75de79f85866d8c4b179077e3e180c9ad113162262b4dfefd50b56c7f4",
+    "m2/absent/floating-reduction.json": "095ed43ef5693abecc9eca71106c9387fe13cd44101deb8c1d4da19baf1f5edf",
+    "m2/absent/engine.log": "92189df50fc73cc07188f79642c8eb7552d9dcb86dfe4391e1223c330e0a1077",
+    "m2/near/fill_control.ext": "019a9c7a2e07861f1e8dc035c77c90c6723599c918740d0ae6d164b2ae8d4dce",
+    "m2/near/floating-reduction.json": "47be4d7fe8bfb42a0bca76d60b0b59ee91768a694954881846b9b4693c9c78f8",
+    "m2/near/engine.log": "a619fddaa2c1f6e7caa9dec46ef1df291da76c3da30e62789a7e303dcefe96f0",
+    "m2/far/fill_control.ext": "db0ab405426e326fa2e559898b5a9ba14b1030175768899592c74f1744691550",
+    "m2/far/floating-reduction.json": "0fdf487f84f1f781eb795caab13aa8ed7c3f42c5e5205a657e3e72e81e5d4af5",
+    "m2/far/engine.log": "1205ca7eb4cb7a5e8d698b9a3178fc7a2f2bf004b3313347d7dad02c7368e831",
+    "m3/absent/fill_control.ext": "e4205918fae78e15cdf83f31345cabda6ee01b1aa79b1cca652e2fc882fc3627",
+    "m3/absent/floating-reduction.json": "5b1b178074e3cef7605ffee6a70954e72e98a3851b6dda0b8a9855695c9394e9",
+    "m3/absent/engine.log": "11d7a9a295a572b9d12639c40d56b946acd7eb67ca1157ca31bd7549c364b0da",
+    "m3/near/fill_control.ext": "87c02134b4de4290816aee1daecfd177670c81d862f78c7440dc09e863e41255",
+    "m3/near/floating-reduction.json": "3ae456305ede9fe9bac6ad2b636ce7e7379018648565ea876ad36c3533bb0213",
+    "m3/near/engine.log": "8488e3c6210086dc52eea4a543d8ea9887cba1002c959f45e3f792bfdc88cb88",
+    "m3/far/fill_control.ext": "a9277a50d61d56c95f53bf8486a5c63d7903397440a2ae65f13b63e1b83b8a5c",
+    "m3/far/floating-reduction.json": "aee140641ce006341b84c25700832a5bd065a2cdb849736b6278f50abc50cc53",
+    "m3/far/engine.log": "b8d02db03cd35287057f818b136c57c7ca75ac55fa38a9b95807ce37e12b7a29",
+    "m4/absent/fill_control.ext": "db8328823080109e508a493a85d54068218267a9fe05776342ed8a5478fbb780",
+    "m4/absent/floating-reduction.json": "bef560670c2fff0f7f53145f5188dd7980489f5b70678328218648a6040f3b04",
+    "m4/absent/engine.log": "d58824cf113a794a34f8f67da01734c16baa8abc05d7451382a09eda2b45d14b",
+    "m4/near/fill_control.ext": "f4c2f3bddd39ea06c12e16a08c0df5992b52cc2602fdea668b08c529c6ecbc7d",
+    "m4/near/floating-reduction.json": "92a272c44d897ae56c36ac485c234deecdf2f2f5ae0d94dd46e58c0eb860ddc0",
+    "m4/near/engine.log": "17f40c1a9fdc099e176fb58dd87d7f86191bb4434489ce84a4c02e1383ad78a6",
+    "m4/far/fill_control.ext": "8ebd305e03ea63f15fed278acd7c3715c0aa94611c717cc7f6150c62f38085d2",
+    "m4/far/floating-reduction.json": "bc03b0c9cd3e87cac8f1e36888880381ff722e9c4d5718a5362adacee69f0ba4",
+    "m4/far/engine.log": "96a24e2418dd6ff1dda756bae7873b934215b99a74d6d015a2a6d0eb9538e565"
+  },
+  "source": {
+    "icstudio/fill_capacitance.py": "778c22d2e611b9562ad4d0f26c51994071cd03af57de31db6a6b9c3749143d0c",
+    "scripts/qualify_gf180_fill_coupling.py": "a675736742da2fe5738bee02f588f03a84359d157f241ff2025ed915bf181091"
+  },
+  "result": {
+    "status": "passed",
+    "technology_sha256": "26ec12346d425f5de87af15b364df1e806590fbe84ccd2d124ab822a3818a481",
+    "core_sha256": "5a9c8bb450768f8d09b1c9d0043a10e25f0de1ea64fc43f5932c251e1813b6dd",
+    "filled_sha256": "7e5d1ddd293d9386247460b7b1b85fb76a34bfbc1c0986ad54b26c377f9c0518",
+    "geometry": {
+      "core_masks_unchanged": true,
+      "all_fill_outside_range_um": 8.0,
+      "fill": {
+        "comp": {
+          "tiles": 44793,
+          "area_um2": 1119825.0
+        },
+        "poly": {
+          "tiles": 44793,
+          "area_um2": 1404708.48
+        },
+        "m1": {
+          "tiles": 281017,
+          "area_um2": 1124068.0
+        },
+        "m2": {
+          "tiles": 280918,
+          "area_um2": 1123672.0
+        },
+        "m3": {
+          "tiles": 280846,
+          "area_um2": 1123384.0
+        },
+        "m4": {
+          "tiles": 280917,
+          "area_um2": 1123668.0
+        }
+      }
+    },
+    "controls": {
+      "m1": {
+        "absent": {
+          "gap_um": null,
+          "signal_to_fill_f": 0,
+          "purpose4_sha256": "8d44d9b8ddbc9a2ea714741ba94042765298a66a004137fe67d60bcbc3147d77",
+          "materialized_sha256": "8d44d9b8ddbc9a2ea714741ba94042765298a66a004137fe67d60bcbc3147d77",
+          "extracted_sha256": "3ecd5c976d04e9819f9427992a688b598fcb1dd521f8f4ec4cc21e3f827c5bae",
+          "effective_signal_ground_f": 2.90712e-15,
+          "floating_reduction_sha256": "f98228603399aa7153a5d46b634e6481818255f9c69675b84078df84e8a51fdf",
+          "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+        },
+        "near": {
+          "gap_um": 1.0,
+          "signal_to_fill_f": 4.26442e-16,
+          "purpose4_sha256": "53ca6105882c0f7484b772974354fee952cb79ea5a556c889c12b8f8376f1d3b",
+          "materialized_sha256": "e2eb7e72f56cd4880d739ac92805b0418f3948b18bcb8be4b35704a180cdb903",
+          "extracted_sha256": "49aba97d1c60f7308ee9ac05de1eaf9eb7f3d79568517c47402a79e2afa5dc1d",
+          "effective_signal_ground_f": 2.7463906180467164e-15,
+          "floating_reduction_sha256": "ebae8f0573f846508aef9c74a8910c2eebaa7222676fd4d4e843aa90eaa64f42",
+          "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+        },
+        "far": {
+          "gap_um": 10.0,
+          "signal_to_fill_f": 0,
+          "purpose4_sha256": "4c7f1a87af5ff8134bc53bff8b5d88c1f43179b71e0d64771456cec66005fc73",
+          "materialized_sha256": "bf86684158c23c003a1b3e00d9484d961bf1a2bd185e4d8a3d8c01491ef6901b",
+          "extracted_sha256": "56e7df9f2b65b0f4188a6013560225510377cb3512b82e2df11654b1569cd965",
+          "effective_signal_ground_f": 2.90712e-15,
+          "floating_reduction_sha256": "52fa66e9d2aca24d22c17c0c0892863d7c1c96466d2ac3e9f63fbf6b446f5d11",
+          "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+        }
+      },
+      "m2": {
+        "absent": {
+          "gap_um": null,
+          "signal_to_fill_f": 0,
+          "purpose4_sha256": "3c9a24b9096ff50511198b2fab69e69203b2e1e923dd090bd808596a327992df",
+          "materialized_sha256": "3c9a24b9096ff50511198b2fab69e69203b2e1e923dd090bd808596a327992df",
+          "extracted_sha256": "f4f0b58dd3d00baeb9771decd503bfb9b1ff91d56bb96252c6c25463a2bfa521",
+          "effective_signal_ground_f": 2.06575e-15,
+          "floating_reduction_sha256": "095ed43ef5693abecc9eca71106c9387fe13cd44101deb8c1d4da19baf1f5edf",
+          "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+        },
+        "near": {
+          "gap_um": 1.0,
+          "signal_to_fill_f": 3.73888e-16,
+          "purpose4_sha256": "f06e0bc93946781921ffc542a4aab5eb40c5504c936b9efdd24c9958dc27d7b7",
+          "materialized_sha256": "d1bd6806aba970204afa6f353178c3ed1b82c5831b66409ec45b5f82cd2b1033",
+          "extracted_sha256": "72e5ffc4f14864e134e01873d5814ed4621524d1e312cf42a0e05d78f2e52e25",
+          "effective_signal_ground_f": 1.8236910767336647e-15,
+          "floating_reduction_sha256": "47be4d7fe8bfb42a0bca76d60b0b59ee91768a694954881846b9b4693c9c78f8",
+          "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+        },
+        "far": {
+          "gap_um": 10.0,
+          "signal_to_fill_f": 0,
+          "purpose4_sha256": "d27405e0f516e3081d13b2b9f023548def18cf2bc6daaf984a745a41716265e7",
+          "materialized_sha256": "2f9c66e75ee3975970998cd058ce1223ac4e7a1bac0ad5db4bfc1e70fc058be4",
+          "extracted_sha256": "8ac1fe12b94d58a95e1f1f937a7e2b7db664cbdc42085a517f7350fc4322dbd6",
+          "effective_signal_ground_f": 2.06575e-15,
+          "floating_reduction_sha256": "0fdf487f84f1f781eb795caab13aa8ed7c3f42c5e5205a657e3e72e81e5d4af5",
+          "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+        }
+      },
+      "m3": {
+        "absent": {
+          "gap_um": null,
+          "signal_to_fill_f": 0,
+          "purpose4_sha256": "733b705eccdecdfdb38c2c6f7f48a11819d3db31bee595c6871cd34ec81091fb",
+          "materialized_sha256": "733b705eccdecdfdb38c2c6f7f48a11819d3db31bee595c6871cd34ec81091fb",
+          "extracted_sha256": "2734db083737415aeda1922bffc68a6a597f98af11d8229d41b7c85aff26294d",
+          "effective_signal_ground_f": 1.7246800000000002e-15,
+          "floating_reduction_sha256": "5b1b178074e3cef7605ffee6a70954e72e98a3851b6dda0b8a9855695c9394e9",
+          "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+        },
+        "near": {
+          "gap_um": 1.0,
+          "signal_to_fill_f": 4.71167e-16,
+          "purpose4_sha256": "c44dd0076d2600fabb91befef01e5ad7d4de2b8bfab33a8335a649ec494f8610",
+          "materialized_sha256": "5c0ceba1ff83c401473041c90ac7b013a71c2fde37abb9a2a13fd5359d508d50",
+          "extracted_sha256": "6b9cb1bf56fb614125aa5cedc876af11b536998f43c1cb737b88a52e46d39d52",
+          "effective_signal_ground_f": 1.5387584784815686e-15,
+          "floating_reduction_sha256": "3ae456305ede9fe9bac6ad2b636ce7e7379018648565ea876ad36c3533bb0213",
+          "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+        },
+        "far": {
+          "gap_um": 10.0,
+          "signal_to_fill_f": 0,
+          "purpose4_sha256": "dc0f72054e8f5d7a7ebb2a79a2dc7d72eaf38d8ae9b8d9ee49b06efd443842b1",
+          "materialized_sha256": "0e34b0c1d449fb17d6e798a28db78b35d254dd1fad0608beb27dd6776ec7cabc",
+          "extracted_sha256": "63bad992c74bfea2d83ade5a2f398719ad1ad1cb2c09089ec8f277966e31778d",
+          "effective_signal_ground_f": 1.7246800000000002e-15,
+          "floating_reduction_sha256": "aee140641ce006341b84c25700832a5bd065a2cdb849736b6278f50abc50cc53",
+          "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+        }
+      },
+      "m4": {
+        "absent": {
+          "gap_um": null,
+          "signal_to_fill_f": 0,
+          "purpose4_sha256": "1fbb3b99c9d061f6718ea70e44fd7dc3c4d138417e0940ee05f1380942cc886e",
+          "materialized_sha256": "1fbb3b99c9d061f6718ea70e44fd7dc3c4d138417e0940ee05f1380942cc886e",
+          "extracted_sha256": "d951a681221c2f94ebfe0d523477e6bcc697be0abd82b06211d21403d6e3f512",
+          "effective_signal_ground_f": 1.5428100000000001e-15,
+          "floating_reduction_sha256": "bef560670c2fff0f7f53145f5188dd7980489f5b70678328218648a6040f3b04",
+          "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+        },
+        "near": {
+          "gap_um": 1.0,
+          "signal_to_fill_f": 4.83675e-16,
+          "purpose4_sha256": "ddb05403eebb53d151952b613a9e6d22c1768724fba27734bea42eed995f6311",
+          "materialized_sha256": "fb68d4bc8c11d912dded17010e22a2a9df08cdc76721d7626be04e551b666746",
+          "extracted_sha256": "374778bdaf17685a2a28051e34ea6642cbfb2da436b7a12a2691b7734cf0e4a0",
+          "effective_signal_ground_f": 1.3633540819036385e-15,
+          "floating_reduction_sha256": "92a272c44d897ae56c36ac485c234deecdf2f2f5ae0d94dd46e58c0eb860ddc0",
+          "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+        },
+        "far": {
+          "gap_um": 10.0,
+          "signal_to_fill_f": 0,
+          "purpose4_sha256": "302ebddf9be6eebcf3a9b740642b34858eab797faf35040e6bf49b8e1757ec52",
+          "materialized_sha256": "2d4a12b87b25ac227b4f5a2e4fffd09b4406ccb0a94d2d0e5f642ea7d624a32b",
+          "extracted_sha256": "935c513d937c0ee989ff37487924f69e7c3f5b0a82f24795baba55f159779da7",
+          "effective_signal_ground_f": 1.5428100000000001e-15,
+          "floating_reduction_sha256": "bc03b0c9cd3e87cac8f1e36888880381ff722e9c4d5718a5362adacee69f0ba4",
+          "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+        }
+      }
+    },
+    "scope": "No direct core/fill interaction within this finite-range open-PDK model. Does not quantify longer-range fields, fill-to-fill networks or foundry-calibrated parasitics."
+  }
+}

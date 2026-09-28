@@ -447,6 +447,8 @@ def export_project(project,directory):
     if project.get('xschem_exchange',{}).get('mode')=='compatible':
         from .xschem_compat import export_capture
         return export_capture(project,directory)
+    from .xschem_export_contract import require_supported
+    require_supported(project)
     p=clone(project);validate(p);dest=Path(directory)
     if dest.exists() and any(dest.iterdir()):raise ValueError('Choose an empty export directory to keep existing files intact.')
     by={c['id']:c for c in p['cells']};source=p['xschem_exchange'];files=source['source_files'];mapping={}

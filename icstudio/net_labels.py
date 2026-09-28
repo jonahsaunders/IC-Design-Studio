@@ -1,6 +1,7 @@
 """Electrical labels with explicit attachment and independently movable artwork."""
 import math
 from .model import uid, NET
+from .native_vectors import signals, valid_expression
 
 def point(label, cell, project=None):
     from .wiring import pins
@@ -20,7 +21,7 @@ def add(cell,name,anchor,project=None,kind='net_label'):
     from .wiring import rebuild,migrate
     migrate(cell,project)
     if 'wires' not in cell:raise ValueError('Move overlapping pins apart before placing labels in this legacy cell.')
-    if not isinstance(name,str) or not NET.fullmatch(name):raise ValueError('Use a net name such as VDD, out, or 0 for ground.')
+    signals(name)
     if kind=='ground':name='0'
     label={'id':uid(),'kind':kind,'name':name,'anchor':anchor,'offset':[10,-12] if kind=='net_label' else [0,0],'rotation':0}
     cell.setdefault('labels',[]).append(label)
@@ -30,7 +31,7 @@ def add(cell,name,anchor,project=None,kind='net_label'):
 
 def rename(cell,ident,name,project=None,whole_net=False):
     from .wiring import graph,rebuild
-    if not isinstance(name,str) or not NET.fullmatch(name):raise ValueError('Invalid net name. Ground is 0.')
+    signals(name)
     groups=graph(cell,project,labels=whole_net);root=groups[('label',ident)]
     for key,obj,field,old in entries(cell):
         if groups[key]==root:
@@ -60,13 +61,13 @@ def validate(cell,objid,project):
     def coord(p):
         if not isinstance(p,list) or len(p)!=2 or any(not isinstance(v,(int,float)) or not math.isfinite(v) or abs(v)>1e7 for v in p):raise ValueError('Invalid label coordinate.')
     case_names={}
-    for _,_,_,name in entries(cell):
-        if isinstance(name,str):
+    for _,_,_,expression in entries(cell):
+        for name in signals(expression):
             if name.casefold() in case_names and case_names[name.casefold()]!=name:raise ValueError('Net names differing only by case are not portable to SPICE.')
             case_names[name.casefold()]=name
     for l in labels:
         objid(l['id'])
-        if l.get('kind') not in ('net_label','ground') or not isinstance(l.get('name'),str) or not NET.fullmatch(l['name']):raise ValueError('Invalid placed net label.')
+        if l.get('kind') not in ('net_label','ground') or not valid_expression(l.get('name')):raise ValueError('Invalid placed net label.')
         if l['kind']=='ground' and l['name']!='0':raise ValueError('Ground symbols must name net 0.')
         if l.get('rotation') not in (0,90,180,270):raise ValueError('Invalid label rotation.')
         coord(l.get('offset'));a=l.get('anchor',{})

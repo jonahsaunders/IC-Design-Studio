@@ -1,0 +1,137 @@
+{
+  "status": "passed",
+  "scope": "Two generated SKY130 inverters, one mirrored/rotated, independent local input/output/power nets and common substrate. Native Magic hierarchy flattening compared to independently flattened KLayout geometry. This is a bounded integration smoke, not foundry signoff.",
+  "checks": [
+    "actual Magic hierarchy flatten marker",
+    "four MOS and distributed RC inventory",
+    "every transistor terminal retains its intended external net through the resistor graph",
+    "no accidental joining of repeated child-local labels",
+    "strict Netgen unique match against independent flat reference"
+  ],
+  "tools": {
+    "magic": {
+      "version": "8.3.600",
+      "executable_sha256": "e4f9803e5b1553b742c34187530357cadb2f4310a3c64d2a962e5230e708b786"
+    },
+    "netgen": {
+      "version": "1.5.300",
+      "executable_sha256": "7144aba035aa8a1b65eb9f19ed71e4ce150124784baae0e1f5ff12d5423e4f67"
+    }
+  },
+  "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+  "netgen_setup_sha256": "3b2e4eddc57b1d8dc531d95086a2c21b86709907ede11fcac676f37d501787e9",
+  "script_sha256": "b96de0d9435f328b25880b8f040c62d42547642f3c0c17c3f004e58211b9ab36",
+  "fixture": {
+    "inverter_instances": 2,
+    "nmos_width_um": 1,
+    "pmos_width_um": 2,
+    "length_um": 0.15,
+    "placements": [
+      {
+        "origin_nm": [
+          0,
+          0
+        ],
+        "rotation": 0,
+        "mirror": false
+      },
+      {
+        "origin_nm": [
+          30000,
+          30000
+        ],
+        "rotation": 90,
+        "mirror": true
+      }
+    ],
+    "ports": [
+      "A0",
+      "Y0",
+      "P0",
+      "A1",
+      "Y1",
+      "P1",
+      "VGND"
+    ]
+  },
+  "results": {
+    "hierarchical": {
+      "flattened": true,
+      "counts": {
+        "mos": 4,
+        "resistors": 17,
+        "capacitors": 72
+      },
+      "deck_sha256": "9be65cbdcdacd03501f579c6c793c5afd2c90f9db6088e68620896f32d4eac4c",
+      "capacitance_conservation": {
+        "status": "passed",
+        "matrix_entries": 13,
+        "maximum_error_af": 2.2737367544323206e-13,
+        "relative_tolerance": 1e-12,
+        "absolute_tolerance_af": 1e-12
+      }
+    },
+    "reference": {
+      "flattened": false,
+      "counts": {
+        "mos": 4,
+        "resistors": 17,
+        "capacitors": 72
+      },
+      "deck_sha256": "0db1a3889e559add8e4218761db5af49d325810bf89f97597c27f557e90695fe",
+      "capacitance_conservation": {
+        "status": "passed",
+        "matrix_entries": 13,
+        "maximum_error_af": 2.2737367544323206e-13,
+        "relative_tolerance": 1e-12,
+        "absolute_tolerance_af": 1e-12
+      }
+    }
+  },
+  "device_terminal_nets": [
+    [
+      "sky130_fd_pr__nfet_01v8",
+      "A0",
+      [
+        "VGND",
+        "Y0"
+      ],
+      "VGND"
+    ],
+    [
+      "sky130_fd_pr__nfet_01v8",
+      "A1",
+      [
+        "VGND",
+        "Y1"
+      ],
+      "VGND"
+    ],
+    [
+      "sky130_fd_pr__pfet_01v8",
+      "A0",
+      [
+        "P0",
+        "Y0"
+      ],
+      "P0"
+    ],
+    [
+      "sky130_fd_pr__pfet_01v8",
+      "A1",
+      [
+        "P1",
+        "Y1"
+      ],
+      "P1"
+    ]
+  ],
+  "strict_reference_equivalence": "Netlists match uniquely; final circuits match uniquely.",
+  "netgen_log_sha256": "f1a2169b2fac6b4edaeb43ffb5f4e8e2cb0fd83d5725e69dac5451429726f50b",
+  "reproduce": "python scripts/qualify_hierarchical_rc.py --pdk build/physical-adapter/sky130A --out build/hierarchical-rc-evidence --magic build/physical-engines/installed/bin/magic --netgen build/physical-engines/installed/bin/netgen",
+  "ci_stage": "Pinned SKY130 physical qualification / hierarchy-rc",
+  "limitations": [
+    "Two isolated inverter occurrences on one locked SKY130 process; not a broad extraction calibration matrix.",
+    "No fabricated silicon, foundry signoff, RF field-solver comparison, or Virtuoso database interchange is claimed."
+  ]
+}

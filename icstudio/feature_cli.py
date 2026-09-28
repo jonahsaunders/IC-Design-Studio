@@ -2,7 +2,7 @@
 import argparse,json,sys
 from pathlib import Path
 from .model import load_project,save_project,atomic_write
-COMMANDS={'mirror-layout','inverter-layout','analog','characterize','verify','testbench','ring-layout','silicon','sky130-layout','magic-import','sky130-reference','study','extract','parasitics','post-layout','verilog','project-folder','pdk','route'}
+COMMANDS={'pdk-device-layout','mirror-layout','inverter-layout','analog','characterize','verify','testbench','ring-layout','silicon','sky130-layout','magic-import','sky130-reference','study','extract','parasitics','post-layout','verilog','project-folder','pdk','route'}
 
 def main(argv):
     parser=argparse.ArgumentParser(prog='ICDesignStudio --cli');sub=parser.add_subparsers(dest='command',required=True)
@@ -15,6 +15,11 @@ def main(argv):
         for engine in ('magic','netgen','ngspice'):a.add_argument('--'+engine,default=engine)
     for command in ('mirror-layout','inverter-layout'):
         a=sub.add_parser(command);a.add_argument('project');a.add_argument('--cell',required=True);a.add_argument('--output',required=True);a.add_argument('--replace',action='store_true')
+    device=sub.add_parser('pdk-device-layout',help='Generate or regenerate one schematic-linked process device')
+    device.add_argument('project');device.add_argument('--cell',required=True,help='Exact cell name or ID');device.add_argument('--device',required=True,help='Exact device name or ID')
+    device.add_argument('--output',required=True);device.add_argument('--x',type=int,help='Initial X in integer nanometres');device.add_argument('--y',type=int,help='Initial Y in integer nanometres')
+    device.add_argument('--body-tie',choices=['none','source'],help='SKY130 MOS internal body connection; source requires matching schematic nets')
+    device.add_argument('--regenerate',action='store_true',help='Replace linked device geometry at its saved origin/orientation; keep other shapes')
     a=sub.add_parser('ring-layout');a.add_argument('project');a.add_argument('--cell',required=True);a.add_argument('--output',required=True);a.add_argument('--replace',action='store_true')
     a=sub.add_parser('analog');a.add_argument('project',help='Blank or existing project with the PDK to use');a.add_argument('--kind',choices=['current_mirror','differential_pair','amplifier'],required=True);a.add_argument('--output',required=True)
     a=sub.add_parser('characterize');a.add_argument('project');a.add_argument('--testbench',required=True);a.add_argument('--spec',help='Optional study JSON; defaults to the saved bench study');a.add_argument('--ngspice',default='ngspice');a.add_argument('--output',required=True)
@@ -56,6 +61,22 @@ def main(argv):
                 link_technology(p,r.technology(args.key));save_project(p,args.output)
             return 0
         p=load_project(args.project);cid=p['top'];out=Path(args.output)
+        if args.command=='pdk-device-layout':
+            from .model import validate
+            from .process_adapters import install_mos,regenerate_mos
+            from .sky130_devices_ui import set_body_tie
+            cells=[c for c in p['cells'] if args.cell in (c['id'],c['name'])]
+            if len(cells)!=1:raise ValueError('Choose one exact cell name or ID.')
+            c=cells[0];devices=[d for d in c['devices'] if args.device in (d['id'],d['name'])]
+            if len(devices)!=1:raise ValueError('Choose one exact device name or ID in the selected cell.')
+            d=devices[0];cid=c['id']
+            if args.body_tie is not None:set_body_tie(p,cid,d['id'],{'body_tie':args.body_tie.title()})
+            if args.regenerate:
+                if args.x is not None or args.y is not None:raise ValueError('Regeneration preserves the saved placement; omit --x and --y.')
+                regenerate_mos(p,cid,d['id'])
+            else:install_mos(p,cid,d['id'],args.x or 0,args.y or 0)
+            p['revision']+=1;validate(p);save_project(p,out)
+            print(json.dumps(dict(cell=c['name'],device=d['name'],output=str(out),shapes=sum(s.get('generated_device')==d['id'] for s in c['shapes']),qualification='Generated geometry only; run process DRC and extracted LVS.')));return 0
         if args.command=='analog':
             from .analog import reference
             p,_,_=reference(p['pdk'],args.kind);save_project(p,out);return 0

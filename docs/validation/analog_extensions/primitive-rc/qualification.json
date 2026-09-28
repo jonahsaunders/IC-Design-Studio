@@ -1,0 +1,66 @@
+{
+  "status": "passed",
+  "signoff": false,
+  "scope": "One 1x20um SKY130 poly resistor with an explicit substrate tie; nominal 27C only.",
+  "source": {
+    "icstudio/magic_rc.py": "1c6effcc90b9b83e00a26f8f1378028d02b19d90f007b42269cfe6af6a7763f9",
+    "icstudio/silicon_flow.py": "ad8cd39b7633733ecb3842146e4487149f739dc2ae6274bf37e063974af3cfc2",
+    "icstudio/rc_islands.py": "bcb1a1b5c419a44d3040e3564321472f0c92af91b30d8cad2e8bcc21647638de",
+    "icstudio/sky130_devices.py": "2206128e0bbc159e33de810ebe0d2467bb6c3132067a294a48b0e14753d72441",
+    "icstudio/sky130_layout.py": "cd8835d93fa322b0761ecb27ad2c563c11f3c3855782b6c5633256ef146e1d3b",
+    "scripts/qualify_rc_primitives.py": "89050b4b32d13967d1c987a41ba66de11d6fa24455f1e6cd1db04aba7f6edb0f"
+  },
+  "tools": {
+    "magic": {
+      "path": "/workspace/scratch/6ae2470ad934/IC-Design-Studio/build/gf180-rc-engines-ready/installed/bin/magic",
+      "sha256": "b7d75ec14185972d91942ed712dea0c3d25bff35e26e2591d89e9cf107551a46",
+      "implementation_sha256": "6c757e4dbd9a10cc05470b395f47db04214fb2d4181fe56f2b9ad8071b81a10e"
+    },
+    "netgen": {
+      "path": "/workspace/scratch/6ae2470ad934/IC-Design-Studio/build/netgen-engines/installed/bin/netgen",
+      "sha256": "7144aba035aa8a1b65eb9f19ed71e4ce150124784baae0e1f5ff12d5423e4f67"
+    },
+    "ngspice": {
+      "path": "/workspace/scratch/6ae2470ad934/IC-Design-Studio/build/validation-runtime/sysroot/usr/bin/ngspice",
+      "sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45"
+    }
+  },
+  "physical": {
+    "drc_count": 0,
+    "expected_failure": null,
+    "extracted_sha256": "d8ac9d754ffbe76c9d4ee8a1906eac999bcad13ae440f2d42b5bc2498718b3ef",
+    "lvs_log_sha256": "c534f5a7d9fe546212b80cabd6319b7d44a528e5aba0da3fac7ae2eba8498692"
+  },
+  "resistor_values_ohm": {
+    "schematic": 961.4288179468001,
+    "contracted": 961.4288179468001,
+    "extracted": 1428.6288179468002
+  },
+  "extracted_leads_ohm": [
+    233.6,
+    233.6
+  ],
+  "post_rc_increase_ohm": 467.20000000000005,
+  "wire_resistors": 10,
+  "device_parameters": {
+    "status": "passed",
+    "devices": 2,
+    "reference": "device-reference.spice",
+    "restored_junction_fields": 2,
+    "junction_scope": "Pre-R area/perimeter fields retained when splitting shared nets changes Magic redistribution; unambiguous model/terminals/all other parameters required.",
+    "scope": "All physical model/value/parameter fields after contracting only distributed wire resistance."
+  },
+  "normalization_sha256": "705755b0b88431a0b98ab69c3222704e4286ee5629a7b49440439bc3bedaa936",
+  "islands": {
+    "source_sha256": "3306422537f34376035e80b19ae228e3739039e5fad3ba59aa497c1e11cf9aee",
+    "electrical_sha256": "359a1c521f662707f5905a6043e430783aaa6973984b7a8de45cb7d1cf592856",
+    "removed_resistors": [
+      "r9"
+    ],
+    "components": 1,
+    "physical_devices": [
+      "rstudio_device_660e7f6b3a063feb05c0"
+    ],
+    "criterion": "Resistor-only connected component with no port, device terminal or capacitor endpoint. All observable circuit lines retained verbatim."
+  }
+}

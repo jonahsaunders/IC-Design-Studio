@@ -43,8 +43,8 @@ def specification(tech, d):
     from .process_mos import dimensions
     geometry = dimensions(tech, d, b)
     nf=values.get('nf',1)
-    if nf!=int(nf) or not 1<=nf<=8 or any(values.get(k,1)!=1 for k in ('m','mult')):
-        raise ValueError(d['name']+': this layout supports 1–8 fingers and multiplicity 1.')
+    if nf!=int(nf) or not 1<=nf<=8 or geometry['multiplicity']>16:
+        raise ValueError(d['name']+': this layout supports 1–8 fingers and 1–16 parallel copies.')
     size = {}
     for k, minimum in (('w',420),('l',150)):
         maximum=30000 if k=='w' else 10000
@@ -59,6 +59,11 @@ def specification(tech, d):
     # template to total W. Geometry and netlisting now use the same dimensions.
     result={'api':API,'model_ref':clone(d.get('model_ref')),'model':b['model'],
             'kind':d['kind'],'dimensions_nm':size,'values':values,'nets':clone(d['nets'])}
+    if geometry['multiplicity']>1:result['multiplicity']=geometry['multiplicity']
+    if d.get('physical_body_tie'):
+        if d['physical_body_tie']!='source' or d['nets']['s']!=d['nets']['b']:
+            raise ValueError('A source body tie requires source and body on the same explicit schematic net.')
+        result['body_tie']='source'
     if d.get('physical_dummy'):
         if len(set(d['nets'].values()))!=1:raise ValueError('A physical MOS dummy requires every terminal tied to the same reference net.')
         result['dummy']=True
@@ -73,8 +78,8 @@ def mos(tech,d,x=0,y=0):
     if any(type(v) is not int or v%5 for v in (x,y)):raise ValueError('Placement must be on the 5 nm grid.')
     if int(spec['values'].get('nf',1))>1:
         from .sky130_fingers import generate
-        from .sky130_devices import finish_mos
-        return finish_mos(tech,d,generate(tech,d,x,y,spec))
+        from .sky130_devices import finish_mos, parallel_geometry
+        return parallel_geometry(tech,d,finish_mos(tech,d,generate(tech,d,x,y,spec)),spec.get('multiplicity',1))
     shapes=[];pins=[]
     def box(key,a,b,c,e,net=''):
         s=rect(ls[key],x+a,y+b,c-a,e-b,d['id'],net);s['generated_device']=d['id'];shapes.append(s)
@@ -95,8 +100,8 @@ def mos(tech,d,x=0,y=0):
             box(key,px-half,py-half,px+half,py+half,net if key in ('li','m1') else '')
         pins.append({'id':uid(),'device_id':d['id'],'pin':pin,'layer':ls['m1'],'point':[x+px,y+py]})
     from .layout_eco import roles
-    from .sky130_devices import finish_mos
-    return finish_mos(tech,d,roles({'shapes':shapes,'pins':pins,'record':{'device_id':d['id'],'spec':spec,'origin':[x,y]}}))
+    from .sky130_devices import finish_mos, parallel_geometry
+    return parallel_geometry(tech,d,finish_mos(tech,d,roles({'shapes':shapes,'pins':pins,'record':{'device_id':d['id'],'spec':spec,'origin':[x,y]}})),spec.get('multiplicity',1))
 
 
 def install_mos(p,cid,did,x=0,y=0):
@@ -147,7 +152,10 @@ def generate_inverter(p,cid,replace=False):
         if not replace:raise ValueError('This cell already contains layout. Review regeneration before replacing it.')
         if not c.get('inverter_layout'):raise ValueError('Regeneration only replaces a cell previously created by the inverter generator.')
     c['shapes']=[];c['layout_pins']=[];c['layout_texts']=[];c['layout_ports']=[];c['pdk_layouts']=[];c['layout_instances']=[]
-    nw=specification(p['pdk'],n)['dimensions_nm']['w'];py=nw+5000
+    ns=specification(p['pdk'],n);nw=ns['dimensions_nm']['w'];py=nw+5000
+    if ns.get('multiplicity',1)>1:
+        from .layout import polygon
+        py=max(py,max(polygon(shape).bbox().top for shape in mos(p['pdk'],n)['shapes'])+5000)
     for d,y in ((n,0),(q,py)):install_mos(p,cid,d['id'],0,y)
     pins={(r['device_id'],r['pin']):r['point'] for r in c['layout_pins']}
     def wire(key,points,net):

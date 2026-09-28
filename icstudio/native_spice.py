@@ -35,13 +35,16 @@ def render(device, child=None, mode='simulation'):
     if definition['type'] == 'program':
         return definition['text']
     output = []
+    from .native_vectors import signals
+    def terminal(pin):
+        return device['nets'][pin] if pin in device['nets'] else ' '.join(device['nets'][name] for name in signals(pin))
     if mode not in ('simulation','lvs'):raise ValueError('Choose simulation or LVS emission.')
     for token in definition.get('lvs_tokens',definition['tokens']) if mode=='lvs' else definition['tokens']:
         kind, value = token['kind'], token.get('value', '')
         if kind == 'literal': output.append(value)
         elif kind == 'instance': output.append(device['name'])
-        elif kind == 'terminal': output.append(device['nets'][value])
-        elif kind == 'terminals': output.append(' '.join(device['nets'][p] for p in device['symbol']['pin_order']))
+        elif kind == 'terminal': output.append(terminal(value))
+        elif kind == 'terminals': output.append(' '.join(terminal(p) for p in device['symbol']['pin_order']))
         elif kind == 'cell': output.append(child['name'] if child else definition['model_name'])
         elif kind == 'parameter':
             if value not in definition['parameters']:
@@ -99,19 +102,20 @@ def netlist(project, directory, mode='simulation'):
     atomic_write(root / 'library-lock.json', json.dumps(p['spice'].get('library_lock', {}), indent=2))
     by = {c['id']: c for c in p['cells']}; top = by[p['top']]
     lines = ['* IC Design Studio native circuit: ' + p['name']]; definitions = set()
-    if p.get('global_nets'):lines.append('.global '+' '.join(p['global_nets']))
+    from .native_vectors import devices as vector_devices, ports as vector_ports, global_nets
+    if p.get('global_nets'):lines.append('.global '+' '.join(global_nets(p)))
     if p.get('parameters'):
         lines.append('.param ' + ' '.join(k + '=' + str(v) for k, v in p['parameters'].items()))
     for c in [top] + [c for c in p['cells'] if c is not top]:
         rebuild(c, p)
         defaults = {**c.get('spice_parameters', {}), **c.get('parameters', {})}
         if c is not top or mode=='lvs':
-            lines.append('.subckt ' + c['name'] + ' ' + ' '.join(c['ports']) + ''.join(' ' + k + '=' + str(v) for k, v in defaults.items()))
+            lines.append('.subckt ' + c['name'] + ' ' + ' '.join(vector_ports(c['ports'])) + ''.join(' ' + k + '=' + str(v) for k, v in defaults.items()))
         elif defaults:
             lines.append('.param ' + ' '.join(k + '=' + str(v) for k, v in defaults.items()))
         context = parameters(c.get('parameters', {}), parameters(p.get('parameters', {})))
         lines.extend(c.get('spice_statements', [])); commands = []
-        for original in c['devices']:
+        for original in vector_devices(c,p):
             d = original; definition = d.get('native_spice')
             if d.get('model_ref'):
                 line=emit(d,p['pdk'],mode)
@@ -133,7 +137,7 @@ def netlist(project, directory, mode='simulation'):
                 continue
             d = resolved_device(d, context); kind = d['kind']
             if kind == 'X':
-                lines.append(d['name'] + ' ' + ' '.join(d['nets'][pin] for pin in by[d['cell']]['ports']) + ' ' + by[d['cell']]['name'] + ''.join(' ' + k + '=' + str(v) for k, v in d.get('parameters', {}).items()))
+                lines.append(d['name'] + ' ' + ' '.join(d['nets'][pin] for pin in vector_ports(by[d['cell']]['ports'])) + ' ' + by[d['cell']]['name'] + ''.join(' ' + k + '=' + str(v) for k, v in d.get('parameters', {}).items()))
                 continue
             name = spice_name(d); nets = ' '.join(d['nets'].values())
             if kind in ('R', 'C', 'L'): suffix = str(scalar(d['value']))

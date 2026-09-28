@@ -1,0 +1,1721 @@
+{
+  "schema_version": 1,
+  "scope": "Bounded actual-engine regressions for experimental analog extensions. No arbitrary-layout equivalence, foundry calibration, or fabrication signoff.",
+  "sky130_devices": {
+    "status": "passed",
+    "cases": [
+      {
+        "name": "cap-2x2",
+        "status": "passed",
+        "parameters": {
+          "kind": "cap",
+          "w": 2,
+          "l": 2
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "51919ba38689de69adc105fe0de0cb59ba2fe9ef2211678a40052badb0152bd0",
+          "lvs_log_sha256": "8f16b3309340e045555333a6c82681bd1e4a07e9e0a88ca6f6a8651b1cdbaf46"
+        },
+        "measurements": [
+          {
+            "corner": "nominal",
+            "temperature": 27,
+            "unit": "F",
+            "schematic": 9.302250000000001e-15,
+            "extracted": 9.302250000000001e-15,
+            "independent": 9.302250000000001e-15
+          },
+          {
+            "corner": "ss",
+            "temperature": 0,
+            "unit": "F",
+            "schematic": 9.302250000000001e-15,
+            "extracted": 9.302250000000001e-15,
+            "independent": 9.302250000000001e-15
+          },
+          {
+            "corner": "ff",
+            "temperature": 85,
+            "unit": "F",
+            "schematic": 9.302250000000001e-15,
+            "extracted": 9.302250000000001e-15,
+            "independent": 9.302250000000001e-15
+          }
+        ]
+      },
+      {
+        "name": "cap-10x10",
+        "status": "passed",
+        "parameters": {
+          "kind": "cap",
+          "w": 10,
+          "l": 10
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "ce1635f35f3a65d844d52eba15c3d9349d7f935e66abdf9089b7714314d934e0",
+          "lvs_log_sha256": "8f16b3309340e045555333a6c82681bd1e4a07e9e0a88ca6f6a8651b1cdbaf46"
+        },
+        "measurements": [
+          {
+            "corner": "nominal",
+            "temperature": 27,
+            "unit": "F",
+            "schematic": 2.0658224999999998e-13,
+            "extracted": 2.0658224999999998e-13,
+            "independent": 2.0658224999999998e-13
+          },
+          {
+            "corner": "ss",
+            "temperature": 0,
+            "unit": "F",
+            "schematic": 2.0658224999999998e-13,
+            "extracted": 2.0658224999999998e-13,
+            "independent": 2.0658224999999998e-13
+          },
+          {
+            "corner": "ff",
+            "temperature": 85,
+            "unit": "F",
+            "schematic": 2.0658224999999998e-13,
+            "extracted": 2.0658224999999998e-13,
+            "independent": 2.0658224999999998e-13
+          }
+        ]
+      },
+      {
+        "name": "cap-30x30",
+        "status": "passed",
+        "parameters": {
+          "kind": "cap",
+          "w": 30,
+          "l": 30
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "a5e5876312dc051c84203d8dfff515c84aa8349bac65a5a2692f469c427a1f08",
+          "lvs_log_sha256": "8f16b3309340e045555333a6c82681bd1e4a07e9e0a88ca6f6a8651b1cdbaf46"
+        },
+        "measurements": [
+          {
+            "corner": "nominal",
+            "temperature": 27,
+            "unit": "F",
+            "schematic": 1.8197822500000002e-12,
+            "extracted": 1.8197822500000002e-12,
+            "independent": 1.8197822500000002e-12
+          },
+          {
+            "corner": "ss",
+            "temperature": 0,
+            "unit": "F",
+            "schematic": 1.8197822500000002e-12,
+            "extracted": 1.8197822500000002e-12,
+            "independent": 1.8197822500000002e-12
+          },
+          {
+            "corner": "ff",
+            "temperature": 85,
+            "unit": "F",
+            "schematic": 1.8197822500000002e-12,
+            "extracted": 1.8197822500000002e-12,
+            "independent": 1.8197822500000002e-12
+          }
+        ]
+      },
+      {
+        "name": "res-0.5x1.65",
+        "status": "passed",
+        "parameters": {
+          "kind": "res",
+          "w": 0.5,
+          "l": 1.65
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "b2238583051ded99356ff320ec327168974bb49fd43495f06ca0ff47fdc7919f",
+          "lvs_log_sha256": "7dba8c3583dd69e21ff182e9531fadf8ea2ea1f054fb86c52e1bae3bcff3f45f"
+        },
+        "measurements": [
+          {
+            "corner": "nominal",
+            "temperature": 27,
+            "unit": "ohm",
+            "schematic": 158.63575496122203,
+            "extracted": 158.63575496122203,
+            "independent": 158.63575496122203
+          },
+          {
+            "corner": "ss",
+            "temperature": 0,
+            "unit": "ohm",
+            "schematic": 154.92632804220003,
+            "extracted": 154.92632804220003,
+            "independent": 154.92632804220003
+          },
+          {
+            "corner": "ff",
+            "temperature": 85,
+            "unit": "ohm",
+            "schematic": 167.26622471295005,
+            "extracted": 167.26622471295005,
+            "independent": 167.26622471295005
+          }
+        ]
+      },
+      {
+        "name": "res-1x20",
+        "status": "passed",
+        "parameters": {
+          "kind": "res",
+          "w": 1,
+          "l": 20
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "eb37aced77b07a122d808ebafa2e8e205e11b4ec2e4b4d4791fb2aebb26dbf68",
+          "lvs_log_sha256": "7dba8c3583dd69e21ff182e9531fadf8ea2ea1f054fb86c52e1bae3bcff3f45f"
+        },
+        "measurements": [
+          {
+            "corner": "nominal",
+            "temperature": 27,
+            "unit": "ohm",
+            "schematic": 961.4288179468001,
+            "extracted": 961.4288179468001,
+            "independent": 961.4288179468001
+          },
+          {
+            "corner": "ss",
+            "temperature": 0,
+            "unit": "ohm",
+            "schematic": 938.9474426800002,
+            "extracted": 938.9474426800002,
+            "independent": 938.9474426800002
+          },
+          {
+            "corner": "ff",
+            "temperature": 85,
+            "unit": "ohm",
+            "schematic": 1013.7346952299999,
+            "extracted": 1013.7346952299999,
+            "independent": 1013.7346952299999
+          }
+        ]
+      },
+      {
+        "name": "res-10x100",
+        "status": "passed",
+        "parameters": {
+          "kind": "res",
+          "w": 10,
+          "l": 100
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "4dcf7a81cc910bdcb56c10d4254a57e8745d2c487697e56e2e7bfef37b397498",
+          "lvs_log_sha256": "7dba8c3583dd69e21ff182e9531fadf8ea2ea1f054fb86c52e1bae3bcff3f45f"
+        },
+        "measurements": [
+          {
+            "corner": "nominal",
+            "temperature": 27,
+            "unit": "ohm",
+            "schematic": 480.71440897340005,
+            "extracted": 480.71440897340005,
+            "independent": 480.71440897340005
+          },
+          {
+            "corner": "ss",
+            "temperature": 0,
+            "unit": "ohm",
+            "schematic": 469.4737213399999,
+            "extracted": 469.4737213399999,
+            "independent": 469.4737213399999
+          },
+          {
+            "corner": "ff",
+            "temperature": 85,
+            "unit": "ohm",
+            "schematic": 506.86734761499997,
+            "extracted": 506.86734761499997,
+            "independent": 506.86734761499997
+          }
+        ]
+      },
+      {
+        "name": "psub-2x1",
+        "status": "passed",
+        "parameters": {
+          "kind": "psub",
+          "w": 2,
+          "l": 1
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "05ac47bbb0586b4261ecd0305e50b5d0d60b57900e1f5bf49cf8a06212c74703",
+          "lvs_log_sha256": "b01faee846c838ee496d73bcc2e3c6af9639b09dae87a8b0b69f3e67794f82f7"
+        }
+      },
+      {
+        "name": "nwell-2x1",
+        "status": "passed",
+        "parameters": {
+          "kind": "nwell",
+          "w": 2,
+          "l": 1
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "64c8ba592643326f283022705e447139365dcbe8ccb273687347065c5a7aa3f3",
+          "lvs_log_sha256": "125a902cb0dba596db9f0894d02ba122fad09affb52492333652e6a87a49ec3b"
+        }
+      },
+      {
+        "name": "nmos-wide-30x0.5",
+        "status": "passed",
+        "parameters": {
+          "kind": "nmos-wide",
+          "w": 30,
+          "l": 0.5
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "b5a515592de735658aa7507dae796b5a3478a232896a82aad66bde5722eb52ae",
+          "lvs_log_sha256": "b01faee846c838ee496d73bcc2e3c6af9639b09dae87a8b0b69f3e67794f82f7"
+        }
+      },
+      {
+        "name": "pmos-wide-30x0.5",
+        "status": "passed",
+        "parameters": {
+          "kind": "pmos-wide",
+          "w": 30,
+          "l": 0.5
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "daf843fef6dbeceea593f333e6e562ffe76413c9c6b6fbd181d8d7623feb3503",
+          "lvs_log_sha256": "125a902cb0dba596db9f0894d02ba122fad09affb52492333652e6a87a49ec3b"
+        }
+      },
+      {
+        "name": "cap-2x2-nf1-m2",
+        "status": "passed",
+        "parameters": {
+          "kind": "cap",
+          "w": 2,
+          "l": 2,
+          "count": 2
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "2bc8be581417b76e2062d23833f89551d3c2d7c470ff2959ead78007d0d8414b",
+          "lvs_log_sha256": "a764a94510aeeb6dd4f0754cae68cbd9cfbe2dca08a628e90a007e9152b60f1b"
+        },
+        "measurements": [
+          {
+            "corner": "nominal",
+            "temperature": 27,
+            "unit": "F",
+            "schematic": 1.86045e-14,
+            "extracted": 1.86045e-14,
+            "independent": 1.86045e-14
+          },
+          {
+            "corner": "ss",
+            "temperature": 0,
+            "unit": "F",
+            "schematic": 1.86045e-14,
+            "extracted": 1.86045e-14,
+            "independent": 1.86045e-14
+          },
+          {
+            "corner": "ff",
+            "temperature": 85,
+            "unit": "F",
+            "schematic": 1.86045e-14,
+            "extracted": 1.86045e-14,
+            "independent": 1.86045e-14
+          }
+        ]
+      },
+      {
+        "name": "cap-2x2-nf1-m16",
+        "status": "passed",
+        "parameters": {
+          "kind": "cap",
+          "w": 2,
+          "l": 2,
+          "count": 16
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "b77091a7568ac2261ad4654c84dc4ffd286a0d9caec7a6298f8f484133f7ebb3",
+          "lvs_log_sha256": "28e01c3f721fe5cc8670279c9003535a3bbc245bf03a193b040d6ac9b1a61109"
+        },
+        "measurements": [
+          {
+            "corner": "nominal",
+            "temperature": 27,
+            "unit": "F",
+            "schematic": 1.4883600000000001e-13,
+            "extracted": 1.4883600000000001e-13,
+            "independent": 1.4883600000000001e-13
+          },
+          {
+            "corner": "ss",
+            "temperature": 0,
+            "unit": "F",
+            "schematic": 1.4883600000000001e-13,
+            "extracted": 1.4883600000000001e-13,
+            "independent": 1.4883600000000001e-13
+          },
+          {
+            "corner": "ff",
+            "temperature": 85,
+            "unit": "F",
+            "schematic": 1.4883600000000001e-13,
+            "extracted": 1.4883600000000001e-13,
+            "independent": 1.4883600000000001e-13
+          }
+        ]
+      },
+      {
+        "name": "res-2x2-nf1-m2",
+        "status": "passed",
+        "parameters": {
+          "kind": "res",
+          "w": 2,
+          "l": 2,
+          "count": 2
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "fcf4c44b718513a9770eece9ac74aea5cdacc251b95b5da4f74e8a3315f150d3",
+          "lvs_log_sha256": "e1900af67841f539323bc5eef3737649b4530680a61804ff160c73e2e64cc7a0"
+        },
+        "measurements": [
+          {
+            "corner": "nominal",
+            "temperature": 27,
+            "unit": "ohm",
+            "schematic": 24.035720448670006,
+            "extracted": 24.035720448670006,
+            "independent": 24.035720448670006
+          },
+          {
+            "corner": "ss",
+            "temperature": 0,
+            "unit": "ohm",
+            "schematic": 23.473686067000003,
+            "extracted": 23.473686067000003,
+            "independent": 23.473686067000003
+          },
+          {
+            "corner": "ff",
+            "temperature": 85,
+            "unit": "ohm",
+            "schematic": 25.343367380750003,
+            "extracted": 25.343367380750003,
+            "independent": 25.343367380750003
+          }
+        ]
+      },
+      {
+        "name": "res-2x2-nf1-m16",
+        "status": "passed",
+        "parameters": {
+          "kind": "res",
+          "w": 2,
+          "l": 2,
+          "count": 16
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "64276f620474ec7c1f205830dc8f88f56c80ae9a46ede6e73f88b26b36685016",
+          "lvs_log_sha256": "9e4528388afa5c72d2f6f8e24988319bfe7c73816f53515b68e00daa89c1c226"
+        },
+        "measurements": [
+          {
+            "corner": "nominal",
+            "temperature": 27,
+            "unit": "ohm",
+            "schematic": 3.0044650560837507,
+            "extracted": 3.0044650560837507,
+            "independent": 3.0044650560837507
+          },
+          {
+            "corner": "ss",
+            "temperature": 0,
+            "unit": "ohm",
+            "schematic": 2.934210758375001,
+            "extracted": 2.9342107583750017,
+            "independent": 2.934210758375001
+          },
+          {
+            "corner": "ff",
+            "temperature": 85,
+            "unit": "ohm",
+            "schematic": 3.1679209225937504,
+            "extracted": 3.1679209225937512,
+            "independent": 3.1679209225937504
+          }
+        ]
+      },
+      {
+        "name": "nmos-parallel-1x0.15-nf1-m2",
+        "status": "passed",
+        "parameters": {
+          "kind": "nmos-parallel",
+          "w": 1,
+          "l": 0.15,
+          "count": 2,
+          "fingers": 1,
+          "body_tie": false
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "87d5f6e7d521a5930f2751cb9aa55b45fff1fa0443cc58f8945f30035f477859",
+          "lvs_log_sha256": "7e4340379ee23ccac75b81debc0071bb7b23d75ca433a35762cbf686f5520b07"
+        }
+      },
+      {
+        "name": "nmos-parallel-4x0.5-nf4-m3-bodytie",
+        "status": "passed",
+        "parameters": {
+          "kind": "nmos-parallel",
+          "w": 4,
+          "l": 0.5,
+          "count": 3,
+          "fingers": 4,
+          "body_tie": true
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "1c2aab2a84d62ab9950e825bbb7cdd9b57e0ce59981f0d3d7f7ed9242c14970e",
+          "lvs_log_sha256": "b2147582bc3ff8f91841b781021c1c589c8b1c81c1835c67f55f0b97899ecc69"
+        }
+      },
+      {
+        "name": "nmos-parallel-8x0.5-nf8-m16",
+        "status": "passed",
+        "parameters": {
+          "kind": "nmos-parallel",
+          "w": 8,
+          "l": 0.5,
+          "count": 16,
+          "fingers": 8,
+          "body_tie": false
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "1db5c237b4d3d703303b877b8d5ad785ceee989c176de76634c6f743709a4b72",
+          "lvs_log_sha256": "b8eab55e9a847946a37978f8dae3a290a70d04a71b67fd2a945adef89393635d"
+        }
+      },
+      {
+        "name": "pmos-parallel-1x0.15-nf1-m2",
+        "status": "passed",
+        "parameters": {
+          "kind": "pmos-parallel",
+          "w": 1,
+          "l": 0.15,
+          "count": 2,
+          "fingers": 1,
+          "body_tie": false
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "2a3666dc73c623c6b23de078af22fdd7090ba1a7fb1be7bd822e862c3d307f9c",
+          "lvs_log_sha256": "c570f51522bea889b2615cb5f2b9613f9bc9723f17f44af676cac2140651b40d"
+        }
+      },
+      {
+        "name": "pmos-parallel-4x0.5-nf4-m3-bodytie",
+        "status": "passed",
+        "parameters": {
+          "kind": "pmos-parallel",
+          "w": 4,
+          "l": 0.5,
+          "count": 3,
+          "fingers": 4,
+          "body_tie": true
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "386d01735f164b425008616f5fa48509afa22159a8b471c9b0f5199fe10f80b7",
+          "lvs_log_sha256": "465bf2234c8bba1fdc88aff013adc9276ceddc9f35ef2a1ca945bcf34ab524b8"
+        }
+      },
+      {
+        "name": "pmos-parallel-8x0.5-nf8-m16",
+        "status": "passed",
+        "parameters": {
+          "kind": "pmos-parallel",
+          "w": 8,
+          "l": 0.5,
+          "count": 16,
+          "fingers": 8,
+          "body_tie": false
+        },
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": null,
+          "extracted_sha256": "36e6d70869180cbedd783b813965ebc1b40dd5c22e6bc7970321ee2594249ef4",
+          "lvs_log_sha256": "af832052bc01257b6660b20e921c50b999de374e33c4c43a0643b7bcbc70e699"
+        }
+      },
+      {
+        "name": "mim-wrong-width",
+        "status": "passed",
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": "lvs",
+          "extracted_sha256": "1805e7d6b1af0567db67c65d1a9abca767eee9756f02b5932919922fb9935695",
+          "lvs_log_sha256": "449a2d03f8ddf0efcd59e1c7805ee206d3b3cda2c1f9c6e8a878bdd34d77d7fe"
+        }
+      },
+      {
+        "name": "poly-wrong-length",
+        "status": "passed",
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": "lvs",
+          "extracted_sha256": "989e31791b776aff65901f358f0d42f489b199029732d5fba6aa089fe2954527",
+          "lvs_log_sha256": "5328eee11ab612610654d3ccedfa6742796553c1672ee655938cf913c2b30f40"
+        }
+      },
+      {
+        "name": "dummy-gate-open",
+        "status": "passed",
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": "lvs",
+          "extracted_sha256": "40ee29799c8f791a81ef6bf795702119c1a997781f9d949b26047662915153ff",
+          "lvs_log_sha256": "6386836218b5ffcdba18c3e77174a96681d30595ba4b1e4c35dc7d3c6ab109ca"
+        }
+      },
+      {
+        "name": "guard-contact-spacing",
+        "status": "passed",
+        "physical": {
+          "drc_count": 2,
+          "expected_failure": "drc"
+        }
+      },
+      {
+        "name": "parallel-drain-access-open",
+        "status": "passed",
+        "physical": {
+          "drc_count": 0,
+          "expected_failure": "lvs",
+          "extracted_sha256": "ac76ccf08646404fbaa79672aa2e8919d24ea3c92187c2c4d336708d76d5875b",
+          "lvs_log_sha256": "566fd41211b9c021d20725f1ca854d53e1b67067828caf0f7b0a450a15908a24"
+        }
+      }
+    ],
+    "scope": "Listed bounded geometry and deterministic PVT probes only; no arbitrary-layout or foundry signoff.",
+    "tools": {
+      "magic": {
+        "sha256": "e4f9803e5b1553b742c34187530357cadb2f4310a3c64d2a962e5230e708b786",
+        "version_sha256": "374631470fd896b551d28a26fafd5af90d205a0af0d09f5ab9d796371d6be261"
+      },
+      "netgen": {
+        "sha256": "7144aba035aa8a1b65eb9f19ed71e4ce150124784baae0e1f5ff12d5423e4f67",
+        "version_sha256": "0eba46805f99cc51636f0bac7d3ae7953937574d7d5ce3eb9ba739f5df8bc325"
+      },
+      "ngspice": {
+        "sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+        "version_sha256": "d18ced87a01768ec53b4682c549f1182be38030c71159f071a008b747a8f04be"
+      }
+    },
+    "process": {
+      "id": "sky130A",
+      "revision": "01b4bb7a87cc7fe5",
+      "manifest_sha256": "1834052fc256e65e8ac7270b4f5e11a8d2b2ad2571249e0f5ebe41bce110b9c4"
+    },
+    "source": {
+      "icstudio/sky130_devices.py": "2206128e0bbc159e33de810ebe0d2467bb6c3132067a294a48b0e14753d72441",
+      "icstudio/sky130_layout.py": "cd8835d93fa322b0761ecb27ad2c563c11f3c3855782b6c5633256ef146e1d3b",
+      "icstudio/contact_rules.py": "05d3ea7ce39fee05418f65f0224a7785a6f0a299a2f9ad6ef52a1a89e0846df9",
+      "icstudio/layout_graph.py": "1e2b82c8e37a049f303dfa76740175826d302258a8e1127ba42f7e6c28b488e4",
+      "scripts/qualify_sky130_devices.py": "48662408d3e4db434876a51b4e0dbc4e8fe0fe1eaa95473f77ef4044bde0115f"
+    }
+  },
+  "sky130_bipolar": {
+    "status": "passed",
+    "scope": "Fixed SKY130 PNP W3.40/L3.40, listed multiplicities and emitter-size fault only; no NPN or arbitrary bipolar qualification.",
+    "cases": [
+      {
+        "name": "m1",
+        "status": "passed",
+        "drc_count": 0,
+        "lvs_matched": true,
+        "expected_failure": null,
+        "extracted_sha256": "2328ccbb2d307d97ed6a91d74c180f0858702b04ad91bfee927b9e1f16ed826e",
+        "lvs_log_sha256": "5fae9c3f1bbce0eb43eba203592468127739a862683751b09c9ab034f76bd9b2"
+      },
+      {
+        "name": "m2",
+        "status": "passed",
+        "drc_count": 0,
+        "lvs_matched": true,
+        "expected_failure": null,
+        "extracted_sha256": "bee7ae90bec30b710ae20af50eeeb1ca60bf47626be1c343ff56d4081177f89d",
+        "lvs_log_sha256": "c73a1647e0d19aac71bb6e3e574f20ec862197a36a8762bf9fc2714c90f1c97e"
+      },
+      {
+        "name": "m16",
+        "status": "passed",
+        "drc_count": 0,
+        "lvs_matched": true,
+        "expected_failure": null,
+        "extracted_sha256": "97f3a088bcc62118929ff3aec596190fd4fbf3c4d7cc7d05e3b49cc8799548ae",
+        "lvs_log_sha256": "4cbe7086ec10b373b40a82ba519960f5e7162eb3ebd6bcf518a2c317740172a4"
+      },
+      {
+        "name": "wrong-emitter",
+        "status": "passed",
+        "drc_count": 1,
+        "lvs_matched": false,
+        "expected_failure": "lvs",
+        "extracted_sha256": "de8037b9d164669949f28ffab100cb60764ac4b5360ccb20afd493089a30d74e",
+        "lvs_log_sha256": "32495e47c24f76102c8f0d192f2738c93726528cef51446c2380a1e6cd45a6a0"
+      }
+    ],
+    "process": {
+      "id": "sky130A",
+      "revision": "22f635309c62bb21",
+      "manifest_sha256": "08993c911081fa1f64745965d634912c858919d1266b1f5452f10bb4c95558b8",
+      "technology_sha256": "e3a5d4ec10e4f347548c79dafac20ac1bb8ceebb7cb8cbc716bbdc18b581837a"
+    },
+    "extraction_update": {
+      "base_adapter_revision": "01b4bb7a87cc7fe5",
+      "base_technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+      "change": "PNP device selection uses upstream emitter-area rules; DRC and other extraction rules unchanged.",
+      "scope": "Fixed PNP W3.40/L3.40 coupons only; every edited design needs DRC/LVS.",
+      "technology_sha256": "e3a5d4ec10e4f347548c79dafac20ac1bb8ceebb7cb8cbc716bbdc18b581837a",
+      "upstream_commit": "aa3fc215a80d32437b8cca1cb3fdee819d18c4c9",
+      "upstream_url": "https://github.com/RTimothyEdwards/open_pdks/blob/aa3fc215a80d32437b8cca1cb3fdee819d18c4c9/sky130/magic/sky130.tech",
+      "version": 1
+    },
+    "tools": {
+      "magic": {
+        "sha256": "e4f9803e5b1553b742c34187530357cadb2f4310a3c64d2a962e5230e708b786",
+        "version_sha256": "374631470fd896b551d28a26fafd5af90d205a0af0d09f5ab9d796371d6be261"
+      },
+      "netgen": {
+        "sha256": "7144aba035aa8a1b65eb9f19ed71e4ce150124784baae0e1f5ff12d5423e4f67",
+        "version_sha256": "0eba46805f99cc51636f0bac7d3ae7953937574d7d5ce3eb9ba739f5df8bc325"
+      }
+    },
+    "source": {
+      "icstudio/sky130_fixed_devices.py": "af4b461665bff686f43864c67b8cb99d8fa24802e7368e148d89af2c7bb55d3d",
+      "icstudio/sky130_bipolar_rules.py": "cbeb2f52d9b80641bdbd82b9b0ccc628c14602e7926d65245183f90abc753bd8",
+      "icstudio/sky130_devices.py": "2206128e0bbc159e33de810ebe0d2467bb6c3132067a294a48b0e14753d72441",
+      "icstudio/sky130_layout.py": "cd8835d93fa322b0761ecb27ad2c563c11f3c3855782b6c5633256ef146e1d3b",
+      "scripts/prepare_sky130_qualification.py": "4ca0f871ad2a7eea907e32e1546a32ade878de52896bc8c76c1adf8207add062",
+      "scripts/qualify_sky130_bipolar.py": "0c4103fc76e7280498bf0767afc106a0af980620a2b48fdc76d1646e65b9a4c5"
+    }
+  },
+  "gf180_rc": {
+    "status": "extracted",
+    "signoff": false,
+    "net_count": 106,
+    "resistors": 3261,
+    "capacitance": {
+      "status": "passed",
+      "devices": 103,
+      "capacitances": 175,
+      "total_capacitance_f": 2.36606343e-12,
+      "ports": [
+        "VDD",
+        "VREF",
+        "VSS"
+      ]
+    },
+    "terminal_equivalence": {
+      "status": "passed",
+      "devices": 103,
+      "capacitances": 0,
+      "total_capacitance_f": 0,
+      "ports": [
+        "VDD",
+        "VREF",
+        "VSS"
+      ]
+    },
+    "conservation": {
+      "status": "passed",
+      "matrix_entries": 234,
+      "maximum_error_af": 3.637978807091713e-12,
+      "relative_tolerance": 1e-12,
+      "absolute_tolerance_af": 1e-12
+    },
+    "islands": {
+      "source_sha256": "47b53d7690830ed1a8d76648c0eb48157d5e5a6d39e3f049f51b5898b0da3190",
+      "electrical_sha256": "89ac2c1af3924633bf904eb5746c7e7c851bb50368c8f1889bba0c7ecabf490d",
+      "removed_resistors": [
+        "r3080",
+        "r3087",
+        "r3095",
+        "r3096",
+        "r3097",
+        "r3102",
+        "r3103",
+        "r3108",
+        "r3109",
+        "r3126",
+        "r3133",
+        "r3138",
+        "r3139",
+        "r3144",
+        "r3145",
+        "r3149",
+        "r3161",
+        "r3163",
+        "r3164",
+        "r3168",
+        "r3173",
+        "r3175",
+        "r3176",
+        "r3180",
+        "r3185",
+        "r3187",
+        "r3188",
+        "r3193",
+        "r3194",
+        "r3199",
+        "r3200",
+        "r3202",
+        "r3203",
+        "r3208",
+        "r3209",
+        "r3214",
+        "r3215",
+        "r3220",
+        "r3221",
+        "r3226",
+        "r3227",
+        "r3232",
+        "r3233",
+        "r3238",
+        "r3239",
+        "r3244",
+        "r3245",
+        "r3250",
+        "r3251",
+        "r3256"
+      ],
+      "components": 50,
+      "physical_devices": [],
+      "criterion": "Resistor-only connected component with no port, device terminal or capacitor endpoint. All observable circuit lines retained verbatim."
+    },
+    "fill_coupling": {
+      "status": "passed",
+      "technology_sha256": "26ec12346d425f5de87af15b364df1e806590fbe84ccd2d124ab822a3818a481",
+      "core_sha256": "5a9c8bb450768f8d09b1c9d0043a10e25f0de1ea64fc43f5932c251e1813b6dd",
+      "filled_sha256": "7e5d1ddd293d9386247460b7b1b85fb76a34bfbc1c0986ad54b26c377f9c0518",
+      "geometry": {
+        "core_masks_unchanged": true,
+        "all_fill_outside_range_um": 8.0,
+        "fill": {
+          "comp": {
+            "tiles": 44793,
+            "area_um2": 1119825.0
+          },
+          "poly": {
+            "tiles": 44793,
+            "area_um2": 1404708.48
+          },
+          "m1": {
+            "tiles": 281017,
+            "area_um2": 1124068.0
+          },
+          "m2": {
+            "tiles": 280918,
+            "area_um2": 1123672.0
+          },
+          "m3": {
+            "tiles": 280846,
+            "area_um2": 1123384.0
+          },
+          "m4": {
+            "tiles": 280917,
+            "area_um2": 1123668.0
+          }
+        }
+      },
+      "controls": {
+        "m1": {
+          "absent": {
+            "gap_um": null,
+            "signal_to_fill_f": 0,
+            "purpose4_sha256": "69b4128489a7861cd5cd509248d90a69ae7c41155e6f1e2353399c8ca519c711",
+            "materialized_sha256": "69b4128489a7861cd5cd509248d90a69ae7c41155e6f1e2353399c8ca519c711",
+            "extracted_sha256": "3ecd5c976d04e9819f9427992a688b598fcb1dd521f8f4ec4cc21e3f827c5bae",
+            "effective_signal_ground_f": 2.90712e-15,
+            "floating_reduction_sha256": "d61691d8da6e8f29e5430be7d17f756d1a506223042fff1c393ccf461129352e",
+            "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+          },
+          "near": {
+            "gap_um": 1.0,
+            "signal_to_fill_f": 4.26442e-16,
+            "purpose4_sha256": "9ac50b58967c52d95b2e084d142bdc234312e728348af94d210b8b3bef211fb4",
+            "materialized_sha256": "9c60b79fb25ac59be134db737b823e39013b54ee1c10de90531251d7e63a61c0",
+            "extracted_sha256": "49aba97d1c60f7308ee9ac05de1eaf9eb7f3d79568517c47402a79e2afa5dc1d",
+            "effective_signal_ground_f": 2.7463906180467164e-15,
+            "floating_reduction_sha256": "2a0d27f3925fbd5815fe4f35398b3796a00bf466144d0acf0cccb8bcb6efcd75",
+            "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+          },
+          "far": {
+            "gap_um": 10.0,
+            "signal_to_fill_f": 0,
+            "purpose4_sha256": "608b258eb12cf9df381334d8b5fea9b6f114bdc42a8425ce5fbde1b06b04d280",
+            "materialized_sha256": "7043624f909d3ac18953d6ac58dc4dbe9fefa5a7e990744f611b300529cba62b",
+            "extracted_sha256": "56e7df9f2b65b0f4188a6013560225510377cb3512b82e2df11654b1569cd965",
+            "effective_signal_ground_f": 2.90712e-15,
+            "floating_reduction_sha256": "58098ce3cc81f652b0d028004fb69689a25248f1471ec80166681d0408c270dc",
+            "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+          }
+        },
+        "m2": {
+          "absent": {
+            "gap_um": null,
+            "signal_to_fill_f": 0,
+            "purpose4_sha256": "7b66e80a3f9b2d3719c146790fc2293a06f65866223ac3aa4269396367931a23",
+            "materialized_sha256": "7b66e80a3f9b2d3719c146790fc2293a06f65866223ac3aa4269396367931a23",
+            "extracted_sha256": "f4f0b58dd3d00baeb9771decd503bfb9b1ff91d56bb96252c6c25463a2bfa521",
+            "effective_signal_ground_f": 2.06575e-15,
+            "floating_reduction_sha256": "5bd54b34465b6dbab95226f3d6ee9e1fceeed8060343513d7305837f0bf188b1",
+            "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+          },
+          "near": {
+            "gap_um": 1.0,
+            "signal_to_fill_f": 3.73888e-16,
+            "purpose4_sha256": "46616d2abf3142def0dc6dea5dc4d14b0410ca08e90d236b4987bf0f373ec0a8",
+            "materialized_sha256": "b70796f680f4f7c7e8b7ab283addbae9531158668ed51013bb704fe2d8ade61d",
+            "extracted_sha256": "72e5ffc4f14864e134e01873d5814ed4621524d1e312cf42a0e05d78f2e52e25",
+            "effective_signal_ground_f": 1.8236910767336647e-15,
+            "floating_reduction_sha256": "58ca976bbaec9a2cbb2a8875a6fe7570ea7484456b6b9eed40a9d63406f6ec0e",
+            "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+          },
+          "far": {
+            "gap_um": 10.0,
+            "signal_to_fill_f": 0,
+            "purpose4_sha256": "b1b15345f94402830bd703ef0586aeab0a923ebb09f833989a7d3411bf20ac19",
+            "materialized_sha256": "389bb850719fdcb2ba8c996ae44eb389cf239b02af27b145617ec8bb90418037",
+            "extracted_sha256": "8ac1fe12b94d58a95e1f1f937a7e2b7db664cbdc42085a517f7350fc4322dbd6",
+            "effective_signal_ground_f": 2.06575e-15,
+            "floating_reduction_sha256": "34e7bb1bb7f13690d52350645f630c8be7f36e6b748332b8126271c70b723dba",
+            "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+          }
+        },
+        "m3": {
+          "absent": {
+            "gap_um": null,
+            "signal_to_fill_f": 0,
+            "purpose4_sha256": "68732f9e01081a923a161bf3b17201a91efb958351281ba68c84b351cf8dd7c0",
+            "materialized_sha256": "68732f9e01081a923a161bf3b17201a91efb958351281ba68c84b351cf8dd7c0",
+            "extracted_sha256": "2734db083737415aeda1922bffc68a6a597f98af11d8229d41b7c85aff26294d",
+            "effective_signal_ground_f": 1.7246800000000002e-15,
+            "floating_reduction_sha256": "3cf8cbec8e28aa2641b5b5fdd7ba457a38aceac9754723d65c1e64c3108c8848",
+            "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+          },
+          "near": {
+            "gap_um": 1.0,
+            "signal_to_fill_f": 4.71167e-16,
+            "purpose4_sha256": "13e91330696151771429f519c6fc0bf1abf1e0e4c846c3d46b7496062c2d0e97",
+            "materialized_sha256": "124fe5710b148539b1b5e8421285483f5ab942786cf67e4afbad5c7c6459b8a5",
+            "extracted_sha256": "6b9cb1bf56fb614125aa5cedc876af11b536998f43c1cb737b88a52e46d39d52",
+            "effective_signal_ground_f": 1.5387584784815686e-15,
+            "floating_reduction_sha256": "a90245f49c439dffe99dda11826f83814f556a4b731ebe034d11b785617b7552",
+            "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+          },
+          "far": {
+            "gap_um": 10.0,
+            "signal_to_fill_f": 0,
+            "purpose4_sha256": "1433f8fc2260bfc5aa2708cdbc6cb6bee6cc2e6453c682fd10f2a15ea8308214",
+            "materialized_sha256": "c6a99080592a6eb4e42d772b2c9ca460b2663b5c2fe6da38fbb9881e3dfaac6b",
+            "extracted_sha256": "63bad992c74bfea2d83ade5a2f398719ad1ad1cb2c09089ec8f277966e31778d",
+            "effective_signal_ground_f": 1.7246800000000002e-15,
+            "floating_reduction_sha256": "559c49922d268ce87e5fa4a7fd6c48d962d178234aacd3cd8a31a1e4d5af21c3",
+            "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+          }
+        },
+        "m4": {
+          "absent": {
+            "gap_um": null,
+            "signal_to_fill_f": 0,
+            "purpose4_sha256": "26def08208686e8c1af88089dd1889e41b26926d2117634c8b3fccb142bcf7b0",
+            "materialized_sha256": "26def08208686e8c1af88089dd1889e41b26926d2117634c8b3fccb142bcf7b0",
+            "extracted_sha256": "d951a681221c2f94ebfe0d523477e6bcc697be0abd82b06211d21403d6e3f512",
+            "effective_signal_ground_f": 1.5428100000000001e-15,
+            "floating_reduction_sha256": "80bd02f1fe2759b163095d3e333d9fb9245cdc55d7b407e05e768c8c984dc58e",
+            "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+          },
+          "near": {
+            "gap_um": 1.0,
+            "signal_to_fill_f": 4.83675e-16,
+            "purpose4_sha256": "fdb61d18764932e392e445e15b85f26d084f4879dc895a6d029aa06a168a62cc",
+            "materialized_sha256": "da5f84f3543c99b03c62f5f8431010a1a5b36176ba7e1496c250ff0a7841ffb6",
+            "extracted_sha256": "374778bdaf17685a2a28051e34ea6642cbfb2da436b7a12a2691b7734cf0e4a0",
+            "effective_signal_ground_f": 1.3633540819036385e-15,
+            "floating_reduction_sha256": "1f4fd0fb1b33a61a8faa71c4dac570f1226c54cf3e5bb98223d091b98c9d6291",
+            "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+          },
+          "far": {
+            "gap_um": 10.0,
+            "signal_to_fill_f": 0,
+            "purpose4_sha256": "0589aecdc2481726ea45a744f189e3edcc031c6a8c5909c759faf73c93c96a43",
+            "materialized_sha256": "0b0cf0b02add0abbb765c17c0aed6db1dc321372a075a9d03e8fa0cab186c9d7",
+            "extracted_sha256": "935c513d937c0ee989ff37487924f69e7c3f5b0a82f24795baba55f159779da7",
+            "effective_signal_ground_f": 1.5428100000000001e-15,
+            "floating_reduction_sha256": "bb1267c6dd9c4ed65d9e60900f0ed5c2f9d8a47ca229c5d875118557aede9882",
+            "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+          }
+        }
+      },
+      "scope": "No direct core/fill interaction within this finite-range open-PDK model. Does not quantify longer-range fields, fill-to-fill networks or foundry-calibrated parasitics."
+    },
+    "electrical_sha256": "89ac2c1af3924633bf904eb5746c7e7c851bb50368c8f1889bba0c7ecabf490d",
+    "normalization_algorithm": "magic-flat-capacitance-conservation-v1",
+    "normalization_implementation_sha256": "d8ed05643c450cc87bcfa0762818cf5a965892b4924f1a03d8e8c1d0eb77b437",
+    "export": {
+      "status": "passed",
+      "raw_file": "raw-export.spice",
+      "file": "extracted.spice",
+      "raw_sha256": "3a6f3391f5369388194c1f09574cde074bc113ceb0585e088facbd8822c5cd3e",
+      "sha256": "47b53d7690830ed1a8d76648c0eb48157d5e5a6d39e3f049f51b5898b0da3190",
+      "removed_quantized_capacitors": 56917,
+      "full_precision_capacitors": 56931,
+      "preserved_physical_passives": [],
+      "device_parameters": {
+        "status": "passed",
+        "devices": 103,
+        "reference": "device-reference.spice",
+        "restored_junction_fields": 0,
+        "junction_scope": "Pre-R area/perimeter fields retained when splitting shared nets changes Magic redistribution; unambiguous model/terminals/all other parameters required.",
+        "scope": "All physical model/value/parameter fields after contracting only distributed wire resistance."
+      },
+      "unobservable_normalization_nodes": [],
+      "resistor_graph": "exact original named edge multiset preserved",
+      "resistor_values": {
+        "status": "passed",
+        "relative_tolerance": 5e-06,
+        "absolute_tolerance_ohm": 1e-15,
+        "count": 3261,
+        "restored_values": 3078,
+        "final_values": "Original .res.ext resistance scaled to ohms at 17 significant digits.",
+        "recognized_export_bias_ohm": 0.0005
+      },
+      "device_terminals": {
+        "status": "passed",
+        "count": 103
+      },
+      "physical_device_lines": "preserved except explicitly reported pre-R junction area/perimeter restoration",
+      "non_capacitor_lines": "preserved except original full-precision distributed resistance values restored",
+      "quantization_reason": "Supported Magic esSIvalue emits C below 1 aF as zero; all parasitic C is serialized at 17 significant digits.",
+      "matrix_entries": 234,
+      "maximum_error_af": 1.3969838619232178e-09,
+      "relative_tolerance": 1e-12,
+      "absolute_tolerance_af": 1e-12
+    },
+    "scope": "Extraction and fill controls only; post-RC PVT/startup has not been qualified.",
+    "source": {
+      "icstudio/magic_rc.py": "1c6effcc90b9b83e00a26f8f1378028d02b19d90f007b42269cfe6af6a7763f9",
+      "icstudio/silicon_flow.py": "ad8cd39b7633733ecb3842146e4487149f739dc2ae6274bf37e063974af3cfc2",
+      "scripts/qualify_gf180_rc.py": "92734e1b116dc859192caf4efcb6f37ac2e531578ad4bc92be5f51b5d77016e2",
+      "icstudio/gf180_rc.py": "9c89b5333c453948f09e2627cb0daedacfbbe9189de1763632a0a4a661af3c04",
+      "scripts/qualify_gf180_fill_coupling.py": "a675736742da2fe5738bee02f588f03a84359d157f241ff2025ed915bf181091",
+      "icstudio/fill_capacitance.py": "778c22d2e611b9562ad4d0f26c51994071cd03af57de31db6a6b9c3749143d0c"
+    }
+  },
+  "engines": {
+    "magic_sky130": {
+      "source": {
+        "repository": "https://github.com/RTimothyEdwards/magic.git",
+        "version": "8.3.600",
+        "commit": "94edc2a23dc9e51c9ffd75734550acfc3ca69ee5"
+      },
+      "version": "8.3.600",
+      "implementation_sha256": "8ca76115448ee17a24da5685ce5eb5df33c8c7a54a091d52e381efd540e29a8f"
+    },
+    "netgen": {
+      "source": {
+        "repository": "https://github.com/RTimothyEdwards/netgen.git",
+        "version": "1.5.300",
+        "commit": "1de6f88f1eebb786efadecc28e9e0dde37e8c433"
+      },
+      "version": "1.5.300"
+    },
+    "magic_gf180": {
+      "source": {
+        "version": "8.3.684",
+        "patch_sha256": "29f8e0e7b206e208aca33f85e90a9aeff027531a930e39d99dbc4d5b8b76bbc6",
+        "patch": "packaging/physical/magic-gf180-rc.patch",
+        "repository": "https://github.com/RTimothyEdwards/magic.git",
+        "commit": "4f53bb3091d1e4a9b2009a58f157a8a4331d4c84"
+      },
+      "version": "8.3.684",
+      "implementation_sha256": "6c757e4dbd9a10cc05470b395f47db04214fb2d4181fe56f2b9ad8071b81a10e"
+    },
+    "ngspice": {
+      "version": "42",
+      "klu": true,
+      "distribution": "Ubuntu 24.04 noble amd64",
+      "binary_sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+      "package": "ngspice_42+ds-3build1_amd64.deb",
+      "package_sha256": "466c4c06418107ceaa9c9457065b3bb71a9d9dc5ec6fef186d7de9d5208ce8db"
+    }
+  },
+  "reproduction": {
+    "sky130": "python scripts/qualify_sky130_devices.py --pdk PDK_ADAPTER --out FRESH_OUTPUT --magic MAGIC_8_3_600 --netgen NETGEN_1_5_300 --ngspice NGSPICE",
+    "gf180_extraction": "python scripts/qualify_gf180_rc.py --open-pdks OPEN_PDKS --out FRESH_OUTPUT --magic LOCKED_PATCHED_MAGIC --ngspice NGSPICE_KLU --extraction-only",
+    "sky130_bipolar": "python scripts/qualify_sky130_bipolar.py --pdk BIPOLAR_PDK_ADAPTER --out FRESH_OUTPUT --magic MAGIC_8_3_600 --netgen NETGEN_1_5_300",
+    "gf180_full": "python scripts/qualify_gf180_rc.py --open-pdks OPEN_PDKS --out FRESH_OUTPUT --magic LOCKED_PATCHED_MAGIC --ngspice NGSPICE_KLU",
+    "qualification_runtime": "Dependencies were staged inside the workspace. Magic/Netgen were built from exact source locks. ngspice used the Ubuntu package, with initializer paths relocated; a local tmpfile/ tmpfile64 shim redirected only temporary files into writable TMPDIR because libc tmpfile ignores TMPDIR. No model, solver, circuit, measurement, or acceptance result was altered by the shim."
+  },
+  "evidence_sha256": {
+    "build/sky130-extended-final-source/qualification.json": "c7085dec8224f45d64dbdb130819eec18bd057ba2ee416b3f03e241fa94b1938",
+    "build/gf180-rc-qualification-final/qualification.json": "2512d61bdd372fae31bf03e278bf6a732a9249c9568fa2484ea869451a1f6541",
+    "build/gf180-rc-qualification-final/rc-normalization.json": "de60eced2e3a5a708749742ae98d0219285f97fcf1231076bae86cf2b05f3c07",
+    "build/gf180-rc-qualification-final/raw-export.spice": "3a6f3391f5369388194c1f09574cde074bc113ceb0585e088facbd8822c5cd3e",
+    "build/gf180-rc-qualification-final/electrical.spice": "89ac2c1af3924633bf904eb5746c7e7c851bb50368c8f1889bba0c7ecabf490d",
+    "build/gf180-rc-qualification-final/fill-coupling/qualification.json": "1a0e0e8d65155e6bc683fa2072394970b5d52d052a7f2b6e6309137829e34796",
+    "build/gf180-fill-final-source/qualification.json": "4d08167bb6448358b08c4d33c7b426ae052108c2ae02aabf50a90aea4ec33dad",
+    "build/gf180-rc-pvt-nominal/qualification.json": "3b31f47fc396a3bc9b7138aa2e699fdec92204f84ddf50384f7a43059d766a3d",
+    "build/gf180-rc-pvt-final/qualification.json": "52263c96c5afbc03639d3429cb9d66be1d87bd7ae6752b65d5979083fcbb7683",
+    "build/sky130-bipolar-qualification-final/qualification.json": "5a194391bee1ab8f929d91642a5c30c39bebc869c3ab95195e065026dfcbaf59"
+  },
+  "gf180_post_rc_pvt": {
+    "gf180-rc-pvt-nominal": {
+      "status": "passed",
+      "signoff": false,
+      "electrical_sha256": "39ef194f1c947f3c74937c7addc510baf7ee6f50ec0dc5d267c5018866638a80",
+      "simulation": {
+        "scope": "Distributed R and conserved original C; isolated unobservable R-only components omitted with proof.",
+        "load_f": 5e-12,
+        "pvt": [
+          {
+            "corner": "nominal",
+            "temperature": 125,
+            "supply": 2.7,
+            "vref": 0.5991505162954415,
+            "supply_current": 4.525579962383669e-05,
+            "retry_reason": null,
+            "ramps": [
+              {
+                "final_vref": 0.5991505056783188,
+                "peak_vref": 0.5991505199332166,
+                "settling_seconds": 6.629254151937107e-05,
+                "tail_peak_to_peak": 1.6461156771008234e-08,
+                "ramp": "100n",
+                "settling_limit_seconds": 0.00025,
+                "retry_reason": null,
+                "passed": true
+              },
+              {
+                "final_vref": 0.5991505180079655,
+                "peak_vref": 0.5991505182907947,
+                "settling_seconds": 6.345000000000069e-05,
+                "tail_peak_to_peak": 5.099402899944039e-09,
+                "ramp": "10u",
+                "settling_limit_seconds": 0.00025,
+                "retry_reason": null,
+                "passed": true
+              },
+              {
+                "final_vref": 0.599150457028733,
+                "peak_vref": 0.6398591880778284,
+                "settling_seconds": 0.0005954799999999996,
+                "tail_peak_to_peak": 2.895924611223677e-10,
+                "ramp": "1m",
+                "settling_limit_seconds": 0.00125,
+                "retry_reason": null,
+                "passed": true
+              }
+            ],
+            "passed": true
+          },
+          {
+            "corner": "nominal",
+            "temperature": 125,
+            "supply": 3.6,
+            "vref": 0.5993328773132482,
+            "supply_current": 4.867335327660855e-05,
+            "retry_reason": null,
+            "ramps": [
+              {
+                "final_vref": 0.5993328727148572,
+                "peak_vref": 0.5993328743905645,
+                "settling_seconds": 6.421997329104295e-05,
+                "tail_peak_to_peak": 1.0435721509161056e-08,
+                "ramp": "100n",
+                "settling_limit_seconds": 0.00025,
+                "retry_reason": null,
+                "passed": true
+              },
+              {
+                "final_vref": 0.5993328675093039,
+                "peak_vref": 0.6408479934905544,
+                "settling_seconds": 3.795000000000008e-05,
+                "tail_peak_to_peak": 4.834652678198381e-10,
+                "ramp": "10u",
+                "settling_limit_seconds": 0.00025,
+                "retry_reason": null,
+                "passed": true
+              },
+              {
+                "final_vref": 0.5993328072342092,
+                "peak_vref": 0.6443697098688725,
+                "settling_seconds": 0.0004599800000000079,
+                "tail_peak_to_peak": 3.2972014007981443e-10,
+                "ramp": "1m",
+                "settling_limit_seconds": 0.00125,
+                "retry_reason": null,
+                "passed": true
+              }
+            ],
+            "passed": true
+          },
+          {
+            "corner": "nominal",
+            "temperature": -40,
+            "supply": 3.6,
+            "vref": 0.5998232471471449,
+            "supply_current": 4.21562403338087e-05,
+            "retry_reason": null,
+            "ramps": [
+              {
+                "final_vref": 0.5998232614832039,
+                "peak_vref": 0.5998232616524216,
+                "settling_seconds": 7.272343340988025e-05,
+                "tail_peak_to_peak": 4.726358859841184e-08,
+                "ramp": "100n",
+                "settling_limit_seconds": 0.00025,
+                "retry_reason": null,
+                "passed": true
+              },
+              {
+                "final_vref": 0.5998232549893221,
+                "peak_vref": 0.5998232551574084,
+                "settling_seconds": 4.925000000000035e-05,
+                "tail_peak_to_peak": 1.6351095921685044e-08,
+                "ramp": "10u",
+                "settling_limit_seconds": 0.00025,
+                "retry_reason": null,
+                "passed": true
+              },
+              {
+                "final_vref": 0.5998231761749285,
+                "peak_vref": 0.6039804932006237,
+                "settling_seconds": 0.0004872642056522968,
+                "tail_peak_to_peak": 9.12371289629732e-11,
+                "ramp": "1m",
+                "settling_limit_seconds": 0.00125,
+                "retry_reason": null,
+                "passed": true
+              }
+            ],
+            "passed": true
+          },
+          {
+            "corner": "nominal",
+            "temperature": -40,
+            "supply": 2.7,
+            "vref": 0.5997812831746602,
+            "supply_current": 3.910697768130439e-05,
+            "retry_reason": null,
+            "ramps": [
+              {
+                "final_vref": 0.5997812794372956,
+                "peak_vref": 0.5997812884959944,
+                "settling_seconds": 7.443752614083002e-05,
+                "tail_peak_to_peak": 6.839672817005038e-08,
+                "ramp": "100n",
+                "settling_limit_seconds": 0.00025,
+                "retry_reason": null,
+                "passed": true
+              },
+              {
+                "final_vref": 0.5997812838958357,
+                "peak_vref": 0.5997864750780313,
+                "settling_seconds": 7.285000000000092e-05,
+                "tail_peak_to_peak": 3.8001816271560074e-07,
+                "ramp": "10u",
+                "settling_limit_seconds": 0.00025,
+                "retry_reason": null,
+                "passed": true
+              },
+              {
+                "final_vref": 0.599781207268254,
+                "peak_vref": 0.6034585260991294,
+                "settling_seconds": 0.0006168618966510203,
+                "tail_peak_to_peak": 4.753401006141189e-10,
+                "ramp": "1m",
+                "settling_limit_seconds": 0.00125,
+                "retry_reason": null,
+                "passed": true
+              }
+            ],
+            "passed": true
+          }
+        ],
+        "nominal": {
+          "vref": 0.6005002411786623,
+          "supply_current": 4.430859761674226e-05,
+          "retry_reason": null
+        },
+        "passed": true
+      },
+      "scope": "Pinned reference and bounded open-PDK parasitic model; no foundry calibration or signoff.",
+      "matches_final_extracted_deck": false
+    },
+    "gf180-rc-pvt-final": {
+      "status": "passed",
+      "signoff": false,
+      "electrical_sha256": "89ac2c1af3924633bf904eb5746c7e7c851bb50368c8f1889bba0c7ecabf490d",
+      "scope": "Final implementation post-RC operating points and startup ramps for nominal process at125C,2.7V, plus27C3.3V nominal operating point. Other process corners and supply/temperature cases are not qualified on this final extracted deck. No foundry signoff.",
+      "simulation": {
+        "scope": "Distributed R and conserved original C; isolated unobservable R-only components omitted with proof.",
+        "load_f": 5e-12,
+        "pvt": [
+          {
+            "corner": "nominal",
+            "temperature": 125,
+            "supply": 2.7,
+            "vref": 0.5991505166228112,
+            "supply_current": 4.525579964714275e-05,
+            "retry_reason": null,
+            "ramps": [
+              {
+                "final_vref": 0.5991505066985054,
+                "peak_vref": 0.5991505202156233,
+                "settling_seconds": 6.629254151942275e-05,
+                "tail_peak_to_peak": 1.6326915153186405e-08,
+                "ramp": "100n",
+                "settling_limit_seconds": 0.00025,
+                "retry_reason": null,
+                "passed": true
+              },
+              {
+                "final_vref": 0.5991505177524492,
+                "peak_vref": 0.5991505180766978,
+                "settling_seconds": 6.345000000000069e-05,
+                "tail_peak_to_peak": 4.956408394818368e-09,
+                "ramp": "10u",
+                "settling_limit_seconds": 0.00025,
+                "retry_reason": null,
+                "passed": true
+              },
+              {
+                "final_vref": 0.5991504560593229,
+                "peak_vref": 0.6398591898827974,
+                "settling_seconds": 0.0005954799999999996,
+                "tail_peak_to_peak": 3.0370417292147067e-10,
+                "ramp": "1m",
+                "settling_limit_seconds": 0.00125,
+                "retry_reason": null,
+                "passed": true
+              }
+            ],
+            "passed": true
+          }
+        ],
+        "nominal": {
+          "vref": 0.6005002413817053,
+          "supply_current": 4.430859763014324e-05,
+          "retry_reason": null
+        },
+        "passed": true
+      },
+      "matches_final_extracted_deck": true
+    },
+    "remaining_snapshot": {
+      "status": "partial",
+      "scope": "Completed rows from an in-progress four-corner qualification; missing rows are not qualified. These rows use the earlier extracted electrical deck, not the final parameter-audited extraction.",
+      "signoff": false,
+      "electrical_sha256": "55ef245b806c0d8ca584978ed30f6e81e34f43c41acfb7ce8d800017754c6a1c",
+      "completed": [
+        {
+          "corner": "ff",
+          "temperature": -40,
+          "supply": 2.7,
+          "vref": 0.5991834277390294,
+          "supply_current": 4.913668609332741e-05,
+          "ramps": [
+            {
+              "final_vref": 0.59918344381935,
+              "peak_vref": 0.5991834448927601,
+              "settling_seconds": 5.432876832799355e-05,
+              "tail_peak_to_peak": 1.0705738517913232e-08,
+              "ramp": "100n",
+              "settling_limit_seconds": 0.00025,
+              "raw_sha256": "c9b57e3f88e564f36a0f80cd6fb5e64a53a560175430b2a428360b39fa9488d3",
+              "engine_log_sha256": "4f6132954153a2620e421a57fe9cfb26bab4b29ebeec23b7cc04b8c3e3e54817",
+              "passed": true
+            },
+            {
+              "final_vref": 0.5991834379170381,
+              "peak_vref": 0.5991834387992743,
+              "settling_seconds": 5.185000000000041e-05,
+              "tail_peak_to_peak": 3.8839154115066776e-10,
+              "ramp": "10u",
+              "settling_limit_seconds": 0.00025,
+              "raw_sha256": "53add5ab67e6311f2c9301c829db7bf5f6a436d4d9cbc62b3dd1c8ee24a51589",
+              "engine_log_sha256": "5259e2fa4ad9b070c14f932eb68b0f658b779e072f7bb8e77ff26223c8771781",
+              "passed": true
+            },
+            {
+              "final_vref": 0.5991833778222989,
+              "peak_vref": 0.6019304111816856,
+              "settling_seconds": 0.0006039799999999989,
+              "tail_peak_to_peak": 5.332884134290339e-10,
+              "ramp": "1m",
+              "settling_limit_seconds": 0.00125,
+              "raw_sha256": "a515e285eb6aea862cbc9e98724d91c9a5e9e04d726799f72d68e3978f91a05e",
+              "engine_log_sha256": "834c388b208e6e66618495bdcfb613ac5f488e57755c900a696e58a33136b162",
+              "passed": true
+            }
+          ],
+          "passed": true
+        },
+        {
+          "corner": "ff",
+          "temperature": -40,
+          "supply": 3.6,
+          "vref": 0.5992370704173697,
+          "supply_current": 5.293385831756744e-05,
+          "ramps": [
+            {
+              "final_vref": 0.5992370807240416,
+              "peak_vref": 0.5992370849849865,
+              "settling_seconds": 5.294548099133815e-05,
+              "tail_peak_to_peak": 3.762197331447226e-09,
+              "ramp": "100n",
+              "settling_limit_seconds": 0.00025,
+              "raw_sha256": "14dddfb5ee8360979d9afb71e5ae7529b1c3d8ee6a7799ca361fc366d842d361",
+              "engine_log_sha256": "9ac44c50174108071acd91db08d3330449be3088b9d40a274abe8b9604906bb8",
+              "passed": true
+            },
+            {
+              "final_vref": 0.5992370807766194,
+              "peak_vref": 0.5992370812518196,
+              "settling_seconds": 4.235000000000018e-05,
+              "tail_peak_to_peak": 5.00814612003353e-10,
+              "ramp": "10u",
+              "settling_limit_seconds": 0.00025,
+              "raw_sha256": "9ae860b1c6d2f8c31d41fbab9bdc2fc2de608382b8ac9c505b0636b3b90f96b1",
+              "engine_log_sha256": "3fa670c33f155db971a249b52947e0230bae2bcef6d78801202d76d0e8590a26",
+              "passed": true
+            },
+            {
+              "final_vref": 0.5992370147815476,
+              "peak_vref": 0.6023910817392092,
+              "settling_seconds": 0.0004719800000000082,
+              "tail_peak_to_peak": 4.4750669836446377e-10,
+              "ramp": "1m",
+              "settling_limit_seconds": 0.00125,
+              "raw_sha256": "2f0a8e27031e98a154bbddfded7bd87e00635d2be68070cf6d0c519f212ba2f0",
+              "engine_log_sha256": "617f0c87db940422b1928f7b042111a8691157eb3354f76314a50695de385397",
+              "passed": true
+            }
+          ],
+          "passed": true
+        },
+        {
+          "corner": "ff",
+          "temperature": 125,
+          "supply": 2.7,
+          "vref": 0.5982497369797777,
+          "supply_current": 5.681921637730318e-05,
+          "ramps": [
+            {
+              "final_vref": 0.5982497446232262,
+              "peak_vref": 0.5982497510768321,
+              "settling_seconds": 4.758691739026955e-05,
+              "tail_peak_to_peak": 6.7187956309666674e-09,
+              "ramp": "100n",
+              "settling_limit_seconds": 0.00025,
+              "raw_sha256": "ef1967d184464464328707fdfa82f81ef9432397635096e0e69f115c5fbb6bb3",
+              "engine_log_sha256": "07d11206d3da08de612bd21c6006aac231327583131e4445946fae2c92453efd",
+              "passed": true
+            },
+            {
+              "final_vref": 0.5982497448923358,
+              "peak_vref": 0.5982497455208502,
+              "settling_seconds": 3.785000000000007e-05,
+              "tail_peak_to_peak": 2.393586440163631e-10,
+              "ramp": "10u",
+              "settling_limit_seconds": 0.00025,
+              "raw_sha256": "a8baab6265c6ba5bb8b361af0cbc352ea5b58e6df8fea136fcccd95e5f0efb27",
+              "engine_log_sha256": "c4e00a8dc46fb5a956ddcae7b5e286c64d4df258b1e20910ac35668c8f478fe2",
+              "passed": true
+            },
+            {
+              "final_vref": 0.5982496808187789,
+              "peak_vref": 0.6308709225466886,
+              "settling_seconds": 0.0005564800000000029,
+              "tail_peak_to_peak": 4.6495751693242937e-10,
+              "ramp": "1m",
+              "settling_limit_seconds": 0.00125,
+              "raw_sha256": "3bc38b0ccc2c7c16a6d38dff991f060f0ff98ad1b91850a11af54eb148b2253b",
+              "engine_log_sha256": "9320b0984fc3fbb33982cffb794b2a14041bca017740513a441e7124aa7bd7d9",
+              "passed": true
+            }
+          ],
+          "passed": true
+        },
+        {
+          "corner": "ff",
+          "temperature": 125,
+          "supply": 3.6,
+          "vref": 0.5984813240014473,
+          "supply_current": 6.107233764150448e-05,
+          "ramps": [
+            {
+              "final_vref": 0.598481331626156,
+              "peak_vref": 0.5984813328428693,
+              "settling_seconds": 4.640759838143336e-05,
+              "tail_peak_to_peak": 5.92535898125135e-09,
+              "ramp": "100n",
+              "settling_limit_seconds": 0.00025,
+              "raw_sha256": "5be2f70bcc361d2c1cb5594e04c71e3056983e7fb52c8b02f5d61247064ee4d7",
+              "engine_log_sha256": "b2223ed21e56afec9d836641a2bbf63c512cbff83068326e1078a4b2e2eac3a7",
+              "passed": true
+            },
+            {
+              "final_vref": 0.5984813290149387,
+              "peak_vref": 0.6042425814092481,
+              "settling_seconds": 2.054999999999999e-05,
+              "tail_peak_to_peak": 1.1076852768354684e-09,
+              "ramp": "10u",
+              "settling_limit_seconds": 0.00025,
+              "raw_sha256": "f8769b2aaea0037494439f4c1440bf0318d4ebf6fc735abd77ba45144a025323",
+              "engine_log_sha256": "0f7ab6e83cee7bdf8c33ae7a29fa4c15fa63f449c77ea4348bced76a98e4367d",
+              "passed": true
+            },
+            {
+              "final_vref": 0.5984812723455878,
+              "peak_vref": 0.6342443935264568,
+              "settling_seconds": 0.0004259800000000071,
+              "tail_peak_to_peak": 4.5681580740364325e-10,
+              "ramp": "1m",
+              "settling_limit_seconds": 0.00125,
+              "raw_sha256": "4f56ee638a4b52d0cf2e0822039a30ef15ff231428f863a76381be66202f14c2",
+              "engine_log_sha256": "9fb520f746c807cdda993744c83093f31f03b7b284c7c921e8db1addd2d02d51",
+              "passed": true
+            }
+          ],
+          "passed": true
+        },
+        {
+          "corner": "ss",
+          "temperature": -40,
+          "supply": 2.7,
+          "vref": 0.6016508532250049,
+          "supply_current": 3.244217773269745e-05,
+          "ramps": [
+            {
+              "final_vref": 0.601650434840794,
+              "peak_vref": 0.6016515127701989,
+              "settling_seconds": 9.465043745912918e-05,
+              "tail_peak_to_peak": 5.2578367061295594e-06,
+              "ramp": "100n",
+              "settling_limit_seconds": 0.00025,
+              "raw_sha256": "77400ad5077479cc715e721c78dff89b8fdabc2c7be518ecb3595bc5f9def886",
+              "engine_log_sha256": "7f3a535a9ab0468ab0a8df57af05e22948c6de89b7cda42195f17144484c4395",
+              "passed": true
+            },
+            {
+              "final_vref": 0.6016508297720237,
+              "peak_vref": 0.6016731693482255,
+              "settling_seconds": 9.21224895949708e-05,
+              "tail_peak_to_peak": 1.7765939211766835e-05,
+              "ramp": "10u",
+              "settling_limit_seconds": 0.00025,
+              "raw_sha256": "02a8835c2b7fc76b14c4bdac57522a0df62772ad9040ac5c7b3aa50da976ee08",
+              "engine_log_sha256": "f6e3e4dfd515c20337a180fd7f2bb70b68168453b619e94fe66dbd2699f2c98b",
+              "passed": true
+            },
+            {
+              "final_vref": 0.6016507262533263,
+              "peak_vref": 0.6058236283609817,
+              "settling_seconds": 0.0006769799999999927,
+              "tail_peak_to_peak": 2.0808285094986445e-09,
+              "ramp": "1m",
+              "settling_limit_seconds": 0.00125,
+              "raw_sha256": "e00a4904cf7a2f1567c616293750e2bbb92e1782634afe92d62234b54dd8e7a1",
+              "engine_log_sha256": "0ff34482c7f874dce8c0b91314ca9e8075548496cdeb29a52853d2503725ae94",
+              "passed": true
+            }
+          ],
+          "passed": true
+        },
+        {
+          "corner": "ss",
+          "temperature": -40,
+          "supply": 3.6,
+          "vref": 0.6016826126584547,
+          "supply_current": 3.498842985956638e-05,
+          "ramps": [
+            {
+              "final_vref": 0.6016825059121609,
+              "peak_vref": 0.6016825115147254,
+              "settling_seconds": 9.46378463269934e-05,
+              "tail_peak_to_peak": 1.6366057100647424e-06,
+              "ramp": "100n",
+              "settling_limit_seconds": 0.00025,
+              "raw_sha256": "a9bc606b336706801182edd5a0b060d9531cbe78ac1bbd26ac606d1debae6901",
+              "engine_log_sha256": "accd31cc62720a47a4a941190956af12bfa14364e5821e2ea5f063de132b3b26",
+              "passed": true
+            },
+            {
+              "final_vref": 0.6016825767285888,
+              "peak_vref": 0.6064341314166924,
+              "settling_seconds": 3.094999999999991e-05,
+              "tail_peak_to_peak": 4.0765391517982863e-07,
+              "ramp": "10u",
+              "settling_limit_seconds": 0.00025,
+              "raw_sha256": "f41542cf550c7bc305865ceb25f57a783048731cb194556e62a07d8af1fd914c",
+              "engine_log_sha256": "8c105a287de23016220c001d38665d2b6b7948c8a63eeaa3ffa34de9fd9b05a1",
+              "passed": true
+            },
+            {
+              "final_vref": 0.6016825052119007,
+              "peak_vref": 0.6066348514412241,
+              "settling_seconds": 0.0005342010254774794,
+              "tail_peak_to_peak": 2.46040854356977e-10,
+              "ramp": "1m",
+              "settling_limit_seconds": 0.00125,
+              "raw_sha256": "1052d72b0cffccdd3853015a31c9a8b7c44f40a45fefd9fc1072f9a8dca1bce4",
+              "engine_log_sha256": "262bebbc03e586d532b9a0ed25c8d499201e255bb934d893c47abc3e0897482f",
+              "passed": true
+            }
+          ],
+          "passed": true
+        },
+        {
+          "corner": "ss",
+          "temperature": 125,
+          "supply": 2.7,
+          "vref": 0.6025574378718135,
+          "supply_current": 3.763822115437015e-05,
+          "ramps": [
+            {
+              "final_vref": 0.6025573950795445,
+              "peak_vref": 0.6025573964986746,
+              "settling_seconds": 8.771316014427381e-05,
+              "tail_peak_to_peak": 3.074189779406211e-07,
+              "ramp": "100n",
+              "settling_limit_seconds": 0.00025,
+              "raw_sha256": "74765dfe60d038e5f6ad7a03f38e1cdf2e46dd4349ca03d2bde8d88fba35dad1",
+              "engine_log_sha256": "138da67fb57c37dcc8ca705dd1600382f128fd7019e84c02809136825efcef58",
+              "passed": true
+            },
+            {
+              "final_vref": 0.6025573884509731,
+              "peak_vref": 0.6025573884509731,
+              "settling_seconds": 9.124878980656977e-05,
+              "tail_peak_to_peak": 3.860447794767907e-07,
+              "ramp": "10u",
+              "settling_limit_seconds": 0.00025,
+              "raw_sha256": "9fc1eb8a720409be1e6ba9b287c0bc2e92ea6ab5082450a2673e9fdbe006fa48",
+              "engine_log_sha256": "cc7633d00730e8fbaca61663807f5140e4614f12f2f81b13903bafe33e7ba93c",
+              "passed": true
+            },
+            {
+              "final_vref": 0.6025573384372864,
+              "peak_vref": 0.652804593211612,
+              "settling_seconds": 0.0006479799999999952,
+              "tail_peak_to_peak": 4.0585101945822544e-10,
+              "ramp": "1m",
+              "settling_limit_seconds": 0.00125,
+              "raw_sha256": "60e1eb6441196e56b62e10e40034d9b5f09b55c27e1809f2385be64da7a26f56",
+              "engine_log_sha256": "8b6c9e759553e7405a9a162e5db18a8058743439675abfc54e46540bfbe27760",
+              "passed": true
+            }
+          ],
+          "passed": true
+        },
+        {
+          "corner": "ss",
+          "temperature": 125,
+          "supply": 3.6,
+          "vref": 0.602779668893391,
+          "supply_current": 4.049646017047122e-05,
+          "ramps": [
+            {
+              "final_vref": 0.6027095014533069,
+              "peak_vref": 0.6027095014533069,
+              "settling_seconds": 8.181605527093032e-05,
+              "tail_peak_to_peak": 2.58992158941318e-07,
+              "ramp": "100n",
+              "settling_limit_seconds": 0.00025,
+              "raw_sha256": "34fbe03b85fbae4be8ddaa67c31047bf977625365846e7e2a6333d867c395a2e",
+              "engine_log_sha256": "d087ca56405ad7815bd5b4f2c6e0692e7e08db601792e3579efa16ad25bebec6",
+              "passed": true
+            },
+            {
+              "final_vref": 0.6027095055576175,
+              "peak_vref": 0.6617311524151233,
+              "settling_seconds": 5.230867573656793e-05,
+              "tail_peak_to_peak": 5.477431119782494e-08,
+              "ramp": "10u",
+              "settling_limit_seconds": 0.00025,
+              "raw_sha256": "7bc1e31507197225658373c64bc88365bd4686de351b718013e607009dae93c2",
+              "engine_log_sha256": "301ca4bb5f08e1e138380f313c3df6d46ccfc261c3dbf9cf77ac70073e33c38d",
+              "passed": true
+            },
+            {
+              "final_vref": 0.6027094510047052,
+              "peak_vref": 0.6587295664895157,
+              "settling_seconds": 0.0005044800000000072,
+              "tail_peak_to_peak": 3.570804762986768e-10,
+              "ramp": "1m",
+              "settling_limit_seconds": 0.00125,
+              "raw_sha256": "5e81a26d583f429679c15100701dd25b01f5d863966e88e75958753953748519",
+              "engine_log_sha256": "5b6774f6fa0f182140af78a7a7455b0996a22621eab66dc1b983677d91db188c",
+              "passed": true
+            }
+          ],
+          "passed": true
+        }
+      ],
+      "not_qualified": [
+        "fs--40-2.7",
+        "fs--40-3.6",
+        "fs-125-2.7",
+        "fs-125-3.6",
+        "sf--40-2.7",
+        "sf--40-3.6",
+        "sf-125-2.7",
+        "sf-125-3.6"
+      ],
+      "all_completed_cases_passed": true,
+      "matches_final_extracted_deck": false
+    }
+  }
+}

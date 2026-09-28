@@ -125,6 +125,7 @@ class WorkflowTests(unittest.TestCase):
                 script=kwargs['input_text'];scripts.append(script)
                 if 'extresist all' in script:
                     (Path(cwd)/'top.ext').write_text(ORIGINAL);(Path(cwd)/'top.res.ext').write_text(RESISTANCE)
+                    (Path(cwd)/'device-reference.spice').write_text('.subckt top IN VSS\n.ends\n')
                 else:(Path(cwd)/'extracted.spice').write_text(EXTRACTED)
                 return 'STUDIO_MAGIC_COMPLETE\n'
             with patch('icstudio.silicon_flow.execute',side_effect=fake):

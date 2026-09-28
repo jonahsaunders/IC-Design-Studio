@@ -1,7 +1,7 @@
 """Manual schematic editing, electrical transactions and keyboard commands."""
 from PySide6.QtCore import Qt,QPointF
 from PySide6.QtGui import QAction,QKeySequence,QShortcut
-from PySide6.QtWidgets import QApplication,QLineEdit,QPlainTextEdit,QMenu,QLabel,QHBoxLayout,QWidget
+from PySide6.QtWidgets import QApplication,QLineEdit,QPlainTextEdit,QMenu,QLabel,QHBoxLayout,QWidget,QInputDialog
 from .model import clone,uid,digest,validate
 from . import wiring
 
@@ -11,6 +11,24 @@ from .annotation_ui import AnnotationMixin
 from . import net_labels
 
 class SchematicMixin(AnnotationMixin,NetLabelMixin):
+    def edit_instance_array(self):
+        if not self.flush_inspector():return
+        selected=[d for d in self.cell['devices'] if d['id'] in self.selection]
+        if len(selected)!=1:raise ValueError('Select one schematic device to configure its instance array.')
+        if self.project.get('xschem_exchange',{}).get('mode')=='compatible':
+            raise ValueError('Migrate this externally evaluated Xschem circuit before creating native instance arrays.')
+        item=selected[0];spec=item.get('array');current='' if spec is None else str(spec['start'])+':'+str(spec['end'])
+        expression,ok=QInputDialog.getText(self,'Instance array','Ordered indices, e.g. 3:0 or 0:3. Empty makes one instance.\nScalar connections broadcast; bus connections map in index order.',text=current)
+        if not ok:return
+        import re
+        expression=expression.strip();match=re.fullmatch(r'(\d+):(\d+)',expression)
+        if expression and not match:raise ValueError('Use explicit array bounds such as 3:0 or 0:3.')
+        from .native_vectors import configure_array
+        def edit(p):
+            configure_array(p,self.cid,item['id'],int(match[1]) if match else None,int(match[2]) if match else None)
+        self.commit(edit,'Configure instance array')
+        self.canvas_message(item['name']+('['+expression+'] · edit terminal labels to connect bus slices' if expression else ' · scalar instance'))
+
     def make_ui(self):
         for cell in self.project['cells']:wiring.migrate(cell,self.project)
         super().make_ui()
@@ -218,6 +236,7 @@ class SchematicMixin(AnnotationMixin,NetLabelMixin):
         self.place_action=editor_action(menus['Design'],'Place component…',self.show_library,'P')
         self.label_action=editor_action(menus['Design'],'Place net label…',self.begin_label,'L')
         self.ground_action=editor_action(menus['Design'],'Place ground',lambda:self.begin_label('ground'),'G')
+        self.instance_array_action=self.action(menus['Design'],'Configure instance array…',self.edit_instance_array)
         self.net_action=editor_action(menus['Design'],'Inspect whole net',self.inspect_net,'N')
         self.junction_action=editor_action(menus['Design'],'Toggle junction at pointer',self.add_junction,'J')
         for a in menus['View'].actions():

@@ -40,6 +40,7 @@ def native_save(project,cid):
     from .catalog_migration import instance_name
     from .analog_debug import contexts
     from .design_ops import parameters, resolved_device, value
+    from .native_vectors import devices
     by={c['id']:c for c in project['cells']};aliases={};vectors=[];checked={}
     context_by={c['path']:c for c in contexts(project,cid)}
     global_parameters=parameters(project.get('parameters',{}))
@@ -48,7 +49,7 @@ def native_save(project,cid):
         values=parameters({**cell.get('parameters',{}),**(overrides or {})},global_parameters)
         for net,flat in context['nets'].items():
             if flat==path+net:aliases['v:'+('.'.join(spice_path+[net])).casefold()]=flat
-        for d in cell['devices']:
+        for d in devices(cell,project):
             native=d.get('native_spice',{})
             if native.get('type')=='program':continue
             binding=binding_for(project['pdk'],d) if d.get('model_ref') else None

@@ -147,6 +147,8 @@ def review_project(path,library_paths=(),technology=None,file_locations=None):
 
 def export_capture(project,directory):
     """Write editable capture and full source assets without converting models."""
+    from .xschem_export_contract import require_supported
+    require_supported(project,source_capture=True)
     from .net_labels import point as label_point
     p=clone(project);validate(p);dest=Path(directory)
     if dest.exists() and any(dest.iterdir()):raise ValueError('Choose an empty export directory.')

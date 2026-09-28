@@ -2,3 +2,7 @@
 # PDKs and original schematic fixtures are protected by recorded SHA-256 hashes.
 # Disabling newline conversion does not disable Git's text diffs.
 * -text
+
+# Raw extraction evidence is byte-hashed; preserve engine whitespace verbatim.
+docs/validation/analog_extensions/primitive-rc/** -whitespace
+docs/validation/analog_extensions/floating-fill/** -whitespace

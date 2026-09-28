@@ -28,9 +28,10 @@ def circuit_text(text):
 
 def sources(p, cid=None):
     from .interchange import spice_name
+    from .native_vectors import devices
     c = next(c for c in p['cells'] if c['id'] == (cid or p['top']))
     out = []
-    for d in c['devices']:
+    for d in devices(c,p):
         info = d.get('native_spice')
         if info and info['type'] == 'device' and d['kind'] != 'X':
             name = render(d).split()[0]

@@ -95,9 +95,11 @@ def validate(p):
     objid(p.get('id'))
     if p.get('top') not in cellids: raise ValueError('Top cell is missing.')
     tech=p.get('pdk',{})
-    globals_=p.get('global_nets',[])
-    if not isinstance(globals_,list) or any(not isinstance(n,str) or not NET.fullmatch(n) for n in globals_) or len({n.casefold() for n in globals_})!=len(globals_):
-        raise ValueError('Global nets must be unique explicit scalar names.')
+    from .native_vectors import signals, ports as vector_ports, global_nets, devices as vector_devices
+    if not isinstance(p.get('global_nets',[]),list):raise ValueError('Global nets must be an ordered list.')
+    globals_=global_nets(p)
+    if len({n.casefold() for n in globals_})!=len(globals_):
+        raise ValueError('Global nets must be unique after bus expansion.')
     if tech.get('dbu_um')!=0.001: raise ValueError('This release uses 1 nm integer database units (dbu_um = 0.001).')
     if not isinstance(tech.get('grid'),int) or tech['grid']<1: raise ValueError('Invalid database grid.')
     layers=tech.get('layers',[])
@@ -122,9 +124,7 @@ def validate(p):
         objid(c['id']); ident(c['name'])
         if c['name'].casefold() in names: raise ValueError('Duplicate cell name.')
         names.add(c['name'].casefold()); dn=set(); net_case={n.casefold():n for n in globals_}
-        if len(c.get('ports',[]))>128 or len(set(c['ports']))!=len(c['ports']): raise ValueError('Invalid cell ports.')
-        for port in c['ports']:
-            if not NET.fullmatch(port) or port=='0':raise ValueError('Invalid cell port.')
+        vector_ports(c['ports'])
         if len(c.get('devices',[]))>MAX_MASTER_DEVICES or len(c.get('shapes',[]))>MAX_MASTER_SHAPES: raise ValueError('Cell exceeds the 5,000-device or 250,000-shape capacity.')
         from .design_ops import parameters,resolved_device
         context=parameters(c.get('parameters',{}),parameters(p.get('parameters',{})))
@@ -154,8 +154,7 @@ def validate(p):
             if binding and d.get('model_ref'): parameter_values(binding,d)
             if d.get('symbol'): validate_symbol(d['symbol'],pins)
             if set(d.get('nets',{}))!=set(pins): raise ValueError(f'{d["name"]}: pin mapping does not match symbol.')
-            if any(not isinstance(n,str) or not NET.fullmatch(n) for n in d['nets'].values()): raise ValueError('Invalid net name. Ground is 0.')
-            for n in d['nets'].values():
+            for n in [name for expression in d['nets'].values() for name in signals(expression)]:
                 if n.casefold() in net_case and net_case[n.casefold()]!=n: raise ValueError('Net names differing only by case are not portable to SPICE.')
                 net_case[n.casefold()]=n
             for axis in ('x','y'):
@@ -174,6 +173,7 @@ def validate(p):
                 if s['type'] not in ('dc','pulse','sine'): raise ValueError('Unsupported source waveform.')
                 for key in ('low','high','period','delay','duty','ac'): scalar(s[key])
                 if scalar(s['period'])<=0 or not 0<scalar(s['duty'])<1 or scalar(s['delay'])<0: raise ValueError('Invalid source timing.')
+        vector_devices(c,p)
         for s in c['shapes']:
             objid(s['id'])
             validate_shape(s,lnames)
@@ -210,10 +210,16 @@ def flatten(p,cell_id=None):
     return _flatten(p,cell_id,{})
 
 def _flatten(p,cell_id,electrical):
-    by={c['id']:c for c in p['cells']}; out=[]
+    by={c['id']:c for c in p['cells']}; out=[];occurrences=0
     from .design_ops import parameters,resolved_device,value
     global_params=parameters(p.get("parameters",{}))
+    from .native_vectors import devices as vector_devices, global_nets
+    globals_=set(global_nets(p))
     def walk(cid,path,mapping,seen,overrides=None):
+        nonlocal occurrences
+        occurrences+=1
+        from .layout_limits import MAX_FLAT_DEVICES
+        if occurrences>MAX_FLAT_DEVICES:raise ValueError('Flattened hierarchy exceeds the 50,000-occurrence capacity. Work on a smaller hierarchy.')
         if cid in seen or len(seen)>12: raise ValueError('Recursive or excessively deep cell hierarchy.')
         c=by[cid]
         if 'wires' in c:
@@ -228,12 +234,11 @@ def _flatten(p,cell_id,electrical):
                 electrical[cid]=c
             c=electrical[cid]
         context=parameters({**c.get('parameters',{}),**(overrides or {})},global_params)
-        def net(n): return n if n=='0' or n in p.get('global_nets',[]) else mapping.get(n,path+n)
-        for d in c['devices']:
+        def net(n): return n if n=='0' or n in globals_ else mapping.get(n,path+n)
+        for d in vector_devices(c,p):
             if d['kind']=='X': walk(d['cell'],path+d['name']+'/',{pin:net(n) for pin,n in d['nets'].items()},seen+[cid],{k:value(v,context) for k,v in d.get('parameters',{}).items()})
             else:
                 dd=resolved_device(d,context); dd['name']=path+d['name']; dd['nets']={pin:net(n) for pin,n in d['nets'].items()}; out.append(dd)
-        from .layout_limits import MAX_FLAT_DEVICES
         if len(out)>MAX_FLAT_DEVICES: raise ValueError('Flattened circuit exceeds the 50,000-device capacity. Work on a smaller hierarchy.')
     walk(cell_id or p['top'],'',{},[])
     return out

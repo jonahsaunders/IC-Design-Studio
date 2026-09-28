@@ -22,7 +22,7 @@ class HierarchyMixin:
 
     def make_actions(self):
         super().make_actions();menus={a.text().replace('&',''):a.menu() for a in self.menuBar().actions() if a.menu()}
-        for menu,items in {'File':[('New PDK ring oscillator…',self.new_ring),('Export saved SPICE testbench…',self.export_testbench)],'View':[('Saved testbenches',self.open_testbenches)],'Analysis':[('Save / edit testbench…',self.edit_testbench),('Run saved testbench',self.run_testbench),('Verify saved testbench layout',self.run_silicon)],'Design':[('Place linked physical instance…',self.place_linked_dialog),('Assign cell layout port…',self.cell_port_dialog),('Enter selected physical cell',self.enter_selected_cell),('Return to parent cell',self.leave_layout_cell),('Transform layout selection…',self.transform_layout_dialog),('Edit path vertices…',self.path_vertices_dialog),('Route linked terminals…',self.route_terminals_dialog),('Layout drawing settings…',self.layout_settings_dialog)]}.items():
+        for menu,items in {'File':[('New PDK ring oscillator…',self.new_ring),('Export saved SPICE testbench…',self.export_testbench)],'View':[('Saved testbenches',self.open_testbenches)],'Analysis':[('Save / edit testbench…',self.edit_testbench),('Run saved testbench',self.run_testbench),('Verify saved testbench layout',self.run_silicon)],'Design':[('Place linked physical instance…',self.place_linked_dialog),('Resolve and regenerate physical variants…',self.materialize_physical_dialog),('Expand linked instance array…',self.materialize_array_dialog),('Assign cell layout port…',self.cell_port_dialog),('Enter selected physical cell',self.enter_selected_cell),('Return to parent cell',self.leave_layout_cell),('Transform layout selection…',self.transform_layout_dialog),('Edit path vertices…',self.path_vertices_dialog),('Route linked terminals…',self.route_terminals_dialog),('Layout drawing settings…',self.layout_settings_dialog)]}.items():
             for title,fn in items:self.action(menus[menu],title,fn)
 
     def refresh(self,fit=False):
@@ -177,12 +177,26 @@ class HierarchyMixin:
             if not parents:raise ValueError('The active cell has no physical parent.')
             cid=parents[0]
         self.cid=cid;self.selection=[];self.mode_combo.setCurrentIndex(1);self.refresh(True)
+    def materialize_physical_dialog(self):
+        from .physical_hierarchy_ui import materialize_dialog
+        return materialize_dialog(self)
+    def materialize_array_dialog(self):
+        from .physical_hierarchy_ui import array_dialog
+        return array_dialog(self)
     def place_linked_dialog(self):
+        if not self.idle_edit():return
         ds=[d for d in self.cell['devices'] if d['kind']=='X'];cid=self.cid
         if not ds:raise ValueError('Place an electrical cell instance in the schematic first.')
         selected=next((d for d in ds if d['id'] in self.selection),ds[0]);choices=[selected['name']]+[d['name'] for d in ds if d['id']!=selected['id']]
-        def apply(v):self.commit(lambda p:place(p,cid,next(d['id'] for d in ds if d['name']==v['instance']),round(scalar(v['x'])*1000),round(scalar(v['y'])*1000),int(v['rotation']),v['mirror']=='Yes'),'Place linked cell');self.mode_combo.setCurrentIndex(1);self.refresh(True)
-        self.workflow_form('Place linked physical cell',[('instance','Schematic instance',choices),('x','X (µm)','0'),('y','Y (µm)','0'),('rotation','Rotation',['0','90','180','270']),('mirror','Mirror',['No','Yes'])],apply,'Child port coordinates follow its physical view. Existing routes remain fixed when a cell is moved or regenerated.')
+        def apply(v):
+            from .physical_hierarchy_ui import check_layers,apply_candidate
+            def build():
+                p=clone(self.project)
+                place(p,cid,next(d['id'] for d in ds if d['name']==v['instance']),round(scalar(v['x'])*1000),round(scalar(v['y'])*1000),int(v['rotation']),v['mirror']=='Yes')
+                check_layers(self,p)
+                return p,'Place '+v['instance']+' with its effective parameter values. Supported physical variants are resolved and regenerated before placement. Review the new master, port coordinates and parent connections; then run process DRC/LVS. Apply is one undoable transaction.'
+            self.review_dialog('Place linked cell',build,apply_candidate=apply_candidate(self))
+        return self.workflow_form('Place linked physical cell',[('instance','Schematic instance',choices),('x','X (µm)','0'),('y','Y (µm)','0'),('rotation','Rotation',['0','90','180','270']),('mirror','Mirror',['No','Yes'])],apply,'Child port coordinates follow its physical view. Existing routes remain fixed when a cell is moved or regenerated.')
     def link_placement_dialog(self):
         i=next(i for i in self.cell['layout_instances'] if i['id'] in self.selection);cid=self.cid;ds=[d for d in self.cell['devices'] if d['kind']=='X' and d['cell']==i['cell']]
         if not ds:raise ValueError('No schematic instance references this physical cell.')

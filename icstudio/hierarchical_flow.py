@@ -7,8 +7,24 @@ from .physical_cells import reachable,audit,ports
 from .silicon_flow import STAGES,magic_script
 from .engines import execute,netgen_lvs,tcl_word,require_lvs_match
 from .sky130_flow import subcircuit
+from .native_vectors import ports as electrical_ports
 
 VERIFICATION_STAGES = [*STAGES, 'integrity']
+
+
+def simulation_deck(directory, mode):
+    """Select the observable RC deck only with matching retained provenance."""
+    directory=Path(directory);source=directory/'extracted.spice';electrical=directory/'electrical.spice'
+    if mode!='rc' or not electrical.is_file():return source,None
+    record=directory/'electrical.spice.islands.json'
+    if not record.is_file():raise ValueError('Electrical RC deck is missing its retained island-pruning evidence.')
+    evidence=json.loads(record.read_text())
+    if (evidence.get('source_sha256')!=file_digest(source) or
+            evidence.get('electrical_sha256')!=file_digest(electrical)):
+        raise ValueError('Electrical RC deck or its source changed after island pruning.')
+    return electrical,{'evidence':record.name,'evidence_sha256':file_digest(record),
+                       'source_sha256':evidence['source_sha256'],'electrical_sha256':evidence['electrical_sha256'],
+                       'removed_resistors':evidence.get('removed_resistors',[]),'criterion':evidence.get('criterion','')}
 
 
 def verify_integrity(directory, files, assets, tools):
@@ -95,8 +111,8 @@ def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=Non
         for key in reachable(p,cid,True):
             if key==cid:continue
             child=by[key];setup+='load '+tcl_word(child['name'])+'\nselect top cell\nbox values 0 0 0 0\n'
-            for i,port in enumerate(child['ports'],1):setup+='if {![port '+tcl_word(port)+' exists]} {error '+tcl_word('Missing child port '+child['name']+'.'+port)+'}\nport '+tcl_word(port)+' index '+str(i)+'\n'
-        def magic(name,commands):return magic_script(resolved['magic'],assets['technology'],out/'layout.gds',c['name'],c['ports'],out/name,commands,setup)
+            for i,port in enumerate(electrical_ports(child['ports']),1):setup+='if {![port '+tcl_word(port)+' exists]} {error '+tcl_word('Missing child port '+child['name']+'.'+port)+'}\nport '+tcl_word(port)+' index '+str(i)+'\n'
+        def magic(name,commands):return magic_script(resolved['magic'],assets['technology'],out/'layout.gds',c['name'],electrical_ports(c['ports']),out/name,commands,setup)
         def drc():
             commands='snap internal\nselect top cell\nbox values {*}[select bbox]\nbox grow c 10um\ndrc style '+tcl_word(report['magic_drc_style'])+'\ndrc ignore none\ndrc check\ndrc catchup\nputs "STUDIO_DRC_COUNT [drc list count total]"\nputs "STUDIO_DRC_STYLE [drc list style]"\n'
             commands+='set f [open findings.tsv w]\nforeach {reason boxes} [drc listall why] {foreach coords $boxes {puts $f "[string map {\\t { } \\n { }} $reason]\\t[join $coords {,}]"}}\nclose $f\nputs "STUDIO_MAGIC_SCALE [cif scale out]"\n'
@@ -137,7 +153,13 @@ def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=Non
             atomic_write(out/name/'profile.json',json.dumps(profile,indent=2))
             f=out/name/'extracted.spice';text=f.read_text();interface,_,_=subcircuit(text,c['name'])
             from .external_tools import check_extracted_interface
-            check_extracted_interface(f,c['name'],c['ports'],p['pdk'])
+            check_extracted_interface(f,c['name'],electrical_ports(c['ports']),p['pdk'])
+            simulated,pruning=simulation_deck(out/name,selected)
+            if pruning is not None:
+                check_extracted_interface(simulated,c['name'],electrical_ports(c['ports']),p['pdk'])
+                profile['electrical_simulation']=pruning
+                atomic_write(out/name/'profile.json',json.dumps(profile,indent=2))
+                generated.update({name+'/'+part:file_digest(out/name/part) for part in ('electrical.spice','electrical.spice.islands.json')})
             caps=len(re.findall(r'^C\S+\s',text,re.I|re.M))
             resistors=len(re.findall(r'^R\S+\s',text,re.I|re.M))
             if cap and not caps:raise ValueError('No parasitic capacitor declarations were extracted.')
@@ -146,6 +168,7 @@ def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=Non
                 if resistors<=baseline:raise ValueError('Process RC extraction added no distributed resistors. Check the Magic technology resistance model or explicitly choose capacitance extraction.')
             generated.update({name+'/'+part:file_digest(out/name/part) for part in ('extracted.spice','profile.json')})
             return {'deck':name+'/extracted.spice','sha256':file_digest(f),'capacitors':caps,'resistors':resistors,
+                    'simulation_deck':name+'/'+simulated.name,'simulation_sha256':file_digest(simulated),
                     'mode':selected,'profile':profile,'profile_file':name+'/profile.json',
                     'profile_sha256':generated[name+'/profile.json'],'subcircuits':re.findall(r'^\.subckt (\S+)',text,re.M|re.I)}
         stage('lvs_extraction',lambda:extract('lvs-extraction'))
@@ -153,8 +176,9 @@ def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=Non
             log=netgen_lvs(resolved['netgen'],out/'schematic.spice',c['name'],out/'lvs-extraction/extracted.spice',c['name'],assets['setup'],out/'lvs')
             require_lvs_match(log)
             return {'unique_match':True,'log':'lvs/lvs.log'}
-        stage('lvs',lvs);stage('capacitance_extraction',lambda:extract('parasitics',True))
-        interface,_,_=subcircuit((out/'parasitics/extracted.spice').read_text(),c['name']);stage('post_layout_simulation',lambda:simulation('post-layout',out/'parasitics/extracted.spice',interface))
+        stage('lvs',lvs);parasitics=stage('capacitance_extraction',lambda:extract('parasitics',True))
+        simulated=out/parasitics['simulation_deck']
+        interface,_,_=subcircuit(simulated.read_text(),c['name']);stage('post_layout_simulation',lambda:simulation('post-layout',simulated,interface))
         def integrity():
             from .pdks import model_lines
             model_lines(p['pdk'],t['analysis'].get('corner','nominal'))

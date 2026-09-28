@@ -529,6 +529,10 @@ Bundled analog simulation subsets contain models and symbols; analog physical ve
 
 ## Project status
 
+The current source adds [native buses and arrays, regenerated physical parameter
+variants, bounded SKY130 parallel devices and process-RC integrity checks](docs/ANALOG_IMPLEMENTATION_EXTENSIONS.md).
+Existing archived results remain tied to their recorded source and process assets.
+
 The experimental branch includes the [analog design workspace](docs/ANALOG_WORKSPACE.md) and [analog optimizer](docs/ANALOG_OPTIMIZER.md): guided setup, bounded circuit search, gm/Id characterization, advanced analyses, and verification automation. Start with the [analog feature tour](#design-and-optimize-analog-circuits); the guides document simulator/model limits and validation scope.
 
 It also includes the [main-window digital workspace](docs/DIGITAL_WORKSPACE.md) and [integrated RTL-to-GDS flow](docs/DIGITAL_FLOW.md), including resumable targets, structured constraints, indexed waveforms, and linked source/timing/physical inspection. See the [digital feature tour](#design-digital-blocks-from-rtl-to-gds) for an entry point.

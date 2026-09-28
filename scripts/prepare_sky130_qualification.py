@@ -44,7 +44,7 @@ def manifest_for(source):
     return manifest, content, additions
 
 
-def prepare(source, output):
+def prepare(source, output, bipolar=False):
     source, output = Path(source).resolve(), Path(output).resolve()
     if output.exists():
         raise ValueError('Use a new adapter output directory.')
@@ -52,6 +52,21 @@ def prepare(source, output):
     lock = json.loads(LOCK.read_text())
     if hashlib.sha256(content).hexdigest() != lock['manifest_sha256']:
         raise ValueError('The generated adapter differs from the committed qualification lock.')
+    if bipolar:
+        from icstudio.sky130_bipolar_rules import corrected_technology,BASE_TECH_SHA256,TECH_SHA256,SOURCE_COMMIT,SOURCE_URL
+        rel='libs.tech/magic/sky130A.tech'
+        additions[rel]=corrected_technology((source/rel).read_bytes())
+        if hashlib.sha256(additions[rel]).hexdigest()!=TECH_SHA256:raise ValueError('PNP correction output differs from its locked recipe.')
+        provenance=dict(version=1,base_adapter_revision=manifest['revision'],base_technology_sha256=BASE_TECH_SHA256,
+            technology_sha256=TECH_SHA256,upstream_commit=SOURCE_COMMIT,upstream_url=SOURCE_URL,
+            change='PNP device selection uses upstream emitter-area rules; DRC and other extraction rules unchanged.',
+            scope='Fixed PNP W3.40/L3.40 coupons only; every edited design needs DRC/LVS.')
+        additions['PNP-EXTRACTION-UPDATE.json']=(json.dumps(provenance,sort_keys=True,indent=2)+'\n').encode()
+        for name,data in additions.items():manifest['files'][name]=hashlib.sha256(data).hexdigest()
+        manifest['technology']['native_fixed_devices']={'sky130_fd_pr__pnp_05v5_W3p40L3p40':provenance}
+        manifest['technology']['revision']=''
+        manifest['revision']=manifest['technology']['revision']=digest({'files':manifest['files'],'technology':manifest['technology']})[:16]
+        content=(json.dumps(manifest,sort_keys=True,indent=2)+'\n').encode()
     output.mkdir(parents=True)
     for name, expected in manifest['files'].items():
         target = output / name
@@ -74,8 +89,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--input', type=Path, required=True, help='Fetched sky130A directory')
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--bipolar',action='store_true',help='Create a separately versioned experimental adapter with pinned upstream PNP emitter-area extraction rules')
     args = parser.parse_args()
-    print(json.dumps(prepare(args.input, args.output), indent=2))
+    print(json.dumps(prepare(args.input, args.output,args.bipolar), indent=2))
 
 
 if __name__ == '__main__':

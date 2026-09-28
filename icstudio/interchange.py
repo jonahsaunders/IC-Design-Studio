@@ -34,13 +34,14 @@ def spice(p,cid=None,settings=None,hierarchical=True):
     from .pdks import model_lines
     if p['pdk'].get('simulation',{}).get('devices') or p['pdk'].get('simulation',{}).get('catalog'):lines[2]='* Explicit locked PDK model bindings. Qualification depends on the validated reference flow.'
     lines+=model_lines(p['pdk'],(settings or {}).get('corner','nominal'))
-    if p.get('global_nets'):lines.append('.global '+' '.join(p['global_nets']))
+    from .native_vectors import devices as vector_devices, ports as vector_ports, global_nets
+    if p.get('global_nets'):lines.append('.global '+' '.join(global_nets(p)))
     if any(c.get('parameters') or any(d.get('parameters') for d in c['devices']) for c in p['cells']) or p.get('parameters'):hierarchical=False
     from .catalog import binding_for,parameter_values
     bindings=p['pdk'].get('simulation',{}).get('devices',{})
     def emit(ds):
-        for d in ds:
-            k=d['kind'];name=spice_name(d);nets=' '.join(d['nets'][pin] for pin in (by[d['cell']]['ports'] if k=='X' else list(d['nets']) if k=='PDK' else PINS[k]));suffix=''
+        for d in vector_devices({'devices':ds},p):
+            k=d['kind'];name=spice_name(d);nets=' '.join(d['nets'][pin] for pin in (vector_ports(by[d['cell']]['ports']) if k=='X' else list(d['nets']) if k=='PDK' else PINS[k]));suffix=''
             binding=binding_for(p['pdk'],d)
             if binding and d.get('model_ref'):
                 from .catalog_migration import instance_name
@@ -64,7 +65,7 @@ def spice(p,cid=None,settings=None,hierarchical=True):
         reached=set()
         def deps(cell):
             for d in cell['devices']:
-                if d['kind']=='X' and d['cell'] not in reached: reached.add(d['cell']);deps(by[d['cell']]);lines.append('.subckt '+by[d['cell']]['name']+' '+' '.join(by[d['cell']]['ports']));emit(by[d['cell']]['devices']);lines.append('.ends '+by[d['cell']]['name'])
+                if d['kind']=='X' and d['cell'] not in reached: reached.add(d['cell']);deps(by[d['cell']]);lines.append('.subckt '+by[d['cell']]['name']+' '+' '.join(vector_ports(by[d['cell']]['ports'])));emit(by[d['cell']]['devices']);lines.append('.ends '+by[d['cell']]['name'])
         deps(by[cid]);emit(by[cid]['devices'])
     else: emit(flatten(p,cid))
     lines+=list(dict.fromkeys(models))
@@ -161,6 +162,8 @@ def export_xschem(p,directory):
     if p.get('xschem_exchange'):
         from .xschem_project import export_project
         return export_project(p,directory)
+    from .xschem_export_contract import require_supported
+    require_supported(p)
     dest=Path(directory);dest.mkdir(parents=True,exist_ok=True);symbols=dest/'symbols';symbols.mkdir(exist_ok=True);by={c['id']:c for c in p['cells']}
     from .catalog import binding_for,parameter_values
     from .symbol_io import symbol_text
@@ -241,6 +244,8 @@ def export_technology(p,dest):
     export_contract(p['pdk'],dest)
 
 def export_handoff(p,dest):
+    from .xschem_export_contract import require_supported
+    require_supported(p,source_capture=p.get('xschem_exchange',{}).get('mode')=='compatible' and p.get('spice',{}).get('version')!=1)
     dest=Path(dest)
     if dest.exists() and any(dest.iterdir()):raise ValueError('Choose a new or empty directory so an existing handoff is not overwritten.')
     dest.mkdir(parents=True,exist_ok=True)

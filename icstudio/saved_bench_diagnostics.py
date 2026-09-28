@@ -12,7 +12,8 @@ def settings(project, testbench):
         raise ValueError('Saved diagnostic configuration must be an object.')
     if config and config.get('kind') == 'startup' and config.get('supply_from_source', True):
         fixture = next(c for c in project['cells'] if c['id'] == testbench['bench_cell'])
-        source = next((d for d in fixture['devices'] if d['name'] == config.get('source') and d['kind'] == 'V'), None)
+        from .native_vectors import devices
+        source = next((d for d in devices(fixture,project) if d['name'] == config.get('source') and d['kind'] == 'V'), None)
         if not source or source['source']['type'] != 'dc':
             raise ValueError('Saved startup diagnostics require a DC supply source to ramp.')
         config['supply'] = scalar(source['value'])

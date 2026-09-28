@@ -6,6 +6,7 @@ resolve/copy every device and model in the design. Simulation still uses the
 normal validating netlister.
 """
 from .layout_limits import MAX_FLAT_DEVICES
+from .native_vectors import indices
 
 
 def source_names(project, cell_id=None):
@@ -20,15 +21,16 @@ def source_names(project, cell_id=None):
         if cid not in cells:
             raise ValueError('Instance references a missing cell.')
         for device in cells[cid]['devices']:
-            name = prefix + device['name']
-            if device['kind'] == 'X':
-                walk(device['cell'], name + '/', ancestors + (cid,))
-            else:
+            for index in indices(device):
+                name = prefix + device['name'] + ('' if index is None else '__'+str(index))
                 count += 1
                 if count > MAX_FLAT_DEVICES:
-                    raise ValueError('Flattened circuit exceeds the 50,000-device capacity. Work on a smaller hierarchy.')
-                if device['kind'] in ('V', 'I'):
-                    names.append(name)
+                    raise ValueError('Flattened circuit exceeds the 50,000-occurrence capacity. Work on a smaller hierarchy.')
+                if device['kind'] == 'X':
+                    walk(device['cell'], name + '/', ancestors + (cid,))
+                else:
+                    if device['kind'] in ('V', 'I'):
+                        names.append(name)
 
     walk(cell_id or project['top'], '', ())
     return names

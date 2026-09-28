@@ -89,15 +89,60 @@ the generated geometry through the normal undoable edit flow.
 
 | Recipe | Supported dimensions and electrical meaning |
 |---|---|
-| MiM `cap_mim_m3_1` | W/L 2–30 µm, aspect ratio at most 5:1 and multiplicity one. Place explicit parallel capacitors when more area is needed. The top and bottom plates remain separate electrical terminals. |
-| `res_generic_po` | W 0.5–10 µm, L 1.65–100 µm and multiplicity one. The model is emitted as the catalog's SPICE R primitive, with its W/L and terminal order. |
+| MiM `cap_mim_m3_1` | Unit W/L 2–30 µm, aspect ratio at most 5:1, integer multiplicity 1–16. The catalog's `mf` creates that many separate capacitors with connected top/bottom rails; emitted `mf` and `m` are the same count, not multiplied together. The top and bottom electrodes remain separate electrical terminals. |
+| `res_generic_po` | Unit W 0.5–10 µm, L 1.65–100 µm, integer multiplicity 1–16. Parallel contacted resistors retain the catalog's SPICE R primitive, W/L and terminal order. |
 | Contacted guard | P+ substrate or N+ well ring, 0.8–5 µm thickness, at least a 2 µm opening and at most 500 µm overall. A qualified tie uses an existing metal1 conductor carrying the chosen reference net. |
 | MOS dummy | An explicit schematic NMOS or PMOS with D/G/S/B tied to one named reference net. Generated straps survive supported dimension updates. |
+| Fixed PNP `pnp_05v5_W3p40L3p40` | Uses the checksum-locked upstream 3.40 µm emitter GDS, original collector/base/emitter conductor labels, and explicit metal1 access. Multiplicity 1–16 produces connected parallel units. Requires the separately versioned experimental bipolar adapter described below. |
 
 The supported standard 1.8 V MOS recipe accepts total W 0.42–30 µm, L 0.15–10 µm,
-1–8 fingers and multiplicity one. Each finger must retain at least 0.42 µm width
+1–8 fingers per unit and integer multiplicity 1–16. Each finger must retain at least 0.42 µm width
 on the 5 nm grid. The 30 µm bound accommodates the reference's output device;
 it does not qualify arbitrary dimensions or placements without their own checks.
+
+Multiplicity generates a vertical column of separately contacted units and
+physical rails, preserving the first unit's public pin locations and the
+schematic device identity. Changing the count through a layout ECO preserves
+surviving shape and pin identities. **Internal source/body connection → Source**
+in the MOS generation or placement form adds a persistent metal tie to every
+unit; source and body must already share a schematic net. Choosing **None**
+retains separate contacts and requires external routing where those contacts
+belong to the same net. The option is included in the stale-layout check.
+
+The expanded `scripts/qualify_sky130_devices.py` includes parallel MOS and
+passive coupons, multifinger/source-body combinations, and independent passive
+admittance probes. The historical qualification below predates these added
+coupons; polygon connectivity/unit tests alone are not physical signoff.
+
+For the fixed PNP, prepare and register a **separate** experimental adapter:
+
+```sh
+python scripts/prepare_sky130_qualification.py --input build/qualification-pdk/sky130A --output build/bipolar-adapter/sky130A --bipolar
+python scripts/qualify_sky130_bipolar.py --pdk build/bipolar-adapter/sky130A --out build/bipolar-evidence --magic /path/to/magic --netgen /path/to/netgen
+```
+
+The old locked deck depends on internal Magic identification markers that are
+absent from GDS. The opt-in adapter copies six PNP extraction declarations from
+the pinned upstream open_pdks revision: model selection uses actual emitter
+area. It changes no DRC or other extraction rules, records provenance, and
+computes a new package revision/checksums. Generation rejects the old deck.
+The permanent qualification covers m=1, 2 and 16 with strict DRC/LVS and rejects
+an altered emitter size. It does not add NPN support or qualify bipolar RC
+extraction. The upstream GDS and its Apache-2.0 license are retained unchanged
+under `icstudio/assets/physical/sky130_fixed`.
+
+The same process device operation is available without the desktop:
+
+```sh
+python -m icstudio --cli pdk-device-layout design.icproj --cell amplifier --device M1 --body-tie source --x 5000 --y 10000 --output placed.icproj
+python -m icstudio --cli pdk-device-layout placed.icproj --cell amplifier --device M1 --regenerate --output updated.icproj
+```
+
+Coordinates are integer nanometres. Regeneration keeps the saved location and
+orientation, and an omitted body-tie option retains its saved choice. Invalid
+device selection, unsupported dimensions, or conflicting body nets leave the
+output untouched. Set nf/m through the schematic catalog parameters before
+generation; fixed PNPs use their catalog `m` parameter.
 
 The source APIs in `icstudio.sky130_devices` are
 `install(project, cell_id, device_id, x=0, y=0)`,
