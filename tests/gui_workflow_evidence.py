@@ -18,9 +18,13 @@ def main():
     from icstudio.getting_started import examples,example_copy
     from tests.test_silicon import technology
     app=QApplication([]);app.setStyle('Fusion')
-    QSettings.setDefaultFormat(QSettings.IniFormat);QSettings.setPath(QSettings.IniFormat,QSettings.UserScope,str(out/'settings'))
+    # QSettings(org, app) always uses NativeFormat. setDefaultFormat/setPath
+    # alone therefore left this test reading the preceding CI test's workspace.
+    settings=QSettings(str(out/'settings.ini'),QSettings.IniFormat)
+    settings.setFallbacksEnabled(False);settings.clear()
     QStandardPaths.writableLocation=staticmethod(lambda kind:str(out/'profile'/str(kind.value)))
-    w=Studio(recover=False);w.maybe_save=lambda:True;errors=[];w.error=lambda msg:errors.append(str(msg));w.live_check.setChecked(False)
+    with patch('icstudio.gui.QSettings',return_value=settings):w=Studio(recover=False)
+    w.maybe_save=lambda:True;errors=[];w.error=lambda msg:errors.append(str(msg));w.live_check.setChecked(False)
     w.resize(1400,960);w.show()
     def wait(predicate):
         deadline=time.monotonic()+20
@@ -28,13 +32,24 @@ def main():
             app.processEvents()
             if predicate():return
             QTest.qWait(20)
-        raise AssertionError(errors)
+        guide=w._design_workflow
+        state=dict(errors=errors,workflow_visible=guide.isVisible(),
+                   future_done=bool(guide.future and guide.future.done()),
+                   analysis_key=guide.analysis_key,summary=guide.summary.text())
+        (out/'timeout.json').write_text(json.dumps(state,indent=2))
+        w.grab().save(str(out/'timeout.png'))
+        raise AssertionError(state)
     try:
+        assert QTest.qWaitForWindowExposed(w)
+        # Let the scheduled last-session restoration finish before opening a
+        # panel, just as a user does after the application has appeared.
+        QTest.qWait(200)
         p,cid,bench_id=reference(technology());bench=p['testbenches'][0]
         bench['measurements']=[];bench['specifications']=[dict(name='Output',expression='final(V("out"))',min='0',max='1',unit='V')]
         plan=dict(id=uid(),name='Operating corners',entries=sources(p)[:1],corners=['nominal'],temperatures=[0,27,85],voltages=[])
         p['test_plans']=[plan];w.set_project(p);w.cid=cid;guide=w.design_workflow()
         wait(lambda:guide.analysis is not None)
+        assert not guide.analysis.get('error'),guide.analysis
         assert guide.plan.currentData()==plan['id']
         assert guide.evidence_states['electrical']['status']=='Not run'
         jobs=prepare(w.project,plan,lambda settings,engine,project,cid:dict(settings=settings,engine=engine,project=project,cell=cid,executable='ui-fixture'))

@@ -508,6 +508,8 @@ jobs:
             build/design-automation-evidence/*.json
             build/design-automation-evidence/*.png
             build/design-automation-benchmark.json
+            build/workflow-evidence/*.json
+            build/workflow-evidence/*.png
             build/analog-experiment-evidence
             build/optimizer-refinement-evidence
             build/analog-advanced-evidence
