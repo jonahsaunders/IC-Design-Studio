@@ -167,6 +167,22 @@ class ProjectMixin:
             for key,meta in binding.get('parameters',{}).items():
                 if d['kind'] in ('NMOS','PMOS') and key in ('w','l'):continue
                 edit=QLineEdit(str(d.get('model_params',{}).get(key,meta['default'])));edit.setAccessibleName('PDK parameter '+key);edit.textEdited.connect(self.inspector_changed);section.form.addRow(key,edit);self.form_fields['modelparam:'+key]=edit
+                edit.setPlaceholderText(str(meta['default']));edit.setToolTip('Blank restores the PDK default: '+str(meta['default']))
+            effective=QLabel();effective.setWordWrap(True);effective.setAccessibleName('Resolved PDK parameter values');effective.setTextInteractionFlags(Qt.TextSelectableByMouse);section.form.addRow('Resolved values',effective)
+            fields={k:w for k,w in self.form_fields.items() if k.startswith('modelparam:') or k in ('param:w','param:l')}
+            def preview_parameters():
+                from .catalog import parameter_details
+                candidate=clone(d)
+                try:
+                    for key,edit in fields.items():
+                        raw=edit.text().strip()
+                        if key.startswith('param:'):candidate['params'][key[6:]]=raw
+                        elif raw:candidate.setdefault('model_params',{})[key[11:]]=raw
+                        else:candidate.setdefault('model_params',{}).pop(key[11:],None)
+                    effective.setText('\n'.join(row['name']+' = '+format(row['value'],'.9g')+' '+row['unit'] for row in parameter_details(binding,candidate)))
+                except (ValueError,ArithmeticError,SyntaxError) as exc:effective.setText('Cannot apply: '+str(exc))
+            for edit in fields.values():edit.textChanged.connect(preview_parameters)
+            preview_parameters()
         self.form.insertWidget(self.form.count()-1,self.button('Edit symbol…',fn=self.edit_selected_symbol))
     def new_project(self):
         return self.new_pdk_template(None)
@@ -374,8 +390,14 @@ class ProjectMixin:
         if not tech:return
         exe=self.settings.value('engine/magic','') or shutil.which('magic')
         if not exe:raise ValueError('Configure the Magic executable in Engine diagnostics first.')
+        modes=['Keep editable cell hierarchy','Flatten for verification (one cell)']
+        mode,accepted=QInputDialog.getItem(self,'Magic layout conversion',
+            'Choose how to convert the layout. Flattening can resolve interactions between overlapping cells; the original files are kept.',modes,0,False)
+        if not accepted:return
         output=self.data_dir/'imports'/uid()
-        self.start_cli_job(['magic-import','--source',source,'--technology',tech,'--executable',exe,'--output',str(output)],'Magic import')
+        arguments=['magic-import','--source',source,'--technology',tech,'--executable',exe,'--output',str(output)]
+        if mode==modes[1]:arguments.append('--flatten')
+        self.start_cli_job(arguments,'Magic import')
         process=self.process
         def opened(code,status):
             if code==0 and not self.cancelled and (output/'imported.icproj').exists():

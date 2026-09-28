@@ -151,13 +151,15 @@ def main(argv=None):
                         help='Measure general callbacks or the ordinary schematic move command. Older builds use the equivalent callback.')
     parser.add_argument('--electrical-ledger', action='store_true',
                         help='Also measure the large workload with persistent electrical identities.')
+    parser.add_argument('--live-checks',action='store_true',help='Measure editing with background geometry checks enabled and verify their latest revision.')
     parser.add_argument('--display-class', choices=('auto', 'offscreen', 'virtual', 'native'), default='auto')
     parser.add_argument('--max-stage-ms', type=float, help='Optional maximum for any measured foreground stage.')
     parser.add_argument('--max-edit-ms', type=float, help='Maximum for every edit/undo/redo sample, including immediate refresh/repaint; excludes loading and saving.')
+    parser.add_argument('--max-edit-p95-ms',type=float,help='Nearest-rank 95th percentile budget across all recorded edit samples.')
     parser.add_argument('--max-rss-mib', type=float, help='Optional sampled process RSS maximum.')
     args = parser.parse_args(argv)
     if not 1 <= args.iterations <= 20: parser.error('Use 1–20 iterations.')
-    for value in (args.max_stage_ms, args.max_edit_ms, args.max_rss_mib):
+    for value in (args.max_stage_ms, args.max_edit_ms, args.max_edit_p95_ms, args.max_rss_mib):
         if value is not None and (not math.isfinite(value) or value <= 0): parser.error('Budgets must be finite and positive.')
     out = args.out.resolve(); out.mkdir(parents=True, exist_ok=True)
     os.environ['XDG_CONFIG_HOME'] = str(out / 'profile/config')
@@ -214,7 +216,7 @@ def main(argv=None):
     try:
         tick = time.perf_counter(); studio = Studio(recover=False)
         studio.maybe_save = lambda: True; studio.error = lambda text: errors.append(str(text))
-        studio.resize(1440, 960); studio.live_check.setChecked(False); studio.show()
+        studio.resize(1440, 960); studio.live_check.setChecked(args.live_checks); studio.show()
         # Startup workspace restoration is a real deferred operation. Drain it
         # before per-operation timing instead of folding a fixed sleep into latency.
         QTest.qWait(200); drain()
@@ -224,7 +226,8 @@ def main(argv=None):
         report.update(app_version=__version__, source=started, harness_sha256=file_digest(__file__),
             command_path=args.command_path, electrical_ledger=args.electrical_ledger,
             environment={'python': platform.python_version(), 'system': platform.platform(),
-                'machine': platform.machine(), 'qt': qVersion(), 'pyside': PySide6.__version__,
+                'machine': platform.machine(), 'processor': platform.processor(), 'logical_cpus': os.cpu_count(),
+                'font_directory': os.environ.get('QT_QPA_FONTDIR'), 'qt': qVersion(), 'pyside': PySide6.__version__,
                 'qt_platform': backend, 'display_class': display, 'display_class_source': 'declared' if args.display_class != 'auto' else 'backend inference',
                 'screen': {'name': screen.name(), 'width': geometry.width(), 'height': geometry.height(),
                     'logical_dpi': screen.logicalDotsPerInch(), 'physical_dpi_reported': screen.physicalDotsPerInch(),
@@ -234,10 +237,11 @@ def main(argv=None):
                     'screenshot_paint_engine': engine.type().name, 'screenshot_format': pixmap.toImage().format().name},
                 'live_layout_checks': studio.live_check.isChecked()},
             timing_scope='Foreground Studio operation, queued immediate Qt work and synchronous QWidget repaint. Recovery completion measured separately. Startup includes a 200 ms deferred-restoration drain.',
-            qualification='Recorded source/workloads/backend only. No external simulation, live DRC, GPU/display presentation latency, assistive technology or consumer-hardware qualification.',
+            qualification='Recorded source/workloads/backend only. Live checks use declared native rules when enabled. No external simulation, foundry DRC, GPU/display presentation latency, assistive technology or consumer-hardware qualification.',
             budgets={'max_stage_ms': args.max_stage_ms, 'max_edit_ms': args.max_edit_ms,
+                     'max_edit_p95_ms':args.max_edit_p95_ms,
                      'edit_stages': list(EDIT_STAGES), 'max_rss_mib': args.max_rss_mib,
-                     'status': 'not_configured' if all(v is None for v in (args.max_stage_ms,args.max_edit_ms,args.max_rss_mib)) else 'pending'})
+                     'status': 'not_configured' if all(v is None for v in (args.max_stage_ms,args.max_edit_ms,args.max_edit_p95_ms,args.max_rss_mib)) else 'pending'})
         for name, project, edit_cid, description in workloads(args.electrical_ledger):
             work = out / name; work.mkdir(exist_ok=True)
             save_project(project, work / 'input.icproj')
@@ -322,6 +326,14 @@ def main(argv=None):
                     measure('unsaved_edit_and_refresh', edit); unsaved = digest(studio.project)
                     assert measure('queued_recovery_completion', studio.finish_recovery)
                     assert not studio._recovery_error and studio._recovery_hash == unsaved
+                    if args.live_checks:
+                        def complete_checks():
+                            studio.start_live_checks();deadline=time.monotonic()+30
+                            while getattr(studio,'_live_revision',None)!=studio.project['revision']:
+                                if time.monotonic()>deadline:raise AssertionError('Latest live checks did not complete')
+                                QTest.qWait(10);drain()
+                            assert not getattr(studio,'_live_findings',None) or all(isinstance(v,dict) for v in studio._live_findings)
+                        measure('live_checks_completion',complete_checks)
                     recovery_file = studio.recovery_dir / (studio.project['id'] + '.icproj')
                     captured = measure('recovery_read', lambda: recovery.read(recovery_file))
                     restored, fallback = captured; assert not fallback and digest(restored) == unsaved
@@ -335,6 +347,7 @@ def main(argv=None):
             row['memory'] = memory.report()
             names = row['samples'][0]['timings_ms']
             row['timings_ms'] = {key: {'median': statistics.median(s['timings_ms'][key] for s in row['samples']),
+                'p95':sorted(s['timings_ms'][key] for s in row['samples'])[math.ceil(.95*len(row['samples']))-1],
                 'max': max(s['timings_ms'][key] for s in row['samples'])} for key in names}
             row['checks'] = ['Full Studio refresh and visible schematic/layout paints completed.',
                 'Selection and real mouse pan changed only view state.',
@@ -346,6 +359,10 @@ def main(argv=None):
             assert sum(s['paint_events']['layout_edit_and_full_refresh']['layout'] for s in row['samples']) > 0
             assert sum(s['paint_events']['edit_and_full_refresh']['schematic'] for s in row['samples']) > 0
         exceeded = []
+        edit_samples=sorted(sample['timings_ms'][key] for row in report['workloads'] for sample in row['samples'] for key in EDIT_STAGES)
+        report['edit_latency']={'count':len(edit_samples),'median_ms':statistics.median(edit_samples),
+                               'p95_ms':edit_samples[math.ceil(.95*len(edit_samples))-1],'max_ms':max(edit_samples)}
+        if args.max_edit_p95_ms is not None and report['edit_latency']['p95_ms']>args.max_edit_p95_ms:exceeded.append('edit/p95')
         if args.max_stage_ms is not None and report['startup_ms'] > args.max_stage_ms:
             exceeded.append('startup')
         for row in report['workloads']:

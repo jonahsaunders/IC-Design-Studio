@@ -60,6 +60,8 @@ def xschem_netlist(source, output, executable='xschem', libraries=(), rcfile=Non
         for before, after in sorted(mappings.items(),key=lambda row:-len(row[0])):
             text = text.replace(before,after)
         atomic_write(path,text)
+    from .xschem_source_compat import adapt
+    compatibility = adapt(mappings.values())
     profile = output/'profile'; profile.mkdir()
     temporary = output/'tmp'; temporary.mkdir()
     netlists = output/'netlists'; netlists.mkdir()
@@ -73,14 +75,23 @@ def xschem_netlist(source, output, executable='xschem', libraries=(), rcfile=Non
     startup += 'set netlist_dir '+tcl_word(netlists)+'\nset USER_CONF_DIR '+tcl_word(profile)+'\n'
     startup += 'set XSCHEM_TMP_DIR '+tcl_word(temporary.as_posix()+'/')+'\n'
     startup += 'set lvs_netlist '+('1' if mode=='lvs' else '0')+'\n'
+    # Some 3.4.8 headless builds call Tk's focus command while evaluating
+    # a valid symbol expression. -x has no Tk/window to focus. Supply only
+    # that GUI no-op when absent; Tcl expressions and errors remain external.
+    startup += 'if {![llength [info commands focus]]} {proc focus {args} {return {}}}\n'
     rc = output/'xschemrc'; atomic_write(rc,startup)
     staged = Path(mappings[str(source.parent)])/source.name
     command = [info['path'],'-x','-q','-n','-s','--rcfile',str(rc),'-o',str(netlists),str(staged)]
+    # Some headless builds send the ERC window to a private log instead of
+    # stderr. Capture it explicitly without changing netlisting or exit status.
+    erc=output/'electrical-rule-check.log'
+    command[1:1]=['--command','set studio_erc [open '+tcl_word(erc)+' w]; puts $studio_erc [xschem get infowindow_text]; close $studio_erc']
     atomic_write(output/'command.json',json.dumps(command,indent=2))
     inputs = {str(p.relative_to(output)):file_digest(p) for p in (output/'sources').rglob('*') if p.is_file()}
     temporary_environment={key:str(temporary) for key in ('TMPDIR','TMP','TEMP')}
     report = {'version':1,'created':now(),'tool':info,'mode':mode,'source':str(source),'environment':temporary_environment,
               'inputs':inputs,'configuration_sha256':file_digest(rc),'status':'running',
+              'source_captures':captured,'compatibility_adaptations':compatibility,
               'scope':'Captured project and declared library roots. Dynamic references outside these roots require explicit additional libraries.'}
     atomic_write(output/'report.json',json.dumps(report,indent=2))
     try:
@@ -98,7 +109,7 @@ def xschem_netlist(source, output, executable='xschem', libraries=(), rcfile=Non
                 raise ValueError('Xschem emitted an unresolved Tcl value in '+deck.name+'. See '+str(output/'engine.log'))
         report.update(status='complete',netlists={p.name:file_digest(p) for p in decks})
     except Exception as exc:
-        if not (output/'engine.log').is_file():atomic_write(output/'engine.log',str(exc))
+        if not (output/'engine.log').is_file():atomic_write(output/'engine.log',str(exc)+('\n'+erc.read_text() if erc.is_file() else ''))
         report.update(status='failed',error=str(exc)); atomic_write(output/'report.json',json.dumps(report,indent=2)); raise
     atomic_write(output/'report.json',json.dumps(report,indent=2)); return report
 

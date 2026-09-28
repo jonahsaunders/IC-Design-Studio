@@ -36,6 +36,13 @@ class HierarchyTests(unittest.TestCase):
         t={'analysis':{'type':'dc','stop':'8n'},'probes':['out'],'measurements':[{'name':'voltage','kind':'voltage','node':'out','at':'-0.5'},{'name':'range','kind':'range','node':'out','min':'-1','max':'1'}]}
         r=measure({'x':[1,0,-1],'traces':{'out':[1,0,-1]}},t);self.assertEqual(r['status'],'passed');self.assertEqual(r['measurements'][0]['value'],-.5);self.assertEqual(r['measurements'][1]['minimum'],-1)
         t['analysis']['type']='ac';t['measurements']=t['measurements'][1:];self.assertEqual(measure({'x':[10,1000],'traces':{'out':[1,.1]}},t)['status'],'passed')
+    def test_sweep_endpoint_roundoff_does_not_hide_missing_samples(self):
+        t={'analysis':{'type':'dc'},'probes':['out'],'measurements':[{'name':'end','kind':'voltage','node':'out','at':'6'}]}
+        for xs,ys in [([3,5.999999999999936],[0,1.8]),([5.999999999999936,3],[1.8,0])]:
+            result=measure({'x':xs,'traces':{'out':ys}},t)
+            self.assertEqual(result['status'],'passed');self.assertEqual(result['measurements'][0]['value'],1.8)
+        result=measure({'x':[3,5.99],'traces':{'out':[0,1.8]}},t)
+        self.assertEqual(result['status'],'failed')
     def test_physical_recipe_resolves_cell_parameter_defaults(self):
         p,cid,t=self.design();c=next(c for c in p['cells'] if c['name']=='inverter');c['parameters']={'wn':'1u','wp':'2u'}
         for d in c['devices']:d['params']['w']='{wn}' if d['kind']=='NMOS' else '{wp}'

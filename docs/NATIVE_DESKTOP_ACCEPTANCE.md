@@ -32,6 +32,23 @@ a frozen build with an exact clean source commit, passing automatic checks and
 all observations marked passed. `Not run`, `Blocked`, source-only execution and
 missing package identity cannot become a passing package acceptance result.
 
+Select **Consumer Windows** or **Consumer Ubuntu** and record the machine,
+OS edition/build, monitors and scale factors. The current form assigns stable
+identities to every required observation. Hosted runners, omitted or duplicate
+observations, unknown commits and source checkouts cannot satisfy this gate.
+After both physical-machine sessions, check the observations against the release
+commit and independently hash the actual packages:
+
+```sh
+python scripts/check_consumer_acceptance.py --commit FULL_SOURCE_COMMIT \
+  --windows windows/desktop-acceptance.json --windows-package ICDesignStudio-Setup.exe \
+  --ubuntu ubuntu/desktop-acceptance.json --ubuntu-package ICDesignStudio-linux.tar.gz
+```
+
+Exit code zero requires both platforms to pass for these exact bytes. This
+check does not create missing human observations or change the separate signing
+and physical-network acceptance requirements.
+
 This workspace cannot supply physical Windows/Ubuntu or mixed-monitor evidence.
 The corresponding [Windows](https://github.com/jonahsaunders/IC-Design-Studio/issues/8)
 and [Ubuntu](https://github.com/jonahsaunders/IC-Design-Studio/issues/9) acceptance

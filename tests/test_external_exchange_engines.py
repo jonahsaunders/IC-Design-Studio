@@ -29,6 +29,24 @@ def evidence_workspace(name):
 
 class ExternalExchangeEngineTests(unittest.TestCase):
     @unittest.skipUnless(XSCHEM,'Set ICSTUDIO_TEST_XSCHEM or install Xschem for destination-tool tests.')
+    def test_legacy_source_current_boolean_survives_real_netlisting(self):
+        with evidence_workspace('legacy-current-source') as root:
+            source=root/'source';source.mkdir();path=source/'top.sch'
+            lines=['v {xschem version=3.4.7 file_version=1.2}']
+            for n,value in enumerate(('true','false'),1):
+                x=n*100
+                lines.extend([f'C {{vsource.sym}} {x} 0 0 0 {{name=V{n} value={n} savecurrent={value}}}',
+                    f'C {{lab_pin.sym}} {x} -30 0 0 {{name=p{n} lab=node{n}}}',
+                    f'C {{gnd.sym}} {x} 30 0 0 {{name=g{n} lab=GND}}'])
+            path.write_text('\n'.join(lines)+'\n');before=file_digest(path)
+            report=xschem_netlist(path,root/'run',XSCHEM)
+            self.assertEqual(file_digest(path),before);self.assertTrue(report['compatibility_adaptations'])
+            text='\n'.join(p.read_text().lower() for p in (root/'run/netlists').glob('*.spice'))
+            self.assertRegex(text,r'\.save\s+i\(v1\)')
+            self.assertNotRegex(text,r'\.save\s+i\(v2\)')
+            self.assertNotIn('tcleval',text)
+
+    @unittest.skipUnless(XSCHEM,'Set ICSTUDIO_TEST_XSCHEM or install Xschem for destination-tool tests.')
     def test_xschem_executes_vector_and_tcl_semantics_and_retains_evidence(self):
         with evidence_workspace('xschem') as root:
             from icstudio.xschem_project import quoted
@@ -65,6 +83,23 @@ class ExternalExchangeEngineTests(unittest.TestCase):
             actual=merged['candidate']['cells'][0]['layout_instances'][0]
             self.assertEqual(actual['id'],ident);self.assertGreater(actual['x'],8000)
             self.assertEqual(actual['name'],'U1');self.assertEqual(merged['candidate']['cells'][0]['ports'],['A'])
+            # Import must not execute an unrelated source-folder startup file,
+            # even when it exits or selects a different process technology.
+            from icstudio.engines import magic_import
+            from icstudio.model import load_project
+            source=root/'workspace/native/top.mag'
+            (source.parent/'.magicrc').write_text('puts UNEXPECTED_STARTUP\nquit -noprompt\n')
+            imported=magic_import(MAGIC,source,technology,root/'isolated-import')
+            self.assertTrue(load_project(imported)['cells'])
+            self.assertNotIn('UNEXPECTED_STARTUP',(root/'isolated-import/conversion.log').read_text())
+            self.assertIn('tech load',(root/'isolated-import/startup.tcl').read_text())
+            source_hashes={p.name:file_digest(p) for p in source.parent.glob('*.mag')}
+            flattened=load_project(magic_import(MAGIC,source,technology,root/'flat-import',flatten=True))
+            self.assertEqual(len(flattened['cells']),1)
+            self.assertEqual(flattened['cells'][0]['name'],'top')
+            self.assertFalse(flattened['cells'][0].get('layout_instances'))
+            self.assertEqual(flattened['layout_source']['magic_import']['hierarchy_mode'],'flattened')
+            self.assertEqual(source_hashes,{p.name:file_digest(p) for p in source.parent.glob('*.mag')})
 
 
 if __name__=='__main__':unittest.main()

@@ -19,6 +19,7 @@ def main():
     os.environ['XDG_CONFIG_HOME'] = str(out / 'profile/config')
     from PySide6.QtWidgets import QApplication
     from PySide6.QtTest import QTest
+    from PySide6.QtCore import QSettings,QStandardPaths
     from icstudio.gui import Studio
     from icstudio.model import digest, file_digest
     from icstudio.getting_started import examples
@@ -29,6 +30,9 @@ def main():
         errors.append(str(v)); sys.__excepthook__(t, v, tb)
     sys.excepthook = exception
     app = QApplication([]); app.setStyle('Fusion')
+    QSettings.setDefaultFormat(QSettings.IniFormat)
+    QSettings.setPath(QSettings.IniFormat,QSettings.UserScope,str(out/'profile/settings'))
+    QStandardPaths.writableLocation=staticmethod(lambda kind:str(out/'profile/data'/str(kind.value)))
     w = Studio(recover=False); w.error = errors.append; w.resize(1500, 960); w.show()
     exe = find_ngspice(os.environ.get('ICSTUDIO_TEST_NGSPICE', ''))
     if not exe: raise RuntimeError('Set ICSTUDIO_TEST_NGSPICE to a real simulator.')

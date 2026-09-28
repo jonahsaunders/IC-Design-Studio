@@ -8,6 +8,7 @@ Start with [Getting started](GETTING_STARTED.md), [real open-project imports](OP
 - [Analog optimization and verification](ANALOG_OPTIMIZER.md)
 - [Integrated analog extraction, layout constraints and verification campaigns](ANALOG_CLOSURE.md)
 - [Analog references, saved diagnostics and hierarchical extraction](ANALOG_REFERENCE_WORKFLOW.md)
+- [Captured implementations, PDK parameter previews and reference comparisons](REFERENCE_IMPLEMENTATIONS.md)
 - [Dev25 executed source qualification record](validation/analog-reference-qualification.json)
 - [Statistical campaign workload and two-host worker acceptance](CAMPAIGN_WORKER_ACCEPTANCE.md)
 - [Digital workspace](DIGITAL_WORKSPACE.md)

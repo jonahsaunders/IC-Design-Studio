@@ -1,6 +1,7 @@
 """Nonblocking setup and repair for the included digital engines."""
 import json
 import os
+import shutil
 from pathlib import Path
 import sys
 
@@ -17,20 +18,25 @@ class DigitalSetupDialog(QDialog):
     ready = Signal()
     changed = Signal()
 
-    def __init__(self, parent=None, custom=None, automatic=False):
+    def __init__(self, parent=None, custom=None, automatic=False, physical=False):
         super().__init__(parent)
-        self.setWindowTitle('Digital tools'); self.resize(690,440)
+        self.physical=physical
+        self.setWindowTitle('Physical tools' if physical else 'Digital tools'); self.resize(690,440)
         self.custom = custom; self.pending = None; self.process = None; self.buffer = ''
         layout=QVBoxLayout(self)
         title=QLabel('Everything you need for digital design'); title.setStyleSheet('font-size:20px;font-weight:600'); layout.addWidget(title)
         note=QLabel('Studio includes tools for simulation, synthesis and chip layout, plus the SKY130 HD platform. '
                     'First setup takes several minutes and several GB of disk space. You can keep editing while it runs.')
         note.setWordWrap(True); layout.addWidget(note)
+        if physical:
+            title.setText('Physical verification tools')
+            note.setText('Set up the included Magic, Netgen and ngspice tools. Windows uses Studio’s private Linux environment. Your project must provide matching, locked PDK files. Setup is shared with the digital tools.')
         self.mode=QComboBox(); self.mode.setAccessibleName('Digital toolchain')
         self.mode.addItem('Included tools (recommended)', 'included'); self.mode.addItem('Custom tools', 'custom')
         from .digital_tools import selection
         settings=getattr(parent,'settings',None)
-        self.mode.setCurrentIndex(1 if settings and selection(settings)['toolchain']=='custom' else 0)
+        fallback='custom' if settings and any(settings.value('engine/'+name,'') or shutil.which(name) for name in ('magic','netgen')) else 'included'
+        self.mode.setCurrentIndex(1 if settings and (settings.value('physical/toolchain',fallback) if physical else selection(settings)['toolchain'])=='custom' else 0)
         self.mode.currentIndexChanged.connect(self.select_mode); layout.addWidget(self.mode)
         self.status=QLabel(); self.status.setWordWrap(True); layout.addWidget(self.status)
         self.next_action=QLabel(); self.next_action.setWordWrap(True); layout.addWidget(self.next_action)
@@ -56,7 +62,7 @@ class DigitalSetupDialog(QDialog):
 
     def select_mode(self):
         settings=getattr(self.parent(),'settings',None)
-        if settings: settings.setValue('digital/toolchain',self.mode.currentData())
+        if settings: settings.setValue('physical/toolchain' if self.physical else 'digital/toolchain',self.mode.currentData())
         self.pending=None; self.next_action.clear(); self.refresh(); self.changed.emit()
 
     def configure_custom(self):
@@ -69,6 +75,13 @@ class DigitalSetupDialog(QDialog):
 
     def refresh(self):
         info=digital_runtime.status(); custom=self.mode.currentData()=='custom'
+        if self.physical:
+            try:data=digital_runtime.manifest()
+            except ValueError:data=None
+            if data and not {'magic','netgen','ngspice'}<=set(data.get('tools',[])):
+                info={'state':'error','reason':'package_missing','message':'This tool package has no physical engines. Install the current complete desktop package.'}
+            elif info['state']=='ready':
+                info={**info,'message':'Ready · Magic, Netgen and ngspice passed positive and negative installation checks.'}
         if not self.process:
             self.status.setText('Using custom tools. Configure your executable paths below; other tools are discovered on PATH.' if custom else info['message'])
         available=info['state']!='unavailable' and info.get('reason')!='package_missing'

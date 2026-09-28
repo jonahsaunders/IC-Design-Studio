@@ -119,7 +119,10 @@ class SimulationWorkspaceMixin:
             executable=self.settings.value('engine/ngspice','') or shutil.which('ngspice')
             if not executable or not Path(executable).is_file():raise ValueError('ngspice is not installed. Configure it in Tools → Engine diagnostics and paths.')
             job['executable']=str(executable)
-        return job
+        if settings['type']=='silicon':
+            job['settings'].setdefault('physical_toolchain',self.settings.value('physical/toolchain','auto'))
+        from .physical_backend import prepare
+        return prepare(job)
 
     def start_job(self,settings,engine='builtin'):
         if self.process and self.process not in self.run_manager.processes:raise ValueError('Wait for the external command to finish first.')

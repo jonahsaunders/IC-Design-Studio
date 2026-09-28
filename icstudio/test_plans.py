@@ -109,7 +109,7 @@ def iter_prepare(project,plan,prepare_job,group=None):
                 if job.get('preparation_error'):break
                 if not math.isclose(get_target(job['project'],spec['cell'],target),value,rel_tol=1e-12,abs_tol=1e-30):
                     raise ValueError('A PVT or plan override masks the statistical target '+target+'. Choose distinct PVT supply and statistical targets.')
-            index+=1;case=job['case'];case.update(index=index,base_design_hash=base,variables=clone(plan.get('variables',{})))
+            index+=1;case=job['case'];case.update(index=index,base_design_hash=base,plan_hash=digest(plan),variables=clone(plan.get('variables',{})))
             case['labels'].update(trial=trial,seed=spec['seed'])
             case['statistics']={k:clone(spec[k]) for k in ('kind','seed','cell','sampling','model','model_evidence','scope') if k in spec}
             case['statistics'].update(trial=trial,changes=clone(changes),configuration_hash=digest(spec))
@@ -131,7 +131,7 @@ def _iter_conditions(project,plan,prepare_job,group=None,invalid_base=None):
         if entry['engine']=='digital':
             job=prepare_job(clone(entry['settings']),'digital',clone(project),entry['cell'])
             job['case']={'group':group,'index':index,'plan_id':plan['id'],'plan_name':plan['name'],
-                'entry_id':entry['id'],'test_name':entry['name'],'kind':'test_plan','base_design_hash':base,
+                'entry_id':entry['id'],'test_name':entry['name'],'kind':'test_plan','base_design_hash':base,'plan_hash':digest(plan),
                 'labels':{'corner':'RTL','temperature':None,'voltage':None}}
             job['case']['fingerprint']=digest({k:v for k,v in job.items() if k!='case'});yield job;continue
         p=clone(project);p.setdefault('parameters',{}).update(clone(plan.get('variables',{})));settings=clone(entry['settings']);temp=scalar(temp)
@@ -164,7 +164,7 @@ def _iter_conditions(project,plan,prepare_job,group=None,invalid_base=None):
             job['project']=p;job['preparation_error']=preparation_error
         if settings['type']=='testbench':job['settings']['executable']=job['executable']
         job['case']={'group':group,'index':index,'plan_id':plan['id'],'plan_name':plan['name'],
-                     'entry_id':entry['id'],'test_name':entry['name'],'kind':'test_plan','base_design_hash':base,
+                     'entry_id':entry['id'],'test_name':entry['name'],'kind':'test_plan','base_design_hash':base,'plan_hash':digest(plan),
                      'variables':clone(plan.get('variables',{})),
                      'labels':{'corner':corner,'temperature':temp,'voltage':scalar(voltage) if voltage is not None else None}}
         job['case']['fingerprint']=digest({k:v for k,v in job.items() if k!='case'})

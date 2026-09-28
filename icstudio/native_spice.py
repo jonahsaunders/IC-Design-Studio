@@ -15,6 +15,21 @@ def native(project):
     return project.get('spice', {}).get('version') == 1
 
 
+def lvs_defaults(text):
+    """Canonicalize only explicit, literal unit defaults of known PDK devices."""
+    changes=[]
+    def instance(match):
+        original=match[0];logical=re.sub(r'\n[ \t]*\+[ \t]*',' ',original)
+        if not re.search(r'(?i)\ssky130_fd_pr__cap_var_(?:lvt|hvt)(?=\s|$)',logical):return original
+        if len(re.findall(r'(?i)\sVM\s*=',logical))!=1:return original
+        # VM defaults to 1 in these PDK subcircuits. Never discard m, W/L,
+        # a non-unit VM, an expression, or a similarly named unknown model.
+        canonical,count=re.subn(r'(?i)[ \t]+VM[ \t]*=[ \t]*(?:1(?:\.0*)?|1(?:\.0*)?e[+-]?0)(?=\s|$)','',logical)
+        if count:changes.append(dict(instance=logical.split()[0],parameter='VM',default='1'))
+        return canonical if count else original
+    return re.sub(r'(?im)^[ \t]*x\S+[^\n]*(?:\n[ \t]*\+[^\n]*)*',instance,text),changes
+
+
 def render(device, child=None, mode='simulation'):
     definition = device['native_spice']
     if definition['type'] == 'program':
@@ -33,11 +48,15 @@ def render(device, child=None, mode='simulation'):
                 raise ValueError(device['name'] + ': missing native parameter ' + value)
             output.append(str(definition['parameters'][value]))
         else: raise ValueError('Unknown native device token: ' + kind)
-    return ''.join(output)
+    text=''.join(output)
+    if mode=='lvs':text,_=lvs_defaults(text)
+    return text
 
 
 def validate_device(device):
     definition = device.get('native_spice', {})
+    if definition.get('diode_geometry') not in (None,'pre46-scale-1e-6'):
+        raise ValueError('Unsupported explicit diode geometry convention.')
     if definition.get('version') != 1 or definition.get('type') not in ('device', 'program'):
         raise ValueError('Invalid native electrical definition for ' + device['name'])
     if not device.get('symbol'):
@@ -95,13 +114,21 @@ def netlist(project, directory, mode='simulation'):
         for original in c['devices']:
             d = original; definition = d.get('native_spice')
             if d.get('model_ref'):
-                lines.append(emit(d,p['pdk'],mode));continue
+                line=emit(d,p['pdk'],mode)
+                if mode=='simulation' and d['model_ref'].get('diode_geometry')=='pre46-scale-1e-6':
+                    from .ngspice_compat import declare
+                    line=declare(line)
+                lines.append(line);continue
             if definition:
                 if definition['type'] == 'program':
                     if c is top or not definition.get('only_toplevel'):
                         commands.append(definition['text'])
                 else:
-                    lines.append(render(d, by.get(d.get('cell')), mode))
+                    line=render(d, by.get(d.get('cell')), mode)
+                    if mode=='simulation' and definition.get('diode_geometry')=='pre46-scale-1e-6':
+                        from .ngspice_compat import declare
+                        line=declare(line)
+                    lines.append(line)
                     if definition.get('definition'): definitions.add(definition['definition'])
                 continue
             d = resolved_device(d, context); kind = d['kind']

@@ -23,8 +23,8 @@ def export_project(project,directory):
     for ident,asset in p['spice']['assets'].items():
         if hashlib.sha256(asset['text'].encode()).hexdigest()!=asset['sha256']:raise ValueError('Embedded model checksum mismatch.')
         output[asset_path(ident)]=asset['text']
-    for kind in ('label','iopin'):
-        output['symbols/studio_'+kind+'.sym']='v {xschem version=3.4.7 file_version=1.2}\nK {type='+kind+' format="*.'+kind+' @lab" template="name=p lab=net"}\nB 5 -2 -2 2 2 {name=p dir=inout}\nT {@lab} 8 -8 0 0 0.2 0.2 {}\n'
+    for kind,direction in (('label','inout'),('iopin','inout'),('ipin','out'),('opin','in')):
+        output['symbols/studio_'+kind+'.sym']='v {xschem version=3.4.7 file_version=1.2}\nK {type='+kind+' format="*.'+kind+' @lab" template="name=p lab=net"}\nB 5 -2 -2 2 2 {name=p dir='+direction+'}\nT {@lab} 8 -8 0 0 0.2 0.2 {}\n'
     for c in p['cells']:
         rebuild(c,p);statements=list(c.get('spice_statements',[]))
         if c['id']==p['top']:
@@ -39,20 +39,16 @@ def export_project(project,directory):
                 if info['type']=='program':
                     fmt='@value';attrs.update(type='netlist_commands');props.update(value=info['text'],only_toplevel='true' if info.get('only_toplevel') else 'false')
                 else:
-                    pieces=[]
-                    for token in info['tokens']:
-                        kind=token['kind'];value=token.get('value','')
-                        if kind=='literal':
-                            if re.search(r'[@%][A-Za-z_]',value):raise ValueError(d['name']+': literal text resembles an Xschem substitution; export this device as SPICE instead.')
-                            pieces.append(value)
-                        else:pieces.append({'instance':'@name','terminals':'@pinlist','terminal':'@@'+value,'parameter':'@'+value,'cell':'@symname'}[kind])
-                    fmt=''.join(pieces);props.update(info['parameters']);definition=info.get('definition','')
+                    from .xschem_semantics import emission_format
+                    fmt=emission_format(info['tokens']);props.update(info['parameters']);definition=info.get('definition','')
+                    if info.get('diode_geometry'):attrs['studio_diode_geometry']=info['diode_geometry']
                     if info.get('lvs_tokens'):
-                        attrs['lvs_format']=''.join(t.get('value','') if t['kind']=='literal' else {'instance':'@name','terminals':'@pinlist','terminal':'@@'+t.get('value',''),'parameter':'@'+t.get('value',''),'cell':'@symname'}[t['kind']] for t in info['lvs_tokens'])
+                        attrs['lvs_format']=emission_format(info['lvs_tokens'])
             elif d.get('model_ref'):
                 from .catalog import binding_for
                 from .catalog_migration import instance_name,emitted_parameters
                 binding=binding_for(p['pdk'],d)
+                if d['model_ref'].get('diode_geometry'):attrs['studio_diode_geometry']=d['model_ref']['diode_geometry']
                 alias=instance_name(d,binding);prefix=alias[:-len(d['name'])]
                 props.update(emitted_parameters(d,p['pdk']))
                 fmt=prefix+'@name '+' '.join('@@'+pin for pin in binding['pin_order'])+' '+binding['model']+''.join(' '+key+'=@'+key for key in binding.get('emit_parameters',{}))
@@ -62,7 +58,8 @@ def export_project(project,directory):
                     lvs=d['model_ref']['lvs'];context=symbol_context(d,p['pdk'])
                     required={token['value'] for token in lvs['tokens'] if token['kind']=='parameter'}
                     props.update({k:context.get(k,v) for k,v in lvs['parameters'].items() if k in required and k not in props})
-                    attrs['lvs_format']=''.join(t.get('value','') if t['kind']=='literal' else {'instance':'@name','terminals':'@pinlist','terminal':'@@'+t.get('value',''),'parameter':'@'+t.get('value',''),'cell':'@symname'}[t['kind']] for t in lvs['tokens'])
+                    from .xschem_semantics import emission_format
+                    attrs['lvs_format']=emission_format(lvs['tokens'])
             elif d['kind'] in ('R','C','L'):props['value']=d['value']
             elif d['kind'] in ('V','I'):props['value']=source_spec(d)
             elif d['kind'] in ('NMOS','PMOS'):
@@ -115,7 +112,9 @@ def export_project(project,directory):
         if any(port not in port_points for port in c['ports']):
             contacts=list(positions.values())+[pt for w in c['wires'] for pt in w['points']]+[label_point(lab,c,p) for lab in c['labels']]
             port_x=min([0]+[pt[0] for pt in contacts])-120
-        for i,port in enumerate(c['ports']):label(port,port_points.get(port,[port_x,i*40]),'iopin',i)
+        for i,port in enumerate(c['ports']):
+            direction=c.get('symbol',{}).get('pin_meta',{}).get(port,{}).get('direction','inout')
+            label(port,port_points.get(port,[port_x,i*40]),{'in':'ipin','out':'opin'}.get(direction,'iopin'),i)
         for wire in c['wires']:
             for a,b in zip(wire['points'],wire['points'][1:]):
                 points=[a]+sorted([pt for pt in c['junctions'] if pt not in (a,b) and on_segment(pt,a,b)],key=lambda pt:math.dist(a,pt))+[b]

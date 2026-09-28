@@ -38,6 +38,8 @@ foreach ($scale in @('1','1.5','2')) {
 Remove-Item Env:QT_SCALE_FACTOR -ErrorAction SilentlyContinue
 python scripts/verify_packaged_vga.py --executable "$exe" --output "$evidence/vga"
 if ($LASTEXITCODE -ne 0) { throw 'Installed Windows VGA qualification failed.' }
+python scripts/verify_frozen_physical.py --executable "$exe" --pdk build/physical-adapter/sky130A --out "$evidence/physical"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows physical qualification failed.' }
 $shortcut = Join-Path ([Environment]::GetFolderPath('Programs')) 'IC Design Studio\IC Design Studio.lnk'
 if (-not (Test-Path $shortcut)) { throw 'Start menu shortcut is missing.' }
 $shell = New-Object -ComObject WScript.Shell

@@ -160,14 +160,14 @@ def native_run(work):
     atomic_write(output/'backend-result.json',json.dumps(result))
 
 
-def supervise():
+def supervise(runner=None):
     """Linux-only supervisor: detect cancellation without a running host worker."""
     import signal
     import subprocess
     import time
     work, marker = sys.argv[1:3]
     if '--native' in sys.argv:
-        native_run(work); return 0
+        (runner or native_run)(work); return 0
     def interrupted(*_): raise InterruptedError('Digital supervisor cancelled.')
     signal.signal(signal.SIGTERM,interrupted)
     proc = subprocess.Popen([sys.executable,sys.argv[0],work,marker,'--native'],start_new_session=True)
@@ -192,3 +192,4 @@ def supervise():
                     except ProcessLookupError: pass
                 if sig==signal.SIGTERM: time.sleep(.5)
             proc.wait()
+        atomic_write(Path(work)/'supervisor-exit.json',json.dumps({'returncode':proc.returncode}))

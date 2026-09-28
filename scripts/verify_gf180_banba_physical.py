@@ -8,7 +8,7 @@ Magic, ngspice or open_pdks. A successful check is not fabrication signoff.
 """
 import argparse
 from collections import Counter
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor,as_completed
 import json
 import math
 import os
@@ -210,7 +210,8 @@ def magic_script(p, technology, gds):
     return '\n'.join(lines)+'\n'
 
 
-def simulate(p, extracted, executable, output, ports):
+def simulate(p, extracted, executable, output, ports, *, solver=None, timeout=180,workers=4,cases=None):
+    if not 1<=workers<=20:raise ValueError('Use 1 to 20 independent simulation workers.')
     summary = dict(scope='C-only extraction, measured MOS junction geometry; no distributed wire R.',
                    load_f=5e-12, pvt=[], nominal={})
 
@@ -230,8 +231,15 @@ def simulate(p, extracted, executable, output, ports):
         folder = output / label / ('op' if ramp is None else 'ramp-'+ramp)
         folder.mkdir(parents=True)
         text = stage_model_deck(q['pdk'], deck(q, bench, extracted, ports=ports), folder)
+        if solver:
+            if solver!='klu':raise ValueError('Unsupported explicit sparse solver.')
+            # -D stores a string, whereas ngspice's thread setting requires a
+            # numeric control variable. Set it after system spinit; batch mode
+            # runs the declared analysis into the requested raw file once.
+            from icstudio.gf180_rc import sparse_solver
+            text=sparse_solver(text)
         (folder/'input.cir').write_text(text)
-        run_settings = dict(deck=str(folder/'input.cir'), analysis=settings)
+        run_settings = dict(deck=str(folder/'input.cir'), analysis=settings, timeout=timeout)
         retry_reason = None
         try:
             r = run_deck(q, bench['bench_cell'], run_settings, str(executable), folder)
@@ -267,11 +275,16 @@ def simulate(p, extracted, executable, output, ports):
                          and all(r['passed'] for r in row['ramps']))
         return row
 
-    cases = [(corner, temperature, supply) for corner in ['nominal', 'ff', 'ss', 'fs', 'sf']
-             for temperature in [-40, 125] for supply in [2.7, 3.6]]
+    cases = cases or [(corner, temperature, supply) for corner in ['nominal', 'ff', 'ss', 'fs', 'sf']
+                      for temperature in [-40, 125] for supply in [2.7, 3.6]]
     # Each worker owns a project copy and separate model/deck/output directories.
-    with ThreadPoolExecutor(max_workers=4) as pool:
-        for row in pool.map(case, cases):
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        futures={pool.submit(case,values):values for values in cases}
+        for future in as_completed(futures):
+            try:row=future.result()
+            except Exception as exc:
+                corner,temperature,supply=futures[future]
+                row=dict(corner=corner,temperature=temperature,supply=supply,passed=False,error=str(exc))
             summary['pvt'].append(row)
             print(row['corner'], row['temperature'], row['supply'],
                   'PASS' if row['passed'] else 'FAIL', flush=True)
@@ -325,6 +338,14 @@ def verify(a):
     rc = command([sys.executable, drc_runner, '--path='+str(gds), '--variant=B',
         '--topcell=banba_layout', '--run_dir='+str(output/'drc'), '--thr=2', '--density', '--antenna'], output, 'drc', env)
     report['drc'] = drc_results(output/'drc', gds.stem, rc)
+    drc_log = (output/'drc.log').read_text(errors='replace')
+    # The pinned upstream wrapper intentionally exits 1 for completed findings.
+    # Preserve that code and distinguish it from execution/parser failures.
+    report['drc']['completed_with_findings'] = bool(rc == 1 and
+        'Klayout DRC run is not clean.' in drc_log and 'Violated rules are :' in drc_log and
+        len(re.findall(r'(?i)DRC Total Run time', drc_log)) == 3 and
+        all(re.search(r'(?i)' + deck + r' DRC Total Run time', drc_log) for deck in ('main', 'antenna')) and
+        not re.search(r'Traceback|Segmentation fault|ERROR:|Killed|command not found', drc_log))
     report['remaining'] = drc_remaining(report['drc']) + ['Strict LVS has not completed.']
     (output/'physical-verification.json').write_text(json.dumps(report, indent=2)+'\n')
     rc = command([sys.executable, a.pv/'klayout/lvs/run_lvs.py', '--layout='+str(gds),

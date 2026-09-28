@@ -83,6 +83,17 @@ class NativeExchangeTests(unittest.TestCase):
         self.assertIn([-120, 0], wiring.pins(self.child, self.project).values())
         self.roundtrip(self.project)
 
+    def test_exported_port_directions_match_the_native_symbol(self):
+        from icstudio.xschem_project import records,properties
+        c=self.child
+        c['symbol'].setdefault('pin_meta',{})[c['ports'][0]]={'direction':'in'}
+        c['symbol']['pin_meta'][c['ports'][1]]={'direction':'out'}
+        output=self.root/'directions';export_project(self.project,output)
+        ports={properties(row[6])['lab']:row[1] for row in records((output/(c['name']+'.sch')).read_text())
+               if row[0]=='C' and row[1] in ('symbols/studio_ipin.sym','symbols/studio_opin.sym')}
+        self.assertEqual(ports[c['ports'][0]],'symbols/studio_ipin.sym')
+        self.assertEqual(ports[c['ports'][1]],'symbols/studio_opin.sym')
+
     def test_port_export_avoids_wire_interior(self):
         cid = self.child['id']
         def edit(p):

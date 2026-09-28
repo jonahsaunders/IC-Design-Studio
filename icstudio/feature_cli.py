@@ -11,6 +11,7 @@ def main(argv):
         for engine in ('magic','netgen','ngspice'):a.add_argument('--'+engine,default=engine)
     for command in ('verify','testbench'):
         a=sub.add_parser(command);a.add_argument('project');a.add_argument('--testbench',required=True);a.add_argument('--output',required=True)
+        if command=='testbench':a.add_argument('--compare-implementation',action='store_true')
         for engine in ('magic','netgen','ngspice'):a.add_argument('--'+engine,default=engine)
     for command in ('mirror-layout','inverter-layout'):
         a=sub.add_parser(command);a.add_argument('project');a.add_argument('--cell',required=True);a.add_argument('--output',required=True);a.add_argument('--replace',action='store_true')
@@ -29,12 +30,13 @@ def main(argv):
     sky=sub.add_parser('sky130-reference');sky.add_argument('--pdk-root',required=True);sky.add_argument('--output',required=True)
     for name in ('ngspice','magic','netgen'):sky.add_argument('--'+name,default=name)
     magic=sub.add_parser('magic-import')
+    magic.add_argument('--flatten',action='store_true',help='Explicitly flatten before GDS conversion; retain only top-level labels and the original top name.')
     for key in ('executable','source','technology','output'):magic.add_argument('--'+key,required=True)
     args=parser.parse_args(argv)
     try:
         if args.command=='magic-import':
             from .engines import magic_import
-            print(magic_import(args.executable,args.source,args.technology,args.output));return 0
+            print(magic_import(args.executable,args.source,args.technology,args.output,args.flatten));return 0
         if args.command=='sky130-reference':
             from .sky130_flow import run
             report=run(args.pdk_root,args.output,args.ngspice,args.magic,args.netgen);print(json.dumps(report,indent=2));return 0 if report['status']=='passed' else 1
@@ -71,6 +73,9 @@ def main(argv):
                 from .hierarchical_flow import run
                 result=run(p,t['id'],out,{e:getattr(args,e) for e in ('magic','netgen','ngspice')},lambda f,m:print(m,flush=True));print(json.dumps(result,indent=2));return 0 if result['status']=='passed' else 1
             if out.exists() and any(out.iterdir()):raise ValueError('Choose an empty testbench output directory.')
+            if args.compare_implementation:
+                from .testbenches import compare_implementation
+                result=compare_implementation(p,t,args.ngspice,out);print(json.dumps(result['implementation_comparison'],indent=2));return 0 if result['implementation_comparison']['status']=='passed' else 1
             result=simulate(p,t,args.ngspice,out);print(json.dumps(result['measurements'],indent=2));return 0 if result['measurements']['status']=='passed' else 1
         if args.command in ('mirror-layout','inverter-layout'):
             from .analog_layout import generate_mirror

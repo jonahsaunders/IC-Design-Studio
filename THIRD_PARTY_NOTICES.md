@@ -130,3 +130,13 @@ templates are part of this application's source distribution.
 Digital platform inputs retain their own licenses. CI downloads separately licensed
 engine distributions and records their versions; these binaries and full PDK trees
 are not included in the application source distribution.
+
+The managed runtime also includes Magic and Netgen at the commits in
+`examples/physical-engine-lock.json`, plus the Ubuntu ngspice package. Magic's
+`LICENSE`, Netgen's `Copying`, their complete source trees and the source lock
+are retained under `opt/icstudio/physical`; Ubuntu package notices and source
+versions are retained in the package inventory above. The relocatable Magic
+batch initializer and Netgen Tcl initializer are changed by
+`packaging/digital/assemble.py`, with their resulting source and file hashes
+included in the runtime. The separate experimental GF180 extractor patch is
+in `packaging/physical/magic-gf180-rc.patch`; it is not the default desktop engine.

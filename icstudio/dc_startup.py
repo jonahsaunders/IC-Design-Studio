@@ -57,7 +57,8 @@ def seed_deck(text, command, directory, timeout=120, env=None):
         if '#' in node:
             internal_nodes += 1; continue
         if node.casefold() in existing or node.casefold() in ('v-sweep', '0'): continue
-        if not re.fullmatch(r'[A-Za-z0-9_.$:\[\]#!+-]+', node):
+        # Magic's extracted nodes use slash-separated hierarchy as well as dots.
+        if not re.fullmatch(r'[A-Za-z0-9_.$:/\[\]#!+-]+', node):
             raise ValueError('Unsupported DC startup node name: ' + node)
         hints.append(f'.nodeset v({node})={value:.17g}')
     if not hints: raise ValueError('DC startup produced no usable voltage hints.')

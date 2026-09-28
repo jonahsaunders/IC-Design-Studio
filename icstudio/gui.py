@@ -58,7 +58,7 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
         boolean=design.addMenu('Boolean geometry')
         for label,op in [('Union','union'),('Subtract from first','subtract'),('Intersection','intersection'),('Exclusive OR','xor')]:self.action(boolean,label,lambda o=op:self.boolean(o))
         analysis=self.menuBar().addMenu('&Analysis');self.run_action=self.action(analysis,'Run analysis…',self.run_dialog,'F5',QStyle.SP_MediaPlay);self.cancel_action=self.action(analysis,'Cancel job',self.cancel_job,'Shift+F5',QStyle.SP_MediaStop);self.action(analysis,'Electrical rule check',lambda:self.check('erc'),'F6');self.action(analysis,'Geometry DRC (generic rules)',lambda:self.check('drc'),'F7');self.action(analysis,'Device mapping audit',lambda:self.check('mapping'))
-        tools=self.menuBar().addMenu('&Tools');self.action(tools,'Engine diagnostics & paths…',self.engine_dialog);self.action(tools,'Import technology descriptor…',self.import_technology);self.action(tools,'Technology & qualification status',self.pdk_status);self.action(tools,'Convert GDS through Magic…',self.magic_dialog);self.action(tools,'Compare netlists with Netgen…',self.lvs_dialog)
+        tools=self.menuBar().addMenu('&Tools');self.action(tools,'Engine diagnostics & paths…',self.engine_dialog);self.action(tools,'Physical tools setup…',self.physical_setup);self.action(tools,'Import technology descriptor…',self.import_technology);self.action(tools,'Technology & qualification status',self.pdk_status);self.action(tools,'Convert GDS through Magic…',self.magic_dialog);self.action(tools,'Compare netlists with Netgen…',self.lvs_dialog)
         view=self.menuBar().addMenu('&View');self.action(view,'Fit design',lambda:(self.schematic.fit(),self.layout.fit()));self.theme_action=self.action(view,'Toggle light / dark',self.toggle_theme,'Ctrl+Shift+T');view.addAction(self.nav.toggleViewAction());view.addAction(self.inspector.toggleViewAction());view.addAction(self.results_dock.toggleViewAction())
         helpmenu=self.menuBar().addMenu('&Help');self.action(helpmenu,'Searchable help…',self.help_dialog,'F1');self.action(helpmenu,'About & release status',self.about)
         self.toolbar.addAction(self.undo_action);self.toolbar.addAction(self.redo_action);self.toolbar.addSeparator();self.tool_combo=QComboBox();self.tool_combo.addItems(['Select','Connect pins','Rectangle','Polygon','Path','Ruler']);self.tool_combo.currentIndexChanged.connect(self.change_tool);self.toolbar.addWidget(self.tool_combo)
@@ -94,6 +94,18 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
     def undo(self):self.history.undo();self.persist_history()
     def redo(self):self.history.redo();self.persist_history()
     def persist_history(self):
+        geometry=getattr(self.history,'plain_geometry_change',None)
+        if (isinstance(self.history,History) and geometry and geometry['cell']==self.cid
+                and not getattr(self,'_edit_context',None) and hasattr(self,'refresh_layout_edit')):
+            self.history.layout_stats=geometry
+            self.queue_recovery(validated=True)
+            self.refresh_layout_edit()
+            return
+        if (isinstance(self.history,History) and getattr(self.history,'plain_schematic_change',None)==self.cid
+                and not getattr(self,'_edit_context',None) and hasattr(self,'refresh_schematic_edit')):
+            self.queue_recovery(validated=True)
+            self.refresh_schematic_edit()
+            return
         self.queue_recovery()
         self.refresh()
     def select(self,ids,mode=None):
@@ -472,7 +484,7 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
             if not (self.layout if self.current_mode=='layout' else self.schematic).grab().save(path):raise ValueError('Could not write image.')
     def engine_dialog(self):
         from .engines import diagnostics
-        config={n:self.settings.value('engine/'+n,'') for n in ('ngspice','klayout','magic','netgen')};ds=diagnostics(config);vals=self.simple_form('Engine diagnostics & paths',{d['name']:d['path'] for d in ds},'KLayout geometry is bundled. These optional executable paths enable external tools. On Windows, Magic requires a separately configured Linux/WSL worker; automatic WSL management is not included.')
+        config={n:self.settings.value('engine/'+n,'') for n in ('ngspice','klayout','magic','netgen')};ds=diagnostics(config);vals=self.simple_form('Engine diagnostics & paths',{d['name']:d['path'] for d in ds},'KLayout geometry is bundled. These optional paths select custom tools. Physical verification uses the included runtime when Magic and Netgen paths are empty. Physical tools setup selects included or custom tools; an explicit Included selection overrides these saved custom paths.')
         if vals:
             for key,path in vals.items():
                 if path and not Path(path).is_file():raise ValueError(f'{key}: executable path does not exist.')
@@ -486,8 +498,12 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
         self.commit(lambda p:p.update(pdk=tech),'Import technology');self.layer_combo.clear();self.layer_combo.addItems([l['name'] for l in tech['layers']]);self.layout.visible_layers={l['name'] for l in tech['layers']};self.refresh()
     def pdk_status(self):
         text=json.dumps(self.project['pdk'],indent=2)+'\n\nSKY130, GF180MCU, IHP SG13G2: not qualified or bundled. A layer descriptor does not install device models, rule decks, or extraction. Generic MOS geometry is illustrative only.';self.text_dialog('Technology status',text)
+    def physical_setup(self):
+        from .digital_setup_ui import DigitalSetupDialog
+        self._physical_setup=DigitalSetupDialog(self,custom=self.engine_dialog,physical=True)
+        self._physical_setup.show()
     def magic_dialog(self):
-        if os.name=='nt':raise ValueError('Magic requires a managed Linux worker on Windows. This preview provides a Linux CLI adapter; automatic WSL integration is not implemented.')
+        if os.name=='nt':raise ValueError('Standalone Magic conversion needs a Linux installation. Studio physical verification on Windows uses Tools > Physical tools setup, then Verify silicon.')
         vals=self.simple_form('Magic native conversion',{'GDS file':'','Magic technology file':'','Top cell':self.cell['name'],'Output directory':''},'Runs an installed Magic executable with the chosen technology. Review conversion.log and resulting geometry in Magic; conversion is not signoff.')
         if not vals:return
         exe=self.settings.value('engine/magic','') or shutil.which('magic')

@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "scope": "Synthetic saved-result UI regression; no engine or consumer acceptance claim",
+  "checks": [
+    "Not run / Passed / Failed / Blocked / Running / Stale states",
+    "Completed flow reaches optional team review",
+    "Failed plan opens the exact operating condition",
+    "Failed physical flow offers rerun",
+    "Gallery and workflow share bounded reference status"
+  ]
+}

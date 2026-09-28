@@ -56,10 +56,19 @@ class CaptureWorkspaceMixin:
         # LiveHistory must keep its server-authoritative transaction path.
         fast=getattr(self.history,'commit_schematic_transform',None)
         if not copy and not getattr(self,'live_client',None) and fast and fast(self.cid,ids,dx,dy,stretch=stretch,mirror=mirror,label=label):
-            self.queue_recovery(validated=True);self.refresh();return list(ids)
+            self.persist_history();return list(ids)
         result=[]
         def edit(p):result.extend(capture_ops.transform(p,self.cid,ids,dx,dy,stretch=stretch,copy=copy,mirror=mirror))
         return result if self.capture_commit(edit,label) else None
+    def refresh_schematic_edit(self):
+        """Refresh coordinate edits without rebuilding unrelated design panels."""
+        self.schematic.set_data(self.cell,self.project['pdk'],self.selection,self.net)
+        self.layout.set_data(self.cell,self.project['pdk'],self.selection,self.net,revision=self.project['revision'],immutable=True)
+        self.revision_label.setText(f"r{self.project['revision']}  /  {self.project['pdk']['name']}")
+        self.project_subtitle.setText('IC Design Studio   /   Unsaved changes')
+        self.undo_action.setEnabled(bool(self.history.undo_stack));self.redo_action.setEnabled(bool(self.history.redo_stack))
+        self.update_save_status();self._inspector_dirty=False;self.build_inspector();self.update_result_status();self.capture_update()
+        if self.live_check.isChecked():self.live_timer.start()
     def eventFilter(self,obj,e):
         if obj is getattr(self,'schematic',None) and getattr(self,'_capture_ready',False):
             cmd=command_for(e,self.capture_keys)

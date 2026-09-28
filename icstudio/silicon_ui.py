@@ -18,7 +18,7 @@ class SiliconMixin:
             'File':[('New PDK inverter…',self.new_silicon_example)],
             'Design':[('Generate PDK device layout…',self.mos_layout_dialog),('Generate inverter layout…',self.inverter_layout_dialog),
                       ('Generate contacted SKY130 guard…',self.process_guard_dialog),('Add tied SKY130 MOS dummy…',self.process_dummy_dialog)],
-            'Analysis':[('Verify custom inverter through silicon',self.run_silicon),('Check linked layout and show connections',self.check_linked_layout)],
+            'Analysis':[('Verify custom inverter through silicon',self.run_silicon),('Run layout DRC / LVS only…',self.run_layout_verification),('Check linked layout and show connections',self.check_linked_layout)],
             'View':[('Physical workflow',self.open_silicon)]}.items():
             for title,fn in entries:self.action(menus[menu],title,fn)
 
@@ -26,7 +26,7 @@ class SiliconMixin:
         super().make_ui()
         page=QWidget();layout=QVBoxLayout(page);self.silicon_status=QLabel('Select an inverter cell to generate and verify its layout.');self.silicon_status.setWordWrap(True);layout.addWidget(self.silicon_status)
         row=QHBoxLayout()
-        for title,fn in [('Generate layout…',self.inverter_layout_dialog),('Check connections',self.check_linked_layout),('Run physical verification',self.run_silicon),('Evidence folder',self.open_silicon_evidence)]:row.addWidget(self.button(title,fn=fn))
+        for title,fn in [('Generate layout…',self.inverter_layout_dialog),('Check connections',self.check_linked_layout),('Run physical verification',self.run_silicon),('DRC / LVS only…',self.run_layout_verification),('Evidence folder',self.open_silicon_evidence)]:row.addWidget(self.button(title,fn=fn))
         row.addStretch();layout.addLayout(row)
         self.silicon_table=QTableWidget(0,3);self.silicon_table.setHorizontalHeaderLabels(['Stage','Status','Result']);self.silicon_table.setEditTriggers(QAbstractItemView.NoEditTriggers);self.silicon_table.verticalHeader().hide();self.silicon_table.verticalHeader().setDefaultSectionSize(24);self.silicon_table.horizontalHeader().setSectionResizeMode(2,QHeaderView.Stretch);self.silicon_table.setColumnWidth(0,190);layout.addWidget(self.silicon_table,1)
         row=QHBoxLayout()
@@ -37,6 +37,16 @@ class SiliconMixin:
 
     def open_silicon(self):
         self.results_dock.show();self.results_tabs.setCurrentIndex(self.silicon_tab);self.resizeDocks([self.results_dock],[330],Qt.Vertical);self.refresh_silicon()
+
+    def run_layout_verification(self):
+        values=self.simple_form('Layout DRC / LVS',{'Schematic SPICE file':'','Schematic cell':self.cell['name']},
+            'Check the active layout against a self-contained schematic netlist using the linked physical PDK. The reference is captured with the run. Legacy layout labels use the named schematic terminals; no simulation testbench is required.')
+        if not values:return
+        from .layout_verification import reference
+        path=Path(values['Schematic SPICE file']).expanduser()
+        if not path.is_file() or path.stat().st_size>10_000_000:raise ValueError('Choose a schematic SPICE file under 10 MB.')
+        captured=reference(path.read_text(encoding='utf-8'),values['Schematic cell'].strip())
+        self.start_job({'type':'silicon','verification_mode':'drc_lvs','reference':captured});self.open_silicon()
 
     def new_silicon_example(self):
         if not self.maybe_save():return

@@ -19,6 +19,7 @@ def read_layout(path):
         colors=('#68a6f4','#bd98ef','#66c7ae','#e9b775','#e589a2','#83c4dc','#c0cc79')
         p['pdk']['layers'].append({'name':f'layer_{info.layer}_{info.datatype}','gds':info.layer,'datatype':info.datatype,'color':colors[info.layer%len(colors)],'width':0,'space':0})
     if not p['pdk']['layers']:raise ValueError('No drawable layers in layout.')
+    restored_texts=0
     for cell in ly.each_cell():
         name=re.sub('[^A-Za-z0-9_.$-]','_',cell.name)[:55]
         if not name or not re.match('[A-Za-z_]',name):name='cell_'+name
@@ -37,7 +38,14 @@ def read_layout(path):
                 if shape.is_text():
                     text=shape.text;c['layout_texts'].append({'layer':layer,'text':text.string,'x':nm(text.x),'y':nm(text.y),'rotation':text.trans.angle*90,'mirror':text.trans.is_mirror(),
                         'size':nm(text.size),'font':text.font,'halign':int(text.halign),'valign':int(text.valign)})
-                    properties=[[k,v] for k,v in shape.properties().items() if k!=125]
+                    from .text_presentation import PROPERTY,restore,owned
+                    appearance=shape.property(PROPERTY)
+                    restored=False
+                    if path.suffix.lower() in ('.oas','.oasis') and appearance is not None:
+                        restored=restore(c['layout_texts'][-1],appearance,info.layer,info.datatype,.001)
+                        restored_texts+=int(restored)
+                        if not restored:warnings.append('Ignored stale or invalid text appearance metadata for '+text.string)
+                    properties=[[k,v] for k,v in shape.properties().items() if k!=125 and not (k==PROPERTY and owned(appearance))]
                     if properties:c['layout_texts'][-1]['external_properties']=properties
                     continue
                 if not (shape.is_box() or shape.is_polygon() or shape.is_path() or shape.is_simple_polygon()):raise ValueError('Unsupported GDS/OASIS shape type.')
@@ -64,4 +72,5 @@ def read_layout(path):
             c['layout_instances'][-1]['external_properties']=[[k,v] for k,v in inst.properties().items() if k not in (125,126)]
     tops=list(ly.top_cells())
     if not tops:raise ValueError('Layout has no top cell.')
+    if restored_texts:warnings.append(f'Restored {restored_texts} text appearances from optional Studio OASIS properties; electrical labels and anchors came from the stream.')
     p['top']=by[tops[0].cell_index()]['id'];return validate(p),warnings

@@ -23,7 +23,7 @@ def format_device(d,child=None):
         if props.get('savecurrent') in ('true','1'):fmt+='\n.save i(@name)'
     if 'tcleval' in fmt:raise ValueError(d['name']+': this custom symbol uses a Tcl netlisting program. Export the project and netlist it in Xschem.')
     def replace(m):
-        token=m[0]
+        token=m[1]
         if token.startswith('@@'):
             if token[2:] not in d['nets']:raise ValueError(d['name']+': unknown terminal '+token)
             return d['nets'][token[2:]]
@@ -33,7 +33,8 @@ def format_device(d,child=None):
             if key in ('extra','spiceprefix'):return ''
             raise ValueError(d['name']+': missing symbol parameter '+key)
         return str(props[key])
-    line=re.sub(r'@@?[A-Za-z_][A-Za-z0-9_]*|%[A-Za-z_][A-Za-z0-9_]*',replace,fmt)
+    from .xschem_semantics import FORMAT_TOKEN
+    line=FORMAT_TOKEN.sub(replace,fmt)
     if not line.strip():raise ValueError(d['name']+': no SPICE format is defined.')
     if 'tcleval' in line:raise ValueError(d['name']+': dynamic Tcl parameters require Xschem netlisting.')
     return line
@@ -76,7 +77,10 @@ def netlist(project,directory):
             if info['kind']=='netlist_commands':
                 if c is top or props.get('only_toplevel','false') not in ('true','1'):commands.append(rewrite(props.get('value',''),c['xschem']['path']))
                 continue
-            lines.append(format_device(d,by.get(d.get('cell'))))
+            line=format_device(d,by.get(d.get('cell')))
+            from .ngspice_compat import legacy_symbol,declare
+            if legacy_symbol(attrs,props) or attrs.get('studio_diode_geometry')=='pre46-scale-1e-6':line=declare(line)
+            lines.append(line)
             definition=props.get('spice_sym_def',attrs.get('spice_sym_def'))
             if definition:definitions.add(rewrite(definition,info['symbol_path']))
         lines.extend(commands)

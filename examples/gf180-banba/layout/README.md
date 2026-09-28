@@ -1,5 +1,51 @@
 # GF180MCU Banba bandgap — first routed layout
 
+<!-- qualification:banba:start -->
+**Archived qualification · Banba routed layout**
+
+103 devices in an 852.1 by 566.5 micrometre editable core (0.482715 square millimetres). Full extracted qualification remains blocked.
+
+| Check | Status | Scope |
+|---|---|---|
+| Native connectivity | Passed | 56 nets; saved matching and geometry checks are separately retained. |
+| Unfilled core LVS | Passed | Pinned GF180 four-metal / MIM B deck; 103 devices. |
+| Unfilled core density | Failed | 314 density findings; core geometry and antenna checks pass. |
+| 600 micrometre fill DRC/LVS | Passed | 3.625 square millimetres. Includes the documented dummy-poly density-deck correction. |
+| 550 micrometre fill DRC/LVS | Passed | 3.253175 square millimetres; 10.26% smaller than the retained 600 micrometre halo. Same dummy-poly correction; core masks unchanged. |
+| Core capacitance-only PVT | Passed | 20 operating points and 60 startup transients; no distributed resistance. |
+| Distributed RC | Blocked | Extractor output has incomplete device-terminal resistance graphs. |
+| Fill coupling | Blocked | The retained Magic technology does not extract dummy-fill coupling. |
+| Fabrication signoff | Not run | Process-owner review and a complete chip floorplan remain required. |
+
+Archive results apply to the recorded source and tools. They do not qualify edits, packaged releases or fabrication signoff.
+<!-- qualification:banba:end -->
+
+## Smaller density floorplan
+
+The [optimized GDS](density-optimized/banba-density.gds) uses a 550 micrometre
+uniform halo, reducing the declared area from 3.625035 to **3.253175 mm²**
+(10.26%). The circuit masks, 30 micrometre edge margin, 20 micrometre circuit
+keepout, tile dimensions and spacings are unchanged. The search evaluated
+300–550 micrometre halos at 25 micrometre intervals; this is the smallest
+passing candidate on that grid, not a global area optimum.
+
+The [independent fill inspection](density-optimized/fill-validation.json) and
+[new physical verification](density-optimized/physical-verification.json) pass.
+The latter runs actual KLayout 0.28.16 against the pinned GF180 deck, checks
+main DRC, density and antenna reports, and establishes unique full-circuit LVS.
+It uses the same explicitly recorded dummy-poly density-deck correction as the
+600 micrometre reference. [Raw evidence and hashes](density-optimized/manifest.json)
+retain the inputs, reports and logs. Full distributed RC and dummy-fill coupling
+remain unqualified; no capacitance-only run is presented as fill-aware extraction.
+
+```sh
+python scripts/fill_gf180_banba.py --optimize --out build/banba-smaller
+python scripts/verify_gf180_banba_physical.py --drc-lvs-only --include-dummy-poly \
+  --gds build/banba-smaller/banba-density.gds --pv /path/to/pinned-gf180-pv \
+  --klayout /path/to/klayout --out build/banba-smaller-check
+```
+
+
 Open [`banba-layout.icproj`](banba-layout.icproj), select **banba_layout** in the cell selector, then choose **Layout**. The example gallery also includes **Lay out the Banba bandgap**. Every physical device has an editable schematic instance and assigned terminals. The original second-pass hierarchy remains available in the same project for comparison; the saved testbenches instantiate the segmented physical implementation.
 
 For density closure, use the separate [finished GDS and evidence](density/README.md). It adds a 600 µm fill collar to this editable core and passes geometry, density, antenna and strict LVS with an explicit dummy-poly accounting correction to the pinned density deck. Its footprint is **2052.1 × 1766.5 µm (3.6250 mm²)**, about **7.51 times** the core area. The original circuit masks are unchanged. This is a substantial area tradeoff; fill coupling and distributed RC remain unqualified.

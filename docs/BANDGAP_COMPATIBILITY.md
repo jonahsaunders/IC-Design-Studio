@@ -113,3 +113,7 @@ temporary-file adapter because the test environment does not provide `/tmp`.
 The adapter changes temporary-file placement, not numerical routines. Normal
 desktop installations do not require it. The included reports identify that
 local launcher; they are not evidence of a completed GitHub Actions run.
+
+## Physical and cross-tool checks
+
+The [reference compatibility gate](REFERENCE_COMPATIBILITY.md) compares this schematic against independent Xschem execution and separately qualifies the Banba physical reference through GDS/OASIS, full DRC and strict LVS. The two bandgap examples are distinct circuits with their own references.

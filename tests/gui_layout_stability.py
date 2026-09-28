@@ -8,7 +8,7 @@ def main():
     ap=argparse.ArgumentParser();ap.add_argument('--out',type=Path,required=True);a=ap.parse_args();out=a.out.resolve();out.mkdir(parents=True,exist_ok=True)
     os.environ['XDG_CONFIG_HOME']=str(out/'qt-profile/config');os.environ['XDG_DATA_HOME']=str(out/'qt-profile/data')
     sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-    from PySide6.QtCore import QPointF,QSettings
+    from PySide6.QtCore import QPointF,QSettings,QStandardPaths
     from PySide6.QtWidgets import QApplication
     from icstudio.canvas import Canvas
     from icstudio.gui import Studio
@@ -18,6 +18,7 @@ def main():
     from icstudio.build_info import WORKFLOW_SOURCE_HASH
     from icstudio import __version__
     QSettings.setDefaultFormat(QSettings.IniFormat);QSettings.setPath(QSettings.IniFormat,QSettings.UserScope,str(out/'qt-profile/settings'))
+    QStandardPaths.writableLocation=staticmethod(lambda kind:str(out/'qt-profile/data'/str(kind.value)))
     app=QApplication([]);app.setStyle('Fusion');checks=[];w=None;canvas=None
     try:
         p=example('empty');c=p['cells'][0];c['shapes']=[rect('metal1',(i%100)*1000,(i//100)*1000,600,600) for i in range(10000)]

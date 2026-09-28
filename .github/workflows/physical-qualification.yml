@@ -13,9 +13,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        stage: [inverter, analog, analog-rc, devices, two-stage-opamp, detector]
+        stage: [inverter, analog, analog-rc, devices, two-stage-opamp, detector, public-layouts]
     runs-on: ubuntu-24.04
-    timeout-minutes: ${{ matrix.stage == 'two-stage-opamp' && 90 || 45 }}
+    timeout-minutes: ${{ matrix.stage == 'two-stage-opamp' && 90 || matrix.stage == 'detector' && 60 || 45 }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -24,7 +24,7 @@ jobs:
       - name: Install physical engines and Python dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential pkg-config m4 tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev ngspice libegl1 libopengl0
+          sudo apt-get install -y build-essential pkg-config m4 tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev ngspice klayout xschem libegl1 libopengl0
           python -m pip install -r requirements.txt
       - name: Build compatible pinned Magic and Netgen
         run: python scripts/build_physical_engines.py --output build/physical-engines
@@ -41,6 +41,16 @@ jobs:
         if: matrix.stage == 'inverter'
         timeout-minutes: 5
         run: python scripts/qualify_layout_process.py --pdk build/physical-adapter/sky130A --out build/physical-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
+      - name: Check exact full-deck width and spacing boundaries
+        if: matrix.stage == 'inverter'
+        timeout-minutes: 5
+        run: python scripts/qualify_drc_boundaries.py --technology build/qualification-pdk/sky130A/libs.tech/magic/sky130A.tech --out build/physical-evidence/drc-boundaries --magic "$PWD/build/physical-engines/installed/bin/magic"
+      - name: Exercise real desktop physical checks and repair
+        if: matrix.stage == 'inverter'
+        timeout-minutes: 10
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_physical_qualification.py --pdk build/physical-adapter/sky130A --out build/physical-evidence/desktop --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --ngspice /usr/bin/ngspice
       - name: Qualify analog references, corners, extraction and deliberate faults
         if: matrix.stage == 'analog'
         timeout-minutes: 15
@@ -69,6 +79,28 @@ jobs:
         if: matrix.stage == 'detector'
         timeout-minutes: 22
         run: python scripts/qualify_open_project.py --source build/open-project-source --pdk build/qualification-pdk/sky130A --out build/open-project-evidence --require-consistent --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
+      - name: Verify detector streams after independent export and reimport
+        if: matrix.stage == 'detector'
+        timeout-minutes: 15
+        run: python scripts/qualify_reference_exchange.py --detector build/open-project-evidence --out build/detector-exchange --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
+      - name: Fetch the pinned standard-cell library for mixed public designs
+        if: matrix.stage == 'public-layouts'
+        run: python scripts/fetch_sky130_reference.py --output build/public-full-pdk --cache build/sky130-downloads
+      - name: Build pinned Xschem for independent public schematic netlisting
+        if: matrix.stage == 'public-layouts'
+        run: python scripts/build_physical_engines.py --lock examples/modern-schematic-engine-lock.json --only xschem --output build/public-xschem
+      - name: Require public source, Xschem, GDS, OASIS, DRC and LVS comparisons
+        if: matrix.stage == 'public-layouts'
+        timeout-minutes: 20
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python scripts/qualify_public_layouts.py --source build/public-sources --pdk build/physical-adapter/sky130A --standard-cells build/public-full-pdk/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_fd_sc_hd.spice --xschem-libraries build/public-full-pdk/sky130A/libs.tech/xschem --out build/public-layout-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --xschem "$PWD/build/public-xschem/installed/bin/xschem"
+      - name: Exercise public layouts through the desktop DRC and LVS action
+        if: matrix.stage == 'public-layouts'
+        timeout-minutes: 15
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_public_layouts.py --evidence build/public-layout-evidence --pdk build/physical-adapter/sky130A --out build/public-layout-evidence/desktop-linux --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -80,6 +112,11 @@ jobs:
             build/device-evidence
             build/two-stage-opamp-evidence
             build/open-project-evidence
+            build/detector-exchange
+            build/public-layout-evidence
+            build/public-xschem/*-build.log
+            build/public-xschem/*-version.log
+            build/public-xschem/source-lock.json
             build/physical-adapter/sky130A/package.json
             build/qualification-pdk/upstream-lock.json
             build/physical-engines/*-build.log
@@ -135,7 +172,9 @@ jobs:
     needs: [qualification, detector-desktop]
     if: always()
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    # The full evidence archive is several GiB; download, recompression and
+    # upload need their own budget after the physical gates have passed.
+    timeout-minutes: 30
     steps:
       - name: Require every physical and desktop gate
         env:
@@ -153,4 +192,5 @@ jobs:
         with:
           name: sky130-physical-evidence
           path: build/physical-evidence-bundle
+          compression-level: 1
           if-no-files-found: error

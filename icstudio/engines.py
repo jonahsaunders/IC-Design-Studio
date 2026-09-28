@@ -122,6 +122,8 @@ def run_ngspice(p,cid,settings,executable,directory,progress=lambda *_:None):
     from .pdks import stage_model_deck
     text=preload(p,stage_model_deck(p['pdk'],text,directory),directory)
     from .spice_program import runtime_environment
+    from .ngspice_compat import prepare as prepare_compatibility
+    text=prepare_compatibility(text,executable,directory)
     if settings['type']=='dc' and settings.get('dc_startup',False):
         from .dc_startup import seed_deck
         progress(.03,'Solving the first DC point for convergence hints')
@@ -234,7 +236,11 @@ def run_deck(p,cid,settings,executable,directory,progress=lambda *_:None):
     deck=Path(settings['deck']).resolve();directory=Path(directory).resolve()
     if not deck.is_file():raise ValueError('The SPICE deck does not exist.')
     raw=directory/'deck.raw';atomic_write(directory/'deck-snapshot.cir',deck.read_bytes());progress(.05,'Running external SPICE testbench')
-    log=execute(ngspice_command(p,executable,raw,deck),deck.parent);atomic_write(directory/'engine.log',log)
+    from .spice_program import runtime_environment
+    try:log=execute(ngspice_command(p,executable,raw,deck),deck.parent,timeout=int(settings.get('timeout',180)),env=runtime_environment(executable))
+    except Exception as exc:
+        atomic_write(directory/'engine.log',str(exc));raise
+    atomic_write(directory/'engine.log',log)
     variables,rows,complex_data=parse_raw(raw);xs=[float(r[0].real if complex_data else r[0]) for r in rows];traces={};phase={};currents={};current_phase={}
     for j,name in enumerate(variables):
         if name.startswith('v(') and name.endswith(')') and not name.startswith('v(@'):
@@ -272,7 +278,7 @@ def run_deck(p,cid,settings,executable,directory,progress=lambda *_:None):
             else:result['diagnostics']=bias_report(result)
     return result
 
-def magic_import(executable,source,technology,output):
+def magic_import(executable,source,technology,output,flatten=False):
     """Convert an existing Magic cell tree through its real technology engine."""
     source=Path(source).resolve();output=Path(output).resolve()
     if not source.is_file() or source.suffix.lower()!='.mag':raise ValueError('Choose an existing Magic .mag cell.')
@@ -280,19 +286,42 @@ def magic_import(executable,source,technology,output):
     if output.exists() and any(output.iterdir()):raise ValueError('Choose an empty Magic import output directory.')
     from .magic_dependencies import closure
     dependencies=closure(source)
-    output.mkdir(parents=True,exist_ok=True);target=output/'imported.gds'
-    search=tcl_word('+'+str(source.parent));script=f'path search {search}\nload {tcl_word(source.stem)}\ngds write {tcl_word(target)}\nfeedback save {tcl_word(output/"feedback.txt")}\nputs STUDIO_IMPORT_COMPLETE\n'
+    output.mkdir(parents=True,exist_ok=True);target=output/'magic-raw.gds'
+    search=tcl_word('+'+str(source.parent));script=f'path search {search}\nload {tcl_word(source.stem)}\n'
+    if flatten:
+        from .model import uid
+        flat_name='studio_flat_'+uid()
+        script+='flatten -dotoplabels '+tcl_word(flat_name)+'\nload '+tcl_word(flat_name)+'\n'
+    script+=f'gds write {tcl_word(target)}\nfeedback save {tcl_word(output/"feedback.txt")}\nputs STUDIO_IMPORT_COMPLETE\n'
     script='if {[catch {\n'+script+'} err]} {puts stderr "STUDIO_IMPORT_ERROR $err"}\nquit -noprompt\n'
     atomic_write(output/'import.tcl',script)
-    log=execute([executable,'-dnull','-noconsole','-T',str(Path(technology).resolve())],source.parent,input_text=script);atomic_write(output/'conversion.log',log)
+    # A user/project .magicrc can override -T, change processes, or exit before
+    # import. Bind this run to only the explicitly selected technology.
+    startup=output/'startup.tcl';atomic_write(startup,'tech load '+tcl_word(Path(technology).resolve())+'\n')
+    log=execute([executable,'-dnull','-noconsole','-rcfile',str(startup)],source.parent,input_text=script);atomic_write(output/'conversion.log',log)
     if not target.exists() or 'STUDIO_IMPORT_COMPLETE' not in log or 'STUDIO_IMPORT_ERROR' in log:raise RuntimeError('Magic import did not complete. Review the conversion log and technology selection.')
+    if flatten:
+        # Restore the original public interface name, without reconstructing a
+        # hierarchy that the user explicitly chose to flatten.
+        import klayout.db as db
+        layout=db.Layout();layout.read(str(target))
+        if len(layout.top_cells())!=1 or layout.top_cell().name!=flat_name:raise ValueError('Unexpected flattened Magic top cell.')
+        layout.top_cell().name=source.stem;layout.write(str(target))
+    # Magic can reconstruct thin false resistor fragments from its own raw
+    # hierarchical stream. Re-encoding fixes the qualified detector route;
+    # independently require exact geometry, labels and hierarchy first.
+    from .stream_contract import canonicalize
+    normalization=canonicalize(target,output/'imported.gds')
+    target=output/'imported.gds'
     from .interchange import import_layout
     from .model import save_project
     project,report=import_layout(target)
     feedback=output/'feedback.txt'
     if feedback.is_file() and feedback.stat().st_size:
         report.append('Magic reported conversion feedback. Inspect feedback.txt and conversion.log before verification.')
+    if flatten:report.append('Explicit flattened conversion: one physical cell; original Magic source hierarchy is preserved in its source files. Run fresh DRC/LVS on this conversion.')
     evidence={'source':str(source),'source_hash':file_digest(source),'dependencies':dependencies,'technology':file_digest(technology),'report':report,
+              'hierarchy_mode':'flattened' if flatten else 'preserved','stream_normalization':normalization,
               'feedback':feedback.read_text(errors='replace') if feedback.is_file() else ''}
     project['layout_source']['magic_import']=evidence
     save_project(project,output/'imported.icproj');atomic_write(output/'import-report.json',json.dumps(evidence,indent=2));return str(output/'imported.icproj')

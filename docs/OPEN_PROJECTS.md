@@ -107,3 +107,7 @@ Magic's GDS conversion also reports two HVI parent/child disagreements in `volta
 The included [GF180 bandgap](BANDGAP_COMPATIBILITY.md) supplies a second open-PDK project, with startup, a six-case compatibility circuit and the original 144-analysis source. Its tests compare captured/native/exported execution paths. The [analog qualification](PROFESSIONAL_WORKFLOWS.md) includes current-mirror, differential-pair and amplifier fixtures, and the [physical gate](QUALIFICATION_0.22.md) exercises deliberate opens, shorts/dimensional faults and DRC violations.
 
 See [release status](RELEASE_STATUS.md) for this update's executed checks and the remaining hardware acceptance. Do not infer support for every device or construct in an arbitrary PDK from these bounded fixtures.
+
+## Fresh stream verification
+
+[Reference compatibility](REFERENCE_COMPATIBILITY.md) adds fresh full DRC and strict LVS after Studio/KLayout/Magic exchanges, real geometry and pin faults, and a separate result for the raw hierarchical Magic stream. Native source LVS alone is not used as proof that a converted stream is correct.

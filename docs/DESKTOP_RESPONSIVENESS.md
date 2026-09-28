@@ -1,5 +1,10 @@
 # Desktop edit responsiveness
 
+The [reliable-workflow follow-up](RELIABLE_DESIGN_WORKFLOWS.md) adds retained
+drawing chunks, narrow layout undo/redo refresh, receipt-verified recovery and
+background-check measurements with a 95th-percentile edit target. The records
+below remain historical measurements of their stated source and environment.
+
 ## Ordinary editing on experimental
 
 This pass targets actual capture moves, select-drag previews, layout reference

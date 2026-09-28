@@ -11,7 +11,13 @@ def resource_root():
 
 
 def examples():
-    return json.loads((resource_root() / 'examples/gallery.json').read_text(encoding='utf-8'))
+    from .qualification import status
+    entries = json.loads((resource_root() / 'examples/gallery.json').read_text(encoding='utf-8'))
+    for entry in entries:
+        entry['qualification'] = status(entry['id'])
+        if entry['qualification'] is not None:
+            entry['expected'] = entry['qualification']['summary']
+    return entries
 
 
 def example_copy(entry):
@@ -28,6 +34,8 @@ def example_copy(entry):
     # Independent documents must not pick up another copy's run history.
     project['id'] = uid()
     project['revision'] = 0
+    if entry.get('qualification') is not None:
+        project['reference_origin'] = {'id': entry['id']}
     return project
 
 

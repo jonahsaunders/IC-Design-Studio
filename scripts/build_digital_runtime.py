@@ -34,6 +34,9 @@ def build(output):
         context = Path(td)
         shutil.copytree(ROOT/'packaging/digital', context, dirs_exist_ok=True)
         shutil.copytree(ROOT/'icstudio', context/'icstudio', ignore=shutil.ignore_patterns('assets','__pycache__','*.so','*.dll'))
+        shutil.copy2(ROOT/'scripts/build_physical_engines.py',context/'build_physical_engines.py')
+        (context/'examples').mkdir()
+        shutil.copy2(ROOT/'examples/physical-engine-lock.json',context/'examples/physical-engine-lock.json')
         subprocess.run(['docker','build','--platform','linux/amd64','-t','icstudio-digital-runtime',str(context)],check=True)
     container = subprocess.check_output(['docker','create','icstudio-digital-runtime'],text=True).strip()
     try:

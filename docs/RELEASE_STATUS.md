@@ -1,5 +1,11 @@
 # Dev25 draft and experimental follow-up
 
+The current [reliable-workflow source update](RELIABLE_DESIGN_WORKFLOWS.md)
+adds receipt-verified recovery, faster layout editing, evidence-driven workflow
+states, a smaller physically checked Banba fill candidate and shared reference
+qualification. These changes require new package qualification; they do not
+change the historical draft or close the consumer acceptance gates below.
+
 As reviewed on 2026-09-21, [PR #34](https://github.com/jonahsaunders/IC-Design-Studio/pull/34)
 and the Windows evidence fixes in [PR #35](https://github.com/jonahsaunders/IC-Design-Studio/pull/35)
 are merged into `experimental` at `a2df5e81654e7509f82aa9dceaf099cc476f4d6a`.

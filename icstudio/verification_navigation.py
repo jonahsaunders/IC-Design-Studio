@@ -89,6 +89,10 @@ def waveform(result, stage):
     if not path.is_relative_to(base) or not path.is_file() or file_digest(path)!=ev.get('waveform_sha256'):
         raise ValueError('Saved waveform is missing, changed or has no recorded checksum. Run physical verification again.')
     r=json.loads(path.read_text());bench=result['silicon_report']['testbench']
-    if r['project_id']!=result['project_id'] or r['design_hash']!=result['design_hash'] or r['cell_id']!=bench['bench_cell']:
+    permitted={result['design_hash']}
+    if result['silicon_report'].get('execution',{}).get('received_files'):
+        permitted.add(result['silicon_report'].get('native_design_hash'))
+    if r['project_id']!=result['project_id'] or r['design_hash'] not in permitted or r['cell_id']!=bench['bench_cell']:
         raise ValueError('Saved waveform does not match this physical verification input.')
+    r['design_hash']=result['design_hash']
     return r

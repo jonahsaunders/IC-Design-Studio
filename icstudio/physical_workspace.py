@@ -1,4 +1,5 @@
 """Schematic-driven placement, analog constraints and live layout feedback."""
+import pickle
 from PySide6.QtCore import Qt,QTimer,QThread,Signal,QEvent,QPointF
 from PySide6.QtWidgets import QWidget,QVBoxLayout,QLabel,QCheckBox,QTableWidgetItem,QDockWidget,QTabWidget
 from .model import clone,digest,uid,scalar,design_digest
@@ -7,9 +8,14 @@ from .parametric import placement_inventory,install
 
 class PhysicalCheckThread(QThread):
     checked=Signal(object)
-    def __init__(self,p,cid,parent,checker=None):super().__init__(parent);self.project=p;self.cid=cid;self.checker=checker
+    def __init__(self,p,cid,parent,checker=None):
+        super().__init__(parent)
+        # In-process bytes only: do not deserialize disk or network input here.
+        self.snapshot=pickle.dumps(p,protocol=pickle.HIGHEST_PROTOCOL)
+        self.cid=cid;self.checker=checker
     def run(self):
         from .live_geometry import full
+        self.project=pickle.loads(self.snapshot)
         try:result=self.checker.check(self.project,self.cid) if self.checker is not None else full(self.project,self.cid)
         except Exception as exc:result={'issues':[],'guides':[],'error':str(exc)}
         self.checked.emit({'project_id':self.project['id'],'revision':self.project['revision'],'cid':self.cid,'result':result})
@@ -152,7 +158,7 @@ class PhysicalWorkspaceMixin:
     def start_live_checks(self):
         if not self.cell['shapes'] and not self.cell.get('layout_instances'):return
         if self._live_worker is not None:self._live_pending=True;return
-        self.live_note.setText('Checking revision '+str(self.project['revision'])+'…');worker=PhysicalCheckThread(clone(self.project),self.cid,self,self._live_checker);self._live_worker=worker;worker.checked.connect(self.live_checks_ready);worker.finished.connect(self.live_worker_done);worker.start()
+        self.live_note.setText('Checking revision '+str(self.project['revision'])+'…');worker=PhysicalCheckThread(self.project,self.cid,self,self._live_checker);self._live_worker=worker;worker.checked.connect(self.live_checks_ready);worker.finished.connect(self.live_worker_done);worker.start()
     def live_worker_done(self):
         worker=self._live_worker;self._live_worker=None
         if worker:worker.deleteLater()

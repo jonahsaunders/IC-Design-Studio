@@ -226,6 +226,8 @@ def _bind(device, technology, key, parts, order, index):
     preserved.update({k:clone(result[k]) for k in ('kind','model_ref','model_params','params')})
     preserved['model_ref']['instance_prefix']=prefix
     preserved['model_ref']['source_parameters']=clone(values)
+    if device['native_spice'].get('diode_geometry'):
+        preserved['model_ref']['diode_geometry']=device['native_spice']['diode_geometry']
     if device['native_spice'].get('lvs_tokens'):
         definition=clone(device['native_spice']);definition['tokens']=definition.pop('lvs_tokens')
         for token in definition['tokens']:

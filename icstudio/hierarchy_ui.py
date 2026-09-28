@@ -17,6 +17,7 @@ class HierarchyMixin:
         self.bench_measurements=QTableWidget(0,4);self.bench_measurements.setHorizontalHeaderLabels(['Measurement','Value','Unit','Status / detail']);self.bench_measurements.setEditTriggers(QAbstractItemView.NoEditTriggers);self.bench_measurements.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch);v.addWidget(self.bench_measurements);self.testbench_tab=self.results_tabs.addTab(page,'Testbenches')
         row=QHBoxLayout();row.addWidget(QLabel('Saved testbench'));self.testbench_combo=QComboBox();self.testbench_combo.setMinimumWidth(210);self.testbench_combo.currentIndexChanged.connect(self.choose_bench_combo);row.addWidget(self.testbench_combo,1);row.addWidget(self.button('Edit…',fn=self.edit_testbench));row.addWidget(self.button('All testbenches',fn=self.open_testbenches));self.results_tabs.widget(self.silicon_tab).layout().insertLayout(1,row)
         row=QHBoxLayout();row.addWidget(self.button('← Parent',fn=self.leave_layout_cell));row.addWidget(self.button('Enter selected cell',fn=self.enter_selected_cell));self.navtabs.widget(2).layout().addLayout(row)
+        v.addWidget(self.button('Compare schematic and implementation',fn=self.compare_testbench_implementation))
         self.layout.orthogonal=True;self.layout.snap_to_terminals=True
 
     def make_actions(self):
@@ -67,12 +68,21 @@ class HierarchyMixin:
         from .testbenches import spice_testbench
         from .model import atomic_write
         t=self.selected_testbench();path,_=QFileDialog.getSaveFileName(self,'Export saved SPICE testbench',t['name']+'.cir','SPICE (*.cir *.spice)')
-        if path:atomic_write(path,spice_testbench(self.project,t));self.statusBar().showMessage('Exported saved testbench. Keep its locked PDK models available at the included paths.')
+        if path:atomic_write(path,spice_testbench(self.project,t,Path(path).parent));self.statusBar().showMessage('Exported saved testbench. Keep its locked PDK models available at the included paths.')
     def run_testbench(self):
         if not self.flush_inspector():return
         t=self.selected_testbench();exe=self.settings.value('engine/ngspice','') or shutil.which('ngspice')
         if not exe:raise ValueError('Configure ngspice in Engine diagnostics & paths.')
         self.start_job({'type':'testbench','testbench':t['id'],'executable':exe})
+    def compare_testbench_implementation(self):
+        if not self.flush_inspector():return
+        t=self.selected_testbench()
+        from .implementation_views import get as get_view
+        get_view(self.project,t.get('implementation_view'),t['dut_cell'])
+        from .spice_program import find_ngspice
+        exe=find_ngspice(self.settings.value('engine/ngspice',''))
+        if not exe:raise ValueError('Configure ngspice in Engine diagnostics & paths.')
+        self.start_job({'type':'testbench','testbench':t['id'],'executable':exe,'compare_implementation':True})
     def run_silicon(self):
         if not self.project.get('testbenches'):return super().run_silicon()
         if not self.flush_inspector():return
@@ -106,6 +116,14 @@ class HierarchyMixin:
             for i,m in enumerate(rows):
                 for col,val in enumerate((m['name'],f'{m["value"]:.6g}' if 'value' in m else '',m.get('unit',''),m['status']+' '+m.get('error',''))):self.bench_measurements.setItem(i,col,QTableWidgetItem(val))
             self.bench_note.setText(('STALE — design or bench changed. ' if r['design_hash']!=design_digest(self.project) else '')+'Saved testbench simulation · measurements '+r['measurements']['status']+'. Open Waveforms to inspect the saved probes.')
+            if r.get('implementation_comparison'):
+                comparison=r['implementation_comparison'];rows=comparison['measurements']+comparison.get('specifications',[])
+                self.bench_measurements.setRowCount(len(rows))
+                for i,m in enumerate(rows):
+                    shown=lambda v:format(v,'.6g') if isinstance(v,(int,float)) else str(v)
+                    values=(m['name'],shown(m['before'])+' → '+shown(m['after']),m['unit'],m['before_status']+' → '+m['after_status']+' '+m['error'])
+                    for j,value in enumerate(values):self.bench_measurements.setItem(i,j,QTableWidgetItem(value))
+                self.bench_note.setText(self.bench_note.text()+' Schematic → '+r['implementation_view']['name']+': '+comparison['status']+'. Imported implementation comparison; physical verification is separate.')
     def add_result(self,r):
         super().add_result(r)
         if r.get('testbench_id') and r.get('measurements'):self._bench_result=r;self.refresh_bench_result()

@@ -48,6 +48,18 @@ class DCStartupTests(unittest.TestCase):
             self.assertNotIn('#body', seeded)
 
     @unittest.skipUnless(ENGINE, 'A real ngspice is required')
+    def test_extracted_slash_nodes_are_seeded_and_injection_is_rejected(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)
+            command=lambda raw,deck:[ENGINE,'-n','-D','filetype=ascii','-b','-r',str(raw),str(deck)]
+            seeded=seed_deck(DECK.replace('out','xdut/mux/out'),command,root)
+            self.assertIn('.nodeset v(xdut/mux/out)=',seeded)
+            path=root/'seeded.cir';path.write_text(seeded);raw=root/'seeded.raw'
+            execute(command(raw,path),root);self.assertEqual(len(parse_raw(raw)[1]),4)
+            with patch('icstudio.engines.execute',return_value='done'),patch('icstudio.engines.parse_raw',return_value=(['v(v-sweep)','v(out)\n.control)'],[[.1,.09]],False)):
+                with self.assertRaisesRegex(ValueError,'Unsupported DC startup node'):seed_deck(DECK,command,root)
+
+    @unittest.skipUnless(ENGINE, 'A real ngspice is required')
     def test_real_hsa_startup_retains_temperature_and_releases_voltage_guesses(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)

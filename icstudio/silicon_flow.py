@@ -54,7 +54,7 @@ def magic_script(executable,technology,gds,cell,ports,directory,commands,setup="
     return first+'\n'+second
 
 
-def run(p,cid,output,tools,progress=lambda *_:None):
+def run(p,cid,output,tools,progress=lambda *_:None,blocked_reason=None):
     out=Path(output).resolve()
     if out.exists() and any(out.iterdir()):raise ValueError('Use an empty physical verification output directory.')
     out.mkdir(parents=True,exist_ok=True)
@@ -69,6 +69,7 @@ def run(p,cid,output,tools,progress=lambda *_:None):
         except Exception as e:item['status']='failed';item['error']=str(e);publish();raise
         publish();return item['evidence']
     def preflight():
+        if blocked_reason:raise ValueError(blocked_reason)
         validate(p);inverter_devices(p,cid)
         findings=audit(p,cid)
         if findings:raise ValueError(findings[0]['message'])
@@ -106,7 +107,7 @@ def run(p,cid,output,tools,progress=lambda *_:None):
         pre=stage('schematic_simulation',simulate)
         def magic(name,commands):return magic_script(resolved['magic'],assets['technology'],out/'layout.gds',c['name'],c['ports'],out/name,commands)
         def drc():
-            commands='drc style drc(full)\ndrc ignore none\ndrc check\ndrc catchup\nputs "STUDIO_DRC_COUNT [drc list count total]"\nputs "STUDIO_DRC_STYLE [drc list style]"\n'
+            commands='snap internal\nselect top cell\nbox values {*}[select bbox]\nbox grow c 10um\ndrc style drc(full)\ndrc ignore none\ndrc check\ndrc catchup\nputs "STUDIO_DRC_COUNT [drc list count total]"\nputs "STUDIO_DRC_STYLE [drc list style]"\n'
             commands+='set f [open findings.tsv w]\nforeach {reason boxes} [drc listall why] {foreach coords $boxes {puts $f "[string map {\\t { } \\n { }} $reason]\\t[join $coords {,}]"}}\nclose $f\n'
             commands+='puts "STUDIO_MAGIC_SCALE [cif scale out]"\nsave '+tcl_word(c['name'])
             log=magic('drc',commands);matches=re.findall(r'^STUDIO_DRC_COUNT\s+(\d+)\s*$',log,re.M)
@@ -152,11 +153,14 @@ def run(p,cid,output,tools,progress=lambda *_:None):
 
 def job(p,cid,settings,directory,progress):
     output=Path(directory)/'physical-flow'
-    if settings.get('testbench'):
+    if settings.get('verification_mode')=='drc_lvs':
+        from .layout_verification import run as verify_layout
+        report=verify_layout(p,cid,output,settings.get('tools',{}),settings['reference'],progress,blocked_reason=settings.get('physical_blocked_reason'))
+    elif settings.get('testbench'):
         from .hierarchical_flow import run as hierarchical_run
         overrides={'physical_extraction':settings['physical_extraction']} if 'physical_extraction' in settings else {}
-        report=hierarchical_run(p,settings['testbench'],output,settings.get('tools',{}),progress,**overrides);cid=report['cell_id']
-    else:report=run(p,cid,output,settings.get('tools',{}),progress)
+        report=hierarchical_run(p,settings['testbench'],output,settings.get('tools',{}),progress,blocked_reason=settings.get('physical_blocked_reason'),**overrides);cid=report['cell_id']
+    else:report=run(p,cid,output,settings.get('tools',{}),progress,blocked_reason=settings.get('physical_blocked_reason'))
     issues=[]
     if report['status']!='passed':issues.append({'severity':'error','code':'PHYSICAL.'+report['status'].upper(),'object':'','message':report.get('error','Physical workflow incomplete'),'fingerprint':digest(report)})
     if 'findings' in report:issues.extend(report['findings'])
