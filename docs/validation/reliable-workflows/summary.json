@@ -1,0 +1,251 @@
+{
+  "schema": 1,
+  "implementation_commit": "34749d9118e21d9186fb42a1abe3f62a3d12a470",
+  "base_commit": "cfa5231fc47829ccd1a7f7559de71e36d6c4c953",
+  "source": {
+    "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+    "sources": "a8fd1ec95f22be01312743da443cf57cb4054844899739c9bbd84015adedaf27"
+  },
+  "status": "passed",
+  "scope": "Source regression, Windows offscreen desktop, actual Windows ngspice 42 gallery and WSL pinned Banba DRC/LVS",
+  "unit_tests": 1112,
+  "skipped": 45,
+  "environment": {
+    "python": "3.12.14",
+    "system": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 198 Stepping 2, GenuineIntel",
+    "logical_cpus": 24,
+    "font_directory": "C:\\Windows\\Fonts",
+    "qt": "6.8.3",
+    "pyside": "6.8.3",
+    "qt_platform": "offscreen",
+    "display_class": "offscreen",
+    "display_class_source": "declared",
+    "screen": {
+      "name": "",
+      "width": 800,
+      "height": 800,
+      "logical_dpi": 96.0,
+      "physical_dpi_reported": 100.0,
+      "refresh_hz_reported": 60.0,
+      "device_pixel_ratio": 1.0
+    },
+    "window_size": [
+      1440,
+      960
+    ],
+    "style": "fusion",
+    "renderer": {
+      "pipeline": "Qt QWidget backing store; QPainter in Canvas.paintEvent",
+      "screenshot_paint_engine": "Raster",
+      "screenshot_format": "Format_RGB32"
+    },
+    "live_layout_checks": true
+  },
+  "baseline_edit_latency": {
+    "count": 120,
+    "median_ms": 525.5129998549819,
+    "p95_ms": 1505.2861000876874,
+    "max_ms": 1868.3283999562263
+  },
+  "current_edit_latency": {
+    "count": 120,
+    "median_ms": 62.214699923060834,
+    "p95_ms": 117.70959990099072,
+    "max_ms": 730.1472998224199
+  },
+  "comparison": [
+    {
+      "workload": "hierarchical-analog",
+      "operation": "layout_edit_and_full_refresh",
+      "before": {
+        "median": 52.14959988370538,
+        "p95": 72.70439993590117,
+        "max": 72.70439993590117
+      },
+      "after": {
+        "median": 59.72209991887212,
+        "p95": 68.48000013269484,
+        "max": 68.48000013269484
+      }
+    },
+    {
+      "workload": "hierarchical-analog",
+      "operation": "layout_undo_and_full_refresh",
+      "before": {
+        "median": 44.62140006944537,
+        "p95": 57.34850000590086,
+        "max": 57.34850000590086
+      },
+      "after": {
+        "median": 48.69420011527836,
+        "p95": 58.51739994250238,
+        "max": 58.51739994250238
+      }
+    },
+    {
+      "workload": "hierarchical-analog",
+      "operation": "layout_redo_and_full_refresh",
+      "before": {
+        "median": 46.370500000193715,
+        "p95": 47.06839984282851,
+        "max": 47.06839984282851
+      },
+      "after": {
+        "median": 47.89140005595982,
+        "p95": 54.65930001810193,
+        "max": 54.65930001810193
+      }
+    },
+    {
+      "workload": "hierarchical-analog",
+      "operation": "edit_and_full_refresh",
+      "before": {
+        "median": 28.24870008043945,
+        "p95": 34.29639991372824,
+        "max": 34.29639991372824
+      },
+      "after": {
+        "median": 20.811599912121892,
+        "p95": 23.30549992620945,
+        "max": 23.30549992620945
+      }
+    },
+    {
+      "workload": "synthetic-large",
+      "operation": "layout_edit_and_full_refresh",
+      "before": {
+        "median": 593.676800141111,
+        "p95": 1080.005700001493,
+        "max": 1080.005700001493
+      },
+      "after": {
+        "median": 96.21690004132688,
+        "p95": 730.1472998224199,
+        "max": 730.1472998224199
+      }
+    },
+    {
+      "workload": "synthetic-large",
+      "operation": "layout_undo_and_full_refresh",
+      "before": {
+        "median": 1360.1826999802142,
+        "p95": 1548.28149988316,
+        "max": 1548.28149988316
+      },
+      "after": {
+        "median": 63.6442000977695,
+        "p95": 77.1299998741597,
+        "max": 77.1299998741597
+      }
+    },
+    {
+      "workload": "synthetic-large",
+      "operation": "layout_redo_and_full_refresh",
+      "before": {
+        "median": 1013.7285999953747,
+        "p95": 1725.6152001209557,
+        "max": 1725.6152001209557
+      },
+      "after": {
+        "median": 62.66219983808696,
+        "p95": 67.18800007365644,
+        "max": 67.18800007365644
+      }
+    },
+    {
+      "workload": "synthetic-large",
+      "operation": "edit_and_full_refresh",
+      "before": {
+        "median": 458.9409998152405,
+        "p95": 894.784800009802,
+        "max": 894.784800009802
+      },
+      "after": {
+        "median": 90.64340009354055,
+        "p95": 201.23080001212656,
+        "max": 201.23080001212656
+      }
+    },
+    {
+      "workload": "synthetic-large-identities",
+      "operation": "layout_edit_and_full_refresh",
+      "before": {
+        "median": 842.0559999067336,
+        "p95": 1183.1308999098837,
+        "max": 1183.1308999098837
+      },
+      "after": {
+        "median": 88.98469991981983,
+        "p95": 95.2680001500994,
+        "max": 95.2680001500994
+      }
+    },
+    {
+      "workload": "synthetic-large-identities",
+      "operation": "layout_undo_and_full_refresh",
+      "before": {
+        "median": 1420.9147999063134,
+        "p95": 1576.2414999771863,
+        "max": 1576.2414999771863
+      },
+      "after": {
+        "median": 53.3247001003474,
+        "p95": 57.753399945795536,
+        "max": 57.753399945795536
+      }
+    },
+    {
+      "workload": "synthetic-large-identities",
+      "operation": "layout_redo_and_full_refresh",
+      "before": {
+        "median": 1031.716600060463,
+        "p95": 1399.0447998512536,
+        "max": 1399.0447998512536
+      },
+      "after": {
+        "median": 53.00759989768267,
+        "p95": 56.658900110051036,
+        "max": 56.658900110051036
+      }
+    },
+    {
+      "workload": "synthetic-large-identities",
+      "operation": "edit_and_full_refresh",
+      "before": {
+        "median": 620.163599960506,
+        "p95": 830.7409998960793,
+        "max": 830.7409998960793
+      },
+      "after": {
+        "median": 108.54859999381006,
+        "p95": 117.70959990099072,
+        "max": 117.70959990099072
+      }
+    }
+  ],
+  "not_qualified": [
+    "Consumer Windows/Ubuntu package acceptance",
+    "Signing and physical LAN/VPN",
+    "Banba distributed RC",
+    "Banba dummy-fill coupling",
+    "Fabrication signoff"
+  ],
+  "adverse_measurement": "concurrent-physical-run.json missed the 200 ms p95 target while pinned physical verification competed for resources.",
+  "files": {
+    "baseline.json": "ec388065a28219babf013a8e6e609cc281bfb693a67dbdc40f35a283815debec",
+    "before-schematic-refresh.json": "880551100ce015843b119ae5c43502e3ab2030dd371fd9cf44263325ce9ef357",
+    "collaboration-workflow-ui.json": "dba2a48c9195f21a2ce41d590bd30cd8c1d1faaabc59ee9848f5c44d67559962",
+    "concurrent-physical-run.json": "e701496980cdbf4814f776d440ab1f353ef1183830c96642df93255d8d49d212",
+    "current.json": "61f8bcd780eec27d1d8a55e5f5096b0ba459f69db78b8ca4d1111e6af856f0cc",
+    "failed-condition.png": "592163d3eaee88a9cfa4a00a45c9e8f358fd20909c9db35c6eafb40c731dfc65",
+    "gallery-qualification.png": "7c38fcf2a281f9d1f2a3368ffd38858fe31caebc016e6c765b3593b46db236e3",
+    "gallery-real-engine.json": "cd90f27f06ee583182e804d1289cedb2024829177087bafef9d619df275033f8",
+    "ngspice-runtime.json": "a787c874afab92c9624ebea51c0a33072d0de38b100d46a6566cce770d111031",
+    "recovery-ui.json": "f82a7cffda3c96a4ef24332b87f8dc75574927a2b43c084c5292bb61dac8142b",
+    "reference-evidence.png": "8039c5dcb9cbb96c153739e5a5c34d950f59feb326ecc7eda54f2b2d50659241",
+    "unit-tests.txt": "9e27509b7cc1e9ca59ca43267b1102f716ce40cdee8cfc39789ee172ce353cd4",
+    "workflow-ui.json": "5fe0195138783fefa0a1a0581e0e903f38cad055f1073b57e83235e726aa4445"
+  }
+}

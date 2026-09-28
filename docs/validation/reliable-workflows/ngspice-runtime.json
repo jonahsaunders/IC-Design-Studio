@@ -1,0 +1,12 @@
+{
+  "version": "42",
+  "archive_url": "https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/42/ngspice-42_64.7z/download",
+  "archive_sha256": "aa98b3c74743260a38835bd2698f58221b7237939798d1fdf2297f44ecf1d6ec",
+  "scope": "Console SPICE runtime; optional XSPICE/OSDI plugins are separate.",
+  "files": {
+    "COPYING.txt": "df9e98a686fad462feeff23d780d733bce3d615e351938ac86ef8119d707da20",
+    "libomp140.x86_64.dll": "644c49149f8a5d9275a83e9331a0adbd14620f930190e985d30b842107123597",
+    "ngspice.exe": "f86062f3bb1016dcf1552a57f38954891b4e71aee6defbebde6de589ee55682f",
+    "spinit": "cef1e2ffa61cf0fae3afe80afa94800df8fadc67df3178aa7f1e3216ccfb0e91"
+  }
+}

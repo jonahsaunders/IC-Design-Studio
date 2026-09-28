@@ -64,3 +64,20 @@ checks and product hashes before/after. The 200 ms target is a declared-host
 The hosted desktop gate retains its existing per-edit ceiling and now measures
 background live checks too. A new source revision still needs its own hosted
 package qualification.
+
+## Retained source validation
+
+The [validation record](validation/reliable-workflows/summary.json) contains
+1112 passing unit tests (45 environment skips), the real ngspice 42
+gallery run, GUI regressions, screenshots and raw timing samples. On this Windows
+11 desktop with Qt 6.8.3, live checks and five iterations per workload, edit p95
+changed from 1505.3 ms to 117.7 ms. The updated median was
+62.2 ms and the maximum was 730.1 ms. Both measurements use
+the same harness and fonts; code hashes remain unchanged during each run.
+The earlier measurement taken concurrently with physical verification missed
+the target and is retained separately. These are source/offscreen measurements,
+not native consumer-display latency or package acceptance.
+
+![Failing operating-condition navigation](validation/reliable-workflows/failed-condition.png)
+
+![Shared gallery evidence](validation/reliable-workflows/gallery-qualification.png)

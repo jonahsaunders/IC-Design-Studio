@@ -1,0 +1,96 @@
+{
+  "version": "0.22.0.dev25",
+  "status": "passed",
+  "platform": "win32",
+  "examples": [
+    {
+      "example": "rc",
+      "engine": "builtin",
+      "samples": 501,
+      "status": "Complete"
+    },
+    {
+      "example": "native-divider",
+      "engine": "ngspice",
+      "samples": 1,
+      "status": "Complete"
+    },
+    {
+      "example": "inverter",
+      "engine": "builtin",
+      "samples": 601,
+      "status": "Complete"
+    },
+    {
+      "example": "native-rc",
+      "engine": "ngspice",
+      "samples": 76,
+      "status": "Complete"
+    },
+    {
+      "example": "reusable-divider",
+      "engine": "builtin",
+      "samples": 1,
+      "status": "Complete"
+    },
+    {
+      "example": "common-centroid",
+      "status": "Opened and validated; placement exercise"
+    },
+    {
+      "example": "gf180-bandgap-startup",
+      "engine": "ngspice",
+      "samples": 30035,
+      "status": "Complete"
+    },
+    {
+      "example": "gf180-bandgap-full",
+      "status": "Opened; long simulation covered by verify_bundled_simulation.py --full"
+    },
+    {
+      "example": "sky130-inverter",
+      "engine": "ngspice",
+      "samples": 1226,
+      "status": "Complete"
+    },
+    {
+      "example": "gf180-banba",
+      "engine": "ngspice",
+      "samples": 1,
+      "status": "Complete"
+    },
+    {
+      "example": "gf180-banba-pass2",
+      "engine": "ngspice",
+      "samples": 1,
+      "status": "Complete"
+    },
+    {
+      "example": "gf180-banba-layout",
+      "engine": "ngspice",
+      "samples": 1,
+      "status": "Complete"
+    }
+  ],
+  "checks": [
+    "Search and empty gallery state",
+    "Independent example copies",
+    "Short real worker runs including both bundled PDKs",
+    "One-click offline PDK installation",
+    "Expected divider voltage",
+    "Background PDK discovery and registration",
+    "New project linked to checksummed PDK"
+  ],
+  "pdk_results": {
+    "registered": [
+      "icstudio-educational@1"
+    ],
+    "errors": [],
+    "included_packages": [
+      "sky130A@24bc6d0bfd6a0224",
+      "gf180mcuD@9394d9228663e22b"
+    ]
+  },
+  "partial_failure_recovery": "Valid package registered after a damaged package",
+  "errors": []
+}

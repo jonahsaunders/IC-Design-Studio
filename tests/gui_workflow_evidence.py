@@ -53,7 +53,7 @@ def main():
         # layout fixture. Actual inventory inspection runs in gui_workflow_review.
         guide.analysis.update(inventory=dict(design_hash=design_digest(w.project),devices=[]),connections=[],constraints=[])
         guide.render();assert guide.next_action.text()=='Verification complete · optional team review'
-        cases[-1]['result']['specifications'][0]['status']='FAIL';guide.render()
+        cases[-1]['result']['specifications'][0].update(status='FAIL',value=1.5);guide.render()
         assert guide.plan_state['status']=='Failed' and 'plan evidence' in guide.next_action.text()
         window=guide.open_plan_evidence()
         assert window.failed.isChecked() and window.table.currentItem().data(Qt.UserRole)==cases[-1]['id']
@@ -66,7 +66,7 @@ def main():
         assert len(guide.steps.cellWidget(3,2).findChildren(QPushButton))==2
         physical['state']='Running';guide.render();assert guide.evidence_states['physical']['status']=='Running'
         physical['state']='Complete';physical['result']['silicon_report']['status']='passed'
-        cases[-1]['result']['specifications'][0]['status']='PASS'
+        cases[-1]['result']['specifications'][0].update(status='PASS',value=.5)
         w.commit(lambda q:q.update(name='Edited'),'Rename');wait(lambda:guide.analysis_key[1]==w.project['revision'])
         assert all(s['status']=='Stale' for s in guide.evidence_states.values())
         entry=next(e for e in examples() if e['id']=='gf180-banba-layout')
