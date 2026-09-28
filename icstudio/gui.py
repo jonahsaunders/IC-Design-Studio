@@ -94,6 +94,18 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
     def undo(self):self.history.undo();self.persist_history()
     def redo(self):self.history.redo();self.persist_history()
     def persist_history(self):
+        geometry=getattr(self.history,'plain_geometry_change',None)
+        if (isinstance(self.history,History) and geometry and geometry['cell']==self.cid
+                and not getattr(self,'_edit_context',None) and hasattr(self,'refresh_layout_edit')):
+            self.history.layout_stats=geometry
+            self.queue_recovery(validated=True)
+            self.refresh_layout_edit()
+            return
+        if (isinstance(self.history,History) and getattr(self.history,'plain_schematic_change',None)==self.cid
+                and not getattr(self,'_edit_context',None) and hasattr(self,'refresh_schematic_edit')):
+            self.queue_recovery(validated=True)
+            self.refresh_schematic_edit()
+            return
         self.queue_recovery()
         self.refresh()
     def select(self,ids,mode=None):

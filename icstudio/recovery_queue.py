@@ -3,7 +3,6 @@ from concurrent.futures import Future, ThreadPoolExecutor
 import pickle
 from time import monotonic
 from PySide6.QtCore import QObject, QTimer, Signal
-from .model import digest
 from . import recovery
 
 
@@ -12,8 +11,8 @@ def _write_snapshot(snapshot, directory, source, validated):
     # external input. Keep Python types intact until the normal validator runs.
     # The worker owns this tree, including any normalization during validation.
     project = pickle.loads(snapshot)
-    recovery.write(project, directory, source, validated=validated)
-    return digest(project)
+    path = recovery.write(project, directory, source, validated=validated)
+    return recovery.verified_receipt(path)
 
 
 class RecoveryQueue(QObject):
@@ -76,8 +75,8 @@ class RecoveryQueue(QObject):
         if not wait and not future.done():
             return False
         try:
-            fingerprint = future.result(timeout=10 if wait else 0)
-            result = dict(metadata, hash=fingerprint, error=None)
+            receipt = future.result(timeout=10 if wait else 0)
+            result = dict(metadata, hash=receipt['project_hash'], receipt=receipt, error=None)
         except TimeoutError:
             raise RuntimeError('Recovery is still writing. Wait before closing or changing projects.')
         except Exception as exc:

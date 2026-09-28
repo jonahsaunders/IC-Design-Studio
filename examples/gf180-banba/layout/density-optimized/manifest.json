@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "scope": "Smaller density floorplan and actual pinned DRC/density/antenna/LVS only",
+  "passed": true,
+  "signoff": false,
+  "fill_coupling_qualified": false,
+  "distributed_rc_qualified": false,
+  "files": {
+    "banba-density.gds": "842f1b5c91cd14d2f2ba7dbb7ad8e4cbd0ecbb446c202e7709049990e13d3b95",
+    "drc/banba-density_antenna.lyrdb": "a88a605ac8101e7af8ca8936a4c80aea360a83992a3be1b318d2a9121e829912",
+    "drc/banba-density_density.lyrdb": "62a2d61fa09c3464c8a3277b6ec7b84dee3ef6ea2de938bb48f3222671ce45ae",
+    "drc/banba-density_main.lyrdb": "4db6c797d278078ae7605d6df61813bc794d0ec03ae2c8aa2f614c8d530bd334",
+    "drc.command.json": "4f02ff93087cf5cb089a6f3c05a34de4d87ac00e4beef1d625128382d6bf62bb",
+    "drc.txt": "a7a08c6c1ebf81865cb6d6be3c4c3abbcc255060f21c2b4108386f716780c21c",
+    "fill-validation.json": "4cb1e2382a7ca9b6bfc27def46d806b8ced6d6e1146c0e6758b36382622a116e",
+    "klayout-version.command.json": "68bf6ed59f3c8ef9443117124d090a5a32ff99bbc5d572441e78bf856a5d99d6",
+    "lvs/banba-density.cir": "b43bc270101890a46ebcaea7f61fe3185e207d149ec5c83ae95c7a75e46afd43",
+    "lvs/banba-density.lvsdb.gz": "ce9ec2bd10048ccd30ff0aac2d368c227db529126c0c5c1ca19a1f62e52e1a77",
+    "lvs.command.json": "6210d3679a48351d4cccd4f067cb3b5e3dadf1a2f02cc3744b0d76f9c903bc75",
+    "lvs.txt": "5055c04e6e89553cf0ce6182a104399d40ce678178c4b76333914f5505851658",
+    "physical-verification.json": "625547e4c701218f299b5864389b5a2c23461c58abc212fc6e2aee02fdd5c074",
+    "schematic.cdl": "fc861178007a3c703267b771358c084d10894ba241e919ef5b19c3b4d57eb633",
+    "schematic.spice": "f53629fc097c7d29f462470ed24d85bbe5015f11bdd72c3ecd7bf43aafd97c2f"
+  },
+  "source_commit": "cfa5231fc47829ccd1a7f7559de71e36d6c4c953",
+  "generator_sha256": "dbafc658c90e299fb29a4efdcdd44129224888b5267470f57c2df8dd51f720bf",
+  "verification_script_sha256": "59f7dbd137d874911341f6719ab34c18b11c22484d17b089ab399e0e52ca9e39",
+  "decompressed_lvsdb_sha256": "8779134f7fe6986fb23b05b84fba74fd122aaff0ea61880560e1a8f592103da2"
+}

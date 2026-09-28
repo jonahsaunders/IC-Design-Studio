@@ -137,12 +137,14 @@ class OnboardingMixin:
         guide = QPushButton('Read the getting-started guide'); guide.clicked.connect(lambda: self.open_editor_doc('GETTING_STARTED.md')); rv.addWidget(guide)
         split.addWidget(right); split.setSizes([420, 570])
         def selected():
+            from .qualification import markdown
             item = items.currentItem(); entry = item.data(Qt.UserRole) if item else None
             open_button.setEnabled(entry is not None)
             if entry is None:
                 details.setPlainText('No matching examples. Try a broader search.'); engine_status.clear(); return
             details.setMarkdown('## ' + entry['title'] + '\n\n' + entry['summary'] + '\n\n**What to expect**\n\n' + entry['expected'] +
-                                '\n\n**Try it**\n\n' + '\n'.join(f'{i}. {s}' for i, s in enumerate(entry['steps'], 1)))
+                                '\n\n**Try it**\n\n' + '\n'.join(f'{i}. {s}' for i, s in enumerate(entry['steps'], 1))+
+                                '\n\n'+markdown(entry.get('qualification')))
             needs = entry['engine'] == 'ngspice'
             available = find_ngspice(self.settings.value('engine/ngspice', ''))
             engine_status.setText(('ngspice found · no external PDK needed' if available else 'ngspice needed · open Engine setup to select it') if needs else

@@ -22,6 +22,7 @@ QSettings.setPath(QSettings.IniFormat,QSettings.UserScope,str(Path(profile.name)
 QStandardPaths.writableLocation=staticmethod(lambda kind:str(Path(profile.name)/str(kind.value)))
 app=QApplication([]);app.setStyle('Fusion')
 w=Studio(recover=False);w.live_check.setChecked(False)
+w.show();app.processEvents()
 w.error=lambda text:(_ for _ in ()).throw(AssertionError(text))
 p=example('empty');cell=p['cells'][0]
 cell['devices']=[device('R','R1',0,0),device('R','R2',200,0)]

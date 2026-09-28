@@ -6,6 +6,43 @@ COLLECTIONS = ('devices', 'shapes', 'wires', 'layout_instances', 'layout_pins',
                'layout_ports', 'parametric_devices', 'pdk_layouts')
 
 
+def plain_geometry_change(project,patch):
+    """Identify an already validated, flat, unowned geometry-only undo patch."""
+    if not patch or patch[0]!='dict' or patch[2] or patch[3]:return None
+    if set(patch[1])-{'cells','revision','modified'}:return None
+    cells=patch[1].get('cells')
+    if not cells or cells[0]!='list' or len(cells[1])!=1:return None
+    index,change=next(iter(cells[1].items()));cell=project['cells'][index]
+    if cell.get('layout_instances') or change[0]!='dict' or change[2] or change[3]:return None
+    if set(change[1])!={'shapes'}:return None
+    shapes=change[1]['shapes']
+    if shapes[0]!='list':return None
+    for position,delta in shapes[1].items():
+        shape=cell['shapes'][position]
+        if any(shape.get(k) for k in ('device_id','generated_device','generated_route','pcell_id','via_id')):return None
+        if delta[0]!='dict' or delta[2] or delta[3] or set(delta[1])-{'points','holes'}:return None
+    return {'cell':cell['id'],'indices':list(shapes[1])}
+
+
+def plain_schematic_change(project,patch):
+    """Presentation-only stable-index edits; names, nets and structure stay fixed."""
+    if not patch or patch[0]!='dict' or patch[2] or patch[3]:return None
+    if set(patch[1])-{'cells','revision','modified'}:return None
+    cells=patch[1].get('cells')
+    if not cells or cells[0]!='list' or len(cells[1])!=1:return None
+    index,change=next(iter(cells[1].items()));cell=project['cells'][index]
+    if cell.get('layout_instances') or change[0]!='dict':return None
+    # The constrained capture command initializes an absent empty label list.
+    if any(key!='labels' or value!=[] for values in change[2:4] for key,value in values.items()):return None
+    allowed={'devices':{'x','y','rotation','mirror'},'wires':{'points'}}
+    if not change[1] or set(change[1])-set(allowed):return None
+    for field,rows in change[1].items():
+        if rows[0]!='list':return None
+        for delta in rows[1].values():
+            if delta[0]!='dict' or (set(delta[1])|set(delta[2])|set(delta[3]))-allowed[field]:return None
+    return cell['id']
+
+
 @dataclass(frozen=True)
 class ChangeSet:
     project_id: str

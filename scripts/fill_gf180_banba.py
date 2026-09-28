@@ -30,6 +30,8 @@ EXCLUSION_CLEARANCE = 30000
 # conservative all-circuit keepout below. Explicit exclusion gets 30 um.
 EXCLUSIONS = [(75, 0), (220, 0), (96, 1), (152, 5), (122, 5),
               (86, 17), (173, 5), (111, 5), (110, 5), (151, 5)]
+DENSITY_LIMITS = {'comp': (25, 70), 'poly': (14, 100),
+                  'm1': (30, 100), 'm2': (30, 100), 'm3': (30, 100), 'm4': (30, 100)}
 
 
 def region(layout, top, pair):
@@ -133,8 +135,7 @@ def inspect(source, output, bounds):
     for name, pair in FILL_LAYERS.items():
         material = current[pair] + current.get((pair[0], 0), k.Region())
         density[name] = material.merged().area()/bounds.area()*100
-    limits = {'comp': (25, 70), 'poly': (14, 100),
-              'm1': (30, 100), 'm2': (30, 100), 'm3': (30, 100), 'm4': (30, 100)}
+    limits = DENSITY_LIMITS
     failures = [name for name, (low, high) in limits.items() if not low <= density[name] <= high]
     if failures:
         raise ValueError('Insufficient fill floorplan for '+', '.join(failures)+': '+str(density))
@@ -189,10 +190,63 @@ def before_area(source):
     return layout.top_cell().bbox().area()*layout.dbu**2/1e6
 
 
+def optimize(source, directory, minimum=300, maximum=600, step=25):
+    """Smallest passing uniform halo on an explicit, bounded search grid.
+
+    This searches density only. The selected GDS is independently re-read by
+    build(), and still requires the pinned upstream DRC/LVS and extraction.
+    No keepout, tile spacing or density requirement is relaxed by the search.
+    """
+    import klayout.db as k
+    if any(not math.isfinite(v) or v <= 0 or round(v*1000) % 5 or
+           not math.isclose(v*1000, round(v*1000), abs_tol=1e-7, rel_tol=0)
+           for v in (minimum, maximum, step)) or minimum > maximum or maximum > 2000:
+        raise ValueError('Search bounds and step must be positive, on the 5 nm grid, and at most 2000 um.')
+    start, stop, stride = (round(v*1000) for v in (minimum, maximum, step))
+    if (stop-start)//stride+1 > 100:
+        raise ValueError('Limit the density search to at most 100 candidates.')
+    directory = Path(directory).resolve()
+    if directory.exists() and any(directory.iterdir()):
+        raise ValueError('Choose an empty output directory.')
+    layout = k.Layout(); layout.read(str(source)); top = layout.top_cell()
+    if layout.dbu != .001 or top.name != 'banba_layout':
+        raise ValueError('Expected the Banba layout at 1 nm database units.')
+    original = source_regions(layout, top)
+    if any(pair in original and not original[pair].is_empty() for pair in [*FILL_LAYERS.values(), BORDER]):
+        raise ValueError('Input already contains fill or a boundary; use the original circuit GDS.')
+    blocked = keepout(original); trials = []
+    for halo in range(start, stop+1, stride):
+        bounds = top.bbox().enlarged(halo)
+        poly = candidates(bounds, 5600, 8000, 1600).not_interacting(blocked)
+        fills = {'poly': poly, 'comp': poly.sized(-300)}
+        for n, name in enumerate(('m1', 'm2', 'm3', 'm4')):
+            fills[name] = candidates(bounds, 2000, 3200, 500, n*500).not_interacting(blocked)
+        density = {name: (shapes+original.get((FILL_LAYERS[name][0], 0), k.Region())).merged().area()/bounds.area()*100
+                   for name, shapes in fills.items()}
+        failed = [name for name, (low, high) in DENSITY_LIMITS.items() if not low <= density[name] <= high]
+        trials.append(dict(halo_um=halo/1000, area_mm2=bounds.area()/1e12,
+                           density_percent=density, failed_layers=failed))
+        if failed:
+            continue
+        report = build(source, directory, halo/1000)
+        report['search'] = dict(minimum_um=minimum, maximum_um=maximum, step_um=step,
+            scope='Smallest density-passing uniform halo on this grid; upstream DRC/LVS and fill-coupled extraction remain required.',
+            trials=trials)
+        (directory/'fill-validation.json').write_text(json.dumps(report, indent=2)+'\n')
+        return report
+    raise ValueError('No density-passing halo on the requested search grid: '+json.dumps(trials))
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', type=Path, default=SOURCE)
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--halo-um', type=float, default=600)
+    parser.add_argument('--optimize', action='store_true', help='Search uniform halos without relaxing rules')
+    parser.add_argument('--min-halo-um', type=float, default=300)
+    parser.add_argument('--max-halo-um', type=float, default=600)
+    parser.add_argument('--halo-step-um', type=float, default=25)
     a = parser.parse_args()
-    print(json.dumps(build(a.source, a.out, a.halo_um), indent=2))
+    result = (optimize(a.source, a.out, a.min_halo_um, a.max_halo_um, a.halo_step_um)
+              if a.optimize else build(a.source, a.out, a.halo_um))
+    print(json.dumps(result, indent=2))

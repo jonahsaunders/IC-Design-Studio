@@ -13,6 +13,8 @@ from icstudio.model import validate
 
 
 def main():
+    from scripts.update_qualification import update
+    update(check=True)
     docs = ['README.md', 'CONTRIBUTING.md', 'SIMULATION_SETUP.md', 'THIRD_PARTY_NOTICES.md']
     docs += [str(p.relative_to(ROOT)) for folder in ('docs', 'examples') for p in sorted((ROOT / folder).rglob('*.md'))]
     errors = []; links = 0
