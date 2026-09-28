@@ -276,7 +276,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         if cache.source is not self.cell['shapes']:
             cache.update(self.cell['shapes']);self._spatial=cache.index
         return cache.boxes,cache.paths
-    def draw_layout_geometry(self,p,view,part='all'):
+    def draw_layout_geometry(self,p,view,part='all',indices=None):
         # Cosmetic outlines can reach into the viewport even when the geometry
         # box is just outside it. Apply the same ink margin to direct and cached
         # queries so subpixel pans/drags do not drop border pixels.
@@ -299,7 +299,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         else:
             moving=set(self._geometry_cache.selected_indices(selection)) if delta is not None else set()
             def visible(box):return sorted(self._spatial.query((box.left(),box.top(),box.right(),box.bottom())))
-            indexed=[(i,None) for i in visible(view) if i not in moving] if part!='moving' else []
+            indexed=[(i,None) for i in (visible(view) if indices is None else indices) if i not in moving] if part!='moving' else []
             if moving and part!='stationary':indexed.extend((i,delta) for i in moving if boxes[i].intersects(view.translated(-delta)))
             rows=((self.cell['shapes'][i],boxes[i],paths[i],tr) for i,tr in indexed)
         batch=[];batch_key=None;batch_box=None;active_translation=None
@@ -377,6 +377,8 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
             p.save();p.drawPicture(QPointF(0,0),self._stationary_drag_picture[2]);p.restore()
             return self.draw_layout_geometry(p,view,'moving')
         if self.moving or self.scale!=previous_scale and not scale_free or not getattr(self,'cache_layout_pictures',True):return self.draw_layout_geometry(p,view)
+        if scene is None and len(self.cell['shapes'])>=256:
+            return self.paint_layout_chunks(p,view,scale_free)
         scene=self.cell.get('_layout_scene');source=(id(scene),scene.generation) if scene is not None else (id(self._geometry_cache),self._geometry_cache.display_revision)
         key=(source,self._layout_display_revision,None if scale_free else self.scale,self.dark,tuple(self.selection),self.net,tuple(sorted(self.visible_layers)),repr(getattr(self,'layer_styles',{})),self.cell.get('layout_label_mode'),getattr(self,'batch_rectangles',False),self.devicePixelRatioF())
         cache=getattr(self,'_layout_picture',None)
@@ -386,6 +388,36 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
             finally:recorder.end()
             self._layout_picture=(key,area,picture)
         p.save();p.drawPicture(QPointF(0,0),self._layout_picture[2]);p.restore()
+
+    def paint_layout_chunks(self,p,view,scale_free):
+        """Retain unchanged runs of 256 shapes in their original paint order.
+
+        Whole-viewport pictures were rebuilt for a one-shape move and every
+        undo. Content keys include geometry and display metadata; no mutable
+        project identity is trusted. Adjacent runs are never regrouped by layer,
+        so translucent overlaps preserve the direct renderer's ordering.
+        """
+        cache=getattr(self,'_layout_chunks',{})
+        style=(self._layout_display_revision[1],None if scale_free else self.scale,
+               self.dark,tuple(self.selection),self.net,tuple(sorted(self.visible_layers)),
+               repr(getattr(self,'layer_styles',{})),self.cell.get('layout_label_mode'),
+               getattr(self,'batch_rectangles',False),self.devicePixelRatioF(),p.renderHints())
+        ink=3/self.scale;visible=view.adjusted(-ink,-ink,ink,ink)
+        indices=self._spatial.query((visible.left(),visible.top(),visible.right(),visible.bottom()))
+        chunks=sorted({index//256 for index in indices});rebuilt=0
+        for chunk in chunks:
+            start=chunk*256;end=min(start+256,len(self.cell['shapes']))
+            key=(style,self._geometry_cache.display_keys[start:end]);old=cache.get(chunk)
+            if old is None or old[0]!=key or not old[1].contains(view):
+                margin=128/self.scale;area=view.adjusted(-margin,-margin,margin,margin)
+                picture=QPicture();recorder=QPainter(picture);recorder.setRenderHints(p.renderHints())
+                try:self.draw_layout_geometry(recorder,area,indices=range(start,end))
+                finally:recorder.end()
+                old=(key,area,picture);cache[chunk]=old;rebuilt+=1
+            p.save();p.drawPicture(QPointF(0,0),old[2]);p.restore()
+        # Keep a bounded cache even while panning very large flat files.
+        self._layout_chunks=cache if len(cache)<=1024 else {c:cache[c] for c in chunks[-1024:]}
+        self.layout_picture_stats={'visible_chunks':len(chunks),'rebuilt_chunks':rebuilt}
 
     def draw_layout(self,p,view):
         colors={l['name']:getattr(self,'layer_styles',{}).get(l['name'],{}).get('color',l['color']) for l in self.tech['layers']}

@@ -1,0 +1,27 @@
+valid: passed
+missing-engine: blocked
+valid: passed
+licensed-tool: blocked
+Preparing IC Design Studio dependencies in C:\Users\jonah\AppData\Local\Temp\tmpz6775xgf\profile\ICStudio\venvs\test
+Preparing IC Design Studio dependencies in C:\Users\jonah\AppData\Local\Temp\tmpz6775xgf\profile\ICStudio\venvs\test
+Preparing IC Design Studio dependencies in C:\Users\jonah\AppData\Local\Temp\tmpmduo_dce\profile\ICStudio\venvs\test
+Preparing IC Design Studio dependencies in C:\Users\jonah\AppData\Local\Temp\tmpmduo_dce\profile\ICStudio\venvs\test
+Preparing IC Design Studio dependencies in C:\Users\jonah\AppData\Local\Temp\tmp9rq9qyht\profile\ICStudio\venvs\test
+Preparing IC Design Studio dependencies in C:\Users\jonah\AppData\Local\Temp\tmpikf594os\profile\ICStudio\venvs\test
+Preparing IC Design Studio dependencies in C:\Users\jonah\AppData\Local\Temp\tmpikf594os\profile\ICStudio\venvs\test
+Checking bundled NGSpice and simulation libraries�
+Preparing IC Design Studio dependencies in C:\Users\jonah\AppData\Local\Temp\tmpagqfrtd6\profile\ICStudio\venvs\test
+Preparing IC Design Studio dependencies in C:\Users\jonah\AppData\Local\Temp\tmpagqfrtd6\profile\ICStudio\venvs\test
+Preparing IC Design Studio dependencies in C:\Users\jonah\AppData\Local\Temp\tmpcshl_nu3\profile\ICStudio\venvs\test
+Checking bundled NGSpice and simulation libraries�
+Checking bundled NGSpice and simulation libraries�
+Checking bundled NGSpice and simulation libraries�
+Checking bundled NGSpice and simulation libraries�
+Preparing IC Design Studio dependencies in C:\Users\jonah\AppData\Local\Temp\tmpap4h0iz3\profile\ICStudio\venvs\test
+Checking bundled NGSpice and simulation libraries�
+..............................s.....................s........ss..........................s...........s..........................................................................................s.s.......................sssssssssss........s.....ss......................s..........s..................................sss.............................................................s....................................................................................................................................s...........................................................................................................................................................................................s...................s..s...s.s..s..........s...........................................s............ss..............................................................................s........................................s.....ss....ss...................................................................................................................................................................................
+----------------------------------------------------------------------
+Ran 1112 tests in 131.969s
+
+OK (skipped=45)
+{"Complete": 1, "paused": false, "specification_failures": 1, "total": 1}

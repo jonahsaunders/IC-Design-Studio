@@ -1,0 +1,11 @@
+[
+  "/opt/icstudio/python/bin/python",
+  "/mnt/c/Users/jonah/Documents/Codex/2026-09-28/what/work/IC-Design-Studio/build/banba-optimized-check/drc-deck/run_drc.py",
+  "--path=/mnt/c/Users/jonah/Documents/Codex/2026-09-28/what/work/IC-Design-Studio/build/banba-optimized/banba-density.gds",
+  "--variant=B",
+  "--topcell=banba_layout",
+  "--run_dir=/mnt/c/Users/jonah/Documents/Codex/2026-09-28/what/work/IC-Design-Studio/build/banba-optimized-check/drc",
+  "--thr=2",
+  "--density",
+  "--antenna"
+]

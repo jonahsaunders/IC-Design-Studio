@@ -288,8 +288,10 @@ def load_project(path):
 class History:
     def __init__(self,p): self.project=clone(validate(p)); self.undo_stack=[]; self.redo_stack=[]; self.serial=p['revision']
     def _record(self,before,label,kind='edit',patch=None):
-        from .document import from_patch
+        from .document import from_patch,plain_geometry_change,plain_schematic_change
         self.last_change=from_patch(before,self.project,patch,label,kind)
+        self.plain_geometry_change=plain_geometry_change(self.project,patch)
+        self.plain_schematic_change=plain_schematic_change(self.project,patch)
     def commit(self,fn,label='Edit'):
         from .history_delta import difference
         nxt=clone(self.project); fn(nxt); nxt['revision']=self.serial+1; nxt['modified']=now(); validate(nxt)

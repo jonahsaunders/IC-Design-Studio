@@ -1,0 +1,2520 @@
+{
+  "schema": 1,
+  "status": "failed",
+  "workloads": [
+    {
+      "name": "hierarchical-analog",
+      "origin": "examples/amplifier-testbench.icproj",
+      "source_sha256": "b59a38e72e9fa72ac052fcab6f789895575cf25820b084f4976cc350c614650e",
+      "description": "16 reused amplifier fixtures; three electrical/physical hierarchy levels; generic display geometry.",
+      "qualification": "Analog project editing and hierarchical display; excludes circuit simulation and physical qualification.",
+      "input_sha256": "a47110b6a1e0fa429ac7f6368bbd29056819f4df5e72c625fab61a74f6842c84",
+      "iterations": 5,
+      "samples": [
+        {
+          "iteration": 1,
+          "timings_ms": {
+            "load_full_studio": 206.97210007347167,
+            "full_refresh": 97.92209998704493,
+            "open_hierarchy_layout": 185.4330999776721,
+            "layout_selection": 94.09629995934665,
+            "layout_mouse_pan": 60.31000008806586,
+            "layout_edit_and_full_refresh": 210.81260009668767,
+            "layout_undo_and_full_refresh": 158.56359992176294,
+            "layout_redo_and_full_refresh": 134.27389995194972,
+            "layout_restore_and_full_refresh": 117.93639999814332,
+            "open_hierarchy_schematic": 101.02270008064806,
+            "schematic_selection": 138.39550013653934,
+            "edit_and_full_refresh": 99.75429996848106,
+            "undo_and_full_refresh": 93.7455000821501,
+            "redo_and_full_refresh": 91.78050002083182,
+            "save_and_full_refresh": 102.87589998915792,
+            "unsaved_edit_and_refresh": 80.04850009456277,
+            "queued_recovery_completion": 84.7080999519676,
+            "live_checks_completion": 326.26860006712377,
+            "recovery_read": 23.15900009125471,
+            "reopen_saved_full_studio": 164.2905999906361,
+            "restore_recovery_full_studio": 95.79199994914234
+          },
+          "paint_events": {
+            "load_full_studio": {
+              "all_widgets": 158,
+              "schematic": 2,
+              "layout": 0
+            },
+            "full_refresh": {
+              "all_widgets": 144,
+              "schematic": 2,
+              "layout": 0
+            },
+            "open_hierarchy_layout": {
+              "all_widgets": 198,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_selection": {
+              "all_widgets": 129,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_mouse_pan": {
+              "all_widgets": 127,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_edit_and_full_refresh": {
+              "all_widgets": 214,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_undo_and_full_refresh": {
+              "all_widgets": 140,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_redo_and_full_refresh": {
+              "all_widgets": 139,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_restore_and_full_refresh": {
+              "all_widgets": 139,
+              "schematic": 0,
+              "layout": 2
+            },
+            "open_hierarchy_schematic": {
+              "all_widgets": 168,
+              "schematic": 2,
+              "layout": 0
+            },
+            "schematic_selection": {
+              "all_widgets": 272,
+              "schematic": 2,
+              "layout": 0
+            },
+            "edit_and_full_refresh": {
+              "all_widgets": 183,
+              "schematic": 2,
+              "layout": 0
+            },
+            "undo_and_full_refresh": {
+              "all_widgets": 177,
+              "schematic": 2,
+              "layout": 0
+            },
+            "redo_and_full_refresh": {
+              "all_widgets": 177,
+              "schematic": 2,
+              "layout": 0
+            },
+            "save_and_full_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "unsaved_edit_and_refresh": {
+              "all_widgets": 182,
+              "schematic": 2,
+              "layout": 0
+            },
+            "queued_recovery_completion": {
+              "all_widgets": 163,
+              "schematic": 1,
+              "layout": 0
+            },
+            "live_checks_completion": {
+              "all_widgets": 1063,
+              "schematic": 9,
+              "layout": 0
+            },
+            "recovery_read": {
+              "all_widgets": 118,
+              "schematic": 1,
+              "layout": 0
+            },
+            "reopen_saved_full_studio": {
+              "all_widgets": 204,
+              "schematic": 2,
+              "layout": 0
+            },
+            "restore_recovery_full_studio": {
+              "all_widgets": 153,
+              "schematic": 2,
+              "layout": 0
+            }
+          },
+          "rss_after_bytes": 170827776
+        },
+        {
+          "iteration": 2,
+          "timings_ms": {
+            "load_full_studio": 97.74970007129014,
+            "full_refresh": 87.66609989106655,
+            "open_hierarchy_layout": 136.6524000186473,
+            "layout_selection": 61.5108001511544,
+            "layout_mouse_pan": 41.83189989998937,
+            "layout_edit_and_full_refresh": 117.91180004365742,
+            "layout_undo_and_full_refresh": 109.47829997166991,
+            "layout_redo_and_full_refresh": 110.03229999914765,
+            "layout_restore_and_full_refresh": 109.7093999851495,
+            "open_hierarchy_schematic": 104.883800027892,
+            "schematic_selection": 67.33440002426505,
+            "edit_and_full_refresh": 65.6286000739783,
+            "undo_and_full_refresh": 65.87579986080527,
+            "redo_and_full_refresh": 62.288499902933836,
+            "save_and_full_refresh": 125.43519982136786,
+            "unsaved_edit_and_refresh": 63.382700085639954,
+            "queued_recovery_completion": 66.70810002833605,
+            "live_checks_completion": 20.933000138029456,
+            "recovery_read": 25.74439998716116,
+            "reopen_saved_full_studio": 179.0258998516947,
+            "restore_recovery_full_studio": 123.38459980674088
+          },
+          "paint_events": {
+            "load_full_studio": {
+              "all_widgets": 159,
+              "schematic": 2,
+              "layout": 0
+            },
+            "full_refresh": {
+              "all_widgets": 144,
+              "schematic": 2,
+              "layout": 0
+            },
+            "open_hierarchy_layout": {
+              "all_widgets": 198,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_selection": {
+              "all_widgets": 129,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_mouse_pan": {
+              "all_widgets": 126,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_edit_and_full_refresh": {
+              "all_widgets": 157,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_undo_and_full_refresh": {
+              "all_widgets": 139,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_redo_and_full_refresh": {
+              "all_widgets": 139,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_restore_and_full_refresh": {
+              "all_widgets": 152,
+              "schematic": 0,
+              "layout": 2
+            },
+            "open_hierarchy_schematic": {
+              "all_widgets": 168,
+              "schematic": 2,
+              "layout": 0
+            },
+            "schematic_selection": {
+              "all_widgets": 150,
+              "schematic": 2,
+              "layout": 0
+            },
+            "edit_and_full_refresh": {
+              "all_widgets": 178,
+              "schematic": 2,
+              "layout": 0
+            },
+            "undo_and_full_refresh": {
+              "all_widgets": 177,
+              "schematic": 2,
+              "layout": 0
+            },
+            "redo_and_full_refresh": {
+              "all_widgets": 177,
+              "schematic": 2,
+              "layout": 0
+            },
+            "save_and_full_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "unsaved_edit_and_refresh": {
+              "all_widgets": 182,
+              "schematic": 2,
+              "layout": 0
+            },
+            "queued_recovery_completion": {
+              "all_widgets": 163,
+              "schematic": 1,
+              "layout": 0
+            },
+            "live_checks_completion": {
+              "all_widgets": 119,
+              "schematic": 1,
+              "layout": 0
+            },
+            "recovery_read": {
+              "all_widgets": 118,
+              "schematic": 1,
+              "layout": 0
+            },
+            "reopen_saved_full_studio": {
+              "all_widgets": 168,
+              "schematic": 2,
+              "layout": 0
+            },
+            "restore_recovery_full_studio": {
+              "all_widgets": 153,
+              "schematic": 2,
+              "layout": 0
+            }
+          },
+          "rss_after_bytes": 172806144
+        },
+        {
+          "iteration": 3,
+          "timings_ms": {
+            "load_full_studio": 111.97339999489486,
+            "full_refresh": 75.92440000735223,
+            "open_hierarchy_layout": 146.3535998482257,
+            "layout_selection": 63.53929988108575,
+            "layout_mouse_pan": 48.664100002497435,
+            "layout_edit_and_full_refresh": 153.73849985189736,
+            "layout_undo_and_full_refresh": 108.00570016726851,
+            "layout_redo_and_full_refresh": 114.58260007202625,
+            "layout_restore_and_full_refresh": 115.71369995363057,
+            "open_hierarchy_schematic": 117.8192999213934,
+            "schematic_selection": 68.67369986139238,
+            "edit_and_full_refresh": 68.17370001226664,
+            "undo_and_full_refresh": 50.0861001200974,
+            "redo_and_full_refresh": 54.00880007073283,
+            "save_and_full_refresh": 133.800899842754,
+            "unsaved_edit_and_refresh": 82.1966000366956,
+            "queued_recovery_completion": 69.19809989631176,
+            "live_checks_completion": 24.241700069978833,
+            "recovery_read": 30.45869991183281,
+            "reopen_saved_full_studio": 166.836200049147,
+            "restore_recovery_full_studio": 117.77179990895092
+          },
+          "paint_events": {
+            "load_full_studio": {
+              "all_widgets": 159,
+              "schematic": 2,
+              "layout": 0
+            },
+            "full_refresh": {
+              "all_widgets": 144,
+              "schematic": 2,
+              "layout": 0
+            },
+            "open_hierarchy_layout": {
+              "all_widgets": 198,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_selection": {
+              "all_widgets": 129,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_mouse_pan": {
+              "all_widgets": 126,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_edit_and_full_refresh": {
+              "all_widgets": 157,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_undo_and_full_refresh": {
+              "all_widgets": 139,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_redo_and_full_refresh": {
+              "all_widgets": 139,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_restore_and_full_refresh": {
+              "all_widgets": 139,
+              "schematic": 0,
+              "layout": 2
+            },
+            "open_hierarchy_schematic": {
+              "all_widgets": 168,
+              "schematic": 2,
+              "layout": 0
+            },
+            "schematic_selection": {
+              "all_widgets": 150,
+              "schematic": 2,
+              "layout": 0
+            },
+            "edit_and_full_refresh": {
+              "all_widgets": 178,
+              "schematic": 2,
+              "layout": 0
+            },
+            "undo_and_full_refresh": {
+              "all_widgets": 177,
+              "schematic": 2,
+              "layout": 0
+            },
+            "redo_and_full_refresh": {
+              "all_widgets": 177,
+              "schematic": 2,
+              "layout": 0
+            },
+            "save_and_full_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "unsaved_edit_and_refresh": {
+              "all_widgets": 182,
+              "schematic": 2,
+              "layout": 0
+            },
+            "queued_recovery_completion": {
+              "all_widgets": 163,
+              "schematic": 1,
+              "layout": 0
+            },
+            "live_checks_completion": {
+              "all_widgets": 119,
+              "schematic": 1,
+              "layout": 0
+            },
+            "recovery_read": {
+              "all_widgets": 118,
+              "schematic": 1,
+              "layout": 0
+            },
+            "reopen_saved_full_studio": {
+              "all_widgets": 168,
+              "schematic": 2,
+              "layout": 0
+            },
+            "restore_recovery_full_studio": {
+              "all_widgets": 153,
+              "schematic": 2,
+              "layout": 0
+            }
+          },
+          "rss_after_bytes": 173293568
+        },
+        {
+          "iteration": 4,
+          "timings_ms": {
+            "load_full_studio": 117.96079995110631,
+            "full_refresh": 76.88360009342432,
+            "open_hierarchy_layout": 113.1579999346286,
+            "layout_selection": 73.63230013288558,
+            "layout_mouse_pan": 48.856900073587894,
+            "layout_edit_and_full_refresh": 123.311199946329,
+            "layout_undo_and_full_refresh": 131.82389992289245,
+            "layout_redo_and_full_refresh": 125.4055998288095,
+            "layout_restore_and_full_refresh": 149.15029983967543,
+            "open_hierarchy_schematic": 123.37230006232858,
+            "schematic_selection": 85.57220012880862,
+            "edit_and_full_refresh": 81.74990001134574,
+            "undo_and_full_refresh": 79.59520001895726,
+            "redo_and_full_refresh": 78.02879996597767,
+            "save_and_full_refresh": 141.2549999076873,
+            "unsaved_edit_and_refresh": 83.52169999852777,
+            "queued_recovery_completion": 72.39739992655814,
+            "live_checks_completion": 22.3320999648422,
+            "recovery_read": 24.357799906283617,
+            "reopen_saved_full_studio": 188.781299861148,
+            "restore_recovery_full_studio": 187.41940008476377
+          },
+          "paint_events": {
+            "load_full_studio": {
+              "all_widgets": 159,
+              "schematic": 2,
+              "layout": 0
+            },
+            "full_refresh": {
+              "all_widgets": 144,
+              "schematic": 2,
+              "layout": 0
+            },
+            "open_hierarchy_layout": {
+              "all_widgets": 198,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_selection": {
+              "all_widgets": 129,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_mouse_pan": {
+              "all_widgets": 126,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_edit_and_full_refresh": {
+              "all_widgets": 157,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_undo_and_full_refresh": {
+              "all_widgets": 139,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_redo_and_full_refresh": {
+              "all_widgets": 139,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_restore_and_full_refresh": {
+              "all_widgets": 139,
+              "schematic": 0,
+              "layout": 2
+            },
+            "open_hierarchy_schematic": {
+              "all_widgets": 168,
+              "schematic": 2,
+              "layout": 0
+            },
+            "schematic_selection": {
+              "all_widgets": 150,
+              "schematic": 2,
+              "layout": 0
+            },
+            "edit_and_full_refresh": {
+              "all_widgets": 178,
+              "schematic": 2,
+              "layout": 0
+            },
+            "undo_and_full_refresh": {
+              "all_widgets": 177,
+              "schematic": 2,
+              "layout": 0
+            },
+            "redo_and_full_refresh": {
+              "all_widgets": 177,
+              "schematic": 2,
+              "layout": 0
+            },
+            "save_and_full_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "unsaved_edit_and_refresh": {
+              "all_widgets": 182,
+              "schematic": 2,
+              "layout": 0
+            },
+            "queued_recovery_completion": {
+              "all_widgets": 163,
+              "schematic": 1,
+              "layout": 0
+            },
+            "live_checks_completion": {
+              "all_widgets": 119,
+              "schematic": 1,
+              "layout": 0
+            },
+            "recovery_read": {
+              "all_widgets": 118,
+              "schematic": 1,
+              "layout": 0
+            },
+            "reopen_saved_full_studio": {
+              "all_widgets": 168,
+              "schematic": 2,
+              "layout": 0
+            },
+            "restore_recovery_full_studio": {
+              "all_widgets": 184,
+              "schematic": 2,
+              "layout": 0
+            }
+          },
+          "rss_after_bytes": 173342720
+        },
+        {
+          "iteration": 5,
+          "timings_ms": {
+            "load_full_studio": 166.60599992610514,
+            "full_refresh": 119.37449988909066,
+            "open_hierarchy_layout": 232.7872000169009,
+            "layout_selection": 121.67330016382039,
+            "layout_mouse_pan": 67.24799983203411,
+            "layout_edit_and_full_refresh": 230.7493998669088,
+            "layout_undo_and_full_refresh": 222.99510007724166,
+            "layout_redo_and_full_refresh": 226.7980999313295,
+            "layout_restore_and_full_refresh": 230.9069000184536,
+            "open_hierarchy_schematic": 244.38330018892884,
+            "schematic_selection": 113.0581998731941,
+            "edit_and_full_refresh": 138.9599998947233,
+            "undo_and_full_refresh": 111.22730001807213,
+            "redo_and_full_refresh": 109.5843999646604,
+            "save_and_full_refresh": 176.16829997859895,
+            "unsaved_edit_and_refresh": 109.62040000595152,
+            "queued_recovery_completion": 86.95359993726015,
+            "live_checks_completion": 37.113199941813946,
+            "recovery_read": 35.94390000216663,
+            "reopen_saved_full_studio": 219.63190007954836,
+            "restore_recovery_full_studio": 168.49690000526607
+          },
+          "paint_events": {
+            "load_full_studio": {
+              "all_widgets": 159,
+              "schematic": 2,
+              "layout": 0
+            },
+            "full_refresh": {
+              "all_widgets": 144,
+              "schematic": 2,
+              "layout": 0
+            },
+            "open_hierarchy_layout": {
+              "all_widgets": 198,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_selection": {
+              "all_widgets": 129,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_mouse_pan": {
+              "all_widgets": 126,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_edit_and_full_refresh": {
+              "all_widgets": 157,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_undo_and_full_refresh": {
+              "all_widgets": 139,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_redo_and_full_refresh": {
+              "all_widgets": 139,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_restore_and_full_refresh": {
+              "all_widgets": 139,
+              "schematic": 0,
+              "layout": 2
+            },
+            "open_hierarchy_schematic": {
+              "all_widgets": 195,
+              "schematic": 2,
+              "layout": 0
+            },
+            "schematic_selection": {
+              "all_widgets": 150,
+              "schematic": 2,
+              "layout": 0
+            },
+            "edit_and_full_refresh": {
+              "all_widgets": 183,
+              "schematic": 2,
+              "layout": 0
+            },
+            "undo_and_full_refresh": {
+              "all_widgets": 177,
+              "schematic": 2,
+              "layout": 0
+            },
+            "redo_and_full_refresh": {
+              "all_widgets": 177,
+              "schematic": 2,
+              "layout": 0
+            },
+            "save_and_full_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "unsaved_edit_and_refresh": {
+              "all_widgets": 182,
+              "schematic": 2,
+              "layout": 0
+            },
+            "queued_recovery_completion": {
+              "all_widgets": 163,
+              "schematic": 1,
+              "layout": 0
+            },
+            "live_checks_completion": {
+              "all_widgets": 119,
+              "schematic": 1,
+              "layout": 0
+            },
+            "recovery_read": {
+              "all_widgets": 118,
+              "schematic": 1,
+              "layout": 0
+            },
+            "reopen_saved_full_studio": {
+              "all_widgets": 168,
+              "schematic": 2,
+              "layout": 0
+            },
+            "restore_recovery_full_studio": {
+              "all_widgets": 153,
+              "schematic": 2,
+              "layout": 0
+            }
+          },
+          "rss_after_bytes": 173735936
+        }
+      ],
+      "checks": [
+        "Full Studio refresh and visible schematic/layout paints completed.",
+        "Selection and real mouse pan changed only view state.",
+        "Physical move preserved schematic topology; layout undo/redo restored exact content.",
+        "Schematic edit preserved electrical partition; undo/redo restored exact content.",
+        "Studio save/reopen preserved the exact saved project.",
+        "Queued durable recovery restored the latest unsaved edit without overwriting the saved file."
+      ],
+      "size": {
+        "masters": 3,
+        "local_devices": 22,
+        "local_shapes": 44,
+        "physical_instances": 17,
+        "expanded_top_shapes": 704
+      },
+      "memory": {
+        "method": "Windows process working set",
+        "sample_interval_ms": 20,
+        "samples": 415,
+        "rss_before_bytes": 160858112,
+        "rss_after_bytes": 173731840,
+        "sampled_peak_rss_bytes": 175091712,
+        "error": null,
+        "scope": "Whole current process; sampled peak may miss shorter allocation spikes."
+      },
+      "timings_ms": {
+        "load_full_studio": {
+          "median": 117.96079995110631,
+          "p95": 206.97210007347167,
+          "max": 206.97210007347167
+        },
+        "full_refresh": {
+          "median": 87.66609989106655,
+          "p95": 119.37449988909066,
+          "max": 119.37449988909066
+        },
+        "open_hierarchy_layout": {
+          "median": 146.3535998482257,
+          "p95": 232.7872000169009,
+          "max": 232.7872000169009
+        },
+        "layout_selection": {
+          "median": 73.63230013288558,
+          "p95": 121.67330016382039,
+          "max": 121.67330016382039
+        },
+        "layout_mouse_pan": {
+          "median": 48.856900073587894,
+          "p95": 67.24799983203411,
+          "max": 67.24799983203411
+        },
+        "layout_edit_and_full_refresh": {
+          "median": 153.73849985189736,
+          "p95": 230.7493998669088,
+          "max": 230.7493998669088
+        },
+        "layout_undo_and_full_refresh": {
+          "median": 131.82389992289245,
+          "p95": 222.99510007724166,
+          "max": 222.99510007724166
+        },
+        "layout_redo_and_full_refresh": {
+          "median": 125.4055998288095,
+          "p95": 226.7980999313295,
+          "max": 226.7980999313295
+        },
+        "layout_restore_and_full_refresh": {
+          "median": 117.93639999814332,
+          "p95": 230.9069000184536,
+          "max": 230.9069000184536
+        },
+        "open_hierarchy_schematic": {
+          "median": 117.8192999213934,
+          "p95": 244.38330018892884,
+          "max": 244.38330018892884
+        },
+        "schematic_selection": {
+          "median": 85.57220012880862,
+          "p95": 138.39550013653934,
+          "max": 138.39550013653934
+        },
+        "edit_and_full_refresh": {
+          "median": 81.74990001134574,
+          "p95": 138.9599998947233,
+          "max": 138.9599998947233
+        },
+        "undo_and_full_refresh": {
+          "median": 79.59520001895726,
+          "p95": 111.22730001807213,
+          "max": 111.22730001807213
+        },
+        "redo_and_full_refresh": {
+          "median": 78.02879996597767,
+          "p95": 109.5843999646604,
+          "max": 109.5843999646604
+        },
+        "save_and_full_refresh": {
+          "median": 133.800899842754,
+          "p95": 176.16829997859895,
+          "max": 176.16829997859895
+        },
+        "unsaved_edit_and_refresh": {
+          "median": 82.1966000366956,
+          "p95": 109.62040000595152,
+          "max": 109.62040000595152
+        },
+        "queued_recovery_completion": {
+          "median": 72.39739992655814,
+          "p95": 86.95359993726015,
+          "max": 86.95359993726015
+        },
+        "live_checks_completion": {
+          "median": 24.241700069978833,
+          "p95": 326.26860006712377,
+          "max": 326.26860006712377
+        },
+        "recovery_read": {
+          "median": 25.74439998716116,
+          "p95": 35.94390000216663,
+          "max": 35.94390000216663
+        },
+        "reopen_saved_full_studio": {
+          "median": 179.0258998516947,
+          "p95": 219.63190007954836,
+          "max": 219.63190007954836
+        },
+        "restore_recovery_full_studio": {
+          "median": 123.38459980674088,
+          "p95": 187.41940008476377,
+          "max": 187.41940008476377
+        }
+      }
+    },
+    {
+      "name": "synthetic-large",
+      "origin": "Generated by tests/gui_analog_scale.py",
+      "description": "500 distinct schematic devices and 10000 distinct local layout shapes.",
+      "qualification": "Synthetic scale workload; does not represent a routed production design.",
+      "input_sha256": "b7907ea6035d63574082a5cf14dfa63a58a528e6e5e6b124ba0d224c61797a8e",
+      "iterations": 5,
+      "samples": [
+        {
+          "iteration": 1,
+          "timings_ms": {
+            "load_full_studio": 4477.069900138304,
+            "full_refresh": 306.37299991212785,
+            "open_hierarchy_layout": 1747.3129001446068,
+            "layout_selection": 2271.6121999546885,
+            "layout_mouse_pan": 182.8232000116259,
+            "layout_edit_and_full_refresh": 428.13960020430386,
+            "layout_undo_and_full_refresh": 375.2579998690635,
+            "layout_redo_and_full_refresh": 269.8108998592943,
+            "layout_restore_and_full_refresh": 289.0513001475483,
+            "open_hierarchy_schematic": 531.6824000328779,
+            "schematic_selection": 566.6041998192668,
+            "edit_and_full_refresh": 675.7103998679668,
+            "undo_and_full_refresh": 424.68929989263415,
+            "redo_and_full_refresh": 712.7627998124808,
+            "save_and_full_refresh": 1036.3039001822472,
+            "unsaved_edit_and_refresh": 518.0468999315053,
+            "queued_recovery_completion": 772.0317000057548,
+            "live_checks_completion": 481.3065000344068,
+            "recovery_read": 342.7943999413401,
+            "reopen_saved_full_studio": 2294.5250999182463,
+            "restore_recovery_full_studio": 1508.5853999480605
+          },
+          "paint_events": {
+            "load_full_studio": {
+              "all_widgets": 160,
+              "schematic": 2,
+              "layout": 0
+            },
+            "full_refresh": {
+              "all_widgets": 143,
+              "schematic": 2,
+              "layout": 0
+            },
+            "open_hierarchy_layout": {
+              "all_widgets": 194,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_selection": {
+              "all_widgets": 158,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_mouse_pan": {
+              "all_widgets": 249,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_edit_and_full_refresh": {
+              "all_widgets": 179,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_undo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_redo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_restore_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "open_hierarchy_schematic": {
+              "all_widgets": 196,
+              "schematic": 2,
+              "layout": 0
+            },
+            "schematic_selection": {
+              "all_widgets": 148,
+              "schematic": 2,
+              "layout": 0
+            },
+            "edit_and_full_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "undo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "redo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "save_and_full_refresh": {
+              "all_widgets": 180,
+              "schematic": 2,
+              "layout": 0
+            },
+            "unsaved_edit_and_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "queued_recovery_completion": {
+              "all_widgets": 163,
+              "schematic": 1,
+              "layout": 0
+            },
+            "live_checks_completion": {
+              "all_widgets": 355,
+              "schematic": 3,
+              "layout": 0
+            },
+            "recovery_read": {
+              "all_widgets": 118,
+              "schematic": 1,
+              "layout": 0
+            },
+            "reopen_saved_full_studio": {
+              "all_widgets": 163,
+              "schematic": 2,
+              "layout": 0
+            },
+            "restore_recovery_full_studio": {
+              "all_widgets": 152,
+              "schematic": 2,
+              "layout": 0
+            }
+          },
+          "rss_after_bytes": 352264192
+        },
+        {
+          "iteration": 2,
+          "timings_ms": {
+            "load_full_studio": 4469.781799940392,
+            "full_refresh": 313.009399920702,
+            "open_hierarchy_layout": 1587.5014998018742,
+            "layout_selection": 613.1821000017226,
+            "layout_mouse_pan": 141.4712001569569,
+            "layout_edit_and_full_refresh": 469.1449999809265,
+            "layout_undo_and_full_refresh": 268.2870998978615,
+            "layout_redo_and_full_refresh": 332.010299898684,
+            "layout_restore_and_full_refresh": 258.6707998998463,
+            "open_hierarchy_schematic": 508.5386000573635,
+            "schematic_selection": 709.990399889648,
+            "edit_and_full_refresh": 502.47430009767413,
+            "undo_and_full_refresh": 1415.5018001329154,
+            "redo_and_full_refresh": 1194.162999978289,
+            "save_and_full_refresh": 819.6969998534769,
+            "unsaved_edit_and_refresh": 262.96459999866784,
+            "queued_recovery_completion": 168.71620016172528,
+            "live_checks_completion": 740.6049999408424,
+            "recovery_read": 208.16060015931726,
+            "reopen_saved_full_studio": 1152.6969999540597,
+            "restore_recovery_full_studio": 1019.0314000938088
+          },
+          "paint_events": {
+            "load_full_studio": {
+              "all_widgets": 154,
+              "schematic": 2,
+              "layout": 0
+            },
+            "full_refresh": {
+              "all_widgets": 143,
+              "schematic": 2,
+              "layout": 0
+            },
+            "open_hierarchy_layout": {
+              "all_widgets": 194,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_selection": {
+              "all_widgets": 158,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_mouse_pan": {
+              "all_widgets": 162,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_edit_and_full_refresh": {
+              "all_widgets": 179,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_undo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_redo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_restore_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "open_hierarchy_schematic": {
+              "all_widgets": 169,
+              "schematic": 2,
+              "layout": 0
+            },
+            "schematic_selection": {
+              "all_widgets": 148,
+              "schematic": 2,
+              "layout": 0
+            },
+            "edit_and_full_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "undo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "redo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "save_and_full_refresh": {
+              "all_widgets": 180,
+              "schematic": 2,
+              "layout": 0
+            },
+            "unsaved_edit_and_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "queued_recovery_completion": {
+              "all_widgets": 163,
+              "schematic": 1,
+              "layout": 0
+            },
+            "live_checks_completion": {
+              "all_widgets": 355,
+              "schematic": 3,
+              "layout": 0
+            },
+            "recovery_read": {
+              "all_widgets": 118,
+              "schematic": 1,
+              "layout": 0
+            },
+            "reopen_saved_full_studio": {
+              "all_widgets": 163,
+              "schematic": 2,
+              "layout": 0
+            },
+            "restore_recovery_full_studio": {
+              "all_widgets": 174,
+              "schematic": 2,
+              "layout": 0
+            }
+          },
+          "rss_after_bytes": 355061760
+        },
+        {
+          "iteration": 3,
+          "timings_ms": {
+            "load_full_studio": 3037.6284001395106,
+            "full_refresh": 269.52699990943074,
+            "open_hierarchy_layout": 1060.3638999164104,
+            "layout_selection": 445.04199991934,
+            "layout_mouse_pan": 111.37260007672012,
+            "layout_edit_and_full_refresh": 394.1908001434058,
+            "layout_undo_and_full_refresh": 233.78370003774762,
+            "layout_redo_and_full_refresh": 286.22710006311536,
+            "layout_restore_and_full_refresh": 200.1642999239266,
+            "open_hierarchy_schematic": 328.77960009500384,
+            "schematic_selection": 291.58179997466505,
+            "edit_and_full_refresh": 485.3466998320073,
+            "undo_and_full_refresh": 741.696499986574,
+            "redo_and_full_refresh": 1191.5008001960814,
+            "save_and_full_refresh": 1151.8174998927861,
+            "unsaved_edit_and_refresh": 733.401499921456,
+            "queued_recovery_completion": 260.4042000602931,
+            "live_checks_completion": 728.1015999615192,
+            "recovery_read": 702.9847998637706,
+            "reopen_saved_full_studio": 1971.820899983868,
+            "restore_recovery_full_studio": 1792.2118999995291
+          },
+          "paint_events": {
+            "load_full_studio": {
+              "all_widgets": 154,
+              "schematic": 2,
+              "layout": 0
+            },
+            "full_refresh": {
+              "all_widgets": 143,
+              "schematic": 2,
+              "layout": 0
+            },
+            "open_hierarchy_layout": {
+              "all_widgets": 194,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_selection": {
+              "all_widgets": 158,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_mouse_pan": {
+              "all_widgets": 162,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_edit_and_full_refresh": {
+              "all_widgets": 179,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_undo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_redo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_restore_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "open_hierarchy_schematic": {
+              "all_widgets": 169,
+              "schematic": 2,
+              "layout": 0
+            },
+            "schematic_selection": {
+              "all_widgets": 148,
+              "schematic": 2,
+              "layout": 0
+            },
+            "edit_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "undo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "redo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "save_and_full_refresh": {
+              "all_widgets": 180,
+              "schematic": 2,
+              "layout": 0
+            },
+            "unsaved_edit_and_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "queued_recovery_completion": {
+              "all_widgets": 163,
+              "schematic": 1,
+              "layout": 0
+            },
+            "live_checks_completion": {
+              "all_widgets": 473,
+              "schematic": 4,
+              "layout": 0
+            },
+            "recovery_read": {
+              "all_widgets": 118,
+              "schematic": 1,
+              "layout": 0
+            },
+            "reopen_saved_full_studio": {
+              "all_widgets": 163,
+              "schematic": 2,
+              "layout": 0
+            },
+            "restore_recovery_full_studio": {
+              "all_widgets": 152,
+              "schematic": 2,
+              "layout": 0
+            }
+          },
+          "rss_after_bytes": 360173568
+        },
+        {
+          "iteration": 4,
+          "timings_ms": {
+            "load_full_studio": 3892.9066001437604,
+            "full_refresh": 243.19409998133779,
+            "open_hierarchy_layout": 1018.0108000058681,
+            "layout_selection": 427.5368000380695,
+            "layout_mouse_pan": 97.21600008197129,
+            "layout_edit_and_full_refresh": 377.0661000162363,
+            "layout_undo_and_full_refresh": 255.16330008395016,
+            "layout_redo_and_full_refresh": 187.57850001566112,
+            "layout_restore_and_full_refresh": 290.6579999253154,
+            "open_hierarchy_schematic": 340.78570012934506,
+            "schematic_selection": 212.84940000623465,
+            "edit_and_full_refresh": 1070.1814000494778,
+            "undo_and_full_refresh": 867.5935000646859,
+            "redo_and_full_refresh": 617.1481998171657,
+            "save_and_full_refresh": 793.1182000320405,
+            "unsaved_edit_and_refresh": 305.17790000885725,
+            "queued_recovery_completion": 171.31859995424747,
+            "live_checks_completion": 843.6885999981314,
+            "recovery_read": 273.9474999252707,
+            "reopen_saved_full_studio": 1561.8545999750495,
+            "restore_recovery_full_studio": 1279.6352999284863
+          },
+          "paint_events": {
+            "load_full_studio": {
+              "all_widgets": 154,
+              "schematic": 2,
+              "layout": 0
+            },
+            "full_refresh": {
+              "all_widgets": 143,
+              "schematic": 2,
+              "layout": 0
+            },
+            "open_hierarchy_layout": {
+              "all_widgets": 194,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_selection": {
+              "all_widgets": 159,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_mouse_pan": {
+              "all_widgets": 162,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_edit_and_full_refresh": {
+              "all_widgets": 179,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_undo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_redo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_restore_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "open_hierarchy_schematic": {
+              "all_widgets": 196,
+              "schematic": 2,
+              "layout": 0
+            },
+            "schematic_selection": {
+              "all_widgets": 148,
+              "schematic": 2,
+              "layout": 0
+            },
+            "edit_and_full_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "undo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "redo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "save_and_full_refresh": {
+              "all_widgets": 180,
+              "schematic": 2,
+              "layout": 0
+            },
+            "unsaved_edit_and_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "queued_recovery_completion": {
+              "all_widgets": 163,
+              "schematic": 1,
+              "layout": 0
+            },
+            "live_checks_completion": {
+              "all_widgets": 355,
+              "schematic": 3,
+              "layout": 0
+            },
+            "recovery_read": {
+              "all_widgets": 118,
+              "schematic": 1,
+              "layout": 0
+            },
+            "reopen_saved_full_studio": {
+              "all_widgets": 163,
+              "schematic": 2,
+              "layout": 0
+            },
+            "restore_recovery_full_studio": {
+              "all_widgets": 152,
+              "schematic": 2,
+              "layout": 0
+            }
+          },
+          "rss_after_bytes": 368513024
+        },
+        {
+          "iteration": 5,
+          "timings_ms": {
+            "load_full_studio": 3829.9257999751717,
+            "full_refresh": 185.42140000499785,
+            "open_hierarchy_layout": 634.0280000586063,
+            "layout_selection": 335.18089982680976,
+            "layout_mouse_pan": 71.70760002918541,
+            "layout_edit_and_full_refresh": 148.90510006807745,
+            "layout_undo_and_full_refresh": 93.53239997290075,
+            "layout_redo_and_full_refresh": 108.05709986016154,
+            "layout_restore_and_full_refresh": 115.4035001527518,
+            "open_hierarchy_schematic": 264.89129988476634,
+            "schematic_selection": 169.15359999984503,
+            "edit_and_full_refresh": 450.6610999815166,
+            "undo_and_full_refresh": 112.1110999956727,
+            "redo_and_full_refresh": 116.45970004610717,
+            "save_and_full_refresh": 306.4134002197534,
+            "unsaved_edit_and_refresh": 130.10570011101663,
+            "queued_recovery_completion": 190.55800000205636,
+            "live_checks_completion": 970.6834000535309,
+            "recovery_read": 263.38539994321764,
+            "reopen_saved_full_studio": 1429.746000096202,
+            "restore_recovery_full_studio": 895.3497000038624
+          },
+          "paint_events": {
+            "load_full_studio": {
+              "all_widgets": 154,
+              "schematic": 2,
+              "layout": 0
+            },
+            "full_refresh": {
+              "all_widgets": 143,
+              "schematic": 2,
+              "layout": 0
+            },
+            "open_hierarchy_layout": {
+              "all_widgets": 194,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_selection": {
+              "all_widgets": 158,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_mouse_pan": {
+              "all_widgets": 162,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_edit_and_full_refresh": {
+              "all_widgets": 179,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_undo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_redo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_restore_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "open_hierarchy_schematic": {
+              "all_widgets": 169,
+              "schematic": 2,
+              "layout": 0
+            },
+            "schematic_selection": {
+              "all_widgets": 148,
+              "schematic": 2,
+              "layout": 0
+            },
+            "edit_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "undo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "redo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "save_and_full_refresh": {
+              "all_widgets": 180,
+              "schematic": 2,
+              "layout": 0
+            },
+            "unsaved_edit_and_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "queued_recovery_completion": {
+              "all_widgets": 163,
+              "schematic": 1,
+              "layout": 0
+            },
+            "live_checks_completion": {
+              "all_widgets": 473,
+              "schematic": 4,
+              "layout": 0
+            },
+            "recovery_read": {
+              "all_widgets": 118,
+              "schematic": 1,
+              "layout": 0
+            },
+            "reopen_saved_full_studio": {
+              "all_widgets": 163,
+              "schematic": 2,
+              "layout": 0
+            },
+            "restore_recovery_full_studio": {
+              "all_widgets": 152,
+              "schematic": 2,
+              "layout": 0
+            }
+          },
+          "rss_after_bytes": 368504832
+        }
+      ],
+      "checks": [
+        "Full Studio refresh and visible schematic/layout paints completed.",
+        "Selection and real mouse pan changed only view state.",
+        "Physical move preserved schematic topology; layout undo/redo restored exact content.",
+        "Schematic edit preserved electrical partition; undo/redo restored exact content.",
+        "Studio save/reopen preserved the exact saved project.",
+        "Queued durable recovery restored the latest unsaved edit without overwriting the saved file."
+      ],
+      "size": {
+        "masters": 1,
+        "local_devices": 500,
+        "local_shapes": 10000,
+        "physical_instances": 0,
+        "expanded_top_shapes": 10000
+      },
+      "memory": {
+        "method": "Windows process working set",
+        "sample_interval_ms": 20,
+        "samples": 1783,
+        "rss_before_bytes": 182124544,
+        "rss_after_bytes": 368500736,
+        "sampled_peak_rss_bytes": 376025088,
+        "error": null,
+        "scope": "Whole current process; sampled peak may miss shorter allocation spikes."
+      },
+      "timings_ms": {
+        "load_full_studio": {
+          "median": 3892.9066001437604,
+          "p95": 4477.069900138304,
+          "max": 4477.069900138304
+        },
+        "full_refresh": {
+          "median": 269.52699990943074,
+          "p95": 313.009399920702,
+          "max": 313.009399920702
+        },
+        "open_hierarchy_layout": {
+          "median": 1060.3638999164104,
+          "p95": 1747.3129001446068,
+          "max": 1747.3129001446068
+        },
+        "layout_selection": {
+          "median": 445.04199991934,
+          "p95": 2271.6121999546885,
+          "max": 2271.6121999546885
+        },
+        "layout_mouse_pan": {
+          "median": 111.37260007672012,
+          "p95": 182.8232000116259,
+          "max": 182.8232000116259
+        },
+        "layout_edit_and_full_refresh": {
+          "median": 394.1908001434058,
+          "p95": 469.1449999809265,
+          "max": 469.1449999809265
+        },
+        "layout_undo_and_full_refresh": {
+          "median": 255.16330008395016,
+          "p95": 375.2579998690635,
+          "max": 375.2579998690635
+        },
+        "layout_redo_and_full_refresh": {
+          "median": 269.8108998592943,
+          "p95": 332.010299898684,
+          "max": 332.010299898684
+        },
+        "layout_restore_and_full_refresh": {
+          "median": 258.6707998998463,
+          "p95": 290.6579999253154,
+          "max": 290.6579999253154
+        },
+        "open_hierarchy_schematic": {
+          "median": 340.78570012934506,
+          "p95": 531.6824000328779,
+          "max": 531.6824000328779
+        },
+        "schematic_selection": {
+          "median": 291.58179997466505,
+          "p95": 709.990399889648,
+          "max": 709.990399889648
+        },
+        "edit_and_full_refresh": {
+          "median": 502.47430009767413,
+          "p95": 1070.1814000494778,
+          "max": 1070.1814000494778
+        },
+        "undo_and_full_refresh": {
+          "median": 741.696499986574,
+          "p95": 1415.5018001329154,
+          "max": 1415.5018001329154
+        },
+        "redo_and_full_refresh": {
+          "median": 712.7627998124808,
+          "p95": 1194.162999978289,
+          "max": 1194.162999978289
+        },
+        "save_and_full_refresh": {
+          "median": 819.6969998534769,
+          "p95": 1151.8174998927861,
+          "max": 1151.8174998927861
+        },
+        "unsaved_edit_and_refresh": {
+          "median": 305.17790000885725,
+          "p95": 733.401499921456,
+          "max": 733.401499921456
+        },
+        "queued_recovery_completion": {
+          "median": 190.55800000205636,
+          "p95": 772.0317000057548,
+          "max": 772.0317000057548
+        },
+        "live_checks_completion": {
+          "median": 740.6049999408424,
+          "p95": 970.6834000535309,
+          "max": 970.6834000535309
+        },
+        "recovery_read": {
+          "median": 273.9474999252707,
+          "p95": 702.9847998637706,
+          "max": 702.9847998637706
+        },
+        "reopen_saved_full_studio": {
+          "median": 1561.8545999750495,
+          "p95": 2294.5250999182463,
+          "max": 2294.5250999182463
+        },
+        "restore_recovery_full_studio": {
+          "median": 1279.6352999284863,
+          "p95": 1792.2118999995291,
+          "max": 1792.2118999995291
+        }
+      }
+    },
+    {
+      "name": "synthetic-large-identities",
+      "origin": "Generated by tests/gui_analog_scale.py",
+      "description": "The same 500-device/10000-shape workload with persistent terminal and net identities.",
+      "qualification": "Synthetic identity-preserving edit workload; excludes process verification.",
+      "input_sha256": "ecb300ba79aed9dbe5f2276062f891793fc3ed981b79ec93a70ef13bdf191815",
+      "iterations": 5,
+      "samples": [
+        {
+          "iteration": 1,
+          "timings_ms": {
+            "load_full_studio": 2593.4420998673886,
+            "full_refresh": 301.6192000359297,
+            "open_hierarchy_layout": 509.60099999792874,
+            "layout_selection": 517.5309001933783,
+            "layout_mouse_pan": 77.36669993028045,
+            "layout_edit_and_full_refresh": 305.6107999291271,
+            "layout_undo_and_full_refresh": 159.64620001614094,
+            "layout_redo_and_full_refresh": 138.0135000217706,
+            "layout_restore_and_full_refresh": 116.82750005275011,
+            "open_hierarchy_schematic": 377.9602001886815,
+            "schematic_selection": 522.7588000707328,
+            "edit_and_full_refresh": 406.8771000020206,
+            "undo_and_full_refresh": 849.7065999545157,
+            "redo_and_full_refresh": 720.2696998137981,
+            "save_and_full_refresh": 757.2256999555975,
+            "unsaved_edit_and_refresh": 560.7024000491947,
+            "queued_recovery_completion": 125.81899994984269,
+            "live_checks_completion": 944.227600004524,
+            "recovery_read": 349.5537999551743,
+            "reopen_saved_full_studio": 2053.6015001125634,
+            "restore_recovery_full_studio": 1862.5098001211882
+          },
+          "paint_events": {
+            "load_full_studio": {
+              "all_widgets": 154,
+              "schematic": 2,
+              "layout": 0
+            },
+            "full_refresh": {
+              "all_widgets": 143,
+              "schematic": 2,
+              "layout": 0
+            },
+            "open_hierarchy_layout": {
+              "all_widgets": 194,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_selection": {
+              "all_widgets": 158,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_mouse_pan": {
+              "all_widgets": 162,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_edit_and_full_refresh": {
+              "all_widgets": 179,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_undo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_redo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_restore_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "open_hierarchy_schematic": {
+              "all_widgets": 169,
+              "schematic": 2,
+              "layout": 0
+            },
+            "schematic_selection": {
+              "all_widgets": 192,
+              "schematic": 2,
+              "layout": 0
+            },
+            "edit_and_full_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "undo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "redo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "save_and_full_refresh": {
+              "all_widgets": 180,
+              "schematic": 2,
+              "layout": 0
+            },
+            "unsaved_edit_and_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "queued_recovery_completion": {
+              "all_widgets": 163,
+              "schematic": 1,
+              "layout": 0
+            },
+            "live_checks_completion": {
+              "all_widgets": 237,
+              "schematic": 2,
+              "layout": 0
+            },
+            "recovery_read": {
+              "all_widgets": 118,
+              "schematic": 1,
+              "layout": 0
+            },
+            "reopen_saved_full_studio": {
+              "all_widgets": 163,
+              "schematic": 2,
+              "layout": 0
+            },
+            "restore_recovery_full_studio": {
+              "all_widgets": 152,
+              "schematic": 2,
+              "layout": 0
+            }
+          },
+          "rss_after_bytes": 375189504
+        },
+        {
+          "iteration": 2,
+          "timings_ms": {
+            "load_full_studio": 4312.608000123873,
+            "full_refresh": 225.57329991832376,
+            "open_hierarchy_layout": 423.2175999786705,
+            "layout_selection": 945.2147998381406,
+            "layout_mouse_pan": 141.0598000511527,
+            "layout_edit_and_full_refresh": 416.69660015031695,
+            "layout_undo_and_full_refresh": 224.08220008946955,
+            "layout_redo_and_full_refresh": 235.9682999085635,
+            "layout_restore_and_full_refresh": 197.26659986190498,
+            "open_hierarchy_schematic": 590.6390999443829,
+            "schematic_selection": 634.2615999747068,
+            "edit_and_full_refresh": 476.2093999888748,
+            "undo_and_full_refresh": 782.6795000582933,
+            "redo_and_full_refresh": 1397.7158998604864,
+            "save_and_full_refresh": 1737.1440001297742,
+            "unsaved_edit_and_refresh": 890.4587000142783,
+            "queued_recovery_completion": 834.9295000080019,
+            "live_checks_completion": 592.4728000536561,
+            "recovery_read": 413.0768000613898,
+            "reopen_saved_full_studio": 2339.434399968013,
+            "restore_recovery_full_studio": 1886.697200126946
+          },
+          "paint_events": {
+            "load_full_studio": {
+              "all_widgets": 154,
+              "schematic": 2,
+              "layout": 0
+            },
+            "full_refresh": {
+              "all_widgets": 143,
+              "schematic": 2,
+              "layout": 0
+            },
+            "open_hierarchy_layout": {
+              "all_widgets": 194,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_selection": {
+              "all_widgets": 158,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_mouse_pan": {
+              "all_widgets": 162,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_edit_and_full_refresh": {
+              "all_widgets": 179,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_undo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_redo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_restore_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "open_hierarchy_schematic": {
+              "all_widgets": 169,
+              "schematic": 2,
+              "layout": 0
+            },
+            "schematic_selection": {
+              "all_widgets": 153,
+              "schematic": 2,
+              "layout": 0
+            },
+            "edit_and_full_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "undo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "redo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "save_and_full_refresh": {
+              "all_widgets": 180,
+              "schematic": 2,
+              "layout": 0
+            },
+            "unsaved_edit_and_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "queued_recovery_completion": {
+              "all_widgets": 163,
+              "schematic": 1,
+              "layout": 0
+            },
+            "live_checks_completion": {
+              "all_widgets": 119,
+              "schematic": 1,
+              "layout": 0
+            },
+            "recovery_read": {
+              "all_widgets": 118,
+              "schematic": 1,
+              "layout": 0
+            },
+            "reopen_saved_full_studio": {
+              "all_widgets": 163,
+              "schematic": 2,
+              "layout": 0
+            },
+            "restore_recovery_full_studio": {
+              "all_widgets": 152,
+              "schematic": 2,
+              "layout": 0
+            }
+          },
+          "rss_after_bytes": 378966016
+        },
+        {
+          "iteration": 3,
+          "timings_ms": {
+            "load_full_studio": 3678.7769000511616,
+            "full_refresh": 365.3973999898881,
+            "open_hierarchy_layout": 641.661599976942,
+            "layout_selection": 428.00509999506176,
+            "layout_mouse_pan": 106.45009996369481,
+            "layout_edit_and_full_refresh": 418.5327000450343,
+            "layout_undo_and_full_refresh": 220.95829993486404,
+            "layout_redo_and_full_refresh": 210.2659000083804,
+            "layout_restore_and_full_refresh": 210.54670005105436,
+            "open_hierarchy_schematic": 616.8327000923455,
+            "schematic_selection": 606.3753000926226,
+            "edit_and_full_refresh": 599.2583001498133,
+            "undo_and_full_refresh": 797.175700077787,
+            "redo_and_full_refresh": 1456.963999895379,
+            "save_and_full_refresh": 1465.1424998883158,
+            "unsaved_edit_and_refresh": 595.0340998824686,
+            "queued_recovery_completion": 898.3857999555767,
+            "live_checks_completion": 485.53339997306466,
+            "recovery_read": 581.8731000181288,
+            "reopen_saved_full_studio": 1599.7166999150068,
+            "restore_recovery_full_studio": 1345.083500025794
+          },
+          "paint_events": {
+            "load_full_studio": {
+              "all_widgets": 154,
+              "schematic": 2,
+              "layout": 0
+            },
+            "full_refresh": {
+              "all_widgets": 143,
+              "schematic": 2,
+              "layout": 0
+            },
+            "open_hierarchy_layout": {
+              "all_widgets": 194,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_selection": {
+              "all_widgets": 158,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_mouse_pan": {
+              "all_widgets": 162,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_edit_and_full_refresh": {
+              "all_widgets": 179,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_undo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_redo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_restore_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "open_hierarchy_schematic": {
+              "all_widgets": 169,
+              "schematic": 2,
+              "layout": 0
+            },
+            "schematic_selection": {
+              "all_widgets": 153,
+              "schematic": 2,
+              "layout": 0
+            },
+            "edit_and_full_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "undo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "redo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "save_and_full_refresh": {
+              "all_widgets": 180,
+              "schematic": 2,
+              "layout": 0
+            },
+            "unsaved_edit_and_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "queued_recovery_completion": {
+              "all_widgets": 163,
+              "schematic": 1,
+              "layout": 0
+            },
+            "live_checks_completion": {
+              "all_widgets": 119,
+              "schematic": 1,
+              "layout": 0
+            },
+            "recovery_read": {
+              "all_widgets": 118,
+              "schematic": 1,
+              "layout": 0
+            },
+            "reopen_saved_full_studio": {
+              "all_widgets": 163,
+              "schematic": 2,
+              "layout": 0
+            },
+            "restore_recovery_full_studio": {
+              "all_widgets": 152,
+              "schematic": 2,
+              "layout": 0
+            }
+          },
+          "rss_after_bytes": 378994688
+        },
+        {
+          "iteration": 4,
+          "timings_ms": {
+            "load_full_studio": 2991.2775000557303,
+            "full_refresh": 246.43640010617673,
+            "open_hierarchy_layout": 451.73309999518096,
+            "layout_selection": 987.2628999873996,
+            "layout_mouse_pan": 113.88659989461303,
+            "layout_edit_and_full_refresh": 283.3018999081105,
+            "layout_undo_and_full_refresh": 156.7144999280572,
+            "layout_redo_and_full_refresh": 149.8205999378115,
+            "layout_restore_and_full_refresh": 123.86639998294413,
+            "open_hierarchy_schematic": 468.9633999951184,
+            "schematic_selection": 494.55890012905,
+            "edit_and_full_refresh": 469.0095998812467,
+            "undo_and_full_refresh": 984.2250000219792,
+            "redo_and_full_refresh": 1245.2527000568807,
+            "save_and_full_refresh": 1008.6423000320792,
+            "unsaved_edit_and_refresh": 702.7551999781281,
+            "queued_recovery_completion": 432.498199865222,
+            "live_checks_completion": 733.4460997954011,
+            "recovery_read": 277.2659999318421,
+            "reopen_saved_full_studio": 1722.1440998837352,
+            "restore_recovery_full_studio": 1856.5618998836726
+          },
+          "paint_events": {
+            "load_full_studio": {
+              "all_widgets": 154,
+              "schematic": 2,
+              "layout": 0
+            },
+            "full_refresh": {
+              "all_widgets": 143,
+              "schematic": 2,
+              "layout": 0
+            },
+            "open_hierarchy_layout": {
+              "all_widgets": 194,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_selection": {
+              "all_widgets": 158,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_mouse_pan": {
+              "all_widgets": 162,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_edit_and_full_refresh": {
+              "all_widgets": 179,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_undo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_redo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_restore_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "open_hierarchy_schematic": {
+              "all_widgets": 169,
+              "schematic": 2,
+              "layout": 0
+            },
+            "schematic_selection": {
+              "all_widgets": 153,
+              "schematic": 2,
+              "layout": 0
+            },
+            "edit_and_full_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "undo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "redo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "save_and_full_refresh": {
+              "all_widgets": 180,
+              "schematic": 2,
+              "layout": 0
+            },
+            "unsaved_edit_and_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "queued_recovery_completion": {
+              "all_widgets": 163,
+              "schematic": 1,
+              "layout": 0
+            },
+            "live_checks_completion": {
+              "all_widgets": 119,
+              "schematic": 1,
+              "layout": 0
+            },
+            "recovery_read": {
+              "all_widgets": 118,
+              "schematic": 1,
+              "layout": 0
+            },
+            "reopen_saved_full_studio": {
+              "all_widgets": 163,
+              "schematic": 2,
+              "layout": 0
+            },
+            "restore_recovery_full_studio": {
+              "all_widgets": 152,
+              "schematic": 2,
+              "layout": 0
+            }
+          },
+          "rss_after_bytes": 380166144
+        },
+        {
+          "iteration": 5,
+          "timings_ms": {
+            "load_full_studio": 5752.9160000849515,
+            "full_refresh": 235.97180005162954,
+            "open_hierarchy_layout": 379.87500010058284,
+            "layout_selection": 872.709299903363,
+            "layout_mouse_pan": 86.09610004350543,
+            "layout_edit_and_full_refresh": 182.15760006569326,
+            "layout_undo_and_full_refresh": 119.01829997077584,
+            "layout_redo_and_full_refresh": 134.76659986190498,
+            "layout_restore_and_full_refresh": 130.73420012369752,
+            "open_hierarchy_schematic": 388.4721000213176,
+            "schematic_selection": 636.3152000121772,
+            "edit_and_full_refresh": 520.0773000251502,
+            "undo_and_full_refresh": 975.0401999335736,
+            "redo_and_full_refresh": 1016.267400002107,
+            "save_and_full_refresh": 814.683899981901,
+            "unsaved_edit_and_refresh": 372.6334001403302,
+            "queued_recovery_completion": 134.33009991422296,
+            "live_checks_completion": 360.2082999423146,
+            "recovery_read": 509.90080018527806,
+            "reopen_saved_full_studio": 1645.8399998955429,
+            "restore_recovery_full_studio": 741.7325000278652
+          },
+          "paint_events": {
+            "load_full_studio": {
+              "all_widgets": 154,
+              "schematic": 2,
+              "layout": 0
+            },
+            "full_refresh": {
+              "all_widgets": 143,
+              "schematic": 2,
+              "layout": 0
+            },
+            "open_hierarchy_layout": {
+              "all_widgets": 194,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_selection": {
+              "all_widgets": 158,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_mouse_pan": {
+              "all_widgets": 162,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_edit_and_full_refresh": {
+              "all_widgets": 179,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_undo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_redo_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "layout_restore_and_full_refresh": {
+              "all_widgets": 164,
+              "schematic": 0,
+              "layout": 2
+            },
+            "open_hierarchy_schematic": {
+              "all_widgets": 169,
+              "schematic": 2,
+              "layout": 0
+            },
+            "schematic_selection": {
+              "all_widgets": 192,
+              "schematic": 2,
+              "layout": 0
+            },
+            "edit_and_full_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "undo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "redo_and_full_refresh": {
+              "all_widgets": 176,
+              "schematic": 2,
+              "layout": 0
+            },
+            "save_and_full_refresh": {
+              "all_widgets": 180,
+              "schematic": 2,
+              "layout": 0
+            },
+            "unsaved_edit_and_refresh": {
+              "all_widgets": 181,
+              "schematic": 2,
+              "layout": 0
+            },
+            "queued_recovery_completion": {
+              "all_widgets": 163,
+              "schematic": 1,
+              "layout": 0
+            },
+            "live_checks_completion": {
+              "all_widgets": 237,
+              "schematic": 2,
+              "layout": 0
+            },
+            "recovery_read": {
+              "all_widgets": 118,
+              "schematic": 1,
+              "layout": 0
+            },
+            "reopen_saved_full_studio": {
+              "all_widgets": 163,
+              "schematic": 2,
+              "layout": 0
+            },
+            "restore_recovery_full_studio": {
+              "all_widgets": 174,
+              "schematic": 2,
+              "layout": 0
+            }
+          },
+          "rss_after_bytes": 378961920
+        }
+      ],
+      "checks": [
+        "Full Studio refresh and visible schematic/layout paints completed.",
+        "Selection and real mouse pan changed only view state.",
+        "Physical move preserved schematic topology; layout undo/redo restored exact content.",
+        "Schematic edit preserved electrical partition; undo/redo restored exact content.",
+        "Studio save/reopen preserved the exact saved project.",
+        "Queued durable recovery restored the latest unsaved edit without overwriting the saved file."
+      ],
+      "size": {
+        "masters": 1,
+        "local_devices": 500,
+        "local_shapes": 10000,
+        "physical_instances": 0,
+        "expanded_top_shapes": 10000
+      },
+      "memory": {
+        "method": "Windows process working set",
+        "sample_interval_ms": 20,
+        "samples": 2056,
+        "rss_before_bytes": 368492544,
+        "rss_after_bytes": 378957824,
+        "sampled_peak_rss_bytes": 390021120,
+        "error": null,
+        "scope": "Whole current process; sampled peak may miss shorter allocation spikes."
+      },
+      "timings_ms": {
+        "load_full_studio": {
+          "median": 3678.7769000511616,
+          "p95": 5752.9160000849515,
+          "max": 5752.9160000849515
+        },
+        "full_refresh": {
+          "median": 246.43640010617673,
+          "p95": 365.3973999898881,
+          "max": 365.3973999898881
+        },
+        "open_hierarchy_layout": {
+          "median": 451.73309999518096,
+          "p95": 641.661599976942,
+          "max": 641.661599976942
+        },
+        "layout_selection": {
+          "median": 872.709299903363,
+          "p95": 987.2628999873996,
+          "max": 987.2628999873996
+        },
+        "layout_mouse_pan": {
+          "median": 106.45009996369481,
+          "p95": 141.0598000511527,
+          "max": 141.0598000511527
+        },
+        "layout_edit_and_full_refresh": {
+          "median": 305.6107999291271,
+          "p95": 418.5327000450343,
+          "max": 418.5327000450343
+        },
+        "layout_undo_and_full_refresh": {
+          "median": 159.64620001614094,
+          "p95": 224.08220008946955,
+          "max": 224.08220008946955
+        },
+        "layout_redo_and_full_refresh": {
+          "median": 149.8205999378115,
+          "p95": 235.9682999085635,
+          "max": 235.9682999085635
+        },
+        "layout_restore_and_full_refresh": {
+          "median": 130.73420012369752,
+          "p95": 210.54670005105436,
+          "max": 210.54670005105436
+        },
+        "open_hierarchy_schematic": {
+          "median": 468.9633999951184,
+          "p95": 616.8327000923455,
+          "max": 616.8327000923455
+        },
+        "schematic_selection": {
+          "median": 606.3753000926226,
+          "p95": 636.3152000121772,
+          "max": 636.3152000121772
+        },
+        "edit_and_full_refresh": {
+          "median": 476.2093999888748,
+          "p95": 599.2583001498133,
+          "max": 599.2583001498133
+        },
+        "undo_and_full_refresh": {
+          "median": 849.7065999545157,
+          "p95": 984.2250000219792,
+          "max": 984.2250000219792
+        },
+        "redo_and_full_refresh": {
+          "median": 1245.2527000568807,
+          "p95": 1456.963999895379,
+          "max": 1456.963999895379
+        },
+        "save_and_full_refresh": {
+          "median": 1008.6423000320792,
+          "p95": 1737.1440001297742,
+          "max": 1737.1440001297742
+        },
+        "unsaved_edit_and_refresh": {
+          "median": 595.0340998824686,
+          "p95": 890.4587000142783,
+          "max": 890.4587000142783
+        },
+        "queued_recovery_completion": {
+          "median": 432.498199865222,
+          "p95": 898.3857999555767,
+          "max": 898.3857999555767
+        },
+        "live_checks_completion": {
+          "median": 592.4728000536561,
+          "p95": 944.227600004524,
+          "max": 944.227600004524
+        },
+        "recovery_read": {
+          "median": 413.0768000613898,
+          "p95": 581.8731000181288,
+          "max": 581.8731000181288
+        },
+        "reopen_saved_full_studio": {
+          "median": 1722.1440998837352,
+          "p95": 2339.434399968013,
+          "max": 2339.434399968013
+        },
+        "restore_recovery_full_studio": {
+          "median": 1856.5618998836726,
+          "p95": 1886.697200126946,
+          "max": 1886.697200126946
+        }
+      }
+    }
+  ],
+  "startup_ms": 1395.4830998554826,
+  "app_version": "0.22.0.dev25",
+  "source": {
+    "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+    "sources": "6f06c8def3da441d2db0d736bb7255e23853d42cedf376598fb977db720fd10d"
+  },
+  "harness_sha256": "5ac880d6b69c7810f5e65d4de4ef8b52cd9575196cb976c4fe095cd2aea7300f",
+  "command_path": "interactive",
+  "electrical_ledger": true,
+  "environment": {
+    "python": "3.12.14",
+    "system": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 198 Stepping 2, GenuineIntel",
+    "logical_cpus": 24,
+    "font_directory": "C:\\Windows\\Fonts",
+    "qt": "6.8.3",
+    "pyside": "6.8.3",
+    "qt_platform": "offscreen",
+    "display_class": "offscreen",
+    "display_class_source": "declared",
+    "screen": {
+      "name": "",
+      "width": 800,
+      "height": 800,
+      "logical_dpi": 96.0,
+      "physical_dpi_reported": 100.0,
+      "refresh_hz_reported": 60.0,
+      "device_pixel_ratio": 1.0
+    },
+    "window_size": [
+      1440,
+      960
+    ],
+    "style": "fusion",
+    "renderer": {
+      "pipeline": "Qt QWidget backing store; QPainter in Canvas.paintEvent",
+      "screenshot_paint_engine": "Raster",
+      "screenshot_format": "Format_RGB32"
+    },
+    "live_layout_checks": true
+  },
+  "timing_scope": "Foreground Studio operation, queued immediate Qt work and synchronous QWidget repaint. Recovery completion measured separately. Startup includes a 200 ms deferred-restoration drain.",
+  "qualification": "Recorded source/workloads/backend only. Live checks use declared native rules when enabled. No external simulation, foundry DRC, GPU/display presentation latency, assistive technology or consumer-hardware qualification.",
+  "budgets": {
+    "max_stage_ms": null,
+    "max_edit_ms": null,
+    "max_edit_p95_ms": 200.0,
+    "edit_stages": [
+      "layout_edit_and_full_refresh",
+      "layout_undo_and_full_refresh",
+      "layout_redo_and_full_refresh",
+      "layout_restore_and_full_refresh",
+      "edit_and_full_refresh",
+      "undo_and_full_refresh",
+      "redo_and_full_refresh",
+      "unsaved_edit_and_refresh"
+    ],
+    "max_rss_mib": null,
+    "status": "failed",
+    "exceeded": [
+      "edit/p95"
+    ]
+  },
+  "edit_latency": {
+    "count": 120,
+    "median_ms": 223.5386500833556,
+    "p95_ms": 1070.1814000494778,
+    "max_ms": 1456.963999895379
+  },
+  "exception": "Traceback (most recent call last):\n  File \"C:\\Users\\jonah\\Documents\\Codex\\2026-09-28\\what\\work\\IC-Design-Studio\\tests\\gui_analog_scale.py\", line 379, in main\n    assert not exceeded, 'Explicit budgets exceeded: ' + ', '.join(exceeded)\n           ^^^^^^^^^^^^\nAssertionError: Explicit budgets exceeded: edit/p95\n",
+  "errors": [],
+  "source_after": {
+    "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+    "sources": "6f06c8def3da441d2db0d736bb7255e23853d42cedf376598fb977db720fd10d"
+  },
+  "source_unchanged": true
+}

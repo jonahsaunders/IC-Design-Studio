@@ -67,6 +67,22 @@ class FillTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'already contains fill'):
             fill.build(self.gds, self.root/'refilled')
 
+    def test_search_keeps_failed_candidates_and_rechecks_the_written_winner(self):
+        report=fill.optimize(self.source,self.root/'searched',minimum=240,maximum=300,step=30)
+        trials=report['search']['trials']
+        self.assertTrue(trials[0]['failed_layers'])
+        self.assertFalse(trials[-1]['failed_layers'])
+        self.assertLess(report['area_mm2'],self.report['area_mm2'])
+        self.assertTrue(report['core_masks_unchanged'])
+        self.assertEqual(report['policy'],self.report['policy'])
+        self.assertFalse(report['signoff'])
+
+    def test_search_is_bounded_and_rejects_no_solution(self):
+        with self.assertRaisesRegex(ValueError,'100 candidates'):
+            fill.optimize(self.source,self.root/'too-many',minimum=1,maximum=600,step=.005)
+        with self.assertRaisesRegex(ValueError,'No density-passing'):
+            fill.optimize(self.source,self.root/'no-solution',minimum=70,maximum=80,step=10)
+
 
 if __name__ == '__main__':
     unittest.main()

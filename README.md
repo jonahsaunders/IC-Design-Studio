@@ -150,11 +150,29 @@ Follow a native design from its first schematic through a second optimization pa
 
 [![The Banba project open in Studio's layout editor, with the active-device bank, segmented resistors, tiled MIM capacitors, routed nets and mask-layer controls.](examples/gf180-banba/layout/studio-layout.png)](examples/gf180-banba/layout/README.md)
 
-<sub>Actual native layout: 103 devices in an 844.6 × 559.0 µm footprint (0.472 mm²), with a common-centroid PNP array, saved matching constraints, substrate guard and tiled capacitors. [Annotated overview](examples/gf180-banba/layout/layout-overview.png) · [Matched-device detail](examples/gf180-banba/layout/layout-core.png).</sub>
+<sub>Actual native layout: 103 devices in an 852.1 × 566.5 µm footprint (0.482715 mm²), with a common-centroid PNP array, saved matching constraints, substrate guard and tiled capacitors. [Annotated overview](examples/gf180-banba/layout/layout-overview.png) · [Matched-device detail](examples/gf180-banba/layout/layout-core.png).</sub>
 
 The second schematic pass reaches **600.616 mV at 44.40 µA**, with a sampled **10.63 ppm/°C** temperature coefficient over −40 to 125 °C at nominal process and 3.3 V. Lower current and reduced startup overshoot trade against slower settling, larger capacitor area and weaker 1 kHz supply rejection. See the [before/after plots and conditions](examples/gf180-banba/pass2/README.md#measured-results).
 
-**Layout status:** native electrical, terminal-connectivity, bounded geometry and matching checks pass. The segmented schematic passes 20 corner/supply operating points and 60 startup runs. These electrical results are **before parasitic extraction**; full foundry DRC/LVS and extracted performance remain unverified. The layout uses a four-metal GF180 stack with MIM option B; its bundled `gf180mcuD` simulation models do not define a complete physical D stack. [Layout details and verification scope](examples/gf180-banba/layout/README.md).
+<!-- qualification:banba:start -->
+**Archived qualification · Banba routed layout**
+
+103 devices in an 852.1 by 566.5 micrometre editable core (0.482715 square millimetres). Full extracted qualification remains blocked.
+
+| Check | Status | Scope |
+|---|---|---|
+| Native connectivity | Passed | 56 nets; saved matching and geometry checks are separately retained. |
+| Unfilled core LVS | Passed | Pinned GF180 four-metal / MIM B deck; 103 devices. |
+| Unfilled core density | Failed | 314 density findings; core geometry and antenna checks pass. |
+| 600 micrometre fill DRC/LVS | Passed | 3.625 square millimetres. Includes the documented dummy-poly density-deck correction. |
+| 550 micrometre fill DRC/LVS | Passed | 3.253175 square millimetres; 10.26% smaller than the retained 600 micrometre halo. Same dummy-poly correction; core masks unchanged. |
+| Core capacitance-only PVT | Passed | 20 operating points and 60 startup transients; no distributed resistance. |
+| Distributed RC | Blocked | Extractor output has incomplete device-terminal resistance graphs. |
+| Fill coupling | Blocked | The retained Magic technology does not extract dummy-fill coupling. |
+| Fabrication signoff | Not run | Process-owner review and a complete chip floorplan remain required. |
+
+Archive results apply to the recorded source and tools. They do not qualify edits, packaged releases or fabrication signoff.
+<!-- qualification:banba:end -->
 
 **Try it:** open **File → Start here / example gallery**, then **Improve the Banba bandgap** or **Lay out the Banba bandgap → Open a copy**. In the layout example, select **banba_layout → Layout**. [First schematic](examples/gf180-banba/README.md) · [Second pass and optimizer](examples/gf180-banba/pass2/README.md) · [Native layout project](examples/gf180-banba/layout/banba-layout.icproj) · [GDS and reproduction](examples/gf180-banba/layout/README.md#files-and-reproduction).
 
@@ -490,7 +508,7 @@ General offline design-edit queuing remains planned. [Collaboration limits and h
 |---|---|---|
 | **SKY130 overvoltage detector** | Hierarchical schematic, attached Magic layout, and a portable native DC testbench with embedded models | Strict full-circuit LVS with the pinned extraction correction; all 16 HSA trip codes and three deliberate fault controls. [Reproduce it](docs/OPEN_PROJECTS.md) |
 | **GF180 bandgap reference** | A quick startup run, a six-case compatibility circuit, or the original 144-analysis characterization | Schematic/simulation compatibility across captured, native, and exported paths. [Project guide](docs/BANDGAP_COMPATIBILITY.md) |
-| **Native GF180MCU Banba reference** | Editable schematic, second-pass optimizer searches and a routed layout with segmented resistors and tiled MIM capacitors | Saved ngspice results and passing native layout checks; foundry DRC/LVS and extraction remain open. [Schematic and optimization](examples/gf180-banba/pass2/README.md) · [Layout](examples/gf180-banba/layout/README.md) |
+| **Native GF180MCU Banba reference** | Editable schematic, second-pass optimizer searches and a routed layout with segmented resistors and tiled MIM capacitors | Pinned physical and capacitance-only results with explicit RC and fill-coupling limits. [Shared qualification](docs/REFERENCE_QUALIFICATION.md). [Schematic and optimization](examples/gf180-banba/pass2/README.md) · [Layout](examples/gf180-banba/layout/README.md) |
 | **SKY130 transistor inverter** | Transistor-level Xschem import and switching behavior with included models | Simulation example plus separate pinned physical fixtures. [Examples](examples/README.md) · [Physical reference](docs/SKY130_REFERENCE.md) |
 | **Native analog references** | Current mirror, differential pair, and amplifier designs; saved operating-point/AC tests and corner comparisons | Bounded SKY130 simulation and physical flows with deliberate defects. [Engineering guide](docs/PROFESSIONAL_WORKFLOWS.md) |
 

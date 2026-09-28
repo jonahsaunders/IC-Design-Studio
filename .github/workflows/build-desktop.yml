@@ -221,14 +221,14 @@ jobs:
         env:
           QT_QPA_PLATFORM: windows
           QT_SCALE_FACTOR: '1'
-        run: python tests/gui_analog_scale.py --out build/analog-scale-evidence --iterations 3 --command-path interactive --electrical-ledger --display-class native --max-edit-ms 1500
+        run: python tests/gui_analog_scale.py --out build/analog-scale-evidence --iterations 3 --command-path interactive --electrical-ledger --live-checks --display-class native --max-edit-ms 1500
       - name: Measure full desktop analog workloads under X11
         if: runner.os == 'Linux'
         timeout-minutes: 10
         env:
           QT_QPA_PLATFORM: xcb
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: xvfb-run -a -s '-screen 0 1920x1080x24' python tests/gui_analog_scale.py --out build/analog-scale-evidence --iterations 3 --command-path interactive --electrical-ledger --display-class virtual --max-edit-ms 1500
+        run: xvfb-run -a -s '-screen 0 1920x1080x24' python tests/gui_analog_scale.py --out build/analog-scale-evidence --iterations 3 --command-path interactive --electrical-ledger --live-checks --display-class virtual --max-edit-ms 1500
       - name: Test hierarchy navigation and atomic design automation
         timeout-minutes: 5
         env:
@@ -284,6 +284,11 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_workflow_review.py --out build/workflow-review-evidence
+      - name: Test workflow evidence states and reference qualification
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_workflow_evidence.py --out build/workflow-evidence
       - name: Test asynchronous durable recovery and failed-storage handling
         timeout-minutes: 5
         env:
@@ -373,6 +378,7 @@ jobs:
         run: |
           python tests/gui_refresh_reuse.py
           python tests/gui_layout_cache_refresh.py
+          python tests/gui_layout_chunks.py
       - name: Test net labels and grounds
         if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
         timeout-minutes: 5
@@ -502,6 +508,8 @@ jobs:
             build/design-automation-evidence/*.json
             build/design-automation-evidence/*.png
             build/design-automation-benchmark.json
+            build/workflow-evidence/*.json
+            build/workflow-evidence/*.png
             build/analog-experiment-evidence
             build/optimizer-refinement-evidence
             build/analog-advanced-evidence

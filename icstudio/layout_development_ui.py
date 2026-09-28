@@ -142,6 +142,7 @@ class LayoutDevelopmentMixin:
         self.layout.set_data(self.cell,self.project['pdk'],self.selection,self.net,revision=self.project['revision'],dirty_indices=self.history.layout_stats['indices'])
         self.schematic.set_data(self.cell,self.project['pdk'],self.selection,self.net)
         self.revision_label.setText(f"r{self.project['revision']}  /  {self.project['pdk']['name']}")
+        self.project_subtitle.setText('IC Design Studio   /   Unsaved changes')
         self.undo_action.setEnabled(bool(self.history.undo_stack));self.redo_action.setEnabled(bool(self.history.redo_stack))
         self.update_save_status()
         self._inspector_dirty=False;self.build_inspector();self.update_result_status()

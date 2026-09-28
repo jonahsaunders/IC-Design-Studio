@@ -17,7 +17,9 @@ def inspect_project(project, cid):
     for cell in report['cells']:
         constraints.extend(findings(project, cell))
         connections.extend(connectivity(project, cell)['issues'])
-    return dict(inventory=report, constraints=constraints, connections=connections)
+    from .qualification import project_status
+    return dict(inventory=report, constraints=constraints, connections=connections,
+                reference=project_status(project))
 
 
 class DesignWorkflow(QWidget):
@@ -32,6 +34,9 @@ class DesignWorkflow(QWidget):
         self.testbench=QComboBox();self.testbench.setAccessibleName('Workflow testbench');row.addWidget(self.testbench,1)
         self.corner=QLabel();row.addWidget(self.corner);root.addLayout(row)
         self.testbench.currentIndexChanged.connect(self.choose_testbench)
+        plan_row=QHBoxLayout();plan_row.addWidget(QLabel('Verification plan'))
+        self.plan=QComboBox();self.plan.setAccessibleName('Workflow verification plan');plan_row.addWidget(self.plan,1);root.addLayout(plan_row)
+        self.plan.currentIndexChanged.connect(self.refresh)
         self.next_action=QPushButton('Checking design…');self.next_action.setProperty('role','primary');root.addWidget(self.next_action)
         self.next_action.clicked.connect(lambda:self.call(self.next_fn))
         self.summary=QLabel();self.summary.setWordWrap(True);self.summary.setAccessibleName('Design progress');root.addWidget(self.summary)
@@ -51,6 +56,9 @@ class DesignWorkflow(QWidget):
         self.tabs.addTab(self.finding_table,'Findings')
         self.values=QTableWidget(0,5);self.values.setHorizontalHeaderLabels(['Measurement','Schematic','Post-layout','Change','Unit'])
         self.values.setEditTriggers(QAbstractItemView.NoEditTriggers);self.values.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch);self.tabs.addTab(self.values,'Physical comparison')
+        from PySide6.QtWidgets import QTextBrowser
+        self.reference=QTextBrowser();self.reference.setAccessibleName('Archived reference qualification')
+        self.tabs.addTab(self.reference,'Reference evidence')
         row=QHBoxLayout()
         for title,fn in [('Go to finding',self.go_to_finding),('Place missing devices',lambda:self.circuit_action(studio.place_schematic_in_layout)),('Verification results',studio.open_silicon)]:
             button=QPushButton(title);button.clicked.connect(lambda _=False,fn=fn:self.call(fn));row.addWidget(button)
@@ -118,6 +126,41 @@ class DesignWorkflow(QWidget):
         if self.bench:self.preferred[(p['id'],self.cid)]=selected
         settings=self.bench.get('analysis',{}) if self.bench else {}
         self.corner.setText(('Corner: '+str(settings.get('corner','nominal'))+' · '+str(settings.get('temperature',27))+' °C') if self.bench else '')
+        selected_plan=self.plan.currentData();self.plan.blockSignals(True);self.plan.clear()
+        plans=[plan for plan in p.get('test_plans',[]) if self.bench and any(
+            e.get('settings',{}).get('testbench')==self.bench['id'] or e.get('cell') in (self.bench['dut_cell'],self.bench['bench_cell'])
+            for e in plan.get('entries',[]))]
+        self.plan.addItem('Choose a verification plan…' if plans else 'No verification plan for this testbench',None)
+        for plan in plans:self.plan.addItem(plan['name'],plan['id'])
+        index=self.plan.findData(selected_plan)
+        self.plan.setCurrentIndex(index if index>0 else 1 if len(plans)==1 else 0);self.plan.blockSignals(False)
+
+    def inspect_evidence(self,status):
+        row=next((r for r in self.studio.run_manager.rows if r['id']==status.get('run_id')),None)
+        if row is None:return self.open_plan_evidence()
+        from .analog_run_ui import RunInspector
+        self.inspector=RunInspector(self.studio,row);self.inspector.note.setText(status['detail']);self.inspector.show()
+        requirement=status.get('requirement')
+        if requirement:
+            for index,definition in enumerate(self.inspector.requirement_rows):
+                if definition['name']==requirement:
+                    self.inspector.requirements.setCurrentCell(index,1)
+                    self.inspector.focus_requirement(definition);break
+
+    def open_plan_evidence(self):
+        window=self.studio.test_plan_window();window.refresh_plans(self.plan.currentData())
+        status=getattr(self,'plan_state',{})
+        group=window.runs.findData(status.get('group'))
+        if group>=0:window.runs.setCurrentIndex(group)
+        window.failed.setChecked(status.get('status')=='Failed')
+        requirement=status.get('requirement')
+        if requirement:
+            for row in range(window.table.rowCount()):
+                if window.table.item(row,1).text()==requirement:
+                    column=next((col for col in range(2,window.table.columnCount())
+                                 if window.table.item(row,col).data(Qt.UserRole)==status.get('run_id')),2)
+                    window.table.setCurrentCell(row,column);break
+        return window
 
     def mark_changed(self):
         if not self.isVisible():return
@@ -157,6 +200,8 @@ class DesignWorkflow(QWidget):
         s=self.studio;p=s.project;bench=self.bench;cid=self.cid
         cell=next(c for c in p['cells'] if c['id']==cid)
         data=self.analysis or {};pending=self.analysis is None;error=data.get('error')
+        from .qualification import markdown
+        self.reference.setMarkdown(markdown(data.get('reference')) or 'No archived reference evidence is attached to this document. Current run results appear in Steps.')
         changes=[r for r in data.get('inventory',{}).get('devices',[]) if r['status'] not in ('current','external')]
         connections=data.get('connections',[]);constraints=data.get('constraints',[])
         missing=sum(r['status']=='missing' for r in changes);unsupported=sum(r['status']=='unsupported' for r in changes)
@@ -168,34 +213,51 @@ class DesignWorkflow(QWidget):
                 item=QTableWidgetItem(text);item.setToolTip(text);self.finding_table.setItem(i,col,item)
         if self.finding_rows:self.finding_table.selectRow(max(0,min(selected,len(self.finding_rows)-1)))
         self.tabs.setTabText(1,f'Findings ({len(self.finding_rows)})')
-        run=next((r for r in reversed(s.run_manager.rows) if bench and r.get('job',{}).get('settings',{}).get('testbench')==bench['id'] and
-                  r.get('result',{}).get('project_id')==p['id'] and r['result'].get('silicon_report',{}).get('cell_id')==cid),None)
-        result=run['result'] if run else None;report=result.get('silicon_report',{}) if result else {}
         current_hash=data.get('inventory',{}).get('design_hash')
-        stale=bool(result and result['design_hash']!=current_hash)
-        status='Choose a testbench' if not bench else 'Not run' if not result else ('Checking revision · ' if pending else 'Stale · ' if stale else '')+report.get('status','unknown').title()
+        from .workflow_status import bench_status,plan_status,state
+        unknown_state=state('Running','Checking current design') if pending else state('Blocked',error) if error else None
+        electrical=unknown_state or bench_status(p,bench,s.run_manager.rows,current_hash)
+        physical=unknown_state or bench_status(p,bench,s.run_manager.rows,current_hash,physical=True)
+        plan=next((v for v in p.get('test_plans',[]) if v['id']==self.plan.currentData()),None)
+        self.plan_state=unknown_state or plan_status(p,plan,s.run_manager.rows,current_hash)
+        self.evidence_states={'electrical':electrical,'physical':physical,'plan':self.plan_state}
+        run=next((r for r in s.run_manager.rows if r['id']==physical.get('run_id')),None)
+        report=(run.get('result') or {}).get('silicon_report',{}) if run else {}
+        stale=physical['status']=='Stale'
+        describe=lambda value:value['status']+' · '+value['detail']
         unknown='Checking…' if pending else 'Inspection needs attention' if error else None
         review=lambda:self.circuit_action(s.layout_eco_dialog)
         verify=lambda:self.circuit_action(s.run_silicon)
-        steps=[('1. Electrical tests',bench['name'] if bench else 'Choose or save a fixture and measurement limits','Choose tests',lambda:self.circuit_action(s.open_testbenches)),
-            ('2. Schematic → layout',unknown or (str(len(changes))+' devices need review' if changes else 'All device links current'),'Review changes',review),
-            ('3. Connections and matching',unknown or f'{len(connections)} connection findings; {len(constraints)} constraint findings','Inspect connections',lambda:self.circuit_action(s.check_linked_layout)),
-            ('4. DRC, LVS and extraction',status,'Verify selected testbench',verify),
-            ('5. Specifications and corners','Run saved tests across operating conditions','Open test plans',s.test_plan_window),
-            ('6. Team review','Discuss an exact checkpoint and its verification results','Open collaboration',s.collaboration_dashboard)]
+        electrical_action=(lambda:self.circuit_action(s.open_testbenches)) if bench is None else (lambda:self.inspect_evidence(electrical)) if electrical.get('run_id') and electrical['status'] not in ('Stale',) else (lambda:self.circuit_action(s.run_testbench))
+        steps=[('1. Electrical tests',describe(electrical),'Choose tests' if bench is None else 'Inspect electrical run' if electrical.get('run_id') and electrical['status']!='Stale' else 'Run saved testbench',electrical_action),
+            ('2. Schematic → layout',unknown or ('Blocked · ' if unsupported else 'Not run · ' if changes else 'Passed · ')+(str(len(changes))+' devices need review' if changes else 'All device links current'),'Review changes',review),
+            ('3. Connections and matching',unknown or ('Failed · ' if connections or constraints else 'Passed · ')+f'{len(connections)} connection findings; {len(constraints)} constraint findings','Inspect connections',lambda:self.circuit_action(s.check_linked_layout)),
+            ('4. DRC, LVS and extraction',describe(physical),'Inspect physical run' if physical.get('run_id') and physical['status'] not in ('Stale',) else 'Verify selected testbench',(lambda:self.inspect_evidence(physical)) if physical.get('run_id') and physical['status']!='Stale' else verify),
+            ('5. Specifications and corners',describe(self.plan_state),'Open plan evidence',self.open_plan_evidence),
+            ('6. Team review','Optional · discuss an exact checkpoint and its verification results','Open collaboration',s.collaboration_dashboard)]
         for row,(title,state,label,fn) in enumerate(steps):
             self.steps.setItem(row,0,QTableWidgetItem(title));self.steps.setItem(row,1,QTableWidgetItem(state))
-            button=QPushButton(label);button.clicked.connect(lambda _=False,fn=fn:self.call(fn));self.steps.setCellWidget(row,2,button)
+            button=QPushButton(label);button.clicked.connect(lambda _=False,fn=fn:self.call(fn));action_widget=button
             self.steps.setRowHeight(row,max(40,button.sizeHint().height()+6))
             if row==3:button.setEnabled(bool(bench) and not pending and not error)
+            evidence=electrical if row==0 else physical if row==3 else None
+            if bench and evidence and evidence.get('run_id') and evidence['status'] in ('Failed','Blocked'):
+                actions=QWidget();buttons=QHBoxLayout(actions);buttons.setContentsMargins(0,0,0,0);buttons.addWidget(button)
+                retry=QPushButton('Rerun');retry.setAccessibleName('Rerun electrical tests' if row==0 else 'Rerun physical verification')
+                fn=(lambda:self.circuit_action(s.run_testbench)) if row==0 else verify
+                retry.clicked.connect(lambda _=False,fn=fn:self.call(fn));buttons.addWidget(retry)
+                action_widget=actions
+            self.steps.setCellWidget(row,2,action_widget)
         if not bench:index=0
         elif pending or error:index=None
+        elif electrical['status']!='Passed':index=0
         elif changes:index=1
         elif connections or constraints:index=2
-        elif not result or stale or report.get('status')!='passed':index=3
-        else:index=4
+        elif physical['status']!='Passed':index=3
+        elif self.plan_state['status']!='Passed':index=4
+        else:index=5
         self.next_fn=steps[index][3] if index is not None else self.refresh
-        self.next_action.setText('Next: '+steps[index][2] if index is not None else 'Checking design…' if pending else 'Retry design checks')
+        self.next_action.setText('Verification complete · optional team review' if index==5 else 'Next: '+steps[index][2] if index is not None else 'Checking design…' if pending else 'Retry design checks')
         self.next_action.setEnabled(index is not None or bool(error))
         values=report.get('comparison',[]);self.values.setRowCount(len(values))
         for row,m in enumerate(values):
