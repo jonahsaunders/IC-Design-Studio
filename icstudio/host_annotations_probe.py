@@ -3,10 +3,9 @@ from contextlib import ExitStack, closing
 from pathlib import Path
 import sqlite3
 import tempfile
-import time
 from unittest.mock import patch
 
-from PySide6.QtCore import QPointF, Qt
+from PySide6.QtCore import QEventLoop, QPointF, Qt, QTimer
 from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication, QLineEdit, QPushButton
 
@@ -17,11 +16,27 @@ from .network_collaboration import network_host
 from . import network_tls
 
 
-def wait(predicate, message):
-    deadline = time.monotonic() + 15
-    while not predicate() and time.monotonic() < deadline:
-        QTest.qWait(20)
-    assert predicate(), message
+def wait(predicate, message, seconds=15):
+    if predicate():
+        return
+    # Match the application's event loop. Repeated qWait calls can starve
+    # Python server/request threads on Windows while holding the GIL.
+    loop = QEventLoop()
+    poll, timeout = QTimer(), QTimer()
+    timeout.setSingleShot(True)
+    poll.timeout.connect(lambda: loop.quit() if predicate() else None)
+    timeout.timeout.connect(loop.quit)
+    poll.start(20)
+    timeout.start(int(seconds * 1000))
+    try:
+        # Other events in the same batch may start another sync after a poll
+        # sees an idle client. Recheck before returning to the probe.
+        while not predicate() and timeout.isActive():
+            loop.exec()
+    finally:
+        poll.stop()
+        timeout.stop()
+    assert predicate(), message() if callable(message) else message
 
 
 def button(dialog, title):
@@ -120,7 +135,8 @@ def run(window, output):
             wizard = window.host_session_dialog()
             wizard.name.setText('Host designer')
             wizard.start_button.click()
-            wait(lambda: wizard.client is not None or bool(host.error), 'Hosting wizard did not complete: ' + wizard.status.text())
+            wait(lambda: wizard.client is not None or bool(host.error),
+                 lambda: 'Hosting wizard did not complete (' + host.state + '): ' + wizard.status.text())
             assert wizard.client is not None, host.error + ' ' + wizard.status.text()
             owner = window.live_client
             wait(lambda: owner.connected and not owner.busy, 'Host did not synchronize')

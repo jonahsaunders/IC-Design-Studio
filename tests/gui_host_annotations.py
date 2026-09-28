@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import sys
 import traceback
+from unittest.mock import patch
 
 
 def main():
@@ -14,16 +15,20 @@ def main():
     from PySide6.QtWidgets import QApplication
     from icstudio.gui import Studio
     from icstudio.host_annotations_probe import run
-    QSettings.setDefaultFormat(QSettings.IniFormat);QSettings.setPath(QSettings.IniFormat,QSettings.UserScope,str(out/'settings'))
+    # The explicit organization/application constructor reads NativeFormat even
+    # after setDefaultFormat. Isolate both editors from saved desktop/CI state.
+    settings=QSettings(str(out/'settings.ini'),QSettings.IniFormat)
+    settings.setFallbacksEnabled(False);settings.clear()
     QStandardPaths.writableLocation=staticmethod(lambda kind:str(out/'profile'/str(kind.value)))
     app=QApplication([]);app.setStyle('Fusion');errors=[]
     sys.excepthook=lambda t,v,tb:errors.append(''.join(traceback.format_exception(t,v,tb)))
-    w=Studio(recover=False);w.maybe_save=lambda:True;w.show();report=dict(status='failed')
-    try:
-        report['checks']=[run(w,out)];assert not errors,errors;report['status']='passed'
-    except Exception:report['error']=traceback.format_exc();report['qt_errors']=errors
-    finally:
-        w.close();(out/'report.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
+    with patch('icstudio.gui.QSettings',return_value=settings):
+        w=Studio(recover=False);w.maybe_save=lambda:True;w.show();report=dict(status='failed')
+        try:
+            report['checks']=[run(w,out)];assert not errors,errors;report['status']='passed'
+        except Exception:report['error']=traceback.format_exc();report['qt_errors']=errors
+        finally:
+            w.close();(out/'report.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     print(json.dumps(report,indent=2));return 0 if report['status']=='passed' else 1
 
 
