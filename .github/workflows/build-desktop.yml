@@ -9,10 +9,24 @@ on:
 permissions:
   contents: read
 jobs:
+  release-tools:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2022]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify portable release evidence and draft publishing
+        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease -v
   digital-runtime:
     uses: ./.github/workflows/digital-runtime.yml
   package:
-    needs: digital-runtime
+    needs: [digital-runtime, release-tools]
     strategy:
       fail-fast: false
       matrix:
