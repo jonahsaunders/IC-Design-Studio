@@ -27,7 +27,8 @@ class ReleaseEvidenceTests(unittest.TestCase):
         self.payload = random.Random(123).randbytes(8192)
         (self.source / 'engine-output.bin').write_bytes(self.payload)
         (self.source / 'nested').mkdir()
-        (self.source / 'nested' / 'qualification.json').write_text('{"status": "fixture"}\n')
+        # This fixture is checked as raw evidence bytes on every platform.
+        (self.source / 'nested' / 'qualification.json').write_bytes(b'{"status": "fixture"}\n')
         self.release = self.root / 'release'
 
     def split(self):
@@ -58,6 +59,17 @@ class ReleaseEvidenceTests(unittest.TestCase):
         self.assertEqual([path.name for path in assets], ['evidence.zip'])
         with zipfile.ZipFile(assets[0]) as archive:
             self.assertEqual(archive.read('engine-output.bin'), self.payload)
+
+    def test_text_evidence_preserves_lf_and_crlf_bytes(self):
+        payloads = {'unix.log': b'first\nsecond\n', 'windows.log': b'first\r\nsecond\r\n'}
+        for name, payload in payloads.items():
+            (self.source / name).write_bytes(payload)
+        manifest, _ = self.split()
+        restored = reassemble(manifest, self.root / 'restored')
+        with zipfile.ZipFile(restored) as archive:
+            for name, payload in payloads.items():
+                with self.subTest(name=name):
+                    self.assertEqual(archive.read(name), payload)
 
     def test_exact_part_boundary_has_no_empty_trailing_part(self):
         assets = archive_evidence(self.source, self.release, 'ordinary.zip', part_bytes=16384)
