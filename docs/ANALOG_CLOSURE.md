@@ -68,10 +68,16 @@ vectors also work through repeated schematic hierarchy.
 
 Electrical characterization accepts supported integer fingers/multiplicity up to
 64. Physical recipe limits remain stricter: the SKY130 generator accepts 1–8
-fingers and multiplicity one, including equivalent total-W/per-finger symbols.
+fingers per unit and 1–16 parallel units, including equivalent total-W/per-finger
+symbols. W remains the width of one unit; multiplicity creates additional
+contacted geometry with real terminal rails. The supported MiM/poly recipes
+also accept 1–16 parallel units. The SKY130 MOS generation form offers an
+internal source/body tie when both terminals already have the same schematic
+net; regeneration retains the choice without changing the schematic nets.
 GF180 physical generation retains its bounded recipe and rejects incompatible
-unit mappings. This update does not introduce arbitrary active dummy devices or
-qualify new process geometries by assertion.
+unit mappings. Unit topology tests do not establish process DRC/LVS qualification;
+the expanded coupons in `scripts/qualify_sky130_devices.py` require the pinned
+physical engines. Historical qualification results retain their original scope.
 
 ## Layout constraints survive changes
 

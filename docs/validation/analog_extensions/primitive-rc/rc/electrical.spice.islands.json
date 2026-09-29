@@ -1,0 +1,12 @@
+{
+  "source_sha256": "3306422537f34376035e80b19ae228e3739039e5fad3ba59aa497c1e11cf9aee",
+  "electrical_sha256": "359a1c521f662707f5905a6043e430783aaa6973984b7a8de45cb7d1cf592856",
+  "removed_resistors": [
+    "r9"
+  ],
+  "components": 1,
+  "physical_devices": [
+    "rstudio_device_660e7f6b3a063feb05c0"
+  ],
+  "criterion": "Resistor-only connected component with no port, device terminal or capacitor endpoint. All observable circuit lines retained verbatim."
+}

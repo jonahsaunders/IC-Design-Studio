@@ -57,7 +57,7 @@ def qualify(args):
             if re.search(r'Missing .*connection|smaller than extract|Bad device|Error:|STUDIO_.*ERROR',filtered,re.I):
                 raise ValueError('Magic extraction diagnostic in '+name)
             return log
-        magic('capacitance','extract do local\nextract all\next2spice lvs\next2spice merge none\next2spice cthresh 0\next2spice -o extracted-c.spice\nsave banba_layout')
+        magic('capacitance','extract do local\nextract all\next2spice lvs\next2spice merge none\next2spice cthresh infinite\next2spice -o device-reference.spice\next2spice cthresh 0\next2spice -o extracted-c.spice\nsave banba_layout')
         report['capacitance']=check_extracted(reference,(out/'extracted-c.spice').read_text())
         # Keep ext2sim and resistance extraction in separate processes.
         magic('prepare-rc','ext2sim labels on\next2sim')

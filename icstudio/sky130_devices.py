@@ -29,10 +29,13 @@ def layers(tech):
 
 def supported(tech,d):
     binding=binding_for(tech,d)
-    return bool(binding and binding.get('model') in MODELS)
+    from .sky130_fixed_devices import supported as fixed_supported
+    return bool(binding and binding.get('model') in MODELS) or fixed_supported(tech,d)
 
 
 def specification(tech,d):
+    from .sky130_fixed_devices import supported as fixed_supported,specification as fixed_specification
+    if fixed_supported(tech,d):return fixed_specification(tech,d)
     layers(tech);binding=binding_for(tech,d)
     if not binding or binding.get('model') not in MODELS:raise ValueError('Choose the SKY130 MiM m3_1 capacitor or generic poly resistor catalog model.')
     model=binding['model'];kind=MODELS[model]
@@ -42,7 +45,11 @@ def specification(tech,d):
         raise ValueError('The passive recipe requires its exact shipped model, terminal order and W/L/multiplicity emission; reindex legacy resistor catalogs that emit X instead of R.')
     if binding.get('parameter_scale')!={'w':1e6,'l':1e6}:raise ValueError('SKY130 passive W and L must be catalog micrometre parameters.')
     values=parameter_values(binding,d)
-    if any(values.get(k,1)!=1 for k in ('mf','mult','m')):raise ValueError('This physical passive recipe supports multiplicity one; place explicit parallel devices.')
+    # The MiM symbol emits mf for mismatch scaling and ngspice's subcircuit m
+    # for electrical multiplication. It is one count, not mf multiplied by m.
+    multiplicity=values[emit['m']]
+    if not math.isfinite(multiplicity) or multiplicity!=int(multiplicity) or not 1<=multiplicity<=16:
+        raise ValueError('Use an integer passive parallel multiplicity from 1 to 16.')
     size={}
     for key in ('w','l'):
         nm=values[key]*1000;minimum=2000 if kind=='mim_capacitor' else (500 if key=='w' else 1650)
@@ -51,8 +58,10 @@ def specification(tech,d):
             raise ValueError(f'{key.upper()}: use {minimum/1000:g}–{maximum/1000:g} µm on the 5 nm grid.')
         size[key]=round(nm)
     if kind=='mim_capacitor' and max(size.values())>5*min(size.values()):raise ValueError('The bounded MiM recipe supports aspect ratio at most 5:1.')
-    return dict(api=1,recipe=kind,model=model,model_ref=clone(d['model_ref']),
+    result=dict(api=1,recipe=kind,model=model,model_ref=clone(d['model_ref']),
                 kind=d['kind'],values=values,dimensions_nm=size,nets=clone(d['nets']))
+    if multiplicity>1:result['multiplicity']=int(multiplicity)
+    return result
 
 
 def configure_connectivity(tech):
@@ -70,6 +79,8 @@ def configure_connectivity(tech):
 
 
 def geometry(tech,d,x=0,y=0):
+    from .sky130_fixed_devices import supported as fixed_supported,geometry as fixed_geometry
+    if fixed_supported(tech,d):return fixed_geometry(tech,d,x,y)
     spec=specification(tech,d);ls=layers(tech);w,l=spec['dimensions_nm']['w'],spec['dimensions_nm']['l']
     if any(type(v) is not int or v%5 or abs(v)>100000000 for v in (x,y)):raise ValueError('Use a placement on the 5 nm grid within ±100 mm.')
     shapes=[];pins=[]
@@ -102,7 +113,56 @@ def geometry(tech,d,x=0,y=0):
             for key,half in (('npc',320),('licon',85),('li',170),('mcon',85),('m1',170)):
                 box(role+'_'+key,key,px-half,cy-half,2*half,2*half,net if key in ('li','m1') else '')
             pin(role,'m1',[px,cy])
-    return dict(shapes=shapes,pins=pins,record=dict(device_id=d['id'],spec=spec,origin=[x,y]))
+    return parallel_geometry(tech,d,dict(shapes=shapes,pins=pins,record=dict(device_id=d['id'],spec=spec,origin=[x,y])),spec.get('multiplicity',1))
+
+
+def parallel_geometry(tech,d,data,count):
+    """Place electrically parallel, separately contacted units in a column.
+
+    W/L and nf describe each unit; m describes the number of copies. Retain
+    the first unit's public terminal locations, so existing routes and ECO pin
+    identities remain usable. Unit-specific roles prevent regeneration from
+    aliasing identically named shapes in different copies. The generous 3 µm
+    between bounding boxes is a placement policy, not a process signoff claim.
+    """
+    if count==1:return data
+    if type(count) is not int or not 2<=count<=16:raise ValueError('Use 2–16 physical parallel copies.')
+    # MOS-only technology fixtures do not contain the passive mask set.
+    from .sky130_layout import layers as mos_layers
+    ls=mos_layers(tech) if d['kind'] in ('NMOS','PMOS') else layers(tech)
+    from .layout_eco import roles
+    roles(data);base=clone(data['shapes']);terminals=clone(data['pins'])
+    bottom=min(polygon(s).bbox().bottom for s in base);top=max(polygon(s).bbox().top for s in base)
+    pitch=5*math.ceil((top-bottom+3000)/5)
+    shape_count=len(base)*count+len(terminals)*(count*3+1)
+    if shape_count>100000:raise ValueError('Parallel geometry exceeds the 100,000-shape footprint limit; reduce dimensions or multiplicity.')
+    # Validate before changing data: only the qualified unit terminal layers
+    # have an explicit interconnect construction here.
+    allowed={ls['m1'],ls.get('m4')}
+    if any(pin['layer'] not in allowed for pin in terminals):raise ValueError('Unsupported terminal layer in physical parallel array.')
+    for index in range(1,count):
+        for original in base:
+            shape=clone(original);shape['id']=uid();shape['generator_role']=f'parallel:{index}:'+original['generator_role']
+            shape['points']=[[a,b+index*pitch] for a,b in original['points']]
+            if 'holes' in shape:shape['holes']=[[[a,b+index*pitch] for a,b in hole] for hole in shape['holes']]
+            data['shapes'].append(shape)
+    def box(role,key,px,py,half,net=''):
+        shape=rect(ls[key],px-half,py-half,2*half,2*half,d['id'],net)
+        shape.update(generated_device=d['id'],generator_role=role);data['shapes'].append(shape)
+    for pin in terminals:
+        name=pin['pin'];net=d['nets'][name];px,py=pin['point']
+        # MOS and poly-resistor accesses lift to metal2. MiM accesses already
+        # sit on metal4; vertical rails stay outside the opposite electrode.
+        key='m2' if pin['layer']==ls['m1'] else 'm4'
+        if key=='m2':
+            for index in range(count):
+                for mask,half in (('m1',170),('via',75),('m2',170)):
+                    box(f'parallel:access:{name}:{index}:{mask}',mask,px,py+index*pitch,half,net if mask!='via' else '')
+        data['shapes'].append(dict(id=uid(),kind='path',layer=ls[key],points=[[px,py],[px,py+(count-1)*pitch]],
+            width=340,net=net,device_id=d['id'],generated_device=d['id'],generator_role='parallel:rail:'+name))
+    data['record']['parallel_units']=dict(count=count,pitch_nm=pitch,
+        offsets_nm=[[0,index*pitch] for index in range(count)])
+    return data
 
 
 def install(p,cid,did,x=0,y=0):
@@ -198,6 +258,13 @@ def install_dummy(p,cid,name,kind,tie_net,w='1u',l='1u',x=0,y=0):
 
 def finish_mos(tech,d,data):
     """Persist dummy terminal straps in the generator, including later ECOs."""
+    if d.get('physical_body_tie'):
+        if d['physical_body_tie']!='source' or d['nets']['b']!=d['nets']['s']:
+            raise ValueError('A source body tie requires source and body on the same explicit schematic net.')
+        pins={pin['pin']:pin for pin in data['pins']};body,source=pins['b']['point'],pins['s']['point']
+        if body[1]!=source[1]:raise ValueError('This recipe requires aligned source/body access for an internal tie.')
+        data['shapes'].append(dict(id=uid(),kind='path',layer=pins['b']['layer'],points=[clone(body),clone(source)],
+            width=340,net=d['nets']['b'],device_id=d['id'],generated_device=d['id'],generator_role='body_source_tie'))
     if not d.get('physical_dummy'):return data
     if len(set(d['nets'].values()))!=1:raise ValueError('A physical MOS dummy requires D/G/S/B tied to one explicit reference net.')
     ls=layers(tech);pins=data['pins'];rail=min(v['point'][1] for v in pins)-1200;net=next(iter(d['nets'].values()))

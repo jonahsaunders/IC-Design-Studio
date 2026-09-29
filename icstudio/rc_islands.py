@@ -9,11 +9,11 @@ from pathlib import Path
 from .model import atomic_write,file_digest,scalar
 
 
-def prune(source,target):
+def prune(source,target,*,physical_devices=()):
     source,target=Path(source).resolve(),Path(target).resolve()
     if target.exists() or source==target:raise ValueError('Use a new electrical RC output file.')
     lines=source.read_text().splitlines(keepends=True);parent={};anchors=set();resistors=[]
-    active=False;declarations=0;names=set()
+    active=False;declarations=0;names=set();physical={str(name).casefold() for name in physical_devices}
     def find(name):
         name=name.casefold();parent.setdefault(name,name)
         while parent[name]!=name:
@@ -30,6 +30,14 @@ def prune(source,target):
             if active:raise ValueError('RC island analysis requires one flat subcircuit.')
             declarations+=1;active=True;anchors.update(t[2:])
         elif key=='.ends':active=False
+        elif key in physical and key.startswith(('r','c')):
+            if not active or len(t)<4:raise ValueError('Unsupported physical RC device.')
+            anchors.update(t[1:3])
+        elif key.startswith('r') and len(t)>4:
+            # Modeled semiconductor resistors are physical anchors, never
+            # removable wire edges. Numeric physical R use explicit identities.
+            if not active or not any('=' in value for value in t[4:]):raise ValueError('Unsupported physical resistor.')
+            anchors.update(t[1:3])
         elif key.startswith('r'):
             if not active or len(t)!=4 or scalar(t[3])<0:raise ValueError('Unsupported RC resistor.')
             parent[find(t[1])]=find(t[2]);resistors.append(t)
@@ -49,6 +57,7 @@ def prune(source,target):
     atomic_write(target,result)
     report={'source_sha256':file_digest(source),'electrical_sha256':file_digest(target),
             'removed_resistors':sorted(dropped),'components':len(components),
+            'physical_devices':sorted(physical),
             'criterion':'Resistor-only connected component with no port, device terminal or capacitor endpoint. All observable circuit lines retained verbatim.'}
     atomic_write(str(target)+'.islands.json',json.dumps(report,indent=2))
     return report

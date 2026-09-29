@@ -2,6 +2,7 @@
 from pathlib import Path
 import math,re,json,cmath
 from .model import clone,uid,scalar,NAME,NET,atomic_write,design_digest
+from .native_vectors import devices as vector_devices, ports as vector_ports, expand_device
 
 
 def get(project,key):
@@ -24,9 +25,10 @@ def validate_testbenches(p,objid=lambda _:None):
             get_view(p,t['implementation_view'],t['dut_cell'],require_current=False)
         instances=[d for d in bench['devices'] if d['kind']=='X']
         if len(instances)!=1 or instances[0]['id']!=t.get('dut_instance') or instances[0]['cell']!=dut['id']:raise ValueError('A saved bench needs exactly one circuit instance; put hierarchy inside the circuit cell.')
-        if instances[0].get('parameters'):raise ValueError('Use a concrete circuit cell for physical verification; testbench instance parameter overrides are unsupported.')
+        if instances[0].get('parameters') or instances[0].get('array') is not None:raise ValueError('Use one concrete circuit cell for physical verification; put parameter variants and instance arrays inside the circuit cell.')
         if any(d['kind'] not in ('R','C','L','V','I','X') for d in bench['devices']):raise ValueError('Testbench fixtures support sources and R/C/L loads. Put silicon devices inside the circuit cell.')
-        nets={n for d in bench['devices'] for n in d['nets'].values()}
+        fixture=vector_devices(bench,p)
+        nets={n for d in fixture for n in d['nets'].values()}
         if '0' not in nets:raise ValueError('Ground the testbench using net 0.')
         a=t.get('analysis',{});typ=a.get('type')
         if typ not in ('tran','op','ac','dc','noise'):raise ValueError('Saved testbenches support transient, operating point, AC, DC and noise.')
@@ -38,10 +40,10 @@ def validate_testbenches(p,objid=lambda _:None):
             if type(a.get('uic',False)) is not bool:raise ValueError('Use initial conditions must be true or false.')
         elif typ in ('ac','noise'):
             if not 0<scalar(a.get('start',0))<scalar(a.get('end',0)) or not 1<=int(a.get('points',0))<=10000:raise ValueError('Invalid AC range or points per decade.')
-            if typ=='noise' and (a.get('output') not in nets or a.get('output')=='0' or not any(d['kind']=='V' and d['name']==a.get('noise_source',a.get('source')) for d in bench['devices'])):raise ValueError('Noise requires a connected output and an independent fixture voltage source.')
+            if typ=='noise' and (a.get('output') not in nets or a.get('output')=='0' or not any(d['kind']=='V' and d['name']==a.get('noise_source',a.get('source')) for d in fixture)):raise ValueError('Noise requires a connected output and an independent fixture voltage source.')
         elif typ=='dc':
             if type(a.get('dc_startup',False)) is not bool:raise ValueError('DC startup must be enabled or disabled.')
-            if not any(d['name']==a.get('source') and d['kind']=='V' for d in bench['devices']):raise ValueError('DC sweep requires a voltage source in the bench.')
+            if not any(d['name']==a.get('source') and d['kind']=='V' for d in fixture):raise ValueError('DC sweep requires a voltage source in the bench.')
             start,stop,step=[scalar(a.get(k,0)) for k in ('dc_start','dc_stop','dc_step')]
             if not step or (stop-start)*step<=0 or abs((stop-start)/step)>200000:raise ValueError('Invalid DC sweep range.')
         probes=t.get('probes',[])
@@ -64,7 +66,7 @@ def validate_testbenches(p,objid=lambda _:None):
             if typ=='noise' and kind not in ('input_noise','output_noise'):raise ValueError('Noise benches use integrated input/output noise measurements in volts; spectrum samples are voltage density, not voltage.')
             if kind in MEASUREMENTS:validate_measurement(t,m)
             elif kind=='current':
-                if not any(d['kind']=='V' and d['name']==m.get('source') for d in bench['devices']):raise ValueError('Current measurements need a voltage source in the fixture (positive from its + to − terminal).')
+                if not any(d['kind']=='V' and d['name']==m.get('source') for d in fixture):raise ValueError('Current measurements need a voltage source in the fixture (positive from its + to − terminal).')
             elif m.get('node') not in probes:raise ValueError('Measurement nodes must be saved probes.')
             if m.get('reference') and (kind!='voltage' or m['reference'] not in probes):raise ValueError('A differential voltage reference must be another saved probe.')
             if kind in ('frequency','delay') and typ!='tran':raise ValueError('Frequency and delay need transient analysis.')
@@ -84,8 +86,8 @@ def validate_testbenches(p,objid=lambda _:None):
 
 def create(p,bench_cid,name='bench'):
     c=next(c for c in p['cells'] if c['id']==bench_cid);xs=[d for d in c['devices'] if d['kind']=='X']
-    if len(xs)!=1:raise ValueError('Select a testbench cell with one circuit instance and source/load components.')
-    nets=sorted({n for d in c['devices'] for n in d['nets'].values()}-{'0'})
+    if len(xs)!=1 or xs[0].get('array') is not None:raise ValueError('Select a testbench cell with one circuit instance and source/load components; put arrays inside the circuit cell.')
+    nets=sorted({n for d in vector_devices(c,p) for n in d['nets'].values()}-{'0'})
     return {'id':uid(),'name':name,'bench_cell':bench_cid,'dut_cell':xs[0]['cell'],'dut_instance':xs[0]['id'], 'analysis':{**clone(p['analysis']),'corner':p['analysis'].get('corner','nominal')},'initial_conditions':{},'probes':nets,'measurements':[]}
 
 
@@ -95,7 +97,7 @@ def native_subcircuit(p,cid):
     from .pdks import model_lines
     c=next(c for c in p['cells'] if c['id']==cid);models=set(model_lines(p['pdk'],'nominal'))
     lines=[line for line in spice(p,cid,hierarchical=False).splitlines() if line not in models and line.strip().lower()!='.end']
-    return '* Numerically resolved schematic reference\n.subckt '+c['name']+' '+' '.join(c['ports'])+'\n'+'\n'.join(lines)+'\n.ends '+c['name']+'\n'
+    return '* Numerically resolved schematic reference\n.subckt '+c['name']+' '+' '.join(vector_ports(c['ports']))+'\n'+'\n'.join(lines)+'\n.ends '+c['name']+'\n'
 
 
 def deck(p,t,subcircuit_path,ports=None,bias_capture=None,subcircuit_name=None):
@@ -104,8 +106,10 @@ def deck(p,t,subcircuit_path,ports=None,bias_capture=None,subcircuit_name=None):
     from .saved_bench_diagnostics import settings as diagnostic_settings
     t=clone(t);t['analysis']=diagnostic_settings(p,t)
     by={c['id']:c for c in p['cells']};bench=clone(by[t['bench_cell']]);dut=by[t['dut_cell']];instance=next(d for d in bench['devices'] if d['id']==t['dut_instance'])
-    ports=ports or dut['ports']
-    if len(ports)!=len(dut['ports']) or set(ports)!=set(dut['ports']):raise ValueError('Extracted circuit interface differs from the saved bench.')
+    ports=vector_ports(ports or dut['ports']);expected_ports=vector_ports(dut['ports'])
+    if len(ports)!=len(expected_ports) or set(ports)!=set(expected_ports):raise ValueError('Extracted circuit interface differs from the saved bench.')
+    if instance.get('array') is not None:raise ValueError('Put DUT instance arrays inside one circuit cell before creating a saved bench.')
+    instance=expand_device(instance,p)[0]
     bench['devices']=[d for d in bench['devices'] if d['id']!=instance['id']]
     # Keep explicit native pin nets while removing the DUT from the fixture deck.
     for key in ('wires','labels','junctions','layout_pins','layout_instances'):bench.pop(key,None)
@@ -138,7 +142,7 @@ def deck(p,t,subcircuit_path,ports=None,bias_capture=None,subcircuit_name=None):
     if not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_.$-]*',target):raise ValueError('Invalid implementation subcircuit name.')
     text+='\n.include "'+Path(subcircuit_path).resolve().as_posix()+'"\n'+spice_name(instance)+' '+' '.join(instance['nets'][port] for port in ports)+' '+target+'\n'
     if t.get('initial_conditions'):text+='.ic '+' '.join('v('+n+')='+str(scalar(v)) for n,v in t['initial_conditions'].items())+'\n'
-    source_names={d['name']:spice_name(d) for d in bench['devices'] if d['kind']=='V'}
+    source_names={d['name']:spice_name(d) for d in vector_devices(bench,p) if d['kind']=='V'}
     current_sources={source_names[m['source']] for m in t.get('measurements',[]) if m['kind']=='current'}
     # Scalar requirements can also depend on fixture supply currents (power).
     # Retain their explicitly named voltage-source branches in the saved deck.

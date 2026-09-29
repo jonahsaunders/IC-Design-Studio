@@ -44,6 +44,7 @@ class MagicRCFlowTests(unittest.TestCase):
     def raw(self, directory, original=ORIGINAL):
         (directory / 'top.ext').write_text(original)
         (directory / 'top.res.ext').write_text(RESISTANCE)
+        (directory / 'device-reference.spice').write_text('.subckt top IN VSS\n.ends\n')
 
     def script(self, profile='rc', directory=None):
         commands, _ = extraction_commands(profile)
@@ -58,7 +59,8 @@ class MagicRCFlowTests(unittest.TestCase):
             self.assertEqual(command[1:3], ['-dnull', '-noconsole'])
             if len(scripts) == 1:
                 self.assertIn('extresist all', scripts[-1])
-                self.assertNotIn('ext2spice -o', scripts[-1])
+                self.assertNotIn('ext2spice -o extracted.spice', scripts[-1])
+                self.assertIn('ext2spice -o device-reference.spice', scripts[-1])
                 self.assertFalse((cwd / 'rc-normalization.json').exists())
                 self.raw(cwd)
             else:
@@ -107,7 +109,7 @@ class MagicRCFlowTests(unittest.TestCase):
             self.raw(cwd, original)
             return 'STUDIO_MAGIC_COMPLETE\n'
         with patch('icstudio.silicon_flow.execute', side_effect=execute) as engine, \
-             self.assertRaisesRegex(ValueError, 'Only flat unaliased'):
+             self.assertRaisesRegex(ValueError, 'Flatten physical hierarchy'):
             self.script()
         self.assertEqual(engine.call_count, 1)
         out = self.root / 'extraction'

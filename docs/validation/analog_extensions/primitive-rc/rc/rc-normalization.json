@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "algorithm": "magic-flat-capacitance-conservation-v1",
+  "top": "device_coupon",
+  "implementation_sha256": "1c6effcc90b9b83e00a26f8f1378028d02b19d90f007b42269cfe6af6a7763f9",
+  "scope": "Flat distributed Magic resistance with area weighted lumped original ground and mutual capacitance; not a spatial field solver.",
+  "units": "attofarads",
+  "original_scale": [
+    1000.0,
+    1.0,
+    1000000.0
+  ],
+  "resistance_scale": [
+    1000.0,
+    1.0,
+    1000000.0
+  ],
+  "equations": {
+    "ground": "C_i = C_original_ground * w_i",
+    "mutual": "C_ij = C_original_mutual * w_i * w_j",
+    "weights": "w_i = positive_raw_rnode_C_i / sum(positive_raw_rnode_C)"
+  },
+  "weights_scope": "Normalized positive extresist rnode C follows its area redistribution. Raw C magnitudes are discarded.",
+  "aliases": {},
+  "devices": [
+    {
+      "prefix": "x",
+      "model": "sky130_fd_pr__nfet_01v8",
+      "terminals": [
+        "N.t3",
+        "N.t0",
+        "N.t2",
+        "N.t1"
+      ],
+      "original_terminals": [
+        "N",
+        "N",
+        "N",
+        "N"
+      ],
+      "name": null,
+      "numeric_value": null
+    },
+    {
+      "prefix": "r",
+      "model": "sky130_fd_pr__res_generic_po",
+      "terminals": [
+        "P.t0",
+        "N.t4"
+      ],
+      "original_terminals": [
+        "P",
+        "N"
+      ],
+      "name": "RSTUDIO_DEVICE_660e7f6b3a063feb05c0",
+      "numeric_value": null
+    }
+  ],
+  "primitive_devices": [
+    {
+      "identity": [
+        "devres",
+        "sky130_fd_pr__res_generic_po",
+        "0",
+        "0",
+        "1",
+        "1"
+      ],
+      "name": "RSTUDIO_DEVICE_660e7f6b3a063feb05c0",
+      "original_gate_attribute": "0",
+      "restored_resistance_header": true
+    }
+  ],
+  "nets": {
+    "a_0_0#": {
+      "original_ground_af": 0.0,
+      "rnode_count": 2,
+      "nodes": [
+        "a_0_0.n0",
+        "a_0_0.t0"
+      ],
+      "weights": {
+        "a_0_0.n0": 1.0
+      },
+      "fallback": {
+        "method": "nearest-original-node-origin",
+        "anchor": "a_0_0.n0",
+        "original_xy": [
+          0,
+          0
+        ],
+        "anchor_xy": [
+          0,
+          0
+        ]
+      }
+    },
+    "P": {
+      "original_ground_af": 576.244,
+      "rnode_count": 2,
+      "nodes": [
+        "P",
+        "P.t0"
+      ],
+      "weights": {
+        "P": 1.0
+      },
+      "fallback": {
+        "method": "nearest-original-node-origin",
+        "anchor": "P",
+        "original_xy": [
+          -150,
+          50
+        ],
+        "anchor_xy": [
+          -150,
+          50
+        ]
+      }
+    },
+    "N": {
+      "original_ground_af": 0.0,
+      "rnode_count": 9,
+      "nodes": [
+        "N",
+        "N.t4",
+        "N.n0",
+        "N.t3",
+        "N.t0",
+        "N.n1",
+        "N.t2",
+        "N.n2",
+        "N.t1"
+      ],
+      "weights": {
+        "N": 1.0
+      },
+      "fallback": {
+        "method": "nearest-original-node-origin",
+        "anchor": "N",
+        "original_xy": [
+          2150,
+          50
+        ],
+        "anchor_xy": [
+          2150,
+          50
+        ]
+      }
+    }
+  },
+  "mutual_pairs": 0,
+  "generated_mutual_capacitors": 0,
+  "max_capacitors": 50000,
+  "generated_ground_capacitors": 1,
+  "resistor_count": 10,
+  "conservation": {
+    "status": "passed",
+    "matrix_entries": 3,
+    "maximum_error_af": 0.0,
+    "relative_tolerance": 1e-12,
+    "absolute_tolerance_af": 1e-12,
+    "entries": [
+      {
+        "a": "N",
+        "b": "N",
+        "original_af": 0.0,
+        "normalized_af": 0.0
+      },
+      {
+        "a": "P",
+        "b": "P",
+        "original_af": 576.244,
+        "normalized_af": 576.244
+      },
+      {
+        "a": "a_0_0#",
+        "b": "a_0_0#",
+        "original_af": 0.0,
+        "normalized_af": 0.0
+      }
+    ]
+  },
+  "files": {
+    "device_coupon.raw.ext": "42e8d4858b34522bc0baffee760587eece510631b7cbe3e96e69dba63b6bdc6f",
+    "device_coupon.raw.res.ext": "defabf18ad3139c057e283182597f23a416dff25731b65e267da195803274033",
+    "device_coupon.ext": "ae7c0574a72980a02194301ddd9f72a4fe68934f9f7f515081c0849a2ff2783d",
+    "device_coupon.res.ext": "40f1393486232d06b6ddcc2259d180e895a2c925f7d3e2d504eec1005337cf92",
+    "device-reference.spice": "d8ac9d754ffbe76c9d4ee8a1906eac999bcad13ae440f2d42b5bc2498718b3ef",
+    "raw-export.spice": "a376597a85270fa52da52a3e357ee7da19f04f37c338fab3c006b755e9f9d2f8",
+    "extracted.spice": "3306422537f34376035e80b19ae228e3739039e5fad3ba59aa497c1e11cf9aee"
+  },
+  "physical_hierarchy": {
+    "mode": "flattened-geometry-with-top-level-labels",
+    "source_gds_sha256": "42e9f16cbd77bcea88ccacca64f73d61b1fad6d547b23f381cb462cc577c2644",
+    "top": "device_coupon",
+    "flattened": false,
+    "scope": "Instance transforms and cross-instance conductors are resolved by Magic before extraction. Child labels are omitted; original GDS and cell masters are preserved."
+  },
+  "export": {
+    "status": "passed",
+    "raw_file": "raw-export.spice",
+    "file": "extracted.spice",
+    "raw_sha256": "a376597a85270fa52da52a3e357ee7da19f04f37c338fab3c006b755e9f9d2f8",
+    "sha256": "3306422537f34376035e80b19ae228e3739039e5fad3ba59aa497c1e11cf9aee",
+    "removed_quantized_capacitors": 1,
+    "full_precision_capacitors": 1,
+    "preserved_physical_passives": [
+      "rstudio_device_660e7f6b3a063feb05c0"
+    ],
+    "device_parameters": {
+      "status": "passed",
+      "devices": 2,
+      "reference": "device-reference.spice",
+      "restored_junction_fields": 2,
+      "junction_scope": "Pre-R area/perimeter fields retained when splitting shared nets changes Magic redistribution; unambiguous model/terminals/all other parameters required.",
+      "scope": "All physical model/value/parameter fields after contracting only distributed wire resistance."
+    },
+    "unobservable_normalization_nodes": [],
+    "resistor_graph": "exact original named edge multiset preserved",
+    "resistor_values": {
+      "status": "passed",
+      "relative_tolerance": 5e-06,
+      "absolute_tolerance_ohm": 1e-15,
+      "count": 10,
+      "restored_values": 7,
+      "final_values": "Original .res.ext resistance scaled to ohms at 17 significant digits.",
+      "recognized_export_bias_ohm": 0.0005
+    },
+    "device_terminals": {
+      "status": "passed",
+      "count": 2
+    },
+    "physical_device_lines": "preserved except explicitly reported pre-R junction area/perimeter restoration",
+    "non_capacitor_lines": "preserved except original full-precision distributed resistance values restored",
+    "quantization_reason": "Supported Magic esSIvalue emits C below 1 aF as zero; all parasitic C is serialized at 17 significant digits.",
+    "matrix_entries": 3,
+    "maximum_error_af": 0.0,
+    "relative_tolerance": 1e-12,
+    "absolute_tolerance_af": 1e-12
+  }
+}

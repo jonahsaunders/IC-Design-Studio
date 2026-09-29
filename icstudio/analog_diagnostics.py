@@ -104,8 +104,9 @@ def bias_report(result):
 
 def validate_config(project,cid,config):
     from .native_analysis import sources
+    from .native_vectors import devices, ports
     kind=config['kind'];cell=next(c for c in project['cells'] if c['id']==cid)
-    nets=set(cell.get('ports',[]))|{n for d in cell['devices'] for n in d.get('nets',{}).values()}|{'0'}
+    nets=set(ports(cell.get('ports',[])))|{n for d in devices(cell,project) for n in d.get('nets',{}).values()}|{'0'}
     def net(key):
         value=config.get(key,'')
         if not NET.fullmatch(value) or value not in nets:raise ValueError('Choose a connected net for '+key.replace('_',' ')+'.')

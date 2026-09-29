@@ -133,10 +133,25 @@ def rebuild(cell,project=None):
     previous={frozenset(net['terminals']):net['name'] for net in cell.get('electrical',{}).get('nets',[])
               if net['terminals'] and net['name'].startswith('N_')}
     reserved={name for values in names.values() for name in values};assigned={}
+    by_device={d['id']:d for d in cell['devices']}
     for root,keys in members.items():
         if names.get(root):assigned[root]=next(iter(names[root]));continue
         ident,pin=min(keys);name=previous.get(frozenset(terminals[key] for key in keys),'N_'+ident+'_'+pin)
-        while name in reserved:name+='x'
+        if any(by_device[key[0]].get('array') is not None or ':' in key[1] or ',' in key[1] for key in keys):
+            from .native_vectors import signals,indices,valid_expression,MAX_SIGNALS
+            widths=None
+            for device_id,terminal in keys:
+                item=by_device[device_id];width=len(signals(terminal)) if item['kind'] in ('X','SPICE','XS') else 1
+                allowed={v for v in (width,width*len(indices(item))) if v<=MAX_SIGNALS}
+                widths=allowed if widths is None else widths&allowed
+            if not widths:raise ValueError('Connected bus terminals have incompatible widths.')
+            width=max(widths)
+            if not valid_expression(name) or len(signals(name))!=width:
+                # Unlabelled arrays get distinct floating members unless a
+                # connected scalar terminal explicitly forces broadcast.
+                from .model import digest
+                name='N_'+ident+'_'+digest(pin)[:12]+('' if width==1 else f'[0:{width-1}]')
+        while name in reserved:name=name.replace('[','x[',1) if '[' in name else name+'x'
         reserved.add(name);assigned[root]=name
     for wire in cell['wires']:
         root=groups[('wire',wire['id'])]
@@ -147,6 +162,9 @@ def rebuild(cell,project=None):
         wire['net']=assigned[root]
     for d in cell['devices']:
         for pin in d['nets']:d['nets'][pin]=assigned[groups[(d['id'],pin)]]
+    if any(d.get('array') is not None or any(':' in n or ',' in n for n in (*d['nets'],*d['nets'].values())) for d in cell['devices']):
+        from .native_vectors import devices
+        devices(cell,project)
     if 'electrical' in cell:
         from .electrical_identity import synchronize
         synchronize(cell)
@@ -177,7 +195,8 @@ def validate_wiring_structure(cell,objid,project):
     validate_labels(cell,objid,project)
     for d in cell['devices']:
         labels=d.get('net_labels',{})
-        if not isinstance(labels,dict) or any(pin not in d['nets'] or not isinstance(name,str) or not NET.fullmatch(name) for pin,name in labels.items()):raise ValueError('Invalid pin net label. Use 0 for ground.')
+        from .native_vectors import valid_expression
+        if not isinstance(labels,dict) or any(pin not in d['nets'] or not valid_expression(name) for pin,name in labels.items()):raise ValueError('Invalid pin net label. Use 0 for ground.')
 
 
 def migrate(cell,project=None):
@@ -236,6 +255,9 @@ def merge_labels(cell,groups,root,preferred=None,project=None):
     from .net_labels import entries
     labels=[(key,obj,field,name) for key,obj,field,name in entries(cell) if groups[key]==root]
     names={name for _,_,_,name in labels};chosen='0' if '0' in names else preferred if preferred in names else sorted(names)[0] if names else None
+    from .native_vectors import signals
+    if len({len(signals(name)) for name in names})>1:
+        raise ValueError('Cannot join scalar and bus conductors or buses of different widths. Connect an explicit indexed slice instead.')
     changes=sorted(names-{chosen});physical=graph(cell,project,labels=False);kept=set()
     for key,obj,field,name in sorted(labels,key=lambda item:(item[0][0]!='label',item[3]!=chosen)):
         group=physical[key]
@@ -250,7 +272,9 @@ def set_label(cell,device_id,pin,name,project=None):
     migrate(cell,project)
     target=next(d for d in cell['devices'] if d['id']==device_id)
     if 'wires' not in cell:target['nets'][pin]=name;return
-    if name and not NET.fullmatch(name):raise ValueError('Invalid net label. Use 0 for ground.')
+    if name:
+        from .native_vectors import signals
+        signals(name)
     # Rename a geometric conductor; identical remote labels remain intentional.
     groups=graph(cell,project,labels=False);root=groups[(device_id,pin)]
     for d in cell['devices']:

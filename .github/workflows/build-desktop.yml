@@ -215,6 +215,16 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_sky130_devices.py --out build/sky130-devices-ui-evidence
+      - name: Test native bus and instance array editing
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_native_vectors.py --out build/native-vectors-ui-evidence
+      - name: Test reviewed physical specialization and array expansion
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_physical_variants.py --out build/physical-variants-ui-evidence
       - name: Measure full desktop analog workloads on Windows
         if: runner.os == 'Windows'
         timeout-minutes: 10
@@ -540,6 +550,9 @@ jobs:
             build/x11-evidence
             build/native-migration-evidence
             build/native-workflow-evidence
+            build/native-vectors-ui-evidence
+            build/physical-variants-ui-evidence
+            build/sky130-devices-ui-evidence
             build/getting-started-evidence
             build/bundled-simulation-evidence
             build/bandgap-compatibility-evidence

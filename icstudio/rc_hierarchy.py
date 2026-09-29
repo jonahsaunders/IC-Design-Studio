@@ -8,6 +8,7 @@ from .model import clone, digest, design_digest, validate
 from .design_ops import parameters, resolved_device, value
 from .physical_cells import ports, transform
 from .layout import kdb
+from .native_vectors import ports as electrical_ports, global_nets, expand_device, signals
 
 
 def flatten_for_rc(project, cell_id):
@@ -18,7 +19,7 @@ def flatten_for_rc(project, cell_id):
     from .inductor import reject_parasitic_estimate
     reject_parasitic_estimate(p, cell_id)
     db = kdb()
-    globals_ = set(p.get('global_nets', [])) | {'0'}
+    globals_ = set(global_nets(p)) | {'0'}
     global_parameters = parameters(p.get('parameters', {}))
     devices, shapes, pins = [], [], []
     source_devices, source_shapes, occurrences = [], [], []
@@ -34,7 +35,7 @@ def flatten_for_rc(project, cell_id):
             for v in item: reserve(v)
     reserve(p)
     used_names = {d['name'].casefold() for d in root['devices']}
-    used_nets = {n.casefold() for d in root['devices'] for n in d['nets'].values()} | {n.casefold() for n in globals_} | {n.casefold() for n in root['ports']}
+    used_nets = {n.casefold() for d in root['devices'] for expression in d['nets'].values() for n in signals(expression)} | {n.casefold() for n in globals_} | {n.casefold() for n in electrical_ports(root['ports'])}
     net_names = {}
 
     def unique(prefix, identity, used, casefold=False):
@@ -67,9 +68,13 @@ def flatten_for_rc(project, cell_id):
             result = tr * db.Point(*pt)
             return [result.x, result.y]
         physical_ports = ports(p, cell['id'])
-        if len(physical_ports) != len(cell['ports']) or {v['name'] for v in physical_ports} != set(cell['ports']):
+        interface = electrical_ports(cell['ports'])
+        if len(physical_ports) != len(interface) or {v['name'] for v in physical_ports} != set(interface):
             raise ValueError(cell['name'] + ': assign every physical port before hierarchical RC extraction.')
-        children = {d['id']: d for d in cell['devices'] if d['kind'] == 'X'}
+        if any(d.get('array') is not None for d in cell['devices']):
+            raise ValueError('Materialize compact electrical arrays before hierarchical RC extraction.')
+        electrical_devices = [expand_device(d,p)[0] for d in cell['devices']]
+        children = {d['id']: d for d in electrical_devices if d['kind'] == 'X'}
         placements = {}
         for inst in cell.get('layout_instances', []):
             did = inst.get('device_id')
@@ -83,7 +88,7 @@ def flatten_for_rc(project, cell_id):
         if placements.keys() != children.keys():
             raise ValueError(cell['name'] + ': place every schematic instance before hierarchical RC extraction.')
         local_ids = {}
-        for d in cell['devices']:
+        for d in electrical_devices:
             if d['kind'] == 'X': continue
             if d.get('native_spice') or d['kind'] in ('XS', 'SPICE'):
                 raise ValueError('Use process extraction for native SPICE devices in a physical hierarchy.')

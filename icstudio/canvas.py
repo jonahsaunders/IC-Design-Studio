@@ -172,7 +172,8 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
             if d.get('symbol'):
                 from .symbol_editor import draw_symbol
                 from .catalog_migration import symbol_context
-                draw_symbol(p,d['symbol'],fg,symbol_context(d,self.tech))
+                from .native_vectors import display_name
+                draw_symbol(p,d['symbol'],fg,{**symbol_context(d,self.tech),'name':display_name(d)})
             elif kind in ('R','C','V'):
                 pen=self.pen(fg,1.5);pen.setCapStyle(Qt.RoundCap);pen.setJoinStyle(Qt.RoundJoin);p.setPen(pen)
                 # Keep the electrical terminals at +/-50; only the ink changes.
@@ -201,14 +202,16 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
             elif d.get('symbol'):
                 from .symbol_editor import draw_symbol
                 from .catalog_migration import symbol_context
-                draw_symbol(p,d['symbol'],fg,symbol_context(d,self.tech))
+                from .native_vectors import display_name
+                draw_symbol(p,d['symbol'],fg,{**symbol_context(d,self.tech),'name':display_name(d)})
             else:
                 p.drawRect(QRectF(-40,-50,80,max(100,len(d['nets'])*20)));p.drawText(QRectF(-35,-15,70,30),Qt.AlignCenter,'CELL')
                 pos=pin_positions({**d,'x':0,'y':0,'rotation':0,'mirror':False})
                 for pin,(x,y) in pos.items():p.drawLine(x,y,-40 if x<0 else 40,y)
             p.restore()
             if not d.get('xschem') and not d.get('native_spice'):
-                p.setPen(QColor(fg));p.setFont(QFont('Sans Serif',11));p.drawText(QPointF(d['x']-20 if d['rotation'] in (90,270) else d['x']+37,d['y']-55 if d['rotation'] in (90,270) else d['y']-30),d['name']);p.setFont(QFont('Sans Serif',9));p.setPen(QColor(palette(self.dark)['muted']));p.drawText(QPointF(d['x']-20 if d['rotation'] in (90,270) else d['x']+37,d['y']-39 if d['rotation'] in (90,270) else d['y']-12),d.get('model_ref',{}).get('device','').split('/')[-1].replace('.sym','') if kind=='PDK' else d['value'] if kind not in ('NMOS','PMOS','X') else (d['params']['w']+' / '+d['params']['l'] if kind!='X' else 'hierarchy'))
+                from .native_vectors import display_name
+                p.setPen(QColor(fg));p.setFont(QFont('Sans Serif',11));p.drawText(QPointF(d['x']-20 if d['rotation'] in (90,270) else d['x']+37,d['y']-55 if d['rotation'] in (90,270) else d['y']-30),display_name(d));p.setFont(QFont('Sans Serif',9));p.setPen(QColor(palette(self.dark)['muted']));p.drawText(QPointF(d['x']-20 if d['rotation'] in (90,270) else d['x']+37,d['y']-39 if d['rotation'] in (90,270) else d['y']-12),d.get('model_ref',{}).get('device','').split('/')[-1].replace('.sym','') if kind=='PDK' else d['value'] if kind not in ('NMOS','PMOS','X') else (d['params']['w']+' / '+d['params']['l'] if kind!='X' else 'hierarchy'))
             for pin,(x,y) in pin_positions(d).items():
                 name=d.get('net_labels',d['nets'] if 'wires' not in self.cell else {}).get(pin,'')
                 p.setFont(QFont('Sans Serif',8))

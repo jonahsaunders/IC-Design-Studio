@@ -198,7 +198,9 @@ class SymbolEditor(QDialog):
             s=clone(self.pad.symbol);old=s['pin_order'][item.row()];col=item.column();value=item.text().strip()
             if col==0:
                 if not self.allow_interface:raise ValueError('Device terminals are fixed.')
-                if not NET.fullmatch(value) or value=='0' or value in s['pins'] and value!=old:raise ValueError('Choose a unique terminal name.')
+                from .native_vectors import ports
+                ports([value])
+                if value in s['pins'] and value!=old:raise ValueError('Choose a unique terminal name.')
                 s['pins'][value]=s['pins'].pop(old);s['pin_meta'][value]=s['pin_meta'].pop(old);s['pin_order'][item.row()]=value
             elif col in (1,2):s['pins'][old][col-1]=float(value)
             elif col in (3,4,5):s['pin_meta'][old][{3:'direction',4:'role',5:'bus'}[col]]=value
@@ -211,7 +213,10 @@ class SymbolEditor(QDialog):
         if not self.allow_interface:self.error.setText('Device terminals are fixed by their electrical model.');return
         name,ok=QInputDialog.getText(self,'New terminal','Name')
         if ok:
-            if not NET.fullmatch(name) or name=='0' or name in self.pad.symbol['pins']:self.error.setText('Choose a unique terminal name.');return
+            from .native_vectors import ports
+            try:ports([name])
+            except ValueError as error:self.error.setText(str(error));return
+            if name in self.pad.symbol['pins']:self.error.setText('Choose a unique terminal name.');return
             s=clone(self.pad.symbol);s['pins'][name]=[-60,0];s['pin_order'].append(name);self.pad.apply(geometry.enriched(s))
     def remove_pin(self):
         row=self.pin_table.currentRow()

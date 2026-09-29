@@ -7,6 +7,8 @@ MANIFEST='native-exchange.json'
 
 
 def export_project(project,directory):
+    from .xschem_export_contract import require_supported
+    require_supported(project)
     from .native_spice import asset_path
     from .symbol_io import symbol_text,device_symbol
     from .xschem_project import property_text,record_text

@@ -1,0 +1,24 @@
+
+Magic 8.3 revision 684 - Compiled on Mon Sep 28 19:28:45 EDT 2026.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=16384]
+Using NULL graphics device.
+Processing system .magicrc file
+Switching to WIRING tool.
+Switching to NETLIST tool.
+Switching to PICK tool.
+Switching to BOX tool.
+Input style import: scaleFactor=10, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    obsactive mvobsactive filldiff fillpoly m1hole obsm1 fillm1 obsv1 m2hole obsm2 fillm2 obsv2 m3hole obsm3 fillm3 m4hole obsm4 fillm4 glass fillblock lvstext obscomment 
+Loading "/workspace/scratch/6ae2470ad934/IC-Design-Studio/build/gf180-fill-reduction-v2/m3/absent/extract.tcl" from command line.
+10 Magic internal units = 1 Lambda
+Warning: Calma reading is not undoable!  I hope that's OK.
+Library written using GDS-II Release 6.0
+Library name: LIB
+Reading "fill_control".
+Extracting fill_control into fill_control.ext:
+Processing fill_control
+exttospice finished.
+FILL_CONTROL_COMPLETE

@@ -1,0 +1,197 @@
+{
+  "schema_version": 1,
+  "base_commit": "1e9df0cec00ddb0ede84bd8aa36bda78619898ac",
+  "python": "3.12.14",
+  "scope": "Source regression and targeted final integration, plus separate actual-engine and offscreen Qt records. No Windows, digital-toolchain or packaged desktop qualification from this run.",
+  "full_suite": {
+    "status": "passed",
+    "discovered": 1172,
+    "run": 1172,
+    "passed": 1153,
+    "skipped": [
+      [
+        "test_counter_real_worker_results_stale_inputs_and_artifact_integrity (test_digital.IcarusIntegrationTests.test_counter_real_worker_results_stale_inputs_and_artifact_integrity)",
+        "Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP"
+      ],
+      [
+        "test_fault_and_timeout_never_publish_result (test_digital.IcarusIntegrationTests.test_fault_and_timeout_never_publish_result)",
+        "Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP"
+      ],
+      [
+        "test_tool_change_before_execution_is_rejected (test_digital.IcarusIntegrationTests.test_tool_change_before_execution_is_rejected)",
+        "Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP"
+      ],
+      [
+        "test_lint_and_timed_counter_simulation (test_digital.VerilatorIntegrationTests.test_lint_and_timed_counter_simulation)",
+        "Install Verilator or set ICSTUDIO_TEST_VERILATOR"
+      ],
+      [
+        "test_synthesis_and_gate_simulation (test_digital.YosysIntegrationTests.test_synthesis_and_gate_simulation)",
+        "Install Yosys or set ICSTUDIO_TEST_YOSYS"
+      ],
+      [
+        "test_equivalence_actual_mapped_netlist_and_fault (test_digital_implementation.DigitalImplementationTests.test_equivalence_actual_mapped_netlist_and_fault)",
+        "Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests"
+      ],
+      [
+        "test_hierarchical_apb_peripheral_maps_and_proves (test_digital_implementation.DigitalImplementationTests.test_hierarchical_apb_peripheral_maps_and_proves)",
+        "Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests"
+      ],
+      [
+        "test_mapped_cells_published_symbol_and_stale_rejection (test_digital_implementation.DigitalImplementationTests.test_mapped_cells_published_symbol_and_stale_rejection)",
+        "Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests"
+      ],
+      [
+        "test_physical_checkpoints_resume_gds_and_extracted_timing (test_digital_implementation.DigitalImplementationTests.test_physical_checkpoints_resume_gds_and_extracted_timing)",
+        "Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests"
+      ],
+      [
+        "test_timing_real_paths_clock_failure_and_unconstrained (test_digital_implementation.DigitalImplementationTests.test_timing_real_paths_clock_failure_and_unconstrained)",
+        "Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests"
+      ],
+      [
+        "test_uart_cases_coverage_and_failed_assertion (test_digital_implementation.DigitalRegressionTests.test_uart_cases_coverage_and_failed_assertion)",
+        "Install Icarus and Verilator with coverage"
+      ],
+      [
+        "test_native_supervisor_cancels_descendants_in_separate_sessions (test_digital_runtime.DigitalRuntimeTests.test_native_supervisor_cancels_descendants_in_separate_sessions)",
+        "Process-tree supervision requires Linux procfs"
+      ],
+      [
+        "test_apb_protocol_fifo_interrupt_and_deliberate_fault (test_digital_workspace.PeripheralTests.test_apb_protocol_fifo_interrupt_and_deliberate_fault)",
+        "Install Icarus for peripheral acceptance"
+      ],
+      [
+        "test_legacy_source_current_boolean_survives_real_netlisting (test_external_exchange_engines.ExternalExchangeEngineTests.test_legacy_source_current_boolean_survives_real_netlisting)",
+        "Set ICSTUDIO_TEST_XSCHEM or install Xschem for destination-tool tests."
+      ],
+      [
+        "test_native_magic_cells_ports_and_moved_instance_roundtrip (test_external_exchange_engines.ExternalExchangeEngineTests.test_native_magic_cells_ports_and_moved_instance_roundtrip)",
+        "Set ICSTUDIO_TEST_MAGIC or install Magic for destination-tool tests."
+      ],
+      [
+        "test_xschem_executes_vector_and_tcl_semantics_and_retains_evidence (test_external_exchange_engines.ExternalExchangeEngineTests.test_xschem_executes_vector_and_tcl_semantics_and_retains_evidence)",
+        "Set ICSTUDIO_TEST_XSCHEM or install Xschem for destination-tool tests."
+      ],
+      [
+        "test_real_windows_reader_releases_file_during_atomic_save (test_reliability.ReliabilityTests.test_real_windows_reader_releases_file_during_atomic_save)",
+        "Windows open handles deny atomic replacement"
+      ],
+      [
+        "test_actual_sky130_internal_path_and_extracted_names (test_saved_bias.SavedBiasTests.test_actual_sky130_internal_path_and_extracted_names)",
+        "Actual linked SKY130 and ngspice required"
+      ],
+      [
+        "test_pythonw_restores_inherited_output_pipes (test_windows_stdio.WindowedWorkerTests.test_pythonw_restores_inherited_output_pipes)",
+        "Windows inherited pipe test"
+      ]
+    ],
+    "seconds": 236.9794602394104,
+    "ngspice_enabled": true,
+    "command": "ICSTUDIO_TEST_NGSPICE=/path/to/ngspice python -m unittest discover -s tests -v",
+    "sequence": "Full discovery run preceded final floating-fill/fixed-PNP test additions and final integrity review; the following targeted run covers those completed changes."
+  },
+  "final_targeted_suite": {
+    "status": "passed",
+    "tests": 87,
+    "seconds": 1.492,
+    "modules": [
+      "test_fill_capacitance",
+      "test_magic_rc",
+      "test_magic_rc_flow",
+      "test_workflows",
+      "test_sky130_fixed_devices",
+      "test_pdk_device_cli",
+      "test_hierarchical_simulation_deck",
+      "test_physical_materialization",
+      "test_native_vectors"
+    ],
+    "ngspice_enabled": true,
+    "additional_final_fill_subcases": "6 tests passed after adding duplicate-node and negative-capacitance subcases; no production-code change after the 87-test run."
+  },
+  "release_check": {
+    "version": "0.22.0.dev25",
+    "status": "passed",
+    "documents": 107,
+    "local_links": 648,
+    "gallery_examples": 12
+  },
+  "final_changed_python_sha256": {
+    "icstudio/analog_debug.py": "0a719a05a04723a09a02779b303d58cc3fb98c893dfe07f6d85b2f9116de33ce",
+    "icstudio/analog_diagnostics.py": "f7dd5dd9ed0b11eb20f1623b8f5ee9e46fde5493c6ba4584f998e82cd9513646",
+    "icstudio/analysis_sources.py": "6cfb59700c5342346bd2654d13b1f2127fbde73ee811f9271335a347cebe6094",
+    "icstudio/canvas.py": "c6f03ef805878304aaff8f1da46a47d0cf19879ee0024abd99f20fa6cf48fdde",
+    "icstudio/consistency_workspace.py": "0e714e5009cf124ab2d487f2d8c75f511f35f870f82a73752e4a00e313019a57",
+    "icstudio/cross_probe.py": "6fef035ae74c719f63ba5d85ee5338be8250f7cb786f76f8f4e5737c325c1d84",
+    "icstudio/design_ops.py": "80cec5dea5728f0bdbe709051e4d3f0adb6e6b490af622c9ec9d30bdfedc345d",
+    "icstudio/electrical_rules.py": "e3e78af7726258e9cf21c5517777602ce0cd659f6e6670a7b77bd692be0a113b",
+    "icstudio/feature_cli.py": "883a563ff7de1e06566f683edff01eb2d7863e0a192c35dc215b97d94a925bd2",
+    "icstudio/fill_capacitance.py": "778c22d2e611b9562ad4d0f26c51994071cd03af57de31db6a6b9c3749143d0c",
+    "icstudio/gf180_rc.py": "9c89b5333c453948f09e2627cb0daedacfbbe9189de1763632a0a4a661af3c04",
+    "icstudio/hierarchical_flow.py": "dd30dbd93a1ef9fbfc2f3ade72e446fee308cc2fdb8eb1dc6628c4c8aa45ce28",
+    "icstudio/hierarchy_ui.py": "001f4b7b5c7dfe9e3317072b05936785e70969bd568acc61f9eb6b5525fbdcc7",
+    "icstudio/interchange.py": "50af88646e3cae3d46222481439070d4f146d0eef81f468f882892db1aee258d",
+    "icstudio/label_ui.py": "0c2c05568ddc9d370931e3d43d8fecf75ee26902e8e8cae9db769e11bbb30c9d",
+    "icstudio/layout_eco_hierarchy.py": "0938773f690c3e46e4601f9bd33d9f7071003e81b3ec9bb66186d316ab03083f",
+    "icstudio/layout_eco_ui.py": "1431d0022adbb761428e9977f5ab345718eb62a2d070688037a197ff09f75356",
+    "icstudio/magic_rc.py": "1c6effcc90b9b83e00a26f8f1378028d02b19d90f007b42269cfe6af6a7763f9",
+    "icstudio/menu_map.py": "4765514d333af8534057932d74e0665ae92de5e9f886e4ffc83d3faed2412072",
+    "icstudio/model.py": "40584020114dde96a53ccea6525ab33a24bd8a088fb9ae49aef3afcc84aa1355",
+    "icstudio/native_analysis.py": "42f41163e17400a3351628df6d4ca8c45e45440f33e35dd744ddbf1fe31c140d",
+    "icstudio/native_exchange.py": "99efea89e7edcb957eb5de44574b522ebb853b5c0a35856388726d5bfb32570f",
+    "icstudio/native_spice.py": "0659012d62b2e8a032b217974dd0201a669f16af115d7483ca2147089751aab6",
+    "icstudio/native_vectors.py": "79154c357a3f06715e959af3f55a0ab20c8c3101f47d0975ee673372dfb2ac01",
+    "icstudio/net_labels.py": "f8d1b7f5462c2698c97df5dccc3ce497e23f81bd452f798bdb679c389fb131c6",
+    "icstudio/operating_data.py": "34036270b71e9a033cc90f2054f6f3eb854be68a49129751cd6437b30689fcb3",
+    "icstudio/physical.py": "c30fb4ee16a82867952f5c3f0daa2f962e34528be862f75b649539d0a3d8ac1a",
+    "icstudio/physical_cells.py": "169d25942a62f8d60fb48e25e367818b753673fcfd9fb85eacb8ac03f9ee8f2a",
+    "icstudio/physical_hierarchy_ui.py": "ec6bf4c97242ea4d85ca2e36a84971227d3f32188ef4a87a4cb3a8f87e5c43ad",
+    "icstudio/physical_variants.py": "ff37916e3add634bdb36c910f4d87f024844285bb762b6dda2e1dfb514c20587",
+    "icstudio/physical_workspace.py": "57dc4db65ba7c2bc80e08a26d9fc0cfac92b14efba3a30497694620d03b3bf99",
+    "icstudio/process_adapters.py": "84956e14af194008de0d61a20cc9990fd448f46141dd5cd83559b7fbfd5649c6",
+    "icstudio/rc_hierarchy.py": "6a0363b1d1a3af8426f0ea11d4138edb923c3a8acd0073faa71d87e78f4341ce",
+    "icstudio/rc_islands.py": "bcb1a1b5c419a44d3040e3564321472f0c92af91b30d8cad2e8bcc21647638de",
+    "icstudio/saved_bench_diagnostics.py": "27e3978c448c649fbf60deb31bba24612a857692aab01086019a94f1da525e98",
+    "icstudio/schematic_ui.py": "3310c2b775f50144913c99a9c6a40ea88b0bcad970a8ec71170ab2faf8b10ba2",
+    "icstudio/silicon_flow.py": "ad8cd39b7633733ecb3842146e4487149f739dc2ae6274bf37e063974af3cfc2",
+    "icstudio/silicon_ui.py": "a4de9b26e264f13199220f094583df40f2b01e2c56de4ed565e93c57a82f7fc6",
+    "icstudio/sky130_bipolar_rules.py": "cbeb2f52d9b80641bdbd82b9b0ccc628c14602e7926d65245183f90abc753bd8",
+    "icstudio/sky130_devices.py": "2206128e0bbc159e33de810ebe0d2467bb6c3132067a294a48b0e14753d72441",
+    "icstudio/sky130_devices_ui.py": "220fa96ab00d90ceda1740c7ccecb30156ec946ea8a1d894c452320215972858",
+    "icstudio/sky130_fixed_devices.py": "af4b461665bff686f43864c67b8cb99d8fa24802e7368e148d89af2c7bb55d3d",
+    "icstudio/sky130_layout.py": "cd8835d93fa322b0761ecb27ad2c563c11f3c3855782b6c5633256ef146e1d3b",
+    "icstudio/symbol_editor.py": "713db3d968d4a20839ec79060ac942eaae6a565696848d04419db9fd146d12c0",
+    "icstudio/symbol_io.py": "2483a38cefef4bb02abbc31e84c68758f47869921828e6464a056228f358a6b6",
+    "icstudio/testbenches.py": "e0111b43b370782b7c7378c420250d5aefeddf1ac6b2a999b9dcd35334375b26",
+    "icstudio/wiring.py": "2d2ca4e48b0c53b8bab3399cb8844bb716e482e40840fcdef334ea3bddc5e689",
+    "icstudio/xschem_compat.py": "ca2adf931d528061ab864e3396207765164f0a7722e7419700a493893f7f5e4e",
+    "icstudio/xschem_export_contract.py": "b5bb1f775b5b98e58ee889a6921ca1f7cced4d3c9ceb687d7f4ec48aa3e69f03",
+    "icstudio/xschem_project.py": "de2e1de6c59c89d82c95f773e7e48757a4010baf2e07d376e2f3ae8e55ca8db6",
+    "scripts/prepare_sky130_qualification.py": "4ca0f871ad2a7eea907e32e1546a32ade878de52896bc8c76c1adf8207add062",
+    "scripts/qualify_gf180_fill_coupling.py": "a675736742da2fe5738bee02f588f03a84359d157f241ff2025ed915bf181091",
+    "scripts/qualify_gf180_rc.py": "92734e1b116dc859192caf4efcb6f37ac2e531578ad4bc92be5f51b5d77016e2",
+    "scripts/qualify_hierarchical_rc.py": "b96de0d9435f328b25880b8f040c62d42547642f3c0c17c3f004e58211b9ab36",
+    "scripts/qualify_rc_primitives.py": "89050b4b32d13967d1c987a41ba66de11d6fa24455f1e6cd1db04aba7f6edb0f",
+    "scripts/qualify_sky130_bipolar.py": "0c4103fc76e7280498bf0767afc106a0af980620a2b48fdc76d1646e65b9a4c5",
+    "scripts/qualify_sky130_devices.py": "48662408d3e4db434876a51b4e0dbc4e8fe0fe1eaa95473f77ef4044bde0115f",
+    "tests/gui_native_vectors.py": "aaf51c605ccee0a473ac3c23e6560a33c3cdc29f986c6c7b949ba4c8d7131fdf",
+    "tests/gui_physical_variants.py": "25f693b95daad52e102c50065b99bea3bae61c837092db3b5f6b1a8beac52716",
+    "tests/gui_sky130_devices.py": "4729c5ef01de650e4c406ff98a370e655ba60c772f5a7ea554f7b6b3f1d1a993",
+    "tests/test_fill_capacitance.py": "eec53533b08613dd6f11d9760336f82f201c43e3ceb8df082bdc8d0c38f91893",
+    "tests/test_hierarchical_simulation_deck.py": "288799777322c7d4a7560a6cb9832672a22602d5ff0b4510c4fa8856e8a72747",
+    "tests/test_magic_rc.py": "0a16d75753b009de79832e459efff5eaebfa4f40c8792c991ec58cb27b7fa435",
+    "tests/test_magic_rc_flow.py": "743befba35b22f9071ade973bbc9173e0a087c2cc7b12ba34c87ea87c16b5d04",
+    "tests/test_native_vectors.py": "58f2f685798876514f4d303478e5fe9ab461a4e60e14c76579da1ca14776c0e8",
+    "tests/test_pdk_device_cli.py": "1a1b44ff3f93b88762a3afbd73876e74703520ac9d910361ccf6a542eb7d8d1a",
+    "tests/test_physical_hierarchy_locks.py": "20bf4275fca4426ec447515e5ebe45b41ccaf3f61240d594d80c33bcc1185f3d",
+    "tests/test_physical_materialization.py": "ed27802a3eef508bf6bbbad9c626468ecc8be70b096c0fc3ac505945704751cc",
+    "tests/test_process_mos.py": "795418b103d00054216cb4dd37a7ce1705eda5c7d25e5f7bdaada0732c8edab8",
+    "tests/test_sky130_devices.py": "05c31d27ea65f1a5dc45a20ccff6205b009246def852655f5cb2e4d17bd6a6ba",
+    "tests/test_sky130_fixed_devices.py": "3844cd624516a4fa270e6ae2e7fd28682c531da9783eacef21a18e5787fea78d",
+    "tests/test_sky130_parallel.py": "a3b721ce38467c787373ce0648684097465220eb6c0cd2527a93109c64af0af8",
+    "tests/test_two_stage_opamp.py": "9572236145df70ff7745136a4697e05b52ef206c0a20403d416dee83ca1081ad",
+    "tests/test_vector_cross_probe.py": "392a2340ee043bd887744c360bb93364e39a580be65fa3d273cfe3f6b5df28be",
+    "tests/test_vector_exchange_guards.py": "e332faaa38bb587d92dc9cce818a0795a4569241fc7e9f8f8d1f01e5abcefe13",
+    "tests/test_workflows.py": "f38cbfe98de7cca3fe4a5d44b947571d659d7306baca92e35b8cb3cb83ecfdb5"
+  }
+}

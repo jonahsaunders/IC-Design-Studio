@@ -9,11 +9,11 @@ class NetLabelMixin:
         if not self.flush_inspector():return
         if kind=='ground':name='0'
         elif name is None:
-            name,ok=QInputDialog.getText(self,'Place net label','Net name (matching names connect within this cell):',text=getattr(self,'_last_net_label','out'))
+            name,ok=QInputDialog.getText(self,'Place net label','Net or bus slice (out, data[7:0], data[3:1]):',text=getattr(self,'_last_net_label','out'))
             if not ok:return
             name=name.strip()
-            from .model import NET
-            if not NET.fullmatch(name):raise ValueError('Invalid net name. Use VDD, out, or 0 for ground.')
+            from .native_vectors import signals
+            signals(name)
         self._last_net_label=name;self.mode_combo.setCurrentIndex(0);self.cancel_tool()
         self.schematic.label_placement={'kind':kind,'name':name,'rotation':0,'reattach':reattach};self.schematic.tool='label';self.schematic.drag=self.schematic.snap(self.schematic.model(self.schematic.rect().center()));self.schematic.label_raw=self.schematic.drag;self.schematic.setFocus();self.schematic.update();self.sync_tools()
         self.canvas_message('Place '+('ground' if kind=='ground' else name)+' · click a pin, wire, or empty space · R rotates · Esc cancels')

@@ -2,6 +2,11 @@
 
 ## Current dev25 priorities
 
+The [current source extensions](ANALOG_IMPLEMENTATION_EXTENSIONS.md) add native
+bus/array semantics, reviewed physical specialization with regeneration, bounded
+SKY130 parallel-device recipes and stronger process-RC integrity checks. The
+older limits and numerical evidence below retain their original source scope.
+
 The [integrated analog workflow](ANALOG_CLOSURE.md) is available in source:
 saved extraction models, explicit MOS-device semantics, constrained layout ECOs,
 durable verification campaigns and transactional scripted edits. The

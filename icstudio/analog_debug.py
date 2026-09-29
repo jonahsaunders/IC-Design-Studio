@@ -6,15 +6,20 @@ from .model import clone
 def contexts(project, root):
     """Keep repeated masters separate; port nets follow the selected instance."""
     by = {c['id']: c for c in project['cells']}
+    from .native_vectors import devices, global_nets
+    globals_=set(global_nets(project))
     result = []
     def walk(cid, path, mapping, parents):
         if cid in parents or len(parents) > 12:
             raise ValueError('Recursive or excessively deep circuit hierarchy.')
+        from .layout_limits import MAX_FLAT_DEVICES
+        if len(result)>=MAX_FLAT_DEVICES:raise ValueError('Operating-point hierarchy exceeds the 50,000-occurrence capacity.')
         cell = by[cid]
         def net(name):
-            return name if name == '0' or name in project.get('global_nets', []) else mapping.get(name, path + name)
-        result.append(dict(cell_id=cid, path=path, nets={n: net(n) for d in cell['devices'] for n in d['nets'].values()}))
-        for d in cell['devices']:
+            return name if name == '0' or name in globals_ else mapping.get(name, path + name)
+        expanded=devices(cell,project)
+        result.append(dict(cell_id=cid, path=path, nets={n: net(n) for d in expanded for n in d['nets'].values()}))
+        for d in expanded:
             if d['kind'] == 'X':
                 walk(d['cell'], path + d['name'] + '/', {pin: net(n) for pin, n in d['nets'].items()}, parents + [cid])
     walk(root, '', {}, [])
@@ -29,8 +34,9 @@ def operating_rows(project, root, result):
     volts = {k.casefold(): v for k, v in result.get('operating_point', {}).items()}
     volts['0'] = 0.
     rows = []
+    from .native_vectors import devices as vector_devices
     for context in contexts(project, root):
-        for d in by[context['cell_id']]['devices']:
+        for d in vector_devices(by[context['cell_id']],project):
             if d['kind'] == 'X' or d.get('native_spice', {}).get('type') == 'program':
                 continue
             name = context['path'] + d['name']; values = clone(devices.get(name.casefold(), {}))
@@ -40,7 +46,7 @@ def operating_rows(project, root, result):
                 if math.isfinite(ratio):values['gmid']=ratio
             if name.casefold() in currents: values['current'] = currents[name.casefold()]
             pins = {pin: context['nets'][net] for pin, net in d['nets'].items()}
-            rows.append(dict(cell_id=context['cell_id'], path=context['path'], object=d['id'], name=name,
+            rows.append(dict(cell_id=context['cell_id'], path=context['path'], object=d.get('array_source_id',d['id']), name=name,
                              pins=pins, voltages={pin: volts.get(net.casefold()) for pin, net in pins.items()}, values=values))
     return rows
 

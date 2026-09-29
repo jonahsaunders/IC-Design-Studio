@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "checks": [
+    "preview without mutation",
+    "apply-time layer locks",
+    "unchanged shared-master placement locks and undo",
+    "array expansion layer locks",
+    "parameter-correct geometry and ports",
+    "electrical equivalence",
+    "one-step undo/redo",
+    "save/reopen",
+    "stale preview rejection",
+    "reviewed automatic placement",
+    "linked electrical array review, ordered nets, pitch, undo and reopen"
+  ],
+  "scope": "Offscreen Qt and illustrative resistor geometry; no process qualification."
+}

@@ -70,8 +70,12 @@ def connectivity(p,cid,graph=None):
     members={}
     for i,s in enumerate(shapes):members.setdefault(find(i),[]).append(s)
     from .physical_cells import terminals
+    from .native_vectors import expand_device
     physical_pins=terminals(p,cid)
-    issues=contact_findings(p,cid);assignments={};expected={};ds={d['id']:d for d in cell['devices']};provided=set()
+    # Physical cell ports are scalar even when capture uses a compact bus pin.
+    # Unmaterialized arrays remain incomplete and are blocked by physical audit.
+    ds={d['id']:(expand_device(d,p)[0] if d.get('array') is None else d) for d in cell['devices']}
+    issues=contact_findings(p,cid);assignments={};expected={};provided=set()
     def issue(code,obj,message,**extra):issues.append({'severity':'error','code':code,'cell_id':cid,'object':obj,'message':message,**extra})
     for pin in physical_pins:
         d=ds[pin['device_id']];provided.add((d['id'],pin['pin']));x,y=pin['point'];hits=[i for i in index.query((x,y,x,y)) if shapes[i]['layer']==pin['layer'] and polys[i].inside(db.Point(x,y))]
@@ -81,7 +85,7 @@ def connectivity(p,cid,graph=None):
         root=roots.pop();net=d['nets'][pin['pin']];assignments.setdefault(root,[]).append((d['id'],pin['pin'],net));expected.setdefault(net,set()).add(root)
     from .native_analysis import sources
     stimulus={v[0] for v in sources(p,cid)}
-    for d in cell['devices']:
+    for d in ds.values():
         if d['kind'] in ('V','I') or d['name'] in stimulus:continue # Testbench sources do not require silicon footprints.
         for pin in d['nets']:
             if (d['id'],pin) not in provided:issue('LVS.MISSING_PIN',d['id'],f'{d["name"]}.{pin}: assign a physical terminal before checking connectivity.')

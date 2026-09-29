@@ -40,7 +40,7 @@ class TwoStageReference(unittest.TestCase):
         cell=next(c for c in p['cells'] if c['id']==cid)
         # The last compensation cell is checked after the transistors; partial
         # placement must not leak when its process dimensions are rejected.
-        cell['devices'][-1]['model_params']['mf']='2'
+        cell['devices'][-1]['model_params']['mf']='17'
         before=clone(p)
         with self.assertRaises(ValueError):generate_layout(p,cid)
         self.assertEqual(p,before)

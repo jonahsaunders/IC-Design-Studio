@@ -17,11 +17,8 @@ def show(studio, missing=False):
     variants=QPushButton('Resolve parameter variants…');layout.addWidget(variants)
     def specialize():
         try:
-            from .physical_variants import propose as specialize_project
-            candidate,report=specialize_project(studio.project,cid)
-            details='\n'.join(r['instance']+' → '+r['variant'] for r in report['instances'])
-            details+='\n\n'+str(report['variants'])+' explicit cell variants. Resolved electrical values and nets match the original hierarchy. Existing geometry is retained; review its parameter updates and routing afterward.'
-            studio.review_dialog('Create physical parameter variants',lambda:(candidate,details));dlg.accept()
+            from .physical_hierarchy_ui import materialize_dialog
+            materialize_dialog(studio,cid);dlg.accept()
         except Exception as exc:error.setText(str(exc))
     variants.clicked.connect(specialize)
     table = QTableWidget(0, 5); table.setHorizontalHeaderLabels(['Apply', 'Cell / device', 'State', 'Action', 'Details']); table.horizontalHeader().setSectionResizeMode(4,QHeaderView.Stretch); layout.addWidget(table,1)

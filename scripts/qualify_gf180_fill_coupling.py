@@ -12,6 +12,7 @@ import sys
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from icstudio.model import atomic_write,file_digest,scalar
 from icstudio.engines import execute,tcl_word
+from icstudio.fill_capacitance import from_ext
 from scripts.fill_gf180_banba import FILL_LAYERS,BORDER,source_regions
 
 
@@ -71,22 +72,30 @@ def coupon(pair,gap,tech,magic,out):
         top.shapes(dummy).clear()
     ly.write(str(out/'conductors.gds'))
     atomic_write(out/'startup.tcl','drc off\ntech load '+tcl_word(tech)+'\n')
-    body='scalegrid 1 10\ngds read '+tcl_word(out/'conductors.gds')+'\nload fill_control\nselect top cell\nextract all\next2spice lvs\next2spice cthresh 0\next2spice -o extracted.spice\nputs FILL_CONTROL_COMPLETE\n'
+    body='scalegrid 1 10\ngds read '+tcl_word(out/'conductors.gds')+'\nload fill_control\nselect top cell\n'
+    if gap is not None:body+='port FLOATING remove\n'
+    body+='extract all\next2spice lvs\next2spice cthresh 0\next2spice -o extracted.spice\nputs FILL_CONTROL_COMPLETE\n'
     script='if {[catch {\n'+body+'} err]} {puts "FILL_CONTROL_ERROR $err"}\nquit -noprompt\n'
     atomic_write(out/'extract.tcl',script)
     log=execute([magic,'-dnull','-noconsole','-rcfile',out/'startup.tcl',out/'extract.tcl'],out)
     atomic_write(out/'engine.log',log)
     if 'FILL_CONTROL_COMPLETE' not in log or 'FILL_CONTROL_ERROR' in log:raise ValueError('Fill control extraction failed.')
-    text=(out/'extracted.spice').read_text();coupling=0.
-    for line in text.splitlines():
-        fields=line.split()
-        if fields and fields[0].lower().startswith('c') and len(fields)==4:
-            if {s.upper() for s in fields[1:3]}=={'SIGNAL','FLOATING'}:coupling+=scalar(fields[3])
+    # Read authoritative aF values directly. ext2spice rounds tiny mutual C to
+    # zero, and floating metal must not be replaced by a grounded capacitor.
+    reduction=from_ext(out/'fill_control.ext',[] if gap is None else ['FLOATING'])
+    atomic_write(out/'floating-reduction.json',json.dumps(reduction,indent=2))
+    coupling=sum(v['value_f'] for v in reduction['input_coupling_f']
+                 if {v['a'].upper(),v['b'].upper()}=={'SIGNAL','FLOATING'})
     return {'gap_um':gap,'signal_to_fill_f':coupling,'purpose4_sha256':file_digest(out/'purpose4.gds'),
-            'materialized_sha256':file_digest(out/'conductors.gds'),'extracted_sha256':file_digest(out/'extracted.spice')}
+            'materialized_sha256':file_digest(out/'conductors.gds'),'extracted_sha256':file_digest(out/'extracted.spice'),
+            'effective_signal_ground_f':reduction['ground_f']['SIGNAL'],
+            'floating_reduction_sha256':file_digest(out/'floating-reduction.json'),
+            'floating_reduction_algorithm':reduction['algorithm']}
 
 
 def qualify(core,filled,tech,magic,out):
+    from icstudio.external_tools import executable_info
+    magic=executable_info(magic)['path']
     core,filled,tech,out=map(lambda p:Path(p).resolve(),(core,filled,tech,out))
     if out.exists() and any(out.iterdir()):raise ValueError('Use a fresh fill evidence directory.')
     out.mkdir(parents=True,exist_ok=True);halo=range_um(tech.read_text())

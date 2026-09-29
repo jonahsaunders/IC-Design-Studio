@@ -72,10 +72,14 @@ class ProcessMosTests(unittest.TestCase):
         d['model_params']['nf']=4; d['model_params']['mult']=1.5
         with self.assertRaisesRegex(ValueError,'multiplicity'): dimensions(p['pdk'],d)
 
-    def test_physical_multiplicity_remains_explicitly_rejected(self):
+    def test_physical_multiplicity_uses_parallel_units_without_changing_finger_width(self):
         from icstudio.sky130_layout import specification
         p,d=project(per_finger=True);d['model_params'].update(nf=2,mult=2)
-        with self.assertRaisesRegex(ValueError,'multiplicity 1'):specification(p['pdk'],d)
+        result=specification(p['pdk'],d)
+        self.assertEqual(result['multiplicity'],2)
+        self.assertEqual(result['dimensions_nm'],{'w':8000,'l':500})
+        d['model_params']['mult']=17
+        with self.assertRaisesRegex(ValueError,'parallel copies'):specification(p['pdk'],d)
 
     def test_gf180_units_corners_and_real_model_definition(self):
         for polarity in ('nfet','pfet'):

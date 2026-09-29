@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "platform": "linux",
+  "members": 4,
+  "checks": [
+    "Configure array through its QAction",
+    "Edit ordered bus slices in the terminal inspector",
+    "Undo and redo bus connections",
+    "Place an explicit bus label",
+    "Save and reopen compact native capture",
+    "Emit exact scalar native SPICE members"
+  ],
+  "screenshot": "native-vectors.png"
+}

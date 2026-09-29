@@ -96,7 +96,7 @@ class PhysicalWorkspaceMixin:
         if d.get('native_spice') and d['kind']!='X' and not d.get('physical_binding'):
             return self.native_binding_dialog(did)
         def submit(v):
-            x,y=[round(scalar(v[k])*1000) for k in ('x','y')];width=round(scalar(v['width'])*1000) if v['width'].strip() else 0
+            x,y=[round(scalar(v[k])*1000) for k in ('x','y')];width=round(scalar(v['width'])*1000) if v.get('width','').strip() else 0
             def edit(p):
                 if d['kind']=='X':
                     from .physical_cells import place
@@ -104,6 +104,8 @@ class PhysicalWorkspaceMixin:
                 from .catalog import binding_for
                 if binding_for(p['pdk'],d) and d['kind'] in ('NMOS','PMOS','PDK'):
                     from .process_adapters import install_mos,regenerate_mos
+                    from .sky130_devices_ui import set_body_tie
+                    set_body_tie(p,cid,did,v)
                     c=next(c for c in p['cells'] if c['id']==cid)
                     if any(s.get('generated_device')==did for s in c['shapes']):regenerate_mos(p,cid,did)
                     else:install_mos(p,cid,did,x,y)
@@ -115,7 +117,9 @@ class PhysicalWorkspaceMixin:
         from .catalog import binding_for
         process=bool(binding_for(self.project['pdk'],d))
         fields=[('x','X (µm)',str(spec.get('x',0)/1000)),('y','Y (µm)',str(spec.get('y',0)/1000)),('width','Resistor / capacitor width (µm; blank = automatic)',str(spec.get('width','')/1000) if spec.get('width') else ''),('fingers','Teaching MOS fingers',str(spec.get('fingers',1)))]
-        if process:fields=fields[:2]
+        if process:
+            from .sky130_devices_ui import body_tie_field
+            fields=fields[:2]+body_tie_field(self.project['pdk'],d)
         if not process and (d['kind'] in ('NMOS','PMOS') or d.get('physical_binding',{}).get('kind') in ('NMOS','PMOS')):
             ordered=lambda selected,choices:[selected]+[c for c in choices if c!=selected]
             fields += [('contact_rows','Contacts per diffusion column (0 = fit)',str(spec.get('contact_rows',0))),('dummies','Poly edge dummies per side',str(spec.get('dummies',0))),('diffusion','Finger diffusion',ordered(spec.get('diffusion','shared'),['shared','isolated'])),('guard','Contacted bulk guard ring',ordered('Yes' if spec.get('guard') else 'No',['No','Yes']))]

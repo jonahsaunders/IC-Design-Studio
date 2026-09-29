@@ -1,0 +1,7 @@
+* NGSPICE file created from device_coupon.ext - technology: sky130A
+
+.subckt device_coupon P N
+RSTUDIO_DEVICE_660e7f6b3a063feb05c0 P N sky130_fd_pr__res_generic_po w=1 l=20
+X0 N N N N sky130_fd_pr__nfet_01v8 ad=0.8 pd=3.6 as=1.6000000000000001 ps=7.2000000000000002 w=1 l=1
+.ends
+

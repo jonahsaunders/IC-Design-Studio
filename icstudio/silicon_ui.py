@@ -55,26 +55,31 @@ class SiliconMixin:
     def mos_layout_dialog(self):
         if not self.idle_edit():return
         d=next((d for d in self.cell['devices'] if d['id'] in self.selection),None)
-        if len(self.selection)!=1 or d is None:raise ValueError('Select one supported schematic MOS, MiM capacitor or poly resistor first.')
+        if len(self.selection)!=1 or d is None:raise ValueError('Select one supported schematic MOS, MiM capacitor, poly resistor or fixed PNP first.')
         did=d['id'];cid=self.cid
+        from .sky130_devices_ui import body_tie_field, set_body_tie
+        tie_fields=body_tie_field(self.project['pdk'],d)
         if any(r['device_id']==did for r in self.cell.get('pdk_layouts',[])):
-            def build():
-                from .process_adapters import regenerate_mos
-                p=clone(self.project);regenerate_mos(p,cid,did)
-                from .sky130_devices_ui import check_layers
-                check_layers(self,p,cid)
-                return p,'Replace the linked footprint of '+d['name']+' using its current W/L, model and nets. Manual edits to its generated shapes are replaced. Existing routes and port labels remain at their coordinates. Check connections and rerun DRC/LVS after applying.'
-            from .sky130_devices_ui import apply_candidate
-            self.review_dialog('Regenerate linked device layout',build,apply_candidate=apply_candidate(self,cid));return
+            def review(values):
+                def build():
+                    from .process_adapters import regenerate_mos
+                    p=clone(self.project);set_body_tie(p,cid,did,values);regenerate_mos(p,cid,did)
+                    from .sky130_devices_ui import check_layers
+                    check_layers(self,p,cid)
+                    return p,'Replace the linked footprint of '+d['name']+' using its current W/L, finger count, multiplicity, model, body connection and nets. Manual edits to its generated shapes are replaced. Existing routes and port labels remain at their coordinates. Check connections and rerun DRC/LVS after applying.'
+                from .sky130_devices_ui import apply_candidate
+                self.review_dialog('Regenerate linked device layout',build,apply_candidate=apply_candidate(self,cid))
+            if tie_fields:return self.workflow_form('Regenerate '+d['name'],tie_fields,review,'A source tie adds metal between the existing source and body contacts; both must already have the same schematic net. Placement and orientation are preserved.')
+            review({});return
         def submit(v):
             from .model import scalar
             x,y=[round(scalar(v[k])*1000) for k in ('x','y')]
             from .sky130_devices_ui import check_layers,apply_candidate
             def build():
-                p=clone(self.project);install_mos(p,cid,did,x,y);check_layers(self,p,cid)
+                p=clone(self.project);set_body_tie(p,cid,did,v);install_mos(p,cid,did,x,y);check_layers(self,p,cid)
                 return p,'Generate the linked footprint of '+d['name']+' with its schematic dimensions and model. Review terminal connections, then run process DRC/LVS.'
             self.review_dialog('Generate PDK device layout',build,apply_candidate=apply_candidate(self,cid))
-        return self.workflow_form('Generate linked PDK device',[('x','X (µm)','0'),('y','Y (µm)','0')],submit,'SKY130: 1.8 V MOS, MiM m3_1 capacitor (2–30 µm W/L), and generic poly resistor (W 0.5–10 µm, L 1.65–100 µm). Passives use catalog W/L in µm and multiplicity one. GF180: standard 3.3 V MOS. Dimensions follow the schematic; physical terminals follow the process model.')
+        return self.workflow_form('Generate linked PDK device',[('x','X (µm)','0'),('y','Y (µm)','0')]+tie_fields,submit,'SKY130: 1.8 V MOS with 1–8 fingers per unit, MiM m3_1 capacitor (2–30 µm W/L), generic poly resistor (W 0.5–10 µm, L 1.65–100 µm), and fixed PNP W3.40/L3.40 with the experimental bipolar adapter. These recipes support 1–16 parallel units from the schematic multiplicity. A source body tie requires matching source/body nets. GF180: standard 3.3 V MOS. Dimensions and terminals follow the schematic process model; run process DRC/LVS.')
 
     def process_guard_dialog(self):
         from .sky130_devices_ui import guard_dialog

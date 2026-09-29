@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "algorithm": "floating-fill-zero-charge-schur-v1",
+  "ground_f": {
+    "SIGNAL": 2.7463906180467164e-15
+  },
+  "coupling_f": [],
+  "floating_nodes": [
+    "FLOATING"
+  ],
+  "components": [
+    {
+      "floating_nodes": [
+        "FLOATING"
+      ],
+      "retained_boundary": [
+        "SIGNAL"
+      ],
+      "status": "reduced",
+      "scale_f": 2.811082e-15
+    }
+  ],
+  "equation": "C_effective = C_kk - C_kf * inverse(C_ff) * C_fk; Q_f = 0",
+  "max_component": 256,
+  "maximum_normalized_solve_residual": 0.0,
+  "maximum_passivity_roundoff_f": 0.0,
+  "scope": "Linear equipotential floating conductors with zero initial net charge; extracted deck capacitance only, no fill resistance or unextracted fields.",
+  "source": "fill_control.ext",
+  "source_sha256": "a7d88ca219445796c9b19c95dbf609189cb64b55feeaa1e13f73591f399b774c",
+  "substrate_reference": "SUB",
+  "input_ground_f": {
+    "FLOATING": 2.38464e-15,
+    "SIGNAL": 2.38464e-15
+  },
+  "input_coupling_f": [
+    {
+      "a": "FLOATING",
+      "b": "SIGNAL",
+      "value_f": 4.26442e-16
+    }
+  ]
+}

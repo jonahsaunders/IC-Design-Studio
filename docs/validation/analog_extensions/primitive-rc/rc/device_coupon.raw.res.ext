@@ -1,0 +1,27 @@
+scale 1000 1 1e+06
+killnode "a_0_0#"
+rnode "a_0_0.n0" 0 0 0 0 0
+rnode "a_0_0.t0" 0 0 1000 50 0
+resist "a_0_0.n0" "a_0_0.t0" 482
+rnode "N" 0 0 2150 50 0
+rnode "N.t4" 0 0 2000 50 0
+rnode "N.n0" 0 0 2780 -65 0
+rnode "N.t3" 0 0 3100 50 0
+rnode "N.t0" 0 0 3050 50 0
+rnode "N.n1" 0 0 3050 -163 0
+rnode "N.t2" 0 0 3000 50 0
+rnode "N.n2" 0 0 2950 -163 0
+rnode "N.t1" 0 0 3050 50 0
+resist "N" "N.t4" 233.6
+resist "N.n1" "N.t3" 255.802
+resist "N.n1" "N.t0" 214.699
+resist "N.n2" "N.t2" 255.083
+resist "N.n0" "N.t1" 4812.35
+resist "N.n0" "N.n2" 1.35979
+resist "N.n2" "N.n1" 0.367647
+resist "N" "N.n0" 2.2985
+rnode "P" 0 0 -150 50 0
+rnode "P.t0" 0 0 0 50 0
+resist "P" "P.t0" 233.6
+device devres sky130_fd_pr__res_generic_po 0 0 1 1  "None" "a_0_0.t0" 200 0 "P.t0" 2000 20000,600 "N.t4" 2000 20000,600
+device msubckt sky130_fd_pr__nfet_01v8 3000 0 3001 1  "N.t1" "N.t0" 200 0 "N.t2" 100 0 "N.t3" 100 8000,360

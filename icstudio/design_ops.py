@@ -40,11 +40,10 @@ def resolved_device(d,context):
     return d
 
 def bus_nets(expression):
-    m=re.fullmatch(r'([A-Za-z_][A-Za-z0-9_]*)\[(\d+):(\d+)\]',expression.strip())
-    if not m:raise ValueError('Enter a bus such as data[7:0].')
-    start,end=int(m[2]),int(m[3])
-    if abs(start-end)>127:raise ValueError('A bus can contain at most 128 signals.')
-    return [f'{m[1]}[{i}]' for i in range(start,end+(1 if end>=start else -1),1 if end>=start else -1)]
+    from .native_vectors import signals
+    result=signals(expression)
+    if '[' not in expression and ',' not in expression:raise ValueError('Enter a bus such as data[7:0] or data[7:4],data[1:0].')
+    return result
 
 def connect_bus(cell,ids,pin,expression):
     nets=bus_nets(expression)
@@ -84,8 +83,9 @@ def validate_extras(p,objid):
             for vector in ('a','b'):
                 if vector in inst and (len(inst[vector])!=2 or any(type(v) is not int or abs(v)>2**31-1 for v in inst[vector])):raise ValueError('Invalid layout array vector.')
         port_names=set()
+        from .native_vectors import ports as vector_ports
         for port in c.get('layout_ports',[]):
-            if port.get('name') not in c['ports'] or port['name'] in port_names:raise ValueError('Invalid or duplicate physical cell port.')
+            if port.get('name') not in vector_ports(c['ports']) or port['name'] in port_names:raise ValueError('Invalid or duplicate physical cell port.')
             port_names.add(port['name'])
             if port.get('layer') not in {l['name'] for l in p['pdk']['layers']} or len(port.get('point',[]))!=2 or any(type(v) is not int or abs(v)>2**31-1 for v in port['point']):raise ValueError('Invalid physical cell port location.')
         for text in c.get('layout_texts',[]):
@@ -99,7 +99,9 @@ def validate_extras(p,objid):
             if not d or pin.get('pin') not in d['nets']:raise ValueError('Physical terminal must reference an existing device pin.')
             if pin.get('layer') not in {l['name'] for l in p['pdk']['layers']}:raise ValueError('Unknown physical pin layer.')
             if len(pin.get('point',[]))!=2 or any(type(v) is not int or abs(v)>2**31-1 for v in pin['point']):raise ValueError('Invalid physical terminal position.')
-        for bus in c.get('buses',[]):objid(bus['id']);bus_nets(bus['name'])
+        for bus in c.get('buses',[]):
+            objid(bus['id'])
+            if bus.get('nets')!=bus_nets(bus['name']):raise ValueError('Stored bus members do not match its ordered expression.')
     depths={}
     def walk(cid,seen):
         if cid in seen or len(seen)>12:raise ValueError('Recursive or excessively deep physical hierarchy.')
@@ -110,10 +112,12 @@ def validate_extras(p,objid):
 
 def flatten_layout(p,cid,max_depth=None):
     from .layout import polygon,shape_from_polygon,kdb
+    from .native_vectors import global_nets
+    globals_=set(global_nets(p))
     db=kdb();by={c['id']:c for c in p['cells']};out=[]
     def walk(cell,transform,owner=None,path='',depth=0,mapping=None,device_owner=None):
         mapping=mapping or {}
-        def net(n):return '0' if n=='0' else mapping.get(n,path+n) if n else ''
+        def net(n):return n if n=='0' or n in globals_ else mapping.get(n,path+n) if n else ''
         for s in cell['shapes']:
             if len(out)>=100000:raise ValueError('This operation expands at most 100,000 shapes. Choose a smaller physical cell or hierarchy depth.')
             if owner:

@@ -4,7 +4,8 @@ from pathlib import Path
 
 
 def main():
-    ap=argparse.ArgumentParser();ap.add_argument('--out',type=Path,required=True);out=ap.parse_args().out.resolve();out.mkdir(parents=True,exist_ok=True)
+    ap=argparse.ArgumentParser();ap.add_argument('--out',type=Path,required=True);ap.add_argument('--bipolar-pdk',type=Path)
+    args=ap.parse_args();out=args.out.resolve();out.mkdir(parents=True,exist_ok=True)
     root=Path(__file__).resolve().parents[1];sys.path.insert(0,str(root))
     from PySide6.QtCore import QSettings,QStandardPaths
     from PySide6.QtWidgets import QApplication,QDialogButtonBox
@@ -59,6 +60,45 @@ def main():
         assert any(v['code']=='LVS.OPEN' and v.get('net')=='N' for v in connectivity(studio.project,studio.cid)['issues'])
         studio.undo();assert not studio.cell.get('process_guards');studio.redo()
         checks.append('Locked metal blocks guard review without mutation; unlocked review adds contacted guard, physical tie and selected-device constraint in one history transaction')
+        guarded=clone(studio.project)
+        from tests.test_sky130_parallel import project as parallel_project
+        parallel,cell,mos=parallel_project('NMOS',4,3)
+        cell['shapes']=[];cell['layout_pins']=[];cell['pdk_layouts']=[];mos['nets']['b']=mos['nets']['s']
+        studio.set_project(parallel);studio.selection=[mos['id']];studio.refresh();before=clone(studio.project)
+        form=studio.mos_layout_dialog();form.fields['body_tie'].setCurrentText('Source');accept_form(form)
+        assert studio.project==before;apply_preview()
+        assert studio.cell['devices'][0]['physical_body_tie']=='source'
+        assert studio.cell['pdk_layouts'][0]['parallel_units']['count']==3
+        assert not connectivity(studio.project,studio.cid)['issues']
+        studio.undo();assert studio.project['cells']==before['cells'];studio.redo()
+        form=studio.mos_layout_dialog();assert form.fields['body_tie'].currentText()=='Source'
+        form.fields['body_tie'].setCurrentText('None');accept_form(form);apply_preview()
+        assert 'physical_body_tie' not in studio.cell['devices'][0]
+        assert not any(s.get('generator_role','').endswith('body_source_tie') for s in studio.cell['shapes'])
+        studio.undo();assert not connectivity(studio.project,studio.cid)['issues']
+        checks.append('MOS multiplicity generates parallel units; source/body selection is previewed, persists through undo/redo and can be removed by regeneration')
+        # Exercise the placement assistant path, whose process-only form has
+        # no teaching width/finger fields.
+        studio.set_project(parallel);studio.selection=[mos['id']];studio.refresh()
+        form=studio.parametric_dialog();form.fields['body_tie'].setCurrentText('Source');accept_form(form)
+        assert studio.cell['pdk_layouts'][0]['parallel_units']['count']==3
+        assert not connectivity(studio.project,studio.cid)['issues']
+        checks.append('Placement assistant accepts its native process form without teaching-only fields')
+        if args.bipolar_pdk:
+            package=json.loads((args.bipolar_pdk/'package.json').read_text());pnp=example('empty');pnp['pdk']=package['technology']
+            pnp['pdk'].update(package_root=str(args.bipolar_pdk.resolve()),package_lock={k:package[k] for k in ('id','revision','files')})
+            d=create_device(pnp['pdk'],'sky130_fd_pr/pnp_05v5.sym','Q1');d['model_params']['m']=2;d['nets']=dict(collector='C',base='B',emitter='E');pnp['cells'][0]['devices']=[d]
+            studio.set_project(pnp);studio.selection=[d['id']];studio.refresh();before=clone(studio.project)
+            form=studio.mos_layout_dialog();assert 'body_tie' not in form.fields;accept_form(form)
+            assert studio.project==before;apply_preview()
+            assert studio.cell['pdk_layouts'][0]['spec']['recipe']=='fixed_pnp'
+            assert studio.cell['pdk_layouts'][0]['parallel_units']['count']==2
+            assert not connectivity(studio.project,studio.cid)['issues']
+            path=out/'fixed-pnp.icproj';save_project(studio.project,path)
+            assert load_project(path)['cells']==studio.project['cells']
+            studio.undo();assert not studio.cell.get('pdk_layouts');studio.redo()
+            checks.append('Experimental fixed PNP generates through normal native review/apply, preserves two-unit topology and survives save/reopen and undo/redo')
+        studio.set_project(guarded)
         path=out/'sky130-devices.icproj';save_project(studio.project,path);loaded=load_project(path)
         assert loaded['cells']==studio.project['cells'];assert loaded['pdk']['connectivity']['via_blockers']==studio.project['pdk']['connectivity']['via_blockers']
         studio.mode_combo.setCurrentIndex(1);studio.refresh(True);app.processEvents();studio.grab().save(str(out/'sky130-devices.png'))

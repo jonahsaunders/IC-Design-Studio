@@ -106,13 +106,17 @@ def capabilities(technology, installed=False):
     if native and expected and lock.get('revision') == expected[0] and digest(lock.get('files', {})) == expected[1]: evidence = expected[2]
     try:physical=physical_adapter(technology);physical.engine_assets(technology);external_verification=True
     except (ValueError,OSError,KeyError):external_verification=False
+    native_layout=list(native.recipes) if native else []
+    if native is SKY130 and external_verification:
+        from .sky130_bipolar_rules import TECH_SHA256
+        if file_digest(native.engine_assets(technology)['technology'])==TECH_SHA256:native_layout.append('fixed_pnp')
     from .em_technology import capabilities as em_capabilities
     return {
         'installed': installed or bool(lock),
         'indexed': len(catalog),
         'placeable': sum(not b.get('unavailable') for b in catalog.values()),
         'simulation': bool(technology.get('simulation', {}).get('includes')),
-        'native_layout': list(native.recipes) if native else [],
+        'native_layout': native_layout,
         'external_verification':external_verification,
         'inductor_em':em_capabilities(technology),
         'native_reason': reason,

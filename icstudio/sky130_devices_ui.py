@@ -4,6 +4,27 @@ from .sky130_devices import layers, install_guard, install_dummy
 from .layout import polygon
 
 
+def body_tie_field(tech,d):
+    """Offer the native tie only for the two explicitly supported MOS models."""
+    from .catalog import binding_for
+    from .sky130_layout import MODELS
+    binding=binding_for(tech,d)
+    if tech.get('package_lock',{}).get('id')!='sky130A' or not binding or binding.get('model')!=MODELS.get(d['kind']):return []
+    choice='Source' if d.get('physical_body_tie')=='source' else 'None'
+    return [('body_tie','Internal source/body connection',[choice]+[v for v in ('None','Source') if v!=choice])]
+
+
+def set_body_tie(p,cid,did,values):
+    if 'body_tie' not in values:return
+    d=next(d for c in p['cells'] if c['id']==cid for d in c['devices'] if d['id']==did)
+    if not body_tie_field(p['pdk'],d):raise ValueError('Internal source/body ties require a supported SKY130 1.8 V MOS.')
+    if values['body_tie']=='Source':
+        if d['nets']['s']!=d['nets']['b']:raise ValueError('Connect source and body to the same schematic net before selecting a source tie.')
+        d['physical_body_tie']='source'
+    elif values['body_tie']=='None':d.pop('physical_body_tie',None)
+    else:raise ValueError('Choose None or Source for the internal body connection.')
+
+
 def check_layers(studio,candidate,cid):
     before={s['id']:s for c in studio.project['cells'] if c['id']==cid for s in c['shapes']}
     after={s['id']:s for c in candidate['cells'] if c['id']==cid for s in c['shapes']}

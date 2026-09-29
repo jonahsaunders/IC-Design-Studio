@@ -52,7 +52,7 @@ class SKY130DevicesTests(unittest.TestCase):
 
     def test_unsupported_passive_units_multiplicity_and_dimensions_fail_before_mutation(self):
         p,c,d=passive();before=clone(p)
-        for params in ({'w':'2u'},{'w':1.995},{'l':30.005},{'w':2.001},{'mf':2},{'w':2,'l':20}):
+        for params in ({'w':'2u'},{'w':1.995},{'l':30.005},{'w':2.001},{'mf':2.5},{'mf':17},{'w':2,'l':20}):
             q=clone(d);q['model_params'].update(params)
             with self.subTest(params=params),self.assertRaises(ValueError):geometry(p['pdk'],q)
         self.assertEqual(p,before)

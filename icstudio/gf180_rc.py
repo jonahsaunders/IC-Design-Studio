@@ -26,13 +26,5 @@ def technology(text):
 
 def collapsed(text,normalization):
     """Contract every named wire-R component, preserving all device parameters."""
-    owner={n:net for net,data in normalization['nets'].items() for n in data['nodes']}
-    lines=[]
-    for line in text.splitlines():
-        fields=line.split()
-        if fields and fields[0][0].upper() in ('R','C'):continue
-        if fields and fields[0][0].upper()=='X':
-            idx=next((i for i,v in enumerate(fields) if '=' in v),len(fields))-1
-            fields[1:idx]=[owner[n] for n in fields[1:idx]];line=' '.join(fields)
-        lines.append(line)
-    return '\n'.join(lines)+'\n'
+    from .magic_rc import contract
+    return contract(text,normalization)

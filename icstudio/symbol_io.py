@@ -5,8 +5,8 @@ from .model import atomic_write
 
 
 def validate_symbol(symbol, ports):
-    from .model import NET
-    if any(not isinstance(n,str) or not NET.fullmatch(n) or n=='0' for n in ports):raise ValueError('Invalid symbol terminal name.')
+    from .native_vectors import ports as vector_ports, signals
+    vector_ports(list(ports))
     if set(symbol.get('pins', {})) != set(ports): raise ValueError('Symbol pins must match the electrical terminals exactly.')
     if len({p.casefold() for p in symbol['pins']})!=len(symbol['pins']):raise ValueError('Pin names must be unique under SPICE case folding.')
     order=symbol.get('pin_order',list(symbol['pins']))
@@ -24,7 +24,7 @@ def validate_symbol(symbol, ports):
             ids.add(m['id'])
         if m.get('bus'):
             from .design_ops import bus_nets
-            if name not in bus_nets(m['bus']):raise ValueError('Bus metadata must include this scalar terminal.')
+            if not set(signals(name)) <= set(bus_nets(m['bus'])):raise ValueError('Bus metadata must include this terminal.')
     attributes=symbol.get('attributes',{})
     if not isinstance(attributes,dict) or any(not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]*',k) or not isinstance(v,str) or len(v)>2000 for k,v in attributes.items()):raise ValueError('Invalid declarative symbol attributes.')
     points = list(symbol['pins'].values())

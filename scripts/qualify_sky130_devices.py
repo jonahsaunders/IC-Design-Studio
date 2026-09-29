@@ -25,14 +25,25 @@ PASSIVES=[('cap',2,2),('cap',10,10),('cap',30,30),('res',.5,1.65),('res',1,20),(
 CONDITIONS=[('nominal',27),('ss',0),('ff',85)]
 
 
-def fixture(tech,kind,w=2,l=2):
+def fixture(tech,kind,w=2,l=2,count=1,fingers=1,body_tie=False):
     p=example('empty');p['pdk']=clone(tech);c=p['cells'][0];c['name']='device_coupon'
     if kind in ('cap','res'):
         key='sky130_fd_pr/'+('cap_mim_m3_1' if kind=='cap' else 'res_generic_po')+'.sym'
         d=create_device(p['pdk'],key,'C1' if kind=='cap' else 'R1');d['model_params'].update(w=w,l=l)
+        d['model_params']['mf' if kind=='cap' else 'mult']=count
         d['nets']=dict(zip(d['nets'],('P','N')));c['devices']=[d];c['ports']=['P','N']
         install(p,c['id'],d['id'])
         for pin in c['layout_pins']:assign_port(p,c['id'],d['nets'][pin['pin']],pin['layer'],pin['point'])
+    elif kind in ('nmos-parallel','pmos-parallel'):
+        key='sky130_fd_pr/'+('nfet_01v8' if kind=='nmos-parallel' else 'pfet_01v8')+'.sym'
+        d=create_device(p['pdk'],key,'M1');d['params'].update(w=f'{w:g}u',l=f'{l:g}u')
+        d['model_params'].update(nf=fingers,mult=count);d['nets']=dict(d='D',g='G',s='S',b='B')
+        if body_tie:d['nets']['b']='S';d['physical_body_tie']='source'
+        c['devices']=[d];c['ports']=list(dict.fromkeys(d['nets'].values()));install(p,c['id'],d['id'])
+        assigned=set()
+        for pin in c['layout_pins']:
+            net=d['nets'][pin['pin']]
+            if net not in assigned:assign_port(p,c['id'],net,pin['layer'],pin['point']);assigned.add(net)
     else:
         wide=kind.endswith('-wide')
         d=install_dummy(p,c['id'],'MDUMMY','PMOS' if kind in ('nwell','pmos-wide') else 'NMOS','VREF',w='30u' if wide else '2u',l='.5u' if wide else '1u',x=5000,y=5000)
@@ -119,10 +130,17 @@ def main():
         report['process']=dict(id=m['id'],revision=m['revision'],manifest_sha256=file_digest(root/'package.json'))
         report['source']={str(path):file_digest(ROOT/path) for path in ('icstudio/sky130_devices.py','icstudio/sky130_layout.py','icstudio/contact_rules.py','icstudio/layout_graph.py','scripts/qualify_sky130_devices.py')}
         fixtures={}
-        for kind,w,l in PASSIVES+[(k,2,1) for k in ('psub','nwell')]+[(k,30,.5) for k in ('nmos-wide','pmos-wide')]:
-            name=f'{kind}-{w:g}x{l:g}';item=dict(name=name,status='running');report['cases'].append(item);publish()
+        cases=[dict(kind=kind,w=w,l=l) for kind,w,l in PASSIVES+[(k,2,1) for k in ('psub','nwell')]+[(k,30,.5) for k in ('nmos-wide','pmos-wide')]]
+        cases.extend(dict(kind=kind,w=2,l=2,count=count) for kind in ('cap','res') for count in (2,16))
+        cases.extend(dict(kind=kind,w=w,l=l,count=count,fingers=fingers,body_tie=tie)
+            for kind in ('nmos-parallel','pmos-parallel')
+            for w,l,count,fingers,tie in ((1,.15,2,1,False),(4,.5,3,4,True),(8,.5,16,8,False)))
+        for case in cases:
+            kind,w,l=case['kind'],case['w'],case['l'];count=case.get('count',1)
+            name=f'{kind}-{w:g}x{l:g}'+(f'-nf{case.get("fingers",1)}-m{count}' if count>1 else '')+('-bodytie' if case.get('body_tie') else '')
+            item=dict(name=name,status='running',parameters=case);report['cases'].append(item);publish()
             try:
-                p,c=fixture(tech,kind,w,l);directory=out/name;fixtures.setdefault(kind,(p,c))
+                p,c=fixture(tech,**case);directory=out/name;fixtures.setdefault(kind,(p,c))
                 from icstudio.physical import connectivity
                 if connectivity(p,c['id'])['issues']:raise ValueError('Native physical terminal connectivity failed.')
                 item['physical']=verify(p,c,directory,tools)
@@ -131,18 +149,18 @@ def main():
                     # Deliberately independent primitive/model declaration: no
                     # catalog emitter or geometry-derived W/L in this reference.
                     model='sky130_fd_pr__'+('cap_mim_m3_1' if kind=='cap' else 'res_generic_po')
-                    independent=f'.subckt device_coupon P N\n'+('X1' if kind=='cap' else 'R1')+f' P N {model} w={w} l={l}\n.ends device_coupon\n'
+                    independent=f'.subckt device_coupon P N\n'+('X1' if kind=='cap' else 'R1')+f' P N {model} w={w} l={l} m={count}'+(f' mf={count}' if kind=='cap' else '')+'\n.ends device_coupon\n'
                     for corner,temp in CONDITIONS:
                         decks=dict(schematic=(directory/'schematic.spice').read_text(),extracted=(directory/'magic/extracted.spice').read_text(),independent=independent)
                         values=measure(p,decks,kind,corner,temp,tools,directory/f'probes-{corner}-{temp}')
                         if any(abs(value/values['independent']-1)>1e-6 for value in values.values()):raise ValueError('Schematic/extracted/independent passive measurement differs: '+str(values))
-                        estimate=(2e-15*w*l) if kind=='cap' else 48.2*l/w
+                        estimate=(2e-15*w*l*count) if kind=='cap' else 48.2*l/w/count
                         if not .5*estimate<values['independent']<2*estimate:raise ValueError('Process value is outside the independent physical order-of-magnitude bound.')
                         item['measurements'].append(dict(corner=corner,temperature=temp,unit='F' if kind=='cap' else 'ohm',**values))
                 item['status']='passed'
             except Exception as exc:item.update(status='failed',error=str(exc),traceback=traceback.format_exc())
             publish()
-        for name,kind,expected in [('mim-wrong-width','cap','lvs'),('poly-wrong-length','res','lvs'),('dummy-gate-open','psub','lvs'),('guard-contact-spacing','nwell','drc')]:
+        for name,kind,expected in [('mim-wrong-width','cap','lvs'),('poly-wrong-length','res','lvs'),('dummy-gate-open','psub','lvs'),('guard-contact-spacing','nwell','drc'),('parallel-drain-access-open','nmos-parallel','lvs')]:
             item=dict(name=name,status='running');report['cases'].append(item);publish()
             try:
                 p,c0=fixtures[kind];p=clone(p);c=p['cells'][0]
@@ -151,6 +169,7 @@ def main():
                 elif name=='poly-wrong-length':
                     shape=next(s for s in c['shapes'] if s.get('generator_role')=='passive:resistor_marker');right=max(x for x,y in shape['points']);shape['points']=[[x+500 if x==right else x,y] for x,y in shape['points']]
                 elif name=='dummy-gate-open':c['shapes']=[s for s in c['shapes'] if s.get('generator_role')!='dummy_tie_2']
+                elif name=='parallel-drain-access-open':c['shapes']=[s for s in c['shapes'] if s.get('generator_role')!='parallel:access:d:1:via']
                 else:
                     shape=next(s for s in c['shapes'] if s.get('pcell_role')=='mcon1');shape['points']=[[x+220,y] for x,y in shape['points']]
                 item['physical']=verify(p,c,out/name,tools,expected);item['status']='passed'

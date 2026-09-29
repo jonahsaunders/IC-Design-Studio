@@ -88,6 +88,27 @@ def _terminals(p, cid):
 def _retarget(before, after, cid, chosen, locked):
     from .wiring import retarget_path
     old = _terminals(before, cid); new = _terminals(after, cid); adjusted = []
+    # A named port attached to a regenerated terminal is an electrical anchor,
+    # just like a route endpoint. Keep its process label at the same location.
+    from .physical_cells import ports
+    cell = _cell(after, cid)
+    physical_ports = ports(before, cid)
+    for port in physical_ports:
+        matching = [key for key, pin in old.items() if key[0] in chosen and
+                    pin['layer'] == port['layer'] and pin['point'] == port['point']]
+        if any(key not in new or new[key]['layer'] != old[key]['layer'] for key in matching):
+            raise ValueError('An attached physical port terminal was removed or changed layer.')
+        points = {tuple(new[key]['point']) for key in matching}
+        if len(points) > 1: raise ValueError('A physical port needs incompatible terminal moves.')
+        if points:
+            point = list(next(iter(points)))
+            if point != port['point']:
+                if port['layer'] in locked: raise ValueError('Unlock attached physical port layers.')
+                for label in cell.get('layout_texts', []):
+                    if label['text'] == port['name'] and [label['x'], label['y']] == port['point']:
+                        label['x'], label['y'] = point
+                port['point'] = point
+    if physical_ports: cell['layout_ports'] = physical_ports
     for s in _cell(after, cid)['shapes']:
         if s.get('generated_device') or s.get('pcell_id') or s['kind'] != 'path': continue
         targets = []
@@ -109,9 +130,11 @@ def _retarget(before, after, cid, chosen, locked):
 def _check_instance(p, cid, d):
     from .design_ops import parameters, value
     from .physical_cells import ports
+    from .native_vectors import ports as electrical_ports
     child = _cell(p, d['cell']); c = _cell(p, cid)
+    if d.get('array'): raise ValueError(d['name']+': materialize electrical array members before physical updates.')
     if not child['shapes'] and not child.get('layout_instances'): raise ValueError(d['name']+': implement the child layout first, or select its missing devices in this review.')
-    if set(v['name'] for v in ports(p, child['id'])) != set(child['ports']): raise ValueError(d['name']+': assign every physical child port before linking.')
+    if set(v['name'] for v in ports(p, child['id'])) != set(electrical_ports(child['ports'])): raise ValueError(d['name']+': assign every physical child port before linking.')
     global_ = parameters(p.get('parameters', {})); defaults = parameters(child.get('parameters', {}), global_)
     context = parameters(c.get('parameters', {}), global_)
     actual = parameters({**child.get('parameters', {}), **{k: value(v, context) for k, v in d.get('parameters', {}).items()}}, global_)
