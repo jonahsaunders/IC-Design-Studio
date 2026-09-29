@@ -42,10 +42,14 @@ Check the rendered README, release links and download instructions in the destin
 
 Run **Prepare draft preview release** on `experimental` for a reviewable branch
 candidate, or on `main` after merging its verified PR.
-It invokes desktop, interoperability, physical, digital, VGA and statistical
-campaign qualification on the same commit,
+It invokes desktop, interoperability, physical, digital, VGA, statistical
+campaign and reference compatibility qualification on the same commit,
 then assembles verified assets and creates a draft prerelease with the current
-application version. It fails if that release already exists. Experimental tags include the commit prefix. See
+application version. Automatic tags use
+`BRANCH-vVERSION-COMMIT-RUN-ATTEMPT`, including the full source SHA and GitHub run
+identity. A rerun creates a separate draft, so an interrupted upload cannot cause
+assets from different builds to be mixed. Existing releases are never overwritten
+or deleted. See
 [qualification and repository setup](QUALIFICATION_0.22.md) for required checks,
 the reviewed main ruleset and remaining clean-machine acceptance.
 
@@ -64,7 +68,7 @@ a changed installer.
 Distribution archives are hashed before extraction and checked again after the
 desktop and VGA probes; replacing an archive during execution fails acceptance.
 
-A version change pushed to `experimental` or merged into `main` automatically starts **Prepare draft preview release**. Manual dispatch remains available. The workflow reruns all six qualifications for the selected commit and creates only a draft prerelease; publication remains a separate maintainer action.
+A version change pushed to `experimental` or merged into `main` automatically starts **Prepare draft preview release**. Manual dispatch remains available. The workflow reruns all seven qualifications for the selected commit and creates only a draft prerelease; publication remains a separate maintainer action.
 
 The statistical gate must complete its 1,152-case ngspice workload, coordinator
 crash recovery and trial classifications. Draft assembly checks its commit and
@@ -72,6 +76,30 @@ workflow-run identity, includes the full evidence archive and a compact validati
 record, and checksums both. Deliberate specification failures in this workload
 test classification; unresolved cases or failed recovery block the draft. This
 one-host gate does not satisfy [two-host worker acceptance](CAMPAIGN_WORKER_ACCEPTANCE.md).
+
+## Large evidence archives
+
+Release evidence is complete even when an archive exceeds GitHub's per-asset
+limit. `scripts/release_evidence.py` retains ZIPs up to 1 GiB as ordinary assets
+and splits larger ZIP byte streams into 1 GiB parts. The ordered `.zip.parts.json`
+manifest records each part's byte count and SHA-256 and the reconstructed ZIP's
+byte count and SHA-256. No files or qualification gates are removed to reduce size.
+Every asset must pass a strict below-2-GiB size check before draft creation.
+
+Download all parts of an archive, its manifest and the release's
+`reassemble_evidence.py` helper into the same directory. With Python 3.11 or newer:
+
+```sh
+python reassemble_evidence.py reassemble ARCHIVE.zip.parts.json --output restored
+```
+
+Use the actual manifest filename in place of `ARCHIVE.zip.parts.json`. The helper
+verifies every part and the entire reconstructed ZIP, fails on missing or corrupt
+parts and refuses to overwrite an existing archive. The release includes full
+instructions in `EVIDENCE-REASSEMBLY.md`. Final `SHA256SUMS` cover the ordered
+manifests, parts, helper and instructions as well as the other release assets.
+An oversized application/source asset still fails preflight; only qualification
+evidence ZIPs are split, so existing package validation records stay unchanged.
 
 ## VGA package evidence
 

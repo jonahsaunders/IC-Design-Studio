@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main, experimental]
-    paths: [icstudio/__init__.py, icstudio/experimental_probe.py, icstudio/inductor_probe.py, icstudio/inductor_design_probe.py, .github/workflows/release-preview.yml]
+    paths: [icstudio/__init__.py, icstudio/experimental_probe.py, icstudio/inductor_probe.py, icstudio/inductor_design_probe.py, scripts/assemble_prerelease.py, scripts/release_evidence.py, scripts/publish_prerelease.py, .github/workflows/release-preview.yml]
 permissions:
   contents: read
 concurrency:
@@ -82,36 +82,16 @@ jobs:
         env:
           RELEASE_COMMIT: ${{ github.sha }}
           RELEASE_RUN: ${{ github.run_id }}
-        run: |
-          python - <<'PY'
-          import hashlib, json, os, pathlib, shutil
-          from icstudio import __version__
-          from scripts.assemble_prerelease import validate_statistical_qualification
-          statistics = validate_statistical_qualification('build/statistics-release-evidence', os.environ['RELEASE_COMMIT'], os.environ['RELEASE_RUN'])
-          pathlib.Path(f'release/IC-Design-Studio-{__version__}-Statistical-Validation.json').write_text(json.dumps(statistics, indent=2) + '\n')
-          for kind in ('physical', 'interoperability', 'digital', 'vga', 'statistics', 'reference'):
-              shutil.make_archive(f'release/IC-Design-Studio-{__version__}-{kind}-Evidence', 'zip', f'build/{kind}-release-evidence')
-          files = sorted(p for p in pathlib.Path('release').iterdir() if p.is_file() and not p.name.startswith('SHA256SUMS'))
-          lines = []
-          for p in files:
-              with p.open('rb') as f: lines.append(hashlib.file_digest(f, 'sha256').hexdigest() + '  ' + p.name)
-          pathlib.Path(f'release/SHA256SUMS-{__version__}.txt').write_text('\n'.join(lines) + '\n')
-          PY
+        run: python scripts/release_evidence.py package --commit "$RELEASE_COMMIT" --run-id "$RELEASE_RUN"
       - name: Create a reviewable draft prerelease
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_COMMIT: ${{ github.sha }}
           RELEASE_BRANCH: ${{ github.ref_name }}
-        run: |
-          version=$(python -c 'from icstudio import __version__; print(__version__)')
-          tag="v$version"
-          if [ "$RELEASE_BRANCH" = experimental ]; then
-            tag="experimental-v$version-${RELEASE_COMMIT:0:8}"
-          fi
-          notes="docs/UPDATE_$(echo "$version" | sed -E 's/^([0-9]+\.[0-9]+)\.0\.dev([0-9]+)$/\1_DEV\2/').md"
-          test -f "$notes"
-          gh release create "$tag" release/* --draft --prerelease --target "$RELEASE_COMMIT" --title "IC Design Studio $version — $RELEASE_BRANCH preview" --notes-file "$notes"
+        run: python scripts/publish_prerelease.py --directory release
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: complete-prerelease
           path: release
+          if-no-files-found: ignore
