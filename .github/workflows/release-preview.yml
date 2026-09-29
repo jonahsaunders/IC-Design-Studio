@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main, experimental]
-    paths: [icstudio/__init__.py, icstudio/experimental_probe.py, icstudio/inductor_probe.py, icstudio/inductor_design_probe.py, scripts/assemble_prerelease.py, scripts/release_evidence.py, scripts/publish_prerelease.py, .github/workflows/release-preview.yml]
+    paths: [icstudio/__init__.py, icstudio/experimental_probe.py, icstudio/inductor_probe.py, icstudio/inductor_design_probe.py, scripts/assemble_prerelease.py, scripts/release_evidence.py, scripts/publish_prerelease.py, .github/workflows/build-desktop.yml, .github/workflows/release-preview.yml]
 permissions:
   contents: read
 concurrency:
