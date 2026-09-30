@@ -1,0 +1,30 @@
+[
+  {
+    "name": "unit-tests",
+    "command": [
+      "/workspace/scratch/101e754ddca6/IC-Design-Studio/.venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_*.py",
+      "-q"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 152.62
+  },
+  {
+    "name": "coupled-tests",
+    "command": [
+      "/workspace/scratch/101e754ddca6/IC-Design-Studio/.venv/bin/python",
+      "-m",
+      "unittest",
+      "tests.test_mixed_signal",
+      "-v"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 3.381
+  }
+]

@@ -119,6 +119,10 @@ Protocol reference: [Language Server Protocol 3.17](https://microsoft.github.io/
 
 ## Qualification boundary
 
+The [SAR ADC example](MIXED_SIGNAL_SAR.md) adds a separate, bounded clocked
+ngspice/Icarus bridge for small synchronous mixed-signal experiments. Its explicit
+sampling/drive contract and replay limits differ from general Verilog-AMS support.
+
 This work improves the existing open-source block-design flow. It does not add a
 coupled Verilog-AMS/SPICE simulator, per-instance analog/digital view substitution,
 foundry-qualified DRC/LVS/PEX decks, automatic timing-exception proofs or a

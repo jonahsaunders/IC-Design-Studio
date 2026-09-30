@@ -1,0 +1,2025 @@
+{
+  "status": "PASS",
+  "host": {
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python": "3.12.14"
+  },
+  "scope": "Four-bit behavioral SAR; real ngspice analog integration and Icarus RTL. No transistor/PDK, noise, metastability, ENOB or physical qualification.",
+  "environment": {
+    "engine": "mixed_signal",
+    "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+    "executables": {
+      "ngspice": "fdbedb3b5dfe9783e035e1b4107667a0ad6ca2cf0bcd9ccb8a7afe6c188ebf9a",
+      "iverilog": "45ad78ae189c2ce72381019a0272e07f6f7f4806fd5847b32e047bafa0299a29",
+      "vvp": "b028904f47202ba461cca43d89d7fa4dfbe01eb89e25673ab28b38a6f6cb89b5"
+    },
+    "sources": {
+      "mixed_signal.py": "bc56224a7aa7d9283a73cacdd3aceb643375a13614282e42618bdbb2ff38c2ad",
+      "sar_example.py": "4895e24053300abf43f209fbf8587146eea43a6f0d3292a204d13f085396f13f",
+      "engines.py": "7cd7a1c4796c7bbc2ac08c68c710f29719b680af74ea5141489f27120554e390",
+      "native_spice.py": "0659012d62b2e8a032b217974dd0201a669f16af115d7483ca2147089751aab6",
+      "native_analysis.py": "42f41163e17400a3351628df6d4ca8c45e45440f33e35dd744ddbf1fe31c140d",
+      "digital.py": "cedb08e487f3ed92d14316499bf62c2b903bac8936fb702db4c77db84ff1e58f",
+      "digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+      "digital_flow.py": "5f78753ea5ae109af6a446cca8860b844f9513679f79e5ce526f01a3046fef81",
+      "model.py": "9aa920724fee2e0a5eddf2df73e4f55f75c47e50734dc13e9ce97fc71cea116f",
+      "run_environment.py": "2e1af468a7be2273c8e7f9528bfd0187b6f0a9e4de4026ea4696af03a3be51bb"
+    }
+  },
+  "versions": {
+    "ngspice": "******\n** ngspice-42 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2023, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Sun Mar 31 20:15:14 UTC 2024\n******\n",
+    "iverilog": "Icarus Verilog version 12.0 (stable) ()\n\nCopyright (c) 2000-2021 Stephen Williams (steve@icarus.com)\n\n  This program is free software; you can redistribute it and/or modify\n  it under the terms of the GNU General Public License as published by\n  the Free Software Foundation; either version 2 of the License, or\n  (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n  but WITHOUT ANY WARRANTY; without even the implied warranty of\n  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n  GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License along\n  with this program; if not, write to the Free Software Foundation, Inc.,\n  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n\nIcarus Verilog Preprocessor version 12.0 (stable) ()\n\nCopyright (c) 1999-2021 Stephen Williams (steve@icarus.com)\n\n  This program is free software; you can redistribute it and/or modify\n  it under the terms of the GNU General Public License as published by\n  the Free Software Foundation; either version 2 of the License, or\n  (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n  but WITHOUT ANY WARRANTY; without even the implied warranty of\n  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n  GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License along\n  with this program; if not, write to the Free Software Foundation, Inc.,\n  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n\nIcarus Verilog Parser/Elaborator version 12.0 (stable) ()\n\nCopyright (c) 1998-2021 Stephen Williams (steve@icarus.com)\n\n  This program is free software; you can redistribute it and/or modify\n  it under the terms of the GNU General Public License as published by\n  the Free Software Foundation; either version 2 of the License, or\n  (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n  but WITHOUT ANY WARRANTY; without even the implied warranty of\n  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n  GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License along\n  with this program; if not, write to the Free Software Foundation, Inc.,\n  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n\n FLAGS DLL vvp.tgt\nvvp.tgt: Icarus Verilog VVP Code Generator 12.0 (stable) ()\n\nCopyright (c) 2001-2021 Stephen Williams (steve@icarus.com)\n\n  This program is free software; you can redistribute it and/or modify\n  it under the terms of the GNU General Public License as published by\n  the Free Software Foundation; either version 2 of the License, or\n  (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n  but WITHOUT ANY WARRANTY; without even the implied warranty of\n  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n  GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License along\n  with this program; if not, write to the Free Software Foundation, Inc.,\n  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n\n",
+    "vvp": "Icarus Verilog runtime version 12.0 (stable) ()\n\nCopyright (c) 2001-2021 Stephen Williams (steve@icarus.com)\n\n  This program is free software; you can redistribute it and/or modify\n  it under the terms of the GNU General Public License as published by\n  the Free Software Foundation; either version 2 of the License, or\n  (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n  but WITHOUT ANY WARRANTY; without even the implied warranty of\n  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n  GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License along\n  with this program; if not, write to the Free Software Foundation, Inc.,\n  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n\n"
+  },
+  "cases": [
+    {
+      "name": "center-0",
+      "voltage": 0.05625,
+      "expected": 0,
+      "status": "PASS",
+      "code": 0,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 0,
+          "actual": 0
+        }
+      ]
+    },
+    {
+      "name": "center-1",
+      "voltage": 0.16875,
+      "expected": 1,
+      "status": "PASS",
+      "code": 1,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 1,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "name": "center-2",
+      "voltage": 0.28125,
+      "expected": 2,
+      "status": "PASS",
+      "code": 2,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 2,
+          "actual": 2
+        }
+      ]
+    },
+    {
+      "name": "center-3",
+      "voltage": 0.39375,
+      "expected": 3,
+      "status": "PASS",
+      "code": 3,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 3,
+          "actual": 3
+        }
+      ]
+    },
+    {
+      "name": "center-4",
+      "voltage": 0.50625,
+      "expected": 4,
+      "status": "PASS",
+      "code": 4,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 4,
+          "actual": 4
+        }
+      ]
+    },
+    {
+      "name": "center-5",
+      "voltage": 0.61875,
+      "expected": 5,
+      "status": "PASS",
+      "code": 5,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 5,
+          "actual": 5
+        }
+      ]
+    },
+    {
+      "name": "center-6",
+      "voltage": 0.7312500000000001,
+      "expected": 6,
+      "status": "PASS",
+      "code": 6,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 6,
+          "actual": 6
+        }
+      ]
+    },
+    {
+      "name": "center-7",
+      "voltage": 0.84375,
+      "expected": 7,
+      "status": "PASS",
+      "code": 7,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 7,
+          "actual": 7
+        }
+      ]
+    },
+    {
+      "name": "center-8",
+      "voltage": 0.95625,
+      "expected": 8,
+      "status": "PASS",
+      "code": 8,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 8,
+          "actual": 8
+        }
+      ]
+    },
+    {
+      "name": "center-9",
+      "voltage": 1.06875,
+      "expected": 9,
+      "status": "PASS",
+      "code": 9,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 9,
+          "actual": 9
+        }
+      ]
+    },
+    {
+      "name": "center-10",
+      "voltage": 1.1812500000000001,
+      "expected": 10,
+      "status": "PASS",
+      "code": 10,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 10,
+          "actual": 10
+        }
+      ]
+    },
+    {
+      "name": "center-11",
+      "voltage": 1.29375,
+      "expected": 11,
+      "status": "PASS",
+      "code": 11,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 11,
+          "actual": 11
+        }
+      ]
+    },
+    {
+      "name": "center-12",
+      "voltage": 1.40625,
+      "expected": 12,
+      "status": "PASS",
+      "code": 12,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 12,
+          "actual": 12
+        }
+      ]
+    },
+    {
+      "name": "center-13",
+      "voltage": 1.51875,
+      "expected": 13,
+      "status": "PASS",
+      "code": 13,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 13,
+          "actual": 13
+        }
+      ]
+    },
+    {
+      "name": "center-14",
+      "voltage": 1.63125,
+      "expected": 14,
+      "status": "PASS",
+      "code": 14,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 14,
+          "actual": 14
+        }
+      ]
+    },
+    {
+      "name": "center-15",
+      "voltage": 1.7437500000000001,
+      "expected": 15,
+      "status": "PASS",
+      "code": 15,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 15,
+          "actual": 15
+        }
+      ]
+    },
+    {
+      "name": "boundary-1-below",
+      "voltage": 0.106875,
+      "expected": 0,
+      "status": "PASS",
+      "code": 0,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 0,
+          "actual": 0
+        }
+      ]
+    },
+    {
+      "name": "boundary-1-above",
+      "voltage": 0.11812500000000001,
+      "expected": 1,
+      "status": "PASS",
+      "code": 1,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 1,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "name": "boundary-2-below",
+      "voltage": 0.219375,
+      "expected": 1,
+      "status": "PASS",
+      "code": 1,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 1,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "name": "boundary-2-above",
+      "voltage": 0.230625,
+      "expected": 2,
+      "status": "PASS",
+      "code": 2,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 2,
+          "actual": 2
+        }
+      ]
+    },
+    {
+      "name": "boundary-3-below",
+      "voltage": 0.33187500000000003,
+      "expected": 2,
+      "status": "PASS",
+      "code": 2,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 2,
+          "actual": 2
+        }
+      ]
+    },
+    {
+      "name": "boundary-3-above",
+      "voltage": 0.343125,
+      "expected": 3,
+      "status": "PASS",
+      "code": 3,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 3,
+          "actual": 3
+        }
+      ]
+    },
+    {
+      "name": "boundary-4-below",
+      "voltage": 0.444375,
+      "expected": 3,
+      "status": "PASS",
+      "code": 3,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 3,
+          "actual": 3
+        }
+      ]
+    },
+    {
+      "name": "boundary-4-above",
+      "voltage": 0.455625,
+      "expected": 4,
+      "status": "PASS",
+      "code": 4,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 4,
+          "actual": 4
+        }
+      ]
+    },
+    {
+      "name": "boundary-5-below",
+      "voltage": 0.556875,
+      "expected": 4,
+      "status": "PASS",
+      "code": 4,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 4,
+          "actual": 4
+        }
+      ]
+    },
+    {
+      "name": "boundary-5-above",
+      "voltage": 0.568125,
+      "expected": 5,
+      "status": "PASS",
+      "code": 5,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 5,
+          "actual": 5
+        }
+      ]
+    },
+    {
+      "name": "boundary-6-below",
+      "voltage": 0.669375,
+      "expected": 5,
+      "status": "PASS",
+      "code": 5,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 5,
+          "actual": 5
+        }
+      ]
+    },
+    {
+      "name": "boundary-6-above",
+      "voltage": 0.680625,
+      "expected": 6,
+      "status": "PASS",
+      "code": 6,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 6,
+          "actual": 6
+        }
+      ]
+    },
+    {
+      "name": "boundary-7-below",
+      "voltage": 0.781875,
+      "expected": 6,
+      "status": "PASS",
+      "code": 6,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 6,
+          "actual": 6
+        }
+      ]
+    },
+    {
+      "name": "boundary-7-above",
+      "voltage": 0.793125,
+      "expected": 7,
+      "status": "PASS",
+      "code": 7,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 7,
+          "actual": 7
+        }
+      ]
+    },
+    {
+      "name": "boundary-8-below",
+      "voltage": 0.894375,
+      "expected": 7,
+      "status": "PASS",
+      "code": 7,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 7,
+          "actual": 7
+        }
+      ]
+    },
+    {
+      "name": "boundary-8-above",
+      "voltage": 0.9056250000000001,
+      "expected": 8,
+      "status": "PASS",
+      "code": 8,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 8,
+          "actual": 8
+        }
+      ]
+    },
+    {
+      "name": "boundary-9-below",
+      "voltage": 1.006875,
+      "expected": 8,
+      "status": "PASS",
+      "code": 8,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 8,
+          "actual": 8
+        }
+      ]
+    },
+    {
+      "name": "boundary-9-above",
+      "voltage": 1.0181250000000002,
+      "expected": 9,
+      "status": "PASS",
+      "code": 9,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 9,
+          "actual": 9
+        }
+      ]
+    },
+    {
+      "name": "boundary-10-below",
+      "voltage": 1.119375,
+      "expected": 9,
+      "status": "PASS",
+      "code": 9,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 9,
+          "actual": 9
+        }
+      ]
+    },
+    {
+      "name": "boundary-10-above",
+      "voltage": 1.1306250000000002,
+      "expected": 10,
+      "status": "PASS",
+      "code": 10,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 10,
+          "actual": 10
+        }
+      ]
+    },
+    {
+      "name": "boundary-11-below",
+      "voltage": 1.231875,
+      "expected": 10,
+      "status": "PASS",
+      "code": 10,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 10,
+          "actual": 10
+        }
+      ]
+    },
+    {
+      "name": "boundary-11-above",
+      "voltage": 1.243125,
+      "expected": 11,
+      "status": "PASS",
+      "code": 11,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 11,
+          "actual": 11
+        }
+      ]
+    },
+    {
+      "name": "boundary-12-below",
+      "voltage": 1.3443749999999999,
+      "expected": 11,
+      "status": "PASS",
+      "code": 11,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 11,
+          "actual": 11
+        }
+      ]
+    },
+    {
+      "name": "boundary-12-above",
+      "voltage": 1.355625,
+      "expected": 12,
+      "status": "PASS",
+      "code": 12,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 12,
+          "actual": 12
+        }
+      ]
+    },
+    {
+      "name": "boundary-13-below",
+      "voltage": 1.456875,
+      "expected": 12,
+      "status": "PASS",
+      "code": 12,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 12,
+          "actual": 12
+        }
+      ]
+    },
+    {
+      "name": "boundary-13-above",
+      "voltage": 1.4681250000000001,
+      "expected": 13,
+      "status": "PASS",
+      "code": 13,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 13,
+          "actual": 13
+        }
+      ]
+    },
+    {
+      "name": "boundary-14-below",
+      "voltage": 1.569375,
+      "expected": 13,
+      "status": "PASS",
+      "code": 13,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 13,
+          "actual": 13
+        }
+      ]
+    },
+    {
+      "name": "boundary-14-above",
+      "voltage": 1.5806250000000002,
+      "expected": 14,
+      "status": "PASS",
+      "code": 14,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 14,
+          "actual": 14
+        }
+      ]
+    },
+    {
+      "name": "boundary-15-below",
+      "voltage": 1.681875,
+      "expected": 14,
+      "status": "PASS",
+      "code": 14,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 14,
+          "actual": 14
+        }
+      ]
+    },
+    {
+      "name": "boundary-15-above",
+      "voltage": 1.6931250000000002,
+      "expected": 15,
+      "status": "PASS",
+      "code": 15,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 15,
+          "actual": 15
+        }
+      ]
+    },
+    {
+      "name": "zero",
+      "voltage": 0.0,
+      "expected": 0,
+      "status": "PASS",
+      "code": 0,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 0,
+          "actual": 0
+        }
+      ]
+    },
+    {
+      "name": "full-scale",
+      "voltage": 1.8,
+      "expected": 15,
+      "status": "PASS",
+      "code": 15,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 15,
+          "actual": 15
+        }
+      ]
+    },
+    {
+      "name": "below-range",
+      "voltage": -0.05,
+      "expected": 0,
+      "status": "PASS",
+      "code": 0,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 0,
+          "actual": 0
+        }
+      ]
+    },
+    {
+      "name": "above-range",
+      "voltage": 1.85,
+      "expected": 15,
+      "status": "PASS",
+      "code": 15,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 15,
+          "actual": 15
+        }
+      ]
+    }
+  ],
+  "faults": [
+    {
+      "name": "wrong-dac-weight",
+      "detected": true,
+      "detail": {
+        "status": "FAIL",
+        "code": 10,
+        "conversion_seconds": 5e-06,
+        "checks": [
+          {
+            "name": "One completion pulse",
+            "passed": true
+          },
+          {
+            "name": "Four comparator decisions",
+            "passed": true
+          },
+          {
+            "name": "Completion at edge 7",
+            "passed": true
+          },
+          {
+            "name": "Idle after completion",
+            "passed": true
+          },
+          {
+            "name": "Code held after completion",
+            "passed": true
+          },
+          {
+            "name": "Expected conversion code",
+            "passed": false,
+            "expected": 8,
+            "actual": 10
+          }
+        ]
+      }
+    },
+    {
+      "name": "wrong-rtl-decision",
+      "detected": true,
+      "detail": {
+        "status": "FAIL",
+        "code": 0,
+        "conversion_seconds": 5e-06,
+        "checks": [
+          {
+            "name": "One completion pulse",
+            "passed": true
+          },
+          {
+            "name": "Four comparator decisions",
+            "passed": true
+          },
+          {
+            "name": "Completion at edge 7",
+            "passed": true
+          },
+          {
+            "name": "Idle after completion",
+            "passed": true
+          },
+          {
+            "name": "Code held after completion",
+            "passed": true
+          },
+          {
+            "name": "Expected conversion code",
+            "passed": false,
+            "expected": 8,
+            "actual": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "insufficient-settling",
+      "detected": true,
+      "detail": {
+        "status": "FAIL",
+        "code": 1,
+        "conversion_seconds": 5.0000000000000004e-08,
+        "checks": [
+          {
+            "name": "One completion pulse",
+            "passed": true
+          },
+          {
+            "name": "Four comparator decisions",
+            "passed": true
+          },
+          {
+            "name": "Completion at edge 7",
+            "passed": true
+          },
+          {
+            "name": "Idle after completion",
+            "passed": true
+          },
+          {
+            "name": "Code held after completion",
+            "passed": true
+          },
+          {
+            "name": "Expected conversion code",
+            "passed": false,
+            "expected": 2,
+            "actual": 1
+          }
+        ]
+      }
+    }
+  ],
+  "checks": [
+    {
+      "name": "Every code present and monotonic at bin centers",
+      "passed": true
+    },
+    {
+      "name": "hold-input-step",
+      "passed": true,
+      "status": "PASS",
+      "code": 8,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 8,
+          "actual": 8
+        }
+      ]
+    },
+    {
+      "name": "step-convergence",
+      "passed": true,
+      "status": "PASS",
+      "code": 8,
+      "conversion_seconds": 5e-06,
+      "checks": [
+        {
+          "name": "One completion pulse",
+          "passed": true
+        },
+        {
+          "name": "Four comparator decisions",
+          "passed": true
+        },
+        {
+          "name": "Completion at edge 7",
+          "passed": true
+        },
+        {
+          "name": "Idle after completion",
+          "passed": true
+        },
+        {
+          "name": "Code held after completion",
+          "passed": true
+        },
+        {
+          "name": "Expected conversion code",
+          "passed": true,
+          "expected": 8,
+          "actual": 8
+        }
+      ]
+    }
+  ]
+}

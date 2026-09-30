@@ -12,7 +12,10 @@ def main(input_path,output_path):
         p=validate(job['project'])
         def progress(fraction,message): print(json.dumps({'progress':fraction,'message':message}),flush=True)
         kind=job['settings'].get('type')
-        if kind=='digital':
+        if kind=='mixed_signal':
+            from .mixed_signal import run
+            result=run(job,Path(output_path).parent,progress)
+        elif kind=='digital':
             from .digital_flow import run
             result=run(job,Path(output_path).parent,progress)
         elif kind in ('layout_route','layout_compare'):

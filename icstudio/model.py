@@ -199,6 +199,8 @@ def validate(p):
     validate_records(p)
     from .digital import validate_project as validate_digital
     validate_digital(p)
+    from .mixed_signal import validate_project as validate_mixed_signal
+    validate_mixed_signal(p)
     # validate_wiring already rebuilt every master above. Reuse that state for
     # hierarchy checks instead of repeatedly copying and rebuilding each master
     # for every possible root. The cache lives only within this validation.
