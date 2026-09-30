@@ -1,0 +1,15 @@
+test_all_mixed_lessons_accept_the_documented_repairs (tests.test_student_hub.StudentCapstoneTests.test_all_mixed_lessons_accept_the_documented_repairs) ... ok
+test_capstone_campaign_and_faults (tests.test_student_hub.StudentCapstoneTests.test_capstone_campaign_and_faults) ... ok
+test_all_six_reference_benches_and_tamper_detection (tests.test_student_hub.StudentDigitalTests.test_all_six_reference_benches_and_tamper_detection) ... ok
+test_broken_rtl_fails_actual_reference_simulation (tests.test_student_hub.StudentDigitalTests.test_broken_rtl_fails_actual_reference_simulation) ... ok
+test_curriculum_has_four_paths_and_executable_starters (tests.test_student_hub.StudentProgressTests.test_curriculum_has_four_paths_and_executable_starters) ... ok
+test_every_foundation_and_analog_checkpoint_has_a_reachable_target (tests.test_student_hub.StudentProgressTests.test_every_foundation_and_analog_checkpoint_has_a_reachable_target) ... ok
+test_frozen_app_uses_build_identity_without_loose_sources (tests.test_student_hub.StudentProgressTests.test_frozen_app_uses_build_identity_without_loose_sources) ... ok
+test_resume_prerequisites_conflicts_and_curriculum_revisions (tests.test_student_hub.StudentProgressTests.test_resume_prerequisites_conflicts_and_curriculum_revisions) ... ok
+test_stale_and_corrupt_results_are_rejected (tests.test_student_hub.StudentProgressTests.test_stale_and_corrupt_results_are_rejected) ... ok
+test_wrong_answer_practice_and_wrong_project_do_not_earn_credit (tests.test_student_hub.StudentProgressTests.test_wrong_answer_practice_and_wrong_project_do_not_earn_credit) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 116.710s
+
+OK

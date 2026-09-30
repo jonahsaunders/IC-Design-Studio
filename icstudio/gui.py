@@ -609,6 +609,26 @@ from .digital_ui import DigitalMixin
 
 class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,InteroperabilityMixin,LayoutDevelopmentMixin,OnboardingMixin,NativeWorkspaceMixin,XschemWorkflowMixin,VerificationWorkspaceMixin,PhysicalWorkspaceMixin,EngineeringWorkspaceMixin,SimulationWorkspaceMixin,HumanWorkspaceMixin,ConsistencyWorkspaceMixin,CaptureWorkspaceMixin,EditorWorkspaceMixin, LayoutToolsMixin, AnalogMixin, HierarchyMixin, SiliconMixin, LifecycleMixin, LayoutMixin, ProjectMixin, SchematicMixin, FeatureMixin, WorkspaceMixin, StudioCore):
     """Standalone desktop application with the document-focused workspace."""
+    def apply_theme(self):
+        super().apply_theme()
+        hub=getattr(self,'_student_hub',None)
+        if hub:hub.apply_theme()
+
+    def set_project(self,project,path=None):
+        result=super().set_project(project,path)
+        hub=getattr(self,'_student_hub',None)
+        if hub:hub.guide.update_run_state()
+        return result
+
+    def closeEvent(self,event):
+        hub=getattr(self,'_student_hub',None)
+        if hub:
+            try:hub.guide.save_note()
+            except Exception as exc:
+                self.error('The lesson reflection could not be saved. Keep this window open and retry.\n'+str(exc))
+                event.ignore();return
+        super().closeEvent(event)
+
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
         from .editing_assistant import install
@@ -625,6 +645,8 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
         install_digital(self)
         from .mixed_signal_ui import install as install_mixed_signal
         install_mixed_signal(self)
+        from .student_hub_ui import install as install_student_hub
+        install_student_hub(self)
         self.reindex_commands()
     connect = SchematicMixin.connect
     move = LayoutDevelopmentMixin.move

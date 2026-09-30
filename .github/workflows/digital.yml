@@ -37,6 +37,11 @@ jobs:
           python tests/gui_mixed_signal.py
       - name: Verify linked workspace, queue resume and large placement inspection
         run: python tests/gui_digital_workspace.py
+      - name: Verify student progression and advanced project
+        run: |
+          python -m unittest tests.test_student_hub -v
+          python scripts/verify_student_capstone.py --out build/student-capstone
+          python tests/gui_student_hub.py
       - name: Verify setup subprocess and failed-package UI
         run: python tests/gui_digital_setup.py
       - name: Verify first-run guidance and continuation after setup
@@ -54,6 +59,8 @@ jobs:
             build/digital-workspace-ui
             build/sar-qualification
             build/mixed-signal-ui
+            build/student-capstone
+            build/student-hub-ui
 
   implementation:
     runs-on: ubuntu-24.04

@@ -27,6 +27,7 @@ Press **Ctrl+S** and choose a project filename. Opening from the gallery gives y
 | Arrange panels | **Window** menu or **Workspace** button |
 | Recover the default arrangement | **Window → Reset workspace** |
 | Choose another guided circuit | **File → Start here / example gallery** |
+| Follow lessons with saved progression | **File → Student Hub** · [four paths and capstone](STUDENT_HUB.md) |
 
 The Inspector contains **Properties** and **Analysis**. Results are grouped into **Simulation**, **Waveforms**, **Physical** and **Checks**. The schematic, layout and linked views share the same active cell.
 

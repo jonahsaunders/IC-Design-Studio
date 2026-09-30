@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "platform": "linux",
+  "qt_platform": "offscreen",
+  "checks": [
+    "Keyboard search cannot open a project; empty search disables the action",
+    "Light/dark contrast and live appearance; compact layout at 100\u2013200% text",
+    "Checkpoint result remains visible until explicit Next step",
+    "Real solver lifecycle, duplicate submission guard and results availability",
+    "Disk-full preserves selected step and draft; Escape and app close remain recoverable",
+    "Reload resolves unrelated progress conflict without dropping either draft",
+    "Conflicting reflection has explicit keep, load and cancel recovery paths",
+    "Moved project recovery preserves identity and existing progress",
+    "Export saves current work and respects cancellation",
+    "Project switching, metric-based action reflow and immediate app close preserve usability and the last keystroke"
+  ],
+  "contrast_ratios": {
+    "light-text-panel": 14.42,
+    "light-muted-panel": 5.33,
+    "light-accent-panel": 5.67,
+    "light-accent-tint": 4.93,
+    "dark-text-panel": 12.92,
+    "dark-muted-panel": 7.41,
+    "dark-accent-panel": 7.07,
+    "dark-accent-tint": 5.32
+  },
+  "native_macos_voiceover_tested": false
+}

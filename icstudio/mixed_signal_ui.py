@@ -54,7 +54,8 @@ class MixedSignalDialog(QDialog):
         self.edges = QTableWidget(); self.edges.setAccessibleName('Captured mixed-signal edges')
         self.edges.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.edges.verticalHeader().hide()
-        self.edges.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch); root.addWidget(self.edges, 1)
+        self.edges.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.edges.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel); root.addWidget(self.edges, 1)
         row = QHBoxLayout(); root.addLayout(row)
         for title, fn in [('Show analog waveforms', self.waveforms), ('Cancel selected run', self.cancel), ('Close', self.close)]:
             button = QPushButton(title); button.clicked.connect(lambda _=False, fn=fn: self.call(fn)); row.addWidget(button)
@@ -117,7 +118,8 @@ class MixedSignalDialog(QDialog):
             self.status.setText('Project changed. Close and reopen this experiment.'); return
         selected = self.runs.currentData(); self.runs.blockSignals(True); self.runs.clear()
         for row in self.studio.run_manager.rows:
-            if row['job']['settings'].get('type') == 'mixed_signal':
+            if (row['job']['settings'].get('type') == 'mixed_signal' and
+                    row['job']['project']['id'] == self.project_id):
                 self.runs.addItem(row['name']+' · '+row['state'], row['id'])
         self.runs.setCurrentIndex(max(0, self.runs.findData(selected))); self.runs.blockSignals(False); self.result()
 

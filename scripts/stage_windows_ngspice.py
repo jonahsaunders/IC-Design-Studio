@@ -7,7 +7,10 @@ from pathlib import Path
 import shutil
 import sys
 import tempfile
+import time
+import urllib.error
 import urllib.request
+from http.client import HTTPException
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -15,6 +18,30 @@ from icstudio.runtime_setup import check_ngspice, verify_runtime_files
 
 URL = 'https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/42/ngspice-42_64.7z/download'
 SHA256 = 'aa98b3c74743260a38835bd2698f58221b7237939798d1fdf2297f44ecf1d6ec'
+DOWNLOAD_URLS = (URL, 'https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/old-releases/42/ngspice-42_64.7z')
+
+
+def download(archive):
+    """Retry interrupted mirrors from byte zero; only publish verified bytes."""
+    partial = archive.with_suffix('.part')
+    for attempt in range(4):
+        try:
+            request = urllib.request.Request(DOWNLOAD_URLS[attempt % len(DOWNLOAD_URLS)],
+                                             headers={'User-Agent': 'ICDesignStudio-runtime-setup/1'})
+            with urllib.request.urlopen(request, timeout=120) as response, partial.open('wb') as output:
+                shutil.copyfileobj(response, output)
+            if hashlib.sha256(partial.read_bytes()).hexdigest() != SHA256:
+                raise ValueError('Downloaded NGSpice archive checksum differs from the pinned release.')
+            partial.replace(archive)
+            return
+        except (OSError, urllib.error.URLError, HTTPException, ValueError) as exc:
+            if attempt == 3:
+                raise RuntimeError('Could not download the verified NGSpice runtime after four attempts. '
+                                   'Retry provisioning or supply the pinned archive with --archive.') from exc
+            print(f'NGSpice download attempt {attempt + 1} failed: {exc}. Retrying…', flush=True)
+            time.sleep(2 ** (attempt + 1))
+        finally:
+            partial.unlink(missing_ok=True)
 
 
 def stage(archive=None, target=None):
@@ -27,15 +54,7 @@ def stage(archive=None, target=None):
         if supplied:
             raise ValueError('The supplied Windows NGSpice archive does not match the pinned checksum.')
         print('Downloading NGSpice 42 console runtime…', flush=True)
-        partial = archive.with_suffix('.part')
-        try:
-            with urllib.request.urlopen(URL, timeout=60) as response, partial.open('wb') as output:
-                shutil.copyfileobj(response, output)
-            if hashlib.sha256(partial.read_bytes()).hexdigest() != SHA256:
-                raise ValueError('Downloaded NGSpice archive checksum differs from the pinned release.')
-            partial.replace(archive)
-        finally:
-            partial.unlink(missing_ok=True)
+        download(archive)
     import py7zr
     with tempfile.TemporaryDirectory(dir=cache) as temporary:
         with py7zr.SevenZipFile(archive) as package:

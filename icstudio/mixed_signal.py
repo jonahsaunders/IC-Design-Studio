@@ -9,6 +9,7 @@ import json
 import math
 import re
 import shutil
+import sys
 import time
 from pathlib import Path
 
@@ -114,11 +115,13 @@ def validate_points(points, stop):
 
 def environment(job):
     from .build_info import WORKFLOW_SOURCE_HASH
+    sources = {} if getattr(sys, 'frozen', False) else {
+        p: file_digest(Path(__file__).with_name(p)) for p in
+        ('mixed_signal.py', 'sar_example.py', 'engines.py', 'native_spice.py', 'native_analysis.py',
+         'digital.py', 'digital_design.py', 'digital_flow.py', 'model.py', 'run_environment.py')}
     return dict(engine='mixed_signal', workflow_hash=WORKFLOW_SOURCE_HASH,
                 executables={k: file_digest(v) for k, v in job['settings']['tools'].items()},
-                sources={p: file_digest(Path(__file__).with_name(p)) for p in
-                         ('mixed_signal.py', 'sar_example.py', 'engines.py', 'native_spice.py', 'native_analysis.py',
-                          'digital.py', 'digital_design.py', 'digital_flow.py', 'model.py', 'run_environment.py')})
+                sources=sources)
 
 
 def prepare(project, tools=None):

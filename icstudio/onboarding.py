@@ -122,7 +122,8 @@ class OnboardingMixin:
         outer.addWidget(label('From first circuit to a reusable design.', True))
         outer.addWidget(label('Choose a short example. Each opens as an independent copy with its analysis already configured.'))
         actions = QHBoxLayout(); outer.addLayout(actions)
-        for title, fn in [('New project…', self.new_project), ('Open project…', self.open_project),
+        from .student_hub_ui import show as show_student_hub
+        for title, fn in [('Student Hub', lambda: show_student_hub(self)), ('New project…', self.new_project), ('Open project…', self.open_project),
                           ('Import Xschem…', self.migrate_xschem_file), ('Set up a PDK…', self.pdk_manager)]:
             button = QPushButton(title); button.clicked.connect(lambda checked=False, fn=fn: self.guard(fn)); actions.addWidget(button)
         split = QSplitter(); outer.addWidget(split, 1)
