@@ -1,0 +1,81 @@
+"""Alternate only the changed methods in one Studio process for attribution."""
+import importlib.util,json,random,statistics,sys,time
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT))
+from PySide6.QtCore import QSettings,QStandardPaths
+from PySide6.QtWidgets import QApplication
+from PySide6.QtTest import QTest
+from icstudio.gui import Studio
+from icstudio.canvas import Canvas
+from icstudio.spatial import SpatialIndex
+from icstudio.model import example,device,digest
+from icstudio.layout import rect
+from icstudio.electrical_identity import partition
+from icstudio import recovery
+
+out=Path(sys.argv[1]).resolve();out.mkdir(parents=True,exist_ok=True)
+baseline=ROOT/'build/performance/baseline-source'
+def load(name,path):
+    spec=importlib.util.spec_from_file_location(name,path);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);return module
+old_canvas=load('icstudio._baseline_canvas',baseline/'icstudio/canvas.py')
+old_spatial=load('icstudio._baseline_spatial',baseline/'icstudio/spatial.py')
+methods=('draw_layout_geometry','paint_layout_chunks')
+variants={'before':{name:getattr(old_canvas.Canvas,name) for name in methods},
+          'after':{name:getattr(Canvas,name) for name in methods}}
+queries={'before':old_spatial.SpatialIndex.query,'after':SpatialIndex.query}
+QSettings.setDefaultFormat(QSettings.IniFormat)
+QSettings.setPath(QSettings.IniFormat,QSettings.UserScope,str(out/'settings'))
+QStandardPaths.writableLocation=staticmethod(lambda kind:str(out/'profile'/str(kind.value)))
+app=QApplication([]);app.setStyle('Fusion');errors=[]
+s=Studio(recover=False);s.maybe_save=lambda:True;s.error=lambda text:errors.append(str(text))
+s.resize(1440,960);s.show();QTest.qWait(200);app.processEvents();s.live_check.setChecked(True)
+p=example('empty');c=p['cells'][0]
+c['devices']=[device('R','R'+str(i),(i%25)*250,(i//25)*200,nets={'p':'n'+str(i),'n':'0'}) for i in range(500)]
+c['shapes']=[rect('metal1',(i%100)*1000,(i//100)*1000,400,400) for i in range(10000)]
+s.set_project(p);QTest.qWait(30);app.processEvents()
+def content():return digest({k:v for k,v in s.project.items() if k not in ('revision','modified')})
+def drain():app.processEvents();s.repaint();app.processEvents()
+def settle():
+    assert s.finish_recovery()
+    s.live_timer.stop();s.start_live_checks();deadline=time.monotonic()+30
+    while (getattr(s,'_live_revision',None)!=s.project['revision'] or s._live_worker is not None
+           or s._live_pending or s.live_timer.isActive()):
+        if time.monotonic()>deadline:raise AssertionError('Background checks did not finish')
+        QTest.qWait(10);drain()
+def activate(variant):
+    for name,fn in variants[variant].items():setattr(Canvas,name,fn)
+    SpatialIndex.query=queries[variant]
+    s.layout._layout_chunks={};drain()
+rows=[];rng=random.Random(2718)
+for operation in ('layout_selection','layout_move','schematic_move'):
+    s.mode_combo.setCurrentIndex(0 if operation=='schematic_move' else 1)
+    s.refresh(False);s.fit_active();QTest.qWait(30);drain()
+    selected=c['devices'][0]['id'] if operation=='schematic_move' else c['shapes'][0]['id']
+    s.select([selected],'schematic' if operation=='schematic_move' else 'layout');settle()
+    for pair in range(10):
+        order=['before','after'];rng.shuffle(order)
+        for variant in order:
+            settle()
+            if operation=='layout_selection':s.select([c['shapes'][0]['id']],'layout')
+            activate(variant);original=content();topology=partition(s.cell)
+            tick=time.perf_counter()
+            if operation=='layout_selection':s.select([c['shapes'][514]['id']],'layout')
+            elif operation=='layout_move':s.editor_execute('move_ref',{'dx':5,'dy':0})
+            else:s.capture_transform([selected],dx=20)
+            drain();elapsed=(time.perf_counter()-tick)*1000
+            assert not errors,errors
+            assert partition(s.cell)==topology
+            if operation=='layout_selection':assert content()==original
+            else:
+                assert content()!=original;s.undo();drain();assert content()==original
+                assert s.finish_recovery()
+                project,fallback=recovery.read(s.recovery_dir/(s.project['id']+'.icproj'))
+                assert not fallback and digest(project)==digest(s.project)
+            rows.append(dict(operation=operation,pair=pair,variant=variant,ms=elapsed))
+        print(json.dumps({'operation':operation,'pair':pair,'status':'passed'}),flush=True)
+activate('after');s.finish_recovery();s.saved_hash=digest(s.project);s.close();app.processEvents()
+summary={name:{variant:statistics.median(r['ms'] for r in rows if r['operation']==name and r['variant']==variant)
+               for variant in variants} for name in ('layout_selection','layout_move','schematic_move')}
+report=dict(scope='One Linux offscreen Studio process; randomized before/after order; 500 devices and 10000 shapes; live checks enabled and settled outside each sample; undo, electrical partition and durable recovery assertions retained.',
+            changed_methods=['Canvas.'+name for name in methods]+['SpatialIndex.query'],summary_ms=summary,samples=rows,errors=errors,status='passed')
+(out/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(summary))

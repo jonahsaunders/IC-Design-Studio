@@ -1,0 +1,45 @@
+[
+  {
+    "name": "unit-tests",
+    "command": [
+      "/workspace/scratch/101e754ddca6/IC-Design-Studio/.venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_*.py",
+      "-q"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 156.323
+  },
+  {
+    "name": "chunks",
+    "command": [
+      "/workspace/scratch/101e754ddca6/IC-Design-Studio/.venv/bin/python",
+      "tests/gui_layout_chunks.py"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 1.437
+  },
+  {
+    "name": "cache-refresh",
+    "command": [
+      "/workspace/scratch/101e754ddca6/IC-Design-Studio/.venv/bin/python",
+      "tests/gui_layout_cache_refresh.py"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.677
+  },
+  {
+    "name": "refresh",
+    "command": [
+      "/workspace/scratch/101e754ddca6/IC-Design-Studio/.venv/bin/python",
+      "tests/gui_refresh_reuse.py"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 1.563
+  }
+]

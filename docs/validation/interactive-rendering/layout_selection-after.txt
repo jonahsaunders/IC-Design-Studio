@@ -1,0 +1,51 @@
+         61805 function calls (57713 primitive calls) in 0.154 seconds
+
+   Ordered by: cumulative time
+   List reduced from 262 to 45 due to restriction <45>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        2    0.000    0.000    0.113    0.056 canvas.py:98(paintEvent)
+        1    0.016    0.016    0.079    0.079 {built-in method processEvents}
+        2    0.000    0.000    0.070    0.035 canvas.py:436(draw_layout)
+        2    0.000    0.000    0.070    0.035 canvas.py:347(paint_layout_geometry)
+        2    0.002    0.001    0.069    0.035 canvas.py:399(paint_layout_chunks)
+        1    0.009    0.009    0.060    0.060 {method 'repaint' of 'PySide6.QtWidgets.QWidget' objects}
+       80    0.043    0.001    0.043    0.001 {method 'drawPicture' of 'PySide6.QtGui.QPainter' objects}
+        2    0.002    0.001    0.042    0.021 grid.py:54(paint_grid)
+      194    0.040    0.000    0.040    0.000 {method 'drawLine' of 'PySide6.QtGui.QPainter' objects}
+        1    0.000    0.000    0.015    0.015 profile_editing.py:29(<lambda>)
+        1    0.000    0.000    0.015    0.015 hierarchy_ui.py:152(select)
+        1    0.000    0.000    0.015    0.015 feature_ui.py:65(select)
+        1    0.003    0.003    0.014    0.014 workspace.py:254(select)
+        2    0.000    0.000    0.011    0.006 layout_cache.py:33(query)
+        2    0.001    0.000    0.011    0.005 spatial.py:11(query)
+        2    0.000    0.000    0.010    0.005 spatial.py:20(visit)
+   4094/2    0.002    0.000    0.010    0.005 spatial.py:14(collect)
+     2050    0.003    0.000    0.008    0.000 {method 'extend' of 'list' objects}
+       82    0.006    0.000    0.008    0.000 canvas.py:421(<genexpr>)
+        1    0.000    0.000    0.007    0.007 editor_workspace.py:536(build_inspector)
+        1    0.000    0.000    0.007    0.007 hierarchy_ui.py:156(build_inspector)
+        1    0.000    0.000    0.007    0.007 lifecycle_ui.py:22(build_inspector)
+        1    0.000    0.000    0.007    0.007 project_ui.py:155(build_inspector)
+        1    0.000    0.000    0.007    0.007 schematic_ui.py:200(build_inspector)
+        1    0.002    0.002    0.007    0.007 workspace.py:407(build_inspector)
+    22048    0.005    0.000    0.005    0.000 spatial.py:18(<genexpr>)
+        2    0.002    0.001    0.005    0.002 canvas.py:282(draw_layout_geometry)
+    23257    0.003    0.000    0.003    0.000 {method 'get' of 'dict' objects}
+        1    0.000    0.000    0.002    0.002 human_workspace.py:318(sync_tools)
+        7    0.002    0.000    0.002    0.000 {method 'addRow' of 'PySide6.QtWidgets.QFormLayout' objects}
+        1    0.000    0.000    0.002    0.002 capture_workspace.py:44(sync_tools)
+        1    0.000    0.000    0.002    0.002 editor_workspace.py:182(sync_tools)
+        1    0.000    0.000    0.002    0.002 schematic_ui.py:273(sync_tools)
+        4    0.000    0.000    0.002    0.000 human_workspace.py:297(adapt_tools)
+        1    0.000    0.000    0.001    0.001 workspace.py:297(sync_tools)
+        4    0.000    0.000    0.001    0.000 consistency_workspace.py:24(adapt_tools)
+        4    0.000    0.000    0.001    0.000 capture_workspace.py:37(adapt_tools)
+      501    0.001    0.000    0.001    0.000 {method 'addItem' of 'PySide6.QtWidgets.QComboBox' objects}
+        1    0.001    0.001    0.001    0.001 editor_workspace.py:213(render_physical_hierarchy)
+        4    0.000    0.000    0.001    0.000 editor_workspace.py:71(adapt_tools)
+        2    0.000    0.000    0.001    0.000 workspace.py:396(section)
+      512    0.001    0.000    0.001    0.000 {method 'drawPath' of 'PySide6.QtGui.QPainter' objects}
+        5    0.000    0.000    0.001    0.000 workspace.py:398(field)
+        2    0.000    0.000    0.001    0.000 workspace.py:42(__init__)
+     1000    0.001    0.000    0.001    0.000 {method 'item' of 'PySide6.QtWidgets.QListWidget' objects}

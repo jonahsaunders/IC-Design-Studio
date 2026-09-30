@@ -1,0 +1,38 @@
+import cProfile, json, os, pstats, statistics, sys, time
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(ROOT))
+from PySide6.QtCore import QPointF, QSettings, QStandardPaths
+from PySide6.QtWidgets import QApplication
+from icstudio.gui import Studio
+from icstudio.model import example, device, digest
+from icstudio.layout import rect
+
+out=Path(sys.argv[1]).resolve();out.mkdir(parents=True,exist_ok=True)
+QSettings.setDefaultFormat(QSettings.IniFormat)
+QSettings.setPath(QSettings.IniFormat,QSettings.UserScope,str(out/'settings'))
+QStandardPaths.writableLocation=staticmethod(lambda kind:str(out/'profile'/str(kind.value)))
+app=QApplication([]);app.setStyle('Fusion')
+s=Studio(recover=False);s.maybe_save=lambda:True;s.live_check.setChecked(False);s.resize(1440,960);s.show();app.processEvents()
+p=example('empty');c=p['cells'][0]
+c['devices']=[device('R','R'+str(i),(i%25)*250,(i//25)*200,nets={'p':'n'+str(i),'n':'0'}) for i in range(500)]
+c['shapes']=[rect('metal1',(i%100)*1000,(i//100)*1000,400,400) for i in range(10000)]
+s.set_project(p);s.mode_combo.setCurrentIndex(1);s.fit_active();app.processEvents();s.repaint();s.finish_recovery()
+result={}
+def measure(name,fn):
+    samples=[]
+    for i in range(10):
+        tick=time.perf_counter();fn(i);app.processEvents();s.repaint();samples.append((time.perf_counter()-tick)*1000)
+    result[name]={'median_ms':statistics.median(samples),'samples_ms':samples}
+    pr=cProfile.Profile();pr.enable();fn(11);app.processEvents();s.repaint();pr.disable()
+    with (out/(name+'.txt')).open('w') as f:pstats.Stats(pr,stream=f).strip_dirs().sort_stats('cumulative').print_stats(45)
+measure('layout_selection',lambda i:s.select([c['shapes'][i*257]['id']],'layout'))
+s.select([c['shapes'][0]['id']],'layout')
+measure('layout_move',lambda i:s.move(s.selection,5,0,'layout'))
+s.finish_recovery()
+s.mode_combo.setCurrentIndex(0);s.refresh(False);s.fit_active();app.processEvents();s.select([c['devices'][0]['id']],'schematic')
+measure('schematic_move',lambda i:s.capture_transform(s.selection,dx=20))
+s.finish_recovery()
+measure('schematic_undo',lambda i:s.undo())
+s.finish_recovery();s.saved_hash=digest(s.project);s.close();app.processEvents()
+(out/'timings.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
