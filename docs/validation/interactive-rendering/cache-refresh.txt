@@ -1,0 +1,1 @@
+PASS: cached layout pictures, metadata/technology/style invalidation and schematic preview isolation.

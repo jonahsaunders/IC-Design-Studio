@@ -1,0 +1,71 @@
+{
+  "baseline_commit": "c33cee4dbbab1cdafb03f11a7aa1d11b08230c57",
+  "scope": "Linux offscreen Canvas rendering, same host; 30 frames per operation. Final source changes only layout rendering. No general editing or native display speed claim.",
+  "host": {
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "python": "3.12.14",
+    "qt_platform": "offscreen",
+    "viewport_pixels": [
+      1000,
+      700
+    ]
+  },
+  "qt_version": "6.8.3",
+  "source_sha256": {
+    "icstudio/canvas.py": {
+      "baseline_sha256": "c6f03ef805878304aaff8f1da46a47d0cf19879ee0024abd99f20fa6cf48fdde",
+      "final_sha256": "fe7114edcceadcf3fd895fed9961e26576b5cb73fb661bb5b4fbee8ce5d72012"
+    },
+    "icstudio/spatial.py": {
+      "baseline_sha256": "1f245c8f6e817efc8b43e784cc7d5306044e008391bc35f920baf144857bafc9",
+      "final_sha256": "1f245c8f6e817efc8b43e784cc7d5306044e008391bc35f920baf144857bafc9"
+    },
+    "scripts/benchmark_layout.py": {
+      "baseline_sha256": "c8173f335f16d3f1959b4ea51f869c5721e01a6420f38c109fd48f1b5c3e9cf9",
+      "final_sha256": "8c3d96bf6efa5ac70622e27bfab615f54670a328e2f09a493388e33713ce3c63"
+    },
+    "tests/gui_layout_chunks.py": {
+      "baseline_sha256": "da3028973788b35b9483988b08a03206685cffc75d8c01215be5c40d114e4fd3",
+      "final_sha256": "a2ae3524df12d757df1432b05a7ddf9fb3632f4b4eb9158a7132890383421fe5"
+    }
+  },
+  "baseline_report": "layout-before.json",
+  "final_report": "layout-after.json",
+  "selection_repaint": [
+    {
+      "kind": "flat",
+      "display_shapes": 1000,
+      "before_median_ms": 50.009,
+      "after_median_ms": 37.705,
+      "reduction_percent": 24.6
+    },
+    {
+      "kind": "hierarchical_array",
+      "display_shapes": 1024,
+      "before_median_ms": 52.365,
+      "after_median_ms": 39.419,
+      "reduction_percent": 24.7
+    },
+    {
+      "kind": "flat",
+      "display_shapes": 10000,
+      "before_median_ms": 220.939,
+      "after_median_ms": 81.609,
+      "reduction_percent": 63.1
+    },
+    {
+      "kind": "hierarchical_array",
+      "display_shapes": 10000,
+      "before_median_ms": 287.436,
+      "after_median_ms": 137.227,
+      "reduction_percent": 52.3
+    }
+  ],
+  "notes": [
+    "The same updated benchmark_layout.py harness measured baseline and final source. Its baseline source hash is the historical harness, not the harness used for measurement.",
+    "The workflow_hash field in canvas reports is pre-existing build metadata, not a fingerprint of the uncommitted rendering change. The file hashes here identify the final change.",
+    "Reports with spatial in their filename and intermediate reports describe discarded candidate code.",
+    "Full-Studio candidate runs had mixed edit timings, including regressions. The final patch retains only rendering improvements."
+  ]
+}

@@ -1,0 +1,249 @@
+{
+  "version": "0.22.0.dev25",
+  "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+  "host": {
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "python": "3.12.14",
+    "qt_platform": "offscreen",
+    "viewport_pixels": [
+      1000,
+      700
+    ]
+  },
+  "workloads": [
+    {
+      "kind": "flat",
+      "requested_shapes": 1000,
+      "display_shapes": 1000,
+      "hierarchy_expansion_ms": 0,
+      "native_master_shapes": null,
+      "cold_canvas_ms": 40.227,
+      "pan": {
+        "median_ms": 24.326,
+        "p95_ms": 38.016,
+        "samples": 30
+      },
+      "zoom": {
+        "median_ms": 34.003,
+        "p95_ms": 52.355,
+        "samples": 30
+      },
+      "overview": {
+        "median_ms": 28.975,
+        "p95_ms": 37.86,
+        "samples": 30
+      },
+      "drag": {
+        "median_ms": 24.321,
+        "p95_ms": 28.842,
+        "samples": 30
+      },
+      "selection": {
+        "median_ms": 0.03,
+        "p95_ms": 0.176,
+        "samples": 30
+      },
+      "selection_repaint": {
+        "median_ms": 30.348,
+        "p95_ms": 36.965,
+        "samples": 30
+      },
+      "drag_path_builds": 0,
+      "single_shape_cache_update_ms": 33.484,
+      "single_shape_path_builds": 1,
+      "history_commit": {
+        "median_ms": 14.565,
+        "p95_ms": 22.776,
+        "samples": 10
+      },
+      "history_undo": {
+        "median_ms": 0.029,
+        "p95_ms": 0.211,
+        "samples": 10
+      },
+      "history_redo": {
+        "median_ms": 0.022,
+        "p95_ms": 0.028,
+        "samples": 10
+      },
+      "ten_undo_records_bytes": 25858,
+      "one_commit_peak_python_allocated_bytes": 847720
+    },
+    {
+      "kind": "hierarchical_array",
+      "requested_shapes": 1000,
+      "display_shapes": 1024,
+      "hierarchy_expansion_ms": 99.521,
+      "native_master_shapes": 1,
+      "cold_canvas_ms": 46.188,
+      "pan": {
+        "median_ms": 26.01,
+        "p95_ms": 29.955,
+        "samples": 30
+      },
+      "zoom": {
+        "median_ms": 32.65,
+        "p95_ms": 48.297,
+        "samples": 30
+      },
+      "overview": {
+        "median_ms": 26.262,
+        "p95_ms": 41.191,
+        "samples": 30
+      },
+      "drag": {
+        "median_ms": 30.245,
+        "p95_ms": 35.02,
+        "samples": 30
+      },
+      "selection": {
+        "median_ms": 0.064,
+        "p95_ms": 0.163,
+        "samples": 30
+      },
+      "selection_repaint": {
+        "median_ms": 38.22,
+        "p95_ms": 56.972,
+        "samples": 30
+      },
+      "drag_path_builds": 0,
+      "single_shape_cache_update_ms": 66.698,
+      "single_shape_path_builds": 475,
+      "history_commit": {
+        "median_ms": 0.386,
+        "p95_ms": 3.851,
+        "samples": 10
+      },
+      "history_undo": {
+        "median_ms": 0.02,
+        "p95_ms": 0.05,
+        "samples": 10
+      },
+      "history_redo": {
+        "median_ms": 0.015,
+        "p95_ms": 0.022,
+        "samples": 10
+      },
+      "ten_undo_records_bytes": 20263,
+      "one_commit_peak_python_allocated_bytes": 13461
+    },
+    {
+      "kind": "flat",
+      "requested_shapes": 10000,
+      "display_shapes": 10000,
+      "hierarchy_expansion_ms": 0,
+      "native_master_shapes": null,
+      "cold_canvas_ms": 205.281,
+      "pan": {
+        "median_ms": 25.617,
+        "p95_ms": 31.192,
+        "samples": 30
+      },
+      "zoom": {
+        "median_ms": 37.763,
+        "p95_ms": 57.199,
+        "samples": 30
+      },
+      "overview": {
+        "median_ms": 60.458,
+        "p95_ms": 94.071,
+        "samples": 30
+      },
+      "drag": {
+        "median_ms": 24.81,
+        "p95_ms": 31.924,
+        "samples": 30
+      },
+      "selection": {
+        "median_ms": 0.031,
+        "p95_ms": 0.122,
+        "samples": 30
+      },
+      "selection_repaint": {
+        "median_ms": 60.033,
+        "p95_ms": 69.931,
+        "samples": 30
+      },
+      "drag_path_builds": 0,
+      "single_shape_cache_update_ms": 92.995,
+      "single_shape_path_builds": 1,
+      "history_commit": {
+        "median_ms": 143.829,
+        "p95_ms": 203.426,
+        "samples": 10
+      },
+      "history_undo": {
+        "median_ms": 0.065,
+        "p95_ms": 0.316,
+        "samples": 10
+      },
+      "history_redo": {
+        "median_ms": 0.054,
+        "p95_ms": 0.099,
+        "samples": 10
+      },
+      "ten_undo_records_bytes": 26054,
+      "one_commit_peak_python_allocated_bytes": 8381312
+    },
+    {
+      "kind": "hierarchical_array",
+      "requested_shapes": 10000,
+      "display_shapes": 10000,
+      "hierarchy_expansion_ms": 0.388,
+      "native_master_shapes": 1,
+      "cold_canvas_ms": 43.758,
+      "pan": {
+        "median_ms": 25.375,
+        "p95_ms": 35.242,
+        "samples": 30
+      },
+      "zoom": {
+        "median_ms": 40.405,
+        "p95_ms": 97.396,
+        "samples": 30
+      },
+      "overview": {
+        "median_ms": 52.648,
+        "p95_ms": 68.214,
+        "samples": 30
+      },
+      "drag": {
+        "median_ms": 27.215,
+        "p95_ms": 38.474,
+        "samples": 30
+      },
+      "selection": {
+        "median_ms": 0.069,
+        "p95_ms": 0.353,
+        "samples": 30
+      },
+      "selection_repaint": {
+        "median_ms": 125.155,
+        "p95_ms": 194.422,
+        "samples": 30
+      },
+      "drag_path_builds": 450,
+      "single_shape_cache_update_ms": 77.233,
+      "single_shape_path_builds": 475,
+      "history_commit": {
+        "median_ms": 0.308,
+        "p95_ms": 0.389,
+        "samples": 10
+      },
+      "history_undo": {
+        "median_ms": 0.02,
+        "p95_ms": 0.038,
+        "samples": 10
+      },
+      "history_redo": {
+        "median_ms": 0.015,
+        "p95_ms": 0.02,
+        "samples": 10
+      },
+      "ten_undo_records_bytes": 20263,
+      "one_commit_peak_python_allocated_bytes": 13581
+    }
+  ],
+  "scope": "Synthetic Canvas rendering and History microbenchmarks. No full Studio refresh, recovery I/O, connected edit solver, GPU presentation or native Windows qualification."
+}

@@ -85,6 +85,10 @@ def main():
             close_scale=canvas.scale
             zoom=frames(lambda i:setattr(canvas,'scale',close_scale*(1+i*.02)))
             canvas.fit();overview=frames(lambda i:setattr(canvas,'offset',canvas.offset+QPointF(1,0)))
+            # Include redraw after changing selection; hit-testing alone misses
+            # whole-viewport picture invalidation on an otherwise static design.
+            selectable=['array'] if hierarchical else [s['id'] for s in drawing['shapes']]
+            selection_repaint=frames(lambda i:setattr(canvas,'selection',[] if i%2 else [selectable[(i*257)%len(selectable)]]))
             canvas.auto_fit=False;canvas.scale=close_scale;canvas.offset=QPointF(20,20)
             pick=[]
             for i in range(args.frames):
@@ -114,7 +118,7 @@ def main():
             tracemalloc.start();h.commit(edit,'Allocation probe');_,python_peak=tracemalloc.get_traced_memory();tracemalloc.stop()
             report['workloads'].append({'kind':'hierarchical_array' if hierarchical else 'flat','requested_shapes':count,'display_shapes':scene.expanded_count if hierarchical and LayoutScene is not None else len(drawing['shapes']),
                 'hierarchy_expansion_ms':round(expand_ms,3),'native_master_shapes':scene.stats['master_shapes'] if hierarchical and LayoutScene is not None else None,'cold_canvas_ms':round(cold_ms,3),'pan':pan,'zoom':zoom,'overview':overview,'drag':drag,'selection':summary(pick),
-                'drag_path_builds':drag_builds,'single_shape_cache_update_ms':round(edit_cache_ms,3),'single_shape_path_builds':edit_builds,
+                'selection_repaint':selection_repaint,'drag_path_builds':drag_builds,'single_shape_cache_update_ms':round(edit_cache_ms,3),'single_shape_path_builds':edit_builds,
                 'history_commit':summary(commits),'history_undo':summary(undos),'history_redo':summary(redos),'ten_undo_records_bytes':memory,
                 'one_commit_peak_python_allocated_bytes':python_peak})
             del h,p,c,drawing,changed,canvas;gc.collect()

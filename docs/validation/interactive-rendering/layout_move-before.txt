@@ -1,0 +1,51 @@
+         170175 function calls (156049 primitive calls) in 0.245 seconds
+
+   Ordered by: cumulative time
+   List reduced from 309 to 45 due to restriction <45>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        2    0.000    0.000    0.120    0.060 canvas.py:98(paintEvent)
+        1    0.000    0.000    0.095    0.095 profile_editing.py:31(<lambda>)
+        1    0.000    0.000    0.095    0.095 layout_development_ui.py:113(move)
+        1    0.000    0.000    0.095    0.095 gui.py:26(guard)
+        1    0.001    0.001    0.095    0.095 layout_development_ui.py:123(edit)
+        1    0.020    0.020    0.085    0.085 {built-in method processEvents}
+        1    0.001    0.001    0.083    0.083 model.py:328(commit_layout_move)
+        2    0.000    0.000    0.081    0.040 canvas.py:425(draw_layout)
+        2    0.000    0.000    0.081    0.040 canvas.py:343(paint_layout_geometry)
+        1    0.005    0.005    0.079    0.079 layout_transaction.py:13(propose)
+        2    0.002    0.001    0.077    0.038 canvas.py:395(paint_layout_chunks)
+        1    0.010    0.010    0.066    0.066 {method 'repaint' of 'PySide6.QtWidgets.QWidget' objects}
+       80    0.044    0.001    0.044    0.001 {method 'drawPicture' of 'PySide6.QtGui.QPainter' objects}
+        2    0.002    0.001    0.037    0.018 grid.py:54(paint_grid)
+      194    0.034    0.000    0.034    0.000 {method 'drawLine' of 'PySide6.QtGui.QPainter' objects}
+        1    0.016    0.016    0.031    0.031 layout_graph.py:20(sync)
+        2    0.028    0.014    0.028    0.014 layout_graph.py:105(partition)
+        2    0.001    0.000    0.025    0.012 layout_cache.py:33(query)
+        2    0.000    0.000    0.024    0.012 spatial.py:11(query)
+   4094/2    0.004    0.000    0.024    0.012 spatial.py:14(visit)
+     2050    0.003    0.000    0.019    0.000 {method 'extend' of 'list' objects}
+    22048    0.007    0.000    0.015    0.000 spatial.py:16(<genexpr>)
+        1    0.000    0.000    0.011    0.011 layout_development_ui.py:140(refresh_layout_edit)
+    24094    0.010    0.000    0.010    0.000 spatial.py:13(overlaps)
+    52105    0.009    0.000    0.009    0.000 {method 'get' of 'dict' objects}
+        1    0.000    0.000    0.008    0.008 editor_workspace.py:536(build_inspector)
+        1    0.000    0.000    0.008    0.008 hierarchy_ui.py:156(build_inspector)
+        1    0.000    0.000    0.008    0.008 lifecycle_ui.py:22(build_inspector)
+        1    0.000    0.000    0.008    0.008 project_ui.py:155(build_inspector)
+        1    0.000    0.000    0.008    0.008 schematic_ui.py:200(build_inspector)
+        1    0.001    0.001    0.008    0.008 workspace.py:407(build_inspector)
+    10001    0.005    0.000    0.008    0.000 layout_graph.py:12(key)
+        1    0.004    0.004    0.007    0.007 layout_arrange.py:126(translated_cell)
+    15/14    0.002    0.000    0.006    0.000 {built-in method builtins.any}
+        1    0.001    0.001    0.006    0.006 canvas.py:282(draw_layout_geometry)
+      731    0.004    0.000    0.004    0.000 {built-in method builtins.getattr}
+  10034/1    0.003    0.000    0.003    0.003 history_delta.py:20(difference)
+    10001    0.002    0.000    0.003    0.000 canvas.py:368(<genexpr>)
+        2    0.000    0.000    0.003    0.001 canvas.py:29(set_data)
+        1    0.002    0.002    0.003    0.003 layout_arrange.py:13(selection_groups)
+        1    0.001    0.001    0.002    0.002 layout_cache.py:102(update_dirty)
+        7    0.002    0.000    0.002    0.000 {method 'addRow' of 'PySide6.QtWidgets.QFormLayout' objects}
+    10001    0.002    0.000    0.002    0.000 layout_graph.py:49(<genexpr>)
+        1    0.000    0.000    0.002    0.002 route_constraints.py:167(enforce)
+        2    0.002    0.001    0.002    0.001 route_constraints.py:87(findings)

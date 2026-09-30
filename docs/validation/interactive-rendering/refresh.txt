@@ -1,0 +1,1 @@
+PASS: presentation reuse, properties, selection, findings, nets, undo/redo, project replacement, layer display and guarded reference moves.

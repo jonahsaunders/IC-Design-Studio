@@ -1,5 +1,9 @@
 # Desktop edit responsiveness
 
+The [interactive rendering follow-up](INTERACTIVE_RENDERING_PERFORMANCE.md)
+reduces layout selection redraw work, with
+same-host before/after measurements and direct-renderer pixel comparisons.
+
 The [reliable-workflow follow-up](RELIABLE_DESIGN_WORKFLOWS.md) adds retained
 drawing chunks, narrow layout undo/redo refresh, receipt-verified recovery and
 background-check measurements with a 95th-percentile edit target. The records

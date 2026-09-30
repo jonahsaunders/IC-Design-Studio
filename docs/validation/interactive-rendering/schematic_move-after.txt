@@ -1,0 +1,51 @@
+         153423 function calls (142770 primitive calls) in 0.245 seconds
+
+   Ordered by: cumulative time
+   List reduced from 300 to 45 due to restriction <45>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        2    0.000    0.000    0.141    0.070 canvas.py:98(paintEvent)
+        2    0.000    0.000    0.110    0.055 canvas.py:154(draw_schematic)
+        1    0.015    0.015    0.105    0.105 {built-in method processEvents}
+        1    0.000    0.000    0.081    0.081 profile_editing.py:34(<lambda>)
+        1    0.000    0.000    0.081    0.081 capture_workspace.py:54(capture_transform)
+        2    0.003    0.002    0.080    0.040 canvas.py:230(draw_schematic_overview)
+       15    0.074    0.005    0.074    0.005 {method 'drawPath' of 'PySide6.QtGui.QPainter' objects}
+        1    0.000    0.000    0.071    0.071 model.py:307(commit_schematic_transform)
+        1    0.002    0.002    0.071    0.071 schematic_transaction.py:54(propose)
+        1    0.009    0.009    0.061    0.061 {method 'repaint' of 'PySide6.QtWidgets.QWidget' objects}
+        1    0.000    0.000    0.030    0.030 capture_ops.py:9(transform)
+        2    0.002    0.001    0.030    0.015 grid.py:54(paint_grid)
+        2    0.000    0.000    0.030    0.015 wire_canvas.py:134(draw_wires)
+      114    0.028    0.000    0.028    0.000 {method 'drawLine' of 'PySide6.QtGui.QPainter' objects}
+        1    0.004    0.004    0.025    0.025 wiring.py:178(validate_wiring_structure)
+        7    0.005    0.001    0.022    0.003 wiring.py:46(pins)
+        1    0.003    0.003    0.017    0.017 wiring.py:118(rebuild)
+        3    0.001    0.000    0.017    0.006 wire_canvas.py:36(wire_spatial)
+     3500    0.009    0.000    0.016    0.000 interchange.py:9(pin_positions)
+        7    0.000    0.000    0.014    0.002 spatial.py:3(__init__)
+    133/7    0.001    0.000    0.014    0.002 spatial.py:4(build)
+4512/3012    0.003    0.000    0.013    0.000 {built-in method builtins.any}
+        2    0.001    0.001    0.012    0.006 wire_canvas.py:115(wire_geometry)
+ 7005/509    0.004    0.000    0.012    0.000 schematic_transaction.py:13(_same)
+     2000    0.006    0.000    0.012    0.000 native_vectors.py:21(signals)
+        1    0.002    0.002    0.012    0.012 net_labels.py:57(validate)
+        1    0.000    0.000    0.010    0.010 gui.py:96(persist_history)
+        1    0.000    0.000    0.010    0.010 capture_workspace.py:63(refresh_schematic_edit)
+        1    0.002    0.002    0.009    0.009 wiring.py:64(graph)
+ 1008/508    0.001    0.000    0.009    0.000 {built-in method builtins.all}
+        1    0.001    0.001    0.009    0.009 wiring.py:408(junction_points)
+        1    0.000    0.000    0.008    0.008 editor_workspace.py:536(build_inspector)
+        1    0.000    0.000    0.008    0.008 hierarchy_ui.py:156(build_inspector)
+        1    0.000    0.000    0.008    0.008 lifecycle_ui.py:22(build_inspector)
+        1    0.000    0.000    0.008    0.008 project_ui.py:155(build_inspector)
+        1    0.000    0.000    0.008    0.008 schematic_ui.py:200(build_inspector)
+        1    0.002    0.002    0.008    0.008 workspace.py:407(build_inspector)
+7495/5998    0.006    0.000    0.008    0.000 schematic_transaction.py:18(<genexpr>)
+     1500    0.000    0.000    0.007    0.000 wiring.py:199(<genexpr>)
+     3004    0.007    0.000    0.007    0.000 spatial.py:11(query)
+        1    0.002    0.002    0.007    0.007 wiring.py:361(keep_connections)
+     1000    0.000    0.000    0.006    0.000 native_vectors.py:47(valid_expression)
+       63    0.004    0.000    0.005    0.000 {method 'sort' of 'list' objects}
+      263    0.003    0.000    0.004    0.000 {built-in method builtins.min}
+      306    0.003    0.000    0.004    0.000 {built-in method builtins.max}
