@@ -22,18 +22,24 @@ commands. Five startup measurements and voltage/current waveforms are retained.
 
 ## Run in IC Design Studio
 
-1. For the supplied native `.icproj`, choose **File → Open project**. It contains
-   its simulation models and the six-case program.
-2. To exercise import yourself, choose **File → Import and migrate Xschem
-   project…** and select `5vfullv2-compatibility.sch`.
-3. In **Target device library**, select the installed GF180MCUD revision to
-   exercise catalog conversion. If needed, install the included package through
-   **File → Project Hub → PDKs** first. The review should match **60 model
+1. Choose **File → Import and migrate Xschem project…** and select
+   [`5vfullv2-compatibility.sch`](../examples/gf180-bandgap/5vfullv2-compatibility.sch).
+   The repository contains the source schematic; a native project is created
+   by this import or by the verification script below.
+2. In **Target device library**, select the registered `gf180mcuD` revision to
+   exercise catalog conversion. If needed, choose
+   **Tools → Set up an open PDK → Use included PDKs** first. The review should match **60 model
    devices**, with **0 unmatched**. Save the native project.
-4. Keep **ngspice** and the saved **program** analysis selected, then press
-   **F5**. Under **Results → Simulation → Program analyses**, six cases should
+3. Keep **ngspice** and the saved **program** analysis selected, then press
+   **F5**. Open **Analysis → Program analyses**; six cases should
    finish. Open any case's waveform. Selecting a separate single-analysis
    setup runs that analysis instead of the embedded six-case program.
+
+The verifier writes `5vfullv2-native.icproj` in its output directory. If you
+already have that generated artifact, use **File → Open project…** to open it.
+For the gallery's short startup and full characterization forms, see the
+[supplied bandgap guide](../examples/gf180-bandgap/README.md). Its original upload
+and this compatibility reduction have separate source identity records.
 
 The repository schematic retains the original `/foss/pdks/...` references;
 Studio resolves these using its included GF180 simulation library. The separate

@@ -1,5 +1,7 @@
 # Working with IC Design Studio 0.3
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 The application remains a native desktop program. Dark mode and the slim US-style resistor, capacitor and voltage-source artwork are retained. New commands are also searchable through Ctrl+K.
 
 ## Parameters, symbols, buses and annotations

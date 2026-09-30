@@ -1,5 +1,7 @@
 # Layout development — 0.22.0.dev6
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 Current workflow additions, alignment behavior and validation limits are in [the dev6 guide](PRIORITIES_0.22.md). The performance implementation and measurements below describe dev5 unless a version is explicitly stated.
 
 This source snapshot extends the existing Python/Qt desktop application. It retains the native exchange fixes from [0.21.1](UPDATE_0.21.1.md). It is an engineering preview; the existing 0.21.0 portable binaries do not include these changes.

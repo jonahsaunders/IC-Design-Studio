@@ -1,5 +1,10 @@
 # Density-filled Banba candidate
 
+This page records the original **600 µm halo** candidate. The later
+[550 µm candidate](../README.md#smaller-density-floorplan) reduces the footprint
+to 3.253175 mm² with separate DRC/LVS evidence. The archived measurements and
+files below still belong to this 600 µm reference.
+
 [`banba-density.gds`](banba-density.gds) closes the original 314 density findings by adding real dummy COMP, poly and M1–M4 around the circuit. The footprint expands from **0.4827 to 3.6250 mm² (7.51×)**. Device placement, routing, recognition masks and circuit dimensions are unchanged, as checked by a layer-by-layer geometric XOR and strict LVS. This is a physical finishing output; continue editing the original `../banba-layout.icproj`, regenerate its core GDS, and rerun fill after edits. Do not import more than a million fill tiles into the native flattened editor.
 
 The new **2052.1 × 1766.5 µm** boundary includes a 600 µm collar on all sides of the original envelope. Layer 63/0 explicitly defines that rectangle, including the empty 30 µm edge margin. This full area is the density denominator. Fill also occupies eligible gaps in the original envelope. No density threshold is lowered and no marker is waived.

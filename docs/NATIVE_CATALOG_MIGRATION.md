@@ -64,8 +64,12 @@ review. Xschem exchange rejects changed PDK model files until a new migration is
 reviewed; it accepts electrical parameter edits against unchanged models.
 
 IHP needs an appropriate installed adapter and compatible ngspice/OSDI runtime.
-This feature does not supply missing OSDI binaries or add arbitrary Tcl execution
-or vector-bus conversion. Those existing runtime/import limits still apply.
+This feature does not supply missing OSDI binaries or execute arbitrary Tcl.
+The Xschem importer separately supports bounded vector expansion; see
+[real-project import](OPEN_PROJECTS.md). Editable native buses and compact
+instance arrays have their own [ordering and exchange contract](NATIVE_VECTORS.md).
+Native support does not imply that every Xschem repetition or bus construct can
+be imported or exported without scalar materialization.
 
 ## Command line
 

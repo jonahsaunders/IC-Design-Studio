@@ -1,4 +1,6 @@
-# Current verification — 0.8.0
+# Historical verification — 0.8.0
+
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
 
 114 core tests, ten Qt suites, four actual-ngspice saved-analysis cases and eighteen hierarchical/interchange cases produce their expected outcomes. The ring oscillator also passes from the native desktop and final standalone executable. The final frozen app passes 100% and 200% scaling probes with development overrides removed. The consolidated evidence and exact limits are described in [UPDATE_0.8.md](UPDATE_0.8.md). Windows execution remains unverified.
 

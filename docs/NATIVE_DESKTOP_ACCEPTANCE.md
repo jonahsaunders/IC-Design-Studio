@@ -1,12 +1,15 @@
 # Native Windows and Ubuntu acceptance
 
-Use the exact dev25 installer/portable archive whose source commit passed the
-desktop, interoperability, physical, digital, VGA and statistical workflows. The
-[dev25 handoff](DEV25_ACCEPTANCE_HANDOFF.md) identifies the existing draft and
-package digests; later experimental changes require newly qualified packages. Launch without a preinstalled
+Use the exact candidate installer/portable archive whose source commit passed
+the current seven gates: desktop, interoperability, physical, digital, VGA,
+statistical campaigns and reference compatibility. [Release status](RELEASE_STATUS.md)
+identifies dated draft checkpoints; the [dev25 handoff](DEV25_ACCEPTANCE_HANDOFF.md)
+preserves an older package's digests. Use the selected candidate's own hashes.
+Launch without a preinstalled
 Python or EDA toolchain. Keep the complete application directory together.
 
-Run `ICDesignStudio.exe --desktop-acceptance acceptance-dev25` on Windows, or
+From the extracted/installed application directory, run
+`.\ICDesignStudio.exe --desktop-acceptance acceptance-dev25` in PowerShell, or
 `./ICDesignStudio --desktop-acceptance acceptance-dev25` on Ubuntu. Use a fresh
 output directory for each OS/build/display configuration. Select the downloaded
 installer or archive in the acceptance window so its SHA-256 is retained.
@@ -49,8 +52,8 @@ Exit code zero requires both platforms to pass for these exact bytes. This
 check does not create missing human observations or change the separate signing
 and physical-network acceptance requirements.
 
-This workspace cannot supply physical Windows/Ubuntu or mixed-monitor evidence.
-The corresponding [Windows](https://github.com/jonahsaunders/IC-Design-Studio/issues/8)
+Automated hosted runs cannot supply physical Windows/Ubuntu or mixed-monitor
+observations. The corresponding [Windows](https://github.com/jonahsaunders/IC-Design-Studio/issues/8)
 and [Ubuntu](https://github.com/jonahsaunders/IC-Design-Studio/issues/9) acceptance
 issues remain open until actual records are attached. A hosted Windows Server
 probe and Linux offscreen/Xvfb execution remain distinct evidence.

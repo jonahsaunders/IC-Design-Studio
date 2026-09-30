@@ -1,5 +1,7 @@
 # Fresh-desktop and experienced-user acceptance
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 Status: **not executed** in the 0.13 build environment. Automated Qt/offscreen
 tests and clean-directory extraction do not establish fresh-machine usability.
 Use the companion JSON template for actual sessions; leave unrun tasks unrun.

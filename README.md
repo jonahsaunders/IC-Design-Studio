@@ -18,6 +18,7 @@
 <p align="center">
   <a href="#start-in-three-steps"><strong>Get started</strong></a> &nbsp;·&nbsp;
   <a href="#example-library">Examples</a> &nbsp;·&nbsp;
+  <a href="#bandgaps-and-a-programmable-voltage-monitor">Bandgaps &amp; voltage monitor</a> &nbsp;·&nbsp;
   <a href="#explore-the-workspace">Feature tour</a> &nbsp;·&nbsp;
   <a href="#feature-reference">All features</a> &nbsp;·&nbsp;
   <a href="docs/INDEX.md">Documentation</a> &nbsp;·&nbsp;
@@ -86,7 +87,7 @@ Python requirements do not install the digital engines, VGA assets or openEMS ru
 | Digital simulation through RTL-to-GDS | Included digital runtime and locked SKY130 HD platform in complete desktop packages; a built runtime or explicit **Custom tools** selection in source mode |
 | Student Hub Digital lessons | Local `iverilog` and `vvp`, selected in **More → Engine setup** |
 | SAR ADC, Mixed Signal lessons and capstone | Local `ngspice`, `iverilog` and `vvp`; behavioral models, no downloaded PDK |
-| Process layout verification | Matching physical PDK assets/decks and the configured Magic, Netgen or KLayout engines |
+| Process layout verification | Matching physical PDK assets/decks; **Tools → Physical tools setup** selects the included Magic/Netgen/ngspice runtime or configured custom engines |
 | Inductor EM simulation | openEMS runtime plus declared physical materials and layer data in a PDK profile |
 
 The packaged digital runtime uses native Linux tools or an app-owned **WSL 2** distribution on Windows. First-time Windows setup may need administrator approval and a restart. Linux packages target **x86_64, glibc 2.39+**. The Student Hub and SAR bridge use local executable paths, independently of that managed digital runtime.
@@ -146,8 +147,10 @@ Open **File → Start here / example gallery** to browse **13 guided examples**.
 | [Native divider](examples/native-divider.icproj) | Run the operating point; study `R1.native.value` under **Analysis → Variation cases** | **0.5 V** from two 1 kΩ resistors; **0.25 V** when the upper resistor becomes 3 kΩ; ngspice |
 | [Inverter and linked layout](examples/inverter_layout.icproj) | Select devices across both views, simulate, inspect generic DRC | Inverted output and linked educational geometry; included solver |
 | [SKY130 transistor inverter](examples/sky130-simulation/inverter.sch) | Run the saved 1.8 V, 12 ns transient | Opposite input/output switching with bundled process models; ngspice |
+| [Supplied GF180 5 V bandgap](examples/gf180-bandgap/README.md) | Try the short startup, six-case compatibility bench or original 144-analysis program | A roughly **1.2 V** reference; the six-case archive records **1.19507235 V** at the end of startup |
 | [Banba reference: schematic → optimization → layout](examples/gf180-banba/README.md) | Follow gallery entries **10–12** | Editable GF180 hierarchy, saved searches and a routed layout; [measured trade-offs](#build-a-gf180mcu-banba-bandgap) |
 | [Four-bit SAR ADC](examples/sar-adc/sar-adc.icproj) | Run the coupled experiment at 0.93 V | **Code 8** after four comparisons; local ngspice and Icarus |
+| [SKY130 voltage monitor / overvoltage detector](docs/OPEN_PROJECTS.md) | Generate the locked external design's runnable bench, change its four code inputs, sweep the monitored voltage | **16 programmable trip codes**; archived rising thresholds **3.30–5.46 V** under the recorded nominal conditions |
 
 <details>
 <summary><strong>Browse all 13 gallery projects</strong></summary>
@@ -173,6 +176,18 @@ The included process simulation examples resolve their bundled models automatica
 </details>
 
 **More starting points:** the **Digital** menu creates a counter, UART regression or APB FIFO peripheral; the [VGA Playground](#preview-rtl-in-the-vga-playground) adds eight interactive RTL presets. The [Student Hub](#learn-by-building-real-circuits) supplies its own lesson projects. For import exercises, try the [hierarchical Xschem amplifier](examples/xschem-amplifier/amplifier.sch), [manual wiring](examples/manual-wiring.icproj), or a [real open design](#work-with-real-open-designs).
+
+### Bandgaps and a programmable voltage monitor
+
+These are three distinct reference designs, with different entry points and verification evidence:
+
+| Design | Open it | Explore it |
+|---|---|---|
+| **Supplied GF180 `5vfullv2` bandgap** · 5 V supply, approximately 1.2 V output | Gallery **07 · GF180 bandgap startup** or **08 · GF180 full characterization**. Import [`5vfullv2-compatibility.sch`](examples/gf180-bandgap/5vfullv2-compatibility.sch) for the separate six-case test. | Startup, supply/temperature sweeps, supply rejection and output impedance; compare native import/export behavior. [Files, provenance and walkthrough](examples/gf180-bandgap/README.md). |
+| **Native GF180MCU Banba reference** · 3.3 V supply, approximately 0.6 V output | Gallery **10–12**: build, improve, then lay out the reference. | Editable transistor-level hierarchy, optimizer searches, matched placement, extracted comparisons and explicit remaining physical limits. [Design sequence](examples/gf180-banba/README.md) · [Layout qualification](examples/gf180-banba/layout/README.md). |
+| **SKY130 programmable voltage monitor** · 16 trip codes | Obtain the pinned external source and generate **`overvoltage-bench.icproj`** using the [reproduction guide](docs/OPEN_PROJECTS.md#reproduce-the-overvoltage-project). | Open **`detector_dc_bench`**, keep first-point DC voltage guesses enabled, and press **F5**. Drive **`Vbit0`–`Vbit3`** with 0/1.8 V and inspect **`ovout`**; use **Linked views** to inspect its schematic and layout. |
+
+The supplied bandgap has two locked upload revisions: the gallery startup/full programs and the later six-case compatibility reduction retain their own provenance. The voltage monitor is the Apache-2.0 design by the Von Braun Labs contributors, downloaded explicitly rather than bundled as a gallery project. Its bare **`overvoltage.icproj`** is for inspection; **`overvoltage-bench.icproj`** adds supplies, bias, load and embedded models for simulation. The archived 16-code rising DC result does not qualify PVT, falling hysteresis or timing. [Voltage-monitor evidence and attribution](docs/OPEN_PROJECTS.md#what-is-checked).
 
 ## Feature tour
 
@@ -221,7 +236,7 @@ The optimizer uses the existing simulators and needs no extra optimization packa
 
 Closing the workspace returns to the editor while queued jobs continue. Interrupted searches remain paused after an application restart until explicitly resumed.
 
-Saved testbenches can select process capacitance, bounded flat process RC or calibrated interconnect extraction with supported physical hierarchy. Process RC preserves the actual resistor graph and reconstructs the original capacitance matrix with recorded approximation limits. Constrained layout updates preserve matching and routing intent, while durable campaigns run up to 10,000 verification cases with resumable workers. **Tools → Hierarchy and design automation…** provides reviewed, undoable batch edits. See [integrated analog workflows and supported scope](docs/ANALOG_CLOSURE.md).
+Saved testbenches can select process capacitance, process RC with supported hierarchy flattened in a disposable workspace, or bounded calibrated interconnect extraction. Process RC preserves the actual resistor graph and reconstructs the original capacitance matrix with recorded approximation limits; see the [current hierarchy and device contract](docs/ANALOG_IMPLEMENTATION_EXTENSIONS.md#process-rc-integrity). Constrained layout updates preserve matching and routing intent, while durable campaigns run up to 10,000 verification cases with resumable workers. **Tools → Hierarchy and design automation…** provides reviewed, undoable batch edits. See [integrated analog workflows and supported scope](docs/ANALOG_CLOSURE.md).
 
 [Workspace setup, debugging, and layout](docs/ANALOG_WORKSPACE.md) · [Optimizer, gm/Id, and characterization](docs/ANALOG_OPTIMIZER.md) · [Advanced analyses and verification automation](docs/ANALOG_OPTIMIZER.md#advanced-analyses) · [Detailed analog feature inventory](#analog-design-optimization-and-verification).
 

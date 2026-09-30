@@ -35,7 +35,7 @@ The Inspector contains **Properties** and **Analysis**. Results are grouped into
 
 Open **Native divider and studies** from the gallery. The two 1 kΩ resistors divide a 1 V source, so the saved operating-point analysis should report **0.5 V at out**.
 
-This example requires ngspice. It is included in the Windows portable package. For a repository checkout on any platform, install a native ngspice and select the executable in **Tools → Engine diagnostics and paths**. You can also set the `ICSTUDIO_NGSPICE` environment variable. The built-in solver remains available for teaching examples.
+This example requires ngspice. Follow [simulation setup](../SIMULATION_SETUP.md) for the runtime provided by your package or source launcher. For a custom native installation, select the executable in **Tools → Engine diagnostics and paths…** or set `ICSTUDIO_NGSPICE`. The built-in solver remains available for teaching examples; a Python dependency installation alone does not install external engines.
 
 Press **F5**, then inspect its run and waveforms. Open **Analysis → Variation cases** to explore parameter studies. For this native circuit, the resistor parameter target is `R1.native.value`. [Native analysis details](UPDATE_0.20.md) explain sensitivity, bounded search and specifications.
 
@@ -70,3 +70,9 @@ Migration preserves source material in a recovery archive. It supports an explic
 | Missing panels | Reset the workspace through the Window menu |
 
 Use the short [examples](../examples/README.md) to separate a setup issue from a larger design issue. Include the version, platform and a small reproducer when reporting a bug.
+
+For a complete course, use [Student Hub](STUDENT_HUB.md). For RTL, follow the
+[digital workspace](DIGITAL_WORKSPACE.md) and its included-tool setup. The
+[mixed-signal SAR example](MIXED_SIGNAL_SAR.md) has a separate local
+ngspice/Icarus setup. For shared editing or checkpoint review, open
+**Tools → Collaboration** and follow [the collaboration guide](LIVE_COLLABORATION.md).

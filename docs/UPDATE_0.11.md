@@ -1,5 +1,7 @@
 # IC Design Studio 0.11.0 — native layout editor
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This release makes everyday layout work more familiar to engineers using
 classic analog workflows or KLayout. It extends the existing Python/PySide6 desktop application
 and preserves the 0.10 analog, verification and process workflows. The keyboard

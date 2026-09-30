@@ -1,5 +1,7 @@
 # 0.13 capability ledger
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 | Area | Implemented | Boundary / follow-up |
 |---|---|---|
 | Familiar workspace | Existing editable Xschem/Classic analog schematic and symbol profiles; Classic analog/KLayout layout profiles; clearer active capture tools and compact controls | Inspired conventions, not vendor emulation or interoperability certification |

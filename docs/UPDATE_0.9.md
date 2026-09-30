@@ -1,5 +1,7 @@
 # IC Design Studio 0.9.0 — analog characterization
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This native desktop engineering preview continues the verified 0.8.0 source.
 It completes an analog schematic/characterization slice of the proposed 0.9
 roadmap, plus initial process-adapter contracts and coordinated layout movement.

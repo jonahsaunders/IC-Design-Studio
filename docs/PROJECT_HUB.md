@@ -36,6 +36,11 @@ The revision field shows the package's actual revision identifier, which may be 
 
 Included GF180MCU and SKY130 packages are simulation subsets. IHP appears as **Add installation** until its local installation or adapter is registered; its simulations also need compatible ngspice/OSDI support. Other PDKs and multiple revisions use the same list when registered through the technology package interface. Adding a process does not add a first-level menu item.
 
+**Tools → Physical tools setup…** manages the included/custom verification
+engines separately. Preparing Magic, Netgen and ngspice does not turn a simulation
+subset into a physical PDK: the project still needs matching locked geometry,
+extraction and rule assets. See the [PDK guide](PDK_GUIDE.md).
+
 ## Add or recover an installation
 
 Choose **Add PDK**. In setup, choose **Find installed PDKs** to search the supported local locations, or **Add folder** to select an installation, variant parent or extracted package collection. Review the candidates, then choose **Check and register**. **Done** returns to the hub and refreshes the inventory. Opening the hub alone does not scan your disk or install packages.

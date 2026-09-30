@@ -1,15 +1,18 @@
 # Release acceptance tracking
 
-The current candidate is **0.22.0.dev25**. Automated qualification and manual
+The current source version is **0.22.0.dev25**; identify each candidate by its
+full commit and asset hashes. Automated qualification and manual
 acceptance have separate completion criteria. Attach the exact source commit,
 package SHA-256 and observations; a closed issue without evidence does not
 qualify a platform or distribution policy.
 
-The existing dev25 draft passed all six hosted gates at
-`a88cfe1cfe20254638b7bd97ec9128e843578282`. The
-[acceptance handoff](DEV25_ACCEPTANCE_HANDOFF.md) provides its package digests,
-native commands and the outstanding signing/LAN/VPN checks. All four manual
-gates below remain open; later experimental source changes require fresh packages.
+The [2026-09-30 release snapshot](RELEASE_STATUS.md#current-source-and-package-snapshot--2026-09-30)
+identifies the latest successfully prepared main/experimental drafts. Both remain
+unpublished and differ from the later experimental source. The older
+[dev25 handoff](DEV25_ACCEPTANCE_HANDOFF.md) preserves six-gate results and
+package digests for `a88cfe1cfe20254638b7bd97ec9128e843578282`; do not use those
+digests for a newer draft. All four manual gate issues below were still open
+when checked through GitHub on 2026-09-30.
 
 | Gate | Tracking | Required evidence |
 |---|---|---|
@@ -21,9 +24,9 @@ gates below remain open; later experimental source changes require fresh package
 Issues #8–#10 were reopened because their earlier closures contained unchecked
 acceptance lists and no completion records. Historical dev12 issue #11 and old
 release evidence remain historical; they do not qualify current packages.
-Some issue titles still name dev24. Keep those checks open until a record names
-the candidate actually tested; do not reuse the old draft's package identity for
-dev25.
+Historical issue wording may name an older candidate. Keep checks open until a
+record names the candidate actually tested; do not reuse an older draft's package
+identity for a newer build with the same version.
 
 Both consumer-platform checks include VGA without external network access:
 all eight presets, actual sound, keyboard/Gamepad controls, hide/resume, invalid
@@ -33,8 +36,9 @@ screenshots and sanitized logs. Leave `Not run`, failed or blocked items open.
 
 ## Automated candidate gates
 
-1. Run desktop/package, external interoperability, pinned physical, digital, VGA
-   and statistical campaign workflows on the selected source commit. Inspect failures and retained
+1. Run all seven current gates: desktop/package, external interoperability,
+   pinned physical, digital, VGA, statistical campaigns and reference
+   compatibility on the selected source commit. Inspect failures and retained
    evidence before promoting the candidate.
 2. Windows installation and Windows/Linux archive execution must include passing
    frozen VGA reports with all eight presets and the same clean commit/version.
@@ -45,7 +49,9 @@ screenshots and sanitized logs. Leave `Not run`, failed or blocked items open.
    1,152-case numerical workload with crash recovery and resolved trial results.
 3. Prepare a draft with matching source, applications, qualification evidence and
    checksums. Version changes on `experimental` or `main` trigger draft preparation;
-   manual dispatch remains available.
+   manual dispatch remains available. Other source changes only trigger automatic
+   draft preparation when they match the paths in
+   [release-preview.yml](../.github/workflows/release-preview.yml).
 4. Review the four manual gates above before public publication. A passing draft
    workflow never publishes automatically or marks manual acceptance complete.
 

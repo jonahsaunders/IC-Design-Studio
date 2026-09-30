@@ -1,12 +1,13 @@
 # Collaborating on schematics and layouts
 
-## Dev19 review recovery
+## Review recovery
 
-Submitted checkpoint discussions and decisions can now survive a lost response
+Submitted checkpoint discussions and decisions survive a lost response
 and app restart. [Review recovery](REVIEW_RECOVERY.md) explains retry and discard.
-This does not change document protocol 2 or allow a general offline edit queue.
+Unsent review text also has a separate local draft store; restoring a draft does
+not post it. Neither feature permits a general offline design-edit queue.
 
-Available in **0.22.0.dev15**. Open **Tools → Collaboration**, share a project or
+Introduced in **0.22.0.dev15** and extended in later experimental source. Open **Tools → Collaboration**, share a project or
 join an invitation, and switch between **Schematic** and **Layout** normally.
 Both views use one workspace, revision history and set of review checkpoints.
 
@@ -64,7 +65,7 @@ To attach a comment, select **Attach to current selection**, then choose:
 The server validates attachments against the selected checkpoint. If the design
 has changed, save/select the appropriate checkpoint first. **Go to object** opens
 the current target. If a target was removed or renamed, inspect its checkpoint.
-Approvals apply only to their checkpoint. Viewers can inspect reviews; dev16 adds a reviewer role for posting, threaded replies and decisions without editing.
+Approvals apply only to their checkpoint. Viewers can inspect reviews; reviewers can post, reply and record decisions without editing the design.
 See [the workflow and review update](WORKFLOW_REVIEW_0.22.md).
 
 Conflicting component edits open a three-version schematic comparison: before
@@ -82,11 +83,13 @@ Claims expire and are renewed while connected, as in earlier builds.
 
 ## Updating an existing team
 
-Update the server and every participating desktop to dev15 together. The HTTP
+Update the server and every participating desktop to the same current build. The HTTP
 API is `/v2/workspaces`; old `/v1` clients receive an update message. New clients
-refuse incompatible server snapshots. The server upgrades its SQLite schema to
-version 2 while retaining projects, sessions, accepted edits, reviews and retry
-identities. Older servers reject that database version. Back up the server using
+refuse incompatible server snapshots. The current server uses SQLite schema
+version 3 for threaded reviews and reviewer permissions, while document protocol
+and shared-folder journal remain at version 2. Supported upgrades retain projects,
+sessions, accepted edits, reviews and retry identities. Older servers reject an
+unsupported database version. Back up the server using
 the procedure in [Live collaboration](LIVE_COLLABORATION.md#server-persistence-and-limits)
 before upgrading; use the backup if you must return to the older server.
 

@@ -31,6 +31,13 @@ the `5vfullv2` schematic. Banba LVS uses its own independent reference circuit.
 Its physical configuration is GF180 **B**, 4LM, MIM B 2fF, top metal 11K; the
 bundled GF180 **D** simulation-model subset is not a physical-stack declaration.
 
+Use the [supplied bandgap guide](../examples/gf180-bandgap/README.md) to choose
+startup, full characterization or six-case compatibility, the
+[Banba sequence](../examples/gf180-banba/README.md) for the native design, and
+the [voltage-monitor walkthrough](OPEN_PROJECTS.md) for a runnable detector bench.
+The [shared archived qualification](REFERENCE_QUALIFICATION.md) reports the
+Banba artifacts' saved status; a newly added CI gate does not rewrite that archive.
+
 The detector source is locked to LDFranck commit
 `53cf579f63d34227af67f0189b49ee09185f1db5`. Original cells are checked against
 [`overvoltage-lock.json`](../examples/open-projects/overvoltage-lock.json).

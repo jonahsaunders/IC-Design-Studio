@@ -15,6 +15,11 @@ Use Python 3.12 and the virtual-environment instructions in the [README](README.
 | PDK catalog and revision locks | `icstudio/pdk_import.py`, `icstudio/pdks.py`, `icstudio/catalog.py` |
 | Simulation scheduling and waveform UI | `icstudio/simulation_workspace.py`, `icstudio/run_manager.py`, `icstudio/plot.py` |
 | Physical mappings and verification | `icstudio/native_physical.py`, `icstudio/process_adapters.py`, `icstudio/klayout_verification.py` |
+| Native buses and physical variants | `icstudio/native_vectors.py`, `icstudio/physical_variants.py` |
+| Analog search and campaigns | `icstudio/analog_optimizer.py`, `icstudio/verification_campaigns.py` |
+| Digital workspace and tool setup | `icstudio/digital_workspace.py`, `icstudio/digital_runtime.py` |
+| Mixed signal and learning | `icstudio/mixed_signal.py`, `icstudio/student_hub.py`, `icstudio/student_projects.py` |
+| Collaboration and recovery | `icstudio/live_client.py`, `icstudio/live_store.py`, `icstudio/review_drafts.py`, `icstudio/recovery.py` |
 | Examples and tutorials | `examples/`, `docs/` |
 | Release automation | `scripts/`, `.github/workflows/` |
 
@@ -30,6 +35,13 @@ Add a meaningful regression for changed connectivity, units, parser behavior, jo
 python -m unittest discover -s tests -v
 python scripts/check_release.py
 ```
+
+Documentation checks validate local file targets, the version badge, gallery
+projects and generated qualification summaries. They do not validate heading
+fragments or establish engine/platform execution. Preserve the generated
+`qualification:banba` markers and contents in the README; use
+`python scripts/update_qualification.py --check` to check the reviewed records.
+Check new anchors and screenshot captions against their actual source/evidence.
 
 For the new-user workflow, use an installed ngspice and run:
 

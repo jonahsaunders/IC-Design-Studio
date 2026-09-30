@@ -1,5 +1,7 @@
 # Experimental dev21: component shortcuts, workflow and recovery
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This increment targets `experimental`. It includes the earlier source/library
 selector, vector symbol previews, wire selection, bulk layout placement,
 hierarchy menu actions and floating frames, plus the following work.

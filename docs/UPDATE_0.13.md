@@ -1,5 +1,7 @@
 # IC Design Studio 0.13.0
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 0.13 connects the schematic, symbol, physical-interface and saved-testbench
 workflows and improves the responsiveness of everyday editing. It remains a
 native PySide6/Qt desktop engineering preview, with schema 1 and the existing

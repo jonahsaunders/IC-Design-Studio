@@ -1,6 +1,6 @@
 # Third-party notices and corresponding source
 
-The application code is GPL-3.0-or-later. Do not remove this source package, its build instructions, or these notices when distributing the application bundle. The desktop packages include ngspice, standard Xschem symbols and public GF180MCU primitive simulation assets. Physical rule decks and Magic/Netgen engines are separate.
+The application code is GPL-3.0-or-later. Do not remove this source package, its build instructions, or these notices when distributing the application bundle. Complete desktop builds include ngspice, standard Xschem symbols, SKY130/GF180MCU primitive simulation subsets and the runtimes described below. The managed Linux/private WSL runtime includes Magic and Netgen for Studio's physical verification jobs; matching analog physical PDK assets and rule decks remain separate. The source checkout does not include the generated runtime binaries.
 
 | Component | Version | License / corresponding source |
 |---|---|---|
@@ -36,7 +36,7 @@ and component notices when redistributing it.
 
 ## Optional SKY130 reference evidence
 
-The separately supplied SKY130 reference bundle contains a subset of the SkyWater open PDK and generated derivatives of its inverter. Copyright 2020 The SkyWater PDK Authors and other notices retained in the original files. These assets are distributed under Apache-2.0; see licenses/Apache-2.0.txt and their file headers. The app's reference fetch script points to the pinned upstream Volare distribution. Magic and Netgen used for verification are external tools. ngspice is included in the 0.18 desktop packages.
+The separately supplied SKY130 reference bundle contains a subset of the SkyWater open PDK and generated derivatives of its inverter. Copyright 2020 The SkyWater PDK Authors and other notices retained in the original files. These assets are distributed under Apache-2.0; see licenses/Apache-2.0.txt and their file headers. The app's reference fetch script points to the pinned upstream Volare distribution. Verification can use configured external Magic/Netgen or the managed runtime described under Included digital tools below; that runtime does not supply this separate analog reference PDK.
 
 ## Included Xschem and GF180 simulation assets
 

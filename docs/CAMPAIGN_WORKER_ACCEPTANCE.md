@@ -20,6 +20,10 @@ libraries; those need a separate model-specific seeding and validation adapter.
 
 ## Real local workload
 
+Run from the repository root in its Python environment with a real native
+ngspice executable. The command below uses POSIX line continuations; in PowerShell
+put the arguments on one line. Use a fresh output directory for each record.
+
 ```sh
 python scripts/qualify_statistical_campaign.py \
   --output build/statistical-campaign-qualification \

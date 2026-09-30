@@ -141,8 +141,10 @@ regenerate to accept updated estimates or uncheck the option.
 ## EM exchange and imported results
 
 After creation, select the device and open **EM results → Open saved inductor
-characterization…**. This exchanges evidence with an external solver; no field
-solver or inferred process stackup is included.
+characterization…**. This exchanges evidence with an external solver. For the
+solver included in desktop packages, use **EM results → Run openEMS…** and the
+[openEMS guide](OPENEMS.md). Both paths require an explicitly supplied physical
+process profile; neither infers a stackup from display layers.
 
 1. **Edit PDK profile…** enters material data and maps project layers to physical
    layer names. **Load physical stackup…** accepts an existing JSON profile as an
@@ -193,7 +195,7 @@ A simulation-only PDK still needs physical layer/via rules for layout generation
 | Generate the five shapes | Layer names, GDS layer/datatype, grid, width/spacing rules, and a mapped `routing_vias` connection |
 | Estimate DC resistance | Declared conductor sheet resistance and per-cut via resistance |
 | Prepare physical EM exchange | Physical elevations, thicknesses, conductivities, dielectric/substrate properties, and explicit layer mapping |
-| Run and qualify EM simulation | Separately installed solver, excitation ports, mesh/boundary settings, and convergence evidence |
+| Run and qualify EM simulation | Included openEMS or a compatible external solver, explicit excitation ports, mesh/boundary settings, and convergence evidence |
 
 Open **Tools → Physical EM profile…** to configure the process before creating a
 coil, including when routing-via rules are still missing. The same editor is available

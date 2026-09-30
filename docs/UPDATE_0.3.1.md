@@ -1,5 +1,7 @@
 # IC Design Studio 0.3.1 — manual wiring and keyboard editing
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This update changes the native desktop schematic editor. Dark mode remains the default. It retains the 0.3.0 study, physical-design, PDK and project workflows; it does not claim completion of the professional blueprint. See `RELEASE_STATUS.md` for the remaining scope.
 
 ## What changed

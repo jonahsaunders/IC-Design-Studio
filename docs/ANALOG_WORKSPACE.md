@@ -88,9 +88,11 @@ Teaching MOS arrays now offer:
 
 These shapes remain illustrative teaching geometry. Poly-only dummies add no
 electrical transistor. Process devices continue to use the existing supported
-recipes: SKY130 1–8 fingers and the bounded single-finger GF180 recipe. Their
-finger count comes from the schematic model parameters. Process dummies and
-guard-ring recipes have not been invented for unsupported technologies.
+recipes: SKY130 1–8 fingers per unit with 1–16 parallel units, and the bounded
+single-finger GF180 recipe. Their finger count comes from the schematic model
+parameters. Supported SKY130 contacted guards and explicitly tied MOS dummies
+have [separate process recipes](ANALOG_REFERENCE_WORKFLOW.md#generate-bounded-process-devices);
+generic teaching guards/dummies do not acquire process qualification from them.
 
 Common-centroid placement accepts two or more groups with an even number of
 explicit units per group, including unequal ratios such as 2:4:4. Every unit pair
@@ -114,9 +116,11 @@ checksum-verified waveform files. The existing distributed-RC comparison also
 opens in this inspector using its embedded before/after waveforms.
 
 Magic, Netgen, ngspice and the matching process assets are still required for the
-process flow. The teaching simulator supports local analog experiments out of
-the box. This change does not bundle new process engines, introduce a new solver,
-or claim foundry signoff. Saved testbenches now select process capacitance,
+process flow. Choose the included Linux/private WSL verification runtime or
+configured custom tools through **Tools → Physical tools setup…**; matching
+physical PDK assets are still required. See [runtime scope](REFERENCE_COMPATIBILITY_REPAIRS.md#linux-and-windows-physical-verification).
+The teaching simulator supports local analog experiments out of the box.
+Saved testbenches select process capacitance,
 process distributed RC or supported calibrated interconnect RC. The selected
 model, conditions and checked provenance are retained in each run. See
 [extraction settings and limits](ANALOG_CLOSURE.md#saved-extraction-models).

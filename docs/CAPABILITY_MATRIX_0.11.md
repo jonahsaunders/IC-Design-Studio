@@ -1,5 +1,7 @@
 # Layout capability matrix — 0.11.0
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This historical matrix describes the bounded layout capabilities in 0.11. The current in-app compatibility matrix is available from Help. External exchange support applies only to the stated contracts.
 
 | Area | Status in 0.11 | Remaining work |

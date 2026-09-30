@@ -1,5 +1,12 @@
 # Workflow and team review — 0.22.0.dev16
 
+This is the dev16 implementation and measurement record. For current commands,
+use [live collaboration](LIVE_COLLABORATION.md), [review recovery](REVIEW_RECOVERY.md)
+and [evidence-driven workflow](RELIABLE_DESIGN_WORKFLOWS.md). The design workflow
+now opens as a persistent dock; dev19/dev21 added restart-safe submitted actions
+and unsent drafts. Historical timings and protocol migration details below keep
+their original source scope.
+
 ## Dev19 recovery and import additions
 
 [Submitted review recovery](REVIEW_RECOVERY.md) extends the threaded review flow
@@ -66,9 +73,10 @@ reply changes the discussion version, preventing an outdated resolution from
 silently closing an unseen reply. Reopen resolved discussions before replying.
 
 Posting uses stable request IDs: retrying a lost acknowledgement does not create
-duplicate replies. Accepted discussions survive server restarts. Pending review
-requests still live in desktop memory; restart-durable review drafts, assignments,
-notifications and a multi-edit offline queue remain future work.
+duplicate replies. Accepted discussions survive server restarts. At dev16,
+pending desktop requests were memory-only. Current source persists submitted
+requests and unsent text separately as described in [review recovery](REVIEW_RECOVERY.md).
+Assignments, notifications and a general multi-edit offline queue remain future work.
 
 ## Upgrade and compatibility
 

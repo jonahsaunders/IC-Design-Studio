@@ -1,10 +1,19 @@
 # Preparing and publishing a release
 
-This repository is prepared for public GitHub hosting. The local archive does not create a repository, push a tag or publish a release. The desktop and qualification workflows have read-only repository permissions. The separate draft-release workflow, triggered by selected source changes or manual dispatch, grants contents write only to its final job, after all verification succeeds. It creates a draft and never publishes it automatically.
+The [IC Design Studio repository](https://github.com/jonahsaunders/IC-Design-Studio)
+uses separate desktop, qualification and draft-release workflows. Desktop and
+qualification jobs have read-only repository permissions. The draft workflow,
+triggered by selected source changes or manual dispatch, grants contents write
+only to its final job after all seven qualification jobs succeed. It creates a
+draft prerelease and never publishes automatically.
 
-## Repository setup
+## Source and build identity
 
-Extract the **GitHub** archive and use the contents of its `IC-Design-Studio` directory as the repository root. Preserve `.github/`, `.gitignore`, the GPL license and third-party notices. Choose the repository owner and name when creating the actual repository; no placeholder owner is embedded in this README.
+Build from a clean, committed Git checkout of the selected `main` or
+`experimental` commit. `scripts/package.py` rejects unknown or dirty source
+identity. A GitHub/source archive is useful for reading or source launch, but
+lacks the Git identity needed for a qualified build. Preserve `.github/`, the
+GPL license, third-party notices and upstream provenance when preparing a fork.
 
 Suggested About description: **Open desktop workspace for circuit design, ngspice simulation, Xschem migration and linked layout.**
 
@@ -20,7 +29,37 @@ Use `docs/images/banner.svg` as the editable artwork source. The README screensh
 4. Build packages, inspect their contents and launch them on their target platforms. Static PE checks do not replace Windows execution. Sign Windows binaries only through the maintainer's signing infrastructure.
 5. Generate checksums over the final files. Attach validation records that match those files. Run the README link check after screenshots and docs are copied into the tree.
 
-The desktop workflow runs on manual dispatch, every pull request, main/experimental pushes and `v*` tags. It builds Linux and Windows artifacts and runs their available acceptance tests. Review the actual workflow run before promoting a release. The locally assembled portable Windows package has a different packaging route from the CI PyInstaller/installer build; qualify the exact asset being published.
+The desktop workflow runs on manual dispatch, every pull request,
+main/experimental pushes and `v*` tags. It builds Linux and Windows artifacts and
+runs their defined acceptance tests. Review the actual workflow run before
+promoting a release. Historical embedded-Python Windows archives used a different
+route; their records do not qualify a current PyInstaller/installer asset.
+
+## Desktop build prerequisites
+
+Follow [build-desktop.yml](../.github/workflows/build-desktop.yml) for the exact
+host dependencies and order. In addition to Python 3.12 and
+`requirements-build.txt`, packaging requires:
+
+- A complete digital/physical payload from
+  `python scripts/build_digital_runtime.py` on Linux with Docker. The
+  [runtime workflow](../.github/workflows/digital-runtime.yml) exports it as
+  `digital-runtime-payload`; stage all files under `build/digital-payload`.
+- A successful `python scripts/qualify_digital_runtime.py` on each packaging
+  OS. It executes real engine checks and writes `qualified-Windows.json` or
+  `qualified-Linux.json` matching that payload. Windows requires WSL 2.
+- Pinned VGA assets from `python scripts/build_vga_playground.py --test`, using
+  Git and Node.js 22.12+ (or 24), plus the platform graphics/WebEngine libraries.
+- Native ngspice: Windows staging uses
+  `python scripts/stage_windows_ngspice.py --ensure`; Linux uses an installed
+  executable or `ICSTUDIO_BUNDLED_NGSPICE`.
+
+`scripts/package.py` also stages and verifies the independent openEMS runtime.
+Its build/download prerequisites are in [OPENEMS.md](OPENEMS.md). Python
+requirements or `build-windows.bat` alone do not provision all release assets.
+See [Windows build and installed-app verification](WINDOWS_RELEASE.md) and
+[Linux launch checks](LINUX_SETUP.md). End users of complete packages do not
+need Docker, Node.js or build compilers.
 
 ## Build source and repository archives
 
@@ -28,9 +67,19 @@ The desktop workflow runs on manual dispatch, every pull request, main/experimen
 python scripts/release_archives.py --output release --repository
 ```
 
-The source archive includes a Windows ngspice runtime only when staged locally. The GitHub archive always excludes native binaries. To stage the pinned Windows engine, use `scripts/stage_windows_ngspice.py`. Build a Windows installer on Windows with `scripts/build_windows.ps1`; validate it with `scripts/verify_windows.ps1`.
+The source archive includes a Windows ngspice runtime only when staged locally
+or selected with `--windows-runtime`. The GitHub archive excludes native
+binaries. Neither archive includes generated desktop runtimes from `build/`.
+After satisfying the build prerequisites, build a Windows installer on Windows
+with `scripts/build_windows.ps1` and validate it with `scripts/verify_windows.ps1`.
+That verifier also needs the locked physical adapter prepared as described in
+the Windows guide.
 
-For Linux PyInstaller builds, set `ICSTUDIO_BUNDLED_NGSPICE` to the native executable before running `scripts/package.py`. CI sets this explicitly. Add a Linux archive only after testing the resulting bundle on its target system.
+For Linux PyInstaller builds, set `ICSTUDIO_BUNDLED_NGSPICE` to the native
+executable before running `scripts/package.py`; CI does so explicitly. After
+package verification, `release_archives.py --with-linux-bundle` can archive the
+built directory. The release workflow uses `prepare_release_payload.py` for
+distribution execution, corresponding-source/evidence packaging and hashes.
 
 ## Publish a reviewable release
 
@@ -68,7 +117,13 @@ a changed installer.
 Distribution archives are hashed before extraction and checked again after the
 desktop and VGA probes; replacing an archive during execution fails acceptance.
 
-A version change pushed to `experimental` or merged into `main` automatically starts **Prepare draft preview release**. Manual dispatch remains available. The workflow reruns all seven qualifications for the selected commit and creates only a draft prerelease; publication remains a separate maintainer action.
+A version-file change pushed to `experimental` or `main` automatically starts
+**Prepare draft preview release**. Selected probe, packaging and workflow files
+also trigger it; ordinary source edits outside the exact
+[push path list](../.github/workflows/release-preview.yml) do not. Manual dispatch
+remains available. The workflow reruns all seven qualifications for the selected
+commit and creates only a draft prerelease; publication remains a separate
+maintainer action.
 
 The statistical gate must complete its 1,152-case ngspice workload, coordinator
 crash recovery and trial classifications. Draft assembly checks its commit and

@@ -4,6 +4,13 @@ The references are the GF180 B Banba bandgap and LDFranck's SKY130 overvoltage
 detector at the revisions already locked in this repository. Passing these
 checks qualifies their tested routes, not arbitrary PDKs or fabrication signoff.
 
+The GF180 physical reference is the [native Banba layout](../examples/gf180-banba/layout/README.md),
+not the separately supplied [5 V bandgap simulation](../examples/gf180-bandgap/README.md).
+The [voltage-monitor guide](OPEN_PROJECTS.md) explains how to generate and open
+the detector testbench. Archive status remains in [reference qualification](REFERENCE_QUALIFICATION.md);
+the implementations and CI requirements below do not by themselves establish
+that every new gate has completed on a released package.
+
 ## Hierarchical layout exchange
 
 Magic import retains `magic-raw.gds`, writes `imported.gds` through KLayout, and
@@ -71,6 +78,11 @@ layers materialize dummy purpose 4 as floating conductors in disposable GDS,
 then require real positive coupling only in the near case. This bounds direct
 core/fill interaction in this model; it does **not** establish long-range
 coupling, fill-to-fill network effects or foundry-calibrated parasitics.
+
+The later [floating-fill capacitance extension](ANALOG_IMPLEMENTATION_EXTENSIONS.md#bounded-floating-fill-capacitance)
+adds a bounded zero-charge reduction of the actual extracted matrix, including
+fill-to-fill paths. It has separate coupon evidence and does not establish
+arbitrary near-fill annotation, long-range accuracy or full-chip signoff.
 
 Build and run on Linux with the dependencies listed in the qualification CI:
 

@@ -1,4 +1,9 @@
-# Experimental engineering workflows — dev14
+# Engineering workflows and archived qualification
+
+For current end-to-end guidance, use the [analog workspace](ANALOG_WORKSPACE.md),
+[implementation extensions](ANALOG_IMPLEMENTATION_EXTENSIONS.md), and
+[reliable design workflow](RELIABLE_DESIGN_WORKFLOWS.md). The measured dev14–19
+results below retain their original source, tools and qualification scope.
 
 ## Dev19 qualification increment
 
@@ -15,7 +20,7 @@ constraint records are optional project data.
 
 ## Find the next action
 
-In dev16, open **Schematic → Design workflow** or **Layout → Design workflow**. Select a circuit or its saved testbench to see
+Open **Design → Design workflow…**. Select a circuit or its saved testbench to see
 device-link status, missing connections, matching findings and the latest
 physical comparison. The buttons open the existing editors and verification
 tools. Checks update automatically after editing or switching cells. Select the saved testbench in the workflow; its corner and temperature remain visible. Old results are
@@ -25,7 +30,7 @@ marked stale and never become a pass for the new revision.
 | --- | --- |
 | Move by a precise distance | **Edit → Move selection precisely** |
 | Cycle overlapping objects | **Alt-click**, or **Tab** over the canvas |
-| Resolve parameterized physical instances | **Schematic-driven layout → Resolve parameter variants** |
+| Resolve parameterized physical instances | **Layout → Cells and arrays → Resolve and regenerate physical variants…** |
 | Place missing and update changed devices | **Schematic-driven layout → Select missing and changed devices** |
 | Generate an analog reference bank | **Layout → Generate → Generate analog reference layout** |
 | Create an amplifier | **File → Examples → New PDK amplifier**, then choose models and supply |
@@ -40,7 +45,8 @@ the properties area changes size.
 ## From a schematic change to layout
 
 1. Open the circuit and review **Schematic-driven layout**.
-2. If instances override cell parameters, choose **Resolve parameter variants**.
+2. If instances override cell parameters, choose **Layout → Cells and arrays →
+   Resolve and regenerate physical variants…**.
    Review the concrete cell variants before applying. Identical parameter sets
    share a variant; different values get separate physical masters. The resolved
    electrical topology and values must remain identical.
@@ -52,9 +58,12 @@ the properties area changes size.
    and findings, then compare schematic and post-layout measurements.
 6. Save a named team checkpoint and attach the verified inputs and results.
 
-Variant creation retains existing geometry. A changed footprint still needs the
-ordinary geometry update and connection checks. Native SPICE instance overrides
-that lack a supported physical parameter mapping produce an explicit error.
+Variant creation now regenerates supported parameter-dependent footprints and
+reviews linked ports, routes and constraints. Unregenerable parameter-dependent
+manual geometry blocks the proposal; unchanged manual geometry is retained.
+See the [physical-variant contract](ANALOG_IMPLEMENTATION_EXTENSIONS.md#parameter-correct-physical-hierarchy).
+Native SPICE instance overrides without a supported physical mapping produce
+an explicit error.
 
 ## Analog references and process qualification
 
@@ -103,7 +112,9 @@ physical verification view. Retry keeps the original saved inputs.
 
 Select **Compare schematic and post-layout** for plans composed of saved
 testbenches. The matrix then contains both sets of measurements plus the physical
-stage results. Configure local Magic, Netgen and ngspice first.
+stage results. Configure the included verification runtime or custom Magic,
+Netgen and ngspice through **Tools → Physical tools setup…** first, and link
+the matching checksummed physical PDK.
 
 Choose an earlier plan run as a baseline to see numeric changes. Deltas require
 the same test identity, measurement definition, unit and operating condition.

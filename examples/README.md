@@ -1,5 +1,19 @@
 # Example projects
 
+## Choose a reference circuit
+
+| Design | Where to start | What is included |
+|---|---|---|
+| **Supplied GF180 5 V bandgap** | [Bandgap guide](gf180-bandgap/README.md); gallery entries **07–08** | Short startup and original 144-analysis programs, plus a separate six-case compatibility schematic; approximately 1.2 V reference |
+| **Native GF180MCU Banba bandgap** | [First schematic](gf180-banba/README.md), [improved schematic](gf180-banba/pass2/README.md), [routed layout](gf180-banba/layout/README.md); gallery **10–12** | Independent 3.3 V / approximately 0.6 V design with editable hierarchy, optimization and physical evidence |
+| **SKY130 voltage monitor / overvoltage detector** | [Pinned external-project walkthrough](../docs/OPEN_PROJECTS.md) | Generated native schematic/layout project and runnable `overvoltage-bench.icproj`; four input bits select 16 nominal rising trip thresholds |
+| **SKY130 two-stage op-amp** | [Native project](sky130_two_stage_opamp.icproj) and [reference workflow](../docs/ANALOG_REFERENCE_WORKFLOW.md) | Saved operating-point, loop-gain, noise and startup fixtures, PVT plans and bounded physical comparisons |
+| **Mixed-signal SAR ADC** | [Native project](sar-adc/sar-adc.icproj); gallery **13** | Four-bit Verilog controller coupled to a native analog sample/hold and resistor DAC |
+
+The [main README catalog](../README.md#example-library) lists all **13** guided gallery entries. The external voltage monitor and generated digital/reference workflows are additional examples; they are not extra gallery entries.
+
+## Guided first circuits
+
 For an external hierarchical SKY130 design, see the [overvoltage import and qualification walkthrough](../docs/OPEN_PROJECTS.md). Its source is pinned and downloaded explicitly. Archived strict full-circuit LVS passes with the recorded resistor extraction correction; see the walkthrough for the exact scope and remaining limits.
 
 Use **File → Start here / example gallery** for guided examples that open as independent copies. The first six projects below use embedded native definitions or generic teaching models; none needs a downloaded PDK. Five have short, saved analyses. The sixth is a placement exercise. Later entries include real-PDK simulations and the Banba design sequence described below.
@@ -36,11 +50,11 @@ The inverter uses generic educational geometry and models. For the common-centro
 
 Additional `.icproj` files are working development examples; the gallery provides the shortest introduction. Keep long PDK circuits out of routine smoke tests. Use a small representative circuit to test a new engine, model or adapter.
 
-## Included real-PDK simulations (dev10)
+## Included real-PDK simulations
 
 The gallery includes the supplied GF180 bandgap in two forms: a short 5 V / 25 °C startup check and the byte-for-byte original 144-analysis characterization. A SKY130 1.8 V inverter is also included. Open a copy and press F5; bundled symbols and models resolve automatically.
 
-The original upload and its identity record are in `gf180-bandgap/`. The short variant changes only the simulation control block. See [simulation setup](../SIMULATION_SETUP.md) for output locations and validation scope.
+The [bandgap guide](gf180-bandgap/README.md) distinguishes the original gallery upload from the later upload used by the six-case compatibility reduction. Each has its own identity record. Use [simulation setup](../SIMULATION_SETUP.md) for engines and output locations, and the [compatibility walkthrough](../docs/BANDGAP_COMPATIBILITY.md) for the six-case import/export check.
 
 ## Native Banba design exercise
 

@@ -82,6 +82,11 @@ Each run uses its own temporary directory. An empty netlist, unresolved Tcl outp
 
 ## Magic
 
+These workspace/import commands invoke a configured standalone Magic executable
+on a suitable Linux host. Studio's included private WSL runtime on Windows is
+for [queued physical-verification jobs](REFERENCE_COMPATIBILITY_REPAIRS.md#linux-and-windows-physical-verification),
+not an interactive Magic workspace or a substitute executable for these commands.
+
 **Open Magic workspace** captures the current project and matching technology support folder, then creates native `.mag` cells and an extracted deck. Assigned labels are promoted to ports, ordered to match the schematic, and retain declared class/use/shape attributes. The extracted top's port sequence is checked, not just its set of names.
 
 | Profile | Settings |
@@ -112,4 +117,11 @@ Both verification workflows run on pushes to `experimental`; no pull request to 
 
 ## Real reference qualification
 
-See [Reference compatibility](REFERENCE_COMPATIBILITY.md) for the bandgap and LDFranck detector matrix, full DRC/LVS after exchange, real physical fault controls, exact tool versions and remaining unsupported routes. Magic import now offers an explicit flattened route and isolates startup from source-folder configuration. OASIS export reports its text-presentation limitations.
+See [Reference compatibility](REFERENCE_COMPATIBILITY.md) for the distinct supplied
+[5 V GF180 bandgap](../examples/gf180-bandgap/README.md), native
+[Banba physical reference](../examples/gf180-banba/layout/README.md), and
+[LDFranck voltage monitor](OPEN_PROJECTS.md). The matrix records full DRC/LVS
+after exchange, physical fault controls, exact tool versions and unsupported
+routes. Magic import offers an explicit flattened route and isolates startup
+from source-folder configuration. OASIS export reports its text-presentation
+limitations.

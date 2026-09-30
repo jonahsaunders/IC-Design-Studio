@@ -52,9 +52,14 @@ project. Locked footprint/route layers reject the proposal. Full DRC/LVS must
 follow an ECO. A recipe is usable only when the technology declares it; generic
 teaching geometry retains its existing qualification notice. Native devices
 require explicit electrical-to-physical bindings. Differing hierarchical
-parameter overrides require a concrete physical cell variant; this release does
-not automatically synthesize variants, infer missing process recipes, place
-physical ports or repair arbitrary routing.
+parameter overrides require a concrete physical cell variant. **Layout → Cells
+and arrays → Resolve and regenerate physical variants…** reviews and generates
+supported variants; **Place linked physical instance…** performs the same
+preparation before placement. Parameter-dependent manual geometry that cannot
+be regenerated blocks the proposal. **Expand linked instance array…** prepares
+native array members for individual physical placement. These reviewed operations
+do not infer missing process recipes or repair arbitrary routing. See
+[parameter-correct physical hierarchy](ANALOG_IMPLEMENTATION_EXTENSIONS.md#parameter-correct-physical-hierarchy).
 
 ## Concurrent layout sessions
 
@@ -67,12 +72,15 @@ shared folder**. A workspace directory contains an atomic project journal and an
 lock file. Editors must have trusted read/write access to the same directory and
 synchronized clocks and a filesystem that correctly implements cross-process file locks and atomic
 replacement. Cloud-sync folders and independent copied folders are unsupported;
-a hosted collaboration server, authentication and internet synchronization are
-not included. Validate a network filesystem's locking semantics before use.
+this folder transport has no server authentication or internet synchronization.
+Use the separate live-server mode for invitation-based access. Validate a network
+filesystem's locking semantics before using shared-folder mode.
 
 1. Enter your editor name and claim a whole cell or named layers in a cell.
    Two editors can work in the same cell on disjoint layers. Overlapping claims
-   are rejected. Generated footprints and hierarchy require whole-cell claims.
+   are rejected. Generated footprints and schematic edits require whole-cell
+   claims. **Whole project (hierarchy and settings)** covers cell creation,
+   symbol/port interfaces and project settings.
 2. Edit locally. **Publish layout changes** validates ownership, technology and
    schematic consistency, then merges stable object IDs against the latest
    shared revision. Unclaimed, expired or conflicting changes are retained
@@ -85,8 +93,9 @@ not included. Validate a network filesystem's locking semantics before use.
    Expiration does not authorize an old session to publish without a new claim.
 
 Claims coordinate publication; local canvas editing is still permitted outside
-a claim so work can be saved independently. Schematic, technology, cell creation,
-project settings and object reordering require leaving the layout-only session.
+a claim so work can be saved independently. Schematic and hierarchy edits use
+the claims described above. Technology changes and reordering existing objects
+or cells require leaving the session.
 Native text collections lack stable IDs and merge as one atomic collection.
 No automatic geometric/DRC conflict resolution is implied by an object merge.
 Run physical verification after combining edits. All participants must resolve

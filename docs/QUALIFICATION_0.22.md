@@ -1,5 +1,7 @@
 # Reproducing the 0.22 qualification gates
 
+This guide retains the reproducible detector, hierarchy and pinned SKY130 fixtures introduced during 0.22. For the current expanded analog and reference checks, also use [analog implementation extensions](ANALOG_IMPLEMENTATION_EXTENSIONS.md), [reference compatibility](REFERENCE_COMPATIBILITY.md) and [reference compatibility repairs](REFERENCE_COMPATIBILITY_REPAIRS.md). Each archived result remains tied to its recorded source and tools.
+
 ## Dev20 external-project gate
 
 The physical workflow runs [the pinned overvoltage regression](OPEN_PROJECTS.md)
@@ -85,8 +87,10 @@ If a ruleset named **Verified main** already exists, update that ruleset's ID
 with `PUT` instead of creating a duplicate. Repository settings are separate
 from committing this configuration file; verify the active settings afterward.
 
-After merging a verified release commit, manually run **Prepare draft preview
-release** on `main`. It reruns all three gates, builds the exact downloadable
+Run **Prepare draft preview release** on the reviewed `main` or `experimental`
+commit. The [current workflow](../.github/workflows/release-preview.yml) requires
+seven gates: desktop/package, interoperability, pinned physical, digital, VGA,
+statistical campaigns and reference compatibility. It builds the exact downloadable
 assets, verifies their shared commit and hashes, and creates a **draft
 prerelease**. An existing tag/release causes creation to fail rather than replace
 published assets. Review the draft and remaining machine acceptance before
@@ -98,3 +102,5 @@ display scale, then record install/extract → first waveform → real PDK simul
 isolated application profile is useful evidence but not a complete clean OS.
 Use [the focused issue drafts](RELEASE_FOLLOWUPS.md) to track these acceptance
 items and the first hosted qualification separately.
+
+The checked-in main ruleset and the seven release gates are separate configurations. The ruleset file currently names four required check contexts; it does not by itself enforce all seven release workflows. See [release preparation](RELEASING.md) for the current procedure and [release status](RELEASE_STATUS.md) for actual package evidence.

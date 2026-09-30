@@ -1,6 +1,15 @@
 # Path snapping and navigation — 0.22.0.dev8
 
-Choose **Grid + objects** in the layout options. Both **Path** and **Route with cursor** use it; **Grid only** disables object snapping. The canvas starts with object snapping enabled.
+This is the dev8 gesture and validation record. For current visible-grid and
+path completion controls, read [Grid and drawing](DRAWING_0.22.md); for current
+recovery and release scope, read [reliable workflows](RELIABLE_DESIGN_WORKFLOWS.md)
+and [release status](RELEASE_STATUS.md). The concluding host failure describes
+the original dev8 environment.
+
+In current layout options, choose **Objects on**; **Objects off** disables object
+snapping. Both **Path** and **Route with cursor** use it. Grid snapping has its
+own **Snap to grid** control. The dev8 interface called these combined choices
+**Grid + objects** and **Grid only**. The canvas starts with object snapping enabled.
 
 ## Object snapping
 

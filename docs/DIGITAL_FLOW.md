@@ -43,6 +43,13 @@ Icarus simulation, UART regression with Verilator coverage, mapped synthesis,
 equivalence, timing, GDS/SPEF generation and extracted timing. Logs and results stay
 in the setup evidence directory. An installation failure never produces Ready.
 
+The current payload also includes Magic, Netgen and ngspice for supported analog
+physical verification. **Tools → Physical tools setup…** selects that shared
+runtime or custom engines; its positive/negative installation checks run during
+setup. Matching, locked physical PDK files are still required for a design.
+Student Hub Digital lessons and the SAR bridge use native local executables
+instead; see [lesson engine setup](STUDENT_HUB.md#engines-and-models).
+
 Linux x64 uses a private native runtime with an Ubuntu 24.04 / glibc 2.39 baseline.
 Windows x64 uses an app-owned WSL 2 distribution. If WSL is unavailable, **Enable
 Windows Linux support** invokes Windows' administrator prompt; Windows may require
@@ -89,10 +96,12 @@ restart; the digital engines and SKY130 platform themselves are already bundled.
 2. Select **Elaborate** or **Mapped synthesis**, run, then **Publish symbol**.
    The compiler's actual scalar and bus ports become native schematic terminals.
    Choose the cell selector or **New RTL cell** to maintain independent blocks.
-3. Use the included SKY130 HD platform, or use **Platform** to capture another
+3. Use the included SKY130 HD platform, or use **Inspector → Design setup →
+   Choose platform** to capture another
    `sky130hd` / `nangate45` ORFS revision or an explicit manifest.
    **Constraints** generates an editable clock and I/O SDC.
-   **Floorplan** controls die/core rectangles in micrometres, density and threads.
+   **Floorplan and routing** in that inspector section (also **More → Physical
+   settings…**) controls die/core rectangles in micrometres, density and threads.
 4. Choose **Run to placement**, **Run to routing**, or **Run to GDS**. The durable
    target plan maps RTL, builds each required physical stage, then runs timing.
    **Verify block** runs lint, simulation/regression, mapping, equivalence and timing.
@@ -197,15 +206,17 @@ and complex designs may need another strategy; counterexamples and proof logs
 are retained for investigation. A failed proof does not silently become a
 successful physical qualification.
 
-**Test cases** saves named testbench tops, simulators, definitions and optional
+**More → Regression cases…** saves named testbench tops, simulators, definitions and optional
 Verilator line coverage. **Regression** runs all cases, retaining a failed case
 while continuing the others. The APB example tests bus setup/access, FIFO ordering/full/empty/wraparound,
 invalid accesses, reset and interrupt masking. The UART example tests reset, start/data/stop bits
 for three byte patterns, and return to idle. Coverage describes instrumented code;
 it does not establish exhaustive functional verification. Saved RTL cases also
 appear in verification plans alongside analog testbenches. An RTL test runs once,
-not once per analog temperature or supply corner. This is shared test management;
-coupled analog/digital transient simulation is not implemented. An RTL-only symbol
+not once per analog temperature or supply corner. This is shared test management.
+The separate [SAR experiment](MIXED_SIGNAL_SAR.md) provides bounded clocked
+ngspice/Icarus coupling with native local engines; it does not use this managed
+digital runtime or provide general Verilog-AMS scheduling. An RTL-only symbol
 is rejected as an analog circuit model until it has a schematic implementation.
 
 The physical preview uses indexed cell outlines and batched signal-route
@@ -260,12 +271,18 @@ unsupported; reduce dump scope/duration above these limits.
 ```sh
 python main.py --cli digital example --output counter.icproj
 python main.py --cli digital example --design uart --output uart.icproj
-python main.py --cli digital run uart.icproj --stage regression --output runs/uart
-python main.py --cli digital run counter.icproj --stage mapped --orfs /path/to/ORFS --orfs-platform sky130hd --output runs/mapped
-python main.py --cli digital run counter.icproj --stage timing --orfs /path/to/ORFS --orfs-platform sky130hd --upstream runs/mapped --output runs/timing
-python main.py --cli digital run counter.icproj --stage equivalence --orfs /path/to/ORFS --orfs-platform sky130hd --upstream runs/mapped --output runs/proof
-python main.py --cli digital run counter.icproj --stage finish --orfs /path/to/ORFS --orfs-platform sky130hd --upstream runs/mapped --timeout 300 --output runs/finish
+python main.py --cli digital example --design apb --output apb.icproj
+python main.py --cli digital run uart.icproj --stage regression --toolchain custom --output runs/uart
+python main.py --cli digital run counter.icproj --stage mapped --toolchain custom --orfs /path/to/ORFS --orfs-platform sky130hd --output runs/mapped
+python main.py --cli digital run counter.icproj --stage timing --toolchain custom --orfs /path/to/ORFS --orfs-platform sky130hd --upstream runs/mapped --output runs/timing
+python main.py --cli digital run counter.icproj --stage equivalence --toolchain custom --orfs /path/to/ORFS --orfs-platform sky130hd --upstream runs/mapped --output runs/proof
+python main.py --cli digital run counter.icproj --stage finish --toolchain custom --orfs /path/to/ORFS --orfs-platform sky130hd --upstream runs/mapped --timeout 300 --output runs/finish
 ```
+
+Run from the repository root in its Python environment. Example generation needs
+no external HDL engine; the run commands above need a configured custom toolchain
+and, for implementation, the compatible ORFS checkout. With a qualified included
+runtime, select `--toolchain included` and omit `--tool` and `--orfs` overrides.
 
 Use a fresh output directory. `--cell` selects a native cell ID, `--platform` imports
 an explicit technology manifest, and repeatable `--tool NAME=/path/to/executable`
@@ -278,6 +295,10 @@ QT_QPA_PLATFORM=offscreen python tests/gui_digital.py
 ICSTUDIO_TEST_ORFS=/path/to/ORFS ICSTUDIO_TEST_PHYSICAL=1 python -m unittest tests.test_digital_implementation -v
 ICSTUDIO_TEST_ORFS=/path/to/ORFS QT_QPA_PLATFORM=offscreen python tests/gui_digital_implementation.py
 ```
+
+The environment prefixes above use POSIX shell syntax. In PowerShell, set each
+variable first (for example, `$env:QT_QPA_PLATFORM = 'offscreen'`), then run the
+Python command without its assignment prefix.
 
 Optional engine tests skip without their dependencies. `ICSTUDIO_TEST_YOSYS`,
 `ICSTUDIO_TEST_EQY`, `ICSTUDIO_TEST_STA` and other engine-name overrides select

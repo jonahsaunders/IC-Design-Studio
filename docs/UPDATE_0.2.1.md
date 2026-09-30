@@ -1,5 +1,7 @@
 # IC Design Studio 0.2.1
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 ## Dark by default
 
 The application starts in dark mode, including when upgrading from the old default-light setting. Graphite panels, a darker canvas, quieter grids, brighter secondary labels, and higher-contrast error text refine the appearance. Light mode remains available through View → Toggle light / dark; an explicit choice made in 0.2.1 is remembered.

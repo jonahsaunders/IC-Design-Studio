@@ -1,5 +1,7 @@
 # IC Design Studio 0.20.0 — Connected native workflows
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This release connects native electrical definitions to the graphical analysis, variation, layout mapping and Xschem exchange workflows. It uses small circuits for acceptance; the long supplied GF180 simulation was not rerun.
 
 ## Install and start
