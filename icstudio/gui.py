@@ -625,6 +625,8 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
         install_digital(self)
         from .mixed_signal_ui import install as install_mixed_signal
         install_mixed_signal(self)
+        from .student_hub_ui import install as install_student_hub
+        install_student_hub(self)
         self.reindex_commands()
     connect = SchematicMixin.connect
     move = LayoutDevelopmentMixin.move

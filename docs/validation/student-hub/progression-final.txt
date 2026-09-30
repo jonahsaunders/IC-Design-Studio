@@ -1,0 +1,11 @@
+test_curriculum_has_four_paths_and_executable_starters (tests.test_student_hub.StudentProgressTests.test_curriculum_has_four_paths_and_executable_starters) ... ok
+test_every_foundation_and_analog_checkpoint_has_a_reachable_target (tests.test_student_hub.StudentProgressTests.test_every_foundation_and_analog_checkpoint_has_a_reachable_target) ... ok
+test_frozen_app_uses_build_identity_without_loose_sources (tests.test_student_hub.StudentProgressTests.test_frozen_app_uses_build_identity_without_loose_sources) ... ok
+test_resume_prerequisites_conflicts_and_curriculum_revisions (tests.test_student_hub.StudentProgressTests.test_resume_prerequisites_conflicts_and_curriculum_revisions) ... ok
+test_stale_and_corrupt_results_are_rejected (tests.test_student_hub.StudentProgressTests.test_stale_and_corrupt_results_are_rejected) ... ok
+test_wrong_answer_practice_and_wrong_project_do_not_earn_credit (tests.test_student_hub.StudentProgressTests.test_wrong_answer_practice_and_wrong_project_do_not_earn_credit) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 2.649s
+
+OK

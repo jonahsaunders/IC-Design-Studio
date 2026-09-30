@@ -271,6 +271,11 @@ Use the searchable example gallery to get moving, then arrange the workspace aro
 
 ## Start in three steps
 
+For a structured course, open **File → Student Hub**: four paths cover Foundations,
+Analog, Digital and Mixed Signal, followed by a sensor-acquisition capstone.
+The [Student Hub guide](docs/STUDENT_HUB.md) describes 28 lessons, saved progression,
+real simulation checkpoints and the advanced project.
+
 1. **Open the app.** Use the [download guide](docs/DOWNLOADS.md), or run from source below.
 2. **Choose “Your first waveform.”** Open a copy from the example gallery. This RC circuit uses the included educational solver, so no external simulator or PDK is needed.
 3. **Press F5.** Inspect the waveform, change a value, run again, and save your project with **Ctrl+S**.
