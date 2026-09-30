@@ -118,7 +118,8 @@ class MixedSignalDialog(QDialog):
             self.status.setText('Project changed. Close and reopen this experiment.'); return
         selected = self.runs.currentData(); self.runs.blockSignals(True); self.runs.clear()
         for row in self.studio.run_manager.rows:
-            if row['job']['settings'].get('type') == 'mixed_signal':
+            if (row['job']['settings'].get('type') == 'mixed_signal' and
+                    row['job']['project']['id'] == self.project_id):
                 self.runs.addItem(row['name']+' · '+row['state'], row['id'])
         self.runs.setCurrentIndex(max(0, self.runs.findData(selected))); self.runs.blockSignals(False); self.result()
 

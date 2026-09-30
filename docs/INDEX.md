@@ -5,6 +5,7 @@ Start with [Getting started](GETTING_STARTED.md), [real open-project imports](OP
 ## Guides and reference
 
 - [Student Hub: four learning paths and the sensor-acquisition capstone](STUDENT_HUB.md)
+- [Student Hub: two-pass interface and build audit](STUDENT_HUB_AUDIT.md)
 - [Process extraction, parallel devices and native hierarchy](ANALOG_IMPLEMENTATION_EXTENSIONS.md)
 
 - [Analog design workspace](ANALOG_WORKSPACE.md)

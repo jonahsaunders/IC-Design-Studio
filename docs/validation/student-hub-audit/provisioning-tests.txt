@@ -1,0 +1,22 @@
+test_all_bundled_pdks_verify_without_network (tests.test_bundled_simulation.BundledSimulationTests.test_all_bundled_pdks_verify_without_network) ... ok
+test_bad_offline_archive_is_rejected_before_extracting (tests.test_bundled_simulation.BundledSimulationTests.test_bad_offline_archive_is_rejected_before_extracting) ... ok
+test_catalog_model_paths_with_spaces_and_self_includes_are_staged (tests.test_bundled_simulation.BundledSimulationTests.test_catalog_model_paths_with_spaces_and_self_includes_are_staged) ... ok
+test_corrupt_runtime_is_repaired_before_probe (tests.test_bundled_simulation.BundledSimulationTests.test_corrupt_runtime_is_repaired_before_probe) ... ok
+test_download_recovers_from_interrupted_and_wrong_mirror_bytes (tests.test_bundled_simulation.BundledSimulationTests.test_download_recovers_from_interrupted_and_wrong_mirror_bytes) ... NGSpice download attempt 1 failed: read stalled. Retrying…
+NGSpice download attempt 2 failed: Downloaded NGSpice archive checksum differs from the pinned release.. Retrying…
+ok
+test_exhausted_download_preserves_existing_archive_and_cleans_partial (tests.test_bundled_simulation.BundledSimulationTests.test_exhausted_download_preserves_existing_archive_and_cleans_partial) ... NGSpice download attempt 1 failed: Downloaded NGSpice archive checksum differs from the pinned release.. Retrying…
+NGSpice download attempt 2 failed: Downloaded NGSpice archive checksum differs from the pinned release.. Retrying…
+NGSpice download attempt 3 failed: Downloaded NGSpice archive checksum differs from the pinned release.. Retrying…
+ok
+test_healthy_runtime_is_reused_offline (tests.test_bundled_simulation.BundledSimulationTests.test_healthy_runtime_is_reused_offline) ... ok
+test_missing_nested_catalog_model_cannot_escape_its_lock (tests.test_bundled_simulation.BundledSimulationTests.test_missing_nested_catalog_model_cannot_escape_its_lock) ... ok
+test_missing_or_corrupt_dll_is_not_a_valid_installation (tests.test_bundled_simulation.BundledSimulationTests.test_missing_or_corrupt_dll_is_not_a_valid_installation) ... ok
+test_original_schematic_is_exact_and_all_144_cases_are_portable (tests.test_bundled_simulation.BundledSimulationTests.test_original_schematic_is_exact_and_all_144_cases_are_portable) ... ok
+test_sky130_complete_corner_closure_imports_offline (tests.test_bundled_simulation.BundledSimulationTests.test_sky130_complete_corner_closure_imports_offline) ... ok
+test_staged_manifest_has_platform_independent_bytes (tests.test_bundled_simulation.BundledSimulationTests.test_staged_manifest_has_platform_independent_bytes) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 1.693s
+
+OK

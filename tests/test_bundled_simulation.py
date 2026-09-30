@@ -1,5 +1,6 @@
 """Regressions for incomplete installations and the supplied open-PDK circuit."""
 import hashlib
+import io
 import importlib.util
 import json
 from pathlib import Path
@@ -19,6 +20,35 @@ spec.loader.exec_module(stage_windows)
 
 
 class BundledSimulationTests(unittest.TestCase):
+    def test_download_recovers_from_interrupted_and_wrong_mirror_bytes(self):
+        class Interrupted(io.BytesIO):
+            def read(self, size=-1):
+                if self.tell():
+                    raise TimeoutError('read stalled')
+                return super().read(3)
+        payload = b'verified archive bytes'
+        with tempfile.TemporaryDirectory() as td:
+            archive = Path(td)/'runtime.7z'
+            responses = [Interrupted(b'partial'), io.BytesIO(b'HTML error page'), io.BytesIO(payload)]
+            with patch.object(stage_windows, 'SHA256', hashlib.sha256(payload).hexdigest()), \
+                    patch('urllib.request.urlopen', side_effect=responses) as request, \
+                    patch.object(stage_windows.time, 'sleep'):
+                stage_windows.download(archive)
+            self.assertEqual(archive.read_bytes(), payload)
+            self.assertEqual(request.call_count, 3)
+            self.assertNotEqual(request.call_args_list[0].args[0].full_url,
+                                request.call_args_list[1].args[0].full_url)
+            self.assertFalse(archive.with_suffix('.part').exists())
+
+    def test_exhausted_download_preserves_existing_archive_and_cleans_partial(self):
+        with tempfile.TemporaryDirectory() as td:
+            archive = Path(td)/'runtime.7z';archive.write_bytes(b'existing')
+            with patch('urllib.request.urlopen', side_effect=lambda *a, **k: io.BytesIO(b'bad')), \
+                    patch.object(stage_windows.time, 'sleep'), self.assertRaisesRegex(RuntimeError, 'four attempts'):
+                stage_windows.download(archive)
+            self.assertEqual(archive.read_bytes(), b'existing')
+            self.assertFalse(archive.with_suffix('.part').exists())
+
     def test_catalog_model_paths_with_spaces_and_self_includes_are_staged(self):
         from icstudio.pdks import stage_model_deck
         with tempfile.TemporaryDirectory(prefix='PDK profile with spaces ') as td:

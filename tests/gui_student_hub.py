@@ -37,8 +37,8 @@ def main():
     h.select_lesson('f-first');QTest.qWait(60);h.grab().save(str(out/'hub.png'))
     h.start_selected();g=h.guide;assert g.isVisible();assert w.path.is_file()
     g.answer.setCurrentIndex(1);g.call(g.check);assert 'Try again' in g.feedback.text()
-    g.answer.setCurrentIndex(2);g.check();assert g.steps.currentIndex()==1
-    g.check();assert g.steps.currentIndex()==2
+    g.answer.setCurrentIndex(2);g.check();assert g.steps.currentIndex()==0;g.advance();assert g.steps.currentIndex()==1
+    g.check();g.advance();assert g.steps.currentIndex()==2
     g.run()
     def wait():
         deadline=time.monotonic()+180
@@ -49,7 +49,7 @@ def main():
     # A pending parameter edit invalidates the old run before awarding a step.
     w.commit(lambda p:p['cells'][0]['devices'][1].update(value='20k'),'Stale evidence probe')
     g.call(g.check);assert 'latest edits' in g.feedback.text()
-    w.undo();g.run();wait();g.check();assert g.steps.currentIndex()==3
+    w.undo();g.run();wait();g.check();g.advance();assert g.steps.currentIndex()==3
     g.notes.setPlainText('At 12 microseconds the output is approximately 1.14 V: the capacitor has acquired about 63 percent of the input step.')
     g.check();assert complete(h.portfolio.state,h.by_id['f-first'])
     g.save_work();first_path=w.path
@@ -75,7 +75,18 @@ def main():
     from icstudio.student_hub import evaluate
     evidence=evaluate(lesson['steps'][2],lesson,w.project,w.run_manager.rows,path)
     assert len(evidence['cases'])==4
-    g.results();QTest.qWait(50);w._mixed_signal_dialog.grab().save(str(out/'capstone.png'));w._mixed_signal_dialog.close()
+    # Second-pass audit: Results must select this lesson's latest captured run,
+    # and the mixed-signal picker must never show another project's evidence.
+    from copy import deepcopy
+    foreign=deepcopy({k:v for k,v in w.run_manager.rows[-1].items() if k!='process'})
+    foreign['id']='foreign-audit-run';foreign['job']['project']['id']='another-project'
+    w.run_manager.rows.append(foreign)
+    g.results();QTest.qWait(50)
+    dialog=w._mixed_signal_dialog
+    assert dialog.selected()['id']==w.run_manager.rows[-2]['id']
+    assert dialog.runs.findData('foreign-audit-run')==-1
+    w.run_manager.rows.remove(foreign)
+    dialog.grab().save(str(out/'capstone.png'));dialog.close()
     h.portfolio.export(out/'learning-record.json',h.data)
     assert len(json.loads((out/'learning-record.json').read_text())['projects'])>=4
     # Note drafts persist even without awarding the reflection.

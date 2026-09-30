@@ -16,16 +16,33 @@ workspace task, a measured or structural checkpoint, and a written reflection:
 3. The **Student lesson guide** stays beside the schematic, layout or RTL editor.
    Follow the current instruction, edit the real design, and use **Run lesson**.
 4. **Results** opens the existing waveform or digital/mixed-signal workspace.
-   **Check this step** evaluates the current design and captured evidence.
+   **Check this step** evaluates the current design and captured evidence. Read
+   the result, then choose **Next step** when ready.
 5. Write your reasoning in the reflection field. Draft notes save automatically;
    **Record reflection** adds the note to the learning record.
 6. **Save work** preserves circuit/RTL edits. **Resume lesson** reopens that file
    next time. The four advanced milestones share one project and retain earlier
    repairs.
 
-The guide can be reopened from **View → STUDENT LESSON GUIDE**. **Student Hub**
+The guide can be reopened from **View → Lesson guide**. **Student Hub**
 returns to the progression map. Use **Cancel lesson runs** to stop only the jobs
-launched for the active lesson. A failed simulator run does not earn credit.
+launched for that lesson project. Duplicate submissions are blocked while a run
+is queued, running or stopping. A failed simulator run does not earn credit.
+
+The Hub adapts to a narrow window. **More → Text size** enlarges text up to 200%
+in both the Hub and guide; scrolling keeps controls reachable. Use **Cmd+F** on
+macOS or **Ctrl+F** on Windows/Linux to search the current path. Return in search
+focuses the lesson list; Return on a lesson opens it. Tab navigates controls.
+
+**More → Locate lesson project** reconnects a moved file after checking its
+project identity. **More → Reload progress** recovers changes saved by another
+window; if both windows edited the same reflection, choose which version to keep
+or cancel to preserve the unsaved draft. A failed draft save blocks dismissal or
+app exit until the draft can be preserved. **Export learning record** saves the
+current lesson's circuit/RTL edits before exporting; cancelling Save cancels export.
+
+See the [two-pass interface audit](STUDENT_HUB_AUDIT.md) for findings, validation,
+and the remaining native macOS acceptance work.
 
 ![The lesson guide beside the editable schematic and real waveforms](images/student-lesson.png)
 
@@ -52,7 +69,7 @@ reasoning and limitations for instructor or peer review.
 
 ## Engines and models
 
-**Engine setup** in the Hub selects native local `ngspice`, `iverilog` and `vvp`
+**More → Engine setup** in the Hub selects native local `ngspice`, `iverilog` and `vvp`
 executables; blank fields search PATH. Earlier mixed-signal executable selections
 are used as defaults. Missing tools produce a setup error.
 
