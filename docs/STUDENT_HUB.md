@@ -3,7 +3,10 @@
 Open **File → Student Hub** or choose **Student Hub** in the example gallery.
 Six learning paths cover foundations, analog, digital, mixed signal, layout and
 portfolio preparation. Four additional milestones build one sensor-acquisition
-project: **41 lessons and 164 steps** in total. Every lesson includes a concept,
+project: **41 core lessons and 164 steps**, plus an eight-lesson
+[CMOS inverter course](STUDENT_INVERTER.md) for each available PDK revision.
+The inverter course adds process-model simulation, layout, DRC and LVS repair,
+and a design-review handoff. Every lesson includes a concept,
 worked example, follow-up experiment, interview prompt and portfolio outcome,
 plus a prediction, practical task, evidence checkpoint and written reflection.
 

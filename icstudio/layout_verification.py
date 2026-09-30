@@ -123,7 +123,13 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None)
             r=verification_stream(out/'original.gds',c['name'],ref['ports'],out/'layout.gds',pin_layers=pins)
             files.update({n:file_digest(out/n) for n in ('original.gds','layout.gds')});return r
         stage('layout_export',stream)
-        def magic(folder,commands):return magic_script(resolved['magic']['path'],assets['technology'],out/'layout.gds',c['name'],ref['ports'],out/folder,commands)
+        def magic(folder,commands):
+            log=magic_script(resolved['magic']['path'],assets['technology'],out/'layout.gds',c['name'],ref['ports'],out/folder,commands)
+            # Keep the actual rule/extraction logs in the immutable evidence
+            # inventory, including runs that demonstrate a repairable defect.
+            for path in (out/folder).glob('*.log'):
+                files[path.relative_to(out).as_posix()]=file_digest(path)
+            return log
         def drc():
             commands='snap internal\nselect top cell\nbox values {*}[select bbox]\nbox grow c 10um\ndrc style '+tcl_word(report['magic_drc_style'])+'\ndrc ignore none\ndrc check\ndrc catchup\nputs "STUDIO_DRC_COUNT [drc list count total]"\nputs "STUDIO_DRC_STYLE [drc list style]"\nputs "STUDIO_MAGIC_SCALE [cif scale out]"\n'
             commands+='set f [open findings.tsv w]\nforeach {reason boxes} [drc listall why] {foreach coords $boxes {puts $f "[string map {\\t { } \\n { }} $reason]\\t[join $coords {,}]"}}\nclose $f\n'
@@ -146,6 +152,7 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None)
         stage('lvs_extraction',extract)
         def lvs():
             log=netgen_lvs(resolved['netgen']['path'],out/'schematic-lvs.spice',ref['top'],out/'lvs-extraction/extracted.spice',c['name'],assets['setup'],out/'lvs')
+            files['lvs/lvs.log']=file_digest(out/'lvs/lvs.log')
             require_lvs_match(log);return dict(unique_match=True,log='lvs/lvs.log')
         try:stage('lvs',lvs)
         except (ValueError,OSError) as exc:failures.append(str(exc))

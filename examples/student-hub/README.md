@@ -2,7 +2,11 @@
 
 Open **File → Student Hub** for six learning paths and the advanced sensor
 acquisition project. The [course guide](../../docs/STUDENT_HUB.md) explains all
-41 lessons, progression, evidence and model limits.
+41 core lessons, progression, evidence and model limits. The additional
+[PDK inverter course](../../docs/STUDENT_INVERTER.md) adds eight lessons per
+revision, from schematic and simulation to layout, DRC/LVS repairs and review.
+`inverter-course.json` contains its teaching material and checkpoints;
+`icstudio.student_inverter` binds separate course instances to exact PDK content.
 
 `curriculum.json` contains the ordered lessons, prerequisite graph, instructions
 and checkpoint requirements. `study-guide.json` adds concepts, worked examples,
@@ -14,7 +18,8 @@ saved project, with three faults for the student to repair.
 Foundations and Analog lessons use the included teaching solver. Digital lessons
 need native local Icarus (`iverilog` and `vvp`); Mixed Signal and the capstone also
 need native ngspice. Configure **More → Engine setup…** in the Hub. The managed
-digital WSL runtime is separate and does not run these lessons. See
+digital WSL runtime is separate from these electrical/RTL lessons. The new
+inverter physical checkpoints can use the included Magic/Netgen runtime. See
 [engine setup](../../docs/STUDENT_HUB.md#engines-and-models).
 
 `sensor-reference.icproj` is the **correct reference**, not the faulty teaching

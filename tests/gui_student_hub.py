@@ -36,7 +36,7 @@ def main():
         w.settings.setValue('student/tools/'+n,tool)
     h=show(w);assert h.lessons.count()==6
     for key in [p['id'] for p in h.data['paths']]+['capstone']:
-        h.choose_path(key);assert h.lessons.count()==sum(l['path']==key for l in h.data['lessons'])
+        h.choose_path(key);assert h.lessons.count()==sum(l['path']==key and (key!='inverter' or l['inverter_profile']==h.process_picker.currentData()) for l in h.data['lessons'])
     h.select_lesson('f-first');QTest.qWait(60);h.grab().save(str(out/'hub.png'))
     h.start_selected();g=h.guide;assert g.isVisible();assert w.path.is_file()
     g.answer.setCurrentIndex(1);g.call(g.check);assert 'Try again' in g.feedback.text()

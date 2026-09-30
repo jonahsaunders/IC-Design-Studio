@@ -10,7 +10,7 @@ from .model import atomic_write, clone, design_digest, digest, file_digest, load
 
 RULES = {'structure','nets','value','hierarchy','layout','saved','result','current','difference',
          'digital_sources','digital','sar','config','config_number','rtl_contains','capstone','campaign',
-         'device_metrics','layout_exercise'}
+         'device_metrics','layout_exercise','inverter'}
 # Increment for a change to grading semantics. Unrelated application releases
 # must not erase a student's earned progression; exact grader identity is also
 # retained on each newly awarded evidence record.
@@ -63,7 +63,8 @@ def checker_stamp():
         return WORKFLOW_SOURCE_HASH
     return digest([file_digest(__file__),file_digest(Path(__file__).with_name('student_capstone.py')),
                    file_digest(Path(__file__).with_name('student_projects.py')),
-                   file_digest(Path(__file__).with_name('student_design_labs.py'))])
+                   file_digest(Path(__file__).with_name('student_design_labs.py')),
+                   file_digest(Path(__file__).with_name('student_inverter.py'))])
 
 
 def lesson_stamp(lesson):
@@ -235,7 +236,10 @@ def evaluate(step, lesson, project, rows=(), path=None, answer=None, note=''):
         return ds[0]
     def require(ok,message):
         if not ok:raise ValueError(message)
-    if kind=='structure':require(all(any(d['name']==n for d in devices) for n in rule['devices']),'Find the named devices in this lesson project.')
+    if kind=='inverter':
+        from .student_inverter import check
+        evidence.update(check(project,lesson,rule,rows))
+    elif kind=='structure':require(all(any(d['name']==n for d in devices) for n in rule['devices']),'Find the named devices in this lesson project.')
     elif kind=='value':
         value=find(rule['device'])
         for field in rule['field'].split('.'):value=value[field]

@@ -64,7 +64,7 @@ def main():
 
     for key in [p['id'] for p in h.data['paths']]+['capstone']:
         h.choose_path(key)
-        assert h.lessons.count() == sum(l['path']==key for l in h.data['lessons'])
+        assert h.lessons.count() == sum(l['path']==key and (key!='inverter' or l['inverter_profile']==h.process_picker.currentData()) for l in h.data['lessons'])
         assert h.path_picker.currentData() == key
         assert h.path_list.currentItem().data(Qt.UserRole) == key
     h.select_lesson('f-first')

@@ -1,0 +1,207 @@
+{
+  "status": "passed",
+  "date": "2026-09-30",
+  "scope": "Eight-stage CMOS course with revision-scoped progress and real process evidence; bounded fixtures only.",
+  "environment": {
+    "platform": "Windows x64",
+    "python": "3.12",
+    "qt": "6.8.3 offscreen",
+    "ngspice": "42 native",
+    "magic": "8.3.600 in managed WSL",
+    "netgen": "1.5.300 in managed WSL"
+  },
+  "unit_suite": {
+    "tests": 1230,
+    "skipped": 55,
+    "status": "passed"
+  },
+  "inverter_tests": {
+    "tests": 5,
+    "skipped": 0,
+    "status": "passed",
+    "includes": [
+      "Both bundled PDK DC and three-cycle transient checks",
+      "Wrong model, other revision/lesson and stale result rejection",
+      "Setup failures do not count as DRC violations",
+      "Altered physical evidence rejection"
+    ]
+  },
+  "gui": {
+    "status": "PASS",
+    "qt_platform": "offscreen",
+    "processes": 3,
+    "checks": [
+      "eight stages filtered by PDK revision",
+      "missing IHP setup visible",
+      "real ngspice through GUI queue",
+      "measurement and waveform results",
+      "distinct durable per-process projects",
+      "reload and resume",
+      "200 percent text reflow",
+      "real native layout, DRC fault injection and repair through GUI"
+    ]
+  },
+  "bundled_and_registered_gui_dc": [
+    {
+      "pdk": "gf180mcuD",
+      "revision": "9394d9228663e22b",
+      "input_sha256": "9d6e800d88f7b202a392fc99b8b4acdb444ce5647aec5c8ab2d90e515b448490",
+      "result_sha256": "ef83b3644718407c3757151abf962b2abd8e06e06617a444bea64bfb3d529c12",
+      "measurements": {
+        "VOH": 3.299999991173777,
+        "VOL": 5.4347045156165e-09,
+        "switching_threshold": 1.5319991828822659,
+        "supply": 3.3
+      }
+    },
+    {
+      "pdk": "sky130A",
+      "revision": "24bc6d0bfd6a0224",
+      "input_sha256": "71f44bc5f28cc39bf56ff4690396377e975a50898e41ef7cc84e53a6c62f8ff9",
+      "result_sha256": "81a3be41f1d036672a0edbe053b9b0a5bd3c153b9b142075f13a316e9687f119",
+      "measurements": {
+        "VOH": 1.799999997233054,
+        "VOL": 2.150076643709088e-07,
+        "switching_threshold": 0.8698409483946375,
+        "supply": 1.8
+      }
+    },
+    {
+      "pdk": "sky130A",
+      "revision": "01b4bb7a87cc7fe5",
+      "input_sha256": "a1be17ca2677e83280e23a5724db688bdec2460661f0001ee332426b1d600b90",
+      "result_sha256": "fb770ac5dc9e7b430811e2e2bdcbb8a03d6f42b6cfa31120367022aabca4fb87",
+      "measurements": {
+        "VOH": 1.799999997233054,
+        "VOL": 2.150076643709088e-07,
+        "switching_threshold": 0.8698409483946375,
+        "supply": 1.8
+      }
+    }
+  ],
+  "physical": {
+    "pdk": "sky130A",
+    "revision": "01b4bb7a87cc7fe5",
+    "cases": [
+      {
+        "name": "dc",
+        "input_sha256": "792310a1e0b4679616880fcbeb6d5742262fd062fd346912f6e3bfc704245bd4",
+        "result_sha256": "587b7535dec6d37a94a3b7952df2540169cc2c8ce499303bf009293e679291c5",
+        "status": "passed",
+        "measurements": {
+          "VOH": 1.799999997233054,
+          "VOL": 2.150076643709088e-07,
+          "switching_threshold": 0.8698409483946375,
+          "supply": 1.8
+        }
+      },
+      {
+        "name": "transient",
+        "input_sha256": "41d0b632501de90bea5ae5875f316d9ce71a1cce7bfec060c4b9f347a232aa8e",
+        "result_sha256": "45b2094ebcf87b0237c6faee7731f7b077580d87f85d8571363ee16daf0156d7",
+        "status": "passed",
+        "measurements": {
+          "tPHL": 1.781111491297171e-11,
+          "tPLH": 2.2602243100823378e-11,
+          "supply": 1.8,
+          "checked_cycles": 3
+        }
+      },
+      {
+        "name": "drc-fault",
+        "input_sha256": "e9c8d5f833c0afa8139ca2151d7be34c2d59d0e5c35e447f6115e3e81ef04ddf",
+        "result_sha256": "ce9decb2773a2d4b4f8f9e7c5aa50cdd95957caeeffd594d5f0b08aeb4efb375",
+        "status": "failed",
+        "drc_count": 2,
+        "stages": {
+          "preflight": "passed",
+          "layout_export": "passed",
+          "drc": "failed",
+          "lvs_extraction": "passed",
+          "lvs": "passed",
+          "integrity": "passed"
+        },
+        "tool_sha256": {
+          "magic": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223",
+          "netgen": "209cc0bab75420d13094a99de13e94af05d735e744e06d817fac022ac74401d3"
+        }
+      },
+      {
+        "name": "drc-repaired",
+        "input_sha256": "34bfb0beee75006e363a017d461ad032a90b03c96afe65bed1bdf0a594186d9f",
+        "result_sha256": "fb8e1e2f36e3235a05e59fac2b3300cc47e9e83ec2fa6e3a598e3eed38ae6261",
+        "status": "passed",
+        "drc_count": 0,
+        "stages": {
+          "preflight": "passed",
+          "layout_export": "passed",
+          "drc": "passed",
+          "lvs_extraction": "passed",
+          "lvs": "passed",
+          "integrity": "passed"
+        },
+        "tool_sha256": {
+          "magic": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223",
+          "netgen": "209cc0bab75420d13094a99de13e94af05d735e744e06d817fac022ac74401d3"
+        }
+      },
+      {
+        "name": "lvs-fault",
+        "input_sha256": "7d07c594623f6e23e4dd571f870fcc42d3beadbc3eb2c8256590d92ab881d8af",
+        "result_sha256": "87bf280edd69789128dd6362ceae76dad9ff8a5be6f64be9d57cec703f60abe6",
+        "status": "failed",
+        "drc_count": 0,
+        "stages": {
+          "preflight": "passed",
+          "layout_export": "passed",
+          "drc": "passed",
+          "lvs_extraction": "passed",
+          "lvs": "failed",
+          "integrity": "passed"
+        },
+        "tool_sha256": {
+          "magic": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223",
+          "netgen": "209cc0bab75420d13094a99de13e94af05d735e744e06d817fac022ac74401d3"
+        }
+      },
+      {
+        "name": "lvs-repaired",
+        "input_sha256": "5390fd6fd89701f7991be45b11fe2fc23893aafcf087e357ab3e5e00669e09d5",
+        "result_sha256": "166250b1b42a1b42cbba638837e52028c01243c3f889157c3c009d4d703af979",
+        "status": "passed",
+        "drc_count": 0,
+        "stages": {
+          "preflight": "passed",
+          "layout_export": "passed",
+          "drc": "passed",
+          "lvs_extraction": "passed",
+          "lvs": "passed",
+          "integrity": "passed"
+        },
+        "tool_sha256": {
+          "magic": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223",
+          "netgen": "209cc0bab75420d13094a99de13e94af05d735e744e06d817fac022ac74401d3"
+        }
+      }
+    ],
+    "altered_log_rejected": true
+  },
+  "other_gui_workflows": [
+    "student_hub",
+    "student_usability",
+    "student_design_labs"
+  ],
+  "limitations": [
+    "IHP models/OSDI not installed or engine-qualified in this validation.",
+    "GF180 physical flow not qualified here. Bundled GF180 D is a simulation package; existing native generator targets C.",
+    "No PVT, parasitic, noise-margin, antenna/density, reliability, foundry signoff or employment qualification.",
+    "Offscreen Windows GUI only; no interactive desktop, installer, macOS or Linux GUI qualification.",
+    "Physical regression reused an installed managed runtime record; first-time runtime setup was not repeated."
+  ],
+  "reproduction": {
+    "unit": "python -m unittest discover -s tests -v",
+    "focused": "ICSTUDIO_TEST_NGSPICE=<native ngspice> python -m unittest discover -s tests -p test_student_inverter.py -v",
+    "gui": "QT_QPA_PLATFORM=offscreen ICSTUDIO_TEST_NGSPICE=<native ngspice> ICSTUDIO_TEST_INVERTER_MANIFEST=<full SKY130 package.json> python tests/gui_student_inverter.py",
+    "physical": "ICSTUDIO_DIGITAL_PAYLOAD=<matching payload> ICSTUDIO_DIGITAL_STATE=<installed state> python scripts/qualify_student_inverter.py --pdk-manifest <full SKY130 package.json> --out <fresh output> --ngspice <native ngspice> --runtime-record <ready record>"
+  }
+}

@@ -90,7 +90,7 @@ Python requirements do not install the digital engines, VGA assets or openEMS ru
 | Process layout verification | Matching physical PDK assets/decks; **Tools → Physical tools setup** selects the included Magic/Netgen/ngspice runtime or configured custom engines |
 | Inductor EM simulation | openEMS runtime plus declared physical materials and layer data in a PDK profile |
 
-The packaged digital runtime uses native Linux tools or an app-owned **WSL 2** distribution on Windows. First-time Windows setup may need administrator approval and a restart. Linux packages target **x86_64, glibc 2.39+**. The Student Hub and SAR bridge use local executable paths, independently of that managed digital runtime.
+The packaged digital runtime uses native Linux tools or an app-owned **WSL 2** distribution on Windows. First-time Windows setup may need administrator approval and a restart. Linux packages target **x86_64, glibc 2.39+**. Student Hub electrical/RTL lessons and the SAR bridge use local executable paths. The Hub's inverter DRC/LVS lessons can use the managed physical runtime.
 
 [Desktop setup](docs/DOWNLOADS.md) · [PDK setup](docs/PDK_GUIDE.md) · [Engine details](docs/DIGITAL_FLOW.md#included-tools-and-first-setup)
 
@@ -193,7 +193,7 @@ The supplied bandgap has two locked upload revisions: the gallery startup/full p
 
 ### Learn by building real circuits
 
-The **Student Hub** turns the native editors into a course: **41 lessons, 164 steps, six learning paths and one advanced project**. Predict an outcome, edit the circuit or RTL, check measured or structural evidence, then record your reasoning. Saved projects, progress and reflections let you pick up where you left off.
+The **Student Hub** turns the native editors into a course: **41 core lessons, six learning paths and one advanced project**, plus an [eight-lesson CMOS inverter course](docs/STUDENT_INVERTER.md) for each available PDK revision. The inverter course covers process selection, schematic design, DC transfer, switching delay, layout, DRC repair, LVS repair and design review. Predict an outcome, edit the circuit or RTL, check measured or structural evidence, then record your reasoning. Saved projects, progress and reflections let you pick up where you left off.
 
 [![The Student Hub with six learning paths, gm/ID sizing, prerequisites and portfolio outcomes.](docs/images/student-hub-design-paths.png)](docs/STUDENT_HUB.md)
 
@@ -205,6 +205,7 @@ The **Student Hub** turns the native editors into a course: **41 lessons, 164 st
 | **Mixed Signal** | Bridge thresholds, sample/hold, quantization, timing repair, DAC weights and repeated conversions |
 | **Layout** | Metal width/spacing repairs, via enclosure and common-centroid placement with measured geometry checks |
 | **Portfolio & interviews** | Requirements, verification plans, design reviews and a readable portfolio report |
+| **CMOS inverter · PDK to LVS** | Process models, transfer curves, switching delay, layout, actual DRC/LVS failures and repairs, with separate progress per PDK revision |
 
 **Try it:** choose **File → Student Hub → Continue learning** or select a lesson and choose **Start lesson**. The guide stays beside the real editor. Its **Learn** tab explains the concept, a worked example and an interview prompt; **Do this step** gives the exercise. Use **Run lesson**, inspect **Results**, then **Check this step**. **Practice lesson** makes locked lessons available for exploration without bypassing progression credit.
 

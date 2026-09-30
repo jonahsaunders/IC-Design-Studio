@@ -55,6 +55,10 @@ class StudentHub(QDialog):
     def __init__(self,studio):
         super().__init__(studio);self.studio=studio;self.data=curriculum()
         self.material=study_guide(self.data)
+        from .student_inverter import inventory, expand
+        profiles,self.pdk_errors=inventory(studio.pdk_registry,studio.project['pdk'])
+        self.inverter_profiles={p['token']:p for p in profiles}
+        self.data,self.material=expand(self.data,self.material,profiles)
         self.portfolio=Portfolio(studio.data_dir/'student-hub');self.path_id='foundations'
         self.setWindowTitle('Student Hub · IC Design Studio');self.resize(1180,780);self.setMinimumSize(720,560)
         self.text_scale=int(studio.settings.value('student/textScale',100))
@@ -78,6 +82,17 @@ class StudentHub(QDialog):
         self.total=label('','muted');root.addWidget(self.total)
         root.addWidget(label('Learn the idea → repair a design → check the evidence → explain your decisions.','muted'))
         self.path_picker=QComboBox();self.path_picker.setAccessibleName('Learning path');root.addWidget(self.path_picker)
+        self.process_panel=QWidget();pv=QVBoxLayout(self.process_panel);pv.setContentsMargins(0,0,0,0)
+        pr=QHBoxLayout();pv.addLayout(pr);pr.addWidget(label('Inverter process'))
+        self.process_picker=QComboBox();self.process_picker.setAccessibleName('Inverter PDK revision');pr.addWidget(self.process_picker,1)
+        self.process_picker.setMinimumContentsLength(8);self.process_picker.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
+        for item in profiles:self.process_picker.addItem(item['name'],item['token'])
+        saved=studio.settings.value('student/inverterProfile','');index=self.process_picker.findData(saved)
+        if index>=0:self.process_picker.setCurrentIndex(index)
+        actions=QHBoxLayout();pv.addLayout(actions);actions.addWidget(button('PDK setup',studio.pdk_manager))
+        actions.addWidget(button('Reload PDKs',lambda:self.call(self.reload_pdks)));actions.addStretch()
+        self.process_status=label('','muted');pv.addWidget(self.process_status);root.addWidget(self.process_panel)
+        self.process_picker.currentIndexChanged.connect(self.process_changed)
         self.path_list=QListWidget();self.path_list.setAccessibleName('Learning paths');self.path_list.setMinimumWidth(175)
         self.path_list.setMaximumWidth(250);self.path_list.setWordWrap(True)
         for path in [*self.data['paths'],dict(id='capstone',title='Advanced project')]:
@@ -140,17 +155,40 @@ class StudentHub(QDialog):
         if key is None:return
         self.path_id=key;self.search.clear();self.fill()
 
+    def process_changed(self,*_):
+        self.studio.settings.setValue('student/inverterProfile',self.process_picker.currentData())
+        self.fill()
+
+    def reload_pdks(self):
+        from .student_inverter import inventory, expand
+        self.guide.save_note();selected=self.process_picker.currentData()
+        profiles,self.pdk_errors=inventory(self.studio.pdk_registry,self.studio.project['pdk'])
+        self.inverter_profiles={p['token']:p for p in profiles}
+        self.data=curriculum();self.material=study_guide(self.data)
+        self.data,self.material=expand(self.data,self.material,profiles)
+        self.by_id={l['id']:l for l in self.data['lessons']}
+        self.process_picker.blockSignals(True);self.process_picker.clear()
+        for p in profiles:self.process_picker.addItem(p['name'],p['token'])
+        self.process_picker.setCurrentIndex(max(0,self.process_picker.findData(selected)));self.process_picker.blockSignals(False)
+        self.fill()
+
     def selected(self):
-        item=self.lessons.currentItem();return self.by_id[item.data(Qt.UserRole)] if item else None
+        item=self.lessons.currentItem();return self.by_id.get(item.data(Qt.UserRole)) if item else None
 
     def fill(self,*_):
         previous=self.selected();key=previous['id'] if previous else None;state=self.portfolio.state
+        from .student_inverter import readiness
+        self.process_panel.setVisible(self.path_id=='inverter')
+        item=self.inverter_profiles.get(self.process_picker.currentData())
+        self.process_status.setText((readiness(item) if item else 'Register a PDK to start.')+
+                                   ('\n'+ '\n'.join(self.pdk_errors) if self.pdk_errors else ''))
         self.lessons.blockSignals(True);self.lessons.clear()
-        self.total.setText(f'{sum(complete(state,l) for l in self.data["lessons"])} of {len(self.data["lessons"])} lessons complete · {len(self.data["paths"])} paths and an advanced project')
+        available=[l for l in self.data['lessons'] if not l.get('inverter_profile') or self.inverter_profiles[l['inverter_profile']]['ready']]
+        self.total.setText(f'{sum(complete(state,l) for l in available)} of {len(available)} available lessons complete · {len(self.data["paths"])} paths and an advanced project')
         self.path_list.blockSignals(True);self.path_picker.blockSignals(True)
         for i in range(self.path_list.count()):
             item=self.path_list.item(i);path_key=item.data(Qt.UserRole)
-            ls=[l for l in self.data['lessons'] if l['path']==path_key];n=sum(complete(state,l) for l in ls)
+            ls=[l for l in self.data['lessons'] if l['path']==path_key and (path_key!='inverter' or l['inverter_profile']==self.process_picker.currentData())];n=sum(complete(state,l) for l in ls)
             title=self.path_picker.itemText(i).split(' · ')[0]
             item.setText(title+f'\n{n} of {len(ls)} complete');self.path_picker.setItemText(i,title+f' · {n}/{len(ls)}')
             if path_key==self.path_id:self.path_list.setCurrentRow(i);self.path_picker.setCurrentIndex(i)
@@ -160,6 +198,7 @@ class StudentHub(QDialog):
         query=self.search.text().casefold()
         for l in self.data['lessons']:
             if l['path']!=self.path_id or query not in ' '.join([l['title'],l['summary'],*l['skills']]).casefold():continue
+            if l['path']=='inverter' and l['inverter_profile']!=self.process_picker.currentData():continue
             count=len(earned(state,l));missing=missing_prerequisites(state,l,self.data)
             status='Completed' if complete(state,l) else 'Prerequisites needed' if missing else 'In progress' if count else 'Ready to start'
             item=QListWidgetItem(f'{l["title"]}\n{status} · {count}/{len(l["steps"])} steps · {l["minutes"]} min')
@@ -188,17 +227,28 @@ class StudentHub(QDialog):
         self.progress.setRange(0,len(l['steps']));self.progress.setValue(len(done));self.progress.setFormat('%v of %m steps earned')
         self.progress_text.setText(f'{len(done)} of {len(l["steps"])} steps complete')
         self.start.setText('Practice lesson' if missing else 'Review lesson' if complete(state,l) else 'Resume lesson' if self.portfolio.workspace(l) else 'Start lesson')
+        if l.get('inverter_profile') and not self.inverter_profiles[l['inverter_profile']]['ready']:
+            self.start.setEnabled(False);self.start.setText('Set up this PDK to start')
+            self.details.setHtml(self.details.toHtml()+notes_html(teaching))
 
     def select_lesson(self,key):
         if key not in self.by_id:return
+        if self.by_id[key].get('inverter_profile'):
+            self.process_picker.blockSignals(True)
+            self.process_picker.setCurrentIndex(self.process_picker.findData(self.by_id[key]['inverter_profile']))
+            self.process_picker.blockSignals(False)
         self.path_id=self.by_id[key]['path'];self.search.clear();self.fill()
         for i in range(self.lessons.count()):
             if self.lessons.item(i).data(Qt.UserRole)==key:self.lessons.setCurrentRow(i);break
 
     def continue_learning(self):
-        lesson=next_lesson(self.portfolio.state,self.data)
+        data=self.data
+        if self.path_id=='inverter':data={**data,'lessons':[l for l in data['lessons'] if l.get('inverter_profile')==self.process_picker.currentData()]}
+        else:data={**data,'lessons':[l for l in data['lessons'] if not l.get('inverter_profile') or self.inverter_profiles[l['inverter_profile']]['ready']]}
+        lesson=next_lesson(self.portfolio.state,data)
         if lesson:self.select_lesson(lesson['id']);self.start_selected()
-        else:self.status.setText('All learning paths and the advanced project are complete. Revisit any lesson or export your portfolio report.')
+        else:self.status.setText('This process course is complete. Choose another PDK or continue with the other learning paths.' if self.path_id=='inverter' else
+                                'All learning paths and the advanced project are complete. Revisit any lesson or export your portfolio report.')
 
     def start_selected(self):
         from .student_projects import create
@@ -214,7 +264,11 @@ class StudentHub(QDialog):
                 project=load_project(path)
                 if project['id']!=record['project_id']:raise ValueError('The saved lesson file was replaced with a different project.')
             else:
-                project=create(l['starter']);path=self.portfolio.root/'projects'/(l['workspace']+'-'+uid()+'.icproj')
+                if l.get('inverter_profile'):
+                    from .student_inverter import create as inverter
+                    project=inverter(self.inverter_profiles[l['inverter_profile']])
+                else:project=create(l['starter'])
+                path=self.portfolio.root/'projects'/(l['workspace']+'-'+uid()+'.icproj')
                 path.parent.mkdir(parents=True,exist_ok=True);save_project(project,path);self.portfolio.attach(l,project,path)
             s.set_project(project,path)
         self.guide.open_lesson(l);self.hide();self.guide.show();self.guide.raise_()
@@ -265,12 +319,12 @@ class StudentHub(QDialog):
         return 'local' if dialog.clickedButton() is keep else 'saved' if dialog.clickedButton() is load else None
 
     def tools(self):
-        return {n:self.studio.settings.value('student/tools/'+n,self.studio.settings.value('mixed_signal/'+n,'')) for n in ('ngspice','iverilog','vvp')}
+        return {n:self.studio.settings.value('student/tools/'+n,self.studio.settings.value('mixed_signal/'+n,self.studio.settings.value('engine/'+n,''))) for n in ('ngspice','iverilog','vvp','magic','netgen')}
 
     def setup(self):
         dialog=QDialog(self);dialog.setWindowTitle('Student simulation engines');v=QVBoxLayout(dialog)
         v.addWidget(label('Foundations and Analog use the included teaching solver. Digital requires local Icarus (iverilog and vvp). Mixed Signal and the advanced project also require local ngspice.'))
-        v.addWidget(label('Choose native local executables, or leave fields blank to find them on PATH. The managed digital container/WSL runtime is not used by these lessons.'))
+        v.addWidget(label('Choose native local executables for simulation, or leave them blank to search PATH. The PDK inverter uses ngspice. Leave Magic and Netgen blank to use the included physical runtime; install it through Tools → Physical tools setup. Custom physical paths must point to native executables.'))
         form=QFormLayout();v.addLayout(form);edits={}
         for name,value in self.tools().items():
             row=QHBoxLayout();edit=QLineEdit(value);edit.setPlaceholderText(name+' on PATH');row.addWidget(edit);button=QPushButton('Browse…');row.addWidget(button)
@@ -339,6 +393,13 @@ class LessonGuide(QDockWidget):
         for i,(title,fn) in enumerate([('Open workspace',self.workspace),('Open RTL',self.rtl),('Run lesson',self.run),('Results',self.results),
                                      ('Save work',self.save_work),('Cancel lesson runs',self.cancel),('Student Hub',self.show_hub),('Engine setup',hub.setup)]):
             b=button(title,lambda fn=fn:self.call(fn));self.controls_layout.addWidget(b,i//2,i%2);self.controls[title]=b
+        self.inverter_actions=QWidget();iv=QGridLayout(self.inverter_actions);iv.setContentsMargins(0,0,0,0);v.addWidget(self.inverter_actions)
+        self.inverter_controls_layout=iv;self.inverter_buttons=[]
+        for i,(title,fn) in enumerate([('Open inverter',self.open_inverter),('Build layout',self.build_inverter),
+                                     ('Add DRC fault',lambda:self.inverter_edit('drc')),('Add LVS fault',lambda:self.inverter_edit('lvs')),
+                                     ('Repair lesson fault',lambda:self.inverter_edit('repair'))]):
+            control=button(title,lambda fn=fn:self.call(fn));iv.addWidget(control,i//2,i%2);self.inverter_buttons.append(control)
+        self.inverter_actions.hide()
         self.qualify=button('Run four acceptance cases',lambda:self.call(self.qualification));v.addWidget(self.qualify)
         self.steps.currentIndexChanged.connect(self.step_changed)
         self.note_timer=QTimer(self);self.note_timer.setSingleShot(True);self.note_timer.setInterval(600)
@@ -357,6 +418,10 @@ class LessonGuide(QDockWidget):
         buttons=list(self.controls.values())
         needed=sum(max(b.sizeHint().width() for b in buttons[col::2]) for col in (0,1))+self.controls_layout.horizontalSpacing()
         columns=2 if needed<=width else 1
+        inv=self.inverter_buttons
+        inv_columns=2 if sum(max(b.sizeHint().width() for b in inv[col::2]) for col in (0,1))+self.inverter_controls_layout.horizontalSpacing()<=width else 1
+        while self.inverter_controls_layout.count():self.inverter_controls_layout.takeAt(0)
+        for i,control in enumerate(inv):self.inverter_controls_layout.addWidget(control,i//inv_columns,i%inv_columns)
         if columns==self.control_columns:return
         self.control_columns=columns
         while self.controls_layout.count():self.controls_layout.takeAt(0)
@@ -391,6 +456,7 @@ class LessonGuide(QDockWidget):
         self.steps.setCurrentIndex(index);self.steps.blockSignals(False);self.step_changed(index)
         self.lesson_tabs.setCurrentIndex(0 if not done else 1)
         self.qualify.setVisible(lesson['id']=='c-qualify')
+        self.inverter_actions.setVisible(lesson['path']=='inverter')
         self.controls['Open RTL'].setEnabled(lesson['path'] in ('digital','mixed','capstone'))
         self.update_run_state()
 
@@ -441,6 +507,12 @@ class LessonGuide(QDockWidget):
             feedback(self.feedback,f'Checkpoint passed. ID = {point["id"]*1e6:.3g} µA; gm = {point["gm"]*1e6:.3g} µS; gm/ID = {point["gmid"]:.3g} V⁻¹; headroom = {point.get("headroom",0):.3g} V. Evidence saved.')
         elif 'measurements' in evidence:
             feedback(self.feedback,'Checkpoint passed. '+ '; '.join(f'{key}: {value}' for key,value in evidence['measurements'].items())+'. Generic geometry evidence saved.')
+        elif 'inverter_measurements' in evidence:
+            parts=[]
+            for key,value in evidence['inverter_measurements'].items():
+                parts.append(f'{key} = {value*1e12:.4g} ps' if key in ('tPHL','tPLH') else
+                             f'{key} = {value:g}' if key=='checked_cycles' else f'{key} = {value:.4g} V')
+            feedback(self.feedback,'Checkpoint passed. '+ '; '.join(parts)+'. Process-model evidence saved.')
         if complete(self.hub.portfolio.state,self.lesson):feedback(self.feedback,'Lesson complete. Continue learning or review your work.')
         self.update_next()
 
@@ -461,6 +533,23 @@ class LessonGuide(QDockWidget):
         s.mode_combo.setCurrentIndex(1 if self.lesson['starter'].startswith('layout') else 0);s.refresh(True)
         self.show();self.raise_()
 
+    def open_inverter(self):
+        from .student_inverter import context
+        self.flush();_,cell=context(self.studio.project,self.lesson);self.studio.leave_digital_workspace()
+        self.studio.cid=cell['id'];self.studio.mode_combo.setCurrentIndex(1 if self.lesson['inverter_stage'] in ('layout','drc','lvs','handoff') else 0)
+        self.studio.refresh(True)
+
+    def build_inverter(self):
+        from .student_inverter import build_layout
+        self.flush();self.require_idle();self.studio.commit(build_layout,'Build lesson inverter layout');self.open_inverter()
+        feedback(self.feedback,'Process geometry created. Inspect the ports, then run DRC and LVS in the following lessons.')
+
+    def inverter_edit(self,kind):
+        from .student_inverter import fault,repair
+        self.flush();self.require_idle()
+        self.studio.commit(repair if kind=='repair' else lambda p:fault(p,kind),'Repair lesson fault' if kind=='repair' else 'Add '+kind.upper()+' practice fault')
+        self.open_inverter();feedback(self.feedback,'Lesson fault repaired. Run again to verify.' if kind=='repair' else 'Practice fault added. Run the matching DRC or LVS lesson and inspect its report.')
+
     def rtl(self):
         self.require_project();from .digital_design import config
         s=self.studio;cid=s.project.get('mixed_signal',{}).get('digital_cell',s.project['top'])
@@ -468,9 +557,13 @@ class LessonGuide(QDockWidget):
         s.cid=cid;s.digital_window().workspace.switch_cell(cid);self.show();self.raise_()
 
     def run(self):
-        self.flush();self.require_idle();s=self.studio;job=prepare_lesson(s.project,self.hub.tools())
+        self.flush();self.require_idle();s=self.studio
+        if self.lesson.get('inverter_profile'):
+            from .student_inverter import prepare
+            job=prepare(s.project,self.lesson,self.hub.tools())
+        else:job=prepare_lesson(s.project,self.hub.tools())
         job['student_lesson']=self.lesson['id'];s.run_manager.enqueue(job,s.jobs_dir,'Student · '+self.lesson['title'])
-        feedback(self.feedback,'Lesson simulation queued. You can keep editing while it runs.')
+        feedback(self.feedback,'Lesson run queued. Checks apply to the captured design; edits require a new run.')
 
     def qualification(self):
         self.flush();self.require_idle();jobs=campaign_jobs(self.studio.project,self.hub.tools())
@@ -532,6 +625,7 @@ class LessonGuide(QDockWidget):
         if index is None:s.add_result(result)
         else:s.run_combo.setCurrentIndex(index)
         s.results_dock.show();s.results_tabs.setCurrentIndex(0)
+        if result.get('silicon_report'):s.open_silicon()
 
     def save_work(self):
         self.flush();self.save_note()
