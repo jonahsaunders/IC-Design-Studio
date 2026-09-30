@@ -41,6 +41,14 @@ Qt retains native window decorations and standard accessible control roles.
 | Medium | Switching projects left guide controls enabled; completion/cancellation could be associated with the wrong workspace. | Refresh binding immediately after project changes; scope jobs and feedback to the attached project and lesson. |
 | Medium | Enlarged text could force a guide wider than the available panel. | Reflow actions into one column and use scrollable content. Test 420-pixel guide width at 200% text, plus 720 × 600 Hub layouts in both themes. |
 
+The first Windows CI audit additionally exposed a headless-font setup problem:
+Qt offscreen did not enumerate Windows fonts and rendered missing-glyph boxes.
+The probe now loads the installed system font files, requires real glyphs, and
+retains the strict no-horizontal-overflow assertion. The guide also chooses its
+action columns from measured button widths and available space, including a
+regression with a wider font at 100% preference. This gate now runs immediately
+after dependency installation so UI regressions fail before expensive packaging.
+
 ## Build failure
 
 The failed Windows job in [desktop release run 36720944016](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/36720944016)

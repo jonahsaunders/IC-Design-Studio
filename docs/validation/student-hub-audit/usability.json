@@ -12,7 +12,7 @@
     "Conflicting reflection has explicit keep, load and cancel recovery paths",
     "Moved project recovery preserves identity and existing progress",
     "Export saves current work and respects cancellation",
-    "Project switching and immediate app close preserve lesson identity and last keystroke"
+    "Project switching, metric-based action reflow and immediate app close preserve usability and the last keystroke"
   ],
   "contrast_ratios": {
     "light-text-panel": 14.42,

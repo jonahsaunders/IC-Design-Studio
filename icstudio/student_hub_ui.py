@@ -2,7 +2,7 @@
 import html
 from pathlib import Path
 
-from PySide6.QtCore import Qt, QTimer
+from PySide6.QtCore import Qt, QTimer, QEvent
 from PySide6.QtGui import QKeySequence, QShortcut, QFontDatabase
 from PySide6.QtWidgets import (QDialog,QWidget,QVBoxLayout,QHBoxLayout,QGridLayout,QLabel,QPushButton,
     QListWidget,QListWidgetItem,QListView,QTextBrowser,QPlainTextEdit,QComboBox,QProgressBar,QDockWidget,
@@ -107,8 +107,7 @@ class StudentHub(QDialog):
     def apply_theme(self):
         style=student_style(self.studio.dark,self.text_scale)
         self.setStyleSheet(style);self.guide.setStyleSheet(style)
-        columns=1 if self.text_scale>=150 else 2
-        for i,control in enumerate(self.guide.controls.values()):self.guide.controls_layout.addWidget(control,i//columns,i%columns)
+        self.guide.arrange_actions()
         self.details.document().setDefaultStyleSheet(f'a {{color:{palette(self.studio.dark)["accent"]};}} li {{margin-bottom:8px;}}')
         self.adapt_layout()
         scroll=self.details.verticalScrollBar().value();self.detail();self.details.verticalScrollBar().setValue(scroll)
@@ -332,6 +331,25 @@ class LessonGuide(QDockWidget):
         self.active_step=None;self.note_dirty=False
         self.studio.run_manager.completed.connect(self.finished)
         self.studio.run_manager.changed.connect(self.update_run_state)
+        self.control_columns=None
+        self.scroll.viewport().installEventFilter(self)
+
+    def arrange_actions(self):
+        # Font metrics vary by OS, fallback font and accessibility settings.
+        # Reflow from actual control widths, not a particular zoom threshold.
+        if not hasattr(self,'control_columns'):return
+        width=self.scroll.viewport().width()-28
+        buttons=list(self.controls.values())
+        needed=sum(max(b.sizeHint().width() for b in buttons[col::2]) for col in (0,1))+self.controls_layout.horizontalSpacing()
+        columns=2 if needed<=width else 1
+        if columns==self.control_columns:return
+        self.control_columns=columns
+        while self.controls_layout.count():self.controls_layout.takeAt(0)
+        for i,control in enumerate(buttons):self.controls_layout.addWidget(control,i//columns,i%columns)
+
+    def eventFilter(self,watched,event):
+        if watched is self.scroll.viewport() and event.type()==QEvent.Resize:self.arrange_actions()
+        return super().eventFilter(watched,event)
 
     def call(self,fn):
         try:return fn()

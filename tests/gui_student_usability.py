@@ -24,7 +24,7 @@ def main():
     import tempfile
     profile = Path(tempfile.mkdtemp(prefix='profile-', dir=out))
     from PySide6.QtCore import QSettings, QStandardPaths, Qt
-    from PySide6.QtGui import QCloseEvent, QKeySequence
+    from PySide6.QtGui import QCloseEvent, QFontDatabase, QFontMetrics
     from PySide6.QtWidgets import QApplication, QPushButton, QFileDialog
     from PySide6.QtTest import QTest
     QSettings.setDefaultFormat(QSettings.IniFormat)
@@ -37,6 +37,13 @@ def main():
     from icstudio.model import digest, save_project
     from icstudio.ui_style import palette
     app = QApplication([]);app.setStyle('Fusion')
+    # Qt's Windows offscreen plugin does not enumerate the system font directory.
+    # Without loading real fonts, screenshots consist of square missing glyphs
+    # and layout measurements are invalid (see the other desktop GUI probes).
+    if sys.platform=='win32' and app.platformName()=='offscreen':
+        fonts=Path(os.environ.get('WINDIR','C:/Windows'))/'Fonts'
+        for name in ('segoeui.ttf','segoeuib.ttf','arial.ttf'):
+            assert QFontDatabase.addApplicationFont(str(fonts/name))>=0, f'Could not load {name}'
     errors = []
     old_hook=sys.excepthook
     def exception(kind,value,tb):errors.append(str(value));old_hook(kind,value,tb)
@@ -44,6 +51,7 @@ def main():
     w = Studio(recover=False);w.resize(1440, 1000);w.maybe_save = lambda: True
     w.error = errors.append;w.jobs_dir = out/'runs';w.show()
     h = show(w);g = h.guide
+    assert QFontMetrics(h.font()).inFontUcs4(ord('A')), 'The GUI must render real glyphs'
     checks = []
 
     def checked(name):
@@ -176,14 +184,20 @@ def main():
     g.steps.setCurrentIndex(3);g.notes.setPlainText(draft+' Closing now.')
     g.setFloating(True);g.resize(420,850);QTest.qWait(40)
     g.grab().save(str(out/'guide-reflection.png'))
+    # A wider font must reflow even when the saved text-size preference is 100%.
+    g.setStyleSheet(g.styleSheet()+'\nQPushButton {font-size:24px;}')
+    g.resize(360,700);QTest.qWait(40);g.arrange_actions();QTest.qWait(40)
+    assert g.control_columns==1 and g.scroll.horizontalScrollBar().maximum()==0
+    h.apply_theme()
     for scale in (100,200):
         h.set_text_scale(scale);g.resize(420,700);QTest.qWait(40)
-        assert g.scroll.horizontalScrollBar().maximum()==0
+        g.grab().save(str(out/f'guide-{scale}.png'))
+        assert g.scroll.horizontalScrollBar().maximum()==0, (scale,g.scroll.widget().minimumSizeHint().width(),g.scroll.viewport().width())
         g.scroll.ensureWidgetVisible(g.check_button);app.processEvents()
         g.grab().save(str(out/f'guide-{scale}.png'))
     event=QCloseEvent();w.closeEvent(event);assert event.isAccepted()
     assert Portfolio(h.portfolio.root).state['lessons']['f-first']['notes']['explain'].endswith('Closing now.')
-    checked('Project switching and immediate app close preserve lesson identity and last keystroke')
+    checked('Project switching, metric-based action reflow and immediate app close preserve usability and the last keystroke')
     h.close();g.close();w.close();app.processEvents()
     report={'status':'PASS','platform':sys.platform,'qt_platform':app.platformName(),
             'checks':checks,'contrast_ratios':contrast,'native_macos_voiceover_tested':False}
