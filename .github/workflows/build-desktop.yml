@@ -118,6 +118,11 @@ jobs:
         run: python scripts/qualify_digital_runtime.py
       - name: Install dependencies
         run: python -m pip install -r requirements-build.txt
+      - name: Install Linux libraries for the early GUI audit
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libopengl0
       - name: Audit Student Hub keyboard, scaling and recovery
         timeout-minutes: 5
         env:
