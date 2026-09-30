@@ -6,12 +6,13 @@ from PySide6.QtCore import Qt, QTimer, QEvent
 from PySide6.QtGui import QKeySequence, QShortcut, QFontDatabase
 from PySide6.QtWidgets import (QDialog,QWidget,QVBoxLayout,QHBoxLayout,QGridLayout,QLabel,QPushButton,
     QListWidget,QListWidgetItem,QListView,QTextBrowser,QPlainTextEdit,QComboBox,QProgressBar,QDockWidget,
-    QLineEdit,QFileDialog,QFormLayout,QDialogButtonBox,QSplitter,QMenu,QScrollArea,QMessageBox)
+    QLineEdit,QFileDialog,QFormLayout,QDialogButtonBox,QSplitter,QMenu,QScrollArea,QMessageBox,QTabWidget)
 
 from .model import digest, load_project, save_project, uid
 from .student_hub import (Portfolio,curriculum,earned,complete,missing_prerequisites,next_lesson,
                          prepare_lesson,campaign_jobs,evaluate)
 from .ui_style import palette, stylesheet
+from .student_learning import study_guide, notes_html, overview_html, export_portfolio
 
 
 def label(text='',role=None):
@@ -53,6 +54,7 @@ def student_style(dark,scale):
 class StudentHub(QDialog):
     def __init__(self,studio):
         super().__init__(studio);self.studio=studio;self.data=curriculum()
+        self.material=study_guide(self.data)
         self.portfolio=Portfolio(studio.data_dir/'student-hub');self.path_id='foundations'
         self.setWindowTitle('Student Hub · IC Design Studio');self.resize(1180,780);self.setMinimumSize(720,560)
         self.text_scale=int(studio.settings.value('student/textScale',100))
@@ -67,12 +69,14 @@ class StudentHub(QDialog):
         self.more=button('More',lambda:None);self.more.setAccessibleName('Student Hub options')
         menu=QMenu(self.more);self.more.setMenu(menu)
         for title,fn in [('Continue learning',self.continue_learning),('Feature map',lambda:studio.open_editor_doc('STUDENT_HUB.md')),('Engine setup…',self.setup),
-                         ('Export learning record…',self.export),('Locate lesson project…',self.locate),('Reload progress',self.reload_progress)]:
+                         ('Export learning record…',self.export),('Export portfolio report…',lambda:self.export(report=True)),
+                         ('Locate lesson project…',self.locate),('Reload progress',self.reload_progress)]:
             menu.addAction(title,lambda fn=fn:self.call(fn))
         sizes=menu.addMenu('Text size')
         for scale in (100,125,150,200):sizes.addAction(f'{scale}%',lambda scale=scale:self.set_text_scale(scale))
         head.addWidget(self.more);root.addLayout(head)
         self.total=label('','muted');root.addWidget(self.total)
+        root.addWidget(label('Learn the idea → repair a design → check the evidence → explain your decisions.','muted'))
         self.path_picker=QComboBox();self.path_picker.setAccessibleName('Learning path');root.addWidget(self.path_picker)
         self.path_list=QListWidget();self.path_list.setAccessibleName('Learning paths');self.path_list.setMinimumWidth(175)
         self.path_list.setMaximumWidth(250);self.path_list.setWordWrap(True)
@@ -142,7 +146,7 @@ class StudentHub(QDialog):
     def fill(self,*_):
         previous=self.selected();key=previous['id'] if previous else None;state=self.portfolio.state
         self.lessons.blockSignals(True);self.lessons.clear()
-        self.total.setText(f'{sum(complete(state,l) for l in self.data["lessons"])} of {len(self.data["lessons"])} lessons complete · Four paths and an advanced project')
+        self.total.setText(f'{sum(complete(state,l) for l in self.data["lessons"])} of {len(self.data["lessons"])} lessons complete · {len(self.data["paths"])} paths and an advanced project')
         self.path_list.blockSignals(True);self.path_picker.blockSignals(True)
         for i in range(self.path_list.count()):
             item=self.path_list.item(i);path_key=item.data(Qt.UserRole)
@@ -176,7 +180,9 @@ class StudentHub(QDialog):
         pre='<br>'.join(f'<a href="{k}">{esc(self.by_id[k]["path"].title()+" · "+self.by_id[k]["title"])}</a>' for k in direct)
         rows=''.join(f'<li><b>{esc(s["title"])}</b> · {"Earned" if s["id"] in done else {"quiz":"Knowledge check","check":"Workspace check","reflection":"Written reflection"}[s["kind"]]}</li>' for s in l['steps'])
         cap='<p>This milestone continues the same sensor project. Earlier repairs are preserved.</p>' if l['path']=='capstone' else ''
+        teaching=self.material['lessons'][l['id']]
         self.details.setHtml(f'<h2>{esc(l["title"])}</h2><p>{esc(l["summary"])}</p>{cap}<p><b>Skills</b><br>{esc(" · ".join(l["skills"]))}</p>'+
+            overview_html(teaching)+
             (f'<p><b>Complete first</b><br>{pre}</p><p>{len(missing)} prerequisite lesson(s) remaining. You can practice now; earn progression credit after the prerequisites.</p>' if missing else '<p>Ready for guided work in the real editor.</p>')+
             f'<ol>{rows}</ol><p>Expected time: {l["minutes"]} minutes. Earlier earned steps remain a record of the design that passed at that time.</p>')
         self.progress.setRange(0,len(l['steps']));self.progress.setValue(len(done));self.progress.setFormat('%v of %m steps earned')
@@ -192,7 +198,7 @@ class StudentHub(QDialog):
     def continue_learning(self):
         lesson=next_lesson(self.portfolio.state,self.data)
         if lesson:self.select_lesson(lesson['id']);self.start_selected()
-        else:self.status.setText('All four paths and the advanced project are complete. Revisit any lesson or export your learning record.')
+        else:self.status.setText('All learning paths and the advanced project are complete. Revisit any lesson or export your portfolio report.')
 
     def start_selected(self):
         from .student_projects import create
@@ -277,14 +283,20 @@ class StudentHub(QDialog):
         if dialog.exec()==QDialog.Accepted:
             for name,edit in edits.items():self.studio.settings.setValue('student/tools/'+name,edit.text().strip())
 
-    def export(self):
+    def export(self,report=False):
         self.guide.save_note()
         # Export the open lesson's current work, including pending editor fields.
         record=self.portfolio.workspace(self.guide.lesson) if self.guide.lesson else None
         if record and record['project_id']==self.studio.project['id']:
             if not self.guide.save_work():return
-        path,_=QFileDialog.getSaveFileName(self,'Export learning record','student-portfolio.json','Learning record (*.json)')
-        if path:self.portfolio.export(path,self.data);feedback(self.status,'Learning record exported, including saved lesson projects and evidence references.')
+        if report:
+            path,_=QFileDialog.getSaveFileName(self,'Export portfolio report','student-portfolio.html','Portfolio report (*.html)')
+            if path:
+                export_portfolio(self.portfolio,path,self.data,self.material)
+                feedback(self.status,'Portfolio report exported. Open the HTML file in a browser to read or print it.')
+        else:
+            path,_=QFileDialog.getSaveFileName(self,'Export learning record','student-portfolio.json','Learning record (*.json)')
+            if path:self.portfolio.export(path,self.data);feedback(self.status,'Learning record exported, including saved lesson projects and evidence references.')
 
     def reject(self):
         try:self.guide.save_note()
@@ -307,7 +319,11 @@ class LessonGuide(QDockWidget):
         self.title=label('','subtitle');v.addWidget(self.title)
         self.steps=QComboBox();self.steps.setAccessibleName('Guided lesson step');self.steps.setMinimumContentsLength(10)
         self.steps.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon);v.addWidget(self.steps)
-        self.instructions=QTextBrowser();self.instructions.setAccessibleName('Step instructions');self.instructions.setMinimumHeight(120);self.instructions.setMaximumHeight(260);v.addWidget(self.instructions)
+        self.lesson_tabs=QTabWidget();self.lesson_tabs.setAccessibleName('Lesson teaching and task');v.addWidget(self.lesson_tabs,1)
+        self.design_notes=QTextBrowser();self.design_notes.setAccessibleName('Concept, worked example and interview preparation')
+        self.instructions=QTextBrowser();self.instructions.setAccessibleName('Step instructions')
+        self.lesson_tabs.addTab(self.design_notes,'Learn');self.lesson_tabs.addTab(self.instructions,'Do this step')
+        self.lesson_tabs.setMinimumHeight(220)
         self.answer_label=label('Your answer');v.addWidget(self.answer_label)
         self.answer=QComboBox();self.answer.setAccessibleName('Knowledge check answer');self.answer.setMinimumContentsLength(10)
         self.answer.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon);v.addWidget(self.answer);self.answer_label.setBuddy(self.answer)
@@ -324,7 +340,6 @@ class LessonGuide(QDockWidget):
                                      ('Save work',self.save_work),('Cancel lesson runs',self.cancel),('Student Hub',self.show_hub),('Engine setup',hub.setup)]):
             b=button(title,lambda fn=fn:self.call(fn));self.controls_layout.addWidget(b,i//2,i%2);self.controls[title]=b
         self.qualify=button('Run four acceptance cases',lambda:self.call(self.qualification));v.addWidget(self.qualify)
-        v.addStretch(1)
         self.steps.currentIndexChanged.connect(self.step_changed)
         self.note_timer=QTimer(self);self.note_timer.setSingleShot(True);self.note_timer.setInterval(600)
         self.note_timer.timeout.connect(lambda:self.call(self.save_note));self.notes.textChanged.connect(self.note_changed)
@@ -368,11 +383,13 @@ class LessonGuide(QDockWidget):
 
     def open_lesson(self,lesson):
         self.save_note();self.lesson=lesson;self.title.setText(lesson['title']);self.active_step=None
+        self.design_notes.setHtml(notes_html(self.hub.material['lessons'][lesson['id']]))
         self.steps.blockSignals(True);self.steps.clear()
         done=earned(self.hub.portfolio.state,lesson)
         for i,step in enumerate(lesson['steps']):self.steps.addItem(f'{i+1}. '+step['title']+(' ✓' if step['id'] in done else ''))
         index=next((i for i,s in enumerate(lesson['steps']) if s['id'] not in done),len(lesson['steps'])-1)
         self.steps.setCurrentIndex(index);self.steps.blockSignals(False);self.step_changed(index)
+        self.lesson_tabs.setCurrentIndex(0 if not done else 1)
         self.qualify.setVisible(lesson['id']=='c-qualify')
         self.controls['Open RTL'].setEnabled(lesson['path'] in ('digital','mixed','capstone'))
         self.update_run_state()
@@ -386,6 +403,7 @@ class LessonGuide(QDockWidget):
             self.steps.blockSignals(False);feedback(self.feedback,str(exc),True);return
         step=self.lesson['steps'][index];self.active_step=step;self.filling=True
         self.instructions.setPlainText(step['instructions'])
+        self.lesson_tabs.setCurrentIndex(1)
         self.answer.clear();self.answer.addItem('Choose an answer…',None)
         for i,text in enumerate(step.get('options',[])):self.answer.addItem(text,i)
         self.answer.setVisible(step['kind']=='quiz');self.notes.setVisible(step['kind']=='reflection')
@@ -418,6 +436,11 @@ class LessonGuide(QDockWidget):
         index=self.steps.currentIndex();self.hub.fill()
         self.steps.setItemText(index,f'{index+1}. '+self.active_step['title']+' ✓')
         feedback(self.feedback,'Reflection recorded.' if self.active_step['kind']=='reflection' else 'Checkpoint passed. Evidence saved.')
+        if 'device_metrics' in evidence:
+            point=evidence['device_metrics']
+            feedback(self.feedback,f'Checkpoint passed. ID = {point["id"]*1e6:.3g} µA; gm = {point["gm"]*1e6:.3g} µS; gm/ID = {point["gmid"]:.3g} V⁻¹; headroom = {point.get("headroom",0):.3g} V. Evidence saved.')
+        elif 'measurements' in evidence:
+            feedback(self.feedback,'Checkpoint passed. '+ '; '.join(f'{key}: {value}' for key,value in evidence['measurements'].items())+'. Generic geometry evidence saved.')
         if complete(self.hub.portfolio.state,self.lesson):feedback(self.feedback,'Lesson complete. Continue learning or review your work.')
         self.update_next()
 
@@ -435,7 +458,7 @@ class LessonGuide(QDockWidget):
     def workspace(self):
         self.require_project();s=self.studio;s.leave_digital_workspace()
         s.cid=s.project.get('mixed_signal',{}).get('analog_cell',s.project['top'])
-        s.mode_combo.setCurrentIndex(1 if self.lesson['starter']=='layout' else 0);s.refresh(True)
+        s.mode_combo.setCurrentIndex(1 if self.lesson['starter'].startswith('layout') else 0);s.refresh(True)
         self.show();self.raise_()
 
     def rtl(self):
@@ -470,7 +493,8 @@ class LessonGuide(QDockWidget):
         record=self.hub.portfolio.workspace(self.lesson)
         bound=bool(record and record['project_id']==self.studio.project['id'])
         rows=self.lesson_rows();active=[r for r in rows if r['state'] in ('Queued','Running','Stopping')]
-        can_run=bound and not active and self.lesson['starter']!='layout'
+        is_layout=self.lesson['starter'].startswith('layout')
+        can_run=bound and not active and not is_layout
         self.controls['Run lesson'].setEnabled(can_run);self.qualify.setEnabled(can_run)
         self.controls['Cancel lesson runs'].setEnabled(bool(active));self.controls['Cancel lesson runs'].setVisible(bool(active))
         self.controls['Results'].setEnabled(bound and any(r.get('result') and r['job'].get('student_lesson')==self.lesson['id'] for r in rows))
@@ -483,7 +507,7 @@ class LessonGuide(QDockWidget):
             self.run_status.setText(' · '.join(f'{sum(r["state"]==state for r in active)} {state.lower()}' for state in ('Running','Queued','Stopping') if any(r['state']==state for r in active)))
         elif not bound:self.run_status.setText('Resume this lesson from Student Hub to use its workspace.')
         elif rows:self.run_status.setText('Latest run: '+rows[-1]['state'])
-        else:self.run_status.setText('Ready to run.' if self.lesson['starter']!='layout' else 'This lesson checks the layout without simulation.')
+        else:self.run_status.setText('Ready to run.' if not is_layout else 'This lesson checks the layout without simulation.')
 
     def finished(self,row,result):
         if self.lesson and row in self.lesson_rows() and row['job'].get('student_lesson')==self.lesson['id']:
@@ -495,6 +519,9 @@ class LessonGuide(QDockWidget):
         rows=[r for r in self.lesson_rows() if r.get('result') and r['job'].get('student_lesson')==self.lesson['id']]
         if not rows:raise ValueError('Run this lesson first.')
         latest=rows[-1]
+        if any(step.get('rule',{}).get('type')=='device_metrics' for step in self.lesson['steps']):
+            from .analog_run_ui import RunInspector
+            self.bias_inspector=RunInspector(s,latest);self.bias_inspector.show();return
         if s.project.get('mixed_signal'):
             from .mixed_signal_ui import show
             dialog=show(s);dialog.runs.setCurrentIndex(dialog.runs.findData(latest['id']));return

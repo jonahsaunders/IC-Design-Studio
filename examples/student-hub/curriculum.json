@@ -12,14 +12,14 @@
     {
       "id": "analog",
       "title": "Analog",
-      "subtitle": "From loading and bandwidth to transistor gain and matched layout.",
+      "subtitle": "Analog design: bias, gain, gm/ID sizing and power–area tradeoffs.",
       "level": "Circuit designer",
       "color": "#56cfb2"
     },
     {
       "id": "digital",
       "title": "Digital",
-      "subtitle": "From truth tables to verified sequential RTL and serial interfaces.",
+      "subtitle": "Digital design: RTL, arithmetic, pipeline timing and independent verification.",
       "level": "RTL designer",
       "color": "#c0a0ff"
     },
@@ -29,6 +29,20 @@
       "subtitle": "Join analog state and clocked logic in a working SAR converter.",
       "level": "System designer",
       "color": "#ffbc73"
+    },
+    {
+      "id": "layout",
+      "title": "Layout",
+      "subtitle": "Physical design: repair geometry, reason about matching, and plan extraction/LVS.",
+      "level": "Layout designer",
+      "color": "#f2a6bc"
+    },
+    {
+      "id": "career",
+      "title": "Portfolio & interviews",
+      "subtitle": "Turn measured work into a design brief and an evidence-based interview story.",
+      "level": "Design review",
+      "color": "#dfc278"
     }
   ],
   "capstone": {
@@ -813,6 +827,308 @@
       ]
     },
     {
+      "id": "a-gmid-bias",
+      "path": "analog",
+      "title": "07 · Understand gm/ID and choose a bias",
+      "starter": "gmid-bias",
+      "workspace": "a-gmid-bias",
+      "summary": "Measure transconductance efficiency and connect gate bias to current, gain and headroom.",
+      "skills": [
+        "gm/ID",
+        "operating point",
+        "overdrive",
+        "bias selection"
+      ],
+      "minutes": 35,
+      "requires": [
+        "a-bias"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "A transistor has gm = 200 µS and ID = 20 µA. What is gm/ID?",
+          "options": [
+            "0.1 V",
+            "10 V⁻¹",
+            "4 mA"
+          ],
+          "answer": 1,
+          "explanation": "200 µS / 20 µA = 10 V⁻¹. gm is the small-signal slope of drain current versus gate voltage at the bias point."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Open workspace. Select VG, change Value from .85 to .65, and Apply changes. Keep M1 at W=10u and L=1u, with VD=1 V. Predict gm/ID using VOV=.65−.45=.20 V.",
+          "rule": {
+            "type": "value",
+            "device": "VG",
+            "field": "value",
+            "value": ".65"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Run lesson, then check this step. The operating point must give gm/ID between 9.8 and 10.2 V⁻¹, ID between 20 and 21 µA, and at least .70 V headroom. The checkpoint captures the measured values.",
+          "rule": {
+            "type": "device_metrics",
+            "device": "M1",
+            "bounds": {
+              "gmid": [
+                9.8,
+                10.2
+              ],
+              "id": [
+                2e-05,
+                2.1e-05
+              ],
+              "headroom": [
+                0.7,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Report ID, gm and gm/ID with units. Explain why lowering overdrive improves current efficiency in this teaching model, and why this model cannot establish weak-inversion performance. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "a-gmid-size",
+      "path": "analog",
+      "title": "08 · Turn a gm target into device width",
+      "starter": "gmid-size",
+      "workspace": "a-gmid-size",
+      "summary": "Work from a transconductance requirement to bias current and width, then verify the operating point.",
+      "skills": [
+        "gm target",
+        "current density",
+        "device sizing",
+        "power budget"
+      ],
+      "minutes": 35,
+      "requires": [
+        "a-gmid-bias"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "For gm=200 µS and gm/ID=10 V⁻¹, what drain current is required?",
+          "options": [
+            "2 µA",
+            "20 µA",
+            "2 mA"
+          ],
+          "answer": 1,
+          "explanation": "ID = gm / (gm/ID) = 200 µS / 10 V⁻¹ = 20 µA."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Read Learn first. Keep VG=.65, VD=1 and L=1u. Select M1 and set Width to 9.804u, then Apply changes. Use the width estimate to meet gm=200 µS at ID=20 µA.",
+          "rule": {
+            "type": "value",
+            "device": "M1",
+            "field": "params.w",
+            "value": "9.804u"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Run lesson. Check ID=19.8–20.2 µA, gm=198–202 µS and gm/ID=9.8–10.2 V⁻¹. A width entry alone does not prove the bias meets the requirement.",
+          "rule": {
+            "type": "device_metrics",
+            "device": "M1",
+            "bounds": {
+              "id": [
+                1.98e-05,
+                2.02e-05
+              ],
+              "gm": [
+                0.000198,
+                0.000202
+              ],
+              "gmid": [
+                9.8,
+                10.2
+              ]
+            }
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Write the chain specification → gm → ID → ID/W → W. State which bias conditions must match the lookup point, and which checks would still be needed for an amplifier. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "a-gmid-headroom",
+      "path": "analog",
+      "title": "09 · Budget voltage headroom",
+      "starter": "gmid-headroom",
+      "workspace": "a-gmid-headroom",
+      "summary": "Repair a bias point that loses saturation and explain output swing constraints.",
+      "skills": [
+        "saturation",
+        "headroom",
+        "output swing"
+      ],
+      "minutes": 35,
+      "requires": [
+        "a-gmid-size"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "In the teaching model, VGS=.65 V and VTH=.45 V. With VDS=.10 V, is M1 in saturation?",
+          "options": [
+            "Yes, because VGS exceeds VTH",
+            "No: VDS is below VOV=.20 V",
+            "Only width determines the region"
+          ],
+          "answer": 1,
+          "explanation": "Turning a device on does not guarantee saturation. This model requires VDS ≥ VOV; extra margin supports signal swing."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Select VD and change Value from .1 to .4. Keep VG=.65, W=10u and L=1u. Apply changes. Predict the headroom VDS−VOV.",
+          "rule": {
+            "type": "value",
+            "device": "VD",
+            "field": "value",
+            "value": ".4"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Run lesson. Verify .19–.21 V headroom, gm/ID=9.8–10.2 V⁻¹ and ID=19.8–20.5 µA. Compare against a run of the original low-drain-voltage case.",
+          "rule": {
+            "type": "device_metrics",
+            "device": "M1",
+            "bounds": {
+              "headroom": [
+                0.19,
+                0.21
+              ],
+              "gmid": [
+                9.8,
+                10.2
+              ],
+              "id": [
+                1.98e-05,
+                2.05e-05
+              ]
+            }
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Explain why the initial device is on but outside saturation. Sketch a voltage budget for two stacked devices and describe how signal swing consumes margin. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "a-gmid-tradeoff",
+      "path": "analog",
+      "title": "10 · Compare efficiency, area and speed",
+      "starter": "gmid-tradeoff",
+      "workspace": "a-gmid-tradeoff",
+      "summary": "Meet the same gm target at lower current and identify what the simple model cannot tell you.",
+      "skills": [
+        "inversion level",
+        "power versus area",
+        "process characterization"
+      ],
+      "minutes": 35,
+      "requires": [
+        "a-gmid-headroom"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "Holding gm=200 µS, changing gm/ID from 10 to 20 V⁻¹ changes ID from…",
+          "options": [
+            "20 to 10 µA",
+            "10 to 20 µA",
+            "20 to 40 µA"
+          ],
+          "answer": 0,
+          "explanation": "For fixed gm, doubling gm/ID halves current. Area, capacitance, speed and noise still need separate evaluation."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Select VG and set Value=.55; set M1 Width=19.608u, keeping L=1u and VD=1. Apply changes. The lower overdrive needs more width to preserve gm.",
+          "rule": {
+            "type": "value",
+            "device": "M1",
+            "field": "params.w",
+            "value": "19.608u"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Run lesson. Require gm=198–202 µS, ID=9.8–10.2 µA, and gm/ID=19.6–20.4 V⁻¹. Compare this bias with the 9.804 µm width design.",
+          "rule": {
+            "type": "device_metrics",
+            "device": "M1",
+            "bounds": {
+              "gm": [
+                0.000198,
+                0.000202
+              ],
+              "id": [
+                9.8e-06,
+                1.02e-05
+              ],
+              "gmid": [
+                19.6,
+                20.4
+              ]
+            }
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Compare current, width and gm between both designs. Explain why this experiment cannot prove speed or noise superiority. Specify a real-PDK characterization and verification plan. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
       "id": "d-logic",
       "path": "digital",
       "title": "01 · Truth tables and combinational RTL",
@@ -1169,6 +1485,183 @@
           "title": "Explain your result",
           "kind": "reflection",
           "instructions": "Describe the interface contract, reset behavior, and what additional checks would be needed for a real UART with independent clocks. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "d-latch",
+      "path": "digital",
+      "title": "07 · Repair unintended combinational memory",
+      "starter": "mux_repair",
+      "workspace": "d-latch",
+      "summary": "Fix an incomplete combinational assignment and prove the output depends only on current inputs.",
+      "skills": [
+        "RTL repair",
+        "reference testbench",
+        "verification"
+      ],
+      "minutes": 35,
+      "requires": [
+        "d-logic"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "What hardware can an unassigned output branch in combinational RTL infer?",
+          "options": [
+            "A latch",
+            "Always a flip-flop",
+            "No hardware"
+          ],
+          "answer": 0,
+          "explanation": "If an output must retain its old value on a branch, the design implies storage."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Open RTL. In mux_repair.sv, assign y for BOTH select values inside always @*. When select=0, y must be a; when select=1, y must be b. Keep the reference testbench unchanged.",
+          "rule": {
+            "type": "digital_sources",
+            "design": "mux_repair"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Run lesson before editing to observe the failure. After repair, Run lesson again and inspect Results. The independent reference bench must complete every assertion. Compilation alone, a stale run, or an edited reference bench does not pass.",
+          "rule": {
+            "type": "digital",
+            "design": "mux_repair"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Explain the missing assignment, a concrete sequence that exposes stale output, and why a truth table must be checked after different input histories. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "d-saturation",
+      "path": "digital",
+      "title": "08 · Repair arithmetic overflow",
+      "starter": "saturating_sum",
+      "workspace": "d-saturation",
+      "summary": "Define an arithmetic contract and repair a four-bit saturating accumulator.",
+      "skills": [
+        "RTL repair",
+        "reference testbench",
+        "verification"
+      ],
+      "minutes": 35,
+      "requires": [
+        "d-average"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "A four-bit unsigned saturating accumulator holds 13 and accepts 5. What is the next value?",
+          "options": [
+            "2",
+            "15",
+            "18"
+          ],
+          "answer": 1,
+          "explanation": "The mathematical sum is 18, above the maximum 15. Saturation clips to 15; wrapping would produce 2."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Open RTL. Keep the five-bit total so the carry is visible. Replace the wrapping update with a comparison: if total > 15, assign 15; otherwise assign total[3:0]. Preserve synchronous reset priority and hold sum when valid=0.",
+          "rule": {
+            "type": "digital_sources",
+            "design": "saturating_sum"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Run lesson before editing to observe the failure. After repair, Run lesson again and inspect Results. The independent reference bench must complete every assertion. Compilation alone, a stale run, or an edited reference bench does not pass.",
+          "rule": {
+            "type": "digital",
+            "design": "saturating_sum"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Show 13+5 under mathematical, wrapping and saturating arithmetic. Explain intermediate width, reset priority, invalid-cycle hold and one boundary test. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "d-pipeline",
+      "path": "digital",
+      "title": "09 · Align data and valid through a pipeline",
+      "starter": "pipeline_valid",
+      "workspace": "d-pipeline",
+      "summary": "Repair a one-cycle validity mismatch and reason about bubbles, reset and timing.",
+      "skills": [
+        "RTL repair",
+        "reference testbench",
+        "verification"
+      ],
+      "minutes": 35,
+      "requires": [
+        "d-pulse"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "Stage captures an input at edge k and result captures stage at edge k+1. Which validity belongs with result after k+1?",
+          "options": [
+            "valid_in sampled at k+1",
+            "valid_in sampled at k",
+            "An always-high valid"
+          ],
+          "answer": 1,
+          "explanation": "Nonblocking assignments read the previous register values. Data and validity need identical register latency."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Open RTL. The data has two registers: stage and result. Repair valid_out to use stage_valid rather than valid_in. Keep nonblocking assignments and reset clearing both valid registers. This interface accepts one item per clock and has no backpressure.",
+          "rule": {
+            "type": "digital_sources",
+            "design": "pipeline_valid"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Run lesson before editing to observe the failure. After repair, Run lesson again and inspect Results. The independent reference bench must complete every assertion. Compilation alone, a stale run, or an edited reference bench does not pass.",
+          "rule": {
+            "type": "digital",
+            "design": "pipeline_valid"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Draw an edge-by-edge data/valid table including a bubble and mid-stream reset. Explain latency versus throughput and why passing RTL simulation is not a timing-closure result. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
         }
       ]
     },
@@ -1580,6 +2073,364 @@
           "title": "Explain your result",
           "kind": "reflection",
           "instructions": "Compare held before and after the second acquisition. Explain why retaining the full analog history matters for this test. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "l-width",
+      "path": "layout",
+      "title": "01 · Repair a minimum-width violation",
+      "starter": "layout-width",
+      "workspace": "l-width",
+      "summary": "Learn layout units and repair a metal route using measured geometry.",
+      "skills": [
+        "layout geometry",
+        "DRC",
+        "physical design"
+      ],
+      "minutes": 35,
+      "requires": [
+        "f-portfolio"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "A 100 nm route must meet a 0.20 µm minimum width. What is the minimum increase?",
+          "options": [
+            "0.10 µm",
+            "0.20 µm",
+            "100 µm"
+          ],
+          "answer": 0,
+          "explanation": "100 nm is .10 µm. Increase thickness by .10 µm to reach .20 µm."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "In Layout, select the thin metal1 rectangle on net a. In the inspector’s Geometry (µm) section, set Height to 0.20 and keep Left=0, Top=0, Width=2. Apply changes. Geometry fields use micrometres; 0.20 µm is 200 nm. Keep both original rectangles and labels.",
+          "rule": {
+            "type": "layout",
+            "minimum": 2
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Choose Check this step after the edit. The checker reruns fixed generic width/spacing/grid rules, preserves the original shapes, and measures this exercise requirement. No circuit simulation is needed. Removing shapes or weakening editable PDK rules cannot earn this step.",
+          "rule": {
+            "type": "layout_exercise",
+            "exercise": "layout-width"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Check geometry and record the minimum width and unit conversion. Explain why making metal wider can also change capacitance and area. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "l-spacing",
+      "path": "layout",
+      "title": "02 · Separate neighboring routes",
+      "starter": "layout-spacing",
+      "workspace": "l-spacing",
+      "summary": "Measure edge-to-edge spacing and repair a pair of adjacent nets.",
+      "skills": [
+        "layout geometry",
+        "DRC",
+        "physical design"
+      ],
+      "minutes": 35,
+      "requires": [
+        "l-width"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "Two .20 µm-thick routes have centerlines .30 µm apart. What is their edge spacing?",
+          "options": [
+            ".30 µm",
+            ".10 µm",
+            ".50 µm"
+          ],
+          "answer": 1,
+          "explanation": "Subtract half the thickness of each route: .30−.10−.10=.10 µm."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Select the metal1 rectangle on net b. In Geometry (µm), set Top=0.40, keeping Left=0, Width=2 and Height=0.20. Apply changes. Net a remains at Top=0 and Height=0.20, giving 0.20 µm edge spacing.",
+          "rule": {
+            "type": "layout",
+            "minimum": 2
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Choose Check this step after the edit. The checker reruns fixed generic width/spacing/grid rules, preserves the original shapes, and measures this exercise requirement. No circuit simulation is needed. Removing shapes or weakening editable PDK rules cannot earn this step.",
+          "rule": {
+            "type": "layout_exercise",
+            "exercise": "layout-spacing"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Record before/after spacing. Explain why touching different nets creates a short even if a merged polygon passes a minimum-width rule. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "l-via",
+      "path": "layout",
+      "title": "03 · Enclose a via on both metals",
+      "starter": "layout-via",
+      "workspace": "l-via",
+      "summary": "Repair a via landing and distinguish geometric overlap from connectivity verification.",
+      "skills": [
+        "layout geometry",
+        "DRC",
+        "physical design"
+      ],
+      "minutes": 35,
+      "requires": [
+        "l-spacing"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "A .15 µm via requires .075 µm enclosure on each side. What is the minimum square landing?",
+          "options": [
+            ".225 µm",
+            ".30 µm",
+            ".15 µm"
+          ],
+          "answer": 1,
+          "explanation": "Landing size = .15 + 2×.075 = .30 µm; both connected metals need the enclosure."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Select the via1 rectangle (use layer visibility controls if metal obscures it). In Geometry (µm), set Left=0.175 and Top=0.175; keep Width=0.15 and Height=0.15. Apply changes. Keep both 0.50 µm metal landing rectangles and their out labels.",
+          "rule": {
+            "type": "layout",
+            "minimum": 3
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Choose Check this step after the edit. The checker reruns fixed generic width/spacing/grid rules, preserves the original shapes, and measures this exercise requirement. No circuit simulation is needed. Removing shapes or weakening editable PDK rules cannot earn this step.",
+          "rule": {
+            "type": "layout_exercise",
+            "exercise": "layout-via"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Record the .175 µm enclosure on both metals. Explain the different questions answered by DRC, extracted connectivity and LVS. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "l-centroid",
+      "path": "layout",
+      "title": "04 · Build a common-centroid pattern",
+      "starter": "layout-centroid",
+      "workspace": "l-centroid",
+      "summary": "Rearrange equal unit tiles to cancel a first-order spatial gradient.",
+      "skills": [
+        "layout geometry",
+        "DRC",
+        "physical design"
+      ],
+      "minutes": 35,
+      "requires": [
+        "l-via"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "For equal units at x=0,1,2,3, which assignment gives A and B the same average x?",
+          "options": [
+            "AABB",
+            "ABAB",
+            "ABBA"
+          ],
+          "answer": 2,
+          "explanation": "ABBA gives A at 0 and 3, B at 1 and 2, so both centers are 1.5."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Keep all four metal1 tiles and their original net labels. In Geometry (µm), move the second A tile from Left=0.8 to a temporary Left=3.2. Apply changes. Move the last B tile from Left=2.4 to Left=0.8; apply. Finally move the A tile from Left=3.2 to Left=2.4; apply. Keep Top=0 and Width=Height=0.40 for every tile. This avoids temporary overlap and produces ABBA.",
+          "rule": {
+            "type": "layout",
+            "minimum": 4
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Choose Check this step after the edit. The checker reruns fixed generic width/spacing/grid rules, preserves the original shapes, and measures this exercise requirement. No circuit simulation is needed. Removing shapes or weakening editable PDK rules cannot earn this step.",
+          "rule": {
+            "type": "layout_exercise",
+            "exercise": "layout-centroid"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Record both group centroids and explain linear-gradient cancellation. Discuss dummies, identical orientation, edge effects and matched routing; equal centers alone do not verify matching. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "p-spec",
+      "path": "career",
+      "title": "01 · Write an engineering design brief",
+      "starter": "current_mirror",
+      "workspace": "portfolio-case",
+      "summary": "Turn an open-ended circuit task into requirements, assumptions and a verification plan.",
+      "skills": [
+        "requirements",
+        "design review",
+        "portfolio"
+      ],
+      "minutes": 35,
+      "requires": [
+        "f-portfolio"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "Which is a verifiable requirement?",
+          "options": [
+            "Make a good current mirror",
+            "Output current stays within a stated tolerance over a specified voltage and temperature range",
+            "Use many transistors"
+          ],
+          "answer": 1,
+          "explanation": "A requirement needs a quantity, a bound, operating conditions and a method of checking it."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Inspect the current-mirror starter and identify IREF, MREF and MOUT. Write a proposed current target, output-voltage range and error tolerance on paper before measuring. Keep this project as the design-brief case study.",
+          "rule": {
+            "type": "structure",
+            "devices": [
+              "MREF",
+              "MOUT"
+            ]
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Choose Save work, then check this step. This checkpoint checks that the case-study project is saved; it does not grade the quality of your requirements or claim they have been met.",
+          "rule": {
+            "type": "saved"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Write a brief with five labeled parts: Requirement (quantity, units, limit and conditions); Assumptions/model; Design choice and alternative; Verification plan including a failing boundary case; Evidence still missing. Distinguish proposed targets from measured facts. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "p-review",
+      "path": "career",
+      "title": "02 · Present a reproducible design story",
+      "starter": "current_mirror",
+      "workspace": "portfolio-case",
+      "summary": "Build a portfolio case study and practice explaining a failure, repair and remaining limitations.",
+      "skills": [
+        "interview preparation",
+        "reproducibility",
+        "technical communication"
+      ],
+      "minutes": 35,
+      "requires": [
+        "p-spec"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "Which portfolio claim is supported by a passing generic simulation?",
+          "options": [
+            "The chip is ready for tapeout",
+            "This model passed these stated checks at these conditions",
+            "Guaranteed silicon yield"
+          ],
+          "answer": 1,
+          "explanation": "State the evidence scope precisely: tool/model, conditions, requirement and result. A teaching simulation does not establish physical signoff."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Resume the same case-study project. Check its device names and saved settings. Revisit one completed analog, layout or digital lesson to collect a before/after observation and a failure you can explain. Keep the current-mirror case saved when switching lessons.",
+          "rule": {
+            "type": "structure",
+            "devices": [
+              "MREF",
+              "MOUT"
+            ]
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Return to this lesson, choose Save work and check this step. Write the design story below, then open Student Hub → More → Export portfolio report. Export learning record separately for embedded saved projects and evidence references.",
+          "rule": {
+            "type": "saved"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Write a 90-second explanation: problem and target; your contribution; one design choice and rejected alternative; a failing case and root cause; repair and measured evidence; remaining limitations and next verification. Add a factual résumé bullet tied to your own evidence. Do not invent improvements or claim silicon validation. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
         }
       ]
     },

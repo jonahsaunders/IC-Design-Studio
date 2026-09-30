@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "platform": "Windows, Python 3.12, Qt 6.8.3 offscreen",
+  "engines": {"iverilog": "12.0 devel", "ngspice": "42"},
+  "checks": [
+    {"command": "python -m unittest discover -s tests -v", "tests": 1225, "skipped": 54, "status": "passed"},
+    {"command": "python -m unittest discover -s tests -p 'test_student*.py' -v", "tests": 16, "skipped": 0, "status": "passed", "environment": "Explicit native ICSTUDIO_TEST_NGSPICE, ICSTUDIO_TEST_IVERILOG and ICSTUDIO_TEST_VVP paths"},
+    {"command": "python tests/gui_student_usability.py", "status": "passed", "scope": "Progress, failures, recovery, export, keyboard access, light/dark and 100–200% text"},
+    {"command": "python tests/gui_student_design_labs.py", "status": "passed", "scope": "Teaching tabs, real gm/ID run, saved bias inspector, all four layout repairs through inspector, prerequisite protection, HTML export/cancel, text scaling"},
+    {"command": "python tests/gui_student_hub.py", "status": "passed", "scope": "Real analog/digital/mixed-signal jobs, all four capstone acceptance cases, persistence, cancellation and evidence"},
+    {"command": "python scripts/check_release.py", "status": "passed"},
+    {"command": "git diff --check", "status": "passed"}
+  ],
+  "compatibility": "All 28 original lesson dictionaries remain unchanged; teaching notes have separate storage and do not change their grading stamps.",
+  "limits": "New analog measurements use the generic teaching model. Layout measurements use a fixed generic deck and equal metal tiles, not foundry DRC/LVS. GUI tests use offscreen Qt on Windows, not interactive desktop or packaged-installer qualification. Reflections are recorded, not graded."
+}

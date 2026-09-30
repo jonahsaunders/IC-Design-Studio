@@ -6,6 +6,7 @@ import shutil
 import sys
 import time
 from pathlib import Path
+from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 
 
@@ -27,13 +28,15 @@ def main():
     old=sys.excepthook
     def exception(t,v,tb):errors.append(str(v));old(t,v,tb)
     sys.excepthook=exception
-    w=Studio(recover=False);w.error=errors.append;w.jobs_dir=out/'runs';w.maybe_save=lambda:True;w.resize(1560,1050);w.show()
+    settings=QSettings(str(out/'settings.ini'),QSettings.IniFormat);settings.setFallbacksEnabled(False)
+    with patch('icstudio.gui.QSettings',return_value=settings):w=Studio(recover=False)
+    w.error=errors.append;w.jobs_dir=out/'runs';w.maybe_save=lambda:True;w.resize(1560,1050);w.show()
     for n in ('ngspice','iverilog','vvp'):
         tool=os.environ.get('ICSTUDIO_TEST_'+n.upper()) or shutil.which(n);assert tool,'Install '+n
         w.settings.setValue('student/tools/'+n,tool)
     h=show(w);assert h.lessons.count()==6
-    for key in ('foundations','analog','digital','mixed','capstone'):
-        h.choose_path(key);assert h.lessons.count()==(4 if key=='capstone' else 6)
+    for key in [p['id'] for p in h.data['paths']]+['capstone']:
+        h.choose_path(key);assert h.lessons.count()==sum(l['path']==key for l in h.data['lessons'])
     h.select_lesson('f-first');QTest.qWait(60);h.grab().save(str(out/'hub.png'))
     h.start_selected();g=h.guide;assert g.isVisible();assert w.path.is_file()
     g.answer.setCurrentIndex(1);g.call(g.check);assert 'Try again' in g.feedback.text()
@@ -95,7 +98,7 @@ def main():
     g.run();cancelled=w.run_manager.rows[-1];QTest.qWait(30);g.cancel();wait();assert cancelled['state']=='Cancelled'
     h.select_lesson('c-filter');h.show();QTest.qWait(40);h.grab().save(str(out/'advanced-project.png'))
     h.close();g.close();w.saved_hash=digest(w.project);w.close();app.processEvents();assert not errors,errors
-    report=dict(status='PASS',qt_platform=app.platformName(),checks=['four paths and capstone navigation','wrong answer rejected',
+    report=dict(status='PASS',qt_platform=app.platformName(),checks=['six paths and capstone navigation','wrong answer rejected',
         'real analog worker and stale-result rejection','persisted completion and lesson resume','save-cancel preserves work',
         'locked lesson practice without credit','real RTL simulation','shared capstone workspace','four real acceptance cases',
         'non-mutating campaign','portfolio export','autosaved reflection','cancellation'])

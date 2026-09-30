@@ -1,12 +1,13 @@
 # Student Hub
 
 Open **File → Student Hub** or choose **Student Hub** in the example gallery.
-Four learning paths contain six lessons each. A further four milestones build
-one advanced sensor-acquisition project. Every lesson has a prediction, a
-workspace task, a measured or structural checkpoint, and a written reflection:
-**28 lessons and 112 steps** in total.
+Six learning paths cover foundations, analog, digital, mixed signal, layout and
+portfolio preparation. Four additional milestones build one sensor-acquisition
+project: **41 lessons and 164 steps** in total. Every lesson includes a concept,
+worked example, follow-up experiment, interview prompt and portfolio outcome,
+plus a prediction, practical task, evidence checkpoint and written reflection.
 
-![Four learning paths in the native Student Hub](images/student-hub.png)
+![Six learning paths and a measured gm/ID sizing exercise](images/student-hub-design-paths.png)
 
 ## Learn beside the real editor
 
@@ -14,7 +15,8 @@ workspace task, a measured or structural checkpoint, and a written reflection:
 2. **Start lesson** creates an independent, saved project. Existing work goes
    through the normal save/discard/cancel flow before another document opens.
 3. The **Student lesson guide** stays beside the schematic, layout or RTL editor.
-   Follow the current instruction, edit the real design, and use **Run lesson**.
+   Read **Learn** for the explanation and worked example, then **Do this step**
+   for the current task. Edit the real design and use **Run lesson**.
 4. **Results** opens the existing waveform or digital/mixed-signal workspace.
    **Check this step** evaluates the current design and captured evidence. Read
    the result, then choose **Next step** when ready.
@@ -46,26 +48,102 @@ and the remaining native macOS acceptance work.
 
 ![The lesson guide beside the editable schematic and real waveforms](images/student-lesson.png)
 
-## Four paths
+## Learning paths
 
 | Path | Progression | Final outcome |
 | --- | --- | --- |
 | Foundations | First RC transient → nets/ground → parameter edits and Undo → hierarchy → loading/debugging → layout and reproducibility | A saved, measured circuit and a learning record |
-| Analog | Loaded divider → RC bandwidth → current mirror → differential pair → five-transistor amplifier → matching and layout review | Measured bias and gain, with a physical implementation review |
-| Digital | Truth tables → enabled counter → one-cycle handshake → PWM → fixed-point averaging → serial transmitter | Independently checked synchronous RTL and serial framing |
+| Analog (10 lessons) | Loaded divider → RC bandwidth → current mirror → differential pair → amplifier → matching; gm/ID bias → width → headroom → efficiency tradeoff | A measured sizing worksheet and circuit design rationale |
+| Digital (9 lessons) | Truth tables → counter → handshake → PWM → averaging → serial transmitter; latch repair → saturating arithmetic → pipeline validity | Repaired RTL, failing cases and independent reference simulations |
 | Mixed Signal | Bridge thresholds → acquisition/hold → quantization → timing repair → DAC-weight repair → repeated conversions | A working SAR converter with explicit analog/digital timing |
+| Layout (4 lessons) | Minimum width → edge spacing → via enclosure → common centroid | Repaired geometry, measured rule checks and a physical verification plan |
+| Portfolio & interviews (2 lessons) | Requirements and verification plan → reproducible design story | A design brief, interview narrative and readable portfolio report |
 
 The first three Foundations lessons unlock Analog and Digital. Mixed Signal
-requires the bandwidth and counter lessons. Completing all four paths unlocks
-the advanced project for progression credit. All lessons remain available for
+requires the bandwidth and counter lessons. Layout and portfolio preparation
+start after Foundations 6. The original Analog 6, Digital 6, Mixed Signal 6 and
+Foundations 6 still unlock the advanced project; the added lessons do not revoke
+previous credit or add prerequisites to the existing capstone. All lessons remain available for
 preview and **Practice lesson**: practice checks give feedback but do not bypass
 prerequisite credit. Estimates are per lesson, not deadlines.
 
 Knowledge questions check the selected answer. Circuit checkpoints inspect
 specific properties or numerical results. Structural layout checks establish only
-that the lesson geometry exists. Reflections are **recorded, not automatically
+that the lesson geometry exists in the original introductory lessons. The new
+Layout path additionally measures its specific geometry requirements and reruns
+fixed generic DRC. Reflections are **recorded, not automatically
 assessed for correctness**. Their wording asks learners to state observations,
 reasoning and limitations for instructor or peer review.
+
+## gm/ID: from requirement to verified bias
+
+Analog 7–10 teach `gm = ∂ID/∂VGS`, efficiency in V⁻¹, current density,
+width estimation and voltage headroom. Each starter has a bias or sizing problem;
+the numerical checkpoint reads the captured operating point and rejects stale
+results. **Results** opens the saved analog run inspector with device values.
+
+For the included generic NMOS at L=1 µm, VGS=.65 V and VDS=1 V, a 10 µm
+reference width gives ID=20.4 µA and gm/ID≈10 V⁻¹. A 200 µS gm target therefore
+requires ID=20 µA and W≈9.804 µm. The final exercise reaches approximately the
+same gm at half the current and twice the width, then asks what capacitance,
+noise and process evidence is missing. These are teaching-model operating-point
+results; a hand estimate of bandwidth is not a measured amplifier specification.
+
+For process-model work, continue through **Analysis → Analog design workspace →
+Optimize → gm/Id explorer → Device characterization library**. Characterize the
+chosen length, drain/body bias, temperature and corner; size within measured
+data, rerun the proposed device and verify circuit performance. See the
+[analog optimizer](ANALOG_OPTIMIZER.md). The methodology reference is
+[Jespers and Murmann's book and companion material](https://github.com/bmurmann/Book-on-gm-ID-design).
+
+![Concepts and a worked sizing example beside the editor](images/student-gmid-guide.png)
+
+## Layout: repair, measure and explain
+
+Use the rectangle inspector's **Geometry (µm)** fields; stored coordinates use
+integer nanometres. The four exercises require 0.20 µm route thickness,
+0.20 µm edge spacing, at least 0.075 µm via enclosure on both metals, and equal
+centroids for four separated, equal-size tiles. The checker preserves the
+original shapes/layers/nets and applies a fixed generic deck, so deleting an
+offending shape or relaxing editable PDK rules does not pass.
+
+The matching exercise uses labeled metal tiles to teach placement arithmetic.
+It does not extract resistor or transistor devices. Each review distinguishes
+geometric DRC, extracted connectivity, LVS and parasitic verification. Actual
+process rules depend on the selected PDK; consult, for example, the
+[SKY130 process design rules](https://skywater-pdk.readthedocs.io/en/main/rules.html)
+and the application's [PDK guide](PDK_GUIDE.md).
+
+## Digital: learn from failing implementations
+
+The three additional RTL starters intentionally omit a combinational assignment,
+wrap an accumulator that should saturate, or misalign validity with pipeline
+data. Run the broken starter, repair the RTL, then rerun the unchanged reference
+bench. The benches check input histories, arithmetic boundaries, invalid-cycle
+hold, bubbles and reset as appropriate to each interface. Passing compilation
+alone does not earn the simulation checkpoint.
+
+The pipeline lesson explains edge timing, latency versus throughput, setup/hold
+verification and why clock-domain crossings need a separate design. Its interface
+has no backpressure. Synthesis and static timing remain follow-up work in the
+[digital flow](DIGITAL_FLOW.md); the conceptual reference is
+[Yosys's explanation of synthesis and sequential logic](https://yosyshq.readthedocs.io/projects/yosys/en/0.39/CHAPTER_Basics.html).
+
+## Prepare a portfolio and a design conversation
+
+The portfolio path guides students through a requirement with units and operating
+conditions, assumptions, an alternative design, a test matrix and a 90-second
+project explanation. Every lesson supplies a related interview prompt and an
+artifact to keep. The two portfolio milestones share a saved current-mirror
+case study, while the final review can cite any completed design lesson.
+
+**More → Export portfolio report** writes standalone HTML that opens in a browser
+and can be printed. It includes lesson status, portfolio outcomes, student drafts
+and captured evidence. **Export learning record** still provides the JSON project
+snapshots. Both save the active lesson first and respect Save cancellation.
+Review drafts and local file paths before sharing. The HTML references evidence;
+it does not embed raw simulation files. Neither export certifies engineering
+correctness of reflections or guarantees employment.
 
 ## Engines and models
 
@@ -147,9 +225,11 @@ reference testbench cannot earn a numerical checkpoint. Even Undo produces a
 new project revision; rerun before earning a new simulation checkpoint.
 
 Earned steps are historical achievements, not claims about all future edits.
-Updating a lesson or its grading revision requires rechecking that lesson;
+Updating a checkpoint lesson or its grading revision requires rechecking that lesson;
 unrelated application releases preserve progression. Dependent progression also
-checks its prerequisites. **Export learning record** writes JSON
+checks its prerequisites. Teaching notes are stored separately in `study-guide.json`,
+so improving an explanation does not invalidate existing checkpoint credit.
+**Export learning record** writes JSON
 with progress, reflections, saved project snapshots and evidence references. Save
 edits before exporting. Raw run directories are referenced, not embedded; include
 them separately when sharing a complete reproducible simulation package.
@@ -161,10 +241,10 @@ them separately when sharing a complete reproducible simulation package.
 | Schematic, properties, nets and ground | Foundations 1–3 | [Getting started](GETTING_STARTED.md) |
 | Hierarchy, cells and reusable blocks | Foundations 4 | [Getting started](GETTING_STARTED.md) |
 | Analysis, traces and comparison | Foundations 1–5; Analog 1–5 | [Analog workspace](ANALOG_WORKSPACE.md) |
-| Bias, AC gain, specifications and closure | Analog 3–5 | [Analog closure](ANALOG_CLOSURE.md) |
+| Bias, gm/ID, specifications and closure | Analog 3–5 and 7–10 | [Analog closure](ANALOG_CLOSURE.md) |
 | Optimization and variation studies | Analog 5 reflection | [Analog optimizer](ANALOG_OPTIMIZER.md) |
-| Layout, matching and physical evidence | Foundations 6; Analog 6 | [Layout scale and collaboration](LAYOUT_SCALE_AND_COLLABORATION.md), [PDK guide](PDK_GUIDE.md) |
-| RTL, testbenches and digital waveforms | Digital 1–6 | [Digital workspace](DIGITAL_WORKSPACE.md) |
+| Layout, matching and physical evidence | Foundations 6; Analog 6; Layout 1–4 | [Layout scale and collaboration](LAYOUT_SCALE_AND_COLLABORATION.md), [PDK guide](PDK_GUIDE.md) |
+| RTL, testbenches and digital waveforms | Digital 1–9 | [Digital workspace](DIGITAL_WORKSPACE.md) |
 | Synthesis, timing and implementation | Digital 6 extensions | [Digital flow](DIGITAL_FLOW.md) |
 | Bridge timing, DACs and SAR conversion | Mixed Signal 1–6 | [Mixed-signal SAR](MIXED_SIGNAL_SAR.md) |
 | Captured runs, cancellation and handoff | Every measured lesson; capstone 4 | [Project Hub](PROJECT_HUB.md) |
@@ -175,9 +255,10 @@ optimization, physical verification or implementation as completed course work.
 ## Developer verification
 
 ```sh
-python -m unittest tests.test_student_hub -v
+python -m unittest discover -s tests -p 'test_student*.py' -v
 python scripts/verify_student_capstone.py --out build/student-capstone
 QT_QPA_PLATFORM=offscreen python tests/gui_student_hub.py
+QT_QPA_PLATFORM=offscreen python tests/gui_student_design_labs.py
 ```
 
 Run from the repository root in its Python environment, with a fresh output
@@ -186,15 +267,24 @@ directory for each captured campaign. In PowerShell, set
 POSIX assignment prefix. The capstone script also accepts `--ngspice`,
 `--iverilog` and `--vvp` paths for an explicitly selected native toolchain.
 
-The unit suite exercises all 28 starters, prerequisite cycles, persistence,
-concurrent writes, stale/corrupt evidence, all twelve Foundations/Analog lessons,
-six real RTL reference benches, six mixed-signal lessons and capstone fault
+The unit suite exercises all 41 starters, prerequisite cycles, persistence,
+concurrent writes, stale/corrupt evidence, all sixteen Foundations/Analog lessons,
+nine real RTL reference benches, layout repair and bypass rejection, escaped HTML
+portfolio exports, six mixed-signal lessons and capstone fault
 detection. Engine tests require installed tools or `ICSTUDIO_TEST_NGSPICE`,
 `ICSTUDIO_TEST_IVERILOG` and `ICSTUDIO_TEST_VVP`. The desktop check additionally
 tests save cancellation, practice without credit, shared capstone work, export,
 autosaved notes and cancellation. CI uploads raw evidence directories.
 
 ## Retained execution evidence
+
+The [design-path expansion checks](validation/student-design-paths/checks.json)
+record 1,225 unit tests (54 optional skips), 16 focused tests with native Icarus
+and ngspice (no skips), and three Windows offscreen GUI workflows. The new
+layout repairs were performed through the real inspector; this remains generic
+geometry evidence rather than foundry or packaged-desktop qualification.
+
+The following records describe the earlier 28-lesson course on Linux.
 
 The [capstone campaign](validation/student-hub/capstone.json) passed all four
 acceptance cases and detected all four deliberately injected faults. The

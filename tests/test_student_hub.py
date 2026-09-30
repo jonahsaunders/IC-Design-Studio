@@ -47,6 +47,20 @@ def repaired(lesson,project):
         else:d[field]=value
     if lesson['id']=='m-codes':project['mixed_signal']['stimuli']['vin']=[[0,1.2]]
     if lesson['id']=='m-settling':project['mixed_signal']['period']=1e-6
+    changes={
+        'a-gmid-bias':{'VG':{'value':'.65'}},
+        'a-gmid-size':{'M1':{'w':'9.804u'}},
+        'a-gmid-headroom':{'VD':{'value':'.4'}},
+        'a-gmid-tradeoff':{'VG':{'value':'.55'},'M1':{'w':'19.608u'}},
+    }
+    for name,fields in changes.get(lesson['id'],{}).items():
+        d=next(d for d in project['cells'][0]['devices'] if d['name']==name)
+        for key,value in fields.items():
+            if key=='w':d['params'][key]=value
+            else:d[key]=value
+    if lesson['starter'] in ('mux_repair','saturating_sum','pipeline_valid'):
+        from icstudio.student_projects import digital_project
+        project['cells'][0]['digital']=digital_project(lesson['starter'])['cells'][0]['digital']
     return project
 
 
@@ -65,9 +79,9 @@ class StudentProgressTests(unittest.TestCase):
                     self.assertEqual(stamp['sources'],{})
         finally:checker_stamp.cache_clear()
 
-    def test_curriculum_has_four_paths_and_executable_starters(self):
+    def test_curriculum_has_six_paths_and_executable_starters(self):
         data=curriculum()
-        self.assertEqual([sum(l['path']==p['id'] for l in data['lessons']) for p in data['paths']],[6]*4)
+        self.assertEqual([sum(l['path']==p['id'] for l in data['lessons']) for p in data['paths']],[6,10,9,6,4,2])
         self.assertEqual(sum(l['path']=='capstone' for l in data['lessons']),4)
         for l in data['lessons']:validate(create(l['starter']))
         bad=clone(data);bad['lessons'][0]['requires']=[bad['lessons'][-1]['id']]
@@ -138,7 +152,7 @@ class StudentDigitalTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             for lesson in curriculum()['lessons']:
                 if lesson['path']!='digital':continue
-                p=create(lesson['starter']);row=execute(p,Path(td)/lesson['id'],engines())
+                p=repaired(lesson,create(lesson['starter']));row=execute(p,Path(td)/lesson['id'],engines())
                 evaluate(lesson['steps'][2],lesson,p,[row])
                 files=p['cells'][0]['digital']['files'];files[1]['text']=files[1]['text'].replace('initial begin','// changed reference\ninitial begin',1)
                 other=execute(p,Path(td)/(lesson['id']+'-changed'),engines())

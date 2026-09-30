@@ -44,7 +44,7 @@
 2. **Open a working circuit.** Choose **File → Start here / example gallery → Your first waveform → Open a copy**. The RC example needs no external simulator or PDK.
 3. **Make your first change.** Press **F5**, inspect **Results → Waveforms**, change a component value, and run again. Save your project with **Ctrl+S**.
 
-Want a guided course? Open **File → Student Hub** for [28 lessons and a sensor-acquisition capstone](#learn-by-building-real-circuits).
+Want a guided course? Open **File → Student Hub** for [41 lessons and a sensor-acquisition capstone](#learn-by-building-real-circuits).
 
 <details>
 <summary><strong>Run from source</strong> · Python 3.12 · Windows, Linux and experimental macOS</summary>
@@ -193,18 +193,20 @@ The supplied bandgap has two locked upload revisions: the gallery startup/full p
 
 ### Learn by building real circuits
 
-The **Student Hub** turns the native editors into a course: **28 lessons, 112 steps, four learning paths and one advanced project**. Predict an outcome, edit the circuit or RTL, check measured or structural evidence, then record your reasoning. Saved projects, progress and reflections let you pick up where you left off.
+The **Student Hub** turns the native editors into a course: **41 lessons, 164 steps, six learning paths and one advanced project**. Predict an outcome, edit the circuit or RTL, check measured or structural evidence, then record your reasoning. Saved projects, progress and reflections let you pick up where you left off.
 
-[![The Student Hub with four learning paths, searchable lessons, prerequisites and an editable practice path.](docs/images/student-hub.png)](docs/STUDENT_HUB.md)
+[![The Student Hub with six learning paths, gm/ID sizing, prerequisites and portfolio outcomes.](docs/images/student-hub-design-paths.png)](docs/STUDENT_HUB.md)
 
 | Path | What you build and investigate |
 |---|---|
 | **Foundations** | RC transients, nets and ground, component edits, hierarchy, loading and reproducible layouts |
-| **Analog** | Loaded dividers, RC bandwidth, current mirrors, differential pairs, amplifiers and matching |
-| **Digital** | Truth tables, counters, handshakes, PWM, fixed-point averaging and a serial transmitter |
+| **Analog** | Loaded dividers, RC bandwidth, current mirrors, differential pairs, amplifiers, matching, gm/ID bias selection, device sizing and headroom |
+| **Digital** | Truth tables, counters, handshakes, PWM, fixed-point averaging and a serial transmitter, latch repair, saturation and pipeline validity |
 | **Mixed Signal** | Bridge thresholds, sample/hold, quantization, timing repair, DAC weights and repeated conversions |
+| **Layout** | Metal width/spacing repairs, via enclosure and common-centroid placement with measured geometry checks |
+| **Portfolio & interviews** | Requirements, verification plans, design reviews and a readable portfolio report |
 
-**Try it:** choose **File → Student Hub → Continue learning** or select a lesson and choose **Start lesson**. The guide stays beside the real editor. Use **Run lesson**, inspect **Results**, then **Check this step**. **Practice lesson** makes locked lessons available for exploration without bypassing progression credit.
+**Try it:** choose **File → Student Hub → Continue learning** or select a lesson and choose **Start lesson**. The guide stays beside the real editor. Its **Learn** tab explains the concept, a worked example and an interview prompt; **Do this step** gives the exercise. Use **Run lesson**, inspect **Results**, then **Check this step**. **Practice lesson** makes locked lessons available for exploration without bypassing progression credit.
 
 **Capstone:** repair an RC input filter, four-bit SAR and four-sample averager, then verify the threshold alarm across four system cases. The nominal repaired system produces averaged codes **4 and 11**, with alarm outputs **0 then 1**. [Lesson guide in action](docs/images/student-lesson.png) · [Capstone overview](docs/images/student-capstone.png).
 
