@@ -1,0 +1,11 @@
+test_analog_and_rtl_faults_are_detected (tests.test_mixed_signal.MixedSignalEngineTests.test_analog_and_rtl_faults_are_detected) ... ok
+test_real_closed_loop_and_captured_evidence (tests.test_mixed_signal.MixedSignalEngineTests.test_real_closed_loop_and_captured_evidence) ... ok
+test_reset_and_two_conversions_preserve_analog_history (tests.test_mixed_signal.MixedSignalEngineTests.test_reset_and_two_conversions_preserve_analog_history) ... ok
+test_bridge_rejects_conflicting_drivers_and_bad_clock_contracts (tests.test_mixed_signal.MixedSignalModelTests.test_bridge_rejects_conflicting_drivers_and_bad_clock_contracts) ... ok
+test_portable_project_and_undo_capture_both_domains (tests.test_mixed_signal.MixedSignalModelTests.test_portable_project_and_undo_capture_both_domains) ... ok
+test_unknown_levels_and_missing_edges_never_become_zero (tests.test_mixed_signal.MixedSignalModelTests.test_unknown_levels_and_missing_edges_never_become_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 3.169s
+
+OK

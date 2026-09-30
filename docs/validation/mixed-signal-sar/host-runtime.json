@@ -1,0 +1,19 @@
+{
+  "note": "Ubuntu 24.04 packages extracted under the workspace, not installed system-wide. This execution host has no writable /tmp; a host-only tmpfile adapter directs ngspice scratch files to TMPDIR. No numerical functions are replaced. The adapter is not part of the application.",
+  "files": {
+    "ngspice.deb": "466c4c06418107ceaa9c9457065b3bb71a9d9dc5ec6fef186d7de9d5208ce8db",
+    "iverilog.deb": "f19394cee05ad526e0eb3873bc6c17a5828f56df17fbe2db40cb66513a2d4667",
+    "xft.deb": "b4f4f3255c0b8773b260c61cbe20ee7c63799cfc0e4e389fa58375dd480b093a",
+    "workspace_tmpfile.c": "7e06ac48718f265bf852c0d92d87eb9d29864cb3b41369100f18de71e3649302",
+    "workspace_tmpfile.so": "9f9e94af3c1cccdcf74da75efaf3a04e4f9209044020bb1514fcf83fbdbb9adb",
+    "root/usr/bin/ngspice": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+    "root/usr/bin/iverilog": "a6071e4b4a68feafca0c8ee0e6aa275eee9a43a108c62801cfd1eca6eab6d8a3",
+    "root/usr/bin/vvp": "a10bd7d4a0850308ac8c2c98115b6a3084f9be978307610f2a521190c28f4023"
+  },
+  "tmpfile_adapter": "#define _GNU_SOURCE\n#include <stdio.h>\n#include <stdlib.h>\n#include <unistd.h>\n#include <string.h>\n#include <errno.h>\n/* Keep engine scratch files in the writable workspace on this test host. */\nFILE *tmpfile(void) {\n    const char *dir=getenv(\"TMPDIR\");\n    if (!dir) { errno=ENOENT; return NULL; }\n    char *name=NULL;\n    if (asprintf(&name,\"%s/ngspice-XXXXXX\",dir)<0) return NULL;\n    int fd=mkstemp(name);\n    if(fd<0) { free(name); return NULL; }\n    unlink(name); free(name);\n    FILE *stream=fdopen(fd,\"w+b\");\n    if(!stream) close(fd);\n    return stream;\n}\nFILE *tmpfile64(void) { return tmpfile(); }\n",
+  "source_urls": [
+    "https://archive.ubuntu.com/ubuntu/pool/universe/n/ngspice/ngspice_42+ds-3build1_amd64.deb",
+    "https://archive.ubuntu.com/ubuntu/pool/universe/i/iverilog/iverilog_12.0-2build2_amd64.deb",
+    "https://archive.ubuntu.com/ubuntu/pool/main/x/xft/libxft2_2.3.6-1build1_amd64.deb"
+  ]
+}

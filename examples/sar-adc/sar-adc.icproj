@@ -1,0 +1,938 @@
+{
+  "schema": 1,
+  "id": "7f474d55dbfe4f74",
+  "name": "Four-bit SAR ADC",
+  "revision": 0,
+  "top": "7d378e50286a4c8b",
+  "created": "2026-09-30T12:29:38+00:00",
+  "modified": "2026-09-30T12:29:38+00:00",
+  "pdk": {
+    "name": "Generic teaching process",
+    "revision": "generic-1",
+    "status": "unqualified",
+    "dbu_um": 0.001,
+    "grid": 5,
+    "layers": [
+      {
+        "name": "active",
+        "gds": 1,
+        "datatype": 0,
+        "color": "#64c77b",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "poly",
+        "gds": 2,
+        "datatype": 0,
+        "color": "#f18c89",
+        "width": 150,
+        "space": 180
+      },
+      {
+        "name": "contact",
+        "gds": 3,
+        "datatype": 0,
+        "color": "#d2d9de",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "metal1",
+        "gds": 4,
+        "datatype": 0,
+        "color": "#68a6f4",
+        "width": 200,
+        "space": 200
+      },
+      {
+        "name": "via1",
+        "gds": 5,
+        "datatype": 0,
+        "color": "#ddc086",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "metal2",
+        "gds": 6,
+        "datatype": 0,
+        "color": "#b49cef",
+        "width": 250,
+        "space": 250
+      },
+      {
+        "name": "nwell",
+        "gds": 7,
+        "datatype": 0,
+        "color": "#d2ab6a",
+        "width": 1000,
+        "space": 500
+      }
+    ]
+  },
+  "cells": [
+    {
+      "id": "7d378e50286a4c8b",
+      "name": "sar_analog",
+      "ports": [],
+      "devices": [
+        {
+          "id": "b2335bff37054cfd",
+          "kind": "R",
+          "name": "Rbit0",
+          "x": 420,
+          "y": 300,
+          "rotation": 0,
+          "nets": {
+            "p": "d0",
+            "n": "vdac"
+          },
+          "value": "80000.0",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_4d49b42434d3e271063e349a",
+            "n": "t_7fb88709f158f0c7ba024cb1"
+          },
+          "net_ids": {
+            "p": "n_1da6ca2177a02a30f03d31bd",
+            "n": "n_b29aca1bf37f396d188188bf"
+          }
+        },
+        {
+          "id": "a19b030fddcc4d46",
+          "kind": "R",
+          "name": "Rbit1",
+          "x": 590,
+          "y": 300,
+          "rotation": 0,
+          "nets": {
+            "p": "d1",
+            "n": "vdac"
+          },
+          "value": "40000.0",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_b3382873532b214d55055b0a",
+            "n": "t_582afd647a84d93da8ffc0f5"
+          },
+          "net_ids": {
+            "p": "n_170ec6e067e0abb81a1c3df0",
+            "n": "n_b29aca1bf37f396d188188bf"
+          }
+        },
+        {
+          "id": "58ac0978e9254842",
+          "kind": "R",
+          "name": "Rbit2",
+          "x": 760,
+          "y": 300,
+          "rotation": 0,
+          "nets": {
+            "p": "d2",
+            "n": "vdac"
+          },
+          "value": "20000.0",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_241dcc513cca78fd75a4c0ae",
+            "n": "t_930ee4ee2b80a116d0650fef"
+          },
+          "net_ids": {
+            "p": "n_67d934a135b86d44903f04e0",
+            "n": "n_b29aca1bf37f396d188188bf"
+          }
+        },
+        {
+          "id": "f59b53e7ef554689",
+          "kind": "R",
+          "name": "Rbit3",
+          "x": 930,
+          "y": 300,
+          "rotation": 0,
+          "nets": {
+            "p": "d3",
+            "n": "vdac"
+          },
+          "value": "10000.0",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_fcc56c55aaec49c5164e1720",
+            "n": "t_b652edb59c5399cf370c35bb"
+          },
+          "net_ids": {
+            "p": "n_c8e4dab390a9ed370bd3f41f",
+            "n": "n_b29aca1bf37f396d188188bf"
+          }
+        },
+        {
+          "id": "5d32a07f99cc4b55",
+          "kind": "R",
+          "name": "Rterm",
+          "x": 1100,
+          "y": 300,
+          "rotation": 0,
+          "nets": {
+            "p": "vdac",
+            "n": "0"
+          },
+          "value": "80k",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_22ac57287f4ba0a392afdcdf",
+            "n": "t_0d8291fb4b87a13590d5b373"
+          },
+          "net_ids": {
+            "p": "n_b29aca1bf37f396d188188bf",
+            "n": "n_a964e123ca9bfffc0298bd4f"
+          }
+        },
+        {
+          "id": "1ac2588c34634185",
+          "kind": "C",
+          "name": "Cdac",
+          "x": 1100,
+          "y": 500,
+          "rotation": 0,
+          "nets": {
+            "p": "vdac",
+            "n": "0"
+          },
+          "value": "2p",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_966d82a3fbb46f6247a5b0c9",
+            "n": "t_f602691fe78b8b346aed5db6"
+          },
+          "net_ids": {
+            "p": "n_b29aca1bf37f396d188188bf",
+            "n": "n_a964e123ca9bfffc0298bd4f"
+          }
+        },
+        {
+          "id": "6db4af27c7dc49e3",
+          "kind": "SPICE",
+          "name": "Ssample",
+          "x": 160,
+          "y": 100,
+          "rotation": 0,
+          "nets": {
+            "in": "vin",
+            "out": "held",
+            "control": "track",
+            "ground": "0"
+          },
+          "value": "1",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "symbol": {
+            "primitives": [
+              {
+                "kind": "rect",
+                "points": [
+                  [
+                    -40,
+                    -50
+                  ],
+                  [
+                    40,
+                    50
+                  ]
+                ]
+              }
+            ],
+            "pins": {
+              "in": [
+                -60,
+                -30
+              ],
+              "out": [
+                60,
+                -30
+              ],
+              "control": [
+                -60,
+                10
+              ],
+              "ground": [
+                60,
+                10
+              ]
+            },
+            "pin_order": [
+              "in",
+              "out",
+              "control",
+              "ground"
+            ]
+          },
+          "native_spice": {
+            "version": 1,
+            "type": "device",
+            "label": "Sampling switch",
+            "parameters": {},
+            "tokens": [
+              {
+                "kind": "instance"
+              },
+              {
+                "kind": "literal",
+                "value": " "
+              },
+              {
+                "kind": "terminals"
+              },
+              {
+                "kind": "literal",
+                "value": " sample_switch"
+              }
+            ],
+            "definition": ".model sample_switch SW(Ron=100 Roff=1e12 Vt=0.9 Vh=0)"
+          },
+          "terminal_ids": {
+            "in": "t_f814d0b6c7dedc9e5c3ef90b",
+            "out": "t_7930d855e0ccf098b0ac944d",
+            "control": "t_2f5e5913dce70f44ca54dcf0",
+            "ground": "t_7921094a061f006ca16b322b"
+          },
+          "net_ids": {
+            "in": "n_0818bc56d219a4d3924d91c3",
+            "out": "n_cb146abc3567b6b3f1032921",
+            "control": "n_a188748e75d8fff88122b87c",
+            "ground": "n_a964e123ca9bfffc0298bd4f"
+          }
+        },
+        {
+          "id": "b7037a5c7a644a24",
+          "kind": "C",
+          "name": "Chold",
+          "x": 370,
+          "y": 100,
+          "rotation": 0,
+          "nets": {
+            "p": "held",
+            "n": "0"
+          },
+          "value": "20p",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_83fdb2febfeea433289a6c60",
+            "n": "t_be605572b7e9eb97e7369cc4"
+          },
+          "net_ids": {
+            "p": "n_cb146abc3567b6b3f1032921",
+            "n": "n_a964e123ca9bfffc0298bd4f"
+          }
+        },
+        {
+          "id": "24aa95789ba54ad1",
+          "kind": "SPICE",
+          "name": "Bcompare",
+          "x": 650,
+          "y": 100,
+          "rotation": 0,
+          "nets": {
+            "positive": "held",
+            "negative": "vdac",
+            "out": "cmp_raw",
+            "ground": "0"
+          },
+          "value": "1",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "symbol": {
+            "primitives": [
+              {
+                "kind": "rect",
+                "points": [
+                  [
+                    -40,
+                    -50
+                  ],
+                  [
+                    40,
+                    50
+                  ]
+                ]
+              }
+            ],
+            "pins": {
+              "positive": [
+                -60,
+                -30
+              ],
+              "negative": [
+                60,
+                -30
+              ],
+              "out": [
+                -60,
+                10
+              ],
+              "ground": [
+                60,
+                10
+              ]
+            },
+            "pin_order": [
+              "positive",
+              "negative",
+              "out",
+              "ground"
+            ]
+          },
+          "native_spice": {
+            "version": 1,
+            "type": "device",
+            "label": "Comparator",
+            "parameters": {
+              "offset": "0"
+            },
+            "tokens": [
+              {
+                "kind": "instance"
+              },
+              {
+                "kind": "literal",
+                "value": " "
+              },
+              {
+                "kind": "terminal",
+                "value": "out"
+              },
+              {
+                "kind": "literal",
+                "value": " "
+              },
+              {
+                "kind": "terminal",
+                "value": "ground"
+              },
+              {
+                "kind": "literal",
+                "value": " V=0.9*(1+tanh((V("
+              },
+              {
+                "kind": "terminal",
+                "value": "positive"
+              },
+              {
+                "kind": "literal",
+                "value": ")-V("
+              },
+              {
+                "kind": "terminal",
+                "value": "negative"
+              },
+              {
+                "kind": "literal",
+                "value": ")-("
+              },
+              {
+                "kind": "parameter",
+                "value": "offset"
+              },
+              {
+                "kind": "literal",
+                "value": "))*10000))"
+              }
+            ],
+            "definition": ""
+          },
+          "terminal_ids": {
+            "positive": "t_c0de2dcd33873383ea6913c8",
+            "negative": "t_797c0361f0e3a14983fa863d",
+            "out": "t_8a8250e38b02554e1028c4df",
+            "ground": "t_55e35bcc7580bb79dd4fc27d"
+          },
+          "net_ids": {
+            "positive": "n_cb146abc3567b6b3f1032921",
+            "negative": "n_b29aca1bf37f396d188188bf",
+            "out": "n_0187c2f2de0807c89007de0f",
+            "ground": "n_a964e123ca9bfffc0298bd4f"
+          }
+        },
+        {
+          "id": "7d8c5948853446cc",
+          "kind": "R",
+          "name": "Rcompare",
+          "x": 870,
+          "y": 100,
+          "rotation": 0,
+          "nets": {
+            "p": "cmp_raw",
+            "n": "cmp"
+          },
+          "value": "1k",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_3370d52e6cfa60dad1daa885",
+            "n": "t_86ee6fa3185341e6e389046d"
+          },
+          "net_ids": {
+            "p": "n_0187c2f2de0807c89007de0f",
+            "n": "n_1574bfc69cbe867cb736df52"
+          }
+        },
+        {
+          "id": "5e9ff7ba2e5f4729",
+          "kind": "C",
+          "name": "Ccompare",
+          "x": 1100,
+          "y": 100,
+          "rotation": 0,
+          "nets": {
+            "p": "cmp",
+            "n": "0"
+          },
+          "value": "1p",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_d677d4e82ec91537f72674c9",
+            "n": "t_4b7387682b4e11795bf458a5"
+          },
+          "net_ids": {
+            "p": "n_1574bfc69cbe867cb736df52",
+            "n": "n_a964e123ca9bfffc0298bd4f"
+          }
+        }
+      ],
+      "shapes": [],
+      "electrical": {
+        "version": 1,
+        "nets": [
+          {
+            "id": "n_a964e123ca9bfffc0298bd4f",
+            "name": "0",
+            "terminals": [
+              "t_0d8291fb4b87a13590d5b373",
+              "t_4b7387682b4e11795bf458a5",
+              "t_55e35bcc7580bb79dd4fc27d",
+              "t_7921094a061f006ca16b322b",
+              "t_be605572b7e9eb97e7369cc4",
+              "t_f602691fe78b8b346aed5db6"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_1574bfc69cbe867cb736df52",
+            "name": "cmp",
+            "terminals": [
+              "t_86ee6fa3185341e6e389046d",
+              "t_d677d4e82ec91537f72674c9"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_0187c2f2de0807c89007de0f",
+            "name": "cmp_raw",
+            "terminals": [
+              "t_3370d52e6cfa60dad1daa885",
+              "t_8a8250e38b02554e1028c4df"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_1da6ca2177a02a30f03d31bd",
+            "name": "d0",
+            "terminals": [
+              "t_4d49b42434d3e271063e349a"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_170ec6e067e0abb81a1c3df0",
+            "name": "d1",
+            "terminals": [
+              "t_b3382873532b214d55055b0a"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_67d934a135b86d44903f04e0",
+            "name": "d2",
+            "terminals": [
+              "t_241dcc513cca78fd75a4c0ae"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_c8e4dab390a9ed370bd3f41f",
+            "name": "d3",
+            "terminals": [
+              "t_fcc56c55aaec49c5164e1720"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_cb146abc3567b6b3f1032921",
+            "name": "held",
+            "terminals": [
+              "t_7930d855e0ccf098b0ac944d",
+              "t_83fdb2febfeea433289a6c60",
+              "t_c0de2dcd33873383ea6913c8"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_a188748e75d8fff88122b87c",
+            "name": "track",
+            "terminals": [
+              "t_2f5e5913dce70f44ca54dcf0"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_b29aca1bf37f396d188188bf",
+            "name": "vdac",
+            "terminals": [
+              "t_22ac57287f4ba0a392afdcdf",
+              "t_582afd647a84d93da8ffc0f5",
+              "t_797c0361f0e3a14983fa863d",
+              "t_7fb88709f158f0c7ba024cb1",
+              "t_930ee4ee2b80a116d0650fef",
+              "t_966d82a3fbb46f6247a5b0c9",
+              "t_b652edb59c5399cf370c35bb"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_0818bc56d219a4d3924d91c3",
+            "name": "vin",
+            "terminals": [
+              "t_f814d0b6c7dedc9e5c3ef90b"
+            ],
+            "wires": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "9e06db5ca8b14f24",
+      "name": "sar_controller",
+      "ports": [],
+      "devices": [],
+      "shapes": [],
+      "digital": {
+        "version": 1,
+        "top": "sar_controller",
+        "testbench": "",
+        "include_dirs": [
+          "."
+        ],
+        "defines": {},
+        "waveform": "sar.vcd",
+        "timeout": 60,
+        "files": [
+          {
+            "path": "sar_controller.sv",
+            "role": "rtl",
+            "text": "// Four-bit, MSB-first SAR controller. The analog comparator supplies cmp.\n// DAC outputs are held for a full clock before each comparator decision.\nmodule sar_controller(\n    input wire clk, input wire reset, input wire start, input wire cmp,\n    output reg [3:0] dac, output reg [3:0] code,\n    output reg track, output reg busy, output reg done,\n    output wire compare\n);\n  localparam IDLE=0, ACQUIRE=1, CONVERT=2;\n  reg [1:0] state;\n  reg [1:0] bit_index;\n  reg [3:0] accepted;\n  assign compare = (state == CONVERT);\n  always @(posedge clk) begin\n    if (reset) begin\n      state <= IDLE; bit_index <= 3;\n      dac <= 0; code <= 0; track <= 1; busy <= 0; done <= 0;\n    end else begin\n      done <= 0;\n      case (state)\n        IDLE: if (start) begin\n          track <= 1; busy <= 1; dac <= 0; state <= ACQUIRE;\n        end\n        ACQUIRE: begin\n          track <= 0; dac <= 4'b1000; bit_index <= 3; state <= CONVERT;\n        end\n        CONVERT: begin\n          accepted = dac;\n          if (!cmp) accepted[bit_index] = 0;\n          if (bit_index == 0) begin\n            dac <= accepted; code <= accepted;\n            busy <= 0; done <= 1; state <= IDLE;\n          end else begin\n            dac <= accepted | (4'b0001 << (bit_index-1));\n            bit_index <= bit_index-1;\n          end\n        end\n        default: begin state <= IDLE; busy <= 0; track <= 1; dac <= 0; end\n      endcase\n    end\n  end\nendmodule\n"
+          }
+        ]
+      },
+      "electrical": {
+        "version": 1,
+        "nets": []
+      }
+    }
+  ],
+  "analysis": {
+    "type": "tran",
+    "stop": "100u",
+    "step": "200n",
+    "start": "10",
+    "end": "10meg",
+    "points": 150,
+    "source": "V1",
+    "dc_start": "0",
+    "dc_stop": "1.8",
+    "dc_step": "0.01",
+    "temperature": 27
+  },
+  "waivers": [],
+  "spice": {
+    "version": 1,
+    "assets": {}
+  },
+  "digital_cell": "9e06db5ca8b14f24",
+  "mixed_signal": {
+    "version": 1,
+    "analog_cell": "7d378e50286a4c8b",
+    "digital_cell": "9e06db5ca8b14f24",
+    "clock": "clk",
+    "period": 1e-06,
+    "rise": 1e-09,
+    "max_step": 1e-08,
+    "cycles": 10,
+    "timeout": 180,
+    "inputs": [
+      {
+        "port": "reset",
+        "width": 1,
+        "values": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "port": "start",
+        "width": 1,
+        "values": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "port": "cmp",
+        "width": 1,
+        "node": "cmp",
+        "low": 0.6,
+        "high": 1.2,
+        "sample_when": {
+          "port": "compare",
+          "value": 1
+        }
+      }
+    ],
+    "outputs": [
+      {
+        "port": "dac",
+        "width": 4,
+        "nodes": [
+          "d0",
+          "d1",
+          "d2",
+          "d3"
+        ],
+        "low": 0.0,
+        "high": 1.8,
+        "initial": 0
+      },
+      {
+        "port": "code",
+        "width": 4
+      },
+      {
+        "port": "track",
+        "width": 1,
+        "nodes": [
+          "track"
+        ],
+        "low": 0.0,
+        "high": 1.8,
+        "initial": 1
+      },
+      {
+        "port": "busy",
+        "width": 1
+      },
+      {
+        "port": "done",
+        "width": 1
+      },
+      {
+        "port": "compare",
+        "width": 1
+      }
+    ],
+    "stimuli": {
+      "vin": [
+        [
+          0.0,
+          0.93
+        ]
+      ]
+    },
+    "probes": [
+      "vin",
+      "held",
+      "vdac",
+      "cmp",
+      "track"
+    ],
+    "verification": {
+      "kind": "sar4",
+      "reference": 1.8
+    }
+  }
+}

@@ -4,6 +4,9 @@ from .build_info import WORKFLOW_SOURCE_HASH
 
 
 def stamp(job):
+    if job.get('engine')=='mixed_signal':
+        from .mixed_signal import environment
+        return environment(job)
     if job.get('engine')=='digital':
         from .digital_flow import environment
         return environment(job)

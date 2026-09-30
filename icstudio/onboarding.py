@@ -101,12 +101,15 @@ class OnboardingMixin:
         self.set_project(project)
         self.mode_combo.setCurrentIndex(entry['mode'])
         engine = entry['engine']
-        if engine != 'none':
+        if engine not in ('none', 'mixed_signal'):
             self.analysis_engine.setCurrentIndex(self.analysis_engine.findData(engine))
         self.inspector_tabs.setCurrentIndex(1 if engine != 'none' else 0)
         self.results_dock.hide()
         self.statusBar().showMessage('Example copy opened · ' + entry['expected'], 20000)
         QTimer.singleShot(80, lambda: (self.schematic.fit(), self.layout.fit()))
+        if engine == 'mixed_signal':
+            from .mixed_signal_ui import show
+            QTimer.singleShot(0, lambda: show(self))
         return True
 
     def start_here(self):
@@ -147,7 +150,7 @@ class OnboardingMixin:
                                 '\n\n'+markdown(entry.get('qualification')))
             needs = entry['engine'] == 'ngspice'
             available = find_ngspice(self.settings.value('engine/ngspice', ''))
-            engine_status.setText(('ngspice found · no external PDK needed' if available else 'ngspice needed · open Engine setup to select it') if needs else
+            engine_status.setText('Requires local ngspice, iverilog and vvp · opens Mixed-signal experiment' if entry['engine']=='mixed_signal' else ('ngspice found · no external PDK needed' if available else 'ngspice needed · open Engine setup to select it') if needs else
                                   ('Ready to explore · no simulator needed' if entry['engine'] == 'none' else 'Ready to run · included educational solver'))
         def fill(text=''):
             items.clear()
