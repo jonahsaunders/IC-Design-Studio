@@ -1,5 +1,7 @@
 # IC Design Studio 0.22.0.dev24 — packaged VGA qualification
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This engineering preview brings together the recent analog workspace, digital
 implementation flow and offline VGA Playground. Source implementation and
 successful package qualification are separate states; consult the candidate's

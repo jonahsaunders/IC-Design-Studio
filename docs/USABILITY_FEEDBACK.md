@@ -1,8 +1,10 @@
 # Component browsing, layout placement and floating panels
 
-These changes are in development source after the dev20 draft. Existing dev20
-packages do not include them. The matching PR's desktop checks qualify the new
-source separately from the earlier release checkpoint.
+These controls were introduced after the dev20 draft and remain in the current
+experimental source. Original dev20 packages do not include them; consult
+[release status](RELEASE_STATUS.md) for the exact source and evidence of a package.
+The [dev21 update](UPDATE_0.22_DEV21.md) adds Favorites, Recently placed,
+selection previews, a persistent workflow dock and unsent review draft recovery.
 
 ## Find and preview a component
 

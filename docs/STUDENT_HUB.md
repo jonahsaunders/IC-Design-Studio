@@ -69,9 +69,17 @@ reasoning and limitations for instructor or peer review.
 
 ## Engines and models
 
-**More → Engine setup** in the Hub selects native local `ngspice`, `iverilog` and `vvp`
-executables; blank fields search PATH. Earlier mixed-signal executable selections
-are used as defaults. Missing tools produce a setup error.
+**More → Engine setup…** in the Hub selects native local `ngspice`, `iverilog` and
+`vvp` executables. Blank Icarus fields search PATH; blank ngspice uses Studio's
+native discovery, including its bundled executable and `ICSTUDIO_NGSPICE`.
+Earlier mixed-signal executable selections are used as defaults. Missing tools
+produce a setup error; the Hub does not download engines automatically.
+
+On Ubuntu, `sudo apt install ngspice iverilog` supplies these tools. On Windows,
+select native executable paths. The Windows source launcher provisions ngspice
+only; Icarus needs a separate native installation. See the
+[SAR local-engine setup](MIXED_SIGNAL_SAR.md#local-engine-setup). WSL executable
+paths and a Ready managed digital runtime do not configure these lesson tools.
 
 Foundations and Analog use the included teaching solver and generic devices.
 Digital uses Icarus and embedded reference testbenches. Mixed Signal and the
@@ -171,6 +179,12 @@ python -m unittest tests.test_student_hub -v
 python scripts/verify_student_capstone.py --out build/student-capstone
 QT_QPA_PLATFORM=offscreen python tests/gui_student_hub.py
 ```
+
+Run from the repository root in its Python environment, with a fresh output
+directory for each captured campaign. In PowerShell, set
+`$env:QT_QPA_PLATFORM = 'offscreen'` before the GUI command instead of using the
+POSIX assignment prefix. The capstone script also accepts `--ngspice`,
+`--iverilog` and `--vvp` paths for an explicitly selected native toolchain.
 
 The unit suite exercises all 28 starters, prerequisite cycles, persistence,
 concurrent writes, stale/corrupt evidence, all twelve Foundations/Analog lessons,

@@ -1,5 +1,7 @@
 # IC Design Studio 0.18 — Xschem projects
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 For the simulation startup fixes and the source download with Windows ngspice included, see [the 0.18.1 patch guide](UPDATE_0.18.1.md).
 
 Open a `.sch` file directly from **File → Open project**. Standard Xschem symbols and the public GF180MCU primitive simulation library are included in the desktop packages. A complete import opens immediately; dependency review appears when a custom file needs attention.

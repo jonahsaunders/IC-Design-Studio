@@ -3,6 +3,11 @@
 Date: 2026-09-30. Scope: Student Hub, docked guide, project/progress persistence,
 lesson-result handoff, and the failing desktop release workflow in PR #51.
 
+This is a dated implementation/audit record. Its test totals, failures and host
+observations retain their original scope; use [Student Hub](STUDENT_HUB.md) for
+current behavior and engine setup, and [release status](RELEASE_STATUS.md) for
+package identities. A later passing build does not rewrite this original audit.
+
 ## Review criteria
 
 This is a cross-platform Qt desktop implementation informed by Apple's Human

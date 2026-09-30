@@ -1,5 +1,7 @@
 # IC Design Studio 0.10.0 — analog physical workflow
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This release connects editable analog schematics to native physical geometry,
 independent engine verification and saved characterization comparisons. It keeps
 schema 1, existing project identities, saved benches, PDK locks and undo history.

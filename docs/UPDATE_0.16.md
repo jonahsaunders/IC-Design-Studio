@@ -1,5 +1,7 @@
 # IC Design Studio 0.16.0 — design goals and verification
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This release connects reusable specifications, waveform calculation, individual variation cases, schematic readouts, constrained placement and extracted comparisons. It retains Xschem package exchange, the visible schematic/layout grids, configurable windows and direct wire editing from the previous release. Application text uses original feature names and names only open-source EDA tools.
 
 ## Find the right workspace

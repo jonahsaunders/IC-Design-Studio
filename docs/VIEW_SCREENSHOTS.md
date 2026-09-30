@@ -24,6 +24,12 @@ the longest side. PNG preserves lines and text without JPEG artifacts. Use
 The suggested filename includes the cell and view. Saving does not change the
 design, selection, camera, undo history or saved-project state.
 
+For a large hierarchy, the 2D layout may be showing a reduced-detail outline.
+That screenshot retains an explicit hierarchy-outline notice; zoom into the
+desired region for exact geometry before exporting. A screenshot records the
+displayed view and does not establish connectivity, physical verification or
+fabricated layer dimensions.
+
 The GUI checks exercise all three export buttons, image geometry and dimensions,
 hidden layers and styling, cancellation, write failures and unchanged design/view
 state. The 3D suite also checks holes and depth occlusion. Both software and

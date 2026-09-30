@@ -1,5 +1,7 @@
 # IC Design Studio 0.12.0 — schematic and symbol capture
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This release extends the native desktop application with familiar capture
 workflows with editable Studio, Classic analog and Xschem-inspired profiles.
 These presets are starting points that can be customized.

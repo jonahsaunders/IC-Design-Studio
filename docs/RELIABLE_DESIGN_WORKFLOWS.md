@@ -1,5 +1,10 @@
 # Reliable editing and evidence-driven verification
 
+This page records the source change and its retained validation. Later source
+and packages need their own execution evidence; consult [release status](RELEASE_STATUS.md)
+and the current [reference qualification catalog](REFERENCE_QUALIFICATION.md).
+The measurements and archived Banba results below retain their original scope.
+
 This experimental source update implements five improvements. It does not
 publish a package or establish consumer-machine or fabrication acceptance.
 

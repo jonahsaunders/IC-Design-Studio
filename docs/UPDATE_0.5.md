@@ -1,5 +1,7 @@
 # IC Design Studio 0.5.0 — Project and PDK workspaces
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This update continues the native PySide6 desktop application from the supplied 0.4.0 handover. It is an engineering release, not a claim of complete Xschem or KLayout feature parity.
 
 ## Start here

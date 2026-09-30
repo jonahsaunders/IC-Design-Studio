@@ -167,9 +167,10 @@ results for the recorded coupons. SS/FF names share the deterministic MiM
 model; this does not establish a capacitor distribution, manufacturing accuracy
 or guard-ring isolation performance. [Offscreen Qt evidence](validation/dev25/gui-sky130-devices.json)
 retains the four dialog/preview/edit checks.
-The poly-resistor recipe has independent DRC/LVS and capacitance-only fixture
-evidence. Model-backed resistor primitives are outside the normalized process-RC
-path described below.
+The retained poly-resistor qualification above used independent DRC/LVS and a
+capacitance-only fixture. The later [primitive-RC extension](ANALOG_IMPLEMENTATION_EXTENSIONS.md#process-rc-integrity)
+adds explicit numeric/modeled resistor and capacitor identities with separate
+qualification; it does not expand the scope of that archived run.
 
 ## Select the physical model explicitly
 
@@ -180,7 +181,7 @@ plan when both implementations are required.
 | Choice | Supported scope |
 |---|---|
 | Process capacitance | Locked Magic capacitance extraction followed by the saved electrical fixture. |
-| Process distributed RC | Flat, unaliased Magic resistance extraction with conservative reconstruction of the original capacitance matrix. The flow fails when output lacks the required distributed resistance or supported mapping. |
+| Process distributed RC | Magic resistance extraction with conservative reconstruction of the original capacitance matrix. Supported hierarchy is flattened privately; explicit aliases must be unambiguous. Missing distributed resistance or unsupported mappings fail. See the [current contract](ANALOG_IMPLEMENTATION_EXTENSIONS.md#process-rc-integrity). |
 | Calibrated interconnect RC | Checked coupon coefficients for a named corner, Manhattan route paths, ideal pads/vias and bounded same-layer parallel coupling. This is an interconnect model, not measured-silicon qualification. |
 
 For calibrated RC, section length and coupling search distance are saved in
@@ -230,18 +231,19 @@ determine the physical locations of capacitance or guarantee the distributed
 network's behavior at every frequency. The approximation needs its own saved
 AC, noise and transient comparisons; it is not a field-solver result or signoff.
 
-This correction accepts only flat, unaliased, complete extraction with intact
-ports, one explicit zero-capacitance substrate reference and unambiguous
-connected resistance groups. It rejects hierarchical/alias records, inconsistent
-units or mappings, and expansion beyond 50,000 generated capacitors, counting
-ground and mutual terms together. Physical hierarchy in distributed extraction
-remains limited to the separate bounded calibrated mode described below.
+Current normalization requires complete extraction with intact ports, one
+explicit zero-capacitance substrate reference and unambiguous connected
+resistance groups. The runner flattens supported physical hierarchy in its
+disposable workspace; hierarchical node names and unambiguous aliases are
+accepted, while aliases that merge distinct ports are rejected. Capacitance
+expansion remains bounded. The [implementation extension](ANALOG_IMPLEMENTATION_EXTENSIONS.md#process-rc-integrity)
+documents the supported MOS/subcircuit and native `devres`, `devcap` and
+`devcaprev` records, device-parameter checks and retained raw files.
 
-The supported normalized process-RC scope is numeric interconnect resistors,
-MOS devices and the catalog's MiM subcircuit devices. Native primitive capacitor
-devices and model-backed resistor devices are rejected: their electrical devices
-cannot be treated as generated parasitics. The separately qualified poly-resistor
-physical recipe therefore remains limited to its capacitance-only process fixture.
+The dev25 measurements below used the earlier, narrower flat/unaliased
+MOS/MiM contract. New hierarchy and primitive-device support has its own
+[validation records](validation/analog_extensions/README.md); these archived
+numerical results do not qualify the expanded scope automatically.
 
 The [original process-RC evidence](validation/dev25/process-rc-evidence/retention.json)
 is explicitly superseded diagnostic evidence. The
@@ -347,7 +349,8 @@ concrete cell variant when dimensions differ. Every schematic instance needs one
 matching physical placement; instantiate electrical arrays explicitly. Native
 SPICE program/parameter scopes and unsupported native devices remain outside
 calibrated extraction. Review their support in the applicable process flow;
-normalized process RC still requires flat, unaliased input. Recursive/deep
+the [process-RC path](ANALOG_IMPLEMENTATION_EXTENSIONS.md#process-rc-integrity)
+uses a separate private-flattening and device-mapping contract. Recursive/deep
 calibrated hierarchies, more than 3,000 primitive devices or
 100,000 shapes are rejected. The extracted network retains the 2,000-section
 limit; increase section length or use a process extractor for larger networks.
@@ -462,9 +465,10 @@ large fixture is synthetic. Their screenshots retain the
 [large schematic](validation/dev25/images/scale-synthetic-large-schematic.png) and
 [large layout](validation/dev25/images/scale-synthetic-large-layout.png).
 
-No latency or memory acceptance budget was configured. The passing status
-establishes the recorded correctness checks; the approximately 1.7-second large
-edit remains a responsiveness gap. Native display/GPU presentation latency,
+No latency or memory acceptance budget was configured for this archived run.
+Its passing status establishes the recorded correctness checks; the approximately
+1.7-second large edit motivated the later [responsiveness follow-up](DESKTOP_RESPONSIVENESS.md),
+which has separate measurements and a declared edit budget. Native display/GPU presentation latency,
 assistive technology, consumer machines, circuit simulation and process
 qualification remain outside this measurement.
 

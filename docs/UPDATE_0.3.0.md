@@ -1,5 +1,7 @@
 # IC Design Studio 0.3.0
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This update adds working design and analysis workflows to the standalone native desktop application. It remains an engineering preview. It does **not** complete every requirement or professional-release gate in the supplied blueprint.
 
 ## Added in this update

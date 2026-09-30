@@ -10,7 +10,7 @@ testbench are separate inputs.
 
 IC Design Studio has stock adapters for SKY130, GF180MCU and IHP SG13G2, plus a checksummed package interface for custom technologies. An adapter maps electrical models, device terminals and layout layers into the app. Successful registration does not prove that a particular model, corner or physical rule deck is qualified.
 
-## Included in 0.22.0.dev10
+## Included simulation packages
 
 Choose **Tools → Set up an open PDK → Use included PDKs**. GF180MCU (`gf180mcuD`) and SKY130 (`sky130A`) register from the application bundle without downloading anything. Select a registered revision and choose **New project with this PDK**. Imported GF180 and SKY130A schematics and the bundled examples resolve their libraries automatically.
 
@@ -50,7 +50,13 @@ The official [Ciel README](https://github.com/fossi-foundation/ciel) documents i
 
 Ciel uses `PDK_ROOT` when set and otherwise defaults to `~/.ciel`. The assistant also checks the legacy `~/.volare` location and common system PDK directories. Enable the desired version in Ciel first, or add its specific installation folder. Deep version archives are not searched automatically.
 
-On native Windows, the supplied adapter collection is the simplest local route. Ciel's documented host requirements are Linux/macOS; automatic WSL provisioning is not part of this release. The app can use files accessible from Windows, but simulator and compiled model binaries must be built for the host that executes them.
+On native Windows, the included simulation packages are the simplest local route.
+Ciel's documented host requirements are Linux/macOS. Studio separately provides
+a private Linux/WSL runtime for supported physical-verification jobs through
+**Tools → Physical tools setup…**; see the [runtime scope](REFERENCE_COMPATIBILITY_REPAIRS.md#linux-and-windows-physical-verification).
+That runtime does not install arbitrary Ciel PDKs or replace the matching locked
+physical decks. Custom simulators and compiled model libraries must match the
+host that executes them.
 
 ## What each adapter expects
 
@@ -78,9 +84,12 @@ Use a fresh output directory. In **Tools → Set up an open PDK → OSDI runtime
 
 The script builds the six model libraries expected by the pinned companion IHP snapshot. New upstream model layouts may need an adapter update; use the upstream instructions for those revisions.
 
-## The companion adapter collection
+## Historical companion adapter collection
 
 The optional `IC-Design-Studio-0.21.0-PDK-Adapters.zip` includes these pinned subsets, reindexed with the current adapter:
+
+This is a separate historical download. Its `gf180mcuC` inventory below is not
+the bundled `gf180mcuD` inventory in `icstudio/assets/pdks/collection.json`.
 
 | Variant | Placeable / indexed symbols | Scope |
 |---|---|---|

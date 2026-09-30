@@ -1,5 +1,7 @@
 # IC Design Studio 0.17.1 — Xschem dependency repair
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This is a source update to the import workflow. It does not add a new device
 model adapter or convert arbitrary ngspice control programs into native setups.
 The underlying exchange format and supported circuits are described in

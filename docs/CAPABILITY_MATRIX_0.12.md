@@ -1,5 +1,7 @@
 # 0.12 capture capability ledger
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 | Area | Implemented in 0.12 | Boundary / follow-up |
 |---|---|---|
 | Familiar commands | Editable schematic and symbol profiles; canvas-only keys; configurable Ctrl-drag and Alt-right cut | Inspired presets, not exact vendor emulation; middle pan and wheel zoom are fixed |

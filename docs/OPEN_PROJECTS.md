@@ -1,13 +1,21 @@
-# Real open-project qualification — dev20
+# SKY130 overvoltage monitor: import, simulate and verify
 
 The overvoltage detector is a real third-party import regression, with independent circuit comparison, ngspice sweeps and actual Magic/Netgen execution. **Strict full-circuit LVS passes** with the recorded upstream resistor extraction correction. HSA simulation uses first-point voltage guesses, and a generated native testbench can run directly in Studio. Import, simulation and physical comparison retain separate evidence.
+
+This is LDFranck's programmable SKY130 voltage monitor, distinct from the
+[supplied GF180 5 V bandgap](../examples/gf180-bandgap/README.md) and the
+[native Banba design exercise](../examples/gf180-banba/README.md). The detector
+is not bundled as a gallery project: the command below produces its runnable
+`overvoltage-bench.icproj`. The retained dev20 electrical measurements below
+keep their original scope; [later exchange gates](REFERENCE_COMPATIBILITY.md)
+separately check current import/export routes with fresh DRC and LVS.
 
 ## Reproduce the overvoltage project
 
 Source: [LDFranck/sky130_vbl_ip__overvoltage](https://github.com/LDFranck/sky130_vbl_ip__overvoltage), commit `53cf579f63d34227af67f0189b49ee09185f1db5`, Apache-2.0. The [source lock](../examples/open-projects/overvoltage-lock.json) verifies 67 source, reference and license files. The original repository is downloaded explicitly; it is not bundled with Studio or silently updated.
 
 ```sh
-git clone https://github.com/LDFranck/sky130_vbl_ip__overvoltage build/overvoltage-source
+git -c core.autocrlf=false clone https://github.com/LDFranck/sky130_vbl_ip__overvoltage build/overvoltage-source
 git -C build/overvoltage-source checkout --detach 53cf579f63d34227af67f0189b49ee09185f1db5
 python scripts/build_physical_engines.py --output build/physical-engines
 python scripts/fetch_sky130_reference.py --physical-only --output build/qualification-pdk
@@ -21,7 +29,13 @@ python scripts/qualify_open_project.py \
   --ngspice /usr/bin/ngspice
 ```
 
-Run from a source checkout with `requirements.txt` installed. The engine builder needs the development packages listed in [physical CI](../.github/workflows/physical-qualification.yml). Use a new output directory for each run. Paths to executables are explicit; substitute your installed ngspice path.
+These are Linux shell commands, run from a source checkout with `requirements.txt`
+installed. The engine builder needs the development packages listed in
+[physical CI](../.github/workflows/physical-qualification.yml). Use a new output
+directory for each run. Paths to executables are explicit; substitute your
+installed ngspice path. On Windows, generate the evidence in a suitable Linux
+environment, then open the portable native project in Studio. The app's private
+WSL verification runtime does not provide standalone Magic editing/import.
 
 The command and physical CI require **strict layout/schematic LVS**, all 16 HSA trip-code comparisons and three negative controls. Without `--require-consistent`, import and design acceptance remain separately reported for diagnosis. `qualification.json` retains the source, technology correction and tool provenance; raw comparison reports are retained on failure.
 
@@ -29,7 +43,7 @@ The command and physical CI require **strict layout/schematic LVS**, all 16 HSA 
 
 1. Choose **File → Import and migrate Xschem project…** and open `xschem/sky130_vbl_ip__overvoltage.sch`. Local hierarchy symbols and bundled SKY130 primitive symbols are discovered together.
 2. Inspect the migration report. Supported arrays become scalar native devices with explicit terminal labels. Source graphics outside the native subset remain archived and are listed as needing attention.
-3. Choose **File → Import Magic layout…**, select the top `.mag`, the generated `technology/sky130A.tech` from the qualification output and the Magic executable. Save its imported project.
+3. On a host with standalone Magic configured, choose **File → Import → Import Magic layout…**, select the top `.mag`, the generated `technology/sky130A.tech` from the qualification output and the Magic executable. Save its imported project. On Windows, open the generated `overvoltage.icproj` or `overvoltage-bench.icproj` instead.
 4. Reopen the schematic and choose **File → Attach layout to schematic…**. Select the imported project and review the matching cell names. Attachment is one undoable transaction and refuses to overwrite existing layout.
 5. Select **Linked views** to inspect the schematic and layout together. Name matching associates cell views only. Device-level correspondence requires LVS evidence. At the top-level overview, the 53,883 expanded shapes exceed the detailed drawing budget: zoom in or select a child such as `level_shifter` to inspect physical geometry.
 
@@ -91,7 +105,11 @@ The previous child-pin findings came from Magic's internal aliases: for example,
 
 Magic's GDS conversion also reports two HVI parent/child disagreements in `voltage_divider`. `feedback.txt`, the conversion log and the project's retained import report expose them. The successful GDS/native/GDS geometry test establishes that Studio preserves the converted geometry; it does not certify the source-to-GDS conversion or remove those warnings.
 
-## Import behavior added in dev19
+## Import behavior recorded in dev19
+
+The following describes the original detector migration. Current native editing
+also supports [ordered buses, slices and compact instance arrays](NATIVE_VECTORS.md);
+that newer native contract is distinct from this source-import expansion.
 
 - A reachable child schematic can introduce the PDK family even when the root contains only local block symbols.
 - A single ascending/descending `[start:end]` range expands to at most 128 scalar instances. Scalar nets broadcast; vector terminal counts must match. Repetition, stride, concatenation, and incompatible widths remain explicit errors.

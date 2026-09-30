@@ -1,5 +1,7 @@
 # IC Design Studio 0.4.0
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This is a standalone native desktop update addressing roadmap priorities 1–4. Dark mode and the slim US-style schematic symbols remain the defaults. It is an engineering release, not the completed professional blueprint.
 
 ## 1. Direct net labels, ground and inspection

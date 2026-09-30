@@ -1,6 +1,11 @@
 # Banba physical verification evidence
 
-**Partial physical closure; not fabrication signoff.** The revised GDS passes upstream geometry and antenna checks and strict LVS. Its capacitance-extracted circuit passes the saved electrical screens. Whole-die density and distributed RC remain open.
+**Archived unfilled-core evidence; not fabrication signoff.** This revised GDS
+passes upstream geometry and antenna checks and strict LVS. Its
+capacitance-extracted circuit passes the saved electrical screens. Density and
+distributed RC remain open for this archived unfilled-core artifact. The
+[parent qualification table](../README.md) separately records later density-filled
+candidates; their results do not change the files in this evidence bundle.
 
 The authoritative artifact identities and results are in [`../physical-verification.json`](../physical-verification.json). [`manifest.json`](manifest.json) hashes this evidence bundle. The original GDS is available at parent commit `b24a08539e99567c40cf207a25790ab01e8e0afb`; `baseline/` retains its capacitance result and failed startup corner.
 
@@ -21,4 +26,10 @@ The extraction Tcl files and logs retain the original run paths. Reproduce throu
 
 The local ngspice launcher redirects libc temporary files into a writable scratch directory through `diagnostics/tmpfile-env.c`; this only changes temporary-file location. It does not change circuit models or numerical options. A conventional local ngspice installation with writable `/tmp` does not need that adapter. Linux Tcl 8 builds were run with a 1024-descriptor limit. Diagnostic sanitizer builds are identified separately and are not used for the final capacitance simulations.
 
-To finish physical closure, integrate legal fill with the actual chip floorplan and rerun all checks on that filled GDS. Distributed RC additionally needs a corrected or independently qualified GF180 extractor that preserves every device terminal and yields a valid resistance graph; then repeat the electrical screens using that RC netlist. The present evidence does not waive either requirement.
+For the later legal-fill candidates, see the [density reference](../density/README.md)
+and the [smaller floorplan](../README.md#smaller-density-floorplan). Integration
+still requires checks against the actual chip floorplan. A separate
+[experimental RC repair and gate](../../../../docs/REFERENCE_COMPATIBILITY_REPAIRS.md#gf180-distributed-rc-and-fill)
+targets complete device-terminal resistance graphs and repeated electrical
+screens. It does not turn this bundle's rejected extraction into passing evidence
+or establish fabrication signoff.

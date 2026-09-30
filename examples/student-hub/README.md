@@ -9,6 +9,12 @@ and checkpoint requirements. `icstudio.student_projects` creates independent
 editable lesson documents. The four capstone milestones deliberately share one
 saved project, with three faults for the student to repair.
 
+Foundations and Analog lessons use the included teaching solver. Digital lessons
+need native local Icarus (`iverilog` and `vvp`); Mixed Signal and the capstone also
+need native ngspice. Configure **More → Engine setup…** in the Hub. The managed
+digital WSL runtime is separate and does not run these lessons. See
+[engine setup](../../docs/STUDENT_HUB.md#engines-and-models).
+
 `sensor-reference.icproj` is the **correct reference**, not the faulty teaching
 starter. It embeds the SAR and sensor-controller RTL and the native analog
 circuit. Run it with **Analysis → Mixed signal → Mixed-signal experiment**.

@@ -1,5 +1,12 @@
 # Grid and drawing — 0.22.0.dev9
 
+This guide records the grid/path behavior introduced in dev9. Its validation
+paragraph refers to that source checkpoint; current package/platform acceptance
+is tracked in [release status](RELEASE_STATUS.md). For newer layout generation,
+hierarchy and recovery, see [layout workflows](LAYOUT_SCALE_AND_COLLABORATION.md),
+[physical variants](ANALOG_IMPLEMENTATION_EXTENSIONS.md) and
+[reliable workflows](RELIABLE_DESIGN_WORKFLOWS.md).
+
 ## Grid controls
 
 Open **View → Grid Settings**, or click the **Grid** button below the canvas. Layout settings include:

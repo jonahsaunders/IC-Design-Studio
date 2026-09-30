@@ -1,4 +1,4 @@
-# Executed SKY130 inverter reference
+# Archived SKY130 standard-cell inverter reference
 
 The 0.4.0 reference flow passed all stages in this Linux workspace. The fixture is the PDK standard cell `sky130_fd_sc_hd__inv_1`, represented as an editable two-MOS native schematic and hierarchical testbench with its imported GDS layout. This is one adapter/reference regression, not qualification of arbitrary designs or foundry tapeout signoff.
 
@@ -26,7 +26,11 @@ At the TT corner, 1.8 V supply and 5 fF output load, mean measured delay was **3
 
 ## Run it
 
-In the native app, configure ngspice, Magic and Netgen under Tools → Engine diagnostics and paths. Choose **Tools → Run SKY130 inverter reference…**, select the installed `sky130A` directory and an empty output directory.
+Reproduce this specific archived standard-cell flow with the CLI below, on a
+host with the matching PDK and ngspice, Magic and Netgen executables. The current
+desktop's **Create PDK reference circuit…** opens the technology/template
+selector; it does not execute this archived standard-cell qualification.
+For an editable new inverter, use **File → Examples → New PDK inverter…**.
 
 From a terminal:
 
@@ -39,12 +43,14 @@ python main.py --cli sky130-reference \
   --netgen /path/to/netgen
 ```
 
-The installed app accepts the same `--cli` arguments. `scripts/fetch_sky130_reference.py --output <empty-directory>` downloads the exact upstream PDK archives and verifies their hashes; it requires internet access and the `zstd` command. The archive hashes and release location are in `examples/sky130-reference-assets.json`.
+The installed app accepts the same `--cli` arguments, but this legacy reference
+command uses the explicitly supplied executables; it is not a managed WSL job.
+`scripts/fetch_sky130_reference.py --output <empty-directory>` downloads the exact upstream PDK archives and verifies their hashes; it requires internet access and the `zstd` command. The archive hashes and release location are in `examples/sky130-reference-assets.json`.
 
 The output contains `report.json`, `pdk-lock.json`, tool version logs, native `inverter.icproj`, isolated `inverter.gds`, the native-exported schematic used for LVS, extraction scripts/decks, DRC/LVS logs and before/after waveforms. A stage failure stops dependent stages and leaves their status as `not_run`. Missing tools/assets produce a blocked report.
 
 ## Boundaries
 
-This flow uses an existing PDK standard-cell layout. It does not prove a newly drawn custom inverter, arbitrary user layouts, whole-chip rules, other device families, PVT corners, reliability rules or foundry signoff. Extraction includes interconnect capacitance; distributed interconnect resistance is still outside this verified fixture. The run has not been repeated on Windows. The actual logs and waveforms are supplied separately in the reference-evidence archive.
+This flow uses an existing PDK standard-cell layout. It does not prove a newly drawn custom inverter, arbitrary user layouts, whole-chip rules, other device families, PVT corners, reliability rules or foundry signoff. Extraction includes interconnect capacitance; distributed interconnect resistance is still outside this verified fixture. This archived run was not repeated on Windows. The actual logs and waveforms are supplied separately in the reference-evidence archive. Current desktop physical verification has a separate [included Linux/private WSL runtime](REFERENCE_COMPATIBILITY_REPAIRS.md#linux-and-windows-physical-verification) and its own acceptance scope.
 
 Primary references: https://github.com/google/skywater-pdk-libs-sky130_fd_sc_hd ; https://github.com/chipfoundry/volare ; https://github.com/RTimothyEdwards/magic ; https://opencircuitdesign.com/magic/commandref/drc.html ; https://opencircuitdesign.com/open_pdks/reference.html .

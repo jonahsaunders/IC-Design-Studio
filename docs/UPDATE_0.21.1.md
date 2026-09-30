@@ -1,5 +1,7 @@
 # IC Design Studio 0.21.1.dev1
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 Unreleased development snapshot, 9 September 2026. Based on the prepared 0.21.0 source. This is a focused native exchange reliability update; the previous Windows portable download does not contain it.
 
 ## Native hierarchy export fix

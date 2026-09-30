@@ -4,6 +4,11 @@ Digital design now uses the main window. **Circuit workspace** restores the
 schematic/layout document and its panels. Source drafts, undo, saving and the
 shared job queue retain their existing project lifecycle.
 
+Open **Digital → Digital flow…** for an existing RTL cell, or create a counter,
+UART or APB example from the Digital menu. **Included tools** opens runtime setup;
+source checkouts without a built payload can explicitly select **Custom tools**.
+See [engine setup and platform requirements](DIGITAL_FLOW.md#included-tools-and-first-setup).
+
 ## Interface
 
 - Leading navigator: native cells, source search and compiler hierarchy.
@@ -106,7 +111,7 @@ declarations and 4,096 bits per signal. Small waveforms retain the original JSON
 representation. The index is a checksummed run artifact and is included in
 regression capture.
 
-**More → Language server** starts a user-selected stdio SystemVerilog LSP server.
+**More → Language server…** starts a user-selected stdio SystemVerilog LSP server.
 Enter its arguments as a JSON array. Sources are materialized into an isolated
 session directory. Live diagnostics, Ctrl+Space completion and F12 definitions
 operate on the working copy. The server must support UTF-16 positions and the

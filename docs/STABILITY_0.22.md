@@ -1,5 +1,11 @@
 # Stability and performance — 0.22.0.dev7
 
+This is the historical dev7 implementation and host-failure record. Its storage
+blockers and timing results apply to that execution environment. Current recovery
+uses ordered background writes and verified receipts; see
+[reliable workflows](RELIABLE_DESIGN_WORKFLOWS.md), [desktop responsiveness](DESKTOP_RESPONSIVENESS.md)
+and [release status](RELEASE_STATUS.md) for later behavior and acceptance scope.
+
 This source update keeps the dev6 layout features and improves their implementation. It remains an engineering preview: this development host cannot complete file synchronization, and native Windows and process qualification are still open.
 
 ## Storage and recovery

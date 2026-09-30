@@ -1,5 +1,7 @@
 # IC Design Studio 0.14 — a workspace for drawing
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 Both editors now have clear line grids. The crowded Design menu has become a short set of cell/project commands, with separate Schematic, Layout, Route, Simulate and Verify menus. A Draw / Edit / Review strip exposes frequent operations as named buttons. Window is the place to arrange panels, save a workspace, or recover the default layout.
 
 ## Start here

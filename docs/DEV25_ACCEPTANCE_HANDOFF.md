@@ -1,5 +1,10 @@
 # Dev25 package acceptance handoff
 
+**Historical package handoff.** The identities and digests below belong to the
+2026-09-21 review. Later main/experimental drafts have different package bytes;
+use [current release status](RELEASE_STATUS.md) and their own validation/checksum
+files. Do not apply these hashes to another package labeled 0.22.0.dev25.
+
 Reviewed 2026-09-21. The existing unpublished [dev25 draft](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/untagged-a3463df6d52385cb7532)
 targets `a88cfe1cfe20254638b7bd97ec9128e843578282`, whose source tree matches
 experimental commit `a2df5e81654e7509f82aa9dceaf099cc476f4d6a`. All six hosted
@@ -79,8 +84,9 @@ and are not qualified by collaboration or same-host tests.
 
 The release status, downloads, dev25 notes and source checkout instructions now
 identify the merged implementation and successful draft. Historical numerical
-evidence keeps its original source identity. New experimental changes need all
-six hosted gates on their own commit, and new package acceptance records.
+evidence keeps its original source identity. The historical draft used six gates.
+New experimental changes now need all seven current gates (including reference
+compatibility) on their own commit, and new package acceptance records.
 The `Prepare draft preview release` workflow supports manual dispatch on
 `experimental`; ordinary source changes do not necessarily match its push filters.
 Creating a draft does not publish it or close the manual gates.

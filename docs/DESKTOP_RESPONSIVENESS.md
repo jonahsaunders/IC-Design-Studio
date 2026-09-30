@@ -1,5 +1,10 @@
 # Desktop edit responsiveness
 
+This page retains implementation notes and measurements from successive source
+checkpoints. Each timing and failure belongs to its recorded source, workload
+and host; use [release status](RELEASE_STATUS.md) for current package/native
+acceptance. The later records linked below do not erase earlier failures.
+
 The [interactive rendering follow-up](INTERACTIVE_RENDERING_PERFORMANCE.md)
 reduces layout selection redraw work, with
 same-host before/after measurements and direct-renderer pixel comparisons.

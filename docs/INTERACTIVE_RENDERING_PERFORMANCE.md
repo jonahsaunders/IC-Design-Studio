@@ -1,5 +1,10 @@
 # Interactive layout rendering
 
+This is a source implementation and benchmark record. Commands can be rerun on
+current source, but the retained counts and timings qualify only their recorded
+revision and host. [Release status](RELEASE_STATUS.md) tracks package and native
+desktop acceptance separately.
+
 This follow-up reduces the foreground work needed to select and redraw layout
 geometry. Project contents, validation, connectivity, undo and recovery semantics
 are unchanged.

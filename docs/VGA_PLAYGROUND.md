@@ -1,6 +1,6 @@
 # VGA Playground in the digital flow
 
-Open **Digital flow → More → VGA Playground**. The native RTL editor stays on
+Open **Digital → Digital flow…**, then **More → VGA Playground**. The native RTL editor stays on
 the left and the interactive VGA display appears on the right. You can also
 select **VGA Playground** in the digital result-view selector.
 
@@ -41,7 +41,8 @@ frames; it is a smoke test, not an assertion of a design's functional correctnes
 
 ## Source setup and desktop packaging
 
-Install the Python requirements, including matching PySide6 Essentials and
+Run the following from the repository root in its Python environment. Install
+the Python requirements, including matching PySide6 Essentials and
 Addons 6.8.3. Install git and Node.js 22.12+ (or 24), then run:
 
 ```sh
