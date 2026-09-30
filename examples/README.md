@@ -1,6 +1,6 @@
 # Example projects
 
-For an external hierarchical SKY130 design, see the [overvoltage import and qualification walkthrough](../docs/OPEN_PROJECTS.md). Its source is pinned and downloaded explicitly; its current full-layout LVS needs attention.
+For an external hierarchical SKY130 design, see the [overvoltage import and qualification walkthrough](../docs/OPEN_PROJECTS.md). Its source is pinned and downloaded explicitly. Archived strict full-circuit LVS passes with the recorded resistor extraction correction; see the walkthrough for the exact scope and remaining limits.
 
 Use **File → Start here / example gallery** for guided examples that open as independent copies. The first six projects below use embedded native definitions or generic teaching models; none needs a downloaded PDK. Five have short, saved analyses. The sixth is a placement exercise. Later entries include real-PDK simulations and the Banba design sequence described below.
 
@@ -50,8 +50,14 @@ Follow the GF180MCU Banba reference through three gallery entries. Each opens an
 |---|---|---|
 | 10 · [Build a Banba bandgap](gf180-banba/README.md) | Native core, transistor-level amplifier, startup circuit, two testbenches and a 27-simulation resistor search | About 0.596 V at 27 °C; fast startup overshoots and retains a failing requirement |
 | 11 · [Improve the Banba bandgap](gf180-banba/pass2/README.md) | Revised bias and startup, three optimizer searches with 420 simulations, before/after performance plots and independent PVT checks | About 0.601 V at 44.40 µA nominal; lower current and overshoot trade against settling, capacitor area and mid-band supply rejection |
-| 12 · [Lay out the Banba bandgap](gf180-banba/layout/README.md) | Routed native layout and GDS, 1:8 common-centroid PNP array, matching constraints, segmented resistors and tiled MIM capacitors | Native checks and segmented schematic simulations pass; full foundry DRC/LVS and extracted performance remain open |
+| 12 · [Lay out the Banba bandgap](gf180-banba/layout/README.md) | Routed native layout and GDS, 1:8 common-centroid PNP array, matching constraints, segmented resistors and tiled MIM capacitors | Archived native connectivity, core LVS, separate filled-layout DRC/LVS and core capacitance-only checks pass within their recorded scope; distributed RC, fill coupling and fabrication signoff remain open. See [shared qualification](../docs/REFERENCE_QUALIFICATION.md) |
 
 [![The routed Banba example in the native layout editor.](gf180-banba/layout/studio-layout.png)](gf180-banba/layout/README.md)
 
 Select **banba_layout → Layout** in the third project. These examples use a 3.3 V supply and an unbuffered output with a 5 pF external testbench load; they do not establish fabrication readiness. See the linked guides for measured conditions, trade-offs and reproduction steps.
+
+## Mixed-signal SAR ADC and guided learning
+
+Gallery entry **13 · Build a mixed-signal SAR ADC** opens an independent [four-bit ADC project](sar-adc/sar-adc.icproj). Select local `ngspice`, `iverilog` and `vvp` executables, then choose **Run coupled simulation**. With the default 0.93 V input and 1.8 V reference, expect code **8** after four comparisons. Inspect the analog waveforms and digital decision table, then edit the DAC or RTL and rerun. No downloaded PDK is required; the comparator and sampling switch are behavioral. [Walkthrough and qualification limits](../docs/MIXED_SIGNAL_SAR.md).
+
+Open **File → Student Hub** for four learning paths and a sensor-acquisition capstone: **28 lessons and 112 steps** using the native editors. The [course guide](../docs/STUDENT_HUB.md) describes prerequisites, practice mode, saved progress and local engine setup. The [student examples](student-hub/README.md) distinguish the correct sensor reference from the intentionally faulty lesson starter.
