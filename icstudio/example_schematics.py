@@ -23,17 +23,26 @@ def imported_labels(project):
     return project
 
 
-def arrange(project):
+def arrange(project,cell_ids=None,*,replace_wires=False):
+    """Prepare examples; replacing automatic wires is only for freshly built cells.
+
+    Callers adding a DUT to a user project must select only the new cell.
+    """
     for cell in project['cells']:
+        if cell_ids is not None and cell['id'] not in cell_ids:continue
         if not cell['devices'] or len(cell['devices'])>40 or cell.get('xschem') or cell.get('example_drawing'):continue
         if any(d.get('xschem') for d in cell['devices']):continue
         # Preserve intentionally hand-routed and external reference drawings.
-        if cell.get('wires'):continue
+        if cell.get('wires') and not replace_wires:continue
         original=clone(cell)
         expected={d['id']:dict(d['nets']) for d in cell['devices']}
         devices={d['name']:d for d in cell['devices']}
         def place(name,x,y,rotation=0,mirror=False):
-            if name in devices:devices[name].update(x=x,y=y,rotation=rotation,mirror=mirror)
+            if name not in devices:return
+            d=devices[name];pins=d.get('symbol',{}).get('pins',{})
+            if d['kind']=='PMOS' and rotation==180 and mirror and pins.get('d',[0,0])[1]>pins.get('s',[0,0])[1]:
+                rotation=0;mirror=False  # This PDK already draws the source above the drain.
+            d.update(x=x,y=y,rotation=rotation,mirror=mirror)
         names={name for name,d in devices.items() if d.get('native_spice',{}).get('type')!='program'}
         if names=={'V1','R1','C1'}:
             place('V1',140,240);place('R1',320,190,270);place('C1',500,240)
@@ -42,6 +51,8 @@ def arrange(project):
         elif {'MP1','MN1','VDD','V1','CL'}==names:
             place('VDD',140,200);place('V1',140,400)
             place('MP1',460,200,180,True);place('MN1',460,400);place('CL',720,350)
+        elif names=={'MP','MN'}:
+            place('MP',360,160,180,True);place('MN',360,400)
         elif {'M1','M2','M3','M4','M5'}==names and cell['name']=='amplifier':
             place('M3',280,140,180,True);place('M4',640,140,180,True)
             place('M1',280,360);place('M2',640,360);place('M5',460,580)
@@ -51,6 +62,8 @@ def arrange(project):
             place('VD',120,140);place('VG',120,380);place('M1',440,330)
         elif {'VDD','VIN','X1','CL'}<=names:
             place('VDD',100,100);place('VIN',100,380);place('X1',420,330);place('CL',720,330)
+        if cell['name'].endswith('_testbench') and {'VBIAS','CL'}<=names:
+            place('CL',devices['VBIAS']['x']+240,devices['VBIAS']['y'])
         if 'sar_analog'==cell['name']:
             for bit in range(4):place('Rbit'+str(bit),180+bit*220,570)
             place('Rterm',1060,720);place('Cdac',1300,720)
@@ -60,6 +73,8 @@ def arrange(project):
         # Only generic teaching blocks get a title; PDK symbol artwork is owned
         # by its library. Terminal geometry and order are left intact.
         for d in cell['devices']:
+            if d.get('model_ref') and d.get('symbol'):
+                prepare_symbol_labels(d)
             if d['name'] in ('Ssample','Bcompare') and d.get('native_spice',{}).get('label') and d.get('symbol') and not any(p['kind']=='text' for p in d['symbol']['primitives']):
                 d['symbol']['primitives'].append(dict(kind='text',points=[[-34,-8],[34,8]],text=d['native_spice']['label'],font_size=5))
         cell.update(wires=[],labels=[],junctions=[])
@@ -115,6 +130,8 @@ def arrange(project):
                 offset=([-max(18,len(net)*7)-6,-38] if pt[0]<device['x'] else
                         [8,36] if pt[1]>device['y'] else [8,-30])
             if low:offset=[8,22]
+            if device['kind'] in ('NMOS','PMOS') and pt[0]>device['x'] and pt[1]==device['y']:
+                offset=[8,40]
             cell['labels'].append(dict(id=uid(),kind='ground' if ground else 'net_label',name=net,
                 anchor=dict(kind='pin',id=key[0],pin=key[1]),offset=[0,0] if ground else offset,rotation=0))
         wiring.rebuild(cell,project)
@@ -123,6 +140,26 @@ def arrange(project):
             raise ValueError('Example presentation changed terminal connectivity')
         cell['example_drawing']=1
     return project
+
+
+def prepare_symbol_labels(device):
+    """Space new example annotations without changing a locked PDK catalog."""
+    items=[item for item in device['symbol']['primitives']
+           if item['kind']=='text' and not item.get('hidden')
+           and not item['text'].startswith(('@#','@spice_get_'))]
+    items.sort(key=lambda item:0 if '@name' in item['text'] else 1 if '@model' in item['text'] else 2)
+    angle=device['rotation'];mirror=device.get('mirror',False)
+    co=round(math.cos(math.radians(angle)));si=round(math.sin(math.radians(angle)))
+    for index,item in enumerate(items):
+        # Text occupies horizontal rows beside the symbol regardless of how
+        # the transistor is oriented. Keep its live parameter placeholders.
+        x,y=70,-52+index*18
+        local=[(x*co+y*si)*(-1 if mirror else 1),-x*si+y*co]
+        item.update(points=[local,[local[0]+20,local[1]+10]],
+                    rotation=(angle if mirror else -angle)%360,mirror=mirror,
+                    text_anchor='corner',hcenter=False,vcenter=False,font_size=8)
+        if '@name' in item['text']:
+            item['text']=item['text'].replace('@spiceprefix','')
 
 
 def blocked(points,device):
@@ -139,6 +176,10 @@ def blocked(points,device):
     boxes=[(x-half_x,y-half_y,x+half_x,y+half_y)]
     if not device.get('symbol'):
         boxes.append((x+78,y-40,x+190,y-4) if kind in ('NMOS','PMOS') else (x-22,y-72,x+90,y-34) if device['rotation'] in (90,270) else (x+34,y-45,x+135,y-8))
+    elif device.get('model_ref'):
+        # New example captions have a reserved column; wires must stay out.
+        count=sum(item['kind']=='text' and not item.get('hidden') for item in device['symbol']['primitives'])
+        boxes.append((x+66,y-56,x+250,y-52+count*18))
     for a,b in zip(points,points[1:]):
         for left,top,right,bottom in boxes:
             if a[0]==b[0] and left<a[0]<right and max(min(a[1],b[1]),top)<min(max(a[1],b[1]),bottom):return True

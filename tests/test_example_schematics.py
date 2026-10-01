@@ -27,6 +27,41 @@ def electrical(project):
 
 
 class ExampleSchematicTests(unittest.TestCase):
+    def test_added_teaching_dut_preserves_existing_user_cells(self):
+        from icstudio.analog_guided import teaching_example,TEMPLATES
+        from icstudio.model import example
+        for template in TEMPLATES:
+            with self.subTest(template=template):
+                original=validate(example('rc'));before=clone(original['cells'])
+                proposal,cid=teaching_example(original,template);expected=electrical(proposal)
+                arrange(proposal,{cid},replace_wires=True)
+                self.assertEqual(electrical(proposal),expected)
+                self.assertEqual(proposal['cells'][:-1],before)
+                self.assertTrue(proposal['cells'][-1]['wires'])
+
+    def test_new_pdk_templates_prepare_migrated_wires_and_preserve_catalogs(self):
+        from icstudio.project_hub import inventory,preview
+        from icstudio.project_templates import create,defaults,TEMPLATES
+        from icstudio.pdks import PDKRegistry
+        with tempfile.TemporaryDirectory() as td:
+            rows=inventory(PDKRegistry(td))[0]
+            for row in rows:
+                if row['status']!='Available offline':continue
+                tech=preview(row);choices=defaults(tech);catalog=digest(tech)
+                for kind in TEMPLATES:
+                    with self.subTest(pdk=row['id'],template=kind):
+                        project,_,_=create(tech,kind,choices['supply'],choices['NMOS'],choices['PMOS'])
+                        before=electrical(project)
+                        arrange(project,replace_wires=True)
+                        self.assertEqual(electrical(project),before)
+                        self.assertEqual(digest(tech),catalog)
+                        self.assertTrue(all(c.get('example_drawing') for c in project['cells']))
+                        for c in project['cells']:
+                            for d in c['devices']:
+                                if d.get('model_ref'):
+                                    self.assertNotIn('@spiceprefix',str(d['symbol']['primitives']))
+                        validate(project)
+
     def test_every_starter_retains_electrical_data_and_survives_reopen(self):
         for name in sorted({lesson['starter'] for lesson in curriculum()['lessons']}):
             with self.subTest(starter=name), tempfile.TemporaryDirectory() as td:

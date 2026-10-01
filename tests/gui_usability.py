@@ -30,7 +30,9 @@ w.begin_placement(2);point=QPoint(140,170);expected=w.schematic.snap(w.schematic
 a,b=w.cell['devices'][1:3];w.select([a['id']]);w.form_fields['Value'].setText('not-a-value');w.select([b['id']]);assert w.selection==[a['id']];assert not w.property_error.isHidden();assert w.cell['devices'][1]['value']=='10k'
 w.form_fields['Value'].setText('22k');w.select([b['id']]);assert w.cell['devices'][1]['value']=='22k';assert w.selection==[b['id']];w.undo()
 # Rubber-band selection and a drag commit operate through native mouse events.
-w.select([]);c=w.schematic;start=QPoint(20,30);end=QPoint(c.width()-20,c.height()-30);QTest.mousePress(c,Qt.LeftButton,pos=start);QTest.mouseMove(c,end);QTest.mouseRelease(c,Qt.LeftButton,pos=end);assert set(w.selection)=={o['id'] for o in w.cell['devices']+w.cell['wires']}
+w.select([]);c=w.schematic;start=QPoint(20,30);end=QPoint(c.width()-20,c.height()-30);QTest.mousePress(c,Qt.LeftButton,pos=start);QTest.mouseMove(c,end);QTest.mouseRelease(c,Qt.LeftButton,pos=end)
+# Net labels and annotations are selectable schematic objects too.
+assert set(w.selection)=={o['id'] for group in ('devices','wires','labels','annotations') for o in w.cell.get(group,[])}
 r=w.cell['devices'][1];w.select([r['id']]);pos=screen(c,r['x'],r['y']);end=pos+QPoint(45,20);expected=c.snap(c.model(QPointF(end)))-c.snap(c.model(QPointF(pos)));x,y=r['x'],r['y'];QTest.mousePress(c,Qt.LeftButton,pos=pos);QTest.mouseMove(c,end);assert w.schematic.moving;QTest.mouseRelease(c,Qt.LeftButton,pos=end);r=w.cell['devices'][1];assert (r['x'],r['y'])==(x+expected.x(),y+expected.y());w.undo()
 # Connect pins from actual screen positions.
 from icstudio.interchange import pin_positions

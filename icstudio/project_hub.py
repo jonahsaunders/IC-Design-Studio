@@ -63,6 +63,7 @@ def build_project(registry,row,name,kind,supply='1.8',nmos=None,pmos=None):
     """Validate choices, then install/verify the exact revision before use."""
     from .project_templates import TEMPLATES,create
     from .catalog import link_technology
+    from .example_schematics import arrange
     if not name.strip():raise ValueError('Enter a project name.')
     def build(technology):
         cid=bench=None
@@ -72,7 +73,7 @@ def build_project(registry,row,name,kind,supply='1.8',nmos=None,pmos=None):
         project['name']=name.strip()
         from .engine_selection import selected
         project['analysis']['engine']=selected(project)
-        return {'project':validate(project),'cell':cid,'testbench':bench}
+        return {'project':validate(arrange(project,replace_wires=True)),'cell':cid,'testbench':bench}
     candidate=build(preview(row))
     if row['key']=='generic':return candidate
     if row['status']=='Available offline':

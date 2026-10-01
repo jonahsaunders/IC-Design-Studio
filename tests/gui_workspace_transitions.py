@@ -13,7 +13,7 @@ from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication, QDialog, QMessageBox
 from icstudio.gui import Studio
 from icstudio.getting_started import examples
-from icstudio.model import digest
+from icstudio.model import clone, digest
 from icstudio.sar_example import sar_project
 from icstudio.student_hub_ui import show as student
 from icstudio.mixed_signal_ui import show as mixed
@@ -38,6 +38,7 @@ class WorkspaceTransitions(unittest.TestCase):
         self.w.error = self.errors.append
         self.hook = patch.object(sys, 'excepthook', side_effect=lambda t, v, tb:self.errors.append(str(v)))
         self.hook.start()
+        self.startup_project=clone(self.w.project)
         self.w.set_project(sar_project())
         self.w.resize(1440, 930)
         self.w.show()
@@ -71,17 +72,29 @@ class WorkspaceTransitions(unittest.TestCase):
             self.trigger_menu('View', ['Schematic','Layout','Linked views'][int(mode[-1])])
             self.assertEqual(w.app_workspaces.currentIndex(), 0)
             self.assertIsNot(w.design_widget(), getattr(w, '_digital_window', None))
+            index=int(mode[-1])
+            self.assertEqual(w.mode_combo.currentIndex(),index)
+            self.assertEqual(w.schematic.isVisible(),index!=1)
+            self.assertEqual(w.layout.isVisible(),index!=0)
         elif mode.startswith('digital:'):
             self.trigger_menu('Digital', 'Digital flow…')
             d = w._digital_window
             QTest.mouseClick(d.shell.mode_group.button(int(mode[-1])), Qt.LeftButton)
             self.assertIs(w.design_widget(), d)
             self.assertFalse(w.toolbar.isVisible())
+            index=int(mode[-1])
+            self.assertEqual(d.shell.mode_group.checkedId(),index)
+            self.assertEqual(d.shell.source.isVisible(),index!=2)
+            self.assertEqual(d.shell.analysis.isVisible(),index!=0)
+            if index==0:self.assertTrue(d.editor.isVisible())
+            if index==2:self.assertTrue(d.workspace.physical.isVisible())
         elif mode.startswith('analog:'):
             self.trigger_menu('Simulate', 'Analog design workspace…')
             d = w.analog_workspace
             d.tabs.setCurrentIndex(int(mode[-1]))
             self.assertTrue(d.isVisible())
+            self.assertEqual(d.tabs.currentIndex(),int(mode[-1]))
+            self.assertTrue(d.tabs.currentWidget().isVisible())
             self.assertEqual(w.app_workspaces.currentIndex(), 0)
         elif mode == 'mixed':
             self.trigger_menu('Simulate', 'Mixed-signal experiment…')
@@ -98,6 +111,7 @@ class WorkspaceTransitions(unittest.TestCase):
             d = projects(w, mode.split(':')[1])
             self.app.processEvents()
             self.assertIs(self.app.activeModalWidget(), d)
+            self.assertEqual(d.nav.currentItem().data(Qt.UserRole),mode.split(':')[1])
             self.assertTrue(d.close())
         self.settle()
 
@@ -237,6 +251,22 @@ class WorkspaceTransitions(unittest.TestCase):
             self.assertIs(self.w.start_here(),first)
             self.w.show_design_workspace()
         first.reject()
+        self.settle()
+
+    def test_startup_and_new_sar_use_prepared_drawings(self):
+        from tests.test_example_schematics import electrical
+        self.assertTrue(self.startup_project['cells'][0]['wires'])
+        self.assertEqual(self.startup_project['cells'][0]['example_drawing'],1)
+        original=sar_project()
+        self.enter('student');self.w.saved_hash=digest(self.w.project)
+        with patch('icstudio.sar_example.sar_project',return_value=clone(original)):
+            self.trigger_menu('Simulate','New SAR ADC example')
+        self.assertEqual(electrical(self.w.project),electrical(original))
+        self.assertTrue(self.w.project['cells'][0]['wires'])
+        self.assertEqual(self.w.app_workspaces.currentIndex(),0)
+        self.assertTrue(self.w._mixed_signal_dialog.isVisible())
+        self.w._mixed_signal_dialog.close()
+        self.assertTrue(self.w.schematic.isVisible())
         self.settle()
 
 

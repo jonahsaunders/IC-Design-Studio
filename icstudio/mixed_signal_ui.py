@@ -244,8 +244,9 @@ def show(studio):
 
 def new_sar(studio):
     from .sar_example import sar_project
+    from .example_schematics import arrange
     if not studio.idle_edit() or not studio.maybe_save(): return
-    studio.set_project(sar_project()); studio.refresh(True); return show(studio)
+    studio.set_project(arrange(sar_project())); studio.refresh(True); return show(studio)
 
 
 def install(studio):
