@@ -136,7 +136,7 @@ class OnboardingMixin:
         details.document().setDefaultStyleSheet('h2 { margin-bottom: 20px; } p { margin-top: 14px; margin-bottom: 14px; } li { margin-bottom: 12px; }')
         rv.addWidget(details, 1)
         engine_status = label(''); rv.addWidget(engine_status)
-        open_button = QPushButton('Open a copy'); open_button.setDefault(True); open_button.setStyleSheet('QPushButton { background: #315ed4; color: white; border: none; border-radius: 6px; padding: 11px; font-weight: 600; } QPushButton:disabled { background: #475367; color: #b0b6c2; }'); rv.addWidget(open_button)
+        open_button = QPushButton('Open a copy'); open_button.setProperty('role', 'primary'); rv.addWidget(open_button)
         setup = QPushButton('Engine setup…'); setup.clicked.connect(self.engine_dialog); rv.addWidget(setup)
         guide = QPushButton('Read the getting-started guide'); guide.clicked.connect(lambda: self.open_editor_doc('GETTING_STARTED.md')); rv.addWidget(guide)
         split.addWidget(right); split.setSizes([420, 570])
@@ -164,6 +164,7 @@ class OnboardingMixin:
             if item and self.open_gallery_example(item.data(Qt.UserRole)):
                 dlg.accept()
         items.currentItemChanged.connect(selected); search.textChanged.connect(fill)
+        search.returnPressed.connect(items.setFocus)
         items.itemActivated.connect(lambda _: self.guard(open_copy)); open_button.clicked.connect(lambda: self.guard(open_copy))
         bottom = QHBoxLayout(); outer.addLayout(bottom)
         show = QCheckBox('Show on startup'); show.setChecked(self.settings.value('onboarding/show', True, type=bool))
@@ -171,6 +172,7 @@ class OnboardingMixin:
         close = QPushButton('Continue to workspace'); close.clicked.connect(dlg.close); bottom.addWidget(close)
         dlg.example_list, dlg.search, dlg.open_button = items, search, open_button
         dlg.details, dlg.engine_status = details, engine_status
+        for button in dlg.findChildren(QPushButton): button.setAutoDefault(False); button.setDefault(False)
         self._start_dialog = dlg; fill(); dlg.show(); return dlg
 
     def pdk_manager(self, initial_folder=None):

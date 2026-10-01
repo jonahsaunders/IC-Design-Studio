@@ -49,6 +49,25 @@ class MixedSignalModelTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'every bridge edge'):
             ms.decode_outputs('', c, 1)
 
+    def test_malformed_json_fields_report_validation_errors(self):
+        changes = (
+            lambda c: c['inputs'].__setitem__(0, None),
+            lambda c: c['outputs'].__setitem__(0, []),
+            lambda c: c['inputs'][2].update(node=None),
+            lambda c: c['inputs'][2].pop('low'),
+            lambda c: c['outputs'][0].update(nodes=None),
+            lambda c: c['outputs'][0].update(nodes='abcd'),
+            lambda c: c['inputs'][2].update(sample_when=[]),
+            lambda c: c['inputs'][2].update(sample_when={}),
+            lambda c: c['inputs'][2].update(sample_when={'port':'track','value':True}),
+            lambda c: c.update(verification=[]),
+            lambda c: c['stimuli'].update({1:[[0, 1]]}),
+        )
+        for change in changes:
+            p = sar_project(); change(p['mixed_signal'])
+            with self.subTest(configuration=p['mixed_signal']), self.assertRaises(ValueError):
+                validate(p)
+
 
 @unittest.skipUnless(all(tools().values()), 'Requires local ngspice, iverilog and vvp')
 class MixedSignalEngineTests(unittest.TestCase):
@@ -57,6 +76,13 @@ class MixedSignalEngineTests(unittest.TestCase):
         result = ms.run(job, root); (root/'result.json').write_text(json.dumps(result))
         ms.validate_result(result, job, root)
         return job, result
+
+    def test_optional_sar_verification_can_be_disabled(self):
+        p = sar_project(); p['mixed_signal']['verification'] = None
+        with tempfile.TemporaryDirectory() as tmp:
+            _, result = self.simulate(p, Path(tmp))
+        self.assertNotIn('verification', result['mixed_signal'])
+        self.assertEqual(result['mixed_signal']['samples'][-1]['outputs']['code'], 8)
 
     def test_real_closed_loop_and_captured_evidence(self):
         with tempfile.TemporaryDirectory() as tmp:

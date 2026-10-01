@@ -55,6 +55,8 @@ def validate_project(project):
         if not isinstance(rows, list) or not 1 <= len(rows) <= 32:
             raise ValueError('Use 1–32 mixed-signal ports in each direction.')
         for row in rows:
+            if not isinstance(row, dict):
+                raise ValueError('Each bridge port must be a JSON object.')
             port = row.get('port'); width = row.get('width', 1)
             if not isinstance(port, str) or not IDENT.fullmatch(port) or port in ports:
                 raise ValueError('Bridge port names must be distinct RTL identifiers.')
@@ -63,14 +65,16 @@ def validate_project(project):
                 raise ValueError('Bridge port width must be 1–32 bits.')
             if direction == 'inputs':
                 if 'node' in row:
-                    if width != 1 or not NODE.fullmatch(row['node']) or scalar(row['low']) >= scalar(row['high']):
+                    if (width != 1 or not isinstance(row['node'], str) or not NODE.fullmatch(row['node'])
+                            or scalar(row.get('low')) >= scalar(row.get('high'))):
                         raise ValueError('Analog inputs need a scalar node and increasing logic thresholds.')
                 else:
                     values = row.get('values')
                     if not isinstance(values, list) or len(values) != cycles or any(type(v) is not int or not 0 <= v < 2**width for v in values):
                         raise ValueError('Provide one in-range stimulus value per clock edge.')
             elif 'nodes' in row:
-                if len(row['nodes']) != width or scalar(row['low']) >= scalar(row['high']):
+                if (not isinstance(row['nodes'], list) or len(row['nodes']) != width
+                        or scalar(row.get('low')) >= scalar(row.get('high'))):
                     raise ValueError('Digital outputs need one node per bit and increasing voltage levels.')
                 if type(row.get('initial')) is not int or not 0 <= row['initial'] < 2**width:
                     raise ValueError('Declare an in-range initial value for every analog driver.')
@@ -81,20 +85,23 @@ def validate_project(project):
     outputs = {r['port']: r for r in c['outputs']}
     for row in c['inputs']:
         gate = row.get('sample_when')
-        if gate and (gate.get('port') not in outputs or outputs[gate['port']].get('width', 1) != 1 or gate.get('value') not in (0, 1)):
+        if gate is not None and (not isinstance(gate, dict) or gate.get('port') not in outputs
+                or outputs[gate['port']].get('width', 1) != 1 or type(gate.get('value')) is not int
+                or gate['value'] not in (0, 1)):
             raise ValueError('Sampling enable must reference a scalar RTL output.')
     stimuli = c.get('stimuli', {})
     if not isinstance(stimuli, dict) or len(stimuli) > 32:
         raise ValueError('Use at most 32 analog stimulus nodes.')
     for node, points in stimuli.items():
-        if not NODE.fullmatch(node) or node.casefold() in nodes:
+        if not isinstance(node, str) or not NODE.fullmatch(node) or node.casefold() in nodes:
             raise ValueError('Analog stimulus and bridge nodes must be distinct.')
         nodes.add(node.casefold()); validate_points(points, cycles*period)
     probes = c.get('probes', [])
     if not isinstance(probes, list) or not 1 <= len(probes) <= 64 or any(not isinstance(n, str) or not NODE.fullmatch(n) for n in probes):
         raise ValueError('Choose 1–64 simple analog probe nodes.')
     verification = c.get('verification')
-    if verification is not None and (verification.get('kind') != 'sar4' or not 0 < scalar(verification.get('reference', 0)) <= 100):
+    if verification is not None and (not isinstance(verification, dict)
+            or verification.get('kind') != 'sar4' or not 0 < scalar(verification.get('reference', 0)) <= 100):
         raise ValueError('Choose the four-bit SAR check and a positive reference voltage.')
 
 
@@ -320,7 +327,7 @@ def run(job, directory, progress=lambda *_: None):
                   mixed_signal=dict(version=1, config_hash=digest(c), samples=samples,
                                     environment=job['environment'], artifacts={}),
                   warnings=['Educational clock-boundary coupling; asynchronous crossings, metastability, transistor noise and physical signoff are outside this run.'], log='Completed every analog/digital sampling edge.')
-    if c.get('verification', {}).get('kind') == 'sar4':
+    if (c.get('verification') or {}).get('kind') == 'sar4':
         from .sar_example import conversion_report
         stimulus = c.get('stimuli', {}).get('vin', [])
         expected = None

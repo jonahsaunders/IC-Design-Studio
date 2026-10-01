@@ -328,7 +328,7 @@ class StudentHub(QDialog):
         v.addWidget(label('Choose native local executables for simulation, or leave them blank to search PATH. IHP lessons automatically use the included simulator and compiled models. Leave Magic and Netgen blank to use the included physical tools. Prepare them with Set up physical tools in the Hub. Custom paths must point to native executables.'))
         form=QFormLayout();v.addLayout(form);edits={}
         for name,value in self.tools().items():
-            row=QHBoxLayout();edit=QLineEdit(value);edit.setPlaceholderText(name+' on PATH');row.addWidget(edit);button=QPushButton('Browse…');row.addWidget(button)
+            row=QHBoxLayout();edit=QLineEdit(value);edit.setPlaceholderText(name+' on PATH');edit.setAccessibleName(name+' executable');row.addWidget(edit);button=QPushButton('Browse…');button.setAccessibleName('Browse for '+name+' executable');button.setAutoDefault(False);row.addWidget(button)
             def browse(_=False,edit=edit,name=name):
                 path,_=QFileDialog.getOpenFileName(dialog,'Select '+name)
                 if path:edit.setText(path)
