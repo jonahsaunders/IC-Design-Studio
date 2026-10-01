@@ -12,6 +12,21 @@ def model_choices(technology, kind):
             and set(entry.get('pin_order', [])) == {'d', 'g', 's', 'b'}]
 
 
+def defaults(technology):
+    """Prefer the documented core devices and nominal supply for known PDKs."""
+    from .student_inverter import PROCESSES
+    from pathlib import Path
+    key=technology.get('package_lock',{}).get('id','').casefold()
+    spec=next((s for family,s in PROCESSES.items() if key.startswith(family)),None)
+    result={'supply':spec['supply'] if spec else 1.8}
+    for kind,field in [('NMOS','n'),('PMOS','p')]:
+        choices=model_choices(technology,kind)
+        matches=[k for k,b in choices if spec and (b['model']==spec[field] or b['model'].endswith('__'+spec[field]))]
+        canonical=[k for k in matches if Path(k).stem==spec[field].split('__')[-1]]
+        result[kind]=next(iter(canonical or matches),choices[0][0] if choices else None)
+    return result
+
+
 def create(technology, kind='inverter', supply=1.8, nmos=None, pmos=None):
     from .model import scalar
     from .components import configure_component

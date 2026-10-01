@@ -290,6 +290,8 @@ def load_project(path):
     if path.stat().st_size>512*1024*1024: raise ValueError('Project exceeds the 512 MiB native project limit.')
     p=json.loads(path.read_text(encoding='utf-8'));package_root=p.get('pdk',{}).get('package_root')
     if package_root and not Path(package_root).is_absolute():p['pdk']['package_root']=str((path.parent/package_root).resolve())
+    from .osdi import resolve_paths
+    resolve_paths(p,path.parent)
     return validate(p)
 
 class History:

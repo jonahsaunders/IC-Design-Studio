@@ -315,7 +315,17 @@ class SimulationWorkspaceMixin:
         if name.startswith('CAPABILITY_MATRIX'):return self.compatibility_matrix()
         root=Path(getattr(sys,'_MEIPASS',Path(__file__).resolve().parents[1]));path=root/'docs'/name
         dlg=QDialog(self);dlg.setWindowTitle(name.replace('_',' ').removesuffix('.md'));dlg.resize(900,640);v=QVBoxLayout(dlg)
-        search=QLineEdit();search.setPlaceholderText('Find in this document…');v.addWidget(search);browser=QTextBrowser();browser.setOpenExternalLinks(True);browser.document().setBaseUrl(QUrl.fromLocalFile(str(path.parent)+'/'));browser.setMarkdown(path.read_text(encoding='utf-8') if path.exists() else 'This document is unavailable. Open Help → Compatibility matrix for built-in capability information.');v.addWidget(browser)
+        browser=QTextBrowser();browser.setOpenExternalLinks(True)
+        navigation=QHBoxLayout();back=self.button('Back',fn=browser.backward);forward=self.button('Forward',fn=browser.forward)
+        back.setEnabled(False);forward.setEnabled(False);browser.backwardAvailable.connect(back.setEnabled);browser.forwardAvailable.connect(forward.setEnabled)
+        navigation.addWidget(back);navigation.addWidget(forward)
+        search=QLineEdit();search.setPlaceholderText('Find in this document…');navigation.addWidget(search,1);v.addLayout(navigation);v.addWidget(browser)
+        # A document base URL alone does not initialize QTextBrowser's source:
+        # relative links otherwise resolve against the process working folder.
+        from .help_navigation import connect_navigation
+        connect_navigation(browser,dlg)
+        if path.is_file():browser.setSource(QUrl.fromLocalFile(str(path.resolve())))
+        else:browser.setPlainText('This document is unavailable. Open Help → Compatibility matrix for built-in capability information.')
         def find(text):browser.moveCursor(QTextCursor.Start);browser.find(text)
         search.textChanged.connect(find);buttons=QDialogButtonBox(QDialogButtonBox.Close);buttons.rejected.connect(dlg.close);v.addWidget(buttons);self._document_dialog=dlg;dlg.show()
 

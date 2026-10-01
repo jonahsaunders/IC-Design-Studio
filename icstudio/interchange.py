@@ -253,13 +253,22 @@ def export_technology(p,dest):
     export_contract(p['pdk'],dest)
 
 def export_handoff(p,dest):
+    import os,shutil
+    from .osdi import verified,preload
     from .xschem_export_contract import require_supported
     require_supported(p,source_capture=p.get('xschem_exchange',{}).get('mode')=='compatible' and p.get('spice',{}).get('version')!=1)
     dest=Path(dest)
     if dest.exists() and any(dest.iterdir()):raise ValueError('Choose a new or empty directory so an existing handoff is not overwritten.')
+    # Custom libraries are an explicit dependency. Verify before creating the
+    # handoff and copy their exact bytes; never silently substitute other models.
+    runtime=verified(p,required=False);p=clone(p)
     dest.mkdir(parents=True,exist_ok=True)
+    for i,entry in enumerate(runtime):
+        target=dest/'runtime-osdi'/('model-'+str(i)+'.osdi');target.parent.mkdir(exist_ok=True)
+        shutil.copyfile(entry['path'],target)
+        if file_digest(target)!=entry['sha256']:raise ValueError('OSDI model changed during export.')
+        p['simulation_runtime']['osdi'][i]['path']=str(target.resolve())
     if p['pdk'].get('package_lock'):
-        import shutil
         from .pdks import model_lines
         model_lines(p['pdk'],p['analysis'].get('corner','nominal'));p=clone(p);source_root=Path(p['pdk']['package_root']);asset_root=dest/'technology'/'package'
         for rel in p['pdk']['package_lock']['files']:
@@ -274,20 +283,26 @@ def export_handoff(p,dest):
         from .xschem_runtime import netlist
         deck=netlist(p,dest)
     else:deck=spice(p,settings=p['analysis'])
+    deck=preload(p,deck,dest,required=False)
     save_project(p,dest/'project.icproj');atomic_write(dest/'simulation.cir',deck);export_layout(p,dest/'layout.gds');export_layout(p,dest/'layout.oas');export_xschem(p,dest/'xschem');export_technology(p,dest/'technology')
     from .engine_selection import selected
     locked_pdk=clone(p['pdk'])
     if locked_pdk.get('package_lock'):locked_pdk['package_root']='technology/package'
-    atomic_write(dest/'dependencies.lock.json',json.dumps({'app':__import__('icstudio').__version__,'schema':1,'pdk':locked_pdk,'engine':selected(p),'design_hash':digest(p)},indent=2))
+    runtime_lock=clone(p.get('simulation_runtime',{}))
+    for entry in runtime_lock.get('osdi',[]):entry['path']=os.path.relpath(entry['path'],dest.resolve()).replace('\\','/')
+    atomic_write(dest/'dependencies.lock.json',json.dumps({'app':__import__('icstudio').__version__,'schema':1,'pdk':locked_pdk,'simulation_runtime':runtime_lock,'engine':selected(p),'design_hash':digest(p)},indent=2))
     if p['pdk'].get('package_lock'):
         root=str(dest.resolve()).replace('\\','/')+'/'
         for deck in dest.rglob('*.cir'):
             # Deck paths are relative to their own working directory.
-            import os
             relroot=os.path.relpath(dest.resolve(),deck.parent.resolve()).replace('\\','/')+'/'
             atomic_write(deck,deck.read_text().replace(root,relroot))
+    if p['pdk'].get('package_lock') or runtime:
         for project_file in list(dest.rglob('*.icproj'))+list(dest.rglob('*.icstudio.json')):
-            portable=load_project(project_file);portable['pdk']['package_root']=os.path.relpath(Path(p['pdk']['package_root']),project_file.parent.resolve()).replace('\\','/');save_project(portable,project_file)
+            portable=load_project(project_file)
+            if p['pdk'].get('package_lock'):portable['pdk']['package_root']=os.path.relpath(Path(p['pdk']['package_root']),project_file.parent.resolve()).replace('\\','/')
+            for entry in portable.get('simulation_runtime',{}).get('osdi',[]):entry['path']=os.path.relpath(entry['path'],project_file.parent.resolve()).replace('\\','/')
+            save_project(portable,project_file)
         for manifest in dest.glob('*.exchange.json'):
             metadata=json.loads(manifest.read_text());side=Path(str(manifest).removesuffix('.exchange.json')+'.icstudio.json')
             metadata['baseline_hash']=file_digest(side);atomic_write(manifest,json.dumps(metadata,indent=2))

@@ -41,6 +41,13 @@ def configure(paths):
     return entries
 
 
+def resolve_paths(project, directory):
+    """Resolve a portable handoff's runtime paths at its project location."""
+    for entry in project.get('simulation_runtime',{}).get('osdi',[]):
+        path=Path(entry['path'])
+        if not path.is_absolute():entry['path']=str((Path(directory)/path).resolve())
+
+
 def verified(project, required=True):
     entries=project.get('simulation_runtime',{}).get('osdi',[])
     if not isinstance(entries,list) or len(entries)>64:raise ValueError('Invalid OSDI runtime list.')
@@ -66,7 +73,8 @@ def preload(project, text, directory, required=True):
     root=Path(directory)/'runtime-osdi';root.mkdir(parents=True,exist_ok=True)
     commands=['.control']
     for i,entry in enumerate(entries):
-        target=root/('model-'+str(i)+'.osdi');shutil.copyfile(entry['path'],target)
+        target=root/('model-'+str(i)+'.osdi')
+        if Path(entry['path']).resolve()!=target.resolve():shutil.copyfile(entry['path'],target)
         if file_digest(target)!=entry['sha256']:raise ValueError('OSDI model changed during staging.')
         commands.append('pre_osdi runtime-osdi/'+target.name)
     commands.append('.endc')

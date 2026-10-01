@@ -175,7 +175,8 @@ class ProjectHub(QDialog):
     def selection(self,*_):
         if self._filling:return
         row=self.current_pdk();self.ready=False
-        old_models=(self.nmos.currentData(),self.pmos.currentData()) if row and getattr(self,'_selected_key',None)==row['key'] else (None,None)
+        changed=bool(row and getattr(self,'_selected_key',None)!=row['key'])
+        old_models=(self.nmos.currentData(),self.pmos.currentData()) if row and not changed else (None,None)
         self._selected_key=row['key'] if row else None
         for button in (self.install_button,self.verify_button,self.locate_button,self.use_button):button.setEnabled(False)
         self.nmos.clear();self.pmos.clear()
@@ -196,6 +197,11 @@ class ProjectHub(QDialog):
         self.runtime.setText('Add a local installation or adapter package with Add PDK.')
         try:
             technology=preview(row);kind=self.template.currentData()
+            from .project_templates import defaults
+            suggested=defaults(technology)
+            if changed:
+                self.supply.setText(str(suggested['supply']))
+                old_models=(suggested['NMOS'],suggested['PMOS'])
             from .getting_started import readiness
             from .spice_program import find_ngspice
             info=readiness(technology,find_ngspice(self.window.settings.value('engine/ngspice','')))

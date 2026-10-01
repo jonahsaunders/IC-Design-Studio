@@ -143,6 +143,11 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_menu_audit.py
+      - name: Audit dialog submissions and help destinations
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_deep_controls.py
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -577,6 +582,8 @@ jobs:
             build/student-usability/*.png
             build/audit-regressions/*.json
             build/menu-audit/*.json
+            build/deep-controls/*.json
+            build/deep-controls/*.png
             build/pdk-exchange-evidence/report.json
             build/student-inverter-gui/*.json
             build/student-inverter-gui/*.png
