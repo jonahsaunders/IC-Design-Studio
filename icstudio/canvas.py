@@ -30,6 +30,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
     def set_data(self,cell,tech,selection=None,net='',revision=None,dirty_indices=None,*,immutable=False):
         self.preselection=None;self.selection_hint=''
         self._schematic_bounds={}
+        self._schematic_fit_bounds={}
         self.cell=cell;self.tech=tech;self.selection=list(selection or []);self.net=net
         if self.mode=='layout':
             from .layout_cache import LayoutGeometryCache
@@ -92,6 +93,34 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
             self._schematic_bounds[key]=box.adjusted(-4,-4,4,4)
             return self._schematic_bounds[key]
         pts=obj['points'];xs=[p[0] for p in pts];ys=[p[1] for p in pts];w=obj.get('width',0)/2;return QRectF(min(xs)-w,min(ys)-w,max(xs)-min(xs)+2*w,max(ys)-min(ys)+2*w)
+    def fit_bounds(self,obj):
+        """Frame visible symbol ink without enlarging it to the picking square."""
+        if self.mode!='schematic' or 'nets' not in obj:return self.bounds(obj)
+        key=(id(obj),obj['x'],obj['y'],obj['rotation'],obj.get('mirror',False))
+        cached=getattr(self,'_schematic_fit_bounds',{}).get(key)
+        if cached is not None:return cached
+        boxes=[]
+        if obj.get('symbol'):
+            from .symbol_geometry import painter_path,text_bounds
+            frame=QTransform();frame.translate(obj['x'],obj['y']);frame.rotate(obj['rotation']);frame.scale(-1 if obj.get('mirror') else 1,1)
+            context=self.instance_context(obj)
+            for item in obj['symbol']['primitives']:
+                if item['kind']=='text':
+                    box=text_bounds(item,context,frame,xschem=bool(obj.get('xschem') or obj.get('symbol_context') or obj.get('model_ref')))
+                else:box=frame.map(painter_path(item)).boundingRect().adjusted(-3,-3,3,3)
+                if not box.isEmpty():boxes.append(box)
+            for x,y in obj['symbol']['pins'].values():boxes.append(frame.mapRect(QRectF(x-3,y-3,6,6)))
+            for x,y,text,size,_ in captions(obj):
+                boxes.append(QFontMetricsF(QFont('Sans Serif',size)).boundingRect(text).translated(x,y))
+        else:boxes.append(self.bounds(obj))
+        labels=obj.get('net_labels',obj['nets'] if 'wires' not in self.cell else {})
+        for pin,(x,y) in pin_positions(obj).items():
+            if labels.get(pin):boxes.append(QFontMetricsF(QFont('Sans Serif',8)).boundingRect(labels[pin]).translated(x+5,y-7))
+        box=boxes[0] if boxes else self.bounds(obj)
+        for other in boxes[1:]:box=box.united(other)
+        self._schematic_fit_bounds=getattr(self,'_schematic_fit_bounds',{})
+        self._schematic_fit_bounds[key]=box.adjusted(-4,-4,4,4)
+        return self._schematic_fit_bounds[key]
     def resizeEvent(self,event):
         if self.cell and getattr(self,"auto_fit",True):self.fit()
         # Preserve coordinates under the pointer when selection changes a dock
@@ -101,13 +130,13 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         self.auto_fit=True
         if not self.cell:return
         objects=self.cell['devices' if self.mode=='schematic' else 'shapes']+(self.cell.get('wires',[])+self.cell.get('labels',[])+self.cell.get('annotations',[]) if self.mode=='schematic' else []);box=None
-        for o in objects:box=self.bounds(o) if box is None else box.united(self.bounds(o))
+        for o in objects:box=self.fit_bounds(o) if box is None else box.united(self.fit_bounds(o))
         scene=self.cell.get('_layout_scene') if self.mode=='layout' else None
         if scene is not None:
             b=scene.bounds;box=QRectF(b.left,b.bottom,b.width(),b.height()) if not b.empty() else None
         if not box or box.isEmpty():self.scale=1 if self.mode=='schematic' else .08;self.offset=QPointF(70,70)
         else:
-            box.adjust(-60 if self.mode=='schematic' else -500,-60 if self.mode=='schematic' else -500,60 if self.mode=='schematic' else 500,60 if self.mode=='schematic' else 500);self.scale=min(max(self.width(),250)/box.width(),max(self.height(),220)/box.height());self.offset=QPointF(self.width()/2-box.center().x()*self.scale,self.height()/2-box.center().y()*self.scale)
+            box=box.adjusted(-60 if self.mode=='schematic' else -500,-60 if self.mode=='schematic' else -500,60 if self.mode=='schematic' else 500,60 if self.mode=='schematic' else 500);self.scale=min(max(self.width(),250)/box.width(),max(self.height(),220)/box.height());self.offset=QPointF(self.width()/2-box.center().x()*self.scale,self.height()/2-box.center().y()*self.scale)
         self.update();self.view_changed.emit()
     def pen(self,color,width=1.4):
         p=QPen(QColor(color),width);p.setCosmetic(True);return p
