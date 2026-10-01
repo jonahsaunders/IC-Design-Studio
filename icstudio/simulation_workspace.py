@@ -323,7 +323,8 @@ class SimulationWorkspaceMixin:
         # A document base URL alone does not initialize QTextBrowser's source:
         # relative links otherwise resolve against the process working folder.
         from .help_navigation import connect_navigation
-        connect_navigation(browser,dlg)
+        from .ui_style import palette
+        connect_navigation(browser,dlg,palette(self.dark)['accent'])
         if path.is_file():browser.setSource(QUrl.fromLocalFile(str(path.resolve())))
         else:browser.setPlainText('This document is unavailable. Open Help → Compatibility matrix for built-in capability information.')
         def find(text):browser.moveCursor(QTextCursor.Start);browser.find(text)

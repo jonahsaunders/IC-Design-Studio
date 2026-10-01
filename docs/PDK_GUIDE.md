@@ -72,7 +72,7 @@ Symbols that depend on unsupported dynamic expressions, scripts or missing model
 
 ## IHP OSDI models
 
-For the bundled IHP **Student Hub inverter course**, use **Set up physical tools**. The Hub automatically runs IHP simulation in the included Linux/WSL runtime on both Linux and Windows. The runtime verifies source compatibility and binary hashes before execution. This avoids a separate native Windows compiler setup. Other project workflows or different IHP model revisions can use explicitly configured native OSDI libraries as described below.
+For bundled IHP, use **Tools → Physical tools setup** (or **Set up physical tools** in the Student Hub). Supported circuit analyses and imported/native programs automatically use matching models in the included Linux/WSL runtime when no custom OSDI libraries are selected. The runtime verifies source compatibility and binary hashes before execution. This avoids a separate native Windows compiler setup. Different IHP model revisions or custom simulators can use explicitly configured native OSDI libraries as described below.
 
 OSDI libraries contain native compiled model code. The compiler, host architecture, simulator interface and model revision must agree. The bundled Windows ngspice executable alone does not establish IHP compatibility.
 

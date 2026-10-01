@@ -124,3 +124,80 @@ At this report’s preparation, the first fix revision passed GitHub’s externa
 tool interoperability and VGA Playground workflows, including real embedded
 rendering. The full desktop, reference-design and physical matrices were still
 running. Consult the branch’s current Actions results for release status.
+
+## Follow-up on experimental
+
+PR [54](https://github.com/jonahsaunders/IC-Design-Studio/pull/54) was merged into
+`experimental` as `5f6cbc9dfe48cc8057520cf8b3113a91583991ec`. Additional repairs
+were published in `30dae7b2bcfcae0346d316d09ec0c31caec28537` and the follow-up
+containing this report. PR documentation now uses immutable commit links, so
+removing the source branch will not break its images or evidence links.
+
+| Additional failure reproduced | Repair and check |
+| --- | --- |
+| Relative help links opened blank documents; Markdown heading fragments did not scroll. | Initialize the browser source, resolve links against that document, create heading anchors, and provide working Back/Forward controls. All 13 help entry points and 1,137 local document links, including fragments, passed. |
+| Links were almost unreadable in dark mode; packaged help omitted top-level guides. | Apply the theme's readable link color and bundle the root guides/notices. Qt cannot render the HTML-rich root README correctly; its links open the matching Git commit in the web browser. Other guides remain local. |
+| Changing PDKs left every template at 1.8 V and selected IHP high-voltage devices by alphabetical order. | Preselect canonical core devices and the documented nominal supply: SKY130 1.8 V, GF180 3.3 V, IHP 1.2 V. Preserve edits while navigating within one revision. Test invalid input and actual create submissions for all four revisions. |
+| Collaboration's Check schematic button dispatched an uppercase token and ran layout mapping instead of ERC. | Dispatch electrical rules and verify the resulting electrical findings view. |
+| Custom OSDI paths remained tied to the original computer's folders in handoffs. Standalone SPICE export omitted selected libraries. | Verify/copy custom libraries, preserve platform and checksum restrictions, rebase every handoff project/sidecar, refresh exchange hashes, and emit relative preload commands in all three SPICE export paths. Reopen moved projects after deleting originals; changed libraries remain blocked. |
+| Windows core CI compared its shortened temporary-directory spelling with the equivalent resolved path. | Resolve the fixture root before asserting dependency destinations. This changes the assertion, not the portability requirement. |
+| Main setup guides described IHP as external-only and omitted included GF180 C. | Update Project Hub, getting-started, simulation and PDK guidance to match current runtime selection and included packages. |
+
+The configured real-engine unit run completed **1,244 tests: 1,230 passed,
+14 environment-dependent skips, no failures**. All **75 GUI acceptance scripts**
+passed in fresh profiles. The menu survey again visited **303 enabled commands
+and 66 tabs**. An extended survey dispatched **399 button invocations** across
+menu-opened dialogs without unhandled exceptions. These are invocations, not
+399 distinct controls: multiple menu paths lead to the same dialog.
+
+The extended survey also recorded 89 controls disabled by prerequisites, 67
+hidden by the current mode, 30 absent from its default fixture, and 3 setup/server
+operations assigned to isolated acceptance tests. Those rows remain visible in
+the evidence rather than being counted as successful submissions. File pickers
+were cancelled in this broad survey; the action-specific tests supply actual
+files, selections, jobs, fixtures and isolated collaboration servers.
+
+| Menu/workspace | Relevant acceptance coverage |
+| --- | --- |
+| File, Project Hub, Student Hub | `gui_project_hub`, `gui_getting_started`, `gui_project_pdk`, `gui_student_hub`, `gui_student_inverter`, `gui_student_usability`, `gui_deep_controls` |
+| Editing, schematic, hierarchy | `gui_editor`, `gui_capture`, `gui_wiring`, `gui_hierarchy`, `gui_consistency`, `gui_native_vectors`, `gui_professional_workflows` |
+| Layout and verification | `gui_layout_*`, `gui_physical_variants`, `gui_workflow_review`, `gui_workflow_evidence`, `gui_sky130_devices`, plus the real process qualification recorded above |
+| Analysis and waveforms | `gui_analysis015`, `gui_analog_*`, `gui_optimizer_refinement`, `gui_campaigns`, `gui_native_workflows`, `gui_reference_workflow`, `gui_cancel`, `gui_run_lifecycle015` |
+| Digital and mixed signal | `gui_digital`, `gui_digital_workspace`, `gui_digital_setup`, `gui_digital_first_run`, `gui_mixed_signal`; real VGA rendering is a separate CI gate |
+| Tools, collaboration and exchange | `gui_lifecycle`, `gui_inductor`, `gui_inductor_jobs`, `gui_openems`, `gui_design_automation`, `gui_*collaboration`, `gui_host_annotations`, `gui_interoperability`, `gui_native_migration`, `gui_xschem017` |
+| View, Window and Help | `gui_overhaul`, `gui_experimental`, `gui_dark`, `gui_usability`, `gui_audit_regressions`, `gui_deep_controls` |
+
+All five transistor templates ran through real ngspice for all four variants:
+**24 saved-bench runs**, including separate amplifier bias and AC measurements.
+Every configured measurement passed; each ring oscillator crossed half its supply
+at least three times. These are nominal starting-circuit checks, not arbitrary
+sizing, PVT, rail-to-rail swing, fabrication or extracted-RC qualification.
+The eight moved native/captured program handoffs also passed real simulation again.
+Custom binary portability is limited to the recorded operating system and CPU
+architecture. A SPICE-only export without selected custom libraries still needs
+its destination simulator's matching model runtime; use the project handoff to
+retain Studio's automatic included-runtime selection.
+
+Evidence: [summary](validation/app-audit/experimental-checks.json),
+[GUI results](validation/app-audit/experimental-gui-tests.json),
+[button dispatch records](validation/app-audit/experimental-buttons.json),
+[submission checks](validation/app-audit/experimental-controls.json),
+[link checks](validation/app-audit/experimental-links.json),
+[24 template runs](validation/app-audit/template-simulations.json), and
+[eight relocated program runs](validation/app-audit/experimental-pdk-exchange.json).
+
+```sh
+QT_QPA_PLATFORM=offscreen python tests/gui_deep_controls.py --out build/deep-controls-fresh
+python tests/probe_pdk_templates.py --ngspice /path/to/ngspice --osdi-directory /path/to/compiled-models --out build/template-audit-fresh
+```
+
+The Linux package job for
+[desktop run 36803341100](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/36803341100)
+completed successfully, including release archive execution. Its Windows job
+failed only at the shortened-path assertion described above. The subsequent
+[experimental run 36806419722](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/36806419722)
+was still queued/running when this follow-up evidence was prepared. New release
+builds must finish their own gates; a prior Linux package pass does not certify
+an updated Windows installer.
+
+![Readable help navigation](validation/app-audit/help-navigation.png)

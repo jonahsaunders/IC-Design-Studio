@@ -60,6 +60,21 @@ def main():
     assert len(verified(w.project))==1
     click(d,'Clear');d.close()
     checks.append('Runtime Select libraries, Load folder, Verify files and Clear; changed libraries rejected')
+    from tests.test_native_migration import divider
+    from icstudio.native_migration import review_path
+    from icstudio.xschem_compat import review_project
+    from icstudio.osdi import configure
+    source=divider(out/'program-source',include=True)
+    for mode,p in [('generic',example()),('native',review_path(source)['candidate']),('capture',review_project(source)['candidate'])]:
+        p['simulation_runtime']={'osdi':configure([library])};w.set_project(p)
+        folder=out/('spice-'+mode);folder.mkdir();path=folder/'circuit.cir'
+        with patch.object(QFileDialog,'getSaveFileName',return_value=(str(path),'')),patch.object(QFileDialog,'getExistingDirectory',return_value=str(folder)):
+            w.export_spice()
+        if mode!='generic':path=folder/(p['name']+'-spice')/'source.cir'
+        assert 'pre_osdi runtime-osdi/model-0.osdi' in path.read_text(encoding='utf-8')
+        assert (path.parent/'runtime-osdi/model-0.osdi').read_bytes()==library.read_bytes()
+    w.set_project(example())
+    checks.append('Generic, native and captured SPICE export controls retain explicitly configured model libraries')
     guides=set()
     for source in (ROOT/'icstudio').glob('*.py'):
         for node in ast.walk(ast.parse(source.read_text(encoding='utf-8'))):

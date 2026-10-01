@@ -1,0 +1,377 @@
+[
+  {
+    "test": "gui_analog_advanced",
+    "exit": 0,
+    "seconds": 12.52
+  },
+  {
+    "test": "gui_analog_closure",
+    "exit": 0,
+    "seconds": 1.77
+  },
+  {
+    "test": "gui_analog_experiments",
+    "exit": 0,
+    "seconds": 7.46
+  },
+  {
+    "test": "gui_analog_optimizer",
+    "exit": 0,
+    "seconds": 4.19
+  },
+  {
+    "test": "gui_analog_workspace",
+    "exit": 0,
+    "seconds": 1.37
+  },
+  {
+    "test": "gui_analysis015",
+    "exit": 0,
+    "seconds": 3.68
+  },
+  {
+    "test": "gui_audit_regressions",
+    "exit": 0,
+    "seconds": 2.47
+  },
+  {
+    "test": "gui_bandgap_compatibility",
+    "exit": 0,
+    "seconds": 11.14
+  },
+  {
+    "test": "gui_campaigns",
+    "exit": 0,
+    "seconds": 7.04
+  },
+  {
+    "test": "gui_cancel",
+    "exit": 0,
+    "seconds": 0.97
+  },
+  {
+    "test": "gui_capture",
+    "exit": 0,
+    "seconds": 2.32
+  },
+  {
+    "test": "gui_catalog_migration",
+    "exit": 0,
+    "seconds": 1.02
+  },
+  {
+    "test": "gui_consistency",
+    "exit": 0,
+    "seconds": 1.57
+  },
+  {
+    "test": "gui_dark",
+    "exit": 0,
+    "seconds": 2.07
+  },
+  {
+    "test": "gui_deep_controls",
+    "exit": 0,
+    "seconds": 5.93
+  },
+  {
+    "test": "gui_design_automation",
+    "exit": 0,
+    "seconds": 0.72
+  },
+  {
+    "test": "gui_digital",
+    "exit": 0,
+    "seconds": 2.42
+  },
+  {
+    "test": "gui_digital_first_run",
+    "exit": 0,
+    "seconds": 1.22
+  },
+  {
+    "test": "gui_digital_setup",
+    "exit": 0,
+    "seconds": 0.47
+  },
+  {
+    "test": "gui_digital_workspace",
+    "exit": 0,
+    "seconds": 2.07
+  },
+  {
+    "test": "gui_editor",
+    "exit": 0,
+    "seconds": 1.92
+  },
+  {
+    "test": "gui_experimental",
+    "exit": 0,
+    "seconds": 16.37
+  },
+  {
+    "test": "gui_feedback",
+    "exit": 0,
+    "seconds": 2.37
+  },
+  {
+    "test": "gui_getting_started",
+    "exit": 0,
+    "seconds": 21.85
+  },
+  {
+    "test": "gui_grid_paths",
+    "exit": 0,
+    "seconds": 2.02
+  },
+  {
+    "test": "gui_hierarchy",
+    "exit": 0,
+    "seconds": 1.52
+  },
+  {
+    "test": "gui_host_annotations",
+    "exit": 0,
+    "seconds": 4.28
+  },
+  {
+    "test": "gui_implementation_views",
+    "exit": 0,
+    "seconds": 1.12
+  },
+  {
+    "test": "gui_inductor",
+    "exit": 0,
+    "seconds": 6.84
+  },
+  {
+    "test": "gui_inductor_jobs",
+    "exit": 0,
+    "seconds": 0.47
+  },
+  {
+    "test": "gui_interoperability",
+    "exit": 0,
+    "seconds": 1.32
+  },
+  {
+    "test": "gui_labels",
+    "exit": 0,
+    "seconds": 1.87
+  },
+  {
+    "test": "gui_layout_3d",
+    "exit": 0,
+    "seconds": 2.07
+  },
+  {
+    "test": "gui_layout_cache_refresh",
+    "exit": 0,
+    "seconds": 0.27
+  },
+  {
+    "test": "gui_layout_chunks",
+    "exit": 0,
+    "seconds": 1.02
+  },
+  {
+    "test": "gui_layout_expansion",
+    "exit": 0,
+    "seconds": 1.67
+  },
+  {
+    "test": "gui_layout_gestures",
+    "exit": 0,
+    "seconds": 1.67
+  },
+  {
+    "test": "gui_layout_pipeline",
+    "exit": 0,
+    "seconds": 0.97
+  },
+  {
+    "test": "gui_layout_priorities",
+    "exit": 0,
+    "seconds": 1.37
+  },
+  {
+    "test": "gui_layout_stability",
+    "exit": 0,
+    "seconds": 2.17
+  },
+  {
+    "test": "gui_layout_vias",
+    "exit": 0,
+    "seconds": 2.47
+  },
+  {
+    "test": "gui_lifecycle",
+    "exit": 0,
+    "seconds": 1.07
+  },
+  {
+    "test": "gui_live_collaboration",
+    "exit": 0,
+    "seconds": 15.31
+  },
+  {
+    "test": "gui_local_collaboration",
+    "exit": 0,
+    "seconds": 11.0
+  },
+  {
+    "test": "gui_menu_audit",
+    "exit": 0,
+    "seconds": 26.8
+  },
+  {
+    "test": "gui_mixed_signal",
+    "exit": 0,
+    "seconds": 2.17
+  },
+  {
+    "test": "gui_native_migration",
+    "exit": 0,
+    "seconds": 1.27
+  },
+  {
+    "test": "gui_native_vectors",
+    "exit": 0,
+    "seconds": 0.92
+  },
+  {
+    "test": "gui_native_workflows",
+    "exit": 0,
+    "seconds": 2.22
+  },
+  {
+    "test": "gui_openems",
+    "exit": 0,
+    "seconds": 4.38
+  },
+  {
+    "test": "gui_optimizer_refinement",
+    "exit": 0,
+    "seconds": 5.88
+  },
+  {
+    "test": "gui_overhaul",
+    "exit": 0,
+    "seconds": 4.83
+  },
+  {
+    "test": "gui_physical_variants",
+    "exit": 0,
+    "seconds": 1.37
+  },
+  {
+    "test": "gui_professional016",
+    "exit": 0,
+    "seconds": 2.37
+  },
+  {
+    "test": "gui_professional_workflows",
+    "exit": 0,
+    "seconds": 3.98
+  },
+  {
+    "test": "gui_project_hub",
+    "exit": 0,
+    "seconds": 4.13
+  },
+  {
+    "test": "gui_project_pdk",
+    "exit": 0,
+    "seconds": 1.12
+  },
+  {
+    "test": "gui_reference_workflow",
+    "exit": 0,
+    "seconds": 4.08
+  },
+  {
+    "test": "gui_refresh_reuse",
+    "exit": 0,
+    "seconds": 0.97
+  },
+  {
+    "test": "gui_reliability",
+    "exit": 0,
+    "seconds": 0.72
+  },
+  {
+    "test": "gui_run_lifecycle015",
+    "exit": 0,
+    "seconds": 1.42
+  },
+  {
+    "test": "gui_schematic_collaboration",
+    "exit": 0,
+    "seconds": 10.85
+  },
+  {
+    "test": "gui_silicon",
+    "exit": 0,
+    "seconds": 1.27
+  },
+  {
+    "test": "gui_sky130_devices",
+    "exit": 0,
+    "seconds": 4.78
+  },
+  {
+    "test": "gui_smoke",
+    "exit": 0,
+    "seconds": 1.82
+  },
+  {
+    "test": "gui_student_design_labs",
+    "exit": 0,
+    "seconds": 1.82
+  },
+  {
+    "test": "gui_student_hub",
+    "exit": 0,
+    "seconds": 15.18
+  },
+  {
+    "test": "gui_student_inverter",
+    "exit": 0,
+    "seconds": 11.9
+  },
+  {
+    "test": "gui_student_usability",
+    "exit": 0,
+    "seconds": 2.73
+  },
+  {
+    "test": "gui_usability",
+    "exit": 0,
+    "seconds": 3.33
+  },
+  {
+    "test": "gui_wiring",
+    "exit": 0,
+    "seconds": 3.03
+  },
+  {
+    "test": "gui_workflow_evidence",
+    "exit": 0,
+    "seconds": 3.48
+  },
+  {
+    "test": "gui_workflow_review",
+    "exit": 0,
+    "seconds": 9.19
+  },
+  {
+    "test": "gui_workflows",
+    "exit": 0,
+    "seconds": 2.82
+  },
+  {
+    "test": "gui_xschem017",
+    "exit": 0,
+    "seconds": 1.77
+  }
+]

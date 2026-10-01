@@ -468,7 +468,10 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
         dest=Path(parent)/(re.sub('[^A-Za-z0-9_-]','_',self.project['name'])+f'_r{self.project["revision"]}_handoff');export_handoff(self.project,dest);QMessageBox.information(self,'Handoff exported',f'Exported to {dest}\n\nRead preservation-report.json for supported formats and limitations.');QDesktopServices.openUrl(QUrl.fromLocalFile(str(dest)))
     def export_spice(self):
         path,_=QFileDialog.getSaveFileName(self,'Export simulation deck',self.cell['name']+'.cir','SPICE deck (*.cir *.spice)')
-        if path:atomic_write(path,spice(self.project,self.cid,self.project['analysis']));self.statusBar().showMessage('SPICE deck exported.',8000)
+        if path:
+            from .osdi import preload
+            text=preload(self.project,spice(self.project,self.cid,self.project['analysis']),Path(path).parent,required=False)
+            atomic_write(path,text);self.statusBar().showMessage('SPICE deck exported. Keep any runtime-osdi folder beside it.',8000)
     def export_gds(self):
         if not self.flush_inspector():return
         path,_=QFileDialog.getSaveFileName(self,'Export physical layout',self.project['name']+'.gds','GDSII (*.gds);;OASIS (*.oas)')

@@ -270,7 +270,10 @@ class NativeWorkspaceMixin:
         if not directory: return
         target = Path(directory) / (self.project['name'] + '-spice')
         if target.exists() and any(target.iterdir()): raise ValueError('Choose an empty export destination.')
-        netlist(self.project, target); self.statusBar().showMessage('Exported native circuit and model files to ' + str(target), 10000)
+        from .osdi import preload
+        from .model import atomic_write
+        atomic_write(target/'source.cir',preload(self.project,netlist(self.project,target),target,required=False))
+        self.statusBar().showMessage('Exported native circuit and model files to ' + str(target), 10000)
 
     def export_sch(self):
         if not self.flush_inspector():return

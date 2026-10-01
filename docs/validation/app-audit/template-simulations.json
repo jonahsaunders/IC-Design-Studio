@@ -1,0 +1,502 @@
+[
+  {
+    "pdk": "sky130A",
+    "template": "inverter",
+    "bench": "inverter_nominal",
+    "status": "passed",
+    "samples": 5119,
+    "measurements": {
+      "status": "passed",
+      "samples": 5119,
+      "measurements": [],
+      "probes": [
+        "in",
+        "out",
+        "vdd"
+      ]
+    }
+  },
+  {
+    "pdk": "sky130A",
+    "template": "ring",
+    "bench": "ring_nominal",
+    "status": "passed",
+    "samples": 5014,
+    "measurements": {
+      "status": "passed",
+      "samples": 5014,
+      "measurements": [],
+      "probes": [
+        "n1",
+        "n2",
+        "out"
+      ]
+    },
+    "rising_half_supply_crossings": 509
+  },
+  {
+    "pdk": "sky130A",
+    "template": "current_mirror",
+    "bench": "current_mirror_nominal",
+    "status": "passed",
+    "samples": 1,
+    "measurements": {
+      "status": "passed",
+      "samples": 1,
+      "measurements": [],
+      "probes": [
+        "out",
+        "ref"
+      ]
+    }
+  },
+  {
+    "pdk": "sky130A",
+    "template": "differential_pair",
+    "bench": "differential_pair_nominal",
+    "status": "passed",
+    "samples": 1,
+    "measurements": {
+      "status": "passed",
+      "samples": 1,
+      "measurements": [],
+      "probes": [
+        "inn",
+        "inp",
+        "outn",
+        "outp",
+        "tail",
+        "vdd"
+      ]
+    }
+  },
+  {
+    "pdk": "sky130A",
+    "template": "amplifier",
+    "bench": "amplifier_nominal",
+    "status": "passed",
+    "samples": 1,
+    "measurements": {
+      "status": "passed",
+      "samples": 1,
+      "measurements": [
+        {
+          "name": "output_bias",
+          "kind": "voltage",
+          "status": "passed",
+          "unit": "V",
+          "value": 0.696037949757113
+        }
+      ],
+      "probes": [
+        "bias",
+        "inn",
+        "inp",
+        "out",
+        "vdd"
+      ]
+    }
+  },
+  {
+    "pdk": "sky130A",
+    "template": "amplifier",
+    "bench": "amplifier_ac",
+    "status": "passed",
+    "samples": 141,
+    "measurements": {
+      "status": "passed",
+      "samples": 141,
+      "measurements": [
+        {
+          "name": "low_frequency_gain",
+          "kind": "voltage",
+          "status": "passed",
+          "unit": "V",
+          "value": 130.05117759857953
+        }
+      ],
+      "probes": [
+        "bias",
+        "inn",
+        "inp",
+        "out",
+        "vdd"
+      ]
+    }
+  },
+  {
+    "pdk": "gf180mcuC",
+    "template": "inverter",
+    "bench": "inverter_nominal",
+    "status": "passed",
+    "samples": 5111,
+    "measurements": {
+      "status": "passed",
+      "samples": 5111,
+      "measurements": [],
+      "probes": [
+        "in",
+        "out",
+        "vdd"
+      ]
+    }
+  },
+  {
+    "pdk": "gf180mcuC",
+    "template": "ring",
+    "bench": "ring_nominal",
+    "status": "passed",
+    "samples": 5013,
+    "measurements": {
+      "status": "passed",
+      "samples": 5013,
+      "measurements": [],
+      "probes": [
+        "n1",
+        "n2",
+        "out"
+      ]
+    },
+    "rising_half_supply_crossings": 287
+  },
+  {
+    "pdk": "gf180mcuC",
+    "template": "current_mirror",
+    "bench": "current_mirror_nominal",
+    "status": "passed",
+    "samples": 1,
+    "measurements": {
+      "status": "passed",
+      "samples": 1,
+      "measurements": [],
+      "probes": [
+        "out",
+        "ref"
+      ]
+    }
+  },
+  {
+    "pdk": "gf180mcuC",
+    "template": "differential_pair",
+    "bench": "differential_pair_nominal",
+    "status": "passed",
+    "samples": 1,
+    "measurements": {
+      "status": "passed",
+      "samples": 1,
+      "measurements": [],
+      "probes": [
+        "inn",
+        "inp",
+        "outn",
+        "outp",
+        "tail",
+        "vdd"
+      ]
+    }
+  },
+  {
+    "pdk": "gf180mcuC",
+    "template": "amplifier",
+    "bench": "amplifier_nominal",
+    "status": "passed",
+    "samples": 1,
+    "measurements": {
+      "status": "passed",
+      "samples": 1,
+      "measurements": [
+        {
+          "name": "output_bias",
+          "kind": "voltage",
+          "status": "passed",
+          "unit": "V",
+          "value": 1.906366889937033
+        }
+      ],
+      "probes": [
+        "bias",
+        "inn",
+        "inp",
+        "out",
+        "vdd"
+      ]
+    }
+  },
+  {
+    "pdk": "gf180mcuC",
+    "template": "amplifier",
+    "bench": "amplifier_ac",
+    "status": "passed",
+    "samples": 141,
+    "measurements": {
+      "status": "passed",
+      "samples": 141,
+      "measurements": [
+        {
+          "name": "low_frequency_gain",
+          "kind": "voltage",
+          "status": "passed",
+          "unit": "V",
+          "value": 182.9286535863361
+        }
+      ],
+      "probes": [
+        "bias",
+        "inn",
+        "inp",
+        "out",
+        "vdd"
+      ]
+    }
+  },
+  {
+    "pdk": "gf180mcuD",
+    "template": "inverter",
+    "bench": "inverter_nominal",
+    "status": "passed",
+    "samples": 5111,
+    "measurements": {
+      "status": "passed",
+      "samples": 5111,
+      "measurements": [],
+      "probes": [
+        "in",
+        "out",
+        "vdd"
+      ]
+    }
+  },
+  {
+    "pdk": "gf180mcuD",
+    "template": "ring",
+    "bench": "ring_nominal",
+    "status": "passed",
+    "samples": 5013,
+    "measurements": {
+      "status": "passed",
+      "samples": 5013,
+      "measurements": [],
+      "probes": [
+        "n1",
+        "n2",
+        "out"
+      ]
+    },
+    "rising_half_supply_crossings": 287
+  },
+  {
+    "pdk": "gf180mcuD",
+    "template": "current_mirror",
+    "bench": "current_mirror_nominal",
+    "status": "passed",
+    "samples": 1,
+    "measurements": {
+      "status": "passed",
+      "samples": 1,
+      "measurements": [],
+      "probes": [
+        "out",
+        "ref"
+      ]
+    }
+  },
+  {
+    "pdk": "gf180mcuD",
+    "template": "differential_pair",
+    "bench": "differential_pair_nominal",
+    "status": "passed",
+    "samples": 1,
+    "measurements": {
+      "status": "passed",
+      "samples": 1,
+      "measurements": [],
+      "probes": [
+        "inn",
+        "inp",
+        "outn",
+        "outp",
+        "tail",
+        "vdd"
+      ]
+    }
+  },
+  {
+    "pdk": "gf180mcuD",
+    "template": "amplifier",
+    "bench": "amplifier_nominal",
+    "status": "passed",
+    "samples": 1,
+    "measurements": {
+      "status": "passed",
+      "samples": 1,
+      "measurements": [
+        {
+          "name": "output_bias",
+          "kind": "voltage",
+          "status": "passed",
+          "unit": "V",
+          "value": 1.906366889937033
+        }
+      ],
+      "probes": [
+        "bias",
+        "inn",
+        "inp",
+        "out",
+        "vdd"
+      ]
+    }
+  },
+  {
+    "pdk": "gf180mcuD",
+    "template": "amplifier",
+    "bench": "amplifier_ac",
+    "status": "passed",
+    "samples": 141,
+    "measurements": {
+      "status": "passed",
+      "samples": 141,
+      "measurements": [
+        {
+          "name": "low_frequency_gain",
+          "kind": "voltage",
+          "status": "passed",
+          "unit": "V",
+          "value": 182.9286535863361
+        }
+      ],
+      "probes": [
+        "bias",
+        "inn",
+        "inp",
+        "out",
+        "vdd"
+      ]
+    }
+  },
+  {
+    "pdk": "ihp-sg13g2",
+    "template": "inverter",
+    "bench": "inverter_nominal",
+    "status": "passed",
+    "samples": 5110,
+    "measurements": {
+      "status": "passed",
+      "samples": 5110,
+      "measurements": [],
+      "probes": [
+        "in",
+        "out",
+        "vdd"
+      ]
+    }
+  },
+  {
+    "pdk": "ihp-sg13g2",
+    "template": "ring",
+    "bench": "ring_nominal",
+    "status": "passed",
+    "samples": 5011,
+    "measurements": {
+      "status": "passed",
+      "samples": 5011,
+      "measurements": [],
+      "probes": [
+        "n1",
+        "n2",
+        "out"
+      ]
+    },
+    "rising_half_supply_crossings": 446
+  },
+  {
+    "pdk": "ihp-sg13g2",
+    "template": "current_mirror",
+    "bench": "current_mirror_nominal",
+    "status": "passed",
+    "samples": 1,
+    "measurements": {
+      "status": "passed",
+      "samples": 1,
+      "measurements": [],
+      "probes": [
+        "out",
+        "ref"
+      ]
+    }
+  },
+  {
+    "pdk": "ihp-sg13g2",
+    "template": "differential_pair",
+    "bench": "differential_pair_nominal",
+    "status": "passed",
+    "samples": 1,
+    "measurements": {
+      "status": "passed",
+      "samples": 1,
+      "measurements": [],
+      "probes": [
+        "inn",
+        "inp",
+        "outn",
+        "outp",
+        "tail",
+        "vdd"
+      ]
+    }
+  },
+  {
+    "pdk": "ihp-sg13g2",
+    "template": "amplifier",
+    "bench": "amplifier_nominal",
+    "status": "passed",
+    "samples": 1,
+    "measurements": {
+      "status": "passed",
+      "samples": 1,
+      "measurements": [
+        {
+          "name": "output_bias",
+          "kind": "voltage",
+          "status": "passed",
+          "unit": "V",
+          "value": 0.6263142187929069
+        }
+      ],
+      "probes": [
+        "bias",
+        "inn",
+        "inp",
+        "out",
+        "vdd"
+      ]
+    }
+  },
+  {
+    "pdk": "ihp-sg13g2",
+    "template": "amplifier",
+    "bench": "amplifier_ac",
+    "status": "passed",
+    "samples": 141,
+    "measurements": {
+      "status": "passed",
+      "samples": 141,
+      "measurements": [
+        {
+          "name": "low_frequency_gain",
+          "kind": "voltage",
+          "status": "passed",
+          "unit": "V",
+          "value": 21.917327376654075
+        }
+      ],
+      "probes": [
+        "bias",
+        "inn",
+        "inp",
+        "out",
+        "vdd"
+      ]
+    }
+  }
+]

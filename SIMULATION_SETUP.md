@@ -12,7 +12,7 @@ historical evidence, not the current package's acceptance result.
 |---|---|
 | First RC waveform and generic teaching circuits | Included teaching solver; no external engine or PDK |
 | Native SPICE and imported control programs | Native ngspice; included in complete desktop packages |
-| Process-model analog design | ngspice plus the included SKY130/GF180 simulation subsets or compatible external models |
+| Process-model analog design | ngspice plus included SKY130, GF180 C/D or IHP subsets; IHP uses the included physical runtime by default |
 | Digital simulation and RTL-to-GDS | [Included digital tools or a custom toolchain](docs/DIGITAL_FLOW.md) |
 | Student Hub Digital lessons | Native local Icarus (`iverilog` and `vvp`) |
 | SAR, Mixed Signal lessons and capstone | Native local ngspice and Icarus; [local engine setup](docs/MIXED_SIGNAL_SAR.md#local-engine-setup) |
@@ -31,8 +31,9 @@ ngspice and from the local engines used by Student Hub and SAR experiments.
 3. Choose **07 · GF180 bandgap startup → Open a copy**, then press **F5**.
 4. Open **Analysis → Program analyses** for waveforms and measured final voltages.
 
-Desktop packages include Python, Qt, native ngspice and the GF180MCU/SKY130
-simulation subsets. These analog examples need no model download. First setup
+Desktop packages include Python, Qt, native ngspice and SKY130, GF180 C/D and IHP
+process subsets. The GF180/SKY130 gallery examples need no model download. IHP
+uses the matching compiled models in the included physical runtime. First setup
 of the separate managed toolchain takes additional time; Windows may need
 internet access, administrator approval and a restart to enable WSL support.
 See [digital first setup](docs/DIGITAL_FLOW.md#included-tools-and-first-setup).
@@ -64,8 +65,10 @@ For offline Windows provisioning from an already downloaded official archive:
 python scripts/stage_windows_ngspice.py --archive path/to/ngspice-42_64.7z --ensure
 ```
 
-The archive must match the pinned SHA-256. Optional XSPICE code-model plugins and
-IHP OSDI native libraries need compatible, separate runtime configuration.
+The archive must match the pinned SHA-256. Optional XSPICE code-model plugins
+need compatible, separate runtime configuration. For bundled IHP, prepare the
+included physical runtime through **Tools → Physical tools setup**. A custom
+IHP revision or simulator needs matching OSDI libraries selected in **Simulation runtime**.
 
 ## Included process examples
 
@@ -94,19 +97,21 @@ run folder, including when project/profile paths contain spaces.
 
 | Included package | Simulation scope |
 |---|---|
-| GF180MCU D adapter | Primitive MOS, bipolar and passive models; symbols and display layers |
+| GF180MCU C and D adapters | Primitive models, symbols and display layers; distinct C/D physical configurations |
 | SKY130A | Primitive corner model closure; symbols and display layers |
+| IHP SG13G2 | Primitive models, symbols, display layers and Verilog-A sources; matching compiled models in the included runtime |
 
 These packages preserve upstream revisions, hashes and license notices. They are
-simulation subsets, not complete foundry PDKs. The GF180 D adapter uses the pinned
-primitive model family; a process label alone does not establish option-specific
-physical qualification.
+bounded teaching subsets, not complete foundry PDKs. GF180 C/D and IHP include
+the physical decks used by the qualified core-MOS inverter course. A process
+label alone does not establish qualification for arbitrary device classes or layouts.
 
 For physical checks, use **Tools → Physical tools setup…** for included
 Magic/Netgen/ngspice or explicit custom tools, and supply matching locked physical
 PDK assets/decks. The managed digital runtime separately carries the full SKY130
-HD standard-cell platform for RTL implementation. IHP uses its installed-PDK and
-compatible OSDI workflow. See [PDK setup](docs/PDK_GUIDE.md).
+HD standard-cell platform for RTL implementation. Bundled IHP analyses and
+imported programs automatically select its matching runtime when no custom OSDI
+libraries are configured. See [PDK setup](docs/PDK_GUIDE.md).
 
 ## DC startup and inductor analysis
 

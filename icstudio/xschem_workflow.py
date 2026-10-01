@@ -59,7 +59,9 @@ class XschemWorkflowMixin:
         if not directory:return
         target=Path(directory)/(self.project['name']+'-spice')
         if target.exists() and any(target.iterdir()):raise ValueError('The export folder already contains files. Choose another destination.')
-        netlist(self.project,target);self.statusBar().showMessage('Exported source.cir and its model files to '+str(target),12000)
+        from .osdi import preload
+        atomic_write(target/'source.cir',preload(self.project,netlist(self.project,target),target,required=False))
+        self.statusBar().showMessage('Exported source.cir and its model files to '+str(target),12000)
 
     def set_project(self,p,path=None):
         self._xschem_case_signature=None;self._xschem_run_path=None;self._xschem_rows=[]
