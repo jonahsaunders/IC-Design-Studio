@@ -24,6 +24,8 @@ def _native_via_recipes(tech, process=None):
         'sky130A': [('M1 to M2', (68,20), (68,44), (69,20), 150, 340, 170),
                    ('Local interconnect to M1', (67,20), (67,44), (68,20), 170, 340, 190)],
         'gf180mcuC': [('M1 to M2', (34,0), (35,0), (36,0), 260, 440, 260)],
+        'gf180mcuD': [('M1 to M2', (34,0), (35,0), (36,0), 260, 440, 260)],
+        'ihp-sg13g2': [('M1 to M2', (8,0), (19,0), (10,0), 190, 440, 220)],
     }
     return [dict(name=name,lower=by[a],cut=by[cut],upper=by[b],size=size,
                  enclosure=(pad-size)//2,spacing=space)

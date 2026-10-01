@@ -116,9 +116,15 @@ class SimulationWorkspaceMixin:
         if settings['type']=='silicon' and 'tools' not in settings:
             job['settings']['tools']={n:self.settings.value('engine/'+n,'') or shutil.which(n) or '' for n in ('magic','netgen','ngspice')}
         if engine=='ngspice':
-            executable=self.settings.value('engine/ngspice','') or shutil.which('ngspice')
-            if not executable or not Path(executable).is_file():raise ValueError('ngspice is not installed. Configure it in Tools → Engine diagnostics and paths.')
-            job['executable']=str(executable)
+            from .osdi import needs_managed_runtime
+            if settings['type'] in ('op','tran','dc','ac','noise') and needs_managed_runtime(p):
+                from .physical_backend import prepare_simulation
+                prepare_simulation(job)
+            else:
+                from .spice_program import find_ngspice
+                executable=find_ngspice(self.settings.value('engine/ngspice',''))
+                if not executable or not Path(executable).is_file():raise ValueError('ngspice is not installed. Configure it in Tools → Engine diagnostics and paths.')
+                job['executable']=str(executable)
         if settings['type']=='silicon':
             job['settings'].setdefault('physical_toolchain',self.settings.value('physical/toolchain','auto'))
         from .physical_backend import prepare
@@ -309,7 +315,18 @@ class SimulationWorkspaceMixin:
         if name.startswith('CAPABILITY_MATRIX'):return self.compatibility_matrix()
         root=Path(getattr(sys,'_MEIPASS',Path(__file__).resolve().parents[1]));path=root/'docs'/name
         dlg=QDialog(self);dlg.setWindowTitle(name.replace('_',' ').removesuffix('.md'));dlg.resize(900,640);v=QVBoxLayout(dlg)
-        search=QLineEdit();search.setPlaceholderText('Find in this document…');v.addWidget(search);browser=QTextBrowser();browser.setOpenExternalLinks(True);browser.document().setBaseUrl(QUrl.fromLocalFile(str(path.parent)+'/'));browser.setMarkdown(path.read_text(encoding='utf-8') if path.exists() else 'This document is unavailable. Open Help → Compatibility matrix for built-in capability information.');v.addWidget(browser)
+        browser=QTextBrowser();browser.setOpenExternalLinks(True)
+        navigation=QHBoxLayout();back=self.button('Back',fn=browser.backward);forward=self.button('Forward',fn=browser.forward)
+        back.setEnabled(False);forward.setEnabled(False);browser.backwardAvailable.connect(back.setEnabled);browser.forwardAvailable.connect(forward.setEnabled)
+        navigation.addWidget(back);navigation.addWidget(forward)
+        search=QLineEdit();search.setPlaceholderText('Find in this document…');navigation.addWidget(search,1);v.addLayout(navigation);v.addWidget(browser)
+        # A document base URL alone does not initialize QTextBrowser's source:
+        # relative links otherwise resolve against the process working folder.
+        from .help_navigation import connect_navigation
+        from .ui_style import palette
+        connect_navigation(browser,dlg,palette(self.dark)['accent'])
+        if path.is_file():browser.setSource(QUrl.fromLocalFile(str(path.resolve())))
+        else:browser.setPlainText('This document is unavailable. Open Help → Compatibility matrix for built-in capability information.')
         def find(text):browser.moveCursor(QTextCursor.Start);browser.find(text)
         search.textChanged.connect(find);buttons=QDialogButtonBox(QDialogButtonBox.Close);buttons.rejected.connect(dlg.close);v.addWidget(buttons);self._document_dialog=dlg;dlg.show()
 

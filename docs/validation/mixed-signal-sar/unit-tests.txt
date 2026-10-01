@@ -1,0 +1,26 @@
+valid: passed
+missing-engine: blocked
+valid: passed
+licensed-tool: blocked
+Preparing IC Design Studio dependencies in /workspace/scratch/101e754ddca6/IC-Design-Studio/build/test-temp/tmpnqvw2nb4/profile/ICStudio/venvs/test
+Preparing IC Design Studio dependencies in /workspace/scratch/101e754ddca6/IC-Design-Studio/build/test-temp/tmpnqvw2nb4/profile/ICStudio/venvs/test
+Preparing IC Design Studio dependencies in /workspace/scratch/101e754ddca6/IC-Design-Studio/build/test-temp/tmp6z1qk98c/profile/ICStudio/venvs/test
+Preparing IC Design Studio dependencies in /workspace/scratch/101e754ddca6/IC-Design-Studio/build/test-temp/tmp6z1qk98c/profile/ICStudio/venvs/test
+Preparing IC Design Studio dependencies in /workspace/scratch/101e754ddca6/IC-Design-Studio/build/test-temp/tmpkso7tktc/profile/ICStudio/venvs/test
+Preparing IC Design Studio dependencies in /workspace/scratch/101e754ddca6/IC-Design-Studio/build/test-temp/tmpq9a0wtcw/profile/ICStudio/venvs/test
+Preparing IC Design Studio dependencies in /workspace/scratch/101e754ddca6/IC-Design-Studio/build/test-temp/tmpq9a0wtcw/profile/ICStudio/venvs/test
+Checking bundled NGSpice and simulation libraries…
+Preparing IC Design Studio dependencies in /workspace/scratch/101e754ddca6/IC-Design-Studio/build/test-temp/tmpx597767m/profile/ICStudio/venvs/test
+Preparing IC Design Studio dependencies in /workspace/scratch/101e754ddca6/IC-Design-Studio/build/test-temp/tmpx597767m/profile/ICStudio/venvs/test
+Preparing IC Design Studio dependencies in /workspace/scratch/101e754ddca6/IC-Design-Studio/build/test-temp/tmpa_8s5bsk/profile/ICStudio/venvs/test
+Checking bundled NGSpice and simulation libraries…
+Checking bundled NGSpice and simulation libraries…
+Checking bundled NGSpice and simulation libraries…
+Checking bundled NGSpice and simulation libraries…
+Preparing IC Design Studio dependencies in /workspace/scratch/101e754ddca6/IC-Design-Studio/build/test-temp/tmp20v6qy7f/profile/ICStudio/venvs/test
+Checking bundled NGSpice and simulation libraries…
+----------------------------------------------------------------------
+Ran 1207 tests in 151.697s
+
+OK (skipped=47)
+{"Complete": 1, "paused": false, "specification_failures": 1, "total": 1}

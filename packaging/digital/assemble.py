@@ -70,23 +70,10 @@ netgen_text=netgen_init.read_text()
 needle='load /opt/icstudio/physical/installed/lib/netgen/tcl/tclnetgen.so'
 if netgen_text.count('\n'+needle+'\n')!=1:raise ValueError('Pinned Netgen initializer changed.')
 netgen_init.write_text(netgen_text.replace('\n'+needle+'\n','\nload [file join $env(CAD_ROOT) netgen tcl tclnetgen.so]\n'))
-# The upstream batch interpreter also embeds its build prefix. Recompile the
-# same small launcher with a CAD_ROOT-relative startup script; Tcl_Main still
-# owns stdin, events and command evaluation exactly as in upstream Magic.
-magic_source=ROOT/'physical/magic/tcltk/magicdnull.c'
-magic_text=magic_source.read_text()
-needle='Tcl_SetVar(interp, "tcl_rcFileName", TCL_DIR "/magic.tcl", TCL_GLOBAL_ONLY);'
-if magic_text.count(needle)!=1:raise ValueError('Pinned Magic batch initializer changed.')
-replacement='''const char *root = Tcl_GetVar2(interp, "env", "CAD_ROOT", TCL_GLOBAL_ONLY);
-    if (root == NULL) {
-        Tcl_SetResult(interp, "CAD_ROOT must name the managed Magic library", TCL_STATIC);
-        return TCL_ERROR;
-    }
-    Tcl_SetVar2Ex(interp, "tcl_rcFileName", NULL,
-        Tcl_ObjPrintf("%s/magic/tcl/magic.tcl", root), TCL_GLOBAL_ONLY);'''
-magic_source.write_text(magic_text.replace(needle,replacement))
-subprocess.run(['cc',str(magic_source),'-o',str(ROOT/'physical/installed/lib/magic/tcl/magicdnull'),
-                *shlex.split(subprocess.check_output(['pkg-config','--cflags','--libs','tcl'],text=True))],check=True)
+# Magic 8.3.684 resolves its Tcl runtime through CAD_ROOT upstream, including
+# the batch interpreter. Keep the pinned implementation intact.
+magic_header=(ROOT/'physical/magic/tcltk/tcldir.h').read_text()
+if 'getenv("CAD_ROOT")' not in magic_header:raise ValueError('Magic runtime relocation support changed.')
 suite = ('iverilog','vvp','verilator','verilator_coverage','yosys','yosys-abc','eqy','sby','bitwuzla')
 system = ('openroad','sta','klayout','make','perl','python3','gcc','g++','cc','c++','as','ld','ar','ranlib','magic','netgen','ngspice')
 header = '''#!/bin/sh
@@ -143,6 +130,7 @@ for base in ('usr','opt'):
     'files_sha256':file_digest(ROOT/'files.json'),
     'licenses':['usr/share/doc/*/copyright','opt/icstudio/oss-cad-suite/license','opt/icstudio/orfs/LICENSE','opt/icstudio/physical/licenses'],
     'physical_source_lock':json.loads((ROOT/'physical/source-lock.json').read_text()),
+    'osdi':{'ihp-sg13g2':json.loads((ROOT/'osdi/ihp-sg13g2/build.json').read_text())},
     'sources':['https://github.com/YosysHQ/oss-cad-suite-build/releases/tag/2026-09-13',
                'https://github.com/The-OpenROAD-Project/OpenROAD/tree/08f67ee5ec',
                'https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/tree/eaba6576441bf7c1743ea56ecdb1904210ec02c2',

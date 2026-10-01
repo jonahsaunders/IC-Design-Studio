@@ -1,5 +1,7 @@
 # Experimental dev22: inductor creator
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 **Tools → Inductor creator…** now creates square spiral inductors with a live
 layout preview. Controls include turns, trace width and spacing, inner opening,
 lead length, mapped metal/via stack, via arrays, origin, rotation and mirroring.

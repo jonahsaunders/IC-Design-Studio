@@ -1,4 +1,4 @@
-"""Bounded GF180MCU C standard 3.3 V MOS geometry, derived from locked Magic assets.
+"""Bounded GF180MCU C/D 3.3 V MOS geometry, using each variant's locked decks.
 
 Native GDS drawing datatype 0 and port datatype 10 are process-specific.
 W=1..10 um, L=.28..2 um, 5 nm grid, nf=m=mult=1. All four terminals are contacted.
@@ -16,14 +16,15 @@ API = 1
 
 
 def layers(tech):
-    if tech.get('package_lock',{}).get('id') != 'gf180mcuC': raise ValueError('Link a GF180MCU C package first.')
+    if tech.get('package_lock',{}).get('id') not in ('gf180mcuC','gf180mcuD'): raise ValueError('Link a GF180MCU C or D package first.')
     by = {(l['gds'],l['datatype']): l['name'] for l in tech['layers']}
     return {key: by.get(pair, 'gf180_'+key) for key,pair in MASKS.items()}
 
 
 def prepare(tech):
-    from .process_adapters import GF180
-    assets = GF180.engine_assets(tech)
+    from .process_adapters import adapter
+    process = adapter(tech)
+    assets = process.engine_assets(tech)
     names = layers(tech); present = {(l['gds'],l['datatype']) for l in tech['layers']}
     colors = ['#bb9a64','#73c683','#ef8a83','#a785d9','#75abc7','#cccccc','#6b9cf0','#d8b46c','#bd90ec','#6b9cf0','#bd90ec']
     for (key,(gds,datatype)),color in zip(MASKS.items(), colors):
@@ -32,8 +33,8 @@ def prepare(tech):
             width,space = {'m1':(230,230),'m2':(280,280),'via':(260,260),'contact':(220,250),
                            'poly':(180,240),'diff':(220,280),'nwell':(860,600)}.get(key,(0,0))
             tech['layers'].append({'name':names[key],'gds':gds,'datatype':datatype,'color':color,'width':width,'space':space})
-    tech['native_layer_contract'] = {'adapter': 'gf180mcuC', 'api': API,
-        'source': GF180.technology_file, 'sha256': file_digest(assets['technology'])}
+    tech['native_layer_contract'] = {'adapter': process.id, 'api': API,
+        'source': process.technology_file, 'sha256': file_digest(assets['technology'])}
     tech['connectivity'] = {'conductors':[names['m1'],names['m2']], 'vias':[[names['m1'],names['via'],names['m2']]]}
 
 
@@ -121,7 +122,7 @@ def generate_inverter(p,cid,replace=False):
     from .physical_cells import assign_port
     for net,key,pt in ((n['nets']['s'],'m1',pins[n['id'],'b']),(q['nets']['s'],'m1',pins[q['id'],'b']),(n['nets']['d'],'m1',[right,nd[1]]),(n['nets']['g'],'m2',ng)):
         assign_port(p,cid,net,ls[key],pt)
-    c['inverter_layout']={'api':API,'process':'gf180mcuC','device_ids':[n['id'],q['id']]};validate(p);return p
+    c['inverter_layout']={'api':API,'process':p['pdk']['package_lock']['id'],'device_ids':[n['id'],q['id']]};validate(p);return p
 
 
 def audit(p,cid):

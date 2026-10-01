@@ -15,7 +15,7 @@ Open **File → New project** to start a design, **File → Project Hub** to ins
 
 1. Choose **New project** in the hub sidebar.
 2. Select a process and its exact revision. Search by family, variant or revision; use the filter to show installed or included packages.
-3. Enter a project name and choose a starting circuit: empty, RC low-pass, inverter, ring oscillator, current mirror or differential pair. For transistor templates, select catalog models and an appropriate supply voltage.
+3. Enter a project name and choose a starting circuit: empty, RC low-pass, inverter, ring oscillator, current mirror, differential pair or five-transistor amplifier. Known PDKs start with core transistor models and nominal supplies: SKY130 1.8 V, GF180 3.3 V, IHP 1.2 V. Review the models and voltage when choosing other device classes. Page navigation preserves your edits within the selected revision.
 4. Choose **Create project**, or **Install PDK & create project** for an included package. Installation and file verification run in the background.
 5. Save with **Ctrl+S** in the workspace to choose the project file location. Unsaved work in an existing project is handled before it is replaced.
 
@@ -34,7 +34,12 @@ The new project retains the selected revision and its checksummed files. Install
 
 The revision field shows the package's actual revision identifier, which may be a commit/content hash rather than a numbered release. This is a local inventory; it does not check online for newer releases. **Installed** does not mean a simulator or physical verification deck has been qualified. **Verify installed files** checks the registration's file hashes, and project creation checks them again.
 
-Included GF180MCU and SKY130 packages are simulation subsets. IHP appears as **Add installation** until its local installation or adapter is registered; its simulations also need compatible ngspice/OSDI support. Other PDKs and multiple revisions use the same list when registered through the technology package interface. Adding a process does not add a first-level menu item.
+SKY130 A, GF180 C/D and IHP SG13G2 are included offline. GF180 and IHP include physical decks for the bounded core-MOS inverter course; SKY130's simulation subset needs separate full physical assets. IHP uses matching OSDI models in the included physical runtime unless custom libraries are selected. Other PDKs and multiple revisions use the same list when registered through the technology package interface. Adding a process does not add a first-level menu item.
+
+**Tools → Physical tools setup…** manages the included/custom verification
+engines separately. Preparing Magic, Netgen and ngspice does not turn a simulation
+subset into a physical PDK: the project still needs matching locked geometry,
+extraction and rule assets. See the [PDK guide](PDK_GUIDE.md).
 
 ## Add or recover an installation
 

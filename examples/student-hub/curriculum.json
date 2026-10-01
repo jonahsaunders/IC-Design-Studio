@@ -1,0 +1,2684 @@
+{
+  "version": 1,
+  "title": "Student Hub",
+  "paths": [
+    {
+      "id": "foundations",
+      "title": "Foundations",
+      "subtitle": "Build, measure, debug and preserve your first circuits.",
+      "level": "Start here",
+      "color": "#72b7ff"
+    },
+    {
+      "id": "analog",
+      "title": "Analog",
+      "subtitle": "Analog design: bias, gain, gm/ID sizing and power–area tradeoffs.",
+      "level": "Circuit designer",
+      "color": "#56cfb2"
+    },
+    {
+      "id": "digital",
+      "title": "Digital",
+      "subtitle": "Digital design: RTL, arithmetic, pipeline timing and independent verification.",
+      "level": "RTL designer",
+      "color": "#c0a0ff"
+    },
+    {
+      "id": "mixed",
+      "title": "Mixed Signal",
+      "subtitle": "Join analog state and clocked logic in a working SAR converter.",
+      "level": "System designer",
+      "color": "#ffbc73"
+    },
+    {
+      "id": "layout",
+      "title": "Layout",
+      "subtitle": "Physical design: repair geometry, reason about matching, and plan extraction/LVS.",
+      "level": "Layout designer",
+      "color": "#f2a6bc"
+    },
+    {
+      "id": "career",
+      "title": "Portfolio & interviews",
+      "subtitle": "Turn measured work into a design brief and an evidence-based interview story.",
+      "level": "Design review",
+      "color": "#dfc278"
+    }
+  ],
+  "capstone": {
+    "title": "Sensor acquisition system",
+    "subtitle": "Filter → sample → convert → average → alarm",
+    "description": "Four milestones build one shared project. Repair three deliberate faults, then qualify the complete system with real ngspice and Icarus."
+  },
+  "lessons": [
+    {
+      "id": "f-first",
+      "path": "foundations",
+      "title": "01 · Your first measured circuit",
+      "starter": "rc",
+      "workspace": "f-first",
+      "summary": "Inspect a source, resistor and capacitor; predict the time constant and verify a transient.",
+      "skills": [
+        "schematic navigation",
+        "properties",
+        "transient",
+        "waveforms"
+      ],
+      "minutes": 25,
+      "requires": [],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Predict the response",
+          "kind": "quiz",
+          "instructions": "For R = 10 kΩ and C = 1 nF, what is the time constant?",
+          "options": [
+            "1 µs",
+            "10 µs",
+            "100 µs"
+          ],
+          "answer": 1,
+          "explanation": "The product R·C is 10 µs. One time constant reaches about 63% of a step."
+        },
+        {
+          "id": "build",
+          "title": "Find the three devices",
+          "kind": "check",
+          "instructions": "Choose Open workspace. Select V1, R1 and C1 in the Design tree; their values and nets appear in the inspector. Ground is net 0. Return to this guide through View → Student lesson guide.",
+          "rule": {
+            "type": "structure",
+            "devices": [
+              "V1",
+              "R1",
+              "C1"
+            ]
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Measure one time constant",
+          "kind": "check",
+          "instructions": "Choose Run lesson, then Results. Probe vout at 12 µs: the input stepped to 1.8 V at 2 µs. Expect 1.08–1.20 V. Check this step after the run finishes.",
+          "rule": {
+            "type": "result",
+            "analysis": "tran",
+            "trace": "vout",
+            "low": 1.08,
+            "high": 1.2,
+            "at": 1.2e-05
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Why does the capacitor voltage rise gradually? Record the measured voltage and the time relative to the input edge. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "f-connect",
+      "path": "foundations",
+      "title": "02 · Nets, ground and loading",
+      "starter": "divider-build",
+      "workspace": "f-connect",
+      "summary": "Complete a divider by placing and connecting the lower resistor, then verify its output.",
+      "skills": [
+        "nets",
+        "ground",
+        "DC operating point"
+      ],
+      "minutes": 25,
+      "requires": [
+        "f-first"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Predict a divider",
+          "kind": "quiz",
+          "instructions": "Two equal 10 kΩ resistors divide a 1.8 V supply. What is the unloaded output?",
+          "options": [
+            "0.6 V",
+            "0.9 V",
+            "1.8 V"
+          ],
+          "answer": 1,
+          "explanation": "Equal resistors split the voltage equally when the output is unloaded."
+        },
+        {
+          "id": "build",
+          "title": "Place and wire the lower resistor",
+          "kind": "check",
+          "instructions": "Open workspace. The starter has V1 and R1 but no lower resistor. Choose Component → Resistor, place it below R1, and select it. Set its name to R2, Value to 10k, p terminal to out and n terminal to 0 in Properties. Apply the edit. R1 already connects vin to out. Check the named nets even if the symbols are far apart.",
+          "rule": {
+            "type": "nets",
+            "device": "R2",
+            "nets": {
+              "p": "out",
+              "n": "0"
+            }
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the operating point",
+          "kind": "check",
+          "instructions": "Run lesson. Inspect out in Results and confirm 0.9 V within 1 mV.",
+          "rule": {
+            "type": "result",
+            "analysis": "op",
+            "trace": "out",
+            "low": 0.899,
+            "high": 0.901,
+            "at": null
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Describe the path from V1 through R1 and R2 to ground. Explain why a disconnected terminal is different from an unconnected-looking drawing. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "f-edit",
+      "path": "foundations",
+      "title": "03 · Change, compare and undo",
+      "starter": "rc",
+      "workspace": "f-edit",
+      "summary": "Make a deliberate parameter change and prove its effect using a new result.",
+      "skills": [
+        "parameter editing",
+        "undo",
+        "stale results",
+        "comparison"
+      ],
+      "minutes": 25,
+      "requires": [
+        "f-connect"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Predict a design change",
+          "kind": "quiz",
+          "instructions": "Doubling R while keeping C fixed changes the time constant how?",
+          "options": [
+            "It halves",
+            "It doubles",
+            "It is unchanged"
+          ],
+          "answer": 1,
+          "explanation": "The time constant is proportional to R."
+        },
+        {
+          "id": "build",
+          "title": "Double the resistor",
+          "kind": "check",
+          "instructions": "Select R1 in the schematic and change its Value from 10k to 20k. Apply the property edit. Try Undo and Redo, ending at 20k.",
+          "rule": {
+            "type": "value",
+            "device": "R1",
+            "field": "value",
+            "value": "20k"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Measure the slower response",
+          "kind": "check",
+          "instructions": "Run the edited design. At 22 µs, vout should be 1.08–1.20 V: one 20 µs time constant after the edge. An earlier run will not pass this check.",
+          "rule": {
+            "type": "result",
+            "analysis": "tran",
+            "trace": "vout",
+            "low": 1.08,
+            "high": 1.2,
+            "at": 2.2e-05
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Compare the original and edited waveforms. Explain why reusing a result captured before the resistor edit would be misleading. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "f-hierarchy",
+      "path": "foundations",
+      "title": "04 · Reusable cells and hierarchy",
+      "starter": "hierarchy",
+      "workspace": "f-hierarchy",
+      "summary": "Inspect a two-resistor cell instantiated in a testbench.",
+      "skills": [
+        "cells",
+        "ports",
+        "instances",
+        "testbenches"
+      ],
+      "minutes": 25,
+      "requires": [
+        "f-edit"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Distinguish master and instance",
+          "kind": "quiz",
+          "instructions": "If two instances refer to the same cell, editing the cell changes which implementation?",
+          "options": [
+            "Only the selected instance",
+            "Both instances",
+            "Neither instance"
+          ],
+          "answer": 1,
+          "explanation": "Instances refer to the shared cell implementation; instance parameters can differ where supported."
+        },
+        {
+          "id": "build",
+          "title": "Follow the instance ports",
+          "kind": "check",
+          "instructions": "Open the divider cell from the Design tree. It has IN, OUT and GND ports. Return to top and inspect XDIV mappings to vin, out and 0.",
+          "rule": {
+            "type": "hierarchy",
+            "minimum": 2
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Simulate through hierarchy",
+          "kind": "check",
+          "instructions": "Run lesson using the top-level testbench. Confirm out is still 0.9 V.",
+          "rule": {
+            "type": "result",
+            "analysis": "op",
+            "trace": "out",
+            "low": 0.899,
+            "high": 0.901,
+            "at": null
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Explain what belongs in the reusable divider cell and what belongs in its testbench. Name the three port mappings. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "f-debug",
+      "path": "foundations",
+      "title": "05 · Requirements and debugging",
+      "starter": "loaded-divider",
+      "workspace": "f-debug",
+      "summary": "Distinguish a successful simulator run from meeting a design requirement.",
+      "skills": [
+        "requirements",
+        "debugging",
+        "loading"
+      ],
+      "minutes": 25,
+      "requires": [
+        "f-hierarchy"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason about loading",
+          "kind": "quiz",
+          "instructions": "Adding a 10 kΩ load across the lower 10 kΩ divider resistor makes the output…",
+          "options": [
+            "Lower",
+            "Higher",
+            "Unchanged"
+          ],
+          "answer": 0,
+          "explanation": "The parallel resistance decreases. The loaded output is 0.6 V."
+        },
+        {
+          "id": "build",
+          "title": "Reduce loading",
+          "kind": "check",
+          "instructions": "The goal is to keep out above 0.89 V. Select Rload and increase its Value to 1Meg. Keep the divider resistors at 10k.",
+          "rule": {
+            "type": "value",
+            "device": "Rload",
+            "field": "value",
+            "value": "1Meg"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Check the requirement",
+          "kind": "check",
+          "instructions": "Run lesson and verify out is between 0.89 and 0.91 V. A completed simulation can still miss a requirement.",
+          "rule": {
+            "type": "result",
+            "analysis": "op",
+            "trace": "out",
+            "low": 0.89,
+            "high": 0.91,
+            "at": null
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Record the achieved voltage. Explain the load-resistance tradeoff and one condition the simple DC test does not cover. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "f-portfolio",
+      "path": "foundations",
+      "title": "06 · Layout, checks and reproducibility",
+      "starter": "layout",
+      "workspace": "f-portfolio",
+      "summary": "Inspect geometry, understand evidence limits, and preserve a reproducible learning record.",
+      "skills": [
+        "layout",
+        "generic DRC",
+        "save/reopen",
+        "portfolio"
+      ],
+      "minutes": 25,
+      "requires": [
+        "f-debug"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Interpret physical checks",
+          "kind": "quiz",
+          "instructions": "What does passing generic teaching DRC establish?",
+          "options": [
+            "Foundry manufacturability",
+            "Only the implemented generic rules were satisfied",
+            "Silicon performance"
+          ],
+          "answer": 1,
+          "explanation": "A foundry-qualified rule deck, extraction and other signoff evidence are separate."
+        },
+        {
+          "id": "build",
+          "title": "Inspect the matched geometry",
+          "kind": "check",
+          "instructions": "Open workspace and switch to Layout. Fit the view and inspect the common-centroid arrangement. Use Analysis → Geometry DRC to read the actual findings. This checkpoint only verifies geometry is present.",
+          "rule": {
+            "type": "layout",
+            "minimum": 4
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Save the exact project",
+          "kind": "check",
+          "instructions": "Use Save work in the guide, then check this step. Close/reopen the lesson from the Hub to resume the saved project.",
+          "rule": {
+            "type": "saved"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Record one geometry finding or limitation, the project location, and what you would include in a reproducible handoff beyond a screenshot. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "a-load",
+      "path": "analog",
+      "title": "01 · Design around source and load",
+      "starter": "load-build",
+      "workspace": "a-load",
+      "summary": "Model loading explicitly before adding gain.",
+      "skills": [
+        "loading",
+        "operating point",
+        "impedance"
+      ],
+      "minutes": 25,
+      "requires": [
+        "f-edit"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Calculate the loaded divider",
+          "kind": "quiz",
+          "instructions": "R1 = R2 = Rload = 10 kΩ with 1.8 V input. What is out?",
+          "options": [
+            "0.45 V",
+            "0.6 V",
+            "0.9 V"
+          ],
+          "answer": 1,
+          "explanation": "R2 || Rload = 5 kΩ, so 1.8 × 5/(10+5) = 0.6 V."
+        },
+        {
+          "id": "build",
+          "title": "Add the output load",
+          "kind": "check",
+          "instructions": "Open workspace. Add a generic resistor with Component → Resistor. Name it Rload, set Value to 10k, and assign p to out and n to 0 in Properties. Apply. It is now in parallel with R2. Keep R1 and R2 at 10k.",
+          "rule": {
+            "type": "nets",
+            "device": "Rload",
+            "nets": {
+              "p": "out",
+              "n": "0"
+            }
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the loaded value",
+          "kind": "check",
+          "instructions": "Run lesson and measure out. The expected interval is 0.599–0.601 V.",
+          "rule": {
+            "type": "result",
+            "analysis": "op",
+            "trace": "out",
+            "low": 0.599,
+            "high": 0.601,
+            "at": null
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Explain why a measurement instrument or following stage can change the voltage. Propose a way to reduce this effect. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "a-bandwidth",
+      "path": "analog",
+      "title": "02 · Set bandwidth with an RC pole",
+      "starter": "rc-ac",
+      "workspace": "a-bandwidth",
+      "summary": "Choose capacitance for a target bandwidth and verify the AC response.",
+      "skills": [
+        "AC",
+        "Bode magnitude",
+        "bandwidth"
+      ],
+      "minutes": 25,
+      "requires": [
+        "a-load"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Predict the pole",
+          "kind": "quiz",
+          "instructions": "R = 10 kΩ, C = 2 nF. Approximately where is the −3 dB pole?",
+          "options": [
+            "796 Hz",
+            "7.96 kHz",
+            "79.6 kHz"
+          ],
+          "answer": 1,
+          "explanation": "The pole is 1/(2πRC), approximately 7.96 kHz."
+        },
+        {
+          "id": "build",
+          "title": "Set the capacitance",
+          "kind": "check",
+          "instructions": "Change C1 Value from 1n to 2n. The AC source amplitude is 1 V, so output magnitude directly represents gain.",
+          "rule": {
+            "type": "value",
+            "device": "C1",
+            "field": "value",
+            "value": "2n"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Measure the pole",
+          "kind": "check",
+          "instructions": "Run lesson. Inspect vout near 8 kHz; expect magnitude 0.68–0.73 V, approximately −3 dB.",
+          "rule": {
+            "type": "result",
+            "analysis": "ac",
+            "trace": "vout",
+            "low": 0.68,
+            "high": 0.73,
+            "at": 8000
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Record the measured magnitude and explain why increasing capacitance reduces bandwidth. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "a-bias",
+      "path": "analog",
+      "title": "03 · Scale a current mirror",
+      "starter": "current_mirror",
+      "workspace": "a-bias",
+      "summary": "Use geometry ratios to set bias current and inspect the operating point.",
+      "skills": [
+        "MOS bias",
+        "current mirrors",
+        "hierarchy"
+      ],
+      "minutes": 25,
+      "requires": [
+        "a-bandwidth"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Predict mirror scaling",
+          "kind": "quiz",
+          "instructions": "For equal lengths and similar VDS, doubling only MOUT width approximately…",
+          "options": [
+            "Doubles output current",
+            "Halves output current",
+            "Doubles reference current"
+          ],
+          "answer": 0,
+          "explanation": "In the educational model, matched overdrive and doubled W/L approximately double current."
+        },
+        {
+          "id": "build",
+          "title": "Set a 2:1 mirror",
+          "kind": "check",
+          "instructions": "Open current_mirror, select MOUT, and set width w to 4u; MREF remains 2u with the same length. The reference current is 10 µA.",
+          "rule": {
+            "type": "value",
+            "device": "MOUT",
+            "field": "params.w",
+            "value": "4u"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Check output current",
+          "kind": "check",
+          "instructions": "Run lesson and inspect current through VOUT. Its magnitude should be 18–23 µA; the source supplies current into the mirror.",
+          "rule": {
+            "type": "current",
+            "name": "VOUT",
+            "low": 1.8e-05,
+            "high": 2.3e-05
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Record the output current and explain why unequal drain voltages and insufficient output headroom can spoil the ideal ratio. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "a-differential",
+      "path": "analog",
+      "title": "04 · Steer a differential pair",
+      "starter": "differential_pair",
+      "workspace": "a-differential",
+      "summary": "Apply a small differential input and follow the change in branch voltages.",
+      "skills": [
+        "differential pairs",
+        "common mode",
+        "bias"
+      ],
+      "minutes": 25,
+      "requires": [
+        "a-bias"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Predict the balanced state",
+          "kind": "quiz",
+          "instructions": "With equal inputs and matched devices, how does the tail current divide?",
+          "options": [
+            "All through the left branch",
+            "Approximately equally",
+            "No branch conducts"
+          ],
+          "answer": 1,
+          "explanation": "Symmetry gives equal branch currents while both devices remain in the intended region."
+        },
+        {
+          "id": "build",
+          "title": "Apply a differential input",
+          "kind": "check",
+          "instructions": "In differential_pair_testbench, change VIN Value to 5m. It is connected between inp and inn, so the common-mode source remains separate.",
+          "rule": {
+            "type": "value",
+            "device": "VIN",
+            "field": "value",
+            "value": "5m"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Observe current steering",
+          "kind": "check",
+          "instructions": "Run lesson. outp should move below outn. Check the difference outn − outp is positive and below 0.1 V.",
+          "rule": {
+            "type": "difference",
+            "positive": "outn",
+            "negative": "outp",
+            "low": 0.001,
+            "high": 0.1
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Explain which transistor takes more current and why its drain voltage falls through the load resistor. State the common-mode limitation. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "a-amplifier",
+      "path": "analog",
+      "title": "05 · A five-transistor amplifier",
+      "starter": "amplifier",
+      "workspace": "a-amplifier",
+      "summary": "Combine bias, differential input and active load, then measure small-signal gain.",
+      "skills": [
+        "amplifiers",
+        "active loads",
+        "AC gain",
+        "testbenches"
+      ],
+      "minutes": 40,
+      "requires": [
+        "a-differential"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Choose the correct analysis",
+          "kind": "quiz",
+          "instructions": "Which analysis measures small-signal gain around a solved operating point?",
+          "options": [
+            "AC",
+            "Geometry DRC",
+            "Digital elaboration"
+          ],
+          "answer": 0,
+          "explanation": "AC linearizes the devices around their bias point."
+        },
+        {
+          "id": "build",
+          "title": "Inspect the five devices",
+          "kind": "check",
+          "instructions": "Open amplifier. Follow M1/M2, the M3/M4 active load, and the M5 bias device. Return to amplifier_testbench before measuring.",
+          "rule": {
+            "type": "structure",
+            "devices": [
+              "M1",
+              "M2",
+              "M3",
+              "M4",
+              "M5"
+            ]
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Measure low-frequency gain",
+          "kind": "check",
+          "instructions": "Run lesson with the supplied AC setup and inspect out at 10 Hz. The teaching-model target is magnitude above 5 V/V and below 10000 V/V.",
+          "rule": {
+            "type": "result",
+            "analysis": "ac",
+            "trace": "out",
+            "low": 5,
+            "high": 10000,
+            "at": 10
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Record gain, identify the bias and load assumptions, and describe the next checks: output swing, stability in feedback, noise, PVT and extracted parasitics. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "a-layout",
+      "path": "analog",
+      "title": "06 · Matching and physical tradeoffs",
+      "starter": "layout",
+      "workspace": "a-layout",
+      "summary": "Inspect common-centroid geometry and plan a credible analog implementation.",
+      "skills": [
+        "matching",
+        "layout",
+        "parasitics",
+        "PDK evidence"
+      ],
+      "minutes": 35,
+      "requires": [
+        "a-amplifier"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Identify what centroid placement helps",
+          "kind": "quiz",
+          "instructions": "Common-centroid placement primarily helps cancel…",
+          "options": [
+            "Some systematic spatial gradients",
+            "All random mismatch",
+            "Every parasitic"
+          ],
+          "answer": 0,
+          "explanation": "Symmetric placement can cancel some first-order gradients; random mismatch and routing remain."
+        },
+        {
+          "id": "build",
+          "title": "Inspect symmetry and routing",
+          "kind": "check",
+          "instructions": "Open Layout. Compare the repeated resistor units and their placement about the center. Inspect layers and dimensions; this structural check does not certify matching.",
+          "rule": {
+            "type": "layout",
+            "minimum": 4
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Preserve the reviewed geometry",
+          "kind": "check",
+          "instructions": "Use Save work, then check. Explore the existing extraction and physical-verification tools through the feature map; do not call generic geometry a foundry-qualified layout.",
+          "rule": {
+            "type": "saved"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Write a short layout review: symmetry, routing resistance, dummy devices, required process deck, and the schematic-versus-extracted comparisons you would run. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "a-gmid-bias",
+      "path": "analog",
+      "title": "07 · Understand gm/ID and choose a bias",
+      "starter": "gmid-bias",
+      "workspace": "a-gmid-bias",
+      "summary": "Measure transconductance efficiency and connect gate bias to current, gain and headroom.",
+      "skills": [
+        "gm/ID",
+        "operating point",
+        "overdrive",
+        "bias selection"
+      ],
+      "minutes": 35,
+      "requires": [
+        "a-bias"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "A transistor has gm = 200 µS and ID = 20 µA. What is gm/ID?",
+          "options": [
+            "0.1 V",
+            "10 V⁻¹",
+            "4 mA"
+          ],
+          "answer": 1,
+          "explanation": "200 µS / 20 µA = 10 V⁻¹. gm is the small-signal slope of drain current versus gate voltage at the bias point."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Open workspace. Select VG, change Value from .85 to .65, and Apply changes. Keep M1 at W=10u and L=1u, with VD=1 V. Predict gm/ID using VOV=.65−.45=.20 V.",
+          "rule": {
+            "type": "value",
+            "device": "VG",
+            "field": "value",
+            "value": ".65"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Run lesson, then check this step. The operating point must give gm/ID between 9.8 and 10.2 V⁻¹, ID between 20 and 21 µA, and at least .70 V headroom. The checkpoint captures the measured values.",
+          "rule": {
+            "type": "device_metrics",
+            "device": "M1",
+            "bounds": {
+              "gmid": [
+                9.8,
+                10.2
+              ],
+              "id": [
+                2e-05,
+                2.1e-05
+              ],
+              "headroom": [
+                0.7,
+                1.0
+              ]
+            }
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Report ID, gm and gm/ID with units. Explain why lowering overdrive improves current efficiency in this teaching model, and why this model cannot establish weak-inversion performance. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "a-gmid-size",
+      "path": "analog",
+      "title": "08 · Turn a gm target into device width",
+      "starter": "gmid-size",
+      "workspace": "a-gmid-size",
+      "summary": "Work from a transconductance requirement to bias current and width, then verify the operating point.",
+      "skills": [
+        "gm target",
+        "current density",
+        "device sizing",
+        "power budget"
+      ],
+      "minutes": 35,
+      "requires": [
+        "a-gmid-bias"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "For gm=200 µS and gm/ID=10 V⁻¹, what drain current is required?",
+          "options": [
+            "2 µA",
+            "20 µA",
+            "2 mA"
+          ],
+          "answer": 1,
+          "explanation": "ID = gm / (gm/ID) = 200 µS / 10 V⁻¹ = 20 µA."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Read Learn first. Keep VG=.65, VD=1 and L=1u. Select M1 and set Width to 9.804u, then Apply changes. Use the width estimate to meet gm=200 µS at ID=20 µA.",
+          "rule": {
+            "type": "value",
+            "device": "M1",
+            "field": "params.w",
+            "value": "9.804u"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Run lesson. Check ID=19.8–20.2 µA, gm=198–202 µS and gm/ID=9.8–10.2 V⁻¹. A width entry alone does not prove the bias meets the requirement.",
+          "rule": {
+            "type": "device_metrics",
+            "device": "M1",
+            "bounds": {
+              "id": [
+                1.98e-05,
+                2.02e-05
+              ],
+              "gm": [
+                0.000198,
+                0.000202
+              ],
+              "gmid": [
+                9.8,
+                10.2
+              ]
+            }
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Write the chain specification → gm → ID → ID/W → W. State which bias conditions must match the lookup point, and which checks would still be needed for an amplifier. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "a-gmid-headroom",
+      "path": "analog",
+      "title": "09 · Budget voltage headroom",
+      "starter": "gmid-headroom",
+      "workspace": "a-gmid-headroom",
+      "summary": "Repair a bias point that loses saturation and explain output swing constraints.",
+      "skills": [
+        "saturation",
+        "headroom",
+        "output swing"
+      ],
+      "minutes": 35,
+      "requires": [
+        "a-gmid-size"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "In the teaching model, VGS=.65 V and VTH=.45 V. With VDS=.10 V, is M1 in saturation?",
+          "options": [
+            "Yes, because VGS exceeds VTH",
+            "No: VDS is below VOV=.20 V",
+            "Only width determines the region"
+          ],
+          "answer": 1,
+          "explanation": "Turning a device on does not guarantee saturation. This model requires VDS ≥ VOV; extra margin supports signal swing."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Select VD and change Value from .1 to .4. Keep VG=.65, W=10u and L=1u. Apply changes. Predict the headroom VDS−VOV.",
+          "rule": {
+            "type": "value",
+            "device": "VD",
+            "field": "value",
+            "value": ".4"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Run lesson. Verify .19–.21 V headroom, gm/ID=9.8–10.2 V⁻¹ and ID=19.8–20.5 µA. Compare against a run of the original low-drain-voltage case.",
+          "rule": {
+            "type": "device_metrics",
+            "device": "M1",
+            "bounds": {
+              "headroom": [
+                0.19,
+                0.21
+              ],
+              "gmid": [
+                9.8,
+                10.2
+              ],
+              "id": [
+                1.98e-05,
+                2.05e-05
+              ]
+            }
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Explain why the initial device is on but outside saturation. Sketch a voltage budget for two stacked devices and describe how signal swing consumes margin. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "a-gmid-tradeoff",
+      "path": "analog",
+      "title": "10 · Compare efficiency, area and speed",
+      "starter": "gmid-tradeoff",
+      "workspace": "a-gmid-tradeoff",
+      "summary": "Meet the same gm target at lower current and identify what the simple model cannot tell you.",
+      "skills": [
+        "inversion level",
+        "power versus area",
+        "process characterization"
+      ],
+      "minutes": 35,
+      "requires": [
+        "a-gmid-headroom"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "Holding gm=200 µS, changing gm/ID from 10 to 20 V⁻¹ changes ID from…",
+          "options": [
+            "20 to 10 µA",
+            "10 to 20 µA",
+            "20 to 40 µA"
+          ],
+          "answer": 0,
+          "explanation": "For fixed gm, doubling gm/ID halves current. Area, capacitance, speed and noise still need separate evaluation."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Select VG and set Value=.55; set M1 Width=19.608u, keeping L=1u and VD=1. Apply changes. The lower overdrive needs more width to preserve gm.",
+          "rule": {
+            "type": "value",
+            "device": "M1",
+            "field": "params.w",
+            "value": "19.608u"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Run lesson. Require gm=198–202 µS, ID=9.8–10.2 µA, and gm/ID=19.6–20.4 V⁻¹. Compare this bias with the 9.804 µm width design.",
+          "rule": {
+            "type": "device_metrics",
+            "device": "M1",
+            "bounds": {
+              "gm": [
+                0.000198,
+                0.000202
+              ],
+              "id": [
+                9.8e-06,
+                1.02e-05
+              ],
+              "gmid": [
+                19.6,
+                20.4
+              ]
+            }
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Compare current, width and gm between both designs. Explain why this experiment cannot prove speed or noise superiority. Specify a real-PDK characterization and verification plan. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "d-logic",
+      "path": "digital",
+      "title": "01 · Truth tables and combinational RTL",
+      "starter": "gates",
+      "workspace": "d-logic",
+      "summary": "Enumerate the complete truth table for XOR and a two-input mux.",
+      "skills": [
+        "RTL editor",
+        "testbench",
+        "digital waveforms",
+        "gates"
+      ],
+      "minutes": 30,
+      "requires": [
+        "f-edit"
+      ],
+      "doc": "DIGITAL_WORKSPACE.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Predict the behavior",
+          "kind": "quiz",
+          "instructions": "When a=b=1, XOR is…",
+          "options": [
+            "0",
+            "1",
+            "Unknown"
+          ],
+          "answer": 0,
+          "explanation": "XOR is one only when its inputs differ."
+        },
+        {
+          "id": "build",
+          "title": "Inspect the design and reference bench",
+          "kind": "check",
+          "instructions": "Read assign parity and assign mux. Open lab_tb.sv to see all eight input combinations; edit the RTL, not the reference testbench.",
+          "rule": {
+            "type": "digital_sources",
+            "design": "gates"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Run the reference checks",
+          "kind": "check",
+          "instructions": "Choose Run lesson. Open Results to inspect the digital workspace. Check this step only after simulation completes. A modified reference testbench cannot earn this checkpoint.",
+          "rule": {
+            "type": "digital",
+            "design": "gates"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Explain the difference between XOR and OR, and how the mux select chooses its output. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "d-counter",
+      "path": "digital",
+      "title": "02 · Clock, reset and enable",
+      "starter": "counter",
+      "workspace": "d-counter",
+      "summary": "Verify reset, hold, increment and four-bit wraparound.",
+      "skills": [
+        "RTL editor",
+        "testbench",
+        "digital waveforms",
+        "counter"
+      ],
+      "minutes": 30,
+      "requires": [
+        "d-logic"
+      ],
+      "doc": "DIGITAL_WORKSPACE.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Predict the behavior",
+          "kind": "quiz",
+          "instructions": "A four-bit unsigned counter increments from 15 to…",
+          "options": [
+            "0",
+            "16",
+            "−1"
+          ],
+          "answer": 0,
+          "explanation": "Four bits retain values 0 through 15; the carry is discarded."
+        },
+        {
+          "id": "build",
+          "title": "Inspect the design and reference bench",
+          "kind": "check",
+          "instructions": "Read the positive-edge always block. Follow reset priority and the enable condition. The testbench covers enabled and held cycles plus wraparound.",
+          "rule": {
+            "type": "digital_sources",
+            "design": "counter"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Run the reference checks",
+          "kind": "check",
+          "instructions": "Choose Run lesson. Open Results to inspect the digital workspace. Check this step only after simulation completes. A modified reference testbench cannot earn this checkpoint.",
+          "rule": {
+            "type": "digital",
+            "design": "counter"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Explain why nonblocking assignments are used for state and what happens while enable is low. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "d-pulse",
+      "path": "digital",
+      "title": "03 · State and one-cycle handshakes",
+      "starter": "pulse",
+      "workspace": "d-pulse",
+      "summary": "Turn a held request into a single clock-wide pulse.",
+      "skills": [
+        "RTL editor",
+        "testbench",
+        "digital waveforms",
+        "pulse"
+      ],
+      "minutes": 30,
+      "requires": [
+        "d-counter"
+      ],
+      "doc": "DIGITAL_WORKSPACE.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Predict the behavior",
+          "kind": "quiz",
+          "instructions": "A rising-edge detector needs…",
+          "options": [
+            "Only the current request",
+            "Current and previous request",
+            "An analog clock"
+          ],
+          "answer": 1,
+          "explanation": "Comparing current and previous request distinguishes a new edge from a held level."
+        },
+        {
+          "id": "build",
+          "title": "Inspect the design and reference bench",
+          "kind": "check",
+          "instructions": "Follow previous and pulse in the RTL. The testbench holds requests for several clocks; every rising request must produce exactly one pulse.",
+          "rule": {
+            "type": "digital_sources",
+            "design": "pulse"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Run the reference checks",
+          "kind": "check",
+          "instructions": "Choose Run lesson. Open Results to inspect the digital workspace. Check this step only after simulation completes. A modified reference testbench cannot earn this checkpoint.",
+          "rule": {
+            "type": "digital",
+            "design": "pulse"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Explain why a level-sensitive request cannot be treated as a new transaction on every clock. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "d-pwm",
+      "path": "digital",
+      "title": "04 · Counters as waveform generators",
+      "starter": "pwm",
+      "workspace": "d-pwm",
+      "summary": "Sweep duty settings and count actual high cycles in each eight-clock frame.",
+      "skills": [
+        "RTL editor",
+        "testbench",
+        "digital waveforms",
+        "pwm"
+      ],
+      "minutes": 30,
+      "requires": [
+        "d-pulse"
+      ],
+      "doc": "DIGITAL_WORKSPACE.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Predict the behavior",
+          "kind": "quiz",
+          "instructions": "A duty setting of 3 over an eight-clock frame gives…",
+          "options": [
+            "3/8 high time",
+            "3/4 high time",
+            "8/3 high time"
+          ],
+          "answer": 0,
+          "explanation": "The comparator is high for phases 0, 1 and 2."
+        },
+        {
+          "id": "build",
+          "title": "Inspect the design and reference bench",
+          "kind": "check",
+          "instructions": "Inspect phase and the phase < duty comparator. The reference bench checks every duty setting, including zero. This is synchronous PWM, not a modeled analog power stage.",
+          "rule": {
+            "type": "digital_sources",
+            "design": "pwm"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Run the reference checks",
+          "kind": "check",
+          "instructions": "Choose Run lesson. Open Results to inspect the digital workspace. Check this step only after simulation completes. A modified reference testbench cannot earn this checkpoint.",
+          "rule": {
+            "type": "digital",
+            "design": "pwm"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Record one duty ratio and explain the resolution/frequency tradeoff when the counter width changes. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "d-average",
+      "path": "digital",
+      "title": "05 · Fixed-point arithmetic and valid data",
+      "starter": "average",
+      "workspace": "d-average",
+      "summary": "Accumulate four samples without overflow and round the result.",
+      "skills": [
+        "RTL editor",
+        "testbench",
+        "digital waveforms",
+        "average"
+      ],
+      "minutes": 30,
+      "requires": [
+        "d-pwm"
+      ],
+      "doc": "DIGITAL_WORKSPACE.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Predict the behavior",
+          "kind": "quiz",
+          "instructions": "Four unsigned four-bit samples require a sum width of…",
+          "options": [
+            "4 bits",
+            "5 bits",
+            "6 bits"
+          ],
+          "answer": 2,
+          "explanation": "The maximum sum is 60, which needs six unsigned bits."
+        },
+        {
+          "id": "build",
+          "title": "Inspect the design and reference bench",
+          "kind": "check",
+          "instructions": "Trace sum, total and count. The reference bench inserts invalid cycles and maximum inputs, checking rounding and ready pulses.",
+          "rule": {
+            "type": "digital_sources",
+            "design": "average"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Run the reference checks",
+          "kind": "check",
+          "instructions": "Choose Run lesson. Open Results to inspect the digital workspace. Check this step only after simulation completes. A modified reference testbench cannot earn this checkpoint.",
+          "rule": {
+            "type": "digital",
+            "design": "average"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Explain why the current sample must be included before division and how invalid cycles affect the counter. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "d-serial",
+      "path": "digital",
+      "title": "06 · A verified serial transmitter",
+      "starter": "serial",
+      "workspace": "d-serial",
+      "summary": "Frame bytes with start/stop bits, capture the payload and handle reset.",
+      "skills": [
+        "RTL editor",
+        "testbench",
+        "digital waveforms",
+        "serial"
+      ],
+      "minutes": 30,
+      "requires": [
+        "d-average"
+      ],
+      "doc": "DIGITAL_WORKSPACE.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Predict the behavior",
+          "kind": "quiz",
+          "instructions": "After accepting a byte, changing the input data should…",
+          "options": [
+            "Change the remaining bits",
+            "Leave the captured frame unchanged",
+            "Abort the frame"
+          ],
+          "answer": 1,
+          "explanation": "The accepted payload is captured in a shift register until the frame completes."
+        },
+        {
+          "id": "build",
+          "title": "Inspect the design and reference bench",
+          "kind": "check",
+          "instructions": "Read frame and bit_index. Each lab clock is one bit period. The bench checks 00, FF, A5 and 3C plus mid-frame reset. Use the Digital workspace for waveforms and optional synthesis; baud generation and reception are later extensions.",
+          "rule": {
+            "type": "digital_sources",
+            "design": "serial"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Run the reference checks",
+          "kind": "check",
+          "instructions": "Choose Run lesson. Open Results to inspect the digital workspace. Check this step only after simulation completes. A modified reference testbench cannot earn this checkpoint.",
+          "rule": {
+            "type": "digital",
+            "design": "serial"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Describe the interface contract, reset behavior, and what additional checks would be needed for a real UART with independent clocks. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "d-latch",
+      "path": "digital",
+      "title": "07 · Repair unintended combinational memory",
+      "starter": "mux_repair",
+      "workspace": "d-latch",
+      "summary": "Fix an incomplete combinational assignment and prove the output depends only on current inputs.",
+      "skills": [
+        "RTL repair",
+        "reference testbench",
+        "verification"
+      ],
+      "minutes": 35,
+      "requires": [
+        "d-logic"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "What hardware can an unassigned output branch in combinational RTL infer?",
+          "options": [
+            "A latch",
+            "Always a flip-flop",
+            "No hardware"
+          ],
+          "answer": 0,
+          "explanation": "If an output must retain its old value on a branch, the design implies storage."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Open RTL. In mux_repair.sv, assign y for BOTH select values inside always @*. When select=0, y must be a; when select=1, y must be b. Keep the reference testbench unchanged.",
+          "rule": {
+            "type": "digital_sources",
+            "design": "mux_repair"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Run lesson before editing to observe the failure. After repair, Run lesson again and inspect Results. The independent reference bench must complete every assertion. Compilation alone, a stale run, or an edited reference bench does not pass.",
+          "rule": {
+            "type": "digital",
+            "design": "mux_repair"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Explain the missing assignment, a concrete sequence that exposes stale output, and why a truth table must be checked after different input histories. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "d-saturation",
+      "path": "digital",
+      "title": "08 · Repair arithmetic overflow",
+      "starter": "saturating_sum",
+      "workspace": "d-saturation",
+      "summary": "Define an arithmetic contract and repair a four-bit saturating accumulator.",
+      "skills": [
+        "RTL repair",
+        "reference testbench",
+        "verification"
+      ],
+      "minutes": 35,
+      "requires": [
+        "d-average"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "A four-bit unsigned saturating accumulator holds 13 and accepts 5. What is the next value?",
+          "options": [
+            "2",
+            "15",
+            "18"
+          ],
+          "answer": 1,
+          "explanation": "The mathematical sum is 18, above the maximum 15. Saturation clips to 15; wrapping would produce 2."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Open RTL. Keep the five-bit total so the carry is visible. Replace the wrapping update with a comparison: if total > 15, assign 15; otherwise assign total[3:0]. Preserve synchronous reset priority and hold sum when valid=0.",
+          "rule": {
+            "type": "digital_sources",
+            "design": "saturating_sum"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Run lesson before editing to observe the failure. After repair, Run lesson again and inspect Results. The independent reference bench must complete every assertion. Compilation alone, a stale run, or an edited reference bench does not pass.",
+          "rule": {
+            "type": "digital",
+            "design": "saturating_sum"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Show 13+5 under mathematical, wrapping and saturating arithmetic. Explain intermediate width, reset priority, invalid-cycle hold and one boundary test. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "d-pipeline",
+      "path": "digital",
+      "title": "09 · Align data and valid through a pipeline",
+      "starter": "pipeline_valid",
+      "workspace": "d-pipeline",
+      "summary": "Repair a one-cycle validity mismatch and reason about bubbles, reset and timing.",
+      "skills": [
+        "RTL repair",
+        "reference testbench",
+        "verification"
+      ],
+      "minutes": 35,
+      "requires": [
+        "d-pulse"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "Stage captures an input at edge k and result captures stage at edge k+1. Which validity belongs with result after k+1?",
+          "options": [
+            "valid_in sampled at k+1",
+            "valid_in sampled at k",
+            "An always-high valid"
+          ],
+          "answer": 1,
+          "explanation": "Nonblocking assignments read the previous register values. Data and validity need identical register latency."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Open RTL. The data has two registers: stage and result. Repair valid_out to use stage_valid rather than valid_in. Keep nonblocking assignments and reset clearing both valid registers. This interface accepts one item per clock and has no backpressure.",
+          "rule": {
+            "type": "digital_sources",
+            "design": "pipeline_valid"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Run lesson before editing to observe the failure. After repair, Run lesson again and inspect Results. The independent reference bench must complete every assertion. Compilation alone, a stale run, or an edited reference bench does not pass.",
+          "rule": {
+            "type": "digital",
+            "design": "pipeline_valid"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Draw an edge-by-edge data/valid table including a bubble and mid-stream reset. Explain latency versus throughput and why passing RTL simulation is not a timing-closure result. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "m-bridge",
+      "path": "mixed",
+      "title": "01 · Cross the analog/digital boundary",
+      "starter": "sar",
+      "workspace": "m-bridge",
+      "summary": "Follow the clocked bridge from comparator voltage to RTL decisions and back to DAC voltages.",
+      "skills": [
+        "logic thresholds",
+        "mixed-signal bridge",
+        "SAR"
+      ],
+      "minutes": 25,
+      "requires": [
+        "a-bandwidth",
+        "d-counter"
+      ],
+      "doc": "MIXED_SIGNAL_SAR.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Calculate one code step",
+          "kind": "quiz",
+          "instructions": "A four-bit converter spans 1.8 V. One LSB is…",
+          "options": [
+            "450 mV",
+            "112.5 mV",
+            "56.25 mV"
+          ],
+          "answer": 1,
+          "explanation": "1.8/16 = 0.1125 V per code step."
+        },
+        {
+          "id": "build",
+          "title": "Inspect both cells",
+          "kind": "check",
+          "instructions": "Open workspace for the native circuit, then RTL for sar_controller. Locate the DAC, held node and comparator. Read the bridge tab in Mixed-signal experiment.",
+          "rule": {
+            "type": "structure",
+            "devices": [
+              "Ssample",
+              "Chold",
+              "Rbit3",
+              "Bcompare"
+            ]
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Follow the four decisions",
+          "kind": "check",
+          "instructions": "Run lesson. For 0.93 V expect code 8 at edge 7. Results opens the edge table and analog waveforms.",
+          "rule": {
+            "type": "sar",
+            "codes": [
+              8
+            ],
+            "edges": [
+              7
+            ]
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Follow one loop: DAC code → voltage → comparator → sampled bit → next trial. Explain the purpose of the ambiguous-voltage region. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "m-hold",
+      "path": "mixed",
+      "title": "02 · Acquire, then hold",
+      "starter": "sar-hold",
+      "workspace": "m-hold",
+      "summary": "Change the input during conversion and verify the held sample is used.",
+      "skills": [
+        "sample and hold",
+        "acquisition",
+        "transient history"
+      ],
+      "minutes": 25,
+      "requires": [
+        "m-bridge"
+      ],
+      "doc": "MIXED_SIGNAL_SAR.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Predict a held conversion",
+          "kind": "quiz",
+          "instructions": "The input changes after the sampling switch opens. Ideally, the conversion represents…",
+          "options": [
+            "The new voltage",
+            "The held voltage",
+            "Their mean"
+          ],
+          "answer": 1,
+          "explanation": "The capacitor retains the acquired voltage while the SAR searches."
+        },
+        {
+          "id": "build",
+          "title": "Inspect the hold capacitor",
+          "kind": "check",
+          "instructions": "Select Chold and verify 20p. In bridge configuration, vin steps from 0.93 to 0.2 V after 3.5 µs.",
+          "rule": {
+            "type": "value",
+            "device": "Chold",
+            "field": "value",
+            "value": "20p"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify retained analog state",
+          "kind": "check",
+          "instructions": "Run lesson. Despite the later input change, code 8 must complete at edge 7.",
+          "rule": {
+            "type": "sar",
+            "codes": [
+              8
+            ],
+            "edges": [
+              7
+            ]
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Compare vin and held during conversion. Identify charge leakage and switch charge injection as real effects absent or simplified in this teaching model. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "m-codes",
+      "path": "mixed",
+      "title": "03 · Quantization and code transitions",
+      "starter": "sar",
+      "workspace": "m-codes",
+      "summary": "Predict a new output code and verify an edited stimulus.",
+      "skills": [
+        "quantization",
+        "reference voltage",
+        "stimuli"
+      ],
+      "minutes": 25,
+      "requires": [
+        "m-hold"
+      ],
+      "doc": "MIXED_SIGNAL_SAR.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Predict the code",
+          "kind": "quiz",
+          "instructions": "For 1.2 V with a 1.8 V reference, floor(16·Vin/Vref) is…",
+          "options": [
+            "8",
+            "10",
+            "12"
+          ],
+          "answer": 1,
+          "explanation": "The scaled value is approximately 10.67, giving code 10."
+        },
+        {
+          "id": "build",
+          "title": "Set a new input",
+          "kind": "check",
+          "instructions": "Open Mixed-signal experiment, set Input voltage to 1.2, and Apply configuration. Return to the guide.",
+          "rule": {
+            "type": "config",
+            "path": [
+              "stimuli",
+              "vin"
+            ],
+            "value": [
+              [
+                0,
+                1.2
+              ]
+            ]
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the new code",
+          "kind": "check",
+          "instructions": "Run lesson. Expect code 10 at edge 7. Inspect the different trial sequence.",
+          "rule": {
+            "type": "sar",
+            "codes": [
+              10
+            ],
+            "edges": [
+              7
+            ]
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "State the input interval represented by code 10. Explain why an exact boundary can be sensitive to comparator offset and settling. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "m-settling",
+      "path": "mixed",
+      "title": "04 · Repair a timing failure",
+      "starter": "sar-settling",
+      "workspace": "m-settling",
+      "summary": "A deliberately fast clock produces a wrong conversion; restore enough settling time.",
+      "skills": [
+        "settling",
+        "timing budget",
+        "debugging"
+      ],
+      "minutes": 25,
+      "requires": [
+        "m-codes"
+      ],
+      "doc": "MIXED_SIGNAL_SAR.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Relate clock and analog settling",
+          "kind": "quiz",
+          "instructions": "Shortening the clock without changing the DAC can…",
+          "options": [
+            "Improve all accuracy",
+            "Sample the DAC before it settles",
+            "Remove comparator delay"
+          ],
+          "answer": 1,
+          "explanation": "Analog networks need time to approach the trial voltage."
+        },
+        {
+          "id": "build",
+          "title": "Restore the comparison period",
+          "kind": "check",
+          "instructions": "First run the fast 10 ns setup and inspect the wrong code. Then open Mixed-signal experiment and change Clock period to 1u; Apply configuration. The smaller analog step can remain.",
+          "rule": {
+            "type": "config_number",
+            "path": [
+              "period"
+            ],
+            "value": 1e-06
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Recover the correct conversion",
+          "kind": "check",
+          "instructions": "Run the repaired design. The 0.3 V input must produce code 2 at edge 7.",
+          "rule": {
+            "type": "sar",
+            "codes": [
+              2
+            ],
+            "edges": [
+              7
+            ]
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Record the failing and repaired codes and explain the settling-time versus conversion-rate tradeoff. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "m-weight",
+      "path": "mixed",
+      "title": "05 · Repair a DAC weight",
+      "starter": "sar-weight",
+      "workspace": "m-weight",
+      "summary": "Use a numerical requirement to locate and repair a wrong resistor.",
+      "skills": [
+        "DAC weights",
+        "fault diagnosis",
+        "independent checks"
+      ],
+      "minutes": 25,
+      "requires": [
+        "m-settling"
+      ],
+      "doc": "MIXED_SIGNAL_SAR.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Understand the MSB weight",
+          "kind": "quiz",
+          "instructions": "Which DAC resistor has the largest conductance?",
+          "options": [
+            "Rbit0 at 80 kΩ",
+            "Rbit3 at 10 kΩ",
+            "All are equal"
+          ],
+          "answer": 1,
+          "explanation": "The MSB branch has the smallest resistance and greatest weight."
+        },
+        {
+          "id": "build",
+          "title": "Repair the MSB branch",
+          "kind": "check",
+          "instructions": "Run the supplied faulty circuit once. Inspect Rbit3: its 20k value is wrong. Change it to 10k and apply the property edit.",
+          "rule": {
+            "type": "value",
+            "device": "Rbit3",
+            "field": "value",
+            "value": "10k"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Check against the unchanged reference",
+          "kind": "check",
+          "instructions": "Run the repaired design. The expected code remains 8 at edge 7 for 0.93 V.",
+          "rule": {
+            "type": "sar",
+            "codes": [
+              8
+            ],
+            "edges": [
+              7
+            ]
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Explain why changing the expected code to match the faulty circuit would hide the design problem. Record the before/after codes. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "m-repeat",
+      "path": "mixed",
+      "title": "06 · Repeated conversions",
+      "starter": "sar-repeat",
+      "workspace": "m-repeat",
+      "summary": "Verify two acquisitions in one analog history and inspect the start/busy/done contract.",
+      "skills": [
+        "repeated conversion",
+        "handshake",
+        "state retention"
+      ],
+      "minutes": 25,
+      "requires": [
+        "m-weight"
+      ],
+      "doc": "MIXED_SIGNAL_SAR.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Choose the next start",
+          "kind": "quiz",
+          "instructions": "When should the next acquisition be requested?",
+          "options": [
+            "While the current SAR is still busy",
+            "After the previous transaction completes",
+            "At every comparator decision"
+          ],
+          "answer": 1,
+          "explanation": "The controller accepts a start in its idle state after completion."
+        },
+        {
+          "id": "build",
+          "title": "Inspect the conversion schedule",
+          "kind": "check",
+          "instructions": "Open bridge configuration: start is high at edges 2 and 9, with 18 total edges. vin changes from 0.4 to 1.2 V after 8 µs.",
+          "rule": {
+            "type": "config_number",
+            "path": [
+              "cycles"
+            ],
+            "value": 18
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify both conversions",
+          "kind": "check",
+          "instructions": "Run lesson. Expect codes 3 and 10, completing at edges 7 and 14 respectively.",
+          "rule": {
+            "type": "sar",
+            "codes": [
+              3,
+              10
+            ],
+            "edges": [
+              7,
+              14
+            ]
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Compare held before and after the second acquisition. Explain why retaining the full analog history matters for this test. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "l-width",
+      "path": "layout",
+      "title": "01 · Repair a minimum-width violation",
+      "starter": "layout-width",
+      "workspace": "l-width",
+      "summary": "Learn layout units and repair a metal route using measured geometry.",
+      "skills": [
+        "layout geometry",
+        "DRC",
+        "physical design"
+      ],
+      "minutes": 35,
+      "requires": [
+        "f-portfolio"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "A 100 nm route must meet a 0.20 µm minimum width. What is the minimum increase?",
+          "options": [
+            "0.10 µm",
+            "0.20 µm",
+            "100 µm"
+          ],
+          "answer": 0,
+          "explanation": "100 nm is .10 µm. Increase thickness by .10 µm to reach .20 µm."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "In Layout, select the thin metal1 rectangle on net a. In the inspector’s Geometry (µm) section, set Height to 0.20 and keep Left=0, Top=0, Width=2. Apply changes. Geometry fields use micrometres; 0.20 µm is 200 nm. Keep both original rectangles and labels.",
+          "rule": {
+            "type": "layout",
+            "minimum": 2
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Choose Check this step after the edit. The checker reruns fixed generic width/spacing/grid rules, preserves the original shapes, and measures this exercise requirement. No circuit simulation is needed. Removing shapes or weakening editable PDK rules cannot earn this step.",
+          "rule": {
+            "type": "layout_exercise",
+            "exercise": "layout-width"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Check geometry and record the minimum width and unit conversion. Explain why making metal wider can also change capacitance and area. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "l-spacing",
+      "path": "layout",
+      "title": "02 · Separate neighboring routes",
+      "starter": "layout-spacing",
+      "workspace": "l-spacing",
+      "summary": "Measure edge-to-edge spacing and repair a pair of adjacent nets.",
+      "skills": [
+        "layout geometry",
+        "DRC",
+        "physical design"
+      ],
+      "minutes": 35,
+      "requires": [
+        "l-width"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "Two .20 µm-thick routes have centerlines .30 µm apart. What is their edge spacing?",
+          "options": [
+            ".30 µm",
+            ".10 µm",
+            ".50 µm"
+          ],
+          "answer": 1,
+          "explanation": "Subtract half the thickness of each route: .30−.10−.10=.10 µm."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Select the metal1 rectangle on net b. In Geometry (µm), set Top=0.40, keeping Left=0, Width=2 and Height=0.20. Apply changes. Net a remains at Top=0 and Height=0.20, giving 0.20 µm edge spacing.",
+          "rule": {
+            "type": "layout",
+            "minimum": 2
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Choose Check this step after the edit. The checker reruns fixed generic width/spacing/grid rules, preserves the original shapes, and measures this exercise requirement. No circuit simulation is needed. Removing shapes or weakening editable PDK rules cannot earn this step.",
+          "rule": {
+            "type": "layout_exercise",
+            "exercise": "layout-spacing"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Record before/after spacing. Explain why touching different nets creates a short even if a merged polygon passes a minimum-width rule. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "l-via",
+      "path": "layout",
+      "title": "03 · Enclose a via on both metals",
+      "starter": "layout-via",
+      "workspace": "l-via",
+      "summary": "Repair a via landing and distinguish geometric overlap from connectivity verification.",
+      "skills": [
+        "layout geometry",
+        "DRC",
+        "physical design"
+      ],
+      "minutes": 35,
+      "requires": [
+        "l-spacing"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "A .15 µm via requires .075 µm enclosure on each side. What is the minimum square landing?",
+          "options": [
+            ".225 µm",
+            ".30 µm",
+            ".15 µm"
+          ],
+          "answer": 1,
+          "explanation": "Landing size = .15 + 2×.075 = .30 µm; both connected metals need the enclosure."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Select the via1 rectangle (use layer visibility controls if metal obscures it). In Geometry (µm), set Left=0.175 and Top=0.175; keep Width=0.15 and Height=0.15. Apply changes. Keep both 0.50 µm metal landing rectangles and their out labels.",
+          "rule": {
+            "type": "layout",
+            "minimum": 3
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Choose Check this step after the edit. The checker reruns fixed generic width/spacing/grid rules, preserves the original shapes, and measures this exercise requirement. No circuit simulation is needed. Removing shapes or weakening editable PDK rules cannot earn this step.",
+          "rule": {
+            "type": "layout_exercise",
+            "exercise": "layout-via"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Record the .175 µm enclosure on both metals. Explain the different questions answered by DRC, extracted connectivity and LVS. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "l-centroid",
+      "path": "layout",
+      "title": "04 · Build a common-centroid pattern",
+      "starter": "layout-centroid",
+      "workspace": "l-centroid",
+      "summary": "Rearrange equal unit tiles to cancel a first-order spatial gradient.",
+      "skills": [
+        "layout geometry",
+        "DRC",
+        "physical design"
+      ],
+      "minutes": 35,
+      "requires": [
+        "l-via"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "For equal units at x=0,1,2,3, which assignment gives A and B the same average x?",
+          "options": [
+            "AABB",
+            "ABAB",
+            "ABBA"
+          ],
+          "answer": 2,
+          "explanation": "ABBA gives A at 0 and 3, B at 1 and 2, so both centers are 1.5."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Keep all four metal1 tiles and their original net labels. In Geometry (µm), move the second A tile from Left=0.8 to a temporary Left=3.2. Apply changes. Move the last B tile from Left=2.4 to Left=0.8; apply. Finally move the A tile from Left=3.2 to Left=2.4; apply. Keep Top=0 and Width=Height=0.40 for every tile. This avoids temporary overlap and produces ABBA.",
+          "rule": {
+            "type": "layout",
+            "minimum": 4
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Choose Check this step after the edit. The checker reruns fixed generic width/spacing/grid rules, preserves the original shapes, and measures this exercise requirement. No circuit simulation is needed. Removing shapes or weakening editable PDK rules cannot earn this step.",
+          "rule": {
+            "type": "layout_exercise",
+            "exercise": "layout-centroid"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Record both group centroids and explain linear-gradient cancellation. Discuss dummies, identical orientation, edge effects and matched routing; equal centers alone do not verify matching. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "p-spec",
+      "path": "career",
+      "title": "01 · Write an engineering design brief",
+      "starter": "current_mirror",
+      "workspace": "portfolio-case",
+      "summary": "Turn an open-ended circuit task into requirements, assumptions and a verification plan.",
+      "skills": [
+        "requirements",
+        "design review",
+        "portfolio"
+      ],
+      "minutes": 35,
+      "requires": [
+        "f-portfolio"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "Which is a verifiable requirement?",
+          "options": [
+            "Make a good current mirror",
+            "Output current stays within a stated tolerance over a specified voltage and temperature range",
+            "Use many transistors"
+          ],
+          "answer": 1,
+          "explanation": "A requirement needs a quantity, a bound, operating conditions and a method of checking it."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Inspect the current-mirror starter and identify IREF, MREF and MOUT. Write a proposed current target, output-voltage range and error tolerance on paper before measuring. Keep this project as the design-brief case study.",
+          "rule": {
+            "type": "structure",
+            "devices": [
+              "MREF",
+              "MOUT"
+            ]
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Choose Save work, then check this step. This checkpoint checks that the case-study project is saved; it does not grade the quality of your requirements or claim they have been met.",
+          "rule": {
+            "type": "saved"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Write a brief with five labeled parts: Requirement (quantity, units, limit and conditions); Assumptions/model; Design choice and alternative; Verification plan including a failing boundary case; Evidence still missing. Distinguish proposed targets from measured facts. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "p-review",
+      "path": "career",
+      "title": "02 · Present a reproducible design story",
+      "starter": "current_mirror",
+      "workspace": "portfolio-case",
+      "summary": "Build a portfolio case study and practice explaining a failure, repair and remaining limitations.",
+      "skills": [
+        "interview preparation",
+        "reproducibility",
+        "technical communication"
+      ],
+      "minutes": 35,
+      "requires": [
+        "p-spec"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Reason before editing",
+          "kind": "quiz",
+          "instructions": "Which portfolio claim is supported by a passing generic simulation?",
+          "options": [
+            "The chip is ready for tapeout",
+            "This model passed these stated checks at these conditions",
+            "Guaranteed silicon yield"
+          ],
+          "answer": 1,
+          "explanation": "State the evidence scope precisely: tool/model, conditions, requirement and result. A teaching simulation does not establish physical signoff."
+        },
+        {
+          "id": "build",
+          "title": "Build or repair the design",
+          "kind": "check",
+          "instructions": "Resume the same case-study project. Check its device names and saved settings. Revisit one completed analog, layout or digital lesson to collect a before/after observation and a failure you can explain. Keep the current-mirror case saved when switching lessons.",
+          "rule": {
+            "type": "structure",
+            "devices": [
+              "MREF",
+              "MOUT"
+            ]
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify the requirement",
+          "kind": "check",
+          "instructions": "Return to this lesson, choose Save work and check this step. Write the design story below, then open Student Hub → More → Export portfolio report. Export learning record separately for embedded saved projects and evidence references.",
+          "rule": {
+            "type": "saved"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Write your design review",
+          "kind": "reflection",
+          "instructions": "Write a 90-second explanation: problem and target; your contribution; one design choice and rejected alternative; a failing case and root cause; repair and measured evidence; remaining limitations and next verification. Add a factual résumé bullet tied to your own evidence. Do not invent improvements or claim silicon validation. Record at least 40 characters. This writing is saved for review, not automatically graded for correctness."
+        }
+      ]
+    },
+    {
+      "id": "c-filter",
+      "path": "capstone",
+      "title": "01 · Size the sensor input filter",
+      "starter": "capstone",
+      "workspace": "capstone",
+      "summary": "Repair the acquisition bandwidth in the shared sensor-acquisition project.",
+      "skills": [
+        "input filtering",
+        "acquisition budget",
+        "system requirements"
+      ],
+      "minutes": 40,
+      "requires": [
+        "f-portfolio",
+        "a-layout",
+        "d-serial",
+        "m-repeat"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Budget the filter time constant",
+          "kind": "quiz",
+          "instructions": "Rfilter = 1 kΩ and Cfilter = 100 pF gives…",
+          "options": [
+            "100 ns",
+            "1 µs",
+            "10 µs"
+          ],
+          "answer": 0,
+          "explanation": "R·C = 100 ns, allowing ample settling before acquisition closes."
+        },
+        {
+          "id": "build",
+          "title": "Repair the filter",
+          "kind": "check",
+          "instructions": "This project has three intentional faults. Start with Cfilter: change 1n to 100p. Leave the controller and averaging faults for the following milestones.",
+          "rule": {
+            "type": "value",
+            "device": "Cfilter",
+            "field": "value",
+            "value": "100p"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Check acquisition independently",
+          "kind": "check",
+          "instructions": "Run lesson. The acquisition-voltage check must pass for all eight samples even though the digital code checks still fail.",
+          "rule": {
+            "type": "capstone",
+            "checks": [
+              "Acquisition error below 2 mV"
+            ]
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Record the maximum acquisition error and explain why the analog block can pass while the system still fails. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "c-sar",
+      "path": "capstone",
+      "title": "02 · Integrate repeated SAR conversion",
+      "starter": "capstone",
+      "workspace": "capstone",
+      "summary": "Repair decision polarity and verify eight conversion transactions.",
+      "skills": [
+        "SAR integration",
+        "code accuracy",
+        "cadence"
+      ],
+      "minutes": 40,
+      "requires": [
+        "c-filter"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Keep or clear a trial bit",
+          "kind": "quiz",
+          "instructions": "If held < vdac, the current SAR trial bit should be…",
+          "options": [
+            "Kept",
+            "Cleared",
+            "Copied from the previous code"
+          ],
+          "answer": 1,
+          "explanation": "The trial is too high, so clearing the tested bit moves the DAC downward."
+        },
+        {
+          "id": "build",
+          "title": "Repair comparator interpretation",
+          "kind": "check",
+          "instructions": "Open RTL, select sar_controller.sv, and replace if (cmp) with if (!cmp). Apply the RTL edit. Keep the reference requirements unchanged.",
+          "rule": {
+            "type": "rtl_contains",
+            "text": "if (!cmp)"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Check raw conversions",
+          "kind": "check",
+          "instructions": "Run lesson. Expect codes 1,3,5,7,8,10,12,14 at edges 7,15,23,31,39,47,55,63. The averaging fault is still intentionally present.",
+          "rule": {
+            "type": "capstone",
+            "checks": [
+              "Eight conversion codes",
+              "Conversion cadence",
+              "Thirty-two comparator decisions"
+            ]
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Record the raw codes and explain how an inverted comparator decision corrupts every later trial. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "c-average",
+      "path": "capstone",
+      "title": "03 · Add averaging and threshold detection",
+      "starter": "capstone",
+      "workspace": "capstone",
+      "summary": "Repair fixed-point scaling and verify data-valid and alarm timing.",
+      "skills": [
+        "fixed-point integration",
+        "averaging",
+        "alarm"
+      ],
+      "minutes": 45,
+      "requires": [
+        "c-sar"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Round a four-sample block",
+          "kind": "quiz",
+          "instructions": "For codes 1,3,5,7, the rounded average is…",
+          "options": [
+            "4",
+            "8",
+            "16"
+          ],
+          "answer": 0,
+          "explanation": "(1+3+5+7+2)/4 rounded down is 4."
+        },
+        {
+          "id": "build",
+          "title": "Repair the averaging scale",
+          "kind": "check",
+          "instructions": "In sensor_controller.sv, change the rounded_average expression from >> 1 to >> 2. Apply. The six-bit sum includes the current code; adding two rounds to nearest with halves upward.",
+          "rule": {
+            "type": "rtl_contains",
+            "text": "(total + 6'd2) >> 2"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Verify complete nominal behavior",
+          "kind": "check",
+          "instructions": "Run lesson. Expect block averages 4 and 11, valid pulses at edges 32 and 64, and alarm values 0 then 1. All nominal requirements must pass.",
+          "rule": {
+            "type": "capstone",
+            "checks": "all"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Explain the one-cycle delay between SAR done and averaging, why a six-bit accumulator is enough, and how the alarm threshold is applied. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    },
+    {
+      "id": "c-qualify",
+      "path": "capstone",
+      "title": "04 · Qualify and present the system",
+      "starter": "capstone",
+      "workspace": "capstone",
+      "summary": "Run the complete acceptance campaign and deliver a reproducible engineering record.",
+      "skills": [
+        "acceptance campaign",
+        "rails",
+        "hold behavior",
+        "reproducibility"
+      ],
+      "minutes": 45,
+      "requires": [
+        "c-average"
+      ],
+      "doc": "STUDENT_HUB.md",
+      "steps": [
+        {
+          "id": "predict",
+          "title": "Choose meaningful acceptance evidence",
+          "kind": "quiz",
+          "instructions": "Which is the strongest evidence here?",
+          "options": [
+            "A screenshot of a schematic",
+            "Passing independent checks across several captured inputs",
+            "A simulator process exiting successfully"
+          ],
+          "answer": 1,
+          "explanation": "Independent checks test the intended behavior; raw captures make the result inspectable."
+        },
+        {
+          "id": "build",
+          "title": "Save the reviewed system",
+          "kind": "check",
+          "instructions": "Use Save work. Confirm the project includes your three repairs; the following campaign runs copies of this exact design.",
+          "rule": {
+            "type": "saved"
+          }
+        },
+        {
+          "id": "measure",
+          "title": "Run all four acceptance cases",
+          "kind": "check",
+          "instructions": "Choose Run qualification. This runs nominal, low-rail, high-rail and input-change-during-hold cases without changing your open project. Check after all four finish. Every conversion, average, pulse, acquisition and alarm requirement must pass.",
+          "rule": {
+            "type": "campaign"
+          }
+        },
+        {
+          "id": "explain",
+          "title": "Explain your result",
+          "kind": "reflection",
+          "instructions": "Write your final review: measured codes and averages, all four cases, tool identities, behavioral-model limitations, and next steps for noise, PVT, transistor-level implementation and physical verification. Export the learning record from the Hub. Record at least 40 characters. This is a written reflection, not an automatically graded engineering claim."
+        }
+      ]
+    }
+  ]
+}

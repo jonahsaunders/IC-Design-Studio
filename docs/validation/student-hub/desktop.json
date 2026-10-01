@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "qt_platform": "offscreen",
+  "checks": [
+    "four paths and capstone navigation",
+    "wrong answer rejected",
+    "real analog worker and stale-result rejection",
+    "persisted completion and lesson resume",
+    "save-cancel preserves work",
+    "locked lesson practice without credit",
+    "real RTL simulation",
+    "shared capstone workspace",
+    "four real acceptance cases",
+    "non-mutating campaign",
+    "portfolio export",
+    "autosaved reflection",
+    "cancellation"
+  ]
+}

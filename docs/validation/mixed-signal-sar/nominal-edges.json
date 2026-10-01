@@ -1,0 +1,421 @@
+{
+  "description": "Captured default desktop conversion; raw files retained in the GUI run directory and CI artifacts.",
+  "input_sha256": "4b588a6d2a6eb17a0d77999686195100e8c7c93ba508fe80ab7cae7ed39ad036",
+  "result_sha256": "60c666b99eb005a0e64fdfd44d678be32edcf57d98c74604a32c563467c50b5d",
+  "design_hash": "46f5f736ca8651a0962d9d4f6be3f59a48bb3e1dc7af38f8c444edae444bdc00",
+  "configuration": {
+    "version": 1,
+    "analog_cell": "c61ed87da16f4a3c",
+    "digital_cell": "1d2e2bc831934d91",
+    "clock": "clk",
+    "period": 1e-06,
+    "rise": 1e-09,
+    "max_step": 1e-08,
+    "cycles": 10,
+    "timeout": 180,
+    "inputs": [
+      {
+        "port": "reset",
+        "width": 1,
+        "values": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "port": "start",
+        "width": 1,
+        "values": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "port": "cmp",
+        "width": 1,
+        "node": "cmp",
+        "low": 0.6,
+        "high": 1.2,
+        "sample_when": {
+          "port": "compare",
+          "value": 1
+        }
+      }
+    ],
+    "outputs": [
+      {
+        "port": "dac",
+        "width": 4,
+        "nodes": [
+          "d0",
+          "d1",
+          "d2",
+          "d3"
+        ],
+        "low": 0.0,
+        "high": 1.8,
+        "initial": 0
+      },
+      {
+        "port": "code",
+        "width": 4
+      },
+      {
+        "port": "track",
+        "width": 1,
+        "nodes": [
+          "track"
+        ],
+        "low": 0.0,
+        "high": 1.8,
+        "initial": 1
+      },
+      {
+        "port": "busy",
+        "width": 1
+      },
+      {
+        "port": "done",
+        "width": 1
+      },
+      {
+        "port": "compare",
+        "width": 1
+      }
+    ],
+    "stimuli": {
+      "vin": [
+        [
+          0.0,
+          0.93
+        ]
+      ]
+    },
+    "probes": [
+      "vin",
+      "held",
+      "vdac",
+      "cmp",
+      "track"
+    ],
+    "verification": {
+      "kind": "sar4",
+      "reference": 1.8
+    }
+  },
+  "samples": [
+    {
+      "edge": 0,
+      "time": 1e-12,
+      "inputs": {
+        "reset": 1,
+        "start": 0,
+        "cmp": 0
+      },
+      "outputs": {
+        "dac": 0,
+        "code": 0,
+        "track": 1,
+        "busy": 0,
+        "done": 0,
+        "compare": 0
+      },
+      "sampled": {
+        "cmp": false
+      },
+      "analog": {}
+    },
+    {
+      "edge": 1,
+      "time": 1.000001e-06,
+      "inputs": {
+        "reset": 1,
+        "start": 0,
+        "cmp": 0
+      },
+      "outputs": {
+        "dac": 0,
+        "code": 0,
+        "track": 1,
+        "busy": 0,
+        "done": 0,
+        "compare": 0
+      },
+      "sampled": {
+        "cmp": false
+      },
+      "analog": {
+        "vin": 0.93,
+        "held": 0.93,
+        "vdac": 0.0,
+        "cmp": 1.8,
+        "track": 1.8
+      }
+    },
+    {
+      "edge": 2,
+      "time": 2.0000009999999997e-06,
+      "inputs": {
+        "reset": 0,
+        "start": 1,
+        "cmp": 0
+      },
+      "outputs": {
+        "dac": 0,
+        "code": 0,
+        "track": 1,
+        "busy": 1,
+        "done": 0,
+        "compare": 0
+      },
+      "sampled": {
+        "cmp": false
+      },
+      "analog": {
+        "vin": 0.93,
+        "held": 0.93,
+        "vdac": 0.0,
+        "cmp": 1.8,
+        "track": 1.8
+      }
+    },
+    {
+      "edge": 3,
+      "time": 3.000001e-06,
+      "inputs": {
+        "reset": 0,
+        "start": 0,
+        "cmp": 0
+      },
+      "outputs": {
+        "dac": 8,
+        "code": 0,
+        "track": 0,
+        "busy": 1,
+        "done": 0,
+        "compare": 1
+      },
+      "sampled": {
+        "cmp": false
+      },
+      "analog": {
+        "vin": 0.93,
+        "held": 0.9300000000000003,
+        "vdac": 0.0,
+        "cmp": 1.8,
+        "track": 1.8
+      }
+    },
+    {
+      "edge": 4,
+      "time": 4.000001e-06,
+      "inputs": {
+        "reset": 0,
+        "start": 0,
+        "cmp": 1
+      },
+      "outputs": {
+        "dac": 12,
+        "code": 0,
+        "track": 0,
+        "busy": 1,
+        "done": 0,
+        "compare": 1
+      },
+      "sampled": {
+        "cmp": true
+      },
+      "analog": {
+        "vin": 0.93,
+        "held": 0.9299999999999665,
+        "vdac": 0.9000000000000004,
+        "cmp": 1.8,
+        "track": 0.0
+      }
+    },
+    {
+      "edge": 5,
+      "time": 5.000001e-06,
+      "inputs": {
+        "reset": 0,
+        "start": 0,
+        "cmp": 0
+      },
+      "outputs": {
+        "dac": 10,
+        "code": 0,
+        "track": 0,
+        "busy": 1,
+        "done": 0,
+        "compare": 1
+      },
+      "sampled": {
+        "cmp": true
+      },
+      "analog": {
+        "vin": 0.93,
+        "held": 0.9299999999999603,
+        "vdac": 1.35,
+        "cmp": -2.348253534557248e-36,
+        "track": 0.0
+      }
+    },
+    {
+      "edge": 6,
+      "time": 6.000001e-06,
+      "inputs": {
+        "reset": 0,
+        "start": 0,
+        "cmp": 0
+      },
+      "outputs": {
+        "dac": 9,
+        "code": 0,
+        "track": 0,
+        "busy": 1,
+        "done": 0,
+        "compare": 1
+      },
+      "sampled": {
+        "cmp": true
+      },
+      "analog": {
+        "vin": 0.93,
+        "held": 0.9299999999999574,
+        "vdac": 1.125,
+        "cmp": 7.589718889302476e-74,
+        "track": 0.0
+      }
+    },
+    {
+      "edge": 7,
+      "time": 7.000001e-06,
+      "inputs": {
+        "reset": 0,
+        "start": 0,
+        "cmp": 0
+      },
+      "outputs": {
+        "dac": 8,
+        "code": 8,
+        "track": 0,
+        "busy": 0,
+        "done": 1,
+        "compare": 0
+      },
+      "sampled": {
+        "cmp": true
+      },
+      "analog": {
+        "vin": 0.93,
+        "held": 0.9299999999999568,
+        "vdac": 1.0125,
+        "cmp": 4.284654035517765e-107,
+        "track": 0.0
+      }
+    },
+    {
+      "edge": 8,
+      "time": 8.000000999999999e-06,
+      "inputs": {
+        "reset": 0,
+        "start": 0,
+        "cmp": 0
+      },
+      "outputs": {
+        "dac": 8,
+        "code": 8,
+        "track": 0,
+        "busy": 0,
+        "done": 0,
+        "compare": 0
+      },
+      "sampled": {
+        "cmp": false
+      },
+      "analog": {
+        "vin": 0.93,
+        "held": 0.9299999999999523,
+        "vdac": 0.9000000000000005,
+        "cmp": 1.799999999999999,
+        "track": 0.0
+      }
+    },
+    {
+      "edge": 9,
+      "time": 9.000001e-06,
+      "inputs": {
+        "reset": 0,
+        "start": 0,
+        "cmp": 0
+      },
+      "outputs": {
+        "dac": 8,
+        "code": 8,
+        "track": 0,
+        "busy": 0,
+        "done": 0,
+        "compare": 0
+      },
+      "sampled": {
+        "cmp": false
+      },
+      "analog": {
+        "vin": 0.93,
+        "held": 0.9299999999999521,
+        "vdac": 0.9000000000000005,
+        "cmp": 1.8,
+        "track": 0.0
+      }
+    }
+  ],
+  "verification": {
+    "status": "PASS",
+    "code": 8,
+    "conversion_seconds": 5e-06,
+    "checks": [
+      {
+        "name": "One completion pulse",
+        "passed": true
+      },
+      {
+        "name": "Four comparator decisions",
+        "passed": true
+      },
+      {
+        "name": "Completion at edge 7",
+        "passed": true
+      },
+      {
+        "name": "Idle after completion",
+        "passed": true
+      },
+      {
+        "name": "Code held after completion",
+        "passed": true
+      },
+      {
+        "name": "Expected conversion code",
+        "passed": true,
+        "expected": 8,
+        "actual": 8
+      }
+    ]
+  }
+}

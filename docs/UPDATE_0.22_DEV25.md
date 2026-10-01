@@ -1,5 +1,7 @@
 # IC Design Studio 0.22.0.dev25 — analog reference and release qualification
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This source preview follows the [integrated analog workflow](ANALOG_CLOSURE.md)
 merged into `experimental` at `46658f81b378743f39bbc10d4c83c5b8ceb583d1`.
 Dev25 and its Windows follow-up were merged into `experimental` in PRs #34/#35;

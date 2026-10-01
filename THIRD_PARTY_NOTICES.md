@@ -1,6 +1,6 @@
 # Third-party notices and corresponding source
 
-The application code is GPL-3.0-or-later. Do not remove this source package, its build instructions, or these notices when distributing the application bundle. The desktop packages include ngspice, standard Xschem symbols and public GF180MCU primitive simulation assets. Physical rule decks and Magic/Netgen engines are separate.
+The application code is GPL-3.0-or-later. Do not remove this source package, its build instructions, or these notices when distributing the application bundle. Complete desktop builds include ngspice, standard Xschem symbols, SKY130/GF180MCU/IHP primitive simulation subsets and the runtimes described below. The managed Linux/private WSL runtime includes Magic and Netgen for Studio's physical verification jobs and compiled IHP OSDI models. GF180 C/D and IHP packages include matching analog physical rule decks; SKY130 analog physical assets remain separate. The source checkout does not include the generated runtime binaries.
 
 | Component | Version | License / corresponding source |
 |---|---|---|
@@ -36,7 +36,7 @@ and component notices when redistributing it.
 
 ## Optional SKY130 reference evidence
 
-The separately supplied SKY130 reference bundle contains a subset of the SkyWater open PDK and generated derivatives of its inverter. Copyright 2020 The SkyWater PDK Authors and other notices retained in the original files. These assets are distributed under Apache-2.0; see licenses/Apache-2.0.txt and their file headers. The app's reference fetch script points to the pinned upstream Volare distribution. Magic and Netgen used for verification are external tools. ngspice is included in the 0.18 desktop packages.
+The separately supplied SKY130 reference bundle contains a subset of the SkyWater open PDK and generated derivatives of its inverter. Copyright 2020 The SkyWater PDK Authors and other notices retained in the original files. These assets are distributed under Apache-2.0; see licenses/Apache-2.0.txt and their file headers. The app's reference fetch script points to the pinned upstream Volare distribution. Verification can use configured external Magic/Netgen or the managed runtime described under Included digital tools below; that runtime does not supply this separate analog reference PDK.
 
 ## Included Xschem and GF180 simulation assets
 
@@ -57,6 +57,14 @@ SKY130A primitive models, symbols and display layers are extracted from the chec
 The GF180MCU D adapter reuses the existing pinned primitive files above, adds `.ngspice` compatibility aliases, and includes `tech/klayout/gf180mcu.lyp` from the same upstream revision. Original Apache-2.0 headers and license are retained. Each package records source provenance in `UPSTREAM-LOCK.json` and locks every distributed asset in `package.json`.
 
 The Windows source/build provisioner uses py7zr 1.1.3 (LGPL-2.1-or-later), https://github.com/miurahr/py7zr/tree/v1.1.3, installed by pip with its dependencies. It is a setup dependency; the prepared portable desktop does not require it. The portable desktop retains the original Python license and the license files from the pinned PySide6, Shiboken, KLayout and cryptography wheels.
+
+## Student physical process packages
+
+GF180 C/D Magic technology and Netgen setup files are generated from unmodified open_pdks commit `aa3fc215a80d32437b8cca1cb3fdee819d18c4c9`: https://github.com/fossi-foundation/open-pdks/tree/aa3fc215a80d32437b8cca1cb3fdee819d18c4c9. Copyright and Apache-2.0 notices are retained in the files and `OPEN_PDKS_LICENSE`. Each variant records its source commit in `PHYSICAL-SOURCE-LOCK.json`; preprocessing options are explicit in `scripts/build_student_pdks.py`, and generated file hashes are in `package.json`. Models retain the separate primitive source lock above.
+
+The IHP SG13G2 model, symbol, layer-map, Magic, Netgen and Verilog-A subset comes from https://github.com/IHP-GmbH/IHP-Open-PDK/tree/5e6d592e4002946a4616f798c357f0f3c06cf3b6. Its Apache-2.0 license, component-specific model headers, PSP notices and R3_CMC Educational Community License 2.0/NOTICE files are retained under `icstudio/assets/pdks/ihp-sg13g2`. All distributed files are checksummed in `package.json`; `scripts/build_student_pdks.py` reproduces the subset.
+
+The managed runtime compiles the six IHP Verilog-A libraries with the checksum-pinned OpenVAF Reloaded OSDI 0.3 compiler in `packaging/digital/Dockerfile` (https://fides.fe.uni-lj.si/openvaf/). The build compiler is not distributed. Corresponding model sources and their notices accompany the generated libraries under `opt/icstudio/osdi/ihp-sg13g2/sources`; `build.json` records each compiled binary, compiler identity, generic CPU target and complete model-source dependency hashes.
 
 ## Optional overvoltage qualification source
 

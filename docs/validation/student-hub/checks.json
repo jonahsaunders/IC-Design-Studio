@@ -1,0 +1,42 @@
+[
+  {
+    "name": "unit-tests",
+    "command": [
+      "/workspace/scratch/101e754ddca6/IC-Design-Studio/.venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_*.py",
+      "-q"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 166.26
+  },
+  {
+    "name": "student-engine-tests",
+    "command": [
+      "/workspace/scratch/101e754ddca6/IC-Design-Studio/.venv/bin/python",
+      "-m",
+      "unittest",
+      "tests.test_student_hub",
+      "-v"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 117.13
+  },
+  {
+    "name": "final progression and packaged-identity regression",
+    "command": [
+      ".venv/bin/python",
+      "-m",
+      "unittest",
+      "tests.test_student_hub.StudentProgressTests",
+      "-v"
+    ],
+    "exit_code": 0,
+    "log": "progression-final.txt"
+  }
+]

@@ -4,7 +4,7 @@
 
 <p align="center">
   <strong>An open desktop workspace for circuit design.</strong><br>
-  Draw schematics, optimize analog circuits, simulate RTL, implement digital blocks, and review designs together.<br>
+  Draw schematics. Optimize analog circuits. Simulate RTL and mixed-signal systems. Build layouts.<br>
   Keep your cells, sources, models, testbenches, layouts, and results in one project.
 </p>
 
@@ -17,12 +17,9 @@
 
 <p align="center">
   <a href="#start-in-three-steps"><strong>Get started</strong></a> &nbsp;·&nbsp;
-  <a href="docs/DOWNLOADS.md">Downloads</a> &nbsp;·&nbsp;
+  <a href="#example-library">Examples</a> &nbsp;·&nbsp;
+  <a href="#bandgaps-and-a-programmable-voltage-monitor">Bandgaps &amp; voltage monitor</a> &nbsp;·&nbsp;
   <a href="#explore-the-workspace">Feature tour</a> &nbsp;·&nbsp;
-  <a href="#design-and-optimize-analog-circuits">Analog design</a> &nbsp;·&nbsp;
-  <a href="#build-a-gf180mcu-banba-bandgap">Banba example</a> &nbsp;·&nbsp;
-  <a href="#design-digital-blocks-from-rtl-to-gds">Digital design</a> &nbsp;·&nbsp;
-  <a href="#create-and-characterize-spiral-inductors">Inductor creator</a> &nbsp;·&nbsp;
   <a href="#feature-reference">All features</a> &nbsp;·&nbsp;
   <a href="docs/INDEX.md">Documentation</a> &nbsp;·&nbsp;
   <a href="CONTRIBUTING.md">Contribute</a>
@@ -39,46 +36,182 @@
   <sub>A real simulation in the native desktop. The README preview follows your light or dark theme.</sub>
 </p>
 
+> **Experimental branch · 0.22.0.dev25.** This README describes the current development source. Desktop packages can lag behind it; use the [download guide](docs/DOWNLOADS.md) and [release status](docs/RELEASE_STATUS.md) to match a package to its source and validation evidence.
+
+## Start in three steps
+
+1. **Launch Studio.** Choose a complete Windows/Linux desktop package from the [download guide](docs/DOWNLOADS.md), or use the source instructions below.
+2. **Open a working circuit.** Choose **File → Start here / example gallery → Your first waveform → Open a copy**. The RC example needs no external simulator or PDK.
+3. **Make your first change.** Press **F5**, inspect **Results → Waveforms**, change a component value, and run again. Save your project with **Ctrl+S**.
+
+Want a guided course? Open **File → Student Hub** for [41 lessons and a sensor-acquisition capstone](#learn-by-building-real-circuits).
+
+<details>
+<summary><strong>Run from source</strong> · Python 3.12 · Windows, Linux and experimental macOS</summary>
+
+**Windows:** install 64-bit Python 3.12 and Git, then run:
+
+```powershell
+git clone --branch experimental --single-branch https://github.com/jonahsaunders/IC-Design-Studio.git
+cd IC-Design-Studio
+.\launch-windows.bat
+```
+
+You can also extract the source to a short path such as `C:\ICStudio` and double-click `launch-windows.bat`. The launcher creates an isolated environment under `%LOCALAPPDATA%\ICStudio`, downloads and verifies the pinned ngspice runtime, and checks dependencies and a real simulation before opening the app.
+
+**Linux / macOS:**
+
+```sh
+git clone --branch experimental --single-branch https://github.com/jonahsaunders/IC-Design-Studio.git
+cd IC-Design-Studio
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python scripts/check_simulation_assets.py
+python main.py
+```
+
+For SPICE analyses, install ngspice (`sudo apt install ngspice` on Ubuntu, `brew install ngspice` on macOS), then select it in **Tools → Engine diagnostics and paths** or set `ICSTUDIO_NGSPICE`. macOS is a source workflow awaiting qualification.
+
+Python requirements do not install the digital engines, VGA assets or openEMS runtime. Use a complete desktop package for included tools, or follow the [digital source setup](docs/DIGITAL_FLOW.md), [VGA build](docs/VGA_PLAYGROUND.md#source-setup-and-desktop-packaging) and [openEMS guide](docs/OPENEMS.md). [Simulation setup](SIMULATION_SETUP.md) covers analog engine configuration.
+
+</details>
+
+<details>
+<summary><strong>Which tools do I need?</strong> · Match your setup to your workflow</summary>
+
+| Workflow | Required tools and assets |
+|---|---|
+| First waveform, teaching circuits, Foundations and Analog lessons | Included teaching solver and generic devices; no downloaded PDK |
+| Native SPICE and process-model analog design | ngspice; included SKY130/GF180 simulation subsets or compatible external models |
+| Digital simulation through RTL-to-GDS | Included digital runtime and locked SKY130 HD platform in complete desktop packages; a built runtime or explicit **Custom tools** selection in source mode |
+| Student Hub Digital lessons | Local `iverilog` and `vvp`, selected in **More → Engine setup** |
+| SAR ADC, Mixed Signal lessons and capstone | Local `ngspice`, `iverilog` and `vvp`; behavioral models, no downloaded PDK |
+| Process layout verification | Matching physical PDK assets/decks; **Tools → Physical tools setup** selects the included Magic/Netgen/ngspice runtime or configured custom engines |
+| Inductor EM simulation | openEMS runtime plus declared physical materials and layer data in a PDK profile |
+
+The packaged digital runtime uses native Linux tools or an app-owned **WSL 2** distribution on Windows. First-time Windows setup may need administrator approval and a restart. Linux packages target **x86_64, glibc 2.39+**. The Student Hub uses that runtime for inverter DRC/LVS and IHP simulation, including compiled OSDI models. Other Hub electrical/RTL lessons and the SAR bridge use local executable paths.
+
+[Desktop setup](docs/DOWNLOADS.md) · [PDK setup](docs/PDK_GUIDE.md) · [Engine details](docs/DIGITAL_FLOW.md#included-tools-and-first-setup)
+
+</details>
+
 ## Explore the workspace
 
-Start with a small circuit, or bring an existing open design. Local design work needs no account or hosted service. The native `.icproj` format keeps editable documents and revision-linked evidence together.
+One native `.icproj` project keeps cells, symbols, RTL, models, testbenches, layouts and saved results together. Local design work needs no account or hosted service.
 
 <table>
 <tr>
 <td width="33%" valign="top">
-<h3>Draw the circuit</h3>
-<p>Capture devices and wires, create custom symbols, and build reusable cell hierarchies.</p>
-<a href="docs/UPDATE_0.12.md">Schematic and symbol tools →</a>
+<h3>Analog design</h3>
+<p>Capture circuits, run SPICE, inspect waveforms, size devices and search against saved requirements.</p>
+<a href="#design-and-optimize-analog-circuits">Explore analog →</a>
 </td>
 <td width="33%" valign="top">
-<h3>Explore its behavior</h3>
-<p>Run ngspice analyses, inspect waveforms, and compare measurements across testbenches and corners.</p>
-<a href="docs/PROFESSIONAL_WORKFLOWS.md">Simulation and studies →</a>
+<h3>Digital design</h3>
+<p>Edit RTL, debug regressions, check equivalence and timing, and implement blocks through GDS.</p>
+<a href="#design-digital-blocks-from-rtl-to-gds">Explore digital →</a>
 </td>
 <td width="33%" valign="top">
-<h3>Shape the layout</h3>
-<p>Edit physical geometry, route connections, place arrays, and inspect a layer stack in 3D.</p>
-<a href="docs/PRIORITIES_0.22.md">Layout workflows →</a>
+<h3>Mixed signal</h3>
+<p>Connect a real SPICE simulation to a Verilog controller and inspect every SAR conversion decision.</p>
+<a href="#connect-analog-and-rtl-in-a-sar-adc">Build an ADC →</a>
 </td>
 </tr>
 <tr>
 <td valign="top">
-<h3>Connect both views</h3>
-<p>Cross-probe linked objects and review device, parameter, and geometry changes before applying them.</p>
-<a href="docs/WORKFLOW_REVIEW_0.22.md">Linked design review →</a>
+<h3>Layout and verification</h3>
+<p>Draw and route geometry, place matched devices, cross-probe views, and inspect the stack in 3D.</p>
+<a href="#one-cell-both-views">Explore layout →</a>
 </td>
 <td valign="top">
-<h3>Use open processes</h3>
-<p>Start with included SKY130 and GF180 simulation models, or register a compatible PDK revision.</p>
-<a href="docs/PDK_GUIDE.md">PDK setup →</a>
+<h3>Inductors and EM</h3>
+<p>Create spiral inductors, search toward a target L, and characterize frequency response with openEMS.</p>
+<a href="#create-and-characterize-spiral-inductors">Create an inductor →</a>
 </td>
 <td valign="top">
-<h3>Work together</h3>
-<p>Share editing sessions, discuss checkpoints, compare revisions, and attach simulation evidence.</p>
-<a href="docs/LIVE_COLLABORATION.md">Collaboration →</a>
+<h3>Learn and collaborate</h3>
+<p>Follow measured lessons, build a capstone, or share editing sessions and revision-specific reviews.</p>
+<a href="#learn-by-building-real-circuits">Start learning →</a> · <a href="#review-a-design-together">Review together →</a>
 </td>
 </tr>
 </table>
+
+## Example library
+
+Open **File → Start here / example gallery** to browse **13 guided examples**. Each opens as an independent copy, with expected results and next steps. Start small, then follow a design into hierarchy, optimization or physical layout.
+
+| Start with | What to try | What you should see |
+|---|---|---|
+| [RC low-pass](examples/rc.icproj) | Run **F5**, inspect `vout`, add waveform markers | Smooth charging after the input edge; included solver |
+| [Native divider](examples/native-divider.icproj) | Run the operating point; study `R1.native.value` under **Analysis → Variation cases** | **0.5 V** from two 1 kΩ resistors; **0.25 V** when the upper resistor becomes 3 kΩ; ngspice |
+| [Inverter and linked layout](examples/inverter_layout.icproj) | Select devices across both views, simulate, inspect generic DRC | Inverted output and linked educational geometry; included solver |
+| [SKY130 transistor inverter](examples/sky130-simulation/inverter.sch) | Run the saved 1.8 V, 12 ns transient | Opposite input/output switching with bundled process models; ngspice |
+| [Supplied GF180 5 V bandgap](examples/gf180-bandgap/README.md) | Try the short startup, six-case compatibility bench or original 144-analysis program | A roughly **1.2 V** reference; the six-case archive records **1.19507235 V** at the end of startup |
+| [Banba reference: schematic → optimization → layout](examples/gf180-banba/README.md) | Follow gallery entries **10–12** | Editable GF180 hierarchy, saved searches and a routed layout; [measured trade-offs](#build-a-gf180mcu-banba-bandgap) |
+| [Four-bit SAR ADC](examples/sar-adc/sar-adc.icproj) | Run the coupled experiment at 0.93 V | **Code 8** after four comparisons; local ngspice and Icarus |
+| [SKY130 voltage monitor / overvoltage detector](docs/OPEN_PROJECTS.md) | Generate the locked external design's runnable bench, change its four code inputs, sweep the monitored voltage | **16 programmable trip codes**; archived rising thresholds **3.30–5.46 V** under the recorded nominal conditions |
+
+<details>
+<summary><strong>Browse all 13 gallery projects</strong></summary>
+
+| # | Gallery project | Focus | Engine |
+|---|---|---|---|
+| 01 | [Your first waveform](examples/rc.icproj) | RC transient and markers | Built-in |
+| 02 | [Native divider and studies](examples/native-divider.icproj) | Operating point and parameter studies | ngspice |
+| 03 | [Inverter and linked layout](examples/inverter_layout.icproj) | Schematic/layout selection and teaching DRC | Built-in |
+| 04 | [Layout parasitics](examples/native-rc.icproj) | Baseline versus declared interconnect RC | ngspice |
+| 05 | [Reusable hierarchical cells](examples/reusable-divider.icproj) | Parent/child ports and simulation | Built-in |
+| 06 | [Matching and placement](examples/common-centroid-resistors.icproj) | Common-centroid resistor constraints | None |
+| 07 | [GF180 bandgap startup](examples/gf180-bandgap/5vfullv2-startup.sch) | One 3 ms startup at 5 V / 25 °C | ngspice |
+| 08 | [GF180 full characterization](examples/gf180-bandgap/5vfullv2-original.sch) | Original 144-analysis program; allow a longer run | ngspice |
+| 09 | [SKY130 transistor inverter](examples/sky130-simulation/inverter.sch) | Real 1.8 V transistor models | ngspice |
+| 10 | [Build a Banba bandgap](examples/gf180-banba/banba.icproj) | Native reference, startup and resistor search | ngspice |
+| 11 | [Improve the Banba bandgap](examples/gf180-banba/pass2/banba.icproj) | Bias, startup and output-filter optimization | ngspice |
+| 12 | [Lay out the Banba bandgap](examples/gf180-banba/layout/banba-layout.icproj) | Matched devices, segmented resistors and MIM capacitors | ngspice; physical engines for process checks |
+| 13 | [Build a mixed-signal SAR ADC](examples/sar-adc/sar-adc.icproj) | Analog/RTL conversion and deliberate-fault debugging | Local ngspice + Icarus |
+
+The included process simulation examples resolve their bundled models automatically. Teaching layouts and illustrative RC coefficients do not establish process qualification. The Banba layout's [archived qualification](docs/REFERENCE_QUALIFICATION.md) records each passing, failing and blocked check separately.
+
+</details>
+
+**More starting points:** the **Digital** menu creates a counter, UART regression or APB FIFO peripheral; the [VGA Playground](#preview-rtl-in-the-vga-playground) adds eight interactive RTL presets. The [Student Hub](#learn-by-building-real-circuits) supplies its own lesson projects. For import exercises, try the [hierarchical Xschem amplifier](examples/xschem-amplifier/amplifier.sch), [manual wiring](examples/manual-wiring.icproj), or a [real open design](#work-with-real-open-designs).
+
+### Bandgaps and a programmable voltage monitor
+
+These are three distinct reference designs, with different entry points and verification evidence:
+
+| Design | Open it | Explore it |
+|---|---|---|
+| **Supplied GF180 `5vfullv2` bandgap** · 5 V supply, approximately 1.2 V output | Gallery **07 · GF180 bandgap startup** or **08 · GF180 full characterization**. Import [`5vfullv2-compatibility.sch`](examples/gf180-bandgap/5vfullv2-compatibility.sch) for the separate six-case test. | Startup, supply/temperature sweeps, supply rejection and output impedance; compare native import/export behavior. [Files, provenance and walkthrough](examples/gf180-bandgap/README.md). |
+| **Native GF180MCU Banba reference** · 3.3 V supply, approximately 0.6 V output | Gallery **10–12**: build, improve, then lay out the reference. | Editable transistor-level hierarchy, optimizer searches, matched placement, extracted comparisons and explicit remaining physical limits. [Design sequence](examples/gf180-banba/README.md) · [Layout qualification](examples/gf180-banba/layout/README.md). |
+| **SKY130 programmable voltage monitor** · 16 trip codes | Obtain the pinned external source and generate **`overvoltage-bench.icproj`** using the [reproduction guide](docs/OPEN_PROJECTS.md#reproduce-the-overvoltage-project). | Open **`detector_dc_bench`**, keep first-point DC voltage guesses enabled, and press **F5**. Drive **`Vbit0`–`Vbit3`** with 0/1.8 V and inspect **`ovout`**; use **Linked views** to inspect its schematic and layout. |
+
+The supplied bandgap has two locked upload revisions: the gallery startup/full programs and the later six-case compatibility reduction retain their own provenance. The voltage monitor is the Apache-2.0 design by the Von Braun Labs contributors, downloaded explicitly rather than bundled as a gallery project. Its bare **`overvoltage.icproj`** is for inspection; **`overvoltage-bench.icproj`** adds supplies, bias, load and embedded models for simulation. The archived 16-code rising DC result does not qualify PVT, falling hysteresis or timing. [Voltage-monitor evidence and attribution](docs/OPEN_PROJECTS.md#what-is-checked).
+
+## Feature tour
+
+### Learn by building real circuits
+
+The **Student Hub** turns the native editors into a course: **41 core lessons, six learning paths and one advanced project**, plus an [eight-lesson CMOS inverter course](docs/STUDENT_INVERTER.md) for each available PDK revision. The inverter course covers process selection, schematic design, DC transfer, switching delay, layout, DRC repair, LVS repair and design review. Predict an outcome, edit the circuit or RTL, check measured or structural evidence, then record your reasoning. Saved projects, progress and reflections let you pick up where you left off.
+
+[![The Student Hub with six learning paths, gm/ID sizing, prerequisites and portfolio outcomes.](docs/images/student-hub-design-paths.png)](docs/STUDENT_HUB.md)
+
+| Path | What you build and investigate |
+|---|---|
+| **Foundations** | RC transients, nets and ground, component edits, hierarchy, loading and reproducible layouts |
+| **Analog** | Loaded dividers, RC bandwidth, current mirrors, differential pairs, amplifiers, matching, gm/ID bias selection, device sizing and headroom |
+| **Digital** | Truth tables, counters, handshakes, PWM, fixed-point averaging and a serial transmitter, latch repair, saturation and pipeline validity |
+| **Mixed Signal** | Bridge thresholds, sample/hold, quantization, timing repair, DAC weights and repeated conversions |
+| **Layout** | Metal width/spacing repairs, via enclosure and common-centroid placement with measured geometry checks |
+| **Portfolio & interviews** | Requirements, verification plans, design reviews and a readable portfolio report |
+| **CMOS inverter · PDK to LVS** | Process models, transfer curves, switching delay, layout, actual DRC/LVS failures and repairs, with separate progress per PDK revision |
+
+**Try it:** choose **File → Student Hub → Continue learning** or select a lesson and choose **Start lesson**. The guide stays beside the real editor. Its **Learn** tab explains the concept, a worked example and an interview prompt; **Do this step** gives the exercise. Use **Run lesson**, inspect **Results**, then **Check this step**. **Practice lesson** makes locked lessons available for exploration without bypassing progression credit.
+
+**Capstone:** repair an RC input filter, four-bit SAR and four-sample averager, then verify the threshold alarm across four system cases. The nominal repaired system produces averaged codes **4 and 11**, with alarm outputs **0 then 1**. [Lesson guide in action](docs/images/student-lesson.png) · [Capstone overview](docs/images/student-capstone.png).
+
+Foundations and Analog use generic teaching models. Digital uses local Icarus; Mixed Signal and the capstone also use local ngspice. Reflections are recorded for review, not automatically graded for correctness. [Full course, prerequisites and engine setup](docs/STUDENT_HUB.md).
 
 ### Design and optimize analog circuits
 
@@ -106,7 +239,7 @@ The optimizer uses the existing simulators and needs no extra optimization packa
 
 Closing the workspace returns to the editor while queued jobs continue. Interrupted searches remain paused after an application restart until explicitly resumed.
 
-Saved testbenches can select process capacitance, bounded flat process RC or calibrated interconnect extraction with supported physical hierarchy. Process RC preserves the actual resistor graph and reconstructs the original capacitance matrix with recorded approximation limits. Constrained layout updates preserve matching and routing intent, while durable campaigns run up to 10,000 verification cases with resumable workers. **Tools → Hierarchy and design automation…** provides reviewed, undoable batch edits. See [integrated analog workflows and supported scope](docs/ANALOG_CLOSURE.md).
+Saved testbenches can select process capacitance, process RC with supported hierarchy flattened in a disposable workspace, or bounded calibrated interconnect extraction. Process RC preserves the actual resistor graph and reconstructs the original capacitance matrix with recorded approximation limits; see the [current hierarchy and device contract](docs/ANALOG_IMPLEMENTATION_EXTENSIONS.md#process-rc-integrity). Constrained layout updates preserve matching and routing intent, while durable campaigns run up to 10,000 verification cases with resumable workers. **Tools → Hierarchy and design automation…** provides reviewed, undoable batch edits. See [integrated analog workflows and supported scope](docs/ANALOG_CLOSURE.md).
 
 [Workspace setup, debugging, and layout](docs/ANALOG_WORKSPACE.md) · [Optimizer, gm/Id, and characterization](docs/ANALOG_OPTIMIZER.md) · [Advanced analyses and verification automation](docs/ANALOG_OPTIMIZER.md#advanced-analyses) · [Detailed analog feature inventory](#analog-design-optimization-and-verification).
 
@@ -131,6 +264,49 @@ Keep operating-point, loop-gain, noise and startup diagnostics with their saved 
 
 **Try it:** open **Verification test plans → Edit plan → Statistical verification…**. Choose the parameter distributions and seed, run the campaign, then inspect **Statistical results…**. [Reference circuits and diagnostics](docs/ANALOG_REFERENCE_WORKFLOW.md) · [Statistical campaign guide](docs/ANALOG_REFERENCE_WORKFLOW.md#run-repeatable-statistical-campaigns).
 
+### Connect analog and RTL in a SAR ADC
+
+Build a **four-bit successive-approximation ADC** with an editable sample/hold, resistor DAC, behavioral comparator and synthesizable Verilog controller. ngspice solves the analog circuit while Icarus runs the controller; the experiment retains analog waveforms, a clock-edge table and every conversion decision.
+
+[![Measured SAR conversion: analog input and DAC staircase aligned with the digital controller's bit decisions.](docs/images/sar-conversion.svg)](docs/MIXED_SIGNAL_SAR.md)
+
+**Try it:**
+
+1. Choose **Analysis → Mixed signal → New SAR ADC example** (or gallery entry **13**), select local `ngspice`, `iverilog` and `vvp`, then choose **Run coupled simulation**.
+2. Keep the **0.93 V** input and **1.8 V** reference. Expect final code **8** after four comparisons; DAC trials are **8 → 12 → 10 → 9 → 8**.
+3. Try **0.4 V → code 3** and **1.2 V → code 10**. Open **Show analog waveforms** to compare `vin`, `held`, `vdac`, `cmp` and `track`.
+4. Change **Rbit3 from 10 kΩ to 20 kΩ**. Observe the failing reference conversion check, then Undo and rerun.
+
+The bridge supports bounded, clocked synchronous experiments using local executables. Its behavioral comparator and sampling switch do not establish transistor-level ADC accuracy or general Verilog-AMS support. The retained real-engine evidence is Linux-based; Windows and packaged execution need separate qualification. [Complete walkthrough and coupling contract](docs/MIXED_SIGNAL_SAR.md) · [Actual result panel](docs/images/mixed-signal-sar.png).
+
+### Design digital blocks from RTL to GDS
+
+Digital design now occupies the main window, with a source and hierarchy navigator, central documents, and a contextual inspector. Switch between **Design**, **Debug**, and **Implement** to edit RTL, inspect waveforms, or follow timing paths into the physical layout. Adjustable panes, remembered layouts, light/dark themes, and keyboard controls keep the workspace usable on smaller screens.
+
+[![The native digital workspace in Debug mode: counter RTL, simulated waveforms with two cursors, a source navigator, design inspector, and implementation stage strip.](docs/images/digital-workspace.png)](docs/DIGITAL_WORKSPACE.md)
+
+<sub>Actual app capture of the counter example, with RTL editing and waveform inspection in the same workspace. [Workspace controls and shortcuts](docs/DIGITAL_WORKSPACE.md).</sub>
+
+| Work on a block | What the workspace provides |
+|---|---|
+| **Design** | Independent RTL cells, source search, compiler hierarchy, optional language-server diagnostics/completion/definitions, and reviewable schematic-symbol interfaces |
+| **Debug** | Icarus/Verilator simulation and regression, paged waveforms with two cursors and edge/value search, retained failures, captured source snapshots, and working-copy diffs |
+| **Implement** | Clock/I/O/electrical constraints, mapped synthesis, formal equivalence, resumable targets through placement/routing/GDS, linked timing and physical inspection, and macro export |
+
+**Try it:** open **Digital → New digital counter example**, **New UART regression example**, or **New APB FIFO peripheral**. In the digital workspace, choose **Included tools → Set up and verify** to prepare the included runtime, then run a simulation. Choose **Verify block** for lint, simulation/regression, synthesis, equivalence and timing, or **Run to placement / routing / GDS** to build the required implementation stages automatically. Failed, unproven, or incomplete checks stop the target; compatible results can be reused and interrupted plans resumed.
+
+Desktop packages include the digital engines and a locked SKY130 HD platform. **Included tools** is the default: first launch guides setup, and clicking Run before setup finishes continues your request when the tools are ready. Linux uses a private native runtime; Windows uses an app-owned WSL 2 distribution. Enabling Windows Linux support may require administrator approval and a restart. Source checkouts need a built runtime or an explicit **Custom tools** selection. [Runtime setup and first implementation](docs/DIGITAL_FLOW.md#included-tools-and-first-setup) · [Detailed digital feature inventory](#digital-design-verification-and-implementation).
+
+### Preview RTL in the VGA Playground
+
+Edit project-owned Verilog beside a live Tiny Tapeout VGA preview. Choose from **Stripes, Music, Rings, Logo, Conway, Checkers, Drop and Gamepad**, create an RTL cell, then change its source and inspect the display. Keyboard/Gamepad inputs, reset, pause/resume and opt-in audio are available in the embedded view.
+
+[![The Rings preset running in the native digital workspace, with its Verilog source on the left and colorful concentric rings in the embedded VGA display.](docs/images/readme/vga-playground.png)](docs/VGA_PLAYGROUND.md)
+
+<sub>Actual app capture of the Tiny Tapeout Rings preset. The preview runs offline after setup and stays with the native source editor. [Upstream attribution and licenses](docs/VGA_PLAYGROUND.md#upstream-and-attribution).</sub>
+
+**Try it:** in the digital flow, open **More → VGA Playground**, choose a preset and click **Create RTL cell**. Desktop packages include the renderer; source checkouts need the [VGA asset build](docs/VGA_PLAYGROUND.md#source-setup-and-desktop-packaging). A visual preview complements the separate simulation, synthesis, timing and physical checks. [VGA controls and supported interface](docs/VGA_PLAYGROUND.md).
+
 ### Build a GF180MCU Banba bandgap
 
 Follow a native design from its first schematic through a second optimization pass and a routed layout. This **3.3 V, approximately 0.6 V Banba reference** uses GF180MCU transistors, a 1:8 PNP ratio, process resistors and MIM capacitors, with a transistor-level amplifier and startup circuit. The saved projects include editable hierarchy, testbenches and optimizer evidence.
@@ -154,6 +330,9 @@ Follow a native design from its first schematic through a second optimization pa
 
 The second schematic pass reaches **600.616 mV at 44.40 µA**, with a sampled **10.63 ppm/°C** temperature coefficient over −40 to 125 °C at nominal process and 3.3 V. Lower current and reduced startup overshoot trade against slower settling, larger capacitor area and weaker 1 kHz supply rejection. See the [before/after plots and conditions](examples/gf180-banba/pass2/README.md#measured-results).
 
+<details>
+<summary><strong>Inspect the archived layout qualification</strong> · DRC, LVS, extraction and remaining limits</summary>
+
 <!-- qualification:banba:start -->
 **Archived qualification · Banba routed layout**
 
@@ -174,35 +353,9 @@ The second schematic pass reaches **600.616 mV at 44.40 µA**, with a sampled **
 Archive results apply to the recorded source and tools. They do not qualify edits, packaged releases or fabrication signoff.
 <!-- qualification:banba:end -->
 
+</details>
+
 **Try it:** open **File → Start here / example gallery**, then **Improve the Banba bandgap** or **Lay out the Banba bandgap → Open a copy**. In the layout example, select **banba_layout → Layout**. [First schematic](examples/gf180-banba/README.md) · [Second pass and optimizer](examples/gf180-banba/pass2/README.md) · [Native layout project](examples/gf180-banba/layout/banba-layout.icproj) · [GDS and reproduction](examples/gf180-banba/layout/README.md#files-and-reproduction).
-
-### Design digital blocks from RTL to GDS
-
-Digital design now occupies the main window, with a source and hierarchy navigator, central documents, and a contextual inspector. Switch between **Design**, **Debug**, and **Implement** to edit RTL, inspect waveforms, or follow timing paths into the physical layout. Adjustable panes, remembered layouts, light/dark themes, and keyboard controls keep the workspace usable on smaller screens.
-
-[![The native digital workspace in Debug mode: counter RTL, simulated waveforms with two cursors, a source navigator, design inspector, and implementation stage strip.](docs/images/digital-workspace.png)](docs/DIGITAL_WORKSPACE.md)
-
-<sub>Actual app capture of the counter example, with RTL editing and waveform inspection in the same workspace. [Workspace controls and shortcuts](docs/DIGITAL_WORKSPACE.md).</sub>
-
-| Work on a block | What the workspace provides |
-|---|---|
-| **Design** | Independent RTL cells, source search, compiler hierarchy, optional language-server diagnostics/completion/definitions, and reviewable schematic-symbol interfaces |
-| **Debug** | Icarus/Verilator simulation and regression, paged waveforms with two cursors and edge/value search, retained failures, captured source snapshots, and working-copy diffs |
-| **Implement** | Clock/I/O/electrical constraints, mapped synthesis, formal equivalence, resumable targets through placement/routing/GDS, linked timing and physical inspection, and macro export |
-
-**Try it:** open **Digital → New digital counter example**, **New UART regression example**, or **New APB FIFO peripheral**. In the digital workspace, use **Tools → Set up and verify** to prepare the included runtime, then run a simulation. Choose **Verify block** for lint, simulation/regression, synthesis, equivalence and timing, or **Run to placement / routing / GDS** to build the required implementation stages automatically. Failed, unproven, or incomplete checks stop the target; compatible results can be reused and interrupted plans resumed.
-
-Desktop packages include the digital engines and a locked SKY130 HD platform. **Included tools** is the default: first launch guides setup, and clicking Run before setup finishes continues your request when the tools are ready. Linux uses a private native runtime; Windows uses an app-owned WSL 2 distribution. Enabling Windows Linux support may require administrator approval and a restart. Source checkouts need a built runtime or an explicit **Custom tools** selection. [Runtime setup and first implementation](docs/DIGITAL_FLOW.md#included-tools-and-first-setup) · [Detailed digital feature inventory](#digital-design-verification-and-implementation).
-
-### Preview RTL in the VGA Playground
-
-Edit project-owned Verilog beside a live Tiny Tapeout VGA preview. Choose from **Stripes, Music, Rings, Logo, Conway, Checkers, Drop and Gamepad**, create an RTL cell, then change its source and inspect the display. Keyboard/Gamepad inputs, reset, pause/resume and opt-in audio are available in the embedded view.
-
-[![The Rings preset running in the native digital workspace, with its Verilog source on the left and colorful concentric rings in the embedded VGA display.](docs/images/readme/vga-playground.png)](docs/VGA_PLAYGROUND.md)
-
-<sub>Actual app capture of the Tiny Tapeout Rings preset. The preview runs offline after setup and stays with the native source editor. [Upstream attribution and licenses](docs/VGA_PLAYGROUND.md#upstream-and-attribution).</sub>
-
-**Try it:** in the digital flow, open **More → VGA Playground**, choose a preset and click **Create RTL cell**. Desktop packages include the renderer; source checkouts need the [VGA asset build](docs/VGA_PLAYGROUND.md#source-setup-and-desktop-packaging). A visual preview complements the separate simulation, synthesis, timing and physical checks. [VGA controls and supported interface](docs/VGA_PLAYGROUND.md).
 
 ### One cell. Both views.
 
@@ -211,6 +364,22 @@ Switch between **Schematic**, **Layout**, and **Linked views** while staying in 
 [![The real SKY130 overvoltage detector's level_shifter cell, with its native schematic and imported physical layout side by side.](docs/images/readme/overvoltage-linked.png)](docs/OPEN_PROJECTS.md)
 
 <sub>The level shifter from the Apache-2.0 overvoltage design by the Von Braun Labs contributors. Cell-view attachment and device-level LVS correspondence are separate. [Source, attribution, and reproduction](docs/OPEN_PROJECTS.md).</sub>
+
+Draw rectangles, polygons and paths; edit vertices and stretch edges; combine shapes with Boolean operations; place vias and preview **Autovia** arrays in conductor overlaps. Matching, common-centroid, symmetry and routing constraints help preserve physical intent. Native buses and instance arrays retain member identities; supported parameter changes can regenerate linked physical variants after review.
+
+<a id="inspect-the-layers-in-3d"></a>
+<details>
+<summary><strong>Inspect the same design in 3D</strong></summary>
+
+Orbit, pan and zoom; hide layers; adjust display heights; separate the stack with an exploded view; export a PNG.
+
+[![The native 3D viewer showing the imported SKY130 level shifter with layer visibility and display-height controls.](docs/images/readme/overvoltage-3d.png)](docs/LAYOUT_3D.md)
+
+This read-only extrusion uses illustrative display heights; it does not establish fabrication stack dimensions. [3D viewer guide](docs/LAYOUT_3D.md).
+
+</details>
+
+[Drawing and geometry](docs/DRAWING_0.22.md) · [Vias and Autovia](docs/LAYOUT_VIAS.md) · [Native buses and physical variants](docs/ANALOG_IMPLEMENTATION_EXTENSIONS.md) · [Layout scale and editing](docs/LAYOUT_SCALE_AND_COLLABORATION.md)
 
 ### Create and characterize spiral inductors
 
@@ -234,14 +403,6 @@ Open **Tools → Inductor creator…** to build a **square, rectangular, hexagon
 
 [Creator controls, target search and model scope](docs/INDUCTOR_CREATOR.md) · [openEMS setup, convergence and results](docs/OPENEMS.md) · [Physical PDK profiles](docs/INDUCTOR_CREATOR.md#pdk-profiles).
 
-### Inspect the layers in 3D
-
-Orbit, pan, zoom, hide layers, adjust display heights, or separate the stack with an exploded view. Export a PNG when you want to share what you see.
-
-[![IC Design Studio's 3D viewer displaying the imported SKY130 level shifter, with layer visibility and display-height controls.](docs/images/readme/overvoltage-3d.png)](docs/LAYOUT_3D.md)
-
-<sub>Actual app capture of the same imported cell. This read-only extrusion uses illustrative display heights; it is a geometry inspection view, not a fabrication cross-section. [3D viewer guide](docs/LAYOUT_3D.md).</sub>
-
 ### Review a design together
 
 Share a schematic or layout session, save a named checkpoint, and discuss the exact revision. Reviewers can reply, resolve discussions, and record decisions; completed runs can travel with their saved inputs.
@@ -252,66 +413,21 @@ Share a schematic or layout session, save a named checkpoint, and discuss the ex
 
 See the [component browser, bulk layout placement and floating-panel update](docs/USABILITY_FEEDBACK.md) for the latest development-source interaction improvements.
 
-### A comfortable place to design
+<a id="a-comfortable-place-to-design"></a>
 
-Use the searchable example gallery to get moving, then arrange the workspace around your circuit. Dark and light themes, dockable panels, named workspaces, and command search keep frequently used tools close.
-
-<table>
-<tr>
-<td width="50%" valign="top">
-<a href="docs/GETTING_STARTED.md"><img src="docs/images/readme/example-gallery.png" alt="The example gallery with guided circuits, setup requirements, and expected results." width="100%"></a>
-<p><strong>Learn with a working circuit.</strong><br>Each gallery example opens as an independent copy with its analysis and next steps ready.</p>
-</td>
-<td width="50%" valign="top">
-<a href="docs/PRIORITIES_0.22.md"><img src="docs/images/readme/overvoltage-layout.png" alt="The imported level shifter in the layout editor, with searchable mask layers and the drawing toolbar." width="100%"></a>
-<p><strong>Give the layout room.</strong><br>Search and filter layers, control hierarchy depth, and hide panels when you need more canvas.</p>
-</td>
-</tr>
-</table>
-
-## Start in three steps
-
-1. **Open the app.** Use the [download guide](docs/DOWNLOADS.md), or run from source below.
-2. **Choose “Your first waveform.”** Open a copy from the example gallery. This RC circuit uses the included educational solver, so no external simulator or PDK is needed.
-3. **Press F5.** Inspect the waveform, change a value, run again, and save your project with **Ctrl+S**.
-
-| Your next step | Where to go |
-|---|---|
-| Try another circuit | [Guided examples](examples/README.md) |
-| Design and optimize an analog circuit | **Analysis → Analog design workspace → Setup → Guided design setup** · [Analog feature tour](#design-and-optimize-analog-circuits) |
-| Explore the Banba design | **Example gallery → Improve the Banba bandgap** or **Lay out the Banba bandgap** · [Schematic, optimization and layout](#build-a-gf180mcu-banba-bandgap) |
-| Design a digital block | **Digital → New digital counter example**, **New UART regression example**, or **New APB FIFO peripheral** · [Digital flow guide](docs/DIGITAL_FLOW.md) |
-| Try interactive VGA | **Digital flow → More → VGA Playground** · [Live RTL preview](#preview-rtl-in-the-vga-playground) |
-| Create a spiral inductor | **Tools → Inductor creator…** · [Creation, target-L search and EM simulation](#create-and-characterize-spiral-inductors) |
-| Use real transistor models | [Open PDK setup](docs/PDK_GUIDE.md) |
-| Bring an existing design | [Xschem, Magic, and KLayout exchange](docs/INTEROPERABILITY.md) |
-| Find a command | **Ctrl+K** |
-| Switch the active view | **Alt+1** schematic · **Alt+2** layout · **Alt+3** linked |
-| Switch digital workspace mode | **Ctrl+Alt+1** Design · **Ctrl+Alt+2** Debug · **Ctrl+Alt+3** Implement · **Circuit workspace** returns to schematic/layout |
-| Restore panels | **Window → Reset workspace** |
+Dark/light themes, floating panels, saved workspace arrangements and command search keep the desktop adaptable. Recovery snapshots, pending-write status and protection against external file changes help preserve editing work. [Workspace and recovery](docs/STABILITY_0.22.md) · [Current recovery and verification improvements](docs/RELIABLE_DESIGN_WORKFLOWS.md).
 
 <details>
-<summary><strong>Run from source</strong> · Python 3.12</summary>
+<summary><strong>Useful shortcuts</strong></summary>
 
-For digital design with automatic tool setup, use the [complete desktop package](docs/DOWNLOADS.md). Git clones and GitHub source ZIPs do not include the generated digital runtime. Developers can build it or select **Custom tools**; installing the Python requirements alone does not install the digital engines.
-
-**Windows:** install 64-bit Python 3.12, extract the source to a short path such as `C:\ICStudio`, and double-click `launch-windows.bat`. The launcher creates an isolated environment under `%LOCALAPPDATA%\ICStudio`, downloads and verifies the pinned ngspice runtime, and checks dependencies and a real simulation before opening the app.
-
-**Linux / macOS:**
-
-```sh
-git clone --branch experimental https://github.com/jonahsaunders/IC-Design-Studio.git
-cd IC-Design-Studio
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-python scripts/check_simulation_assets.py
-python main.py
-```
-
-For ngspice analyses, install the native engine and select it in **Tools → Engine diagnostics and paths**, or set `ICSTUDIO_NGSPICE`. On Ubuntu, use `sudo apt install ngspice`; on macOS, use `brew install ngspice`. Magic and Netgen are additional tools for physical verification.
-
-Windows packages include Python, Qt, ngspice, and the bundled simulation subsets. See [downloads](docs/DOWNLOADS.md) for published assets and [release status](docs/RELEASE_STATUS.md) for platform acceptance. macOS is a source workflow awaiting qualification.
+| Action | Shortcut |
+|---|---|
+| Run the current analysis | **F5** |
+| Save the project | **Ctrl+S** |
+| Find a command | **Ctrl+K** |
+| Schematic / Layout / Linked views | **Alt+1 / Alt+2 / Alt+3** |
+| Digital Design / Debug / Implement | **Ctrl+Alt+1 / Ctrl+Alt+2 / Ctrl+Alt+3** |
+| Restore the default panels | **Window → Reset workspace** |
 
 </details>
 
@@ -325,7 +441,7 @@ Expand a category for the detailed inventory. Features requiring an external eng
 | Capability | Included tools |
 |---|---|
 | Circuit drawing | Device placement; repeated placement; manual wires; labels and ground; annotations; rotation, mirroring, duplication, and bulk parameter editing |
-| Electrical editing | Connection-preserving stretch; explicit move; wire cut/rejoin; junction control; full-net inspection; terminal inspection; scalar bus connections |
+| Electrical editing | Connection-preserving stretch; explicit move; wire cut/rejoin; junction control; full-net inspection; terminal inspection; native buses, bit taps and per-member instance-array connections |
 | Custom symbols | Generated or hand-edited artwork; lines, polygons, and text; pin identity, direction, and ordering; symbol properties |
 | Reusable circuits | Named cells and ports; hierarchy navigation; make a cell from a selection; cell and instance parameters; schematic, symbol, and layout views |
 | Editing controls | Selection filters; coordinate editing; capture profiles and keyboard commands; preview/cancel; undo/redo; Check and Save |
@@ -370,7 +486,7 @@ Expand a category for the detailed inventory. Features requiring an external eng
 | Implemented macro exchange | Attach generated physical hierarchy to a native cell; export GDS, abstract LEF, netlist, SDC, SPEF and terminal/provenance metadata |
 | Runtime and examples | Included, verified digital toolchain and SKY130 HD platform; Linux native and Windows private WSL 2 execution; optional custom toolchains; counter, UART and hierarchical APB FIFO examples with regression and deliberate-fault coverage; digital CLI workflows |
 
-**Scope:** language-server support needs a separately installed server, and the optional slang frontend needs its matching Yosys plugin. Native symbols support up to 128 scalar terminals. Large-VCD support is bounded to 2 GiB and 20 million changes; FST and real/string dumps are unsupported. Power and density are estimates, and library-corner timing sweeps do not establish physical signoff. Coupled analog/digital transient simulation, per-instance analog/digital view substitution, foundry-qualified signoff, and characterized macro Liberty generation remain outside this flow.
+**Scope:** language-server support needs a separately installed server, and the optional slang frontend needs its matching Yosys plugin. Native symbols support up to 128 scalar terminals. Large-VCD support is bounded to 2 GiB and 20 million changes; FST and real/string dumps are unsupported. Power and density are estimates, and library-corner timing sweeps do not establish physical signoff. The separate [SAR bridge](docs/MIXED_SIGNAL_SAR.md) provides bounded clocked analog/digital experiments with local engines. General Verilog-AMS, per-instance analog/digital view substitution, foundry-qualified signoff and characterized macro Liberty generation remain outside the digital implementation flow.
 
 [VGA Playground](docs/VGA_PLAYGROUND.md) · [Workspace controls and limits](docs/DIGITAL_WORKSPACE.md) · [Engines, setup, constraints and CLI](docs/DIGITAL_FLOW.md)
 
@@ -410,7 +526,7 @@ Expand a category for the detailed inventory. Features requiring an external eng
 | Drawing | Rectangles; polygons with holes; paths; reference-point move/copy; edge stretch; vertex editing; rotation; precise transforms |
 | Geometry operations | Union, subtraction, intersection, and XOR; sizing; chopping; area erase; alignment and distribution |
 | Canvas controls | Configurable grid spacing, origin, appearance, and snapping; object snapping; Manhattan/45°/free paths; rulers; layer search, visibility, selection, locks, and fills |
-| Hierarchy | Physical cells and regular arrays; reusable masters; edit in context; hierarchy depth; flattening; concrete parameter variants |
+| Hierarchy | Physical cells and regular arrays; reusable masters; edit in context; hierarchy depth; flattening; reviewed parameter-driven physical variants and semantic instance locks |
 | Connections | Manual vias and previewed Autovia arrays in selected conductor overlaps; coordinate and linked-terminal routing; saved route constraints; route preview; terminal and cell-port assignment; connected path editing |
 | Analog placement | Common-centroid, matching, symmetry, and spacing constraints; declared-rule resistor/capacitor/MOS/contact/guard-ring generators; supported PDK device recipes and analog reference layouts |
 | Inductor creator | Five spiral shapes; target-L search; background preview; linked schematic L; optional DC series RL; PDK profiles; included openEMS runtime; simple simulation controls and saved EM results |
@@ -481,7 +597,7 @@ Native rules and RC estimates use declared technology data. Foundry qualificatio
 | Checkpoints | Named immutable revisions; visual schematic/layout comparison; object, terminal, net, and finding attachments |
 | Discussion | Threaded comments and replies; resolve/reopen; checkpoint-specific approvals and decisions; read-only review roles |
 | Shared evidence | Attach completed simulation or physical runs; inspect saved inputs; rerun locally with matching tools and PDKs |
-| Recovery | Durable retry of submitted review actions across restart; retained conflict edits; server persistence and backups |
+| Recovery | Durable retry of submitted review actions across restart; restored unsent checkpoint-specific drafts; retained conflict edits; server persistence and backups |
 
 General offline design-edit queuing remains planned. [Collaboration limits and hosting](docs/LIVE_COLLABORATION.md) · [Team review](docs/WORKFLOW_REVIEW_0.22.md) · [Review recovery](docs/REVIEW_RECOVERY.md)
 
@@ -499,6 +615,25 @@ General offline design-edit queuing remains planned. [Collaboration limits and h
 | Automation and extension | Source CLI workflows; reproducible qualification and benchmark scripts; documented trusted local plugin example in source mode |
 
 [Project Hub](docs/PROJECT_HUB.md) · [Recovery and editing](docs/STABILITY_0.22.md) · [Architecture](docs/ARCHITECTURE.md) · [CLI and plugin scope](docs/USER_GUIDE.md)
+
+</details>
+
+<details>
+<summary><strong>Mixed-signal experiments and learning tools</strong></summary>
+
+| Capability | Included tools |
+|---|---|
+| Clocked mixed-signal bridge | Coupled ngspice/Icarus execution; PWL stimuli; thresholded analog inputs and digital-to-analog drivers; saved configuration; bounded execution and cancellation |
+| SAR example | Editable sample/hold, resistor DAC and behavioral comparator; project-owned RTL controller; analog traces, digital VCD and edge-by-edge decision history |
+| Saved evidence | Circuit/RTL snapshots, engine and source identities, logs and checksums; saved-result reopening and corruption checks; reference conversion checks separate from simulation completion |
+| Guided learning | Four six-lesson paths plus four capstone milestones; prediction, editor task, measured/structural checkpoint and reflection; prerequisite progression and practice mode |
+| Lesson workspace | Native editable projects; side-by-side guide; run/result navigation; project resume/relink; search and text sizing up to 200%; saved reflection drafts |
+| Learning records | Exportable JSON with progress, reflections, project snapshots and evidence references; current-design checks before awarding numerical credit |
+| Sensor capstone | RC filter, sample/hold, SAR, block averager and alarm; deliberate repair exercises; independent nominal, range and hold checks |
+
+The bridge uses one clock, 2–256 edges and up to 32-bit digital ports. It replays simulation history at each boundary and rejects ambiguous analog samples and unknown digital outputs. These are bounded synchronous teaching experiments; asynchronous feedback and general Verilog-AMS scheduling are outside its scope.
+
+[Student Hub](docs/STUDENT_HUB.md) · [SAR walkthrough and validation](docs/MIXED_SIGNAL_SAR.md) · [Capstone examples](examples/student-hub/README.md)
 
 </details>
 
@@ -521,25 +656,47 @@ Choose the circuit and technology in **File → Project Hub**. Register included
 | Process | Available path | For additional workflows |
 |---|---|---|
 | **SkyWater SKY130** | `sky130A/B` adapters; included `sky130A` simulation subset | Matching physical decks and engines for layout verification |
-| **GlobalFoundries GF180MCU** | `gf180mcuA/B/C/D` adapters; included simulation subset | Corresponding physical rule decks |
-| **IHP SG13G2** | Installed `ihp-sg13g2` adapter | Compatible ngspice and compiled OSDI models |
+| **GlobalFoundries GF180MCU** | A/B/C/D model registration; bundled C/D primitive models and distinct physical decks | Native 3.3 V inverter, editable vias and full-deck DRC/LVS for C/D. [Student flow](docs/STUDENT_INVERTER.md) |
+| **IHP SG13G2** | Bundled models, symbols, Magic/Netgen decks and Verilog-A sources | Native 1.2 V inverter and DRC/LVS; the Student Hub uses compiled OSDI models in the included Linux/WSL runtime. [Student flow](docs/STUDENT_INVERTER.md) |
 | **Custom technology** | Checksummed package interface | Explicit terminal, layer, model, and verification bindings |
 
-Bundled analog simulation subsets contain models and symbols; analog physical verification needs matching PDK assets and decks. The managed digital runtime separately includes the full, locked SKY130 HD platform used by its implementation flow. [Set up a PDK](docs/PDK_GUIDE.md) · [Digital platform locks](docs/DIGITAL_FLOW.md#technology-locks-and-supported-versions) · [Simulation runtime](SIMULATION_SETUP.md) · [Third-party sources](THIRD_PARTY_NOTICES.md)
+Bundled GF180 C/D and IHP subsets include matching Magic/Netgen decks for the bounded core-MOS inverter flow; the SKY130 analog simulation subset needs separate physical assets. Qualification covers nominal electrical simulation, DRC/LVS, deliberate faults and repairs, and all 12 GF180/IHP size boundaries. It does not establish extracted-RC, PVT or fabrication signoff. The managed digital runtime separately includes the full, locked SKY130 HD platform used by its implementation flow. [Validation evidence](docs/validation/student-physical/checks.json) · [Set up a PDK](docs/PDK_GUIDE.md) · [Digital platform locks](docs/DIGITAL_FLOW.md#technology-locks-and-supported-versions) · [Third-party sources](THIRD_PARTY_NOTICES.md)
+
+## Automate from the command line
+
+Run these commands from the repository root after source setup. The first uses the included teaching solver; the second creates editable digital projects without running external engines.
+
+```sh
+# Simulate the RC example and save a result
+python main.py --cli simulate examples/rc.icproj --engine builtin --output build/readme-examples/rc/result.json
+
+# Generate independent digital examples
+python main.py --cli digital example --design counter --output build/readme-examples/counter.icproj
+python main.py --cli digital example --design uart --output build/readme-examples/uart.icproj
+python main.py --cli digital example --design apb --output build/readme-examples/apb.icproj
+```
+
+With the required custom HDL engines installed, run a simulation or regression:
+
+```sh
+python main.py --cli digital run build/readme-examples/counter.icproj --stage simulate --toolchain custom --output build/readme-examples/counter-run
+python main.py --cli digital run build/readme-examples/uart.icproj --stage regression --toolchain custom --output build/readme-examples/uart-run
+```
+
+Use a fresh output directory for each digital run. Desktop packages expose the same CLI through `ICDesignStudio` in place of `python main.py`; use `ICDesignStudio --cli digital setup` and `ICDesignStudio --cli digital status` for the included runtime. [Digital CLI and tool selection](docs/DIGITAL_FLOW.md) · [Automation and plugins](docs/USER_GUIDE.md).
 
 ## Project status
 
-The current source adds [native buses and arrays, regenerated physical parameter
-variants, bounded SKY130 parallel devices and process-RC integrity checks](docs/ANALOG_IMPLEMENTATION_EXTENSIONS.md).
-Existing archived results remain tied to their recorded source and process assets.
+**IC Design Studio is an engineering preview.** The experimental source includes the Student Hub, bounded mixed-signal simulation, analog optimization and verification, native digital implementation, inductor EM workflows, and ongoing editing/recovery improvements. A source feature, an archived fixture result and a qualified desktop package have separate evidence.
 
-The experimental branch includes the [analog design workspace](docs/ANALOG_WORKSPACE.md) and [analog optimizer](docs/ANALOG_OPTIMIZER.md): guided setup, bounded circuit search, gm/Id characterization, advanced analyses, and verification automation. Start with the [analog feature tour](#design-and-optimize-analog-circuits); the guides document simulator/model limits and validation scope.
+| Read this | To understand |
+|---|---|
+| [Release status](docs/RELEASE_STATUS.md) and [downloads](docs/DOWNLOADS.md) | Exact source/package identities, published assets and remaining consumer acceptance |
+| [Reference qualification](docs/REFERENCE_QUALIFICATION.md) | Recorded process checks and their passing, failing or blocked status |
+| [Reliable design workflows](docs/RELIABLE_DESIGN_WORKFLOWS.md) | Current recovery, editing and evidence-driven workflow changes |
+| [Roadmap](docs/ROADMAP.md) | Planned work and broader qualification goals |
 
-It also includes the [main-window digital workspace](docs/DIGITAL_WORKSPACE.md) and [integrated RTL-to-GDS flow](docs/DIGITAL_FLOW.md), including resumable targets, structured constraints, indexed waveforms, and linked source/timing/physical inspection. See the [digital feature tour](#design-digital-blocks-from-rtl-to-gds) for an entry point.
-
-**0.22.0.dev25 is an engineering preview.** The [dev25 update](docs/UPDATE_0.22_DEV25.md) adds saved amplifier diagnostics, statistical campaigns and bounded calibrated hierarchy, and binds release assets to their execution evidence. [Release status](docs/RELEASE_STATUS.md) distinguishes source validation, hosted packages and pending consumer acceptance.
-
-The [roadmap](docs/ROADMAP.md) tracks consumer Windows/Linux acceptance, physical LAN/VPN testing, broader PVT/transient and real-project coverage, larger editing/recovery workloads, and offline collaboration. A passing fixture qualifies that recorded case; it does not establish arbitrary-design or fabrication signoff. Source-to-GDS warnings for the detector remain documented.
+Passing fixtures cover their recorded designs, tools and process assets. They do not establish arbitrary-design or fabrication signoff. General offline collaboration editing remains planned; macOS and consumer Windows/Linux acceptance retain the limits in the release records.
 
 ## Contribute and verify
 
@@ -550,11 +707,13 @@ python -m unittest discover -s tests -v
 python scripts/check_release.py
 ```
 
-[Desktop builds](.github/workflows/build-desktop.yml) · [Digital flow and implementation qualification](.github/workflows/digital.yml) · [External interoperability](.github/workflows/interoperability.yml) · [Physical qualification](.github/workflows/physical-qualification.yml) · [Screenshot sources](docs/images/readme/README.md)
+For documentation-only changes, the release checker validates local links, the version badge, generated qualification text and gallery projects. See the contribution guide for engine-dependent and GUI checks.
+
+[Desktop builds](.github/workflows/build-desktop.yml) · [Digital qualification](.github/workflows/digital.yml) · [External interoperability](.github/workflows/interoperability.yml) · [Physical qualification](.github/workflows/physical-qualification.yml) · [Screenshot sources](docs/images/readme/README.md)
 
 <p align="center">
   <br>
   <strong>Open tools. Your design.</strong><br>
   <sub>Built with Python, Qt, KLayout, and the open circuit-design ecosystem.</sub><br>
-  <sub><a href="LICENSE">GPL-3.0-or-later</a> · <a href="THIRD_PARTY_NOTICES.md">Third-party licenses and source</a> · <a href="docs/INDEX.md">Read the docs</a></sub>
+  <sub><a href="LICENSE">GPL-3.0-or-later</a> · <a href="THIRD_PARTY_NOTICES.md">Third-party licenses and source</a> · <a href="docs/INDEX.md">Read the docs</a> · <a href="#start-in-three-steps">Get started ↑</a></sub>
 </p>

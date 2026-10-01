@@ -462,13 +462,18 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
         p,warnings=import_layout(path)
         if self.maybe_save():self.set_project(p);self.mode_combo.setCurrentIndex(1);self.console.appendPlainText('\n'.join(warnings));self.results_tabs.setCurrentIndex(2)
     def handoff(self):
+        if not self.flush_inspector() or not self.flush_analysis():return
         parent=QFileDialog.getExistingDirectory(self,'Choose parent for a new handoff folder')
         if not parent:return
         dest=Path(parent)/(re.sub('[^A-Za-z0-9_-]','_',self.project['name'])+f'_r{self.project["revision"]}_handoff');export_handoff(self.project,dest);QMessageBox.information(self,'Handoff exported',f'Exported to {dest}\n\nRead preservation-report.json for supported formats and limitations.');QDesktopServices.openUrl(QUrl.fromLocalFile(str(dest)))
     def export_spice(self):
         path,_=QFileDialog.getSaveFileName(self,'Export simulation deck',self.cell['name']+'.cir','SPICE deck (*.cir *.spice)')
-        if path:atomic_write(path,spice(self.project,self.cid,self.project['analysis']));self.statusBar().showMessage('SPICE deck exported.',8000)
+        if path:
+            from .osdi import preload
+            text=preload(self.project,spice(self.project,self.cid,self.project['analysis']),Path(path).parent,required=False)
+            atomic_write(path,text);self.statusBar().showMessage('SPICE deck exported. Keep any runtime-osdi folder beside it.',8000)
     def export_gds(self):
+        if not self.flush_inspector():return
         path,_=QFileDialog.getSaveFileName(self,'Export physical layout',self.project['name']+'.gds','GDSII (*.gds);;OASIS (*.oas)')
         if path:export_layout(self.project,path);self.statusBar().showMessage('Layout, sidecar and preservation report exported.',8000)
     def export_sch(self):
@@ -479,6 +484,7 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
         path,_=QFileDialog.getSaveFileName(self,'Export waveform data','waveforms.csv','CSV (*.csv)')
         if path:export_csv(self.result,path)
     def export_image(self):
+        if not self.flush_inspector():return
         path,_=QFileDialog.getSaveFileName(self,'Save canvas image',self.current_mode+'.png','PNG (*.png)')
         if path:
             if not (self.layout if self.current_mode=='layout' else self.schematic).grab().save(path):raise ValueError('Could not write image.')
@@ -609,6 +615,32 @@ from .digital_ui import DigitalMixin
 
 class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,InteroperabilityMixin,LayoutDevelopmentMixin,OnboardingMixin,NativeWorkspaceMixin,XschemWorkflowMixin,VerificationWorkspaceMixin,PhysicalWorkspaceMixin,EngineeringWorkspaceMixin,SimulationWorkspaceMixin,HumanWorkspaceMixin,ConsistencyWorkspaceMixin,CaptureWorkspaceMixin,EditorWorkspaceMixin, LayoutToolsMixin, AnalogMixin, HierarchyMixin, SiliconMixin, LifecycleMixin, LayoutMixin, ProjectMixin, SchematicMixin, FeatureMixin, WorkspaceMixin, StudioCore):
     """Standalone desktop application with the document-focused workspace."""
+    def maybe_save(self):
+        experiment = getattr(self, '_mixed_signal_dialog', None)
+        if experiment and experiment.project_id == self.project['id'] and not experiment.resolve_draft():
+            return False
+        return super().maybe_save()
+
+    def apply_theme(self):
+        super().apply_theme()
+        hub=getattr(self,'_student_hub',None)
+        if hub:hub.apply_theme()
+
+    def set_project(self,project,path=None):
+        result=super().set_project(project,path)
+        hub=getattr(self,'_student_hub',None)
+        if hub:hub.guide.update_run_state()
+        return result
+
+    def closeEvent(self,event):
+        hub=getattr(self,'_student_hub',None)
+        if hub:
+            try:hub.guide.save_note()
+            except Exception as exc:
+                self.error('The lesson reflection could not be saved. Keep this window open and retry.\n'+str(exc))
+                event.ignore();return
+        super().closeEvent(event)
+
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
         from .editing_assistant import install
@@ -623,6 +655,10 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
         install_automation(self)
         from .digital_ui import install as install_digital
         install_digital(self)
+        from .mixed_signal_ui import install as install_mixed_signal
+        install_mixed_signal(self)
+        from .student_hub_ui import install as install_student_hub
+        install_student_hub(self)
         self.reindex_commands()
     connect = SchematicMixin.connect
     move = LayoutDevelopmentMixin.move

@@ -1,5 +1,7 @@
 # IC Design Studio 0.19.0 — Native project migration
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This release adds a one-time path from an Xschem project to an independently editable IC Design Studio project. Native simulation uses a new SPICE generator and the shared ngspice execution service. It does not read the archived Xschem records, call Xschem, or need the original schematic/model directories after successful migration.
 
 ## Start here

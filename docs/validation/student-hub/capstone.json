@@ -1,0 +1,1358 @@
+{
+  "status": "PASS",
+  "checker_sha256": "de3f5f2634b223542f2526202a7468bae6f0b4efe391eea12f849e3ce2304f0e",
+  "cases": [
+    {
+      "name": "nominal",
+      "expected": "PASS",
+      "passed": true,
+      "report": {
+        "status": "PASS",
+        "case": "nominal",
+        "codes": [
+          1,
+          3,
+          5,
+          7,
+          8,
+          10,
+          12,
+          14
+        ],
+        "averages": [
+          4,
+          11
+        ],
+        "checks": [
+          {
+            "name": "Eight conversion codes",
+            "passed": true,
+            "actual": [
+              1,
+              3,
+              5,
+              7,
+              8,
+              10,
+              12,
+              14
+            ],
+            "expected": [
+              1,
+              3,
+              5,
+              7,
+              8,
+              10,
+              12,
+              14
+            ]
+          },
+          {
+            "name": "Conversion cadence",
+            "passed": true,
+            "actual": [
+              7,
+              15,
+              23,
+              31,
+              39,
+              47,
+              55,
+              63
+            ],
+            "expected": [
+              7,
+              15,
+              23,
+              31,
+              39,
+              47,
+              55,
+              63
+            ]
+          },
+          {
+            "name": "Two rounded block averages",
+            "passed": true,
+            "actual": [
+              4,
+              11
+            ],
+            "expected": [
+              4,
+              11
+            ]
+          },
+          {
+            "name": "Average valid cadence",
+            "passed": true,
+            "actual": [
+              32,
+              64
+            ],
+            "expected": [
+              32,
+              64
+            ]
+          },
+          {
+            "name": "Alarm at average >= 10",
+            "passed": true,
+            "actual": [
+              0,
+              1
+            ],
+            "expected": [
+              0,
+              1
+            ]
+          },
+          {
+            "name": "Every conversion counted once",
+            "passed": true,
+            "actual": 8,
+            "expected": 8
+          },
+          {
+            "name": "Thirty-two comparator decisions",
+            "passed": true,
+            "actual": 32,
+            "expected": 32
+          },
+          {
+            "name": "Acquisition error below 2 mV",
+            "passed": true,
+            "actual": [
+              0.199999999999998,
+              0.3999916004567144,
+              0.599991599725652,
+              0.7999915999811,
+              0.9999915996199344,
+              1.19999159911351,
+              1.399991599521458,
+              1.599991598986641
+            ],
+            "expected": [
+              0.2,
+              0.4,
+              0.6,
+              0.8,
+              1.0,
+              1.2,
+              1.4,
+              1.6
+            ]
+          }
+        ]
+      },
+      "design_hash": "e6057754797fc3769ee25fff849852f1bba984cef0f16730b4d4dc584560e2ee",
+      "input_sha256": "cd63b4c9300ba637eee9bc6080f6bc690bbe6f30e21a636332200ceba8bc268e",
+      "result_sha256": "1be2852ca3877f3083c5e202f995bda6bd7c051ced0e7ac96756f1b0d607d8e3",
+      "environment": {
+        "engine": "mixed_signal",
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "executables": {
+          "ngspice": "fdbedb3b5dfe9783e035e1b4107667a0ad6ca2cf0bcd9ccb8a7afe6c188ebf9a",
+          "iverilog": "45ad78ae189c2ce72381019a0272e07f6f7f4806fd5847b32e047bafa0299a29",
+          "vvp": "b028904f47202ba461cca43d89d7fa4dfbe01eb89e25673ab28b38a6f6cb89b5"
+        },
+        "sources": {
+          "mixed_signal.py": "3baf66575668eadfad4fd03947c68fdc6951af4a5beb6e84cc1cca7bafecd020",
+          "sar_example.py": "4895e24053300abf43f209fbf8587146eea43a6f0d3292a204d13f085396f13f",
+          "engines.py": "7cd7a1c4796c7bbc2ac08c68c710f29719b680af74ea5141489f27120554e390",
+          "native_spice.py": "0659012d62b2e8a032b217974dd0201a669f16af115d7483ca2147089751aab6",
+          "native_analysis.py": "42f41163e17400a3351628df6d4ca8c45e45440f33e35dd744ddbf1fe31c140d",
+          "digital.py": "cedb08e487f3ed92d14316499bf62c2b903bac8936fb702db4c77db84ff1e58f",
+          "digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+          "digital_flow.py": "5f78753ea5ae109af6a446cca8860b844f9513679f79e5ce526f01a3046fef81",
+          "model.py": "9aa920724fee2e0a5eddf2df73e4f55f75c47e50734dc13e9ce97fc71cea116f",
+          "run_environment.py": "2e1af468a7be2273c8e7f9528bfd0187b6f0a9e4de4026ea4696af03a3be51bb"
+        }
+      }
+    },
+    {
+      "name": "low-rail",
+      "expected": "PASS",
+      "passed": true,
+      "report": {
+        "status": "PASS",
+        "case": "low-rail",
+        "codes": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "averages": [
+          0,
+          0
+        ],
+        "checks": [
+          {
+            "name": "Eight conversion codes",
+            "passed": true,
+            "actual": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expected": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "name": "Conversion cadence",
+            "passed": true,
+            "actual": [
+              7,
+              15,
+              23,
+              31,
+              39,
+              47,
+              55,
+              63
+            ],
+            "expected": [
+              7,
+              15,
+              23,
+              31,
+              39,
+              47,
+              55,
+              63
+            ]
+          },
+          {
+            "name": "Two rounded block averages",
+            "passed": true,
+            "actual": [
+              0,
+              0
+            ],
+            "expected": [
+              0,
+              0
+            ]
+          },
+          {
+            "name": "Average valid cadence",
+            "passed": true,
+            "actual": [
+              32,
+              64
+            ],
+            "expected": [
+              32,
+              64
+            ]
+          },
+          {
+            "name": "Alarm at average >= 10",
+            "passed": true,
+            "actual": [
+              0,
+              0
+            ],
+            "expected": [
+              0,
+              0
+            ]
+          },
+          {
+            "name": "Every conversion counted once",
+            "passed": true,
+            "actual": 8,
+            "expected": 8
+          },
+          {
+            "name": "Thirty-two comparator decisions",
+            "passed": true,
+            "actual": 32,
+            "expected": 32
+          },
+          {
+            "name": "Acquisition error below 2 mV",
+            "passed": true,
+            "actual": [
+              -0.1000000000000004,
+              -0.09999999999999824,
+              -0.09999999999999766,
+              -0.09999999999999996,
+              -0.09999999999999813,
+              -0.09999999999999996,
+              -0.09999999999999994,
+              -0.09999999999999756
+            ],
+            "expected": [
+              -0.1,
+              -0.1,
+              -0.1,
+              -0.1,
+              -0.1,
+              -0.1,
+              -0.1,
+              -0.1
+            ]
+          }
+        ]
+      },
+      "design_hash": "f2bc39a4e9f6482dd74a1d90c693dc3bd6afaf9fe9574116ed101cae34639af3",
+      "input_sha256": "aae89537c147d88268c15ffe241ce1e731e7dc0491afd60fc6a424cbde32ea90",
+      "result_sha256": "84753422c58e6fd5715bd9337937b84defa9a8499bf4c2bbc40a8b5b6b0bd5b8",
+      "environment": {
+        "engine": "mixed_signal",
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "executables": {
+          "ngspice": "fdbedb3b5dfe9783e035e1b4107667a0ad6ca2cf0bcd9ccb8a7afe6c188ebf9a",
+          "iverilog": "45ad78ae189c2ce72381019a0272e07f6f7f4806fd5847b32e047bafa0299a29",
+          "vvp": "b028904f47202ba461cca43d89d7fa4dfbe01eb89e25673ab28b38a6f6cb89b5"
+        },
+        "sources": {
+          "mixed_signal.py": "3baf66575668eadfad4fd03947c68fdc6951af4a5beb6e84cc1cca7bafecd020",
+          "sar_example.py": "4895e24053300abf43f209fbf8587146eea43a6f0d3292a204d13f085396f13f",
+          "engines.py": "7cd7a1c4796c7bbc2ac08c68c710f29719b680af74ea5141489f27120554e390",
+          "native_spice.py": "0659012d62b2e8a032b217974dd0201a669f16af115d7483ca2147089751aab6",
+          "native_analysis.py": "42f41163e17400a3351628df6d4ca8c45e45440f33e35dd744ddbf1fe31c140d",
+          "digital.py": "cedb08e487f3ed92d14316499bf62c2b903bac8936fb702db4c77db84ff1e58f",
+          "digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+          "digital_flow.py": "5f78753ea5ae109af6a446cca8860b844f9513679f79e5ce526f01a3046fef81",
+          "model.py": "9aa920724fee2e0a5eddf2df73e4f55f75c47e50734dc13e9ce97fc71cea116f",
+          "run_environment.py": "2e1af468a7be2273c8e7f9528bfd0187b6f0a9e4de4026ea4696af03a3be51bb"
+        }
+      }
+    },
+    {
+      "name": "high-rail",
+      "expected": "PASS",
+      "passed": true,
+      "report": {
+        "status": "PASS",
+        "case": "high-rail",
+        "codes": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "averages": [
+          15,
+          15
+        ],
+        "checks": [
+          {
+            "name": "Eight conversion codes",
+            "passed": true,
+            "actual": [
+              15,
+              15,
+              15,
+              15,
+              15,
+              15,
+              15,
+              15
+            ],
+            "expected": [
+              15,
+              15,
+              15,
+              15,
+              15,
+              15,
+              15,
+              15
+            ]
+          },
+          {
+            "name": "Conversion cadence",
+            "passed": true,
+            "actual": [
+              7,
+              15,
+              23,
+              31,
+              39,
+              47,
+              55,
+              63
+            ],
+            "expected": [
+              7,
+              15,
+              23,
+              31,
+              39,
+              47,
+              55,
+              63
+            ]
+          },
+          {
+            "name": "Two rounded block averages",
+            "passed": true,
+            "actual": [
+              15,
+              15
+            ],
+            "expected": [
+              15,
+              15
+            ]
+          },
+          {
+            "name": "Average valid cadence",
+            "passed": true,
+            "actual": [
+              32,
+              64
+            ],
+            "expected": [
+              32,
+              64
+            ]
+          },
+          {
+            "name": "Alarm at average >= 10",
+            "passed": true,
+            "actual": [
+              1,
+              1
+            ],
+            "expected": [
+              1,
+              1
+            ]
+          },
+          {
+            "name": "Every conversion counted once",
+            "passed": true,
+            "actual": 8,
+            "expected": 8
+          },
+          {
+            "name": "Thirty-two comparator decisions",
+            "passed": true,
+            "actual": 32,
+            "expected": 32
+          },
+          {
+            "name": "Acquisition error below 2 mV",
+            "passed": true,
+            "actual": [
+              1.899999999999964,
+              1.899999999999971,
+              1.899999999999964,
+              1.899999999999964,
+              1.900000000000002,
+              1.900000000000002,
+              1.899999999999961,
+              1.900000000000002
+            ],
+            "expected": [
+              1.9,
+              1.9,
+              1.9,
+              1.9,
+              1.9,
+              1.9,
+              1.9,
+              1.9
+            ]
+          }
+        ]
+      },
+      "design_hash": "80bea268e84cdb50819bc910eac4787e0317a4b5706565f74475010284a8eb85",
+      "input_sha256": "4b98e205abfb5c203f98053a23483db3ecbf63606bff564bb1f41e3ba2db1ba3",
+      "result_sha256": "963c742c10e575a26142f8255a581785262ae53fe6a3815aff2d7604b77ca551",
+      "environment": {
+        "engine": "mixed_signal",
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "executables": {
+          "ngspice": "fdbedb3b5dfe9783e035e1b4107667a0ad6ca2cf0bcd9ccb8a7afe6c188ebf9a",
+          "iverilog": "45ad78ae189c2ce72381019a0272e07f6f7f4806fd5847b32e047bafa0299a29",
+          "vvp": "b028904f47202ba461cca43d89d7fa4dfbe01eb89e25673ab28b38a6f6cb89b5"
+        },
+        "sources": {
+          "mixed_signal.py": "3baf66575668eadfad4fd03947c68fdc6951af4a5beb6e84cc1cca7bafecd020",
+          "sar_example.py": "4895e24053300abf43f209fbf8587146eea43a6f0d3292a204d13f085396f13f",
+          "engines.py": "7cd7a1c4796c7bbc2ac08c68c710f29719b680af74ea5141489f27120554e390",
+          "native_spice.py": "0659012d62b2e8a032b217974dd0201a669f16af115d7483ca2147089751aab6",
+          "native_analysis.py": "42f41163e17400a3351628df6d4ca8c45e45440f33e35dd744ddbf1fe31c140d",
+          "digital.py": "cedb08e487f3ed92d14316499bf62c2b903bac8936fb702db4c77db84ff1e58f",
+          "digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+          "digital_flow.py": "5f78753ea5ae109af6a446cca8860b844f9513679f79e5ce526f01a3046fef81",
+          "model.py": "9aa920724fee2e0a5eddf2df73e4f55f75c47e50734dc13e9ce97fc71cea116f",
+          "run_environment.py": "2e1af468a7be2273c8e7f9528bfd0187b6f0a9e4de4026ea4696af03a3be51bb"
+        }
+      }
+    },
+    {
+      "name": "hold-step",
+      "expected": "PASS",
+      "passed": true,
+      "report": {
+        "status": "PASS",
+        "case": "hold-step",
+        "codes": [
+          1,
+          3,
+          5,
+          7,
+          8,
+          10,
+          12,
+          14
+        ],
+        "averages": [
+          4,
+          11
+        ],
+        "checks": [
+          {
+            "name": "Eight conversion codes",
+            "passed": true,
+            "actual": [
+              1,
+              3,
+              5,
+              7,
+              8,
+              10,
+              12,
+              14
+            ],
+            "expected": [
+              1,
+              3,
+              5,
+              7,
+              8,
+              10,
+              12,
+              14
+            ]
+          },
+          {
+            "name": "Conversion cadence",
+            "passed": true,
+            "actual": [
+              7,
+              15,
+              23,
+              31,
+              39,
+              47,
+              55,
+              63
+            ],
+            "expected": [
+              7,
+              15,
+              23,
+              31,
+              39,
+              47,
+              55,
+              63
+            ]
+          },
+          {
+            "name": "Two rounded block averages",
+            "passed": true,
+            "actual": [
+              4,
+              11
+            ],
+            "expected": [
+              4,
+              11
+            ]
+          },
+          {
+            "name": "Average valid cadence",
+            "passed": true,
+            "actual": [
+              32,
+              64
+            ],
+            "expected": [
+              32,
+              64
+            ]
+          },
+          {
+            "name": "Alarm at average >= 10",
+            "passed": true,
+            "actual": [
+              0,
+              1
+            ],
+            "expected": [
+              0,
+              1
+            ]
+          },
+          {
+            "name": "Every conversion counted once",
+            "passed": true,
+            "actual": 8,
+            "expected": 8
+          },
+          {
+            "name": "Thirty-two comparator decisions",
+            "passed": true,
+            "actual": 32,
+            "expected": 32
+          },
+          {
+            "name": "Acquisition error below 2 mV",
+            "passed": true,
+            "actual": [
+              0.1999999969986712,
+              0.3999915938614728,
+              0.5999915889175151,
+              0.7999915849468585,
+              0.999991580239769,
+              1.199991576321628,
+              1.39999157152521,
+              1.599991567699721
+            ],
+            "expected": [
+              0.2,
+              0.4,
+              0.6,
+              0.8,
+              1.0,
+              1.2,
+              1.4,
+              1.6
+            ]
+          }
+        ]
+      },
+      "design_hash": "d9dce006f5c94d5951d7573468b311bef2a1e9205ab042eab50dd4a7748e544c",
+      "input_sha256": "e56b298181e0b02c09f1d28d13d08115cb9605a9fb87cdb9371f7c4846063210",
+      "result_sha256": "4909db351bf67ab90eaa6774ae27a5753b521b25c3b6a1614de92bb8b3974242",
+      "environment": {
+        "engine": "mixed_signal",
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "executables": {
+          "ngspice": "fdbedb3b5dfe9783e035e1b4107667a0ad6ca2cf0bcd9ccb8a7afe6c188ebf9a",
+          "iverilog": "45ad78ae189c2ce72381019a0272e07f6f7f4806fd5847b32e047bafa0299a29",
+          "vvp": "b028904f47202ba461cca43d89d7fa4dfbe01eb89e25673ab28b38a6f6cb89b5"
+        },
+        "sources": {
+          "mixed_signal.py": "3baf66575668eadfad4fd03947c68fdc6951af4a5beb6e84cc1cca7bafecd020",
+          "sar_example.py": "4895e24053300abf43f209fbf8587146eea43a6f0d3292a204d13f085396f13f",
+          "engines.py": "7cd7a1c4796c7bbc2ac08c68c710f29719b680af74ea5141489f27120554e390",
+          "native_spice.py": "0659012d62b2e8a032b217974dd0201a669f16af115d7483ca2147089751aab6",
+          "native_analysis.py": "42f41163e17400a3351628df6d4ca8c45e45440f33e35dd744ddbf1fe31c140d",
+          "digital.py": "cedb08e487f3ed92d14316499bf62c2b903bac8936fb702db4c77db84ff1e58f",
+          "digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+          "digital_flow.py": "5f78753ea5ae109af6a446cca8860b844f9513679f79e5ce526f01a3046fef81",
+          "model.py": "9aa920724fee2e0a5eddf2df73e4f55f75c47e50734dc13e9ce97fc71cea116f",
+          "run_environment.py": "2e1af468a7be2273c8e7f9528bfd0187b6f0a9e4de4026ea4696af03a3be51bb"
+        }
+      }
+    },
+    {
+      "name": "fault-filter",
+      "expected": "FAIL",
+      "passed": true,
+      "report": {
+        "status": "FAIL",
+        "case": "nominal",
+        "codes": [
+          1,
+          3,
+          5,
+          7,
+          8,
+          10,
+          12,
+          14
+        ],
+        "averages": [
+          4,
+          11
+        ],
+        "checks": [
+          {
+            "name": "Eight conversion codes",
+            "passed": true,
+            "actual": [
+              1,
+              3,
+              5,
+              7,
+              8,
+              10,
+              12,
+              14
+            ],
+            "expected": [
+              1,
+              3,
+              5,
+              7,
+              8,
+              10,
+              12,
+              14
+            ]
+          },
+          {
+            "name": "Conversion cadence",
+            "passed": true,
+            "actual": [
+              7,
+              15,
+              23,
+              31,
+              39,
+              47,
+              55,
+              63
+            ],
+            "expected": [
+              7,
+              15,
+              23,
+              31,
+              39,
+              47,
+              55,
+              63
+            ]
+          },
+          {
+            "name": "Two rounded block averages",
+            "passed": true,
+            "actual": [
+              4,
+              11
+            ],
+            "expected": [
+              4,
+              11
+            ]
+          },
+          {
+            "name": "Average valid cadence",
+            "passed": true,
+            "actual": [
+              32,
+              64
+            ],
+            "expected": [
+              32,
+              64
+            ]
+          },
+          {
+            "name": "Alarm at average >= 10",
+            "passed": true,
+            "actual": [
+              0,
+              1
+            ],
+            "expected": [
+              0,
+              1
+            ]
+          },
+          {
+            "name": "Every conversion counted once",
+            "passed": true,
+            "actual": 8,
+            "expected": 8
+          },
+          {
+            "name": "Thirty-two comparator decisions",
+            "passed": true,
+            "actual": 32,
+            "expected": 32
+          },
+          {
+            "name": "Acquisition error below 2 mV",
+            "passed": false,
+            "actual": [
+              0.200000000000002,
+              0.3885484066512792,
+              0.5884600662603823,
+              0.7884596405897103,
+              0.9884593673654345,
+              1.188459175243929,
+              1.388459387763452,
+              1.588459375305652
+            ],
+            "expected": [
+              0.2,
+              0.4,
+              0.6,
+              0.8,
+              1.0,
+              1.2,
+              1.4,
+              1.6
+            ]
+          }
+        ]
+      },
+      "design_hash": "66bf068f19e9b6c66f012e1795a94c1f2c26ff113493c5990062f3ae478da5c7",
+      "input_sha256": "6675246a47b4d30ec2e2d31f27ba3217a8b01e14f1ec045581d026a50cc5f5c5",
+      "result_sha256": "366352c3e111e09a22a54b69afcf90d9a54a00bd98b4940d41c9696857dfb433",
+      "environment": {
+        "engine": "mixed_signal",
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "executables": {
+          "ngspice": "fdbedb3b5dfe9783e035e1b4107667a0ad6ca2cf0bcd9ccb8a7afe6c188ebf9a",
+          "iverilog": "45ad78ae189c2ce72381019a0272e07f6f7f4806fd5847b32e047bafa0299a29",
+          "vvp": "b028904f47202ba461cca43d89d7fa4dfbe01eb89e25673ab28b38a6f6cb89b5"
+        },
+        "sources": {
+          "mixed_signal.py": "3baf66575668eadfad4fd03947c68fdc6951af4a5beb6e84cc1cca7bafecd020",
+          "sar_example.py": "4895e24053300abf43f209fbf8587146eea43a6f0d3292a204d13f085396f13f",
+          "engines.py": "7cd7a1c4796c7bbc2ac08c68c710f29719b680af74ea5141489f27120554e390",
+          "native_spice.py": "0659012d62b2e8a032b217974dd0201a669f16af115d7483ca2147089751aab6",
+          "native_analysis.py": "42f41163e17400a3351628df6d4ca8c45e45440f33e35dd744ddbf1fe31c140d",
+          "digital.py": "cedb08e487f3ed92d14316499bf62c2b903bac8936fb702db4c77db84ff1e58f",
+          "digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+          "digital_flow.py": "5f78753ea5ae109af6a446cca8860b844f9513679f79e5ce526f01a3046fef81",
+          "model.py": "9aa920724fee2e0a5eddf2df73e4f55f75c47e50734dc13e9ce97fc71cea116f",
+          "run_environment.py": "2e1af468a7be2273c8e7f9528bfd0187b6f0a9e4de4026ea4696af03a3be51bb"
+        }
+      }
+    },
+    {
+      "name": "fault-decision",
+      "expected": "FAIL",
+      "passed": true,
+      "report": {
+        "status": "FAIL",
+        "case": "nominal",
+        "codes": [
+          15,
+          15,
+          15,
+          15,
+          0,
+          0,
+          0,
+          0
+        ],
+        "averages": [
+          15,
+          0
+        ],
+        "checks": [
+          {
+            "name": "Eight conversion codes",
+            "passed": false,
+            "actual": [
+              15,
+              15,
+              15,
+              15,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expected": [
+              1,
+              3,
+              5,
+              7,
+              8,
+              10,
+              12,
+              14
+            ]
+          },
+          {
+            "name": "Conversion cadence",
+            "passed": true,
+            "actual": [
+              7,
+              15,
+              23,
+              31,
+              39,
+              47,
+              55,
+              63
+            ],
+            "expected": [
+              7,
+              15,
+              23,
+              31,
+              39,
+              47,
+              55,
+              63
+            ]
+          },
+          {
+            "name": "Two rounded block averages",
+            "passed": false,
+            "actual": [
+              15,
+              0
+            ],
+            "expected": [
+              4,
+              11
+            ]
+          },
+          {
+            "name": "Average valid cadence",
+            "passed": true,
+            "actual": [
+              32,
+              64
+            ],
+            "expected": [
+              32,
+              64
+            ]
+          },
+          {
+            "name": "Alarm at average >= 10",
+            "passed": false,
+            "actual": [
+              1,
+              0
+            ],
+            "expected": [
+              0,
+              1
+            ]
+          },
+          {
+            "name": "Every conversion counted once",
+            "passed": true,
+            "actual": 8,
+            "expected": 8
+          },
+          {
+            "name": "Thirty-two comparator decisions",
+            "passed": true,
+            "actual": 32,
+            "expected": 32
+          },
+          {
+            "name": "Acquisition error below 2 mV",
+            "passed": true,
+            "actual": [
+              0.199999999999998,
+              0.3999915997202072,
+              0.5999915995616268,
+              0.7999915996954207,
+              0.9999915992711171,
+              1.199991603844935,
+              1.399991603125893,
+              1.599991603292116
+            ],
+            "expected": [
+              0.2,
+              0.4,
+              0.6,
+              0.8,
+              1.0,
+              1.2,
+              1.4,
+              1.6
+            ]
+          }
+        ]
+      },
+      "design_hash": "377cb02d25fe124af216727327c98019873c90384daaf2aa0b657c50adaec795",
+      "input_sha256": "7960495f823785ecfd59200131b7524351ebe2651c368af1fa69489b69731684",
+      "result_sha256": "22020680e41824b500cfbfe67bc70233b41287f72e2c880d0520a6a4ad21fcd1",
+      "environment": {
+        "engine": "mixed_signal",
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "executables": {
+          "ngspice": "fdbedb3b5dfe9783e035e1b4107667a0ad6ca2cf0bcd9ccb8a7afe6c188ebf9a",
+          "iverilog": "45ad78ae189c2ce72381019a0272e07f6f7f4806fd5847b32e047bafa0299a29",
+          "vvp": "b028904f47202ba461cca43d89d7fa4dfbe01eb89e25673ab28b38a6f6cb89b5"
+        },
+        "sources": {
+          "mixed_signal.py": "3baf66575668eadfad4fd03947c68fdc6951af4a5beb6e84cc1cca7bafecd020",
+          "sar_example.py": "4895e24053300abf43f209fbf8587146eea43a6f0d3292a204d13f085396f13f",
+          "engines.py": "7cd7a1c4796c7bbc2ac08c68c710f29719b680af74ea5141489f27120554e390",
+          "native_spice.py": "0659012d62b2e8a032b217974dd0201a669f16af115d7483ca2147089751aab6",
+          "native_analysis.py": "42f41163e17400a3351628df6d4ca8c45e45440f33e35dd744ddbf1fe31c140d",
+          "digital.py": "cedb08e487f3ed92d14316499bf62c2b903bac8936fb702db4c77db84ff1e58f",
+          "digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+          "digital_flow.py": "5f78753ea5ae109af6a446cca8860b844f9513679f79e5ce526f01a3046fef81",
+          "model.py": "9aa920724fee2e0a5eddf2df73e4f55f75c47e50734dc13e9ce97fc71cea116f",
+          "run_environment.py": "2e1af468a7be2273c8e7f9528bfd0187b6f0a9e4de4026ea4696af03a3be51bb"
+        }
+      }
+    },
+    {
+      "name": "fault-average",
+      "expected": "FAIL",
+      "passed": true,
+      "report": {
+        "status": "FAIL",
+        "case": "nominal",
+        "codes": [
+          1,
+          3,
+          5,
+          7,
+          8,
+          10,
+          12,
+          14
+        ],
+        "averages": [
+          9,
+          7
+        ],
+        "checks": [
+          {
+            "name": "Eight conversion codes",
+            "passed": true,
+            "actual": [
+              1,
+              3,
+              5,
+              7,
+              8,
+              10,
+              12,
+              14
+            ],
+            "expected": [
+              1,
+              3,
+              5,
+              7,
+              8,
+              10,
+              12,
+              14
+            ]
+          },
+          {
+            "name": "Conversion cadence",
+            "passed": true,
+            "actual": [
+              7,
+              15,
+              23,
+              31,
+              39,
+              47,
+              55,
+              63
+            ],
+            "expected": [
+              7,
+              15,
+              23,
+              31,
+              39,
+              47,
+              55,
+              63
+            ]
+          },
+          {
+            "name": "Two rounded block averages",
+            "passed": false,
+            "actual": [
+              9,
+              7
+            ],
+            "expected": [
+              4,
+              11
+            ]
+          },
+          {
+            "name": "Average valid cadence",
+            "passed": true,
+            "actual": [
+              32,
+              64
+            ],
+            "expected": [
+              32,
+              64
+            ]
+          },
+          {
+            "name": "Alarm at average >= 10",
+            "passed": false,
+            "actual": [
+              0,
+              0
+            ],
+            "expected": [
+              0,
+              1
+            ]
+          },
+          {
+            "name": "Every conversion counted once",
+            "passed": true,
+            "actual": 8,
+            "expected": 8
+          },
+          {
+            "name": "Thirty-two comparator decisions",
+            "passed": true,
+            "actual": 32,
+            "expected": 32
+          },
+          {
+            "name": "Acquisition error below 2 mV",
+            "passed": true,
+            "actual": [
+              0.199999999999998,
+              0.3999916004567144,
+              0.599991599725652,
+              0.7999915999811,
+              0.9999915996199344,
+              1.19999159911351,
+              1.399991599521458,
+              1.599991598986641
+            ],
+            "expected": [
+              0.2,
+              0.4,
+              0.6,
+              0.8,
+              1.0,
+              1.2,
+              1.4,
+              1.6
+            ]
+          }
+        ]
+      },
+      "design_hash": "8a072fa11df281fed0fb90852fe233e7aa7a34c682820e8f49a708c9273ae847",
+      "input_sha256": "137b4853929c69d728045d9e4c4e66d49dc85344bac8990e5b1df5997a65fefc",
+      "result_sha256": "a3523bd98d260a7f2107bcd948c2ce1208f903f799093947224c8964c079db5f",
+      "environment": {
+        "engine": "mixed_signal",
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "executables": {
+          "ngspice": "fdbedb3b5dfe9783e035e1b4107667a0ad6ca2cf0bcd9ccb8a7afe6c188ebf9a",
+          "iverilog": "45ad78ae189c2ce72381019a0272e07f6f7f4806fd5847b32e047bafa0299a29",
+          "vvp": "b028904f47202ba461cca43d89d7fa4dfbe01eb89e25673ab28b38a6f6cb89b5"
+        },
+        "sources": {
+          "mixed_signal.py": "3baf66575668eadfad4fd03947c68fdc6951af4a5beb6e84cc1cca7bafecd020",
+          "sar_example.py": "4895e24053300abf43f209fbf8587146eea43a6f0d3292a204d13f085396f13f",
+          "engines.py": "7cd7a1c4796c7bbc2ac08c68c710f29719b680af74ea5141489f27120554e390",
+          "native_spice.py": "0659012d62b2e8a032b217974dd0201a669f16af115d7483ca2147089751aab6",
+          "native_analysis.py": "42f41163e17400a3351628df6d4ca8c45e45440f33e35dd744ddbf1fe31c140d",
+          "digital.py": "cedb08e487f3ed92d14316499bf62c2b903bac8936fb702db4c77db84ff1e58f",
+          "digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+          "digital_flow.py": "5f78753ea5ae109af6a446cca8860b844f9513679f79e5ce526f01a3046fef81",
+          "model.py": "9aa920724fee2e0a5eddf2df73e4f55f75c47e50734dc13e9ce97fc71cea116f",
+          "run_environment.py": "2e1af468a7be2273c8e7f9528bfd0187b6f0a9e4de4026ea4696af03a3be51bb"
+        }
+      }
+    },
+    {
+      "name": "fault-alarm",
+      "expected": "FAIL",
+      "passed": true,
+      "report": {
+        "status": "FAIL",
+        "case": "nominal",
+        "codes": [
+          1,
+          3,
+          5,
+          7,
+          8,
+          10,
+          12,
+          14
+        ],
+        "averages": [
+          4,
+          11
+        ],
+        "checks": [
+          {
+            "name": "Eight conversion codes",
+            "passed": true,
+            "actual": [
+              1,
+              3,
+              5,
+              7,
+              8,
+              10,
+              12,
+              14
+            ],
+            "expected": [
+              1,
+              3,
+              5,
+              7,
+              8,
+              10,
+              12,
+              14
+            ]
+          },
+          {
+            "name": "Conversion cadence",
+            "passed": true,
+            "actual": [
+              7,
+              15,
+              23,
+              31,
+              39,
+              47,
+              55,
+              63
+            ],
+            "expected": [
+              7,
+              15,
+              23,
+              31,
+              39,
+              47,
+              55,
+              63
+            ]
+          },
+          {
+            "name": "Two rounded block averages",
+            "passed": true,
+            "actual": [
+              4,
+              11
+            ],
+            "expected": [
+              4,
+              11
+            ]
+          },
+          {
+            "name": "Average valid cadence",
+            "passed": true,
+            "actual": [
+              32,
+              64
+            ],
+            "expected": [
+              32,
+              64
+            ]
+          },
+          {
+            "name": "Alarm at average >= 10",
+            "passed": false,
+            "actual": [
+              0,
+              0
+            ],
+            "expected": [
+              0,
+              1
+            ]
+          },
+          {
+            "name": "Every conversion counted once",
+            "passed": true,
+            "actual": 8,
+            "expected": 8
+          },
+          {
+            "name": "Thirty-two comparator decisions",
+            "passed": true,
+            "actual": 32,
+            "expected": 32
+          },
+          {
+            "name": "Acquisition error below 2 mV",
+            "passed": true,
+            "actual": [
+              0.199999999999998,
+              0.3999916004567144,
+              0.599991599725652,
+              0.7999915999811,
+              0.9999915996199344,
+              1.19999159911351,
+              1.399991599521458,
+              1.599991598986641
+            ],
+            "expected": [
+              0.2,
+              0.4,
+              0.6,
+              0.8,
+              1.0,
+              1.2,
+              1.4,
+              1.6
+            ]
+          }
+        ]
+      },
+      "design_hash": "628285d676385b9b59cc7de02d1ed0d82a1ec4962b9e779271937c87e6ef40b5",
+      "input_sha256": "840882bd445265acf508cfcf9939b2dcfe49dcbcc0e0c205854b36b3fc7d3253",
+      "result_sha256": "e7874b0094c20d14611b8f25fa61aa3d02adfa6c9b5b79b7afc30286c0ae4a8e",
+      "environment": {
+        "engine": "mixed_signal",
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "executables": {
+          "ngspice": "fdbedb3b5dfe9783e035e1b4107667a0ad6ca2cf0bcd9ccb8a7afe6c188ebf9a",
+          "iverilog": "45ad78ae189c2ce72381019a0272e07f6f7f4806fd5847b32e047bafa0299a29",
+          "vvp": "b028904f47202ba461cca43d89d7fa4dfbe01eb89e25673ab28b38a6f6cb89b5"
+        },
+        "sources": {
+          "mixed_signal.py": "3baf66575668eadfad4fd03947c68fdc6951af4a5beb6e84cc1cca7bafecd020",
+          "sar_example.py": "4895e24053300abf43f209fbf8587146eea43a6f0d3292a204d13f085396f13f",
+          "engines.py": "7cd7a1c4796c7bbc2ac08c68c710f29719b680af74ea5141489f27120554e390",
+          "native_spice.py": "0659012d62b2e8a032b217974dd0201a669f16af115d7483ca2147089751aab6",
+          "native_analysis.py": "42f41163e17400a3351628df6d4ca8c45e45440f33e35dd744ddbf1fe31c140d",
+          "digital.py": "cedb08e487f3ed92d14316499bf62c2b903bac8936fb702db4c77db84ff1e58f",
+          "digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+          "digital_flow.py": "5f78753ea5ae109af6a446cca8860b844f9513679f79e5ce526f01a3046fef81",
+          "model.py": "9aa920724fee2e0a5eddf2df73e4f55f75c47e50734dc13e9ce97fc71cea116f",
+          "run_environment.py": "2e1af468a7be2273c8e7f9528bfd0187b6f0a9e4de4026ea4696af03a3be51bb"
+        }
+      }
+    }
+  ]
+}

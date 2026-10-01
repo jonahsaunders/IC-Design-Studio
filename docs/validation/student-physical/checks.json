@@ -1,0 +1,127 @@
+{
+  "status": "passed",
+  "recorded": "2026-10-01T00:36:22.321816+00:00",
+  "scope": "Nominal core-MOS inverter simulation, editable layout, full Magic DRC, strict Netgen LVS, deliberate faults/repairs and evidence integrity. Bounded single-finger W 1-10 um; GF180 L 0.28-2 um, IHP L 0.13-2 um.",
+  "exclusions": [
+    "Other device classes",
+    "Arbitrary edited designs",
+    "Extracted-RC timing",
+    "PVT/Monte Carlo coverage",
+    "Antenna/density and fabrication signoff",
+    "GF180/IHP RTL-to-GDS standard-cell flow"
+  ],
+  "processes": [
+    {
+      "pdk": "gf180mcuC",
+      "revision": "627ca682d68e1e92",
+      "platform": "Linux x86_64 / Docker",
+      "status": "passed",
+      "report": "gf180mcuC-linux/checks.json"
+    },
+    {
+      "pdk": "gf180mcuD",
+      "revision": "7dd87219f1333dbb",
+      "platform": "Linux x86_64 / Docker",
+      "status": "passed",
+      "report": "gf180mcuD-linux/checks.json"
+    },
+    {
+      "pdk": "ihp-sg13g2",
+      "revision": "3abac20fcb57e184",
+      "platform": "Linux x86_64 / Docker",
+      "status": "passed",
+      "report": "ihp-linux-04/checks.json"
+    },
+    {
+      "pdk": "ihp-sg13g2",
+      "revision": "3abac20fcb57e184",
+      "platform": "Windows / managed WSL 2",
+      "status": "passed",
+      "report": "ihp-windows/checks.json"
+    },
+    {
+      "pdk": "sky130A",
+      "revision": "01b4bb7a87cc7fe5",
+      "platform": "Windows / native ngspice + managed WSL 2 physical tools",
+      "status": "passed",
+      "report": "sky130-runtime/checks.json"
+    }
+  ],
+  "geometry_boundaries": {
+    "cases": 12,
+    "status": "passed",
+    "report": "size-boundaries.json"
+  },
+  "gui": {
+    "status": "passed",
+    "report": "gui.json"
+  },
+  "unit_suite": {
+    "tests": 1234,
+    "skipped": 55,
+    "failures": 0,
+    "seconds": 196.811,
+    "log_sha256": "fcc5eeff7d1bb77eae9a97c068cb2e948decb85a7b0ebb0c8c4c94fa2bb739f3"
+  },
+  "onboarding": {
+    "status": "passed",
+    "report": "onboarding.json",
+    "offline_packages": [
+      "sky130A@24bc6d0bfd6a0224",
+      "gf180mcuC@627ca682d68e1e92",
+      "gf180mcuD@7dd87219f1333dbb",
+      "ihp-sg13g2@3abac20fcb57e184"
+    ]
+  },
+  "pdk_reproduction": [
+    {
+      "pdk": "gf180mcuC",
+      "revision": "627ca682d68e1e92",
+      "locked_files": 79,
+      "status": "identical"
+    },
+    {
+      "pdk": "gf180mcuD",
+      "revision": "7dd87219f1333dbb",
+      "locked_files": 79,
+      "status": "identical"
+    },
+    {
+      "pdk": "ihp-sg13g2",
+      "revision": "3abac20fcb57e184",
+      "locked_files": 156,
+      "status": "identical"
+    }
+  ],
+  "runtime": {
+    "system": "ubuntu-24.04-x86_64",
+    "archive_sha256": "b9abb0331c16146aa4a45b72ebcdcdb4b76ab910938c52aaee89193a7c448bf1",
+    "manifest_sha256": "123c204d17c2c540a99a98ef02a3d82baae895f5bf8e4170d5f14f88e70e1dc3",
+    "physical_sources": {
+      "magic": {
+        "repository": "https://github.com/RTimothyEdwards/magic.git",
+        "version": "8.3.684",
+        "commit": "4f53bb3091d1e4a9b2009a58f157a8a4331d4c84"
+      },
+      "netgen": {
+        "repository": "https://github.com/RTimothyEdwards/netgen.git",
+        "version": "1.5.300",
+        "commit": "1de6f88f1eebb786efadecc28e9e0dde37e8c433"
+      }
+    },
+    "ngspice": "42",
+    "klayout": "0.30.5",
+    "ihp_models": "ihp-model-build.json",
+    "setup_checked": "2026-10-01T00:27:47+00:00",
+    "setup_backend": "c9ec9d5ea923fe57c311e190cf579b9f06081c994597ab6852da30f2d892cfb9",
+    "setup_scope": "Icarus, Verilator, synthesis, equivalence, timing, floorplan, full SKY130HD GDS, extracted timing and positive/negative physical runtime smoke checks"
+  },
+  "reproduce": [
+    "python scripts/qualify_student_inverter.py --pdk-manifest icstudio/assets/pdks/<PDK>/package.json --out <FRESH_DIRECTORY> --ngspice <NGSPICE> --magic <MAGIC> --netgen <NETGEN>",
+    "IHP: omit engine paths on Windows with ICSTUDIO_DIGITAL_PAYLOAD and ICSTUDIO_DIGITAL_STATE pointing to a prepared included runtime; Linux custom engines also accept --osdi-directory <BUILD_WITH_BUILD_JSON>.",
+    "python scripts/qualify_student_geometry.py --out <FRESH_DIRECTORY> --magic <MAGIC> --netgen <NETGEN>",
+    "QT_QPA_PLATFORM=offscreen ICSTUDIO_TEST_NGSPICE=<NGSPICE> ICSTUDIO_TEST_MANAGED=1 python tests/gui_student_inverter.py",
+    "python -m unittest discover -s tests -v"
+  ],
+  "evidence_note": "Compact summaries and selected original comparison logs/netlists; hashes identify complete raw local run records. Passing the suite includes environment-dependent skips, not qualification of those skipped integrations."
+}

@@ -31,4 +31,6 @@ def load_directory(directory):
     p['cells']=cells
     package=p.get('pdk',{}).get('package_root')
     if package and not Path(package).is_absolute():p['pdk']['package_root']=str((root/package).resolve())
+    from .osdi import resolve_paths
+    resolve_paths(p,root)
     return validate(p)

@@ -1,0 +1,1211 @@
+{
+  "schema": 1,
+  "id": "ce088711b4484151",
+  "name": "Sensor acquisition · SAR, averaging and alarm",
+  "revision": 0,
+  "top": "38de6a9c542b4866",
+  "created": "2026-09-30T13:07:14+00:00",
+  "modified": "2026-09-30T13:07:14+00:00",
+  "pdk": {
+    "name": "Generic teaching process",
+    "revision": "generic-1",
+    "status": "unqualified",
+    "dbu_um": 0.001,
+    "grid": 5,
+    "layers": [
+      {
+        "name": "active",
+        "gds": 1,
+        "datatype": 0,
+        "color": "#64c77b",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "poly",
+        "gds": 2,
+        "datatype": 0,
+        "color": "#f18c89",
+        "width": 150,
+        "space": 180
+      },
+      {
+        "name": "contact",
+        "gds": 3,
+        "datatype": 0,
+        "color": "#d2d9de",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "metal1",
+        "gds": 4,
+        "datatype": 0,
+        "color": "#68a6f4",
+        "width": 200,
+        "space": 200
+      },
+      {
+        "name": "via1",
+        "gds": 5,
+        "datatype": 0,
+        "color": "#ddc086",
+        "width": 150,
+        "space": 150
+      },
+      {
+        "name": "metal2",
+        "gds": 6,
+        "datatype": 0,
+        "color": "#b49cef",
+        "width": 250,
+        "space": 250
+      },
+      {
+        "name": "nwell",
+        "gds": 7,
+        "datatype": 0,
+        "color": "#d2ab6a",
+        "width": 1000,
+        "space": 500
+      }
+    ]
+  },
+  "cells": [
+    {
+      "id": "38de6a9c542b4866",
+      "name": "sar_analog",
+      "ports": [],
+      "devices": [
+        {
+          "id": "036566f418d043d3",
+          "kind": "R",
+          "name": "Rbit0",
+          "x": 420,
+          "y": 300,
+          "rotation": 0,
+          "nets": {
+            "p": "d0",
+            "n": "vdac"
+          },
+          "value": "80000.0",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_ceb1cd6bbef26efef72765ec",
+            "n": "t_1e8916c1e95609b263a755cf"
+          },
+          "net_ids": {
+            "p": "n_addf41878478e18ee649aa10",
+            "n": "n_97293f333712d6b7a0ddc89d"
+          }
+        },
+        {
+          "id": "2328a8ddabe74020",
+          "kind": "R",
+          "name": "Rbit1",
+          "x": 590,
+          "y": 300,
+          "rotation": 0,
+          "nets": {
+            "p": "d1",
+            "n": "vdac"
+          },
+          "value": "40000.0",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_d735cc1bb60fc54e45c7a2bb",
+            "n": "t_fe8ee89dee6f08b82b097a85"
+          },
+          "net_ids": {
+            "p": "n_2cd9ed82a3028faf2acc9a96",
+            "n": "n_97293f333712d6b7a0ddc89d"
+          }
+        },
+        {
+          "id": "5670cacd71bd4eb7",
+          "kind": "R",
+          "name": "Rbit2",
+          "x": 760,
+          "y": 300,
+          "rotation": 0,
+          "nets": {
+            "p": "d2",
+            "n": "vdac"
+          },
+          "value": "20000.0",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_8797656828990e91c794aa19",
+            "n": "t_b6cb7bdd7cbd66981c1ca3d2"
+          },
+          "net_ids": {
+            "p": "n_68bc77c3e9eb30751e51cda8",
+            "n": "n_97293f333712d6b7a0ddc89d"
+          }
+        },
+        {
+          "id": "98336287d5504518",
+          "kind": "R",
+          "name": "Rbit3",
+          "x": 930,
+          "y": 300,
+          "rotation": 0,
+          "nets": {
+            "p": "d3",
+            "n": "vdac"
+          },
+          "value": "10000.0",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_d5e8ffc32e2ed241d13e1b78",
+            "n": "t_dc144be9ea8ba4d689f1d533"
+          },
+          "net_ids": {
+            "p": "n_68c5865aecfff3380c639dec",
+            "n": "n_97293f333712d6b7a0ddc89d"
+          }
+        },
+        {
+          "id": "9f38be2da1f14af0",
+          "kind": "R",
+          "name": "Rterm",
+          "x": 1100,
+          "y": 300,
+          "rotation": 0,
+          "nets": {
+            "p": "vdac",
+            "n": "0"
+          },
+          "value": "80k",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_17b9cb6976e4df49478b96e2",
+            "n": "t_e9cdefc3c1d4ec178f9b0049"
+          },
+          "net_ids": {
+            "p": "n_97293f333712d6b7a0ddc89d",
+            "n": "n_4a6d73e69f8a0dfc91a9decf"
+          }
+        },
+        {
+          "id": "86ba315d1ba943c4",
+          "kind": "C",
+          "name": "Cdac",
+          "x": 1100,
+          "y": 500,
+          "rotation": 0,
+          "nets": {
+            "p": "vdac",
+            "n": "0"
+          },
+          "value": "2p",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_336df584f5c8aa1408131742",
+            "n": "t_c31336abc2b7c4b953896224"
+          },
+          "net_ids": {
+            "p": "n_97293f333712d6b7a0ddc89d",
+            "n": "n_4a6d73e69f8a0dfc91a9decf"
+          }
+        },
+        {
+          "id": "29dc62570192427f",
+          "kind": "SPICE",
+          "name": "Ssample",
+          "x": 160,
+          "y": 100,
+          "rotation": 0,
+          "nets": {
+            "in": "filtered",
+            "out": "held",
+            "control": "track",
+            "ground": "0"
+          },
+          "value": "1",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "symbol": {
+            "primitives": [
+              {
+                "kind": "rect",
+                "points": [
+                  [
+                    -40,
+                    -50
+                  ],
+                  [
+                    40,
+                    50
+                  ]
+                ]
+              }
+            ],
+            "pins": {
+              "in": [
+                -60,
+                -30
+              ],
+              "out": [
+                60,
+                -30
+              ],
+              "control": [
+                -60,
+                10
+              ],
+              "ground": [
+                60,
+                10
+              ]
+            },
+            "pin_order": [
+              "in",
+              "out",
+              "control",
+              "ground"
+            ]
+          },
+          "native_spice": {
+            "version": 1,
+            "type": "device",
+            "label": "Sampling switch",
+            "parameters": {},
+            "tokens": [
+              {
+                "kind": "instance"
+              },
+              {
+                "kind": "literal",
+                "value": " "
+              },
+              {
+                "kind": "terminals"
+              },
+              {
+                "kind": "literal",
+                "value": " sample_switch"
+              }
+            ],
+            "definition": ".model sample_switch SW(Ron=100 Roff=1e12 Vt=0.9 Vh=0)"
+          },
+          "terminal_ids": {
+            "in": "t_3b36bd8cad580b09253eee1b",
+            "out": "t_7330aedde6938ab3d5ce4031",
+            "control": "t_9365d9b2ea973ccf290c95d5",
+            "ground": "t_2584803d1438675c5bd1f674"
+          },
+          "net_ids": {
+            "in": "n_89ffd550f5451ad941eebb0f",
+            "out": "n_2daa9b32a53eb39ea811f89f",
+            "control": "n_f610b49f5b16c5ceba9712a4",
+            "ground": "n_4a6d73e69f8a0dfc91a9decf"
+          }
+        },
+        {
+          "id": "8fffc4943df445fa",
+          "kind": "C",
+          "name": "Chold",
+          "x": 370,
+          "y": 100,
+          "rotation": 0,
+          "nets": {
+            "p": "held",
+            "n": "0"
+          },
+          "value": "20p",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_c687d921d7b3669dcc95d0d7",
+            "n": "t_a30a7159b633ac245d840373"
+          },
+          "net_ids": {
+            "p": "n_2daa9b32a53eb39ea811f89f",
+            "n": "n_4a6d73e69f8a0dfc91a9decf"
+          }
+        },
+        {
+          "id": "897fd7eb17b4473c",
+          "kind": "SPICE",
+          "name": "Bcompare",
+          "x": 650,
+          "y": 100,
+          "rotation": 0,
+          "nets": {
+            "positive": "held",
+            "negative": "vdac",
+            "out": "cmp_raw",
+            "ground": "0"
+          },
+          "value": "1",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "symbol": {
+            "primitives": [
+              {
+                "kind": "rect",
+                "points": [
+                  [
+                    -40,
+                    -50
+                  ],
+                  [
+                    40,
+                    50
+                  ]
+                ]
+              }
+            ],
+            "pins": {
+              "positive": [
+                -60,
+                -30
+              ],
+              "negative": [
+                60,
+                -30
+              ],
+              "out": [
+                -60,
+                10
+              ],
+              "ground": [
+                60,
+                10
+              ]
+            },
+            "pin_order": [
+              "positive",
+              "negative",
+              "out",
+              "ground"
+            ]
+          },
+          "native_spice": {
+            "version": 1,
+            "type": "device",
+            "label": "Comparator",
+            "parameters": {
+              "offset": "0"
+            },
+            "tokens": [
+              {
+                "kind": "instance"
+              },
+              {
+                "kind": "literal",
+                "value": " "
+              },
+              {
+                "kind": "terminal",
+                "value": "out"
+              },
+              {
+                "kind": "literal",
+                "value": " "
+              },
+              {
+                "kind": "terminal",
+                "value": "ground"
+              },
+              {
+                "kind": "literal",
+                "value": " V=0.9*(1+tanh((V("
+              },
+              {
+                "kind": "terminal",
+                "value": "positive"
+              },
+              {
+                "kind": "literal",
+                "value": ")-V("
+              },
+              {
+                "kind": "terminal",
+                "value": "negative"
+              },
+              {
+                "kind": "literal",
+                "value": ")-("
+              },
+              {
+                "kind": "parameter",
+                "value": "offset"
+              },
+              {
+                "kind": "literal",
+                "value": "))*10000))"
+              }
+            ],
+            "definition": ""
+          },
+          "terminal_ids": {
+            "positive": "t_bbf62b6112cbe11211964ec3",
+            "negative": "t_45682d7ca1acda392b61a4fe",
+            "out": "t_6a7a5e0e62a72122ae135dcb",
+            "ground": "t_b9b76dac236f746e41bca06d"
+          },
+          "net_ids": {
+            "positive": "n_2daa9b32a53eb39ea811f89f",
+            "negative": "n_97293f333712d6b7a0ddc89d",
+            "out": "n_230de2a602341acd1135cb02",
+            "ground": "n_4a6d73e69f8a0dfc91a9decf"
+          }
+        },
+        {
+          "id": "5f335b9de8b24916",
+          "kind": "R",
+          "name": "Rcompare",
+          "x": 870,
+          "y": 100,
+          "rotation": 0,
+          "nets": {
+            "p": "cmp_raw",
+            "n": "cmp"
+          },
+          "value": "1k",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_1d16017a8801921c07f2e88b",
+            "n": "t_402686b7ece898102cc5b304"
+          },
+          "net_ids": {
+            "p": "n_230de2a602341acd1135cb02",
+            "n": "n_cd30e6eeaaade2d748d47605"
+          }
+        },
+        {
+          "id": "4c1e984f94134b30",
+          "kind": "C",
+          "name": "Ccompare",
+          "x": 1100,
+          "y": 100,
+          "rotation": 0,
+          "nets": {
+            "p": "cmp",
+            "n": "0"
+          },
+          "value": "1p",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_51c25d49ee6f692424c4c895",
+            "n": "t_b9b72d74a76321ec820884b2"
+          },
+          "net_ids": {
+            "p": "n_cd30e6eeaaade2d748d47605",
+            "n": "n_4a6d73e69f8a0dfc91a9decf"
+          }
+        },
+        {
+          "id": "2b4f75a9446c439a",
+          "kind": "R",
+          "name": "Rfilter",
+          "x": 60,
+          "y": 650,
+          "rotation": 0,
+          "nets": {
+            "p": "vin",
+            "n": "filtered"
+          },
+          "value": "1k",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_dff04425c2dc1735b5f62118",
+            "n": "t_d15dac5ec5eb15f791d84a81"
+          },
+          "net_ids": {
+            "p": "n_a3946f5ad46a3148c576df7e",
+            "n": "n_89ffd550f5451ad941eebb0f"
+          }
+        },
+        {
+          "id": "7cff9403fb504537",
+          "kind": "C",
+          "name": "Cfilter",
+          "x": 300,
+          "y": 650,
+          "rotation": 0,
+          "nets": {
+            "p": "filtered",
+            "n": "0"
+          },
+          "value": "100p",
+          "params": {
+            "w": "2u",
+            "l": "0.18u",
+            "vto": "0.45",
+            "kp": "100u",
+            "lambda": "0.02"
+          },
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "terminal_ids": {
+            "p": "t_f17144727dc1528b1b0b2600",
+            "n": "t_6959fa635098227e8defe3d6"
+          },
+          "net_ids": {
+            "p": "n_89ffd550f5451ad941eebb0f",
+            "n": "n_4a6d73e69f8a0dfc91a9decf"
+          }
+        }
+      ],
+      "shapes": [],
+      "electrical": {
+        "version": 1,
+        "nets": [
+          {
+            "id": "n_4a6d73e69f8a0dfc91a9decf",
+            "name": "0",
+            "terminals": [
+              "t_2584803d1438675c5bd1f674",
+              "t_6959fa635098227e8defe3d6",
+              "t_a30a7159b633ac245d840373",
+              "t_b9b72d74a76321ec820884b2",
+              "t_b9b76dac236f746e41bca06d",
+              "t_c31336abc2b7c4b953896224",
+              "t_e9cdefc3c1d4ec178f9b0049"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_cd30e6eeaaade2d748d47605",
+            "name": "cmp",
+            "terminals": [
+              "t_402686b7ece898102cc5b304",
+              "t_51c25d49ee6f692424c4c895"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_230de2a602341acd1135cb02",
+            "name": "cmp_raw",
+            "terminals": [
+              "t_1d16017a8801921c07f2e88b",
+              "t_6a7a5e0e62a72122ae135dcb"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_addf41878478e18ee649aa10",
+            "name": "d0",
+            "terminals": [
+              "t_ceb1cd6bbef26efef72765ec"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_2cd9ed82a3028faf2acc9a96",
+            "name": "d1",
+            "terminals": [
+              "t_d735cc1bb60fc54e45c7a2bb"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_68bc77c3e9eb30751e51cda8",
+            "name": "d2",
+            "terminals": [
+              "t_8797656828990e91c794aa19"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_68c5865aecfff3380c639dec",
+            "name": "d3",
+            "terminals": [
+              "t_d5e8ffc32e2ed241d13e1b78"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_89ffd550f5451ad941eebb0f",
+            "name": "filtered",
+            "terminals": [
+              "t_3b36bd8cad580b09253eee1b",
+              "t_d15dac5ec5eb15f791d84a81",
+              "t_f17144727dc1528b1b0b2600"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_2daa9b32a53eb39ea811f89f",
+            "name": "held",
+            "terminals": [
+              "t_7330aedde6938ab3d5ce4031",
+              "t_bbf62b6112cbe11211964ec3",
+              "t_c687d921d7b3669dcc95d0d7"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_f610b49f5b16c5ceba9712a4",
+            "name": "track",
+            "terminals": [
+              "t_9365d9b2ea973ccf290c95d5"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_97293f333712d6b7a0ddc89d",
+            "name": "vdac",
+            "terminals": [
+              "t_17b9cb6976e4df49478b96e2",
+              "t_1e8916c1e95609b263a755cf",
+              "t_336df584f5c8aa1408131742",
+              "t_45682d7ca1acda392b61a4fe",
+              "t_b6cb7bdd7cbd66981c1ca3d2",
+              "t_dc144be9ea8ba4d689f1d533",
+              "t_fe8ee89dee6f08b82b097a85"
+            ],
+            "wires": []
+          },
+          {
+            "id": "n_a3946f5ad46a3148c576df7e",
+            "name": "vin",
+            "terminals": [
+              "t_dff04425c2dc1735b5f62118"
+            ],
+            "wires": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "5ab33038b18848f2",
+      "name": "sar_controller",
+      "ports": [],
+      "devices": [],
+      "shapes": [],
+      "digital": {
+        "version": 1,
+        "top": "sensor_controller",
+        "testbench": "",
+        "include_dirs": [
+          "."
+        ],
+        "defines": {},
+        "waveform": "sar.vcd",
+        "timeout": 60,
+        "files": [
+          {
+            "path": "sar_controller.sv",
+            "role": "rtl",
+            "text": "// Four-bit, MSB-first SAR controller. The analog comparator supplies cmp.\n// DAC outputs are held for a full clock before each comparator decision.\nmodule sar_controller(\n    input wire clk, input wire reset, input wire start, input wire cmp,\n    output reg [3:0] dac, output reg [3:0] code,\n    output reg track, output reg busy, output reg done,\n    output wire compare\n);\n  localparam IDLE=0, ACQUIRE=1, CONVERT=2;\n  reg [1:0] state;\n  reg [1:0] bit_index;\n  reg [3:0] accepted;\n  assign compare = (state == CONVERT);\n  always @(posedge clk) begin\n    if (reset) begin\n      state <= IDLE; bit_index <= 3;\n      dac <= 0; code <= 0; track <= 1; busy <= 0; done <= 0;\n    end else begin\n      done <= 0;\n      case (state)\n        IDLE: if (start) begin\n          track <= 1; busy <= 1; dac <= 0; state <= ACQUIRE;\n        end\n        ACQUIRE: begin\n          track <= 0; dac <= 4'b1000; bit_index <= 3; state <= CONVERT;\n        end\n        CONVERT: begin\n          accepted = dac;\n          if (!cmp) accepted[bit_index] = 0;\n          if (bit_index == 0) begin\n            dac <= accepted; code <= accepted;\n            busy <= 0; done <= 1; state <= IDLE;\n          end else begin\n            dac <= accepted | (4'b0001 << (bit_index-1));\n            bit_index <= bit_index-1;\n          end\n        end\n        default: begin state <= IDLE; busy <= 0; track <= 1; dac <= 0; end\n      endcase\n    end\n  end\nendmodule\n"
+          },
+          {
+            "path": "sensor_controller.sv",
+            "role": "rtl",
+            "text": "// Eight conversions, averaged in non-overlapping groups of four.\n// Start pulses come from the experiment; no hidden Python conversion logic.\nmodule sensor_controller(\n    input wire clk, reset, start, cmp,\n    output wire [3:0] dac, code,\n    output wire track, busy, done, compare,\n    output reg [3:0] average,\n    output reg average_valid, alarm,\n    output reg [3:0] sample_count\n);\n  sar_controller adc(clk, reset, start, cmp, dac, code, track, busy, done, compare);\n  reg [5:0] sum;\n  reg [1:0] count;\n  wire [5:0] total = sum + {2'b0, code};\n  wire [3:0] rounded_average = (total + 6'd2) >> 2;\n  always @(posedge clk) begin\n    if (reset) begin\n      sum <= 0; count <= 0; average <= 0;\n      average_valid <= 0; alarm <= 0; sample_count <= 0;\n    end else begin\n      average_valid <= 0;\n      if (done) begin\n        sample_count <= sample_count + 1;\n        if (count == 3) begin\n          average <= rounded_average;\n          alarm <= (rounded_average >= 10);\n          average_valid <= 1; sum <= 0; count <= 0;\n        end else begin\n          sum <= total; count <= count + 1;\n        end\n      end\n    end\n  end\nendmodule\n"
+          }
+        ]
+      },
+      "electrical": {
+        "version": 1,
+        "nets": []
+      }
+    }
+  ],
+  "analysis": {
+    "type": "tran",
+    "stop": "100u",
+    "step": "200n",
+    "start": "10",
+    "end": "10meg",
+    "points": 150,
+    "source": "V1",
+    "dc_start": "0",
+    "dc_stop": "1.8",
+    "dc_step": "0.01",
+    "temperature": 27
+  },
+  "waivers": [],
+  "spice": {
+    "version": 1,
+    "assets": {}
+  },
+  "digital_cell": "5ab33038b18848f2",
+  "mixed_signal": {
+    "version": 1,
+    "analog_cell": "38de6a9c542b4866",
+    "digital_cell": "5ab33038b18848f2",
+    "clock": "clk",
+    "period": 1e-06,
+    "rise": 1e-09,
+    "max_step": 1e-08,
+    "cycles": 67,
+    "timeout": 240,
+    "inputs": [
+      {
+        "port": "reset",
+        "width": 1,
+        "values": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "port": "start",
+        "width": 1,
+        "values": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "port": "cmp",
+        "width": 1,
+        "node": "cmp",
+        "low": 0.6,
+        "high": 1.2,
+        "sample_when": {
+          "port": "compare",
+          "value": 1
+        }
+      }
+    ],
+    "outputs": [
+      {
+        "port": "dac",
+        "width": 4,
+        "nodes": [
+          "d0",
+          "d1",
+          "d2",
+          "d3"
+        ],
+        "low": 0.0,
+        "high": 1.8,
+        "initial": 0
+      },
+      {
+        "port": "code",
+        "width": 4
+      },
+      {
+        "port": "track",
+        "width": 1,
+        "nodes": [
+          "track"
+        ],
+        "low": 0.0,
+        "high": 1.8,
+        "initial": 1
+      },
+      {
+        "port": "busy",
+        "width": 1
+      },
+      {
+        "port": "done",
+        "width": 1
+      },
+      {
+        "port": "compare",
+        "width": 1
+      },
+      {
+        "port": "average",
+        "width": 4
+      },
+      {
+        "port": "average_valid",
+        "width": 1
+      },
+      {
+        "port": "alarm",
+        "width": 1
+      },
+      {
+        "port": "sample_count",
+        "width": 4
+      }
+    ],
+    "stimuli": {
+      "vin": [
+        [
+          0.0,
+          0.2
+        ],
+        [
+          8e-06,
+          0.2
+        ],
+        [
+          8.001e-06,
+          0.4
+        ],
+        [
+          1.6e-05,
+          0.4
+        ],
+        [
+          1.6000999999999998e-05,
+          0.6
+        ],
+        [
+          2.4e-05,
+          0.6
+        ],
+        [
+          2.4001e-05,
+          0.8
+        ],
+        [
+          3.2e-05,
+          0.8
+        ],
+        [
+          3.2001e-05,
+          1.0
+        ],
+        [
+          3.9999999999999996e-05,
+          1.0
+        ],
+        [
+          4.0001e-05,
+          1.2
+        ],
+        [
+          4.8e-05,
+          1.2
+        ],
+        [
+          4.8001000000000003e-05,
+          1.4
+        ],
+        [
+          5.6e-05,
+          1.4
+        ],
+        [
+          5.6001e-05,
+          1.6
+        ]
+      ]
+    },
+    "probes": [
+      "vin",
+      "held",
+      "vdac",
+      "cmp",
+      "track",
+      "filtered"
+    ]
+  }
+}

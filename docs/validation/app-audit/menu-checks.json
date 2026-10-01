@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "menu_entries": 308,
+  "invoked": 303,
+  "tabs_visited": 66,
+  "prerequisite_guards": 75,
+  "limits": [
+    "File selections and confirmations cancelled",
+    "Disabled commands require selection-specific probes",
+    "Dialog buttons inventoried; action-specific probes exercise submissions"
+  ]
+}

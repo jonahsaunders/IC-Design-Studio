@@ -1,5 +1,7 @@
 # IC Design Studio 0.7.0
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This release connects the native schematic and layout workspaces to an executed custom SKY130 inverter flow. It includes editable device geometry, reviewed regeneration, connection guidance, full Magic DRC, extracted Netgen LVS, capacitance extraction, and before/after ngspice waveforms. It builds on the 0.6 project/PDK lifecycle and reusable component work.
 
 ## Start with the supplied inverter

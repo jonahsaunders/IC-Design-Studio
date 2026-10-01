@@ -1,0 +1,2978 @@
+[
+  {
+    "menu": "File / Student Hub\u2026",
+    "button": "Continue learning",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Student Hub\u2026",
+    "button": "More",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Student Hub\u2026",
+    "button": "PDK setup",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Student Hub\u2026",
+    "button": "Set up physical tools",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Student Hub\u2026",
+    "button": "Reload PDKs",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Student Hub\u2026",
+    "button": "Start lesson",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "File / Start here / example gallery\u2026",
+    "button": "Student Hub",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Start here / example gallery\u2026",
+    "button": "New project\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Start here / example gallery\u2026",
+    "button": "Open project\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Start here / example gallery\u2026",
+    "button": "Import Xschem\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Start here / example gallery\u2026",
+    "button": "Set up a PDK\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Start here / example gallery\u2026",
+    "button": "Open a copy",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Start here / example gallery\u2026",
+    "button": "Engine setup\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Start here / example gallery\u2026",
+    "button": "Read the getting-started guide",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Start here / example gallery\u2026",
+    "button": "Continue to workspace",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / New project\u2026",
+    "button": "Back to workspace",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / New project\u2026",
+    "button": "Refresh",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / New project\u2026",
+    "button": "Open selected",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / New project\u2026",
+    "button": "Open from disk\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / New project\u2026",
+    "button": "Manage project files\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / New project\u2026",
+    "button": "New project",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / New project\u2026",
+    "button": "Add PDK\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / New project\u2026",
+    "button": "Install selected PDK",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / New project\u2026",
+    "button": "Verify installed files",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / New project\u2026",
+    "button": "Locate installation folder\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / New project\u2026",
+    "button": "New project with this revision",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / New project\u2026",
+    "button": "Create project",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Projects\u2026",
+    "button": "Back to workspace",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Projects\u2026",
+    "button": "Refresh",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Projects\u2026",
+    "button": "Add PDK\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Projects\u2026",
+    "button": "Create project",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Projects\u2026",
+    "button": "Install selected PDK",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Projects\u2026",
+    "button": "Verify installed files",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Projects\u2026",
+    "button": "Locate installation folder\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Projects\u2026",
+    "button": "New project with this revision",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Projects\u2026",
+    "button": "Open selected",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Projects\u2026",
+    "button": "Open from disk\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Projects\u2026",
+    "button": "Manage project files\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Projects\u2026",
+    "button": "New project",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK inverter\u2026",
+    "button": "Back to workspace",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK inverter\u2026",
+    "button": "Refresh",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK inverter\u2026",
+    "button": "Open selected",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK inverter\u2026",
+    "button": "Open from disk\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK inverter\u2026",
+    "button": "Manage project files\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK inverter\u2026",
+    "button": "New project",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK inverter\u2026",
+    "button": "Add PDK\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK inverter\u2026",
+    "button": "Install selected PDK",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Examples / New PDK inverter\u2026",
+    "button": "Verify installed files",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Examples / New PDK inverter\u2026",
+    "button": "Locate installation folder\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Examples / New PDK inverter\u2026",
+    "button": "New project with this revision",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK inverter\u2026",
+    "button": "Create project",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK ring oscillator\u2026",
+    "button": "Back to workspace",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "File / Examples / New PDK ring oscillator\u2026",
+    "button": "Refresh",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK ring oscillator\u2026",
+    "button": "Open selected",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK ring oscillator\u2026",
+    "button": "Open from disk\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK ring oscillator\u2026",
+    "button": "Manage project files\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK ring oscillator\u2026",
+    "button": "New project",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK ring oscillator\u2026",
+    "button": "Add PDK\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK ring oscillator\u2026",
+    "button": "Install selected PDK",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Examples / New PDK ring oscillator\u2026",
+    "button": "Verify installed files",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Examples / New PDK ring oscillator\u2026",
+    "button": "Locate installation folder\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Examples / New PDK ring oscillator\u2026",
+    "button": "New project with this revision",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK ring oscillator\u2026",
+    "button": "Create project",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK current mirror",
+    "button": "Back to workspace",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK current mirror",
+    "button": "Refresh",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK current mirror",
+    "button": "Open selected",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK current mirror",
+    "button": "Open from disk\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK current mirror",
+    "button": "Manage project files\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK current mirror",
+    "button": "New project",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK current mirror",
+    "button": "Add PDK\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK current mirror",
+    "button": "Install selected PDK",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Examples / New PDK current mirror",
+    "button": "Verify installed files",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Examples / New PDK current mirror",
+    "button": "Locate installation folder\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Examples / New PDK current mirror",
+    "button": "New project with this revision",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK current mirror",
+    "button": "Create project",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK differential pair",
+    "button": "Back to workspace",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK differential pair",
+    "button": "Refresh",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK differential pair",
+    "button": "Open selected",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK differential pair",
+    "button": "Open from disk\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK differential pair",
+    "button": "Manage project files\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK differential pair",
+    "button": "New project",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK differential pair",
+    "button": "Add PDK\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK differential pair",
+    "button": "Install selected PDK",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Examples / New PDK differential pair",
+    "button": "Verify installed files",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Examples / New PDK differential pair",
+    "button": "Locate installation folder\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Examples / New PDK differential pair",
+    "button": "New project with this revision",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK differential pair",
+    "button": "Create project",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK amplifier",
+    "button": "Back to workspace",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK amplifier",
+    "button": "Refresh",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK amplifier",
+    "button": "Open selected",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK amplifier",
+    "button": "Open from disk\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK amplifier",
+    "button": "Manage project files\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK amplifier",
+    "button": "New project",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK amplifier",
+    "button": "Add PDK\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / New PDK amplifier",
+    "button": "Install selected PDK",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Examples / New PDK amplifier",
+    "button": "Verify installed files",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Examples / New PDK amplifier",
+    "button": "Locate installation folder\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Examples / New PDK amplifier",
+    "button": "New project with this revision",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Examples / New PDK amplifier",
+    "button": "Create project",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / Xschem amplifier project",
+    "button": "Add library folder\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / Xschem amplifier project",
+    "button": "Review files",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / Xschem amplifier project",
+    "button": "Locate selected file\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / Xschem amplifier project",
+    "button": "Copy diagnostic report",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / Xschem amplifier project",
+    "button": "Open reviewed project",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Examples / Xschem amplifier project",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Migrate current project to native\u2026",
+    "button": "Link selected file\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Migrate current project to native\u2026",
+    "button": "Add library folder\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Migrate current project to native\u2026",
+    "button": "Review again",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Migrate current project to native\u2026",
+    "button": "Save migration draft\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Migrate current project to native\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Project Hub\u2026",
+    "button": "Back to workspace",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Project Hub\u2026",
+    "button": "Refresh",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Project Hub\u2026",
+    "button": "Open selected",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Project Hub\u2026",
+    "button": "Open from disk\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Project Hub\u2026",
+    "button": "Manage project files\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Project Hub\u2026",
+    "button": "New project",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Project Hub\u2026",
+    "button": "Add PDK\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "File / Project Hub\u2026",
+    "button": "Create project",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "File / Project Hub\u2026",
+    "button": "Install selected PDK",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Project Hub\u2026",
+    "button": "Verify installed files",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Project Hub\u2026",
+    "button": "Locate installation folder\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "File / Project Hub\u2026",
+    "button": "New project with this revision",
+    "status": "clicked"
+  },
+  {
+    "menu": "View / Grid Settings\u2026",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Add cell\u2026",
+    "button": "OK",
+    "status": "clicked",
+    "guards": [
+      {
+        "type": "ValueError",
+        "message": "Invalid identifier: ''"
+      }
+    ]
+  },
+  {
+    "menu": "Design / Add cell\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "Undo",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "Redo",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "Copy",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "Rotate",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "Mirror",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "Fit",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "Align / distribute",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "Properties\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "Attributes\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "Generate",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "Keys\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "Import\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "Export\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "Add pin",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "Remove",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "\u2191",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "\u2193",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "Save",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Edit cell ports\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Cell parameters\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Cell parameters\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Rename active cell\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Rename active cell\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Make cell from selection\u2026",
+    "button": "OK",
+    "status": "clicked",
+    "guards": [
+      {
+        "type": "ValueError",
+        "message": "Select the circuitry to turn into a cell."
+      }
+    ]
+  },
+  {
+    "menu": "Design / Make cell from selection\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Library / cell / view browser\u2026",
+    "button": "Open view",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Library / cell / view browser\u2026",
+    "button": "Linked PDK device library",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Project settings\u2026",
+    "button": "Open PDK manager\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Project settings\u2026",
+    "button": "Save",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Project settings\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Manage project / Rename project\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Design / Manage project / Rename project\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Place net label\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Place net label\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Cell definition properties\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Cell definition properties\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / New custom symbol\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / New custom symbol\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "Undo",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "Redo",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "Copy",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "Rotate",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "Mirror",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "Fit",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "Align / distribute",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "Properties\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "Attributes\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "Generate",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "Keys\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "Import\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "Export\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "Add pin",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "Remove",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "\u2191",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "\u2193",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "Save",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit selected symbol\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "Undo",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "Redo",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "Copy",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "Rotate",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "Mirror",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "Fit",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "Align / distribute",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "Properties\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "Attributes\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "Generate",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "Keys\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "Import\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "Export\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "Add pin",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "Remove",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "\u2191",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "\u2193",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "Save",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "Undo",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "Redo",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "Copy",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "Rotate",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "Mirror",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "Fit",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "Align / distribute",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "Properties\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "Attributes\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "Generate",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "Keys\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "Import\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "Export\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "Add pin",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "Remove",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "\u2191",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "\u2193",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "Save",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Enter symbol",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "Undo",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "Redo",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "Copy",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "Rotate",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "Mirror",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "Fit",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "Align / distribute",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "Properties\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "Attributes\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "Generate",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "Keys\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "Import\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "Export\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "Add pin",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "Remove",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "\u2191",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "\u2193",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "Save",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Symbols / Generate / edit active symbol",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Annotations / Manage annotations\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Annotations / Manage annotations\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Annotations / Add annotation\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Annotations / Add annotation\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Annotations / Connect selection to bus\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Annotations / Connect selection to bus\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Place schematic devices in layout\u2026",
+    "button": "Resolve parameter variants\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Place schematic devices in layout\u2026",
+    "button": "Show in schematic",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Place schematic devices in layout\u2026",
+    "button": "Show in layout",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Schematic / Place schematic devices in layout\u2026",
+    "button": "Select missing and changed devices",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Place schematic devices in layout\u2026",
+    "button": "Select all missing devices",
+    "status": "clicked"
+  },
+  {
+    "menu": "Schematic / Place schematic devices in layout\u2026",
+    "button": "Preview selected changes",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Align layout selection\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Align layout selection\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Layout drawing settings\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Layout drawing settings\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Geometry / Erase layout area\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Geometry / Erase layout area\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Geometry / Size selected geometry\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Geometry / Size selected geometry\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Geometry / Chop selected geometry\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Geometry / Chop selected geometry\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Cells and arrays / Create reusable layout cell\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Cells and arrays / Create reusable layout cell\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Cells and arrays / Resolve and regenerate physical variants\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Cells and arrays / Resolve and regenerate physical variants\u2026",
+    "button": "Apply",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Cells and arrays / Resolve and regenerate physical variants\u2026",
+    "button": "Preview changes",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Generate / Generate metal guard ring\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Generate / Generate metal guard ring\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Generate / Generate current mirror layout\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Generate / Generate current mirror layout\u2026",
+    "button": "Apply",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Layout / Generate / Generate current mirror layout\u2026",
+    "button": "Preview changes",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Generate / Generate analog reference layout\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Generate / Generate analog reference layout\u2026",
+    "button": "Apply",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Layout / Generate / Generate analog reference layout\u2026",
+    "button": "Preview changes",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Generate / Generate two-stage op-amp layout\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Generate / Generate two-stage op-amp layout\u2026",
+    "button": "Apply",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Layout / Generate / Generate two-stage op-amp layout\u2026",
+    "button": "Preview changes",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / 3D layout viewer\u2026",
+    "button": "Refresh from layout",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / 3D layout viewer\u2026",
+    "button": "Isometric",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / 3D layout viewer\u2026",
+    "button": "Top",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / 3D layout viewer\u2026",
+    "button": "Front",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / 3D layout viewer\u2026",
+    "button": "Fit",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / 3D layout viewer\u2026",
+    "button": "Screenshot\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Layout / 3D layout viewer\u2026",
+    "button": "Reset heights to PDK / defaults",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Multilayer routing / Route with cursor\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Multilayer routing / Route with cursor\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Multilayer routing / Plan route\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Multilayer routing / Plan route\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Multilayer routing / Plan matched pair\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Multilayer routing / Plan matched pair\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Inspection and finishing / Query layout\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Inspection and finishing / Query layout\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Inspection and finishing / Measure layer density\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Inspection and finishing / Measure layer density\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Inspection and finishing / Insert dummy fill\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Inspection and finishing / Insert dummy fill\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Inspection and finishing / Round selected corners\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Inspection and finishing / Round selected corners\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Review schematic changes in layout\u2026",
+    "button": "Resolve parameter variants\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Review schematic changes in layout\u2026",
+    "button": "Show in schematic",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Review schematic changes in layout\u2026",
+    "button": "Show in layout",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Layout / Review schematic changes in layout\u2026",
+    "button": "Select missing and changed devices",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Review schematic changes in layout\u2026",
+    "button": "Select all missing devices",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Review schematic changes in layout\u2026",
+    "button": "Preview selected changes",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Place schematic devices in layout\u2026",
+    "button": "Resolve parameter variants\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Place schematic devices in layout\u2026",
+    "button": "Show in schematic",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Place schematic devices in layout\u2026",
+    "button": "Show in layout",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Layout / Place schematic devices in layout\u2026",
+    "button": "Select missing and changed devices",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Place schematic devices in layout\u2026",
+    "button": "Select all missing devices",
+    "status": "clicked"
+  },
+  {
+    "menu": "Layout / Place schematic devices in layout\u2026",
+    "button": "Preview selected changes",
+    "status": "clicked"
+  },
+  {
+    "menu": "Route / Place via\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Route / Place via\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Route / Route between coordinates\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Route / Route between coordinates\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Route / Assign physical terminal\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Route / Assign physical terminal\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Testbenches / ngspice device noise\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Testbenches / ngspice device noise\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Studies / Parameter sweep / PVT / Monte Carlo\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Studies / Parameter sweep / PVT / Monte Carlo\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Engine setup / Simulation runtime\u2026",
+    "button": "Physical tools setup\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Engine setup / Simulation runtime\u2026",
+    "button": "Select libraries\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Engine setup / Simulation runtime\u2026",
+    "button": "Load folder\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Engine setup / Simulation runtime\u2026",
+    "button": "Verify files",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Engine setup / Simulation runtime\u2026",
+    "button": "Clear",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Engine setup / Engine diagnostics and paths\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Engine setup / Engine diagnostics and paths\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Waveforms / Waveform markers and limits",
+    "button": "Add marker",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Waveforms / Waveform markers and limits",
+    "button": "Apply changes",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Waveforms / Waveform markers and limits",
+    "button": "Remove",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Waveforms / Waveform markers and limits",
+    "button": "Clear markers",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Waveforms / Waveform markers and limits",
+    "button": "Export CSV",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Waveforms / Waveform markers and limits",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Verification test plans\u2026",
+    "button": "New plan\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Verification test plans\u2026",
+    "button": "Edit plan\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Verification test plans\u2026",
+    "button": "Delete plan",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Verification test plans\u2026",
+    "button": "Run plan",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Verification test plans\u2026",
+    "button": "Create resumable campaign\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Verification test plans\u2026",
+    "button": "Open campaign\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Verification test plans\u2026",
+    "button": "Previous conditions",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Verification test plans\u2026",
+    "button": "Next conditions",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Verification test plans\u2026",
+    "button": "Open selected run",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Verification test plans\u2026",
+    "button": "Retry failed / cancelled",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Verification test plans\u2026",
+    "button": "Cancel remaining",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Verification test plans\u2026",
+    "button": "Export CSV\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Verification test plans\u2026",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Guided design setup\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Add measurement",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Remove measurement",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Save variables and limits",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Reload setup\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Save current analysis",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Edit analysis\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Testbench editor\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "New PVT plan\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "New plan\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Edit plan\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Delete plan",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Run plan",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Create resumable campaign\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Open campaign\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Previous conditions",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Next conditions",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Open selected run",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Retry failed / cancelled",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Cancel remaining",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Export CSV\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Close",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Show selected device",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Place / regenerate\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Review schematic changes\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Show unrouted connections",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Refresh",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Add constraint\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Arrange selected\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Guard ring\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Inspect selected run",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Run saved testbench verification",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Edit fixture / extraction\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Show failed requirement",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Inspect saved run\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Apply selected candidate",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Resume incomplete",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Run search",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Add trade-off objective",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Remove objective",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Add parameter",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Remove parameter",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Advanced analyses\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Export comparison report\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Refresh saved setup",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Reuse experiment settings",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Run gm/Id sweep",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Estimate width from selected point",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Analysis / Analog design workspace\u2026",
+    "button": "Device characterization library\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Mixed signal / New SAR ADC example",
+    "button": "Browse\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Mixed signal / New SAR ADC example",
+    "button": "Analog circuit",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Mixed signal / New SAR ADC example",
+    "button": "RTL controller",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Mixed signal / New SAR ADC example",
+    "button": "Apply configuration",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Mixed signal / New SAR ADC example",
+    "button": "Run coupled simulation",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Mixed signal / New SAR ADC example",
+    "button": "Open walkthrough",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Mixed signal / New SAR ADC example",
+    "button": "Show analog waveforms",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Mixed signal / New SAR ADC example",
+    "button": "Cancel selected run",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Mixed signal / New SAR ADC example",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Analysis / Mixed signal / SAR ADC walkthrough",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Verify / Electrical check rules\u2026",
+    "button": "Save",
+    "status": "clicked"
+  },
+  {
+    "menu": "Verify / Electrical check rules\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Verify / Inspect whole net",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Verify / Inspect whole net",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Verify / Schematic / layout cross-probe\u2026",
+    "button": "Refresh",
+    "status": "clicked"
+  },
+  {
+    "menu": "Verify / Schematic / layout cross-probe\u2026",
+    "button": "Schematic",
+    "status": "clicked"
+  },
+  {
+    "menu": "Verify / Schematic / layout cross-probe\u2026",
+    "button": "Layout",
+    "status": "clicked"
+  },
+  {
+    "menu": "Verify / Schematic / layout cross-probe\u2026",
+    "button": "Connection guidance",
+    "status": "clicked"
+  },
+  {
+    "menu": "Verify / Schematic / layout cross-probe\u2026",
+    "button": "Place missing instance\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Verify / Physical verification / Run layout DRC / LVS only\u2026",
+    "button": "OK",
+    "status": "clicked",
+    "guards": [
+      {
+        "type": "ValueError",
+        "message": "Choose a schematic SPICE file under 10 MB."
+      }
+    ]
+  },
+  {
+    "menu": "Verify / Physical verification / Run layout DRC / LVS only\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Verify / Physical verification / Compare netlists with Netgen\u2026",
+    "button": "OK",
+    "status": "clicked",
+    "guards": [
+      {
+        "type": "ValueError",
+        "message": "Configure the Netgen executable in Engine diagnostics."
+      }
+    ]
+  },
+  {
+    "menu": "Verify / Physical verification / Compare netlists with Netgen\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Verify / Physical verification / Create PDK reference circuit\u2026",
+    "button": "Back to workspace",
+    "status": "clicked"
+  },
+  {
+    "menu": "Verify / Physical verification / Create PDK reference circuit\u2026",
+    "button": "Refresh",
+    "status": "clicked"
+  },
+  {
+    "menu": "Verify / Physical verification / Create PDK reference circuit\u2026",
+    "button": "Open selected",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Verify / Physical verification / Create PDK reference circuit\u2026",
+    "button": "Open from disk\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Verify / Physical verification / Create PDK reference circuit\u2026",
+    "button": "Manage project files\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Verify / Physical verification / Create PDK reference circuit\u2026",
+    "button": "New project",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Verify / Physical verification / Create PDK reference circuit\u2026",
+    "button": "Add PDK\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Verify / Physical verification / Create PDK reference circuit\u2026",
+    "button": "Install selected PDK",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Verify / Physical verification / Create PDK reference circuit\u2026",
+    "button": "Verify installed files",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Verify / Physical verification / Create PDK reference circuit\u2026",
+    "button": "Locate installation folder\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Verify / Physical verification / Create PDK reference circuit\u2026",
+    "button": "New project with this revision",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Verify / Physical verification / Create PDK reference circuit\u2026",
+    "button": "Create project",
+    "status": "clicked"
+  },
+  {
+    "menu": "Verify / Physical verification / Extract layout through Magic\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Verify / Physical verification / Extract layout through Magic\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Engine diagnostics and paths\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Engine diagnostics and paths\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Physical tools setup\u2026",
+    "button": "Set up and verify",
+    "status": "covered by isolated runtime/server acceptance"
+  },
+  {
+    "menu": "Tools / Physical tools setup\u2026",
+    "button": "Enable Windows Linux support",
+    "status": "covered by isolated runtime/server acceptance"
+  },
+  {
+    "menu": "Tools / Physical tools setup\u2026",
+    "button": "Configure custom tools\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Tools / Physical tools setup\u2026",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Physical tools setup\u2026",
+    "button": "Get the desktop package",
+    "status": "clicked",
+    "urls": [
+      "https://github.com/jonahsaunders/IC-Design-Studio/releases"
+    ]
+  },
+  {
+    "menu": "Tools / Physical tools setup\u2026",
+    "button": "Experimental desktop builds",
+    "status": "clicked",
+    "urls": [
+      "https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Aexperimental"
+    ]
+  },
+  {
+    "menu": "Tools / Physical tools setup\u2026",
+    "button": "Open setup logs",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Tools / Layout keyboard profile\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Layout keyboard profile\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Schematic command profile\u2026",
+    "button": "Save",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Schematic command profile\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Convert GDS through Magic\u2026",
+    "button": "OK",
+    "status": "clicked",
+    "guards": [
+      {
+        "type": "ValueError",
+        "message": "Configure the Magic executable in Engine diagnostics."
+      }
+    ]
+  },
+  {
+    "menu": "Tools / Convert GDS through Magic\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Technology / Technology and qualification status",
+    "button": "Open PDK manager\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Technology / Technology and qualification status",
+    "button": "Save",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Technology / Technology and qualification status",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Technology / Installed PDK revisions\u2026",
+    "button": "Use included PDKs",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Technology / Installed PDK revisions\u2026",
+    "button": "Find installed PDKs",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Technology / Installed PDK revisions\u2026",
+    "button": "Add folder\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Technology / Installed PDK revisions\u2026",
+    "button": "Check and register",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Technology / Installed PDK revisions\u2026",
+    "button": "New project with this PDK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Technology / Installed PDK revisions\u2026",
+    "button": "Link current project",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Technology / Installed PDK revisions\u2026",
+    "button": "Manage / verify revisions\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Technology / Installed PDK revisions\u2026",
+    "button": "PDK installation guide",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Technology / Installed PDK revisions\u2026",
+    "button": "Engine setup\u2026",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Technology / Installed PDK revisions\u2026",
+    "button": "OSDI runtime\u2026",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Technology / Installed PDK revisions\u2026",
+    "button": "Open official guide",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Technology / Installed PDK revisions\u2026",
+    "button": "Done",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Technology / PDK manager\u2026",
+    "button": "Use included PDKs",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Technology / PDK manager\u2026",
+    "button": "Find installed PDKs",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Technology / PDK manager\u2026",
+    "button": "Add folder\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Technology / PDK manager\u2026",
+    "button": "Check and register",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Technology / PDK manager\u2026",
+    "button": "New project with this PDK",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Technology / PDK manager\u2026",
+    "button": "Link current project",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Technology / PDK manager\u2026",
+    "button": "Manage / verify revisions\u2026",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Technology / PDK manager\u2026",
+    "button": "PDK installation guide",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Technology / PDK manager\u2026",
+    "button": "Engine setup\u2026",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Technology / PDK manager\u2026",
+    "button": "OSDI runtime\u2026",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Technology / PDK manager\u2026",
+    "button": "Open official guide",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Technology / PDK manager\u2026",
+    "button": "Done",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Inductor creator\u2026",
+    "button": "Find candidates",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Inductor creator\u2026",
+    "button": "Cancel",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Tools / Inductor creator\u2026",
+    "button": "Use candidate",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Tools / Inductor creator\u2026",
+    "button": "Edit physical EM profile for this PDK\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Inductor creator\u2026",
+    "button": "Open saved inductor characterization\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Tools / Inductor creator\u2026",
+    "button": "Refresh preview",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Inductor creator\u2026",
+    "button": "Apply suggested fix",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Tools / Inductor creator\u2026",
+    "button": "Create inductor",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Tools / Inductor creator\u2026",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Physical EM profile\u2026",
+    "button": "Add metal",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Physical EM profile\u2026",
+    "button": "Add via",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Physical EM profile\u2026",
+    "button": "Add dielectric / substrate",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Physical EM profile\u2026",
+    "button": "Remove selected",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Physical EM profile\u2026",
+    "button": "New for this PDK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Physical EM profile\u2026",
+    "button": "Load profile\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Physical EM profile\u2026",
+    "button": "Save profile\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Physical EM profile\u2026",
+    "button": "Apply to project",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Physical EM profile\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Set up an open PDK\u2026",
+    "button": "Use included PDKs",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Set up an open PDK\u2026",
+    "button": "Find installed PDKs",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Set up an open PDK\u2026",
+    "button": "Add folder\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Set up an open PDK\u2026",
+    "button": "Check and register",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Set up an open PDK\u2026",
+    "button": "New project with this PDK",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Set up an open PDK\u2026",
+    "button": "Link current project",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Set up an open PDK\u2026",
+    "button": "Manage / verify revisions\u2026",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Set up an open PDK\u2026",
+    "button": "PDK installation guide",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Set up an open PDK\u2026",
+    "button": "Engine setup\u2026",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Set up an open PDK\u2026",
+    "button": "OSDI runtime\u2026",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Set up an open PDK\u2026",
+    "button": "Open official guide",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / Set up an open PDK\u2026",
+    "button": "Done",
+    "status": "not present in default fixture"
+  },
+  {
+    "menu": "Tools / External tool exchange / Netlist with Xschem\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / External tool exchange / Netlist with Xschem\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / External tool exchange / Open Magic workspace\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Start local server",
+    "status": "covered by isolated runtime/server acceptance"
+  },
+  {
+    "menu": "Tools / External tool exchange / Open Magic workspace\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / External tool exchange / Review Magic workspace edits\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / External tool exchange / Review Magic workspace edits\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Host a session\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Join a workspace\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Stop network server",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Stop local server",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Refresh list",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Resume workspace",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Recover owner access\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Check schematic",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Review schematic and layout",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Invite people and manage access\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Leave workspace",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Review conflicting edit\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Save retained conflicting edit\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Use shared version\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Create shared folder\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Join shared folder\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Cells, layers & ownership\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Publish my changes",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Get shared changes",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Leave shared folder",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Save checkpoint\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Refresh",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Compare revisions",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Save checkpoint copy\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Post comment",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Read comment",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Go to object",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Reply to discussion",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Cancel reply",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Resolve / reopen",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Record decision",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Share completed run\u2026",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Inspect result",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Re-run saved input",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Retry last action",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Discard saved review action\u2026",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Setup and help",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Collaboration\u2026",
+    "button": "Back to design",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Hierarchy and design automation\u2026",
+    "button": "Parent",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Tools / Hierarchy and design automation\u2026",
+    "button": "Enter instance",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Hierarchy and design automation\u2026",
+    "button": "Open schematic",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Hierarchy and design automation\u2026",
+    "button": "Open layout",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Hierarchy and design automation\u2026",
+    "button": "Review cell substitution",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Tools / Hierarchy and design automation\u2026",
+    "button": "Load batch\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Hierarchy and design automation\u2026",
+    "button": "Use selected device",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Hierarchy and design automation\u2026",
+    "button": "Preview changes",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Hierarchy and design automation\u2026",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Tools / Hierarchy and design automation\u2026",
+    "button": "Apply",
+    "status": "disabled by prerequisites"
+  },
+  {
+    "menu": "Window / Save named workspace\u2026",
+    "button": "OK",
+    "status": "clicked"
+  },
+  {
+    "menu": "Window / Save named workspace\u2026",
+    "button": "Cancel",
+    "status": "clicked"
+  },
+  {
+    "menu": "Window / Configure windows\u2026",
+    "button": "Schematic",
+    "status": "clicked"
+  },
+  {
+    "menu": "Window / Configure windows\u2026",
+    "button": "Layout",
+    "status": "clicked"
+  },
+  {
+    "menu": "Window / Configure windows\u2026",
+    "button": "Simulation",
+    "status": "clicked"
+  },
+  {
+    "menu": "Window / Configure windows\u2026",
+    "button": "Review",
+    "status": "clicked"
+  },
+  {
+    "menu": "Window / Configure windows\u2026",
+    "button": "Save arrangement\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Window / Configure windows\u2026",
+    "button": "Restore saved\u2026",
+    "status": "clicked"
+  },
+  {
+    "menu": "Window / Configure windows\u2026",
+    "button": "Reset",
+    "status": "clicked"
+  },
+  {
+    "menu": "Window / Configure windows\u2026",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Help / Searchable help\u2026",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Help / About and release status",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Help / Keyboard shortcuts and wiring",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Help / Compatibility matrix",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Help / Workspace guide",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Help / Design workflow guide",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Help / Xschem import and export guide",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Help / Included Xschem libraries",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Help / Native workflow guide",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Help / Native catalog migration guide",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Help / Getting started",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Help / Project roadmap",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Help / Layout development guide",
+    "button": "Close",
+    "status": "clicked"
+  },
+  {
+    "menu": "Help / Student learning paths",
+    "button": "Continue learning",
+    "status": "clicked"
+  },
+  {
+    "menu": "Help / Student learning paths",
+    "button": "More",
+    "status": "clicked"
+  },
+  {
+    "menu": "Help / Student learning paths",
+    "button": "PDK setup",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Help / Student learning paths",
+    "button": "Set up physical tools",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Help / Student learning paths",
+    "button": "Reload PDKs",
+    "status": "hidden by current mode"
+  },
+  {
+    "menu": "Help / Student learning paths",
+    "button": "Start lesson",
+    "status": "not present in default fixture"
+  }
+]

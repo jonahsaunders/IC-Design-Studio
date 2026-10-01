@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "qt_platform": "offscreen",
+  "checks": [
+    "configuration undo",
+    "real worker conversion",
+    "analog waveform display",
+    "save/reopen verified artifacts",
+    "deterministic replay",
+    "RTL edit and stale result",
+    "cancellation"
+  ]
+}

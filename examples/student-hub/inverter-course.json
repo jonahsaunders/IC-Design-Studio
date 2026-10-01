@@ -1,0 +1,500 @@
+{
+  "version": 1,
+  "lessons": [
+    {
+      "lesson": {
+        "id": "process",
+        "title": "Choose a process and read its limits",
+        "skills": [
+          "PDK revisions",
+          "device ratings",
+          "verification scope"
+        ],
+        "minutes": 15,
+        "summary": "A process design kit connects a circuit to a manufacturing process.",
+        "steps": [
+          {
+            "id": "predict",
+            "kind": "quiz",
+            "title": "Predict the result",
+            "instructions": "What determines the supply used by this inverter?",
+            "options": [
+              "The selected core transistor rating and PDK documentation",
+              "The smallest feature size alone",
+              "Any voltage that makes the generic solver converge"
+            ],
+            "answer": 0,
+            "explanation": "Core and high-voltage devices have different oxide limits. A PDK is a versioned set of models, layers and rules, not just a node name."
+          },
+          {
+            "id": "build",
+            "kind": "check",
+            "title": "Inspect the design",
+            "instructions": "Start the lesson for the selected PDK. Read the process status above the lesson list, then inspect the linked PDK and the NMOS/PMOS model names. Check the model binding.",
+            "rule": {
+              "type": "inverter",
+              "check": "binding"
+            }
+          },
+          {
+            "id": "measure",
+            "kind": "check",
+            "title": "Check the evidence",
+            "instructions": "Inspect the testbench VDD source. The starter uses 1.8 V for SKY130 core devices, 3.3 V for GF180 core devices and 1.2 V for IHP low-voltage devices. Record the actual PDK revision; these are nominal teaching operating points, not reliability limits.",
+            "rule": {
+              "type": "inverter",
+              "check": "binding"
+            }
+          },
+          {
+            "id": "explain",
+            "kind": "reflection",
+            "title": "Explain your decisions",
+            "instructions": "How would you distinguish a simulation-ready PDK from a layout-ready and verification-ready PDK? Record your actual observations, conditions and remaining limitations in at least 40 characters."
+          }
+        ]
+      },
+      "teaching": {
+        "concept": "A process design kit connects a circuit to a manufacturing process. Simulation models predict electrical behavior; layer maps describe geometry; DRC and LVS decks test different properties. A simulation-only package can run an inverter but cannot establish a physical verification pass. The course lists the application's supported open PDK families and every registered revision. It cannot promise compatibility with every PDK published elsewhere.",
+        "worked_example": "SKY130A's 1.8 V core pair is sky130_fd_pr__nfet_01v8 / pfet_01v8. GF180 uses nfet_03v3 / pfet_03v3 at a nominal 3.3 V. IHP SG13G2 uses sg13_lv_nmos / sg13_lv_pmos at 1.2 V and requires compiled OSDI libraries. GF180 C and D have different process-stack configurations: never rename one to make a layout adapter accept it.",
+        "try_next": "Open the PDK manual from Help and find the device voltage range, minimum channel length and model corner names. If physical decks are missing, register a full matching PDK through PDK setup, then Reload PDKs. Its new revision gets its own project and learning record.",
+        "interview": "How would you distinguish a simulation-ready PDK from a layout-ready and verification-ready PDK?",
+        "artifact": "A process brief with exact revision, core model names, nominal supply, geometry choices, corner, temperature and missing capabilities."
+      }
+    },
+    {
+      "lesson": {
+        "id": "schematic",
+        "title": "Build the CMOS inverter and its testbench",
+        "skills": [
+          "MOS operation",
+          "body connections",
+          "hierarchy",
+          "truth table"
+        ],
+        "minutes": 25,
+        "summary": "An inverter is a complementary pull-up and pull-down network.",
+        "steps": [
+          {
+            "id": "predict",
+            "kind": "quiz",
+            "title": "Predict the result",
+            "instructions": "What happens with the input at ground?",
+            "options": [
+              "PMOS on, NMOS off, output approaches VDD",
+              "Both devices are always on",
+              "The output must be ground"
+            ],
+            "answer": 0,
+            "explanation": "At low input the PMOS has negative VGS and pulls up; the NMOS has approximately zero VGS and turns off."
+          },
+          {
+            "id": "build",
+            "kind": "check",
+            "title": "Inspect the design",
+            "instructions": "Open workspace to inspect the testbench: VIN drives A, CL loads Y, and VDD powers the inverter. Use Open inverter to inspect its child cell. Identify the gate, drain, source and body of each transistor.",
+            "rule": {
+              "type": "inverter",
+              "check": "schematic"
+            }
+          },
+          {
+            "id": "measure",
+            "kind": "check",
+            "title": "Check the evidence",
+            "instructions": "Check the four-terminal topology. Both gates connect to A and both drains to Y; NMOS source/body connect to VGND; PMOS source/body connect to VPWR. Keep source and body explicit.",
+            "rule": {
+              "type": "inverter",
+              "check": "schematic"
+            }
+          },
+          {
+            "id": "explain",
+            "kind": "reflection",
+            "title": "Explain your decisions",
+            "instructions": "Why does PMOS width often exceed NMOS width, and why is a fixed two-to-one ratio not universal? Record your actual observations, conditions and remaining limitations in at least 40 characters."
+          }
+        ]
+      },
+      "teaching": {
+        "concept": "An inverter is a complementary pull-up and pull-down network. At the two stable input levels, one device conducts and the other is mostly off. During switching both can conduct, producing short-circuit current. The output capacitance stores charge. Bulk ties keep the body junctions appropriately biased; body terminals are not optional decoration.",
+        "worked_example": "Predict the truth table before running: A=0 gives Y≈VDD; A=VDD gives Y≈0. The teaching starter uses WN=1 µm and WP=2 µm, with process-specific length. This width ratio is a starting choice, not an optimized result. The reusable inverter has A, Y, VPWR, VGND ports, while stimulus and load remain in the parent testbench.",
+        "try_next": "Trace each wire in the child and each instance pin in the parent. Explain why a floating body, swapped power pin or missing ground can make a plausible-looking drawing electrically wrong. Try a wider PMOS in a saved copy and predict the shift in switching threshold.",
+        "interview": "Why does PMOS width often exceed NMOS width, and why is a fixed two-to-one ratio not universal?",
+        "artifact": "An annotated schematic, testbench interface and predicted truth table, including body connections."
+      }
+    },
+    {
+      "lesson": {
+        "id": "dc",
+        "title": "Measure the DC transfer curve",
+        "skills": [
+          "DC sweep",
+          "switching threshold",
+          "noise margins"
+        ],
+        "minutes": 25,
+        "summary": "The voltage transfer characteristic relates a static input to the settled output.",
+        "steps": [
+          {
+            "id": "predict",
+            "kind": "quiz",
+            "title": "Predict the result",
+            "instructions": "At the switching threshold VM, which relation holds?",
+            "options": [
+              "VOUT = VIN",
+              "Both devices have zero current",
+              "VM is always exactly VDD/2"
+            ],
+            "answer": 0,
+            "explanation": "The switching threshold is the intersection of the transfer curve with VOUT=VIN; sizing and process conditions move it."
+          },
+          {
+            "id": "build",
+            "kind": "check",
+            "title": "Inspect the design",
+            "instructions": "Check the inverter connections, then choose Run lesson. This lesson sweeps VIN from 0 to the selected VDD in 200 intervals using the linked process models in ngspice.",
+            "rule": {
+              "type": "inverter",
+              "check": "schematic"
+            }
+          },
+          {
+            "id": "measure",
+            "kind": "check",
+            "title": "Check the evidence",
+            "instructions": "Open Results and inspect input and output across the sweep. Check the measured endpoints and switching threshold. The course checks VOH ≥ 90% VDD, VOL ≤ 10% VDD and VM between 20% and 80% VDD; these are teaching targets, not a standard-cell specification.",
+            "rule": {
+              "type": "inverter",
+              "check": "dc"
+            }
+          },
+          {
+            "id": "explain",
+            "kind": "reflection",
+            "title": "Explain your decisions",
+            "instructions": "Why are VM and the input noise limits VIL/VIH different, and what does a steep transition buy you? Record your actual observations, conditions and remaining limitations in at least 40 characters."
+          }
+        ]
+      },
+      "teaching": {
+        "concept": "The voltage transfer characteristic relates a static input to the settled output. The high-gain transition regenerates a weak logic level. VM is where VOUT=VIN. Noise margins require more than VM: locate VIL and VIH where the transfer slope reaches −1, then compute NML=VIL−VOL and NMH=VOH−VIH using stated output-level definitions.",
+        "worked_example": "For a hypothetical 1.8 V inverter with VOH=1.79 V, VOL=0.01 V, VIL=0.65 V and VIH=1.10 V, NML=0.64 V and NMH=0.69 V. These values illustrate the calculation; the course measures your actual process-model endpoints and VM and does not pretend to have graded noise margins.",
+        "try_next": "Record your actual VM. Increase WP in a saved experiment, rerun and explain why a stronger pull-up generally moves the transition toward higher input voltage. Estimate the two −1 slope points from the curve and refine the sweep before reporting noise margins.",
+        "interview": "Why are VM and the input noise limits VIL/VIH different, and what does a steep transition buy you?",
+        "artifact": "A transfer-curve screenshot and actual VOH, VOL, VM, with assumptions and separately calculated noise margins."
+      }
+    },
+    {
+      "lesson": {
+        "id": "transient",
+        "title": "Measure switching and propagation delay",
+        "skills": [
+          "transient analysis",
+          "capacitive load",
+          "delay",
+          "dynamic power"
+        ],
+        "minutes": 25,
+        "summary": "tPHL is the delay from a rising input crossing 50% VDD to a falling output crossing 50%; tPLH uses the opposite edges.",
+        "steps": [
+          {
+            "id": "predict",
+            "kind": "quiz",
+            "title": "Predict the result",
+            "instructions": "If the output load increases, what normally happens to propagation delay?",
+            "options": [
+              "It increases because more charge must move",
+              "It disappears",
+              "It must remain unchanged"
+            ],
+            "answer": 0,
+            "explanation": "The transistor must charge or discharge a larger capacitance with finite current."
+          },
+          {
+            "id": "build",
+            "kind": "check",
+            "title": "Inspect the design",
+            "instructions": "Check the topology, then Run lesson. The 20 ns-period input pulse and 5 fF output load exercise three complete cycles. The lesson runs 62 ns with a 20 ps requested output step.",
+            "rule": {
+              "type": "inverter",
+              "check": "schematic"
+            }
+          },
+          {
+            "id": "measure",
+            "kind": "check",
+            "title": "Check the evidence",
+            "instructions": "Open Results. Check low and high output levels after settling and the input/output 50% crossings. The checker measures tPHL and tPLH from actual samples and rejects missing transitions.",
+            "rule": {
+              "type": "inverter",
+              "check": "tran"
+            }
+          },
+          {
+            "id": "explain",
+            "kind": "reflection",
+            "title": "Explain your decisions",
+            "instructions": "Distinguish propagation delay, output slew and maximum operating frequency. How would you prove a delay number is numerically reliable? Record your actual observations, conditions and remaining limitations in at least 40 characters."
+          }
+        ]
+      },
+      "teaching": {
+        "concept": "tPHL is the delay from a rising input crossing 50% VDD to a falling output crossing 50%; tPLH uses the opposite edges. Rise/fall time usually uses 10–90% thresholds and is a different quantity. Finite slew, load, device dimensions and process conditions affect delay. Dynamic switching power is approximately αCLVDD²f; leakage and short-circuit current add to it.",
+        "worked_example": "If a rising input reaches 0.9 V at 2.010 ns and a falling output reaches 0.9 V at 2.045 ns, tPHL=35 ps for a 1.8 V supply. At CL=5 fF, VDD=1.8 V and one charging event per 20 ns, the load's average charging power is about 0.81 µW. This estimate excludes internal capacitance, short-circuit current and leakage.",
+        "try_next": "Save baseline delays, change CL from 5 fF to 10 fF and rerun. Reduce the transient step to check numerical convergence before quoting picosecond differences. Compare the PMOS/NMOS sizing tradeoff: stronger drive also increases input capacitance and area.",
+        "interview": "Distinguish propagation delay, output slew and maximum operating frequency. How would you prove a delay number is numerically reliable?",
+        "artifact": "Waveforms with measured tPHL/tPLH, supply, input slew, CL, step size, corner and temperature."
+      }
+    },
+    {
+      "lesson": {
+        "id": "layout",
+        "title": "Turn the schematic into process geometry",
+        "skills": [
+          "wells",
+          "diffusion",
+          "contacts",
+          "routing",
+          "physical ports"
+        ],
+        "minutes": 35,
+        "summary": "Start with the well and active regions, then identify gate crossings, source/drain implants, contacts and metal routes.",
+        "steps": [
+          {
+            "id": "predict",
+            "kind": "quiz",
+            "title": "Predict the result",
+            "instructions": "What physically forms the MOS channel?",
+            "options": [
+              "A gate crossing active diffusion in the appropriate process layers",
+              "A net name alone",
+              "Any two touching metal rectangles"
+            ],
+            "answer": 0,
+            "explanation": "Devices are recognized from combinations of physical layers; metal labels alone cannot create a transistor."
+          },
+          {
+            "id": "build",
+            "kind": "check",
+            "title": "Inspect the design",
+            "instructions": "Choose Build layout for a supported native adapter. It creates geometry only when the inverter cell has no existing layout. Open inverter shows the physical cell in layout view for this and later lessons.",
+            "rule": {
+              "type": "inverter",
+              "check": "schematic"
+            }
+          },
+          {
+            "id": "measure",
+            "kind": "check",
+            "title": "Check the evidence",
+            "instructions": "Check that all four physical ports A, Y, VPWR and VGND are assigned. Trace the gate connection, shared output, supply routes and body ties. Geometry presence and port checks do not award DRC or LVS credit.",
+            "rule": {
+              "type": "inverter",
+              "check": "layout"
+            }
+          },
+          {
+            "id": "explain",
+            "kind": "reflection",
+            "title": "Explain your decisions",
+            "instructions": "How can a drawing look connected while extraction sees an open circuit? Explain layer/datatype, overlap and via requirements. Record your actual observations, conditions and remaining limitations in at least 40 characters."
+          }
+        ]
+      },
+      "teaching": {
+        "concept": "Start with the well and active regions, then identify gate crossings, source/drain implants, contacts and metal routes. PMOS needs the appropriate well and body connection. A contact connects diffusion or poly to a conductor; a via connects metal layers. DRC tests spacing, width, enclosure and other geometric rules. LVS extracts device and net connectivity from those layers.",
+        "worked_example": "The native SKY130A and GF180 C recipes place a one-finger NMOS and PMOS, tie each body to its source rail, join drains for Y and route A on another metal layer. The generated dimensions follow the schematic. A model-only GF180 D package or IHP package must not silently receive SKY130 or GF180 C geometry.",
+        "try_next": "If a native adapter is unavailable, generate or draw the inverter using that process's own tools, import its GDS through the layout tools, and assign its physical ports. Process verification here requires matching locked Magic/Netgen decks. An unsupported deck format is a setup limitation, not an earned checkpoint. Use the separate Layout path for width, spacing, via and matching exercises.",
+        "interview": "How can a drawing look connected while extraction sees an open circuit? Explain layer/datatype, overlap and via requirements.",
+        "artifact": "A labeled inverter layout showing well/body ties, gate, source/drain contacts, output routing and physical ports."
+      }
+    },
+    {
+      "lesson": {
+        "id": "drc",
+        "title": "Find and repair a real DRC violation",
+        "skills": [
+          "design rule checking",
+          "rule decks",
+          "violation markers",
+          "repair"
+        ],
+        "minutes": 35,
+        "summary": "A design rule check compares mask geometry with process constraints: minimum width, spacing, enclosure, overlap, allowed grids and more.",
+        "steps": [
+          {
+            "id": "predict",
+            "kind": "quiz",
+            "title": "Predict the result",
+            "instructions": "What does a clean DRC report prove?",
+            "options": [
+              "The checked geometry satisfies the selected rule deck and scope",
+              "The circuit implements the intended logic",
+              "All possible fabrication and reliability checks passed"
+            ],
+            "answer": 0,
+            "explanation": "DRC is scoped to the actual deck and check settings. Correct connectivity and behavior need separate evidence."
+          },
+          {
+            "id": "build",
+            "kind": "check",
+            "title": "Capture the failure",
+            "instructions": "After building the native layout, choose Add DRC fault, then Run lesson. The practice fault adds an isolated, undersized metal-1 rectangle. Open Results to inspect the full process-rule report. Check this step only after the engine reports actual violations.",
+            "rule": {
+              "type": "inverter",
+              "check": "drc-failure"
+            }
+          },
+          {
+            "id": "measure",
+            "kind": "check",
+            "title": "Repair and verify",
+            "instructions": "Choose Repair lesson fault to remove only the injected rectangle, then Run lesson again. Check this step after process DRC reports zero violations. On imported layouts, create and repair a documented real rule violation manually instead.",
+            "rule": {
+              "type": "inverter",
+              "check": "drc"
+            }
+          },
+          {
+            "id": "explain",
+            "kind": "reflection",
+            "title": "Explain your decisions",
+            "instructions": "Can a DRC-clean layout still be electrically wrong? Give examples of a swapped terminal, an open and a short. Record your actual observations, conditions and remaining limitations in at least 40 characters."
+          }
+        ]
+      },
+      "teaching": {
+        "concept": "A design rule check compares mask geometry with process constraints: minimum width, spacing, enclosure, overlap, allowed grids and more. Read the rule identifier, layer, location, units and affected shapes. Fix the cause, rerun the same full deck, and preserve before/after evidence. Making a marker disappear by hiding a layer or excluding a check is not a repair.",
+        "worked_example": "A 0.05 µm-wide metal rectangle violates a process whose minimum width is larger. Increasing its width can still leave a spacing or enclosure violation. In this exercise the rectangle is isolated from the inverter, so its geometric defect can coexist with a correctly matched circuit. The DRC and LVS reports are intentionally separate.",
+        "try_next": "Read at least one rule in the selected PDK manual and locate the corresponding marker. Compare this process DRC with the generic Layout path: generic teaching rules cannot stand in for a foundry deck. Document whether density, antenna, latch-up and reliability checks are included or remain outstanding.",
+        "interview": "Can a DRC-clean layout still be electrically wrong? Give examples of a swapped terminal, an open and a short.",
+        "artifact": "Captured failing and repaired process DRC reports with the exact PDK revision, rule, location, repair and check scope."
+      }
+    },
+    {
+      "lesson": {
+        "id": "lvs",
+        "title": "Extract and compare the circuit with LVS",
+        "skills": [
+          "layout versus schematic",
+          "extraction",
+          "device parameters",
+          "debugging"
+        ],
+        "minutes": 40,
+        "summary": "LVS starts with extraction: the tool recognizes transistors and connections from physical layers.",
+        "steps": [
+          {
+            "id": "predict",
+            "kind": "quiz",
+            "title": "Predict the result",
+            "instructions": "Can a layout pass DRC but fail LVS?",
+            "options": [
+              "Yes: dimensions or connectivity can differ from the schematic",
+              "No: DRC already simulates the schematic",
+              "Only if the simulator is missing"
+            ],
+            "answer": 0,
+            "explanation": "LVS compares extracted devices, nets, ports and process-dependent parameters against a schematic reference."
+          },
+          {
+            "id": "build",
+            "kind": "check",
+            "title": "Capture the failure",
+            "instructions": "Choose Add LVS fault. It increases the schematic NMOS width by 30% while preserving the existing layout. Run lesson and inspect the LVS report for the parameter mismatch. Check this step after a completed extraction and actual failed comparison.",
+            "rule": {
+              "type": "inverter",
+              "check": "lvs-failure"
+            }
+          },
+          {
+            "id": "measure",
+            "kind": "check",
+            "title": "Repair and verify",
+            "instructions": "Choose Repair lesson fault to restore that schematic width, then rerun. Check this step only after a strict unique LVS match. For an imported layout, introduce and repair a documented connectivity or parameter mismatch manually.",
+            "rule": {
+              "type": "inverter",
+              "check": "lvs"
+            }
+          },
+          {
+            "id": "explain",
+            "kind": "reflection",
+            "title": "Explain your decisions",
+            "instructions": "What does 'unique match' mean, why can symmetric circuits be ambiguous, and why is an extracted netlist different from the original schematic? Record your actual observations, conditions and remaining limitations in at least 40 characters."
+          }
+        ]
+      },
+      "teaching": {
+        "concept": "LVS starts with extraction: the tool recognizes transistors and connections from physical layers. It then compares the extracted netlist with the captured schematic, using the selected PDK's device matching rules. A successful extraction is not a match. Device counts, terminal order, net connectivity, width/length and multiplicity can all matter. Read the first structural discrepancy before chasing secondary mismatches.",
+        "worked_example": "The practice layout has WN=1 µm. The injected schematic requests 1.3 µm. Both may be legal geometries, so DRC can stay clean, but LVS should report a width/property mismatch. Restoring the reference width removes this deliberate discrepancy. You could instead intentionally resize the layout, but must rerun DRC and LVS for that new design.",
+        "try_next": "In a separate copy, investigate an open route or incorrect body tie. Compare device counts first, then ports, shorts/opens and finally property mismatches. Never change the schematic merely to hide an unintended layout error. Keep the extracted deck and captured reference with your report.",
+        "interview": "What does 'unique match' mean, why can symmetric circuits be ambiguous, and why is an extracted netlist different from the original schematic?",
+        "artifact": "A failed parameter comparison, extracted and schematic netlists, repair rationale and a strict matched LVS report."
+      }
+    },
+    {
+      "lesson": {
+        "id": "handoff",
+        "title": "Review the inverter as a design deliverable",
+        "skills": [
+          "design review",
+          "PVT",
+          "parasitics",
+          "portfolio"
+        ],
+        "minutes": 30,
+        "summary": "A design review connects requirements to evidence.",
+        "steps": [
+          {
+            "id": "predict",
+            "kind": "quiz",
+            "title": "Predict the result",
+            "instructions": "What should you claim after these nominal simulations and DRC/LVS checks?",
+            "options": [
+              "Evidence for the recorded design and conditions, with remaining checks stated",
+              "A timing-qualified standard cell across every corner",
+              "Guaranteed fabrication readiness or employment"
+            ],
+            "answer": 0,
+            "explanation": "Nominal functional and physical checks are valuable evidence, but do not cover every PVT, parasitic, reliability or manufacturing requirement."
+          },
+          {
+            "id": "build",
+            "kind": "check",
+            "title": "Inspect the design",
+            "instructions": "Save your current inverter. Review the specification, DC and transient observations and the DRC/LVS repair history. The fixed lesson run settings make the examples repeatable; use the normal analysis and saved-testbench tools for additional operating conditions.",
+            "rule": {
+              "type": "inverter",
+              "check": "schematic"
+            }
+          },
+          {
+            "id": "measure",
+            "kind": "check",
+            "title": "Check the evidence",
+            "instructions": "Run lesson once more on the final saved design. Check this step only when both full process DRC and strict LVS pass together. Export the learning portfolio from Student Hub → More and preserve the referenced run folders with the project.",
+            "rule": {
+              "type": "inverter",
+              "check": "handoff"
+            }
+          },
+          {
+            "id": "explain",
+            "kind": "reflection",
+            "title": "Explain your decisions",
+            "instructions": "Present the inverter in five minutes: specification, device selection, predictions, measurements, one DRC repair, one LVS repair and remaining risk. Record your actual observations, conditions and remaining limitations in at least 40 characters."
+          }
+        ]
+      },
+      "teaching": {
+        "concept": "A design review connects requirements to evidence. Explain why the circuit works, how sizing and loading affect it, how geometry realizes the schematic and which failures you repaired. A nominal inverter is the first reusable cell, not a complete IC design education. Continue with gm/ID biasing, gain/bandwidth, feedback, matching, RTL, timing constraints, verification and mixed-signal integration in the other paths.",
+        "worked_example": "A useful review table records the target, actual value, method, process revision and condition for each claim. Report actual VOH/VOL, VM and delays, then list DRC and LVS status separately. This course's electrical checks are pre-layout. Post-layout extraction and PVT characterization must be measured in the dedicated physical/saved-testbench workflows before making those claims.",
+        "try_next": "Run separate saved testbenches at documented corners, supplies, temperatures, input slews and loads. Compare schematic and extracted parasitic results, then explain performance changes. List remaining antenna/density, ERC, reliability, statistical and integration work. For digital roles, add a self-checking RTL exercise and timing report; for analog roles, add a gm/ID-based sizing study.",
+        "interview": "Present the inverter in five minutes: specification, device selection, predictions, measurements, one DRC repair, one LVS repair and remaining risk.",
+        "artifact": "A reviewable project and evidence-backed portfolio narrative, with bounded claims and a concrete next learning plan."
+      }
+    }
+  ]
+}

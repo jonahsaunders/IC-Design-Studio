@@ -84,7 +84,7 @@ class LiveCollaborationMixin:
         self.live_impact = QLabel('Schematic and layout share one revision. Recheck verification after changing the design.')
         self.live_impact.setWordWrap(True);self.live_impact.setAccessibleName('Shared design verification status');v.addWidget(self.live_impact)
         checks = QHBoxLayout()
-        erc = QPushButton('Check schematic');erc.clicked.connect(lambda: self.guard(lambda: self.check('ERC')));checks.addWidget(erc)
+        erc = QPushButton('Check schematic');erc.clicked.connect(lambda: self.guard(lambda: self.check('erc')));checks.addWidget(erc)
         workflow = QPushButton('Review schematic and layout');workflow.clicked.connect(lambda: self.guard(self.design_workflow));checks.addWidget(workflow)
         v.addLayout(checks)
         self.live_recover_button = QPushButton('Recover owner access…')

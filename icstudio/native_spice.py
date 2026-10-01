@@ -15,7 +15,7 @@ def native(project):
     return project.get('spice', {}).get('version') == 1
 
 
-def lvs_defaults(text):
+def lvs_defaults(text, technology=None):
     """Canonicalize only explicit, literal unit defaults of known PDK devices."""
     changes=[]
     def instance(match):
@@ -27,7 +27,42 @@ def lvs_defaults(text):
         canonical,count=re.subn(r'(?i)[ \t]+VM[ \t]*=[ \t]*(?:1(?:\.0*)?|1(?:\.0*)?e[+-]?0)(?=\s|$)','',logical)
         if count:changes.append(dict(instance=logical.split()[0],parameter='VM',default='1'))
         return canonical if count else original
-    return re.sub(r'(?im)^[ \t]*x\S+[^\n]*(?:\n[ \t]*\+[^\n]*)*',instance,text),changes
+    text=re.sub(r'(?im)^[ \t]*x\S+[^\n]*(?:\n[ \t]*\+[^\n]*)*',instance,text)
+    if (technology or {}).get('package_lock',{}).get('id')=='ihp-sg13g2':
+        text,ihp_changes=ihp_lvs_defaults(text,technology);changes.extend(ihp_changes)
+    return text,changes
+
+
+def ihp_lvs_defaults(text, technology):
+    """Follow the locked upstream core-MOS LVS format for statistical mm_ok.
+
+    IHP's simulation template enables mismatch; its LVS template has W/L/ng/m
+    only. Netgen's setup currently does not remove mm_ok. Never drop geometry,
+    multiplicity, unknown values, or parameters of other device classes.
+    """
+    from .model import file_digest
+    root=Path(technology['package_root']).resolve();files=technology['package_lock']['files']
+    proofs={};changes=[]
+    for model in ('sg13_lv_nmos','sg13_lv_pmos'):
+        entries=[b for b in technology['simulation']['catalog'].values()
+                 if b.get('model')==model and Path(b.get('source','')).stem==model and not b.get('unavailable')]
+        if len(entries)!=1:continue
+        entry=entries[0];rel=entry['source'];path=(root/rel).resolve()
+        if not path.is_relative_to(root) or not files.get(rel) or file_digest(path)!=files[rel]:
+            raise ValueError('The IHP LVS symbol is missing or changed.')
+        source=path.read_text(encoding='utf-8')
+        if ('lvs_format="M@name @pinlist @model w=@w l=@l ng=@ng m=@m"' in source
+                and 'format="@spiceprefix@name @pinlist @model w=@w l=@l ng=@ng m=@m mm_ok=@mm_ok"' in source):
+            proofs[model]=dict(source=rel,sha256=files[rel])
+    def instance(match):
+        original=match[0];logical=re.sub(r'\n[ \t]*\+[ \t]*',' ',original)
+        tokens=logical.split()
+        if len(tokens)<6 or tokens[5].lower() not in proofs:return original
+        if len(re.findall(r'(?i)\smm_ok\s*=',logical))!=1:return original
+        rewritten,count=re.subn(r'(?i)[ \t]+mm_ok[ \t]*=[ \t]*(?:0(?:\.0*)?|1(?:\.0*)?)(?=\s|$)','',logical)
+        if count:changes.append(dict(instance=tokens[0],parameter='mm_ok',reason='Statistical simulation flag omitted by the locked upstream LVS format',proof=proofs[tokens[5].lower()]))
+        return rewritten if count else original
+    return re.sub(r'(?im)^[ \t]*[xm]\S+[^\n]*(?:\n[ \t]*\+[^\n]*)*',instance,text),changes
 
 
 def render(device, child=None, mode='simulation'):

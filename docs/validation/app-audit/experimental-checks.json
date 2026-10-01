@@ -1,0 +1,35 @@
+{
+  "unit_suite": {
+    "run": 1244,
+    "passed": 1230,
+    "skipped": 14,
+    "failures": 0,
+    "seconds": 342.751,
+    "engines": [
+      "ngspice 42",
+      "Magic 8.3.684",
+      "Netgen 1.5.300",
+      "Icarus 12"
+    ]
+  },
+  "gui_scripts": 75,
+  "button_invocations": {
+    "clicked": 399,
+    "hidden by current mode": 67,
+    "not present in default fixture": 30,
+    "disabled by prerequisites": 89,
+    "covered by isolated runtime/server acceptance": 3
+  },
+  "button_unhandled_exceptions": 0,
+  "template_runs": 24,
+  "template_failures": 0,
+  "pdk_exchange_runs": 8,
+  "scope": "Nominal teaching circuits and executed UI fixtures; native desktop/platform release checks remain separate.",
+  "help_entry_points": 13,
+  "local_document_links": 1137,
+  "custom_runtime_spice_export_modes": [
+    "generic",
+    "native",
+    "capture"
+  ]
+}

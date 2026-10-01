@@ -22,10 +22,12 @@ assert w.palette().window().color().name()==palette(True)['panel']
 # An explicit choice in the new version persists across sessions.
 w.toggle_theme();assert not w.dark;w.saved_hash=digest(w.project);w.close();w=Studio(recover=False);w.show();assert not w.dark
 w.toggle_theme();assert w.dark;w.saved_hash=digest(w.project);w.close();w=Studio(recover=False);w.resize(1440,900);w.show();assert w.dark;QTest.qWait(50)
-assert w.results_dock.isHidden();w.select([w.cell['devices'][1]['id']]);w.quick_run();assert w.run_button.text()=='Running…';assert not w.run_button.isEnabled()
+assert w.results_dock.isHidden();w.select([w.cell['devices'][1]['id']]);w.quick_run()
+assert w.run_manager.busy and w.cancel_action.isEnabled()
+assert w.run_button.text()=='Run' and w.run_button.isEnabled()  # Further runs can be queued.
 deadline=time.monotonic()+20
 while w.process and time.monotonic()<deadline:QTest.qWait(20)
-assert not w.process and w.result and w._job_state=='complete';assert w.run_button.text()=='Run' and w.run_button.isEnabled();assert w.stop_button.isHidden();assert w.result_status.text()=='Current revision';w.fit_active();w.schematic.setFocus();QTest.qWait(80);assert w.grab().save(str(ROOT/'build'/'workspace-dark-0.2.1.png'))
+assert not w.process and w.result and w._job_state=='complete';assert w.run_button.text()=='Run' and w.run_button.isEnabled();assert not w.cancel_action.isEnabled() and not w.stop_widget_action.isVisible();assert w.result_status.text().startswith('Current revision');w.fit_active();w.schematic.setFocus();QTest.qWait(80);assert w.grab().save(str(ROOT/'build'/'workspace-dark-0.2.1.png'))
 # A worker error must restore Run and present a failure, not an idle running state.
 w.result=None;w.plot.result=None;bad=clone(w.project['analysis']);bad['type']='unsupported';w.start_job(bad)
 deadline=time.monotonic()+10

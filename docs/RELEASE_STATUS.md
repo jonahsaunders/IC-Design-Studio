@@ -1,6 +1,42 @@
 # Dev25 draft and experimental follow-up
 
-The current [reliable-workflow source update](RELIABLE_DESIGN_WORKFLOWS.md)
+## Current source and package snapshot · 2026-09-30
+
+The source remains **0.22.0.dev25**. It includes the [Student Hub](STUDENT_HUB.md),
+[bounded SAR simulation](MIXED_SIGNAL_SAR.md), [digital workspace](DIGITAL_WORKSPACE.md),
+and [reliable design workflow](RELIABLE_DESIGN_WORKFLOWS.md) changes. A shared
+version number does not mean two source commits or desktop packages are identical.
+
+Authenticated GitHub metadata checked on 2026-09-30 records these two latest
+completed draft preparations, each with 23 assets and no publication timestamp:
+
+| Draft | Exact source commit | Preparation result |
+|---|---|---|
+| [Main preview](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/untagged-acb598aac62045d768f7) | `168976360c18a0c5fa038bf9e8b89e85c6d781a8` | [36509225273](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/36509225273), completed successfully |
+| [Experimental preview](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/untagged-675c8eb70526765cc344) | `c33cee4dbbab1cdafb03f11a7aa1d11b08230c57` | [36559252677](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/36559252677), completed successfully |
+
+Both remain **draft prereleases**. Their assets include application/source
+packages, platform validation, qualification evidence and checksums; physical
+evidence is split into four parts with a manifest and reassembly helper. This
+metadata review did not download/re-hash assets or execute consumer acceptance.
+The later merged README source at `34c4a9a7d94c8bcc234ef579186676c866053d9c`
+is not either packaged source. See [downloads](DOWNLOADS.md).
+
+The current [draft workflow](../.github/workflows/release-preview.yml) requires
+**seven** same-commit jobs: desktop/package, interoperability, physical, digital,
+VGA, statistical campaigns and reference compatibility. Successful historical
+six-gate drafts retain their original scope; new candidates use the current gates.
+GitHub issues #8, #9, #10 and #31 were still open in the 2026-09-30 check.
+Consumer Windows/Ubuntu, signing-policy and physical LAN/VPN observations remain
+separate from hosted success; see [acceptance tracking](RELEASE_FOLLOWUPS.md).
+
+## Archived dev25 checkpoint · reviewed 2026-09-21
+
+The following sections preserve dated results and their original source identities.
+Their test totals and release-state statements describe those checkpoints, not
+the current branch or a fresh review of every historical asset.
+
+The earlier [reliable-workflow source update](RELIABLE_DESIGN_WORKFLOWS.md)
 adds receipt-verified recovery, faster layout editing, evidence-driven workflow
 states, a smaller physically checked Banba fill candidate and shared reference
 qualification. These changes require new package qualification; they do not

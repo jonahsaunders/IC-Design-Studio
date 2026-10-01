@@ -1,12 +1,15 @@
 # Live desktop schematic and layout collaboration
 
-## Submitted review recovery in dev19
+## Review recovery
 
 The dashboard now persists submitted review actions before sending and restores
 them on resume. Retry retains the same request ID across a lost acknowledgement;
 read refreshes do not clear it. See [review recovery](REVIEW_RECOVERY.md) for
 supported actions, explicit discard and the distinction from unsent drafts or
-offline design editing. Physical LAN/VPN acceptance remains separate from the
+offline design editing. Unsent composer text is retained separately as
+checkpoint-specific local drafts; reopening restores text without posting it.
+See [draft recovery](UPDATE_0.22_DEV21.md#durable-unsent-review-drafts).
+Physical LAN/VPN acceptance remains separate from the
 automated two-desktop HTTPS checks.
 
 This experimental feature shares schematics and layouts through a self-hosted server. Open
@@ -73,7 +76,7 @@ network tunnel, or automatic HTTPS setup.
 
 ## Host a session on your network
 
-Use dev18 or later on both computers. No scripts or manual certificate/key copying
+Use the same current application build on both computers. No scripts or manual certificate/key copying
 are needed in the packaged application.
 
 1. Open your project and choose **Tools → Collaboration → Host a session…**.

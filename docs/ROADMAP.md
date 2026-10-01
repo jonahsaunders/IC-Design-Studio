@@ -19,20 +19,23 @@ defines their supported configurations.
 
 The current acceptance sequence is:
 
-1. Qualify the exact candidate on all six hosted workflows, then collect clean
+1. Qualify the exact candidate on all seven required hosted jobs, then collect clean
    Windows/Linux, physical LAN/VPN and signing-policy observations. Keep earlier
-   drafts tied to their own commits. See [release gates](RELEASE_FOLLOWUPS.md).
-   The existing dev25 draft at `a88cfe1cfe20254638b7bd97ec9128e843578282`
-   passed its six hosted gates. Follow the [acceptance handoff](DEV25_ACCEPTANCE_HANDOFF.md)
-   for the still-open manual checks; later experimental changes need fresh gates.
+   drafts tied to their own commits. See [release gates](RELEASE_FOLLOWUPS.md)
+   and [release status](RELEASE_STATUS.md) for current candidates. The historical
+   dev25 draft at `a88cfe1cfe20254638b7bd97ec9128e843578282` passed the six
+   hosted gates required at that checkpoint. Its [acceptance handoff](DEV25_ACCEPTANCE_HANDOFF.md)
+   retains the corresponding manual checks; later source needs fresh gates.
 2. Maintain the [76-case process-RC qualification](validation/dev25/process-rc.json)
    on the selected candidate, using saved benches, operating conditions and
    deliberate geometry/netlist faults with pinned Magic, Netgen and ngspice.
-   The current normalized process path is flat and unaliased, with numeric
-   interconnect R, MOS and MiM subcircuits. Validate the conserved original C
-   matrix and AC behavior after the pinned-engine correction; earlier process-RC
-   evidence is superseded. Broader physical hierarchy and model-backed resistor
-   RC require separate support and qualification.
+   That retained baseline used a flat, unaliased process path with numeric
+   interconnect R, MOS and MiM subcircuits. Current source additionally supports
+   bounded physical-hierarchy flattening in the disposable extraction workspace,
+   unambiguous aliases and supported native/model-backed R/C devices. Maintain
+   the [newer integrity and engine regressions](ANALOG_IMPLEMENTATION_EXTENSIONS.md#process-rc-integrity)
+   alongside conserved-capacitance and AC checks. Broader device/process coverage
+   still requires separate support and qualification.
 3. Maintain the [216-pair amplifier qualification](validation/dev25/two-stage-opamp.json)
    across its 27 conditions, four saved fixtures and matched-pair layout update.
    Extend load, bias and geometry support only with new unchanged-requirement
@@ -49,14 +52,16 @@ inferred from source tests. Remaining longer-term work also includes HVI
 conversion warnings, broader detector PVT/transient checks, general offline
 editing, managed internet hosting and measured desktop responsiveness.
 
-The [dev25 desktop measurements](validation/dev25/desktop-scale.json) now provide
+The [dev25 desktop measurements](validation/dev25/desktop-scale.json) provide
 a historical correctness and timing baseline for two workloads under offscreen Qt 6.8.3.
 The three-level amplifier bank's median schematic/layout edits are 137/206 ms;
 the synthetic 500-device, 10,000-shape workload takes 1.70/1.74 s. Reduce that
 large-edit latency before claiming responsiveness acceptance. The
 [experimental follow-up](DESKTOP_RESPONSIVENESS.md) removes redundant copying
 and icon drawing and introduces a 1,500 ms regression ceiling for every measured
-edit/undo/redo sample. Sub-200 ms native editing remains a further goal.
+edit/undo/redo sample. Later [recovery and workflow measurements](RELIABLE_DESIGN_WORKFLOWS.md)
+and [selection-rendering measurements](INTERACTIVE_RENDERING_PERFORMANCE.md)
+retain their own hosts and narrower performance claims. Sub-200 ms native editing remains a further goal.
 Repeat the checks on native consumer displays;
 offscreen repaint timings do not measure hardware presentation latency.
 
@@ -97,16 +102,18 @@ managed internet hosting and relay service remain separate work.
 
 The [local server button](LIVE_COLLABORATION.md#start-a-local-server-with-a-button)
 starts the included collaboration service, handles its key automatically and
-restarts saved local workspaces from the dashboard. Hosting remains limited to
-the same computer; a reachable HTTPS team server is required for other computers.
+restarts saved local workspaces from the dashboard. This local-server mode is
+limited to the same computer; the later network-hosting wizard and reachable
+HTTPS team servers support other computers.
 
 ## Experimental dev16 implementation
 
 The [workflow and review update](WORKFLOW_REVIEW_0.22.md) adds automatic workflow
 checks, selected testbench context, visual ECO inspection, reviewer permissions
-and threaded checkpoint discussions. The next work includes realistic analog
-block qualification, broader matched layouts, durable offline review/edit queues,
-notifications and reducing recovery snapshot copying on the UI thread.
+and threaded checkpoint discussions. Subsequent work added analog reference
+qualification, durable submitted-review recovery and unsent drafts. Broader
+matched layouts, a general offline design-edit queue, notifications and further
+editing-latency improvements remain open.
 
 ## Experimental dev14 implementation
 
@@ -114,7 +121,7 @@ The [engineering workflow guide](PROFESSIONAL_WORKFLOWS.md) records the implemen
 
 ## Foundation already available
 
-The current application has native schematic/layout editing, visible grids, reusable cells, saved simulation setups, run tables, waveform markers and calculations, specifications, parameter studies, reviewed Xschem migration/exchange, locked PDK adapters, linked physical geometry and external verification entry points. Version 0.21 adds guided examples and a PDK setup assistant. See [release notes](RELEASE_0.21.md) for what has actually been tested.
+The current application has native schematic/layout editing, buses and instance arrays, reusable cells, saved simulation setups, waveform tools, analog optimization and campaigns, reviewed Xschem exchange, locked PDK adapters, linked physical geometry and bounded extraction. It also includes the [digital workspace](DIGITAL_WORKSPACE.md), [VGA Playground](VGA_PLAYGROUND.md), [mixed-signal SAR](MIXED_SIGNAL_SAR.md) and [Student Hub](STUDENT_HUB.md). See [release status](RELEASE_STATUS.md) for tested source/package identities; the older milestones above retain their original scope.
 
 ## 1. Make releases dependable
 
@@ -126,7 +133,7 @@ The current application has native schematic/layout editing, visible grids, reus
 
 Progress in [0.21.1.dev1](UPDATE_0.21.1.md): a small parameterized hierarchy now covers repeated connected moves, exact undo/redo, stable identities and reviewed exchange after source removal. Exported ports reuse their own net labels, avoiding collisions with other nets and repeated label growth. Broader editing and exchange qualification remains open.
 
-Expand parameterized hierarchy, bus editing, symbol authoring and supported model expressions. Improve connection-preserving move/stretch behavior on dense designs, with previews and predictable undo. Broaden migration fixtures across common open libraries, and improve the review of unsupported constructs.
+Extend the supported native bus/array, parameterized hierarchy, symbol and model-expression subsets with explicit preservation contracts. Improve connection-preserving move/stretch behavior on dense designs, with previews and predictable undo. Broaden migration fixtures across common open libraries, and improve the review of unsupported constructs.
 
 **Done when:** a representative hierarchical project can be imported, migrated, edited, exported, reimported and compared without unexplained topology or parameter changes. Native projects remain usable without Xschem installed.
 
@@ -146,7 +153,7 @@ Extend parametric device coverage and routing feedback. Improve hierarchical ext
 
 ## 5. Deepen experiments and reporting
 
-Build beyond the current finite-difference sensitivity and bounded sampled search: richer optimization strategies, reusable expressions, statistical summaries, correlation/yield views, multi-run reports and efficient waveform retention. Extend convergence diagnostics and run scheduling. Advanced periodic, harmonic-balance and RF analyses need engine support, explicit semantics and reference circuits; they are future work.
+Build on the existing [analog optimizer](ANALOG_OPTIMIZER.md): adaptive/Bayesian search, reusable device characterization, sensitivity, saved diagnostic fixtures and statistical campaigns are implemented within documented bounds. Broaden reference circuits, distributions, correlation studies, reporting and waveform retention without treating sampled pass fractions as manufacturing yield. Extend convergence diagnostics and scheduling. Advanced periodic and harmonic-balance analyses need engine support, explicit semantics and reference circuits; they remain future work.
 
 **Done when:** every new analysis has a numerical reference, a clear failure state, progress/cancellation behavior and saved inputs that reproduce the result.
 
@@ -154,7 +161,7 @@ Build beyond the current finite-difference sensitivity and bounded sampled searc
 
 Progress in [0.22.0.dev1](UPDATE_0.22.md): hierarchical file XOR by layer/datatype, exact area summaries, saved reference snapshots, geometry queries, tiled density and bounded fill/rounding. A reproducible 10,000-square GDS/OASIS workload checks the comparison path. This does not establish large-layout interactive viewport performance.
 
-Profile large schematics, geometry and waveform sets. Introduce measured rendering/indexing improvements, reusable project libraries and reviewable project diffs. Improve plugin/adapter boundaries and regression automation. Extend the existing schematic/layout collaboration with durable offline work and richer review coordination. Remote compute remains future work.
+Profile large schematics, geometry and waveform sets and continue measured rendering/indexing improvements. Extend reusable libraries, project diffs, plugin/adapter boundaries and regression automation. Build beyond existing submitted-review and draft recovery toward general offline design editing and richer review coordination. Trusted campaign workers already support qualified shared filesystems; [two-host acceptance](CAMPAIGN_WORKER_ACCEPTANCE.md) remains separate from local tests. Managed remote compute and automatic internet deployment remain future work.
 
 **Done when:** published workload definitions and measured responsiveness justify the supported scale. Collaboration preserves revision identity, result provenance and recoverable edits.
 

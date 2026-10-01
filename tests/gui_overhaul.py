@@ -41,9 +41,9 @@ for name,menu in w.task_menus.items():
 assert not w.unmapped_commands,w.unmapped_commands
 for name,action in w.command_actions.items():
     assert action in actions or name in ALIASES,name
-assert menu_counts['Design']<=10,menu_counts
+assert menu_counts['Design']<=11,menu_counts  # Includes the Design workflow entry.
 assert all(a in [item for _,item in w._commands] for a in actions)
-passed('Every original command remains reachable; Design has 10 entries; at most one submenu level')
+passed('Every original command remains reachable; Design has at most 11 entries; at most one submenu level')
 
 # Grid is generated from snap coordinates, independent of zoom and pan.
 for base in (5,10,7):

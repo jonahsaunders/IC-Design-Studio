@@ -69,6 +69,10 @@ verification.
 
 ## Reproduce the reference checks
 
+For the supplied 5 V GF180 circuit, start with the [bandgap guide](../examples/gf180-bandgap/README.md).
+For the separate voltage monitor, use the [overvoltage walkthrough](OPEN_PROJECTS.md).
+The Banba comparison below uses the [native Banba layout](../examples/gf180-banba/layout/README.md).
+
 Install the project's Python requirements and provide ngspice 42. To include
 Franck's SKY130 detector, obtain the exact locked source without Windows newline
 conversion:
@@ -92,6 +96,11 @@ The three reference cases have distinct scope:
 | Supplied GF180 `5vfullv2-compatibility.sch` | 60 native catalog models; all six transient/DC/AC cases through the desktop worker | Run with `tests/gui_bandgap_compatibility.py` |
 | GF180 Banba layout | Same operating-point fixture against schematic and archived capacitance extraction; VREF and supply-current limits | Original captured extraction, not fresh DRC/LVS |
 | LDFranck SKY130 detector | Nominal 27 °C, code-zero rising 3–6 V sweep; endpoint limits and a 3.25–3.35 V trip window | Archived layout netlist; no new PVT, falling hysteresis or RC qualification |
+
+The command writes `banba-views.icproj` and, when `--franck-source` is supplied,
+`franck-views.icproj`. Open either with **File → Open project…** to inspect its
+saved implementations. The separate [reference compatibility gates](REFERENCE_COMPATIBILITY.md)
+perform fresh DRC/LVS; the captured-implementation comparison does not rerun them.
 
 Run the desktop transaction and worker check with
 `python tests/gui_implementation_views.py --out build/reference-views-gui`.

@@ -179,7 +179,7 @@ def plan(p, cid, start, end, net, width, layers=None, via_cost=2000, margin=5000
     if vias and p['pdk'].get('package_lock'):
         from .process_adapters import adapter
         process=adapter(p['pdk']);process.engine_assets(p['pdk'])
-        if process.id=='gf180mcuC':process.implementation().prepare(clone(p['pdk']))
+        if process.id in ('gf180mcuC','gf180mcuD','ihp-sg13g2'):process.implementation().prepare(clone(p['pdk']))
     group = uid()
     for s in shapes: s.update(route_group=group, generated_route=True)
     return {'version':1,'project_id':p['id'],'cell_id':cid,'design_hash':design_digest(p),

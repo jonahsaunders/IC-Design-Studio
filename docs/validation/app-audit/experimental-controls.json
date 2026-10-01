@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "checks": [
+    "All four PDK revisions: core model/supply defaults, draft retention, invalid submission, actual install-and-create",
+    "Collaboration Check schematic runs electrical checks",
+    "Runtime Select libraries, Load folder, Verify files and Clear; changed libraries rejected",
+    "Generic, native and captured SPICE export controls retain explicitly configured model libraries",
+    "13 help entry points, relative documents, parent paths, heading anchors, Back/Forward and external URL dispatch",
+    "1137 local document links, including heading fragments"
+  ]
+}

@@ -17,7 +17,7 @@ Changing it invalidates results for the previous design identity.
 | Model | Behavior and requirements |
 |---|---|
 | Process capacitance | Existing Magic capacitance profile using the locked process deck. Distributed wire resistance is omitted. |
-| Process distributed RC | Runs the explicit Magic resistance profile on flat, unaliased input and reconstructs the original capacitance matrix using recorded area weights. Missing resistance or unsupported output fails extraction. See the [correction and limits](ANALOG_REFERENCE_WORKFLOW.md). |
+| Process distributed RC | Runs the explicit Magic resistance profile, flattens supported hierarchy in a disposable workspace, and reconstructs the original capacitance matrix using recorded area weights. Missing resistance or unsupported mappings fail extraction. See the [current process-RC contract](ANALOG_IMPLEMENTATION_EXTENSIONS.md#process-rc-integrity). |
 | Calibrated interconnect RC | Uses the project's checked coupon calibration on Manhattan geometry. Dev25 adds bounded linked physical hierarchy; see the [reference workflow](ANALOG_REFERENCE_WORKFLOW.md). Section size, coupling search distance and an optional separate RC corner are saved with the testbench. |
 
 The process flow retains preflight, schematic simulation, DRC, LVS extraction,
@@ -28,8 +28,10 @@ Saved measurement comparisons retain failures, missing values, units and deltas.
 Dev25 retains original and normalized Magic extraction files after an actual
 AC check exposed capacitance redistribution errors in the pinned engine. The
 correction conserves original-net capacitance totals and mutual terms; it does
-not establish spatial capacitance accuracy. Process RC remains flat and
-unaliased, while bounded hierarchical interconnect uses calibrated extraction.
+not establish spatial capacitance accuracy. Current process RC accepts supported
+physical hierarchy through a private flattened extraction and reconciles
+unambiguous explicit aliases. Calibrated extraction has its own bounded
+hierarchy contract; neither mode accepts arbitrary native SPICE scopes.
 
 The calibrated mode requires complete terminal/port mapping and connected
 geometry. External ports on route interiors split the resistor network correctly.

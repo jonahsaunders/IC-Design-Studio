@@ -1,0 +1,51 @@
+         38029 function calls (37889 primitive calls) in 0.323 seconds
+
+   Ordered by: cumulative time
+   List reduced from 347 to 45 due to restriction <45>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        2    0.000    0.000    0.099    0.049 wire_canvas.py:134(draw_wires)
+        3    0.077    0.026    0.086    0.029 wire_canvas.py:36(wire_spatial)
+        2    0.004    0.002    0.086    0.043 canvas.py:230(draw_schematic_overview)
+       15    0.080    0.005    0.080    0.005 {method 'drawPath' of 'PySide6.QtGui.QPainter' objects}
+        1    0.008    0.008    0.063    0.063 {method 'repaint' of 'PySide6.QtWidgets.QWidget' objects}
+        2    0.008    0.004    0.056    0.028 recovery.py:14(verified_receipt)
+        5    0.033    0.007    0.052    0.010 {built-in method _hashlib.openssl_sha256}
+        2    0.002    0.001    0.033    0.017 grid.py:54(paint_grid)
+      114    0.031    0.000    0.031    0.000 {method 'drawLine' of 'PySide6.QtGui.QPainter' objects}
+        1    0.000    0.000    0.026    0.026 model.py:25(digest)
+        2    0.000    0.000    0.024    0.012 __init__.py:183(dumps)
+        2    0.000    0.000    0.024    0.012 encoder.py:183(encode)
+        2    0.024    0.012    0.024    0.012 encoder.py:205(iterencode)
+        4    0.000    0.000    0.019    0.005 pathlib.py:1015(read_bytes)
+        4    0.000    0.000    0.018    0.004 model.py:259(atomic_write)
+        2    0.001    0.001    0.012    0.006 wire_canvas.py:115(wire_geometry)
+        1    0.000    0.000    0.010    0.010 profile_editing.py:36(<lambda>)
+        1    0.000    0.000    0.010    0.010 digital_ui.py:521(undo)
+        1    0.000    0.000    0.010    0.010 gui.py:94(undo)
+        4    0.002    0.000    0.010    0.002 tempfile.py:321(mkstemp)
+        1    0.000    0.000    0.009    0.009 gui.py:96(persist_history)
+        6    0.003    0.001    0.009    0.002 pathlib.py:1005(open)
+        5    0.001    0.000    0.009    0.002 spatial.py:3(__init__)
+        1    0.000    0.000    0.009    0.009 capture_workspace.py:63(refresh_schematic_edit)
+        4    0.009    0.002    0.009    0.002 {method 'read' of '_io.BufferedReader' objects}
+        1    0.000    0.000    0.009    0.009 editor_workspace.py:536(build_inspector)
+        1    0.000    0.000    0.009    0.009 hierarchy_ui.py:156(build_inspector)
+        1    0.000    0.000    0.009    0.009 lifecycle_ui.py:22(build_inspector)
+        1    0.000    0.000    0.009    0.009 project_ui.py:155(build_inspector)
+    131/5    0.001    0.000    0.009    0.002 spatial.py:4(build)
+        2    0.000    0.000    0.009    0.004 pathlib.py:1022(read_text)
+        1    0.002    0.002    0.007    0.007 wiring.py:408(junction_points)
+     1000    0.005    0.000    0.007    0.000 interchange.py:9(pin_positions)
+     2002    0.004    0.000    0.004    0.000 spatial.py:11(query)
+        2    0.001    0.000    0.004    0.002 wiring.py:46(pins)
+      263    0.002    0.000    0.003    0.000 {built-in method builtins.min}
+      306    0.001    0.000    0.003    0.000 {built-in method builtins.max}
+     2681    0.003    0.000    0.003    0.000 {method 'get' of 'dict' objects}
+       10    0.000    0.000    0.003    0.000 {built-in method _io.open}
+        6    0.000    0.000    0.002    0.000 workspace.py:398(field)
+       63    0.001    0.000    0.002    0.000 {method 'sort' of 'list' objects}
+        4    0.000    0.000    0.001    0.000 tempfile.py:243(_mkstemp_inner)
+        3    0.001    0.000    0.001    0.000 workspace.py:42(__init__)
+     1001    0.000    0.000    0.001    0.000 {built-in method builtins.any}
+     2000    0.001    0.000    0.001    0.000 {built-in method builtins.round}

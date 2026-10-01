@@ -1,5 +1,7 @@
 # IC Design Studio 0.8.0
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This release adds saved testbenches, reusable physical hierarchy and a complete three-stage SKY130 ring oscillator workflow. Three schematic instances share one editable inverter layout. The selected saved fixture supplies the stimulus, loads, corner, temperature, startup, probes and measurements for both schematic and extracted-capacitance simulation.
 
 ## Start with the ring oscillator

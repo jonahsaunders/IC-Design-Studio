@@ -101,12 +101,15 @@ class OnboardingMixin:
         self.set_project(project)
         self.mode_combo.setCurrentIndex(entry['mode'])
         engine = entry['engine']
-        if engine != 'none':
+        if engine not in ('none', 'mixed_signal'):
             self.analysis_engine.setCurrentIndex(self.analysis_engine.findData(engine))
         self.inspector_tabs.setCurrentIndex(1 if engine != 'none' else 0)
         self.results_dock.hide()
         self.statusBar().showMessage('Example copy opened · ' + entry['expected'], 20000)
         QTimer.singleShot(80, lambda: (self.schematic.fit(), self.layout.fit()))
+        if engine == 'mixed_signal':
+            from .mixed_signal_ui import show
+            QTimer.singleShot(0, lambda: show(self))
         return True
 
     def start_here(self):
@@ -119,7 +122,8 @@ class OnboardingMixin:
         outer.addWidget(label('From first circuit to a reusable design.', True))
         outer.addWidget(label('Choose a short example. Each opens as an independent copy with its analysis already configured.'))
         actions = QHBoxLayout(); outer.addLayout(actions)
-        for title, fn in [('New project…', self.new_project), ('Open project…', self.open_project),
+        from .student_hub_ui import show as show_student_hub
+        for title, fn in [('Student Hub', lambda: show_student_hub(self)), ('New project…', self.new_project), ('Open project…', self.open_project),
                           ('Import Xschem…', self.migrate_xschem_file), ('Set up a PDK…', self.pdk_manager)]:
             button = QPushButton(title); button.clicked.connect(lambda checked=False, fn=fn: self.guard(fn)); actions.addWidget(button)
         split = QSplitter(); outer.addWidget(split, 1)
@@ -132,7 +136,7 @@ class OnboardingMixin:
         details.document().setDefaultStyleSheet('h2 { margin-bottom: 20px; } p { margin-top: 14px; margin-bottom: 14px; } li { margin-bottom: 12px; }')
         rv.addWidget(details, 1)
         engine_status = label(''); rv.addWidget(engine_status)
-        open_button = QPushButton('Open a copy'); open_button.setDefault(True); open_button.setStyleSheet('QPushButton { background: #315ed4; color: white; border: none; border-radius: 6px; padding: 11px; font-weight: 600; } QPushButton:disabled { background: #475367; color: #b0b6c2; }'); rv.addWidget(open_button)
+        open_button = QPushButton('Open a copy'); open_button.setProperty('role', 'primary'); rv.addWidget(open_button)
         setup = QPushButton('Engine setup…'); setup.clicked.connect(self.engine_dialog); rv.addWidget(setup)
         guide = QPushButton('Read the getting-started guide'); guide.clicked.connect(lambda: self.open_editor_doc('GETTING_STARTED.md')); rv.addWidget(guide)
         split.addWidget(right); split.setSizes([420, 570])
@@ -147,7 +151,7 @@ class OnboardingMixin:
                                 '\n\n'+markdown(entry.get('qualification')))
             needs = entry['engine'] == 'ngspice'
             available = find_ngspice(self.settings.value('engine/ngspice', ''))
-            engine_status.setText(('ngspice found · no external PDK needed' if available else 'ngspice needed · open Engine setup to select it') if needs else
+            engine_status.setText('Requires local ngspice, iverilog and vvp · opens Mixed-signal experiment' if entry['engine']=='mixed_signal' else ('ngspice found · no external PDK needed' if available else 'ngspice needed · open Engine setup to select it') if needs else
                                   ('Ready to explore · no simulator needed' if entry['engine'] == 'none' else 'Ready to run · included educational solver'))
         def fill(text=''):
             items.clear()
@@ -160,6 +164,7 @@ class OnboardingMixin:
             if item and self.open_gallery_example(item.data(Qt.UserRole)):
                 dlg.accept()
         items.currentItemChanged.connect(selected); search.textChanged.connect(fill)
+        search.returnPressed.connect(items.setFocus)
         items.itemActivated.connect(lambda _: self.guard(open_copy)); open_button.clicked.connect(lambda: self.guard(open_copy))
         bottom = QHBoxLayout(); outer.addLayout(bottom)
         show = QCheckBox('Show on startup'); show.setChecked(self.settings.value('onboarding/show', True, type=bool))
@@ -167,6 +172,7 @@ class OnboardingMixin:
         close = QPushButton('Continue to workspace'); close.clicked.connect(dlg.close); bottom.addWidget(close)
         dlg.example_list, dlg.search, dlg.open_button = items, search, open_button
         dlg.details, dlg.engine_status = details, engine_status
+        for button in dlg.findChildren(QPushButton): button.setAutoDefault(False); button.setDefault(False)
         self._start_dialog = dlg; fill(); dlg.show(); return dlg
 
     def pdk_manager(self, initial_folder=None):
@@ -179,14 +185,14 @@ class OnboardingMixin:
         outer.addWidget(label('1  Find local PDKs     →     2  Check and register     →     3  Start a linked project'))
         tabs = QTabWidget(); outer.addWidget(tabs, 1)
         discover_page = QWidget(); dv = QVBoxLayout(discover_page); tabs.addTab(discover_page, 'Find and install')
-        dv.addWidget(label('Use included PDKs installs the bundled GF180MCU and SKY130 simulation packages offline. You can also add another installed PDK or an extracted package collection.'))
+        dv.addWidget(label('Use included PDKs installs SKY130A, GF180 C/D and IHP SG13G2 offline. GF180 and IHP include the physical decks for the Student Hub inverter course. You can also add another installed PDK or an extracted package collection.'))
         candidates = QListWidget(); candidates.setAccessibleName('Discovered PDKs'); dv.addWidget(candidates, 1)
         buttons = []; row = QHBoxLayout(); dv.addLayout(row)
         registered_page = QWidget(); pv = QVBoxLayout(registered_page); tabs.addTab(registered_page, 'Registered revisions')
         registered = QListWidget(); registered.setAccessibleName('Registered PDK revisions'); pv.addWidget(registered, 1)
         detail = label(''); detail.setTextInteractionFlags(Qt.TextSelectableByMouse); pv.addWidget(detail)
         project_row = QHBoxLayout(); pv.addLayout(project_row)
-        state = label('Choose Use included PDKs to start with GF180MCU or SKY130. Gallery examples already include their model setup.'); outer.addWidget(state)
+        state = label('Choose Use included PDKs to start with SKY130A, GF180 C/D or IHP SG13G2. The Student Hub guides process selection and physical tool setup.'); outer.addWidget(state)
         log = QTextBrowser(); log.setMaximumHeight(95); log.hide(); outer.addWidget(log)
         def selected():
             it = registered.currentItem()

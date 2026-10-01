@@ -1,5 +1,7 @@
 # IC Design Studio 0.15.0 — simulation and direct editing
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This update retains visible schematic/layout grids, the configurable Window menu and Xschem exchange. The application and its guides use original feature names and name only open-source EDA tools. The third keyboard preset is now **Classic analog**; existing saved bindings migrate when that legacy preset is selected.
 
 ## Analysis workspace

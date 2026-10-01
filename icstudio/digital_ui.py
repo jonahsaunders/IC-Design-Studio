@@ -7,6 +7,7 @@ from bisect import bisect_left
 from pathlib import Path
 
 from PySide6.QtCore import Qt, QRectF, QPointF
+from shiboken6 import isValid
 from PySide6.QtGui import QPainter, QColor, QPen, QFontDatabase, QSyntaxHighlighter, QTextCharFormat
 from PySide6.QtWidgets import (QDialog, QWidget, QVBoxLayout, QHBoxLayout, QLabel,
     QPushButton, QLineEdit, QComboBox, QPlainTextEdit, QListWidget, QListWidgetItem,
@@ -418,7 +419,10 @@ class DigitalMixin:
         if self.centralWidget() is window:
             return
         self._circuit_center = self.takeCentralWidget();self._circuit_center.hide()
-        self._digital_panels = [(d, d.isVisible()) for d in self.findChildren(QDockWidget) if d is not window]
+        # A previous digital window can still be awaiting deleteLater when a
+        # new example opens in the same event turn. It is not a circuit panel.
+        self._digital_panels = [(d, d.isVisible()) for d in self.findChildren(QDockWidget)
+                                if not isinstance(d, DigitalFlowWindow)]
         for dock, visible in self._digital_panels:
             dock.hide()
         self._digital_toolbar_visible = self.toolbar.isVisible(); self.toolbar.hide()
@@ -434,7 +438,7 @@ class DigitalMixin:
         self.setCentralWidget(self._circuit_center);self._circuit_center.show(); self._circuit_center = None
         window.setParent(self); window.hide()
         for dock, visible in getattr(self, '_digital_panels', []):
-            dock.setVisible(visible)
+            if isValid(dock):dock.setVisible(visible)
         self.toolbar.setVisible(getattr(self, '_digital_toolbar_visible', True))
         if getattr(self,'_deferred_editor_restore',False):
             self._deferred_editor_restore=False;super().restore_last_editor_workspace()

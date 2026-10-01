@@ -1,46 +1,94 @@
-# Linux launch and setup checks
+# Linux launch and setup
 
-The packaged app targets Linux x86_64 with glibc 2.39 or newer (Ubuntu 24.04
-baseline). Extract the entire app archive into a writable location. Keep
-`_internal` next to `ICDesignStudio` and run `./ICDesignStudio`.
+## Complete desktop package
 
-Python, PySide6 and KLayout are included. A graphical X11 or Wayland session and
-the platform's graphics/font libraries are required. The bundle includes the
-desktop loader libraries staged by the build; it does not replace system glibc.
-If launch fails, run the executable in a terminal and inspect the loader error.
-`ldd ./ICDesignStudio` and `ldd ./_internal/PySide6/Qt/plugins/platforms/libqxcb.so`
-identify missing dynamic libraries. The exact Qt plugin path can be found under
-`_internal` if a platform build packages it differently.
+The Linux desktop targets **x86_64, glibc 2.39 or newer** (Ubuntu 24.04 baseline).
+Use the [download guide](DOWNLOADS.md) to select a package and verify its source
+identity. Extract the entire archive into a writable location, enter the
+`ICDesignStudio` directory, and run:
 
-To exercise the app using a new test profile without changing your normal
-projects, run:
+```sh
+./ICDesignStudio
+```
+
+Keep `_internal` beside the executable. Python, PySide6, KLayout, native ngspice,
+simulation PDK subsets, the managed digital/physical tools, VGA assets and the
+independent openEMS runtime are included in the current packaging recipe. A
+source ZIP or lone executable does not contain that complete runtime.
+
+A graphical X11 or Wayland session and the platform's graphics/font libraries
+are required. The bundle stages desktop loader libraries but does not replace
+system glibc. For a loader failure, run the executable in a terminal and inspect:
+
+```sh
+ldd ./ICDesignStudio
+ldd ./_internal/PySide6/Qt/plugins/platforms/libqxcb.so
+```
+
+The Qt plugin path can differ by build; locate the actual `libqxcb.so` under
+`_internal`. Qt WebEngine additionally needs the libraries listed in
+[VGA source setup](VGA_PLAYGROUND.md#source-setup-and-desktop-packaging).
+Build-host package prerequisites are recorded in
+[the desktop workflow](../.github/workflows/build-desktop.yml).
+
+## First circuit and engines
+
+Open **File → Start here / example gallery → Your first waveform → Open a copy**
+and press **F5**. The teaching example needs no external tools. Native SPICE and
+included process-model examples use the bundled native ngspice.
+
+For digital implementation, let **Included tools → Set up and verify** complete.
+The private native runtime needs several GB and runs actual installation checks.
+Use **Digital → New digital counter example**, then **Run stage**. See
+[digital setup](DIGITAL_FLOW.md#included-tools-and-first-setup).
+
+For process layout verification, open **Tools → Physical tools setup…** and
+select the included Magic/Netgen/ngspice tools, or explicitly choose custom tools.
+Setup is shared with the digital runtime. Physical checks still require matching
+locked PDK assets and decks; included analog simulation subsets are insufficient.
+Register included simulation packages or a compatible external PDK through
+**File → Project Hub… → PDKs**. See the [PDK guide](PDK_GUIDE.md).
+
+Student Hub Digital lessons and SAR experiments use separate native local
+`iverilog`/`vvp` executables; they do not use the managed runtime. For a native
+Ubuntu installation, `sudo apt install ngspice iverilog` supplies their tools.
+Configure them in the [lesson setup](STUDENT_HUB.md#engines-and-models) or
+[SAR Local engines tab](MIXED_SIGNAL_SAR.md#local-engine-setup).
+
+## Source launch
+
+Follow the [README source instructions](../README.md#start-in-three-steps) in a
+Python 3.12 virtual environment. Install native ngspice for SPICE examples.
+`launch-linux.sh` creates a local `.venv` with the available `python3` and
+installs requirements on its first run; the explicit README commands let you
+choose the reference Python 3.12 interpreter.
+
+Python requirements do not create the managed runtime or VGA assets. Use custom
+tools or build the required assets as described in [digital design](DIGITAL_FLOW.md)
+and [VGA Playground](VGA_PLAYGROUND.md). Source openEMS setup is described in
+[its guide](OPENEMS.md#custom-installations-and-source-builds).
+
+## Launch and package checks
+
+To exercise the packaged app with an isolated test profile:
 
 ```sh
 ./ICDesignStudio --release-test /absolute/path/to/new-launch-check
 ```
 
-For a host without a display, add `QT_QPA_PLATFORM=offscreen` before the command.
-The check opens native widgets, saves/reopens a project, runs a worker, tests
-editing and writes `release-test.json` plus a desktop image. A headless pass does
-not establish graphics-driver or desktop-session behavior.
+The check opens Qt widgets, saves/reopens a project, runs a worker and tests
+editing. It writes `release-test.json` and screenshots. On a host without a
+display, prepend `QT_QPA_PLATFORM=offscreen`; a headless pass does not establish
+graphics-driver or native desktop behavior.
 
-Install/link a supplied PDK package using **Tools → PDK manager**. Model files
-remain outside the app and must match the project's recorded lock. For physical
-verification, configure actual Magic, Netgen and ngspice executables in
-**Tools → Engine diagnostics & paths**. The release evidence records the exact
-tested tool versions. Do not point the app at temporary wrappers from the
-restricted build host; those paths are not product configuration.
+Packaged physical probes can use `ICSTUDIO_PROBE_PDK_ROOT`,
+`ICSTUDIO_PROBE_MAGIC`, `ICSTUDIO_PROBE_NETGEN` and
+`ICSTUDIO_PROBE_NGSPICE` as explicit test inputs. Ordinary users configure the
+engine selection in Studio. Never copy temporary build-host wrappers into a
+normal installation's settings.
 
-After configuring the engines, create a SKY130 mirror or GF180 inverter, generate
-its layout, select its saved bench and run **Verify layout**. Passing this flow
-checks the installed tool/model combination with the exact saved design.
-
-Automated packaged probes can use `ICSTUDIO_PROBE_PDK_ROOT`,
-`ICSTUDIO_PROBE_MAGIC`, `ICSTUDIO_PROBE_NETGEN` and `ICSTUDIO_PROBE_NGSPICE` to
-exercise both processes through the real physical comparison worker. These
-variables are optional testing inputs; ordinary use configures paths in the UI.
-
-The 0.11 handoff separates actual fresh-profile/environment launch checks from
-fresh-OS installation qualification. A separate Ubuntu machine/VM and an actual
-desktop session remain the final environment gate; this build host could not
-start an isolated OS. Windows build definitions are retained but unexecuted.
+Use [native acceptance](NATIVE_DESKTOP_ACCEPTANCE.md) for clean-machine,
+display/scaling, accessibility and upgrade observations. The archived
+[dev25 package handoff](DEV25_ACCEPTANCE_HANDOFF.md) identifies one earlier
+hosted-qualified build; subsequent source changes need their own package records.
+Historical offscreen or fresh-profile runs do not qualify every Linux desktop.

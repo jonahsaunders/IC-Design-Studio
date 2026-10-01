@@ -1,0 +1,8 @@
+* Numerically resolved schematic reference
+.subckt inverter A Y VPWR VGND
+* IC Design Studio / Student inverter · sky130A · 01b4bb7a87cc7fe5 / revision 0
+* design-sha256 b97454c90d4a082a5db34aee61e6002833dd8fef13bc9656be2a6b6c0b364257
+* Explicit locked PDK model bindings. Qualification depends on the validated reference flow.
+X_MN Y A VGND VGND sky130_fd_pr__nfet_01v8 ad=0.29 as=0.29 l=0.15 m=1 mult=1 nf=1 nrd=0.29 nrs=0.29 pd=2.58 ps=2.58 sa=0 sb=0 sd=0 w=1
+X_MP Y A VPWR VPWR sky130_fd_pr__pfet_01v8 ad=0.58 as=0.58 l=0.15 m=1 mult=1 nf=1 nrd=0.145 nrs=0.145 pd=4.58 ps=4.58 sa=0 sb=0 sd=0 w=2
+.ends inverter

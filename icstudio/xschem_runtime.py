@@ -51,7 +51,8 @@ def netlist(project,directory):
     # A source-path identity also keeps identical wrappers from different
     # libraries separate when their relative dependencies differ.
     mapping={path:directory/'models'/('model_'+hashlib.sha256((path+'\0'+data['sha256']).encode()).hexdigest()[:24]+'.spice') for path,data in files.items() if data['kind'].startswith('Model')}
-    if any(hashlib.sha256(data['text'].encode('utf-8')).hexdigest()!=data['sha256'] for data in files.values()):raise ValueError('An imported source asset changed without updating its recorded identity. Reimport the edited source files before running.')
+    from .source_assets import source_hash
+    if any(source_hash(data)!=data['sha256'] for data in files.values()):raise ValueError('An imported source asset changed without updating its recorded identity. Reimport the edited source files before running.')
     def rewrite(text,parent):
         def one(m):
             ref=m[2].strip('"\'');target=next((mapping[d['path']] for d in exchange['resolved_dependencies'] if d['parent']==parent and d['reference']==ref and d['path'] in mapping),None)

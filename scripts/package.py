@@ -40,6 +40,8 @@ metadata=dict(ENGINE_SOURCE_HASH=hashlib.sha256((root/'icstudio'/'simulation.py'
 (root/'icstudio'/'build_info.py').write_text(''.join(key+' = '+repr(value)+'\n' for key,value in metadata.items()))
 args=[sys.executable,'-m','PyInstaller','--noconfirm','--clean','--name','ICDesignStudio','--windowed','--onedir','--collect-all','klayout','--add-data',f'{root/"icstudio"/"assets"}{os.pathsep}icstudio/assets','--hidden-import','PySide6.QtSvg','--hidden-import','icstudio.cli','--hidden-import','icstudio.sdk','--add-data',f'{root/"docs"}{os.pathsep}docs','--add-data',f'{root/"examples"}{os.pathsep}examples','--add-data',f'{root/"licenses"}{os.pathsep}licenses']
 args+=['--recursive-copy-metadata','cryptography']
+for name in ('README.md','CONTRIBUTING.md','SIMULATION_SETUP.md','THIRD_PARTY_NOTICES.md','LICENSE'):
+ args+=['--add-data',f'{root/name}{os.pathsep}.']
 args+=['--hidden-import','PySide6.QtWebEngineWidgets','--add-data',f'{vga_assets}{os.pathsep}icstudio/assets/vga-playground']
 engine=os.environ.get('ICSTUDIO_BUNDLED_NGSPICE')
 if engine:

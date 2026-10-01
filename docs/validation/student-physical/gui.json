@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "qt_platform": "offscreen",
+  "processes": 4,
+  "checks": [
+    "eight stages filtered by PDK revision",
+    "IHP runtime setup is explicit",
+    "real ngspice through GUI queue",
+    "measurement and waveform results",
+    "distinct durable per-process projects",
+    "reload and resume",
+    "200 percent text reflow",
+    "native GF180 C/D and IHP layout, DRC fault injection and repair through GUI",
+    "IHP managed simulation and GF180 C/D + IHP physical runs through the GUI queue"
+  ]
+}

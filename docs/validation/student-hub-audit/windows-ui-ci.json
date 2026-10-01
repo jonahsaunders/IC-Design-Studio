@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "scope": "Student Hub keyboard, scaling, glyph rendering and recovery gate",
+  "code_commit": "0e37c04b33a2c74d6a1d9f9d97ded228de5898fe",
+  "workflow_run": 36734651154,
+  "job_id": 109955132478,
+  "step_name": "Audit Student Hub keyboard, scaling and recovery",
+  "platform": "Windows 2022 / Qt offscreen with installed system fonts",
+  "source": "GitHub Actions job step conclusion: success",
+  "full_release_status_at_capture": "in progress"
+}

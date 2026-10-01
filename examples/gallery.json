@@ -179,5 +179,20 @@
       "Run native terminal connectivity and geometry checks. Inspect the GDS and qualification limits in examples/gf180-banba/layout/README.md.",
       "Select tb_dc or a saved startup fixture to simulate the segmented implementation. Original second-pass cells remain available for comparison."
     ]
+  },
+  {
+    "id": "sar-adc",
+    "title": "13 · Build a mixed-signal SAR ADC",
+    "file": "sar-adc/sar-adc.icproj",
+    "category": "Mixed signal",
+    "engine": "mixed_signal",
+    "mode": 0,
+    "summary": "An editable four-bit SAR controller coupled to a native analog sampling circuit and resistor DAC.",
+    "expected": "At 0.93 V, expect code 8 after four comparisons. Requires local ngspice, iverilog and vvp; behavioral analog models, no PDK required.",
+    "steps": [
+      "Open a copy to enter Mixed-signal experiment. Select the three engine executables and run the coupled simulation.",
+      "Inspect the clock-edge table and analog waveforms, then change the input voltage and rerun.",
+      "Open the walkthrough to inspect the controller, change a DAC resistor and investigate a failing conversion."
+    ]
   }
 ]

@@ -23,7 +23,36 @@ history.commit_shape_move(cell['id'],[cell['shapes'][10]['id']],100,0);refresh()
 assert canvas._layout_chunks[0][2] is not old[0]
 assert canvas._layout_chunks[1][2] is old[1] and canvas._layout_chunks[2][2] is old[2]
 history.undo();refresh();compare();history.redo();refresh();compare()
-for selection in ([cell['shapes'][3]['id']],[]):canvas.selection=selection;compare()
+def highlight(selection=(),net='',changed=()):
+    old={i:v[2] for i,v in canvas._layout_chunks.items()}
+    canvas.selection=list(selection);canvas.net=net;compare()
+    assert {i for i,v in canvas._layout_chunks.items() if v[2] is not old[i]}==set(changed)
+highlight([cell['shapes'][3]['id']],changed=(0,))
+highlight([cell['shapes'][600]['id']],changed=(0,2))
+highlight(changed=(2,))
+highlight(['not-in-this-cell'])
+# Linked device selections and net cross-probing may span several chunks.
+# Metadata changes, unversioned in-place edits and equivalent highlight masks
+# must agree with the direct renderer too.
+linked=clone(history.project['cells'][0])
+for index in (10,600):linked['shapes'][index].update(device_id='linked-device',net='signal')
+linked['shapes'][300]['net']='other'
+linked['layout_label_mode']='explicit'
+canvas.selection=[];canvas.set_data(linked,history.project['pdk']);compare()
+highlight(['linked-device'],changed=(0,2))
+highlight(net='signal')  # Same highlighted geometry, no pictures need rebuilding.
+highlight(net='other',changed=(0,1,2))
+highlight(changed=(1,))
+linked['shapes'][600]['device_id']='second-device'
+canvas.set_data(linked,history.project['pdk']);compare()
+highlight(['linked-device'],changed=(0,))
+highlight(['linked-device','second-device'],changed=(2,))
+highlight(changed=(0,2))
+canvas.net='other';linked['shapes'][300]['net']='changed-in-place'
+canvas.set_data(linked,history.project['pdk']);compare()
+canvas.net=''
+# Reordering invalidates content even when the number of shapes is unchanged.
+linked['shapes'].reverse();canvas.set_data(linked,history.project['pdk']);compare()
 for dark in (False,True):canvas.dark=dark;compare()
 for scale in (.065,.02):canvas.scale=scale;compare()
 canvas.offset=QPointF(-150,70);compare()

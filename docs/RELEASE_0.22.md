@@ -1,5 +1,7 @@
 # IC Design Studio 0.22.0.dev20 — engineering preview
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 ## Dev20 — detector LVS and HSA convergence
 
 Corrects the locked SKY130 resistor extraction definitions using a checksum-bound upstream backport. Full-circuit extraction resolves internal well/port aliases, and strict LVS now passes with unchanged comparison tolerances. Three negative controls require detection of enable, child-pin and resistor-length faults. The HSA sweep uses the new optional first-point DC startup setting, with each circuit's own solved voltages as initial guesses. A generated native testbench includes both DUT views and embedded models. Physical CI now requires full consistency. See [reproduction and remaining scope](OPEN_PROJECTS.md) and [executed evidence](RELEASE_STATUS.md).

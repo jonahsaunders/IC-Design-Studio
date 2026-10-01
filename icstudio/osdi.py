@@ -4,6 +4,31 @@ import platform, re
 from .model import file_digest
 
 
+def needs_managed_runtime(project):
+    """Explicit native model selections take precedence, including broken ones."""
+    return bool(project['pdk'].get('simulation', {}).get('requires_osdi')
+                and not project.get('simulation_runtime', {}).get('osdi'))
+
+
+def managed_models(technology, manifest):
+    """Accept bundled native models only for their exact locked source closure."""
+    key=technology.get('package_lock',{}).get('id')
+    report=(manifest or {}).get('osdi',{}).get(key,{})
+    models=report.get('models',[])
+    if (key!='ihp-sg13g2' or report.get('system')!='Linux' or report.get('machine')!='x86_64'
+            or report.get('cpu_target')!='generic' or len(models)!=6):
+        raise ValueError('Install the current included physical tools with the IHP simulation models.')
+    files=technology['package_lock']['files']
+    expected={'psp103.osdi','psp103_nqs.osdi','r3_cmc.osdi','mosvar.osdi','cap_cmomi.osdi','cap_cmomf.osdi'}
+    if {m.get('output') for m in models}!=expected:raise ValueError('Incomplete IHP model runtime.')
+    for model in models:
+        dependencies=model.get('dependencies',{})
+        if (not dependencies or not re.fullmatch('[0-9a-f]{64}',model.get('sha256',''))
+                or any(files.get('libs.tech/verilog-a/'+path)!=sha for path,sha in dependencies.items())):
+            raise ValueError('The included IHP models do not match this PDK revision. Use matching compiled models or the bundled IHP package.')
+    return models
+
+
 def configure(paths):
     entries=[]
     for raw in paths:
@@ -14,6 +39,13 @@ def configure(paths):
         if any(Path(e['path']).name==path.name for e in entries):raise ValueError('Duplicate OSDI library name.')
         entries.append(entry)
     return entries
+
+
+def resolve_paths(project, directory):
+    """Resolve a portable handoff's runtime paths at its project location."""
+    for entry in project.get('simulation_runtime',{}).get('osdi',[]):
+        path=Path(entry['path'])
+        if not path.is_absolute():entry['path']=str((Path(directory)/path).resolve())
 
 
 def verified(project, required=True):
@@ -41,7 +73,8 @@ def preload(project, text, directory, required=True):
     root=Path(directory)/'runtime-osdi';root.mkdir(parents=True,exist_ok=True)
     commands=['.control']
     for i,entry in enumerate(entries):
-        target=root/('model-'+str(i)+'.osdi');shutil.copyfile(entry['path'],target)
+        target=root/('model-'+str(i)+'.osdi')
+        if Path(entry['path']).resolve()!=target.resolve():shutil.copyfile(entry['path'],target)
         if file_digest(target)!=entry['sha256']:raise ValueError('OSDI model changed during staging.')
         commands.append('pre_osdi runtime-osdi/'+target.name)
     commands.append('.endc')

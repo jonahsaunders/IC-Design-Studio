@@ -1,6 +1,6 @@
 # Layout workflow update — 0.22.0.dev6
 
-The current source is **0.22.0.dev7**. This document describes the features introduced in dev6; its timing table is historical. See the [current stability update](STABILITY_0.22.md) for recovery changes, measured improvements and remaining blockers.
+This document records **0.22.0.dev6**; its timing table and host blockers are historical. For current behavior, see [layout changes and capacity](LAYOUT_SCALE_AND_COLLABORATION.md), [physical variants and extraction](ANALOG_IMPLEMENTATION_EXTENSIONS.md), [recovery](RELIABLE_DESIGN_WORKFLOWS.md), and [release status](RELEASE_STATUS.md). The [dev7 stability record](STABILITY_0.22.md) describes the immediate follow-up at that time.
 
 
 This development build implements bounded improvements across the seven approved workflow priorities. Release qualification is incomplete: this host still returns `OSError: [Errno 5] Input/output error` from `os.fsync`, and no native Windows, Magic, Netgen or ngspice qualification was available. No storage check was disabled. Use the source launcher; the preserved 0.21.0 binaries do not contain these changes.

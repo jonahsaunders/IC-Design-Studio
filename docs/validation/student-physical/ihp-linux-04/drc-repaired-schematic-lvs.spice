@@ -1,0 +1,8 @@
+* Numerically resolved schematic reference
+.subckt inverter A Y VPWR VGND
+* IC Design Studio / Student inverter · ihp-sg13g2 · 3abac20fcb57e184 / revision 0
+* design-sha256 9b0e8910dadeac6ac1c8092608d6f5661536e65881f9aadb1f0759382b2e749c
+* Explicit locked PDK model bindings. Qualification depends on the validated reference flow.
+X_MN Y A VGND VGND sg13_lv_nmos w=1e-06 l=1.3e-07 ng=1 m=1
+X_MP Y A VPWR VPWR sg13_lv_pmos w=2e-06 l=1.3e-07 ng=1 m=1
+.ends inverter

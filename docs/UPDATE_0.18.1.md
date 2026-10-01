@@ -1,5 +1,7 @@
 # IC Design Studio 0.18.1 — simulation startup fixes
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 This patch fixes the two reported 0.18.0 startup failures.
 
 ## Upgrade

@@ -1,0 +1,51 @@
+         155554 function calls (144897 primitive calls) in 0.496 seconds
+
+   Ordered by: cumulative time
+   List reduced from 355 to 45 due to restriction <45>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+      3/2    0.001    0.000    0.269    0.135 canvas.py:98(paintEvent)
+      3/2    0.001    0.000    0.237    0.119 canvas.py:154(draw_schematic)
+       15    0.215    0.014    0.215    0.014 {method 'drawPath' of 'PySide6.QtGui.QPainter' objects}
+        2    0.030    0.015    0.204    0.102 canvas.py:230(draw_schematic_overview)
+        1    0.000    0.000    0.125    0.125 thread.py:54(run)
+        1    0.000    0.000    0.089    0.089 profile_editing.py:34(<lambda>)
+        1    0.000    0.000    0.089    0.089 capture_workspace.py:54(capture_transform)
+        1    0.000    0.000    0.081    0.081 model.py:307(commit_schematic_transform)
+        1    0.001    0.001    0.080    0.080 schematic_transaction.py:54(propose)
+        1    0.000    0.000    0.076    0.076 __init__.py:183(dumps)
+        2    0.003    0.001    0.043    0.022 grid.py:54(paint_grid)
+        1    0.001    0.001    0.043    0.043 capture_ops.py:9(transform)
+      114    0.040    0.000    0.040    0.000 {method 'drawLine' of 'PySide6.QtGui.QPainter' objects}
+        2    0.000    0.000    0.033    0.017 wire_canvas.py:134(draw_wires)
+        1    0.006    0.006    0.032    0.032 encoder.py:183(encode)
+        7    0.009    0.001    0.030    0.004 wiring.py:46(pins)
+        1    0.003    0.003    0.029    0.029 wiring.py:178(validate_wiring_structure)
+        1    0.006    0.006    0.025    0.025 wiring.py:118(rebuild)
+      2/1    0.035    0.018    0.023    0.023 {built-in method processEvents}
+     3500    0.011    0.000    0.021    0.000 interchange.py:9(pin_positions)
+        3    0.001    0.000    0.019    0.006 wire_canvas.py:36(wire_spatial)
+        1    0.000    0.000    0.018    0.018 recovery_queue.py:89(tick)
+        1    0.000    0.000    0.018    0.018 recovery_queue.py:45(dispatch)
+        1    0.018    0.018    0.018    0.018 {built-in method _pickle.dumps}
+4512/3012    0.004    0.000    0.018    0.000 {built-in method builtins.any}
+        1    0.002    0.002    0.015    0.015 net_labels.py:57(validate)
+        2    0.002    0.001    0.014    0.007 wire_canvas.py:115(wire_geometry)
+        7    0.000    0.000    0.014    0.002 spatial.py:3(__init__)
+    133/7    0.000    0.000    0.014    0.002 spatial.py:4(build)
+     2000    0.006    0.000    0.013    0.000 native_vectors.py:21(signals)
+        1    0.013    0.013    0.013    0.013 {built-in method _pickle.loads}
+        1    0.004    0.004    0.010    0.010 wiring.py:361(keep_connections)
+        1    0.003    0.003    0.010    0.010 wiring.py:408(junction_points)
+        1    0.003    0.003    0.009    0.009 wiring.py:64(graph)
+        1    0.000    0.000    0.008    0.008 gui.py:96(persist_history)
+        1    0.000    0.000    0.008    0.008 capture_workspace.py:63(refresh_schematic_edit)
+      2/1    0.009    0.004    0.008    0.008 {method 'repaint' of 'PySide6.QtWidgets.QWidget' objects}
+     1500    0.001    0.000    0.008    0.000 wiring.py:199(<genexpr>)
+        1    0.000    0.000    0.007    0.007 editor_workspace.py:536(build_inspector)
+        1    0.000    0.000    0.007    0.007 hierarchy_ui.py:156(build_inspector)
+        1    0.000    0.000    0.007    0.007 lifecycle_ui.py:22(build_inspector)
+        1    0.000    0.000    0.007    0.007 project_ui.py:155(build_inspector)
+     1000    0.001    0.000    0.007    0.000 native_vectors.py:47(valid_expression)
+        1    0.000    0.000    0.007    0.007 schematic_ui.py:200(build_inspector)
+        1    0.002    0.002    0.007    0.007 workspace.py:407(build_inspector)

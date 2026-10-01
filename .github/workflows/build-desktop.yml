@@ -118,6 +118,36 @@ jobs:
         run: python scripts/qualify_digital_runtime.py
       - name: Install dependencies
         run: python -m pip install -r requirements-build.txt
+      - name: Install Linux libraries for the early GUI audit
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libopengl0
+      - name: Audit Student Hub keyboard, scaling and recovery
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_student_usability.py
+      - name: Audit menu regressions and export drafts
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_audit_regressions.py
+      - name: Audit every offline PDK in the project hub
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_project_hub.py
+      - name: Audit menu entry points and workspace tabs
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_menu_audit.py
+      - name: Audit dialog submissions and help destinations
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_deep_controls.py
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -134,6 +164,13 @@ jobs:
             build-essential cmake libhdf5-dev libvtk9-dev libboost-all-dev libcgal-dev libtinyxml-dev
           echo "ICSTUDIO_TEST_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
           echo "ICSTUDIO_BUNDLED_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
+      - name: Restore pinned Windows simulation archive
+        if: runner.os == 'Windows'
+        id: ngspice-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: build/ngspice-windows/ngspice-42_64.7z
+          key: ngspice-windows-42-aa98b3c74743260a38835bd2698f58221b7237939798d1fdf2297f44ecf1d6ec
       - name: Stage verified Windows simulation engine
         if: runner.os == 'Windows'
         shell: pwsh
@@ -143,6 +180,12 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Runtime provisioning failed.' }
           $engine = (Resolve-Path 'icstudio/assets/runtime/ngspice/ngspice.exe').Path
           "ICSTUDIO_TEST_NGSPICE=$engine" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+      - name: Cache verified Windows simulation archive
+        if: runner.os == 'Windows' && steps.ngspice-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: build/ngspice-windows/ngspice-42_64.7z
+          key: ${{ steps.ngspice-cache.outputs.cache-primary-key }}
       - name: Cache included openEMS runtime
         uses: actions/cache@v4
         with:
@@ -167,7 +210,21 @@ jobs:
       - name: Verify bundled simulation PDKs
         run: python scripts/check_simulation_assets.py
       - name: Validate supplied GF180 bandgap startup
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
         run: python scripts/verify_bundled_simulation.py --output build/bundled-simulation-evidence
+      - name: Audit bundled PDK inverter simulation and physical workflows
+        timeout-minutes: 10
+        env:
+          QT_QPA_PLATFORM: offscreen
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+          ICSTUDIO_TEST_MANAGED: '1'
+        run: python tests/gui_student_inverter.py
+      - name: Verify native and Xschem handoff simulations for every bundled PDK
+        timeout-minutes: 10
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+        run: python tests/probe_pdk_exchange.py --out build/pdk-exchange-evidence
       - name: Compare six-case testbench with independent Xschem simulation
         if: runner.os == 'Linux'
         run: python scripts/verify_bandgap_compatibility.py --output build/bandgap-compatibility-evidence
@@ -521,6 +578,15 @@ jobs:
         with:
           name: desktop-diagnostics-${{ runner.os }}
           path: |
+            build/student-usability/*.json
+            build/student-usability/*.png
+            build/audit-regressions/*.json
+            build/menu-audit/*.json
+            build/deep-controls/*.json
+            build/deep-controls/*.png
+            build/pdk-exchange-evidence/report.json
+            build/student-inverter-gui/*.json
+            build/student-inverter-gui/*.png
             build/analog-closure-evidence/*.json
             build/analog-closure-evidence/*.png
             build/analog-reference-evidence/*.json

@@ -119,9 +119,10 @@ def check_embedded_catalog(project):
 def rebase_embedded_proof(previous, current):
     """Follow rewritten include paths only when exported model bytes match."""
     replacements={}
+    from .source_assets import source_hash
     for path,asset in current['native_migration']['archive']['source_files'].items():
         if not asset['kind'].startswith('Model'):continue
-        sha=hashlib.sha256(asset['text'].encode()).hexdigest()
+        sha=source_hash(asset)
         if sha!=asset['sha256']:raise ValueError('Captured model provenance changed.')
         ident=hashlib.sha256((path+'\0'+sha).encode()).hexdigest()[:24]
         if ident in current['spice']['assets']:replacements[sha]=current['spice']['assets'][ident]['sha256']
@@ -134,6 +135,7 @@ def rebase_embedded_proof(previous, current):
 
 
 def _source_hashes(project, technology):
+    from .source_assets import decode,source_hash
     previous=project['spice'].get('catalog_binding',{})
     if previous.get('signature')==catalog_signature(technology):
         verified=clone(project);verified['pdk']=technology;check_embedded_catalog(verified)
@@ -146,7 +148,7 @@ def _source_hashes(project, technology):
     source={}
     for path,asset in files.items():
         if not asset['kind'].startswith('Model'):continue
-        if hashlib.sha256(asset['text'].encode()).hexdigest()!=asset['sha256']:
+        if source_hash(asset)!=asset['sha256']:
             raise ValueError('Captured model provenance changed; import the original project again.')
         ident=hashlib.sha256((path+'\0'+asset['sha256']).encode()).hexdigest()[:24]
         embedded=project['spice']['assets'].get(ident)
@@ -155,7 +157,7 @@ def _source_hashes(project, technology):
     for relative in technology['package_lock']['files']:
         path=root/relative
         if path.suffix.lower() not in ('.spice','.lib','.ngspice','.cir','.mod'):continue
-        text=path.read_bytes().decode('utf-8');texts[relative]=text
+        text,_=decode(path.read_bytes(),'Model');texts[relative]=text
         for name in re.findall(r'(?im)^\s*\.(?:model|subckt)\s+(\S+)',text):definitions.setdefault(name.casefold(),[]).append(relative)
     proof={}
     for key,entry in technology['simulation']['catalog'].items():
@@ -164,7 +166,7 @@ def _source_hashes(project, technology):
         hashes=[]
         for relative in candidates:
             if relative not in texts:continue
-            sha=hashlib.sha256(texts[relative].encode()).hexdigest()
+            sha=technology['package_lock']['files'][relative]
             hashes+=source.get(sha,[])
         if hashes:proof[key]=sorted(set(hashes))
     # Re-review of an unchanged, already embedded catalog needs no source archive.

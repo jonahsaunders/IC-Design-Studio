@@ -286,6 +286,10 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         ink=3/self.scale;view=view.adjusted(-ink,-ink,ink,ink)
         colors={l['name']:getattr(self,'layer_styles',{}).get(l['name'],{}).get('color',l['color']) for l in self.tech['layers']}
         boxes,paths=self.layout_drawing_cache();selection=set(self.selection);inks={};theme=palette(self.dark)
+        # Missing QWidget attributes go through Qt's dynamic lookup. Resolve
+        # this draw-wide option once, rather than once per visible rectangle.
+        batch_rectangles=getattr(self,'batch_rectangles',False) and not self.moving
+        explicit_labels=self.cell.get('layout_label_mode')=='explicit'
         delta=self.drag-self.anchor if self.moving and self.anchor is not None and self.drag is not None else None
         scene=self.cell.get('_layout_scene')
         if scene is not None:
@@ -327,9 +331,9 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
                 if s['kind']=='path':pen.setCosmetic(False);pen.setWidthF(s['width']);pen.setCapStyle(Qt.SquareCap);pen.setJoinStyle(Qt.MiterJoin);pen.setColor(fill);brush=Qt.NoBrush
                 else:brush=self.editor_brush(s['layer'],fill)
                 inks[key]=(pen,brush,col)
-            label=s.get('net') and self.cell.get('layout_label_mode')!='explicit' and base_box.width()*self.scale>35
+            label=s.get('net') and not explicit_labels and base_box.width()*self.scale>35
             if key!=batch_key:flush();pen,brush,col=inks[key];p.setPen(pen);p.setBrush(brush);batch_key=key
-            if s['kind']=='rect' and not s.get('holes') and not label and getattr(self,'batch_rectangles',False) and not self.moving:
+            if s['kind']=='rect' and not s.get('holes') and not label and batch_rectangles:
                 pad=(1.65 if selected else 1)/self.scale;padded=box.adjusted(-pad,-pad,pad,pad)
                 if batch_box is not None and batch_box.intersects(padded):flush()
                 batch.append(box);batch_box=padded if batch_box is None else batch_box.united(padded);continue
@@ -400,9 +404,10 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         project identity is trusted. Adjacent runs are never regrouped by layer,
         so translucent overlaps preserve the direct renderer's ordering.
         """
-        cache=getattr(self,'_layout_chunks',{})
+        cache=getattr(self,'_layout_chunks',{});selection=frozenset(self.selection)
+        net=self.net;highlight_context=(selection,net)
         style=(self._layout_display_revision[1],None if scale_free else self.scale,
-               self.dark,tuple(self.selection),self.net,tuple(sorted(self.visible_layers)),
+               self.dark,tuple(sorted(self.visible_layers)),
                repr(getattr(self,'layer_styles',{})),self.cell.get('layout_label_mode'),
                getattr(self,'batch_rectangles',False),self.devicePixelRatioF(),p.renderHints())
         ink=3/self.scale;visible=view.adjusted(-ink,-ink,ink,ink)
@@ -410,13 +415,27 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         chunks=sorted({index//256 for index in indices});rebuilt=0
         for chunk in chunks:
             start=chunk*256;end=min(start+256,len(self.cell['shapes']))
-            key=(style,self._geometry_cache.display_keys[start:end]);old=cache.get(chunk)
+            display=self._geometry_cache.display_keys[start:end];old=cache.get(chunk)
+            # Selection and cross-probing change only highlighted shapes. A
+            # global selection key needlessly rerecorded every visible chunk.
+            # Match the direct renderer, including device-owned geometry; the
+            # actual highlight mask also permits equivalent selection/net views.
+            if not selection and not net:highlighted=()
+            elif old is not None and old[0][1]==display and old[3]==highlight_context:
+                highlighted=old[0][2]
+            else:
+                highlighted=tuple(i for i,s in enumerate(self.cell['shapes'][start:end])
+                                  if s['id'] in selection or s.get('device_id') in selection
+                                  or net and s.get('net')==net)
+            key=(style,display,highlighted)
             if old is None or old[0]!=key or not old[1].contains(view):
                 margin=128/self.scale;area=view.adjusted(-margin,-margin,margin,margin)
                 picture=QPicture();recorder=QPainter(picture);recorder.setRenderHints(p.renderHints())
                 try:self.draw_layout_geometry(recorder,area,indices=range(start,end))
                 finally:recorder.end()
-                old=(key,area,picture);cache[chunk]=old;rebuilt+=1
+                old=(key,area,picture,highlight_context);cache[chunk]=old;rebuilt+=1
+            elif old[3]!=highlight_context:
+                old=(*old[:3],highlight_context);cache[chunk]=old
             p.save();p.drawPicture(QPointF(0,0),old[2]);p.restore()
         # Keep a bounded cache even while panning very large flat files.
         self._layout_chunks=cache if len(cache)<=1024 else {c:cache[c] for c in chunks[-1024:]}

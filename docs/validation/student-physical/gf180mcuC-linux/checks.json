@@ -1,0 +1,193 @@
+{
+  "pdk": "gf180mcuC",
+  "revision": "627ca682d68e1e92",
+  "platform": "Linux x86_64 / Docker",
+  "status": "passed",
+  "raw_checks_sha256": "2fa0772b01a47ac6edbc7aa21bc0163e80bb111154668490ad7f5e4111ad1fa6",
+  "environment": {
+    "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+    "engine": "ngspice",
+    "executable_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7"
+  },
+  "stages": [
+    {
+      "stage": "dc",
+      "input_sha256": "4d3e57d06b7f74ef96ab72898bd70220ea07811079f17ddf5707d1f5f2aed943",
+      "result_sha256": "65fa00778d49c0de36c16bb5907476a673f23abfc5d265cfffb07bb7f4d3ceac",
+      "environment": {
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "engine": "ngspice",
+        "executable_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7"
+      },
+      "engine": "ngspice (installed executable)",
+      "inverter_measurements": {
+        "VOH": 3.299999991173777,
+        "VOL": 5.4347045156165e-09,
+        "switching_threshold": 1.5319991828822659,
+        "supply": 3.3
+      }
+    },
+    {
+      "stage": "transient",
+      "input_sha256": "aee1b994a05c7a2d7a362b4cb165ebf90c106aada71cb116704bf5a9489375fa",
+      "result_sha256": "e3c237dcd1cd4da62e669af3de04f0fe7671927a1d0885c0cb7326a365e95283",
+      "environment": {
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "engine": "ngspice",
+        "executable_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7"
+      },
+      "engine": "ngspice (installed executable)",
+      "inverter_measurements": {
+        "tPHL": 3.585824114504096e-11,
+        "tPLH": 3.6980052463064304e-11,
+        "supply": 3.3,
+        "checked_cycles": 3
+      }
+    },
+    {
+      "stage": "drc-fault",
+      "input_sha256": "62a1e1613fbc2b1b305aaaf1f54c6e4dde1afa35f41475b885cb85031c69525b",
+      "result_sha256": "c2969f57b014fa311e48082a48668b60bf3aa2762d7d39668256a89b93a3d231",
+      "environment": {
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "engine": "physical"
+      },
+      "engine": "Magic / Netgen / ngspice",
+      "physical_checks": {
+        "drc": {
+          "name": "drc",
+          "status": "failed",
+          "error": "2 Magic DRC violations; see findings.tsv."
+        }
+      },
+      "pdk": "gf180mcuC"
+    },
+    {
+      "stage": "drc-repaired",
+      "input_sha256": "3e485b600c1ab3baebf26ac2d28f90bda04ed26ce8d9a9b697cbb94afef33497",
+      "result_sha256": "20e5354e5cdebca40c9b21f525eda98d8fc67c4aeb5bcc8f3ffb89494c463328",
+      "environment": {
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "engine": "physical"
+      },
+      "engine": "Magic / Netgen / ngspice",
+      "physical_checks": {
+        "drc": {
+          "name": "drc",
+          "status": "passed",
+          "evidence": {
+            "violations": 0,
+            "style": "drc(full)"
+          }
+        }
+      },
+      "pdk": "gf180mcuC"
+    },
+    {
+      "stage": "lvs-fault",
+      "input_sha256": "777d8cd9bdad1f21a09629d7e178906464a9761056d8be280a341dbacb67ea19",
+      "result_sha256": "fdea395d0937efb735c07543881fd5b8cf1c3d2bae4a273bd1e91b7d8137d7ac",
+      "environment": {
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "engine": "physical"
+      },
+      "engine": "Magic / Netgen / ngspice",
+      "physical_checks": {
+        "lvs": {
+          "name": "lvs",
+          "status": "failed",
+          "error": "Netgen did not establish a unique match with equivalent connected pins and no property errors. See lvs/lvs.log."
+        }
+      },
+      "pdk": "gf180mcuC"
+    },
+    {
+      "stage": "lvs-repaired",
+      "input_sha256": "99bc92b4b9ed8079812461f2b9bbc1bdad192a966f75cd8b3faa9383233986cf",
+      "result_sha256": "c1aab362966474903a2dc3b4d449338b562d562d259d854234f6c217ddd0a30b",
+      "environment": {
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "engine": "physical"
+      },
+      "engine": "Magic / Netgen / ngspice",
+      "physical_checks": {
+        "lvs": {
+          "name": "lvs",
+          "status": "passed",
+          "evidence": {
+            "unique_match": true,
+            "log": "lvs/lvs.log"
+          }
+        }
+      },
+      "pdk": "gf180mcuC"
+    },
+    {
+      "stage": "final-both",
+      "input_sha256": "99bc92b4b9ed8079812461f2b9bbc1bdad192a966f75cd8b3faa9383233986cf",
+      "result_sha256": "c1aab362966474903a2dc3b4d449338b562d562d259d854234f6c217ddd0a30b",
+      "environment": {
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "engine": "physical"
+      },
+      "engine": "Magic / Netgen / ngspice",
+      "physical_checks": {
+        "drc": {
+          "name": "drc",
+          "status": "passed",
+          "evidence": {
+            "violations": 0,
+            "style": "drc(full)"
+          }
+        },
+        "lvs": {
+          "name": "lvs",
+          "status": "passed",
+          "evidence": {
+            "unique_match": true,
+            "log": "lvs/lvs.log"
+          }
+        }
+      },
+      "pdk": "gf180mcuC"
+    }
+  ],
+  "pdk_files_sha256": "4c79aea1becb579297045c3ac832ab9c3d8779f43c4c51391d05a81e8e1b0c6a",
+  "negative_checks": [
+    "DRC defect cannot earn passing credit",
+    "LVS width defect cannot earn passing credit",
+    "Modified LVS evidence log is rejected after both repairs"
+  ],
+  "final_physical_report_sha256": "8968f11024aa19a506a8b6aa82b1ec00b2b265ed117d5d8716538a1f5a51ba0a",
+  "physical_stages": [
+    {
+      "name": "preflight",
+      "status": "passed"
+    },
+    {
+      "name": "layout_export",
+      "status": "passed"
+    },
+    {
+      "name": "drc",
+      "status": "passed"
+    },
+    {
+      "name": "lvs_extraction",
+      "status": "passed"
+    },
+    {
+      "name": "lvs",
+      "status": "passed"
+    },
+    {
+      "name": "integrity",
+      "status": "passed"
+    }
+  ],
+  "engine_versions": {
+    "magic": "8.3.684",
+    "netgen": "Netgen 1.5.300 compiled on Wed Sep 30 22:20:50 UTC 2026\nWarning: netgen command 'format' use fully-qualified name '::netgen::format'\nWarning: netgen command 'global' use fully-qualified name '::netgen::global'"
+  },
+  "reference_defaults": []
+}

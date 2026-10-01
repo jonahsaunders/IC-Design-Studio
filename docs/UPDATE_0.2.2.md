@@ -1,5 +1,7 @@
 # IC Design Studio 0.2.2 — component symbol refinement
 
+> **Historical snapshot.** This document records the version or development milestone named in its title, including its original commands, limits and test results. For current setup and supported workflows, use the [documentation index](INDEX.md); for current package status, use [release status](RELEASE_STATUS.md).
+
 The schematic canvas, placement preview, component outline, and device browser now use slimmer resistor, capacitor, and voltage-source artwork.
 
 - **Resistor:** the rectangular body is replaced by a US-style zigzag. The schematic body is 14 units wide, down from 24.

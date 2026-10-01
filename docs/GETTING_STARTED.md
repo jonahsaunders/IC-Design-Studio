@@ -27,6 +27,7 @@ Press **Ctrl+S** and choose a project filename. Opening from the gallery gives y
 | Arrange panels | **Window** menu or **Workspace** button |
 | Recover the default arrangement | **Window → Reset workspace** |
 | Choose another guided circuit | **File → Start here / example gallery** |
+| Follow lessons with saved progression | **File → Student Hub** · [six paths, capstone and PDK inverter courses](STUDENT_HUB.md) |
 
 The Inspector contains **Properties** and **Analysis**. Results are grouped into **Simulation**, **Waveforms**, **Physical** and **Checks**. The schematic, layout and linked views share the same active cell.
 
@@ -34,7 +35,7 @@ The Inspector contains **Properties** and **Analysis**. Results are grouped into
 
 Open **Native divider and studies** from the gallery. The two 1 kΩ resistors divide a 1 V source, so the saved operating-point analysis should report **0.5 V at out**.
 
-This example requires ngspice. It is included in the Windows portable package. For a repository checkout on any platform, install a native ngspice and select the executable in **Tools → Engine diagnostics and paths**. You can also set the `ICSTUDIO_NGSPICE` environment variable. The built-in solver remains available for teaching examples.
+This example requires ngspice. Follow [simulation setup](../SIMULATION_SETUP.md) for the runtime provided by your package or source launcher. For a custom native installation, select the executable in **Tools → Engine diagnostics and paths…** or set `ICSTUDIO_NGSPICE`. The built-in solver remains available for teaching examples; a Python dependency installation alone does not install external engines.
 
 Press **F5**, then inspect its run and waveforms. Open **Analysis → Variation cases** to explore parameter studies. For this native circuit, the resistor parameter target is `R1.native.value`. [Native analysis details](UPDATE_0.20.md) explain sensitivity, bounded search and specifications.
 
@@ -44,7 +45,7 @@ The 3D layout window has its own **Screenshot…** button.
 
 ## Start your own process design
 
-Choose **File → New project** to open the [Project Hub](PROJECT_HUB.md). Pick a PDK revision, name your project and choose an empty circuit or a template. The included GF180MCU and SKY130 simulation packages appear immediately as **Available offline**; **Install PDK & create project** registers the selected package and starts your design.
+Choose **File → New project** to open the [Project Hub](PROJECT_HUB.md). Pick a PDK revision, name your project and choose an empty circuit or a template. The included SKY130 A, GF180 C/D and IHP SG13G2 packages appear immediately as **Available offline**; **Install PDK & create project** registers the selected package and starts your design.
 
 The hub's **PDKs** page lists installed revisions, folders and model counts. Use **Add PDK → Find installed PDKs** or **Add folder**, then **Check and register** for an existing local installation, including IHP. Close setup with **Done** to refresh the hub. Open **Devices** in the workspace to place models. The [PDK guide](PDK_GUIDE.md) explains process-specific prerequisites.
 
@@ -65,7 +66,13 @@ Migration preserves source material in a recovery archive. It supports an explic
 | PDK not found | Add the variant or its parent folder; use a tool-ready installation with `libs.tech` |
 | Several variants found | Check only the ones you want, then register them together |
 | Model file changed | Restore the locked files or register a new revision; use the revision migration workflow |
-| IHP model unavailable | Compile compatible OSDI models and select them in Simulation runtime |
+| IHP model unavailable | Use **Tools → Physical tools setup** for the bundled revision; configure matching custom OSDI libraries in **Simulation runtime** for other revisions |
 | Missing panels | Reset the workspace through the Window menu |
 
 Use the short [examples](../examples/README.md) to separate a setup issue from a larger design issue. Include the version, platform and a small reproducer when reporting a bug.
+
+For a complete course, use [Student Hub](STUDENT_HUB.md). For RTL, follow the
+[digital workspace](DIGITAL_WORKSPACE.md) and its included-tool setup. The
+[mixed-signal SAR example](MIXED_SIGNAL_SAR.md) has a separate local
+ngspice/Icarus setup. For shared editing or checkpoint review, open
+**Tools → Collaboration** and follow [the collaboration guide](LIVE_COLLABORATION.md).

@@ -1,0 +1,1055 @@
+{
+  "audited_at": "2026-09-30",
+  "source_branch": "experimental",
+  "source_commit": "34c4a9a7d94c8bcc234ef579186676c866053d9c",
+  "scope": "All 116 Markdown files in the source checkout plus two new example guides. Current instructions were checked against source; named historical milestones retain their original evidence.",
+  "documents_reviewed": 118,
+  "document_status_counts": {
+    "updated": 100,
+    "reviewed-no-change": 16,
+    "added": 2
+  },
+  "historical_snapshot_bodies_preserved": 39,
+  "checks": {
+    "release_consistency": {
+      "status": "passed",
+      "command": "python scripts/check_release.py",
+      "documents": 115,
+      "gallery_examples": 13
+    },
+    "all_markdown_links": {
+      "documents": 118,
+      "local_references": 1106,
+      "fragment_references": 104,
+      "issues": []
+    },
+    "simulation_assets": {
+      "status": "passed",
+      "command": "python scripts/check_simulation_assets.py",
+      "exchange_files": 185,
+      "pdks": 2
+    },
+    "whitespace": {
+      "status": "passed",
+      "command": "git diff --check"
+    },
+    "render_review": {
+      "status": "passed",
+      "viewports": [
+        1280,
+        390
+      ],
+      "documents": [
+        "README.md",
+        "docs/INDEX.md",
+        "examples/gf180-bandgap/README.md",
+        "examples/open-projects/README.md",
+        "SIMULATION_SETUP.md"
+      ],
+      "scope": "Checked representative rendered pages, local images and horizontal overflow; external badges were not included."
+    }
+  },
+  "github_release_metadata": [
+    {
+      "release_id": 398807926,
+      "commit": "168976360c18a0c5fa038bf9e8b89e85c6d781a8",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/untagged-acb598aac62045d768f7",
+      "draft": true,
+      "prerelease": true,
+      "published_at": null,
+      "assets": 23,
+      "run_id": 36509225273,
+      "run_conclusion": "success"
+    },
+    {
+      "release_id": 399135084,
+      "commit": "c33cee4dbbab1cdafb03f11a7aa1d11b08230c57",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/untagged-675c8eb70526765cc344",
+      "draft": true,
+      "prerelease": true,
+      "published_at": null,
+      "assets": 23,
+      "run_id": 36559252677,
+      "run_conclusion": "success"
+    }
+  ],
+  "open_acceptance_issues_checked": [
+    8,
+    9,
+    10,
+    31
+  ],
+  "limitations": [
+    "This is a documentation audit, not a fresh simulator, HDL, DRC/LVS, package or consumer-machine qualification.",
+    "Historical measurements, qualification failures and archive identities were not promoted into current passing results.",
+    "Live GitHub release/run/issue metadata is a dated snapshot; package bytes were not downloaded or rehashed.",
+    "External upstream tools and documentation were not comprehensively requalified."
+  ],
+  "files": [
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "area": "navigation-provenance-and-cross-review",
+      "review": "Reviewed documentation, test and evidence review checklist; no correction required.",
+      "status": "reviewed-no-change"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Expanded current code map and explained doc-check limitations and generated qualification preservation.",
+      "source_refs": [
+        "scripts/check_release.py",
+        "scripts/update_qualification.py",
+        "tests/gui_getting_started.py",
+        "icstudio/mixed_signal.py",
+        "icstudio/student_hub.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "README.md",
+      "area": "navigation-provenance-and-cross-review",
+      "review": "Added separate supplied-bandgap, native Banba and external voltage-monitor entry points; checked example identities, measured-result scope, engine menus and process-RC hierarchy claims.",
+      "status": "updated"
+    },
+    {
+      "path": "SIMULATION_SETUP.md",
+      "area": "setup-digital-and-release",
+      "review": "Replaced obsolete dev10 package/launcher instructions with current native ngspice, source bootstrap, Project Hub and shared physical-tool setup; clarified local lesson engines and moved original dev10 totals to an explicit historical section.",
+      "source_refs": [
+        "scripts/source_bootstrap.py",
+        "scripts/stage_windows_ngspice.py",
+        "icstudio/spice_program.py",
+        "icstudio/digital_setup_ui.py",
+        "scripts/package.py",
+        "examples/gallery.json",
+        "icstudio/simulation_workspace.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "area": "navigation-provenance-and-cross-review",
+      "review": "Corrected included physical-engine versus separately prepared process-asset scope; preserved licenses and attributions.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/ANALOG_CLOSURE.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/ANALOG_GUI_AUDIT.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "reviewed-no-change"
+    },
+    {
+      "path": "docs/ANALOG_IMPLEMENTATION_EXTENSIONS.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "reviewed-no-change"
+    },
+    {
+      "path": "docs/ANALOG_OPTIMIZER.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "reviewed-no-change"
+    },
+    {
+      "path": "docs/ANALOG_REFERENCE_WORKFLOW.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/ANALOG_WORKSPACE.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Added current source map; explicitly scoped obsolete baseline absence claims; updated RPC methods, runtime and build inputs.",
+      "source_refs": [
+        "icstudio/model.py",
+        "icstudio/native_vectors.py",
+        "icstudio/layout_import.py",
+        "icstudio/physical_variants.py",
+        "icstudio/cli.py",
+        "icstudio/recovery.py",
+        "icstudio/live_store.py",
+        "requirements.txt"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/BANDGAP_COMPATIBILITY.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/CAMPAIGN_WORKER_ACCEPTANCE.md",
+      "area": "setup-digital-and-release",
+      "review": "Added repository/native-engine prerequisites, fresh evidence directory and PowerShell line-continuation guidance; verified current workload and two-host commands without changing historical qualification scope.",
+      "source_refs": [
+        "scripts/qualify_statistical_campaign.py",
+        "scripts/probe_campaign_workers.py",
+        "icstudio/verification_campaigns.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/CAPABILITY_MATRIX_0.11.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/CAPABILITY_MATRIX_0.12.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/CAPABILITY_MATRIX_0.13.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/DESKTOP_ACCEPTANCE_0.13.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/DESKTOP_RESPONSIVENESS.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Made sequential historical measurement scope explicit; retained all values and unexplained failures.",
+      "source_refs": [
+        "icstudio/recovery_snapshot.py",
+        "icstudio/recovery_queue.py",
+        "tests/gui_analog_scale.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/DEV25_ACCEPTANCE_HANDOFF.md",
+      "area": "setup-digital-and-release",
+      "review": "Explicitly scoped archived digest table to September21 package; updated prospective release instructions to current seven gates without altering any retained digests/results.",
+      "source_refs": [
+        "docs/validation/dev25/release-acceptance-review.json",
+        ".github/workflows/release-preview.yml",
+        "docs/RELEASE_STATUS.md"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/DIGITAL_FLOW.md",
+      "area": "setup-digital-and-release",
+      "review": "Corrected current main-window controls, documented shared physical engines and separate lesson runtime, removed obsolete no-coupled-simulation claim, added APB example and explicit custom CLI selection, and documented PowerShell environment syntax.",
+      "source_refs": [
+        "icstudio/digital_shell.py",
+        "icstudio/digital_cli.py",
+        "icstudio/digital_runtime.py",
+        "icstudio/physical_runtime_probe.py",
+        "icstudio/mixed_signal.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/DIGITAL_WORKSPACE.md",
+      "area": "setup-digital-and-release",
+      "review": "Added actual Digital menu entry and included/custom tool entry points; aligned language-server command punctuation. Verified limits, modes and workflow capabilities.",
+      "source_refs": [
+        "icstudio/digital_shell.py",
+        "icstudio/digital_ui.py",
+        "icstudio/digital_design.py",
+        "icstudio/digital_trace_store.py",
+        "docs/DIGITAL_FLOW.md"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/DOWNLOADS.md",
+      "area": "setup-digital-and-release",
+      "review": "Updated dated GitHub snapshot to latest main/experimental draft identities and successful preparation runs; explained draft visibility, artifact expiry, split evidence, exact-commit identity, shared physical runtime and separate lesson engines.",
+      "source_refs": [
+        "scripts/package.py",
+        "scripts/prepare_release_payload.py",
+        "scripts/release_evidence.py",
+        "icstudio/digital_setup_ui.py",
+        "icstudio/student_hub.py",
+        "GitHub authenticated release/run metadata checked 2026-09-30"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/DRAWING_0.22.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Added historical validation/current workflow routing; current drawing labels agree with source.",
+      "source_refs": [
+        "icstudio/grid_settings.py",
+        "icstudio/editor_workspace.py",
+        "tests/gui_grid_paths.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/GESTURES_0.22.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Corrected current Objects on/off labels and separated grid snapping; scoped old host blocker.",
+      "source_refs": [
+        "icstudio/editor_workspace.py",
+        "icstudio/grid_settings.py",
+        "tests/gui_layout_gestures.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/GETTING_STARTED.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Aligned simulator setup with packaged/source launcher paths and linked current lesson, digital, SAR and collaboration entry guides.",
+      "source_refs": [
+        "icstudio/onboarding.py",
+        "icstudio/simulation_workspace.py",
+        "icstudio/digital_setup_ui.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/GUI_OVERHAUL.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/INDEX.md",
+      "area": "navigation-provenance-and-cross-review",
+      "review": "Reorganized topic navigation and linked every top-level guide; separated current guides and historical snapshots, added complete-example chooser.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/INDUCTOR_CREATOR.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/INTERACTIVE_RENDERING_PERFORMANCE.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Clarified retained source/workload/host scope and current reproduction versus package acceptance.",
+      "source_refs": [
+        "scripts/benchmark_layout.py",
+        "tests/gui_layout_chunks.py",
+        "docs/validation/interactive-rendering/checks.json"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/INTEROPERABILITY.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/LAYOUT_3D.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Reviewed bounds, renderer distinction, camera controls, snapshot state and PNG scope; no correction required.",
+      "source_refs": [
+        "icstudio/layout_3d.py",
+        "icstudio/layout_scene.py",
+        "tests/gui_layout_3d.py"
+      ],
+      "status": "reviewed-no-change"
+    },
+    {
+      "path": "docs/LAYOUT_SCALE_AND_COLLABORATION.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Replaced obsolete no-variant/layout-only claims with reviewed physical variants and current folder claim permissions.",
+      "source_refs": [
+        "icstudio/layout_limits.py",
+        "icstudio/physical_variants.py",
+        "icstudio/layout_collaboration.py",
+        "icstudio/layout_collaboration_ui.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/LAYOUT_VIAS.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Reviewed action names, geometry/net conflict limits and qualified-process distinction; no correction required.",
+      "source_refs": [
+        "icstudio/layout_vias.py",
+        "tests/test_layout_vias.py",
+        "tests/gui_layout_vias.py"
+      ],
+      "status": "reviewed-no-change"
+    },
+    {
+      "path": "docs/LINUX_SETUP.md",
+      "area": "setup-digital-and-release",
+      "review": "Replaced obsolete 0.11/unexecuted-Windows setup assumptions with complete current package contents, native/shared engine selection, source prerequisites and current acceptance boundaries.",
+      "source_refs": [
+        "scripts/package.py",
+        "scripts/stage_linux_runtime.py",
+        "launch-linux.sh",
+        "icstudio/digital_setup_ui.py",
+        "icstudio/physical_runtime_probe.py",
+        ".github/workflows/build-desktop.yml"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/LIVE_COLLABORATION.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Current recovery distinguishes submitted actions from unsent drafts; network guidance uses matching current builds.",
+      "source_refs": [
+        "icstudio/live_protocol.py",
+        "icstudio/live_store.py",
+        "icstudio/review_outbox.py",
+        "icstudio/review_drafts.py",
+        "icstudio/network_collaboration.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/MIXED_SIGNAL_SAR.md",
+      "area": "setup-digital-and-release",
+      "review": "Added Local engines tab and native engine setup, distinguished blank ngspice discovery from Icarus PATH lookup, explicitly documented no automatic engine download and separate WSL runtime, clarified verification shell syntax.",
+      "source_refs": [
+        "icstudio/mixed_signal_ui.py",
+        "icstudio/mixed_signal.py",
+        "icstudio/spice_program.py",
+        "scripts/verify_sar_adc.py",
+        ".github/workflows/digital.yml"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/NATIVE_CATALOG_MIGRATION.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Separated bounded imported vector expansion from editable native buses and unsupported executable/repetition constructs.",
+      "source_refs": [
+        "icstudio/native_migration.py",
+        "icstudio/xschem_vectors.py",
+        "icstudio/native_vectors.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/NATIVE_DESKTOP_ACCEPTANCE.md",
+      "area": "setup-digital-and-release",
+      "review": "Generalized procedure to selected exact candidate/current seven gates, warned against reusing archived hashes, corrected PowerShell executable invocation and removed environment-specific narration.",
+      "source_refs": [
+        "icstudio/desktop_acceptance.py",
+        "icstudio/release_acceptance.py",
+        "scripts/check_consumer_acceptance.py",
+        ".github/workflows/release-preview.yml"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/NATIVE_VECTORS.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "reviewed-no-change"
+    },
+    {
+      "path": "docs/OPENEMS.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "reviewed-no-change"
+    },
+    {
+      "path": "docs/OPEN_PROJECTS.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/PDK_GUIDE.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/PRIORITIES_0.22.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Removed false current-dev7 header; retained dev6 evidence with links to current hierarchy, recovery and release guidance.",
+      "source_refs": [
+        "icstudio/physical_variants.py",
+        "docs/ANALOG_IMPLEMENTATION_EXTENSIONS.md",
+        "docs/RELIABLE_DESIGN_WORKFLOWS.md"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/PROFESSIONAL_WORKFLOWS.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/PROJECT_HUB.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Clarified included physical tools versus separately locked process assets; reviewed project/PDK controls.",
+      "source_refs": [
+        "icstudio/project_hub_ui.py",
+        "icstudio/project_hub.py",
+        "icstudio/digital_setup_ui.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/PUBLIC_DESIGN_COMPATIBILITY.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "reviewed-no-change"
+    },
+    {
+      "path": "docs/QUALIFICATION_0.22.md",
+      "area": "navigation-provenance-and-cross-review",
+      "review": "Scoped fixture history, corrected current seven-gate release workflow, distinguished checked-in ruleset contexts from release gating.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/REFERENCE_COMPATIBILITY.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/REFERENCE_COMPATIBILITY_REPAIRS.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/REFERENCE_IMPLEMENTATIONS.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/REFERENCE_QUALIFICATION.md",
+      "area": "navigation-provenance-and-cross-review",
+      "review": "Reviewed generated historical qualification summary and kept it unchanged; release consistency check verifies synchronization.",
+      "status": "reviewed-no-change"
+    },
+    {
+      "path": "docs/RELEASE_0.21.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/RELEASE_0.22.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/RELEASE_FOLLOWUPS.md",
+      "area": "setup-digital-and-release",
+      "review": "Updated current candidate identity guidance, linked dated latest draft snapshot, preserved older six-gate identity, confirmed manual issues still open and updated new-candidate requirements to seven gates and actual push filters.",
+      "source_refs": [
+        ".github/workflows/release-preview.yml",
+        "scripts/assemble_prerelease.py",
+        "scripts/check_consumer_acceptance.py",
+        "GitHub authenticated issue metadata checked 2026-09-30"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/RELEASE_STATUS.md",
+      "area": "setup-digital-and-release",
+      "review": "Added dated 2026-09-30 authenticated GitHub snapshot of two 23-asset unpublished drafts and successful runs; distinguished later experimental source and seven current gates from archived September21 six-gate results; retained original historical evidence.",
+      "source_refs": [
+        ".github/workflows/release-preview.yml",
+        "icstudio/__init__.py",
+        "docs/validation/dev25/release-acceptance-review.json",
+        "GitHub authenticated release/run/issue metadata checked 2026-09-30"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/RELEASING.md",
+      "area": "setup-digital-and-release",
+      "review": "Replaced repository-not-yet-created/source-ZIP build assumptions; documented mandatory generated assets, clean identity, per-OS qualification and precise release trigger semantics, preserving evidence splitting and seven-gate draft policy.",
+      "source_refs": [
+        ".github/workflows/release-preview.yml",
+        ".github/workflows/build-desktop.yml",
+        "scripts/package.py",
+        "scripts/build_digital_runtime.py",
+        "scripts/qualify_digital_runtime.py",
+        "scripts/release_archives.py",
+        "scripts/publish_prerelease.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/RELIABLE_DESIGN_WORKFLOWS.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Made source/evidence checkpoint scope explicit; retained all historical metrics and qualification results.",
+      "source_refs": [
+        "icstudio/recovery.py",
+        "icstudio/qualification.py",
+        "docs/validation/reliable-workflows/summary.json"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/REVIEW_RECOVERY.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Added current unsent-draft lifecycle, bounds and independent submitted-request acknowledgement.",
+      "source_refs": [
+        "icstudio/review_outbox.py",
+        "icstudio/review_drafts.py",
+        "tests/test_review_outbox.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Distinguished implemented buses/physical RC/optimization/statistics/recovery/workers from future work; historical six-gate draft and numerical records retained.",
+      "source_refs": [
+        "icstudio/native_vectors.py",
+        "icstudio/physical_variants.py",
+        "icstudio/verification_campaigns.py",
+        "icstudio/analog_optimizer.py",
+        "docs/ANALOG_IMPLEMENTATION_EXTENSIONS.md"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/SCHEMATIC_COLLABORATION.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Corrected current database 3/protocol 2 upgrade guidance and reviewer/draft descriptions.",
+      "source_refs": [
+        "icstudio/live_store.py",
+        "icstudio/live_protocol.py",
+        "icstudio/layout_collaboration.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/SKY130_REFERENCE.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/STABILITY_0.22.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Scoped dev7 host storage failures and measurements to their historical execution; linked later recovery.",
+      "source_refs": [
+        "icstudio/recovery.py",
+        "icstudio/recovery_queue.py",
+        "docs/RELIABLE_DESIGN_WORKFLOWS.md"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/STUDENT_HUB.md",
+      "area": "setup-digital-and-release",
+      "review": "Clarified local native engine discovery and manual Icarus setup; documented verification prerequisites and shell conventions. Verified 28 lessons/112 steps and retained historical numerical evidence.",
+      "source_refs": [
+        "icstudio/student_hub_ui.py",
+        "icstudio/student_hub.py",
+        "icstudio/mixed_signal.py",
+        "scripts/source_bootstrap.py",
+        "scripts/verify_student_capstone.py",
+        "examples/student-hub/curriculum.json"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/STUDENT_HUB_AUDIT.md",
+      "area": "setup-digital-and-release",
+      "review": "Marked the dated audit record and test totals as historical observations, with pointers to current behavior and release status; retained all original results.",
+      "source_refs": [
+        "tests/gui_student_usability.py",
+        "scripts/stage_windows_ngspice.py",
+        "docs/validation/student-hub-audit",
+        "docs/STUDENT_HUB.md"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/TEST_REPORT.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UI_REDESIGN.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.10.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.11.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.12.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.13.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.15.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.16.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.17.1.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.17.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.18.1.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.18.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.19.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.2.1.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.2.2.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.20.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.21.1.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.22.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.22_DEV21.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.22_DEV22.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.22_DEV23.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.22_DEV24.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.22_DEV25.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.3.0.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.3.1.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.4.0.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.5.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.6.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.7.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.8.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/UPDATE_0.9.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/USABILITY_FEEDBACK.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Identified origin after dev20 without presenting it as current unreleased-only capability; linked later controls and release status.",
+      "source_refs": [
+        "icstudio/menu_map.py",
+        "docs/UPDATE_0.22_DEV21.md"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/USER_GUIDE.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Replaced stale top-level historical guidance and corrected network, menus, hierarchy, buses, physical runtime, waveform, ERC, exchange and recovery descriptions.",
+      "source_refs": [
+        "icstudio/menu_map.py",
+        "icstudio/native_vectors.py",
+        "icstudio/interchange.py",
+        "icstudio/layout_import.py",
+        "icstudio/physical_variants.py",
+        "icstudio/digital_setup_ui.py",
+        "icstudio/recovery.py",
+        "icstudio/wavecalc.py",
+        "icstudio/electrical_rules.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/VGA_PLAYGROUND.md",
+      "area": "setup-digital-and-release",
+      "review": "Clarified actual Digital → Digital flow menu entry and repository/environment prerequisites. Verified pinned upstream, renderer scope and package probe against source.",
+      "source_refs": [
+        "icstudio/digital_ui.py",
+        "icstudio/digital_shell.py",
+        "icstudio/digital_vga.py",
+        "scripts/build_vga_playground.py",
+        "scripts/verify_packaged_vga.py",
+        "requirements.txt"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/VIEW_SCREENSHOTS.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Added source-backed reduced-hierarchy screenshot notice and exact-geometry framing guidance.",
+      "source_refs": [
+        "icstudio/view_screenshot.py",
+        "tests/test_view_screenshot.py",
+        "tests/gui_screenshots.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/WINDOWS_RELEASE.md",
+      "area": "setup-digital-and-release",
+      "review": "Rewrote build prerequisites around clean Git identity, qualified payload/WSL, built VGA and openEMS; added actual frozen and installed physical verification dependencies; clarified installer versus WSL elevation and removed obsolete unimplemented-Windows claims.",
+      "source_refs": [
+        "scripts/package.py",
+        "scripts/build_windows.ps1",
+        "scripts/build_native.py",
+        "scripts/verify_windows.ps1",
+        "scripts/verify_frozen_digital.py",
+        "packaging/windows/installer.iss",
+        ".github/workflows/build-desktop.yml"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/WORKFLOWS_0.3.md",
+      "area": "historical-snapshot",
+      "review": "Version/milestone snapshot retained; current-command and package-status routing added. Historical numerical results were not rerun or rewritten.",
+      "status": "updated"
+    },
+    {
+      "path": "docs/WORKFLOW_REVIEW_0.22.md",
+      "area": "workspace-layout-and-collaboration",
+      "review": "Scoped dev16 behavior/timings historically and corrected memory-only recovery claim for current readers.",
+      "source_refs": [
+        "icstudio/review_drafts.py",
+        "icstudio/review_outbox.py",
+        "docs/RELIABLE_DESIGN_WORKFLOWS.md"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "docs/images/readme/README.md",
+      "area": "navigation-provenance-and-cross-review",
+      "review": "Checked actual screenshot asset paths, source provenance, historical UI scope and descriptive-only SVG attribution.",
+      "status": "reviewed-no-change"
+    },
+    {
+      "path": "docs/validation/analog_extensions/README.md",
+      "area": "navigation-provenance-and-cross-review",
+      "review": "Checked retained source/tool identities and bounded evidence scope; no current setup correction required.",
+      "status": "reviewed-no-change"
+    },
+    {
+      "path": "examples/README.md",
+      "area": "navigation-provenance-and-cross-review",
+      "review": "Added reference chooser without conflating generated/external projects with the 13-entry gallery; checked gallery and source variant identities.",
+      "status": "updated"
+    },
+    {
+      "path": "examples/gf180-banba/README.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "updated"
+    },
+    {
+      "path": "examples/gf180-banba/layout/README.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "reviewed-no-change"
+    },
+    {
+      "path": "examples/gf180-banba/layout/density/README.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "updated"
+    },
+    {
+      "path": "examples/gf180-banba/layout/physical-evidence/README.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "updated"
+    },
+    {
+      "path": "examples/gf180-banba/layout/upstream/NOTICE.md",
+      "area": "navigation-provenance-and-cross-review",
+      "review": "Reviewed retained upstream attribution and license scope; no correction required.",
+      "status": "reviewed-no-change"
+    },
+    {
+      "path": "examples/gf180-banba/pass2/README.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "updated"
+    },
+    {
+      "path": "examples/gf180-bandgap/README.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "added"
+    },
+    {
+      "path": "examples/open-projects/README.md",
+      "area": "analog-and-reference-examples",
+      "review": "Reviewed against current commands, source contracts, locked example inputs and retained numerical/physical evidence.",
+      "status": "added"
+    },
+    {
+      "path": "examples/sar-adc/README.md",
+      "area": "setup-digital-and-release",
+      "review": "Added Local engines control and native toolchain requirement; linked detailed setup.",
+      "source_refs": [
+        "icstudio/mixed_signal_ui.py",
+        "icstudio/mixed_signal.py",
+        "icstudio/sar_example.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "examples/student-hub/README.md",
+      "area": "setup-digital-and-release",
+      "review": "Added correct engine prerequisites and lesson setup link while preserving reference-versus-starter distinction.",
+      "source_refs": [
+        "icstudio/student_hub.py",
+        "icstudio/student_hub_ui.py",
+        "icstudio/student_projects.py",
+        "scripts/verify_student_capstone.py"
+      ],
+      "status": "updated"
+    },
+    {
+      "path": "icstudio/assets/pdks/START-HERE.md",
+      "area": "navigation-provenance-and-cross-review",
+      "review": "Checked included SKY130/GF180 catalog counts and model scope against collection.json files; no correction required.",
+      "status": "reviewed-no-change"
+    },
+    {
+      "path": "icstudio/assets/physical/sky130_fixed/README.md",
+      "area": "navigation-provenance-and-cross-review",
+      "review": "Reviewed fixed PNP asset provenance and layout scope; no correction required.",
+      "status": "reviewed-no-change"
+    }
+  ]
+}

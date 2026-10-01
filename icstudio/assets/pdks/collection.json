@@ -11,13 +11,31 @@
       "manifest_sha256": "189ec230833fb9cfc6a5c70d1b66c0e06278bcd114462b3c8d4d58637d2ab9c2"
     },
     {
-      "variant": "gf180mcuD",
-      "revision": "9394d9228663e22b",
+      "variant": "gf180mcuC",
+      "revision": "627ca682d68e1e92",
       "family": "gf180mcu",
-      "assets": 75,
+      "assets": 79,
       "indexed_symbols": 68,
       "placeable_symbols": 64,
-      "manifest_sha256": "504a519bd78e1b10f0544d67f3c374f8ab0d3ebf458853b74a8db7f0157d481c"
+      "manifest_sha256": "7b9aea112d1d66e2761168c7a0487f13dfe574a49a8db6e1e36fbb099a055ee5"
+    },
+    {
+      "variant": "gf180mcuD",
+      "revision": "7dd87219f1333dbb",
+      "family": "gf180mcu",
+      "assets": 79,
+      "indexed_symbols": 68,
+      "placeable_symbols": 64,
+      "manifest_sha256": "357035faaa856379a674b0aa010f132ae0de2d629cf3b25f8bb41b16457e8d51"
+    },
+    {
+      "variant": "ihp-sg13g2",
+      "revision": "3abac20fcb57e184",
+      "family": "ihp-sg13g2",
+      "assets": 156,
+      "indexed_symbols": 45,
+      "placeable_symbols": 35,
+      "manifest_sha256": "7540b8ac3241f339361bc83d5d154025dd0db6b374ebb1092dbe4db137b59de3"
     }
   ]
 }

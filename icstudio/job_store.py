@@ -21,6 +21,9 @@ def read_result(path,project_id,require_complete=True):
         validate_result(result,path.parent)
         if result.get('settings')!=job['settings'] or result['digital_result'].get('source_hash')!=source_hash(config(job['project'],job['cell'])):
             raise ValueError('Digital result does not match its saved settings or sources.')
+    elif job.get('settings',{}).get('type')=='mixed_signal':
+        from .mixed_signal import validate_result
+        validate_result(result,job,path.parent)
     elif not isinstance(result.get('traces'),dict) or not isinstance(result.get('x'),list):raise ValueError('Invalid result structure.')
     if result.get('xschem_cases') or result.get('analysis_cases'):
         # Raw captures travel with their saved job; do not retain a previous

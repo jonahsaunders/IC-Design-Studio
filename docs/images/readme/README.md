@@ -17,6 +17,10 @@ The original product images below are direct Qt captures of IC Design Studio **0
 
 The main README also reuses the existing [statistical editor and results](../../ANALOG_REFERENCE_WORKFLOW.md#run-repeatable-statistical-campaigns), [second-pass Banba schematic and optimizer](../../../examples/gf180-banba/pass2/README.md), and [Banba layout capture](../../../examples/gf180-banba/layout/README.md). Their original example/validation folders retain the corresponding evidence and reproduction instructions.
 
+The expanded feature tour reuses `docs/images/student-hub.png`, an actual native Student Hub capture documented in the [course guide](../../STUDENT_HUB.md) and [interface audit](../../STUDENT_HUB_AUDIT.md). It also includes `docs/images/sar-conversion.svg`, a plot of the measured SAR conversion, with a link to the actual `docs/images/mixed-signal-sar.png` result panel. The [SAR walkthrough](../../MIXED_SIGNAL_SAR.md#retained-validation) retains the Linux engine identities, nominal edge table and reproduction steps. These source captures do not establish packaged or native Windows/macOS mixed-signal qualification.
+
+The older `example-gallery.png` remains a nine-entry historical capture. The current README's 13-project catalog is checked against `examples/gallery.json`; the historical image is not used to depict that catalog.
+
 ## Reproduce
 
 Install the repository requirements, then run:

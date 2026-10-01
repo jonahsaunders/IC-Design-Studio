@@ -1,0 +1,19 @@
+{
+  "command": "python -m unittest discover -s tests -v",
+  "tests": 1219,
+  "skipped": 51,
+  "result": "OK",
+  "duration_seconds": 161.415,
+  "log_sha256": "6050a638fd8bf08d2f756057f3e6a23275da756f27cbdabcb69ee110faef6a7e",
+  "native_student_engine_tests": 10,
+  "native_student_engine_result": "OK",
+  "qt_platform": "offscreen",
+  "host": "Linux; workspace tool wrappers described in ../mixed-signal-sar/host-runtime.json",
+  "full_suite_with_native_engines": {
+    "tests": 1219,
+    "skipped": 15,
+    "result": "OK",
+    "duration_seconds": 569.972,
+    "log_sha256": "1e13edeb380be2356ba96118334a1210b42ce43f21ca2b46de0299b90cb9eafd"
+  }
+}

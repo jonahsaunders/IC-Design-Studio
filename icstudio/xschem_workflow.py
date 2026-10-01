@@ -59,7 +59,9 @@ class XschemWorkflowMixin:
         if not directory:return
         target=Path(directory)/(self.project['name']+'-spice')
         if target.exists() and any(target.iterdir()):raise ValueError('The export folder already contains files. Choose another destination.')
-        netlist(self.project,target);self.statusBar().showMessage('Exported source.cir and its model files to '+str(target),12000)
+        from .osdi import preload
+        atomic_write(target/'source.cir',preload(self.project,netlist(self.project,target),target,required=False))
+        self.statusBar().showMessage('Exported source.cir and its model files to '+str(target),12000)
 
     def set_project(self,p,path=None):
         self._xschem_case_signature=None;self._xschem_run_path=None;self._xschem_rows=[]
@@ -96,9 +98,15 @@ class XschemWorkflowMixin:
         p=project or self.project
         if compatible(p):
             if settings.get('type')!='xschem':raise ValueError('Run the imported simulation program. Its analysis setup is available in the Inspector.')
-            executable=find_ngspice(self.settings.value('engine/ngspice',''))
-            if not executable:raise ValueError('The ngspice runtime is missing. Extract the complete Windows app or source package, including icstudio/assets/runtime/ngspice. For another installation, choose ngspice in Analysis → Engine setup, or set ICSTUDIO_NGSPICE to its executable.')
-            job={'project':clone(p),'cell':p['top'],'settings':clone(settings),'engine':'ngspice','executable':executable}
+            job={'project':clone(p),'cell':p['top'],'settings':clone(settings),'engine':'ngspice'}
+            from .osdi import needs_managed_runtime
+            if needs_managed_runtime(p):
+                from .physical_backend import prepare_simulation
+                prepare_simulation(job)
+            else:
+                executable=find_ngspice(self.settings.value('engine/ngspice',''))
+                if not executable:raise ValueError('The ngspice runtime is missing. Extract the complete Windows app or source package, including icstudio/assets/runtime/ngspice. For another installation, choose ngspice in Analysis → Engine setup, or set ICSTUDIO_NGSPICE to its executable.')
+                job['executable']=executable
             from .run_environment import stamp
             job['environment']=stamp(job);return job
         return super().prepare_simulation(settings,engine,project,cid)

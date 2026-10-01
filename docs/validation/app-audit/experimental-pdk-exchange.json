@@ -1,0 +1,66 @@
+[
+  {
+    "pdk": "sky130A",
+    "mode": "capture",
+    "status": "passed",
+    "output_voltage": 1.383786102546654,
+    "supply": 1.8,
+    "cases": 1
+  },
+  {
+    "pdk": "sky130A",
+    "mode": "native",
+    "status": "passed",
+    "output_voltage": 1.383786102546654,
+    "supply": 1.8,
+    "cases": 1
+  },
+  {
+    "pdk": "gf180mcuC",
+    "mode": "capture",
+    "status": "passed",
+    "output_voltage": 2.8335549913274107,
+    "supply": 3.3,
+    "cases": 1
+  },
+  {
+    "pdk": "gf180mcuC",
+    "mode": "native",
+    "status": "passed",
+    "output_voltage": 2.8335549913274107,
+    "supply": 3.3,
+    "cases": 1
+  },
+  {
+    "pdk": "gf180mcuD",
+    "mode": "capture",
+    "status": "passed",
+    "output_voltage": 2.8335549913274107,
+    "supply": 3.3,
+    "cases": 1
+  },
+  {
+    "pdk": "gf180mcuD",
+    "mode": "native",
+    "status": "passed",
+    "output_voltage": 2.8335549913274107,
+    "supply": 3.3,
+    "cases": 1
+  },
+  {
+    "pdk": "ihp-sg13g2",
+    "mode": "capture",
+    "status": "passed",
+    "output_voltage": 1.1348118095113247,
+    "supply": 1.2,
+    "cases": 1
+  },
+  {
+    "pdk": "ihp-sg13g2",
+    "mode": "native",
+    "status": "passed",
+    "output_voltage": 1.1348118095113247,
+    "supply": 1.2,
+    "cases": 1
+  }
+]

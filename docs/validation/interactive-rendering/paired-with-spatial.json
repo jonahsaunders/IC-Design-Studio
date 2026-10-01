@@ -1,0 +1,386 @@
+{
+  "scope": "One Linux offscreen Studio process; randomized before/after order; 500 devices and 10000 shapes; live checks enabled and settled outside each sample; undo, electrical partition and durable recovery assertions retained.",
+  "changed_methods": [
+    "Canvas.draw_layout_geometry",
+    "Canvas.paint_layout_chunks",
+    "SpatialIndex.query"
+  ],
+  "summary_ms": {
+    "layout_selection": {
+      "before": 287.94072050004615,
+      "after": 143.96080100004838
+    },
+    "layout_move": {
+      "before": 381.54054300002826,
+      "after": 358.4419035000792
+    },
+    "schematic_move": {
+      "before": 192.28347900002518,
+      "after": 243.21091950037044
+    }
+  },
+  "samples": [
+    {
+      "operation": "layout_selection",
+      "pair": 0,
+      "variant": "after",
+      "ms": 133.23912099986046
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 0,
+      "variant": "before",
+      "ms": 265.08660300032716
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 1,
+      "variant": "after",
+      "ms": 131.3290230000348
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 1,
+      "variant": "before",
+      "ms": 281.8441529998381
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 2,
+      "variant": "before",
+      "ms": 292.51708300034807
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 2,
+      "variant": "after",
+      "ms": 185.1926839999578
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 3,
+      "variant": "before",
+      "ms": 340.50035700010994
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 3,
+      "variant": "after",
+      "ms": 142.33797499991852
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 4,
+      "variant": "after",
+      "ms": 357.7968049999072
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 4,
+      "variant": "before",
+      "ms": 271.6769620001287
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 5,
+      "variant": "after",
+      "ms": 114.6475030000147
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 5,
+      "variant": "before",
+      "ms": 260.4997939997702
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 6,
+      "variant": "after",
+      "ms": 145.58362700017824
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 6,
+      "variant": "before",
+      "ms": 334.5134610003697
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 7,
+      "variant": "before",
+      "ms": 344.30581600008736
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 7,
+      "variant": "after",
+      "ms": 208.1798220001474
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 8,
+      "variant": "after",
+      "ms": 199.83845400020073
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 8,
+      "variant": "before",
+      "ms": 283.36435799974424
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 9,
+      "variant": "after",
+      "ms": 132.86501599986877
+    },
+    {
+      "operation": "layout_selection",
+      "pair": 9,
+      "variant": "before",
+      "ms": 390.74400300023626
+    },
+    {
+      "operation": "layout_move",
+      "pair": 0,
+      "variant": "after",
+      "ms": 309.29268399995635
+    },
+    {
+      "operation": "layout_move",
+      "pair": 0,
+      "variant": "before",
+      "ms": 393.99657700005264
+    },
+    {
+      "operation": "layout_move",
+      "pair": 1,
+      "variant": "before",
+      "ms": 304.1399700000511
+    },
+    {
+      "operation": "layout_move",
+      "pair": 1,
+      "variant": "after",
+      "ms": 265.0610739997319
+    },
+    {
+      "operation": "layout_move",
+      "pair": 2,
+      "variant": "before",
+      "ms": 325.22602800008826
+    },
+    {
+      "operation": "layout_move",
+      "pair": 2,
+      "variant": "after",
+      "ms": 221.35589600020467
+    },
+    {
+      "operation": "layout_move",
+      "pair": 3,
+      "variant": "after",
+      "ms": 321.1259400000017
+    },
+    {
+      "operation": "layout_move",
+      "pair": 3,
+      "variant": "before",
+      "ms": 356.9084219998331
+    },
+    {
+      "operation": "layout_move",
+      "pair": 4,
+      "variant": "after",
+      "ms": 363.8700669998798
+    },
+    {
+      "operation": "layout_move",
+      "pair": 4,
+      "variant": "before",
+      "ms": 858.0760589998135
+    },
+    {
+      "operation": "layout_move",
+      "pair": 5,
+      "variant": "after",
+      "ms": 368.8558359999661
+    },
+    {
+      "operation": "layout_move",
+      "pair": 5,
+      "variant": "before",
+      "ms": 459.52304799993726
+    },
+    {
+      "operation": "layout_move",
+      "pair": 6,
+      "variant": "after",
+      "ms": 511.36237099990467
+    },
+    {
+      "operation": "layout_move",
+      "pair": 6,
+      "variant": "before",
+      "ms": 320.58233399993696
+    },
+    {
+      "operation": "layout_move",
+      "pair": 7,
+      "variant": "after",
+      "ms": 497.62173799990705
+    },
+    {
+      "operation": "layout_move",
+      "pair": 7,
+      "variant": "before",
+      "ms": 373.83035299990297
+    },
+    {
+      "operation": "layout_move",
+      "pair": 8,
+      "variant": "after",
+      "ms": 353.01374000027863
+    },
+    {
+      "operation": "layout_move",
+      "pair": 8,
+      "variant": "before",
+      "ms": 389.25073300015356
+    },
+    {
+      "operation": "layout_move",
+      "pair": 9,
+      "variant": "after",
+      "ms": 560.0557110001319
+    },
+    {
+      "operation": "layout_move",
+      "pair": 9,
+      "variant": "before",
+      "ms": 503.5833509996337
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 0,
+      "variant": "after",
+      "ms": 312.74234800002887
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 0,
+      "variant": "before",
+      "ms": 300.1256160000594
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 1,
+      "variant": "before",
+      "ms": 149.4548919999943
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 1,
+      "variant": "after",
+      "ms": 193.53958700003204
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 2,
+      "variant": "after",
+      "ms": 248.13133600036963
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 2,
+      "variant": "before",
+      "ms": 186.55179100005626
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 3,
+      "variant": "after",
+      "ms": 258.1500810001671
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 3,
+      "variant": "before",
+      "ms": 163.5200430000623
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 4,
+      "variant": "before",
+      "ms": 164.91331899987927
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 4,
+      "variant": "after",
+      "ms": 227.73152999980084
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 5,
+      "variant": "after",
+      "ms": 238.29050300037125
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 5,
+      "variant": "before",
+      "ms": 253.1731479998598
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 6,
+      "variant": "after",
+      "ms": 401.37782500005414
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 6,
+      "variant": "before",
+      "ms": 160.8529949999138
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 7,
+      "variant": "before",
+      "ms": 390.32997599997543
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 7,
+      "variant": "after",
+      "ms": 219.12497899984373
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 8,
+      "variant": "before",
+      "ms": 199.558548999903
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 8,
+      "variant": "after",
+      "ms": 170.700890000262
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 9,
+      "variant": "before",
+      "ms": 198.0151669999941
+    },
+    {
+      "operation": "schematic_move",
+      "pair": 9,
+      "variant": "after",
+      "ms": 250.0885049998942
+    }
+  ],
+  "errors": [],
+  "status": "passed"
+}

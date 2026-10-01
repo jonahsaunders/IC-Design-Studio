@@ -27,8 +27,12 @@ def screen(c,x,y):return (QPointF(x,y)*c.scale+c.offset).toPoint()
 
 w.command_actions['Compatibility matrix'].trigger();QTest.qWait(50)
 assert w._compatibility_dialog.isVisible() and w.compatibility_table.rowCount()==8
-w.compatibility_search.setText('Xschem');assert w.compatibility_table.rowCount()==1
-assert 'Import / export'==w.compatibility_table.item(0,2).text();w.compatibility_search.clear();w._compatibility_dialog.grab().save(str(out/'compatibility.png'));w._compatibility_dialog.close();passed('Help action opens searchable offline compatibility matrix')
+w.compatibility_search.setText('Xschem')
+from icstudio.compatibility import ROWS
+expected=[r for r in ROWS if 'xschem' in ' '.join(r).casefold()]
+assert w.compatibility_table.rowCount()==len(expected)
+assert any(w.compatibility_table.item(i,0).text()=='Xschem' and w.compatibility_table.item(i,2).text()=='Import / export' for i in range(len(expected)))
+w.compatibility_search.clear();w._compatibility_dialog.grab().save(str(out/'compatibility.png'));w._compatibility_dialog.close();passed('Help search matches tool names and descriptions and retains the Xschem import/export row')
 # Saved run plan and actual independent QProcess workers.
 w.set_project(example('rc'));w.parallel_jobs.setValue(2)
 for i,kind in enumerate(('tran','tran','ac')):
