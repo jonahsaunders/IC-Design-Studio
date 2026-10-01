@@ -14,7 +14,7 @@ class SchematicFitRegressionTests(unittest.TestCase):
         result=subprocess.run([sys.executable,'-m','tests.gui_schematic_fit','-v'],cwd=root,
             env={**os.environ,'QT_QPA_PLATFORM':'offscreen'},capture_output=True,text=True,timeout=60)
         self.assertEqual(result.returncode,0,result.stdout+result.stderr)
-        self.assertIn('Ran 7 tests',result.stderr)
+        self.assertIn('Ran 8 tests',result.stderr)
 
 
 if __name__=='__main__':unittest.main()

@@ -27,6 +27,16 @@ def electrical(project):
 
 
 class ExampleSchematicTests(unittest.TestCase):
+    def test_two_stage_opamp_presentation_retains_electrical_data(self):
+        from tests.test_two_stage_opamp import technology
+        from icstudio.two_stage_opamp import reference
+        project,_,_=reference(technology());before=electrical(project)
+        arrange(project,replace_wires=True)
+        self.assertEqual(electrical(project),before)
+        validate(project)
+        stable=digest(project);arrange(project)
+        self.assertEqual(digest(project),stable)
+
     def test_added_teaching_dut_preserves_existing_user_cells(self):
         from icstudio.analog_guided import teaching_example,TEMPLATES
         from icstudio.model import example

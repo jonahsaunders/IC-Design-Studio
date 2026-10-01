@@ -56,6 +56,10 @@ def arrange(project,cell_ids=None,*,replace_wires=False):
         elif {'M1','M2','M3','M4','M5'}==names and cell['name']=='amplifier':
             place('M3',280,140,180,True);place('M4',640,140,180,True)
             place('M1',280,360);place('M2',640,360);place('M5',460,580)
+        elif cell['name']=='two_stage_opamp' and {'CC1','CC2'}<=names:
+            # The imported capacitor's model caption extends beyond the old
+            # 140-unit spacing and otherwise crosses the next capacitor lead.
+            place('CC2',devices['CC1']['x']+280,devices['CC1']['y'])
         elif {'R1','R2'}<=names and names<={'V1','R1','R2','Rload'}:
             place('V1',120,220);place('R1',400,140);place('R2',400,340);place('Rload',700,340)
         elif {'VD','VG','M1'}==names:

@@ -29508,65 +29508,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    5.0,
-                    -30.0
+                    70,
+                    -52
                   ],
                   [
-                    25.0,
-                    -20.0
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    30.0,
-                    -8.75
+                    70,
+                    -34
                   ],
                   [
-                    50.0,
-                    1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
-                "rotation": 180,
-                "font_size": 8.0
+                "rotation": 0,
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    13.75
+                    70,
+                    -16
                   ],
                   [
-                    51.25,
-                    23.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "@mult x @W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    1.25
+                    70,
+                    2
                   ],
                   [
-                    51.25,
-                    11.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "nf=@nf",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -29774,65 +29790,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    5.0,
-                    -30.0
+                    70,
+                    -52
                   ],
                   [
-                    25.0,
-                    -20.0
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    30.0,
-                    -8.75
+                    70,
+                    -34
                   ],
                   [
-                    50.0,
-                    1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
-                "rotation": 180,
-                "font_size": 8.0
+                "rotation": 0,
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    13.75
+                    70,
+                    -16
                   ],
                   [
-                    51.25,
-                    23.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "@mult x @W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    1.25
+                    70,
+                    2
                   ],
                   [
-                    51.25,
-                    11.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "nf=@nf",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -30055,65 +30087,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    5.0,
-                    -30.0
+                    70,
+                    -52
                   ],
                   [
-                    25.0,
-                    -20.0
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    30.0,
-                    -8.75
+                    70,
+                    -34
                   ],
                   [
-                    50.0,
-                    1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
-                "rotation": 180,
-                "font_size": 8.0
+                "rotation": 0,
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    13.75
+                    70,
+                    -16
                   ],
                   [
-                    51.25,
-                    23.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "@mult x @W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    1.25
+                    70,
+                    2
                   ],
                   [
-                    51.25,
-                    11.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "nf=@nf",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -30336,65 +30384,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    5.0,
-                    -30.0
+                    70,
+                    -52
                   ],
                   [
-                    25.0,
-                    -20.0
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    30.0,
-                    -8.75
+                    70,
+                    -34
                   ],
                   [
-                    50.0,
-                    1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
-                "rotation": 180,
-                "font_size": 8.0
+                "rotation": 0,
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    13.75
+                    70,
+                    -16
                   ],
                   [
-                    51.25,
-                    23.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "@mult x @W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    1.25
+                    70,
+                    2
                   ],
                   [
-                    51.25,
-                    11.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "nf=@nf",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -30602,65 +30666,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    5.0,
-                    -30.0
+                    70,
+                    -52
                   ],
                   [
-                    25.0,
-                    -20.0
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    30.0,
-                    -8.75
+                    70,
+                    -34
                   ],
                   [
-                    50.0,
-                    1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
-                "rotation": 180,
-                "font_size": 8.0
+                "rotation": 0,
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    13.75
+                    70,
+                    -16
                   ],
                   [
-                    51.25,
-                    23.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "@mult x @W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    1.25
+                    70,
+                    2
                   ],
                   [
-                    51.25,
-                    11.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "nf=@nf",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -30885,65 +30965,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    5.0,
-                    -30.0
+                    70,
+                    -52
                   ],
                   [
-                    25.0,
-                    -20.0
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    30.0,
-                    -8.75
+                    70,
+                    -34
                   ],
                   [
-                    50.0,
-                    1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
-                "rotation": 180,
-                "font_size": 8.0
+                "rotation": 0,
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    13.75
+                    70,
+                    -16
                   ],
                   [
-                    51.25,
-                    23.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "@mult x @W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    1.25
+                    70,
+                    2
                   ],
                   [
-                    51.25,
-                    11.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "nf=@nf",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -31151,65 +31247,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    5.0,
-                    -30.0
+                    70,
+                    -52
                   ],
                   [
-                    25.0,
-                    -20.0
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    30.0,
-                    -8.75
+                    70,
+                    -34
                   ],
                   [
-                    50.0,
-                    1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
-                "rotation": 180,
-                "font_size": 8.0
+                "rotation": 0,
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    13.75
+                    70,
+                    -16
                   ],
                   [
-                    51.25,
-                    23.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "@mult x @W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    1.25
+                    70,
+                    2
                   ],
                   [
-                    51.25,
-                    11.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "nf=@nf",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -31417,65 +31529,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    5.0,
-                    -30.0
+                    70,
+                    -52
                   ],
                   [
-                    25.0,
-                    -20.0
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    30.0,
-                    -8.75
+                    70,
+                    -34
                   ],
                   [
-                    50.0,
-                    1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
-                "rotation": 180,
-                "font_size": 8.0
+                "rotation": 0,
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    13.75
+                    70,
+                    -16
                   ],
                   [
-                    51.25,
-                    23.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "@mult x @W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    1.25
+                    70,
+                    2
                   ],
                   [
-                    51.25,
-                    11.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "nf=@nf",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -31623,65 +31751,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    17.5,
-                    18.75
+                    70,
+                    -16
                   ],
                   [
-                    37.5,
-                    28.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "MF=@MF",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    15.0,
-                    -28.75
+                    70,
+                    -52
                   ],
                   [
-                    35.0,
-                    -18.75
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    15.0,
-                    6.25
+                    70,
+                    2
                   ],
                   [
-                    35.0,
-                    16.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "@W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    15.0,
-                    -11.25
+                    70,
+                    -34
                   ],
                   [
-                    35.0,
-                    -1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -31716,7 +31860,7 @@
           "id": "bbf7c37ec8d6454a",
           "kind": "PDK",
           "name": "CC2",
-          "x": 840,
+          "x": 980,
           "y": 300,
           "rotation": 0,
           "nets": {
@@ -31820,65 +31964,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    17.5,
-                    18.75
+                    70,
+                    -16
                   ],
                   [
-                    37.5,
-                    28.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "MF=@MF",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    15.0,
-                    -28.75
+                    70,
+                    -52
                   ],
                   [
-                    35.0,
-                    -18.75
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    15.0,
-                    6.25
+                    70,
+                    2
                   ],
                   [
-                    35.0,
-                    16.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "@W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    15.0,
-                    -11.25
+                    70,
+                    -34
                   ],
                   [
-                    35.0,
-                    -1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -31907,7 +32067,8 @@
               "template": "name=C1 model=cap_mim_m3_1 W=1 L=1 MF=1 spiceprefix=X"
             }
           },
-          "net_labels": {}
+          "net_labels": {},
+          "mirror": false
         }
       ],
       "shapes": [],
@@ -31967,7 +32128,7 @@
       },
       "wires": [
         {
-          "id": "88a56e40b38e4634",
+          "id": "ad7dc298cb4e4831",
           "points": [
             [
               540.0,
@@ -31985,7 +32146,7 @@
           "net": "VDD"
         },
         {
-          "id": "457c4cea20f7451e",
+          "id": "dc13804f0a644618",
           "points": [
             [
               260.0,
@@ -32003,7 +32164,7 @@
           "net": "NREF"
         },
         {
-          "id": "ab64af91f8c54d93",
+          "id": "c90fdee1bcb84607",
           "points": [
             [
               260.0,
@@ -32021,7 +32182,7 @@
           "net": "VDD"
         },
         {
-          "id": "3158edea3c034d64",
+          "id": "ae5c5f18ff7d4cc5",
           "points": [
             [
               860.0,
@@ -32039,7 +32200,7 @@
           "net": "VDD"
         },
         {
-          "id": "abf737d76201464f",
+          "id": "8303a87dd31b4b39",
           "points": [
             [
               400.0,
@@ -32057,7 +32218,7 @@
           "net": "VSS"
         },
         {
-          "id": "a7815c23181d4049",
+          "id": "c9e9104edfee493f",
           "points": [
             [
               120.0,
@@ -32075,7 +32236,7 @@
           "net": "IBIAS"
         },
         {
-          "id": "5e3ccdc1ed534477",
+          "id": "a3619ebcb5b640e0",
           "points": [
             [
               120.0,
@@ -32093,7 +32254,7 @@
           "net": "VSS"
         },
         {
-          "id": "b579410940f84f41",
+          "id": "2d0e3dd0f47b40b5",
           "points": [
             [
               860.0,
@@ -32111,35 +32272,7 @@
           "net": "VSS"
         },
         {
-          "id": "d7ff7714fa8c498f",
-          "points": [
-            [
-              700.0,
-              270.0
-            ],
-            [
-              840.0,
-              270.0
-            ]
-          ],
-          "net": "STAGE1"
-        },
-        {
-          "id": "634f8b8197b24967",
-          "points": [
-            [
-              700.0,
-              330.0
-            ],
-            [
-              840.0,
-              330.0
-            ]
-          ],
-          "net": "OUT"
-        },
-        {
-          "id": "59dd101e778b4973",
+          "id": "b2fa7b85ac4846b7",
           "points": [
             [
               540.0,
@@ -32153,7 +32286,7 @@
           "net": "STAGE1"
         },
         {
-          "id": "124288e864944715",
+          "id": "a02e0afdbef44442",
           "points": [
             [
               260.0,
@@ -32167,79 +32300,7 @@
           "net": "NREF"
         },
         {
-          "id": "e83769ec924f4d60",
-          "points": [
-            [
-              540.0,
-              290.0
-            ],
-            [
-              540.0,
-              270.0
-            ],
-            [
-              700.0,
-              270.0
-            ]
-          ],
-          "net": "STAGE1"
-        },
-        {
-          "id": "f216bc8fb9354ad5",
-          "points": [
-            [
-              820.0,
-              100.0
-            ],
-            [
-              820.0,
-              270.0
-            ],
-            [
-              840.0,
-              270.0
-            ]
-          ],
-          "net": "STAGE1"
-        },
-        {
-          "id": "cf6028df4aeb469a",
-          "points": [
-            [
-              860.0,
-              510.0
-            ],
-            [
-              840.0,
-              510.0
-            ],
-            [
-              840.0,
-              330.0
-            ]
-          ],
-          "net": "OUT"
-        },
-        {
-          "id": "d4d8b77995334ec7",
-          "points": [
-            [
-              860.0,
-              130.0
-            ],
-            [
-              860.0,
-              330.0
-            ],
-            [
-              840.0,
-              330.0
-            ]
-          ],
-          "net": "OUT"
-        },
-        {
-          "id": "9f8a2cfc464e441b",
+          "id": "1abb8cf385db4230",
           "points": [
             [
               540.0,
@@ -32257,7 +32318,7 @@
           "net": "TAIL"
         },
         {
-          "id": "2cfcf3097a2342e2",
+          "id": "6edd4869bc894cf9",
           "points": [
             [
               260.0,
@@ -32275,7 +32336,47 @@
           "net": "TAIL"
         },
         {
-          "id": "e75d81db623e4794",
+          "id": "137884b79bf64006",
+          "points": [
+            [
+              860.0,
+              510.0
+            ],
+            [
+              860.0,
+              330.0
+            ],
+            [
+              980.0,
+              330.0
+            ]
+          ],
+          "net": "OUT"
+        },
+        {
+          "id": "71757d046b4644ee",
+          "points": [
+            [
+              820.0,
+              100.0
+            ],
+            [
+              820.0,
+              180.0
+            ],
+            [
+              980.0,
+              180.0
+            ],
+            [
+              980.0,
+              270.0
+            ]
+          ],
+          "net": "STAGE1"
+        },
+        {
+          "id": "a48ade85ac2747b0",
           "points": [
             [
               300,
@@ -32283,7 +32384,11 @@
             ],
             [
               300,
-              70.0
+              20
+            ],
+            [
+              540.0,
+              20
             ],
             [
               540.0,
@@ -32293,7 +32398,7 @@
           "net": "VDD"
         },
         {
-          "id": "286feb84f80145be",
+          "id": "43436e15e0dd48f6",
           "points": [
             [
               260.0,
@@ -32311,7 +32416,7 @@
           "net": "NREF"
         },
         {
-          "id": "cb6154e50afb4ad9",
+          "id": "268c35d9b078409c",
           "points": [
             [
               360.0,
@@ -32319,7 +32424,11 @@
             ],
             [
               360.0,
-              510.0
+              460.0
+            ],
+            [
+              120.0,
+              460.0
             ],
             [
               120.0,
@@ -32329,7 +32438,7 @@
           "net": "IBIAS"
         },
         {
-          "id": "9e8cab02490e48c8",
+          "id": "5e0a689b0ab34c32",
           "points": [
             [
               400.0,
@@ -32347,7 +32456,7 @@
           "net": "VSS"
         },
         {
-          "id": "e78b4fb7c6aa44b4",
+          "id": "114e6fe84b46456a",
           "points": [
             [
               580,
@@ -32355,7 +32464,11 @@
             ],
             [
               580,
-              540
+              400
+            ],
+            [
+              440,
+              400
             ],
             [
               440,
@@ -32365,15 +32478,19 @@
           "net": "VSS"
         },
         {
-          "id": "399681e1528a4606",
+          "id": "e2eae3a8f70b42ae",
           "points": [
             [
               300,
               320
             ],
             [
+              300,
+              400
+            ],
+            [
               440,
-              320
+              400
             ],
             [
               440,
@@ -32383,7 +32500,7 @@
           "net": "VSS"
         },
         {
-          "id": "52a6a0c76cab4404",
+          "id": "345fb93fadc44b6a",
           "points": [
             [
               580,
@@ -32391,7 +32508,11 @@
             ],
             [
               580,
-              70.0
+              20
+            ],
+            [
+              860.0,
+              20
             ],
             [
               860.0,
@@ -32401,7 +32522,25 @@
           "net": "VDD"
         },
         {
-          "id": "0976a3ba26e949c5",
+          "id": "79d477324a5a46c8",
+          "points": [
+            [
+              540.0,
+              130.0
+            ],
+            [
+              820.0,
+              130.0
+            ],
+            [
+              820.0,
+              100.0
+            ]
+          ],
+          "net": "STAGE1"
+        },
+        {
+          "id": "a56faafe50844350",
           "points": [
             [
               580,
@@ -32409,17 +32548,21 @@
             ],
             [
               580,
-              570.0
+              400
             ],
             [
-              860.0,
-              570.0
+              900,
+              400
+            ],
+            [
+              900,
+              540
             ]
           ],
           "net": "VSS"
         },
         {
-          "id": "19b60dc008dc40f5",
+          "id": "760abe1405a84e9a",
           "points": [
             [
               360.0,
@@ -32443,7 +32586,7 @@
       ],
       "labels": [
         {
-          "id": "86fec8b08f144587",
+          "id": "11d59203050f4018",
           "kind": "net_label",
           "name": "NREF",
           "anchor": {
@@ -32458,7 +32601,7 @@
           "rotation": 0
         },
         {
-          "id": "c3164ea24fe546a1",
+          "id": "a1b56da4ffc74362",
           "kind": "net_label",
           "name": "INN",
           "anchor": {
@@ -32473,7 +32616,7 @@
           "rotation": 0
         },
         {
-          "id": "a0f05f85fe8d4db3",
+          "id": "bfa74f78a6c24d90",
           "kind": "net_label",
           "name": "TAIL",
           "anchor": {
@@ -32488,7 +32631,7 @@
           "rotation": 0
         },
         {
-          "id": "958e153a4b754f88",
+          "id": "d5b60299f36a4c76",
           "kind": "net_label",
           "name": "VSS",
           "anchor": {
@@ -32503,7 +32646,7 @@
           "rotation": 0
         },
         {
-          "id": "4fe122a55c2246f9",
+          "id": "95ec9634b0db4ec8",
           "kind": "net_label",
           "name": "STAGE1",
           "anchor": {
@@ -32518,7 +32661,7 @@
           "rotation": 0
         },
         {
-          "id": "7ae38371215d4cad",
+          "id": "3613f8e8fc754463",
           "kind": "net_label",
           "name": "INP",
           "anchor": {
@@ -32533,7 +32676,7 @@
           "rotation": 0
         },
         {
-          "id": "9a6f68a5d9364032",
+          "id": "e3a502d8313c450d",
           "kind": "net_label",
           "name": "VDD",
           "anchor": {
@@ -32548,7 +32691,7 @@
           "rotation": 0
         },
         {
-          "id": "50bceeef02a642dc",
+          "id": "6736f5f195ca4d6b",
           "kind": "net_label",
           "name": "IBIAS",
           "anchor": {
@@ -32563,13 +32706,58 @@
           "rotation": 0
         },
         {
-          "id": "c4f25c4942984cfe",
+          "id": "b65d157b37344e42",
           "kind": "net_label",
           "name": "OUT",
           "anchor": {
             "kind": "pin",
             "id": "7571218b2e534712",
             "pin": "d"
+          },
+          "offset": [
+            8,
+            36
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "342e3a78f56d47c4",
+          "kind": "net_label",
+          "name": "OUT",
+          "anchor": {
+            "kind": "pin",
+            "id": "bbf7c37ec8d6454a",
+            "pin": "c1"
+          },
+          "offset": [
+            8,
+            36
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "fe1d73f0ea8a441e",
+          "kind": "net_label",
+          "name": "STAGE1",
+          "anchor": {
+            "kind": "pin",
+            "id": "2a0ffcc4136941e3",
+            "pin": "c0"
+          },
+          "offset": [
+            8,
+            -30
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "5a9d03b5af2a454b",
+          "kind": "net_label",
+          "name": "OUT",
+          "anchor": {
+            "kind": "pin",
+            "id": "2a0ffcc4136941e3",
+            "pin": "c1"
           },
           "offset": [
             8,

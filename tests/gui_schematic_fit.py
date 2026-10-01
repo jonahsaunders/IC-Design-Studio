@@ -8,8 +8,8 @@ from PySide6.QtGui import QFont,QFontDatabase,QFontMetricsF,QTransform
 from PySide6.QtWidgets import QApplication
 from icstudio.canvas import Canvas
 from icstudio.getting_started import example_copy
-from icstudio.model import device,digest,example
-from icstudio.symbol_geometry import text_bounds
+from icstudio.model import device,digest,example,load_project
+from icstudio.symbol_geometry import painter_path,text_bounds
 
 
 class SchematicFitTests(unittest.TestCase):
@@ -97,6 +97,28 @@ class SchematicFitTests(unittest.TestCase):
         c=Canvas('layout');p=example('empty');shape=rect('metal1',0,0,5000,3000)
         p['cells'][0]['shapes']=[shape];c.set_data(p['cells'][0],p['pdk'])
         self.assertEqual(c.fit_bounds(shape),c.bounds(shape));c.close()
+
+    def test_saved_and_new_opamp_captions_clear_symbol_artwork(self):
+        from tests.test_two_stage_opamp import technology
+        from icstudio.two_stage_opamp import reference
+        from icstudio.example_schematics import arrange
+        saved=load_project(Path(__file__).resolve().parents[1]/'examples/sky130_two_stage_opamp.icproj')
+        new,_,_=reference(technology());arrange(new,replace_wires=True)
+        for kind,project in [('saved',saved),('new',new)]:
+            with self.subTest(kind=kind):
+                cell=next(c for c in project['cells'] if c['name']=='two_stage_opamp')
+                self.canvas.set_data(cell,project['pdk']);captions=[];art=[]
+                for d in cell['devices']:
+                    frame=QTransform();frame.translate(d['x'],d['y']);frame.rotate(d['rotation']);frame.scale(-1 if d.get('mirror') else 1,1)
+                    for item in d['symbol']['primitives']:
+                        if item['kind']=='text':
+                            box=text_bounds(item,self.canvas.instance_context(d),frame,xschem=True)
+                            if not box.isEmpty():captions.append((d['name'],item['text'],box))
+                        else:
+                            art.append((d['name'],frame.map(painter_path(item)).boundingRect().adjusted(-.5,-.5,.5,.5)))
+                for name,text,box in captions:
+                    for other,body in art:
+                        self.assertFalse(box.intersects(body),f'{kind}: {name} {text} overlaps {other} artwork')
 
 
 if __name__=='__main__':unittest.main()
