@@ -1,0 +1,438 @@
+[
+  {
+    "pdk": "gf180mcuC",
+    "revision": "627ca682d68e1e92",
+    "status": "passed",
+    "environment": {
+      "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+      "engine": "ngspice",
+      "executable_sha256": "c209cda35c1760d6de432f8c4936f93ca88a47081b2df28fc597a7167e9dab18"
+    },
+    "checks": [
+      {
+        "stage": "dc",
+        "engine": "ngspice (installed executable)",
+        "inverter_measurements": {
+          "VOH": 3.299999991173777,
+          "VOL": 5.4347045156165e-09,
+          "switching_threshold": 1.5319991828822659,
+          "supply": 3.3
+        }
+      },
+      {
+        "stage": "transient",
+        "engine": "ngspice (installed executable)",
+        "inverter_measurements": {
+          "tPHL": 3.585824114504096e-11,
+          "tPLH": 3.6980052463064304e-11,
+          "supply": 3.3,
+          "checked_cycles": 3
+        }
+      },
+      {
+        "stage": "drc-fault",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "drc": {
+            "name": "drc",
+            "status": "failed",
+            "error": "2 Magic DRC violations; see findings.tsv."
+          }
+        },
+        "pdk": "gf180mcuC"
+      },
+      {
+        "stage": "drc-repaired",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "drc": {
+            "name": "drc",
+            "status": "passed",
+            "evidence": {
+              "violations": 0,
+              "style": "drc(full)"
+            }
+          }
+        },
+        "pdk": "gf180mcuC"
+      },
+      {
+        "stage": "lvs-fault",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "lvs": {
+            "name": "lvs",
+            "status": "failed",
+            "error": "Netgen did not establish a unique match with equivalent connected pins and no property errors. See lvs/lvs.log."
+          }
+        },
+        "pdk": "gf180mcuC"
+      },
+      {
+        "stage": "lvs-repaired",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "lvs": {
+            "name": "lvs",
+            "status": "passed",
+            "evidence": {
+              "unique_match": true,
+              "log": "lvs/lvs.log"
+            }
+          }
+        },
+        "pdk": "gf180mcuC"
+      },
+      {
+        "stage": "final-both",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "drc": {
+            "name": "drc",
+            "status": "passed",
+            "evidence": {
+              "violations": 0,
+              "style": "drc(full)"
+            }
+          },
+          "lvs": {
+            "name": "lvs",
+            "status": "passed",
+            "evidence": {
+              "unique_match": true,
+              "log": "lvs/lvs.log"
+            }
+          }
+        },
+        "pdk": "gf180mcuC"
+      }
+    ]
+  },
+  {
+    "pdk": "gf180mcuD",
+    "revision": "7dd87219f1333dbb",
+    "status": "passed",
+    "environment": {
+      "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+      "engine": "ngspice",
+      "executable_sha256": "c209cda35c1760d6de432f8c4936f93ca88a47081b2df28fc597a7167e9dab18"
+    },
+    "checks": [
+      {
+        "stage": "dc",
+        "engine": "ngspice (installed executable)",
+        "inverter_measurements": {
+          "VOH": 3.299999991173777,
+          "VOL": 5.4347045156165e-09,
+          "switching_threshold": 1.5319991828822659,
+          "supply": 3.3
+        }
+      },
+      {
+        "stage": "transient",
+        "engine": "ngspice (installed executable)",
+        "inverter_measurements": {
+          "tPHL": 3.585824114504096e-11,
+          "tPLH": 3.6980052463064304e-11,
+          "supply": 3.3,
+          "checked_cycles": 3
+        }
+      },
+      {
+        "stage": "drc-fault",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "drc": {
+            "name": "drc",
+            "status": "failed",
+            "error": "2 Magic DRC violations; see findings.tsv."
+          }
+        },
+        "pdk": "gf180mcuD"
+      },
+      {
+        "stage": "drc-repaired",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "drc": {
+            "name": "drc",
+            "status": "passed",
+            "evidence": {
+              "violations": 0,
+              "style": "drc(full)"
+            }
+          }
+        },
+        "pdk": "gf180mcuD"
+      },
+      {
+        "stage": "lvs-fault",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "lvs": {
+            "name": "lvs",
+            "status": "failed",
+            "error": "Netgen did not establish a unique match with equivalent connected pins and no property errors. See lvs/lvs.log."
+          }
+        },
+        "pdk": "gf180mcuD"
+      },
+      {
+        "stage": "lvs-repaired",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "lvs": {
+            "name": "lvs",
+            "status": "passed",
+            "evidence": {
+              "unique_match": true,
+              "log": "lvs/lvs.log"
+            }
+          }
+        },
+        "pdk": "gf180mcuD"
+      },
+      {
+        "stage": "final-both",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "drc": {
+            "name": "drc",
+            "status": "passed",
+            "evidence": {
+              "violations": 0,
+              "style": "drc(full)"
+            }
+          },
+          "lvs": {
+            "name": "lvs",
+            "status": "passed",
+            "evidence": {
+              "unique_match": true,
+              "log": "lvs/lvs.log"
+            }
+          }
+        },
+        "pdk": "gf180mcuD"
+      }
+    ]
+  },
+  {
+    "pdk": "ihp-sg13g2",
+    "revision": "3abac20fcb57e184",
+    "status": "passed",
+    "environment": {
+      "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+      "engine": "ngspice",
+      "executable_sha256": "c209cda35c1760d6de432f8c4936f93ca88a47081b2df28fc597a7167e9dab18"
+    },
+    "checks": [
+      {
+        "stage": "dc",
+        "engine": "ngspice (installed executable)",
+        "inverter_measurements": {
+          "VOH": 1.199999956593144,
+          "VOL": 6.7614146110111e-08,
+          "switching_threshold": 0.6173028356365595,
+          "supply": 1.2
+        }
+      },
+      {
+        "stage": "transient",
+        "engine": "ngspice (installed executable)",
+        "inverter_measurements": {
+          "tPHL": 1.856888939608104e-11,
+          "tPLH": 1.756168910129884e-11,
+          "supply": 1.2,
+          "checked_cycles": 3
+        }
+      },
+      {
+        "stage": "drc-fault",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "drc": {
+            "name": "drc",
+            "status": "failed",
+            "error": "2 Magic DRC violations; see findings.tsv."
+          }
+        },
+        "pdk": "ihp-sg13g2"
+      },
+      {
+        "stage": "drc-repaired",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "drc": {
+            "name": "drc",
+            "status": "passed",
+            "evidence": {
+              "violations": 0,
+              "style": "drc(full)"
+            }
+          }
+        },
+        "pdk": "ihp-sg13g2"
+      },
+      {
+        "stage": "lvs-fault",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "lvs": {
+            "name": "lvs",
+            "status": "failed",
+            "error": "Netgen did not establish a unique match with equivalent connected pins and no property errors. See lvs/lvs.log."
+          }
+        },
+        "pdk": "ihp-sg13g2"
+      },
+      {
+        "stage": "lvs-repaired",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "lvs": {
+            "name": "lvs",
+            "status": "passed",
+            "evidence": {
+              "unique_match": true,
+              "log": "lvs/lvs.log"
+            }
+          }
+        },
+        "pdk": "ihp-sg13g2"
+      },
+      {
+        "stage": "final-both",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "drc": {
+            "name": "drc",
+            "status": "passed",
+            "evidence": {
+              "violations": 0,
+              "style": "drc(full)"
+            }
+          },
+          "lvs": {
+            "name": "lvs",
+            "status": "passed",
+            "evidence": {
+              "unique_match": true,
+              "log": "lvs/lvs.log"
+            }
+          }
+        },
+        "pdk": "ihp-sg13g2"
+      }
+    ]
+  },
+  {
+    "pdk": "sky130A",
+    "revision": "01b4bb7a87cc7fe5",
+    "status": "passed",
+    "environment": {
+      "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+      "engine": "ngspice",
+      "executable_sha256": "c209cda35c1760d6de432f8c4936f93ca88a47081b2df28fc597a7167e9dab18"
+    },
+    "checks": [
+      {
+        "stage": "dc",
+        "engine": "ngspice (installed executable)",
+        "inverter_measurements": {
+          "VOH": 1.799999997233054,
+          "VOL": 2.150076643709088e-07,
+          "switching_threshold": 0.8698409483946375,
+          "supply": 1.8
+        }
+      },
+      {
+        "stage": "transient",
+        "engine": "ngspice (installed executable)",
+        "inverter_measurements": {
+          "tPHL": 1.7811114912958474e-11,
+          "tPLH": 2.2602243100823378e-11,
+          "supply": 1.8,
+          "checked_cycles": 3
+        }
+      },
+      {
+        "stage": "drc-fault",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "drc": {
+            "name": "drc",
+            "status": "failed",
+            "error": "2 Magic DRC violations; see findings.tsv."
+          }
+        },
+        "pdk": "sky130A"
+      },
+      {
+        "stage": "drc-repaired",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "drc": {
+            "name": "drc",
+            "status": "passed",
+            "evidence": {
+              "violations": 0,
+              "style": "drc(full)"
+            }
+          }
+        },
+        "pdk": "sky130A"
+      },
+      {
+        "stage": "lvs-fault",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "lvs": {
+            "name": "lvs",
+            "status": "failed",
+            "error": "Netgen did not establish a unique match with equivalent connected pins and no property errors. See lvs/lvs.log."
+          }
+        },
+        "pdk": "sky130A"
+      },
+      {
+        "stage": "lvs-repaired",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "lvs": {
+            "name": "lvs",
+            "status": "passed",
+            "evidence": {
+              "unique_match": true,
+              "log": "lvs/lvs.log"
+            }
+          }
+        },
+        "pdk": "sky130A"
+      },
+      {
+        "stage": "final-both",
+        "engine": "Magic / Netgen / ngspice",
+        "physical_checks": {
+          "drc": {
+            "name": "drc",
+            "status": "passed",
+            "evidence": {
+              "violations": 0,
+              "style": "drc(full)"
+            }
+          },
+          "lvs": {
+            "name": "lvs",
+            "status": "passed",
+            "evidence": {
+              "unique_match": true,
+              "log": "lvs/lvs.log"
+            }
+          }
+        },
+        "pdk": "sky130A"
+      }
+    ]
+  }
+]

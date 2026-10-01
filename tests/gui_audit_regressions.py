@@ -89,6 +89,7 @@ def main():
         next(b for b in dialog.findChildren(QPushButton) if b.text()=='Verify files').click()
     assert any('runtime is ready' in label.text() for label in dialog.findChildren(QLabel))
     assert any(b.text()=='Physical tools setup…' for b in dialog.findChildren(QPushButton))
+    QTest.qWait(30);assert dialog.grab().save(str(out/'runtime-ihp.png'))
     dialog.close();checks.append('Imported and native IHP programs use the included runtime; runtime dialog verifies that choice')
     assert not errors,errors
     w.saved_hash=digest(w.project);w.close();app.processEvents()

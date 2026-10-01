@@ -50,6 +50,8 @@ class PDKExchangeAuditTests(unittest.TestCase):
                 for mode,p,reader in [('capture',capture,review_project),('native',native,native_review)]:
                     export_handoff(p,root/mode);dest=root/(mode+' moved café');shutil.move(root/mode,dest)
                     q=load_project(dest/'project.icproj')
+                    lock=json.loads((dest/'dependencies.lock.json').read_text())
+                    self.assertEqual((dest/lock['pdk']['package_root']).resolve(),Path(q['pdk']['package_root']))
                     for suffix in ('gds','oas'):
                         physical,_=import_layout(dest/('layout.'+suffix));self.assertEqual(physical['cells'],q['cells'])
                     meta=json.loads((dest/'xschem'/(mode+'-exchange.json')).read_text())

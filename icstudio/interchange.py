@@ -276,7 +276,9 @@ def export_handoff(p,dest):
     else:deck=spice(p,settings=p['analysis'])
     save_project(p,dest/'project.icproj');atomic_write(dest/'simulation.cir',deck);export_layout(p,dest/'layout.gds');export_layout(p,dest/'layout.oas');export_xschem(p,dest/'xschem');export_technology(p,dest/'technology')
     from .engine_selection import selected
-    atomic_write(dest/'dependencies.lock.json',json.dumps({'app':__import__('icstudio').__version__,'schema':1,'pdk':p['pdk'],'engine':selected(p),'design_hash':digest(p)},indent=2))
+    locked_pdk=clone(p['pdk'])
+    if locked_pdk.get('package_lock'):locked_pdk['package_root']='technology/package'
+    atomic_write(dest/'dependencies.lock.json',json.dumps({'app':__import__('icstudio').__version__,'schema':1,'pdk':locked_pdk,'engine':selected(p),'design_hash':digest(p)},indent=2))
     if p['pdk'].get('package_lock'):
         root=str(dest.resolve()).replace('\\','/')+'/'
         for deck in dest.rglob('*.cir'):
