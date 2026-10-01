@@ -6,6 +6,11 @@ actual simulations are covered by the action-specific acceptance probes.
 import argparse,json,os,sys,time,traceback
 from pathlib import Path
 from unittest.mock import patch
+# Windows CI can expose a legacy console encoding even though menu labels and
+# prerequisite guidance contain Unicode arrows. Diagnostics must not abort the
+# sweep before its final assertions and reports are written.
+for stream in (sys.stdout,sys.stderr):
+    if hasattr(stream,'reconfigure'):stream.reconfigure(encoding='utf-8',errors='backslashreplace')
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 parser=argparse.ArgumentParser();parser.add_argument('--out',type=Path,default=ROOT/'build/menu-audit')
 out=parser.parse_args().out.resolve();out.mkdir(parents=True,exist_ok=True)
@@ -20,6 +25,7 @@ from icstudio.model import example,digest
 app=QApplication([]);app.setStyle('Fusion');w=Studio(recover=False);w.maybe_save=lambda:True;w.show();current={};report=[];fatal=[]
 def hook(t,v,tb):
     current.setdefault('exceptions',[]).append(''.join(traceback.format_exception(t,v,tb)))
+    traceback.print_exception(t,v,tb)
 sys.excepthook=hook
 w.error=lambda text:current.setdefault('messages',[]).append(str(text))
 def guard(fn):
