@@ -1,5 +1,7 @@
 """Qualification gates must distinguish missing evidence from real acceptance."""
 import json
+import math
+import shutil
 import sys
 import tempfile
 import unittest
@@ -10,6 +12,7 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'scripts'))
 from qualify_analog_process import check_equivalent, condition
 from qualify_process_rc import passive_values, process_evidence, stale_evidence_probe, accept_short_result, reevaluate, check_capacitance_conservation, maxwell_matrix
+from qualify_process_rc import coupon_probe
 from icstudio.external_tools import extraction_commands
 from icstudio.model import file_digest
 
@@ -126,6 +129,44 @@ class ProcessRcQualificationTests(unittest.TestCase):
         matrix=maxwell_matrix([{'nodes':['A','B'],'value':2.},{'nodes':['A','VSS'],'value':3.}],['A','B','VSS'])
         self.assertEqual(matrix,[[5.,-2.,-3.],[-2.,2.,0.],[-3.,0.,3.]])
         self.assertTrue(all(sum(row)==0 for row in matrix))
+
+    def test_coupon_reference_includes_substrate_c_even_when_export_omits_it(self):
+        # Replay archived real engine output. The CI failure's cap-only export
+        # contained only mutual C; original .ext node C remained complete.
+        fixtures=ROOT/'docs/validation/dev25/process-rc-final-evidence/metal1-rc-coupon'
+        archived=json.loads((fixtures/'comparison.json').read_text())['coupons']
+        project={'cells':[{'id':'coupon','name':'rc_coupon','ports':['IN','DRAIN','VSS']}]}
+        def extract(executable,technology,gds,cell,ports,directory,commands):
+            directory.mkdir(parents=True)
+            source=fixtures/directory.parent.name
+            if directory.name=='extraction':
+                shutil.copyfile(source/'extraction/extracted.spice',directory/'extracted.spice')
+            else:
+                shutil.copyfile(source/'capacitance-reference/rc_coupon.ext',directory/'rc_coupon.ext')
+                (directory/'extracted.spice').write_text('.subckt rc_coupon IN DRAIN VSS\nC0 DRAIN IN 0.00856031f\n.ends\n')
+        def simulate(project,cid,analysis,engine,directory):
+            directory.mkdir()
+            row=archived[0 if directory.parent.name=='100' else 1]
+            if directory.name=='simulation':return {'traces':{row['gate_node'].lower():[row['transfer_v']]}}
+            return {'currents':{'vdrive':[row['ac_admittance_capacitance_f']*2*math.pi*1000]},
+                    'current_phase':{'vdrive':[-90.]},'x':[1000.]}
+        with tempfile.TemporaryDirectory() as tmp, \
+                patch('qualify_process_rc.coupon_project',return_value=(project,'coupon')), \
+                patch('qualify_process_rc.save_project'), \
+                patch('icstudio.interchange.export_layout'), \
+                patch('icstudio.process_adapters.physical_adapter') as adapter, \
+                patch('icstudio.silicon_flow.magic_script',side_effect=extract), \
+                patch('icstudio.engines.run_deck',side_effect=simulate), \
+                patch('qualify_process_rc.maxwell_probe') as matrix:
+            tech=Path(tmp)/'technology';tech.write_text('fixture technology')
+            adapter.return_value.engine_assets.return_value={'technology':tech}
+            matrix.return_value={'status':'fixture'}
+            result=coupon_probe({}, {'magic':'magic','ngspice':'ngspice'}, Path(tmp)/'probe')
+            for actual,expected in zip(result['coupons'],archived):
+                self.assertTrue(math.isclose(actual['capacitance_reference_f'],expected['capacitance_f'],rel_tol=1e-12))
+                reference=Path(tmp)/'probe'/str(int(actual['length_um']))/'capacitance-reference/rc_coupon.ext'
+                self.assertEqual(actual['capacitance_reference_sha256'],file_digest(reference))
+            self.assertEqual(matrix.call_count,2)
 
 
 if __name__=='__main__':unittest.main()

@@ -615,6 +615,12 @@ from .digital_ui import DigitalMixin
 
 class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,InteroperabilityMixin,LayoutDevelopmentMixin,OnboardingMixin,NativeWorkspaceMixin,XschemWorkflowMixin,VerificationWorkspaceMixin,PhysicalWorkspaceMixin,EngineeringWorkspaceMixin,SimulationWorkspaceMixin,HumanWorkspaceMixin,ConsistencyWorkspaceMixin,CaptureWorkspaceMixin,EditorWorkspaceMixin, LayoutToolsMixin, AnalogMixin, HierarchyMixin, SiliconMixin, LifecycleMixin, LayoutMixin, ProjectMixin, SchematicMixin, FeatureMixin, WorkspaceMixin, StudioCore):
     """Standalone desktop application with the document-focused workspace."""
+    def maybe_save(self):
+        experiment = getattr(self, '_mixed_signal_dialog', None)
+        if experiment and experiment.project_id == self.project['id'] and not experiment.resolve_draft():
+            return False
+        return super().maybe_save()
+
     def apply_theme(self):
         super().apply_theme()
         hub=getattr(self,'_student_hub',None)

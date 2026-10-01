@@ -6,7 +6,8 @@
     "version_args": ["-x", "-q", "--version"]
   },
   "ngspice": {
-    "repository": "https://git.code.sf.net/p/ngspice/ngspice",
+    "repository": "https://github.com/imr/ngspice.git",
+    "repository_mirrors": ["https://git.code.sf.net/p/ngspice/ngspice"],
     "version": "ngspice-46",
     "commit": "ebdaf58ec76a06ffaac7e0f138360dd1cf5ee4b6",
     "autogen": true,

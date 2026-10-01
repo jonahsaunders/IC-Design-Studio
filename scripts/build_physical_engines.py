@@ -7,8 +7,40 @@ from pathlib import Path
 import shlex
 import shutil
 import subprocess
+import time
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def fetch_source(entry, source, env, log):
+    """Retry bounded transport failures and verify the same pin on every mirror."""
+    repositories = dict.fromkeys([entry['repository'], *entry.get('repository_mirrors', [])])
+    last_error = None
+    for repository in repositories:
+        for attempt in range(3):
+            message = f"Fetching {entry['commit']} from {repository} (attempt {attempt + 1}/3)"
+            print(message, flush=True)
+            log.write(message + '\n')
+            log.flush()
+            try:
+                subprocess.run(['git', 'fetch', '--depth', '1', repository, entry['commit']],
+                               cwd=source, env=env, check=True, timeout=60,
+                               stdout=log, stderr=subprocess.STDOUT)
+            except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as exc:
+                last_error = exc
+                log.write(str(exc) + '\n')
+                log.flush()
+                print('Source fetch failed: ' + str(exc), flush=True)
+                if attempt < 2:
+                    time.sleep(2 ** attempt)
+                continue
+            actual = subprocess.check_output(['git', 'rev-parse', 'FETCH_HEAD'],
+                                             cwd=source, env=env, text=True).strip()
+            if actual != entry['commit']:
+                raise ValueError('Unexpected fetched source commit: ' + actual)
+            return
+    raise RuntimeError('Could not fetch pinned source ' + entry['commit'] +
+                       '; see the engine build log for transport errors.') from last_error
 
 
 def build(output, jobs=2, lock_path=None, only=None):
@@ -36,7 +68,7 @@ def build(output, jobs=2, lock_path=None, only=None):
                 subprocess.run(arguments, cwd=source, env=env, check=True, stdout=log, stderr=subprocess.STDOUT)
             run(['git', 'init'])
             run(['git', 'remote', 'add', 'origin', entry['repository']])
-            run(['git', 'fetch', '--depth', '1', 'origin', entry['commit']])
+            fetch_source(entry, source, env, log)
             run(['git', 'checkout', '--detach', 'FETCH_HEAD'])
             actual = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=source, text=True).strip()
             if actual != entry['commit']:

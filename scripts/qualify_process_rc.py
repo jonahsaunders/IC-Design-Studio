@@ -301,9 +301,12 @@ def coupon_probe(technology, tools, directory):
         base_commands,_=extraction_commands('capacitance')
         magic_script(tools['magic'],technology_path,work/'coupon.gds',cell['name'],cell['ports'],work/'capacitance-reference',
                      base_commands+'ext2spice -o extracted.spice')
-        base_path=work/'capacitance-reference/extracted.spice'
-        _,base_body,_=subcircuit(base_path.read_text(),'rc_coupon')
-        reference_capacitance=sum(v['value'] for v in passive_values(base_body)['C'] if 'IN' in v['nodes'])
+        # The original .ext is authoritative for both substrate and mutual C.
+        # A cap-only ext2spice export can omit substrate C while still emitting
+        # mutual capacitors; summing that export gives an incomplete reference.
+        base_path=work/'capacitance-reference/rc_coupon.ext'
+        original_caps=original_coupon_capacitances(base_path,cell['ports'])
+        reference_capacitance=maxwell_matrix(original_caps,cell['ports'])[0][0]
         # Run the actual extracted passive path with a known resistor load. The
         # transistor only anchors extraction, and is absent from this linear test.
         deck='* Independent extracted-resistor coupon transfer\n'
@@ -329,7 +332,6 @@ def coupon_probe(technology, tools, directory):
         atomic_write(work/'admittance/result.json',json.dumps(ac,indent=2))
         current=ac['currents']['vdrive'][0];phase=math.radians(ac['current_phase']['vdrive'][0])
         admittance_capacitance=-current*math.sin(phase)/(2*math.pi*ac['x'][0])
-        original_caps=original_coupon_capacitances(work/'capacitance-reference/rc_coupon.ext',cell['ports'])
         matrix=maxwell_probe(p,cid,tools,values,original_caps,cell['ports'],work/'maxwell')
         measurements.append({'length_um':length,'resistance_ohm':resistance,'capacitance_f':capacitance,
                              'terminal_capacitance_matrix':matrix,

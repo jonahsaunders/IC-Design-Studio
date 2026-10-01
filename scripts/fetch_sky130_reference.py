@@ -2,11 +2,14 @@
 from __future__ import annotations
 import argparse
 import hashlib
+import http.client
 import json
 from pathlib import Path
 import shutil
 import tarfile
 import tempfile
+import time
+import urllib.error
 import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,6 +18,31 @@ ROOT = Path(__file__).resolve().parents[1]
 def sha256(path):
     with Path(path).open('rb') as stream:
         return hashlib.file_digest(stream, 'sha256').hexdigest()
+
+
+def download_archive(url, path, expected):
+    """Retry transient transport failures and publish only a verified archive."""
+    partial = path.with_suffix(path.suffix + '.part')
+    for attempt in range(1, 4):
+        try:
+            with urllib.request.urlopen(url, timeout=60) as response, partial.open('wb') as target:
+                shutil.copyfileobj(response, target)
+            if sha256(partial) != expected:
+                raise ValueError('Checksum mismatch: ' + path.name)
+            partial.replace(path)
+            return
+        except urllib.error.HTTPError as error:
+            if error.code not in (408, 425, 429, 500, 502, 503, 504) or attempt == 3:
+                raise
+            print(f'Retrying {path.name} after download failure: {error}', flush=True)
+        except (urllib.error.URLError, TimeoutError, ConnectionError,
+                http.client.IncompleteRead) as error:
+            if attempt == 3:
+                raise
+            print(f'Retrying {path.name} after download failure: {error}', flush=True)
+        finally:
+            partial.unlink(missing_ok=True)
+        time.sleep(attempt)
 
 
 def fetch(output, *, physical_only=False, cache=None):
@@ -31,15 +59,7 @@ def fetch(output, *, physical_only=False, cache=None):
         path = cache / name
         if not path.is_file() or sha256(path) != expected:
             url = f'https://github.com/{lock["repository"]}/releases/download/{lock["release"]}/{name}'
-            partial = path.with_suffix(path.suffix + '.part')
-            try:
-                with urllib.request.urlopen(url, timeout=60) as response, partial.open('wb') as target:
-                    shutil.copyfileobj(response, target)
-                if sha256(partial) != expected:
-                    raise ValueError('Checksum mismatch: ' + name)
-                partial.replace(path)
-            finally:
-                partial.unlink(missing_ok=True)
+            download_archive(url, path, expected)
         archives.append(path)
         print('Verified ' + name, flush=True)
     # Publish only a completely extracted tree. The data filter rejects unsafe
