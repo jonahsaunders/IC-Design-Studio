@@ -72,7 +72,10 @@ def import_symbol(path,preserve_case=False):
             x,y,radius,start,sweep=map(float,r[2:7]);symbol['primitives'].append({'kind':'arc','points':[[x-radius,y-radius],[x+radius,y+radius]],'start':-start,'sweep':-sweep})
         elif kind == 'T':
             if 'tcleval' in r[1]:notes.append('Executable text retained as metadata only.');continue
-            x,y=float(r[2]),float(r[3]); symbol['primitives'].append({'kind':'text','points':[[x,y],[x+20,y+10]],'text':r[1],'rotation':int(r[4])*90,'font_size':max(1,min(72,float(r[6])*40))})
+            props=properties(r[-1])
+            x,y=float(r[2]),float(r[3]); symbol['primitives'].append({'kind':'text','points':[[x,y],[x+20,y+10]],'text':r[1],'rotation':int(r[4])*90,'font_size':max(1,min(72,float(r[6])*40)),
+                'hidden':props.get('hide') in ('true','instance'),'hcenter':props.get('hcenter')=='true','vcenter':props.get('vcenter')=='true','bold':props.get('weight')=='bold',
+                'text_anchor':'corner','mirror':bool(int(r[5]))})
         elif kind not in ('v','G','K','V','S','E','F'): notes.append('Preserved only as source: ' + kind)
     # Restore styles only when visible artwork records are unchanged. External edits win.
     payload=metadata.pop('studio_symbol_v2','')
@@ -119,7 +122,11 @@ def symbol_text(symbol, name='X1', fmt='@name @pinlist', pins=None):
             for a,b in zip(points,points[1:]):lines.append(f'L 4 {a[0]:g} {a[1]:g} {b[0]:g} {b[1]:g} {{}}')
         else:
             text=item['text'].replace('\\','\\\\').replace('{','\\{').replace('}','\\}').replace('\n',' ')
-            size=item.get('font_size',8)/40;lines.append(f'T {{{text}}} {x1:g} {y1:g} {item.get("rotation",0)//90} 0 {size:g} {size:g} {{}}')
+            props={key:'true' for key in ('hcenter','vcenter') if item.get(key)}
+            if item.get('hidden'):props['hide']='instance'
+            if item.get('bold'):props['weight']='bold'
+            style=' '.join(key+'='+value for key,value in props.items())
+            size=item.get('font_size',8)/40;lines.append(f'T {{{text}}} {x1:g} {y1:g} {item.get("rotation",0)//90} {int(item.get("mirror",False))} {size:g} {size:g} {{{style}}}')
     from .xschem_io import records
     import hashlib
     visible=[r for r in records('\n'.join(lines)) if r[0] in ('L','P','A','T') or r[0]=='B' and r[1]!='5']

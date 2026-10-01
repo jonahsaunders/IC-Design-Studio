@@ -48,9 +48,9 @@ def main():
     out=ROOT/'build/digital-workspace-ui';out.mkdir(parents=True,exist_ok=True)
     os.environ['XDG_DATA_HOME']=str(out/'profile/data');os.environ['XDG_CONFIG_HOME']=str(out/'profile/config')
     s=Studio(recover=False);s.set_project(counter_project());s.resize(1280,850);s.show();d=s.digital_window();QTest.qWait(200)
-    assert s.centralWidget() is d and not s.toolbar.isVisible()
+    assert s.design_widget() is d and s.centralWidget() is s.app_workspaces and not s.toolbar.isVisible()
     assert all(not dock.isVisible() for dock,_ in s._digital_panels)
-    assert s.minimumSizeHint().width()<=1280
+    assert s.minimumSizeHint().width()<=1280,(s.minimumSizeHint(),d.minimumSizeHint(),s.app_workspaces.minimumSizeHint())
     d.shell.mode(1);d.result_tabs.setCurrentWidget(d.workspace.timing_split);QTest.qWait(50)
     assert d.workspace.timing.isVisible() and d.workspace.linked_physical.isVisible()
     assert all(size>0 for size in d.workspace.timing_split.sizes())
@@ -62,7 +62,7 @@ def main():
     d.workspace.physical.set_filters(density=True,layer='met2');QTest.qWait(50);s.grab().save(str(out/'physical-density-dark.png'))
     s.toggle_theme();QTest.qWait(50);s.grab().save(str(out/'physical-density-light.png'))
     d.shell.mode(0);s.grab().save(str(out/'source-light.png'))
-    s.leave_digital_workspace();assert s.centralWidget() is not d
+    s.leave_digital_workspace();assert s.design_widget() is not d
     assert s.digital_window() is d;QTest.qWait(50)
     s.saved_hash=digest(s.project);s.close();QTest.qWait(20)
     print(json.dumps({'status':'passed','checks':['Captured flow resume','Queued cancellation','Persistent plan state','Central workspace lifecycle','1280px layout','Simultaneous timing and physical panes','22,500 indexed instances','Density/layer controls','Light and dark modes']}))

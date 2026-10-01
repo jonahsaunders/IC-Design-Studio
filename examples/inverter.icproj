@@ -82,7 +82,7 @@
           "kind": "V",
           "name": "VDD",
           "x": 140,
-          "y": 180,
+          "y": 200,
           "rotation": 0,
           "nets": {
             "p": "vdd",
@@ -104,14 +104,16 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "c8b388f15e854151",
           "kind": "V",
           "name": "V1",
           "x": 140,
-          "y": 390,
+          "y": 400,
           "rotation": 0,
           "nets": {
             "p": "vin",
@@ -133,15 +135,17 @@
             "delay": "1u",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "b5ccce8143c043c2",
           "kind": "PMOS",
           "name": "MP1",
-          "x": 490,
+          "x": 460,
           "y": 200,
-          "rotation": 0,
+          "rotation": 180,
           "nets": {
             "d": "vout",
             "g": "vin",
@@ -164,14 +168,16 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "mirror": true,
+          "net_labels": {}
         },
         {
           "id": "205f39549119405a",
           "kind": "NMOS",
           "name": "MN1",
-          "x": 490,
-          "y": 390,
+          "x": 460,
+          "y": 400,
           "rotation": 0,
           "nets": {
             "d": "vout",
@@ -195,14 +201,16 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "d14a8b7cf7094612",
           "kind": "C",
           "name": "CL",
-          "x": 730,
-          "y": 310,
+          "x": 720,
+          "y": 350,
           "rotation": 0,
           "nets": {
             "p": "vout",
@@ -224,10 +232,242 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "wires": [
+        {
+          "id": "1e624ecc9201410f",
+          "points": [
+            [
+              480,
+              450
+            ],
+            [
+              510,
+              450
+            ],
+            [
+              510,
+              400
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "12d8d2f8f7e34dbf",
+          "points": [
+            [
+              480,
+              150
+            ],
+            [
+              510,
+              150
+            ],
+            [
+              510,
+              200
+            ]
+          ],
+          "net": "vdd"
+        },
+        {
+          "id": "28620d68f57a44c5",
+          "points": [
+            [
+              480,
+              250
+            ],
+            [
+              480,
+              350
+            ]
+          ],
+          "net": "vout"
+        },
+        {
+          "id": "b4ee956ee2b646ab",
+          "points": [
+            [
+              140,
+              250
+            ],
+            [
+              60,
+              250
+            ],
+            [
+              60,
+              450
+            ],
+            [
+              140,
+              450
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "a8fe99e044ed4ad9",
+          "points": [
+            [
+              410,
+              200
+            ],
+            [
+              410,
+              400
+            ]
+          ],
+          "net": "vin"
+        },
+        {
+          "id": "a80ae781e963463c",
+          "points": [
+            [
+              510,
+              400
+            ],
+            [
+              720,
+              400
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "7d2f46b29fa04015",
+          "points": [
+            [
+              480,
+              350
+            ],
+            [
+              480,
+              300
+            ],
+            [
+              720,
+              300
+            ]
+          ],
+          "net": "vout"
+        },
+        {
+          "id": "b1f419ffe76746a4",
+          "points": [
+            [
+              140,
+              350
+            ],
+            [
+              410,
+              350
+            ],
+            [
+              410,
+              400
+            ]
+          ],
+          "net": "vin"
+        },
+        {
+          "id": "8c92206e041b4bb3",
+          "points": [
+            [
+              140,
+              150
+            ],
+            [
+              480,
+              150
+            ]
+          ],
+          "net": "vdd"
+        },
+        {
+          "id": "e0f6b605a2ef4008",
+          "points": [
+            [
+              140,
+              450
+            ],
+            [
+              480,
+              450
+            ]
+          ],
+          "net": "0"
+        }
+      ],
+      "labels": [
+        {
+          "id": "cb608ddcf44b4f20",
+          "kind": "net_label",
+          "name": "vdd",
+          "anchor": {
+            "kind": "pin",
+            "id": "9230bf9123d94339",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "2adbb13da3534957",
+          "kind": "ground",
+          "name": "0",
+          "anchor": {
+            "kind": "pin",
+            "id": "205f39549119405a",
+            "pin": "s"
+          },
+          "offset": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "45f551f387a94bfa",
+          "kind": "net_label",
+          "name": "vin",
+          "anchor": {
+            "kind": "pin",
+            "id": "b5ccce8143c043c2",
+            "pin": "g"
+          },
+          "offset": [
+            -27,
+            -8
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "f6aaf7764aa3418c",
+          "kind": "net_label",
+          "name": "vout",
+          "anchor": {
+            "kind": "pin",
+            "id": "b5ccce8143c043c2",
+            "pin": "d"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        }
+      ],
+      "junctions": [],
+      "example_drawing": 1
     }
   ],
   "analysis": {

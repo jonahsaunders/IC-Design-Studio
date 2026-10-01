@@ -87,8 +87,8 @@
           "id": "7433f34db13c4b38",
           "kind": "V",
           "name": "V1",
-          "x": 180,
-          "y": 260,
+          "x": 140,
+          "y": 240,
           "rotation": 0,
           "nets": {
             "p": "vin",
@@ -110,14 +110,16 @@
             "delay": "2u",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "acbfa22e23904234",
           "kind": "R",
           "name": "R1",
-          "x": 420,
-          "y": 180,
+          "x": 320,
+          "y": 190,
           "rotation": 270,
           "nets": {
             "p": "vin",
@@ -139,14 +141,16 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "c02e06ed48e84e51",
           "kind": "C",
           "name": "C1",
-          "x": 650,
-          "y": 260,
+          "x": 500,
+          "y": 240,
           "rotation": 0,
           "nets": {
             "p": "vout",
@@ -168,7 +172,9 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         }
       ],
       "shapes": [
@@ -271,9 +277,102 @@
           "id": "physical_rc_note",
           "x": 200,
           "y": 50,
-          "text": "Generic RC teaching fixture · explicit physical terminals"
+          "text": "Generic RC teaching fixture \u00b7 explicit physical terminals"
         }
-      ]
+      ],
+      "wires": [
+        {
+          "id": "4d275d51d38344bd",
+          "points": [
+            [
+              140,
+              190
+            ],
+            [
+              270,
+              190
+            ]
+          ],
+          "net": "vin"
+        },
+        {
+          "id": "cf44ed0583c449cc",
+          "points": [
+            [
+              370,
+              190
+            ],
+            [
+              500,
+              190
+            ]
+          ],
+          "net": "vout"
+        },
+        {
+          "id": "f7e9bed40e0c435d",
+          "points": [
+            [
+              140,
+              290
+            ],
+            [
+              500,
+              290
+            ]
+          ],
+          "net": "0"
+        }
+      ],
+      "labels": [
+        {
+          "id": "fecb07fa33994038",
+          "kind": "net_label",
+          "name": "vin",
+          "anchor": {
+            "kind": "pin",
+            "id": "7433f34db13c4b38",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "fa9005239582473b",
+          "kind": "ground",
+          "name": "0",
+          "anchor": {
+            "kind": "pin",
+            "id": "c02e06ed48e84e51",
+            "pin": "n"
+          },
+          "offset": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "bcf1188d75b44ac6",
+          "kind": "net_label",
+          "name": "vout",
+          "anchor": {
+            "kind": "pin",
+            "id": "acbfa22e23904234",
+            "pin": "n"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        }
+      ],
+      "junctions": [],
+      "example_drawing": 1
     }
   ],
   "analysis": {

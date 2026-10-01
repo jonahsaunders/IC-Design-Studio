@@ -51,7 +51,7 @@ def student_style(dark,scale):
     '''
 
 
-class StudentHub(QDialog):
+class StudentHub(QWidget):
     def __init__(self,studio):
         super().__init__(studio);self.studio=studio;self.data=curriculum()
         self.material=study_guide(self.data)
@@ -60,7 +60,7 @@ class StudentHub(QDialog):
         self.inverter_profiles={p['token']:p for p in profiles}
         self.data,self.material=expand(self.data,self.material,profiles)
         self.portfolio=Portfolio(studio.data_dir/'student-hub');self.path_id='foundations'
-        self.setWindowTitle('Student Hub · IC Design Studio');self.resize(1180,780);self.setMinimumSize(720,560)
+        self.setWindowTitle('Student Hub · IC Design Studio');self.resize(1180,780)
         self.text_scale=int(studio.settings.value('student/textScale',100))
         if self.text_scale not in (100,125,150,200):self.text_scale=100
         self.by_id={l['id']:l for l in self.data['lessons']}
@@ -271,8 +271,9 @@ class StudentHub(QDialog):
                 else:project=create(l['starter'])
                 path=self.portfolio.root/'projects'/(l['workspace']+'-'+uid()+'.icproj')
                 path.parent.mkdir(parents=True,exist_ok=True);save_project(project,path);self.portfolio.attach(l,project,path)
-            s.set_project(project,path)
-        self.guide.open_lesson(l);self.hide();self.guide.show();self.guide.raise_()
+            if s.set_project(project,path) is False:return
+        s.show_design_workspace()
+        self.guide.open_lesson(l);self.guide.show();self.guide.raise_()
         s.resizeDocks([self.guide],[390],Qt.Horizontal)
         s.resizeDocks([s.inspector,self.guide],[260,620],Qt.Vertical)
         from .digital_design import config
@@ -356,7 +357,7 @@ class StudentHub(QDialog):
     def reject(self):
         try:self.guide.save_note()
         except Exception as exc:feedback(self.status,str(exc),True);return
-        super().reject()
+        self.studio.show_design_workspace()
 
     def closeEvent(self,event):
         try:self.guide.save_note()
@@ -529,14 +530,16 @@ class LessonGuide(QDockWidget):
         if index is not None:self.steps.setCurrentIndex(index);self.steps.setFocus()
 
     def workspace(self):
-        self.require_project();s=self.studio;s.leave_digital_workspace()
+        self.require_project();s=self.studio
+        if not s.leave_digital_workspace():return
         s.cid=s.project.get('mixed_signal',{}).get('analog_cell',s.project['top'])
         s.mode_combo.setCurrentIndex(1 if self.lesson['starter'].startswith('layout') else 0);s.refresh(True)
         self.show();self.raise_()
 
     def open_inverter(self):
         from .student_inverter import context
-        self.flush();_,cell=context(self.studio.project,self.lesson);self.studio.leave_digital_workspace()
+        self.flush();_,cell=context(self.studio.project,self.lesson)
+        if not self.studio.leave_digital_workspace():return
         self.studio.cid=cell['id'];self.studio.mode_combo.setCurrentIndex(1 if self.lesson['inverter_stage'] in ('layout','drc','lvs','handoff') else 0)
         self.studio.refresh(True)
 
@@ -640,7 +643,7 @@ class LessonGuide(QDockWidget):
         self.studio.run_manager.cancel(rows)
 
     def show_hub(self):
-        self.save_note();self.hub.select_lesson(self.lesson['id']);self.hub.show();self.hub.raise_();self.hub.start.setFocus()
+        self.save_note();show(self.studio);self.hub.select_lesson(self.lesson['id']);self.hub.start.setFocus()
 
     def closeEvent(self,event):
         try:self.save_note()
@@ -649,16 +652,10 @@ class LessonGuide(QDockWidget):
 
 
 def show(studio):
-    hub=getattr(studio,'_student_hub',None)
-    if hub is None:
-        hub=StudentHub(studio);studio._student_hub=hub
-        studio.task_menus['View'].addAction(hub.guide.toggleViewAction())
-    else:
-        hub.reload_progress()
-    hub.fill();hub.show();hub.raise_();return hub
+    studio.app_workspaces.setCurrentIndex(1)
+    return studio.app_workspaces.hub()
 
 
 def install(studio):
-    action=studio.action(studio.task_menus['File'],'Student Hub…',lambda:show(studio))
-    studio.task_menus['File'].insertAction(studio.task_menus['File'].actions()[0],action)
+    studio.action(studio.task_menus['View'],'Student Hub',lambda:show(studio))
     studio.action(studio.task_menus['Help'],'Student learning paths',lambda:show(studio))

@@ -36,7 +36,13 @@ def repaired(lesson,project):
     """Documented student edits, not a copy of the checkpoint implementation."""
     if lesson['id'] in ('f-connect','a-load'):
         name='R2' if lesson['id']=='f-connect' else 'Rload'
-        project['cells'][0]['devices'].append(device('R',name,650,300,value='10k',nets={'p':'out','n':'0'}))
+        cell=project['cells'][0]
+        resistor=device('R',name,650,300,value='10k',nets={'p':'out','n':'0'})
+        cell['devices'].append(resistor)
+        # Use the same terminal-label edit as the inspector. In a routed
+        # drawing, the derived nets table is not itself a connection.
+        from icstudio.wiring import set_label
+        for pin,net in (('p','out'),('n','0')):set_label(cell,resistor['id'],pin,net,project)
     changes={'f-edit':('R1','value','20k'),'f-debug':('Rload','value','1Meg'),
              'a-bandwidth':('C1','value','2n'),'a-bias':('MOUT','w','4u'),
              'a-differential':('VIN','value','5m'),'m-weight':('Rbit3','value','10k')}

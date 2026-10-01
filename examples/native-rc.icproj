@@ -91,8 +91,8 @@
           "id": "a67358f8c3844f89",
           "kind": "SPICE",
           "name": "V1",
-          "x": 180,
-          "y": 260,
+          "x": 140,
+          "y": 240,
           "rotation": 0,
           "nets": {
             "p": "vin",
@@ -252,14 +252,16 @@
           "net_ids": {
             "p": "n_f1b3157dbf6f61663bc7f034",
             "n": "n_26f1a9ec10580b7094d8a529"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "285b527b5b7c4818",
           "kind": "SPICE",
           "name": "R1",
-          "x": 420,
-          "y": 180,
+          "x": 320,
+          "y": 190,
           "rotation": 270,
           "nets": {
             "p": "vin",
@@ -472,14 +474,16 @@
           "net_ids": {
             "p": "n_f1b3157dbf6f61663bc7f034",
             "n": "n_cb265ff921b074b9d06a8cca"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "78510f1eab534efd",
           "kind": "SPICE",
           "name": "C1",
-          "x": 650,
-          "y": 260,
+          "x": 500,
+          "y": 240,
           "rotation": 0,
           "nets": {
             "p": "vout",
@@ -627,13 +631,15 @@
           "net_ids": {
             "p": "n_cb265ff921b074b9d06a8cca",
             "n": "n_26f1a9ec10580b7094d8a529"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "9e9da0c3ccbb4cc5",
           "kind": "SPICE",
           "name": "Analyses",
-          "x": 900,
+          "x": 700,
           "y": 100,
           "rotation": 0,
           "nets": {},
@@ -700,7 +706,9 @@
             "name": "Analyses"
           },
           "terminal_ids": {},
-          "net_ids": {}
+          "net_ids": {},
+          "mirror": false,
+          "net_labels": {}
         }
       ],
       "shapes": [
@@ -986,7 +994,9 @@
               "t_53a00c43ec2e006e14dde467",
               "t_a2a9915f8eaa6e83a24b2ba7"
             ],
-            "wires": []
+            "wires": [
+              "4ef91c13ca234451"
+            ]
           },
           {
             "id": "n_f1b3157dbf6f61663bc7f034",
@@ -995,7 +1005,9 @@
               "t_609b53156d2567f57a2537b9",
               "t_842e67e15dc732b9aa9f4843"
             ],
-            "wires": []
+            "wires": [
+              "6e21ce67933b437f"
+            ]
           },
           {
             "id": "n_cb265ff921b074b9d06a8cca",
@@ -1004,10 +1016,108 @@
               "t_04db549abe6494ddb9cf560f",
               "t_b3ad3a0aa425a62a3b891ed6"
             ],
-            "wires": []
+            "wires": [
+              "fe1f3e1218b5439b"
+            ]
           }
         ]
-      }
+      },
+      "wires": [
+        {
+          "id": "fe1f3e1218b5439b",
+          "points": [
+            [
+              370,
+              190
+            ],
+            [
+              500,
+              190
+            ]
+          ],
+          "net": "vout",
+          "net_id": "n_cb265ff921b074b9d06a8cca"
+        },
+        {
+          "id": "6e21ce67933b437f",
+          "points": [
+            [
+              140,
+              190
+            ],
+            [
+              270,
+              190
+            ]
+          ],
+          "net": "vin",
+          "net_id": "n_f1b3157dbf6f61663bc7f034"
+        },
+        {
+          "id": "4ef91c13ca234451",
+          "points": [
+            [
+              140,
+              290
+            ],
+            [
+              500,
+              290
+            ]
+          ],
+          "net": "0",
+          "net_id": "n_26f1a9ec10580b7094d8a529"
+        }
+      ],
+      "labels": [
+        {
+          "id": "d882b74617f6467a",
+          "kind": "net_label",
+          "name": "vin",
+          "anchor": {
+            "kind": "pin",
+            "id": "a67358f8c3844f89",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "7a33656c483343c1",
+          "kind": "ground",
+          "name": "0",
+          "anchor": {
+            "kind": "pin",
+            "id": "78510f1eab534efd",
+            "pin": "n"
+          },
+          "offset": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "ff6b7c8603b64cad",
+          "kind": "net_label",
+          "name": "vout",
+          "anchor": {
+            "kind": "pin",
+            "id": "285b527b5b7c4818",
+            "pin": "n"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        }
+      ],
+      "junctions": [],
+      "example_drawing": 1
     }
   ],
   "analysis": {

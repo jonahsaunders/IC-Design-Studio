@@ -104,7 +104,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "31b58b5b02be439a",
@@ -133,7 +134,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "9e03a312521842dc",
@@ -162,7 +164,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "d8d3d9f0f275414f",
@@ -191,7 +194,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         }
       ],
       "shapes": [
@@ -681,7 +685,128 @@
             "d8d3d9f0f275414f"
           ]
         }
-      ]
+      ],
+      "wires": [
+        {
+          "id": "ea0e365404f04483",
+          "points": [
+            [
+              400,
+              250
+            ],
+            [
+              600,
+              250
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "55d1f7da3ff84cf2",
+          "points": [
+            [
+              200,
+              250
+            ],
+            [
+              400,
+              250
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "5f0d8c5479094b8b",
+          "points": [
+            [
+              200,
+              150
+            ],
+            [
+              400,
+              150
+            ]
+          ],
+          "net": "groupA"
+        },
+        {
+          "id": "42545060dc024d98",
+          "points": [
+            [
+              600,
+              250
+            ],
+            [
+              800,
+              250
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "77b4c92f147844a6",
+          "points": [
+            [
+              600,
+              150
+            ],
+            [
+              800,
+              150
+            ]
+          ],
+          "net": "groupB"
+        }
+      ],
+      "labels": [
+        {
+          "id": "b40203d8e776482a",
+          "kind": "net_label",
+          "name": "groupA",
+          "anchor": {
+            "kind": "pin",
+            "id": "38cb37141bc74b6b",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "c7735f1d3ebb4017",
+          "kind": "ground",
+          "name": "0",
+          "anchor": {
+            "kind": "pin",
+            "id": "d8d3d9f0f275414f",
+            "pin": "n"
+          },
+          "offset": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "6e3e47e98c2e4ce4",
+          "kind": "net_label",
+          "name": "groupB",
+          "anchor": {
+            "kind": "pin",
+            "id": "9e03a312521842dc",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        }
+      ],
+      "junctions": [],
+      "example_drawing": 1
     }
   ],
   "analysis": {

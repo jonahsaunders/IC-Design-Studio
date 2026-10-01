@@ -32,8 +32,16 @@ def symbol_context(device, technology):
     from .catalog import binding_for
     context={'name':device['name'],'value':device['value'],'symname':device.get('cell',''),
              **device.get('params',{}),**device.get('parameters',{}),**device.get('symbol_context',{})}
+    # Captured text context is only a fallback. Native edits must immediately
+    # update the displayed value, including differently cased placeholders.
+    for key,value in device.get('native_spice',{}).get('parameters',{}).items():
+        for alias in set(context)|{key,key.lower(),key.upper()}:
+            if alias.lower()==key.lower():context[alias]=value
+    for key,value in list(context.items()):
+        context.setdefault(key.lower(),value);context.setdefault(key.upper(),value)
     if device.get('model_ref'):
         binding=binding_for(technology,device)
+        context['model']=binding['model']
         symbolic_geometry = device['kind'] in ('NMOS','PMOS') and any(
             str(device['params'][k]).startswith('{') for k in ('w','l'))
         if symbolic_geometry:
@@ -44,7 +52,7 @@ def symbol_context(device, technology):
             values.update({k:device['params'][k] for k in ('w','l')})
         else:
             values=parameter_values(binding,device)
-        for key in set(context)|set(values):
+        for key in set(context)|set(values)|{k.upper() for k in values}:
             if key.lower() in values:
                 raw=values[key.lower()]
                 context[key]=str(raw) if symbolic_geometry else format(raw,'.12g')

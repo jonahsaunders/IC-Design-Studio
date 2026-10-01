@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "id": "ce088711b4484151",
-  "name": "Sensor acquisition · SAR, averaging and alarm",
+  "name": "Sensor acquisition \u00b7 SAR, averaging and alarm",
   "revision": 0,
   "top": "38de6a9c542b4866",
   "created": "2026-09-30T13:07:14+00:00",
@@ -81,8 +81,8 @@
           "id": "036566f418d043d3",
           "kind": "R",
           "name": "Rbit0",
-          "x": 420,
-          "y": 300,
+          "x": 180,
+          "y": 570,
           "rotation": 0,
           "nets": {
             "p": "d0",
@@ -112,14 +112,16 @@
           "net_ids": {
             "p": "n_addf41878478e18ee649aa10",
             "n": "n_97293f333712d6b7a0ddc89d"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "2328a8ddabe74020",
           "kind": "R",
           "name": "Rbit1",
-          "x": 590,
-          "y": 300,
+          "x": 400,
+          "y": 570,
           "rotation": 0,
           "nets": {
             "p": "d1",
@@ -149,14 +151,16 @@
           "net_ids": {
             "p": "n_2cd9ed82a3028faf2acc9a96",
             "n": "n_97293f333712d6b7a0ddc89d"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "5670cacd71bd4eb7",
           "kind": "R",
           "name": "Rbit2",
-          "x": 760,
-          "y": 300,
+          "x": 620,
+          "y": 570,
           "rotation": 0,
           "nets": {
             "p": "d2",
@@ -186,14 +190,16 @@
           "net_ids": {
             "p": "n_68bc77c3e9eb30751e51cda8",
             "n": "n_97293f333712d6b7a0ddc89d"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "98336287d5504518",
           "kind": "R",
           "name": "Rbit3",
-          "x": 930,
-          "y": 300,
+          "x": 840,
+          "y": 570,
           "rotation": 0,
           "nets": {
             "p": "d3",
@@ -223,14 +229,16 @@
           "net_ids": {
             "p": "n_68c5865aecfff3380c639dec",
             "n": "n_97293f333712d6b7a0ddc89d"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "9f38be2da1f14af0",
           "kind": "R",
           "name": "Rterm",
-          "x": 1100,
-          "y": 300,
+          "x": 1060,
+          "y": 720,
           "rotation": 0,
           "nets": {
             "p": "vdac",
@@ -260,14 +268,16 @@
           "net_ids": {
             "p": "n_97293f333712d6b7a0ddc89d",
             "n": "n_4a6d73e69f8a0dfc91a9decf"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "86ba315d1ba943c4",
           "kind": "C",
           "name": "Cdac",
-          "x": 1100,
-          "y": 500,
+          "x": 1300,
+          "y": 720,
           "rotation": 0,
           "nets": {
             "p": "vdac",
@@ -297,14 +307,16 @@
           "net_ids": {
             "p": "n_97293f333712d6b7a0ddc89d",
             "n": "n_4a6d73e69f8a0dfc91a9decf"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "29dc62570192427f",
           "kind": "SPICE",
           "name": "Ssample",
-          "x": 160,
-          "y": 100,
+          "x": 300,
+          "y": 140,
           "rotation": 0,
           "nets": {
             "in": "filtered",
@@ -343,6 +355,21 @@
                     50
                   ]
                 ]
+              },
+              {
+                "kind": "text",
+                "points": [
+                  [
+                    -34,
+                    -8
+                  ],
+                  [
+                    34,
+                    8
+                  ]
+                ],
+                "text": "Sampling switch",
+                "font_size": 5
               }
             ],
             "pins": {
@@ -404,14 +431,16 @@
             "out": "n_2daa9b32a53eb39ea811f89f",
             "control": "n_f610b49f5b16c5ceba9712a4",
             "ground": "n_4a6d73e69f8a0dfc91a9decf"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "8fffc4943df445fa",
           "kind": "C",
           "name": "Chold",
-          "x": 370,
-          "y": 100,
+          "x": 560,
+          "y": 230,
           "rotation": 0,
           "nets": {
             "p": "held",
@@ -441,14 +470,16 @@
           "net_ids": {
             "p": "n_2daa9b32a53eb39ea811f89f",
             "n": "n_4a6d73e69f8a0dfc91a9decf"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "897fd7eb17b4473c",
           "kind": "SPICE",
           "name": "Bcompare",
-          "x": 650,
-          "y": 100,
+          "x": 900,
+          "y": 140,
           "rotation": 0,
           "nets": {
             "positive": "held",
@@ -487,6 +518,21 @@
                     50
                   ]
                 ]
+              },
+              {
+                "kind": "text",
+                "points": [
+                  [
+                    -34,
+                    -8
+                  ],
+                  [
+                    34,
+                    8
+                  ]
+                ],
+                "text": "Comparator",
+                "font_size": 5
               }
             ],
             "pins": {
@@ -583,15 +629,17 @@
             "negative": "n_97293f333712d6b7a0ddc89d",
             "out": "n_230de2a602341acd1135cb02",
             "ground": "n_4a6d73e69f8a0dfc91a9decf"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "5f335b9de8b24916",
           "kind": "R",
           "name": "Rcompare",
-          "x": 870,
-          "y": 100,
-          "rotation": 0,
+          "x": 1190,
+          "y": 110,
+          "rotation": 270,
           "nets": {
             "p": "cmp_raw",
             "n": "cmp"
@@ -620,14 +668,16 @@
           "net_ids": {
             "p": "n_230de2a602341acd1135cb02",
             "n": "n_cd30e6eeaaade2d748d47605"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "4c1e984f94134b30",
           "kind": "C",
           "name": "Ccompare",
-          "x": 1100,
-          "y": 100,
+          "x": 1410,
+          "y": 230,
           "rotation": 0,
           "nets": {
             "p": "cmp",
@@ -657,15 +707,17 @@
           "net_ids": {
             "p": "n_cd30e6eeaaade2d748d47605",
             "n": "n_4a6d73e69f8a0dfc91a9decf"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "2b4f75a9446c439a",
           "kind": "R",
           "name": "Rfilter",
-          "x": 60,
-          "y": 650,
-          "rotation": 0,
+          "x": 120,
+          "y": 110,
+          "rotation": 270,
           "nets": {
             "p": "vin",
             "n": "filtered"
@@ -694,14 +746,16 @@
           "net_ids": {
             "p": "n_a3946f5ad46a3148c576df7e",
             "n": "n_89ffd550f5451ad941eebb0f"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "7cff9403fb504537",
           "kind": "C",
           "name": "Cfilter",
-          "x": 300,
-          "y": 650,
+          "x": 160,
+          "y": 270,
           "rotation": 0,
           "nets": {
             "p": "filtered",
@@ -731,7 +785,9 @@
           "net_ids": {
             "p": "n_89ffd550f5451ad941eebb0f",
             "n": "n_4a6d73e69f8a0dfc91a9decf"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         }
       ],
       "shapes": [],
@@ -750,7 +806,14 @@
               "t_c31336abc2b7c4b953896224",
               "t_e9cdefc3c1d4ec178f9b0049"
             ],
-            "wires": []
+            "wires": [
+              "12fbb2a8e3ed47fe",
+              "5193c61db5a940bf",
+              "5c808652cdb346a3",
+              "9118e19ef2bf40e3",
+              "b0ed0335c2924396",
+              "baea8e0db0ed4504"
+            ]
           },
           {
             "id": "n_cd30e6eeaaade2d748d47605",
@@ -759,7 +822,9 @@
               "t_402686b7ece898102cc5b304",
               "t_51c25d49ee6f692424c4c895"
             ],
-            "wires": []
+            "wires": [
+              "5f70969ec8fa4573"
+            ]
           },
           {
             "id": "n_230de2a602341acd1135cb02",
@@ -768,7 +833,9 @@
               "t_1d16017a8801921c07f2e88b",
               "t_6a7a5e0e62a72122ae135dcb"
             ],
-            "wires": []
+            "wires": [
+              "f943e08b3afa4bdd"
+            ]
           },
           {
             "id": "n_addf41878478e18ee649aa10",
@@ -810,7 +877,10 @@
               "t_d15dac5ec5eb15f791d84a81",
               "t_f17144727dc1528b1b0b2600"
             ],
-            "wires": []
+            "wires": [
+              "005f5346a1994baf",
+              "6ece1ee41c0c4616"
+            ]
           },
           {
             "id": "n_2daa9b32a53eb39ea811f89f",
@@ -820,7 +890,10 @@
               "t_bbf62b6112cbe11211964ec3",
               "t_c687d921d7b3669dcc95d0d7"
             ],
-            "wires": []
+            "wires": [
+              "173e2409525a49bd",
+              "ccf10acdaa8444b7"
+            ]
           },
           {
             "id": "n_f610b49f5b16c5ceba9712a4",
@@ -842,7 +915,14 @@
               "t_dc144be9ea8ba4d689f1d533",
               "t_fe8ee89dee6f08b82b097a85"
             ],
-            "wires": []
+            "wires": [
+              "295e1a105d474751",
+              "2a4a1c09929c4d0a",
+              "34b7821b626d4c09",
+              "a4790440797d46e3",
+              "cf2576b1bd554695",
+              "d299386f52f44ab9"
+            ]
           },
           {
             "id": "n_a3946f5ad46a3148c576df7e",
@@ -853,7 +933,523 @@
             "wires": []
           }
         ]
-      }
+      },
+      "wires": [
+        {
+          "id": "005f5346a1994baf",
+          "points": [
+            [
+              240,
+              110
+            ],
+            [
+              170,
+              110
+            ]
+          ],
+          "net": "filtered",
+          "net_id": "n_89ffd550f5451ad941eebb0f"
+        },
+        {
+          "id": "6ece1ee41c0c4616",
+          "points": [
+            [
+              170,
+              110
+            ],
+            [
+              160,
+              110
+            ],
+            [
+              160,
+              220
+            ]
+          ],
+          "net": "filtered",
+          "net_id": "n_89ffd550f5451ad941eebb0f"
+        },
+        {
+          "id": "5f70969ec8fa4573",
+          "points": [
+            [
+              1240,
+              110
+            ],
+            [
+              1410,
+              110
+            ],
+            [
+              1410,
+              180
+            ]
+          ],
+          "net": "cmp",
+          "net_id": "n_cd30e6eeaaade2d748d47605"
+        },
+        {
+          "id": "173e2409525a49bd",
+          "points": [
+            [
+              360,
+              110
+            ],
+            [
+              560,
+              110
+            ],
+            [
+              560,
+              180
+            ]
+          ],
+          "net": "held",
+          "net_id": "n_2daa9b32a53eb39ea811f89f"
+        },
+        {
+          "id": "d299386f52f44ab9",
+          "points": [
+            [
+              180,
+              620
+            ],
+            [
+              400,
+              620
+            ]
+          ],
+          "net": "vdac",
+          "net_id": "n_97293f333712d6b7a0ddc89d"
+        },
+        {
+          "id": "295e1a105d474751",
+          "points": [
+            [
+              400,
+              620
+            ],
+            [
+              620,
+              620
+            ]
+          ],
+          "net": "vdac",
+          "net_id": "n_97293f333712d6b7a0ddc89d"
+        },
+        {
+          "id": "a4790440797d46e3",
+          "points": [
+            [
+              620,
+              620
+            ],
+            [
+              840,
+              620
+            ]
+          ],
+          "net": "vdac",
+          "net_id": "n_97293f333712d6b7a0ddc89d"
+        },
+        {
+          "id": "cf2576b1bd554695",
+          "points": [
+            [
+              840,
+              620
+            ],
+            [
+              1060,
+              620
+            ],
+            [
+              1060,
+              670
+            ]
+          ],
+          "net": "vdac",
+          "net_id": "n_97293f333712d6b7a0ddc89d"
+        },
+        {
+          "id": "9118e19ef2bf40e3",
+          "points": [
+            [
+              360,
+              150
+            ],
+            [
+              360,
+              280
+            ],
+            [
+              560,
+              280
+            ]
+          ],
+          "net": "0",
+          "net_id": "n_4a6d73e69f8a0dfc91a9decf"
+        },
+        {
+          "id": "b0ed0335c2924396",
+          "points": [
+            [
+              1060,
+              770
+            ],
+            [
+              1300,
+              770
+            ]
+          ],
+          "net": "0",
+          "net_id": "n_4a6d73e69f8a0dfc91a9decf"
+        },
+        {
+          "id": "34b7821b626d4c09",
+          "points": [
+            [
+              1060,
+              670
+            ],
+            [
+              1300,
+              670
+            ]
+          ],
+          "net": "vdac",
+          "net_id": "n_97293f333712d6b7a0ddc89d"
+        },
+        {
+          "id": "5c808652cdb346a3",
+          "points": [
+            [
+              360,
+              150
+            ],
+            [
+              360,
+              320
+            ],
+            [
+              160,
+              320
+            ]
+          ],
+          "net": "0",
+          "net_id": "n_4a6d73e69f8a0dfc91a9decf"
+        },
+        {
+          "id": "ccf10acdaa8444b7",
+          "points": [
+            [
+              560,
+              180
+            ],
+            [
+              560,
+              110
+            ],
+            [
+              840,
+              110
+            ]
+          ],
+          "net": "held",
+          "net_id": "n_2daa9b32a53eb39ea811f89f"
+        },
+        {
+          "id": "f943e08b3afa4bdd",
+          "points": [
+            [
+              840,
+              150
+            ],
+            [
+              840,
+              190
+            ],
+            [
+              1140,
+              190
+            ],
+            [
+              1140,
+              110
+            ]
+          ],
+          "net": "cmp_raw",
+          "net_id": "n_230de2a602341acd1135cb02"
+        },
+        {
+          "id": "12fbb2a8e3ed47fe",
+          "points": [
+            [
+              560,
+              280
+            ],
+            [
+              960,
+              280
+            ],
+            [
+              960,
+              150
+            ]
+          ],
+          "net": "0",
+          "net_id": "n_4a6d73e69f8a0dfc91a9decf"
+        },
+        {
+          "id": "baea8e0db0ed4504",
+          "points": [
+            [
+              960,
+              150
+            ],
+            [
+              960,
+              280
+            ],
+            [
+              1410,
+              280
+            ]
+          ],
+          "net": "0",
+          "net_id": "n_4a6d73e69f8a0dfc91a9decf"
+        },
+        {
+          "id": "5193c61db5a940bf",
+          "points": [
+            [
+              1300,
+              770
+            ],
+            [
+              1330,
+              770
+            ],
+            [
+              1330,
+              280
+            ],
+            [
+              1410,
+              280
+            ]
+          ],
+          "net": "0",
+          "net_id": "n_4a6d73e69f8a0dfc91a9decf"
+        },
+        {
+          "id": "2a4a1c09929c4d0a",
+          "points": [
+            [
+              840,
+              620
+            ],
+            [
+              1040,
+              620
+            ],
+            [
+              1040,
+              110
+            ],
+            [
+              960,
+              110
+            ]
+          ],
+          "net": "vdac",
+          "net_id": "n_97293f333712d6b7a0ddc89d"
+        }
+      ],
+      "labels": [
+        {
+          "id": "c428bac019f84112",
+          "kind": "net_label",
+          "name": "d0",
+          "anchor": {
+            "kind": "pin",
+            "id": "036566f418d043d3",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "8b597e9276fc43b4",
+          "kind": "net_label",
+          "name": "vdac",
+          "anchor": {
+            "kind": "pin",
+            "id": "897fd7eb17b4473c",
+            "pin": "negative"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "c8943dd0c43c4d56",
+          "kind": "net_label",
+          "name": "d1",
+          "anchor": {
+            "kind": "pin",
+            "id": "2328a8ddabe74020",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "cb0f3c5077e14798",
+          "kind": "net_label",
+          "name": "d2",
+          "anchor": {
+            "kind": "pin",
+            "id": "5670cacd71bd4eb7",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "811310f30db8416c",
+          "kind": "net_label",
+          "name": "d3",
+          "anchor": {
+            "kind": "pin",
+            "id": "98336287d5504518",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "f3cd9d53e4f74d5e",
+          "kind": "ground",
+          "name": "0",
+          "anchor": {
+            "kind": "pin",
+            "id": "86ba315d1ba943c4",
+            "pin": "n"
+          },
+          "offset": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "db6d5aecf9644b29",
+          "kind": "net_label",
+          "name": "filtered",
+          "anchor": {
+            "kind": "pin",
+            "id": "2b4f75a9446c439a",
+            "pin": "n"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "e7d4803e92be4ef1",
+          "kind": "net_label",
+          "name": "held",
+          "anchor": {
+            "kind": "pin",
+            "id": "29dc62570192427f",
+            "pin": "out"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "cf7f3f64d0fd4b74",
+          "kind": "net_label",
+          "name": "track",
+          "anchor": {
+            "kind": "pin",
+            "id": "29dc62570192427f",
+            "pin": "control"
+          },
+          "offset": [
+            -41,
+            -8
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "f4975ca4253a4429",
+          "kind": "net_label",
+          "name": "cmp_raw",
+          "anchor": {
+            "kind": "pin",
+            "id": "5f335b9de8b24916",
+            "pin": "p"
+          },
+          "offset": [
+            -55,
+            -8
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "43186701577b4fed",
+          "kind": "net_label",
+          "name": "cmp",
+          "anchor": {
+            "kind": "pin",
+            "id": "5f335b9de8b24916",
+            "pin": "n"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "1e283ef93ed6497c",
+          "kind": "net_label",
+          "name": "vin",
+          "anchor": {
+            "kind": "pin",
+            "id": "2b4f75a9446c439a",
+            "pin": "p"
+          },
+          "offset": [
+            -27,
+            -8
+          ],
+          "rotation": 0
+        }
+      ],
+      "junctions": [],
+      "example_drawing": 1
     },
     {
       "id": "5ab33038b18848f2",

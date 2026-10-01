@@ -13,6 +13,18 @@ def text_value(text,context=None):
     context=context or {}
     return re.sub(r'@([A-Za-z_][A-Za-z0-9_]*)',lambda m:str(context.get(m[1],m[0])),text)
 
+
+def visible_text(item, context=None):
+    """Xschem diagnostic placeholders have no value without backannotation.
+
+    Older saved imports did not retain hide=true. Recognize their diagnostic
+    tokens as well, without hiding unknown user-defined parameter names.
+    """
+    if item.get('hidden') and context is not None:return ''
+    text=text_value(item['text'],context)
+    if context is not None and re.search(r'@(?:#\S+|spice_get_\w+)',text):return ''
+    return text
+
 def transform(s,indices,dx=0,dy=0,angle=0,mirror=None,origin=(0,0),pins=()):
     co=round(math.cos(math.radians(angle)));si=round(math.sin(math.radians(angle)))
     def point(pt):
@@ -59,13 +71,52 @@ def painter_path(item):
         if kind=='polygon':p.closeSubpath()
     return p
 
-def draw(p,symbol,color,context=None):
-    from PySide6.QtCore import Qt,QPointF
-    from PySide6.QtGui import QColor,QPen,QFont
+def text_bounds(item,context=None,frame=None,*,xschem=False):
+    from PySide6.QtCore import QRectF
+    from PySide6.QtGui import QFont,QFontMetricsF,QTransform
+    text=visible_text(item,context)
+    if not text:return QRectF()
+    font=QFont('Sans Serif');font.setPointSizeF(item.get('font_size',8));font.setBold(item.get('bold',False))
+    metrics=QFontMetricsF(font)
+    transform=QTransform(frame) if frame is not None else QTransform()
+    transform.translate(*item['points'][0]);transform.rotate(item.get('rotation',0))
+    if xschem or item.get('text_anchor')=='corner':
+        if item.get('mirror'):transform.scale(-1,1)
+        width,height=metrics.horizontalAdvance(text),metrics.height()
+        box=QRectF(-width/2 if item.get('hcenter') else 0,-height/2 if item.get('vcenter') else 0,width,height)
+    else:
+        box=metrics.boundingRect(text)
+        box.translate(-box.center().x() if item.get('hcenter') else 0,-box.center().y() if item.get('vcenter') else 0)
+    return transform.mapRect(box)
+
+
+def draw(p,symbol,color,context=None,*,xschem=False):
+    from PySide6.QtCore import Qt,QPointF,QRectF
+    from PySide6.QtGui import QColor,QPen,QFont,QFontMetricsF,QTransform
     for item in symbol.get('primitives',[]):
         p.save();pen=QPen(QColor(item.get('color',color)),item.get('line_width',1.5));pen.setCosmetic(True);pen.setCapStyle(Qt.RoundCap);pen.setJoinStyle(Qt.RoundJoin);p.setPen(pen);p.setBrush(QColor(item.get('color',color)) if item.get('fill',False) else Qt.NoBrush)
         if item['kind']=='text':
-            p.translate(QPointF(*item['points'][0]));p.rotate(item.get('rotation',0));font=QFont('Sans Serif');font.setPointSizeF(item.get('font_size',8));font.setBold(item.get('bold',False));p.setFont(font);p.drawText(QPointF(0,0),text_value(item['text'],context))
+            text=visible_text(item,context)
+            p.translate(QPointF(*item['points'][0]));p.rotate(item.get('rotation',0));font=QFont('Sans Serif');font.setPointSizeF(item.get('font_size',8));font.setBold(item.get('bold',False));p.setFont(font)
+            metrics=QFontMetricsF(font);box=metrics.boundingRect(text)
+            if xschem or item.get('text_anchor')=='corner':
+                # Xschem rotation/flip select the corner of a text box; they
+                # do not produce mirrored or upside-down glyphs. Preserve the
+                # transformed box while painting readable horizontal/vertical ink.
+                if item.get('mirror'):p.scale(-1,1)
+                width=metrics.horizontalAdvance(text);height=metrics.height()
+                frame=p.worldTransform()
+                target=frame.mapRect(QRectF(-width/2 if item.get('hcenter') else 0,
+                                           -height/2 if item.get('vcenter') else 0,width,height))
+                scale=math.hypot(frame.m11(),frame.m12())
+                vertical=abs(frame.m12())>abs(frame.m11())
+                p.setWorldTransform(QTransform())
+                p.translate(target.left(),target.bottom() if vertical else target.top())
+                if vertical:p.rotate(-90)
+                p.scale(scale,scale)
+                p.drawText(QPointF(0,metrics.ascent()),text)
+            else:
+                p.drawText(QPointF(-box.center().x() if item.get('hcenter') else 0,-box.center().y() if item.get('vcenter') else 0),text)
         else:p.drawPath(painter_path(item))
         p.restore()
 

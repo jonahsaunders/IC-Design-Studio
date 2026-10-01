@@ -1,12 +1,13 @@
 from __future__ import annotations
 import math
 from PySide6.QtCore import Qt,QPointF,QRectF,Signal
-from PySide6.QtGui import QPainter,QPen,QColor,QPainterPath,QFont,QFontMetricsF,QPolygonF,QPicture
+from PySide6.QtGui import QPainter,QPen,QColor,QPainterPath,QFont,QFontMetricsF,QPolygonF,QPicture,QTransform
 from PySide6.QtWidgets import QWidget
 from .interchange import pin_positions
 from .model import uid
 from .ui_style import palette
 from . import wiring
+from .schematic_labels import captions
 from .wire_canvas import WireCanvasMixin
 
 from .label_canvas import LabelCanvasMixin
@@ -28,6 +29,7 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         self.view_changed.connect(self.clear_selection_preview)
     def set_data(self,cell,tech,selection=None,net='',revision=None,dirty_indices=None,*,immutable=False):
         self.preselection=None;self.selection_hint=''
+        self._schematic_bounds={}
         self.cell=cell;self.tech=tech;self.selection=list(selection or []);self.net=net
         if self.mode=='layout':
             from .layout_cache import LayoutGeometryCache
@@ -70,11 +72,25 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
             if obj.get('kind') in ('net_label','ground'):return self.label_box(obj)
             if 'points' in obj:
                 xs,ys=zip(*obj['points']);return QRectF(min(xs),min(ys),max(xs)-min(xs),max(ys)-min(ys)).adjusted(-5,-5,5,5)
+            key=(id(obj),obj['x'],obj['y'],obj['rotation'],obj.get('mirror',False))
+            cached=getattr(self,'_schematic_bounds',{}).get(key)
+            if cached is not None:return cached
             radius=65
             if obj.get('symbol'):
                 points=list(obj['symbol']['pins'].values())+[pt for item in obj['symbol']['primitives'] for pt in item['points']]
                 radius=max([65]+[abs(v)+12 for pt in points for v in pt])
-            return QRectF(obj['x']-radius,obj['y']-radius,2*radius,2*radius)
+            box=QRectF(obj['x']-radius,obj['y']-radius,2*radius,2*radius)
+            for x,y,text,size,_ in captions(obj):
+                box=box.united(QFontMetricsF(QFont('Sans Serif',size)).boundingRect(text).translated(x,y))
+            if obj.get('symbol'):
+                from .symbol_geometry import text_bounds
+                frame=QTransform();frame.translate(obj['x'],obj['y']);frame.rotate(obj['rotation']);frame.scale(-1 if obj.get('mirror') else 1,1)
+                context=self.instance_context(obj)
+                for item in obj['symbol']['primitives']:
+                    if item['kind']=='text':box=box.united(text_bounds(item,context,frame,xschem=bool(obj.get('xschem') or obj.get('symbol_context') or obj.get('model_ref'))))
+            self._schematic_bounds=getattr(self,'_schematic_bounds',{})
+            self._schematic_bounds[key]=box.adjusted(-4,-4,4,4)
+            return self._schematic_bounds[key]
         pts=obj['points'];xs=[p[0] for p in pts];ys=[p[1] for p in pts];w=obj.get('width',0)/2;return QRectF(min(xs)-w,min(ys)-w,max(xs)-min(xs)+2*w,max(ys)-min(ys)+2*w)
     def resizeEvent(self,event):
         if self.cell and getattr(self,"auto_fit",True):self.fit()
@@ -151,6 +167,18 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         if getattr(self,'live_presence',None):
             from .live_ui import paint_presence
             paint_presence(self,p)
+    def instance_context(self,device):
+        from .catalog_migration import symbol_context
+        from .native_vectors import display_name
+        context=symbol_context(device,self.tech)
+        context['name']=display_name(device)
+        context['symname']=getattr(self,'cell_names',{}).get(device.get('cell'),context.get('symname',''))
+        # The inspector retains the full library-qualified model identifier.
+        # Its local name is enough on the already-bound symbol drawing.
+        if device.get('model_ref') and '__' in context.get('model',''):
+            context['model']=context['model'].rsplit('__',1)[-1]
+        return context
+
     def draw_schematic(self,p,view,*,force_detail=False):
         self.draw_wires(p)
         if not force_detail and self.scale<.35 and len(self.cell['devices'])>50 and not self.cell.get('xschem') and not self.cell.get('electrical'):
@@ -171,9 +199,22 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
                 p.setPen(self.pen(fg,1.8))
             if d.get('symbol'):
                 from .symbol_editor import draw_symbol
-                from .catalog_migration import symbol_context
-                from .native_vectors import display_name
-                draw_symbol(p,d['symbol'],fg,{**symbol_context(d,self.tech),'name':display_name(d)})
+                draw_symbol(p,d['symbol'],fg,self.instance_context(d),xschem=bool(d.get('xschem') or d.get('symbol_context') or d.get('model_ref')))
+                # Early generated block symbols stored a body and pins but no
+                # terminal strokes, making connected instances look unplugged.
+                primitives=d['symbol']['primitives']
+                if primitives and all(item['kind'] in ('rect','text') for item in primitives):
+                    rect=next((item for item in primitives if item['kind']=='rect'),None)
+                    if rect:
+                        (x1,y1),(x2,y2)=rect['points'];left,right=sorted((x1,x2));top,bottom=sorted((y1,y2))
+                        if kind=='X' and not any(item['kind']=='text' for item in primitives):
+                            title=getattr(self,'cell_names',{}).get(d.get('cell'),'Cell').replace('_',' ')
+                            p.setFont(QFont('Sans Serif',7));p.drawText(QRectF(left+5,top+5,right-left-10,bottom-top-10),Qt.AlignCenter|Qt.TextWordWrap,title)
+                        for x,y in d['symbol']['pins'].values():
+                            xx,yy=max(left,min(right,x)),max(top,min(bottom,y))
+                            others=[pt for pt in d['symbol']['pins'].values() if pt!=[x,y]]
+                            if any(wiring.on_segment(pt,[x,y],[xx,y]) or wiring.on_segment(pt,[xx,y],[xx,yy]) for pt in others):continue
+                            p.drawLine(QPointF(x,y),QPointF(xx,y));p.drawLine(QPointF(xx,y),QPointF(xx,yy))
             elif kind in ('R','C','V'):
                 pen=self.pen(fg,1.5);pen.setCapStyle(Qt.RoundCap);pen.setJoinStyle(Qt.RoundJoin);p.setPen(pen)
                 # Keep the electrical terminals at +/-50; only the ink changes.
@@ -201,17 +242,17 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
                 else:p.drawLine(10,0,18,-5);p.drawLine(10,0,18,5)
             elif d.get('symbol'):
                 from .symbol_editor import draw_symbol
-                from .catalog_migration import symbol_context
-                from .native_vectors import display_name
-                draw_symbol(p,d['symbol'],fg,{**symbol_context(d,self.tech),'name':display_name(d)})
+                draw_symbol(p,d['symbol'],fg,self.instance_context(d),xschem=bool(d.get('xschem') or d.get('symbol_context') or d.get('model_ref')))
             else:
-                p.drawRect(QRectF(-40,-50,80,max(100,len(d['nets'])*20)));p.drawText(QRectF(-35,-15,70,30),Qt.AlignCenter,'CELL')
+                height=max(80,math.ceil(len(d['nets'])/2)*40)
+                p.drawRect(QRectF(-40,-60,80,height));p.setFont(QFont('Sans Serif',7))
+                title=getattr(self,'cell_names',{}).get(d.get('cell'),'Cell').replace('_',' ')
+                p.drawText(QRectF(-35,-55,70,height-10),Qt.AlignCenter|Qt.TextWordWrap,title)
                 pos=pin_positions({**d,'x':0,'y':0,'rotation':0,'mirror':False})
                 for pin,(x,y) in pos.items():p.drawLine(x,y,-40 if x<0 else 40,y)
             p.restore()
-            if not d.get('xschem') and not d.get('native_spice'):
-                from .native_vectors import display_name
-                p.setPen(QColor(fg));p.setFont(QFont('Sans Serif',11));p.drawText(QPointF(d['x']-20 if d['rotation'] in (90,270) else d['x']+37,d['y']-55 if d['rotation'] in (90,270) else d['y']-30),display_name(d));p.setFont(QFont('Sans Serif',9));p.setPen(QColor(palette(self.dark)['muted']));p.drawText(QPointF(d['x']-20 if d['rotation'] in (90,270) else d['x']+37,d['y']-39 if d['rotation'] in (90,270) else d['y']-12),d.get('model_ref',{}).get('device','').split('/')[-1].replace('.sym','') if kind=='PDK' else d['value'] if kind not in ('NMOS','PMOS','X') else (d['params']['w']+' / '+d['params']['l'] if kind!='X' else 'hierarchy'))
+            for x,y,text,size,muted in captions(d):
+                p.setFont(QFont('Sans Serif',size));p.setPen(QColor(palette(self.dark)['muted'] if muted else fg));p.drawText(QPointF(x,y),text)
             for pin,(x,y) in pin_positions(d).items():
                 name=d.get('net_labels',d['nets'] if 'wires' not in self.cell else {}).get(pin,'')
                 p.setFont(QFont('Sans Serif',8))

@@ -28,7 +28,12 @@ def example_copy(entry):
     if path.suffix.lower() == '.sch':
         from .xschem_compat import review_project
         from .xschem_project import apply_review
-        project = apply_review(review_project(path))
+        # Bundled child sheets share their example's library folder. Resolve
+        # only inside the packaged examples, even when a child is opened alone.
+        libraries=[str(parent) for parent in path.parents if parent.is_relative_to(root)]
+        project = apply_review(review_project(path,library_paths=libraries))
+        from .example_schematics import imported_labels
+        imported_labels(project)
     else:
         project = load_project(path)
     # Independent documents must not pick up another copy's run history.

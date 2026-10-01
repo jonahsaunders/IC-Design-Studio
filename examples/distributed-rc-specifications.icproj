@@ -91,8 +91,8 @@
           "id": "b5f2542a6e714b46",
           "kind": "V",
           "name": "V1",
-          "x": 180,
-          "y": 260,
+          "x": 140,
+          "y": 240,
           "rotation": 0,
           "nets": {
             "p": "vin",
@@ -114,14 +114,16 @@
             "delay": "0.2n",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "3c5231d37bb245c7",
           "kind": "R",
           "name": "R1",
-          "x": 420,
-          "y": 180,
+          "x": 320,
+          "y": 190,
           "rotation": 270,
           "nets": {
             "p": "vin",
@@ -143,14 +145,16 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "16c9e140ce054e35",
           "kind": "C",
           "name": "C1",
-          "x": 650,
-          "y": 260,
+          "x": 500,
+          "y": 240,
           "rotation": 0,
           "nets": {
             "p": "vout",
@@ -172,7 +176,9 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         }
       ],
       "shapes": [
@@ -429,7 +435,100 @@
           "name": "Source power",
           "expression": "V(\"vin\")*I(\"V1\")"
         }
-      ]
+      ],
+      "wires": [
+        {
+          "id": "f4489639a8a848f5",
+          "points": [
+            [
+              370,
+              190
+            ],
+            [
+              500,
+              190
+            ]
+          ],
+          "net": "vout"
+        },
+        {
+          "id": "75edc15fd2e445fd",
+          "points": [
+            [
+              140,
+              190
+            ],
+            [
+              270,
+              190
+            ]
+          ],
+          "net": "vin"
+        },
+        {
+          "id": "5b82755166434dce",
+          "points": [
+            [
+              140,
+              290
+            ],
+            [
+              500,
+              290
+            ]
+          ],
+          "net": "0"
+        }
+      ],
+      "labels": [
+        {
+          "id": "0b6281c4f7584d6b",
+          "kind": "net_label",
+          "name": "vin",
+          "anchor": {
+            "kind": "pin",
+            "id": "b5f2542a6e714b46",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "1cde2dbb6fe04aba",
+          "kind": "ground",
+          "name": "0",
+          "anchor": {
+            "kind": "pin",
+            "id": "16c9e140ce054e35",
+            "pin": "n"
+          },
+          "offset": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "6debf2b01d834fff",
+          "kind": "net_label",
+          "name": "vout",
+          "anchor": {
+            "kind": "pin",
+            "id": "3c5231d37bb245c7",
+            "pin": "n"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        }
+      ],
+      "junctions": [],
+      "example_drawing": 1
     }
   ],
   "analysis": {

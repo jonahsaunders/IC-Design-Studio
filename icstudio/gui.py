@@ -81,6 +81,7 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
             self.cell_combo.addItem(c['name'],c['id']);item=QTreeWidgetItem(root,[c['name']+('  · top' if c['id']==self.project['top'] else '')]);item.setData(0,Qt.UserRole,('cell',c['id']));item.setExpanded(c['id']==self.cid)
             for d in c['devices']:
                 it=QTreeWidgetItem(item,[d['name']+'  '+d['kind']]);it.setData(0,Qt.UserRole,('device',c['id'],d['id']))
+        self.schematic.cell_names={c['id']:c['name'] for c in self.project['cells']}
         self.cell_combo.setCurrentIndex(next(i for i,c in enumerate(self.project['cells']) if c['id']==self.cid));self.schematic.set_data(self.cell,self.project['pdk'],self.selection,self.net);self.layout.set_data(self.cell,self.project['pdk'],self.selection,self.net,revision=self.project['revision'])
         self.layers.blockSignals(True);self.layers.clear()
         for l in self.project['pdk']['layers']:
@@ -615,6 +616,28 @@ from .digital_ui import DigitalMixin
 
 class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,InteroperabilityMixin,LayoutDevelopmentMixin,OnboardingMixin,NativeWorkspaceMixin,XschemWorkflowMixin,VerificationWorkspaceMixin,PhysicalWorkspaceMixin,EngineeringWorkspaceMixin,SimulationWorkspaceMixin,HumanWorkspaceMixin,ConsistencyWorkspaceMixin,CaptureWorkspaceMixin,EditorWorkspaceMixin, LayoutToolsMixin, AnalogMixin, HierarchyMixin, SiliconMixin, LifecycleMixin, LayoutMixin, ProjectMixin, SchematicMixin, FeatureMixin, WorkspaceMixin, StudioCore):
     """Standalone desktop application with the document-focused workspace."""
+    def design_widget(self):
+        tabs = getattr(self, 'app_workspaces', None)
+        return tabs.widget(0) if tabs else self.centralWidget()
+
+    def take_design_widget(self):
+        tabs = getattr(self, 'app_workspaces', None)
+        return tabs.take_design() if tabs else self.takeCentralWidget()
+
+    def set_design_widget(self, widget):
+        tabs = getattr(self, 'app_workspaces', None)
+        if tabs: tabs.set_design(widget)
+        else: self.setCentralWidget(widget)
+
+    def show_design_workspace(self):
+        tabs = getattr(self, 'app_workspaces', None)
+        if tabs: tabs.setCurrentIndex(0)
+
+    def activate_circuit_view(self,index):
+        if not self.leave_digital_workspace():return False
+        self.mode_combo.setCurrentIndex(index)
+        return self.mode_combo.currentIndex()==index
+
     def maybe_save(self):
         experiment = getattr(self, '_mixed_signal_dialog', None)
         if experiment and experiment.project_id == self.project['id'] and not experiment.resolve_draft():
@@ -628,8 +651,15 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
 
     def set_project(self,project,path=None):
         result=super().set_project(project,path)
+        if result is False:return False
         hub=getattr(self,'_student_hub',None)
-        if hub:hub.guide.update_run_state()
+        if hub:
+            hub.guide.update_run_state()
+            record=hub.portfolio.workspace(hub.guide.lesson) if hub.guide.lesson else None
+            if not record or record['project_id']!=self.project['id']:hub.guide.hide()
+        for name in ('_mixed_signal_dialog','analog_workspace'):
+            window=getattr(self,name,None)
+            if window and window.project_id!=self.project['id']:window.hide()
         return result
 
     def closeEvent(self,event):
@@ -639,7 +669,13 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
             except Exception as exc:
                 self.error('The lesson reflection could not be saved. Keep this window open and retry.\n'+str(exc))
                 event.ignore();return
+        tabs=getattr(self,'app_workspaces',None)
+        was_hub=tabs is not None and tabs.currentIndex()==1
+        # Persist the design's panel arrangement, not the temporary empty
+        # arrangement used while the learning page occupies the window.
+        if was_hub:self.show_design_workspace()
         super().closeEvent(event)
+        if was_hub and not event.isAccepted():tabs.setCurrentIndex(1)
 
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
@@ -659,6 +695,8 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
         install_mixed_signal(self)
         from .student_hub_ui import install as install_student_hub
         install_student_hub(self)
+        from .app_workspaces import install as install_app_workspaces
+        install_app_workspaces(self)
         self.reindex_commands()
     connect = SchematicMixin.connect
     move = LayoutDevelopmentMixin.move

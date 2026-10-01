@@ -32,7 +32,7 @@ def main():
         w.settings.setValue('engine/'+name,path)
     w.settings.setValue('digital/orfs',os.environ['ICSTUDIO_TEST_ORFS'])
     w.set_project(p);w.resize(1600,1050);w.show();d=w.digital_window()
-    assert w.centralWidget() is d and d.stage.count()==13
+    assert w.design_widget() is d and w.centralWidget() is w.app_workspaces and d.stage.count()==13
     def run(stage):
         d.stage.setCurrentIndex(d.stage.findData(stage));row=d.run();deadline=time.monotonic()+300
         while w.run_manager.busy and time.monotonic()<deadline:app.processEvents();time.sleep(.01)

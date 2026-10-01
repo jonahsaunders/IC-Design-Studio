@@ -221,7 +221,9 @@ class MixedSignalDialog(QDialog):
         if row: self.studio.run_manager.cancel([row])
 
     def analog(self):
-        s = self.studio; s.leave_digital_workspace(); s.cid = s.project['mixed_signal']['analog_cell']; s.mode_combo.setCurrentIndex(0); s.refresh(True); self.hide()
+        s = self.studio
+        if not s.leave_digital_workspace():return
+        s.cid = s.project['mixed_signal']['analog_cell']; s.mode_combo.setCurrentIndex(0); s.refresh(True); self.hide()
 
     def digital(self):
         s = self.studio; s.cid = s.project['mixed_signal']['digital_cell']; s.digital_window().workspace.switch_cell(s.cid); self.hide()
@@ -230,6 +232,7 @@ class MixedSignalDialog(QDialog):
 def show(studio):
     if not isinstance(studio.project.get('mixed_signal'), dict):
         raise ValueError('Open the SAR ADC example or a project with a mixed-signal configuration.')
+    studio.show_design_workspace()
     old = getattr(studio, '_mixed_signal_dialog', None)
     if old is not None:
         if old.project_id == studio.project['id'] and old.base_config == studio.project['mixed_signal']:

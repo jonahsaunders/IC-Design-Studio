@@ -98,7 +98,7 @@ class OnboardingMixin:
         project = example_copy(entry)
         if not self._replace_document():
             return False
-        self.set_project(project)
+        if self.set_project(project) is False:return False
         self.mode_combo.setCurrentIndex(entry['mode'])
         engine = entry['engine']
         if engine not in ('none', 'mixed_signal'):
@@ -106,24 +106,24 @@ class OnboardingMixin:
         self.inspector_tabs.setCurrentIndex(1 if engine != 'none' else 0)
         self.results_dock.hide()
         self.statusBar().showMessage('Example copy opened · ' + entry['expected'], 20000)
-        QTimer.singleShot(80, lambda: (self.schematic.fit(), self.layout.fit()))
+        project_id = self.project['id']
+        QTimer.singleShot(80, lambda: (self.schematic.fit(), self.layout.fit()) if self.project['id']==project_id else None)
         if engine == 'mixed_signal':
             from .mixed_signal_ui import show
-            QTimer.singleShot(0, lambda: show(self))
+            QTimer.singleShot(0, lambda: show(self) if self.project['id']==project_id else None)
         return True
 
     def start_here(self):
         existing = getattr(self, '_start_dialog', None)
-        if existing and existing.isVisible():
-            existing.raise_()
+        if existing:
+            existing.show();existing.raise_()
             return existing
         dlg = QDialog(self); dlg.setWindowTitle('Start here · IC Design Studio'); dlg.resize(1080, 740)
         outer = QVBoxLayout(dlg); outer.setContentsMargins(24, 20, 24, 20)
         outer.addWidget(label('From first circuit to a reusable design.', True))
         outer.addWidget(label('Choose a short example. Each opens as an independent copy with its analysis already configured.'))
         actions = QHBoxLayout(); outer.addLayout(actions)
-        from .student_hub_ui import show as show_student_hub
-        for title, fn in [('Student Hub', lambda: show_student_hub(self)), ('New project…', self.new_project), ('Open project…', self.open_project),
+        for title, fn in [('New project…', self.new_project), ('Open project…', self.open_project),
                           ('Import Xschem…', self.migrate_xschem_file), ('Set up a PDK…', self.pdk_manager)]:
             button = QPushButton(title); button.clicked.connect(lambda checked=False, fn=fn: self.guard(fn)); actions.addWidget(button)
         split = QSplitter(); outer.addWidget(split, 1)

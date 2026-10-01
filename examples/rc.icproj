@@ -81,8 +81,8 @@
           "id": "8fc21b7105394b8b",
           "kind": "V",
           "name": "V1",
-          "x": 180,
-          "y": 260,
+          "x": 140,
+          "y": 240,
           "rotation": 0,
           "nets": {
             "p": "vin",
@@ -104,14 +104,16 @@
             "delay": "2u",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "fdd7efc789e24c25",
           "kind": "R",
           "name": "R1",
-          "x": 420,
-          "y": 180,
+          "x": 320,
+          "y": 190,
           "rotation": 270,
           "nets": {
             "p": "vin",
@@ -133,14 +135,16 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         },
         {
           "id": "c9eeaafea8394040",
           "kind": "C",
           "name": "C1",
-          "x": 650,
-          "y": 260,
+          "x": 500,
+          "y": 240,
           "rotation": 0,
           "nets": {
             "p": "vout",
@@ -162,10 +166,105 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "mirror": false,
+          "net_labels": {}
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "wires": [
+        {
+          "id": "c4f680d146a94939",
+          "points": [
+            [
+              140,
+              190
+            ],
+            [
+              270,
+              190
+            ]
+          ],
+          "net": "vin"
+        },
+        {
+          "id": "978f6487d32e4f18",
+          "points": [
+            [
+              370,
+              190
+            ],
+            [
+              500,
+              190
+            ]
+          ],
+          "net": "vout"
+        },
+        {
+          "id": "2fad2ecb33c347e7",
+          "points": [
+            [
+              140,
+              290
+            ],
+            [
+              500,
+              290
+            ]
+          ],
+          "net": "0"
+        }
+      ],
+      "labels": [
+        {
+          "id": "b76d057b44f64d04",
+          "kind": "net_label",
+          "name": "vin",
+          "anchor": {
+            "kind": "pin",
+            "id": "8fc21b7105394b8b",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "2f906066dfc4495b",
+          "kind": "ground",
+          "name": "0",
+          "anchor": {
+            "kind": "pin",
+            "id": "c9eeaafea8394040",
+            "pin": "n"
+          },
+          "offset": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "192c248a76ac4777",
+          "kind": "net_label",
+          "name": "vout",
+          "anchor": {
+            "kind": "pin",
+            "id": "fdd7efc789e24c25",
+            "pin": "n"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        }
+      ],
+      "junctions": [],
+      "example_drawing": 1
     }
   ],
   "analysis": {

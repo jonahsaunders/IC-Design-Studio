@@ -505,6 +505,7 @@ class EditorWorkspaceMixin:
     def save_editor_workspace(self,name):
         self.save_layer_profile();data={'state':bytes(self.saveState(3).toBase64()).decode(),'mode':self.mode_combo.currentIndex(),'splitter':self.canvases.sizes(),'filters':sorted(self.layout.selection_types),'box':self.editor_box.currentText(),'profile':self.key_profile}
         self.settings.setValue('editor/workspaces/'+name,json.dumps(data))
+        return data
 
     def load_editor_workspace(self,name):
         raw=self.settings.value('editor/workspaces/'+name,'')

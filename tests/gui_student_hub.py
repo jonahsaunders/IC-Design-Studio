@@ -96,7 +96,7 @@ def main():
     g.steps.setCurrentIndex(3);g.notes.setPlainText('Draft final review: compare nominal, rail and hold-step evidence before making implementation claims.');QTest.qWait(700)
     assert Portfolio(h.portfolio.root).state['lessons']['c-qualify']['notes']['explain'].startswith('Draft')
     g.run();cancelled=w.run_manager.rows[-1];QTest.qWait(30);g.cancel();wait();assert cancelled['state']=='Cancelled'
-    h.select_lesson('c-filter');h.show();QTest.qWait(40);h.grab().save(str(out/'advanced-project.png'))
+    h.select_lesson('c-filter');show(w);QTest.qWait(40);h.grab().save(str(out/'advanced-project.png'))
     h.close();g.close();w.saved_hash=digest(w.project);w.close();app.processEvents();assert not errors,errors
     report=dict(status='PASS',qt_platform=app.platformName(),checks=['six paths and capstone navigation','wrong answer rejected',
         'real analog worker and stale-result rejection','persisted completion and lesson resume','save-cancel preserves work',

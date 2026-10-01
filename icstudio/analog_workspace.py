@@ -16,6 +16,7 @@ def assignments(text):
 def install(studio):
     def show():
         from .analog_workspace_ui import AnalogWorkspace
+        studio.show_design_workspace()
         window=getattr(studio,'analog_workspace',None)
         if window is None or window.project_id!=studio.project['id']:
             if window:window.close();window.deleteLater()
