@@ -7,7 +7,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from .model import atomic_write, clone, design_digest, digest, file_digest, now
+from .model import atomic_write, clone, design_digest, digest, file_digest, io_path, now
 from .digital_design import config as cell_config
 
 
@@ -29,7 +29,7 @@ def capture_upstream(project,cid,directory):
 
 
 def verify_upstream(record):
-    root=Path(record['root']).resolve()
+    root=io_path(record['root']).resolve()
     if file_digest(root/'result.json')!=record['result_sha256']:raise ValueError('The upstream result changed after this job was queued.')
     from .digital_flow import validate_result
     result=json.loads((root/'result.json').read_text());validate_result(result,root)

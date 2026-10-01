@@ -9,7 +9,7 @@ from pathlib import Path
 
 from . import digital
 from .engines import execute
-from .model import atomic_write, clone, design_digest, digest, file_digest, now, validate
+from .model import atomic_write, clone, design_digest, digest, file_digest, io_path, now, validate
 
 STAGES = ('simulate', 'lint', 'elaborate', 'synth', 'mapped', 'timing', 'equivalence',
           'floorplan', 'place', 'cts', 'route', 'finish', 'regression')
@@ -156,9 +156,10 @@ def yosys_script(config, elaborate=False):
 
 def artifact(root, path, allow_empty=False):
     path = Path(path)
-    if not path.is_file() or path.stat().st_size == 0 and not allow_empty:
+    local = io_path(path)
+    if not local.is_file() or local.stat().st_size == 0 and not allow_empty:
         raise ValueError('The digital tool did not produce '+path.name+'. Inspect its log.')
-    return {'path': path.relative_to(root).as_posix(), 'sha256': file_digest(path), 'bytes': path.stat().st_size}
+    return {'path': path.relative_to(root).as_posix(), 'sha256': file_digest(local), 'bytes': local.stat().st_size}
 
 
 def artifact_path(value):
@@ -183,7 +184,7 @@ def validate_result(result, directory):
         'finish':{'netlist','checkpoint','layout_preview','gds','spef'},'regression':{'regression'},'lint':set()}[data['stage']]
     if not required.issubset(data['artifacts']) or data['stage'] != result.get('settings',{}).get('stage'):
         raise ValueError('Digital result is missing the required artifacts or has a mismatched stage.')
-    root = Path(directory).resolve()
+    root = io_path(directory).resolve()
     for record in data['artifacts'].values():
         if not isinstance(record, dict): raise ValueError('Invalid digital artifact record.')
         relative = artifact_path(record.get('path'))

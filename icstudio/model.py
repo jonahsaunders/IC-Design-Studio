@@ -23,9 +23,16 @@ def uid(): return uuid.uuid4().hex[:16]
 def now(): return datetime.now(timezone.utc).isoformat(timespec='seconds')
 def clone(x): return copy.deepcopy(x)
 def digest(x): return hashlib.sha256(json.dumps(x,sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest()
+def io_path(path):
+    """Use Windows extended paths for file I/O; keep stored and engine paths portable."""
+    if os.name!='nt':return Path(path)
+    value=os.path.abspath(os.fspath(path))
+    if value.startswith('\\\\?\\'):return Path(value)
+    return Path('\\\\?\\UNC\\'+value[2:] if value.startswith('\\\\') else '\\\\?\\'+value)
+
 def file_digest(path):
     h=hashlib.sha256()
-    with open(path,"rb") as f:
+    with open(io_path(path),"rb") as f:
         for block in iter(lambda:f.read(1024*1024),b""): h.update(block)
     return h.hexdigest()
 

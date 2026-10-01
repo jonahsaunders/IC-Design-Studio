@@ -9,7 +9,7 @@ import sys
 import tempfile
 import uuid
 
-from .model import atomic_write, clone, design_digest, file_digest
+from .model import atomic_write, clone, design_digest, file_digest, io_path
 
 
 def translate(job, native_root, work):
@@ -31,6 +31,7 @@ def translate(job, native_root, work):
 def stage_inputs(job, target):
     from .digital_design import config
     from .digital_platform import stage, verify_flow
+    target = io_path(target)
     value = config(job['project'],job['cell'])
     if 'platform' in value: stage(value['platform'],target/'platform-input')
     flow = job['settings'].get('flow')
@@ -38,16 +39,16 @@ def stage_inputs(job, target):
         verify_flow(flow)
         for record in flow['files']:
             p = target/'flow-input'/record['path']; p.parent.mkdir(parents=True,exist_ok=True)
-            shutil.copy2(Path(flow['root'])/record['path'],p)
+            shutil.copy2(io_path(Path(flow['root'])/record['path']),p)
     upstream = job['settings'].get('upstream')
     if upstream:
         from .digital_implementation import verify_upstream
         verify_upstream(upstream)
         destination = target/'upstream-input'; destination.mkdir()
-        shutil.copy2(Path(upstream['root'])/'result.json',destination/'result.json')
+        shutil.copy2(io_path(Path(upstream['root'])/'result.json'),destination/'result.json')
         for record in upstream['artifacts'].values():
             p = destination/record['path']; p.parent.mkdir(parents=True,exist_ok=True)
-            shutil.copy2(Path(upstream['root'])/record['path'],p)
+            shutil.copy2(io_path(Path(upstream['root'])/record['path']),p)
         copy = {**upstream,'root':str(destination)}; verify_upstream(copy)
 
 
@@ -85,7 +86,7 @@ def dispatch(job, directory, progress):
     token = uuid.uuid4().hex
     if runtime['kind']=='wsl':
         native_work = '/var/tmp/icstudio-jobs/'+token
-        work = Path(runtime['root'])/native_work.lstrip('/')
+        work = io_path(Path(runtime['root'])/native_work.lstrip('/'))
         work.mkdir(parents=True)
         command = [shutil.which('wsl.exe') or 'wsl.exe','--distribution',runtime['distro'],'--exec',
                    '/opt/icstudio/bin/python3',native_work+'/backend/entry.py']
@@ -123,8 +124,8 @@ def dispatch(job, directory, progress):
         try: execute(command,root,timeout=timeout,on_line=line,env=env)
         finally:
             output = work/'output'
-            if output.is_dir(): shutil.copytree(output,root,dirs_exist_ok=True)
-            shutil.copy2(work/'native-input.json',root/'backend-input.json')
+            if output.is_dir(): shutil.copytree(io_path(output),io_path(root),dirs_exist_ok=True)
+            shutil.copy2(work/'native-input.json',io_path(root/'backend-input.json'))
         result = json.loads((root/'backend-result.json').read_text())
         metadata = json.loads((root/'backend.json').read_text())
         metadata['native_input_sha256'] = file_digest(root/'backend-input.json')
