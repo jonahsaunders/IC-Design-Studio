@@ -71,13 +71,13 @@ class StudentHub(QDialog):
         head=QHBoxLayout();head.addWidget(label('Student Hub','title'),1)
         self.resume=button('Continue learning',lambda:self.call(self.continue_learning));head.addWidget(self.resume)
         self.more=button('More',lambda:None);self.more.setAccessibleName('Student Hub options')
-        menu=QMenu(self.more);self.more.setMenu(menu)
+        menu=QMenu(self.more);self.more_menu=menu;self.more.setMenu(menu)
         for title,fn in [('Continue learning',self.continue_learning),('Feature map',lambda:studio.open_editor_doc('STUDENT_HUB.md')),('Engine setup…',self.setup),
                          ('Export learning record…',self.export),('Export portfolio report…',lambda:self.export(report=True)),
                          ('Locate lesson project…',self.locate),('Reload progress',self.reload_progress)]:
-            menu.addAction(title,lambda fn=fn:self.call(fn))
-        sizes=menu.addMenu('Text size')
-        for scale in (100,125,150,200):sizes.addAction(f'{scale}%',lambda scale=scale:self.set_text_scale(scale))
+            menu.addAction(title,lambda checked=False,fn=fn:self.call(fn))
+        sizes=menu.addMenu('Text size');self.text_size_menu=sizes
+        for scale in (100,125,150,200):sizes.addAction(f'{scale}%',lambda checked=False,scale=scale:self.set_text_scale(scale))
         head.addWidget(self.more);root.addLayout(head)
         self.total=label('','muted');root.addWidget(self.total)
         root.addWidget(label('Learn the idea → repair a design → check the evidence → explain your decisions.','muted'))
