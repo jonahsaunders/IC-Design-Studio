@@ -48,7 +48,11 @@ def main():
     old_hook=sys.excepthook
     def exception(kind,value,tb):errors.append(str(value));old_hook(kind,value,tb)
     sys.excepthook=exception
-    w = Studio(recover=False);w.resize(1440, 1000);w.maybe_save = lambda: True
+    settings=QSettings(str(profile/'settings.ini'),QSettings.IniFormat)
+    settings.setFallbacksEnabled(False)
+    with patch('icstudio.gui.QSettings',return_value=settings):
+        w = Studio(recover=False)
+    w.resize(1440, 1000);w.maybe_save = lambda: True
     w.error = errors.append;w.jobs_dir = out/'runs';w.show()
     h = show(w);g = h.guide
     assert QFontMetrics(h.font()).inFontUcs4(ord('A')), 'The GUI must render real glyphs'
@@ -58,9 +62,9 @@ def main():
         assert not errors, errors
         checks.append(name)
 
-    for key in ('foundations','analog','digital','mixed','capstone'):
+    for key in [p['id'] for p in h.data['paths']]+['capstone']:
         h.choose_path(key)
-        assert h.lessons.count() == (4 if key == 'capstone' else 6)
+        assert h.lessons.count() == sum(l['path']==key and (key!='inverter' or l['inverter_profile']==h.process_picker.currentData()) for l in h.data['lessons'])
         assert h.path_picker.currentData() == key
         assert h.path_list.currentItem().data(Qt.UserRole) == key
     h.select_lesson('f-first')

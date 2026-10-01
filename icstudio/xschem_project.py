@@ -141,7 +141,11 @@ class Reader:
         # The pinned SKY130 primitive corner closure is about 34 MB. Retain a
         # bounded import while allowing that standard open PDK to be portable.
         if len(data)>10_000_000 or self.total_bytes>64_000_000 or len(self.files)>=1000:raise ValueError('Xschem import is limited to 1,000 files, 10 MB per file and 64 MB total.')
-        text=data.decode('utf-8');self.files[path]={'text':text,'kind':kind,'sha256':hashlib.sha256(data).hexdigest()};return text
+        from .source_assets import decode
+        text,encoding=decode(data,kind)
+        self.files[path]={'text':text,'kind':kind,'sha256':hashlib.sha256(data).hexdigest()}
+        if encoding!='utf-8':self.files[path]['encoding']=encoding
+        return text
 
     def symbol(self,path):
         if path not in self.symbols:
@@ -576,7 +580,8 @@ def export_project(project,directory):
     output['exchange-report.json']=json.dumps({'version':1,'top':by[p['top']]['name']+'.sch','preserved':['hierarchy','ordered terminals','component placements','values and parameter overrides','wire connectivity','original symbol attributes and unchanged artwork','schematic graphics and code records','resolved model files'],'notes':report,'import_warnings':source['warnings']},indent=2)
     # Build every output before writing, so a validation error cannot leave a
     # partially populated destination masquerading as a successful export.
-    for relative,text in output.items():atomic_write(dest/relative,text)
+    encodings={mapping[path]:data.get('encoding','utf-8') for path,data in files.items()}
+    for relative,text in output.items():atomic_write(dest/relative,text.encode(encodings.get(relative,'utf-8')))
     save_project(p,dest/'studio-project.icproj')
     atomic_write(dest/'studio-exchange.json',json.dumps({'version':1,'project_sha256':file_digest(dest/'studio-project.icproj')},indent=2))
     return {'directory':str(dest),'top':by[p['top']]['name']+'.sch','files':len(output),'notes':report}

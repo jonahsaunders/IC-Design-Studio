@@ -202,7 +202,16 @@ def export_xschem(p,directory):
                     defaults=by[d['cell']].get('parameters',{});fmt+=''.join(' '+k+'=@'+k for k in defaults);props+=''.join(' '+k+'='+quoted(d.get('parameters',{}).get(k,v)) for k,v in defaults.items())
                 if d['kind'] in ('NMOS','PMOS'):props+=f' model=model_{d["id"]} w={d["params"]["w"]} l={d["params"]["l"]}'
             if d.get('symbol'):
-                sym_text=symbol_text(d['symbol'],name,fmt,order)
+                symbol=d['symbol']
+                if binding and symbol.get('attributes',{}).get('lvs_format'):
+                    # Catalog parameters are normalized (GF180 uses l/w), but
+                    # source symbols can still refer to @L/@W in their LVS
+                    # format. Both formats must use the exported live values.
+                    import re
+                    symbol=clone(symbol);attrs=symbol['attributes'];keys={k.casefold():k for k in emitted}
+                    attrs['lvs_format']=re.sub(r'@([A-Za-z_][A-Za-z0-9_]*)',
+                        lambda m:'@'+keys.get(m[1].casefold(),m[1]),attrs['lvs_format'])
+                sym_text=symbol_text(symbol,name,fmt,order)
             elif binding or d['kind']=='X':
                 # Generic artwork with explicit PDK terminal order and format.
                 symbol={'primitives':[{'kind':'rect','points':[[-28,-28],[28,28]]}],'pins':{}};symbol['pins']={pin:list(positions[pin]) for pin in order};sym_text=symbol_text(symbol,name,fmt,order)
@@ -256,8 +265,20 @@ def export_handoff(p,dest):
         for rel in p['pdk']['package_lock']['files']:
             target=asset_root/rel;target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source_root/rel,target)
         p['pdk']['package_root']=str(asset_root.resolve())
-    save_project(p,dest/'project.icproj');atomic_write(dest/'simulation.cir',spice(p,settings=p['analysis']));export_layout(p,dest/'layout.gds');export_layout(p,dest/'layout.oas');export_xschem(p,dest/'xschem');export_technology(p,dest/'technology')
-    atomic_write(dest/'dependencies.lock.json',json.dumps({'app':__import__('icstudio').__version__,'schema':1,'pdk':p['pdk'],'engine':'teaching solver 0.1.0','design_hash':digest(p)},indent=2))
+    # Native and captured projects carry their own model assets and programs;
+    # the generic serializer deliberately rejects these document types.
+    if p.get('spice',{}).get('version')==1:
+        from .native_spice import netlist
+        deck=netlist(p,dest)
+    elif p.get('xschem_exchange',{}).get('mode')=='compatible':
+        from .xschem_runtime import netlist
+        deck=netlist(p,dest)
+    else:deck=spice(p,settings=p['analysis'])
+    save_project(p,dest/'project.icproj');atomic_write(dest/'simulation.cir',deck);export_layout(p,dest/'layout.gds');export_layout(p,dest/'layout.oas');export_xschem(p,dest/'xschem');export_technology(p,dest/'technology')
+    from .engine_selection import selected
+    locked_pdk=clone(p['pdk'])
+    if locked_pdk.get('package_lock'):locked_pdk['package_root']='technology/package'
+    atomic_write(dest/'dependencies.lock.json',json.dumps({'app':__import__('icstudio').__version__,'schema':1,'pdk':locked_pdk,'engine':selected(p),'design_hash':digest(p)},indent=2))
     if p['pdk'].get('package_lock'):
         root=str(dest.resolve()).replace('\\','/')+'/'
         for deck in dest.rglob('*.cir'):
@@ -265,11 +286,15 @@ def export_handoff(p,dest):
             import os
             relroot=os.path.relpath(dest.resolve(),deck.parent.resolve()).replace('\\','/')+'/'
             atomic_write(deck,deck.read_text().replace(root,relroot))
-        for project_file in list(dest.rglob('project.icproj'))+list(dest.rglob('*.icstudio.json')):
-            portable=clone(p);portable['pdk']['package_root']=os.path.relpath(Path(p['pdk']['package_root']),project_file.parent.resolve()).replace('\\','/');save_project(portable,project_file)
+        for project_file in list(dest.rglob('*.icproj'))+list(dest.rglob('*.icstudio.json')):
+            portable=load_project(project_file);portable['pdk']['package_root']=os.path.relpath(Path(p['pdk']['package_root']),project_file.parent.resolve()).replace('\\','/');save_project(portable,project_file)
         for manifest in dest.glob('*.exchange.json'):
             metadata=json.loads(manifest.read_text());side=Path(str(manifest).removesuffix('.exchange.json')+'.icstudio.json')
             metadata['baseline_hash']=file_digest(side);atomic_write(manifest,json.dumps(metadata,indent=2))
+        for name in ('native-exchange.json','capture-exchange.json'):
+            for manifest in dest.rglob(name):
+                metadata=json.loads(manifest.read_text());metadata['project_sha256']=file_digest(manifest.parent/'studio-project.icproj')
+                atomic_write(manifest,json.dumps(metadata,indent=2))
     files={str(f.relative_to(dest)):file_digest(f) for f in dest.rglob('*') if f.is_file()}
     atomic_write(dest/'preservation-report.json',json.dumps({'revision':p['revision'],'files':files,'status':'engineering-preview','not_qualified':['arbitrary-design DRC/LVS and extraction correctness','unrestricted external-library round trips','Windows binary','fabrication signoff'],'verification':'An export does not certify this design. See UPDATE_0.8.md for the executed custom-inverter and external-edit fixtures; rerun physical verification after changes.','magic':'Generate native .mag through the separately installed Magic engine with a matching technology file.'},indent=2))
 

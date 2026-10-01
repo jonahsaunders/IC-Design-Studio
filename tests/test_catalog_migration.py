@@ -98,6 +98,8 @@ class CatalogMigrationTests(unittest.TestCase):
         from icstudio.native_exchange import export_project,review_project
         registry=PDKRegistry(self.root/'real')
         for package in packages():
+            # These imported fixtures bind specifically to SKY130/GF180 models.
+            if package['family'] not in ('sky130','gf180mcu'):continue
             technology=registry.technology(registry.install(Path(package['path'])/'package.json'))
             gf=package['family']=='gf180mcu'
             path=Path(__file__).resolve().parents[1]/('examples/gf180-bandgap/5vfullv2-original.sch' if gf else 'examples/sky130-simulation/inverter.sch')
@@ -124,13 +126,13 @@ class CatalogMigrationTests(unittest.TestCase):
             netlist(p,self.root/(package['name']+'-deck'))
             # A small selection is sufficient to verify the catalog/LVS exchange path.
             if gf:
-                exported=export_project(p,self.root/'real-exchange');record=review_project(Path(exported['directory'])/exported['top'])
+                exported=export_project(p,self.root/('real-exchange-'+package['name']));record=review_project(Path(exported['directory'])/exported['top'])
                 self.assertEqual(record['errors'],[],record['errors'])
                 import os
                 engine=os.environ.get('ICSTUDIO_TEST_XSCHEM')
                 if engine:
                     from icstudio.external_tools import xschem_netlist
-                    external=xschem_netlist(Path(exported['directory'])/exported['top'],self.root/'xschem-netlist',engine)
+                    external=xschem_netlist(Path(exported['directory'])/exported['top'],self.root/('xschem-netlist-'+package['name']),engine)
                     self.assertEqual(external['status'],'complete')
 
 

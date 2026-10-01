@@ -462,6 +462,7 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
         p,warnings=import_layout(path)
         if self.maybe_save():self.set_project(p);self.mode_combo.setCurrentIndex(1);self.console.appendPlainText('\n'.join(warnings));self.results_tabs.setCurrentIndex(2)
     def handoff(self):
+        if not self.flush_inspector() or not self.flush_analysis():return
         parent=QFileDialog.getExistingDirectory(self,'Choose parent for a new handoff folder')
         if not parent:return
         dest=Path(parent)/(re.sub('[^A-Za-z0-9_-]','_',self.project['name'])+f'_r{self.project["revision"]}_handoff');export_handoff(self.project,dest);QMessageBox.information(self,'Handoff exported',f'Exported to {dest}\n\nRead preservation-report.json for supported formats and limitations.');QDesktopServices.openUrl(QUrl.fromLocalFile(str(dest)))
@@ -469,6 +470,7 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
         path,_=QFileDialog.getSaveFileName(self,'Export simulation deck',self.cell['name']+'.cir','SPICE deck (*.cir *.spice)')
         if path:atomic_write(path,spice(self.project,self.cid,self.project['analysis']));self.statusBar().showMessage('SPICE deck exported.',8000)
     def export_gds(self):
+        if not self.flush_inspector():return
         path,_=QFileDialog.getSaveFileName(self,'Export physical layout',self.project['name']+'.gds','GDSII (*.gds);;OASIS (*.oas)')
         if path:export_layout(self.project,path);self.statusBar().showMessage('Layout, sidecar and preservation report exported.',8000)
     def export_sch(self):
@@ -479,6 +481,7 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
         path,_=QFileDialog.getSaveFileName(self,'Export waveform data','waveforms.csv','CSV (*.csv)')
         if path:export_csv(self.result,path)
     def export_image(self):
+        if not self.flush_inspector():return
         path,_=QFileDialog.getSaveFileName(self,'Save canvas image',self.current_mode+'.png','PNG (*.png)')
         if path:
             if not (self.layout if self.current_mode=='layout' else self.schematic).grab().save(path):raise ValueError('Could not write image.')

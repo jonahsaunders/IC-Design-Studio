@@ -14,8 +14,8 @@ class ProjectHubTests(unittest.TestCase):
 
     def test_fresh_install_shows_bundled_packages_without_registering_them(self):
         rows,notes=inventory(self.registry);self.assertEqual(notes,[])
-        self.assertEqual({r['id'] for r in rows if r['status']=='Available offline'},{'sky130A','gf180mcuD'})
-        self.assertTrue(any(r['id']=='ihp-sg13g2' and r['status']=='Add installation' for r in rows))
+        self.assertEqual({r['id'] for r in rows if r['status']=='Available offline'},{'sky130A','gf180mcuC','gf180mcuD','ihp-sg13g2'})
+        self.assertFalse(any(r['id']=='ihp-sg13g2' and r['status']=='Add installation' for r in rows))
         self.assertEqual(self.registry.entries(),[])
 
     def test_multiple_versions_and_unknown_future_processes_are_all_visible(self):

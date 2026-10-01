@@ -142,7 +142,7 @@ class BundledSimulationTests(unittest.TestCase):
     def test_all_bundled_pdks_verify_without_network(self):
         with patch('urllib.request.urlopen', side_effect=AssertionError('offline')):
             entries = packages(verify=True)
-        self.assertEqual({e['family'] for e in entries}, {'sky130', 'gf180mcu'})
+        self.assertEqual({e['family'] for e in entries}, {'sky130', 'gf180mcu', 'ihp-sg13g2'})
 
     def test_original_schematic_is_exact_and_all_144_cases_are_portable(self):
         folder = ROOT/'examples/gf180-bandgap'

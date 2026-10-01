@@ -10,11 +10,11 @@ testbench are separate inputs.
 
 IC Design Studio has stock adapters for SKY130, GF180MCU and IHP SG13G2, plus a checksummed package interface for custom technologies. An adapter maps electrical models, device terminals and layout layers into the app. Successful registration does not prove that a particular model, corner or physical rule deck is qualified.
 
-## Included simulation packages
+## Included process packages
 
-Choose **Tools → Set up an open PDK → Use included PDKs**. GF180MCU (`gf180mcuD`) and SKY130 (`sky130A`) register from the application bundle without downloading anything. Select a registered revision and choose **New project with this PDK**. Imported GF180 and SKY130A schematics and the bundled examples resolve their libraries automatically.
+Choose **Tools → Set up an open PDK → Use included PDKs**. GF180MCU C/D, IHP SG13G2 and SKY130A register from the application bundle without downloading anything. Select a revision and choose **New project with this PDK**. The Student Hub also discovers these packages directly.
 
-The bundle contains primitive simulation models, Xschem symbols, KLayout display layers, checksums and license files. It excludes standard cells, physical verification decks and IHP compiled OSDI libraries. The GF180 assets include 3.3 V and 5/6 V MOS devices, bipolar devices, resistors and capacitors used by the supplied bandgap. The `D` adapter uses the existing pinned GF180 primitive models; it is not a complete process-option installation.
+The bundle contains primitive models, Xschem symbols, KLayout display layers, checksums and licenses. GF180 C/D and IHP additionally include their matching Magic/Netgen physical decks. IHP Verilog-A sources accompany the package; six compiled generic-x64 OSDI libraries ship in the separate Linux/WSL tool runtime. Standard-cell libraries and full foundry collateral are excluded. Native physical generation covers the documented core single-finger MOS/inverter recipes; other indexed device models are not thereby physically qualified.
 
 SKY130 keeps the complete primitive corner include closure. The compatible Xschem importer now permits 64 MB total (still 10 MB per file and 1,000 files), because that closure exceeds the former 30 MB limit. Exact model bytes remain locked in saved imported projects. Catalog-backed simulations also stage their model closure under simple relative filenames to support Windows user/profile paths with spaces.
 
@@ -72,6 +72,8 @@ Symbols that depend on unsupported dynamic expressions, scripts or missing model
 
 ## IHP OSDI models
 
+For the bundled IHP **Student Hub inverter course**, use **Set up physical tools**. The Hub automatically runs IHP simulation in the included Linux/WSL runtime on both Linux and Windows. The runtime verifies source compatibility and binary hashes before execution. This avoids a separate native Windows compiler setup. Other project workflows or different IHP model revisions can use explicitly configured native OSDI libraries as described below.
+
 OSDI libraries contain native compiled model code. The compiler, host architecture, simulator interface and model revision must agree. The bundled Windows ngspice executable alone does not establish IHP compatibility.
 
 With a compatible OpenVAF executable, compile the included IHP Verilog-A sources:
@@ -82,7 +84,9 @@ python scripts/compile_ihp_osdi.py --pdk-root /path/to/ihp-sg13g2 --openvaf /pat
 
 Use a fresh output directory. In **Tools → Set up an open PDK → OSDI runtime**, choose **Load folder** and select the output directory. The project records hashes and host information. Run a small circuit using the actual device family to validate the simulator/model combination. A file hash match is not an execution test.
 
-The script builds the six model libraries expected by the pinned companion IHP snapshot. New upstream model layouts may need an adapter update; use the upstream instructions for those revisions.
+The script builds six model libraries and records compiler, source dependency and output hashes. Use `--generic-cpu` with the pinned OpenVAF Reloaded compiler when building redistributable binaries. New upstream model layouts may need an adapter update; use the upstream instructions for those revisions.
+
+To reproduce the teaching PDK subsets, check out the exact IHP and open_pdks commits declared in `scripts/build_student_pdks.py`, then run it with `--ihp CHECKOUT --open-pdks CHECKOUT --output FRESH_DIRECTORY`. It preserves distinct GF180 C/D process options, licenses and source provenance, and normalizes text line endings before computing revision locks. `scripts/build_digital_runtime.py` builds pinned Magic/Netgen and the six IHP models into the included runtime. Native binaries are build artifacts and are not committed to the repository.
 
 ## Historical companion adapter collection
 

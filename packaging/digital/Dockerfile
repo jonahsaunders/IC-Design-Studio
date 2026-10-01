@@ -25,6 +25,14 @@ RUN git init /opt/icstudio/orfs && cd /opt/icstudio/orfs \
     && git fetch --depth 1 origin eaba6576441bf7c1743ea56ecdb1904210ec02c2 \
     && git checkout FETCH_HEAD
 COPY icstudio /tmp/studio/icstudio
+COPY ihp-pdk /tmp/ihp-pdk
+COPY compile_ihp_osdi.py /tmp/compile_ihp_osdi.py
+RUN curl -fL --retry 3 -o /tmp/openvaf.tgz https://fides.fe.uni-lj.si/openvaf/download/openvaf-reloaded-osdi_0.3-31-gf47d557-linux_x64.tar.gz \
+    && echo '9bc343d52e00529ddba452b90358cdd14da14ec7437d75dec2dbd621eda54bc8  /tmp/openvaf.tgz' | sha256sum -c \
+    && mkdir /tmp/openvaf && tar -xzf /tmp/openvaf.tgz -C /tmp/openvaf \
+    && PYTHONPATH=/tmp/studio python3 /tmp/compile_ihp_osdi.py --pdk-root /tmp/ihp-pdk --openvaf /tmp/openvaf/openvaf --output /opt/icstudio/osdi/ihp-sg13g2 --generic-cpu \
+    && cp -r /tmp/ihp-pdk/libs.tech/verilog-a /opt/icstudio/osdi/ihp-sg13g2/sources \
+    && rm -rf /tmp/openvaf /tmp/openvaf.tgz /tmp/ihp-pdk /tmp/compile_ihp_osdi.py
 COPY assemble.py /tmp/assemble.py
 RUN PYTHONPATH=/tmp/studio python3 /tmp/assemble.py && rm -rf /tmp/studio /tmp/assemble.py
 RUN printf '[automount]\noptions = "metadata"\n[interop]\nappendWindowsPath = false\n' > /etc/wsl.conf

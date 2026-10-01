@@ -217,6 +217,8 @@ def scan_local(path, progress=lambda message: None):
             if kind in ('NMOS','PMOS') and not {'w','l'}<=params.keys():raise ValueError('MOS symbol does not declare width and length.')
             # Includes formula evaluation and catches unsupported parameter defaults.
             catalog[key]=entry;tech['package_lock']={'id':root.name,'revision':'scan'}
+            from .catalog import validate_catalog
+            validate_catalog({'simulation':{'catalog':{key:entry}}})
             create_device(tech,key,'CHECK')
         except (ValueError,KeyError,IndexError,SyntaxError,ZeroDivisionError) as e:entry['unavailable']=str(e)
         catalog[key]=entry;files[rel]=file_digest(sym)

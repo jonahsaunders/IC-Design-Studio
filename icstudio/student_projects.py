@@ -1,5 +1,6 @@
 """Small editable labs, with independent reference testbenches for RTL lessons."""
 from .model import clone, device, example, uid, validate
+from .student_design_labs import DIGITAL_LABS
 
 DIGITAL = {
     'gates': ('input wire a,b,select, output wire parity,mux',
@@ -86,6 +87,7 @@ DIGITAL = {
                start=1; @(negedge clk); reset=1; @(posedge clk); #1;
                if(tx!==1 || busy!==0) $fatal(1,"Mid-frame reset mismatch");'''),
 }
+DIGITAL.update(DIGITAL_LABS)
 
 
 def digital_project(kind):
@@ -126,6 +128,15 @@ def divider(loaded=False, hierarchy=False):
 
 
 def create(starter):
+    if starter in DIGITAL_LABS:
+        from .student_design_labs import faulty_digital
+        return faulty_digital(starter)
+    if starter.startswith('gmid-'):
+        from .student_design_labs import mos_lab
+        return mos_lab(starter)
+    if starter.startswith('layout-'):
+        from .student_design_labs import layout_lab
+        return layout_lab(starter)
     if starter in DIGITAL:return digital_project(starter)
     if starter=='divider-build':
         p=divider();p['cells'][0]['devices']=[d for d in p['cells'][0]['devices'] if d['name']!='R2'];return p

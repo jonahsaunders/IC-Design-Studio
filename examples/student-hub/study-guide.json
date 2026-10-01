@@ -1,0 +1,306 @@
+{
+  "version": 1,
+  "lessons": {
+    "a-gmid-bias": {
+      "concept": "gm = ∂ID/∂VGS at fixed drain and body bias. A small input voltage produces approximately gm × vin of signal current. gm/ID measures transconductance per unit bias current, in V⁻¹. It is not voltage gain; gain also depends on output resistance and loading. In a long-channel square-law saturation model, gm/ID ≈ 2/VOV, where VOV = VGS − VTH.",
+      "worked_example": "Here VTH=.45 V and VGS=.65 V, so VOV=.20 V and gm/ID≈10 V⁻¹. With kp=100 µA/V², W/L=10 and λ=.02 V⁻¹ at VDS=1 V: ID=0.5×kp×(W/L)×VOV²×(1+λVDS)=20.4 µA; gm=204 µS. The original .85 V bias has gm/ID≈5 V⁻¹.",
+      "interview": "Explain the difference between gm, gm/ID and voltage gain. Which other device data would you need before selecting a bias for a fast amplifier?",
+      "artifact": "An annotated operating-point table comparing .85 V and .65 V gate bias, including current, gm/ID, headroom, model identity and units.",
+      "try_next": "Run VG=.75 V and predict gm/ID≈6.67 V⁻¹. Return to .65 V for credit. Weak/moderate inversion and capacitance tradeoffs require characterized process models; this solver has no subthreshold current or device capacitances."
+    },
+    "a-gmid-size": {
+      "concept": "Start with a circuit requirement. For a single dominant-pole transconductance stage driving CL, a first-order unity-gain estimate is fu≈gm/(2πCL). It is topology dependent: feedback factor, extra poles, noise, slew rate and swing can impose stricter requirements. Choose gm/ID, compute ID=gm/(gm/ID), then W=ID/(ID/W) using device data at the chosen L, VDS, VSB, temperature and corner.",
+      "worked_example": "For this exercise gm=200 µS; at gm/ID=10 V⁻¹, ID=20 µA. A reference W=10 µm gives ID=20.4 µA at the same bias, so ID/W=2.04 µA/µm and W=20/2.04≈9.804 µm. With CL=2 pF the first-order fu estimate is 15.9 MHz; no capacitances are simulated by this fixture, so this is a hand estimate, not verified amplifier bandwidth.",
+      "interview": "Why is copying a width from another circuit unreliable? Explain the operating conditions that make a current-density lookup transferable.",
+      "artifact": "A sizing worksheet with target gm, efficiency, current density, estimated W, and measured current/gm errors.",
+      "try_next": "Double W while holding all bias conditions fixed. Predict approximately doubled ID and gm but unchanged gm/ID. Restore W=9.804u. For process sizing use Analysis → Analog design workspace → Optimize → gm/Id explorer → Device characterization library and a characterized MOS library; verify the resized device with that process model."
+    },
+    "a-gmid-headroom": {
+      "concept": "Saturation is an operating region, not a statement that the output is clipped. The square-law NMOS boundary is VDS≥VGS−VTH. Headroom is the drain voltage above this boundary. Current sources lose output resistance as they approach the linear region. In real devices, use the process model and circuit performance across output swing instead of treating 2/(gm/ID) as a universal saturation voltage.",
+      "worked_example": "At VGS=.65 V, VOV=.20 V. The starter has VDS=.10 V and headroom −.10 V. Setting VD=.40 V leaves .20 V margin. Two stacked devices each needing .20 V plus .10 V margin consume .60 V of a supply budget before allocating the remaining swing.",
+      "interview": "How can a current mirror have the correct nominal current but fail as the output voltage changes? What sweep would expose that failure?",
+      "artifact": "A bias-region comparison and a voltage-budget sketch with a clearly stated output-swing range.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "a-gmid-tradeoff": {
+      "concept": "gm/ID is a design coordinate for exploring tradeoffs. Higher efficiency can reduce current for a fixed gm, but often needs more area and can increase capacitance. Inversion-level boundaries depend on process and operating conditions. A high ratio in a square-law teaching model is not evidence that weak-inversion behavior has been modeled correctly.",
+      "worked_example": "At VOV=.10 V, gm/ID≈20 V⁻¹. To retain gm=200 µS, ID=10 µA and W≈19.608 µm. At VOV=.20 V, the previous design used ID=20 µA and W≈9.804 µm. Current halves and width doubles. Intrinsic fT requires Cgg and intrinsic gain requires gds; this fixture does not verify a speed/noise/area optimum.",
+      "interview": "Would you always maximize gm/ID? Defend a choice using current, capacitance, bandwidth, noise, gain and swing constraints.",
+      "artifact": "A two-candidate tradeoff table and a verification plan specifying L, VDS, VSB, process corner, temperature, capacitances and circuit-level checks.",
+      "try_next": "Plan a process-model sweep of gm/ID, ID/W, gm/gds and gm/(2πCgg). Use measured points within the characterized range, resize, re-simulate, then verify loading, feedback stability and corners. Do not extrapolate this generic model into subthreshold operation."
+    },
+    "l-width": {
+      "concept": "Layout turns connectivity into geometry on fabrication layers. The project stores integer nanometres; the inspector’s Geometry fields display micrometres. A DRC rule is a geometric requirement from a specific rule deck; a generic teaching deck is not a foundry process.",
+      "worked_example": "Left=0, Top=0, Width=2.00 and Height=.10 describe a 2.00 µm-long, .10 µm-thick route. Set Height=.20 to meet the 200 nm minimum thickness. The teaching grid is 5 nm, equivalent to .005 µm.",
+      "interview": "Walk through a width violation from marker to shape to rule to verified repair. Why must you record the deck and process revision?",
+      "artifact": "Before/after geometry with units, the repaired rule and the fixed generic checker result.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "l-spacing": {
+      "concept": "Spacing is measured between edges, not centers. Wider routes can reduce resistance but consume spacing and increase coupling to neighbors. DRC does not automatically prove that two shapes belong to the intended electrical nets.",
+      "worked_example": "Net a spans y=0–200 nm; net b initially spans 300–500 nm. Their gap is only 100 nm. Moving b to 400–600 nm gives a 200 nm gap while preserving route thickness and length.",
+      "interview": "How could a layout pass one geometry rule and still be electrically wrong? Describe an open and a short.",
+      "artifact": "A spacing calculation with a before/after screenshot and an explanation of why net identity must be preserved.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "l-via": {
+      "concept": "A via connects adjacent routing layers through a cut. Each metal needs a landing that encloses the cut; enclosure on one layer alone is insufficient. Labels help identify nets but do not prove a continuous extracted conductive path. DRC, connectivity extraction and LVS are distinct checks.",
+      "worked_example": "The .15 µm cut at x=.400–.550 extends outside a .500 µm landing. Center it at .175–.325 in both axes. A .500 µm square landing then encloses the cut by .175 µm on all four sides, exceeding this exercise’s .075 µm requirement.",
+      "interview": "Why can equal net labels on two layers still leave an open? What evidence would you inspect before calling a connection verified?",
+      "artifact": "Via enclosure calculations for both layers, a geometry check, and a proposed extracted-connectivity/LVS check.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "l-centroid": {
+      "concept": "For identical units exposed to a linear spatial gradient, equal group centroids cancel the first-order systematic gradient term. Matching also depends on device dimensions, orientation, surroundings, stress, random mismatch and routing parasitics. These labeled metal tiles teach placement arithmetic; they are not extracted resistor or transistor devices.",
+      "worked_example": "The original A centers are 200 and 1000 nm; B centers are 1800 and 2600 nm. Their means are 600 and 2200 nm. In ABBA, A centers become 200 and 2600; B centers 1000 and 1800. Both means are 1400 nm, with identical y coordinates.",
+      "interview": "What does common-centroid placement cancel, and what does it leave? Why might a centroid layout with asymmetric routing still perform poorly?",
+      "artifact": "A labeled ABBA sketch, the centroid calculation, and a matching review covering dummies, orientation, routing and post-layout verification.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "d-latch": {
+      "concept": "A combinational output is a function of current inputs. Every branch must assign it, either through a default followed by overrides or a complete if/else or case. An omitted assignment can retain state and infer a latch. A clocked register instead updates on a specified clock edge.",
+      "worked_example": "Start with select=1 and b=1, so y becomes 1. Then set select=0 and a=0. The required mux output is now 0; the broken design retains 1. Add else y=a; to the existing assignment or implement a complete equivalent expression.",
+      "interview": "How do you prevent unintended latches in a combinational block? Explain why a test that starts only with select=1 can miss the bug.",
+      "artifact": "A failing input sequence, the minimal RTL repair, the unchanged reference bench and a passing simulation log.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "d-saturation": {
+      "concept": "Choose arithmetic semantics explicitly: bit width, signedness, rounding and overflow behavior are part of the interface. Unsigned four-bit values range from 0 to 15. Use an extra intermediate bit to observe carry before clipping; clipping an already-truncated result cannot recover overflow.",
+      "worked_example": "13+5=18. A four-bit wrap gives 2. A saturating result is min(18,15)=15. The reference model uses a wider integer calculation and then clips; it also checks that valid=0 holds the old sum and reset overrides valid.",
+      "interview": "Why does checking overflow after storing into four bits fail? Propose tests for zero, the maximum, an overflow, a disabled cycle and reset.",
+      "artifact": "An arithmetic contract and test matrix with failing/passing evidence for overflow, hold and reset.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "d-pipeline": {
+      "concept": "Nonblocking assignments update registers after their right-hand sides are evaluated. Data and control must traverse the same latency. A bubble is a cycle with no valid item, not a zero-valued item. This pipeline can accept an item every clock; validity marks which output cycles have meaning. It has no ready signal and does not implement backpressure.",
+      "worked_example": "Sample data=3, valid_in=1 at edge k. Immediately after k, stage=4 and stage_valid=1; result still holds the prior stage. After k+1, result=4 and valid_out must equal the validity sampled at k. A bubble sampled at k+1 reaches valid_out at k+2. Reset flushes outstanding validity.",
+      "interview": "Explain throughput versus latency using clock edges. What else is required to prove timing: clock constraints, setup/hold, synthesis, placement, routing and extracted parasitics?",
+      "artifact": "A cycle table with bubbles and reset, the repaired RTL, simulation evidence and a timing-closure checklist.",
+      "try_next": "On paper, budget a 10 ns period: clock-to-Q=.4 ns, combinational delay=7.8 ns, setup=.6 ns, uncertainty=.5 ns gives .7 ns setup margin before clock skew. A passing functional simulation supplies none of these delay values. CDC signals need a separate synchronization/protocol design; a valid pipeline alone does not solve metastability."
+    },
+    "p-spec": {
+      "concept": "A useful design brief separates the target, the assumptions, the chosen architecture and the evidence that will decide success. Begin with a small block you can explain end-to-end. Analog, layout, RTL and verification roles emphasize different artifacts, but each benefits from defensible reasoning and reproducible checks.",
+      "worked_example": "Example proposed requirement: deliver 10 µA within ±5% from VOUT=.4 to 1.2 V at a stated supply, corner and temperature. A nominal operating point is only one row of that verification matrix. The generic mirror can teach compliance and ratios; it cannot qualify process variation, mismatch or silicon yield.",
+      "interview": "When a specification is ambiguous, what would you clarify first? Describe a tradeoff you would expose before implementing the block.",
+      "artifact": "A one-page design brief, a requirements-to-tests matrix, and a saved case-study project.",
+      "try_next": "Choose a role emphasis: analog—bias/sizing and sweeps; layout—geometry plus extraction/LVS and parasitics; RTL—interface, cycle timing and synthesis; verification—reference model, corner cases and failure diagnosis. Identify which evidence you can produce now and which needs additional tools or review."
+    },
+    "p-review": {
+      "concept": "A portfolio is strongest when another engineer can reproduce a small design and understand your decisions. Show the requirement, a diagram or interface, a calculation, a failure, the repair and a bounded result. Keep your own contribution clear. A learning record supports discussion; it is not a professional certification or an employment guarantee.",
+      "worked_example": "A defensible story: “I repaired a four-bit saturating accumulator. The original RTL wrapped 13+5 to 2. I retained the carry, clipped to 15, and checked overflow, enable and reset with an unchanged reference bench.” Replace this example with your own work and actual evidence. Avoid unsupported claims such as “silicon-proven” or an invented percentage improvement.",
+      "interview": "Explain a design you built in 90 seconds. Be ready to trace one signal, defend a sizing or architecture choice, and reproduce the most revealing failure.",
+      "artifact": "A readable portfolio report, the JSON learning record, a saved project, run artifacts you intentionally share, and a concise evidence-based project description.",
+      "try_next": "Ask a peer to reproduce one check from the saved project. Record the model/tool versions and required commands or UI steps. Inspect the exported report before sharing: drafts and local project/run paths are included. Evidence files referenced by path are not embedded in the HTML."
+    },
+    "f-first": {
+      "concept": "A capacitor stores charge. Through a resistor it approaches a new voltage gradually; the time constant τ=RC sets that rate.",
+      "worked_example": "R=10 kΩ and C=1 nF give τ=10 µs. Ten microseconds after a 1.8 V step, VOUT≈1.8(1−e⁻¹)=1.14 V. Account for the source’s initial delay when reading the time axis.",
+      "interview": "How would you distinguish a wrong time constant from a wrong source delay?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "f-connect": {
+      "concept": "A schematic connection is an electrical net, not simply two symbols drawn near each other. Ground is the reference for reported voltages.",
+      "worked_example": "Two 10 kΩ resistors divide 1.8 V to .9 V with no extra load. Missing R2 leaves a different circuit; check terminal names and nets before trusting the drawing.",
+      "interview": "Trace current through the divider and explain what changes if its ground connection is missing.",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "f-edit": {
+      "concept": "Controlled experiments change one parameter at a time. Preserve the original prediction and compare the new result against it; Undo restores an edit, not a scientific explanation.",
+      "worked_example": "Doubling R from 10 kΩ to 20 kΩ with C=1 nF doubles τ from 10 to 20 µs. The final DC voltage stays the same for an unloaded ideal RC low-pass.",
+      "interview": "Which waveform features reveal a time-constant change and which remain unchanged?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "f-hierarchy": {
+      "concept": "Hierarchy separates a reusable circuit interface from its implementation. Instance port mapping determines connectivity across the boundary.",
+      "worked_example": "A divider cell with IN, OUT and GND ports can be reused with different instance nets. Connecting OUT to the wrong parent net changes system behavior even when the child is correct.",
+      "interview": "How do you debug a block that works alone but fails when instantiated?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "f-debug": {
+      "concept": "Debug from a requirement and a minimal failing observation. Loading can explain an unexpected voltage without any simulator bug.",
+      "worked_example": "A 10 kΩ/10 kΩ divider has RTH=5 kΩ and VOC=.9 V. Adding a 10 kΩ load gives .9×10/(5+10)=.6 V. A 1 MΩ load moves it much closer to .9 V.",
+      "interview": "Describe the first three checks you would make when a divider output is too low.",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "f-portfolio": {
+      "concept": "A reproducible result needs a saved design, settings and evidence. Layout geometry and circuit behavior answer different questions.",
+      "worked_example": "A screenshot shows appearance; a saved project preserves editable structure. A count of shapes only establishes presence. It does not establish DRC, extracted connectivity or LVS.",
+      "interview": "What would you include so a teammate can reproduce your circuit result?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "a-load": {
+      "concept": "Represent a source by its Thevenin voltage and resistance, then include the load. The output requirement belongs to the complete loaded circuit.",
+      "worked_example": "For .9 V open circuit with 5 kΩ source resistance, a 10 kΩ load produces .6 V. Increasing load impedance reduces error but may conflict with the next stage’s requirements.",
+      "interview": "Why is designing a circuit in isolation sometimes misleading?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "a-bandwidth": {
+      "concept": "A single RC low-pass has pole frequency fp=1/(2πRC). Its −3 dB amplitude is 1/√2 of the low-frequency gain.",
+      "worked_example": "R=10 kΩ, C=1 nF gives fp≈15.9 kHz. Doubling C to 2 nF gives fp≈7.96 kHz. State whether you are reading magnitude, decibels or phase.",
+      "interview": "What assumptions let you use 1/(2πRC), and how would loading change the result?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "a-bias": {
+      "concept": "Matched mirror devices share gate bias. Their current ratio approximately follows W/L ratio while both remain in saturation; drain-voltage differences and mismatch create error.",
+      "worked_example": "Doubling only the output-device width ideally doubles its current at the same gate bias. The reference branch sets the bias; the output branch still needs enough drain voltage.",
+      "interview": "Why does a 2:1 geometry ratio fail to guarantee exactly 2:1 current at every output voltage?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "a-differential": {
+      "concept": "A differential pair steers a tail current between two branches. Differential and common-mode inputs are distinct and have different limits.",
+      "worked_example": "Near balance, a small positive differential input increases one branch current and reduces the other. At large differential input, one branch takes most of the available tail current.",
+      "interview": "Explain common-mode range, differential swing and why a tail-current limit causes nonlinearity.",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "a-amplifier": {
+      "concept": "A transconductance input stage converts voltage to current; the load turns that current into output voltage. Approximate low-frequency gain is gm times the effective output resistance.",
+      "worked_example": "gm=200 µS and Rout=100 kΩ suggest gain≈20 V/V (about 26 dB) before loading and extra poles. These are illustrative numbers, not a measurement of this starter.",
+      "interview": "How can a circuit have adequate DC gain but poor settling or stability?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "a-layout": {
+      "concept": "Matching requires equal treatment of devices and their surroundings. Geometry presence alone does not prove matching or electrical equivalence.",
+      "worked_example": "Common-centroid placement can equalize the mean position of two groups. Unequal routing resistance or a nearby thermal source can still produce error; extraction and suitable process models are needed.",
+      "interview": "Describe a matching review beyond simply arranging devices symmetrically.",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "d-logic": {
+      "concept": "Combinational logic has no memory: its outputs are determined by current inputs. A reference truth table states the behavior independently of the chosen RTL expression.",
+      "worked_example": "For a=1,b=0, XOR parity is 1. A mux selecting a gives 1; selecting b gives 0. Three binary inputs have eight possible combinations.",
+      "interview": "Why should an expected-value model avoid copying the exact implementation expression?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "d-counter": {
+      "concept": "A synchronous register updates at a clock edge. Specify priority when reset and enable are both asserted, plus wrap and hold behavior.",
+      "worked_example": "A four-bit wrapping counter moves 14→15→0 on enabled clocks. With enable=0 it holds. In this lesson synchronous reset wins over enable at the rising edge.",
+      "interview": "How would a testbench check wrap, hold and reset priority without races?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "d-pulse": {
+      "concept": "An edge detector compares current and previous state. A request held high is one event, not one event per clock.",
+      "worked_example": "For sampled requests 0,1,1,1,0,1, a rising-edge pulse sequence is 0,1,0,0,0,1 after the clocked updates. The input here is assumed synchronous.",
+      "interview": "Why does this circuit not by itself solve clock-domain crossing or metastability?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "d-pwm": {
+      "concept": "PWM encodes a value as a fraction of high cycles in a repeating frame. Its resolution and switching rate depend on counter width and clock rate.",
+      "worked_example": "A three-bit phase counter has eight states. Comparing phase<duty with duty=3 produces three high cycles per frame, a 3/8 duty ratio. A 3-bit duty code cannot represent eight high cycles.",
+      "interview": "How would you add a true 100% duty setting, and what interface change would it require?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "d-average": {
+      "concept": "An accumulator needs enough width for the largest sum. Define the rounding policy and count only valid samples.",
+      "worked_example": "Four unsigned four-bit samples can sum to 60, requiring six bits. The lesson computes (sum+2)>>2 for round-half-up. Invalid cycles must not advance the sample count.",
+      "interview": "Explain how valid gaps and a reset during a partial block should affect the average.",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "d-serial": {
+      "concept": "A serial transmitter is a state machine with a timing contract: idle level, acceptance of start, data order and completion.",
+      "worked_example": "This teaching transmitter sends start=0, eight data bits least-significant first and stop=1, one bit per clock. 0xA5 sends 1,0,1,0,0,1,0,1 after start. It does not include a baud-rate generator.",
+      "interview": "Why must the transmitter capture data at start rather than reading the input throughout a frame?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "m-bridge": {
+      "concept": "A mixed-signal boundary translates continuous voltages into discrete decisions and digital outputs into analog drive. Thresholds and sampling time must be explicit.",
+      "worked_example": "A comparator bit gives only a relation to a threshold, not the full input voltage. Values close to a threshold can change code for small voltage shifts; the behavioral comparator does not model noise or metastability.",
+      "interview": "What analog effects disappear when you replace a comparator with an ideal threshold?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "m-hold": {
+      "concept": "Acquisition lets a sampling node follow the input; hold preserves the acquired value during conversion. Track timing and settling before the first decision.",
+      "worked_example": "If VIN changes after acquisition, an ideal hold should continue converting the old sample. This creates a useful test separating acquisition behavior from conversion behavior.",
+      "interview": "Which nonidealities would cause a held voltage to drift or change when the input moves?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "m-codes": {
+      "concept": "Quantization maps a continuous input to a finite set of codes. State the reference, number of bits and transition convention before predicting a code.",
+      "worked_example": "An ideal four-bit range of 1.8 V has nominal LSB=1.8/16=.1125 V. Inputs outside the range clip; transition conventions decide values exactly on boundaries.",
+      "interview": "How do quantization, saturation and conversion error differ?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "m-settling": {
+      "concept": "Digital decisions are only as reliable as the analog settling before them. A converter may execute the right sequence but sample an unsettled value.",
+      "worked_example": "A single-pole residual error decays as e^(−t/τ). About 4.6τ gives 1% residual and 6.9τ gives .1%. A tenfold faster clock can remove most of that margin.",
+      "interview": "How would you distinguish a logic sequencing error from insufficient DAC settling?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "m-weight": {
+      "concept": "Binary-weighted DAC elements must implement the intended code-to-voltage relation. One bad weight can affect a family of code transitions.",
+      "worked_example": "A resistor-controlled contribution is inversely related to resistance under the same drive. Changing an intended 10 kΩ branch to 20 kΩ halves that branch’s conductance; this is not a timing repair.",
+      "interview": "What input sweep would reveal a wrong high-order DAC weight?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "m-repeat": {
+      "concept": "A repeated-conversion interface must accept new work, finish once per accepted conversion and preserve sample identity. Cadence matters as well as code.",
+      "worked_example": "Two input levels sampled at separate start events should produce two correctly ordered completion events. A correct first conversion does not prove rearming, hold or busy handling.",
+      "interview": "What failure could pass a single-conversion test but fail on the second transaction?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "c-filter": {
+      "concept": "Partition a system requirement into block requirements. The input filter must reject unwanted content while settling fast enough for acquisition.",
+      "worked_example": "The sensor target uses 1 kΩ and 100 pF, so τ=100 ns. A 1 nF capacitor makes τ=1 µs and can leave a much larger acquisition error at the first comparison.",
+      "interview": "How do you choose a filter when bandwidth and settling requirements conflict?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "c-sar": {
+      "concept": "SAR conversion combines a sequence of trial codes with comparator decisions. A sign error in interpreting the comparator can systematically choose the wrong branch.",
+      "worked_example": "For a trial DAC above the held input, the decision must remove that trial contribution according to the comparator polarity. Trace a single bit decision rather than guessing from the final code.",
+      "interview": "How would you isolate the analog DAC, comparator convention and controller state when conversion is wrong?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "c-average": {
+      "concept": "System blocks often consume the previous cycle’s output because of register timing. Averaging and alarm logic must agree on valid-data timing and numeric policy.",
+      "worked_example": "The four-sample sum is rounded by adding 2 before shifting right by 2. Shifting by 1 divides by 2 instead of 4. The alarm threshold is averaged code≥10.",
+      "interview": "Why can a one-cycle interface misunderstanding corrupt a correct arithmetic block?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    },
+    "c-qualify": {
+      "concept": "Qualification is a set of explicit acceptance cases tied to a captured design. Test extremes and protocol assumptions, then state the model’s limitations.",
+      "worked_example": "The course campaign covers nominal input, below-range input, above-range input and input changes during hold. Nominal averaged codes are 4 and 11 with alarm outputs 0 then 1. This is behavioral system evidence, not transistor-level ADC signoff.",
+      "interview": "What would you add to move from a behavioral prototype toward a process-qualified implementation?",
+      "artifact": "A short design note with the requirement, your prediction, a measured result or review finding, and one limitation. Include the saved project and relevant run evidence.",
+      "try_next": "Change one variable, predict the result before running or inspecting it, and compare against your prediction. Restore the checked design before continuing. Record what the extra case does and does not demonstrate."
+    }
+  },
+  "references": [
+    {
+      "title": "Jespers and Murmann: systematic gm/ID design",
+      "url": "https://github.com/bmurmann/Book-on-gm-ID-design"
+    },
+    {
+      "title": "SKY130 process design rules",
+      "url": "https://skywater-pdk.readthedocs.io/en/main/rules.html"
+    },
+    {
+      "title": "Yosys: synthesis and sequential logic",
+      "url": "https://yosyshq.readthedocs.io/projects/yosys/en/0.39/CHAPTER_Basics.html"
+    }
+  ]
+}

@@ -9,7 +9,8 @@ from pathlib import Path
 from .model import atomic_write, clone, design_digest, digest, file_digest, load_project, now, scalar
 
 RULES = {'structure','nets','value','hierarchy','layout','saved','result','current','difference',
-         'digital_sources','digital','sar','config','config_number','rtl_contains','capstone','campaign'}
+         'digital_sources','digital','sar','config','config_number','rtl_contains','capstone','campaign',
+         'device_metrics','layout_exercise','inverter'}
 # Increment for a change to grading semantics. Unrelated application releases
 # must not erase a student's earned progression; exact grader identity is also
 # retained on each newly awarded evidence record.
@@ -24,14 +25,17 @@ def curriculum():
 
 
 def validate_curriculum(data):
-    if data.get('version') != 1 or {p['id'] for p in data['paths']} != {'foundations','analog','digital','mixed'}:
+    paths = [p['id'] for p in data['paths']]
+    if (data.get('version') != 1 or len(paths) != len(set(paths)) or
+            not {'foundations','analog','digital','mixed'} <= set(paths) or
+            any(not re.fullmatch('[a-z][a-z0-9-]{1,60}', p) or p == 'capstone' for p in paths)):
         raise ValueError('Unsupported student curriculum.')
     ids = set()
     for lesson in data['lessons']:
         if not re.fullmatch('[a-z][a-z0-9-]{1,60}',lesson['id']) or lesson['id'] in ids:
             raise ValueError('Lesson IDs must be stable and unique.')
         ids.add(lesson['id'])
-        if lesson['path'] not in {'foundations','analog','digital','mixed','capstone'}:
+        if lesson['path'] not in {*paths,'capstone'}:
             raise ValueError('Unknown learning path.')
         if not re.fullmatch('[a-z][a-z0-9-]{1,60}',lesson['workspace']):raise ValueError('Invalid lesson workspace.')
         steps = lesson['steps']
@@ -58,7 +62,9 @@ def checker_stamp():
         from .build_info import WORKFLOW_SOURCE_HASH
         return WORKFLOW_SOURCE_HASH
     return digest([file_digest(__file__),file_digest(Path(__file__).with_name('student_capstone.py')),
-                   file_digest(Path(__file__).with_name('student_projects.py'))])
+                   file_digest(Path(__file__).with_name('student_projects.py')),
+                   file_digest(Path(__file__).with_name('student_design_labs.py')),
+                   file_digest(Path(__file__).with_name('student_inverter.py'))])
 
 
 def lesson_stamp(lesson):
@@ -230,7 +236,10 @@ def evaluate(step, lesson, project, rows=(), path=None, answer=None, note=''):
         return ds[0]
     def require(ok,message):
         if not ok:raise ValueError(message)
-    if kind=='structure':require(all(any(d['name']==n for d in devices) for n in rule['devices']),'Find the named devices in this lesson project.')
+    if kind=='inverter':
+        from .student_inverter import check
+        evidence.update(check(project,lesson,rule,rows))
+    elif kind=='structure':require(all(any(d['name']==n for d in devices) for n in rule['devices']),'Find the named devices in this lesson project.')
     elif kind=='value':
         value=find(rule['device'])
         for field in rule['field'].split('.'):value=value[field]
@@ -238,6 +247,9 @@ def evaluate(step, lesson, project, rows=(), path=None, answer=None, note=''):
     elif kind=='nets':require(find(rule['device'])['nets']==rule['nets'],'Review the terminal net assignments.')
     elif kind=='hierarchy':require(len(project['cells'])>=rule['minimum'] and any(d['kind']=='X' for d in devices),'Keep the reusable cell and its instance.')
     elif kind=='layout':require(sum(len(c['shapes']) for c in project['cells'])>=rule['minimum'],'Open the lesson geometry before checking. This checks geometry presence only.')
+    elif kind=='layout_exercise':
+        from .student_design_labs import check_layout
+        evidence.update(check_layout(project,rule['exercise']))
     elif kind=='saved':
         require(path and Path(path).is_file(),'Choose Save work before checking this step.')
         require(digest(load_project(path))==digest(project),'Save your latest changes before checking this step.')
@@ -266,7 +278,18 @@ def evaluate(step, lesson, project, rows=(), path=None, answer=None, note=''):
             evidence['cases'].append(dict(case=case,report=checked,**record))
     else:
         result,record=current_result(project,rows);evidence.update(record)
-        if kind in ('result','current','difference'):
+        if kind=='device_metrics':
+            from .analog_optimizer import read_gmid
+            require(result['settings'].get('type')=='op','Run an operating-point analysis for this bias checkpoint.')
+            point=read_gmid(dict(project=project,cell=project['top']),result,rule['device'])
+            failures=[]
+            for metric, bounds in rule['bounds'].items():
+                value=point.get(metric)
+                if not isinstance(value,(int,float)) or not math.isfinite(value) or not bounds[0]<=value<=bounds[1]:
+                    failures.append(f'{metric}: {value}; target {bounds[0]:g}–{bounds[1]:g}')
+            require(not failures,'Bias requirements failed. '+ '; '.join(failures))
+            evidence['device_metrics']=point
+        elif kind in ('result','current','difference'):
             expected_type=rule.get('analysis','op')
             require(result['settings'].get('type')==expected_type,'Run the requested '+expected_type+' analysis.')
             if kind=='current':measured=abs(result.get('operating_currents',{}).get(rule['name'],float('nan')))

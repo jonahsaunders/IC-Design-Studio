@@ -1,0 +1,110 @@
+[
+  {
+    "pdk": "gf180mcuC",
+    "revision": "627ca682d68e1e92",
+    "width_um": 1,
+    "length_um": 0.28,
+    "status": "passed",
+    "drc_count": 0,
+    "report_sha256": "2c8d63bec46c3c73b933f65ad2ce2e732614e345a82b6b33595c2cf78ff953a2"
+  },
+  {
+    "pdk": "gf180mcuC",
+    "revision": "627ca682d68e1e92",
+    "width_um": 1,
+    "length_um": 2,
+    "status": "passed",
+    "drc_count": 0,
+    "report_sha256": "acd9d750639091b53d02214f67e318994e634bd26b5c8687066a77a6ff62901b"
+  },
+  {
+    "pdk": "gf180mcuC",
+    "revision": "627ca682d68e1e92",
+    "width_um": 10,
+    "length_um": 0.28,
+    "status": "passed",
+    "drc_count": 0,
+    "report_sha256": "450b2c3fc7154833266f07b6744a0513ea8cc3a4fbe935e3ab60d1488d5439fb"
+  },
+  {
+    "pdk": "gf180mcuC",
+    "revision": "627ca682d68e1e92",
+    "width_um": 10,
+    "length_um": 2,
+    "status": "passed",
+    "drc_count": 0,
+    "report_sha256": "412cfbf1df813fc9b65ba33877010e40437ff77ad452b4a1563e54b702355d67"
+  },
+  {
+    "pdk": "gf180mcuD",
+    "revision": "7dd87219f1333dbb",
+    "width_um": 1,
+    "length_um": 0.28,
+    "status": "passed",
+    "drc_count": 0,
+    "report_sha256": "9d16f0f09ae1fa76d81a8839403bc03d5f314abcdc6c3700ddd178f45f743b56"
+  },
+  {
+    "pdk": "gf180mcuD",
+    "revision": "7dd87219f1333dbb",
+    "width_um": 1,
+    "length_um": 2,
+    "status": "passed",
+    "drc_count": 0,
+    "report_sha256": "5e719416c6f853269a46b679488362b3f41abff40a6fcf9c363d172eb5cbe499"
+  },
+  {
+    "pdk": "gf180mcuD",
+    "revision": "7dd87219f1333dbb",
+    "width_um": 10,
+    "length_um": 0.28,
+    "status": "passed",
+    "drc_count": 0,
+    "report_sha256": "0b8286e590bc5db1e31c0b9b927060070919993870a53b2c0147d7eb9c1b5ca0"
+  },
+  {
+    "pdk": "gf180mcuD",
+    "revision": "7dd87219f1333dbb",
+    "width_um": 10,
+    "length_um": 2,
+    "status": "passed",
+    "drc_count": 0,
+    "report_sha256": "d9e8fc67d155def739aa90d8f17714e32476852aa20d34998ebad5738bd5a825"
+  },
+  {
+    "pdk": "ihp-sg13g2",
+    "revision": "3abac20fcb57e184",
+    "width_um": 1,
+    "length_um": 0.13,
+    "status": "passed",
+    "drc_count": 0,
+    "report_sha256": "52a74ef8599b93d0f2c1d7c1ffa5449769264054d4df0a7a94784dc379d217bd"
+  },
+  {
+    "pdk": "ihp-sg13g2",
+    "revision": "3abac20fcb57e184",
+    "width_um": 1,
+    "length_um": 2,
+    "status": "passed",
+    "drc_count": 0,
+    "report_sha256": "7a103ee0ebd6a5827c57e312676111de0d8b1b681546f9d5708d337f5cb05ea8"
+  },
+  {
+    "pdk": "ihp-sg13g2",
+    "revision": "3abac20fcb57e184",
+    "width_um": 10,
+    "length_um": 0.13,
+    "status": "passed",
+    "drc_count": 0,
+    "report_sha256": "8f933f64b074786e5123d0080c0ad5cc1dfaf7c1080e9a15fa5edb36679031a6"
+  },
+  {
+    "pdk": "ihp-sg13g2",
+    "revision": "3abac20fcb57e184",
+    "width_um": 10,
+    "length_um": 2,
+    "status": "passed",
+    "drc_count": 0,
+    "report_sha256": "d06cec45e64b22ac0a9e5a2472d878ac9546717c2c5350bfe6a81ed761fbc09e"
+  }
+]

@@ -44,7 +44,7 @@
 2. **Open a working circuit.** Choose **File → Start here / example gallery → Your first waveform → Open a copy**. The RC example needs no external simulator or PDK.
 3. **Make your first change.** Press **F5**, inspect **Results → Waveforms**, change a component value, and run again. Save your project with **Ctrl+S**.
 
-Want a guided course? Open **File → Student Hub** for [28 lessons and a sensor-acquisition capstone](#learn-by-building-real-circuits).
+Want a guided course? Open **File → Student Hub** for [41 lessons and a sensor-acquisition capstone](#learn-by-building-real-circuits).
 
 <details>
 <summary><strong>Run from source</strong> · Python 3.12 · Windows, Linux and experimental macOS</summary>
@@ -90,7 +90,7 @@ Python requirements do not install the digital engines, VGA assets or openEMS ru
 | Process layout verification | Matching physical PDK assets/decks; **Tools → Physical tools setup** selects the included Magic/Netgen/ngspice runtime or configured custom engines |
 | Inductor EM simulation | openEMS runtime plus declared physical materials and layer data in a PDK profile |
 
-The packaged digital runtime uses native Linux tools or an app-owned **WSL 2** distribution on Windows. First-time Windows setup may need administrator approval and a restart. Linux packages target **x86_64, glibc 2.39+**. The Student Hub and SAR bridge use local executable paths, independently of that managed digital runtime.
+The packaged digital runtime uses native Linux tools or an app-owned **WSL 2** distribution on Windows. First-time Windows setup may need administrator approval and a restart. Linux packages target **x86_64, glibc 2.39+**. The Student Hub uses that runtime for inverter DRC/LVS and IHP simulation, including compiled OSDI models. Other Hub electrical/RTL lessons and the SAR bridge use local executable paths.
 
 [Desktop setup](docs/DOWNLOADS.md) · [PDK setup](docs/PDK_GUIDE.md) · [Engine details](docs/DIGITAL_FLOW.md#included-tools-and-first-setup)
 
@@ -193,18 +193,21 @@ The supplied bandgap has two locked upload revisions: the gallery startup/full p
 
 ### Learn by building real circuits
 
-The **Student Hub** turns the native editors into a course: **28 lessons, 112 steps, four learning paths and one advanced project**. Predict an outcome, edit the circuit or RTL, check measured or structural evidence, then record your reasoning. Saved projects, progress and reflections let you pick up where you left off.
+The **Student Hub** turns the native editors into a course: **41 core lessons, six learning paths and one advanced project**, plus an [eight-lesson CMOS inverter course](docs/STUDENT_INVERTER.md) for each available PDK revision. The inverter course covers process selection, schematic design, DC transfer, switching delay, layout, DRC repair, LVS repair and design review. Predict an outcome, edit the circuit or RTL, check measured or structural evidence, then record your reasoning. Saved projects, progress and reflections let you pick up where you left off.
 
-[![The Student Hub with four learning paths, searchable lessons, prerequisites and an editable practice path.](docs/images/student-hub.png)](docs/STUDENT_HUB.md)
+[![The Student Hub with six learning paths, gm/ID sizing, prerequisites and portfolio outcomes.](docs/images/student-hub-design-paths.png)](docs/STUDENT_HUB.md)
 
 | Path | What you build and investigate |
 |---|---|
 | **Foundations** | RC transients, nets and ground, component edits, hierarchy, loading and reproducible layouts |
-| **Analog** | Loaded dividers, RC bandwidth, current mirrors, differential pairs, amplifiers and matching |
-| **Digital** | Truth tables, counters, handshakes, PWM, fixed-point averaging and a serial transmitter |
+| **Analog** | Loaded dividers, RC bandwidth, current mirrors, differential pairs, amplifiers, matching, gm/ID bias selection, device sizing and headroom |
+| **Digital** | Truth tables, counters, handshakes, PWM, fixed-point averaging and a serial transmitter, latch repair, saturation and pipeline validity |
 | **Mixed Signal** | Bridge thresholds, sample/hold, quantization, timing repair, DAC weights and repeated conversions |
+| **Layout** | Metal width/spacing repairs, via enclosure and common-centroid placement with measured geometry checks |
+| **Portfolio & interviews** | Requirements, verification plans, design reviews and a readable portfolio report |
+| **CMOS inverter · PDK to LVS** | Process models, transfer curves, switching delay, layout, actual DRC/LVS failures and repairs, with separate progress per PDK revision |
 
-**Try it:** choose **File → Student Hub → Continue learning** or select a lesson and choose **Start lesson**. The guide stays beside the real editor. Use **Run lesson**, inspect **Results**, then **Check this step**. **Practice lesson** makes locked lessons available for exploration without bypassing progression credit.
+**Try it:** choose **File → Student Hub → Continue learning** or select a lesson and choose **Start lesson**. The guide stays beside the real editor. Its **Learn** tab explains the concept, a worked example and an interview prompt; **Do this step** gives the exercise. Use **Run lesson**, inspect **Results**, then **Check this step**. **Practice lesson** makes locked lessons available for exploration without bypassing progression credit.
 
 **Capstone:** repair an RC input filter, four-bit SAR and four-sample averager, then verify the threshold alarm across four system cases. The nominal repaired system produces averaged codes **4 and 11**, with alarm outputs **0 then 1**. [Lesson guide in action](docs/images/student-lesson.png) · [Capstone overview](docs/images/student-capstone.png).
 
@@ -653,11 +656,11 @@ Choose the circuit and technology in **File → Project Hub**. Register included
 | Process | Available path | For additional workflows |
 |---|---|---|
 | **SkyWater SKY130** | `sky130A/B` adapters; included `sky130A` simulation subset | Matching physical decks and engines for layout verification |
-| **GlobalFoundries GF180MCU** | `gf180mcuA/B/C/D` adapters; included simulation subset | Corresponding physical rule decks |
-| **IHP SG13G2** | Installed `ihp-sg13g2` adapter | Compatible ngspice and compiled OSDI models |
+| **GlobalFoundries GF180MCU** | A/B/C/D model registration; bundled C/D primitive models and distinct physical decks | Native 3.3 V inverter, editable vias and full-deck DRC/LVS for C/D. [Student flow](docs/STUDENT_INVERTER.md) |
+| **IHP SG13G2** | Bundled models, symbols, Magic/Netgen decks and Verilog-A sources | Native 1.2 V inverter and DRC/LVS; the Student Hub uses compiled OSDI models in the included Linux/WSL runtime. [Student flow](docs/STUDENT_INVERTER.md) |
 | **Custom technology** | Checksummed package interface | Explicit terminal, layer, model, and verification bindings |
 
-Bundled analog simulation subsets contain models and symbols; analog physical verification needs matching PDK assets and decks. The managed digital runtime separately includes the full, locked SKY130 HD platform used by its implementation flow. [Set up a PDK](docs/PDK_GUIDE.md) · [Digital platform locks](docs/DIGITAL_FLOW.md#technology-locks-and-supported-versions) · [Simulation runtime](SIMULATION_SETUP.md) · [Third-party sources](THIRD_PARTY_NOTICES.md)
+Bundled GF180 C/D and IHP subsets include matching Magic/Netgen decks for the bounded core-MOS inverter flow; the SKY130 analog simulation subset needs separate physical assets. Qualification covers nominal electrical simulation, DRC/LVS, deliberate faults and repairs, and all 12 GF180/IHP size boundaries. It does not establish extracted-RC, PVT or fabrication signoff. The managed digital runtime separately includes the full, locked SKY130 HD platform used by its implementation flow. [Validation evidence](docs/validation/student-physical/checks.json) · [Set up a PDK](docs/PDK_GUIDE.md) · [Digital platform locks](docs/DIGITAL_FLOW.md#technology-locks-and-supported-versions) · [Third-party sources](THIRD_PARTY_NOTICES.md)
 
 ## Automate from the command line
 

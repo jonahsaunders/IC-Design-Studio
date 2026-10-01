@@ -1,0 +1,497 @@
+{
+  "catalogs": [
+    {
+      "pdk": "sky130-qualified@f5ca448443abd5e1",
+      "placeable": 71,
+      "indexed": 74
+    },
+    {
+      "pdk": "gf180mcuC@82a99104bd425087",
+      "placeable": 64,
+      "indexed": 68
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "placeable": 35,
+      "indexed": 45
+    }
+  ],
+  "cases": [
+    {
+      "pdk": "sky130-qualified@f5ca448443abd5e1",
+      "device": "sky130_fd_pr/nfet_01v8.sym",
+      "corner": "nominal",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.383786102546654,
+      "output_last": 1.383786102546654,
+      "xschem_roundtrip": "passed"
+    },
+    {
+      "pdk": "sky130-qualified@f5ca448443abd5e1",
+      "device": "sky130_fd_pr/nfet_01v8.sym",
+      "corner": "ss",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.595276059128298,
+      "output_last": 1.595276059128298
+    },
+    {
+      "pdk": "sky130-qualified@f5ca448443abd5e1",
+      "device": "sky130_fd_pr/nfet_01v8.sym",
+      "corner": "ff",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.082360201135181,
+      "output_last": 1.082360201135181
+    },
+    {
+      "pdk": "sky130-qualified@f5ca448443abd5e1",
+      "device": "sky130_fd_pr/pfet_01v8.sym",
+      "corner": "nominal",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.1944243301273164,
+      "output_last": 0.1944243301273164,
+      "xschem_roundtrip": "passed"
+    },
+    {
+      "pdk": "sky130-qualified@f5ca448443abd5e1",
+      "device": "sky130_fd_pr/pfet_01v8.sym",
+      "corner": "ss",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.0822524131376424,
+      "output_last": 0.0822524131376424
+    },
+    {
+      "pdk": "sky130-qualified@f5ca448443abd5e1",
+      "device": "sky130_fd_pr/pfet_01v8.sym",
+      "corner": "ff",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.3550182163354628,
+      "output_last": 0.3550182163354628
+    },
+    {
+      "pdk": "sky130-qualified@f5ca448443abd5e1",
+      "device": "sky130_fd_pr/nfet3_01v8.sym",
+      "corner": "nominal",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.383786102546654,
+      "output_last": 1.383786102546654,
+      "xschem_roundtrip": "passed"
+    },
+    {
+      "pdk": "sky130-qualified@f5ca448443abd5e1",
+      "device": "sky130_fd_pr/nfet3_01v8.sym",
+      "corner": "ss",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.595276059128298,
+      "output_last": 1.595276059128298
+    },
+    {
+      "pdk": "sky130-qualified@f5ca448443abd5e1",
+      "device": "sky130_fd_pr/nfet3_01v8.sym",
+      "corner": "ff",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.082360201135181,
+      "output_last": 1.082360201135181
+    },
+    {
+      "pdk": "sky130-qualified@f5ca448443abd5e1",
+      "device": "sky130_fd_pr/nfet_01v8_nf.sym",
+      "corner": "nominal",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.069383463955021,
+      "output_last": 1.069383463955021,
+      "xschem_roundtrip": "passed"
+    },
+    {
+      "pdk": "sky130-qualified@f5ca448443abd5e1",
+      "device": "sky130_fd_pr/nfet_01v8_nf.sym",
+      "corner": "ss",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.415635391260518,
+      "output_last": 1.415635391260518
+    },
+    {
+      "pdk": "sky130-qualified@f5ca448443abd5e1",
+      "device": "sky130_fd_pr/nfet_01v8_nf.sym",
+      "corner": "ff",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.6623689458566113,
+      "output_last": 0.6623689458566113
+    },
+    {
+      "pdk": "gf180mcuC@82a99104bd425087",
+      "device": "symbols/nfet_03v3.sym",
+      "corner": "nominal",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 2.833554991327411,
+      "output_last": 2.833554991327411,
+      "xschem_roundtrip": "passed"
+    },
+    {
+      "pdk": "gf180mcuC@82a99104bd425087",
+      "device": "symbols/nfet_03v3.sym",
+      "corner": "ff",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 2.696096341661689,
+      "output_last": 2.696096341661689
+    },
+    {
+      "pdk": "gf180mcuC@82a99104bd425087",
+      "device": "symbols/nfet_03v3.sym",
+      "corner": "ss",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 2.950064031139242,
+      "output_last": 2.950064031139242
+    },
+    {
+      "pdk": "gf180mcuC@82a99104bd425087",
+      "device": "symbols/pfet_06v0.sym",
+      "corner": "nominal",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.05254789829973402,
+      "output_last": 0.05254789829973402,
+      "xschem_roundtrip": "passed"
+    },
+    {
+      "pdk": "gf180mcuC@82a99104bd425087",
+      "device": "symbols/pfet_06v0.sym",
+      "corner": "ff",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.09092861028342508,
+      "output_last": 0.09092861028342508
+    },
+    {
+      "pdk": "gf180mcuC@82a99104bd425087",
+      "device": "symbols/pfet_06v0.sym",
+      "corner": "ss",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.02785337229754366,
+      "output_last": 0.02785337229754366
+    },
+    {
+      "pdk": "gf180mcuC@82a99104bd425087",
+      "device": "symbols/diode_nd2ps_03v3.sym",
+      "corner": "nominal",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.070061738993865,
+      "output_last": 1.070061738993865,
+      "xschem_roundtrip": "passed"
+    },
+    {
+      "pdk": "gf180mcuC@82a99104bd425087",
+      "device": "symbols/diode_nd2ps_03v3.sym",
+      "corner": "ff",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.062272536370179,
+      "output_last": 1.062272536370179
+    },
+    {
+      "pdk": "gf180mcuC@82a99104bd425087",
+      "device": "symbols/diode_nd2ps_03v3.sym",
+      "corner": "ss",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.078389158971677,
+      "output_last": 1.078389158971677
+    },
+    {
+      "pdk": "gf180mcuC@82a99104bd425087",
+      "device": "symbols/diode_pw2dw.sym",
+      "corner": "nominal",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.8904428990500274,
+      "output_last": 0.8904428990500274,
+      "xschem_roundtrip": "passed"
+    },
+    {
+      "pdk": "gf180mcuC@82a99104bd425087",
+      "device": "symbols/diode_pw2dw.sym",
+      "corner": "ff",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.8864543352898883,
+      "output_last": 0.8864543352898883
+    },
+    {
+      "pdk": "gf180mcuC@82a99104bd425087",
+      "device": "symbols/diode_pw2dw.sym",
+      "corner": "ss",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.8949934654969548,
+      "output_last": 0.8949934654969548
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/sg13_lv_nmos.sym",
+      "corner": "nominal",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.134811809511325,
+      "output_last": 1.134811809511325,
+      "xschem_roundtrip": "passed"
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/sg13_lv_nmos.sym",
+      "corner": "slow",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.177683901346569,
+      "output_last": 1.177683901346569
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/sg13_lv_nmos.sym",
+      "corner": "fast",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.065362014774285,
+      "output_last": 1.065362014774285
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/sg13_hv_nmos.sym",
+      "corner": "nominal",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.198973085733006,
+      "output_last": 1.198973085733006,
+      "xschem_roundtrip": "passed"
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/sg13_hv_nmos.sym",
+      "corner": "slow",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.199888433677542,
+      "output_last": 1.199888433677542
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/sg13_hv_nmos.sym",
+      "corner": "fast",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.194525700805497,
+      "output_last": 1.194525700805497
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/sg13_lv_pmos.sym",
+      "corner": "nominal",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.03352040942692323,
+      "output_last": 0.03352040942692323,
+      "xschem_roundtrip": "passed"
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/sg13_lv_pmos.sym",
+      "corner": "slow",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.01066866718730461,
+      "output_last": 0.01066866718730461
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/sg13_lv_pmos.sym",
+      "corner": "fast",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.07561994970637567,
+      "output_last": 0.07561994970637567
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/sg13_hv_pmos.sym",
+      "corner": "nominal",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.001070188371507515,
+      "output_last": 0.001070188371507515,
+      "xschem_roundtrip": "passed"
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/sg13_hv_pmos.sym",
+      "corner": "slow",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.0002049143489648696,
+      "output_last": 0.0002049143489648696
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/sg13_hv_pmos.sym",
+      "corner": "fast",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.003483002366414314,
+      "output_last": 0.003483002366414314
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/rhigh.sym",
+      "corner": "nominal",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.2880416750028632,
+      "output_last": 0.2880416750028632,
+      "xschem_roundtrip": "passed"
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/rhigh.sym",
+      "corner": "slow",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.2880416750028632,
+      "output_last": 0.2880416750028632
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/rhigh.sym",
+      "corner": "fast",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.2880416750028632,
+      "output_last": 0.2880416750028632
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/rppd.sym",
+      "corner": "nominal",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.04581182225270952,
+      "output_last": 0.04581182225270952,
+      "xschem_roundtrip": "passed"
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/rppd.sym",
+      "corner": "slow",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.04581182225270952,
+      "output_last": 0.04581182225270952
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/rppd.sym",
+      "corner": "fast",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.04581182225270952,
+      "output_last": 0.04581182225270952
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/rsil.sym",
+      "corner": "nominal",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.002976129942400746,
+      "output_last": 0.002976129942400746,
+      "xschem_roundtrip": "passed"
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/rsil.sym",
+      "corner": "slow",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.002976129942400746,
+      "output_last": 0.002976129942400746
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/rsil.sym",
+      "corner": "fast",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 0.002976129942400746,
+      "output_last": 0.002976129942400746
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/cap_cmomi.sym",
+      "corner": "nominal",
+      "status": "passed",
+      "samples": 65,
+      "output_first": 0.999999990005453,
+      "output_last": 0.005767258004905887,
+      "xschem_roundtrip": "passed"
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/cap_cmomi.sym",
+      "corner": "slow",
+      "status": "passed",
+      "samples": 65,
+      "output_first": 0.999999990005453,
+      "output_last": 0.005767258004905887
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/cap_cmomi.sym",
+      "corner": "fast",
+      "status": "passed",
+      "samples": 65,
+      "output_first": 0.999999990005453,
+      "output_last": 0.005767258004905887
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/pnpMPA.sym",
+      "corner": "nominal",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.962722110563793e-05,
+      "output_last": 1.962722110563793e-05,
+      "xschem_roundtrip": "passed"
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/pnpMPA.sym",
+      "corner": "slow",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.962722110563793e-05,
+      "output_last": 1.962722110563793e-05
+    },
+    {
+      "pdk": "ihp-sg13g2@3abac20fcb57e184",
+      "device": "sg13g2_pr/pnpMPA.sym",
+      "corner": "fast",
+      "status": "passed",
+      "samples": 1,
+      "output_first": 1.962722110563793e-05,
+      "output_last": 1.962722110563793e-05
+    }
+  ]
+}

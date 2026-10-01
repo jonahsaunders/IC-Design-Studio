@@ -42,6 +42,9 @@ jobs:
           python -m unittest tests.test_student_hub -v
           python scripts/verify_student_capstone.py --out build/student-capstone
           python tests/gui_student_hub.py
+          python -m unittest discover -s tests -p test_student_inverter.py -v
+          python -m unittest discover -s tests -p test_student_physical.py -v
+          python tests/gui_student_inverter.py
       - name: Verify setup subprocess and failed-package UI
         run: python tests/gui_digital_setup.py
       - name: Verify first-run guidance and continuation after setup
@@ -61,6 +64,7 @@ jobs:
             build/mixed-signal-ui
             build/student-capstone
             build/student-hub-ui
+            build/student-inverter-gui
 
   implementation:
     runs-on: ubuntu-24.04

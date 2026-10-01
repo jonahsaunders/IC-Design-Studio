@@ -1,0 +1,2867 @@
+[
+  {
+    "action": "File / Student Hub\u2026",
+    "dialogs": [
+      "Student Hub \u00b7 IC Design Studio"
+    ],
+    "dialog_buttons": [
+      "Continue learning",
+      "More",
+      "PDK setup",
+      "Set up physical tools",
+      "Reload PDKs",
+      "Start lesson"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "File / Start here / example gallery\u2026",
+    "dialogs": [
+      "Start here \u00b7 IC Design Studio"
+    ],
+    "dialog_buttons": [
+      "Student Hub",
+      "New project\u2026",
+      "Open project\u2026",
+      "Import Xschem\u2026",
+      "Set up a PDK\u2026",
+      "Open a copy",
+      "Engine setup\u2026",
+      "Read the getting-started guide",
+      "Continue to workspace"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "File / New project\u2026",
+    "dialogs": [
+      "Project Hub \u00b7 IC Design Studio"
+    ],
+    "dialog_buttons": [
+      "Back to workspace",
+      "Refresh",
+      "Open selected",
+      "Open from disk\u2026",
+      "Manage project files\u2026",
+      "New project",
+      "Add PDK\u2026",
+      "Install selected PDK",
+      "Verify installed files",
+      "Locate installation folder\u2026",
+      "New project with this revision",
+      "Create project"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "File / Open project\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Open project folder\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Save",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Save as\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Close project",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Projects\u2026",
+    "dialogs": [
+      "Project Hub \u00b7 IC Design Studio"
+    ],
+    "dialog_buttons": [
+      "Back to workspace",
+      "Refresh",
+      "Add PDK\u2026",
+      "Create project",
+      "Install selected PDK",
+      "Verify installed files",
+      "Locate installation folder\u2026",
+      "New project with this revision",
+      "Open selected",
+      "Open from disk\u2026",
+      "Manage project files\u2026",
+      "New project"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "File / Recovery / Retry recovery save",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Recovery / Choose recovery folder\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Import / Import GDSII / OASIS\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Import / Import edited Xschem package\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Import / Import Magic layout\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Import / Import SPICE circuit\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Import / Import SPICE component\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Import / Review imported layout changes\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Import / Import Xschem schematic\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Export / Export reproducible handoff\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Export / Export SPICE deck\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Export / Export GDSII / OASIS\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Export / Export Xschem package\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Export / Export waveform CSV\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Run an analysis first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "File / Export / Save canvas image\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Export / Export structural Verilog\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Export / Export saved SPICE testbench\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Choose one saved testbench."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "File / Export / Save project folder\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Examples / New PDK inverter\u2026",
+    "dialogs": [
+      "Project Hub \u00b7 IC Design Studio"
+    ],
+    "dialog_buttons": [
+      "Back to workspace",
+      "Refresh",
+      "Open selected",
+      "Open from disk\u2026",
+      "Manage project files\u2026",
+      "New project",
+      "Add PDK\u2026",
+      "Install selected PDK",
+      "Verify installed files",
+      "Locate installation folder\u2026",
+      "New project with this revision",
+      "Create project"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "File / Examples / New PDK ring oscillator\u2026",
+    "dialogs": [
+      "Project Hub \u00b7 IC Design Studio"
+    ],
+    "dialog_buttons": [
+      "Back to workspace",
+      "Refresh",
+      "Open selected",
+      "Open from disk\u2026",
+      "Manage project files\u2026",
+      "New project",
+      "Add PDK\u2026",
+      "Install selected PDK",
+      "Verify installed files",
+      "Locate installation folder\u2026",
+      "New project with this revision",
+      "Create project"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "File / Examples / New PDK current mirror",
+    "dialogs": [
+      "Project Hub \u00b7 IC Design Studio"
+    ],
+    "dialog_buttons": [
+      "Back to workspace",
+      "Refresh",
+      "Open selected",
+      "Open from disk\u2026",
+      "Manage project files\u2026",
+      "New project",
+      "Add PDK\u2026",
+      "Install selected PDK",
+      "Verify installed files",
+      "Locate installation folder\u2026",
+      "New project with this revision",
+      "Create project"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "File / Examples / New PDK differential pair",
+    "dialogs": [
+      "Project Hub \u00b7 IC Design Studio"
+    ],
+    "dialog_buttons": [
+      "Back to workspace",
+      "Refresh",
+      "Open selected",
+      "Open from disk\u2026",
+      "Manage project files\u2026",
+      "New project",
+      "Add PDK\u2026",
+      "Install selected PDK",
+      "Verify installed files",
+      "Locate installation folder\u2026",
+      "New project with this revision",
+      "Create project"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "File / Examples / New PDK amplifier",
+    "dialogs": [
+      "Project Hub \u00b7 IC Design Studio"
+    ],
+    "dialog_buttons": [
+      "Back to workspace",
+      "Refresh",
+      "Open selected",
+      "Open from disk\u2026",
+      "Manage project files\u2026",
+      "New project",
+      "Add PDK\u2026",
+      "Install selected PDK",
+      "Verify installed files",
+      "Locate installation folder\u2026",
+      "New project with this revision",
+      "Create project"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "File / Examples / New SKY130 two-stage op-amp",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "The two-stage op-amp requires the linked SKY130A 1.8 V PDK."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "File / Examples / Distributed RC and specifications",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Examples / Differential amplifier design goals",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Examples / Common-centroid resistor array",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Examples / Xschem amplifier project",
+    "dialogs": [
+      "Import Xschem schematic"
+    ],
+    "dialog_tabs": [
+      "Dependencies",
+      "Schematics",
+      "Changes",
+      "Review notes"
+    ],
+    "dialog_buttons": [
+      "Add library folder\u2026",
+      "Review files",
+      "Locate selected file\u2026",
+      "Copy diagnostic report",
+      "Open reviewed project",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "File / Examples / Xschem multi-analysis program",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Examples / Native divider and studies",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Examples / Native RC and extracted comparison",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Quit",
+    "status": "close tested at end"
+  },
+  {
+    "action": "File / Import and migrate Xschem project\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "File / Migrate current project to native\u2026",
+    "dialogs": [
+      "Migrate to native project"
+    ],
+    "dialog_tabs": [
+      "Devices",
+      "Missing files / dependencies"
+    ],
+    "dialog_buttons": [
+      "Link selected file\u2026",
+      "Add library folder\u2026",
+      "Review again",
+      "Save migration draft\u2026",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "File / Project Hub\u2026",
+    "dialogs": [
+      "Project Hub \u00b7 IC Design Studio"
+    ],
+    "dialog_buttons": [
+      "Back to workspace",
+      "Refresh",
+      "Open selected",
+      "Open from disk\u2026",
+      "Manage project files\u2026",
+      "New project",
+      "Add PDK\u2026",
+      "Create project",
+      "Install selected PDK",
+      "Verify installed files",
+      "Locate installation folder\u2026",
+      "New project with this revision"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "File / Attach layout to schematic\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Edit / Undo",
+    "status": "disabled for initial project"
+  },
+  {
+    "action": "Edit / Redo",
+    "status": "disabled for initial project"
+  },
+  {
+    "action": "Edit / Duplicate",
+    "status": "invoked"
+  },
+  {
+    "action": "Edit / Delete selection",
+    "status": "invoked"
+  },
+  {
+    "action": "Edit / Rotate clockwise",
+    "status": "invoked"
+  },
+  {
+    "action": "Edit / Rotate counterclockwise",
+    "status": "invoked"
+  },
+  {
+    "action": "Edit / Command palette\u2026",
+    "dialogs": [
+      "Find a command"
+    ],
+    "dialog_buttons": [],
+    "status": "invoked"
+  },
+  {
+    "action": "Edit / Move selection precisely\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select the objects to move first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "View / Fit design",
+    "status": "invoked"
+  },
+  {
+    "action": "View / Fit layout\tF",
+    "status": "invoked"
+  },
+  {
+    "action": "View / Ruler\tK",
+    "status": "invoked"
+  },
+  {
+    "action": "View / Toggle light / dark",
+    "status": "invoked"
+  },
+  {
+    "action": "View / Schematic",
+    "status": "invoked"
+  },
+  {
+    "action": "View / Layout",
+    "status": "invoked"
+  },
+  {
+    "action": "View / Linked views",
+    "status": "invoked"
+  },
+  {
+    "action": "View / Show grid",
+    "status": "invoked"
+  },
+  {
+    "action": "View / Grid Settings\u2026",
+    "dialogs": [
+      "Grid Settings"
+    ],
+    "dialog_tabs": [
+      "Schematic",
+      "Layout"
+    ],
+    "dialog_buttons": [
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "View / Snap to grid",
+    "status": "disabled for initial project"
+  },
+  {
+    "action": "View / Zoom in",
+    "status": "invoked"
+  },
+  {
+    "action": "View / Zoom out",
+    "status": "invoked"
+  },
+  {
+    "action": "View / Reset workspace",
+    "status": "invoked"
+  },
+  {
+    "action": "Design / Add cell\u2026",
+    "dialogs": [
+      "New cell"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Design / Instantiate cell\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Create another cell with external ports first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Design / Set active cell as top",
+    "status": "invoked"
+  },
+  {
+    "action": "Design / Edit cell ports\u2026",
+    "dialogs": [
+      "Symbol editor \u00b7 top"
+    ],
+    "dialog_buttons": [
+      "Undo",
+      "Redo",
+      "Copy",
+      "Rotate",
+      "Mirror",
+      "Fit",
+      "Align / distribute",
+      "Properties\u2026",
+      "Attributes\u2026",
+      "Generate",
+      "Keys\u2026",
+      "Import\u2026",
+      "Export\u2026",
+      "Add pin",
+      "Remove",
+      "\u2191",
+      "\u2193",
+      "Save",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Design / Cell parameters\u2026",
+    "dialogs": [
+      "Cell parameters"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Design / Rename active cell\u2026",
+    "dialogs": [
+      "Rename cell"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Design / Make cell from selection\u2026",
+    "dialogs": [
+      "Make cell from selection"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Design / Library / cell / view browser\u2026",
+    "dialogs": [
+      "Library / cell / view"
+    ],
+    "dialog_buttons": [
+      "Open view",
+      "Linked PDK device library"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Design / Project settings\u2026",
+    "dialogs": [
+      "Project settings"
+    ],
+    "dialog_buttons": [
+      "Open PDK manager\u2026",
+      "Save",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Design / Manage project / Rename project\u2026",
+    "dialogs": [
+      "Rename project"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Design / Manage project / Duplicate project\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Design / Manage project / Delete project\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "This project has no file yet. Use Close project to discard it."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Design / Manage project / Delete active cell\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "A project must retain at least one cell."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Design / Design workflow\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Place component\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Place wire",
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Place net label\u2026",
+    "dialogs": [
+      "Place net label"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Place ground",
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Move",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select schematic objects first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Stretch",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select schematic objects first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Copy",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select schematic objects first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Mirror",
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Bulk parameters\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Cell definition properties\u2026",
+    "dialogs": [
+      "Component properties"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Instance parameters\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select a schematic cell instance."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Configure instance array\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select one schematic device to configure its instance array."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Enter schematic",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select a reusable cell instance first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Return to parent",
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Check and Save",
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Symbols / New custom symbol\u2026",
+    "dialogs": [
+      "New custom symbol"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Symbols / Edit selected symbol\u2026",
+    "dialogs": [
+      "Symbol editor \u00b7 top"
+    ],
+    "dialog_buttons": [
+      "Undo",
+      "Redo",
+      "Copy",
+      "Rotate",
+      "Mirror",
+      "Fit",
+      "Align / distribute",
+      "Properties\u2026",
+      "Attributes\u2026",
+      "Generate",
+      "Keys\u2026",
+      "Import\u2026",
+      "Export\u2026",
+      "Add pin",
+      "Remove",
+      "\u2191",
+      "\u2193",
+      "Save",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Symbols / Edit active cell symbol\u2026",
+    "dialogs": [
+      "Symbol editor \u00b7 top"
+    ],
+    "dialog_buttons": [
+      "Undo",
+      "Redo",
+      "Copy",
+      "Rotate",
+      "Mirror",
+      "Fit",
+      "Align / distribute",
+      "Properties\u2026",
+      "Attributes\u2026",
+      "Generate",
+      "Keys\u2026",
+      "Import\u2026",
+      "Export\u2026",
+      "Add pin",
+      "Remove",
+      "\u2191",
+      "\u2193",
+      "Save",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Symbols / Enter symbol",
+    "dialogs": [
+      "Symbol editor \u00b7 top"
+    ],
+    "dialog_buttons": [
+      "Undo",
+      "Redo",
+      "Copy",
+      "Rotate",
+      "Mirror",
+      "Fit",
+      "Align / distribute",
+      "Properties\u2026",
+      "Attributes\u2026",
+      "Generate",
+      "Keys\u2026",
+      "Import\u2026",
+      "Export\u2026",
+      "Add pin",
+      "Remove",
+      "\u2191",
+      "\u2193",
+      "Save",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Symbols / Generate / edit active symbol",
+    "dialogs": [
+      "Symbol editor \u00b7 top"
+    ],
+    "dialog_buttons": [
+      "Undo",
+      "Redo",
+      "Copy",
+      "Rotate",
+      "Mirror",
+      "Fit",
+      "Align / distribute",
+      "Properties\u2026",
+      "Attributes\u2026",
+      "Generate",
+      "Keys\u2026",
+      "Import\u2026",
+      "Export\u2026",
+      "Add pin",
+      "Remove",
+      "\u2191",
+      "\u2193",
+      "Save",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Symbols / Replace selected PDK device\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select one schematic device."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Annotations / Manage annotations\u2026",
+    "dialogs": [
+      "Schematic annotation"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Annotations / Add annotation\u2026",
+    "dialogs": [
+      "Schematic annotation"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Annotations / Connect selection to bus\u2026",
+    "dialogs": [
+      "Connect selected components to bus"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Selection filter / Devices",
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Selection filter / Wires",
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Selection filter / Labels",
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Selection filter / Annotations",
+    "status": "invoked"
+  },
+  {
+    "action": "Schematic / Place schematic devices in layout\u2026",
+    "dialogs": [
+      "Place schematic devices in layout"
+    ],
+    "dialog_buttons": [
+      "Resolve parameter variants\u2026",
+      "Show in schematic",
+      "Show in layout",
+      "Select missing and changed devices",
+      "Select all missing devices",
+      "Preview selected changes"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Rectangle",
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Polygon",
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Path",
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Move by reference\tM",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select layout objects first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Copy by reference\tC",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select layout objects first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Stretch edge\tS",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select layout objects first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Edit vertex",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select layout objects first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Rotate layout clockwise\tR",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select local shapes or cell instances."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Rotate layout counterclockwise\tShift+R",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select local shapes or cell instances."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Layout properties\u2026\tQ",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select local shapes. Enter a cell to edit its geometry."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Align layout selection\u2026",
+    "dialogs": [
+      "Align / distribute layout selection"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Layout drawing settings\u2026",
+    "dialogs": [
+      "Layout drawing settings"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Repeat last layout command",
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Geometry / Union",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select at least two shapes (Ctrl+click)."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Geometry / Subtract from first",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select at least two shapes (Ctrl+click)."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Geometry / Intersection",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select at least two shapes (Ctrl+click)."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Geometry / Exclusive OR",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select at least two shapes (Ctrl+click)."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Geometry / Erase layout area\u2026",
+    "dialogs": [
+      "Erase layout area"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Geometry / Transform layout selection\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select layout shapes or physical instances first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Geometry / Size selected geometry\u2026",
+    "dialogs": [
+      "Size selected geometry"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Geometry / Chop selected geometry\u2026",
+    "dialogs": [
+      "Chop selected geometry"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Geometry / Edit path vertices\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select one path in the active cell."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Cells and arrays / Create reusable layout cell\u2026",
+    "dialogs": [
+      "Reusable layout generator"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Cells and arrays / Regenerate active layout cell\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Open a generated layout cell first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Cells and arrays / Place physical cell / array\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Create another layout cell first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Cells and arrays / Create layout array\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select layout shapes first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Cells and arrays / Place linked physical instance\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Place an electrical cell instance in the schematic first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Cells and arrays / Resolve and regenerate physical variants\u2026",
+    "dialogs": [
+      "Resolve and regenerate physical variants"
+    ],
+    "dialog_buttons": [
+      "Cancel",
+      "Apply",
+      "Preview changes"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Cells and arrays / Expand linked instance array\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select one schematic instance array to expand into independently linked members."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Cells and arrays / Enter selected physical cell",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select a placed physical cell or its schematic instance."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Cells and arrays / Return to parent cell",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "The active cell has no physical parent."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Cells and arrays / Edit selected cell in context\tShift+E",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select exactly one placed physical cell."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Cells and arrays / Return from context\tCtrl+B",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "The active cell has no physical parent."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Cells and arrays / Place physical cell\u2026\tI",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Create a physical child cell, or generate the layout for an unplaced schematic instance first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Cells and arrays / Make selected instance a cell variant\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select exactly one placed physical cell."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Cells and arrays / Resolve selected array",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select exactly one placed physical cell."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Cells and arrays / Flatten selected physical instances",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select physical cell instances."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Generate / Common-centroid placement\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Create two reusable layout unit cells first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Generate / Generate generic MOS geometry\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select a MOS device in the schematic first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Generate / Generate metal guard ring\u2026",
+    "dialogs": [
+      "Metal guard ring"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Generate / Generate PDK device layout\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select one supported schematic MOS, MiM capacitor, poly resistor or fixed PNP first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Generate / Generate inverter layout\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "This technology: native physical generation and saved-bench layout verification are not implemented. Model simulation and physical qualification are separate capabilities."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Generate / Generate contacted SKY130 guard\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "These physical devices require the linked SKY130A process."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Generate / Add tied SKY130 MOS dummy\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "These physical devices require the linked SKY130A process."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Generate / Generate current mirror layout\u2026",
+    "dialogs": [
+      "Generate current mirror layout"
+    ],
+    "dialog_buttons": [
+      "Cancel",
+      "Apply",
+      "Preview changes"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Generate / Generate analog reference layout\u2026",
+    "dialogs": [
+      "Generate analog reference layout"
+    ],
+    "dialog_buttons": [
+      "Cancel",
+      "Apply",
+      "Preview changes"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Generate / Generate two-stage op-amp layout\u2026",
+    "dialogs": [
+      "Generate two-stage op-amp layout"
+    ],
+    "dialog_buttons": [
+      "Cancel",
+      "Apply",
+      "Preview changes"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Placement and constraints",
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Native device geometry mapping\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select one native device in the schematic."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / 3D layout viewer\u2026",
+    "dialogs": [
+      "3D layout viewer"
+    ],
+    "dialog_buttons": [
+      "Refresh from layout",
+      "Isometric",
+      "Top",
+      "Front",
+      "Fit",
+      "Screenshot\u2026",
+      "Reset heights to PDK / defaults"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Preserve connections on move / stretch",
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Multilayer routing / Route with cursor\u2026",
+    "dialogs": [
+      "Route with cursor"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Multilayer routing / Plan route\u2026",
+    "dialogs": [
+      "Plan multilayer route"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Multilayer routing / Plan matched pair\u2026",
+    "dialogs": [
+      "Plan matched pair"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Multilayer routing / Shield selected route\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select exactly one local path."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Multilayer routing / Review selected route result",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select a completed route job in the run queue."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / PCell library / Import definition\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / PCell library / Create cell from library\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Import a PCell JSON definition first. See the layout development guide for an example."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / PCell library / Regenerate library cell\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Open a cell created from the PCell library."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / PCell library / Inspect library cells",
+    "dialogs": [
+      "PCell library cells"
+    ],
+    "dialog_buttons": [],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Inspection and finishing / Query layout\u2026",
+    "dialogs": [
+      "Query layout"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Inspection and finishing / Compare against GDSII / OASIS\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Inspection and finishing / Measure layer density\u2026",
+    "dialogs": [
+      "Measure layer density"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Inspection and finishing / Insert dummy fill\u2026",
+    "dialogs": [
+      "Insert dummy fill"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Inspection and finishing / Round selected corners\u2026",
+    "dialogs": [
+      "Round selected corners"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Review schematic changes in layout\u2026",
+    "dialogs": [
+      "Schematic-driven layout"
+    ],
+    "dialog_buttons": [
+      "Resolve parameter variants\u2026",
+      "Show in schematic",
+      "Show in layout",
+      "Select missing and changed devices",
+      "Select all missing devices",
+      "Preview selected changes"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Layout / Place schematic devices in layout\u2026",
+    "dialogs": [
+      "Place schematic devices in layout"
+    ],
+    "dialog_buttons": [
+      "Resolve parameter variants\u2026",
+      "Show in schematic",
+      "Show in layout",
+      "Select missing and changed devices",
+      "Select all missing devices",
+      "Preview selected changes"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Route / Place via\tV",
+    "status": "invoked"
+  },
+  {
+    "action": "Route / Place via\u2026",
+    "dialogs": [
+      "Place via"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Route / Autovia\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select overlapping conductor shapes, then choose Autovia."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Route / Route linked terminals\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Place devices or cells with assigned terminals first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Route / Route between coordinates\u2026",
+    "dialogs": [
+      "Plan multilayer route"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Route / Assign physical terminal\u2026",
+    "dialogs": [
+      "Assign physical terminal"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Route / Assign cell layout port\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Declare the cell electrical ports first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Route / Stretch path segment\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select exactly one local path."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Route / Stretch path with mouse",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select exactly one local path."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Route / Cut wire",
+    "status": "invoked"
+  },
+  {
+    "action": "Route / Rejoin two wires",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Select exactly two wires to rejoin their nearest ends."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Route / Toggle junction at pointer",
+    "status": "invoked"
+  },
+  {
+    "action": "Route / Live routing feedback",
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Design specifications",
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Variation cases",
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Waveform calculator\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Open a completed run before calculating waveforms."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Simulation Explorer",
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Analysis setup\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Run analysis",
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Run enabled setups",
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Stop selected simulation",
+    "status": "disabled for initial project"
+  },
+  {
+    "action": "Analysis / Stop all simulations",
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Testbenches / Save / edit testbench\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Create a bench schematic containing one circuit instance, supplies and loads first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Testbenches / Run saved testbench",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Choose one saved testbench."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Testbenches / Saved testbenches",
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Testbenches / ngspice device noise\u2026",
+    "dialogs": [
+      "ngspice noise analysis"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Studies / Parameter sweep / PVT / Monte Carlo\u2026",
+    "dialogs": [
+      "Simulation study"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Studies / Rerun saved study",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Configure a simulation study first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Studies / Configure saved-bench characterization\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Choose one saved testbench."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Studies / Run saved-bench characterization",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Choose one saved testbench."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Post-layout / Simulate extracted SPICE testbench\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Post-layout / Simulate with estimated parasitics",
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Post-layout / Distributed RC and specification comparison",
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Post-layout / Calibrate RC from measurements\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Engine setup / Simulation runtime\u2026",
+    "dialogs": [
+      "Simulation runtime"
+    ],
+    "dialog_buttons": [
+      "Physical tools setup\u2026",
+      "Select libraries\u2026",
+      "Load folder\u2026",
+      "Verify files",
+      "Clear"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Engine setup / Engine diagnostics and paths\u2026",
+    "dialogs": [
+      "Engine diagnostics & paths"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Waveforms / Waveform markers and limits",
+    "dialogs": [
+      "Waveform markers and limits"
+    ],
+    "dialog_buttons": [
+      "Add marker",
+      "Apply changes",
+      "Remove",
+      "Clear markers",
+      "Export CSV",
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Waveforms / Export waveform CSV\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Run an analysis first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Program analyses",
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Edit simulation program\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Open an Xschem schematic with a simulation program, or place a code_shown component from the library."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Verification test plans\u2026",
+    "dialogs": [
+      "Verification test plans"
+    ],
+    "dialog_buttons": [
+      "New plan\u2026",
+      "Edit plan\u2026",
+      "Delete plan",
+      "Run plan",
+      "Create resumable campaign\u2026",
+      "Open campaign\u2026",
+      "Previous conditions",
+      "Next conditions",
+      "Open selected run",
+      "Retry failed / cancelled",
+      "Cancel remaining",
+      "Export CSV\u2026",
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Analog design workspace\u2026",
+    "dialogs": [
+      "Analog design workspace"
+    ],
+    "dialog_tabs": [
+      "Setup",
+      "Results matrix",
+      "Layout and constraints",
+      "Verification runs",
+      "Optimize",
+      "Circuit search",
+      "gm/Id explorer"
+    ],
+    "dialog_buttons": [
+      "Guided design setup\u2026",
+      "Add measurement",
+      "Remove measurement",
+      "Save variables and limits",
+      "Reload setup\u2026",
+      "Save current analysis",
+      "Edit analysis\u2026",
+      "Testbench editor\u2026",
+      "New PVT plan\u2026",
+      "New plan\u2026",
+      "Edit plan\u2026",
+      "Delete plan",
+      "Run plan",
+      "Create resumable campaign\u2026",
+      "Open campaign\u2026",
+      "Previous conditions",
+      "Next conditions",
+      "Open selected run",
+      "Retry failed / cancelled",
+      "Cancel remaining",
+      "Export CSV\u2026",
+      "Close",
+      "Show selected device",
+      "Place / regenerate\u2026",
+      "Review schematic changes\u2026",
+      "Show unrouted connections",
+      "Refresh",
+      "Add constraint\u2026",
+      "Arrange selected\u2026",
+      "Guard ring\u2026",
+      "Inspect selected run",
+      "Run saved testbench verification",
+      "Edit fixture / extraction\u2026",
+      "Refresh",
+      "Show failed requirement",
+      "Inspect saved run\u2026",
+      "Apply selected candidate",
+      "Cancel remaining",
+      "Resume incomplete",
+      "Export CSV\u2026",
+      "Run search",
+      "Guided design setup\u2026",
+      "Add trade-off objective",
+      "Remove objective",
+      "Add parameter",
+      "Remove parameter",
+      "Advanced analyses\u2026",
+      "Export comparison report\u2026",
+      "Refresh saved setup",
+      "Reuse experiment settings",
+      "Run gm/Id sweep",
+      "Estimate width from selected point",
+      "Device characterization library\u2026",
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Mixed signal / New SAR ADC example",
+    "dialogs": [
+      "Mixed-signal experiment"
+    ],
+    "dialog_tabs": [
+      "Experiment",
+      "Local engines",
+      "Bridge configuration"
+    ],
+    "dialog_buttons": [
+      "Browse\u2026",
+      "Browse\u2026",
+      "Browse\u2026",
+      "Analog circuit",
+      "RTL controller",
+      "Apply configuration",
+      "Run coupled simulation",
+      "Open walkthrough",
+      "Show analog waveforms",
+      "Cancel selected run",
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Mixed signal / Mixed-signal experiment\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Open the SAR ADC example or a project with a mixed-signal configuration."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Analysis / Mixed signal / SAR ADC walkthrough",
+    "dialogs": [
+      "MIXED SIGNAL SAR"
+    ],
+    "dialog_buttons": [
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Electrical rule check",
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Electrical check rules\u2026",
+    "dialogs": [
+      "Electrical check rules"
+    ],
+    "dialog_buttons": [
+      "Save",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Geometry DRC (generic rules)",
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Device mapping audit",
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Inspect whole net",
+    "dialogs": [
+      "Inspect net"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Schematic / layout cross-probe\u2026",
+    "dialogs": [
+      "Schematic / layout cross-probe"
+    ],
+    "dialog_buttons": [
+      "Refresh",
+      "Schematic",
+      "Layout",
+      "Connection guidance",
+      "Place missing instance\u2026"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Check linked layout and show connections",
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Physical terminal connectivity",
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Physical workflow",
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Physical verification / Run layout DRC / LVS only\u2026",
+    "dialogs": [
+      "Layout DRC / LVS"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Physical verification / Verify custom inverter through silicon",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "This technology: native physical generation and saved-bench layout verification are not implemented. Model simulation and physical qualification are separate capabilities."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Physical verification / Verify saved testbench layout",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "This technology: native physical generation and saved-bench layout verification are not implemented. Model simulation and physical qualification are separate capabilities."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Physical verification / Compare netlists with Netgen\u2026",
+    "dialogs": [
+      "Netgen LVS comparison"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Physical verification / Create PDK reference circuit\u2026",
+    "dialogs": [
+      "Project Hub \u00b7 IC Design Studio"
+    ],
+    "dialog_buttons": [
+      "Back to workspace",
+      "Refresh",
+      "Open selected",
+      "Open from disk\u2026",
+      "Manage project files\u2026",
+      "New project",
+      "Add PDK\u2026",
+      "Install selected PDK",
+      "Verify installed files",
+      "Locate installation folder\u2026",
+      "New project with this revision",
+      "Create project"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Physical verification / Extract layout through Magic\u2026",
+    "dialogs": [
+      "Extract through Magic"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Physical verification / Estimate ground capacitance",
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Run KLayout rule script\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Open KLayout findings\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Verify / Run bundled KLayout rules\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Digital / Digital flow\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Digital / New digital counter example",
+    "status": "invoked"
+  },
+  {
+    "action": "Digital / New UART regression example",
+    "status": "invoked"
+  },
+  {
+    "action": "Digital / New APB FIFO peripheral",
+    "status": "invoked"
+  },
+  {
+    "action": "Digital / Verify digital block",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Import a digital manifest or open the counter example first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Digital / Run digital block to placement",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Import a digital manifest or open the counter example first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Digital / Run digital block to GDS",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Import a digital manifest or open the counter example first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / Engine diagnostics and paths\u2026",
+    "dialogs": [
+      "Engine diagnostics & paths"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / Physical tools setup\u2026",
+    "dialogs": [
+      "Physical tools"
+    ],
+    "dialog_buttons": [
+      "Set up and verify",
+      "Enable Windows Linux support",
+      "Configure custom tools\u2026",
+      "Close",
+      "Get the desktop package",
+      "Experimental desktop builds",
+      "Open setup logs"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / Layout keyboard profile\u2026",
+    "dialogs": [
+      "Layout keyboard profile"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / Schematic command profile\u2026",
+    "dialogs": [
+      "Schematic command profile"
+    ],
+    "dialog_buttons": [
+      "Save",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / Convert GDS through Magic\u2026",
+    "dialogs": [
+      "Magic native conversion"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / Technology / Import technology descriptor\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / Technology / Technology and qualification status",
+    "dialogs": [
+      "Project settings"
+    ],
+    "dialog_buttons": [
+      "Open PDK manager\u2026",
+      "Save",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / Technology / Installed PDK revisions\u2026",
+    "dialogs": [
+      "Open PDK setup"
+    ],
+    "dialog_tabs": [
+      "Find and install",
+      "Registered revisions"
+    ],
+    "dialog_buttons": [
+      "Use included PDKs",
+      "Find installed PDKs",
+      "Add folder\u2026",
+      "Check and register",
+      "New project with this PDK",
+      "Link current project",
+      "Manage / verify revisions\u2026",
+      "PDK installation guide",
+      "Engine setup\u2026",
+      "OSDI runtime\u2026",
+      "Open official guide",
+      "Done"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / Technology / PDK manager\u2026",
+    "dialogs": [
+      "Open PDK setup"
+    ],
+    "dialog_tabs": [
+      "Find and install",
+      "Registered revisions"
+    ],
+    "dialog_buttons": [
+      "Use included PDKs",
+      "Find installed PDKs",
+      "Add folder\u2026",
+      "Check and register",
+      "New project with this PDK",
+      "Link current project",
+      "Manage / verify revisions\u2026",
+      "PDK installation guide",
+      "Engine setup\u2026",
+      "OSDI runtime\u2026",
+      "Open official guide",
+      "Done"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / Technology / Relink project PDK folder\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / Technology / Migrate PDK revision\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Register a revision of this project\u2019s PDK in PDK manager first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / Inductor creator\u2026",
+    "dialogs": [
+      "Inductor creator"
+    ],
+    "dialog_tabs": [
+      "Geometry",
+      "Target L",
+      "EM results"
+    ],
+    "dialog_buttons": [
+      "Find candidates",
+      "Cancel",
+      "Use candidate",
+      "Edit physical EM profile for this PDK\u2026",
+      "Open saved inductor characterization\u2026",
+      "Refresh preview",
+      "Apply suggested fix",
+      "Create inductor",
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / Physical EM profile\u2026",
+    "dialogs": [
+      "Physical EM profile for this PDK"
+    ],
+    "dialog_tabs": [
+      "Physical layers",
+      "Layer mapping"
+    ],
+    "dialog_buttons": [
+      "Add metal",
+      "Add via",
+      "Add dielectric / substrate",
+      "Remove selected",
+      "New for this PDK",
+      "Load profile\u2026",
+      "Save profile\u2026",
+      "Apply to project",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / Set up an open PDK\u2026",
+    "dialogs": [
+      "Open PDK setup"
+    ],
+    "dialog_tabs": [
+      "Find and install",
+      "Registered revisions"
+    ],
+    "dialog_buttons": [
+      "Use included PDKs",
+      "Find installed PDKs",
+      "Add folder\u2026",
+      "Check and register",
+      "New project with this PDK",
+      "Link current project",
+      "Manage / verify revisions\u2026",
+      "PDK installation guide",
+      "Engine setup\u2026",
+      "OSDI runtime\u2026",
+      "Open official guide",
+      "Done"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / External tool exchange / Export tool technology package\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / External tool exchange / Netlist with Xschem\u2026",
+    "dialogs": [
+      "Netlist with Xschem"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / External tool exchange / Open Magic workspace\u2026",
+    "dialogs": [
+      "Open Magic workspace"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / External tool exchange / Review Magic workspace edits\u2026",
+    "dialogs": [
+      "Review Magic workspace edits"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / External tool exchange / Run KLayout LVS\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / External tool exchange / Open KLayout LVS database\u2026",
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / External tool exchange / Restore original layout file\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "This project has no retained original layout."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / Collaboration\u2026",
+    "dialogs": [
+      "Collaboration"
+    ],
+    "dialog_tabs": [
+      "Start and resume",
+      "Live workspace",
+      "Shared folder",
+      "Team review"
+    ],
+    "dialog_buttons": [
+      "Host a session\u2026",
+      "Join a workspace\u2026",
+      "Stop network server",
+      "Start local server",
+      "Stop local server",
+      "Refresh list",
+      "Resume workspace",
+      "Recover owner access\u2026",
+      "Check schematic",
+      "Review schematic and layout",
+      "Recover owner access\u2026",
+      "Invite people and manage access\u2026",
+      "Leave workspace",
+      "Review conflicting edit\u2026",
+      "Save retained conflicting edit\u2026",
+      "Use shared version\u2026",
+      "Create shared folder\u2026",
+      "Join shared folder\u2026",
+      "Cells, layers & ownership\u2026",
+      "Publish my changes",
+      "Get shared changes",
+      "Leave shared folder",
+      "Save checkpoint\u2026",
+      "Refresh",
+      "Compare revisions",
+      "Save checkpoint copy\u2026",
+      "Post comment",
+      "Read comment",
+      "Go to object",
+      "Reply to discussion",
+      "Cancel reply",
+      "Resolve / reopen",
+      "Record decision",
+      "Share completed run\u2026",
+      "Inspect result",
+      "Re-run saved input",
+      "Retry last action",
+      "Discard saved review action\u2026",
+      "Setup and help",
+      "Back to design"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Tools / Hierarchy and design automation\u2026",
+    "dialogs": [
+      "Hierarchy and design automation"
+    ],
+    "dialog_tabs": [
+      "Hierarchy",
+      "Batch editor"
+    ],
+    "dialog_buttons": [
+      "Parent",
+      "Enter instance",
+      "Open schematic",
+      "Open layout",
+      "Review cell substitution",
+      "Load batch\u2026",
+      "Use selected device",
+      "Preview changes",
+      "Close",
+      "Apply"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Project",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Inspector",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Results",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Focus canvas",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Reset workspace",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Save named workspace\u2026",
+    "dialogs": [
+      "Save workspace"
+    ],
+    "dialog_buttons": [
+      "OK",
+      "Cancel"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Restore named workspace\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "Save a named workspace first."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Configure windows\u2026",
+    "dialogs": [
+      "Configure windows"
+    ],
+    "dialog_buttons": [
+      "Schematic",
+      "Layout",
+      "Simulation",
+      "Review",
+      "Save arrangement\u2026",
+      "Restore saved\u2026",
+      "Reset",
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Lock panel positions",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Linked views side by side",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Linked views stacked",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Device library",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Layers",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Analysis setup",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Workspace presets / Schematic",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Workspace presets / Layout",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Workspace presets / Simulation",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Workspace presets / Review",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Simulation Explorer",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Specifications",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Variation cases",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Placement and rules",
+    "status": "invoked"
+  },
+  {
+    "action": "Window / Design workflow",
+    "status": "invoked"
+  },
+  {
+    "action": "Help / Searchable help\u2026",
+    "dialogs": [
+      "IC Design Studio help"
+    ],
+    "dialog_buttons": [
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Help / About and release status",
+    "dialogs": [
+      "About IC Design Studio"
+    ],
+    "dialog_buttons": [
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Help / Keyboard shortcuts and wiring",
+    "dialogs": [
+      "Wiring and keyboard shortcuts"
+    ],
+    "dialog_buttons": [
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Help / Compatibility matrix",
+    "dialogs": [
+      "Compatibility matrix"
+    ],
+    "dialog_buttons": [
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Help / Workspace guide",
+    "dialogs": [
+      "GUI OVERHAUL"
+    ],
+    "dialog_buttons": [
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Help / Design workflow guide",
+    "dialogs": [
+      "UPDATE 0.16"
+    ],
+    "dialog_buttons": [
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Help / Xschem import and export guide",
+    "dialogs": [
+      "UPDATE 0.18"
+    ],
+    "dialog_buttons": [
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Help / Included Xschem libraries",
+    "dialogs": [
+      "UPDATE 0.18"
+    ],
+    "dialog_buttons": [
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Help / Native migration report\u2026",
+    "guarded": [
+      {
+        "type": "ValueError",
+        "message": "This project has no migration report. Use File \u2192 Import and migrate Xschem project."
+      }
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Help / Native workflow guide",
+    "dialogs": [
+      "UPDATE 0.20"
+    ],
+    "dialog_buttons": [
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Help / Native catalog migration guide",
+    "dialogs": [
+      "NATIVE CATALOG MIGRATION"
+    ],
+    "dialog_buttons": [
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Help / Getting started",
+    "dialogs": [
+      "GETTING STARTED"
+    ],
+    "dialog_buttons": [
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Help / Project roadmap",
+    "dialogs": [
+      "ROADMAP"
+    ],
+    "dialog_buttons": [
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Help / Layout development guide",
+    "dialogs": [
+      "LAYOUT SCALE AND COLLABORATION"
+    ],
+    "dialog_buttons": [
+      "Close"
+    ],
+    "status": "invoked"
+  },
+  {
+    "action": "Help / Student learning paths",
+    "dialogs": [
+      "Student Hub \u00b7 IC Design Studio"
+    ],
+    "dialog_buttons": [
+      "Continue learning",
+      "More",
+      "PDK setup",
+      "Set up physical tools",
+      "Reload PDKs",
+      "Start lesson"
+    ],
+    "status": "invoked"
+  }
+]

@@ -11,7 +11,35 @@ from icstudio.model import atomic_write
 from icstudio.xschem_compat import review_project
 from icstudio.xschem_runtime import run, find_ngspice
 from icstudio.runtime_setup import check_ngspice
-from check_simulation_assets import check
+from scripts.check_simulation_assets import check
+
+
+def native_case(technology, engine):
+    """Use the registered process contract, including IHP's compiled models."""
+    from icstudio.model import clone
+    from icstudio.student_inverter import profile
+    from scripts.verify_release_pdks import circuit
+    item = profile(technology)
+    if not item['ready']:
+        raise ValueError(item['reason'])
+    model, supply = item['models']['NMOS'], item['spec']['supply']
+    project = circuit(technology, model, supply)
+    job = dict(project=project, cell=project['top'], engine='ngspice',
+               settings=clone(project['analysis']))
+    if technology.get('simulation', {}).get('requires_osdi'):
+        from icstudio.physical_backend import prepare_simulation
+        prepare_simulation(job)
+    else:
+        job['executable'] = str(engine)
+    return job, model, supply
+
+
+def run_native_case(job, folder):
+    if job['settings'].get('managed_osdi'):
+        from icstudio.physical_backend import dispatch
+        return dispatch(job, folder, lambda *_: None)
+    from icstudio.engines import run_ngspice
+    return run_ngspice(job['project'], job['cell'], job['settings'], job['executable'], folder)
 
 
 def main():
@@ -26,26 +54,23 @@ def main():
     args.output.mkdir(parents=True, exist_ok=True)
     report = {'assets': check(), 'runtime': check_ngspice(engine), 'cases': []}
     # Catalog-backed native projects use a different deck path from imported
-    # programs. A Windows-style profile with spaces must work for both PDKs.
+    # programs. A profile with spaces must work for every bundled process.
     from icstudio.bundled_pdks import packages
     from icstudio.pdks import PDKRegistry
-    from icstudio.engines import run_ngspice
-    from verify_release_pdks import circuit
     native_root = args.output / 'native PDK checks with spaces'
     registry = PDKRegistry(native_root / 'registry')
     report['native_pdk_cases'] = []
     for item in packages(verify=True):
         key = registry.install(Path(item['path']) / 'package.json')
         technology = registry.technology(key)
-        model, supply = (('sky130_fd_pr/nfet_01v8.sym', 1.8) if item['family'] == 'sky130'
-                         else ('symbols/nfet_03v3.sym', 3.3))
-        project = circuit(technology, model, supply)
+        job, model, supply = native_case(technology, engine)
         folder = native_root / item['name']; folder.mkdir(parents=True, exist_ok=True)
-        result = run_ngspice(project, project['top'], project['analysis'], str(engine), folder)
+        result = run_native_case(job, folder)
         voltage = result['traces']['out'][0]
         if not 0 < voltage < supply:
             raise ValueError('Native PDK device check failed: ' + key)
         report['native_pdk_cases'].append({'pdk': key, 'model': model, 'status': 'passed', 'output_voltage': voltage})
+        atomic_write(args.output / 'report.json', json.dumps(report, indent=2))
     tests = [('gf180-startup', 'gf180-bandgap/5vfullv2-startup.sch', 'v(vref) v(avdd)', 1),
              ('sky130-inverter', 'sky130-simulation/inverter.sch', 'v(in) v(out)', 1)]
     if args.full:

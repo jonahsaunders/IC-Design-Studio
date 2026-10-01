@@ -152,12 +152,14 @@ class LifecycleMixin:
 
     def runtime_dialog(self):
         if not self.idle_edit():return
-        from .osdi import configure,verified
+        from .osdi import configure,verified,needs_managed_runtime
         dlg=QDialog(self);dlg.setWindowTitle('Simulation runtime');dlg.resize(760,480);v=QVBoxLayout(dlg)
-        note=QLabel('OSDI libraries contain compiled device models for this computer. IHP uses PSP, resistor, varicap and capacitor libraries. Select the compiled .osdi files from your PDK installation.');note.setWordWrap(True);v.addWidget(note)
+        note=QLabel('The bundled IHP process uses models in the included physical runtime when no custom libraries are selected. Use Physical tools setup to prepare it. For another PDK revision or a custom simulator, select matching compiled .osdi libraries for this computer.');note.setWordWrap(True);v.addWidget(note)
         listing=QPlainTextEdit();listing.setReadOnly(True);v.addWidget(listing,1);error=QLabel();error.setWordWrap(True);v.addWidget(error)
         def refresh():
-            listing.setPlainText('\n'.join(e['path']+'\nSHA256 '+e['sha256'] for e in self.project.get('simulation_runtime',{}).get('osdi',[])))
+            entries=self.project.get('simulation_runtime',{}).get('osdi',[])
+            listing.setPlainText('\n'.join(e['path']+'\nSHA256 '+e['sha256'] for e in entries) if entries else
+                'Included IHP models selected automatically.' if needs_managed_runtime(self.project) else 'This project has no custom OSDI libraries.')
         def choose():
             paths,_=QFileDialog.getOpenFileNames(dlg,'Select compiled device model libraries','','OSDI models (*.osdi)')
             if paths:
@@ -165,7 +167,13 @@ class LifecycleMixin:
                     entries=configure(paths);self.commit(lambda p:p.setdefault('simulation_runtime',{}).update(osdi=entries),'Configure OSDI runtime');refresh();error.setText('Libraries recorded. Run a circuit to verify simulator compatibility.')
                 except Exception as exc:error.setText(str(exc))
         def check():
-            try:verified(self.project);error.setText('Library hashes and platform match. Simulator compatibility is established by a successful simulation.')
+            try:
+                if needs_managed_runtime(self.project):
+                    from .physical_backend import prepare_simulation
+                    prepare_simulation({'project':self.project,'settings':{}})
+                    error.setText('Included IHP runtime is ready. Run a circuit to verify simulator compatibility.')
+                else:
+                    verified(self.project);error.setText('Library hashes and platform match. Simulator compatibility is established by a successful simulation.')
             except Exception as exc:error.setText(str(exc))
         def folder():
             path=QFileDialog.getExistingDirectory(dlg,'Select the folder produced by compile_ihp_osdi.py')
@@ -176,5 +184,5 @@ class LifecycleMixin:
                 entries=configure(paths);self.commit(lambda p:p.setdefault('simulation_runtime',{}).update(osdi=entries),'Configure OSDI folder');refresh();error.setText(str(len(entries))+' libraries recorded. Run a circuit to verify simulator compatibility.')
             except Exception as exc:error.setText(str(exc))
         row=QHBoxLayout()
-        for title,fn in [('Select libraries…',choose),('Load folder…',folder),('Verify files',check),('Clear',lambda:(self.commit(lambda p:p.pop('simulation_runtime',None),'Clear OSDI runtime'),refresh()))]:row.addWidget(self.button(title,fn=fn))
+        for title,fn in [('Physical tools setup…',self.physical_setup),('Select libraries…',choose),('Load folder…',folder),('Verify files',check),('Clear',lambda:(self.commit(lambda p:p.pop('simulation_runtime',None),'Clear OSDI runtime'),refresh()))]:row.addWidget(self.button(title,fn=fn))
         v.addLayout(row);refresh();self._runtime_dialog=dlg;dlg.show()

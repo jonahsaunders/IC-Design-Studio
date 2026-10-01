@@ -98,7 +98,14 @@ class LayoutReleaseTests(unittest.TestCase):
 
     def test_gf180_does_not_enable_ring_or_mirror(self):
         from icstudio.process_adapters import capabilities
-        t=technology();t['package_lock']['id']='gf180mcuC';c=capabilities(t);self.assertEqual(c['native_layout'],['mos','inverter']);self.assertIn('No release',c['physical_evidence'])
+        from tests.test_student_physical import technology as bundled_technology
+        for variant in ('gf180mcuC','gf180mcuD'):
+            t=bundled_technology(variant);c=capabilities(t)
+            self.assertEqual(c['native_layout'],['mos','inverter'])
+            self.assertIn('four size boundaries passed',c['physical_evidence'])
+        t=technology();t['package_lock']['id']='gf180mcuC'
+        self.assertEqual(capabilities(t)['native_layout'],[])
+        self.assertIn('No release',capabilities(t)['physical_evidence'])
 
     def test_layout_comparison_retains_failed_cases_and_pre_waveforms(self):
         p,cid,c=self.mirror();t=p['testbenches'][0];spec={**t['characterization'],'compare_layout':True};count=[0]

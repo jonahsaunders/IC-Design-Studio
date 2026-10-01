@@ -132,7 +132,11 @@ def run_program(project,cid,settings,executable,directory,progress,netlist,engin
     root=Path(directory).resolve();text=netlist(project,root);settings={**settings,'probes':settings.get('probes') or probes(project)}
     from .ngspice_compat import prepare as prepare_compatibility
     text=prepare_compatibility(text,executable,root)
-    program,total,relocations=prepare_program(text,root,settings);atomic_write(root/'input.cir',program)
+    program,total,relocations=prepare_program(text,root,settings)
+    # The imported program is validated before trusted, checksummed runtime
+    # libraries are injected. Arbitrary pre_osdi commands remain forbidden.
+    from .osdi import preload
+    program=preload(project,program,root);atomic_write(root/'input.cir',program)
     atomic_write(root/'output-paths.json',json.dumps(relocations,indent=2));cases=[];active={};log_path=root/'engine.log'
     def line_received(line):
         with log_path.open('a',encoding='utf-8') as out:out.write(line+'\n')

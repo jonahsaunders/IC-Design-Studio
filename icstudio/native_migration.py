@@ -105,8 +105,9 @@ def review(project):
     for error in exchange.get('unresolved', []):
         item('Dependency', 'Needs attention', error); blocked = True
     files = exchange['source_files']; mapping = {}
+    from .source_assets import source_hash
     for path, asset in files.items():
-        if hashlib.sha256(asset['text'].encode()).hexdigest() != asset['sha256']:
+        if source_hash(asset) != asset['sha256']:
             item(Path(path).name, 'Needs attention', 'Source checksum changed; review the source files again.'); blocked = True
         if asset['kind'].startswith('Model'):
             mapping[path] = hashlib.sha256((path + '\0' + asset['sha256']).encode()).hexdigest()[:24]

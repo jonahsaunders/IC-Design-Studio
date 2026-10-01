@@ -27,8 +27,10 @@ def wait(worker):
 
 with tempfile.TemporaryDirectory() as folder:
     root=Path(folder);w.pdk_registry=PDKRegistry(root/'registry');w.project_index=ProjectIndex(root/'projects')
-    # Fresh New Project shows both included PDKs immediately, before registration.
-    dlg=w.new_project();assert len([r for r in dlg.rows if r['status']=='Available offline'])==2
+    # Every bundled revision is visible immediately, before registration.
+    from icstudio.bundled_pdks import packages
+    expected={p['name']+'@'+p['revision'] for p in packages(verify=True)}
+    dlg=w.new_project();assert {r['key'] for r in dlg.rows if r['status']=='Available offline'}==expected
     dlg.show_page('pdks');key=next(r['key'] for r in dlg.rows if r['id']=='sky130A');assert dlg.select_pdk(key)
     assert dlg.revision.text().endswith(key.split('@')[1]);assert dlg.install_button.isEnabled()
     QTest.qWait(40);assert dlg.grab().save(str(OUT/'pdks-available.png'))

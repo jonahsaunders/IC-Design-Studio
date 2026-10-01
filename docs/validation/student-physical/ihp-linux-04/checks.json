@@ -1,0 +1,212 @@
+{
+  "pdk": "ihp-sg13g2",
+  "revision": "3abac20fcb57e184",
+  "platform": "Linux x86_64 / Docker",
+  "status": "passed",
+  "raw_checks_sha256": "e4334a9d7a9433e4c84e8659b54604002fcccca83103b65cbb2113c85ffff16b",
+  "environment": {
+    "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+    "engine": "ngspice",
+    "executable_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7"
+  },
+  "stages": [
+    {
+      "stage": "dc",
+      "input_sha256": "4eb32e7242866e9542c1c6b4bb73a78e52a31f76107d69b4b5edc86a3e2e14c7",
+      "result_sha256": "c0fd5e0ee3769e8a17426dba6ec97adb95001adcf3b662d0b18aa5a689bffde6",
+      "environment": {
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "engine": "ngspice",
+        "executable_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7"
+      },
+      "engine": "ngspice (installed executable)",
+      "inverter_measurements": {
+        "VOH": 1.199999956593144,
+        "VOL": 6.7614146110111e-08,
+        "switching_threshold": 0.6173028356365595,
+        "supply": 1.2
+      }
+    },
+    {
+      "stage": "transient",
+      "input_sha256": "d09b6e419a021172dcebf8fbd5f12f1e4451808ce24a577fa75f0a4d27397216",
+      "result_sha256": "929b387fe219edd833782632e7f84cf87d646e50ae7f4657007b12ec76495261",
+      "environment": {
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "engine": "ngspice",
+        "executable_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7"
+      },
+      "engine": "ngspice (installed executable)",
+      "inverter_measurements": {
+        "tPHL": 1.856888939608104e-11,
+        "tPLH": 1.756168910129884e-11,
+        "supply": 1.2,
+        "checked_cycles": 3
+      }
+    },
+    {
+      "stage": "drc-fault",
+      "input_sha256": "23ce33d02caadce3124142f2844a44a42b76db0f353bd2b100035cb568f8f20e",
+      "result_sha256": "6e10a25f91764e397c4f460e42b8543db6d7dde9896e1f0a5521b4cd051093a9",
+      "environment": {
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "engine": "physical"
+      },
+      "engine": "Magic / Netgen / ngspice",
+      "physical_checks": {
+        "drc": {
+          "name": "drc",
+          "status": "failed",
+          "error": "2 Magic DRC violations; see findings.tsv."
+        }
+      },
+      "pdk": "ihp-sg13g2"
+    },
+    {
+      "stage": "drc-repaired",
+      "input_sha256": "8ab0734ccc6341d59f95397a417eeda1d6ee4874202a551be5d8c33bd882649d",
+      "result_sha256": "ffe3b132af613746bbcdb486394d12ec1117c15d8faccc14064a0a7b5063d719",
+      "environment": {
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "engine": "physical"
+      },
+      "engine": "Magic / Netgen / ngspice",
+      "physical_checks": {
+        "drc": {
+          "name": "drc",
+          "status": "passed",
+          "evidence": {
+            "violations": 0,
+            "style": "drc(full)"
+          }
+        }
+      },
+      "pdk": "ihp-sg13g2"
+    },
+    {
+      "stage": "lvs-fault",
+      "input_sha256": "5cfe873147d10befa08e443636332300f0dbc9e8628da6e5710c98b2dc01969c",
+      "result_sha256": "cb75773c7000de91ca21251c8bc8a27a553afdb2e1a9cabd86a5691ff11293c7",
+      "environment": {
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "engine": "physical"
+      },
+      "engine": "Magic / Netgen / ngspice",
+      "physical_checks": {
+        "lvs": {
+          "name": "lvs",
+          "status": "failed",
+          "error": "Netgen did not establish a unique match with equivalent connected pins and no property errors. See lvs/lvs.log."
+        }
+      },
+      "pdk": "ihp-sg13g2"
+    },
+    {
+      "stage": "lvs-repaired",
+      "input_sha256": "26d92e9adbfa6b14e700fa0e4f16d43d3d02dc6420269a82275fe7258e681392",
+      "result_sha256": "c4cc3b7466e7a08312d75c72b76f514afbb2d99c6cfb3869a95cc3fc1cc07936",
+      "environment": {
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "engine": "physical"
+      },
+      "engine": "Magic / Netgen / ngspice",
+      "physical_checks": {
+        "lvs": {
+          "name": "lvs",
+          "status": "passed",
+          "evidence": {
+            "unique_match": true,
+            "log": "lvs/lvs.log"
+          }
+        }
+      },
+      "pdk": "ihp-sg13g2"
+    },
+    {
+      "stage": "final-both",
+      "input_sha256": "26d92e9adbfa6b14e700fa0e4f16d43d3d02dc6420269a82275fe7258e681392",
+      "result_sha256": "c4cc3b7466e7a08312d75c72b76f514afbb2d99c6cfb3869a95cc3fc1cc07936",
+      "environment": {
+        "workflow_hash": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+        "engine": "physical"
+      },
+      "engine": "Magic / Netgen / ngspice",
+      "physical_checks": {
+        "drc": {
+          "name": "drc",
+          "status": "passed",
+          "evidence": {
+            "violations": 0,
+            "style": "drc(full)"
+          }
+        },
+        "lvs": {
+          "name": "lvs",
+          "status": "passed",
+          "evidence": {
+            "unique_match": true,
+            "log": "lvs/lvs.log"
+          }
+        }
+      },
+      "pdk": "ihp-sg13g2"
+    }
+  ],
+  "pdk_files_sha256": "7fcea14348e40f54c70fd4d781b009a144615d020044ece423080e21ef39aabb",
+  "negative_checks": [
+    "DRC defect cannot earn passing credit",
+    "LVS width defect cannot earn passing credit",
+    "Modified LVS evidence log is rejected after both repairs"
+  ],
+  "final_physical_report_sha256": "be2a65050deb51164c6b3c3e9570fab4d63f024d87d6e6c13feeea02a8ac8067",
+  "physical_stages": [
+    {
+      "name": "preflight",
+      "status": "passed"
+    },
+    {
+      "name": "layout_export",
+      "status": "passed"
+    },
+    {
+      "name": "drc",
+      "status": "passed"
+    },
+    {
+      "name": "lvs_extraction",
+      "status": "passed"
+    },
+    {
+      "name": "lvs",
+      "status": "passed"
+    },
+    {
+      "name": "integrity",
+      "status": "passed"
+    }
+  ],
+  "engine_versions": {
+    "magic": "8.3.684",
+    "netgen": "Netgen 1.5.300 compiled on Wed Sep 30 22:20:50 UTC 2026\nWarning: netgen command 'format' use fully-qualified name '::netgen::format'\nWarning: netgen command 'global' use fully-qualified name '::netgen::global'"
+  },
+  "reference_defaults": [
+    {
+      "instance": "X_MN",
+      "parameter": "mm_ok",
+      "reason": "Statistical simulation flag omitted by the locked upstream LVS format",
+      "proof": {
+        "source": "libs.tech/xschem/sg13g2_pr/sg13_lv_nmos.sym",
+        "sha256": "4c65869259c7aea7ff30d8612c5017419423d55e27dbb0aea28323e7da49ba7d"
+      }
+    },
+    {
+      "instance": "X_MP",
+      "parameter": "mm_ok",
+      "reason": "Statistical simulation flag omitted by the locked upstream LVS format",
+      "proof": {
+        "source": "libs.tech/xschem/sg13g2_pr/sg13_lv_pmos.sym",
+        "sha256": "bc03331b71de250641ba1eb34c3b13bd3bb21a53ed7c329ecf6b0b1a7c53a6c1"
+      }
+    }
+  ]
+}
