@@ -21,6 +21,7 @@ def main():
     parser.add_argument('--out',type=Path,required=True)
     for name in ('ngspice','magic','netgen'):parser.add_argument('--'+name,default='')
     parser.add_argument('--runtime-record',type=Path,help='Existing managed runtime ready record; runtime identity and installed files are reverified by the backend.')
+    parser.add_argument('--osdi-directory',type=Path,help='Native IHP model build with build.json and its six compiled libraries.')
     args=parser.parse_args();out=args.out.resolve()
     if out.exists() and any(out.iterdir()):parser.error('Use a fresh empty output directory.')
     out.mkdir(parents=True,exist_ok=True)
@@ -29,6 +30,13 @@ def main():
                 package_lock=dict(id=m['id'],revision=m['revision'],manifest_hash=digest(m),files=m['files']))
     item=course.profile(tech);data,_=course.expand(curriculum(),study_guide(curriculum()),[item])
     p=course.create(item);tools={n:getattr(args,n) for n in ('ngspice','magic','netgen')}
+    if args.osdi_directory:
+        from icstudio.osdi import configure,managed_models
+        build=json.loads((args.osdi_directory/'build.json').read_text())
+        models=managed_models(p['pdk'],{'osdi':{'ihp-sg13g2':build}})
+        p['simulation_runtime']={'osdi':configure([args.osdi_directory/model['output'] for model in models])}
+        if any(entry['sha256']!=model['sha256'] for entry,model in zip(p['simulation_runtime']['osdi'],models)):
+            raise ValueError('Compiled model differs from its build record.')
     runtime=json.loads(args.runtime_record.read_text())['runtime'] if args.runtime_record else None
     records=[]
     def lesson(stage):return next(l for l in data['lessons'] if l.get('inverter_stage')==stage)
@@ -64,7 +72,7 @@ def main():
             else:raise AssertionError('Altered verification evidence was accepted')
         finally:evidence.write_bytes(original)
     report=dict(status='passed',pdk=m['id'],revision=m['revision'],checks=records,
-                engine_sha256=file_digest(tools['ngspice']) if tools['ngspice'] else records[0]['evidence']['environment']['executable_sha256'])
+                environment=records[0]['evidence']['environment'])
     atomic_write(out/'checks.json',json.dumps(report,indent=2));print('QUALIFICATION PASSED',m['id'])
 
 

@@ -41,6 +41,18 @@ def prepare(job):
     return job
 
 
+def prepare_simulation(job):
+    """Use included IHP OSDI on its native platform, including from Windows."""
+    from . import digital_runtime
+    from .osdi import managed_models
+    managed_models(job['project']['pdk'],digital_runtime.manifest())
+    runtime=available()
+    if not runtime:raise ValueError('Open Tools → Physical tools setup to prepare the included IHP simulator and verification tools.')
+    job['settings']['physical_runtime']=runtime
+    job['settings']['managed_osdi']='ihp-sg13g2'
+    return job
+
+
 def stage(job, work, native_work, native_root):
     native=clone(job); pdk=native['project']['pdk']
     source=Path(pdk.get('package_root','')).resolve()
@@ -59,6 +71,14 @@ def stage(job, work, native_work, native_root):
     pdk['package_root']=str(PurePosixPath(native_work)/'pdk')
     settings=native['settings'];settings.pop('physical_runtime',None)
     settings['tools']={name:str(PurePosixPath(native_root)/'opt/icstudio/bin'/name) for name in TOOLS}
+    if settings.get('managed_osdi'):
+        from . import digital_runtime
+        from .osdi import managed_models
+        models=managed_models(pdk,digital_runtime.manifest())
+        folder=PurePosixPath(native_root)/'opt/icstudio/osdi/ihp-sg13g2'
+        native['project']['simulation_runtime']={'osdi':[
+            dict(path=str(folder/m['output']),sha256=m['sha256'],system='Linux',machine='x86_64') for m in models]}
+        native['executable']=settings['tools']['ngspice']
     native.pop('environment',None)
     return native
 
@@ -127,7 +147,12 @@ def dispatch(job, directory, progress):
             raise ValueError('Physical job inputs changed in the backend.')
         result=json.loads((root/'physical-backend-result.json').read_text())
         result['settings']=clone(job['settings']);result['design_hash']=design_digest(job['project'])
-        result['pdk_hash']=digest(job['project']['pdk']);result['evidence_directory']=str(root/'physical-flow')
+        result['pdk_hash']=digest(job['project']['pdk'])
+        if job['settings'].get('managed_osdi'):
+            result['managed_execution']=metadata
+            atomic_write(root/'physical-host-result.json',json.dumps(result,indent=2))
+            return result
+        result['evidence_directory']=str(root/'physical-flow')
         report=result['silicon_report'];report['native_design_hash']=report['design_hash'];report['design_hash']=result['design_hash']
         for finding in result.get('physical_result',{}).get('issues',[])+report.get('findings',[]):
             if finding.get('source_design_hash')==report['native_design_hash']:
@@ -150,6 +175,9 @@ def native_run(work):
     if job['settings']['type']=='physical_probe':
         from .physical_runtime_probe import run
         result=run(job,output,progress)
+    elif job['settings'].get('managed_osdi'):
+        from .engines import run_ngspice
+        result=run_ngspice(job['project'],job['cell'],job['settings'],job['executable'],output,progress)
     else:result=physical_job(job['project'],job['cell'],job['settings'],output,progress)
     atomic_write(output/'physical-backend-result.json',json.dumps(result,allow_nan=False))
     records={p.relative_to(output).as_posix():file_digest(p) for p in output.rglob('*') if p.is_file()}

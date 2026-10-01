@@ -106,9 +106,14 @@ class SiliconMixin:
     def run_silicon(self):
         if not self.flush_inspector():return
         inverter_devices(self.project,self.cid)
-        if self.project['pdk'].get('package_lock',{}).get('id')=='gf180mcuC':raise ValueError('Save a testbench with explicit GF180 stimulus, loads and measurement limits before physical verification.')
         config={n:self.settings.value('engine/'+n,'') or shutil.which(n) or '' for n in ('magic','netgen','ngspice')}
-        self.start_job({'type':'silicon','tools':config});self.open_silicon();self.silicon_status.setText('Verifying the saved project snapshot. Progress and complete logs are retained with this run.')
+        settings={'type':'silicon','tools':config}
+        if self.project['pdk'].get('package_lock',{}).get('id')!='sky130A':
+            from .layout_verification import reference
+            from .testbenches import native_subcircuit
+            cell=next(c for c in self.project['cells'] if c['id']==self.cid)
+            settings.update(verification_mode='drc_lvs',reference=reference(native_subcircuit(self.project,self.cid),cell['name']))
+        self.start_job(settings);self.open_silicon();self.silicon_status.setText('Verifying the saved project snapshot. Progress and complete logs are retained with this run.')
 
     def add_result(self,r):
         super().add_result(r)

@@ -103,6 +103,7 @@ def readiness(technology, ngspice=None, osdi=()):
     needs_osdi = simulation.get('requires_osdi', False)
     runtime = 'ngspice found; run a small device test to validate this revision.' if ngspice else 'Select ngspice in Engine setup before simulation.'
     if needs_osdi:
-        runtime += ' IHP OSDI libraries need a matching simulator build; ' + ('configured files still require a runtime test.' if osdi else 'compile and select them in Simulation runtime.')
+        runtime = ('The Student Hub uses the included Linux/WSL simulator and matching compiled IHP models; choose Set up physical tools in the Hub. '
+                   'For custom native simulation, ' + ('configured OSDI files still require a runtime test.' if osdi else 'compile and select compatible OSDI libraries in Simulation runtime.'))
     return {'placeable': placeable, 'indexed': len(catalog), 'corners': corners,
             'requires_osdi': needs_osdi, 'runtime': runtime}

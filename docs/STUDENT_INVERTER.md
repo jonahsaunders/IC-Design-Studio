@@ -2,19 +2,21 @@
 
 Open **File → Student Hub → CMOS inverter · PDK to LVS**. Choose a PDK revision, then follow eight lessons: process selection, schematic, DC transfer, switching, layout, DRC repair, LVS repair and design review. Each lesson includes an explanation, worked example, hands-on instructions, a checked task and an interview question.
 
-The Hub discovers the bundled simulation packages, registered PDK revisions and the open project's locked PDK. Projects, reflections and credit are separate for each process revision. **Open workspace** shows the testbench; **Open inverter** shows its child circuit, switching to layout view in the physical lessons. **Save work** preserves your edits; starting the next lesson resumes the same project.
+The Hub discovers the bundled process packages, registered PDK revisions and the open project's locked PDK. Projects, reflections and credit are separate for each process revision. **Open workspace** shows the testbench; **Open inverter** shows its child circuit, switching to layout view in the physical lessons. **Save work** preserves your edits; starting the next lesson resumes the same project.
 
 ## Available processes and actual capabilities
 
 | Process | Nominal starter | Simulation | Physical course |
 |---|---|---|---|
 | SKY130A | Core 1.8 V NMOS/PMOS, W 1/2 µm, L 0.15 µm | Included model package; native ngspice required | Native inverter layout when required masks are mapped. Full matching Magic/Netgen decks and physical tools are required for DRC/LVS. |
-| GF180MCU | Core 3.3 V NMOS/PMOS, W 1/2 µm, L 0.28 µm | Included GF180 D model package; registered variants use their own models | Native generator supports GF180 C. C and D are distinct variants. Other variants require matching imported geometry and configured physical decks. |
-| IHP SG13G2 | Low-voltage 1.2 V NMOS/PMOS, W 1/2 µm, L 0.13 µm | Register the PDK and configure platform-matching compiled OSDI models | No native IHP inverter generator. Import process-specific geometry. The Hub's automatic physical checkpoints require locked Magic/Netgen decks; upstream KLayout-only flows are not automatically graded here. |
+| GF180MCU C / D | Core 3.3 V NMOS/PMOS, W 1/2 µm, L 0.28 µm | Both variants include primitive models; native ngspice required | Editable native inverter and M1/M2 vias. Each variant includes its own full Magic and Netgen decks. C uses the 0.9 µm top-metal option; D uses 1.1 µm. |
+| IHP SG13G2 | Low-voltage 1.2 V NMOS/PMOS, W 1/2 µm, L 0.13 µm | Included process models and six compiled OSDI libraries in the managed Linux/WSL runtime | Editable native inverter and M1/M2 vias, full upstream Magic DRC and Netgen LVS. The included Magic 8.3.684 satisfies the deck's minimum 8.3.617 requirement. |
 
-These are the application's supported open PDK families, not a claim to support every open PDK in existence. Every registered revision appears in the chooser; revisions without the expected core device bindings explain their missing setup. IHP remains visible with setup guidance even when it is not installed, and its lesson notes remain readable. A missing engine, model, geometry adapter or rule deck cannot earn a physical pass. The shipped simulation-only packages do not contain all physical verification assets.
+These are the application's supported open PDK families, not a claim to support every open PDK in existence. Every registered revision appears in the chooser; revisions without the expected core device bindings explain their missing setup. A missing engine, model, geometry adapter or rule deck cannot earn a physical pass. GF180 C/D and IHP include the physical assets needed by this course; the bundled SKY130 simulation subset still needs a full physical package.
 
-Use **PDK setup**, then **Reload PDKs** after registration. See [PDK setup](PDK_GUIDE.md) for full packages, exact revision locks and IHP OSDI compilation. Select native ngspice under **Student Hub → More → Engine setup**. For physical checks, leave Magic/Netgen fields blank to use the installed **Tools → Physical tools setup** runtime, or provide native custom executables. The source checkout does not include a complete managed runtime.
+Choose a bundled GF180 C/D or IHP revision directly in the Hub. Click **Set up physical tools** once, then start the lessons. IHP simulations automatically use the included Linux/WSL simulator and compiled models; students do not need OpenVAF or a Windows linker. GF180 and SKY130 use native ngspice selected under **Engine setup**. Leave Magic/Netgen blank to use the included physical runtime. Custom native engines and explicitly configured OSDI libraries remain supported.
+
+Use **PDK setup → Reload PDKs** for separately installed revisions. The included IHP model binaries are accepted only when their entire recorded Verilog-A dependency closure matches the selected package. Source checkouts must build the runtime with `scripts/build_digital_runtime.py`; see [PDK setup](PDK_GUIDE.md) for reproducible package preparation.
 
 ![PDK selection and the eight-stage inverter course](images/student-inverter-hub.png)
 
@@ -29,6 +31,8 @@ Use **PDK setup**, then **Reload PDKs** after registration. See [PDK setup](PDK_
 - **Handoff:** DRC and LVS must both pass for the current captured design. Save the project, export the learning portfolio and retain the referenced evidence directories.
 
 **Repair lesson fault** restores only the injected shape or width; it does not replace the whole layout. **Build layout** refuses to overwrite existing geometry. Imported layouts can use manually introduced, documented defects for the same failure/repair checkpoints. Every change requires a fresh matching run. Checks refuse another lesson's results, old designs, blocked runs and missing or altered hashed physical artifacts.
+
+For IHP core MOS devices, comparison follows the locked upstream symbol's LVS format: the simulation-only `mm_ok` flag is excluded for literal 0/1 values. The original netlist, compared netlist and symbol checksum are retained in the report. Width, length, multiplicity and connectivity remain subject to strict LVS; the 30% width defect must still fail. All adjacent Magic/Netgen rule dependencies are checked before and after verification.
 
 ![The DRC explanation and repair controls beside the editor](images/student-drc-guide.png)
 
@@ -46,8 +50,12 @@ Primary process references:
 
 ## Validation
 
-`tests/test_student_inverter.py` checks course separation, missing setup, model substitution rejection, waveform checks and, with `ICSTUDIO_TEST_NGSPICE`, actual bundled SKY130/GF180 DC and transient runs. `tests/gui_student_inverter.py` exercises PDK selection, actual queued simulation, result viewing, project resumption and text scaling. Optional `ICSTUDIO_TEST_INVERTER_MANIFEST` adds a full PDK for native layout and repair actions.
+`tests/test_student_inverter.py` checks course separation, missing setup, model substitution rejection, waveform checks and, with `ICSTUDIO_TEST_NGSPICE`, actual bundled SKY130/GF180 DC and transient runs. `tests/test_student_physical.py` checks distinct physical decks, editable vias, stale geometry, IHP single-finger limits, narrow LVS normalization and model-source compatibility. `tests/gui_student_inverter.py` exercises selection, queued simulation, layouts, repair actions, project resumption and text scaling. Set `ICSTUDIO_TEST_MANAGED=1` with a prepared runtime for IHP simulation and GF180/IHP physical checks through the GUI queue.
 
-See [recorded inverter validation](validation/student-inverter/checks.json) for the exact tested scope. External process and tool availability is reported separately from unit/UI test results.
+See the [original inverter validation](validation/student-inverter/checks.json) and [GF180/IHP physical qualification](validation/student-physical/checks.json) for exact revisions, engines, measurements and scope. External process and tool execution is reported separately from unit/UI tests.
+
+The GF180 C/D and IHP single-finger generators accept W 1–10 µm and L up to 2 µm (minimum L 0.28 µm for GF180, 0.13 µm for IHP). All four minimum/maximum W/L combinations per process passed full DRC and strict LVS. The default 1/2 µm NMOS/PMOS inverter passed DC, transient, injected DRC and LVS failures, repairs and modified-evidence rejection. This qualifies the documented core devices and course fixtures; other device families, arbitrary routing, extracted-RC timing, process corners and fabrication signoff require their own validation.
+
+![IHP inverter in the editable layout workspace, with a passed DRC/LVS result](images/student-inverter-layout.png)
 
 For a repeatable full-process exercise, run `scripts/qualify_student_inverter.py --pdk-manifest FULL_PDK/package.json --out FRESH_DIRECTORY --ngspice NGSPICE --magic MAGIC --netgen NETGEN`. Alternatively leave the physical paths blank for the prepared included runtime. `--runtime-record` accepts an existing managed-runtime ready record for an explicitly selected installation; the backend rechecks its identity and files. Preserve the matching payload/state environment settings when using that option. The script checks both faults, both repairs and rejection of modified logs; it fails rather than skipping missing capabilities.

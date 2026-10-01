@@ -1,4 +1,4 @@
-"""Offline discovery and verification of the simulation packages shipped with Studio."""
+"""Offline discovery and verification of the process packages shipped with Studio."""
 import json
 from pathlib import Path
 import sys

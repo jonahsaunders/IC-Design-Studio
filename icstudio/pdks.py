@@ -144,7 +144,16 @@ def stage_model_deck(technology, text, directory):
             raise ValueError('Locked PDK model changed while preparing the run: ' + relative)
         name = 'pdk-models/' + hashlib.sha256((relative + '\0' + expected).encode()).hexdigest()[:24] + '.spice'
         staged[path] = name
-        atomic_write(output / name, rewrite(data.decode('utf-8'), path))
+        # Some stock IHP comments contain Latin-1 micro/degree signs. Preserve
+        # the locked source bytes above; transcode comments only for ngspice.
+        # Circuit statements still require valid UTF-8 and are never repaired.
+        lines=[]
+        for line in data.splitlines(keepends=True):
+            try:lines.append(line.decode('utf-8'))
+            except UnicodeDecodeError:
+                if not line.lstrip().startswith(b'*'):raise
+                lines.append(line.decode('latin-1'))
+        atomic_write(output / name, rewrite(''.join(lines), path))
         return name
 
     result = rewrite(text)

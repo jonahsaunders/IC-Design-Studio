@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "id": "gf180mcuD",
-  "revision": "9394d9228663e22b",
+  "revision": "7dd87219f1333dbb",
   "family": "gf180mcu",
   "files": {
     "libs.tech/ngspice/sm141064.ngspice": "c08ee93073665b6c1f43a3523bb38d5b561bcee2b7e056a927175f5da8e96ba9",
@@ -9,6 +9,8 @@
     "libs.tech/ngspice/sm141064.spice": "69a7ab877344a6d477fdd11440457f64e7ad88a624504a737a161da463de8bc8",
     "libs.tech/ngspice/design.ngspice": "7e222f050318388f37543a64fbd0be55cc15e4b93f57501a09f7c159c4c9e561",
     "libs.tech/klayout/gf180mcu.lyp": "df2554c382713e671425ac9c6250c512e86e33bc469d70eee1c128878aaeb927",
+    "libs.tech/magic/gf180mcuD.tech": "51c220dcf75d367624ca824d0b7e350d78a3ffcde49a5decb0faa6b98f1cb6ab",
+    "libs.tech/netgen/gf180mcuD_setup.tcl": "eb6217e33acb2c81680351745bc184a2ee37b31a25d37f4dce423f61ba466fe4",
     "libs.tech/xschem/symbols/annotate_fet_params.sym": "abcebfdd0ffda54f9e1ef4d8b1f50a4523975cb6da64bf48b37a046c73f930aa",
     "libs.tech/xschem/symbols/annotate_op.sym": "1bdbdfdc725bb41fd37fd9e89d4aa94737d1fb8b71a6fbdb16dc707b36f850a3",
     "libs.tech/xschem/symbols/cap_mim_1f0fF.sym": "91b2ac5f48f2263faa4d1e84062bc1786c90986f3528128d663f465ebac508dc",
@@ -78,11 +80,13 @@
     "libs.tech/xschem/symbols/rm3.sym": "8af576380a2c0fe6e1296716860e3f77562e0086788a5b5f4b1284dd7bc60eab",
     "libs.tech/xschem/symbols/sc_diode.sym": "1b03a2fd966c24ff302d22ca646005ec1e325f89fd8b9541b30e9615490f9b66",
     "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
-    "UPSTREAM-LOCK.json": "8c7897615c91ac6e0720ba4a213f59a08497eab187953b3365405827282bf160"
+    "UPSTREAM-LOCK.json": "8c7897615c91ac6e0720ba4a213f59a08497eab187953b3365405827282bf160",
+    "OPEN_PDKS_LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "PHYSICAL-SOURCE-LOCK.json": "aefc1934410afb107b72e00929a404c578b4cdd251aaf64ce4f8c3926f87b92a"
   },
   "technology": {
     "name": "GlobalFoundries GF180MCU \u00b7 gf180mcuD",
-    "revision": "9394d9228663e22b",
+    "revision": "7dd87219f1333dbb",
     "status": "local assets indexed \u00b7 device simulation unverified",
     "dbu_um": 0.001,
     "grid": 5,
@@ -17801,8 +17805,8 @@
       "ngspice_compatibility": "hsa"
     },
     "physical": {
-      "magic_technology": "",
-      "netgen_setup": "",
+      "magic_technology": "libs.tech/magic/gf180mcuD.tech",
+      "netgen_setup": "libs.tech/netgen/gf180mcuD_setup.tcl",
       "native_generators": []
     }
   }

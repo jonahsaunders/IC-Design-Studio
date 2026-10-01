@@ -92,7 +92,7 @@ def main():
     included = next(b for b in setup.findChildren(QPushButton) if b.text() == 'Use included PDKs')
     included.click(); wait(lambda: setup.worker.isRunning(), 120); QTest.qWait(30)
     assert not setup.last_result['errors'], setup.last_result
-    assert {w.pdk_registry.manifest(k)['family'] for k in setup.last_result['registered']} == {'sky130','gf180mcu'}
+    assert {w.pdk_registry.manifest(k)['family'] for k in setup.last_result['registered']} == {'sky130','gf180mcu','ihp-sg13g2'}
     package_results['included_packages'] = list(setup.last_result['registered'])
     bad = out / 'damaged-package'; bad.mkdir(exist_ok=True); (bad / 'package.json').write_text('{')
     setup.start_operation('register', [{'name': 'Damaged package', 'kind': 'package', 'path': str(bad)},
@@ -101,7 +101,7 @@ def main():
     assert len(setup.last_result['errors']) == 1 and len(setup.last_result['registered']) == 1
     setup.close(); w.saved_hash = digest(w.project); w.close()
     report = {'version': __version__, 'status': 'passed', 'platform': sys.platform, 'examples': outcomes,
-              'checks': ['Search and empty gallery state', 'Independent example copies', 'Short real worker runs including both bundled PDKs', 'One-click offline PDK installation',
+              'checks': ['Search and empty gallery state', 'Independent example copies', 'Short real worker runs including SKY130 and GF180', 'One-click offline installation of all four PDK packages',
                          'Expected divider voltage', 'Background PDK discovery and registration', 'New project linked to checksummed PDK'],
               'pdk_results': package_results, 'partial_failure_recovery': 'Valid package registered after a damaged package', 'errors': errors}
     (out / 'getting-started.json').write_text(json.dumps(report, indent=2)); print(json.dumps(report, indent=2))

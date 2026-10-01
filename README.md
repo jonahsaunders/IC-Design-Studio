@@ -90,7 +90,7 @@ Python requirements do not install the digital engines, VGA assets or openEMS ru
 | Process layout verification | Matching physical PDK assets/decks; **Tools → Physical tools setup** selects the included Magic/Netgen/ngspice runtime or configured custom engines |
 | Inductor EM simulation | openEMS runtime plus declared physical materials and layer data in a PDK profile |
 
-The packaged digital runtime uses native Linux tools or an app-owned **WSL 2** distribution on Windows. First-time Windows setup may need administrator approval and a restart. Linux packages target **x86_64, glibc 2.39+**. Student Hub electrical/RTL lessons and the SAR bridge use local executable paths. The Hub's inverter DRC/LVS lessons can use the managed physical runtime.
+The packaged digital runtime uses native Linux tools or an app-owned **WSL 2** distribution on Windows. First-time Windows setup may need administrator approval and a restart. Linux packages target **x86_64, glibc 2.39+**. The Student Hub uses that runtime for inverter DRC/LVS and IHP simulation, including compiled OSDI models. Other Hub electrical/RTL lessons and the SAR bridge use local executable paths.
 
 [Desktop setup](docs/DOWNLOADS.md) · [PDK setup](docs/PDK_GUIDE.md) · [Engine details](docs/DIGITAL_FLOW.md#included-tools-and-first-setup)
 
@@ -656,11 +656,11 @@ Choose the circuit and technology in **File → Project Hub**. Register included
 | Process | Available path | For additional workflows |
 |---|---|---|
 | **SkyWater SKY130** | `sky130A/B` adapters; included `sky130A` simulation subset | Matching physical decks and engines for layout verification |
-| **GlobalFoundries GF180MCU** | `gf180mcuA/B/C/D` adapters; included simulation subset | Corresponding physical rule decks |
-| **IHP SG13G2** | Installed `ihp-sg13g2` adapter | Compatible ngspice and compiled OSDI models |
+| **GlobalFoundries GF180MCU** | A/B/C/D model registration; bundled C/D primitive models and distinct physical decks | Native 3.3 V inverter, editable vias and full-deck DRC/LVS for C/D. [Student flow](docs/STUDENT_INVERTER.md) |
+| **IHP SG13G2** | Bundled models, symbols, Magic/Netgen decks and Verilog-A sources | Native 1.2 V inverter and DRC/LVS; the Student Hub uses compiled OSDI models in the included Linux/WSL runtime. [Student flow](docs/STUDENT_INVERTER.md) |
 | **Custom technology** | Checksummed package interface | Explicit terminal, layer, model, and verification bindings |
 
-Bundled analog simulation subsets contain models and symbols; analog physical verification needs matching PDK assets and decks. The managed digital runtime separately includes the full, locked SKY130 HD platform used by its implementation flow. [Set up a PDK](docs/PDK_GUIDE.md) · [Digital platform locks](docs/DIGITAL_FLOW.md#technology-locks-and-supported-versions) · [Simulation runtime](SIMULATION_SETUP.md) · [Third-party sources](THIRD_PARTY_NOTICES.md)
+Bundled GF180 C/D and IHP subsets include matching Magic/Netgen decks for the bounded core-MOS inverter flow; the SKY130 analog simulation subset needs separate physical assets. Qualification covers nominal electrical simulation, DRC/LVS, deliberate faults and repairs, and all 12 GF180/IHP size boundaries. It does not establish extracted-RC, PVT or fabrication signoff. The managed digital runtime separately includes the full, locked SKY130 HD platform used by its implementation flow. [Validation evidence](docs/validation/student-physical/checks.json) · [Set up a PDK](docs/PDK_GUIDE.md) · [Digital platform locks](docs/DIGITAL_FLOW.md#technology-locks-and-supported-versions) · [Third-party sources](THIRD_PARTY_NOTICES.md)
 
 ## Automate from the command line
 

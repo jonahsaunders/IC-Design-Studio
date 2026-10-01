@@ -124,7 +124,7 @@ class AnalogTests(unittest.TestCase):
         t=technology();c=capabilities(t);self.assertEqual(c['native_layout'],['mos','inverter','ring','current_mirror','analog_bank','mim_capacitor','poly_resistor','contacted_guard','tied_mos_dummy']);self.assertIn('No release',c['physical_evidence'])
         t['package_lock']['id']='ihp-sg13g2';t['physical']={'native_generators':['pretend']}
         self.assertEqual(capabilities(t)['native_layout'],[])
-        with self.assertRaisesRegex(ValueError,'not implemented'):adapter(t)
+        with self.assertRaisesRegex(ValueError,'absent from the PDK lock'):adapter(t).engine_assets(t)
         t=technology();t['layers']=[];self.assertFalse(capabilities(t)['native_layout'])
 
     def test_physical_assets_require_lock(self):

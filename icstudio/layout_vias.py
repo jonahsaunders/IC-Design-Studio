@@ -18,7 +18,7 @@ def technology(project):
     if not (project.get('layout_attachment') or project.get('layout_source')):
         return tech
     variant=project.get('spice',{}).get('library_lock',{}).get('variant')
-    if variant not in ('sky130A','gf180mcuC'):
+    if variant not in ('sky130A','gf180mcuC','gf180mcuD','ihp-sg13g2'):
         return tech
     from .layout_edit import _native_via_recipes
     recipes=_native_via_recipes(tech,variant)

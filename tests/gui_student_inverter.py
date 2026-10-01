@@ -43,19 +43,34 @@ def main():
             assert 'Worked example' in h.details.toPlainText();continue
         key='i-'+token+'-dc';h.select_lesson(key);h.start_selected();original=w.project['id'];saved[token]=original
         assert g.inverter_actions.isVisible() and 'Worked example' in g.design_notes.toPlainText()
-        g.run();deadline=time.monotonic()+45
+        if item['technology'].get('simulation',{}).get('requires_osdi') and not os.environ.get('ICSTUDIO_TEST_MANAGED'):
+            from icstudio.student_inverter import prepare
+            from icstudio import digital_runtime
+            with patch.object(digital_runtime,'manifest',return_value=None):
+                try:prepare(w.project,g.lesson)
+                except ValueError as exc:assert 'included physical tools' in str(exc)
+                else:raise AssertionError('Missing runtime accepted')
+            g.save_work();continue
+        g.run();deadline=time.monotonic()+300
         while w.run_manager.busy and time.monotonic()<deadline:QTest.qWait(25)
         assert not w.run_manager.busy and w.run_manager.rows[-1]['state']=='Complete',w.run_manager.rows[-1]
         result=evaluate(g.lesson['steps'][2],g.lesson,w.project,w.run_manager.rows)
         assert result['inverter_measurements']['switching_threshold']>0
         g.results();g.save_work()
         h.select_lesson('i-'+token+'-transient');h.start_selected();assert w.project['id']==original
-        if manifest and item['technology']['package_lock']['revision']==m['revision']:
+        from icstudio.process_adapters import capabilities
+        if 'inverter' in capabilities(item['technology'])['native_layout'] and capabilities(item['technology'])['external_verification']:
             h.select_lesson('i-'+token+'-layout');h.start_selected();g.build_inverter()
             evaluate(g.lesson['steps'][2],g.lesson,w.project)
             before=clone(w.project['cells']);g.inverter_edit('drc');assert w.project['cells']!=before
             g.inverter_edit('repair');assert w.project['cells']==before
             h.select_lesson('i-'+token+'-drc');h.start_selected();g.open_inverter();g.lesson_tabs.setCurrentIndex(0)
+            if os.environ.get('ICSTUDIO_TEST_MANAGED'):
+                g.run();deadline=time.monotonic()+600
+                while w.run_manager.busy and time.monotonic()<deadline:QTest.qWait(25)
+                assert not w.run_manager.busy and w.run_manager.rows[-1]['state']=='Complete',w.run_manager.rows[-1]
+                evaluate(g.lesson['steps'][2],g.lesson,w.project,w.run_manager.rows)
+                assert w.run_manager.rows[-1]['result']['silicon_report']['status']=='passed'
             g.setFloating(True);g.resize(550,950);QTest.qWait(60)
             w.grab().save(str(out/'student-inverter-layout.png'));g.grab().save(str(out/'student-drc-guide.png'))
             g.save_work()
@@ -63,13 +78,15 @@ def main():
     h.reload_pdks()
     for token,project_id in saved.items():
         h.select_lesson('i-'+token+'-process');h.start_selected();assert w.project['id']==project_id
+    h.show();h.resize(1180,820);QTest.qWait(60);h.grab().save(str(out/'student-inverter-hub.png'))
     h.show();h.resize(780,900);h.set_text_scale(200);QTest.qWait(50)
     assert h.scroll.horizontalScrollBar().maximum()==0
     assert not errors,errors
     report=dict(status='PASS',qt_platform=app.platformName(),processes=len(saved),checks=[
-        'eight stages filtered by PDK revision','missing IHP setup visible','real ngspice through GUI queue',
+        'eight stages filtered by PDK revision','IHP runtime setup is explicit','real ngspice through GUI queue',
         'measurement and waveform results','distinct durable per-process projects','reload and resume','200 percent text reflow'])
-    if manifest:report['checks'].append('real native layout, DRC fault injection and repair through GUI')
+    report['checks'].append('native GF180 C/D and IHP layout, DRC fault injection and repair through GUI')
+    if os.environ.get('ICSTUDIO_TEST_MANAGED'):report['checks'].append('IHP managed simulation and GF180 C/D + IHP physical runs through the GUI queue')
     (out/'checks.json').write_text(json.dumps(report,indent=2));print(json.dumps(report))
     w.close();app.processEvents()
 

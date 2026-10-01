@@ -1,0 +1,96 @@
+{
+  "system": "Linux",
+  "machine": "x86_64",
+  "cpu_target": "generic",
+  "compiler_sha256": "b53d76763c04e4af9f392c5503979cd526deb30c2dbd82fedbd54af54cd99074",
+  "models": [
+    {
+      "source": "psp103/psp103.va",
+      "dependencies": {
+        "psp103/JUNCAP200_parlist.include": "d4350de852c966098f74adbd24f70b3e2ed8fec87c7f7d3569ee18168ece5901",
+        "psp103/PSP103_module.include": "cc9f02e72fda8c907f9e6befe0dcdc2ff1dc13e45fb2f48263935c06317d3197",
+        "psp103/releasenotesPSP103.8.2.txt": "64cd7bc8090e4a2aaa495918f8f9ae44424205934edfd96dde96683135a872be",
+        "psp103/Common103_macrodefs.include": "14fb6781da0b440a7627aa605c3c59fbf9f755c8eca2b641765bb8d6248029e7",
+        "psp103/PSP103_scaling.include": "1a560ceffd722940f3aa67d64bcfc8f7925d4aa55a0c2caf0c933cf7a47dd54b",
+        "psp103/psp103.va": "9bab5086f8e203a820043538ede898d0812d07371b1aa6f081d806aaad95cd50",
+        "psp103/PSP103_parlist.include": "7adbc8e7010fdc6b9c906dace441f2a443c4079693733387dad0d3e3a737ec6f",
+        "psp103/PSP103_macrodefs.include": "fcb3d0830353c28710645cd28c9caf7610ebc0a05ed1ef89e0ef3e0799581d2b",
+        "psp103/PSP103_nqs_macrodefs.include": "d4e44d3c8634ce08502f9b25b4f6a56fbe75ce5b8a7d7be987af535b83f16746",
+        "psp103/JUNCAP200_macrodefs.include": "00d5153fe0a5f1da6523e67354e05c1ae08db2196bf711534fe44b65fb907b65",
+        "psp103/juncap200.va": "4833ba0c95cd9922d2277fe41ba7aa81028866b1850357273c4f62cd635d96e0",
+        "psp103/README.md": "b5301fb60c1f92250c4f1a08c637e25b5ecf6c08ba9647aea3d773cb24c7cf39",
+        "psp103/psp103_nqs.va": "084ca6b4932a7db2717e7143345c9a9ff1bd62a1fb0db9af3100f7428aba91dd",
+        "psp103/Changelog": "a060a06ce5eca1b6c88a62168e5d108181715ab903ebafa1e462d8288ec5c4aa",
+        "psp103/psp103t.va": "856166de39aaa247204763e8e347c912fde8f27312f6a34e4cac975389810fd2",
+        "psp103/JUNCAP200_varlist.include": "ee30317a2f4a03bfb6bdca471d72feacfa02d5f7cce664fe6ede99482fed37e7",
+        "psp103/JUNCAP200_InitModel.include": "335c2b2e8d1ffc9a9c7d820cbe82308e4a91894455f6bbae0e62cdfa9049c690"
+      },
+      "output": "psp103.osdi",
+      "sha256": "24c016572d59fb079fda4f3a1c0aa4c8999d931e8ee335f180066f13ddd70ff4"
+    },
+    {
+      "source": "psp103/psp103_nqs.va",
+      "dependencies": {
+        "psp103/JUNCAP200_parlist.include": "d4350de852c966098f74adbd24f70b3e2ed8fec87c7f7d3569ee18168ece5901",
+        "psp103/PSP103_module.include": "cc9f02e72fda8c907f9e6befe0dcdc2ff1dc13e45fb2f48263935c06317d3197",
+        "psp103/releasenotesPSP103.8.2.txt": "64cd7bc8090e4a2aaa495918f8f9ae44424205934edfd96dde96683135a872be",
+        "psp103/Common103_macrodefs.include": "14fb6781da0b440a7627aa605c3c59fbf9f755c8eca2b641765bb8d6248029e7",
+        "psp103/PSP103_scaling.include": "1a560ceffd722940f3aa67d64bcfc8f7925d4aa55a0c2caf0c933cf7a47dd54b",
+        "psp103/psp103.va": "9bab5086f8e203a820043538ede898d0812d07371b1aa6f081d806aaad95cd50",
+        "psp103/PSP103_parlist.include": "7adbc8e7010fdc6b9c906dace441f2a443c4079693733387dad0d3e3a737ec6f",
+        "psp103/PSP103_macrodefs.include": "fcb3d0830353c28710645cd28c9caf7610ebc0a05ed1ef89e0ef3e0799581d2b",
+        "psp103/PSP103_nqs_macrodefs.include": "d4e44d3c8634ce08502f9b25b4f6a56fbe75ce5b8a7d7be987af535b83f16746",
+        "psp103/JUNCAP200_macrodefs.include": "00d5153fe0a5f1da6523e67354e05c1ae08db2196bf711534fe44b65fb907b65",
+        "psp103/juncap200.va": "4833ba0c95cd9922d2277fe41ba7aa81028866b1850357273c4f62cd635d96e0",
+        "psp103/README.md": "b5301fb60c1f92250c4f1a08c637e25b5ecf6c08ba9647aea3d773cb24c7cf39",
+        "psp103/psp103_nqs.va": "084ca6b4932a7db2717e7143345c9a9ff1bd62a1fb0db9af3100f7428aba91dd",
+        "psp103/Changelog": "a060a06ce5eca1b6c88a62168e5d108181715ab903ebafa1e462d8288ec5c4aa",
+        "psp103/psp103t.va": "856166de39aaa247204763e8e347c912fde8f27312f6a34e4cac975389810fd2",
+        "psp103/JUNCAP200_varlist.include": "ee30317a2f4a03bfb6bdca471d72feacfa02d5f7cce664fe6ede99482fed37e7",
+        "psp103/JUNCAP200_InitModel.include": "335c2b2e8d1ffc9a9c7d820cbe82308e4a91894455f6bbae0e62cdfa9049c690"
+      },
+      "output": "psp103_nqs.osdi",
+      "sha256": "33dc9a8caa13977cdd77eb76b00c76200d8897f873d2497894dabfd327318fd6"
+    },
+    {
+      "source": "r3_cmc/r3_cmc.va",
+      "dependencies": {
+        "r3_cmc/NOTICE.txt": "fa3dc18885dd09baaffbf02fda561438df81787d1dd255f6218bcc2764f34132",
+        "r3_cmc/r3_cmc_macros.include": "66e1bf0b43495a9c17454a1ac203171db5488edc7e19563f4f645389ba7eebb4",
+        "r3_cmc/LICENSE.txt": "60436a82eb1cff9e3e7fb4ba8c913b8adf72ff8578836d5134e376088a2bc698",
+        "r3_cmc/Changelog": "14e460005858ebdbdd21f83d9c7a3176e761825e86bfb82723a9bcd8d0e3bbf3",
+        "r3_cmc/r3_cmc.va": "398746f45048a9e075913e85a982258b929c9042257339bf1fc47d7e25303551"
+      },
+      "output": "r3_cmc.osdi",
+      "sha256": "3ecc382b6804bd50c178ca5a8e4fbe6c0158c4454f2003a544a19326d26a695d"
+    },
+    {
+      "source": "mosvar/mosvar.va",
+      "dependencies": {
+        "mosvar/discipline.h": "c57d71f2da4fe1dcd8212259cdfed8d5ec9846db93b9cc83ab3f5ca64cfda330",
+        "mosvar/macrosAndDefines_cmc.va": "dda168152714f25ec1c92f75166f22627ff568a3aebe73581c95cef3caaf655a",
+        "mosvar/mosvar.va": "146eec0c2a9c3c437c53109f8ec42af68f75bd9d341e79797d2feda0340a19f6",
+        "mosvar/Changelog": "6fad40a4f10a5e41ac761973ab47afa316dd057e37d7f802986132c70547526f",
+        "mosvar/mosvarpspMacros.va": "c981ee834d00424c43fef2638b6e924d412f29115d2c8f40f8854efafe154cf5"
+      },
+      "output": "mosvar.osdi",
+      "sha256": "c3ea91ef33db66959cbd81b370d37aa1c70b9b36fbd6cef83c768c505e9b88a5"
+    },
+    {
+      "source": "cap_cmomi/cap_cmomi.va",
+      "dependencies": {
+        "cap_cmomi/cap_cmomi.va": "f8618465b9aa74d596983ded0e10780a9bccba3103b3a2daf58a44243ab5c210"
+      },
+      "output": "cap_cmomi.osdi",
+      "sha256": "8179caebc4f384cd1d00dd12b9e8893716d5ee9e8f517b5ca72c4cec85172567"
+    },
+    {
+      "source": "cap_cmomf/cap_cmomf.va",
+      "dependencies": {
+        "cap_cmomf/cap_cmomf.va": "f0f8c3c3c31a6b553c365f36ec04e6f1a5870d3ff06b6eba90ddefbc2f48cc6e"
+      },
+      "output": "cap_cmomf.osdi",
+      "sha256": "fdbd14050be21abcfc771757ba55cb3fbc5e23437d5ed2b4e45366a9bb3a05d3"
+    }
+  ]
+}

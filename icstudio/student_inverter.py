@@ -21,8 +21,12 @@ def profile(technology):
     from .project_templates import model_choices
     tech = clone(technology); lock = tech.get('package_lock', {})
     key = lock.get('id', '')
-    if key=='gf180mcuC':
+    if key in ('gf180mcuC','gf180mcuD'):
         from .gf180_layout import prepare as physical_layers
+        try: physical_layers(tech)
+        except (ValueError,OSError): pass
+    if key=='ihp-sg13g2':
+        from .ihp_layout import prepare as physical_layers
         try: physical_layers(tech)
         except (ValueError,OSError): pass
     if key=='sky130A':
@@ -123,7 +127,7 @@ def readiness(item):
     if not item['ready']: return item['reason']
     from .process_adapters import capabilities
     cap = capabilities(item['technology'])
-    return ('Simulation: real process models'+(' + separately compiled OSDI' if item['technology'].get('simulation', {}).get('requires_osdi') else '')+
+    return ('Simulation: real process models'+(' with compiled models in the included physical runtime' if item['technology'].get('simulation', {}).get('requires_osdi') else '')+
             '. Layout: '+('native inverter generator' if 'inverter' in cap['native_layout'] else 'import matching process geometry')+
             '. DRC/LVS: '+('locked process decks available; physical tools required.' if cap['external_verification'] else
             'matching physical decks are missing. Simulation packages alone cannot complete these checkpoints.')+
@@ -147,11 +151,15 @@ def prepare(p, lesson, tools=None):
     else:
         from .osdi import verified
         from .spice_program import find_ngspice
-        verified(p)
-        executable = find_ngspice(tools.get('ngspice') or '')
-        if not executable or not Path(executable).is_file():
-            raise ValueError('Choose a native ngspice executable in Engine setup. Process lessons require ngspice.')
-        job['executable'] = str(Path(executable).resolve())
+        if p['pdk'].get('simulation',{}).get('requires_osdi') and not p.get('simulation_runtime',{}).get('osdi'):
+            from .physical_backend import prepare_simulation
+            prepare_simulation(job)
+        else:
+            verified(p)
+            executable = find_ngspice(tools.get('ngspice') or '')
+            if not executable or not Path(executable).is_file():
+                raise ValueError('Choose a native ngspice executable in Engine setup. Process lessons require ngspice.')
+            job['executable'] = str(Path(executable).resolve())
         if stage == 'dc':
             job['settings'].update(type='dc', source='VIN', dc_start='0', dc_stop=str(record['supply']), dc_step=str(record['supply']/200))
         else: job['settings'].update(type='tran', stop='62n', step='20p')

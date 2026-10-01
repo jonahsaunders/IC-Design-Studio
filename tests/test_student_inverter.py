@@ -42,7 +42,8 @@ class InverterCourseTests(unittest.TestCase):
             profiles,data,material=library(td)
             self.assertEqual(len(data['lessons']),41+8*len(profiles))
             self.assertEqual(set(material['lessons']),{l['id'] for l in data['lessons']})
-            ready=[p for p in profiles if p['ready']];self.assertEqual(len(ready),2)
+            ready=[p for p in profiles if p['ready']]
+            self.assertEqual({p['technology']['package_lock']['id'] for p in ready},{'sky130A','gf180mcuC','gf180mcuD','ihp-sg13g2'})
             p=course.create(ready[0]);l=lesson(data,ready[0],'process');path=Path(td)/'inv.icproj';save_project(p,path)
             portfolio=Portfolio(Path(td)/'progress');portfolio.attach(l,p,path)
             for step in l['steps']:
@@ -63,10 +64,14 @@ class InverterCourseTests(unittest.TestCase):
             d=next(c for c in p['cells'] if c['id']==p['student_inverter']['cell'])['devices'][0]
             d.pop('model_ref');d['model_mode']='generic'
             with self.assertRaisesRegex(ValueError,'core model'):course.check(p,l,dict(check='schematic'),[])
-            with self.assertRaisesRegex(ValueError,'native physical'):course.build_layout(p)
+            with self.assertRaisesRegex(ValueError,'four-terminal'):course.build_layout(p)
             with self.assertRaisesRegex(ValueError,'Build or import'):course.prepare(p,lesson(data,item,'drc'))
-            missing=next(p for p in profiles if p['token']=='ihp-setup')
-            with self.assertRaisesRegex(ValueError,'OSDI'):course.create(missing)
+            missing=clone(item);missing['ready']=False;missing['reason']='Missing core model bindings'
+            with self.assertRaisesRegex(ValueError,'core model'):course.create(missing)
+            damaged=clone(item['technology'])
+            damaged['package_lock']['files'].pop('libs.tech/magic/'+damaged['package_lock']['id']+'.tech')
+            from icstudio.process_adapters import physical_adapter
+            with self.assertRaises(ValueError):physical_adapter(damaged).engine_assets(damaged)
 
     def test_bad_waveforms_cannot_earn_electrical_credit(self):
         with tempfile.TemporaryDirectory() as td:
@@ -109,10 +114,10 @@ NGSPICE=os.environ.get('ICSTUDIO_TEST_NGSPICE') or shutil.which('ngspice')
 
 @unittest.skipUnless(NGSPICE,'Native ngspice required for process-model inverter tests')
 class InverterProcessTests(unittest.TestCase):
-    def test_both_bundled_processes_dc_switching_and_stale_evidence(self):
+    def test_bundled_spice_processes_dc_switching_and_stale_evidence(self):
         with tempfile.TemporaryDirectory() as td:
             profiles,data,_=library(td)
-            for item in [p for p in profiles if p['ready']]:
+            for item in [p for p in profiles if p['ready'] and not p['technology'].get('simulation',{}).get('requires_osdi')]:
                 p=course.create(item)
                 for stage,check in [('dc','dc'),('transient','tran')]:
                     with self.subTest(process=item['name'],stage=stage):

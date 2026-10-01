@@ -1,0 +1,8 @@
+* Numerically resolved schematic reference
+.subckt inverter A Y VPWR VGND
+* IC Design Studio / Student inverter · gf180mcuD · 7dd87219f1333dbb / revision 0
+* design-sha256 394f5fa7071785953d7da58d97ddd9414501d452523e8c0e2229f9dada35035c
+* Explicit locked PDK model bindings. Qualification depends on the validated reference flow.
+X_MN Y A VGND VGND nfet_03v3 l=2.8e-07 w=1.3e-06 nf=1 ad=2.34e-13 as=2.34e-13 pd=2.96e-06 ps=2.96e-06 nrd=0.138461538462 nrs=0.138461538462 sa=0 sb=0 sd=0 m=1
+X_MP Y A VPWR VPWR pfet_03v3 l=2.8e-07 w=2e-06 nf=1 ad=3.6e-13 as=3.6e-13 pd=4.36e-06 ps=4.36e-06 nrd=0.09 nrs=0.09 sa=0 sb=0 sd=0 m=1
+.ends inverter

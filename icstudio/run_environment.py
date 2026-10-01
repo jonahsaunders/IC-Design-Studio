@@ -11,7 +11,15 @@ def stamp(job):
         from .digital_flow import environment
         return environment(job)
     out={'workflow_hash':WORKFLOW_SOURCE_HASH,'engine':job['engine']}
-    if job['engine']=='ngspice':out['executable_sha256']=file_digest(job['executable'])
+    if job['engine']=='ngspice':
+        if job['settings'].get('managed_osdi'):
+            from . import digital_runtime
+            from .osdi import managed_models
+            from .model import digest
+            runtime=job['settings']['physical_runtime']
+            digital_runtime.identity(runtime)
+            out.update(runtime_sha256=runtime['sha256'],osdi=digest(managed_models(job['project']['pdk'],digital_runtime.manifest())))
+        else:out['executable_sha256']=file_digest(job['executable'])
     return out
 
 

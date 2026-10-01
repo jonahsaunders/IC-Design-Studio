@@ -4,6 +4,25 @@ import platform, re
 from .model import file_digest
 
 
+def managed_models(technology, manifest):
+    """Accept bundled native models only for their exact locked source closure."""
+    key=technology.get('package_lock',{}).get('id')
+    report=(manifest or {}).get('osdi',{}).get(key,{})
+    models=report.get('models',[])
+    if (key!='ihp-sg13g2' or report.get('system')!='Linux' or report.get('machine')!='x86_64'
+            or report.get('cpu_target')!='generic' or len(models)!=6):
+        raise ValueError('Install the current included physical tools with the IHP simulation models.')
+    files=technology['package_lock']['files']
+    expected={'psp103.osdi','psp103_nqs.osdi','r3_cmc.osdi','mosvar.osdi','cap_cmomi.osdi','cap_cmomf.osdi'}
+    if {m.get('output') for m in models}!=expected:raise ValueError('Incomplete IHP model runtime.')
+    for model in models:
+        dependencies=model.get('dependencies',{})
+        if (not dependencies or not re.fullmatch('[0-9a-f]{64}',model.get('sha256',''))
+                or any(files.get('libs.tech/verilog-a/'+path)!=sha for path,sha in dependencies.items())):
+            raise ValueError('The included IHP models do not match this PDK revision. Use matching compiled models or the bundled IHP package.')
+    return models
+
+
 def configure(paths):
     entries=[]
     for raw in paths:

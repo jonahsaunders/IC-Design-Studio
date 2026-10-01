@@ -39,7 +39,13 @@ SKY130 = ProcessAdapter('sky130A', 'sky130_layout', ('mos', 'inverter', 'ring', 
 GF180 = ProcessAdapter('gf180mcuC', 'gf180_layout', ('mos', 'inverter'),
                        'libs.tech/magic/gf180mcuC.tech', 'libs.tech/netgen/gf180mcuC_setup.tcl',
                        drawing_datatype=0, label_datatype=10, port_datatypes=(10,))
-ADAPTERS = {SKY130.id: SKY130, GF180.id: GF180}
+GF180D = ProcessAdapter('gf180mcuD', 'gf180_layout', ('mos', 'inverter'),
+                       'libs.tech/magic/gf180mcuD.tech', 'libs.tech/netgen/gf180mcuD_setup.tcl',
+                       drawing_datatype=0, label_datatype=10, port_datatypes=(10,))
+IHP = ProcessAdapter('ihp-sg13g2', 'ihp_layout', ('mos', 'inverter'),
+                     'libs.tech/magic/ihp-sg13g2.tech', 'libs.tech/netgen/ihp-sg13g2_setup.tcl',
+                     drawing_datatype=0, label_datatype=2, port_datatypes=(2,25))
+ADAPTERS = {p.id: p for p in (SKY130, GF180, GF180D, IHP)}
 
 
 class DeclaredProcessAdapter:
@@ -92,8 +98,12 @@ def capabilities(technology, installed=False):
     native = ADAPTERS.get(lock.get('id'))
     reason = ''
     if native:
-        try: native.layers(technology)
-        except ValueError as exc: reason = str(exc); native = None
+        try:
+            native.layers(technology)
+            # These recipes use the locked extraction/rule decks as their
+            # process contract; an ID or catalog alone is not sufficient.
+            if native is not SKY130: native.engine_assets(technology)
+        except (ValueError, OSError, KeyError) as exc: reason = str(exc); native = None
     if not native and not reason: reason = 'No native physical adapter implemented for this process.'
     evidence = 'No release physical qualification for this revision.'
     verified = {
@@ -103,6 +113,15 @@ def capabilities(technology, installed=False):
                       'Bounded GF180 C 3.3 V single-finger NMOS/PMOS and inverter fixtures; W 1–10 µm, L 0.28–2 µm. Verify each edited design.'),
     }
     expected = verified.get(lock.get('id'))
+    student_verified = {
+        ('gf180mcuC', '627ca682d68e1e92'): ('4c79aea1becb579297045c3ac832ab9c3d8779f43c4c51391d05a81e8e1b0c6a', 'GF180 C 3.3 V', '0.28'),
+        ('gf180mcuD', '7dd87219f1333dbb'): ('15fa22041b0add5f2be3df6eafd914edc4134bb57370ed4a7118de519712ad5a', 'GF180 D 3.3 V', '0.28'),
+        ('ihp-sg13g2', '3abac20fcb57e184'): ('7fcea14348e40f54c70fd4d781b009a144615d020044ece423080e21ef39aabb', 'IHP SG13G2 1.2 V', '0.13'),
+    }
+    student = student_verified.get((lock.get('id'), lock.get('revision')))
+    if student:
+        expected = (lock['revision'], student[0],
+                    f'Bounded {student[1]} single-finger NMOS/PMOS inverter; W 1–10 µm, L {student[2]}–2 µm. DC/transient, full DRC/LVS, fault/repair and four size boundaries passed. Verify each edited design.')
     if native and expected and lock.get('revision') == expected[0] and digest(lock.get('files', {})) == expected[1]: evidence = expected[2]
     try:physical=physical_adapter(technology);physical.engine_assets(technology);external_verification=True
     except (ValueError,OSError,KeyError):external_verification=False
@@ -121,7 +140,7 @@ def capabilities(technology, installed=False):
         'inductor_em':em_capabilities(technology),
         'native_reason': reason,
         'physical_evidence': evidence,
-        'runtime': 'IHP requires separately compiled OSDI models.' if lock.get('id') == 'ihp-sg13g2' else 'Model simulation requires configured ngspice and intact locked assets.',
+        'runtime': 'The Student Hub uses matching compiled IHP OSDI models in the included Linux/WSL runtime. Custom native simulation needs compatible OSDI libraries.' if lock.get('id') == 'ihp-sg13g2' else 'Model simulation requires configured ngspice and intact locked assets.',
     }
 
 

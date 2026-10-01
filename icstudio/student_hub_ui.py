@@ -90,6 +90,7 @@ class StudentHub(QDialog):
         saved=studio.settings.value('student/inverterProfile','');index=self.process_picker.findData(saved)
         if index>=0:self.process_picker.setCurrentIndex(index)
         actions=QHBoxLayout();pv.addLayout(actions);actions.addWidget(button('PDK setup',studio.pdk_manager))
+        actions.addWidget(button('Set up physical tools',studio.physical_setup))
         actions.addWidget(button('Reload PDKs',lambda:self.call(self.reload_pdks)));actions.addStretch()
         self.process_status=label('','muted');pv.addWidget(self.process_status);root.addWidget(self.process_panel)
         self.process_picker.currentIndexChanged.connect(self.process_changed)
@@ -324,7 +325,7 @@ class StudentHub(QDialog):
     def setup(self):
         dialog=QDialog(self);dialog.setWindowTitle('Student simulation engines');v=QVBoxLayout(dialog)
         v.addWidget(label('Foundations and Analog use the included teaching solver. Digital requires local Icarus (iverilog and vvp). Mixed Signal and the advanced project also require local ngspice.'))
-        v.addWidget(label('Choose native local executables for simulation, or leave them blank to search PATH. The PDK inverter uses ngspice. Leave Magic and Netgen blank to use the included physical runtime; install it through Tools → Physical tools setup. Custom physical paths must point to native executables.'))
+        v.addWidget(label('Choose native local executables for simulation, or leave them blank to search PATH. IHP lessons automatically use the included simulator and compiled models. Leave Magic and Netgen blank to use the included physical tools. Prepare them with Set up physical tools in the Hub. Custom paths must point to native executables.'))
         form=QFormLayout();v.addLayout(form);edits={}
         for name,value in self.tools().items():
             row=QHBoxLayout();edit=QLineEdit(value);edit.setPlaceholderText(name+' on PATH');row.addWidget(edit);button=QPushButton('Browse…');row.addWidget(button)

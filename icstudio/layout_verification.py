@@ -100,14 +100,27 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None)
         report['magic_drc_style']=style
         assets['technology']=tool_asset(p['pdk'],'magic','technology',adapter.technology_file if adapter else None)
         assets['setup']=tool_asset(p['pdk'],'netgen','setup',adapter.setup_file if adapter else None)
+        # IHP splits DRC/extraction into adjacent includes. Verify the complete
+        # locked tool folders, including Tcl dependencies, before and after use.
+        pdk_root=Path(p['pdk']['package_root']).resolve()
+        for relative,sha in p['pdk']['package_lock']['files'].items():
+            if relative.startswith(('libs.tech/magic/','libs.tech/netgen/')):
+                path=(pdk_root/relative).resolve()
+                if not path.is_relative_to(pdk_root) or not path.is_file() or file_digest(path)!=sha:
+                    raise ValueError('Physical rule dependency is missing or changed: '+relative)
+                assets[relative]=path
         for name in ('magic','netgen'):
             path=Path(shutil.which(tools.get(name,'') or name) or tools.get(name,'') or name)
             if not path.is_file():raise ValueError('Configure the '+name+' physical engine.')
             path=path.resolve();resolved[name]=dict(path=str(path),sha256=file_digest(path))
             atomic_write(out/(name+'-version.log'),execute([str(path),'-batch' if name=='netgen' else '--version'],out,timeout=20))
+        required=re.search(r'(?m)^\s*requires\s+magic-([0-9]+\.[0-9]+\.[0-9]+)',assets['technology'].read_text(encoding='utf-8'))
+        actual=re.search(r'\b([0-9]+\.[0-9]+\.[0-9]+)\b',(out/'magic-version.log').read_text())
+        if required and (not actual or tuple(map(int,actual[1].split('.')))<tuple(map(int,required[1].split('.')))):
+            raise ValueError('This PDK requires Magic '+required[1]+' or newer. Set up the current included physical tools.')
         save_project(p,out/'input.icproj');atomic_write(out/'schematic.spice',ref['text'])
         from .native_spice import lvs_defaults
-        comparison,defaults=lvs_defaults(ref['text']);atomic_write(out/'schematic-lvs.spice',comparison)
+        comparison,defaults=lvs_defaults(ref['text'],p['pdk']);atomic_write(out/'schematic-lvs.spice',comparison)
         report['reference_defaults']=defaults
         files.update({n:file_digest(out/n) for n in ('input.icproj','schematic.spice','schematic-lvs.spice')})
         return dict(assets={str(v):file_digest(v) for v in assets.values()},tools=resolved,reference=report['reference'],model_defaults=defaults)
@@ -120,6 +133,9 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None)
             purposes=p['pdk'].get('interoperability',{}).get('layer_purposes',{})
             pins={(v['gds'],v['datatype']) for v in p['pdk']['layers'] if purposes.get(v['name'],v.get('purpose'))=='pin'}
             if p['pdk'].get('package_lock',{}).get('id')=='sky130A':pins|={(i,16) for i in range(64,73)}
+            else:
+                adapter=ADAPTERS.get(p['pdk'].get('package_lock',{}).get('id'))
+                if adapter:pins|={(v['gds'],v['datatype']) for v in p['pdk']['layers'] if v['datatype']==adapter.label_datatype}
             r=verification_stream(out/'original.gds',c['name'],ref['ports'],out/'layout.gds',pin_layers=pins)
             files.update({n:file_digest(out/n) for n in ('original.gds','layout.gds')});return r
         stage('layout_export',stream)
