@@ -4,6 +4,12 @@ import platform, re
 from .model import file_digest
 
 
+def needs_managed_runtime(project):
+    """Explicit native model selections take precedence, including broken ones."""
+    return bool(project['pdk'].get('simulation', {}).get('requires_osdi')
+                and not project.get('simulation_runtime', {}).get('osdi'))
+
+
 def managed_models(technology, manifest):
     """Accept bundled native models only for their exact locked source closure."""
     key=technology.get('package_lock',{}).get('id')

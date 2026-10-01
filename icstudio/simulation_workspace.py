@@ -116,9 +116,15 @@ class SimulationWorkspaceMixin:
         if settings['type']=='silicon' and 'tools' not in settings:
             job['settings']['tools']={n:self.settings.value('engine/'+n,'') or shutil.which(n) or '' for n in ('magic','netgen','ngspice')}
         if engine=='ngspice':
-            executable=self.settings.value('engine/ngspice','') or shutil.which('ngspice')
-            if not executable or not Path(executable).is_file():raise ValueError('ngspice is not installed. Configure it in Tools → Engine diagnostics and paths.')
-            job['executable']=str(executable)
+            from .osdi import needs_managed_runtime
+            if settings['type'] in ('op','tran','dc','ac','noise') and needs_managed_runtime(p):
+                from .physical_backend import prepare_simulation
+                prepare_simulation(job)
+            else:
+                from .spice_program import find_ngspice
+                executable=find_ngspice(self.settings.value('engine/ngspice',''))
+                if not executable or not Path(executable).is_file():raise ValueError('ngspice is not installed. Configure it in Tools → Engine diagnostics and paths.')
+                job['executable']=str(executable)
         if settings['type']=='silicon':
             job['settings'].setdefault('physical_toolchain',self.settings.value('physical/toolchain','auto'))
         from .physical_backend import prepare

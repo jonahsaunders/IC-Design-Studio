@@ -85,6 +85,7 @@ class CaptureReader(Reader):
 
     def capture(self):
         top=self.load(self.top);p=example('empty');p.update(name=self.top.stem,cells=list(self.cells.values()),top=top['id'])
+        if self.technology:p['pdk']=clone(self.technology)
         from .xschem_semantics import globals_in
         globals_=[]
         # Model-library .global statements remain in their selected .lib
@@ -223,6 +224,7 @@ def export_capture(project,directory):
         for wire in c['wires']:
             for a,b in zip(wire['points'],wire['points'][1:]):lines.append(record_text(['N',str(a[0]),str(a[1]),str(b[0]),str(b[1]),'']))
         output[mapping[meta['path']]]='\n'.join(lines)+'\n'
-    for rel,text in output.items():atomic_write(dest/rel,text)
+    encodings={mapping[path]:data.get('encoding','utf-8') for path,data in files.items()}
+    for rel,text in output.items():atomic_write(dest/rel,text.encode(encodings.get(rel,'utf-8')))
     report={'version':2,'top':mapping[source['source_top']],'library_lock':source.get('library_lock',{}),'unresolved':source.get('unresolved',[]),'mode':'compatible','files':{rel:file_digest(dest/rel) for rel in output}}
     save_project(p,dest/'studio-project.icproj');report['project_sha256']=file_digest(dest/'studio-project.icproj');atomic_write(dest/'capture-exchange.json',json.dumps(report,indent=2));return report

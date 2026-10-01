@@ -128,6 +128,21 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_student_usability.py
+      - name: Audit menu regressions and export drafts
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_audit_regressions.py
+      - name: Audit every offline PDK in the project hub
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_project_hub.py
+      - name: Audit menu entry points and workspace tabs
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_menu_audit.py
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -190,7 +205,21 @@ jobs:
       - name: Verify bundled simulation PDKs
         run: python scripts/check_simulation_assets.py
       - name: Validate supplied GF180 bandgap startup
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
         run: python scripts/verify_bundled_simulation.py --output build/bundled-simulation-evidence
+      - name: Audit bundled PDK inverter simulation and physical workflows
+        timeout-minutes: 10
+        env:
+          QT_QPA_PLATFORM: offscreen
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+          ICSTUDIO_TEST_MANAGED: '1'
+        run: python tests/gui_student_inverter.py
+      - name: Verify native and Xschem handoff simulations for every bundled PDK
+        timeout-minutes: 10
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+        run: python tests/probe_pdk_exchange.py --out build/pdk-exchange-evidence
       - name: Compare six-case testbench with independent Xschem simulation
         if: runner.os == 'Linux'
         run: python scripts/verify_bandgap_compatibility.py --output build/bandgap-compatibility-evidence
@@ -546,6 +575,11 @@ jobs:
           path: |
             build/student-usability/*.json
             build/student-usability/*.png
+            build/audit-regressions/*.json
+            build/menu-audit/*.json
+            build/pdk-exchange-evidence/report.json
+            build/student-inverter-gui/*.json
+            build/student-inverter-gui/*.png
             build/analog-closure-evidence/*.json
             build/analog-closure-evidence/*.png
             build/analog-reference-evidence/*.json

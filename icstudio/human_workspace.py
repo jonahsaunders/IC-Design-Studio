@@ -4,7 +4,7 @@ This outer mixin composes existing controllers. Presentation changes never edit
 the project model or bypass its property-draft and History transaction gates.
 """
 import json
-from PySide6.QtCore import Qt, QTimer, QSize, QRect, QPoint, QEvent
+from PySide6.QtCore import Qt, QTimer, QSize, QRect, QPoint, QPointF, QEvent
 from PySide6.QtGui import QAction, QKeySequence, QPainter, QPalette
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLayout, QLabel,
     QToolButton, QTabWidget, QComboBox, QCheckBox, QSlider, QDialog,
@@ -377,7 +377,7 @@ class HumanWorkspaceMixin(GridSettingsMixin):
 
     def zoom_active(self, factor):
         c=self.layout if self.current_mode=='layout' else self.schematic
-        center=c.rect().center(); point=c.model(center)
+        center=QPointF(c.rect().center()); point=c.model(center)
         c.scale=max(.00001,min(100,c.scale*factor)); c.offset=center-point*c.scale
         c.auto_fit=False; c.update(); c.view_changed.emit()
 

@@ -149,9 +149,9 @@ def prepare(p, lesson, tools=None):
             physical_toolchain='auto', tools={k:tools.get(k,'') for k in ('magic','netgen','ngspice')}))
         physical(job)
     else:
-        from .osdi import verified
+        from .osdi import verified, needs_managed_runtime
         from .spice_program import find_ngspice
-        if p['pdk'].get('simulation',{}).get('requires_osdi') and not p.get('simulation_runtime',{}).get('osdi'):
+        if needs_managed_runtime(p):
             from .physical_backend import prepare_simulation
             prepare_simulation(job)
         else:

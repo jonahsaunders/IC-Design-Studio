@@ -149,6 +149,7 @@ def dispatch(job, directory, progress):
         result['settings']=clone(job['settings']);result['design_hash']=design_digest(job['project'])
         result['pdk_hash']=digest(job['project']['pdk'])
         if job['settings'].get('managed_osdi'):
+            if 'case_directory' in result:result['case_directory']=str(root)
             result['managed_execution']=metadata
             atomic_write(root/'physical-host-result.json',json.dumps(result,indent=2))
             return result
@@ -176,8 +177,14 @@ def native_run(work):
         from .physical_runtime_probe import run
         result=run(job,output,progress)
     elif job['settings'].get('managed_osdi'):
-        from .engines import run_ngspice
-        result=run_ngspice(job['project'],job['cell'],job['settings'],job['executable'],output,progress)
+        kind=job['settings'].get('type')
+        if kind=='program':
+            from .native_spice import run as simulate
+        elif kind=='xschem':
+            from .xschem_runtime import run as simulate
+        else:
+            from .engines import run_ngspice as simulate
+        result=simulate(job['project'],job['cell'],job['settings'],job['executable'],output,progress)
     else:result=physical_job(job['project'],job['cell'],job['settings'],output,progress)
     atomic_write(output/'physical-backend-result.json',json.dumps(result,allow_nan=False))
     records={p.relative_to(output).as_posix():file_digest(p) for p in output.rglob('*') if p.is_file()}

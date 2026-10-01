@@ -249,17 +249,23 @@ class NativeWorkspaceMixin:
         typ = settings.get('type'); cid = p['top'] if typ == 'program' else (cid or self.cid)
         if typ in ANALYSES: validate_settings(p, cid, settings)
         elif typ != 'program': return super().prepare_simulation(settings, 'ngspice', p, cid)
-        executable = find_ngspice(self.settings.value('engine/ngspice', ''))
-        if not executable: raise ValueError('Choose ngspice in Analysis → Engine setup, or extract the complete desktop package.')
-        job = {'project': clone(p), 'cell': cid, 'settings': clone(settings), 'engine': 'ngspice', 'executable': executable}
+        job = {'project': clone(p), 'cell': cid, 'settings': clone(settings), 'engine': 'ngspice'}
+        from .osdi import needs_managed_runtime
+        if needs_managed_runtime(p):
+            from .physical_backend import prepare_simulation
+            prepare_simulation(job)
+        else:
+            executable = find_ngspice(self.settings.value('engine/ngspice', ''))
+            if not executable: raise ValueError('Choose ngspice in Analysis → Engine setup, or extract the complete desktop package.')
+            job['executable'] = executable
         # Recovery text is not a simulation dependency and need not be copied for every run.
         job['project'].get('native_migration', {}).pop('archive', None)
         from .run_environment import stamp
         job['environment'] = stamp(job); return job
 
     def export_spice(self):
+        if not self.flush_inspector() or not self.flush_analysis(): return
         if not native(self.project): return super().export_spice()
-        if not self.flush_inspector(): return
         directory = QFileDialog.getExistingDirectory(self, 'Export native SPICE circuit and models')
         if not directory: return
         target = Path(directory) / (self.project['name'] + '-spice')
