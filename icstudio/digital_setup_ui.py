@@ -53,7 +53,7 @@ class DigitalSetupDialog(QDialog):
         self.close_button=QPushButton('Close'); self.close_button.clicked.connect(self.close); buttons.addWidget(self.close_button)
         links=QHBoxLayout(); layout.addLayout(links)
         self.download=QPushButton('Get the desktop package'); self.download.clicked.connect(lambda:QDesktopServices.openUrl(QUrl('https://github.com/jonahsaunders/IC-Design-Studio/releases'))); links.addWidget(self.download)
-        self.preview=QPushButton('Experimental desktop builds'); self.preview.clicked.connect(lambda:QDesktopServices.openUrl(QUrl('https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Aexperimental'))); links.addWidget(self.preview)
+        self.preview=QPushButton('Desktop builds'); self.preview.clicked.connect(lambda:QDesktopServices.openUrl(QUrl('https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Amain'))); links.addWidget(self.preview)
         self.logs=QPushButton('Open setup logs'); self.logs.clicked.connect(self.open_logs); links.addWidget(self.logs)
         self.refresh()
         if automatic and digital_runtime.status()['state']=='setup': QTimer.singleShot(100,self.setup)
