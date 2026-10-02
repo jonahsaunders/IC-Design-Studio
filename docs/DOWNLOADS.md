@@ -23,7 +23,7 @@ README update at `34c4a9a7d94c8bcc234ef579186676c866053d9c`, is different.
 Use the full commit, not the version alone, to identify a package. See
 [release status](RELEASE_STATUS.md) for the dated evidence and remaining gates.
 
-For a successful [desktop build](https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Aexperimental),
+For a successful [desktop build](https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Amain),
 open its **release-Windows** or **release-Linux** artifact and extract it to find
 the package, matching validation record and checksums. Actions artifacts require
 GitHub sign-in and may expire. If an artifact is unavailable, use a retained

@@ -11,7 +11,7 @@
 <p align="center">
   <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/version-0.22.0.dev25-65d6bd?style=flat-square&amp;labelColor=182331" alt="Version 0.22.0.dev25"></a>
   <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/status-engineering_preview-f0bc78?style=flat-square&amp;labelColor=182331" alt="Engineering preview"></a>
-  <a href="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Aexperimental"><img src="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml/badge.svg?branch=experimental" alt="Experimental desktop build and verification"></a>
+  <a href="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Amain"><img src="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml/badge.svg?branch=main" alt="Main desktop build and verification"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0--or--later-9bbafa?style=flat-square&amp;labelColor=182331" alt="GPL-3.0-or-later license"></a>
 </p>
 
@@ -52,7 +52,7 @@ Want a guided course? Open the **Student Hub** tab for [41 lessons and a sensor-
 **Windows:** install 64-bit Python 3.12 and Git, then run:
 
 ```powershell
-git clone --branch experimental --single-branch https://github.com/jonahsaunders/IC-Design-Studio.git
+git clone --branch main --single-branch https://github.com/jonahsaunders/IC-Design-Studio.git
 cd IC-Design-Studio
 .\launch-windows.bat
 ```
@@ -62,7 +62,7 @@ You can also extract the source to a short path such as `C:\ICStudio` and double
 **Linux / macOS:**
 
 ```sh
-git clone --branch experimental --single-branch https://github.com/jonahsaunders/IC-Design-Studio.git
+git clone --branch main --single-branch https://github.com/jonahsaunders/IC-Design-Studio.git
 cd IC-Design-Studio
 python3.12 -m venv .venv
 source .venv/bin/activate
@@ -687,7 +687,7 @@ Use a fresh output directory for each digital run. Desktop packages expose the s
 
 ## Project status
 
-**IC Design Studio is an engineering preview.** The experimental source includes the Student Hub, bounded mixed-signal simulation, analog optimization and verification, native digital implementation, inductor EM workflows, and ongoing editing/recovery improvements. A source feature, an archived fixture result and a qualified desktop package have separate evidence.
+**IC Design Studio is an engineering preview.** The current source includes the Student Hub, bounded mixed-signal simulation, analog optimization and verification, native digital implementation, inductor EM workflows, and ongoing editing/recovery improvements. A source feature, an archived fixture result and a qualified desktop package have separate evidence.
 
 | Read this | To understand |
 |---|---|
