@@ -7,7 +7,8 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 import tempfile
 import time
 import unittest
-from PySide6.QtCore import QProcess
+from PySide6.QtCore import QProcess,Qt
+from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication,QWidget,QLabel,QDialog
 from icstudio.model import clone
 from icstudio.run_manager import RunManager
@@ -85,6 +86,25 @@ class CampaignGuiTests(unittest.TestCase):
         self.assertTrue(reopened.inspector.result['traces'])
         self.assertEqual(studio.project['name'],'Current unsaved work')
         self.assertNotEqual(reopened.inspector.project['name'],studio.project['name'])
+
+    def test_escape_and_reject_pause_owned_worker_and_reopen(self):
+        for route in ('escape','reject'):
+            with self.subTest(route=route):
+                p,plan=fixture(5);studio=StudioFixture(p);self.windows.append(studio)
+                campaign=create(self.root/route,p,plan,prepare_job)
+                window=CampaignWindow(studio,campaign.path);self.windows.insert(0,window)
+                window.show();window.workers.setValue(1);window.run()
+                try:
+                    self.until(lambda:bool(campaign.counts().get('Running')))
+                    if route=='escape':QTest.keyClick(window,Qt.Key_Escape)
+                    else:window.reject()
+                    self.assertFalse(window.isVisible());self.assertFalse(window.timer.isActive())
+                    self.assertTrue(campaign.counts()['paused'])
+                    self.until(lambda:window.process.state()==QProcess.NotRunning)
+                    window.show();self.assertTrue(window.timer.isActive());window.run()
+                    self.until(lambda:window.process.state()==QProcess.NotRunning,30)
+                    self.assertEqual(campaign.counts().get('Complete'),5,campaign.page())
+                finally:window.shutdown()
 
     def test_statistical_editor_save_reopen_trial_matrix_and_yield(self):
         from tests.test_campaign_statistics import statistical_fixture
