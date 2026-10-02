@@ -152,10 +152,10 @@ class CampaignWindow(QDialog):
         if self.process is not None and self.process.state()!=QProcess.NotRunning:
             self.stop();self.process.waitForFinished(5000)
 
-    def closeEvent(self,event):
+    def done(self,result):
         if self.process is not None and self.process.state()!=QProcess.NotRunning:self.stop()
         self.timer.stop()
-        super().closeEvent(event)
+        super().done(result)
 
     def showEvent(self,event):
         self.timer.start();self.call(self.refresh);super().showEvent(event)

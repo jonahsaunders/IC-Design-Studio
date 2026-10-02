@@ -138,10 +138,11 @@ class MixedSignalDialog(QDialog):
         self.config.setPlainText(json.dumps(self.base_config, indent=2))
         return True
 
-    def closeEvent(self, event):
+    def done(self, result):
+        # Escape/reject bypass closeEvent; every dismissal must review drafts.
         if self.studio.project['id'] == self.project_id and not self.resolve_draft():
-            event.ignore(); return
-        super().closeEvent(event)
+            return
+        super().done(result)
 
     def apply(self):
         s = self.studio; window = getattr(s, '_digital_window', None)

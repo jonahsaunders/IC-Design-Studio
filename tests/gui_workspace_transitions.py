@@ -306,6 +306,22 @@ class WorkspaceTransitions(unittest.TestCase):
         self.assertTrue(self.w._student_hub.isVisible())
         self.settle()
 
+    def test_analog_escape_closes_child_editors_and_retains_workspace_draft(self):
+        for route in ('close','escape','reject'):
+            with self.subTest(route=route):
+                workspace=self.w.open_analog_workspace()
+                workspace.variables.setPlainText('retained = 3')
+                child=QDialog(workspace);child.setWindowTitle('Owned editor');child.show()
+                self.app.processEvents();self.assertTrue(child.isVisible())
+                if route=='close':workspace.close()
+                elif route=='escape':QTest.keyClick(workspace,Qt.Key_Escape)
+                else:workspace.reject()
+                self.assertFalse(workspace.isVisible());self.assertFalse(child.isVisible())
+                workspace.show();self.app.processEvents()
+                self.assertFalse(child.isVisible(),'Closing the workspace must close its child editors')
+                self.assertEqual(workspace.variables.toPlainText(),'retained = 3')
+                child.close();child.deleteLater();workspace.close()
+
     def test_reopening_gallery_reuses_one_window(self):
         first=self.w.start_here()
         for _ in range(12):

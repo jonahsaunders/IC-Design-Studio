@@ -92,3 +92,39 @@ class XschemPathTests(unittest.TestCase):
         reader=Reader(self.path,[one,two],None,{str(parent2.resolve())+'::part.sym':third})
         self.assertEqual(reader.resolve('part.sym',parent1,'Symbol'),first.resolve())
         self.assertEqual(reader.resolve('part.sym',parent2,'Symbol'),third.resolve())
+
+    def test_found_local_model_does_not_resolve_unused_library_paths(self):
+        from icstudio.xschem_project import Reader
+        library=self.root/'slow library';library.mkdir()
+        reader=Reader(self.path,[library],None)
+        resolve=Path.resolve
+        def available(path,*args,**kwargs):
+            if path.is_relative_to(library):
+                raise AssertionError('A local match must not access later search roots')
+            return resolve(path,*args,**kwargs)
+        with patch.object(Path,'resolve',available):
+            target=reader.resolve('models/nmos.spice',self.path,'Model / include')
+        self.assertEqual(target,(self.path.parent/'models/nmos.spice').resolve())
+        self.assertEqual(reader.deps[0]['searched'],[str(target)])
+
+    def test_missing_model_records_every_search_location(self):
+        from icstudio.xschem_project import Reader
+        library=self.root/'library';library.mkdir()
+        reader=Reader(self.path,[library],None)
+        self.assertIsNone(reader.resolve('missing.spice',self.path,'Model / include'))
+        self.assertEqual(reader.deps[0]['status'],'Missing')
+        self.assertEqual(reader.deps[0]['searched'],
+            [str((root/'missing.spice').resolve()) for root in [self.path.parent]+reader.roots])
+
+    def test_changed_symlink_is_rechecked_and_cannot_escape_source_roots(self):
+        from icstudio.xschem_project import Reader
+        link=self.path.parent/'linked';outside=self.root/'outside';outside.mkdir()
+        (outside/'nmos.spice').write_text('* outside allowed roots')
+        try:link.symlink_to(self.path.parent/'models',target_is_directory=True)
+        except OSError as exc:self.skipTest('Directory symlinks unavailable: '+str(exc))
+        reader=Reader(self.path,[],None)
+        self.assertEqual(reader.resolve('linked/nmos.spice',self.path,'Model / include'),
+                         (self.path.parent/'models/nmos.spice').resolve())
+        link.unlink();link.symlink_to(outside,target_is_directory=True)
+        self.assertIsNone(reader.resolve('linked/nmos.spice',self.path,'Model / include'))
+        self.assertEqual(reader.deps[-1]['status'],'Missing')

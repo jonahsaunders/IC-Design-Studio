@@ -18,6 +18,7 @@ payload=Path(os.environ['ICSTUDIO_DIGITAL_PAYLOAD']); payload.mkdir(exist_ok=Tru
 (payload/'manifest.json').write_text(json.dumps({'schema':1,'system':'ubuntu-24.04-x86_64','archive':'runtime.tar.gz','sha256':'0'*64}))
 
 from PySide6.QtWidgets import QApplication
+from PySide6.QtCore import Qt
 from PySide6.QtTest import QTest
 from icstudio.digital_setup_ui import DigitalSetupDialog
 from icstudio.digital_runtime import status
@@ -34,6 +35,27 @@ assert 'damaged' in (Path(os.environ['ICSTUDIO_DIGITAL_STATE'])/'last-setup.log'
 assert dialog.start.isEnabled()
 assert 'did not complete' in dialog.status.text()
 QTest.qWait(100); dialog.grab().save(str(out/'failed-package.png'))
+continued=[]; ready=[]
+dialog.ready.connect(lambda:ready.append(True))
+for dismissal in ('close','escape','reject'):
+    dialog.show();dialog.pending=lambda:continued.append(True)
+    dialog.setup()
+    assert dialog.process is not None
+    if dismissal=='close':
+        assert not dialog.close(), 'Closing during setup must stop the worker first'
+    elif dismissal=='escape':QTest.keyClick(dialog,Qt.Key_Escape)
+    else:dialog.reject()
+    assert dialog.isVisible(), 'Keep the cancellation status visible while stopping'
+    deadline=time.monotonic()+30
+    while dialog.process and time.monotonic()<deadline: app.processEvents(); time.sleep(.01)
+    assert dialog.process is None, 'Cancelled setup subprocess did not finish'
+    assert not continued and not ready and dialog.pending is None
+    assert dialog.status.text().startswith('Setup cancelled.')
+    assert 'Setup cancelled.' in (Path(os.environ['ICSTUDIO_DIGITAL_STATE'])/'last-setup.log').read_text()
+    assert dialog.start.isEnabled() and dialog.close_button.text()=='Close'
+QTest.qWait(100); dialog.grab().save(str(out/'cancelled-setup.png'))
 (out/'report.json').write_text(json.dumps({'status':'PASS','scope':'UI and damaged-package rejection, not engine qualification',
-    'checks':['Nonblocking subprocess','Corrupt archive rejected','Ready not published','Retry enabled'],'qt_platform':app.platformName()},indent=2))
+    'checks':['Nonblocking subprocess','Corrupt archive rejected','Ready not published','Retry enabled',
+              'Actual setup worker stops on cancellation','Cancellation clears queued run and is recorded accurately',
+              'Escape and reject stop the worker and prevent continuation'],'qt_platform':app.platformName()},indent=2))
 dialog.close(); print('Digital setup GUI passed')

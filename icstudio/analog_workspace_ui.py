@@ -30,10 +30,10 @@ class AnalogWorkspace(TestPlanWindow):
         self.result_buttons[-1].hide()
         self.analyses.itemActivated.connect(lambda *_:self.call(self.edit_analysis))
 
-    def closeEvent(self,event):
+    def done(self,result):
         for dialog in self.findChildren(QDialog):
             if dialog.isVisible():dialog.close()
-        super().closeEvent(event)
+        super().done(result)
 
     def call(self,fn):
         try:

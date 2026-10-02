@@ -120,6 +120,34 @@ class PublicBetaUsabilityTests(unittest.TestCase):
         self.assertIn('configuration changed', d.status.text())
         self.assertEqual(self.studio.project['mixed_signal']['stimuli']['vin'], [[0., .8]])
 
+    def test_escape_and_reject_review_drafts_before_closing(self):
+        for route in ('escape','reject'):
+            with self.subTest(route=route):
+                d=self.dialog=show(self.studio)
+                original=clone(self.studio.project['mixed_signal'])
+                dismiss=lambda:QTest.keyClick(d,Qt.Key_Escape) if route=='escape' else d.reject()
+                try:
+                    d.voltage.setText('.4')
+                    with patch.object(QMessageBox,'question',return_value=QMessageBox.Cancel) as prompt:
+                        dismiss();prompt.assert_called_once()
+                    self.assertTrue(d.isVisible());self.assertEqual(d.voltage.text(),'.4')
+                    self.assertEqual(self.studio.project['mixed_signal'],original)
+                    with patch.object(QMessageBox,'question',return_value=QMessageBox.Apply) as prompt:
+                        dismiss();prompt.assert_called_once()
+                    self.assertFalse(d.isVisible())
+                    self.assertEqual(self.studio.project['mixed_signal']['stimuli']['vin'],[[0.,.4]])
+                    self.studio.undo();d=self.dialog=show(self.studio);d.voltage.setText('.6')
+                    with patch.object(QMessageBox,'question',return_value=QMessageBox.Discard) as prompt:
+                        dismiss();prompt.assert_called_once()
+                    self.assertFalse(d.isVisible());self.assertFalse(d.has_draft())
+                    self.assertEqual(self.studio.project['mixed_signal'],original)
+                    d=self.dialog=show(self.studio);d.config.setPlainText('[]')
+                    with patch.object(QMessageBox,'question',return_value=QMessageBox.Apply):dismiss()
+                    self.assertTrue(d.isVisible());self.assertEqual(d.config.toPlainText(),'[]')
+                    self.assertEqual(self.studio.project['mixed_signal'],original)
+                finally:
+                    with patch.object(QMessageBox,'question',return_value=QMessageBox.Discard):d.close()
+
     def test_compact_layout_keyboard_and_engine_names(self):
         d = self.dialog; self.assertEqual(d.paths['ngspice'].text(), self.custom_ngspice)
         for size in (13, 26):

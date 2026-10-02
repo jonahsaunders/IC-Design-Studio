@@ -15,7 +15,7 @@ os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
 
 def main():
     from PySide6.QtWidgets import QApplication
-    from PySide6.QtCore import QSettings
+    from PySide6.QtCore import QSettings, Qt
     from PySide6.QtTest import QTest
     from icstudio.gui import Studio
     from icstudio import digital, digital_runtime, digital_setup_ui, digital_tools
@@ -29,7 +29,11 @@ def main():
     with tempfile.TemporaryDirectory() as td, patch.dict(os.environ,{
             'XDG_DATA_HOME':td+'/data','XDG_CONFIG_HOME':td+'/config',
             'ICSTUDIO_DIGITAL_PAYLOAD':td+'/payload','ICSTUDIO_DIGITAL_STATE':td+'/state'}):
-        studio=Studio(recover=False); studio.settings=QSettings(td+'/settings.ini',QSettings.IniFormat)
+        settings=QSettings(td+'/settings.ini',QSettings.IniFormat);settings.setFallbacksEnabled(False)
+        settings.setValue('onboarding/show',False)
+        with patch('icstudio.gui.QSettings',return_value=settings), \
+                patch('icstudio.gui.QStandardPaths.writableLocation',return_value=td+'/data'):
+            studio=Studio(recover=False)
         studio.settings.setValue('engine/yosys','/old/machine/yosys')
         studio.set_project(digital.counter_project()); studio.resize(1280,850); studio.show()
         window=studio.digital_window(); QTest.qWait(50)
@@ -74,6 +78,40 @@ def main():
             finish(); assert calls==['run'], calls
             assert window.config['platform']==included_platform, 'Included platform was not applied before continuation'
             QTest.qWait(20); assert calls==['run'], 'Request was executed twice'
+            # Stopping an active setup is cancellation, even if success races
+            # with the kill. It must clear the queued run and its visible promise.
+            info['state']='setup'
+            window.ensure_tools(lambda:calls.append('cancelled'))
+            worker=Mock(); dialog.process=worker
+            ready_calls=[]; dialog.ready.connect(lambda:ready_calls.append('ready'))
+            assert not dialog.close()
+            worker.kill.assert_called_once()
+            assert dialog.pending is None and dialog.pending_cancelled is None
+            assert 'cancelled' in window.message.text() and 'will continue' not in window.message.text()
+            # The dialog is modeless; another Run can arrive while the worker
+            # is still stopping. Its promise must be cleared when cancellation finishes.
+            window.ensure_tools(lambda:calls.append('during-stop'))
+            assert dialog.pending is not None
+            info['state']='ready'
+            with patch.object(dialog,'read'): dialog.process_finished(0)
+            QTest.qWait(20)
+            assert calls==['run'] and ready_calls==[]
+            assert dialog.pending is None and dialog.pending_cancelled is None
+            assert 'cancelled' in window.message.text() and 'will continue' not in window.message.text()
+            assert 'Setup cancelled' in dialog.status.text()
+            assert 'enable Windows Linux support' not in dialog.status.text()
+            assert 'Setup cancelled' in dialog.log.toPlainText()
+            assert 'Setup cancelled' in (Path(td)/'state/last-setup.log').read_text()
+            # A new explicit setup clears the cancellation flag. The previously
+            # cancelled request remains cleared; a new Run can then continue once.
+            info['state']='setup'
+            with patch.object(digital_setup_ui,'QProcess'):
+                digital_setup_ui.DigitalSetupDialog.setup(dialog)
+                assert not dialog.cancel_requested
+                window.ensure_tools(lambda:calls.append('new-run'))
+                finish()
+            assert calls==['run','new-run'] and ready_calls==['ready']
+            calls.pop()
             info['state']='setup'
             window.ensure_tools(lambda:calls.append('changed'))
             window.editor.insertPlainText('// changed during setup\n')
@@ -82,6 +120,29 @@ def main():
             window.apply(); info['state']='setup'
             window.ensure_tools(lambda:calls.append('closed'))
             dialog.close(); finish(); assert calls==['run']
+            # Escape uses QDialog.reject rather than closeEvent. It must cancel
+            # both idle requests and an active worker before hiding the dialog.
+            info['state']='setup'
+            window.ensure_tools(lambda:calls.append('escaped-idle'))
+            QTest.keyClick(dialog,Qt.Key_Escape)
+            assert not dialog.isVisible() and dialog.pending is None
+            assert dialog.pending_cancelled is None and not dialog.next_action.text()
+            assert 'cancelled' in window.message.text()
+            finish(); assert calls==['run']
+            info['state']='setup'
+            window.ensure_tools(lambda:calls.append('escaped-active'))
+            worker=Mock();dialog.process=worker;before_ready=len(ready_calls)
+            QTest.keyClick(dialog,Qt.Key_Escape)
+            worker.kill.assert_called_once()
+            assert dialog.isVisible() and dialog.cancel_requested
+            assert dialog.pending is None and dialog.pending_cancelled is None
+            finish(); assert calls==['run'] and len(ready_calls)==before_ready
+            assert 'Setup cancelled' in dialog.status.text()
+            QTest.keyClick(dialog,Qt.Key_Escape);assert not dialog.isVisible()
+            # Model a fresh explicit setup before exercising genuine failure.
+            with patch.object(digital_setup_ui,'QProcess'):
+                digital_setup_ui.DigitalSetupDialog.setup(dialog)
+            dialog.process=None
             info['state']='setup'
             window.ensure_tools(lambda:calls.append('failed'))
             dialog.process=Mock()
@@ -99,7 +160,11 @@ def main():
     (out/'report.json').write_text(json.dumps({'status':'PASS','scope':'UI with simulated installation outcomes; no engine qualification',
         'checks':['Included default despite old paths','Source download guidance','Explicit reversible custom mode',
                   'Automatic setup from Run','Continue once after success','Changed design blocks continuation',
-                  'Close cancels continuation','Failure retains request for retry','Project switch cancels continuation']},indent=2))
+                  'Close cancels continuation','Active cancellation clears visible queued run',
+                  'Run requested while stopping is cleared on cancellation',
+                  'Cancellation wins over late success','Explicit setup retry clears cancellation',
+                  'Escape cancels idle continuation','Escape stops active setup without a late run',
+                  'Failure retains request for retry','Project switch cancels continuation']},indent=2))
     print('Digital first-run GUI passed')
 
 

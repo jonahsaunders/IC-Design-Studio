@@ -22,7 +22,8 @@ class DigitalSetupDialog(QDialog):
         super().__init__(parent)
         self.physical=physical
         self.setWindowTitle('Physical tools' if physical else 'Digital tools'); self.resize(690,440)
-        self.custom = custom; self.pending = None; self.process = None; self.buffer = ''
+        self.custom = custom; self.pending = None; self.pending_cancelled = None
+        self.process = None; self.buffer = ''; self.cancel_requested = False
         layout=QVBoxLayout(self)
         title=QLabel('Everything you need for digital design'); title.setStyleSheet('font-size:20px;font-weight:600'); layout.addWidget(title)
         note=QLabel('Studio includes tools for simulation, synthesis and chip layout, plus the SKY130 HD platform. '
@@ -52,7 +53,7 @@ class DigitalSetupDialog(QDialog):
         self.close_button=QPushButton('Close'); self.close_button.clicked.connect(self.close); buttons.addWidget(self.close_button)
         links=QHBoxLayout(); layout.addLayout(links)
         self.download=QPushButton('Get the desktop package'); self.download.clicked.connect(lambda:QDesktopServices.openUrl(QUrl('https://github.com/jonahsaunders/IC-Design-Studio/releases'))); links.addWidget(self.download)
-        self.preview=QPushButton('Experimental desktop builds'); self.preview.clicked.connect(lambda:QDesktopServices.openUrl(QUrl('https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Aexperimental'))); links.addWidget(self.preview)
+        self.preview=QPushButton('Desktop builds'); self.preview.clicked.connect(lambda:QDesktopServices.openUrl(QUrl('https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Amain'))); links.addWidget(self.preview)
         self.logs=QPushButton('Open setup logs'); self.logs.clicked.connect(self.open_logs); links.addWidget(self.logs)
         self.refresh()
         if automatic and digital_runtime.status()['state']=='setup': QTimer.singleShot(100,self.setup)
@@ -63,7 +64,12 @@ class DigitalSetupDialog(QDialog):
     def select_mode(self):
         settings=getattr(self.parent(),'settings',None)
         if settings: settings.setValue('physical/toolchain' if self.physical else 'digital/toolchain',self.mode.currentData())
-        self.pending=None; self.next_action.clear(); self.refresh(); self.changed.emit()
+        self.cancel_pending(); self.refresh(); self.changed.emit()
+
+    def cancel_pending(self):
+        callback=self.pending_cancelled
+        self.pending=None; self.pending_cancelled=None; self.next_action.clear()
+        if callback: callback()
 
     def configure_custom(self):
         if self.custom: self.custom()
@@ -100,6 +106,7 @@ class DigitalSetupDialog(QDialog):
         manager=getattr(self.parent(),'run_manager',None)
         if manager and manager.busy:
             self.status.setText('Finish or stop the active jobs before verifying the runtime.'); return
+        self.cancel_requested=False
         self.buffer=''; self.log.clear(); self.status.setText('Preparing the included tools…'); self.progress.show()
         self.close_button.setText('Stop setup')
         self.process=QProcess(self); self.process.setProcessChannelMode(QProcess.MergedChannels)
@@ -129,6 +136,9 @@ class DigitalSetupDialog(QDialog):
     def process_finished(self, code, *_):
         if not self.process: return
         self.read(); self.process.deleteLater(); self.process=None
+        if self.cancel_requested:
+            self.cancel_pending()
+            self.log.appendPlainText('Setup cancelled. The queued run was not started.')
         try:
             from .model import atomic_write
             folder=digital_runtime.state_root(); folder.mkdir(parents=True,exist_ok=True)
@@ -136,14 +146,17 @@ class DigitalSetupDialog(QDialog):
         except OSError:
             self.log.appendPlainText('The setup log could not be saved. Copy the details from this window before closing it.')
         self.progress.hide(); self.close_button.setText('Close'); self.refresh()
-        if code==0 and digital_runtime.status()['state']=='ready':
-            pending=self.pending; self.pending=None; self.next_action.clear()
+        if self.cancel_requested:
+            self.status.setText('Setup cancelled. You can keep editing and start setup again when you are ready.')
+            self.changed.emit()
+        elif code==0 and digital_runtime.status()['state']=='ready':
+            pending=self.pending; self.pending=None; self.pending_cancelled=None; self.next_action.clear()
             self.ready.emit(); self.changed.emit()
             if pending: QTimer.singleShot(0,pending)
         else:
             self.details.setChecked(True)
             self.status.setText('Setup did not complete. See the details below. On Windows, enable Windows Linux support if requested, then retry setup.')
-        self.start.setText('Verify again' if digital_runtime.status()['state']=='ready' else 'Retry setup' if self.log.toPlainText() else 'Set up and verify')
+        self.start.setText('Verify again' if digital_runtime.status()['state']=='ready' else 'Set up and verify' if self.cancel_requested else 'Retry setup' if self.log.toPlainText() else 'Set up and verify')
 
     def enable_wsl(self):
         if os.name!='nt': return
@@ -155,16 +168,25 @@ class DigitalSetupDialog(QDialog):
         code=ctypes.windll.shell32.ShellExecuteW(None,'runas',executable,'--install --no-distribution',None,1)
         self.status.setText('Windows will request administrator approval to enable Linux support. Restart Windows if requested, then reopen Studio and retry setup.' if code>32 else 'Windows Linux support was not enabled. You can retry this action.')
 
+    def stop_setup(self):
+        self.cancel_pending()
+        if not self.process:return False
+        self.cancel_requested=True
+        self.status.setText('Stopping setup…')
+        from .digital_backend import cancel
+        active=digital_runtime.state_root()/'active-check.json'
+        try:
+            folder=Path(json.loads(active.read_text())['directory']); cancel(folder)
+        except (OSError,ValueError,KeyError): pass
+        self.process.kill(); return True
+
+    def reject(self):
+        # Escape rejects a QDialog without going through closeEvent.
+        if not self.stop_setup():super().reject()
+
     def closeEvent(self, event):
-        self.pending=None; self.next_action.clear()
-        if self.process:
-            from .digital_backend import cancel
-            active=digital_runtime.state_root()/'active-check.json'
-            try:
-                folder=Path(json.loads(active.read_text())['directory']); cancel(folder)
-            except (OSError,ValueError,KeyError): pass
-            self.process.kill(); event.ignore(); return
-        super().closeEvent(event)
+        if self.stop_setup():event.ignore()
+        else:super().closeEvent(event)
 
 
 def show(studio, automatic=False, custom=None):
@@ -217,6 +239,11 @@ def ensure(window, continuation, description='your run'):
     studio=window.studio; project_id=window.project_id; cid=window.cell_id
     captured=clone(window.config)
     stage=window.stage.currentData(); simulator=window.simulator.currentData()
+    def cancelled():
+        from shiboken6 import isValid
+        if (isValid(studio) and isValid(window) and studio.project['id']==project_id
+                and getattr(studio,'_digital_window',None) is window):
+            window.message.setText('Digital setup cancelled. The requested run was not started. Click Run when you are ready.')
     def resume():
         from shiboken6 import isValid
         if (not isValid(studio) or not isValid(window) or not studio.isVisible()
@@ -234,9 +261,10 @@ def ensure(window, continuation, description='your run'):
     dialog=show(studio,custom=window.configure_custom_tools)
     info=digital_runtime.status()
     if info['state']!='unavailable' and info.get('reason')!='package_missing':
-        dialog.pending=resume; dialog.next_action.setText('After setup, Studio will continue '+description+'.')
+        dialog.pending=resume; dialog.pending_cancelled=cancelled
+        dialog.next_action.setText('After setup, Studio will continue '+description+'.')
     else:
-        dialog.pending=None; dialog.next_action.clear()
+        dialog.pending=None; dialog.pending_cancelled=None; dialog.next_action.clear()
     dialog.refresh()
     window.message.setText('Preparing the included digital tools. Your run will continue after setup.' if info['state']=='setup' else info['message'])
     if info['state']=='setup': dialog.setup()
