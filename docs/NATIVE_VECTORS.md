@@ -1,6 +1,6 @@
 # Native buses and instance arrays
 
-The experimental branch keeps native buses and instance arrays editable in the
+The native editor keeps buses and instance arrays editable in the
 schematic. Validation, electrical checks, flattened and hierarchical SPICE,
 saved testbenches, and operating-point readout expand the same ordered members.
 Saving and reopening does not replace the compact schematic with scalar copies.
