@@ -74,6 +74,34 @@ def main():
             finish(); assert calls==['run'], calls
             assert window.config['platform']==included_platform, 'Included platform was not applied before continuation'
             QTest.qWait(20); assert calls==['run'], 'Request was executed twice'
+            # Stopping an active setup is cancellation, even if success races
+            # with the kill. It must clear the queued run and its visible promise.
+            info['state']='setup'
+            window.ensure_tools(lambda:calls.append('cancelled'))
+            worker=Mock(); dialog.process=worker
+            ready_calls=[]; dialog.ready.connect(lambda:ready_calls.append('ready'))
+            assert not dialog.close()
+            worker.kill.assert_called_once()
+            assert dialog.pending is None and dialog.pending_cancelled is None
+            assert 'cancelled' in window.message.text() and 'will continue' not in window.message.text()
+            info['state']='ready'
+            with patch.object(dialog,'read'): dialog.process_finished(0)
+            QTest.qWait(20)
+            assert calls==['run'] and ready_calls==[]
+            assert 'Setup cancelled' in dialog.status.text()
+            assert 'enable Windows Linux support' not in dialog.status.text()
+            assert 'Setup cancelled' in dialog.log.toPlainText()
+            assert 'Setup cancelled' in (Path(td)/'state/last-setup.log').read_text()
+            # A new explicit setup clears the cancellation flag. The previously
+            # cancelled request remains cleared; a new Run can then continue once.
+            info['state']='setup'
+            with patch.object(digital_setup_ui,'QProcess'):
+                digital_setup_ui.DigitalSetupDialog.setup(dialog)
+                assert not dialog.cancel_requested
+                window.ensure_tools(lambda:calls.append('new-run'))
+                finish()
+            assert calls==['run','new-run'] and ready_calls==['ready']
+            calls.pop()
             info['state']='setup'
             window.ensure_tools(lambda:calls.append('changed'))
             window.editor.insertPlainText('// changed during setup\n')
@@ -99,7 +127,9 @@ def main():
     (out/'report.json').write_text(json.dumps({'status':'PASS','scope':'UI with simulated installation outcomes; no engine qualification',
         'checks':['Included default despite old paths','Source download guidance','Explicit reversible custom mode',
                   'Automatic setup from Run','Continue once after success','Changed design blocks continuation',
-                  'Close cancels continuation','Failure retains request for retry','Project switch cancels continuation']},indent=2))
+                  'Close cancels continuation','Active cancellation clears visible queued run',
+                  'Cancellation wins over late success','Explicit setup retry clears cancellation',
+                  'Failure retains request for retry','Project switch cancels continuation']},indent=2))
     print('Digital first-run GUI passed')
 
 

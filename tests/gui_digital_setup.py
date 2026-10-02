@@ -34,6 +34,21 @@ assert 'damaged' in (Path(os.environ['ICSTUDIO_DIGITAL_STATE'])/'last-setup.log'
 assert dialog.start.isEnabled()
 assert 'did not complete' in dialog.status.text()
 QTest.qWait(100); dialog.grab().save(str(out/'failed-package.png'))
+continued=[]; ready=[]
+dialog.ready.connect(lambda:ready.append(True))
+dialog.pending=lambda:continued.append(True)
+dialog.setup()
+assert dialog.process is not None
+assert not dialog.close(), 'Closing during setup must stop the worker first'
+deadline=time.monotonic()+30
+while dialog.process and time.monotonic()<deadline: app.processEvents(); time.sleep(.01)
+assert dialog.process is None, 'Cancelled setup subprocess did not finish'
+assert not continued and not ready and dialog.pending is None
+assert dialog.status.text().startswith('Setup cancelled.')
+assert 'Setup cancelled.' in (Path(os.environ['ICSTUDIO_DIGITAL_STATE'])/'last-setup.log').read_text()
+assert dialog.start.isEnabled() and dialog.close_button.text()=='Close'
+QTest.qWait(100); dialog.grab().save(str(out/'cancelled-setup.png'))
 (out/'report.json').write_text(json.dumps({'status':'PASS','scope':'UI and damaged-package rejection, not engine qualification',
-    'checks':['Nonblocking subprocess','Corrupt archive rejected','Ready not published','Retry enabled'],'qt_platform':app.platformName()},indent=2))
+    'checks':['Nonblocking subprocess','Corrupt archive rejected','Ready not published','Retry enabled',
+              'Actual setup worker stops on cancellation','Cancellation clears queued run and is recorded accurately'],'qt_platform':app.platformName()},indent=2))
 dialog.close(); print('Digital setup GUI passed')
