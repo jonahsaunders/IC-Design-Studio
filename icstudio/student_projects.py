@@ -128,6 +128,11 @@ def divider(loaded=False, hierarchy=False):
 
 
 def create(starter):
+    from .example_schematics import arrange
+    return arrange(_create(starter))
+
+
+def _create(starter):
     if starter in DIGITAL_LABS:
         from .student_design_labs import faulty_digital
         return faulty_digital(starter)

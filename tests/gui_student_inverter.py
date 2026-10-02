@@ -34,7 +34,7 @@ def main():
         dest=w.pdk_registry.root/(m['id']+'@'+m['revision']);dest.mkdir();(dest/'package.json').write_text(json.dumps(m))
     h=show(w);g=h.guide;h.choose_path('inverter');assert h.lessons.count()==8
     assert h.process_panel.isVisible() and 'DRC/LVS' in h.process_status.text()
-    h.resize(1180,820);QTest.qWait(80);h.grab().save(str(out/'student-inverter-hub.png'))
+    w.resize(1180,900);QTest.qWait(80);h.grab().save(str(out/'student-inverter-hub.png'))
     saved={}
     for token,item in h.inverter_profiles.items():
         h.process_picker.setCurrentIndex(h.process_picker.findData(token));assert h.lessons.count()==8
@@ -78,8 +78,8 @@ def main():
     h.reload_pdks()
     for token,project_id in saved.items():
         h.select_lesson('i-'+token+'-process');h.start_selected();assert w.project['id']==project_id
-    h.show();h.resize(1180,820);QTest.qWait(60);h.grab().save(str(out/'student-inverter-hub.png'))
-    h.show();h.resize(780,900);h.set_text_scale(200);QTest.qWait(50)
+    show(w);w.resize(1180,900);QTest.qWait(60);h.grab().save(str(out/'student-inverter-hub.png'))
+    w.resize(780,980);h.set_text_scale(200);QTest.qWait(50)
     assert h.scroll.horizontalScrollBar().maximum()==0
     assert not errors,errors
     report=dict(status='PASS',qt_platform=app.platformName(),processes=len(saved),checks=[

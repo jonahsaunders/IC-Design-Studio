@@ -105,17 +105,15 @@
             "duty": "0.5",
             "ac": "1"
           },
-          "net_labels": {
-            "p": "vdd",
-            "n": "0"
-          }
+          "net_labels": {},
+          "mirror": false
         },
         {
           "id": "7a97b87120be4658",
           "kind": "V",
           "name": "VIN",
           "x": 100,
-          "y": 350,
+          "y": 380,
           "rotation": 0,
           "nets": {
             "p": "vin",
@@ -138,17 +136,15 @@
             "duty": "0.5",
             "ac": "1"
           },
-          "net_labels": {
-            "p": "vin",
-            "n": "0"
-          }
+          "net_labels": {},
+          "mirror": false
         },
         {
           "id": "5cc9d4bd829a4653",
           "kind": "C",
           "name": "CL",
-          "x": 650,
-          "y": 300,
+          "x": 720,
+          "y": 330,
           "rotation": 0,
           "nets": {
             "p": "out",
@@ -171,17 +167,15 @@
             "duty": "0.5",
             "ac": "1"
           },
-          "net_labels": {
-            "p": "out",
-            "n": "0"
-          }
+          "net_labels": {},
+          "mirror": false
         },
         {
           "id": "4dec6f62c2c146b7",
           "kind": "X",
           "name": "X1",
-          "x": 400,
-          "y": 200,
+          "x": 420,
+          "y": 330,
           "rotation": 0,
           "nets": {
             "out": "out",
@@ -207,26 +201,200 @@
             "ac": "1"
           },
           "cell": "977cf25570124902",
-          "net_labels": {
-            "out": "out",
-            "vdd": "vdd",
-            "input": "vin",
-            "sense": "out"
-          },
+          "net_labels": {},
           "symbol": {
             "primitives": [
               {
                 "kind": "rect",
                 "points": [
                   [
-                    -40,
+                    -35,
+                    -20
+                  ],
+                  [
+                    65,
+                    65
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0,
+                    -150
+                  ],
+                  [
+                    -20,
+                    -150
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -20,
+                    -150
+                  ],
+                  [
+                    -20,
+                    -20
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0,
                     -50
                   ],
                   [
                     40,
-                    50
+                    -50
                   ]
                 ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    40,
+                    -50
+                  ],
+                  [
+                    40,
+                    -20
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -50,
+                    100
+                  ],
+                  [
+                    -50,
+                    30
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -50,
+                    30
+                  ],
+                  [
+                    -35,
+                    30
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    100,
+                    100
+                  ],
+                  [
+                    100,
+                    30
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    100,
+                    30
+                  ],
+                  [
+                    65,
+                    30
+                  ]
+                ]
+              },
+              {
+                "kind": "text",
+                "points": [
+                  [
+                    -28,
+                    -7
+                  ],
+                  [
+                    7,
+                    3
+                  ]
+                ],
+                "text": "vdd",
+                "font_size": 4
+              },
+              {
+                "kind": "text",
+                "points": [
+                  [
+                    32,
+                    -7
+                  ],
+                  [
+                    67,
+                    3
+                  ]
+                ],
+                "text": "out",
+                "font_size": 4
+              },
+              {
+                "kind": "text",
+                "points": [
+                  [
+                    -30,
+                    34
+                  ],
+                  [
+                    5,
+                    44
+                  ]
+                ],
+                "text": "input",
+                "font_size": 4
+              },
+              {
+                "kind": "text",
+                "points": [
+                  [
+                    34,
+                    34
+                  ],
+                  [
+                    69,
+                    44
+                  ]
+                ],
+                "text": "sense",
+                "font_size": 4
+              },
+              {
+                "kind": "text",
+                "points": [
+                  [
+                    -17,
+                    55
+                  ],
+                  [
+                    18,
+                    65
+                  ]
+                ],
+                "text": "Amplifier",
+                "font_size": 4
               }
             ],
             "pins": {
@@ -288,14 +456,192 @@
               }
             },
             "attributes": {}
-          }
+          },
+          "mirror": false
         }
       ],
       "shapes": [],
-      "wires": [],
+      "wires": [
+        {
+          "id": "99463c6022a84256",
+          "points": [
+            [
+              420,
+              280
+            ],
+            [
+              520,
+              280
+            ],
+            [
+              520,
+              430
+            ]
+          ],
+          "net": "out"
+        },
+        {
+          "id": "c53d886a8be64e3d",
+          "points": [
+            [
+              720,
+              280
+            ],
+            [
+              520,
+              280
+            ],
+            [
+              520,
+              430
+            ]
+          ],
+          "net": "out"
+        },
+        {
+          "id": "bf469abd611341df",
+          "points": [
+            [
+              100,
+              150
+            ],
+            [
+              20,
+              150
+            ],
+            [
+              20,
+              430
+            ],
+            [
+              100,
+              430
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "101b070c1424470b",
+          "points": [
+            [
+              100,
+              330
+            ],
+            [
+              370,
+              330
+            ],
+            [
+              370,
+              430
+            ]
+          ],
+          "net": "vin"
+        },
+        {
+          "id": "6dadd6dd361c4401",
+          "points": [
+            [
+              100,
+              50
+            ],
+            [
+              420,
+              50
+            ],
+            [
+              420,
+              180
+            ]
+          ],
+          "net": "vdd"
+        },
+        {
+          "id": "959b374627ac4e05",
+          "points": [
+            [
+              100,
+              430
+            ],
+            [
+              180,
+              430
+            ],
+            [
+              180,
+              380
+            ],
+            [
+              720,
+              380
+            ]
+          ],
+          "net": "0"
+        }
+      ],
       "junctions": [],
-      "wiring_migration": "named_connections",
-      "labels": [],
+      "labels": [
+        {
+          "id": "6fc8ab6d3e7d4c04",
+          "kind": "net_label",
+          "name": "vdd",
+          "anchor": {
+            "kind": "pin",
+            "id": "fc47af1f84014a6f",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "93bccd951869449b",
+          "kind": "ground",
+          "name": "0",
+          "anchor": {
+            "kind": "pin",
+            "id": "7a97b87120be4658",
+            "pin": "n"
+          },
+          "offset": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "0280285f7e304944",
+          "kind": "net_label",
+          "name": "vin",
+          "anchor": {
+            "kind": "pin",
+            "id": "7a97b87120be4658",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "891fff05a3e74d31",
+          "kind": "net_label",
+          "name": "out",
+          "anchor": {
+            "kind": "pin",
+            "id": "4dec6f62c2c146b7",
+            "pin": "out"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        }
+      ],
       "layout_instances": [
         {
           "id": "1a464798f9f74b3d",
@@ -310,7 +656,8 @@
           "ny": 1
         }
       ],
-      "layout_pins": []
+      "layout_pins": [],
+      "example_drawing": 1
     },
     {
       "id": "977cf25570124902",

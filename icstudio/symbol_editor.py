@@ -23,7 +23,7 @@ class TerminalDelegate(QStyledItemDelegate):
         if isinstance(editor,QComboBox):model.setData(index,editor.currentText())
         else:super().setModelData(editor,model,index)
 
-def draw_symbol(p,symbol,color,context=None):geometry.draw(p,symbol,color,context)
+def draw_symbol(p,symbol,color,context=None,**kwargs):geometry.draw(p,symbol,color,context,**kwargs)
 
 class SymbolPad(QWidget):
     changed=Signal();selected=Signal(int);error=Signal(str);properties_requested=Signal()

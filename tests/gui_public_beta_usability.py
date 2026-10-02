@@ -34,7 +34,12 @@ class PublicBetaUsabilityTests(unittest.TestCase):
         self.folder = tempfile.TemporaryDirectory(); root = Path(self.folder.name)
         settings = QSettings(str(root/'settings.ini'), QSettings.IniFormat)
         settings.setFallbacksEnabled(False); settings.setValue('onboarding/show', False)
-        settings.setValue('engine/ngspice', '/custom/simulator/ngspice')
+        # Startup discovery replaces missing engines with an available bundle.
+        # This path-selection fixture must exist even on packaged CI runners.
+        custom_ngspice = root/'custom simulator'/'ngspice'
+        custom_ngspice.parent.mkdir(); custom_ngspice.touch()
+        self.custom_ngspice = str(custom_ngspice.resolve())
+        settings.setValue('engine/ngspice', self.custom_ngspice)
         with patch('icstudio.gui.QSettings', return_value=settings), \
                 patch('icstudio.gui.QStandardPaths.writableLocation', return_value=str(root/'data')):
             self.studio = Studio(recover=False)
@@ -116,7 +121,7 @@ class PublicBetaUsabilityTests(unittest.TestCase):
         self.assertEqual(self.studio.project['mixed_signal']['stimuli']['vin'], [[0., .8]])
 
     def test_compact_layout_keyboard_and_engine_names(self):
-        d = self.dialog; self.assertEqual(d.paths['ngspice'].text(), '/custom/simulator/ngspice')
+        d = self.dialog; self.assertEqual(d.paths['ngspice'].text(), self.custom_ngspice)
         for size in (13, 26):
             d.setStyleSheet(f'QWidget {{ font-size: {size}px; }}'); d.resize(720, 600)
             for tab in range(d.tabs.count()):

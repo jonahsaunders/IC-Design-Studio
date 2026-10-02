@@ -94,15 +94,15 @@ def main():
             ratio=(b+.05)/(a+.05);assert ratio>=4.5,(dark,fg,bg,ratio)
             contrast[f'{"dark" if dark else "light"}-{fg}-{bg}']=round(ratio,2)
         for scale in (100,125,150,200):
-            h.set_text_scale(scale);h.resize(720,600);QTest.qWait(40)
-            assert h.width()==720 and h.height()==600
+            h.set_text_scale(scale);w.resize(720,680);QTest.qWait(40)
+            assert h.width()<=720 and h.height()<=680,(w.size(),h.size(),w.minimumSizeHint())
             assert h.scroll.horizontalScrollBar().maximum()==0
             assert h.path_picker.isVisible() and h.split.orientation()==Qt.Vertical
             h.scroll.ensureWidgetVisible(h.start);app.processEvents()
             assert h.start.isVisible()
             h.scroll.verticalScrollBar().setValue(0)
             if scale in (100,200):h.grab().save(str(out/f'{"dark" if dark else "light"}-{scale}.png'))
-    h.set_text_scale(100);h.resize(1180,780);QTest.qWait(50)
+    h.set_text_scale(100);w.resize(1180,860);QTest.qWait(50)
     assert h.path_list.isVisible() and not h.path_picker.isVisible()
     h.grab().save(str(out/'hub-wide.png'))
     checked('Light/dark contrast and live appearance; compact layout at 100–200% text')
@@ -125,11 +125,11 @@ def main():
 
     g.steps.setCurrentIndex(3);draft='My reflection must survive an immediate close and a failed autosave.'
     g.notes.setPlainText(draft)
-    with patch.object(h.portfolio,'save_note',side_effect=OSError('Disk full')):
+    with patch.object(Portfolio,'save_note',side_effect=OSError('Disk full')):
         g.steps.setCurrentIndex(1)
         assert g.steps.currentIndex()==3 and g.active_step['id']=='explain'
         assert g.notes.toPlainText()==draft and g.note_dirty
-        h.show();h.reject();assert h.isVisible()
+        show(w);h.reject();assert h.isVisible()
         event=QCloseEvent();w.closeEvent(event);assert not event.isAccepted()
         assert len(errors)==1 and 'reflection' in errors.pop()
     g.save_note();assert not g.note_dirty

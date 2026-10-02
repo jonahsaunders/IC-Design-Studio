@@ -1,6 +1,6 @@
 # CMOS inverter: from PDK to DRC/LVS
 
-Open **File → Student Hub → CMOS inverter · PDK to LVS**. Choose a PDK revision, then follow eight lessons: process selection, schematic, DC transfer, switching, layout, DRC repair, LVS repair and design review. Each lesson includes an explanation, worked example, hands-on instructions, a checked task and an interview question.
+Open the **Student Hub** tab and choose **CMOS inverter · PDK to LVS**. Choose a PDK revision, then follow eight lessons: process selection, schematic, DC transfer, switching, layout, DRC repair, LVS repair and design review. Each lesson includes an explanation, worked example, hands-on instructions, a checked task and an interview question.
 
 The Hub discovers the bundled process packages, registered PDK revisions and the open project's locked PDK. Projects, reflections and credit are separate for each process revision. **Open workspace** shows the testbench; **Open inverter** shows its child circuit, switching to layout view in the physical lessons. **Save work** preserves your edits; starting the next lesson resumes the same project.
 

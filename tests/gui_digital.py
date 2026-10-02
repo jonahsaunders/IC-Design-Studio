@@ -43,7 +43,7 @@ def main():
     w.undo();assert w.project['digital']['files'][0]['text']==original
     assert d.editor.toPlainText()==original
     d.shell.mode(0);QTest.qWait(50);d.grab().save(str(out/'sources.png'))
-    assert w.centralWidget() is d
+    assert w.design_widget() is d and w.centralWidget() is w.app_workspaces
     row=d.run();wait();assert row['state']=='Complete',row['log']
     assert d.wave.data and d.wave.data['timescale']=='1ps'
     assert 'Current inputs' in d.summary.text()
@@ -61,8 +61,8 @@ def main():
     d.shell.show_captured({'path':'counter.sv','line':3})
     assert 'New revision' not in d.shell.captured_editor.toPlainText()
     assert d.shell.captured_editor.isReadOnly()
-    w.leave_digital_workspace();assert w.centralWidget() is not d
-    assert w.digital_window() is d and w.centralWidget() is d
+    w.leave_digital_workspace();assert w.design_widget() is not d
+    assert w.digital_window() is d and w.design_widget() is d
     path=out/'counter.icproj';save_project(w.project,path)
     w.set_project(w.project,path);d=w.digital_window()
     assert d.runs.count()==1 and d.wave.data

@@ -547,7 +547,9 @@
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8.0,
+                "mirror": true,
+                "text_anchor": "corner"
               },
               {
                 "kind": "text",
@@ -643,7 +645,9 @@
                 ],
                 "text": "m=@m",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8.0,
+                "mirror": true,
+                "text_anchor": "corner"
               },
               {
                 "kind": "text",
@@ -966,7 +970,9 @@
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8.0,
+                "mirror": true,
+                "text_anchor": "corner"
               },
               {
                 "kind": "text",
@@ -1062,7 +1068,9 @@
                 ],
                 "text": "m=@m",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8.0,
+                "mirror": true,
+                "text_anchor": "corner"
               },
               {
                 "kind": "text",

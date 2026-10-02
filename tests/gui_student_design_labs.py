@@ -65,7 +65,7 @@ def main():
             for field,value in fields.items():w.form_fields[field].setText(value)
             g.flush()
         evaluate(g.lesson['steps'][2],g.lesson,w.project)
-    h.select_lesson('l-centroid');h.show();QTest.qWait(50);h.grab().save(str(out/'student-layout-path.png'))
+    h.select_lesson('l-centroid');show(w);QTest.qWait(50);h.grab().save(str(out/'student-layout-path.png'))
     # Preserve pending reflection edits, escape HTML, and honor Save cancellation.
     g.steps.setCurrentIndex(3);g.notes.setPlainText('My <layout> review: repaired a 100 nm route to 200 nm; generic checks are not foundry signoff.')
     destination=out/'sample-portfolio.html'
@@ -74,7 +74,7 @@ def main():
     with patch.object(w,'save',return_value=False),patch.object(QFileDialog,'getSaveFileName') as choose:
         h.export(report=True);choose.assert_not_called()
     for scale in (100,200):
-        h.set_text_scale(scale);h.resize(720,600);g.resize(420,700);QTest.qWait(50)
+        h.set_text_scale(scale);w.resize(720,680);g.resize(420,700);QTest.qWait(50)
         assert h.scroll.horizontalScrollBar().maximum()==0
         assert g.scroll.horizontalScrollBar().maximum()==0
     h.close();g.close();w.saved_hash=digest(w.project);w.close();app.processEvents();assert not errors,errors

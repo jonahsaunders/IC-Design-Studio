@@ -105,17 +105,15 @@
             "duty": "0.5",
             "ac": "1"
           },
-          "net_labels": {
-            "p": "vdd",
-            "n": "0"
-          }
+          "net_labels": {},
+          "mirror": false
         },
         {
           "id": "6541f77e3af64162",
           "kind": "V",
           "name": "VIN",
           "x": 100,
-          "y": 350,
+          "y": 380,
           "rotation": 0,
           "nets": {
             "p": "vin",
@@ -138,17 +136,15 @@
             "duty": "0.5",
             "ac": "1"
           },
-          "net_labels": {
-            "p": "vin",
-            "n": "0"
-          }
+          "net_labels": {},
+          "mirror": false
         },
         {
           "id": "80d06769d0cf4259",
           "kind": "C",
           "name": "CL",
-          "x": 650,
-          "y": 300,
+          "x": 720,
+          "y": 330,
           "rotation": 0,
           "nets": {
             "p": "out",
@@ -171,17 +167,15 @@
             "duty": "0.5",
             "ac": "1"
           },
-          "net_labels": {
-            "p": "out",
-            "n": "0"
-          }
+          "net_labels": {},
+          "mirror": false
         },
         {
           "id": "69109e49093e44e1",
           "kind": "X",
           "name": "X1",
-          "x": 400,
-          "y": 200,
+          "x": 420,
+          "y": 330,
           "rotation": 0,
           "nets": {
             "out": "out",
@@ -206,11 +200,7 @@
             "ac": "1"
           },
           "cell": "495678b41aa54b59",
-          "net_labels": {
-            "out": "out",
-            "vdd": "vdd",
-            "vin": "vin"
-          },
+          "net_labels": {},
           "symbol": {
             "primitives": [
               {
@@ -270,71 +260,75 @@
                 "points": [
                   [
                     -35,
-                    -10
+                    -55
                   ],
                   [
                     35,
-                    0
+                    -45
                   ]
                 ],
-                "text": "@symname",
-                "font_size": 6
+                "text": "@name",
+                "font_size": 8
+              },
+              {
+                "kind": "text",
+                "points": [
+                  [
+                    -30,
+                    5
+                  ],
+                  [
+                    30,
+                    15
+                  ]
+                ],
+                "text": "Amplifier",
+                "font_size": 5
               },
               {
                 "kind": "text",
                 "points": [
                   [
                     -35,
-                    15
-                  ],
-                  [
-                    35,
-                    25
-                  ]
-                ],
-                "text": "@name",
-                "font_size": 6
-              },
-              {
-                "kind": "polygon",
-                "points": [
-                  [
-                    -25,
                     -20
                   ],
                   [
-                    25,
-                    0
-                  ],
-                  [
-                    -25,
-                    20
-                  ]
-                ]
-              },
-              {
-                "kind": "polygon",
-                "points": [
-                  [
-                    -10.0,
-                    -15.0
-                  ],
-                  [
-                    10.0,
-                    35.0
-                  ],
-                  [
-                    30.0,
-                    -15.0
+                    -10,
+                    -10
                   ]
                 ],
-                "color": "#efb36a",
-                "font_size": 8.0,
-                "line_width": 1.5,
-                "start": 0.0,
-                "sweep": 90.0,
-                "bold": false,
-                "fill": true
+                "text": "out",
+                "font_size": 4
+              },
+              {
+                "kind": "text",
+                "points": [
+                  [
+                    -35,
+                    30
+                  ],
+                  [
+                    -10,
+                    40
+                  ]
+                ],
+                "text": "vin",
+                "font_size": 4
+              },
+              {
+                "kind": "text",
+                "points": [
+                  [
+                    15,
+                    -5
+                  ],
+                  [
+                    35,
+                    5
+                  ]
+                ],
+                "text": "vdd",
+                "font_size": 4
               }
             ],
             "pins": {
@@ -380,14 +374,171 @@
               }
             },
             "attributes": {}
-          }
+          },
+          "mirror": false
         }
       ],
       "shapes": [],
-      "wires": [],
+      "wires": [
+        {
+          "id": "4779fa0f95d6417a",
+          "points": [
+            [
+              100,
+              330
+            ],
+            [
+              360.0,
+              330
+            ],
+            [
+              360.0,
+              350.0
+            ]
+          ],
+          "net": "vin"
+        },
+        {
+          "id": "ffb1ac586056412e",
+          "points": [
+            [
+              100,
+              150
+            ],
+            [
+              20,
+              150
+            ],
+            [
+              20,
+              430
+            ],
+            [
+              100,
+              430
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "0e75bda0582346d0",
+          "points": [
+            [
+              720,
+              280
+            ],
+            [
+              360.0,
+              280
+            ],
+            [
+              360.0,
+              310.0
+            ]
+          ],
+          "net": "out"
+        },
+        {
+          "id": "2bc2ddc7597443e8",
+          "points": [
+            [
+              100,
+              50
+            ],
+            [
+              480.0,
+              50
+            ],
+            [
+              480.0,
+              330.0
+            ]
+          ],
+          "net": "vdd"
+        },
+        {
+          "id": "59541481d2904081",
+          "points": [
+            [
+              100,
+              430
+            ],
+            [
+              720,
+              430
+            ],
+            [
+              720,
+              380
+            ]
+          ],
+          "net": "0"
+        }
+      ],
       "junctions": [],
-      "wiring_migration": "named_connections",
-      "labels": []
+      "labels": [
+        {
+          "id": "26ccedbaaf5b4cf5",
+          "kind": "net_label",
+          "name": "vdd",
+          "anchor": {
+            "kind": "pin",
+            "id": "dc236756e9224d0c",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "270fdc0ca3ce4bd3",
+          "kind": "ground",
+          "name": "0",
+          "anchor": {
+            "kind": "pin",
+            "id": "6541f77e3af64162",
+            "pin": "n"
+          },
+          "offset": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "c1942f8d56bb47d9",
+          "kind": "net_label",
+          "name": "vin",
+          "anchor": {
+            "kind": "pin",
+            "id": "6541f77e3af64162",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "b1c74544214b45ac",
+          "kind": "net_label",
+          "name": "out",
+          "anchor": {
+            "kind": "pin",
+            "id": "80d06769d0cf4259",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        }
+      ],
+      "example_drawing": 1
     },
     {
       "id": "495678b41aa54b59",

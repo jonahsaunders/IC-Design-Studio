@@ -85,7 +85,8 @@ class AnalogMixin:
             from .analog import reference
             p, cid, key = reference(self.project['pdk'], kind)
         if not self.maybe_save(): return
-        self.set_project(p); self._selected_testbench = key; self.cid = p['top']; self.mode_combo.setCurrentIndex(0); self.refresh(True); self.open_testbenches()
+        from .example_schematics import arrange
+        self.set_project(arrange(p,replace_wires=True)); self._selected_testbench = key; self.cid = p['top']; self.mode_combo.setCurrentIndex(0); self.refresh(True); self.open_testbenches()
 
     def characterization_dialog(self):
         if not self.idle_edit(): return

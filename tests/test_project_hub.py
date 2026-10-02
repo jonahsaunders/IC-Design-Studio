@@ -1,5 +1,6 @@
 """Inventory and exact-revision creation for fresh and existing installations."""
 import json,tempfile,unittest,shutil
+from unittest.mock import patch
 from pathlib import Path
 from icstudio.model import clone,digest,save_project,load_project
 from icstudio.pdks import PDKRegistry
@@ -17,6 +18,23 @@ class ProjectHubTests(unittest.TestCase):
         self.assertEqual({r['id'] for r in rows if r['status']=='Available offline'},{'sky130A','gf180mcuC','gf180mcuD','ihp-sg13g2'})
         self.assertFalse(any(r['id']=='ihp-sg13g2' and r['status']=='Add installation' for r in rows))
         self.assertEqual(self.registry.entries(),[])
+
+    def test_new_templates_gain_wiring_without_changing_the_circuit(self):
+        from icstudio.project_templates import TEMPLATES,create
+        from icstudio.model import validate
+        from tests.test_example_schematics import electrical
+        row=next(row for row in inventory(self.registry,bundled=[])[0] if row['key']=='generic')
+        for kind in TEMPLATES:
+            with self.subTest(template=kind):
+                original,cid,bench=create(preview(row),kind)
+                with patch('icstudio.project_templates.create',return_value=(clone(original),cid,bench)):
+                    result=build_project(self.registry,row,'Prepared '+kind,kind)
+                prepared=result['project'];original['name']=prepared['name']
+                original['analysis']['engine']=prepared['analysis']['engine']
+                self.assertEqual(electrical(prepared),electrical(validate(original)))
+                self.assertEqual(result['cell'],cid);self.assertEqual(result['testbench'],bench)
+                self.assertTrue(all(c.get('example_drawing') for c in prepared['cells'] if c['devices']))
+                self.assertTrue(any(c.get('wires') for c in prepared['cells']))
 
     def test_multiple_versions_and_unknown_future_processes_are_all_visible(self):
         path=install_fixture(self.root/'pdk','future-process');key=self.registry.install(path)

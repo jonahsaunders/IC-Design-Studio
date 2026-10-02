@@ -6,6 +6,7 @@ profile=ROOT/'build'/'usability-profile';profile.mkdir(parents=True,exist_ok=Tru
 os.environ['XDG_DATA_HOME']=str(profile/'data');os.environ['XDG_CONFIG_HOME']=str(profile/'config')
 from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import Qt,QPoint,QPointF,QTimer
+from PySide6.QtGui import QFontDatabase
 from PySide6.QtTest import QTest
 from icstudio.gui import Studio
 from icstudio.model import digest,example,clone
@@ -15,7 +16,14 @@ def exception(t,v,tb):
  import traceback
  errors.append(str(v));traceback.print_exception(t,v,tb)
 sys.excepthook=exception
-app=QApplication([]);app.setStyle('Fusion');w=Studio(recover=False);w.capture_repeat.setChecked(False);w.dark=False;w.apply_theme();w.resize(1440,900);w.show();QTest.qWait(150);w.reset_workspace();QTest.qWait(60)
+app=QApplication([]);app.setStyle('Fusion')
+# Windows offscreen Qt can start with an empty font database. Its missing-font
+# metrics do not describe real text and make Fit shrink the entire schematic.
+if os.name=='nt' and app.platformName()=='offscreen' and not QFontDatabase.families():
+ fonts=Path(os.environ.get('WINDIR','C:/Windows'))/'Fonts'
+ for name in ('segoeui.ttf','segoeuib.ttf','arial.ttf'):
+  assert QFontDatabase.addApplicationFont(str(fonts/name))>=0, f'Could not load the Windows test font {name}'
+w=Studio(recover=False);w.capture_repeat.setChecked(False);w.dark=False;w.apply_theme();w.resize(1440,900);w.show();QTest.qWait(150);w.reset_workspace();QTest.qWait(60)
 w.error=lambda text:(_ for _ in ()).throw(AssertionError(text))
 def screen(canvas,x,y):return (QPointF(x,y)*canvas.scale+canvas.offset).toPoint()
 def reset(kind='rc'):
@@ -30,7 +38,10 @@ w.begin_placement(2);point=QPoint(140,170);expected=w.schematic.snap(w.schematic
 a,b=w.cell['devices'][1:3];w.select([a['id']]);w.form_fields['Value'].setText('not-a-value');w.select([b['id']]);assert w.selection==[a['id']];assert not w.property_error.isHidden();assert w.cell['devices'][1]['value']=='10k'
 w.form_fields['Value'].setText('22k');w.select([b['id']]);assert w.cell['devices'][1]['value']=='22k';assert w.selection==[b['id']];w.undo()
 # Rubber-band selection and a drag commit operate through native mouse events.
-w.select([]);c=w.schematic;start=QPoint(20,30);end=QPoint(c.width()-20,c.height()-30);QTest.mousePress(c,Qt.LeftButton,pos=start);QTest.mouseMove(c,end);QTest.mouseRelease(c,Qt.LeftButton,pos=end);assert set(w.selection)=={o['id'] for o in w.cell['devices']+w.cell['wires']}
+w.select([]);c=w.schematic;start=QPoint(20,30);end=QPoint(c.width()-20,c.height()-30);QTest.mousePress(c,Qt.LeftButton,pos=start);QTest.mouseMove(c,end);QTest.mouseRelease(c,Qt.LeftButton,pos=end)
+# Net labels and annotations are selectable schematic objects too.
+expected_selection={o['id'] for group in ('devices','wires','labels','annotations') for o in w.cell.get(group,[])}
+assert set(w.selection)==expected_selection, {'selected':w.selection,'expected':sorted(expected_selection),'canvas':(c.width(),c.height()),'scale':c.scale}
 r=w.cell['devices'][1];w.select([r['id']]);pos=screen(c,r['x'],r['y']);end=pos+QPoint(45,20);expected=c.snap(c.model(QPointF(end)))-c.snap(c.model(QPointF(pos)));x,y=r['x'],r['y'];QTest.mousePress(c,Qt.LeftButton,pos=pos);QTest.mouseMove(c,end);assert w.schematic.moving;QTest.mouseRelease(c,Qt.LeftButton,pos=end);r=w.cell['devices'][1];assert (r['x'],r['y'])==(x+expected.x(),y+expected.y());w.undo()
 # Connect pins from actual screen positions.
 from icstudio.interchange import pin_positions

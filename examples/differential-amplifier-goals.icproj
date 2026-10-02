@@ -104,7 +104,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "0"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "3cfa2c14f2544eec",
@@ -133,7 +134,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "3fc9c1e4505143ec",
@@ -162,7 +164,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "-1"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "cd94aee7f10e40f0",
@@ -191,7 +194,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "e4d60dfbf95b4e20",
@@ -220,7 +224,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "befa2fd32f2547b6",
@@ -251,7 +256,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "50a31e7c46e847c5",
@@ -282,7 +288,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "c31199081d464aec",
@@ -311,7 +318,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         }
       ],
       "shapes": [
@@ -759,7 +767,356 @@
             "50a31e7c46e847c5"
           ]
         }
-      ]
+      ],
+      "wires": [
+        {
+          "id": "be5d73786e9e4604",
+          "points": [
+            [
+              400,
+              150
+            ],
+            [
+              420,
+              150
+            ],
+            [
+              420,
+              270
+            ]
+          ],
+          "net": "outp"
+        },
+        {
+          "id": "6930312119a7425b",
+          "points": [
+            [
+              650,
+              150
+            ],
+            [
+              670,
+              150
+            ],
+            [
+              670,
+              270
+            ]
+          ],
+          "net": "outn"
+        },
+        {
+          "id": "9e58684396034f2c",
+          "points": [
+            [
+              420,
+              370
+            ],
+            [
+              520,
+              370
+            ],
+            [
+              520,
+              510
+            ]
+          ],
+          "net": "tail"
+        },
+        {
+          "id": "a79d8151abff4c1c",
+          "points": [
+            [
+              100,
+              350
+            ],
+            [
+              20,
+              350
+            ],
+            [
+              20,
+              550
+            ],
+            [
+              100,
+              550
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "5d5eddf7abb44a8d",
+          "points": [
+            [
+              100,
+              150
+            ],
+            [
+              20,
+              150
+            ],
+            [
+              20,
+              350
+            ],
+            [
+              100,
+              350
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "54839892cd8b4867",
+          "points": [
+            [
+              670,
+              370
+            ],
+            [
+              520,
+              370
+            ],
+            [
+              520,
+              510
+            ]
+          ],
+          "net": "tail"
+        },
+        {
+          "id": "3c0cda27190e42f1",
+          "points": [
+            [
+              450,
+              320
+            ],
+            [
+              450,
+              240
+            ],
+            [
+              700,
+              240
+            ],
+            [
+              700,
+              320
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "44a389106f154fc7",
+          "points": [
+            [
+              400,
+              50
+            ],
+            [
+              650,
+              50
+            ]
+          ],
+          "net": "vdd"
+        },
+        {
+          "id": "b3b85564046745e3",
+          "points": [
+            [
+              100,
+              250
+            ],
+            [
+              350,
+              250
+            ],
+            [
+              350,
+              320
+            ]
+          ],
+          "net": "inp"
+        },
+        {
+          "id": "7dc895f415a8403b",
+          "points": [
+            [
+              450,
+              320
+            ],
+            [
+              450,
+              610
+            ],
+            [
+              520,
+              610
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "c9bbee9c339b4e24",
+          "points": [
+            [
+              100,
+              50
+            ],
+            [
+              400,
+              50
+            ]
+          ],
+          "net": "vdd"
+        },
+        {
+          "id": "41ad662d3c664d56",
+          "points": [
+            [
+              100,
+              350
+            ],
+            [
+              450,
+              350
+            ],
+            [
+              450,
+              320
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "85ebcb8d79af4eee",
+          "points": [
+            [
+              100,
+              450
+            ],
+            [
+              600,
+              450
+            ],
+            [
+              600,
+              320
+            ]
+          ],
+          "net": "inn"
+        }
+      ],
+      "labels": [
+        {
+          "id": "48e92581e82f4b62",
+          "kind": "net_label",
+          "name": "vdd",
+          "anchor": {
+            "kind": "pin",
+            "id": "e62a7d17203e43aa",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "1a558f886cb94e88",
+          "kind": "ground",
+          "name": "0",
+          "anchor": {
+            "kind": "pin",
+            "id": "c31199081d464aec",
+            "pin": "n"
+          },
+          "offset": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "6f3510e89f2c48ea",
+          "kind": "net_label",
+          "name": "inp",
+          "anchor": {
+            "kind": "pin",
+            "id": "3cfa2c14f2544eec",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "a480c6c60e3740d8",
+          "kind": "net_label",
+          "name": "inn",
+          "anchor": {
+            "kind": "pin",
+            "id": "50a31e7c46e847c5",
+            "pin": "g"
+          },
+          "offset": [
+            -27,
+            -8
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "4c84514cdfae469d",
+          "kind": "net_label",
+          "name": "outp",
+          "anchor": {
+            "kind": "pin",
+            "id": "cd94aee7f10e40f0",
+            "pin": "n"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "b25cced8272f4b70",
+          "kind": "net_label",
+          "name": "outn",
+          "anchor": {
+            "kind": "pin",
+            "id": "e4d60dfbf95b4e20",
+            "pin": "n"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "f6c805224fd447d5",
+          "kind": "net_label",
+          "name": "tail",
+          "anchor": {
+            "kind": "pin",
+            "id": "befa2fd32f2547b6",
+            "pin": "s"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        }
+      ],
+      "junctions": [],
+      "example_drawing": 1
     }
   ],
   "analysis": {

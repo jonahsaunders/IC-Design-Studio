@@ -44,7 +44,7 @@
 2. **Open a working circuit.** Choose **File → Start here / example gallery → Your first waveform → Open a copy**. The RC example needs no external simulator or PDK.
 3. **Make your first change.** Press **F5**, inspect **Results → Waveforms**, change a component value, and run again. Save your project with **Ctrl+S**.
 
-Want a guided course? Open **File → Student Hub** for [41 lessons and a sensor-acquisition capstone](#learn-by-building-real-circuits).
+Want a guided course? Open the **Student Hub** tab for [41 lessons and a sensor-acquisition capstone](#learn-by-building-real-circuits). **Design** remains the primary workspace.
 
 <details>
 <summary><strong>Run from source</strong> · Python 3.12 · Windows, Linux and experimental macOS</summary>
@@ -207,7 +207,7 @@ The **Student Hub** turns the native editors into a course: **41 core lessons, s
 | **Portfolio & interviews** | Requirements, verification plans, design reviews and a readable portfolio report |
 | **CMOS inverter · PDK to LVS** | Process models, transfer curves, switching delay, layout, actual DRC/LVS failures and repairs, with separate progress per PDK revision |
 
-**Try it:** choose **File → Student Hub → Continue learning** or select a lesson and choose **Start lesson**. The guide stays beside the real editor. Its **Learn** tab explains the concept, a worked example and an interview prompt; **Do this step** gives the exercise. Use **Run lesson**, inspect **Results**, then **Check this step**. **Practice lesson** makes locked lessons available for exploration without bypassing progression credit.
+**Try it:** open the **Student Hub** tab and choose **Continue learning**, or select a lesson and choose **Start lesson**. Starting a lesson returns to **Design**, with the guide beside the real editor. Its **Learn** tab explains the concept, a worked example and an interview prompt; **Do this step** gives the exercise. Use **Run lesson**, inspect **Results**, then **Check this step**. **Practice lesson** makes locked lessons available for exploration without bypassing progression credit.
 
 **Capstone:** repair an RC input filter, four-bit SAR and four-sample averager, then verify the threshold alarm across four system cases. The nominal repaired system produces averaged codes **4 and 11**, with alarm outputs **0 then 1**. [Lesson guide in action](docs/images/student-lesson.png) · [Capstone overview](docs/images/student-capstone.png).
 

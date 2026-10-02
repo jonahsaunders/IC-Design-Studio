@@ -1,6 +1,6 @@
 # Student Hub
 
-Open **File → Student Hub** or choose **Student Hub** in the example gallery.
+Open the **Student Hub** tab beside **Design**, or choose **View → Student Hub**. Design is the primary workspace; the Hub is an optional learning area. Starting a lesson or opening an example returns to Design. Switching tabs preserves the current editor and its drafts.
 Six learning paths cover foundations, analog, digital, mixed signal, layout and
 portfolio preparation. Four additional milestones build one sensor-acquisition
 project: **41 core lessons and 164 steps**, plus an eight-lesson

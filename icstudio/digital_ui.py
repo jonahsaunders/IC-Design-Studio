@@ -416,9 +416,10 @@ class DigitalFlowWindow(QDockWidget):
 
 class DigitalMixin:
     def enter_digital_workspace(self, window):
-        if self.centralWidget() is window:
+        self.show_design_workspace()
+        if self.design_widget() is window:
             return
-        self._circuit_center = self.takeCentralWidget();self._circuit_center.hide()
+        self._circuit_center = self.take_design_widget();self._circuit_center.hide()
         # A previous digital window can still be awaiting deleteLater when a
         # new example opens in the same event turn. It is not a circuit panel.
         self._digital_panels = [(d, d.isVisible()) for d in self.findChildren(QDockWidget)
@@ -426,26 +427,28 @@ class DigitalMixin:
         for dock, visible in self._digital_panels:
             dock.hide()
         self._digital_toolbar_visible = self.toolbar.isVisible(); self.toolbar.hide()
-        self.removeDockWidget(window); self.setCentralWidget(window); window.show();self.statusBar().showMessage('Digital workspace')
+        self.removeDockWidget(window); self.set_design_widget(window); window.show();self.statusBar().showMessage('Digital workspace')
 
     def leave_digital_workspace(self):
+        self.show_design_workspace()
         window = getattr(self, '_digital_window', None)
-        if not window or self.centralWidget() is not window:
-            return
+        if not window or self.design_widget() is not window:
+            return True
         if window.dirty and not window.attempt(window.apply):
-            return
-        window.shell.save_layout(); self.takeCentralWidget()
-        self.setCentralWidget(self._circuit_center);self._circuit_center.show(); self._circuit_center = None
+            return False
+        window.shell.save_layout(); self.take_design_widget()
+        self.set_design_widget(self._circuit_center);self._circuit_center.show(); self._circuit_center = None
         window.setParent(self); window.hide()
         for dock, visible in getattr(self, '_digital_panels', []):
             if isValid(dock):dock.setVisible(visible)
         self.toolbar.setVisible(getattr(self, '_digital_toolbar_visible', True))
         if getattr(self,'_deferred_editor_restore',False):
             self._deferred_editor_restore=False;super().restore_last_editor_workspace()
+        return True
 
     def restore_last_editor_workspace(self):
         window=getattr(self,'_digital_window',None)
-        if window and self.centralWidget() is window:
+        if window and self.design_widget() is window:
             self._deferred_editor_restore=True;return
         return super().restore_last_editor_workspace()
 
@@ -459,7 +462,7 @@ class DigitalMixin:
 
     def closeEvent(self,event):
         window=getattr(self,'_digital_window',None)
-        active=window and self.centralWidget() is window
+        active=window and self.design_widget() is window
         if active:
             if window.dirty and not window.attempt(window.apply):event.ignore();return
             self.leave_digital_workspace()
@@ -471,7 +474,7 @@ class DigitalMixin:
 
     def quick_run(self):
         window = getattr(self, '_digital_window', None)
-        if window and self.centralWidget() is window:
+        if window and self.design_widget() is window:
             return window.attempt(window.run)
         return super().quick_run()
 
@@ -536,6 +539,8 @@ class DigitalMixin:
         window = getattr(self, '_digital_window', None)
         if window:
             if window.dirty and not window.attempt(window.apply):return False
+        self.show_design_workspace()
+        if window:
             self.leave_digital_workspace()
         super().set_project(p, path)
         if window:

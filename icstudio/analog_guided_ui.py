@@ -80,6 +80,8 @@ class GuidedSetup(QDialog):
     def example(self):
         if not self.studio.flush_inspector():return
         proposal,cid=guided.teaching_example(self.studio.project,self.template.currentData())
+        from .example_schematics import arrange
+        arrange(proposal,{cid},replace_wires=True)
         self.studio.commit(lambda p:(p.clear(),p.update(clone(proposal))),'Add analog teaching DUT')
         self.workspace.reload_setup();self.refresh(cid)
 

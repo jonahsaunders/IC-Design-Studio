@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "id": "4ad7db0256f442c1",
-  "name": "Two-stage Miller op-amp · SKY130A",
+  "name": "Two-stage Miller op-amp \u00b7 SKY130A",
   "revision": 0,
   "top": "d4b5db63c209466b",
   "created": "2026-09-20T17:34:02+00:00",
   "modified": "2026-09-20T17:34:02+00:00",
   "pdk": {
-    "name": "SkyWater SKY130 · sky130A",
+    "name": "SkyWater SKY130 \u00b7 sky130A",
     "revision": "24bc6d0bfd6a0224",
-    "status": "local assets indexed · device simulation unverified",
+    "status": "local assets indexed \u00b7 device simulation unverified",
     "dbu_um": 0.001,
     "grid": 5,
     "layers": [
@@ -29508,65 +29508,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    5.0,
-                    -30.0
+                    70,
+                    -52
                   ],
                   [
-                    25.0,
-                    -20.0
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    30.0,
-                    -8.75
+                    70,
+                    -34
                   ],
                   [
-                    50.0,
-                    1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
-                "rotation": 180,
-                "font_size": 8.0
+                "rotation": 0,
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    13.75
+                    70,
+                    -16
                   ],
                   [
-                    51.25,
-                    23.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "@mult x @W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    1.25
+                    70,
+                    2
                   ],
                   [
-                    51.25,
-                    11.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "nf=@nf",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -29603,7 +29619,8 @@
               "format": "@spiceprefix@name @pinlist @body sky130_fd_pr__@model L=@L W=@W\n+ nf=@nf ad=@ad as=@as pd=@pd ps=@ps\n+ nrd=@nrd nrs=@nrs sa=@sa sb=@sb sd=@sd \n+ mult=@mult m=@mult",
               "template": "name=M1\nL=0.15\nW=1\nbody=GND\nnf=1\nmult=1\nad=\\int((nf+1)/2) * W/nf * 0.29\\ \npd=\\2*int((nf+1)/2) * (W/nf + 0.29)\\\nas=\\int((nf+2)/2) * W/nf * 0.29\\ \nps=\\2*int((nf+2)/2) * (W/nf + 0.29)\\\nnrd=\\0.29 / W\\ nrs=\\0.29 / W\\\nsa=0 sb=0 sd=0\nmodel=nfet_01v8\nspiceprefix=X\n"
             }
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "7965f11a92f842e3",
@@ -29773,65 +29790,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    5.0,
-                    -30.0
+                    70,
+                    -52
                   ],
                   [
-                    25.0,
-                    -20.0
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    30.0,
-                    -8.75
+                    70,
+                    -34
                   ],
                   [
-                    50.0,
-                    1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
-                "rotation": 180,
-                "font_size": 8.0
+                "rotation": 0,
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    13.75
+                    70,
+                    -16
                   ],
                   [
-                    51.25,
-                    23.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "@mult x @W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    1.25
+                    70,
+                    2
                   ],
                   [
-                    51.25,
-                    11.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "nf=@nf",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -29868,7 +29901,8 @@
               "format": "@spiceprefix@name @pinlist @body sky130_fd_pr__@model L=@L W=@W\n+ nf=@nf ad=@ad as=@as pd=@pd ps=@ps\n+ nrd=@nrd nrs=@nrs sa=@sa sb=@sb sd=@sd \n+ mult=@mult m=@mult",
               "template": "name=M1\nL=0.15\nW=1\nbody=GND\nnf=1\nmult=1\nad=\\int((nf+1)/2) * W/nf * 0.29\\ \npd=\\2*int((nf+1)/2) * (W/nf + 0.29)\\\nas=\\int((nf+2)/2) * W/nf * 0.29\\ \nps=\\2*int((nf+2)/2) * (W/nf + 0.29)\\\nnrd=\\0.29 / W\\ nrs=\\0.29 / W\\\nsa=0 sb=0 sd=0\nmodel=nfet_01v8\nspiceprefix=X\n"
             }
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "64ad3b32bcc84648",
@@ -30053,65 +30087,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    5.0,
-                    -30.0
+                    70,
+                    -52
                   ],
                   [
-                    25.0,
-                    -20.0
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    30.0,
-                    -8.75
+                    70,
+                    -34
                   ],
                   [
-                    50.0,
-                    1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
-                "rotation": 180,
-                "font_size": 8.0
+                "rotation": 0,
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    13.75
+                    70,
+                    -16
                   ],
                   [
-                    51.25,
-                    23.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "@mult x @W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    1.25
+                    70,
+                    2
                   ],
                   [
-                    51.25,
-                    11.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "nf=@nf",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -30148,7 +30198,8 @@
               "format": "@spiceprefix@name @pinlist @body sky130_fd_pr__@model L=@L W=@W\n+ nf=@nf ad=@ad as=@as pd=@pd ps=@ps\n+ nrd=@nrd nrs=@nrs sa=@sa sb=@sb sd=@sd \n+ mult=@mult m=@mult",
               "template": "name=M1\nL=0.15\nW=1\nbody=VDD\nnf=1\nmult=1\nad=\\int((nf+1)/2) * W/nf * 0.29\\ \npd=\\2*int((nf+1)/2) * (W/nf + 0.29)\\\nas=\\int((nf+2)/2) * W/nf * 0.29\\ \nps=\\2*int((nf+2)/2) * (W/nf + 0.29)\\\nnrd=\\0.29 / W\\ nrs=\\0.29 / W\\\nsa=0 sb=0 sd=0\nmodel=pfet_01v8\nspiceprefix=X\n"
             }
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "4981944ae3cb4d23",
@@ -30333,65 +30384,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    5.0,
-                    -30.0
+                    70,
+                    -52
                   ],
                   [
-                    25.0,
-                    -20.0
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    30.0,
-                    -8.75
+                    70,
+                    -34
                   ],
                   [
-                    50.0,
-                    1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
-                "rotation": 180,
-                "font_size": 8.0
+                "rotation": 0,
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    13.75
+                    70,
+                    -16
                   ],
                   [
-                    51.25,
-                    23.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "@mult x @W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    1.25
+                    70,
+                    2
                   ],
                   [
-                    51.25,
-                    11.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "nf=@nf",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -30428,7 +30495,8 @@
               "format": "@spiceprefix@name @pinlist @body sky130_fd_pr__@model L=@L W=@W\n+ nf=@nf ad=@ad as=@as pd=@pd ps=@ps\n+ nrd=@nrd nrs=@nrs sa=@sa sb=@sb sd=@sd \n+ mult=@mult m=@mult",
               "template": "name=M1\nL=0.15\nW=1\nbody=VDD\nnf=1\nmult=1\nad=\\int((nf+1)/2) * W/nf * 0.29\\ \npd=\\2*int((nf+1)/2) * (W/nf + 0.29)\\\nas=\\int((nf+2)/2) * W/nf * 0.29\\ \nps=\\2*int((nf+2)/2) * (W/nf + 0.29)\\\nnrd=\\0.29 / W\\ nrs=\\0.29 / W\\\nsa=0 sb=0 sd=0\nmodel=pfet_01v8\nspiceprefix=X\n"
             }
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "af3bab727d7a459b",
@@ -30598,65 +30666,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    5.0,
-                    -30.0
+                    70,
+                    -52
                   ],
                   [
-                    25.0,
-                    -20.0
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    30.0,
-                    -8.75
+                    70,
+                    -34
                   ],
                   [
-                    50.0,
-                    1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
-                "rotation": 180,
-                "font_size": 8.0
+                "rotation": 0,
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    13.75
+                    70,
+                    -16
                   ],
                   [
-                    51.25,
-                    23.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "@mult x @W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    1.25
+                    70,
+                    2
                   ],
                   [
-                    51.25,
-                    11.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "nf=@nf",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -30693,7 +30777,8 @@
               "format": "@spiceprefix@name @pinlist @body sky130_fd_pr__@model L=@L W=@W\n+ nf=@nf ad=@ad as=@as pd=@pd ps=@ps\n+ nrd=@nrd nrs=@nrs sa=@sa sb=@sb sd=@sd \n+ mult=@mult m=@mult",
               "template": "name=M1\nL=0.15\nW=1\nbody=GND\nnf=1\nmult=1\nad=\\int((nf+1)/2) * W/nf * 0.29\\ \npd=\\2*int((nf+1)/2) * (W/nf + 0.29)\\\nas=\\int((nf+2)/2) * W/nf * 0.29\\ \nps=\\2*int((nf+2)/2) * (W/nf + 0.29)\\\nnrd=\\0.29 / W\\ nrs=\\0.29 / W\\\nsa=0 sb=0 sd=0\nmodel=nfet_01v8\nspiceprefix=X\n"
             }
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "7571218b2e534712",
@@ -30880,65 +30965,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    5.0,
-                    -30.0
+                    70,
+                    -52
                   ],
                   [
-                    25.0,
-                    -20.0
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    30.0,
-                    -8.75
+                    70,
+                    -34
                   ],
                   [
-                    50.0,
-                    1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
-                "rotation": 180,
-                "font_size": 8.0
+                "rotation": 0,
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    13.75
+                    70,
+                    -16
                   ],
                   [
-                    51.25,
-                    23.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "@mult x @W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    1.25
+                    70,
+                    2
                   ],
                   [
-                    51.25,
-                    11.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "nf=@nf",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -30975,7 +31076,8 @@
               "format": "@spiceprefix@name @pinlist @body sky130_fd_pr__@model L=@L W=@W\n+ nf=@nf ad=@ad as=@as pd=@pd ps=@ps\n+ nrd=@nrd nrs=@nrs sa=@sa sb=@sb sd=@sd \n+ mult=@mult m=@mult",
               "template": "name=M1\nL=0.15\nW=1\nbody=VDD\nnf=1\nmult=1\nad=\\int((nf+1)/2) * W/nf * 0.29\\ \npd=\\2*int((nf+1)/2) * (W/nf + 0.29)\\\nas=\\int((nf+2)/2) * W/nf * 0.29\\ \nps=\\2*int((nf+2)/2) * (W/nf + 0.29)\\\nnrd=\\0.29 / W\\ nrs=\\0.29 / W\\\nsa=0 sb=0 sd=0\nmodel=pfet_01v8\nspiceprefix=X\n"
             }
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "eab617304b1a4b7f",
@@ -31145,65 +31247,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    5.0,
-                    -30.0
+                    70,
+                    -52
                   ],
                   [
-                    25.0,
-                    -20.0
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    30.0,
-                    -8.75
+                    70,
+                    -34
                   ],
                   [
-                    50.0,
-                    1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
-                "rotation": 180,
-                "font_size": 8.0
+                "rotation": 0,
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    13.75
+                    70,
+                    -16
                   ],
                   [
-                    51.25,
-                    23.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "@mult x @W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    1.25
+                    70,
+                    2
                   ],
                   [
-                    51.25,
-                    11.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "nf=@nf",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -31240,7 +31358,8 @@
               "format": "@spiceprefix@name @pinlist @body sky130_fd_pr__@model L=@L W=@W\n+ nf=@nf ad=@ad as=@as pd=@pd ps=@ps\n+ nrd=@nrd nrs=@nrs sa=@sa sb=@sb sd=@sd \n+ mult=@mult m=@mult",
               "template": "name=M1\nL=0.15\nW=1\nbody=GND\nnf=1\nmult=1\nad=\\int((nf+1)/2) * W/nf * 0.29\\ \npd=\\2*int((nf+1)/2) * (W/nf + 0.29)\\\nas=\\int((nf+2)/2) * W/nf * 0.29\\ \nps=\\2*int((nf+2)/2) * (W/nf + 0.29)\\\nnrd=\\0.29 / W\\ nrs=\\0.29 / W\\\nsa=0 sb=0 sd=0\nmodel=nfet_01v8\nspiceprefix=X\n"
             }
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "e3d6ec4bd5344a9b",
@@ -31410,65 +31529,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    5.0,
-                    -30.0
+                    70,
+                    -52
                   ],
                   [
-                    25.0,
-                    -20.0
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    30.0,
-                    -8.75
+                    70,
+                    -34
                   ],
                   [
-                    50.0,
-                    1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
-                "rotation": 180,
-                "font_size": 8.0
+                "rotation": 0,
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    13.75
+                    70,
+                    -16
                   ],
                   [
-                    51.25,
-                    23.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "@mult x @W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    31.25,
-                    1.25
+                    70,
+                    2
                   ],
                   [
-                    51.25,
-                    11.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "nf=@nf",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -31505,7 +31640,8 @@
               "format": "@spiceprefix@name @pinlist @body sky130_fd_pr__@model L=@L W=@W\n+ nf=@nf ad=@ad as=@as pd=@pd ps=@ps\n+ nrd=@nrd nrs=@nrs sa=@sa sb=@sb sd=@sd \n+ mult=@mult m=@mult",
               "template": "name=M1\nL=0.15\nW=1\nbody=GND\nnf=1\nmult=1\nad=\\int((nf+1)/2) * W/nf * 0.29\\ \npd=\\2*int((nf+1)/2) * (W/nf + 0.29)\\\nas=\\int((nf+2)/2) * W/nf * 0.29\\ \nps=\\2*int((nf+2)/2) * (W/nf + 0.29)\\\nnrd=\\0.29 / W\\ nrs=\\0.29 / W\\\nsa=0 sb=0 sd=0\nmodel=nfet_01v8\nspiceprefix=X\n"
             }
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "2a0ffcc4136941e3",
@@ -31615,65 +31751,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    17.5,
-                    18.75
+                    70,
+                    -16
                   ],
                   [
-                    37.5,
-                    28.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "MF=@MF",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    15.0,
-                    -28.75
+                    70,
+                    -52
                   ],
                   [
-                    35.0,
-                    -18.75
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    15.0,
-                    6.25
+                    70,
+                    2
                   ],
                   [
-                    35.0,
-                    16.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "@W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    15.0,
-                    -11.25
+                    70,
+                    -34
                   ],
                   [
-                    35.0,
-                    -1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -31701,13 +31853,14 @@
               "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L MF=@MF m=@MF",
               "template": "name=C1 model=cap_mim_m3_1 W=1 L=1 MF=1 spiceprefix=X"
             }
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "bbf7c37ec8d6454a",
           "kind": "PDK",
           "name": "CC2",
-          "x": 840,
+          "x": 980,
           "y": 300,
           "rotation": 0,
           "nets": {
@@ -31811,65 +31964,81 @@
                 "kind": "text",
                 "points": [
                   [
-                    17.5,
-                    18.75
+                    70,
+                    -16
                   ],
                   [
-                    37.5,
-                    28.75
+                    90,
+                    -6
                   ]
                 ],
                 "text": "MF=@MF",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    15.0,
-                    -28.75
+                    70,
+                    -52
                   ],
                   [
-                    35.0,
-                    -18.75
+                    90,
+                    -42
                   ]
                 ],
                 "text": "@name",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    15.0,
-                    6.25
+                    70,
+                    2
                   ],
                   [
-                    35.0,
-                    16.25
+                    90,
+                    12
                   ]
                 ],
                 "text": "@W / @L",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               },
               {
                 "kind": "text",
                 "points": [
                   [
-                    15.0,
-                    -11.25
+                    70,
+                    -34
                   ],
                   [
-                    35.0,
-                    -1.25
+                    90,
+                    -24
                   ]
                 ],
                 "text": "@model",
                 "rotation": 0,
-                "font_size": 8.0
+                "font_size": 8,
+                "mirror": false,
+                "text_anchor": "corner",
+                "hcenter": false,
+                "vcenter": false
               }
             ],
             "pin_meta": {
@@ -31897,7 +32066,9 @@
               "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L MF=@MF m=@MF",
               "template": "name=C1 model=cap_mim_m3_1 W=1 L=1 MF=1 spiceprefix=X"
             }
-          }
+          },
+          "net_labels": {},
+          "mirror": false
         }
       ],
       "shapes": [],
@@ -31950,11 +32121,653 @@
         "topology": "eight MOS two-stage Miller OTA with external reference-current bias",
         "bias_A": 5e-06,
         "second_stage_fingers": 6,
-        "compensation": "Two parallel SKY130 cap_mim_m3_1 devices, each 30 × 30 micrometres, mf=1",
+        "compensation": "Two parallel SKY130 cap_mim_m3_1 devices, each 30 \u00d7 30 micrometres, mf=1",
         "load_F": 1e-12,
         "loop_fixture": "1 GH DC feedback plus 1 F AC shunt; return ratio T=V(out)/V(inp), characteristic 1+T",
-        "startup_scope": "VDD ramp with an externally established ideal 5 µA reference current; this does not test bias-reference generation."
-      }
+        "startup_scope": "VDD ramp with an externally established ideal 5 \u00b5A reference current; this does not test bias-reference generation."
+      },
+      "wires": [
+        {
+          "id": "ad7dc298cb4e4831",
+          "points": [
+            [
+              540.0,
+              70.0
+            ],
+            [
+              580,
+              70.0
+            ],
+            [
+              580,
+              100
+            ]
+          ],
+          "net": "VDD"
+        },
+        {
+          "id": "dc13804f0a644618",
+          "points": [
+            [
+              260.0,
+              130.0
+            ],
+            [
+              220.0,
+              130.0
+            ],
+            [
+              220.0,
+              100.0
+            ]
+          ],
+          "net": "NREF"
+        },
+        {
+          "id": "c90fdee1bcb84607",
+          "points": [
+            [
+              260.0,
+              70.0
+            ],
+            [
+              300,
+              70.0
+            ],
+            [
+              300,
+              100
+            ]
+          ],
+          "net": "VDD"
+        },
+        {
+          "id": "ae5c5f18ff7d4cc5",
+          "points": [
+            [
+              860.0,
+              70.0
+            ],
+            [
+              900,
+              70.0
+            ],
+            [
+              900,
+              100
+            ]
+          ],
+          "net": "VDD"
+        },
+        {
+          "id": "8303a87dd31b4b39",
+          "points": [
+            [
+              400.0,
+              570.0
+            ],
+            [
+              440,
+              570.0
+            ],
+            [
+              440,
+              540
+            ]
+          ],
+          "net": "VSS"
+        },
+        {
+          "id": "c9e9104edfee493f",
+          "points": [
+            [
+              120.0,
+              510.0
+            ],
+            [
+              80.0,
+              510.0
+            ],
+            [
+              80.0,
+              540.0
+            ]
+          ],
+          "net": "IBIAS"
+        },
+        {
+          "id": "a3619ebcb5b640e0",
+          "points": [
+            [
+              120.0,
+              570.0
+            ],
+            [
+              160,
+              570.0
+            ],
+            [
+              160,
+              540
+            ]
+          ],
+          "net": "VSS"
+        },
+        {
+          "id": "2d0e3dd0f47b40b5",
+          "points": [
+            [
+              860.0,
+              570.0
+            ],
+            [
+              900,
+              570.0
+            ],
+            [
+              900,
+              540
+            ]
+          ],
+          "net": "VSS"
+        },
+        {
+          "id": "b2fa7b85ac4846b7",
+          "points": [
+            [
+              540.0,
+              290.0
+            ],
+            [
+              540.0,
+              130.0
+            ]
+          ],
+          "net": "STAGE1"
+        },
+        {
+          "id": "a02e0afdbef44442",
+          "points": [
+            [
+              260.0,
+              290.0
+            ],
+            [
+              260.0,
+              130.0
+            ]
+          ],
+          "net": "NREF"
+        },
+        {
+          "id": "1abb8cf385db4230",
+          "points": [
+            [
+              540.0,
+              350.0
+            ],
+            [
+              400.0,
+              350.0
+            ],
+            [
+              400.0,
+              510.0
+            ]
+          ],
+          "net": "TAIL"
+        },
+        {
+          "id": "6edd4869bc894cf9",
+          "points": [
+            [
+              260.0,
+              350.0
+            ],
+            [
+              400.0,
+              350.0
+            ],
+            [
+              400.0,
+              510.0
+            ]
+          ],
+          "net": "TAIL"
+        },
+        {
+          "id": "137884b79bf64006",
+          "points": [
+            [
+              860.0,
+              510.0
+            ],
+            [
+              860.0,
+              330.0
+            ],
+            [
+              980.0,
+              330.0
+            ]
+          ],
+          "net": "OUT"
+        },
+        {
+          "id": "71757d046b4644ee",
+          "points": [
+            [
+              820.0,
+              100.0
+            ],
+            [
+              820.0,
+              180.0
+            ],
+            [
+              980.0,
+              180.0
+            ],
+            [
+              980.0,
+              270.0
+            ]
+          ],
+          "net": "STAGE1"
+        },
+        {
+          "id": "a48ade85ac2747b0",
+          "points": [
+            [
+              300,
+              100
+            ],
+            [
+              300,
+              20
+            ],
+            [
+              540.0,
+              20
+            ],
+            [
+              540.0,
+              70.0
+            ]
+          ],
+          "net": "VDD"
+        },
+        {
+          "id": "43436e15e0dd48f6",
+          "points": [
+            [
+              260.0,
+              130.0
+            ],
+            [
+              500.0,
+              130.0
+            ],
+            [
+              500.0,
+              100.0
+            ]
+          ],
+          "net": "NREF"
+        },
+        {
+          "id": "268c35d9b078409c",
+          "points": [
+            [
+              360.0,
+              540.0
+            ],
+            [
+              360.0,
+              460.0
+            ],
+            [
+              120.0,
+              460.0
+            ],
+            [
+              120.0,
+              510.0
+            ]
+          ],
+          "net": "IBIAS"
+        },
+        {
+          "id": "5e0a689b0ab34c32",
+          "points": [
+            [
+              400.0,
+              570.0
+            ],
+            [
+              160,
+              570.0
+            ],
+            [
+              160,
+              540
+            ]
+          ],
+          "net": "VSS"
+        },
+        {
+          "id": "114e6fe84b46456a",
+          "points": [
+            [
+              580,
+              320
+            ],
+            [
+              580,
+              400
+            ],
+            [
+              440,
+              400
+            ],
+            [
+              440,
+              540
+            ]
+          ],
+          "net": "VSS"
+        },
+        {
+          "id": "e2eae3a8f70b42ae",
+          "points": [
+            [
+              300,
+              320
+            ],
+            [
+              300,
+              400
+            ],
+            [
+              440,
+              400
+            ],
+            [
+              440,
+              540
+            ]
+          ],
+          "net": "VSS"
+        },
+        {
+          "id": "345fb93fadc44b6a",
+          "points": [
+            [
+              580,
+              100
+            ],
+            [
+              580,
+              20
+            ],
+            [
+              860.0,
+              20
+            ],
+            [
+              860.0,
+              70.0
+            ]
+          ],
+          "net": "VDD"
+        },
+        {
+          "id": "79d477324a5a46c8",
+          "points": [
+            [
+              540.0,
+              130.0
+            ],
+            [
+              820.0,
+              130.0
+            ],
+            [
+              820.0,
+              100.0
+            ]
+          ],
+          "net": "STAGE1"
+        },
+        {
+          "id": "a56faafe50844350",
+          "points": [
+            [
+              580,
+              320
+            ],
+            [
+              580,
+              400
+            ],
+            [
+              900,
+              400
+            ],
+            [
+              900,
+              540
+            ]
+          ],
+          "net": "VSS"
+        },
+        {
+          "id": "760abe1405a84e9a",
+          "points": [
+            [
+              360.0,
+              540.0
+            ],
+            [
+              360.0,
+              460.0
+            ],
+            [
+              820.0,
+              460.0
+            ],
+            [
+              820.0,
+              540.0
+            ]
+          ],
+          "net": "IBIAS"
+        }
+      ],
+      "labels": [
+        {
+          "id": "11d59203050f4018",
+          "kind": "net_label",
+          "name": "NREF",
+          "anchor": {
+            "kind": "pin",
+            "id": "64ad3b32bcc84648",
+            "pin": "g"
+          },
+          "offset": [
+            -34,
+            -38
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "a1b56da4ffc74362",
+          "kind": "net_label",
+          "name": "INN",
+          "anchor": {
+            "kind": "pin",
+            "id": "cd3b7da533fd4f5e",
+            "pin": "g"
+          },
+          "offset": [
+            -27,
+            -38
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "bfa74f78a6c24d90",
+          "kind": "net_label",
+          "name": "TAIL",
+          "anchor": {
+            "kind": "pin",
+            "id": "cd3b7da533fd4f5e",
+            "pin": "s"
+          },
+          "offset": [
+            8,
+            36
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "d5b60299f36a4c76",
+          "kind": "net_label",
+          "name": "VSS",
+          "anchor": {
+            "kind": "pin",
+            "id": "eab617304b1a4b7f",
+            "pin": "s"
+          },
+          "offset": [
+            8,
+            22
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "95ec9634b0db4ec8",
+          "kind": "net_label",
+          "name": "STAGE1",
+          "anchor": {
+            "kind": "pin",
+            "id": "7571218b2e534712",
+            "pin": "g"
+          },
+          "offset": [
+            -48,
+            -38
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "3613f8e8fc754463",
+          "kind": "net_label",
+          "name": "INP",
+          "anchor": {
+            "kind": "pin",
+            "id": "7965f11a92f842e3",
+            "pin": "g"
+          },
+          "offset": [
+            -27,
+            -38
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "e3a502d8313c450d",
+          "kind": "net_label",
+          "name": "VDD",
+          "anchor": {
+            "kind": "pin",
+            "id": "64ad3b32bcc84648",
+            "pin": "s"
+          },
+          "offset": [
+            8,
+            -30
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "6736f5f195ca4d6b",
+          "kind": "net_label",
+          "name": "IBIAS",
+          "anchor": {
+            "kind": "pin",
+            "id": "e3d6ec4bd5344a9b",
+            "pin": "d"
+          },
+          "offset": [
+            8,
+            -30
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "b65d157b37344e42",
+          "kind": "net_label",
+          "name": "OUT",
+          "anchor": {
+            "kind": "pin",
+            "id": "7571218b2e534712",
+            "pin": "d"
+          },
+          "offset": [
+            8,
+            36
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "342e3a78f56d47c4",
+          "kind": "net_label",
+          "name": "OUT",
+          "anchor": {
+            "kind": "pin",
+            "id": "bbf7c37ec8d6454a",
+            "pin": "c1"
+          },
+          "offset": [
+            8,
+            36
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "fe1d73f0ea8a441e",
+          "kind": "net_label",
+          "name": "STAGE1",
+          "anchor": {
+            "kind": "pin",
+            "id": "2a0ffcc4136941e3",
+            "pin": "c0"
+          },
+          "offset": [
+            8,
+            -30
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "5a9d03b5af2a454b",
+          "kind": "net_label",
+          "name": "OUT",
+          "anchor": {
+            "kind": "pin",
+            "id": "2a0ffcc4136941e3",
+            "pin": "c1"
+          },
+          "offset": [
+            8,
+            36
+          ],
+          "rotation": 0
+        }
+      ],
+      "junctions": [],
+      "example_drawing": 1
     },
     {
       "id": "d4b5db63c209466b",
@@ -31988,7 +32801,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "0"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "b9e515a57fdc4b52",
@@ -32017,7 +32831,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "daf58d11cabb4a10",
@@ -32046,7 +32861,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "0"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "15380951d2874f6b",
@@ -32075,7 +32891,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "9e30ef5e414843ba",
@@ -32109,10 +32926,260 @@
             "duty": "0.5",
             "ac": "1"
           },
-          "cell": "104fcfd38b3b4ae3"
+          "cell": "104fcfd38b3b4ae3",
+          "net_labels": {}
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "wires": [
+        {
+          "id": "9323ff4299f44a3d",
+          "points": [
+            [
+              80,
+              130
+            ],
+            [
+              0,
+              130
+            ],
+            [
+              0,
+              350
+            ],
+            [
+              80,
+              350
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "81d29c2a2b174a1a",
+          "points": [
+            [
+              80,
+              250
+            ],
+            [
+              360,
+              250
+            ],
+            [
+              360,
+              260
+            ]
+          ],
+          "net": "inp"
+        },
+        {
+          "id": "d62e3e386b5c4e39",
+          "points": [
+            [
+              760,
+              370
+            ],
+            [
+              480,
+              370
+            ],
+            [
+              480,
+              340
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "b4ee65663905481b",
+          "points": [
+            [
+              80,
+              450
+            ],
+            [
+              360,
+              450
+            ],
+            [
+              360,
+              340
+            ]
+          ],
+          "net": "vdd"
+        },
+        {
+          "id": "3092a3761c1d4270",
+          "points": [
+            [
+              80,
+              350
+            ],
+            [
+              480,
+              350
+            ],
+            [
+              480,
+              340
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "4fd350df76704450",
+          "points": [
+            [
+              80,
+              30
+            ],
+            [
+              220.0,
+              30
+            ],
+            [
+              220.0,
+              340
+            ],
+            [
+              360,
+              340
+            ]
+          ],
+          "net": "vdd"
+        },
+        {
+          "id": "8802797917944d1b",
+          "points": [
+            [
+              80,
+              550
+            ],
+            [
+              560,
+              550
+            ],
+            [
+              560,
+              300
+            ],
+            [
+              480,
+              300
+            ]
+          ],
+          "net": "bias"
+        }
+      ],
+      "labels": [
+        {
+          "id": "07febfead6ee488b",
+          "kind": "net_label",
+          "name": "vdd",
+          "anchor": {
+            "kind": "pin",
+            "id": "76d07e12a9f5415a",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "be83f9373d4d4894",
+          "kind": "ground",
+          "name": "0",
+          "anchor": {
+            "kind": "pin",
+            "id": "15380951d2874f6b",
+            "pin": "n"
+          },
+          "offset": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "5a0a8a86ecdb4941",
+          "kind": "net_label",
+          "name": "inp",
+          "anchor": {
+            "kind": "pin",
+            "id": "b9e515a57fdc4b52",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "00acea501310463b",
+          "kind": "net_label",
+          "name": "bias",
+          "anchor": {
+            "kind": "pin",
+            "id": "9e30ef5e414843ba",
+            "pin": "IBIAS"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "b5611b818d424046",
+          "kind": "net_label",
+          "name": "out",
+          "anchor": {
+            "kind": "pin",
+            "id": "15380951d2874f6b",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "ec7547a965894fd7",
+          "kind": "net_label",
+          "name": "out",
+          "anchor": {
+            "kind": "pin",
+            "id": "9e30ef5e414843ba",
+            "pin": "INN"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "46f00bc016f546ef",
+          "kind": "net_label",
+          "name": "out",
+          "anchor": {
+            "kind": "pin",
+            "id": "9e30ef5e414843ba",
+            "pin": "OUT"
+          },
+          "offset": [
+            -27,
+            -8
+          ],
+          "rotation": 0
+        }
+      ],
+      "junctions": [],
+      "example_drawing": 1
     },
     {
       "id": "dc95cadc26644e46",
@@ -32146,7 +33213,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "0"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "875120d2fa3f4272",
@@ -32175,7 +33243,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "eb32496763a6400a",
@@ -32204,7 +33273,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "0"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "762fdbc12919478f",
@@ -32233,7 +33303,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "b1b162b9b2084193",
@@ -32267,7 +33338,8 @@
             "duty": "0.5",
             "ac": "1"
           },
-          "cell": "104fcfd38b3b4ae3"
+          "cell": "104fcfd38b3b4ae3",
+          "net_labels": {}
         },
         {
           "id": "53528e0b1941413c",
@@ -32296,7 +33368,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "a203e7a9634f4e0b",
@@ -32325,10 +33398,333 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "wires": [
+        {
+          "id": "e7b8d96cfff3473c",
+          "points": [
+            [
+              760,
+              370
+            ],
+            [
+              680,
+              370
+            ],
+            [
+              680,
+              550
+            ],
+            [
+              650,
+              550
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "40fc432694284c5f",
+          "points": [
+            [
+              760,
+              270
+            ],
+            [
+              680,
+              270
+            ],
+            [
+              680,
+              90
+            ],
+            [
+              650,
+              90
+            ]
+          ],
+          "net": "out"
+        },
+        {
+          "id": "b68d0d490eb44f18",
+          "points": [
+            [
+              80,
+              130
+            ],
+            [
+              0,
+              130
+            ],
+            [
+              0,
+              350
+            ],
+            [
+              80,
+              350
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "c6639e3729974e4e",
+          "points": [
+            [
+              650,
+              190
+            ],
+            [
+              650,
+              450
+            ]
+          ],
+          "net": "feedback"
+        },
+        {
+          "id": "2df80b92ae4d433e",
+          "points": [
+            [
+              480,
+              340
+            ],
+            [
+              480,
+              550
+            ],
+            [
+              650,
+              550
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "61d7d762eebd4e01",
+          "points": [
+            [
+              80,
+              250
+            ],
+            [
+              360,
+              250
+            ],
+            [
+              360,
+              260
+            ]
+          ],
+          "net": "inp"
+        },
+        {
+          "id": "5150cabe6c134f31",
+          "points": [
+            [
+              80,
+              450
+            ],
+            [
+              360,
+              450
+            ],
+            [
+              360,
+              340
+            ]
+          ],
+          "net": "vdd"
+        },
+        {
+          "id": "99157a7a50ef46cb",
+          "points": [
+            [
+              360,
+              300
+            ],
+            [
+              280,
+              300
+            ],
+            [
+              280,
+              90
+            ],
+            [
+              650,
+              90
+            ]
+          ],
+          "net": "out"
+        },
+        {
+          "id": "e643fffcbc4848eb",
+          "points": [
+            [
+              80,
+              350
+            ],
+            [
+              480,
+              350
+            ],
+            [
+              480,
+              340
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "ebe924299bc14483",
+          "points": [
+            [
+              80,
+              30
+            ],
+            [
+              220.0,
+              30
+            ],
+            [
+              220.0,
+              340
+            ],
+            [
+              360,
+              340
+            ]
+          ],
+          "net": "vdd"
+        }
+      ],
+      "labels": [
+        {
+          "id": "65922ce0595d4f54",
+          "kind": "net_label",
+          "name": "vdd",
+          "anchor": {
+            "kind": "pin",
+            "id": "73338a34427949c8",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "c29064fbeea94f79",
+          "kind": "ground",
+          "name": "0",
+          "anchor": {
+            "kind": "pin",
+            "id": "a203e7a9634f4e0b",
+            "pin": "n"
+          },
+          "offset": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "d83643888024406e",
+          "kind": "net_label",
+          "name": "inp",
+          "anchor": {
+            "kind": "pin",
+            "id": "875120d2fa3f4272",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "36c9d5b1f4aa4edc",
+          "kind": "net_label",
+          "name": "bias",
+          "anchor": {
+            "kind": "pin",
+            "id": "eb32496763a6400a",
+            "pin": "n"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "543371f7ddfe4cfe",
+          "kind": "net_label",
+          "name": "out",
+          "anchor": {
+            "kind": "pin",
+            "id": "53528e0b1941413c",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "25623aea2b454547",
+          "kind": "net_label",
+          "name": "feedback",
+          "anchor": {
+            "kind": "pin",
+            "id": "b1b162b9b2084193",
+            "pin": "INN"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "f1c3e25192544d0e",
+          "kind": "net_label",
+          "name": "bias",
+          "anchor": {
+            "kind": "pin",
+            "id": "b1b162b9b2084193",
+            "pin": "IBIAS"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "6f3d722ec7e748de",
+          "kind": "net_label",
+          "name": "feedback",
+          "anchor": {
+            "kind": "pin",
+            "id": "53528e0b1941413c",
+            "pin": "n"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        }
+      ],
+      "junctions": [],
+      "example_drawing": 1
     },
     {
       "id": "dfff2c7bae9d4888",
@@ -32362,7 +33758,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "0"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "ffc02b951d414d8c",
@@ -32391,7 +33788,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "9b735b63d8464448",
@@ -32420,7 +33818,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "0"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "8d82cc5080b84a2a",
@@ -32449,7 +33848,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "9b7dd20483f54da5",
@@ -32483,10 +33883,260 @@
             "duty": "0.5",
             "ac": "1"
           },
-          "cell": "104fcfd38b3b4ae3"
+          "cell": "104fcfd38b3b4ae3",
+          "net_labels": {}
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "wires": [
+        {
+          "id": "c78bcc5b81f046b9",
+          "points": [
+            [
+              80,
+              130
+            ],
+            [
+              0,
+              130
+            ],
+            [
+              0,
+              350
+            ],
+            [
+              80,
+              350
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "f5cae9bde9a74dbe",
+          "points": [
+            [
+              80,
+              250
+            ],
+            [
+              360,
+              250
+            ],
+            [
+              360,
+              260
+            ]
+          ],
+          "net": "inp"
+        },
+        {
+          "id": "df325c4e79494890",
+          "points": [
+            [
+              760,
+              370
+            ],
+            [
+              480,
+              370
+            ],
+            [
+              480,
+              340
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "c3c03995d9ad486f",
+          "points": [
+            [
+              80,
+              450
+            ],
+            [
+              360,
+              450
+            ],
+            [
+              360,
+              340
+            ]
+          ],
+          "net": "vdd"
+        },
+        {
+          "id": "f88102c5776e4e89",
+          "points": [
+            [
+              80,
+              350
+            ],
+            [
+              480,
+              350
+            ],
+            [
+              480,
+              340
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "2182427811fa4d0f",
+          "points": [
+            [
+              80,
+              30
+            ],
+            [
+              220.0,
+              30
+            ],
+            [
+              220.0,
+              340
+            ],
+            [
+              360,
+              340
+            ]
+          ],
+          "net": "vdd"
+        },
+        {
+          "id": "fa6141ea370e4d26",
+          "points": [
+            [
+              80,
+              550
+            ],
+            [
+              560,
+              550
+            ],
+            [
+              560,
+              300
+            ],
+            [
+              480,
+              300
+            ]
+          ],
+          "net": "bias"
+        }
+      ],
+      "labels": [
+        {
+          "id": "a1dff02c19c84401",
+          "kind": "net_label",
+          "name": "vdd",
+          "anchor": {
+            "kind": "pin",
+            "id": "5afbd51eeb5242ed",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "ebb01d85484f4e3b",
+          "kind": "ground",
+          "name": "0",
+          "anchor": {
+            "kind": "pin",
+            "id": "8d82cc5080b84a2a",
+            "pin": "n"
+          },
+          "offset": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "eaec2f80f3e2455a",
+          "kind": "net_label",
+          "name": "inp",
+          "anchor": {
+            "kind": "pin",
+            "id": "ffc02b951d414d8c",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "f03fc7fa9c01412c",
+          "kind": "net_label",
+          "name": "bias",
+          "anchor": {
+            "kind": "pin",
+            "id": "9b7dd20483f54da5",
+            "pin": "IBIAS"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "0e405ef352a841a1",
+          "kind": "net_label",
+          "name": "out",
+          "anchor": {
+            "kind": "pin",
+            "id": "8d82cc5080b84a2a",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "3ba2413d149b45d8",
+          "kind": "net_label",
+          "name": "out",
+          "anchor": {
+            "kind": "pin",
+            "id": "9b7dd20483f54da5",
+            "pin": "INN"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "1abc12e2c8db4c75",
+          "kind": "net_label",
+          "name": "out",
+          "anchor": {
+            "kind": "pin",
+            "id": "9b7dd20483f54da5",
+            "pin": "OUT"
+          },
+          "offset": [
+            -27,
+            -8
+          ],
+          "rotation": 0
+        }
+      ],
+      "junctions": [],
+      "example_drawing": 1
     },
     {
       "id": "16b307f972f04c39",
@@ -32520,7 +34170,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "0"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "b06596d211a24de9",
@@ -32549,7 +34200,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "86673f84465f46b9",
@@ -32578,7 +34230,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "0"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "85b49428de8f4986",
@@ -32607,7 +34260,8 @@
             "delay": "0",
             "duty": "0.5",
             "ac": "1"
-          }
+          },
+          "net_labels": {}
         },
         {
           "id": "3a7c1a98f3a84c96",
@@ -32641,10 +34295,260 @@
             "duty": "0.5",
             "ac": "1"
           },
-          "cell": "104fcfd38b3b4ae3"
+          "cell": "104fcfd38b3b4ae3",
+          "net_labels": {}
         }
       ],
-      "shapes": []
+      "shapes": [],
+      "wires": [
+        {
+          "id": "5b9017f1f9134e79",
+          "points": [
+            [
+              80,
+              130
+            ],
+            [
+              0,
+              130
+            ],
+            [
+              0,
+              350
+            ],
+            [
+              80,
+              350
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "05816b96b77b434f",
+          "points": [
+            [
+              80,
+              250
+            ],
+            [
+              360,
+              250
+            ],
+            [
+              360,
+              260
+            ]
+          ],
+          "net": "inp"
+        },
+        {
+          "id": "42e5cd2ffbed4fbd",
+          "points": [
+            [
+              760,
+              370
+            ],
+            [
+              480,
+              370
+            ],
+            [
+              480,
+              340
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "74faa1118b364bfb",
+          "points": [
+            [
+              80,
+              450
+            ],
+            [
+              360,
+              450
+            ],
+            [
+              360,
+              340
+            ]
+          ],
+          "net": "vdd"
+        },
+        {
+          "id": "5940d08fbd834159",
+          "points": [
+            [
+              80,
+              350
+            ],
+            [
+              480,
+              350
+            ],
+            [
+              480,
+              340
+            ]
+          ],
+          "net": "0"
+        },
+        {
+          "id": "63745b6a8f6049b4",
+          "points": [
+            [
+              80,
+              30
+            ],
+            [
+              220.0,
+              30
+            ],
+            [
+              220.0,
+              340
+            ],
+            [
+              360,
+              340
+            ]
+          ],
+          "net": "vdd"
+        },
+        {
+          "id": "4b32b1c8991f45ab",
+          "points": [
+            [
+              80,
+              550
+            ],
+            [
+              560,
+              550
+            ],
+            [
+              560,
+              300
+            ],
+            [
+              480,
+              300
+            ]
+          ],
+          "net": "bias"
+        }
+      ],
+      "labels": [
+        {
+          "id": "134bb0e6c99f4512",
+          "kind": "net_label",
+          "name": "vdd",
+          "anchor": {
+            "kind": "pin",
+            "id": "1c7056d7fcc244d6",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "4face1cbb0c64c39",
+          "kind": "ground",
+          "name": "0",
+          "anchor": {
+            "kind": "pin",
+            "id": "85b49428de8f4986",
+            "pin": "n"
+          },
+          "offset": [
+            0,
+            0
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "37a64afe15ef462d",
+          "kind": "net_label",
+          "name": "inp",
+          "anchor": {
+            "kind": "pin",
+            "id": "b06596d211a24de9",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "f945193634974f26",
+          "kind": "net_label",
+          "name": "bias",
+          "anchor": {
+            "kind": "pin",
+            "id": "3a7c1a98f3a84c96",
+            "pin": "IBIAS"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "a141bdf3c9a740d9",
+          "kind": "net_label",
+          "name": "out",
+          "anchor": {
+            "kind": "pin",
+            "id": "85b49428de8f4986",
+            "pin": "p"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "aec63a57322f4e42",
+          "kind": "net_label",
+          "name": "out",
+          "anchor": {
+            "kind": "pin",
+            "id": "3a7c1a98f3a84c96",
+            "pin": "INN"
+          },
+          "offset": [
+            8,
+            -12
+          ],
+          "rotation": 0
+        },
+        {
+          "id": "2b18e3cb542649e9",
+          "kind": "net_label",
+          "name": "out",
+          "anchor": {
+            "kind": "pin",
+            "id": "3a7c1a98f3a84c96",
+            "pin": "OUT"
+          },
+          "offset": [
+            -27,
+            -8
+          ],
+          "rotation": 0
+        }
+      ],
+      "junctions": [],
+      "example_drawing": 1
     }
   ],
   "analysis": {

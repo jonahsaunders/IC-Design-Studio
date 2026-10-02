@@ -395,16 +395,17 @@ class HumanWorkspaceMixin(GridSettingsMixin):
         for name in ('Schematic','Layout','Simulation','Review'):
             self.action(presets,name,lambda name=name:self.apply_workspace_preset(name))
         for text,index in [('Schematic',0),('Layout',1),('Linked views',2)]:
-            self.action(self.task_menus['View'],text,lambda index=index:self.mode_combo.setCurrentIndex(index))
+            self.action(self.task_menus['View'],text,lambda index=index:self.activate_circuit_view(index))
 
     def show_layers(self, mode=None):
         if mode is not None:
             return super().show_layers(mode)
-        if self.mode_combo.currentIndex()==0: self.mode_combo.setCurrentIndex(1)
+        if not self.activate_circuit_view(1 if self.mode_combo.currentIndex()==0 else self.mode_combo.currentIndex()):return
         self.nav.show();self.navtabs.setCurrentIndex(2)
 
     def arrange_linked(self, orientation):
         if not self.flush_inspector(): return
+        if not self.activate_circuit_view(2):return
         self.canvases.setOrientation(orientation);self.mode_combo.setCurrentIndex(2)
         self.canvases.setSizes([500,500]);self.sync_tools()
 
@@ -420,6 +421,7 @@ class HumanWorkspaceMixin(GridSettingsMixin):
 
     def apply_workspace_preset(self, name):
         if not self.flush_inspector(): return
+        if not self.leave_digital_workspace():return
         self._focus_panels=None
         if hasattr(self,'command_actions'):self.command_actions['Focus canvas'].setText('Focus canvas')
         self.set_panel_lock(False)
@@ -498,8 +500,9 @@ class HumanWorkspaceMixin(GridSettingsMixin):
         dlg.fields=fields;self._windows_dialog=dlg;dlg.show();return dlg
 
     def save_editor_workspace(self,name):
-        super().save_editor_workspace(name)
-        key='editor/workspaces/'+name;data=json.loads(self.settings.value(key))
+        if not self.leave_digital_workspace():return False
+        data=super().save_editor_workspace(name)
+        key='editor/workspaces/'+name
         data['human']={'version':1,'vertical':self.canvases.orientation()==Qt.Vertical,
             'locked':self._layout_locked,'nav_tab':self.navtabs.currentIndex(),
             'inspector_tab':self.inspector_tabs.currentIndex(),'results_tab':self.results_tabs.currentIndex(),
@@ -509,6 +512,7 @@ class HumanWorkspaceMixin(GridSettingsMixin):
 
     def load_editor_workspace(self,name):
         if not self.flush_inspector():return
+        if not self.leave_digital_workspace():return False
         data=json.loads(self.settings.value('editor/workspaces/'+name,'{}'))
         human=data.get('human',{})
         self.canvases.setOrientation(Qt.Vertical if human.get('vertical') else Qt.Horizontal)

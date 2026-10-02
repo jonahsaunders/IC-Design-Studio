@@ -6,6 +6,7 @@ from PySide6.QtGui import QAction,QKeySequence,QColor,QIcon,QDesktopServices,QPa
 from PySide6.QtWidgets import (QApplication,QMainWindow,QWidget,QVBoxLayout,QHBoxLayout,QSplitter,QLabel,QPushButton,QComboBox,QToolBar,QTreeWidget,QTreeWidgetItem,QDockWidget,QFormLayout,QLineEdit,QScrollArea,QTabWidget,QPlainTextEdit,QTableWidget,QTableWidgetItem,QFileDialog,QMessageBox,QInputDialog,QDialog,QDialogButtonBox,QSpinBox,QCheckBox,QListWidget,QListWidgetItem,QAbstractItemView,QProgressBar,QMenu,QStyle,QSizePolicy)
 from . import __version__,recovery,job_store
 from .model import *
+from .example_schematics import arrange as arrange_example
 from .canvas import Canvas
 from .plot import WavePlot,COLORS
 from .interchange import spice,export_layout,import_layout,export_handoff,export_csv,export_xschem
@@ -15,7 +16,7 @@ from .recovery_ui import RecoveryUIMixin
 class StudioCore(RecoveryUIMixin,QMainWindow):
     def __init__(self,recover=True):
         super().__init__();self.setWindowTitle('IC Design Studio');self.resize(1440,930);self.setMinimumSize(900,600)
-        self.settings=QSettings('ICDesignStudio','Studio');self.history=History(example());self.cid=self.project['top'];self.path=None;self.saved_hash=None;self.selection=[];self.net='';self.current_mode='schematic';self.jobs=[];self.result=None;self.issues=[];self.check_revision=None;self.process=None;self.active_job=None;self.rebuilding=False;self.form_fields={}
+        self.settings=QSettings('ICDesignStudio','Studio');self.history=History(arrange_example(example()));self.cid=self.project['top'];self.path=None;self.saved_hash=None;self.selection=[];self.net='';self.current_mode='schematic';self.jobs=[];self.result=None;self.issues=[];self.check_revision=None;self.process=None;self.active_job=None;self.rebuilding=False;self.form_fields={}
         self.data_dir=Path(QStandardPaths.writableLocation(QStandardPaths.AppLocalDataLocation));self.data_dir.mkdir(parents=True,exist_ok=True);self.recovery_root=Path(self.settings.value('storage/recovery_root',str(self.data_dir/'recovery')));self.reset_recovery_status();self.recovery_dir=self.recovery_root/uid();self._recovered_from=None;self._disk_hash=None;self.jobs_dir=Path(self.settings.value('digital/jobs_dir',str(self.data_dir/'runs')));self.jobs_dir.mkdir(parents=True,exist_ok=True)
         self.dark=self.settings.value('appearance/theme','dark')!='light';self.make_ui();self.make_actions();self.apply_theme();self.refresh(True)
         if recover:QTimer.singleShot(100,self.offer_recovery)
@@ -81,6 +82,7 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
             self.cell_combo.addItem(c['name'],c['id']);item=QTreeWidgetItem(root,[c['name']+('  · top' if c['id']==self.project['top'] else '')]);item.setData(0,Qt.UserRole,('cell',c['id']));item.setExpanded(c['id']==self.cid)
             for d in c['devices']:
                 it=QTreeWidgetItem(item,[d['name']+'  '+d['kind']]);it.setData(0,Qt.UserRole,('device',c['id'],d['id']))
+        self.schematic.cell_names={c['id']:c['name'] for c in self.project['cells']}
         self.cell_combo.setCurrentIndex(next(i for i,c in enumerate(self.project['cells']) if c['id']==self.cid));self.schematic.set_data(self.cell,self.project['pdk'],self.selection,self.net);self.layout.set_data(self.cell,self.project['pdk'],self.selection,self.net,revision=self.project['revision'])
         self.layers.blockSignals(True);self.layers.clear()
         for l in self.project['pdk']['layers']:
@@ -239,7 +241,7 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
     def new_project(self):
         template,ok=QInputDialog.getItem(self,'New project','Start from',['Empty circuit','RC low-pass example','CMOS inverter example'],0,False)
         if not ok or not self.maybe_save():return
-        self.set_project(example({'Empty circuit':'empty','RC low-pass example':'rc','CMOS inverter example':'inverter'}[template]))
+        self.set_project(arrange_example(example({'Empty circuit':'empty','RC low-pass example':'rc','CMOS inverter example':'inverter'}[template])))
     def open_project(self):
         path,_=QFileDialog.getOpenFileName(self,'Open project',str(self.path.parent) if self.path else '', 'IC Studio projects (*.icproj)')
         if path:
@@ -615,6 +617,28 @@ from .digital_ui import DigitalMixin
 
 class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,InteroperabilityMixin,LayoutDevelopmentMixin,OnboardingMixin,NativeWorkspaceMixin,XschemWorkflowMixin,VerificationWorkspaceMixin,PhysicalWorkspaceMixin,EngineeringWorkspaceMixin,SimulationWorkspaceMixin,HumanWorkspaceMixin,ConsistencyWorkspaceMixin,CaptureWorkspaceMixin,EditorWorkspaceMixin, LayoutToolsMixin, AnalogMixin, HierarchyMixin, SiliconMixin, LifecycleMixin, LayoutMixin, ProjectMixin, SchematicMixin, FeatureMixin, WorkspaceMixin, StudioCore):
     """Standalone desktop application with the document-focused workspace."""
+    def design_widget(self):
+        tabs = getattr(self, 'app_workspaces', None)
+        return tabs.widget(0) if tabs else self.centralWidget()
+
+    def take_design_widget(self):
+        tabs = getattr(self, 'app_workspaces', None)
+        return tabs.take_design() if tabs else self.takeCentralWidget()
+
+    def set_design_widget(self, widget):
+        tabs = getattr(self, 'app_workspaces', None)
+        if tabs: tabs.set_design(widget)
+        else: self.setCentralWidget(widget)
+
+    def show_design_workspace(self):
+        tabs = getattr(self, 'app_workspaces', None)
+        if tabs: tabs.setCurrentIndex(0)
+
+    def activate_circuit_view(self,index):
+        if not self.leave_digital_workspace():return False
+        self.mode_combo.setCurrentIndex(index)
+        return self.mode_combo.currentIndex()==index
+
     def maybe_save(self):
         experiment = getattr(self, '_mixed_signal_dialog', None)
         if experiment and experiment.project_id == self.project['id'] and not experiment.resolve_draft():
@@ -628,8 +652,15 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
 
     def set_project(self,project,path=None):
         result=super().set_project(project,path)
+        if result is False:return False
         hub=getattr(self,'_student_hub',None)
-        if hub:hub.guide.update_run_state()
+        if hub:
+            hub.guide.update_run_state()
+            record=hub.portfolio.workspace(hub.guide.lesson) if hub.guide.lesson else None
+            if not record or record['project_id']!=self.project['id']:hub.guide.hide()
+        for name in ('_mixed_signal_dialog','analog_workspace'):
+            window=getattr(self,name,None)
+            if window and window.project_id!=self.project['id']:window.hide()
         return result
 
     def closeEvent(self,event):
@@ -639,7 +670,13 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
             except Exception as exc:
                 self.error('The lesson reflection could not be saved. Keep this window open and retry.\n'+str(exc))
                 event.ignore();return
+        tabs=getattr(self,'app_workspaces',None)
+        was_hub=tabs is not None and tabs.currentIndex()==1
+        # Persist the design's panel arrangement, not the temporary empty
+        # arrangement used while the learning page occupies the window.
+        if was_hub:self.show_design_workspace()
         super().closeEvent(event)
+        if was_hub and not event.isAccepted():tabs.setCurrentIndex(1)
 
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
@@ -659,6 +696,8 @@ class Studio(DigitalMixin,LiveCollaborationMixin,CollaborationMixin,Interoperabi
         install_mixed_signal(self)
         from .student_hub_ui import install as install_student_hub
         install_student_hub(self)
+        from .app_workspaces import install as install_app_workspaces
+        install_app_workspaces(self)
         self.reindex_commands()
     connect = SchematicMixin.connect
     move = LayoutDevelopmentMixin.move
