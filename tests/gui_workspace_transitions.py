@@ -10,7 +10,7 @@ from unittest.mock import patch
 os.environ.setdefault('QT_QPA_PLATFORM', 'offscreen')
 from PySide6.QtCore import QSettings, Qt, QTimer
 from PySide6.QtTest import QTest
-from PySide6.QtWidgets import QApplication, QDialog, QMessageBox
+from PySide6.QtWidgets import QApplication, QDialog, QDialogButtonBox, QMessageBox
 from icstudio.gui import Studio
 from icstudio.getting_started import examples
 from icstudio.model import clone, digest
@@ -234,6 +234,69 @@ class WorkspaceTransitions(unittest.TestCase):
         self.w.load_editor_workspace('Last session')
         for dock in self.w.findChildren(QDockWidget):
             if dock.objectName() in panels:self.assertEqual(not dock.isHidden(),panels[dock.objectName()])
+
+    def test_saved_workspace_restores_circuit_from_hub_and_rtl(self):
+        for origin,mode in itertools.product(('student','digital'),range(3)):
+            with self.subTest(origin=origin,mode=mode):
+                self.w.activate_circuit_view(mode)
+                self.w.save_editor_workspace('Saved view')
+                # Include an unchanged mode: restoring must not rely on a
+                # combo-box change signal to reveal the circuit editor.
+                if origin=='student':student(self.w)
+                else:self.w.digital_window()
+                form=self.w.restore_named_workspace()
+                form.fields['name'].setCurrentText('Saved view')
+                QTest.mouseClick(form.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok),Qt.LeftButton)
+                self.settle()
+                self.assertEqual(self.w.app_workspaces.currentIndex(),0)
+                self.assertIsNot(self.w.design_widget(),getattr(self.w,'_digital_window',None))
+                self.assertEqual(self.w.mode_combo.currentIndex(),mode)
+                self.assertEqual(self.w.schematic.isVisible(),mode!=1)
+                self.assertEqual(self.w.layout.isVisible(),mode!=0)
+
+    def test_saving_workspace_from_hub_and_rtl_preserves_design_panels(self):
+        for origin in ('student','digital'):
+            with self.subTest(origin=origin):
+                self.w.apply_workspace_preset('Review')
+                panels={d.objectName():not d.isHidden() for d in self.w.workspace_docks()}
+                if origin=='student':student(self.w)
+                else:
+                    self.w.cid=self.w.project['mixed_signal']['digital_cell']
+                    d=self.w.digital_window()
+                    d.editor.insertPlainText('// retained workspace draft\n')
+                    self.assertTrue(d.dirty)
+                form=self.w.save_named_workspace()
+                form.fields['name'].setText('Saved review')
+                QTest.mouseClick(form.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok),Qt.LeftButton)
+                self.assertEqual(self.w.app_workspaces.currentIndex(),0)
+                if origin=='digital':self.assertFalse(d.dirty)
+                self.w.apply_workspace_preset('Schematic')
+                self.w.load_editor_workspace('Saved review')
+                self.settle()
+                self.assertEqual(self.w.mode_combo.currentIndex(),2)
+                self.assertEqual({d.objectName():not d.isHidden() for d in self.w.workspace_docks()},panels)
+
+    def test_invalid_rtl_prevents_workspace_save_and_restore(self):
+        self.w.apply_workspace_preset('Review')
+        self.w.save_editor_workspace('Saved view')
+        saved=self.w.settings.value('editor/workspaces/Saved view')
+        self.w.apply_workspace_preset('Schematic')
+        self.w.cid=self.w.project['mixed_signal']['digital_cell']
+        d=self.w.digital_window()
+        d.top.selectAll();QTest.keyClicks(d.top,'invalid module name')
+        self.assertTrue(d.dirty)
+        before=digest(self.w.project)
+        for operation in (self.w.save_editor_workspace,self.w.load_editor_workspace):
+            with self.subTest(operation=operation.__name__):
+                self.assertFalse(operation('Saved view'))
+                self.assertIs(self.w.design_widget(),d)
+                self.assertTrue(d.dirty)
+                self.assertEqual(d.top.text(),'invalid module name')
+                self.assertEqual(digest(self.w.project),before)
+                self.assertEqual(self.w.settings.value('editor/workspaces/Saved view'),saved)
+                self.assertEqual(self.w.mode_combo.currentIndex(),0)
+                self.assertIn('Verilog module identifier',d.message.text())
+        with patch.object(QMessageBox,'question',return_value=QMessageBox.Yes):d.reload_sources()
 
     def test_cancel_close_returns_to_hub(self):
         student(self.w)

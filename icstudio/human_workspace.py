@@ -500,6 +500,7 @@ class HumanWorkspaceMixin(GridSettingsMixin):
         dlg.fields=fields;self._windows_dialog=dlg;dlg.show();return dlg
 
     def save_editor_workspace(self,name):
+        if not self.leave_digital_workspace():return False
         data=super().save_editor_workspace(name)
         key='editor/workspaces/'+name
         data['human']={'version':1,'vertical':self.canvases.orientation()==Qt.Vertical,
@@ -511,6 +512,7 @@ class HumanWorkspaceMixin(GridSettingsMixin):
 
     def load_editor_workspace(self,name):
         if not self.flush_inspector():return
+        if not self.leave_digital_workspace():return False
         data=json.loads(self.settings.value('editor/workspaces/'+name,'{}'))
         human=data.get('human',{})
         self.canvases.setOrientation(Qt.Vertical if human.get('vertical') else Qt.Horizontal)
