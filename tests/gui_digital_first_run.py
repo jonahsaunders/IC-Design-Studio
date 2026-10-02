@@ -84,10 +84,16 @@ def main():
             worker.kill.assert_called_once()
             assert dialog.pending is None and dialog.pending_cancelled is None
             assert 'cancelled' in window.message.text() and 'will continue' not in window.message.text()
+            # The dialog is modeless; another Run can arrive while the worker
+            # is still stopping. Its promise must be cleared when cancellation finishes.
+            window.ensure_tools(lambda:calls.append('during-stop'))
+            assert dialog.pending is not None
             info['state']='ready'
             with patch.object(dialog,'read'): dialog.process_finished(0)
             QTest.qWait(20)
             assert calls==['run'] and ready_calls==[]
+            assert dialog.pending is None and dialog.pending_cancelled is None
+            assert 'cancelled' in window.message.text() and 'will continue' not in window.message.text()
             assert 'Setup cancelled' in dialog.status.text()
             assert 'enable Windows Linux support' not in dialog.status.text()
             assert 'Setup cancelled' in dialog.log.toPlainText()
@@ -128,6 +134,7 @@ def main():
         'checks':['Included default despite old paths','Source download guidance','Explicit reversible custom mode',
                   'Automatic setup from Run','Continue once after success','Changed design blocks continuation',
                   'Close cancels continuation','Active cancellation clears visible queued run',
+                  'Run requested while stopping is cleared on cancellation',
                   'Cancellation wins over late success','Explicit setup retry clears cancellation',
                   'Failure retains request for retry','Project switch cancels continuation']},indent=2))
     print('Digital first-run GUI passed')

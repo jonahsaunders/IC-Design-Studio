@@ -137,6 +137,7 @@ class DigitalSetupDialog(QDialog):
         if not self.process: return
         self.read(); self.process.deleteLater(); self.process=None
         if self.cancel_requested:
+            self.cancel_pending()
             self.log.appendPlainText('Setup cancelled. The queued run was not started.')
         try:
             from .model import atomic_write
