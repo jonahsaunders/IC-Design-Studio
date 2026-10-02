@@ -168,18 +168,25 @@ class DigitalSetupDialog(QDialog):
         code=ctypes.windll.shell32.ShellExecuteW(None,'runas',executable,'--install --no-distribution',None,1)
         self.status.setText('Windows will request administrator approval to enable Linux support. Restart Windows if requested, then reopen Studio and retry setup.' if code>32 else 'Windows Linux support was not enabled. You can retry this action.')
 
-    def closeEvent(self, event):
+    def stop_setup(self):
         self.cancel_pending()
-        if self.process:
-            self.cancel_requested=True
-            self.status.setText('Stopping setup…')
-            from .digital_backend import cancel
-            active=digital_runtime.state_root()/'active-check.json'
-            try:
-                folder=Path(json.loads(active.read_text())['directory']); cancel(folder)
-            except (OSError,ValueError,KeyError): pass
-            self.process.kill(); event.ignore(); return
-        super().closeEvent(event)
+        if not self.process:return False
+        self.cancel_requested=True
+        self.status.setText('Stopping setup…')
+        from .digital_backend import cancel
+        active=digital_runtime.state_root()/'active-check.json'
+        try:
+            folder=Path(json.loads(active.read_text())['directory']); cancel(folder)
+        except (OSError,ValueError,KeyError): pass
+        self.process.kill(); return True
+
+    def reject(self):
+        # Escape rejects a QDialog without going through closeEvent.
+        if not self.stop_setup():super().reject()
+
+    def closeEvent(self, event):
+        if self.stop_setup():event.ignore()
+        else:super().closeEvent(event)
 
 
 def show(studio, automatic=False, custom=None):

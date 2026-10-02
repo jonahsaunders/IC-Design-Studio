@@ -15,7 +15,7 @@ os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
 
 def main():
     from PySide6.QtWidgets import QApplication
-    from PySide6.QtCore import QSettings
+    from PySide6.QtCore import QSettings, Qt
     from PySide6.QtTest import QTest
     from icstudio.gui import Studio
     from icstudio import digital, digital_runtime, digital_setup_ui, digital_tools
@@ -29,7 +29,11 @@ def main():
     with tempfile.TemporaryDirectory() as td, patch.dict(os.environ,{
             'XDG_DATA_HOME':td+'/data','XDG_CONFIG_HOME':td+'/config',
             'ICSTUDIO_DIGITAL_PAYLOAD':td+'/payload','ICSTUDIO_DIGITAL_STATE':td+'/state'}):
-        studio=Studio(recover=False); studio.settings=QSettings(td+'/settings.ini',QSettings.IniFormat)
+        settings=QSettings(td+'/settings.ini',QSettings.IniFormat);settings.setFallbacksEnabled(False)
+        settings.setValue('onboarding/show',False)
+        with patch('icstudio.gui.QSettings',return_value=settings), \
+                patch('icstudio.gui.QStandardPaths.writableLocation',return_value=td+'/data'):
+            studio=Studio(recover=False)
         studio.settings.setValue('engine/yosys','/old/machine/yosys')
         studio.set_project(digital.counter_project()); studio.resize(1280,850); studio.show()
         window=studio.digital_window(); QTest.qWait(50)
@@ -116,6 +120,29 @@ def main():
             window.apply(); info['state']='setup'
             window.ensure_tools(lambda:calls.append('closed'))
             dialog.close(); finish(); assert calls==['run']
+            # Escape uses QDialog.reject rather than closeEvent. It must cancel
+            # both idle requests and an active worker before hiding the dialog.
+            info['state']='setup'
+            window.ensure_tools(lambda:calls.append('escaped-idle'))
+            QTest.keyClick(dialog,Qt.Key_Escape)
+            assert not dialog.isVisible() and dialog.pending is None
+            assert dialog.pending_cancelled is None and not dialog.next_action.text()
+            assert 'cancelled' in window.message.text()
+            finish(); assert calls==['run']
+            info['state']='setup'
+            window.ensure_tools(lambda:calls.append('escaped-active'))
+            worker=Mock();dialog.process=worker;before_ready=len(ready_calls)
+            QTest.keyClick(dialog,Qt.Key_Escape)
+            worker.kill.assert_called_once()
+            assert dialog.isVisible() and dialog.cancel_requested
+            assert dialog.pending is None and dialog.pending_cancelled is None
+            finish(); assert calls==['run'] and len(ready_calls)==before_ready
+            assert 'Setup cancelled' in dialog.status.text()
+            QTest.keyClick(dialog,Qt.Key_Escape);assert not dialog.isVisible()
+            # Model a fresh explicit setup before exercising genuine failure.
+            with patch.object(digital_setup_ui,'QProcess'):
+                digital_setup_ui.DigitalSetupDialog.setup(dialog)
+            dialog.process=None
             info['state']='setup'
             window.ensure_tools(lambda:calls.append('failed'))
             dialog.process=Mock()
@@ -136,6 +163,7 @@ def main():
                   'Close cancels continuation','Active cancellation clears visible queued run',
                   'Run requested while stopping is cleared on cancellation',
                   'Cancellation wins over late success','Explicit setup retry clears cancellation',
+                  'Escape cancels idle continuation','Escape stops active setup without a late run',
                   'Failure retains request for retry','Project switch cancels continuation']},indent=2))
     print('Digital first-run GUI passed')
 
