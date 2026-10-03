@@ -1,6 +1,6 @@
 # Student Hub projects
 
-Open **File → Student Hub** for six learning paths and the advanced sensor
+Open **View → Student Hub** for six learning paths and the advanced sensor
 acquisition project. The [course guide](../../docs/STUDENT_HUB.md) explains all
 41 core lessons, progression, evidence and model limits. The additional
 [PDK inverter course](../../docs/STUDENT_INVERTER.md) adds eight lessons per
@@ -16,10 +16,11 @@ editable lesson documents. The four capstone milestones deliberately share one
 saved project, with three faults for the student to repair.
 
 Foundations and Analog lessons use the included teaching solver. Digital lessons
-need native local Icarus (`iverilog` and `vvp`); Mixed Signal and the capstone also
-need native ngspice. Configure **More → Engine setup…** in the Hub. The managed
-digital WSL runtime is separate from these electrical/RTL lessons. The new
-inverter physical checkpoints can use the included Magic/Netgen runtime. See
+use Icarus through the selected Included or Custom digital toolchain; Run lesson
+opens setup when needed. Mixed Signal and the capstone require native local
+ngspice and Icarus separately. Configure and check those native tools through
+**More → Engine setup…** in the Hub. Inverter physical checkpoints can use
+the included Magic/Netgen runtime. See
 [engine setup](../../docs/STUDENT_HUB.md#engines-and-models).
 
 `sensor-reference.icproj` is the **correct reference**, not the faulty teaching

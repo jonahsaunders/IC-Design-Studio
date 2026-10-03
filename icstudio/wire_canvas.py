@@ -77,6 +77,9 @@ class WireCanvasMixin:
         point=self.wire_hover[0] if self.wire_hover else [snap.x(),snap.y()]
         self.drag=QPointF(*point)
         if not self.wire_points:
+            # Tool hints and docks may resize the canvas during this gesture.
+            # Keep the pointer's model coordinates stable until an explicit Fit.
+            self.auto_fit=False
             self.wire_points=[point];self.pending_pin=tuple(self.wire_hover[1][1:]) if self.wire_hover and self.wire_hover[1][0]=='pin' else None
             self.message.emit('Wire · click bends; finish on a pin/wire · Space flips bend · Enter finishes · Esc cancels')
         elif point!=self.wire_points[-1]:

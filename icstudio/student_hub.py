@@ -166,14 +166,14 @@ class Portfolio:
         atomic_write(destination,json.dumps(payload,indent=2,ensure_ascii=False,allow_nan=False)+'\n')
 
 
-def prepare_lesson(project, tools=None):
+def prepare_lesson(project, tools=None, toolchain='auto'):
     from .digital_design import config
     if project.get('mixed_signal'):
         from .mixed_signal import prepare
-        return prepare(project,tools)
+        return prepare(project,tools,setup_panel='Student Hub → Engine setup')
     if config(project,project['top']):
         from .digital_flow import prepare
-        return prepare(project,tools=tools,toolchain='custom')
+        return prepare(project,tools=tools,toolchain=toolchain)
     from .run_environment import stamp
     p=clone(project);job=dict(project=p,cell=p['top'],engine='builtin',settings=clone(p['analysis']))
     job['environment']=stamp(job);return job

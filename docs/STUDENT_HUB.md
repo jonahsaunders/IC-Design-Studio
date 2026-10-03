@@ -150,24 +150,29 @@ correctness of reflections or guarantees employment.
 
 ## Engines and models
 
-**More → Engine setup…** in the Hub selects native local `ngspice`, `iverilog` and
-`vvp` executables. Blank Icarus fields search PATH; blank ngspice uses Studio's
-native discovery, including its bundled executable and `ICSTUDIO_NGSPICE`.
-Earlier mixed-signal executable selections are used as defaults. Missing tools
-produce a setup error; the Hub does not download engines automatically.
-
-On Ubuntu, `sudo apt install ngspice iverilog` supplies these tools. On Windows,
-select native executable paths. The Windows source launcher provisions ngspice
-only; Icarus needs a separate native installation. See the
-[SAR local-engine setup](MIXED_SIGNAL_SAR.md#local-engine-setup). WSL executable
-paths and a Ready managed digital runtime do not configure these lesson tools.
-
 Foundations and Analog use the included teaching solver and generic devices.
-Digital uses Icarus and embedded reference testbenches. Mixed Signal and the
-capstone run the actual ngspice/Icarus closed loop described in the
-[SAR walkthrough](MIXED_SIGNAL_SAR.md). The managed digital container/WSL toolchain
-is not the runtime for these lessons. Tool availability and successful process
-startup alone are not numerical qualification.
+Digital lessons use Icarus and embedded reference testbenches through the
+selected **Included tools** or **Custom tools** digital toolchain. **Run lesson**
+opens digital setup when Included tools are not ready and resumes after
+successful setup. **More → Engine setup… → Digital tools setup…** opens the same
+setup panel. In Custom mode, the Hub's Icarus fields override the shared custom
+paths when provided; in Included mode they do not override the managed runtime.
+
+Mixed Signal and the capstone run the native ngspice/Icarus closed loop described
+in the [SAR walkthrough](MIXED_SIGNAL_SAR.md). **More → Engine setup…** selects
+those native `ngspice`, `iverilog` and `vvp` executables. **Check native mixed-signal engines**
+reports all missing prerequisites together. Blank Icarus fields search PATH;
+blank ngspice uses Studio's native discovery, including its bundled executable
+and `ICSTUDIO_NGSPICE`. Earlier mixed-signal selections are used as defaults.
+Paths copied with surrounding quotes are accepted.
+
+On Ubuntu, `sudo apt install ngspice iverilog` supplies the native tools. On
+Windows, select native Windows executables; the source launcher provisions
+ngspice only, and Icarus needs a separate native installation. The setup panel
+links to the [native installation guide](MIXED_SIGNAL_SAR.md#local-engine-setup)
+and does not download native Icarus. WSL executable paths and a Ready managed
+digital runtime do not satisfy Mixed Signal or capstone prerequisites. Tool
+availability and successful process startup alone are not numerical qualification.
 
 The analog lessons deliberately introduce concepts without an external PDK.
 Generic MOS results exclude body effect, subthreshold behavior and device

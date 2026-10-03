@@ -18,6 +18,8 @@ MAGIC_PROFILES = {
 
 
 def executable_info(executable):
+    from .digital_tools import normalize_executable
+    executable=normalize_executable(executable)
     path = Path(shutil.which(str(executable)) or executable).resolve()
     if not path.is_file(): raise ValueError('External executable is missing: ' + str(executable))
     return {'path':str(path), 'sha256':file_digest(path)}

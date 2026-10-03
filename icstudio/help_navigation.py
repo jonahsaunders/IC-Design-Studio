@@ -44,7 +44,7 @@ def connect_navigation(browser,dialog,link_color=None):
             # Open the matching source revision in the user's web browser.
             from .build_identity import identity
             revision=identity()['commit']
-            if not re.fullmatch('[0-9a-f]{40}',revision):revision='experimental'
+            if not re.fullmatch('[0-9a-f]{40}',revision):revision='main'
             web=QUrl('https://github.com/jonahsaunders/IC-Design-Studio/blob/'+revision+'/README.md');web.setFragment(target.fragment())
             QDesktopServices.openUrl(web)
         elif target.isLocalFile() and path.suffix.lower()=='.md':browser.setSource(target)

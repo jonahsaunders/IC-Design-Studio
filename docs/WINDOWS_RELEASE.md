@@ -62,8 +62,10 @@ the `icstudio:` invitation protocol. Uninstall retains user projects and
 application data, including installed managed runtimes. No signing step or
 automatic updater is configured in the current recipe.
 
-Student Hub and SAR use native local Icarus, independently of the managed
-toolchain. See [lesson engines](STUDENT_HUB.md#engines-and-models).
+Student Hub Digital lessons use the selected Included or Custom toolchain,
+including the managed Windows runtime. Mixed Signal lessons, the capstone and
+SAR require native local ngspice and Icarus separately. See
+[lesson engines](STUDENT_HUB.md#engines-and-models).
 
 ## Verify the exact package
 

@@ -1,38 +1,62 @@
-name: Prepare draft preview release
+name: Prepare desktop release
 on:
   workflow_dispatch:
+    inputs:
+      publish_release:
+        description: Publish the qualified main version with Windows and Linux downloads
+        type: boolean
+        default: false
   push:
     branches: [main, experimental]
-    paths: [icstudio/__init__.py, icstudio/experimental_probe.py, icstudio/inductor_probe.py, icstudio/inductor_design_probe.py, scripts/assemble_prerelease.py, scripts/release_evidence.py, scripts/publish_prerelease.py, .github/workflows/build-desktop.yml, .github/workflows/release-preview.yml]
+    paths: [icstudio/__init__.py, icstudio/experimental_probe.py, icstudio/inductor_probe.py, icstudio/inductor_design_probe.py, scripts/assemble_prerelease.py, scripts/release_evidence.py, scripts/publish_prerelease.py, scripts/release_intent.py, .github/workflows/build-desktop.yml, .github/workflows/release-preview.yml]
 permissions:
   contents: read
 concurrency:
   group: preview-release-${{ github.ref }}
   cancel-in-progress: false
 jobs:
+  mode:
+    runs-on: ubuntu-24.04
+    outputs:
+      public: ${{ steps.intent.outputs.public }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Select draft or explicitly requested public release
+        id: intent
+        run: python scripts/release_intent.py
   desktop:
+    needs: mode
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/experimental'
     uses: ./.github/workflows/build-desktop.yml
   interoperability:
+    needs: mode
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/experimental'
     uses: ./.github/workflows/interoperability.yml
   physical:
+    needs: mode
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/experimental'
     uses: ./.github/workflows/physical-qualification.yml
   digital:
+    needs: mode
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/experimental'
     uses: ./.github/workflows/digital.yml
   vga:
+    needs: mode
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/experimental'
     uses: ./.github/workflows/vga-playground.yml
   statistics:
+    needs: mode
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/experimental'
     uses: ./.github/workflows/analog-campaign-qualification.yml
   reference-compatibility:
+    needs: mode
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/experimental'
     uses: ./.github/workflows/reference-compatibility.yml
   draft:
-    needs: [desktop, interoperability, physical, digital, vga, statistics, reference-compatibility]
+    needs: [mode, desktop, interoperability, physical, digital, vga, statistics, reference-compatibility]
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -84,11 +108,19 @@ jobs:
           RELEASE_RUN: ${{ github.run_id }}
         run: python scripts/release_evidence.py package --commit "$RELEASE_COMMIT" --run-id "$RELEASE_RUN"
       - name: Create a reviewable draft prerelease
+        if: needs.mode.outputs.public != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_COMMIT: ${{ github.sha }}
           RELEASE_BRANCH: ${{ github.ref_name }}
         run: python scripts/publish_prerelease.py --directory release
+      - name: Publish verified Windows and Linux release downloads
+        if: needs.mode.outputs.public == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_COMMIT: ${{ github.sha }}
+          RELEASE_BRANCH: ${{ github.ref_name }}
+        run: python scripts/publish_prerelease.py --directory release --public
       - uses: actions/upload-artifact@v4
         if: always()
         with:

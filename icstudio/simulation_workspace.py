@@ -208,8 +208,10 @@ class SimulationWorkspaceMixin:
         else:super().cancel_job()
 
     def stop_selected_runs(self):
-        rows=self.selected_simulation_runs()
-        if not rows:rows=[r for r in self.run_manager.rows if r['state'] in ('Running','Queued')][-1:]
+        rows=[r for r in self.selected_simulation_runs() if r['state'] in ('Running','Queued')]
+        if not rows:
+            rows=[r for r in self.run_manager.rows if r['state']=='Running'][-1:]
+            if not rows:rows=[r for r in self.run_manager.rows if r['state']=='Queued'][-1:]
         self.run_manager.cancel(rows)
 
     def clear_finished_runs(self):
@@ -313,13 +315,24 @@ class SimulationWorkspaceMixin:
 
     def open_editor_doc(self,name):
         if name.startswith('CAPABILITY_MATRIX'):return self.compatibility_matrix()
+        from PySide6.QtGui import QTextDocument
+        from PySide6.QtWidgets import QPushButton
         root=Path(getattr(sys,'_MEIPASS',Path(__file__).resolve().parents[1]));path=root/'docs'/name
         dlg=QDialog(self);dlg.setWindowTitle(name.replace('_',' ').removesuffix('.md'));dlg.resize(900,640);v=QVBoxLayout(dlg)
         browser=QTextBrowser();browser.setOpenExternalLinks(True)
         navigation=QHBoxLayout();back=self.button('Back',fn=browser.backward);forward=self.button('Forward',fn=browser.forward)
         back.setEnabled(False);forward.setEnabled(False);browser.backwardAvailable.connect(back.setEnabled);browser.forwardAvailable.connect(forward.setEnabled)
         navigation.addWidget(back);navigation.addWidget(forward)
-        search=QLineEdit();search.setPlaceholderText('Find in this document…');navigation.addWidget(search,1);v.addLayout(navigation);v.addWidget(browser)
+        class DocumentSearch(QLineEdit):
+            def keyPressEvent(edit,event):
+                if event.key() in (Qt.Key_Return,Qt.Key_Enter) and event.modifiers() & Qt.ShiftModifier:
+                    find_match(backward=True);event.accept();return
+                super().keyPressEvent(event)
+        search=DocumentSearch();search.setPlaceholderText('Find in this document…');search.setAccessibleName('Find in help document');search.setClearButtonEnabled(True)
+        navigation.addWidget(search,1)
+        previous=self.button('Previous',fn=lambda:find_match(backward=True));previous.setToolTip('Previous match (Shift+Enter)')
+        next_match=self.button('Next',fn=lambda:find_match());next_match.setToolTip('Next match (Enter)')
+        navigation.addWidget(previous);navigation.addWidget(next_match);v.addLayout(navigation);v.addWidget(browser)
         # A document base URL alone does not initialize QTextBrowser's source:
         # relative links otherwise resolve against the process working folder.
         from .help_navigation import connect_navigation
@@ -327,8 +340,21 @@ class SimulationWorkspaceMixin:
         connect_navigation(browser,dlg,palette(self.dark)['accent'])
         if path.is_file():browser.setSource(QUrl.fromLocalFile(str(path.resolve())))
         else:browser.setPlainText('This document is unavailable. Open Help → Compatibility matrix for built-in capability information.')
-        def find(text):browser.moveCursor(QTextCursor.Start);browser.find(text)
-        search.textChanged.connect(find);buttons=QDialogButtonBox(QDialogButtonBox.Close);buttons.rejected.connect(dlg.close);v.addWidget(buttons);self._document_dialog=dlg;dlg.show()
+        def find_match(backward=False):
+            text=search.text()
+            if not text:return
+            flags=QTextDocument.FindBackward if backward else QTextDocument.FindFlags()
+            if not browser.find(text,flags):
+                browser.moveCursor(QTextCursor.End if backward else QTextCursor.Start);browser.find(text,flags)
+        def find_first(text):
+            previous.setEnabled(bool(text));next_match.setEnabled(bool(text))
+            browser.moveCursor(QTextCursor.Start)
+            if text:find_match()
+        search.textChanged.connect(find_first);search.returnPressed.connect(lambda:find_match());find_first('')
+        buttons=QDialogButtonBox(QDialogButtonBox.Close);buttons.rejected.connect(dlg.close);v.addWidget(buttons)
+        for button in dlg.findChildren(QPushButton):button.setAutoDefault(False);button.setDefault(False)
+        dlg.browser,dlg.search,dlg.previous_match,dlg.next_match=browser,search,previous,next_match
+        self._document_dialog=dlg;dlg.show()
 
     def compatibility_matrix(self):
         from .compatibility import ROWS

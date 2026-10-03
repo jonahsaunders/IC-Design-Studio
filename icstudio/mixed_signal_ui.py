@@ -8,7 +8,8 @@ from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel, QPushB
     QComboBox, QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView, QMessageBox)
 
 from .model import clone, digest
-from .mixed_signal import prepare, validate_project
+from .mixed_signal import prepare, validate_project, resolve_tools, NativeEngineSetupError
+from .digital_tools import normalize_executable
 
 
 class MixedSignalDialog(QDialog):
@@ -38,6 +39,18 @@ class MixedSignalDialog(QDialog):
                 path, _ = QFileDialog.getOpenFileName(self, 'Select '+name)
                 if path: edit.setText(path)
             button.clicked.connect(browse); tool_form.addRow(name, row); self.paths[name] = edit
+        # Keep actions near the paths. Longer prerequisite details can scroll
+        # without moving the setup buttons beyond a compact dialog's viewport.
+        check=QPushButton('Check local engines'); check.setAutoDefault(False)
+        check.clicked.connect(lambda:self.call(self.check_engines)); tool_form.addRow(check)
+        guide=QPushButton('Local engine installation guide'); guide.setAutoDefault(False)
+        guide.clicked.connect(lambda:studio.open_editor_doc('MIXED_SIGNAL_SAR.md')); tool_form.addRow(guide)
+        engine_note=QLabel('This experiment needs native ngspice and Icarus Verilog (iverilog and vvp). '
+                          'Included digital tools use a separate environment. On Ubuntu: sudo apt install ngspice iverilog. '
+                          'On Windows, choose executables from native Windows installations.')
+        engine_note.setWordWrap(True); tool_form.addRow(engine_note)
+        self.engine_status=QLabel(); self.engine_status.setWordWrap(True)
+        self.engine_status.setAccessibleName('Native engine prerequisite status'); tool_form.addRow(self.engine_status)
         self.voltage = QLineEdit(); self.voltage.setAccessibleName('ADC input voltage')
         self.period = QLineEdit(); self.period.setAccessibleName('Clock period in seconds')
         form.addRow('Input voltage (V)', self.voltage); form.addRow('Clock period (s, e.g. 1u)', self.period)
@@ -66,6 +79,7 @@ class MixedSignalDialog(QDialog):
         studio.run_manager.changed.connect(self.refresh_runs); self.refresh_runs()
         self.revision_timer = QTimer(self); self.revision_timer.setInterval(300)
         self.revision_timer.timeout.connect(self.check_revision); self.revision_timer.start()
+        self.check_engines()
 
     def check_revision(self):
         if not self.isVisible(): return
@@ -80,7 +94,19 @@ class MixedSignalDialog(QDialog):
             if self.studio.project['id'] != self.project_id:
                 raise ValueError('The project changed. Reopen Mixed-signal experiment for the current project.')
             return fn()
+        except NativeEngineSetupError as exc:
+            self.tabs.setCurrentIndex(1); self.paths[exc.missing[0]].setFocus()
+            self.engine_status.setText(str(exc))
+            self.status.setText('Native engines missing: '+', '.join(exc.missing)+'. See Local engines.')
         except Exception as exc: self.status.setText(str(exc))
+
+    def check_engines(self):
+        try:
+            tools=resolve_tools({name:edit.text() for name,edit in self.paths.items()})
+        except NativeEngineSetupError as exc:
+            self.engine_status.setText(str(exc)); return False
+        self.engine_status.setText('Native executables found: '+', '.join(tools)+'. Run coupled simulation to verify them with this circuit.')
+        return True
 
     def read_controls(self):
         try:
@@ -157,8 +183,10 @@ class MixedSignalDialog(QDialog):
             s.commit(lambda p: p.update(mixed_signal=clone(c)), 'Mixed-signal configuration')
         self.base_config = clone(c)
         self.config.setPlainText(json.dumps(c, indent=2))
-        for name, edit in self.paths.items(): s.settings.setValue('mixed_signal/'+name, edit.text().strip())
-        self.saved_paths = {name: edit.text().strip() for name, edit in self.paths.items()}
+        for name, edit in self.paths.items():
+            edit.setText(normalize_executable(edit.text()))
+            s.settings.setValue('mixed_signal/'+name, edit.text())
+        self.saved_paths = {name: edit.text() for name, edit in self.paths.items()}
         self.update_controls(); return True
 
     def run(self):

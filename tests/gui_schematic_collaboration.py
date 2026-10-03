@@ -1,6 +1,7 @@
 """Actual desktop schematic gestures, review rendering, recovery and hierarchy."""
 import argparse
 import json
+import os
 import sys
 import threading
 import time
@@ -12,9 +13,12 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--out',type=Path,required=True);out=parser.parse_args().out.resolve();out.mkdir(parents=True,exist_ok=True)
     sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
     from PySide6.QtCore import QPointF,QSettings,QStandardPaths,Qt
+    from PySide6.QtGui import QFontDatabase
     from PySide6.QtTest import QTest
     from PySide6.QtWidgets import QApplication,QDialog
     from icstudio.gui import Studio
+    from icstudio.canvas import Canvas
+    from icstudio import wiring
     from icstudio.live_client import LiveClient
     from icstudio.live_server import Server
     from icstudio.live_store import Store
@@ -25,6 +29,10 @@ def main():
     QSettings.setDefaultFormat(QSettings.IniFormat);QSettings.setPath(QSettings.IniFormat,QSettings.UserScope,str(out/'profile/settings'))
     QStandardPaths.writableLocation=staticmethod(lambda kind:str(out/'profile'/str(kind.value)))
     app=QApplication([]);app.setStyle('Fusion')
+    if sys.platform=='win32' and app.platformName()=='offscreen':
+        fonts=Path(os.environ.get('WINDIR','C:/Windows'))/'Fonts'
+        for name in ('segoeui.ttf','segoeuib.ttf','arial.ttf'):
+            assert QFontDatabase.addApplicationFont(str(fonts/name))>=0, f'Could not load {name}'
     store=Store(out/'server.sqlite3','gui-schematic-key-'+'x'*32);server=Server(('127.0.0.1',0),store)
     thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start();url='http://127.0.0.1:'+str(server.server_port)
     windows=[];checks=[]
@@ -38,7 +46,38 @@ def main():
     def idle(w):return not w.live_client.pending and not w.live_client.busy and w.live_client.connected
     def synchronized(revision):return all(idle(w) and w.live_client.revision==revision for w in windows)
     def point(canvas,x,y):return (QPointF(x,y)*canvas.scale+canvas.offset).toPoint()
+    def view(canvas):return (canvas.scale,canvas.offset.x(),canvas.offset.y())
+    def settle_canvas(window):
+        previous=None;stable=0
+        def settled():
+            nonlocal previous,stable
+            canvas=window.schematic
+            current=(window.frameGeometry().getRect(),canvas.rect().getRect(),view(canvas))
+            stable=stable+1 if current==previous else 0
+            previous=current
+            return stable>=5
+        wait(settled,'Schematic geometry did not settle')
     try:
+        # A tool/status row can resize the viewport as the first wire click emits
+        # its hint. The pointer must retain the same model coordinates throughout.
+        resize_project=circuit();resize_cell=resize_project['cells'][0]
+        gesture=Canvas('schematic');gesture.resize(900,620);gesture.show();app.processEvents()
+        gesture.set_data(resize_cell,resize_project['pdk']);gesture.tool='connect';gesture.fit()
+        before_view=view(gesture);start=point(gesture,0,50);end=point(gesture,500,50);drawn=[]
+        def resized_hint(_):gesture.resize(840,590)
+        def drawn_wire(points):
+            drawn.append(points);wiring.add_wire(resize_cell,points,resize_project)
+        gesture.message.connect(resized_hint);gesture.wire_added.connect(drawn_wire)
+        try:
+            QTest.mouseClick(gesture,Qt.LeftButton,pos=start)
+            assert gesture.wire_points==[[0,50]], gesture.wire_points
+            assert not gesture.auto_fit and view(gesture)==before_view, (before_view,view(gesture))
+            QTest.mouseClick(gesture,Qt.LeftButton,pos=end)
+            assert drawn==[[[0,50],[500,50]]], drawn
+            assert resize_cell['devices'][0]['nets']['n']==resize_cell['devices'][1]['nets']['n']
+            gesture.fit();assert gesture.auto_fit
+        finally:gesture.close()
+        checks.append('Viewport resize during a wire gesture preserves the view and connects the exact original terminal coordinates')
         p=circuit();owner=store.create(store.create_key,p,'Alice');wid=owner['workspace']
         invite=store.invite(wid,owner['token'],'edit');editor=store.join(wid,invite['invite'],'Bob')
         for snapshot in (owner,editor):
@@ -47,12 +86,19 @@ def main():
             w.live_attach(LiveClient(url,wid,snapshot['token'],snapshot,out/(snapshot['actor']+'.json'),w))
             w.mode_combo.setCurrentIndex(0);w._collaboration_dashboard.hide();w.schematic.fit()
         a,b=windows;wait(lambda:synchronized(0),'Initial sync')
-        canvas=a.schematic;canvas.setFocus();QTest.keyClick(canvas,Qt.Key_W)
+        a.activateWindow();canvas=a.schematic;canvas.setFocus();QTest.keyClick(canvas,Qt.Key_W)
+        assert canvas.tool=='connect', canvas.tool
+        # Live attachment, native Show and the tool hint queue independent layouts.
+        # Fit after those layouts, then wait for any fit-triggered footer layout.
+        settle_canvas(a);canvas.fit();settle_canvas(a)
+        gesture_view=dict(rect=canvas.rect().getRect(),transform=view(canvas))
         QTest.mouseClick(canvas,Qt.LeftButton,pos=point(canvas,0,50));QTest.mouseClick(canvas,Qt.LeftButton,pos=point(canvas,500,50))
         QTest.keyClick(canvas,Qt.Key_Escape)
         wait(lambda:synchronized(1),'Draw wire between two components')
-        assert a.cell['devices'][0]['nets']['n']==b.cell['devices'][1]['nets']['n']
-        assert len(a.cell['wires'])==1
+        detail=dict(before=gesture_view,after=dict(rect=canvas.rect().getRect(),transform=view(canvas)),wires=a.cell['wires'],
+                    nets=[d['nets'] for w in windows for d in w.cell['devices']])
+        assert a.cell['devices'][0]['nets']['n']==b.cell['devices'][1]['nets']['n'], detail
+        assert len(a.cell['wires'])==1 and a.cell['wires'][0]['points']==[[0,50],[500,50]], detail
         checks.append('Mouse-drawn schematic wire and authoritative connectivity synchronize between desktop editors')
         initial=clone(a.project);ident=a.cell['devices'][0]['id'];a.select([ident],'schematic');a.move([ident],100,0,'schematic')
         wait(lambda:synchronized(2),'Move connected device')

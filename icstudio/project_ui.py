@@ -266,8 +266,17 @@ class ProjectMixin:
         item=self.tree.itemAt(pos)
         if not item:return
         data=item.data(0,Qt.UserRole)
-        if data:self.cid=data[1]
-        menu=QMenu(self);menu.addAction('Edit symbol…',self.symbol_dialog);menu.addAction('Rename cell…',self.rename_cell);menu.addAction('Delete cell…',lambda:self.guard(self.delete_cell_dialog));menu.addSeparator();menu.addAction('Project settings…',self.project_settings);menu.exec(self.tree.viewport().mapToGlobal(pos))
+        target=data[1] if data else self.cid
+        def activate(fn):
+            if not self.flush_inspector():return
+            if target!=self.cid:self.switch_cell_combo(self.cell_combo.findData(target))
+            if self.cid==target:fn()
+        # Opening or dismissing a menu must not silently retarget the document
+        # behind the visible canvas or its unapplied property fields.
+        menu=QMenu(self)
+        for title,fn in [('Edit symbol…',self.symbol_dialog),('Rename cell…',self.rename_cell),('Delete cell…',self.delete_cell_dialog)]:
+            menu.addAction(title,lambda checked=False,fn=fn:self.guard(lambda:activate(fn)))
+        menu.addSeparator();menu.addAction('Project settings…',lambda:self.guard(self.project_settings));menu.exec(self.tree.viewport().mapToGlobal(pos))
     def rename_cell(self):
         name,ok=QInputDialog.getText(self,'Rename cell','Cell name',text=self.cell['name'])
         if ok:self.commit(lambda p:next(c for c in p['cells'] if c['id']==self.cid).update(name=name.strip()),'Rename cell')

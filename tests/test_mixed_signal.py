@@ -4,6 +4,7 @@ import os
 import shutil
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 from icstudio import mixed_signal as ms
@@ -17,6 +18,19 @@ def tools():
 
 
 class MixedSignalModelTests(unittest.TestCase):
+    def test_quoted_native_paths_and_workflow_specific_missing_tool_guidance(self):
+        with tempfile.TemporaryDirectory(prefix='native tools ') as td:
+            executable=Path(td)/'native executable';executable.write_text('fixture')
+            paths={name:'"'+str(executable)+'"' for name in ('ngspice','iverilog','vvp')}
+            job=ms.prepare(sar_project(),paths)
+            self.assertEqual(job['settings']['tools'],{name:str(executable.resolve()) for name in paths})
+            with patch.object(ms.shutil,'which',return_value=None):
+                with self.assertRaises(ms.NativeEngineSetupError) as error:
+                    ms.prepare(sar_project(),{'ngspice':str(executable)},setup_panel='Student Hub → Engine setup')
+            self.assertEqual(error.exception.missing,('iverilog','vvp'))
+            self.assertIn('Student Hub → Engine setup',str(error.exception))
+            self.assertIn('separate environment',str(error.exception))
+
     def test_portable_project_and_undo_capture_both_domains(self):
         p = sar_project(); original = design_digest(p); h = History(p)
         h.commit(lambda q: q['mixed_signal']['stimuli'].update(vin=[[0, .4]]))

@@ -47,8 +47,10 @@ The current payload also includes Magic, Netgen and ngspice for supported analog
 physical verification. **Tools → Physical tools setup…** selects that shared
 runtime or custom engines; its positive/negative installation checks run during
 setup. Matching, locked physical PDK files are still required for a design.
-Student Hub Digital lessons and the SAR bridge use native local executables
-instead; see [lesson engine setup](STUDENT_HUB.md#engines-and-models).
+Student Hub Digital lessons use this selected Included or Custom toolchain, with
+guided setup before running. The SAR bridge, Mixed Signal lessons and the
+capstone require separate native local executables; see
+[lesson engine setup](STUDENT_HUB.md#engines-and-models).
 
 Linux x64 uses a private native runtime with an Ubuntu 24.04 / glibc 2.39 baseline.
 Windows x64 uses an app-owned WSL 2 distribution. If WSL is unavailable, **Enable

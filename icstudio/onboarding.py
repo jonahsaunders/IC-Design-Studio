@@ -88,7 +88,7 @@ class OnboardingMixin:
     def _replace_document(self):
         if self.process or self.run_manager.busy:
             raise ValueError('Wait for active runs to finish before opening another project.')
-        if not self.flush_inspector():
+        if not self.flush_inspector() or not self.flush_analysis(allow_discard=True):
             return False
         if self.path is None and digest(self.project) == self._initial_document:
             return True

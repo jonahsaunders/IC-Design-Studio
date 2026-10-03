@@ -7,37 +7,29 @@ and openEMS. Local Student Hub/SAR engine requirements are separate; see below.
 
 ## Choose your download
 
-Use the [Releases page](https://github.com/jonahsaunders/IC-Design-Studio/releases)
-for published downloads. As checked through authenticated GitHub metadata on
-**2026-09-30**, the two latest completed draft preparations listed below remain
-**unpublished drafts**, with 23 assets each. A draft is visible to maintainers;
-its existence does not establish a public download or consumer acceptance.
-
-| Candidate | Packaged source | Completed preparation |
-|---|---|---|
-| [Main draft](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/untagged-acb598aac62045d768f7) | `168976360c18a0c5fa038bf9e8b89e85c6d781a8` | [Run 36509225273](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/36509225273), successful |
-| [Experimental draft](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/untagged-675c8eb70526765cc344) | `c33cee4dbbab1cdafb03f11a7aa1d11b08230c57` | [Run 36559252677](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/36559252677), successful |
-
-Both use version **0.22.0.dev25**. Later experimental source, including the merged
-README update at `34c4a9a7d94c8bcc234ef579186676c866053d9c`, is different.
-Use the full commit, not the version alone, to identify a package. See
-[release status](RELEASE_STATUS.md) for the dated evidence and remaining gates.
+The current source is **0.23.0**, an engineering preview. Its public download
+destination is [release v0.23.0](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/v0.23.0).
+The links below become available when the release is published after fresh
+qualification. An absent release or unpublished draft does not establish a
+public download. Check [release status](RELEASE_STATUS.md#0230-desktop-engineering-preview)
+and the release's asset list before downloading.
 
 For a successful [desktop build](https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Amain),
 open its **release-Windows** or **release-Linux** artifact and extract it to find
-the package, matching validation record and checksums. Actions artifacts require
+the package and matching validation record with asset hashes. The completed
+release supplies the final checksum file. Actions artifacts require
 GitHub sign-in and may expire. If an artifact is unavailable, use a retained
 matching draft asset or prepare a new build; do not substitute another commit.
 
-| Asset suffix | What to do |
+| 0.23.0 asset | What to do |
 |---|---|
-| `Windows-x64-Setup.exe` | Run the installer, then launch Studio |
-| `Windows-x64-Portable.zip` | Extract everything, then open `ICDesignStudio/ICDesignStudio.exe` |
-| `Linux-x86_64.tar.gz` | Extract everything, enter `ICDesignStudio`, then run `./ICDesignStudio` |
-| `Source-Windows.zip` / `Source-Linux.zip` | Developer source; not the complete desktop runtime |
+| [Windows x64 installer](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.0/IC-Design-Studio-0.23.0-Windows-x64-Setup.exe) | Run the installer, then launch Studio |
+| [Windows x64 portable ZIP](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.0/IC-Design-Studio-0.23.0-Windows-x64-Portable.zip) | Extract everything, then open `ICDesignStudio/ICDesignStudio.exe` |
+| [Linux x86_64 archive](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.0/IC-Design-Studio-0.23.0-Linux-x86_64.tar.gz) | Extract everything, enter `ICDesignStudio`, then run `./ICDesignStudio` |
+| [Windows source](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.0/IC-Design-Studio-0.23.0-Source-Windows.zip) / [Linux source](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.0/IC-Design-Studio-0.23.0-Source-Linux.zip) | Corresponding developer source; not the complete desktop runtime |
 | `Validation-*.json` / `Evidence-*.zip` | Build identity and evidence recorded for that asset |
 | `*.zip.parts.json` and numbered parts | Split evidence archive; [reassemble and verify it](RELEASING.md#large-evidence-archives) |
-| `SHA256SUMS-*.txt` | Checksums for the matching downloads |
+| [SHA256SUMS-0.23.0.txt](https://github.com/jonahsaunders/IC-Design-Studio/releases/download/v0.23.0/SHA256SUMS-0.23.0.txt) | Checksums for the matching downloads |
 
 Keep `_internal` and all its contents beside the executable. Copying a lone
 executable, or choosing **Code → Download ZIP**, does not install the desktop
@@ -69,11 +61,12 @@ Native SPICE uses bundled ngspice. Process physical verification uses
 **Tools → Physical tools setup…** plus matching locked physical PDK assets/decks.
 The included analog simulation subsets are not complete foundry PDKs.
 
-**Student Hub Digital lessons and SAR experiments use native local Icarus**
-(`iverilog` and `vvp`), not the WSL-managed runtime. SAR and Mixed Signal lessons
-also need native ngspice. Configure [lesson engines](STUDENT_HUB.md#engines-and-models)
-or [SAR Local engines](MIXED_SIGNAL_SAR.md#local-engine-setup); those panels do not
-download Icarus.
+**Student Hub Digital lessons use the selected Included or Custom digital tools.**
+Run lesson opens first-run setup when needed and resumes after successful setup.
+SAR experiments, Mixed Signal lessons and the capstone require separate native
+local `ngspice`, `iverilog` and `vvp` executables. Their setup panels check all
+prerequisites and link to the [native installation guide](MIXED_SIGNAL_SAR.md#local-engine-setup);
+they do not download native Icarus. See [lesson engines](STUDENT_HUB.md#engines-and-models).
 
 ## If setup needs attention
 
@@ -98,14 +91,32 @@ signing-policy and physical-network acceptance remain tracked in
 ## Verify a download
 
 Use the checksum file supplied with the exact build. On Linux, a complete set
-can be checked with `sha256sum -c SHA256SUMS-0.22.0.dev25.txt` if that is its
+can be checked with `sha256sum -c SHA256SUMS-0.23.0.txt` if that is its
 actual filename. On Windows:
 
 ```powershell
-Get-FileHash .\IC-Design-Studio-0.22.0.dev25-Windows-x64-Setup.exe -Algorithm SHA256
+Get-FileHash .\IC-Design-Studio-0.23.0-Windows-x64-Setup.exe -Algorithm SHA256
 ```
 
 Compare the result with the matching checksum entry. If you downloaded only a
 subset, verify those specific entries; missing optional evidence files do not
-mean the application bytes were checked. The dated GitHub metadata review above
-did not independently download or re-hash package bytes.
+mean the application bytes were checked.
+
+## Archived dev25 download snapshot · 2026-09-30
+
+As checked through authenticated GitHub metadata on **2026-09-30**, the two
+latest completed draft preparations listed below were **unpublished drafts**,
+with 23 assets each. A draft is visible to maintainers; its existence does not
+establish a public download or consumer acceptance. This is a dated snapshot,
+not the identity or acceptance record of 0.23.0.
+
+| Candidate | Packaged source | Completed preparation |
+|---|---|---|
+| [Main draft](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/untagged-acb598aac62045d768f7) | `168976360c18a0c5fa038bf9e8b89e85c6d781a8` | [Run 36509225273](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/36509225273), successful |
+| [Experimental draft](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/untagged-675c8eb70526765cc344) | `c33cee4dbbab1cdafb03f11a7aa1d11b08230c57` | [Run 36559252677](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/36559252677), successful |
+
+Both use version **0.22.0.dev25**. Later experimental source, including the merged
+README update at `34c4a9a7d94c8bcc234ef579186676c866053d9c`, is different.
+Use the full commit, not the version alone, to identify a package. See
+[release status](RELEASE_STATUS.md) for the dated evidence and remaining gates.
+That metadata review did not independently download or re-hash package bytes.

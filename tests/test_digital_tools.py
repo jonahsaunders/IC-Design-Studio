@@ -9,6 +9,17 @@ from icstudio import digital, digital_flow, digital_runtime, digital_tools
 
 
 class DigitalToolSelectionTests(unittest.TestCase):
+    def test_quoted_custom_executables_prepare_the_same_job(self):
+        with tempfile.TemporaryDirectory(prefix='tools with spaces ') as td:
+            executable=Path(td)/'Icarus executable';executable.write_text('fixture')
+            tools={name:'"'+str(executable)+'"' for name in ('iverilog','vvp')}
+            job=digital_flow.prepare(digital.counter_project(),tools=tools,toolchain='custom')
+            self.assertEqual(job['settings']['tools'],{name:str(executable.resolve()) for name in tools})
+            # Quoting is only path normalization; it does not enable commands.
+            tools['iverilog']='"'+str(executable)+'" --version'
+            with self.assertRaisesRegex(ValueError,'iverilog was not found'):
+                digital_flow.prepare(digital.counter_project(),tools=tools,toolchain='custom')
+
     def test_old_paths_do_not_disable_included_tools(self):
         values={'engine/yosys':'/old/yosys', 'digital/orfs':'/old/orfs'}
         settings=Mock(); settings.value.side_effect=lambda key,default='':values.get(key,default)

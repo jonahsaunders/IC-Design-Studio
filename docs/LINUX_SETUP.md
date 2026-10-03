@@ -49,10 +49,11 @@ locked PDK assets and decks; included analog simulation subsets are insufficient
 Register included simulation packages or a compatible external PDK through
 **File → Project Hub… → PDKs**. See the [PDK guide](PDK_GUIDE.md).
 
-Student Hub Digital lessons and SAR experiments use separate native local
-`iverilog`/`vvp` executables; they do not use the managed runtime. For a native
-Ubuntu installation, `sudo apt install ngspice iverilog` supplies their tools.
-Configure them in the [lesson setup](STUDENT_HUB.md#engines-and-models) or
+Student Hub Digital lessons use the selected Included or Custom digital
+toolchain and open setup when needed. SAR experiments, Mixed Signal lessons and
+the capstone require native local ngspice and Icarus separately. On Ubuntu,
+`sudo apt install ngspice iverilog` supplies those native tools. Check them in
+the [lesson setup](STUDENT_HUB.md#engines-and-models) or
 [SAR Local engines tab](MIXED_SIGNAL_SAR.md#local-engine-setup).
 
 ## Source launch

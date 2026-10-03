@@ -5,6 +5,7 @@ These fixtures do not qualify an EDA engine; release CI runs the real package.
 import io
 import json
 import os
+import shutil
 from pathlib import Path
 import tarfile
 import tempfile
@@ -79,6 +80,192 @@ class DigitalRuntimeTests(unittest.TestCase):
             with patch.object(runtime,'location',return_value={'kind':'linux','root':str(self.state/'runtime'),'sha256':data['sha256']}):
                 with self.assertRaisesRegex(ValueError,'proof failed'): runtime.setup()
         self.assertFalse(list(self.state.glob('ready-*.json')))
+
+    def test_native_setup_canonicalizes_state_directory_alias_before_journaling(self):
+        data=self.package()
+        if os.name=='nt':
+            import ctypes
+            short_path=ctypes.WinDLL('kernel32',use_last_error=True).GetShortPathNameW
+            short_path.argtypes=[ctypes.c_wchar_p,ctypes.c_wchar_p,ctypes.c_uint32]
+            short_path.restype=ctypes.c_uint32
+            length=short_path(str(self.state.resolve()),None,0)
+            if not length:self.skipTest('This Windows volume does not expose short directory names')
+            buffer=ctypes.create_unicode_buffer(length)
+            if not short_path(str(self.state.resolve()),buffer,length):
+                self.skipTest('This Windows volume does not expose short directory names')
+            alias=Path(buffer.value)
+            if os.path.normcase(str(alias))==os.path.normcase(str(self.state.resolve())):
+                self.skipTest('This Windows temporary directory has no short-name alias')
+        else:
+            alias=self.root/'state-alias';alias.symlink_to(self.state,target_is_directory=True)
+        target=alias/'runtimes'/data['sha256'];journals=[];extract=runtime.extract
+        def capture_extraction(archive,destination):
+            journals.append(json.loads((self.state/'partial-install.json').read_text()))
+            extract(archive,destination)
+        with patch.object(runtime,'identity'),patch.object(runtime.host_platform,'libc_ver',return_value=('glibc','2.39')), \
+             patch.object(runtime,'location',return_value={'kind':'linux','root':str(target),'sha256':data['sha256']}), \
+             patch.object(runtime,'extract',side_effect=capture_extraction), \
+             patch('icstudio.digital_setup_probe.qualify',side_effect=ValueError('proof failed')):
+            with self.assertRaisesRegex(ValueError,'proof failed'):runtime.setup()
+        self.assertEqual(len(journals),1)
+        self.assertRegex(journals[0]['directory'],'^runtimes/'+data['sha256']+r'\.install-[0-9a-f]{32}$')
+        self.assertTrue((target/'opt/icstudio/bin/yosys').is_file())
+        self.assertFalse((self.state/'partial-install.json').exists())
+        self.assertFalse(list(self.state.glob('ready-*.json')))
+
+    def test_native_setup_rejects_target_outside_state_before_integrity_repair(self):
+        data=self.package();valuable=self.root/'valuable';valuable.mkdir()
+        project=valuable/'project.icproj';project.write_text('user data')
+        with patch.object(runtime,'identity') as identity, \
+             patch.object(runtime.host_platform,'libc_ver',return_value=('glibc','2.39')), \
+             patch.object(runtime,'location',return_value={'kind':'linux','root':str(valuable),'sha256':data['sha256']}):
+            with self.assertRaisesRegex(ValueError,'outside'):runtime.setup()
+        identity.assert_not_called();self.assertEqual(project.read_text(),'user data')
+        self.assertFalse(list(self.state.glob('ready-*.json')))
+
+    @unittest.skipIf(os.name=='nt','Symlink creation may require Windows administrator permission')
+    def test_native_setup_rejects_symlinked_target_and_parent_before_integrity_repair(self):
+        data=self.package();valuable=self.root/'valuable';valuable.mkdir()
+        project=valuable/'project.icproj';project.write_text('user data')
+        target=self.state/'runtime';target.symlink_to(valuable,target_is_directory=True)
+        parent=self.state/'runtimes';parent.symlink_to(valuable,target_is_directory=True)
+        for path in (target,parent/data['sha256']):
+            with self.subTest(path=path),patch.object(runtime,'identity') as identity, \
+                 patch.object(runtime.host_platform,'libc_ver',return_value=('glibc','2.39')), \
+                 patch.object(runtime,'location',return_value={'kind':'linux','root':str(path),'sha256':data['sha256']}):
+                with self.assertRaisesRegex(ValueError,'symbolic link'):runtime.setup()
+            identity.assert_not_called();self.assertEqual(project.read_text(),'user data')
+        self.assertTrue(target.is_symlink());self.assertTrue(parent.is_symlink())
+        self.assertFalse(list(self.state.glob('ready-*.json')))
+
+    @unittest.skipUnless(os.name=='nt','Directory junctions are Windows-specific')
+    def test_native_setup_rejects_junction_target_and_parent_before_integrity_repair(self):
+        data=self.package();valuable=self.root/'valuable';valuable.mkdir()
+        project=valuable/'project.icproj';project.write_text('user data')
+        target=self.state/'runtime';parent=self.state/'runtimes'
+        for path in (target,parent):
+            subprocess.run(['cmd.exe','/c','mklink','/J',str(path),str(valuable)],check=True,capture_output=True)
+        for path in (target,parent/data['sha256']):
+            with self.subTest(path=path),patch.object(runtime,'identity') as identity, \
+                 patch.object(runtime.host_platform,'libc_ver',return_value=('glibc','2.39')), \
+                 patch.object(runtime,'location',return_value={'kind':'linux','root':str(path),'sha256':data['sha256']}):
+                with self.assertRaisesRegex(ValueError,'junction'):runtime.setup()
+            identity.assert_not_called();self.assertEqual(project.read_text(),'user data')
+        self.assertTrue(target.is_junction());self.assertTrue(parent.is_junction())
+        self.assertFalse(list(self.state.glob('ready-*.json')))
+
+    def partial_install(self, data):
+        directory=self.state/'runtimes'/(data['sha256']+'.install-'+'a'*32)
+        directory.mkdir(parents=True);(directory/'partial-tool').write_text('fixture')
+        record={'schema':1,'kind':'linux','sha256':data['sha256'],'directory':directory.relative_to(self.state).as_posix()}
+        journal=self.state/'partial-install.json';journal.write_text(json.dumps(record))
+        return directory,journal
+
+    def test_cleanup_reacquires_setup_lock_and_removes_only_journaled_unpacking(self):
+        data=self.package();directory,journal=self.partial_install(data)
+        unowned=directory.with_name(data['sha256']+'.install-'+'b'*32);unowned.mkdir()
+        with runtime.setup_lock(self.state):
+            with self.assertRaisesRegex(ValueError,'already running'):
+                runtime.cleanup_partial_install()
+        self.assertTrue(directory.is_dir())
+        self.assertTrue(runtime.cleanup_partial_install())
+        self.assertFalse(directory.exists());self.assertFalse(journal.exists())
+        self.assertTrue(unowned.is_dir(),'A directory without provenance must be retained')
+
+    def test_partial_cleanup_rejects_unowned_paths(self):
+        data=self.package();directory,journal=self.partial_install(data)
+        record=json.loads(journal.read_text());record['directory']='../valuable'
+        valuable=self.root/'valuable';valuable.mkdir();(valuable/'project.icproj').write_text('user data')
+        journal.write_text(json.dumps(record))
+        self.assertFalse(runtime.cleanup_partial_install())
+        self.assertTrue(valuable.is_dir());self.assertTrue(directory.is_dir());self.assertTrue(journal.exists())
+
+    def test_corrupt_archive_cannot_authorize_legacy_cleanup(self):
+        data=self.package();directory,journal=self.partial_install(data);journal.unlink()
+        (self.payload/'runtime.tar.gz').write_bytes(b'corrupt')
+        with self.assertRaisesRegex(ValueError,'damaged'):runtime.setup()
+        self.assertTrue(directory.is_dir())
+
+    @unittest.skipIf(os.name=='nt','Symlink creation may require Windows administrator permission')
+    def test_partial_cleanup_rejects_symlinked_directory_and_parent(self):
+        data=self.package();directory,journal=self.partial_install(data)
+        valuable=self.root/'valuable';valuable.mkdir();(valuable/'project.icproj').write_text('user data')
+        shutil.rmtree(directory);directory.symlink_to(valuable,target_is_directory=True)
+        self.assertFalse(runtime.cleanup_partial_install());self.assertTrue((valuable/'project.icproj').is_file())
+        directory.unlink();directory.parent.rmdir()
+        directory.parent.symlink_to(valuable,target_is_directory=True)
+        self.assertFalse(runtime.cleanup_partial_install());self.assertTrue((valuable/'project.icproj').is_file())
+
+    @unittest.skipIf(os.name=='nt','Symlink creation may require Windows administrator permission')
+    def test_legacy_cleanup_rejects_symlinked_directory_and_parent(self):
+        data=self.package();directory,journal=self.partial_install(data);journal.unlink()
+        valuable=self.root/'valuable';valuable.mkdir();(valuable/'project.icproj').write_text('user data')
+        shutil.rmtree(directory);directory.symlink_to(valuable,target_is_directory=True)
+        with runtime.setup_lock(self.state):
+            self.assertEqual(runtime._cleanup_legacy_installs(self.state,data['sha256']),0)
+        self.assertTrue((valuable/'project.icproj').is_file())
+        directory.unlink();directory.parent.rmdir();directory.parent.symlink_to(valuable,target_is_directory=True)
+        with runtime.setup_lock(self.state):
+            self.assertEqual(runtime._cleanup_legacy_installs(self.state,data['sha256']),0)
+        self.assertTrue((valuable/'project.icproj').is_file())
+
+    @unittest.skipUnless(os.name=='nt','Directory junctions are Windows-specific')
+    def test_partial_and_legacy_cleanup_reject_in_state_directory_and_parent_junctions(self):
+        data=self.package();directory,journal=self.partial_install(data)
+        record=journal.read_text();valuable=self.state/'valuable';valuable.mkdir()
+        project=valuable/'project.icproj';project.write_text('user data')
+        shutil.rmtree(directory)
+        subprocess.run(['cmd.exe','/c','mklink','/J',str(directory),str(valuable)],check=True,capture_output=True)
+        self.assertFalse(runtime.cleanup_partial_install())
+        journal.unlink()
+        with runtime.setup_lock(self.state):
+            self.assertEqual(runtime._cleanup_legacy_installs(self.state,data['sha256']),0)
+        self.assertTrue(directory.is_junction());self.assertEqual(project.read_text(),'user data')
+        directory.rmdir();directory.parent.rmdir()
+        preserved=valuable/directory.name;preserved.mkdir();(preserved/'partial-tool').write_text('user data')
+        subprocess.run(['cmd.exe','/c','mklink','/J',str(directory.parent),str(valuable)],check=True,capture_output=True)
+        journal.write_text(record)
+        self.assertFalse(runtime.cleanup_partial_install())
+        journal.unlink()
+        with runtime.setup_lock(self.state):
+            self.assertEqual(runtime._cleanup_legacy_installs(self.state,data['sha256']),0)
+        self.assertTrue(directory.parent.is_junction());self.assertEqual(project.read_text(),'user data')
+        self.assertEqual((preserved/'partial-tool').read_text(),'user data')
+
+    @unittest.skipIf(os.name=='nt','Native Linux unpacking lifecycle')
+    def test_retry_reclaims_partial_unpacking_after_worker_is_killed(self):
+        from icstudio import digital_setup_probe
+        data=self.package();started=self.root/'extract-started.json';entry=self.root/'interrupted-setup.py'
+        entry.write_text('import json,sys,time\nfrom pathlib import Path\nfrom unittest.mock import patch\n'
+            'sys.path.insert(0,'+repr(str(Path(__file__).resolve().parents[1]))+')\n'
+            'from icstudio import digital_runtime as r\n'
+            'def extract(archive,destination):\n'
+            ' (destination/"partial-tool").write_text("fixture")\n'
+            ' Path('+repr(str(started))+').write_text(json.dumps({"directory":str(destination)}))\n'
+            ' while True:time.sleep(.02)\n'
+            'with patch.object(r.host_platform,"libc_ver",return_value=("glibc","2.39")),patch.object(r,"extract",side_effect=extract):\n'
+            ' r.setup()\n')
+        worker=subprocess.Popen([sys.executable,str(entry)],stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+        try:
+            deadline=time.monotonic()+10
+            while not started.is_file() and time.monotonic()<deadline and worker.poll() is None:time.sleep(.02)
+            self.assertTrue(started.is_file(),'The controlled extraction did not start')
+            directory=Path(json.loads(started.read_text())['directory'])
+            worker.kill();worker.wait(timeout=5)
+            self.assertTrue(directory.is_dir());self.assertTrue((self.state/'partial-install.json').is_file())
+            # Older releases had this exact generated directory but no journal.
+            (self.state/'partial-install.json').unlink()
+            unrelated=directory.with_name('user-projects');unrelated.mkdir()
+            other=directory.with_name('b'*64+'.install-'+'c'*32);other.mkdir()
+            with patch.object(runtime,'identity'),patch.object(runtime.host_platform,'libc_ver',return_value=('glibc','2.39')), \
+                 patch.object(digital_setup_probe,'qualify'):
+                runtime.setup()
+            self.assertFalse(directory.exists());self.assertFalse((self.state/'partial-install.json').exists())
+            self.assertTrue(unrelated.is_dir());self.assertTrue(other.is_dir())
+            self.assertTrue((Path(runtime.location(data)['root'])/'opt/icstudio/bin/yosys').is_file())
+        finally:
+            if worker.poll() is None:worker.kill();worker.wait(timeout=5)
+            if worker.stdout:worker.stdout.close()
 
     @unittest.skipIf(os.name=='nt','Unix executable permissions are restored inside Linux')
     def test_native_flow_restores_scripts_after_windows_transfer(self):

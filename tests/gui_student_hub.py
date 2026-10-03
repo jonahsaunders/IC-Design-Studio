@@ -34,6 +34,8 @@ def main():
     for n in ('ngspice','iverilog','vvp'):
         tool=os.environ.get('ICSTUDIO_TEST_'+n.upper()) or shutil.which(n);assert tool,'Install '+n
         w.settings.setValue('student/tools/'+n,tool)
+    # This source-run probe deliberately qualifies the installed native tools.
+    w.settings.setValue('digital/toolchain','custom')
     h=show(w);assert h.lessons.count()==6
     for key in [p['id'] for p in h.data['paths']]+['capstone']:
         h.choose_path(key);assert h.lessons.count()==sum(l['path']==key and (key!='inverter' or l['inverter_profile']==h.process_picker.currentData()) for l in h.data['lessons'])
