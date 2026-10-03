@@ -71,6 +71,21 @@ def repaired(lesson,project):
 
 
 class StudentProgressTests(unittest.TestCase):
+    def test_digital_lesson_honors_selected_included_or_custom_tools(self):
+        from icstudio import digital_flow, digital_runtime
+        project=create('counter');included={'kind':'linux','root':'/included','sha256':'fixture'}
+        with patch.object(digital_runtime,'installed',return_value=included), \
+             patch.object(digital_flow,'environment',return_value={}), \
+             patch.object(digital_flow.shutil,'which',side_effect=AssertionError('Included must not search PATH')):
+            job=prepare_lesson(project,{'iverilog':'/stale/iverilog','ngspice':'/stale/ngspice'},toolchain='included')
+        self.assertEqual(job['settings']['runtime'],included)
+        self.assertEqual(job['settings']['tools']['iverilog'],'opt/icstudio/bin/iverilog')
+        with tempfile.TemporaryDirectory() as td:
+            executable=Path(td)/'native tool';executable.write_text('fixture')
+            with patch.object(digital_runtime,'installed',side_effect=AssertionError('Custom must not use Included')):
+                job=prepare_lesson(project,{name:str(executable) for name in ('iverilog','vvp')},toolchain='custom')
+            self.assertNotIn('runtime',job['settings'])
+
     def test_frozen_app_uses_build_identity_without_loose_sources(self):
         from icstudio.student_hub import checker_stamp
         from icstudio.mixed_signal import environment

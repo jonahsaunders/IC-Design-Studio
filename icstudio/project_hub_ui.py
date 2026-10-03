@@ -1,6 +1,6 @@
 """A project hub with visible PDK versions, local setup and circuit templates."""
 from pathlib import Path
-from PySide6.QtCore import Qt,QSize,QThread
+from PySide6.QtCore import Qt,QSize,QThread,QTimer
 from PySide6.QtWidgets import (QDialog,QWidget,QVBoxLayout,QHBoxLayout,QFormLayout,
     QLabel,QLineEdit,QComboBox,QPushButton,QListWidget,QListWidgetItem,QStackedWidget,
     QDialogButtonBox,QFileDialog,QSplitter,QScrollArea)
@@ -29,21 +29,24 @@ class ProjectHub(QDialog):
     def __init__(self,window,page='new',initial_kind=None):
         super().__init__(window);self.window=window;self.worker=None;self.rows=[];self.checked={};self._filling=False
         self.setWindowTitle('Project Hub · IC Design Studio');self.setWindowModality(Qt.WindowModal)
-        self.resize(1160,790);self.setMinimumSize(960,690)
+        self.setMinimumSize(600,380)
         t=palette(window.dark)
         self.setStyleSheet(f'QListWidget#hubNav {{ background:{t["bg"]}; border:0; }} '
             f'QListWidget#hubNav::item {{ padding:13px 12px; border-radius:6px; }} '
+            f'QListWidget#hubNav[compact="true"]::item {{ padding:13px 4px; }} '
             f'QListWidget#hubPDKs::item {{ padding:13px; margin:3px; border:1px solid {t["line"]}; border-radius:8px; }} '
             f'QListWidget#hubPDKs::item:selected {{ background:{t["tint"]}; border-color:{t["accent"]}; }}')
         outer=QHBoxLayout(self);outer.setContentsMargins(0,0,0,0);outer.setSpacing(0)
-        sidebar=QWidget();sidebar.setObjectName('sidebarBody');sidebar.setFixedWidth(190);sv=QVBoxLayout(sidebar);sv.setContentsMargins(18,24,18,18)
+        sidebar=QWidget();self.sidebar=sidebar;sidebar.setObjectName('sidebarBody');sidebar.setFixedWidth(190);sv=QVBoxLayout(sidebar);sv.setContentsMargins(18,24,18,18)
         sv.addWidget(label('IC DESIGN\nSTUDIO','title'));sv.addWidget(label('Project Hub','muted'));sv.addSpacing(28)
         self.nav=QListWidget();self.nav.setObjectName('hubNav');self.nav.setAccessibleName('Hub navigation')
         for title,key,glyph in [('Projects','projects','folder'),('PDKs','pdks','chip'),('New project','new','plus')]:
             item=QListWidgetItem(icon(glyph,t['muted']),title);item.setData(Qt.UserRole,key);self.nav.addItem(item)
         sv.addWidget(self.nav,1);sv.addWidget(label('Studio '+__version__,'muted'))
-        close=QPushButton('Back to workspace');close.clicked.connect(self.reject);sv.addWidget(close);outer.addWidget(sidebar)
-        main=QWidget();mv=QVBoxLayout(main);mv.setContentsMargins(26,22,26,18);mv.setSpacing(12);outer.addWidget(main,1)
+        close=QPushButton('Back to workspace');self.back_button=close;close.clicked.connect(self.reject);sv.addWidget(close);outer.addWidget(sidebar)
+        main=QWidget();mv=QVBoxLayout(main);mv.setContentsMargins(26,22,26,18);mv.setSpacing(12)
+        self.content_scroll=QScrollArea();self.content_scroll.setWidgetResizable(True);self.content_scroll.setFrameShape(QScrollArea.NoFrame)
+        self.content_scroll.setWidget(main);outer.addWidget(self.content_scroll,1)
         heading=QHBoxLayout();self.title=label('','title');heading.addWidget(self.title,1)
         self.refresh_button=QPushButton('Refresh');self.refresh_button.clicked.connect(self.refresh);heading.addWidget(self.refresh_button);mv.addLayout(heading)
         self.caption=label('','muted');mv.addWidget(self.caption)
@@ -53,6 +56,23 @@ class ProjectHub(QDialog):
         for button in self.findChildren(QPushButton):button.setAutoDefault(False)
         self.nav.currentRowChanged.connect(self.change_page)
         self.refresh();self.show_page(page)
+        available=window.screen().availableGeometry()
+        self.resize(min(1160,available.width()),min(790,max(380,available.height()-40)))
+        self.adapt_layout()
+
+    def adapt_layout(self):
+        compact=self.width()<1000
+        if self.nav.property('compact')!=compact:
+            self.nav.setProperty('compact',compact);self.nav.style().unpolish(self.nav);self.nav.style().polish(self.nav)
+        self.sidebar.setFixedWidth(150 if compact else 190)
+        self.sidebar.layout().setContentsMargins(12 if compact else 18,18 if compact else 24,12 if compact else 18,18)
+        self.back_button.setText('Workspace' if compact else 'Back to workspace')
+
+    def resizeEvent(self,event):
+        super().resizeEvent(event)
+        if hasattr(self,'back_button'):self.adapt_layout()
+        if hasattr(self,'pdks'):
+            QTimer.singleShot(0,lambda:self.pdks.scrollToItem(self.pdks.currentItem()) if self.pdks.currentItem() else None)
 
     def make_projects(self):
         page=QWidget();v=QVBoxLayout(page);v.setContentsMargins(0,0,0,0)
@@ -241,7 +261,7 @@ class ProjectHub(QDialog):
         def done(result):
             # Candidate and PDK checks are complete before asking to save existing work.
             self.refresh();self.select_pdk(row['key'])
-            if not self.window.flush_analysis() or not self.window._replace_document():return
+            if not self.window._replace_document():return
             self.window.set_project(result['project'])
             if result['cell']:self.window.cid=result['cell'];self.window._selected_testbench=result['testbench'];self.window.refresh(True)
             self.window.settings.setValue('hub/last_pdk',row['key']);self.accept()
@@ -295,7 +315,7 @@ class ProjectHub(QDialog):
     def open_path(self,path):
         try:
             project=load_project(path)
-            if self.window.flush_analysis() and self.window._replace_document():self.window.set_project(project,path);self.accept()
+            if self.window._replace_document():self.window.set_project(project,path);self.accept()
         except (ValueError,OSError,KeyError) as exc:self.state.setText(str(exc))
 
     def reject(self):

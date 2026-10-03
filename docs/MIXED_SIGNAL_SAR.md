@@ -3,8 +3,8 @@
 Choose **Analysis → Mixed signal → New SAR ADC example**. This creates an
 independent native project with an editable analog circuit and Verilog controller.
 Choose native **ngspice**, **iverilog** and **vvp** executables in the experiment's
-**Local engines** tab, or use the discovery described below. Select **Run coupled
-simulation**. The default 0.93 V input should produce code **8** after four
+**Local engines** tab, or use the discovery described below. Choose **Check local
+engines**, then select **Run coupled simulation**. The default 0.93 V input should produce code **8** after four
 comparator decisions. Saved jobs retain the circuit, RTL, bridge configuration,
 engine/source identities, waveforms and the complete decision history.
 
@@ -28,7 +28,10 @@ Blank `iverilog` and `vvp` fields search PATH. A blank ngspice field uses Studio
 native discovery, including `ICSTUDIO_NGSPICE`, its bundled ngspice and installed
 locations/PATH. The full digital runtime's Ready state does not satisfy this
 bridge's engine requirements. See [simulation setup](../SIMULATION_SETUP.md)
-for native ngspice configuration. No engine download is triggered by this panel.
+for native ngspice configuration. **Check local engines** reports all missing
+prerequisites together; a run with missing engines opens this tab. **Local engine
+installation guide** opens these instructions. Paths copied with surrounding
+quotes are accepted. No engine download is triggered by this panel.
 
 ## Architecture and design targets
 

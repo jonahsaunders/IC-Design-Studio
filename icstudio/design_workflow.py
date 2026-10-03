@@ -1,9 +1,10 @@
 """A shared, automatically refreshed circuit workflow for both editors."""
 from concurrent.futures import ThreadPoolExecutor
-from PySide6.QtCore import Qt, QTimer
+from PySide6.QtCore import Qt, QTimer, QEvent, QRect
 from PySide6.QtGui import QShortcut, QKeySequence
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton,
-    QComboBox, QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView, QTabWidget)
+from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QFormLayout, QLabel, QPushButton,
+    QComboBox, QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView, QTabWidget,
+    QSizePolicy)
 from .model import clone
 
 
@@ -30,17 +31,22 @@ class DesignWorkflow(QWidget):
         self.executor=ThreadPoolExecutor(max_workers=1,thread_name_prefix='studio-workflow')
         self.stopped=False;self.finding_rows=[]
         root=QVBoxLayout(self);self.note=QLabel();self.note.setWordWrap(True);root.addWidget(self.note)
-        row=QHBoxLayout();row.addWidget(QLabel('Saved testbench'))
-        self.testbench=QComboBox();self.testbench.setAccessibleName('Workflow testbench');row.addWidget(self.testbench,1)
-        self.corner=QLabel();row.addWidget(self.corner);root.addLayout(row)
+        context=QFormLayout();context.setRowWrapPolicy(QFormLayout.WrapLongRows);context.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
+        self.testbench=QComboBox();self.testbench.setAccessibleName('Workflow testbench');context.addRow('Saved testbench',self.testbench)
         self.testbench.currentIndexChanged.connect(self.choose_testbench)
-        plan_row=QHBoxLayout();plan_row.addWidget(QLabel('Verification plan'))
-        self.plan=QComboBox();self.plan.setAccessibleName('Workflow verification plan');plan_row.addWidget(self.plan,1);root.addLayout(plan_row)
+        self.plan=QComboBox();self.plan.setAccessibleName('Workflow verification plan');context.addRow('Verification plan',self.plan);root.addLayout(context)
+        for choice in (self.testbench,self.plan):
+            choice.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon);choice.setMinimumContentsLength(16)
+            choice.currentTextChanged.connect(choice.setToolTip)
         self.plan.currentIndexChanged.connect(self.refresh)
+        self.corner=QLabel();self.corner.setWordWrap(True);root.addWidget(self.corner);self.corner.hide()
         self.next_action=QPushButton('Checking design…');self.next_action.setProperty('role','primary');root.addWidget(self.next_action)
         self.next_action.clicked.connect(lambda:self.call(self.next_fn))
         self.summary=QLabel();self.summary.setWordWrap(True);self.summary.setAccessibleName('Design progress');root.addWidget(self.summary)
+        for text in (self.note,self.summary):text.setSizePolicy(QSizePolicy.Expanding,QSizePolicy.Fixed)
+        self.section_picker=QComboBox();self.section_picker.setAccessibleName('Workflow section');root.addWidget(self.section_picker);self.section_picker.hide()
         self.tabs=QTabWidget();self.tabs.setMinimumHeight(170);root.addWidget(self.tabs,1)
+        self.tabs.tabBar().setElideMode(Qt.ElideNone);self.tabs.tabBar().setExpanding(False)
         self.steps=QTableWidget(6,3);self.steps.setHorizontalHeaderLabels(['Step','Current state','Action'])
         self.steps.setAccessibleName('Design workflow steps');self.steps.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.steps.horizontalHeader().setStretchLastSection(False)
@@ -59,12 +65,43 @@ class DesignWorkflow(QWidget):
         from PySide6.QtWidgets import QTextBrowser
         self.reference=QTextBrowser();self.reference.setAccessibleName('Archived reference qualification')
         self.tabs.addTab(self.reference,'Reference evidence')
-        row=QHBoxLayout()
-        for title,fn in [('Go to finding',self.go_to_finding),('Place missing devices',lambda:self.circuit_action(studio.place_schematic_in_layout)),('Verification results',studio.open_silicon)]:
-            button=QPushButton(title);button.clicked.connect(lambda _=False,fn=fn:self.call(fn));row.addWidget(button)
-        root.addLayout(row)
+        for index in range(self.tabs.count()):self.section_picker.addItem(self.tabs.tabText(index))
+        self.section_picker.currentIndexChanged.connect(self.tabs.setCurrentIndex)
+        self.tabs.currentChanged.connect(self.section_picker.setCurrentIndex)
+        from .analog_widgets import actions
+        self.action_host=QWidget();action_layout=QVBoxLayout(self.action_host);action_layout.setContentsMargins(0,0,0,0)
+        self.finding_actions=actions(action_layout,[('Go to finding',self.go_to_finding),('Place missing devices',lambda:self.circuit_action(studio.place_schematic_in_layout)),('Verification results',studio.open_silicon)],self.call)
+        self.action_flow=action_layout.itemAt(0).layout();root.addWidget(self.action_host)
         self.timer=QTimer(self);self.timer.setInterval(250);self.timer.timeout.connect(self.mark_changed);self.timer.start()
         self.refresh()
+
+    def reflow(self):
+        """Keep complete status text and section names on a narrow scaled screen."""
+        if not hasattr(self,'section_picker') or not hasattr(self,'tabs'):return
+        margins=self.layout().contentsMargins();width=max(1,self.width()-margins.left()-margins.right())
+        for text in (self.note,self.summary):
+            # QLabel.heightForWidth includes its current minimum height. Measure
+            # the text directly so widening a dock can shrink an earlier wrap.
+            metrics=text.fontMetrics();height=max(metrics.height(),metrics.boundingRect(QRect(0,0,width,16777215),Qt.TextWordWrap,text.text()).height())
+            if text.minimumHeight()!=height or text.maximumHeight()!=height:text.setFixedHeight(height)
+        if hasattr(self,'action_flow'):
+            height=self.action_flow.heightForWidth(width)
+            if self.action_host.height()!=height:self.action_host.setFixedHeight(height)
+        compact=self.tabs.tabBar().sizeHint().width()>width
+        self.tabs.tabBar().setVisible(not compact);self.section_picker.setVisible(compact)
+        # The dock's scroll area can grow the content vertically. Reserve the
+        # complete wrapped form and action rows instead of compressing labels
+        # or drawing the actions over the findings table.
+        height=self.layout().totalHeightForWidth(self.width())
+        if height>0 and self.minimumHeight()!=height:self.setMinimumHeight(height)
+
+    def resizeEvent(self,event):
+        super().resizeEvent(event);self.reflow()
+
+    def event(self,event):
+        result=super().event(event)
+        if event.type() in (QEvent.FontChange,QEvent.StyleChange,QEvent.LayoutRequest):self.reflow()
+        return result
 
     def stop(self, *_):
         if not self.stopped:
@@ -123,9 +160,11 @@ class DesignWorkflow(QWidget):
         self.testbench.blockSignals(True);self.testbench.clear();self.testbench.addItem('Choose a testbench…' if benches else 'No saved testbench for this cell',None)
         for t in benches:self.testbench.addItem(t['name'],t['id'])
         self.testbench.setCurrentIndex(max(0,self.testbench.findData(selected)));self.testbench.blockSignals(False)
+        self.testbench.setToolTip(self.testbench.currentText())
         if self.bench:self.preferred[(p['id'],self.cid)]=selected
         settings=self.bench.get('analysis',{}) if self.bench else {}
         self.corner.setText(('Corner: '+str(settings.get('corner','nominal'))+' · '+str(settings.get('temperature',27))+' °C') if self.bench else '')
+        self.corner.setVisible(bool(self.bench))
         selected_plan=self.plan.currentData();self.plan.blockSignals(True);self.plan.clear()
         plans=[plan for plan in p.get('test_plans',[]) if self.bench and any(
             e.get('settings',{}).get('testbench')==self.bench['id'] or e.get('cell') in (self.bench['dut_cell'],self.bench['bench_cell'])
@@ -134,6 +173,7 @@ class DesignWorkflow(QWidget):
         for plan in plans:self.plan.addItem(plan['name'],plan['id'])
         index=self.plan.findData(selected_plan)
         self.plan.setCurrentIndex(index if index>0 else 1 if len(plans)==1 else 0);self.plan.blockSignals(False)
+        self.plan.setToolTip(self.plan.currentText())
 
     def inspect_evidence(self,status):
         row=next((r for r in self.studio.run_manager.rows if r['id']==status.get('run_id')),None)
@@ -213,6 +253,7 @@ class DesignWorkflow(QWidget):
                 item=QTableWidgetItem(text);item.setToolTip(text);self.finding_table.setItem(i,col,item)
         if self.finding_rows:self.finding_table.selectRow(max(0,min(selected,len(self.finding_rows)-1)))
         self.tabs.setTabText(1,f'Findings ({len(self.finding_rows)})')
+        self.section_picker.setItemText(1,self.tabs.tabText(1))
         current_hash=data.get('inventory',{}).get('design_hash')
         from .workflow_status import bench_status,plan_status,state
         unknown_state=state('Running','Checking current design') if pending else state('Blocked',error) if error else None
@@ -264,6 +305,7 @@ class DesignWorkflow(QWidget):
             for col,v in enumerate([m['name'],m['before'],m['after'],m['delta'],m['unit']]):
                 self.values.setItem(row,col,QTableWidgetItem(f'{v:.6g}' if isinstance(v,(int,float)) else str(v)))
         self.note.setText(cell['name']+' · revision '+str(p['revision'])+'. '+(error or 'Checks update automatically after edits and completed jobs. ')+('Comparison belongs to an older design.' if stale and not pending else ''))
+        self.reflow()
 
 
 def install(studio):

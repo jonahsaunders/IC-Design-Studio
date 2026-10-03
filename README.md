@@ -85,12 +85,12 @@ Python requirements do not install the digital engines, VGA assets or openEMS ru
 | First waveform, teaching circuits, Foundations and Analog lessons | Included teaching solver and generic devices; no downloaded PDK |
 | Native SPICE and process-model analog design | ngspice; included SKY130/GF180 simulation subsets or compatible external models |
 | Digital simulation through RTL-to-GDS | Included digital runtime and locked SKY130 HD platform in complete desktop packages; a built runtime or explicit **Custom tools** selection in source mode |
-| Student Hub Digital lessons | Local `iverilog` and `vvp`, selected in **More → Engine setup** |
+| Student Hub Digital lessons | The selected **Included tools** or **Custom tools** digital toolchain; guided first-run setup |
 | SAR ADC, Mixed Signal lessons and capstone | Local `ngspice`, `iverilog` and `vvp`; behavioral models, no downloaded PDK |
 | Process layout verification | Matching physical PDK assets/decks; **Tools → Physical tools setup** selects the included Magic/Netgen/ngspice runtime or configured custom engines |
 | Inductor EM simulation | openEMS runtime plus declared physical materials and layer data in a PDK profile |
 
-The packaged digital runtime uses native Linux tools or an app-owned **WSL 2** distribution on Windows. First-time Windows setup may need administrator approval and a restart. Linux packages target **x86_64, glibc 2.39+**. The Student Hub uses that runtime for inverter DRC/LVS and IHP simulation, including compiled OSDI models. Other Hub electrical/RTL lessons and the SAR bridge use local executable paths.
+The packaged digital runtime uses native Linux tools or an app-owned **WSL 2** distribution on Windows. First-time Windows setup may need administrator approval and a restart. Linux packages target **x86_64, glibc 2.39+**. The Student Hub uses that runtime for inverter DRC/LVS and IHP simulation, including compiled OSDI models. Digital lessons use the selected digital toolchain. Mixed Signal lessons, the capstone and the SAR bridge require native local executable paths.
 
 [Desktop setup](docs/DOWNLOADS.md) · [PDK setup](docs/PDK_GUIDE.md) · [Engine details](docs/DIGITAL_FLOW.md#included-tools-and-first-setup)
 
@@ -211,7 +211,7 @@ The **Student Hub** turns the native editors into a course: **41 core lessons, s
 
 **Capstone:** repair an RC input filter, four-bit SAR and four-sample averager, then verify the threshold alarm across four system cases. The nominal repaired system produces averaged codes **4 and 11**, with alarm outputs **0 then 1**. [Lesson guide in action](docs/images/student-lesson.png) · [Capstone overview](docs/images/student-capstone.png).
 
-Foundations and Analog use generic teaching models. Digital uses local Icarus; Mixed Signal and the capstone also use local ngspice. Reflections are recorded for review, not automatically graded for correctness. [Full course, prerequisites and engine setup](docs/STUDENT_HUB.md).
+Foundations and Analog use generic teaching models. Digital uses Icarus through the selected Included or Custom toolchain; Mixed Signal and the capstone require native local ngspice and Icarus. Reflections are recorded for review, not automatically graded for correctness. [Full course, prerequisites and engine setup](docs/STUDENT_HUB.md).
 
 ### Design and optimize analog circuits
 

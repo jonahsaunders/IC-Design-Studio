@@ -93,8 +93,12 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
         self.history.commit(fn,label)
         self.queue_recovery()
         self.refresh()
-    def undo(self):self.history.undo();self.persist_history()
-    def redo(self):self.history.redo();self.persist_history()
+    def undo(self):
+        if not self.flush_inspector():return
+        self.history.undo();self.persist_history()
+    def redo(self):
+        if not self.flush_inspector():return
+        self.history.redo();self.persist_history()
     def persist_history(self):
         geometry=getattr(self.history,'plain_geometry_change',None)
         if (isinstance(self.history,History) and geometry and geometry['cell']==self.cid
@@ -492,8 +496,10 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
             if not (self.layout if self.current_mode=='layout' else self.schematic).grab().save(path):raise ValueError('Could not write image.')
     def engine_dialog(self):
         from .engines import diagnostics
+        from .digital_tools import normalize_executable
         config={n:self.settings.value('engine/'+n,'') for n in ('ngspice','klayout','magic','netgen')};ds=diagnostics(config);vals=self.simple_form('Engine diagnostics & paths',{d['name']:d['path'] for d in ds},'KLayout geometry is bundled. These optional paths select custom tools. Physical verification uses the included runtime when Magic and Netgen paths are empty. Physical tools setup selects included or custom tools; an explicit Included selection overrides these saved custom paths.')
         if vals:
+            vals={key:normalize_executable(path) for key,path in vals.items()}
             for key,path in vals.items():
                 if path and not Path(path).is_file():raise ValueError(f'{key}: executable path does not exist.')
             for key,path in vals.items():self.settings.setValue('engine/'+key,path)

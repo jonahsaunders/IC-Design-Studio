@@ -136,6 +136,12 @@ class DigitalSetupDialog(QDialog):
     def process_finished(self, code, *_):
         if not self.process: return
         self.read(); self.process.deleteLater(); self.process=None
+        if code!=0 or self.cancel_requested:
+            try:
+                if not digital_runtime.cleanup_partial_install():
+                    self.log.appendPlainText('Unrecognized partial setup files were retained for safety.')
+            except (OSError,ValueError) as exc:
+                self.log.appendPlainText('Partial setup cleanup was deferred. Retry setup to reclaim it. '+str(exc))
         if self.cancel_requested:
             self.cancel_pending()
             self.log.appendPlainText('Setup cancelled. The queued run was not started.')
@@ -205,6 +211,7 @@ def show(studio, automatic=False, custom=None):
 
 
 def configure_custom_tools(studio, parent=None):
+    from .digital_tools import normalize_executable
     dialog=QDialog(parent or studio); dialog.setWindowTitle('Custom digital tools')
     layout=QVBoxLayout(dialog)
     note=QLabel('Use your own installed tools. Empty paths are discovered on PATH. '
@@ -217,7 +224,7 @@ def configure_custom_tools(studio, parent=None):
     buttons=QDialogButtonBox(QDialogButtonBox.Save|QDialogButtonBox.Cancel); layout.addWidget(buttons)
     buttons.accepted.connect(dialog.accept); buttons.rejected.connect(dialog.reject)
     if dialog.exec():
-        for name,edit in edits.items(): studio.settings.setValue('engine/'+name,edit.text().strip())
+        for name,edit in edits.items(): studio.settings.setValue('engine/'+name,normalize_executable(edit.text()))
         studio.settings.setValue('digital/toolchain','custom')
 
 
@@ -267,6 +274,50 @@ def ensure(window, continuation, description='your run'):
         dialog.pending=None; dialog.pending_cancelled=None; dialog.next_action.clear()
     dialog.refresh()
     window.message.setText('Preparing the included digital tools. Your run will continue after setup.' if info['state']=='setup' else info['message'])
+    if info['state']=='setup': dialog.setup()
+    return False
+
+
+def ensure_lesson(guide, continuation):
+    """Continue an unchanged digital lesson after Included tools are ready."""
+    from .digital_tools import selection
+    from .model import clone, digest
+    from .student_hub_ui import feedback
+    studio=guide.studio
+    if selection(studio.settings)['toolchain']=='custom' or digital_runtime.status()['state']=='ready':
+        return True
+    project=clone(studio.project); lesson_id=guide.lesson['id']
+    def current():
+        from shiboken6 import isValid
+        return (isValid(studio) and isValid(guide) and studio.isVisible()
+                and studio.project['id']==project['id'] and guide.lesson
+                and guide.lesson['id']==lesson_id)
+    def cancelled():
+        if current(): feedback(guide.feedback,'Digital setup cancelled. The lesson was not run. Click Run lesson when you are ready.')
+    def resume():
+        if not current(): return
+        expected=clone(project)
+        digital_runtime.defaults(expected)
+        # Setup may add the included platform through a normal project commit.
+        # Any other design change, including unapplied fields, needs a new Run.
+        identity=lambda p:digest({k:v for k,v in p.items() if k not in ('revision','modified')})
+        window=getattr(studio,'_digital_window',None)
+        if (getattr(studio,'_inspector_dirty',False) or window and window.dirty
+                or selection(studio.settings)['toolchain']!='included'
+                or identity(studio.project) not in (identity(project),identity(expected))):
+            feedback(guide.feedback,'Digital tools are ready. Your lesson changed during setup; click Run lesson when you are ready.')
+            return
+        guide.call(continuation)
+    dialog=show(studio)
+    info=digital_runtime.status()
+    if info['state']!='unavailable' and info.get('reason')!='package_missing':
+        dialog.cancel_pending()
+        dialog.pending=resume; dialog.pending_cancelled=cancelled
+        dialog.next_action.setText('After setup, Studio will continue this lesson run.')
+        feedback(guide.feedback,'Preparing the included digital tools. This lesson will run after setup.')
+    else:
+        feedback(guide.feedback,info['message'],True)
+    dialog.refresh()
     if info['state']=='setup': dialog.setup()
     return False
 

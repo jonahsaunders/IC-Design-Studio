@@ -9,7 +9,7 @@ from PySide6.QtWidgets import (QApplication, QWidget, QVBoxLayout, QHBoxLayout, 
     QTreeWidget, QTreeWidgetItem, QListWidget, QListWidgetItem, QTabWidget, QTabBar,
     QScrollArea, QLineEdit, QPlainTextEdit, QTableWidget, QTableWidgetItem,
     QAbstractItemView, QHeaderView, QProgressBar, QCheckBox, QMenu, QDialog,
-    QDialogButtonBox, QSizePolicy, QButtonGroup, QStackedWidget, QDoubleSpinBox)
+    QDialogButtonBox, QMessageBox, QSizePolicy, QButtonGroup, QStackedWidget, QDoubleSpinBox)
 from .model import clone, device, uid, digest, design_digest, scalar, validate, flatten, History
 from .canvas import Canvas
 from .plot import WavePlot, COLORS
@@ -64,10 +64,10 @@ class WorkspaceMixin:
     def __init__(self,*args,**kwargs):
         self._icons=[];self._commands=[];self._sections={};self._inspector_dirty=False;self._building_inspector=False;self._view_state={};self._active_view_key=None;self._focus_panels=None;self._selection_guard=False;self._job_state='idle'
         super().__init__(*args,**kwargs)
-        self.setMinimumSize(1000,680);self.resize(1440,900)
+        from .window_geometry import initialize_workspace_geometry, keep_visible
+        initialize_workspace_geometry(self)
         geometry=self.settings.value('workspace/v2/geometry')
         if geometry:self.restoreGeometry(geometry)
-        from .window_geometry import keep_visible
         keep_visible(self)
         QApplication.instance().screenRemoved.connect(self.recover_window_geometry)
         state=self.settings.value('workspace/v2/state')
@@ -610,16 +610,23 @@ class WorkspaceMixin:
         return super().save(as_new)
     def maybe_save(self):
         if not self.flush_inspector():return False
-        if not self.flush_analysis():return False
+        if not self.flush_analysis(allow_discard=True):return False
         return super().maybe_save()
-    def flush_analysis(self):
+    def flush_analysis(self,allow_discard=False):
         if not getattr(self,'analysis_dirty',False):return True
         try:
             settings=self.current_analysis_settings();self.analysis_dirty=False
             if settings!=self.project['analysis']:self.commit(lambda p:p.update(analysis=settings),'Analysis settings')
             return True
         except (ValueError,KeyError) as exc:
-            self.analysis_error.setText(str(exc));self.analysis_error.show();self.run_dialog();return False
+            self.analysis_error.setText(str(exc));self.analysis_error.show();self.run_dialog()
+            if allow_discard:
+                choice=QMessageBox.question(self,'Invalid analysis settings',
+                    'These analysis settings cannot be saved:\n'+str(exc)+'\n\nDiscard the analysis settings edits and continue?',
+                    QMessageBox.Discard|QMessageBox.Cancel,QMessageBox.Cancel)
+                if choice==QMessageBox.Discard:
+                    self.load_analysis();self.analysis_error.hide();return True
+            return False
     def commit(self,fn,label='Edit'):
         if not self.flush_inspector():return
         return super().commit(fn,label)

@@ -185,7 +185,12 @@ class StudentHub(QWidget):
                                    ('\n'+ '\n'.join(self.pdk_errors) if self.pdk_errors else ''))
         self.lessons.blockSignals(True);self.lessons.clear()
         available=[l for l in self.data['lessons'] if not l.get('inverter_profile') or self.inverter_profiles[l['inverter_profile']]['ready']]
-        self.total.setText(f'{sum(complete(state,l) for l in available)} of {len(available)} available lessons complete · {len(self.data["paths"])} paths and an advanced project')
+        selected_available=[l for l in available if not l.get('inverter_profile') or l['inverter_profile']==self.process_picker.currentData()]
+        summary=f'{sum(complete(state,l) for l in selected_available)} of {len(selected_available)} lessons complete · selected inverter PDK'
+        if len(available)!=len(selected_available):
+            summary+=f'\n{sum(complete(state,l) for l in available)} of {len(available)} across all available PDK revisions'
+        self.total.setText(summary)
+        self.total.setToolTip('The learning-path counts use the selected inverter PDK. Inverter progress is separate for each revision; the overall count includes every available revision.')
         self.path_list.blockSignals(True);self.path_picker.blockSignals(True)
         for i in range(self.path_list.count()):
             item=self.path_list.item(i);path_key=item.data(Qt.UserRole)
@@ -321,23 +326,52 @@ class StudentHub(QWidget):
         return 'local' if dialog.clickedButton() is keep else 'saved' if dialog.clickedButton() is load else None
 
     def tools(self):
-        return {n:self.studio.settings.value('student/tools/'+n,self.studio.settings.value('mixed_signal/'+n,self.studio.settings.value('engine/'+n,''))) for n in ('ngspice','iverilog','vvp','magic','netgen')}
+        from .digital_tools import normalize_executable
+        return {n:normalize_executable(self.studio.settings.value('student/tools/'+n,self.studio.settings.value('mixed_signal/'+n,self.studio.settings.value('engine/'+n,'')))) for n in ('ngspice','iverilog','vvp','magic','netgen')}
 
-    def setup(self):
+    def digital_selection(self):
+        from .digital_tools import selection
+        selected=selection(self.studio.settings)
+        if selected['toolchain']=='custom':
+            selected['tools'].update({n:v for n,v in self.tools().items() if n in ('iverilog','vvp') and v})
+        return selected
+
+    def setup(self, missing=()):
+        from .digital_tools import normalize_executable
+        old=getattr(self,'_engine_setup_dialog',None)
+        if old and old.isVisible():
+            old.raise_()
+            if missing: old.paths[missing[0]].setFocus()
+            return old
         dialog=QDialog(self);dialog.setWindowTitle('Student simulation engines');v=QVBoxLayout(dialog)
-        v.addWidget(label('Foundations and Analog use the included teaching solver. Digital requires local Icarus (iverilog and vvp). Mixed Signal and the advanced project also require local ngspice.'))
+        v.addWidget(label('Foundations and Analog use the included teaching solver. Digital lessons use the Included or Custom selection in Digital tools. Mixed Signal and the advanced project require native local ngspice and Icarus (iverilog and vvp).'))
+        from .digital_setup_ui import show as digital_setup
+        v.addWidget(button('Digital tools setup…',lambda:digital_setup(self.studio)))
         v.addWidget(label('Choose native local executables for simulation, or leave them blank to search PATH. IHP lessons automatically use the included simulator and compiled models. Leave Magic and Netgen blank to use the included physical tools. Prepare them with Set up physical tools in the Hub. Custom paths must point to native executables.'))
         form=QFormLayout();v.addLayout(form);edits={}
         for name,value in self.tools().items():
-            row=QHBoxLayout();edit=QLineEdit(value);edit.setPlaceholderText(name+' on PATH');edit.setAccessibleName(name+' executable');row.addWidget(edit);button=QPushButton('Browse…');button.setAccessibleName('Browse for '+name+' executable');button.setAutoDefault(False);row.addWidget(button)
+            row=QHBoxLayout();edit=QLineEdit(value);edit.setPlaceholderText(name+' on PATH');edit.setAccessibleName(name+' executable');row.addWidget(edit);browse_button=QPushButton('Browse…');browse_button.setAccessibleName('Browse for '+name+' executable');browse_button.setAutoDefault(False);row.addWidget(browse_button)
             def browse(_=False,edit=edit,name=name):
                 path,_=QFileDialog.getOpenFileName(dialog,'Select '+name)
                 if path:edit.setText(path)
-            button.clicked.connect(browse);form.addRow(name,row);edits[name]=edit
+            browse_button.clicked.connect(browse);form.addRow(name,row);edits[name]=edit
+        native_status=label();native_status.setAccessibleName('Student native engine prerequisite status');v.addWidget(native_status)
+        def check_native():
+            from .mixed_signal import resolve_tools, NativeEngineSetupError
+            try:resolve_tools({name:edit.text() for name,edit in edits.items()},'Student Hub → Engine setup')
+            except NativeEngineSetupError as exc:native_status.setText(str(exc));return False
+            native_status.setText('Native mixed-signal executables found. Run a lesson to check their behavior.');return True
+        v.addWidget(button('Check native mixed-signal engines',check_native))
+        v.addWidget(button('Native engine installation guide',lambda:self.studio.open_editor_doc('MIXED_SIGNAL_SAR.md')))
         buttons=QDialogButtonBox(QDialogButtonBox.Save|QDialogButtonBox.Cancel);v.addWidget(buttons)
-        buttons.accepted.connect(dialog.accept);buttons.rejected.connect(dialog.reject)
-        if dialog.exec()==QDialog.Accepted:
-            for name,edit in edits.items():self.studio.settings.setValue('student/tools/'+name,edit.text().strip())
+        def save():
+            for name,edit in edits.items():self.studio.settings.setValue('student/tools/'+name,normalize_executable(edit.text()))
+            dialog.accept()
+        buttons.accepted.connect(save);buttons.rejected.connect(dialog.reject)
+        dialog.paths=edits;dialog.native_status=native_status;dialog.check_native=check_native
+        self._engine_setup_dialog=dialog;check_native();dialog.show()
+        if missing:edits[missing[0]].setFocus()
+        return dialog
 
     def export(self,report=False):
         self.guide.save_note()
@@ -565,12 +599,27 @@ class LessonGuide(QDockWidget):
         if self.lesson.get('inverter_profile'):
             from .student_inverter import prepare
             job=prepare(s.project,self.lesson,self.hub.tools())
-        else:job=prepare_lesson(s.project,self.hub.tools())
+        else:
+            from .digital_design import config
+            from .mixed_signal import NativeEngineSetupError
+            if not s.project.get('mixed_signal') and config(s.project,s.project['top']):
+                from .digital_setup_ui import ensure_lesson
+                if not ensure_lesson(self,self.run):return
+                selected=self.hub.digital_selection()
+                job=prepare_lesson(s.project,selected['tools'],toolchain=selected['toolchain'])
+            else:
+                try:job=prepare_lesson(s.project,self.hub.tools())
+                except NativeEngineSetupError as exc:
+                    self.hub.setup(exc.missing);feedback(self.feedback,str(exc),True);return
         job['student_lesson']=self.lesson['id'];s.run_manager.enqueue(job,s.jobs_dir,'Student · '+self.lesson['title'])
         feedback(self.feedback,'Lesson run queued. Checks apply to the captured design; edits require a new run.')
 
     def qualification(self):
-        self.flush();self.require_idle();jobs=campaign_jobs(self.studio.project,self.hub.tools())
+        from .mixed_signal import NativeEngineSetupError
+        self.flush();self.require_idle()
+        try:jobs=campaign_jobs(self.studio.project,self.hub.tools())
+        except NativeEngineSetupError as exc:
+            self.hub.setup(exc.missing);feedback(self.feedback,str(exc),True);return
         for job in jobs:job['student_lesson']=self.lesson['id']
         self.studio.run_manager.enqueue_many(jobs,self.studio.jobs_dir,['Student qualification · '+j['student_campaign']['case'] for j in jobs])
         feedback(self.feedback,'Four acceptance cases queued. Check the qualification step after all finish.')

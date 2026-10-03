@@ -7,6 +7,7 @@ library/VPI dependency. It is not an asynchronous Verilog-AMS solver.
 """
 import json
 import math
+import os
 import re
 import shutil
 import sys
@@ -131,19 +132,43 @@ def environment(job):
                 sources=sources)
 
 
-def prepare(project, tools=None):
-    from .model import validate
+class NativeEngineSetupError(ValueError):
+    """Missing native executables, with a route to this workflow's setup UI."""
+    def __init__(self, missing, setup_panel='Mixed-signal experiment → Local engines'):
+        self.missing = tuple(missing)
+        installation = ('Install native Windows ngspice and Icarus Verilog; select ngspice.exe, '
+                        'iverilog.exe and vvp.exe from those installations.' if os.name == 'nt' else
+                        'On Ubuntu, install them with sudo apt install ngspice iverilog. '
+                        'On other systems, install native ngspice and Icarus Verilog.')
+        super().__init__('Native mixed-signal engines missing: '+', '.join(missing)+'. '
+                         'Open '+setup_panel+' and select the executables, or leave fields blank to search PATH. '
+                         +installation+' Included digital tools use a separate environment and do not supply '
+                         'native executables for this experiment.')
+
+
+def resolve_tools(tools=None, setup_panel='Mixed-signal experiment → Local engines'):
+    """Find native bridge engines; never substitute the managed digital backend."""
     from .spice_program import find_ngspice
+    from .digital_tools import normalize_executable
+    resolved = {}; missing = []
+    for name in ('ngspice', 'iverilog', 'vvp'):
+        candidate = normalize_executable((tools or {}).get(name)) or (find_ngspice() if name == 'ngspice' else shutil.which(name))
+        path = Path(shutil.which(str(candidate)) or str(candidate)).resolve() if candidate else None
+        if path is None or not path.is_file():
+            missing.append(name)
+        else:
+            resolved[name] = str(path)
+    if missing:
+        raise NativeEngineSetupError(missing, setup_panel)
+    return resolved
+
+
+def prepare(project, tools=None, setup_panel='Mixed-signal experiment → Local engines'):
+    from .model import validate
     p = clone(project); validate(p)
     if 'mixed_signal' not in p:
         raise ValueError('Open a project with a saved mixed-signal configuration.')
-    resolved = {}
-    for name in ('ngspice', 'iverilog', 'vvp'):
-        candidate = (tools or {}).get(name) or (find_ngspice() if name == 'ngspice' else shutil.which(name))
-        path = Path(shutil.which(str(candidate)) or str(candidate)).resolve() if candidate else None
-        if path is None or not path.is_file():
-            raise ValueError('Mixed-signal simulation requires a local '+name+' executable. Select it in Mixed-signal setup.')
-        resolved[name] = str(path)
+    resolved = resolve_tools(tools, setup_panel)
     job = dict(project=p, cell=p['mixed_signal']['analog_cell'], engine='mixed_signal',
                settings=dict(type='mixed_signal', tools=resolved))
     job['environment'] = environment(job)

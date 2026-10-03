@@ -15,6 +15,7 @@ import subprocess
 import sys
 import tarfile
 import uuid
+from contextlib import contextmanager
 
 from .model import atomic_write, clone, digest, file_digest, now
 
@@ -166,22 +167,90 @@ def extract(archive, destination):
             source.extract(member, destination, filter='data')
 
 
-def setup(progress=lambda message: None):
-    data = manifest()
-    if not data: raise ValueError('The digital runtime payload is missing. Install a complete Studio release or build the payload with scripts/build_digital_runtime.py.')
-    runtime = location(data); state = state_root(); state.mkdir(parents=True,exist_ok=True)
+@contextmanager
+def setup_lock(state):
+    """Serialize setup and post-crash cleanup across Studio processes."""
+    state = Path(state); state.mkdir(parents=True,exist_ok=True)
     lock = state/'setup.lock'
     # OS lock is released after a crash, unlike an exclusive sentinel file.
     with lock.open('a+b') as handle:
         if os.name == 'nt':
             import msvcrt
-            handle.seek(0); handle.write(b'0'); handle.flush(); handle.seek(0)
+            # Do not write into a byte another process already locked.
+            if handle.seek(0,os.SEEK_END)==0:
+                handle.write(b'0');handle.flush()
+            handle.seek(0)
             try: msvcrt.locking(handle.fileno(),msvcrt.LK_NBLCK,1)
             except OSError as exc: raise ValueError('Digital setup is already running in another Studio window.') from exc
         else:
             import fcntl
             try: fcntl.flock(handle,fcntl.LOCK_EX|fcntl.LOCK_NB)
             except OSError as exc: raise ValueError('Digital setup is already running in another Studio window.') from exc
+        yield
+
+
+def _cleanup_partial_install(state):
+    """Remove only a journaled, owned unpack directory while holding the lock."""
+    journal=state/'partial-install.json'
+    if not journal.exists():return True
+    if journal.is_symlink():return False
+    try:
+        record=json.loads(journal.read_text())
+        sha=record['sha256']; relative=record['directory']
+        if (record.get('schema')!=1 or record.get('kind')!='linux'
+                or not isinstance(sha,str) or not re.fullmatch('[0-9a-f]{64}',sha)
+                or not isinstance(relative,str)
+                or not re.fullmatch('runtimes/'+sha+r'\.install-[0-9a-f]{32}',relative)):
+            return False
+        directory=state/relative
+        if (directory.is_symlink() or directory.parent.is_symlink()
+                or not directory.resolve().is_relative_to(state.resolve())):
+            return False
+        if directory.exists():
+            if not directory.is_dir():return False
+            shutil.rmtree(directory)
+        journal.unlink(missing_ok=True)
+        return True
+    except (ValueError,KeyError,TypeError):
+        return False
+
+
+def cleanup_partial_install():
+    """Reclaim cancelled unpacking after its worker has exited.
+
+    Reacquiring the same OS lock prevents a finished dialog from deleting a
+    newer window's active installation. Unknown directories are retained.
+    """
+    state=state_root()
+    with setup_lock(state):return _cleanup_partial_install(state)
+
+
+def _cleanup_legacy_installs(state, sha):
+    """Recover pre-journal unpacking for this verified package only.
+
+    The checksum/UUID directory convention is Studio's reserved namespace in
+    its private runtime root. Different packages and other names are retained.
+    This helper is called only under setup_lock after archive verification.
+    """
+    root=state/'runtimes'
+    if (not re.fullmatch('[0-9a-f]{64}',sha) or not root.is_dir() or root.is_symlink()
+            or not root.resolve().is_relative_to(state.resolve())):
+        return 0
+    count=0
+    for directory in root.iterdir():
+        if (re.fullmatch(re.escape(sha)+r'\.install-[0-9a-f]{32}',directory.name)
+                and directory.is_dir() and not directory.is_symlink()):
+            shutil.rmtree(directory);count+=1
+    return count
+
+
+def setup(progress=lambda message: None):
+    data = manifest()
+    if not data: raise ValueError('The digital runtime payload is missing. Install a complete Studio release or build the payload with scripts/build_digital_runtime.py.')
+    runtime = location(data); state = state_root()
+    with setup_lock(state):
+        if not _cleanup_partial_install(state):
+            progress('An unrecognized partial setup directory was retained for safety.')
         ready = state/('ready-'+data['sha256']+'.json')
         ready.unlink(missing_ok=True)
         progress('Verifying the included digital package…')
@@ -206,6 +275,8 @@ def setup(progress=lambda message: None):
             libc, version = host_platform.libc_ver()
             if libc != 'glibc' or tuple(int(v) for v in version.split('.')[:2]) < (2,39):
                 raise ValueError('The included native Linux runtime requires glibc 2.39 or newer (Ubuntu 24.04 baseline).')
+            if _cleanup_legacy_installs(state,data['sha256']):
+                progress('Removed interrupted unpacking from this package. Restarting setup…')
             target = Path(runtime['root'])
             if target.is_dir():
                 try: identity(runtime,full=True)
@@ -216,9 +287,14 @@ def setup(progress=lambda message: None):
                 progress('Unpacking the included tools and SKY130 platform…')
                 target.parent.mkdir(parents=True,exist_ok=True)
                 temporary = target.with_name(target.name+'.install-'+uuid.uuid4().hex)
+                journal=state/'partial-install.json'
+                atomic_write(journal,json.dumps({'schema':1,'kind':'linux','sha256':data['sha256'],
+                                                'directory':temporary.relative_to(state).as_posix()}))
                 temporary.mkdir()
                 try: extract(archive,temporary); temporary.rename(target)
-                finally: shutil.rmtree(temporary,ignore_errors=True)
+                finally:
+                    shutil.rmtree(temporary,ignore_errors=True)
+                    if not temporary.exists():journal.unlink(missing_ok=True)
         progress('Checking installed files…'); identity(runtime,full=True)
         progress('Running the installation acceptance design…')
         from .digital_setup_probe import qualify

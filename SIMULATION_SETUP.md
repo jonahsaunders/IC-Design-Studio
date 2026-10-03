@@ -14,13 +14,14 @@ historical evidence, not the current package's acceptance result.
 | Native SPICE and imported control programs | Native ngspice; included in complete desktop packages |
 | Process-model analog design | ngspice plus included SKY130, GF180 C/D or IHP subsets; IHP uses the included physical runtime by default |
 | Digital simulation and RTL-to-GDS | [Included digital tools or a custom toolchain](docs/DIGITAL_FLOW.md) |
-| Student Hub Digital lessons | Native local Icarus (`iverilog` and `vvp`) |
+| Student Hub Digital lessons | The selected Included or Custom digital tools, with guided setup before running |
 | SAR, Mixed Signal lessons and capstone | Native local ngspice and Icarus; [local engine setup](docs/MIXED_SIGNAL_SAR.md#local-engine-setup) |
 | Inductor EM simulation | [Included openEMS runtime](docs/OPENEMS.md) plus declared process materials and layer data |
 
 Digital and physical verification share a managed Linux runtime, using an
 app-owned WSL 2 distribution on Windows. That runtime is separate from native
-ngspice and from the local engines used by Student Hub and SAR experiments.
+ngspice and from the native engines used by Mixed Signal lessons, the capstone
+and SAR experiments. Student Hub Digital lessons use the selected digital tools.
 
 ## Start with a complete desktop package
 

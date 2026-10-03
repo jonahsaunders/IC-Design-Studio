@@ -87,7 +87,8 @@ def prepare(project, stage='simulate', simulator='icarus', tools=None, cell_id=N
         if runtime:
             resolved[name] = 'opt/icstudio/bin/'+name
             continue
-        value = (tools or {}).get(name) or shutil.which(name)
+        from .digital_tools import normalize_executable
+        value = normalize_executable((tools or {}).get(name)) or shutil.which(name)
         if not value and stage=='equivalence' and 'yosys' in resolved:
             sibling=Path(resolved['yosys']).with_name(name)
             if sibling.is_file():value=str(sibling)

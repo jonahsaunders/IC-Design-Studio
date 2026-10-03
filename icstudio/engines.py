@@ -5,12 +5,13 @@ from .model import digest,file_digest,design_digest,now,atomic_write
 from .interchange import spice
 
 def diagnostics(config=None):
+    from .digital_tools import normalize_executable
     config=config or {};out=[]
     for name in ('ngspice','klayout','magic','netgen'):
-        path=config.get(name) or shutil.which(name)
+        value=normalize_executable(config.get(name));path=shutil.which(value or name) or value
         if name=='ngspice':
             from .spice_program import find_ngspice
-            path=find_ngspice(config.get(name,''))
+            path=find_ngspice(value)
         out.append({'name':name,'path':path or '', 'status':'available' if path and Path(path).is_file() else 'not installed'})
     return out
 

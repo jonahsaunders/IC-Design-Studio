@@ -69,11 +69,12 @@ Native SPICE uses bundled ngspice. Process physical verification uses
 **Tools → Physical tools setup…** plus matching locked physical PDK assets/decks.
 The included analog simulation subsets are not complete foundry PDKs.
 
-**Student Hub Digital lessons and SAR experiments use native local Icarus**
-(`iverilog` and `vvp`), not the WSL-managed runtime. SAR and Mixed Signal lessons
-also need native ngspice. Configure [lesson engines](STUDENT_HUB.md#engines-and-models)
-or [SAR Local engines](MIXED_SIGNAL_SAR.md#local-engine-setup); those panels do not
-download Icarus.
+**Student Hub Digital lessons use the selected Included or Custom digital tools.**
+Run lesson opens first-run setup when needed and resumes after successful setup.
+SAR experiments, Mixed Signal lessons and the capstone require separate native
+local `ngspice`, `iverilog` and `vvp` executables. Their setup panels check all
+prerequisites and link to the [native installation guide](MIXED_SIGNAL_SAR.md#local-engine-setup);
+they do not download native Icarus. See [lesson engines](STUDENT_HUB.md#engines-and-models).
 
 ## If setup needs attention
 

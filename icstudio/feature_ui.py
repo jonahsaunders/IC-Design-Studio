@@ -349,5 +349,4 @@ class FeatureMixin:
         if not self.project.get('last_study'):raise ValueError('Configure a simulation study first.')
         self.start_job({'type':'study','analysis':clone(self.project['analysis']),'study':clone(self.project['last_study'])},self.analysis_engine.currentData())
     def help_dialog(self):
-        import sys
-        root=Path(getattr(sys,'_MEIPASS',Path(__file__).parent.parent))/'docs';text='\n\n'.join((root/name).read_text() for name in ('USER_GUIDE.md','WORKFLOWS_0.3.md') if (root/name).exists());self.text_dialog('IC Design Studio help',text)
+        self.open_editor_doc('USER_GUIDE.md')
