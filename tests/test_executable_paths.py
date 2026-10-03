@@ -16,7 +16,8 @@ class ExecutablePathTests(unittest.TestCase):
             config={name:quoted for name in ('ngspice','klayout','magic','netgen')}
             for row in diagnostics(config):
                 self.assertEqual(row['status'],'available')
-                self.assertEqual(Path(row['path']),path)
+                # Discovery can expand Windows 8.3 aliases to the same file.
+                self.assertEqual(Path(row['path']).resolve(),path.resolve())
             captured=executable_info(quoted)
             self.assertEqual(captured,{'path':str(path.resolve()),'sha256':file_digest(path)})
 

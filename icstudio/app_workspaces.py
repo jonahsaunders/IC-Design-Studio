@@ -1,6 +1,9 @@
 """Persistent Design / Student Hub tabs around the circuit and RTL editors."""
+from PySide6.QtCore import QSize
 from PySide6.QtWidgets import QTabWidget, QWidget, QVBoxLayout, QDockWidget, QDialog
 from shiboken6 import isValid
+
+from .window_geometry import keep_visible
 
 
 class AppWorkspaces(QTabWidget):
@@ -57,8 +60,10 @@ class AppWorkspaces(QTabWidget):
                 from .student_hub_ui import feedback
                 feedback(hub.status, str(exc), True)
             hub.fill()
-            self.design_minimum = s.minimumSize()
-            s.setMinimumSize(720, 600)
+            # Display fitting may clamp the current minimum to a small screen.
+            # Preserve the requested Design minimum, and fit the active workspace.
+            self.design_minimum = QSize(getattr(s, '_workspace_minimum_size', s.minimumSize()))
+            s._workspace_minimum_size = QSize(720, 600)
             self.panels = [(d, not d.isHidden()) for d in s.findChildren(QDockWidget)
                            if d is not getattr(s, '_digital_window', None)]
             self.toolbar_visible = not s.toolbar.isHidden()
@@ -69,11 +74,12 @@ class AppWorkspaces(QTabWidget):
             for panel, _ in self.panels:
                 panel.hide()
             s.toolbar.hide()
+            keep_visible(s)
             hub.show()
             hub.search.setFocus()
         else:
             if hasattr(self, 'design_minimum'):
-                s.setMinimumSize(self.design_minimum)
+                s._workspace_minimum_size = QSize(self.design_minimum)
             for panel, visible in self.panels:
                 if isValid(panel):
                     panel.setVisible(visible)
@@ -84,6 +90,7 @@ class AppWorkspaces(QTabWidget):
                     if isValid(dialog) and dialog is not getattr(s, '_start_dialog', None):
                         dialog.show()
             self.dialogs = []
+            keep_visible(s)
 
 
 def install(studio):

@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 os.environ.setdefault('QT_QPA_PLATFORM', 'offscreen')
 from PySide6.QtCore import QSettings, Qt
-from PySide6.QtGui import QContextMenuEvent
+from PySide6.QtGui import QContextMenuEvent, QFontDatabase
 from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication, QFileDialog, QInputDialog, QMessageBox
 
@@ -26,6 +26,10 @@ class EditingUsabilityTests(unittest.TestCase):
     def setUpClass(cls):
         cls.app = QApplication.instance() or QApplication([])
         cls.app.setStyle('Fusion')
+        if sys.platform=='win32' and cls.app.platformName()=='offscreen':
+            fonts=Path(os.environ.get('WINDIR','C:/Windows'))/'Fonts'
+            for name in ('segoeui.ttf','segoeuib.ttf','arial.ttf'):
+                assert QFontDatabase.addApplicationFont(str(fonts/name))>=0, f'Could not load {name}'
 
     def setUp(self):
         self.folder = tempfile.TemporaryDirectory()

@@ -56,7 +56,7 @@ def initialize_workspace_geometry(window, minimum=QSize(1000,680), size=QSize(14
 
 
 def keep_visible(window):
-    if not window.isWindow() or window.isMaximized() or window.isFullScreen():return
+    if not window.isWindow():return
     rect=window.frameGeometry();screens=[screen.availableGeometry() for screen in QGuiApplication.screens()]
     restored=reachable_geometry(rect,screens)
     content=window.geometry();left=content.x()-rect.x();top=content.y()-rect.y()
@@ -66,6 +66,9 @@ def keep_visible(window):
         minimum=window._workspace_minimum_size
         window.setMinimumSize(min(minimum.width(),max(1,target.width()-frame_width)),
                               min(minimum.height(),max(1,target.height()-frame_height)))
+    # A minimum larger than the screen can expand even a maximized window.
+    # Clamp it first, while leaving these window states to the window manager.
+    if window.isMaximized() or window.isFullScreen():return
     if restored!=rect:
         window.setGeometry(restored.x()+left,restored.y()+top,
                            max(1,restored.width()-frame_width),max(1,restored.height()-frame_height))

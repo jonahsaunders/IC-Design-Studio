@@ -9,8 +9,8 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from PySide6.QtCore import QSettings, Qt, QUrl
-from PySide6.QtGui import QDesktopServices
+from PySide6.QtCore import QRect, QSettings, QSize, Qt, QUrl
+from PySide6.QtGui import QDesktopServices, QFontDatabase
 from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication, QMessageBox
 
@@ -26,6 +26,10 @@ class UsabilityNavigationTests(unittest.TestCase):
         os.environ.setdefault('QT_QPA_PLATFORM', 'offscreen')
         cls.app = QApplication.instance() or QApplication([])
         cls.app.setStyle('Fusion')
+        if sys.platform=='win32' and cls.app.platformName()=='offscreen':
+            fonts=Path(os.environ.get('WINDIR','C:/Windows'))/'Fonts'
+            for name in ('segoeui.ttf','segoeuib.ttf','arial.ttf'):
+                assert QFontDatabase.addApplicationFont(str(fonts/name))>=0, f'Could not load {name}'
 
     def setUp(self):
         self.folder = tempfile.TemporaryDirectory()
@@ -149,6 +153,68 @@ class UsabilityNavigationTests(unittest.TestCase):
         self.assertIn(f'{sum(complete(state,l) for l in selected)} of {len(selected)} lessons complete',hub.total.text())
         hub.guide.close()
         hub.close()
+
+    def test_student_minimum_survives_queued_fit_and_display_changes(self):
+        from icstudio.student_hub_ui import show
+        requested_design = QSize(self.studio._workspace_minimum_size)
+        available = QRect(0,0,1920,1040)
+        real_screen = self.app.primaryScreen()
+        class Screen:
+            def availableGeometry(self):return available
+        with patch('icstudio.window_geometry.QGuiApplication.screens',return_value=[Screen()]):
+            # A fit queued by Show must use the workspace selected before it runs.
+            self.studio._display_geometry_observer.schedule()
+            hub = show(self.studio)
+            hub.select_lesson('f-connect')
+            for scale in (100,125,150,200):
+                with self.subTest(text_scale=scale):
+                    hub.set_text_scale(scale)
+                    self.studio.resize(720,680)
+                    QTest.qWait(40)
+                    self.assertEqual(self.studio._workspace_minimum_size,QSize(720,600))
+                    self.assertEqual(self.studio.minimumSize(),QSize(720,600))
+                    self.assertLessEqual(hub.width(),720)
+                    self.assertLessEqual(hub.height(),680)
+                    self.assertEqual(hub.scroll.horizontalScrollBar().maximum(),0)
+                    self.assertGreaterEqual(hub.total.height(),hub.total.heightForWidth(hub.total.width()))
+            # The active Student minimum must also survive a real screen signal.
+            available = QRect(0,0,911,512)
+            real_screen.availableGeometryChanged.emit(available)
+            QTest.qWait(60)
+            self.assertTrue(available.contains(self.studio.frameGeometry()))
+            self.assertEqual(self.studio._workspace_minimum_size,QSize(720,600))
+            self.assertLessEqual(self.studio.minimumHeight(),512)
+            self.assertEqual(hub.scroll.horizontalScrollBar().maximum(),0)
+            # Restore the requested Design minimum, rather than its small-screen clamp.
+            self.studio.app_workspaces.setCurrentIndex(0)
+            QTest.qWait(60)
+            self.assertEqual(self.studio._workspace_minimum_size,requested_design)
+            self.assertTrue(available.contains(self.studio.frameGeometry()))
+            available = QRect(0,0,1920,1040)
+            real_screen.availableGeometryChanged.emit(available)
+            QTest.qWait(60)
+            self.assertEqual(self.studio.minimumSize(),requested_design)
+
+    def test_workspace_switch_preserves_maximized_and_fullscreen_geometry(self):
+        from icstudio.window_geometry import keep_visible
+        available = self.studio.screen().availableGeometry()
+        requested_design = QSize(max(1000,available.width()+200),680)
+        for state,display in (('maximized',self.studio.showMaximized),('fullscreen',self.studio.showFullScreen)):
+            with self.subTest(window_state=state):
+                self.studio.showNormal()
+                self.studio._workspace_minimum_size = QSize(requested_design)
+                keep_visible(self.studio)
+                display()
+                QTest.qWait(60)
+                original = QRect(self.studio.frameGeometry())
+                for workspace in (1,0):
+                    self.studio.app_workspaces.setCurrentIndex(workspace)
+                    self.studio._display_geometry_observer.schedule()
+                    QTest.qWait(60)
+                    self.assertTrue(self.studio.isMaximized() if state=='maximized' else self.studio.isFullScreen())
+                    self.assertEqual(self.studio.frameGeometry(),original)
+                    self.assertLessEqual(self.studio.minimumWidth(),available.width())
+                self.assertEqual(self.studio._workspace_minimum_size,requested_design)
 
 
 if __name__ == '__main__':

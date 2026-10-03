@@ -16,6 +16,7 @@ os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
 
 def main():
     from PySide6.QtCore import QSettings
+    from PySide6.QtGui import QFontDatabase
     from PySide6.QtTest import QTest
     from PySide6.QtWidgets import QApplication, QDialogButtonBox
     from icstudio import digital_runtime, digital_setup_ui, digital_flow, mixed_signal
@@ -25,6 +26,10 @@ def main():
     from icstudio.mixed_signal_ui import show as show_experiment
     from icstudio.student_hub_ui import show as show_hub
     app=QApplication.instance() or QApplication([]);app.setStyle('Fusion')
+    if sys.platform=='win32' and app.platformName()=='offscreen':
+        fonts=Path(os.environ.get('WINDIR','C:/Windows'))/'Fonts'
+        for name in ('segoeui.ttf','segoeuib.ttf','arial.ttf'):
+            assert QFontDatabase.addApplicationFont(str(fonts/name))>=0, f'Could not load {name}'
     checks=[];errors=[]
     with tempfile.TemporaryDirectory() as td, patch.dict(os.environ,{
             'XDG_DATA_HOME':td+'/data','XDG_CONFIG_HOME':td+'/config',
@@ -77,11 +82,13 @@ def main():
             native=hub._engine_setup_dialog
             assert native.isVisible() and 'iverilog, vvp' in native.native_status.text()
             assert 'Student Hub → Engine setup' in guide.feedback.text()
+            if native.focusWidget() is not native.paths['iverilog']:QTest.qWait(30)
             assert native.focusWidget() is native.paths['iverilog']
             checks.append('Missing native engines open Student setup with all prerequisites and correct focus')
             experiment=show_experiment(studio);experiment.call(experiment.run)
             assert experiment.tabs.tabText(experiment.tabs.currentIndex())=='Local engines'
             assert 'iverilog, vvp' in experiment.engine_status.text()
+            if experiment.focusWidget() is not experiment.paths['iverilog']:QTest.qWait(30)
             assert experiment.focusWidget() is experiment.paths['iverilog']
             checks.append('SAR failure opens Local engines with workflow-specific installation guidance')
             for edit in native.paths.values():edit.setText('"'+sys.executable+'"')

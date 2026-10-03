@@ -203,7 +203,7 @@ def _cleanup_partial_install(state):
                 or not re.fullmatch('runtimes/'+sha+r'\.install-[0-9a-f]{32}',relative)):
             return False
         directory=state/relative
-        if (directory.is_symlink() or directory.parent.is_symlink()
+        if (any(path.is_symlink() or path.is_junction() for path in (directory,directory.parent))
                 or not directory.resolve().is_relative_to(state.resolve())):
             return False
         if directory.exists():
@@ -233,13 +233,13 @@ def _cleanup_legacy_installs(state, sha):
     This helper is called only under setup_lock after archive verification.
     """
     root=state/'runtimes'
-    if (not re.fullmatch('[0-9a-f]{64}',sha) or not root.is_dir() or root.is_symlink()
+    if (not re.fullmatch('[0-9a-f]{64}',sha) or not root.is_dir() or root.is_symlink() or root.is_junction()
             or not root.resolve().is_relative_to(state.resolve())):
         return 0
     count=0
     for directory in root.iterdir():
         if (re.fullmatch(re.escape(sha)+r'\.install-[0-9a-f]{32}',directory.name)
-                and directory.is_dir() and not directory.is_symlink()):
+                and directory.is_dir() and not directory.is_symlink() and not directory.is_junction()):
             shutil.rmtree(directory);count+=1
     return count
 
@@ -247,7 +247,7 @@ def _cleanup_legacy_installs(state, sha):
 def setup(progress=lambda message: None):
     data = manifest()
     if not data: raise ValueError('The digital runtime payload is missing. Install a complete Studio release or build the payload with scripts/build_digital_runtime.py.')
-    runtime = location(data); state = state_root()
+    runtime = location(data); state = state_root().resolve()
     with setup_lock(state):
         if not _cleanup_partial_install(state):
             progress('An unrecognized partial setup directory was retained for safety.')
@@ -278,6 +278,14 @@ def setup(progress=lambda message: None):
             if _cleanup_legacy_installs(state,data['sha256']):
                 progress('Removed interrupted unpacking from this package. Restarting setup…')
             target = Path(runtime['root'])
+            if any(path.is_symlink() or path.is_junction() for path in (target,target.parent)):
+                raise ValueError('The included digital installation folder is a symbolic link or junction. Choose a distinct ICSTUDIO_DIGITAL_STATE folder and retry setup.')
+            # Windows short directory names and other state-folder aliases must
+            # use the same spelling as the journal's root. Check confinement
+            # before integrity repair can rename an existing installation.
+            target = target.resolve()
+            if not target.is_relative_to(state):
+                raise ValueError('The included digital installation folder is outside Studio’s state folder. Choose a distinct ICSTUDIO_DIGITAL_STATE folder and retry setup.')
             if target.is_dir():
                 try: identity(runtime,full=True)
                 except (OSError,ValueError,KeyError):
