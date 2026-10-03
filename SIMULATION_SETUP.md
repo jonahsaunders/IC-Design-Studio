@@ -2,7 +2,7 @@
 
 Use the [download guide](docs/DOWNLOADS.md) for a complete Windows or Linux
 desktop package, or follow the [source instructions](README.md#start-in-three-steps).
-The source version is **0.22.0.dev25**; match any package to its exact commit.
+The source version is **0.23.0**; match any package to its exact commit.
 The retained [dev10 simulation record](docs/validation/0.22.0.dev10.json) is
 historical evidence, not the current package's acceptance result.
 

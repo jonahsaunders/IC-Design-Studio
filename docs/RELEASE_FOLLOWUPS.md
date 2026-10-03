@@ -1,14 +1,16 @@
 # Release acceptance tracking
 
-The current source version is **0.22.0.dev25**; identify each candidate by its
+The current source version is **0.23.0**; identify each candidate by its
 full commit and asset hashes. Automated qualification and manual
 acceptance have separate completion criteria. Attach the exact source commit,
 package SHA-256 and observations; a closed issue without evidence does not
 qualify a platform or distribution policy.
 
-The [2026-09-30 release snapshot](RELEASE_STATUS.md#current-source-and-package-snapshot--2026-09-30)
-identifies the latest successfully prepared main/experimental drafts. Both remain
-unpublished and differ from the later experimental source. The older
+The [current release status](RELEASE_STATUS.md#0230-desktop-engineering-preview)
+describes the 0.23.0 publication path. The archived
+[2026-09-30 release snapshot](RELEASE_STATUS.md#archived-source-and-package-snapshot--2026-09-30)
+identifies the main/experimental drafts recorded at that date, when both were
+unpublished. The older
 [dev25 handoff](DEV25_ACCEPTANCE_HANDOFF.md) preserves six-gate results and
 package digests for `a88cfe1cfe20254638b7bd97ec9128e843578282`; do not use those
 digests for a newer draft. All four manual gate issues below were still open
@@ -52,9 +54,12 @@ screenshots and sanitized logs. Leave `Not run`, failed or blocked items open.
    manual dispatch remains available. Other source changes only trigger automatic
    draft preparation when they match the paths in
    [release-preview.yml](../.github/workflows/release-preview.yml).
-4. Review the four manual gates above before public publication. A passing draft
-   workflow never publishes automatically or marks manual acceptance complete.
+4. Review the four manual gates above and record any remaining preview limits.
+   Ordinary automatic previews remain drafts. An explicit public release request
+   publishes only after all automated gates pass; it does not mark manual
+   acceptance complete. See [public release preparation](RELEASING.md#public-release-preparation).
 
-No signing credential, signing service or unsigned-publication policy is selected
-by this source change. General offline editing, managed internet hosting, macOS
+The 0.23.0 Windows engineering preview uses the existing unsigned package recipe;
+consumer installation observations and any later signing policy remain tracked
+above. General offline editing, managed internet hosting, macOS
 qualification and broader process signoff remain separate roadmap work.

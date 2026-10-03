@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/version-0.22.0.dev25-65d6bd?style=flat-square&amp;labelColor=182331" alt="Version 0.22.0.dev25"></a>
+  <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/version-0.23.0-65d6bd?style=flat-square&amp;labelColor=182331" alt="Version 0.23.0"></a>
   <a href="docs/RELEASE_STATUS.md"><img src="https://img.shields.io/badge/status-engineering_preview-f0bc78?style=flat-square&amp;labelColor=182331" alt="Engineering preview"></a>
   <a href="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Amain"><img src="https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml/badge.svg?branch=main" alt="Main desktop build and verification"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0--or--later-9bbafa?style=flat-square&amp;labelColor=182331" alt="GPL-3.0-or-later license"></a>
@@ -36,7 +36,7 @@
   <sub>A real simulation in the native desktop. The README preview follows your light or dark theme.</sub>
 </p>
 
-> **Experimental branch · 0.22.0.dev25.** This README describes the current development source. Desktop packages can lag behind it; use the [download guide](docs/DOWNLOADS.md) and [release status](docs/RELEASE_STATUS.md) to match a package to its source and validation evidence.
+> **Engineering preview · 0.23.0.** See the [release notes](docs/UPDATE_0.23.0.md) and [download guide](docs/DOWNLOADS.md) for the Windows installer, portable archive and Linux package. Use [release status](docs/RELEASE_STATUS.md) to match a published asset to its exact source and validation evidence.
 
 ## Start in three steps
 

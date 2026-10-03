@@ -4,8 +4,9 @@ The [IC Design Studio repository](https://github.com/jonahsaunders/IC-Design-Stu
 uses separate desktop, qualification and draft-release workflows. Desktop and
 qualification jobs have read-only repository permissions. The draft workflow,
 triggered by selected source changes or manual dispatch, grants contents write
-only to its final job after all seven qualification jobs succeed. It creates a
-draft prerelease and never publishes automatically.
+only to its final job after all seven qualification jobs succeed. Ordinary
+automatic branch previews create draft prereleases. An explicit public release
+request uses the separate publication path described below.
 
 ## Source and build identity
 
@@ -83,13 +84,13 @@ distribution execution, corresponding-source/evidence packaging and hashes.
 
 ## Publish a reviewable release
 
-Create a **draft prerelease** for the matching tag. Use [UPDATE_0.22_DEV25.md](UPDATE_0.22_DEV25.md) as the current notes, then update its validation section with the actual hosted run and exact artifacts. Upload application packages, matching source, optional PDK adapters, the validation record and checksums.
+Create a **draft prerelease** for the matching preview tag. Use [UPDATE_0.23.0.md](UPDATE_0.23.0.md) as the current notes. Retain the actual hosted run and exact asset identities in the validation records. Upload application packages, matching source, optional PDK adapters, the validation record and checksums.
 
 Check the rendered README, release links and download instructions in the destination repository. Only then publish the draft. Keep the engineering-preview designation until the documented platform and process gates justify a stronger status. Do not attach an archive from another version to fill an unbuilt platform slot.
 
 ## Automated draft preparation
 
-Run **Prepare draft preview release** on `experimental` for a reviewable branch
+Run **Prepare desktop release** on `experimental` for a reviewable branch
 candidate, or on `main` after merging its verified PR.
 It invokes desktop, interoperability, physical, digital, VGA, statistical
 campaign and reference compatibility qualification on the same commit,
@@ -118,12 +119,12 @@ Distribution archives are hashed before extraction and checked again after the
 desktop and VGA probes; replacing an archive during execution fails acceptance.
 
 A version-file change pushed to `experimental` or `main` automatically starts
-**Prepare draft preview release**. Selected probe, packaging and workflow files
+**Prepare desktop release**. Selected probe, packaging and workflow files
 also trigger it; ordinary source edits outside the exact
 [push path list](../.github/workflows/release-preview.yml) do not. Manual dispatch
 remains available. The workflow reruns all seven qualifications for the selected
-commit and creates only a draft prerelease; publication remains a separate
-maintainer action.
+commit. Ordinary previews create only a draft prerelease; public publication
+requires the explicit release intent below.
 
 The statistical gate must complete its 1,152-case ngspice workload, coordinator
 crash recovery and trial classifications. Draft assembly checks its commit and
@@ -131,6 +132,35 @@ workflow-run identity, includes the full evidence archive and a compact validati
 record, and checksums both. Deliberate specification failures in this workload
 test classification; unresolved cases or failed recovery block the draft. This
 one-host gate does not satisfy [two-host worker acceptance](CAMPAIGN_WORKER_ACCEPTANCE.md).
+
+## Public release preparation
+
+For 0.23.0, publish the Windows Setup EXE and portable ZIP, Linux archive,
+corresponding platform source, validation/evidence records and final checksums
+under the canonical **`v0.23.0`** release. Use newly built 0.23.0 assets; changing
+a filename cannot qualify an older binary.
+
+Public mode requires `main` and a plain three-part version such as `0.23.0`.
+Request it through either of these paths:
+
+1. Push the release commit to `main` with the exact first commit-message line
+   **`Release 0.23.0`**, matching `icstudio.__version__`. An ordinary version bump
+   or merge message does not request public publication.
+2. Manually dispatch **Prepare desktop release** on `main` with the boolean
+   **`publish_release`** input enabled. Its default is false, preserving private
+   previews for ordinary dispatches and branch pushes.
+
+The workflow runs all seven same-commit gates and assembles the complete verified
+assets. `scripts/publish_prerelease.py --public` uploads them to a new
+attempt-specific draft first. After upload succeeds, it promotes that draft to
+the canonical version tag as a public, non-prerelease, latest GitHub release.
+An upload failure prevents promotion. An existing canonical release or tag is
+rejected rather than overwritten; older releases remain intact.
+
+The matching notes for this version are `docs/UPDATE_0.23.0.md`.
+Publishing a regular GitHub release does not expand the application's process or
+platform qualification: its **engineering preview** designation and remaining
+[consumer acceptance](RELEASE_FOLLOWUPS.md) limits still apply.
 
 ## Large evidence archives
 

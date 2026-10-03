@@ -21,8 +21,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Verify portable release evidence and draft publishing
-        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease -v
+      - name: Verify portable release evidence and publishing
+        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_intent tests.test_release_notes -v
   digital-runtime:
     uses: ./.github/workflows/digital-runtime.yml
   package:

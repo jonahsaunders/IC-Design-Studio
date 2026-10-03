@@ -50,7 +50,7 @@ def main():
         for name in ('README.md','THIRD_PARTY_NOTICES.md','LICENSE'):
             if (ROOT/name).exists():shutil.copy2(ROOT/name,bundle/name)
         shutil.copytree(ROOT/'docs',bundle/'_internal'/'docs',dirs_exist_ok=True)
-        (bundle/'START-HERE.txt').write_text(f'IC Design Studio {__version__} — standalone desktop\n\nExtract this entire folder and run ./ICDesignStudio. Keep _internal beside the executable.\nThis Linux x86_64 build targets Ubuntu 24.04 / glibc 2.39 or newer.\nPython, Qt, ngspice, standard Xschem symbols and GF180 simulation models are included.\nThe complete source is included in {source.name}.\nUse File > Open project to open your .sch file. F5 runs its simulation program.\nOpen Analysis > Xschem analyses for individual cases and waveforms.\nRead _internal/docs/UPDATE_0.18.md for features and validation limits.\n')
+        (bundle/'START-HERE.txt').write_text(f'IC Design Studio {__version__} — standalone desktop\n\nExtract this entire folder and run ./ICDesignStudio. Keep _internal beside the executable.\nThis Linux x86_64 build targets Ubuntu 24.04 / glibc 2.39 or newer.\nPython, Qt, ngspice, standard Xschem symbols and GF180 simulation models are included.\nThe complete source is included in {source.name}.\nUse File > Open project to open your .sch file. F5 runs its simulation program.\nOpen Analysis > Xschem analyses for individual cases and waveforms.\nRead _internal/docs/RELEASE_STATUS.md for the current version, features and validation limits.\n')
         archive=out/f'IC-Design-Studio-{__version__}-Linux-x86_64.tar.gz'
         with tarfile.open(archive,'w:gz',compresslevel=6) as t:t.add(bundle,arcname='ICDesignStudio')
         files.append(archive)

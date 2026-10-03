@@ -12,6 +12,14 @@ from icstudio.getting_started import examples, example_copy
 from icstudio.model import validate
 
 
+def require_release_notes(version, root=ROOT):
+    note_version = re.sub(r'^(\d+\.\d+)\.0\.dev(\d+)$', r'\1_DEV\2', version)
+    notes = Path(root) / 'docs' / f'UPDATE_{note_version}.md'
+    if not notes.is_file():
+        raise ValueError('Missing release notes for the current version: ' + notes.name)
+    return notes
+
+
 def main():
     from scripts.update_qualification import update
     update(check=True)
@@ -32,9 +40,10 @@ def main():
                 errors.append(name + ': missing local target ' + ref)
     readme = (ROOT / 'README.md').read_text(encoding='utf-8')
     if 'version-' + __version__ + '-' not in readme: errors.append('README badge differs from application version.')
-    match = re.fullmatch(r'(\d+\.\d+)\.0\.dev(\d+)', __version__)
-    if match and not (ROOT / 'docs' / f'UPDATE_{match[1]}_DEV{match[2]}.md').is_file():
-        errors.append('Missing release notes for the current development version.')
+    try:
+        require_release_notes(__version__)
+    except ValueError as exc:
+        errors.append(str(exc))
     tag = os.environ.get('GITHUB_REF', '')
     if tag.startswith('refs/tags/v') and tag != 'refs/tags/v' + __version__:
         errors.append('Release tag differs from application version: ' + tag)

@@ -1,6 +1,6 @@
 # Documentation
 
-Use the guides below for the current **experimental** source. Desktop packages have their own source identities and acceptance records; check [release status](RELEASE_STATUS.md) before applying source-only instructions to a downloaded build. Versioned notes at the end are historical snapshots.
+Use the guides below for the current **0.23.0 engineering preview** source. Desktop packages have their own source identities and acceptance records; check [release status](RELEASE_STATUS.md) before applying source-only instructions to a downloaded build. Older versioned notes at the end are historical snapshots.
 
 **Quick links:** [First waveform](GETTING_STARTED.md) · [Examples](../examples/README.md) · [Feature tour](../README.md#explore-the-workspace) · [Source setup](../README.md#start-in-three-steps) · [Simulation engines](../SIMULATION_SETUP.md)
 
@@ -86,6 +86,7 @@ The [gallery catalog](../README.md#example-library) contains 13 guided entries. 
 - [Windows desktop build and acceptance](WINDOWS_RELEASE.md)
 - [Prepare and verify a desktop release](RELEASING.md)
 - [Recorded source/package status and open acceptance](RELEASE_STATUS.md)
+- [IC Design Studio 0.23.0 — desktop engineering preview](UPDATE_0.23.0.md)
 - [Remaining release follow-ups](RELEASE_FOLLOWUPS.md)
 - [Historical dev25 candidate and manual acceptance handoff](DEV25_ACCEPTANCE_HANDOFF.md)
 - [Native consumer-machine acceptance procedure](NATIVE_DESKTOP_ACCEPTANCE.md)

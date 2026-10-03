@@ -1,8 +1,38 @@
-# Dev25 draft and experimental follow-up
+# Release status
 
-## Current source and package snapshot · 2026-09-30
+## 0.23.0 desktop engineering preview
 
-The source remains **0.22.0.dev25**. It includes the [Student Hub](STUDENT_HUB.md),
+The current source version is **0.23.0**. Its [release notes](UPDATE_0.23.0.md)
+describe the editing, engine setup, help and display-sizing repairs. The public
+release destination is [v0.23.0](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/v0.23.0),
+with Windows x64 Setup and Portable downloads, a Linux x86_64 archive,
+corresponding source, validation/evidence records and checksums. See
+[downloads](DOWNLOADS.md) for the expected filenames and platform requirements.
+
+A version bump does not qualify or publish a package. This candidate requires
+fresh desktop/package, interoperability, pinned physical, digital, VGA,
+statistical and reference-compatibility gates on the exact 0.23.0 commit.
+Earlier 0.22.0.dev25 results remain attached to their recorded sources and assets.
+The release's validation records identify the actual tested commit, version,
+installer/archive hashes and hosted execution scope.
+
+Ordinary branch previews remain unpublished drafts. An explicit public release
+request on `main` stages the complete qualified assets in an attempt-specific
+draft, then promotes it to the canonical `v0.23.0` release only after uploads
+succeed. Public mode creates a regular GitHub release; **engineering preview**
+still describes the application's supported scope. Until that publication
+finishes, a draft or absent tag is not a public Windows/Linux download.
+See [public release preparation](RELEASING.md#public-release-preparation).
+
+The Windows package remains unsigned. Hosted checks do not establish all
+consumer Windows/Ubuntu, mixed-monitor, accessibility or physical LAN/VPN
+observations. These remain separately tracked in
+[release follow-ups](RELEASE_FOLLOWUPS.md); broader process signoff and macOS
+desktop qualification are not claimed.
+
+## Archived source and package snapshot · 2026-09-30
+
+The source at this checkpoint was **0.22.0.dev25**. It included the [Student Hub](STUDENT_HUB.md),
 [bounded SAR simulation](MIXED_SIGNAL_SAR.md), [digital workspace](DIGITAL_WORKSPACE.md),
 and [reliable design workflow](RELIABLE_DESIGN_WORKFLOWS.md) changes. A shared
 version number does not mean two source commits or desktop packages are identical.
