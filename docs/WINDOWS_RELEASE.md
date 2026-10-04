@@ -45,11 +45,14 @@ and the [complete release workflow](RELEASING.md).
 
 ## Included tools and installer behavior
 
-The current package contains Python, Qt, KLayout, native ngspice, the SKY130/GF180
+The current package contains Python, Qt, KLayout, native ngspice, the SKY130/GF180/IHP
 simulation subsets, offline VGA assets, openEMS, and the qualified managed
 digital/physical runtime. The managed runtime includes the digital engines,
-SKY130 HD platform and Magic/Netgen/ngspice for supported physical checks.
-Matching physical PDK assets/decks and IHP OSDI plugins remain separate.
+SKY130 HD platform, Magic/Netgen/ngspice for supported physical checks, and
+matching compiled IHP OSDI models. Included GF180 C/D and IHP packages carry
+the physical decks used by their core-MOS inverter course; SKY130 analog physical
+assets are supplied separately. Custom PDK revisions still require matching
+locked assets/decks and, where applicable, compatible OSDI models.
 
 Studio installs its managed Linux environment through visible setup. The
 installer itself is per-user and requests no administrator privileges; enabling

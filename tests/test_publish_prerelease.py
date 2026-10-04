@@ -1,12 +1,84 @@
 import json
+import re
 import subprocess
 import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import Mock, patch
 
-from scripts.publish_prerelease import preview_tag, publish, public_tag
+from scripts.publish_prerelease import preview_tag, publish, public_tag, render_release_notes
 from scripts.release_evidence import archive_evidence, preflight_assets, checksum, EVIDENCE_KINDS
+
+
+class ReleaseNotesRenderingTests(unittest.TestCase):
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory(); self.addCleanup(self.temporary.cleanup)
+        self.root = Path(self.temporary.name); (self.root / 'docs').mkdir()
+        self.notes = self.root / 'docs/UPDATE_0.23.0.md'; self.commit = 'a' * 40
+        for name in ('README.md', 'docs/DOWNLOADS.md', 'docs/Guide with spaces.md', 'docs/image.png'):
+            (self.root / name).write_text('Fixture')
+        self.base = 'https://github.com/owner/repo/blob/' + self.commit + '/'
+
+    def render(self, text):
+        self.notes.write_text(text)
+        return render_release_notes(self.notes, 'owner/repo', self.commit, root=self.root)
+
+    def test_local_links_keep_fragments_titles_and_encoding_at_exact_source_revision(self):
+        text = ('[Downloads](DOWNLOADS.md#first-run "Install")\n'
+                '[Root](../README.md?plain=1#start)\n'
+                '[Guide](<Guide with spaces.md>)\n'
+                '[Encoded](Guide%20with%20spaces.md)\n'
+                '[Repository root](/README.md)\n'
+                '[reference]: DOWNLOADS.md#checksums "Checks"\n'
+                '![Preview](image.png)\n')
+        rendered = self.render(text)
+        self.assertIn('[Downloads](' + self.base + 'docs/DOWNLOADS.md#first-run "Install")', rendered)
+        self.assertIn('[Root](' + self.base + 'README.md?plain=1#start)', rendered)
+        self.assertIn('[Guide](<' + self.base + 'docs/Guide%20with%20spaces.md>)', rendered)
+        self.assertIn('[Encoded](' + self.base + 'docs/Guide%20with%20spaces.md)', rendered)
+        self.assertIn('[Repository root](' + self.base + 'README.md)', rendered)
+        self.assertIn('[reference]: ' + self.base + 'docs/DOWNLOADS.md#checksums "Checks"', rendered)
+        self.assertIn('![Preview](https://raw.githubusercontent.com/owner/repo/' + self.commit + '/docs/image.png)', rendered)
+        self.assertEqual(self.notes.read_text(), text)
+
+    def test_external_urls_release_anchors_and_code_examples_are_preserved(self):
+        text = ('[Site](https://example.com/guide) [Email](mailto:maintainer@example.com)\n'
+                '[CDN](//example.com/image.png) [Here](#downloads)\n'
+                '`[Example](missing.md)`\n'
+                '```md\n[Example](missing.md)\n```\n'
+                '~~~markdown\n[Example](missing.md)\n~~~\n')
+        self.assertEqual(self.render(text), text)
+
+    def test_missing_or_outside_repository_links_are_rejected(self):
+        for target in ('missing.md', '../../outside.md', '../%2E%2E/outside.md'):
+            with self.subTest(target=target), self.assertRaisesRegex(ValueError, 'Missing or unsafe'):
+                self.render('[Invalid](' + target + ')')
+
+    def test_current_release_notes_resolve_all_documentation_links_on_github(self):
+        root = Path(__file__).resolve().parents[1]
+        notes = root / 'docs/UPDATE_0.23.0.md'
+        original = notes.read_text(encoding='utf-8')
+        rendered = render_release_notes(notes, 'owner/repo', self.commit, root=root)
+        for path in ('RELEASING.md#large-evidence-archives', 'DOWNLOADS.md',
+                     'STUDENT_HUB.md#engines-and-models', 'MIXED_SIGNAL_SAR.md#local-engine-setup',
+                     'RELEASE_FOLLOWUPS.md', 'NATIVE_DESKTOP_ACCEPTANCE.md',
+                     'RELEASING.md#public-release-preparation'):
+            with self.subTest(path=path):
+                self.assertIn('](' + self.base + 'docs/' + path + ')', rendered)
+                self.assertNotIn('](' + path + ')', rendered)
+        self.assertIn('](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/v0.23.0)', rendered)
+        self.assertEqual(notes.read_text(encoding='utf-8'), original)
+
+    def test_historical_dev25_notes_keep_their_evidence_and_external_links(self):
+        root = Path(__file__).resolve().parents[1]
+        notes = root / 'docs/UPDATE_0.22_DEV25.md'
+        original = notes.read_text(encoding='utf-8')
+        rendered = render_release_notes(notes, 'owner/repo', self.commit, root=root)
+        for destination in re.findall(r'\]\(([^\s)]+)\)', original):
+            expected = destination if destination.startswith('https://') else self.base + 'docs/' + destination
+            with self.subTest(destination=destination):
+                self.assertIn('](' + expected + ')', rendered)
+        self.assertEqual(notes.read_text(encoding='utf-8'), original)
 
 
 class PreviewPublishingTests(unittest.TestCase):
@@ -68,6 +140,24 @@ class PreviewPublishingTests(unittest.TestCase):
             with self.assertRaises(subprocess.CalledProcessError):
                 publish(assets, '0.22.0.dev25', 'main', 'a' * 40, '123', '1',
                         'owner/repo', root=root, run=run)
+
+    def test_upload_reads_rebased_notes_without_changing_source_or_release_assets(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); assets = self.fixture(root)
+            notes = root / 'docs/UPDATE_0.22_DEV25.md'
+            original = '[Install](DOWNLOADS.md#linux)'; notes.write_text(original)
+            (root / 'docs/DOWNLOADS.md').write_text('Install')
+            uploaded = {}
+            def github(command, **kwargs):
+                path = Path(command[command.index('--notes-file') + 1])
+                uploaded['path'], uploaded['text'] = path, path.read_text(encoding='utf-8')
+                return subprocess.CompletedProcess(command, 0)
+            publish(assets, '0.22.0.dev25', 'main', 'a' * 40, '123', '1',
+                    'owner/repo', root=root, run=github)
+            self.assertEqual(uploaded['text'], '[Install](https://github.com/owner/repo/blob/' + 'a' * 40 + '/docs/DOWNLOADS.md#linux)')
+            self.assertFalse(uploaded['path'].exists())
+            self.assertEqual(notes.read_text(), original)
+            self.assertEqual([path.name for path in assets.iterdir()], ['payload.zip'])
 
 
 class PublicPublishingTests(unittest.TestCase):
@@ -137,6 +227,18 @@ class PublicPublishingTests(unittest.TestCase):
         (self.root / 'docs/UPDATE_0.23.0.md').unlink(); run = Mock()
         with self.assertRaisesRegex(ValueError, 'notes'): self.publish(run)
         run.assert_not_called()
+
+    def test_public_release_upload_uses_rebased_notes_before_promotion(self):
+        notes = self.root / 'docs/UPDATE_0.23.0.md'
+        notes.write_text('[Install](DOWNLOADS.md#first-run)')
+        (self.root / 'docs/DOWNLOADS.md').write_text('Install')
+        uploaded = []
+        def github(command, **kwargs):
+            if command[:3] == ['gh', 'release', 'create']:
+                uploaded.append(Path(command[command.index('--notes-file') + 1]).read_text(encoding='utf-8'))
+            return self.github(command, **kwargs)
+        self.assertEqual(self.publish(Mock(side_effect=github)), 'v0.23.0')
+        self.assertEqual(uploaded, ['[Install](https://github.com/owner/repo/blob/' + self.commit + '/docs/DOWNLOADS.md#first-run)'])
 
     def test_missing_windows_or_linux_package_never_calls_github(self):
         for suffix in ('Windows-x64-Setup.exe', 'Windows-x64-Portable.zip', 'Linux-x86_64.tar.gz'):

@@ -7,12 +7,16 @@ and openEMS. Local Student Hub/SAR engine requirements are separate; see below.
 
 ## Choose your download
 
-The current source is **0.23.0**, an engineering preview. Its public download
-destination is [release v0.23.0](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/v0.23.0).
-The links below become available when the release is published after fresh
-qualification. An absent release or unpublished draft does not establish a
-public download. Check [release status](RELEASE_STATUS.md#0230-desktop-engineering-preview)
-and the release's asset list before downloading.
+The **0.23.0 engineering preview** is publicly available in
+[release v0.23.0](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/v0.23.0),
+published on **2026-10-03** from commit
+`6c9cf950737c5d0e793d47ef8e9ddcb7caa72b83`. GitHub metadata checked on
+2026-10-04 lists 23 release assets, including the downloads below. Its
+[release preparation](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/37135864594)
+passed all seven required gates for that commit. See
+[release status](RELEASE_STATUS.md#0230-desktop-engineering-preview) for the
+hosted scope and remaining consumer acceptance. Later source changes do not
+alter these published downloads.
 
 For a successful [desktop build](https://github.com/jonahsaunders/IC-Design-Studio/actions/workflows/build-desktop.yml?query=branch%3Amain),
 open its **release-Windows** or **release-Linux** artifact and extract it to find

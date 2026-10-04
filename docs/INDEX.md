@@ -23,7 +23,7 @@ The [gallery catalog](../README.md#example-library) contains 13 guided entries. 
 - [Desktop downloads and package identity](DOWNLOADS.md)
 - [Your first circuit and waveform](GETTING_STARTED.md)
 - [Projects, libraries and saved work](PROJECT_HUB.md)
-- [28 lessons and the sensor-acquisition capstone](STUDENT_HUB.md)
+- [41 core lessons and the sensor-acquisition capstone](STUDENT_HUB.md)
 - [Included and installed PDKs](PDK_GUIDE.md)
 - [Linux launch and engine setup](LINUX_SETUP.md)
 - [Circuit, layout, CLI and plugin workflows](USER_GUIDE.md)

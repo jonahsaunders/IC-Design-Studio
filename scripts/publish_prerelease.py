@@ -7,6 +7,8 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import tempfile
+from urllib.parse import quote, unquote, urlsplit, urlunsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -30,6 +32,43 @@ def public_tag(version, branch):
     if branch != 'main' or not re.fullmatch(r'(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)', version):
         raise ValueError('Public releases require main and a plain X.Y.Z version.')
     return 'v' + version
+
+
+def render_release_notes(notes, repository, commit, *, root=ROOT):
+    """Make repository links work when the Markdown is copied onto a release."""
+    root, notes = Path(root).resolve(), Path(notes).resolve()
+    if not notes.is_relative_to(root):
+        raise ValueError('Release notes must be inside the source repository.')
+
+    def replace(match):
+        destination = match.group('destination')
+        if destination is None:  # Leave fenced and inline code examples intact.
+            return match.group(0)
+        wrapped = destination.startswith('<')
+        uri = urlsplit(destination[1:-1] if wrapped else destination)
+        if uri.scheme or uri.netloc or not uri.path:
+            return match.group(0)
+        target = (root / unquote(uri.path).lstrip('/') if uri.path.startswith('/')
+                  else notes.parent / unquote(uri.path)).resolve()
+        if not target.is_relative_to(root) or not target.exists():
+            raise ValueError('Missing or unsafe release-note link: ' + destination)
+        relative = quote(target.relative_to(root).as_posix(), safe='/')
+        base = ('https://raw.githubusercontent.com/' + repository + '/' + commit + '/'
+                if match.group('prefix').startswith('![')
+                else 'https://github.com/' + repository + '/blob/' + commit + '/')
+        rebased = urlunsplit((*urlsplit(base + relative)[:3], uri.query, uri.fragment))
+        if wrapped:
+            rebased = '<' + rebased + '>'
+        start, end = match.span('destination')
+        return match.group(0)[:start - match.start()] + rebased + match.group(0)[end - match.start():]
+
+    # Release notes use inline Markdown links; reference definitions and images
+    # use the same destination handling. Code examples are copied verbatim.
+    pattern = re.compile(
+        r'(?P<code>^[ \t]{0,3}(?P<fence>`{3,}|~{3,})[^\n]*\n.*?^[ \t]{0,3}(?P=fence)[ \t]*$|`+[^`\n]+`+)'
+        r'|(?P<prefix>!?\[[^\]\n]*\]\(|^[ \t]{0,3}\[[^\]\n]+\]:[ \t]*)'
+        r'(?P<destination><[^>\n]+>|[^\s)]+)', re.MULTILINE | re.DOTALL)
+    return pattern.sub(replace, notes.read_text(encoding='utf-8'))
 
 
 def validate_public_assets(directory, assets, version, commit):
@@ -141,15 +180,19 @@ def publish(directory, version, branch, commit, run_id, attempt, repository,
     notes = Path(root) / 'docs' / f'UPDATE_{note_version}.md'
     if not notes.is_file():
         raise ValueError('Matching release notes are missing: ' + notes.name)
+    rendered_notes = render_release_notes(notes, repository, commit, root=root)
     assets = preflight_assets(directory)
     if public:
         validate_public_assets(directory, assets, version, commit)
         require_unused_public_tag(canonical, repository, run)
-    command = ['gh', 'release', 'create', tag, *[str(p.resolve()) for p in assets],
-               '--repo', repository, '--draft', '--prerelease', '--target', commit,
-               '--title', f'IC Design Studio {version} — {branch} preview ({run_id}/{attempt})',
-               '--notes-file', str(notes.resolve())]
-    run(command, check=True)
+    with tempfile.TemporaryDirectory(prefix='icstudio-release-notes-') as temporary:
+        published_notes = Path(temporary) / notes.name
+        published_notes.write_text(rendered_notes, encoding='utf-8')
+        command = ['gh', 'release', 'create', tag, *[str(p.resolve()) for p in assets],
+                   '--repo', repository, '--draft', '--prerelease', '--target', commit,
+                   '--title', f'IC Design Studio {version} — {branch} preview ({run_id}/{attempt})',
+                   '--notes-file', str(published_notes)]
+        run(command, check=True)
     if public:
         require_unused_public_tag(canonical, repository, run)
         # Creating the ref atomically closes the check/upload race. A conflict
