@@ -3,25 +3,30 @@
 ## 0.23.0 desktop engineering preview
 
 The current source version is **0.23.0**. Its [release notes](UPDATE_0.23.0.md)
-describe the editing, engine setup, help and display-sizing repairs. The public
-release destination is [v0.23.0](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/v0.23.0),
-with Windows x64 Setup and Portable downloads, a Linux x86_64 archive,
-corresponding source, validation/evidence records and checksums. See
-[downloads](DOWNLOADS.md) for the expected filenames and platform requirements.
+describe the editing, engine setup, help and display-sizing repairs.
+[Release v0.23.0](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/v0.23.0)
+was published on **2026-10-03 at 17:58 UTC** from main commit
+`6c9cf950737c5d0e793d47ef8e9ddcb7caa72b83`. Authenticated GitHub metadata
+checked on **2026-10-04** identifies it as a public, non-prerelease with **23
+assets**: Windows x64 Setup and Portable downloads, a Linux x86_64 archive,
+corresponding source, validation/evidence records, split physical evidence and
+checksums. See [downloads](DOWNLOADS.md) for filenames and platform requirements.
 
-A version bump does not qualify or publish a package. This candidate requires
-fresh desktop/package, interoperability, pinned physical, digital, VGA,
-statistical and reference-compatibility gates on the exact 0.23.0 commit.
-Earlier 0.22.0.dev25 results remain attached to their recorded sources and assets.
-The release's validation records identify the actual tested commit, version,
-installer/archive hashes and hosted execution scope.
+[Release preparation run 37135864594](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/37135864594)
+completed successfully for that exact commit. All seven required gates passed:
+desktop/package, interoperability, pinned physical, digital, VGA, statistical
+campaigns and reference compatibility. The release's validation records identify
+the tested version, installer/archive hashes and hosted execution scope. This
+metadata check did not independently download, re-hash or run the package bytes.
+Later source or documentation changes do not change the published package's
+identity. Earlier dev25 results retain their recorded sources and assets.
 
 Ordinary branch previews remain unpublished drafts. An explicit public release
 request on `main` stages the complete qualified assets in an attempt-specific
 draft, then promotes it to the canonical `v0.23.0` release only after uploads
 succeed. Public mode creates a regular GitHub release; **engineering preview**
-still describes the application's supported scope. Until that publication
-finishes, a draft or absent tag is not a public Windows/Linux download.
+still describes the application's supported scope. A draft or absent tag for
+another candidate does not establish a public Windows/Linux download.
 See [public release preparation](RELEASING.md#public-release-preparation).
 
 The Windows package remains unsigned. Hosted checks do not establish all

@@ -46,7 +46,16 @@ GF180MCU primitive symbols and ngspice model files: Apache-2.0, upstream commit 
 
 ngspice 42: BSD-style and component-specific licenses retained in the runtime COPYING/copyright files. Windows console distribution: https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/42/ngspice-42_64.7z/download. Linux distribution: Ubuntu 42+ds-3build1; corresponding source: https://archive.ubuntu.com/ubuntu/pool/universe/n/ngspice/. Upstream source: https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/42/.
 
-The Windows portable package uses CPython 3.12.9, official win_amd64 and pure Python wheels for the runtime dependencies, and Distlib native launchers distributed by pip 25.0.1. Runtime archive and file hashes are recorded in runtime-manifest.json. Python and Distlib licenses accompany those components. Distlib source: https://github.com/pypa/distlib. The application itself is supplied as editable Python source in the app folder.
+The current Windows installer and portable archive use the same PyInstaller
+directory build from `scripts/package.py` and `scripts/build_windows.ps1`.
+Corresponding application source accompanies the build as a source ZIP;
+dependency metadata and licenses are retained by the packager. The separately
+available `scripts/assemble_windows.py` recipe instead embeds CPython, extracts
+Windows runtime wheels and uses Distlib native launchers. That source-based
+assembly records its supplied runtime archive, wheels and file hashes in
+`runtime-manifest.json` and retains Python and Distlib licenses. Distlib source:
+https://github.com/pypa/distlib. Its editable `app` folder and `python` directory
+describe that alternative assembly, not the current public desktop archive.
 
 Encrypted desktop hosting uses cryptography to generate its private host certificates. Its wheel includes OpenSSL and other components with their own notices. The frozen packager retains cryptography's distribution metadata and license directory, including its bundled-component notices, and dependency metadata. The portable assembler retains the complete wheel metadata and licenses, including CFFI and pycparser. Corresponding upstream sources: https://github.com/openssl/openssl, https://github.com/python-cffi/cffi and https://github.com/eliben/pycparser; the bundled metadata identifies their versions and licenses.
 

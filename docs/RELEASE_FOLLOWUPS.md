@@ -7,7 +7,7 @@ package SHA-256 and observations; a closed issue without evidence does not
 qualify a platform or distribution policy.
 
 The [current release status](RELEASE_STATUS.md#0230-desktop-engineering-preview)
-describes the 0.23.0 publication path. The archived
+identifies the published 0.23.0 source and release preparation run. The archived
 [2026-09-30 release snapshot](RELEASE_STATUS.md#archived-source-and-package-snapshot--2026-09-30)
 identifies the main/experimental drafts recorded at that date, when both were
 unpublished. The older

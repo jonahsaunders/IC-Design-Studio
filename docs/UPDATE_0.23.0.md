@@ -1,10 +1,15 @@
 # IC Design Studio 0.23.0 — desktop engineering preview
 
-0.23.0 prepares a public desktop release with Windows x64 installer and portable
+0.23.0 provides a public desktop release with Windows x64 installer and portable
 downloads alongside the Linux x86_64 archive. The application remains an
-**engineering preview** with the platform and process limits below. The public
-destination is [release v0.23.0](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/v0.23.0);
-assets become available after fresh qualification and publication complete.
+**engineering preview** with the platform and process limits below.
+[Release v0.23.0](https://github.com/jonahsaunders/IC-Design-Studio/releases/tag/v0.23.0)
+was published on 2026-10-03 from main commit
+`6c9cf950737c5d0e793d47ef8e9ddcb7caa72b83` after
+[release preparation run 37135864594](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/37135864594)
+passed all seven required gates. The [release status](RELEASE_STATUS.md)
+records the metadata check and separates published package identity from later
+source changes and remaining manual acceptance.
 
 ## Downloads and build identity
 
