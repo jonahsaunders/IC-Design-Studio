@@ -100,7 +100,10 @@ restart; the digital engines and SKY130 platform themselves are already bundled.
    Choose the cell selector or **New RTL cell** to maintain independent blocks.
 3. Use the included SKY130 HD platform, or use **Inspector → Design setup →
    Choose platform** to capture another
-   `sky130hd` / `nangate45` ORFS revision or an explicit manifest.
+   `sky130hd`, `gf180`, `ihp-sg13g2` or `nangate45` ORFS revision, or an explicit manifest.
+   GF180 and IHP are source integrations requiring an external complete checkout;
+   they are not yet included in the released desktop runtime. See the
+   [process profiles and qualification](DIGITAL_PLATFORM_QUALIFICATION.md).
    **Constraints** generates an editable clock and I/O SDC.
    **Floorplan and routing** in that inspector section (also **More → Physical
    settings…**) controls die/core rectangles in micrometres, density and threads.
@@ -134,7 +137,15 @@ implementation. A digital platform captures full Liberty, LEF, GDS and supportin
 files independently. Files and ORFS scripts are checksummed when imported/prepared,
 verified again before execution, and copied into the run. A changed installation
 requires an explicit re-import or newly prepared run. One merged Liberty file per
-selected corner is currently supported for mapping.
+selected corner is currently supported for mapping. Captured `.lib.gz` files are
+verified and expanded into a separate job artifact; the platform originals stay
+unchanged. An expanded library is limited to 128 MiB.
+
+An explicit platform import selects all its declared timing corners. Choose a
+subset in **Constraints** if the design requires one. The chosen mapping corner
+controls synthesis; physical optimization and timing analysis use every selected
+timing corner. Changing that set invalidates physical checkpoints. A library
+corner sweep still uses one extracted SPEF and does not imply multiple RC corners.
 
 The implementation CI pins:
 
@@ -154,6 +165,9 @@ Licenses and package copyright files are retained in the runtime alongside sourc
 locations. A newer ORFS
 checkout may require newer OpenROAD APIs. The selected scripts are executed as
 captured; the app does not patch them or quietly downgrade a failed stage.
+The GF180 profile supplies a captured parasitics wrapper that reads nominal via
+resistance from its technology LEF. The wrapper and its reason are documented in
+the [process qualification guide](DIGITAL_PLATFORM_QUALIFICATION.md).
 
 A custom platform manifest sits beside its files:
 

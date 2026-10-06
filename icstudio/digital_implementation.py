@@ -83,9 +83,13 @@ class Runner:
     def save_json(self,key,data,filename):
         atomic_write(self.root/filename,json.dumps(data,indent=2));self.add_artifact(key,self.root/filename)
 
-    def libraries(self):
-        corner = getattr(self, 'timing_corner', None) or self.platform['corner']
-        return [self.root/'platform'/p for p in self.platform['corners'][corner]]
+    def libraries(self, corner=None):
+        from .digital_platform import liberty_files
+        corner = corner or getattr(self, 'timing_corner', None) or self.platform['corner']
+        paths=liberty_files(self.platform,self.root/'platform',self.root/'liberty',corner)
+        for path in paths:
+            if path.parent==self.root/'liberty':self.add_artifact('liberty_'+path.stem,path)
+        return paths
 
     def versions_check(self):
         for name,path in self.tools.items():
@@ -130,7 +134,10 @@ def mapped(runner):
             r.add_artifact('synthesis_constraints', constraint)
         r.save_json('synthesis_intent', intent, 'synthesis_intent.json')
         script += 'dfflibmap -liberty ' + quote(libs[0]) + '\n' + abc + '\nclean\n'
-        if r.platform['name']=='sky130hd':script+='hilomap -singleton -hicell sky130_fd_sc_hd__conb_1 HI -locell sky130_fd_sc_hd__conb_1 LO\n'
+        from .digital_platform import ORFS_PROFILES
+        # Preserve legacy SKY130 manifests; other profiles carry explicit ties.
+        ties=r.platform.get('tie_cells',ORFS_PROFILES['sky130hd']['tie_cells'] if r.platform['name']=='sky130hd' else {})
+        if ties:script+='hilomap -singleton -hicell '+' '.join(ties['high'])+' -locell '+' '.join(ties['low'])+'\n'
         script+='delete t:$scopeinfo\ncheck -assert\nwrite_verilog -noattr ../netlist.v\nwrite_json ../netlist.json\n'
         script+='tee -o ../statistics.json stat -json -liberty '+quote(libs[0])+'\n'
         atomic_write(r.root/'mapped.ys',script);r.command([r.tools['yosys'],'-s',str(r.root/'mapped.ys')],'Mapping '+r.config['top']+' to '+r.platform['name'])

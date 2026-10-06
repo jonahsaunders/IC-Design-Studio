@@ -45,6 +45,7 @@ The [gallery catalog](../README.md#example-library) contains 13 guided entries. 
 
 - [RTL editing, debug, timing and physical inspection](DIGITAL_WORKSPACE.md)
 - [Digital engines, constraints and RTL-to-GDS implementation](DIGITAL_FLOW.md)
+- [SKY130, GF180 and IHP digital profiles and qualification](DIGITAL_PLATFORM_QUALIFICATION.md)
 - [Eight interactive offline RTL presets](VGA_PLAYGROUND.md)
 - [Four-bit SAR ADC with clocked ngspice/Icarus coupling](MIXED_SIGNAL_SAR.md)
 - [Native buses, ordered slices and instance arrays](NATIVE_VECTORS.md)

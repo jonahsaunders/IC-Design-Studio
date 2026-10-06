@@ -27,7 +27,7 @@ jobs:
           verilator --version
           yosys -V
       - name: Verify digital inputs, real engines and analog compatibility
-        run: python -m unittest tests.test_digital tests.test_digital_implementation tests.test_timing_evidence tests.test_digital_runtime tests.test_digital_tools tests.test_digital_workspace tests.test_core tests.test_lifecycle tests.test_workflows -v
+        run: python -m unittest tests.test_digital tests.test_digital_implementation tests.test_digital_platforms tests.test_timing_evidence tests.test_digital_runtime tests.test_digital_tools tests.test_digital_workspace tests.test_core tests.test_lifecycle tests.test_workflows -v
       - name: Verify desktop digital workflow
         run: python tests/gui_digital.py
       - name: Verify coupled SAR conversion and deliberate faults
@@ -68,7 +68,7 @@ jobs:
 
   implementation:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 35
     env:
       QT_QPA_PLATFORM: offscreen
       ICSTUDIO_TEST_PHYSICAL: '1'
@@ -101,6 +101,8 @@ jobs:
           echo "ICSTUDIO_TEST_ORFS=$PWD/build/orfs" >> "$GITHUB_ENV"
       - name: Require real mapped timing, equivalence, fault detection and RTL to GDS
         run: python -m unittest tests.test_digital_implementation -v
+      - name: Require SKY130, GF180 and IHP counter implementation and extracted timing
+        run: python scripts/qualify_digital_platforms.py --orfs build/orfs --output build/digital-platforms --physical
       - name: Verify the linked digital implementation workspace
         if: ${{ !cancelled() && steps.toolchain.outcome == 'success' }}
         run: python tests/gui_digital_implementation.py
@@ -117,6 +119,10 @@ jobs:
         with:
           name: digital-implementation-evidence
           path: |
+            build/digital-platforms/**
+            !build/digital-platforms/**/platform/**
+            !build/digital-platforms/**/flow/**
+            !build/digital-platforms/**/liberty/**
             build/digital-implementation-ui
             build/digital-acceptance/*/input.json
             build/digital-acceptance/*/result.json

@@ -19,14 +19,16 @@ another. “All PDKs” here means these named targets, not arbitrary PDK compat
 |---|---|---|---|
 | Analog models and native symbols | Bundled subset with device/corner regressions | Bundled subsets with device/corner regressions | Bundled subset; managed compiled OSDI models required |
 | Analog physical implementation | Bounded recipes, reference layouts and process-RC tests; separate physical assets required | Bounded core-MOS recipes and C/D rule decks; additional Banba evidence has its own scope | Bounded core-MOS recipes and rule decks; not general BiCMOS/RF layout qualification |
-| Digital standard-cell implementation | Included locked SKY130 HD platform | No bundled and qualified digital platform | No bundled and qualified digital platform |
-| Digital timing and equivalence | Captured OpenSTA/EQY flow; selected library corners | Requires a complete digital platform and independent qualification | Requires a complete digital platform and independent qualification |
+| Digital standard-cell implementation | Included locked SKY130 HD platform | Source import for ORFS 9-track 5 V / 5LM_1TM / 9K; no included runtime yet | Source import for ORFS SG13G2 standard cells; no included runtime yet |
+| Digital timing and equivalence | Captured OpenSTA/EQY flow; selected library corners | Declared typical/slow/fast libraries; bounded counter qualification | Declared typical/slow/fast libraries; bounded counter qualification |
 | Chip-level signoff | Unqualified | Unqualified | Unqualified |
 
 The generic digital manifest importer is an integration mechanism; it does not
-establish support for a process. Automatic ORFS discovery currently supports
-SKY130 HD and Nangate45. GF180 and IHP need complete, revision-locked digital
-collateral, process-specific constraints and actual RTL-to-GDS qualification.
+establish support for a process. Automatic ORFS imports now include explicit
+GF180 and IHP profiles beside SKY130 HD and Nangate45. The
+[process qualification guide](DIGITAL_PLATFORM_QUALIFICATION.md) defines their
+exact library, metal-stack and acceptance-fixture scope. Broader designs, GF180
+variants and release packaging still need independent qualification.
 Nangate45 is not a replacement for either target process.
 
 See [PDK subsets](PDK_GUIDE.md), [digital limits](DIGITAL_FLOW.md),

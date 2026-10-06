@@ -178,10 +178,11 @@ class Workspace:
             self.window.message.setText('Exported macro geometry, terminals, netlist, constraints, parasitics and provenance.')
 
     def import_platform(self):
-        from .digital_platform import from_orfs,read_manifest
+        from .digital_platform import ORFS_PROFILES,bind,from_orfs,read_manifest
         w=self.window
         if not w.config:raise ValueError('Open or import an RTL cell first.')
-        choice,ok=QInputDialog.getItem(w,'Digital platform','Import source',['ORFS sky130hd','ORFS nangate45','Platform JSON manifest'],0,False)
+        choice,ok=QInputDialog.getItem(w,'Digital platform','Import source',
+                                     ['ORFS '+name for name in ORFS_PROFILES]+['Platform JSON manifest'],0,False)
         if not ok:return
         if choice.startswith('ORFS'):
             path=QFileDialog.getExistingDirectory(w,'Choose OpenROAD Flow Scripts checkout',w.studio.settings.value('digital/orfs',''))
@@ -195,7 +196,7 @@ class Workspace:
             corner,ok=QInputDialog.getItem(w,'Library corner','Corner',list(platform['corners']),0,False)
             if not ok:return
             platform['corner']=corner
-        w.config['platform']=platform;w.edited();self.refresh_design()
+        w.config=bind(w.config,platform);w.edited();self.refresh_design()
 
     def form(self,title,fields):
         d=QDialog(self.window);d.setWindowTitle(title);root=QVBoxLayout(d);form=QFormLayout();root.addLayout(form);edits={}

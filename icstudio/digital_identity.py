@@ -7,7 +7,7 @@ PHYSICAL = ('floorplan', 'place', 'cts', 'route', 'finish')
 
 def fingerprints(config):
     platform = config.get('platform', {})
-    technology = {k: platform.get(k) for k in ('fingerprint', 'corner', 'corners', 'name', 'directory')}
+    technology = {k: platform.get(k) for k in ('fingerprint', 'corner', 'corners', 'name', 'directory', 'tie_cells', 'orfs')}
     rtl = {'top': config['top'], 'files': [f for f in config['files'] if f['role'] in ('rtl', 'include', 'data')],
            'defines': config.get('defines', {}), 'include_dirs': config.get('include_dirs', ['.']),
            'bindings': config.get('bindings', {})}
@@ -33,7 +33,7 @@ def stage_key(config, stage, simulator='icarus'):
             'equivalence': ('rtl', 'technology', 'synthesis'),
             'timing': ('rtl', 'technology', 'synthesis', 'constraints', 'corners', 'physical')}
     if stage in PHYSICAL:
-        selected = {k: f[k] for k in ('rtl', 'technology', 'synthesis', 'constraints')}
+        selected = {k: f[k] for k in ('rtl', 'technology', 'synthesis', 'constraints', 'corners')}
         # Route-layer edits don't invalidate placement. Pin/macro/PDN edits do.
         physical = {k: v for k, v in config.get('physical', {}).items() if k != 'threads'}
         if stage in ('floorplan', 'place', 'cts'):

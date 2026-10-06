@@ -16,6 +16,44 @@ OPTIONS = {'min_routing_layer','max_routing_layer','macro_halo_um','pin_constrai
            'io_constraints_tcl','macro_placement_tcl','pdn_tcl'}
 
 
+def library_options(r):
+    """Bind every optimization corner despite platform makefile assignments."""
+    corners=r.config.get('timing_corners',[r.platform['corner']])
+    # Stable internal aliases avoid case collisions and invalid environment names
+    # in user-defined corner labels. The original labels remain in the job inputs.
+    aliases=['icstudio_'+str(i) for i in range(len(corners))]
+    options=['LIB_FILES='+' '.join(str(p) for p in r.libraries()),'CORNERS='+' '.join(aliases)]
+    options += [alias.upper()+'_LIB_FILES='+' '.join(str(p) for p in r.libraries(corner))
+                for alias,corner in zip(aliases,corners)]
+    return options
+
+
+def technology_options(r, flow_root):
+    from .digital_implementation import tcl_word
+    directory=r.root/'platform'/r.platform.get('directory','.')
+    # ORFS's KLayout generator searches FLOW_HOME/platforms even when an
+    # external PLATFORM_DIR is selected. Mirror only captured root map files.
+    target=flow_root/'platforms'/r.platform['name']
+    for path in directory.glob('*map'):
+        if path.is_file():
+            target.mkdir(parents=True,exist_ok=True);shutil.copy2(path,target/path.name)
+    options=r.platform.get('orfs',{})
+    vias=options.get('rc_vias',{}).get(r.platform['corner'],{})
+    if not vias:return []
+    lines=['# Fill explicit cut-layer RC from the captured single-cut LEF vias.',
+           'source '+tcl_word(directory/options['rc_file'])]
+    for layer,reference in vias.items():
+        lines += ['set icstudio_via [[ord::get_db_tech] findVia '+tcl_word(reference)+']',
+                  'if {$icstudio_via == "NULL"} {error "Captured reference via is missing"}',
+                  'set icstudio_resistance [$icstudio_via getResistance]',
+                  'if {$icstudio_resistance <= 0} {error "Captured reference via has no positive resistance"}',
+                  # dbTechVia returns ohms; convert to the current STA input
+                  # units rather than assuming the Liberty resistance unit.
+                  'set_layer_rc -via '+tcl_word(layer)+' -resistance [sta::resistance_sta_ui $icstudio_resistance]']
+    path=r.root/'platform_rc.tcl';atomic_write(path,'\n'.join(lines)+'\n');r.add_artifact('platform_rc',path)
+    return ['LAYER_PARASITICS_FILE='+str(path)]
+
+
 def validate_settings(settings):
     if not isinstance(settings,dict) or set(settings)-set(DEFAULTS)-OPTIONS:raise ValueError('Unknown physical implementation setting.')
     for name in ('die_area','core_area'):
@@ -123,7 +161,7 @@ def preview(def_file, lefs):
 
 def execute(r):
     from .digital_implementation import mapped,verify_upstream,tcl_word,quote
-    from .digital_platform import verify_flow
+    from .digital_platform import implementation_options,verify_flow
     from .digital import source_hash
     stage=r.settings['stage'];settings={**DEFAULTS,**r.config.get('physical',{})};validate_settings(settings)
     for path in [str(r.root),*r.tools.values()]:
@@ -173,6 +211,11 @@ def execute(r):
     command=[r.tools['make'],'-f',str(flow_root/'Makefile'),'DESIGN_CONFIG='+str(r.root/'config.mk'),
              'WORK_HOME='+str(work),'OPENROAD_EXE='+r.tools['openroad'],'YOSYS_EXE='+r.tools['yosys'],
              'NUM_CORES='+str(settings['threads']),'-o',str(seed),'-o',str(seed_sdc)]
+    # Platform makefiles can use unconditional assignments. Command-line values
+    # keep the actual physical libraries and process options bound to this job.
+    command += library_options(r)
+    command += technology_options(r,flow_root)
+    command += [key+'='+value for key,value in implementation_options(r.platform).items()]
     if 'klayout' in r.tools:command.append('KLAYOUT_CMD='+r.tools['klayout'])
     if resume:
         name=CHECKPOINTS[previous['stage']]
@@ -242,6 +285,8 @@ foreach library [[ord::get_db] getLibs] {
     from .digital_flow import artifact
     for i,path in enumerate(sorted(files)):r.artifacts['physical_file_'+str(i)]=artifact(r.root,path,allow_empty=True)
     return {**data,'physical':{'stage':stage,'resumed':resume,'upstream':previous.get('root'),
-            'flow_fingerprint':flow['fingerprint'],'settings':settings,'scope':'Engine implementation; timing, equivalence and physical rule qualification remain explicit checks.'},
+            'flow_fingerprint':flow['fingerprint'],'settings':settings,
+            'timing_corners':r.config.get('timing_corners',[r.platform['corner']]),
+            'scope':'Engine implementation; timing, equivalence and physical rule qualification remain explicit checks.'},
             'statistics':{'cells':len(geometry['components']),'area_um2':sum(c['width']*c['height'] for c in geometry['components'])},
             'summary':'Physical '+stage+' complete · '+str(len(geometry['components']))+' placed cells'}
