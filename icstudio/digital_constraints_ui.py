@@ -18,12 +18,14 @@ class ConstraintEditor(QDialog):
         self.io=self.grid('I/O timing',['Direction','Port expression','Clock','Minimum (ns)','Maximum (ns)'],
             [[direction,c['ports'],c['clock'],c['min_ns'],c['max_ns']] for direction,key in [('input','inputs'),('output','outputs')] for c in intent.get(key,[])])
         page=QWidget();form=QFormLayout(page);self.tabs.addTab(page,'Electrical & synthesis')
-        self.driver=QLineEdit(intent.get('driving_cell',''));self.driver.setAccessibleName('Input driving Liberty cell');form.addRow('Input driving cell',self.driver)
-        self.load=QDoubleSpinBox();self.load.setRange(0,1000);self.load.setDecimals(6);self.load.setSuffix(' pF');self.load.setValue(intent.get('load_pf',0));form.addRow('Output load',self.load)
+        synthesis=config.get('synthesis',{})
+        self.driver=QLineEdit(synthesis.get('driving_cell',intent.get('driving_cell','')));self.driver.setAccessibleName('Input driving Liberty cell');form.addRow('Input driving cell',self.driver)
+        self.load=QDoubleSpinBox();self.load.setRange(0,1000);self.load.setDecimals(6);self.load.setSuffix(' pF');self.load.setValue(synthesis.get('load_pf',intent.get('load_pf',0)));form.addRow('Output load',self.load)
         self.derive=QCheckBox('Derive synthesis delay budget from the clock and I/O constraints');self.derive.setChecked(bool(config.get('constraints')));form.addRow(self.derive)
         self.delay=QDoubleSpinBox();self.delay.setRange(.000001,1e6);self.delay.setDecimals(6);self.delay.setSuffix(' ns');self.delay.setValue(config.get('synthesis',{}).get('delay_ns',8));form.addRow('Explicit synthesis budget',self.delay)
         self.frontend=QComboBox();self.frontend.addItem('Yosys Verilog frontend','verilog');self.frontend.addItem('slang SystemVerilog frontend','slang');self.frontend.setCurrentIndex(self.frontend.findData(config.get('synthesis',{}).get('frontend','verilog')));form.addRow('Synthesis frontend',self.frontend)
-        note=QLabel('The synthesis budget is a conservative mapping target. Full clock groups and exceptions are evaluated by static timing analysis. The slang option requires the matching Yosys plugin.');note.setWordWrap(True);form.addRow(note)
+        self.mapping=QComboBox();self.mapping.setAccessibleName('Logic mapping strategy');self.mapping.addItem('Default mapping','default');self.mapping.addItem('Timing-oriented mapping','speed');self.mapping.setCurrentIndex(self.mapping.findData(synthesis.get('mapping','default')));form.addRow('Logic mapping',self.mapping)
+        note=QLabel('The synthesis budget is a mapping target; timing analysis checks the full constraints. Timing-oriented mapping can improve logic depth at a cost in area and runtime, and requires an input driving cell. The slang frontend requires its matching plugin.');note.setWordWrap(True);form.addRow(note)
         self.corner_checks=[]
         for name in config.get('platform',{}).get('corners',{}):
             check=QCheckBox(name);check.setChecked(name in config.get('timing_corners',[config['platform']['corner']]));form.addRow('Timing corner',check);self.corner_checks.append((name,check))
@@ -69,7 +71,7 @@ class ConstraintEditor(QDialog):
                 if len(files)>1:raise ValueError('Select one SDC source before editing constraints.')
                 if not files:out['files'].append({'path':'constraints.sdc','role':'constraint','text':self.preview.toPlainText()})
                 else:files[0]['text']=self.preview.toPlainText()
-            out['synthesis']={'frontend':self.frontend.currentData()}
+            out['synthesis']={'frontend':self.frontend.currentData(),'mapping':self.mapping.currentData()}
             if not self.derive.isChecked():out['synthesis'].update(delay_ns=self.delay.value(),driving_cell=self.driver.text().strip(),load_pf=self.load.value())
             if self.corner_checks:
                 out['timing_corners']=[name for name,check in self.corner_checks if check.isChecked()]

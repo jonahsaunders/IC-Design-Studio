@@ -143,6 +143,12 @@ def mapped(runner):
             atomic_write(constraint, 'set_driving_cell ' + intent['driving_cell'] + '\nset_load ' + str(intent.get('load_pf', 0) * 1000) + '\n')
             abc += ' -constr ' + quote(constraint)
             r.add_artifact('synthesis_constraints', constraint)
+        if intent.get('mapping')=='speed':
+            from .digital_mapping import speed_script, SOURCE
+            path=r.root/'abc_speed.script';atomic_write(path,speed_script(intent.get('delay_ns')))
+            abc+=' -script '+quote(path);r.add_artifact('mapping_script',path)
+            r.save_json('mapping_recipe',{'source':SOURCE,'script_sha256':file_digest(path),
+                'delay_ns':intent.get('delay_ns'),'mapping':'speed'},'mapping_recipe.json')
         r.save_json('synthesis_intent', intent, 'synthesis_intent.json')
         script += 'dfflibmap -liberty ' + quote(libs[0]) + '\n' + abc + '\nclean\n'
         from .digital_platform import ORFS_PROFILES

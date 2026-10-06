@@ -22,6 +22,13 @@ def workload(name, platform):
     project['digital']['timeout']=600
     project['digital']['physical']={'die_area':[0,0,400,400],'core_area':[20,20,380,380],
                                     'place_density':0.6,'threads':2}
+    if name=='uart' and platform['name']=='gf180':
+        # Preserve the original RTL and 10 ns / 1 ns I/O SDC. Map against the
+        # captured slow library with an 8 ns combinational budget, then verify
+        # every library corner with the profile's worst-case RC extraction.
+        project['digital']['platform']['corner']='slow'
+        project['digital']['synthesis']={'mapping':'speed','delay_ns':8,
+            'driving_cell':'gf180mcu_fd_sc_mcu9t5v0__buf_4','load_pf':0}
     return project
 
 
@@ -49,8 +56,9 @@ def main(argv=None):
             root=output/platform_name/name;root.mkdir(parents=True);retain()
             try:
                 project=workload(name,platform);config=project['digital'];save_project(project,root/'design.icproj')
-                entry['technology']={k:v for k,v in platform.items() if k!='root'}
+                entry['technology']={k:v for k,v in config['platform'].items() if k!='root'}
                 entry['conditions']={'physical':config['physical'],'timing_corners':config['timing_corners'],
+                    'mapping_corner':config['platform']['corner'],'synthesis':config.get('synthesis',{}),
                     'constraints':[f for f in config['files'] if f['role']=='constraint']};retain()
                 def run(stage,label,upstream=None,expected=None):
                     folder=root/label;folder.mkdir()

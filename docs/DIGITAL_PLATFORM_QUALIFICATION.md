@@ -131,6 +131,15 @@ All captured library corners are selected. The fixture allows 600 seconds per
 engine command; a timeout cannot qualify a case. `--design uart` / `--design apb`
 and `--platform` select smaller diagnostic runs.
 
+GF180 UART uses the captured slow synthesis library and the profile's WC/FuncRCmax
+extraction option. Its explicit synthesis settings are timing-oriented mapping,
+an 8 ns delay target (10 ns minus the two 1 ns I/O budgets), the captured
+`gf180mcu_fd_sc_mcu9t5v0__buf_4` input driver and zero additional output load.
+These are mapping choices; the original timing SDC is unchanged and all three
+Liberty corners still have to pass. Other cases retain their original mapping
+settings and imported typical corner. Every run records these choices separately
+from the selected timing corners and physical results.
+
 Each workload must pass Icarus and Verilator behavioral tests, mapped equivalence,
 deliberate-fault detection with a counterexample, physical finish with zero final
 router violations, extracted timing at every selected corner and physical-netlist

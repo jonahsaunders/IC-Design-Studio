@@ -202,6 +202,18 @@ artifact checksums remain available in each run directory.
 
 ## Inspection and verification
 
+**Constraints → Electrical & synthesis → Logic mapping** offers the default
+Yosys mapper and optional **Timing-oriented mapping**. The latter uses a captured
+recipe adapted from the pinned ORFS speed script, applies the declared delay
+target to mapping and sizing, and requires an input driving cell from the selected
+Liberty library. It can improve logic depth at a cost in area and runtime;
+extracted timing and equivalence still determine acceptance. The generated
+`abc_speed.script`, recipe source, checksum and synthesis intent remain in the job.
+Changing the mapping choice invalidates earlier mapped results for automatic
+workflow reuse. Explicit driver/load choices survive editing and save/reopen.
+
+![Timing-oriented mapping with explicit GF180 synthesis settings](images/digital-timing-mapping.png)
+
 Run diagnostics open their captured source revision in a read-only pane.
 Live language-server diagnostics open the working copy. The netlist browser links retained Yosys
 source attributes to RTL and selects matching physical instances. Timing paths

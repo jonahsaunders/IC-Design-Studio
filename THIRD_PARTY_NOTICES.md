@@ -159,6 +159,14 @@ including materialized linked extraction rules, are locked in
 manifests and notice files. Source is available at the pinned
 [ORFS revision](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/tree/eaba6576441bf7c1743ea56ecdb1904210ec02c2/flow/platforms).
 
+The application's optional timing-oriented mapping recipe is adapted from
+`flow/scripts/abc_speed.script` at the same ORFS revision. Copyright (c) 2018-2023,
+The Regents of the University of California. Its BSD-3-Clause terms and disclaimer
+are retained in [the source-distribution license](licenses/OpenROAD-flow-scripts-BSD-3-Clause.txt).
+Studio adds explicit delay targets to mapping and sizing commands and retains
+the generated script in each mapped job. This does not change the separate
+licenses of ABC, Yosys or the selected cell libraries.
+
 The managed runtime also includes Magic and Netgen at the commits in
 `examples/physical-engine-lock.json`, plus the Ubuntu ngspice package. Magic's
 `LICENSE`, Netgen's `Copying`, their complete source trees and the source lock

@@ -36,7 +36,9 @@ jobs:
           python scripts/verify_sar_adc.py --out build/sar-qualification
           python tests/gui_mixed_signal.py
       - name: Verify linked workspace, queue resume and large placement inspection
-        run: python tests/gui_digital_workspace.py
+        run: |
+          python tests/gui_digital_workspace.py
+          python tests/gui_digital_mapping.py
       - name: Verify student progression and advanced project
         run: |
           python -m unittest tests.test_student_hub -v
@@ -63,6 +65,7 @@ jobs:
             build/digital-first-run-ui
             build/digital-platform-ui
             build/digital-workspace-ui
+            build/digital-mapping-ui
             build/sar-qualification
             build/mixed-signal-ui
             build/student-capstone
