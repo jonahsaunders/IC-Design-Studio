@@ -27,12 +27,28 @@ def require_clean_route(folder):
     return {'detailed_route_drc_errors':counts,'scope':'Router rule checks; not foundry DRC/LVS'}
 
 
-def faulty_mapping(mapped, destination):
+def faulty_mapping(mapped, destination, output=None):
     from .digital_flow import artifact
-    destination=Path(destination);shutil.copytree(mapped,destination)
-    path=destination/'netlist.v';text,count=re.subn(r'\.D\([^)]*\)',".D(1'b0)",path.read_text(),count=1)
-    if count!=1:raise ValueError('Counter mapping must contain a D-input register for fault injection.')
+    mapped=Path(mapped)
+    # A combinational OR4 also has a pin named D. Require mapped register pins
+    # and, for workloads such as UART, select an observable named state output.
+    hierarchy=json.loads((mapped/'netlist.json').read_text())
+    types={c['type'] for module in hierarchy['modules'].values() for c in module.get('cells',{}).values()
+        if c.get('port_directions',{}).get('D')=='input' and c.get('port_directions',{}).get('Q')=='output'
+        and any(c.get('port_directions',{}).get(pin)=='input' for pin in ('CLK','CK','C'))}
+    original=(mapped/'netlist.v').read_text();selected=None
+    for cell in re.finditer(r'(?m)^\s*(\S+)\s+(\S+)\s+\([^;]*?\);',original):
+        if cell[1] not in types:continue
+        pins=cell[0]
+        if output is not None and not re.search(r'\.Q\(\s*'+re.escape(output)+r'\s*\)',pins):continue
+        changed,count=re.subn(r'\.D\([^)]*\)',".D(1'b0)",pins,count=1)
+        if count==1 and changed!=pins:selected=(cell,changed);break
+    if selected is None:raise ValueError('No mapped D-input register matches the requested fault output: '+repr(output))
+    cell,changed=selected;text=original[:cell.start()]+changed+original[cell.end():]
+    destination=Path(destination);shutil.copytree(mapped,destination);path=destination/'netlist.v'
     atomic_write(path,text)
+    atomic_write(destination/'qualification_fault.json',json.dumps({'cell_type':cell[1],'instance':cell[2],
+        'output':output,'before':cell[0].strip(),'after':changed.strip()},indent=2))
     result=json.loads((destination/'result.json').read_text())
     result['digital_result']['artifacts']['netlist']=artifact(destination,path)
     atomic_write(destination/'result.json',json.dumps(result))

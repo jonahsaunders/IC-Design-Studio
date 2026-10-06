@@ -25,10 +25,10 @@ def main():
     if output.exists() and any(output.iterdir()):raise ValueError('Choose an empty qualification output folder.')
     output.mkdir(parents=True,exist_ok=True)
     tools={name:os.environ.get('ICSTUDIO_TEST_'+name.upper()) or shutil.which(name)
-           for name in ('yosys','sta','eqy','sby','bitwuzla','openroad','make','klayout')}
+           for name in ('yosys','sta','eqy','sby','bitwuzla','yosys-abc','openroad','make','klayout')}
     tools.update(dict(value.split('=',1) for value in args.tool))
     if tools.get('yosys'):
-        for name in ('eqy','sby','bitwuzla'):
+        for name in ('eqy','sby','bitwuzla','yosys-abc'):
             sibling=Path(tools['yosys']).with_name(name)
             if not tools.get(name) and sibling.is_file():tools[name]=str(sibling)
     tools={key:value for key,value in tools.items() if value}

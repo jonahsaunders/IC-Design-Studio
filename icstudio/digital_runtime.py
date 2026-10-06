@@ -19,7 +19,7 @@ from contextlib import contextmanager
 
 from .model import atomic_write, clone, digest, file_digest, now
 
-TOOLS = ('iverilog','vvp','verilator','verilator_coverage','yosys','eqy','sby','bitwuzla','sta','openroad','make','klayout')
+TOOLS = ('iverilog','vvp','verilator','verilator_coverage','yosys','eqy','sby','bitwuzla','yosys-abc','sta','openroad','make','klayout')
 
 
 def payload_root():

@@ -27,7 +27,7 @@ jobs:
           verilator --version
           yosys -V
       - name: Verify digital inputs, real engines and analog compatibility
-        run: python -m unittest tests.test_digital tests.test_digital_implementation tests.test_digital_platforms tests.test_digital_bundle tests.test_timing_evidence tests.test_digital_runtime tests.test_digital_tools tests.test_digital_workspace tests.test_core tests.test_lifecycle tests.test_workflows -v
+        run: python -m unittest tests.test_digital tests.test_digital_implementation tests.test_digital_proof tests.test_digital_platforms tests.test_digital_bundle tests.test_timing_evidence tests.test_digital_runtime tests.test_digital_tools tests.test_digital_workspace tests.test_core tests.test_lifecycle tests.test_workflows -v
       - name: Verify desktop digital workflow
         run: python tests/gui_digital.py
       - name: Verify coupled SAR conversion and deliberate faults
@@ -71,7 +71,7 @@ jobs:
 
   implementation:
     runs-on: ubuntu-24.04
-    timeout-minutes: 35
+    timeout-minutes: 60
     env:
       QT_QPA_PLATFORM: offscreen
       ICSTUDIO_TEST_PHYSICAL: '1'
@@ -106,6 +106,8 @@ jobs:
         run: python -m unittest tests.test_digital_implementation -v
       - name: Require SKY130, GF180 and IHP counter implementation and extracted timing
         run: python scripts/qualify_digital_platforms.py --orfs build/orfs --output build/digital-platforms --physical
+      - name: Require UART and APB FIFO proof and physical closure on all three profiles
+        run: python scripts/qualify_digital_workloads.py --orfs build/orfs --output build/digital-workloads
       - name: Verify the linked digital implementation workspace
         if: ${{ !cancelled() && steps.toolchain.outcome == 'success' }}
         run: python tests/gui_digital_implementation.py
@@ -126,6 +128,11 @@ jobs:
             !build/digital-platforms/**/platform/**
             !build/digital-platforms/**/flow/**
             !build/digital-platforms/**/liberty/**
+            build/digital-workloads/**
+            !build/digital-workloads/**/platform/**
+            !build/digital-workloads/**/flow/**
+            !build/digital-workloads/**/liberty/**
+            !build/digital-workloads/**/obj_dir/**
             build/digital-implementation-ui
             build/digital-acceptance/*/input.json
             build/digital-acceptance/*/result.json

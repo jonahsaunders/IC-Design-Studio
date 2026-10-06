@@ -114,3 +114,43 @@ This small counter verifies the declared integration path. It does not qualify
 arbitrary RTL, full PVT/RC coverage, foundry DRC/LVS, antenna/density/fill, chip I/O,
 CDC/RDC, EM/IR limits, packaging, or a tapeout. Broader analog and digital release
 acceptance remains in [public-release targets](PUBLIC_RELEASE_TARGETS.md).
+
+## UART and hierarchical APB acceptance
+
+The broader workload gate runs the built-in UART transmitter and hierarchical
+APB FIFO on every declared profile:
+
+```sh
+python scripts/qualify_digital_workloads.py --orfs /path/to/ORFS --output build/digital-workloads
+```
+
+It retains the examples' original RTL and SDC, including the UART's 10 ns clock
+and APB's 20 ns clock. Both use a 400 by 400 micrometre die, a core from
+20 to 380 micrometres on each axis, density 0.6 and two implementation threads.
+All captured library corners are selected. The fixture allows 600 seconds per
+engine command; a timeout cannot qualify a case. `--design uart` / `--design apb`
+and `--platform` select smaller diagnostic runs.
+
+Each workload must pass Icarus and Verilator behavioral tests, mapped equivalence,
+deliberate-fault detection with a counterexample, physical finish with zero final
+router violations, extracted timing at every selected corner and physical-netlist
+equivalence. Pre-layout violations remain visible and must close under the same
+constraints after routing. The report records source, input, engine and result
+identities; the job folders retain the actual netlists, logs, proofs and geometry.
+
+The negative control now identifies a mapped register using its clock, D and Q
+port metadata. A combinational gate's D pin is insufficient. UART targets the
+`busy` register; counter/APB select an eligible register. The exact before/after
+cell instance is saved in `qualification_fault.json`. Earlier counter records
+used the first D pin in the serialized netlist, so their detected-fault results
+should not be interpreted as proof of this newer register-selection method.
+
+The proof portfolio is described in [digital flow](DIGITAL_FLOW.md). Fully mapped
+netlists use structural cell instances and omit signed declaration qualifiers
+that OpenSTA cannot parse. Widths, bit selections and connections are retained;
+the original synthesis output is saved when this conversion is needed. Formal
+equivalence checks the exact converted netlist subsequently used for timing and
+physical implementation. RTL arithmetic and reset behavior are unchanged.
+
+These are block integration checks. They do not supply missing SKY130 PVT
+libraries, independent RC extractions, chip-level DRC/LVS or foundry acceptance.

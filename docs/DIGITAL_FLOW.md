@@ -230,14 +230,23 @@ Pre-layout timing has no extracted wire parasitics. Default propagated-activity
 power is an estimate, not a workload measurement. There is no multi-corner signoff
 claim or automatic false/multicycle-path correctness proof.
 
-EQY runs SBY/Bitwuzla induction at depth 30 with explicit undefined-state propagation
-against the actual selected mapped netlist. Use its four proof executables from
+EQY runs SBY/Bitwuzla induction at depth 30, then SBY/ABC PDR for unresolved
+partitions, with explicit undefined-state propagation in both strategies
+against the actual selected mapped netlist. Use its five proof executables from
 the same toolchain `bin` directory; companions are discovered beside Yosys when
-absent from PATH. **PASS**, **FAIL**, **UNKNOWN** and engine **ERROR** stay distinct. A
-strategy timeout/unproved partition cannot produce PASS. State/reset assumptions
-and complex designs may need another strategy; counterexamples and proof logs
-are retained for investigation. A failed proof does not silently become a
-successful physical qualification.
+absent from PATH. The captured `yosys-abc` identity participates in job validation;
+an unrelated inherited `ABC` setting cannot select a different solver. Each
+strategy receives half the configured timeout (at least one second), and the
+whole EQY invocation remains bounded by the job timeout. No reset assumptions
+are inserted. See the upstream [EQY strategy reference](https://github.com/YosysHQ/eqy/blob/main/docs/source/strategies.rst)
+and [SBY engine reference](https://github.com/YosysHQ/sby/blob/main/docs/source/reference.rst).
+
+**PASS**, **FAIL**, **UNKNOWN** and engine **ERROR** stay distinct. An unresolved
+partition qualifies only when another strategy actually proves it and EQY reports
+overall PASS. Timeouts or bounded initial-cycle checks alone cannot produce PASS.
+State/reset behavior and complex designs can still prevent a proof; counterexamples
+and proof logs are retained for investigation. A failed proof does not silently
+become a successful physical qualification.
 
 **More → Regression cases…** saves named testbench tops, simulators, definitions and optional
 Verilator line coverage. **Regression** runs all cases, retaining a failed case

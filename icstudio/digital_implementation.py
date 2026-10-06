@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -44,6 +45,15 @@ def quote(value):
 def tcl_word(value):
     from .engines import tcl_word as word
     return word(str(value))
+
+
+def structural_verilog(text):
+    """Remove signed declaration qualifiers after all arithmetic is mapped.
+
+    OpenSTA's structural reader does not accept them. Widths, bit selections,
+    cell connections and constants are unchanged; this is never applied to RTL.
+    """
+    return re.sub(r'(?m)^([ \t]*(?:wire|input|output|inout)) signed(?=[ \t])',r'\1',text)
 
 
 class Runner:
@@ -94,7 +104,8 @@ class Runner:
     def versions_check(self):
         for name,path in self.tools.items():
             flag='-V' if name in ('iverilog','vvp','yosys') else '-version' if name in ('sta','openroad') else '-v' if name=='klayout' else '--version'
-            self.versions[name]=self.command([path,flag],'Checking '+name,fraction=.01).strip()[:12000]
+            args=[path,'-c','version'] if name=='yosys-abc' else [path,flag]
+            self.versions[name]=self.command(args,'Checking '+name,fraction=.01).strip()[:12000]
 
     def constraints(self):
         files=[f for f in self.config['files'] if f['role']=='constraint']
@@ -138,9 +149,16 @@ def mapped(runner):
         # Preserve legacy SKY130 manifests; other profiles carry explicit ties.
         ties=r.platform.get('tie_cells',ORFS_PROFILES['sky130hd']['tie_cells'] if r.platform['name']=='sky130hd' else {})
         if ties:script+='hilomap -singleton -hicell '+' '.join(ties['high'])+' -locell '+' '.join(ties['low'])+'\n'
-        script+='delete t:$scopeinfo\ncheck -assert\nwrite_verilog -noattr ../netlist.v\nwrite_json ../netlist.json\n'
+        script+='delete t:$scopeinfo\ncheck -assert\nwrite_verilog -noattr -noexpr ../netlist.v\nwrite_json ../netlist.json\n'
         script+='tee -o ../statistics.json stat -json -liberty '+quote(libs[0])+'\n'
         atomic_write(r.root/'mapped.ys',script);r.command([r.tools['yosys'],'-s',str(r.root/'mapped.ys')],'Mapping '+r.config['top']+' to '+r.platform['name'])
+        hierarchy=json.loads((r.root/'netlist.json').read_text())
+        if any(c['type'].startswith('$') for c in hierarchy['modules'][r.config['top']].get('cells',{}).values()):
+            raise ValueError('Technology mapping left unsupported cells. Inspect the retained synthesis logs.')
+        original=(r.root/'netlist.v').read_text();normalized=structural_verilog(original)
+        if normalized!=original:
+            atomic_write(r.root/'netlist_yosys.v',original);r.add_artifact('synthesis_netlist',r.root/'netlist_yosys.v')
+            atomic_write(r.root/'netlist.v',normalized)
         for key,name in (('netlist','netlist.v'),('hierarchy','netlist.json'),('statistics','statistics.json')):r.add_artifact(key,r.root/name)
     from .digital_reports import netlist_index
     data=json.loads((r.root/'netlist.json').read_text());index=netlist_index(data,r.config['files'])
@@ -235,6 +253,15 @@ def timing(r):
     return {**data,'timing':report,'verdict':report['status'],'summary':'Timing '+report['status']+' · '+', '.join(corners)+' · '+report['parasitics']+detail}
 
 
+def proof_strategies(timeout):
+    # Keep induction for simple partitions and try reachability-based PDR when
+    # induction cannot establish their invariants. Both use formal X propagation;
+    # neither inserts a reset assumption or accepts bounded simulation as proof.
+    budget=max(1,timeout//2)
+    return ('[strategy smtbmc]\nuse sby\nengine smtbmc bitwuzla\nxprop on\ndepth 30\ntimeout '+str(budget)+'\n'
+            '\n[strategy pdr]\nuse sby\nengine abc pdr\nxprop on\ntimeout '+str(budget)+'\n')
+
+
 def equivalence(r):
     from .digital_flow import read_rtl
     from .digital_reports import eqy_report
@@ -257,10 +284,11 @@ def equivalence(r):
     # name; those gates still need the history behind a matched pointer/count.
     script+='\n[partition *]\namend *\n'
     # Encode undefined state explicitly; EQY's SAT strategy can prove this case vacuously.
-    script+='\n[strategy smtbmc]\nuse sby\nengine smtbmc bitwuzla\nxprop on\ndepth 30\n'
+    script+='\n'+proof_strategies(r.config.get('timeout',60))
     atomic_write(r.root/'equivalence.eqy',script)
     r.env['PATH']=str(Path(r.tools['eqy']).parent)+os.pathsep+r.env.get('PATH','')
     r.env['YOSYS']=r.tools['yosys']
+    r.env['ABC']=r.tools['yosys-abc']
     r.command([r.tools['eqy'],'--yosys',r.tools['yosys'],'-f','-d','../proof','../equivalence.eqy'],
               'Proving the captured mapped netlist',fraction=.6,allow_failure=True)
     report=eqy_report(r.root/'proof');r.save_json('equivalence',report,'equivalence.json')
