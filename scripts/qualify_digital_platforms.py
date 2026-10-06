@@ -3,23 +3,14 @@ import argparse
 import json
 import os
 from pathlib import Path
-import re
 import shutil
 import sys
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
-from icstudio import digital, digital_constraints, digital_flow, digital_platform, job_store
-from icstudio.model import atomic_write, clone, file_digest, save_project
-
-
-def require_clean_route(folder):
-    metrics=json.loads((folder/'physical_metrics.json').read_text())
-    counts=[value['detailedroute__route__drc_errors'] for value in metrics.values()
-            if 'detailedroute__route__drc_errors' in value]
-    if not counts or any(type(n) is not int or n!=0 for n in counts):
-        raise ValueError('Final detailed-route rule checks are missing or not clean: '+repr(counts))
-    return {'detailed_route_drc_errors':counts,'scope':'Router rule checks; not foundry DRC/LVS'}
+from icstudio import digital_flow, digital_platform, job_store
+from icstudio.digital_qualification import counter, faulty_mapping, require_clean_route
+from icstudio.model import atomic_write, file_digest, save_project
 
 
 def main():
@@ -51,12 +42,7 @@ def main():
         entry={'name':name,'status':'running','cases':[]};report['platforms'].append(entry);retain()
         root=output/name;root.mkdir()
         try:
-            p=digital.counter_project();config=p['digital']
-            config['platform']=digital_platform.from_orfs(args.orfs,name)
-            intent=digital_constraints.default_intent();intent['clocks'][0]['period_ns']=50
-            p['digital']=digital_constraints.apply(config,intent);config=p['digital'];config['timeout']=600
-            config['physical']={'die_area':[0,0,200,200],'core_area':[20,20,180,180],'place_density':0.6,'threads':2}
-            config['timing_corners']=list(config['platform']['corners'])
+            p=counter(digital_platform.from_orfs(args.orfs,name));config=p['digital']
             save_project(p,root/'counter.icproj')
             entry['platform']={k:v for k,v in config['platform'].items() if k!='root'}
             entry['conditions']={'clock_period_ns':50,'load_pf':0.01,'physical':config['physical']};retain()
@@ -84,14 +70,7 @@ def main():
             if prelayout.get('verdict') not in ('PASS','FAIL'):
                 raise ValueError('Pre-layout timing evidence is incomplete.')
             run('equivalence','equivalent',upstream=mapped,expected='PASS')
-            fault=root/'faulty-mapped';shutil.copytree(mapped,fault)
-            text=(fault/'netlist.v').read_text()
-            text,count=re.subn(r'\.D\([^)]*\)',".D(1'b0)",text,count=1)
-            if count!=1:raise ValueError('Counter mapping must contain a D-input register for fault injection.')
-            atomic_write(fault/'netlist.v',text)
-            result=json.loads((fault/'result.json').read_text())
-            result['digital_result']['artifacts']['netlist']=digital_flow.artifact(fault,fault/'netlist.v')
-            atomic_write(fault/'result.json',json.dumps(result))
+            fault=faulty_mapping(mapped,root/'faulty-mapped')
             run('equivalence','fault-detected',upstream=fault,expected='FAIL')
             if args.physical:
                 finished,_=run('finish','finished',upstream=mapped)

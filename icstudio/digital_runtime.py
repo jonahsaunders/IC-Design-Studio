@@ -44,6 +44,13 @@ def manifest():
             or data.get('archive') != 'runtime.tar.gz' or not isinstance(data.get('sha256'), str)
             or not re.fullmatch('[0-9a-f]{64}',data['sha256'])):
         raise ValueError('The included digital runtime manifest is invalid. Repair the application installation.')
+    if 'platforms' in data:
+        from .digital_platform import BUNDLED_PLATFORMS
+        if (not isinstance(data['platforms'],list) or not data['platforms']
+                or any(not isinstance(name,str) or name not in BUNDLED_PLATFORMS for name in data['platforms'])
+                or len(data['platforms'])!=len(set(data['platforms']))
+                or data.get('default_platform') not in data['platforms']):
+            raise ValueError('The included digital platform catalog is invalid. Repair the application installation.')
     return data
 
 
@@ -90,9 +97,13 @@ def status():
             return {'state':'setup','message':'The digital setup record is invalid. Run setup again to restore it.'}
         if ready.get('runtime') != runtime or ready.get('manifest') != digest(data) or ready.get('backend') != backend_identity():
             return {'state':'setup','message':'The digital runtime changed. Run setup again.'}
+        if 'platforms' in data and ready.get('platforms')!=data['platforms']:
+            return {'state':'setup','message':'Not every included platform has passed setup. Run setup again.'}
         if not (Path(runtime['root'])/'opt/icstudio/runtime.json').is_file():
             return {'state':'setup','message':'The digital runtime is missing. Run setup to restore it.'}
-        return {'state':'ready','message':'Ready · SKY130 HD · simulation, synthesis, proof, timing and RTL to GDS verified',
+        from .digital_platform import PLATFORM_LABELS
+        labels=', '.join(PLATFORM_LABELS[name] for name in data.get('platforms',['sky130hd']))
+        return {'state':'ready','message':'Ready · '+labels+' · installation checks passed',
                 'runtime':runtime,'evidence':ready['evidence']}
     except (OSError,ValueError,KeyError,TypeError) as exc:
         return {'state':'error', 'reason':'runtime_error', 'message':str(exc)}
@@ -133,11 +144,35 @@ def identity(runtime, full=False):
     return {'sha256':data['sha256'],'files_sha256':data['files_sha256'],'manifest':digest(data)}
 
 
-def platform(runtime):
-    base = Path(runtime['root'])
-    data = json.loads((base/'opt/icstudio/platform.json').read_text())
-    data['root'] = str(base/data['root'])
-    return data
+def platforms(runtime):
+    """Read the locked catalog, with compatibility for SKY130-only payloads."""
+    from .digital_platform import validate
+    identity(runtime)
+    base=Path(runtime['root']).resolve();folder=base/'opt/icstudio';meta=manifest()
+    name='platforms.json' if 'platforms' in meta else 'platform.json'
+    records=json.loads((folder/'files.json').read_text());path=folder/name
+    if not path.is_file() or records.get('opt/icstudio/'+name)!=file_digest(path):
+        raise ValueError('The included digital platform catalog changed or is missing. Repair the installation.')
+    data=json.loads(path.read_text())
+    if name=='platform.json':data={'schema':1,'default':'sky130hd','platforms':{'sky130hd':data}}
+    expected=meta.get('platforms',['sky130hd'])
+    if (not isinstance(data,dict) or data.get('schema')!=1 or not isinstance(data.get('platforms'),dict)
+            or set(data['platforms'])!=set(expected) or data.get('default')!=meta.get('default_platform','sky130hd')):
+        raise ValueError('The included digital platform catalog does not match the package.')
+    result={}
+    for name in expected:
+        platform=clone(data['platforms'][name])
+        if not isinstance(platform,dict) or platform.get('name')!=name or platform.get('root')!='opt/icstudio/orfs/flow/platforms':
+            raise ValueError('Invalid included platform location or identity: '+name)
+        platform['root']=str(base/platform['root']);result[name]=validate(platform)
+    return result
+
+
+def platform(runtime, name=None):
+    name=name or manifest().get('default_platform','sky130hd')
+    values=platforms(runtime)
+    if name not in values:raise ValueError('This package does not include '+name+'. Install a package containing that platform.')
+    return values[name]
 
 
 def flow(runtime):
@@ -292,7 +327,7 @@ def setup(progress=lambda message: None):
                     progress('Retaining the damaged installation for diagnosis and restoring the included package…')
                     target.rename(target.with_name(target.name+'.damaged-'+uuid.uuid4().hex))
             if not target.is_dir():
-                progress('Unpacking the included tools and SKY130 platform…')
+                progress('Unpacking the included tools and digital platforms…')
                 target.parent.mkdir(parents=True,exist_ok=True)
                 temporary = target.with_name(target.name+'.install-'+uuid.uuid4().hex)
                 journal=state/'partial-install.json'
@@ -307,14 +342,18 @@ def setup(progress=lambda message: None):
         progress('Running the installation acceptance design…')
         from .digital_setup_probe import qualify
         evidence = state/'checks'/uuid.uuid4().hex
-        qualify(runtime,evidence,progress)
+        qualification=qualify(runtime,evidence,progress)
+        if 'platforms' in data and (not isinstance(qualification,dict) or qualification.get('status')!='PASS'
+                                   or qualification.get('platforms')!=data['platforms']):
+            raise ValueError('Installation checks did not qualify every included platform.')
         if {'magic','netgen','ngspice'} <= set(data.get('tools',[])):
             from .physical_runtime_probe import qualify as qualify_physical
             progress('Checking DRC, strict LVS and deliberate physical failures…')
             qualify_physical(runtime,evidence/'physical-tools',progress)
         record = {'runtime':runtime,'manifest':digest(data),'backend':backend_identity(),'checked':now(),'evidence':str(evidence)}
+        if 'platforms' in data:record['platforms']=qualification['platforms']
         atomic_write(ready,json.dumps(record,indent=2))
-        progress('Ready. Digital engines and SKY130 HD passed the installation checks.')
+        progress('Ready. The included digital engines and platforms passed the installation checks.')
         return record
 
 

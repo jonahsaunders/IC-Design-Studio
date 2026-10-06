@@ -48,7 +48,10 @@ host dependencies and order. In addition to Python 3.12 and
   `digital-runtime-payload`; stage all files under `build/digital-payload`.
 - A successful `python scripts/qualify_digital_runtime.py` on each packaging
   OS. It executes real engine checks and writes `qualified-Windows.json` or
-  `qualified-Linux.json` matching that payload. Windows requires WSL 2.
+  `qualified-Linux.json` matching that payload, source backend and complete
+  advertised platform list. Packaging rejects stale, partial or other-OS
+  acceptance records. Requalify after changing application sources. Windows
+  requires WSL 2.
 - Pinned VGA assets from `python scripts/build_vga_playground.py --test`, using
   Git and Node.js 22.12+ (or 24), plus the platform graphics/WebEngine libraries.
 - Native ngspice: Windows staging uses

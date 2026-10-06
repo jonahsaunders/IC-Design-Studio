@@ -7,27 +7,14 @@ from pathlib import Path
 import shutil
 import subprocess
 
-from icstudio.digital_platform import from_orfs, pin_flow
+from bundle_platforms import bundle
 from icstudio.model import file_digest
 
 ROOT = Path('/opt/icstudio')
-platform = from_orfs(ROOT/'orfs')
-flow = pin_flow(ROOT/'orfs')
-# Retain the selected technology, shared scripts and upstream license files.
-for p in (ROOT/'orfs/flow/platforms').iterdir():
-    if p.name != 'sky130hd' and p.is_dir():
-        # Dereference platform links before removing sibling technologies.
-        for link in (ROOT/'orfs/flow/platforms/sky130hd').rglob('*'):
-            if link.is_symlink() and link.is_file():
-                data = link.read_bytes(); link.unlink(); link.write_bytes(data)
-        shutil.rmtree(p)
+catalog = bundle(ROOT)
 shutil.rmtree(ROOT/'orfs/.git')
 for name in ('docs', 'tools', 'flow/designs', 'flow/tutorials', 'flow/test', 'flow/reports'):
     shutil.rmtree(ROOT/'orfs'/name, ignore_errors=True)
-platform['root'] = 'opt/icstudio/orfs/flow/platforms'
-flow['root'] = 'opt/icstudio/orfs/flow'
-(ROOT/'platform.json').write_text(json.dumps(platform, indent=2))
-(ROOT/'flow.json').write_text(json.dumps(flow, indent=2))
 
 # Native Linux uses the host glibc (Ubuntu 24.04 or newer), private non-glibc
 # libraries, and a compiler sysroot. WSL uses the same image at /.
@@ -128,7 +115,9 @@ for base in ('usr','opt'):
     'oss_cad_suite':'2026-09-13', 'openroad':'26Q2-1164-g08f67ee5ec',
     'orfs':'eaba6576441bf7c1743ea56ecdb1904210ec02c2',
     'files_sha256':file_digest(ROOT/'files.json'),
-    'licenses':['usr/share/doc/*/copyright','opt/icstudio/oss-cad-suite/license','opt/icstudio/orfs/LICENSE','opt/icstudio/physical/licenses'],
+    'platforms':list(catalog['platforms']), 'default_platform':catalog['default'],
+    'licenses':['usr/share/doc/*/copyright','opt/icstudio/oss-cad-suite/license',
+                'opt/icstudio/orfs/LICENSE_BUILD_RUN_SCRIPTS','opt/icstudio/licenses','opt/icstudio/physical/licenses'],
     'physical_source_lock':json.loads((ROOT/'physical/source-lock.json').read_text()),
     'osdi':{'ihp-sg13g2':json.loads((ROOT/'osdi/ihp-sg13g2/build.json').read_text())},
     'sources':['https://github.com/YosysHQ/oss-cad-suite-build/releases/tag/2026-09-13',

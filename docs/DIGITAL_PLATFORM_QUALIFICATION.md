@@ -1,7 +1,8 @@
 # Digital process profiles and qualification
 
 Current source can import complete ORFS digital platforms for SKY130 HD,
-GF180MCU and IHP SG13G2. This extends the custom-tool workflow. The published
+GF180MCU and IHP SG13G2. Current source runtime builds bundle these three locked
+platforms and offer them in the platform chooser and CLI. The published
 0.23.0 desktop runtime still includes only SKY130 HD; these changes do not
 retroactively qualify or change that package.
 
@@ -21,12 +22,22 @@ BiCMOS and RF devices are outside this digital profile. The captured SKY130
 profile has only a typical library; it cannot supply a full PVT acceptance sweep.
 Nangate45 remains a separate import option and does not qualify these processes.
 
-Use **Choose platform** in the digital inspector, or the CLI's
+Use **Choose platform → Included** in the digital inspector, or the CLI's
+`--included-platform gf180` / `--included-platform ihp-sg13g2`, after the included
+runtime passes setup. Only platforms present in that package are offered.
+For a custom checkout, use **Choose platform → ORFS gf180** / **ORFS ihp-sg13g2**, or
 `--orfs-platform gf180` / `--orfs-platform ihp-sg13g2` with `--orfs` and custom
 tools. Import captures the complete platform files, tie-cell identities, library
 corners and process options. It selects every declared timing corner; the
 **Constraints** dialog can change that selection. The synthesis corner is the
 corner selected during import. Re-importing replaces incompatible old corner names.
+
+The included package retains the complete selected platform directories, their
+file locks and licenses. Build-time symlinks to sibling collateral are materialized
+before unused platforms are removed, then the locks are verified again. Setup
+validates the package catalog and requires the acceptance counter to pass for
+every advertised platform; a partial result cannot mark the installation Ready.
+Legacy SKY130-only payloads remain usable and retain their original scope.
 
 ORFS checkouts must preserve symbolic links and use LF executable scripts. The
 import rejects unresolved links, missing link targets and CRLF executable scripts

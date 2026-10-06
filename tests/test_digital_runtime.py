@@ -344,5 +344,82 @@ class DigitalRuntimeTests(unittest.TestCase):
             job=digital_flow.prepare(digital.counter_project(),'synth',tools={'yosys':str(executable)})
         self.assertNotIn('runtime',job['settings'])
 
+    def catalog(self, legacy=False):
+        data=self.package();base=self.state/'runtime';folder=base/'opt/icstudio';folder.mkdir(parents=True,exist_ok=True)
+        values={}
+        for name in ('sky130hd','gf180','ihp-sg13g2'):
+            record={'path':name+'/cells.lib','bytes':7,'sha256':'a'*64}
+            values[name]={'version':1,'name':name,'revision':'fixture','directory':name,'corner':'typical',
+                'corners':{'typical':[record['path']]},'root':'opt/icstudio/orfs/flow/platforms',
+                'files':[record],'fingerprint':digest([record])}
+        (folder/'platform.json').write_text(json.dumps(values['sky130hd']))
+        (folder/'platforms.json').write_text(json.dumps({'schema':1,'default':'sky130hd','platforms':values}))
+        if not legacy:data.update(platforms=list(values),default_platform='sky130hd')
+        self.relock_catalog(folder,data)
+        location={'kind':'linux','root':str(base),'sha256':data['sha256']}
+        return data,location,folder
+
+    def relock_catalog(self,folder,data):
+        records={'opt/icstudio/'+name:file_digest(folder/name) for name in ('platform.json','platforms.json') if (folder/name).is_file()}
+        (folder/'files.json').write_text(json.dumps(records));data['files_sha256']=file_digest(folder/'files.json')
+        (folder/'runtime.json').write_text(json.dumps({'files_sha256':data['files_sha256']}))
+        (self.payload/'manifest.json').write_text(json.dumps(data))
+
+    def test_catalog_selection_preserves_all_platforms_and_returns_independent_locks(self):
+        data,location,folder=self.catalog()
+        with patch.object(runtime,'location',return_value=location):
+            self.assertEqual(list(runtime.platforms(location)),data['platforms'])
+            selected=runtime.platform(location,'gf180');selected['corner']='changed'
+            self.assertEqual(runtime.platform(location,'gf180')['corner'],'typical')
+            self.assertEqual(runtime.platform(location)['name'],'sky130hd')
+            self.assertEqual(runtime.platform(location,'ihp-sg13g2')['root'],str(folder/'orfs/flow/platforms'))
+
+    def test_new_catalog_cannot_fall_back_to_an_old_default_if_missing_or_tampered(self):
+        data,location,folder=self.catalog()
+        with patch.object(runtime,'location',return_value=location):
+            path=folder/'platforms.json';path.write_text('{}')
+            with self.assertRaisesRegex(ValueError,'changed or is missing'):runtime.platforms(location)
+            path.unlink()
+            with self.assertRaisesRegex(ValueError,'changed or is missing'):runtime.platforms(location)
+
+    def test_catalog_membership_and_roots_are_validated_even_with_matching_file_hash(self):
+        for fault in ('missing-platform','escaped-root','wrong-name','not-object'):
+            with self.subTest(fault=fault):
+                data,location,folder=self.catalog()
+                path=folder/'platforms.json';catalog=json.loads(path.read_text())
+                if fault=='missing-platform':del catalog['platforms']['ihp-sg13g2']
+                elif fault=='escaped-root':catalog['platforms']['gf180']['root']='../outside'
+                elif fault=='wrong-name':catalog['platforms']['gf180']['name']='sky130hd'
+                else:catalog['platforms']['gf180']='invalid'
+                path.write_text(json.dumps(catalog));self.relock_catalog(folder,data)
+                with patch.object(runtime,'location',return_value=location):
+                    with self.assertRaises(ValueError):runtime.platforms(location)
+
+    def test_old_payload_only_offers_the_platform_it_contains(self):
+        _,location,_=self.catalog(legacy=True)
+        with patch.object(runtime,'location',return_value=location):
+            self.assertEqual(list(runtime.platforms(location)),['sky130hd'])
+            with self.assertRaisesRegex(ValueError,'does not include gf180'):runtime.platform(location,'gf180')
+
+    def test_ready_requires_every_advertised_platform_to_have_completed_setup(self):
+        data,location,_=self.catalog()
+        record={'runtime':location,'manifest':digest(data),'backend':runtime.backend_identity(),'evidence':'fixture',
+                'platforms':['sky130hd']}
+        path=self.state/('ready-'+data['sha256']+'.json');path.write_text(json.dumps(record))
+        with patch.object(runtime,'location',return_value=location):
+            self.assertEqual(runtime.status()['state'],'setup')
+            record['platforms']=data['platforms'];path.write_text(json.dumps(record))
+            info=runtime.status();self.assertEqual(info['state'],'ready')
+            self.assertIn('GF180',info['message']);self.assertIn('IHP',info['message'])
+
+    def test_partial_setup_report_cannot_authorize_a_multi_platform_ready_record(self):
+        data=self.package();data.update(platforms=['sky130hd','gf180','ihp-sg13g2'],default_platform='sky130hd')
+        (self.payload/'manifest.json').write_text(json.dumps(data))
+        with patch.object(runtime,'identity'),patch.object(runtime.host_platform,'libc_ver',return_value=('glibc','2.39')), \
+             patch.object(runtime,'location',return_value={'kind':'linux','root':str(self.state/'runtime'),'sha256':data['sha256']}), \
+             patch('icstudio.digital_setup_probe.qualify',return_value={'status':'PASS','platforms':['sky130hd']}):
+            with self.assertRaisesRegex(ValueError,'every included platform'):runtime.setup()
+        self.assertFalse(list(self.state.glob('ready-*.json')))
+
 
 if __name__=='__main__': unittest.main()

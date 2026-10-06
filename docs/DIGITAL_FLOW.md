@@ -28,8 +28,10 @@ layout, target runs, constraints, language server, indexed waveforms and macro e
 
 ![Included digital tools and guided setup](images/digital-first-run.png)
 
-Release builds include the digital engines, their C++ compiler/build dependencies,
-Python, Tcl, shared libraries, a compatible ORFS revision and full SKY130 HD files.
+Current source builds include the digital engines, their C++ compiler/build
+dependencies, Python, Tcl, shared libraries, a compatible ORFS revision and locked
+SKY130 HD, GF180 MCU and IHP SG13G2 digital platforms. The published 0.23.0 desktop
+contains SKY130 HD only; its contents do not change when source support expands.
 **Included tools** is the default, even if an older installation saved custom
 executable paths. First launch opens visible setup with progress, details and
 retry. **Run stage** and **Run to…** also open setup when needed and continue the
@@ -39,9 +41,13 @@ Closing setup cancels that pending request. You can keep editing during setup.
 without PATH edits or individual tool downloads. The Windows installer launches
 Studio for visible setup instead of running an invisible installation check.
 Allow several minutes and several GB of disk space. **Ready** requires successful
-Icarus simulation, UART regression with Verilator coverage, mapped synthesis,
-equivalence, timing, GDS/SPEF generation and extracted timing. Logs and results stay
-in the setup evidence directory. An installation failure never produces Ready.
+Icarus simulation and UART regression with Verilator coverage. Every platform
+listed in the package must also pass counter mapping, equivalence, deliberate-fault
+detection, resumed physical implementation, GDS/SPEF generation, clean detailed
+routing, extracted timing at every declared library corner and physical-netlist
+equivalence. Pre-layout hold failures stay in the evidence and must close after
+physical optimization under the same constraints. Logs and results stay in the
+setup evidence directory. An installation failure never produces Ready.
 
 The current payload also includes Magic, Netgen and ngspice for supported analog
 physical verification. **Tools → Physical tools setup…** selects that shared
@@ -61,6 +67,9 @@ Setup does not replace or unregister other WSL distributions. User-installed
 runtimes and setup evidence survive an application uninstall.
 
 New digital projects receive the included SKY130 HD lock after setup succeeds.
+Use **Inspector → Design setup → Choose platform → Included** to select another
+platform in your installed package. No external ORFS checkout is needed for these
+choices. The chooser can open first-run setup when the package is not ready.
 Existing platform selections and saved custom executable paths are preserved.
 To use external tools, explicitly choose **Custom tools** in the digital tools
 dialog, then **Configure custom tools**. Remaining tools resolve from PATH.
@@ -89,7 +98,7 @@ If the application reports missing packaged tools, reinstall the desktop package
 or extract the **entire** portable archive. A GitHub source ZIP and a lone copied
 executable do not contain a usable desktop runtime. On Windows, enabling WSL may
 require internet access for Windows components, administrator approval and a
-restart; the digital engines and SKY130 platform themselves are already bundled.
+restart; the digital engines and advertised platforms themselves are already bundled.
 
 ## A block from RTL to layout
 
@@ -98,11 +107,11 @@ restart; the digital engines and SKY130 platform themselves are already bundled.
 2. Select **Elaborate** or **Mapped synthesis**, run, then **Publish symbol**.
    The compiler's actual scalar and bus ports become native schematic terminals.
    Choose the cell selector or **New RTL cell** to maintain independent blocks.
-3. Use the included SKY130 HD platform, or use **Inspector → Design setup →
-   Choose platform** to capture another
+3. Use **Inspector → Design setup → Choose platform** to select an included
+   platform or capture another
    `sky130hd`, `gf180`, `ihp-sg13g2` or `nangate45` ORFS revision, or an explicit manifest.
-   GF180 and IHP are source integrations requiring an external complete checkout;
-   they are not yet included in the released desktop runtime. See the
+   Included choices reflect your installed package; older SKY130-only packages
+   do not advertise GF180 or IHP. See the
    [process profiles and qualification](DIGITAL_PLATFORM_QUALIFICATION.md).
    **Constraints** generates an editable clock and I/O SDC.
    **Floorplan and routing** in that inspector section (also **More → Physical
@@ -149,7 +158,8 @@ corner sweep still uses one extracted SPEF and does not imply multiple RC corner
 
 The implementation CI pins:
 
-- ORFS `eaba6576441bf7c1743ea56ecdb1904210ec02c2` and its SKY130 HD platform;
+- ORFS `eaba6576441bf7c1743ea56ecdb1904210ec02c2` and its SKY130 HD, GF180 MCU
+  and IHP SG13G2 platforms;
 - OpenROAD `26Q2-1164-g08f67ee5ec` and OpenSTA 3.1.0 from its Ubuntu 24.04 package;
 - OSS CAD Suite `2026-09-13` for Yosys, EQY with matching plugins, SBY and Bitwuzla;
 - The included package uses OSS CAD Suite's Icarus and Verilator, and Ubuntu
@@ -306,6 +316,10 @@ Run from the repository root in its Python environment. Example generation needs
 no external HDL engine; the run commands above need a configured custom toolchain
 and, for implementation, the compatible ORFS checkout. With a qualified included
 runtime, select `--toolchain included` and omit `--tool` and `--orfs` overrides.
+Use `--included-platform sky130hd`, `--included-platform gf180` or
+`--included-platform ihp-sg13g2` to select an installed platform and all of its
+declared timing corners. This requires completed setup and cannot be combined
+with another platform import option.
 
 Use a fresh output directory. `--cell` selects a native cell ID, `--platform` imports
 an explicit technology manifest, and repeatable `--tool NAME=/path/to/executable`

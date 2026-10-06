@@ -13,13 +13,23 @@ device subsets, process options, model/rule/extraction decks and tool builds in
 every qualification record. A result for one process or variant cannot qualify
 another. “All PDKs” here means these named targets, not arbitrary PDK compatibility.
 
+Upstream PDK status also bounds release claims. Checked on 2026-10-06, the
+[SKY130](https://github.com/google/skywater-pdk#current-status----experimental-preview),
+[GF180MCU](https://github.com/google/gf180mcu-pdk/blob/main/README.rst#current-status----experimental-preview)
+and [IHP SG13G2](https://github.com/IHP-GmbH/IHP-Open-PDK#current-status----preview)
+repositories describe their open releases as previews and exclude general
+production use from their stated readiness. Application tests cannot confer
+production qualification on those decks. Tapeout acceptance must identify the
+specific foundry/shuttle-approved revisions and requirements for the submitted
+design. This does not prevent continued implementation and test-chip validation.
+
 ## Present support and remaining work
 
 | Flow | SKY130 | GF180MCU C/D | IHP SG13G2 |
 |---|---|---|---|
 | Analog models and native symbols | Bundled subset with device/corner regressions | Bundled subsets with device/corner regressions | Bundled subset; managed compiled OSDI models required |
 | Analog physical implementation | Bounded recipes, reference layouts and process-RC tests; separate physical assets required | Bounded core-MOS recipes and C/D rule decks; additional Banba evidence has its own scope | Bounded core-MOS recipes and rule decks; not general BiCMOS/RF layout qualification |
-| Digital standard-cell implementation | Included locked SKY130 HD platform | Source import for ORFS 9-track 5 V / 5LM_1TM / 9K; no included runtime yet | Source import for ORFS SG13G2 standard cells; no included runtime yet |
+| Digital standard-cell implementation | Included locked SKY130 HD platform | Source import and candidate runtime for ORFS 9-track 5 V / 5LM_1TM / 9K | Source import and candidate runtime for ORFS SG13G2 standard cells |
 | Digital timing and equivalence | Captured OpenSTA/EQY flow; selected library corners | Declared typical/slow/fast libraries; bounded counter qualification | Declared typical/slow/fast libraries; bounded counter qualification |
 | Chip-level signoff | Unqualified | Unqualified | Unqualified |
 
@@ -28,8 +38,18 @@ establish support for a process. Automatic ORFS imports now include explicit
 GF180 and IHP profiles beside SKY130 HD and Nangate45. The
 [process qualification guide](DIGITAL_PLATFORM_QUALIFICATION.md) defines their
 exact library, metal-stack and acceptance-fixture scope. Broader designs, GF180
-variants and release packaging still need independent qualification.
+variants and final desktop release packages still need independent qualification.
+Source runtime builds now bundle all three platforms, expose their selection in
+the workspace and CLI, and require every advertised platform to pass installation
+checks. Published 0.23.0 packages still contain only SKY130 HD.
 Nangate45 is not a replacement for either target process.
+
+PVT library corners and extracted interconnect corners must be tracked separately.
+The [LibreLane timing-corner guide](https://librelane.readthedocs.io/en/latest/usage/timing_corners.html)
+documents distinct SKY130 typical/slow/fast libraries and nominal/minimum/maximum
+interconnect collateral. These are candidates for a separately locked integration;
+their existence does not qualify the present ORFS payload, which captures one
+SKY130 library corner and one extraction condition per process.
 
 See [PDK subsets](PDK_GUIDE.md), [digital limits](DIGITAL_FLOW.md),
 [analog closure](ANALOG_CLOSURE.md), [process-RC scope](ANALOG_IMPLEMENTATION_EXTENSIONS.md)

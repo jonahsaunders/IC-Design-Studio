@@ -148,6 +148,17 @@ Digital platform inputs retain their own licenses. CI downloads separately licen
 engine distributions and records their versions; these binaries and full PDK trees
 are not included in the application source distribution.
 
+The runtime build recipe retains SKY130 HD, GF180 MCU and IHP SG13G2 digital
+platform files from ORFS commit `eaba6576441bf7c1743ea56ecdb1904210ec02c2`.
+Original copyright and license headers remain in the captured files; the common
+Apache-2.0 text and these notices are copied to `opt/icstudio/licenses`.
+ORFS's BSD-3-Clause build/run-script license is retained at
+`opt/icstudio/orfs/LICENSE_BUILD_RUN_SCRIPTS`. Exact platform inventories,
+including materialized linked extraction rules, are locked in
+`opt/icstudio/platforms.json`; each package's `files.json` also locks these
+manifests and notice files. Source is available at the pinned
+[ORFS revision](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/tree/eaba6576441bf7c1743ea56ecdb1904210ec02c2/flow/platforms).
+
 The managed runtime also includes Magic and Netgen at the commits in
 `examples/physical-engine-lock.json`, plus the Ubuntu ngspice package. Magic's
 `LICENSE`, Netgen's `Copying`, their complete source trees and the source lock

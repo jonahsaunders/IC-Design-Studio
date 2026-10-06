@@ -33,6 +33,9 @@ def build(output):
     with tempfile.TemporaryDirectory() as td:
         context = Path(td)
         shutil.copytree(ROOT/'packaging/digital', context, dirs_exist_ok=True)
+        (context/'licenses').mkdir()
+        shutil.copy2(ROOT/'licenses/Apache-2.0.txt',context/'licenses/Apache-2.0.txt')
+        shutil.copy2(ROOT/'THIRD_PARTY_NOTICES.md',context/'licenses/THIRD_PARTY_NOTICES.md')
         shutil.copytree(ROOT/'icstudio', context/'icstudio', ignore=shutil.ignore_patterns('assets','__pycache__','*.so','*.dll'))
         shutil.copy2(ROOT/'scripts/build_physical_engines.py',context/'build_physical_engines.py')
         shutil.copy2(ROOT/'scripts/compile_ihp_osdi.py',context/'compile_ihp_osdi.py')

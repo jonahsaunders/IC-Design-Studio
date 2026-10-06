@@ -33,7 +33,8 @@ RUN curl -fL --retry 3 -o /tmp/openvaf.tgz https://fides.fe.uni-lj.si/openvaf/do
     && PYTHONPATH=/tmp/studio python3 /tmp/compile_ihp_osdi.py --pdk-root /tmp/ihp-pdk --openvaf /tmp/openvaf/openvaf --output /opt/icstudio/osdi/ihp-sg13g2 --generic-cpu \
     && cp -r /tmp/ihp-pdk/libs.tech/verilog-a /opt/icstudio/osdi/ihp-sg13g2/sources \
     && rm -rf /tmp/openvaf /tmp/openvaf.tgz /tmp/ihp-pdk /tmp/compile_ihp_osdi.py
-COPY assemble.py /tmp/assemble.py
-RUN PYTHONPATH=/tmp/studio python3 /tmp/assemble.py && rm -rf /tmp/studio /tmp/assemble.py
+COPY licenses /opt/icstudio/licenses
+COPY assemble.py bundle_platforms.py /tmp/
+RUN PYTHONPATH=/tmp/studio python3 /tmp/assemble.py && rm -rf /tmp/studio /tmp/assemble.py /tmp/bundle_platforms.py
 RUN printf '[automount]\noptions = "metadata"\n[interop]\nappendWindowsPath = false\n' > /etc/wsl.conf
 CMD ["/bin/bash"]

@@ -178,13 +178,24 @@ class Workspace:
             self.window.message.setText('Exported macro geometry, terminals, netlist, constraints, parasitics and provenance.')
 
     def import_platform(self):
-        from .digital_platform import ORFS_PROFILES,bind,from_orfs,read_manifest
+        from .digital_platform import ORFS_PROFILES,PLATFORM_LABELS,bind,from_orfs,read_manifest
+        from . import digital_runtime
         w=self.window
         if not w.config:raise ValueError('Open or import an RTL cell first.')
+        runtime=digital_runtime.installed()
+        included={('Included · '+PLATFORM_LABELS[name]):platform
+                  for name,platform in (digital_runtime.platforms(runtime) if runtime else {}).items()}
+        choices=list(included) if included else ['Set up included platforms…']
+        choices+=['ORFS '+name for name in ORFS_PROFILES]+['Platform JSON manifest']
         choice,ok=QInputDialog.getItem(w,'Digital platform','Import source',
-                                     ['ORFS '+name for name in ORFS_PROFILES]+['Platform JSON manifest'],0,False)
+                                     choices,0,False)
         if not ok:return
-        if choice.startswith('ORFS'):
+        if choice=='Set up included platforms…':
+            w.studio.settings.setValue('digital/toolchain','included')
+            w.ensure_tools(self.import_platform,'platform selection')
+            return
+        if choice in included:platform=included[choice]
+        elif choice.startswith('ORFS'):
             path=QFileDialog.getExistingDirectory(w,'Choose OpenROAD Flow Scripts checkout',w.studio.settings.value('digital/orfs',''))
             if not path:return
             platform=from_orfs(path,choice.split()[1]);w.studio.settings.setValue('digital/orfs',path)
