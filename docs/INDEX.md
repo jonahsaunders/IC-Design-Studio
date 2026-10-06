@@ -4,6 +4,9 @@ Use the guides below for the current **0.23.0 engineering preview** source. Desk
 
 **Quick links:** [First waveform](GETTING_STARTED.md) · [Examples](../examples/README.md) · [Feature tour](../README.md#explore-the-workspace) · [Source setup](../README.md#start-in-three-steps) · [Simulation engines](../SIMULATION_SETUP.md)
 
+For development toward a complete analog/digital release, see the
+[SKY130, GF180MCU and IHP acceptance targets](PUBLIC_RELEASE_TARGETS.md).
+
 ## Find a complete example
 
 | Circuit | Start here | Main purpose |

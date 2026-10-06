@@ -191,10 +191,17 @@ are labeled as source searches. The comparison table shows run metrics and
 deltas only for matching constraints, technology, synthesis settings, corners,
 parasitic mode and engine context; absent metrics remain absent.
 
-Timing **INCOMPLETE** includes missing clocks/I/O constraints or no analyzable
-paths. **FAIL** means a reported path or electrical slew/capacitance/fanout check violates constraints. Reports cover up to 50 paths
+Timing **INCOMPLETE** includes missing clocks/I/O constraints, unresolved setup
+diagnostics, missing setup or hold paths, absent report files, invalid total
+negative slack, or unconfirmed nanosecond units. Inspect the reason in the run
+summary and the full `incomplete_reasons` in the retained timing report.
+**FAIL** means a reported path, setup/hold total negative slack, or electrical
+slew/capacitance/fanout check violates constraints. Known failures remain FAIL
+even when other evidence is incomplete; the missing evidence is retained.
+Reports cover up to 50 paths
 per group for setup and hold at each selected library corner, with full textual
-evidence, total negative slack and per-corner reports.
+evidence, independent setup and hold total negative slack, and per-corner reports.
+The combined verdict and electrical status account for every selected corner.
 Pre-layout timing has no extracted wire parasitics. Default propagated-activity
 power is an estimate, not a workload measurement. There is no multi-corner signoff
 claim or automatic false/multicycle-path correctness proof.

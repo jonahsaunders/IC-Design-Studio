@@ -164,12 +164,16 @@ def timing_script(r):
         verify_upstream(upstream);shutil.copy2(Path(upstream['root'])/upstream['artifacts']['spef']['path'],r.root/'parasitics.spef')
         r.add_artifact('spef',r.root/'parasitics.spef');lines.append('read_spef '+tcl_word(r.root/'parasitics.spef'))
         lines.append('set_propagated_clock [all_clocks]')
-    lines += ['sta::redirect_file_begin '+tcl_word(r.root/'timing_units.txt'),
+    # An SDC can set its own input units. Normalize only after interpreting it,
+    # so every saved path, total and UI label uses the declared output units.
+    lines += ['set_cmd_units -time ns -capacitance pF',
+              'sta::redirect_file_begin '+tcl_word(r.root/'timing_units.txt'),
               'report_units','sta::redirect_file_end',
               'check_setup -verbose > '+tcl_word(r.root/'timing_checks.txt'),
               'report_checks -path_delay min_max -group_count 50 -format full_clock_expanded > '+tcl_word(r.root/'timing_full.txt'),
               'report_power > '+tcl_word(r.root/'power.txt'),
-              'report_tns > '+tcl_word(r.root/'timing_totals.txt'),
+              'report_tns -max > '+tcl_word(r.root/'timing_totals.txt'),
+              'report_tns -min > '+tcl_word(r.root/'timing_hold_totals.txt'),
               'report_check_types -max_slew -max_capacitance -max_fanout -violators > '+tcl_word(r.root/'electrical_checks.txt'),
               'set out [open '+tcl_word(r.root/'timing_paths.tsv')+' w]',
               '''foreach {kind delay} {setup max hold min} {
@@ -197,16 +201,21 @@ def timing(r):
         for path in report['paths']:path['corner']=corner
         reports.append(report);powers.append({'corner':corner,**power_report(r.root/'power.txt')})
         folder=r.root/'timing-corners'/corner;folder.mkdir(parents=True)
-        for name in ('timing.tcl','timing_full.txt','timing_checks.txt','timing_units.txt','timing_paths.tsv','timing_totals.txt','electrical_checks.txt','power.txt'):
+        for name in ('timing.tcl','timing_full.txt','timing_checks.txt','timing_units.txt','timing_paths.tsv','timing_totals.txt','timing_hold_totals.txt','electrical_checks.txt','power.txt'):
             shutil.copy2(r.root/name,folder/name);r.add_artifact('corner_'+corner+'_'+name.replace('.','_'),folder/name,allow_empty=True)
     r.timing_corner=None
     report=clone(reports[0]);report['corners']=reports;report['paths']=[p for c in reports for p in c['paths']]
-    states={c['status'] for c in reports};report['status']=next((s for s in ('INCOMPLETE','FAIL') if s in states),'PASS')
+    states={c['status'] for c in reports};report['status']=next((s for s in ('FAIL','INCOMPLETE') if s in states),'PASS')
+    report['unconstrained']=any(c['unconstrained'] for c in reports)
+    report['incomplete_reasons']=[c['corner']+': '+reason for c in reports for reason in c['incomplete_reasons']]
+    report['electrical_status']=next((status for status in ('FAIL','Unavailable')
+        if any(c['electrical_status']==status for c in reports)),'No reported violations')
     report['summary']={key:min(values) for key in ('setup_worst_slack_ns','hold_worst_slack_ns') if (values:=[c['summary'][key] for c in reports if c['summary'].get(key) is not None])}
     for key in ('setup_reported_violations','hold_reported_violations'):
         report['summary'][key]=sum(c['summary'].get(key,0) for c in reports)
-    totals=[c['summary']['setup_total_negative_slack_ns'] for c in reports if 'setup_total_negative_slack_ns' in c['summary']]
-    if totals:report['summary']['setup_total_negative_slack_ns']=min(totals)
+    for kind in ('setup','hold'):
+        key=kind+'_total_negative_slack_ns';totals=[c['summary'][key] for c in reports if key in c['summary']]
+        if totals:report['summary'][key]=min(totals)
     report['scope']='Selected library corners with the captured netlist and parasitics. RC corner variation requires separately extracted SPEF.'
     r.save_json('timing',report,'timing.json');r.add_artifact('timing_full',r.root/'timing_full.txt',allow_empty=True);r.add_artifact('power_report',r.root/'power.txt')
     data['power']={**powers[0],'corners':powers}
@@ -215,7 +224,8 @@ def timing(r):
         verify_upstream(upstream)
         shutil.copy2(Path(upstream['root'])/upstream['artifacts']['layout_preview']['path'],r.root/'layout_preview.json')
         r.add_artifact('layout_preview',r.root/'layout_preview.json')
-    return {**data,'timing':report,'verdict':report['status'],'summary':'Timing '+report['status']+' · '+', '.join(corners)+' · '+report['parasitics']}
+    detail=' · '+report['incomplete_reasons'][0] if report['incomplete_reasons'] else ''
+    return {**data,'timing':report,'verdict':report['status'],'summary':'Timing '+report['status']+' · '+', '.join(corners)+' · '+report['parasitics']+detail}
 
 
 def equivalence(r):
