@@ -39,6 +39,12 @@ validates the package catalog and requires the acceptance counter to pass for
 every advertised platform; a partial result cannot mark the installation Ready.
 Legacy SKY130-only payloads remain usable and retain their original scope.
 
+![GF180 counter in the workspace using the included platform](images/digital-included-platform.png)
+
+The screenshot uses the real installed GF180 catalog entry after Windows setup
+passed. The displayed project is a fresh counter; qualification results are
+retained separately from this interface capture.
+
 ORFS checkouts must preserve symbolic links and use LF executable scripts. The
 import rejects unresolved links, missing link targets and CRLF executable scripts
 with an actionable error. Include sibling dependencies: SKY130 HD's extraction
@@ -73,6 +79,14 @@ The [2026-10-06 validation record](validation/digital-platforms-2026-10-06.json)
 retains passing real-engine results for all three profiles, source hashes,
 unchanged-constraint checks, routed-rule counts and per-corner timing values.
 It also identifies the exact scope and timing of local regressions.
+
+The [bundled-runtime record](validation/bundled-platforms-2026-10-06.json) retains
+fresh Linux and Windows installation results for the three-platform candidate,
+its archive/source identities and per-corner timing. Both installations passed
+26 digital checks plus the separate physical-engine positive/negative probes.
+These source-driven installation runs do not replace final frozen-desktop or
+foundry qualification. The CLI additionally mapped GF180 and IHP with container
+networking disabled. Published 0.23.0 packages remain unchanged.
 
 With Python dependencies and the pinned digital engines installed on Linux:
 
