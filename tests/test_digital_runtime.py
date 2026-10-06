@@ -372,7 +372,7 @@ class DigitalRuntimeTests(unittest.TestCase):
             selected=runtime.platform(location,'gf180');selected['corner']='changed'
             self.assertEqual(runtime.platform(location,'gf180')['corner'],'typical')
             self.assertEqual(runtime.platform(location)['name'],'sky130hd')
-            self.assertEqual(runtime.platform(location,'ihp-sg13g2')['root'],str(folder/'orfs/flow/platforms'))
+            self.assertEqual(runtime.platform(location,'ihp-sg13g2')['root'],str((folder/'orfs/flow/platforms').resolve()))
 
     def test_new_catalog_cannot_fall_back_to_an_old_default_if_missing_or_tampered(self):
         data,location,folder=self.catalog()
