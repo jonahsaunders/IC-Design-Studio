@@ -287,6 +287,15 @@ The record also retains the separate export-input integrity defect found on that
 source revision. Current source adds the input-binding rejection described above;
 the historical record is not rewritten as proof of the later repair.
 
+The [macro-input integrity record](validation/macro-integrity-2026-10-07.json)
+qualifies the repair on source `0a62eca8bff708e0be7f317df61f70b01a5ff938`.
+Each installed runtime passed 26 digital checks, 15 timing pairs and the physical
+tool probes. Independent audits verified the retained jobs and exports, and the
+export qualifier passed 18 original/altered-input cases on each operating system.
+The Windows record preserves a failed WSL file-read attempt and its complete
+successful retry. These source-driven checks reuse the existing runtime archive;
+they do not qualify the frozen desktop packages.
+
 These block cases still require matched-deck physical checks and the full
 public-release acceptance gates. They do not establish foundry signoff, all
 operating voltages/temperatures, chip I/O or complete multi-mode signoff. The
