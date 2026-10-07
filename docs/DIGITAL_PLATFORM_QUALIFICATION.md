@@ -124,9 +124,40 @@ Without `--physical`, unclosed pre-layout timing fails qualification. Missing or
 unrecognized evidence cannot qualify a platform.
 
 This small counter verifies the declared integration path. It does not qualify
-arbitrary RTL, full PVT/RC coverage, foundry DRC/LVS, antenna/density/fill, chip I/O,
+arbitrary RTL, full PVT/RC coverage, foundry DRC/LVS, foundry antenna/density/fill, chip I/O,
 CDC/RDC, EM/IR limits, packaging, or a tapeout. Broader analog and digital release
 acceptance remains in [public-release targets](PUBLIC_RELEASE_TARGETS.md).
+
+## Final antenna and power connectivity
+
+New physical finish jobs require explicit OpenROAD antenna and power-grid
+connectivity reports, including signal-input model coverage and the presence of
+routing-layer antenna rules. Missing coverage or reports cannot pass. The checks
+use the captured final database without changing its geometry or rules. Power
+net names come from all POWER/GROUND nets in that database, with required power
+and ground coverage and connected supply terminals.
+
+The native acceptance script runs those same checks on each retained final
+counter, then creates two isolated damaged database copies: one with an actual
+power grid removed and one with deliberately excessive routed metal connected
+to an existing modeled gate. It requires the native checker to detect the
+corresponding fault, preserves original evidence, and retains commands, logs,
+mutations and checksums. The antenna copy is intentionally invalid test geometry.
+
+```sh
+python scripts/qualify_digital_physical_checks.py --evidence build/digital-platforms --output build/digital-physical-checks
+```
+
+The input must contain all three qualified final jobs, under each process's
+`finished` or installed-runtime `gds` folder. Use an empty output folder and
+`--openroad /path/to/openroad` to select the captured engine. The digital CI gate
+runs these controls after producing the reference implementations. The
+[OpenROAD antenna](https://openroad.readthedocs.io/en/latest/main/src/ant/README.html)
+and [power-grid connectivity](https://openroad.readthedocs.io/en/latest/main/src/psm/README.html#check-power-grid)
+checks have narrower scope than foundry signoff. Model/rule presence is not
+evidence that a supplied deck covers every fabrication requirement; final
+streamed-GDS, density, electrical reliability and chip-level acceptance remain
+separate requirements.
 
 ## UART and hierarchical APB acceptance
 

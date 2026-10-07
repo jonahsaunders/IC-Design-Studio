@@ -275,6 +275,8 @@ foreach library [[ord::get_db] getLibs] {
         for key,suffix in (('gds','.gds'),('spef','.spef')):r.add_artifact(key,result_dir/('6_final'+suffix))
         from .digital_rc import extract
         extract(r)
+        from .digital_physical_checks import execute as physical_checks
+        checks=physical_checks(r)
     metrics={}
     for path in sorted(work.rglob('*.json')):
         if path.stat().st_size>8*1024*1024:continue
@@ -289,6 +291,7 @@ foreach library [[ord::get_db] getLibs] {
     return {**data,'physical':{'stage':stage,'resumed':resume,'upstream':previous.get('root'),
             'flow_fingerprint':flow['fingerprint'],'settings':settings,
             'timing_corners':r.config.get('timing_corners',[r.platform['corner']]),
+            **({'checks':checks} if stage=='finish' else {}),
             'scope':'Engine implementation; timing, equivalence and physical rule qualification remain explicit checks.'},
             'statistics':{'cells':len(geometry['components']),'area_um2':sum(c['width']*c['height'] for c in geometry['components'])},
             'summary':'Physical '+stage+' complete · '+str(len(geometry['components']))+' placed cells'}

@@ -50,9 +50,13 @@ def export(result, directory, destination):
     if data['stage']!='finish' or not {'gds','lef','netlist','layout_preview'}<=artifacts.keys():
         raise ValueError('Finish the physical flow before exporting a macro bundle.')
     preview=json.loads((directory/artifacts['layout_preview']['path']).read_text())
-    selected={k:v for k,v in artifacts.items() if k in ('gds','lef','netlist','spef','sdc','layout_preview','database','timing','equivalence','def','extraction') or k.startswith(('spef_','extraction_script_'))}
+    selected={k:v for k,v in artifacts.items() if k in ('gds','lef','netlist','spef','sdc','layout_preview','database','timing','equivalence','def','extraction','physical_checks') or k.startswith(('spef_','extraction_script_','physical_check_'))}
     job=json.loads((directory/'input.json').read_text())
     value=verify_inputs(result,job)
+    from .digital_physical_checks import validate_saved
+    checks=validate_saved(data,directory)
+    if checks is not None and checks.get('top')!=value['top']:
+        raise ValueError('Physical-check evidence belongs to another top-level design.')
     notices=captured_notices(job,directory)
     manifest={'version':1,'top':value['top'],'source_hash':data['source_hash'],'input_key':data.get('input_key'),
               'design_hash':result['design_hash'],
@@ -62,6 +66,7 @@ def export(result, directory, destination):
               'notices':[record for path,record in notices],
               'notices_scope':'Captured platform license/source notices only; custom platforms may supply none. Review the captured sources and redistribution terms for the intended handoff.',
               'qualification':{'physical_stage':'finish','drc':'Not qualified by this export','lvs':'Not qualified by this export',
+                               'physical_checks':{'status':checks['status'],'scope':checks['scope'],'artifact':'physical_checks'} if checks else {'status':'Not qualified by this historical job'},
                                'abstract_timing_model':None,
                                'scope':'LEF/GDS geometry with the actual gate netlist and captured SPEF. No characterized macro Liberty model is implied.'}}
     if 'extraction' in selected:

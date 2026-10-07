@@ -249,8 +249,9 @@ Platforms with explicit interconnect definitions retain separate extractions at
 physical finish. Timing crosses each selected Liberty corner with every selected
 interconnect corner and labels both in the report and path table. The
 [process qualification guide](DIGITAL_PLATFORM_QUALIFICATION.md#separate-sky130-pvt-and-interconnect-platform)
-describes the separately pinned SKY130 candidate; the currently bundled SKY130
-profile remains typical-only.
+describes the matched SKY130 platform with three library and three interconnect
+corners included in current source runtime builds. Published 0.23.0 packages retain
+their original typical-only SKY130 profile.
 Pre-layout timing has no extracted wire parasitics. Default propagated-activity
 power is an estimate, not a workload measurement. There is no multi-corner signoff
 claim or automatic false/multicycle-path correctness proof.
@@ -290,9 +291,20 @@ is rejected as an analog circuit model until it has a schematic implementation.
 
 The physical preview uses indexed cell outlines and batched signal-route
 centerlines, retaining all instances and routes within the captured preview limits. Inspect GDS in the native layout
-editor for shapes. Finishing ORFS is separate from foundry-qualified DRC/LVS,
-antenna, EM/IR and fabrication signoff. Existing native verification tools remain
-available, with their own supported process/model scope.
+editor for shapes. New physical finish jobs run the captured OpenROAD build's
+default-oxide LEF antenna check and power-grid connectivity checks against the
+unchanged final OpenDB. Every declared POWER/GROUND net is checked; names are
+read from the database. Missing gate-area models, routing-layer antenna rules,
+routed signal inputs, supply connections or reports prevent a successful finish.
+The saved reports bind the result to the checkpoint and platform, and accompany
+macro exports. Historical jobs remain readable and exports label their absent
+physical-check qualification explicitly. Custom OpenROAD builds need Python
+support for these checks; a missing capability fails with retained engine logs.
+
+These checks cover the database and rules supplied to OpenROAD. They do not
+qualify deck adequacy, final streamed-GDS DRC/LVS, density, ERC, ESD/latch-up,
+IR drop, electromigration or fabrication signoff. Existing native verification
+tools remain available with their own supported process/model scope.
 
 ## Portable source format and waveforms
 

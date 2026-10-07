@@ -192,6 +192,9 @@ def validate_result(result, directory):
         path = (root / relative).resolve()
         if not path.is_relative_to(root) or not path.is_file() or file_digest(path) != record.get('sha256'):
             raise ValueError('A captured digital artifact is missing or changed: '+relative)
+    if data['stage']=='finish':
+        from .digital_physical_checks import validate_saved
+        validate_saved(data,root)
 
 
 def run(job, directory, progress=lambda *_: None):

@@ -27,7 +27,7 @@ jobs:
           verilator --version
           yosys -V
       - name: Verify digital inputs, real engines and analog compatibility
-        run: python -m unittest tests.test_digital tests.test_digital_implementation tests.test_digital_proof tests.test_digital_platforms tests.test_digital_rc tests.test_digital_macro tests.test_sky130_digital_builder tests.test_digital_bundle tests.test_timing_evidence tests.test_digital_runtime tests.test_digital_tools tests.test_digital_workspace tests.test_core tests.test_lifecycle tests.test_workflows -v
+        run: python -m unittest tests.test_digital tests.test_digital_implementation tests.test_digital_physical_checks tests.test_digital_proof tests.test_digital_platforms tests.test_digital_rc tests.test_digital_macro tests.test_sky130_digital_builder tests.test_digital_bundle tests.test_timing_evidence tests.test_digital_runtime tests.test_digital_tools tests.test_digital_workspace tests.test_core tests.test_lifecycle tests.test_workflows -v
       - name: Verify desktop digital workflow
         run: python tests/gui_digital.py
       - name: Verify coupled SAR conversion and deliberate faults
@@ -115,6 +115,8 @@ jobs:
         run: python scripts/qualify_digital_platforms.py --orfs build/orfs --output build/digital-platforms --physical
       - name: Require UART and APB FIFO proof and physical closure on all three profiles
         run: python scripts/qualify_digital_workloads.py --orfs build/orfs --output build/digital-workloads
+      - name: Require final antenna and power-grid checks with actual layout faults
+        run: python scripts/qualify_digital_physical_checks.py --evidence build/digital-platforms --output build/digital-physical-checks
       - name: Require independent SKY130 library and interconnect corner coverage
         run: |
           python scripts/prepare_sky130_digital.py --orfs build/orfs --output build/sky130-pvt-platform --cache build/sky130-pdk-cache
@@ -136,6 +138,7 @@ jobs:
           name: digital-implementation-evidence
           path: |
             build/digital-platforms/**
+            build/digital-physical-checks/**
             !build/digital-platforms/**/platform/**
             !build/digital-platforms/**/flow/**
             !build/digital-platforms/**/liberty/**
