@@ -14,7 +14,7 @@
     },
     "3": {
       "name": "Integrate GF180 geometry fixes",
-      "status": "pending"
+      "status": "in_progress"
     },
     "4": {
       "name": "Close GF180 density",
@@ -16856,19 +16856,21 @@
       "target": "gf180mcuC",
       "test": "gf180-density",
       "status": "failed",
-      "remaining": "555 density markers remain after isolated geometry correction; fill/connectivity/RC/timing closure required.",
+      "remaining": "Production C counter/UART/APB still have 555/5796/4416 density markers. Required fill plus post-fill connectivity, extraction, timing and equivalence closure remain open.",
       "historical_evidence": [
-        "gf-geometry"
+        "gf-geometry",
+        "gf-production-geometry"
       ]
     },
     "gf180mcuC:gf180-geometry": {
       "target": "gf180mcuC",
       "test": "gf180-geometry",
       "status": "partial",
-      "remaining": "Production integration and counter/UART/APB qualification pending; isolated counter only.",
+      "remaining": "Production C counter/UART/APB main geometry, antenna, three-library-corner extracted timing and equivalence passed with unchanged constraints. Updated managed packages, separate matched D profile and the reviewed complete chunk-3 acceptance remain open.",
       "historical_evidence": [
         "gf-geometry",
-        "gds-diagnostics"
+        "gds-diagnostics",
+        "gf-production-geometry"
       ]
     },
     "gf180mcuC:independent-export": {
@@ -19784,6 +19786,11 @@
       "path": "docs/validation/macro-integrity-2026-10-07.json",
       "sha256": "5ace8b901612bb0e7a8923f6c30343cc65ab4076023a11e9691bc59f1dd2860c",
       "scope_limit": "Bounded export identity tamper controls and three-process counter exports; not independent full-chip reproduction."
+    },
+    "gf-production-geometry": {
+      "path": "docs/validation/gf180-production-geometry-2026-10-07.json",
+      "sha256": "0b52b5a33d48ce3874f3a965b791fb13ef440a53908bb722b4675bafc77fedcd",
+      "scope_limit": "GF180-C 9t / 5LM / 9K / 5 V counter, UART and APB only. GF180-D, managed-package acceptance, density closure and tapeout qualification remain open."
     }
   },
   "execution_acceptance": {

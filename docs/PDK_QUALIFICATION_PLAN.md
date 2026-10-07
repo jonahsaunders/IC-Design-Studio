@@ -92,8 +92,15 @@ backend, each installed runtime passed 26 digital checks, 15 timing pairs, three
 audited exports, seven tool controls, sixteen process-rule controls and nine
 digital physical controls. Required hosted implementation steps passed on
 `7feca0695f586ff84c8d2111b528076891a50e77`. The record retains the initial
-antenna-diode coverage failure and its correction. Chunk 3 is next; no process
-or complete chip is qualified for tapeout.
+antenna-diode coverage failure and its correction.
+
+Chunk 3 is in progress. The [production GF180-C batch](validation/gf180-production-geometry-2026-10-07.json)
+passes main geometry, antenna, extracted timing and equivalence on counter, UART
+and APB with unchanged RTL/constraints and PDK sources. The application generates
+and captures the two corrected recipes. The separate matched D profile and
+updated managed-runtime validation remain open before closing the chunk. Full
+density checks still report 555, 5,796 and 4,416 markers respectively; these remain
+chunk 4 failures. No process or complete chip is qualified for tapeout.
 
 Before each batch, freeze its exact inputs, numerical limits and negative
 controls. After the batch, preserve commands, versions, input/output hashes,

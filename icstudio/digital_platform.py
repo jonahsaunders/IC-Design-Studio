@@ -68,7 +68,7 @@ def validate_options(platform):
         if not isinstance(pair,list) or len(pair)!=2 or any(not isinstance(s,str) or not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]*',s) for s in pair):
             raise ValueError('A tie cell needs a cell and output-pin identifier.')
     options=platform.get('orfs',{})
-    if not isinstance(options,dict) or set(options)-{'variables','corners','rc_file','rc_vias'}:
+    if not isinstance(options,dict) or set(options)-{'variables','corners','rc_file','rc_vias','geometry_recipe'}:
         raise ValueError('Invalid ORFS platform options.')
     vias=options.get('rc_vias',{})
     if not isinstance(vias,dict) or set(vias)-set(platform.get('corners',{})):
@@ -92,6 +92,8 @@ def validate_options(platform):
             raise ValueError('Unsupported ORFS platform variable.')
         if any(not isinstance(value,str) or not re.fullmatch(r'[A-Za-z0-9_. -]{1,120}',value) or value!=value.strip() for value in values.values()):
             raise ValueError('ORFS platform values must be literal identifiers or numbers.')
+    from .digital_recipes import validate as validate_recipes
+    validate_recipes(platform)
 
 
 def implementation_options(platform):
@@ -213,6 +215,9 @@ def from_orfs(root, name='sky130hd'):
     corners={corner:[name+'/'+path for path in paths] for corner,paths in profile.pop('corners').items()}
     data={'version':1,'name':name,'revision':'ORFS '+revision,'root':str(folder.parent),'directory':name,'corner':'typical',
           'corners':corners,'files':files,'fingerprint':digest(files),**profile}
+    if name=='gf180':
+        from .digital_recipes import GF180_C
+        data['orfs']['geometry_recipe']=GF180_C
     return validate(data)
 
 

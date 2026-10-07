@@ -225,8 +225,41 @@ changed the captured Metal3 split-cut pitch from 0.128 to 0.520 micrometres and
 tap placement distance from 100 to 14 micrometres. All other design settings,
 RTL, constraints and verification decks were preserved. The corrected copy
 passed timing and physical equivalence and returned zero main-rule and antenna
-markers. Density still failed with 555 markers. These two recipe corrections
-are not yet integrated or qualified in the application or managed packages.
+markers. Density still failed with 555 markers. That historical record covers
+the isolated experiment; the production integration is recorded separately below.
+
+The [production GF180-C geometry record](validation/gf180-production-geometry-2026-10-07.json)
+binds unchanged counter, UART and APB designs to the generated application
+recipes. All three pass the complete pinned deck's main and antenna groups,
+extracted timing at the three declared library corners, and physical equivalence.
+Each deliberate mapped-register fault fails equivalence. The density results
+remain failures: 555 counter, 5,796 UART and 4,416 APB markers. These are small
+reference designs at one extracted RC condition per design, not full process
+qualification. The separate GF180-D profile and updated managed packages remain
+unqualified.
+
+New GF180 ORFS imports select `gf180-9t-5lm-9k-geometry-v1`. It generates corrected
+PDN and tap Tcl from checksum-locked source files and retains the original PDK
+files. The recipe becomes part of the physical-stage identity, so older physical
+checkpoints cannot be reused under the changed recipe. Explicit project PDN Tcl
+is preserved and recorded as an override; it does not inherit the default
+recipe's geometry results. Existing saved manifests retain their original choice;
+reimport the pinned platform explicitly to select the new recipe.
+
+The full rule runner requires the unchanged 191-file verification source lock in
+`examples/gf180-digital-drc-lock.json`, KLayout 0.30.5, and a Python environment
+containing its KLayout library and docopt 0.6.2. For an existing final job:
+
+```sh
+python scripts/qualify_gf180_rules.py --job build/digital-platforms/gf180/finished --deck /path/to/pinned-gf180-pv --variant C --gate geometry --output build/gf180-final-rules
+```
+
+The geometry gate still runs density and reports `geometry_passed_density_failed`
+when density has violations. The default `--gate all` requires zero findings in
+all three groups. Altered saved inputs, wrong variants/top cells, missing reports,
+partial native runs and inconsistent exit codes fail the checker. The retained
+record includes the initial missing Python dependency and completion-message
+parser failures and their successful corrections; no failed run became a pass.
 
 For the pinned Ubuntu OpenROAD package, the hosted implementation job uses
 `scripts/ci/openroad` to isolate its embedded Python from the Python libraries

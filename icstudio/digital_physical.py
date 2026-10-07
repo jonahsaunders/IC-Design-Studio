@@ -215,6 +215,8 @@ def execute(r):
     # keep the actual physical libraries and process options bound to this job.
     command += library_options(r)
     command += technology_options(r,flow_root)
+    from .digital_recipes import generate as geometry_options
+    command += geometry_options(r,settings)
     command += [key+'='+value for key,value in implementation_options(r.platform).items()]
     if 'klayout' in r.tools:command.append('KLAYOUT_CMD='+r.tools['klayout'])
     if resume:
