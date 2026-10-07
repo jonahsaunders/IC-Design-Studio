@@ -124,6 +124,24 @@ class DigitalRCTests(unittest.TestCase):
             self.assertEqual(result['timing']['summary']['hold_worst_slack_ns'],-0.2)
             self.assertTrue((root/'timing-corners/ss/max/timing_paths.tsv').is_file())
 
+    def test_installation_requires_the_complete_passing_extracted_matrix(self):
+        from icstudio.digital_qualification import require_timing_coverage
+        with tempfile.TemporaryDirectory() as td:
+            config=self.fixture(Path(td));platform=config['platform']
+            cases=[{'corner':p,'rc_corner':c,'status':'PASS','parasitics':'extracted SPEF'}
+                for p in ('tt','ss') for c in ('min','nom','max')]
+            result={'digital_result':{'verdict':'PASS','timing':{'corners':cases}}}
+            self.assertEqual(require_timing_coverage(result,platform)['interconnect_corners'],['min','nom','max'])
+            for fault in ('missing','duplicate','failed','estimate','wrong-rc','summary-fail'):
+                bad=clone(result);rows=bad['digital_result']['timing']['corners']
+                if fault=='missing':rows.pop()
+                elif fault=='duplicate':rows.append(clone(rows[0]))
+                elif fault=='failed':rows[-1]['status']='FAIL'
+                elif fault=='estimate':rows[-1]['parasitics']='pre-layout estimate'
+                elif fault=='wrong-rc':rows[-1]['rc_corner']='other'
+                else:bad['digital_result']['verdict']='FAIL'
+                with self.subTest(fault=fault),self.assertRaisesRegex(ValueError,'every declared'):require_timing_coverage(bad,platform)
+
     def test_macro_bundle_retains_all_corner_files_and_rejects_a_missing_one(self):
         from icstudio.digital_macro import export
         with tempfile.TemporaryDirectory() as td:
@@ -146,6 +164,24 @@ class DigitalRCTests(unittest.TestCase):
             del artifacts['spef_max']
             with self.assertRaisesRegex(ValueError,'missing a captured'):export(result,root,root/'broken.zip')
             self.assertFalse((root/'broken.zip').exists())
+
+    def test_macro_notices_use_captured_files_and_reject_changed_or_missing_notice(self):
+        from icstudio.digital_macro import captured_notices
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);staged=root/'platform';staged.mkdir();config=self.fixture(staged)
+            names=['LICENSE-Apache.txt','THIRD_PARTY_NOTICES.md','upstream-lock.json']
+            for name in names:(staged/name).write_text('captured '+name)
+            manifest=config['platform'];manifest['files']+=digital_platform.inventory(staged,names)
+            manifest['fingerprint']=digest(manifest['files']);manifest['root']='unavailable/original/pdk'
+            project=digital.counter_project();project['digital']=config
+            job={'project':project,'cell':project['top']}
+            notices=captured_notices(job,root)
+            self.assertEqual({r['source_path'] for p,r in notices},set(names))
+            self.assertTrue(all(r['path'].startswith('notices/') for p,r in notices))
+            path=staged/names[0];path.write_text('changed')
+            with self.assertRaisesRegex(ValueError,'missing or changed'):captured_notices(job,root)
+            path.unlink()
+            with self.assertRaisesRegex(ValueError,'missing or changed'):captured_notices(job,root)
 
 
 if __name__=='__main__':unittest.main()

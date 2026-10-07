@@ -9,6 +9,7 @@ import subprocess
 
 from bundle_platforms import bundle
 from icstudio.model import file_digest
+from icstudio.digital_platform import corner_coverage
 
 ROOT = Path('/opt/icstudio')
 catalog = bundle(ROOT)
@@ -116,6 +117,7 @@ for base in ('usr','opt'):
     'orfs':'eaba6576441bf7c1743ea56ecdb1904210ec02c2',
     'files_sha256':file_digest(ROOT/'files.json'),
     'platforms':list(catalog['platforms']), 'default_platform':catalog['default'],
+    'platform_corners':{name:corner_coverage(value) for name,value in catalog['platforms'].items()},
     'licenses':['usr/share/doc/*/copyright','opt/icstudio/oss-cad-suite/license',
                 'opt/icstudio/orfs/LICENSE_BUILD_RUN_SCRIPTS','opt/icstudio/licenses','opt/icstudio/physical/licenses'],
     'physical_source_lock':json.loads((ROOT/'physical/source-lock.json').read_text()),
@@ -123,5 +125,6 @@ for base in ('usr','opt'):
     'sources':['https://github.com/YosysHQ/oss-cad-suite-build/releases/tag/2026-09-13',
                'https://github.com/The-OpenROAD-Project/OpenROAD/tree/08f67ee5ec',
                'https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/tree/eaba6576441bf7c1743ea56ecdb1904210ec02c2',
+               'https://github.com/chipfoundry/volare/releases/tag/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392',
                'https://github.com/RTimothyEdwards/magic','https://github.com/RTimothyEdwards/netgen',
                'https://archive.ubuntu.com/ubuntu/']}, indent=2))

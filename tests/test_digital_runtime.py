@@ -421,5 +421,34 @@ class DigitalRuntimeTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'every included platform'):runtime.setup()
         self.assertFalse(list(self.state.glob('ready-*.json')))
 
+    def test_ready_and_catalog_require_the_advertised_corner_dimensions(self):
+        data,location,folder=self.catalog()
+        coverage={name:{'library_corners':['typical'],'interconnect_corners':[]} for name in data['platforms']}
+        data['platform_corners']=coverage;self.relock_catalog(folder,data)
+        record={'runtime':location,'manifest':digest(data),'backend':runtime.backend_identity(),
+                'evidence':'fixture','platforms':data['platforms']}
+        path=self.state/('ready-'+data['sha256']+'.json');path.write_text(json.dumps(record))
+        with patch.object(runtime,'location',return_value=location):
+            self.assertEqual(runtime.status()['state'],'setup')
+            record['platform_corners']=clone(coverage);path.write_text(json.dumps(record))
+            self.assertEqual(runtime.status()['state'],'ready')
+            runtime.platforms(location)
+            coverage['sky130hd']['interconnect_corners']=['minimum','nominal','maximum']
+            self.relock_catalog(folder,data)
+            with self.assertRaisesRegex(ValueError,'corner definitions'):runtime.platforms(location)
+
+    def test_partial_corner_report_cannot_create_a_ready_record(self):
+        data=self.package();data.update(platforms=['sky130hd'],default_platform='sky130hd',
+            platform_corners={'sky130hd':{'library_corners':['typical','slow','fast'],
+                                        'interconnect_corners':['minimum','nominal','maximum']}})
+        (self.payload/'manifest.json').write_text(json.dumps(data))
+        report={'status':'PASS','platforms':['sky130hd'],'platform_corners':{
+            'sky130hd':{'library_corners':['typical'],'interconnect_corners':['nominal']}}}
+        with patch.object(runtime,'identity'),patch.object(runtime.host_platform,'libc_ver',return_value=('glibc','2.39')), \
+             patch.object(runtime,'location',return_value={'kind':'linux','root':str(self.state/'runtime'),'sha256':data['sha256']}), \
+             patch('icstudio.digital_setup_probe.qualify',return_value=report):
+            with self.assertRaisesRegex(ValueError,'every included timing corner'):runtime.setup()
+        self.assertFalse(list(self.state.glob('ready-*.json')))
+
 
 if __name__=='__main__': unittest.main()

@@ -44,10 +44,17 @@ Allow several minutes and several GB of disk space. **Ready** requires successfu
 Icarus simulation and UART regression with Verilator coverage. Every platform
 listed in the package must also pass counter mapping, equivalence, deliberate-fault
 detection, resumed physical implementation, GDS/SPEF generation, clean detailed
-routing, extracted timing at every declared library corner and physical-netlist
+routing, extracted timing at every declared library/interconnect pair and physical-netlist
 equivalence. Pre-layout hold failures stay in the evidence and must close after
 physical optimization under the same constraints. Logs and results stay in the
 setup evidence directory. An installation failure never produces Ready.
+
+Source runtime builds now include SKY130 HD's matched typical/slow/fast libraries
+and minimum/nominal/maximum interconnect decks. The included selection enables
+all nine timing pairs. GF180 and IHP retain three library corners and one captured
+extraction condition each. Package metadata declares those dimensions; installation
+and desktop packaging reject an incomplete result even if its overall status
+says PASS. Existing payloads retain their original captured conditions.
 
 The current payload also includes Magic, Netgen and ngspice for supported analog
 physical verification. **Tools → Physical tools setup…** selects that shared

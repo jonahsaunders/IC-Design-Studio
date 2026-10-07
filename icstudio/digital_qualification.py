@@ -27,6 +27,22 @@ def require_clean_route(folder):
     return {'detailed_route_drc_errors':counts,'scope':'Router rule checks; not foundry DRC/LVS'}
 
 
+def require_timing_coverage(result, platform):
+    """Require actual passing extracted reports for every declared corner pair."""
+    from .digital_platform import corner_coverage
+    coverage=corner_coverage(platform)
+    expected=[(library,rc) for library in coverage['library_corners']
+              for rc in coverage['interconnect_corners'] or [None]]
+    timing=result.get('digital_result',{}).get('timing',{})
+    cases=timing.get('corners',[])
+    if (result.get('digital_result',{}).get('verdict')!='PASS'
+            or not isinstance(cases,list) or any(not isinstance(c,dict) for c in cases)
+            or [(c.get('corner'),c.get('rc_corner')) for c in cases]!=expected
+            or any(c.get('status')!='PASS' or c.get('parasitics')!='extracted SPEF' for c in cases)):
+        raise ValueError('Extracted timing did not qualify every declared library/interconnect pair.')
+    return coverage
+
+
 def faulty_mapping(mapped, destination, output=None):
     from .digital_flow import artifact
     mapped=Path(mapped)

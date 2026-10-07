@@ -39,9 +39,13 @@ def build(output):
         shutil.copytree(ROOT/'icstudio', context/'icstudio', ignore=shutil.ignore_patterns('assets','__pycache__','*.so','*.dll'))
         shutil.copy2(ROOT/'scripts/build_physical_engines.py',context/'build_physical_engines.py')
         shutil.copy2(ROOT/'scripts/compile_ihp_osdi.py',context/'compile_ihp_osdi.py')
+        (context/'scripts').mkdir()
+        for name in ('prepare_sky130_digital.py','fetch_sky130_reference.py'):
+            shutil.copy2(ROOT/'scripts'/name,context/'scripts'/name)
         shutil.copytree(ROOT/'icstudio/assets/pdks/ihp-sg13g2/libs.tech/verilog-a',context/'ihp-pdk/libs.tech/verilog-a')
         (context/'examples').mkdir()
         shutil.copy2(ROOT/'examples/physical-engine-lock.json',context/'examples/physical-engine-lock.json')
+        shutil.copy2(ROOT/'examples/sky130-reference-assets.json',context/'examples/sky130-reference-assets.json')
         subprocess.run(['docker','build','--platform','linux/amd64','-t','icstudio-digital-runtime',str(context)],check=True)
     container = subprocess.check_output(['docker','create','icstudio-digital-runtime'],text=True).strip()
     try:

@@ -110,6 +110,26 @@ def bind(config, platform):
     return result
 
 
+def corner_coverage(platform):
+    """Declared dimensions, kept separate from a design's passing results."""
+    return {'library_corners':list(platform['corners']),
+            'interconnect_corners':list(platform.get('extraction',{}).get('corners',{}))}
+
+
+def validate_coverage(coverage, names):
+    if not isinstance(coverage,dict) or set(coverage)!=set(names):
+        raise ValueError('Corner coverage must identify every included platform.')
+    for value in coverage.values():
+        if not isinstance(value,dict) or set(value)!={'library_corners','interconnect_corners'}:
+            raise ValueError('Platform coverage needs library and interconnect corners.')
+        for key,items in value.items():
+            if (not isinstance(items,list) or not (1 if key=='library_corners' else 0)<=len(items)<=20
+                    or any(not isinstance(s,str) or not re.fullmatch(r'[A-Za-z0-9_-]{1,80}',s) for s in items)
+                    or len(set(items))!=len(items)):
+                raise ValueError('Invalid included platform corner coverage.')
+    return coverage
+
+
 def inventory(root, paths):
     root = Path(root).resolve(); records = []; total = 0
     for name in sorted(set(paths)):

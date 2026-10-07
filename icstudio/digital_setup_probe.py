@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 from . import digital_flow, digital_runtime
-from .digital_qualification import counter, faulty_mapping, require_clean_route
+from .digital_qualification import counter, faulty_mapping, require_clean_route, require_timing_coverage
 from .model import atomic_write
 
 
@@ -11,7 +11,7 @@ def qualify(runtime, directory, progress=lambda message: None):
     root = Path(directory); root.mkdir(parents=True)
     platforms=digital_runtime.platforms(runtime)
     project=counter(next(iter(platforms.values())))
-    records=[];qualified=[]
+    records=[];qualified=[];coverage={}
     def run(name, stage, p=project, upstream=None, simulator='icarus', expected=None):
         progress('Installation check: '+name)
         job = digital_flow.prepare(p,stage,simulator,runtime=runtime,upstream=upstream)
@@ -43,11 +43,12 @@ def qualify(runtime, directory, progress=lambda message: None):
             if not result['digital_result']['physical']['resumed']:raise ValueError('The managed physical checkpoint did not resume.')
             if not {'gds','spef'}.issubset(result['digital_result']['artifacts']):raise ValueError('The physical installation check produced no GDS/SPEF.')
             require_clean_route(finish)
-            run(prefix+'extracted-timing','timing',p,upstream=finish,expected=('PASS',))
+            _,timed=run(prefix+'extracted-timing','timing',p,upstream=finish,expected=('PASS',))
+            coverage[name]=require_timing_coverage(timed,platform)
             run(prefix+'physical-equivalence','equivalence',p,upstream=finish,expected=('PASS',))
             qualified.append(name)
-        report={'status':'PASS','runtime':runtime,'platforms':qualified,'checks':records,
-                'scope':'Installation counters, selected library corners and one extracted RC condition; not foundry or full-chip signoff'}
+        report={'status':'PASS','runtime':runtime,'platforms':qualified,'platform_corners':coverage,'checks':records,
+                'scope':'Installation counters at every declared library/interconnect pair; platforms without named RC corners use one captured extraction condition. Not foundry or full-chip signoff.'}
         atomic_write(root/'report.json',json.dumps(report,indent=2))
         return report
     except Exception as exc:

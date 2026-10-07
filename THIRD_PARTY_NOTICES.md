@@ -168,6 +168,20 @@ including materialized linked extraction rules, are locked in
 manifests and notice files. Source is available at the pinned
 [ORFS revision](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/tree/eaba6576441bf7c1743ea56ecdb1904210ec02c2/flow/platforms).
 
+Current source runtime builds replace the SKY130 HD library and physical views
+with matched typical/slow/fast libraries, cell/technology LEFs, GDS, CDL and
+minimum/nominal/maximum extraction decks from the checksum-pinned
+`common.tar.zst` and `sky130_fd_sc_hd.tar.zst` assets of
+[Volare sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392](https://github.com/chipfoundry/volare/releases/tag/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392).
+Copyright 2020 The SkyWater PDK Authors and other notices retained in the source
+headers; Apache-2.0. The generated platform retains its archive/file hashes,
+original ORFS configuration and physical-view overrides under `sky130hd/pvt`.
+Each bundled platform also captures the common license, these source notices,
+ORFS build-script license and a source lock under `redistribution`. Macro exports
+copy the captured license and source-notice files with their hashes. Build-time
+archive reading uses backports.zstd 1.7.0 in a temporary environment removed from
+the runtime; corresponding source is [backports.zstd](https://github.com/rogdham/backports.zstd).
+
 The application's optional timing-oriented mapping recipe is adapted from
 `flow/scripts/abc_speed.script` at the same ORFS revision. Copyright (c) 2018-2023,
 The Regents of the University of California. Its BSD-3-Clause terms and disclaimer

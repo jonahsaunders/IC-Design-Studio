@@ -16,4 +16,9 @@ def validate(record, manifest, backend, system):
         raise ValueError('The digital runtime must pass acceptance on this build platform before packaging.')
     if 'platforms' in manifest and acceptance.get('platforms')!=manifest['platforms']:
         raise ValueError('Not every included digital platform passed acceptance. Qualify the complete package.')
+    if 'platform_corners' in manifest:
+        from icstudio.digital_platform import validate_coverage
+        validate_coverage(manifest['platform_corners'],manifest.get('platforms',[]))
+        if acceptance.get('platform_corners')!=manifest['platform_corners']:
+            raise ValueError('Not every included timing corner passed acceptance. Qualify the complete package.')
     return acceptance

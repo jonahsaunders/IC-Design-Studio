@@ -51,6 +51,9 @@ def manifest():
                 or len(data['platforms'])!=len(set(data['platforms']))
                 or data.get('default_platform') not in data['platforms']):
             raise ValueError('The included digital platform catalog is invalid. Repair the application installation.')
+    if 'platform_corners' in data:
+        from .digital_platform import validate_coverage
+        validate_coverage(data['platform_corners'],data.get('platforms',[]))
     return data
 
 
@@ -99,6 +102,8 @@ def status():
             return {'state':'setup','message':'The digital runtime changed. Run setup again.'}
         if 'platforms' in data and ready.get('platforms')!=data['platforms']:
             return {'state':'setup','message':'Not every included platform has passed setup. Run setup again.'}
+        if 'platform_corners' in data and ready.get('platform_corners')!=data['platform_corners']:
+            return {'state':'setup','message':'Not every included timing corner has passed setup. Run setup again.'}
         if not (Path(runtime['root'])/'opt/icstudio/runtime.json').is_file():
             return {'state':'setup','message':'The digital runtime is missing. Run setup to restore it.'}
         from .digital_platform import PLATFORM_LABELS
@@ -146,7 +151,7 @@ def identity(runtime, full=False):
 
 def platforms(runtime):
     """Read the locked catalog, with compatibility for SKY130-only payloads."""
-    from .digital_platform import validate
+    from .digital_platform import validate, corner_coverage
     identity(runtime)
     base=Path(runtime['root']).resolve();folder=base/'opt/icstudio';meta=manifest()
     name='platforms.json' if 'platforms' in meta else 'platform.json'
@@ -165,6 +170,8 @@ def platforms(runtime):
         if not isinstance(platform,dict) or platform.get('name')!=name or platform.get('root')!='opt/icstudio/orfs/flow/platforms':
             raise ValueError('Invalid included platform location or identity: '+name)
         platform['root']=str(base/platform['root']);result[name]=validate(platform)
+    if 'platform_corners' in meta and {name:corner_coverage(value) for name,value in result.items()}!=meta['platform_corners']:
+        raise ValueError('The included corner definitions do not match the package.')
     return result
 
 
@@ -346,12 +353,16 @@ def setup(progress=lambda message: None):
         if 'platforms' in data and (not isinstance(qualification,dict) or qualification.get('status')!='PASS'
                                    or qualification.get('platforms')!=data['platforms']):
             raise ValueError('Installation checks did not qualify every included platform.')
+        if 'platform_corners' in data and (not isinstance(qualification,dict)
+                or qualification.get('platform_corners')!=data['platform_corners']):
+            raise ValueError('Installation checks did not qualify every included timing corner.')
         if {'magic','netgen','ngspice'} <= set(data.get('tools',[])):
             from .physical_runtime_probe import qualify as qualify_physical
             progress('Checking DRC, strict LVS and deliberate physical failures…')
             qualify_physical(runtime,evidence/'physical-tools',progress)
         record = {'runtime':runtime,'manifest':digest(data),'backend':backend_identity(),'checked':now(),'evidence':str(evidence)}
         if 'platforms' in data:record['platforms']=qualification['platforms']
+        if 'platform_corners' in data:record['platform_corners']=qualification['platform_corners']
         atomic_write(ready,json.dumps(record,indent=2))
         progress('Ready. The included digital engines and platforms passed the installation checks.')
         return record

@@ -111,7 +111,7 @@ jobs:
         if: runner.os == 'Windows'
         run: python -m unittest tests.test_windows_stdio -v
       - name: Verify cross-platform installation and path contracts
-        run: python -m unittest tests.test_digital_runtime tests.test_digital_bundle tests.test_digital_tools -v
+        run: python -m unittest tests.test_digital_runtime tests.test_digital_bundle tests.test_digital_rc tests.test_digital_tools -v
       - name: Verify installed digital runtime on this operating system
         env:
           ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
@@ -128,6 +128,12 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_student_usability.py
+      - name: Verify actual included SKY130 corner selection
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+        run: python tests/gui_bundled_corners.py
       - name: Audit menu regressions and export drafts
         timeout-minutes: 5
         env:
@@ -616,6 +622,7 @@ jobs:
             build/optimizer-refinement-evidence
             build/analog-advanced-evidence
             build/digital-frozen-evidence
+            build/bundled-corner-ui
             build/distribution-evidence/vga
             build/windows-evidence/vga
             build/windows-evidence/physical

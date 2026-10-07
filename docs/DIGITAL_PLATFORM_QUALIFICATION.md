@@ -19,7 +19,9 @@ The profiles target ORFS `eaba6576441bf7c1743ea56ecdb1904210ec02c2`:
 The GF180 profile does not qualify 7-track, 1.8/3.3 V libraries, every metal
 stack, or both analog C/D adapters. IHP's higher-voltage cells, SRAMs, I/O,
 BiCMOS and RF devices are outside this digital profile. The captured SKY130
-profile has only a typical library; it cannot supply a full PVT acceptance sweep.
+ORFS import profile has only a typical library. Source runtime builds instead
+prepare the matched three-library, three-interconnect SKY130 platform described
+below; older runtime archives keep their original coverage.
 Nangate45 remains a separate import option and does not qualify these processes.
 
 Use **Choose platform → Included** in the digital inspector, or the CLI's
@@ -36,7 +38,11 @@ The included package retains the complete selected platform directories, their
 file locks and licenses. Build-time symlinks to sibling collateral are materialized
 before unused platforms are removed, then the locks are verified again. Setup
 validates the package catalog and requires the acceptance counter to pass for
-every advertised platform; a partial result cannot mark the installation Ready.
+every advertised platform and library/interconnect pair; a partial result cannot
+mark the installation Ready. New payload manifests declare both corner dimensions,
+which must match the locked platform catalog and installation evidence before
+desktop packaging. Each bundled platform also retains license and source notices
+that accompany its exported macro geometry.
 Legacy SKY130-only payloads remain usable and retain their original scope.
 
 ![GF180 counter in the workspace using the included platform](images/digital-included-platform.png)
@@ -44,6 +50,13 @@ Legacy SKY130-only payloads remain usable and retain their original scope.
 The screenshot uses the real installed GF180 catalog entry after Windows setup
 passed. The displayed project is a fresh counter; qualification results are
 retained separately from this interface capture.
+
+![SKY130 corners selected from the installed runtime](images/digital-included-sky130-corners.png)
+
+This offscreen Windows capture uses the new installed and qualified SKY130
+catalog entry. Selecting it enables all three library and three interconnect
+corners. The workflow also checks save/reopen, switching to GF180 and undo.
+It is separate from final packaged-desktop consumer acceptance.
 
 ORFS checkouts must preserve symbolic links and use LF executable scripts. The
 import rejects unresolved links, missing link targets and CRLF executable scripts
@@ -194,8 +207,9 @@ python scripts/qualify_digital_workloads.py --orfs /path/to/ORFS --manifest buil
 Import the generated file through **Platform → Platform JSON manifest**, or pass
 it to the CLI with `--platform`. Import selects all captured library and
 interconnect corners; **Constraints** can change those selections independently.
-Existing platform locks and the currently bundled SKY130 profile keep their
-original scope. This preparer does not update an installed runtime in place.
+Existing platform locks and older bundled SKY130 profiles keep their original
+scope. Source runtime builds invoke this same preparer before publishing the
+platform catalog; it does not update an installed runtime in place.
 
 ![Independent library and interconnect selections](images/digital-interconnect-corners.png)
 
@@ -221,6 +235,10 @@ SPEF. The explicit 0.1 fF coupling threshold, input hashes, output hashes, eleme
 counts and scripts are retained in the extraction report.
 Macro export retains every named SPEF, extraction script and report, with
 artifact-key references and original geometry/netlist hashes in its manifest.
+It also copies the platform's captured license/source notices and their hashes
+from the job snapshot. Missing or changed captured notices stop export. Custom
+platform manifests must capture their own notices; an empty notice list is
+reported explicitly and supplies no redistribution authorization.
 
 Post-route timing checks the Cartesian product of selected library and
 interconnect corners: all nine pairs by default. The report and timing table
@@ -243,5 +261,6 @@ the new SKY130 platform to the installed payload.
 These block cases still require matched-deck physical checks and the full
 public-release acceptance gates. They do not establish foundry signoff, all
 operating voltages/temperatures, chip I/O or complete multi-mode signoff. The
-separately prepared PVT/RC platform must also be bundled and qualified in the
-default runtime and exact desktop packages before it is a release feature.
+source runtime build now bundles this PVT/RC platform, with fresh installation
+qualification required by the build gates. Exact desktop packages still require
+their own acceptance before this becomes a released feature.

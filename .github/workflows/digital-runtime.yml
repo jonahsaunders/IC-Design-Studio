@@ -14,7 +14,7 @@ jobs:
         id: cache
         with:
           path: build/digital-payload
-          key: digital-runtime-${{ hashFiles('packaging/digital/**', 'scripts/build_digital_runtime.py', 'scripts/build_physical_engines.py', 'examples/physical-engine-lock.json', 'icstudio/digital_platform.py', 'icstudio/model.py', 'licenses/Apache-2.0.txt', 'THIRD_PARTY_NOTICES.md') }}
+          key: digital-runtime-${{ hashFiles('packaging/digital/**', 'scripts/build_digital_runtime.py', 'scripts/build_physical_engines.py', 'scripts/prepare_sky130_digital.py', 'scripts/fetch_sky130_reference.py', 'examples/physical-engine-lock.json', 'examples/sky130-reference-assets.json', 'icstudio/digital*.py', 'icstudio/model.py', 'licenses/Apache-2.0.txt', 'THIRD_PARTY_NOTICES.md') }}
       - name: Build the runtime filesystem
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
