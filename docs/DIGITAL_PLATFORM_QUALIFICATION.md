@@ -117,6 +117,21 @@ acceptance remains in [public-release targets](PUBLIC_RELEASE_TARGETS.md).
 
 ## UART and hierarchical APB acceptance
 
+The [2026-10-06 workload record](validation/digital-workloads-2026-10-06.json)
+retains six passing block cases, covering 48 stages and 14 extracted library-corner
+timing checks. Every final detailed-router check reported zero violations, both
+mapped and physical equivalence passed, and every deliberate register fault
+produced a failing proof with a counterexample. The record binds the production
+source, tool versions, process locks and unchanged constraints to the retained
+evidence. Its raw strategy status entries distinguish fresh proofs from EQY's
+cached copies of earlier strategy results.
+
+The same backend also passed 26 installed-runtime checks plus physical-engine
+positive/negative probes on each of Linux and Windows. One earlier Windows
+attempt stopped on a WSL connection error; the complete retry passed on unchanged
+source. These checks use the existing runtime candidate and do not qualify a
+new frozen desktop package.
+
 The broader workload gate runs the built-in UART transmitter and hierarchical
 APB FIFO on every declared profile:
 
