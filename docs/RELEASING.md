@@ -65,6 +65,12 @@ See [Windows build and installed-app verification](WINDOWS_RELEASE.md) and
 [Linux launch checks](LINUX_SETUP.md). End users of complete packages do not
 need Docker, Node.js or build compilers.
 
+The [2026-10-07 Windows package record](validation/frozen-windows-2026-10-07.json)
+retains actual frozen execution and an independent artifact audit for application
+source `0a62eca`: 26 installation checks and 15 timing pairs passed. That exact
+package predates the required final antenna/power checks; subsequent source and
+packages require their own qualification.
+
 After packaging, `python scripts/verify_frozen_digital.py` reruns the complete
 installation design through the frozen executable. The three-platform check has
 a one-hour deadline, with a 65-minute CI step budget for diagnostics and cleanup;

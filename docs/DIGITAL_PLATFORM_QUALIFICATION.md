@@ -130,6 +130,12 @@ acceptance remains in [public-release targets](PUBLIC_RELEASE_TARGETS.md).
 
 ## Final antenna and power connectivity
 
+The [2026-10-07 physical-check record](validation/physical-checks-2026-10-07.json)
+retains three fresh native Linux final implementations, 15 extracted timing
+pairs, equivalence and macro exports, plus passing baseline checks and detected
+antenna/power-grid faults on all three profiles. Its source identities and
+remaining Windows/package qualification are explicit.
+
 New physical finish jobs require explicit OpenROAD antenna and power-grid
 connectivity reports, including signal-input model coverage and the presence of
 routing-layer antenna rules. Missing coverage or reports cannot pass. The checks
