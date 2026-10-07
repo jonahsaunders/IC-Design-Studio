@@ -58,7 +58,7 @@ class Workspace:
         self.diagnostics.cellDoubleClicked.connect(lambda row,col:self.jump(self.diagnostics.item(row,0).data(Qt.UserRole)))
         self.netlist=table(['Module','Object','Kind','Cell type']);window.result_tabs.addTab(self.netlist,'Netlist browser')
         self.netlist.cellClicked.connect(lambda row,col:self.probe(self.netlist.item(row,0).data(Qt.UserRole)))
-        self.timing=table(['Corner','Check','Startpoint','Endpoint','Slack (ns)'])
+        self.timing=table(['Library / RC corner','Check','Startpoint','Endpoint','Slack (ns)'])
         self.timing.cellClicked.connect(lambda row,col:self.probe_path(self.timing.item(row,0).data(Qt.UserRole)))
         self.proof=table(['Partition','Status','Strategies']);window.result_tabs.addTab(self.proof,'Equivalence')
         self.proof.setToolTip('Double-click a partition to open its counterexample waveform, when available.')
@@ -116,7 +116,8 @@ class Workspace:
         from .digital import counter_project
         w=self.window;name,ok=QInputDialog.getText(w,'New RTL cell','Cell name')
         if not ok:return
-        source=clone((w.config or counter_project()['digital']));source.pop('platform',None)
+        source=clone((w.config or counter_project()['digital']))
+        for key in ('platform','timing_corners','rc_corners'):source.pop(key,None)
         created=[];w.studio.commit(lambda p:created.append(design.new_cell(p,name,source)),'Create RTL cell')
         if created:self.switch_cell(created[0])
 
@@ -283,8 +284,11 @@ class Workspace:
         if 'netlist_index' in artifacts:
             self.index=json.loads((row['path']/artifacts['netlist_index']['path']).read_text())
             fill(self.netlist,self.index[:20000],['module','name','kind','type'])
-        fill(self.timing,data.get('timing',{}).get('paths',[]),['corner','check','startpoint','endpoint','slack_ns'])
-        fill(self.proof,data.get('equivalence',{}).get('partitions',[]),['partition','status','strategies'])
+        timing_paths=[{**p,'scenario':p.get('scenario',p.get('corner',''))} for p in data.get('timing',{}).get('paths',[])]
+        fill(self.timing,timing_paths,['scenario','check','startpoint','endpoint','slack_ns'])
+        proof_rows=[{**p,'strategies_label':', '.join(s['strategy']+': '+s['status']+(' (cached)' if s.get('cached') else '')
+            for s in p.get('strategies',[]))} for p in data.get('equivalence',{}).get('partitions',[])]
+        fill(self.proof,proof_rows,['partition','status','strategies_label'])
         if 'layout_preview' in artifacts:
             preview=json.loads((row['path']/artifacts['layout_preview']['path']).read_text());self.physical.load(preview);self.linked_physical.load(preview)
             self.layers.blockSignals(True);self.layers.clear();self.layers.addItem('All layers','')

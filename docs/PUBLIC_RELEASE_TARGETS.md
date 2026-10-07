@@ -50,9 +50,12 @@ Nangate45 is not a replacement for either target process.
 PVT library corners and extracted interconnect corners must be tracked separately.
 The [LibreLane timing-corner guide](https://librelane.readthedocs.io/en/latest/usage/timing_corners.html)
 documents distinct SKY130 typical/slow/fast libraries and nominal/minimum/maximum
-interconnect collateral. These are candidates for a separately locked integration;
-their existence does not qualify the present ORFS payload, which captures one
-SKY130 library corner and one extraction condition per process.
+interconnect collateral. A [separate SKY130 platform preparer](DIGITAL_PLATFORM_QUALIFICATION.md#separate-sky130-pvt-and-interconnect-platform)
+now captures three library corners, matched physical views and three independent
+RC extractions. This candidate does not change the present included ORFS payload,
+which captures one SKY130 library corner and one extraction condition per process.
+Corner execution and timing closure still require evidence for the exact design,
+source and engine revision; neither establishes chip-level or foundry acceptance.
 
 See [PDK subsets](PDK_GUIDE.md), [digital limits](DIGITAL_FLOW.md),
 [analog closure](ANALOG_CLOSURE.md), [process-RC scope](ANALOG_IMPLEMENTATION_EXTENSIONS.md)

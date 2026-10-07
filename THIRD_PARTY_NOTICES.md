@@ -38,6 +38,15 @@ and component notices when redistributing it.
 
 The separately supplied SKY130 reference bundle contains a subset of the SkyWater open PDK and generated derivatives of its inverter. Copyright 2020 The SkyWater PDK Authors and other notices retained in the original files. These assets are distributed under Apache-2.0; see licenses/Apache-2.0.txt and their file headers. The app's reference fetch script points to the pinned upstream Volare distribution. Verification can use configured external Magic/Netgen or the managed runtime described under Included digital tools below; that runtime does not supply this separate analog reference PDK.
 
+The optional `scripts/prepare_sky130_digital.py` preparer selects standard-cell
+timing, LEF/GDS/CDL and OpenRCX collateral from the same checksum-pinned
+`sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392` Volare release. It retains original
+file headers, copies the Apache-2.0 text, and records archive/source-file hashes in
+`pvt/upstream-lock.json`. The original ORFS configuration is retained alongside
+the generated physical-view adapter; ORFS notices and license requirements here
+continue to apply. Full PDK trees and generated platforms are not committed to the
+application source package.
+
 ## Included Xschem and GF180 simulation assets
 
 Standard Xschem symbols: Ubuntu 3.4.4-1build1, GPL-2.0-or-later. Original copyright and license headers are retained under icstudio/assets/exchange/xschem; the GPL text is in licenses/GPL-2.0.txt. Corresponding source: https://archive.ubuntu.com/ubuntu/pool/universe/x/xschem/ and https://github.com/StefanSchippers/xschem/tree/3.4.4.

@@ -12,6 +12,17 @@ from icstudio.digital_qualification import faulty_mapping
 
 
 class DigitalProofTests(unittest.TestCase):
+    def test_cached_strategy_pass_needs_a_retained_actual_proof(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);cached=root/'strategies/state/pdr/status';cached.parent.mkdir(parents=True)
+            cached.write_text('PASS (cached)');(root/'PASS').touch()
+            self.assertEqual(digital_reports.eqy_report(root)['status'],'ERROR')
+            original=root/'strategies/state/smtbmc/status';original.parent.mkdir();original.write_text('PASS')
+            report=digital_reports.eqy_report(root);self.assertEqual(report['status'],'PASS')
+            self.assertTrue(report['partitions'][0]['strategies'][0]['cached'])
+            original.write_text('UNKNOWN');self.assertEqual(digital_reports.eqy_report(root)['status'],'UNKNOWN')
+            original.write_text('PASS unexpected text');self.assertEqual(digital_reports.eqy_report(root)['status'],'ERROR')
+
     def test_structural_signed_declarations_keep_widths_and_connections(self):
         source='''module signed_name(clk, y);
   input clk;

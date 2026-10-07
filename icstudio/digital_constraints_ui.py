@@ -29,6 +29,13 @@ class ConstraintEditor(QDialog):
         self.corner_checks=[]
         for name in config.get('platform',{}).get('corners',{}):
             check=QCheckBox(name);check.setChecked(name in config.get('timing_corners',[config['platform']['corner']]));form.addRow('Timing corner',check);self.corner_checks.append((name,check))
+        self.rc_checks=[]
+        from .digital_rc import selected as extraction_corners
+        selected_rc=extraction_corners(config)
+        for name in config.get('platform',{}).get('extraction',{}).get('corners',{}):
+            check=QCheckBox(name);check.setChecked(name in selected_rc);form.addRow('Interconnect corner',check);self.rc_checks.append((name,check))
+        if self.rc_checks:
+            note=QLabel('Physical finish extracts each selected interconnect corner. Timing then checks every selected library/interconnect combination.');note.setWordWrap(True);form.addRow(note)
         sdcpage=QWidget();layout=QVBoxLayout(sdcpage);self.tabs.addTab(sdcpage,'SDC preview')
         self.generate=QCheckBox('Generate SDC from the structured fields');self.generate.setChecked(bool(config.get('constraints')));layout.addWidget(self.generate)
         self.preview=QPlainTextEdit();self.preview.setAccessibleName('Editable timing SDC')
@@ -75,6 +82,7 @@ class ConstraintEditor(QDialog):
             if not self.derive.isChecked():out['synthesis'].update(delay_ns=self.delay.value(),driving_cell=self.driver.text().strip(),load_pf=self.load.value())
             if self.corner_checks:
                 out['timing_corners']=[name for name,check in self.corner_checks if check.isChecked()]
+            if self.rc_checks:out['rc_corners']=[name for name,check in self.rc_checks if check.isChecked()]
             from .digital import validate_config
             validate_config(out);constraints.synthesis_settings(out);self.value=out;self.accept()
         except ValueError as exc:self.error.setText(str(exc))

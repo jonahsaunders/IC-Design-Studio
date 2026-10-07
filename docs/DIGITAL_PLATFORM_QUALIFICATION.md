@@ -178,3 +178,59 @@ physical implementation. RTL arithmetic and reset behavior are unchanged.
 
 These are block integration checks. They do not supply missing SKY130 PVT
 libraries, independent RC extractions, chip-level DRC/LVS or foundry acceptance.
+
+## Separate SKY130 PVT and interconnect platform
+
+The platform preparer creates a separate manifest from the pinned ORFS checkout
+and checksum-pinned `chipfoundry/volare` archives at
+`sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392`. Install the repository's Python
+requirements first, including the archive reader installed with `py7zr`.
+
+```sh
+python scripts/prepare_sky130_digital.py --orfs /path/to/ORFS --output build/sky130-pvt-platform --cache build/sky130-pdk-cache
+python scripts/qualify_digital_workloads.py --orfs /path/to/ORFS --manifest build/sky130-pvt-platform/platform.json --output build/sky130-corners
+```
+
+Import the generated file through **Platform → Platform JSON manifest**, or pass
+it to the CLI with `--platform`. Import selects all captured library and
+interconnect corners; **Constraints** can change those selections independently.
+Existing platform locks and the currently bundled SKY130 profile keep their
+original scope. This preparer does not update an installed runtime in place.
+
+![Independent library and interconnect selections](images/digital-interconnect-corners.png)
+
+The editor capture uses the actual separately prepared SKY130 manifest. It shows
+configuration choices; the capture itself is not engine qualification.
+
+| Library corner | Characterization |
+|---|---|
+| typical | TT, 1.80 V, 25 C |
+| slow | SS, 1.60 V, 100 C |
+| fast | FF, 1.95 V, -40 C |
+
+The corresponding cell LEFs, GDS and CDL come from that same archive release.
+The generated adapter overrides the ORFS physical-view paths and retains the
+original configuration, archive hashes, selected file hashes and license. It
+does not mix newly selected timing libraries with the old cell geometry.
+
+**Physical finish** independently extracts minimum, nominal and maximum
+interconnect using each corner's technology LEF and `spef_extractor` rules.
+Each extraction rebuilds its database from the same final routed DEF so via and
+layer properties come from the selected corner. It does not scale a nominal
+SPEF. The explicit 0.1 fF coupling threshold, input hashes, output hashes, element
+counts and scripts are retained in the extraction report.
+Macro export retains every named SPEF, extraction script and report, with
+artifact-key references and original geometry/netlist hashes in its manifest.
+
+Post-route timing checks the Cartesian product of selected library and
+interconnect corners: all nine pairs by default. The report and timing table
+identify both corners. A violation in any pair fails the aggregate verdict;
+missing or mismatched extraction evidence stops the run. Changing the RC selection
+invalidates finish and timing results while allowing compatible placement and
+routing checkpoints to remain reusable. Pre-layout timing still has no extracted
+parasitics and cannot establish this coverage.
+
+The preparer and the corner workflow are integration mechanisms. Their outputs
+still require source-bound engine qualification, matched-deck physical checks and
+the full public-release acceptance gates. They do not establish foundry signoff,
+all operating voltages/temperatures, chip I/O or complete multi-mode signoff.

@@ -105,6 +105,8 @@ def bind(config, platform):
     validate(platform)
     result=clone(config);result['platform']=clone(platform)
     result['timing_corners']=list(platform['corners'])
+    if platform.get('extraction'):result['rc_corners']=list(platform['extraction']['corners'])
+    else:result.pop('rc_corners',None)
     return result
 
 
@@ -142,6 +144,8 @@ def validate(platform):
         if any(not isinstance(f,str) or f not in exact_names for f in files):raise ValueError('A Liberty corner references an uncaptured file; use its exact captured spelling.')
     if platform.get('corner') not in corners:raise ValueError('Choose a captured Liberty corner.')
     validate_options(platform)
+    from .digital_rc import validate as validate_extraction
+    validate_extraction(platform)
     if platform.get('fingerprint') != digest(records):raise ValueError('Digital platform manifest checksum changed. Import the platform again.')
     return platform
 

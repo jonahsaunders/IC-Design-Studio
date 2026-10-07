@@ -238,6 +238,12 @@ Reports cover up to 50 paths
 per group for setup and hold at each selected library corner, with full textual
 evidence, independent setup and hold total negative slack, and per-corner reports.
 The combined verdict and electrical status account for every selected corner.
+Platforms with explicit interconnect definitions retain separate extractions at
+physical finish. Timing crosses each selected Liberty corner with every selected
+interconnect corner and labels both in the report and path table. The
+[process qualification guide](DIGITAL_PLATFORM_QUALIFICATION.md#separate-sky130-pvt-and-interconnect-platform)
+describes the separately pinned SKY130 candidate; the currently bundled SKY130
+profile remains typical-only.
 Pre-layout timing has no extracted wire parasitics. Default propagated-activity
 power is an estimate, not a workload measurement. There is no multi-corner signoff
 claim or automatic false/multicycle-path correctness proof.
@@ -256,6 +262,8 @@ and [SBY engine reference](https://github.com/YosysHQ/sby/blob/main/docs/source/
 **PASS**, **FAIL**, **UNKNOWN** and engine **ERROR** stay distinct. An unresolved
 partition qualifies only when another strategy actually proves it and EQY reports
 overall PASS. Timeouts or bounded initial-cycle checks alone cannot produce PASS.
+Cached EQY strategy statuses are labeled as cached and require the original
+successful strategy evidence; a cached PASS alone cannot qualify a partition.
 State/reset behavior and complex designs can still prevent a proof; counterexamples
 and proof logs are retained for investigation. A failed proof does not silently
 become a successful physical qualification.

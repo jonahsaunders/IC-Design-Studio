@@ -191,9 +191,13 @@ def timing_script(r):
     lines += ['read_verilog '+tcl_word(r.root/'netlist.v'),'link_design '+r.config['top'],
               'read_sdc '+tcl_word(r.constraints())]
     upstream=r.settings.get('upstream',{})
-    if 'spef' in upstream.get('artifacts',{}):
-        verify_upstream(upstream);shutil.copy2(Path(upstream['root'])/upstream['artifacts']['spef']['path'],r.root/'parasitics.spef')
-        r.add_artifact('spef',r.root/'parasitics.spef');lines.append('read_spef '+tcl_word(r.root/'parasitics.spef'))
+    key=getattr(r,'timing_spef_key','spef')
+    if key in upstream.get('artifacts',{}):
+        if not hasattr(r,'timing_spef_key'):verify_upstream(upstream)
+        target=r.root/('parasitics.spef' if key=='spef' else 'parasitics/'+key+'.spef')
+        target.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copy2(Path(upstream['root'])/upstream['artifacts'][key]['path'],target)
+        r.add_artifact(key,target);lines.append('read_spef '+tcl_word(target))
         lines.append('set_propagated_clock [all_clocks]')
     # An SDC can set its own input units. Normalize only after interpreting it,
     # so every saved path, total and UI label uses the declared output units.
@@ -224,21 +228,30 @@ def timing(r):
     from .digital_reports import timing_report
     data=mapped(r);corners=r.config.get('timing_corners',[r.platform['corner']]);reports=[];powers=[]
     from .digital_reports import power_report
-    for corner in corners:
-        r.timing_corner=corner;atomic_write(r.root/'timing.tcl',timing_script(r))
-        r.command([r.tools['sta'],'-no_init','-exit',str(r.root/'timing.tcl')],'Analyzing setup and hold · '+corner,fraction=.6)
-        report=timing_report(r.root);report['corner']=corner
-        report['parasitics']='extracted SPEF' if 'spef' in r.artifacts else 'No extracted interconnect; pre-layout estimate'
-        for path in report['paths']:path['corner']=corner
-        reports.append(report);powers.append({'corner':corner,**power_report(r.root/'power.txt')})
-        folder=r.root/'timing-corners'/corner;folder.mkdir(parents=True)
-        for name in ('timing.tcl','timing_full.txt','timing_checks.txt','timing_units.txt','timing_paths.tsv','timing_totals.txt','timing_hold_totals.txt','electrical_checks.txt','power.txt'):
-            shutil.copy2(r.root/name,folder/name);r.add_artifact('corner_'+corner+'_'+name.replace('.','_'),folder/name,allow_empty=True)
+    from .digital_rc import timing_sources
+    sources=timing_sources(r)
+    for i,corner in enumerate(corners):
+        for j,(rc_corner,spef_key) in enumerate(sources):
+            scenario=corner+(' / '+rc_corner if rc_corner else '')
+            r.timing_corner=corner;r.timing_spef_key=spef_key
+            atomic_write(r.root/'timing.tcl',timing_script(r))
+            r.command([r.tools['sta'],'-no_init','-exit',str(r.root/'timing.tcl')],'Analyzing setup and hold · '+scenario,fraction=.6)
+            report=timing_report(r.root);report.update(corner=corner,rc_corner=rc_corner,scenario=scenario)
+            report['parasitics']='extracted SPEF' if spef_key else 'No extracted interconnect; pre-layout estimate'
+            for path in report['paths']:path.update(corner=corner,rc_corner=rc_corner,scenario=scenario)
+            reports.append(report);powers.append({'corner':corner,'rc_corner':rc_corner,'scenario':scenario,**power_report(r.root/'power.txt')})
+            folder=r.root/'timing-corners'/corner
+            if rc_corner:folder=folder/rc_corner
+            folder.mkdir(parents=True)
+            prefix='corner_'+corner if not rc_corner else 'scenario_'+str(i)+'_'+str(j)
+            for name in ('timing.tcl','timing_full.txt','timing_checks.txt','timing_units.txt','timing_paths.tsv','timing_totals.txt','timing_hold_totals.txt','electrical_checks.txt','power.txt'):
+                shutil.copy2(r.root/name,folder/name);r.add_artifact(prefix+'_'+name.replace('.','_'),folder/name,allow_empty=True)
     r.timing_corner=None
     report=clone(reports[0]);report['corners']=reports;report['paths']=[p for c in reports for p in c['paths']]
+    report.pop('rc_corner',None);report.pop('scenario',None)
     states={c['status'] for c in reports};report['status']=next((s for s in ('FAIL','INCOMPLETE') if s in states),'PASS')
     report['unconstrained']=any(c['unconstrained'] for c in reports)
-    report['incomplete_reasons']=[c['corner']+': '+reason for c in reports for reason in c['incomplete_reasons']]
+    report['incomplete_reasons']=[c['scenario']+': '+reason for c in reports for reason in c['incomplete_reasons']]
     report['electrical_status']=next((status for status in ('FAIL','Unavailable')
         if any(c['electrical_status']==status for c in reports)),'No reported violations')
     report['summary']={key:min(values) for key in ('setup_worst_slack_ns','hold_worst_slack_ns') if (values:=[c['summary'][key] for c in reports if c['summary'].get(key) is not None])}
@@ -247,7 +260,8 @@ def timing(r):
     for kind in ('setup','hold'):
         key=kind+'_total_negative_slack_ns';totals=[c['summary'][key] for c in reports if key in c['summary']]
         if totals:report['summary'][key]=min(totals)
-    report['scope']='Selected library corners with the captured netlist and parasitics. RC corner variation requires separately extracted SPEF.'
+    report['rc_corners']=[name for name,key in sources if name]
+    report['scope']='Every selected library corner crossed with each captured interconnect extraction. Legacy single-SPEF and pre-layout results retain their narrower scope.'
     r.save_json('timing',report,'timing.json');r.add_artifact('timing_full',r.root/'timing_full.txt',allow_empty=True);r.add_artifact('power_report',r.root/'power.txt')
     data['power']={**powers[0],'corners':powers}
     upstream=r.settings.get('upstream',{})
@@ -256,7 +270,8 @@ def timing(r):
         shutil.copy2(Path(upstream['root'])/upstream['artifacts']['layout_preview']['path'],r.root/'layout_preview.json')
         r.add_artifact('layout_preview',r.root/'layout_preview.json')
     detail=' · '+report['incomplete_reasons'][0] if report['incomplete_reasons'] else ''
-    return {**data,'timing':report,'verdict':report['status'],'summary':'Timing '+report['status']+' · '+', '.join(corners)+' · '+report['parasitics']+detail}
+    rc_detail=' · RC '+', '.join(report['rc_corners']) if report['rc_corners'] else ''
+    return {**data,'timing':report,'verdict':report['status'],'summary':'Timing '+report['status']+' · '+', '.join(corners)+rc_detail+' · '+report['parasitics']+detail}
 
 
 def proof_strategies(timeout):

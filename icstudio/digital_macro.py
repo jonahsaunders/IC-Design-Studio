@@ -13,7 +13,7 @@ def export(result, directory, destination):
     if data['stage']!='finish' or not {'gds','lef','netlist','layout_preview'}<=artifacts.keys():
         raise ValueError('Finish the physical flow before exporting a macro bundle.')
     preview=json.loads((directory/artifacts['layout_preview']['path']).read_text())
-    selected={k:v for k,v in artifacts.items() if k in ('gds','lef','netlist','spef','sdc','layout_preview','database','timing','equivalence')}
+    selected={k:v for k,v in artifacts.items() if k in ('gds','lef','netlist','spef','sdc','layout_preview','database','timing','equivalence','def','extraction') or k.startswith(('spef_','extraction_script_'))}
     job=json.loads((directory/'input.json').read_text())
     from .digital_design import config
     manifest={'version':1,'top':config(job['project'],job['cell'])['top'],'source_hash':data['source_hash'],'input_key':data.get('input_key'),
@@ -23,6 +23,16 @@ def export(result, directory, destination):
               'qualification':{'physical_stage':'finish','drc':'Not qualified by this export','lvs':'Not qualified by this export',
                                'abstract_timing_model':None,
                                'scope':'LEF/GDS geometry with the actual gate netlist and captured SPEF. No characterized macro Liberty model is implied.'}}
+    if 'extraction' in selected:
+        extraction=json.loads((directory/selected['extraction']['path']).read_text())
+        if extraction.get('schema')!=1 or extraction.get('status')!='complete' or extraction.get('def')!=selected.get('def') or extraction.get('netlist')!=selected['netlist']:
+            raise ValueError('Macro extraction evidence does not match the exported final geometry and netlist.')
+        if not extraction.get('corners') or any(item.get('spef')!=selected.get(item.get('spef_key')) or item.get('spef_key') not in selected for item in extraction['corners'].values()):
+            raise ValueError('Macro export is missing a captured interconnect corner.')
+        manifest['interconnect_corners']={name:{'spef_artifact':item['spef_key'],'inputs':item['inputs'],
+            'source_def_sha256':extraction['def']['sha256'],'source_netlist_sha256':extraction['netlist']['sha256']}
+            for name,item in extraction['corners'].items()}
+        manifest['extraction_evidence_scope']='The retained extraction report uses original job paths; exported files are addressed by the artifact keys in this manifest.'
     job=json.loads((directory/'input.json').read_text())
     from .digital_design import config
     constraints=[f for f in config(job['project'],job['cell'])['files'] if f['role']=='constraint']

@@ -273,6 +273,8 @@ foreach library [[ord::get_db] getLibs] {
     if stage=='finish':
         r.add_artifact('lef',r.root/'macro.lef')
         for key,suffix in (('gds','.gds'),('spef','.spef')):r.add_artifact(key,result_dir/('6_final'+suffix))
+        from .digital_rc import extract
+        extract(r)
     metrics={}
     for path in sorted(work.rglob('*.json')):
         if path.stat().st_size>8*1024*1024:continue

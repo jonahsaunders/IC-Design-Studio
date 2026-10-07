@@ -46,14 +46,17 @@ def netlist_index(data, files):
 def eqy_report(directory):
     root=Path(directory);partitions={}
     for file in sorted((root/'strategies').glob('*/*/status')):
-        text=file.read_text().split();status=text[0] if text else 'ERROR'
+        text=file.read_text().strip();match=re.fullmatch(r'(PASS|FAIL|UNKNOWN|ERROR|TIMEOUT)( \(cached\))?',text)
+        status=match[1] if match else 'ERROR';cached=bool(match and match[2])
         if status=='TIMEOUT':status='UNKNOWN'
-        if status not in ('PASS','FAIL','UNKNOWN','ERROR'):status='ERROR'
-        partitions.setdefault(file.parent.parent.name,[]).append({'strategy':file.parent.name,'status':status})
+        entry={'strategy':file.parent.name,'status':status}
+        if cached:entry['cached']=True
+        partitions.setdefault(file.parent.parent.name,[]).append(entry)
     rows=[]
     for name,strategies in partitions.items():
         states={s['status'] for s in strategies}
-        status='FAIL' if 'FAIL' in states else 'PASS' if 'PASS' in states else 'UNKNOWN' if 'UNKNOWN' in states else 'ERROR'
+        actual={s['status'] for s in strategies if not s.get('cached')}
+        status='FAIL' if 'FAIL' in states else 'PASS' if 'PASS' in actual else 'UNKNOWN' if 'UNKNOWN' in actual else 'ERROR'
         rows.append({'partition':name,'status':status,'strategies':strategies})
     if rows and (root/'PASS').is_file() and all(p['status']=='PASS' for p in rows):status='PASS'
     elif any(p['status']=='FAIL' for p in rows):status='FAIL'
