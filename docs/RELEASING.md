@@ -65,6 +65,18 @@ See [Windows build and installed-app verification](WINDOWS_RELEASE.md) and
 [Linux launch checks](LINUX_SETUP.md). End users of complete packages do not
 need Docker, Node.js or build compilers.
 
+After packaging, `python scripts/verify_frozen_digital.py` reruns the complete
+installation design through the frozen executable. The three-platform check has
+a one-hour deadline, with a 65-minute CI step budget for diagnostics and cleanup;
+the former single-platform 1,100-second limit was shorter than the observed
+Windows setup. A timeout remains a failure and signals the active acceptance job
+to stop. The verifier requires a fresh Ready record for the packaged archive,
+backend and complete platform/corner set, retains the executable and report
+hashes, and rejects stale or incomplete evidence. Source payload overrides are
+removed from the frozen application's environment. To inspect a retained build,
+use `--executable PATH --output DIRECTORY`; `--timeout SECONDS` sets a diagnostic
+deadline without skipping any acceptance checks.
+
 ## Build source and repository archives
 
 ```sh

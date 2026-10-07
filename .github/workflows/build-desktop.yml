@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Verify portable release evidence and publishing
-        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_intent tests.test_release_notes -v
+        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_intent tests.test_release_notes tests.test_frozen_digital -v
   digital-runtime:
     uses: ./.github/workflows/digital-runtime.yml
   package:
@@ -549,7 +549,7 @@ jobs:
         shell: pwsh
         run: ./scripts/build_windows.ps1
       - name: Qualify included digital engines through the frozen desktop
-        timeout-minutes: 20
+        timeout-minutes: 65
         env:
           ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
         run: python scripts/verify_frozen_digital.py
