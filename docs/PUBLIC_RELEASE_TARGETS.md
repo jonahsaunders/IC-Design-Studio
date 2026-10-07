@@ -93,10 +93,11 @@ acceptance design and deliberate-fault cases:
 
 Items 6–8 require capabilities and evidence beyond the current reference flows.
 Do not turn a missing engine, unsupported check or absent report into PASS.
-An adversarial macro-export probe also found that changing a saved job's
-`input.json` can alter exported metadata while retaining the old result source
-hash. The captured engine results used by the qualification runs remain unchanged;
-binding handoff metadata to those original inputs is a release blocker.
+The historical included-corner record retains an adversarial macro-export
+input-binding defect. Current export code rejects a saved input snapshot whose
+project, cell, design, source or available stage identity differs from the
+implementation result. Rejection preserves an existing export. This integrity
+check does not establish the chip-level handoff and signoff acceptance above.
 Broad periodic/RF analyses, general Verilog-AMS and proprietary design-database
 compatibility also need separate implementation and qualification before claiming
 replacement of workflows that require them.

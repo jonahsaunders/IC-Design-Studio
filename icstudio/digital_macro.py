@@ -26,6 +26,24 @@ def captured_notices(job, directory):
     return result
 
 
+def verify_inputs(result, job):
+    """Bind exported metadata to the inputs that produced the retained geometry."""
+    from .digital import source_hash
+    from .digital_design import config
+    from .digital_identity import stage_key
+    from .model import design_digest
+    message='The captured job inputs do not match the implemented macro. Restore the original input snapshot or run physical finish again.'
+    if (not isinstance(job,dict) or not isinstance(job.get('project'),dict)
+            or result.get('project_id')!=job['project'].get('id') or result.get('cell_id')!=job.get('cell')
+            or result.get('design_hash')!=design_digest(job['project'])):
+        raise ValueError(message)
+    data=result['digital_result'];value=config(job['project'],job['cell'])
+    if (data.get('source_hash')!=source_hash(value)
+            or data.get('input_key') and data['input_key']!=stage_key(value,'finish')):
+        raise ValueError(message)
+    return value
+
+
 def export(result, directory, destination):
     directory=Path(directory);destination=Path(destination)
     validate_result(result,directory);data=result['digital_result'];artifacts=data['artifacts']
@@ -34,9 +52,10 @@ def export(result, directory, destination):
     preview=json.loads((directory/artifacts['layout_preview']['path']).read_text())
     selected={k:v for k,v in artifacts.items() if k in ('gds','lef','netlist','spef','sdc','layout_preview','database','timing','equivalence','def','extraction') or k.startswith(('spef_','extraction_script_'))}
     job=json.loads((directory/'input.json').read_text())
-    from .digital_design import config
+    value=verify_inputs(result,job)
     notices=captured_notices(job,directory)
-    manifest={'version':1,'top':config(job['project'],job['cell'])['top'],'source_hash':data['source_hash'],'input_key':data.get('input_key'),
+    manifest={'version':1,'top':value['top'],'source_hash':data['source_hash'],'input_key':data.get('input_key'),
+              'design_hash':result['design_hash'],
               'project_id':result['project_id'],'cell_id':result['cell_id'],
               'ports':preview.get('pins',[]),'bounds_um':preview['die'],'platform':data.get('platform'),
               'environment':data.get('environment'),'artifacts':clone(selected),
@@ -55,7 +74,7 @@ def export(result, directory, destination):
             'source_def_sha256':extraction['def']['sha256'],'source_netlist_sha256':extraction['netlist']['sha256']}
             for name,item in extraction['corners'].items()}
         manifest['extraction_evidence_scope']='The retained extraction report uses original job paths; exported files are addressed by the artifact keys in this manifest.'
-    constraints=[f for f in config(job['project'],job['cell'])['files'] if f['role']=='constraint']
+    constraints=[f for f in value['files'] if f['role']=='constraint']
     temporary=destination.with_name(destination.name+'.partial')
     try:
         with zipfile.ZipFile(temporary,'w',compression=zipfile.ZIP_DEFLATED) as archive:

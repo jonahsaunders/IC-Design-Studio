@@ -239,6 +239,25 @@ It also copies the platform's captured license/source notices and their hashes
 from the job snapshot. Missing or changed captured notices stop export. Custom
 platform manifests must capture their own notices; an empty notice list is
 reported explicitly and supplies no redistribution authorization.
+Before copying metadata, export verifies that the saved input snapshot matches
+the implementation result's project/cell identities, design hash, source hash
+and stage identity when present. This binds exported top names, constraints and
+notice selections to the original job. A mismatch stops before replacing an
+existing export; restore the original snapshot or run physical finish again.
+
+After included-runtime setup, run the read-only handoff checks with:
+
+```sh
+python scripts/qualify_macro_exports.py --output build/macro-integrity-installed/report.json
+```
+
+Use `--evidence` to select a retained installed-runtime evidence directory. The
+qualifier requires the SKY130, GF180 and IHP finished counter jobs, checks valid
+exports and five altered-input cases per platform, and records exporter, qualifier
+and original-job hashes. Original engine evidence remains unchanged. Missing jobs,
+incorrect platform labels or an accepted altered input fail the command and write
+a failed receipt in place of any stale passing one. These checks verify export
+integrity; they do not rerun engines or establish chip-level acceptance.
 
 Post-route timing checks the Cartesian product of selected library and
 interconnect corners: all nine pairs by default. The report and timing table
@@ -264,9 +283,9 @@ qualifies fresh Linux and Windows installations of the new payload. Each passed
 pairs: nine SKY130 and three each GF180/IHP. Independent audits verify saved
 job/source identities, every retained artifact, distinct SKY130 parasitic data,
 and all three macro exports with their captured licenses and source notices.
-The record also retains the separate export-input integrity defect described in
-[public-release targets](PUBLIC_RELEASE_TARGETS.md); passing original-job exports
-does not qualify arbitrary modified input metadata.
+The record also retains the separate export-input integrity defect found on that
+source revision. Current source adds the input-binding rejection described above;
+the historical record is not rewritten as proof of the later repair.
 
 These block cases still require matched-deck physical checks and the full
 public-release acceptance gates. They do not establish foundry signoff, all

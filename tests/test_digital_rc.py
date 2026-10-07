@@ -9,7 +9,7 @@ from unittest.mock import patch
 
 from icstudio import digital, digital_identity, digital_platform, digital_rc
 from icstudio.digital_flow import artifact
-from icstudio.model import clone, digest
+from icstudio.model import clone, design_digest, digest
 
 
 SPEF='''*SPEF "IEEE 1481-1998"
@@ -153,7 +153,8 @@ class DigitalRCTests(unittest.TestCase):
                 'corners':{c:{'spef_key':'spef_'+c,'spef':artifacts['spef_'+c],'inputs':{}} for c in ('min','max')}}
             path=root/'extraction.json';path.write_text(json.dumps(extraction));artifacts['extraction']=artifact(root,path)
             result={'result_type':'digital','project_id':project['id'],'cell_id':project['top'],
-                'settings':{'stage':'finish'},'digital_result':{'stage':'finish','source_hash':'fixture',
+                'design_hash':design_digest(project),
+                'settings':{'stage':'finish'},'digital_result':{'stage':'finish','source_hash':digital.source_hash(project['digital']),
                     'summary':'fixture','artifacts':artifacts}}
             (root/'input.json').write_text(json.dumps({'project':project,'cell':project['top']}))
             manifest=export(result,root,root/'macro.zip')
