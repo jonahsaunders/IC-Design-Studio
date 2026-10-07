@@ -1,5 +1,8 @@
 # Public release and tapeout acceptance targets
 
+Follow the [twelve-chunk qualification plan](PDK_QUALIFICATION_PLAN.md) and its
+validated per-process/device matrix for the ordered implementation work.
+
 ## Target and current boundary
 
 The release target is analog and digital design on **SKY130, GF180MCU C/D and
