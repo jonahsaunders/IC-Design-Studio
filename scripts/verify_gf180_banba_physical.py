@@ -356,7 +356,8 @@ def verify(a):
     counts = Counter(row['kind'] for row in comparison['rows'])
     passed = (rc == 0 and comparison['matched'] and all(row['status'] == 'Match' for row in comparison['rows'])
               and counts['device'] == len(devices(reference)))
-    report['lvs'] = dict(exit_code=rc, passed=passed, pairs=dict(counts), circuits=comparison['circuits'])
+    report['lvs'] = dict(exit_code=rc, passed=passed, pairs=dict(counts), circuits=comparison['circuits'],
+                        extraction_log=comparison['extraction_log'])
     report['remaining'] = drc_remaining(report['drc']) + ([] if passed else ['Strict LVS failed.'])
     if a.drc_lvs_only:
         report['passed'] = report['drc']['passed'] and passed

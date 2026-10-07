@@ -16884,12 +16884,13 @@
       "target": "gf180mcuC",
       "test": "gf180-density",
       "status": "failed",
-      "remaining": "Production references still fail density. The independently audited C capacitive-filler experiment passes tested geometry, antenna, timing and equivalence, and reaches 30.46% COMP / 22.82% poly over the original 200 x 200 um declared die. All five metals remain below 30%. Native coupons expose missing-material false cleans and uncaught dummy dimensions. Supplemental checks detect these gaps but deliberately retain incomplete coverage. Finish legal fill, exclusions/local density, final-GDS LVS and post-fill checks, then repeat C/D counters/UART/APB on both OS without changing original constraints or footprint.",
+      "remaining": "Production references still fail density. An independently audited C counter mesh plus 911 Metal1 dummy squares passes native main/antenna/density with unchanged RTL, timing constraints and original 200 x 200 um die. An independent 4184-transistor reference and 1602 power-terminal metal check jointly pass the valid layout and reject ground-open, signal-short and missing-substrate-contact controls. Native LVS alone misses isolated power pads. Complete post-fill extraction/timing, all fill-rule coverage and production integration, then repeat C/D counter/UART/APB on both OS.",
       "historical_evidence": [
         "gf-geometry",
         "gf-production-geometry",
         "gf-density-baseline",
-        "gf-fill-diagnostics"
+        "gf-fill-diagnostics",
+        "gf-filled-connectivity"
       ]
     },
     "gf180mcuC:gf180-geometry": {
@@ -19862,6 +19863,11 @@
       "path": "docs/validation/gf180-fill-diagnostics-2026-10-07.json",
       "sha256": "41a523001a39f53c3be30bb655257038c205d1a62b794c27c1746e506b2cf31a",
       "scope_limit": "Experimental GF180 C capacitive fillers, seven native rule-gap coupons, both-OS supplemental measurements and four failed mesh trials. Density, complete fill rules, LVS and tapeout remain unqualified; D does not inherit the C experiment."
+    },
+    "gf-filled-connectivity": {
+      "path": "docs/validation/gf180-filled-connectivity-2026-10-07.json",
+      "sha256": "906834c082b4f80dab8eda4a9172a1abceea8529ea6877b417c12a65af22a891",
+      "scope_limit": "C counter experimental fill passes native geometry/antenna/density and combined transistor/physical-metal connectivity controls. Post-fill RC/timing, complete fill rules, production integration and D remain unqualified."
     }
   },
   "execution_acceptance": {

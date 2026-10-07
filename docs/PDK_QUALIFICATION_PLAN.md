@@ -24,7 +24,7 @@ device-specific operating envelopes are explicit open requirements.
 | 1. Qualification matrix | Inventory bundled inputs; enumerate tests and missing upstream coverage; validate identities and completeness. | Every requirement has a test, expected result and status. Missing coverage is visible. This planning gate is defined; process execution is not qualified. |
 | 2. Toolchain | Compatible KLayout CLI; hosted OpenROAD result; clean Linux install; clean Windows/WSL install; native rule coupons and fault controls. | Exact fresh runtimes execute every required valid/invalid case correctly. |
 | 3. GF180 geometry | Integrate via pitch; integrate tap spacing; counter; UART; APB. Establish a separate matched D platform. | Production-flow geometry, antenna, extracted timing and equivalence pass without changing the original design constraints. |
-| 4. GF180 density | Resolve active/poly fill; resolve each metal layer; check exclusions; rerun all post-fill checks. | Zero required density/geometry findings and passing connectivity, extraction, timing and equivalence. The isolated C counter currently has 555 density markers. |
+| 4. GF180 density | Resolve active/poly fill; resolve each metal layer; check exclusions; rerun all post-fill checks. | Filled production references pass required density/geometry, connectivity, extraction, timing and equivalence. Experimental counter results retain their narrower scope. |
 | 5. IHP geometry/fill | Resolve the twelve observed findings, grouped by rule; recheck counter; UART; APB. | Complete final-layout rules, connectivity and extracted performance pass. |
 | 6. SKY130 rules | Reconcile rule inventory; enable FEOL; check density/antenna; final-GDS LVS; negative controls. | Every required rule group executes; no silently disabled coverage or unexplained violations. |
 | 7. Devices | Reconcile upstream inventory; MOS; resistors; capacitors; diodes; bipolar; remaining devices. Treat IHP RF separately. | Every supported device passes terminal/parameter/model, operating-envelope, layout and extracted-connectivity tests. Unsupported required devices remain blockers. |
@@ -176,10 +176,63 @@ python scripts/check_gf180_fill.py --gds final.gds --top counter --variant C --b
 
 Four connected power-mesh experiments are also retained as failures: three
 failed detailed placement and one failed power-channel repair. They do
-not change the production recipe. The next step is to resolve the actual power
-geometry constraints or establish another legal metal-fill strategy, then run
-all post-fill checks and repeat the accepted method on C/D counter, UART and
-APB references. C's capacitive-filler experiment does not qualify D.
+not change the production recipe. They motivated the placement diagnosis below.
+Every accepted method must still complete the post-fill checks on C/D counter,
+UART and APB references. C's capacitive-filler experiment does not qualify D.
+
+The [filled-counter connectivity record](validation/gf180-filled-connectivity-2026-10-07.json)
+captures the subsequent independent audit. A coarser Metal2 power mesh leaves
+the placement channels required by the actual pin-access rules. Two new mesh
+trials pass the six implementation/proof/timing stages, main geometry and
+antenna checks without changing RTL, timing constraints, die or core. The final
+GDS prototype adds 911 Metal1 dummy squares and carries the original declared
+die boundary into stream-out. It has zero native main, antenna and density
+findings. Over that unchanged die, COMP/poly coverage is 30.42%/22.79%; Metal1
+through Metal5 coverage is 30.84%, 34.91%, 30.19%, 32.64% and 30.83%.
+
+Independent foundry CDL views match all 18 used cell layouts exactly. The
+reference includes 801 placed cells and 4,184 transistors, including capacitive
+fillers; its available terminals were checked against the implementation
+database. Explicit bulk bindings follow the captured power-grid intent. A
+verification copy removes repeated child-cell text labels while preserving all
+physical masks and all eight chip-level pin labels.
+
+The unchanged LVS deck can report a matching graph while retaining an unresolved
+ground `must-connect` warning. The application now preserves extraction findings
+in the cross-probe table and rejects a clean-match verdict for warnings, errors
+or unclassified extraction messages. The older retained Banba comparison also
+contains this warning and is now a negative regression; its historical graph
+match does not establish strict connectivity acceptance.
+
+A separately captured diagnostic disables name-based joins, requires chip-top
+connectivity and models substrate taps with soft global connections. It matches
+the counter's devices and eight pins with no extraction findings. Its 1,965
+net-match warnings concern interchangeable internal capacitive-filler nodes.
+However, an actual isolated ground pad still escapes that comparison. An
+independent metal-only network check therefore verifies every chip pin and all
+1,602 cell power terminals. Windows and native-runtime connectivity measurements
+agree. Together the two checks accept the valid reference and reject a ground
+open, signal short and missing substrate contacts. The individual false pass and
+failed diagnostic attempts remain retained.
+
+These results do not complete chunk 4. The GDS prototype and diagnostic deck need
+production integration and complete fill-rule coverage. The recorded timing
+precedes the final Metal1 dummy fill; extraction and timing must run on the
+actual filled geometry. C/D counter, UART and APB still require complete accepted
+production runs on both operating systems.
+
+Native extraction of matched before/after geometries retains all 4,184 device
+records and eight chip ports. The fill adds 911 floating conductors. An independent
+capacitance-matrix audit preserves the full floating network, checks its numerical
+solution and measures increased loads on all six signal ports. These measurements
+hold the other retained nodes fixed; they are not a timing result. The native
+resistance files contain 35,706 resistor records in each case, but production RC
+assembly rejects a negative supply-network capacitance weight. Six much smaller
+negative capacitance roundoff residues are retained separately; only explicitly
+recorded diagnostic copies normalize those residues. The production floating
+reducer also rejects this 911-node component at its 256-node budget. These open
+integration issues and the failed extraction attempts remain in the same record;
+neither the parser nor the acceptance gates were weakened.
 
 Before each batch, freeze its exact inputs, numerical limits and negative
 controls. After the batch, preserve commands, versions, input/output hashes,
