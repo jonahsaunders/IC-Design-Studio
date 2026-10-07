@@ -133,8 +133,11 @@ acceptance remains in [public-release targets](PUBLIC_RELEASE_TARGETS.md).
 The [2026-10-07 physical-check record](validation/physical-checks-2026-10-07.json)
 retains three fresh native Linux final implementations, 15 extracted timing
 pairs, equivalence and macro exports, plus passing baseline checks and detected
-antenna/power-grid faults on all three profiles. Its source identities and
-remaining Windows/package qualification are explicit.
+antenna/power-grid faults on all three profiles. The subsequent
+[Windows/WSL record](validation/physical-checks-windows-2026-10-07.json) retains
+a fresh managed installation, 26 checks, 15 timing pairs, three independently
+audited macro exports and all nine native baseline/fault cases on the same
+backend. Exact final desktop packages remain unqualified.
 
 New physical finish jobs require explicit OpenROAD antenna and power-grid
 connectivity reports, including signal-input model coverage and the presence of
@@ -164,6 +167,41 @@ checks have narrower scope than foundry signoff. Model/rule presence is not
 evidence that a supplied deck covers every fabrication requirement; final
 streamed-GDS, density, electrical reliability and chip-level acceptance remain
 separate requirements.
+
+### Final streamed-layout diagnostics
+
+The [2026-10-07 GDS diagnostics](validation/final-gds-diagnostics-2026-10-07.json)
+expose remaining failures on the retained counter layouts. The captured SKY130
+deck returned zero markers with its default FEOL checks disabled; this is
+incomplete DRC coverage. The original KLayout 0.28.16 executable could not run
+the IHP deck. An isolated KLayout 0.30.5 executable ran that unchanged deck and
+reported 12 density/fill findings. Its compatibility is not yet integrated in
+the managed runtime.
+
+The pinned GF180-C decks, with density and antenna enabled, reported 2,774 main
+rule markers, 552 density markers and zero antenna markers. The main findings
+include tap distance, manufacturing grid and via size. Markers can overlap and
+do not count independent defects. These results remain failures; no rule was
+disabled or waived to produce a clean result. Passing routing, timing, antenna
+and supply-connectivity checks does not resolve these final-GDS findings.
+
+A subsequent [isolated GF180 geometry experiment](validation/gf180-geometry-experiment-2026-10-07.json)
+changed the captured Metal3 split-cut pitch from 0.128 to 0.520 micrometres and
+tap placement distance from 100 to 14 micrometres. All other design settings,
+RTL, constraints and verification decks were preserved. The corrected copy
+passed timing and physical equivalence and returned zero main-rule and antenna
+markers. Density still failed with 555 markers. These two recipe corrections
+are not yet integrated or qualified in the application or managed packages.
+
+For the pinned Ubuntu OpenROAD package, the hosted implementation job uses
+`scripts/ci/openroad` to isolate its embedded Python from the Python libraries
+exported by `actions/setup-python`. The application test interpreter remains
+unchanged. The actual implementation and geometry-fault checks exercise this
+launcher; the managed runtime already supplies its own isolated launchers.
+The [CI repair record](validation/openroad-ci-repair-2026-10-07.json) retains
+the original dependency failure, local reproduction, repaired integration run
+and actual three-process baseline/fault controls. A new hosted run is required
+to establish the complete workflow result.
 
 ## UART and hierarchical APB acceptance
 
