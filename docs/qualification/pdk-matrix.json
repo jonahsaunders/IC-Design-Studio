@@ -16162,9 +16162,10 @@
       "expected_result": "Zero unwaived required density or geometry markers; LVS/equivalence agree; all predeclared timing/electrical limits pass after fill. The C counter baseline has 555 unresolved density markers.",
       "conditions": "C and D evaluated independently with their matching top-metal option and decks.",
       "existing_runners": [
-        "scripts/qualify_gf180_fill_coupling.py"
+        "scripts/qualify_gf180_fill_coupling.py",
+        "scripts/check_gf180_fill.py"
       ],
-      "automation_gap": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement."
+      "automation_gap": "Supplemental density/dummy geometry checks are implemented and exercised on written GDS on both OS. Required local-density, well/exclusion/edge rules, final-GDS LVS and post-fill closure remain open; native marker counts alone are insufficient."
     },
     "ihp-fill": {
       "chunk": 5,
@@ -16883,11 +16884,12 @@
       "target": "gf180mcuC",
       "test": "gf180-density",
       "status": "failed",
-      "remaining": "Native C/D counters on both OS retain 555 density markers across seven whole-layout rule labels: PL.8, M1.4\u2013M5.4 and MT.3. For 5LM, MT.3 repeats the Metal5 coverage condition. UART/APB retain 5796/4416 findings. Reconcile complete foundry dummy-fill rules, implement legal fill, and recheck full rules, connectivity, extracted timing and equivalence without changing the original extent or constraints.",
+      "remaining": "Production references still fail density. The independently audited C capacitive-filler experiment passes tested geometry, antenna, timing and equivalence, and reaches 30.46% COMP / 22.82% poly over the original 200 x 200 um declared die. All five metals remain below 30%. Native coupons expose missing-material false cleans and uncaught dummy dimensions. Supplemental checks detect these gaps but deliberately retain incomplete coverage. Finish legal fill, exclusions/local density, final-GDS LVS and post-fill checks, then repeat C/D counters/UART/APB on both OS without changing original constraints or footprint.",
       "historical_evidence": [
         "gf-geometry",
         "gf-production-geometry",
-        "gf-density-baseline"
+        "gf-density-baseline",
+        "gf-fill-diagnostics"
       ]
     },
     "gf180mcuC:gf180-geometry": {
@@ -19855,6 +19857,11 @@
       "path": "docs/validation/gf180-density-baseline-2026-10-07.json",
       "sha256": "e8bc27250265f39f3b891ee756efdd364b04f012abbfede44704d240c935c58c",
       "scope_limit": "Failed native GF180 C/D counter density baseline on both operating systems. Seven whole-layout rule labels, with Metal5 also checked as top metal. No fill, waiver, density closure or tapeout qualification."
+    },
+    "gf-fill-diagnostics": {
+      "path": "docs/validation/gf180-fill-diagnostics-2026-10-07.json",
+      "sha256": "41a523001a39f53c3be30bb655257038c205d1a62b794c27c1746e506b2cf31a",
+      "scope_limit": "Experimental GF180 C capacitive fillers, seven native rule-gap coupons, both-OS supplemental measurements and four failed mesh trials. Density, complete fill rules, LVS and tapeout remain unqualified; D does not inherit the C experiment."
     }
   },
   "execution_acceptance": {

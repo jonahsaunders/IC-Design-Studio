@@ -143,6 +143,44 @@ deficit. All four OS/variant counter reports agree. The next batch must reconcil
 the complete foundry dummy-fill requirements and measure actual coverage before
 adding legal fill. The original extent, constraints and failed reports remain fixed.
 
+The next [fill diagnostics](validation/gf180-fill-diagnostics-2026-10-07.json)
+retain an independently audited native C counter experiment using the supplied
+capacitive filler cells. Six implementation/proof/timing stages pass; native
+main geometry and antenna remain clean. The poly-density finding is removed,
+but all five metals still fail. Over the original declared 200 by 200 micrometre
+die, COMP is 30.46% and poly is 22.82%. Metal coverage is 21.44%, 0.88%, 0.44%,
+11.93% and 5.36%, respectively. The native deck uses the smaller occupied-geometry
+extent, so its percentages are different; empty die margins must stay in the
+independent density denominator. The higher remaining native marker count
+(4,387) reflects additional metal polygons, not a measured coverage deficit.
+
+Seven native coupons establish specific coverage gaps: entirely absent material
+can yield zero density markers, and wrong-size dummy COMP, poly and metal are
+not distinguished from the size controls by the pinned deck. The
+[supplemental checker](../scripts/check_gf180_fill.py) detects absent material,
+measures the declared footprint, includes dummy poly in total coverage, and
+checks dummy sizes, grid, spacing, poly/COMP enclosure and selected circuit
+clearances. Its written-GDS results agree on Windows and Linux. The
+[manual source lock](../examples/gf180-fill-manual-lock.json) pins the governing
+fill tables; the licensed source copies are retained in the diagnostic archive.
+
+This checker intentionally cannot approve full fill qualification: local
+density, well/marking/edge exclusions, pattern offsets, adjacent-layer rules,
+final-layout LVS and post-fill extraction remain open. Its command returns 1
+for failed checks and 2 for a passing subset with incomplete coverage. For a
+captured C counter, use the original project's die coordinates:
+
+```sh
+python scripts/check_gf180_fill.py --gds final.gds --top counter --variant C --bounds 0 0 200 200 --output fill-report.json
+```
+
+Four connected power-mesh experiments are also retained as failures: three
+failed detailed placement and one failed power-channel repair. They do
+not change the production recipe. The next step is to resolve the actual power
+geometry constraints or establish another legal metal-fill strategy, then run
+all post-fill checks and repeat the accepted method on C/D counter, UART and
+APB references. C's capacitive-filler experiment does not qualify D.
+
 Before each batch, freeze its exact inputs, numerical limits and negative
 controls. After the batch, preserve commands, versions, input/output hashes,
 native reports, measurements and failures. A new device/model/geometry/tool
