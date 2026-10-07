@@ -25,7 +25,7 @@ device-specific operating envelopes are explicit open requirements.
 | 2. Toolchain | Compatible KLayout CLI; hosted OpenROAD result; clean Linux install; clean Windows/WSL install; native rule coupons and fault controls. | Exact fresh runtimes execute every required valid/invalid case correctly. |
 | 3. GF180 geometry | Integrate via pitch; integrate tap spacing; counter; UART; APB. Establish a separate matched D platform. | Production-flow geometry, antenna, extracted timing and equivalence pass without changing the original design constraints. |
 | 4. GF180 density | Resolve active/poly fill; resolve each metal layer; check exclusions; rerun all post-fill checks. | Zero required density/geometry findings and passing connectivity, extraction, timing and equivalence. The isolated C counter currently has 555 density markers. |
-| 5. IHP geometry/fill | Resolve each of the twelve observed categories; recheck counter; UART; APB. | Complete final-layout rules, connectivity and extracted performance pass. |
+| 5. IHP geometry/fill | Resolve the twelve observed findings, grouped by rule; recheck counter; UART; APB. | Complete final-layout rules, connectivity and extracted performance pass. |
 | 6. SKY130 rules | Reconcile rule inventory; enable FEOL; check density/antenna; final-GDS LVS; negative controls. | Every required rule group executes; no silently disabled coverage or unexplained violations. |
 | 7. Devices | Reconcile upstream inventory; MOS; resistors; capacitors; diodes; bipolar; remaining devices. Treat IHP RF separately. | Every supported device passes terminal/parameter/model, operating-envelope, layout and extracted-connectivity tests. Unsupported required devices remain blockers. |
 | 8. Extraction/corners | Wire coupons; vias; device parasitics; coupling/fill; independent RC corners; complete required PVT/RC pairs. | Independent references agree within frozen, source-backed tolerances and injected faults fail. |
@@ -78,11 +78,22 @@ success is named `matrix_consistent`; process qualification remains
 `unqualified`. Missing evidence and unsupported devices cannot become passes.
 
 Current execution statuses are `not_run`, `partial`, `failed`,
-`needs_definition` and `unsupported`. A `partial` row identifies prior limited
-evidence without claiming the complete test passed. The current schema cannot
-mark an execution chunk complete. When a gate actually closes, extend the
-schema and checker with a reviewed, source-bound acceptance record and retain
-the previous failures. Do not merely change a status string.
+`needs_definition`, `unsupported` and `passed_reference`. A `partial` row identifies
+prior limited evidence without claiming the complete test passed. Schema 2 permits
+only the chunk 2 toolchain references to pass, and only with the complete,
+hash-bound [acceptance record](validation/toolchain-2026-10-07.json). It requires
+both operating systems, valid/fault controls and every required hosted step on
+the recorded source. Device rows and later chunks cannot inherit this pass.
+Later completed gates need their own reviewed acceptance schema and records;
+preserve previous failures rather than merely changing a status string.
+
+Chunks 1 and 2 are complete within these boundaries. On the corrected application
+backend, each installed runtime passed 26 digital checks, 15 timing pairs, three
+audited exports, seven tool controls, sixteen process-rule controls and nine
+digital physical controls. Required hosted implementation steps passed on
+`7feca0695f586ff84c8d2111b528076891a50e77`. The record retains the initial
+antenna-diode coverage failure and its correction. Chunk 3 is next; no process
+or complete chip is qualified for tapeout.
 
 Before each batch, freeze its exact inputs, numerical limits and negative
 controls. After the batch, preserve commands, versions, input/output hashes,

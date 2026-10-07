@@ -1,5 +1,5 @@
 {
-  "schema": 1,
+  "schema": 2,
   "as_of": "2026-10-07",
   "source_baseline": "5b33a68f3a8e225002c3b4ac38d63fc97cf25420",
   "claim": "Qualification plan and coverage inventory only. No process is tapeout qualified. Historical passes retain their original design/source/PDK scope.",
@@ -10,7 +10,7 @@
     },
     "2": {
       "name": "Finish toolchain qualification",
-      "status": "in_progress"
+      "status": "reference_gate_complete"
     },
     "3": {
       "name": "Integrate GF180 geometry fixes",
@@ -16665,13 +16665,14 @@
     "sky130A:rule-controls": {
       "target": "sky130A",
       "test": "rule-controls",
-      "status": "partial",
-      "remaining": "Integrate compatible CLI and rerun exact fresh runtimes, native rule coupons and hosted builds; existing limited OpenDB checks cannot close full rule coverage.",
+      "status": "passed_reference",
+      "remaining": "Passed the declared toolchain references on the recorded source and runtime. Complete device/process-rule coverage, design qualification and subsequent revisions remain separate gates.",
       "historical_evidence": [
         "linux-physical",
         "windows-physical",
         "ci-repair"
-      ]
+      ],
+      "acceptance_chunk": 2
     },
     "sky130A:sky130-full-rules": {
       "target": "sky130A",
@@ -16692,13 +16693,14 @@
     "sky130A:tool-install": {
       "target": "sky130A",
       "test": "tool-install",
-      "status": "partial",
-      "remaining": "Integrate compatible CLI and rerun exact fresh runtimes, native rule coupons and hosted builds; existing limited OpenDB checks cannot close full rule coverage.",
+      "status": "passed_reference",
+      "remaining": "Passed the declared toolchain references on the recorded source and runtime. Complete device/process-rule coverage, design qualification and subsequent revisions remain separate gates.",
       "historical_evidence": [
         "linux-physical",
         "windows-physical",
         "ci-repair"
-      ]
+      ],
+      "acceptance_chunk": 2
     },
     "gf180mcuC:analog-amplifier": {
       "target": "gf180mcuC",
@@ -16918,13 +16920,14 @@
     "gf180mcuC:rule-controls": {
       "target": "gf180mcuC",
       "test": "rule-controls",
-      "status": "partial",
-      "remaining": "Integrate compatible CLI and rerun exact fresh runtimes, native rule coupons and hosted builds; existing limited OpenDB checks cannot close full rule coverage.",
+      "status": "passed_reference",
+      "remaining": "Passed the declared toolchain references on the recorded source and runtime. Complete device/process-rule coverage, design qualification and subsequent revisions remain separate gates.",
       "historical_evidence": [
         "linux-physical",
         "windows-physical",
         "ci-repair"
-      ]
+      ],
+      "acceptance_chunk": 2
     },
     "gf180mcuC:source-completeness": {
       "target": "gf180mcuC",
@@ -16936,13 +16939,14 @@
     "gf180mcuC:tool-install": {
       "target": "gf180mcuC",
       "test": "tool-install",
-      "status": "partial",
-      "remaining": "Integrate compatible CLI and rerun exact fresh runtimes, native rule coupons and hosted builds; existing limited OpenDB checks cannot close full rule coverage.",
+      "status": "passed_reference",
+      "remaining": "Passed the declared toolchain references on the recorded source and runtime. Complete device/process-rule coverage, design qualification and subsequent revisions remain separate gates.",
       "historical_evidence": [
         "linux-physical",
         "windows-physical",
         "ci-repair"
-      ]
+      ],
+      "acceptance_chunk": 2
     },
     "gf180mcuD:analog-amplifier": {
       "target": "gf180mcuD",
@@ -17154,9 +17158,10 @@
     "gf180mcuD:rule-controls": {
       "target": "gf180mcuD",
       "test": "rule-controls",
-      "status": "not_run",
-      "remaining": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement.",
-      "historical_evidence": []
+      "status": "passed_reference",
+      "remaining": "Passed the declared toolchain references on the recorded source and runtime. Complete device/process-rule coverage, design qualification and subsequent revisions remain separate gates.",
+      "historical_evidence": [],
+      "acceptance_chunk": 2
     },
     "gf180mcuD:source-completeness": {
       "target": "gf180mcuD",
@@ -17168,9 +17173,10 @@
     "gf180mcuD:tool-install": {
       "target": "gf180mcuD",
       "test": "tool-install",
-      "status": "not_run",
-      "remaining": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement.",
-      "historical_evidence": []
+      "status": "passed_reference",
+      "remaining": "Passed the declared toolchain references on the recorded source and runtime. Complete device/process-rule coverage, design qualification and subsequent revisions remain separate gates.",
+      "historical_evidence": [],
+      "acceptance_chunk": 2
     },
     "ihp-sg13g2:analog-amplifier": {
       "target": "ihp-sg13g2",
@@ -17394,13 +17400,14 @@
     "ihp-sg13g2:rule-controls": {
       "target": "ihp-sg13g2",
       "test": "rule-controls",
-      "status": "partial",
-      "remaining": "Integrate compatible CLI and rerun exact fresh runtimes, native rule coupons and hosted builds; existing limited OpenDB checks cannot close full rule coverage.",
+      "status": "passed_reference",
+      "remaining": "Passed the declared toolchain references on the recorded source and runtime. Complete device/process-rule coverage, design qualification and subsequent revisions remain separate gates.",
       "historical_evidence": [
         "linux-physical",
         "windows-physical",
         "ci-repair"
-      ]
+      ],
+      "acceptance_chunk": 2
     },
     "ihp-sg13g2:source-completeness": {
       "target": "ihp-sg13g2",
@@ -17412,13 +17419,14 @@
     "ihp-sg13g2:tool-install": {
       "target": "ihp-sg13g2",
       "test": "tool-install",
-      "status": "partial",
-      "remaining": "Integrate compatible CLI and rerun exact fresh runtimes, native rule coupons and hosted builds; existing limited OpenDB checks cannot close full rule coverage.",
+      "status": "passed_reference",
+      "remaining": "Passed the declared toolchain references on the recorded source and runtime. Complete device/process-rule coverage, design qualification and subsequent revisions remain separate gates.",
       "historical_evidence": [
         "linux-physical",
         "windows-physical",
         "ci-repair"
-      ]
+      ],
+      "acceptance_chunk": 2
     }
   },
   "device_requirements": {
@@ -19776,6 +19784,12 @@
       "path": "docs/validation/macro-integrity-2026-10-07.json",
       "sha256": "5ace8b901612bb0e7a8923f6c30343cc65ab4076023a11e9691bc59f1dd2860c",
       "scope_limit": "Bounded export identity tamper controls and three-process counter exports; not independent full-chip reproduction."
+    }
+  },
+  "execution_acceptance": {
+    "2": {
+      "path": "docs/validation/toolchain-2026-10-07.json",
+      "sha256": "e4df97efa561868dbd100934bf17a15669a01bb84e9641438c981ab052908eb7"
     }
   }
 }

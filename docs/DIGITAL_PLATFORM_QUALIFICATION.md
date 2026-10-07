@@ -24,10 +24,10 @@ prepare the matched three-library, three-interconnect SKY130 platform described
 below; older runtime archives keep their original coverage.
 Nangate45 remains a separate import option and does not qualify these processes.
 
-Use **Choose platform → Included** in the digital inspector, or the CLI's
+Use **Choose platform â†’ Included** in the digital inspector, or the CLI's
 `--included-platform gf180` / `--included-platform ihp-sg13g2`, after the included
 runtime passes setup. Only platforms present in that package are offered.
-For a custom checkout, use **Choose platform → ORFS gf180** / **ORFS ihp-sg13g2**, or
+For a custom checkout, use **Choose platform â†’ ORFS gf180** / **ORFS ihp-sg13g2**, or
 `--orfs-platform gf180` / `--orfs-platform ihp-sg13g2` with `--orfs` and custom
 tools. Import captures the complete platform files, tie-cell identities, library
 corners and process options. It selects every declared timing corner; the
@@ -179,6 +179,14 @@ evidence that a supplied deck covers every fabrication requirement; final
 streamed-GDS, density, electrical reliability and chip-level acceptance remain
 separate requirements.
 
+The [toolchain acceptance record](validation/toolchain-2026-10-07.json) now
+binds the compatible CLI and corrected diode coverage to both installed-runtime
+audits, all native fault controls and the required hosted implementation steps.
+It closes the bounded toolchain gate. The native archive was first installed
+fresh on both systems; after the application-only diode correction, its full file
+integrity and every installation/control case were reverified. Final frozen
+desktop packages and complete PDK/chip qualification remain separate gates.
+
 ### Final streamed-layout diagnostics
 
 The [2026-10-07 GDS diagnostics](validation/final-gds-diagnostics-2026-10-07.json)
@@ -306,7 +314,7 @@ python scripts/prepare_sky130_digital.py --orfs /path/to/ORFS --output build/sky
 python scripts/qualify_digital_workloads.py --orfs /path/to/ORFS --manifest build/sky130-pvt-platform/platform.json --output build/sky130-corners
 ```
 
-Import the generated file through **Platform → Platform JSON manifest**, or pass
+Import the generated file through **Platform â†’ Platform JSON manifest**, or pass
 it to the CLI with `--platform`. Import selects all captured library and
 interconnect corners; **Constraints** can change those selections independently.
 Existing platform locks and older bundled SKY130 profiles keep their original
