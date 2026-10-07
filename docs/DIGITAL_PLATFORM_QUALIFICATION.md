@@ -111,8 +111,19 @@ python scripts/qualify_digital_platforms.py --orfs /path/to/ORFS --output build/
 
 Tool paths can be supplied with `--tool NAME=EXECUTABLE` or the existing
 `ICSTUDIO_TEST_*` variables. `--platform` can select one profile. An empty output
-directory is required. The digital CI gate runs all three profiles and retains
+directory is required. The current digital CI gate runs all four profiles and retains
 reports, commands, mapped/physical netlists, proof results, GDS and extracted data.
+
+After the included runtime passes setup, verify its actual desktop catalog with:
+
+```sh
+python tests/gui_digital_platforms.py --included --evidence build/included-platform-ui
+```
+
+Use the same `ICSTUDIO_DIGITAL_PAYLOAD` and `ICSTUDIO_DIGITAL_STATE` values as
+the installation under test. This checks distinct C/D selection, saved D stack
+settings, corner selection and undo against the real installed catalog. Without
+`--included`, the test uses catalog fixtures and does not qualify an installation.
 
 Each profile uses the same four-bit counter, 50 ns clock, 0.1 ns uncertainty,
 declared I/O delays and 0.01 pF output load, within a 200 by 200 micrometre die.

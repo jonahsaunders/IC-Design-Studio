@@ -99,8 +99,16 @@ passes main geometry, antenna, extracted timing and equivalence on counter, UART
 and APB with unchanged RTL/constraints and PDK sources. The application generates
 and captures the two corrected recipes. The separate [matched D batch](validation/gf180d-production-geometry-2026-10-07.json)
 now also passes these reference gates, with the actual 11K technology and
-extraction selection independently audited. Updated included catalogs and
-managed-runtime validation remain open before closing the chunk. Full density
+extraction selection independently audited. The updated runtime includes all
+four digital profiles. Its Linux installation passed 34 digital checks, 18 timing
+pairs, four audited exports, 16 process-rule controls and 12 digital physical
+controls. Full-deck checks on its C/D counters pass main geometry and antenna.
+The [installed C/D UART/APB batch](validation/gf180-cd-installed-workloads-2026-10-07.json)
+also passes geometry, antenna, all 12 library-corner timing checks and equivalence
+on application source `1989dbf`, with unchanged design constraints. Windows setup
+stopped at a WSL connection timeout; the failed evidence is retained, reconnection
+and two complete integrity checks passed, and a full qualification retry is in
+progress. Windows and final source-bound acceptance remain open. Full density
 checks still report 555, 5,796 and 4,416 markers for each variant respectively;
 these remain chunk 4 failures. No process or complete chip is qualified for tapeout.
 

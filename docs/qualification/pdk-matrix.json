@@ -16893,11 +16893,12 @@
       "target": "gf180mcuC",
       "test": "gf180-geometry",
       "status": "partial",
-      "remaining": "Production C counter/UART/APB main geometry, antenna, three-library-corner extracted timing and equivalence passed with unchanged constraints. Updated managed packages and reviewed complete chunk-3 acceptance remain open; D has its separate reference record.",
+      "remaining": "Separate C/D production references and the current installed Linux UART/APB batch pass geometry, antenna, unchanged-constraint extracted timing and equivalence. Windows managed-package acceptance and the complete chunk-3 acceptance record remain open. Density remains failed.",
       "historical_evidence": [
         "gf-geometry",
         "gds-diagnostics",
-        "gf-production-geometry"
+        "gf-production-geometry",
+        "gf-cd-installed-workloads"
       ]
     },
     "gf180mcuC:independent-export": {
@@ -17116,9 +17117,10 @@
       "target": "gf180mcuD",
       "test": "digital-profile",
       "status": "partial",
-      "remaining": "Matched D 11K production counter/UART/APB geometry, antenna, extracted timing and equivalence pass independently. Updated included packages and complete chunk-3 acceptance remain open.",
+      "remaining": "Separate C/D production references and the current installed Linux UART/APB batch pass geometry, antenna, unchanged-constraint extracted timing and equivalence. Windows managed-package acceptance and the complete chunk-3 acceptance record remain open. Density remains failed.",
       "historical_evidence": [
-        "gf-d-production-geometry"
+        "gf-d-production-geometry",
+        "gf-cd-installed-workloads"
       ]
     },
     "gf180mcuD:foundry-acceptance": {
@@ -17141,9 +17143,10 @@
       "target": "gf180mcuD",
       "test": "gf180-geometry",
       "status": "partial",
-      "remaining": "Matched D 11K production counter/UART/APB geometry, antenna, extracted timing and equivalence pass independently. Updated included packages and complete chunk-3 acceptance remain open.",
+      "remaining": "Separate C/D production references and the current installed Linux UART/APB batch pass geometry, antenna, unchanged-constraint extracted timing and equivalence. Windows managed-package acceptance and the complete chunk-3 acceptance record remain open. Density remains failed.",
       "historical_evidence": [
-        "gf-d-production-geometry"
+        "gf-d-production-geometry",
+        "gf-cd-installed-workloads"
       ]
     },
     "gf180mcuD:independent-export": {
@@ -19829,6 +19832,11 @@
       "path": "docs/validation/gf180d-production-geometry-2026-10-07.json",
       "sha256": "39eb2ecdbeee461beebd7c3219f43af5184de9ab5510f94ed41893cea6a25e82",
       "scope_limit": "Separate D 9t / 5LM / 11K / 5 V counter, UART and APB. Three library corners and one extracted RC condition per design. Independent RC accuracy, density closure, updated included packages and tapeout remain unqualified."
+    },
+    "gf-cd-installed-workloads": {
+      "path": "docs/validation/gf180-cd-installed-workloads-2026-10-07.json",
+      "sha256": "f10c82fd63449bbc05a922b39913cbd8cf0440392c95d3c485e2d11a81d88559",
+      "scope_limit": "Current installed C/D UART and APB reference scope; density, independent RC accuracy and tapeout remain unqualified."
     }
   },
   "execution_acceptance": {
