@@ -30,7 +30,7 @@ design. This does not prevent continued implementation and test-chip validation.
 | Analog models and native symbols | Bundled subset with device/corner regressions | Bundled subsets with device/corner regressions | Bundled subset; managed compiled OSDI models required |
 | Analog physical implementation | Bounded recipes, reference layouts and process-RC tests; separate physical assets required | Bounded core-MOS recipes and C/D rule decks; additional Banba evidence has its own scope | Bounded core-MOS recipes and rule decks; not general BiCMOS/RF layout qualification |
 | Digital standard-cell implementation | Included locked SKY130 HD platform | Source import and candidate runtime for ORFS 9-track 5 V / 5LM_1TM / 9K | Source import and candidate runtime for ORFS SG13G2 standard cells |
-| Digital timing and equivalence | Counter, UART and APB block qualification at the captured typical library | Counter, UART and APB block qualification at declared typical/slow/fast libraries | Counter, UART and APB block qualification at declared typical/slow/fast libraries |
+| Digital timing and equivalence | Included typical profile; separate UART/APB qualification at 3 library × 3 RC corners | Counter, UART and APB block qualification at declared typical/slow/fast libraries | Counter, UART and APB block qualification at declared typical/slow/fast libraries |
 | Chip-level signoff | Unqualified | Unqualified | Unqualified |
 
 The generic digital manifest importer is an integration mechanism; it does not
@@ -52,7 +52,9 @@ The [LibreLane timing-corner guide](https://librelane.readthedocs.io/en/latest/u
 documents distinct SKY130 typical/slow/fast libraries and nominal/minimum/maximum
 interconnect collateral. A [separate SKY130 platform preparer](DIGITAL_PLATFORM_QUALIFICATION.md#separate-sky130-pvt-and-interconnect-platform)
 now captures three library corners, matched physical views and three independent
-RC extractions. This candidate does not change the present included ORFS payload,
+RC extractions. The [two-block qualification record](validation/sky130-corners-2026-10-06.json)
+retains all 18 passing timing pairs and their source-bound extraction evidence.
+This candidate does not change the present included ORFS payload,
 which captures one SKY130 library corner and one extraction condition per process.
 Corner execution and timing closure still require evidence for the exact design,
 source and engine revision; neither establishes chip-level or foundry acceptance.

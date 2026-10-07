@@ -230,7 +230,18 @@ invalidates finish and timing results while allowing compatible placement and
 routing checkpoints to remain reusable. Pre-layout timing still has no extracted
 parasitics and cannot establish this coverage.
 
-The preparer and the corner workflow are integration mechanisms. Their outputs
-still require source-bound engine qualification, matched-deck physical checks and
-the full public-release acceptance gates. They do not establish foundry signoff,
-all operating voltages/temperatures, chip I/O or complete multi-mode signoff.
+The [source-bound SKY130 corner record](validation/sky130-corners-2026-10-06.json)
+qualifies the UART and APB examples through 16 stages and all 18 extracted timing
+pairs. It retains the original 10 ns and 20 ns constraints, reports zero final
+router violations, and includes mapped/physical equivalence and actual-register
+negative controls. An independent audit checks source and artifact hashes, the
+extraction inputs, numerically distinct parasitic results, and exported macro
+contents. Linux and Windows each also passed 26 checks against the existing
+three-platform runtime on this backend; that compatibility result does not add
+the new SKY130 platform to the installed payload.
+
+These block cases still require matched-deck physical checks and the full
+public-release acceptance gates. They do not establish foundry signoff, all
+operating voltages/temperatures, chip I/O or complete multi-mode signoff. The
+separately prepared PVT/RC platform must also be bundled and qualified in the
+default runtime and exact desktop packages before it is a release feature.
