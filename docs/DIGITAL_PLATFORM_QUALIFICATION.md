@@ -146,6 +146,17 @@ use the captured final database without changing its geometry or rules. Power
 net names come from all POWER/GROUND nets in that database, with required power
 and ground coverage and connected supply terminals.
 
+Coverage distinguishes logic gates from LEF `CORE ANTENNACELL` protection
+diodes. Logic inputs need positive gate area; declared antenna-cell inputs need
+positive diffusion area, with their identities and areas retained in the report.
+An ordinary cell with only diffusion area still fails coverage. This corrects
+the false missing-gate reports for protection diodes inserted into the SKY130
+and GF180 APB layouts. It does not relax native antenna or power-grid checks.
+The [native regression record](validation/antenna-model-coverage-2026-10-07.json)
+retains the original hosted failure, unchanged-layout passes and deliberate
+cell-classification failures. The full hosted and installed-runtime gates on
+the corrected backend remain separate from this bounded regression.
+
 The native acceptance script runs those same checks on each retained final
 counter, then creates two isolated damaged database copies: one with an actual
 power grid removed and one with deliberately excessive routed metal connected

@@ -6,6 +6,7 @@ from types import SimpleNamespace
 import unittest
 
 from icstudio import digital_physical_checks as checks
+from icstudio.digital_physical_engine import antenna_diode, positive_areas
 from icstudio.digital_flow import artifact, validate_result
 from icstudio.digital_macro import export
 from icstudio.model import clone, file_digest
@@ -22,6 +23,50 @@ def raw(sha='a'*64, top='counter'):
 
 
 class PhysicalCheckTests(unittest.TestCase):
+    def test_only_declared_antenna_cells_with_valid_diffusion_are_diodes(self):
+        for kind in ('CORE', 'CORE_SPACER', 'CORE_ANTENNACELL'):
+            master = SimpleNamespace(getType=lambda: kind, getName=lambda: 'cell')
+            for areas in ([], [(0, None)], [(-1, None)], [(float('nan'), None)],
+                          [(float('inf'), None)], [(1, None), (-1, None)], [(0.4, None)]):
+                pin = SimpleNamespace(getDiffArea=lambda: areas)
+                with self.subTest(kind=kind, areas=areas):
+                    result = antenna_diode(pin, master, 'u/I')
+                    valid = kind == 'CORE_ANTENNACELL' and areas == [(0.4, None)]
+                    self.assertEqual(result is not None, valid)
+                    if valid:
+                        self.assertEqual(result['diffusion_areas'], [{'area': 0.4, 'layer': None}])
+        self.assertFalse(positive_areas([(1, None), (float('nan'), None)]))
+
+    def test_diode_evidence_requires_complete_distinct_positive_coverage(self):
+        value = raw()
+        value.update(schema=2, gate_inputs=3, antenna_diode_inputs=[
+            {'pin': 'diode/I', 'master': 'antenna', 'class': 'CORE_ANTENNACELL',
+             'diffusion_areas': [{'area': 0.4, 'layer': None}]}])
+        self.assertEqual(checks.evaluate(value, 'a'*64, 'counter')['status'], 'PASS')
+        changes = {
+            'missing-count': lambda r: r.pop('gate_inputs'),
+            'missing-list': lambda r: r.pop('antenna_diode_inputs'),
+            'bad-count': lambda r: r.update(gate_inputs=4),
+            'boolean-count': lambda r: r.update(gate_inputs=True),
+            'no-gates': lambda r: r.update(gate_inputs=0, signal_inputs=1),
+            'duplicate-pin': lambda r: (r['antenna_diode_inputs'].append(clone(r['antenna_diode_inputs'][0])), r.update(gate_inputs=2)),
+            'ordinary-cell': lambda r: r['antenna_diode_inputs'][0].update({'class': 'CORE'}),
+            'missing-area': lambda r: r['antenna_diode_inputs'][0].update(diffusion_areas=[]),
+            'zero-area': lambda r: r['antenna_diode_inputs'][0]['diffusion_areas'][0].update(area=0),
+            'negative-area': lambda r: r['antenna_diode_inputs'][0]['diffusion_areas'][0].update(area=-1),
+            'invalid-area': lambda r: r['antenna_diode_inputs'][0]['diffusion_areas'][0].update(area=float('nan')),
+            'boolean-area': lambda r: r['antenna_diode_inputs'][0]['diffusion_areas'][0].update(area=True),
+            'missing-layer': lambda r: r['antenna_diode_inputs'][0]['diffusion_areas'][0].pop('layer'),
+            'missing-master': lambda r: r['antenna_diode_inputs'][0].pop('master'),
+            'genuine-missing-gate': lambda r: r['missing_gate_models'].append('logic/A'),
+        }
+        for label, change in changes.items():
+            modified = clone(value); change(modified)
+            with self.subTest(label=label):
+                self.assertEqual(checks.evaluate(modified, 'a'*64, 'counter')['status'], 'FAIL')
+        gates_only = raw(); gates_only.update(schema=2, gate_inputs=4, antenna_diode_inputs=[])
+        self.assertEqual(checks.evaluate(gates_only, 'a'*64, 'counter')['status'], 'PASS')
+
     def test_missing_or_invalid_evidence_never_passes(self):
         self.assertEqual(checks.evaluate(raw(), 'a'*64, 'counter')['status'], 'PASS')
         changes = {

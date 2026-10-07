@@ -295,7 +295,11 @@ centerlines, retaining all instances and routes within the captured preview limi
 editor for shapes. New physical finish jobs run the captured OpenROAD build's
 default-oxide LEF antenna check and power-grid connectivity checks against the
 unchanged final OpenDB. Every declared POWER/GROUND net is checked; names are
-read from the database. Missing gate-area models, routing-layer antenna rules,
+read from the database. Logic inputs require positive gate area. Pins on declared
+`CORE ANTENNACELL` protection cells require positive diffusion area instead; their
+cell identity and areas are retained separately in the coverage report. Ordinary
+cells cannot use diffusion area to bypass missing gate models.
+Missing input models, routing-layer antenna rules,
 routed signal inputs, supply connections or reports prevent a successful finish.
 The saved reports bind the result to the checkpoint and platform, and accompany
 macro exports. Historical jobs remain readable and exports label their absent

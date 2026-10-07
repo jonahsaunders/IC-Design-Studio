@@ -1,5 +1,6 @@
 """Evidence-bound antenna and power-grid checks; not foundry signoff."""
 import json
+import math
 from pathlib import Path
 import shutil
 
@@ -8,15 +9,44 @@ from .model import atomic_write, file_digest
 SCOPE = ('Final OpenDB default-oxide LEF antenna rules and all declared POWER/GROUND net connectivity. '
          'Model/rule presence is checked; deck adequacy, streamed-GDS DRC/LVS, density, ERC, '
          'ESD/latch-up, IR drop and electromigration are not qualified by these checks.')
+SCOPE_V2 = SCOPE + (' Logic inputs require positive gate area; declared CORE ANTENNACELL inputs '
+                    'require positive diffusion area, retained separately in the coverage report.')
+
+
+def diode_coverage(raw):
+    diodes = raw.get('antenna_diode_inputs')
+    gates = raw.get('gate_inputs')
+    if (type(gates) is not int or gates <= 0 or not isinstance(diodes, list)
+            or gates + len(diodes) != raw.get('signal_inputs')):
+        return False
+    pins = set()
+    for diode in diodes:
+        if (not isinstance(diode, dict) or diode.get('class') != 'CORE_ANTENNACELL'
+                or not isinstance(diode.get('pin'), str) or not diode['pin']
+                or not isinstance(diode.get('master'), str) or not diode['master']
+                or diode['pin'] in pins):
+            return False
+        pins.add(diode['pin'])
+        areas = diode.get('diffusion_areas')
+        if (not isinstance(areas, list) or not areas
+                or any(not isinstance(a, dict) or type(a.get('area')) not in (int, float)
+                       or not math.isfinite(a['area']) or a['area'] <= 0
+                       or 'layer' not in a
+                       or (a['layer'] is not None and (not isinstance(a['layer'], str) or not a['layer']))
+                       for a in areas)):
+            return False
+    return True
 
 
 def evaluate(raw, checkpoint_sha256, top):
-    if (not isinstance(raw, dict) or raw.get('schema') != 1
+    if (not isinstance(raw, dict) or type(raw.get('schema')) is not int or raw['schema'] not in (1, 2)
             or raw.get('checkpoint_sha256') != checkpoint_sha256 or raw.get('top') != top):
         raise ValueError('Physical-check evidence belongs to another checkpoint or design.')
     issues = []
     if type(raw.get('signal_inputs')) is not int or raw['signal_inputs'] <= 0:
         issues.append('No signal inputs were covered.')
+    if raw['schema'] == 2 and not diode_coverage(raw):
+        issues.append('Gate and antenna-diode model coverage is incomplete.')
     for key in ('missing_gate_models', 'unrouted_inputs', 'unconnected_power_pins'):
         if not isinstance(raw.get(key), list) or raw[key]:
             issues.append(key.replace('_', ' ').capitalize() + ' coverage is incomplete.')
@@ -40,8 +70,9 @@ def evaluate(raw, checkpoint_sha256, top):
             or {x['kind'] for x in power} != {'POWER', 'GROUND'}
             or len({x['net'] for x in power}) != len(power)):
         issues.append('Power/ground connectivity failed or coverage is incomplete.')
-    return {'schema': 1, 'status': 'FAIL' if issues else 'PASS', 'issues': issues,
-            'scope': SCOPE, 'checkpoint_sha256': checkpoint_sha256, 'top': top, 'checks': raw}
+    return {'schema': raw['schema'], 'status': 'FAIL' if issues else 'PASS', 'issues': issues,
+            'scope': SCOPE_V2 if raw['schema'] == 2 else SCOPE,
+            'checkpoint_sha256': checkpoint_sha256, 'top': top, 'checks': raw}
 
 
 def prepare(checkpoint, directory):

@@ -17,6 +17,23 @@ def tcl_word(value):
     return '"' + ''.join('\\' + c if c in '\\"$[]' else c for c in value) + '"'
 
 
+def positive_areas(areas):
+    return bool(areas) and all(math.isfinite(area) and area > 0 for area, _ in areas)
+
+
+def antenna_diode(pin, master, label):
+    # LEF CORE ANTENNACELL pins protect gates through diffusion. They do not
+    # need a fictitious gate area. Ordinary cells still require gate models.
+    if str(master.getType()) != 'CORE_ANTENNACELL':
+        return None
+    areas = pin.getDiffArea()
+    if not positive_areas(areas):
+        return None
+    return {'pin': label, 'master': master.getName(), 'class': str(master.getType()),
+            'diffusion_areas': [{'area': area, 'layer': layer.getName() if layer else None}
+                                for area, layer in areas]}
+
+
 def run(request):
     from openroad import Tech, Design
     source = Path(request['checkpoint'])
@@ -30,6 +47,8 @@ def run(request):
         raise ValueError('The checkpoint has no design block.')
 
     inputs = 0
+    gate_inputs = 0
+    diodes = []
     missing_models = []
     unrouted_inputs = []
     unconnected_power = []
@@ -46,8 +65,13 @@ def run(request):
                 continue
             inputs += 1
             areas = pin.getDefaultAntennaModel().getGateArea() if pin.hasDefaultAntennaModel() else []
-            if not areas or not any(math.isfinite(area) and area > 0 for area, layer in areas):
-                missing_models.append(label)
+            diode = antenna_diode(pin, inst.getMaster(), label)
+            if diode is not None:
+                diodes.append(diode)
+            else:
+                gate_inputs += 1
+                if str(inst.getMaster().getType()) == 'CORE_ANTENNACELL' or not positive_areas(areas):
+                    missing_models.append(label)
             if not net or not net.getWire():
                 unrouted_inputs.append(label)
 
@@ -81,8 +105,9 @@ def run(request):
                       'error': result['error']})
     if sha(source) != request['checkpoint_sha256']:
         raise ValueError('The final checkpoint changed during physical checks.')
-    return {'schema': 1, 'checkpoint_sha256': request['checkpoint_sha256'],
+    return {'schema': 2, 'checkpoint_sha256': request['checkpoint_sha256'],
             'top': block.getName(), 'signal_inputs': inputs,
+            'gate_inputs': gate_inputs, 'antenna_diode_inputs': diodes,
             'missing_gate_models': missing_models, 'unrouted_inputs': unrouted_inputs,
             'unconnected_power_pins': unconnected_power, 'routing_layers': layers,
             'antenna': antenna, 'power': power}
