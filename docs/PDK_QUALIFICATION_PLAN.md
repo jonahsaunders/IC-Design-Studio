@@ -106,9 +106,20 @@ controls. Full-deck checks on its C/D counters pass main geometry and antenna.
 The [installed C/D UART/APB batch](validation/gf180-cd-installed-workloads-2026-10-07.json)
 also passes geometry, antenna, all 12 library-corner timing checks and equivalence
 on application source `1989dbf`, with unchanged design constraints. Windows setup
-stopped at a WSL connection timeout; the failed evidence is retained, reconnection
-and two complete integrity checks passed, and a full qualification retry is in
-progress. Windows and final source-bound acceptance remain open. Full density
+stopped at a WSL connection timeout. Reconnection and two complete integrity
+checks passed, but a full retry hit the same service error while launching a
+worker. Both failures are retained. A read-only idle/startup probe passed all
+eight cases. Six additional saved-job trials also passed, both with ordinary
+dispatch and with a temporary diagnostic keepalive; neither establishes a
+reliability fix. A third unmodified full setup has passed both GF180 variants'
+extracted timing and physical equivalence and is checking IHP. Windows and final
+source-bound acceptance remain open. Hosted run `37652837883` passed on source
+`1989dbf`; independent input, source and artifact audits passed 28 counter stages,
+64 UART/APB stages across four profiles and 16 additional SKY130 corner stages.
+The SKY130 export audit retains three numerically distinct interconnect
+extractions and all 18 library/interconnect timing pairs. Hosted-upload omissions
+were restored only by exact hash in a separate audit copy; original downloads
+remain unchanged. Full density
 checks still report 555, 5,796 and 4,416 markers for each variant respectively;
 these remain chunk 4 failures. No process or complete chip is qualified for tapeout.
 

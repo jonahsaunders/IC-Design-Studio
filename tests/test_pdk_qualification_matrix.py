@@ -69,6 +69,27 @@ class QualificationMatrixTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Missing test contract'):
             validate(matrix)
 
+    def test_geometry_and_later_chunks_cannot_be_promoted_without_bound_evidence(self):
+        matrix = copy.deepcopy(self.matrix)
+        matrix['schema'] = 3
+        matrix.get('execution_acceptance', {}).pop('3', None)
+        for requirement in matrix['requirements'].values():
+            if requirement.get('acceptance_chunk') == 3:
+                requirement.update(status='partial')
+                requirement.pop('acceptance_chunk')
+        matrix['chunks']['3']['status'] = 'reference_gate_complete'
+        with self.assertRaisesRegex(ValueError, 'Geometry execution gate'):
+            validate(matrix)
+        matrix['chunks']['3']['status'] = 'in_progress'
+        matrix['requirements']['gf180mcuD:gf180-geometry'].update(status='passed_reference', acceptance_chunk=3)
+        with self.assertRaisesRegex(ValueError, 'Unbound reference pass'):
+            validate(matrix)
+        matrix = copy.deepcopy(self.matrix)
+        matrix['schema'] = 3
+        matrix['chunks']['4']['status'] = 'reference_gate_complete'
+        with self.assertRaisesRegex(ValueError, 'Completed execution'):
+            validate(matrix)
+
 
 class ToolchainRecordTests(unittest.TestCase):
     def fixture(self):
