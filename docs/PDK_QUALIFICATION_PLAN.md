@@ -133,6 +133,16 @@ GUI report-only correction passed the actual installed-catalog workflow again.
 Full density checks still report 555, 5,796 and 4,416 markers for each variant respectively;
 these remain chunk 4 failures. No process or complete chip is qualified for tapeout.
 
+Chunk 4 has started with a [native density baseline](validation/gf180-density-baseline-2026-10-07.json).
+The 555 counter markers span seven failed whole-layout rule labels, not 555
+independent windows: PL.8 (104), M1.4 (139), M2.4 (161), M3.4 (137), M4.4 (8),
+M5.4 (3) and MT.3 (3). In the selected 5LM stack, M5.4 and MT.3 both measure
+Metal5. The pinned deck compares poly coverage against 14% and each metal against
+30%; its marker counts emit existing polygons and do not measure the coverage
+deficit. All four OS/variant counter reports agree. The next batch must reconcile
+the complete foundry dummy-fill requirements and measure actual coverage before
+adding legal fill. The original extent, constraints and failed reports remain fixed.
+
 Before each batch, freeze its exact inputs, numerical limits and negative
 controls. After the batch, preserve commands, versions, input/output hashes,
 native reports, measurements and failures. A new device/model/geometry/tool

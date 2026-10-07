@@ -18,7 +18,7 @@
     },
     "4": {
       "name": "Close GF180 density",
-      "status": "pending"
+      "status": "in_progress"
     },
     "5": {
       "name": "Close IHP geometry and fill",
@@ -16883,10 +16883,11 @@
       "target": "gf180mcuC",
       "test": "gf180-density",
       "status": "failed",
-      "remaining": "Production C counter/UART/APB still have 555/5796/4416 density markers. Required fill plus post-fill connectivity, extraction, timing and equivalence closure remain open.",
+      "remaining": "Native C/D counters on both OS retain 555 density markers across seven whole-layout rule labels: PL.8, M1.4\u2013M5.4 and MT.3. For 5LM, MT.3 repeats the Metal5 coverage condition. UART/APB retain 5796/4416 findings. Reconcile complete foundry dummy-fill rules, implement legal fill, and recheck full rules, connectivity, extracted timing and equivalence without changing the original extent or constraints.",
       "historical_evidence": [
         "gf-geometry",
-        "gf-production-geometry"
+        "gf-production-geometry",
+        "gf-density-baseline"
       ]
     },
     "gf180mcuC:gf180-geometry": {
@@ -17138,9 +17139,10 @@
       "target": "gf180mcuD",
       "test": "gf180-density",
       "status": "failed",
-      "remaining": "Separate D counter/UART/APB runs still have 555/5796/4416 density markers. Required fill and post-fill connectivity, extraction, timing and equivalence closure remain open.",
+      "remaining": "Native C/D counters on both OS retain 555 density markers across seven whole-layout rule labels: PL.8, M1.4\u2013M5.4 and MT.3. For 5LM, MT.3 repeats the Metal5 coverage condition. UART/APB retain 5796/4416 findings. Reconcile complete foundry dummy-fill rules, implement legal fill, and recheck full rules, connectivity, extracted timing and equivalence without changing the original extent or constraints.",
       "historical_evidence": [
-        "gf-d-production-geometry"
+        "gf-d-production-geometry",
+        "gf-density-baseline"
       ]
     },
     "gf180mcuD:gf180-geometry": {
@@ -19848,6 +19850,11 @@
       "path": "docs/validation/gf180-geometry-2026-10-07.json",
       "sha256": "29df7858eb56ee001f8a81db6420bd136f145610a15167e481980744d141f27d",
       "scope_limit": "GF180 C/D counter, UART and APB reference geometry, antenna, extracted timing and equivalence, with both managed OS installation audits and deliberate faults. Density remains failed; Windows startup reliability, independent extraction, full chips and tapeout remain unqualified."
+    },
+    "gf-density-baseline": {
+      "path": "docs/validation/gf180-density-baseline-2026-10-07.json",
+      "sha256": "e8bc27250265f39f3b891ee756efdd364b04f012abbfede44704d240c935c58c",
+      "scope_limit": "Failed native GF180 C/D counter density baseline on both operating systems. Seven whole-layout rule labels, with Metal5 also checked as top metal. No fill, waiver, density closure or tapeout qualification."
     }
   },
   "execution_acceptance": {
