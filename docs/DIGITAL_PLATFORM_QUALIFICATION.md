@@ -258,6 +258,16 @@ contents. Linux and Windows each also passed 26 checks against the existing
 three-platform runtime on this backend; that compatibility result does not add
 the new SKY130 platform to the installed payload.
 
+The subsequent [included-corner runtime record](validation/bundled-corners-2026-10-06.json)
+qualifies fresh Linux and Windows installations of the new payload. Each passed
+26 digital checks, physical-tool positive/negative probes and 15 extracted timing
+pairs: nine SKY130 and three each GF180/IHP. Independent audits verify saved
+job/source identities, every retained artifact, distinct SKY130 parasitic data,
+and all three macro exports with their captured licenses and source notices.
+The record also retains the separate export-input integrity defect described in
+[public-release targets](PUBLIC_RELEASE_TARGETS.md); passing original-job exports
+does not qualify arbitrary modified input metadata.
+
 These block cases still require matched-deck physical checks and the full
 public-release acceptance gates. They do not establish foundry signoff, all
 operating voltages/temperatures, chip I/O or complete multi-mode signoff. The
