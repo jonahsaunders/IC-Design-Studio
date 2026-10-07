@@ -85,7 +85,9 @@ def main():
             'scope':'Actual installed catalog selection; engine evidence is separate' if args.included else 'GUI catalog fixtures; real package qualification is separate'}
     if args.included:
         report.update(backend=digital_runtime.backend_identity(),archive_sha256=digital_runtime.manifest()['sha256'],
-                      platforms={name:{'fingerprint':value['fingerprint'],'orfs':value['orfs']} for name,value in values.items()})
+                      platforms={name:{'fingerprint':value['fingerprint'],
+                                       **({'orfs':value['orfs']} if 'orfs' in value else {})}
+                                 for name,value in values.items()})
     (out/'report.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(report))
 

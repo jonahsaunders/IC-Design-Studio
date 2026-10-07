@@ -40,7 +40,7 @@ device-specific operating envelopes are explicit open requirements.
 |---|---|---|---|
 | SKY130 A | `24bc6d0bfd6a0224` | 74 / 71 | Local interconnect plus five metals; HD digital library; 3 library by 3 RC conditions. |
 | GF180 C | `627ca682d68e1e92` | 68 / 64 | Five metals, 0.9 micrometre top metal, MIM, HRPOLY1K; digital 9-track 5 V, 5LM_1TM/9K; 3 library by 1 RC condition. |
-| GF180 D | `7dd87219f1333dbb` | 68 / 64 | Five metals, 1.1 micrometre top metal, MIM, HRPOLY1K; separate `gf180d` 9-track 5 V / 5LM / 11K production references; included-package validation pending. |
+| GF180 D | `7dd87219f1333dbb` | 68 / 64 | Five metals, 1.1 micrometre top metal, MIM, HRPOLY1K; separate `gf180d` 9-track 5 V / 5LM / 11K production references; both installed-runtime reference gates passed. |
 | IHP SG13G2 | `3abac20fcb57e184` | 45 / 35 | Five ordinary and two top metals; SG13G2 digital cells; 3 library by 1 RC condition. MOS, bipolar and RF qualification remain distinct. |
 
 All digital profiles start from ORFS
@@ -79,12 +79,15 @@ success is named `matrix_consistent`; process qualification remains
 
 Current execution statuses are `not_run`, `partial`, `failed`,
 `needs_definition`, `unsupported` and `passed_reference`. A `partial` row identifies
-prior limited evidence without claiming the complete test passed. Schema 2 permits
-only the chunk 2 toolchain references to pass, and only with the complete,
+prior limited evidence without claiming the complete test passed. Schema 3 retains
+the chunk 2 toolchain references, which require the complete,
 hash-bound [acceptance record](validation/toolchain-2026-10-07.json). It requires
 both operating systems, valid/fault controls and every required hosted step on
-the recorded source. Device rows and later chunks cannot inherit this pass.
-Later completed gates need their own reviewed acceptance schema and records;
+the recorded source. It separately binds the [chunk 3 acceptance record](validation/gf180-geometry-2026-10-07.json)
+to current production evidence, both operating systems, actual rule/fault controls,
+all required timing conditions and the captured C/D technologies. Device rows,
+density and later chunks cannot inherit either pass. Later completed gates need
+their own reviewed acceptance schema and records;
 preserve previous failures rather than merely changing a status string.
 
 Chunks 1 and 2 are complete within these boundaries. On the corrected application
@@ -94,33 +97,40 @@ digital physical controls. Required hosted implementation steps passed on
 `7feca0695f586ff84c8d2111b528076891a50e77`. The record retains the initial
 antenna-diode coverage failure and its correction.
 
-Chunk 3 is in progress. The [production GF180-C batch](validation/gf180-production-geometry-2026-10-07.json)
+Chunk 3 is complete within its reference scope. The [production GF180-C batch](validation/gf180-production-geometry-2026-10-07.json)
 passes main geometry, antenna, extracted timing and equivalence on counter, UART
 and APB with unchanged RTL/constraints and PDK sources. The application generates
 and captures the two corrected recipes. The separate [matched D batch](validation/gf180d-production-geometry-2026-10-07.json)
 now also passes these reference gates, with the actual 11K technology and
 extraction selection independently audited. The updated runtime includes all
-four digital profiles. Its Linux installation passed 34 digital checks, 18 timing
-pairs, four audited exports, 16 process-rule controls and 12 digital physical
-controls. Full-deck checks on its C/D counters pass main geometry and antenna.
+four digital profiles. Each Linux and Windows installation passed 34 digital
+checks, 18 timing pairs, four audited exports, seven tool controls, 16 process-rule
+controls and 12 digital physical controls. Independent full-deck audits on each
+OS's C/D counters pass main geometry and antenna while retaining density failures.
 The [installed C/D UART/APB batch](validation/gf180-cd-installed-workloads-2026-10-07.json)
 also passes geometry, antenna, all 12 library-corner timing checks and equivalence
-on application source `1989dbf`, with unchanged design constraints. Windows setup
-stopped at a WSL connection timeout. Reconnection and two complete integrity
-checks passed, but a full retry hit the same service error while launching a
-worker. Both failures are retained. A read-only idle/startup probe passed all
-eight cases. Six additional saved-job trials also passed, both with ordinary
-dispatch and with a temporary diagnostic keepalive; neither establishes a
-reliability fix. A third unmodified full setup has passed both GF180 variants'
-extracted timing and physical equivalence and is checking IHP. Windows and final
-source-bound acceptance remain open. Hosted run `37652837883` passed on source
+on application source `1989dbf`, with unchanged design constraints. The installed
+Windows catalog also passes selection, C/D save/reopen, corner reset and undo.
+Its initial report-writer failure is retained; the corrected checker completed
+the entire workflow and produced a source/runtime-bound report.
+
+Windows setup failed twice with WSL service connection errors before the third,
+unmodified full setup passed. Both failures are retained. Eight read-only
+idle/startup cases, two full integrity checks and six saved-job dispatch trials
+passed, but no root cause or reliability fix is established. Public-release
+startup reliability remains open.
+
+Hosted run `37652837883` passed on source
 `1989dbf`; independent input, source and artifact audits passed 28 counter stages,
 64 UART/APB stages across four profiles and 16 additional SKY130 corner stages.
 The SKY130 export audit retains three numerically distinct interconnect
 extractions and all 18 library/interconnect timing pairs. Hosted-upload omissions
 were restored only by exact hash in a separate audit copy; original downloads
-remain unchanged. Full density
-checks still report 555, 5,796 and 4,416 markers for each variant respectively;
+remain unchanged. Desktop build run `37652838673` passed all five jobs on the same
+application source; exact consumer-package acceptance remains chunk 12 work.
+The acceptance checker passed the full 1,444-test suite (63 skips); the subsequent
+GUI report-only correction passed the actual installed-catalog workflow again.
+Full density checks still report 555, 5,796 and 4,416 markers for each variant respectively;
 these remain chunk 4 failures. No process or complete chip is qualified for tapeout.
 
 Before each batch, freeze its exact inputs, numerical limits and negative
