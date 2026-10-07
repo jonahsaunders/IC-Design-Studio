@@ -38,8 +38,11 @@ def technology_options(r, flow_root):
         if path.is_file():
             target.mkdir(parents=True,exist_ok=True);shutil.copy2(path,target/path.name)
     options=r.platform.get('orfs',{})
+    file_options={**options.get('file_options',{}),
+                  **options.get('corner_file_options',{}).get(r.platform['corner'],{})}
+    result=[key+'='+str(directory/path) for key,path in file_options.items()]
     vias=options.get('rc_vias',{}).get(r.platform['corner'],{})
-    if not vias:return []
+    if not vias:return result
     lines=['# Fill explicit cut-layer RC from the captured single-cut LEF vias.',
            'source '+tcl_word(directory/options['rc_file'])]
     for layer,reference in vias.items():
@@ -51,7 +54,7 @@ def technology_options(r, flow_root):
                   # units rather than assuming the Liberty resistance unit.
                   'set_layer_rc -via '+tcl_word(layer)+' -resistance [sta::resistance_sta_ui $icstudio_resistance]']
     path=r.root/'platform_rc.tcl';atomic_write(path,'\n'.join(lines)+'\n');r.add_artifact('platform_rc',path)
-    return ['LAYER_PARASITICS_FILE='+str(path)]
+    return result+['LAYER_PARASITICS_FILE='+str(path)]
 
 
 def validate_settings(settings):

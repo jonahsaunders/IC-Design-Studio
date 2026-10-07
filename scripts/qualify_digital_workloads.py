@@ -22,7 +22,7 @@ def workload(name, platform):
     project['digital']['timeout']=600
     project['digital']['physical']={'die_area':[0,0,400,400],'core_area':[20,20,380,380],
                                     'place_density':0.6,'threads':2}
-    if name=='uart' and platform['name']=='gf180':
+    if name=='uart' and platform['name'] in ('gf180','gf180d'):
         # Preserve the original RTL and 10 ns / 1 ns I/O SDC. Map against the
         # captured slow library with an 8 ns combinational budget, then verify
         # every library corner with the profile's worst-case RC extraction.

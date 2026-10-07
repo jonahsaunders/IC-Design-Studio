@@ -25,6 +25,11 @@ class DigitalPlatformTests(unittest.TestCase):
                 names.append(filename)
         if profile.get('orfs',{}).get('rc_file'):
             rc=profile['orfs']['rc_file'];(root/rc).write_text('# captured RC\n');names.append(rc)
+        options=profile.get('orfs',{})
+        for mapping in [options.get('file_options',{}),*options.get('corner_file_options',{}).values()]:
+            for filename in mapping.values():
+                path=root/filename;path.parent.mkdir(parents=True,exist_ok=True)
+                path.write_text('# captured file option\n');names.append(filename)
         manifest={'version':1,'name':name,'revision':'test fixture','corner':'typical','files':names,**profile}
         path=root/'platform.json';path.write_text(json.dumps(manifest))
         return read_manifest(path),contents
@@ -70,6 +75,32 @@ class DigitalPlatformTests(unittest.TestCase):
             self.assertEqual(options['PWR_NETS_VOLTAGES'],'VDD 4.5')
             self.assertEqual(options['TRACK_OPTION'],'9t')
             self.assertEqual(options['METAL_OPTION'],'5LM_1TM')
+
+    def test_gf180_d_binds_11k_extraction_and_captured_shared_stream_map(self):
+        from icstudio.digital_physical import technology_options
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);source=root/'source';source.mkdir();platform,_=self.fixture(source,'gf180d')
+            self.assertEqual(platform['orfs']['variables']['KVALUE'],'11')
+            stage(platform,root/'platform')
+            runner=SimpleNamespace(root=root,platform=platform,add_artifact=lambda *_:None)
+            for corner,suffix in (('typical','typ'),('slow','wst'),('fast','bst')):
+                runner.platform['corner']=corner
+                options=dict(value.split('=',1) for value in technology_options(runner,root/'flow'))
+                self.assertTrue(options['RCX_RULES'].endswith('11k_sp_smim_OPTB_'+suffix+'.rules'))
+                self.assertTrue(Path(options['RCX_RULES']).is_file())
+                self.assertTrue(Path(options['KLAYOUT_TECH_FILE']).is_file())
+                self.assertTrue(Path(options['GDS_LAYER_MAP']).is_file())
+
+    def test_file_options_cannot_escape_locks_or_inject_make_syntax(self):
+        with tempfile.TemporaryDirectory() as td:
+            platform,_=self.fixture(Path(td),'gf180d')
+            for path in ('../outside.rules','$(shell echo bad)','missing.rules','/absolute.rules','bad path.rules'):
+                changed=clone(platform);changed['orfs']['corner_file_options']['typical']['RCX_RULES']=path
+                with self.subTest(path=path),self.assertRaises(ValueError):validate(changed)
+            changed=clone(platform);del changed['orfs']['corner_file_options']['slow']
+            with self.assertRaisesRegex(ValueError,'every captured'):validate(changed)
+            changed=clone(platform);changed['orfs']['file_options']['UNREVIEWED']='setRC.tcl'
+            with self.assertRaisesRegex(ValueError,'Unsupported'):validate(changed)
 
     def test_implementation_metadata_invalidates_cached_mapping(self):
         with tempfile.TemporaryDirectory() as td:

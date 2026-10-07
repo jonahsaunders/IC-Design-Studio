@@ -13,7 +13,7 @@ from .model import atomic_write, clone, file_digest, digest
 MAX_PLATFORM_BYTES = 1024 * 1024 * 1024
 MAX_LIBERTY_BYTES = 128 * 1024 * 1024
 BUNDLED_PLATFORMS = ('sky130hd', 'gf180', 'ihp-sg13g2')
-PLATFORM_LABELS = {'sky130hd':'SKY130 HD', 'gf180':'GF180 MCU 5 V', 'ihp-sg13g2':'IHP SG13G2'}
+PLATFORM_LABELS = {'sky130hd':'SKY130 HD', 'gf180':'GF180 MCU C 5 V', 'gf180d':'GF180 MCU D 5 V', 'ihp-sg13g2':'IHP SG13G2'}
 
 # Explicit library and physical options for the pinned ORFS platform layouts.
 # Importing a profile does not assert arbitrary-design or foundry qualification.
@@ -57,7 +57,22 @@ ORFS_PROFILES = {
         }},
     },
 }
+# C and D use the same 9-track cells and GDS layer numbers. D must select its
+# own 11K technology LEF and RC extraction deck; the upstream makefile otherwise
+# hardcodes 9K extraction and refers to an absent 11K KLayout template/map.
+ORFS_DIRECTORIES = {'gf180d': 'gf180'}
+ORFS_PROFILES['gf180d'] = clone(ORFS_PROFILES['gf180'])
+ORFS_PROFILES['gf180d']['orfs']['variables']['KVALUE'] = '11'
+ORFS_PROFILES['gf180d']['orfs']['file_options'] = {
+    'KLAYOUT_TECH_FILE': 'KLayout/gf180mcu_5LM_1TM_9K_9t.lyt',
+    'GDS_LAYER_MAP': 'gds/9t/gf180mcu_5LM_1TM_9K_9t_edi2gds.layermap',
+}
+ORFS_PROFILES['gf180d']['orfs']['corner_file_options'] = {
+    name: {'RCX_RULES': 'openROAD/rcx/gf180mcu_1p5m_1tm_11k_sp_smim_OPTB_' + suffix + '.rules'}
+    for name, suffix in (('typical', 'typ'), ('slow', 'wst'), ('fast', 'bst'))
+}
 ORFS_VARIABLES = {'TRACK_OPTION', 'METAL_OPTION', 'KVALUE', 'POWER_OPTION', 'CORNER', 'PWR_NETS_VOLTAGES'}
+ORFS_FILE_VARIABLES = {'KLAYOUT_TECH_FILE', 'GDS_LAYER_MAP', 'RCX_RULES'}
 
 
 def validate_options(platform):
@@ -68,8 +83,20 @@ def validate_options(platform):
         if not isinstance(pair,list) or len(pair)!=2 or any(not isinstance(s,str) or not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]*',s) for s in pair):
             raise ValueError('A tie cell needs a cell and output-pin identifier.')
     options=platform.get('orfs',{})
-    if not isinstance(options,dict) or set(options)-{'variables','corners','rc_file','rc_vias','geometry_recipe'}:
+    if not isinstance(options,dict) or set(options)-{'variables','corners','rc_file','rc_vias','geometry_recipe','file_options','corner_file_options'}:
         raise ValueError('Invalid ORFS platform options.')
+    corner_files=options.get('corner_file_options',{})
+    if not isinstance(corner_files,dict) or corner_files and set(corner_files)!=set(platform.get('corners',{})):
+        raise ValueError('ORFS corner file options must match every captured Liberty corner.')
+    captured={r['path'] for r in platform.get('files',[])};prefix=platform.get('directory','.')
+    for mapping in [options.get('file_options',{}),*corner_files.values()]:
+        if not isinstance(mapping,dict) or set(mapping)-ORFS_FILE_VARIABLES:
+            raise ValueError('Unsupported ORFS file option.')
+        for path in mapping.values():
+            if not isinstance(path,str) or not re.fullmatch(r'[A-Za-z0-9_./-]+',path):
+                raise ValueError('ORFS file options require literal captured relative paths.')
+            name=relative_path(path);name=name if prefix=='.' else prefix+'/'+name
+            if name not in captured:raise ValueError('ORFS file option is not a captured platform file: '+name)
     vias=options.get('rc_vias',{})
     if not isinstance(vias,dict) or set(vias)-set(platform.get('corners',{})):
         raise ValueError('Via-resistance references must use captured corners.')
@@ -194,11 +221,12 @@ def from_orfs(root, name='sky130hd'):
     import subprocess
     root=Path(root).resolve()
     if root.name == 'flow':root=root.parent
-    folder=root/'flow/platforms'/name
+    directory=ORFS_DIRECTORIES.get(name,name)
+    folder=root/'flow/platforms'/directory
     if name not in ORFS_PROFILES:raise ValueError('Choose '+', '.join(ORFS_PROFILES)+', or use a platform manifest.')
     if not folder.is_dir():raise ValueError('Choose an OpenROAD Flow Scripts checkout with the complete platform.')
     revision=subprocess.run(['git','-C',str(root),'rev-parse','HEAD'],capture_output=True,text=True,check=True).stdout.strip()
-    tracked=subprocess.run(['git','-C',str(root),'ls-files','--stage','-z','--','flow/platforms/'+name],
+    tracked=subprocess.run(['git','-C',str(root),'ls-files','--stage','-z','--','flow/platforms/'+directory],
                            capture_output=True,text=True,check=True).stdout
     for entry in tracked.split('\0'):
         if entry.startswith('120000 '):
@@ -212,12 +240,12 @@ def from_orfs(root, name='sky130hd'):
     paths=[p.relative_to(folder.parent).as_posix() for p in folder.rglob('*') if p.is_file()]
     files=inventory(folder.parent,paths)
     profile=clone(ORFS_PROFILES[name])
-    corners={corner:[name+'/'+path for path in paths] for corner,paths in profile.pop('corners').items()}
-    data={'version':1,'name':name,'revision':'ORFS '+revision,'root':str(folder.parent),'directory':name,'corner':'typical',
+    corners={corner:[directory+'/'+path for path in paths] for corner,paths in profile.pop('corners').items()}
+    data={'version':1,'name':name,'revision':'ORFS '+revision,'root':str(folder.parent),'directory':directory,'corner':'typical',
           'corners':corners,'files':files,'fingerprint':digest(files),**profile}
-    if name=='gf180':
-        from .digital_recipes import GF180_C
-        data['orfs']['geometry_recipe']=GF180_C
+    if name in ('gf180','gf180d'):
+        from .digital_recipes import GF180_RECIPES
+        data['orfs']['geometry_recipe']=GF180_RECIPES[name][0]
     return validate(data)
 
 

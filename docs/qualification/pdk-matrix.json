@@ -15992,7 +15992,7 @@
       },
       "uncovered_scope": [
         "Complete upstream inventory and other libraries/stacks",
-        "Production via/tap correction",
+        "Updated included-package validation of production recipes",
         "Density closure",
         "Independent RC corners",
         "Full device/rated-condition coverage",
@@ -16000,20 +16000,47 @@
       ]
     },
     "gf180mcuD": {
-      "metal_stack": "Analog deck: METALS5, MIM, THICKMET1P1, HRPOLY1K. Distinct from C.",
+      "metal_stack": "Analog deck: METALS5, MIM, THICKMET1P1, HRPOLY1K. Distinct from C. Digital profile gf180d uses 5LM_1TM / 11K / 9t / 5v0.",
       "digital_profile": {
-        "name": null,
-        "status": "not_implemented",
-        "required": "Matched D-option library, LEF/GDS/CDL and RC/rule collateral; cannot inherit C results."
+        "name": "gf180d",
+        "library": "gf180mcu_fd_sc_mcu9t5v0",
+        "orfs_revision": "eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+        "libraries": {
+          "typical": "gf180mcu_fd_sc_mcu9t5v0__tt_025C_5v00.lib.gz",
+          "slow": "gf180mcu_fd_sc_mcu9t5v0__ss_125C_4v50.lib.gz",
+          "fast": "gf180mcu_fd_sc_mcu9t5v0__ff_n40C_5v50.lib.gz"
+        },
+        "rc_conditions": [
+          "platform-default"
+        ],
+        "status": "production_reference_passed; included_package_pending",
+        "physical_option": "9t / 5LM_1TM / 11K / 5v0",
+        "extraction": "Explicit 11K typ/wst/bst rules selected by the mapping corner; one RC condition per design so far."
       },
       "operating_conditions": {
-        "digital_pvt": [],
+        "digital_pvt": [
+          [
+            "typical",
+            5,
+            25
+          ],
+          [
+            "slow",
+            4.5,
+            125
+          ],
+          [
+            "fast",
+            5.5,
+            -40
+          ]
+        ],
         "analog": "All model-section mappings in inventory; full D-specific physical and electrical envelope tests required. C smoke results do not qualify D."
       },
       "uncovered_scope": [
-        "Digital platform absent",
+        "Updated included-package validation",
         "Complete upstream inventory and operating envelopes",
-        "All final digital rule/timing/equivalence/fill checks",
+        "Density closure and final-GDS connectivity/electrical qualification",
         "Independent RC corners",
         "Full-chip and foundry acceptance"
       ]
@@ -16866,7 +16893,7 @@
       "target": "gf180mcuC",
       "test": "gf180-geometry",
       "status": "partial",
-      "remaining": "Production C counter/UART/APB main geometry, antenna, three-library-corner extracted timing and equivalence passed with unchanged constraints. Updated managed packages, separate matched D profile and the reviewed complete chunk-3 acceptance remain open.",
+      "remaining": "Production C counter/UART/APB main geometry, antenna, three-library-corner extracted timing and equivalence passed with unchanged constraints. Updated managed packages and reviewed complete chunk-3 acceptance remain open; D has its separate reference record.",
       "historical_evidence": [
         "gf-geometry",
         "gds-diagnostics",
@@ -17088,9 +17115,11 @@
     "gf180mcuD:digital-profile": {
       "target": "gf180mcuD",
       "test": "digital-profile",
-      "status": "needs_definition",
-      "remaining": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement.",
-      "historical_evidence": []
+      "status": "partial",
+      "remaining": "Matched D 11K production counter/UART/APB geometry, antenna, extracted timing and equivalence pass independently. Updated included packages and complete chunk-3 acceptance remain open.",
+      "historical_evidence": [
+        "gf-d-production-geometry"
+      ]
     },
     "gf180mcuD:foundry-acceptance": {
       "target": "gf180mcuD",
@@ -17102,16 +17131,20 @@
     "gf180mcuD:gf180-density": {
       "target": "gf180mcuD",
       "test": "gf180-density",
-      "status": "not_run",
-      "remaining": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement.",
-      "historical_evidence": []
+      "status": "failed",
+      "remaining": "Separate D counter/UART/APB runs still have 555/5796/4416 density markers. Required fill and post-fill connectivity, extraction, timing and equivalence closure remain open.",
+      "historical_evidence": [
+        "gf-d-production-geometry"
+      ]
     },
     "gf180mcuD:gf180-geometry": {
       "target": "gf180mcuD",
       "test": "gf180-geometry",
-      "status": "not_run",
-      "remaining": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement.",
-      "historical_evidence": []
+      "status": "partial",
+      "remaining": "Matched D 11K production counter/UART/APB geometry, antenna, extracted timing and equivalence pass independently. Updated included packages and complete chunk-3 acceptance remain open.",
+      "historical_evidence": [
+        "gf-d-production-geometry"
+      ]
     },
     "gf180mcuD:independent-export": {
       "target": "gf180mcuD",
@@ -19791,6 +19824,11 @@
       "path": "docs/validation/gf180-production-geometry-2026-10-07.json",
       "sha256": "0b52b5a33d48ce3874f3a965b791fb13ef440a53908bb722b4675bafc77fedcd",
       "scope_limit": "GF180-C 9t / 5LM / 9K / 5 V counter, UART and APB only. GF180-D, managed-package acceptance, density closure and tapeout qualification remain open."
+    },
+    "gf-d-production-geometry": {
+      "path": "docs/validation/gf180d-production-geometry-2026-10-07.json",
+      "sha256": "39eb2ecdbeee461beebd7c3219f43af5184de9ab5510f94ed41893cea6a25e82",
+      "scope_limit": "Separate D 9t / 5LM / 11K / 5 V counter, UART and APB. Three library corners and one extracted RC condition per design. Independent RC accuracy, density closure, updated included packages and tapeout remain unqualified."
     }
   },
   "execution_acceptance": {

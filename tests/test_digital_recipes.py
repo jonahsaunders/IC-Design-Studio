@@ -60,6 +60,18 @@ class GeometryRecipeTests(unittest.TestCase):
             self.assertNotIn('platform_recipe_pdn', artifacts)
             self.assertEqual(json.loads(artifacts['platform_geometry_recipe'].read_text())['changes'][0]['status'], 'user_override')
 
+    def test_variant_d_has_a_separate_recipe_and_cannot_claim_the_c_stack(self):
+        with tempfile.TemporaryDirectory() as td:
+            runner, artifacts = self.fixture(Path(td))
+            runner.platform['name'] = 'gf180d'
+            runner.platform['orfs']['variables']['KVALUE'] = '11'
+            with self.assertRaises(ValueError): digital_recipes.generate(runner, {})
+            runner.platform['orfs']['geometry_recipe'] = digital_recipes.GF180_D
+            digital_recipes.generate(runner, {})
+            self.assertEqual(json.loads(artifacts['platform_geometry_recipe'].read_text())['recipe'], digital_recipes.GF180_D)
+            runner.platform['orfs']['variables']['KVALUE'] = '9'
+            with self.assertRaises(ValueError): digital_recipes.generate(runner, {})
+
     def test_already_corrected_locked_sources_are_not_patched_twice(self):
         with tempfile.TemporaryDirectory() as td:
             runner, artifacts = self.fixture(Path(td))
@@ -118,6 +130,28 @@ class GeometryRecipeTests(unittest.TestCase):
                 imported = digital_platform.from_orfs(checkout, 'gf180')
             self.assertEqual(imported['orfs']['geometry_recipe'], digital_recipes.GF180_C)
             self.assertEqual(before, {p.relative_to(folder).as_posix(): file_digest(p) for p in folder.rglob('*') if p.is_file()})
+
+    def test_d_import_uses_the_shared_source_directory_with_distinct_11k_options(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td); runner, _ = self.fixture(root)
+            checkout = root / 'orfs'; folder = checkout / 'flow/platforms/gf180'
+            shutil.copytree(Path(runner.platform['root']) / 'gf180', folder)
+            profile = clone(digital_platform.ORFS_PROFILES['gf180d'])
+            profile['corners'] = {name: ['cells.lib'] for name in profile['corners']}
+            profile['orfs'].pop('rc_file'); profile['orfs'].pop('rc_vias')
+            for mapping in [profile['orfs']['file_options'], *profile['orfs']['corner_file_options'].values()]:
+                for name in mapping.values():
+                    path = folder / name; path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_text('captured D option fixture\n')
+            with patch.dict(digital_platform.ORFS_PROFILES, {'gf180d': profile}), \
+                    patch('subprocess.run', side_effect=[SimpleNamespace(stdout='e'*40), SimpleNamespace(stdout='')]):
+                imported = digital_platform.from_orfs(checkout, 'gf180d')
+            self.assertEqual(imported['name'], 'gf180d')
+            self.assertEqual(imported['directory'], 'gf180')
+            self.assertEqual(imported['orfs']['geometry_recipe'], digital_recipes.GF180_D)
+            self.assertEqual(imported['orfs']['variables']['KVALUE'], '11')
+            self.assertTrue(all(name.startswith('gf180/') for paths in imported['corners'].values() for name in paths))
+            self.assertTrue(all('11k' in mapping['RCX_RULES'] for mapping in imported['orfs']['corner_file_options'].values()))
 
 
 if __name__ == '__main__':

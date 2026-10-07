@@ -96,6 +96,23 @@ class DigitalBundleTests(unittest.TestCase):
             self.assertEqual(list(result['platforms']['sky130hd']['corners']),['typical','slow','fast'])
             self.assertEqual(list(result['platforms']['sky130hd']['extraction']['corners']),['minimum','nominal','maximum'])
 
+    def test_distinct_profiles_can_share_locked_sources_and_notices(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);values=self.fixture(root)
+            values['gf180d']=clone(values['gf180']);values['gf180d']['name']='gf180d'
+            names=tuple(values)
+            with patch.object(bundler,'BUNDLED_PLATFORMS',names), \
+                    patch.object(bundler,'from_orfs',side_effect=lambda _,name:clone(values[name])), \
+                    patch.object(bundler,'prepare',side_effect=self.preparer(values)):
+                result=bundler.bundle(root)
+            first=result['platforms']['gf180'];second=result['platforms']['gf180d']
+            self.assertEqual(first['files'],second['files'])
+            self.assertEqual(first['fingerprint'],second['fingerprint'])
+            self.assertEqual(second['directory'],'gf180')
+            self.assertFalse((root/'orfs/flow/platforms/gf180d').exists())
+            for value in (first,second):
+                actual=clone(value);actual['root']=str(root/'orfs/flow/platforms');verify(actual)
+
     @unittest.skipIf(os.name=='nt','Real symlinks are verified by the native Linux build')
     def test_linked_decks_are_materialized_before_sibling_platforms_are_pruned(self):
         with tempfile.TemporaryDirectory() as td:

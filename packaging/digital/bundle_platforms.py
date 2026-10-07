@@ -30,28 +30,37 @@ def bundle(root, *, sky130_cache=None):
         platforms['sky130hd']=sky130
     # Materialize linked collateral while all sibling platforms are present.
     # The content locks remain unchanged and are verified after pruning.
-    for name in platforms:
-        for link in (platform_root/name).rglob('*'):
+    directories={platform.get('directory',name) for name,platform in platforms.items()}
+    for directory_name in directories:
+        for link in (platform_root/directory_name).rglob('*'):
             if link.is_symlink():
                 target=link.resolve()
                 if not target.is_relative_to(platform_root) or not target.is_file():
                     raise ValueError('Invalid platform link: '+str(link))
                 content=link.read_bytes();link.unlink();link.write_bytes(content)
     for directory in platform_root.iterdir():
-        if directory.name not in platforms and directory.is_dir():
+        if directory.name not in directories and directory.is_dir():
             if directory.is_symlink():directory.unlink()
             elif directory.resolve().is_relative_to(platform_root):shutil.rmtree(directory)
             else:raise ValueError('Platform directory escapes the build checkout.')
+    shared_sources={}
     for platform in platforms.values():
         verify(platform)
-        notices=platform_root/platform['name']/'redistribution';notices.mkdir()
-        for name in ('Apache-2.0.txt','THIRD_PARTY_NOTICES.md'):
-            shutil.copy2(root/'licenses'/name,notices/('LICENSE-'+name if name.endswith('.txt') else name))
-        shutil.copy2(orfs/'LICENSE_BUILD_RUN_SCRIPTS',notices/'LICENSE-ORFS-build-scripts.txt')
-        (notices/'upstream-lock.json').write_text(json.dumps({
-            'repository':'https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts',
-            'revision':platform['revision'],'original_platform_fingerprint':platform['fingerprint'],
-            'scope':'Captured platform provenance before adding redistribution notices; additional PVT sources retain their own upstream locks.'},indent=2)+'\n')
+        directory_name=platform.get('directory',platform['name'])
+        signature=(platform['revision'],platform['fingerprint'])
+        notices=platform_root/directory_name/'redistribution'
+        if directory_name in shared_sources:
+            if shared_sources[directory_name]!=signature:
+                raise ValueError('Profiles sharing a source directory must retain identical source locks.')
+        else:
+            shared_sources[directory_name]=signature;notices.mkdir()
+            for name in ('Apache-2.0.txt','THIRD_PARTY_NOTICES.md'):
+                shutil.copy2(root/'licenses'/name,notices/('LICENSE-'+name if name.endswith('.txt') else name))
+            shutil.copy2(orfs/'LICENSE_BUILD_RUN_SCRIPTS',notices/'LICENSE-ORFS-build-scripts.txt')
+            (notices/'upstream-lock.json').write_text(json.dumps({
+                'repository':'https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts',
+                'revision':platform['revision'],'original_platform_fingerprint':platform['fingerprint'],
+                'scope':'Captured platform provenance before adding redistribution notices; additional PVT sources retain their own upstream locks.'},indent=2)+'\n')
         paths=[f['path'] for f in platform['files']]+[p.relative_to(platform_root).as_posix() for p in notices.iterdir()]
         platform['files']=inventory(platform_root,paths);platform['fingerprint']=digest(platform['files'])
         verify(platform);platform['root']='opt/icstudio/orfs/flow/platforms'

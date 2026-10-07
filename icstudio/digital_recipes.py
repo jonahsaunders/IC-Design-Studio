@@ -4,7 +4,9 @@ from pathlib import Path
 from .model import atomic_write, file_digest
 
 GF180_C = 'gf180-9t-5lm-9k-geometry-v1'
+GF180_D = 'gf180-9t-5lm-11k-geometry-v1'
 GF180_VARIABLES = {'TRACK_OPTION': '9t', 'METAL_OPTION': '5LM_1TM', 'KVALUE': '9', 'POWER_OPTION': '5v0'}
+GF180_RECIPES = {'gf180': (GF180_C, '9'), 'gf180d': (GF180_D, '11')}
 PATCHES = (
     {'variable': 'PDN_TCL', 'name': 'pdn', 'path': 'openROAD/pdn/pdn_grid_strategy_9t_6M.cfg',
      'before': '-split_cuts {Metal3 0.128}', 'after': '-split_cuts {Metal3 0.520}',
@@ -21,9 +23,10 @@ def validate(platform):
     recipe = platform.get('orfs', {}).get('geometry_recipe')
     if recipe is None:
         return
-    if (recipe != GF180_C or platform['name'] != 'gf180'
-            or platform.get('orfs', {}).get('variables') != GF180_VARIABLES):
-        raise ValueError('The selected geometry recipe requires GF180-C 9t / 5LM / 9K / 5 V.')
+    definition = GF180_RECIPES.get(platform['name'])
+    if (definition is None or recipe != definition[0]
+            or platform.get('orfs', {}).get('variables') != {**GF180_VARIABLES, 'KVALUE': definition[1]}):
+        raise ValueError('The selected geometry recipe requires its matching GF180-C 9K or GF180-D 11K, 9t / 5LM / 5 V platform.')
     prefix = platform.get('directory', '.')
     records = {r['path']: r for r in platform.get('files', [])}
     for patch in PATCHES:

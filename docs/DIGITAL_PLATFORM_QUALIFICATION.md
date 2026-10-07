@@ -235,8 +235,24 @@ extracted timing at the three declared library corners, and physical equivalence
 Each deliberate mapped-register fault fails equivalence. The density results
 remain failures: 555 counter, 5,796 UART and 4,416 APB markers. These are small
 reference designs at one extracted RC condition per design, not full process
-qualification. The separate GF180-D profile and updated managed packages remain
-unqualified.
+qualification. Updated managed packages remain unqualified.
+
+The separate [GF180-D production record](validation/gf180d-production-geometry-2026-10-07.json)
+covers the same three original designs using the D 11K technology and extraction
+inputs. All three pass main geometry, antenna, extracted timing at the three
+library corners and equivalence; every deliberate register fault is detected.
+Its independent audit verifies the actual copied 11K technology LEF and selected
+11K extraction deck. Density remains failed with 555, 5,796 and 4,416 markers.
+Use **Choose platform → ORFS gf180d** or `--orfs-platform gf180d` for an explicit
+import from the pinned checkout. This is not yet an included-runtime claim.
+
+C and D share captured 9-track cell sources and layer numbers. The D profile
+selects `KVALUE=11`, explicitly overrides the upstream makefile's hardcoded 9K
+extraction paths with matching 11K paths, and selects the existing five-metal
+stream map/template. ORFS replaces the template's LEF inputs with the selected
+11K technology during generation; the audit compares the actual copied bytes.
+Missing, uncaptured or unsafe file-option paths are rejected. The profile has a
+distinct name and recipe identity, so C checkpoints cannot supply D evidence.
 
 New GF180 ORFS imports select `gf180-9t-5lm-9k-geometry-v1`. It generates corrected
 PDN and tap Tcl from checksum-locked source files and retains the original PDK

@@ -40,7 +40,7 @@ device-specific operating envelopes are explicit open requirements.
 |---|---|---|---|
 | SKY130 A | `24bc6d0bfd6a0224` | 74 / 71 | Local interconnect plus five metals; HD digital library; 3 library by 3 RC conditions. |
 | GF180 C | `627ca682d68e1e92` | 68 / 64 | Five metals, 0.9 micrometre top metal, MIM, HRPOLY1K; digital 9-track 5 V, 5LM_1TM/9K; 3 library by 1 RC condition. |
-| GF180 D | `7dd87219f1333dbb` | 68 / 64 | Five metals, 1.1 micrometre top metal, MIM, HRPOLY1K; no matched digital profile yet. |
+| GF180 D | `7dd87219f1333dbb` | 68 / 64 | Five metals, 1.1 micrometre top metal, MIM, HRPOLY1K; separate `gf180d` 9-track 5 V / 5LM / 11K production references; included-package validation pending. |
 | IHP SG13G2 | `3abac20fcb57e184` | 45 / 35 | Five ordinary and two top metals; SG13G2 digital cells; 3 library by 1 RC condition. MOS, bipolar and RF qualification remain distinct. |
 
 All digital profiles start from ORFS
@@ -97,10 +97,12 @@ antenna-diode coverage failure and its correction.
 Chunk 3 is in progress. The [production GF180-C batch](validation/gf180-production-geometry-2026-10-07.json)
 passes main geometry, antenna, extracted timing and equivalence on counter, UART
 and APB with unchanged RTL/constraints and PDK sources. The application generates
-and captures the two corrected recipes. The separate matched D profile and
-updated managed-runtime validation remain open before closing the chunk. Full
-density checks still report 555, 5,796 and 4,416 markers respectively; these remain
-chunk 4 failures. No process or complete chip is qualified for tapeout.
+and captures the two corrected recipes. The separate [matched D batch](validation/gf180d-production-geometry-2026-10-07.json)
+now also passes these reference gates, with the actual 11K technology and
+extraction selection independently audited. Updated included catalogs and
+managed-runtime validation remain open before closing the chunk. Full density
+checks still report 555, 5,796 and 4,416 markers for each variant respectively;
+these remain chunk 4 failures. No process or complete chip is qualified for tapeout.
 
 Before each batch, freeze its exact inputs, numerical limits and negative
 controls. After the batch, preserve commands, versions, input/output hashes,
