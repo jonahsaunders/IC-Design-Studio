@@ -169,9 +169,10 @@ The implementation CI pins:
   and IHP SG13G2 platforms;
 - OpenROAD `26Q2-1164-g08f67ee5ec` and OpenSTA 3.1.0 from its Ubuntu 24.04 package;
 - OSS CAD Suite `2026-09-13` for Yosys, EQY with matching plugins, SBY and Bitwuzla;
-- The included package uses OSS CAD Suite's Icarus and Verilator, and Ubuntu
-  24.04 KLayout/compiler packages; the separate implementation CI also tests
-  Ubuntu's Icarus and Verilator.
+- Current source builds use the checksum-pinned official KLayout 0.30.5 Ubuntu
+  24.04 executable and matching Python library. The included package uses OSS
+  CAD Suite's Icarus and Verilator and Ubuntu compiler packages; the separate
+  implementation CI also tests Ubuntu's Icarus and Verilator.
 
 Download archive checksums live in `packaging/digital/Dockerfile` and
 `.github/workflows/digital.yml`. The generated package manifest records the

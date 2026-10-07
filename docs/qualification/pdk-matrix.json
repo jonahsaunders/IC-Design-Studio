@@ -10,7 +10,7 @@
     },
     "2": {
       "name": "Finish toolchain qualification",
-      "status": "pending"
+      "status": "in_progress"
     },
     "3": {
       "name": "Integrate GF180 geometry fixes",
@@ -16098,7 +16098,8 @@
       "conditions": "Linux native; Windows managed WSL; KLayout CLI must execute the pinned IHP Ruby deck.",
       "existing_runners": [
         "scripts/qualify_digital_runtime.py",
-        "scripts/qualify_digital_platforms.py"
+        "scripts/qualify_digital_platforms.py",
+        "scripts/qualify_klayout_runtime.py"
       ],
       "automation_gap": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement."
     },
@@ -16110,7 +16111,8 @@
       "conditions": "All four variants on Linux and Windows; actual Ruby KLayout CLI, Magic/Netgen and OpenROAD checks have separate scope.",
       "existing_runners": [
         "scripts/qualify_student_geometry.py",
-        "scripts/qualify_digital_physical_checks.py"
+        "scripts/qualify_digital_physical_checks.py",
+        "scripts/qualify_klayout_runtime.py"
       ],
       "automation_gap": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement."
     },

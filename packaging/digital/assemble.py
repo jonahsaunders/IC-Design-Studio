@@ -30,7 +30,7 @@ for folder in (Path('/usr/lib/x86_64-linux-gnu'), Path('/usr/lib/klayout'), Path
 # Some dependencies live outside the default library directory (for example
 # PulseAudio's private library used by KLayout's Qt multimedia dependency).
 # Follow the actual loader closure, including Qt plugins, before relocation.
-queue=[Path('/usr/bin/openroad'),Path('/usr/bin/sta'),Path('/usr/lib/klayout/klayout'),
+queue=[Path('/usr/bin/openroad'),Path('/usr/bin/sta'),Path('/usr/bin/klayout'),
        Path('/usr/bin/python3'),Path('/usr/bin/perl'),Path('/usr/bin/make')]
 queue+=list((ROOT/'physical/installed/lib').rglob('*.so'))
 queue+=list((ROOT/'python/lib').rglob('*.so'))
@@ -92,7 +92,7 @@ for name in suite + system:
     else:
         if name in ('python3','klayout','openroad'): text += 'export PYTHONHOME="$root/usr"\n'
         if name=='python3':text += 'export PYTHONPATH="$runtime/python/lib/python3.12/site-packages"\n'
-        executable = 'usr/lib/klayout/klayout' if name=='klayout' else 'usr/bin/'+name
+        executable = 'usr/bin/'+name
         text += 'exec "$root/'+executable+'" "$@"\n'
     (bindir/name).write_text(text); (bindir/name).chmod(0o755)
 
@@ -114,6 +114,8 @@ for base in ('usr','opt'):
 (ROOT/'runtime.json').write_text(json.dumps({
     'schema':1, 'system':'ubuntu-24.04-x86_64', 'tools':list(suite+system),
     'oss_cad_suite':'2026-09-13', 'openroad':'26Q2-1164-g08f67ee5ec',
+    'klayout':'0.30.5',
+    'klayout_package_sha256':'9f88fe45d1992fc9bd0ce986bbbe150ad198c6a59a86fc13343db822a5790e49',
     'orfs':'eaba6576441bf7c1743ea56ecdb1904210ec02c2',
     'files_sha256':file_digest(ROOT/'files.json'),
     'platforms':list(catalog['platforms']), 'default_platform':catalog['default'],
@@ -123,6 +125,7 @@ for base in ('usr','opt'):
     'physical_source_lock':json.loads((ROOT/'physical/source-lock.json').read_text()),
     'osdi':{'ihp-sg13g2':json.loads((ROOT/'osdi/ihp-sg13g2/build.json').read_text())},
     'sources':['https://github.com/YosysHQ/oss-cad-suite-build/releases/tag/2026-09-13',
+               'https://www.klayout.org/downloads/Ubuntu-24/klayout_0.30.5-1_amd64.deb',
                'https://github.com/The-OpenROAD-Project/OpenROAD/tree/08f67ee5ec',
                'https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/tree/eaba6576441bf7c1743ea56ecdb1904210ec02c2',
                'https://github.com/chipfoundry/volare/releases/tag/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392',

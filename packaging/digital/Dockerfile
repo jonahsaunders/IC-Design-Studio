@@ -24,6 +24,10 @@ RUN git init /opt/icstudio/orfs && cd /opt/icstudio/orfs \
     && git remote add origin https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts.git \
     && git fetch --depth 1 origin eaba6576441bf7c1743ea56ecdb1904210ec02c2 \
     && git checkout FETCH_HEAD
+RUN curl -fL --retry 3 -o /tmp/klayout.deb https://www.klayout.org/downloads/Ubuntu-24/klayout_0.30.5-1_amd64.deb \
+    && echo '9f88fe45d1992fc9bd0ce986bbbe150ad198c6a59a86fc13343db822a5790e49  /tmp/klayout.deb' | sha256sum -c \
+    && apt-get update && apt-get install -y /tmp/klayout.deb \
+    && rm -rf /var/lib/apt/lists/* /tmp/klayout.deb
 COPY icstudio /tmp/studio/icstudio
 COPY ihp-pdk /tmp/ihp-pdk
 COPY compile_ihp_osdi.py /tmp/compile_ihp_osdi.py

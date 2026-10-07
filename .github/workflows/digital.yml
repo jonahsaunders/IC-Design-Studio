@@ -106,16 +106,23 @@ jobs:
           curl --fail --location --retry 3 -o build/openroad.deb https://vaultlink.precisioninno.com/api/releases/26Q2-1164-g08f67ee5ec/openroad_26Q2-1164-g08f67ee5ec_amd64-ubuntu-24.04.deb/download
           echo 'f3f1eeaa18f327503f72cc45dcef5b1514ec2e89726ec53b4553bf4f951168a3  build/openroad.deb' | sha256sum --check
           sudo apt-get install -y "$PWD/build/openroad.deb"
+          curl --fail --location --retry 3 -o build/klayout.deb https://www.klayout.org/downloads/Ubuntu-24/klayout_0.30.5-1_amd64.deb
+          echo '9f88fe45d1992fc9bd0ce986bbbe150ad198c6a59a86fc13343db822a5790e49  build/klayout.deb' | sha256sum --check
+          sudo apt-get install -y "$PWD/build/klayout.deb"
           echo "ICSTUDIO_TEST_YOSYS=$PWD/build/oss-cad-suite/bin/yosys" >> "$GITHUB_ENV"
           echo "ICSTUDIO_TEST_EQY=$PWD/build/oss-cad-suite/bin/eqy" >> "$GITHUB_ENV"
           echo "ICSTUDIO_TEST_ORFS=$PWD/build/orfs" >> "$GITHUB_ENV"
-      - name: Isolate the pinned OpenROAD Python runtime
+      - name: Isolate the pinned implementation executables
         run: |
           mkdir -p build/implementation-bin
           cp scripts/ci/openroad build/implementation-bin/openroad
           chmod +x build/implementation-bin/openroad
+          cp scripts/ci/klayout build/implementation-bin/klayout
+          chmod +x build/implementation-bin/klayout
           echo "ICSTUDIO_TEST_OPENROAD=$PWD/build/implementation-bin/openroad" >> "$GITHUB_ENV"
           echo "$PWD/build/implementation-bin" >> "$GITHUB_PATH"
+      - name: Require actual KLayout Ruby rules and deliberate geometry failure
+        run: python scripts/qualify_klayout_runtime.py --klayout "$PWD/build/implementation-bin/klayout" --output build/klayout-runtime-controls
       - name: Require real mapped timing, equivalence, fault detection and RTL to GDS
         run: python -m unittest tests.test_digital_implementation -v
       - name: Require SKY130, GF180 and IHP counter implementation and extracted timing
@@ -145,6 +152,7 @@ jobs:
           name: digital-implementation-evidence
           path: |
             build/digital-platforms/**
+            build/klayout-runtime-controls/**
             build/digital-physical-checks/**
             !build/digital-platforms/**/platform/**
             !build/digital-platforms/**/flow/**

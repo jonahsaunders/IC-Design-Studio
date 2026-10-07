@@ -175,8 +175,24 @@ expose remaining failures on the retained counter layouts. The captured SKY130
 deck returned zero markers with its default FEOL checks disabled; this is
 incomplete DRC coverage. The original KLayout 0.28.16 executable could not run
 the IHP deck. An isolated KLayout 0.30.5 executable ran that unchanged deck and
-reported 12 density/fill findings. Its compatibility is not yet integrated in
-the managed runtime.
+reported 12 density/fill findings. That executable was separate from the
+previously qualified runtime. Current source builds now pin the official
+KLayout 0.30.5 executable as well as its Python library. Setup executes a real
+Ruby width-rule check on legal and deliberately narrow geometry, exercises the
+edge-pair operator required by the IHP deck, and checks the native report against
+the observed counts. Missing reports, engine errors or incorrect controls block
+setup. Fresh-runtime and complete process-deck qualification remain separate
+gates in the [qualification plan](PDK_QUALIFICATION_PLAN.md).
+
+The same CLI controls run in hosted implementation CI:
+
+```sh
+python scripts/qualify_klayout_runtime.py --klayout /path/to/klayout --output build/klayout-controls
+```
+
+These controls test engine capability, not the adequacy of a process rule deck.
+They reject the previously shipped 0.28.16 executable because the required Ruby
+interface is absent. The old failed diagnostic evidence remains unchanged.
 
 The pinned GF180-C decks, with density and antenna enabled, reported 2,774 main
 rule markers, 552 density markers and zero antenna markers. The main findings
