@@ -87,6 +87,24 @@ def _name(value):
     return value
 
 
+def _node_stems(names):
+    stems = {}
+    for name in names:
+        stems.setdefault(name.rstrip('#!'), []).append(name)
+    return stems
+
+
+def _node_candidates(name, originals, stems):
+    # Magic appends one .n<number> or .t<number> suffix after stripping #/!.
+    # Index the complete stem; scanning every original with a new regex makes
+    # otherwise bounded full-layout audits quadratic in the number of nets.
+    candidates = [name] if name in originals else []
+    match = re.fullmatch(r'(.*)\.[nt][0-9]+', name)
+    if match:
+        candidates.extend(stems.get(match[1], []))
+    return candidates
+
+
 def _line(tokens):
     # efReadLine accepts double-quoted fields. Preserve spaces/quotes in attrs.
     return ' '.join(json.dumps(v) if (i == 1 or not re.fullmatch(r'[^\s"\\]+', v))
@@ -228,11 +246,11 @@ def _aliases(original, resistance):
     aliases = {a: b for a, b in mapping.items() if a != b}
     if not aliases:
         return original, resistance, aliases
+    alias_stems = _node_stems(aliases)
     def mapped(name):
         if name in mapping:
             return mapping[name]
-        candidates = [(a, b) for a, b in aliases.items()
-                      if re.fullmatch(re.escape(a.rstrip('#!')) + r'\.[nt][0-9]+', name)]
+        candidates = [(a, aliases[a]) for a in _node_candidates(name, aliases, alias_stems)]
         if candidates:
             longest = max(len(a.rstrip('#!')) for a, _ in candidates)
             choices = {b.rstrip('#!') + name[len(a.rstrip('#!')):]
@@ -385,10 +403,9 @@ def normalize(directory, top, *, max_capacitors=50_000, require_device_reference
 
     groups = {name: [] for name in nodes}
     owner = {}
+    node_stems = _node_stems(nodes)
     for name in rnodes:
-        candidates = [original_name for original_name in nodes
-                      if name == original_name or
-                      re.fullmatch(re.escape(original_name.rstrip('#!')) + r'\.[nt][0-9]+', name)]
+        candidates = _node_candidates(name, nodes, node_stems)
         if not candidates:
             raise ValueError('Unmapped Magic resistance node: ' + name)
         longest = max(len(n.rstrip('#!')) for n in candidates)

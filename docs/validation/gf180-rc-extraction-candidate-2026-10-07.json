@@ -1,0 +1,743 @@
+{
+  "schema_version": 1,
+  "status": "bounded-candidate-evidence",
+  "process_qualification": "unqualified",
+  "chunk": 4,
+  "chunk_complete": false,
+  "scope": "GF180 C filled counter extraction and exact representation of the existing area-weighted mutual-capacitance model. No production compact export, post-fill circuit timing, D-workload, full-chip or tapeout acceptance.",
+  "parent_commit": "eb8514e04b804758dc3d265b928081499f6ec8e4",
+  "source_backend": "a0db27e175da0f89f7fbbd13543279dffdbde7a6aac2975834b61e260665c7fd",
+  "source_files": {
+    "icstudio/magic_rc.py": "e3c33241b47ff7def5c15f1960029c670a653f5cac172833985836ab1a8ba252",
+    "tests/test_magic_rc.py": "afe075f3d026f3d92cfc16eb8d0273e7376c9459da5696d4c6ee537840d47cde",
+    "scripts/qualify_compact_rc_coupling.py": "17ec01fe8f1c19c114cbeee0792fafb43c97c2ccf135315a473350d2ebd0a2a4",
+    "scripts/build_physical_engines.py": "4b6bb2d6c26da0800c46f79c09186e1c1d6fd513861eae68721bfb78683d3305",
+    "packaging/physical/magic-gf180-fill-rc.patch": "2bd1f9c12fd8d9958d9e6baf89f6971be931473028e9150f90728a86f284250f",
+    "examples/gf180-fill-rc-engine-lock.json": "3a1cf82299838be967874345bc0e70bacd2438c366d91fcaee6ff4d04a91051d"
+  },
+  "candidate_lock": {
+    "magic": {
+      "version": "8.3.684",
+      "patch_sha256": "2bd1f9c12fd8d9958d9e6baf89f6971be931473028e9150f90728a86f284250f",
+      "patch": "packaging/physical/magic-gf180-fill-rc.patch",
+      "repository": "https://github.com/RTimothyEdwards/magic.git",
+      "commit": "4f53bb3091d1e4a9b2009a58f157a8a4331d4c84"
+    }
+  },
+  "default_engine_lock_changed": false,
+  "installed_runtime_changed": false,
+  "extraction": {
+    "record": {
+      "path": "outputs/gf180-combined-rc-v1/report.json",
+      "sha256": "a23831cbc6db31458ee44eacb13dec5053a970b5c78b697e73dc0a24ce7cefee"
+    },
+    "cases": {
+      "before": {
+        "command": [
+          "/var/tmp/icstudio-gf180-fill-rc-v1/installed/bin/magic",
+          "-dnull",
+          "-noconsole",
+          "-rcfile",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/gf180-combined-rc-v1/before/startup.tcl",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/gf180-combined-rc-v1/before/extract.tcl"
+        ],
+        "exit_code": 0,
+        "seconds": 371.2905704975128,
+        "counts": {
+          "rnode": 37520,
+          "resist": 46757,
+          "device": 4184,
+          "killnode": 4050
+        },
+        "original_capacitance_and_devices_preserved": true,
+        "ports": 8,
+        "negative_rnodes": [],
+        "totals": [
+          "Total Nets: 4058",
+          "Nets extracted: 4058 (1.000000)",
+          "Nets output: 4058 (1.000000)"
+        ],
+        "artifacts": {
+          "counter.ext": "37bab29ce55d2307cf8b7fc515585a9c29b2954682682acfb4a67c1106e3d863",
+          "counter.res.ext": "35299e5227bab4ba2ebfb25b5594acdf0a84f62a91a96b37570e96e0143eb57e",
+          "device-reference.spice": "38f899c8eac2406b93eb16867bf5676dffe993d3de964d1e6573a51b91e3ac4b",
+          "engine.log": "1e06f6d69f2976f084769d5db47e45833c7af6eefdd233ea2d2df19440715170"
+        }
+      },
+      "filled": {
+        "command": [
+          "/var/tmp/icstudio-gf180-fill-rc-v1/installed/bin/magic",
+          "-dnull",
+          "-noconsole",
+          "-rcfile",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/gf180-combined-rc-v1/filled/startup.tcl",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/gf180-combined-rc-v1/filled/extract.tcl"
+        ],
+        "exit_code": 0,
+        "seconds": 45.05093693733215,
+        "counts": {
+          "rnode": 39343,
+          "resist": 47668,
+          "device": 4184,
+          "killnode": 4050
+        },
+        "original_capacitance_and_devices_preserved": true,
+        "ports": 8,
+        "negative_rnodes": [],
+        "totals": [
+          "Total Nets: 4969",
+          "Nets extracted: 4969 (1.000000)",
+          "Nets output: 4969 (1.000000)"
+        ],
+        "artifacts": {
+          "counter.ext": "3decaef8040eff2832f34d069a4d450909d0bf3c21bfbda0e6159c09434815c4",
+          "counter.res.ext": "5c4aa4193b70c762929783957ae26e9b59b5c304228055dbb39133acd49014c5",
+          "device-reference.spice": "38f899c8eac2406b93eb16867bf5676dffe993d3de964d1e6573a51b91e3ac4b",
+          "engine.log": "434e5533574d1346e7a731ef8ec8424ea3a9915cc978252786ddd06658bc4069"
+        }
+      }
+    }
+  },
+  "library_controls": {
+    "record": {
+      "path": "outputs/gf180-magic-cell-controls-v3/report.json",
+      "sha256": "2ec313a9ecbd46d2bc7550dd0899effd2e7131d65f8fb4f0826a2b4e79df1743"
+    },
+    "cells": 18,
+    "passed": true,
+    "scope": "Original per-cell device records unchanged and no negative R-node weights; full engine instrumentation was in the earlier breakpoint probes."
+  },
+  "production_assembly": {
+    "record": {
+      "path": "outputs/gf180-postfill-rc-assembly-v6/report.json",
+      "sha256": "e5383cc630ceca18a4e23e9187d782fb43f86a1689a7fa59212cfd849fc1a669"
+    },
+    "status": "rejected-at-size-budget",
+    "input_scope": "Explicitly audited diagnostic roundoff copies only. Raw native capacitance still contains six minute negative residues; production parsing remains strict.",
+    "cases": {
+      "before": {
+        "ext_source_sha256": "37bab29ce55d2307cf8b7fc515585a9c29b2954682682acfb4a67c1106e3d863",
+        "diagnostic_ext_sha256": "48b6c8552c4b787618fe5d605b20e72fd9d6c9ad93798ae6c035ca9bf596bc81",
+        "resistance_sha256": "35299e5227bab4ba2ebfb25b5594acdf0a84f62a91a96b37570e96e0143eb57e",
+        "status": "rejected-by-existing-conservation-contract",
+        "error": "Magic capacitance expansion exceeds the declared budget: 137623840"
+      },
+      "filled": {
+        "ext_source_sha256": "3decaef8040eff2832f34d069a4d450909d0bf3c21bfbda0e6159c09434815c4",
+        "diagnostic_ext_sha256": "0c2e20f598632986e1565274be78e2614617be6467a00ef1b2114ee95e394542",
+        "resistance_sha256": "5c4aa4193b70c762929783957ae26e9b59b5c304228055dbb39133acd49014c5",
+        "status": "rejected-by-existing-conservation-contract",
+        "error": "Magic capacitance expansion exceeds the declared budget: 141898570"
+      }
+    }
+  },
+  "compact_model": {
+    "small_native_record": {
+      "path": "outputs/compact-coupling-repository-v1/report.json",
+      "sha256": "2d5a041e5b6f8dc73e29c2d9f4f28548659ad1d89dc23e329ad43585eb24e287"
+    },
+    "frequency_controls": [
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.12951183319091797,
+        "deck_sha256": "49184baecb11319ed45602ec99db310e806d4bb0a5fc8c0501e4db499c644c92",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "54bbd4ddeb07227d2a2aaaac09a74ae2ecbdbe716cf43cca2a547f538563b9c7",
+        "points": 37,
+        "mode": "expanded",
+        "active": "a0",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 1.1102230246251565e-16
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.13326096534729004,
+        "deck_sha256": "c465a9947638ff27b4f93a57e184c76c5e5ca6381a83bfb13dc8c43a74d0556d",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "3ccb2cf5a15e07d755174bada3f3c7aad70e3512fe4d17f959417d6835787206",
+        "points": 37,
+        "mode": "expanded",
+        "active": "a1",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 1.7763568394002505e-15
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.13044071197509766,
+        "deck_sha256": "a97c6b4bfe17e62cdfa0a000d2a0d060632094ff8a7ae55c6da8c502c6b060cc",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "19eb0f4d4c4b0620dceaa1b460c2b6082936f94d6d63f50a7a9f8e7e6516ba67",
+        "points": 37,
+        "mode": "expanded",
+        "active": "a2",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 1.7763568394002505e-15
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.08137726783752441,
+        "deck_sha256": "6a3cbef51857943db833cb2bf73ee3760e3cd0aa9e5a4b0bbe37d4beef8df56c",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "8665b1ee3a3a8f9d0f9b8744445ca0861c55ba40d17761c5b3516bacd1ae441e",
+        "points": 37,
+        "mode": "expanded",
+        "active": "b0",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 1.7763568394002505e-15
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.07944750785827637,
+        "deck_sha256": "726ce006341d82daf1cef8f130fd4b2753de3258d1ed758eddbf8158b2bb4eda",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "9ca04646100642940e07d928e566980bcee1d095fc32ed34838b54c4e73ce62c",
+        "points": 37,
+        "mode": "expanded",
+        "active": "b1",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 8.881784197001252e-16
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.07947516441345215,
+        "deck_sha256": "7aaa6a17ddd24f5748fa065c58ee2a976461110503b4b2145a9038c54010ea34",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "2a63b667870867fc0fadd4862b3f89f31a196c97471bc15eb90115d91de74cc0",
+        "points": 37,
+        "mode": "expanded",
+        "active": "f0",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 1.7763568394002505e-15
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.07952666282653809,
+        "deck_sha256": "5b33b133344647d67a1018ce1ba928bfef017f2732e8e1c162f6879d64bb1933",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "48666228e7df4328f1d4f8c392c4d1dc99bb9bd8d0fd45bfe57660711a6c9a9d",
+        "points": 37,
+        "mode": "expanded",
+        "active": "f1",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 1.7763568394002505e-15
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.07818794250488281,
+        "deck_sha256": "be6406977d42d7afcd22ef30662f7c04379ffb0a40fddb045fe7ba52c50e0f35",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "73407e29dce057c8bb37f19ddadd87d0ad1c626da616b79ec5f91760e68d3354",
+        "points": 37,
+        "mode": "compact",
+        "active": "a0",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 2.220446049250313e-16
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.07783651351928711,
+        "deck_sha256": "ad5a2d21176ff4ab21f2027e8bc4f9ea6aefcd01f046be24c90fee73c94c0794",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "ada3ed44c32f45dd9117567a662666a19dfd72ea3dc7c383189a7bd26ef97379",
+        "points": 37,
+        "mode": "compact",
+        "active": "a1",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 1.7763568394002505e-15
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.08212757110595703,
+        "deck_sha256": "f2e203e3b641c8709fadc3c40ad7f450ee8de6a4aaa349e18a59e89f76c97ef9",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "035aa34ffd44fffe6abd0bd4a53a036cf4ada34ac2d0ed59f86fff00ea7f5cfb",
+        "points": 37,
+        "mode": "compact",
+        "active": "a2",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 1.7763568394002505e-15
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.07547593116760254,
+        "deck_sha256": "1baeca77540cbb5a2f0a5b6639553852bcbc84fab61acb519c3abb4b48794032",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "6779a1bad5641f509c27c134262e250ad9f29161b036f24c22cfbcbff09a4b5e",
+        "points": 37,
+        "mode": "compact",
+        "active": "b0",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 8.881784197001252e-16
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.07917118072509766,
+        "deck_sha256": "55466673e087ca5ee01927814d2b609c3ccb27fad17f3d5c06960400a8f854d5",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "da490da8ca64bff38bcb778c8a6ad1e272f90e5fb1cf1f01e2f823d141fc948e",
+        "points": 37,
+        "mode": "compact",
+        "active": "b1",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 1.7763568394002505e-15
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.0794517993927002,
+        "deck_sha256": "339ffcad9c569c5e02d851fad61ce24dd500b1a84aad23855f76f7fd6f3e806e",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "231d0c5820315a440886b11798b155d288c05e3ed0a7aef0e09f82476773cc8e",
+        "points": 37,
+        "mode": "compact",
+        "active": "f0",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 4.440892098500626e-16
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.07773375511169434,
+        "deck_sha256": "673f4b7cd1fec3b7cdb24f155b699a1c9cdcf4b3ba6b8c9c0db706d6d2a0d13b",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "74b85267c6018a2c414a55fe6e1a38f467c3a35b66de79dbf0b6baa701983d3a",
+        "points": 37,
+        "mode": "compact",
+        "active": "f1",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 1.7763568394002505e-15
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.14173269271850586,
+        "deck_sha256": "55bb529609dda321abf9c47409830544f1016322eca7ef60cc9318dc64827352",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "73407e29dce057c8bb37f19ddadd87d0ad1c626da616b79ec5f91760e68d3354",
+        "points": 37,
+        "mode": "corrupt",
+        "active": "a0",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 2.220446049250313e-16
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.0776216983795166,
+        "deck_sha256": "3cb4f084af3fcc0c883673b5fe63971d4fb9844fab8309f502bc532968d40cf9",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "ada3ed44c32f45dd9117567a662666a19dfd72ea3dc7c383189a7bd26ef97379",
+        "points": 37,
+        "mode": "corrupt",
+        "active": "a1",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 1.7763568394002505e-15
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.07987284660339355,
+        "deck_sha256": "09e1a1d0f5a3e76d0b7bf6290c820f2e5e88073a79d055e4bb97e36c660e7a62",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "035aa34ffd44fffe6abd0bd4a53a036cf4ada34ac2d0ed59f86fff00ea7f5cfb",
+        "points": 37,
+        "mode": "corrupt",
+        "active": "a2",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 1.7763568394002505e-15
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.13262343406677246,
+        "deck_sha256": "61b0cf70d81b144a1b35dcd2d7d67da7bfe38b7365c76ec796652aff31aae619",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "2351edf9307bef9fa85a89432d5d226c67dbba38aefe9ffa93ebbebe27a356fe",
+        "points": 37,
+        "mode": "corrupt",
+        "active": "b0",
+        "matches_full_analytical_matrix": false,
+        "maximum_error_amperes": 0.0467861685935862
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.13335037231445312,
+        "deck_sha256": "c28f9274f65f84d9d39e0d60497d91f7534319861eb7cbab84a00db5b1c6cfef",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "ba56b25598de548486ea81680d14ef6694f774edc93c22e5b101c89ff9e4cd50",
+        "points": 37,
+        "mode": "corrupt",
+        "active": "b1",
+        "matches_full_analytical_matrix": false,
+        "maximum_error_amperes": 0.08688859881665856
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.13140130043029785,
+        "deck_sha256": "7dda1343144e8dea8560b138fd1f13d83ec407eea04e90452ffaff6819d0b902",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "231d0c5820315a440886b11798b155d288c05e3ed0a7aef0e09f82476773cc8e",
+        "points": 37,
+        "mode": "corrupt",
+        "active": "f0",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 4.440892098500626e-16
+      },
+      {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 0.0821068286895752,
+        "deck_sha256": "c63afe3a9d2dafd97e35007dca419919fc963f9e7a6785d3c826552272e031fb",
+        "log_sha256": "4f499eb45e663e6de0e842eb699bc60e421f8eb0b71f1d09becec4fd795901c9",
+        "data_sha256": "74b85267c6018a2c414a55fe6e1a38f467c3a35b66de79dbf0b6baa701983d3a",
+        "points": 37,
+        "mode": "corrupt",
+        "active": "f1",
+        "matches_full_analytical_matrix": true,
+        "maximum_error_amperes": 1.7763568394002505e-15
+      }
+    ],
+    "transient": {
+      "expanded": {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 1.4886298179626465,
+        "deck_sha256": "4fd2b0d3dc84443fceb30ec01718d91303c550ba7363d26f2d4ba7591a2460f2",
+        "log_sha256": "d2bfc3141dfa505624c79d81bc068f8fe1e2ae3cef0b735ec031a839de7a571d",
+        "data_sha256": "b1be1954368787bf0be5789ca76c4bbee5bf3af5de820827e145a6aeb121c9e9",
+        "points": 5001
+      },
+      "compact": {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 1.3386218547821045,
+        "deck_sha256": "6157cbe2682f365ab636ecd569ace69696e517965b014f564d79649b91e7a1f9",
+        "log_sha256": "01e4d4bf06393cf88112a9e989d95ef573925bc3e8b1fb69d444bcdd375f19cc",
+        "data_sha256": "b5a04fb6b9c87d5386aae69e162ab28743669c3c4795a28eb78c51b5c2a314ee",
+        "points": 5001
+      },
+      "maximum_error_volts": 6.930319820241948e-07,
+      "passed": true,
+      "floating_pair": "f0/f1 has only R/C connections; UIC specifies zero initial charge, no artificial leakage."
+    },
+    "algebra_record": {
+      "path": "outputs/gf180-compact-coupling-audit-v1/report.json",
+      "sha256": "1a7a2d5a78cad99a9eaac465f7af8a745fb50612d30b17c6f4e28da98d170232"
+    },
+    "algebra_cases": {
+      "before": {
+        "original_nodes": 4058,
+        "resistance_nodes": 37520,
+        "aliases": {},
+        "mutual_pairs": 20386,
+        "expanded_mutual_capacitors": 137599390,
+        "compact_mutual_capacitors": 24458,
+        "native_linear_sources": 65230,
+        "algebra_trials": [
+          {
+            "maximum_current_error_af": 1.3642420526593924e-11,
+            "current_scale_af": 6592.023027548247,
+            "expanded_energy": 4540448.7626243485,
+            "compact_energy": 4540448.7626243485,
+            "kcl_sum": 6.739519532728e-11,
+            "passed": true
+          },
+          {
+            "maximum_current_error_af": 2.3646862246096134e-11,
+            "current_scale_af": 8434.805851942234,
+            "expanded_energy": 4410381.926062285,
+            "compact_energy": 4410381.926062285,
+            "kcl_sum": -5.0393148855187864e-11,
+            "passed": true
+          },
+          {
+            "maximum_current_error_af": 2.2737367544323206e-11,
+            "current_scale_af": 7623.402129175746,
+            "expanded_energy": 4501185.118048554,
+            "compact_energy": 4501185.118048553,
+            "kcl_sum": 2.460222585549954e-10,
+            "passed": true
+          },
+          {
+            "maximum_current_error_af": 1.8189894035458565e-11,
+            "current_scale_af": 6629.759262044665,
+            "expanded_energy": 4441745.759395668,
+            "compact_energy": 4441745.759395668,
+            "kcl_sum": 1.431879788349466e-12,
+            "passed": true
+          }
+        ],
+        "source_sha256": "37bab29ce55d2307cf8b7fc515585a9c29b2954682682acfb4a67c1106e3d863",
+        "diagnostic_capacitance_sha256": "48b6c8552c4b787618fe5d605b20e72fd9d6c9ad93798ae6c035ca9bf596bc81",
+        "resistance_sha256": "35299e5227bab4ba2ebfb25b5594acdf0a84f62a91a96b37570e96e0143eb57e",
+        "deck_sha256": "2b226319cd7e16b86646d4a67d8de9754e515f5b95f481d0a0e7a5ad66f97524",
+        "oracle_sha256": "fc6a8a90d320bfa296868140ef4e9a5e19ef81970d21b89f6e74fb1824ecd71c"
+      },
+      "filled": {
+        "original_nodes": 4969,
+        "resistance_nodes": 39343,
+        "aliases": {},
+        "mutual_pairs": 23968,
+        "expanded_mutual_capacitors": 141872298,
+        "compact_mutual_capacitors": 26280,
+        "native_linear_sources": 74216,
+        "algebra_trials": [
+          {
+            "maximum_current_error_af": 2.637534635141492e-11,
+            "current_scale_af": 6528.444289935174,
+            "expanded_energy": 4658947.4956174735,
+            "compact_energy": 4658947.4956174735,
+            "kcl_sum": 1.1458611495632556e-10,
+            "passed": true
+          },
+          {
+            "maximum_current_error_af": 2.8194335754960775e-11,
+            "current_scale_af": 6299.870417953567,
+            "expanded_energy": 4515906.588735012,
+            "compact_energy": 4515906.588735012,
+            "kcl_sum": 1.6320245068562889e-10,
+            "passed": true
+          },
+          {
+            "maximum_current_error_af": 2.9103830456733704e-11,
+            "current_scale_af": 8406.844852573242,
+            "expanded_energy": 4521570.839659305,
+            "compact_energy": 4521570.839659305,
+            "kcl_sum": 1.8884140453624687e-10,
+            "passed": true
+          },
+          {
+            "maximum_current_error_af": 2.546585164964199e-11,
+            "current_scale_af": 6291.298274187893,
+            "expanded_energy": 4482134.482308343,
+            "compact_energy": 4482134.482308343,
+            "kcl_sum": -2.147602107000629e-10,
+            "passed": true
+          }
+        ],
+        "source_sha256": "3decaef8040eff2832f34d069a4d450909d0bf3c21bfbda0e6159c09434815c4",
+        "diagnostic_capacitance_sha256": "0c2e20f598632986e1565274be78e2614617be6467a00ef1b2114ee95e394542",
+        "resistance_sha256": "5c4aa4193b70c762929783957ae26e9b59b5c304228055dbb39133acd49014c5",
+        "deck_sha256": "a4ed5b1983b96ad34715d55174211186bf4904636f9de52147d1911e3f8797af",
+        "oracle_sha256": "9257838cd053001e66f2fde7003177d71095b4e03bb678c851199bb615698f2c"
+      }
+    },
+    "full_size_native_record": {
+      "path": "outputs/gf180-compact-coupling-native-v2/report.json",
+      "sha256": "9a7e5e0819eee218e499cc6d66c2e3a7ddd4d4aee64922f39393571ea578a2e6"
+    },
+    "full_size_native_cases": {
+      "before": {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/gf180-compact-coupling-native-v2/before/operator.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 16.834666967391968,
+        "passed": true,
+        "samples": 132,
+        "native_deck_sha256": "76addd81baad49715fc68bc8adc2566127f9e40e2b6af605ad8996e5f1c2a9af",
+        "frequencies_hz": [
+          1000000.0,
+          9999999.999999998,
+          99999999.99999997,
+          999999999.9999995
+        ],
+        "physical_nodes": 37520,
+        "maximum_error_amperes": 2.329340604949326e-21,
+        "log_sha256": "28f7d8ad864e242067b8266ab4cb7df9cfb45e6c3bf0d042f4709d9be009b35c",
+        "data_sha256": "12241d9a41a1fd95ec380a6535243642fad83407abf3526ae659169bff149085"
+      },
+      "filled": {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/gf180-compact-coupling-native-v2/filled/operator.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 20.54422640800476,
+        "passed": true,
+        "samples": 132,
+        "native_deck_sha256": "3d0ca5838347c89ed231031206c0ddccaf06de8a0337db75faf429bceebb95cc",
+        "frequencies_hz": [
+          1000000.0,
+          9999999.999999998,
+          99999999.99999997,
+          999999999.9999995
+        ],
+        "physical_nodes": 39343,
+        "maximum_error_amperes": 1.6940658945086007e-21,
+        "log_sha256": "c8df0669a8e798e6734f012bac4523f0026a487d3522b2de1e5c41e67838d45e",
+        "data_sha256": "20d53cbce983c35786c83d0b54a1c9ca416147931f5fdce2880bc35d683a4e16"
+      }
+    },
+    "scope": "All-node algebraic action and energy checks cover the complete mutual operator; native full-size checks measure 33 selected endpoints at four frequencies. Small-circuit native checks cover all endpoints and floating-conductor transients. Intrinsic ground C and physical resistors are unchanged by the proposed factorization."
+  },
+  "failures_retained": [
+    {
+      "record": {
+        "path": "outputs/compact-coupling-v1/report.json",
+        "sha256": "85de6dd8fb5b1083c0cbac724aa8ae8ffd7bc5dda7ec500dd0874ba16656c76b"
+      },
+      "reason": "Polynomial-source transient simulation aborted; original waveform mismatch retained."
+    },
+    {
+      "record": {
+        "path": "outputs/gf180-compact-coupling-native-v1/terminal.json",
+        "sha256": "698a4192d4ba535f096fc5fe341843ffb099b4fcb74d30eee8b3e6da30b3dbea"
+      },
+      "reason": "Incomplete linear frequency sweep rejected; explicit decade grid subsequently passed."
+    },
+    {
+      "record": {
+        "path": "outputs/gf180-rc-candidate-focused.log",
+        "sha256": "98128012aa8dd76fbb4096a33eb146d0c47a1a5b62aaa1724a7f2ae2d07c0c8f"
+      },
+      "reason": "Restricted temporary-file creation/cleanup failed. The identical 24 tests pass with the established workspace TEMP/TMP and local-test permissions."
+    }
+  ],
+  "tests": {
+    "full_suite": {
+      "tests": 1455,
+      "seconds": 688.834,
+      "skips": 62,
+      "failures": 0,
+      "log": {
+        "path": "outputs/gf180-rc-candidate-suite-v1/tests.log",
+        "sha256": "08dff78a555ea1bdefb4871c40606f3b28fd85c6c1d046548ea0b531992bed4f"
+      },
+      "process": {
+        "path": "outputs/gf180-rc-candidate-suite-v1/process.json",
+        "sha256": "ff6f7a0e6dbc95f9dbf51bb83aa9e63ec202ce24b6a0c31d38a536acf9b48ffa"
+      }
+    },
+    "focused": {
+      "tests": 24,
+      "failures": 0,
+      "log": {
+        "path": "outputs/gf180-rc-candidate-focused-elevated.log",
+        "sha256": "75afb1d10d557726ca17704055a4390537b9640c14c95acbfd3ea6fe25772a7f"
+      }
+    }
+  },
+  "archive": {
+    "path": "outputs/gf180-rc-candidate-evidence-v1/evidence.tar.gz",
+    "sha256": "4ebb802969db0434553d569b83f47f2118a8bd3d524e84e4f3097aadf3db381b",
+    "bytes": 24938237
+  },
+  "remaining": [
+    "Integrate and independently validate compact RC export, auxiliary-source identities, contraction and island handling.",
+    "Resolve raw native negative-capacitance roundoff with a bounded provenance-preserving policy and fault controls.",
+    "Handle the full 911-conductor floating network without discarding coupling or introducing leakage.",
+    "Run actual post-fill circuit timing and equivalence on unchanged design constraints.",
+    "Complete all fill rules and production C/D counter, UART and APB acceptance on both operating systems.",
+    "Continue chunks 5 through 12 in order after chunk 4 acceptance."
+  ]
+}

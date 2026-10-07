@@ -234,6 +234,19 @@ reducer also rejects this 911-node component at its 256-node budget. These open
 integration issues and the failed extraction attempts remain in the same record;
 neither the parser nor the acceptance gates were weakened.
 
+The subsequent [RC extraction candidate](GF180_RC_EXTRACTION_CANDIDATE.md)
+corrects misplaced device connection points and includes the earlier repairs
+for device connections across planes and conductors without a driver. Matched
+native counter runs extract every network, preserve 4,184 devices and eight
+ports, and contain no negative resistance-node weights. The 18 used cell
+controls also preserve their device inventories. This is an explicit additional
+engine candidate; the installed runtime is not replaced or newly qualified.
+The full circuit still exceeds the production capacitance expansion budget.
+A compact representation passes independent native small-circuit frequency and
+transient controls, including a corrupted-coefficient negative control. It needs
+production integration and full-layout electrical qualification before chunk 4
+can close. The existing numerical and size guards remain active.
+
 Before each batch, freeze its exact inputs, numerical limits and negative
 controls. After the batch, preserve commands, versions, input/output hashes,
 native reports, measurements and failures. A new device/model/geometry/tool
