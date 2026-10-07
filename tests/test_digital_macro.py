@@ -120,8 +120,8 @@ class DigitalMacroTests(unittest.TestCase):
                 _,result=self.fixture(directory,name=name);(directory/'result.json').write_text(json.dumps(result))
                 before[name]=(directory/'input.json').read_bytes()
             report=qualify(root,root/'report.json')
-            self.assertEqual(len(report['cases']),18)
-            self.assertEqual(sum(c['status']=='rejected' for c in report['cases']),15)
+            self.assertEqual(len(report['cases']),24)
+            self.assertEqual(sum(c['status']=='rejected' for c in report['cases']),20)
             for name,content in before.items():self.assertEqual((root/name/'gds/input.json').read_bytes(),content)
 
 

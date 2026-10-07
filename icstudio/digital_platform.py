@@ -12,7 +12,7 @@ from .model import atomic_write, clone, file_digest, digest
 
 MAX_PLATFORM_BYTES = 1024 * 1024 * 1024
 MAX_LIBERTY_BYTES = 128 * 1024 * 1024
-BUNDLED_PLATFORMS = ('sky130hd', 'gf180', 'ihp-sg13g2')
+BUNDLED_PLATFORMS = ('sky130hd', 'gf180', 'gf180d', 'ihp-sg13g2')
 PLATFORM_LABELS = {'sky130hd':'SKY130 HD', 'gf180':'GF180 MCU C 5 V', 'gf180d':'GF180 MCU D 5 V', 'ihp-sg13g2':'IHP SG13G2'}
 
 # Explicit library and physical options for the pinned ORFS platform layouts.

@@ -17,7 +17,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--orfs',type=Path,required=True)
     parser.add_argument('--output',type=Path,required=True)
-    parser.add_argument('--platform',action='append',choices=['sky130hd','gf180','ihp-sg13g2'])
+    parser.add_argument('--platform',action='append',choices=digital_platform.BUNDLED_PLATFORMS)
     parser.add_argument('--tool',action='append',default=[],metavar='NAME=EXECUTABLE')
     parser.add_argument('--physical',action='store_true',help='Require final GDS, extraction and post-route timing')
     args=parser.parse_args()
@@ -38,7 +38,7 @@ def main():
 
     def retain():atomic_write(output/'report.json',json.dumps(report,indent=2))
 
-    for name in args.platform or ['sky130hd','gf180','ihp-sg13g2']:
+    for name in args.platform or digital_platform.BUNDLED_PLATFORMS:
         entry={'name':name,'status':'running','cases':[]};report['platforms'].append(entry);retain()
         root=output/name;root.mkdir()
         try:

@@ -125,9 +125,9 @@ jobs:
         run: python scripts/qualify_klayout_runtime.py --klayout "$PWD/build/implementation-bin/klayout" --output build/klayout-runtime-controls
       - name: Require real mapped timing, equivalence, fault detection and RTL to GDS
         run: python -m unittest tests.test_digital_implementation -v
-      - name: Require SKY130, GF180 and IHP counter implementation and extracted timing
+      - name: Require SKY130, GF180 C/D and IHP counter implementation and extracted timing
         run: python scripts/qualify_digital_platforms.py --orfs build/orfs --output build/digital-platforms --physical
-      - name: Require UART and APB FIFO proof and physical closure on all three profiles
+      - name: Require UART and APB FIFO proof and physical closure on all four profiles
         run: python scripts/qualify_digital_workloads.py --orfs build/orfs --output build/digital-workloads
       - name: Require final antenna and power-grid checks with actual layout faults
         run: python scripts/qualify_digital_physical_checks.py --evidence build/digital-platforms --output build/digital-physical-checks

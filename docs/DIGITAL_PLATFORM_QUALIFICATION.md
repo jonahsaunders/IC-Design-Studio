@@ -1,8 +1,9 @@
 # Digital process profiles and qualification
 
 Current source can import complete ORFS digital platforms for SKY130 HD,
-GF180MCU and IHP SG13G2. Current source runtime builds bundle these three locked
-platforms and offer them in the platform chooser and CLI. The published
+GF180MCU and IHP SG13G2. The current runtime build configuration includes four
+locked profiles, separating GF180 C and D; its updated package acceptance is
+pending. Verified included profiles appear in the platform chooser and CLI. The published
 0.23.0 desktop runtime still includes only SKY130 HD; these changes do not
 retroactively qualify or change that package.
 
@@ -14,10 +15,11 @@ The profiles target ORFS `eaba6576441bf7c1743ea56ecdb1904210ec02c2`:
 |---|---|---|
 | `sky130hd` | SKY130 HD | TT, 1.80 V, 25 C |
 | `gf180` | GF180 MCU 9-track 5 V; `5LM_1TM`, `9K` | TT 5.00 V / 25 C; SS 4.50 V / 125 C; FF 5.50 V / -40 C |
+| `gf180d` | GF180 MCU D 9-track 5 V; `5LM_1TM`, `11K` | TT 5.00 V / 25 C; SS 4.50 V / 125 C; FF 5.50 V / -40 C |
 | `ihp-sg13g2` | SG13G2 standard cells, nominal 1.2 V | Typical 1.20 V / 25 C; slow 1.08 V / 125 C; fast 1.32 V / -40 C |
 
-The GF180 profile does not qualify 7-track, 1.8/3.3 V libraries, every metal
-stack, or both analog C/D adapters. IHP's higher-voltage cells, SRAMs, I/O,
+The GF180 digital profiles do not qualify 7-track, 1.8/3.3 V libraries, every metal
+stack, or the analog C/D device catalogs. IHP's higher-voltage cells, SRAMs, I/O,
 BiCMOS and RF devices are outside this digital profile. The captured SKY130
 ORFS import profile has only a typical library. Source runtime builds instead
 prepare the matched three-library, three-interconnect SKY130 platform described
