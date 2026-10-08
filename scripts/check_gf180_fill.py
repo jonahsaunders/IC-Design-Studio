@@ -18,11 +18,13 @@ sys.path.insert(0, str(ROOT))
 from icstudio.model import file_digest
 from scripts import gf180_fill_patterns as patterns
 from scripts import gf180_comp_sites as comp_sites
+from scripts import gf180_fill_boundaries as boundaries
 
 LAYERS = {'comp': 22, 'poly': 30, 'm1': 34, 'm2': 36, 'm3': 42, 'm4': 46, 'm5': 81}
 MANUAL = ROOT / 'examples/gf180-fill-manual-lock.json'
 COVERAGE_MANUAL = ROOT / 'examples/gf180-fill-coverage-lock.json'
 PATTERN_MANUAL = ROOT / 'examples/gf180-fill-pattern-lock.json'
+BOUNDARY_MANUAL = ROOT / 'examples/gf180-boundary-manual-lock.json'
 LAYER_NAMES = {'comp': 'COMP', 'poly': 'Poly2',
                **{f'm{i}': f'Metal{i}' for i in range(1, 6)}}
 WINDOW_NM = 200_000
@@ -107,7 +109,7 @@ def metal_density_windows(shapes, bounds):
         partial_windows=sum(not r['complete_window'] for r in rows), windows=rows)
 
 
-def inspect(gds, bounds_um, *, top_name, variant, pattern_plan=None, core_bounds_um=None):
+def inspect(gds, bounds_um, *, top_name, variant, pattern_plan=None, core_bounds_um=None, boundary_plan=None):
     """Inspect written geometry, including entirely absent material layers.
 
     Bounds must come from the fixed design footprint, not from a selected area
@@ -152,6 +154,12 @@ def inspect(gds, bounds_um, *, top_name, variant, pattern_plan=None, core_bounds
     if core is not None:
         comp_placement_space['declared_core'] = comp_sites.inspect_space(circuit['comp'], circuit['poly'], core)
     checks = []
+    boundary_result = dict(status='missing_boundary_plan', qualified=False,
+                           reason='No scribe/frame geometry is inferred from the footprint, core or guard-ring marker.')
+    if boundary_plan is not None:
+        loaded_boundary = boundaries.load_plan(boundary_plan, before, top_name, bounds)
+        boundary_result = boundaries.inspect_boundaries(dummy, loaded_boundary)
+        checks.extend(boundary_result['checks'])
     drawing_patterns = None; pattern_digest = None; pattern_requirements = []
 
     def check(rule, layer, count, **details):
@@ -339,6 +347,8 @@ def inspect(gds, bounds_um, *, top_name, variant, pattern_plan=None, core_bounds
             exclude('DM.8', name, marker, 6000)
     if file_digest(gds) != before:
         raise ValueError('The input changed while it was being measured.')
+    if boundary_plan is not None:
+        boundaries.verify_sources(loaded_boundary)
     failed = [c for c in checks if c['status'] == 'failed']
     open_requirements = list(OPEN_REQUIREMENTS)
     if drawing_patterns is not None:
@@ -348,7 +358,7 @@ def inspect(gds, bounds_um, *, top_name, variant, pattern_plan=None, core_bounds
         open_requirements.append('DE.1 design justification for using exclusion markers')
     if unsupported:
         open_requirements.append('DE.3 side-length exception for large nonrectangular exclusion regions')
-    return dict(schema=6, status='failed' if failed else 'checks_passed_coverage_incomplete',
+    return dict(schema=7, status='failed' if failed else 'checks_passed_coverage_incomplete',
         qualified=False, variant=variant, metal_stack='5LM_1TM',
         scope='Supplemental density measurements, dummy geometry, declared drawing recipe, clearances, well/marker exclusions, exclusion-marker geometry and unsupported memory-layer detection only.',
         gds_sha256=before, checker_sha256=file_digest(Path(__file__)),
@@ -363,6 +373,9 @@ def inspect(gds, bounds_um, *, top_name, variant, pattern_plan=None, core_bounds
         pattern_manual_lock_sha256=file_digest(PATTERN_MANUAL),
         comp_placement_space=comp_placement_space,
         comp_space_checker_sha256=file_digest(Path(comp_sites.__file__)),
+        boundary_checks=boundary_result,
+        boundary_checker_sha256=file_digest(Path(boundaries.__file__)),
+        boundary_manual_lock_sha256=file_digest(BOUNDARY_MANUAL),
         checks=checks, failed_checks=len(failed), unqualified_requirements=open_requirements)
 
 
@@ -376,11 +389,13 @@ def main():
                         help='Optional original core rectangle for a separate COMP site analysis; never replaces the die or density denominator.')
     parser.add_argument('--pattern-plan', type=Path,
                         help='Optional declared alternating-stagger-v1 drawing recipe; required to check drawing-pattern membership.')
+    parser.add_argument('--boundary-plan', type=Path,
+                        help='Optional source-bound declaration of prime-die, scribe, frame and SLM geometry; never inferred from the layout extent.')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists(): raise ValueError('Choose a new report path; retain prior evidence.')
     report = inspect(args.gds, args.bounds, top_name=args.top, variant=args.variant,
-                     pattern_plan=args.pattern_plan, core_bounds_um=args.core_bounds)
+                     pattern_plan=args.pattern_plan, core_bounds_um=args.core_bounds, boundary_plan=args.boundary_plan)
     args.output.write_text(json.dumps(report, indent=2)+'\n', encoding='utf-8', newline='\n')
     print(json.dumps({'status':report['status'], 'failed_checks':report['failed_checks'], 'qualified':False}))
     return 1 if report['failed_checks'] else 2

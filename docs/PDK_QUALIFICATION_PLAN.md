@@ -463,6 +463,23 @@ Its paired filled run failed numerically; the newer precision/COLAMD runs have
 their own acceptance. This result does not establish post-fill timing or PVT
 coverage.
 
+The [declared-boundary checks](validation/gf180-fill-boundaries-2026-10-08.json)
+add DCF.7a/b/c/d and DPF.7 clearances using an explicit, source-bound floorplan.
+The [boundary format](GF180_FILL_BOUNDARIES.md) identifies prime die, scribe,
+frame, frame-cell and SLM test regions. Fill crossing or missing its declared
+region fails coverage. Frame-cell non-ET exceptions must be explicit, and
+dummy poly outside prime die is rejected. The checker enforces the main
+table's 26 micrometre DCF.7a distance while retaining the appendix's conflicting
+8 micrometre value. Source identity alone does not establish complete-chip
+floorplan correctness, guard-ring connectivity or reticle/package acceptance.
+
+Eleven additional written-GDS tests cover exact limits, 5 nm faults, all four
+edges, diagonal distances, a scribe polygon with a hole, recursive rotations,
+unclassified/crossing polygons and stale or changing source identities. The
+counter's original GDS and density denominator are unchanged. It has no boundary
+declaration, so the checker reports `missing_boundary_plan`; no chip-level
+geometry is invented and chunk 4 remains incomplete.
+
 See [release targets](PUBLIC_RELEASE_TARGETS.md),
 [digital qualification](DIGITAL_PLATFORM_QUALIFICATION.md),
 [bundled PDK scope](PDK_GUIDE.md) and
