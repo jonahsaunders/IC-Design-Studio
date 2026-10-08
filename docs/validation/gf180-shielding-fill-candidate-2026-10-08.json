@@ -1,0 +1,182 @@
+{
+  "schema": 1,
+  "status": "diagnostic-candidate; chunk-4-incomplete",
+  "qualified": false,
+  "observed_at": "2026-10-08T02:11:39.336968+00:00",
+  "branch": "experimental",
+  "application_source": "eec7dad93f9f484ab8d23a2b3871b068268bb43f",
+  "application_backend": "22673d8ea37dd68b3a44fc5806263a3f9fc602b10bb5bad5cee64a5f6ba41cee",
+  "publication": "Experimental candidate patches and qualification tools. Production application engine selection and installed runtime are unchanged.",
+  "source_files": {
+    "examples/gf180-shield-rc-engine-lock.json": "2033cb8d34e06f039b978b4910edd548df6483b4e203efddc2995134aff4f562",
+    "examples/gf180-diagonal-rc-engine-lock.json": "201f8d68d131ef98944bc7f4859b149d1385d416d12608d4705cb73389c917de",
+    "packaging/physical/magic-gf180-shield-rc.patch": "df30364946b0868060d0f711a04e4c47f1bbeeff9bfe2cda4637ab36bac71bd7",
+    "packaging/physical/magic-gf180-diagonal-rc.patch": "2d5234ebf1375b09dceb713c5843cae30ea837b98f09674279846ad405df04cf",
+    "scripts/qualify_magic_shielding.py": "1c4742d5c0ffa7a822334ec5e68476737cd5c27b5cceb8385ea0249e11c2745d",
+    "scripts/qualify_magic_contact_shielding.py": "90764e50a6e248b49d7d4e4155fbac2f9f91dea21df4f72f577d9284952384aa",
+    "scripts/qualify_magic_diagonal_shielding.py": "922f472718aace144021cd9a6badb69bf51d45a2406ffd5f42b74bfec1b7989f",
+    "scripts/qualify_magic_triangle_arithmetic.py": "b511c2627ea7ced4d5cac7027c827baedd25022dedcf7e73d2aedf9aa7643c2a",
+    "scripts/native_magic_triangle_control.c": "335daaa5f633f3cad788a92664e24dc3519900d042b24c321c5b234847e27fa9",
+    "scripts/check_gf180_fill.py": "0b499f24a2c8ff16ad9d6114cd45544612abd0bc0f2c51170257e963a4627e9a",
+    "tests/test_gf180_fill_checks.py": "c71ba16780c7e05990d2c78219d069b6c2190054594fc8540aad6455334117f9"
+  },
+  "native_reports": {
+    "triangle_arithmetic": {
+      "path": "outputs/gf180-triangle-arithmetic-controls-v2/report.json",
+      "sha256": "0580ec4f97dc82901a777e88f3b964fa3f6c6808b7768ab4964c4180168b040c"
+    },
+    "rectangular_shielding": {
+      "path": "outputs/gf180-rectangular-shield-controls-v1/report.json",
+      "sha256": "fc96d28dfac55014593b8fabd883a49866e679c9d126897a3be345ca3aa9d183"
+    },
+    "contact_material": {
+      "path": "outputs/gf180-contact-shield-controls-v8/report.json",
+      "sha256": "20a7512ccdefe7adaf4af538c692a42daf1a4afec75cb267b766f412206fdd53"
+    },
+    "diagonal_bounds": {
+      "path": "outputs/gf180-diagonal-bounds-v3/report.json",
+      "sha256": "a9f1bc07a8d2042fd955b49d38483499fb35e463d4c4aa5798ed6f6d81b80e3a"
+    },
+    "fringe_arithmetic": {
+      "path": "outputs/gf180-fringe-arithmetic-v1/audit.json",
+      "sha256": "ed6f2fa6d620b7d09b0b0bf7f749980d8e10062ed9ddff26819751ba4358ed63"
+    },
+    "full_counter_exports": {
+      "path": "outputs/gf180-diagonal-rc-v1/report.json",
+      "sha256": "01472ce30a00b5f04911e56f8f0fa6f7cc09dfbd6b6e784fd89242dc67a252b3"
+    },
+    "full_counter_comparison": {
+      "path": "outputs/gf180-diagonal-rc-v1/comparison.json",
+      "sha256": "8e8891f67c1856df7d2c9a430f11b7afc9096c8e8d6d81e54a07fcec23027ff6"
+    },
+    "optional_corner_failure": {
+      "path": "outputs/gf180-diagonal-corner-baseline-v2/report.json",
+      "sha256": "460bc230c91e9cec2683b6ff8f1ed08bd05946732e7972373601e1bc5d65c013"
+    }
+  },
+  "results": {
+    "triangle_controls": 30,
+    "rectangular_controls": 20,
+    "contact_controls": 20,
+    "diagonal_controls": 20,
+    "diagonal_baseline_faults_detected": 20,
+    "fringe_arithmetic_controls": 126,
+    "fringe_arithmetic_maximum_relative_error": 2.9494231301882147e-15,
+    "original_counter_exports": 2,
+    "transistor_parameter_records_per_export": 4184,
+    "ports_per_export": 8,
+    "floating_fill_conductors_retained": 911,
+    "raw_capacitance_records_and_resistance_graph_equal_to_v3": true,
+    "complete_RC_weight_repeatability_qualified": false
+  },
+  "numerical_scope": "Same native straight-edge fringe model integrated over actual clipped convex regions. Complete shielding has no unshielded leaf contribution. This is model arithmetic/geometry consistency, not independent calibrated field accuracy.",
+  "retained_failures": [
+    "First native compile lacked the standard-library qsort declaration; corrected build retained separately.",
+    "Initial 25 nm staircase bounds were too wide for the frozen 0.5% uncertainty gate. Refined through 10 and 5 nm without relaxing the limit.",
+    "Historical mixed shielding comparator expects equality with a known wrong diagonal baseline. Rectangular compatibility and independent diagonal bounds now have separate required runners; historical failed reports retained.",
+    "Corner control with default options did not exercise the optional corner model. Enabling extract do corners 1 confirms four diagonal corner failures.",
+    "Earlier full-counter transient encodings timed out or failed small transient controls; none establish a functional pass."
+  ],
+  "fill_clearances": {
+    "windows": {
+      "path": "outputs/gf180-fill-clearances-v1/windows.json",
+      "sha256": "0d54cb56aeb1912deae95c0179e4d9877124f4c406e83b3574bd5c23862eac13"
+    },
+    "linux": {
+      "path": "outputs/gf180-fill-clearances-v1/linux.json",
+      "sha256": "0d54cb56aeb1912deae95c0179e4d9877124f4c406e83b3574bd5c23862eac13"
+    },
+    "identical_reports": true,
+    "checks": 87,
+    "failed_checks": 0,
+    "windows_tests": {
+      "path": "outputs/gf180-fill-clearances-v1/windows-tests.log",
+      "sha256": "6969f63ff8c34fff02ffca8bfa6524a5e703d72e77454097f475e4d06b70bacb"
+    },
+    "linux_tests": {
+      "path": "outputs/gf180-fill-clearances-v1/linux-tests.log",
+      "sha256": "6b4a5f6e1be8d84fff4db65e66349a66e2890c1c60042daa381f1dc335274fe6"
+    },
+    "tests_each_os": 14,
+    "scope": "Written-GDS inside/outside/crossing/touching/diagonal/hole well-boundary controls; exact and 5 nm short exclusion clearances; contained-fill faults and wrong layer-map rejection. The actual C counter passes this expanded subset; complete fill coverage remains incomplete.",
+    "remaining": [
+      "Declared die/prime-die/scribe scope verified against the complete-chip floorplan",
+      "DCF.1a empty-field coverage and local COMP density",
+      "DCF/DPF scribe/frame scope and COMP-to-pad RF guideline",
+      "DCF exclusion-edge tie/fill rows",
+      "DM.4-7 adjacent-layer separation and overlap interpretation",
+      "DM.8 alternate embedded-memory marker aliases (including YMTP_MK)",
+      "Required drawing patterns and offsets (DCF.2a/3, DPF.2a/3, DM.2a/9/10)",
+      "200 x 200 um metal windows at 100 um steps and foundry edge treatment",
+      "Independent full native geometry, antenna and final-layout LVS",
+      "Post-fill extraction, timing and foundry acceptance"
+    ]
+  },
+  "open": [
+    "Full frozen before/filled 900 ns circuit behavior and post-fill timing.",
+    "Printed resistance-node capacitance-weight repeatability and strict faster-encoding integration.",
+    "Optional corner and direct-overlap diagonal geometry; general extraction accuracy remains unqualified.",
+    "All remaining fill rules, production C/D counter/UART/APB and both installed OS acceptance."
+  ],
+  "transient": {
+    "live_record": "outputs/gf180-counter-current-sum-transient-v2/report.json",
+    "snapshot": {
+      "path": "outputs/gf180-diagonal-fill-checkpoint-v1/transient-snapshot.json",
+      "sha256": "8c8e5e32db843079b7234cf9917e940659d4b9be7aace8cb3323ca4e25cc90af"
+    },
+    "tool_session": 40555,
+    "status": "running",
+    "observed_at": "2026-10-08T02:14:27.980742+00:00",
+    "progress": {
+      "before": {
+        "elapsed_seconds": 1887.6550538539886,
+        "cpu_seconds": 1941.97,
+        "last_reported_simulation_seconds": 1.89011e-07
+      }
+    }
+  },
+  "full_suite": {
+    "live_record": "outputs/gf180-shield-fill-suite-v1/process.json",
+    "snapshot": {
+      "path": "outputs/gf180-diagonal-fill-checkpoint-v1/full_suite-snapshot.json",
+      "sha256": "c908b558cd95a3a1db89f6888d3ed118f22f24b1ff2a237db9aa270b7fac9026"
+    },
+    "tool_session": 5056,
+    "status": "completed",
+    "terminal_record": {
+      "path": "outputs/gf180-shield-fill-suite-v1/process.json",
+      "sha256": "c908b558cd95a3a1db89f6888d3ed118f22f24b1ff2a237db9aa270b7fac9026"
+    }
+  },
+  "evidence_archive": {
+    "path": "outputs/gf180-diagonal-fill-checkpoint-v1/evidence.tar.gz",
+    "sha256": "3e0239c15ac3deebdb451c0b69f026643ae1d413d4bb3fad5dd57bc1ce587944",
+    "bytes": 36732644
+  },
+  "verification": {
+    "status": "passed",
+    "full_suite": {
+      "tests": 1467,
+      "skips": 62,
+      "failures": 0,
+      "test_seconds": 282.521,
+      "process": {
+        "path": "outputs/gf180-shield-fill-suite-v1/process.json",
+        "sha256": "c908b558cd95a3a1db89f6888d3ed118f22f24b1ff2a237db9aa270b7fac9026"
+      },
+      "log": {
+        "path": "outputs/gf180-shield-fill-suite-v1/tests.log",
+        "sha256": "f6db58d7bb8e2c18dc1e796881d23e35049e75905a5b64ac406b2003a0c2de86"
+      }
+    },
+    "release_check": {
+      "path": "outputs/gf180-diagonal-fill-release-check.log",
+      "sha256": "a990c90bc4f3e0fbb879b58247524e9d2e4f1aad64a3f7bdf86f03a62df74898"
+    },
+    "archive": {
+      "path": "outputs/gf180-diagonal-fill-verification-v1/evidence.tar.gz",
+      "sha256": "1ada30ad9f5934c49543343b1fb8fb6b6a32d3ec868f9ed2de8865c116ce202a",
+      "bytes": 43641
+    }
+  }
+}

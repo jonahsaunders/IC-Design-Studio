@@ -11,6 +11,7 @@ import json
 import math
 from pathlib import Path
 import sys
+import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -18,6 +19,12 @@ from icstudio.model import file_digest
 
 LAYERS = {'comp': 22, 'poly': 30, 'm1': 34, 'm2': 36, 'm3': 42, 'm4': 46, 'm5': 81}
 MANUAL = ROOT / 'examples/gf180-fill-manual-lock.json'
+WELLS = {'Nwell': (21, 0), 'DNWELL': (12, 0),
+         'LVPWELL': (204, 0), 'Dualgate': (55, 0)}
+MARKERS = {'RES_MK': (110, 5), 'NDMY': (111, 5), 'IND_MK': (151, 5),
+           'Pad': (37, 0), 'MTPMARK': (122, 5), 'PMNDMY': (152, 5),
+           'FuseTop': (75, 0), 'POLYFUSE': (220, 0),
+           'FuseWindow_D': (96, 1), 'OTP_MK': (173, 5)}
 # The manual's DCF.1b/1d and PL.8/Mn.4 global limits. Metal5 is also
 # MetalTop in C/D's 5LM stack: never count MT.3 as a sixth physical layer.
 LIMITS = {'comp': (25, 70), 'poly': (14, 100),
@@ -25,15 +32,25 @@ LIMITS = {'comp': (25, 70), 'poly': (14, 100),
 OPEN_REQUIREMENTS = [
     'Declared die/prime-die/scribe scope verified against the complete-chip floorplan',
     'DCF.1a empty-field coverage and local COMP density',
-    'DCF/DPF well-boundary, marking-layer, scribe, pad and exclusion rules',
+    'DCF/DPF scribe/frame scope and COMP-to-pad RF guideline',
     'DCF exclusion-edge tie/fill rows',
     'DM.4-7 adjacent-layer separation and overlap interpretation',
-    'DM.8 exclusion regions and clearance',
+    'DM.8 alternate embedded-memory marker aliases (including YMTP_MK)',
     'Required drawing patterns and offsets (DCF.2a/3, DPF.2a/3, DM.2a/9/10)',
     '200 x 200 um metal windows at 100 um steps and foundry edge treatment',
     'Independent full native geometry, antenna and final-layout LVS',
     'Post-fill extraction, timing and foundry acceptance',
 ]
+
+
+def verify_layer_map(variant):
+    """Bind supplemental rule operands to the selected bundled PDK's map."""
+    path = ROOT / f'icstudio/assets/pdks/gf180mcu{variant}/libs.tech/klayout/gf180mcu.lyp'
+    sources = {item.text for item in ET.parse(path).iter('source')}
+    for name, (number, datatype) in {**WELLS, **MARKERS}.items():
+        if f'{name} {number}/{datatype}@1' not in sources:
+            raise ValueError(f'The selected PDK layer map does not identify {name} as {number}/{datatype}.')
+    return path
 
 
 def region(layout, top, number, datatype):
@@ -52,6 +69,7 @@ def inspect(gds, bounds_um, *, top_name, variant):
     import klayout.db as k
     if variant not in ('C', 'D'):
         raise ValueError('Only the GF180 C/D five-metal stacks are supported.')
+    layer_map = verify_layer_map(variant)
     if len(bounds_um) != 4 or any(not math.isfinite(v) or
             not math.isclose(v * 1000, round(v * 1000), abs_tol=1e-7, rel_tol=0) for v in bounds_um):
         raise ValueError('Declare four finite footprint coordinates on the 1 nm database grid.')
@@ -71,6 +89,8 @@ def inspect(gds, bounds_um, *, top_name, variant):
         raise ValueError('Unexpected sixth metal in the selected five-metal stack.')
     circuit = {name: region(layout, top, number, 0) for name, number in LAYERS.items()}
     dummy = {name: region(layout, top, number, 4) for name, number in LAYERS.items()}
+    wells = {name: region(layout, top, *pair) for name, pair in WELLS.items()}
+    markers = {name: region(layout, top, *pair) for name, pair in MARKERS.items()}
     checks = []
 
     def check(rule, layer, count, **details):
@@ -117,14 +137,53 @@ def inspect(gds, bounds_um, *, top_name, variant):
     separation('DPF.13', 'poly', 'm2', 2000)
     for name in ('m1', 'm2', 'm3', 'm4', 'm5'):
         separation('DM.3', name, name, 2000)
+
+    # A dummy may lie inside or outside a well, but it must not cross or
+    # approach either side of its boundary.  A well is not an exclusion area.
+    for name, prefix, distances in (
+            ('comp', 'DCF', (1300, 4000, 1300, 1300)),
+            ('poly', 'DPF', (1000, 2000, 1000, 1000))):
+        for suffix, (well_name, well), distance in zip('abcd', wells.items(), distances):
+            inside = dummy[name].inside(well)
+            crossing = dummy[name].interacting(well) - inside
+            inner_pairs = well.enclosing_check(inside, distance)
+            outer_pairs = dummy[name].separation_check(well, distance)
+            check(f'{prefix}.6{suffix}', name,
+                  crossing.count() + inner_pairs.count() + outer_pairs.count(),
+                  boundary_layer=well_name, minimum_um=distance/1000,
+                  boundary_regions=well.count())
+
+    def exclude(rule, name, marker_name, distance):
+        target = markers[marker_name]
+        # Include overlap explicitly; separation alone does not detect a
+        # dummy completely contained within an exclusion marker.
+        overlap = (dummy[name] & target).merged()
+        pairs = dummy[name].separation_check(target, distance)
+        check(rule, name, overlap.count() + pairs.count(),
+              exclusion_layer=marker_name, minimum_um=distance/1000,
+              exclusion_regions=target.count())
+
+    for rule, marker, distance in (
+            ('DCF.8a', 'RES_MK', 3500), ('DCF.11a', 'NDMY', 3500),
+            ('DCF.12/13-exclusion', 'IND_MK', 3000)):
+        exclude(rule, 'comp', marker, distance)
+    for rule, marker, distance in (
+            ('DPF.8', 'RES_MK', 19700), ('DPF.9', 'Pad', 6700),
+            ('DPF.11', 'NDMY', 29700), ('DPF.14/15', 'IND_MK', 3000),
+            ('DPF.16/17', 'MTPMARK', 3000), ('DPF.18/19', 'PMNDMY', 8000)):
+        exclude(rule, 'poly', marker, distance)
+    for name in ('m1', 'm2', 'm3', 'm4', 'm5'):
+        for marker in ('FuseTop', 'POLYFUSE', 'FuseWindow_D', 'PMNDMY', 'MTPMARK', 'OTP_MK'):
+            exclude('DM.8', name, marker, 6000)
     if file_digest(gds) != before:
         raise ValueError('The input changed while it was being measured.')
     failed = [c for c in checks if c['status'] == 'failed']
-    return dict(schema=1, status='failed' if failed else 'checks_passed_coverage_incomplete',
+    return dict(schema=2, status='failed' if failed else 'checks_passed_coverage_incomplete',
         qualified=False, variant=variant, metal_stack='5LM_1TM',
-        scope='Supplemental global-density, dummy-size/grid/spacing and selected circuit-clearance checks only.',
+        scope='Supplemental global-density, dummy-size/grid/spacing, selected circuit clearances, well-boundary and marking-layer exclusions only.',
         gds_sha256=before, checker_sha256=file_digest(Path(__file__)),
         manual_lock_sha256=file_digest(MANUAL), klayout_python_version=k.__version__,
+        layer_map_sha256=file_digest(layer_map),
         top=top_name, bounds_um=list(bounds_um), area_um2=bounds.area()/1e6,
         geometry_extent_um=[v/1000 for v in (extent.left, extent.bottom, extent.right, extent.top)],
         density=density, checks=checks, failed_checks=len(failed),

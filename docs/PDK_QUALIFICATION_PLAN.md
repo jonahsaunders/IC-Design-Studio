@@ -251,12 +251,44 @@ resistors, respectively. The full floating network is retained. Independent
 small-circuit native frequency, transient and corrupted-coefficient controls
 pass for the production generator.
 
-This integration is not chunk 4 acceptance. Full-counter runs still use the
-previously audited diagnostic roundoff copies; raw parsing remains strict.
-The next batches must establish a bounded raw-roundoff policy, actual post-fill
-circuit behavior and timing, complete fill rules, then production C/D counter,
-UART and APB acceptance on both operating systems. All original design
-constraints and numerical/size guards remain in force.
+The initial integration record is not chunk 4 acceptance. Its full-counter
+exports used the previously audited diagnostic roundoff copies; raw parsing
+remains strict. All original design constraints and numerical/size guards
+remain in force.
+
+The [shielding and fill follow-up](validation/gf180-shielding-fill-candidate-2026-10-08.json)
+records two additional explicit engine candidates. Contact-material shielding
+and floating-point triangle-resistance corrections allow both counter layouts
+to extract and export from untouched inputs, preserving all devices, ports and
+floating fill conductors. The later polygon candidate carries actual diagonal
+regions through each shielding plane. Twenty independent diagonal controls
+pass against inside/outside Manhattan bounds refined to the native grid, while
+twenty rectangular and twenty contact controls retain their results. The exact
+strip-integration function also passes 126 independently integrated numerical
+cases. The two full counters retain identical original capacitance records and
+the same resistance graphs after accounting for internal node names.
+
+These are bounded geometry and arithmetic results, not calibrated extraction
+accuracy. Printed resistance-node capacitance weights still vary slightly
+between extractions. The separately enabled corner model retains four diagonal
+failures, and direct-overlap diagonal coverage remains open. The default engine
+and installed application runtime are unchanged. Full-counter transient and
+post-fill timing acceptance are still pending; faster model encodings remain
+experiments until their export and fault checks are integrated.
+
+The supplemental fill checker now verifies both sides of well boundaries and
+the documented marking-layer exclusions, including contained dummy polygons
+that a spacing check alone misses. Its operands are checked against the selected
+C/D layer map. Fourteen written-GDS tests pass on each operating system,
+including exact-limit, 5 nm short, hole and diagonal-boundary controls. Both
+systems produce the same 87-check report for the filled C counter with no
+failures in the implemented subset. Local density, drawing patterns, adjacent
+layers, embedded-memory marker aliases and complete boundary/scribe scope
+remain explicit gaps. The report still returns `qualified: false`.
+
+Complete fill rules, actual post-fill circuit behavior and timing, then
+production C/D counter, UART and APB acceptance on both operating systems are
+required before chunk 5.
 
 Before each batch, freeze its exact inputs, numerical limits and negative
 controls. After the batch, preserve commands, versions, input/output hashes,

@@ -2,6 +2,7 @@
 from pathlib import Path
 import tempfile
 import unittest
+from unittest import mock
 
 import klayout.db as k
 from scripts import check_gf180_fill as fill
@@ -88,6 +89,95 @@ class FillChecksTests(unittest.TestCase):
             report=self.inspect(variant=variant)
             self.assertEqual(report['status'],'checks_passed_coverage_incomplete')
             self.assertFalse(report['qualified']); self.assertTrue(report['unqualified_requirements'])
+
+    def test_well_clearance_applies_inside_outside_and_across_boundary(self):
+        for variant in ('C', 'D'):
+            for dummy_layer, name, size, prefix, distances in (
+                    (22, 'comp', 5000, 'DCF', (1300, 4000, 1300, 1300)),
+                    (30, 'poly', 5600, 'DPF', (1000, 2000, 1000, 1000))):
+                self.shape(dummy_layer, 4, (40000,40000,40000+size,40000+size))
+                for suffix, well_layer, distance in zip('abcd', (21,12,204,55), distances):
+                    examples = [
+                        ('outside-limit', (20000,20000,40000-distance,80000), False),
+                        ('outside-short', (20000,20000,40005-distance,80000), True),
+                        ('inside-limit', (40000-distance,40000-distance,
+                                          40000+size+distance,40000+size+distance), False),
+                        ('inside-short', (40005-distance,40000-distance,
+                                          40000+size+distance,40000+size+distance), True),
+                        ('crossing', (20000,20000,42000,80000), True),
+                        ('touching', (20000,20000,40000,80000), True),
+                    ]
+                    for label, box, expected in examples:
+                        with self.subTest(variant=variant, dummy=name, well=well_layer, case=label):
+                            self.layout.clear_layer(self.layout.layer(well_layer,0))
+                            self.shape(well_layer,0,box)
+                            self.assertEqual(self.failed(self.inspect(variant=variant),
+                                f'{prefix}.6{suffix}',name),expected)
+                    self.layout.clear_layer(self.layout.layer(well_layer,0))
+                self.layout.clear_layer(self.layout.layer(dummy_layer,4))
+
+    def test_well_hole_boundary_is_checked(self):
+        self.shape(22,4,(40000,40000,45000,45000))
+        for gap, expected in ((1300,False),(1295,True)):
+            with self.subTest(gap=gap):
+                index=self.layout.layer(21,0);self.layout.clear_layer(index)
+                ring=k.Region(k.Box(20000,20000,80000,80000))-k.Region(
+                    k.Box(40000-gap,40000-gap,45000+gap,45000+gap))
+                self.top.shapes(index).insert(ring)
+                self.assertEqual(self.failed(self.inspect(),'DCF.6a','comp'),expected)
+
+    def test_diagonal_well_clearance_uses_physical_distance(self):
+        self.shape(22,4,(20000,20000,25000,25000))
+        # The perpendicular distance to x+y=c is delta/sqrt(2).
+        # Both controls stay on the 5 nm grid and bracket 1.3 um.
+        for inside in (True,False):
+            for delta,expected in ((1840,False),(1830,True)):
+                with self.subTest(inside=inside,delta=delta):
+                    c=50000+delta if inside else 40000-delta
+                    index=self.layout.layer(21,0);self.layout.clear_layer(index)
+                    self.top.shapes(index).insert(k.Polygon([k.Point(0,0),k.Point(c,0),k.Point(0,c)]))
+                    self.assertEqual(self.failed(self.inspect(),'DCF.6a','comp'),expected)
+
+    def test_marker_clearances_and_contained_fill_are_detected(self):
+        # Independent expected distances from the pinned DCF/DPF/DM tables.
+        cases=[
+            (22,'comp',5000,'DCF.8a','RES_MK',110,5,3500),
+            (22,'comp',5000,'DCF.11a','NDMY',111,5,3500),
+            (22,'comp',5000,'DCF.12/13-exclusion','IND_MK',151,5,3000),
+            (30,'poly',5600,'DPF.8','RES_MK',110,5,19700),
+            (30,'poly',5600,'DPF.9','Pad',37,0,6700),
+            (30,'poly',5600,'DPF.11','NDMY',111,5,29700),
+            (30,'poly',5600,'DPF.14/15','IND_MK',151,5,3000),
+            (30,'poly',5600,'DPF.16/17','MTPMARK',122,5,3000),
+            (30,'poly',5600,'DPF.18/19','PMNDMY',152,5,8000),
+        ]
+        for number,name in ((34,'m1'),(36,'m2'),(42,'m3'),(46,'m4'),(81,'m5')):
+            for marker,layer,datatype in (('FuseTop',75,0),('POLYFUSE',220,0),
+                    ('FuseWindow_D',96,1),('PMNDMY',152,5),('MTPMARK',122,5),('OTP_MK',173,5)):
+                cases.append((number,name,2000,'DM.8',marker,layer,datatype,6000))
+        for variant in ('C','D'):
+            for number,name,size,rule,marker,layer,datatype,distance in cases:
+                self.shape(number,4,(20000,20000,20000+size,20000+size))
+                right=20000+size
+                for label,box,expected in (
+                        ('limit',(right+distance,20000,right+distance+7000,27000),False),
+                        ('short',(right+distance-5,20000,right+distance+6995,27000),True),
+                        ('touch',(right,20000,right+7000,27000),True),
+                        ('contained',(19000,19000,right+1000,20000+size+1000),True)):
+                    with self.subTest(variant=variant, dummy=name, rule=rule, marker=marker, case=label):
+                        index=self.layout.layer(layer,datatype);self.layout.clear_layer(index)
+                        self.shape(layer,datatype,box)
+                        checks=[c for c in self.inspect(variant=variant)['checks']
+                                if c['rule']==rule and c['layer']==name and c.get('exclusion_layer')==marker]
+                        self.assertEqual(len(checks),1)
+                        self.assertEqual(checks[0]['status']=='failed',expected)
+                self.layout.clear_layer(self.layout.layer(layer,datatype))
+                self.layout.clear_layer(self.layout.layer(number,4))
+
+    def test_wrong_layer_identity_cannot_be_reported_as_absent(self):
+        with mock.patch.dict(fill.MARKERS, {'NDMY': (111, 0)}):
+            with self.assertRaisesRegex(ValueError,'layer map'):
+                self.inspect()
 
 
 if __name__ == '__main__': unittest.main()
