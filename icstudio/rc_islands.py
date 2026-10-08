@@ -32,6 +32,11 @@ def prune(source,target,*,physical_devices=(),normalization=None):
             if active:raise ValueError('RC island analysis requires one flat subcircuit.')
             declarations+=1;active=True;anchors.update(t[2:])
         elif key=='.ends':active=False
+        elif key in auxiliary:
+            if not active or t!=auxiliary[key]:raise ValueError('Compact RC helper changed before island analysis.')
+            # Authenticated helper R terminate only internal sums. They are not
+            # physical wire edges and must never join unrelated islands via 0.
+            if key.startswith(('g','e')):anchors.update(t[1:5])
         elif key in physical and key.startswith(('r','c')):
             if not active or len(t)<4:raise ValueError('Unsupported physical RC device.')
             anchors.update(t[1:3])
@@ -50,9 +55,6 @@ def prune(source,target,*,physical_devices=(),normalization=None):
             idx=5 if key.startswith('m') else next((i for i,v in enumerate(t) if '=' in v),len(t))-1
             if not active or idx<2:raise ValueError('Unsupported RC device.')
             anchors.update(t[1:idx])
-        elif key in auxiliary:
-            if not active or t!=auxiliary[key]:raise ValueError('Compact RC source changed before island analysis.')
-            anchors.update(t[1:5])
         else:raise ValueError('Unsupported RC island record: '+key)
     if active or declarations!=1:raise ValueError('RC island analysis requires one complete flat subcircuit.')
     anchored={find(n) for n in anchors}
@@ -63,7 +65,8 @@ def prune(source,target,*,physical_devices=(),normalization=None):
     report={'source_sha256':file_digest(source),'electrical_sha256':file_digest(target),
             'removed_resistors':sorted(dropped),'components':len(components),
             'physical_devices':sorted(physical),
-            'preserved_compact_sources':len(auxiliary),
+            'preserved_compact_sources':sum(n.startswith(('e','g')) for n in auxiliary),
+            'preserved_compact_resistors':sum(n.startswith('r') for n in auxiliary),
             'criterion':'Resistor-only connected component with no port, device terminal or capacitor endpoint. All observable circuit lines retained verbatim.'}
     atomic_write(str(target)+'.islands.json',json.dumps(report,indent=2))
     return report

@@ -36,8 +36,10 @@ A factorized model can retain the same endpoint equations. For original net
 capacitance `D_a = sum_b(C_ab)`, and buffered neighbor potential
 `U_a = sum_b(C_ab W_b) / D_a`. A capacitor `D_a w_ai` from each physical
 endpoint to `U_a` gives the same endpoint current as the expanded network.
-Native linear voltage sources implement the weighted sums. Their auxiliary
-nodes are internal mathematical variables, not new circuit ports or drivers.
+The initial implementation uses linear voltage-source chains for the weighted
+sums. The current implementation uses controlled-current sums with buffered
+outputs, described below. Their auxiliary nodes are internal mathematical
+variables, not new circuit ports or drivers.
 
 The [native qualification runner](../scripts/qualify_compact_rc_coupling.py)
 compares every endpoint's frequency response with an independently constructed
@@ -125,9 +127,50 @@ The fixture fixes a 5 V supply, 25 C temperature and zero-charge startup before
 execution. This device-only control establishes the functional reference for
 the next comparison; it does not include extracted interconnect or fill coupling.
 
-The [integration evidence](validation/gf180-compact-export-2026-10-07.json)
-binds the source, native results and regression suite. Full-counter exports still
-use the earlier audited copies that normalize six minute negative-capacitance
-roundoff residues. Production parsing of the original raw files remains strict.
-A bounded roundoff policy, actual post-fill timing, complete fill-rule coverage
-and production C/D workload acceptance on both operating systems remain open.
+The initial [integration evidence](validation/gf180-compact-export-2026-10-07.json)
+binds that source, native results and regression suite. Those historical exports
+use audited copies that normalize six minute negative-capacitance roundoff
+residues. The later [shielding candidates](validation/gf180-shielding-fill-candidate-2026-10-08.json)
+correct the native cause and export untouched inputs. Production parsing remains
+strict; no roundoff allowance was introduced.
+
+## Buffered current-sum integration
+
+The series-source model made the full counter transient impractically slow.
+The application now encodes each weighted sum with positive controlled currents
+entering an internal node terminated by one ohm. A unity voltage buffer separates
+every capacitive load from that termination. All physical-node currents still
+come from the original capacitors; helper resistors connect only internal nodes
+to the mathematical reference. This changes the encoding, not the lumped model,
+physical resistance graph, initial charge or circuit specification.
+
+The parser requires exactly two layers: unloaded physical-node averages and
+buffered neighbor sums. It rejects external drives, physical helper connections,
+cycles, unbuffered capacitive loads, missing or altered terminations/buffers,
+duplicate names and unsupported elements. The 250,000-source limit includes the
+output buffers. The finalizer rebuilds the exact model from raw records and
+checks its serialized capacitance matrix. Island analysis preserves authenticated
+internal terminations without treating them as physical ground connections.
+Authenticated historical series-source exports remain readable.
+
+The [current-sum evidence](validation/gf180-current-sum-integration-2026-10-08.json)
+records native SPARSE and KLU checks against an independent expanded matrix.
+Each solver passes all seven frequency-basis drives for all three positive
+representations. Both detect corrupted series and current-source gains and an
+injected physical leakage resistor. The floating-pair production transient
+differs from the expanded reference by less than 0.94 microvolt, within the fixed
+2 microvolt limit.
+
+| Counter | Capacitors | Controlled currents | Output buffers | Internal one-ohm terminations | Physical resistors |
+|---|---:|---:|---:|---:|---:|
+| Before fill | 24,459 | 72,963 | 4,058 | 8,116 | 46,757 |
+| Filled | 26,281 | 83,771 | 4,969 | 9,938 | 47,668 |
+
+Retained untouched extraction inputs from both shielding candidates regenerate
+on Windows and Linux. Their capacitor/helper text matches the tested prototype
+exactly; all other finalized circuit lines are unchanged. Each export retains
+4,184 devices, eight ports and every physical resistor, including the floating
+fill network. These checks establish export preservation, not complete-chip
+behavior. The full-counter transient, post-fill timing, complete fill rules,
+native extraction repeatability and C/D production workload acceptance remain
+open.

@@ -17,6 +17,7 @@ sys.path.insert(0,str(ROOT))
 ap=argparse.ArgumentParser(description=__doc__)
 ap.add_argument('--out',type=Path,required=True)
 ap.add_argument('--ngspice',required=True)
+ap.add_argument('--solver',choices=('sparse','klu'),default='sparse')
 args=ap.parse_args()
 from icstudio.model import file_digest
 from icstudio.compact_rc import build as build_compact
@@ -37,7 +38,7 @@ for (a,b),c in coupling.items():
             v=c*wi*wj;matrix[i][i]+=v;matrix[j][j]+=v;matrix[i][j]-=v;matrix[j][i]-=v
 ngspice=str(Path(args.ngspice).resolve())
 report=dict(status='running',qualified=False,scope='Electrical equivalence of a factorized lumped model; no field accuracy or process/timing acceptance.',
-    script_sha256=file_digest(Path(__file__)),ngspice_sha256=file_digest(ngspice),
+    script_sha256=file_digest(Path(__file__)),ngspice_sha256=file_digest(ngspice),solver=args.solver,
     production_implementation_sha256=file_digest(ROOT/'icstudio/compact_rc.py'),weights=weights,
     coupling=[dict(a=a,b=b,farads=c) for (a,b),c in coupling.items()],ground_farads=ground,
     limits=dict(ac_relative=1e-9,ac_absolute_amperes=1e-18,transient_absolute_volts=2e-6),ac=[],transient={})
@@ -52,12 +53,17 @@ def sum_sources(prefix, output, terms):
     return result
 
 def circuit(mode):
-    if mode=='production':
+    if mode.startswith('production'):
         model=build_compact({**{n:c*1e18 for n,c in net_ground.items()},'REF':0.},
             {pair:c*1e18 for pair,c in coupling.items()}, {**weights,'REF':{'REF':1.}},
             'REF',physical_nodes=[*nodes,'REF'],max_capacitors=100)
         report['production_model']={key:value for key,value in model.items() if key!='text'}
-        return model['text'].splitlines()+['VREF REF 0 0']
+        lines=model['text'].splitlines()+['VREF REF 0 0']
+        if mode=='production-corrupt':
+            index=next(i for i,line in enumerate(lines) if line.startswith('G_STUDIO_SUM_'))
+            t=lines[index].split();t[5]=format(float(t[5])*1.01,'.17g');lines[index]=' '.join(t)
+        if mode=='production-leak':lines.append('RFAULT f0 0 1000000')
+        return lines
     lines=[]
     for i,(n,c) in enumerate(ground.items()):lines.append(f'CG{i} {n} 0 {c:.17g}')
     if mode=='expanded':
@@ -78,7 +84,8 @@ def circuit(mode):
 def run(folder,lines,commands):
     folder.mkdir(parents=True)
     deck='Compact coupling equivalence\n.option reltol=1e-10 abstol=1e-20 vntol=1e-12 method=gear\n'
-    deck+='\n'.join(lines)+'\n.control\nset numdgt=17\nset wr_singlescale\nset wr_vecnames\n'+commands+'\nquit\n.endc\n.end\n'
+    solver='set klu' if args.solver=='klu' else 'unset klu'
+    deck+='\n'.join(lines)+'\n.control\n'+solver+'\nset numdgt=17\nset wr_singlescale\nset wr_vecnames\n'+commands+'\nquit\n.endc\n.end\n'
     (folder/'test.spice').write_text(deck)
     command=[ngspice,'-b','test.spice'];start=time.time()
     with (folder/'engine.log').open('w') as log:
@@ -86,12 +93,18 @@ def run(folder,lines,commands):
     row=dict(command=command,exit_code=proc.returncode,seconds=time.time()-start,
         deck_sha256=file_digest(folder/'test.spice'),log_sha256=file_digest(folder/'engine.log'))
     assert proc.returncode==0,row
-    assert not any(s in (folder/'engine.log').read_text().lower() for s in ('aborted','timestep too small','error:')), (folder/'engine.log').read_text()
+    log=(folder/'engine.log').read_text()
+    solver_marker='Using KLU as Direct Linear Solver' if args.solver=='klu' else 'Using SPARSE 1.3 as Direct Linear Solver'
+    assert solver_marker in log,log
+    row['confirmed_solver']=solver_marker
+    assert not any(s in log.lower() for s in ('aborted','timestep too small','error:')),log
     assert (folder/'data.txt').is_file(),(folder/'engine.log').read_text()
     lines=(folder/'data.txt').read_text().splitlines()
     row.update(data_sha256=file_digest(folder/'data.txt'),points=len(lines)-1)
     return row,[[float(v) for v in line.split()] for line in lines[1:]]
-for mode in ('expanded','compact','production','corrupt'):
+positive_modes=('expanded','compact','production')
+negative_modes=('corrupt','production-corrupt','production-leak')
+for mode in positive_modes+negative_modes:
     for active in nodes:
         folder=out/'ac'/mode/active
         lines=circuit(mode)+[f'V{i} {n} 0 DC 0 AC {int(n==active)}' for i,n in enumerate(nodes)]
@@ -123,9 +136,10 @@ for mode in ('compact','production'):
     report['transient'][mode]['maximum_error_volts']=max(local)
     errors.extend(local)
 report['transient'].update(maximum_error_volts=max(errors),passed=max(errors)<=2e-6,floating_pair='f0/f1 has only R/C connections; UIC specifies zero initial charge, no artificial leakage.')
-report.update(status='completed',positive_controls_passed=all(r['matches_full_analytical_matrix'] for r in report['ac'] if r['mode']!='corrupt'),
-    corrupted_gain_detected=any(not r['matches_full_analytical_matrix'] for r in report['ac'] if r['mode']=='corrupt'),
+report.update(status='completed',positive_controls_passed=all(r['matches_full_analytical_matrix'] for r in report['ac'] if r['mode'] in positive_modes),
+    corrupted_gain_detected=all(any(not r['matches_full_analytical_matrix'] for r in report['ac'] if r['mode']==mode) for mode in negative_modes),
+    negative_controls={mode:any(not r['matches_full_analytical_matrix'] for r in report['ac'] if r['mode']==mode) for mode in negative_modes},
     expanded_mutual_capacitors=sum(len(weights[a])*len(weights[b]) for a,b in coupling),compact_mutual_capacitors=len(nodes),
-    compact_controlled_sources=sum(len(w) for w in weights.values())+2*len(coupling))
+    independent_series_controlled_sources=sum(len(w) for w in weights.values())+2*len(coupling))
 retain();assert report['positive_controls_passed'] and report['corrupted_gain_detected'] and report['transient']['passed']
 print(json.dumps({k:v for k,v in report.items() if k in ('status','positive_controls_passed','corrupted_gain_detected','transient')}),flush=True)

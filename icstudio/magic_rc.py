@@ -564,7 +564,7 @@ def normalize(directory, top, *, max_capacitors=50_000, require_device_reference
                           original_path.name: hashlib.sha256(normalized_original_text.encode()).hexdigest(),
                           resistance_path.name: hashlib.sha256(normalized_resistance_text.encode()).hexdigest()}}
     if compact:
-        evidence['schema_version'] = 2
+        evidence['schema_version'] = 3
         evidence['coupling_representation'] = 'compact-linear-sources'
         evidence['conservation'] = compact['conservation']
         evidence['compact_model'] = {k: v for k, v in compact.items() if k not in ('text', 'conservation')}
@@ -769,12 +769,14 @@ def finalize(directory, top, *, spice_name='extracted.spice'):
         from .compact_rc import build, audit, records
         weights = _verified_compact_weights(original, raw_resistance, evidence)
         compact = build(ground, original_coupling, weights, reference, physical_nodes=owner,
-                        max_capacitors=evidence['max_capacitors'])
+                        max_capacitors=evidence['max_capacitors'],
+                        encoding=evidence['compact_model'].get('encoding', 'series-voltage-v1'))
         model_file = evidence['compact_model']['file']
         if model_file != 'compact-capacitance.spice' or (directory / model_file).read_text() != compact['text']:
             raise ValueError('Compact RC model differs from raw extraction and area weights.')
         compact_sources, compact_caps = records(compact['text'], owner)
-        compact['physical_nodes'] = {t[3] for t in compact_sources if t[3] in owner}
+        compact['physical_nodes'] = {t[3] for t in compact_sources
+                                     if t[0].startswith(('E', 'G')) and t[3] in owner}
         compact['physical_nodes'].update(t[1] for t in compact_caps)
     elif evidence.get('compact_model') or evidence.get('coupling_representation'):
         raise ValueError('Unsupported Magic RC capacitance representation.')
@@ -1039,6 +1041,8 @@ def finalize(directory, top, *, spice_name='extracted.spice'):
     if compact:
         export.update(full_precision_capacitors=compact['capacitors'],
                       controlled_sources=compact['sources'], compact_conservation=compact_audit,
+                      internal_sum_resistors=compact['internal_sum_resistors'],
+                      compact_encoding=compact['encoding'],
                       restored_capacitive_nodes=compact['restored_capacitive_nodes'],
                       matrix_entries=compact_audit['matrix_entries'], maximum_error_af=compact_audit['maximum_error_af'])
     evidence['export'] = export
@@ -1053,17 +1057,17 @@ def finalize(directory, top, *, spice_name='extracted.spice'):
 
 
 def compact_sources(text, normalization):
-    """Authorize only the exact generated model in a finalized export."""
+    """Authorize only exact generated helper sources/R in a finalized export."""
     if not normalization.get('compact_model'):
         return {}
     if (normalization.get('export', {}).get('status') != 'passed' or
             hashlib.sha256(text.encode()).hexdigest() != normalization['export']['sha256']):
         raise ValueError('Finalized compact RC export changed before use.')
+    from .compact_rc import records, ELEMENT_PREFIXES
     model = ''.join(line for line in text.splitlines(keepends=True)
-                    if line.split() and line.split()[0].startswith(('E_STUDIO_RC_', 'C_STUDIO_RC_')))
+                    if line.split() and line.split()[0].startswith(ELEMENT_PREFIXES))
     if hashlib.sha256(model.encode()).hexdigest() != normalization['files'].get('compact-capacitance.spice'):
         raise ValueError('Finalized compact RC source/capacitor model differs from normalization.')
-    from .compact_rc import records
     owner = {n: net for net, info in normalization['nets'].items() for n in info['nodes']}
     sources, _ = records(model, owner)
     return {t[0].casefold(): t for t in sources}

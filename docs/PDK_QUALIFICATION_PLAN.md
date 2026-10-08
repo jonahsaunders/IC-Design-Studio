@@ -273,8 +273,15 @@ accuracy. Printed resistance-node capacitance weights still vary slightly
 between extractions. The separately enabled corner model retains four diagonal
 failures, and direct-overlap diagonal coverage remains open. The default engine
 and installed application runtime are unchanged. Full-counter transient and
-post-fill timing acceptance are still pending; faster model encodings remain
-experiments until their export and fault checks are integrated.
+post-fill timing acceptance are still pending. The subsequent
+[current-sum integration](validation/gf180-current-sum-integration-2026-10-08.json)
+replaces long voltage-source chains with internally terminated current sums and
+isolated output buffers. Its strict parser rejects physical leakage, unbuffered
+loads and malformed dependencies. Native SPARSE/KLU frequency and floating-pair
+transient controls pass, and injected coefficient/leakage faults are detected.
+Full before/filled exports reproduce the tested prototype on Windows and Linux
+without changing any physical resistor, capacitor, device or port. The complete
+counter simulation and post-fill timing still need their own acceptance.
 
 The supplemental fill checker now verifies both sides of well boundaries and
 the documented marking-layer exclusions, including contained dummy polygons
