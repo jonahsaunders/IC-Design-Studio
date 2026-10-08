@@ -240,3 +240,42 @@ Historical `ngspice_sha256` fields in these early full-run records identify the
 `/opt/icstudio/bin/ngspice` launcher. New diagnostics separately record that
 launcher and the actual `/usr/bin/ngspice` binary from package
 `42+ds-3build1`; the original records remain unchanged.
+
+## Matrix-ordering diagnostic candidate
+
+The [ordering source lock](../examples/ngspice-ordering-diagnostic-lock.json)
+pins an isolated ngspice 42 build with a private AMD/COLAMD selector. Its patch
+changes the matrix ordering and logs its choice and matrix dimensions. It does
+not change pivot thresholds, circuit components or numerical tolerances. The
+installed engine and application default remain unchanged. The tested build
+disables the optional predictor, as the installed Ubuntu package does; the
+initial predictor-enabled build is retained but was not used for the comparison.
+This is not a byte-identical rebuild of the installed package.
+
+The [simulator investigation](validation/gf180-simulator-ordering-2026-10-08.json)
+retains two rejected alternatives. A current-return representation exceeds the
+50,000-capacitor guard on the filled circuit (55,025 capacitors). Both solvers
+also fail its existing AC absolute limit at mathematically zero entries because
+of cancellation residues, despite passing the small floating transient. Those
+limits remain unchanged. An explicit 60,000-capacitor diagnostic allowance did
+not establish startup within the CPU bound; it is not a production limit change.
+Exact power-of-two scaling of the existing sum rows preserves all other circuit
+lines and passes the small controls on both solvers, but neither tested scaling
+reaches the full-circuit startup observation point within the same CPU bound.
+
+On the isolated ordering build, AMD and COLAMD each pass the production RC
+controls (45 native analyses including injected gain/leakage faults) and the
+frozen device-only counter's 18 functional samples. The complete filled RC
+circuit is then identical between ordering trials: 59,213 matrix unknowns and
+351,024 original nonzero entries. COLAMD reaches 103.715 ps in about 30 seconds
+elapsed; AMD exhausts its 240-second CPU soft limit with a last reported time
+of 7.011 ps. The successful startup trial retains 32 waveform rows. Its statistics
+report 4,498,428 additional matrix entries, 70 iterations and 21.592 seconds of
+factorization time; startup speed does not establish full-circuit correctness.
+
+Full before/filled 900 ns comparisons have started on the same COLAMD build,
+using the precision-candidate exports and unchanged stimulus, models, physical
+and floating nodes, numerical limits and original component budgets. Each run
+has a six-hour CPU limit and separate 48-hour wall guard. Their own complete
+waveforms and functional checks, followed by post-fill timing, production
+integration and platform qualification, are required before acceptance.

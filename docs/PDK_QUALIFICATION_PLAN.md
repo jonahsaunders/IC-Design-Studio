@@ -372,6 +372,17 @@ Both short startup solver trials on the newer precision circuit exhaust their
 fixed CPU-work limits without reaching the observation point. No full-counter
 electrical or timing acceptance is established by these diagnostics.
 
+The later [simulator-ordering investigation](validation/gf180-simulator-ordering-2026-10-08.json)
+finds a bounded startup improvement without changing the extracted circuit.
+An isolated ngspice 42 build passes the production RC controls and frozen
+device-only counter with either AMD or COLAMD ordering. On the identical filled
+RC circuit, COLAMD completes the 100 ps startup observation in about 30 seconds;
+AMD reaches its 240-second CPU limit before that point. Rejected current-return
+and row-scaling alternatives remain in the evidence. Full 900 ns before/filled
+COLAMD runs have started with the original circuit, models, numerical limits and
+component budgets. Startup alone is not functional or timing acceptance; the
+default engine and installed application remain unchanged.
+
 The complete upstream inventory, general analog/RF numerical specifications,
 representative full-chip designs, package choices and foundry/shuttle acceptance
 target remain open. They have tests and blocking conditions in the matrix;
