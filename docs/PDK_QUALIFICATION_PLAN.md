@@ -388,6 +388,44 @@ representative full-chip designs, package choices and foundry/shuttle acceptance
 target remain open. They have tests and blocking conditions in the matrix;
 no guessed limits or synthetic acceptance evidence fill those gaps.
 
+The [drawing-pattern controls](validation/gf180-fill-patterns-2026-10-08.json)
+check a declared alternating staggered array against the actual written GDS.
+The [source lock](../examples/gf180-fill-pattern-lock.json) includes the pinned
+manual tables and diagrams. COMP uses 5 micrometre squares on an 8 micrometre
+pitch with 1.6 micrometre offsets; matching poly uses 5.6 micrometre squares
+on the same pitch. Metal uses 2 micrometre squares, a 3.2 micrometre pitch and
+0.5 micrometre offsets. These are the chosen generation recipe, not an
+enumeration of all legal patterns. The drawing space is checked through the
+placement recipe; the separate Euclidean DRC limits remain unchanged.
+
+Thirty-six written-GDS tests pass on each OS, including legal diagonal gaps,
+cropped arrays, negative indices, shifted origins, hierarchy, rotation and
+reflection. Missing stagger, wrong pitch, 5 nm phase errors and undeclared
+dummy layers are rejected. The checker also detects reuse of an entire array
+on adjacent metals even when different sites were removed on each layer.
+Accepting the full DM.9 offset relationship remains open when both adjacent
+layers contain dummy material.
+
+The unchanged C counter's 911 Metal1 squares match the
+[declared recipe](../examples/gf180-counter-fill-pattern.json) and pass all 104
+implemented checks under both C/D maps on both OSes. A retained GDS with one
+square shifted 5 nm still passes the earlier 103 checks but fails the new
+drawing-pattern check. Corresponding Windows/Linux reports are byte-identical.
+The CLI returns 2 for the reference and 1 for the fault; neither is qualified.
+C geometry under a D map still does not establish a production D result.
+
+For this reference, add the recipe to the existing inspection command:
+
+```sh
+python scripts/check_gf180_fill.py --gds filled.gds --top counter --bounds 0 0 200 200 --variant C --pattern-plan examples/gf180-counter-fill-pattern.json --output new-pattern-report.json
+```
+
+Omitting the recipe keeps drawing coverage explicitly open. Membership allows
+sites removed for blockages and therefore does not establish empty-field
+coverage. Local/edge acceptance, complete boundary/scribe scope, exclusion-edge
+rows, full post-fill circuit behavior/timing and production C/D acceptance
+remain required before chunk 5.
+
 See [release targets](PUBLIC_RELEASE_TARGETS.md),
 [digital qualification](DIGITAL_PLATFORM_QUALIFICATION.md),
 [bundled PDK scope](PDK_GUIDE.md) and

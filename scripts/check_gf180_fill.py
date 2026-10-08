@@ -16,10 +16,12 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from icstudio.model import file_digest
+from scripts import gf180_fill_patterns as patterns
 
 LAYERS = {'comp': 22, 'poly': 30, 'm1': 34, 'm2': 36, 'm3': 42, 'm4': 46, 'm5': 81}
 MANUAL = ROOT / 'examples/gf180-fill-manual-lock.json'
 COVERAGE_MANUAL = ROOT / 'examples/gf180-fill-coverage-lock.json'
+PATTERN_MANUAL = ROOT / 'examples/gf180-fill-pattern-lock.json'
 LAYER_NAMES = {'comp': 'COMP', 'poly': 'Poly2',
                **{f'm{i}': f'Metal{i}' for i in range(1, 6)}}
 WINDOW_NM = 200_000
@@ -104,7 +106,7 @@ def metal_density_windows(shapes, bounds):
         partial_windows=sum(not r['complete_window'] for r in rows), windows=rows)
 
 
-def inspect(gds, bounds_um, *, top_name, variant):
+def inspect(gds, bounds_um, *, top_name, variant, pattern_plan=None):
     """Inspect written geometry, including entirely absent material layers.
 
     Bounds must come from the fixed design footprint, not from a selected area
@@ -137,10 +139,54 @@ def inspect(gds, bounds_um, *, top_name, variant):
     wells = {name: region(layout, top, *pair) for name, pair in WELLS.items()}
     markers = {name: region(layout, top, *pair) for name, pair in MARKERS.items()}
     checks = []
+    drawing_patterns = None; pattern_digest = None; pattern_requirements = []
 
     def check(rule, layer, count, **details):
         checks.append(dict(rule=rule, layer=layer, status='failed' if count else 'passed',
                            violations=int(count), **details))
+
+    if pattern_plan is not None:
+        pattern_plan = Path(pattern_plan); pattern_digest = file_digest(pattern_plan)
+        plan = patterns.validate_plan(json.loads(pattern_plan.read_text(encoding='utf-8')))
+        drawing_patterns = dict(recipe=plan['recipe'], layers={}, adjacent_layers=[])
+        for name, shapes in dummy.items():
+            if shapes.is_empty():
+                drawing_patterns['layers'][name] = dict(status='not_applicable_no_dummy')
+                continue
+            if name not in plan['layers']:
+                check('drawing-pattern-plan', name, 1, category='coverage',
+                      reason='Actual dummy material has no declared drawing recipe.')
+                drawing_patterns['layers'][name] = dict(status='missing_recipe')
+                pattern_requirements.append(f'Drawing recipe for actual {name} dummy material')
+                continue
+            result = patterns.inspect_pattern(shapes, name, plan['layers'][name])
+            drawing_patterns['layers'][name] = dict(result,
+                status='failed' if result['violations'] else 'declared_recipe_passed')
+            rule = ('DCF.2a/3' if name == 'comp' else 'DPF.2a/3'
+                    if name == 'poly' else 'DM.2a/10')
+            check(rule, name, result['violations'], category='declared-drawing-recipe',
+                  polygons=result['polygons'])
+        for lower, upper in zip(patterns.LAYERS[2:-1], patterns.LAYERS[3:]):
+            if dummy[lower].is_empty() or dummy[upper].is_empty():
+                drawing_patterns['adjacent_layers'].append(dict(layers=[lower, upper],
+                    status='not_applicable_no_adjacent_dummy'))
+                continue
+            # Compare whole declared arrays, so deleting different blocked sites
+            # cannot disguise reuse of the same pattern on consecutive layers.
+            pattern_requirements.append(f'DM.9 qualified 0.5 um offset relationship for {lower}/{upper}')
+            if any(drawing_patterns['layers'][name]['status'] != 'declared_recipe_passed'
+                   for name in (lower, upper)):
+                drawing_patterns['adjacent_layers'].append(dict(layers=[lower, upper],
+                    status='unqualified_invalid_or_missing_recipe'))
+                continue
+            a, b = plan['layers'][lower], plan['layers'][upper]
+            replicated = patterns.phases(lower, a) == patterns.phases(upper, b)
+            check('DM.9-replicated-pattern', f'{lower}/{upper}', int(replicated),
+                  scope='Reject identical declared arrays, even when occupied subsets differ.')
+            drawing_patterns['adjacent_layers'].append(dict(layers=[lower, upper],
+                status='replicated_pattern' if replicated else 'offset_acceptance_unqualified'))
+        if file_digest(pattern_plan) != pattern_digest:
+            raise ValueError('The drawing recipe changed during inspection.')
 
     for name, pair in UNSUPPORTED_MEMORY.items():
         shapes = region(layout, top, *pair)
@@ -282,13 +328,16 @@ def inspect(gds, bounds_um, *, top_name, variant):
         raise ValueError('The input changed while it was being measured.')
     failed = [c for c in checks if c['status'] == 'failed']
     open_requirements = list(OPEN_REQUIREMENTS)
+    if drawing_patterns is not None:
+        open_requirements.remove('Required drawing patterns and offsets (DCF.2a/3, DPF.2a/3, DM.2a/9/10)')
+        open_requirements.extend(pattern_requirements)
     if not (markers['NDMY'] + markers['PMNDMY']).is_empty():
         open_requirements.append('DE.1 design justification for using exclusion markers')
     if unsupported:
         open_requirements.append('DE.3 side-length exception for large nonrectangular exclusion regions')
-    return dict(schema=4, status='failed' if failed else 'checks_passed_coverage_incomplete',
+    return dict(schema=5, status='failed' if failed else 'checks_passed_coverage_incomplete',
         qualified=False, variant=variant, metal_stack='5LM_1TM',
-        scope='Supplemental density measurements, dummy geometry, clearances, well/marker exclusions, exclusion-marker geometry and unsupported memory-layer detection only.',
+        scope='Supplemental density measurements, dummy geometry, declared drawing recipe, clearances, well/marker exclusions, exclusion-marker geometry and unsupported memory-layer detection only.',
         gds_sha256=before, checker_sha256=file_digest(Path(__file__)),
         manual_lock_sha256=file_digest(MANUAL), klayout_python_version=k.__version__,
         coverage_manual_lock_sha256=file_digest(COVERAGE_MANUAL),
@@ -296,6 +345,9 @@ def inspect(gds, bounds_um, *, top_name, variant):
         top=top_name, bounds_um=list(bounds_um), area_um2=bounds.area()/1e6,
         geometry_extent_um=[v/1000 for v in (extent.left, extent.bottom, extent.right, extent.top)],
         density=density, metal_density_windows=windows, exclusion_geometry=exclusion_geometry,
+        pattern_plan_sha256=pattern_digest, drawing_patterns=drawing_patterns,
+        pattern_checker_sha256=file_digest(Path(patterns.__file__)),
+        pattern_manual_lock_sha256=file_digest(PATTERN_MANUAL),
         checks=checks, failed_checks=len(failed), unqualified_requirements=open_requirements)
 
 
@@ -305,10 +357,12 @@ def main():
     parser.add_argument('--top', required=True)
     parser.add_argument('--bounds', type=float, nargs=4, required=True, metavar=('X0','Y0','X1','Y1'))
     parser.add_argument('--variant', choices=('C','D'), required=True)
+    parser.add_argument('--pattern-plan', type=Path,
+                        help='Optional declared alternating-stagger-v1 drawing recipe; required to check drawing-pattern membership.')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists(): raise ValueError('Choose a new report path; retain prior evidence.')
-    report = inspect(args.gds, args.bounds, top_name=args.top, variant=args.variant)
+    report = inspect(args.gds, args.bounds, top_name=args.top, variant=args.variant, pattern_plan=args.pattern_plan)
     args.output.write_text(json.dumps(report, indent=2)+'\n', encoding='utf-8', newline='\n')
     print(json.dumps({'status':report['status'], 'failed_checks':report['failed_checks'], 'qualified':False}))
     return 1 if report['failed_checks'] else 2
