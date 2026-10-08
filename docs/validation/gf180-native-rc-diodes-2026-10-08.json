@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "status": "native-diode-rc-controls-retained",
+  "qualified": false,
+  "observed_at": "2026-10-08T23:28:52.438347+00:00",
+  "backend": "873aedfd6eed8ded35c67a13dde4b091a436cba54e3ad436a5409ad6a70a9161",
+  "extraction": {
+    "path": "outputs/gf180-native-diode-rc-v3/record.json",
+    "sha256": "48ed88556532888934c37540cfc1a99c91f7d4c690dba2395eaad70413735c69"
+  },
+  "controls": {
+    "path": "outputs/gf180-native-diode-controls-v4/record.json",
+    "sha256": "f28489f7275178324b15028e7e69112f3b98b1bac9a4a633a18282abced1c345"
+  },
+  "engine_sha256": "48c1dca1ee855e18dc29a9e5199cffc1e59e964d7571d53eaf1f85694117a8bf",
+  "model_hashes": {
+    "31987f30dc28716123774c5e.spice": "c991d7d3e8c66cb691915a73395a62041b10c8ff7943575e7c510b44e1567c7d",
+    "a9baecac6ed1e4a471fd73e8.spice": "7e222f050318388f37543a64fbd0be55cc15e4b93f57501a09f7c159c4c9e561",
+    "f3820c6e6aaf2b76c63830e2.spice": "4e22cf76e2a75dc7908c1ca567a4b379586170e82d538fddd68a1b28245e5984",
+    "f3c9dd0c02366fbd9ca7def0.spice": "9b85cd009968d9aeb6b61046b24a63f39d6a463c4e4aee3949c8fd183c06666f"
+  },
+  "cases": [
+    {
+      "variant": "C",
+      "fault_controls": 14,
+      "native_parameter_readback": [
+        [
+          "d0",
+          "area",
+          "2.03399999999999997e-13"
+        ],
+        [
+          "d0",
+          "pj",
+          "1.85000000000000008e-06"
+        ],
+        [
+          "d1",
+          "area",
+          "2.03399999999999997e-13"
+        ],
+        [
+          "d1",
+          "pj",
+          "1.85000000000000008e-06"
+        ]
+      ],
+      "dc_comparison": {
+        "relative_tolerance": 1e-06,
+        "absolute_tolerance": 1e-13,
+        "maximum_absolute_difference": 1.1102230246251565e-16
+      }
+    },
+    {
+      "variant": "D",
+      "fault_controls": 14,
+      "native_parameter_readback": [
+        [
+          "d0",
+          "area",
+          "2.03399999999999997e-13"
+        ],
+        [
+          "d0",
+          "pj",
+          "1.85000000000000008e-06"
+        ],
+        [
+          "d1",
+          "area",
+          "2.03399999999999997e-13"
+        ],
+        [
+          "d1",
+          "pj",
+          "1.85000000000000008e-06"
+        ]
+      ],
+      "dc_comparison": {
+        "relative_tolerance": 1e-06,
+        "absolute_tolerance": 1e-13,
+        "maximum_absolute_difference": 1.1102230246251565e-16
+      }
+    }
+  ],
+  "model_warnings": {
+    "C": [
+      "Warning: IKK too small - model effect disabled!",
+      "Warning: IKK too small - model effect disabled!"
+    ],
+    "D": [
+      "Warning: IKK too small - model effect disabled!",
+      "Warning: IKK too small - model effect disabled!"
+    ]
+  },
+  "scope": "Foundry antenna diode cell physically abutted to its substrate/well tap; two native diodes per C/D coupon. Exact polarity and area/perimeter survive normalization, finalization, contraction and island analysis. All 28 injected native-export faults are rejected. Native model parameter readback and 133-point nominal DC comparisons pass. This is bounded diode/export evidence, not PDK-wide device, post-fill timing, high-injection or signoff acceptance.",
+  "capacity_policy": {
+    "default_capacitors": 50000,
+    "default_sources": 250000,
+    "maximum_capacitors": 250000,
+    "maximum_sources": 1000000,
+    "large_reference_request": {
+      "max_capacitors": 200000,
+      "max_sources": 600000
+    },
+    "changes_to_electrical_elements": false,
+    "scope": "Explicit allocation limits, not guaranteed simulator capacity. Larger-reference extraction and measured memory remain separate evidence."
+  },
+  "retained_failures": [
+    "Standalone untapped antenna leaves the substrate unextracted and is rejected.",
+    "The initial 0.6 V DC endpoint did not reach the predeclared 10 nA clamp criterion; the retained rerun uses a declared 0.8 V endpoint.",
+    "The first parameter-readback control named exported D0/D1 instances in the independently named DN/DP circuit; the corrected control uses each circuit instance name."
+  ],
+  "remaining": [
+    "Complete and independently audit eight larger C/D before/filled exports.",
+    "Complete post-fill function and timing, full fill coverage and production installation acceptance."
+  ],
+  "archive": {
+    "path": "outputs/gf180-native-rc-diode-checkpoint-v1/evidence.tar.gz",
+    "sha256": "b8f7eb922801d0463a65a0438d707cdca10f72a0f5b8878c1eb66c9ecf84e1ed",
+    "bytes": 2868195,
+    "verified_members": 891
+  },
+  "independent_archive_audit": {
+    "platform": "Windows",
+    "verified_members": 891,
+    "all_hashes_match": true
+  },
+  "focused_tests": {
+    "windows": {
+      "tests": 46,
+      "log": "outputs/gf180-native-rc-capacity-unit-windows-v3.log",
+      "sha256": "89bfab9660343662068a020b979e2d03bf31aa65d17b3a349d173a66458691c8"
+    },
+    "linux": {
+      "tests": 51,
+      "log": "outputs/gf180-native-rc-capacity-unit-linux-v3.log",
+      "sha256": "04fa9f45813097df9b3d2869325aedf19df1dd4ae1e172f353b5d525edd876f9"
+    }
+  },
+  "full_windows_regression": {
+    "tests": 1545,
+    "skipped": 62,
+    "status": "passed",
+    "path": "outputs/gf180-native-rc-full-tests-v2.log",
+    "sha256": "2a6375e2ffef58b37439f0bedfedf7a298a783a3d3d441d42d9169253675192d"
+  },
+  "retained_full_suite_failure": {
+    "path": "outputs/gf180-native-rc-full-tests-v1.log",
+    "reason": "The previous test classified a valid wrapped .subckt port as unsupported. It now tests an actual orphan continuation; a separate regression checks that wrapped ports anchor their resistor network."
+  }
+}

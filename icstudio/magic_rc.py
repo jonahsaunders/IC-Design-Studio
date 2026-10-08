@@ -28,7 +28,7 @@ from collections import Counter
 from .model import atomic_write, file_digest, scalar
 
 
-MAX_CAPACITORS = 100_000
+MAX_CAPACITORS = 250_000
 ALGORITHM = 'magic-flat-capacitance-conservation-v1'
 _ORIGINAL_KEYS = {'timestamp', 'version', 'tech', 'style', 'scale', 'resistclasses',
                   'parameters', 'port', 'node', 'substrate', 'cap', 'device', 'fet', 'attr', 'equiv'}
@@ -117,10 +117,12 @@ def _device(tokens):
     """Decode supported Magic devices without confusing them with parasitics."""
     if tokens[0] != 'device':
         return None
-    supported = ('msubckt', 'csubckt', 'rsubckt', 'mosfet', 'devres', 'devcap', 'devcaprev')
+    supported = ('msubckt', 'csubckt', 'rsubckt', 'mosfet', 'devres', 'devcap', 'devcaprev',
+                 'diode', 'ndiode', 'pdiode')
     if len(tokens) < 8 or tokens[1] not in supported:
         raise ValueError('Unsupported Magic RC device class.')
     kind, start = tokens[1], 7
+    diode = kind in ('diode', 'ndiode', 'pdiode')
     primitive = kind in ('devres', 'devcap', 'devcaprev')
     numeric_value = None
     if primitive:
@@ -144,20 +146,31 @@ def _device(tokens):
     if remainder not in (0, 1):
         raise ValueError('Malformed Magic RC device terminals.')
     indices = list(range(start + (substrate is not None), len(tokens), 3))
-    if len(indices) != (2 if kind in ('csubckt', 'devcap', 'devcaprev') else 3):
+    if diode:
+        if len(indices) not in (1, 2) or (len(indices) == 1 and
+                (substrate is None or tokens[substrate] == 'None')):
+            raise ValueError('Magic diode requires two electrical terminals.')
+    elif len(indices) != (2 if kind in ('csubckt', 'devcap', 'devcaprev') else 3):
         raise ValueError('Unsupported Magic RC device terminal count.')
     # Magic honors explicit drain/source terminal attributes.
     if len(indices) == 3 and (tokens[indices[1] + 2] == 'D' or tokens[indices[2] + 2] == 'S'):
         indices[1], indices[2] = indices[2], indices[1]
-    if kind in ('msubckt', 'mosfet'):
+    if diode:
+        # P/default: top, bottom. N: bottom, top. A one-terminal extraction
+        # uses its substrate as bottom, matching the native SPICE exporter.
+        electrical = [indices[0], indices[1] if len(indices) == 2 else substrate]
+        if kind == 'ndiode':
+            electrical.reverse()
+    elif kind in ('msubckt', 'mosfet'):
         electrical = [indices[2], indices[0], indices[1]]
     elif kind in ('rsubckt', 'devres'):
         electrical = indices[1:]
     else:
         electrical = indices
-    if not primitive and substrate is not None and tokens[substrate] != 'None':
+    if not primitive and not diode and substrate is not None and tokens[substrate] != 'None':
         electrical.append(substrate)
-    prefix = {'mosfet': 'm', 'devres': 'r', 'devcap': 'c', 'devcaprev': 'c'}.get(kind, 'x')
+    prefix = {'mosfet': 'm', 'devres': 'r', 'devcap': 'c', 'devcaprev': 'c',
+              'diode': 'd', 'ndiode': 'd', 'pdiode': 'd'}.get(kind, 'x')
     return {'identity': tuple(tokens[1:7]), 'all_indices': ([substrate] if substrate is not None else []) + indices,
             'electrical': [tokens[i] for i in electrical], 'gate_attribute': indices[0] + 2,
             'model': tokens[2].casefold(), 'prefix': prefix, 'primitive': primitive,
@@ -301,7 +314,7 @@ def _matrix(ground, coupling):
 
 
 def normalize(directory, top, *, max_capacitors=50_000, require_device_reference=False,
-              coupling_representation='auto'):
+              coupling_representation='auto', max_sources=None):
     """Rewrite flat ``top.ext``/``top.res.ext`` and return provenance evidence.
 
     Call after ``extresist all`` and before ``ext2spice extresist on`` export.
@@ -312,7 +325,9 @@ def normalize(directory, top, *, max_capacitors=50_000, require_device_reference
     if not isinstance(top, str) or not re.fullmatch(r'[A-Za-z0-9_][A-Za-z0-9_.-]*', top):
         raise ValueError('Magic RC top must be a plain cell name.')
     if type(max_capacitors) is not int or not 0 < max_capacitors <= MAX_CAPACITORS:
-        raise ValueError('Magic RC capacitance expansion budget must be 1–100000.')
+        raise ValueError(f'Magic RC capacitance expansion budget must be 1–{MAX_CAPACITORS}.')
+    from .compact_rc import source_budget
+    max_sources = source_budget(max_sources)
     if coupling_representation not in ('auto', 'expanded', 'compact'):
         raise ValueError('Unknown Magic RC capacitance representation.')
     directory = Path(directory).resolve()
@@ -331,6 +346,9 @@ def normalize(directory, top, *, max_capacitors=50_000, require_device_reference
     resistance_bytes = resistance_path.read_bytes()
     original = _records(original_bytes.decode('utf-8'), _ORIGINAL_KEYS)
     resistance = _records(resistance_bytes.decode('utf-8'), _RESISTANCE_KEYS)
+    if any(len(t) > 1 and t[0] == 'device' and t[1] in ('diode', 'ndiode', 'pdiode') for _, t in original):
+        if not device_reference.is_file():
+            raise ValueError('Native diode RC requires a pre-resistance device reference.')
     original, resistance, primitive_devices = _prepare_devices(original, resistance)
     original, resistance, aliases = _aliases(original, resistance)
     scale = _scale(original)
@@ -493,8 +511,9 @@ def normalize(directory, top, *, max_capacitors=50_000, require_device_reference
         from .compact_rc import build, audit
         ground = {net: data['cap_af'] for net, data in nodes.items()}
         compact = build(ground, coupling, weights, substrate[0], physical_nodes=rnodes,
-                        max_capacitors=max_capacitors)
-        compact['conservation'] = audit(compact['text'], owner, ground, coupling, substrate[0])
+                        max_capacitors=max_capacitors, max_sources=max_sources)
+        compact['conservation'] = audit(compact['text'], owner, ground, coupling, substrate[0],
+                                        max_sources=max_sources)
     elif generated_count + ground_count > max_capacitors:
         raise ValueError('Magic capacitance expansion exceeds the declared budget: ' + str(generated_count + ground_count))
 
@@ -591,18 +610,43 @@ def normalize(directory, top, *, max_capacitors=50_000, require_device_reference
     return evidence
 
 
+def _spice_lines(text):
+    """Group consecutive native SPICE continuations, retaining original bytes."""
+    lines = []
+    for line in text.splitlines(keepends=True):
+        if line.lstrip().startswith('+'):
+            if not lines or not lines[-1].strip() or lines[-1].lstrip().startswith('*'):
+                raise ValueError('Orphaned Magic SPICE continuation.')
+            lines[-1] += line
+        else:
+            lines.append(line)
+    return lines
+
+
+def _spice_tokens(line):
+    return re.sub(r'\n[ \t]*\+[ \t]*', ' ', line).split()
+
+
+def _replace_spice_fields(line, replacements):
+    """Replace selected fields without changing continuation markers/layout."""
+    spans = [m for m in re.finditer(r'(^[ \t]*\+[ \t]*)|(\S+)', line, re.M) if m[2]]
+    for i in sorted(replacements, reverse=True):
+        match = spans[i]
+        line = line[:match.start()] + replacements[i] + line[match.end():]
+    return line
+
+
 def _spice_devices(text, *, owner=None, physical_passives=None):
     """Canonical physical-device inventory with every emitted parameter."""
     owner = owner or {}
     inventory = Counter()
-    text = re.sub(r'\n[ \t]*\+[ \t]*', ' ', text)
     def value(token):
         try:
             return ('number', scalar(token))
         except ValueError:
             return ('expression', token.casefold())
-    for line in text.splitlines():
-        t = line.split()
+    for line in _spice_lines(text):
+        t = _spice_tokens(line)
         if not t or t[0].startswith(('*', '.')):
             continue
         prefix = t[0][0].casefold()
@@ -630,6 +674,10 @@ def _spice_devices(text, *, owner=None, physical_passives=None):
                 explicit, model = scalar(rest[0]), rest[1].casefold()
             else:
                 raise ValueError('Unsupported physical passive reference record.')
+        elif prefix == 'd':
+            if len(t) < 4 or start != 4:
+                raise ValueError('Native diode requires two nodes, a model and named parameters.')
+            terminal_end, model = 3, t[3].casefold()
         elif prefix in ('x', 'm'):
             terminal_end = 5 if prefix == 'm' else start - 1
             if terminal_end < 2 or terminal_end >= len(t):
@@ -661,6 +709,10 @@ def _restore_junction_parameters(lines, reference, owner, physical_passives, nam
         if not signatures:
             continue
         signature = next(iter(signatures)); candidates = groups.get(identity(signature), set())
+        # Diode area/perimeter define the device itself. Never treat a changed
+        # diode parameter as redistributed MOS junction geometry to restore.
+        if signature[0] == 'd':
+            continue
         names = names_by_model.get(signature[1], set())
         if signature[4] in candidates:
             continue
@@ -719,7 +771,7 @@ def finalize(directory, top, *, spice_name='extracted.spice'):
     """Preserve Magic's export and replace quantized parasitic C at full precision.
 
     The supported exporter prints C below 1 aF as zero and can bias resistance
-    by 0.5 milliohm. Preserve identified physical R/C, MOS and subcircuit lines;
+    by 0.5 milliohm. Preserve physical R/C, diode, MOS and subcircuit lines;
     restore original wire R values and parasitic C at full precision. Require
     the exact named R graph and device connections, then independently collapse
     the resulting SPICE parasitic C matrix and compare it with the raw .ext.
@@ -770,11 +822,12 @@ def finalize(directory, top, *, spice_name='extracted.spice'):
         weights = _verified_compact_weights(original, raw_resistance, evidence)
         compact = build(ground, original_coupling, weights, reference, physical_nodes=owner,
                         max_capacitors=evidence['max_capacitors'],
-                        encoding=evidence['compact_model'].get('encoding', 'series-voltage-v1'))
+                        encoding=evidence['compact_model'].get('encoding', 'series-voltage-v1'),
+                        max_sources=evidence['compact_model'].get('max_sources'))
         model_file = evidence['compact_model']['file']
         if model_file != 'compact-capacitance.spice' or (directory / model_file).read_text() != compact['text']:
             raise ValueError('Compact RC model differs from raw extraction and area weights.')
-        compact_sources, compact_caps = records(compact['text'], owner)
+        compact_sources, compact_caps = records(compact['text'], owner, max_sources=compact['max_sources'])
         compact['physical_nodes'] = {t[3] for t in compact_sources
                                      if t[0].startswith(('E', 'G')) and t[3] in owner}
         compact['physical_nodes'].update(t[1] for t in compact_caps)
@@ -793,7 +846,7 @@ def finalize(directory, top, *, spice_name='extracted.spice'):
             desired_caps.append((t[1], t[2], float(t[3]) * rscale[1] * 1e-18))
     spice_path = directory / spice_name
     raw = spice_path.read_bytes()
-    lines = raw.decode('utf-8').splitlines(keepends=True)
+    lines = _spice_lines(raw.decode('utf-8'))
     active = False
     declarations = endings = 0
     edges, seen_nodes, keep, removed = [], set(), [], 0
@@ -806,7 +859,7 @@ def finalize(directory, top, *, spice_name='extracted.spice'):
     observed_passives = set()
     insert_at = None
     for line in lines:
-        tokens = line.split()
+        tokens = _spice_tokens(line)
         if not tokens or tokens[0].startswith('*'):
             keep.append(line)
             continue
@@ -866,14 +919,16 @@ def finalize(directory, top, *, spice_name='extracted.spice'):
                 removed += 1
                 seen_nodes.update(tokens[1:3])
                 continue
-            elif token.startswith(('m', 'x')):
+            elif token.startswith(('m', 'x', 'd')):
                 parameter_start = next((i for i, v in enumerate(tokens) if '=' in v), len(tokens))
-                model_index = 5 if token.startswith('m') else parameter_start - 1
+                model_index = 3 if token.startswith('d') else 5 if token.startswith('m') else parameter_start - 1
+                if token.startswith('d') and parameter_start != 4:
+                    raise ValueError('Native diode requires two nodes, a model and named parameters.')
                 if model_index < 2 or model_index >= len(tokens) or (token.startswith('m') and parameter_start < 6):
-                    raise ValueError('Malformed Magic RC MOS or subcircuit device.')
+                    raise ValueError('Malformed Magic RC diode, MOS or subcircuit device.')
                 terminals = tokens[1:model_index]
                 if not terminals or any(n not in owner for n in terminals):
-                    raise ValueError('Magic RC MOS or subcircuit device has an unmapped endpoint.')
+                    raise ValueError('Magic RC device has an unmapped endpoint.')
                 seen_nodes.update(terminals)
                 observed_devices[(token[0], tokens[model_index].casefold())] += 1
                 observed_terminals[(token[0], tokens[model_index].casefold(), tuple(terminals))] += 1
@@ -896,10 +951,9 @@ def finalize(directory, top, *, spice_name='extracted.spice'):
                 raise ValueError('Magic exporter changed a distributed resistance value.')
             if expected != observed:
                 restored_resistors += 1
-            keep[index] = re.sub(r'^(\s*\S+\s+\S+\s+\S+\s+)\S+(\s*)$',
-                                 lambda m: m[1] + format(expected, '.17g') + m[2], keep[index])
+            keep[index] = _replace_spice_fields(keep[index], {3: format(expected, '.17g')})
     if observed_devices != expected_devices:
-        raise ValueError('Magic exporter changed the original MOS or subcircuit model inventory.')
+        raise ValueError('Magic exporter changed the original physical device model inventory.')
     if observed_passives != physical_passives.keys():
         raise ValueError('Magic exporter omitted a physical primitive resistor or capacitor.')
     if not any(t and t[0] == 'fet' for _, t in original):
@@ -1013,7 +1067,7 @@ def finalize(directory, top, *, spice_name='extracted.spice'):
                 full_coupling.setdefault(pair, []).append(float(t[3]) * cscale)
         full_coupling = {k: math.fsum(v) for k, v in full_coupling.items()}
         compact_audit = audit(''.join(emitted), {n: components[find(n)] for n in owner},
-                              full_ground, full_coupling, reference)
+                              full_ground, full_coupling, reference, max_sources=compact['max_sources'])
     if not compact and any(not math.isclose(expected.get(k, 0.), observed.get(k, 0.), rel_tol=1e-12, abs_tol=1e-12)
            for k in all_keys):
         raise ValueError('Final Magic SPICE capacitance matrix does not match original extraction.')
@@ -1069,7 +1123,7 @@ def compact_sources(text, normalization):
     if hashlib.sha256(model.encode()).hexdigest() != normalization['files'].get('compact-capacitance.spice'):
         raise ValueError('Finalized compact RC source/capacitor model differs from normalization.')
     owner = {n: net for net, info in normalization['nets'].items() for n in info['nodes']}
-    sources, _ = records(model, owner)
+    sources, _ = records(model, owner, max_sources=normalization['compact_model'].get('max_sources'))
     return {t[0].casefold(): t for t in sources}
 
 
@@ -1087,8 +1141,8 @@ def contract(text, normalization):
     physical_passives = {d['name'].casefold() for d in normalization.get('devices', []) if d.get('name')}
     auxiliary_sources = compact_sources(text, normalization)
     lines = []
-    for line in text.splitlines(keepends=True):
-        fields = line.split()
+    for line in _spice_lines(text):
+        fields = _spice_tokens(line)
         if not fields or fields[0].startswith(('*', '.', '+')):
             lines.append(line); continue
         prefix = fields[0][0].lower()
@@ -1096,14 +1150,12 @@ def contract(text, normalization):
             continue
         if prefix in ('r', 'c') and fields[0].casefold() not in physical_passives:
             continue
-        end = (3 if prefix in ('r', 'c') else 5 if prefix == 'm' else
+        end = (3 if prefix in ('r', 'c', 'd') else 5 if prefix == 'm' else
                next((i for i, v in enumerate(fields) if '=' in v), len(fields)) - 1)
-        if prefix not in ('r', 'c', 'm', 'x') or end < 2 or any(n not in owner for n in fields[1:end]):
+        if prefix not in ('r', 'c', 'd', 'm', 'x') or end < 2 or any(n not in owner for n in fields[1:end]):
             raise ValueError('Unsupported device while contracting finalized Magic RC.')
         # Replace node fields alone; preserve model parameters and all remaining
-        # characters, including continuation lines handled below.
-        spans = list(re.finditer(r'\S+', line))
-        for i in range(end - 1, 0, -1):
-            match = spans[i]; line = line[:match.start()] + owner[fields[i]] + line[match.end():]
+        # characters, including continuation lines.
+        line = _replace_spice_fields(line, {i: owner[fields[i]] for i in range(1, end)})
         lines.append(line)
     return ''.join(lines)

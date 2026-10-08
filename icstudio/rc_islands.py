@@ -12,8 +12,9 @@ from .model import atomic_write,file_digest,scalar
 def prune(source,target,*,physical_devices=(),normalization=None):
     source,target=Path(source).resolve(),Path(target).resolve()
     if target.exists() or source==target:raise ValueError('Use a new electrical RC output file.')
-    text=source.read_bytes().decode('utf-8');lines=text.splitlines(keepends=True);parent={};anchors=set();resistors=[]
-    from .magic_rc import compact_sources
+    text=source.read_bytes().decode('utf-8');parent={};anchors=set();resistors=[]
+    from .magic_rc import compact_sources, _spice_devices, _spice_lines, _spice_tokens
+    lines=_spice_lines(text)
     auxiliary=compact_sources(text,normalization or {})
     active=False;declarations=0;names=set();physical={str(name).casefold() for name in physical_devices}
     def find(name):
@@ -22,7 +23,7 @@ def prune(source,target,*,physical_devices=(),normalization=None):
             parent[name]=parent[parent[name]];name=parent[name]
         return name
     for line in lines:
-        t=line.split()
+        t=_spice_tokens(line)
         if not t or t[0].startswith('*'):continue
         key=t[0].lower()
         if not key.startswith('.'):
@@ -50,6 +51,10 @@ def prune(source,target,*,physical_devices=(),normalization=None):
             parent[find(t[1])]=find(t[2]);resistors.append(t)
         elif key.startswith('c'):
             if not active or len(t)!=4:raise ValueError('Unsupported RC capacitor.')
+            anchors.update(t[1:3])
+        elif key.startswith('d'):
+            if not active:raise ValueError('Out-of-scope native RC diode.')
+            _spice_devices(line)  # Two ordered nodes, model, named parameters.
             anchors.update(t[1:3])
         elif key.startswith(('x','m')):
             idx=5 if key.startswith('m') else next((i for i,v in enumerate(t) if '=' in v),len(t))-1

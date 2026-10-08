@@ -607,16 +607,43 @@ distribution weight, device-terminal incidence and raw capacitance record
 against the simulated model. Byte equality is not claimed, and D does not
 inherit the C waveform result.
 
-Both UARTs stop at the existing model-size bounds. The measured C UART needs
-130,773 compact capacitors and 430,791 controlled sources; the current API allows
-at most 100,000 capacitors and 250,000 controlled sources, with 50,000 capacitors
-requested by default. Both APBs stop because the RC exporter does not support
+At that checkpoint both UARTs stopped at the existing model-size bounds. The
+measured C UART needed 130,773 compact capacitors and 430,791 controlled sources;
+the API then allowed at most 100,000 capacitors and 250,000 controlled sources,
+with 50,000 capacitors requested by default. Both APBs stopped because the RC exporter did not support
 their four native diode records. The extracted APB inventory retains 22,486 MOS
 devices plus four diodes with explicit area/perimeter. No electrical elements
 are dropped, no limit is relaxed and no failed case is treated as accepted.
 The 114-member archive preserves all six native attempts and their exact inputs.
-Native diode support and qualified larger-model capacity are the next export
-fixes before larger-reference electrical validation can proceed.
+Those retained failures motivated the following export changes.
+
+The [native diode RC controls](validation/gf180-native-rc-diodes-2026-10-08.json)
+exercise the foundry antenna cell physically abutted to its substrate/well tap
+under both C and D technologies. Native diode polarity, area and perimeter are
+preserved through normalization, export, topology contraction and island
+analysis. All 28 native-export faults are rejected, including changed geometry,
+multiplicity, polarity, model, missing devices and invalid endpoints. Both
+133-point nominal DC sweeps match an independently assembled circuit, and
+ngspice reads back the expected area and perimeter for every diode. The model's
+IKK warning remains in the evidence; these controls do not qualify high-injection
+behavior, other device families or full PDK signoff. The 891-member archive also
+retains the earlier failed control attempts.
+
+Larger models can request explicit capacitor and auxiliary-source allocations.
+Defaults remain 50,000 capacitors and 250,000 sources; supported allocation
+ceilings are 250,000 and 1,000,000 respectively. The selected source allocation
+is retained and enforced through finalization, contraction and island analysis.
+Counts are checked before output mutation. This does not discard elements,
+change the electrical equations or promise simulator capacity. The current
+larger-reference run explicitly requests 200,000 capacitors and 600,000 sources
+and measures peak memory. Native SPICE continuation records are also supported
+without changing port order, device parameters or line formatting.
+
+The fresh C UART before/filled pair now completes export with all 22,588 devices
+retained; the C APB pair retains all 22,490 devices, including its four
+diodes. Completion of all eight larger exports, independent all-node model
+audits, post-fill function/timing and installed production acceptance remain
+required. An additional all-node arithmetic audit currently fails its uniform-voltage cancellation check (maximum residual 3.76e-6 aF in the first C UART measurement); diagnosis is ongoing and the larger model is not accepted by that audit. These export controls do not close chunk 4.
 
 See [release targets](PUBLIC_RELEASE_TARGETS.md),
 [digital qualification](DIGITAL_PLATFORM_QUALIFICATION.md),

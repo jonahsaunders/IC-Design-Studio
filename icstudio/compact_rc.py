@@ -11,6 +11,7 @@ import math
 import re
 
 MAX_SOURCES = 250_000
+MAX_ALLOWED_SOURCES = 1_000_000
 PREFIX = 'STUDIO_RC_INTERNAL_'
 ELEMENT_PREFIXES = ('R_STUDIO_SUM_', 'G_STUDIO_SUM_', 'E_STUDIO_BUFFER_',
                     'E_STUDIO_RC_', 'C_STUDIO_RC_')
@@ -18,9 +19,18 @@ CURRENT_SUM = 'current-sum-v1'
 SERIES_VOLTAGE = 'series-voltage-v1'
 
 
+def source_budget(value=None):
+    """Keep the default bound; require an explicit bounded larger allocation."""
+    value = MAX_SOURCES if value is None else value
+    if type(value) is not int or not 0 < value <= MAX_ALLOWED_SOURCES:
+        raise ValueError(f'Compact RC auxiliary-source budget must be 1–{MAX_ALLOWED_SOURCES}.')
+    return value
+
+
 def build(ground, coupling, weights, reference, *, physical_nodes, max_capacitors,
-          encoding=CURRENT_SUM):
+          encoding=CURRENT_SUM, max_sources=None):
     """Return a bounded SPICE model in farads and its element counts."""
+    max_sources = source_budget(max_sources)
     physical = set(physical_nodes)
     if encoding not in (CURRENT_SUM, SERIES_VOLTAGE):
         raise ValueError('Unsupported compact RC encoding.')
@@ -56,8 +66,10 @@ def build(ground, coupling, weights, reference, *, physical_nodes, max_capacitor
     source_count = capacitor_count + sum(len(adjacency[i]) for i in active)
     if encoding == CURRENT_SUM:
         source_count += len(active)  # One output buffer for every U sum.
-    if capacitor_count > max_capacitors or source_count > MAX_SOURCES:
-        raise ValueError('Compact RC exceeds the declared capacitor or auxiliary-source budget.')
+    if capacitor_count > max_capacitors or source_count > max_sources:
+        raise ValueError('Compact RC exceeds the declared capacitor or auxiliary-source budget: '
+                         f'requires {capacitor_count} capacitors and {source_count} sources; '
+                         f'budgets are {max_capacitors} and {max_sources}.')
     occupied = {n.casefold() for n in physical}; auxiliary = set(); sources = []; caps = []
     current_count = buffer_count = resistor_count = 0
     def fresh(name):
@@ -105,17 +117,20 @@ def build(ground, coupling, weights, reference, *, physical_nodes, max_capacitor
             'encoding': encoding, 'sources': len(sources) - resistor_count,
             'controlled_current_sources': current_count, 'output_buffers': buffer_count,
             'internal_sum_resistors': resistor_count, 'auxiliary_nodes': len(auxiliary),
-            'max_sources': MAX_SOURCES}
+            'max_sources': max_sources}
 
 
-def records(text, physical_nodes):
+def records(text, physical_nodes, *, max_sources=None):
     """Return helper records and capacitors; reject physical drives and leakage.
 
     Current sums have exactly two layers: physical-node averages, then buffered
     sums of those averages. Only buffer outputs may carry capacitive loads.
     Retain the original series-source grammar for authenticated older exports.
     """
+    max_sources = source_budget(max_sources)
     tokens = [line.split() for line in text.splitlines()]
+    if sum(bool(t) and t[0].startswith(('G', 'E')) for t in tokens) > max_sources:
+        raise ValueError('Compact RC exceeds the declared auxiliary-source budget.')
     if not tokens or all(t and t[0].startswith(('E_STUDIO_RC_', 'C_STUDIO_RC_')) for t in tokens):
         return _series_records(text, physical_nodes)
     physical = set(physical_nodes)
@@ -166,8 +181,6 @@ def records(text, physical_nodes):
             any(t[3] not in physical for node in averages for t in sums[node]) or
             any(t[3] not in averages for node in buffered_sums for t in sums[node])):
         raise ValueError('Compact RC helpers must form unloaded averages and buffered neighbor sums.')
-    if sum(t[0].startswith(('G', 'E')) for t in helpers) > MAX_SOURCES:
-        raise ValueError('Compact RC exceeds the declared auxiliary-source budget.')
     return helpers, caps
 
 
@@ -199,13 +212,13 @@ def _series_records(text, physical_nodes):
     return sources, caps
 
 
-def audit(text, owner, ground, coupling, reference):
+def audit(text, owner, ground, coupling, reference, *, max_sources=None):
     """Independently contract serialized helper equations and C stamps to net C.
 
     Release intermediate symbolic vectors when their final consumer executes;
     otherwise long sums over supply nets would use quadratic storage.
     """
-    sources, caps = records(text, owner)
+    sources, caps = records(text, owner, max_sources=max_sources)
     current_sum = any(t[0].startswith('R_STUDIO_SUM_') for t in sources)
     uses = (Counter(t[3] for t in sources if t[0].startswith(('G', 'E'))) if current_sum
             else Counter(n for t in sources for n in t[2:4]))
