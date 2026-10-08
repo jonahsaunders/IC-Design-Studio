@@ -241,11 +241,22 @@ native counter runs extract every network, preserve 4,184 devices and eight
 ports, and contain no negative resistance-node weights. The 18 used cell
 controls also preserve their device inventories. This is an explicit additional
 engine candidate; the installed runtime is not replaced or newly qualified.
-The full circuit still exceeds the production capacitance expansion budget.
-A compact representation passes independent native small-circuit frequency and
-transient controls, including a corrupted-coefficient negative control. It needs
-production integration and full-layout electrical qualification before chunk 4
-can close. The existing numerical and size guards remain active.
+The full circuit exceeds the original pairwise capacitance expansion budget.
+The [compact export integration](validation/gf180-compact-export-2026-10-07.json)
+now preserves the same area-weighted equations with 24,459 before-fill and 26,281
+filled capacitors, including intrinsic capacitance at its original substrate
+anchor. Both stay below the unchanged 50,000-capacitor default. Final exports
+preserve all 4,184 device parameter records, eight ports, and 46,757/47,668
+resistors, respectively. The full floating network is retained. Independent
+small-circuit native frequency, transient and corrupted-coefficient controls
+pass for the production generator.
+
+This integration is not chunk 4 acceptance. Full-counter runs still use the
+previously audited diagnostic roundoff copies; raw parsing remains strict.
+The next batches must establish a bounded raw-roundoff policy, actual post-fill
+circuit behavior and timing, complete fill rules, then production C/D counter,
+UART and APB acceptance on both operating systems. All original design
+constraints and numerical/size guards remain in force.
 
 Before each batch, freeze its exact inputs, numerical limits and negative
 controls. After the batch, preserve commands, versions, input/output hashes,

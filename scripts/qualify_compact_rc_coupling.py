@@ -19,11 +19,16 @@ ap.add_argument('--out',type=Path,required=True)
 ap.add_argument('--ngspice',required=True)
 args=ap.parse_args()
 from icstudio.model import file_digest
+from icstudio.compact_rc import build as build_compact
 out=args.out.resolve();out.mkdir(parents=True,exist_ok=False)
 weights={'a':{'a0':.125,'a1':.3,'a2':.575},'b':{'b0':.35,'b1':.65},'f':{'f0':.4,'f1':.6}}
 coupling={('a','b'):3.7e-12,('a','f'):2.4e-12,('b','f'):1.3e-12}
 nodes=[n for values in weights.values() for n in values]
 ground={n:(i+1)*1e-14 for i,n in enumerate(nodes)}
+# Match the application's area-weighted intrinsic C model while retaining the
+# original fixture's total ground capacitance per logical net.
+net_ground={net:math.fsum(ground[n] for n in ws) for net,ws in weights.items()}
+ground={n:net_ground[net]*w for net,ws in weights.items() for n,w in ws.items()}
 matrix={a:{b:0. for b in nodes} for a in nodes}
 for n,c in ground.items():matrix[n][n]+=c
 for (a,b),c in coupling.items():
@@ -32,7 +37,8 @@ for (a,b),c in coupling.items():
             v=c*wi*wj;matrix[i][i]+=v;matrix[j][j]+=v;matrix[i][j]-=v;matrix[j][i]-=v
 ngspice=str(Path(args.ngspice).resolve())
 report=dict(status='running',qualified=False,scope='Electrical equivalence of a factorized lumped model; no field accuracy or process/timing acceptance.',
-    script_sha256=file_digest(Path(__file__)),ngspice_sha256=file_digest(ngspice),weights=weights,
+    script_sha256=file_digest(Path(__file__)),ngspice_sha256=file_digest(ngspice),
+    production_implementation_sha256=file_digest(ROOT/'icstudio/compact_rc.py'),weights=weights,
     coupling=[dict(a=a,b=b,farads=c) for (a,b),c in coupling.items()],ground_farads=ground,
     limits=dict(ac_relative=1e-9,ac_absolute_amperes=1e-18,transient_absolute_volts=2e-6),ac=[],transient={})
 (out/'ngspice-version.log').write_text(subprocess.check_output([ngspice,'--version'],text=True))
@@ -46,6 +52,12 @@ def sum_sources(prefix, output, terms):
     return result
 
 def circuit(mode):
+    if mode=='production':
+        model=build_compact({**{n:c*1e18 for n,c in net_ground.items()},'REF':0.},
+            {pair:c*1e18 for pair,c in coupling.items()}, {**weights,'REF':{'REF':1.}},
+            'REF',physical_nodes=[*nodes,'REF'],max_capacitors=100)
+        report['production_model']={key:value for key,value in model.items() if key!='text'}
+        return model['text'].splitlines()+['VREF REF 0 0']
     lines=[]
     for i,(n,c) in enumerate(ground.items()):lines.append(f'CG{i} {n} 0 {c:.17g}')
     if mode=='expanded':
@@ -79,7 +91,7 @@ def run(folder,lines,commands):
     lines=(folder/'data.txt').read_text().splitlines()
     row.update(data_sha256=file_digest(folder/'data.txt'),points=len(lines)-1)
     return row,[[float(v) for v in line.split()] for line in lines[1:]]
-for mode in ('expanded','compact','corrupt'):
+for mode in ('expanded','compact','production','corrupt'):
     for active in nodes:
         folder=out/'ac'/mode/active
         lines=circuit(mode)+[f'V{i} {n} 0 DC 0 AC {int(n==active)}' for i,n in enumerate(nodes)]
@@ -96,17 +108,20 @@ for mode in ('expanded','compact','corrupt'):
         row.update(mode=mode,active=active,matches_full_analytical_matrix=accepted,maximum_error_amperes=max(errors))
         report['ac'].append(row);retain();print(json.dumps(dict(mode=mode,active=active,accepted=accepted)),flush=True)
 data_by_mode={}
-for mode in ('expanded','compact'):
+for mode in ('expanded','compact','production'):
     lines=circuit(mode)+['VDRIVE drive 0 PULSE(0 1 .1n .02n .02n 2n 5n)','RD drive a0 1000',
         'RA a0 a1 1700','RA2 a1 a2 2300','RB b0 b1 1900','RL b1 0 50000','RF f0 f1 3300']
     row,data=run(out/'transient'/mode,lines,'tran 2p 10n 0 2p uic\nlinearize '+' '.join('v('+n+')' for n in nodes)+'\nwrdata data.txt '+' '.join('v('+n+')' for n in nodes))
     report['transient'][mode]=row;data_by_mode[mode]=data;retain()
-before,after=data_by_mode['expanded'],data_by_mode['compact']
-assert len(before)==len(after)
-errors=[]
-for a,b in zip(before,after):
-    assert len(a)==len(b)==1+len(nodes) and math.isclose(a[0],b[0],abs_tol=1e-20)
-    errors.extend(abs(x-y) for x,y in zip(a[1:],b[1:]))
+before=data_by_mode['expanded'];errors=[]
+for mode in ('compact','production'):
+    after=data_by_mode[mode];assert len(before)==len(after)
+    local=[]
+    for a,b in zip(before,after):
+        assert len(a)==len(b)==1+len(nodes) and math.isclose(a[0],b[0],abs_tol=1e-20)
+        local.extend(abs(x-y) for x,y in zip(a[1:],b[1:]))
+    report['transient'][mode]['maximum_error_volts']=max(local)
+    errors.extend(local)
 report['transient'].update(maximum_error_volts=max(errors),passed=max(errors)<=2e-6,floating_pair='f0/f1 has only R/C connections; UIC specifies zero initial charge, no artificial leakage.')
 report.update(status='completed',positive_controls_passed=all(r['matches_full_analytical_matrix'] for r in report['ac'] if r['mode']!='corrupt'),
     corrupted_gain_detected=any(not r['matches_full_analytical_matrix'] for r in report['ac'] if r['mode']=='corrupt'),

@@ -1,0 +1,418 @@
+{
+  "schema_version": 1,
+  "status": "bounded-production-integration-evidence",
+  "process_qualification": "unqualified",
+  "chunk": 4,
+  "chunk_complete": false,
+  "scope": "Exact representation and production export of the existing area-weighted lumped RC model. Full-counter inputs are audited diagnostic roundoff copies; no raw-input, post-fill timing, complete fill, full-chip or tapeout acceptance.",
+  "parent_commit": "e7d47ad23448bb208b8bd7681df0e65e00fad236",
+  "source_backend": "22673d8ea37dd68b3a44fc5806263a3f9fc602b10bb5bad5cee64a5f6ba41cee",
+  "source_files": {
+    "icstudio/compact_rc.py": "06e30f78105cfab69d236afddec4195bb64650eda3a3722d4afa3d2ac19691ec",
+    "icstudio/magic_rc.py": "17bcf5b0a99af32b6b8ef017c142dc1320e3887c11756d2279ba40776fc453f3",
+    "icstudio/rc_islands.py": "cbb9d5e0728181640f5d28bb2d9ff75231a7e187ee5af311258650f68c48a85d",
+    "icstudio/silicon_flow.py": "cd823f62851480290af67a2011415dfe8cde7e0e81790b55238e3d6b94ae20db",
+    "scripts/qualify_compact_rc_coupling.py": "f6b3e35f21f869a916982f439cf15734acac5cb898d159b04407b105ef3126ef",
+    "scripts/qualify_gf180_rc.py": "acb91c5b2b026f5376fa43f8c89fe28a5cd2a3695e2df6edc9d9eab944d08a73",
+    "tests/test_compact_rc.py": "2921030b0492246fd51155cd8023ec2c0b35032708882304a2f99bc4ca082516"
+  },
+  "prior_evidence": {
+    "path": "docs/validation/gf180-rc-extraction-candidate-2026-10-07.json",
+    "sha256": "48df316eaec72c3c292896a92ca94a8dae7ac5168461af592a76a119b19bd76a"
+  },
+  "default_engine_lock_changed": false,
+  "installed_runtime_changed": false,
+  "representation": {
+    "default_capacitor_budget": 50000,
+    "auxiliary_source_budget": 250000,
+    "small_models": "expanded",
+    "large_models": "compact if both budgets permit; otherwise fail before writing",
+    "intrinsic_ground": "Original substrate anchor preserved through an additional singleton group; distributed substrate mutual C retains area weights.",
+    "floating_fill": "All 911 fill conductors retained in the complete finite-R network. No added leakage or resistor pruning. Separate equipotential reducer budget unchanged.",
+    "validation": "Rebuild weights and generated equations from raw inputs, independently audit serialized C matrix, verify exact R topology/values, all device parameters and port order; authorize exact model for contraction/island analysis."
+  },
+  "full_counter_export": {
+    "record": {
+      "path": "outputs/gf180-compact-export-v3/report.json",
+      "sha256": "9c6fc67329a04ee013e69957a74f0c9eed768ecbbff7a73098a29be3a5523a78"
+    },
+    "cases": {
+      "before": {
+        "source_capacitance_sha256": "37bab29ce55d2307cf8b7fc515585a9c29b2954682682acfb4a67c1106e3d863",
+        "diagnostic_capacitance_sha256": "48b6c8552c4b787618fe5d605b20e72fd9d6c9ad93798ae6c035ca9bf596bc81",
+        "status": "export-and-contraction-passed",
+        "normalization_seconds": 5.601658582687378,
+        "normalization_conservation": {
+          "status": "passed",
+          "method": "independent-serialized-linear-equations-and-capacitor-stamps",
+          "matrix_entries": 52948,
+          "maximum_error_af": 2.561137080192566e-07,
+          "relative_tolerance": 1e-12,
+          "absolute_tolerance_af": 1e-12
+        },
+        "compact": {
+          "capacitors": 24459,
+          "sources": 73337,
+          "auxiliary_nodes": 73337,
+          "max_sources": 250000,
+          "file": "compact-capacitance.spice",
+          "implementation_sha256": "06e30f78105cfab69d236afddec4195bb64650eda3a3722d4afa3d2ac19691ec",
+          "scope": "Exact factorization of the existing area-weighted lumped C model, including the original substrate anchor; no new field accuracy."
+        },
+        "command": [
+          "/var/tmp/icstudio-gf180-fill-rc-v1/installed/bin/magic",
+          "-dnull",
+          "-noconsole",
+          "-rcfile",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/gf180-compact-export-v3/before/startup.tcl",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/gf180-compact-export-v3/before/export.tcl"
+        ],
+        "exit_code": 0,
+        "finalization_seconds": 12.186205387115479,
+        "resistors": 46757,
+        "export": {
+          "status": "passed",
+          "raw_file": "raw-export.spice",
+          "file": "extracted.spice",
+          "raw_sha256": "63883934efd10da2eae57b41544e96598769d40ecd0caffa1a40d32f3286703d",
+          "sha256": "a2f59dc7a7afe7b3dc7b51e67d402d864dd944a152694eb6aa45a341a961c193",
+          "removed_quantized_capacitors": 0,
+          "full_precision_capacitors": 24459,
+          "preserved_physical_passives": [],
+          "device_parameters": {
+            "status": "passed",
+            "devices": 4184,
+            "reference": "device-reference.spice",
+            "restored_junction_fields": 0,
+            "junction_scope": "Pre-R area/perimeter fields retained when splitting shared nets changes Magic redistribution; unambiguous model/terminals/all other parameters required.",
+            "scope": "All physical model/value/parameter fields after contracting only distributed wire resistance."
+          },
+          "unobservable_normalization_nodes": [],
+          "resistor_graph": "exact original named edge multiset preserved",
+          "resistor_values": {
+            "status": "passed",
+            "relative_tolerance": 5e-06,
+            "absolute_tolerance_ohm": 1e-15,
+            "count": 46757,
+            "restored_values": 44221,
+            "final_values": "Original .res.ext resistance scaled to ohms at 17 significant digits.",
+            "recognized_export_bias_ohm": 0.0005
+          },
+          "device_terminals": {
+            "status": "passed",
+            "count": 4184
+          },
+          "physical_device_lines": "preserved except explicitly reported pre-R junction area/perimeter restoration",
+          "non_capacitor_lines": "preserved except original full-precision distributed resistance values restored",
+          "quantization_reason": "Supported Magic esSIvalue emits C below 1 aF as zero; all parasitic C is serialized at 17 significant digits.",
+          "matrix_entries": 52948,
+          "maximum_error_af": 2.561137080192566e-07,
+          "relative_tolerance": 1e-12,
+          "absolute_tolerance_af": 1e-12,
+          "controlled_sources": 73337,
+          "compact_conservation": {
+            "status": "passed",
+            "method": "independent-serialized-linear-equations-and-capacitor-stamps",
+            "matrix_entries": 52948,
+            "maximum_error_af": 2.561137080192566e-07,
+            "relative_tolerance": 1e-12,
+            "absolute_tolerance_af": 1e-12
+          },
+          "restored_capacitive_nodes": []
+        },
+        "islands": {
+          "source_sha256": "a2f59dc7a7afe7b3dc7b51e67d402d864dd944a152694eb6aa45a341a961c193",
+          "electrical_sha256": "a2f59dc7a7afe7b3dc7b51e67d402d864dd944a152694eb6aa45a341a961c193",
+          "removed_resistors": [],
+          "components": 0,
+          "physical_devices": [],
+          "preserved_compact_sources": 73337,
+          "criterion": "Resistor-only connected component with no port, device terminal or capacitor endpoint. All observable circuit lines retained verbatim."
+        },
+        "artifacts": {
+          "rc-normalization.json": "e0c83f05a3bc18244036f2391ceb77f7dbc3cbe87a1f3bdaf39a45028e599098",
+          "compact-capacitance.spice": "ac6f52a7a8daff54b0b2a084c050727cae5068874bc5221b93133dff2a542840",
+          "extracted.spice": "a2f59dc7a7afe7b3dc7b51e67d402d864dd944a152694eb6aa45a341a961c193",
+          "contracted.spice": "38f899c8eac2406b93eb16867bf5676dffe993d3de964d1e6573a51b91e3ac4b",
+          "electrical.spice": "a2f59dc7a7afe7b3dc7b51e67d402d864dd944a152694eb6aa45a341a961c193",
+          "export.log": "43dd3924532574bb58e6967f7463fef66125a5ed61d332bc845c162d318d8e34"
+        }
+      },
+      "filled": {
+        "source_capacitance_sha256": "3decaef8040eff2832f34d069a4d450909d0bf3c21bfbda0e6159c09434815c4",
+        "diagnostic_capacitance_sha256": "0c2e20f598632986e1565274be78e2614617be6467a00ef1b2114ee95e394542",
+        "status": "export-and-contraction-passed",
+        "normalization_seconds": 7.391167879104614,
+        "normalization_conservation": {
+          "status": "passed",
+          "method": "independent-serialized-linear-equations-and-capacitor-stamps",
+          "matrix_entries": 62845,
+          "maximum_error_af": 7.078051567077637e-08,
+          "relative_tolerance": 1e-12,
+          "absolute_tolerance_af": 1e-12
+        },
+        "compact": {
+          "capacitors": 26281,
+          "sources": 84145,
+          "auxiliary_nodes": 84145,
+          "max_sources": 250000,
+          "file": "compact-capacitance.spice",
+          "implementation_sha256": "06e30f78105cfab69d236afddec4195bb64650eda3a3722d4afa3d2ac19691ec",
+          "scope": "Exact factorization of the existing area-weighted lumped C model, including the original substrate anchor; no new field accuracy."
+        },
+        "command": [
+          "/var/tmp/icstudio-gf180-fill-rc-v1/installed/bin/magic",
+          "-dnull",
+          "-noconsole",
+          "-rcfile",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/gf180-compact-export-v3/filled/startup.tcl",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/gf180-compact-export-v3/filled/export.tcl"
+        ],
+        "exit_code": 0,
+        "finalization_seconds": 11.530805826187134,
+        "resistors": 47668,
+        "export": {
+          "status": "passed",
+          "raw_file": "raw-export.spice",
+          "file": "extracted.spice",
+          "raw_sha256": "25345a86d213e79787215fcf5dd634482d5b2a5d08a1cd2244ada96ab7562796",
+          "sha256": "15f9ba82ba5008973bc1e9b0cb215d5d17153757ce8129267f103027747c064b",
+          "removed_quantized_capacitors": 0,
+          "full_precision_capacitors": 26281,
+          "preserved_physical_passives": [],
+          "device_parameters": {
+            "status": "passed",
+            "devices": 4184,
+            "reference": "device-reference.spice",
+            "restored_junction_fields": 0,
+            "junction_scope": "Pre-R area/perimeter fields retained when splitting shared nets changes Magic redistribution; unambiguous model/terminals/all other parameters required.",
+            "scope": "All physical model/value/parameter fields after contracting only distributed wire resistance."
+          },
+          "unobservable_normalization_nodes": [],
+          "resistor_graph": "exact original named edge multiset preserved",
+          "resistor_values": {
+            "status": "passed",
+            "relative_tolerance": 5e-06,
+            "absolute_tolerance_ohm": 1e-15,
+            "count": 47668,
+            "restored_values": 45132,
+            "final_values": "Original .res.ext resistance scaled to ohms at 17 significant digits.",
+            "recognized_export_bias_ohm": 0.0005
+          },
+          "device_terminals": {
+            "status": "passed",
+            "count": 4184
+          },
+          "physical_device_lines": "preserved except explicitly reported pre-R junction area/perimeter restoration",
+          "non_capacitor_lines": "preserved except original full-precision distributed resistance values restored",
+          "quantization_reason": "Supported Magic esSIvalue emits C below 1 aF as zero; all parasitic C is serialized at 17 significant digits.",
+          "matrix_entries": 62845,
+          "maximum_error_af": 7.078051567077637e-08,
+          "relative_tolerance": 1e-12,
+          "absolute_tolerance_af": 1e-12,
+          "controlled_sources": 84145,
+          "compact_conservation": {
+            "status": "passed",
+            "method": "independent-serialized-linear-equations-and-capacitor-stamps",
+            "matrix_entries": 62845,
+            "maximum_error_af": 7.078051567077637e-08,
+            "relative_tolerance": 1e-12,
+            "absolute_tolerance_af": 1e-12
+          },
+          "restored_capacitive_nodes": []
+        },
+        "islands": {
+          "source_sha256": "15f9ba82ba5008973bc1e9b0cb215d5d17153757ce8129267f103027747c064b",
+          "electrical_sha256": "15f9ba82ba5008973bc1e9b0cb215d5d17153757ce8129267f103027747c064b",
+          "removed_resistors": [],
+          "components": 0,
+          "physical_devices": [],
+          "preserved_compact_sources": 84145,
+          "criterion": "Resistor-only connected component with no port, device terminal or capacitor endpoint. All observable circuit lines retained verbatim."
+        },
+        "artifacts": {
+          "rc-normalization.json": "b0e41ba5ee3d7344ccd12eb1d2349da5325aca78408a1fb8c421e9d3931f373e",
+          "compact-capacitance.spice": "9b2b2c77f9c22f3974ff634818ad3c1585c67b5433ccb5736a34f83fea18dc3e",
+          "extracted.spice": "15f9ba82ba5008973bc1e9b0cb215d5d17153757ce8129267f103027747c064b",
+          "contracted.spice": "38f899c8eac2406b93eb16867bf5676dffe993d3de964d1e6573a51b91e3ac4b",
+          "electrical.spice": "15f9ba82ba5008973bc1e9b0cb215d5d17153757ce8129267f103027747c064b",
+          "export.log": "ba468aadca7996d7242a1f208b30216a579e7a45054c4d909e7986f6f517d224"
+        }
+      }
+    },
+    "ports_each": 8,
+    "scope": "Native Magic export and production finalization/contraction/island controls, not full-counter electrical simulation."
+  },
+  "small_circuit": {
+    "record": {
+      "path": "outputs/compact-coupling-production-v3/report.json",
+      "sha256": "738b18500d9ddaa93fb574a5d9d327cfc625509f18c58d9ebd7bf04e08a50ce5"
+    },
+    "source_sha256": "06e30f78105cfab69d236afddec4195bb64650eda3a3722d4afa3d2ac19691ec",
+    "positive_ac_cases": 21,
+    "negative_ac_cases": 7,
+    "positive_controls_passed": true,
+    "corrupted_gain_detected": true,
+    "limits": {
+      "ac_relative": 1e-09,
+      "ac_absolute_amperes": 1e-18,
+      "transient_absolute_volts": 2e-06
+    },
+    "production_model": {
+      "capacitors": 8,
+      "sources": 20,
+      "auxiliary_nodes": 20,
+      "max_sources": 250000
+    },
+    "transient": {
+      "expanded": {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 1.4287536144256592,
+        "deck_sha256": "064ad681990ed8f06520c4617708ff797dd4005e10f13f6d05c7ae51e2140cad",
+        "log_sha256": "41fb61cf2659e139d347ff6012d428d2d963986a6550a2ae6dbbe286376d68c6",
+        "data_sha256": "93e2a97919e13042f9d19c4e87f5211e6ff989d50140c673171d065befe552c2",
+        "points": 5001
+      },
+      "compact": {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 1.2796330451965332,
+        "deck_sha256": "24905a572a53733b7406742023b42c3c43df19efc47394f41be74b7626b76ca6",
+        "log_sha256": "0a14fbb1ee76b99a774699efa9e3a1ebe2ec88d7123db7ef31e40f81e9de82ad",
+        "data_sha256": "f6f33dac76bec1886ac3424dc076ebfd464d5c4fa68af3ccc1f92da23a262d96",
+        "points": 5001,
+        "maximum_error_volts": 1.026225422862126e-06
+      },
+      "production": {
+        "command": [
+          "/opt/icstudio/bin/ngspice",
+          "-b",
+          "test.spice"
+        ],
+        "exit_code": 0,
+        "seconds": 1.6841797828674316,
+        "deck_sha256": "e1ad85088e15169a130c6576aecfb11aa9cd56905f9a74c6528a61f1fa245ae0",
+        "log_sha256": "0cc03908f1dba7ae34d75d41c9eb16281ee4fcebb00f23ab6e0f6ec8ce22c987",
+        "data_sha256": "86c645bb4b1275ceb71b4f67ef50aeaf46793a8cda8bfb238fd1246fbcee1601",
+        "points": 5001,
+        "maximum_error_volts": 9.301152914531485e-07
+      },
+      "maximum_error_volts": 1.026225422862126e-06,
+      "passed": true,
+      "floating_pair": "f0/f1 has only R/C connections; UIC specifies zero initial charge, no artificial leakage."
+    },
+    "scope": "Every endpoint against an independent dense matrix over 1 kHz to 1 THz; floating-pair transient with zero initial charge and no artificial leakage."
+  },
+  "tests": {
+    "full_suite": {
+      "tests": 1462,
+      "seconds": 1842.661,
+      "skips": 62,
+      "failures": 0,
+      "log": {
+        "path": "outputs/gf180-compact-integration-suite-v2/tests.log",
+        "sha256": "3ab88bd0339760445d935ab67a683e97a7e08bf678e2ffc0a59c4743e47873be"
+      },
+      "process": {
+        "path": "outputs/gf180-compact-integration-suite-v2/process.json",
+        "sha256": "33339eb50b3c44fac14e282e99d0c955d90461e9773ee0b1dc5b1e5010794f53"
+      }
+    },
+    "focused": {
+      "tests": 38,
+      "failures": 0,
+      "log": {
+        "path": "outputs/gf180-compact-integration-focused-v3.log",
+        "sha256": "b220f1614f85739dd0b341c1bf08eaf0fd81ac8bf199759aa3e7327766773118"
+      }
+    }
+  },
+  "archive": {
+    "path": "outputs/gf180-compact-integration-evidence-v1/evidence.tar.gz",
+    "sha256": "39904d493a018c93284e1c601ebfc246ee98134d27c3fb4450f56f10939ebb22",
+    "bytes": 55957045
+  },
+  "remaining": [
+    "Establish a bounded provenance-preserving raw capacitance roundoff policy and negative controls.",
+    "Simulate the full counter before and after fill with unchanged design constraints and explicit floating initial-charge conditions.",
+    "Complete the full foundry fill-rule inventory and production integration.",
+    "Qualify C/D counter, UART and APB references on both operating systems.",
+    "Continue chunks 5 through 12 only after chunk 4 acceptance."
+  ],
+  "nominal_device_reference": {
+    "record": {
+      "path": "outputs/gf180-counter-reference-transient-v1/report.json",
+      "sha256": "88cdb1574968fc65a9be31781183762fd51a395f4b24b124fdf3b8c801e2c286"
+    },
+    "status": "nominal-device-reference-functional-control-passed",
+    "scope": "Nominal device-reference functional control only; no interconnect RC, post-fill timing, corner or process acceptance.",
+    "source_netlist_sha256": "38f899c8eac2406b93eb16867bf5676dffe993d3de964d1e6573a51b91e3ac4b",
+    "original_constraints": {
+      "version": 1,
+      "clocks": [
+        {
+          "name": "core_clk",
+          "port": "clk",
+          "period_ns": 50,
+          "uncertainty_ns": 0.1
+        }
+      ],
+      "inputs": [
+        {
+          "ports": "reset",
+          "clock": "core_clk",
+          "min_ns": 0,
+          "max_ns": 1
+        }
+      ],
+      "outputs": [
+        {
+          "ports": "count*",
+          "clock": "core_clk",
+          "min_ns": 0,
+          "max_ns": 1
+        }
+      ],
+      "load_pf": 0.01,
+      "driving_cell": ""
+    },
+    "implementation_input_sha256": "0c8d864f5b56c53f00b28965e0e2a38272ea1f1baaa2a54ebe4bb9912701f199",
+    "fixture": {
+      "voltage": 5,
+      "temperature_c": 25,
+      "clock_period_ns": 50,
+      "input_rise_ns": 0.5,
+      "reset_fall_ns": 1,
+      "supply_ramp_ns": 5,
+      "loads_pf": 0.01,
+      "initial_state": "UIC; all initial voltages/charges zero; no added leakage resistors",
+      "sample_offset_ns": 15,
+      "low_max_v": 1,
+      "high_min_v": 4,
+      "numerics": {
+        "reltol": 1e-05,
+        "vntol": 1e-07,
+        "abstol": 1e-12,
+        "max_step_ns": 0.2
+      },
+      "timeout_seconds": 180
+    },
+    "samples": 18,
+    "waveform_points": 12353,
+    "elapsed_seconds": 1502.985310792923,
+    "archive": {
+      "path": "outputs/gf180-compact-integration-evidence-v1/reference-control.tar.gz",
+      "sha256": "2c356891dbebc22d40aafd3b9a1a7c939e32fff3b24f699f6c33073d7e2d85c6",
+      "bytes": 887985
+    }
+  }
+}

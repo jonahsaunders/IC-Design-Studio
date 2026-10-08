@@ -9,10 +9,12 @@ from pathlib import Path
 from .model import atomic_write,file_digest,scalar
 
 
-def prune(source,target,*,physical_devices=()):
+def prune(source,target,*,physical_devices=(),normalization=None):
     source,target=Path(source).resolve(),Path(target).resolve()
     if target.exists() or source==target:raise ValueError('Use a new electrical RC output file.')
-    lines=source.read_text().splitlines(keepends=True);parent={};anchors=set();resistors=[]
+    text=source.read_bytes().decode('utf-8');lines=text.splitlines(keepends=True);parent={};anchors=set();resistors=[]
+    from .magic_rc import compact_sources
+    auxiliary=compact_sources(text,normalization or {})
     active=False;declarations=0;names=set();physical={str(name).casefold() for name in physical_devices}
     def find(name):
         name=name.casefold();parent.setdefault(name,name)
@@ -48,6 +50,9 @@ def prune(source,target,*,physical_devices=()):
             idx=5 if key.startswith('m') else next((i for i,v in enumerate(t) if '=' in v),len(t))-1
             if not active or idx<2:raise ValueError('Unsupported RC device.')
             anchors.update(t[1:idx])
+        elif key in auxiliary:
+            if not active or t!=auxiliary[key]:raise ValueError('Compact RC source changed before island analysis.')
+            anchors.update(t[1:5])
         else:raise ValueError('Unsupported RC island record: '+key)
     if active or declarations!=1:raise ValueError('RC island analysis requires one complete flat subcircuit.')
     anchored={find(n) for n in anchors}
@@ -58,6 +63,7 @@ def prune(source,target,*,physical_devices=()):
     report={'source_sha256':file_digest(source),'electrical_sha256':file_digest(target),
             'removed_resistors':sorted(dropped),'components':len(components),
             'physical_devices':sorted(physical),
+            'preserved_compact_sources':len(auxiliary),
             'criterion':'Resistor-only connected component with no port, device terminal or capacitor endpoint. All observable circuit lines retained verbatim.'}
     atomic_write(str(target)+'.islands.json',json.dumps(report,indent=2))
     return report
