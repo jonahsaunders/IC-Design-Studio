@@ -84,11 +84,109 @@ class FillChecksTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'sixth metal'): self.inspect()
 
     def test_density_passing_layout_does_not_claim_complete_qualification(self):
-        for layer in fill.LAYERS.values(): self.shape(layer,0,(0,0,60000,50000))
+        for layer in fill.LAYERS.values(): self.shape(layer,0,(0,0,60000,52000))
         for variant in ('C','D'):
             report=self.inspect(variant=variant)
             self.assertEqual(report['status'],'checks_passed_coverage_incomplete')
             self.assertFalse(report['qualified']); self.assertTrue(report['unqualified_requirements'])
+
+    def test_metal_global_density_is_strictly_greater_than_thirty_percent(self):
+        for variant in ('C','D'):
+            for name,layer in (('m1',34),('m2',36),('m3',42),('m4',46),('m5',81)):
+                for delta,expected in ((-5,True),(0,True),(5,False)):
+                    with self.subTest(variant=variant,layer=name,delta=delta):
+                        self.layout.clear_layer(self.layout.layer(layer,0))
+                        self.shape(layer,0,(0,0,60000+delta,50000))
+                        report=self.inspect(variant=variant)
+                        self.assertEqual(self.failed(report,'global-density',name),expected)
+                        self.assertFalse(report['density'][name]['lower_limit_inclusive'])
+                self.layout.clear_layer(self.layout.layer(layer,0))
+            for name,layer,width in (('comp',22,50000),('poly',30,28000)):
+                self.shape(layer,0,(0,0,width,50000))
+                report=self.inspect(variant=variant)
+                self.assertFalse(self.failed(report,'global-density',name))
+                self.assertTrue(report['density'][name]['lower_limit_inclusive'])
+                self.layout.clear_layer(self.layout.layer(layer,0))
+
+    def test_density_keeps_half_database_unit_polygon_area(self):
+        self.shape(34,0,(0,0,60000,50000))
+        self.top.shapes(self.layout.layer(34,0)).insert(k.Polygon(
+            [k.Point(70000,70000),k.Point(70001,70000),k.Point(70000,70001)]))
+        report=self.inspect()
+        self.assertGreater(report['density']['m1']['total_percent'],30)
+        self.assertFalse(self.failed(report,'global-density','m1'))
+        self.assertEqual(report['metal_density_windows']['m1']['windows'][0]['material_area_um2'],3000.0000005)
+
+    def test_anchored_density_windows_match_independent_rectangle_union(self):
+        self.layout.clear_layer(self.layout.layer(63,0))
+        bounds=(10,20,460,370)
+        self.shape(63,0,tuple(v*1000 for v in bounds))
+        a=(10,20,210,220);b=(110,120,310,320);overlap=(110,120,210,220)
+        for datatype,box in ((0,a),(4,b)):
+            self.shape(34,datatype,tuple(v*1000 for v in box))
+        def clipped_area(rect,window):
+            return max(0,min(rect[2],window[2])-max(rect[0],window[0]))*max(0,min(rect[3],window[3])-max(rect[1],window[1]))
+        for variant in ('C','D'):
+            report=self.inspect(bounds=bounds,variant=variant)
+            data=report['metal_density_windows']['m1']
+            self.assertEqual(data['anchor_um'],[10,20])
+            self.assertEqual((data['full_windows'],data['partial_windows']),(6,14))
+            expected_bounds=[(x,y,min(x+200,460),min(y+200,370))
+                for y in (20,120,220,320) for x in (10,110,210,310,410)]
+            self.assertEqual([tuple(r['bounds_um']) for r in data['windows']],expected_bounds)
+            for measured,window in zip(data['windows'],expected_bounds):
+                area=clipped_area(a,window)+clipped_area(b,window)-clipped_area(overlap,window)
+                self.assertEqual(measured['material_area_um2'],area)
+                self.assertAlmostEqual(measured['measured_percent'],100*area/((window[2]-window[0])*(window[3]-window[1])))
+            self.assertIsNone(data['local_limits_percent'])
+            self.assertEqual(data['status'],'measured_acceptance_unqualified')
+            self.assertTrue(all(r['measured_percent']==0 for r in report['metal_density_windows']['m5']['windows']))
+            self.assertFalse(report['qualified'])
+
+    def test_small_die_does_not_claim_a_full_density_window(self):
+        report=self.inspect()
+        for data in report['metal_density_windows'].values():
+            self.assertEqual((data['full_windows'],data['partial_windows']),(0,1))
+            self.assertEqual(data['windows'][0]['area_um2'],10000)
+            self.assertEqual(data['status'],'measured_acceptance_unqualified')
+        with mock.patch.object(fill,'MAX_WINDOWS_PER_LAYER',0):
+            with self.assertRaisesRegex(ValueError,'window budget'):self.inspect()
+
+    def test_adjacent_layer_spacing_includes_circuit_and_dummy_material(self):
+        # Independent table order: Poly2, M1, M2, M3, M4, M5; no sixth metal.
+        stack=[('poly',30),('m1',34),('m2',36),('m3',42),('m4',46),('m5',81)]
+        for variant in ('C','D'):
+            for index,(name,layer) in enumerate(stack[1:],1):
+                adjacent=[('DM.5/7',stack[index-1])]
+                if index<5:adjacent.append(('DM.4/6',stack[index+1]))
+                self.shape(layer,4,(40000,40000,42000,42000))
+                for rule,(other,target_layer) in adjacent:
+                    for datatype in (0,4):
+                        for label,gap,expected in (('limit',1000,False),('short',995,True),
+                                ('touch',0,True),('overlap',-1000,True),('contained',-2500,True)):
+                            with self.subTest(variant=variant,layer=name,target=other,datatype=datatype,case=label):
+                                target=self.layout.layer(target_layer,datatype);self.layout.clear_layer(target)
+                                box=(42000+gap,40000,44000+gap,42000)
+                                if label=='contained':box=(39000,39000,43000,43000)
+                                self.shape(target_layer,datatype,box)
+                                self.assertEqual(self.failed(self.inspect(variant=variant),rule,name),expected)
+                        self.layout.clear_layer(self.layout.layer(target_layer,datatype))
+                self.layout.clear_layer(self.layout.layer(layer,4))
+
+    def test_adjacent_layer_diagonal_clearance_and_nonadjacent_control(self):
+        self.shape(34,4,(20000,20000,22000,22000))
+        for datatype in (0,4):
+            index=self.layout.layer(36,datatype)
+            for delta,expected in ((1420,False),(1410,True)):
+                with self.subTest(datatype=datatype,delta=delta):
+                    self.layout.clear_layer(index);c=40000-delta
+                    self.top.shapes(index).insert(k.Polygon([k.Point(0,0),k.Point(c,0),k.Point(0,c)]))
+                    self.assertEqual(self.failed(self.inspect(),'DM.4/6','m1'),expected)
+            self.layout.clear_layer(index)
+        self.shape(42,4,(20000,20000,22000,22000))
+        report=self.inspect()
+        self.assertFalse(self.failed(report,'DM.4/6','m1'))
+        self.assertFalse(self.failed(report,'DM.5/7','m1'))
 
     def test_well_clearance_applies_inside_outside_and_across_boundary(self):
         for variant in ('C', 'D'):
@@ -176,6 +274,9 @@ class FillChecksTests(unittest.TestCase):
 
     def test_wrong_layer_identity_cannot_be_reported_as_absent(self):
         with mock.patch.dict(fill.MARKERS, {'NDMY': (111, 0)}):
+            with self.assertRaisesRegex(ValueError,'layer map'):
+                self.inspect()
+        with mock.patch.dict(fill.LAYERS, {'m1': 36}):
             with self.assertRaisesRegex(ValueError,'layer map'):
                 self.inspect()
 

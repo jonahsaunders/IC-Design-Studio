@@ -293,6 +293,32 @@ failures in the implemented subset. Local density, drawing patterns, adjacent
 layers, embedded-memory marker aliases and complete boundary/scribe scope
 remain explicit gaps. The report still returns `qualified: false`.
 
+The [density and adjacent-layer follow-up](validation/gf180-fill-coverage-2026-10-08.json)
+binds additional rule definitions to the same pinned manual revision. Global
+metal density now requires strictly more than 30%, as Mn.4 and MT.3 specify;
+exactly 30% is rejected. COMP and poly retain their inclusive minimum limits.
+Integer doubled areas preserve half-database-unit polygon areas at the boundary.
+Adjacent-layer checks require 1 micrometre clearance and no overlap with the
+union of circuit and dummy material, including Poly2 below Metal1. This is a
+conservative interpretation satisfying both the table's general layer wording
+and the diagram's dummy-metal labels.
+
+Twenty written-GDS controls pass on each operating system, including exact
+thresholds, 5 nm spacing faults, contained and diagonal geometry, shifted window
+origins, partial edges and an independent rectangle-union density oracle. The
+unchanged filled C counter passes all 96 implemented checks on both OSes under
+each C/D layer map, with identical reports. Replaying C geometry with D's operand
+map does not qualify a production D design. Each actual checker returns exit 2
+for incomplete coverage.
+
+The checker also measures 200 by 200 micrometre windows at 100 micrometre steps
+anchored to the declared die. It reports full windows separately from clipped
+edge measurements and does not invent local acceptance limits. The counter's
+one full window per metal agrees with its global density. Two clipped Metal1
+regions measure 29.55% and 28.67%; they remain measurements without a foundry
+edge-window verdict. Local/edge acceptance, empty-field COMP coverage, drawing
+patterns, memory-marker scope and boundary/scribe requirements remain open.
+
 Complete fill rules, actual post-fill circuit behavior and timing, then
 production C/D counter, UART and APB acceptance on both operating systems are
 required before chunk 5.

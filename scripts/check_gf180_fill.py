@@ -19,6 +19,12 @@ from icstudio.model import file_digest
 
 LAYERS = {'comp': 22, 'poly': 30, 'm1': 34, 'm2': 36, 'm3': 42, 'm4': 46, 'm5': 81}
 MANUAL = ROOT / 'examples/gf180-fill-manual-lock.json'
+COVERAGE_MANUAL = ROOT / 'examples/gf180-fill-coverage-lock.json'
+LAYER_NAMES = {'comp': 'COMP', 'poly': 'Poly2',
+               **{f'm{i}': f'Metal{i}' for i in range(1, 6)}}
+WINDOW_NM = 200_000
+WINDOW_STEP_NM = 100_000
+MAX_WINDOWS_PER_LAYER = 100_000
 WELLS = {'Nwell': (21, 0), 'DNWELL': (12, 0),
          'LVPWELL': (204, 0), 'Dualgate': (55, 0)}
 MARKERS = {'RES_MK': (110, 5), 'NDMY': (111, 5), 'IND_MK': (151, 5),
@@ -34,10 +40,9 @@ OPEN_REQUIREMENTS = [
     'DCF.1a empty-field coverage and local COMP density',
     'DCF/DPF scribe/frame scope and COMP-to-pad RF guideline',
     'DCF exclusion-edge tie/fill rows',
-    'DM.4-7 adjacent-layer separation and overlap interpretation',
     'DM.8 alternate embedded-memory marker aliases (including YMTP_MK)',
     'Required drawing patterns and offsets (DCF.2a/3, DPF.2a/3, DM.2a/9/10)',
-    '200 x 200 um metal windows at 100 um steps and foundry edge treatment',
+    'Foundry acceptance limits for local metal density and clipped die-edge windows',
     'Independent full native geometry, antenna and final-layout LVS',
     'Post-fill extraction, timing and foundry acceptance',
 ]
@@ -47,7 +52,9 @@ def verify_layer_map(variant):
     """Bind supplemental rule operands to the selected bundled PDK's map."""
     path = ROOT / f'icstudio/assets/pdks/gf180mcu{variant}/libs.tech/klayout/gf180mcu.lyp'
     sources = {item.text for item in ET.parse(path).iter('source')}
-    for name, (number, datatype) in {**WELLS, **MARKERS}.items():
+    conductors = {LAYER_NAMES[key] + suffix: (number, datatype)
+                  for key, number in LAYERS.items() for datatype, suffix in ((0, ''), (4, '_Dummy'))}
+    for name, (number, datatype) in {**WELLS, **MARKERS, **conductors}.items():
         if f'{name} {number}/{datatype}@1' not in sources:
             raise ValueError(f'The selected PDK layer map does not identify {name} as {number}/{datatype}.')
     return path
@@ -57,6 +64,41 @@ def region(layout, top, number, datatype):
     import klayout.db as k
     index = layout.find_layer(number, datatype)
     return k.Region() if index is None else k.Region(top.begin_shapes_rec(index)).merged()
+
+
+def area2(shapes):
+    """Twice the merged integer-coordinate area, retaining half-grid areas."""
+    return sum(p.area2() for p in shapes.each())
+
+
+def metal_density_windows(shapes, bounds):
+    """Measure the declared 200 um / 100 um grid without inventing local limits.
+
+    Edge windows are explicitly clipped to the declared die and reported with
+    their actual area. This is a reproducible measurement policy, not a foundry
+    acceptance rule. Neither low values nor absent full windows become passes.
+    """
+    import klayout.db as k
+    nx = (bounds.width() + WINDOW_STEP_NM - 1) // WINDOW_STEP_NM
+    ny = (bounds.height() + WINDOW_STEP_NM - 1) // WINDOW_STEP_NM
+    if nx * ny > MAX_WINDOWS_PER_LAYER:
+        raise ValueError('Declared footprint exceeds the metal-density window budget.')
+    rows = []
+    for y in range(bounds.bottom, bounds.top, WINDOW_STEP_NM):
+        for x in range(bounds.left, bounds.right, WINDOW_STEP_NM):
+            nominal = k.Box(x, y, x + WINDOW_NM, y + WINDOW_NM)
+            clipped = nominal & bounds
+            covered2 = area2((shapes & k.Region(clipped)).merged())
+            denominator2 = 2 * clipped.area()
+            rows.append(dict(bounds_um=[v / 1000 for v in
+                (clipped.left, clipped.bottom, clipped.right, clipped.top)],
+                complete_window=clipped == nominal, area_um2=clipped.area()/1e6,
+                material_area_um2=covered2/2e6, measured_percent=100*covered2/denominator2))
+    return dict(status='measured_acceptance_unqualified', window_um=200, step_um=100,
+        anchor_um=[bounds.left/1000, bounds.bottom/1000],
+        edge_policy='Clip each anchored window to the fixed die; divide by the clipped area. Foundry edge acceptance remains unqualified.',
+        local_limits_percent=None, full_windows=sum(r['complete_window'] for r in rows),
+        partial_windows=sum(not r['complete_window'] for r in rows), windows=rows)
 
 
 def inspect(gds, bounds_um, *, top_name, variant):
@@ -97,15 +139,22 @@ def inspect(gds, bounds_um, *, top_name, variant):
         checks.append(dict(rule=rule, layer=layer, status='failed' if count else 'passed',
                            violations=int(count), **details))
 
-    density = {}
+    density = {}; windows = {}
     for name in LAYERS:
         combined = (circuit[name] + dummy[name]).merged()
-        percent = 100 * combined.area() / bounds.area()
+        material2 = area2(combined); denominator2 = 2 * bounds.area()
+        percent = 100 * material2 / denominator2
         lower, upper = LIMITS[name]
-        density[name] = dict(circuit_percent=100*circuit[name].area()/bounds.area(),
-            dummy_percent=100*dummy[name].area()/bounds.area(), total_percent=percent,
-            limits_percent=[lower, upper])
-        check('global-density', name, int(not lower <= percent <= upper), measured_percent=percent)
+        exclusive = name.startswith('m')
+        minimum_ok = (100*material2 > lower*denominator2 if exclusive
+                      else 100*material2 >= lower*denominator2)
+        density[name] = dict(circuit_percent=100*area2(circuit[name])/denominator2,
+            dummy_percent=100*area2(dummy[name])/denominator2, total_percent=percent,
+            limits_percent=[lower, upper], lower_limit_inclusive=not exclusive)
+        check('global-density', name, int(not minimum_ok or 100*material2 > upper*denominator2),
+              measured_percent=percent, lower_limit_inclusive=not exclusive)
+        if exclusive:
+            windows[name] = metal_density_windows(combined, bounds)
         size = 5000 if name == 'comp' else 5600 if name == 'poly' else 2000
         spacing = 1900 if name == 'comp' else 1100 if name == 'poly' else 980
         size_rule = 'DCF.1c/10' if name == 'comp' else 'DPF.1/10' if name == 'poly' else 'DM.1'
@@ -137,6 +186,22 @@ def inspect(gds, bounds_um, *, top_name, variant):
     separation('DPF.13', 'poly', 'm2', 2000)
     for name in ('m1', 'm2', 'm3', 'm4', 'm5'):
         separation('DM.3', name, name, 2000)
+
+    # The table names adjacent metal layers generally; its diagram identifies
+    # adjacent dummy metal. Require clearance to the union of circuit and dummy
+    # material, which satisfies either reading. M1's previous layer is Poly2.
+    stack = ('poly', 'm1', 'm2', 'm3', 'm4', 'm5')
+    for index, name in enumerate(stack[1:], 1):
+        adjacent = [('DM.5/7', stack[index-1])]
+        if index + 1 < len(stack): adjacent.append(('DM.4/6', stack[index+1]))
+        for rule, target in adjacent:
+            target_region = (circuit[target] + dummy[target]).merged()
+            overlap = (dummy[name] & target_region).merged()
+            pairs = dummy[name].separation_check(target_region, 1000)
+            check(rule, name, overlap.count() + pairs.count(), adjacent_layer=target,
+                  minimum_um=1., target_material='union of circuit and dummy',
+                  overlap_regions=overlap.count(), separation_pairs=pairs.count(),
+                  interpretation='Conservative union covers both the general table wording and the dummy-only diagram.')
 
     # A dummy may lie inside or outside a well, but it must not cross or
     # approach either side of its boundary.  A well is not an exclusion area.
@@ -178,15 +243,16 @@ def inspect(gds, bounds_um, *, top_name, variant):
     if file_digest(gds) != before:
         raise ValueError('The input changed while it was being measured.')
     failed = [c for c in checks if c['status'] == 'failed']
-    return dict(schema=2, status='failed' if failed else 'checks_passed_coverage_incomplete',
+    return dict(schema=3, status='failed' if failed else 'checks_passed_coverage_incomplete',
         qualified=False, variant=variant, metal_stack='5LM_1TM',
-        scope='Supplemental global-density, dummy-size/grid/spacing, selected circuit clearances, well-boundary and marking-layer exclusions only.',
+        scope='Supplemental global-density, local metal measurements, dummy-size/grid/spacing, circuit/adjacent-layer clearances, well-boundary and marking-layer exclusions only.',
         gds_sha256=before, checker_sha256=file_digest(Path(__file__)),
         manual_lock_sha256=file_digest(MANUAL), klayout_python_version=k.__version__,
+        coverage_manual_lock_sha256=file_digest(COVERAGE_MANUAL),
         layer_map_sha256=file_digest(layer_map),
         top=top_name, bounds_um=list(bounds_um), area_um2=bounds.area()/1e6,
         geometry_extent_um=[v/1000 for v in (extent.left, extent.bottom, extent.right, extent.top)],
-        density=density, checks=checks, failed_checks=len(failed),
+        density=density, metal_density_windows=windows, checks=checks, failed_checks=len(failed),
         unqualified_requirements=list(OPEN_REQUIREMENTS))
 
 
