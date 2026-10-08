@@ -480,6 +480,40 @@ counter's original GDS and density denominator are unchanged. It has no boundary
 declaration, so the checker reports `missing_boundary_plan`; no chip-level
 geometry is invented and chunk 4 remains incomplete.
 
+The [six-reference density candidate batch](validation/gf180-density-production-2026-10-08.json)
+now reproduces the coarse-Metal2 power mesh, capacitive filler cells and
+perimeter Metal1 dummy recipe through the production APIs on the actual C and D
+platforms. Counter, UART and APB each pass all three native rule groups, with
+zero geometry, antenna or density findings. Counter uses 911 Metal1 dummy
+squares; UART uses 2,123; APB uses 2,119. The original RTL, timing constraints,
+die/core dimensions and selected mapping corners are preserved. Independent
+audits check the actual C 9K and D 11K technology selections, including D's
+explicit extraction rules, every retained artifact and all other written masks.
+
+All six candidates pass mapped/physical equivalence, detect the injected
+register fault and pass three library timing conditions before the final
+floating Metal1 fill. Those 18 timing results do not establish post-fill
+timing. Linux runs the six implementations and full native rule decks; Windows
+replays the exact written GDS through the supplemental checker. All 104
+implemented supplemental checks pass for each design on both systems. Their
+decoded reports agree; the only serialization difference is integer versus
+floating-point spelling of the declared bounds in API and CLI reports.
+
+The initial launcher failed before implementation because it omitted the cell
+ID. A later launcher accidentally reset UART's slow mapping corner to typical;
+the independent audit rejects that C result. The matching incorrect D trial was
+intentionally stopped, with its exact process identities and artifacts retained.
+Corrected C/D UART runs preserve the original slow mapping and pass their audits.
+The successful and rejected native files are retained in separate hashed archives.
+
+These are explicitly staged candidate profiles, not new application defaults or
+fresh Windows production acceptance. Complete fill coverage and block/chip
+boundary scope, post-fill connectivity/extraction for the larger references,
+post-fill function/timing, accepted engine integration and installed-runtime
+acceptance remain required. The full precision/COLAMD counter simulations retain
+their original live process; this geometry batch does not replace their gate.
+Chunk 4 remains incomplete.
+
 See [release targets](PUBLIC_RELEASE_TARGETS.md),
 [digital qualification](DIGITAL_PLATFORM_QUALIFICATION.md),
 [bundled PDK scope](PDK_GUIDE.md) and
