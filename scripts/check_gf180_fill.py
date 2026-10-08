@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from icstudio.model import file_digest
 from scripts import gf180_fill_patterns as patterns
+from scripts import gf180_comp_sites as comp_sites
 
 LAYERS = {'comp': 22, 'poly': 30, 'm1': 34, 'm2': 36, 'm3': 42, 'm4': 46, 'm5': 81}
 MANUAL = ROOT / 'examples/gf180-fill-manual-lock.json'
@@ -106,7 +107,7 @@ def metal_density_windows(shapes, bounds):
         partial_windows=sum(not r['complete_window'] for r in rows), windows=rows)
 
 
-def inspect(gds, bounds_um, *, top_name, variant, pattern_plan=None):
+def inspect(gds, bounds_um, *, top_name, variant, pattern_plan=None, core_bounds_um=None):
     """Inspect written geometry, including entirely absent material layers.
 
     Bounds must come from the fixed design footprint, not from a selected area
@@ -123,6 +124,15 @@ def inspect(gds, bounds_um, *, top_name, variant, pattern_plan=None):
     bounds = k.Box(*(round(v * 1000) for v in bounds_um))
     if bounds_um[2] <= bounds_um[0] or bounds_um[3] <= bounds_um[1]:
         raise ValueError('The footprint must have positive width and height.')
+    core = None
+    if core_bounds_um is not None:
+        if len(core_bounds_um) != 4 or any(not math.isfinite(v) or
+                not math.isclose(v*1000, round(v*1000), abs_tol=1e-7, rel_tol=0) for v in core_bounds_um):
+            raise ValueError('Declare four finite core coordinates on the 1 nm database grid.')
+        core = k.Box(*(round(v*1000) for v in core_bounds_um))
+        if (core_bounds_um[2] <= core_bounds_um[0] or core_bounds_um[3] <= core_bounds_um[1]
+                or (core & bounds) != core):
+            raise ValueError('The declared core must have positive area and fit inside the fixed footprint.')
     gds = Path(gds); before = file_digest(gds)
     layout = k.Layout(); layout.read(str(gds))
     tops = list(layout.top_cells())
@@ -138,6 +148,9 @@ def inspect(gds, bounds_um, *, top_name, variant, pattern_plan=None):
     dummy = {name: region(layout, top, number, 4) for name, number in LAYERS.items()}
     wells = {name: region(layout, top, *pair) for name, pair in WELLS.items()}
     markers = {name: region(layout, top, *pair) for name, pair in MARKERS.items()}
+    comp_placement_space = dict(die=comp_sites.inspect_space(circuit['comp'], circuit['poly'], bounds))
+    if core is not None:
+        comp_placement_space['declared_core'] = comp_sites.inspect_space(circuit['comp'], circuit['poly'], core)
     checks = []
     drawing_patterns = None; pattern_digest = None; pattern_requirements = []
 
@@ -335,7 +348,7 @@ def inspect(gds, bounds_um, *, top_name, variant, pattern_plan=None):
         open_requirements.append('DE.1 design justification for using exclusion markers')
     if unsupported:
         open_requirements.append('DE.3 side-length exception for large nonrectangular exclusion regions')
-    return dict(schema=5, status='failed' if failed else 'checks_passed_coverage_incomplete',
+    return dict(schema=6, status='failed' if failed else 'checks_passed_coverage_incomplete',
         qualified=False, variant=variant, metal_stack='5LM_1TM',
         scope='Supplemental density measurements, dummy geometry, declared drawing recipe, clearances, well/marker exclusions, exclusion-marker geometry and unsupported memory-layer detection only.',
         gds_sha256=before, checker_sha256=file_digest(Path(__file__)),
@@ -348,6 +361,8 @@ def inspect(gds, bounds_um, *, top_name, variant, pattern_plan=None):
         pattern_plan_sha256=pattern_digest, drawing_patterns=drawing_patterns,
         pattern_checker_sha256=file_digest(Path(patterns.__file__)),
         pattern_manual_lock_sha256=file_digest(PATTERN_MANUAL),
+        comp_placement_space=comp_placement_space,
+        comp_space_checker_sha256=file_digest(Path(comp_sites.__file__)),
         checks=checks, failed_checks=len(failed), unqualified_requirements=open_requirements)
 
 
@@ -357,12 +372,15 @@ def main():
     parser.add_argument('--top', required=True)
     parser.add_argument('--bounds', type=float, nargs=4, required=True, metavar=('X0','Y0','X1','Y1'))
     parser.add_argument('--variant', choices=('C','D'), required=True)
+    parser.add_argument('--core-bounds', type=float, nargs=4,
+                        help='Optional original core rectangle for a separate COMP site analysis; never replaces the die or density denominator.')
     parser.add_argument('--pattern-plan', type=Path,
                         help='Optional declared alternating-stagger-v1 drawing recipe; required to check drawing-pattern membership.')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists(): raise ValueError('Choose a new report path; retain prior evidence.')
-    report = inspect(args.gds, args.bounds, top_name=args.top, variant=args.variant, pattern_plan=args.pattern_plan)
+    report = inspect(args.gds, args.bounds, top_name=args.top, variant=args.variant,
+                     pattern_plan=args.pattern_plan, core_bounds_um=args.core_bounds)
     args.output.write_text(json.dumps(report, indent=2)+'\n', encoding='utf-8', newline='\n')
     print(json.dumps({'status':report['status'], 'failed_checks':report['failed_checks'], 'qualified':False}))
     return 1 if report['failed_checks'] else 2

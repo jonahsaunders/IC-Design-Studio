@@ -1,0 +1,290 @@
+{
+  "status": "earlier-unfilled-full-rc-functional-control-independently-confirmed",
+  "qualified": false,
+  "observed_at": "2026-10-08T15:46:53.379897+00:00",
+  "script": {
+    "path": "work/audit_gf180_completed_before_transient_v2.py",
+    "sha256": "2dd9f5761ea3944d4fac059c7d385308a459a22fb47c01947aef66e10080fa22"
+  },
+  "terminal_report": {
+    "path": "outputs/gf180-counter-current-sum-transient-v3/report.json",
+    "sha256": "bab58c7340ee9d1c30dfd0bfbece5326ec56fd43ffdbc603e58df316f1dd9004"
+  },
+  "waveform": {
+    "path": "outputs/gf180-counter-current-sum-transient-v3/before/waveform.txt",
+    "sha256": "554fb0e2928941ce96d1984e712101815d633ebf5d54c2b9d2fdacd79a8d15fb"
+  },
+  "source_circuit": {
+    "path": "outputs/gf180-counter-current-sum-transient-v3/before/counter.spice",
+    "sha256": "254d74c21577c33fa585355dfdc11df31056fa249554ea3f3a0d5d4429d8cb56"
+  },
+  "fixture": {
+    "path": "outputs/gf180-counter-current-sum-transient-v3/before/test.spice",
+    "sha256": "65fbb8b94b7ccc61536ad806e0abd3bc8cc889bbacfb0eface268b4ffeca4dfc"
+  },
+  "points": 12609,
+  "last_time_seconds": 9.000000000000001e-07,
+  "maximum_recorded_step_seconds": 2.0000000000001503e-10,
+  "complete_clock_edges": [
+    2.025e-08,
+    7.025000000000001e-08,
+    1.2025e-07,
+    1.7025e-07,
+    2.2025e-07,
+    2.702500000000001e-07,
+    3.202500000000001e-07,
+    3.702500000000001e-07,
+    4.202500000000001e-07,
+    4.7025000000000007e-07,
+    5.202500000000001e-07,
+    5.702500000000001e-07,
+    6.202500000000001e-07,
+    6.702500000000001e-07,
+    7.202500000000001e-07,
+    7.702500000000001e-07,
+    8.202500000000001e-07,
+    8.702500000000002e-07
+  ],
+  "interpolated_samples": [
+    {
+      "time_s": 3.5e-08,
+      "expected": 0,
+      "interpolated_volts": [
+        1.727339925822617e-08,
+        1.8324941808771355e-08,
+        2.3374433392915225e-08,
+        -3.9319341881663806e-08
+      ],
+      "passed": true
+    },
+    {
+      "time_s": 8.500000000000001e-08,
+      "expected": 0,
+      "interpolated_volts": [
+        -1.1866185576951422e-07,
+        5.5767899427517584e-08,
+        5.782114711325053e-08,
+        9.465929216298934e-08
+      ],
+      "passed": true
+    },
+    {
+      "time_s": 1.35e-07,
+      "expected": 1,
+      "interpolated_volts": [
+        4.999999960399451,
+        2.066795370991617e-08,
+        1.6265579829674277e-08,
+        2.3921031607422013e-08
+      ],
+      "passed": true
+    },
+    {
+      "time_s": 1.85e-07,
+      "expected": 2,
+      "interpolated_volts": [
+        1.5746897818002387e-08,
+        4.999999936177277,
+        1.4741578188180415e-08,
+        1.3496543293314164e-08
+      ],
+      "passed": true
+    },
+    {
+      "time_s": 2.3500000000000003e-07,
+      "expected": 3,
+      "interpolated_volts": [
+        4.99999995996125,
+        4.999999958198598,
+        1.404967489624461e-08,
+        1.3493522277877102e-08
+      ],
+      "passed": true
+    },
+    {
+      "time_s": 2.85e-07,
+      "expected": 4,
+      "interpolated_volts": [
+        1.949574744257303e-08,
+        2.0382823000306432e-08,
+        4.999999951552924,
+        -4.532025414499701e-08
+      ],
+      "passed": true
+    },
+    {
+      "time_s": 3.35e-07,
+      "expected": 5,
+      "interpolated_volts": [
+        4.9999999581064944,
+        2.2159960354869193e-08,
+        4.999999964768177,
+        2.744890135363213e-08
+      ],
+      "passed": true
+    },
+    {
+      "time_s": 3.85e-07,
+      "expected": 6,
+      "interpolated_volts": [
+        1.5986825429285347e-08,
+        4.999999936451963,
+        4.999999969300141,
+        1.400573443522374e-08
+      ],
+      "passed": true
+    },
+    {
+      "time_s": 4.35e-07,
+      "expected": 7,
+      "interpolated_volts": [
+        4.999999955572408,
+        4.999999953773067,
+        4.999999958037418,
+        1.4998014514186547e-08
+      ],
+      "passed": true
+    },
+    {
+      "time_s": 4.85e-07,
+      "expected": 8,
+      "interpolated_volts": [
+        1.840463261165786e-08,
+        2.139088130796881e-08,
+        2.2027056501830695e-08,
+        4.999999700458884
+      ],
+      "passed": true
+    },
+    {
+      "time_s": 5.350000000000001e-07,
+      "expected": 9,
+      "interpolated_volts": [
+        4.999999959007799,
+        2.1129878829521063e-08,
+        1.6247538679923325e-08,
+        4.999999968999424
+      ],
+      "passed": true
+    },
+    {
+      "time_s": 5.85e-07,
+      "expected": 10,
+      "interpolated_volts": [
+        1.5748732170763845e-08,
+        4.9999999360773435,
+        1.486993357123684e-08,
+        4.999999964102022
+      ],
+      "passed": true
+    },
+    {
+      "time_s": 6.350000000000001e-07,
+      "expected": 11,
+      "interpolated_volts": [
+        4.999999959820385,
+        4.999999958056177,
+        1.4370903751266672e-08,
+        4.999999972607272
+      ],
+      "passed": true
+    },
+    {
+      "time_s": 6.85e-07,
+      "expected": 12,
+      "interpolated_volts": [
+        1.955690362291834e-08,
+        2.0537060154088078e-08,
+        4.9999999450785495,
+        4.999999721877747
+      ],
+      "passed": true
+    },
+    {
+      "time_s": 7.350000000000001e-07,
+      "expected": 13,
+      "interpolated_volts": [
+        4.999999957945911,
+        2.2307706036165375e-08,
+        4.999999958801169,
+        4.999999944624019
+      ],
+      "passed": true
+    },
+    {
+      "time_s": 7.85e-07,
+      "expected": 14,
+      "interpolated_volts": [
+        1.5975408717997758e-08,
+        4.9999999365015055,
+        4.999999963407516,
+        4.9999999609873464
+      ],
+      "passed": true
+    },
+    {
+      "time_s": 8.35e-07,
+      "expected": 15,
+      "interpolated_volts": [
+        4.999999954705499,
+        4.9999999529287535,
+        4.9999999442092795,
+        4.999999930731606
+      ],
+      "passed": true
+    },
+    {
+      "time_s": 8.850000000000001e-07,
+      "expected": 0,
+      "interpolated_volts": [
+        1.7911049875327183e-08,
+        2.1482958669382776e-08,
+        2.8369894095228507e-08,
+        -4.0572759510803855e-08
+      ],
+      "passed": true
+    }
+  ],
+  "source_revision_scope": "Earlier pre-precision current-sum export; not the newer precision/COLAMD circuits.",
+  "command": [
+    "/opt/icstudio/bin/ngspice",
+    "-n",
+    "-D",
+    "ngbehavior=hsa",
+    "-b",
+    "test.spice"
+  ],
+  "simulator_identity_command": [
+    "C:\\Windows\\System32\\wsl.exe",
+    "-d",
+    "ICStudio-Digital-eb83637975404fcf-98bf4986",
+    "--",
+    "/usr/bin/sha256sum",
+    "/usr/bin/ngspice",
+    "/opt/icstudio/bin/ngspice"
+  ],
+  "simulator_identity_log": {
+    "path": "outputs/gf180-completed-before-audit-v2/simulator-identity.log",
+    "sha256": "34b438cb18c1031e76455d5681a4ff451388601e31cfd5c429e885c70ff43e42"
+  },
+  "installed_binary_sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+  "launcher_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7",
+  "simulator_identity_scope": "Installed binary and launcher hashes rechecked after process completion; legacy ngspice_sha256 field denotes the launcher.",
+  "wall_seconds": 11741.526354551315,
+  "last_observed_cpu_seconds": 10203.28,
+  "paired_filled_case": {
+    "status": "failed",
+    "reason": "engine-exit-or-numerical-error",
+    "log": {
+      "path": "outputs/gf180-counter-current-sum-transient-v3/filled/engine.log",
+      "sha256": "cae61c65b853eb1b57691be5938b14c3b6a93f8de639db7d89cb49e21d27ba30"
+    }
+  },
+  "scope": "Full 900 ns nominal unfilled extracted-circuit control, preserving original stimulus, models and thresholds. No filled-circuit, post-fill timing, PVT or process qualification.",
+  "archive": {
+    "path": "outputs/gf180-completed-before-audit-v2/evidence.tar.gz",
+    "sha256": "93f24c2c427187809f6e1d7cf5459ad36793b2cb18d697ac71a7c1961be22839",
+    "bytes": 2849289,
+    "verified_members": 16
+  }
+}

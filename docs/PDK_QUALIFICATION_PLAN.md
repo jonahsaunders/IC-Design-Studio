@@ -426,6 +426,43 @@ coverage. Local/edge acceptance, complete boundary/scribe scope, exclusion-edge
 rows, full post-fill circuit behavior/timing and production C/D acceptance
 remain required before chunk 5.
 
+The [COMP placement-space analysis](validation/gf180-comp-space-2026-10-08.json)
+examines all possible 5 micrometre square origins within the declared rectangle.
+It uses a conservative subset of the forbidden origins from the circuit COMP
+and poly clearances. An empty complement proves that no legal square fits;
+a nonempty complement cannot approve a placement. This avoids relying on a
+sampled placement grid or treating a square-corner keepout as a Euclidean rule.
+Exact-limit sites retain a numerical margin, and line/point origin domains and
+non-Manhattan material remain explicitly unqualified.
+
+The original captured implementation declares a 200 by 200 micrometre die and
+the core from (20, 20) to (180, 180). The counter has no legal additional COMP
+square anywhere inside that core under DCF.4/5 alone. Possible origins remain
+around the die margins. The optional `--core-bounds 20 20 180 180` reports the
+core separately; it never replaces the die, changes the density denominator,
+or clears the complete DCF.1a requirement. Both OSes produce identical reports
+under the C/D maps, and all 44 written-GDS fill controls pass, including an
+independent rectangle-distance oracle, exact-limit corridors, holes, rotations
+and incomplete geometry cases. This reference remains a C design.
+
+The [boundary source lock](../examples/gf180-boundary-manual-lock.json) captures
+the scribe/guard-ring chapter and uncoded-rule appendix at the same manual
+revision. DCF.7a is 26 micrometres in the main fill table and 8 micrometres in
+the appendix. Enforcing 26 would satisfy both stated minima, but no scribe or
+frame geometry is declared for this counter and it has no GUARD_RING_MK
+geometry. The implementation footprint cannot supply those missing chip-level
+facts. Boundary acceptance and the manual discrepancy remain explicit; no
+scribe dimensions, packaging choice or waiver is inferred.
+
+The [earlier unfilled full-RC control](validation/gf180-unfilled-functional-2026-10-08.json)
+has now completed 900 ns with 12,609 finite, ordered waveform points. An
+independent audit verifies the frozen circuit/models/stimulus, all 18 clock
+edges and all 18 functional samples using interpolation at the original sample
+times. This covers the earlier current-sum export before the precision change.
+Its paired filled run failed numerically; the newer precision/COLAMD runs have
+their own acceptance. This result does not establish post-fill timing or PVT
+coverage.
+
 See [release targets](PUBLIC_RELEASE_TARGETS.md),
 [digital qualification](DIGITAL_PLATFORM_QUALIFICATION.md),
 [bundled PDK scope](PDK_GUIDE.md) and
