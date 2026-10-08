@@ -174,3 +174,40 @@ fill network. These checks establish export preservation, not complete-chip
 behavior. The full-counter transient, post-fill timing, complete fill rules,
 native extraction repeatability and C/D production workload acceptance remain
 open.
+
+## Capacitance distribution precision candidate
+
+The [precision candidate lock](../examples/gf180-cap-precision-engine-lock.json)
+extends the rectangular-shield candidate with double-precision capacitance
+accumulation, transfer to the resistance extractor, and total-area arithmetic.
+Individual distributed node values retain their existing float storage. The
+default engine and installed application runtime are unchanged.
+
+The previous extractor accumulated the same coupling terms in different orders
+into float totals. It also summed the areas of large supply networks in float
+precision. Repeated full-counter extractions preserved the capacitance inputs
+and resistance graphs but produced different printed capacitance weights.
+
+The [native arithmetic runner](../scripts/qualify_magic_capacitance_arithmetic.py)
+calls the actual capacitor reader and distribution function in isolated copies
+with a private test command. Four input orders, three scales and both parser
+modes produce 24 cases. The candidate passes all 24; the earlier engine passes
+six. The fixed limits are 1e-12 relative error for the accumulated total and
+8e-8 for final float node values, checked against independently summed inputs.
+Candidate outputs are identical across the tested orders.
+
+Two independent full extractions per geometry and a third extraction from a
+fresh source-lock build match every printed capacitance weight after a unique
+node-graph bijection. This covers 37,513 before-fill and 39,335 filled nodes.
+The previous raw capacitance records, physical resistor values/connections,
+4,184 devices and eight ports remain preserved. Deliberately changing one
+printed weight is detected in each geometry. Production exports pass on Linux;
+Windows reproduces all seven checked artifacts byte for byte for each geometry.
+
+The [precision evidence](validation/gf180-capacitance-precision-2026-10-08.json)
+retains the earlier diagnostic mapping errors and the original differing
+extractions. These results establish repeatability for the recorded references,
+not general field accuracy or post-fill timing. The full-circuit simulations
+started before this candidate retain their earlier source circuit identities.
+Timing, complete fill rules, polygon/corner coverage and production C/D workload
+acceptance remain open.

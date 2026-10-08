@@ -323,6 +323,18 @@ Complete fill rules, actual post-fill circuit behavior and timing, then
 production C/D counter, UART and APB acceptance on both operating systems are
 required before chunk 5.
 
+The [capacitance-precision candidate](validation/gf180-capacitance-precision-2026-10-08.json)
+addresses the observed full-counter weight repeatability failure. Double totals
+and distribution arithmetic pass 24 native order/scale/mode controls; the older
+engine passes six. Three extractions of each geometry, including a fresh pinned
+source build, now preserve every printed weight under unique node matching.
+The raw capacitance terms, resistor graph and device parameters are unchanged.
+Both production exports reproduce byte for byte on Windows and Linux. This is
+bounded candidate evidence; it does not promote the default engine or complete
+chunk 4. The earlier frozen-circuit transient attempt ended on its wall-time
+guard before finishing. Its unchanged retry uses a CPU-work limit and a separate
+longer wall guard; no complete transient or post-fill timing pass is recorded.
+
 Before each batch, freeze its exact inputs, numerical limits and negative
 controls. After the batch, preserve commands, versions, input/output hashes,
 native reports, measurements and failures. A new device/model/geometry/tool
