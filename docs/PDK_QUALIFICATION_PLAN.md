@@ -341,6 +341,37 @@ native reports, measurements and failures. A new device/model/geometry/tool
 revision requires appropriate requalification. A numerical agreement threshold
 is not a circuit-performance specification; both must be declared where relevant.
 
+The [exclusion-rule controls](validation/gf180-exclusion-controls-2026-10-08.json)
+add separate NDMY/PMNDMY minimum-width checks, NDMY spacing and rectangular
+area/side limits. Unsupported vendor implant layers MCELL_FEOL_MK (11/17) and
+YMTP_MK (86/17) now produce explicit coverage failures; neither inherits the
+supported MTPMARK (122/5) checks. Large nonrectangular NDMY regions remain a
+blocking interpretation gap, and any exclusion marker requires a separate
+DE.1 design justification. Twenty-four written-GDS tests pass on each OS.
+The unchanged C counter passes 103 implemented checks under both C/D maps,
+with byte-identical OS reports and actual incomplete-coverage exit code 2.
+
+The [native exclusion runner](../scripts/qualify_gf180_exclusion_rules.py)
+executes the unchanged pinned DE rule file on 23 diagnostic layouts and compares
+each outcome with the supplemental checker under both C/D maps. It reproduces
+seven differences: two narrow markers hidden by the native cross-layer union,
+three rectangles flagged by the native area rule despite satisfying the manual
+limits, and two unsupported memory-layer cases rejected by supplemental coverage.
+The memory cases do not audit the complete native memory rules. Native DE.3
+emits all edges at or above 15,000 square micrometres, including the exact limit
+and the permitted 80-micrometre short-side rectangles. These disagreements are
+retained; the native deck is unchanged and no acceptance waiver is inferred.
+
+The same checkpoint retains a terminal numerical failure in the earlier
+filled full-counter simulation: ngspice reports a timestep-too-small error at
+2 picoseconds on a distributed VDD node, despite exiting with code zero. The
+functional checker correctly rejects that result. Exact-build instruction
+samples locate much of the observed CPU work in KLU matrix refactorization;
+sampled floating-point operands do not establish a subnormal-arithmetic cause.
+Both short startup solver trials on the newer precision circuit exhaust their
+fixed CPU-work limits without reaching the observation point. No full-counter
+electrical or timing acceptance is established by these diagnostics.
+
 The complete upstream inventory, general analog/RF numerical specifications,
 representative full-chip designs, package choices and foundry/shuttle acceptance
 target remain open. They have tests and blocking conditions in the matrix;

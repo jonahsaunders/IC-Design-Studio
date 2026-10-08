@@ -31,6 +31,9 @@ MARKERS = {'RES_MK': (110, 5), 'NDMY': (111, 5), 'IND_MK': (151, 5),
            'Pad': (37, 0), 'MTPMARK': (122, 5), 'PMNDMY': (152, 5),
            'FuseTop': (75, 0), 'POLYFUSE': (220, 0),
            'FuseWindow_D': (96, 1), 'OTP_MK': (173, 5)}
+# Drawn-layer table and note 13: vendor implant layers, explicitly unsupported
+# by the pinned PDK revision. They are not aliases for MTPMARK (122/5).
+UNSUPPORTED_MEMORY = {'MCELL_FEOL_MK': (11, 17), 'YMTP_MK': (86, 17)}
 # The manual's DCF.1b/1d and PL.8/Mn.4 global limits. Metal5 is also
 # MetalTop in C/D's 5LM stack: never count MT.3 as a sixth physical layer.
 LIMITS = {'comp': (25, 70), 'poly': (14, 100),
@@ -40,7 +43,7 @@ OPEN_REQUIREMENTS = [
     'DCF.1a empty-field coverage and local COMP density',
     'DCF/DPF scribe/frame scope and COMP-to-pad RF guideline',
     'DCF exclusion-edge tie/fill rows',
-    'DM.8 alternate embedded-memory marker aliases (including YMTP_MK)',
+    'Embedded-memory fill coverage beyond supported MTPMARK; vendor implant layers are unsupported',
     'Required drawing patterns and offsets (DCF.2a/3, DPF.2a/3, DM.2a/9/10)',
     'Foundry acceptance limits for local metal density and clipped die-edge windows',
     'Independent full native geometry, antenna and final-layout LVS',
@@ -54,7 +57,7 @@ def verify_layer_map(variant):
     sources = {item.text for item in ET.parse(path).iter('source')}
     conductors = {LAYER_NAMES[key] + suffix: (number, datatype)
                   for key, number in LAYERS.items() for datatype, suffix in ((0, ''), (4, '_Dummy'))}
-    for name, (number, datatype) in {**WELLS, **MARKERS, **conductors}.items():
+    for name, (number, datatype) in {**WELLS, **MARKERS, **UNSUPPORTED_MEMORY, **conductors}.items():
         if f'{name} {number}/{datatype}@1' not in sources:
             raise ValueError(f'The selected PDK layer map does not identify {name} as {number}/{datatype}.')
     return path
@@ -138,6 +141,41 @@ def inspect(gds, bounds_um, *, top_name, variant):
     def check(rule, layer, count, **details):
         checks.append(dict(rule=rule, layer=layer, status='failed' if count else 'passed',
                            violations=int(count), **details))
+
+    for name, pair in UNSUPPORTED_MEMORY.items():
+        shapes = region(layout, top, *pair)
+        check('unsupported-memory-layer', name, shapes.count(), category='coverage',
+              source='Drawn-layer definition note 13',
+              reason='Vendor-specific implant geometry is unsupported in the pinned PDK revision; it cannot inherit MTPMARK fill checks.')
+
+    # Apply the manual's minimum size to each named marker independently.
+    # OR-ing them first can hide a narrow NDMY inside a wider PMNDMY (or vice
+    # versa), even though they control different kinds of dummy material.
+    for name in ('NDMY', 'PMNDMY'):
+        check('DE.2', name, markers[name].width_check(800).count(),
+              minimum_um=.8, metric='Euclidean', material='same-layer merged polygons')
+    check('DE.4', 'NDMY', markers['NDMY'].space_check(20000).count(),
+          minimum_um=20., metric='Euclidean', includes_notches=True)
+
+    exclusion_geometry = []; oversized = unsupported = 0
+    for polygon in markers['NDMY'].each():
+        box = polygon.bbox(); doubled_area = polygon.area2()
+        large = doubled_area > 2 * 15_000 * 1_000_000
+        rectangular = polygon.is_box()
+        # The >15000 um2 exception requires one rectangle dimension <=80 um.
+        # Do not infer a width or side convention for arbitrary large polygons.
+        unsupported += int(large and not rectangular)
+        bad = large and rectangular and min(box.width(), box.height()) > 80000
+        oversized += int(bad)
+        exclusion_geometry.append(dict(area_um2=doubled_area/2e6,
+            dimensions_um=[box.width()/1000, box.height()/1000], rectangular=rectangular,
+            status='unqualified_nonrectangular_exception' if large and not rectangular
+                else 'failed' if bad else 'passed'))
+    check('DE.3', 'NDMY', oversized, maximum_area_um2=15000.,
+          large_rectangle_maximum_short_side_um=80.,
+          interpretation='For area strictly greater than 15000 um2, at least one rectangle dimension must be at most 80 um.')
+    check('DE.3-geometry-coverage', 'NDMY', unsupported, category='coverage',
+          reason='Large nonrectangular exclusion regions need a qualified interpretation of the side-length exception.')
 
     density = {}; windows = {}
     for name in LAYERS:
@@ -243,17 +281,22 @@ def inspect(gds, bounds_um, *, top_name, variant):
     if file_digest(gds) != before:
         raise ValueError('The input changed while it was being measured.')
     failed = [c for c in checks if c['status'] == 'failed']
-    return dict(schema=3, status='failed' if failed else 'checks_passed_coverage_incomplete',
+    open_requirements = list(OPEN_REQUIREMENTS)
+    if not (markers['NDMY'] + markers['PMNDMY']).is_empty():
+        open_requirements.append('DE.1 design justification for using exclusion markers')
+    if unsupported:
+        open_requirements.append('DE.3 side-length exception for large nonrectangular exclusion regions')
+    return dict(schema=4, status='failed' if failed else 'checks_passed_coverage_incomplete',
         qualified=False, variant=variant, metal_stack='5LM_1TM',
-        scope='Supplemental global-density, local metal measurements, dummy-size/grid/spacing, circuit/adjacent-layer clearances, well-boundary and marking-layer exclusions only.',
+        scope='Supplemental density measurements, dummy geometry, clearances, well/marker exclusions, exclusion-marker geometry and unsupported memory-layer detection only.',
         gds_sha256=before, checker_sha256=file_digest(Path(__file__)),
         manual_lock_sha256=file_digest(MANUAL), klayout_python_version=k.__version__,
         coverage_manual_lock_sha256=file_digest(COVERAGE_MANUAL),
         layer_map_sha256=file_digest(layer_map),
         top=top_name, bounds_um=list(bounds_um), area_um2=bounds.area()/1e6,
         geometry_extent_um=[v/1000 for v in (extent.left, extent.bottom, extent.right, extent.top)],
-        density=density, metal_density_windows=windows, checks=checks, failed_checks=len(failed),
-        unqualified_requirements=list(OPEN_REQUIREMENTS))
+        density=density, metal_density_windows=windows, exclusion_geometry=exclusion_geometry,
+        checks=checks, failed_checks=len(failed), unqualified_requirements=open_requirements)
 
 
 def main():

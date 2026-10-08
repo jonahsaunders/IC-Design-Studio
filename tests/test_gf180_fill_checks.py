@@ -280,5 +280,91 @@ class FillChecksTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'layer map'):
                 self.inspect()
 
+    def test_unsupported_vendor_memory_layers_are_not_mtpmark_aliases(self):
+        for variant in ('C','D'):
+            for name,number in (('MCELL_FEOL_MK',11),('YMTP_MK',86)):
+                for datatype,expected in ((0,False),(5,False),(17,True)):
+                    with self.subTest(variant=variant,name=name,datatype=datatype):
+                        self.shape(number,datatype,(10000,10000,15000,15000))
+                        result=self.inspect(variant=variant)
+                        self.assertEqual(self.failed(result,'unsupported-memory-layer',name),expected)
+                        self.layout.clear_layer(self.layout.layer(number,datatype))
+            self.shape(122,5,(10000,10000,15000,15000))
+            result=self.inspect(variant=variant)
+            self.assertFalse(any(c['status']=='failed' for c in result['checks']
+                if c['rule']=='unsupported-memory-layer'))
+            self.layout.clear_layer(self.layout.layer(122,5))
+        with mock.patch.dict(fill.UNSUPPORTED_MEMORY,{'YMTP_MK':(86,0)}):
+            with self.assertRaisesRegex(ValueError,'layer map'):self.inspect()
+
+    def test_marker_width_is_per_layer_and_includes_narrow_legs(self):
+        for variant in ('C','D'):
+            for name,layer,other in (('NDMY',111,152),('PMNDMY',152,111)):
+                for width,expected in ((795,True),(800,False),(805,False)):
+                    for transpose in (False,True):
+                        with self.subTest(variant=variant,name=name,width=width,transpose=transpose):
+                            w,h=(5000,width) if transpose else (width,5000)
+                            self.shape(layer,5,(10000,10000,10000+w,10000+h))
+                            # A valid marker of the other type must not mask it.
+                            self.shape(other,5,(9000,9000,16000,16000))
+                            result=self.inspect(variant=variant)
+                            self.assertEqual(self.failed(result,'DE.2',name),expected)
+                            self.layout.clear_layer(self.layout.layer(layer,5))
+                            self.layout.clear_layer(self.layout.layer(other,5))
+                polygon=k.Polygon([k.Point(10000,10000),k.Point(15000,10000),
+                    k.Point(15000,15000),k.Point(14000,15000),k.Point(14000,10795),k.Point(10000,10795)])
+                self.top.shapes(self.layout.layer(layer,5)).insert(polygon)
+                self.assertTrue(self.failed(self.inspect(variant=variant),'DE.2',name))
+                self.layout.clear_layer(self.layout.layer(layer,5))
+
+    def test_ndmy_spacing_boundary_notch_merge_and_pmndmy_independence(self):
+        for variant in ('C','D'):
+            for gap,expected in ((19995,True),(20000,False),(20005,False),(-1000,False)):
+                with self.subTest(variant=variant,gap=gap):
+                    self.shape(111,5,(10000,10000,15000,15000))
+                    self.shape(111,5,(15000+gap,10000,20000+gap,15000))
+                    self.assertEqual(self.failed(self.inspect(variant=variant),'DE.4','NDMY'),expected)
+                    self.layout.clear_layer(self.layout.layer(111,5))
+            self.shape(111,5,(10000,10000,15000,15000))
+            self.shape(152,5,(16000,10000,21000,15000))
+            self.assertFalse(self.failed(self.inspect(variant=variant),'DE.4','NDMY'))
+            self.layout.clear_layer(self.layout.layer(111,5));self.layout.clear_layer(self.layout.layer(152,5))
+            ring=k.Region(k.Box(10000,10000,50000,50000))-k.Region(k.Box(25000,20000,35000,45000))
+            self.top.shapes(self.layout.layer(111,5)).insert(ring)
+            self.assertTrue(self.failed(self.inspect(variant=variant),'DE.4','NDMY'))
+            self.layout.clear_layer(self.layout.layer(111,5))
+
+    def test_ndmy_area_exception_boundaries_union_and_large_nonrectangles(self):
+        self.layout.clear_layer(self.layout.layer(63,0));self.shape(63,0,(0,0,400000,400000))
+        for variant in ('C','D'):
+            for width,height,expected in ((100000,150000,False),(100005,150000,True),
+                    (80000,200000,False),(80005,200000,True),(200000,80000,False),
+                    (200000,80005,True)):
+                with self.subTest(variant=variant,width=width,height=height):
+                    self.shape(111,5,(10000,10000,10000+width,10000+height))
+                    result=self.inspect(bounds=(0,0,400,400),variant=variant)
+                    self.assertEqual(self.failed(result,'DE.3','NDMY'),expected)
+                    self.assertFalse(self.failed(result,'DE.3-geometry-coverage','NDMY'))
+                    self.layout.clear_layer(self.layout.layer(111,5))
+            # Two individually small rectangles merge into one invalid marker.
+            self.shape(111,5,(10000,10000,90000,110000))
+            self.shape(111,5,(80000,10000,180000,110000))
+            self.assertTrue(self.failed(self.inspect(bounds=(0,0,400,400),variant=variant),'DE.3','NDMY'))
+            self.layout.clear_layer(self.layout.layer(111,5))
+            # Bounding area must not replace actual polygon area.
+            shape=k.Region(k.Box(10000,10000,210000,210000))-k.Region(k.Box(20000,20000,200000,200000))
+            self.top.shapes(self.layout.layer(111,5)).insert(shape)
+            result=self.inspect(bounds=(0,0,400,400),variant=variant)
+            self.assertFalse(self.failed(result,'DE.3','NDMY'))
+            self.assertFalse(self.failed(result,'DE.3-geometry-coverage','NDMY'))
+            self.layout.clear_layer(self.layout.layer(111,5))
+            shape=k.Region(k.Box(10000,10000,210000,210000))-k.Region(k.Box(100000,100000,120000,120000))
+            self.top.shapes(self.layout.layer(111,5)).insert(shape)
+            result=self.inspect(bounds=(0,0,400,400),variant=variant)
+            self.assertTrue(self.failed(result,'DE.3-geometry-coverage','NDMY'))
+            self.assertEqual(result['exclusion_geometry'][0]['status'],'unqualified_nonrectangular_exception')
+            self.assertFalse(result['qualified'])
+            self.layout.clear_layer(self.layout.layer(111,5))
+
 
 if __name__ == '__main__': unittest.main()

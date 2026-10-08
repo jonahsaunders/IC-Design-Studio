@@ -211,3 +211,32 @@ not general field accuracy or post-fill timing. The full-circuit simulations
 started before this candidate retain their earlier source circuit identities.
 Timing, complete fill rules, polygon/corner coverage and production C/D workload
 acceptance remain open.
+
+## Full-counter startup diagnostics
+
+The [exclusion and simulator checkpoint](validation/gf180-exclusion-controls-2026-10-08.json)
+retains a failed filled-circuit transient on the earlier frozen current-sum
+export. After about 3,617 elapsed seconds, ngspice reports a timestep-too-small
+error at 2 ps, naming `xdut.vdd.n5401`. Its process exit code is zero; the
+functional checker rejects the numerical error and does not claim a pass.
+The unfilled case has its own process and acceptance state.
+
+Read-only instruction and register samples were taken from both then-running
+processes, with immediate detachment and no register or circuit changes.
+Official debug data matches the installed binary's ELF build identity. The
+sampled hot loop resolves to `klu_refactor`, with one sample in the solve
+routine. Sixteen floating-point samples per process show no subnormal operands
+or products in the inspected multiplication; this limited sample does not
+explain the convergence failure.
+
+Separate KLU and SPARSE diagnostics use the complete newer precision-candidate
+filled circuit, original 900 ns transient command, models and numerical limits,
+with an observation stop at 100 ps. Both hit the fixed 240-second CPU soft limit
+without producing a waveform at that observation point. Changing the solver
+alone therefore has not resolved startup within that diagnostic bound. These
+failed controls do not relax the original full-run acceptance requirements.
+
+Historical `ngspice_sha256` fields in these early full-run records identify the
+`/opt/icstudio/bin/ngspice` launcher. New diagnostics separately record that
+launcher and the actual `/usr/bin/ngspice` binary from package
+`42+ds-3build1`; the original records remain unchanged.
