@@ -510,8 +510,8 @@ These are explicitly staged candidate profiles, not new application defaults or
 fresh Windows production acceptance. Complete fill coverage and block/chip
 boundary scope, post-fill connectivity/extraction for the larger references,
 post-fill function/timing, accepted engine integration and installed-runtime
-acceptance remain required. The full precision/COLAMD counter simulations retain
-their original live process; this geometry batch does not replace their gate.
+acceptance remain required. The precision/COLAMD counter simulations have now completed the nominal
+functional gate described below; this geometry batch alone did not establish it.
 Chunk 4 remains incomplete.
 
 The [six-layout power-connectivity audit](validation/gf180-cd-filled-power-2026-10-08.json)
@@ -578,6 +578,45 @@ independent audit, reviewed sources, controls and failures.
 The stock-deck substrate warning, complete native fault acceptance, post-fill
 extraction/function/timing, complete fill scope and installed production
 integration remain open. Chunk 4 is incomplete.
+
+The [paired full-RC waveform audit](validation/gf180-filled-functional-2026-10-08.json)
+now confirms both complete 900 nanosecond precision-candidate counter runs under
+the isolated COLAMD engine. The original stimulus, models, 0.2 nanosecond maximum
+step and numerical limits are unchanged. The unfilled waveform has 12,606 finite,
+ordered points; the filled waveform has 12,610. An independent audit confirms
+all 18 clock edges and all 18 original functional sample times by interpolation.
+It also checks 5,931 recorded points in the settled intervals of each waveform,
+including the counter wraparound. Both retain the original logic thresholds.
+
+Observed maximum clock-to-output transitions are approximately 2.33 nanoseconds
+in each run. These nominal measurements do not establish static timing across
+all paths or operating conditions. The frozen output-delay constraint allocates
+time relative to the capture clock; it is not a one-nanosecond clock-to-output
+deadline. The exact engine binary is rechecked after completion. The 25-member
+archive retains both full waveforms, circuits, model files, logs and source
+records. This establishes the nominal before/filled counter functional control;
+larger-reference electrical checks, required timing conditions and production
+engine acceptance remain open.
+
+The [six-reference extraction attempt](validation/gf180-larger-rc-gaps-2026-10-08.json)
+runs the locked precision engine on the actual C/D layouts with each variant's
+bundled technology. Both counter pairs complete extraction and export. The
+fresh C counter decks have different internal node numbering; an independent
+unique-node correspondence confirms every raw resistance record, printed
+distribution weight, device-terminal incidence and raw capacitance record
+against the simulated model. Byte equality is not claimed, and D does not
+inherit the C waveform result.
+
+Both UARTs stop at the existing model-size bounds. The measured C UART needs
+130,773 compact capacitors and 430,791 controlled sources; the current API allows
+at most 100,000 capacitors and 250,000 controlled sources, with 50,000 capacitors
+requested by default. Both APBs stop because the RC exporter does not support
+their four native diode records. The extracted APB inventory retains 22,486 MOS
+devices plus four diodes with explicit area/perimeter. No electrical elements
+are dropped, no limit is relaxed and no failed case is treated as accepted.
+The 114-member archive preserves all six native attempts and their exact inputs.
+Native diode support and qualified larger-model capacity are the next export
+fixes before larger-reference electrical validation can proceed.
 
 See [release targets](PUBLIC_RELEASE_TARGETS.md),
 [digital qualification](DIGITAL_PLATFORM_QUALIFICATION.md),
