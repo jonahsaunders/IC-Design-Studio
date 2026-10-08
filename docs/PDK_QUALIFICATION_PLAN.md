@@ -514,6 +514,39 @@ acceptance remain required. The full precision/COLAMD counter simulations retain
 their original live process; this geometry batch does not replace their gate.
 Chunk 4 remains incomplete.
 
+The [six-layout power-connectivity audit](validation/gf180-cd-filled-power-2026-10-08.json)
+now binds every placed cell to the original database by master, orientation and
+position. All 16,592 placements agree, and every used cell's physical masks match
+the independent GDS at the pinned foundry-library revision. The audit covers 48
+cell types and all 33,184 VDD/VSS cell terminals across the actual C/D references.
+Windows verifies that each terminal reaches its declared top-level power net and
+that the top ports remain distinct. Captured preview power anchors can lie on a
+different rail from the GDS label; their physical connectivity is checked rather
+than requiring the annotation coordinates to be identical.
+
+For each design, written-GDS controls isolate VDD, isolate VSS and bridge two
+signal ports. All 18 metal faults are rejected. Six unchanged controls pass.
+A separate substrate-contact removal leaves the metal network connected in all
+six designs, explicitly demonstrating that metal continuity alone cannot approve
+substrate/device connectivity. Each fault retains its exact changed masks and
+all other masks are independently checked for equality. Original filled layouts
+and their design constraints remain unchanged.
+
+The larger native LVS batch is still running. The C counter and UART stock-deck
+comparisons match their device graphs while retaining the blocking top-level VSS
+must-connect warning. The experimental substrate-aware counter diagnostic matches
+4,184 devices and eight ports with no extraction warning; it is separate from the
+stock result. UART preserves its three intentionally unused clock-load outputs.
+Two Windows-to-Linux launch attempts failed before the additional native fault
+runner started; those failures are retained without restarting existing runs.
+The subsequent counter run completes five combined controls: the valid design
+passes, and isolated VDD/VSS pads, a signal short and removed substrate contacts
+are rejected. LVS alone misses the isolated power pads; metal continuity alone
+misses the substrate fault. Both checks are therefore required. The original
+stock-deck warning remains an open finding.
+Full native substrate/device fault acceptance, post-fill extraction and timing,
+complete fill scope and installed production integration remain open.
+
 See [release targets](PUBLIC_RELEASE_TARGETS.md),
 [digital qualification](DIGITAL_PLATFORM_QUALIFICATION.md),
 [bundled PDK scope](PDK_GUIDE.md) and
