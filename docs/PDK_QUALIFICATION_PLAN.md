@@ -532,20 +532,52 @@ substrate/device connectivity. Each fault retains its exact changed masks and
 all other masks are independently checked for equality. Original filled layouts
 and their design constraints remain unchanged.
 
-The larger native LVS batch is still running. The C counter and UART stock-deck
-comparisons match their device graphs while retaining the blocking top-level VSS
-must-connect warning. The experimental substrate-aware counter diagnostic matches
-4,184 devices and eight ports with no extraction warning; it is separate from the
-stock result. UART preserves its three intentionally unused clock-load outputs.
-Two Windows-to-Linux launch attempts failed before the additional native fault
-runner started; those failures are retained without restarting existing runs.
-The subsequent counter run completes five combined controls: the valid design
+The [six-reference native circuit audit](validation/gf180-six-filled-lvs-2026-10-08.json)
+now completes the C/D counter, UART and APB layout comparisons. Each stock-deck
+device graph matches, while the top-level VSS must-connect warning still blocks
+strict acceptance. Each experimental substrate-aware comparison matches with no
+extraction warning. Independent Windows readback confirms all 98,524 device
+pairs and 106 top-level pins, with a bijective net mapping and every device
+terminal checked against that mapping. The six prepared verification layouts
+preserve every physical mask of their exact density candidates.
+
+The UART references preserve three intentionally unused clock-load outputs.
+Their ambiguous internal net matches include two nodes in one OAI31 cell per
+layout, as well as filler-cell nodes. The independent terminal audit confirms
+the complete graph mapping, including those nodes. An initial audit incorrectly
+assumed every ambiguity belonged to a filler cell; that rejected attempt is
+retained. Counter and APB ambiguities are confined to filler-cell internal nets.
+
+The foundry antenna CDL uses positional diode area/perimeter values that the
+stock reader rejects. A strict adapter converts those two reviewed diode models
+to explicit A/P/M syntax without changing nodes, polarity, values or
+multiplicity. Unsupported records fail. The stock reader also treats diode
+dimensions as secondary comparison parameters, allowing dimension faults to
+pass. A separately retained diagnostic guard makes both dimensions mandatory.
+Independent database readback confirms all four diodes in each APB layout have
+the expected polarity, 0.2034 square micrometre area and 1.85 micrometre perimeter,
+with both dimensions enabled in the experimental comparison.
+
+Fifteen focused tests pass on each OS; sixteen actual native Ruby controls
+reproduce the original parser rejection and silent dimension-fault passes, then
+verify that the guarded comparison rejects the faults. The full application
+suite passes 1,527 tests with 62 skips. One Linux test launch failed before
+execution with a WSL connection error; the direct-entry retry passes, and the
+failed launch remains retained. Source libraries and the original rule deck
+are unchanged.
+
+The completed counter fault run has five combined controls: the valid design
 passes, and isolated VDD/VSS pads, a signal short and removed substrate contacts
-are rejected. LVS alone misses the isolated power pads; metal continuity alone
-misses the substrate fault. Both checks are therefore required. The original
-stock-deck warning remains an open finding.
-Full native substrate/device fault acceptance, post-fill extraction and timing,
-complete fill scope and installed production integration remain open.
+are rejected. LVS alone misses isolated power pads; metal continuity alone
+misses the substrate fault. Both checks are required. The remaining native
+written-layout fault controls and complete-APB diode area/perimeter/polarity
+fault controls are still running. Their success is not inferred from the six
+positive comparisons. The 281-member archive retains the native databases,
+independent audit, reviewed sources, controls and failures.
+
+The stock-deck substrate warning, complete native fault acceptance, post-fill
+extraction/function/timing, complete fill scope and installed production
+integration remain open. Chunk 4 is incomplete.
 
 See [release targets](PUBLIC_RELEASE_TARGETS.md),
 [digital qualification](DIGITAL_PLATFORM_QUALIFICATION.md),
