@@ -1,0 +1,567 @@
+{
+  "schema": 1,
+  "status": "preparation-verified; fresh-apb-controls-pending",
+  "qualified": false,
+  "observed_at": "2026-10-09T14:41:41.891495+00:00",
+  "source_base_commit": "dc11a21830b4f1bf4923140c78a46116ddfc47d2",
+  "backend": "6b86270f84e008fe9a727f20aa5005d8e58c13ee08ace491eaece6431fd0dd68",
+  "source_lock_sha256": "403bee6220feee66d2022ceed9bf9deb28064598e74b0771b32a23d80d6b71f7",
+  "systems": {
+    "windows": {
+      "record": {
+        "path": "outputs/gf180-lvs-preparation-windows-v1/record.json",
+        "sha256": "ea8eb97282c343f37c5858bee22b9ed31f3bc38c9d6de8d2c9688e5a2a135330"
+      },
+      "recipe": {
+        "schema": 1,
+        "recipe": "gf180-physical-substrate-diode-v1",
+        "status": "prepared_not_qualified",
+        "qualified": false,
+        "repository": "https://github.com/efabless/globalfoundries-pdk-libs-gf180mcu_fd_pv",
+        "revision": "05e7b6adf19edf942969c1c9625f02fd87874f06",
+        "source_lock_sha256": "403bee6220feee66d2022ceed9bf9deb28064598e74b0771b32a23d80d6b71f7",
+        "implementation_sha256": "c12c9f20a43ab6a522e7c04e15c3189ac5bfa03846c8a6c34a7ef04801e924bd",
+        "diode_guard_sha256": "88b8b85c6bf71d2adc59a9a9efbd2c4257b0ca2e804dd8ad0c0b96c1fc6cac65",
+        "files": {
+          "LICENSE": {
+            "source_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "staged_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "changed": false
+          },
+          "AUTHORS": {
+            "source_sha256": "934a3e3a82bd375828354e07a8975ddb08f81db5afc515b641313b2222b7d63b",
+            "staged_sha256": "934a3e3a82bd375828354e07a8975ddb08f81db5afc515b641313b2222b7d63b",
+            "changed": false
+          },
+          "klayout/lvs/README.md": {
+            "source_sha256": "3807759d2ef7823bb257ab276a8e50bf89ccc0a446b9231fe3ee2c2d02b9302a",
+            "staged_sha256": "3807759d2ef7823bb257ab276a8e50bf89ccc0a446b9231fe3ee2c2d02b9302a",
+            "changed": false
+          },
+          "klayout/lvs/gf180mcu.lvs": {
+            "source_sha256": "2685822a1e573669f5432b98f576b2eb8a327ed54f403fdc32e37a45fc0dc92e",
+            "staged_sha256": "b0f694cb3da9dde739d62c652852d757f9af06c14706b67d2f2489081144c6b6",
+            "changed": true
+          },
+          "klayout/lvs/rule_decks/bjt_connections.lvs": {
+            "source_sha256": "8504be42294bd697328d2df93eb08522fb8f77419d0bde4ba6ce73bfef25e9c4",
+            "staged_sha256": "8504be42294bd697328d2df93eb08522fb8f77419d0bde4ba6ce73bfef25e9c4",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/bjt_derivations.lvs": {
+            "source_sha256": "22276059f3814a68ac418b72e17cc8c8ca9df05891f4feb29fe93b2db8aadd04",
+            "staged_sha256": "22276059f3814a68ac418b72e17cc8c8ca9df05891f4feb29fe93b2db8aadd04",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/bjt_extraction.lvs": {
+            "source_sha256": "eb1c57a608fd3ca08fd64eccd1761910276876e9340273d979899e5e7e9c2ac6",
+            "staged_sha256": "eb1c57a608fd3ca08fd64eccd1761910276876e9340273d979899e5e7e9c2ac6",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/custom_classes.lvs": {
+            "source_sha256": "ff25c15e02d916038a399f2dbe45a99074bbf3e2f4a8f00d2bfb332a65600515",
+            "staged_sha256": "ff25c15e02d916038a399f2dbe45a99074bbf3e2f4a8f00d2bfb332a65600515",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/devices_connections.lvs": {
+            "source_sha256": "923f7dbcab8624185f12ec4e9acd3ed84880d8a385025cd98097e5ef5e2876c0",
+            "staged_sha256": "923f7dbcab8624185f12ec4e9acd3ed84880d8a385025cd98097e5ef5e2876c0",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/diode_connections.lvs": {
+            "source_sha256": "2c8cf231c45896c619c8db398db0c9831d2af7945af9f12ac56bf5126a30fe83",
+            "staged_sha256": "2c8cf231c45896c619c8db398db0c9831d2af7945af9f12ac56bf5126a30fe83",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/diode_derivations.lvs": {
+            "source_sha256": "3ee61908ea0f94841a2835357ff896dfe7c6ba63840d2f38e50d50d815db38be",
+            "staged_sha256": "3ee61908ea0f94841a2835357ff896dfe7c6ba63840d2f38e50d50d815db38be",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/diode_extraction.lvs": {
+            "source_sha256": "ce7750e3a58cb6f9e1f02f309b83e11237e4fa63392de0a985bd6d70b5304989",
+            "staged_sha256": "ce7750e3a58cb6f9e1f02f309b83e11237e4fa63392de0a985bd6d70b5304989",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/efuse_connections.lvs": {
+            "source_sha256": "6515fcdc88866a412fcb43f59238894bf075ca7af7410de53c47a1551a60ca2f",
+            "staged_sha256": "6515fcdc88866a412fcb43f59238894bf075ca7af7410de53c47a1551a60ca2f",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/efuse_derivations.lvs": {
+            "source_sha256": "d13dbddb65cb98189d250ee8ed8e6bd2509217210d882309accb3b3e27f5e585",
+            "staged_sha256": "d13dbddb65cb98189d250ee8ed8e6bd2509217210d882309accb3b3e27f5e585",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/efuse_extraction.lvs": {
+            "source_sha256": "2c4b734c98bc4a6606080e03ed17918afab408bb770cec35dd0dd3a78a75418b",
+            "staged_sha256": "2c4b734c98bc4a6606080e03ed17918afab408bb770cec35dd0dd3a78a75418b",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/general_connections.lvs": {
+            "source_sha256": "d5956fc33d4b23359452d7a2125ad2936a315f8b3fed5e7b0a18f5d1e955043d",
+            "staged_sha256": "e2da19de89b84c64f7021229d7025dd26f4720cc693fde3633c30bedd9976e4a",
+            "changed": true
+          },
+          "klayout/lvs/rule_decks/general_derivations.lvs": {
+            "source_sha256": "e0cfc5403aed25caa6bda2ed4ce7bbcfece3b3532ccb71aa11ffc59ff85af5ac",
+            "staged_sha256": "e0cfc5403aed25caa6bda2ed4ce7bbcfece3b3532ccb71aa11ffc59ff85af5ac",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/layers_definitions.lvs": {
+            "source_sha256": "9a5263f7c16c8b9b3a420f7ad8a701d318c810fa2761e29f9509743c29d39f35",
+            "staged_sha256": "9a5263f7c16c8b9b3a420f7ad8a701d318c810fa2761e29f9509743c29d39f35",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/mimcap_connections.lvs": {
+            "source_sha256": "378cb1c17830f752ab43d8bc9e696c124fbe8e6933fde18d04eade4a6e4294dc",
+            "staged_sha256": "378cb1c17830f752ab43d8bc9e696c124fbe8e6933fde18d04eade4a6e4294dc",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/mimcap_derivations.lvs": {
+            "source_sha256": "2fc2d3bf499d1ec1991cf41117f3ef8735b48a1eef07490cf3394888a1ae2acf",
+            "staged_sha256": "2fc2d3bf499d1ec1991cf41117f3ef8735b48a1eef07490cf3394888a1ae2acf",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/mimcap_extraction.lvs": {
+            "source_sha256": "76949cffeea9866f2aa60e41125c276da8cde24ef35020933ad8318d7fa609c5",
+            "staged_sha256": "76949cffeea9866f2aa60e41125c276da8cde24ef35020933ad8318d7fa609c5",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/mos_connections.lvs": {
+            "source_sha256": "d272d846cdd7f5c8015b42aee25f0569c6178f2e4e58aecb369cdb0a17ee60ed",
+            "staged_sha256": "d272d846cdd7f5c8015b42aee25f0569c6178f2e4e58aecb369cdb0a17ee60ed",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/mos_derivations.lvs": {
+            "source_sha256": "8ca20be842a4b883ebd99eff870656208c619f969ecb61a343577f7b691574cf",
+            "staged_sha256": "8ca20be842a4b883ebd99eff870656208c619f969ecb61a343577f7b691574cf",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/mos_extraction.lvs": {
+            "source_sha256": "aee0a991c4e61e525138b7f280f772648f7bd8446f2574d7aa142e72a07f6a13",
+            "staged_sha256": "aee0a991c4e61e525138b7f280f772648f7bd8446f2574d7aa142e72a07f6a13",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/mos_sab_derivations.lvs": {
+            "source_sha256": "d3e626c76c04abc9f95f07bab991efaa363a44fd4d2ff055bdba3bf340aa2065",
+            "staged_sha256": "d3e626c76c04abc9f95f07bab991efaa363a44fd4d2ff055bdba3bf340aa2065",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/mos_sab_extraction.lvs": {
+            "source_sha256": "ef45febf8cf40d47002b41dbf367fd96845761522c262f3275d4cbb5992c106f",
+            "staged_sha256": "ef45febf8cf40d47002b41dbf367fd96845761522c262f3275d4cbb5992c106f",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/moscap_derivations.lvs": {
+            "source_sha256": "b24497e180e601bdf7d77fe525a8a524fd222a31ab252183463a20613fee8900",
+            "staged_sha256": "b24497e180e601bdf7d77fe525a8a524fd222a31ab252183463a20613fee8900",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/moscap_extraction.lvs": {
+            "source_sha256": "d1869fe4cce0cd4a8687c608616571f5b0c9057ca49f90d977d0bf94c5b55ba5",
+            "staged_sha256": "d1869fe4cce0cd4a8687c608616571f5b0c9057ca49f90d977d0bf94c5b55ba5",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/res_connections.lvs": {
+            "source_sha256": "b4d153bbf9062ab431882d9f1d03f0f9010cc508bef54f2edcea1436493fbbce",
+            "staged_sha256": "b4d153bbf9062ab431882d9f1d03f0f9010cc508bef54f2edcea1436493fbbce",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/res_derivations.lvs": {
+            "source_sha256": "7465f85f61bc97b5c68939dba2351ae355c587fcc3344d7ef4f99ac4c68e266f",
+            "staged_sha256": "7465f85f61bc97b5c68939dba2351ae355c587fcc3344d7ef4f99ac4c68e266f",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/res_extraction.lvs": {
+            "source_sha256": "7c9c9b977aba9d7d2309df36df22df0ed6c489eca89e6e51e2987f739c3d54a3",
+            "staged_sha256": "7c9c9b977aba9d7d2309df36df22df0ed6c489eca89e6e51e2987f739c3d54a3",
+            "changed": false
+          },
+          "klayout/lvs/run_lvs.py": {
+            "source_sha256": "2efe3199e67b6693ccd8b2817a0aa341b76e9b3d10d1413f9484f81fc896c9d5",
+            "staged_sha256": "2efe3199e67b6693ccd8b2817a0aa341b76e9b3d10d1413f9484f81fc896c9d5",
+            "changed": false
+          }
+        },
+        "entry": "klayout/lvs/gf180mcu.lvs",
+        "supported_reference_scope": "GF180 C/D 5LM 9-track standard-cell reference layouts; broader devices and workflows require their own acceptance.",
+        "requirements": [
+          "Use a KLayout engine with soft-connection support, qualified by native controls.",
+          "Normalize supported positional diode CDL with the strict GF180 diode adapter.",
+          "Require both strict native LVS and independent written-metal continuity; neither is sufficient alone.",
+          "Retain source, engine, layout, reference and comparison identities and all extraction diagnostics.",
+          "Complete geometry, fill, extracted function/timing and installed-runtime acceptance separately."
+        ],
+        "scope": "Reproducible staging of the experimentally audited substrate and diode comparison corrections. No warning waiver, foundry signoff or production qualification is issued."
+      },
+      "compared_files": [
+        "README.md",
+        "gf180mcu.lvs",
+        "rule_decks/bjt_connections.lvs",
+        "rule_decks/bjt_derivations.lvs",
+        "rule_decks/bjt_extraction.lvs",
+        "rule_decks/custom_classes.lvs",
+        "rule_decks/devices_connections.lvs",
+        "rule_decks/diode_connections.lvs",
+        "rule_decks/diode_derivations.lvs",
+        "rule_decks/diode_extraction.lvs",
+        "rule_decks/efuse_connections.lvs",
+        "rule_decks/efuse_derivations.lvs",
+        "rule_decks/efuse_extraction.lvs",
+        "rule_decks/general_connections.lvs",
+        "rule_decks/general_derivations.lvs",
+        "rule_decks/layers_definitions.lvs",
+        "rule_decks/mimcap_connections.lvs",
+        "rule_decks/mimcap_derivations.lvs",
+        "rule_decks/mimcap_extraction.lvs",
+        "rule_decks/mos_connections.lvs",
+        "rule_decks/mos_derivations.lvs",
+        "rule_decks/mos_extraction.lvs",
+        "rule_decks/mos_sab_derivations.lvs",
+        "rule_decks/mos_sab_extraction.lvs",
+        "rule_decks/moscap_derivations.lvs",
+        "rule_decks/moscap_extraction.lvs",
+        "rule_decks/res_connections.lvs",
+        "rule_decks/res_derivations.lvs",
+        "rule_decks/res_extraction.lvs",
+        "run_lvs.py"
+      ],
+      "prior_native_recipe_sha256": "e19fc080c7780452ec149c205a314afb46c591382924e412dc5d8f13bb3f5d03"
+    },
+    "linux": {
+      "record": {
+        "path": "outputs/gf180-lvs-preparation-linux-v1/record.json",
+        "sha256": "cd9811bf7fd45341c27981c035af4662ccfe2e8b89ef900bcf22ddcb4ade1b8d"
+      },
+      "recipe": {
+        "schema": 1,
+        "recipe": "gf180-physical-substrate-diode-v1",
+        "status": "prepared_not_qualified",
+        "qualified": false,
+        "repository": "https://github.com/efabless/globalfoundries-pdk-libs-gf180mcu_fd_pv",
+        "revision": "05e7b6adf19edf942969c1c9625f02fd87874f06",
+        "source_lock_sha256": "403bee6220feee66d2022ceed9bf9deb28064598e74b0771b32a23d80d6b71f7",
+        "implementation_sha256": "c12c9f20a43ab6a522e7c04e15c3189ac5bfa03846c8a6c34a7ef04801e924bd",
+        "diode_guard_sha256": "88b8b85c6bf71d2adc59a9a9efbd2c4257b0ca2e804dd8ad0c0b96c1fc6cac65",
+        "files": {
+          "LICENSE": {
+            "source_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "staged_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "changed": false
+          },
+          "AUTHORS": {
+            "source_sha256": "934a3e3a82bd375828354e07a8975ddb08f81db5afc515b641313b2222b7d63b",
+            "staged_sha256": "934a3e3a82bd375828354e07a8975ddb08f81db5afc515b641313b2222b7d63b",
+            "changed": false
+          },
+          "klayout/lvs/README.md": {
+            "source_sha256": "3807759d2ef7823bb257ab276a8e50bf89ccc0a446b9231fe3ee2c2d02b9302a",
+            "staged_sha256": "3807759d2ef7823bb257ab276a8e50bf89ccc0a446b9231fe3ee2c2d02b9302a",
+            "changed": false
+          },
+          "klayout/lvs/gf180mcu.lvs": {
+            "source_sha256": "2685822a1e573669f5432b98f576b2eb8a327ed54f403fdc32e37a45fc0dc92e",
+            "staged_sha256": "b0f694cb3da9dde739d62c652852d757f9af06c14706b67d2f2489081144c6b6",
+            "changed": true
+          },
+          "klayout/lvs/rule_decks/bjt_connections.lvs": {
+            "source_sha256": "8504be42294bd697328d2df93eb08522fb8f77419d0bde4ba6ce73bfef25e9c4",
+            "staged_sha256": "8504be42294bd697328d2df93eb08522fb8f77419d0bde4ba6ce73bfef25e9c4",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/bjt_derivations.lvs": {
+            "source_sha256": "22276059f3814a68ac418b72e17cc8c8ca9df05891f4feb29fe93b2db8aadd04",
+            "staged_sha256": "22276059f3814a68ac418b72e17cc8c8ca9df05891f4feb29fe93b2db8aadd04",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/bjt_extraction.lvs": {
+            "source_sha256": "eb1c57a608fd3ca08fd64eccd1761910276876e9340273d979899e5e7e9c2ac6",
+            "staged_sha256": "eb1c57a608fd3ca08fd64eccd1761910276876e9340273d979899e5e7e9c2ac6",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/custom_classes.lvs": {
+            "source_sha256": "ff25c15e02d916038a399f2dbe45a99074bbf3e2f4a8f00d2bfb332a65600515",
+            "staged_sha256": "ff25c15e02d916038a399f2dbe45a99074bbf3e2f4a8f00d2bfb332a65600515",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/devices_connections.lvs": {
+            "source_sha256": "923f7dbcab8624185f12ec4e9acd3ed84880d8a385025cd98097e5ef5e2876c0",
+            "staged_sha256": "923f7dbcab8624185f12ec4e9acd3ed84880d8a385025cd98097e5ef5e2876c0",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/diode_connections.lvs": {
+            "source_sha256": "2c8cf231c45896c619c8db398db0c9831d2af7945af9f12ac56bf5126a30fe83",
+            "staged_sha256": "2c8cf231c45896c619c8db398db0c9831d2af7945af9f12ac56bf5126a30fe83",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/diode_derivations.lvs": {
+            "source_sha256": "3ee61908ea0f94841a2835357ff896dfe7c6ba63840d2f38e50d50d815db38be",
+            "staged_sha256": "3ee61908ea0f94841a2835357ff896dfe7c6ba63840d2f38e50d50d815db38be",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/diode_extraction.lvs": {
+            "source_sha256": "ce7750e3a58cb6f9e1f02f309b83e11237e4fa63392de0a985bd6d70b5304989",
+            "staged_sha256": "ce7750e3a58cb6f9e1f02f309b83e11237e4fa63392de0a985bd6d70b5304989",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/efuse_connections.lvs": {
+            "source_sha256": "6515fcdc88866a412fcb43f59238894bf075ca7af7410de53c47a1551a60ca2f",
+            "staged_sha256": "6515fcdc88866a412fcb43f59238894bf075ca7af7410de53c47a1551a60ca2f",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/efuse_derivations.lvs": {
+            "source_sha256": "d13dbddb65cb98189d250ee8ed8e6bd2509217210d882309accb3b3e27f5e585",
+            "staged_sha256": "d13dbddb65cb98189d250ee8ed8e6bd2509217210d882309accb3b3e27f5e585",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/efuse_extraction.lvs": {
+            "source_sha256": "2c4b734c98bc4a6606080e03ed17918afab408bb770cec35dd0dd3a78a75418b",
+            "staged_sha256": "2c4b734c98bc4a6606080e03ed17918afab408bb770cec35dd0dd3a78a75418b",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/general_connections.lvs": {
+            "source_sha256": "d5956fc33d4b23359452d7a2125ad2936a315f8b3fed5e7b0a18f5d1e955043d",
+            "staged_sha256": "e2da19de89b84c64f7021229d7025dd26f4720cc693fde3633c30bedd9976e4a",
+            "changed": true
+          },
+          "klayout/lvs/rule_decks/general_derivations.lvs": {
+            "source_sha256": "e0cfc5403aed25caa6bda2ed4ce7bbcfece3b3532ccb71aa11ffc59ff85af5ac",
+            "staged_sha256": "e0cfc5403aed25caa6bda2ed4ce7bbcfece3b3532ccb71aa11ffc59ff85af5ac",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/layers_definitions.lvs": {
+            "source_sha256": "9a5263f7c16c8b9b3a420f7ad8a701d318c810fa2761e29f9509743c29d39f35",
+            "staged_sha256": "9a5263f7c16c8b9b3a420f7ad8a701d318c810fa2761e29f9509743c29d39f35",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/mimcap_connections.lvs": {
+            "source_sha256": "378cb1c17830f752ab43d8bc9e696c124fbe8e6933fde18d04eade4a6e4294dc",
+            "staged_sha256": "378cb1c17830f752ab43d8bc9e696c124fbe8e6933fde18d04eade4a6e4294dc",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/mimcap_derivations.lvs": {
+            "source_sha256": "2fc2d3bf499d1ec1991cf41117f3ef8735b48a1eef07490cf3394888a1ae2acf",
+            "staged_sha256": "2fc2d3bf499d1ec1991cf41117f3ef8735b48a1eef07490cf3394888a1ae2acf",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/mimcap_extraction.lvs": {
+            "source_sha256": "76949cffeea9866f2aa60e41125c276da8cde24ef35020933ad8318d7fa609c5",
+            "staged_sha256": "76949cffeea9866f2aa60e41125c276da8cde24ef35020933ad8318d7fa609c5",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/mos_connections.lvs": {
+            "source_sha256": "d272d846cdd7f5c8015b42aee25f0569c6178f2e4e58aecb369cdb0a17ee60ed",
+            "staged_sha256": "d272d846cdd7f5c8015b42aee25f0569c6178f2e4e58aecb369cdb0a17ee60ed",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/mos_derivations.lvs": {
+            "source_sha256": "8ca20be842a4b883ebd99eff870656208c619f969ecb61a343577f7b691574cf",
+            "staged_sha256": "8ca20be842a4b883ebd99eff870656208c619f969ecb61a343577f7b691574cf",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/mos_extraction.lvs": {
+            "source_sha256": "aee0a991c4e61e525138b7f280f772648f7bd8446f2574d7aa142e72a07f6a13",
+            "staged_sha256": "aee0a991c4e61e525138b7f280f772648f7bd8446f2574d7aa142e72a07f6a13",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/mos_sab_derivations.lvs": {
+            "source_sha256": "d3e626c76c04abc9f95f07bab991efaa363a44fd4d2ff055bdba3bf340aa2065",
+            "staged_sha256": "d3e626c76c04abc9f95f07bab991efaa363a44fd4d2ff055bdba3bf340aa2065",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/mos_sab_extraction.lvs": {
+            "source_sha256": "ef45febf8cf40d47002b41dbf367fd96845761522c262f3275d4cbb5992c106f",
+            "staged_sha256": "ef45febf8cf40d47002b41dbf367fd96845761522c262f3275d4cbb5992c106f",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/moscap_derivations.lvs": {
+            "source_sha256": "b24497e180e601bdf7d77fe525a8a524fd222a31ab252183463a20613fee8900",
+            "staged_sha256": "b24497e180e601bdf7d77fe525a8a524fd222a31ab252183463a20613fee8900",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/moscap_extraction.lvs": {
+            "source_sha256": "d1869fe4cce0cd4a8687c608616571f5b0c9057ca49f90d977d0bf94c5b55ba5",
+            "staged_sha256": "d1869fe4cce0cd4a8687c608616571f5b0c9057ca49f90d977d0bf94c5b55ba5",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/res_connections.lvs": {
+            "source_sha256": "b4d153bbf9062ab431882d9f1d03f0f9010cc508bef54f2edcea1436493fbbce",
+            "staged_sha256": "b4d153bbf9062ab431882d9f1d03f0f9010cc508bef54f2edcea1436493fbbce",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/res_derivations.lvs": {
+            "source_sha256": "7465f85f61bc97b5c68939dba2351ae355c587fcc3344d7ef4f99ac4c68e266f",
+            "staged_sha256": "7465f85f61bc97b5c68939dba2351ae355c587fcc3344d7ef4f99ac4c68e266f",
+            "changed": false
+          },
+          "klayout/lvs/rule_decks/res_extraction.lvs": {
+            "source_sha256": "7c9c9b977aba9d7d2309df36df22df0ed6c489eca89e6e51e2987f739c3d54a3",
+            "staged_sha256": "7c9c9b977aba9d7d2309df36df22df0ed6c489eca89e6e51e2987f739c3d54a3",
+            "changed": false
+          },
+          "klayout/lvs/run_lvs.py": {
+            "source_sha256": "2efe3199e67b6693ccd8b2817a0aa341b76e9b3d10d1413f9484f81fc896c9d5",
+            "staged_sha256": "2efe3199e67b6693ccd8b2817a0aa341b76e9b3d10d1413f9484f81fc896c9d5",
+            "changed": false
+          }
+        },
+        "entry": "klayout/lvs/gf180mcu.lvs",
+        "supported_reference_scope": "GF180 C/D 5LM 9-track standard-cell reference layouts; broader devices and workflows require their own acceptance.",
+        "requirements": [
+          "Use a KLayout engine with soft-connection support, qualified by native controls.",
+          "Normalize supported positional diode CDL with the strict GF180 diode adapter.",
+          "Require both strict native LVS and independent written-metal continuity; neither is sufficient alone.",
+          "Retain source, engine, layout, reference and comparison identities and all extraction diagnostics.",
+          "Complete geometry, fill, extracted function/timing and installed-runtime acceptance separately."
+        ],
+        "scope": "Reproducible staging of the experimentally audited substrate and diode comparison corrections. No warning waiver, foundry signoff or production qualification is issued."
+      },
+      "compared_files": [
+        "README.md",
+        "gf180mcu.lvs",
+        "rule_decks/bjt_connections.lvs",
+        "rule_decks/bjt_derivations.lvs",
+        "rule_decks/bjt_extraction.lvs",
+        "rule_decks/custom_classes.lvs",
+        "rule_decks/devices_connections.lvs",
+        "rule_decks/diode_connections.lvs",
+        "rule_decks/diode_derivations.lvs",
+        "rule_decks/diode_extraction.lvs",
+        "rule_decks/efuse_connections.lvs",
+        "rule_decks/efuse_derivations.lvs",
+        "rule_decks/efuse_extraction.lvs",
+        "rule_decks/general_connections.lvs",
+        "rule_decks/general_derivations.lvs",
+        "rule_decks/layers_definitions.lvs",
+        "rule_decks/mimcap_connections.lvs",
+        "rule_decks/mimcap_derivations.lvs",
+        "rule_decks/mimcap_extraction.lvs",
+        "rule_decks/mos_connections.lvs",
+        "rule_decks/mos_derivations.lvs",
+        "rule_decks/mos_extraction.lvs",
+        "rule_decks/mos_sab_derivations.lvs",
+        "rule_decks/mos_sab_extraction.lvs",
+        "rule_decks/moscap_derivations.lvs",
+        "rule_decks/moscap_extraction.lvs",
+        "rule_decks/res_connections.lvs",
+        "rule_decks/res_derivations.lvs",
+        "rule_decks/res_extraction.lvs",
+        "run_lvs.py"
+      ],
+      "prior_native_recipe_sha256": "e19fc080c7780452ec149c205a314afb46c591382924e412dc5d8f13bb3f5d03"
+    }
+  },
+  "tests": {
+    "gf180-lvs-preparation-full-windows-v1.log": {
+      "tests": 1557,
+      "skipped": 62,
+      "sha256": "1b9c10135815a87144e38356fe4989691a79a544ce33c9e271b38a5152695cde"
+    },
+    "gf180-lvs-preparation-focused-windows-v2.log": {
+      "tests": 24,
+      "skipped": 0,
+      "sha256": "59d101f9c3686272b6eb2e7b8b611275284bb07fec86df8b6e8b2ff2337e1120"
+    },
+    "gf180-lvs-preparation-focused-linux-v1.log": {
+      "tests": 24,
+      "skipped": 0,
+      "sha256": "fc8d2bb89056305eaff83dc0649b50e963fb414a03e8cd68147afa29fed9efb5"
+    }
+  },
+  "native_first_attempt": {
+    "path": "outputs/gf180-prepared-lvs-native-v1/record.json",
+    "sha256": "f6139fe5722836ff63a830f4607477646d92b9b7d3cb653a38113f34c5dc37ba"
+  },
+  "native_first_attempt_status": "failed: 300 second execution allowance expired during C APB comparison",
+  "completed_counter_controls": [
+    {
+      "case": "c-counter",
+      "control": "positive",
+      "lvs_matched": true,
+      "combined_passed": true,
+      "counts": {
+        "net": {
+          "Match": 2093,
+          "MatchWithWarning": 1965
+        },
+        "device": {
+          "Match": 4184
+        },
+        "pin": {
+          "Match": 8
+        },
+        "instance": {}
+      },
+      "seconds": 16.91559830900019
+    },
+    {
+      "case": "c-counter",
+      "control": "vdd-port-open",
+      "lvs_matched": true,
+      "combined_passed": false,
+      "counts": {
+        "net": {
+          "Match": 2093,
+          "MatchWithWarning": 1965
+        },
+        "device": {
+          "Match": 4184
+        },
+        "pin": {
+          "Match": 8
+        },
+        "instance": {}
+      },
+      "seconds": 16.564932375000126
+    },
+    {
+      "case": "c-counter",
+      "control": "substrate-taps-open",
+      "lvs_matched": false,
+      "combined_passed": false,
+      "counts": {
+        "net": {
+          "Mismatch": 7957,
+          "Match": 32
+        },
+        "device": {
+          "Mismatch": 8027,
+          "Match": 162
+        },
+        "pin": {
+          "Match": 9
+        },
+        "instance": {}
+      },
+      "seconds": 8.942654704000006
+    },
+    {
+      "case": "d-counter",
+      "control": "positive",
+      "lvs_matched": true,
+      "combined_passed": true,
+      "counts": {
+        "net": {
+          "Match": 2093,
+          "MatchWithWarning": 1965
+        },
+        "device": {
+          "Match": 4184
+        },
+        "pin": {
+          "Match": 8
+        },
+        "instance": {}
+      },
+      "seconds": 16.71575249400007
+    }
+  ],
+  "native_continuation": "The four completed counter controls are reused. Only the four unfinished APB cases are continuing with a 1200 second allowance per case; no pass is inferred here.",
+  "prior_scope": "The prepared deck is byte-identical to the audited substrate/diode recipe retained in gf180-connectivity-controls-2026-10-09.json. That 36-control evidence keeps its original engine/layout/reference scope.",
+  "retained_failures": [
+    "First focused Windows launch failed on sandbox temporary-directory access; the unchanged suite passes with the required writable test directory.",
+    "First fresh APB comparison exhausted the harness 300 second execution limit. It is retained as a timeout, not physical fault detection."
+  ],
+  "scope": "Reproducible preparation of reviewed source rules on Windows/Linux; strict source and destination handling. This does not establish full fresh native execution, consumer integration, installed acceptance, complete fill, post-fill function/timing or tapeout qualification."
+}

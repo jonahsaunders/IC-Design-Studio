@@ -592,6 +592,13 @@ substrate warning, accepted production substrate/diode integration, larger-refer
 post-fill function/timing, complete fill scope and installed production acceptance
 remain open. Chunk 4 is incomplete.
 
+The [source-controlled LVS recipe preparer](GF180_LVS_RECIPE.md) authenticates
+32 upstream files and stages the two reviewed substrate/diode corrections in a
+new directory. It preserves the source checkout and records every file hash.
+Prepared rules still require strict native comparison and independent metal
+continuity; preparation does not promote a project or installed runtime to
+accepted status.
+
 The [paired full-RC waveform audit](validation/gf180-filled-functional-2026-10-08.json)
 now confirms both complete 900 nanosecond precision-candidate counter runs under
 the isolated COLAMD engine. The original stimulus, models, 0.2 nanosecond maximum
