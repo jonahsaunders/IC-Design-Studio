@@ -154,6 +154,84 @@ class FillPatternTests(unittest.TestCase):
         self.assertTrue(any('DM.9 qualified' in s for s in report['unqualified_requirements']))
         self.assertFalse(report['qualified'])
 
+    def test_exact_axial_offsets_cover_all_four_adjacent_pairs_and_both_stacks(self):
+        # Independently enumerated four-site tile; holes differ by layer. A
+        # translated whole array must remain recognizable from cropped GDS.
+        sites=[(0,0),(3200,500),(500,3200),(3700,3700)]
+        for dx,dy in ((500,0),(-500,0),(0,500),(0,-500)):
+            with self.subTest(offset=(dx,dy)):
+                for i,number in enumerate((34,36,42,46,81)):
+                    self.layout.clear_layer(self.layout.layer(number,4))
+                    origin=(20000+i*dx,20000+i*dy)
+                    self.declare('m'+str(i+1),origin)
+                    for j,(x,y) in enumerate(sites):
+                        if i==j:continue
+                        self.box(number,origin[0]+x,origin[1]+y)
+                for variant in ('C','D'):
+                    report=self.inspect(variant)
+                    pairs=report['drawing_patterns']['adjacent_layers']
+                    self.assertEqual(len(pairs),4)
+                    self.assertTrue(all(p['status']=='declared_axial_offset_passed' for p in pairs))
+                    self.assertTrue(all(p['matching_translations_nm']==[[dx,dy]] for p in pairs))
+                    self.assertEqual(sum(c['rule']=='DM.9-axial-offset' for c in report['checks']),4)
+                    self.assertFalse(any('DM.9 qualified' in s for s in report['unqualified_requirements']))
+                    self.assertTrue(any('empty-field' in s for s in report['unqualified_requirements']))
+                    self.assertFalse(report['qualified'])
+
+    def test_near_limit_diagonal_and_other_nonreplicated_offsets_stay_unqualified(self):
+        self.declare('m1');self.box(34,20000,20000)
+        for dx,dy in ((495,0),(505,0),(0,495),(0,505),(500,500),(300,400),(1000,0)):
+            with self.subTest(offset=(dx,dy)):
+                self.layout.clear_layer(self.layout.layer(36,4))
+                self.declare('m2',origin=(20000+dx,20000+dy));self.box(36,26400+dx,26400+dy)
+                report=self.inspect()
+                self.assertEqual(report['drawing_patterns']['layers']['m2']['status'],'declared_recipe_passed')
+                pair=report['drawing_patterns']['adjacent_layers'][0]
+                self.assertEqual(pair['status'],'offset_acceptance_unqualified')
+                self.assertEqual(pair['matching_translations_nm'],[])
+                self.assertFalse(any(c['rule']=='DM.9-axial-offset' for c in report['checks']))
+                self.assertTrue(any('DM.9 qualified' in s for s in report['unqualified_requirements']))
+
+    def test_period_equivalent_origins_and_negative_indices_do_not_hide_the_offset(self):
+        self.declare('m1',origin=(26400,32800));self.box(34,20000,20000)
+        self.declare('m2',origin=(14100,13600));self.box(36,23700,20500)
+        pair=self.inspect()['drawing_patterns']['adjacent_layers'][0]
+        self.assertEqual(pair['status'],'declared_axial_offset_passed')
+        self.assertEqual(pair['matching_translations_nm'],[[500,0]])
+
+    def test_matching_origin_difference_does_not_hide_a_changed_stagger_orientation(self):
+        self.declare('m1');self.declare('m2',origin=(20500,20000),signs=(-1,1))
+        self.box(34,20000,20000);self.box(36,20500,20000);self.box(36,20000,23200)
+        report=self.inspect()
+        self.assertEqual(report['drawing_patterns']['layers']['m2']['status'],'declared_recipe_passed')
+        self.assertEqual(report['drawing_patterns']['adjacent_layers'][0]['status'],'offset_acceptance_unqualified')
+        self.assertTrue(any('DM.9 qualified' in s for s in report['unqualified_requirements']))
+
+    def test_offset_recipe_rotates_and_reflects_with_the_written_arrays(self):
+        child=self.layout.create_cell('adjacent_fill')
+        for x,y in [(20000,20000),(23200,20500),(20500,23200),(23700,23700)]:
+            self.box(34,x,y,cell=child);self.box(36,x+500,y,cell=child)
+        transforms=[(k.Trans(0,False,0,0),(20000,20000),(20500,20000),(1,1),[500,0]),
+                    (k.Trans(1,False,100000,0),(78000,20000),(78000,20500),(-1,1),[0,500]),
+                    (k.Trans(2,False,100000,100000),(78000,78000),(77500,78000),(-1,-1),[-500,0]),
+                    (k.Trans(3,False,0,100000),(20000,78000),(20000,77500),(1,-1),[0,-500]),
+                    (k.Trans(2,True,100000,0),(78000,20000),(77500,20000),(-1,1),[-500,0])]
+        for transform,lower,upper,signs,expected in transforms:
+            with self.subTest(transform=str(transform)):
+                self.top.clear_insts();self.top.insert(k.CellInstArray(child.cell_index(),transform))
+                self.declare('m1',lower,signs);self.declare('m2',upper,signs)
+                pair=self.inspect()['drawing_patterns']['adjacent_layers'][0]
+                self.assertEqual(pair['status'],'declared_axial_offset_passed')
+                self.assertEqual(pair['matching_translations_nm'],[expected])
+
+    def test_one_written_phase_fault_prevents_an_offset_pass(self):
+        self.declare('m1');self.declare('m2',origin=(20500,20000))
+        self.box(34,20000,20000);self.box(36,20500,20000);self.box(36,24205,23700)
+        report=self.inspect()
+        self.assertEqual(report['drawing_patterns']['layers']['m2']['violations'],1)
+        self.assertEqual(report['drawing_patterns']['adjacent_layers'][0]['status'],'unqualified_invalid_or_missing_recipe')
+        self.assertFalse(any(c['rule']=='DM.9-axial-offset' for c in report['checks']))
+
     def test_malformed_recipe_metadata_is_rejected(self):
         self.declare('m1'); original=json.loads(json.dumps(self.plan))
         cases=[lambda p:p.update(schema=True),lambda p:p.update(recipe='arbitrary'),

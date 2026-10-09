@@ -194,18 +194,26 @@ def inspect(gds, bounds_um, *, top_name, variant, pattern_plan=None, core_bounds
                 continue
             # Compare whole declared arrays, so deleting different blocked sites
             # cannot disguise reuse of the same pattern on consecutive layers.
-            pattern_requirements.append(f'DM.9 qualified 0.5 um offset relationship for {lower}/{upper}')
+            requirement = f'DM.9 qualified 0.5 um offset relationship for {lower}/{upper}'
             if any(drawing_patterns['layers'][name]['status'] != 'declared_recipe_passed'
                    for name in (lower, upper)):
                 drawing_patterns['adjacent_layers'].append(dict(layers=[lower, upper],
                     status='unqualified_invalid_or_missing_recipe'))
+                pattern_requirements.append(requirement)
                 continue
             a, b = plan['layers'][lower], plan['layers'][upper]
-            replicated = patterns.phases(lower, a) == patterns.phases(upper, b)
+            relationship = patterns.inspect_adjacent(a, b)
+            replicated = relationship['status'] == 'replicated_pattern'
             check('DM.9-replicated-pattern', f'{lower}/{upper}', int(replicated),
                   scope='Reject identical declared arrays, even when occupied subsets differ.')
-            drawing_patterns['adjacent_layers'].append(dict(layers=[lower, upper],
-                status='replicated_pattern' if replicated else 'offset_acceptance_unqualified'))
+            if relationship['status'] == 'declared_axial_offset_passed':
+                check('DM.9-axial-offset', f'{lower}/{upper}', 0,
+                      recipe=relationship['recipe'], offset_nm=relationship['offset_nm'],
+                      matching_translations_nm=relationship['matching_translations_nm'],
+                      scope=relationship['scope'])
+            else:
+                pattern_requirements.append(requirement)
+            drawing_patterns['adjacent_layers'].append(dict(layers=[lower, upper], **relationship))
         if file_digest(pattern_plan) != pattern_digest:
             raise ValueError('The drawing recipe changed during inspection.')
 

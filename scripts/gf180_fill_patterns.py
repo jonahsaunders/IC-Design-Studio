@@ -78,3 +78,27 @@ def inspect_pattern(shapes, layer, entry):
                       for point in sorted(counts)],
         mismatch_examples_nm=examples,
         scope='Membership in the declared alternating staggered recipe; omitted sites and empty-field coverage are not accepted by this check.')
+
+
+def inspect_adjacent(lower, upper):
+    """Recognize a literal 0.5 um axial translation of the complete arrays.
+
+    DM.9 in the pinned manual specifies 0.5 um and forbids exact replication.
+    This implementation selects an axial translation of that length. It does
+    not infer acceptance of diagonal, rotated or otherwise different arrays.
+    Compare every phase, including sites absent because of blockages. Metadata
+    origins alone are insufficient: stagger signs and phase equivalence matter.
+    Call only after both written arrays pass their declared recipe checks.
+    """
+    a, b = phases('m1', lower), phases('m1', upper)
+    period = 2 * dimensions('m1')[1]
+    offsets = [list((dx, dy)) for dx, dy in ((-500, 0), (0, -500), (0, 500), (500, 0))
+               if {((x+dx) % period, (y+dy) % period) for x, y in a} == b]
+    replicated = a == b
+    return dict(status='replicated_pattern' if replicated else
+                'declared_axial_offset_passed' if offsets else 'offset_acceptance_unqualified',
+                recipe='whole-array-axial-500nm-v1', offset_nm=500,
+                matching_translations_nm=offsets,
+                lower_phases_nm=[list(p) for p in sorted(a)],
+                upper_phases_nm=[list(p) for p in sorted(b)], period_nm=period,
+                scope='Exact 0.5 um axial translation of the complete declared staggered arrays; other nonreplicated arrangements are unqualified by this recipe.')

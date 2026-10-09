@@ -406,6 +406,17 @@ on adjacent metals even when different sites were removed on each layer.
 Accepting the full DM.9 offset relationship remains open when both adjacent
 layers contain dummy material.
 
+The subsequent [adjacent-metal recipe](GF180_FILL_PATTERNS.md) recognizes an
+exact 0.5 micrometre translation along either axis of the complete declared
+staggered arrays. All four phases must agree after translation, and both written
+arrays must first pass their own pattern checks. Replicas still fail; diagonal
+or other nonreplicated relationships remain explicitly unqualified by this
+selected recipe. Written controls cover both C/D maps, every adjacent pair,
+cropped arrays, rotations/reflections and 5 nm offset faults. Replaying all six
+retained filled production references leaves their 104 implemented checks
+unchanged. These references use only Metal1 dummy fill and do not themselves
+qualify adjacent-layer patterns or complete fill coverage.
+
 The unchanged C counter's 911 Metal1 squares match the
 [declared recipe](../examples/gf180-counter-fill-pattern.json) and pass all 104
 implemented checks under both C/D maps on both OSes. A retained GDS with one
