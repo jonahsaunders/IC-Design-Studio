@@ -2,7 +2,9 @@
 
 The six frozen GF180-C and GF180-D counter, UART and APB candidates now pass
 post-fill timing at their three captured library conditions. This closes the
-reference timing experiment; **chunk 4 and process qualification remain open**.
+reference timing experiment. The subsequent [integrated block gate](GF180_BLOCK_FILL.md)
+completes chunk 4 within its original reference scope; process qualification
+remains open. This page and its evidence record describe the earlier experiment.
 The [retained evidence](validation/gf180-postfill-timing-2026-10-09.json) records
 the inputs, controls, numerical limits and permanent archive.
 
@@ -67,8 +69,9 @@ establish general signal-integrity behavior, calibrated field extraction,
 complete PVT coverage or foundry acceptance. Full transistor-RC waveforms are
 separate experiments; no passing waveform is inferred from these timing runs.
 
-The fill/extraction candidate still needs complete application integration and
-remaining fill-coverage acceptance. The original geometry, source inputs and
-running simulations are unchanged. Complete-chip boundary/scribe acceptance,
+The candidate is now integrated and the six-reference application gate is
+recorded in [chunk 4 acceptance](validation/gf180-density-2026-10-09.json).
+Remaining manual-rule coverage stays explicit in that record. The separate
+full-transistor experiments retain their actual unfinished status. Complete-chip boundary/scribe acceptance,
 broader extraction qualification and public desktop-package acceptance retain
 their separate gates in the [qualification plan](PDK_QUALIFICATION_PLAN.md).

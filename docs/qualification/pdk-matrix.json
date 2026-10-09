@@ -1,6 +1,6 @@
 {
-  "schema": 3,
-  "as_of": "2026-10-07",
+  "schema": 4,
+  "as_of": "2026-10-09",
   "source_baseline": "5b33a68f3a8e225002c3b4ac38d63fc97cf25420",
   "claim": "Qualification plan and coverage inventory only. No process is tapeout qualified. Historical passes retain their original design/source/PDK scope.",
   "chunks": {
@@ -18,7 +18,8 @@
     },
     "4": {
       "name": "Close GF180 density",
-      "status": "in_progress"
+      "status": "reference_gate_complete",
+      "scope": "Original C/D counter, UART and APB density-marker gate, integrated fill and post-fill connectivity/function/timing. Complete manual-rule, chip-level, field-extraction and foundry scope remains unqualified."
     },
     "5": {
       "name": "Close IHP geometry and fill",
@@ -16159,13 +16160,14 @@
       "chunk": 4,
       "fixture": "The same final GF180 layouts, before and after deterministic fill",
       "procedure": "Apply process-required active/poly/metal fill and exclusions; rerun complete geometry, antenna, LVS, extracted RC/timing and physical-netlist equivalence on the filled GDS.",
-      "expected_result": "Zero unwaived required density or geometry markers; LVS/equivalence agree; all predeclared timing/electrical limits pass after fill. The C counter baseline has 555 unresolved density markers.",
+      "expected_result": "Zero unwaived required density or geometry markers; LVS/equivalence agree; all predeclared timing/electrical limits pass after fill. Preserve the original 555/5796/4416 counter/UART/APB baseline findings for comparison.",
       "conditions": "C and D evaluated independently with their matching top-metal option and decks.",
       "existing_runners": [
         "scripts/qualify_gf180_fill_coupling.py",
-        "scripts/check_gf180_fill.py"
+        "scripts/check_gf180_fill.py",
+        "scripts/check_gf180_density_acceptance.py"
       ],
-      "automation_gap": "Supplemental density/dummy geometry checks are implemented and exercised on written GDS on both OS. Required local-density, well/exclusion/edge rules, final-GDS LVS and post-fill closure remain open; native marker counts alone are insufficient."
+      "automation_gap": "Integrated block generation/extraction and all six reference native gates are complete. The independent checker retains incomplete manual coverage for empty-field/local-COMP interpretation outside the core, chip boundaries/pads/memory/exclusion edges and foundry local-density acceptance. Additional field/corner/chip qualification is separate; zero native markers alone never qualifies a process."
     },
     "ihp-fill": {
       "chunk": 5,
@@ -16883,15 +16885,17 @@
     "gf180mcuC:gf180-density": {
       "target": "gf180mcuC",
       "test": "gf180-density",
-      "status": "failed",
-      "remaining": "Production references still fail density. An independently audited C counter mesh plus 911 Metal1 dummy squares passes native main/antenna/density with unchanged RTL, timing constraints and original 200 x 200 um die. An independent 4184-transistor reference and 1602 power-terminal metal check jointly pass the valid layout and reject ground-open, signal-short and missing-substrate-contact controls. Native LVS alone misses isolated power pads. Complete post-fill extraction/timing, all fill-rule coverage and production integration, then repeat C/D counter/UART/APB on both OS.",
+      "status": "passed_reference",
+      "remaining": "The integrated counter/UART/APB gate passes native main/antenna/density, strict final-device and supply connectivity, unchanged logic, deliberate logic-fault rejection and three library-condition post-fill timing cases with typical stack-specific RC. Both OS audits match and installed runtimes pass. Supplemental manual coverage remains incomplete: DCF.1a/local COMP outside the core, prime/scribe/pad/memory and exclusion-edge scope, clipped/local metal-density acceptance, field calibration and additional RC corners require their declared later design/process gates. No full process qualification follows.",
       "historical_evidence": [
         "gf-geometry",
         "gf-production-geometry",
         "gf-density-baseline",
         "gf-fill-diagnostics",
-        "gf-filled-connectivity"
-      ]
+        "gf-filled-connectivity",
+        "gf-density-acceptance"
+      ],
+      "acceptance_chunk": 4
     },
     "gf180mcuC:gf180-geometry": {
       "target": "gf180mcuC",
@@ -17141,12 +17145,14 @@
     "gf180mcuD:gf180-density": {
       "target": "gf180mcuD",
       "test": "gf180-density",
-      "status": "failed",
-      "remaining": "Native C/D counters on both OS retain 555 density markers across seven whole-layout rule labels: PL.8, M1.4\u2013M5.4 and MT.3. For 5LM, MT.3 repeats the Metal5 coverage condition. UART/APB retain 5796/4416 findings. Reconcile complete foundry dummy-fill rules, implement legal fill, and recheck full rules, connectivity, extracted timing and equivalence without changing the original extent or constraints.",
+      "status": "passed_reference",
+      "remaining": "The integrated counter/UART/APB gate passes native main/antenna/density, strict final-device and supply connectivity, unchanged logic, deliberate logic-fault rejection and three library-condition post-fill timing cases with typical stack-specific RC. Both OS audits match and installed runtimes pass. Supplemental manual coverage remains incomplete: DCF.1a/local COMP outside the core, prime/scribe/pad/memory and exclusion-edge scope, clipped/local metal-density acceptance, field calibration and additional RC corners require their declared later design/process gates. No full process qualification follows.",
       "historical_evidence": [
         "gf-d-production-geometry",
-        "gf-density-baseline"
-      ]
+        "gf-density-baseline",
+        "gf-density-acceptance"
+      ],
+      "acceptance_chunk": 4
     },
     "gf180mcuD:gf180-geometry": {
       "target": "gf180mcuD",
@@ -19868,6 +19874,11 @@
       "path": "docs/validation/gf180-filled-connectivity-2026-10-07.json",
       "sha256": "906834c082b4f80dab8eda4a9172a1abceea8529ea6877b417c12a65af22a891",
       "scope_limit": "C counter experimental fill passes native geometry/antenna/density and combined transistor/physical-metal connectivity controls. Post-fill RC/timing, complete fill rules, production integration and D remain unqualified."
+    },
+    "gf-density-acceptance": {
+      "path": "docs/validation/gf180-density-2026-10-09.json",
+      "sha256": "03d4af142c0fa83012d0f319ae1a9ae2a4eebe6b23fa877f92f56e35000d184c",
+      "scope_limit": "Integrated GF180 C/D 9-track, 5-metal, 5 V counter, UART and APB blocks. Original RTL, SDC, die/core areas and PDK sources retained. All native main/antenna/density markers resolved; final-device and supply connectivity, extracted timing at three captured library conditions using stack-specific typical RC, equivalence, fault rejection and macro handoff verified. This completes the original density-marker reference gate, not complete process fill qualification. See the record limitations; no full PDK or complete-chip acceptance."
     }
   },
   "execution_acceptance": {
@@ -19878,6 +19889,10 @@
     "3": {
       "path": "docs/validation/gf180-geometry-2026-10-07.json",
       "sha256": "29df7858eb56ee001f8a81db6420bd136f145610a15167e481980744d141f27d"
+    },
+    "4": {
+      "path": "docs/validation/gf180-density-2026-10-09.json",
+      "sha256": "03d4af142c0fa83012d0f319ae1a9ae2a4eebe6b23fa877f92f56e35000d184c"
     }
   }
 }

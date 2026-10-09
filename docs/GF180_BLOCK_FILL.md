@@ -32,6 +32,30 @@ complete-annotation guard. A pre-fill result cannot satisfy a design that reques
 fill. The macro bundle includes a new abstract LEF whose obstructions cover the
 added metal, along with the filled GDS and all model evidence.
 
+## Completed reference gate
+
+The [source-bound chunk 4 record](validation/gf180-density-2026-10-09.json)
+contains six fresh integrated implementations. Every reference passes strict
+device and supply connectivity, logic equivalence and three captured timing
+conditions; each deliberate logic mutation fails. The filled abstract LEF covers
+every added metal square. Windows and Linux independently reproduce the same
+mask/model/export audit, and both installed runtimes pass 34 checks and 18 timing
+pairs. The application suite passed 1,657 tests with 62 environment skips.
+
+| Reference | Native main / antenna / density markers | Minimum setup / hold slack (ns) |
+|---|---|---|
+| c-counter | 0 / 0 / 0 | 44.368145 / 0.293279 |
+| c-uart | 0 / 0 / 0 | 0.550356 / 0.508568 |
+| c-apb | 0 / 0 / 0 | 8.153233 / 0.313971 |
+| d-counter | 0 / 0 / 0 | 44.368137 / 0.293281 |
+| d-uart | 0 / 0 / 0 | 0.545770 / 0.508568 |
+| d-apb | 0 / 0 / 0 | 8.153145 / 0.313974 |
+
+The permanent archive was read back and every member verified. The failed initial
+attempts remain retained, including larger-block command timeouts and the
+separately corrected audit-harness checks. Evidence locations and exact hashes
+are in the acceptance record.
+
 ## Acceptance boundaries
 
 Generation and extraction are distinct from acceptance. Every new design still
@@ -46,7 +70,8 @@ comparison and fault controls are described in [post-fill timing](GF180_POSTFILL
 These establish the bounded model comparison, not field accuracy or general
 signal-integrity behavior.
 
-Complete-chip prime/scribe boundaries, pad/memory geometry, broader local-density
+DCF.1a/local COMP interpretation outside the declared core, exclusion-edge
+tie/fill rows, complete-chip prime/scribe boundaries, pad/memory geometry, local-density
 and process coverage, additional interconnect corners and foundry acceptance
 remain explicit requirements in [chunks 7–12](PDK_QUALIFICATION_PLAN.md). The
 supplemental checker retains its `checks_passed_coverage_incomplete` result for a

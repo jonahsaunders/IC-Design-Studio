@@ -53,7 +53,8 @@ shorts fail; substrate-only contact removal remains a passing metal control
 and therefore demonstrates the need for the separate device/substrate check.
 
 Use this check together with the [strict GF180 LVS recipe](GF180_LVS_RECIPE.md).
-The command is available from the source checkout; automatic finished-job
-dispatch, combined acceptance and fresh installed-runtime verification remain
-pending. Full fill coverage and post-fill electrical/timing acceptance remain
-open in [chunk 4](PDK_QUALIFICATION_PLAN.md). No tapeout acceptance is claimed.
+Automatic finished-job dispatch, combined acceptance and fresh installed-runtime
+verification are now captured in [finish connectivity](GF180_FINISH_CONNECTIVITY.md).
+The [integrated block fill gate](GF180_BLOCK_FILL.md) adds six filled references
+and post-fill timing. Complete manual-rule and process coverage remains open;
+no tapeout acceptance is claimed.

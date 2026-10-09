@@ -73,8 +73,10 @@ class QualificationMatrixTests(unittest.TestCase):
         matrix = copy.deepcopy(self.matrix)
         matrix['schema'] = 3
         matrix.get('execution_acceptance', {}).pop('3', None)
+        matrix.get('execution_acceptance', {}).pop('4', None)
+        matrix['chunks']['4']['status'] = 'in_progress'
         for requirement in matrix['requirements'].values():
-            if requirement.get('acceptance_chunk') == 3:
+            if requirement.get('acceptance_chunk') in (3, 4):
                 requirement.update(status='partial')
                 requirement.pop('acceptance_chunk')
         matrix['chunks']['3']['status'] = 'reference_gate_complete'
@@ -86,6 +88,11 @@ class QualificationMatrixTests(unittest.TestCase):
             validate(matrix)
         matrix = copy.deepcopy(self.matrix)
         matrix['schema'] = 3
+        matrix.get('execution_acceptance', {}).pop('4', None)
+        for requirement in matrix['requirements'].values():
+            if requirement.get('acceptance_chunk') == 4:
+                requirement.update(status='partial')
+                requirement.pop('acceptance_chunk')
         matrix['chunks']['4']['status'] = 'reference_gate_complete'
         with self.assertRaisesRegex(ValueError, 'Completed execution'):
             validate(matrix)

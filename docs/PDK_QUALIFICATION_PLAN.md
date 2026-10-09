@@ -17,6 +17,23 @@ options and current digital operating points. It does **not** equate this bundle
 subset with the complete upstream PDK. Upstream completeness and the remaining
 device-specific operating envelopes are explicit open requirements.
 
+## Current checkpoint: 9 October 2026
+
+Chunks 1–4 have completed their stated planning/reference gates. The
+[chunk 4 acceptance record](validation/gf180-density-2026-10-09.json) binds the
+integrated application, six GF180 C/D counter/UART/APB references, both OS audits
+and installed runtimes. All six have zero native main, antenna and density
+markers, passing final connectivity/equivalence and three passing post-fill
+timing conditions. Original circuit constraints and die/core areas are retained.
+The [block fill guide](GF180_BLOCK_FILL.md) describes the supported workflow.
+
+This closes the original reference density-marker gate. The supplemental manual
+checker still reports incomplete coverage: DCF.1a/local COMP outside the core,
+chip boundary/pad/memory and exclusion-edge scope, and foundry local/clipped
+metal-density acceptance remain unqualified. Field accuracy, additional RC
+corners, full transistor waveforms and complete-chip/foundry acceptance cannot
+inherit this pass. Chunks 5–12 remain open, and no PDK is tapeout qualified.
+
 ## Sequence and gates
 
 | Chunk | Achievable batches | Completion gate |
@@ -79,16 +96,24 @@ success is named `matrix_consistent`; process qualification remains
 
 Current execution statuses are `not_run`, `partial`, `failed`,
 `needs_definition`, `unsupported` and `passed_reference`. A `partial` row identifies
-prior limited evidence without claiming the complete test passed. Schema 3 retains
+prior limited evidence without claiming the complete test passed. Schema 4 retains
 the chunk 2 toolchain references, which require the complete,
 hash-bound [acceptance record](validation/toolchain-2026-10-07.json). It requires
 both operating systems, valid/fault controls and every required hosted step on
 the recorded source. It separately binds the [chunk 3 acceptance record](validation/gf180-geometry-2026-10-07.json)
 to current production evidence, both operating systems, actual rule/fault controls,
 all required timing conditions and the captured C/D technologies. Device rows,
-density and later chunks cannot inherit either pass. Later completed gates need
-their own reviewed acceptance schema and records;
+density and later chunks cannot inherit either pass. Schema 4 independently binds
+the six-reference density record, two OS audits, exact source/runtime identities,
+installed acceptance and preserved evidence. Chunks 5–12 need their own reviewed
+acceptance schema and records;
 preserve previous failures rather than merely changing a status string.
+
+## Historical execution checkpoints
+
+The entries below preserve what was known at each earlier checkpoint, including
+failures and then-open work. The current checkpoint above and the matrix govern
+today's status; historical JSON evidence remains unchanged.
 
 Chunks 1 and 2 are complete within these boundaries. On the corrected application
 backend, each installed runtime passed 26 digital checks, 15 timing pairs, three
