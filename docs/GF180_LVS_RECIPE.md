@@ -60,6 +60,11 @@ extraction diagnostics and require the expected device, parameter, terminal and
 port coverage. A generic engine error or a missing comparison database is not
 proof that a physical fault was detected.
 
+The reusable [written-metal checker](GF180_METAL_CONTINUITY.md) derives complete
+cell supply coverage from the captured placement and independent GDS library.
+Its source command retains all findings and input identities. Combined automatic
+consumer dispatch remains a separate integration requirement.
+
 This command prepares the rule directory; it does not install a runtime, run a
 project comparison or change a project's acceptance status. Consumer-flow
 integration, installed acceptance, complete fill coverage and post-fill

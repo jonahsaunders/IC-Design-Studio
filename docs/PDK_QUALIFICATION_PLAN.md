@@ -691,6 +691,15 @@ behavior. Larger-reference post-fill function/timing, complete fill-rule coverag
 production connectivity acceptance and installation acceptance remain open.
 Chunk 4 is incomplete.
 
+The [written-metal continuity module](GF180_METAL_CONTINUITY.md) now derives
+every placed-cell supply from independent library GDS and the captured OpenDB,
+and checks the complete port set and its physical anchors. On each OS, six
+actual layouts and thirty retained physical controls reproduce the independently
+audited results, covering 16,592 placements and 33,184 supply terminals. A source
+command authenticates database/preview hashes against the finished job and
+preserves diagnostics. Automatic finished-job dispatch and combined LVS
+acceptance still need integration and fresh installed-runtime verification.
+
 See [release targets](PUBLIC_RELEASE_TARGETS.md),
 [digital qualification](DIGITAL_PLATFORM_QUALIFICATION.md),
 [bundled PDK scope](PDK_GUIDE.md) and
