@@ -1,5 +1,6 @@
 """Independent endpoint equations, provenance faults and compact export tests."""
 import hashlib
+from decimal import Decimal, localcontext
 import json
 import math
 from pathlib import Path
@@ -7,7 +8,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from icstudio.compact_rc import build, audit, records, CURRENT_SUM, SERIES_VOLTAGE
+from icstudio.compact_rc import build, audit, records, CURRENT_SUM, ANCHORED_CURRENT_SUM, SERIES_VOLTAGE
 from icstudio.magic_rc import normalize, finalize, contract
 from icstudio.rc_islands import prune
 from tests.test_magic_rc import ORIGINAL, RESISTANCE
@@ -65,7 +66,7 @@ class CompactRCTests(unittest.TestCase):
         for (a, b), c in coupling.items():
             for n, w in weights[a].items():
                 for m, v in weights[b].items(): edge(n, m, c * w * v)
-        for encoding in (SERIES_VOLTAGE,CURRENT_SUM):
+        for encoding in (SERIES_VOLTAGE, ANCHORED_CURRENT_SUM, CURRENT_SUM):
             model = build(ground, coupling, weights, 'VSS', physical_nodes=owner,
                           max_capacitors=20,encoding=encoding)
             sources, caps = records(model['text'], owner)
@@ -142,7 +143,13 @@ class CompactRCTests(unittest.TestCase):
                 if changed=='weights':report['nets']['IN']['weights']={'IN':.5,'IN.t0':.5}
                 else:
                     path=root/'compact-capacitance.spice';model=path.read_text()
-                    if changed=='model':model=model.replace(' 0 0.25\n',' 0 0.3\n',1)
+                    if changed=='model':
+                        rows=[line.split() for line in model.splitlines()]
+                        term=next(t for t in rows if t[0].startswith('G_') and float(t[5]) != 1.)
+                        term[5]=str(float(term[5])*1.1)
+                        modified='\n'.join(' '.join(t) for t in rows)+'\n'
+                        self.assertNotEqual(model,modified)
+                        model=modified
                     elif changed=='drive':model=model.replace('STUDIO_RC_INTERNAL_W0','IN')
                     elif changed=='termination':model=model.replace(' 0 1\n',' 0 2\n',1)
                     else:model='\n'.join(line for line in model.splitlines() if not line.startswith('E_STUDIO_BUFFER_0 '))+'\n'
@@ -204,6 +211,61 @@ class CompactRCTests(unittest.TestCase):
             self.assertEqual(contract(text,report),'.subckt top IN VSS\n.ends\n')
             retained=prune(root/'extracted.spice',root/'electrical.spice',normalization=report)
             self.assertEqual(retained['preserved_compact_resistors'],0)
+
+    def test_original_current_sum_exports_remain_authenticated(self):
+        def previous(*args, **kwargs): return build(*args, **kwargs, encoding=CURRENT_SUM)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            with patch('icstudio.compact_rc.build', previous): self.fixture(root)
+            report = finalize(root, 'top')
+            self.assertEqual(report['export']['compact_encoding'], CURRENT_SUM)
+            self.assertEqual(contract((root/'extracted.spice').read_text(), report), '.subckt top IN VSS\n.ends\n')
+
+    def test_serialized_common_mode_is_zero_without_rounding_weight_sums(self):
+        weights = {'A': {'A': .1, 'A.t0': .2, 'A.t1': .7},
+                   'B': {'B': .3, 'B.t0': .7}, 'VSS': {'VSS': 1.}}
+        ground = {'A': 1e12, 'B': 3e12, 'VSS': 0.}
+        coupling = {('A', 'B'): 7e12, ('A', 'VSS'): 11e12}
+        nodes = {n for group in weights.values() for n in group}
+        # Decimal evaluates the literal saved coefficients, avoiding a binary
+        # evaluator accidentally rounding their sum back to exactly one.
+        with localcontext() as ctx:
+            ctx.prec = 60
+            for encoding in (CURRENT_SUM, ANCHORED_CURRENT_SUM):
+                model = build(ground, coupling, weights, 'VSS', physical_nodes=nodes,
+                              max_capacitors=20, encoding=encoding)
+                helpers, caps = records(model['text'], nodes)
+                for level in ('1', '-2.5', '5.8'):
+                    voltage = {'0': Decimal(0), **dict.fromkeys(nodes, Decimal(level))}
+                    for t in helpers:
+                        if t[0].startswith('R'): voltage[t[1]] = Decimal(0)
+                        elif t[0].startswith('G'): voltage[t[2]] += Decimal(t[5]) * (voltage[t[3]] - voltage[t[4]])
+                        else: voltage[t[1]] = voltage[t[2]] + Decimal(t[5]) * (voltage[t[3]] - voltage[t[4]])
+                    currents = [Decimal(t[3])*Decimal('1e18')*(voltage[t[1]]-voltage[t[2]]) for t in caps]
+                    with self.subTest(encoding=encoding, level=level):
+                        if encoding == ANCHORED_CURRENT_SUM:
+                            self.assertTrue(all(value == 0 for value in currents))
+                        else:
+                            self.assertGreater(max(abs(value) for value in currents), Decimal('1e-10'))
+
+    def test_affine_anchor_faults_cannot_drive_or_cross_helper_layers(self):
+        model = build({'A': 3., 'B': 7., 'VSS': 0.}, {('A','B'): 11.},
+                      {'A': {'A': .2, 'A.t0': .8}, 'B': {'B': 1.}, 'VSS': {'VSS': 1.}},
+                      'VSS', physical_nodes=['A','A.t0','B','VSS'], max_capacitors=10)['text']
+        original = [line.split() for line in model.splitlines()]
+        for fault in ('missing_anchor', 'wrong_gain', 'wrong_anchor', 'physical_neighbor', 'self_negative'):
+            rows = [t[:] for t in original]
+            difference = next(t for t in rows if t[0].startswith('G') and t[4] != '0')
+            returned = next(t for t in rows if t[0].startswith('G') and t[2] == difference[2] and t[4] == '0')
+            if fault == 'missing_anchor': rows.remove(returned)
+            elif fault == 'wrong_gain': returned[5] = '.9'
+            elif fault == 'wrong_anchor': difference[4] = 'B'
+            elif fault == 'self_negative': difference[4] = difference[2]
+            else:
+                neighbor = next(t for t in rows if t[0].startswith('G') and t[3].startswith('STUDIO_RC_INTERNAL_'))
+                neighbor[4] = 'A'
+            with self.subTest(fault=fault), self.assertRaises(ValueError):
+                records('\n'.join(' '.join(t) for t in rows), ['A','A.t0','B','VSS'])
 
     def test_helper_element_name_collision_cannot_replace_a_physical_wire(self):
         with tempfile.TemporaryDirectory() as tmp:

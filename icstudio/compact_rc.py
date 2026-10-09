@@ -5,6 +5,9 @@ one-ohm internal termination converts summed currents to voltage; a unity buffer
 isolates every capacitive load. No helper resistor touches a physical node.
 Intrinsic ground C terminates at the original substrate anchor, independently
 of any distributed resistance on that substrate net.
+New sums use differences from their largest-weight input, then restore that
+input once. Equal physical voltages therefore produce zero capacitor voltage
+without relying on rounded coefficients summing to exactly one.
 """
 from collections import Counter
 import math
@@ -16,6 +19,7 @@ PREFIX = 'STUDIO_RC_INTERNAL_'
 ELEMENT_PREFIXES = ('R_STUDIO_SUM_', 'G_STUDIO_SUM_', 'E_STUDIO_BUFFER_',
                     'E_STUDIO_RC_', 'C_STUDIO_RC_')
 CURRENT_SUM = 'current-sum-v1'
+ANCHORED_CURRENT_SUM = 'anchored-current-sum-v2'
 SERIES_VOLTAGE = 'series-voltage-v1'
 
 
@@ -28,11 +32,11 @@ def source_budget(value=None):
 
 
 def build(ground, coupling, weights, reference, *, physical_nodes, max_capacitors,
-          encoding=CURRENT_SUM, max_sources=None):
+          encoding=ANCHORED_CURRENT_SUM, max_sources=None):
     """Return a bounded SPICE model in farads and its element counts."""
     max_sources = source_budget(max_sources)
     physical = set(physical_nodes)
-    if encoding not in (CURRENT_SUM, SERIES_VOLTAGE):
+    if encoding not in (CURRENT_SUM, ANCHORED_CURRENT_SUM, SERIES_VOLTAGE):
         raise ValueError('Unsupported compact RC encoding.')
     if '0' in physical or reference not in physical:
         raise ValueError('Compact RC needs a named substrate anchor distinct from SPICE ground.')
@@ -64,7 +68,7 @@ def build(ground, coupling, weights, reference, *, physical_nodes, max_capacitor
     active = {i: group for i, group in enumerate(groups) if adjacency[i]}
     capacitor_count = sum(len(g) for g in active.values())
     source_count = capacitor_count + sum(len(adjacency[i]) for i in active)
-    if encoding == CURRENT_SUM:
+    if encoding in (CURRENT_SUM, ANCHORED_CURRENT_SUM):
         source_count += len(active)  # One output buffer for every U sum.
     if capacitor_count > max_capacitors or source_count > max_sources:
         raise ValueError('Compact RC exceeds the declared capacitor or auxiliary-source budget: '
@@ -80,14 +84,19 @@ def build(ground, coupling, weights, reference, *, physical_nodes, max_capacitor
     averages = {i: PREFIX + 'W' + str(i) for i in active}
     def weighted_sum(output, terms, *, buffered=False):
         nonlocal current_count, buffer_count, resistor_count
-        if encoding == CURRENT_SUM:
+        if encoding in (CURRENT_SUM, ANCHORED_CURRENT_SUM):
             current = fresh(PREFIX + 'CURRENT_' + str(resistor_count) if buffered else output)
             sources.append(f'R_STUDIO_SUM_{resistor_count} {current} 0 1')
             resistor_count += 1
+            anchor = max(terms, key=lambda term: term[1])[0] if encoding == ANCHORED_CURRENT_SUM else '0'
             for node, gain in terms:
                 if not math.isfinite(gain) or gain <= 0:
                     raise ValueError('Invalid compact RC linear-source coefficient.')
-                sources.append(f'G_STUDIO_SUM_{current_count} 0 {current} {node} 0 {gain:.17g}')
+                # Keep the small coefficients explicitly. The largest coefficient
+                # is implicit in anchor + sum(gain * (input - anchor)).
+                negative = '0' if node == anchor else anchor
+                coefficient = 1. if node == anchor else gain
+                sources.append(f'G_STUDIO_SUM_{current_count} 0 {current} {node} {negative} {coefficient:.17g}')
                 current_count += 1
             if buffered:
                 sources.append(f'E_STUDIO_BUFFER_{buffer_count} {fresh(output)} 0 {current} 0 1')
@@ -124,7 +133,9 @@ def records(text, physical_nodes, *, max_sources=None):
     """Return helper records and capacitors; reject physical drives and leakage.
 
     Current sums have exactly two layers: physical-node averages, then buffered
-    sums of those averages. Only buffer outputs may carry capacitive loads.
+    sums of those averages. Each layer may use an affine anchor from its own
+    inputs, restored by exactly one unit-gain current. Only buffer outputs may
+    carry capacitive loads; neither layer may drive a physical node.
     Retain the original series-source grammar for authenticated older exports.
     """
     max_sources = source_budget(max_sources)
@@ -155,7 +166,8 @@ def records(text, physical_nodes, *, max_sources=None):
             fresh(t[1]); current = t[1]; sums[current] = []; buffered = False
         elif re.fullmatch(r'G_STUDIO_SUM_\d+', t[0]) and len(t) == 6 and not terminated:
             gain = float(t[5])
-            if (current is None or buffered or t[1] != '0' or t[2] != current or t[4] != '0' or
+            if (current is None or buffered or t[1] != '0' or t[2] != current or
+                    (t[4] != '0' and t[4] not in physical and t[4] not in sums) or t[4] == current or
                     t[3] == current or (t[3] not in physical and t[3] not in sums) or
                     not math.isfinite(gain) or gain <= 0):
                 raise ValueError('Compact RC current source changes a physical node or has an invalid dependency/gain.')
@@ -176,7 +188,18 @@ def records(text, physical_nodes, *, max_sources=None):
         helpers.append(t)
     finish()
     buffered_sums = set(buffers.values()); averages = sums.keys() - buffered_sums
-    consumed = {t[3] for node in buffered_sums for t in sums[node]}
+    for node, terms in sums.items():
+        inputs = averages if node in buffered_sums else physical
+        anchors = {t[4] for t in terms if t[4] != '0'}
+        if (any(t[3] not in inputs for t in terms) or not anchors <= inputs or
+                len(anchors) > 1):
+            raise ValueError('Compact RC sum has an invalid affine anchor or dependency.')
+        if anchors:
+            anchor = next(iter(anchors))
+            returns = [t for t in terms if t[4] == '0']
+            if len(returns) != 1 or returns[0][3] != anchor or float(returns[0][5]) != 1.:
+                raise ValueError('Compact RC affine anchor must be restored exactly once at unit gain.')
+    consumed = {n for node in buffered_sums for t in sums[node] for n in t[3:5] if n != '0'}
     if (consumed != averages or {t[2] for t in caps} != buffers.keys() or
             any(t[3] not in physical for node in averages for t in sums[node]) or
             any(t[3] not in averages for node in buffered_sums for t in sums[node])):
@@ -220,28 +243,36 @@ def audit(text, owner, ground, coupling, reference, *, max_sources=None):
     """
     sources, caps = records(text, owner, max_sources=max_sources)
     current_sum = any(t[0].startswith('R_STUDIO_SUM_') for t in sources)
-    uses = (Counter(t[3] for t in sources if t[0].startswith(('G', 'E'))) if current_sum
+    uses = (Counter(n for t in sources if t[0].startswith(('G', 'E')) for n in t[3:5]) if current_sum
             else Counter(n for t in sources for n in t[2:4]))
     uses.update(t[2] for t in caps)
     functions = {'0': {}}
     functions.update({n: {net: 1.} for n, net in owner.items()})
+    pending = {}
+    def resolve(node):
+        if node in pending:
+            functions[node] = {n: math.fsum(values) for n, values in pending.pop(node).items()}
+        return functions[node]
     def consume(node):
         uses[node] -= 1
         if uses[node] == 0 and node not in owner and node != '0':
             functions.pop(node)
     for t in sources:
         if t[0].startswith('R_STUDIO_SUM_'):
-            functions[t[1]] = {}
+            functions[t[1]] = {}; pending[t[1]] = {}
             continue
-        _, pos, neg, control, _, raw = t
+        _, pos, neg, control, control_negative, raw = t
         if current_sum:
             if t[0].startswith('G'):
-                vector = functions[neg]
-                for n, coefficient in functions[control].items():
-                    vector[n] = vector.get(n, 0.) + coefficient * float(raw)
+                vector = pending[neg]
+                positive = resolve(control); negative = resolve(control_negative)
+                for n in positive.keys() | negative.keys():
+                    coefficient = positive.get(n, 0.) - negative.get(n, 0.)
+                    if coefficient:
+                        vector.setdefault(n, []).append(coefficient * float(raw))
             else:
-                functions[pos] = dict(functions[control])
-            consume(control)
+                functions[pos] = dict(resolve(control))
+            consume(control); consume(control_negative)
             continue
         vector = dict(functions[neg]); gain = float(raw)
         for n, coefficient in functions[control].items():

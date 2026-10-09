@@ -594,7 +594,7 @@ def normalize(directory, top, *, max_capacitors=50_000, require_device_reference
                                            'mutual': evidence.pop('generated_mutual_capacitors')}
         evidence['generated_capacitors'] = compact['capacitors']
         evidence['files'][compact_path.name] = hashlib.sha256(compact['text'].encode()).hexdigest()
-        evidence['equations']['compact'] = 'W_a=sum(w_ai*V_ai); U_a=sum(C_ab*W_b)/sum(C_ab); C_ai=w_ai*sum(C_ab), with a singleton original substrate anchor for intrinsic C.'
+        evidence['equations']['compact'] = 'W_a and U_a use anchor + sum(gain*(input-anchor)), choosing the largest-weight input as anchor; W gains are endpoint weights, U gains are C_ab/sum(C_ab), and C_ai=w_ai*sum(C_ab). A singleton original substrate anchor returns intrinsic C.'
     if device_reference.is_file():
         evidence['files'][device_reference.name] = file_digest(device_reference)
     # Check the input bytes again before preserving and replacing them.

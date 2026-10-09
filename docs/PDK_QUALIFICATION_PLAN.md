@@ -639,11 +639,37 @@ larger-reference run explicitly requests 200,000 capacitors and 600,000 sources
 and measures peak memory. Native SPICE continuation records are also supported
 without changing port order, device parameters or line formatting.
 
-The fresh C UART before/filled pair now completes export with all 22,588 devices
-retained; the C APB pair retains all 22,490 devices, including its four
-diodes. Completion of all eight larger exports, independent all-node model
-audits, post-fill function/timing and installed production acceptance remain
-required. An additional all-node arithmetic audit currently fails its uniform-voltage cancellation check (maximum residual 3.76e-6 aF in the first C UART measurement); diagnosis is ongoing and the larger model is not accepted by that audit. These export controls do not close chunk 4.
+The [anchored compact-RC checkpoint](validation/gf180-affine-rc-2026-10-09.json)
+now retains all eight C/D UART/APB before/filled exports. UART preserves 22,588
+devices; APB preserves 22,490, including its four diodes. The original all-node
+audit exposed a common-mode residual. Correcting its independent oracle and
+using 60-digit arithmetic confirmed a separate roundoff defect in the saved
+helper coefficients. That failed evidence is retained.
+
+The corrected exporter represents each weighted sum as its largest-weight input
+plus weighted differences from that input. This preserves zero capacitor voltage
+when all physical nodes move together, without adding sources or changing limits.
+The parser verifies each affine anchor, both helper layers and isolated buffers;
+the conservation audit handles differential controls with compensated sums.
+Both earlier encodings remain authenticated and usable.
+
+All eight authenticated native extractions have been reprocessed; normalized
+Magic inputs remain byte-identical, and devices, wire resistors, ports and model
+element counts are preserved. Independent checks pass all 32 voltage-pattern
+trials across 196,958 to 201,502 physical nodes per export at the original
+1e-10 relative / 1e-10 aF absolute limits. Every common-mode current and energy
+residual is exactly zero in this evaluator. Windows SPARSE and Linux SPARSE/KLU
+each pass the native full-matrix AC, common-mode, fault and floating-node transient
+controls; production transient differences are below 0.931 microvolt against
+the expanded reference, within the existing 2 microvolt bound. The 1,548-test
+Windows suite passes with 62 skips, and 54 focused RC tests pass on each OS.
+
+The deduplicated evidence archive is stored outside dated build folders and
+verified by reading every unique object. This establishes bounded numerical and
+export correctness, not calibrated extraction or full-layout transistor-level
+behavior. Larger-reference post-fill function/timing, complete fill-rule coverage,
+native fault acceptance and production installation acceptance remain open.
+Chunk 4 is incomplete.
 
 See [release targets](PUBLIC_RELEASE_TARGETS.md),
 [digital qualification](DIGITAL_PLATFORM_QUALIFICATION.md),

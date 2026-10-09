@@ -2,8 +2,10 @@
 
 For net a, W_a=sum_i(w_ai V_ai), D_a=sum_b(C_ab), U_a=sum_b(C_ab W_b)/D_a.
 A buffered U_a and capacitors C_ai=D_a*w_ai give each physical endpoint current
-I_ai=s*w_ai*(D_a*V_ai-sum_b(C_ab*W_b)). This equals the expanded pairwise network
-at every physical endpoint. No node, coupling, weight, or resistance is dropped.
+I_ai=s*w_ai*(D_a*V_ai-sum_b(C_ab*W_b)). The production implementation uses
+affine sums anchored at the largest input weight to preserve common-mode
+invariance in the saved coefficients. Compare with the expanded pairwise
+network at every endpoint within the declared numerical tolerances.
 """
 import argparse
 import json
@@ -41,7 +43,7 @@ report=dict(status='running',qualified=False,scope='Electrical equivalence of a 
     script_sha256=file_digest(Path(__file__)),ngspice_sha256=file_digest(ngspice),solver=args.solver,
     production_implementation_sha256=file_digest(ROOT/'icstudio/compact_rc.py'),weights=weights,
     coupling=[dict(a=a,b=b,farads=c) for (a,b),c in coupling.items()],ground_farads=ground,
-    limits=dict(ac_relative=1e-9,ac_absolute_amperes=1e-18,transient_absolute_volts=2e-6),ac=[],transient={})
+    limits=dict(ac_relative=1e-9,ac_absolute_amperes=1e-18,transient_absolute_volts=2e-6),ac=[],transient={},common_mode={})
 (out/'ngspice-version.log').write_text(subprocess.check_output([ngspice,'--version'],text=True))
 def retain():(out/'report.json').write_text(json.dumps(report,indent=2)+'\n')
 def sum_sources(prefix, output, terms):
@@ -62,6 +64,9 @@ def circuit(mode):
         if mode=='production-corrupt':
             index=next(i for i,line in enumerate(lines) if line.startswith('G_STUDIO_SUM_'))
             t=lines[index].split();t[5]=format(float(t[5])*1.01,'.17g');lines[index]=' '.join(t)
+        if mode=='production-anchor-corrupt':
+            index=next(i for i,line in enumerate(lines) if line.startswith('G_STUDIO_SUM_') and line.split()[4:] == ['0','1'])
+            t=lines[index].split();t[5]='1.01';lines[index]=' '.join(t)
         if mode=='production-leak':lines.append('RFAULT f0 0 1000000')
         return lines
     lines=[]
@@ -104,6 +109,19 @@ def run(folder,lines,commands):
     return row,[[float(v) for v in line.split()] for line in lines[1:]]
 positive_modes=('expanded','compact','production')
 negative_modes=('corrupt','production-corrupt','production-leak')
+for mode in ('production','production-anchor-corrupt'):
+    lines=[line for line in circuit(mode) if not line.startswith('VREF ')]+['VREF REF 0 DC 0 AC 1']
+    lines += [f'V{i} {n} 0 DC 0 AC 1' for i,n in enumerate(nodes)]
+    row,data=run(out/'common-mode'/mode,lines,'ac dec 4 1k 1t\nwrdata data.txt '+' '.join('i(v'+str(i)+')' for i in range(len(nodes))))
+    assert len(data)==37 and all(len(values)==1+2*len(nodes) for values in data)
+    passed=True;maximum=0.
+    for values in data:
+        for i,n in enumerate(nodes):
+            actual=abs(complex(values[1+2*i],values[2+2*i]));maximum=max(maximum,actual)
+            passed &= actual <= 1e-18
+    row.update(passed=passed,maximum_error_amperes=maximum)
+    report['common_mode'][mode]=row;retain()
+assert report['common_mode']['production']['passed'] and not report['common_mode']['production-anchor-corrupt']['passed']
 for mode in positive_modes+negative_modes:
     for active in nodes:
         folder=out/'ac'/mode/active

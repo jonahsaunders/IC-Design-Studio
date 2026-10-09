@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from icstudio.compact_rc import build, records, audit, source_budget, CURRENT_SUM, SERIES_VOLTAGE
+from icstudio.compact_rc import build, records, audit, source_budget, CURRENT_SUM, ANCHORED_CURRENT_SUM, SERIES_VOLTAGE
 from icstudio.magic_rc import normalize, finalize, contract, MAX_CAPACITORS
 from icstudio.rc_islands import prune
 from tests.test_magic_rc import ORIGINAL, RESISTANCE
@@ -15,7 +15,7 @@ class CompactCapacityTests(unittest.TestCase):
     def test_explicit_source_budget_preserves_both_encodings_and_conservation(self):
         ground = {'A': 1., 'VSS': 0.}
         weights = {'A': {'A': 1.}, 'VSS': {'VSS': 1.}}
-        for encoding, needed in ((CURRENT_SUM, 6), (SERIES_VOLTAGE, 4)):
+        for encoding, needed in ((CURRENT_SUM, 6), (ANCHORED_CURRENT_SUM, 6), (SERIES_VOLTAGE, 4)):
             with self.subTest(encoding=encoding), patch('icstudio.compact_rc.MAX_SOURCES', 3):
                 with self.assertRaisesRegex(ValueError, f'requires 2 capacitors and {needed} sources'):
                     build(ground, {}, weights, 'VSS', physical_nodes=weights, max_capacitors=2, encoding=encoding)
