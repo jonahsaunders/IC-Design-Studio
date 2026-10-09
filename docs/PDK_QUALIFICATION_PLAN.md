@@ -566,18 +566,31 @@ execution with a WSL connection error; the direct-entry retry passes, and the
 failed launch remains retained. Source libraries and the original rule deck
 are unchanged.
 
-The completed counter fault run has five combined controls: the valid design
-passes, and isolated VDD/VSS pads, a signal short and removed substrate contacts
-are rejected. LVS alone misses isolated power pads; metal continuity alone
-misses the substrate fault. Both checks are required. The remaining native
-written-layout fault controls and complete-APB diode area/perimeter/polarity
-fault controls are still running. Their success is not inferred from the six
-positive comparisons. The 281-member archive retains the native databases,
-independent audit, reviewed sources, controls and failures.
+The [completed connectivity fault audit](validation/gf180-connectivity-controls-2026-10-09.json)
+now covers all six actual C/D counter, UART and APB layouts: six positive controls
+pass and thirty injected faults are detected. Each layout includes isolated
+VDD/VSS pads, a signal short and removed substrate contacts. Both APBs additionally
+reject diode area, perimeter and polarity faults. LVS alone misses isolated power
+pads; metal continuity alone misses substrate faults. Both checks are required.
 
-The stock-deck substrate warning, complete native fault acceptance, post-fill
-extraction/function/timing, complete fill scope and installed production
-integration remain open. Chunk 4 is incomplete.
+Independent readback reconstructs every written-mask or reference-netlist fault,
+recomputes metal connectivity, and reads the native comparison databases directly.
+The positive controls preserve 394,080 device terminals and 197,048 primary
+parameters. The original two APB substrate tests reported incomplete wiring, then
+their harness tried to open a database that extraction had not produced. Fresh
+source-locked repeats each reproduce the specific soft-connection rejection in
+about 22 seconds. The original harness errors remain retained; generic tool
+failures are not accepted as fault detection. An initial audit's overly broad
+historical batch-snapshot comparison is also retained; the corrected audit binds
+the selected completed case and each artifact directly.
+
+The verified archive retains 919 logical files using 652 unique content objects,
+including original failures, native databases, geometry, reference inputs, deck,
+engine and independent audit. It is stored outside the dated build folders.
+These results complete the experimental fault-control batch. The stock-deck
+substrate warning, accepted production substrate/diode integration, larger-reference
+post-fill function/timing, complete fill scope and installed production acceptance
+remain open. Chunk 4 is incomplete.
 
 The [paired full-RC waveform audit](validation/gf180-filled-functional-2026-10-08.json)
 now confirms both complete 900 nanosecond precision-candidate counter runs under
@@ -668,7 +681,7 @@ The deduplicated evidence archive is stored outside dated build folders and
 verified by reading every unique object. This establishes bounded numerical and
 export correctness, not calibrated extraction or full-layout transistor-level
 behavior. Larger-reference post-fill function/timing, complete fill-rule coverage,
-native fault acceptance and production installation acceptance remain open.
+production connectivity acceptance and installation acceptance remain open.
 Chunk 4 is incomplete.
 
 See [release targets](PUBLIC_RELEASE_TARGETS.md),
