@@ -708,6 +708,25 @@ command authenticates database/preview hashes against the finished job and
 preserves diagnostics. Automatic finished-job dispatch and combined LVS
 acceptance still need integration and fresh installed-runtime verification.
 
+The [final-layout reference exporter](GF180_REFERENCE_EXPORT.md) now generates
+and retains the independent transistor reference in configured GF180 finish
+jobs. Six actual C/D OpenDB exports match the earlier audited references exactly,
+covering 16,592 instances and 98,524 devices; Windows readback reconstructs all
+six saved results. Reference artifacts and their source CDL survive macro export
+without implying an LVS pass. The full Windows suite passes 1,600 tests with 62
+skips, and 74 focused checks pass on each OS. Bundling these inputs and combining
+strict native LVS with written-metal acceptance remain open.
+
+The [C APB nominal device audit](validation/gf180-device-c-apb-2026-10-09.json)
+independently checks all 63 frozen assertions (147 output bits) over 57,534
+waveform points, at 5 V / 25 C with the original 20 ns physical clock and 10 fF
+output loads. All assertions pass; 1,035,612 measured input samples agree with
+the frozen stimulus within the declared 1 microvolt bound. Sampled-output
+substitutions fail all 147 corresponding comparisons. This establishes the
+device-only baseline for that design, not post-fill behavior or all-path timing.
+The other C/D full-program baselines and before/filled RC checks retain their
+separate execution and acceptance requirements. Chunk 4 remains incomplete.
+
 See [release targets](PUBLIC_RELEASE_TARGETS.md),
 [digital qualification](DIGITAL_PLATFORM_QUALIFICATION.md),
 [bundled PDK scope](PDK_GUIDE.md) and

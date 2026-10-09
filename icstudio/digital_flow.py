@@ -30,7 +30,7 @@ def environment(job):
     from .build_info import WORKFLOW_SOURCE_HASH
     sources = {}
     if not getattr(sys, 'frozen', False):
-        for name in [p.name for p in Path(__file__).parent.glob('digital*.py')] + ['engines.py']:
+        for name in [p.name for p in Path(__file__).parent.glob('digital*.py')] + ['engines.py', 'gf180_cdl.py', 'gf180_connectivity.py']:
             sources[name] = file_digest(Path(__file__).with_name(name))
     runtime = job['settings'].get('runtime')
     if runtime:
@@ -44,6 +44,8 @@ def environment(job):
     if job['settings']['stage'] in ADVANCED and 'platform' in config:
         from .digital_platform import verify
         out['platform']=verify(config['platform'])
+        if job['settings']['stage']=='finish' and config['platform'].get('lvs_reference') is not None:
+            out['lvs_reference']=clone(config['platform']['lvs_reference'])
     if 'flow' in job['settings']:
         from .digital_platform import verify_flow
         out['flow']=verify_flow(job['settings']['flow'])
@@ -195,6 +197,8 @@ def validate_result(result, directory):
     if data['stage']=='finish':
         from .digital_physical_checks import validate_saved
         validate_saved(data,root)
+        from .digital_lvs_reference import validate_saved as validate_reference
+        validate_reference(data,root)
 
 
 def run(job, directory, progress=lambda *_: None):

@@ -62,8 +62,10 @@ proof that a physical fault was detected.
 
 The reusable [written-metal checker](GF180_METAL_CONTINUITY.md) derives complete
 cell supply coverage from the captured placement and independent GDS library.
-Its source command retains all findings and input identities. Combined automatic
-consumer dispatch remains a separate integration requirement.
+Its source command retains all findings and input identities. The
+[final-layout reference exporter](GF180_REFERENCE_EXPORT.md) now captures the
+complete independent CDL reference in configured finish jobs. Combined automatic
+native comparison and metal-check dispatch remain integration requirements.
 
 This command prepares the rule directory; it does not install a runtime, run a
 project comparison or change a project's acceptance status. Consumer-flow
