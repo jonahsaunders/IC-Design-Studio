@@ -29,6 +29,9 @@ revision or master mapping invalidates the finished-result identity.
 The existing included runtime does not yet bundle these additional inputs.
 Historical and unconfigured jobs remain readable without a reference claim.
 Adding captured metadata does not establish installed-runtime qualification.
+The [complete connectivity profile preparer](GF180_CONNECTIVITY_PROFILE.md)
+captures all 229 pinned 9-track CDL/GDS pairs and the strict native rules, then
+binds them to a matching C or D profile. Default runtime packaging remains open.
 
 ## Connection checks
 
@@ -69,10 +72,12 @@ conversion. Together they cover 16,592 instances, 98,524 devices and 106 top
 ports. The full Windows suite passes 1,600 tests with 62 skips; 74 focused tests
 pass on each OS.
 
-These runs exercise the actual adapter against captured full designs. They do
-not establish a fresh complete route/finish run, native Windows OpenROAD, a
-frozen desktop installation, or combined native LVS/metal acceptance. Runtime
-bundling and that final dispatch remain integration work.
+These reference-export runs exercise the actual adapter against captured full
+designs. They do not themselves establish a fresh complete route/finish run,
+native Windows OpenROAD, a frozen desktop installation, or combined native
+LVS/metal acceptance. The subsequent [combined finish integration](GF180_FINISH_CONNECTIVITY.md)
+records those native connectivity controls and separate fresh C/D counter jobs.
+Default runtime bundling and installed acceptance remain open.
 
 Use the [strict LVS recipe](GF180_LVS_RECIPE.md) and
 [written-metal checker](GF180_METAL_CONTINUITY.md) for their respective checks.

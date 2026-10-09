@@ -244,7 +244,7 @@ class DigitalLVSReferenceTests(unittest.TestCase):
             self.assertEqual(contract['qualification']['lvs'],'Not qualified by this export')
             self.assertEqual(contract['qualification']['generated_reference']['status'],'reference_generated')
             with zipfile.ZipFile(root/'macro.zip') as archive:
-                for key in ('lvs_reference','lvs_reference_raw','lvs_reference_report','lvs_reference_master_0'):
+                for key in ('checkpoint','lvs_reference','lvs_reference_raw','lvs_reference_report','lvs_reference_master_0'):
                     self.assertEqual(archive.read(contract['artifacts'][key]['path']),
                                      (root/data['artifacts'][key]['path']).read_bytes())
 

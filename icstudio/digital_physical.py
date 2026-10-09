@@ -284,6 +284,8 @@ foreach library [[ord::get_db] getLibs] {
         checks=physical_checks(r)
         from .digital_lvs_reference import execute as reference_export
         reference=reference_export(r)
+        from .digital_gf180_checks import execute as gf180_connectivity
+        connectivity=gf180_connectivity(r,reference)
     metrics={}
     for path in sorted(work.rglob('*.json')):
         if path.stat().st_size>8*1024*1024:continue
@@ -300,6 +302,7 @@ foreach library [[ord::get_db] getLibs] {
             'timing_corners':r.config.get('timing_corners',[r.platform['corner']]),
             **({'checks':checks} if stage=='finish' else {}),
             **({'reference':reference} if stage=='finish' and reference is not None else {}),
+            **({'gf180_connectivity':connectivity} if stage=='finish' and connectivity is not None else {}),
             'scope':'Engine implementation; timing, equivalence and physical rule qualification remain explicit checks.'},
             'statistics':{'cells':len(geometry['components']),'area_um2':sum(c['width']*c['height'] for c in geometry['components'])},
             'summary':'Physical '+stage+' complete · '+str(len(geometry['components']))+' placed cells'}

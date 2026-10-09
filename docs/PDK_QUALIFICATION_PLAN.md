@@ -740,6 +740,31 @@ has not been independently diagnosed. Resource-capacity investigation and both
 complete functional waveforms remain required. Original failures, the unchanged
 inputs' archive dependencies and the exact diagnostic binary are retained.
 
+The [combined GF180 finish integration](GF180_FINISH_CONNECTIVITY.md) now requires
+both strict native device/substrate comparison and complete written-metal
+acceptance for configured profiles. All six retained filled layouts pass;
+the deliberately disconnected C-counter VDD port is rejected even though its
+native device graph matches. Current-source Windows and Linux saved-result
+reconstruction agrees byte for byte on all seven cases. The full independent
+229-cell source preparation and two fresh C/D counter implementations with
+audited macro exports have separate retained checkpoints. Default runtime
+bundling, installed acceptance, full before/filled electrical timing and
+complete fill-rule coverage remain open; chunk 4 is not complete.
+
+The [C UART audit](validation/gf180-device-c-uart-2026-10-09.json) and
+[D UART/APB audits](validation/gf180-device-d-nominal-2026-10-09.json) complete
+the four larger nominal device-only baselines together with the earlier C APB
+result. Every frozen assertion passes and the inputs agree with the declared
+stimulus. These baselines have no wire RC and cannot establish post-fill timing.
+
+The subsequent [C APB full-RC supervisor failure](validation/gf180-apb-supervision-2026-10-09.json)
+is retained separately from the earlier allocation failure. Its runner killed
+the simulation after a progress-file replacement failed on the mounted Windows
+drive; it produced no complete waveform. The repaired supervisor keeps its
+authoritative progress on the native filesystem and treats the Windows copy as
+best-effort. Permission-failure controls pass, while the unchanged complete RC
+program still requires a finished waveform and independent acceptance.
+
 See [release targets](PUBLIC_RELEASE_TARGETS.md),
 [digital qualification](DIGITAL_PLATFORM_QUALIFICATION.md),
 [bundled PDK scope](PDK_GUIDE.md) and

@@ -197,6 +197,8 @@ def validate(platform):
     validate_extraction(platform)
     from .digital_lvs_reference import validate as validate_reference
     validate_reference(platform)
+    from .digital_gf180_checks import validate as validate_connectivity
+    validate_connectivity(platform)
     if platform.get('fingerprint') != digest(records):raise ValueError('Digital platform manifest checksum changed. Import the platform again.')
     return platform
 

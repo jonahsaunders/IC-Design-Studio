@@ -47,6 +47,8 @@ def stage_key(config, stage, simulator='icarus'):
         selected['rc_corners']=extraction_corners(config)
     if stage == 'finish' and config.get('platform', {}).get('lvs_reference') is not None:
         selected['lvs_reference'] = config['platform']['lvs_reference']
+    if stage == 'finish' and config.get('platform', {}).get('gf180_connectivity') is not None:
+        selected['gf180_connectivity'] = config['platform']['gf180_connectivity']
     if stage in ('simulate', 'lint'):
         selected['simulator'] = 'verilator' if stage == 'lint' else simulator
     return digest({'version': 1, 'stage': stage, 'inputs': selected})

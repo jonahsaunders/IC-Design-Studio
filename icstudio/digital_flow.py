@@ -46,6 +46,8 @@ def environment(job):
         out['platform']=verify(config['platform'])
         if job['settings']['stage']=='finish' and config['platform'].get('lvs_reference') is not None:
             out['lvs_reference']=clone(config['platform']['lvs_reference'])
+        if job['settings']['stage']=='finish' and config['platform'].get('gf180_connectivity') is not None:
+            out['gf180_connectivity']=clone(config['platform']['gf180_connectivity'])
     if 'flow' in job['settings']:
         from .digital_platform import verify_flow
         out['flow']=verify_flow(job['settings']['flow'])
@@ -199,6 +201,8 @@ def validate_result(result, directory):
         validate_saved(data,root)
         from .digital_lvs_reference import validate_saved as validate_reference
         validate_reference(data,root)
+        from .digital_gf180_checks import validate_saved as validate_connectivity
+        validate_connectivity(data,root)
 
 
 def run(job, directory, progress=lambda *_: None):

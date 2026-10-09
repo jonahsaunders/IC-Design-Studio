@@ -50,7 +50,7 @@ def export(result, directory, destination):
     if data['stage']!='finish' or not {'gds','lef','netlist','layout_preview'}<=artifacts.keys():
         raise ValueError('Finish the physical flow before exporting a macro bundle.')
     preview=json.loads((directory/artifacts['layout_preview']['path']).read_text())
-    selected={k:v for k,v in artifacts.items() if k in ('gds','lef','netlist','spef','sdc','layout_preview','database','timing','equivalence','def','extraction','physical_checks') or k.startswith(('spef_','extraction_script_','physical_check_','lvs_reference'))}
+    selected={k:v for k,v in artifacts.items() if k in ('gds','lef','netlist','spef','sdc','layout_preview','database','timing','equivalence','def','extraction','physical_checks','gf180_connectivity') or k.startswith(('spef_','extraction_script_','physical_check_','lvs_reference','gf180_check_'))}
     job=json.loads((directory/'input.json').read_text())
     value=verify_inputs(result,job)
     from .digital_physical_checks import validate_saved
@@ -63,6 +63,13 @@ def export(result, directory, destination):
         raise ValueError('Generated reference belongs to another top-level design.')
     if reference is not None and value.get('platform',{}).get('lvs_reference')!=data.get('environment',{}).get('lvs_reference'):
         raise ValueError('Generated reference policy differs from the captured macro inputs.')
+    from .digital_gf180_checks import validate_saved as validate_connectivity
+    connectivity=validate_connectivity(data,directory)
+    if connectivity is not None and (connectivity.get('top')!=value['top'] or
+            value.get('platform',{}).get('gf180_connectivity')!=data.get('environment',{}).get('gf180_connectivity')):
+        raise ValueError('Combined connectivity differs from the captured macro inputs.')
+    if reference is not None or connectivity is not None:
+        selected['checkpoint']=artifacts['checkpoint']
     notices=captured_notices(job,directory)
     manifest={'version':1,'top':value['top'],'source_hash':data['source_hash'],'input_key':data.get('input_key'),
               'design_hash':result['design_hash'],
@@ -79,6 +86,9 @@ def export(result, directory, destination):
         manifest['qualification']['generated_reference']={
             'status':reference['status'],'scope':reference['scope'],'artifact':'lvs_reference',
             'report_artifact':'lvs_reference_report'}
+    if connectivity is not None:
+        manifest['qualification']['gf180_connectivity']={
+            'status':connectivity['status'],'scope':connectivity['scope'],'artifact':'gf180_connectivity'}
     if 'extraction' in selected:
         extraction=json.loads((directory/selected['extraction']['path']).read_text())
         if extraction.get('schema')!=1 or extraction.get('status')!='complete' or extraction.get('def')!=selected.get('def') or extraction.get('netlist')!=selected['netlist']:
