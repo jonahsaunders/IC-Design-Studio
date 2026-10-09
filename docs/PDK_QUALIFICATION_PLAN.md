@@ -727,6 +727,19 @@ device-only baseline for that design, not post-fill behavior or all-path timing.
 The other C/D full-program baselines and before/filled RC checks retain their
 separate execution and acceptance requirements. Chunk 4 remains incomplete.
 
+The first [complete APB before/filled RC attempt](validation/gf180-apb-startup-2026-10-09.json)
+failed before producing usable waveforms under a 6 GiB per-process address-space
+guard. Both runs preserved all devices, extracted resistors and capacitance
+elements and used the identical frozen test deck. The simulator returned zero
+despite its aborted transient; the checker correctly rejected both results.
+An isolated build adding only a failure-status print reproduced the before-case
+failure as `KLU_OUT_OF_MEMORY` (-2), with no numerical rank result. The generic
+singular-matrix message therefore does not establish a connectivity defect.
+The filled case has its own retained startup failure; its exact internal status
+has not been independently diagnosed. Resource-capacity investigation and both
+complete functional waveforms remain required. Original failures, the unchanged
+inputs' archive dependencies and the exact diagnostic binary are retained.
+
 See [release targets](PUBLIC_RELEASE_TARGETS.md),
 [digital qualification](DIGITAL_PLATFORM_QUALIFICATION.md),
 [bundled PDK scope](PDK_GUIDE.md) and
