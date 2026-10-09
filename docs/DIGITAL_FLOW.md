@@ -237,7 +237,11 @@ parasitic mode and engine context; absent metrics remain absent.
 
 Timing **INCOMPLETE** includes missing clocks/I/O constraints, unresolved setup
 diagnostics, missing setup or hold paths, absent report files, invalid total
-negative slack, or unconfirmed nanosecond units. Inspect the reason in the run
+negative slack, or unconfirmed nanosecond units. Extracted timing additionally
+requires complete parasitic annotation and resolved library/netlist/SDC/SPEF
+load diagnostics. Only outputs proven to have no connected net can lack
+interconnect annotation. Each scenario requires its own fresh reports.
+Inspect the reason in the run
 summary and the full `incomplete_reasons` in the retained timing report.
 **FAIL** means a reported path, setup/hold total negative slack, or electrical
 slew/capacitance/fanout check violates constraints. Known failures remain FAIL

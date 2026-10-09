@@ -162,6 +162,20 @@ def preview(def_file, lefs):
             'scope':'DEF placement and signal-route preview. Cell outlines and centerlines are not a DRC view; inspect final GDS in the layout editor.'}
 
 
+def netlist_script(path):
+    """Keep electrically modeled cells, including antenna input loads."""
+    from .digital_implementation import tcl_word
+    return '''set physical_only {}
+foreach library [[ord::get_db] getLibs] {
+  foreach master [$library getMasters] {
+    if {[$master getType] in {COVER COVER_BUMP RING PAD_SPACER CORE_FEEDTHROUGH CORE_SPACER CORE_WELLTAP} || [$master isEndCap]} {
+      lappend physical_only [$master getName]
+    }
+  }
+}
+'''+'write_verilog -remove_cells $physical_only '+tcl_word(path)+'\n'
+
+
 def execute(r):
     from .digital_implementation import mapped,verify_upstream,tcl_word,quote
     from .digital_platform import implementation_options,verify_flow
@@ -231,16 +245,9 @@ def execute(r):
     checkpoint=result_dir/(CHECKPOINTS[stage]+'.odb')
     if not checkpoint.is_file():raise ValueError('ORFS did not produce the expected '+stage+' checkpoint.')
     script='\n'.join('read_liberty '+tcl_word(p) for p in r.libraries())+'\nread_db '+tcl_word(checkpoint)+'\n'
-    script+='''set physical_only {}
-foreach library [[ord::get_db] getLibs] {
-  foreach master [$library getMasters] {
-    if {[$master getType] in {COVER COVER_BUMP RING PAD_SPACER CORE_FEEDTHROUGH CORE_SPACER CORE_ANTENNACELL CORE_WELLTAP} || [$master isEndCap]} {
-      lappend physical_only [$master getName]
-    }
-  }
-}
-'''
-    script+='write_def '+tcl_word(r.root/'snapshot.def')+'\nwrite_verilog -remove_cells $physical_only '+tcl_word(r.root/'physical.v')+'\n'
+    # Antenna cells have characterized input capacitance and SPEF terminals.
+    # Removing them leaves real loads unbound when timing reads the extraction.
+    script+='write_def '+tcl_word(r.root/'snapshot.def')+'\n'+netlist_script(r.root/'physical.v')
     from .digital_odb import script as database_script
     script += database_script(r.root/'database.json')
     if stage=='finish':script+='write_abstract_lef '+tcl_word(r.root/'macro.lef')+'\n'

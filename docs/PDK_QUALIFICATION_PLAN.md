@@ -809,6 +809,18 @@ authoritative progress on the native filesystem and treats the Windows copy as
 best-effort. Permission-failure controls pass, while the unchanged complete RC
 program still requires a finished waveform and independent acceptance.
 
+The [post-fill timing batch](GF180_POSTFILL_TIMING.md) now passes all 18 filled
+reference cases on the separate C/D typical interconnect models and three
+captured library conditions. Both OS audits reproduce 78 native outcomes,
+including 42 rejected capacitance, missing-clock and missing-antenna controls.
+The application now retains antenna input loads in physical netlists and
+rejects missing or partial parasitic annotation, unresolved load diagnostics
+and stale reports from a previous scenario. Both corrected APB netlists pass
+fresh equivalence proofs; other netlists remain byte-identical. The permanent,
+verified archive retains successful and rejected experiments. This is bounded
+reference timing acceptance; full fill integration and coverage, independent
+full-RC programs and subsequent process/package gates remain open.
+
 See [release targets](PUBLIC_RELEASE_TARGETS.md),
 [digital qualification](DIGITAL_PLATFORM_QUALIFICATION.md),
 [bundled PDK scope](PDK_GUIDE.md) and

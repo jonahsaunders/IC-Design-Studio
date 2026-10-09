@@ -67,7 +67,7 @@ def eqy_report(directory):
             'scope':'Sequential equivalence under the captured EQY strategy and initialization assumptions.'}
 
 
-def timing_report(directory):
+def timing_report(directory, *, require_parasitics=False):
     root=Path(directory); rows=[]; incomplete=[]
 
     def read(name):
@@ -80,6 +80,28 @@ def timing_report(directory):
             incomplete.append('Engine error in '+name+'; inspect the retained report.')
         return text
 
+    annotation=None
+    if require_parasitics:
+        diagnostics=read('timing_load.txt')
+        if re.search(r'^\s*(?:Warning|Error|Fatal)(?:\s|:)',diagnostics,re.I|re.M):
+            incomplete.append('Unresolved netlist, library, constraint or parasitic load diagnostics; inspect timing_load.txt.')
+        text=read('parasitic_annotation.txt')
+        disconnected=read('disconnected_outputs.txt').splitlines()
+        match=re.fullmatch(r'Found (\d+) unannotated drivers\.\n(.*?)Found (\d+) partially unannotated drivers\.\n(.*)',text,re.S)
+        # Open outputs of clock-load cells have no interconnect to annotate.
+        # The engine must prove disconnection; a cell name is never an exemption.
+        if match:
+            unannotated=[s.strip() for s in match[2].splitlines() if s.strip()]
+            partial=[s.strip() for s in match[4].splitlines() if s.strip()]
+            valid=(len(unannotated)==int(match[1]) and len(partial)==int(match[3])
+                   and len(set(unannotated))==len(unannotated) and len(set(partial))==len(partial)
+                   and len(set(disconnected))==len(disconnected) and all(disconnected))
+            missing=sorted(set(unannotated)-set(disconnected))
+            annotation=dict(unannotated_drivers=unannotated,partially_unannotated_drivers=partial,
+                            disconnected_outputs=disconnected,connected_unannotated_drivers=missing)
+            if not valid:incomplete.append('Invalid parasitic annotation evidence; inspect parasitic_annotation.txt.')
+            elif missing or partial:incomplete.append('Missing extracted parasitics on connected drivers; inspect parasitic_annotation.txt.')
+        else:incomplete.append('Missing or invalid parasitic annotation evidence; inspect parasitic_annotation.txt.')
     for line in read('timing_paths.tsv').splitlines():
         fields=line.split('\t')
         if len(fields)!=5:raise ValueError('OpenSTA returned an invalid timing path record.')
@@ -122,6 +144,7 @@ def timing_report(directory):
             any(summary.get(kind+'_total_negative_slack_ns',0)<0 for kind in ('setup','hold')))
     status='FAIL' if failed else 'INCOMPLETE' if incomplete else 'PASS'
     return {'status':status,'paths':rows,'summary':summary,'unconstrained':unconstrained,
+            **({'parasitic_annotation':annotation} if require_parasitics else {}),
             'incomplete_reasons':incomplete,
             'checks':checks,'units':units,'electrical_checks':electrical,
             'electrical_status':'FAIL' if electrical_failed else 'Unavailable' if electrical_incomplete else 'No reported violations',

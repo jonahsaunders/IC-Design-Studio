@@ -107,6 +107,8 @@ class DigitalRCTests(unittest.TestCase):
                 pair=(runner.timing_corner,runner.timing_spef_key);seen.append(pair)
                 bad=pair==('ss','spef_max')
                 contents={'timing_units.txt':'time 1ns\n','timing_checks.txt':'','electrical_checks.txt':'',
+                    'timing_load.txt':'','disconnected_outputs.txt':'',
+                    'parasitic_annotation.txt':'Found 0 unannotated drivers.\nFound 0 partially unannotated drivers.\n',
                     'timing_paths.tsv':'setup\ta\tb\t2\ta|b\nhold\ta\tb\t'+('-0.2' if bad else '0.2')+'\ta|b\n',
                     'timing_totals.txt':'tns 0','timing_hold_totals.txt':'tns '+('-0.2' if bad else '0'),
                     'timing_full.txt':'fixture','power.txt':'Total 0.1 0.1 0.1 0.3'}

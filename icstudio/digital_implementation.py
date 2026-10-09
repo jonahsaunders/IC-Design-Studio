@@ -186,7 +186,8 @@ def mapped(runner):
 
 
 def timing_script(r):
-    lines=['set_cmd_units -time ns -capacitance pF']
+    lines=['set_cmd_units -time ns -capacitance pF',
+           'sta::redirect_file_begin '+tcl_word(r.root/'timing_load.txt')]
     lines += ['read_liberty '+tcl_word(p) for p in r.libraries()]
     lines += ['read_verilog '+tcl_word(r.root/'netlist.v'),'link_design '+r.config['top'],
               'read_sdc '+tcl_word(r.constraints())]
@@ -199,6 +200,15 @@ def timing_script(r):
         shutil.copy2(Path(upstream['root'])/upstream['artifacts'][key]['path'],target)
         r.add_artifact(key,target);lines.append('read_spef '+tcl_word(target))
         lines.append('set_propagated_clock [all_clocks]')
+    lines.append('sta::redirect_file_end')
+    if key in upstream.get('artifacts',{}):
+        lines += ['report_parasitic_annotation -report_unannotated > '+tcl_word(r.root/'parasitic_annotation.txt'),
+                  'set out [open '+tcl_word(r.root/'disconnected_outputs.txt')+' w]',
+                  '''foreach pin [get_pins -hierarchical * -filter {direction == output}] {
+  set nets [get_nets -quiet -of_objects $pin]
+  if {$nets eq "NULL" || ![llength $nets]} {puts $out [get_full_name $pin]}
+}
+close $out''']
     # An SDC can set its own input units. Normalize only after interpreting it,
     # so every saved path, total and UI label uses the declared output units.
     lines += ['set_cmd_units -time ns -capacitance pF',
@@ -212,7 +222,7 @@ def timing_script(r):
               'report_check_types -max_slew -max_capacitance -max_fanout -violators > '+tcl_word(r.root/'electrical_checks.txt'),
               'set out [open '+tcl_word(r.root/'timing_paths.tsv')+' w]',
               '''foreach {kind delay} {setup max hold min} {
-  foreach path [find_timing_paths -path_delay $delay -group_count 50 -sort_by_slack] {
+  foreach path [find_timing_paths -path_delay $delay -group_path_count 50 -sort_by_slack] {
     set start [get_property [get_property $path startpoint] full_name]
     set end [get_property [get_property $path endpoint] full_name]
     set pins {}
@@ -230,13 +240,18 @@ def timing(r):
     from .digital_reports import power_report
     from .digital_rc import timing_sources
     sources=timing_sources(r)
+    outputs=('timing_load.txt','timing_full.txt','timing_checks.txt','timing_units.txt','timing_paths.tsv',
+             'timing_totals.txt','timing_hold_totals.txt','electrical_checks.txt','power.txt',
+             'parasitic_annotation.txt','disconnected_outputs.txt')
     for i,corner in enumerate(corners):
         for j,(rc_corner,spef_key) in enumerate(sources):
             scenario=corner+(' / '+rc_corner if rc_corner else '')
             r.timing_corner=corner;r.timing_spef_key=spef_key
+            # Missing output from this scenario cannot borrow a previous pass.
+            for name in outputs:(r.root/name).unlink(missing_ok=True)
             atomic_write(r.root/'timing.tcl',timing_script(r))
             r.command([r.tools['sta'],'-no_init','-exit',str(r.root/'timing.tcl')],'Analyzing setup and hold · '+scenario,fraction=.6)
-            report=timing_report(r.root);report.update(corner=corner,rc_corner=rc_corner,scenario=scenario)
+            report=timing_report(r.root,require_parasitics=bool(spef_key));report.update(corner=corner,rc_corner=rc_corner,scenario=scenario)
             report['parasitics']='extracted SPEF' if spef_key else 'No extracted interconnect; pre-layout estimate'
             for path in report['paths']:path.update(corner=corner,rc_corner=rc_corner,scenario=scenario)
             reports.append(report);powers.append({'corner':corner,'rc_corner':rc_corner,'scenario':scenario,**power_report(r.root/'power.txt')})
@@ -244,11 +259,14 @@ def timing(r):
             if rc_corner:folder=folder/rc_corner
             folder.mkdir(parents=True)
             prefix='corner_'+corner if not rc_corner else 'scenario_'+str(i)+'_'+str(j)
-            for name in ('timing.tcl','timing_full.txt','timing_checks.txt','timing_units.txt','timing_paths.tsv','timing_totals.txt','timing_hold_totals.txt','electrical_checks.txt','power.txt'):
-                shutil.copy2(r.root/name,folder/name);r.add_artifact(prefix+'_'+name.replace('.','_'),folder/name,allow_empty=True)
+            names=['timing.tcl','timing_load.txt','timing_full.txt','timing_checks.txt','timing_units.txt','timing_paths.tsv','timing_totals.txt','timing_hold_totals.txt','electrical_checks.txt','power.txt']
+            if spef_key:names += ['parasitic_annotation.txt','disconnected_outputs.txt']
+            for name in names:
+                if (r.root/name).is_file():
+                    shutil.copy2(r.root/name,folder/name);r.add_artifact(prefix+'_'+name.replace('.','_'),folder/name,allow_empty=True)
     r.timing_corner=None
     report=clone(reports[0]);report['corners']=reports;report['paths']=[p for c in reports for p in c['paths']]
-    report.pop('rc_corner',None);report.pop('scenario',None)
+    report.pop('rc_corner',None);report.pop('scenario',None);report.pop('parasitic_annotation',None)
     states={c['status'] for c in reports};report['status']=next((s for s in ('FAIL','INCOMPLETE') if s in states),'PASS')
     report['unconstrained']=any(c['unconstrained'] for c in reports)
     report['incomplete_reasons']=[c['scenario']+': '+reason for c in reports for reason in c['incomplete_reasons']]
