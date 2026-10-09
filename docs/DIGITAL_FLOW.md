@@ -123,6 +123,9 @@ restart; the digital engines and advertised platforms themselves are already bun
    **Constraints** generates an editable clock and I/O SDC.
    **Floorplan and routing** in that inspector section (also **More → Physical
    settings…**) controls die/core rectangles in micrometres, density and threads.
+   For the supplied GF180 C/D standard-cell blocks, enable **Generate GF180 C/D
+   block density fill** before implementation. Its [captured fill workflow](GF180_BLOCK_FILL.md)
+   includes post-fill typical extraction and a matching macro abstract.
 4. Choose **Run to placement**, **Run to routing**, or **Run to GDS**. The durable
    target plan maps RTL, builds each required physical stage, then runs timing.
    **Verify block** runs lint, simulation/regression, mapping, equivalence and timing.

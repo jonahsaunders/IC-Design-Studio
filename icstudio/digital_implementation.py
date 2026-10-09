@@ -198,7 +198,9 @@ def timing_script(r):
         target=r.root/('parasitics.spef' if key=='spef' else 'parasitics/'+key+'.spef')
         target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copy2(Path(upstream['root'])/upstream['artifacts'][key]['path'],target)
-        r.add_artifact(key,target);lines.append('read_spef '+tcl_word(target))
+        r.add_artifact(key,target)
+        factor='-coupling_reduction_factor 1.0 ' if 'fill' in upstream.get('artifacts',{}) else ''
+        lines.append('read_spef '+factor+tcl_word(target))
         lines.append('set_propagated_clock [all_clocks]')
     lines.append('sta::redirect_file_end')
     if key in upstream.get('artifacts',{}):

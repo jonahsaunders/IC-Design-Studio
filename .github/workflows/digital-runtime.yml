@@ -10,11 +10,16 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the pinned layout reader for saved-evidence validation
+        run: python -m pip install klayout==0.30.5
       - uses: actions/cache/restore@v4
         id: cache
         with:
           path: build/digital-payload
-          key: digital-runtime-${{ hashFiles('packaging/digital/**', 'scripts/build_digital_runtime.py', 'scripts/build_physical_engines.py', 'scripts/prepare_sky130_digital.py', 'scripts/fetch_sky130_reference.py', 'examples/physical-engine-lock.json', 'examples/sky130-reference-assets.json', 'icstudio/digital*.py', 'icstudio/model.py', 'licenses/Apache-2.0.txt', 'THIRD_PARTY_NOTICES.md') }}
+          key: digital-runtime-${{ hashFiles('packaging/digital/**', 'scripts/build_digital_runtime.py', 'scripts/build_physical_engines.py', 'scripts/prepare_sky130_digital.py', 'scripts/fetch_sky130_reference.py', 'examples/physical-engine-lock.json', 'examples/sky130-reference-assets.json', 'icstudio/*.py', 'licenses/Apache-2.0.txt', 'THIRD_PARTY_NOTICES.md') }}
       - name: Build the runtime filesystem
         if: steps.cache.outputs.cache-hit != 'true'
         run: |

@@ -30,7 +30,7 @@ def environment(job):
     from .build_info import WORKFLOW_SOURCE_HASH
     sources = {}
     if not getattr(sys, 'frozen', False):
-        for name in [p.name for p in Path(__file__).parent.glob('digital*.py')] + ['engines.py', 'gf180_cdl.py', 'gf180_connectivity.py']:
+        for name in [p.name for p in Path(__file__).parent.glob('digital*.py')] + ['engines.py', 'gf180_cdl.py', 'gf180_connectivity.py', 'fill_capacitance.py']:
             sources[name] = file_digest(Path(__file__).with_name(name))
     runtime = job['settings'].get('runtime')
     if runtime:

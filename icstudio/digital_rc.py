@@ -116,8 +116,12 @@ def timing_sources(r):
     """Resolve only hash-verified upstream parasitics for the selected RC set."""
     from .digital_implementation import verify_upstream
     upstream=r.settings.get('upstream',{});artifacts=upstream.get('artifacts',{})
+    if r.config.get('physical',{}).get('gf180_fill') and 'fill' not in artifacts:
+        raise ValueError('Run physical finish with GF180 fill before extracted timing.')
     if not any(k=='spef' or k.startswith('spef_') for k in artifacts):return [(None,None)]
     verify_upstream(upstream);corners=selected(r.config)
+    from .digital_gf180_fill import verify as verify_fill
+    verify_fill(upstream,r.config)
     if not corners:return [(None,'spef')]
     if 'extraction' not in artifacts:
         raise ValueError('Run physical finish with the selected interconnect corners before extracted timing.')
