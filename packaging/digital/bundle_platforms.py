@@ -7,9 +7,34 @@ import tempfile
 from icstudio.digital_platform import BUNDLED_PLATFORMS, from_orfs, inventory, pin_flow, read_manifest, verify
 from icstudio.model import digest
 from scripts.prepare_sky130_digital import prepare
+from scripts.fetch_gf180_connectivity import fetch as fetch_gf180
+from scripts.prepare_gf180_lvs import prepare as prepare_gf180_rules
+from scripts.prepare_gf180_connectivity import prepare as prepare_gf180_inputs, attach as attach_gf180
 
 
-def bundle(root, *, sky130_cache=None):
+def gf180_profiles(platforms, staging, *, cache=None):
+    """Bind both shipped stacks to complete sources before publishing a catalog."""
+    selected = {name: platforms[name] for name in ('gf180', 'gf180d')}
+    for profile in selected.values(): verify(profile)
+    staging = Path(staging)
+    source = fetch_gf180(staging / 'sources', cache=cache or staging / 'cache')
+    rules = staging / 'rules'
+    prepare_gf180_rules(source / 'pv', rules)
+    prepared = set(); result = dict(platforms)
+    for name, profile in selected.items():
+        base = Path(profile['root']).resolve()
+        directory = profile.get('directory', name)
+        collateral = (base / directory / 'verification').resolve()
+        if not collateral.is_relative_to(base):
+            raise ValueError('GF180 verification inputs escape the platform root.')
+        if collateral not in prepared:
+            prepare_gf180_inputs(source / 'library', rules, collateral)
+            prepared.add(collateral)
+        result[name] = attach_gf180(profile, collateral)
+    return result
+
+
+def bundle(root, *, sky130_cache=None, gf180_cache=None):
     root=Path(root).resolve();orfs=root/'orfs';platform_root=orfs/'flow/platforms'
     platforms={name:from_orfs(orfs,name) for name in BUNDLED_PLATFORMS}
     flow=pin_flow(orfs)
@@ -28,6 +53,8 @@ def bundle(root, *, sky130_cache=None):
         shutil.copytree(Path(sky130['root'])/'sky130hd',platform_root/'sky130hd',dirs_exist_ok=True)
         sky130['root']=str(platform_root);verify(sky130)
         platforms['sky130hd']=sky130
+    with tempfile.TemporaryDirectory(prefix='.gf180-connectivity-',dir=root) as temporary:
+        platforms=gf180_profiles(platforms,Path(temporary),cache=gf180_cache)
     # Materialize linked collateral while all sibling platforms are present.
     # The content locks remain unchanged and are verified after pruning.
     directories={platform.get('directory',name) for name,platform in platforms.items()}

@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "status": "runtime-input-integration-and-source-capture-retained",
+  "qualified": false,
+  "observed_at": "2026-10-09T17:47:30.684851+00:00",
+  "backend": "719a8abfbe6b3b6dda4eed20751de3ee230253bbcfb22b139a6316acc87b8cac",
+  "source_base_commit": "2f52dc0c348ef8a8a3d9167453619b2e08064b63",
+  "sources": {
+    "windows": {
+      "record": {
+        "path": "outputs/gf180-packaging-sources-windows-v1/record.json",
+        "sha256": "d4ed0084e0f2a628dbf3e2cb9be7394d6ea20cb59a643cdeb2759bb0eef4c3de"
+      },
+      "profiles": [
+        {
+          "name": "gf180",
+          "platform": {
+            "path": "outputs/gf180-packaging-sources-windows-v1/gf180-platform.json",
+            "sha256": "1893fb7a859f496cfa619984f92109ee2b18246d65d5cc6aa534c3e3b7010afc"
+          },
+          "fingerprint": "6b4e715531ed046e7f3c2ba1138ee1246fdbdfe00678b7a3d1ed198c8f52d66e",
+          "files": 1101,
+          "masters": 229
+        },
+        {
+          "name": "gf180d",
+          "platform": {
+            "path": "outputs/gf180-packaging-sources-windows-v1/gf180d-platform.json",
+            "sha256": "22153cf4e3754d4eca43c7cfdcbd8416d0cd9568238baa62ae7d6a2ca69d4b5c"
+          },
+          "fingerprint": "6b4e715531ed046e7f3c2ba1138ee1246fdbdfe00678b7a3d1ed198c8f52d66e",
+          "files": 1101,
+          "masters": 229
+        }
+      ]
+    },
+    "linux": {
+      "record": {
+        "path": "outputs/gf180-packaging-sources-linux-v1/record.json",
+        "sha256": "7698f00c56d832fc25e88d17836d989fd3e78da1204ab8234b04e68fa95dcae1"
+      },
+      "profiles": [
+        {
+          "name": "gf180",
+          "platform": {
+            "path": "outputs/gf180-packaging-sources-linux-v1/gf180-platform.json",
+            "sha256": "1893fb7a859f496cfa619984f92109ee2b18246d65d5cc6aa534c3e3b7010afc"
+          },
+          "fingerprint": "6b4e715531ed046e7f3c2ba1138ee1246fdbdfe00678b7a3d1ed198c8f52d66e",
+          "files": 1101,
+          "masters": 229
+        },
+        {
+          "name": "gf180d",
+          "platform": {
+            "path": "outputs/gf180-packaging-sources-linux-v1/gf180d-platform.json",
+            "sha256": "22153cf4e3754d4eca43c7cfdcbd8416d0cd9568238baa62ae7d6a2ca69d4b5c"
+          },
+          "fingerprint": "6b4e715531ed046e7f3c2ba1138ee1246fdbdfe00678b7a3d1ed198c8f52d66e",
+          "files": 1101,
+          "masters": 229
+        }
+      ]
+    }
+  },
+  "tests": {
+    "full-windows-v1": {
+      "tests": 1638,
+      "skipped": 62,
+      "log": {
+        "path": "outputs/gf180-packaging-full-windows-v1.log",
+        "sha256": "95f7d65e41c68c8ffffdb53041b1c99a0911b37d87c771b1931b0543f95bcf2b"
+      }
+    },
+    "focused-windows-v2": {
+      "tests": 35,
+      "skipped": 1,
+      "log": {
+        "path": "outputs/gf180-packaging-focused-windows-v2.log",
+        "sha256": "a943a2bda1d2b6b09c483159e7ade07acbee351bfc5034d569770ce7375b386f"
+      }
+    },
+    "focused-linux-v2": {
+      "tests": 35,
+      "skipped": 0,
+      "log": {
+        "path": "outputs/gf180-packaging-focused-linux-v2.log",
+        "sha256": "2227313ebca082354a963c924a6b0c16b32a0ef7752ab2e91a08c8017935231c"
+      }
+    }
+  },
+  "build_source_manifest": {
+    "path": "outputs/gf180-connectivity-runtime-build-v1/source-manifest.json",
+    "sha256": "959f1a799da3746053a1f8df621606620e4b10a4bd88c0e9ca53a369dc175bf7"
+  },
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-runtime-inputs-2026-10-09-v1\\evidence.tar.gz",
+    "sha256": "5485659399bb627d784a0fb487d906bf026076e0e9c58862483e201f69fbf509",
+    "bytes": 559187,
+    "logical_files": 4694,
+    "unique_objects": 66,
+    "verified": true
+  },
+  "dependencies": {
+    "profile-dependency": {
+      "directory": "gf180-connectivity-profile-2026-10-09-v1",
+      "archive": "evidence.tar.gz",
+      "sha256": "7b560397c907182515e48de8fbd0aa379b7d4b22a13ac7112963552b763efc19",
+      "bytes": 93882529
+    }
+  },
+  "scope": "Production runtime builder now fetches, prepares and attaches complete GF180 C/D connectivity inputs by default. Cold-cache Windows fetch and offline Linux reproduction produce identical 229-cell profiles matching prior native acceptance inputs. Full current-source regressions pass. A frozen source copy is retained for the separate actual image build.",
+  "remaining": [
+    "Complete the new runtime image build and independently verify its full payload.",
+    "Fresh installed acceptance on Windows and Linux, including failing native controls.",
+    "Complete fill, full before/filled RC programs and timing, and all remaining qualification chunks."
+  ]
+}

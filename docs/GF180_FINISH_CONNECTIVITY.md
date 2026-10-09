@@ -60,8 +60,11 @@ the manifest. These counter runs use the existing explicit physical
 settings; they do not add the later perimeter dummy fill or qualify post-fill
 electrical timing.
 
-The included runtime build still needs to prepare and enable these inputs by
-default. Exact installed-package acceptance on Windows and Linux, complete fill
-coverage and all required before/filled electrical and timing checks remain
-open in [chunk 4](PDK_QUALIFICATION_PLAN.md). No complete PDK qualification is
-claimed by these bounded results.
+The [runtime build](GF180_RUNTIME_INPUTS.md) now prepares and enables these
+inputs by default. The exact new payload passes fresh Linux installation,
+saved-result reconstruction and six additional C/D connectivity controls,
+including rejected power opens and signal shorts. Windows installation,
+desktop-package acceptance, complete fill coverage and all required
+before/filled electrical and timing checks remain open in
+[chunk 4](PDK_QUALIFICATION_PLAN.md). No complete PDK qualification is claimed
+by these bounded results.

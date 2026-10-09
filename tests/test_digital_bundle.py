@@ -16,6 +16,12 @@ bundler=importlib.util.module_from_spec(spec);spec.loader.exec_module(bundler)
 
 
 class DigitalBundleTests(unittest.TestCase):
+    def setUp(self):
+        # These fixtures exercise generic catalog/PVT handling. Complete GF180
+        # source preparation has separate integration and native controls.
+        mock=patch.object(bundler,'gf180_profiles',side_effect=lambda profiles,*args,**kwargs:dict(profiles))
+        self.gf180=mock.start();self.addCleanup(mock.stop)
+
     def test_packaging_rejects_stale_partial_or_other_os_qualification(self):
         manifest={'sha256':'a'*64,'platforms':list(BUNDLED_PLATFORMS)}
         acceptance={'manifest':digest(manifest),'backend':'current-source',
@@ -84,6 +90,7 @@ class DigitalBundleTests(unittest.TestCase):
             with patch.object(bundler,'from_orfs',side_effect=lambda _,name:clone(values[name])), \
                     patch.object(bundler,'prepare',side_effect=self.preparer(values)):
                 result=bundler.bundle(root)
+            self.gf180.assert_called_once()
             self.assertEqual(list(result['platforms']),list(BUNDLED_PLATFORMS))
             self.assertFalse((root/'orfs/flow/platforms/sky130hs').exists())
             for name,value in result['platforms'].items():

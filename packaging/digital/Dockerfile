@@ -40,6 +40,7 @@ RUN curl -fL --retry 3 -o /tmp/openvaf.tgz https://fides.fe.uni-lj.si/openvaf/do
 COPY licenses /opt/icstudio/licenses
 COPY scripts /tmp/studio/scripts
 COPY examples/sky130-reference-assets.json /tmp/studio/examples/sky130-reference-assets.json
+COPY examples/gf180-connectivity-library-lock.json examples/gf180-lvs-source-lock.json /tmp/studio/examples/
 COPY licenses/Apache-2.0.txt /tmp/studio/licenses/Apache-2.0.txt
 COPY assemble.py bundle_platforms.py /tmp/
 RUN python3 -m venv /tmp/platform-builder \

@@ -26,12 +26,13 @@ Each relative path must appear in the platform's hashed `files` list. This
 recipe supports the `gf180` and `gf180d` 9-track profiles. Changing the recipe,
 revision or master mapping invalidates the finished-result identity.
 
-The existing included runtime does not yet bundle these additional inputs.
+Existing included runtime payloads retain their original captured inputs.
 Historical and unconfigured jobs remain readable without a reference claim.
 Adding captured metadata does not establish installed-runtime qualification.
 The [complete connectivity profile preparer](GF180_CONNECTIVITY_PROFILE.md)
 captures all 229 pinned 9-track CDL/GDS pairs and the strict native rules, then
-binds them to a matching C or D profile. Default runtime packaging remains open.
+binds them to a matching C or D profile. The [runtime builder](GF180_RUNTIME_INPUTS.md)
+now prepares these inputs by default; new installed acceptance remains open.
 
 ## Connection checks
 
@@ -77,7 +78,9 @@ designs. They do not themselves establish a fresh complete route/finish run,
 native Windows OpenROAD, a frozen desktop installation, or combined native
 LVS/metal acceptance. The subsequent [combined finish integration](GF180_FINISH_CONNECTIVITY.md)
 records those native connectivity controls and separate fresh C/D counter jobs.
-Default runtime bundling and installed acceptance remain open.
+The [new runtime installation](GF180_RUNTIME_INPUTS.md) separately passes on
+Linux, including actual C/D native fault controls. Windows and desktop-package
+acceptance remain open.
 
 Use the [strict LVS recipe](GF180_LVS_RECIPE.md) and
 [written-metal checker](GF180_METAL_CONTINUITY.md) for their respective checks.

@@ -37,9 +37,10 @@ and collateral outside the platform root. The original profile is unchanged.
 
 The output deliberately changes the platform identity. Existing jobs retain
 their original inputs; run a fresh implementation with the new profile.
-The included runtime build has not yet been changed to prepare and enable this
-collateral by default. Fresh runtime and desktop installation acceptance remain
-required before treating it as an included workflow.
+The [runtime builder](GF180_RUNTIME_INPUTS.md) now fetches, prepares and enables
+this collateral by default. Existing installed payloads retain their original
+inputs. Fresh runtime and desktop installation acceptance remain required
+before treating a newly built payload as a qualified included workflow.
 
 ## Checked scope
 

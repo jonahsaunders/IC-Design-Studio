@@ -751,6 +751,26 @@ audited macro exports have separate retained checkpoints. Default runtime
 bundling, installed acceptance, full before/filled electrical timing and
 complete fill-rule coverage remain open; chunk 4 is not complete.
 
+The subsequent [runtime-input integration](GF180_RUNTIME_INPUTS.md) enables
+complete GF180 connectivity preparation in new runtime builds. A real cold-cache
+download and network-disabled Linux reconstruction produce the same C/D profiles
+as the verified configured counter flows. This closes the default builder
+integration gap; actual newly built image and installed acceptance remain separate.
+The new image has subsequently built successfully and passed an independent
+audit of all 54,396 locked files in its exact exported archive. Fresh installed
+execution retains its own acceptance gate.
+
+The [fresh Linux installation](validation/gf180-installed-linux-2026-10-09.json)
+then passes 34 digital checks, all 18 declared timing pairs and seven native
+tool controls. Independent readback verifies 1,391 artifact bindings and
+reconstructs the saved results. The actual installed engine accepts the C/D
+counter positives and rejects four deliberate physical faults: one VDD-port
+open and one signal short per stack. Both VDD opens disconnect 790 supply
+terminals even though native device comparison matches. Complete evidence is
+archived outside dated folders. Windows installation and exact desktop-package
+acceptance remain separate; these unfilled counter checks cannot close the
+post-fill electrical, timing or complete fill-coverage gates.
+
 The [C UART audit](validation/gf180-device-c-uart-2026-10-09.json) and
 [D UART/APB audits](validation/gf180-device-d-nominal-2026-10-09.json) complete
 the four larger nominal device-only baselines together with the earlier C APB
