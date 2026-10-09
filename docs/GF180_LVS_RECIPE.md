@@ -74,6 +74,11 @@ or tapeout qualification is implied.
 
 The [preparation checkpoint](validation/gf180-lvs-preparation-2026-10-09.json)
 records both-OS byte equality and 24 focused tests per OS, plus the 1,557-test
-Windows suite (62 skips). Four fresh counter controls reproduce their expected
-results. A fresh APB run exceeded the initial 300-second execution allowance;
-its failure is retained, and APB continuation remains pending.
+Windows suite (62 skips). All eight fresh counter/APB controls reproduce their
+expected results. Independent Windows database readback checks 213,376 positive
+device terminals and 106,696 primary parameters, including the APB diodes.
+The first APB run exceeded its 300-second allowance; that failure is retained.
+The continuation reused all four completed counter controls and ran only the
+four unfinished APB controls with a 1,200-second allowance. The verified 20 MB
+archive preserves source rules, native databases, inputs, tests and failures
+outside dated build folders.

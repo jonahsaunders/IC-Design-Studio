@@ -691,6 +691,14 @@ behavior. Larger-reference post-fill function/timing, complete fill-rule coverag
 production connectivity acceptance and installation acceptance remain open.
 Chunk 4 is incomplete.
 
+Fresh execution of the source-controlled LVS recipe now passes all eight
+counter/APB controls. Independent readback verifies 213,376 positive device
+terminals and 106,696 primary parameters. The original APB timeout remains
+retained; completed counter controls were reused in the continuation. Source,
+native results and the independent audit are preserved in a verified 20 MB
+archive outside dated build folders. This establishes recipe reproducibility,
+not installed combined acceptance or complete chunk 4 qualification.
+
 The [written-metal continuity module](GF180_METAL_CONTINUITY.md) now derives
 every placed-cell supply from independent library GDS and the captured OpenDB,
 and checks the complete port set and its physical anchors. On each OS, six

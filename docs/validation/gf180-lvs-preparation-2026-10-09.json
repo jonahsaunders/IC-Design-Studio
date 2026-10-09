@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "status": "preparation-verified; fresh-apb-controls-pending",
+  "status": "preparation-and-eight-native-controls-verified",
   "qualified": false,
-  "observed_at": "2026-10-09T14:41:41.891495+00:00",
+  "observed_at": "2026-10-09T15:11:30.260493+00:00",
   "source_base_commit": "dc11a21830b4f1bf4923140c78a46116ddfc47d2",
   "backend": "6b86270f84e008fe9a727f20aa5005d8e58c13ee08ace491eaece6431fd0dd68",
   "source_lock_sha256": "403bee6220feee66d2022ceed9bf9deb28064598e74b0771b32a23d80d6b71f7",
@@ -557,11 +557,202 @@
       "seconds": 16.71575249400007
     }
   ],
-  "native_continuation": "The four completed counter controls are reused. Only the four unfinished APB cases are continuing with a 1200 second allowance per case; no pass is inferred here.",
+  "native_continuation": "Completed: exactly four original counter controls were reused, and the four unfinished APB controls were executed with a 1200 second allowance. All eight native databases passed independent readback; the original timeout remains retained.",
   "prior_scope": "The prepared deck is byte-identical to the audited substrate/diode recipe retained in gf180-connectivity-controls-2026-10-09.json. That 36-control evidence keeps its original engine/layout/reference scope.",
   "retained_failures": [
     "First focused Windows launch failed on sandbox temporary-directory access; the unchanged suite passes with the required writable test directory.",
     "First fresh APB comparison exhausted the harness 300 second execution limit. It is retained as a timeout, not physical fault detection."
   ],
-  "scope": "Reproducible preparation of reviewed source rules on Windows/Linux; strict source and destination handling. This does not establish full fresh native execution, consumer integration, installed acceptance, complete fill, post-fill function/timing or tapeout qualification."
+  "scope": "Source-controlled preparation produces the previously audited recipe byte for byte on both OSes. Eight fresh native controls and independent Windows graph/parameter readback pass. Preparing the deck does not qualify consumer integration, installed runtime, complete fill or post-fill performance.",
+  "implementation_commit": "2f1cc3e0e2c4b82766bb763d762beeb24372b2e3",
+  "native": {
+    "path": "outputs/gf180-prepared-lvs-native-v2/record.json",
+    "sha256": "fb21bb508f612089a21dd5f508cb38c2efbf0b22a232d6755d672006eb455998"
+  },
+  "independent_audit": {
+    "path": "outputs/gf180-prepared-lvs-audit-v1/record.json",
+    "sha256": "39e223a693cde8ed7c574d7a531e4f7632a8979fdec516d302a4fb2b4e1395fa"
+  },
+  "archive": {
+    "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/gf180-lvs-preparation-2026-10-09-v1/evidence.tar.gz",
+    "sha256": "93500cabca58fa1eb544d0d1cfa4511a032d57593f335299938d9d882b7665f2",
+    "bytes": 19787157,
+    "logical_files": 114,
+    "unique_objects": 92,
+    "verified": true
+  },
+  "completed_native_controls": [
+    {
+      "case": "c-counter",
+      "control": "positive",
+      "lvs_matched": true,
+      "combined_passed": true,
+      "counts": {
+        "net": {
+          "Match": 2093,
+          "MatchWithWarning": 1965
+        },
+        "device": {
+          "Match": 4184
+        },
+        "pin": {
+          "Match": 8
+        },
+        "instance": {}
+      },
+      "seconds": 16.91559830900019
+    },
+    {
+      "case": "c-counter",
+      "control": "vdd-port-open",
+      "lvs_matched": true,
+      "combined_passed": false,
+      "counts": {
+        "net": {
+          "Match": 2093,
+          "MatchWithWarning": 1965
+        },
+        "device": {
+          "Match": 4184
+        },
+        "pin": {
+          "Match": 8
+        },
+        "instance": {}
+      },
+      "seconds": 16.564932375000126
+    },
+    {
+      "case": "c-counter",
+      "control": "substrate-taps-open",
+      "lvs_matched": false,
+      "combined_passed": false,
+      "counts": {
+        "net": {
+          "Mismatch": 7957,
+          "Match": 32
+        },
+        "device": {
+          "Mismatch": 8027,
+          "Match": 162
+        },
+        "pin": {
+          "Match": 9
+        },
+        "instance": {}
+      },
+      "seconds": 8.942654704000006
+    },
+    {
+      "case": "d-counter",
+      "control": "positive",
+      "lvs_matched": true,
+      "combined_passed": true,
+      "counts": {
+        "net": {
+          "Match": 2093,
+          "MatchWithWarning": 1965
+        },
+        "device": {
+          "Match": 4184
+        },
+        "pin": {
+          "Match": 8
+        },
+        "instance": {}
+      },
+      "seconds": 16.71575249400007
+    },
+    {
+      "case": "c-apb",
+      "control": "positive",
+      "lvs_matched": true,
+      "combined_passed": true,
+      "counts": {
+        "net": {
+          "Match": 11273,
+          "MatchWithWarning": 9968
+        },
+        "device": {
+          "Match": 22490
+        },
+        "pin": {
+          "Match": 30
+        },
+        "instance": {}
+      },
+      "seconds": 598.706592192
+    },
+    {
+      "case": "c-apb",
+      "control": "diode-area-fault",
+      "lvs_matched": false,
+      "combined_passed": false,
+      "counts": {
+        "net": {
+          "Match": 11270,
+          "MatchWithWarning": 9968,
+          "Mismatch": 3
+        },
+        "device": {
+          "MatchWithWarning": 2,
+          "Match": 22488
+        },
+        "pin": {
+          "Match": 30
+        },
+        "instance": {}
+      },
+      "seconds": 335.1596084360003
+    },
+    {
+      "case": "d-apb",
+      "control": "positive",
+      "lvs_matched": true,
+      "combined_passed": true,
+      "counts": {
+        "net": {
+          "Match": 11273,
+          "MatchWithWarning": 9968
+        },
+        "device": {
+          "Match": 22490
+        },
+        "pin": {
+          "Match": 30
+        },
+        "instance": {}
+      },
+      "seconds": 618.5561465830001
+    },
+    {
+      "case": "d-apb",
+      "control": "diode-area-fault",
+      "lvs_matched": false,
+      "combined_passed": false,
+      "counts": {
+        "net": {
+          "Match": 11270,
+          "MatchWithWarning": 9968,
+          "Mismatch": 3
+        },
+        "device": {
+          "MatchWithWarning": 2,
+          "Match": 22488
+        },
+        "pin": {
+          "Match": 30
+        },
+        "instance": {}
+      },
+      "seconds": 295.90225174299985
+    }
+  ],
+  "checked_positive_device_terminals": 213376,
+  "checked_positive_primary_parameters": 106696,
+  "remaining": [
+    "Production consumer integration with mandatory independent metal continuity and preserved diagnostics.",
+    "Larger transistor-reference controls and actual before/filled full-RC function/timing.",
+    "Complete fill scope and fresh Windows/Linux installed acceptance."
+  ]
 }
