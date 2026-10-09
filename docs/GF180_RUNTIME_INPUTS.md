@@ -54,14 +54,15 @@ frozen build source are retained outside dated build folders. GF180 C/D share
 the same captured files while keeping their separate stack settings.
 
 The [fresh Linux installation checkpoint](validation/gf180-installed-linux-2026-10-09.json)
-records the unmodified first-run setup on this exact payload. All 34 digital
-checks, 18 declared timing pairs and seven native tool controls pass their
-expected outcomes. Independent readback authenticates 1,391 artifact bindings
-and reconstructs the saved results. Both GF180 counter implementations pass
-the combined connectivity gate.
+and [fresh Windows installation checkpoint](validation/gf180-installed-windows-2026-10-09.json)
+record unmodified first-run setup on this exact payload. On each OS, all 34
+digital checks, 18 declared timing pairs and seven native tool controls pass
+their expected outcomes. Independent readback authenticates 1,391 artifact
+bindings per installation and reconstructs the saved results. Both GF180
+counter implementations pass the combined connectivity gate on each OS.
 
-Six further controls execute the actual installed verification engine on copies
-of those C/D counters. Both unchanged layouts pass. Each VDD-port open has 790
+Six further controls per OS execute the actual installed verification engine
+on copies of those C/D counters. Both unchanged layouts pass. Each VDD-port open has 790
 disconnected supply terminals and is rejected by the combined check, despite
 matching under native device comparison. Both signal shorts fail the native
 and written-metal checks. Saved failure records remain rejected. The controls
@@ -69,8 +70,17 @@ preserve the standard-cell masks and top labels; the modified masks and native
 comparison databases are retained in a fully verified archive outside dated
 folders.
 
-These installation counters have no perimeter dummy fill. Windows installation
-acceptance, exact desktop packages, complete fill coverage and full post-fill
-electrical and timing acceptance remain separate. See the
+The [installed macro checkpoint](validation/gf180-installed-macros-2026-10-09.json)
+also retains actual exports from all four installed C/D counter jobs. Windows
+reopens each complete saved job and reproduces all 102 native macro members
+byte for byte, including its manifest. Each macro carries 94 artifacts, one
+constraint file and six captured source notices. Independent audits check the
+exact source-result and input identities, every payload byte, and all 80 required
+connectivity/reference artifacts. Zip container metadata can differ between
+exports; the comparison covers their complete contents.
+
+These installation counters have no perimeter dummy fill. Exact desktop
+packages, complete fill coverage and full post-fill electrical and timing
+acceptance remain separate. See the
 [combined finish workflow](GF180_FINISH_CONNECTIVITY.md) and the
 [qualification plan](PDK_QUALIFICATION_PLAN.md) for those separate gates.

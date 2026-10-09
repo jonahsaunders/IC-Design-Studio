@@ -778,9 +778,22 @@ reconstructs the saved results. The actual installed engine accepts the C/D
 counter positives and rejects four deliberate physical faults: one VDD-port
 open and one signal short per stack. Both VDD opens disconnect 790 supply
 terminals even though native device comparison matches. Complete evidence is
-archived outside dated folders. Windows installation and exact desktop-package
-acceptance remain separate; these unfilled counter checks cannot close the
-post-fill electrical, timing or complete fill-coverage gates.
+archived outside dated folders. The subsequent
+[fresh Windows installation](validation/gf180-installed-windows-2026-10-09.json)
+passes the same 34 digital checks, 18 timing pairs and seven native tool
+controls, with 1,391 independently verified artifact bindings. Its separate
+C/D native controls likewise accept both valid counters and reject all four
+physical faults. Exact desktop-package acceptance remains separate; these
+unfilled counter checks cannot close the post-fill electrical, timing or
+complete fill-coverage gates.
+
+The [installed macro audit](validation/gf180-installed-macros-2026-10-09.json)
+checks exports from all four fresh installed C/D counter jobs. Windows reopens
+each complete job and reproduces its 102 native macro members byte for byte,
+including the manifest, all 94 artifacts, the constraint and six source notices.
+Independent audits retain all 80 required reference/connectivity artifacts and
+bind the exports to the archived original job inputs and results. No post-fill
+or complete process acceptance is inherited from this portability check.
 
 The [C UART audit](validation/gf180-device-c-uart-2026-10-09.json) and
 [D UART/APB audits](validation/gf180-device-d-nominal-2026-10-09.json) complete

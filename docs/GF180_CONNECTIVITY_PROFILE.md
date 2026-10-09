@@ -39,8 +39,9 @@ The output deliberately changes the platform identity. Existing jobs retain
 their original inputs; run a fresh implementation with the new profile.
 The [runtime builder](GF180_RUNTIME_INPUTS.md) now fetches, prepares and enables
 this collateral by default. Existing installed payloads retain their original
-inputs. Fresh runtime and desktop installation acceptance remain required
-before treating a newly built payload as a qualified included workflow.
+inputs. The exact newly built payload has fresh Linux and Windows runtime
+acceptance, including native fault controls. Exact desktop-package and complete
+process qualification retain their separate gates.
 
 ## Checked scope
 

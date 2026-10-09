@@ -79,8 +79,8 @@ native Windows OpenROAD, a frozen desktop installation, or combined native
 LVS/metal acceptance. The subsequent [combined finish integration](GF180_FINISH_CONNECTIVITY.md)
 records those native connectivity controls and separate fresh C/D counter jobs.
 The [new runtime installation](GF180_RUNTIME_INPUTS.md) separately passes on
-Linux, including actual C/D native fault controls. Windows and desktop-package
-acceptance remain open.
+Linux and Windows, including actual C/D native fault controls on each.
+Desktop-package acceptance remains separate.
 
 Use the [strict LVS recipe](GF180_LVS_RECIPE.md) and
 [written-metal checker](GF180_METAL_CONTINUITY.md) for their respective checks.
