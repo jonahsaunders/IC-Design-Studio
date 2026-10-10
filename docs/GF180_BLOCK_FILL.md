@@ -32,15 +32,17 @@ complete-annotation guard. A pre-fill result cannot satisfy a design that reques
 fill. The macro bundle includes a new abstract LEF whose obstructions cover the
 added metal, along with the filled GDS and all model evidence.
 
-## Completed reference gate
+## Completed six-reference density gate
 
-The [source-bound chunk 4 record](validation/gf180-density-2026-10-09.json)
-contains six fresh integrated implementations. Every reference passes strict
+The [complete chunk 4 record](validation/gf180-fill-closure-2026-10-09.json)
+binds six integrated implementations to native and manual-rule acceptance.
+Its [native evidence](validation/gf180-density-2026-10-09.json) shows that every reference passes strict
 device and supply connectivity, logic equivalence and three captured timing
 conditions; each deliberate logic mutation fails. The filled abstract LEF covers
 every added metal square. Windows and Linux independently reproduce the same
 mask/model/export audit, and both installed runtimes pass 34 checks and 18 timing
-pairs. The application suite passed 1,657 tests with 62 environment skips.
+pairs. The final application suite passed: 1,680 tests run with 62 environment
+skips. All 57 focused closure tests also passed on both Windows and Linux.
 
 | Reference | Native main / antenna / density markers | Minimum setup / hold slack (ns) |
 |---|---|---|
@@ -63,18 +65,57 @@ needs full layout rules, device/supply connectivity, equivalence and timing.
 The pinned native deck is supplemented by written-layout checks because native
 zero-marker counts alone do not establish complete dummy-fill coverage.
 
-The chunk-4 reference gate concerns the existing C/D counter, UART and APB blocks
+The existing passing reference evidence concerns the existing C/D counter, UART and APB blocks
 and their original density findings. It uses three captured Liberty conditions
 and each stack's typical interconnect model. The independent finite-resistance
 comparison and fault controls are described in [post-fill timing](GF180_POSTFILL_TIMING.md).
 These establish the bounded model comparison, not field accuracy or general
 signal-integrity behavior.
 
-DCF.1a/local COMP interpretation outside the declared core, exclusion-edge
-tie/fill rows, complete-chip prime/scribe boundaries, pad/memory geometry, local-density
-and process coverage, additional interconnect corners and foundry acceptance
-remain explicit requirements in [chunks 7–12](PDK_QUALIFICATION_PLAN.md). The
-supplemental checker retains its `checks_passed_coverage_incomplete` result for a
-passing subset; this option never turns that result into process qualification.
-The separate full transistor-RC experiments retain their actual results and
-cannot inherit a passing waveform from static timing or equivalence.
+The selected reference floorplan keeps the original die/core and places 40 µm
+streets immediately outside all four die edges. The stricter main-table DCF.7a
+clearance of 26 µm excludes margin COMP candidates. A conservative continuous
+origin-space proof finds no legal 5 µm COMP square in the remaining interior.
+It covers the entire original footprint without sampling or reducing density
+denominators. All six references pass 108 supplemental checks. Six native-clean
+trial COMP additions fail DCF.7a and remain separate negative controls.
+
+The [pinned manual's metal-fill procedure](https://gf180mcu-pdk.readthedocs.io/en/latest/physical_verification/design_manual/drm_13_3.html)
+specifies 200 µm windows stepped by 100 µm and a total-die fill threshold.
+Every full window is measured; additional clipped windows keep their actual
+denominators. The cited procedure supplies no separate numeric local-window
+limit, so none is invented or claimed passed. Foundry-specific local acceptance
+and complete-chip/reticle approval remain unqualified.
+
+The supplemental checker alone still reports
+`checks_passed_coverage_incomplete`: native layout checks, connectivity and
+electrical acceptance must come from independently bound records. The closure
+validator combines them for these exact six references. It cannot promote a
+native-only report, changed source, missing window or untested boundary to a pass.
+The separate full transistor-RC experiments retain their unfinished status;
+their waveform acceptance is not inferred from digital equivalence or timing.
+
+## Conditional rules and complete drawing-site enumeration
+
+The supplemental checker now reports applicability from the actual recursively
+merged GDS operands. DCF.8b, DCF.11b and the DCF.13 row requirement activate for
+the relevant rectangular marker when both dimensions exceed 80 µm. Merged
+markers cannot evade this threshold; nonrectangular markers remain unqualified.
+Absence of a marker is recorded explicitly. The same report distinguishes
+absent unsupported vendor-memory layers, absent pad operands and absent dummy
+COMP/poly from unchecked geometry. Absence does not waive missing fill.
+
+The whole-footprint COMP audit enumerates every site of a declared staggered
+array, including the margins. It uses the written circuit, poly, well boundaries
+and exclusion masks with the manual's Euclidean clearances. It reports exact
+missing-square locations; nearby or truncated dummy polygons cannot satisfy
+them. Fixed footprint and density denominators remain unchanged.
+
+For the six current exports, the relevant exclusion and vendor-memory markers
+are absent. The trial COMP array has 150 unblocked sites per counter and 312
+per UART/APB. These are candidate sites under circuit/well
+clearances alone. Every candidate is prohibited by the declared reference
+scribe boundary, and the trial additions correctly fail that boundary rule.
+The audit deliberately keeps boundary and electrical acceptance separate.
+The [retained coverage evidence](validation/gf180-fill-coverage-2026-10-09.json)
+records matching Windows/Linux results and separate trial-layout checks.

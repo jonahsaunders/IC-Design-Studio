@@ -218,6 +218,7 @@ def validate(matrix, root=ROOT):
         record = read(root / chunk3['path'])
         validate_geometry(record, bound_production(record['production_evidence'], root))
     chunk4 = matrix.get('execution_acceptance', {}).get('4')
+    fill_complete = False
     if chunk4:
         require(matrix['schema'] == 4 and bool(chunk3), 'Density acceptance needs schema 4 and the preceding geometry gate.')
         require(sha(root / chunk4['path']) == chunk4['sha256'], 'Density acceptance record changed.')
@@ -225,7 +226,15 @@ def validate(matrix, root=ROOT):
             from .check_gf180_density_acceptance import validate as validate_density
         else:
             from check_gf180_density_acceptance import validate as validate_density
-        validate_density(read(root / chunk4['path']), root)
+        density_record = read(root / chunk4['path'])
+        if density_record.get('schema') == 2:
+            if __package__:
+                from .check_gf180_fill_closure import validate as validate_fill_closure
+            else:
+                from check_gf180_fill_closure import validate as validate_fill_closure
+            fill_complete = validate_fill_closure(density_record, root)['chunk_complete']
+        else:
+            validate_density(density_record, root)
     expected = {target + ':' + test for target in TARGETS
                 for test in COMMON_TESTS | EXTRA_TESTS[target]}
     require(set(requirements) == expected, 'Requirement coverage differs from required targets/tests.')
@@ -237,7 +246,7 @@ def validate(matrix, root=ROOT):
             require((bool(chunk2) and test in ('tool-install', 'rule-controls') and req.get('acceptance_chunk') == 2)
                     or (bool(chunk3) and target in ('gf180mcuC', 'gf180mcuD')
                         and test in ('gf180-geometry', 'digital-profile') and req.get('acceptance_chunk') == 3)
-                    or (bool(chunk4) and target in ('gf180mcuC', 'gf180mcuD')
+                    or (fill_complete and target in ('gf180mcuC', 'gf180mcuD')
                         and test == 'gf180-density' and req.get('acceptance_chunk') == 4),
                     'Unbound reference pass: ' + identity)
         require(bool(req['remaining']), 'Missing coverage gap: ' + identity)
@@ -269,8 +278,8 @@ def validate(matrix, root=ROOT):
             (bool(chunk3) and matrix['chunks']['3']['status'] == 'reference_gate_complete'),
             'Geometry execution gate needs its complete acceptance record.')
     require(matrix['chunks']['4']['status'] in ('pending', 'in_progress') or
-            (bool(chunk4) and matrix['chunks']['4']['status'] == 'reference_gate_complete'),
-            'Completed execution requires the bound density acceptance record.')
+            (fill_complete and matrix['chunks']['4']['status'] == 'reference_gate_complete'),
+            'Completed execution requires full fill coverage; the bound reference record alone is insufficient.')
     require(all(matrix['chunks'][str(n)]['status'] in ('pending', 'in_progress') for n in range(5, 13)),
             'Completed execution requires a new, reviewed evidence schema.')
     return {'status': 'matrix_consistent', 'process_qualification': 'unqualified',

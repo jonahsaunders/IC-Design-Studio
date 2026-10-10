@@ -6,6 +6,8 @@
 # Raw extraction evidence is byte-hashed; preserve engine whitespace verbatim.
 docs/validation/analog_extensions/primitive-rc/** -whitespace
 docs/validation/analog_extensions/floating-fill/** -whitespace
+# These byte-hashed drawing plans retain the captured Windows CRLF endings.
+docs/validation/gf180-fill-reference-2026-10-09/*/pattern.json whitespace=cr-at-eol
 docs/validation/student-physical/** -whitespace
 # Locked upstream PDK text retains its original whitespace.
 icstudio/assets/pdks/gf180mcuC/** -whitespace

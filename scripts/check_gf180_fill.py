@@ -19,6 +19,8 @@ from icstudio.model import file_digest
 from scripts import gf180_fill_patterns as patterns
 from scripts import gf180_comp_sites as comp_sites
 from scripts import gf180_fill_boundaries as boundaries
+from scripts import gf180_fill_applicability as applicability
+from scripts import gf180_comp_boundary_sites as boundary_sites
 
 LAYERS = {'comp': 22, 'poly': 30, 'm1': 34, 'm2': 36, 'm3': 42, 'm4': 46, 'm5': 81}
 MANUAL = ROOT / 'examples/gf180-fill-manual-lock.json'
@@ -47,8 +49,6 @@ OPEN_REQUIREMENTS = [
     'Declared die/prime-die/scribe scope verified against the complete-chip floorplan',
     'DCF.1a empty-field coverage and local COMP density',
     'DCF/DPF scribe/frame scope and COMP-to-pad RF guideline',
-    'DCF exclusion-edge tie/fill rows',
-    'Embedded-memory fill coverage beyond supported MTPMARK; vendor implant layers are unsupported',
     'Required drawing patterns and offsets (DCF.2a/3, DPF.2a/3, DM.2a/9/10)',
     'Foundry acceptance limits for local metal density and clipped die-edge windows',
     'Independent full native geometry, antenna and final-layout LVS',
@@ -150,16 +150,21 @@ def inspect(gds, bounds_um, *, top_name, variant, pattern_plan=None, core_bounds
     dummy = {name: region(layout, top, number, 4) for name, number in LAYERS.items()}
     wells = {name: region(layout, top, *pair) for name, pair in WELLS.items()}
     markers = {name: region(layout, top, *pair) for name, pair in MARKERS.items()}
+    memory = {name: region(layout, top, *pair) for name, pair in UNSUPPORTED_MEMORY.items()}
+    rule_applicability = applicability.inspect(markers, dummy, memory,
+                                              (circuit['comp'] & circuit['poly']).merged())
     comp_placement_space = dict(die=comp_sites.inspect_space(circuit['comp'], circuit['poly'], bounds))
     if core is not None:
         comp_placement_space['declared_core'] = comp_sites.inspect_space(circuit['comp'], circuit['poly'], core)
     checks = []
     boundary_result = dict(status='missing_boundary_plan', qualified=False,
                            reason='No scribe/frame geometry is inferred from the footprint, core or guard-ring marker.')
+    boundary_comp_space = dict(status='missing_boundary_plan', no_legal_square_proven=False, qualified=False)
     if boundary_plan is not None:
         loaded_boundary = boundaries.load_plan(boundary_plan, before, top_name, bounds)
         boundary_result = boundaries.inspect_boundaries(dummy, loaded_boundary)
         checks.extend(boundary_result['checks'])
+        boundary_comp_space = boundary_sites.inspect(circuit['comp'], circuit['poly'], bounds, loaded_boundary)
     drawing_patterns = None; pattern_digest = None; pattern_requirements = []
 
     def check(rule, layer, count, **details):
@@ -359,6 +364,18 @@ def inspect(gds, bounds_um, *, top_name, variant, pattern_plan=None, core_bounds
         boundaries.verify_sources(loaded_boundary)
     failed = [c for c in checks if c['status'] == 'failed']
     open_requirements = list(OPEN_REQUIREMENTS)
+    if boundary_comp_space['no_legal_square_proven']:
+        open_requirements.remove('DCF.1a empty-field coverage and local COMP density')
+        # This proves the entire fixed prime-die scope for this explicit
+        # reference boundary. It is not approval of a foundry reticle/package.
+        open_requirements.remove('Declared die/prime-die/scribe scope verified against the complete-chip floorplan')
+        open_requirements.append('Foundry/reticle approval of the declared reference floorplan')
+        if (boundary_result['status'] == 'declared_boundary_checks_passed' and
+                (markers['Pad'].is_empty() or dummy['comp'].is_empty())):
+            open_requirements.remove('DCF/DPF scribe/frame scope and COMP-to-pad RF guideline')
+    for row in rule_applicability['rules']:
+        if row['rule'] in ('DCF.8b', 'DCF.11b', 'DCF.13-row', 'vendor-memory-fill') and not row['status'].startswith('not_applicable_'):
+            open_requirements.append(row['rule'] + ': ' + row['status'])
     if drawing_patterns is not None:
         open_requirements.remove('Required drawing patterns and offsets (DCF.2a/3, DPF.2a/3, DM.2a/9/10)')
         open_requirements.extend(pattern_requirements)
@@ -366,7 +383,7 @@ def inspect(gds, bounds_um, *, top_name, variant, pattern_plan=None, core_bounds
         open_requirements.append('DE.1 design justification for using exclusion markers')
     if unsupported:
         open_requirements.append('DE.3 side-length exception for large nonrectangular exclusion regions')
-    return dict(schema=7, status='failed' if failed else 'checks_passed_coverage_incomplete',
+    return dict(schema=9, status='failed' if failed else 'checks_passed_coverage_incomplete',
         qualified=False, variant=variant, metal_stack='5LM_1TM',
         scope='Supplemental density measurements, dummy geometry, declared drawing recipe, clearances, well/marker exclusions, exclusion-marker geometry and unsupported memory-layer detection only.',
         gds_sha256=before, checker_sha256=file_digest(Path(__file__)),
@@ -376,12 +393,16 @@ def inspect(gds, bounds_um, *, top_name, variant, pattern_plan=None, core_bounds
         top=top_name, bounds_um=list(bounds_um), area_um2=bounds.area()/1e6,
         geometry_extent_um=[v/1000 for v in (extent.left, extent.bottom, extent.right, extent.top)],
         density=density, metal_density_windows=windows, exclusion_geometry=exclusion_geometry,
+        rule_applicability=rule_applicability,
+        applicability_checker_sha256=file_digest(Path(applicability.__file__)),
         pattern_plan_sha256=pattern_digest, drawing_patterns=drawing_patterns,
         pattern_checker_sha256=file_digest(Path(patterns.__file__)),
         pattern_manual_lock_sha256=file_digest(PATTERN_MANUAL),
         comp_placement_space=comp_placement_space,
         comp_space_checker_sha256=file_digest(Path(comp_sites.__file__)),
         boundary_checks=boundary_result,
+        boundary_comp_space=boundary_comp_space,
+        boundary_comp_space_checker_sha256=file_digest(Path(boundary_sites.__file__)),
         boundary_checker_sha256=file_digest(Path(boundaries.__file__)),
         boundary_manual_lock_sha256=file_digest(BOUNDARY_MANUAL),
         checks=checks, failed_checks=len(failed), unqualified_requirements=open_requirements)

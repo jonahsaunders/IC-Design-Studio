@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "status": "final-fill-validation-passed",
+  "qualified": false,
+  "observed_at": "2026-10-10T00:03:24.471246+00:00",
+  "closure_sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
+  "tests": {
+    "windows_focused": {
+      "count": 57,
+      "seconds": 14.674,
+      "skips": 0,
+      "sha256": "2dbe5cde8f23f8a73b0e313ee2971cf78ad6a190e63b3d6cde2aa122cac32b0e"
+    },
+    "linux_focused": {
+      "count": 57,
+      "seconds": 265.503,
+      "skips": 0,
+      "sha256": "65615cc8e86390c3b55b0cc1d8d1f77a836d1931858c88a34c9e70e49e18fb22"
+    },
+    "application_suite": {
+      "count": 1680,
+      "seconds": 301.103,
+      "skips": 62,
+      "sha256": "22b06c95deae3515c00037365f731898bf070e281eb6c172cfe7e3defb8a0d41"
+    }
+  },
+  "release_checks": {
+    "sha256": "3f2cd543b7e73a5a3dbfc3a6e1164e1f19cc4e2936960a31689217439b9d035b",
+    "documents": 132,
+    "links": 1304
+  },
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-final-fill-tests-2026-10-09-v1\\evidence.tar.gz",
+    "sha256": "d0b37e1f57b82a99f479987749889c199ba049647fa3403da3c31e7047baddbc",
+    "bytes": 63187,
+    "members": 10,
+    "verified": true
+  },
+  "members": {
+    "tests/gf180-final-fill-focused-v1.log": {
+      "sha256": "2dbe5cde8f23f8a73b0e313ee2971cf78ad6a190e63b3d6cde2aa122cac32b0e",
+      "bytes": 162
+    },
+    "tests/gf180-final-fill-linux-tests-v1.log": {
+      "sha256": "65615cc8e86390c3b55b0cc1d8d1f77a836d1931858c88a34c9e70e49e18fb22",
+      "bytes": 163
+    },
+    "tests/gf180-final-fill-full-tests-v1.log": {
+      "sha256": "22b06c95deae3515c00037365f731898bf070e281eb6c172cfe7e3defb8a0d41",
+      "bytes": 7554
+    },
+    "tests/gf180-final-fill-release-check-v1.log": {
+      "sha256": "3f2cd543b7e73a5a3dbfc3a6e1164e1f19cc4e2936960a31689217439b9d035b",
+      "bytes": 468
+    },
+    "source/docs/validation/gf180-fill-closure-2026-10-09.json": {
+      "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
+      "bytes": 13783
+    },
+    "source/docs/qualification/pdk-matrix.json": {
+      "sha256": "a03c0b0116c7a9b90d8fca571954424cb22ab11bbd00364dc5014323ce89063d",
+      "bytes": 632906
+    },
+    "source/docs/GF180_BLOCK_FILL.md": {
+      "sha256": "eb544ef5b7408afde2fce2e75f8c689b8a3c2d31337d62de795f0170153ecca0",
+      "bytes": 7538
+    },
+    "source/docs/GF180_POSTFILL_TIMING.md": {
+      "sha256": "cd043fd5ad38db6deb99006f3853abdd059d6d46ea0d73d099097e3cdab4bf15",
+      "bytes": 4564
+    },
+    "source/docs/PDK_QUALIFICATION_PLAN.md": {
+      "sha256": "ab0ae6ea2228c95d43d881f3b2d7ca9989e5779543121ccdf0ef32c88a901dab",
+      "bytes": 59479
+    },
+    "helpers/retain_gf180_final_tests_v1.py": {
+      "sha256": "b6d56b0c0d99f932b19d309f84fb3f907c145c23cbbf6e534dff7e5e0da450bb",
+      "bytes": 2896
+    }
+  }
+}

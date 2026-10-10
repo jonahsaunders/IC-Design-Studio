@@ -93,4 +93,5 @@ def validate(record, root):
     tests=record.get('tests', {})
     require(tests.get('status')=='passed' and tests.get('count',0)>=1657 and identity(tests.get('sha256')),
             'missing full application validation.')
-    return {'status':'reference_gate_complete','chunk':4,'process_qualification':'unqualified'}
+    return {'status':'reference_checks_passed','chunk':4,'chunk_complete':False,
+            'manual_rule_coverage':'incomplete','process_qualification':'unqualified'}

@@ -3,8 +3,9 @@
 The six frozen GF180-C and GF180-D counter, UART and APB candidates now pass
 post-fill timing at their three captured library conditions. This closes the
 reference timing experiment. The subsequent [integrated block gate](GF180_BLOCK_FILL.md)
-completes chunk 4 within its original reference scope; process qualification
-remains open. This page and its evidence record describe the earlier experiment.
+completes chunk 4's reference gate with the additional manual fill and boundary
+evidence. Process qualification remains open. This page and its evidence record
+describe the earlier timing experiment.
 The [retained evidence](validation/gf180-postfill-timing-2026-10-09.json) records
 the inputs, controls, numerical limits and permanent archive.
 
@@ -69,9 +70,11 @@ establish general signal-integrity behavior, calibrated field extraction,
 complete PVT coverage or foundry acceptance. Full transistor-RC waveforms are
 separate experiments; no passing waveform is inferred from these timing runs.
 
-The candidate is now integrated and the six-reference application gate is
-recorded in [chunk 4 acceptance](validation/gf180-density-2026-10-09.json).
-Remaining manual-rule coverage stays explicit in that record. The separate
-full-transistor experiments retain their actual unfinished status. Complete-chip boundary/scribe acceptance,
-broader extraction qualification and public desktop-package acceptance retain
-their separate gates in the [qualification plan](PDK_QUALIFICATION_PLAN.md).
+The filled flow is integrated. The [complete chunk 4 record](validation/gf180-fill-closure-2026-10-09.json)
+binds these electrical results to the six exact exports, native rules, manual
+fill coverage and the selected reference floorplans. The original digital gate
+uses extracted connectivity, formal equivalence and timing/electrical limits.
+The separate full transistor-RC experiments remain unfinished and are not
+claimed as accepted waveforms. Broader extraction calibration/corners,
+complete-chip electrical checks and foundry acceptance keep their original
+gates in the [qualification plan](PDK_QUALIFICATION_PLAN.md).

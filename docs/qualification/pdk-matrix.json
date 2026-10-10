@@ -19,7 +19,7 @@
     "4": {
       "name": "Close GF180 density",
       "status": "reference_gate_complete",
-      "scope": "Original C/D counter, UART and APB density-marker gate, integrated fill and post-fill connectivity/function/timing. Complete manual-rule, chip-level, field-extraction and foundry scope remains unqualified."
+      "scope": "All six original GF180 C/D counter/UART/APB exports pass native rules, manual fill coverage for the selected original-footprint reference streets, final device/supply connectivity, formal equivalence, independent extraction-model checks and three library-condition post-fill timing. No PDK-wide, complete-chip or foundry qualification."
     },
     "5": {
       "name": "Close IHP geometry and fill",
@@ -16165,9 +16165,10 @@
       "existing_runners": [
         "scripts/qualify_gf180_fill_coupling.py",
         "scripts/check_gf180_fill.py",
-        "scripts/check_gf180_density_acceptance.py"
+        "scripts/check_gf180_density_acceptance.py",
+        "scripts/check_gf180_fill_closure.py"
       ],
-      "automation_gap": "Integrated block generation/extraction and all six reference native gates are complete. The independent checker retains incomplete manual coverage for empty-field/local-COMP interpretation outside the core, chip boundaries/pads/memory/exclusion edges and foundry local-density acceptance. Additional field/corner/chip qualification is separate; zero native markers alone never qualifies a process."
+      "automation_gap": "The six-reference closure is executable through source-bound native and supplemental records. New designs, changed floorplans and present unsupported operands cannot inherit it. Standalone supplemental passes remain process-unqualified."
     },
     "ihp-fill": {
       "chunk": 5,
@@ -16886,14 +16887,16 @@
       "target": "gf180mcuC",
       "test": "gf180-density",
       "status": "passed_reference",
-      "remaining": "The integrated counter/UART/APB gate passes native main/antenna/density, strict final-device and supply connectivity, unchanged logic, deliberate logic-fault rejection and three library-condition post-fill timing cases with typical stack-specific RC. Both OS audits match and installed runtimes pass. Supplemental manual coverage remains incomplete: DCF.1a/local COMP outside the core, prime/scribe/pad/memory and exclusion-edge scope, clipped/local metal-density acceptance, field calibration and additional RC corners require their declared later design/process gates. No full process qualification follows.",
+      "remaining": "Reference density gate complete on the unchanged counter/UART/APB exports and the declared original-footprint streets. Arbitrary placement, pad/frame/SLM/memory or exclusion operands need their own fill checks. Additional interconnect corners, field accuracy, full-chip electrical/ESD/EM/IR, foundry-specific local acceptance and tapeout remain unqualified under their original later gates. The separate full Magic-RC transients are unfinished and not claimed passed.",
       "historical_evidence": [
         "gf-geometry",
         "gf-production-geometry",
         "gf-density-baseline",
         "gf-fill-diagnostics",
         "gf-filled-connectivity",
-        "gf-density-acceptance"
+        "gf-density-acceptance",
+        "gf-fill-coverage",
+        "gf-fill-closure"
       ],
       "acceptance_chunk": 4
     },
@@ -17146,11 +17149,13 @@
       "target": "gf180mcuD",
       "test": "gf180-density",
       "status": "passed_reference",
-      "remaining": "The integrated counter/UART/APB gate passes native main/antenna/density, strict final-device and supply connectivity, unchanged logic, deliberate logic-fault rejection and three library-condition post-fill timing cases with typical stack-specific RC. Both OS audits match and installed runtimes pass. Supplemental manual coverage remains incomplete: DCF.1a/local COMP outside the core, prime/scribe/pad/memory and exclusion-edge scope, clipped/local metal-density acceptance, field calibration and additional RC corners require their declared later design/process gates. No full process qualification follows.",
+      "remaining": "Reference density gate complete on the unchanged counter/UART/APB exports and the declared original-footprint streets. Arbitrary placement, pad/frame/SLM/memory or exclusion operands need their own fill checks. Additional interconnect corners, field accuracy, full-chip electrical/ESD/EM/IR, foundry-specific local acceptance and tapeout remain unqualified under their original later gates. The separate full Magic-RC transients are unfinished and not claimed passed.",
       "historical_evidence": [
         "gf-d-production-geometry",
         "gf-density-baseline",
-        "gf-density-acceptance"
+        "gf-density-acceptance",
+        "gf-fill-coverage",
+        "gf-fill-closure"
       ],
       "acceptance_chunk": 4
     },
@@ -19878,7 +19883,17 @@
     "gf-density-acceptance": {
       "path": "docs/validation/gf180-density-2026-10-09.json",
       "sha256": "03d4af142c0fa83012d0f319ae1a9ae2a4eebe6b23fa877f92f56e35000d184c",
-      "scope_limit": "Integrated GF180 C/D 9-track, 5-metal, 5 V counter, UART and APB blocks. Original RTL, SDC, die/core areas and PDK sources retained. All native main/antenna/density markers resolved; final-device and supply connectivity, extracted timing at three captured library conditions using stack-specific typical RC, equivalence, fault rejection and macro handoff verified. This completes the original density-marker reference gate, not complete process fill qualification. See the record limitations; no full PDK or complete-chip acceptance."
+      "scope_limit": "Historical six-export native marker, connectivity, equivalence, extraction, timing and installation evidence. This record alone cannot complete chunk 4: the separate gf-fill-closure record binds the manual-rule and boundary acceptance."
+    },
+    "gf-fill-closure": {
+      "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
+      "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
+      "scope_limit": "All six original GF180 C/D counter/UART/APB exports pass native rules, manual fill coverage for the selected original-footprint reference streets, final device/supply connectivity, formal equivalence, independent extraction-model checks and three library-condition post-fill timing. No PDK-wide, complete-chip or foundry qualification."
+    },
+    "gf-fill-coverage": {
+      "path": "docs/validation/gf180-fill-coverage-2026-10-09.json",
+      "sha256": "1efa72aad27f21e71f422c4ace1d8f31612d540367638bd7d8907448aa5c860e",
+      "scope_limit": "Historical conditional-rule and whole-array diagnostics. Trial COMP additions are not production layouts and are rejected by the selected reference boundary; closure is recorded separately."
     }
   },
   "execution_acceptance": {
@@ -19891,8 +19906,8 @@
       "sha256": "29df7858eb56ee001f8a81db6420bd136f145610a15167e481980744d141f27d"
     },
     "4": {
-      "path": "docs/validation/gf180-density-2026-10-09.json",
-      "sha256": "03d4af142c0fa83012d0f319ae1a9ae2a4eebe6b23fa877f92f56e35000d184c"
+      "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
+      "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7"
     }
   }
 }

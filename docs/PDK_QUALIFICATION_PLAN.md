@@ -17,22 +17,36 @@ options and current digital operating points. It does **not** equate this bundle
 subset with the complete upstream PDK. Upstream completeness and the remaining
 device-specific operating envelopes are explicit open requirements.
 
-## Current checkpoint: 9 October 2026
+## Current checkpoint: chunk 4 reference gate complete
 
-Chunks 1–4 have completed their stated planning/reference gates. The
-[chunk 4 acceptance record](validation/gf180-density-2026-10-09.json) binds the
-integrated application, six GF180 C/D counter/UART/APB references, both OS audits
-and installed runtimes. All six have zero native main, antenna and density
-markers, passing final connectivity/equivalence and three passing post-fill
-timing conditions. Original circuit constraints and die/core areas are retained.
-The [block fill guide](GF180_BLOCK_FILL.md) describes the supported workflow.
+Chunks 1–4 now have their defined planning/reference acceptance. The
+[full density closure](validation/gf180-fill-closure-2026-10-09.json) binds the
+original six GF180 C/D counter, UART and APB production exports to both native
+and supplemental checks. All native main, antenna and density counts are zero.
+Each export passes 108 supplemental checks, final transistor/supply connectivity,
+formal equivalence and three library-condition timing/electrical checks after
+fill. Windows and Linux reproduce the same fill and boundary reports.
 
-This closes the original reference density-marker gate. The supplemental manual
-checker still reports incomplete coverage: DCF.1a/local COMP outside the core,
-chip boundary/pad/memory and exclusion-edge scope, and foundry local/clipped
-metal-density acceptance remain unqualified. Field accuracy, additional RC
-corners, full transistor waveforms and complete-chip/foundry acceptance cannot
-inherit this pass. Chunks 5–12 remain open, and no PDK is tapeout qualified.
+The user authorized selection of a reference floorplan. It keeps each original
+die/core footprint and declares 40 µm streets immediately outside all four die
+edges. The manual's stricter 26 µm scribe clearance removes the margin COMP
+candidates; a continuous geometric proof finds no legal 5 µm COMP square in
+the remaining interior. Six deliberately added margin arrays fail that boundary
+rule. Exclusion-edge rows and vendor-memory rules have no operands in these
+six layouts. Density denominators, RTL and constraints remain unchanged.
+
+The pinned metal-fill procedure requires 200 µm windows at 100 µm steps and
+a total-die density threshold. All full windows and additional clipped windows
+are retained. It supplies no separate numeric local-window acceptance limit;
+unknown foundry limits are not asserted passed. The new record resolves the
+earlier premature native-only completion by binding this manual coverage.
+
+Digital function is supported by final extracted device/supply connectivity,
+formal equivalence, unchanged circuit masks and extracted timing. The separate
+full Magic-RC transient experiments are unfinished and are not counted as
+passing waveforms. Chunk 4's original gate did not require full-chip transistor
+transients. Full-device, extraction-corner, complete-chip and foundry acceptance
+remain in their original later chunks. No complete PDK is tapeout qualified.
 
 ## Sequence and gates
 

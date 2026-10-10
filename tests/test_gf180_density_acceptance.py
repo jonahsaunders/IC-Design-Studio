@@ -13,7 +13,8 @@ class DensityAcceptanceTests(unittest.TestCase):
 
     def test_record_accepts_only_reference_scope(self):
         report = validate(self.record, ROOT)
-        self.assertEqual(report['status'], 'reference_gate_complete')
+        self.assertEqual(report['status'], 'reference_checks_passed')
+        self.assertFalse(report['chunk_complete'])
         self.assertEqual(report['process_qualification'], 'unqualified')
 
     def test_missing_stale_and_failed_evidence_is_rejected(self):

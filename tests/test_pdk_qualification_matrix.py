@@ -18,6 +18,19 @@ class QualificationMatrixTests(unittest.TestCase):
         self.assertEqual(report['process_qualification'], 'unqualified')
         self.assertEqual(report['device_entries'], 255)
 
+    def test_density_reference_record_cannot_complete_missing_fill_coverage(self):
+        matrix = copy.deepcopy(self.matrix)
+        self.assertIn('4', matrix['execution_acceptance'])
+        # The older native-only record cannot replace full manual coverage.
+        matrix['execution_acceptance']['4'] = dict(
+            path=matrix['evidence']['gf-density-acceptance']['path'],
+            sha256=matrix['evidence']['gf-density-acceptance']['sha256'])
+        for target in ('gf180mcuC', 'gf180mcuD'):
+            matrix['requirements'][target+':gf180-density']['status'] = 'partial'
+        matrix['chunks']['4']['status'] = 'reference_gate_complete'
+        with self.assertRaisesRegex(ValueError, 'full fill coverage'):
+            validate(matrix)
+
     def test_omitted_unavailable_device_is_rejected(self):
         matrix = copy.deepcopy(self.matrix)
         del matrix['device_requirements']['ihp-sg13g2']['sg13g2_pr/inductor.sym']

@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "kind": "fixed-reference-die-with-perimeter-streets-v1",
+  "top": "apb_fifo",
+  "design_gds_sha256": "da6c9f30cc321126fe7c05f86be6dd1e39f2e1efd02abb1dbc1142dc1bbfee48",
+  "design_project_sha256": "465d29e2147d4d5f6b5e75620b6602d50ea36d7141d12b5c47f928953d62014d",
+  "original_die_nm": [
+    0,
+    0,
+    400000,
+    400000
+  ],
+  "original_core_um": [
+    20,
+    20,
+    380,
+    380
+  ],
+  "prime_die_nm": [
+    0,
+    0,
+    400000,
+    400000
+  ],
+  "scribe_boxes_nm": [
+    [
+      -40000,
+      -40000,
+      440000,
+      0
+    ],
+    [
+      -40000,
+      400000,
+      440000,
+      440000
+    ],
+    [
+      -40000,
+      0,
+      0,
+      400000
+    ],
+    [
+      400000,
+      0,
+      440000,
+      400000
+    ]
+  ],
+  "street_width_nm": 40000,
+  "frames": [],
+  "slm_regions": [],
+  "frame_cells": [],
+  "scope": "Engineering qualification reference: the original complete implementation footprint is the prime die, with 40 um streets immediately outside all four edges. No die/core/RTL/SDC dimensions or density denominator are changed. This declaration is not a foundry reticle, package or fabrication approval."
+}
