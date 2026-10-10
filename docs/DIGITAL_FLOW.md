@@ -28,8 +28,10 @@ layout, target runs, constraints, language server, indexed waveforms and macro e
 
 ![Included digital tools and guided setup](images/digital-first-run.png)
 
-Release builds include the digital engines, their C++ compiler/build dependencies,
-Python, Tcl, shared libraries, a compatible ORFS revision and full SKY130 HD files.
+Current source builds include the digital engines, their C++ compiler/build
+dependencies, Python, Tcl, shared libraries, a compatible ORFS revision and locked
+SKY130 HD, GF180 MCU and IHP SG13G2 digital platforms. The published 0.23.0 desktop
+contains SKY130 HD only; its contents do not change when source support expands.
 **Included tools** is the default, even if an older installation saved custom
 executable paths. First launch opens visible setup with progress, details and
 retry. **Run stage** and **Run to…** also open setup when needed and continue the
@@ -39,9 +41,20 @@ Closing setup cancels that pending request. You can keep editing during setup.
 without PATH edits or individual tool downloads. The Windows installer launches
 Studio for visible setup instead of running an invisible installation check.
 Allow several minutes and several GB of disk space. **Ready** requires successful
-Icarus simulation, UART regression with Verilator coverage, mapped synthesis,
-equivalence, timing, GDS/SPEF generation and extracted timing. Logs and results stay
-in the setup evidence directory. An installation failure never produces Ready.
+Icarus simulation and UART regression with Verilator coverage. Every platform
+listed in the package must also pass counter mapping, equivalence, deliberate-fault
+detection, resumed physical implementation, GDS/SPEF generation, clean detailed
+routing, extracted timing at every declared library/interconnect pair and physical-netlist
+equivalence. Pre-layout hold failures stay in the evidence and must close after
+physical optimization under the same constraints. Logs and results stay in the
+setup evidence directory. An installation failure never produces Ready.
+
+Source runtime builds now include SKY130 HD's matched typical/slow/fast libraries
+and minimum/nominal/maximum interconnect decks. The included selection enables
+all nine timing pairs. GF180 and IHP retain three library corners and one captured
+extraction condition each. Package metadata declares those dimensions; installation
+and desktop packaging reject an incomplete result even if its overall status
+says PASS. Existing payloads retain their original captured conditions.
 
 The current payload also includes Magic, Netgen and ngspice for supported analog
 physical verification. **Tools → Physical tools setup…** selects that shared
@@ -61,6 +74,9 @@ Setup does not replace or unregister other WSL distributions. User-installed
 runtimes and setup evidence survive an application uninstall.
 
 New digital projects receive the included SKY130 HD lock after setup succeeds.
+Use **Inspector → Design setup → Choose platform → Included** to select another
+platform in your installed package. No external ORFS checkout is needed for these
+choices. The chooser can open first-run setup when the package is not ready.
 Existing platform selections and saved custom executable paths are preserved.
 To use external tools, explicitly choose **Custom tools** in the digital tools
 dialog, then **Configure custom tools**. Remaining tools resolve from PATH.
@@ -89,7 +105,7 @@ If the application reports missing packaged tools, reinstall the desktop package
 or extract the **entire** portable archive. A GitHub source ZIP and a lone copied
 executable do not contain a usable desktop runtime. On Windows, enabling WSL may
 require internet access for Windows components, administrator approval and a
-restart; the digital engines and SKY130 platform themselves are already bundled.
+restart; the digital engines and advertised platforms themselves are already bundled.
 
 ## A block from RTL to layout
 
@@ -98,12 +114,18 @@ restart; the digital engines and SKY130 platform themselves are already bundled.
 2. Select **Elaborate** or **Mapped synthesis**, run, then **Publish symbol**.
    The compiler's actual scalar and bus ports become native schematic terminals.
    Choose the cell selector or **New RTL cell** to maintain independent blocks.
-3. Use the included SKY130 HD platform, or use **Inspector → Design setup →
-   Choose platform** to capture another
-   `sky130hd` / `nangate45` ORFS revision or an explicit manifest.
+3. Use **Inspector → Design setup → Choose platform** to select an included
+   platform or capture another
+   `sky130hd`, `gf180`, `ihp-sg13g2` or `nangate45` ORFS revision, or an explicit manifest.
+   Included choices reflect your installed package; older SKY130-only packages
+   do not advertise GF180 or IHP. See the
+   [process profiles and qualification](DIGITAL_PLATFORM_QUALIFICATION.md).
    **Constraints** generates an editable clock and I/O SDC.
    **Floorplan and routing** in that inspector section (also **More → Physical
    settings…**) controls die/core rectangles in micrometres, density and threads.
+   For the supplied GF180 C/D standard-cell blocks, enable **Generate GF180 C/D
+   block density fill** before implementation. Its [captured fill workflow](GF180_BLOCK_FILL.md)
+   includes post-fill typical extraction and a matching macro abstract.
 4. Choose **Run to placement**, **Run to routing**, or **Run to GDS**. The durable
    target plan maps RTL, builds each required physical stage, then runs timing.
    **Verify block** runs lint, simulation/regression, mapping, equivalence and timing.
@@ -134,16 +156,26 @@ implementation. A digital platform captures full Liberty, LEF, GDS and supportin
 files independently. Files and ORFS scripts are checksummed when imported/prepared,
 verified again before execution, and copied into the run. A changed installation
 requires an explicit re-import or newly prepared run. One merged Liberty file per
-selected corner is currently supported for mapping.
+selected corner is currently supported for mapping. Captured `.lib.gz` files are
+verified and expanded into a separate job artifact; the platform originals stay
+unchanged. An expanded library is limited to 128 MiB.
+
+An explicit platform import selects all its declared timing corners. Choose a
+subset in **Constraints** if the design requires one. The chosen mapping corner
+controls synthesis; physical optimization and timing analysis use every selected
+timing corner. Changing that set invalidates physical checkpoints. A library
+corner sweep still uses one extracted SPEF and does not imply multiple RC corners.
 
 The implementation CI pins:
 
-- ORFS `eaba6576441bf7c1743ea56ecdb1904210ec02c2` and its SKY130 HD platform;
+- ORFS `eaba6576441bf7c1743ea56ecdb1904210ec02c2` and its SKY130 HD, GF180 MCU
+  and IHP SG13G2 platforms;
 - OpenROAD `26Q2-1164-g08f67ee5ec` and OpenSTA 3.1.0 from its Ubuntu 24.04 package;
 - OSS CAD Suite `2026-09-13` for Yosys, EQY with matching plugins, SBY and Bitwuzla;
-- The included package uses OSS CAD Suite's Icarus and Verilator, and Ubuntu
-  24.04 KLayout/compiler packages; the separate implementation CI also tests
-  Ubuntu's Icarus and Verilator.
+- Current source builds use the checksum-pinned official KLayout 0.30.5 Ubuntu
+  24.04 executable and matching Python library. The included package uses OSS
+  CAD Suite's Icarus and Verilator and Ubuntu compiler packages; the separate
+  implementation CI also tests Ubuntu's Icarus and Verilator.
 
 Download archive checksums live in `packaging/digital/Dockerfile` and
 `.github/workflows/digital.yml`. The generated package manifest records the
@@ -154,6 +186,9 @@ Licenses and package copyright files are retained in the runtime alongside sourc
 locations. A newer ORFS
 checkout may require newer OpenROAD APIs. The selected scripts are executed as
 captured; the app does not patch them or quietly downgrade a failed stage.
+The GF180 profile supplies a captured parasitics wrapper that reads nominal via
+resistance from its technology LEF. The wrapper and its reason are documented in
+the [process qualification guide](DIGITAL_PLATFORM_QUALIFICATION.md).
 
 A custom platform manifest sits beside its files:
 
@@ -178,6 +213,18 @@ artifact checksums remain available in each run directory.
 
 ## Inspection and verification
 
+**Constraints → Electrical & synthesis → Logic mapping** offers the default
+Yosys mapper and optional **Timing-oriented mapping**. The latter uses a captured
+recipe adapted from the pinned ORFS speed script, applies the declared delay
+target to mapping and sizing, and requires an input driving cell from the selected
+Liberty library. It can improve logic depth at a cost in area and runtime;
+extracted timing and equivalence still determine acceptance. The generated
+`abc_speed.script`, recipe source, checksum and synthesis intent remain in the job.
+Changing the mapping choice invalidates earlier mapped results for automatic
+workflow reuse. Explicit driver/load choices survive editing and save/reopen.
+
+![Timing-oriented mapping with explicit GF180 synthesis settings](images/digital-timing-mapping.png)
+
 Run diagnostics open their captured source revision in a read-only pane.
 Live language-server diagnostics open the working copy. The netlist browser links retained Yosys
 source attributes to RTL and selects matching physical instances. Timing paths
@@ -191,22 +238,51 @@ are labeled as source searches. The comparison table shows run metrics and
 deltas only for matching constraints, technology, synthesis settings, corners,
 parasitic mode and engine context; absent metrics remain absent.
 
-Timing **INCOMPLETE** includes missing clocks/I/O constraints or no analyzable
-paths. **FAIL** means a reported path or electrical slew/capacitance/fanout check violates constraints. Reports cover up to 50 paths
+Timing **INCOMPLETE** includes missing clocks/I/O constraints, unresolved setup
+diagnostics, missing setup or hold paths, absent report files, invalid total
+negative slack, or unconfirmed nanosecond units. Extracted timing additionally
+requires complete parasitic annotation and resolved library/netlist/SDC/SPEF
+load diagnostics. Only outputs proven to have no connected net can lack
+interconnect annotation. Each scenario requires its own fresh reports.
+Inspect the reason in the run
+summary and the full `incomplete_reasons` in the retained timing report.
+**FAIL** means a reported path, setup/hold total negative slack, or electrical
+slew/capacitance/fanout check violates constraints. Known failures remain FAIL
+even when other evidence is incomplete; the missing evidence is retained.
+Reports cover up to 50 paths
 per group for setup and hold at each selected library corner, with full textual
-evidence, total negative slack and per-corner reports.
+evidence, independent setup and hold total negative slack, and per-corner reports.
+The combined verdict and electrical status account for every selected corner.
+Platforms with explicit interconnect definitions retain separate extractions at
+physical finish. Timing crosses each selected Liberty corner with every selected
+interconnect corner and labels both in the report and path table. The
+[process qualification guide](DIGITAL_PLATFORM_QUALIFICATION.md#separate-sky130-pvt-and-interconnect-platform)
+describes the matched SKY130 platform with three library and three interconnect
+corners included in current source runtime builds. Published 0.23.0 packages retain
+their original typical-only SKY130 profile.
 Pre-layout timing has no extracted wire parasitics. Default propagated-activity
 power is an estimate, not a workload measurement. There is no multi-corner signoff
 claim or automatic false/multicycle-path correctness proof.
 
-EQY runs SBY/Bitwuzla induction at depth 30 with explicit undefined-state propagation
-against the actual selected mapped netlist. Use its four proof executables from
+EQY runs SBY/Bitwuzla induction at depth 30, then SBY/ABC PDR for unresolved
+partitions, with explicit undefined-state propagation in both strategies
+against the actual selected mapped netlist. Use its five proof executables from
 the same toolchain `bin` directory; companions are discovered beside Yosys when
-absent from PATH. **PASS**, **FAIL**, **UNKNOWN** and engine **ERROR** stay distinct. A
-strategy timeout/unproved partition cannot produce PASS. State/reset assumptions
-and complex designs may need another strategy; counterexamples and proof logs
-are retained for investigation. A failed proof does not silently become a
-successful physical qualification.
+absent from PATH. The captured `yosys-abc` identity participates in job validation;
+an unrelated inherited `ABC` setting cannot select a different solver. Each
+strategy receives half the configured timeout (at least one second), and the
+whole EQY invocation remains bounded by the job timeout. No reset assumptions
+are inserted. See the upstream [EQY strategy reference](https://github.com/YosysHQ/eqy/blob/main/docs/source/strategies.rst)
+and [SBY engine reference](https://github.com/YosysHQ/sby/blob/main/docs/source/reference.rst).
+
+**PASS**, **FAIL**, **UNKNOWN** and engine **ERROR** stay distinct. An unresolved
+partition qualifies only when another strategy actually proves it and EQY reports
+overall PASS. Timeouts or bounded initial-cycle checks alone cannot produce PASS.
+Cached EQY strategy statuses are labeled as cached and require the original
+successful strategy evidence; a cached PASS alone cannot qualify a partition.
+State/reset behavior and complex designs can still prevent a proof; counterexamples
+and proof logs are retained for investigation. A failed proof does not silently
+become a successful physical qualification.
 
 **More → Regression cases…** saves named testbench tops, simulators, definitions and optional
 Verilator line coverage. **Regression** runs all cases, retaining a failed case
@@ -223,9 +299,24 @@ is rejected as an analog circuit model until it has a schematic implementation.
 
 The physical preview uses indexed cell outlines and batched signal-route
 centerlines, retaining all instances and routes within the captured preview limits. Inspect GDS in the native layout
-editor for shapes. Finishing ORFS is separate from foundry-qualified DRC/LVS,
-antenna, EM/IR and fabrication signoff. Existing native verification tools remain
-available, with their own supported process/model scope.
+editor for shapes. New physical finish jobs run the captured OpenROAD build's
+default-oxide LEF antenna check and power-grid connectivity checks against the
+unchanged final OpenDB. Every declared POWER/GROUND net is checked; names are
+read from the database. Logic inputs require positive gate area. Pins on declared
+`CORE ANTENNACELL` protection cells require positive diffusion area instead; their
+cell identity and areas are retained separately in the coverage report. Ordinary
+cells cannot use diffusion area to bypass missing gate models.
+Missing input models, routing-layer antenna rules,
+routed signal inputs, supply connections or reports prevent a successful finish.
+The saved reports bind the result to the checkpoint and platform, and accompany
+macro exports. Historical jobs remain readable and exports label their absent
+physical-check qualification explicitly. Custom OpenROAD builds need Python
+support for these checks; a missing capability fails with retained engine logs.
+
+These checks cover the database and rules supplied to OpenROAD. They do not
+qualify deck adequacy, final streamed-GDS DRC/LVS, density, ERC, ESD/latch-up,
+IR drop, electromigration or fabrication signoff. Existing native verification
+tools remain available with their own supported process/model scope.
 
 ## Portable source format and waveforms
 
@@ -285,6 +376,10 @@ Run from the repository root in its Python environment. Example generation needs
 no external HDL engine; the run commands above need a configured custom toolchain
 and, for implementation, the compatible ORFS checkout. With a qualified included
 runtime, select `--toolchain included` and omit `--tool` and `--orfs` overrides.
+Use `--included-platform sky130hd`, `--included-platform gf180` or
+`--included-platform ihp-sg13g2` to select an installed platform and all of its
+declared timing corners. This requires completed setup and cannot be combined
+with another platform import option.
 
 Use a fresh output directory. `--cell` selects a native cell ID, `--platform` imports
 an explicit technology manifest, and repeatable `--tool NAME=/path/to/executable`

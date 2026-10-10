@@ -7,12 +7,17 @@ from icstudio.klayout_lvs import read_database,locations
 from icstudio.model import example,uid
 
 
-def resistor_database(directory,resistance=800):
+def resistor_database(directory,resistance=800,*,extra_island=False,bridge=False,top_level=False):
     ly=db.Layout();ly.dbu=.001;cell=ly.create_cell('TEST');ri=ly.layer(1,0);ci=ly.layer(2,0);li=ly.layer(2,1)
     cell.shapes(ri).insert(db.Box(100,0,900,100))
     for x,name in ((0,'A'),(900,'B')):
         cell.shapes(ci).insert(db.Box(x,0,x+100,100));cell.shapes(li).insert(db.Text(name,db.Trans(x+50,50)))
+    if extra_island:
+        cell.shapes(ci).insert(db.Box(0,200,100,300));cell.shapes(li).insert(db.Text('A',db.Trans(50,250)))
+        if bridge:cell.shapes(ci).insert(db.Box(0,50,100,250))
     lvs=db.LayoutVsSchematic(db.RecursiveShapeIterator(ly,cell,[]))
+    if extra_island:lvs.join_net_names('A')
+    lvs.top_level_mode=top_level
     resistor=lvs.make_layer(ri,'resistor');metal=lvs.make_layer(ci,'metal');labels=lvs.make_text_layer(li,'labels')
     lvs.extract_devices(db.DeviceExtractorResistor('RES',100),{'R':resistor,'C':metal})
     lvs.connect(metal);lvs.connect(metal,labels);lvs.extract_netlist();lvs.netlist().make_top_level_pins()
@@ -37,6 +42,27 @@ class KLayoutLVSExchangeTests(unittest.TestCase):
         self.assertEqual(points[1]['boxes_nm'],[[6900,3000,7000,3100]])
         p['cells'][0]['layout_instances'][0]['nx']=10001
         with self.assertRaisesRegex(ValueError,'smaller'):locations(p,{'cell':'TEST','boxes_um':[]})
+
+    def test_virtual_connection_cannot_turn_a_physical_open_into_a_pass(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)
+            for top_level,severity in ((False,'Warning'),(True,'Error')):
+                with self.subTest(top_level=top_level):
+                    result=read_database(resistor_database(root,extra_island=True,top_level=top_level))
+                    self.assertTrue(result['circuits_matched'])
+                    self.assertFalse(result['matched'])
+                    entry=result['extraction_log'][0]
+                    self.assertEqual(entry['category'],'must-connect')
+                    self.assertEqual(entry['severity'],severity)
+                    self.assertTrue(entry['blocks_match'])
+                    self.assertTrue(entry['boxes_um'])
+                    row=next(r for r in result['rows'] if r['kind']=='extraction')
+                    self.assertEqual(row['cell'],'TEST')
+                    self.assertIn('must be connected',row['layout'])
+                    self.assertEqual(row['boxes_um'],entry['boxes_um'])
+            connected=read_database(resistor_database(root,extra_island=True,bridge=True,top_level=True))
+            self.assertTrue(connected['matched'],connected)
+            self.assertEqual(connected['extraction_log'],[])
 
 
 if __name__=='__main__':unittest.main()

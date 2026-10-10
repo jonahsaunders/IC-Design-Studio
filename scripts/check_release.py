@@ -23,6 +23,8 @@ def require_release_notes(version, root=ROOT):
 def main():
     from scripts.update_qualification import update
     update(check=True)
+    from scripts.check_pdk_qualification import MATRIX, read, validate as validate_matrix
+    matrix = validate_matrix(read(MATRIX))
     docs = ['README.md', 'CONTRIBUTING.md', 'SIMULATION_SETUP.md', 'THIRD_PARTY_NOTICES.md']
     docs += [str(p.relative_to(ROOT)) for folder in ('docs', 'examples') for p in sorted((ROOT / folder).rglob('*.md'))]
     errors = []; links = 0
@@ -52,7 +54,8 @@ def main():
         except Exception as exc: errors.append(entry['id'] + ': ' + str(exc))
     if errors: raise RuntimeError('\n'.join(errors))
     print(json.dumps({'version': __version__, 'status': 'passed', 'documents': len(docs),
-                      'local_links': links, 'gallery_examples': len(examples())}, indent=2))
+                      'local_links': links, 'gallery_examples': len(examples()),
+                      'pdk_coverage': matrix}, indent=2))
 
 
 if __name__ == '__main__': main()

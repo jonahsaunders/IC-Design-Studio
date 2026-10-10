@@ -120,10 +120,11 @@ class PhysicalGateTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     drc_results(self.root, 'banba-layout', 0)
 
-    def test_drc_lvs_scope_uses_no_extractor_and_retains_density_failure(self):
-        # Use the real saved 103-device comparison. Only external process
-        # execution is replaced; reference generation and report parsing run.
-        for density, lvs_exit, expected in [(False, 0, 0), (True, 0, 1), (False, 1, 1)]:
+    def test_drc_lvs_scope_rejects_saved_unresolved_ground_connection(self):
+        # The saved 103-device comparison matches its graph but contains an
+        # unresolved must-connect warning. Preserve it as a negative control.
+        # Only process execution is replaced; reference/report parsing run.
+        for density, lvs_exit in [(False, 0), (True, 0), (False, 1)]:
             output = self.root/f'run-{density}-{lvs_exit}'
             phases = []
             def command(args, folder, name, env=None):
@@ -144,13 +145,15 @@ class PhysicalGateTests(unittest.TestCase):
                     redirect_stdout(io.StringIO()):
                 code = physical.main(['--drc-lvs-only', '--pv', str(self.root),
                     '--klayout', sys.executable, '--out', str(output)])
-            self.assertEqual(code, expected)
+            self.assertEqual(code, 1)
             self.assertEqual(phases, ['klayout-version', 'drc', 'lvs'])
             self.assertEqual(lock.call_count, 1)
             report = json.loads((output/'physical-verification.json').read_text())
             self.assertFalse(report['signoff'])
             self.assertEqual(report['lvs']['pairs']['device'], 103)
-            self.assertEqual(report['passed'], expected == 0)
+            self.assertFalse(report['passed'])
+            self.assertFalse(report['lvs']['passed'])
+            self.assertEqual(report['lvs']['extraction_log'][0]['category'], 'must-connect')
             self.assertEqual(report['scope'], 'drc-lvs')
 
     def test_full_scope_still_requires_extraction_engines(self):
@@ -184,11 +187,13 @@ class PhysicalGateTests(unittest.TestCase):
                 redirect_stdout(io.StringIO()):
             code = physical.main(['--drc-lvs-only', '--include-dummy-poly', '--gds', str(gds),
                 '--pv', str(pv), '--klayout', sys.executable, '--out', str(output)])
-        self.assertEqual(code, 0)
+        self.assertEqual(code, 1)  # Saved LVS still has an unresolved ground join.
         self.assertEqual(density.read_text(), original)
         self.assertEqual((output/'drc-deck/rule_decks/density.drc').read_text(),
                          physical.include_dummy_poly(original))
         report = json.loads((output/'physical-verification.json').read_text())
+        self.assertFalse(report['lvs']['passed'])
+        self.assertEqual(report['lvs']['extraction_log'][0]['category'], 'must-connect')
         self.assertIn('density_deck_correction', report)
         self.assertNotEqual(report['density_deck_correction']['original_sha256'],
                             report['density_deck_correction']['corrected_sha256'])

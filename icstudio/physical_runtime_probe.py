@@ -46,6 +46,9 @@ def run(job, directory, progress):
             raise ValueError('Netgen installation negative control did not reject the changed resistor.')
         checks.append({'name':'lvs-'+name,'status':'passed'})
     checks.append({'name':'ngspice','status':check_ngspice(tools['ngspice'])['status']})
+    from .klayout_runtime_probe import qualify as qualify_klayout
+    progress(.8,'Checking KLayout rule execution and invalid geometry')
+    checks.extend(qualify_klayout(tools['klayout'],root/'klayout'))
     report={'status':'passed','design_hash':design_digest(job['project']),
             'qualification':'Runtime tool smoke tests only; no process or design qualification.',
             'stages':checks,'klayout':db.__version__}

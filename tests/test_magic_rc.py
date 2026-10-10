@@ -2,8 +2,9 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import re
 
-from icstudio.magic_rc import normalize, finalize
+from icstudio.magic_rc import normalize, finalize, _node_candidates, _node_stems
 
 
 ORIGINAL = '''scale 1000 2 100
@@ -27,6 +28,20 @@ rnode "VSS" 0 0 0 1 0
 
 
 class MagicRCNormalizationTests(unittest.TestCase):
+    def test_indexed_names_preserve_literal_stems_exact_names_and_ambiguity(self):
+        originals = dict.fromkeys(['N', 'N#', 'N!', 'N#!', 'N.n2', 'N.n2#',
+                                   'a.b[3]', 'a+b?', 'a(b)', '#', '!'])
+        candidates = list(originals) + [
+            'N.n0', 'N.t123', 'N.n2.n0', 'N.n2#.n0', 'a.b[3].t9',
+            'aXb3.t9', 'a+b?.n0', 'a(b).n7', '.n0', 'N.t-1', 'N.nx',
+            'N.n1.extra', 'N.n\u0661', 'unknown.n0']
+        stems = _node_stems(originals)
+        for name in candidates:
+            with self.subTest(name=name):
+                expected = [n for n in originals if n == name or
+                            re.fullmatch(re.escape(n.rstrip('#!')) + r'\.[nt][0-9]+', name)]
+                self.assertCountEqual(_node_candidates(name, originals, stems), expected)
+
     def inputs(self, root, original=ORIGINAL, resistance=RESISTANCE):
         (root / 'top.ext').write_text(original)
         (root / 'top.res.ext').write_text(resistance)

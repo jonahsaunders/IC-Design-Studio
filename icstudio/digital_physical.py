@@ -13,11 +13,55 @@ STAGES = ('floorplan','place','cts','route','finish')
 CHECKPOINTS = {'floorplan':'2_floorplan','place':'3_place','cts':'4_cts','route':'5_route','finish':'6_final'}
 DEFAULTS = {'die_area':[0,0,100,100],'core_area':[10,10,90,90],'place_density':0.6,'threads':2}
 OPTIONS = {'min_routing_layer','max_routing_layer','macro_halo_um','pin_constraints','macro_placements',
-           'io_constraints_tcl','macro_placement_tcl','pdn_tcl'}
+           'io_constraints_tcl','macro_placement_tcl','pdn_tcl','gf180_fill'}
+
+
+def library_options(r):
+    """Bind every optimization corner despite platform makefile assignments."""
+    corners=r.config.get('timing_corners',[r.platform['corner']])
+    # Stable internal aliases avoid case collisions and invalid environment names
+    # in user-defined corner labels. The original labels remain in the job inputs.
+    aliases=['icstudio_'+str(i) for i in range(len(corners))]
+    options=['LIB_FILES='+' '.join(str(p) for p in r.libraries()),'CORNERS='+' '.join(aliases)]
+    options += [alias.upper()+'_LIB_FILES='+' '.join(str(p) for p in r.libraries(corner))
+                for alias,corner in zip(aliases,corners)]
+    return options
+
+
+def technology_options(r, flow_root):
+    from .digital_implementation import tcl_word
+    directory=r.root/'platform'/r.platform.get('directory','.')
+    # ORFS's KLayout generator searches FLOW_HOME/platforms even when an
+    # external PLATFORM_DIR is selected. Mirror only captured root map files.
+    target=flow_root/'platforms'/r.platform['name']
+    for path in directory.glob('*map'):
+        if path.is_file():
+            target.mkdir(parents=True,exist_ok=True);shutil.copy2(path,target/path.name)
+    options=r.platform.get('orfs',{})
+    file_options={**options.get('file_options',{}),
+                  **options.get('corner_file_options',{}).get(r.platform['corner'],{})}
+    result=[key+'='+str(directory/path) for key,path in file_options.items()]
+    vias=options.get('rc_vias',{}).get(r.platform['corner'],{})
+    if not vias:return result
+    lines=['# Fill explicit cut-layer RC from the captured single-cut LEF vias.',
+           'source '+tcl_word(directory/options['rc_file'])]
+    for layer,reference in vias.items():
+        lines += ['set icstudio_via [[ord::get_db_tech] findVia '+tcl_word(reference)+']',
+                  'if {$icstudio_via == "NULL"} {error "Captured reference via is missing"}',
+                  'set icstudio_resistance [$icstudio_via getResistance]',
+                  'if {$icstudio_resistance <= 0} {error "Captured reference via has no positive resistance"}',
+                  # dbTechVia returns ohms; convert to the current STA input
+                  # units rather than assuming the Liberty resistance unit.
+                  'set_layer_rc -via '+tcl_word(layer)+' -resistance [sta::resistance_sta_ui $icstudio_resistance]']
+    path=r.root/'platform_rc.tcl';atomic_write(path,'\n'.join(lines)+'\n');r.add_artifact('platform_rc',path)
+    return result+['LAYER_PARASITICS_FILE='+str(path)]
 
 
 def validate_settings(settings):
     if not isinstance(settings,dict) or set(settings)-set(DEFAULTS)-OPTIONS:raise ValueError('Unknown physical implementation setting.')
+    if type(settings.get('gf180_fill',False)) is not bool:raise ValueError('GF180 block fill must be enabled or disabled.')
+    if settings.get('gf180_fill') and (settings.get('pdn_tcl','').strip() or settings.get('macro_placements')):
+        raise ValueError('GF180 block fill requires its captured power grid and standard-cell-only placement.')
     for name in ('die_area','core_area'):
         rect=settings.get(name,DEFAULTS[name])
         if not isinstance(rect,list) or len(rect)!=4 or any(type(x) not in (int,float) or not math.isfinite(x) for x in rect) or rect[0]>=rect[2] or rect[1]>=rect[3]:
@@ -121,9 +165,23 @@ def preview(def_file, lefs):
             'scope':'DEF placement and signal-route preview. Cell outlines and centerlines are not a DRC view; inspect final GDS in the layout editor.'}
 
 
+def netlist_script(path):
+    """Keep electrically modeled cells, including antenna input loads."""
+    from .digital_implementation import tcl_word
+    return '''set physical_only {}
+foreach library [[ord::get_db] getLibs] {
+  foreach master [$library getMasters] {
+    if {[$master getType] in {COVER COVER_BUMP RING PAD_SPACER CORE_FEEDTHROUGH CORE_SPACER CORE_WELLTAP} || [$master isEndCap]} {
+      lappend physical_only [$master getName]
+    }
+  }
+}
+'''+'write_verilog -remove_cells $physical_only '+tcl_word(path)+'\n'
+
+
 def execute(r):
     from .digital_implementation import mapped,verify_upstream,tcl_word,quote
-    from .digital_platform import verify_flow
+    from .digital_platform import implementation_options,verify_flow
     from .digital import source_hash
     stage=r.settings['stage'];settings={**DEFAULTS,**r.config.get('physical',{})};validate_settings(settings)
     for path in [str(r.root),*r.tools.values()]:
@@ -173,6 +231,15 @@ def execute(r):
     command=[r.tools['make'],'-f',str(flow_root/'Makefile'),'DESIGN_CONFIG='+str(r.root/'config.mk'),
              'WORK_HOME='+str(work),'OPENROAD_EXE='+r.tools['openroad'],'YOSYS_EXE='+r.tools['yosys'],
              'NUM_CORES='+str(settings['threads']),'-o',str(seed),'-o',str(seed_sdc)]
+    # Platform makefiles can use unconditional assignments. Command-line values
+    # keep the actual physical libraries and process options bound to this job.
+    command += library_options(r)
+    command += technology_options(r,flow_root)
+    from .digital_recipes import generate as geometry_options
+    command += geometry_options(r,settings)
+    from .digital_gf180_fill import implementation_options as fill_options
+    command += fill_options(r,settings)
+    command += [key+'='+value for key,value in implementation_options(r.platform).items()]
     if 'klayout' in r.tools:command.append('KLAYOUT_CMD='+r.tools['klayout'])
     if resume:
         name=CHECKPOINTS[previous['stage']]
@@ -183,16 +250,9 @@ def execute(r):
     checkpoint=result_dir/(CHECKPOINTS[stage]+'.odb')
     if not checkpoint.is_file():raise ValueError('ORFS did not produce the expected '+stage+' checkpoint.')
     script='\n'.join('read_liberty '+tcl_word(p) for p in r.libraries())+'\nread_db '+tcl_word(checkpoint)+'\n'
-    script+='''set physical_only {}
-foreach library [[ord::get_db] getLibs] {
-  foreach master [$library getMasters] {
-    if {[$master getType] in {COVER COVER_BUMP RING PAD_SPACER CORE_FEEDTHROUGH CORE_SPACER CORE_ANTENNACELL CORE_WELLTAP} || [$master isEndCap]} {
-      lappend physical_only [$master getName]
-    }
-  }
-}
-'''
-    script+='write_def '+tcl_word(r.root/'snapshot.def')+'\nwrite_verilog -remove_cells $physical_only '+tcl_word(r.root/'physical.v')+'\n'
+    # Antenna cells have characterized input capacitance and SPEF terminals.
+    # Removing them leaves real loads unbound when timing reads the extraction.
+    script+='write_def '+tcl_word(r.root/'snapshot.def')+'\n'+netlist_script(r.root/'physical.v')
     from .digital_odb import script as database_script
     script += database_script(r.root/'database.json')
     if stage=='finish':script+='write_abstract_lef '+tcl_word(r.root/'macro.lef')+'\n'
@@ -230,6 +290,16 @@ foreach library [[ord::get_db] getLibs] {
     if stage=='finish':
         r.add_artifact('lef',r.root/'macro.lef')
         for key,suffix in (('gds','.gds'),('spef','.spef')):r.add_artifact(key,result_dir/('6_final'+suffix))
+        from .digital_rc import extract
+        extract(r)
+        from .digital_gf180_fill import execute as fill
+        fill(r,settings)
+        from .digital_physical_checks import execute as physical_checks
+        checks=physical_checks(r)
+        from .digital_lvs_reference import execute as reference_export
+        reference=reference_export(r)
+        from .digital_gf180_checks import execute as gf180_connectivity
+        connectivity=gf180_connectivity(r,reference)
     metrics={}
     for path in sorted(work.rglob('*.json')):
         if path.stat().st_size>8*1024*1024:continue
@@ -242,6 +312,11 @@ foreach library [[ord::get_db] getLibs] {
     from .digital_flow import artifact
     for i,path in enumerate(sorted(files)):r.artifacts['physical_file_'+str(i)]=artifact(r.root,path,allow_empty=True)
     return {**data,'physical':{'stage':stage,'resumed':resume,'upstream':previous.get('root'),
-            'flow_fingerprint':flow['fingerprint'],'settings':settings,'scope':'Engine implementation; timing, equivalence and physical rule qualification remain explicit checks.'},
+            'flow_fingerprint':flow['fingerprint'],'settings':settings,
+            'timing_corners':r.config.get('timing_corners',[r.platform['corner']]),
+            **({'checks':checks} if stage=='finish' else {}),
+            **({'reference':reference} if stage=='finish' and reference is not None else {}),
+            **({'gf180_connectivity':connectivity} if stage=='finish' and connectivity is not None else {}),
+            'scope':'Engine implementation; timing, equivalence and physical rule qualification remain explicit checks.'},
             'statistics':{'cells':len(geometry['components']),'area_um2':sum(c['width']*c['height'] for c in geometry['components'])},
             'summary':'Physical '+stage+' complete · '+str(len(geometry['components']))+' placed cells'}

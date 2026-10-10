@@ -1,0 +1,1132 @@
+{
+  "status": "both-full-rc-nominal-waveforms-independently-audited",
+  "qualified": false,
+  "observed_at": "2026-10-08T22:48:46.740622+00:00",
+  "script": {
+    "path": "work/audit_gf180_colamd_waveforms_v1.py",
+    "sha256": "77491288c0f118b9f0ebf18878165c7d5afdb70e8d6fc1739bc2a4f47234f9a0"
+  },
+  "source_report": {
+    "path": "outputs/gf180-colamd-full-transient-v1/report.json",
+    "sha256": "8aa0612a23534536bb144630bafac34a5369404caf205ef1f7512d755c970def"
+  },
+  "cases": {
+    "before": {
+      "status": "independent-nominal-functional-audit-passed",
+      "waveform": {
+        "path": "outputs/gf180-colamd-full-transient-v1/before/waveform.txt",
+        "sha256": "ba8e10dc6b012ddade17bf4f5cd7d65435512b35131c6e93e9ee3c532c02763f"
+      },
+      "source_circuit": {
+        "path": "outputs/gf180-colamd-full-transient-v1/before/counter.spice",
+        "sha256": "f9408a336e07f214058d693ab88171c7802afba81b40f6c0497659c11b51598c"
+      },
+      "fixture": {
+        "path": "outputs/gf180-colamd-full-transient-v1/before/test.spice",
+        "sha256": "65fbb8b94b7ccc61536ad806e0abd3bc8cc889bbacfb0eface268b4ffeca4dfc"
+      },
+      "points": 12606,
+      "last_time_seconds": 9.000000000000001e-07,
+      "maximum_step_seconds": 2.0000000000001503e-10,
+      "clock_edges": [
+        2.025e-08,
+        7.025000000000001e-08,
+        1.2025e-07,
+        1.7025e-07,
+        2.2025e-07,
+        2.702500000000001e-07,
+        3.202500000000001e-07,
+        3.702500000000001e-07,
+        4.202500000000001e-07,
+        4.7025000000000007e-07,
+        5.202500000000001e-07,
+        5.702500000000001e-07,
+        6.202500000000001e-07,
+        6.702500000000001e-07,
+        7.202500000000001e-07,
+        7.702500000000001e-07,
+        8.202500000000001e-07,
+        8.702500000000002e-07
+      ],
+      "interpolated_samples": [
+        {
+          "time_s": 3.5e-08,
+          "expected": 0,
+          "interpolated_volts": [
+            1.7281051410276797e-08,
+            1.832888147708913e-08,
+            2.3372155719899885e-08,
+            -3.932084137729829e-08
+          ]
+        },
+        {
+          "time_s": 8.500000000000001e-08,
+          "expected": 0,
+          "interpolated_volts": [
+            -1.1848451474140589e-07,
+            5.57322626554496e-08,
+            5.7807600734480005e-08,
+            9.456357118807846e-08
+          ]
+        },
+        {
+          "time_s": 1.35e-07,
+          "expected": 1,
+          "interpolated_volts": [
+            4.999999960402005,
+            2.0669116773477865e-08,
+            1.6266558571697037e-08,
+            2.3925354750591567e-08
+          ]
+        },
+        {
+          "time_s": 1.85e-07,
+          "expected": 2,
+          "interpolated_volts": [
+            1.5753430121301716e-08,
+            4.999999936178683,
+            1.4742610571575158e-08,
+            1.3500832714488301e-08
+          ]
+        },
+        {
+          "time_s": 2.3500000000000003e-07,
+          "expected": 3,
+          "interpolated_volts": [
+            4.999999959963294,
+            4.999999958195172,
+            1.4050196706378952e-08,
+            1.3495685226007251e-08
+          ]
+        },
+        {
+          "time_s": 2.85e-07,
+          "expected": 4,
+          "interpolated_volts": [
+            1.951157331166083e-08,
+            2.0391215240323542e-08,
+            4.999999951566735,
+            -4.531203855599862e-08
+          ]
+        },
+        {
+          "time_s": 3.35e-07,
+          "expected": 5,
+          "interpolated_volts": [
+            4.9999999581038495,
+            2.2159511641076556e-08,
+            4.999999964765464,
+            2.744844368081798e-08
+          ]
+        },
+        {
+          "time_s": 3.85e-07,
+          "expected": 6,
+          "interpolated_volts": [
+            1.5986383765119403e-08,
+            4.999999936459045,
+            4.999999969299385,
+            1.4004858157472393e-08
+          ]
+        },
+        {
+          "time_s": 4.35e-07,
+          "expected": 7,
+          "interpolated_volts": [
+            4.9999999555763965,
+            4.999999953772678,
+            4.999999958035805,
+            1.499858654540193e-08
+          ]
+        },
+        {
+          "time_s": 4.85e-07,
+          "expected": 8,
+          "interpolated_volts": [
+            1.8405591384996494e-08,
+            2.139104080035287e-08,
+            2.2027165919435185e-08,
+            4.999999700459739
+          ]
+        },
+        {
+          "time_s": 5.350000000000001e-07,
+          "expected": 9,
+          "interpolated_volts": [
+            4.999999959007776,
+            2.112993869604304e-08,
+            1.6247559500028046e-08,
+            4.999999969000207
+          ]
+        },
+        {
+          "time_s": 5.85e-07,
+          "expected": 10,
+          "interpolated_volts": [
+            1.574926110938617e-08,
+            4.999999936080736,
+            1.4870044259527468e-08,
+            4.999999964101075
+          ]
+        },
+        {
+          "time_s": 6.350000000000001e-07,
+          "expected": 11,
+          "interpolated_volts": [
+            4.9999999598225955,
+            4.999999958056566,
+            1.437087488293071e-08,
+            4.999999972609187
+          ]
+        },
+        {
+          "time_s": 6.85e-07,
+          "expected": 12,
+          "interpolated_volts": [
+            1.9557467991965186e-08,
+            2.0537233710784613e-08,
+            4.999999945076329,
+            4.999999721877583
+          ]
+        },
+        {
+          "time_s": 7.350000000000001e-07,
+          "expected": 13,
+          "interpolated_volts": [
+            4.999999957961455,
+            2.230781407700342e-08,
+            4.999999958797659,
+            4.9999999446240615
+          ]
+        },
+        {
+          "time_s": 7.85e-07,
+          "expected": 14,
+          "interpolated_volts": [
+            1.597471499591807e-08,
+            4.999999936502847,
+            4.999999963406857,
+            4.999999960987593
+          ]
+        },
+        {
+          "time_s": 8.35e-07,
+          "expected": 15,
+          "interpolated_volts": [
+            4.999999954705472,
+            4.999999952931846,
+            4.999999944206437,
+            4.999999930733075
+          ]
+        },
+        {
+          "time_s": 8.850000000000001e-07,
+          "expected": 0,
+          "interpolated_volts": [
+            1.7912550280249796e-08,
+            2.1482897157970875e-08,
+            2.8368835079058976e-08,
+            -4.0571243342719266e-08
+          ]
+        }
+      ],
+      "stable_windows": [
+        {
+          "start_seconds": 3.5e-08,
+          "end_seconds": 6.900000000000001e-08,
+          "expected": 0,
+          "checked_points": 305
+        },
+        {
+          "start_seconds": 8.500000000000001e-08,
+          "end_seconds": 1.1900000000000001e-07,
+          "expected": 0,
+          "checked_points": 324
+        },
+        {
+          "start_seconds": 1.35e-07,
+          "end_seconds": 1.6900000000000002e-07,
+          "expected": 1,
+          "checked_points": 347
+        },
+        {
+          "start_seconds": 1.85e-07,
+          "end_seconds": 2.1900000000000002e-07,
+          "expected": 2,
+          "checked_points": 323
+        },
+        {
+          "start_seconds": 2.3500000000000003e-07,
+          "end_seconds": 2.6900000000000004e-07,
+          "expected": 3,
+          "checked_points": 350
+        },
+        {
+          "start_seconds": 2.85e-07,
+          "end_seconds": 3.1900000000000004e-07,
+          "expected": 4,
+          "checked_points": 328
+        },
+        {
+          "start_seconds": 3.35e-07,
+          "end_seconds": 3.6900000000000004e-07,
+          "expected": 5,
+          "checked_points": 348
+        },
+        {
+          "start_seconds": 3.85e-07,
+          "end_seconds": 4.1900000000000003e-07,
+          "expected": 6,
+          "checked_points": 325
+        },
+        {
+          "start_seconds": 4.35e-07,
+          "end_seconds": 4.6900000000000003e-07,
+          "expected": 7,
+          "checked_points": 351
+        },
+        {
+          "start_seconds": 4.85e-07,
+          "end_seconds": 5.19e-07,
+          "expected": 8,
+          "checked_points": 330
+        },
+        {
+          "start_seconds": 5.350000000000001e-07,
+          "end_seconds": 5.690000000000001e-07,
+          "expected": 9,
+          "checked_points": 348
+        },
+        {
+          "start_seconds": 5.85e-07,
+          "end_seconds": 6.19e-07,
+          "expected": 10,
+          "checked_points": 327
+        },
+        {
+          "start_seconds": 6.350000000000001e-07,
+          "end_seconds": 6.690000000000001e-07,
+          "expected": 11,
+          "checked_points": 350
+        },
+        {
+          "start_seconds": 6.85e-07,
+          "end_seconds": 7.19e-07,
+          "expected": 12,
+          "checked_points": 328
+        },
+        {
+          "start_seconds": 7.350000000000001e-07,
+          "end_seconds": 7.690000000000001e-07,
+          "expected": 13,
+          "checked_points": 349
+        },
+        {
+          "start_seconds": 7.85e-07,
+          "end_seconds": 8.19e-07,
+          "expected": 14,
+          "checked_points": 325
+        },
+        {
+          "start_seconds": 8.35e-07,
+          "end_seconds": 8.690000000000001e-07,
+          "expected": 15,
+          "checked_points": 341
+        },
+        {
+          "start_seconds": 8.850000000000001e-07,
+          "end_seconds": 9.000000000000001e-07,
+          "expected": 0,
+          "checked_points": 232
+        }
+      ],
+      "observed_output_transitions": [
+        {
+          "edge": 2,
+          "bit": 0,
+          "crossing_seconds": 1.223042496366535e-07,
+          "delay_seconds": 2.054249636653498e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 3,
+          "bit": 0,
+          "crossing_seconds": 1.72574526937956e-07,
+          "delay_seconds": 2.3245269379559954e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 3,
+          "bit": 1,
+          "crossing_seconds": 1.723120213909627e-07,
+          "delay_seconds": 2.0620213909627e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 4,
+          "bit": 0,
+          "crossing_seconds": 2.2231230729473397e-07,
+          "delay_seconds": 2.0623072947339656e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 5,
+          "bit": 0,
+          "crossing_seconds": 2.7256830248205613e-07,
+          "delay_seconds": 2.3183024820560505e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 5,
+          "bit": 1,
+          "crossing_seconds": 2.7254807123968076e-07,
+          "delay_seconds": 2.2980712396806825e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 5,
+          "bit": 2,
+          "crossing_seconds": 2.7224564074391985e-07,
+          "delay_seconds": 1.9956407439197665e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 6,
+          "bit": 0,
+          "crossing_seconds": 3.2230082580169206e-07,
+          "delay_seconds": 2.050825801691985e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 7,
+          "bit": 0,
+          "crossing_seconds": 3.7257665282165817e-07,
+          "delay_seconds": 2.32665282165809e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 7,
+          "bit": 1,
+          "crossing_seconds": 3.7230140812203796e-07,
+          "delay_seconds": 2.0514081220378806e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 8,
+          "bit": 0,
+          "crossing_seconds": 4.223034860246352e-07,
+          "delay_seconds": 2.0534860246351473e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 9,
+          "bit": 0,
+          "crossing_seconds": 4.7257873318791577e-07,
+          "delay_seconds": 2.3287331879156935e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 9,
+          "bit": 1,
+          "crossing_seconds": 4.725473476395328e-07,
+          "delay_seconds": 2.2973476395327174e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 9,
+          "bit": 2,
+          "crossing_seconds": 4.7251387334463357e-07,
+          "delay_seconds": 2.2638733446335018e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 9,
+          "bit": 3,
+          "crossing_seconds": 4.7219833871094515e-07,
+          "delay_seconds": 1.948338710945081e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 10,
+          "bit": 0,
+          "crossing_seconds": 5.223041974276859e-07,
+          "delay_seconds": 2.0541974276858077e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 11,
+          "bit": 0,
+          "crossing_seconds": 5.725745191661588e-07,
+          "delay_seconds": 2.3245191661587126e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 11,
+          "bit": 1,
+          "crossing_seconds": 5.723118697646907e-07,
+          "delay_seconds": 2.061869764690661e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 12,
+          "bit": 0,
+          "crossing_seconds": 6.223123408552599e-07,
+          "delay_seconds": 2.0623408552597793e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 13,
+          "bit": 0,
+          "crossing_seconds": 6.725683025218529e-07,
+          "delay_seconds": 2.3183025218528347e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 13,
+          "bit": 1,
+          "crossing_seconds": 6.725480754293395e-07,
+          "delay_seconds": 2.2980754293394736e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 13,
+          "bit": 2,
+          "crossing_seconds": 6.722456193729717e-07,
+          "delay_seconds": 1.9956193729716166e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 14,
+          "bit": 0,
+          "crossing_seconds": 7.223008610836261e-07,
+          "delay_seconds": 2.0508610836259697e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 15,
+          "bit": 0,
+          "crossing_seconds": 7.725766699131545e-07,
+          "delay_seconds": 2.3266699131544917e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 15,
+          "bit": 1,
+          "crossing_seconds": 7.723013612585447e-07,
+          "delay_seconds": 2.05136125854464e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 16,
+          "bit": 0,
+          "crossing_seconds": 8.223035329074935e-07,
+          "delay_seconds": 2.053532907493361e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 17,
+          "bit": 0,
+          "crossing_seconds": 8.725793618067067e-07,
+          "delay_seconds": 2.329361806706509e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 17,
+          "bit": 1,
+          "crossing_seconds": 8.725477789735568e-07,
+          "delay_seconds": 2.2977789735566414e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 17,
+          "bit": 2,
+          "crossing_seconds": 8.725141593394356e-07,
+          "delay_seconds": 2.264159339435398e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 17,
+          "bit": 3,
+          "crossing_seconds": 8.724695298602663e-07,
+          "delay_seconds": 2.2195298602661047e-09,
+          "crossing_count": 1
+        }
+      ],
+      "maximum_observed_clock_to_output_seconds": 2.329361806706509e-09,
+      "wall_seconds": 18852.73713207245,
+      "last_observed_cpu_seconds": 14047.3
+    },
+    "filled": {
+      "status": "independent-nominal-functional-audit-passed",
+      "waveform": {
+        "path": "outputs/gf180-colamd-full-transient-v1/filled/waveform.txt",
+        "sha256": "78372bf7469077f92f0433ab298b971b0a521b630e23286330fed24792639268"
+      },
+      "source_circuit": {
+        "path": "outputs/gf180-colamd-full-transient-v1/filled/counter.spice",
+        "sha256": "c3847e43895a8cb11e1f1072c52d9a0a24050508a7a6de684c2497321db8ae4e"
+      },
+      "fixture": {
+        "path": "outputs/gf180-colamd-full-transient-v1/filled/test.spice",
+        "sha256": "65fbb8b94b7ccc61536ad806e0abd3bc8cc889bbacfb0eface268b4ffeca4dfc"
+      },
+      "points": 12610,
+      "last_time_seconds": 9.000000000000001e-07,
+      "maximum_step_seconds": 2.0000000000001503e-10,
+      "clock_edges": [
+        2.025e-08,
+        7.025000000000001e-08,
+        1.2025e-07,
+        1.7025e-07,
+        2.2025e-07,
+        2.702500000000001e-07,
+        3.202500000000001e-07,
+        3.702500000000001e-07,
+        4.202500000000001e-07,
+        4.7025000000000007e-07,
+        5.202500000000001e-07,
+        5.702500000000001e-07,
+        6.202500000000001e-07,
+        6.702500000000001e-07,
+        7.202500000000001e-07,
+        7.702500000000001e-07,
+        8.202500000000001e-07,
+        8.702500000000002e-07
+      ],
+      "interpolated_samples": [
+        {
+          "time_s": 3.5e-08,
+          "expected": 0,
+          "interpolated_volts": [
+            1.7281421228216623e-08,
+            1.832973357316123e-08,
+            2.3372119285455007e-08,
+            -3.9319975083869225e-08
+          ]
+        },
+        {
+          "time_s": 8.500000000000001e-08,
+          "expected": 0,
+          "interpolated_volts": [
+            -1.1862890324957062e-07,
+            5.575691263590134e-08,
+            5.781376317179987e-08,
+            9.463413343442871e-08
+          ]
+        },
+        {
+          "time_s": 1.35e-07,
+          "expected": 1,
+          "interpolated_volts": [
+            4.999999960402865,
+            2.0668680319204745e-08,
+            1.626618871396032e-08,
+            2.3925343032815467e-08
+          ]
+        },
+        {
+          "time_s": 1.85e-07,
+          "expected": 2,
+          "interpolated_volts": [
+            1.574893633524285e-08,
+            4.999999936182889,
+            1.4743252018934802e-08,
+            1.349777263411885e-08
+          ]
+        },
+        {
+          "time_s": 2.3500000000000003e-07,
+          "expected": 3,
+          "interpolated_volts": [
+            4.999999959969046,
+            4.9999999582026025,
+            1.4049666885760855e-08,
+            1.3494244655166424e-08
+          ]
+        },
+        {
+          "time_s": 2.85e-07,
+          "expected": 4,
+          "interpolated_volts": [
+            1.950920625875288e-08,
+            2.0394097818659416e-08,
+            4.999999951566734,
+            -4.5312779800088306e-08
+          ]
+        },
+        {
+          "time_s": 3.35e-07,
+          "expected": 5,
+          "interpolated_volts": [
+            4.9999999580578125,
+            2.216350292726157e-08,
+            4.999999964777823,
+            2.7452579997631308e-08
+          ]
+        },
+        {
+          "time_s": 3.85e-07,
+          "expected": 6,
+          "interpolated_volts": [
+            1.5988770103279043e-08,
+            4.999999936454009,
+            4.999999969308565,
+            1.4006750909079034e-08
+          ]
+        },
+        {
+          "time_s": 4.35e-07,
+          "expected": 7,
+          "interpolated_volts": [
+            4.999999955576139,
+            4.999999953771797,
+            4.999999958046024,
+            1.4999618866883587e-08
+          ]
+        },
+        {
+          "time_s": 4.85e-07,
+          "expected": 8,
+          "interpolated_volts": [
+            1.840588721590968e-08,
+            2.1392611807440794e-08,
+            2.202611412759065e-08,
+            4.999999700453684
+          ]
+        },
+        {
+          "time_s": 5.350000000000001e-07,
+          "expected": 9,
+          "interpolated_volts": [
+            4.999999958994399,
+            2.1136456761670606e-08,
+            1.624997195257472e-08,
+            4.999999969022453
+          ]
+        },
+        {
+          "time_s": 5.85e-07,
+          "expected": 10,
+          "interpolated_volts": [
+            1.5751181555376817e-08,
+            4.999999936081707,
+            1.487143841283821e-08,
+            4.999999964095583
+          ]
+        },
+        {
+          "time_s": 6.350000000000001e-07,
+          "expected": 11,
+          "interpolated_volts": [
+            4.999999959826915,
+            4.999999958058458,
+            1.4372433452148765e-08,
+            4.999999972617071
+          ]
+        },
+        {
+          "time_s": 6.85e-07,
+          "expected": 12,
+          "interpolated_volts": [
+            1.9559080887575024e-08,
+            2.054185925032909e-08,
+            4.999999945075437,
+            4.999999721863591
+          ]
+        },
+        {
+          "time_s": 7.350000000000001e-07,
+          "expected": 13,
+          "interpolated_volts": [
+            4.999999957988473,
+            2.230352145409355e-08,
+            4.999999958809708,
+            4.999999944625175
+          ]
+        },
+        {
+          "time_s": 7.85e-07,
+          "expected": 14,
+          "interpolated_volts": [
+            1.6101652988080032e-08,
+            4.999999936327194,
+            4.999999963409749,
+            4.9999999610253285
+          ]
+        },
+        {
+          "time_s": 8.35e-07,
+          "expected": 15,
+          "interpolated_volts": [
+            4.999999954708772,
+            4.99999995292971,
+            4.999999944216844,
+            4.999999930743984
+          ]
+        },
+        {
+          "time_s": 8.850000000000001e-07,
+          "expected": 0,
+          "interpolated_volts": [
+            1.7910402286152117e-08,
+            2.1485363406420417e-08,
+            2.8366237003495612e-08,
+            -4.057425291916481e-08
+          ]
+        }
+      ],
+      "stable_windows": [
+        {
+          "start_seconds": 3.5e-08,
+          "end_seconds": 6.900000000000001e-08,
+          "expected": 0,
+          "checked_points": 306
+        },
+        {
+          "start_seconds": 8.500000000000001e-08,
+          "end_seconds": 1.1900000000000001e-07,
+          "expected": 0,
+          "checked_points": 324
+        },
+        {
+          "start_seconds": 1.35e-07,
+          "end_seconds": 1.6900000000000002e-07,
+          "expected": 1,
+          "checked_points": 347
+        },
+        {
+          "start_seconds": 1.85e-07,
+          "end_seconds": 2.1900000000000002e-07,
+          "expected": 2,
+          "checked_points": 324
+        },
+        {
+          "start_seconds": 2.3500000000000003e-07,
+          "end_seconds": 2.6900000000000004e-07,
+          "expected": 3,
+          "checked_points": 351
+        },
+        {
+          "start_seconds": 2.85e-07,
+          "end_seconds": 3.1900000000000004e-07,
+          "expected": 4,
+          "checked_points": 328
+        },
+        {
+          "start_seconds": 3.35e-07,
+          "end_seconds": 3.6900000000000004e-07,
+          "expected": 5,
+          "checked_points": 348
+        },
+        {
+          "start_seconds": 3.85e-07,
+          "end_seconds": 4.1900000000000003e-07,
+          "expected": 6,
+          "checked_points": 323
+        },
+        {
+          "start_seconds": 4.35e-07,
+          "end_seconds": 4.6900000000000003e-07,
+          "expected": 7,
+          "checked_points": 351
+        },
+        {
+          "start_seconds": 4.85e-07,
+          "end_seconds": 5.19e-07,
+          "expected": 8,
+          "checked_points": 330
+        },
+        {
+          "start_seconds": 5.350000000000001e-07,
+          "end_seconds": 5.690000000000001e-07,
+          "expected": 9,
+          "checked_points": 348
+        },
+        {
+          "start_seconds": 5.85e-07,
+          "end_seconds": 6.19e-07,
+          "expected": 10,
+          "checked_points": 325
+        },
+        {
+          "start_seconds": 6.350000000000001e-07,
+          "end_seconds": 6.690000000000001e-07,
+          "expected": 11,
+          "checked_points": 350
+        },
+        {
+          "start_seconds": 6.85e-07,
+          "end_seconds": 7.19e-07,
+          "expected": 12,
+          "checked_points": 328
+        },
+        {
+          "start_seconds": 7.350000000000001e-07,
+          "end_seconds": 7.690000000000001e-07,
+          "expected": 13,
+          "checked_points": 349
+        },
+        {
+          "start_seconds": 7.85e-07,
+          "end_seconds": 8.19e-07,
+          "expected": 14,
+          "checked_points": 325
+        },
+        {
+          "start_seconds": 8.35e-07,
+          "end_seconds": 8.690000000000001e-07,
+          "expected": 15,
+          "checked_points": 343
+        },
+        {
+          "start_seconds": 8.850000000000001e-07,
+          "end_seconds": 9.000000000000001e-07,
+          "expected": 0,
+          "checked_points": 231
+        }
+      ],
+      "observed_output_transitions": [
+        {
+          "edge": 2,
+          "bit": 0,
+          "crossing_seconds": 1.2230461720061665e-07,
+          "delay_seconds": 2.0546172006166446e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 3,
+          "bit": 0,
+          "crossing_seconds": 1.725749991995982e-07,
+          "delay_seconds": 2.324999199598191e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 3,
+          "bit": 1,
+          "crossing_seconds": 1.7231221789533138e-07,
+          "delay_seconds": 2.0622178953313766e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 4,
+          "bit": 0,
+          "crossing_seconds": 2.2231273599883e-07,
+          "delay_seconds": 2.062735998829988e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 5,
+          "bit": 0,
+          "crossing_seconds": 2.7256880225197976e-07,
+          "delay_seconds": 2.3188022519796812e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 5,
+          "bit": 1,
+          "crossing_seconds": 2.725483828838031e-07,
+          "delay_seconds": 2.298382883803039e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 5,
+          "bit": 2,
+          "crossing_seconds": 2.722457896420743e-07,
+          "delay_seconds": 1.99578964207423e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 6,
+          "bit": 0,
+          "crossing_seconds": 3.2230132185703434e-07,
+          "delay_seconds": 2.0513218570342584e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 7,
+          "bit": 0,
+          "crossing_seconds": 3.7257713412027666e-07,
+          "delay_seconds": 2.3271341202765887e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 7,
+          "bit": 1,
+          "crossing_seconds": 3.7230161821229897e-07,
+          "delay_seconds": 2.0516182122988967e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 8,
+          "bit": 0,
+          "crossing_seconds": 4.223038883230504e-07,
+          "delay_seconds": 2.0538883230503362e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 9,
+          "bit": 0,
+          "crossing_seconds": 4.7257921131504825e-07,
+          "delay_seconds": 2.329211315048179e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 9,
+          "bit": 1,
+          "crossing_seconds": 4.725476377982183e-07,
+          "delay_seconds": 2.297637798218245e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 9,
+          "bit": 2,
+          "crossing_seconds": 4.72514114612269e-07,
+          "delay_seconds": 2.264114612268941e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 9,
+          "bit": 3,
+          "crossing_seconds": 4.721989068531932e-07,
+          "delay_seconds": 1.948906853193143e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 10,
+          "bit": 0,
+          "crossing_seconds": 5.223045847291353e-07,
+          "delay_seconds": 2.054584729135226e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 11,
+          "bit": 0,
+          "crossing_seconds": 5.72574999106457e-07,
+          "delay_seconds": 2.324999106456913e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 11,
+          "bit": 1,
+          "crossing_seconds": 5.723120738486197e-07,
+          "delay_seconds": 2.0620738486196606e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 12,
+          "bit": 0,
+          "crossing_seconds": 6.223128012171713e-07,
+          "delay_seconds": 2.0628012171712036e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 13,
+          "bit": 0,
+          "crossing_seconds": 6.725686210924875e-07,
+          "delay_seconds": 2.3186210924874852e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 13,
+          "bit": 1,
+          "crossing_seconds": 6.725482442994292e-07,
+          "delay_seconds": 2.2982442994291613e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 13,
+          "bit": 2,
+          "crossing_seconds": 6.72245703988266e-07,
+          "delay_seconds": 1.9957039882659716e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 14,
+          "bit": 0,
+          "crossing_seconds": 7.223012399789848e-07,
+          "delay_seconds": 2.0512399789846825e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 15,
+          "bit": 0,
+          "crossing_seconds": 7.725770861378387e-07,
+          "delay_seconds": 2.32708613783869e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 15,
+          "bit": 1,
+          "crossing_seconds": 7.723015719824043e-07,
+          "delay_seconds": 2.051571982404194e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 16,
+          "bit": 0,
+          "crossing_seconds": 8.223038502279587e-07,
+          "delay_seconds": 2.053850227958627e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 17,
+          "bit": 0,
+          "crossing_seconds": 8.725798624592447e-07,
+          "delay_seconds": 2.329862459244506e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 17,
+          "bit": 1,
+          "crossing_seconds": 8.725480934529388e-07,
+          "delay_seconds": 2.298093452938618e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 17,
+          "bit": 2,
+          "crossing_seconds": 8.725143483766408e-07,
+          "delay_seconds": 2.2643483766406294e-09,
+          "crossing_count": 1
+        },
+        {
+          "edge": 17,
+          "bit": 3,
+          "crossing_seconds": 8.724701994188889e-07,
+          "delay_seconds": 2.220199418888772e-09,
+          "crossing_count": 1
+        }
+      ],
+      "maximum_observed_clock_to_output_seconds": 2.329862459244506e-09,
+      "wall_seconds": 30445.25617289543,
+      "last_observed_cpu_seconds": 21014.49
+    }
+  },
+  "engine_identity": {
+    "command": [
+      "C:\\Windows\\System32\\wsl.exe",
+      "-d",
+      "ICStudio-Digital-eb83637975404fcf-98bf4986",
+      "--exec",
+      "/usr/bin/sha256sum",
+      "/var/tmp/icstudio-ngspice-ordering-v2/build/src/ngspice"
+    ],
+    "log": {
+      "path": "outputs/gf180-colamd-waveform-audit-v1/engine-identity.log",
+      "sha256": "b883d15e5431a3fc4615eb42d16e782e7a8006d82e189b451e5a0f5e452ea860"
+    },
+    "actual_binary_sha256": "48c1dca1ee855e18dc29a9e5199cffc1e59e964d7571d53eaf1f85694117a8bf"
+  },
+  "scope": "Both complete 900 ns precision-candidate RC counter waveforms at the original nominal models, stimulus and numerical limits. Exact sample interpolation and every recorded point in declared settled intervals preserve the original logic thresholds. Output-transition delays are observations, not post-fill STA/PVT or signoff timing acceptance.",
+  "remaining": [
+    "Accepted engine/runtime integration and full post-fill timing conditions.",
+    "Actual C/D larger-reference extraction and electrical validation.",
+    "Complete fill coverage, physical fault controls and production acceptance."
+  ],
+  "archive": {
+    "path": "outputs/gf180-colamd-waveform-audit-v1/evidence.tar.gz",
+    "sha256": "729a4d27c7c225b9ce25806c439a83afdd590cdd6e7770bca8d1c4348780a940",
+    "bytes": 5870701,
+    "verified_members": 25
+  }
+}

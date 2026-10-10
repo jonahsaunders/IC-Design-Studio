@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "status": "bounded-startup-improvement; full-runs-pending",
+  "qualified": false,
+  "observed_at": "2026-10-08T14:25:55.345465+00:00",
+  "scope": "Isolated simulator-ordering diagnostics. No complete simulator, post-fill timing, production integration, platform, PDK or tapeout acceptance.",
+  "sources": {
+    "packaging/physical/ngspice42-ordering-diagnostic.patch": "a386dc4a9bd64dc3c01e9757a648d44aca009deea646d31bebae83ff3bb1fa7f",
+    "examples/ngspice-ordering-diagnostic-lock.json": "d45bf8956f47204d0f34d979c4f278efb12740bc23c75841cc00d0ceb3648326",
+    "docs/GF180_RC_EXTRACTION_CANDIDATE.md": "749cc7f46eb0ae18f2c9a69383be74961983888249de6429a5f8fcb5d29fd0d1",
+    "docs/PDK_QUALIFICATION_PLAN.md": "0e5d832b8de929767222d27c35682b7f22655d32d184ba625314cee364924397"
+  },
+  "native_source": {
+    "ubuntu": {
+      "path": "outputs/ngspice-42-source-v1/record.json",
+      "sha256": "0f3dd047f65b216d9bcb8635b0e288ac02037fc6846192514eeb9d8e47ad51ce"
+    },
+    "upstream": {
+      "path": "outputs/ngspice-42-release-v1/record.json",
+      "sha256": "8d14ef4f046d905f5a2d2d8f76ac6a992d3d78875d82a1bcd31ab26e76211300"
+    },
+    "build": {
+      "path": "outputs/ngspice-ordering-build-v2/record.json",
+      "sha256": "0136506f47693b2901ee260a060bc7f1ba61b4776554f6e864b16f4b49fea60e"
+    },
+    "actual_binary_sha256": "48c1dca1ee855e18dc29a9e5199cffc1e59e964d7571d53eaf1f85694117a8bf",
+    "initial_build": {
+      "path": "outputs/ngspice-ordering-build-v1/record.json",
+      "sha256": "d2e5bc92cf54b8fee1649266454f46512730cf51d9c0ad063ccbd8a42e2f5eb4"
+    },
+    "initial_build_scope": "Predictor enabled in initial isolated build; retained but not used in ordering comparison.",
+    "installed_engine_changed": false,
+    "production_default_changed": false
+  },
+  "rejected_alternatives": {
+    "current-return-klu": {
+      "record": {
+        "path": "outputs/compact-current-return-klu-v1/report.json",
+        "sha256": "9355c09da3dbeadec36359139543c604c3c48a62b81f297f582793040e90cfa2"
+      },
+      "ac_passed": false,
+      "transient_passed": true,
+      "transient_maximum_error_volts": 8.798513633223592e-07
+    },
+    "current-return-sparse": {
+      "record": {
+        "path": "outputs/compact-current-return-sparse-v1/report.json",
+        "sha256": "3940d7c7558aad7b4ed6fba500179db2d18eba40d5ef65edcaf2ecd68496530a"
+      },
+      "ac_passed": false,
+      "transient_passed": true,
+      "transient_maximum_error_volts": 8.786608702848753e-07
+    },
+    "current-return-cancellation": {
+      "path": "outputs/compact-current-return-cancellation-v1/report.json",
+      "sha256": "6135017a90c68876a97eea1acbbb59d0c710a66e281f3d295ce37751262b6ac4"
+    },
+    "original-capacitor-guard": {
+      "path": "outputs/gf180-current-return-candidate-v1/report.json",
+      "sha256": "c16eb9f9dc5445e6dbd80fb5122819c93c62284d98bf5dc2e48a01b1dd1d7ca1"
+    },
+    "explicit-diagnostic-allowance": {
+      "record": {
+        "path": "outputs/gf180-current-return-candidate-v2/report.json",
+        "sha256": "5a4856e8eb324f8db1ff1f7c56ff1f6010399dc969dc2863a44e7c1dcf09a472"
+      },
+      "production_limit": 50000,
+      "diagnostic_limit": 60000,
+      "filled_capacitors": 55025,
+      "production_accepted": false
+    },
+    "gf180-current-return-startup-v1": {
+      "record": {
+        "path": "outputs/gf180-current-return-startup-v1/report.json",
+        "sha256": "22c322ca852728b594e4322e6f6395719f5f19b270076d47772850710a24f7e9"
+      },
+      "all_cases_cpu_limited": true
+    },
+    "gf180-row-scale-startup-v1": {
+      "record": {
+        "path": "outputs/gf180-row-scale-startup-v1/report.json",
+        "sha256": "9dd41e2f3ef58b3cd1aa8c710cce6199d0c79d50fe49634bc5a0ebd513d6b7cf"
+      },
+      "all_cases_cpu_limited": true
+    },
+    "row-scale-klu-small": {
+      "record": {
+        "path": "outputs/compact-row-scale-klu-small-v1/report.json",
+        "sha256": "e41d2e4fc5283945758ca35070ed646b3c0841806a83a8db04e30cd0fdefc49c"
+      },
+      "small_controls_passed": true,
+      "full_startup_accepted": false,
+      "production_transient_maximum_error_volts": 9.299307741628127e-07
+    },
+    "row-scale-klu-large": {
+      "record": {
+        "path": "outputs/compact-row-scale-klu-large-v1/report.json",
+        "sha256": "dcc8b57d7ccbe565c503264bd77dc92afd76ff1012aa3476b3a39bbebd104072"
+      },
+      "small_controls_passed": true,
+      "full_startup_accepted": false,
+      "production_transient_maximum_error_volts": 9.29927164605715e-07
+    },
+    "row-scale-sparse-small": {
+      "record": {
+        "path": "outputs/compact-row-scale-sparse-small-v1/report.json",
+        "sha256": "8daa7749e35bb2d56d9be1ad34b4e4f6f764f6e136834679bc9ef5827e6b9236"
+      },
+      "small_controls_passed": true,
+      "full_startup_accepted": false,
+      "production_transient_maximum_error_volts": 9.301233987457636e-07
+    },
+    "row-scale-sparse-large": {
+      "record": {
+        "path": "outputs/compact-row-scale-sparse-large-v1/report.json",
+        "sha256": "7a370e4595afba8caa08c2ac53ca7ea1c3e974608401dfb08b8fbc161cda9003"
+      },
+      "small_controls_passed": true,
+      "full_startup_accepted": false,
+      "production_transient_maximum_error_volts": 9.301142647188954e-07
+    }
+  },
+  "ordering_controls": {
+    "amd": {
+      "record": {
+        "path": "outputs/ngspice-ordering-controls-amd-v1/report.json",
+        "sha256": "8435700367badf76752ab072fcff5cdeffe0790ed52dba837f6697ec2090a96b"
+      },
+      "native_rc_analyses": 45,
+      "negative_controls": {
+        "corrupt": true,
+        "production-corrupt": true,
+        "production-leak": true
+      },
+      "device_samples_passed": 18,
+      "production_transient_maximum_error_volts": 9.299287633268705e-07
+    },
+    "colamd": {
+      "record": {
+        "path": "outputs/ngspice-ordering-controls-colamd-v1/report.json",
+        "sha256": "cd3fced3815836095b4866fbf95e5ab086433ee159589ddb34d03a5414671eeb"
+      },
+      "native_rc_analyses": 45,
+      "negative_controls": {
+        "corrupt": true,
+        "production-corrupt": true,
+        "production-leak": true
+      },
+      "device_samples_passed": 18,
+      "production_transient_maximum_error_volts": 9.301109749060288e-07
+    }
+  },
+  "live_snapshots": {
+    "gf180-counter-current-sum-transient-v3": {
+      "record": {
+        "path": "outputs/gf180-ordering-checkpoint-v1/gf180-counter-current-sum-transient-v3-snapshot.json",
+        "sha256": "0e1a86232dec008b0fc9ddc1f95dee089e0d25ac7e769103b9202325c7187e26"
+      },
+      "exec_session": 64881,
+      "status": "running",
+      "cases": {
+        "before": {
+          "status": "running",
+          "progress": {
+            "wall_seconds": 7220.70498251915,
+            "cpu_seconds": 7434.73,
+            "last_reported_simulation_seconds": 6.81462e-07,
+            "observed_unix_seconds": 1791469554.0324023
+          },
+          "source_sha256": "254d74c21577c33fa585355dfdc11df31056fa249554ea3f3a0d5d4429d8cb56"
+        },
+        "filled": {
+          "status": "failed",
+          "progress": {
+            "wall_seconds": 3601.7472274303436,
+            "cpu_seconds": 3603.33,
+            "last_reported_simulation_seconds": 2e-12,
+            "observed_unix_seconds": 1791465935.4794097
+          },
+          "source_sha256": "8af751a2c9c18ae9615c863ef1eaf6456d34f683053ec28f16978a21bb1982b5"
+        }
+      },
+      "note": "Snapshot, not proof of current liveness. Re-poll the exact exec handle before further decisions; do not restart on observation timeout."
+    },
+    "gf180-colamd-full-transient-v1": {
+      "record": {
+        "path": "outputs/gf180-ordering-checkpoint-v1/gf180-colamd-full-transient-v1-snapshot.json",
+        "sha256": "310e0d80a5a5cbe46fac3c14ce4ba1b1591f95966c87fcf5588f7767bda7d5d0"
+      },
+      "exec_session": 76921,
+      "status": "running",
+      "cases": {
+        "before": {
+          "status": "running",
+          "progress": {
+            "wall_seconds": 300.59653067588806,
+            "cpu_seconds": 304.45,
+            "last_reported_simulation_seconds": 2.05741e-08,
+            "observed_unix_seconds": 1791469540.4335182
+          },
+          "source_sha256": "f9408a336e07f214058d693ab88171c7802afba81b40f6c0497659c11b51598c"
+        },
+        "filled": {
+          "status": "running",
+          "progress": {
+            "wall_seconds": 300.2847785949707,
+            "cpu_seconds": 302.39,
+            "last_reported_simulation_seconds": 1.74758e-08,
+            "observed_unix_seconds": 1791469540.4362476
+          },
+          "source_sha256": "c3847e43895a8cb11e1f1072c52d9a0a24050508a7a6de684c2497321db8ae4e"
+        }
+      },
+      "note": "Snapshot, not proof of current liveness. Re-poll the exact exec handle before further decisions; do not restart on observation timeout."
+    }
+  },
+  "matched_startup": {
+    "record": {
+      "path": "outputs/gf180-ordering-startup-v1/report.json",
+      "sha256": "60af8388341f3f40139b4fc4dce70fd5f239a453bbf75b661b2bc05970ca4b1a"
+    },
+    "matrix_unknowns": 59213,
+    "original_nonzero_entries": 351024,
+    "cases": {
+      "AMD": {
+        "status": "incomplete-or-failed",
+        "started": 1791469007.2283149,
+        "deck_sha256": "96bf71789a9ab6eb309d9aa54f901d19620449172b4bb01f2fd38154e2ab7ae2",
+        "cpu_seconds": 238.56,
+        "wall_seconds": 245.4661431312561,
+        "exit_code": -24,
+        "log_sha256": "d0b322ee4262d46e73deaf75a00a2533fc5e5f19d050558ffe89e565338d2f24",
+        "solver_confirmed": true,
+        "last_reported_time": 7.01107e-12
+      },
+      "COLAMD": {
+        "status": "startup-observed",
+        "started": 1791469007.4775033,
+        "deck_sha256": "96bf71789a9ab6eb309d9aa54f901d19620449172b4bb01f2fd38154e2ab7ae2",
+        "cpu_seconds": 23.28,
+        "wall_seconds": 30.074187517166138,
+        "exit_code": 0,
+        "log_sha256": "3bb08ee36e595a188baf9d050f9bdc2cec920f5fee196b8fe589256eccfdae80",
+        "solver_confirmed": true,
+        "waveform_sha256": "4794aa27e3a94f3ba7152995ffec45e406474337f102d89c82c149fa76613741",
+        "points": 32,
+        "last_time": 1.0371518303521133e-10,
+        "last_reported_time": 1.03715e-10
+      }
+    },
+    "preserved": "Full circuit, models, original 900 ns command, tolerances, maximum step and component budgets. Same isolated binary; only ordering varies.",
+    "scope": "100 ps observation only; no complete behavior or timing acceptance."
+  },
+  "remaining": [
+    "Complete and independently audit both COLAMD full-circuit waveforms.",
+    "Qualify actual post-fill timing, simulator integration and exact Windows/Linux runtimes.",
+    "Complete fill rules and production C/D counter/UART/APB acceptance before chunk 5.",
+    "Resolve the independent hosted bandgap chip-top VSS must-connect failures without relaxing strict LVS."
+  ],
+  "archive": {
+    "path": "outputs/gf180-ordering-checkpoint-v1/evidence.tar.gz",
+    "sha256": "f240e5affe29661b6aadf92f9f89432a300d6aec1663af85287d9e2224d27846",
+    "bytes": 62773057,
+    "verified_members": 972
+  },
+  "manifest": {
+    "path": "outputs/gf180-ordering-checkpoint-v1/manifest.json",
+    "sha256": "c3e1463bafd9ff7770bceda567ef5508b802c2c221fe394bb04053b3e246153f"
+  }
+}

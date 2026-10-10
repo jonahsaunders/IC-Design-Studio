@@ -14,6 +14,26 @@ from tests.test_digital import tool
 class IntentTests(unittest.TestCase):
     def setUp(self):self.config=digital.counter_project()['digital']
 
+    def test_speed_mapping_keeps_rtl_and_timing_but_invalidates_mapping(self):
+        config=clone(self.config);config['synthesis']={'mapping':'speed','delay_ns':8}
+        with self.assertRaisesRegex(ValueError,'driving cell'):constraints.synthesis_settings(config)
+        config['synthesis']['driving_cell']='buf_4'
+        self.assertEqual(constraints.synthesis_settings(config)['mapping'],'speed')
+        before=identity.fingerprints(self.config);after=identity.fingerprints(config)
+        for key in ('rtl','constraints','simulation'):self.assertEqual(before[key],after[key])
+        self.assertNotEqual(identity.stage_key(self.config,'mapped'),identity.stage_key(config,'mapped'))
+        config['synthesis']['mapping']='unknown'
+        with self.assertRaisesRegex(ValueError,'logic mapping'):constraints.synthesis_settings(config)
+
+    def test_speed_mapping_passes_nanosecond_budget_to_abc_in_picoseconds(self):
+        from icstudio.digital_mapping import speed_script
+        constrained=speed_script(8).splitlines();unconstrained=speed_script().splitlines()
+        commands=('&nf','upsize -c','dnsize -c')
+        targets=[line for line in constrained if line.startswith(commands)]
+        self.assertEqual(len(targets),8)
+        self.assertTrue(all(line.endswith(' -D 8000') for line in targets))
+        self.assertTrue(all(' -D ' not in line for line in unconstrained))
+
     def test_synthesis_budget_tracks_generated_constraints(self):
         intent=constraints.default_intent();config=constraints.apply(self.config,intent)
         self.assertAlmostEqual(constraints.synthesis_settings(config)['delay_ns'],7.9)

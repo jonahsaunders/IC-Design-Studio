@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "status": "implemented-fill-checks-passed; chunk-4-incomplete",
+  "qualified": false,
+  "observed_at": "2026-10-08T03:02:14.124272+00:00",
+  "application_backend": "cd6a3cd4e4b280c812456e0113ddb0b46dde728e76f8a80a9e25400856f030ef",
+  "scope": "Supplemental GF180 C/D rule operands and controls; unchanged C reference measured under both maps. Not production D, complete fill, post-fill timing or process acceptance.",
+  "sources": {
+    "scripts/check_gf180_fill.py": "d4a6b2e0dc6acb8841982286e23d89cfe341225a9a9c369775ec9d65e44b63c3",
+    "tests/test_gf180_fill_checks.py": "2e3b59a8c41722cfb30e9af4d97674b2357296bab3a24a4b543d40716525ce08",
+    "examples/gf180-fill-coverage-lock.json": "e76113dd556fd192c5b7a21744602ce57e2cf7f6e5623046c33b15dcbaee7bac",
+    "docs/PDK_QUALIFICATION_PLAN.md": "69b0e8d434f3ca2f162ea57680440d2398d728df8f2937cfc1759c63369b9947"
+  },
+  "source_revision": "de3240d7529a6970437ac3344820aaae7839f215",
+  "density_limits": {
+    "comp_minimum_inclusive_percent": 25,
+    "comp_maximum_inclusive_percent": 70,
+    "poly_minimum_inclusive_percent": 14,
+    "metal_minimum_exclusive_percent": 30,
+    "numerical_method": "Compare integer doubled polygon areas, retaining half-database-unit area; no floating tolerance at the limit."
+  },
+  "adjacent_layers": {
+    "minimum_um": 1,
+    "overlap_permitted": false,
+    "scope": "Circuit/dummy union on neighboring layers; Poly2 precedes Metal1. Satisfies general table wording and the diagram dummy-only reading."
+  },
+  "local_measurements": {
+    "window_um": 200,
+    "step_um": 100,
+    "anchor": "declared die lower-left",
+    "edge": "Clip at die boundary and report actual denominator separately; no foundry edge verdict.",
+    "local_limits": null,
+    "acceptance": "unqualified"
+  },
+  "native_cases": {
+    "windows": {
+      "process": {
+        "path": "outputs/gf180-fill-coverage-windows-v1/process.json",
+        "sha256": "72bf3227a7b923cb29f60ad3b8a82a46d0f05d02d804a6f8e9a25c1021934268"
+      },
+      "variants": {
+        "C": {
+          "record": {
+            "path": "outputs/gf180-fill-coverage-windows-v1/C.json",
+            "sha256": "e0ef1aa30c5b39d677186cea9434a9065788160fb18190c8466ebb7e7829799c"
+          },
+          "exit_code": 2,
+          "checks": 96,
+          "failed": 0,
+          "full_windows_per_metal": 1,
+          "clipped_windows_per_metal": 3
+        },
+        "D": {
+          "record": {
+            "path": "outputs/gf180-fill-coverage-windows-v1/D.json",
+            "sha256": "998cbff0996355545f11a90abe66d94ec5df2d028f43376c4065cd06db5b2575"
+          },
+          "exit_code": 2,
+          "checks": 96,
+          "failed": 0,
+          "full_windows_per_metal": 1,
+          "clipped_windows_per_metal": 3
+        }
+      }
+    },
+    "linux": {
+      "process": {
+        "path": "outputs/gf180-fill-coverage-linux-v1/process.json",
+        "sha256": "ab1e6867658c755cad2f1d9b9ce5a05dbce4cd3bbe5e213c1450c9ef28dcafda"
+      },
+      "variants": {
+        "C": {
+          "record": {
+            "path": "outputs/gf180-fill-coverage-linux-v1/C.json",
+            "sha256": "e0ef1aa30c5b39d677186cea9434a9065788160fb18190c8466ebb7e7829799c"
+          },
+          "exit_code": 2,
+          "checks": 96,
+          "failed": 0,
+          "full_windows_per_metal": 1,
+          "clipped_windows_per_metal": 3
+        },
+        "D": {
+          "record": {
+            "path": "outputs/gf180-fill-coverage-linux-v1/D.json",
+            "sha256": "998cbff0996355545f11a90abe66d94ec5df2d028f43376c4065cd06db5b2575"
+          },
+          "exit_code": 2,
+          "checks": 96,
+          "failed": 0,
+          "full_windows_per_metal": 1,
+          "clipped_windows_per_metal": 3
+        }
+      }
+    }
+  },
+  "focused_tests": {
+    "windows": {
+      "tests": 20,
+      "failures": 0,
+      "skips": 0,
+      "log": {
+        "path": "outputs/gf180-fill-coverage-windows-tests-v1.log",
+        "sha256": "196e3702fa55abfd0fa7d956e2f5f1dd77af94ff1298231f59a78771b8d8f494"
+      }
+    },
+    "linux": {
+      "tests": 20,
+      "failures": 0,
+      "skips": 0,
+      "log": {
+        "path": "outputs/gf180-fill-coverage-linux-tests-v1.log",
+        "sha256": "fa5277a9619790497b026647b88db88d0595ee76468a45bad50bb6c72bbe319f"
+      }
+    }
+  },
+  "remaining": [
+    "Declared die/prime-die/scribe scope verified against the complete-chip floorplan",
+    "DCF.1a empty-field coverage and local COMP density",
+    "DCF/DPF scribe/frame scope and COMP-to-pad RF guideline",
+    "DCF exclusion-edge tie/fill rows",
+    "DM.8 alternate embedded-memory marker aliases (including YMTP_MK)",
+    "Required drawing patterns and offsets (DCF.2a/3, DPF.2a/3, DM.2a/9/10)",
+    "Foundry acceptance limits for local metal density and clipped die-edge windows",
+    "Independent full native geometry, antenna and final-layout LVS",
+    "Post-fill extraction, timing and foundry acceptance"
+  ],
+  "global_density_percent": {
+    "comp": 30.416157875,
+    "poly": 22.7887925,
+    "m1": 30.841044125,
+    "m2": 34.912997,
+    "m3": 30.18799,
+    "m4": 32.643415,
+    "m5": 30.83472
+  },
+  "metal1_clipped_below_global_reference": [
+    {
+      "bounds_um": [
+        100.0,
+        0.0,
+        200.0,
+        200.0
+      ],
+      "complete_window": false,
+      "area_um2": 20000.0,
+      "material_area_um2": 5909.29355,
+      "measured_percent": 29.54646775
+    },
+    {
+      "bounds_um": [
+        100.0,
+        100.0,
+        200.0,
+        200.0
+      ],
+      "complete_window": false,
+      "area_um2": 10000.0,
+      "material_area_um2": 2867.0728,
+      "measured_percent": 28.670728
+    }
+  ],
+  "both_os_reports_byte_identical": true,
+  "baseline_fault_control": {
+    "record": {
+      "path": "outputs/gf180-density-boundary-controls-v1/report.json",
+      "sha256": "fab5a9ce5ff314638f8c94d509490a62f98c442e2d35e0ee43e77cbbe922a0eb"
+    },
+    "old_false_passes_detected": 10,
+    "preserved_inclusive_limits": 4
+  },
+  "full_windows_suite": {
+    "tests": 1477,
+    "skips": 62,
+    "failures": 0,
+    "seconds": 262.928,
+    "process": {
+      "path": "outputs/gf180-fill-coverage-suite-v1/process.json",
+      "sha256": "43a539dbd1a8be1cc7de4370f19f53fcc52d5dd924a372b1d80fe3a93723414a"
+    },
+    "log": {
+      "path": "outputs/gf180-fill-coverage-suite-v1/tests.log",
+      "sha256": "029d78c87fbc5fa4bab4264d672bcef020bd046671cf94d989db5db197fdfe95"
+    }
+  },
+  "full_transient_snapshot": {
+    "record": {
+      "path": "outputs/gf180-fill-coverage-checkpoint-v1/full-transient-snapshot.json",
+      "sha256": "5f324ea11d84dd6439f69d0c5aedd5b35b8b853ae29a9b57d437faa4ec5cc01c"
+    },
+    "status": "running",
+    "exec_session": 40555,
+    "acceptance": "pending"
+  },
+  "archive": {
+    "path": "outputs/gf180-fill-coverage-checkpoint-v1/evidence.tar.gz",
+    "sha256": "89ebc915b03727f46bddee89afb3461dadbe307d8bae6f9d936abbd6e1174757",
+    "bytes": 178853,
+    "verified_members": 62
+  },
+  "manifest": {
+    "path": "outputs/gf180-fill-coverage-checkpoint-v1/manifest.json",
+    "sha256": "0e918f740b39f2add3e8f53585794ab975cb2f53f4cca061099bcb967b9acb41"
+  }
+}

@@ -1,0 +1,887 @@
+{
+  "status": "six-native-layout-comparisons-independently-audited",
+  "qualified": false,
+  "observed_at": "2026-10-08T22:34:15.794239+00:00",
+  "script": {
+    "path": "work/audit_gf180_six_lvs_v2.py",
+    "sha256": "6dbbe1eb070f434ba9c75038a0d15f38313beed3fa98edb90a063098970fe0d6"
+  },
+  "density": {
+    "path": "outputs/gf180-density-production-checkpoint-v2/record.json",
+    "sha256": "d01f70b890575363971e2a2983c3fe8969db193c332191eddccca0aecfca5fe7"
+  },
+  "cases": [
+    {
+      "case": "c-counter",
+      "original_gds": {
+        "path": "outputs/gf180-density-production-c-counter-v2/filled.gds",
+        "sha256": "56da04f91676c3f7640ced0ee7d1341fdc9ba908f93a12a6e8e6d7133e735465"
+      },
+      "reference": {
+        "path": "outputs/gf180-cd-filled-connectivity-v3/c-counter/reference.cdl",
+        "sha256": "671f937dadf9343d9bc177f03c3ca1093d91b5a1747d2af3762a32c5e85205ce"
+      },
+      "physical_masks_unchanged": true,
+      "metal_report": {
+        "path": "outputs/gf180-cd-filled-connectivity-v3/c-counter/metal-continuity.json",
+        "sha256": "2f5608396f2a5b78e1b7bc1c00dc37d87c0e9ece64b8c0dba11a30fe8325f82c"
+      },
+      "expected_devices": 4184,
+      "expected_pins": 8,
+      "modes": {
+        "stock": {
+          "database": {
+            "path": "outputs/gf180-cd-filled-connectivity-v3/c-counter/stock/top-labels-only.lvsdb",
+            "sha256": "a20147d1d06ceddae39f2b6de363379096541003feb5ea30abfe2d6b285b160f"
+          },
+          "comparison": {
+            "path": "outputs/gf180-cd-filled-connectivity-v3/c-counter/stock-comparison.json",
+            "sha256": "0ee99d422a12d40b72a8fc45e8a0c21e57c4ebc597cb7bcb706c1cf54aa8e5a5"
+          },
+          "counts": {
+            "device": {
+              "Match": 4184
+            },
+            "pin": {
+              "Match": 8
+            },
+            "net": {
+              "Match": 2093,
+              "MatchWithWarning": 1965
+            }
+          },
+          "device_classes": {
+            "nfet_05v0": 2092,
+            "pfet_05v0": 2092
+          },
+          "diode_geometry": [],
+          "extraction_log": [
+            {
+              "severity": "Warning",
+              "category": "must-connect",
+              "message": "Must-connect subnets of VSS must be connected further up in the hierarchy - this is an error at chip top level"
+            }
+          ],
+          "matched": false,
+          "graph_mapping": {
+            "nets": 4058,
+            "bijective": true,
+            "device_terminals": 16736,
+            "unmatched_terminals": 0,
+            "scope": "Exact terminal connectivity after the saved net correspondence; MOS source/drain interchange only."
+          },
+          "other_internal_ambiguities": []
+        },
+        "physical-substrate-diagnostic": {
+          "database": {
+            "path": "outputs/gf180-cd-filled-connectivity-v3/c-counter/physical-substrate-diagnostic/top-labels-only.lvsdb",
+            "sha256": "b1b320a97a08b938e6fa65e4ef6939a1422d83eeaab17e2ba580ec251f766753"
+          },
+          "comparison": {
+            "path": "outputs/gf180-cd-filled-connectivity-v3/c-counter/physical-substrate-diagnostic-comparison.json",
+            "sha256": "e478635038bf132aec27a857e75c95a51b44c7bc86009353ff9d2642c30599f5"
+          },
+          "counts": {
+            "device": {
+              "Match": 4184
+            },
+            "pin": {
+              "Match": 8
+            },
+            "net": {
+              "Match": 2093,
+              "MatchWithWarning": 1965
+            }
+          },
+          "device_classes": {
+            "nfet_05v0": 2092,
+            "pfet_05v0": 2092
+          },
+          "diode_geometry": [],
+          "extraction_log": [],
+          "matched": true,
+          "graph_mapping": {
+            "nets": 4058,
+            "bijective": true,
+            "device_terminals": 16736,
+            "unmatched_terminals": 0,
+            "scope": "Exact terminal connectivity after the saved net correspondence; MOS source/drain interchange only."
+          },
+          "other_internal_ambiguities": []
+        }
+      }
+    },
+    {
+      "case": "c-uart",
+      "original_gds": {
+        "path": "outputs/gf180-density-production-c-uart-v3/filled.gds",
+        "sha256": "43204f13ecca0655a86dd1e5dd1e1439a28f7efca5750d075a9bff9eedd37184"
+      },
+      "reference": {
+        "path": "outputs/gf180-cd-filled-connectivity-v3/c-uart/reference.cdl",
+        "sha256": "bb6537a6a3a46cdad19c114b995728f99fed53caa686bafa7baa6aa0891f3ca2"
+      },
+      "physical_masks_unchanged": true,
+      "metal_report": {
+        "path": "outputs/gf180-cd-filled-connectivity-v3/c-uart/metal-continuity.json",
+        "sha256": "7629e7d8c025febf60ccc9a2ef40e8e9782d99b36f46a07a0d9bc9a8d0c81716"
+      },
+      "expected_devices": 22588,
+      "expected_pins": 15,
+      "modes": {
+        "stock": {
+          "database": {
+            "path": "outputs/gf180-cd-filled-connectivity-v3/c-uart/stock/top-labels-only.lvsdb",
+            "sha256": "6b0859c8e33f258d769dc84c4693dde330366e803b6518a9e188a9c4a1034fbf"
+          },
+          "comparison": {
+            "path": "outputs/gf180-cd-filled-connectivity-v3/c-uart/stock-comparison.json",
+            "sha256": "b48dfa3bbdd0d8256e4ff0ac3a36f3bb1294d5a9c6ef0aa8e53496a28320353b"
+          },
+          "counts": {
+            "device": {
+              "Match": 22588
+            },
+            "pin": {
+              "Match": 15
+            },
+            "net": {
+              "Match": 11261,
+              "MatchWithWarning": 9721
+            }
+          },
+          "device_classes": {
+            "nfet_05v0": 11294,
+            "pfet_05v0": 11294
+          },
+          "diode_geometry": [],
+          "extraction_log": [
+            {
+              "severity": "Warning",
+              "category": "must-connect",
+              "message": "Must-connect subnets of VSS must be connected further up in the hierarchy - this is an error at chip top level"
+            }
+          ],
+          "matched": false,
+          "graph_mapping": {
+            "nets": 20982,
+            "bijective": true,
+            "device_terminals": 90352,
+            "unmatched_terminals": 0,
+            "scope": "Exact terminal connectivity after the saved net correspondence; MOS source/drain interchange only."
+          },
+          "other_internal_ambiguities": [
+            {
+              "net": "_305_.NET_2_0",
+              "master": "gf180mcu_fd_sc_mcu9t5v0__oai31_2"
+            },
+            {
+              "net": "_305_.NET_2_1",
+              "master": "gf180mcu_fd_sc_mcu9t5v0__oai31_2"
+            }
+          ]
+        },
+        "physical-substrate-diagnostic": {
+          "database": {
+            "path": "outputs/gf180-cd-filled-connectivity-v3/c-uart/physical-substrate-diagnostic/top-labels-only.lvsdb",
+            "sha256": "65fb01c5b569a579516337a4894ae1a94f7133303c677cc5aa02b5d182af716a"
+          },
+          "comparison": {
+            "path": "outputs/gf180-cd-filled-connectivity-v3/c-uart/physical-substrate-diagnostic-comparison.json",
+            "sha256": "b5c2da59431547573659b094d2aef915130b82f18d3193a46e763157eca8a3f8"
+          },
+          "counts": {
+            "device": {
+              "Match": 22588
+            },
+            "pin": {
+              "Match": 15
+            },
+            "net": {
+              "Match": 11261,
+              "MatchWithWarning": 9721
+            }
+          },
+          "device_classes": {
+            "nfet_05v0": 11294,
+            "pfet_05v0": 11294
+          },
+          "diode_geometry": [],
+          "extraction_log": [],
+          "matched": true,
+          "graph_mapping": {
+            "nets": 20982,
+            "bijective": true,
+            "device_terminals": 90352,
+            "unmatched_terminals": 0,
+            "scope": "Exact terminal connectivity after the saved net correspondence; MOS source/drain interchange only."
+          },
+          "other_internal_ambiguities": [
+            {
+              "net": "_305_.NET_2_0",
+              "master": "gf180mcu_fd_sc_mcu9t5v0__oai31_2"
+            },
+            {
+              "net": "_305_.NET_2_1",
+              "master": "gf180mcu_fd_sc_mcu9t5v0__oai31_2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "c-apb",
+      "original_gds": {
+        "path": "outputs/gf180-density-production-c-apb-v2/filled.gds",
+        "sha256": "da6c9f30cc321126fe7c05f86be6dd1e39f2e1efd02abb1dbc1142dc1bbfee48"
+      },
+      "reference": {
+        "path": "outputs/gf180-cd-filled-connectivity-v6/c-apb/reference.cdl",
+        "sha256": "24b6e16e5099387ce8c4f12a3aab56bec2db6a7b8d619a1d4e35f5a296b02c85"
+      },
+      "physical_masks_unchanged": true,
+      "metal_report": {
+        "path": "outputs/gf180-cd-filled-connectivity-v6/c-apb/metal-continuity.json",
+        "sha256": "6b6e5f7a924af8a2c39649467348bb93e89c8433d79cd622cb9e7570a24ee350"
+      },
+      "expected_devices": 22490,
+      "expected_pins": 30,
+      "modes": {
+        "stock": {
+          "database": {
+            "path": "outputs/gf180-cd-filled-connectivity-v6/c-apb/stock/top-labels-only.lvsdb",
+            "sha256": "f4b9cf5705d818348c432ed8ac36baa006f574b64da731f3a479b32a41c74ae5"
+          },
+          "comparison": {
+            "path": "outputs/gf180-cd-filled-connectivity-v6/c-apb/stock-comparison.json",
+            "sha256": "be4f1f6feb37e6c09abbf41681d4725b22208a0f5f633a5712b82a8b5913de5b"
+          },
+          "counts": {
+            "device": {
+              "Match": 22490
+            },
+            "pin": {
+              "Match": 30
+            },
+            "net": {
+              "Match": 11273,
+              "MatchWithWarning": 9968
+            }
+          },
+          "device_classes": {
+            "diode_nd2ps_06v0": 2,
+            "diode_pd2nw_06v0": 2,
+            "nfet_05v0": 11243,
+            "pfet_05v0": 11243
+          },
+          "diode_geometry": [
+            {
+              "reference": "ANTENNA_1.0",
+              "model": "DIODE_ND2PS_06V0",
+              "area_um2": 0.2034,
+              "perimeter_um": 1.85,
+              "anode": "VSS",
+              "cathode": "PWDATA[2]",
+              "geometry_required": false
+            },
+            {
+              "reference": "ANTENNA_2.0",
+              "model": "DIODE_ND2PS_06V0",
+              "area_um2": 0.2034,
+              "perimeter_um": 1.85,
+              "anode": "VSS",
+              "cathode": "RESET",
+              "geometry_required": false
+            },
+            {
+              "reference": "ANTENNA_1.1",
+              "model": "DIODE_PD2NW_06V0",
+              "area_um2": 0.2034,
+              "perimeter_um": 1.85,
+              "anode": "PWDATA[2]",
+              "cathode": "VDD",
+              "geometry_required": false
+            },
+            {
+              "reference": "ANTENNA_2.1",
+              "model": "DIODE_PD2NW_06V0",
+              "area_um2": 0.2034,
+              "perimeter_um": 1.85,
+              "anode": "RESET",
+              "cathode": "VDD",
+              "geometry_required": false
+            }
+          ],
+          "extraction_log": [
+            {
+              "severity": "Warning",
+              "category": "must-connect",
+              "message": "Must-connect subnets of VSS must be connected further up in the hierarchy - this is an error at chip top level"
+            }
+          ],
+          "matched": false,
+          "graph_mapping": {
+            "nets": 21241,
+            "bijective": true,
+            "device_terminals": 89952,
+            "unmatched_terminals": 0,
+            "scope": "Exact terminal connectivity after the saved net correspondence; MOS source/drain interchange only."
+          },
+          "other_internal_ambiguities": []
+        },
+        "physical-substrate-diagnostic": {
+          "database": {
+            "path": "outputs/gf180-cd-filled-connectivity-v6/c-apb/physical-substrate-diagnostic/top-labels-only.lvsdb",
+            "sha256": "44e09278d5724de51c3bceb4c3c9dd05d984368a20e98a76171da856a9c35f4c"
+          },
+          "comparison": {
+            "path": "outputs/gf180-cd-filled-connectivity-v6/c-apb/physical-substrate-diagnostic-comparison.json",
+            "sha256": "1f39b3b2c802ceb2356f0cc32ce856320a5521ba93ccfdf6629379e3b66fcf99"
+          },
+          "counts": {
+            "device": {
+              "Match": 22490
+            },
+            "pin": {
+              "Match": 30
+            },
+            "net": {
+              "Match": 11273,
+              "MatchWithWarning": 9968
+            }
+          },
+          "device_classes": {
+            "diode_nd2ps_06v0": 2,
+            "diode_pd2nw_06v0": 2,
+            "nfet_05v0": 11243,
+            "pfet_05v0": 11243
+          },
+          "diode_geometry": [
+            {
+              "reference": "ANTENNA_1.0",
+              "model": "DIODE_ND2PS_06V0",
+              "area_um2": 0.2034,
+              "perimeter_um": 1.85,
+              "anode": "VSS",
+              "cathode": "PWDATA[2]",
+              "geometry_required": true
+            },
+            {
+              "reference": "ANTENNA_2.0",
+              "model": "DIODE_ND2PS_06V0",
+              "area_um2": 0.2034,
+              "perimeter_um": 1.85,
+              "anode": "VSS",
+              "cathode": "RESET",
+              "geometry_required": true
+            },
+            {
+              "reference": "ANTENNA_1.1",
+              "model": "DIODE_PD2NW_06V0",
+              "area_um2": 0.2034,
+              "perimeter_um": 1.85,
+              "anode": "PWDATA[2]",
+              "cathode": "VDD",
+              "geometry_required": true
+            },
+            {
+              "reference": "ANTENNA_2.1",
+              "model": "DIODE_PD2NW_06V0",
+              "area_um2": 0.2034,
+              "perimeter_um": 1.85,
+              "anode": "RESET",
+              "cathode": "VDD",
+              "geometry_required": true
+            }
+          ],
+          "extraction_log": [],
+          "matched": true,
+          "graph_mapping": {
+            "nets": 21241,
+            "bijective": true,
+            "device_terminals": 89952,
+            "unmatched_terminals": 0,
+            "scope": "Exact terminal connectivity after the saved net correspondence; MOS source/drain interchange only."
+          },
+          "other_internal_ambiguities": []
+        }
+      },
+      "independent_diode_source": {
+        "path": "outputs/gf180-cd-filled-connectivity-v6/independent-library/cells/antenna/gf180mcu_fd_sc_mcu9t5v0__antenna.cdl",
+        "sha256": "3d3c3c04e590f42705af9a2b246fd56a814ec888fb322a3ec221edabe8e512e9"
+      },
+      "syntax_changes": [
+        {
+          "subcircuit": "gf180mcu_fd_sc_mcu9t5v0__antenna",
+          "line": 16,
+          "last_line": 16,
+          "before": "d0 VPW I diode_nd2ps_06v0 0.2034p 1.85u $m=1",
+          "after": "d0 VPW I diode_nd2ps_06v0 A=0.2034p P=1.85u M=1",
+          "instance": "d0",
+          "anode": "VPW",
+          "cathode": "I",
+          "model": "diode_nd2ps_06v0",
+          "area_si": "2.034E-13",
+          "perimeter_si": "0.00000185",
+          "multiplicity": 1
+        },
+        {
+          "subcircuit": "gf180mcu_fd_sc_mcu9t5v0__antenna",
+          "line": 17,
+          "last_line": 17,
+          "before": "d1 I VNW diode_pd2nw_06v0 0.2034p 1.85u $m=1",
+          "after": "d1 I VNW diode_pd2nw_06v0 A=0.2034p P=1.85u M=1",
+          "instance": "d1",
+          "anode": "I",
+          "cathode": "VNW",
+          "model": "diode_pd2nw_06v0",
+          "area_si": "2.034E-13",
+          "perimeter_si": "0.00000185",
+          "multiplicity": 1
+        }
+      ]
+    },
+    {
+      "case": "d-counter",
+      "original_gds": {
+        "path": "outputs/gf180-density-production-d-counter-v2/filled.gds",
+        "sha256": "56da04f91676c3f7640ced0ee7d1341fdc9ba908f93a12a6e8e6d7133e735465"
+      },
+      "reference": {
+        "path": "outputs/gf180-cd-filled-connectivity-v5/d-counter/reference.cdl",
+        "sha256": "671f937dadf9343d9bc177f03c3ca1093d91b5a1747d2af3762a32c5e85205ce"
+      },
+      "physical_masks_unchanged": true,
+      "metal_report": {
+        "path": "outputs/gf180-cd-filled-connectivity-v5/d-counter/metal-continuity.json",
+        "sha256": "2f5608396f2a5b78e1b7bc1c00dc37d87c0e9ece64b8c0dba11a30fe8325f82c"
+      },
+      "expected_devices": 4184,
+      "expected_pins": 8,
+      "modes": {
+        "stock": {
+          "database": {
+            "path": "outputs/gf180-cd-filled-connectivity-v5/d-counter/stock/top-labels-only.lvsdb",
+            "sha256": "6d14ee067fb567cab7cfa630775f080b8c87c0745f2242a055590f824cbb241a"
+          },
+          "comparison": {
+            "path": "outputs/gf180-cd-filled-connectivity-v5/d-counter/stock-comparison.json",
+            "sha256": "d20176d6392620cc9f681e54b7a0e7abe4562860e0c84fc9c93e4eda4fe9f301"
+          },
+          "counts": {
+            "device": {
+              "Match": 4184
+            },
+            "pin": {
+              "Match": 8
+            },
+            "net": {
+              "Match": 2093,
+              "MatchWithWarning": 1965
+            }
+          },
+          "device_classes": {
+            "nfet_05v0": 2092,
+            "pfet_05v0": 2092
+          },
+          "diode_geometry": [],
+          "extraction_log": [
+            {
+              "severity": "Warning",
+              "category": "must-connect",
+              "message": "Must-connect subnets of VSS must be connected further up in the hierarchy - this is an error at chip top level"
+            }
+          ],
+          "matched": false,
+          "graph_mapping": {
+            "nets": 4058,
+            "bijective": true,
+            "device_terminals": 16736,
+            "unmatched_terminals": 0,
+            "scope": "Exact terminal connectivity after the saved net correspondence; MOS source/drain interchange only."
+          },
+          "other_internal_ambiguities": []
+        },
+        "physical-substrate-diagnostic": {
+          "database": {
+            "path": "outputs/gf180-cd-filled-connectivity-v5/d-counter/physical-substrate-diagnostic/top-labels-only.lvsdb",
+            "sha256": "e19f30062df5b81bcbe445537e1abc375e09bfc4fdc7e72924b9aa24826e415a"
+          },
+          "comparison": {
+            "path": "outputs/gf180-cd-filled-connectivity-v5/d-counter/physical-substrate-diagnostic-comparison.json",
+            "sha256": "e4d36585eb9da65befc982e3947a2c911c2c864ae6012926e7a519fff8984ff9"
+          },
+          "counts": {
+            "device": {
+              "Match": 4184
+            },
+            "pin": {
+              "Match": 8
+            },
+            "net": {
+              "Match": 2093,
+              "MatchWithWarning": 1965
+            }
+          },
+          "device_classes": {
+            "nfet_05v0": 2092,
+            "pfet_05v0": 2092
+          },
+          "diode_geometry": [],
+          "extraction_log": [],
+          "matched": true,
+          "graph_mapping": {
+            "nets": 4058,
+            "bijective": true,
+            "device_terminals": 16736,
+            "unmatched_terminals": 0,
+            "scope": "Exact terminal connectivity after the saved net correspondence; MOS source/drain interchange only."
+          },
+          "other_internal_ambiguities": []
+        }
+      }
+    },
+    {
+      "case": "d-uart",
+      "original_gds": {
+        "path": "outputs/gf180-density-production-d-uart-v3/filled.gds",
+        "sha256": "f6d0168455d6f9664172b9af26818d1027652c68f7af39bff36e8765cf00870f"
+      },
+      "reference": {
+        "path": "outputs/gf180-cd-filled-connectivity-v5/d-uart/reference.cdl",
+        "sha256": "bb6537a6a3a46cdad19c114b995728f99fed53caa686bafa7baa6aa0891f3ca2"
+      },
+      "physical_masks_unchanged": true,
+      "metal_report": {
+        "path": "outputs/gf180-cd-filled-connectivity-v5/d-uart/metal-continuity.json",
+        "sha256": "8c5f5bac82c49dcd1ca9c4c0d3c09a8b9704ce5ca3e137b091a4191de7d27eda"
+      },
+      "expected_devices": 22588,
+      "expected_pins": 15,
+      "modes": {
+        "stock": {
+          "database": {
+            "path": "outputs/gf180-cd-filled-connectivity-v5/d-uart/stock/top-labels-only.lvsdb",
+            "sha256": "57a72fa273869d55923835911aafe578435257d69940f8be1fb46f1669ceacd9"
+          },
+          "comparison": {
+            "path": "outputs/gf180-cd-filled-connectivity-v5/d-uart/stock-comparison.json",
+            "sha256": "cbfbb24b4ac62c8f3cc3d234e2e4c78a9f195f80930f01d18a68f867b0e3efd7"
+          },
+          "counts": {
+            "device": {
+              "Match": 22588
+            },
+            "pin": {
+              "Match": 15
+            },
+            "net": {
+              "Match": 11261,
+              "MatchWithWarning": 9721
+            }
+          },
+          "device_classes": {
+            "nfet_05v0": 11294,
+            "pfet_05v0": 11294
+          },
+          "diode_geometry": [],
+          "extraction_log": [
+            {
+              "severity": "Warning",
+              "category": "must-connect",
+              "message": "Must-connect subnets of VSS must be connected further up in the hierarchy - this is an error at chip top level"
+            }
+          ],
+          "matched": false,
+          "graph_mapping": {
+            "nets": 20982,
+            "bijective": true,
+            "device_terminals": 90352,
+            "unmatched_terminals": 0,
+            "scope": "Exact terminal connectivity after the saved net correspondence; MOS source/drain interchange only."
+          },
+          "other_internal_ambiguities": [
+            {
+              "net": "_305_.NET_2_0",
+              "master": "gf180mcu_fd_sc_mcu9t5v0__oai31_2"
+            },
+            {
+              "net": "_305_.NET_2_1",
+              "master": "gf180mcu_fd_sc_mcu9t5v0__oai31_2"
+            }
+          ]
+        },
+        "physical-substrate-diagnostic": {
+          "database": {
+            "path": "outputs/gf180-cd-filled-connectivity-v5/d-uart/physical-substrate-diagnostic/top-labels-only.lvsdb",
+            "sha256": "6ce6c6e26d02c912e03296a8d7edf224315482bc6a41c97ce7bf9794522ef0f3"
+          },
+          "comparison": {
+            "path": "outputs/gf180-cd-filled-connectivity-v5/d-uart/physical-substrate-diagnostic-comparison.json",
+            "sha256": "40a2feef3d5fa0653e877d98a7a84936b66198cb9ebc2bdc98a5f61518f984b9"
+          },
+          "counts": {
+            "device": {
+              "Match": 22588
+            },
+            "pin": {
+              "Match": 15
+            },
+            "net": {
+              "Match": 11261,
+              "MatchWithWarning": 9721
+            }
+          },
+          "device_classes": {
+            "nfet_05v0": 11294,
+            "pfet_05v0": 11294
+          },
+          "diode_geometry": [],
+          "extraction_log": [],
+          "matched": true,
+          "graph_mapping": {
+            "nets": 20982,
+            "bijective": true,
+            "device_terminals": 90352,
+            "unmatched_terminals": 0,
+            "scope": "Exact terminal connectivity after the saved net correspondence; MOS source/drain interchange only."
+          },
+          "other_internal_ambiguities": [
+            {
+              "net": "_305_.NET_2_0",
+              "master": "gf180mcu_fd_sc_mcu9t5v0__oai31_2"
+            },
+            {
+              "net": "_305_.NET_2_1",
+              "master": "gf180mcu_fd_sc_mcu9t5v0__oai31_2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "d-apb",
+      "original_gds": {
+        "path": "outputs/gf180-density-production-d-apb-v2/filled.gds",
+        "sha256": "60c61fe5fe70f745c185721aa5ea7698e2bc2f47ccc37812c0f4c84de7cdfcd3"
+      },
+      "reference": {
+        "path": "outputs/gf180-cd-filled-connectivity-v6/d-apb/reference.cdl",
+        "sha256": "24b6e16e5099387ce8c4f12a3aab56bec2db6a7b8d619a1d4e35f5a296b02c85"
+      },
+      "physical_masks_unchanged": true,
+      "metal_report": {
+        "path": "outputs/gf180-cd-filled-connectivity-v6/d-apb/metal-continuity.json",
+        "sha256": "5e7168a59a8ff1fba83c25c81564ddaaca21a2ab7235622b22918b0f3dbe6b4a"
+      },
+      "expected_devices": 22490,
+      "expected_pins": 30,
+      "modes": {
+        "stock": {
+          "database": {
+            "path": "outputs/gf180-cd-filled-connectivity-v6/d-apb/stock/top-labels-only.lvsdb",
+            "sha256": "405c3b092abc92a0a281431b26d6ef0e8d8299b4af9c4717931fd7f6d8e768d6"
+          },
+          "comparison": {
+            "path": "outputs/gf180-cd-filled-connectivity-v6/d-apb/stock-comparison.json",
+            "sha256": "9182e107bc34fa7c6795cfc469d6454a4210f0baddccf866ce831172c7cdac3d"
+          },
+          "counts": {
+            "device": {
+              "Match": 22490
+            },
+            "pin": {
+              "Match": 30
+            },
+            "net": {
+              "Match": 11273,
+              "MatchWithWarning": 9968
+            }
+          },
+          "device_classes": {
+            "diode_nd2ps_06v0": 2,
+            "diode_pd2nw_06v0": 2,
+            "nfet_05v0": 11243,
+            "pfet_05v0": 11243
+          },
+          "diode_geometry": [
+            {
+              "reference": "ANTENNA_1.0",
+              "model": "DIODE_ND2PS_06V0",
+              "area_um2": 0.2034,
+              "perimeter_um": 1.85,
+              "anode": "VSS",
+              "cathode": "PWDATA[2]",
+              "geometry_required": false
+            },
+            {
+              "reference": "ANTENNA_2.0",
+              "model": "DIODE_ND2PS_06V0",
+              "area_um2": 0.2034,
+              "perimeter_um": 1.85,
+              "anode": "VSS",
+              "cathode": "RESET",
+              "geometry_required": false
+            },
+            {
+              "reference": "ANTENNA_1.1",
+              "model": "DIODE_PD2NW_06V0",
+              "area_um2": 0.2034,
+              "perimeter_um": 1.85,
+              "anode": "PWDATA[2]",
+              "cathode": "VDD",
+              "geometry_required": false
+            },
+            {
+              "reference": "ANTENNA_2.1",
+              "model": "DIODE_PD2NW_06V0",
+              "area_um2": 0.2034,
+              "perimeter_um": 1.85,
+              "anode": "RESET",
+              "cathode": "VDD",
+              "geometry_required": false
+            }
+          ],
+          "extraction_log": [
+            {
+              "severity": "Warning",
+              "category": "must-connect",
+              "message": "Must-connect subnets of VSS must be connected further up in the hierarchy - this is an error at chip top level"
+            }
+          ],
+          "matched": false,
+          "graph_mapping": {
+            "nets": 21241,
+            "bijective": true,
+            "device_terminals": 89952,
+            "unmatched_terminals": 0,
+            "scope": "Exact terminal connectivity after the saved net correspondence; MOS source/drain interchange only."
+          },
+          "other_internal_ambiguities": []
+        },
+        "physical-substrate-diagnostic": {
+          "database": {
+            "path": "outputs/gf180-cd-filled-connectivity-v6/d-apb/physical-substrate-diagnostic/top-labels-only.lvsdb",
+            "sha256": "475c5121ca4415a5977e1395bbdb531baa1d83b462dd095ec546537edc6e9822"
+          },
+          "comparison": {
+            "path": "outputs/gf180-cd-filled-connectivity-v6/d-apb/physical-substrate-diagnostic-comparison.json",
+            "sha256": "638d9cf930dcecd21da287a6e7598f0fde3365f375b0bf1bb1f4da29b68cd659"
+          },
+          "counts": {
+            "device": {
+              "Match": 22490
+            },
+            "pin": {
+              "Match": 30
+            },
+            "net": {
+              "Match": 11273,
+              "MatchWithWarning": 9968
+            }
+          },
+          "device_classes": {
+            "diode_nd2ps_06v0": 2,
+            "diode_pd2nw_06v0": 2,
+            "nfet_05v0": 11243,
+            "pfet_05v0": 11243
+          },
+          "diode_geometry": [
+            {
+              "reference": "ANTENNA_1.0",
+              "model": "DIODE_ND2PS_06V0",
+              "area_um2": 0.2034,
+              "perimeter_um": 1.85,
+              "anode": "VSS",
+              "cathode": "PWDATA[2]",
+              "geometry_required": true
+            },
+            {
+              "reference": "ANTENNA_2.0",
+              "model": "DIODE_ND2PS_06V0",
+              "area_um2": 0.2034,
+              "perimeter_um": 1.85,
+              "anode": "VSS",
+              "cathode": "RESET",
+              "geometry_required": true
+            },
+            {
+              "reference": "ANTENNA_1.1",
+              "model": "DIODE_PD2NW_06V0",
+              "area_um2": 0.2034,
+              "perimeter_um": 1.85,
+              "anode": "PWDATA[2]",
+              "cathode": "VDD",
+              "geometry_required": true
+            },
+            {
+              "reference": "ANTENNA_2.1",
+              "model": "DIODE_PD2NW_06V0",
+              "area_um2": 0.2034,
+              "perimeter_um": 1.85,
+              "anode": "RESET",
+              "cathode": "VDD",
+              "geometry_required": true
+            }
+          ],
+          "extraction_log": [],
+          "matched": true,
+          "graph_mapping": {
+            "nets": 21241,
+            "bijective": true,
+            "device_terminals": 89952,
+            "unmatched_terminals": 0,
+            "scope": "Exact terminal connectivity after the saved net correspondence; MOS source/drain interchange only."
+          },
+          "other_internal_ambiguities": []
+        }
+      },
+      "independent_diode_source": {
+        "path": "outputs/gf180-cd-filled-connectivity-v6/independent-library/cells/antenna/gf180mcu_fd_sc_mcu9t5v0__antenna.cdl",
+        "sha256": "3d3c3c04e590f42705af9a2b246fd56a814ec888fb322a3ec221edabe8e512e9"
+      },
+      "syntax_changes": [
+        {
+          "subcircuit": "gf180mcu_fd_sc_mcu9t5v0__antenna",
+          "line": 16,
+          "last_line": 16,
+          "before": "d0 VPW I diode_nd2ps_06v0 0.2034p 1.85u $m=1",
+          "after": "d0 VPW I diode_nd2ps_06v0 A=0.2034p P=1.85u M=1",
+          "instance": "d0",
+          "anode": "VPW",
+          "cathode": "I",
+          "model": "diode_nd2ps_06v0",
+          "area_si": "2.034E-13",
+          "perimeter_si": "0.00000185",
+          "multiplicity": 1
+        },
+        {
+          "subcircuit": "gf180mcu_fd_sc_mcu9t5v0__antenna",
+          "line": 17,
+          "last_line": 17,
+          "before": "d1 I VNW diode_pd2nw_06v0 0.2034p 1.85u $m=1",
+          "after": "d1 I VNW diode_pd2nw_06v0 A=0.2034p P=1.85u M=1",
+          "instance": "d1",
+          "anode": "I",
+          "cathode": "VNW",
+          "model": "diode_pd2nw_06v0",
+          "area_si": "2.034E-13",
+          "perimeter_si": "0.00000185",
+          "multiplicity": 1
+        }
+      ]
+    }
+  ],
+  "scope": "Independent Windows readback of completed native Linux LVS databases for the six exact filled layouts. Experimental substrate correction and explicit metal continuity remain required. No post-fill RC/timing or complete process qualification.",
+  "remaining": [
+    "Finish native written-layout and APB diode fault controls.",
+    "Stock-deck substrate warning remains blocking; production integration needs explicit reviewed correction and metal continuity.",
+    "Complete post-fill extraction, function and timing, complete fill coverage and installed-runtime acceptance."
+  ],
+  "archive": {
+    "path": "outputs/gf180-six-lvs-audit-v2/evidence.tar.gz",
+    "sha256": "6a910cd351a5bf27040e309756d40037306ba58835d242d6e637f2cc7eaf8eef",
+    "bytes": 31126770,
+    "verified_members": 281
+  }
+}

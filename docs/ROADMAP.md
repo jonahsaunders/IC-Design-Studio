@@ -1,5 +1,14 @@
 # The path forward
 
+## Public-release target
+
+The current development target is analog and digital design on SKY130,
+GF180MCU C/D and IHP SG13G2, with process-specific tapeout acceptance.
+[Required capabilities and evidence](PUBLIC_RELEASE_TARGETS.md) distinguish the
+existing engineering preview from the remaining digital-platform, physical,
+chip-level signoff and desktop acceptance work. The older milestones below
+retain their original version and evidence scope.
+
 ## Current dev25 priorities
 
 The [current source extensions](ANALOG_IMPLEMENTATION_EXTENSIONS.md) add native

@@ -8,7 +8,7 @@ from icstudio.runtime_setup import check_ngspice
 check(root)
 from stage_openems import stage as stage_openems, verify as verify_openems
 solver_runtime = stage_openems(root/"build/openems-runtime", root/"build/openems-downloads")
-from icstudio.digital_runtime import manifest as digital_manifest, payload_root as digital_payload
+from icstudio.digital_runtime import manifest as digital_manifest, payload_root as digital_payload, backend_identity
 from icstudio.model import file_digest
 digital_data=digital_manifest()
 if not digital_data or file_digest(digital_payload()/digital_data['archive'])!=digital_data['sha256']:
@@ -16,7 +16,9 @@ if not digital_data or file_digest(digital_payload()/digital_data['archive'])!=d
 qualification=digital_payload()/('qualified-'+('Windows' if os.name=='nt' else 'Linux')+'.json')
 if not qualification.is_file():raise ValueError('The digital runtime must pass acceptance on this build platform before packaging.')
 import json
-if json.loads(qualification.read_text()).get('sha256')!=digital_data['sha256']:raise ValueError('The digital runtime acceptance record belongs to another archive.')
+from check_digital_qualification import validate as validate_digital_qualification
+validate_digital_qualification(json.loads(qualification.read_text()),digital_data,backend_identity(),
+                               'Windows' if os.name=='nt' else 'Linux')
 if os.name=='nt':
  from stage_windows_ngspice import ensure
  ensure()

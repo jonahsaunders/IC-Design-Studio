@@ -25,7 +25,9 @@ def main(argv=None):
     run.add_argument('--cell',help='Native cell ID (defaults to the bound digital cell)')
     run.add_argument('--platform',help='Version-1 platform JSON manifest')
     run.add_argument('--orfs',help='OpenROAD Flow Scripts checkout; captured for physical jobs')
-    run.add_argument('--orfs-platform',choices=['sky130hd','nangate45'],help='Import this platform from --orfs')
+    from .digital_platform import BUNDLED_PLATFORMS,ORFS_PROFILES
+    run.add_argument('--orfs-platform',choices=list(ORFS_PROFILES),help='Import this platform from --orfs')
+    run.add_argument('--included-platform',choices=BUNDLED_PLATFORMS,help='Select a platform from the verified included runtime')
     run.add_argument('--upstream',help='Completed mapped or physical run directory')
     run.add_argument('--timeout',type=int,help='Per-command time limit in seconds')
     args = parser.parse_args(argv)
@@ -54,14 +56,20 @@ def main(argv=None):
         from .digital_design import config as cell_config,set_config
         cid=args.cell or project.get('digital_cell',project['top']);config=cell_config(project,cid)
         if not config:raise ValueError('The selected cell has no RTL sources.')
-        if args.platform and args.orfs_platform:raise ValueError('Choose one platform import method.')
+        if sum(bool(value) for value in (args.platform,args.orfs_platform,args.included_platform))>1:
+            raise ValueError('Choose one platform import method.')
+        if args.included_platform:
+            from .digital_platform import bind
+            runtime=digital_runtime.installed()
+            if not runtime:raise ValueError('Set up and verify the included tools before selecting an included platform.')
+            config=bind(config,digital_runtime.platform(runtime,args.included_platform))
         if args.platform:
-            from .digital_platform import read_manifest
-            config['platform']=read_manifest(args.platform)
+            from .digital_platform import bind,read_manifest
+            config=bind(config,read_manifest(args.platform))
         if args.orfs_platform:
             if not args.orfs:raise ValueError('--orfs-platform requires --orfs.')
-            from .digital_platform import from_orfs
-            config['platform']=from_orfs(args.orfs,args.orfs_platform)
+            from .digital_platform import bind,from_orfs
+            config=bind(config,from_orfs(args.orfs,args.orfs_platform))
         if args.timeout is not None:config['timeout']=args.timeout
         set_config(project,cid,config)
         tools = dict(item.split('=', 1) for item in args.tool)

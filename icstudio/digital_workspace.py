@@ -58,7 +58,7 @@ class Workspace:
         self.diagnostics.cellDoubleClicked.connect(lambda row,col:self.jump(self.diagnostics.item(row,0).data(Qt.UserRole)))
         self.netlist=table(['Module','Object','Kind','Cell type']);window.result_tabs.addTab(self.netlist,'Netlist browser')
         self.netlist.cellClicked.connect(lambda row,col:self.probe(self.netlist.item(row,0).data(Qt.UserRole)))
-        self.timing=table(['Corner','Check','Startpoint','Endpoint','Slack (ns)'])
+        self.timing=table(['Library / RC corner','Check','Startpoint','Endpoint','Slack (ns)'])
         self.timing.cellClicked.connect(lambda row,col:self.probe_path(self.timing.item(row,0).data(Qt.UserRole)))
         self.proof=table(['Partition','Status','Strategies']);window.result_tabs.addTab(self.proof,'Equivalence')
         self.proof.setToolTip('Double-click a partition to open its counterexample waveform, when available.')
@@ -116,7 +116,8 @@ class Workspace:
         from .digital import counter_project
         w=self.window;name,ok=QInputDialog.getText(w,'New RTL cell','Cell name')
         if not ok:return
-        source=clone((w.config or counter_project()['digital']));source.pop('platform',None)
+        source=clone((w.config or counter_project()['digital']))
+        for key in ('platform','timing_corners','rc_corners'):source.pop(key,None)
         created=[];w.studio.commit(lambda p:created.append(design.new_cell(p,name,source)),'Create RTL cell')
         if created:self.switch_cell(created[0])
 
@@ -178,12 +179,24 @@ class Workspace:
             self.window.message.setText('Exported macro geometry, terminals, netlist, constraints, parasitics and provenance.')
 
     def import_platform(self):
-        from .digital_platform import from_orfs,read_manifest
+        from .digital_platform import ORFS_PROFILES,PLATFORM_LABELS,bind,from_orfs,read_manifest
+        from . import digital_runtime
         w=self.window
         if not w.config:raise ValueError('Open or import an RTL cell first.')
-        choice,ok=QInputDialog.getItem(w,'Digital platform','Import source',['ORFS sky130hd','ORFS nangate45','Platform JSON manifest'],0,False)
+        runtime=digital_runtime.installed()
+        included={('Included · '+PLATFORM_LABELS[name]):platform
+                  for name,platform in (digital_runtime.platforms(runtime) if runtime else {}).items()}
+        choices=list(included) if included else ['Set up included platforms…']
+        choices+=['ORFS '+name for name in ORFS_PROFILES]+['Platform JSON manifest']
+        choice,ok=QInputDialog.getItem(w,'Digital platform','Import source',
+                                     choices,0,False)
         if not ok:return
-        if choice.startswith('ORFS'):
+        if choice=='Set up included platforms…':
+            w.studio.settings.setValue('digital/toolchain','included')
+            w.ensure_tools(self.import_platform,'platform selection')
+            return
+        if choice in included:platform=included[choice]
+        elif choice.startswith('ORFS'):
             path=QFileDialog.getExistingDirectory(w,'Choose OpenROAD Flow Scripts checkout',w.studio.settings.value('digital/orfs',''))
             if not path:return
             platform=from_orfs(path,choice.split()[1]);w.studio.settings.setValue('digital/orfs',path)
@@ -195,7 +208,7 @@ class Workspace:
             corner,ok=QInputDialog.getItem(w,'Library corner','Corner',list(platform['corners']),0,False)
             if not ok:return
             platform['corner']=corner
-        w.config['platform']=platform;w.edited();self.refresh_design()
+        w.config=bind(w.config,platform);w.edited();self.refresh_design()
 
     def form(self,title,fields):
         d=QDialog(self.window);d.setWindowTitle(title);root=QVBoxLayout(d);form=QFormLayout();root.addLayout(form);edits={}
@@ -271,8 +284,11 @@ class Workspace:
         if 'netlist_index' in artifacts:
             self.index=json.loads((row['path']/artifacts['netlist_index']['path']).read_text())
             fill(self.netlist,self.index[:20000],['module','name','kind','type'])
-        fill(self.timing,data.get('timing',{}).get('paths',[]),['corner','check','startpoint','endpoint','slack_ns'])
-        fill(self.proof,data.get('equivalence',{}).get('partitions',[]),['partition','status','strategies'])
+        timing_paths=[{**p,'scenario':p.get('scenario',p.get('corner',''))} for p in data.get('timing',{}).get('paths',[])]
+        fill(self.timing,timing_paths,['scenario','check','startpoint','endpoint','slack_ns'])
+        proof_rows=[{**p,'strategies_label':', '.join(s['strategy']+': '+s['status']+(' (cached)' if s.get('cached') else '')
+            for s in p.get('strategies',[]))} for p in data.get('equivalence',{}).get('partitions',[])]
+        fill(self.proof,proof_rows,['partition','status','strategies_label'])
         if 'layout_preview' in artifacts:
             preview=json.loads((row['path']/artifacts['layout_preview']['path']).read_text());self.physical.load(preview);self.linked_physical.load(preview)
             self.layers.blockSignals(True);self.layers.clear();self.layers.addItem('All layers','')

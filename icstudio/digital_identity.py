@@ -7,7 +7,8 @@ PHYSICAL = ('floorplan', 'place', 'cts', 'route', 'finish')
 
 def fingerprints(config):
     platform = config.get('platform', {})
-    technology = {k: platform.get(k) for k in ('fingerprint', 'corner', 'corners', 'name', 'directory')}
+    technology = {k: platform.get(k) for k in ('fingerprint', 'corner', 'corners', 'name', 'directory', 'tie_cells', 'orfs')}
+    if 'extraction' in platform:technology['extraction']=platform['extraction']
     rtl = {'top': config['top'], 'files': [f for f in config['files'] if f['role'] in ('rtl', 'include', 'data')],
            'defines': config.get('defines', {}), 'include_dirs': config.get('include_dirs', ['.']),
            'bindings': config.get('bindings', {})}
@@ -33,7 +34,7 @@ def stage_key(config, stage, simulator='icarus'):
             'equivalence': ('rtl', 'technology', 'synthesis'),
             'timing': ('rtl', 'technology', 'synthesis', 'constraints', 'corners', 'physical')}
     if stage in PHYSICAL:
-        selected = {k: f[k] for k in ('rtl', 'technology', 'synthesis', 'constraints')}
+        selected = {k: f[k] for k in ('rtl', 'technology', 'synthesis', 'constraints', 'corners')}
         # Route-layer edits don't invalidate placement. Pin/macro/PDN edits do.
         physical = {k: v for k, v in config.get('physical', {}).items() if k != 'threads'}
         if stage in ('floorplan', 'place', 'cts'):
@@ -41,6 +42,13 @@ def stage_key(config, stage, simulator='icarus'):
         selected['physical'] = physical
     else:
         selected = {k: f[k] for k in keys.get(stage, tuple(f))}
+    if stage in ('finish','timing') and config.get('platform',{}).get('extraction'):
+        from .digital_rc import selected as extraction_corners
+        selected['rc_corners']=extraction_corners(config)
+    if stage == 'finish' and config.get('platform', {}).get('lvs_reference') is not None:
+        selected['lvs_reference'] = config['platform']['lvs_reference']
+    if stage == 'finish' and config.get('platform', {}).get('gf180_connectivity') is not None:
+        selected['gf180_connectivity'] = config['platform']['gf180_connectivity']
     if stage in ('simulate', 'lint'):
         selected['simulator'] = 'verilator' if stage == 'lint' else simulator
     return digest({'version': 1, 'stage': stage, 'inputs': selected})
@@ -70,6 +78,7 @@ def comparison_context(result):
     return {'stage': data.get('stage'), 'platform': data.get('platform'),
             'constraints': f.get('constraints', data.get('source_hash')),
             'synthesis': f.get('synthesis'), 'corners': f.get('corners'),
+            'rc_corners': timing.get('rc_corners'),
             'parasitics': timing.get('parasitics'),
             'physical': f.get('physical') if 'physical' in data or data.get('stage')=='timing' else None,
             'tools': data.get('environment', {}).get('executables'),

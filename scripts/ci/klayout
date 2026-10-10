@@ -1,0 +1,5 @@
+#!/bin/sh
+# Keep the pinned executable on its matching Ubuntu Python/Ruby dependencies.
+unset LD_LIBRARY_PATH PYTHONHOME PYTHONPATH QT_PLUGIN_PATH QT_QPA_PLATFORM_PLUGIN_PATH
+export QT_QPA_PLATFORM=offscreen
+exec /usr/bin/klayout "$@"

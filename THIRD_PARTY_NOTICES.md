@@ -38,6 +38,15 @@ and component notices when redistributing it.
 
 The separately supplied SKY130 reference bundle contains a subset of the SkyWater open PDK and generated derivatives of its inverter. Copyright 2020 The SkyWater PDK Authors and other notices retained in the original files. These assets are distributed under Apache-2.0; see licenses/Apache-2.0.txt and their file headers. The app's reference fetch script points to the pinned upstream Volare distribution. Verification can use configured external Magic/Netgen or the managed runtime described under Included digital tools below; that runtime does not supply this separate analog reference PDK.
 
+The optional `scripts/prepare_sky130_digital.py` preparer selects standard-cell
+timing, LEF/GDS/CDL and OpenRCX collateral from the same checksum-pinned
+`sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392` Volare release. It retains original
+file headers, copies the Apache-2.0 text, and records archive/source-file hashes in
+`pvt/upstream-lock.json`. The original ORFS configuration is retained alongside
+the generated physical-view adapter; ORFS notices and license requirements here
+continue to apply. Full PDK trees and generated platforms are not committed to the
+application source package.
+
 ## Included Xschem and GF180 simulation assets
 
 Standard Xschem symbols: Ubuntu 3.4.4-1build1, GPL-2.0-or-later. Original copyright and license headers are retained under icstudio/assets/exchange/xschem; the GPL text is in licenses/GPL-2.0.txt. Corresponding source: https://archive.ubuntu.com/ubuntu/pool/universe/x/xschem/ and https://github.com/StefanSchippers/xschem/tree/3.4.4.
@@ -147,6 +156,39 @@ templates are part of this application's source distribution.
 Digital platform inputs retain their own licenses. CI downloads separately licensed
 engine distributions and records their versions; these binaries and full PDK trees
 are not included in the application source distribution.
+
+The runtime build recipe retains SKY130 HD, GF180 MCU and IHP SG13G2 digital
+platform files from ORFS commit `eaba6576441bf7c1743ea56ecdb1904210ec02c2`.
+Original copyright and license headers remain in the captured files; the common
+Apache-2.0 text and these notices are copied to `opt/icstudio/licenses`.
+ORFS's BSD-3-Clause build/run-script license is retained at
+`opt/icstudio/orfs/LICENSE_BUILD_RUN_SCRIPTS`. Exact platform inventories,
+including materialized linked extraction rules, are locked in
+`opt/icstudio/platforms.json`; each package's `files.json` also locks these
+manifests and notice files. Source is available at the pinned
+[ORFS revision](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/tree/eaba6576441bf7c1743ea56ecdb1904210ec02c2/flow/platforms).
+
+Current source runtime builds replace the SKY130 HD library and physical views
+with matched typical/slow/fast libraries, cell/technology LEFs, GDS, CDL and
+minimum/nominal/maximum extraction decks from the checksum-pinned
+`common.tar.zst` and `sky130_fd_sc_hd.tar.zst` assets of
+[Volare sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392](https://github.com/chipfoundry/volare/releases/tag/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392).
+Copyright 2020 The SkyWater PDK Authors and other notices retained in the source
+headers; Apache-2.0. The generated platform retains its archive/file hashes,
+original ORFS configuration and physical-view overrides under `sky130hd/pvt`.
+Each bundled platform also captures the common license, these source notices,
+ORFS build-script license and a source lock under `redistribution`. Macro exports
+copy the captured license and source-notice files with their hashes. Build-time
+archive reading uses backports.zstd 1.7.0 in a temporary environment removed from
+the runtime; corresponding source is [backports.zstd](https://github.com/rogdham/backports.zstd).
+
+The application's optional timing-oriented mapping recipe is adapted from
+`flow/scripts/abc_speed.script` at the same ORFS revision. Copyright (c) 2018-2023,
+The Regents of the University of California. Its BSD-3-Clause terms and disclaimer
+are retained in [the source-distribution license](licenses/OpenROAD-flow-scripts-BSD-3-Clause.txt).
+Studio adds explicit delay targets to mapping and sizing commands and retains
+the generated script in each mapped job. This does not change the separate
+licenses of ABC, Yosys or the selected cell libraries.
 
 The managed runtime also includes Magic and Netgen at the commits in
 `examples/physical-engine-lock.json`, plus the Ubuntu ngspice package. Magic's

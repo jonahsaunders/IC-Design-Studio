@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "status": "diagnostic-candidate-not-default",
+  "qualified": false,
+  "upstream_version": "42",
+  "source_url": "https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/42/ngspice-42.tar.gz/download",
+  "archive_sha256": "737fe3846ab2333a250dfadf1ed6ebe1860af1d8a5ff5e7803c772cc4256e50a",
+  "archive_bytes": 10879558,
+  "license": {
+    "path_in_archive": "ngspice-42/COPYING",
+    "sha256": "df9e98a686fad462feeff23d780d733bce3d615e351938ac86ef8119d707da20"
+  },
+  "ubuntu_source_comparison": {
+    "record": "outputs/ngspice-42-release-v1/record.json",
+    "compared_c_h_files": 2095,
+    "different": [],
+    "missing": [
+      "src/frontend/com_xgraph.c",
+      "src/frontend/com_xgraph.h",
+      "src/frontend/wdisp/wincolor.h",
+      "src/include/cppduals/duals/arch/AVX/ComplexDual.h",
+      "src/include/cppduals/duals/arch/AVX/Dual.h",
+      "src/include/cppduals/duals/arch/SSE/ComplexDual.h",
+      "src/include/cppduals/duals/arch/SSE/Dual.h"
+    ],
+    "scope": "Comparison of available release/archive C and header files; not identity with the installed package binary or complete Debian build configuration."
+  },
+  "patch": {
+    "path": "packaging/physical/ngspice42-ordering-diagnostic.patch",
+    "sha256": "a386dc4a9bd64dc3c01e9757a648d44aca009deea646d31bebae83ff3bb1fa7f",
+    "source_file": "src/maths/KLU/klusmp.c",
+    "original_sha256": "99db6258f8f85284c818cb0f5673416cef6b1f81f84bd771bf0351751b578c25",
+    "patched_sha256": "ac7f8d83789045613e104a504748d309da469cae643026b246b1d59724ba6f7c"
+  },
+  "configuration": [
+    "--prefix=/var/tmp/icstudio-ngspice-ordering-v2/installed",
+    "--without-x",
+    "--with-readline=no",
+    "--enable-xspice",
+    "--enable-klu",
+    "--enable-openmp",
+    "--disable-predictor",
+    "--disable-debug",
+    "--disable-maintainer-mode"
+  ],
+  "diagnostic_environment": {
+    "name": "ICSTUDIO_KLU_ORDERING",
+    "values": [
+      "AMD",
+      "COLAMD"
+    ],
+    "unset": "Existing AMD default",
+    "invalid": "Diagnostic failure"
+  },
+  "scope": "Explicit isolated AMD/COLAMD comparison and matrix-dimension logging. No pivot threshold or numerical-tolerance change. Default engine and installed runtime remain unchanged.",
+  "evidence": "docs/validation/gf180-simulator-ordering-2026-10-08.json"
+}

@@ -1,0 +1,153 @@
+{
+  "status": "six-reference-extraction-attempt-retained",
+  "qualified": false,
+  "source_record_sha256": "98c287567bc510173941af7547f9f1b9a7005062ca39ff22a9441f9bc04ab25f",
+  "script_sha256": "670c1694f9520296a772f4ffc9407aabadc34f8ea6350381382909b3792c9c03",
+  "archive": {
+    "path": "outputs/gf180-six-rc-attempt-archive-v1/evidence.tar.gz",
+    "sha256": "fd71c9dc912c405b8fce6b128831d6a3810874a3aa7798695185edc79d174d6b",
+    "bytes": 78461443,
+    "verified_members": 114
+  },
+  "counter_c_replay": {
+    "before": {
+      "prior_sha256": "f9408a336e07f214058d693ab88171c7802afba81b40f6c0497659c11b51598c",
+      "fresh_sha256": "16d6555527697dae04f110cade7e6c550484a14cd667a6642046524414108060",
+      "identical": false
+    },
+    "filled": {
+      "prior_sha256": "c3847e43895a8cb11e1f1072c52d9a0a24050508a7a6de684c2497321db8ae4e",
+      "fresh_sha256": "1b34e9f5ee7c6342a16469b70005b33f958f52f4f85ffc642a9b1a4619a6073f",
+      "identical": false
+    }
+  },
+  "cases": [
+    {
+      "case": "c-counter",
+      "status": "paired-extraction-completed; independent-audit-and-electrical-validation-required",
+      "reason": null
+    },
+    {
+      "case": "c-uart",
+      "status": "failed",
+      "reason": "ValueError('Compact RC exceeds the declared capacitor or auxiliary-source budget.')"
+    },
+    {
+      "case": "c-apb",
+      "status": "failed",
+      "reason": "ValueError('Unsupported physical device reference record.')"
+    },
+    {
+      "case": "d-counter",
+      "status": "paired-extraction-completed; independent-audit-and-electrical-validation-required",
+      "reason": null
+    },
+    {
+      "case": "d-uart",
+      "status": "failed",
+      "reason": "ValueError('Compact RC exceeds the declared capacitor or auxiliary-source budget.')"
+    },
+    {
+      "case": "d-apb",
+      "status": "failed",
+      "reason": "ValueError('Unsupported physical device reference record.')"
+    }
+  ],
+  "gaps": {
+    "status": "large-reference-export-gaps-measured",
+    "qualified": false,
+    "script_sha256": "fce6271c53f67238137228828799271aa8fbf9473b556b3e2617182d94e4942a",
+    "uart": {
+      "source_files": {
+        "uart_tx.ext": "212d6ab028b664a2883bb459687d4c78cdb1f87a1e3de7d67d76e255a6bd4416",
+        "uart_tx.res.ext": "9ffaf49287b8adf43ce5f6f48ea431cac090afa924e070c71d64b9aecc191ec8",
+        "device-reference.spice": "0ef6ce6c356e46f0cb8153013e3f14ac785be904d19fa2ef488c5afa5abd12f8"
+      },
+      "physical_nodes": 196958,
+      "original_nets": 20982,
+      "active_groups": 20982,
+      "required_capacitors": 130773,
+      "requested_capacitor_limit": 50000,
+      "maximum_allowed_capacitor_limit": 100000,
+      "required_controlled_sources": 430791,
+      "controlled_source_limit": 250000,
+      "ground_terms": 20856,
+      "coupling_terms": 118662,
+      "numerical_scope": "Counts of the unchanged current-sum representation. No source, capacitance, resistance or device is altered."
+    },
+    "apb": {
+      "reference_sha256": "60d90b0fe93b7f97cf1203354e707197abf3c35faaa8646736438ff930cb8124",
+      "element_counts": {
+        "x": 22486,
+        "d": 4
+      },
+      "diode_records": [
+        "D0 reset VDD diode_pd2nw_06v0 pj=1.85u area=0.2034p",
+        "D1 VSS pwdata[2] diode_nd2ps_06v0 pj=1.85u area=0.2034p",
+        "D2 VSS reset diode_nd2ps_06v0 pj=1.85u area=0.2034p",
+        "D3 pwdata[2] VDD diode_pd2nw_06v0 pj=1.85u area=0.2034p"
+      ],
+      "extraction_records": [
+        "device ndiode diode_nd2ps_06v0 49428 28444 49429 28445 a=8136 p=370 \"VSS\" \"reset\" 138 0 \"VSS\" 0 0",
+        "device pdiode diode_pd2nw_06v0 49428 28797 49429 28798 a=8136 p=370 \"VDD\" \"reset\" 138 0 \"VDD\" 0 81090912,148420",
+        "device pdiode diode_pd2nw_06v0 40468 45682 40469 45683 a=8136 p=370 \"VDD\" \"pwdata[2]\" 138 0 \"VDD\" 0 81108498,148384",
+        "device ndiode diode_nd2ps_06v0 40468 46035 40469 46036 a=8136 p=370 \"VSS\" \"pwdata[2]\" 138 0 \"VSS\" 0 0"
+      ],
+      "remaining": "Add explicit native diode support to the RC topology, parameter-preservation and island checks; do not discard or convert devices without engine/model validation."
+    }
+  },
+  "scope": "Both actual C/D counter pairs complete extraction/export. C/D UART exceed existing model-size bounds; C/D APB diode records are unsupported by the RC exporter. These failures remain required work, not skipped acceptance. No larger-reference post-fill timing or function is qualified.",
+  "counter_replay_equivalence": {
+    "record": {
+      "status": "counter-physical-rc-replay-equivalence-confirmed",
+      "qualified": false,
+      "script_sha256": "39f773a40bed46c27aaff360381904452b43b8f95aa6e3389b281882f29ce9e4",
+      "helper_sha256": "606e0e26e13365ca3227f23fde88a6129b0db0ae042ddca45622a0747821ccb3",
+      "graph_helper_sha256": "57ccadbb5252fa5125f262e99d20f52c15470974d09f9f98c65241bac03d7276",
+      "cases": [
+        {
+          "state": "before",
+          "unique_node_bijection": true,
+          "nodes": 37513,
+          "all_raw_resistance_records_including_weights_equal": true,
+          "all_raw_capacitance_records_equal": true,
+          "prior_files": {
+            "counter.raw.ext": "86aedd9b54ad6f711557034ef6cfce4c6d138c314f40992173855abee371a5c4",
+            "counter.raw.res.ext": "effa85dea75cab606fd8941641b78930a3d3662c350d90a9f2dd69b684dfbfba"
+          },
+          "fresh_files": {
+            "counter.raw.ext": "295607e58d507d9dfcac4c2d8be7850c4697c3056ef1d48bca533ff7267ec2c3",
+            "counter.raw.res.ext": "6febc7dc7c118383e2c0e02ba87f1d8e42ddbf73e32e1a8a68243b2ef1701f4a"
+          }
+        },
+        {
+          "state": "filled",
+          "unique_node_bijection": true,
+          "nodes": 39335,
+          "all_raw_resistance_records_including_weights_equal": true,
+          "all_raw_capacitance_records_equal": true,
+          "prior_files": {
+            "counter.raw.ext": "34ffc8fc6613780f8799b61d4f34cdbf7beaa0cab7e5d1c2a42d3e27c8084067",
+            "counter.raw.res.ext": "3a23cca765c20a3582e68e6437a133acab58e608837ea1ffa7c56fdc3a54069b"
+          },
+          "fresh_files": {
+            "counter.raw.ext": "69f28df2e024822ed4ea1159b49070d41ab477a8e6dd5685c4e994144455b956",
+            "counter.raw.res.ext": "0612c079c3958674bf28605bf051b87fcb12a28310ba86b4af5e17536554d4b3"
+          }
+        }
+      ],
+      "scope": "All raw resistance records including device terminal incidence and printed node weights, and all raw capacitance records excluding timestamps, match under a unique physical-node renaming. Byte-level export differences remain retained. This is model equivalence, not a repeated simulation, timing or D-variant acceptance."
+    },
+    "path": "outputs/gf180-counter-rc-replay-audit-v1/record.json",
+    "sha256": "393194ac038a704232a58672b4e393f575915709bf9aaee2a8370d34f515b35d"
+  },
+  "source_retention_record": {
+    "path": "outputs/gf180-six-rc-attempt-archive-v1/record.json",
+    "sha256": "c7129f4facea8ff34b3fc1247aa7d7c3b19bb8b26e72f1d45b9b6f57c42b8526"
+  },
+  "remaining": [
+    "Support native ndiode/pdiode records and D elements throughout RC normalization, finalization, contraction and island analysis with fault controls.",
+    "Qualify larger-model capacity with explicit bounded resource policy and preservation of every electrical element.",
+    "Finish and independently audit both UART/APB filled exports, then complete required post-fill electrical and timing checks."
+  ]
+}

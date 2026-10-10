@@ -1,0 +1,369 @@
+diff --git a/resis/ResRex.c b/resis/ResRex.c
+index ea3a24e..0dfa287 100644
+--- a/resis/ResRex.c
++++ b/resis/ResRex.c
+@@ -1222,8 +1222,18 @@ ResProcessNode(
+     	TxError("Node %s has force label but no drive point or "
+ 			"driving device\n", node->name);
+     }
++    /* In all-net mode passive-only interconnects have no FET driver.
++     * The original node has an electrical origin on its own conductor. */
++    if (resisdata->rg_devloc == NULL && (ResOptionsFlags & ResOpt_ExtractAll)
++            && node->type != TT_SPACE && node->location.p_x != INFINITY
++            && node->location.p_y != INFINITY)
++    {
++        resisdata->rg_devloc = &node->location;
++        resisdata->rg_ttype = node->type;
++        resisdata->rg_status |= DRIVEONLY;
++    }
+     if (resisdata->rg_devloc == NULL)
+-	return 1;
++        return 1;
+ 
+     /*
+      * Extract the net if:
+diff --git a/resis/ResUtils.c b/resis/ResUtils.c
+index e8d9004..c624b92 100644
+--- a/resis/ResUtils.c
++++ b/resis/ResUtils.c
+@@ -213,6 +213,9 @@ ResAddTerminalPlumbing(
+ 	else
+ 	    t1 = TiGetTypeExact(tp1);
+ 
++        /* Implicit bulk space has no finite conductor to traverse. */
++        if (t1 == TT_SPACE) continue;
++
+ 	/* Top */
+ 	for (tp2 = RT(tp1); RIGHT(tp2) > LEFT(tp1); tp2 = BL(tp2))
+ 	{
+@@ -323,6 +326,9 @@ ResUnmarkTerminal(
+ 	else
+ 	    t1 = TiGetTypeExact(tp1);
+ 
++        /* Implicit bulk space has no finite conductor to traverse. */
++        if (t1 == TT_SPACE) continue;
++
+ 	/* Top */
+ 	for (tp2 = RT(tp1); RIGHT(tp2) > LEFT(tp1); tp2 = BL(tp2))
+ 	{
+@@ -883,6 +889,25 @@ ResFreeDevTiles(TileList)
+  *-------------------------------------------------------------------------
+  */
+ 
++typedef struct {
++    HashTable *table;
++    Tile *device;
++    int terminal;
++} ResCrossPlane;
++
++static int
++resRecordCrossPlane(Tile *tile, TileType dinfo, ClientData data)
++{
++    ResCrossPlane *record = (ResCrossPlane *)data;
++    HashEntry *entry = HashFind(record->table, (char *)tile);
++    resDevTerm *item = (resDevTerm *)mallocMagic(sizeof(resDevTerm));
++    item->rdt_term = record->terminal;
++    item->rdt_tile = record->device;
++    item->rdt_next = (resDevTerm *)HashGetValue(entry);
++    HashSetValue(entry, (char *)item);
++    return 0;
++}
++
+ void
+ ResPreProcessDevices(TileList, DeviceList, Def, devNodeTable)
+     ResDevTile		*TileList;
+@@ -1017,21 +1042,10 @@ ResPreProcessDevices(TileList, DeviceList, Def, devNodeTable)
+ 		    {
+ 			if (PlaneMaskHasPlane(pmask, pNum))
+ 			{
+-			    tp = PlaneGetHint(Def->cd_planes[pNum]);
+-			    GOTOPOINT(tp, &(TileList->area.r_ll));
+-			    PlaneSetHint(Def->cd_planes[pNum], tp);
+-
+-			    ttype = TiGetType(tp);
+-			    if (TTMaskHasType(&termMask, ttype))
+-			    {
+-				he = HashFind(devNodeTable, (char *)tp);
+-			        resdevList = (resDevTerm *)HashGetValue(he);
+-			        resdevRec = (resDevTerm *)mallocMagic(sizeof(resDevTerm));
+-				resdevRec->rdt_term = i;
+-			        resdevRec->rdt_tile = tile;
+-			        resdevRec->rdt_next = resdevList;
+-			        HashSetValue(he, (char *)resdevRec);
+-			    }
++                            ResCrossPlane record = {devNodeTable, tile, i};
++                            DBSrPaintArea((Tile *)NULL, Def->cd_planes[pNum],
++                                &TileList->area, &termMask, resRecordCrossPlane,
++                                (ClientData)&record);
+ 			}
+ 		    }
+ 		}
+--- a/resis/ResBasic.c
++++ b/resis/ResBasic.c
+@@ -243,7 +243,7 @@
+ 		    {
+ 			/* found device */
+ 			xj = LEFT(tile);
+-			yj = (TOP(tp) + BOTTOM(tp)) >> 1;
++			yj = (MAX(BOTTOM(tile), BOTTOM(tp)) + MIN(TOP(tile), TOP(tp))) >> 1;
+ 			ResNewTermDevice(tile, tp, i, xj, yj, RIGHTEDGE, &ResNodeQueue);
+ 			break;
+ 		    }
+@@ -276,7 +276,7 @@
+ 		    {
+ 			/* found device */
+ 			xj = RIGHT(tile);
+-			yj = (TOP(tp) + BOTTOM(tp)) >> 1;
++			yj = (MAX(BOTTOM(tile), BOTTOM(tp)) + MIN(TOP(tile), TOP(tp))) >> 1;
+ 			ResNewTermDevice(tile, tp, i, xj, yj, LEFTEDGE, &ResNodeQueue);
+ 			break;
+ 		    }
+@@ -309,7 +309,7 @@
+ 		    {
+ 			/* found device */
+ 			yj = TOP(tile);
+-			xj = (LEFT(tp) + RIGHT(tp)) >> 1;
++			xj = (MAX(LEFT(tile), LEFT(tp)) + MIN(RIGHT(tile), RIGHT(tp))) >> 1;
+ 			ResNewTermDevice(tile, tp, i, xj, yj, BOTTOMEDGE, &ResNodeQueue);
+ 			break;
+ 		    }
+@@ -342,7 +342,7 @@
+ 		    {
+ 			/* found device */
+ 			yj = BOTTOM(tile);
+-			xj = (LEFT(tp) + RIGHT(tp)) >> 1;
++			xj = (MAX(LEFT(tile), LEFT(tp)) + MIN(RIGHT(tile), RIGHT(tp))) >> 1;
+ 			ResNewTermDevice(tile, tp, i, xj, yj, TOPEDGE, &ResNodeQueue);
+ 			break;
+ 		    }
+@@ -373,10 +373,10 @@
+ 	while (resdevList != NULL)
+ 	{
+ 	    resdevRec = resdevList;
+-	    /* Set the position from the device, not the current tile */
++	    /* Place the connection inside the device/conductor overlap. */
+ 	    devtile = resdevRec->rdt_tile;
+-	    xj = (RIGHT(devtile) + LEFT(devtile)) / 2;
+-	    yj = (TOP(devtile) + BOTTOM(devtile)) / 2;
++	    xj = (MAX(LEFT(tile), LEFT(devtile)) + MIN(RIGHT(tile), RIGHT(devtile))) / 2;
++	    yj = (MAX(BOTTOM(tile), BOTTOM(devtile)) + MIN(TOP(tile), TOP(devtile))) / 2;
+ 	    if (resdevRec->rdt_term == -1)	/* Substrate */
+ 	    {
+ 		ResNewSubDevice(tile, resdevRec->rdt_tile, xj, yj,
+diff --git a/extract/ExtCouple.c b/extract/ExtCouple.c
+--- a/extract/ExtCouple.c
++++ b/extract/ExtCouple.c
+@@ -22,6 +22,7 @@
+ #endif  /* not lint */
+ 
+ #include <stdio.h>
++#include <limits.h>
+ #include <math.h>		/* For atan() */
+ 
+ #include "utils/magic.h"
+@@ -421,8 +422,22 @@
+     TileTypeBitMask	 o_tmask;
+ };
+ 
++/* Integer coverage avoids cancellation when rectangular shields completely
++ * cover the fringe search area.  Split tiles disable this exact shortcut.
++ * No capacitance tolerance is used; partial coverage keeps the original model.
++ */
++static unsigned long long
++extSideRectArea(const Rect *r)
++{
++    if (r->r_xtop <= r->r_xbot || r->r_ytop <= r->r_ybot) return 0;
++    return ((unsigned long long)((long long)r->r_xtop - r->r_xbot)) *
++           ((unsigned long long)((long long)r->r_ytop - r->r_ybot));
++}
++
+ struct sideoverlap
+ {
++    unsigned long long so_covered;
++    bool so_rectangular;
+     Rect		  so_clip;
+     double		  so_coupfrac;
+     double		  so_subfrac;
+@@ -684,8 +699,20 @@
+     GEOCLIP(&r, &sov->so_clip);
+     area = (r.r_xtop - r.r_xbot) * (r.r_ytop - r.r_ybot);
+     if (area <= 0) return 0;
++    if (IsSplit(tile)) sov->so_rectangular = FALSE;
++    if (sov->so_rectangular)
++    {
++        unsigned long long covered = extSideRectArea(&r);
++        if (ULLONG_MAX - sov->so_covered < covered)
++            sov->so_rectangular = FALSE;
++        else
++            sov->so_covered += covered;
++    }
+ 
+     ta = TiGetType(bp->b_inside);
++    /* Use the same contact residue as the fringe-rule caller. */
++    if (DBIsContact(ta))
++        ta = DBPlaneToResidue(ta, sov->so_esws->plane_of_boundary);
+     tb = sov->so_ctype;
+ 
+     if (bp->b_segment.r_xtop == bp->b_segment.r_xbot)
+@@ -766,7 +793,11 @@
+     GEOCLIP(&r, &sov->so_clip);
+     area = (r.r_xtop - r.r_xbot) * (r.r_ytop - r.r_ybot);
+     if (area <= 0) return (0);
+-    if (IsSplit(tile)) area /= 2;
++    if (IsSplit(tile))
++    {
++        area /= 2;
++        sov->so_rectangular = FALSE;
++    }
+ 
+     /* This tile shields everything below */
+     if (TTMaskHasType(&sov->so_tmask, ttype))
+@@ -798,6 +829,8 @@
+     }
+     sov->so_subfrac = sovnew.so_subfrac;
+     sov->so_coupfrac = sovnew.so_coupfrac;
++    sov->so_covered = sovnew.so_covered;
++    sov->so_rectangular = sovnew.so_rectangular;
+ 
+     return (0);
+ }
+@@ -1502,6 +1535,8 @@
+ 	    sov.so_pmask = ExtCurStyle->exts_sideOverlapShieldPlanes[ta][tb];
+ 	    sov.so_esws = esws;
+ 	    sov.so_coupfrac = (double)0.0;
++        sov.so_covered = 0;
++        sov.so_rectangular = TRUE;
+ 	    sov.so_subfrac = (double)0.0;
+ 	    sov.so_length = length;
+ 	    sov.so_ctype = tb;
+@@ -1534,7 +1569,14 @@
+ 	    }
+ 	    if (rtp != rbp)
+ 	    {
+-		efflength = (cfrac - sov.so_coupfrac) * (double)length;
++		/* Complete shielding has exactly zero remaining fringe area.
++                 * Preserve the signed calculation for every partial/split case.
++                 */
++                if (sov.so_rectangular && sov.so_covered != 0 &&
++                    sov.so_covered == extSideRectArea(&sov.so_clip))
++                    efflength = 0.0;
++                else
++                    efflength = (cfrac - sov.so_coupfrac) * (double)length;
+ 		cap += e->ec_cap * efflength;
+ 
+ 		subfrac += sov.so_subfrac;	/* Just add the shielded fraction */
+@@ -1888,6 +1930,9 @@
+     if ((r.r_xtop <= r.r_xbot) || (r.r_ytop <= r.r_ybot)) return 0;
+ 
+     ta = TiGetType(bp->b_inside);
++    /* Use the same contact residue as the fringe-rule caller. */
++    if (DBIsContact(ta))
++        ta = DBPlaneToResidue(ta, ecos->ec_esws->plane_of_boundary);
+     tb = cov->co_ctype;
+ 
+     mult = (double)ExtCurStyle->exts_overlapMult[ta][0];
+diff --git a/resis/ResMerge.c b/resis/ResMerge.c
+--- a/resis/ResMerge.c
++++ b/resis/ResMerge.c
+@@ -539,7 +539,10 @@
+ {
+     resResistor	*rr1, *rr2, *rr3;
+     int		status = UNTOUCHED;
+-    float	r1, r2, r3, denom;
++    /* rr_value is floating point, not an integer milliohm count.  Adding
++     * an integer-rounding offset changes the terminal resistance.
++     */
++    double	r1, r2, r3, denom;
+     resNode	*n1, *n2, *n3;
+     resElement	*rcell1, *rcell2, *rcell3, *element;
+     int		rcount = 0;
+@@ -558,7 +561,6 @@
+     {
+ 	HashTable	NodeResTable;
+ 	HashEntry	*he, *he2;
+-	HashSearch	hs;
+ 
+ 	/* Hash the neighboring connections */
+ 	HashInit(&NodeResTable, HT_DEFAULTSIZE, HT_WORDKEYS);
+@@ -576,13 +578,18 @@
+ 		HashSetValue(he, (char *)rcell2);
+ 	}
+ 
+-	HashStartSearch(&hs);
+-	while ((he = HashNext(&NodeResTable, &hs)))
+-	{
+-	    /* Get each node that neighbors resptr */
+-	    n1 = (resNode *)he->h_key.h_ptr;
+-	    rcell1 = (resElement *)HashGetValue(he);
+-	    rr1 = rcell1->re_thisEl;
++        /* Keep the resistor-list order.  Pointer-hash iteration makes the
++         * selected reduction depend on allocation addresses.  The hash is
++         * still used for constant-time lookup of the second neighbor.
++         */
++        for (rcell1 = resptr->rn_re; rcell1 != NULL;
++                rcell1 = rcell1->re_nextEl)
++        {
++            rr1 = rcell1->re_thisEl;
++            n1 = rr1->rr_connection1;
++            if (n1 == resptr) n1 = rr1->rr_connection2;
++            he = HashLookOnly(&NodeResTable, (char *)n1);
++            if ((resElement *)HashGetValue(he) != rcell1) continue;
+ 
+ 	    /* Check the list of resistors of neighbor n1 for any resistor whose
+ 	     * other end is also a neighbor of resptr.
+@@ -627,17 +634,17 @@
+ 			continue;
+ 
+ 		    status = TRIANGLE;
+-		    if ((denom = rr1->rr_value + rr2->rr_value + rr3->rr_value) != 0.0)
++		    if ((denom = (double)rr1->rr_value + rr2->rr_value + rr3->rr_value) != 0.0)
+ 		    {
+ 			denom = 1.0  /denom;
+ 			/* calculate new values for resistors */
+-			r1 = (((float)rr1->rr_value) * ((float)rr2->rr_value)) * denom;
+-			r2 = (((float)rr2->rr_value) * ((float)rr3->rr_value)) * denom;
+-			r3 = (((float)rr1->rr_value) * ((float)rr3->rr_value)) * denom;
+-
+-			rr1->rr_value = r1 + 0.5;
+-			rr2->rr_value = r2 + 0.5;
+-			rr3->rr_value = r3 + 0.5;
++			r1 = (((double)rr1->rr_value) * ((double)rr2->rr_value)) * denom;
++			r2 = (((double)rr2->rr_value) * ((double)rr3->rr_value)) * denom;
++			r3 = (((double)rr1->rr_value) * ((double)rr3->rr_value)) * denom;
++
++			rr1->rr_value = r1;
++			rr2->rr_value = r2;
++			rr3->rr_value = r3;
+ 			ASSERT(rr1->rr_value >= 0, "Triangle");
+ 			ASSERT(rr2->rr_value >= 0, "Triangle");
+ 			ASSERT(rr3->rr_value >= 0, "Triangle");
+@@ -760,19 +767,19 @@
+ 		        (rr3->rr_connection1 != n2))) continue;
+ 
+ 		status = TRIANGLE;
+-		if ((denom = rr1->rr_value + rr2->rr_value + rr3->rr_value) != 0.0)
++		if ((denom = (double)rr1->rr_value + rr2->rr_value + rr3->rr_value) != 0.0)
+ 		{
+ 		    denom = 1.0  /denom;
+ 		    /* calculate new values for resistors */
+-		    r1 = (((float)rr1->rr_value) * ((float)rr2->rr_value)) * denom;
+-
+-		    r2 = (((float)rr2->rr_value) * ((float)rr3->rr_value)) * denom;
+-
+-		    r3 = (((float)rr1->rr_value) * ((float)rr3->rr_value)) * denom;
+-
+-		    rr1->rr_value = r1 + 0.5;
+-		    rr2->rr_value = r2 + 0.5;
+-		    rr3->rr_value = r3 + 0.5;
++		    r1 = (((double)rr1->rr_value) * ((double)rr2->rr_value)) * denom;
++
++		    r2 = (((double)rr2->rr_value) * ((double)rr3->rr_value)) * denom;
++
++		    r3 = (((double)rr1->rr_value) * ((double)rr3->rr_value)) * denom;
++
++		    rr1->rr_value = r1;
++		    rr2->rr_value = r2;
++		    rr3->rr_value = r3;
+ 		    ASSERT(rr1->rr_value >= 0, "Triangle");
+ 		    ASSERT(rr2->rr_value >= 0, "Triangle");
+ 		    ASSERT(rr3->rr_value >= 0, "Triangle");

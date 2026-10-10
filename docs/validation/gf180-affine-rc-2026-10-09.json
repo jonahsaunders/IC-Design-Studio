@@ -1,0 +1,481 @@
+{
+  "schema_version": 1,
+  "status": "bounded-affine-compact-rc-controls-passed",
+  "qualified": false,
+  "observed_at": "2026-10-09T13:43:25.976469+00:00",
+  "backend": "6b86270f84e008fe9a727f20aa5005d8e58c13ee08ace491eaece6431fd0dd68",
+  "source_base_commit": "a6fe5d790285a072251e00db53da06982a8fac0f",
+  "implementation": {
+    "icstudio/compact_rc.py": "313787118aea63d5ac19a5f9d8c269d73e37111c4b835ad2bcb1a1de1ab15945",
+    "icstudio/magic_rc.py": "8f0f6f29307a7a740321ad556ef29184960c15c74b60cd6f10b3c587d6ddc8d2",
+    "scripts/qualify_compact_rc_coupling.py": "fa5f9016f8a386f0f5b3f990f996b038f79700b7034ad2398325806e1d992ad2",
+    "tests/test_compact_rc.py": "7f6db2e778453d0a55a0dc802719dd25817cc979a7e1126c478c9306442c4d61",
+    "tests/test_compact_rc_capacity.py": "0c2e672c13375f2c45b6864327ca331c17235066e6de0a78e400775762b20b3d"
+  },
+  "checkpoint_sha256": "ec0275e272a8a1aeed316fa6975e3dd923462bb7af505083cfd793e82eb39aa3",
+  "archive": {
+    "path": "IC-Design-Studio-evidence/gf180-affine-rc-2026-10-09-v1/evidence.tar.gz",
+    "sha256": "088d5804c43de4d6fe8990d327fb6461c83b782f7808621612df9c23b5868bac",
+    "bytes": 631080990,
+    "logical_files": 1525,
+    "unique_objects": 1222,
+    "verified": true,
+    "logical_bytes": 5931130841
+  },
+  "scope": "Bounded numerical compact-RC correction and native circuit equivalence. Eight larger exports preserve all devices, ports and RC elements. This does not establish larger-reference transistor-level function, post-fill timing, full fill coverage, installed production-runtime acceptance or tapeout qualification.",
+  "tolerances": {
+    "relative_current": 1e-10,
+    "absolute_current_af": 1e-10,
+    "relative_energy": 1e-10,
+    "absolute_energy_af": 1e-10
+  },
+  "native_controls": {
+    "sparse": {
+      "report_sha256": "fb8c1fcd6df0b766651b6768b19744f6f2ced5484b8ac454b7ec95480711c9cb",
+      "engine_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7",
+      "ac_cases": 42,
+      "common_mode_max_amperes": 0.0,
+      "production_transient_max_volts": 9.301072658729481e-07
+    },
+    "klu": {
+      "report_sha256": "96148e12e37d669c68a16751a4b96e775843b1cf78805b6ddad30c58a2018b3e",
+      "engine_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7",
+      "ac_cases": 42,
+      "common_mode_max_amperes": 0.0,
+      "production_transient_max_volts": 9.299184142719241e-07
+    },
+    "windows": {
+      "report_sha256": "4d2798e3a59b28331d6cfa02ee726062e676e1e1c74c09ba883f03f97e0ba74a",
+      "engine_sha256": "f86062f3bb1016dcf1552a57f38954891b4e71aee6defbebde6de589ee55682f",
+      "ac_cases": 42,
+      "common_mode_max_amperes": 0.0,
+      "production_transient_max_volts": 9.301072658729481e-07
+    }
+  },
+  "tests": {
+    "gf180-affine-rc-full-windows-v2.log": {
+      "tests": 1548,
+      "sha256": "78a195b8c5231243a27c4f899433c168d20fb34ec7fcbe6d10afdd8c7f7e1653",
+      "skipped": 62
+    },
+    "gf180-affine-rc-focused-windows-v1.log": {
+      "tests": 54,
+      "sha256": "ed9d2e175f440a6c18917c36c13f46c27deb3a6abc1eccda5f7b25303e1c089f",
+      "skipped": 0
+    },
+    "gf180-affine-rc-focused-linux-v1.log": {
+      "tests": 54,
+      "sha256": "146a7c4dbbfb801d110af49ffe090ee544323eacae6ce79c6817a7e805378d20",
+      "skipped": 0
+    }
+  },
+  "extraction_source_sha256": "0049c1fc40a3d249ddb89b6ef333e486d2dc8246ccda32aae796c91d3f792144",
+  "reprocessing_sha256": "cc4be02b3912898b7a609193667f5b89478557c0eb5d5d3a59c08f88bb16e685",
+  "operator_sha256": "2511ff1e401fe92adeafcbc13731720ded97b05e6d36f5ca0dcf41764dd7171d",
+  "cases": [
+    {
+      "case": "c-uart",
+      "state": "before",
+      "physical_nodes": 196958,
+      "model_counts": {
+        "R": 41964,
+        "G": 409809,
+        "E": 20982,
+        "C": 130773
+      },
+      "trials": [
+        {
+          "trial": 0,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 0.0,
+          "current_sum_af": 0.0,
+          "reference_energy_af": 0.0,
+          "serialized_energy_af": 0.0
+        },
+        {
+          "trial": 1,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 7.275957614183426e-12,
+          "current_sum_af": -1.2057395433646978e-09,
+          "reference_energy_af": 115205049.81728467,
+          "serialized_energy_af": 115205049.81728469
+        },
+        {
+          "trial": 2,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 7.275957614183426e-12,
+          "current_sum_af": 8.353219561364755e-10,
+          "reference_energy_af": 60174394.51646892,
+          "serialized_energy_af": 60174394.51646892
+        },
+        {
+          "trial": 3,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 3.725290298461914e-09,
+          "current_sum_af": -5.173435002495206e-09,
+          "reference_energy_af": 73021921.83885302,
+          "serialized_energy_af": 73021921.83885302
+        }
+      ]
+    },
+    {
+      "case": "c-uart",
+      "state": "filled",
+      "physical_nodes": 201204,
+      "model_counts": {
+        "R": 46210,
+        "G": 435287,
+        "E": 23105,
+        "C": 135019
+      },
+      "trials": [
+        {
+          "trial": 0,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 0.0,
+          "current_sum_af": 0.0,
+          "reference_energy_af": 0.0,
+          "serialized_energy_af": 0.0
+        },
+        {
+          "trial": 1,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 1.0913936421275139e-11,
+          "current_sum_af": 1.082386636807979e-08,
+          "reference_energy_af": 172011036.46792036,
+          "serialized_energy_af": 172011036.46792036
+        },
+        {
+          "trial": 2,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 7.450580596923828e-09,
+          "current_sum_af": -4.297545851735668e-09,
+          "reference_energy_af": 98508677.92247418,
+          "serialized_energy_af": 98508677.92247419
+        },
+        {
+          "trial": 3,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 1.862645149230957e-09,
+          "current_sum_af": -2.2352945558095478e-09,
+          "reference_energy_af": 61410791.924943365,
+          "serialized_energy_af": 61410791.92494337
+        }
+      ]
+    },
+    {
+      "case": "c-apb",
+      "state": "before",
+      "physical_nodes": 197264,
+      "model_counts": {
+        "R": 42482,
+        "G": 409787,
+        "E": 21241,
+        "C": 130715
+      },
+      "trials": [
+        {
+          "trial": 0,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 0.0,
+          "current_sum_af": 0.0,
+          "reference_energy_af": 0.0,
+          "serialized_energy_af": 0.0
+        },
+        {
+          "trial": 1,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 7.450580596923828e-09,
+          "current_sum_af": 1.9928061097455006e-09,
+          "reference_energy_af": 123498802.57586014,
+          "serialized_energy_af": 123498802.57586016
+        },
+        {
+          "trial": 2,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 3.725290298461914e-09,
+          "current_sum_af": 5.584874416229846e-10,
+          "reference_energy_af": 96580155.3789089,
+          "serialized_energy_af": 96580155.37890892
+        },
+        {
+          "trial": 3,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 1.4551915228366852e-11,
+          "current_sum_af": -1.3374651386399705e-09,
+          "reference_energy_af": 73437476.80801752,
+          "serialized_energy_af": 73437476.80801754
+        }
+      ]
+    },
+    {
+      "case": "c-apb",
+      "state": "filled",
+      "physical_nodes": 201502,
+      "model_counts": {
+        "R": 46720,
+        "G": 435659,
+        "E": 23360,
+        "C": 134953
+      },
+      "trials": [
+        {
+          "trial": 0,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 0.0,
+          "current_sum_af": 0.0,
+          "reference_energy_af": 0.0,
+          "serialized_energy_af": 0.0
+        },
+        {
+          "trial": 1,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 4.656612873077393e-10,
+          "current_sum_af": -4.26928020171545e-10,
+          "reference_energy_af": 29520606.29483741,
+          "serialized_energy_af": 29520606.29483741
+        },
+        {
+          "trial": 2,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 7.450580596923828e-09,
+          "current_sum_af": 8.025409549807308e-09,
+          "reference_energy_af": 82288479.73528795,
+          "serialized_energy_af": 82288479.73528795
+        },
+        {
+          "trial": 3,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 7.450580596923828e-09,
+          "current_sum_af": 7.0765396724696474e-09,
+          "reference_energy_af": 94576756.01048589,
+          "serialized_energy_af": 94576756.0104859
+        }
+      ]
+    },
+    {
+      "case": "d-uart",
+      "state": "before",
+      "physical_nodes": 196958,
+      "model_counts": {
+        "R": 41964,
+        "G": 409809,
+        "E": 20982,
+        "C": 130773
+      },
+      "trials": [
+        {
+          "trial": 0,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 0.0,
+          "current_sum_af": 0.0,
+          "reference_energy_af": 0.0,
+          "serialized_energy_af": 0.0
+        },
+        {
+          "trial": 1,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 7.275957614183426e-12,
+          "current_sum_af": -1.2001688883163386e-09,
+          "reference_energy_af": 115205049.81728467,
+          "serialized_energy_af": 115205049.81728469
+        },
+        {
+          "trial": 2,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 7.275957614183426e-12,
+          "current_sum_af": -4.3997093468473025e-10,
+          "reference_energy_af": 60162338.81038031,
+          "serialized_energy_af": 60162338.81038031
+        },
+        {
+          "trial": 3,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 3.725290298461914e-09,
+          "current_sum_af": -4.698538489051121e-09,
+          "reference_energy_af": 73017987.44869553,
+          "serialized_energy_af": 73017987.44869553
+        }
+      ]
+    },
+    {
+      "case": "d-uart",
+      "state": "filled",
+      "physical_nodes": 201204,
+      "model_counts": {
+        "R": 46210,
+        "G": 435287,
+        "E": 23105,
+        "C": 135019
+      },
+      "trials": [
+        {
+          "trial": 0,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 0.0,
+          "current_sum_af": 0.0,
+          "reference_energy_af": 0.0,
+          "serialized_energy_af": 0.0
+        },
+        {
+          "trial": 1,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 1.0913936421275139e-11,
+          "current_sum_af": 1.082386636807979e-08,
+          "reference_energy_af": 172011036.46792036,
+          "serialized_energy_af": 172011036.46792036
+        },
+        {
+          "trial": 2,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 3.725290298461914e-09,
+          "current_sum_af": -5.605895356426693e-09,
+          "reference_energy_af": 98549792.32091492,
+          "serialized_energy_af": 98549792.32091494
+        },
+        {
+          "trial": 3,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 1.862645149230957e-09,
+          "current_sum_af": -1.9883524783256834e-09,
+          "reference_energy_af": 61385080.09772534,
+          "serialized_energy_af": 61385080.09772535
+        }
+      ]
+    },
+    {
+      "case": "d-apb",
+      "state": "before",
+      "physical_nodes": 197264,
+      "model_counts": {
+        "R": 42482,
+        "G": 409787,
+        "E": 21241,
+        "C": 130715
+      },
+      "trials": [
+        {
+          "trial": 0,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 0.0,
+          "current_sum_af": 0.0,
+          "reference_energy_af": 0.0,
+          "serialized_energy_af": 0.0
+        },
+        {
+          "trial": 1,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 7.450580596923828e-09,
+          "current_sum_af": 1.9886281184592312e-09,
+          "reference_energy_af": 123498802.57586014,
+          "serialized_energy_af": 123498802.57586016
+        },
+        {
+          "trial": 2,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 3.725290298461914e-09,
+          "current_sum_af": 1.8282876019333136e-09,
+          "reference_energy_af": 96389644.58816698,
+          "serialized_energy_af": 96389644.588167
+        },
+        {
+          "trial": 3,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 1.0913936421275139e-11,
+          "current_sum_af": 1.980408400204664e-10,
+          "reference_energy_af": 73354134.07038231,
+          "serialized_energy_af": 73354134.07038231
+        }
+      ]
+    },
+    {
+      "case": "d-apb",
+      "state": "filled",
+      "physical_nodes": 201502,
+      "model_counts": {
+        "R": 46720,
+        "G": 435659,
+        "E": 23360,
+        "C": 134953
+      },
+      "trials": [
+        {
+          "trial": 0,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 0.0,
+          "current_sum_af": 0.0,
+          "reference_energy_af": 0.0,
+          "serialized_energy_af": 0.0
+        },
+        {
+          "trial": 1,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 4.656612873077393e-10,
+          "current_sum_af": -4.26928020171545e-10,
+          "reference_energy_af": 29520606.29483741,
+          "serialized_energy_af": 29520606.29483741
+        },
+        {
+          "trial": 2,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 3.725290298461914e-09,
+          "current_sum_af": 4.933835905151021e-09,
+          "reference_energy_af": 82288793.69108345,
+          "serialized_energy_af": 82288793.69108346
+        },
+        {
+          "trial": 3,
+          "endpoint_check_passed": true,
+          "energy_check_passed": true,
+          "maximum_current_error_af": 3.725290298461914e-09,
+          "current_sum_af": 5.790019935074733e-09,
+          "reference_energy_af": 94573951.0303376,
+          "serialized_energy_af": 94573951.0303376
+        }
+      ]
+    }
+  ],
+  "retained_failures": [
+    "Original larger exports and wrapped-port failures.",
+    "Original common-mode binary and high-precision diagnostics.",
+    "Rejected global-reference candidate.",
+    "First native common-mode control changed a difference gain, which correctly left common mode unaffected; the corrected control corrupts the unit anchor return.",
+    "First full Windows suite was blocked by sandbox localhost and filesystem restrictions; unchanged rerun with required access passed."
+  ],
+  "remaining": [
+    "Actual larger-reference post-fill function and timing.",
+    "Complete foundry fill/exclusion/boundary coverage.",
+    "Source-bound native connectivity-fault acceptance and production engine/installation integration."
+  ]
+}

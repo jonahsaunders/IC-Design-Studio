@@ -13,6 +13,12 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from icstudio.model import file_digest
 
+PLATFORM_SCRIPTS = ('prepare_sky130_digital.py', 'fetch_sky130_reference.py',
+                    'fetch_gf180_connectivity.py', 'prepare_gf180_connectivity.py',
+                    'prepare_gf180_lvs.py', 'gf180_cdl_diodes.py')
+PLATFORM_LOCKS = ('physical-engine-lock.json', 'sky130-reference-assets.json',
+                  'gf180-connectivity-library-lock.json', 'gf180-lvs-source-lock.json')
+
 
 def pack_filesystem(source, destination):
     # Docker recreates system links such as /etc/mtab when a container is
@@ -33,12 +39,19 @@ def build(output):
     with tempfile.TemporaryDirectory() as td:
         context = Path(td)
         shutil.copytree(ROOT/'packaging/digital', context, dirs_exist_ok=True)
+        (context/'licenses').mkdir()
+        shutil.copy2(ROOT/'licenses/Apache-2.0.txt',context/'licenses/Apache-2.0.txt')
+        shutil.copy2(ROOT/'THIRD_PARTY_NOTICES.md',context/'licenses/THIRD_PARTY_NOTICES.md')
         shutil.copytree(ROOT/'icstudio', context/'icstudio', ignore=shutil.ignore_patterns('assets','__pycache__','*.so','*.dll'))
         shutil.copy2(ROOT/'scripts/build_physical_engines.py',context/'build_physical_engines.py')
         shutil.copy2(ROOT/'scripts/compile_ihp_osdi.py',context/'compile_ihp_osdi.py')
+        (context/'scripts').mkdir()
+        for name in PLATFORM_SCRIPTS:
+            shutil.copy2(ROOT/'scripts'/name,context/'scripts'/name)
         shutil.copytree(ROOT/'icstudio/assets/pdks/ihp-sg13g2/libs.tech/verilog-a',context/'ihp-pdk/libs.tech/verilog-a')
         (context/'examples').mkdir()
-        shutil.copy2(ROOT/'examples/physical-engine-lock.json',context/'examples/physical-engine-lock.json')
+        for name in PLATFORM_LOCKS:
+            shutil.copy2(ROOT/'examples'/name,context/'examples'/name)
         subprocess.run(['docker','build','--platform','linux/amd64','-t','icstudio-digital-runtime',str(context)],check=True)
     container = subprocess.check_output(['docker','create','icstudio-digital-runtime'],text=True).strip()
     try:

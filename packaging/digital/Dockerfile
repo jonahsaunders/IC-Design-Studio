@@ -24,6 +24,10 @@ RUN git init /opt/icstudio/orfs && cd /opt/icstudio/orfs \
     && git remote add origin https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts.git \
     && git fetch --depth 1 origin eaba6576441bf7c1743ea56ecdb1904210ec02c2 \
     && git checkout FETCH_HEAD
+RUN curl -fL --retry 3 -o /tmp/klayout.deb https://www.klayout.org/downloads/Ubuntu-24/klayout_0.30.5-1_amd64.deb \
+    && echo '9f88fe45d1992fc9bd0ce986bbbe150ad198c6a59a86fc13343db822a5790e49  /tmp/klayout.deb' | sha256sum -c \
+    && apt-get update && apt-get install -y /tmp/klayout.deb \
+    && rm -rf /var/lib/apt/lists/* /tmp/klayout.deb
 COPY icstudio /tmp/studio/icstudio
 COPY ihp-pdk /tmp/ihp-pdk
 COPY compile_ihp_osdi.py /tmp/compile_ihp_osdi.py
@@ -33,7 +37,15 @@ RUN curl -fL --retry 3 -o /tmp/openvaf.tgz https://fides.fe.uni-lj.si/openvaf/do
     && PYTHONPATH=/tmp/studio python3 /tmp/compile_ihp_osdi.py --pdk-root /tmp/ihp-pdk --openvaf /tmp/openvaf/openvaf --output /opt/icstudio/osdi/ihp-sg13g2 --generic-cpu \
     && cp -r /tmp/ihp-pdk/libs.tech/verilog-a /opt/icstudio/osdi/ihp-sg13g2/sources \
     && rm -rf /tmp/openvaf /tmp/openvaf.tgz /tmp/ihp-pdk /tmp/compile_ihp_osdi.py
-COPY assemble.py /tmp/assemble.py
-RUN PYTHONPATH=/tmp/studio python3 /tmp/assemble.py && rm -rf /tmp/studio /tmp/assemble.py
+COPY licenses /opt/icstudio/licenses
+COPY scripts /tmp/studio/scripts
+COPY examples/sky130-reference-assets.json /tmp/studio/examples/sky130-reference-assets.json
+COPY examples/gf180-connectivity-library-lock.json examples/gf180-lvs-source-lock.json /tmp/studio/examples/
+COPY licenses/Apache-2.0.txt /tmp/studio/licenses/Apache-2.0.txt
+COPY assemble.py bundle_platforms.py /tmp/
+RUN python3 -m venv /tmp/platform-builder \
+    && /tmp/platform-builder/bin/pip install --no-cache-dir backports.zstd==1.7.0 \
+    && PYTHONPATH=/tmp/studio /tmp/platform-builder/bin/python /tmp/assemble.py \
+    && rm -rf /tmp/platform-builder /tmp/studio /tmp/assemble.py /tmp/bundle_platforms.py
 RUN printf '[automount]\noptions = "metadata"\n[interop]\nappendWindowsPath = false\n' > /etc/wsl.conf
 CMD ["/bin/bash"]

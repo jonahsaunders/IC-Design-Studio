@@ -1,0 +1,2438 @@
+{
+  "schema": 9,
+  "status": "checks_passed_coverage_incomplete",
+  "qualified": false,
+  "variant": "C",
+  "metal_stack": "5LM_1TM",
+  "scope": "Supplemental density measurements, dummy geometry, declared drawing recipe, clearances, well/marker exclusions, exclusion-marker geometry and unsupported memory-layer detection only.",
+  "gds_sha256": "da6c9f30cc321126fe7c05f86be6dd1e39f2e1efd02abb1dbc1142dc1bbfee48",
+  "checker_sha256": "7951f064542e322826e05302c628e1c162713f9ad6581905833facd080c5e9a6",
+  "manual_lock_sha256": "96db8b10b3564eed4589e304e1f5a9dc5b10c9f426f1dd0b19d105a03fa996e1",
+  "klayout_python_version": "0.30.5",
+  "coverage_manual_lock_sha256": "e76113dd556fd192c5b7a21744602ce57e2cf7f6e5623046c33b15dcbaee7bac",
+  "layer_map_sha256": "df2554c382713e671425ac9c6250c512e86e33bc469d70eee1c128878aaeb927",
+  "top": "apb_fifo",
+  "bounds_um": [
+    0,
+    0,
+    400,
+    400
+  ],
+  "area_um2": 160000.0,
+  "geometry_extent_um": [
+    0.0,
+    0.0,
+    400.0,
+    400.0
+  ],
+  "density": {
+    "comp": {
+      "circuit_percent": 39.42652175,
+      "dummy_percent": 0.0,
+      "total_percent": 39.42652175,
+      "limits_percent": [
+        25,
+        70
+      ],
+      "lower_limit_inclusive": true
+    },
+    "poly": {
+      "circuit_percent": 29.757781125,
+      "dummy_percent": 0.0,
+      "total_percent": 29.757781125,
+      "limits_percent": [
+        14,
+        100
+      ],
+      "lower_limit_inclusive": true
+    },
+    "m1": {
+      "circuit_percent": 27.445836109375,
+      "dummy_percent": 5.2975,
+      "total_percent": 32.743336109375,
+      "limits_percent": [
+        30,
+        100
+      ],
+      "lower_limit_inclusive": false
+    },
+    "m2": {
+      "circuit_percent": 41.017002,
+      "dummy_percent": 0.0,
+      "total_percent": 41.017002,
+      "limits_percent": [
+        30,
+        100
+      ],
+      "lower_limit_inclusive": false
+    },
+    "m3": {
+      "circuit_percent": 39.89324121875,
+      "dummy_percent": 0.0,
+      "total_percent": 39.89324121875,
+      "limits_percent": [
+        30,
+        100
+      ],
+      "lower_limit_inclusive": false
+    },
+    "m4": {
+      "circuit_percent": 45.195843,
+      "dummy_percent": 0.0,
+      "total_percent": 45.195843,
+      "limits_percent": [
+        30,
+        100
+      ],
+      "lower_limit_inclusive": false
+    },
+    "m5": {
+      "circuit_percent": 40.054385,
+      "dummy_percent": 0.0,
+      "total_percent": 40.054385,
+      "limits_percent": [
+        30,
+        100
+      ],
+      "lower_limit_inclusive": false
+    }
+  },
+  "metal_density_windows": {
+    "m1": {
+      "status": "measured_acceptance_unqualified",
+      "window_um": 200,
+      "step_um": 100,
+      "anchor_um": [
+        0.0,
+        0.0
+      ],
+      "edge_policy": "Clip each anchored window to the fixed die; divide by the clipped area. Foundry edge acceptance remains unqualified.",
+      "local_limits_percent": null,
+      "full_windows": 9,
+      "partial_windows": 7,
+      "windows": [
+        {
+          "bounds_um": [
+            0.0,
+            0.0,
+            200.0,
+            200.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 13354.85,
+          "measured_percent": 33.387125
+        },
+        {
+          "bounds_um": [
+            100.0,
+            0.0,
+            300.0,
+            200.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 13432.674525,
+          "measured_percent": 33.5816863125
+        },
+        {
+          "bounds_um": [
+            200.0,
+            0.0,
+            400.0,
+            200.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 13094.285725,
+          "measured_percent": 32.7357143125
+        },
+        {
+          "bounds_um": [
+            300.0,
+            0.0,
+            400.0,
+            200.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 6372.1983,
+          "measured_percent": 31.8609915
+        },
+        {
+          "bounds_um": [
+            0.0,
+            100.0,
+            200.0,
+            300.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 13387.940525,
+          "measured_percent": 33.4698513125
+        },
+        {
+          "bounds_um": [
+            100.0,
+            100.0,
+            300.0,
+            300.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 13614.87825,
+          "measured_percent": 34.037195625
+        },
+        {
+          "bounds_um": [
+            200.0,
+            100.0,
+            400.0,
+            300.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 13276.255125,
+          "measured_percent": 33.1906378125
+        },
+        {
+          "bounds_um": [
+            300.0,
+            100.0,
+            400.0,
+            300.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 6421.4128,
+          "measured_percent": 32.107064
+        },
+        {
+          "bounds_um": [
+            0.0,
+            200.0,
+            200.0,
+            400.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 13027.881475,
+          "measured_percent": 32.5697036875
+        },
+        {
+          "bounds_um": [
+            100.0,
+            200.0,
+            300.0,
+            400.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 13155.4467,
+          "measured_percent": 32.88861675
+        },
+        {
+          "bounds_um": [
+            200.0,
+            200.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 12912.320575,
+          "measured_percent": 32.2808014375
+        },
+        {
+          "bounds_um": [
+            300.0,
+            200.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 6310.4776,
+          "measured_percent": 31.552388
+        },
+        {
+          "bounds_um": [
+            0.0,
+            300.0,
+            200.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 6351.2722,
+          "measured_percent": 31.756361
+        },
+        {
+          "bounds_um": [
+            100.0,
+            300.0,
+            300.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 6330.21415,
+          "measured_percent": 31.65107075
+        },
+        {
+          "bounds_um": [
+            200.0,
+            300.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 6218.752025,
+          "measured_percent": 31.093760125
+        },
+        {
+          "bounds_um": [
+            300.0,
+            300.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 10000.0,
+          "material_area_um2": 3062.408375,
+          "measured_percent": 30.62408375
+        }
+      ]
+    },
+    "m2": {
+      "status": "measured_acceptance_unqualified",
+      "window_um": 200,
+      "step_um": 100,
+      "anchor_um": [
+        0.0,
+        0.0
+      ],
+      "edge_policy": "Clip each anchored window to the fixed die; divide by the clipped area. Foundry edge acceptance remains unqualified.",
+      "local_limits_percent": null,
+      "full_windows": 9,
+      "partial_windows": 7,
+      "windows": [
+        {
+          "bounds_um": [
+            0.0,
+            0.0,
+            200.0,
+            200.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 15928.4244,
+          "measured_percent": 39.821061
+        },
+        {
+          "bounds_um": [
+            100.0,
+            0.0,
+            300.0,
+            200.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 16200.2261,
+          "measured_percent": 40.50056525
+        },
+        {
+          "bounds_um": [
+            200.0,
+            0.0,
+            400.0,
+            200.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 16746.8889,
+          "measured_percent": 41.86722225
+        },
+        {
+          "bounds_um": [
+            300.0,
+            0.0,
+            400.0,
+            200.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 8510.7588,
+          "measured_percent": 42.553794
+        },
+        {
+          "bounds_um": [
+            0.0,
+            100.0,
+            200.0,
+            300.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 17935.0864,
+          "measured_percent": 44.837716
+        },
+        {
+          "bounds_um": [
+            100.0,
+            100.0,
+            300.0,
+            300.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 18773.7663,
+          "measured_percent": 46.93441575
+        },
+        {
+          "bounds_um": [
+            200.0,
+            100.0,
+            400.0,
+            300.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 19594.3352,
+          "measured_percent": 48.985838
+        },
+        {
+          "bounds_um": [
+            300.0,
+            100.0,
+            400.0,
+            300.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 9781.2241,
+          "measured_percent": 48.9061205
+        },
+        {
+          "bounds_um": [
+            0.0,
+            200.0,
+            200.0,
+            400.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 15983.814,
+          "measured_percent": 39.959535
+        },
+        {
+          "bounds_um": [
+            100.0,
+            200.0,
+            300.0,
+            400.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 16694.1698,
+          "measured_percent": 41.7354245
+        },
+        {
+          "bounds_um": [
+            200.0,
+            200.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 16968.0759,
+          "measured_percent": 42.42018975
+        },
+        {
+          "bounds_um": [
+            300.0,
+            200.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 8259.0413,
+          "measured_percent": 41.2952065
+        },
+        {
+          "bounds_um": [
+            0.0,
+            300.0,
+            200.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 7008.96,
+          "measured_percent": 35.0448
+        },
+        {
+          "bounds_um": [
+            100.0,
+            300.0,
+            300.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 7124.5412,
+          "measured_percent": 35.622706
+        },
+        {
+          "bounds_um": [
+            200.0,
+            300.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 7124.5412,
+          "measured_percent": 35.622706
+        },
+        {
+          "bounds_um": [
+            300.0,
+            300.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 10000.0,
+          "material_area_um2": 3504.48,
+          "measured_percent": 35.0448
+        }
+      ]
+    },
+    "m3": {
+      "status": "measured_acceptance_unqualified",
+      "window_um": 200,
+      "step_um": 100,
+      "anchor_um": [
+        0.0,
+        0.0
+      ],
+      "edge_policy": "Clip each anchored window to the fixed die; divide by the clipped area. Foundry edge acceptance remains unqualified.",
+      "local_limits_percent": null,
+      "full_windows": 9,
+      "partial_windows": 7,
+      "windows": [
+        {
+          "bounds_um": [
+            0.0,
+            0.0,
+            200.0,
+            200.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 15085.8632,
+          "measured_percent": 37.714658
+        },
+        {
+          "bounds_um": [
+            100.0,
+            0.0,
+            300.0,
+            200.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 17722.9424,
+          "measured_percent": 44.307356
+        },
+        {
+          "bounds_um": [
+            200.0,
+            0.0,
+            400.0,
+            200.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 16286.77415,
+          "measured_percent": 40.716935375
+        },
+        {
+          "bounds_um": [
+            300.0,
+            0.0,
+            400.0,
+            200.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 7350.33295,
+          "measured_percent": 36.75166475
+        },
+        {
+          "bounds_um": [
+            0.0,
+            100.0,
+            200.0,
+            300.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 17380.9044,
+          "measured_percent": 43.452261
+        },
+        {
+          "bounds_um": [
+            100.0,
+            100.0,
+            300.0,
+            300.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 20692.0332,
+          "measured_percent": 51.730083
+        },
+        {
+          "bounds_um": [
+            200.0,
+            100.0,
+            400.0,
+            300.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 19266.58715,
+          "measured_percent": 48.166467875
+        },
+        {
+          "bounds_um": [
+            300.0,
+            100.0,
+            400.0,
+            300.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 8673.28155,
+          "measured_percent": 43.36640775
+        },
+        {
+          "bounds_um": [
+            0.0,
+            200.0,
+            200.0,
+            400.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 15739.5104,
+          "measured_percent": 39.348776
+        },
+        {
+          "bounds_um": [
+            100.0,
+            200.0,
+            300.0,
+            400.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 18672.7372,
+          "measured_percent": 46.681843
+        },
+        {
+          "bounds_um": [
+            200.0,
+            200.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 16717.0382,
+          "measured_percent": 41.7925955
+        },
+        {
+          "bounds_um": [
+            300.0,
+            200.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 7187.0286,
+          "measured_percent": 35.935143
+        },
+        {
+          "bounds_um": [
+            0.0,
+            300.0,
+            200.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 6923.7504,
+          "measured_percent": 34.618752
+        },
+        {
+          "bounds_um": [
+            100.0,
+            300.0,
+            300.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 8107.6296,
+          "measured_percent": 40.538148
+        },
+        {
+          "bounds_um": [
+            200.0,
+            300.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 7096.404,
+          "measured_percent": 35.48202
+        },
+        {
+          "bounds_um": [
+            300.0,
+            300.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 10000.0,
+          "material_area_um2": 3020.7744,
+          "measured_percent": 30.207744
+        }
+      ]
+    },
+    "m4": {
+      "status": "measured_acceptance_unqualified",
+      "window_um": 200,
+      "step_um": 100,
+      "anchor_um": [
+        0.0,
+        0.0
+      ],
+      "edge_policy": "Clip each anchored window to the fixed die; divide by the clipped area. Foundry edge acceptance remains unqualified.",
+      "local_limits_percent": null,
+      "full_windows": 9,
+      "partial_windows": 7,
+      "windows": [
+        {
+          "bounds_um": [
+            0.0,
+            0.0,
+            200.0,
+            200.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 17536.3028,
+          "measured_percent": 43.840757
+        },
+        {
+          "bounds_um": [
+            100.0,
+            0.0,
+            300.0,
+            200.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 19978.0976,
+          "measured_percent": 49.945244
+        },
+        {
+          "bounds_um": [
+            200.0,
+            0.0,
+            400.0,
+            200.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 18322.054,
+          "measured_percent": 45.805135
+        },
+        {
+          "bounds_um": [
+            300.0,
+            0.0,
+            400.0,
+            200.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 8279.6224,
+          "measured_percent": 41.398112
+        },
+        {
+          "bounds_um": [
+            0.0,
+            100.0,
+            200.0,
+            300.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 20456.5264,
+          "measured_percent": 51.141316
+        },
+        {
+          "bounds_um": [
+            100.0,
+            100.0,
+            300.0,
+            300.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 23323.8232,
+          "measured_percent": 58.309558
+        },
+        {
+          "bounds_um": [
+            200.0,
+            100.0,
+            400.0,
+            300.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 21375.8376,
+          "measured_percent": 53.439594
+        },
+        {
+          "bounds_um": [
+            300.0,
+            100.0,
+            400.0,
+            300.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 9652.5408,
+          "measured_percent": 48.262704
+        },
+        {
+          "bounds_um": [
+            0.0,
+            200.0,
+            200.0,
+            400.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 17863.9152,
+          "measured_percent": 44.659788
+        },
+        {
+          "bounds_um": [
+            100.0,
+            200.0,
+            300.0,
+            400.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 20468.1376,
+          "measured_percent": 51.170344
+        },
+        {
+          "bounds_um": [
+            200.0,
+            200.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 18591.0768,
+          "measured_percent": 46.477692
+        },
+        {
+          "bounds_um": [
+            300.0,
+            200.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 8244.5216,
+          "measured_percent": 41.222608
+        },
+        {
+          "bounds_um": [
+            0.0,
+            300.0,
+            200.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 7635.3888,
+          "measured_percent": 38.176944
+        },
+        {
+          "bounds_um": [
+            100.0,
+            300.0,
+            300.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 8799.8308,
+          "measured_percent": 43.999154
+        },
+        {
+          "bounds_um": [
+            200.0,
+            300.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 7989.8404,
+          "measured_percent": 39.949202
+        },
+        {
+          "bounds_um": [
+            300.0,
+            300.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 10000.0,
+          "material_area_um2": 3511.0656,
+          "measured_percent": 35.110656
+        }
+      ]
+    },
+    "m5": {
+      "status": "measured_acceptance_unqualified",
+      "window_um": 200,
+      "step_um": 100,
+      "anchor_um": [
+        0.0,
+        0.0
+      ],
+      "edge_policy": "Clip each anchored window to the fixed die; divide by the clipped area. Foundry edge acceptance remains unqualified.",
+      "local_limits_percent": null,
+      "full_windows": 9,
+      "partial_windows": 7,
+      "windows": [
+        {
+          "bounds_um": [
+            0.0,
+            0.0,
+            200.0,
+            200.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 15725.2096,
+          "measured_percent": 39.313024
+        },
+        {
+          "bounds_um": [
+            100.0,
+            0.0,
+            300.0,
+            200.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 17494.6,
+          "measured_percent": 43.7365
+        },
+        {
+          "bounds_um": [
+            200.0,
+            0.0,
+            400.0,
+            200.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 15749.9392,
+          "measured_percent": 39.374848
+        },
+        {
+          "bounds_um": [
+            300.0,
+            0.0,
+            400.0,
+            200.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 6999.3392,
+          "measured_percent": 34.996696
+        },
+        {
+          "bounds_um": [
+            0.0,
+            100.0,
+            200.0,
+            300.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 17975.9664,
+          "measured_percent": 44.939916
+        },
+        {
+          "bounds_um": [
+            100.0,
+            100.0,
+            300.0,
+            300.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 20015.5744,
+          "measured_percent": 50.038936
+        },
+        {
+          "bounds_um": [
+            200.0,
+            100.0,
+            400.0,
+            300.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 18010.9664,
+          "measured_percent": 45.027416
+        },
+        {
+          "bounds_um": [
+            300.0,
+            100.0,
+            400.0,
+            300.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 7993.7456,
+          "measured_percent": 39.968728
+        },
+        {
+          "bounds_um": [
+            0.0,
+            200.0,
+            200.0,
+            400.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 16307.0512,
+          "measured_percent": 40.767628
+        },
+        {
+          "bounds_um": [
+            100.0,
+            200.0,
+            300.0,
+            400.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 18152.9744,
+          "measured_percent": 45.382436
+        },
+        {
+          "bounds_um": [
+            200.0,
+            200.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": true,
+          "area_um2": 40000.0,
+          "material_area_um2": 16304.816,
+          "measured_percent": 40.76204
+        },
+        {
+          "bounds_um": [
+            300.0,
+            200.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 7222.1952,
+          "measured_percent": 36.110976
+        },
+        {
+          "bounds_um": [
+            0.0,
+            300.0,
+            200.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 7251.1488,
+          "measured_percent": 36.255744
+        },
+        {
+          "bounds_um": [
+            100.0,
+            300.0,
+            300.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 8064.0,
+          "measured_percent": 40.32
+        },
+        {
+          "bounds_um": [
+            200.0,
+            300.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 20000.0,
+          "material_area_um2": 7244.6976,
+          "measured_percent": 36.223488
+        },
+        {
+          "bounds_um": [
+            300.0,
+            300.0,
+            400.0,
+            400.0
+          ],
+          "complete_window": false,
+          "area_um2": 10000.0,
+          "material_area_um2": 3212.6976,
+          "measured_percent": 32.126976
+        }
+      ]
+    }
+  },
+  "exclusion_geometry": [],
+  "rule_applicability": {
+    "schema": 1,
+    "rules": [
+      {
+        "rule": "DCF.8b",
+        "status": "not_applicable_absent_operand",
+        "marker": "RES_MK",
+        "polygons": 0,
+        "rectangular_markers_exceeding_both_80um_dimensions": 0,
+        "nonrectangular_markers": 0,
+        "channel_intersections": 22486,
+        "threshold_um": 80,
+        "threshold_comparison": "both dimensions strictly greater than"
+      },
+      {
+        "rule": "DCF.11b",
+        "status": "not_applicable_absent_operand",
+        "marker": "NDMY",
+        "polygons": 0,
+        "rectangular_markers_exceeding_both_80um_dimensions": 0,
+        "nonrectangular_markers": 0,
+        "channel_intersections": 22486,
+        "threshold_um": 80,
+        "threshold_comparison": "both dimensions strictly greater than"
+      },
+      {
+        "rule": "DCF.13-row",
+        "status": "not_applicable_absent_operand",
+        "marker": "IND_MK",
+        "polygons": 0,
+        "rectangular_markers_exceeding_both_80um_dimensions": 0,
+        "nonrectangular_markers": 0,
+        "channel_intersections": 22486,
+        "threshold_um": 80,
+        "threshold_comparison": "both dimensions strictly greater than"
+      },
+      {
+        "rule": "DCF.9",
+        "status": "not_applicable_absent_operand",
+        "pad_polygons": 0,
+        "dummy_comp_polygons": 0,
+        "scope": "The 7 um COMP-to-pad distance is an RF guideline, not a universal DRC rule."
+      },
+      {
+        "rule": "DCF.7a/7b/7c/7d",
+        "status": "not_applicable_absent_operand",
+        "dummy_polygons": 0,
+        "scope": "Actual dummy boundary distances only; this does not waive missing fill or floorplan coverage."
+      },
+      {
+        "rule": "DPF.1-prime-die/7",
+        "status": "not_applicable_absent_operand",
+        "dummy_polygons": 0,
+        "scope": "Actual dummy boundary distances only; this does not waive missing fill or floorplan coverage."
+      },
+      {
+        "rule": "vendor-memory-fill",
+        "status": "not_applicable_absent_operand",
+        "layers": {
+          "MCELL_FEOL_MK": 0,
+          "YMTP_MK": 0
+        },
+        "scope": "Only the unsupported vendor implant layers; supported MTPMARK checks run separately."
+      },
+      {
+        "rule": "DE.1",
+        "status": "not_applicable_absent_operand",
+        "ndmy_polygons": 0,
+        "pmndmy_polygons": 0
+      }
+    ],
+    "scope": "Source-backed applicability of conditional fill rules only; no complete fill or process qualification."
+  },
+  "applicability_checker_sha256": "e88cb329670f402a16eea6df85e2710be4acf03acf4efd5cca94355db1023b7d",
+  "pattern_plan_sha256": "03f77a6dfac229b231a32bb7899cf1482a2228b8a2900ac801cfd57404d6df14",
+  "drawing_patterns": {
+    "recipe": "alternating-stagger-v1",
+    "layers": {
+      "comp": {
+        "status": "not_applicable_no_dummy"
+      },
+      "poly": {
+        "status": "not_applicable_no_dummy"
+      },
+      "m1": {
+        "violations": 0,
+        "polygons": 2119,
+        "size_um": 2.0,
+        "placement_space_um": 1.2,
+        "pitch_um": 3.2,
+        "stagger_um": 0.5,
+        "origin_nm": [
+          1600,
+          1600
+        ],
+        "stagger_sign": [
+          1,
+          1
+        ],
+        "period_nm": 6400,
+        "phase_counts": [
+          {
+            "lower_left_residue_nm": [
+              1600,
+              1600
+            ],
+            "polygons": 580
+          },
+          {
+            "lower_left_residue_nm": [
+              2100,
+              4800
+            ],
+            "polygons": 532
+          },
+          {
+            "lower_left_residue_nm": [
+              4800,
+              2100
+            ],
+            "polygons": 532
+          },
+          {
+            "lower_left_residue_nm": [
+              5300,
+              5300
+            ],
+            "polygons": 475
+          }
+        ],
+        "mismatch_examples_nm": [],
+        "scope": "Membership in the declared alternating staggered recipe; omitted sites and empty-field coverage are not accepted by this check.",
+        "status": "declared_recipe_passed"
+      },
+      "m2": {
+        "status": "not_applicable_no_dummy"
+      },
+      "m3": {
+        "status": "not_applicable_no_dummy"
+      },
+      "m4": {
+        "status": "not_applicable_no_dummy"
+      },
+      "m5": {
+        "status": "not_applicable_no_dummy"
+      }
+    },
+    "adjacent_layers": [
+      {
+        "layers": [
+          "m1",
+          "m2"
+        ],
+        "status": "not_applicable_no_adjacent_dummy"
+      },
+      {
+        "layers": [
+          "m2",
+          "m3"
+        ],
+        "status": "not_applicable_no_adjacent_dummy"
+      },
+      {
+        "layers": [
+          "m3",
+          "m4"
+        ],
+        "status": "not_applicable_no_adjacent_dummy"
+      },
+      {
+        "layers": [
+          "m4",
+          "m5"
+        ],
+        "status": "not_applicable_no_adjacent_dummy"
+      }
+    ]
+  },
+  "pattern_checker_sha256": "3ac034d9ccc147bd6abd3068130c654ce382f2f27dcd4dab871667af70b22075",
+  "pattern_manual_lock_sha256": "cf88c12b2f7c28abe82db779bafa9e24a239b9e72304923cdda7b81e3f0558e5",
+  "comp_placement_space": {
+    "die": {
+      "dummy_size_nm": 5000,
+      "bounds_nm": [
+        0,
+        0,
+        400000,
+        400000
+      ],
+      "clearance_nm": {
+        "circuit_comp": 3500,
+        "circuit_poly": 1500
+      },
+      "strict_clearance_underestimate_margin_nm": 5,
+      "qualified": false,
+      "no_legal_square_proven": false,
+      "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+      "status": "possible_origins_unqualified",
+      "circuit_rectangles": {
+        "comp": 23395,
+        "poly": 23174
+      },
+      "possible_origin_regions": 1,
+      "possible_origin_area_um2": 19188.59995,
+      "possible_origin_boxes_nm": [
+        [
+          0,
+          0,
+          395000,
+          395000
+        ]
+      ]
+    },
+    "declared_core": {
+      "dummy_size_nm": 5000,
+      "bounds_nm": [
+        20000,
+        20000,
+        380000,
+        380000
+      ],
+      "clearance_nm": {
+        "circuit_comp": 3500,
+        "circuit_poly": 1500
+      },
+      "strict_clearance_underestimate_margin_nm": 5,
+      "qualified": false,
+      "no_legal_square_proven": true,
+      "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+      "status": "no_legal_square_from_circuit_clearances",
+      "circuit_rectangles": {
+        "comp": 23395,
+        "poly": 23174
+      },
+      "possible_origin_regions": 0,
+      "possible_origin_area_um2": 0.0,
+      "possible_origin_boxes_nm": []
+    }
+  },
+  "comp_space_checker_sha256": "785cd0c3ef3f7fa762cf1e9788bde8e81aed12199d43c19b25c82971c0d686be",
+  "boundary_checks": {
+    "status": "declared_boundary_checks_passed",
+    "qualified": false,
+    "plan_sha256": "d2bdc55f3777e382e58b0c1a58330ee2b9cd3f7b8199e17abec1c0a7337910db",
+    "floorplan_source_sha256": "97a6803bb9b596e2254b7eeabc84a43c24b532bdd5db661168ee6ed495bee0c8",
+    "regions": [
+      {
+        "name": "reference-prime-die",
+        "kind": "prime_die",
+        "comp": 0,
+        "poly": 0
+      }
+    ],
+    "checks": [
+      {
+        "rule": "DCF.7a",
+        "layer": "comp",
+        "status": "passed",
+        "violations": 0,
+        "minimum_um": 26.0,
+        "region": "reference-prime-die",
+        "polygons": 0,
+        "metric": "Euclidean",
+        "overlap_regions": 0,
+        "separation_pairs": 0
+      },
+      {
+        "rule": "DPF.7",
+        "layer": "poly",
+        "status": "passed",
+        "violations": 0,
+        "minimum_um": 25.7,
+        "region": "reference-prime-die",
+        "polygons": 0,
+        "metric": "Euclidean",
+        "overlap_regions": 0,
+        "separation_pairs": 0
+      },
+      {
+        "rule": "boundary-region-coverage",
+        "layer": "comp",
+        "status": "passed",
+        "violations": 0,
+        "reason": "Every actual dummy polygon must be wholly inside one declared region; crossing or unclassified polygons are not clipped."
+      },
+      {
+        "rule": "boundary-region-coverage",
+        "layer": "poly",
+        "status": "passed",
+        "violations": 0,
+        "reason": "Every actual dummy polygon must be wholly inside one declared region; crossing or unclassified polygons are not clipped."
+      }
+    ],
+    "dcf7a_source_discrepancy": {
+      "main_table_um": 26.0,
+      "appendix_um": 8.0,
+      "enforced_minimum_um": 26.0
+    },
+    "scope": "Clearances to declared rectangular prime-die/frame/SLM regions and scribe geometry only. Source identity does not prove declaration completeness, physical guard-ring connectivity, reticle or package acceptance."
+  },
+  "boundary_comp_space": {
+    "qualified": false,
+    "no_legal_square_proven": true,
+    "boundary_plan_sha256": "d2bdc55f3777e382e58b0c1a58330ee2b9cd3f7b8199e17abec1c0a7337910db",
+    "floorplan_source_sha256": "97a6803bb9b596e2254b7eeabc84a43c24b532bdd5db661168ee6ed495bee0c8",
+    "status": "no_legal_comp_square_in_declared_prime_die",
+    "original_bounds_nm": [
+      0,
+      0,
+      400000,
+      400000
+    ],
+    "scribe_bounds_nm": [
+      -40000,
+      -40000,
+      440000,
+      440000
+    ],
+    "dcf7a_minimum_nm": 26000,
+    "admissible_whole_square_bounds_nm": [
+      26000,
+      26000,
+      374000,
+      374000
+    ],
+    "circuit_clearance_proof": {
+      "dummy_size_nm": 5000,
+      "bounds_nm": [
+        26000,
+        26000,
+        374000,
+        374000
+      ],
+      "clearance_nm": {
+        "circuit_comp": 3500,
+        "circuit_poly": 1500
+      },
+      "strict_clearance_underestimate_margin_nm": 5,
+      "qualified": false,
+      "no_legal_square_proven": true,
+      "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+      "status": "no_legal_square_from_circuit_clearances",
+      "circuit_rectangles": {
+        "comp": 23395,
+        "poly": 23174
+      },
+      "possible_origin_regions": 0,
+      "possible_origin_area_um2": 0.0,
+      "possible_origin_boxes_nm": []
+    },
+    "scope": "Absence of any legal 5 um COMP square in the entire declared prime die under DCF.4/5/7a. The original die and density denominator remain unchanged. This is not foundry approval of the reference floorplan."
+  },
+  "boundary_comp_space_checker_sha256": "546b7e51cc29bce4afad49a43635c61bb7b73fd4d24116b6c735e96efb1e26a4",
+  "boundary_checker_sha256": "4c376d6d3648b1774d79d309968c4f85cfbe35ad9823d64573857b85741db8bb",
+  "boundary_manual_lock_sha256": "17daeb675e6c87afaf19d2319e85a8f3ff991b218e21d19c36ebd07717dca593",
+  "checks": [
+    {
+      "rule": "DCF.7a",
+      "layer": "comp",
+      "status": "passed",
+      "violations": 0,
+      "minimum_um": 26.0,
+      "region": "reference-prime-die",
+      "polygons": 0,
+      "metric": "Euclidean",
+      "overlap_regions": 0,
+      "separation_pairs": 0
+    },
+    {
+      "rule": "DPF.7",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "minimum_um": 25.7,
+      "region": "reference-prime-die",
+      "polygons": 0,
+      "metric": "Euclidean",
+      "overlap_regions": 0,
+      "separation_pairs": 0
+    },
+    {
+      "rule": "boundary-region-coverage",
+      "layer": "comp",
+      "status": "passed",
+      "violations": 0,
+      "reason": "Every actual dummy polygon must be wholly inside one declared region; crossing or unclassified polygons are not clipped."
+    },
+    {
+      "rule": "boundary-region-coverage",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "reason": "Every actual dummy polygon must be wholly inside one declared region; crossing or unclassified polygons are not clipped."
+    },
+    {
+      "rule": "DM.2a/10",
+      "layer": "m1",
+      "status": "passed",
+      "violations": 0,
+      "category": "declared-drawing-recipe",
+      "polygons": 2119
+    },
+    {
+      "rule": "unsupported-memory-layer",
+      "layer": "MCELL_FEOL_MK",
+      "status": "passed",
+      "violations": 0,
+      "category": "coverage",
+      "source": "Drawn-layer definition note 13",
+      "reason": "Vendor-specific implant geometry is unsupported in the pinned PDK revision; it cannot inherit MTPMARK fill checks."
+    },
+    {
+      "rule": "unsupported-memory-layer",
+      "layer": "YMTP_MK",
+      "status": "passed",
+      "violations": 0,
+      "category": "coverage",
+      "source": "Drawn-layer definition note 13",
+      "reason": "Vendor-specific implant geometry is unsupported in the pinned PDK revision; it cannot inherit MTPMARK fill checks."
+    },
+    {
+      "rule": "DE.2",
+      "layer": "NDMY",
+      "status": "passed",
+      "violations": 0,
+      "minimum_um": 0.8,
+      "metric": "Euclidean",
+      "material": "same-layer merged polygons"
+    },
+    {
+      "rule": "DE.2",
+      "layer": "PMNDMY",
+      "status": "passed",
+      "violations": 0,
+      "minimum_um": 0.8,
+      "metric": "Euclidean",
+      "material": "same-layer merged polygons"
+    },
+    {
+      "rule": "DE.4",
+      "layer": "NDMY",
+      "status": "passed",
+      "violations": 0,
+      "minimum_um": 20.0,
+      "metric": "Euclidean",
+      "includes_notches": true
+    },
+    {
+      "rule": "DE.3",
+      "layer": "NDMY",
+      "status": "passed",
+      "violations": 0,
+      "maximum_area_um2": 15000.0,
+      "large_rectangle_maximum_short_side_um": 80.0,
+      "interpretation": "For area strictly greater than 15000 um2, at least one rectangle dimension must be at most 80 um."
+    },
+    {
+      "rule": "DE.3-geometry-coverage",
+      "layer": "NDMY",
+      "status": "passed",
+      "violations": 0,
+      "category": "coverage",
+      "reason": "Large nonrectangular exclusion regions need a qualified interpretation of the side-length exception."
+    },
+    {
+      "rule": "global-density",
+      "layer": "comp",
+      "status": "passed",
+      "violations": 0,
+      "measured_percent": 39.42652175,
+      "lower_limit_inclusive": true
+    },
+    {
+      "rule": "DCF.1c/10",
+      "layer": "comp",
+      "status": "passed",
+      "violations": 0,
+      "expected_size_um": 5.0,
+      "polygons": 0
+    },
+    {
+      "rule": "5-nm-grid",
+      "layer": "comp",
+      "status": "passed",
+      "violations": 0
+    },
+    {
+      "rule": "DCF.2b",
+      "layer": "comp",
+      "status": "passed",
+      "violations": 0,
+      "minimum_um": 1.9
+    },
+    {
+      "rule": "global-density",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "measured_percent": 29.757781125,
+      "lower_limit_inclusive": true
+    },
+    {
+      "rule": "DPF.1/10",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "expected_size_um": 5.6,
+      "polygons": 0
+    },
+    {
+      "rule": "5-nm-grid",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0
+    },
+    {
+      "rule": "DPF.2b",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "minimum_um": 1.1
+    },
+    {
+      "rule": "global-density",
+      "layer": "m1",
+      "status": "passed",
+      "violations": 0,
+      "measured_percent": 32.743336109375,
+      "lower_limit_inclusive": false
+    },
+    {
+      "rule": "DM.1",
+      "layer": "m1",
+      "status": "passed",
+      "violations": 0,
+      "expected_size_um": 2.0,
+      "polygons": 2119
+    },
+    {
+      "rule": "5-nm-grid",
+      "layer": "m1",
+      "status": "passed",
+      "violations": 0
+    },
+    {
+      "rule": "DM.2b",
+      "layer": "m1",
+      "status": "passed",
+      "violations": 0,
+      "minimum_um": 0.98
+    },
+    {
+      "rule": "global-density",
+      "layer": "m2",
+      "status": "passed",
+      "violations": 0,
+      "measured_percent": 41.017002,
+      "lower_limit_inclusive": false
+    },
+    {
+      "rule": "DM.1",
+      "layer": "m2",
+      "status": "passed",
+      "violations": 0,
+      "expected_size_um": 2.0,
+      "polygons": 0
+    },
+    {
+      "rule": "5-nm-grid",
+      "layer": "m2",
+      "status": "passed",
+      "violations": 0
+    },
+    {
+      "rule": "DM.2b",
+      "layer": "m2",
+      "status": "passed",
+      "violations": 0,
+      "minimum_um": 0.98
+    },
+    {
+      "rule": "global-density",
+      "layer": "m3",
+      "status": "passed",
+      "violations": 0,
+      "measured_percent": 39.89324121875,
+      "lower_limit_inclusive": false
+    },
+    {
+      "rule": "DM.1",
+      "layer": "m3",
+      "status": "passed",
+      "violations": 0,
+      "expected_size_um": 2.0,
+      "polygons": 0
+    },
+    {
+      "rule": "5-nm-grid",
+      "layer": "m3",
+      "status": "passed",
+      "violations": 0
+    },
+    {
+      "rule": "DM.2b",
+      "layer": "m3",
+      "status": "passed",
+      "violations": 0,
+      "minimum_um": 0.98
+    },
+    {
+      "rule": "global-density",
+      "layer": "m4",
+      "status": "passed",
+      "violations": 0,
+      "measured_percent": 45.195843,
+      "lower_limit_inclusive": false
+    },
+    {
+      "rule": "DM.1",
+      "layer": "m4",
+      "status": "passed",
+      "violations": 0,
+      "expected_size_um": 2.0,
+      "polygons": 0
+    },
+    {
+      "rule": "5-nm-grid",
+      "layer": "m4",
+      "status": "passed",
+      "violations": 0
+    },
+    {
+      "rule": "DM.2b",
+      "layer": "m4",
+      "status": "passed",
+      "violations": 0,
+      "minimum_um": 0.98
+    },
+    {
+      "rule": "global-density",
+      "layer": "m5",
+      "status": "passed",
+      "violations": 0,
+      "measured_percent": 40.054385,
+      "lower_limit_inclusive": false
+    },
+    {
+      "rule": "DM.1",
+      "layer": "m5",
+      "status": "passed",
+      "violations": 0,
+      "expected_size_um": 2.0,
+      "polygons": 0
+    },
+    {
+      "rule": "5-nm-grid",
+      "layer": "m5",
+      "status": "passed",
+      "violations": 0
+    },
+    {
+      "rule": "DM.2b",
+      "layer": "m5",
+      "status": "passed",
+      "violations": 0,
+      "minimum_um": 0.98
+    },
+    {
+      "rule": "DPF.1-enclosure",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0
+    },
+    {
+      "rule": "DCF.4",
+      "layer": "comp",
+      "status": "passed",
+      "violations": 0,
+      "circuit_layer": "comp",
+      "minimum_um": 3.5
+    },
+    {
+      "rule": "DCF.5",
+      "layer": "comp",
+      "status": "passed",
+      "violations": 0,
+      "circuit_layer": "poly",
+      "minimum_um": 1.5
+    },
+    {
+      "rule": "DPF.4",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "circuit_layer": "comp",
+      "minimum_um": 3.2
+    },
+    {
+      "rule": "DPF.5",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "circuit_layer": "poly",
+      "minimum_um": 5.0
+    },
+    {
+      "rule": "DPF.12",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "circuit_layer": "m1",
+      "minimum_um": 2.0
+    },
+    {
+      "rule": "DPF.13",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "circuit_layer": "m2",
+      "minimum_um": 2.0
+    },
+    {
+      "rule": "DM.3",
+      "layer": "m1",
+      "status": "passed",
+      "violations": 0,
+      "circuit_layer": "m1",
+      "minimum_um": 2.0
+    },
+    {
+      "rule": "DM.3",
+      "layer": "m2",
+      "status": "passed",
+      "violations": 0,
+      "circuit_layer": "m2",
+      "minimum_um": 2.0
+    },
+    {
+      "rule": "DM.3",
+      "layer": "m3",
+      "status": "passed",
+      "violations": 0,
+      "circuit_layer": "m3",
+      "minimum_um": 2.0
+    },
+    {
+      "rule": "DM.3",
+      "layer": "m4",
+      "status": "passed",
+      "violations": 0,
+      "circuit_layer": "m4",
+      "minimum_um": 2.0
+    },
+    {
+      "rule": "DM.3",
+      "layer": "m5",
+      "status": "passed",
+      "violations": 0,
+      "circuit_layer": "m5",
+      "minimum_um": 2.0
+    },
+    {
+      "rule": "DM.5/7",
+      "layer": "m1",
+      "status": "passed",
+      "violations": 0,
+      "adjacent_layer": "poly",
+      "minimum_um": 1.0,
+      "target_material": "union of circuit and dummy",
+      "overlap_regions": 0,
+      "separation_pairs": 0,
+      "interpretation": "Conservative union covers both the general table wording and the dummy-only diagram."
+    },
+    {
+      "rule": "DM.4/6",
+      "layer": "m1",
+      "status": "passed",
+      "violations": 0,
+      "adjacent_layer": "m2",
+      "minimum_um": 1.0,
+      "target_material": "union of circuit and dummy",
+      "overlap_regions": 0,
+      "separation_pairs": 0,
+      "interpretation": "Conservative union covers both the general table wording and the dummy-only diagram."
+    },
+    {
+      "rule": "DM.5/7",
+      "layer": "m2",
+      "status": "passed",
+      "violations": 0,
+      "adjacent_layer": "m1",
+      "minimum_um": 1.0,
+      "target_material": "union of circuit and dummy",
+      "overlap_regions": 0,
+      "separation_pairs": 0,
+      "interpretation": "Conservative union covers both the general table wording and the dummy-only diagram."
+    },
+    {
+      "rule": "DM.4/6",
+      "layer": "m2",
+      "status": "passed",
+      "violations": 0,
+      "adjacent_layer": "m3",
+      "minimum_um": 1.0,
+      "target_material": "union of circuit and dummy",
+      "overlap_regions": 0,
+      "separation_pairs": 0,
+      "interpretation": "Conservative union covers both the general table wording and the dummy-only diagram."
+    },
+    {
+      "rule": "DM.5/7",
+      "layer": "m3",
+      "status": "passed",
+      "violations": 0,
+      "adjacent_layer": "m2",
+      "minimum_um": 1.0,
+      "target_material": "union of circuit and dummy",
+      "overlap_regions": 0,
+      "separation_pairs": 0,
+      "interpretation": "Conservative union covers both the general table wording and the dummy-only diagram."
+    },
+    {
+      "rule": "DM.4/6",
+      "layer": "m3",
+      "status": "passed",
+      "violations": 0,
+      "adjacent_layer": "m4",
+      "minimum_um": 1.0,
+      "target_material": "union of circuit and dummy",
+      "overlap_regions": 0,
+      "separation_pairs": 0,
+      "interpretation": "Conservative union covers both the general table wording and the dummy-only diagram."
+    },
+    {
+      "rule": "DM.5/7",
+      "layer": "m4",
+      "status": "passed",
+      "violations": 0,
+      "adjacent_layer": "m3",
+      "minimum_um": 1.0,
+      "target_material": "union of circuit and dummy",
+      "overlap_regions": 0,
+      "separation_pairs": 0,
+      "interpretation": "Conservative union covers both the general table wording and the dummy-only diagram."
+    },
+    {
+      "rule": "DM.4/6",
+      "layer": "m4",
+      "status": "passed",
+      "violations": 0,
+      "adjacent_layer": "m5",
+      "minimum_um": 1.0,
+      "target_material": "union of circuit and dummy",
+      "overlap_regions": 0,
+      "separation_pairs": 0,
+      "interpretation": "Conservative union covers both the general table wording and the dummy-only diagram."
+    },
+    {
+      "rule": "DM.5/7",
+      "layer": "m5",
+      "status": "passed",
+      "violations": 0,
+      "adjacent_layer": "m4",
+      "minimum_um": 1.0,
+      "target_material": "union of circuit and dummy",
+      "overlap_regions": 0,
+      "separation_pairs": 0,
+      "interpretation": "Conservative union covers both the general table wording and the dummy-only diagram."
+    },
+    {
+      "rule": "DCF.6a",
+      "layer": "comp",
+      "status": "passed",
+      "violations": 0,
+      "boundary_layer": "Nwell",
+      "minimum_um": 1.3,
+      "boundary_regions": 36
+    },
+    {
+      "rule": "DCF.6b",
+      "layer": "comp",
+      "status": "passed",
+      "violations": 0,
+      "boundary_layer": "DNWELL",
+      "minimum_um": 4.0,
+      "boundary_regions": 0
+    },
+    {
+      "rule": "DCF.6c",
+      "layer": "comp",
+      "status": "passed",
+      "violations": 0,
+      "boundary_layer": "LVPWELL",
+      "minimum_um": 1.3,
+      "boundary_regions": 36
+    },
+    {
+      "rule": "DCF.6d",
+      "layer": "comp",
+      "status": "passed",
+      "violations": 0,
+      "boundary_layer": "Dualgate",
+      "minimum_um": 1.3,
+      "boundary_regions": 1
+    },
+    {
+      "rule": "DPF.6a",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "boundary_layer": "Nwell",
+      "minimum_um": 1.0,
+      "boundary_regions": 36
+    },
+    {
+      "rule": "DPF.6b",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "boundary_layer": "DNWELL",
+      "minimum_um": 2.0,
+      "boundary_regions": 0
+    },
+    {
+      "rule": "DPF.6c",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "boundary_layer": "LVPWELL",
+      "minimum_um": 1.0,
+      "boundary_regions": 36
+    },
+    {
+      "rule": "DPF.6d",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "boundary_layer": "Dualgate",
+      "minimum_um": 1.0,
+      "boundary_regions": 1
+    },
+    {
+      "rule": "DCF.8a",
+      "layer": "comp",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "RES_MK",
+      "minimum_um": 3.5,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DCF.11a",
+      "layer": "comp",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "NDMY",
+      "minimum_um": 3.5,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DCF.12/13-exclusion",
+      "layer": "comp",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "IND_MK",
+      "minimum_um": 3.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DPF.8",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "RES_MK",
+      "minimum_um": 19.7,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DPF.9",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "Pad",
+      "minimum_um": 6.7,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DPF.11",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "NDMY",
+      "minimum_um": 29.7,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DPF.14/15",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "IND_MK",
+      "minimum_um": 3.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DPF.16/17",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "MTPMARK",
+      "minimum_um": 3.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DPF.18/19",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "PMNDMY",
+      "minimum_um": 8.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m1",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "FuseTop",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m1",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "POLYFUSE",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m1",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "FuseWindow_D",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m1",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "PMNDMY",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m1",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "MTPMARK",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m1",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "OTP_MK",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m2",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "FuseTop",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m2",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "POLYFUSE",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m2",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "FuseWindow_D",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m2",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "PMNDMY",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m2",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "MTPMARK",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m2",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "OTP_MK",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m3",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "FuseTop",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m3",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "POLYFUSE",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m3",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "FuseWindow_D",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m3",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "PMNDMY",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m3",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "MTPMARK",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m3",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "OTP_MK",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m4",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "FuseTop",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m4",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "POLYFUSE",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m4",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "FuseWindow_D",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m4",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "PMNDMY",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m4",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "MTPMARK",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m4",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "OTP_MK",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m5",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "FuseTop",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m5",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "POLYFUSE",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m5",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "FuseWindow_D",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m5",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "PMNDMY",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m5",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "MTPMARK",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    },
+    {
+      "rule": "DM.8",
+      "layer": "m5",
+      "status": "passed",
+      "violations": 0,
+      "exclusion_layer": "OTP_MK",
+      "minimum_um": 6.0,
+      "exclusion_regions": 0
+    }
+  ],
+  "failed_checks": 0,
+  "unqualified_requirements": [
+    "Foundry acceptance limits for local metal density and clipped die-edge windows",
+    "Independent full native geometry, antenna and final-layout LVS",
+    "Post-fill extraction, timing and foundry acceptance",
+    "Foundry/reticle approval of the declared reference floorplan"
+  ]
+}

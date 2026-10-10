@@ -27,7 +27,7 @@ jobs:
           verilator --version
           yosys -V
       - name: Verify digital inputs, real engines and analog compatibility
-        run: python -m unittest tests.test_digital tests.test_digital_implementation tests.test_digital_runtime tests.test_digital_tools tests.test_digital_workspace tests.test_core tests.test_lifecycle tests.test_workflows -v
+        run: python -m unittest tests.test_digital tests.test_digital_implementation tests.test_digital_physical_checks tests.test_digital_proof tests.test_digital_platforms tests.test_digital_rc tests.test_digital_macro tests.test_sky130_digital_builder tests.test_digital_bundle tests.test_timing_evidence tests.test_digital_runtime tests.test_digital_tools tests.test_digital_workspace tests.test_core tests.test_lifecycle tests.test_workflows -v
       - name: Verify desktop digital workflow
         run: python tests/gui_digital.py
       - name: Verify coupled SAR conversion and deliberate faults
@@ -36,7 +36,11 @@ jobs:
           python scripts/verify_sar_adc.py --out build/sar-qualification
           python tests/gui_mixed_signal.py
       - name: Verify linked workspace, queue resume and large placement inspection
-        run: python tests/gui_digital_workspace.py
+        run: |
+          python tests/gui_digital_workspace.py
+          python tests/gui_digital_mapping.py
+          python tests/gui_digital_corners.py
+          python tests/gui_macro_integrity.py
       - name: Verify student progression and advanced project
         run: |
           python -m unittest tests.test_student_hub -v
@@ -48,7 +52,9 @@ jobs:
       - name: Verify setup subprocess and failed-package UI
         run: python tests/gui_digital_setup.py
       - name: Verify first-run guidance and continuation after setup
-        run: python tests/gui_digital_first_run.py
+        run: |
+          python tests/gui_digital_first_run.py
+          python tests/gui_digital_platforms.py
       - name: Check release documentation
         run: python scripts/check_release.py
       - uses: actions/upload-artifact@v4
@@ -59,7 +65,11 @@ jobs:
             build/digital-ui
             build/digital-setup-ui
             build/digital-first-run-ui
+            build/digital-platform-ui
             build/digital-workspace-ui
+            build/digital-mapping-ui
+            build/digital-corner-ui
+            build/macro-integrity-ui
             build/sar-qualification
             build/mixed-signal-ui
             build/student-capstone
@@ -68,7 +78,7 @@ jobs:
 
   implementation:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 60
     env:
       QT_QPA_PLATFORM: offscreen
       ICSTUDIO_TEST_PHYSICAL: '1'
@@ -96,11 +106,35 @@ jobs:
           curl --fail --location --retry 3 -o build/openroad.deb https://vaultlink.precisioninno.com/api/releases/26Q2-1164-g08f67ee5ec/openroad_26Q2-1164-g08f67ee5ec_amd64-ubuntu-24.04.deb/download
           echo 'f3f1eeaa18f327503f72cc45dcef5b1514ec2e89726ec53b4553bf4f951168a3  build/openroad.deb' | sha256sum --check
           sudo apt-get install -y "$PWD/build/openroad.deb"
+          curl --fail --location --retry 3 --retry-all-errors --connect-timeout 30 --max-time 300 -o build/klayout.deb https://www.klayout.org/downloads/Ubuntu-24/klayout_0.30.5-1_amd64.deb
+          echo '9f88fe45d1992fc9bd0ce986bbbe150ad198c6a59a86fc13343db822a5790e49  build/klayout.deb' | sha256sum --check
+          sudo apt-get install -y "$PWD/build/klayout.deb"
           echo "ICSTUDIO_TEST_YOSYS=$PWD/build/oss-cad-suite/bin/yosys" >> "$GITHUB_ENV"
           echo "ICSTUDIO_TEST_EQY=$PWD/build/oss-cad-suite/bin/eqy" >> "$GITHUB_ENV"
           echo "ICSTUDIO_TEST_ORFS=$PWD/build/orfs" >> "$GITHUB_ENV"
+      - name: Isolate the pinned implementation executables
+        run: |
+          mkdir -p build/implementation-bin
+          cp scripts/ci/openroad build/implementation-bin/openroad
+          chmod +x build/implementation-bin/openroad
+          cp scripts/ci/klayout build/implementation-bin/klayout
+          chmod +x build/implementation-bin/klayout
+          echo "ICSTUDIO_TEST_OPENROAD=$PWD/build/implementation-bin/openroad" >> "$GITHUB_ENV"
+          echo "$PWD/build/implementation-bin" >> "$GITHUB_PATH"
+      - name: Require actual KLayout Ruby rules and deliberate geometry failure
+        run: python scripts/qualify_klayout_runtime.py --klayout "$PWD/build/implementation-bin/klayout" --output build/klayout-runtime-controls
       - name: Require real mapped timing, equivalence, fault detection and RTL to GDS
         run: python -m unittest tests.test_digital_implementation -v
+      - name: Require SKY130, GF180 C/D and IHP counter implementation and extracted timing
+        run: python scripts/qualify_digital_platforms.py --orfs build/orfs --output build/digital-platforms --physical
+      - name: Require UART and APB FIFO proof and physical closure on all four profiles
+        run: python scripts/qualify_digital_workloads.py --orfs build/orfs --output build/digital-workloads
+      - name: Require final antenna and power-grid checks with actual layout faults
+        run: python scripts/qualify_digital_physical_checks.py --evidence build/digital-platforms --output build/digital-physical-checks
+      - name: Require independent SKY130 library and interconnect corner coverage
+        run: |
+          python scripts/prepare_sky130_digital.py --orfs build/orfs --output build/sky130-pvt-platform --cache build/sky130-pdk-cache
+          python scripts/qualify_digital_workloads.py --orfs build/orfs --manifest build/sky130-pvt-platform/platform.json --output build/sky130-corners
       - name: Verify the linked digital implementation workspace
         if: ${{ !cancelled() && steps.toolchain.outcome == 'success' }}
         run: python tests/gui_digital_implementation.py
@@ -117,6 +151,24 @@ jobs:
         with:
           name: digital-implementation-evidence
           path: |
+            build/digital-platforms/**
+            build/klayout-runtime-controls/**
+            build/digital-physical-checks/**
+            !build/digital-platforms/**/platform/**
+            !build/digital-platforms/**/flow/**
+            !build/digital-platforms/**/liberty/**
+            build/digital-workloads/**
+            !build/digital-workloads/**/platform/**
+            !build/digital-workloads/**/flow/**
+            !build/digital-workloads/**/liberty/**
+            !build/digital-workloads/**/obj_dir/**
+            build/sky130-pvt-platform/platform.json
+            build/sky130-pvt-platform/sky130hd/pvt/upstream-lock.json
+            build/sky130-corners/**
+            !build/sky130-corners/**/platform/**
+            !build/sky130-corners/**/flow/**
+            !build/sky130-corners/**/liberty/**
+            !build/sky130-corners/**/obj_dir/**
             build/digital-implementation-ui
             build/digital-acceptance/*/input.json
             build/digital-acceptance/*/result.json

@@ -1,0 +1,211 @@
+{
+  "schema": 1,
+  "status": "installed-runtime-evidence-preserved",
+  "qualified": false,
+  "system": "windows",
+  "observed_at": "2026-10-09T18:26:45.491405+00:00",
+  "backend": "719a8abfbe6b3b6dda4eed20751de3ee230253bbcfb22b139a6316acc87b8cac",
+  "payload": {
+    "directory": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-connectivity-runtime-2026-10-09-v1",
+    "sha256": "3f4275776fcb73d658265577dd0f5840171b5711fdb21cd1e675ed80a13c9f38",
+    "bytes": 1529514568,
+    "manifest_sha256": "81c94e6297f8bd118f464149ae3a3436a96f311391d43c706caa49281bc1d79d",
+    "image_id": "sha256:e992b6e9bc0ba3463d96ca7b22ce26785e7de4c18c9b9bdd33e5cd4f04409bf1",
+    "storage": "Permanent hard link to the completed archive; no duplicate archive bytes."
+  },
+  "installation": {
+    "sha256": "d591bda04f9356095ec7014a6479e227fd8004b4d6bcddcfdeeef984989ad7f3",
+    "elapsed_seconds": 1808.8510024547577
+  },
+  "audit": {
+    "sha256": "1525e0b94b34a46014f7eee4a199f0ef9177aa3cfe82eeda7085ecb103215e92",
+    "checks": 34,
+    "timing_pairs": 18,
+    "artifact_bindings": 1391,
+    "tool_controls": 7,
+    "positive_controls": 2,
+    "negative_controls": 4
+  },
+  "controls": [
+    {
+      "platform": "gf180",
+      "control": "positive",
+      "passed": true,
+      "native_passed": true,
+      "metal_passed": true,
+      "failure_counts": {},
+      "mutation": {
+        "changed_masks": {},
+        "top_labels_unchanged": true,
+        "via_helpers": 8,
+        "details": {}
+      }
+    },
+    {
+      "platform": "gf180",
+      "control": "vdd-port-open",
+      "passed": false,
+      "native_passed": true,
+      "metal_passed": false,
+      "failure_counts": {
+        "power-terminal-disconnected": 790
+      },
+      "mutation": {
+        "changed_masks": {
+          "(81, 0)": {
+            "area_nm2": 22310000,
+            "polygons": 1
+          }
+        },
+        "top_labels_unchanged": true,
+        "via_helpers": 8,
+        "details": {
+          "port": {
+            "name": "VDD",
+            "layer": 81,
+            "x": 99960,
+            "y": 109760
+          },
+          "cut_outer_nm": 2500,
+          "retained_island_half_nm": 150
+        }
+      }
+    },
+    {
+      "platform": "gf180",
+      "control": "signal-short",
+      "passed": false,
+      "native_passed": false,
+      "metal_passed": false,
+      "failure_counts": {
+        "shorted-top-ports": 1
+      },
+      "mutation": {
+        "changed_masks": {
+          "(42, 0)": {
+            "area_nm2": 168000,
+            "polygons": 1
+          }
+        },
+        "top_labels_unchanged": true,
+        "via_helpers": 8,
+        "details": {
+          "ports": [
+            {
+              "name": "clk",
+              "layer": 42,
+              "x": 260,
+              "y": 98000
+            },
+            {
+              "name": "count[1]",
+              "layer": 42,
+              "x": 260,
+              "y": 96880
+            }
+          ]
+        }
+      }
+    },
+    {
+      "platform": "gf180d",
+      "control": "positive",
+      "passed": true,
+      "native_passed": true,
+      "metal_passed": true,
+      "failure_counts": {},
+      "mutation": {
+        "changed_masks": {},
+        "top_labels_unchanged": true,
+        "via_helpers": 8,
+        "details": {}
+      }
+    },
+    {
+      "platform": "gf180d",
+      "control": "vdd-port-open",
+      "passed": false,
+      "native_passed": true,
+      "metal_passed": false,
+      "failure_counts": {
+        "power-terminal-disconnected": 790
+      },
+      "mutation": {
+        "changed_masks": {
+          "(81, 0)": {
+            "area_nm2": 22310000,
+            "polygons": 1
+          }
+        },
+        "top_labels_unchanged": true,
+        "via_helpers": 8,
+        "details": {
+          "port": {
+            "name": "VDD",
+            "layer": 81,
+            "x": 99960,
+            "y": 109760
+          },
+          "cut_outer_nm": 2500,
+          "retained_island_half_nm": 150
+        }
+      }
+    },
+    {
+      "platform": "gf180d",
+      "control": "signal-short",
+      "passed": false,
+      "native_passed": false,
+      "metal_passed": false,
+      "failure_counts": {
+        "shorted-top-ports": 1
+      },
+      "mutation": {
+        "changed_masks": {
+          "(42, 0)": {
+            "area_nm2": 168000,
+            "polygons": 1
+          }
+        },
+        "top_labels_unchanged": true,
+        "via_helpers": 8,
+        "details": {
+          "ports": [
+            {
+              "name": "clk",
+              "layer": 42,
+              "x": 260,
+              "y": 98000
+            },
+            {
+              "name": "count[1]",
+              "layer": 42,
+              "x": 260,
+              "y": 96880
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "archive": {
+    "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/gf180-installed-windows-2026-10-09-v1/evidence.tar.gz",
+    "sha256": "1173175a2c93872a5310d22b94f8fc1c4832e5d514323b05a514943a14b364c2",
+    "bytes": 33956034,
+    "logical_files": 2265,
+    "unique_objects": 946,
+    "verified": true
+  },
+  "runtime_build_checkpoint": {
+    "sha256": "c000c9892c8843436c3d4c978d6f91cc9bc64da2f8b1539c2e1b69fc91e87ee7",
+    "archive": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-runtime-build-2026-10-09-v1\\evidence.tar.gz",
+      "sha256": "f4b93717f7866d668cbd0318964458f80799759d2f50c3141eeecdb3dafb3cbd",
+      "bytes": 2745376,
+      "logical_files": 17,
+      "unique_objects": 17,
+      "verified": true
+    }
+  },
+  "scope": "Readback of every fresh installed check plus actual native combined connectivity on C/D counter copies, including metal opens and signal shorts. These are unfilled installation counters; complete fill, post-fill electrical performance and tapeout remain unqualified."
+}
