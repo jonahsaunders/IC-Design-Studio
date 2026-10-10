@@ -24,7 +24,7 @@
     "5": {
       "name": "Close IHP geometry and fill",
       "status": "in_progress",
-      "scope": "Three original IHP filled blocks with corrected nominal metal coupling, independent finite-R model checks and matched timing. Active-fill model coverage and production integration remain incomplete."
+      "scope": "Corrected flat IHP exports, complete C preservation, checked point-label resistance captures and conserved bounded RC models. Full matched performance and production integration remain open."
     },
     "6": {
       "name": "Complete SKY130 physical coverage",
@@ -17400,11 +17400,13 @@
       "target": "ihp-sg13g2",
       "test": "ihp-fill",
       "status": "partial",
-      "remaining": "Geometry and strict device/port checks pass. Corrected nominal metal coupling, independent finite-R model comparison and three-library-condition timing pass; active-fill coverage, fill-width model review, supplemental manual rules and production integration remain.",
+      "remaining": "Block geometry and strict connectivity pass. Corrected flat exports preserve capacitance; native full RC models preserve devices and charge. Complete matched full-fill performance, model scope review and production integration remain.",
       "historical_evidence": [
         "gds-diagnostics",
         "ihp-fill-checkpoint",
-        "ihp-coupling-model"
+        "ihp-coupling-model",
+        "ihp-full-fill-coverage",
+        "ihp-native-export"
       ]
     },
     "ihp-sg13g2:ihp-rf": {
@@ -19907,6 +19909,16 @@
       "path": "docs/validation/ihp-coupling-model-2026-10-10.json",
       "sha256": "f3884ead0494d51570e5920710d1004868fbab392438f0fc62693399eea8555e",
       "scope_limit": "Three original IHP filled blocks with corrected nominal metal coupling, independent finite-R model checks and matched timing. Active-fill model coverage and production integration remain incomplete."
+    },
+    "ihp-full-fill-coverage": {
+      "path": "docs/validation/ihp-full-fill-coverage-2026-10-10.json",
+      "sha256": "2da5df26a64284d966e47941c6db8ab827412b8166182ef328716138123859f5",
+      "scope_limit": "Historical supplemental rules and electrical-view coverage. Its native-SPICE waveform acceptance is rejected; corrected exports are recorded separately. Geometry, strict LVS and separate OpenRCX evidence retain their stated scopes."
+    },
+    "ihp-native-export": {
+      "path": "docs/validation/ihp-native-export-2026-10-10.json",
+      "sha256": "737c2c14243a53bbd9ebe4c21e6d0550c9bcc143c3205c22e2c3485372d1fc85",
+      "scope_limit": "Corrected flat IHP exports, complete C preservation, checked point-label resistance captures and conserved bounded RC models. Full matched performance and production integration remain open."
     }
   },
   "execution_acceptance": {

@@ -70,7 +70,7 @@ def validate_input(layout, top, die):
             tops[0].bbox() == bounds, 'Keep the exact original reference die, limited to 1 mm².')
     before = masks(layout); empty = k.Region()
     require(all(before.get((n, 22), empty).is_empty() for n in (*LAYERS, 5)), 'Input already contains fill.')
-    require(all(before.get(pair, empty).is_empty() for pair in ((39, 0), (235, 0))),
+    require(all(before.get(pair, empty).is_empty() for pair in ((39, 0), (189, 0), (235, 0))),
             'Chip seal/boundary geometry needs its own fill scope.')
     poly = before.get((5, 0), empty).area() / bounds.area()
     require(poly > .15, 'Existing poly must exceed GFil.g; dummy-transistor fill is unsupported.')

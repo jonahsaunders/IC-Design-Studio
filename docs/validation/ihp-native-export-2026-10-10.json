@@ -1,0 +1,968 @@
+{
+  "schema": 1,
+  "chunk": 5,
+  "status": "in_progress",
+  "chunk_complete": false,
+  "qualified": false,
+  "observed_at": "2026-10-10T17:31:36.422140+00:00",
+  "source_baseline": "5809b34a0b464864d4fe94535288f319ecc7cbaf",
+  "source_files": {
+    "docs/IHP_FILL_QUALIFICATION.md": "36c735252443dc71473f2ebff9f610e10b399651020c2ac24ec209964c45c6e6",
+    "examples/ihp-active-fill-source-lock.json": "d004cafcc879532f44be7dbbd83f9c3a5eb14785613c0a7d64c8c745a654a365",
+    "icstudio/compact_rc.py": "313787118aea63d5ac19a5f9d8c269d73e37111c4b835ad2bcb1a1de1ab15945",
+    "icstudio/magic_rc.py": "8f0f6f29307a7a740321ad556ef29184960c15c74b60cd6f10b3c587d6ddc8d2",
+    "scripts/check_ihp_fill_coupling.py": "b1acf2bc261c2f091c021468c27d3f3b7f03fa1246b65ce5030e1d51079912f4",
+    "scripts/check_ihp_fill_rules.py": "0710a5e6eab1d8b69d09ad26fcafe4e9d13de5529f01bac8c37c8bf45477ff35",
+    "scripts/check_ihp_flat_capacitance.py": "76070113042626e15a3596473e5c752a26d0fbc363cfc1765be01a37a612e701",
+    "scripts/check_ihp_lvs.py": "bc812c69e938c190d55e86efb2bff6f436040c1e4deac90d2b5687cb8a1919ed",
+    "scripts/check_ihp_magic_warnings.py": "67e88619ad746efc5011bbe7a67986468d59e926cdd3573a23251a913eaffb53",
+    "scripts/compile_ihp_osdi.py": "e3a69220c32d61a1bf7183e82b4170a3420cbbfc506b81918e6f729998ee69d7",
+    "scripts/ihp_distributed_capacitance.py": "a882c4995822f782cf3362b9cb2985b517c1761a2363e89ce72a8d0f580a65b9",
+    "scripts/ihp_fill_capacitance_input.py": "8d001ebbc876fe5d32a6bb2c27f9be42e0c7d532ec9aa73f3ec424f4cafc65ad",
+    "scripts/ihp_fill_reduction.py": "e1ceae09a96ad1394b7b8877c1dfc0a2576d1f891263ddcafa84fe5c02f8b5ec",
+    "scripts/ihp_fill_spef.py": "b443e49c5e6b462bc2ea1e6ff040b5058770984587242d8637876400a26a13f0",
+    "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+    "scripts/ihp_magic_export.py": "81a7e3d351c22ed701fdd3873fe3efe73cfa39122c3bbaf5c5177c5510d4e1ef",
+    "scripts/ihp_magic_rc_points.py": "8b23ff79a1f4f5488bed6b788e82152c9f4d4086d01ea0fe0adf0cb7ee01a214",
+    "scripts/ihp_native_capacitance.py": "f3e534f107b9b13f6dbe92c47161fc60e132bc2f28ad67eebc889fc704447015",
+    "scripts/prepare_ihp_block_fill.py": "b8f26b0375108d70100eaf29d8699fc02374564efe4e98c3b27ed186b15cb237",
+    "tests/test_ihp_block_fill.py": "26ca4c08f0cbabdfbd82d69ce7621028b8f89ac97cfc227ef735906490bd859c",
+    "tests/test_ihp_distributed_capacitance.py": "09b9530bf61a0543b3d4ee96120be38e9b1d2f6c35ad2045dfa4c72d01a2b64c",
+    "tests/test_ihp_fill_capacitance_input.py": "482b42191c0f43c5a5d462c2d786b1202d5ab59fc3ab68f478d380f38c1781be",
+    "tests/test_ihp_fill_coupling.py": "5dc9739a3247053a32f3affc14056ff17cfe3798646c464397bf70f7f4b7736c",
+    "tests/test_ihp_fill_reduction.py": "77578f5baf29452d7a1bf947e13b8a0db654542ba1e0226e238d87d121fd5a22",
+    "tests/test_ihp_fill_rules.py": "967134e6027c7a0c5179c9d9b74b0f589f958814f27b912fe79785b26cfaba1d",
+    "tests/test_ihp_fill_spef.py": "7fdb1af15f62e56dbc31f854b3e4c7381ab2c6d82ff5dbfc49bf83794d1cf8c0",
+    "tests/test_ihp_flat_capacitance.py": "71dedbbd02c3cad2cdcdfff12d8aa3a9911b62ac0bc01bac171092f1be9cd3d0",
+    "tests/test_ihp_lvs_ports.py": "c9eda2c681160ae6cfd68cd1d63ddddc6aeaaba8a383bcc2ed55d69755c7e93a",
+    "tests/test_ihp_lvs_reference.py": "9a06995a29a84aa24775ad7aa2b1d6421f90b92606a16b37acecddf3a4ba5e6b",
+    "tests/test_ihp_magic_export.py": "4f0d64a3639e439e3ec66203b157ef6f3f8a223298c9cfa0f0ff2c9aa2e25456",
+    "tests/test_ihp_magic_rc_points.py": "e4326df8ab72add25be3f4583226c02e34c9140354f0f8bf55d17167d04869a0",
+    "tests/test_ihp_magic_warnings.py": "1d5cf7a0721f492913df50ce5a09a603bd967b831317522456bd56d317158cd4",
+    "tests/test_ihp_native_capacitance.py": "f7d482f41110412346379581257a66d05ecbec39f08c1c9851579d87594ad23c"
+  },
+  "scope": "Corrected flat IHP exports, complete C preservation, checked point-label resistance captures and conserved bounded RC models. Full matched performance and production integration remain open.",
+  "previous_checkpoint": {
+    "path": "docs/validation/ihp-full-fill-coverage-2026-10-10.json",
+    "sha256": "2da5df26a64284d966e47941c6db8ab827412b8166182ef328716138123859f5",
+    "electrical_acceptance_superseded": true
+  },
+  "invalidated_acceptance": [
+    {
+      "scope": "All transistor waveforms using detached default-grid export or hierarchical MOS export",
+      "reason": "Wrong junction area/perimeter or lost gate capacitance."
+    },
+    {
+      "scope": "Bulk area-label resistance captures for filled UART/APB",
+      "reason": "Moved unrelated floating-fill labels; rejected before performance use."
+    }
+  ],
+  "tests": {
+    "win32": {
+      "schema": 1,
+      "status": "pass",
+      "tests": 70,
+      "skips": 0,
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "log_sha256": "1d1c94561e86c0cce27976f487196d0ba3d71bf7fb794d9c22dc4c2f0c8a5fc3",
+      "source_files": {
+        "scripts/check_ihp_fill_coupling.py": "b1acf2bc261c2f091c021468c27d3f3b7f03fa1246b65ce5030e1d51079912f4",
+        "scripts/check_ihp_fill_rules.py": "0710a5e6eab1d8b69d09ad26fcafe4e9d13de5529f01bac8c37c8bf45477ff35",
+        "scripts/check_ihp_flat_capacitance.py": "76070113042626e15a3596473e5c752a26d0fbc363cfc1765be01a37a612e701",
+        "scripts/check_ihp_lvs.py": "bc812c69e938c190d55e86efb2bff6f436040c1e4deac90d2b5687cb8a1919ed",
+        "scripts/check_ihp_magic_warnings.py": "67e88619ad746efc5011bbe7a67986468d59e926cdd3573a23251a913eaffb53",
+        "scripts/compile_ihp_osdi.py": "e3a69220c32d61a1bf7183e82b4170a3420cbbfc506b81918e6f729998ee69d7",
+        "scripts/ihp_distributed_capacitance.py": "a882c4995822f782cf3362b9cb2985b517c1761a2363e89ce72a8d0f580a65b9",
+        "scripts/ihp_fill_capacitance_input.py": "8d001ebbc876fe5d32a6bb2c27f9be42e0c7d532ec9aa73f3ec424f4cafc65ad",
+        "scripts/ihp_fill_reduction.py": "e1ceae09a96ad1394b7b8877c1dfc0a2576d1f891263ddcafa84fe5c02f8b5ec",
+        "scripts/ihp_fill_spef.py": "b443e49c5e6b462bc2ea1e6ff040b5058770984587242d8637876400a26a13f0",
+        "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+        "scripts/ihp_magic_export.py": "81a7e3d351c22ed701fdd3873fe3efe73cfa39122c3bbaf5c5177c5510d4e1ef",
+        "scripts/ihp_magic_rc_points.py": "8b23ff79a1f4f5488bed6b788e82152c9f4d4086d01ea0fe0adf0cb7ee01a214",
+        "scripts/ihp_native_capacitance.py": "f3e534f107b9b13f6dbe92c47161fc60e132bc2f28ad67eebc889fc704447015",
+        "scripts/prepare_ihp_block_fill.py": "b8f26b0375108d70100eaf29d8699fc02374564efe4e98c3b27ed186b15cb237",
+        "tests/test_ihp_block_fill.py": "26ca4c08f0cbabdfbd82d69ce7621028b8f89ac97cfc227ef735906490bd859c",
+        "tests/test_ihp_distributed_capacitance.py": "09b9530bf61a0543b3d4ee96120be38e9b1d2f6c35ad2045dfa4c72d01a2b64c",
+        "tests/test_ihp_fill_capacitance_input.py": "482b42191c0f43c5a5d462c2d786b1202d5ab59fc3ab68f478d380f38c1781be",
+        "tests/test_ihp_fill_coupling.py": "5dc9739a3247053a32f3affc14056ff17cfe3798646c464397bf70f7f4b7736c",
+        "tests/test_ihp_fill_reduction.py": "77578f5baf29452d7a1bf947e13b8a0db654542ba1e0226e238d87d121fd5a22",
+        "tests/test_ihp_fill_rules.py": "967134e6027c7a0c5179c9d9b74b0f589f958814f27b912fe79785b26cfaba1d",
+        "tests/test_ihp_fill_spef.py": "7fdb1af15f62e56dbc31f854b3e4c7381ab2c6d82ff5dbfc49bf83794d1cf8c0",
+        "tests/test_ihp_flat_capacitance.py": "71dedbbd02c3cad2cdcdfff12d8aa3a9911b62ac0bc01bac171092f1be9cd3d0",
+        "tests/test_ihp_lvs_ports.py": "c9eda2c681160ae6cfd68cd1d63ddddc6aeaaba8a383bcc2ed55d69755c7e93a",
+        "tests/test_ihp_lvs_reference.py": "9a06995a29a84aa24775ad7aa2b1d6421f90b92606a16b37acecddf3a4ba5e6b",
+        "tests/test_ihp_magic_export.py": "4f0d64a3639e439e3ec66203b157ef6f3f8a223298c9cfa0f0ff2c9aa2e25456",
+        "tests/test_ihp_magic_rc_points.py": "e4326df8ab72add25be3f4583226c02e34c9140354f0f8bf55d17167d04869a0",
+        "tests/test_ihp_magic_warnings.py": "1d5cf7a0721f492913df50ce5a09a603bd967b831317522456bd56d317158cd4",
+        "tests/test_ihp_native_capacitance.py": "f7d482f41110412346379581257a66d05ecbec39f08c1c9851579d87594ad23c"
+      }
+    },
+    "linux": {
+      "schema": 1,
+      "status": "pass",
+      "tests": 70,
+      "skips": 0,
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "log_sha256": "5d6688fba7c5db249206ca9b99b701e4db933688e7ad371883c0aa283a5686fe",
+      "source_files": {
+        "scripts/check_ihp_fill_coupling.py": "b1acf2bc261c2f091c021468c27d3f3b7f03fa1246b65ce5030e1d51079912f4",
+        "scripts/check_ihp_fill_rules.py": "0710a5e6eab1d8b69d09ad26fcafe4e9d13de5529f01bac8c37c8bf45477ff35",
+        "scripts/check_ihp_flat_capacitance.py": "76070113042626e15a3596473e5c752a26d0fbc363cfc1765be01a37a612e701",
+        "scripts/check_ihp_lvs.py": "bc812c69e938c190d55e86efb2bff6f436040c1e4deac90d2b5687cb8a1919ed",
+        "scripts/check_ihp_magic_warnings.py": "67e88619ad746efc5011bbe7a67986468d59e926cdd3573a23251a913eaffb53",
+        "scripts/compile_ihp_osdi.py": "e3a69220c32d61a1bf7183e82b4170a3420cbbfc506b81918e6f729998ee69d7",
+        "scripts/ihp_distributed_capacitance.py": "a882c4995822f782cf3362b9cb2985b517c1761a2363e89ce72a8d0f580a65b9",
+        "scripts/ihp_fill_capacitance_input.py": "8d001ebbc876fe5d32a6bb2c27f9be42e0c7d532ec9aa73f3ec424f4cafc65ad",
+        "scripts/ihp_fill_reduction.py": "e1ceae09a96ad1394b7b8877c1dfc0a2576d1f891263ddcafa84fe5c02f8b5ec",
+        "scripts/ihp_fill_spef.py": "b443e49c5e6b462bc2ea1e6ff040b5058770984587242d8637876400a26a13f0",
+        "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+        "scripts/ihp_magic_export.py": "81a7e3d351c22ed701fdd3873fe3efe73cfa39122c3bbaf5c5177c5510d4e1ef",
+        "scripts/ihp_magic_rc_points.py": "8b23ff79a1f4f5488bed6b788e82152c9f4d4086d01ea0fe0adf0cb7ee01a214",
+        "scripts/ihp_native_capacitance.py": "f3e534f107b9b13f6dbe92c47161fc60e132bc2f28ad67eebc889fc704447015",
+        "scripts/prepare_ihp_block_fill.py": "b8f26b0375108d70100eaf29d8699fc02374564efe4e98c3b27ed186b15cb237",
+        "tests/test_ihp_block_fill.py": "26ca4c08f0cbabdfbd82d69ce7621028b8f89ac97cfc227ef735906490bd859c",
+        "tests/test_ihp_distributed_capacitance.py": "09b9530bf61a0543b3d4ee96120be38e9b1d2f6c35ad2045dfa4c72d01a2b64c",
+        "tests/test_ihp_fill_capacitance_input.py": "482b42191c0f43c5a5d462c2d786b1202d5ab59fc3ab68f478d380f38c1781be",
+        "tests/test_ihp_fill_coupling.py": "5dc9739a3247053a32f3affc14056ff17cfe3798646c464397bf70f7f4b7736c",
+        "tests/test_ihp_fill_reduction.py": "77578f5baf29452d7a1bf947e13b8a0db654542ba1e0226e238d87d121fd5a22",
+        "tests/test_ihp_fill_rules.py": "967134e6027c7a0c5179c9d9b74b0f589f958814f27b912fe79785b26cfaba1d",
+        "tests/test_ihp_fill_spef.py": "7fdb1af15f62e56dbc31f854b3e4c7381ab2c6d82ff5dbfc49bf83794d1cf8c0",
+        "tests/test_ihp_flat_capacitance.py": "71dedbbd02c3cad2cdcdfff12d8aa3a9911b62ac0bc01bac171092f1be9cd3d0",
+        "tests/test_ihp_lvs_ports.py": "c9eda2c681160ae6cfd68cd1d63ddddc6aeaaba8a383bcc2ed55d69755c7e93a",
+        "tests/test_ihp_lvs_reference.py": "9a06995a29a84aa24775ad7aa2b1d6421f90b92606a16b37acecddf3a4ba5e6b",
+        "tests/test_ihp_magic_export.py": "4f0d64a3639e439e3ec66203b157ef6f3f8a223298c9cfa0f0ff2c9aa2e25456",
+        "tests/test_ihp_magic_rc_points.py": "e4326df8ab72add25be3f4583226c02e34c9140354f0f8bf55d17167d04869a0",
+        "tests/test_ihp_magic_warnings.py": "1d5cf7a0721f492913df50ce5a09a603bd967b831317522456bd56d317158cd4",
+        "tests/test_ihp_native_capacitance.py": "f7d482f41110412346379581257a66d05ecbec39f08c1c9851579d87594ad23c"
+      }
+    }
+  },
+  "flat_export_warnings": {
+    "schema": 1,
+    "status": "pass",
+    "qualified": false,
+    "exporter_sha256": "81a7e3d351c22ed701fdd3873fe3efe73cfa39122c3bbaf5c5177c5510d4e1ef",
+    "cases": [
+      {
+        "case": "counter",
+        "state": "original",
+        "source_gds_sha256": "03e74a38cc1e125e2b1e8f7c019b1ac236a2b9fbdea458a0549ba60293f02ff8",
+        "warning_audit": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "warning_count": 7638,
+          "decap_instances": 1929,
+          "devices": {
+            "sg13_lv_nmos": 3819,
+            "sg13_lv_pmos": 3819
+          },
+          "files": {
+            "counter.ext": "61c9e27414178f45c6234d6f208fedb1ca753337d88597e63054d43809ac843a",
+            "extraction.feedback": "29d96a25a1d30c29020d3b2c470506bff3d14484e083f57327ded95166d3e61e",
+            "instances.json": "a6b5a2e7f0d9dc61856a440e758b12a69bdfbce07684c387c343f0077605b96c",
+            "labels.json": "7870cd8a0b65c59240582ef4884e8a1398a377c5a90c34644c71d4960544d2a8"
+          },
+          "scope": "Only the documented one-sided decap channel diagnostic; not general device or extraction qualification."
+        },
+        "spice_sha256": "40a62393c77ad29012ab46988e322574aa5a630deca4ee6033e3fa9339d51976"
+      },
+      {
+        "case": "counter",
+        "state": "active",
+        "source_gds_sha256": "5d3767d679f7575ecac9355a51a2ffd2b51a4c6224045f37b7b51e933a3a5743",
+        "warning_audit": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "warning_count": 7638,
+          "decap_instances": 1929,
+          "devices": {
+            "sg13_lv_nmos": 3819,
+            "sg13_lv_pmos": 3819
+          },
+          "files": {
+            "counter.ext": "6d7075545641a23a156cd8b2b91d731f26679842ec10b38029ab54d070fafae3",
+            "extraction.feedback": "29d96a25a1d30c29020d3b2c470506bff3d14484e083f57327ded95166d3e61e",
+            "instances.json": "a6b5a2e7f0d9dc61856a440e758b12a69bdfbce07684c387c343f0077605b96c",
+            "labels.json": "7870cd8a0b65c59240582ef4884e8a1398a377c5a90c34644c71d4960544d2a8"
+          },
+          "scope": "Only the documented one-sided decap channel diagnostic; not general device or extraction qualification."
+        },
+        "spice_sha256": "0869597595cf8eb2c64882c0a65ac780d3c517e266775f9c8d159aee24bec388"
+      },
+      {
+        "case": "uart",
+        "state": "original",
+        "source_gds_sha256": "61b106411a6668c5b9cac19b3afdbbde52fa73cfc4dea2e2682b5cdcee89cc71",
+        "warning_audit": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "warning_count": 38370,
+          "decap_instances": 9633,
+          "devices": {
+            "sg13_lv_nmos": 19185,
+            "sg13_lv_pmos": 19185
+          },
+          "files": {
+            "uart_tx.ext": "b9583b0b3691dc1a2b16140ba7bd4e99622f963c05dcb9926392cb7bf53e31af",
+            "extraction.feedback": "efa10a447f2ed089c0bd3fe53b54ad6fe26aa930328139624247e57ea3ee9ef0",
+            "instances.json": "befe32ef5dc5d3d391e1cc150a360eb41a8d1539bd1eb761a48eb8c353418dd3",
+            "labels.json": "c5fb13b860e949ad880090f6d6868ba8f3c08fa4f4e7095596847660003453d4"
+          },
+          "scope": "Only the documented one-sided decap channel diagnostic; not general device or extraction qualification."
+        },
+        "spice_sha256": "587da68f39c07d0568a4511dd69271e60545b0de737710e9eec0ffda5bd2dccd"
+      },
+      {
+        "case": "uart",
+        "state": "active",
+        "source_gds_sha256": "f7830417d5296361712e9b8b163eea65215da5393c6c86506b53b3bbc2593913",
+        "warning_audit": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "warning_count": 38370,
+          "decap_instances": 9633,
+          "devices": {
+            "sg13_lv_nmos": 19185,
+            "sg13_lv_pmos": 19185
+          },
+          "files": {
+            "uart_tx.ext": "ef5390b644c1f03622b3085e316efcbb20a402839f5e2d7d322fc9cf58739579",
+            "extraction.feedback": "efa10a447f2ed089c0bd3fe53b54ad6fe26aa930328139624247e57ea3ee9ef0",
+            "instances.json": "befe32ef5dc5d3d391e1cc150a360eb41a8d1539bd1eb761a48eb8c353418dd3",
+            "labels.json": "c5fb13b860e949ad880090f6d6868ba8f3c08fa4f4e7095596847660003453d4"
+          },
+          "scope": "Only the documented one-sided decap channel diagnostic; not general device or extraction qualification."
+        },
+        "spice_sha256": "3aa189c7231e73e100ab9d351ed14ebb9e0628a024085a36e254ef048968c077"
+      },
+      {
+        "case": "apb",
+        "state": "original",
+        "source_gds_sha256": "ffdd3269e490360d6c6163e6892a276faee6bccd00fab093ff846d82d98df5c6",
+        "warning_audit": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "warning_count": 38604,
+          "decap_instances": 9680,
+          "devices": {
+            "sg13_lv_nmos": 19302,
+            "sg13_lv_pmos": 19302
+          },
+          "files": {
+            "apb_fifo.ext": "e6c0b61b4641fa178d606e54007ac1d80743542f144d8683a0b121ffc1c8cac2",
+            "extraction.feedback": "95aec1932aca3d9a20a2034fa2255ce992f821f3ee42a6e92a6635632e07a298",
+            "instances.json": "2ebe828bce9a45ff19d11c3c5c362e144a31b0034342c258eda1c47d10556e15",
+            "labels.json": "f1fb3c905c2e963d02cfefb6ff4f8f504ebfc8e2e0008205630ed46f2c80848a"
+          },
+          "scope": "Only the documented one-sided decap channel diagnostic; not general device or extraction qualification."
+        },
+        "spice_sha256": "8e474049ab2bf6a3832c5583494a19c181f1d53dfa0f5a8d22393a3740b68fc2"
+      },
+      {
+        "case": "apb",
+        "state": "active",
+        "source_gds_sha256": "2eb9507734254ef05dff602638afcb1d1187435c686db7f63449ec04c275321e",
+        "warning_audit": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "warning_count": 38604,
+          "decap_instances": 9680,
+          "devices": {
+            "sg13_lv_nmos": 19302,
+            "sg13_lv_pmos": 19302
+          },
+          "files": {
+            "apb_fifo.ext": "ce14015a3ab96b134eceb9378d42afff5bb71354b523f2a11127fefe59787dac",
+            "extraction.feedback": "95aec1932aca3d9a20a2034fa2255ce992f821f3ee42a6e92a6635632e07a298",
+            "instances.json": "2ebe828bce9a45ff19d11c3c5c362e144a31b0034342c258eda1c47d10556e15",
+            "labels.json": "f1fb3c905c2e963d02cfefb6ff4f8f504ebfc8e2e0008205630ed46f2c80848a"
+          },
+          "scope": "Only the documented one-sided decap channel diagnostic; not general device or extraction qualification."
+        },
+        "spice_sha256": "df637487febc7fdc715350f10b443bc8b2603acbcd3de9faac85824ff5223c93"
+      }
+    ],
+    "scope": "Audit already captured flat exports; no claim of a second native replay."
+  },
+  "point_label_capacitance": {
+    "schema": 1,
+    "status": "pass",
+    "qualified": false,
+    "scope": "Point-label changes preserve the entire pre-resistance native capacitance matrix exactly.",
+    "cases": [
+      {
+        "case": "counter",
+        "state": "original",
+        "maximum_change_af": 0.0,
+        "files": {
+          "outputs\\ihp-grid-export-counter-v4\\original\\counter.ext": "61c9e27414178f45c6234d6f208fedb1ca753337d88597e63054d43809ac843a",
+          "outputs\\ihp-distributed-rc-counter-v7\\original\\counter.ext": "077ccf3214b7c47889286f3fb3c4978c70549e98ab2b590367fa3d37b0ca2227"
+        }
+      },
+      {
+        "case": "counter",
+        "state": "active",
+        "maximum_change_af": 0.0,
+        "files": {
+          "outputs\\ihp-grid-export-counter-v4\\active\\counter.ext": "6d7075545641a23a156cd8b2b91d731f26679842ec10b38029ab54d070fafae3",
+          "outputs\\ihp-distributed-rc-counter-v7\\active\\counter.ext": "3e55243644f5bfc00409c4a911c782b1977dde928af9dfb8b8552f181951a1af"
+        }
+      },
+      {
+        "case": "uart",
+        "state": "original",
+        "maximum_change_af": 0.0,
+        "files": {
+          "outputs\\ihp-grid-export-uart-v4\\original\\uart_tx.ext": "b9583b0b3691dc1a2b16140ba7bd4e99622f963c05dcb9926392cb7bf53e31af",
+          "outputs\\ihp-distributed-rc-uart-v8\\original\\uart_tx.ext": "e70fec4cd74e7cce757ea1959f175c4b528cadf16d28f4762e4fb4f122a0b55d"
+        }
+      },
+      {
+        "case": "uart",
+        "state": "active",
+        "maximum_change_af": 0.0,
+        "files": {
+          "outputs\\ihp-grid-export-uart-v4\\active\\uart_tx.ext": "ef5390b644c1f03622b3085e316efcbb20a402839f5e2d7d322fc9cf58739579",
+          "outputs\\ihp-distributed-rc-uart-v8\\active\\uart_tx.ext": "619b66e6d665f32388bed53acc78c71f38e24ea327c91bce25f923a8bc2884db"
+        }
+      },
+      {
+        "case": "apb",
+        "state": "original",
+        "maximum_change_af": 0.0,
+        "files": {
+          "outputs\\ihp-grid-export-apb-v4\\original\\apb_fifo.ext": "e6c0b61b4641fa178d606e54007ac1d80743542f144d8683a0b121ffc1c8cac2",
+          "outputs\\ihp-distributed-rc-apb-v8\\original\\apb_fifo.ext": "f7397973996311a4d8ebe7282d9eb87831eb80179cb9046820e62b683680b86e"
+        }
+      },
+      {
+        "case": "apb",
+        "state": "active",
+        "maximum_change_af": 0.0,
+        "files": {
+          "outputs\\ihp-grid-export-apb-v4\\active\\apb_fifo.ext": "ce14015a3ab96b134eceb9378d42afff5bb71354b523f2a11127fefe59787dac",
+          "outputs\\ihp-distributed-rc-apb-v8\\active\\apb_fifo.ext": "7bd91b0b4b7084ac4e98ed0f067c5eb3ed1cbabad5d87f342ea81dd4ddc205d5"
+        }
+      }
+    ]
+  },
+  "platform_capacitance_models": {
+    "win32": {
+      "schema": 1,
+      "status": "pass",
+      "qualified": false,
+      "source_sha256": "f3e534f107b9b13f6dbe92c47161fc60e132bc2f28ad67eebc889fc704447015",
+      "cases": [
+        {
+          "ground": "NET000001",
+          "floating_metal_nodes": 8951,
+          "observable_metal_nodes": 8951,
+          "active_junction_nodes": 492,
+          "retained_nodes": 642,
+          "residual": 2.9477721509287656e-15,
+          "relative_charge_error": 0.0001,
+          "source_sha256": "8083889b8693e6cae3e06f5aa6e5e081216c3efb2aee13d18a31e5fa47981677",
+          "case": "counter",
+          "output_sha256": "ecfe923ed41f0e24e2923d5249d9d70cd63127d936df3d6a652e698dfa485ab9",
+          "maximum_capacitor_difference_af": 5.684341886080802e-14,
+          "platform_reproduction_match": true
+        },
+        {
+          "ground": "NET000001",
+          "floating_metal_nodes": 35226,
+          "observable_metal_nodes": 35226,
+          "active_junction_nodes": 1032,
+          "retained_nodes": 2920,
+          "residual": 5.014088990387483e-15,
+          "relative_charge_error": 0.0001,
+          "source_sha256": "da2c1b88701804f0cd69c3e411f59ab7ad3fa204e2b8e9c11c467527abe2ce35",
+          "case": "uart",
+          "output_sha256": "af7394a6fb652ff4bc99b82ea4f8e557361a0c4afa762cb0d4bac6b99d3257ab",
+          "maximum_capacitor_difference_af": 3.637978807091713e-12,
+          "platform_reproduction_match": true
+        },
+        {
+          "ground": "NET000001",
+          "floating_metal_nodes": 35177,
+          "observable_metal_nodes": 35177,
+          "active_junction_nodes": 1032,
+          "retained_nodes": 2708,
+          "residual": 4.693698593416759e-15,
+          "relative_charge_error": 0.0001,
+          "source_sha256": "eec7b19866a092f50a6433d4d58192ba1836f2e8083426acdbd76ec1e344f1c0",
+          "case": "apb",
+          "output_sha256": "549e3e09069dd5d7b115897fca170502790894b34fc6a1345971f1164751c185",
+          "maximum_capacitor_difference_af": 1.8189894035458565e-12,
+          "platform_reproduction_match": true
+        }
+      ]
+    },
+    "linux": {
+      "schema": 1,
+      "status": "pass",
+      "qualified": false,
+      "source_sha256": "f3e534f107b9b13f6dbe92c47161fc60e132bc2f28ad67eebc889fc704447015",
+      "cases": [
+        {
+          "ground": "NET000001",
+          "floating_metal_nodes": 8951,
+          "observable_metal_nodes": 8951,
+          "active_junction_nodes": 492,
+          "retained_nodes": 642,
+          "residual": 2.9477721509287656e-15,
+          "relative_charge_error": 0.0001,
+          "source_sha256": "8083889b8693e6cae3e06f5aa6e5e081216c3efb2aee13d18a31e5fa47981677",
+          "case": "counter",
+          "output_sha256": "aec0f62b9ef217c3d2a5b721afb52bdc267b63835aeffc289a0dc85b47656db2",
+          "maximum_capacitor_difference_af": 0.0,
+          "platform_reproduction_match": true
+        },
+        {
+          "ground": "NET000001",
+          "floating_metal_nodes": 35226,
+          "observable_metal_nodes": 35226,
+          "active_junction_nodes": 1032,
+          "retained_nodes": 2920,
+          "residual": 5.014088990387483e-15,
+          "relative_charge_error": 0.0001,
+          "source_sha256": "da2c1b88701804f0cd69c3e411f59ab7ad3fa204e2b8e9c11c467527abe2ce35",
+          "case": "uart",
+          "output_sha256": "85dcfa040b5fc3b8bd439734a3d0e1ee7b47383d294c4f6bb07553e205746c53",
+          "maximum_capacitor_difference_af": 0.0,
+          "platform_reproduction_match": true
+        },
+        {
+          "ground": "NET000001",
+          "floating_metal_nodes": 35177,
+          "observable_metal_nodes": 35177,
+          "active_junction_nodes": 1032,
+          "retained_nodes": 2708,
+          "residual": 4.693698593416759e-15,
+          "relative_charge_error": 0.0001,
+          "source_sha256": "eec7b19866a092f50a6433d4d58192ba1836f2e8083426acdbd76ec1e344f1c0",
+          "case": "apb",
+          "output_sha256": "5ef5511bbe2ce6dfddcb5c28b0fa0d5a36f0dd1503dc627b6cd47910b459c3be",
+          "maximum_capacitor_difference_af": 0.0,
+          "platform_reproduction_match": true
+        }
+      ]
+    }
+  },
+  "counter_lumped_function": {
+    "schema": 1,
+    "status": "pass",
+    "qualified": false,
+    "cases": [
+      {
+        "corner": "typ",
+        "voltage": 1.2,
+        "initial_state": "zero-charge power-up",
+        "results": [
+          {
+            "state": "original",
+            "passed": true,
+            "checked_bits": 72,
+            "failures": [],
+            "waveform_sha256": "2734a8e9b76294037bc5c92f67585ae51775ea8e5c927a2e6a69e929ffcba14f"
+          },
+          {
+            "state": "filled",
+            "passed": true,
+            "checked_bits": 72,
+            "failures": [],
+            "waveform_sha256": "cd4c6e7a470bd92f7394692e8e66bd3de836abae12cbcbad5b97d26e70e2f860"
+          }
+        ],
+        "matched_output_edges": 31,
+        "maximum_edge_change_ps": 16.791008568296412
+      },
+      {
+        "corner": "slow",
+        "voltage": 1.08,
+        "initial_state": "zero-charge power-up",
+        "results": [
+          {
+            "state": "original",
+            "passed": true,
+            "checked_bits": 72,
+            "failures": [],
+            "waveform_sha256": "af50ae945ab25347213dda9a55494729296ee28425aba4c773c75478cd500ee2"
+          },
+          {
+            "state": "filled",
+            "passed": true,
+            "checked_bits": 72,
+            "failures": [],
+            "waveform_sha256": "cdca0ec8e252e692759de4919912d4f567b57abbfd426b8f98a973610d43d131"
+          }
+        ],
+        "matched_output_edges": 31,
+        "maximum_edge_change_ps": 24.388327519852748
+      },
+      {
+        "corner": "fast",
+        "voltage": 1.32,
+        "initial_state": "captured reset state",
+        "results": [
+          {
+            "state": "original",
+            "passed": true,
+            "checked_bits": 72,
+            "failures": [],
+            "waveform_sha256": "387c6aed5f235bfbac612c0bd2c27e052a6faa561aa4b3c11b3c71ac50966d0a"
+          },
+          {
+            "state": "filled",
+            "passed": true,
+            "checked_bits": 72,
+            "failures": [],
+            "waveform_sha256": "067e84f1afbb0c2a49b743657a22de783e52c2b171fb2852549a07459b425a3f"
+          }
+        ],
+        "matched_output_edges": 31,
+        "maximum_edge_change_ps": 10.648613187088406
+      }
+    ],
+    "scope": "Matched native counter transistor simulations, nominal capacitance model, ideal rails and 50 ns clock. Cold operation starts after reset; cold zero-charge power-up remains unresolved. No distributed RC or foundry acceptance."
+  },
+  "counter_convergence": {
+    "schema": 1,
+    "status": "pass",
+    "qualified": false,
+    "interval_ns": [
+      60,
+      180
+    ],
+    "results": {
+      "native_spice_charge_1e_5": {
+        "passed": true,
+        "matched_edges": 4,
+        "maximum_threshold_crossing_error_ps": 0.034956526134474676,
+        "fixed_tolerance_ps": 1.0
+      }
+    },
+    "deliberate_2ns_fault": {
+      "passed": false,
+      "matched_edges": 4,
+      "maximum_threshold_crossing_error_ps": 2000.0349565261258,
+      "fixed_tolerance_ps": 1.0
+    },
+    "files": {
+      "full": {
+        "path": "outputs/ihp-counter-cap-spice-v23-full-precision/filled/waveform.txt",
+        "sha256": "d7bf6022647c93c6905daa35c3009f00d3bb0a8669a26a71e9c048f2c89ccb92"
+      },
+      "native_spice_charge_1e_5": {
+        "path": "outputs/ihp-counter-cap-spice-v24-reduced-precision/filled/waveform.txt",
+        "sha256": "79a847ac2111214e86b1d32d2e552973a34dfaf0cb01e00cc81372fc6e0e0c19"
+      }
+    },
+    "scope": "Counter threshold-crossing convergence only; does not validate other circuits or distributed metal resistance."
+  },
+  "rejected_coarse_convergence": {
+    "schema": 1,
+    "status": "fail",
+    "qualified": false,
+    "interval_ns": [
+      60,
+      180
+    ],
+    "results": {
+      "native_spice_charge_1e_4": {
+        "passed": false,
+        "matched_edges": 4,
+        "maximum_threshold_crossing_error_ps": 1.145058679978621,
+        "fixed_tolerance_ps": 1.0
+      }
+    },
+    "deliberate_2ns_fault": {
+      "passed": false,
+      "matched_edges": 4,
+      "maximum_threshold_crossing_error_ps": 2001.1450586799701,
+      "fixed_tolerance_ps": 1.0
+    },
+    "files": {
+      "full": {
+        "path": "outputs/ihp-counter-cap-spice-v22-unreduced/filled/waveform.txt",
+        "sha256": "cb9e554b272f7099b14785805647e3d531648264f93c8a5c058b0005a4c2ae47"
+      },
+      "native_spice_charge_1e_4": {
+        "path": "outputs/ihp-counter-cap-spice-v19/filled/waveform.txt",
+        "sha256": "cd4c6e7a470bd92f7394692e8e66bd3de836abae12cbcbad5b97d26e70e2f860"
+      }
+    },
+    "scope": "Counter threshold-crossing convergence only; does not validate other circuits or distributed metal resistance."
+  },
+  "baseline_workload_function": {
+    "uart": {
+      "schema": 1,
+      "status": "pass",
+      "qualified": false,
+      "complete_waveform": true,
+      "tested_bits": 254,
+      "failed_bits": 0,
+      "failures": [],
+      "waveform_sha256": "be1f6955d7bef6ba6916dc551897982ab502078bf7848d5ea97b71670e3e6154",
+      "expectations_sha256": "001e0d483bbbc459f264cb7ed61f58e8184927e3b3d9566424ddc023d6591e20",
+      "scope": "Captured nominal transistor capacitance benchmark; no distributed RC acceptance."
+    },
+    "apb": {
+      "schema": 1,
+      "status": "pass",
+      "qualified": false,
+      "complete_waveform": true,
+      "tested_bits": 869,
+      "failed_bits": 0,
+      "failures": [],
+      "waveform_sha256": "fee7a85f640b399ffaeb1c6408fbae9f169744bf4822486e10214970a702b45f",
+      "expectations_sha256": "f0e55c5807003cd0e52c98aa5cbadaeaa8042773493de55d72e40ae5aaf9c972",
+      "scope": "Captured nominal transistor capacitance benchmark; no distributed RC acceptance."
+    }
+  },
+  "distributed_models": {
+    "counter": {
+      "schema": 1,
+      "status": "prepared",
+      "qualified": false,
+      "cases": [
+        {
+          "capacitor_count": 552,
+          "source_count": 3773,
+          "qualified": false,
+          "diagonal_roundoff_count": 68,
+          "maximum_diagonal_roundoff_af": 1.8189894035458565e-12,
+          "scope": "Conserved area-weighted lumped C on the captured R graph; quasistatic metal fill, explicit active junctions and ideal supplies.",
+          "case": "counter",
+          "state": "original",
+          "normalization_sha256": "26be009d5b97eca3c0ea46b766e817345bb38f66978dd3f15907e682c0350818",
+          "source_ext_sha256": "077ccf3214b7c47889286f3fb3c4978c70549e98ab2b590367fa3d37b0ca2227",
+          "capacitance_sha256": "c93b39d4ed5e9f84ce6280537dea1bbb927369284f3633eb8721180b3bb60f8e",
+          "circuit_sha256": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+          "source_files": {
+            "scripts/ihp_distributed_capacitance.py": "a882c4995822f782cf3362b9cb2985b517c1761a2363e89ce72a8d0f580a65b9",
+            "scripts/ihp_native_capacitance.py": "f3e534f107b9b13f6dbe92c47161fc60e132bc2f28ad67eebc889fc704447015",
+            "icstudio/compact_rc.py": "313787118aea63d5ac19a5f9d8c269d73e37111c4b835ad2bcb1a1de1ab15945",
+            "icstudio/magic_rc.py": "8f0f6f29307a7a740321ad556ef29184960c15c74b60cd6f10b3c587d6ddc8d2"
+          },
+          "devices": 290,
+          "resistors": 403,
+          "ideal_rail_decaps_omitted": 7638,
+          "same_net_capacitors": 0,
+          "contracted_native_model_audit": {
+            "status": "passed",
+            "method": "independent-serialized-linear-equations-and-capacitor-stamps",
+            "matrix_entries": 3221,
+            "maximum_error_af": 4.656612873077393e-10,
+            "relative_tolerance": 1e-12,
+            "absolute_tolerance_af": 1e-12
+          },
+          "schur": {
+            "ground": "NET000001",
+            "floating_metal_nodes": 0,
+            "observable_metal_nodes": 0,
+            "active_junction_nodes": 0,
+            "retained_nodes": 150,
+            "residual": 0.0,
+            "relative_charge_error": 1e-05,
+            "source_sha256": "077ccf3214b7c47889286f3fb3c4978c70549e98ab2b590367fa3d37b0ca2227"
+          }
+        },
+        {
+          "capacitor_count": 2680,
+          "source_count": 42559,
+          "qualified": false,
+          "diagonal_roundoff_count": 1,
+          "maximum_diagonal_roundoff_af": 8.881784197001252e-16,
+          "scope": "Conserved area-weighted lumped C on the captured R graph; quasistatic metal fill, explicit active junctions and ideal supplies.",
+          "case": "counter",
+          "state": "active",
+          "normalization_sha256": "39279e67df6565557d2997daab7912b906b8e2a6174cc6ce24e5d00785af382f",
+          "source_ext_sha256": "3e55243644f5bfc00409c4a911c782b1977dde928af9dfb8b8552f181951a1af",
+          "capacitance_sha256": "b632dfa114d393288b6b282521b2547a15d8f806d606a3139f99d559f4e3aa3e",
+          "circuit_sha256": "df931ee1fbebebe2b1793276ab818db11f833db92335b93815177f48f82dd8be",
+          "source_files": {
+            "scripts/ihp_distributed_capacitance.py": "a882c4995822f782cf3362b9cb2985b517c1761a2363e89ce72a8d0f580a65b9",
+            "scripts/ihp_native_capacitance.py": "f3e534f107b9b13f6dbe92c47161fc60e132bc2f28ad67eebc889fc704447015",
+            "icstudio/compact_rc.py": "313787118aea63d5ac19a5f9d8c269d73e37111c4b835ad2bcb1a1de1ab15945",
+            "icstudio/magic_rc.py": "8f0f6f29307a7a740321ad556ef29184960c15c74b60cd6f10b3c587d6ddc8d2"
+          },
+          "devices": 290,
+          "resistors": 403,
+          "ideal_rail_decaps_omitted": 7638,
+          "same_net_capacitors": 1636,
+          "contracted_native_model_audit": {
+            "status": "passed",
+            "method": "independent-serialized-linear-equations-and-capacitor-stamps",
+            "matrix_entries": 41515,
+            "maximum_error_af": 4.656612873077393e-10,
+            "relative_tolerance": 1e-12,
+            "absolute_tolerance_af": 1e-12
+          },
+          "schur": {
+            "ground": "NET000001",
+            "floating_metal_nodes": 8951,
+            "observable_metal_nodes": 8951,
+            "active_junction_nodes": 492,
+            "retained_nodes": 642,
+            "residual": 2.7567128448500494e-15,
+            "relative_charge_error": 1e-05,
+            "source_sha256": "3e55243644f5bfc00409c4a911c782b1977dde928af9dfb8b8552f181951a1af"
+          }
+        }
+      ]
+    },
+    "uart": {
+      "schema": 1,
+      "status": "prepared",
+      "qualified": false,
+      "cases": [
+        {
+          "capacitor_count": 6914,
+          "source_count": 57029,
+          "qualified": false,
+          "diagonal_roundoff_count": 821,
+          "maximum_diagonal_roundoff_af": 1.8189894035458565e-11,
+          "scope": "Conserved area-weighted lumped C on the captured R graph; quasistatic metal fill, explicit active junctions and ideal supplies.",
+          "case": "uart",
+          "state": "original",
+          "normalization_sha256": "535164468dc4875a8a92257cb01ed19042957e895979749787618bfc9668d4ec",
+          "source_ext_sha256": "e70fec4cd74e7cce757ea1959f175c4b528cadf16d28f4762e4fb4f122a0b55d",
+          "capacitance_sha256": "96089748ee071b6624e691ad14311709c9993eebbd16964eccc2e15156a8828b",
+          "circuit_sha256": "508d76d81acd2f631d97b47b24052f93ff0db193380bb03b65b7125cdc4bc508",
+          "source_files": {
+            "scripts/ihp_distributed_capacitance.py": "a882c4995822f782cf3362b9cb2985b517c1761a2363e89ce72a8d0f580a65b9",
+            "scripts/ihp_native_capacitance.py": "f3e534f107b9b13f6dbe92c47161fc60e132bc2f28ad67eebc889fc704447015",
+            "icstudio/compact_rc.py": "313787118aea63d5ac19a5f9d8c269d73e37111c4b835ad2bcb1a1de1ab15945",
+            "icstudio/magic_rc.py": "8f0f6f29307a7a740321ad556ef29184960c15c74b60cd6f10b3c587d6ddc8d2"
+          },
+          "devices": 3504,
+          "resistors": 5108,
+          "ideal_rail_decaps_omitted": 38370,
+          "same_net_capacitors": 0,
+          "contracted_native_model_audit": {
+            "status": "passed",
+            "method": "independent-serialized-linear-equations-and-capacitor-stamps",
+            "matrix_entries": 50115,
+            "maximum_error_af": 1.862645149230957e-09,
+            "relative_tolerance": 1e-12,
+            "absolute_tolerance_af": 1e-12
+          },
+          "schur": {
+            "ground": "NET000001",
+            "floating_metal_nodes": 0,
+            "observable_metal_nodes": 0,
+            "active_junction_nodes": 0,
+            "retained_nodes": 1888,
+            "residual": 0.0,
+            "relative_charge_error": 1e-05,
+            "source_sha256": "e70fec4cd74e7cce757ea1959f175c4b528cadf16d28f4762e4fb4f122a0b55d"
+          }
+        },
+        {
+          "capacitor_count": 33195,
+          "source_count": 670907,
+          "qualified": false,
+          "diagonal_roundoff_count": 2,
+          "maximum_diagonal_roundoff_af": 8.881784197001252e-16,
+          "scope": "Conserved area-weighted lumped C on the captured R graph; quasistatic metal fill, explicit active junctions and ideal supplies.",
+          "case": "uart",
+          "state": "active",
+          "normalization_sha256": "37785a2986b1662426e5fa6fa1071bd6267300f96ad61dcc7be8e18eb2fa93d1",
+          "source_ext_sha256": "619b66e6d665f32388bed53acc78c71f38e24ea327c91bce25f923a8bc2884db",
+          "capacitance_sha256": "ea4e978361342fbfb6ff2bc09dd0fe63db4590b2919fb98770fd8137bce31569",
+          "circuit_sha256": "a87a7a65795c64155ae0010e628fa37d4777c75103a41659fdc09be36d717698",
+          "source_files": {
+            "scripts/ihp_distributed_capacitance.py": "a882c4995822f782cf3362b9cb2985b517c1761a2363e89ce72a8d0f580a65b9",
+            "scripts/ihp_native_capacitance.py": "f3e534f107b9b13f6dbe92c47161fc60e132bc2f28ad67eebc889fc704447015",
+            "icstudio/compact_rc.py": "313787118aea63d5ac19a5f9d8c269d73e37111c4b835ad2bcb1a1de1ab15945",
+            "icstudio/magic_rc.py": "8f0f6f29307a7a740321ad556ef29184960c15c74b60cd6f10b3c587d6ddc8d2"
+          },
+          "devices": 3504,
+          "resistors": 5108,
+          "ideal_rail_decaps_omitted": 38370,
+          "same_net_capacitors": 25249,
+          "contracted_native_model_audit": {
+            "status": "passed",
+            "method": "independent-serialized-linear-equations-and-capacitor-stamps",
+            "matrix_entries": 662961,
+            "maximum_error_af": 1.862645149230957e-09,
+            "relative_tolerance": 1e-12,
+            "absolute_tolerance_af": 1e-12
+          },
+          "schur": {
+            "ground": "NET000001",
+            "floating_metal_nodes": 35226,
+            "observable_metal_nodes": 35226,
+            "active_junction_nodes": 1032,
+            "retained_nodes": 2920,
+            "residual": 5.014088990387483e-15,
+            "relative_charge_error": 1e-05,
+            "source_sha256": "619b66e6d665f32388bed53acc78c71f38e24ea327c91bce25f923a8bc2884db"
+          }
+        }
+      ]
+    },
+    "apb": {
+      "schema": 1,
+      "status": "prepared",
+      "qualified": false,
+      "cases": [
+        {
+          "capacitor_count": 6086,
+          "source_count": 52399,
+          "qualified": false,
+          "diagonal_roundoff_count": 784,
+          "maximum_diagonal_roundoff_af": 1.4551915228366852e-11,
+          "scope": "Conserved area-weighted lumped C on the captured R graph; quasistatic metal fill, explicit active junctions and ideal supplies.",
+          "case": "apb",
+          "state": "original",
+          "normalization_sha256": "be398bd1e27918daa270ab12f59956920b8c7ea8d465e059e2985ad15e556c83",
+          "source_ext_sha256": "f7397973996311a4d8ebe7282d9eb87831eb80179cb9046820e62b683680b86e",
+          "capacitance_sha256": "a8547460e80a3cfd210d0a5e70443d7f20268e73476ac4487994bf543763ecc3",
+          "circuit_sha256": "74c6889f60f0c068330af3f7b9ffb0db4eff382f023a11d36973e2e97d80476f",
+          "source_files": {
+            "scripts/ihp_distributed_capacitance.py": "a882c4995822f782cf3362b9cb2985b517c1761a2363e89ce72a8d0f580a65b9",
+            "scripts/ihp_native_capacitance.py": "f3e534f107b9b13f6dbe92c47161fc60e132bc2f28ad67eebc889fc704447015",
+            "icstudio/compact_rc.py": "313787118aea63d5ac19a5f9d8c269d73e37111c4b835ad2bcb1a1de1ab15945",
+            "icstudio/magic_rc.py": "8f0f6f29307a7a740321ad556ef29184960c15c74b60cd6f10b3c587d6ddc8d2"
+          },
+          "devices": 3120,
+          "resistors": 4485,
+          "ideal_rail_decaps_omitted": 38604,
+          "same_net_capacitors": 0,
+          "contracted_native_model_audit": {
+            "status": "passed",
+            "method": "independent-serialized-linear-equations-and-capacitor-stamps",
+            "matrix_entries": 46313,
+            "maximum_error_af": 1.862645149230957e-09,
+            "relative_tolerance": 1e-12,
+            "absolute_tolerance_af": 1e-12
+          },
+          "schur": {
+            "ground": "NET000001",
+            "floating_metal_nodes": 0,
+            "observable_metal_nodes": 0,
+            "active_junction_nodes": 0,
+            "retained_nodes": 1676,
+            "residual": 0.0,
+            "relative_charge_error": 1e-05,
+            "source_sha256": "f7397973996311a4d8ebe7282d9eb87831eb80179cb9046820e62b683680b86e"
+          }
+        },
+        {
+          "capacitor_count": 29521,
+          "source_count": 622759,
+          "qualified": false,
+          "diagonal_roundoff_count": 8,
+          "maximum_diagonal_roundoff_af": 1.7763568394002505e-15,
+          "scope": "Conserved area-weighted lumped C on the captured R graph; quasistatic metal fill, explicit active junctions and ideal supplies.",
+          "case": "apb",
+          "state": "active",
+          "normalization_sha256": "058a0de2074385447c0c5c0ba618af8b634990fb7457f1a8236d94d39679f422",
+          "source_ext_sha256": "7bd91b0b4b7084ac4e98ed0f067c5eb3ed1cbabad5d87f342ea81dd4ddc205d5",
+          "capacitance_sha256": "09b1e5f55221c120d3323738da0a3488d33b7601722c3033b6037c88e2d92cfa",
+          "circuit_sha256": "e8fa5ea4f3e121ad012fb851ae50410db87b19eb84b5af73916ca62413836356",
+          "source_files": {
+            "scripts/ihp_distributed_capacitance.py": "a882c4995822f782cf3362b9cb2985b517c1761a2363e89ce72a8d0f580a65b9",
+            "scripts/ihp_native_capacitance.py": "f3e534f107b9b13f6dbe92c47161fc60e132bc2f28ad67eebc889fc704447015",
+            "icstudio/compact_rc.py": "313787118aea63d5ac19a5f9d8c269d73e37111c4b835ad2bcb1a1de1ab15945",
+            "icstudio/magic_rc.py": "8f0f6f29307a7a740321ad556ef29184960c15c74b60cd6f10b3c587d6ddc8d2"
+          },
+          "devices": 3120,
+          "resistors": 4485,
+          "ideal_rail_decaps_omitted": 38604,
+          "same_net_capacitors": 22403,
+          "contracted_native_model_audit": {
+            "status": "passed",
+            "method": "independent-serialized-linear-equations-and-capacitor-stamps",
+            "matrix_entries": 615641,
+            "maximum_error_af": 1.862645149230957e-09,
+            "relative_tolerance": 1e-12,
+            "absolute_tolerance_af": 1e-12
+          },
+          "schur": {
+            "ground": "NET000001",
+            "floating_metal_nodes": 35177,
+            "observable_metal_nodes": 35177,
+            "active_junction_nodes": 1032,
+            "retained_nodes": 2708,
+            "residual": 5.0211659371435104e-15,
+            "relative_charge_error": 1e-05,
+            "source_sha256": "7bd91b0b4b7084ac4e98ed0f067c5eb3ed1cbabad5d87f342ea81dd4ddc205d5"
+          }
+        }
+      ]
+    }
+  },
+  "distributed_matrix_equivalence": {
+    "schema": 1,
+    "status": "pass",
+    "qualified": false,
+    "relative_charge_error": 0,
+    "cases": [
+      {
+        "state": "original",
+        "status": "pass",
+        "native_matrix": {
+          "status": "passed",
+          "method": "independent-serialized-linear-equations-and-capacitor-stamps",
+          "matrix_entries": 90914,
+          "maximum_error_af": 1.8189894035458565e-12,
+          "relative_tolerance": 1e-12,
+          "absolute_tolerance_af": 1e-12
+        },
+        "missing_correction_fault_rejected": null,
+        "source_ext_sha256": "077ccf3214b7c47889286f3fb3c4978c70549e98ab2b590367fa3d37b0ca2227",
+        "correction_capacitors": 0
+      },
+      {
+        "state": "active",
+        "status": "pass",
+        "native_matrix": {
+          "status": "passed",
+          "method": "independent-serialized-linear-equations-and-capacitor-stamps",
+          "matrix_entries": 1087880,
+          "maximum_error_af": 9.313225746154785e-10,
+          "relative_tolerance": 1e-12,
+          "absolute_tolerance_af": 1e-12
+        },
+        "missing_correction_fault_rejected": true,
+        "source_ext_sha256": "3e55243644f5bfc00409c4a911c782b1977dde928af9dfb8b8552f181951a1af",
+        "correction_capacitors": 1636
+      }
+    ],
+    "scope": "Native counter physical-endpoint matrix equivalence, not just collapsed net charge. Field accuracy and waveform acceptance are separate."
+  },
+  "chunk_4_rechecked": {
+    "status": "reference_gate_complete",
+    "chunk": 4,
+    "chunk_complete": true,
+    "references": 6,
+    "process_qualification": "unqualified"
+  },
+  "remaining": [
+    "Complete matched filled-layout performance with the final conserved RC models.",
+    "Review finite-resistance floating-fill and fill-width model coverage; retain the stated nominal interconnect scope.",
+    "Resolve or explicitly qualify the cold zero-charge power-up numerical limitation.",
+    "Integrate the accepted recipe into the production flow and bind final exports and affected regression/package evidence."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\ihp-native-export-2026-10-10-v1\\evidence.tar.gz",
+    "sha256": "dd79db78d4fb038fc75ab83e944c1afc558dc8382e4235877121e366c1c929f5",
+    "bytes": 226935195,
+    "logical_files": 886,
+    "unique_blobs": 663,
+    "verified": true,
+    "manifest_sha256": "8c0345f797af45af2e39c02815a2fdd36f0d6ceedadd76ff23e98e1cea4606ec",
+    "format": "content-addressed-tar-v1",
+    "restore": "Each file-manifest.json key is its logical path; read its value from the matching sha256/<digest> tar member."
+  }
+}

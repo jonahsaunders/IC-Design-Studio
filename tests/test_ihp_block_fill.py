@@ -26,6 +26,12 @@ class IHPFillTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'already contains fill'):
             validate_input(layout,'top',[0,0,20000,20000])
 
+    def test_current_and_historical_chip_boundary_mappings_are_rejected(self):
+        for layer in (39,189,235):
+            layout=self.fixture();layout.top_cell().shapes(layout.layer(layer,0)).insert(k.Box(0,0,20000,20000))
+            with self.assertRaisesRegex(ValueError,'Chip seal/boundary'):
+                validate_input(layout,'top',[0,0,20000,20000])
+
     def test_unexpected_circuit_mask_and_new_mos_gate_are_rejected(self):
         for pair in ((5,22),(8,0),(1,22)):
             with self.subTest(layer=pair):
