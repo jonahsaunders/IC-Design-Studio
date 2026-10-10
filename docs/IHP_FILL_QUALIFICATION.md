@@ -431,3 +431,19 @@ workload and passes the strict waveform guard and all 869 output-bit checks.
 Its verified archive is retained outside the dated workspace. The filled
 comparison and tighter numerical check remain separate requirements. This
 single completed baseline does not close chunk 5.
+
+## Completed UART capacitance workload
+
+The [UART waveform record](validation/ihp-uart-waveform-2026-10-10.json) preserves
+both complete 1,290 ns capacitance runs. All 508 output-bit checks pass; all 19
+output transitions match in direction and count, with a maximum shift of
+22.402 ps after fill. This is capacitance-only performance evidence, separate
+from the pending full-resistance workload and numerical convergence checks.
+
+The filled run initially failed the start-time guard because its 17-digit first
+timestamp was exactly one binary64 rounding step above 1 ps. The guard now admits
+only that adjacent representable value. Tests reject the next representable
+value, later physical starts, duplicate times and aborted simulations. The
+original failure record and corrected re-audit are both retained. All 117 IHP
+tests pass on Windows and Linux without skips. The completed runs and test
+reports are hash-verified in the permanent evidence directory.

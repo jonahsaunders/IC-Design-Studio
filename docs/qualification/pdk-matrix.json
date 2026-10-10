@@ -24,7 +24,7 @@
     "5": {
       "name": "Close IHP geometry and fill",
       "status": "in_progress",
-      "scope": "Final reference geometry/connectivity pass; a direct native-capacitance handoff passes 80 controls and one unfilled APB full-RC baseline is complete. Routed-block C mapping, full matched performance/convergence, accepted timing and production integration remain incomplete."
+      "scope": "Final reference geometry/connectivity pass. Matched UART capacitance runs pass 508 checks; one unfilled APB full-RC baseline and 80 isolated native-C handoff controls pass. Matched full-RC performance/convergence, routed-block timing and production integration remain incomplete."
     },
     "6": {
       "name": "Complete SKY130 physical coverage",
@@ -17407,7 +17407,8 @@
         "ihp-coupling-model",
         "ihp-full-fill-coverage",
         "ihp-native-export",
-        "ihp-native-spef-progress-2026-10-10"
+        "ihp-native-spef-progress-2026-10-10",
+        "ihp-uart-waveform-2026-10-10"
       ]
     },
     "ihp-sg13g2:ihp-rf": {
@@ -19945,6 +19946,11 @@
       "path": "docs/validation/ihp-native-spef-progress-2026-10-10.json",
       "sha256": "152ed0ce7bb5d21d844d1b7a0c7c554939cdda47624faf2d1a18b7b76fb01988",
       "scope_limit": "Direct native-C handoff and native timing-tool import on 80 isolated controls, byte-identical Windows replay, 116 tests per OS and one complete unfilled APB full-RC waveform. Not routed-block timing, model calibration, production integration or chunk 5 completion."
+    },
+    "ihp-uart-waveform-2026-10-10": {
+      "path": "docs/validation/ihp-uart-waveform-2026-10-10.json",
+      "sha256": "dd6a6a91814a2b5a2b35da1863399f26f04f0ac27d9090dc7e2304772ccfd7cd",
+      "scope_limit": "Two complete nominal UART capacitance waveforms, 508 passing output checks, 19 matched edges, one-ULP start-boundary correction and 117 tests per OS. Not full-RC convergence, accepted timing, production integration or chunk 5 closure."
     }
   },
   "execution_acceptance": {

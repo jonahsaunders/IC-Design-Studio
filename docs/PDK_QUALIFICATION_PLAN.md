@@ -23,9 +23,11 @@ Chunk 4's six-reference acceptance remains complete. For IHP, the new
 [fill checkpoint](IHP_FILL_QUALIFICATION.md) resolves the counter's twelve native
 findings and the UART/APB references' eleven findings each. All three have zero
 native geometry findings and matched before/after device and port connectivity.
-Four real wiring, port and transistor-body faults are rejected. Post-fill
-electrical-model acceptance, manual coverage and production integration remain
-open; chunk 5 is not complete.
+Four real wiring, port and transistor-body faults are rejected, and the
+supplemental rules pass for these block footprints. The complete matched UART
+capacitance workload now passes all 508 output checks. Full-resistance
+performance/convergence, accepted post-fill timing and production integration
+remain open; chunk 5 is not complete.
 
 ## Completed chunk 4 reference gate
 

@@ -35,7 +35,11 @@ def audit(waveform, expectations, duration_ns, log):
                 raise ValueError('Waveform data are malformed, nonfinite or out of order.')
             times.append(row[0]); values.append(row[1:])
     end = duration_ns * 1e-9
-    if len(times) < 2 or times[0] > 1e-12 or times[-1] < end - 1e-15:
+    # A 17-digit native export can expose one binary rounding step above the
+    # 1 ps start limit. Permit only that adjacent representable value, not an
+    # added physical-time tolerance or duplicate/backwards timestamps.
+    start_limit = math.nextafter(1e-12, math.inf)
+    if len(times) < 2 or times[0] > start_limit or times[-1] < end - 1e-15:
         raise ValueError('The transient did not cover the entire requested test interval.')
     failures, tested = [], 0
     for sample in samples:

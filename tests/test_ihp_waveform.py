@@ -1,4 +1,5 @@
 import json
+import math
 from pathlib import Path
 import tempfile
 import unittest
@@ -26,6 +27,15 @@ class IHPWaveformTests(unittest.TestCase):
         value = json.loads(self.expected.read_text()); value['samples'][-1]['time_ns'] = 3
         self.expected.write_text(json.dumps(value))
         self.assertEqual(self.check()['status'], 'pass')
+
+    def test_native_start_boundary_allows_one_binary_rounding_step_only(self):
+        adjacent = math.nextafter(1e-12, math.inf)
+        self.wave.write_text(f'time v(Q)\n{adjacent:.17g} 0\n1e-9 0\n2e-9 1.2\n3e-9 1.2\n')
+        self.assertEqual(self.check()['status'], 'pass')
+        for start in (math.nextafter(adjacent, math.inf), 1.01e-12, 2e-12):
+            with self.subTest(start=start):
+                self.wave.write_text(f'time v(Q)\n{start:.17g} 0\n1e-9 0\n2e-9 1.2\n3e-9 1.2\n')
+                with self.assertRaisesRegex(ValueError, 'entire'): self.check()
 
     def test_zero_exit_and_partial_waveform_do_not_establish_success(self):
         self.wave.write_text('time v(Q)\n0 0\n1e-9 0\n')
