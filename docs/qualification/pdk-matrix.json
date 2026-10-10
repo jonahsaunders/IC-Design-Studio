@@ -19934,6 +19934,11 @@
       "path": "docs/validation/ihp-calibration-progress-2026-10-10.json",
       "sha256": "3c806f64c22f86d914f264ca88467d3343b04c39b86a9cf8393783635f049098",
       "scope_limit": "Exact calibration geometry, conserved native imports and actual-width nominal resistance controls; short-wire capacitance accuracy, complete full-RC performance, convergence and production integration remain incomplete."
+    },
+    "ihp-field-controls": {
+      "path": "docs/validation/ihp-field-controls-2026-10-10.json",
+      "sha256": "003124d8153f70d480bcd780c53c918043798f18e5318fd97938407816d7ea79",
+      "scope_limit": "Rejected actual-width, finite-wire and cross-layer capacitance controls; geometry/import conservation does not establish model accuracy."
     }
   },
   "execution_acceptance": {

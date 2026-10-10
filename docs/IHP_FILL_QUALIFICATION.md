@@ -384,6 +384,20 @@ investigating finite wire-end capacitance, and does not justify accepting short
 fill rectangles or raising the tolerance. The actual-width model still needs
 that correction and a complete repeated comparison.
 
+The later [actual-fill field controls](validation/ihp-field-controls-2026-10-10.json)
+extend the dense calibration to all required widths: 585,079 retained wires and
+3,644,199 imported mutual capacitors conserve their native values. At 5 µm
+length, only 9 of 52 uncorrected same-layer controls meet the 5% limit. A diagnostic
+using the pinned end-fringe coefficient explains all 52 isolated controls, with
+less than 0.044% residual ground-capacitance error. That diagnostic is not a
+general extraction correction.
+
+All 28 held-out adjacent-layer overlap controls fail the capacitance comparison,
+including after representing square wires in their layer's preferred direction.
+The actual-width candidate therefore remains rejected. Cross-layer width and
+overlap behavior must be corrected and independently retested alongside finite
+wire ends; merely changing the isolated ground-capacitance term is insufficient.
+
 Install the independent reference solvers with
 `python -m pip install -r requirements-qualification.txt` before running the IHP
 qualification tests. The desktop packaging workflow installs those pinned test
