@@ -66,10 +66,20 @@ the predetermined 1e-4 tolerance. Deliberately enlarged fill resistance fails
 that tolerance in all three cases. This validates the captured matrix and sampled
 band; it does not calibrate the extraction field model or fill widths.
 
-Matched before/after timing passes setup, hold, annotation and electrical checks
+The captured before/after timing runs pass setup, hold, annotation and electrical checks
 at all three captured library conditions under the original constraints. Nine
 deliberately added 1,000 pF output-load faults fail setup. These results use one
 nominal interconnect model, not three qualified interconnect corners.
+
+**These timing runs do not establish final fill acceptance.** Subsequent native
+width coupons show that the nominal tables return the same resistance and
+capacitance for minimum-width and wider rectangles of equal length and spacing.
+The rules have only one populated width point per table; the extractor clamps
+its lookup to that point. Some other extraction branches use physical area, so
+this is not a claim that every width-dependent term is absent. The affected
+tables do not cover the actual 1/3.5/5 µm fill widths. The geometry, LVS and
+algebraic reduction checks retain their stated scope; the following slack values
+are historical results from this incomplete model.
 
 | Reference | Lowest post-fill setup slack (ns) | Lowest post-fill hold slack (ns) |
 |---|---:|---:|
@@ -254,6 +264,12 @@ python scripts/check_ihp_lvs.py report.lvsdb --aliases aliases.json --output aud
 
 ## Reproduce the electrical model stage
 
+Run `scripts/check_ihp_rcx_widths.py rules represented.json --output widths.json`
+before considering a represented fill model. It requires an exact nominal table
+point for every observed fill width in every applicable metal table. It rejects
+the single-width vendor model, missing tables and nonfinite or malformed widths.
+Passing this inventory guard does not establish native response or field accuracy.
+
 On the retained native control capture, run `scripts/check_ihp_fill_coupling.py`
 with the capture directory and `--output audit.json`. It exits unsuccessfully
 when any metal lacks its nearby response or a far/absent control differs.
@@ -300,3 +316,26 @@ waveform comparison. A successful preparation is not electrical acceptance.
   evidence, and rerun affected production and package tests.
 
 None of these results establishes full IHP, bipolar/RF or tapeout qualification.
+
+## Latest waveform and numerical diagnostics
+
+The [width and waveform checkpoint](validation/ihp-width-waveform-progress-2026-10-10.json)
+preserves the new completed comparison, rejected width model and numerical
+diagnostics separately from any continuing run.
+
+The completed capacitance-only APB pair passes 1,738 output-bit checks across
+the complete 1,610 ns stimulus. All 90 output transitions have matching
+directions; the largest observed timing change is 77.0093 ps. This is a measured
+comparison, not a numerical convergence or distributed-resistance acceptance.
+The filled UART capacitance run exhausted its 7,200-second runtime budget before
+completing. Its replacement uses identical inputs and numerical settings with
+a longer wall-clock budget. Neither an expired run nor a partially saved waveform
+is accepted.
+
+`scripts/ihp_transformer_capacitance.py` is a research alternative for representing
+the same conserved capacitance matrix with reciprocal ideal port transforms.
+It retains physical wire resistors and active-fill junctions. Matrix tests and
+a small native linear fixture agree, but its initial complete-circuit and
+powered-reset probes failed numerically. It is not an accepted performance model
+and does not alter the desktop flow. No physical resistor was collapsed and no
+leakage shunt was added to make those failed runs pass.

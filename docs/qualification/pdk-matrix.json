@@ -24,7 +24,7 @@
     "5": {
       "name": "Close IHP geometry and fill",
       "status": "in_progress",
-      "scope": "Complete-waveform guards, matched counter RC function, verified floating-poly reduction and bounded APB reset progress. Full matched larger workloads and production integration remain incomplete."
+      "scope": "Completed APB capacitance comparison and rejected nominal fill-width coverage; full RC acceptance and production integration remain incomplete."
     },
     "6": {
       "name": "Complete SKY130 physical coverage",
@@ -19924,6 +19924,11 @@
       "path": "docs/validation/ihp-waveform-progress-2026-10-10.json",
       "sha256": "7a788b30b7d06f1248e6939a0515111525292e5039c49ad20ec148a1c8f646c2",
       "scope_limit": "Complete-waveform guards, matched counter RC function, verified floating-poly reduction and bounded APB reset progress. Full matched larger workloads and production integration remain incomplete."
+    },
+    "ihp-width-waveform-progress": {
+      "path": "docs/validation/ihp-width-waveform-progress-2026-10-10.json",
+      "sha256": "fe1d0f15ab5f712a5d650c9fe5d29037ffeef0a58975b507cdc94464ac65eec4",
+      "scope_limit": "Completed APB capacitance comparison and rejected nominal fill-width coverage; full RC acceptance and production integration remain incomplete."
     }
   },
   "execution_acceptance": {
