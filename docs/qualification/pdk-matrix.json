@@ -24,7 +24,7 @@
     "5": {
       "name": "Close IHP geometry and fill",
       "status": "in_progress",
-      "scope": "Exact calibration geometry, conserved native imports and actual-width nominal resistance controls; short-wire capacitance accuracy, complete full-RC performance, convergence and production integration remain incomplete."
+      "scope": "Final reference geometry/connectivity pass; a direct native-capacitance handoff passes 80 controls and one unfilled APB full-RC baseline is complete. Routed-block C mapping, full matched performance/convergence, accepted timing and production integration remain incomplete."
     },
     "6": {
       "name": "Complete SKY130 physical coverage",
@@ -17406,7 +17406,8 @@
         "ihp-fill-checkpoint",
         "ihp-coupling-model",
         "ihp-full-fill-coverage",
-        "ihp-native-export"
+        "ihp-native-export",
+        "ihp-native-spef-progress-2026-10-10"
       ]
     },
     "ihp-sg13g2:ihp-rf": {
@@ -19939,6 +19940,11 @@
       "path": "docs/validation/ihp-field-controls-2026-10-10.json",
       "sha256": "003124d8153f70d480bcd780c53c918043798f18e5318fd97938407816d7ea79",
       "scope_limit": "Rejected actual-width, finite-wire and cross-layer capacitance controls; geometry/import conservation does not establish model accuracy."
+    },
+    "ihp-native-spef-progress-2026-10-10": {
+      "path": "docs/validation/ihp-native-spef-progress-2026-10-10.json",
+      "sha256": "152ed0ce7bb5d21d844d1b7a0c7c554939cdda47624faf2d1a18b7b76fb01988",
+      "scope_limit": "Direct native-C handoff and native timing-tool import on 80 isolated controls, byte-identical Windows replay, 116 tests per OS and one complete unfilled APB full-RC waveform. Not routed-block timing, model calibration, production integration or chunk 5 completion."
     }
   },
   "execution_acceptance": {

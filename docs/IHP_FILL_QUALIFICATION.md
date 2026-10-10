@@ -404,3 +404,30 @@ qualification tests. The desktop packaging workflow installs those pinned test
 dependencies explicitly. The current 108-test IHP suite passes on Windows and
 Linux with no skipped cases; packaging and full release acceptance remain
 separate checks.
+
+## Direct native-capacitance handoff
+
+The [native SPEF checkpoint](validation/ihp-native-spef-progress-2026-10-10.json)
+records an alternative to the rejected short-wire and cross-layer lookup tables.
+`scripts/ihp_native_spef.py` transfers the checked native capacitor graph onto an
+explicit resistance-endpoint map, preserving every original SPEF resistor and
+terminal. It requires a complete one-to-one mapping of native conductors to
+SPEF nets. An unmapped internal-cell node, omitted endpoint or corrupted
+capacitance is rejected. It never derives endpoint weights from the rejected
+OpenRCX capacitance values.
+
+All 52 short-wire controls and 28 adjacent-layer controls conserve their native
+capacitance through this handoff and native OpenROAD re-import. The largest
+contracted handoff error is 9.10e-13 aF; native text/storage round-trip error is
+at most 1.01e-8 pF. Windows reproduces all 80 generated SPEFs byte for byte.
+The expanded suite has 116 passing tests on each operating system with no skips.
+These are conservation and import checks against the same native source, not
+independent field accuracy measurements. The original RCX tables remain rejected.
+Full routed-block mapping, spatial distribution and cell-pin capacitance
+accounting must be established before using this path for production timing.
+
+The 17-digit unfilled APB full-RC capture now completes the entire 1,610 ns
+workload and passes the strict waveform guard and all 869 output-bit checks.
+Its verified archive is retained outside the dated workspace. The filled
+comparison and tighter numerical check remain separate requirements. This
+single completed baseline does not close chunk 5.
