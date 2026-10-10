@@ -191,6 +191,36 @@ matrix entries, with maximum absolute error 9.32e-10 aF and the unchanged
 fails. Complete full-fill waveform acceptance and production integration remain
 open; preparing a conserved RC model does not establish either result.
 
+### Complete-waveform and floating-poly controls
+
+The nominal counter's first matched full-RC captures pass all 144 output-bit
+checks, with 31 matched output edges and a maximum change of 16.308678 ps.
+This uses the 1e-5 charge-row model, ideal supplies and a 50 ns clock. With
+tighter matched integration, the separate 1e-4 lumped-capacitance reduction
+also meets the existing 1 ps convergence criterion, at 0.045343 ps. These
+results do not complete the larger workload gate.
+
+`check_ihp_waveform.py` rejects an aborted native transient even when ngspice
+returns zero and writes a partial waveform. It checks channel identities,
+finite ordered data, the complete requested interval and every expected bit.
+The captured UART/APB full-RC startup failures are rejected by this guard;
+their completed lumped baseline captures still pass.
+
+`ihp_floating_poly.py` identifies 21/208/152 capacitor-only poly nodes in the
+counter/UART/APB, in both original and filled layouts. Every native port,
+device terminal and resistor endpoint is protected. Only a native poly node
+with zero extracted resistance and one normalized endpoint can be selected.
+The same passive reduction removes its floating voltage while preserving its
+capacitive effect. An independent counter calculation that expands physical
+resistance endpoints first agrees across 1,044,515 matrix entries within the
+unchanged 1e-12 comparison criteria; omitting the same-net correction fails.
+The focused suite now has 85 passing tests on each operating system.
+
+The APB original-layout powered-reset probe now completes 100 ns and passes
+44 output-bit checks. It is a bounded convergence probe, not the complete
+1,610 ns workload. Larger matched captures, numerical convergence and
+production integration remain open.
+
 ## Reproduce the geometry stage
 
 Obtain the exact three macro files listed in the source lock and the pinned

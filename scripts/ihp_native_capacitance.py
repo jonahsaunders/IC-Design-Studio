@@ -3,7 +3,8 @@
 Use the full-precision capacitor file from the grid-aware, flat native export.
 The export must first pass check_ihp_flat_capacitance: the hierarchical native
 exporter can incorrectly redistribute MOS gate capacitance. This module retains
-active-fill junction terminals and eliminates only floating metal. It does not
+active-fill junction terminals and eliminates floating metal and explicitly
+verified capacitor-only conductors. It does not
 produce a distributed RC timing model or qualify a process.
 NumPy and SciPy are optional dependencies of this research script.
 """
@@ -48,8 +49,12 @@ def read_capacitors(path):
                 source_sha256=hashlib.sha256(data).hexdigest())
 
 
-def reduce_capacitors(graph, ground, *, relative_charge_error=1e-4):
-    """Passive Schur complement; charge-row error is not a timing-error bound."""
+def reduce_capacitors(graph, ground, *, relative_charge_error=1e-4, additional_floating_nodes=()):
+    """Passive Schur complement; charge-row error is not a timing-error bound.
+
+    Additional floating nodes require the caller to prove they have no device,
+    resistor or port connection; ihp_floating_poly provides that bounded check.
+    """
     import numpy as np
     from scipy.sparse import coo_matrix
     from scipy.sparse.csgraph import connected_components
@@ -59,7 +64,11 @@ def reduce_capacitors(graph, ground, *, relative_charge_error=1e-4):
     nodes=set(graph['nodes'])
     if ground not in nodes or ground.startswith('FILL'):
         raise ValueError('The physical ground alias is missing or names floating fill.')
-    floating=sorted(n for n in nodes if n.startswith('FILL') and not n.startswith('FILL001_'))
+    extra=set(additional_floating_nodes)
+    if (not extra<=nodes or ground in extra or any(n.startswith('FILL001_') for n in extra)):
+        raise ValueError('Additional floating conductors cannot include ground, active junctions or unknown nodes.')
+    metal={n for n in nodes if n.startswith('FILL') and not n.startswith('FILL001_')}
+    floating=sorted(metal|extra)
     retained=sorted(nodes-set(floating)-{ground})
     if len(floating)>100000 or len(retained)>4096:
         raise ValueError('Network exceeds the bounded reference solver scope.')
@@ -112,7 +121,9 @@ def reduce_capacitors(graph, ground, *, relative_charge_error=1e-4):
     shunts={n:math.fsum(float(v) for v in direct[i,:])+float(spent[i]) for i,n in enumerate(retained)}
     if any(c<-1e-7 for c in shunts.values()):raise ValueError('Negative reduced ground capacitance.')
     return dict(ground=ground,couplings_af=kept,ground_af={n:max(0,c) for n,c in shunts.items()},
-                floating_metal_nodes=len(floating),observable_metal_nodes=observable_count,
+                floating_metal_nodes=len(metal),additional_floating_nodes=sorted(extra-metal),
+                observable_floating_nodes=observable_count,
+                observable_metal_nodes=observable_count if not extra-metal else None,
                 active_junction_nodes=sum(n.startswith('FILL001_') for n in retained),retained_nodes=len(retained),
                 residual=residual,relative_charge_error=relative_charge_error,source_sha256=graph['source_sha256'])
 

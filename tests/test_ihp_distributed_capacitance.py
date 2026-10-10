@@ -59,6 +59,20 @@ class DistributedFillCapacitanceTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             prepare(graph, 'G', weights, {'G'})
 
+    def test_additional_conductor_needs_complete_connection_exclusion(self):
+        graph,weights=self.inputs()
+        graph['nodes']=[n.replace('FILL008_0','POLY') for n in graph['nodes']]
+        graph['edges_af']=[(a.replace('FILL008_0','POLY'),b.replace('FILL008_0','POLY'),c)
+                           for a,b,c in graph['edges_af']]
+        weights['POLY']={'POLY':1.};del weights['FILL008_0']
+        physical={n for group in weights.values() for n in group}
+        for connected in (None,physical,iter(physical)):
+            with self.subTest(connected=connected),self.assertRaises(ValueError):
+                prepare(graph,'G',weights,physical,capacitor_only_nodes=['POLY'],connected_nodes=connected)
+        result=prepare(graph,'G',weights,physical,capacitor_only_nodes=['POLY'],connected_nodes=physical-{'POLY'})
+        self.assertNotIn('POLY',result['weights'])
+        self.assertTrue(result['corrections_af'])
+
 
 if __name__ == '__main__':
     unittest.main()

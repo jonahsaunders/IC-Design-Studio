@@ -12,7 +12,8 @@ from icstudio.compact_rc import build
 from scripts.ihp_native_capacitance import reduce_capacitors
 
 
-def prepare(graph, ground, weights, physical_nodes, *, relative_charge_error=1e-5):
+def prepare(graph, ground, weights, physical_nodes, *, relative_charge_error=1e-5,
+            capacitor_only_nodes=(), connected_nodes=None):
     physical = set(physical_nodes)
     if set(weights) != set(graph['nodes']):
         raise ValueError('Original nodes and resistance endpoint groups differ.')
@@ -24,7 +25,17 @@ def prepare(graph, ground, weights, physical_nodes, *, relative_charge_error=1e-
     for name, group in weights.items():
         if name.startswith('FILL') and group != {name: 1.}:
             raise ValueError('Fill elimination requires explicit quasistatic fill nodes.')
-    reduced = reduce_capacitors(graph, ground, relative_charge_error=relative_charge_error)
+    extra = set(capacitor_only_nodes)
+    if extra:
+        connected = None if connected_nodes is None else set(connected_nodes)
+        if connected is None or not connected <= physical:
+            raise ValueError('Floating conductor removal needs a complete physical connection inventory.')
+        if (not extra <= weights.keys() or ground in extra or
+                any(weights[n] != {n: 1.} or n in connected or n.startswith('FILL001_')
+                    for n in extra)):
+            raise ValueError('Only singleton capacitor-only nodes without devices, resistors or ports may be eliminated.')
+    reduced = reduce_capacitors(graph, ground, relative_charge_error=relative_charge_error,
+                                additional_floating_nodes=extra)
     retained = set(reduced['ground_af']) | {ground}
     ground_caps = dict(reduced['ground_af'], **{ground: 0.})
     coupling = {(a, b): c for a, b, c in reduced['couplings_af']}
@@ -73,4 +84,5 @@ def prepare(graph, ground, weights, physical_nodes, *, relative_charge_error=1e-
                 diagonal_roundoff_count=len(diagonal_roundoff),
                 maximum_diagonal_roundoff_af=max(diagonal_roundoff, default=0.),
                 scope='Conserved area-weighted lumped C on the captured R graph; '
-                      'quasistatic metal fill, explicit active junctions and ideal supplies.')
+                      'quasistatic floating metal and verified capacitor-only conductors, '
+                      'explicit active junctions and ideal supplies.')

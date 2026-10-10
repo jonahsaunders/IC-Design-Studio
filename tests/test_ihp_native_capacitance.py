@@ -43,6 +43,23 @@ class NativeCapacitorReductionTests(unittest.TestCase):
         self.assertAlmostEqual(result['ground_af']['FILL001_0'],8.5)
         self.assertAlmostEqual(result['couplings_af'][0][2],1.)
 
+    def test_explicit_floating_poly_preserves_series_charge(self):
+        graph=self.graph()
+        graph['nodes']=[n.replace('FILL008_0','POLY') for n in graph['nodes']]
+        graph['edges_af']=[(a.replace('FILL008_0','POLY'),b.replace('FILL008_0','POLY'),c)
+                           for a,b,c in graph['edges_af']]
+        result=reduce_capacitors(graph,'G',relative_charge_error=0,additional_floating_nodes=['POLY'])
+        self.assertEqual(result['additional_floating_nodes'],['POLY'])
+        self.assertEqual(result['floating_metal_nodes'],0)
+        self.assertAlmostEqual(result['ground_af']['S'],.6)
+        self.assertAlmostEqual(result['ground_af']['FILL001_0'],8.5)
+        self.assertAlmostEqual(result['couplings_af'][0][2],1.)
+
+    def test_active_junction_and_ground_cannot_be_eliminated(self):
+        for name in ('FILL001_0','G','unknown'):
+            with self.subTest(name=name),self.assertRaises(ValueError):
+                reduce_capacitors(self.graph(),'G',additional_floating_nodes=[name])
+
     def test_disconnected_float_is_reported_without_artificial_leakage(self):
         graph=self.graph();graph['nodes']+=['FILL008_1','FILL008_2'];graph['edges_af'].append(('FILL008_1','FILL008_2',1.))
         result=reduce_capacitors(graph,'G')
