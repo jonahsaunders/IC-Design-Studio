@@ -24,7 +24,7 @@
     "5": {
       "name": "Close IHP geometry and fill",
       "status": "in_progress",
-      "scope": "Three retained IHP standard-cell blocks; native maximal geometry and four-terminal device/port comparisons. No production or tapeout acceptance."
+      "scope": "Three original IHP filled blocks with corrected nominal metal coupling, independent finite-R model checks and matched timing. Active-fill model coverage and production integration remain incomplete."
     },
     "6": {
       "name": "Complete SKY130 physical coverage",
@@ -17400,10 +17400,11 @@
       "target": "ihp-sg13g2",
       "test": "ihp-fill",
       "status": "partial",
-      "remaining": "Counter/UART/APB native geometry findings are zero and strict device/port comparisons pass. Preliminary post-fill timing passes three library conditions. Independent extraction-model and active-fill coverage, supplemental manual rules, production integration and final acceptance remain.",
+      "remaining": "Geometry and strict device/port checks pass. Corrected nominal metal coupling, independent finite-R model comparison and three-library-condition timing pass; active-fill coverage, fill-width model review, supplemental manual rules and production integration remain.",
       "historical_evidence": [
         "gds-diagnostics",
-        "ihp-fill-checkpoint"
+        "ihp-fill-checkpoint",
+        "ihp-coupling-model"
       ]
     },
     "ihp-sg13g2:ihp-rf": {
@@ -19901,6 +19902,11 @@
       "path": "docs/validation/ihp-fill-checkpoint-2026-10-10.json",
       "sha256": "ca64b788c556ad1077e01c0efd86658fbfb36ba2bc59caaf3291207ca864fcaf",
       "scope_limit": "Three retained IHP standard-cell blocks; native maximal geometry and four-terminal device/port comparisons. No production or tapeout acceptance."
+    },
+    "ihp-coupling-model": {
+      "path": "docs/validation/ihp-coupling-model-2026-10-10.json",
+      "sha256": "f3884ead0494d51570e5920710d1004868fbab392438f0fc62693399eea8555e",
+      "scope_limit": "Three original IHP filled blocks with corrected nominal metal coupling, independent finite-R model checks and matched timing. Active-fill model coverage and production integration remain incomplete."
     }
   },
   "execution_acceptance": {

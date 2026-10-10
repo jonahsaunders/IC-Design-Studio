@@ -42,17 +42,47 @@ native “match” message alone is insufficient. Windows and Linux reproduce th
 same six valid comparison audits and four rejected controls.
 
 Native OpenRCX represents every added metal rectangle: 8,951 for counter,
-35,226 for UART and 35,177 for APB. A first quasistatic floating-fill reduction
-passes extracted setup/hold, annotation and electrical checks at all three
-captured library conditions, using the original netlists and constraints.
-These are preliminary typical-interconnect results; independent finite-RC and
-active-fill parasitic coverage have not yet been accepted.
+35,226 for UART and 35,177 for APB. The later
+[coupling-model checkpoint](validation/ihp-coupling-model-2026-10-10.json)
+supersedes the first checkpoint's electrical-model results. Positive controls
+found that the original ORFS model reports zero nearby floating-metal coupling
+on Metal1–Metal5. Its preliminary timing passes cannot establish fill acceptance.
+
+The official nominal Magic-derived OpenRCX model from the same pinned IHP release
+passes nearby/absent/far controls on all seven metals. Its
+[source lock](../examples/ihp-fill-rcx-source-lock.json) retains all four vendor
+candidates; only the nominal replacement has been exercised here. The new
+qualification guard rejects the original model's failed controls.
+
+The replacement produces observable signal/fill coupling in all three blocks.
+Some connected floating components exceed the existing 256-node dense-solver
+budget. The experimental sparse solver checks its residual, symmetry and
+passivity and rejects components beyond its fixed 1,024-node bound. An independent
+NumPy calculation checks the exported capacitance matrix and the full two-node
+fill resistance model at 25 frequencies from 100 kHz to 50 GHz. Maximum errors
+relative to the added admittance matrix are 7.57e-6, 3.67e-6 and 4.88e-6, below
+the predetermined 1e-4 tolerance. Deliberately enlarged fill resistance fails
+that tolerance in all three cases. This validates the captured matrix and sampled
+band; it does not calibrate the extraction field model or fill widths.
+
+Matched before/after timing passes setup, hold, annotation and electrical checks
+at all three captured library conditions under the original constraints. Nine
+deliberately added 1,000 pF output-load faults fail setup. These results use one
+nominal interconnect model, not three qualified interconnect corners.
 
 | Reference | Lowest post-fill setup slack (ns) | Lowest post-fill hold slack (ns) |
 |---|---:|---:|
-| Counter | 47.845844 | 0.097172 |
-| UART | 4.017923 | 0.184612 |
-| APB | 15.429800 | 0.010337 |
+| Counter | 47.717495 | 0.111594 |
+| UART | 2.944024 | 0.197290 |
+| APB | 14.405060 | 0.064350 |
+
+Active-fill parasitics remain an explicit coverage gap. A native Magic control
+imports and round-trips the full 3.4 µm square on purpose 22 but produces exactly
+the absent-fill capacitance. An otherwise identical ordinary-active control
+produces a new node and 527.932 aF mutual capacitance. Source inspection confirms
+that the fill type is outside the deck's ordinary diffusion-capacitance aliases.
+The absent active-fill response is therefore not evidence of zero physical
+effect. It must be resolved before chunk 5 closure.
 
 ## Reproduce the geometry stage
 
@@ -76,11 +106,28 @@ pinned native LVS deck with the captured options, audit the comparison:
 python scripts/check_ihp_lvs.py report.lvsdb --aliases aliases.json --output audit.json
 ```
 
+## Reproduce the electrical model stage
+
+On the retained native control capture, run `scripts/check_ihp_fill_coupling.py`
+with the capture directory and `--output audit.json`. It exits unsuccessfully
+when any metal lacks its nearby response or a far/absent control differs.
+Successful controls establish response coverage, not field accuracy.
+
+For a captured, explicitly represented floating-metal extraction:
+
+```text
+python scripts/ihp_fill_spef.py --source parasitics.spef --represented represented.json --output new-model-directory
+```
+
+This exports `timing.spef` and `reduction.json`, preserving the extracted signal
+terminals and resistances. Independent model checks, native timing and coverage
+review remain mandatory. The experimental scripts do not yet change desktop
+production behavior.
+
 ## Remaining chunk 5 work
 
-- Complete independent extraction-model and active-fill parasitic coverage checks.
-- Accept post-fill timing and electrical limits for all three references under
-  the original constraints and captured library conditions.
+- Resolve active-fill parasitic coverage and review the model's fill-width scope.
+- Bind the final accepted full-fill model to timing and electrical acceptance.
 - Reconcile supplemental manual-rule coverage with the native deck.
 - Integrate the accepted recipe into the production flow, bind final export
   evidence, and rerun affected production and package tests.
