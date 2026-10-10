@@ -17,7 +17,17 @@ options and current digital operating points. It does **not** equate this bundle
 subset with the complete upstream PDK. Upstream completeness and the remaining
 device-specific operating envelopes are explicit open requirements.
 
-## Current checkpoint: chunk 4 reference gate complete
+## Current checkpoint: chunk 5 in progress
+
+Chunk 4's six-reference acceptance remains complete. For IHP, the new
+[fill checkpoint](IHP_FILL_QUALIFICATION.md) resolves the counter's twelve native
+findings and the UART/APB references' eleven findings each. All three have zero
+native geometry findings and matched before/after device and port connectivity.
+Four real wiring, port and transistor-body faults are rejected. Post-fill
+electrical-model acceptance, manual coverage and production integration remain
+open; chunk 5 is not complete.
+
+## Completed chunk 4 reference gate
 
 Chunks 1–4 now have their defined planning/reference acceptance. The
 [full density closure](validation/gf180-fill-closure-2026-10-09.json) binds the

@@ -1,0 +1,490 @@
+{
+  "schema": 1,
+  "chunk": 5,
+  "status": "in_progress",
+  "chunk_complete": false,
+  "qualified": false,
+  "observed_at": "2026-10-10T13:43:13.346361+00:00",
+  "source_baseline": "6cb757ac3590d14cda55654fd5aa5f4151fa3938",
+  "source_files": {
+    "scripts/prepare_ihp_block_fill.py": "5e095c5ace8dad2a39537d875ab9e7adc2973cb8f15ddeabd40f36bb81783fd1",
+    "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+    "scripts/check_ihp_lvs.py": "bc812c69e938c190d55e86efb2bff6f436040c1e4deac90d2b5687cb8a1919ed",
+    "tests/test_ihp_block_fill.py": "47d4c1f9ae4c9eefd315b3c83a47bc6c6a1b2feb7a034effbee88bd2c01720b1",
+    "tests/test_ihp_lvs_reference.py": "9a06995a29a84aa24775ad7aa2b1d6421f90b92606a16b37acecddf3a4ba5e6b",
+    "tests/test_ihp_lvs_ports.py": "c9eda2c681160ae6cfd68cd1d63ddddc6aeaaba8a383bcc2ed55d69755c7e93a",
+    "examples/ihp-fill-source-lock.json": "9da512e3f3d37cd2bfd0f1ddc0de49972adde1a1df79d40f9ae75376c98ad96b",
+    "docs/IHP_FILL_QUALIFICATION.md": "d73bea84d480559495e66f3f95eba47bd6ed70300ec155a122b7607d7ad79750",
+    "docs/PDK_QUALIFICATION_PLAN.md": "7152330497ff37217b74fa10e690fa81c0b722b44ac4f542b2c0efc86a384f24"
+  },
+  "scope": "Three retained IHP standard-cell blocks; native maximal geometry and four-terminal device/port comparisons. No production or tapeout acceptance.",
+  "cases": [
+    {
+      "case": "counter",
+      "baseline_gds_sha256": "854b43acb14e15fdcedcb01e2482d4552733b6ea63ebc8492d7151468a489ba2",
+      "filled_gds_sha256": "e5158da77da10602b21dd80c85e0db2627a34c80610ecdd79ba84834d1286ed2",
+      "native_markers_before": 12,
+      "native_markers_after": 0,
+      "density_percent": {
+        "1": 40.40232975,
+        "5": 24.46868975,
+        "8": 40.364102125,
+        "10": 38.4690305,
+        "30": 39.8580575,
+        "50": 40.477645,
+        "67": 40.368746,
+        "126": 33.80956,
+        "134": 31.53448
+      },
+      "original_masks_unchanged": true,
+      "original_die_nm": [
+        0,
+        0,
+        200000,
+        200000
+      ],
+      "native_device_and_port_lvs": "passed",
+      "transistor_inventory": {
+        "sg13_lv_nmos": 2047,
+        "sg13_lv_pmos": 2047
+      },
+      "geometry_record_sha256": "9c2bb40db285413bcb8b2ddcf6d0666b463f98cc6e70499300bb5ff5cabaee1a",
+      "lvs_record_sha256": "b1fb1537a0be79d4c20b1e567eea39ed228b596e9cc2bbbd6a9744bcc20d4c78",
+      "extraction": {
+        "record_sha256": "76e58e66086fa8d9673c166b9d2e751e167cfb8d2a9566808b665b29cb197d36",
+        "status": "native-extraction-recorded-model-acceptance-pending",
+        "model_inspection": {
+          "missing_floating": [],
+          "float_net_shapes": {
+            "(1, 1, 2)": 8951
+          },
+          "native_floating_ground_pf": {
+            "min": 7.43762e-05,
+            "max": 0.001734838,
+            "total": 2.3013101306
+          },
+          "reduction": "completed"
+        }
+      },
+      "timing_probe": {
+        "record_sha256": "96bb5bf884bf7da72a97552584744d544f1efe1d82d433141b34a2b425a76f34",
+        "results": [
+          {
+            "corner": "typ",
+            "state": "original",
+            "returncode": 0,
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 48.260189,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.195837,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            }
+          },
+          {
+            "corner": "typ",
+            "state": "filled",
+            "returncode": 0,
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 48.256355,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.196122,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            }
+          },
+          {
+            "corner": "slow",
+            "state": "original",
+            "returncode": 0,
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 47.852211,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.370399,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            }
+          },
+          {
+            "corner": "slow",
+            "state": "filled",
+            "returncode": 0,
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 47.845844,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.370896,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            }
+          },
+          {
+            "corner": "fast",
+            "state": "original",
+            "returncode": 0,
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 48.477261,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.096999,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            }
+          },
+          {
+            "corner": "fast",
+            "state": "filled",
+            "returncode": 0,
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 48.474838,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.097172,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            }
+          }
+        ],
+        "acceptance": "Preliminary typical-interconnect model only; independent model acceptance pending."
+      }
+    },
+    {
+      "case": "uart",
+      "baseline_gds_sha256": "377fac7ad52784aa45528f9b536c444521fd5b357443020d04cbd500cab652ed",
+      "filled_gds_sha256": "0d5c6cb2955eaacabf38eb6627a3ef3b3138a26322592643566b0f2a129ce2d5",
+      "native_markers_before": 11,
+      "native_markers_after": 0,
+      "density_percent": {
+        "1": 41.0958345625,
+        "5": 31.07116715625,
+        "8": 42.500441390625,
+        "10": 38.10248115625,
+        "30": 38.1886773125,
+        "50": 40.547775625,
+        "67": 40.519890625,
+        "126": 32.6059,
+        "134": 28.59115
+      },
+      "original_masks_unchanged": true,
+      "original_die_nm": [
+        0,
+        0,
+        400000,
+        400000
+      ],
+      "native_device_and_port_lvs": "passed",
+      "transistor_inventory": {
+        "sg13_lv_nmos": 11205,
+        "sg13_lv_pmos": 11205
+      },
+      "geometry_record_sha256": "95763cdf096d13c477c24f1e70863fe34d07d582e80479214b7b435e1cdd93a3",
+      "lvs_record_sha256": "8ce7eed66067f8ae3953293433a1259aef227f643c5de41143406e15a15e0eda",
+      "extraction": {
+        "record_sha256": "2e385225679016e50d763bb3beacc63157e4631cbc4773191c4a3b79e809840b",
+        "status": "native-extraction-recorded-model-acceptance-pending",
+        "model_inspection": {
+          "missing_floating": [],
+          "float_net_shapes": {
+            "(1, 1, 2)": 35226
+          },
+          "native_floating_ground_pf": {
+            "min": 7.43762e-05,
+            "max": 0.001697198,
+            "total": 8.9728159678
+          },
+          "reduction": "completed"
+        }
+      },
+      "timing_probe": {
+        "record_sha256": "8ee4bf5e441061f93ac35f2bac3625d126bd1a1fd4cfbe060a4211fe558106ea",
+        "results": [
+          {
+            "corner": "typ",
+            "state": "original",
+            "returncode": 0,
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 6.235878,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.275543,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            }
+          },
+          {
+            "corner": "typ",
+            "state": "filled",
+            "returncode": 0,
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 6.228425,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.275812,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            }
+          },
+          {
+            "corner": "slow",
+            "state": "original",
+            "returncode": 0,
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 4.029944,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.435757,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            }
+          },
+          {
+            "corner": "slow",
+            "state": "filled",
+            "returncode": 0,
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 4.017923,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.436215,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            }
+          },
+          {
+            "corner": "fast",
+            "state": "original",
+            "returncode": 0,
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 7.526152,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.184451,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            }
+          },
+          {
+            "corner": "fast",
+            "state": "filled",
+            "returncode": 0,
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 7.521461,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.184612,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            }
+          }
+        ],
+        "acceptance": "Preliminary typical-interconnect model only; independent model acceptance pending."
+      }
+    },
+    {
+      "case": "apb",
+      "baseline_gds_sha256": "e73e135bb442f886e468c62a7c3ff0094d1abc2d1f442960d195e7bc09e637e4",
+      "filled_gds_sha256": "ae45d079d2f2eb49572fb2859c6199f413ec6fc10096a400cc576d8d05b87a59",
+      "native_markers_before": 11,
+      "native_markers_after": 0,
+      "density_percent": {
+        "1": 41.1286870625,
+        "5": 31.188348140625,
+        "8": 42.563565515625,
+        "10": 38.330532265625,
+        "30": 37.00261625,
+        "50": 40.472820625,
+        "67": 40.519890625,
+        "126": 32.6059,
+        "134": 28.59115
+      },
+      "original_masks_unchanged": true,
+      "original_die_nm": [
+        0,
+        0,
+        400000,
+        400000
+      ],
+      "native_device_and_port_lvs": "passed",
+      "transistor_inventory": {
+        "sg13_lv_nmos": 11060,
+        "sg13_lv_pmos": 11060
+      },
+      "geometry_record_sha256": "75f46ebe2f0fcc312e41c5da9edc07924e683e8499c5400bca4d440740621dae",
+      "lvs_record_sha256": "51f5a556e2dc9fe7e5e6805923c48c411f0836acca238986131f8499136fc39b",
+      "extraction": {
+        "record_sha256": "d435df1786accb37ad7a1b577dd8ca2ec027cda823cb1d491eb0f16e31c625d5",
+        "status": "native-extraction-recorded-model-acceptance-pending",
+        "model_inspection": {
+          "missing_floating": [],
+          "float_net_shapes": {
+            "(1, 1, 2)": 35177
+          },
+          "native_floating_ground_pf": {
+            "min": 7.43762e-05,
+            "max": 0.001697198,
+            "total": 8.9298801588
+          },
+          "reduction": "completed"
+        }
+      },
+      "timing_probe": {
+        "record_sha256": "ec6af7a1f0dd7f9821e1502de917a23d1254b7c57bbf36a06136a8703891d3a4",
+        "results": [
+          {
+            "corner": "typ",
+            "state": "original",
+            "returncode": 0,
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 16.386774,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.077623,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            }
+          },
+          {
+            "corner": "typ",
+            "state": "filled",
+            "returncode": 0,
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 16.381491,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.078888,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            }
+          },
+          {
+            "corner": "slow",
+            "state": "original",
+            "returncode": 0,
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 15.444564,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.182089,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            }
+          },
+          {
+            "corner": "slow",
+            "state": "filled",
+            "returncode": 0,
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 15.4298,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.184145,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            }
+          },
+          {
+            "corner": "fast",
+            "state": "original",
+            "returncode": 0,
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 16.912468,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.009543,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            }
+          },
+          {
+            "corner": "fast",
+            "state": "filled",
+            "returncode": 0,
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 16.909054,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.010337,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            }
+          }
+        ],
+        "acceptance": "Preliminary typical-interconnect model only; independent model acceptance pending."
+      }
+    }
+  ],
+  "os_audits": {
+    "windows": "783728fe358cf12af9b0dcb4cc54e0c8445de4f8f4a72cc0874b330eafc3c222",
+    "linux": "86f10c2f88034f9f9bb28acc4ccac35d81665816ec8c0f3ad4c842896ead36e5",
+    "byte_identical_reports": true
+  },
+  "fault_controls": [
+    {
+      "case": "metal-short",
+      "matched": false,
+      "sha256": "3048b2a67a1418770a0b4fb39783c7d7670aa60c20f4a4050ac46929cf4f261a"
+    },
+    {
+      "case": "clock-pin-open",
+      "matched": false,
+      "sha256": "3bcf52242214ec2ee67e6b6a3d2738a52bca80f285bd78e916212825c9aa60a1"
+    },
+    {
+      "case": "swapped-output-labels",
+      "matched": false,
+      "sha256": "70e596397c8e1cce6117805778abd4769c9bd9f04816f7a74faf6c65c5e66787"
+    },
+    {
+      "case": "wrong-pmos-body",
+      "matched": false,
+      "sha256": "619055ed213540111755c881bfd3d16f127ee5179a2a55f4eb34981c426ab761"
+    }
+  ],
+  "tests": {
+    "windows_full": {
+      "count": 1694,
+      "seconds": 306.217,
+      "skips": 62,
+      "sha256": "7f5ccbc30928c939b8e856d88b9a52b14ae2b7d39eca197f24bebf33e0b37a99"
+    },
+    "linux_focused": {
+      "count": 14,
+      "sha256": "a3039b8fdfb8f9a8fe4bbecd8a46db35f426f6f3a3d2f13d8f70bb6ef775bf8a"
+    }
+  },
+  "remaining": [
+    "Independent finite-RC and active-fill parasitic coverage validation.",
+    "Final post-fill timing/electrical acceptance for all three original references.",
+    "Supplemental manual-rule and boundary applicability coverage review.",
+    "Production-flow integration, exact-source binding and affected package/regression qualification."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\ihp-fill-checkpoint-2026-10-10-v1\\evidence.tar.gz",
+    "sha256": "28ea4a1dee2c2b252783dec58f98ed9d134df12976033c07e60ec06510655872",
+    "bytes": 46462661,
+    "members": 1654,
+    "verified": true,
+    "manifest_sha256": "09f8a9ef55ed319235d5b47b83eada6c20375e5631eb921a51957ef7d90c06e8"
+  }
+}

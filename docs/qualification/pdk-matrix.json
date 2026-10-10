@@ -1,6 +1,6 @@
 {
   "schema": 4,
-  "as_of": "2026-10-09",
+  "as_of": "2026-10-10",
   "source_baseline": "5b33a68f3a8e225002c3b4ac38d63fc97cf25420",
   "claim": "Qualification plan and coverage inventory only. No process is tapeout qualified. Historical passes retain their original design/source/PDK scope.",
   "chunks": {
@@ -23,7 +23,8 @@
     },
     "5": {
       "name": "Close IHP geometry and fill",
-      "status": "pending"
+      "status": "in_progress",
+      "scope": "Three retained IHP standard-cell blocks; native maximal geometry and four-terminal device/port comparisons. No production or tapeout acceptance."
     },
     "6": {
       "name": "Complete SKY130 physical coverage",
@@ -17398,10 +17399,11 @@
     "ihp-sg13g2:ihp-fill": {
       "target": "ihp-sg13g2",
       "test": "ihp-fill",
-      "status": "failed",
-      "remaining": "12 observed counter density/fill findings remain; qualify filled final layouts with compatible runtime.",
+      "status": "partial",
+      "remaining": "Counter/UART/APB native geometry findings are zero and strict device/port comparisons pass. Preliminary post-fill timing passes three library conditions. Independent extraction-model and active-fill coverage, supplemental manual rules, production integration and final acceptance remain.",
       "historical_evidence": [
-        "gds-diagnostics"
+        "gds-diagnostics",
+        "ihp-fill-checkpoint"
       ]
     },
     "ihp-sg13g2:ihp-rf": {
@@ -19894,6 +19896,11 @@
       "path": "docs/validation/gf180-fill-coverage-2026-10-09.json",
       "sha256": "1efa72aad27f21e71f422c4ace1d8f31612d540367638bd7d8907448aa5c860e",
       "scope_limit": "Historical conditional-rule and whole-array diagnostics. Trial COMP additions are not production layouts and are rejected by the selected reference boundary; closure is recorded separately."
+    },
+    "ihp-fill-checkpoint": {
+      "path": "docs/validation/ihp-fill-checkpoint-2026-10-10.json",
+      "sha256": "ca64b788c556ad1077e01c0efd86658fbfb36ba2bc59caaf3291207ca864fcaf",
+      "scope_limit": "Three retained IHP standard-cell blocks; native maximal geometry and four-terminal device/port comparisons. No production or tapeout acceptance."
     }
   },
   "execution_acceptance": {
