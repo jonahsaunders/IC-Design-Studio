@@ -106,7 +106,7 @@ jobs:
           curl --fail --location --retry 3 -o build/openroad.deb https://vaultlink.precisioninno.com/api/releases/26Q2-1164-g08f67ee5ec/openroad_26Q2-1164-g08f67ee5ec_amd64-ubuntu-24.04.deb/download
           echo 'f3f1eeaa18f327503f72cc45dcef5b1514ec2e89726ec53b4553bf4f951168a3  build/openroad.deb' | sha256sum --check
           sudo apt-get install -y "$PWD/build/openroad.deb"
-          curl --fail --location --retry 3 -o build/klayout.deb https://www.klayout.org/downloads/Ubuntu-24/klayout_0.30.5-1_amd64.deb
+          curl --fail --location --retry 3 --retry-all-errors --connect-timeout 30 --max-time 300 -o build/klayout.deb https://www.klayout.org/downloads/Ubuntu-24/klayout_0.30.5-1_amd64.deb
           echo '9f88fe45d1992fc9bd0ce986bbbe150ad198c6a59a86fc13343db822a5790e49  build/klayout.deb' | sha256sum --check
           sudo apt-get install -y "$PWD/build/klayout.deb"
           echo "ICSTUDIO_TEST_YOSYS=$PWD/build/oss-cad-suite/bin/yosys" >> "$GITHUB_ENV"

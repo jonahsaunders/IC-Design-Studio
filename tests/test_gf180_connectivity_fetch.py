@@ -38,7 +38,9 @@ class GF180ConnectivityFetchTests(unittest.TestCase):
 
     def test_complete_atomic_publish_deduplicates_and_reuses_only_verified_cache(self):
         with patch.object(fetch.urllib.request,'urlopen',side_effect=self.opener) as network:
-            self.assertEqual(fetch.fetch(self.output,cache=self.cache),self.output)
+            # Windows runners can spell TEMP with an 8.3 alias. The published
+            # destination is canonical even when the requested path is not.
+            self.assertEqual(fetch.fetch(self.output,cache=self.cache),self.output.resolve())
             self.assertEqual(network.call_count,3)
         for name,data in self.payloads.items():self.assertEqual((self.output/name).read_bytes(),data)
         with patch.object(fetch.urllib.request,'urlopen',side_effect=AssertionError('offline')):
