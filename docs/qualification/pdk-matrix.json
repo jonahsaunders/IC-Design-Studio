@@ -24,7 +24,7 @@
     "5": {
       "name": "Close IHP geometry and fill",
       "status": "in_progress",
-      "scope": "Completed APB capacitance comparison and rejected nominal fill-width coverage; full RC acceptance and production integration remain incomplete."
+      "scope": "Exact calibration geometry, conserved native imports and actual-width nominal resistance controls; short-wire capacitance accuracy, complete full-RC performance, convergence and production integration remain incomplete."
     },
     "6": {
       "name": "Complete SKY130 physical coverage",
@@ -19929,6 +19929,11 @@
       "path": "docs/validation/ihp-width-waveform-progress-2026-10-10.json",
       "sha256": "fe1d0f15ab5f712a5d650c9fe5d29037ffeef0a58975b507cdc94464ac65eec4",
       "scope_limit": "Completed APB capacitance comparison and rejected nominal fill-width coverage; full RC acceptance and production integration remain incomplete."
+    },
+    "ihp-calibration-progress": {
+      "path": "docs/validation/ihp-calibration-progress-2026-10-10.json",
+      "sha256": "3c806f64c22f86d914f264ca88467d3343b04c39b86a9cf8393783635f049098",
+      "scope_limit": "Exact calibration geometry, conserved native imports and actual-width nominal resistance controls; short-wire capacitance accuracy, complete full-RC performance, convergence and production integration remain incomplete."
     }
   },
   "execution_acceptance": {

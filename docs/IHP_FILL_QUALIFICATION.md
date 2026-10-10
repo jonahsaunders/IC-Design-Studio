@@ -339,3 +339,54 @@ a small native linear fixture agree, but its initial complete-circuit and
 powered-reset probes failed numerically. It is not an accepted performance model
 and does not alter the desktop flow. No physical resistor was collapsed and no
 leakage shunt was added to make those failed runs pass.
+
+## Calibration geometry and material checks
+
+The [calibration checkpoint](validation/ihp-calibration-progress-2026-10-10.json)
+records further experimental model corrections. Chunk 5 remains incomplete.
+
+`scripts/ihp_calibration_geometry.py` requires every reference wire's native
+metal, area and perimeter to match its intended rectangle exactly. This rejects
+the extra metal painted by DEF measurement ports and rejects rounding of
+off-grid reference patterns. Independent GDS cells retain each calibration
+pattern's relative geometry. The two-width pilot produces byte-identical rules
+to the monolithic extraction while reducing native extraction from 862 seconds
+to about 3 seconds. This isolation is only for reference patterns; circuit
+coupling is not discarded.
+
+Native import audits also caught two mirrored SPEF records being treated as
+distinct capacitors. Both records must identify the same terminal pair. The
+corrected import conserves every reference ground capacitor, mutual capacitor
+and rectangular wire resistance within the stated native storage precision.
+
+`scripts/ihp_rcx_material.py` binds the seven nominal sheet resistances to the
+pinned Magic extraction source, rejects other corners or revisions, and reads
+back every applied layer value. Native extraction must explicitly use
+`-lef_res`; wider calibration tables alone do not enable width-scaled wire
+resistance. Routing resistance overrides are replaced by the audited nominal
+material values for this experiment. This does not calibrate via resistance or
+other process corners.
+
+All 52 absent/nearby controls now pass their absolute resistance and basic
+capacitance-response checks across the minimum, doubled-minimum and actual
+1/3.5/5 µm fill widths. Every applicable width table contains the actual widths.
+Complete width blocks are ordered numerically without changing any tabulated
+value or its metal/context. These checks still do not accept the model: the
+separate 5% nominal capacitance consistency gate remains unresolved. Native
+timing must be repeated with an accepted model before fill closure.
+
+A denser, two-width spacing pilot retains 355,710 reference wires after rejecting
+whole off-grid patterns before extraction. All retained rectangles and imported
+values pass their audits. At 20 µm length, 20 of 28 independent controls pass the
+5% consistency limit; the eight remaining failures are ground capacitance on
+TopMetal1 and TopMetal2. All 28 controls pass at 200 µm length. This supports
+investigating finite wire-end capacitance, and does not justify accepting short
+fill rectangles or raising the tolerance. The actual-width model still needs
+that correction and a complete repeated comparison.
+
+Install the independent reference solvers with
+`python -m pip install -r requirements-qualification.txt` before running the IHP
+qualification tests. The desktop packaging workflow installs those pinned test
+dependencies explicitly. The current 108-test IHP suite passes on Windows and
+Linux with no skipped cases; packaging and full release acceptance remain
+separate checks.

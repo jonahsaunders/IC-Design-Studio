@@ -1,0 +1,3 @@
+# Independent matrix reference solvers used by physical qualification tests.
+numpy==2.3.5
+scipy==1.16.3
