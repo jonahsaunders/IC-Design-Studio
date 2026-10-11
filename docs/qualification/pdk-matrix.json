@@ -17413,7 +17413,8 @@
         "ihp-diode-charge-2026-10-10",
         "ihp-cold-counter-2026-10-11",
         "ihp-cell-keepout-2026-10-11",
-        "ihp-spatial-accounting-2026-10-11"
+        "ihp-spatial-accounting-2026-10-11",
+        "ihp-spatial-mesh-2026-10-11"
       ]
     },
     "ihp-sg13g2:ihp-rf": {
@@ -19981,6 +19982,11 @@
       "path": "docs/validation/ihp-spatial-accounting-2026-10-11.json",
       "sha256": "90bd23b1b5d81fe69eb69f1aa65e9992f7e81f25b154f12c6907df3b2f2686d9",
       "scope_limit": "All-three unchanged native graphs, signal-coupling and ground-delta accounting; identical Windows/Linux reports. Full waveform convergence, spatial placement, nominal timing and production integration remain open."
+    },
+    "ihp-spatial-mesh-2026-10-11": {
+      "path": "docs/validation/ihp-spatial-mesh-2026-10-11.json",
+      "sha256": "83ec00663da1d53ce09742979f94a2cd03519e6e43e65403d39a5770738f60c8",
+      "scope_limit": "All-three conductor ownership, captured mesh locations and full signal ground accounting; identical Windows weights; completed filled APB workload. Projection, replay equivalence, convergence, nominal timing and production remain open."
     }
   },
   "execution_acceptance": {

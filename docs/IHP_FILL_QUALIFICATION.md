@@ -17,14 +17,33 @@ significant digits: 937/1,342 pairs for counter, 17,387/19,780 for UART, and
 15,625/20,581 for APB. Shielding and substrate relocation account for ground-C
 changes on all 28/351/262 signal nets. Nine decoded audit reports are identical
 on Windows and Linux; 161 IHP tests pass on each platform without skips.
-The trace rectangles still require conductor-ownership and resistance-endpoint
-validation before use for timing. Accounting alone does not establish placement
-or field accuracy.
+The later [spatial mesh checkpoint](validation/ihp-spatial-mesh-2026-10-11.json)
+establishes conductor ownership and local interpolation on the captured resistor
+meshes. Every changed signal support resolves: 106,303 for counter, 444,212 for
+UART and 751,143 for APB. All 167,874 distinct local weight maps reproduce exactly
+on Windows. Native area/edge terms, shielding and substrate relocation recover
+the complete signal ground capacitance for all six original/filled layouts.
+The expanded IHP suite passes 175 tests on each platform without skips.
 
-The further-tight APB transient failed at 180 ns. Increasing its Newton iteration
-budget also failed, at 70 ns; both failed captures are retained. Full UART/APB
-convergence at the fixed 1 ps limit and accepted nominal timing remain open.
-Neither partial waveforms nor the accounting checkpoint complete chunk 5.
+These location checks do not accept the full capacitance projection. Native
+fringe fields vary across their support, and shielded subregions must retain
+their actual positions. Uniformly distributing an aggregate value over its
+bounding rectangle would lose that information. The counter mesh preserves all
+403 frozen resistors and primitive-device records after an unambiguous node
+mapping. UART/APB replays have small resistance differences, including one
+changed internal topology; their measured DC port differences remain unaccepted.
+The native single-precision area-transfer residual is reported separately from
+the unit-sum interpolation basis. Signed native end extensions cancel only
+against compatible support, and final node names follow native serialization.
+
+The filled APB tight capture now completes its full 1,610 ns workload and all
+869 output-bit checks pass. Its intermediate-to-tight convergence comparison
+is still running. The further-tight APB transient failed at 180 ns; increasing
+Newton iterations failed at 70 ns, and equivalent internal-equation scaling
+also failed at 180 ns. All failed captures remain rejected and preserved.
+Full UART/APB convergence at the fixed 1 ps limit, accepted nominal extraction
+and timing, and production integration remain open. This checkpoint does not
+complete chunk 5.
 
 The [checkpoint](validation/ihp-fill-checkpoint-2026-10-10.json) binds the inputs,
 native reports, source files, fault controls and retained evidence archive.
