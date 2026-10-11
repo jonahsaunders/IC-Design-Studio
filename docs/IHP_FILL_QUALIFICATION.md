@@ -477,3 +477,32 @@ A wire-only capacitance handoff therefore cannot assume unchanged intrinsic
 cell behavior. Internal-cell accounting, accepted nominal post-fill timing,
 filled full-RC workloads and convergence, cold startup and production export
 integration remain required.
+
+## Native diode charge discontinuity
+
+The [diode charge diagnostic](validation/ihp-diode-charge-2026-10-10.json)
+isolates a failure in the pinned native `darea` implementation. Its current and
+diffusion charge jump at the forward/reverse branch boundary. At -40 °C, the
+filled counter's Newton iterations alternate across this boundary during the
+original 1 ns supply ramp. Disabling device caching, changing sparse solvers,
+linear-solve refinement and a passive realization of the same capacitor matrix
+do not remove that original failure.
+
+Intrinsic DC controls expose the same model functions with only series resistance
+set to zero. They measure charge steps of approximately 1.724e-18, 2.438e-17 and
+2.651e-16 C across a 0.1 µV increment at -40, 25 and 125 °C respectively. These
+controls diagnose the numerical model; they do not replace the physical circuit.
+The new `ihp_diode_charge_audit.py` compares stored-charge changes against the
+integrated tangent capacitance at every sampled bias. It rejects all three
+native controls, incomplete curves, stale scalar values exported as vectors,
+and opposite interior errors that cancel at the endpoints.
+
+A private experimental engine retains the full charge change in a narrow smooth
+transition. Outside that interval, the captured current and charge are unchanged.
+The three sampled numerical charge checks pass, and Windows and Linux reproduce
+the audits exactly. All 133 focused IHP tests pass on each operating system.
+Short cold-start probes also complete, but this explicit model regularization
+is **not qualified**. Full circuit behavior, transition-width convergence,
+the fixed 1 ps integration limit and independent model review remain required.
+The production engine and PDK files are unchanged. Completed diagnostics, including
+failed alternatives and superseded captures, are verified in permanent storage.

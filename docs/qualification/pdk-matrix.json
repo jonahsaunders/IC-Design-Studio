@@ -17409,7 +17409,8 @@
         "ihp-native-export",
         "ihp-native-spef-progress-2026-10-10",
         "ihp-uart-waveform-2026-10-10",
-        "ihp-convergence-runtime-2026-10-10"
+        "ihp-convergence-runtime-2026-10-10",
+        "ihp-diode-charge-2026-10-10"
       ]
     },
     "ihp-sg13g2:ihp-rf": {
@@ -19957,6 +19958,11 @@
       "path": "docs/validation/ihp-convergence-runtime-2026-10-10.json",
       "sha256": "625a54b76cd740a7cccbe82d95ae4396fc409cf06ab3209ca77dc6ba59e67fc9",
       "scope_limit": "One complete 1610 ns unfilled APB full-RC convergence pair at the fixed 1 ps limit. Private solver speed probes are diagnostic only; no production engine change. Filled full workloads, cold startup, accepted timing and chunk 5 closure remain open."
+    },
+    "ihp-diode-charge-2026-10-10": {
+      "path": "docs/validation/ihp-diode-charge-2026-10-10.json",
+      "sha256": "41b4e0f5a28ece89148987227e4da6204a413c1b4580096dd410014408e95ddf",
+      "scope_limit": "Reproduced native diode charge discontinuity, explicit unqualified model experiments, matching Windows/Linux audits and 133 tests per OS. No production-model acceptance, full-RC qualification or chunk 5 closure."
     }
   },
   "execution_acceptance": {
