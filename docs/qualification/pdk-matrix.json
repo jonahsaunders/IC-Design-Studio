@@ -17412,7 +17412,8 @@
         "ihp-convergence-runtime-2026-10-10",
         "ihp-diode-charge-2026-10-10",
         "ihp-cold-counter-2026-10-11",
-        "ihp-cell-keepout-2026-10-11"
+        "ihp-cell-keepout-2026-10-11",
+        "ihp-spatial-accounting-2026-10-11"
       ]
     },
     "ihp-sg13g2:ihp-rf": {
@@ -19975,6 +19976,11 @@
       "path": "docs/validation/ihp-cell-keepout-2026-10-11.json",
       "sha256": "e6399c45715b86be998ce807824651ddc3361f33ecac84bafb46207b3541bb01",
       "scope_limit": "All-three physical fill geometry/connectivity, byte-identical generator replay, complete-cell capacitance audits, and stock-counter nominal/cold convergence. Larger workloads, nominal timing and production integration remain open; chunk 5 is not complete."
+    },
+    "ihp-spatial-accounting-2026-10-11": {
+      "path": "docs/validation/ihp-spatial-accounting-2026-10-11.json",
+      "sha256": "90bd23b1b5d81fe69eb69f1aa65e9992f7e81f25b154f12c6907df3b2f2686d9",
+      "scope_limit": "All-three unchanged native graphs, signal-coupling and ground-delta accounting; identical Windows/Linux reports. Full waveform convergence, spatial placement, nominal timing and production integration remain open."
     }
   },
   "execution_acceptance": {

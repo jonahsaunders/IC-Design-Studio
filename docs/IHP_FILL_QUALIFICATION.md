@@ -9,6 +9,23 @@ all three GDS files byte for byte. Original circuit geometry and block footprint
 are preserved; the P+ alternative deliberately adds a substrate implant mask.
 The desktop production flow does not yet use this experimental recipe.
 
+The [native spatial-accounting checkpoint](validation/ihp-spatial-accounting-2026-10-11.json)
+preserves all six original/filled native capacitor and transistor graphs exactly.
+A separate diagnostic extractor records coupling contributions without changing
+the installed tool. Every signal mutual value is recovered at the native six
+significant digits: 937/1,342 pairs for counter, 17,387/19,780 for UART, and
+15,625/20,581 for APB. Shielding and substrate relocation account for ground-C
+changes on all 28/351/262 signal nets. Nine decoded audit reports are identical
+on Windows and Linux; 161 IHP tests pass on each platform without skips.
+The trace rectangles still require conductor-ownership and resistance-endpoint
+validation before use for timing. Accounting alone does not establish placement
+or field accuracy.
+
+The further-tight APB transient failed at 180 ns. Increasing its Newton iteration
+budget also failed, at 70 ns; both failed captures are retained. Full UART/APB
+convergence at the fixed 1 ps limit and accepted nominal timing remain open.
+Neither partial waveforms nor the accounting checkpoint complete chunk 5.
+
 The [checkpoint](validation/ihp-fill-checkpoint-2026-10-10.json) binds the inputs,
 native reports, source files, fault controls and retained evidence archive.
 The [source lock](../examples/ihp-fill-source-lock.json) identifies the upstream
