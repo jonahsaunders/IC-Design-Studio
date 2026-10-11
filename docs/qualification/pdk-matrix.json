@@ -1,6 +1,6 @@
 {
-  "schema": 4,
-  "as_of": "2026-10-10",
+  "schema": 5,
+  "as_of": "2026-10-11",
   "source_baseline": "5b33a68f3a8e225002c3b4ac38d63fc97cf25420",
   "claim": "Qualification plan and coverage inventory only. No process is tapeout qualified. Historical passes retain their original design/source/PDK scope.",
   "chunks": {
@@ -23,8 +23,8 @@
     },
     "5": {
       "name": "Close IHP geometry and fill",
-      "status": "in_progress",
-      "scope": "Final reference geometry/connectivity pass. Matched UART capacitance runs pass 508 checks. Complete unfilled APB full-RC convergence passes 1738 checks and 90 transitions at 0.756 ps, below the fixed 1 ps limit. Matched filled full-RC performance, cold startup, accepted routed-block timing and production integration remain incomplete."
+      "status": "reference_gate_complete",
+      "scope": "Three original-footprint IHP SG13G2 standard-cell blocks: complete required block rules, strict device/port LVS, unchanged nominal circuit capacitance and local fields, final-netlist formal proof, three-library-condition extracted timing, actual fill/timing/export application execution and native LEF readback. No complete-PDK or foundry qualification."
     },
     "6": {
       "name": "Complete SKY130 physical coverage",
@@ -16179,9 +16179,11 @@
       "conditions": "SG13G2 five ordinary plus two top-metal layers; no blanket density waiver.",
       "existing_runners": [
         "scripts/qualify_digital_platforms.py",
-        "scripts/qualify_digital_workloads.py"
+        "scripts/qualify_digital_workloads.py",
+        "scripts/audit_ihp_fill_release.py",
+        "scripts/check_ihp_fill_closure.py"
       ],
-      "automation_gap": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement."
+      "automation_gap": "The application supports the captured nominal standard-cell block recipe. Independent calibration, other devices/corners and complete-chip coverage remain separate gates."
     },
     "sky130-full-rules": {
       "chunk": 6,
@@ -17399,8 +17401,8 @@
     "ihp-sg13g2:ihp-fill": {
       "target": "ihp-sg13g2",
       "test": "ihp-fill",
-      "status": "partial",
-      "remaining": "Block geometry and strict connectivity pass. Corrected flat exports preserve capacitance; native full RC models preserve devices and charge. Complete matched full-fill performance, model scope review and production integration remain.",
+      "status": "passed_reference",
+      "remaining": "Complete-chip fill/boundaries, independent field calibration and PVT/RC corners, other device families, power integrity and foundry acceptance remain in later chunks.",
       "historical_evidence": [
         "gds-diagnostics",
         "ihp-fill-checkpoint",
@@ -17417,7 +17419,8 @@
         "ihp-spatial-mesh-2026-10-11",
         "ihp-spatial-field-2026-10-11",
         "ihp-ground-correction-2026-10-11"
-      ]
+      ],
+      "acceptance_chunk": 5
     },
     "ihp-sg13g2:ihp-rf": {
       "target": "ihp-sg13g2",
@@ -20012,7 +20015,15 @@
     },
     "4": {
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
-      "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7"
+      "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
+      "historical_source_snapshot": {
+        "path": "docs/validation/gf180-tested-source-2026-10-09.json",
+        "sha256": "8716814f36f17acf3edb824407cf084a1f88b8e0891d01167020b7553730df4b"
+      }
+    },
+    "5": {
+      "path": "docs/validation/ihp-fill-closure-2026-10-11.json",
+      "sha256": "4255cce72f604e38874eb3dfad97758557d6cd1b56c60dae4f710459220b0004"
     }
   }
 }

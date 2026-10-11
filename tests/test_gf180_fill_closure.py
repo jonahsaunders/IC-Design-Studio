@@ -10,9 +10,10 @@ class FillClosureTests(unittest.TestCase):
     def setUpClass(cls):
         cls.record=read(ROOT/'docs/validation/gf180-fill-closure-2026-10-09.json')
         cls.native=read(ROOT/cls.record['native_acceptance']['path'])
+        cls.snapshot=read(ROOT/'docs/qualification/pdk-matrix.json')['execution_acceptance']['4'].get('historical_source_snapshot')
 
     def test_complete_reference_acceptance_does_not_qualify_process(self):
-        result=validate(self.record,ROOT)
+        result=validate(self.record,ROOT,self.snapshot)
         self.assertTrue(result['chunk_complete'])
         self.assertEqual(result['references'],6)
         self.assertEqual(result['process_qualification'],'unqualified')
@@ -34,7 +35,14 @@ class FillClosureTests(unittest.TestCase):
         }
         for name,change in changes.items():
             altered=copy.deepcopy(self.record);change(altered)
-            with self.subTest(name=name),self.assertRaises(ValueError):validate(altered,ROOT)
+            with self.subTest(name=name),self.assertRaises(ValueError):validate(altered,ROOT,self.snapshot)
+
+    def test_historical_source_cannot_claim_current_production_execution(self):
+        if self.snapshot:
+            with self.assertRaisesRegex(ValueError,'application changed'):
+                validate(self.record,ROOT)
+            snapshot={**self.snapshot,'sha256':'0'*64}
+            with self.assertRaises(ValueError):validate(self.record,ROOT,snapshot)
 
     def test_failed_checks_missing_sites_and_unchecked_operands_rejected(self):
         row=self.record['references'][0]

@@ -15,9 +15,13 @@ from icstudio.model import file_digest
 
 PLATFORM_SCRIPTS = ('prepare_sky130_digital.py', 'fetch_sky130_reference.py',
                     'fetch_gf180_connectivity.py', 'prepare_gf180_connectivity.py',
-                    'prepare_gf180_lvs.py', 'gf180_cdl_diodes.py')
+                    'prepare_gf180_lvs.py', 'gf180_cdl_diodes.py', 'prepare_ihp_fill.py',
+                    'prepare_ihp_block_fill.py', 'check_ihp_fill_rules.py',
+                    'check_ihp_flat_capacitance.py', 'ihp_cell_capacitance.py',
+                    'ihp_magic_export.py', 'ihp_native_capacitance.py')
 PLATFORM_LOCKS = ('physical-engine-lock.json', 'sky130-reference-assets.json',
-                  'gf180-connectivity-library-lock.json', 'gf180-lvs-source-lock.json')
+                  'gf180-connectivity-library-lock.json', 'gf180-lvs-source-lock.json',
+                  'ihp-fill-source-lock.json', 'ihp-active-fill-source-lock.json')
 
 
 def pack_filesystem(source, destination):
@@ -43,6 +47,9 @@ def build(output):
         shutil.copy2(ROOT/'licenses/Apache-2.0.txt',context/'licenses/Apache-2.0.txt')
         shutil.copy2(ROOT/'THIRD_PARTY_NOTICES.md',context/'licenses/THIRD_PARTY_NOTICES.md')
         shutil.copytree(ROOT/'icstudio', context/'icstudio', ignore=shutil.ignore_patterns('assets','__pycache__','*.so','*.dll'))
+        ihp_license=context/'icstudio/assets/pdks/ihp-sg13g2/LICENSE'
+        ihp_license.parent.mkdir(parents=True)
+        shutil.copy2(ROOT/'icstudio/assets/pdks/ihp-sg13g2/LICENSE',ihp_license)
         shutil.copy2(ROOT/'scripts/build_physical_engines.py',context/'build_physical_engines.py')
         shutil.copy2(ROOT/'scripts/compile_ihp_osdi.py',context/'compile_ihp_osdi.py')
         (context/'scripts').mkdir()

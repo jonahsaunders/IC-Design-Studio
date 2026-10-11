@@ -21,6 +21,8 @@ class DigitalBundleTests(unittest.TestCase):
         # source preparation has separate integration and native controls.
         mock=patch.object(bundler,'gf180_profiles',side_effect=lambda profiles,*args,**kwargs:dict(profiles))
         self.gf180=mock.start();self.addCleanup(mock.stop)
+        ihp=patch.object(bundler,'prepare_ihp_fill',side_effect=lambda platform,*args,**kwargs:clone(platform))
+        self.ihp=ihp.start();self.addCleanup(ihp.stop)
 
     def test_packaging_rejects_stale_partial_or_other_os_qualification(self):
         manifest={'sha256':'a'*64,'platforms':list(BUNDLED_PLATFORMS)}
@@ -91,6 +93,7 @@ class DigitalBundleTests(unittest.TestCase):
                     patch.object(bundler,'prepare',side_effect=self.preparer(values)):
                 result=bundler.bundle(root)
             self.gf180.assert_called_once()
+            self.ihp.assert_called_once()
             self.assertEqual(list(result['platforms']),list(BUNDLED_PLATFORMS))
             self.assertFalse((root/'orfs/flow/platforms/sky130hs').exists())
             for name,value in result['platforms'].items():

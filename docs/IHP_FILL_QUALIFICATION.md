@@ -1,4 +1,108 @@
-# IHP fill qualification checkpoint
+# IHP geometry and fill: completed reference gate
+
+Chunk 5 is complete for the original counter, UART and APB reference blocks.
+The [acceptance record](validation/ihp-fill-closure-2026-10-11.json) binds the
+final geometry, application source, native rules, connectivity, nominal
+electrical model, timing and exported artifacts. No complete PDK or tapeout
+qualification follows from this reference gate.
+
+The final recipe keeps new fill at least 9 micrometres from signal routes,
+functional cells and complete floating-poly components coupled to the circuit.
+This exceeds the pinned nominal extractor's 8 micrometre interaction halo.
+It preserves every original circuit mask and the original block footprint,
+while adding legal P+ active fill and all seven metal-fill levels. Counter uses
+the compact pattern, UART balanced and APB dense, including thirteen additional
+legal 5 by 5 micrometre TopMetal2 tiles. Native rule thresholds are unchanged.
+
+| Final reference | Native markers | Supplemental rules | Device/port LVS | Extracted timing |
+|---|---:|---|---|---|
+| Counter, 200 by 200 micrometres | 0 | Pass | Match | Typical, slow, fast pass |
+| UART, 400 by 400 micrometres | 0 | Pass | Match | Typical, slow, fast pass |
+| APB FIFO, 400 by 400 micrometres | 0 | Pass | Match | Typical, slow, fast pass |
+
+Both stock and corrected native extractors reproduce the complete protected
+circuit capacitor graph exactly, including indirect paths through floating
+conductors. Physical device records and native lumped signal resistance also
+match. Independent local field projection on the same original resistor mesh
+differs by at most 9.095e-13 aF per pair, with no meaningful negative capacitance
+clamped or discarded. The three references compare 8,291, 139,236 and 119,245
+spatial capacitor pairs respectively.
+
+Because the circuit model is unchanged, the original interconnect SPEF and
+Liberty pin capacitances are retained without counting pin capacitance twice.
+Actual OpenSTA executes all 27 before/after/load-fault scenarios. All 18 normal
+scenarios pass; all nine deliberately overloaded scenarios fail. Before/after
+reports match exactly. The application timing entry point separately passes
+all nine design/library combinations on the actual filled upstream results.
+All connected drivers have complete parasitic annotation. One UART and six APB
+clock-load inverter outputs are deliberately left unconnected; their empty
+connections are checked against both the final Verilog and imported hierarchy.
+
+Strict native LVS runs on each final layout, including device bodies and
+top-level ports, using the independently captured reference and rule deck.
+The retained formal proofs cover the exact final netlists by content hash;
+they are not represented as newly executed proofs. Final antenna and power
+connectivity checks pass. Native OpenDB readback confirms unchanged abstract
+ports/dimensions and complete fill obstructions on all seven metal layers.
+Every artifact inside each exported macro archive is verified against its hash.
+
+Windows and Linux independently re-read native reports, device/capacitor
+graphs, local field comparisons, timing and exported artifact hashes. Both
+produce the identical reference digest
+`91acdd1a9ec2ed503a7dca3c5b0ed73030c3a880631f91fc6f8adb403e929aca`.
+The raw evidence and rejected fill pilots are kept in a deduplicated archive
+whose complete contents were read back and checked; its identity is in the
+acceptance record. Active older transient jobs are excluded from that archive.
+
+The [final regression record](validation/ihp-fill-tests-2026-10-11.json) captures
+the passing 332-test suite on each OS: 10 expected Windows skips and two
+Windows-specific skips on Linux. Every IHP test executes. Missing/tampered
+evidence, changed circuits, failed layout/timing controls, incomplete exports
+and unsupported process claims are rejected. Release consistency checks pass on
+both systems. The Linux test dependency correction and failed initial attempt
+are retained separately from the successful result.
+
+## Application use
+
+With the prepared IHP digital platform, open Physical implementation, select
+**Generate IHP block density fill**, choose the pattern and run physical finish.
+The application captures the fill rules and checks each generated result.
+If a pattern cannot meet the unchanged rules or preserve the circuit model,
+the run fails with its evidence retained. Re-run timing and connectivity on
+the final result before accepting a different design.
+
+Runtime builds now capture the pinned fill macros, complete native deck,
+manual, extraction technology, helpers and source notices. Existing custom
+platforms can be prepared with `scripts/prepare_ihp_fill.py`. No new consumer
+installer is claimed by these source changes.
+
+## Remaining qualification scope
+
+The reference gate uses the fixed nominal interconnect model and three supplied
+library conditions. It does not establish independently calibrated fields,
+additional RC/PVT corners, non-standard-cell devices, complete-chip boundaries,
+800 micrometre density windows, supply impedance, IR drop or electromigration.
+Those remain in the later [qualification chunks](PDK_QUALIFICATION_PLAN.md).
+
+Fresh UART/APB native resistor re-extractions showed allocation/reduction
+differences; they are not asserted identical. The accepted comparison uses the
+same original resistor mesh and unchanged circuit material. Full transistor-RC
+waveforms for earlier, more strongly coupled fill candidates retain their
+original experimental scope. Unfinished runs are not passes, and the fixed
+1 ps convergence gate is unchanged. The final clearance recipe supersedes those
+geometries and closes nominal performance through model invariance plus actual
+extracted timing; general extraction validation remains chunk 8.
+
+The earlier GF180 gate remains bound to its original tested source. Exact
+historical copies of the eight shared modules changed by this IHP feature are
+retained in its source snapshot. This does not relabel the current application
+as a newly executed GF180 production qualification.
+
+## Historical research checkpoints — superseded fill candidates
+
+The sections below preserve earlier observations, failures and open-work lists
+as they stood at each checkpoint. Their statements that chunk 5 was incomplete
+describe those earlier candidates, not the final reference acceptance above.
 
 Chunk 5 remains in progress. The current
 [physical keep-out candidate](validation/ihp-cell-keepout-2026-10-11.json) uses

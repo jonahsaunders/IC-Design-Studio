@@ -10,6 +10,7 @@ from scripts.prepare_sky130_digital import prepare
 from scripts.fetch_gf180_connectivity import fetch as fetch_gf180
 from scripts.prepare_gf180_lvs import prepare as prepare_gf180_rules
 from scripts.prepare_gf180_connectivity import prepare as prepare_gf180_inputs, attach as attach_gf180
+from scripts.prepare_ihp_fill import prepare as prepare_ihp_fill
 
 
 def gf180_profiles(platforms, staging, *, cache=None):
@@ -55,6 +56,7 @@ def bundle(root, *, sky130_cache=None, gf180_cache=None):
         platforms['sky130hd']=sky130
     with tempfile.TemporaryDirectory(prefix='.gf180-connectivity-',dir=root) as temporary:
         platforms=gf180_profiles(platforms,Path(temporary),cache=gf180_cache)
+    platforms['ihp-sg13g2']=prepare_ihp_fill(platforms['ihp-sg13g2'],platform_root/'ihp-sg13g2/fill')
     # Materialize linked collateral while all sibling platforms are present.
     # The content locks remain unchanged and are verified after pruning.
     directories={platform.get('directory',name) for name,platform in platforms.items()}

@@ -13,7 +13,7 @@ STAGES = ('floorplan','place','cts','route','finish')
 CHECKPOINTS = {'floorplan':'2_floorplan','place':'3_place','cts':'4_cts','route':'5_route','finish':'6_final'}
 DEFAULTS = {'die_area':[0,0,100,100],'core_area':[10,10,90,90],'place_density':0.6,'threads':2}
 OPTIONS = {'min_routing_layer','max_routing_layer','macro_halo_um','pin_constraints','macro_placements',
-           'io_constraints_tcl','macro_placement_tcl','pdn_tcl','gf180_fill'}
+           'io_constraints_tcl','macro_placement_tcl','pdn_tcl','gf180_fill','ihp_fill','ihp_fill_pattern'}
 
 
 def library_options(r):
@@ -60,6 +60,12 @@ def technology_options(r, flow_root):
 def validate_settings(settings):
     if not isinstance(settings,dict) or set(settings)-set(DEFAULTS)-OPTIONS:raise ValueError('Unknown physical implementation setting.')
     if type(settings.get('gf180_fill',False)) is not bool:raise ValueError('GF180 block fill must be enabled or disabled.')
+    if type(settings.get('ihp_fill',False)) is not bool:raise ValueError('IHP block fill must be enabled or disabled.')
+    from .digital_ihp_geometry import PATTERNS
+    if 'ihp_fill_pattern' in settings and (not settings.get('ihp_fill') or not isinstance(settings['ihp_fill_pattern'],str) or settings['ihp_fill_pattern'] not in PATTERNS):
+        raise ValueError('Choose an IHP fill pattern with IHP fill enabled.')
+    if settings.get('ihp_fill') and (settings.get('gf180_fill') or settings.get('pdn_tcl','').strip() or settings.get('macro_placements') or settings.get('macro_placement_tcl','').strip()):
+        raise ValueError('IHP block fill requires standard cells and its captured power grid.')
     if settings.get('gf180_fill') and (settings.get('pdn_tcl','').strip() or settings.get('macro_placements')):
         raise ValueError('GF180 block fill requires its captured power grid and standard-cell-only placement.')
     for name in ('die_area','core_area'):
@@ -239,6 +245,8 @@ def execute(r):
     command += geometry_options(r,settings)
     from .digital_gf180_fill import implementation_options as fill_options
     command += fill_options(r,settings)
+    from .digital_ihp_fill import implementation_options as ihp_fill_options
+    command += ihp_fill_options(r,settings)
     command += [key+'='+value for key,value in implementation_options(r.platform).items()]
     if 'klayout' in r.tools:command.append('KLAYOUT_CMD='+r.tools['klayout'])
     if resume:
@@ -294,6 +302,8 @@ def execute(r):
         extract(r)
         from .digital_gf180_fill import execute as fill
         fill(r,settings)
+        from .digital_ihp_fill import execute as ihp_fill
+        ihp_fill(r,settings)
         from .digital_physical_checks import execute as physical_checks
         checks=physical_checks(r)
         from .digital_lvs_reference import execute as reference_export

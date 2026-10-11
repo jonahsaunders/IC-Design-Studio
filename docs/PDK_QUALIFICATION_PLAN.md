@@ -17,26 +17,26 @@ options and current digital operating points. It does **not** equate this bundle
 subset with the complete upstream PDK. Upstream completeness and the remaining
 device-specific operating envelopes are explicit open requirements.
 
-## Current checkpoint: chunk 5 in progress
+## Current checkpoint: chunk 5 reference gate complete
 
-Chunk 4's six-reference acceptance remains complete. For IHP, the new
-[fill checkpoint](IHP_FILL_QUALIFICATION.md) resolves the counter's twelve native
-findings and the UART/APB references' eleven findings each. All three have zero
-native geometry findings and matched before/after device and port connectivity.
-Four real wiring, port and transistor-body faults are rejected, and the
-supplemental rules pass for these block footprints. The complete matched UART
-capacitance workload now passes all 508 output checks. The complete unfilled
-APB full-RC comparison passes 1,738 checks and 90 transitions, with a 0.756 ps
-maximum difference against the fixed 1 ps convergence limit. Matched filled
-full-RC performance/convergence, cold startup, accepted post-fill timing and
-production integration remain open; chunk 5 is not complete. The newer
-[physical keep-out checkpoint](validation/ihp-cell-keepout-2026-10-11.json)
-preserves internal-cell capacitance through physical P+ fill and complete
-floating-poly exclusions. The generator reproduces all three layouts byte for
-byte. Eight complete stock-engine counter captures pass 576 output checks and
-the fixed 1 ps convergence gate at nominal and cold conditions. The corrected
-APB default-step failure is retained; larger complete convergence, nominal
-spatial timing and production integration are still required.
+Chunks 1–5 now have their defined planning/reference acceptance. The final
+[IHP fill gate](IHP_FILL_QUALIFICATION.md) binds counter, UART and APB to zero
+native markers, passing supplemental block rules, strict device/port LVS,
+unchanged nominal circuit capacitance and local fields, final-netlist formal
+proofs and three-library-condition extracted timing. The actual application
+fill, timing and macro-export paths pass. Native abstract readback confirms
+all fill is represented, and Windows/Linux evidence audits agree exactly.
+
+The final recipe keeps fill 9 micrometres clear of the circuit. This preserves
+the original nominal electrical model and supersedes the earlier coupled-fill
+waveform experiments. No unfinished transient is counted as passing; the
+1 ps convergence limit remains unchanged. Independent extraction calibration,
+additional corners, complete-chip checks and foundry acceptance remain in their
+original later chunks. Chunk 6 is the next planned gate.
+
+The chunk 4 GF180 record retains its original source and scope. The eight shared
+modules changed for IHP have exact historical source snapshots; this preserves
+past acceptance without asserting a new GF180 production run on the new source.
 
 ## Completed chunk 4 reference gate
 

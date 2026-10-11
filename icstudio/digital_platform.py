@@ -199,6 +199,8 @@ def validate(platform):
     validate_reference(platform)
     from .digital_gf180_checks import validate as validate_connectivity
     validate_connectivity(platform)
+    from .digital_ihp_fill import validate as validate_ihp_fill
+    validate_ihp_fill(platform)
     if platform.get('fingerprint') != digest(records):raise ValueError('Digital platform manifest checksum changed. Import the platform again.')
     return platform
 

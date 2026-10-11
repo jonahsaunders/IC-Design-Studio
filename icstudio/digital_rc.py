@@ -118,10 +118,14 @@ def timing_sources(r):
     upstream=r.settings.get('upstream',{});artifacts=upstream.get('artifacts',{})
     if r.config.get('physical',{}).get('gf180_fill') and 'fill' not in artifacts:
         raise ValueError('Run physical finish with GF180 fill before extracted timing.')
+    if r.config.get('physical',{}).get('ihp_fill') and 'ihp_fill' not in artifacts:
+        raise ValueError('Run physical finish with IHP fill before extracted timing.')
     if not any(k=='spef' or k.startswith('spef_') for k in artifacts):return [(None,None)]
     verify_upstream(upstream);corners=selected(r.config)
     from .digital_gf180_fill import verify as verify_fill
     verify_fill(upstream,r.config)
+    from .digital_ihp_fill import verify as verify_ihp_fill
+    verify_ihp_fill(upstream,r.config)
     if not corners:return [(None,'spef')]
     if 'extraction' not in artifacts:
         raise ValueError('Run physical finish with the selected interconnect corners before extracted timing.')

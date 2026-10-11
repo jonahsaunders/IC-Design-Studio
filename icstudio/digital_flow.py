@@ -80,6 +80,8 @@ def prepare(project, stage='simulate', simulator='icarus', tools=None, cell_id=N
     if stage == 'simulate' and (not config.get('testbench') or not any(f['role'] == 'testbench' for f in config['files'])):
         raise ValueError('Set a testbench top and mark its source as Testbench.')
     names=list(tool_names(stage, simulator))
+    if stage=='finish' and config.get('physical',{}).get('ihp_fill'):
+        names.append('magic')
     if stage=='regression':
         from .digital_regression import required_tools
         names=required_tools(config)

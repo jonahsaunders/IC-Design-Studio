@@ -1,7 +1,7 @@
 """Physical intent editor: geometry, pins, macros, and captured flow scripts."""
 from PySide6.QtWidgets import (QDialog,QVBoxLayout,QHBoxLayout,QTabWidget,QWidget,QFormLayout,
     QLineEdit,QDoubleSpinBox,QSpinBox,QPlainTextEdit,QTableWidget,QTableWidgetItem,
-    QHeaderView,QPushButton,QLabel,QDialogButtonBox,QCheckBox)
+    QHeaderView,QPushButton,QLabel,QDialogButtonBox,QCheckBox,QComboBox)
 from .model import clone
 from .digital_physical import DEFAULTS,validate_settings
 
@@ -19,6 +19,9 @@ class PhysicalEditor(QDialog):
         self.halo=QDoubleSpinBox();self.halo.setRange(0,10000);self.halo.setDecimals(3);self.halo.setValue(self.settings.get('macro_halo_um',0));form.addRow('Macro halo',self.halo)
         self.fill=QCheckBox('Generate GF180 C/D block density fill');self.fill.setChecked(self.settings.get('gf180_fill',False));form.addRow(self.fill)
         fill_note=QLabel('For standard-cell blocks using the supplied GF180 9-track, 5-metal stack. Includes its power grid and post-fill typical extraction. Run layout rules, connectivity, equivalence and timing before accepting the result.');fill_note.setWordWrap(True);form.addRow(fill_note)
+        self.ihp_fill=QCheckBox('Generate IHP block density fill');self.ihp_fill.setChecked(self.settings.get('ihp_fill',False));form.addRow(self.ihp_fill)
+        self.ihp_pattern=QComboBox();self.ihp_pattern.addItems(['balanced','compact','dense']);self.ihp_pattern.setCurrentText(self.settings.get('ihp_fill_pattern','balanced'));form.addRow('IHP fill pattern',self.ihp_pattern)
+        ihp_note=QLabel('Keeps fill clear of circuit routes and verifies the filled layout. Use compact for small blocks or dense where larger patterns leave too little fill. Timing and connectivity checks remain required.');ihp_note.setWordWrap(True);form.addRow(ihp_note)
         self.pins=self.grid('Pin groups',['Pin expression','Edge'],[[p['pins'],p['edge']] for p in self.settings.get('pin_constraints',[])])
         self.macros=self.grid('Macros',['Instance','X (µm)','Y (µm)','Orientation'],[[m['name'],m['x'],m['y'],m.get('orientation','R0')] for m in self.settings.get('macro_placements',[])])
         self.scripts={}
@@ -41,6 +44,7 @@ class PhysicalEditor(QDialog):
             value={key:[float(v) for v in edit.text().split()] if key.endswith('_area') else edit.text().strip() for key,edit in self.edits.items()}
             value.update(place_density=self.density.value(),threads=self.threads.value(),macro_halo_um=self.halo.value())
             if self.fill.isChecked():value['gf180_fill']=True
+            if self.ihp_fill.isChecked():value.update(ihp_fill=True,ihp_fill_pattern=self.ihp_pattern.currentText())
             value['pin_constraints']=[{'pins':self.pins.item(i,0).text().strip(),'edge':self.pins.item(i,1).text().strip()} for i in range(self.pins.rowCount())]
             value['macro_placements']=[{'name':self.macros.item(i,0).text().strip(),'x':float(self.macros.item(i,1).text()),'y':float(self.macros.item(i,2).text()),'orientation':self.macros.item(i,3).text().strip() or 'R0'} for i in range(self.macros.rowCount())]
             value.update({key:edit.toPlainText() for key,edit in self.scripts.items()});validate_settings(value);self.value=value;self.accept()

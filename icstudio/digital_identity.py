@@ -49,6 +49,8 @@ def stage_key(config, stage, simulator='icarus'):
         selected['lvs_reference'] = config['platform']['lvs_reference']
     if stage == 'finish' and config.get('platform', {}).get('gf180_connectivity') is not None:
         selected['gf180_connectivity'] = config['platform']['gf180_connectivity']
+    if stage in ('finish','timing') and config.get('platform',{}).get('ihp_fill') is not None:
+        selected['ihp_fill'] = config['platform']['ihp_fill']
     if stage in ('simulate', 'lint'):
         selected['simulator'] = 'verilator' if stage == 'lint' else simulator
     return digest({'version': 1, 'stage': stage, 'inputs': selected})

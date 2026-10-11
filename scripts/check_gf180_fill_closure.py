@@ -104,19 +104,39 @@ def validate_supplement(report, floorplan, plan, pattern_hash, negative, row, na
     require(set(report['metal_density_windows'])=={'m1','m2','m3','m4','m5'}, 'missing local metal layer.')
 
 
-def validate(record, root):
+def validate(record, root, source_snapshot=None):
     root=Path(root)
     require(record.get('schema')==2 and record.get('chunk')==4 and
             record.get('status')=='reference_gate_complete' and record.get('qualified') is False,
             'missing full fill coverage acceptance schema.')
     native=bound(record['native_acceptance'],root);validate_native(native,root)
     require(record.get('backend_sha256')==native['backend_sha256'], 'closure backend differs.')
+    # A later feature may preserve this historical gate with the exact tested
+    # source bytes. This is explicit evidence of the old implementation, never
+    # a retroactive claim that the new application ran the old production gate.
+    snapshot = bound(source_snapshot, root) if source_snapshot else None
+    if snapshot:
+        require(snapshot['source_commit']==native['source_commit'] and
+                snapshot['backend_sha256']==native['backend_sha256'] and
+                snapshot['scope']=='historical-tested-source-only' and snapshot['files'],
+                'historical source snapshot has a different acceptance scope.')
+        require(set(snapshot['files'])<=set(native['source_files']), 'unknown historical source.')
     for name,digest in native['source_files'].items():
-        require(sha(root/'icstudio'/name)==digest, 'application changed since production acceptance: '+name)
+        captured=snapshot['files'].get(name) if snapshot else None
+        path=(root/captured['path']).resolve() if captured else root/'icstudio'/name
+        require(path.is_relative_to(root.resolve()) and
+                (not captured or captured['sha256']==digest) and sha(path)==digest,
+                'application changed since production acceptance: '+name)
     sources=record['source_files']
     require(set(SOURCE_FIELDS.values())<=set(sources), 'missing checker source bindings.')
+    checker_snapshot=snapshot.get('checker_files',{}) if snapshot else {}
+    require(set(checker_snapshot)<=set(sources), 'unknown historical checker source.')
     for name,digest in sources.items():
-        require(identity(digest) and sha(root/name)==digest, 'closure checker changed: '+name)
+        captured=checker_snapshot.get(name)
+        path=(root/captured['path']).resolve() if captured else root/name
+        require(path.is_relative_to(root.resolve()) and identity(digest) and
+                (not captured or captured['sha256']==digest) and sha(path)==digest,
+                'closure checker changed: '+name)
     require(record['local_density_policy']=='pinned-drm13.3-measurement-global-threshold-v1' and
             record['electrical_acceptance']=='final-device-and-supply-lvs_formal-equivalence_three-corner-extracted-sta' and
             record['full_transistor_rc_acceptance']=='not_claimed' and record.get('limitations'),

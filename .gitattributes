@@ -17,3 +17,7 @@ icstudio/assets/pdks/ihp-sg13g2/** -whitespace
 # These evidence-bound files preserve captured line endings and patch context.
 examples/ihp-ground-engine-lock.json whitespace=cr-at-eol
 packaging/physical/magic-ihp-same-net-ground.patch -whitespace
+# Portable evidence keeps its captured Windows serialization byte for byte.
+docs/validation/ihp-fill-reference-2026-10-11/** whitespace=cr-at-eol
+docs/validation/ihp-fill-closure-2026-10-11.json whitespace=cr-at-eol
+docs/validation/gf180-tested-source-2026-10-09.json whitespace=cr-at-eol
