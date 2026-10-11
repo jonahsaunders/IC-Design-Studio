@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "status": "comparison-executed",
+  "qualified": false,
+  "cuts": 1,
+  "stacked": true,
+  "gds_sha256": "c9ef02097ed99eac1ad551dc01855e4b4fce67aa5626f69d3c2557001537a039",
+  "driver_sha256": "ed8e516e4c37d45f090f3e38696c733826d007d284974b9fb132ceb913df6f7f",
+  "magic_deck_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+  "klayout_deck_sha256": "be24501ab1f642728df3223bbe05d7a92662d68fd7aea4366c02216b33560301",
+  "expected_gate_area_um2": 0.213,
+  "expected_cut_area_um2": 0.64,
+  "expected_ratio": 3.0046948356807515,
+  "limit": 6,
+  "expected_violation": false,
+  "commands": {
+    "magic": [
+      "/opt/icstudio/physical/installed/bin/magic",
+      "-dnull",
+      "-noconsole",
+      "-rcfile",
+      "/var/tmp/icstudio-sky130-via4-contact-v1/1-stacked/startup.tcl",
+      "/var/tmp/icstudio-sky130-via4-contact-v1/1-stacked/run.tcl"
+    ],
+    "klayout": [
+      "/opt/icstudio/bin/klayout",
+      "-b",
+      "-r",
+      "/var/tmp/icstudio-sky130-via4-contact-v1/1-stacked/check.drc",
+      "-rd",
+      "input=/var/tmp/icstudio-sky130-via4-contact-v1/1-stacked/input.gds",
+      "-rd",
+      "top_cell=ANTENNA",
+      "-rd",
+      "report=/var/tmp/icstudio-sky130-via4-contact-v1/1-stacked/report.lyrdb"
+    ]
+  },
+  "executable_hashes": {
+    "magic": "4b74020f201fd8b09b4984614249f3602dd1f4b2a3731e087dfe88eeacc887c5",
+    "klayout": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9"
+  },
+  "magic_antenna": "Reading extract file.\nBuilding flattened netlist.\nRunning antenna checks.\nCell: ANTENNA\nAntenna violation detected at plane metal4 contact\nEffective antenna ratio 801.252 > limit 400\nGate rect (65 0) to (80 142)\nAntenna rect (0 300) to (500 371)\nantennacheck finished.\n",
+  "magic_feedback": 10,
+  "klayout_markers": 0,
+  "klayout_values": [],
+  "seconds": 1.835323129002063,
+  "files": {
+    "startup.tcl": "101bf82bd02b485d17ba72d2e6e701487da4c17fde50096e82347ef37a31f79d",
+    "input.gds": "c9ef02097ed99eac1ad551dc01855e4b4fce67aa5626f69d3c2557001537a039",
+    "report.lyrdb": "856f799025580bdc730de2cc08621273185b2462a0beb3812fcd056c6a0dec9c",
+    "ANTENNA.ext": "f6cefe3b9d30c8db09f2d5a5ceb7aaaedcbb0a8fea932d66cc92f2e782faa519",
+    "sky130A.tech": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+    "feedback.txt": "a08ce09493f712bb36b0d3a1ec9b4ce394e51858b4c049c5b939c4a55dfc15a9",
+    "check.drc": "be24501ab1f642728df3223bbe05d7a92662d68fd7aea4366c02216b33560301",
+    "klayout.log": "3fc00ea58357451902fb85c97b5a107f4d1affb5bcaea282f1b979db5827d902",
+    "run.tcl": "e4814de13f732d70426ab034934a8e4cd2ea99527ee4925de7e914c8898fbb10",
+    "magic.log": "455be21d291a6e361228c03e3198fb76937c7bd8b9ed1bc242d329a3271b7109"
+  }
+}

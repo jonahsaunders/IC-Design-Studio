@@ -16195,7 +16195,10 @@
         "scripts/qualify_digital_platforms.py",
         "scripts/qualify_drc_boundaries.py",
         "scripts/sky130_rule_inventory.py",
-        "scripts/sky130_poly_antenna.drc"
+        "scripts/sky130_poly_antenna.drc",
+        "scripts/sky130_staged_antenna.drc",
+        "scripts/sky130_antenna_controls.py",
+        "scripts/check_sky130_antenna_controls.py"
       ],
       "automation_gap": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement."
     },
@@ -16714,10 +16717,11 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Full FEOL/BEOL/off-grid geometry now passes with deliberate fault detection. Complete the 601-row rule reconciliation, density, all antenna etch stages (including APB checker discrepancy), strict final-GDS LVS and production integration.",
+      "remaining": "Complete the 601-row rule applicability/execution reconciliation, density/fill, strict final-GDS LVS and production/delivery integration. All 13 selected antenna stages now pass the three HD references and controlled faults; additional process/device applicability remains open.",
       "historical_evidence": [
         "gds-diagnostics",
-        "sky130-physical-progress-2026-10-11"
+        "sky130-physical-progress-2026-10-11",
+        "sky130-antenna-progress-2026-10-11"
       ]
     },
     "sky130A:source-completeness": {
@@ -20010,6 +20014,11 @@
       "path": "docs/validation/sky130-physical-progress-2026-10-11.json",
       "sha256": "5cf0b64cbf9af6cf1db97404cb78d8413556c609ae2e3de1fe64e8f024a48050",
       "scope_limit": "Full enabled geometry passes; poly antenna omission covered with controls. APB native antenna disagreement, density, full rule reconciliation, strict final LVS and integration remain open."
+    },
+    "sky130-antenna-progress-2026-10-11": {
+      "path": "docs/validation/sky130-antenna-progress-2026-10-11.json",
+      "sha256": "4d4a40cdf9eeea8c1cf44750a2e42dbd56cb4684b592acf6122b0526bf237c6b",
+      "scope_limit": "All thirteen selected antenna stages pass the three original references and exact controls. Native APB via4 false positives and array false negatives are isolated. Full process/delivery gate remains incomplete."
     }
   },
   "execution_acceptance": {

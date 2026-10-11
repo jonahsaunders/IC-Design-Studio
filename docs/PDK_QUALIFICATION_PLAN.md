@@ -36,11 +36,12 @@ original later chunks. Chunk 6 is now in progress.
 
 The [SKY130 physical coverage batch](SKY130_PHYSICAL_QUALIFICATION.md) runs all
 three original final layouts through full enabled geometry in both engines,
-with deliberate FEOL/BEOL faults detected. A missing poly antenna check is
-covered by a supplemental native run and exact boundary controls. APB exposes
-an unresolved disagreement between native and independent antenna checks.
-The 601-row manual inventory, density interpretation, remaining antenna stages,
-strict final-GDS LVS and production integration remain open.
+with deliberate FEOL/BEOL faults detected. All 13 selected antenna etch stages
+pass on the unchanged references, with 178 boundary/connectivity controls and
+ten exact contact-array controls. APB's false via4 findings and missed native
+array faults are traced to contact-unit and fragment-counting errors. The
+601-row manual inventory, density interpretation, broader antenna applicability,
+strict final-GDS LVS and production/delivery integration remain open.
 
 The chunk 4 GF180 record retains its original source and scope. The eight shared
 modules changed for IHP have exact historical source snapshots; this preserves
