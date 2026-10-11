@@ -1,10 +1,13 @@
 # IHP fill qualification checkpoint
 
-Chunk 5 remains in progress. The counter, UART and APB references have zero
-findings from the pinned maximal native geometry deck after fill. Their original
-mask geometry and 200/400 µm footprints are unchanged. The repository generator
-reproduces the exact checked GDS bytes. This is experimental qualification work;
-the desktop production flow does not yet use this recipe.
+Chunk 5 remains in progress. The current
+[physical keep-out candidate](validation/ihp-cell-keepout-2026-10-11.json) uses
+P+ active filler and excludes fill around functional cells and connected floating
+poly components. Counter, UART and APB pass the native and supplemental geometry
+checks and strict device/port comparisons. The repository generator reproduces
+all three GDS files byte for byte. Original circuit geometry and block footprints
+are preserved; the P+ alternative deliberately adds a substrate implant mask.
+The desktop production flow does not yet use this experimental recipe.
 
 The [checkpoint](validation/ihp-fill-checkpoint-2026-10-10.json) binds the inputs,
 native reports, source files, fault controls and retained evidence archive.
@@ -540,3 +543,54 @@ finished failed APB controls have a read-back-verified permanent archive.
 The corrected engine remains experimental: larger filled full-RC workloads,
 model review, accepted nominal extraction/timing and production integration
 remain open. Chunk 5 is not complete.
+
+## Physical substrate fill and complete-cell keep-out
+
+The [physical keep-out record](validation/ihp-cell-keepout-2026-10-11.json)
+captures a new physical alternative. The delivered active filler receives a
+P+ implant in ordinary PWell. It excludes circuit active, contacts, gates,
+isolated wells and process modifiers. Native extraction recognizes substrate
+material in the explicit drawing-purpose view. The production simulator and all
+40 pinned SPICE files remain unchanged. This avoids the floating N+ fill diode
+for this layout; the earlier native diode defect and private experiments remain
+separate historical evidence.
+
+A 9 µm functional-cell keep-out exceeds the pinned native 8 µm coupling halo.
+The audit also traverses entire capacitor-only poly components touching internal
+device nodes. Checking only capacitors directly attached to those nodes missed
+indirect changes in the first UART and APB candidates. Those rejected comparisons
+are retained. The final protected inventories contain 100/1,328/1,261 internal
+nodes and 10/188/143 connected floating-poly nodes for counter/UART/APB.
+
+The counter and UART internal subnetworks are exactly identical before reduction.
+APB has one 3.76802e-17 aF native subtraction residue. The audit records it under
+the existing per-pair 1e-10 aF and cumulative 1e-7 aF native residue bounds; both
+compared values must be residues. It does not allow relative error in an ordinary
+capacitor, and does not remove the residue from the simulation model. Windows
+and Linux reproduce all three decoded audits exactly.
+
+All three corrected layouts pass native maximal and supplemental geometry checks,
+plus strict transistor/port connectivity. The checked-in experimental generator
+accepts an exclusion view only when every original mask is preserved and the
+auxiliary region stays within the original footprint. It rejects generated fill
+inside that region. The auxiliary layer is absent from the delivered GDS. Native
+replays reproduce each tested GDS byte for byte. Cell coverage still requires
+the independent extraction audit; a supplied exclusion region alone is no proof.
+
+Eight complete stock-ngspice counter captures pass all 576 output-bit checks at
+nominal and cold/fast conditions. Each convergence comparison matches 31 edges.
+The largest nominal difference under tighter integration is 0.467208 ps; the
+largest cold difference is 0.276833 ps. Both are below the unchanged 1 ps limit.
+The descriptive fill-induced shifts are 11.678662 ps nominal and 7.499081 ps cold.
+These full-counter comparisons reproduce on Windows and Linux. The original
+circuit resistance graph is retained after verifying circuit geometry and device
+records; separately re-extracted resistance suffixes/coordinates are not asserted
+identical.
+
+The corrected APB default-step run aborts at 90.02 ns and is rejected. Its first
+tighter run has passed that point, and a further tighter comparison is running.
+UART complete baseline/tighter captures and its unfilled tighter reference are
+also pending. The 151 focused IHP tests pass on each operating system without
+skips. Completed results and rejected attempts have a verified permanent archive.
+Accepted nominal spatial extraction/timing and production integration remain
+required; this checkpoint does not complete chunk 5.

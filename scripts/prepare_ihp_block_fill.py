@@ -32,7 +32,7 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def generation_script(macros):
+def generation_script(macros, *, exclusions=False, metal_spacing_um=1.5, topmetal_width_um=5.):
     parts = ['source($in_gds)\ntarget($out_gds, "ICSTUDIO_IHP_FILL")\nfill_scope = source.extent\n']
     for name, digest in MACROS.items():
         path = Path(macros) / name
@@ -51,7 +51,26 @@ def generation_script(macros):
                 require(script.count(old) == 1, 'Unsupported upstream metal spacing.')
                 script = script.replace(old, "'distance_m%d' => 1.5" % n)
         parts.append(script.replace('EdgeSeal.holes', 'fill_scope'))
-    return '\n'.join(parts) + '\nputs "IHP_FILL_GENERATION_COMPLETE"\n'
+    return generation_settings('\n'.join(parts) + '\nputs "IHP_FILL_GENERATION_COMPLETE"\n',
+                               exclusions, metal_spacing_um, topmetal_width_um)
+
+
+def generation_settings(script, exclusions=False, metal_spacing_um=1.5, topmetal_width_um=5.):
+    """Bound experimental native macro settings; all output rules still run."""
+    require(type(exclusions) is bool and metal_spacing_um in (1.35, 1.4, 1.5) and
+            topmetal_width_um in (5., 5.2, 8.), 'Unsupported experimental fill settings.')
+    if exclusions:
+        require(script.count('fill_scope = source.extent') == 1, 'Unsupported exclusion scope.')
+        script = script.replace('fill_scope = source.extent', 'fill_scope = source.extent - source.input("10000/0")')
+    if metal_spacing_um != 1.5:
+        for n in range(1, 6):
+            old = f"'distance_m{n}' => 1.5"
+            require(script.count(old) == 1, 'Unsupported upstream metal spacing.')
+            script = script.replace(old, f"'distance_m{n}' => {metal_spacing_um}")
+    if topmetal_width_um != 5.:
+        require(script.count('width = 5.0') == 1, 'Unsupported upstream top-metal width.')
+        script = script.replace('width = 5.0', f'width = {topmetal_width_um}')
+    return script
 
 
 def masks(layout):
@@ -77,8 +96,50 @@ def validate_input(layout, top, die):
     return before, bounds, poly
 
 
-def merge_fill(layout, fill, target, before, bounds):
+def exclusion_region(layout, view):
+    """Accept only original masks plus a bounded auxiliary exclusion layer.
+
+    The caller supplies this generation view. It does not prove cell coverage;
+    native electrical re-extraction and the complete-cell audit must do that.
+    The exclusion mask never enters the delivered layout.
+    """
     import klayout.db as k
+    require(view.dbu == layout.dbu and len(list(view.top_cells())) == 1 and
+            view.top_cell().name == layout.top_cell().name, 'Invalid exclusion view hierarchy or grid.')
+    before, after = masks(layout), masks(view); empty = k.Region(); pair = (10000, 0)
+    require(pair not in before and pair in after and not after[pair].is_empty(), 'Missing or preexisting exclusion mask.')
+    for layer in before.keys() | after.keys():
+        if layer != pair:
+            require((before.get(layer, empty) ^ after.get(layer, empty)).is_empty(), 'Exclusion view changed original geometry.')
+    require((after[pair] - k.Region(layout.top_cell().bbox())).is_empty(), 'Exclusion region extends beyond the original block.')
+    return after[pair]
+
+
+def substrate_implant(active, before, bounds):
+    """Bound a physical P+ alternative to ordinary PWell without circuit edits.
+
+    The pinned manual defines pSD/Activ in PWell as substrate material. This
+    changes the delivered process mask; it is not a simulation-only junction
+    substitution. Native geometry and electrical checks remain mandatory.
+    """
+    import klayout.db as k
+    require(not active.is_empty() and all(p.is_box() for p in active.each()),
+            'P+ fill requires rectangular active filler.')
+    # pSD.c requires 180 nm enclosure in NWell. NWell is excluded here, and
+    # clipping the optional PWell enclosure preserves the original footprint.
+    added = active.sized(180) & k.Region(bounds)
+    require((active - added).is_empty(), 'The implant must cover every active filler.')
+    forbidden = ((1, 0), (5, 0), (6, 0), (7, 0), (7, 21), (14, 0), (26, 0),
+                 (28, 0), (31, 0), (32, 0), (44, 0), (46, 21), (111, 0))
+    for pair in forbidden:
+        require((added & before.get(pair, k.Region())).is_empty(),
+                'P+ fill overlaps circuit material or a process modifier: '+str(pair))
+    return added
+
+
+def merge_fill(layout, fill, target, before, bounds, active_type='n-floating'):
+    import klayout.db as k
+    require(active_type in ('n-floating', 'p-substrate'), 'Unsupported active-fill type.')
     require(fill.dbu == layout.dbu and len(list(fill.top_cells())) == 1, 'Invalid generated fill hierarchy.')
     generated = masks(fill); empty = k.Region(); counts = {}
     for pair, region in generated.items():
@@ -88,6 +149,11 @@ def merge_fill(layout, fill, target, before, bounds):
         layout.top_cell().shapes(layout.layer(*pair)).insert(region); counts[str(pair[0])+'/22'] = region.count()
     require(all(not generated.get((n, 22), empty).is_empty() for n in LAYERS), 'Missing required fill layer.')
     require((generated[(1, 22)] & before.get((5, 0), empty)).is_empty(), 'Fill introduced a MOS gate.')
+    if active_type == 'p-substrate':
+        added = substrate_implant(generated[(1, 22)], before, bounds)
+        layout.top_cell().shapes(layout.layer(14, 0)).insert(added)
+        generated[14, 0] = added
+        counts['14/0'] = added.count()
     options = k.SaveLayoutOptions(); options.gds2_write_timestamps = False; layout.write(str(target), options)
     check = k.Layout(); check.read(str(target)); after = masks(check)
     require(check.top_cell().bbox() == bounds and check.dbu == layout.dbu, 'Written fill changed its extent or grid.')
@@ -99,13 +165,20 @@ def merge_fill(layout, fill, target, before, bounds):
     return counts, density
 
 
-def prepare(gds, top, die, macros, deck, executable, output):
+def prepare(gds, top, die, macros, deck, executable, output, active_type='n-floating', *,
+            exclusion_view=None, metal_spacing_um=1.5, topmetal_width_um=5.):
     import klayout.db as k
     paths = [Path(p).resolve() for p in (gds, macros, deck, executable, output)]
     gds, macros, deck, executable, output = paths
     require(not output.exists(), 'Use a new output directory to preserve earlier evidence.')
     layout = k.Layout(); layout.read(str(gds)); before, bounds, poly = validate_input(layout, top, die)
-    script = generation_script(macros)
+    excluded = None; exclusion_digest = None
+    if exclusion_view is not None:
+        exclusion_view = Path(exclusion_view).resolve()
+        view = k.Layout(); view.read(str(exclusion_view))
+        excluded = exclusion_region(layout, view); exclusion_digest = sha(exclusion_view)
+    script = generation_script(macros, exclusions=excluded is not None,
+                               metal_spacing_um=metal_spacing_um, topmetal_width_um=topmetal_width_um)
     deck_bytes = deck.read_bytes().replace(b'\r\n', b'\n')
     require(hashlib.sha256(deck_bytes).hexdigest() == DECK, 'The native maximal DRC deck changed.')
     version = subprocess.check_output([str(executable), '-v'], text=True).strip()
@@ -114,6 +187,11 @@ def prepare(gds, top, die, macros, deck, executable, output):
     (output/'generate.drc').write_text(script, encoding='utf-8', newline='\n')
     (output/'sg13g2_maximal.lydrc').write_bytes(deck_bytes)
     shutil.copyfile(gds, output/'original.gds')
+    generation_input = output/'original.gds'
+    if excluded is not None:
+        generation_input = output/'generation-input.gds'
+        shutil.copyfile(exclusion_view, generation_input)
+        require(sha(generation_input) == exclusion_digest, 'Exclusion view changed during capture.')
     commands = []
     def run(script_name, log_name, options, timeout):
         cmd = [str(executable), '-b', '-r', str(output/script_name)]
@@ -123,17 +201,23 @@ def prepare(gds, top, die, macros, deck, executable, output):
         with (output/log_name).open('w', encoding='utf-8') as log:
             proc = subprocess.run(cmd, cwd=output, stdout=log, stderr=subprocess.STDOUT, timeout=timeout)
         require(proc.returncode == 0, 'Native engine failed; inspect ' + log_name)
-    run('generate.drc', 'generation.log', dict(in_gds=output/'original.gds', out_gds=output/'fill-only.gds'), 600)
+    run('generate.drc', 'generation.log', dict(in_gds=generation_input, out_gds=output/'fill-only.gds'), 600)
     require('IHP_FILL_GENERATION_COMPLETE' in (output/'generation.log').read_text(), 'Incomplete fill generation.')
     fill = k.Layout(); fill.read(str(output/'fill-only.gds'))
-    counts, density = merge_fill(layout, fill, output/'filled.gds', before, bounds)
+    if excluded is not None:
+        require(all((region & excluded).is_empty() for region in masks(fill).values()),
+                'Generated filler overlaps the requested exclusion region.')
+    counts, density = merge_fill(layout, fill, output/'filled.gds', before, bounds, active_type)
     run('sg13g2_maximal.lydrc', 'engine.log', dict(in_gds=output/'filled.gds', report_file=output/'full.lyrdb',
                                                 fillerRules='true', densityRules='true'), 1800)
     items = ET.parse(output/'full.lyrdb').findall('./items/item')
     require(sha(gds) == source_digest, 'Input changed during generation.')
     record = dict(schema=1, status='native-geometry-passed' if not items else 'native-geometry-failed', qualified=False,
         top=top, original_gds_sha256=source_digest, filled_gds_sha256=sha(output/'filled.gds'),
-        original_die_nm=die, original_masks_unchanged=True, original_poly_percent=100*poly,
+        original_die_nm=die, original_masks_unchanged=active_type == 'n-floating',
+        original_circuit_geometry_preserved=True, active_fill_type=active_type, original_poly_percent=100*poly,
+        exclusion_view_sha256=exclusion_digest, exclusion_area_nm2=None if excluded is None else excluded.area(),
+        metal_spacing_um=metal_spacing_um, topmetal_width_um=topmetal_width_um,
         macro_sha256=MACROS, native_deck_sha256=DECK, engine_version=version, engine_sha256=sha(executable),
         script_sha256=sha(__file__), added_polygons=counts, density_percent=density,
         markers=len(items), categories=dict(Counter(i.findtext('category') for i in items)), commands=commands,
@@ -151,8 +235,14 @@ def main():
         parser.add_argument('--'+name, type=Path, required=True)
     parser.add_argument('--top', required=True)
     parser.add_argument('--die-nm', nargs=4, type=int, required=True)
+    parser.add_argument('--active-type', choices=('n-floating', 'p-substrate'), default='n-floating',
+                        help='Experimental physical fill type; both require separate electrical qualification.')
+    parser.add_argument('--exclusion-view', type=Path, help='Original masks plus auxiliary layer 10000/0; requires electrical coverage verification.')
+    parser.add_argument('--metal-spacing-um', type=float, choices=(1.35, 1.4, 1.5), default=1.5)
+    parser.add_argument('--topmetal-width-um', type=float, choices=(5., 5.2, 8.), default=5.)
     args = parser.parse_args()
-    result = prepare(args.gds, args.top, args.die_nm, args.macros, args.deck, args.executable, args.output)
+    result = prepare(args.gds, args.top, args.die_nm, args.macros, args.deck, args.executable, args.output, args.active_type,
+                     exclusion_view=args.exclusion_view, metal_spacing_um=args.metal_spacing_um, topmetal_width_um=args.topmetal_width_um)
     print(json.dumps({k:result[k] for k in ('status','qualified','markers','filled_gds_sha256')}))
     return 0 if result['markers'] == 0 else 1
 

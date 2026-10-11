@@ -29,7 +29,14 @@ capacitance workload now passes all 508 output checks. The complete unfilled
 APB full-RC comparison passes 1,738 checks and 90 transitions, with a 0.756 ps
 maximum difference against the fixed 1 ps convergence limit. Matched filled
 full-RC performance/convergence, cold startup, accepted post-fill timing and
-production integration remain open; chunk 5 is not complete.
+production integration remain open; chunk 5 is not complete. The newer
+[physical keep-out checkpoint](validation/ihp-cell-keepout-2026-10-11.json)
+preserves internal-cell capacitance through physical P+ fill and complete
+floating-poly exclusions. The generator reproduces all three layouts byte for
+byte. Eight complete stock-engine counter captures pass 576 output checks and
+the fixed 1 ps convergence gate at nominal and cold conditions. The corrected
+APB default-step failure is retained; larger complete convergence, nominal
+spatial timing and production integration are still required.
 
 ## Completed chunk 4 reference gate
 

@@ -17411,7 +17411,8 @@
         "ihp-uart-waveform-2026-10-10",
         "ihp-convergence-runtime-2026-10-10",
         "ihp-diode-charge-2026-10-10",
-        "ihp-cold-counter-2026-10-11"
+        "ihp-cold-counter-2026-10-11",
+        "ihp-cell-keepout-2026-10-11"
       ]
     },
     "ihp-sg13g2:ihp-rf": {
@@ -19969,6 +19970,11 @@
       "path": "docs/validation/ihp-cold-counter-2026-10-11.json",
       "sha256": "e7d4dd51bb630a056ef185be8b5cde8f2d2431df85282df73bd80e89a8ae8d96",
       "scope_limit": "Complete experimental cold-counter output, numerical convergence and model-width checks with identical Windows/Linux results and a stock-engine diode defect reproducer. No model, larger-workload, production timing or chunk 5 acceptance."
+    },
+    "ihp-cell-keepout-2026-10-11": {
+      "path": "docs/validation/ihp-cell-keepout-2026-10-11.json",
+      "sha256": "e6399c45715b86be998ce807824651ddc3361f33ecac84bafb46207b3541bb01",
+      "scope_limit": "All-three physical fill geometry/connectivity, byte-identical generator replay, complete-cell capacitance audits, and stock-counter nominal/cold convergence. Larger workloads, nominal timing and production integration remain open; chunk 5 is not complete."
     }
   },
   "execution_acceptance": {
