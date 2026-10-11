@@ -16722,7 +16722,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Complete required-rule and error-catalog reconciliation, missing x.20 definition, full implant-edge/density applicability, final timing/equivalence and combined application/delivery gate. Three final fill candidates pass enabled native geometry, all 13 selected antenna stages, diode-inclusive LVS and exact nominal circuit invariance.",
+      "remaining": "Complete required-rule and error-catalog reconciliation (210 periphery rows still need execution review), missing x.20 definition, complete density applicability, final timing/equivalence and combined application/delivery gate. Eighteen implant/HVTP requirements now have explicit execution bindings; final native geometry, selected antenna, diode-inclusive LVS and nominal circuit invariance pass.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16730,7 +16730,8 @@
         "sky130-connectivity-progress-2026-10-11",
         "sky130-pin-progress-2026-10-11",
         "sky130-fill-progress-2026-10-11",
-        "sky130-manual-progress-2026-10-11"
+        "sky130-manual-progress-2026-10-11",
+        "sky130-rule-execution-2026-10-11"
       ]
     },
     "sky130A:source-completeness": {
@@ -20048,6 +20049,11 @@
       "path": "docs/validation/sky130-manual-progress-2026-10-11.json",
       "sha256": "1ab85f91f3f462cd7d4b82ca1d461cdb41aafd6544198ebcbfa9dd7fcc938383",
       "scope_limit": "101 additional explicit per-rule absent-operand proofs on each exact final SKY130 block. No new non-empty device or voltage qualification."
+    },
+    "sky130-rule-execution-2026-10-11": {
+      "path": "docs/validation/sky130-rule-execution-2026-10-11.json",
+      "sha256": "eae2c0494a6e18a27251fcbf1ce51b2c1196ea0ce36a62cb6ee533b6f94af501",
+      "scope_limit": "Eighteen low-voltage drawn implant/HVTP manual requirements executed on the final counter, UART and APB layouts with all 41 checks/profile guards present and passing. Other rules and full chunk 6 remain open."
     }
   },
   "execution_acceptance": {

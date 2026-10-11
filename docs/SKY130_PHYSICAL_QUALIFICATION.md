@@ -255,13 +255,26 @@ complete hash-verified readback outside the dated workspace folders.
 
 The [raw implant checker](../scripts/sky130_raw_feol.py) supplements native
 engines with drawn-mask doping, width, spacing, area, hole and HVTP enclosure
-checks. The [applicability review](../scripts/sky130_block_applicability.py)
+checks. The [implant execution batch](validation/sky130-rule-execution-2026-10-11.json)
+also closes the selected low-voltage implant enclosure and butting-edge checks.
+It removes only actual coincident portions when applying 0.125 micrometre
+enclosure, requires zero enclosure on those butting portions and applies
+0.130 micrometre spacing to opposite-doping non-butting edges. Partial butting
+cannot exempt a whole edge. All 41 checks and profile guards pass on each
+final layout; all 19 geometry/binding tests pass on Windows and Linux without
+skips. The [execution ledger](../scripts/sky130_rule_execution.py) binds 18
+published requirements to these actual checks and rejects missing checks,
+missing guards, failed profiles and mismatched layouts. Manual merging is
+conditionally clear because no subminimum implant spacing remains.
+
+The [applicability review](../scripts/sky130_block_applicability.py)
 retains all 601 periphery source rows. The
 [additional applicability batch](validation/sky130-manual-progress-2026-10-11.json)
 establishes 101 further explicit absence proofs per final design:
 207 rows now have measured absent operands,
 77 explicitly say NA, 27 are advisory, 61 belong to the other backend,
-228 still require execution review and one needs a source definition.
+18 have reviewed execution bindings, 210 still require execution review and
+one needs a source definition.
 An absent operand is a block-specific finding, not a passing device test.
 Both operating systems produce the same updated review and pass all 12
 applicability rejection tests without skips. The high-voltage well checks
@@ -269,8 +282,8 @@ include both HVI and the separate thin-oxide high-voltage well identifier;
 rules requiring voltage declarations or ambiguous enclosure targets stay open.
 
 Chunk 6 still requires complete per-rule/error-catalog reconciliation,
-implant enclosure and butting-edge coverage, and density/window/oxide
-applicability. The published `x.20` IP-block pin-spacing rule has no numeric
+remaining device/layer semantics and density/window/oxide applicability.
+The published `x.20` IP-block pin-spacing rule has no numeric
 value or unit; no threshold is invented. Final bound timing and equivalence,
 application integration and delivered Windows/Linux execution also remain.
 The retained standalone checks do not yet provide the complete gate.

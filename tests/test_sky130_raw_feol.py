@@ -79,5 +79,46 @@ class RawFeolTests(unittest.TestCase):
         self.assertGreater(counts(masks)['profile.active_well_straddle'],0)
         self.assertGreater(counts({**masks,(65,44):masks[(65,20)]})['profile.active_overlap'],0)
 
+    def test_diffusion_and_tap_enclosure_boundaries(self):
+        for active in ((65,20),(65,44)):
+            for in_well in (False,True):
+                is_n=(active==(65,20))!=in_well;implant=(93,44) if is_n else (94,20)
+                rule='n/psd.'+('5a' if active==(65,20) else '5b')+('.n' if is_n else '.p')
+                for margin in (120,125,130):
+                    masks={active:region((0,0,1000,1000)),implant:region((-margin,-margin,1000+margin,1000+margin))}
+                    if in_well:masks[(64,20)]=region((-2000,-2000,3000,3000))
+                    with self.subTest(active=active,in_well=in_well,margin=margin):
+                        self.assertEqual(counts(masks)[rule]>0,margin<125)
+
+    def test_butting_edge_allows_zero_but_not_missing_enclosure(self):
+        masks={(65,20):region((0,0,1000,1000)),(65,44):region((1000,0,1500,1000)),
+               (93,44):region((-130,-130,1000,1130)),(94,20):region((1000,-130,1630,1130))}
+        self.assertEqual(check(masks)['status'],'PASS')
+        broken={**masks,(93,44):region((-130,-130,995,1130))}
+        self.assertGreater(counts(broken)['n/psd.6.n'],0)
+        self.assertGreater(counts(broken)['n/psd.9.n'],0)
+
+    def test_partial_butting_does_not_exempt_whole_edge(self):
+        masks={(65,20):region((0,0,1000,1000)),(65,44):region((1000,250,1500,750)),
+               (93,44):region((-130,-130,1000,1130)),(94,20):region((1000,120,1630,880))}
+        self.assertGreater(counts(masks)['n/psd.5a.n'],0)
+        self.assertEqual(counts(masks)['n/psd.6.n'],0)
+
+    def test_opposite_active_spacing_boundaries(self):
+        for gap in (125,130,135):
+            masks={(93,44):region((0,0,500,500)),(65,44):region((500+gap,0,1500,500))}
+            with self.subTest(gap=gap):self.assertEqual(counts(masks)['n/psd.7.n']>0,gap<130)
+
+    def test_corner_spacing_uses_euclidean_distance(self):
+        for offset in (90,95):
+            masks={(93,44):region((0,0,500,500)),(65,44):region((500+offset,500+offset,1500,1500))}
+            with self.subTest(offset=offset):self.assertEqual(counts(masks)['n/psd.7.n']>0,offset==90)
+
+    def test_missing_implant_cannot_escape_edge_checks(self):
+        masks={(65,20):region((0,0,1000,1000)),(65,44):region((1000,0,1500,1000))}
+        self.assertEqual(check(masks)['status'],'FAIL')
+        self.assertGreater(counts(masks)['n/psd.9.n'],0)
+        self.assertGreater(counts(masks)['n/psd.6.n'],0)
+
 
 if __name__=='__main__':unittest.main()

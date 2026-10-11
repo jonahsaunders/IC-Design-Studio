@@ -34,6 +34,21 @@ def check(regions):
     add('n/psd.9.p', (pactive-psdm).count(), 'Every low-voltage p-type active polygon is enclosed by PSDM.')
     add('n/psd.8.n', (pactive&nsdm).count(), 'NSDM cannot overlap active regions of opposite doping.')
     add('n/psd.8.p', (nactive&psdm).count(), 'PSDM cannot overlap active regions of opposite doping.')
+    # Subtract only the coincident portions of an opposite-doping active
+    # boundary. Removing a whole polygon or edge that merely touches a tap
+    # would incorrectly exempt the rest of a partially butting edge.
+    for kind, drawn in (('5a',diff),('5b',tap)):
+        for name, own, opposite, implant in (('n',drawn&nactive,pactive,nsdm),
+                                            ('p',drawn&pactive,nactive,psdm)):
+            nonbutting=own.edges()-opposite
+            add('n/psd.'+kind+'.'+name,implant.edges().enclosing_check(nonbutting,125).count(),
+                'Drawn implant enclosure of non-butting '+('diffusion' if kind=='5a' else 'tap')+' edges is 0.125 um.')
+    for name, own, opposite, implant in (('n',nactive,pactive,nsdm),('p',pactive,nactive,psdm)):
+        butting=own.edges()&opposite
+        add('n/psd.6.'+name,(butting-implant).count(),
+            'Coincident diffusion/tap butting edges have at least zero drawn implant enclosure.')
+        add('n/psd.7.'+name,implant.edges().separation_check(opposite.edges()-own,130).count(),
+            'Drawn implant spacing to opposite-doping non-butting active edges is 0.130 um.')
     for name, implant, minimum in (('n',nsdm,265000),('p',psdm,255000)):
         add('n/psd.1.'+name, implant.width_check(380).count(), 'Minimum drawn implant width 0.380 um.')
         add('n/psd.2.'+name, implant.space_check(380).count(), 'Minimum drawn implant spacing and notch 0.380 um.')
@@ -56,7 +71,7 @@ def check(regions):
     violations=sum(row['violations'] for row in rows)
     return dict(schema=1,status='PASS' if not violations else 'FAIL',qualified=False,
         violations=violations,checks=rows,
-        scope='Drawn-mask implant coverage, width/space/area/holes and HVTP gate enclosure. Remaining implant enclosure/abutting-edge rules and full rule reconciliation are separate.')
+        scope='Selected low-voltage drawn implant coverage, non-butting enclosure, butting-edge coverage, opposite-active spacing, width/space/area/holes and HVTP gate enclosure. Full rule reconciliation and other process/device profiles remain separate.')
 
 
 def audit(path):
