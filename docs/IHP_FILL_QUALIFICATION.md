@@ -36,12 +36,46 @@ The native single-precision area-transfer residual is reported separately from
 the unit-sum interpolation basis. Signed native end extensions cancel only
 against compatible support, and final node names follow native serialization.
 
-The filled APB tight capture now completes its full 1,610 ns workload and all
-869 output-bit checks pass. Its intermediate-to-tight convergence comparison
-is still running. The further-tight APB transient failed at 180 ns; increasing
+The [spatial field checkpoint](validation/ihp-spatial-field-2026-10-11.json)
+records the native unshielded contributions and each signed shield rectangle in
+all six layouts. Their sums reproduce the original native graphs. The new field
+integrator retains the native nonuniform fringe kernel and correlation between
+the two local endpoint weights. Analytic controls reject uniform averaging,
+missing support and ambiguous mesh overlaps. This is a passive local lumping
+model; it is not a consistent finite-element discretization.
+
+Every counter primitive resolves on its exactly mapped frozen R graph. The
+contracted signal capacitances reproduce native serialization. Windows and
+Linux projected pairs differ by at most 1.42109e-14 aF. Four complete nominal
+900 ns counter captures pass all 288 bit checks; original/filled convergence is
+0.423190/0.415317 ps across 31 edges, below the unchanged 1 ps limit. The observed
+fill shift is 11.675622 ps. Waveform comparisons reproduce exactly on both systems.
+Internal-only capacitance still uses the existing area model, and these results
+do not establish static timing or spatial-refinement acceptance.
+
+The component reducer keeps the existing 4,096-port dense-solve limit. It handles
+larger physical endpoint inventories by eliminating each independent floating
+component against its own incident endpoints. Both actual counter graphs agree
+with the complete dense reference within the declared numerical comparison;
+the largest component has 62 ports. All 190 IHP tests pass on Windows and Linux
+without skips. The completed evidence and exact diagnostic build are archived
+with verified readback; production engines remain unchanged.
+
+UART's original spatial pilot resolves all 7,889,280 primitive rows but produces
+four negative local ground values beyond roundoff, ranging from -0.337 to
+-2.107 aF. Its passivity guard rejects model creation. These values are retained
+for diagnosis and are not clamped or waived. The separately captured UART/APB R
+meshes pass device/export normalization as new pilots; this does not establish
+equivalence with the previous frozen resistance references.
+
+The filled APB captures both complete their full 1,610 ns workload and each
+passes all 869 output-bit checks. Their intermediate-to-tight comparison matches
+90 transitions with a maximum change of 0.442572 ps, below the fixed 1 ps limit.
+Windows reproduces the comparison exactly. These runs use the existing area
+model. The further-tight APB transient failed at 180 ns; increasing
 Newton iterations failed at 70 ns, and equivalent internal-equation scaling
 also failed at 180 ns. All failed captures remain rejected and preserved.
-Full UART/APB convergence at the fixed 1 ps limit, accepted nominal extraction
+Full UART convergence at the fixed 1 ps limit, accepted nominal extraction
 and timing, and production integration remain open. This checkpoint does not
 complete chunk 5.
 

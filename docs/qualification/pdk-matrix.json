@@ -17414,7 +17414,8 @@
         "ihp-cold-counter-2026-10-11",
         "ihp-cell-keepout-2026-10-11",
         "ihp-spatial-accounting-2026-10-11",
-        "ihp-spatial-mesh-2026-10-11"
+        "ihp-spatial-mesh-2026-10-11",
+        "ihp-spatial-field-2026-10-11"
       ]
     },
     "ihp-sg13g2:ihp-rf": {
@@ -19987,6 +19988,11 @@
       "path": "docs/validation/ihp-spatial-mesh-2026-10-11.json",
       "sha256": "83ec00663da1d53ce09742979f94a2cd03519e6e43e65403d39a5770738f60c8",
       "scope_limit": "All-three conductor ownership, captured mesh locations and full signal ground accounting; identical Windows weights; completed filled APB workload. Projection, replay equivalence, convergence, nominal timing and production remain open."
+    },
+    "ihp-spatial-field-2026-10-11": {
+      "path": "docs/validation/ihp-spatial-field-2026-10-11.json",
+      "sha256": "f58fdf946dbd2f7a9b8bc37709dd5be261fcc311459f1b514a5198416304c540",
+      "scope_limit": "All-six shield accounting; complete nominal spatial counter and existing APB convergence; bounded component solver. UART nonpassive spatial shunts are rejected; larger timing and production remain open."
     }
   },
   "execution_acceptance": {
