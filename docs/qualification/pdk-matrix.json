@@ -17415,7 +17415,8 @@
         "ihp-cell-keepout-2026-10-11",
         "ihp-spatial-accounting-2026-10-11",
         "ihp-spatial-mesh-2026-10-11",
-        "ihp-spatial-field-2026-10-11"
+        "ihp-spatial-field-2026-10-11",
+        "ihp-ground-correction-2026-10-11"
       ]
     },
     "ihp-sg13g2:ihp-rf": {
@@ -19993,6 +19994,11 @@
       "path": "docs/validation/ihp-spatial-field-2026-10-11.json",
       "sha256": "f58fdf946dbd2f7a9b8bc37709dd5be261fcc311459f1b514a5198416304c540",
       "scope_limit": "All-six shield accounting; complete nominal spatial counter and existing APB convergence; bounded component solver. UART nonpassive spatial shunts are rejected; larger timing and production remain open."
+    },
+    "ihp-ground-correction-2026-10-11": {
+      "path": "docs/validation/ihp-ground-correction-2026-10-11.json",
+      "sha256": "0294cd186f21d17ede65af2636af1dedd16f33be3a28294ae1739465a7f8ea55",
+      "scope_limit": "Same-net shielding correction passes 72 controls, exact six-graph reproduction, complete nominal counter convergence and 198 tests per OS. Larger timing and production integration remain open."
     }
   },
   "execution_acceptance": {

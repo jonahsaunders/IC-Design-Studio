@@ -9,6 +9,40 @@ all three GDS files byte for byte. Original circuit geometry and block footprint
 are preserved; the P+ alternative deliberately adds a substrate implant mask.
 The desktop production flow does not yet use this experimental recipe.
 
+The latest [ground-correction evidence](validation/ihp-ground-correction-2026-10-11.json)
+resolves the negative local substrate capacitances found in the spatial pilots.
+Magic's native fringe routine accumulated a geometric shielding fraction only
+when overlapping conductors belonged to different nets. Joining conductors
+outside the local coupling halo could therefore change local ground capacitance.
+The [minimal patch](../packaging/physical/magic-ihp-same-net-ground.patch) moves
+that accumulation outside the mutual-capacitance condition. Its explicit
+[engine lock](../examples/ihp-ground-engine-lock.json) leaves the default engine
+selection unchanged.
+
+All 72 native controls cover three metal stacks, four orientations and three
+remote-connectivity states. The original defect is detected in every group;
+the corrected local values agree within 4.26326e-14 aF. The minimal build and
+the diagnostic build produce identical complete capacitor and device graphs
+for all six original/filled layouts. Every previous signed primitive remains
+unchanged; the added shielding terms remove the genuine negative local shunts
+without clamping them. Native six-digit capacitance contraction passes in every
+model. Counter/UART protected cell subnetworks remain identical, and APB retains
+only its previously recorded 3.76802e-17 aF arithmetic residue.
+
+Four complete corrected nominal counter captures pass all 288 output checks.
+Tighter integration changes original/filled output edges by at most
+0.480333/0.485798 ps, below the unchanged 1 ps limit. The descriptive fill shift
+is 11.658046 ps. Both waveform and native-control audits reproduce on Windows
+and Linux, and all 198 IHP tests pass on each system without skips. The evidence
+archive has verified readback. Two unfinished runs interrupted during a scheduler
+handoff remain explicit rejected captures; the completed counter comparison uses
+the successful replacement run.
+
+Corrected UART/APB full workloads, spatial refinement, nominal static timing
+with cell-pin accounting, and production integration remain open. The earlier
+unmodified-extractor counter and area-model APB results below retain their
+historical scope; they do not substitute for these remaining checks.
+
 The [native spatial-accounting checkpoint](validation/ihp-spatial-accounting-2026-10-11.json)
 preserves all six original/filled native capacitor and transistor graphs exactly.
 A separate diagnostic extractor records coupling contributions without changing
@@ -61,10 +95,11 @@ the largest component has 62 ports. All 190 IHP tests pass on Windows and Linux
 without skips. The completed evidence and exact diagnostic build are archived
 with verified readback; production engines remain unchanged.
 
-UART's original spatial pilot resolves all 7,889,280 primitive rows but produces
+UART's first spatial pilot resolves all 7,889,280 primitive rows but produces
 four negative local ground values beyond roundoff, ranging from -0.337 to
 -2.107 aF. Its passivity guard rejects model creation. These values are retained
-for diagnosis and are not clamped or waived. The separately captured UART/APB R
+for diagnosis and are not clamped or waived. The correction described above
+supersedes this rejected model. The separately captured UART/APB R
 meshes pass device/export normalization as new pilots; this does not establish
 equivalence with the previous frozen resistance references.
 
