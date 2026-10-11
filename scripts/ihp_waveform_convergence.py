@@ -28,9 +28,11 @@ def _number(value):
 
 def _settings(path, duration_ns):
     text = path.read_text(); settings = {}
-    for key in ('reltol', 'abstol', 'vntol'):
+    for key in ('reltol', 'abstol', 'vntol', 'chgtol'):
         pattern = r'(?i)\b'+key+r'=([^\s]+)'
         matches = re.findall(pattern, text)
+        if key == 'chgtol' and not matches:
+            continue
         if len(matches) != 1:
             raise ValueError('One explicit '+key+' setting is required.')
         settings[key] = _number(matches[0])
@@ -85,6 +87,8 @@ def compare(baseline, tighter, duration_ns):
             raise ValueError('Convergence inputs differ: '+name)
         matched[name] = value
     settings, templates = zip(*(_settings(folder/'bench.spice', duration_ns) for folder in (baseline, tighter)))
+    if settings[0].keys() != settings[1].keys():
+        raise ValueError('Optional charge tolerance must be explicit in both captures or neither.')
     if templates[0] != templates[1]:
         raise ValueError('The circuit, stimulus or non-compared simulator settings changed.')
     if (any(settings[1][key] > settings[0][key] for key in settings[0]) or

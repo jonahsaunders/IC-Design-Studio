@@ -106,3 +106,26 @@ class IHPWaveformConvergenceTests(unittest.TestCase):
             return result
         with patch.object(ihp_waveform_convergence, '_events', side_effect=mutate):
             with self.assertRaisesRegex(ValueError, 'changed during'): self.check()
+
+    def test_explicit_charge_tolerance_can_tighten_with_fixed_output_limit(self):
+        for folder, charge in ((self.left, '1e-12'), (self.right, '5e-13')):
+            path = folder/'bench.spice'
+            path.write_text(path.read_text().replace('.options ', f'.options chgtol={charge} '))
+        result = self.check()
+        self.assertEqual(result['status'], 'convergence-pass')
+        self.assertEqual(result['convergence_limit_ps'], 1.)
+        self.assertEqual(result['settings'][1]['chgtol'], 5e-13)
+        self.wave(self.right, 2e-12)
+        self.assertEqual(self.check()['status'], 'convergence-failed')
+
+    def test_charge_tolerance_cannot_loosen_or_use_an_implicit_default(self):
+        path = self.left/'bench.spice'
+        path.write_text(path.read_text().replace('.options ', '.options chgtol=1e-12 '))
+        with self.assertRaisesRegex(ValueError, 'both captures'): self.check()
+        path = self.right/'bench.spice'; original = path.read_text()
+        path.write_text(original.replace('.options ', '.options chgtol=2e-12 '))
+        with self.assertRaisesRegex(ValueError, 'tighten'): self.check()
+        for setting in ('chgtol=0', 'chgtol=-1e-12', 'chgtol=nan', 'chgtol=5e-13 chgtol=1e-13'):
+            with self.subTest(setting=setting):
+                path.write_text(original.replace('.options ', '.options '+setting+' '))
+                with self.assertRaises(ValueError): self.check()
