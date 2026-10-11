@@ -25,9 +25,11 @@ findings and the UART/APB references' eleven findings each. All three have zero
 native geometry findings and matched before/after device and port connectivity.
 Four real wiring, port and transistor-body faults are rejected, and the
 supplemental rules pass for these block footprints. The complete matched UART
-capacitance workload now passes all 508 output checks. Full-resistance
-performance/convergence, accepted post-fill timing and production integration
-remain open; chunk 5 is not complete.
+capacitance workload now passes all 508 output checks. The complete unfilled
+APB full-RC comparison passes 1,738 checks and 90 transitions, with a 0.756 ps
+maximum difference against the fixed 1 ps convergence limit. Matched filled
+full-RC performance/convergence, cold startup, accepted post-fill timing and
+production integration remain open; chunk 5 is not complete.
 
 ## Completed chunk 4 reference gate
 

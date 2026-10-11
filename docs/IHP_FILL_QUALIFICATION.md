@@ -428,9 +428,9 @@ accounting must be established before using this path for production timing.
 
 The 17-digit unfilled APB full-RC capture now completes the entire 1,610 ns
 workload and passes the strict waveform guard and all 869 output-bit checks.
-Its verified archive is retained outside the dated workspace. The filled
-comparison and tighter numerical check remain separate requirements. This
-single completed baseline does not close chunk 5.
+Its verified archive is retained outside the dated workspace. The tighter
+unfilled comparison is now complete as recorded below. The filled comparison
+remains required; these unfilled results do not close chunk 5.
 
 ## Completed UART capacitance workload
 
@@ -447,3 +447,33 @@ value, later physical starts, duplicate times and aborted simulations. The
 original failure record and corrected re-audit are both retained. All 117 IHP
 tests pass on Windows and Linux without skips. The completed runs and test
 reports are hash-verified in the permanent evidence directory.
+
+## Completed unfilled APB full-RC convergence
+
+The [convergence record](validation/ihp-convergence-runtime-2026-10-10.json)
+preserves two complete 1,610 ns unfilled APB captures with identical physical
+inputs and stimulus. All 1,738 output checks pass. All 90 output transitions
+match, with a maximum difference of 0.755730 ps under tighter relative,
+voltage/current and integration-step settings, below the fixed 1 ps limit.
+Windows reproduces the decoded comparison exactly. All 127 focused IHP tests
+pass on both operating systems without skips.
+
+The convergence checker requires complete waveforms, unchanged physical inputs,
+unchanged startup/stimulus settings, strictly tighter relative tolerance and
+maximum step, matching transition sequences, and at least one transition.
+Changes to captured inputs during comparison are rejected. External model and
+engine bindings remain separate evidence requirements.
+
+Private solver experiments reduce a quiet filled APB interval from 234.4 to
+76.2 seconds using a different sparse ordering. These short profiles contain
+no functional transitions and establish neither full-workload performance nor
+convergence acceptance. The production simulator remains unchanged. Completed
+profiles and rejected numerical alternatives are retained with the successful
+unfilled APB pair in a read-back-verified permanent archive.
+
+The native capacitor inventory also shows fill-induced changes at 120 counter,
+1,525 UART and 1,404 APB internal nodes outside the interconnect checkpoint map.
+A wire-only capacitance handoff therefore cannot assume unchanged intrinsic
+cell behavior. Internal-cell accounting, accepted nominal post-fill timing,
+filled full-RC workloads and convergence, cold startup and production export
+integration remain required.
