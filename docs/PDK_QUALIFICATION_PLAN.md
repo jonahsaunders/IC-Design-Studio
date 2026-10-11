@@ -32,7 +32,15 @@ the original nominal electrical model and supersedes the earlier coupled-fill
 waveform experiments. No unfinished transient is counted as passing; the
 1 ps convergence limit remains unchanged. Independent extraction calibration,
 additional corners, complete-chip checks and foundry acceptance remain in their
-original later chunks. Chunk 6 is the next planned gate.
+original later chunks. Chunk 6 is now in progress.
+
+The [SKY130 physical coverage batch](SKY130_PHYSICAL_QUALIFICATION.md) runs all
+three original final layouts through full enabled geometry in both engines,
+with deliberate FEOL/BEOL faults detected. A missing poly antenna check is
+covered by a supplemental native run and exact boundary controls. APB exposes
+an unresolved disagreement between native and independent antenna checks.
+The 601-row manual inventory, density interpretation, remaining antenna stages,
+strict final-GDS LVS and production integration remain open.
 
 The chunk 4 GF180 record retains its original source and scope. The eight shared
 modules changed for IHP have exact historical source snapshots; this preserves

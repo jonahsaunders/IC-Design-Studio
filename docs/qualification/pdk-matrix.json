@@ -28,7 +28,7 @@
     },
     "6": {
       "name": "Complete SKY130 physical coverage",
-      "status": "pending"
+      "status": "in_progress"
     },
     "7": {
       "name": "Qualify device families",
@@ -16193,7 +16193,9 @@
       "conditions": "sky130A matched HD physical views; all required rules recorded explicitly.",
       "existing_runners": [
         "scripts/qualify_digital_platforms.py",
-        "scripts/qualify_drc_boundaries.py"
+        "scripts/qualify_drc_boundaries.py",
+        "scripts/sky130_rule_inventory.py",
+        "scripts/sky130_poly_antenna.drc"
       ],
       "automation_gap": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement."
     },
@@ -16712,9 +16714,10 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Prior zero-marker result disabled FEOL. Complete rule inventory, enabled checks and final-GDS LVS required.",
+      "remaining": "Full FEOL/BEOL/off-grid geometry now passes with deliberate fault detection. Complete the 601-row rule reconciliation, density, all antenna etch stages (including APB checker discrepancy), strict final-GDS LVS and production integration.",
       "historical_evidence": [
-        "gds-diagnostics"
+        "gds-diagnostics",
+        "sky130-physical-progress-2026-10-11"
       ]
     },
     "sky130A:source-completeness": {
@@ -20002,6 +20005,11 @@
       "path": "docs/validation/ihp-ground-correction-2026-10-11.json",
       "sha256": "0294cd186f21d17ede65af2636af1dedd16f33be3a28294ae1739465a7f8ea55",
       "scope_limit": "Same-net shielding correction passes 72 controls, exact six-graph reproduction, complete nominal counter convergence and 198 tests per OS. Larger timing and production integration remain open."
+    },
+    "sky130-physical-progress-2026-10-11": {
+      "path": "docs/validation/sky130-physical-progress-2026-10-11.json",
+      "sha256": "5cf0b64cbf9af6cf1db97404cb78d8413556c609ae2e3de1fe64e8f024a48050",
+      "scope_limit": "Full enabled geometry passes; poly antenna omission covered with controls. APB native antenna disagreement, density, full rule reconciliation, strict final LVS and integration remain open."
     }
   },
   "execution_acceptance": {

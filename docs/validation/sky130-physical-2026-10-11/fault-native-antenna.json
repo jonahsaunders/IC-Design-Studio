@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "case": "fault",
+  "status": "native-measurement-complete",
+  "qualified": false,
+  "gds_sha256": "39acd0a2b6fe22f55913c0973bc2fadd4a573410c342463b7b8464dd07782f70",
+  "deck_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+  "source_job_sha256": null,
+  "die_area_um": [
+    -1,
+    -1,
+    2,
+    102
+  ],
+  "density_denominator": "explicit-original-die-box",
+  "supersedes": "v1 density used cell bounding box; poly fault was missed by native antenna checker",
+  "executable_sha256": "4b74020f201fd8b09b4984614249f3602dd1f4b2a3731e087dfe88eeacc887c5",
+  "driver_sha256": "e54915578743539424acaa1c0458c6e8f6130d353c8f3549eb78ed4385472232",
+  "command": [
+    "/opt/icstudio/physical/installed/bin/magic",
+    "-dnull",
+    "-noconsole",
+    "-rcfile",
+    "/var/tmp/icstudio-sky130-antenna-density-v2/fault/startup.tcl",
+    "/var/tmp/icstudio-sky130-antenna-density-v2/fault/run.tcl"
+  ],
+  "scope": "Native antenna diagnostic and density measurements on the original declared footprint. Rule completeness, process interpretation and density acceptance are not implied.",
+  "antenna_output": "Reading extract file.\nBuilding flattened netlist.\nRunning antenna checks.\nantennacheck finished.\n",
+  "feedback_count": 0,
+  "density": {
+    "fom_all": 0.002912621246650815,
+    "poly_all": 0.04907767102122307,
+    "li_all": 0.0,
+    "m1_all": 0.0,
+    "m2_all": 0.0,
+    "m3_all": 0.0,
+    "m4_all": 0.0,
+    "m5_all": 0.0
+  },
+  "seconds": 0.4664857669995399,
+  "files": {
+    "startup.tcl": "eb256548cf96c97dbf13b2468547c9ed067503652a3428545a7bb6e0d16689ed",
+    "input.gds": "39acd0a2b6fe22f55913c0973bc2fadd4a573410c342463b7b8464dd07782f70",
+    "antenna-feedback.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "engine.log": "82f53c44975af3278bf1051e0e20935b2ad9a69bc73e337e249ae19bd969b27b",
+    "ANTENNA.ext": "31245d6a13b76b781b20788f4c1e8a92ea889fa28b3b3163f47d28a28a2cbe59",
+    "sky130A.tech": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+    "run.tcl": "c9ce09ae17cd7248eefa7db8d6dc36dc58ddc41f4b478551f7c42742be548273"
+  }
+}
