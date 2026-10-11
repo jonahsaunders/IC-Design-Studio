@@ -14,3 +14,6 @@ icstudio/assets/pdks/gf180mcuC/** -whitespace
 icstudio/assets/pdks/gf180mcuD/libs.tech/magic/** -whitespace
 icstudio/assets/pdks/gf180mcuD/libs.tech/netgen/** -whitespace
 icstudio/assets/pdks/ihp-sg13g2/** -whitespace
+# These evidence-bound files preserve captured line endings and patch context.
+examples/ihp-ground-engine-lock.json whitespace=cr-at-eol
+packaging/physical/magic-ihp-same-net-ground.patch -whitespace
