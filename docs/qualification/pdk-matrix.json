@@ -16198,7 +16198,9 @@
         "scripts/sky130_poly_antenna.drc",
         "scripts/sky130_staged_antenna.drc",
         "scripts/sky130_antenna_controls.py",
-        "scripts/check_sky130_antenna_controls.py"
+        "scripts/check_sky130_antenna_controls.py",
+        "scripts/sky130_lvs_reference.py",
+        "scripts/check_sky130_lvs.py"
       ],
       "automation_gap": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement."
     },
@@ -16717,11 +16719,12 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Complete the 601-row rule applicability/execution reconciliation, density/fill, strict final-GDS LVS and production/delivery integration. All 13 selected antenna stages now pass the three HD references and controlled faults; additional process/device applicability remains open.",
+      "remaining": "Complete required rule applicability/execution reconciliation, density/fill, post-fill connectivity/electrical checks and production/delivery integration. Strict original-reference LVS and all 13 selected antenna stages now pass; broader process/device coverage remains open.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
-        "sky130-antenna-progress-2026-10-11"
+        "sky130-antenna-progress-2026-10-11",
+        "sky130-connectivity-progress-2026-10-11"
       ]
     },
     "sky130A:source-completeness": {
@@ -20019,6 +20022,11 @@
       "path": "docs/validation/sky130-antenna-progress-2026-10-11.json",
       "sha256": "4d4a40cdf9eeea8c1cf44750a2e42dbd56cb4684b592acf6122b0526bf237c6b",
       "scope_limit": "All thirteen selected antenna stages pass the three original references and exact controls. Native APB via4 false positives and array false negatives are isolated. Full process/delivery gate remains incomplete."
+    },
+    "sky130-connectivity-progress-2026-10-11": {
+      "path": "docs/validation/sky130-connectivity-progress-2026-10-11.json",
+      "sha256": "b8385a17f0beb26819e3fd7ae5d76a2f254f0a23fe77ecade41daa977405bed6",
+      "scope_limit": "Three original HD layouts pass strict device/body/supply/port LVS and counter fault controls. A native fill pilot remains density-failing; full physical/delivery qualification is incomplete."
     }
   },
   "execution_acceptance": {

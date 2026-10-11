@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "status": "reader-controls-pass",
+  "qualified": false,
+  "driver_sha256": "34acfb8274935127b5a64493bbcfe02b3f039b59f203504c7b198d071fa6138f",
+  "reader_sha256": "9a137e976c29c03726a2f53d2da959f99b33050aa351b7579c53ec238147c0b8",
+  "results": [
+    {
+      "case": "explicit-short",
+      "expected_valid": true,
+      "accepted": true,
+      "correct": true,
+      "devices": 0,
+      "nets": 1,
+      "files": {
+        "driver.rb": "17eb5ba8f5b93fdcfb0a47a70866a50cab4cc10e74ed3c46e0aacedd09dd0090",
+        "engine.log": "8985617a4719be0485c7bfcf070a6a87aecf6e9fcc305870af6a4bb334fafc73",
+        "output.cir": "e4f2879cb7c3dc52d793f8ff4238ec1c09cf9a5148e337d746d16704e74b0d57",
+        "input.cir": "6dba731590cfc8d765792db0ccd50ac0a94c9d2c0c8fd0076acb5b260cf4686b"
+      }
+    },
+    {
+      "case": "numeric-resistor",
+      "expected_valid": true,
+      "accepted": true,
+      "correct": true,
+      "devices": 1,
+      "nets": 3,
+      "files": {
+        "driver.rb": "ae3dd6baaef997f63e29e596b5aaff7e872c8ec85333405210745440b9ca6b0c",
+        "engine.log": "659b1d10c086d302f65600acadc11dabb0795dae0a4b71c393eba664f66696b5",
+        "output.cir": "24dbd970d42d9d987cd2ccea8405bc6ed2642aa66584a576c595f56f5c8ada97",
+        "input.cir": "e3f7fc8c23d9b975700dc222e12e32ed7f550f7f5ea9a5c996ebb33660413a0f"
+      }
+    },
+    {
+      "case": "valued-model-resistor",
+      "expected_valid": true,
+      "accepted": true,
+      "correct": true,
+      "devices": 1,
+      "nets": 3,
+      "files": {
+        "driver.rb": "83d100c3bdadefc50746071685e68769cc7923aafdeb9706a06763c4a0bb4ff0",
+        "engine.log": "659b1d10c086d302f65600acadc11dabb0795dae0a4b71c393eba664f66696b5",
+        "output.cir": "00d0ca1b619932104d8d24ec1c4bd72f8ba20345f005c4c5a6b47cf996304228",
+        "input.cir": "c809980300299fdd44ad62151e74f46b614609353e4a3de27fa56a261eb233da"
+      }
+    },
+    {
+      "case": "short-nonzero",
+      "expected_valid": false,
+      "accepted": false,
+      "correct": true,
+      "files": {
+        "driver.rb": "b51c6e5bde851b5d714cfc3277a537a476cf54d729eac2a1da6eecbd1ecc624a",
+        "engine.log": "a849bd846df6bc74cc9a7980458325b911bccedee7cbbc6545ae15f62fa1d424",
+        "input.cir": "2c576e3ee4c5233ee2a787a7ed20f03bea36388a889b3126036cd71a32745067"
+      }
+    },
+    {
+      "case": "short-extra-parameter",
+      "expected_valid": false,
+      "accepted": false,
+      "correct": true,
+      "files": {
+        "driver.rb": "a1fd2142f5820366b8ab28f5a6344f4a32e970fdebbe43d485326efd034d954c",
+        "engine.log": "ac6bc955d0f7b1cba764653790cf96a64ab9f8e99c5d6ae205ed2595138139b6",
+        "input.cir": "c7f76529db1ad0b727b32fc7a9c160e61f79b07f6cbc882b24182767a8fa058a"
+      }
+    },
+    {
+      "case": "unknown-symbolic-resistor",
+      "expected_valid": false,
+      "accepted": false,
+      "correct": true,
+      "files": {
+        "driver.rb": "27d1cff4fa6ecd31111fad878b77c94a126fc9e0e5cac312eb270128bcfb5bdc",
+        "engine.log": "1989fb33cb9a3e94283e74ba741f227088f023697cbbc9cf9c1b1d33909e2c8b",
+        "input.cir": "965eecf9ffb8b751366b286a9843c75da80b3cb29f5704942f295e5f90ef176a"
+      }
+    },
+    {
+      "case": "scaled-mos",
+      "expected_valid": true,
+      "accepted": true,
+      "correct": true,
+      "devices": 1,
+      "nets": 3,
+      "files": {
+        "driver.rb": "cad7d525ffe679742e676f5a31a04b4bab0ae28b3750db1346dff5838348e6bf",
+        "engine.log": "659b1d10c086d302f65600acadc11dabb0795dae0a4b71c393eba664f66696b5",
+        "output.cir": "96b8ab8a66cfc4ff8ef32a52d301771a98d30f4c9fb69b5bbeb77f0245e61854",
+        "input.cir": "71bfd78e71f2a0a0bf953596e30bb58bc5b00e601eff5c1a027d81a2541d8e53"
+      }
+    }
+  ]
+}

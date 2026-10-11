@@ -12,6 +12,7 @@ Zero geometry markers alone do not establish complete physical coverage.
 | Supplemental poly antenna | Pass | Pass | Pass |
 | Native Magic antenna | No findings | No findings | Three contact-stage findings |
 | Supplemental all 13 antenna etch stages | Pass | Pass | Pass |
+| Strict transistor/body/supply/port LVS | Match | Match | Match |
 
 Both complete geometry engines reject injected poly-width and Metal1-width
 faults on a copy of the original counter. These controls prove the selected
@@ -87,6 +88,12 @@ manual and installed deck have different density descriptions; applicable
 windows, mask interpretation, fill requirements and thresholds still need
 explicit reconciliation.
 
+The first native waffle-fill counter pilot passes both full geometry engines,
+but remains below the installed density helper's minimums for active material,
+local interconnect and Metal5: 14.39%, 26.99% and 32.50%, versus 33%, 35% and 45%.
+These are helper screening limits; the complete manual interpretation is still
+open. The candidate and its raw reports are retained as unaccepted evidence.
+
 The [rule inventory](qualification/sky130-rule-inventory.json) preserves all
 601 periphery rows from 50 published tables at upstream revision
 `7198cf647113f56041e02abf3eb623692820c5e1`. Its source lock covers 165 rule
@@ -95,6 +102,8 @@ retains its value, flags, description, source identity and candidate deck
 locations. Commented code remains visible. Text matches are search aids and
 cannot promote a row to passing coverage. Every row remains explicitly
 unreviewed until applicability and execution evidence have been reconciled.
+The source capture selected CSV/RST documents; referenced layer TSV files were
+not included and still need capture and reconciliation.
 
 Sources are the [published periphery rules](https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html)
 and [antenna rules](https://skywater-pdk.readthedocs.io/en/main/rules/antenna.html),
@@ -105,16 +114,62 @@ repository's [license](../LICENSE). Magic technology excerpts retain their
 upstream Apache-2.0 terms. Exact source files and notices are in the evidence
 archive.
 
+## Strict original-layout connectivity
+
+The [connectivity record](validation/sky130-connectivity-progress-2026-10-11.json)
+binds all three original GDS files to native four-terminal transistor comparison.
+Counter, UART and APB match 204, 2,580 and 2,224 combined transistors respectively,
+with all 8, 15 and 30 declared boundary ports accounted for. This covers the
+selected HD standard-cell circuits, not every SKY130 device family.
+
+The [reference adapter](../scripts/sky130_lvs_reference.py) verifies every
+instance and terminal against the captured implementation database, including
+fillers and body pins, before using the independently supplied master CDL.
+It fixes CRLF port parsing and standalone CDL separators without removing
+terminals. The [native reader](../scripts/sky130_cdl_reader.rb) implements only
+explicit symbolic short connections; ordinary resistors retain their values.
+The pinned CDL's micrometre dimensions use an explicit numeric scale.
+
+The layout comparison uses drawn conductors and physical contacts. Substrate
+and well connections use KLayout's [soft connection checks](https://www.klayout.de/doc/manual/lvs_connect.html)
+to reject missing metal supply wiring. No global supply ties, implicit
+connections or equivalent-pin declarations are introduced. Each top pin
+annotation must overlap exactly one metal island; its label is attached within
+that overlap on a comparison copy whose masks are verified unchanged. Pin
+markers never become conductors. Some original pin markers extend beyond the
+routing polygons; complete macro boundary/abstract coverage remains open.
+
+The [port auditor](../scripts/check_sky130_lvs.py) requires graph-paired names
+and full boundary coverage. APB's `pready` and `VDD` are physically tied, as
+specified by the independently flattened CDL tie cell. Their paired name group
+preserves both declared ports; missing, permuted or unexpected names fail.
+
+Eleven native counter controls include two valid cases and nine rejected faults:
+signal open/short, supply short, substrate/well contact opens, port swap/removal,
+device-width change and incorrect device body. Seven separate native reader
+controls verify short semantics, preserved resistor values, transistor dimensions
+and rejection of unsupported cards. Windows and Linux independently re-create
+the reference inputs and adapted GDS, re-read the reports and produce the same
+audit digest. Seventeen focused rejection tests pass on each OS without skips.
+Native engine execution remains Linux KLayout 0.30.5.
+
+Earlier parser, scale and label failures remain in the archive. In particular,
+an initial flattened control retained an unwanted substrate label and failed
+its valid cases; it is not accepted as successful fault coverage. The corrected
+batch runs the repository's exact source and passes every control.
+
 ## Remaining gate
 
 Reconcile the full required rule inventory and antenna applicability beyond
-the selected profile, complete density, then run strict final-GDS device,
-body, supply and port LVS with deliberately broken connections. Integrate the
+the selected profile and complete density. Rerun the strict connectivity and
+electrical checks after a valid fill solution is established. Integrate the
 complete gate into the application and verify its delivered Windows/Linux
 paths. The current standalone diagnostics do not yet provide that gate.
 
 The durable evidence archive contains 707 files, including rejected attempts,
 and was read back completely against its manifest. A second 527-file archive
 preserves the antenna diagnosis and stage controls with complete readback.
+The third archive preserves 722 files covering connectivity, controls and the
+unaccepted native fill pilot, also with complete readback.
 Their identities are recorded in the respective execution records. Chunk 5's
 IHP acceptance and original source bindings remain unchanged.

@@ -40,8 +40,11 @@ with deliberate FEOL/BEOL faults detected. All 13 selected antenna etch stages
 pass on the unchanged references, with 178 boundary/connectivity controls and
 ten exact contact-array controls. APB's false via4 findings and missed native
 array faults are traced to contact-unit and fragment-counting errors. The
-601-row manual inventory, density interpretation, broader antenna applicability,
-strict final-GDS LVS and production/delivery integration remain open.
+three original layouts now also pass strict transistor/body/supply/port LVS,
+with deliberate connection, device and port faults rejected. The native fill
+counter pilot remains below three density helper limits. The 601-row manual
+inventory, density interpretation and fill, broader antenna applicability,
+post-fill electrical checks and production/delivery integration remain open.
 
 The chunk 4 GF180 record retains its original source and scope. The eight shared
 modules changed for IHP have exact historical source snapshots; this preserves

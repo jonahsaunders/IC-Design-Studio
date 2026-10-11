@@ -1,0 +1,167 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "chunk_complete": false,
+  "qualified": false,
+  "scope": "Strict final-GDS connectivity on the three unchanged SKY130 HD reference blocks. Complete required rules, post-fill acceptance and delivery remain open.",
+  "source_files": {
+    "scripts/sky130_lvs_reference.py": "505be1aedd0ac00623cd58618101744228395a247a45ece0fe46c1024753791d",
+    "scripts/sky130_cdl_reader.rb": "9a137e976c29c03726a2f53d2da959f99b33050aa351b7579c53ec238147c0b8",
+    "scripts/check_sky130_lvs.py": "199744d6db2caeac6e4678934dc2b7a3958abacd48eb8811547414fd746cd80e",
+    "tests/test_sky130_lvs.py": "760a4e5d5157121131eb2088053dc7f6bd6bca717e9155e1f4a465934912927d"
+  },
+  "references": [
+    {
+      "case": "counter",
+      "source_gds_sha256": "b4d9cd5b6889e9461fcd275a5422019302fd8b9ff1fd6087d22803d0098ea69c",
+      "combined_transistors": 204,
+      "boundary_ports": 8,
+      "execution": {
+        "path": "docs/validation/sky130-connectivity-2026-10-11/counter-execution.json",
+        "sha256": "a4f1de78031aa9700d123565cf11e06ed6b435a415409e69402d15d6705cf7c7"
+      },
+      "audit": {
+        "path": "docs/validation/sky130-connectivity-2026-10-11/counter-audit.json",
+        "sha256": "3be22c8b1001575e6d06e1da2c06c98892e3af2fb323d16cee2b60a0b86715b8"
+      },
+      "labels": {
+        "path": "docs/validation/sky130-connectivity-2026-10-11/counter-labels.json",
+        "sha256": "3b31ff30ebc7d98b0da0c611a2452903d76e8b4351500ebddc5930ae2bdc601b"
+      },
+      "conversion": {
+        "path": "docs/validation/sky130-connectivity-2026-10-11/counter-conversion.json",
+        "sha256": "33e2772549ae8a2badb6f6f0cbb3a2fe1d44373f978003fb7d47b86866c156e7"
+      }
+    },
+    {
+      "case": "uart",
+      "source_gds_sha256": "6ff9ae1f5d2139ce18bc4cbd7b121b932bdef3f8ccf1836018fa7a8afafdc77f",
+      "combined_transistors": 2580,
+      "boundary_ports": 15,
+      "execution": {
+        "path": "docs/validation/sky130-connectivity-2026-10-11/uart-execution.json",
+        "sha256": "9e6b382732d0a79bb5fee5ca370fbd182cc28c0fd0e44fd2f4c70a2988ccb90b"
+      },
+      "audit": {
+        "path": "docs/validation/sky130-connectivity-2026-10-11/uart-audit.json",
+        "sha256": "30ccdf4e30466d1271199d629e134279d3a56fd7184343e3b98a11575d5d474d"
+      },
+      "labels": {
+        "path": "docs/validation/sky130-connectivity-2026-10-11/uart-labels.json",
+        "sha256": "b584b5ed082c5fdc5286ef05b6406b744da08124478d5571dcb40ff1b7161431"
+      },
+      "conversion": {
+        "path": "docs/validation/sky130-connectivity-2026-10-11/uart-conversion.json",
+        "sha256": "33e2772549ae8a2badb6f6f0cbb3a2fe1d44373f978003fb7d47b86866c156e7"
+      }
+    },
+    {
+      "case": "apb",
+      "source_gds_sha256": "65eea8f89ca27e2f141b71e5898e67395a516108aae428efa960e77e5b1ba9d8",
+      "combined_transistors": 2224,
+      "boundary_ports": 30,
+      "execution": {
+        "path": "docs/validation/sky130-connectivity-2026-10-11/apb-execution.json",
+        "sha256": "5b20657aa6ec5434f485d4421a733aecf02884c0997cddf8bcf8b7f9a3190b12"
+      },
+      "audit": {
+        "path": "docs/validation/sky130-connectivity-2026-10-11/apb-audit.json",
+        "sha256": "b04781e5e9faf14897ff09c3f440c9b1af62ce5d4249bcccfba6c1975aa7f78d"
+      },
+      "labels": {
+        "path": "docs/validation/sky130-connectivity-2026-10-11/apb-labels.json",
+        "sha256": "c1631925e112afc172fbaac7b6f2ac1fc2c99643e9f44275e662c83548bbe956"
+      },
+      "conversion": {
+        "path": "docs/validation/sky130-connectivity-2026-10-11/apb-conversion.json",
+        "sha256": "33e2772549ae8a2badb6f6f0cbb3a2fe1d44373f978003fb7d47b86866c156e7"
+      }
+    }
+  ],
+  "layout_controls": {
+    "execution": {
+      "path": "docs/validation/sky130-connectivity-2026-10-11/layout-controls.json",
+      "sha256": "8e56c8520b6519d41c458729cae70856131151419200276ce93d9a638ccf5cff"
+    },
+    "accepted": 2,
+    "rejected": 9,
+    "scope": "Counter: unchanged and nonconductive marker control; signal open/short, supply short, substrate/well contact opens, port swap/removal, transistor width and body-reference faults."
+  },
+  "reader_controls": {
+    "execution": {
+      "path": "docs/validation/sky130-connectivity-2026-10-11/reader-controls.json",
+      "sha256": "a839f35703a766117f7cb5624abc10d666cdb652dc3d754ce4fae790baa5cad9"
+    },
+    "accepted": 4,
+    "rejected": 3
+  },
+  "audits": {
+    "win32": {
+      "path": "docs/validation/sky130-connectivity-2026-10-11/audit-win32.json",
+      "sha256": "9dc0f199326b723b8ad88a9741e2fb086b5c3dc2df4504b43564bf40ea98dc35"
+    },
+    "linux": {
+      "path": "docs/validation/sky130-connectivity-2026-10-11/audit-linux.json",
+      "sha256": "96e9712489226cdf288a13a27f56a8015b4024fd5246fa9c167afd9a4b19b8a0"
+    }
+  },
+  "native_fill_pilot": {
+    "execution": {
+      "path": "docs/validation/sky130-connectivity-2026-10-11/fill-counter.json",
+      "sha256": "5516a0749e08557355faab8093dcf67a3bbc41a677e08c92ce0c2a1876b2afc4"
+    },
+    "accepted": false,
+    "geometry": {
+      "klayout": {
+        "path": "docs/validation/sky130-connectivity-2026-10-11/fill-counter-klayout.json",
+        "sha256": "64f6059397c34625e363d01799b46cf02c0e7c3663867ed2c7a9cd15ed681d3a"
+      },
+      "magic": {
+        "path": "docs/validation/sky130-connectivity-2026-10-11/fill-counter-magic.json",
+        "sha256": "10906d697cf6c96bddd778882e9770f138470f7f2a4a24b6449466dabe3542fb"
+      }
+    },
+    "screening_density_percent": {
+      "fom_all": 14.38950002193451,
+      "li_all": 26.99151635169983,
+      "m5_all": 32.49577879905701
+    },
+    "installed_helper_minimum_percent": {
+      "fom_all": 33,
+      "li_all": 35,
+      "m5_all": 45
+    },
+    "helper_sha256": "524fced4831a44e3a67262caaa3c67fec3b6fc40038ad1cd19ad0e9a0a766c73",
+    "reason": "Geometry is clean, but the native generated candidate is below three installed helper density minima. Required manual thresholds/windows/mask definitions still need reconciliation."
+  },
+  "findings": [
+    "Every top instance and terminal, including filler and body pins, is checked against the captured OpenDB before constructing the independent master-CDL reference.",
+    "CRLF normalization fixes native OpenROAD master-port parsing; standalone CDL slash separators are removed without changing terminals or model names.",
+    "Only explicit symbolic SHORT cards join nets; ordinary valued resistors and transistor dimensions remain intact. Unsupported symbolic values fail.",
+    "The reference scale is numeric 1e-6 and extracted device dimensions are micrometres. Native 1 nm and 0.1 percent tolerances are unchanged.",
+    "Physical metal, contacts, diffusion, wells and substrate establish connections. No global supply tying, implicit connections or equivalent-pin declarations are used.",
+    "Each top pin annotation must overlap exactly one physical metal island. Labels move only within that overlap on a mask-identical comparison copy; pin marker polygons cannot bridge conductors.",
+    "APB pready and VDD share a physical net and also share a net through the independent CDL tie cell. Complete paired port groups preserve all 30 declared boundary names.",
+    "Windows/Linux re-create identical adapted GDS and reference inputs, re-read all native reports and reproduce digest 354f032e24578d6574816bee54e03698ccd32ef334f1e5456d34310344d1d8ff."
+  ],
+  "limitations": [
+    "This checks the original HD blocks, not all SKY130 devices, stacks, operating conditions or arbitrary chips.",
+    "All 601 rule-inventory rows still need reviewed applicability and execution coverage. Density, broader antenna applicability, application integration and exact delivery remain incomplete.",
+    "Final connectivity and electrical checks must run again after a valid fill solution is established; the current fill pilot is not accepted.",
+    "Pin-marker extents exceed routing polygons in the retained exports. Unique-island label attachment establishes connectivity; complete macro boundary/abstract coverage remains production/delivery work.",
+    "Native engine execution is Linux KLayout 0.30.5. Windows evidence readback is not native Windows or consumer-installer qualification.",
+    "The initial flattened fault-control batch retained a VNB label from a misnamed native SUBPIN input. Its positive controls failed; the corrected source-bound batch is the accepted evidence.",
+    "The original rule-source capture includes CSV/RST documents. Referenced layer TSV files were not in that capture and still need explicit capture/reconciliation."
+  ],
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-connectivity-2026-10-11-v1\\evidence.tar.gz",
+    "sha256": "58f329cf27501ac108bddafbb4b481c0ee560438db247381946a93cd46a374ff",
+    "bytes": 73364996,
+    "files": 722,
+    "manifest_sha256": "72f7ec91fec49d500c4f4cb1d1181a72ad9e261a89ca1ddd52ed0c3912b92054",
+    "scope": "SKY130 original-reference connectivity, fault controls and rejected fill pilot. Full chunk 6 remains incomplete."
+  }
+}
