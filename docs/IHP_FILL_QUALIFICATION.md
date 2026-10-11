@@ -506,3 +506,37 @@ is **not qualified**. Full circuit behavior, transition-width convergence,
 the fixed 1 ps integration limit and independent model review remain required.
 The production engine and PDK files are unchanged. Completed diagnostics, including
 failed alternatives and superseded captures, are verified in permanent storage.
+
+## Complete experimental cold-counter comparison
+
+The [cold-counter record](validation/ihp-cold-counter-2026-10-11.json) binds the
+complete original and filled 900 ns workloads at -40 °C, 1.32 V and the fast MOS
+condition. Both use the original 1 ns supply ramp without a preloaded reset state.
+All 144 output-bit checks pass, and all 31 output transitions match. The largest
+observed fill-induced timing change is 10.384475 ps.
+
+Tightening integration and current/voltage tolerances changes filled output
+timing by at most 0.268031 ps and original output timing by 0.255348 ps, both
+below the fixed 1 ps numerical convergence limit. Halving the experimental
+diode transition half-width from 10 to 5 µV changes the compared edges by less
+than 0.000001 ps. A separate 1 mV half-width control changes them by less than
+0.000003 ps. These width results concern this counter and stimulus only.
+
+Windows and Linux reproduce all six comparisons exactly. The 40 pinned SPICE
+files and compiled MOS models remain unchanged. A short one-thread/two-thread
+control produces byte-identical waveforms. The private ngspice startup file's
+eight-thread default explains unnecessary CPU contention; later experiments
+set thread count explicitly.
+
+The [standalone diode reproducer](../examples/ihp-diode-charge-reproducer.spice)
+also exposes the charge jump in the unmodified production ngspice 42 engine.
+It copies the pinned area-diode card and removes series resistance solely to
+observe intrinsic charge; it is not a replacement physical circuit. Run a copy
+in a new output directory. The captured 401-point curve has a 1.724188e-18 C
+charge step and fails the stored-charge/tangent-capacitance consistency check.
+
+The complete counter results, source/model bindings, stock reproducer and
+finished failed APB controls have a read-back-verified permanent archive.
+The corrected engine remains experimental: larger filled full-RC workloads,
+model review, accepted nominal extraction/timing and production integration
+remain open. Chunk 5 is not complete.

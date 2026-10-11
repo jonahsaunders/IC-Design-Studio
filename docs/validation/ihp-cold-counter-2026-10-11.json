@@ -1,0 +1,710 @@
+{
+  "schema": 1,
+  "status": "experimental-cold-counter-convergence-recorded",
+  "qualified": false,
+  "chunk_complete": false,
+  "pdK_revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+  "comparisons": {
+    "fill": {
+      "status": "comparison-recorded",
+      "waveform_audits": [
+        {
+          "schema": 1,
+          "status": "pass",
+          "qualified": false,
+          "complete_waveform": true,
+          "tested_bits": 72,
+          "failed_bits": 0,
+          "failures": [],
+          "duration_ns": 900,
+          "waveform_sha256": "7683bb0f1f989e4afaa6fae02f7551e449db150c991a4300b0cf77af4cb222bb",
+          "expectations_sha256": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+          "engine_log_sha256": "0179458e38c564cb51a8298dabd6f5b04b4a24d2ca20d1165c1f5f5c8bbee89b",
+          "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+        },
+        {
+          "schema": 1,
+          "status": "pass",
+          "qualified": false,
+          "complete_waveform": true,
+          "tested_bits": 72,
+          "failed_bits": 0,
+          "failures": [],
+          "duration_ns": 900,
+          "waveform_sha256": "8fb4efd3ccd77daeed0fe6481be06a8c7b08356d60af5b6cf54a7dba2dcdb3a8",
+          "expectations_sha256": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+          "engine_log_sha256": "93b66b4e9adba5fae6d166f5d5fcb7e1ccba2af41f876f8fcda3df173f1c8319",
+          "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+        }
+      ],
+      "matched_edges": 31,
+      "maximum_edge_change_ps": 10.384474777717854,
+      "waveform_bytes_identical": false,
+      "schema": 1,
+      "kind": "fill",
+      "qualified": false,
+      "invalid_for_acceptance": true,
+      "paths": [
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\outputs\\ihp-counter-diode-join-standard-v5-1e-5\\original-900",
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\outputs\\ihp-counter-diode-join-standard-v5-1e-5\\filled-900"
+      ],
+      "simulation_record_sha256": [
+        "e40b147555665ac623b481d3f92a2ab5b76393b105f934f08263878ab49656e7",
+        "8d25d66109f6f900949c829c06fd6145f208ed8939dc9d7803ea903b98c398f3"
+      ],
+      "engine_sha256": "531b43c1c81f798dcc47de9adf37e517bf97d4f98d58e25e3cd9fd2e9abc666c",
+      "join_half_widths_v": [
+        1e-05,
+        1e-05
+      ],
+      "elapsed_seconds": [
+        691.4324633430006,
+        833.8009527880004
+      ],
+      "scope": "Captured experimental cold-counter output comparison only. The patched model, field extraction, static timing and larger workloads are not qualified by this result."
+    },
+    "threads": {
+      "status": "comparison-recorded",
+      "waveform_audits": [
+        {
+          "schema": 1,
+          "status": "pass",
+          "qualified": false,
+          "complete_waveform": true,
+          "tested_bits": 8,
+          "failed_bits": 0,
+          "failures": [],
+          "duration_ns": 100,
+          "waveform_sha256": "e290af95a45ce8431037e8c38fef0eabb92320a690f7b51adbf0876d8c93fe06",
+          "expectations_sha256": "4ca06a9b252973062187535a9d8570bb35248acd41ed1eb9bbc63c65941886d8",
+          "engine_log_sha256": "668378e98fc743fe68bca627498354aa0629651f656367470cc5ad37d66868be",
+          "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+        },
+        {
+          "schema": 1,
+          "status": "pass",
+          "qualified": false,
+          "complete_waveform": true,
+          "tested_bits": 8,
+          "failed_bits": 0,
+          "failures": [],
+          "duration_ns": 100,
+          "waveform_sha256": "e290af95a45ce8431037e8c38fef0eabb92320a690f7b51adbf0876d8c93fe06",
+          "expectations_sha256": "4ca06a9b252973062187535a9d8570bb35248acd41ed1eb9bbc63c65941886d8",
+          "engine_log_sha256": "926900d07afae1152e2ad9a31368c70fb083c41dd066a55e24935a522a8e3e18",
+          "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+        }
+      ],
+      "matched_edges": 1,
+      "maximum_edge_change_ps": 0.0,
+      "waveform_bytes_identical": true,
+      "fixed_limit_ps": 1.0,
+      "within_fixed_limit": true,
+      "schema": 1,
+      "kind": "threads",
+      "qualified": false,
+      "invalid_for_acceptance": true,
+      "paths": [
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\outputs\\ihp-thread-count-v1\\filled-100-threads-1",
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\outputs\\ihp-thread-count-v1\\filled-100-threads-2"
+      ],
+      "simulation_record_sha256": [
+        "1f3dc9ceb068d604d8b5674eacdc498ea83b85effe38fca2164acc857b4a0a3c",
+        "3716ab974eea52a624ca932dda3c76bbe40d22b8b4ecd9c60bafdfdba3959c7b"
+      ],
+      "engine_sha256": "531b43c1c81f798dcc47de9adf37e517bf97d4f98d58e25e3cd9fd2e9abc666c",
+      "join_half_widths_v": [
+        1e-05,
+        1e-05
+      ],
+      "elapsed_seconds": [
+        79.69777066399911,
+        107.77887812299923
+      ],
+      "scope": "Captured experimental cold-counter output comparison only. The patched model, field extraction, static timing and larger workloads are not qualified by this result."
+    },
+    "width": {
+      "status": "comparison-recorded",
+      "waveform_audits": [
+        {
+          "schema": 1,
+          "status": "pass",
+          "qualified": false,
+          "complete_waveform": true,
+          "tested_bits": 72,
+          "failed_bits": 0,
+          "failures": [],
+          "duration_ns": 900,
+          "waveform_sha256": "8fb4efd3ccd77daeed0fe6481be06a8c7b08356d60af5b6cf54a7dba2dcdb3a8",
+          "expectations_sha256": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+          "engine_log_sha256": "93b66b4e9adba5fae6d166f5d5fcb7e1ccba2af41f876f8fcda3df173f1c8319",
+          "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+        },
+        {
+          "schema": 1,
+          "status": "pass",
+          "qualified": false,
+          "complete_waveform": true,
+          "tested_bits": 72,
+          "failed_bits": 0,
+          "failures": [],
+          "duration_ns": 900,
+          "waveform_sha256": "864ec92fb05a06b2dd93fb48feb9e7e3502873496595ea3839c2880f1af2c655",
+          "expectations_sha256": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+          "engine_log_sha256": "631acd2235ee187763f6e0569914fd38635a69f04eee9dc25a0d11a6bbd4aae9",
+          "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+        }
+      ],
+      "matched_edges": 31,
+      "maximum_edge_change_ps": 3.135080696024979e-07,
+      "waveform_bytes_identical": false,
+      "fixed_limit_ps": 1.0,
+      "within_fixed_limit": true,
+      "schema": 1,
+      "kind": "width",
+      "qualified": false,
+      "invalid_for_acceptance": true,
+      "paths": [
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\outputs\\ihp-counter-diode-join-standard-v5-1e-5\\filled-900",
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\outputs\\ihp-counter-diode-join-standard-v5-5e-6\\filled-900"
+      ],
+      "simulation_record_sha256": [
+        "8d25d66109f6f900949c829c06fd6145f208ed8939dc9d7803ea903b98c398f3",
+        "cb28479bd9fd4be88bf6891c36e81e4cd88ffd9bab74525a5caf88cd5ac4f092"
+      ],
+      "engine_sha256": "531b43c1c81f798dcc47de9adf37e517bf97d4f98d58e25e3cd9fd2e9abc666c",
+      "join_half_widths_v": [
+        1e-05,
+        5e-06
+      ],
+      "elapsed_seconds": [
+        833.8009527880004,
+        1279.0625074660002
+      ],
+      "scope": "Captured experimental cold-counter output comparison only. The patched model, field extraction, static timing and larger workloads are not qualified by this result."
+    },
+    "wide": {
+      "status": "comparison-recorded",
+      "waveform_audits": [
+        {
+          "schema": 1,
+          "status": "pass",
+          "qualified": false,
+          "complete_waveform": true,
+          "tested_bits": 72,
+          "failed_bits": 0,
+          "failures": [],
+          "duration_ns": 900,
+          "waveform_sha256": "8fb4efd3ccd77daeed0fe6481be06a8c7b08356d60af5b6cf54a7dba2dcdb3a8",
+          "expectations_sha256": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+          "engine_log_sha256": "93b66b4e9adba5fae6d166f5d5fcb7e1ccba2af41f876f8fcda3df173f1c8319",
+          "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+        },
+        {
+          "schema": 1,
+          "status": "pass",
+          "qualified": false,
+          "complete_waveform": true,
+          "tested_bits": 72,
+          "failed_bits": 0,
+          "failures": [],
+          "duration_ns": 900,
+          "waveform_sha256": "0685a4ad9025d58c83f65d0ba03cb33179c4f4e42c41e9139bdae14394dc69f9",
+          "expectations_sha256": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+          "engine_log_sha256": "2ea918c276a8ff0ad157093e16f76c65e04d97b62816b02a82c78d029b0e3b08",
+          "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+        }
+      ],
+      "matched_edges": 31,
+      "maximum_edge_change_ps": 2.1488564127351557e-06,
+      "waveform_bytes_identical": false,
+      "fixed_limit_ps": 1.0,
+      "within_fixed_limit": true,
+      "schema": 1,
+      "kind": "wide",
+      "qualified": false,
+      "invalid_for_acceptance": true,
+      "paths": [
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\outputs\\ihp-counter-diode-join-standard-v5-1e-5\\filled-900",
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\outputs\\ihp-counter-join-width-v7-1e-3\\filled-900"
+      ],
+      "simulation_record_sha256": [
+        "8d25d66109f6f900949c829c06fd6145f208ed8939dc9d7803ea903b98c398f3",
+        "761a3d2df5b1238c61afb98927eb213c00485b6462004f29ee7529aa46625fb6"
+      ],
+      "engine_sha256": "531b43c1c81f798dcc47de9adf37e517bf97d4f98d58e25e3cd9fd2e9abc666c",
+      "join_half_widths_v": [
+        1e-05,
+        0.001
+      ],
+      "elapsed_seconds": [
+        833.8009527880004,
+        1192.4877055680008
+      ],
+      "scope": "Captured experimental cold-counter output comparison only. The patched model, field extraction, static timing and larger workloads are not qualified by this result."
+    },
+    "fine": {
+      "schema": 1,
+      "status": "convergence-pass",
+      "qualified": false,
+      "convergence_limit_ps": 1.0,
+      "transition_start_ns": 10.0,
+      "duration_ns": 900,
+      "matched_input_sha256": {
+        "circuit.spice": "df931ee1fbebebe2b1793276ab818db11f833db92335b93815177f48f82dd8be",
+        "capacitance.spice": "7d478cb3390477dab0000ccbce3d2bc134d8fa0cd4fa49ddaa4fefa7ee177f84",
+        ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+        "expectations.json": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821"
+      },
+      "settings": [
+        {
+          "reltol": 1e-05,
+          "abstol": 1e-12,
+          "vntol": 1e-08,
+          "output_step": 2e-11,
+          "maximum_step": 5e-11
+        },
+        {
+          "reltol": 5e-06,
+          "abstol": 5e-13,
+          "vntol": 5e-09,
+          "output_step": 1e-11,
+          "maximum_step": 2.5e-11
+        }
+      ],
+      "captured_file_sha256": [
+        {
+          "circuit.spice": "df931ee1fbebebe2b1793276ab818db11f833db92335b93815177f48f82dd8be",
+          "capacitance.spice": "7d478cb3390477dab0000ccbce3d2bc134d8fa0cd4fa49ddaa4fefa7ee177f84",
+          ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+          "expectations.json": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+          "bench.spice": "413fedb61783f4bcf820041e0f629c7f6de2c73149e2ad4fff1c8b8c04cc78af",
+          "waveform.txt": "8fb4efd3ccd77daeed0fe6481be06a8c7b08356d60af5b6cf54a7dba2dcdb3a8",
+          "engine.log": "93b66b4e9adba5fae6d166f5d5fcb7e1ccba2af41f876f8fcda3df173f1c8319"
+        },
+        {
+          "circuit.spice": "df931ee1fbebebe2b1793276ab818db11f833db92335b93815177f48f82dd8be",
+          "capacitance.spice": "7d478cb3390477dab0000ccbce3d2bc134d8fa0cd4fa49ddaa4fefa7ee177f84",
+          ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+          "expectations.json": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+          "bench.spice": "0275c1740be772409cf39138c25fcb0639fada70b31d1fec6e2c05ee712cb3ab",
+          "waveform.txt": "9638f14ce3abfdb2fd77d2e3c58fa29305b38d45066653299fa8e48a3ef4ab7a",
+          "engine.log": "44b51977f499f4dbd8208a5b99b3ff79b1a2775bd10d0d65da14fa21686e039d"
+        }
+      ],
+      "bench_sha256": [
+        "413fedb61783f4bcf820041e0f629c7f6de2c73149e2ad4fff1c8b8c04cc78af",
+        "0275c1740be772409cf39138c25fcb0639fada70b31d1fec6e2c05ee712cb3ab"
+      ],
+      "waveform_audits": [
+        {
+          "schema": 1,
+          "status": "pass",
+          "qualified": false,
+          "complete_waveform": true,
+          "tested_bits": 72,
+          "failed_bits": 0,
+          "failures": [],
+          "duration_ns": 900,
+          "waveform_sha256": "8fb4efd3ccd77daeed0fe6481be06a8c7b08356d60af5b6cf54a7dba2dcdb3a8",
+          "expectations_sha256": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+          "engine_log_sha256": "93b66b4e9adba5fae6d166f5d5fcb7e1ccba2af41f876f8fcda3df173f1c8319",
+          "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+        },
+        {
+          "schema": 1,
+          "status": "pass",
+          "qualified": false,
+          "complete_waveform": true,
+          "tested_bits": 72,
+          "failed_bits": 0,
+          "failures": [],
+          "duration_ns": 900,
+          "waveform_sha256": "9638f14ce3abfdb2fd77d2e3c58fa29305b38d45066653299fa8e48a3ef4ab7a",
+          "expectations_sha256": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+          "engine_log_sha256": "44b51977f499f4dbd8208a5b99b3ff79b1a2775bd10d0d65da14fa21686e039d",
+          "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+        }
+      ],
+      "channels": [
+        {
+          "channel": {
+            "node": "NET000015"
+          },
+          "baseline_edges": 17,
+          "tighter_edges": 17,
+          "same_direction_sequence": true,
+          "maximum_edge_change_ps": 0.26803077124392233
+        },
+        {
+          "channel": {
+            "node": "NET000016"
+          },
+          "baseline_edges": 8,
+          "tighter_edges": 8,
+          "same_direction_sequence": true,
+          "maximum_edge_change_ps": 0.2629692916951188
+        },
+        {
+          "channel": {
+            "node": "NET000017"
+          },
+          "baseline_edges": 4,
+          "tighter_edges": 4,
+          "same_direction_sequence": true,
+          "maximum_edge_change_ps": 0.22579180165662568
+        },
+        {
+          "channel": {
+            "node": "NET000018"
+          },
+          "baseline_edges": 2,
+          "tighter_edges": 2,
+          "same_direction_sequence": true,
+          "maximum_edge_change_ps": 0.1863465024775569
+        }
+      ],
+      "matched_edges": 31,
+      "maximum_edge_change_ps": 0.26803077124392233,
+      "scope": "Captured experimental cold-counter output comparison only. The patched model, field extraction, static timing and larger workloads are not qualified by this result.",
+      "kind": "fine",
+      "invalid_for_acceptance": true,
+      "paths": [
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\outputs\\ihp-counter-diode-join-standard-v5-1e-5\\filled-900",
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\outputs\\ihp-counter-join-fine-v6-1e-5\\filled-900"
+      ],
+      "simulation_record_sha256": [
+        "8d25d66109f6f900949c829c06fd6145f208ed8939dc9d7803ea903b98c398f3",
+        "a9c59a65b231686336d88d8956e4ea7823bb73b4ae5c54666e7f19592bc566cf"
+      ],
+      "engine_sha256": "531b43c1c81f798dcc47de9adf37e517bf97d4f98d58e25e3cd9fd2e9abc666c",
+      "join_half_widths_v": [
+        1e-05,
+        1e-05
+      ],
+      "elapsed_seconds": [
+        833.8009527880004,
+        1547.580784785001
+      ]
+    },
+    "original-fine": {
+      "schema": 1,
+      "status": "convergence-pass",
+      "qualified": false,
+      "convergence_limit_ps": 1.0,
+      "transition_start_ns": 10.0,
+      "duration_ns": 900,
+      "matched_input_sha256": {
+        "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+        "capacitance.spice": "42fcec4bbb5987fc982d1b613868e9f6fea41ab5b3297e39acc49e726edcf27e",
+        ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+        "expectations.json": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821"
+      },
+      "settings": [
+        {
+          "reltol": 1e-05,
+          "abstol": 1e-12,
+          "vntol": 1e-08,
+          "output_step": 2e-11,
+          "maximum_step": 5e-11
+        },
+        {
+          "reltol": 5e-06,
+          "abstol": 5e-13,
+          "vntol": 5e-09,
+          "output_step": 1e-11,
+          "maximum_step": 2.5e-11
+        }
+      ],
+      "captured_file_sha256": [
+        {
+          "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+          "capacitance.spice": "42fcec4bbb5987fc982d1b613868e9f6fea41ab5b3297e39acc49e726edcf27e",
+          ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+          "expectations.json": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+          "bench.spice": "413fedb61783f4bcf820041e0f629c7f6de2c73149e2ad4fff1c8b8c04cc78af",
+          "waveform.txt": "7683bb0f1f989e4afaa6fae02f7551e449db150c991a4300b0cf77af4cb222bb",
+          "engine.log": "0179458e38c564cb51a8298dabd6f5b04b4a24d2ca20d1165c1f5f5c8bbee89b"
+        },
+        {
+          "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+          "capacitance.spice": "42fcec4bbb5987fc982d1b613868e9f6fea41ab5b3297e39acc49e726edcf27e",
+          ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+          "expectations.json": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+          "bench.spice": "0275c1740be772409cf39138c25fcb0639fada70b31d1fec6e2c05ee712cb3ab",
+          "waveform.txt": "ee375d42691204ff1011072d4d3fdcae6daeb026b7e049c6ca6f9c85338a7960",
+          "engine.log": "e48fd5c01e340c4f1d322e412533737c3e820aa0d9426379c3ad79d6f3a1e56d"
+        }
+      ],
+      "bench_sha256": [
+        "413fedb61783f4bcf820041e0f629c7f6de2c73149e2ad4fff1c8b8c04cc78af",
+        "0275c1740be772409cf39138c25fcb0639fada70b31d1fec6e2c05ee712cb3ab"
+      ],
+      "waveform_audits": [
+        {
+          "schema": 1,
+          "status": "pass",
+          "qualified": false,
+          "complete_waveform": true,
+          "tested_bits": 72,
+          "failed_bits": 0,
+          "failures": [],
+          "duration_ns": 900,
+          "waveform_sha256": "7683bb0f1f989e4afaa6fae02f7551e449db150c991a4300b0cf77af4cb222bb",
+          "expectations_sha256": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+          "engine_log_sha256": "0179458e38c564cb51a8298dabd6f5b04b4a24d2ca20d1165c1f5f5c8bbee89b",
+          "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+        },
+        {
+          "schema": 1,
+          "status": "pass",
+          "qualified": false,
+          "complete_waveform": true,
+          "tested_bits": 72,
+          "failed_bits": 0,
+          "failures": [],
+          "duration_ns": 900,
+          "waveform_sha256": "ee375d42691204ff1011072d4d3fdcae6daeb026b7e049c6ca6f9c85338a7960",
+          "expectations_sha256": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+          "engine_log_sha256": "e48fd5c01e340c4f1d322e412533737c3e820aa0d9426379c3ad79d6f3a1e56d",
+          "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+        }
+      ],
+      "channels": [
+        {
+          "channel": {
+            "node": "NET000015"
+          },
+          "baseline_edges": 17,
+          "tighter_edges": 17,
+          "same_direction_sequence": true,
+          "maximum_edge_change_ps": 0.24602877163696638
+        },
+        {
+          "channel": {
+            "node": "NET000016"
+          },
+          "baseline_edges": 8,
+          "tighter_edges": 8,
+          "same_direction_sequence": true,
+          "maximum_edge_change_ps": 0.2553473830068444
+        },
+        {
+          "channel": {
+            "node": "NET000017"
+          },
+          "baseline_edges": 4,
+          "tighter_edges": 4,
+          "same_direction_sequence": true,
+          "maximum_edge_change_ps": 0.2505127512427026
+        },
+        {
+          "channel": {
+            "node": "NET000018"
+          },
+          "baseline_edges": 2,
+          "tighter_edges": 2,
+          "same_direction_sequence": true,
+          "maximum_edge_change_ps": 0.2453446324428315
+        }
+      ],
+      "matched_edges": 31,
+      "maximum_edge_change_ps": 0.2553473830068444,
+      "scope": "Captured experimental cold-counter output comparison only. The patched model, field extraction, static timing and larger workloads are not qualified by this result.",
+      "kind": "original-fine",
+      "invalid_for_acceptance": true,
+      "paths": [
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\outputs\\ihp-counter-diode-join-standard-v5-1e-5\\original-900",
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\outputs\\ihp-counter-join-fine-v6-1e-5\\original-900"
+      ],
+      "simulation_record_sha256": [
+        "e40b147555665ac623b481d3f92a2ab5b76393b105f934f08263878ab49656e7",
+        "0f7e262a9833f78841002df687c8d5e229357f41b895ee85d95ae092ec2c71ad"
+      ],
+      "engine_sha256": "531b43c1c81f798dcc47de9adf37e517bf97d4f98d58e25e3cd9fd2e9abc666c",
+      "join_half_widths_v": [
+        1e-05,
+        1e-05
+      ],
+      "elapsed_seconds": [
+        691.4324633430006,
+        642.2545564640004
+      ]
+    }
+  },
+  "linux_replay": {
+    "schema": 1,
+    "status": "counter-comparisons-replayed",
+    "qualified": false,
+    "chunk_complete": false,
+    "comparisons": [
+      {
+        "kind": "fill",
+        "report_sha256": "69b5fcd58b9061cd866523838542d845a11e8c60735f8f4a6844156ab8c55b85",
+        "decoded_metrics_identical": true,
+        "matched_edges": 31,
+        "maximum_edge_change_ps": 10.384474777717854
+      },
+      {
+        "kind": "threads",
+        "report_sha256": "30fbcf59c965273653f7d54006d9520519c1a1c4852679cf3028f35b1d39d84c",
+        "decoded_metrics_identical": true,
+        "matched_edges": 1,
+        "maximum_edge_change_ps": 0.0
+      },
+      {
+        "kind": "width",
+        "report_sha256": "c69d42b86d1f8c2536a29ea41379e64206ed3e6bf465c5ea9cddbb22088a56b1",
+        "decoded_metrics_identical": true,
+        "matched_edges": 31,
+        "maximum_edge_change_ps": 3.135080696024979e-07
+      },
+      {
+        "kind": "wide",
+        "report_sha256": "9d78f7a982b555a879166f5b68a087567614de8d38ec04847b72f6337b602da6",
+        "decoded_metrics_identical": true,
+        "matched_edges": 31,
+        "maximum_edge_change_ps": 2.1488564127351557e-06
+      },
+      {
+        "kind": "fine",
+        "report_sha256": "a7854ea8bbf4f13c2e9a282646c558546af3d34d76962609e7accaf946fa2fba",
+        "decoded_metrics_identical": true,
+        "matched_edges": 31,
+        "maximum_edge_change_ps": 0.26803077124392233
+      },
+      {
+        "kind": "original-fine",
+        "report_sha256": "50f288caebf725998776443a6e82851c1143430ebc2ba2e3193e25817178e5e8",
+        "decoded_metrics_identical": true,
+        "matched_edges": 31,
+        "maximum_edge_change_ps": 0.2553473830068444
+      }
+    ],
+    "unchanged_pinned_model_files": 40,
+    "pdk_manifest_sha256": "3919916bfa573ebb5f7beb2c8173fab4faf08e06e8df99155302fadd5f017bac",
+    "osdi_build_sha256": "30d8b93fbf8331c542625388e707ac755a2a19b00f473e19dc6348e1eb4fd4b0"
+  },
+  "stock_reproducer": {
+    "schema": 1,
+    "status": "stock-engine-defect-reproduced",
+    "qualified": false,
+    "fixture_sha256": "9223a70b3d0e1df130894d0e1bb20a0ad2a91073d3381ff79a88f8ff0b019436",
+    "engine": "/usr/bin/ngspice",
+    "engine_sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+    "engine_version": "******\n** ngspice-42 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2023, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Sun Mar 31 20:15:14 UTC 2024\n******\n",
+    "audit": {
+      "schema": 1,
+      "status": "charge-consistency-failed",
+      "qualified": false,
+      "samples": 401,
+      "first_bias_v": 0.06079640293959185,
+      "last_bias_v": 0.06083640293959185,
+      "charge_change_c": -2.120662009557387e-18,
+      "integrated_capacitance_charge_c": -3.9746784104233726e-19,
+      "relative_error": 0.8125736966800784,
+      "maximum_cumulative_relative_error": 0.8125736966812352,
+      "relative_limit": 0.0001,
+      "largest_charge_step_c": 1.7241878379291696e-18,
+      "curve_sha256": "556803d827ebab0fc3aabfd17db9e21aa6615d733282de975257f99217ef2d20",
+      "engine_log_sha256": "ca2f64b5c4309396e10d84ea15d839ebe149626e675c8e28c2b9ae89ae46e714",
+      "scope": "Cumulative sampled intrinsic charge/capacitance consistency only. External model and engine bindings, physical calibration, circuit behavior and qualification require separate evidence."
+    }
+  },
+  "archive": {
+    "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/ihp-cold-counter-2026-10-11-v5/evidence.tar.gz",
+    "sha256": "7f79d4b5c7005f6498c3dc97756d5ba136e7f71cb1470a88e0458e47ea7e37a2",
+    "bytes": 26579091,
+    "logical_files": 281,
+    "unique_blobs": 216,
+    "verified": true,
+    "manifest_sha256": "603209fcb9ce85bced865dd8683d3e750e6f7aecc46cafa4d3552ae0a3431b3b"
+  },
+  "retained_diagnostics": [
+    {
+      "path": "outputs/ihp-counter-diode-join-standard-v5-1e-5/filled-900",
+      "status": "diagnostic-only-waveform-completed",
+      "record_sha256": "8d25d66109f6f900949c829c06fd6145f208ed8939dc9d7803ea903b98c398f3"
+    },
+    {
+      "path": "outputs/ihp-counter-diode-join-standard-v5-1e-5/original-900",
+      "status": "diagnostic-only-waveform-completed",
+      "record_sha256": "e40b147555665ac623b481d3f92a2ab5b76393b105f934f08263878ab49656e7"
+    },
+    {
+      "path": "outputs/ihp-counter-diode-join-standard-v5-5e-6/filled-900",
+      "status": "diagnostic-only-waveform-completed",
+      "record_sha256": "cb28479bd9fd4be88bf6891c36e81e4cd88ffd9bab74525a5caf88cd5ac4f092"
+    },
+    {
+      "path": "outputs/ihp-counter-join-fine-v6-1e-5/filled-900",
+      "status": "diagnostic-only-waveform-completed",
+      "record_sha256": "a9c59a65b231686336d88d8956e4ea7823bb73b4ae5c54666e7f19592bc566cf"
+    },
+    {
+      "path": "outputs/ihp-counter-join-fine-v6-1e-5/original-900",
+      "status": "diagnostic-only-waveform-completed",
+      "record_sha256": "0f7e262a9833f78841002df687c8d5e229357f41b895ee85d95ae092ec2c71ad"
+    },
+    {
+      "path": "outputs/ihp-counter-join-width-v7-1e-3/filled-900",
+      "status": "diagnostic-only-waveform-completed",
+      "record_sha256": "761a3d2df5b1238c61afb98927eb213c00485b6462004f29ee7529aa46625fb6"
+    },
+    {
+      "path": "outputs/ihp-thread-count-v1/filled-100-threads-1",
+      "status": "diagnostic-only-waveform-completed",
+      "record_sha256": "1f3dc9ceb068d604d8b5674eacdc498ea83b85effe38fca2164acc857b4a0a3c"
+    },
+    {
+      "path": "outputs/ihp-thread-count-v1/filled-100-threads-2",
+      "status": "diagnostic-only-waveform-completed",
+      "record_sha256": "3716ab974eea52a624ca932dda3c76bbe40d22b8b4ecd9c60bafdfdba3959c7b"
+    },
+    {
+      "path": "outputs/ihp-stock-diode-reproducer-v1",
+      "status": "stock-engine-defect-reproduced",
+      "record_sha256": "d01db83ccbc867422d6e9bc453abccad81c45807c11bde0c9a3961c8107db513"
+    },
+    {
+      "path": "outputs/ihp-ordered-diode-join-v1/apb-filled-100-metis-baseline",
+      "status": "failed",
+      "record_sha256": "642490405bbb7811ba070b016d23a0ed3347488de6fcca7c23d0792ae1a0fa82"
+    },
+    {
+      "path": "outputs/ihp-ordered-diode-join-v2-1e-3/apb-filled-100-metis-baseline",
+      "status": "failed",
+      "record_sha256": "1c25c96b49f1ce063b598babf4baa52bd7aa1d17e516a304e61a3d0360fbf8b6"
+    },
+    {
+      "path": "outputs/ihp-ordered-diode-join-serial-v3-1e-3/apb-filled-100-metis-baseline",
+      "status": "failed",
+      "record_sha256": "daf805c11ddbf382439013aa773055c9bb54485137f7efd02b804939e83c1e3f"
+    },
+    {
+      "path": "outputs/ihp-apb-join-trace-v4-1e-3/apb-filled-22-metis-baseline",
+      "status": "failed",
+      "record_sha256": "142eb89bcff0694ce348956b068b79259e539986b223d12562d5bbff78403fd3"
+    }
+  ],
+  "excluded_running_cases": [
+    "outputs/ihp-apb-step-trace-v5-1e-3/apb-filled-22-metis-baseline",
+    "outputs/ihp-hybrid-join-v2/hybrid"
+  ],
+  "model_scope": "The private engine regularizes the native diode current/charge jump. These complete output checks and width studies validate the stated circuit experiment only; they do not establish an approved physical model or qualify the filled UART/APB or post-fill static timing.",
+  "sources": {
+    "examples/ihp-diode-charge-reproducer.spice": "9223a70b3d0e1df130894d0e1bb20a0ad2a91073d3381ff79a88f8ff0b019436",
+    "scripts/check_ihp_waveform.py": "b4134c5960ce45805ae9680d394b7f0bbed47a169cae3650c3564ef846f28599",
+    "scripts/ihp_waveform_convergence.py": "4cfc5ab9cada9c8fc0baca13039a3a04856f5246283fe854e0500811a2147111",
+    "scripts/ihp_diode_charge_audit.py": "d4a77614ee05d43202c37b8cb31b2255329e97c702c9810bcf8f6847c815c590"
+  },
+  "related_upstream_report": {
+    "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/issues/921",
+    "scope": "Related diode/transient convergence symptoms. The proposed simplified diode controls remove physical model terms and are not adopted as acceptance evidence."
+  },
+  "remaining": [
+    "Model-correction review and complete filled UART/APB full-RC comparisons at the fixed 1 ps convergence limit.",
+    "Accepted nominal full-fill extraction and timing, including internal-cell capacitance changes.",
+    "Production integration, final export binding, and affected production/package checks."
+  ]
+}
