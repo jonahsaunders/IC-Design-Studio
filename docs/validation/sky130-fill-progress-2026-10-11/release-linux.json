@@ -1,0 +1,7 @@
+{
+  "status": "release-consistent",
+  "platform": "linux",
+  "exit_code": null,
+  "log_sha256": "f0442d5ec8d916fa3de3a48e1d9e2c4e369a1ea665acf4d69ec46ab4ebfd2b78",
+  "progress_sha256": "4de1c733c3b0b29e0c7770d46c68a3d8e68c185410e9c24c930dab1cfbe55dd3"
+}

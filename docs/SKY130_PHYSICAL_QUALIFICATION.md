@@ -208,11 +208,65 @@ one part of the required gate, not a complete rule or density acceptance claim.
 
 ## Remaining gate
 
-Reconcile the full required rule inventory and antenna applicability beyond
-the selected profile and complete density. Rerun the strict connectivity and
-electrical checks after a valid fill solution is established. Integrate the
-complete gate into the application and verify its delivered Windows/Linux
-paths. The current standalone diagnostics do not yet provide that gate.
+The [fill progress record](validation/sky130-fill-progress-2026-10-11.json)
+binds the final counter/UART v20 and APB v22 candidates. Their original
+200/400 micrometre dies are unchanged. All three pass both enabled native
+geometry decks, all 13 selected antenna stages, supplemental fill/pin checks
+and the unchanged eight-layer density screen. Native Magic density measurements
+agree with independent polygon-area calculations. This remains a screen,
+not complete foundry density qualification.
+
+Added fill and same-footprint rail decaps stay outside a 9 micrometre circuit
+clearance. Windows and Linux independently reconstruct the selected decap
+placements and verify every drawn mask within that clearance. Nonconducting
+body-pin annotation changes are explicitly recorded. Every original circuit
+device record, non-supply capacitor pair and original-node resistance value
+is unchanged in the final native extraction: 1,194 counter, 18,580 UART and
+18,300 APB capacitor pairs. All new devices have the required rail-only decap
+connections; every native missing-terminal message identifies one of those
+devices and its expected supply. The check uses exact rational arithmetic,
+rejecting even arbitrarily small injected capacitance changes.
+
+This is nominal native circuit invariance with ideal supplies. It does not
+establish distributed RC timing, supply integrity or extractor calibration.
+The earlier dense-fill counter changed circuit capacitance and remains a
+retained failed candidate; it is not used for an unchanged-model handoff.
+
+The original CDL's `diode_2` cell was empty, so the earlier transistor comparison
+did not test APB's three antenna diodes. The
+[diode adapter](../scripts/sky130_diode_lvs.py) now uses an
+[independent pinned library model](https://github.com/fossi-foundation/skywater-pdk-libs-sky130_fd_sc_hd/blob/9cb2d7cb8ed4619094263614039a61b6b2d22a88/cells/diode/sky130_fd_sc_hd__diode_2.spice).
+Every polygon layer of that library cell matches the installed GDS. Its
+independent reference area and perimeter agree with its own source layout.
+All three final designs pass the expanded diode/transistor/body/port comparison.
+Native APB controls reject a missing diode, open cathode, reversed polarity,
+wrong area and wrong perimeter. The initial adapter accepted the area fault;
+the corrected deck explicitly enables both dimension comparisons and its
+successful controls supersede that failed attempt.
+
+Windows and Linux produce identical physical, circuit and diode readback
+records. The current-source suite runs 128 tests per OS, with six Windows and
+five Linux tool-configuration skips; six additional diode tests pass per OS
+without skips. All 32 newly added implant, applicability, invariance and diode
+tests pass without skips. Native verification execution remains Linux.
+The new durable archive preserves 1,959 files in 1,399 unique blobs, including
+raw native captures and rejected recipes. Its 920 MB compressed contents passed
+complete hash-verified readback outside the dated workspace folders.
+
+The [raw implant checker](../scripts/sky130_raw_feol.py) supplements native
+engines with drawn-mask doping, width, spacing, area, hole and HVTP enclosure
+checks. The [applicability review](../scripts/sky130_block_applicability.py)
+retains all 601 periphery source rows: 106 have measured absent operands,
+77 explicitly say NA, 27 are advisory, 61 belong to the other backend,
+329 still require execution review and one needs a source definition.
+An absent operand is a block-specific finding, not a passing device test.
+
+Chunk 6 still requires complete per-rule/error-catalog reconciliation,
+implant enclosure and butting-edge coverage, and density/window/oxide
+applicability. The published `x.20` IP-block pin-spacing rule has no numeric
+value or unit; no threshold is invented. Final bound timing and equivalence,
+application integration and delivered Windows/Linux execution also remain.
+The retained standalone checks do not yet provide the complete gate.
 
 The durable evidence archive contains 707 files, including rejected attempts,
 and was read back completely against its manifest. A second 527-file archive

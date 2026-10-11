@@ -1,0 +1,57 @@
+import unittest
+from scripts.sky130_block_applicability import review_row, selector_for
+
+
+def row(rule,flags=(),value='',source='p018-x_dotdash.csv'):
+    return dict(rule=rule,flags=list(flags),value=value,source='docs/rules/periphery/'+source,
+                record=1,id='fixture#1',source_sha256='a'*64)
+
+
+class ApplicabilityTests(unittest.TestCase):
+    def test_absent_operand_requires_measured_zero(self):
+        rule=row('x.13')
+        self.assertEqual(review_row(rule,{'(81, 2)':0})['disposition'],'absent-operand')
+        for counts in ({},{'(81, 2)':1},{'(81, 2)':None}):
+            self.assertEqual(review_row(rule,counts)['disposition'],'execution-review-required')
+
+    def test_multiple_operands_are_all_required(self):
+        rule=row('nsm.3');good={'(61, 20)':0,'(22, 0)':0}
+        self.assertEqual(review_row(rule,good)['disposition'],'absent-operand')
+        for key in good:
+            self.assertEqual(review_row(rule,{**good,key:1})['disposition'],'execution-review-required')
+            self.assertEqual(review_row(rule,{k:v for k,v in good.items() if k!=key})['disposition'],'execution-review-required')
+
+    def test_missing_threshold_is_not_a_pass(self):
+        result=review_row(row('x.20'),{})
+        self.assertEqual(result['disposition'],'definition-required')
+        self.assertEqual(result['witnesses'],{})
+
+    def test_rc_rules_remain_required(self):
+        for flags,expected in ((['RC'],'execution-review-required'),(['RR'],'advisory'),
+                               (['NC'],'advisory'),(['CU','IR'],'other-backend'),(['AL'],'execution-review-required')):
+            self.assertEqual(review_row(row('unmapped',flags),{})['disposition'],expected)
+
+    def test_frame_exclusion_requires_both_identifiers_absent(self):
+        rule=row('x.12d',['F']);good={'(81, 10)':0,'(81, 12)':0}
+        self.assertEqual(review_row(rule,good)['disposition'],'absent-operand')
+        for key in good:
+            self.assertEqual(review_row(rule,{**good,key:1})['disposition'],'execution-review-required')
+
+    def test_enclosure_does_not_inherit_absent_valid_geometry(self):
+        self.assertEqual(selector_for(row('licon.1b')),('prec_resistor',))
+        self.assertEqual(review_row(row('licon.1b'),{'prec_resistor':1,'slotted_licon':0})['disposition'],'execution-review-required')
+        # RF-device enclosure cannot be dismissed simply because DNW is absent.
+        self.assertIsNone(selector_for(row('dnwell.6')))
+        self.assertEqual(review_row(row('dnwell.6'),{'(64, 18)':0})['disposition'],'execution-review-required')
+
+    def test_new_rule_has_no_automatic_exemption(self):
+        self.assertEqual(review_row(row('dnwell.future'),{'(64, 18)':0})['disposition'],'execution-review-required')
+        self.assertEqual(review_row(row('unknown',value='N/A'),{})['disposition'],'upstream-na')
+
+    def test_absent_enclosure_layer_does_not_exempt_enclosed_operand(self):
+        self.assertEqual(review_row(row('nwell.6'),{'(64, 18)':0,'nwell_holes':1})['disposition'],'execution-review-required')
+        self.assertEqual(review_row(row('nwell.6'),{'nwell_holes':0})['disposition'],'absent-operand')
+        self.assertEqual(review_row(row('x.26'),{'(81, 1)':0,'advSeal_6um_cells':1})['disposition'],'execution-review-required')
+
+
+if __name__=='__main__':unittest.main()

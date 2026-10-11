@@ -16722,13 +16722,14 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Complete required-rule reconciliation including the published error catalog, accepted density/fill, post-fill electrical verification, and the integrated final gate. Original-reference pin geometry, strict LVS and all 13 selected antenna stages pass.",
+      "remaining": "Complete required-rule and error-catalog reconciliation, missing x.20 definition, full implant-edge/density applicability, final timing/equivalence and combined application/delivery gate. Three final fill candidates pass enabled native geometry, all 13 selected antenna stages, diode-inclusive LVS and exact nominal circuit invariance.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
         "sky130-antenna-progress-2026-10-11",
         "sky130-connectivity-progress-2026-10-11",
-        "sky130-pin-progress-2026-10-11"
+        "sky130-pin-progress-2026-10-11",
+        "sky130-fill-progress-2026-10-11"
       ]
     },
     "sky130A:source-completeness": {
@@ -20036,6 +20037,11 @@
       "path": "docs/validation/sky130-pin-progress-2026-10-11.json",
       "sha256": "ab7042f040c03decb02384b3e9f222bb3c5fdb7633a8f0df654631199cd384fc",
       "scope_limit": "All three original HD boundary-pin exports corrected from independent OpenDB shapes; full enabled DRC, 13 antenna stages, strict LVS and actual export paths verified. Full chunk 6 remains incomplete."
+    },
+    "sky130-fill-progress-2026-10-11": {
+      "path": "docs/validation/sky130-fill-progress-2026-10-11.json",
+      "sha256": "4de1c733c3b0b29e0c7770d46c68a3d8e68c185410e9c24c930dab1cfbe55dd3",
+      "scope_limit": "Three original-footprint SKY130 HD remote-fill candidates, full enabled native geometry, selected antenna stages, partial manual checks, diode-inclusive connectivity, exact nominal native circuit invariance and cross-OS readback. Not complete required-rule, application or tapeout acceptance."
     }
   },
   "execution_acceptance": {

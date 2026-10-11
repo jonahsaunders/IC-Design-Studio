@@ -47,9 +47,16 @@ the corrected layouts pass both full native decks, strict LVS and all selected
 antenna stages through the actual export paths. Windows/Linux reconstruction
 agrees exactly, with 34 focused tests per OS and complete durable readback.
 The rule ledger now also retains the 1,556-record published error catalog and
-the previously missing layer TSV sources. Fill candidates remain unaccepted
-pending complete rule reconciliation, density interpretation, post-fill
-electrical checks and the combined application gate.
+the previously missing layer TSV sources. The final remote-fill candidates
+now pass both native geometry decks, the selected antenna checks and the
+unchanged density screen. Exact nominal circuit capacitance, device records
+and node resistance are preserved on all three designs, with identical
+Windows/Linux audits. An independently referenced diode check closes the
+empty-CDL omission and rejects five native diode faults. The
+[fill progress record](validation/sky130-fill-progress-2026-10-11.json) retains
+these results and failed attempts. Chunk 6 remains open for complete rule
+reconciliation, density interpretation, final timing/equivalence and the
+combined application gate.
 
 The IHP reference acceptance retains its original source in an explicit
 historical snapshot of shared files changed by the SKY130 export hooks. It
