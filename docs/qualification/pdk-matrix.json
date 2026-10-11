@@ -16729,7 +16729,8 @@
         "sky130-antenna-progress-2026-10-11",
         "sky130-connectivity-progress-2026-10-11",
         "sky130-pin-progress-2026-10-11",
-        "sky130-fill-progress-2026-10-11"
+        "sky130-fill-progress-2026-10-11",
+        "sky130-manual-progress-2026-10-11"
       ]
     },
     "sky130A:source-completeness": {
@@ -20042,6 +20043,11 @@
       "path": "docs/validation/sky130-fill-progress-2026-10-11.json",
       "sha256": "4de1c733c3b0b29e0c7770d46c68a3d8e68c185410e9c24c930dab1cfbe55dd3",
       "scope_limit": "Three original-footprint SKY130 HD remote-fill candidates, full enabled native geometry, selected antenna stages, partial manual checks, diode-inclusive connectivity, exact nominal native circuit invariance and cross-OS readback. Not complete required-rule, application or tapeout acceptance."
+    },
+    "sky130-manual-progress-2026-10-11": {
+      "path": "docs/validation/sky130-manual-progress-2026-10-11.json",
+      "sha256": "1ab85f91f3f462cd7d4b82ca1d461cdb41aafd6544198ebcbfa9dd7fcc938383",
+      "scope_limit": "101 additional explicit per-rule absent-operand proofs on each exact final SKY130 block. No new non-empty device or voltage qualification."
     }
   },
   "execution_acceptance": {

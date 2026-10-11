@@ -245,7 +245,7 @@ the corrected deck explicitly enables both dimension comparisons and its
 successful controls supersede that failed attempt.
 
 Windows and Linux produce identical physical, circuit and diode readback
-records. The current-source suite runs 128 tests per OS, with six Windows and
+records. The recorded regression suite runs 128 tests per OS, with six Windows and
 five Linux tool-configuration skips; six additional diode tests pass per OS
 without skips. All 32 newly added implant, applicability, invariance and diode
 tests pass without skips. Native verification execution remains Linux.
@@ -256,10 +256,17 @@ complete hash-verified readback outside the dated workspace folders.
 The [raw implant checker](../scripts/sky130_raw_feol.py) supplements native
 engines with drawn-mask doping, width, spacing, area, hole and HVTP enclosure
 checks. The [applicability review](../scripts/sky130_block_applicability.py)
-retains all 601 periphery source rows: 106 have measured absent operands,
+retains all 601 periphery source rows. The
+[additional applicability batch](validation/sky130-manual-progress-2026-10-11.json)
+establishes 101 further explicit absence proofs per final design:
+207 rows now have measured absent operands,
 77 explicitly say NA, 27 are advisory, 61 belong to the other backend,
-329 still require execution review and one needs a source definition.
+228 still require execution review and one needs a source definition.
 An absent operand is a block-specific finding, not a passing device test.
+Both operating systems produce the same updated review and pass all 12
+applicability rejection tests without skips. The high-voltage well checks
+include both HVI and the separate thin-oxide high-voltage well identifier;
+rules requiring voltage declarations or ambiguous enclosure targets stay open.
 
 Chunk 6 still requires complete per-rule/error-catalog reconciliation,
 implant enclosure and butting-edge coverage, and density/window/oxide
