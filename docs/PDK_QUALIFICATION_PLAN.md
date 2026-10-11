@@ -41,10 +41,19 @@ pass on the unchanged references, with 178 boundary/connectivity controls and
 ten exact contact-array controls. APB's false via4 findings and missed native
 array faults are traced to contact-unit and fragment-counting errors. The
 three original layouts now also pass strict transistor/body/supply/port LVS,
-with deliberate connection, device and port faults rejected. The native fill
-counter pilot remains below three density helper limits. The 601-row manual
-inventory, density interpretation and fill, broader antenna applicability,
-post-fill electrical checks and production/delivery integration remain open.
+with deliberate connection, device and port faults rejected. Independent
+OpenDB pin export now also resolves all 47 original pin-containment findings;
+the corrected layouts pass both full native decks, strict LVS and all selected
+antenna stages through the actual export paths. Windows/Linux reconstruction
+agrees exactly, with 34 focused tests per OS and complete durable readback.
+The rule ledger now also retains the 1,556-record published error catalog and
+the previously missing layer TSV sources. Fill candidates remain unaccepted
+pending complete rule reconciliation, density interpretation, post-fill
+electrical checks and the combined application gate.
+
+The IHP reference acceptance retains its original source in an explicit
+historical snapshot of shared files changed by the SKY130 export hooks. It
+does not assert a new IHP native run with those hooks.
 
 The chunk 4 GF180 record retains its original source and scope. The eight shared
 modules changed for IHP have exact historical source snapshots; this preserves

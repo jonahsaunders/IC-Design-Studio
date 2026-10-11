@@ -16200,7 +16200,10 @@
         "scripts/sky130_antenna_controls.py",
         "scripts/check_sky130_antenna_controls.py",
         "scripts/sky130_lvs_reference.py",
-        "scripts/check_sky130_lvs.py"
+        "scripts/check_sky130_lvs.py",
+        "scripts/sky130_pin_coverage.py",
+        "scripts/sky130_rule_errors.py",
+        "scripts/sky130_fill_geometry.py"
       ],
       "automation_gap": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement."
     },
@@ -16719,12 +16722,13 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Complete required rule applicability/execution reconciliation, density/fill, post-fill connectivity/electrical checks and production/delivery integration. Strict original-reference LVS and all 13 selected antenna stages now pass; broader process/device coverage remains open.",
+      "remaining": "Complete required-rule reconciliation including the published error catalog, accepted density/fill, post-fill electrical verification, and the integrated final gate. Original-reference pin geometry, strict LVS and all 13 selected antenna stages pass.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
         "sky130-antenna-progress-2026-10-11",
-        "sky130-connectivity-progress-2026-10-11"
+        "sky130-connectivity-progress-2026-10-11",
+        "sky130-pin-progress-2026-10-11"
       ]
     },
     "sky130A:source-completeness": {
@@ -20027,6 +20031,11 @@
       "path": "docs/validation/sky130-connectivity-progress-2026-10-11.json",
       "sha256": "b8385a17f0beb26819e3fd7ae5d76a2f254f0a23fe77ecade41daa977405bed6",
       "scope_limit": "Three original HD layouts pass strict device/body/supply/port LVS and counter fault controls. A native fill pilot remains density-failing; full physical/delivery qualification is incomplete."
+    },
+    "sky130-pin-progress-2026-10-11": {
+      "path": "docs/validation/sky130-pin-progress-2026-10-11.json",
+      "sha256": "ab7042f040c03decb02384b3e9f222bb3c5fdb7633a8f0df654631199cd384fc",
+      "scope_limit": "All three original HD boundary-pin exports corrected from independent OpenDB shapes; full enabled DRC, 13 antenna stages, strict LVS and actual export paths verified. Full chunk 6 remains incomplete."
     }
   },
   "execution_acceptance": {
@@ -20048,7 +20057,11 @@
     },
     "5": {
       "path": "docs/validation/ihp-fill-closure-2026-10-11.json",
-      "sha256": "4255cce72f604e38874eb3dfad97758557d6cd1b56c60dae4f710459220b0004"
+      "sha256": "4255cce72f604e38874eb3dfad97758557d6cd1b56c60dae4f710459220b0004",
+      "historical_source_snapshot": {
+        "path": "docs/validation/ihp-fill-tested-source-2026-10-11/manifest.json",
+        "sha256": "c6e0041e26764b5dc62f0284293c34fb5c60cb6c5a48f402705e9ed0d7893bbf"
+      }
     }
   }
 }

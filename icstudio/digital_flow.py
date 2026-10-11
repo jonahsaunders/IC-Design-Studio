@@ -201,6 +201,8 @@ def validate_result(result, directory):
     if data['stage']=='finish':
         from .digital_physical_checks import validate_saved
         validate_saved(data,root)
+        from .digital_sky130_pins import validate_saved as validate_sky130_pins
+        validate_sky130_pins(data,root)
         from .digital_lvs_reference import validate_saved as validate_reference
         validate_reference(data,root)
         from .digital_gf180_checks import validate_saved as validate_connectivity

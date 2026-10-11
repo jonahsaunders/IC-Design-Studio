@@ -298,6 +298,8 @@ def execute(r):
     if stage=='finish':
         r.add_artifact('lef',r.root/'macro.lef')
         for key,suffix in (('gds','.gds'),('spef','.spef')):r.add_artifact(key,result_dir/('6_final'+suffix))
+        from .digital_sky130_pins import execute as sky130_pins
+        sky130_pins(r)
         from .digital_rc import extract
         extract(r)
         from .digital_gf180_fill import execute as fill

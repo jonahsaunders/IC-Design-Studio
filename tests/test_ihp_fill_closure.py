@@ -11,9 +11,10 @@ class IHPClosureTests(unittest.TestCase):
     def setUpClass(cls):
         cls.record=json.loads((ROOT/'docs/validation/ihp-fill-closure-2026-10-11.json').read_text())
         cls.row=bound(cls.record['references'][0],ROOT)
+        cls.snapshot=json.loads((ROOT/'docs/qualification/pdk-matrix.json').read_text())['execution_acceptance']['5'].get('historical_source_snapshot')
 
     def test_exact_reference_gate_does_not_qualify_the_process(self):
-        result=validate(self.record)
+        result=validate(self.record,source_snapshot=self.snapshot)
         self.assertTrue(result['chunk_complete'])
         self.assertEqual(result['process_qualification'],'unqualified')
 
@@ -30,7 +31,17 @@ class IHPClosureTests(unittest.TestCase):
         }
         for name,change in mutations.items():
             data=copy.deepcopy(self.record);change(data)
-            with self.subTest(name=name),self.assertRaises(ValueError):validate(data)
+            with self.subTest(name=name),self.assertRaises(ValueError):validate(data,source_snapshot=self.snapshot)
+
+    def test_historical_acceptance_does_not_claim_a_current_production_run(self):
+        if self.snapshot:
+            with self.assertRaisesRegex(ValueError,'changed source'):validate(self.record)
+            self.assertEqual(validate(self.record,source_snapshot=self.snapshot)['source_scope'],'historical-tested-source-only')
+
+    def test_changed_source_snapshot_is_rejected(self):
+        if self.snapshot:
+            changed=copy.deepcopy(self.snapshot);changed['sha256']='0'*64
+            with self.assertRaises(ValueError):validate(self.record,source_snapshot=changed)
 
     def test_changed_circuit_rules_fields_timing_and_export_rejected(self):
         mutations={

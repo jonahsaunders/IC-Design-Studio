@@ -102,8 +102,16 @@ retains its value, flags, description, source identity and candidate deck
 locations. Commented code remains visible. Text matches are search aids and
 cannot promote a row to passing coverage. Every row remains explicitly
 unreviewed until applicability and execution evidence have been reconciled.
-The source capture selected CSV/RST documents; referenced layer TSV files were
-not included and still need capture and reconciliation.
+The first source capture selected CSV/RST documents. The subsequent pin-export
+record captures all seven referenced layer/extraction TSV files at the same
+upstream revision, with verified Git blob identities. Their interpretation
+remains part of the rule review.
+
+The separate [error catalog inventory](qualification/sky130-error-rule-inventory.json)
+retains all 1,556 published error records. Periphery tables alone omit named
+dummy-fill, core and chip rules. In particular, the error catalog includes
+`fomdmy` width, spacing, implant and well constraints. Exact-name links are
+navigation aids; neither inventory establishes execution or applicability.
 
 Sources are the [published periphery rules](https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html)
 and [antenna rules](https://skywater-pdk.readthedocs.io/en/main/rules/antenna.html),
@@ -136,8 +144,8 @@ to reject missing metal supply wiring. No global supply ties, implicit
 connections or equivalent-pin declarations are introduced. Each top pin
 annotation must overlap exactly one metal island; its label is attached within
 that overlap on a comparison copy whose masks are verified unchanged. Pin
-markers never become conductors. Some original pin markers extend beyond the
-routing polygons; complete macro boundary/abstract coverage remains open.
+markers never become conductors. The original pin-extent problem is addressed
+by the independently captured boundary-pin export described below.
 
 The [port auditor](../scripts/check_sky130_lvs.py) requires graph-paired names
 and full boundary coverage. APB's `pready` and `VDD` are physically tied, as
@@ -158,6 +166,46 @@ an initial flattened control retained an unwanted substrate label and failed
 its valid cases; it is not accepted as successful fault coverage. The corrected
 batch runs the repository's exact source and passes every control.
 
+## Boundary-pin export
+
+The [pin-export record](validation/sky130-pin-progress-2026-10-11.json) closes
+6 counter, 13 UART and 28 APB `x.5` findings. The DEF stream contained pin
+annotations extending past the end of routed metal. The application now
+captures the actual boundary-pin boxes independently from OpenDB and exports
+their missing metal. It rejects absent routes, disconnected islands, mismatched
+annotations, changed source files and undeclared mask changes. Every original
+annotation and non-pin mask is preserved.
+
+All three corrected exports pass both complete enabled native geometry decks,
+strict transistor/body/port comparison, all 13 selected antenna stages and the
+additional all-layer pin-containment check. Virtual substrate pin containment
+uses the manual's complement-of-nwell definition. The actual Runner, saved-job
+validator and macro exporter preserve the source GDS, independent inventory,
+capture worker, checkpoint and report. These runs use the existing routed
+checkpoints; they are not fresh place-and-route or installer tests.
+
+Windows and Linux reconstruct identical corrected GDS files and audit the native
+reports and macro archives. All 34 focused pin/connectivity tests pass on both
+OSes without skips. The portable records retain the exact executed source
+hashes. A deduplicated archive outside dated folders preserves 561 evidence
+files in 410 unique blobs and passed complete byte-for-byte readback.
+
+The new SKY130 hooks change shared application files. Chunk 5's original IHP
+record remains bound to the exact previously tested source, now explicitly
+retained in its [historical source snapshot](validation/ihp-fill-tested-source-2026-10-11/manifest.json).
+That snapshot does not imply a new IHP native run with the current application.
+
+## Fill diagnostics
+
+The [additional fill auditor](../scripts/sky130_fill_geometry.py) checks
+fill-to-fill spacing and area omitted by some native deck expressions. Its
+selected conservative block profile also checks dummy diffusion dimensions,
+implant/well exclusions, grid, unchanged circuit geometry and the original
+die extent. Native `PASS` alone is insufficient: an experimental candidate
+contained sub-minimum metal3/metal4 fill even though both native decks passed.
+Boundary and deliberate-fault tests verify the extra checker. This checker is
+one part of the required gate, not a complete rule or density acceptance claim.
+
 ## Remaining gate
 
 Reconcile the full required rule inventory and antenna applicability beyond
@@ -172,4 +220,5 @@ preserves the antenna diagnosis and stage controls with complete readback.
 The third archive preserves 722 files covering connectivity, controls and the
 unaccepted native fill pilot, also with complete readback.
 Their identities are recorded in the respective execution records. Chunk 5's
-IHP acceptance and original source bindings remain unchanged.
+original acceptance record remains unchanged; its historical source binding
+is now explicit as described above.

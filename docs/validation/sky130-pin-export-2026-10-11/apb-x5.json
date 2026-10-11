@@ -1,0 +1,211 @@
+{
+  "schema": 1,
+  "rule": "x.5",
+  "status": "PASS",
+  "top": "apb_fifo",
+  "gds_sha256": "ee514670858619ef2065d02b149a87a55ca836bab93b56ac05a6fc235dea3111",
+  "violations": 0,
+  "layers": [
+    {
+      "layer": "diff",
+      "pin_layer": [
+        65,
+        16
+      ],
+      "pin_polygons": 0,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "tap",
+      "pin_layer": [
+        65,
+        48
+      ],
+      "pin_polygons": 0,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "poly",
+      "pin_layer": [
+        66,
+        16
+      ],
+      "pin_polygons": 0,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "licon1",
+      "pin_layer": [
+        66,
+        58
+      ],
+      "pin_polygons": 0,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "li1",
+      "pin_layer": [
+        67,
+        16
+      ],
+      "pin_polygons": 964,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "mcon",
+      "pin_layer": [
+        67,
+        48
+      ],
+      "pin_polygons": 0,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "met1",
+      "pin_layer": [
+        68,
+        16
+      ],
+      "pin_polygons": 33386,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "via",
+      "pin_layer": [
+        68,
+        58
+      ],
+      "pin_polygons": 0,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "met2",
+      "pin_layer": [
+        69,
+        16
+      ],
+      "pin_polygons": 1,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "via2",
+      "pin_layer": [
+        69,
+        58
+      ],
+      "pin_polygons": 0,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "met3",
+      "pin_layer": [
+        70,
+        16
+      ],
+      "pin_polygons": 27,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "via3",
+      "pin_layer": [
+        70,
+        48
+      ],
+      "pin_polygons": 0,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "met4",
+      "pin_layer": [
+        71,
+        16
+      ],
+      "pin_polygons": 0,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "via4",
+      "pin_layer": [
+        71,
+        48
+      ],
+      "pin_polygons": 0,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "met5",
+      "pin_layer": [
+        72,
+        16
+      ],
+      "pin_polygons": 26,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "rdl",
+      "pin_layer": [
+        74,
+        16
+      ],
+      "pin_polygons": 0,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "nwell",
+      "pin_layer": [
+        64,
+        16
+      ],
+      "pin_polygons": 14995,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "pad",
+      "pin_layer": [
+        76,
+        16
+      ],
+      "pin_polygons": 0,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "pwell",
+      "pin_layer": [
+        122,
+        16
+      ],
+      "pin_polygons": 14978,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    },
+    {
+      "layer": "pwelliso",
+      "pin_layer": [
+        44,
+        16
+      ],
+      "pin_polygons": 0,
+      "violations": 0,
+      "missing_area_um2": 0.0
+    }
+  ],
+  "scope": "Pin containment only; no other rule or process acceptance is implied."
+}

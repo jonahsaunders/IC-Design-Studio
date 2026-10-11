@@ -143,15 +143,24 @@ def validate_reference(row):
     require(row['evidence_files'] and all(identity(h) for h in row['evidence_files'].values()),'unbound raw evidence')
 
 
-def validate(record,root=ROOT):
+def validate(record,root=ROOT,source_snapshot=None):
     root=Path(root)
     require(record.get('schema')==1 and record.get('chunk')==5 and record.get('status')=='reference_gate_complete' and
             record.get('qualified') is False and record.get('full_transistor_rc_acceptance')=='not_claimed' and record.get('limitations'),
             'invalid reference scope or unsupported process qualification')
     sources=record['source_files'];require(SOURCE_FILES<=sources.keys(),'missing application source binding')
+    snapshot=bound(source_snapshot,root) if source_snapshot else None
+    if snapshot:
+        require(snapshot.get('schema')==1 and snapshot.get('scope')=='historical-tested-source-only' and
+                re.fullmatch('[0-9a-f]{40}',snapshot.get('source_commit','')) and snapshot.get('files') and
+                bound(snapshot['acceptance_record'],root)==record,
+                'historical source snapshot has a different acceptance scope')
+        require(set(snapshot['files'])<=sources.keys(),'unknown historical source')
     for name,digest in sources.items():
-        path=(root/name).resolve()
-        require(path.is_relative_to(root.resolve()) and identity(digest) and sha(path)==digest,'changed source: '+name)
+        captured=snapshot['files'].get(name) if snapshot else None
+        path=(root/captured['path']).resolve() if captured else (root/name).resolve()
+        require(path.is_relative_to(root.resolve()) and identity(digest) and
+                (not captured or captured['sha256']==digest) and sha(path)==digest,'changed source: '+name)
     rows=[bound(e,root) for e in record['references']]
     require(len(rows)==3 and {r['case'] for r in rows}==CASES,'missing reference')
     for row in rows:
@@ -167,10 +176,19 @@ def validate(record,root=ROOT):
     archive=record['archive']
     require(archive['verified'] is True and identity(archive['sha256']) and identity(archive['manifest_sha256']) and archive['logical_files']>0,
             'evidence archive is not verified')
-    return dict(status='reference_gate_complete',chunk=5,chunk_complete=True,references=3,process_qualification='unqualified')
+    return dict(status='reference_gate_complete',chunk=5,chunk_complete=True,references=3,process_qualification='unqualified',
+                source_scope='historical-tested-source-only' if snapshot else 'current-source')
 
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--record',type=Path,default=ROOT/'docs/validation/ihp-fill-closure-2026-10-11.json')
-    args=parser.parse_args();print(json.dumps(validate(json.loads(args.record.read_text(encoding='utf-8'))),indent=2))
+    parser.add_argument('--source-snapshot',type=Path,help='Explicit historical tested-source manifest')
+    args=parser.parse_args()
+    snapshot=None
+    if args.source_snapshot:
+        snapshot=dict(path=args.source_snapshot.resolve().relative_to(ROOT).as_posix(),sha256=sha(args.source_snapshot))
+    elif args.record.resolve()==(ROOT/'docs/validation/ihp-fill-closure-2026-10-11.json').resolve():
+        matrix=json.loads((ROOT/'docs/qualification/pdk-matrix.json').read_text(encoding='utf-8'))
+        snapshot=matrix['execution_acceptance']['5'].get('historical_source_snapshot')
+    print(json.dumps(validate(json.loads(args.record.read_text(encoding='utf-8')),source_snapshot=snapshot),indent=2))

@@ -246,7 +246,7 @@ def validate(matrix, root=ROOT):
             from .check_ihp_fill_closure import validate as validate_ihp
         else:
             from check_ihp_fill_closure import validate as validate_ihp
-        ihp_complete=validate_ihp(read(root/chunk5['path']),root)['chunk_complete']
+        ihp_complete=validate_ihp(read(root/chunk5['path']),root,chunk5.get('historical_source_snapshot'))['chunk_complete']
     expected = {target + ':' + test for target in TARGETS
                 for test in COMMON_TESTS | EXTRA_TESTS[target]}
     require(set(requirements) == expected, 'Requirement coverage differs from required targets/tests.')
