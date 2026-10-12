@@ -58,6 +58,15 @@ these results and failed attempts. Chunk 6 remains open for complete rule
 reconciliation, density interpretation, final timing/equivalence and the
 combined application gate.
 
+The subsequent [low-voltage](validation/sky130-low-voltage-2026-10-11.json)
+and [interconnect](validation/sky130-interconnect-2026-10-11.json) batches add
+99 explicit rule bindings. All three final layouts pass on Windows and Linux,
+with identical ledgers and 62 combined geometry/binding tests passing without
+skips. The periphery ledger retains all 601 rows: 117 executed requirements,
+207 measured absent operands, 77 upstream NA, 27 advisory, 61 other backend,
+111 requiring execution review and one missing a published definition.
+Neither these checks nor the earlier native passes complete chunk 6.
+
 The IHP reference acceptance retains its original source in an explicit
 historical snapshot of shared files changed by the SKY130 export hooks. It
 does not assert a new IHP native run with those hooks.

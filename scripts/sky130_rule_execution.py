@@ -10,6 +10,10 @@ from pathlib import Path
 from scripts.sky130_block_applicability import audit as applicability
 from scripts.sky130_raw_feol import audit as raw_feol
 from scripts.sky130_raw_feol import check as raw_checks
+from scripts.sky130_low_voltage_geometry import audit as low_voltage_geometry
+from scripts.sky130_low_voltage_geometry import check as geometry_checks
+from scripts.sky130_interconnect_geometry import audit as interconnect_geometry
+from scripts.sky130_interconnect_geometry import check as interconnect_checks
 
 
 RAW_BINDINGS={
@@ -31,6 +35,103 @@ RAW_BINDINGS={
 }
 # Preserve the published source spelling; checker identifiers omit this space.
 RAW_BINDINGS={name.replace('n/psd.','n/ psd.'):checks for name,checks in RAW_BINDINGS.items()}
+
+GEOMETRY_BINDINGS={
+    'nwell.1':('nwell.1',),'nwell.2a':('nwell.2a',),
+    'nwell.2b':('nwell.2a',),'nwell.4':('nwell.4',),
+    'difftap.1':('difftap.1.diff','difftap.1.tap'),
+    **{'difftap.'+s:('difftap.'+s,) for s in ('2','2b','3','8','9','10','11')},
+    **{'poly.'+s:('poly.'+s,) for s in ('1a','2','4','5','6','7','8','10','11','12')},
+    **{'npc.'+s:('npc.'+s,) for s in ('1','2','4')},'npc.3':('npc.2',),
+    **{'licon.'+s:('licon.'+s,) for s in ('1','2','4','5a','6','8','9','11','13','14','15','16','17','18')},
+    'licon.3':('licon.1',),'licon.11a':('licon.11ab',),'licon.11b':('licon.11ab',),
+}
+
+INTERCONNECT_BINDINGS={
+    **{'li.'+s+'.-':('li.'+s+'.-',) for s in ('1','3','5','6')},
+    **{'m1.'+s:('m1.'+s,) for s in ('1','2','4','5','6','7')},
+    **{'m2.'+s:('m2.'+s,) for s in ('1','2','4','5','6','7')},
+    **{'m3.'+s:('m3.'+s,) for s in ('1','2','4','6')},
+    **{'m4.'+s:('m4.'+s,) for s in ('1','2','3','4a')},
+    **{'m5.'+s:('m5.'+s,) for s in ('1','2','3','4')},
+    'ct.1':('ct.size',),'ct.2':('ct.2',),'ct.3':('ct.size',),'ct.4':('ct.4',),
+    'via.1a':('via.size',),'via.2':('via.2',),'via.3':('via.size',),
+    'via.4a':('via.4a',),'via.5a':('via.5a',),
+    'via2.1a':('via2.size',),'via2.2':('via2.2',),'via2.3':('via2.size',),
+    'via2.4':('via2.4',),'via2.5':('via2.5',),'via2.X.1':('via2.X.1',),
+    'via3.1':('via3.size',),'via3.2':('via3.2',),'via3.3':('via3.size',),
+    'via3.4':('via3.4',),'via3.5':('via3.5',),
+    'via4.1':('via4.size',),'via4.2':('via4.2',),'via4.3':('via4.size',),'via4.4':('via4.4',),
+    **{'licon.'+s:('licon.'+s,) for s in ('5b','5c','7','8a')},
+}
+
+
+def bind_interconnect(review,interconnect):
+    """Keep all companion geometry/profile checks mandatory for this batch."""
+    for report,inventory_fn in ((review['raw_geometry'],raw_checks),
+            (review['low_voltage_geometry'],geometry_checks),(interconnect,interconnect_checks)):
+        inventory={r['rule'] for r in inventory_fn({})['checks']}
+        if report['gds_sha256']!=review['gds_sha256']:
+            raise ValueError('Interconnect/companion reports refer to different submitted layouts.')
+        if (len(report['checks'])!=len(inventory) or
+                {r['rule'] for r in report['checks']}!=inventory or
+                report['status']!='PASS' or report['violations']!=0 or
+                any(type(r['violations']) is not int or r['violations']!=0 for r in report['checks'])):
+            raise ValueError('A failed, duplicate or incomplete interconnect/companion profile cannot establish execution.')
+    result=deepcopy(review);seen=[]
+    for row in result['rows']:
+        if row['rule'] not in INTERCONNECT_BINDINGS:continue
+        if row['disposition']!='execution-review-required':
+            raise ValueError('An interconnect binding would overwrite a different disposition.')
+        seen.append(row['rule'])
+        row.update(disposition='executed-reviewed',reason='Reviewed selected aluminium metal/contact requirement executed with all companion geometry and profile guards passing.',
+            execution=dict(checker_sha256=interconnect['checker_sha256'],checks=list(INTERCONNECT_BINDINGS[row['rule']])))
+    if Counter(seen)!=Counter(INTERCONNECT_BINDINGS.keys()):
+        raise ValueError('The source inventory does not contain each reviewed interconnect rule exactly once.')
+    result.update(counts=dict(Counter(r['disposition'] for r in result['rows'])),
+        interconnect_geometry=interconnect,qualified=False,chunk_complete=False,
+        scope='Reviewed low-voltage implant/well/gate/contact and selected aluminium interconnect requirements plus explicit block applicability. Unbound periphery/error-catalog, huge-metal, density, electrical and application requirements remain open.')
+    return result
+
+
+def bind_geometry(review,geometry):
+    """Extend a checked implant ledger without dropping any prior requirement."""
+    # Revalidate the mandatory companion report, including its guards. A
+    # geometry-only report cannot establish the selected doping profile.
+    companion=review['raw_geometry']
+    if companion['gds_sha256']!=review['gds_sha256']:
+        raise ValueError('Companion implant report refers to a different layout.')
+    implant_inventory={r['rule'] for r in raw_checks({})['checks']}
+    if (companion['status']!='PASS' or companion['violations']!=0 or
+            len(companion['checks'])!=len(implant_inventory) or
+            {r['rule'] for r in companion['checks']}!=implant_inventory or
+            any(type(r['violations']) is not int or r['violations']!=0 for r in companion['checks'])):
+        raise ValueError('A failed or incomplete companion implant profile cannot establish geometry execution.')
+    if geometry['gds_sha256']!=review['gds_sha256']:
+        raise ValueError('Geometry reports refer to different submitted layouts.')
+    checks={r['rule']:r for r in geometry['checks']}
+    inventory={r['rule'] for r in geometry_checks({})['checks']}
+    if (len(checks)!=len(geometry['checks']) or checks.keys()!=inventory or
+            geometry['status']!='PASS' or geometry['violations']!=0 or
+            any(type(r['violations']) is not int or r['violations']!=0 for r in checks.values())):
+        raise ValueError('A failed, duplicate or incomplete geometry check/profile cannot establish execution.')
+    result=deepcopy(review);seen=[]
+    for row in result['rows']:
+        if row['rule'] not in GEOMETRY_BINDINGS:continue
+        if row['disposition']!='execution-review-required':
+            raise ValueError('A geometry binding would overwrite a different disposition.')
+        seen.append(row['rule']);names=GEOMETRY_BINDINGS[row['rule']]
+        reason='Reviewed low-voltage drawn-mask requirement executed with all geometry and implant profile guards passing.'
+        if row['rule'] in ('nwell.2b','npc.3'):
+            reason='The manual-merge trigger is absent because the complete spacing/notch check passes.'
+        row.update(disposition='executed-reviewed',reason=reason,
+            execution=dict(checker_sha256=geometry['checker_sha256'],checks=list(names)))
+    if Counter(seen)!=Counter(GEOMETRY_BINDINGS.keys()):
+        raise ValueError('The source inventory does not contain each reviewed geometry rule exactly once.')
+    result.update(counts=dict(Counter(r['disposition'] for r in result['rows'])),
+        low_voltage_geometry=geometry,qualified=False,chunk_complete=False,
+        scope='Reviewed low-voltage implant, well, diffusion, gate, NPC and licon requirements plus explicit block applicability. Remaining periphery, error-catalog, density, electrical and application requirements remain open.')
+    return result
 
 
 def bind(review,raw):
@@ -69,6 +170,11 @@ def audit(path,source):
     path=Path(path);review=applicability(path,source);raw=raw_feol(path)
     if hashlib.sha256(path.read_bytes()).hexdigest()!=raw['gds_sha256']:
         raise ValueError('Submitted layout changed during rule execution.')
-    result=bind(review,raw)
+    result=bind_geometry(bind(review,raw),low_voltage_geometry(path))
+    if hashlib.sha256(path.read_bytes()).hexdigest()!=result['low_voltage_geometry']['gds_sha256']:
+        raise ValueError('Submitted layout changed during geometry execution.')
+    result=bind_interconnect(result,interconnect_geometry(path))
+    if hashlib.sha256(path.read_bytes()).hexdigest()!=result['interconnect_geometry']['gds_sha256']:
+        raise ValueError('Submitted layout changed during interconnect execution.')
     result['checker_sha256']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
     return result

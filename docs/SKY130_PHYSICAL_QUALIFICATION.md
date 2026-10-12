@@ -267,13 +267,39 @@ published requirements to these actual checks and rejects missing checks,
 missing guards, failed profiles and mismatched layouts. Manual merging is
 conditionally clear because no subminimum implant spacing remains.
 
+The [low-voltage geometry batch](validation/sky130-low-voltage-2026-10-11.json)
+adds 43 reviewed requirements for wells, diffusion, gate dimensions, NPC and
+local contacts. All three final layouts pass with identical Windows/Linux
+ledgers; all 46 implant, geometry and binding tests pass without skips.
+Channel width is measured across the diffusion ends of each gate, independently
+of its orientation. Partial standard-cell markers, gate terminations, bent
+gates, missing well/tap/source contacts, unsupported process selectors and
+missing companion implant checks are rejected. Boundary tests distinguish
+concave diffusion corners from convex ones and reject even a five-nanometre
+enclosure, spacing or size error. The earlier exploratory corner-sign check is
+retained but superseded. No submitted geometry or rule threshold changed.
+
+The [interconnect batch](validation/sky130-interconnect-2026-10-11.json)
+adds another 56 requirements for metal width/spacing/area/holes, exact square
+contacts and conductor enclosure. Physical metal checks combine routed metal
+and fill, while only drawn conductors can establish contact enclosure.
+All three final layouts pass with identical Windows/Linux ledgers and all
+62 combined geometry/binding tests pass without skips. Adjacent enclosure
+uses the actual deficient portions at each cut corner, following the pinned
+reference deck algorithm. The APB library's T-shaped `nor4b_2` contact passes;
+an injected five-nanometre corner fault fails in every orientation. The first
+checker promoted partial deficiencies to whole sides and incorrectly rejected
+that contact. Its source and report are retained as a rejected checker.
+The correction changes no layout or physical threshold. Huge-metal spacing
+and other unbound requirements remain open.
+
 The [applicability review](../scripts/sky130_block_applicability.py)
 retains all 601 periphery source rows. The
 [additional applicability batch](validation/sky130-manual-progress-2026-10-11.json)
 establishes 101 further explicit absence proofs per final design:
 207 rows now have measured absent operands,
 77 explicitly say NA, 27 are advisory, 61 belong to the other backend,
-18 have reviewed execution bindings, 210 still require execution review and
+117 have reviewed execution bindings, 111 still require execution review and
 one needs a source definition.
 An absent operand is a block-specific finding, not a passing device test.
 Both operating systems produce the same updated review and pass all 12

@@ -16722,7 +16722,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Complete required-rule and error-catalog reconciliation (210 periphery rows still need execution review), missing x.20 definition, complete density applicability, final timing/equivalence and combined application/delivery gate. Eighteen implant/HVTP requirements now have explicit execution bindings; final native geometry, selected antenna, diode-inclusive LVS and nominal circuit invariance pass.",
+      "remaining": "Complete required-rule and error-catalog reconciliation (111 periphery rows still need execution review), missing x.20 definition, complete density applicability, final timing/equivalence and combined application/delivery gate. 117 implant/well/diffusion/gate/contact/interconnect requirements now have explicit execution bindings; final native geometry, selected antenna, diode-inclusive LVS and nominal circuit invariance pass.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16731,7 +16731,9 @@
         "sky130-pin-progress-2026-10-11",
         "sky130-fill-progress-2026-10-11",
         "sky130-manual-progress-2026-10-11",
-        "sky130-rule-execution-2026-10-11"
+        "sky130-rule-execution-2026-10-11",
+        "sky130-low-voltage-2026-10-11",
+        "sky130-interconnect-2026-10-11"
       ]
     },
     "sky130A:source-completeness": {
@@ -20054,6 +20056,16 @@
       "path": "docs/validation/sky130-rule-execution-2026-10-11.json",
       "sha256": "eae2c0494a6e18a27251fcbf1ce51b2c1196ea0ce36a62cb6ee533b6f94af501",
       "scope_limit": "Eighteen low-voltage drawn implant/HVTP manual requirements executed on the final counter, UART and APB layouts with all 41 checks/profile guards present and passing. Other rules and full chunk 6 remain open."
+    },
+    "sky130-low-voltage-2026-10-11": {
+      "path": "docs/validation/sky130-low-voltage-2026-10-11.json",
+      "sha256": "8619726cda2a237e048498d1342ebc3561b48671febd28591284c8e979104937",
+      "scope_limit": "Forty-three additional well, diffusion, gate, NPC and local-contact manual requirements executed on all three final layouts, with companion implant checks and all profile guards passing. Sixty-one requirements now have reviewed execution bindings; full chunk 6 remains open."
+    },
+    "sky130-interconnect-2026-10-11": {
+      "path": "docs/validation/sky130-interconnect-2026-10-11.json",
+      "sha256": "8792ab24624d236290f89240967f8a870884bee884cd25f2128ea81c945ea1ff",
+      "scope_limit": "Fifty-six additional selected aluminium interconnect/contact requirements executed on all three final layouts with all companion implant/geometry checks and profile guards passing. 117 requirements now have reviewed execution bindings; full chunk 6 remains open."
     }
   },
   "execution_acceptance": {
