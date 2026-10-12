@@ -16722,7 +16722,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Complete required-rule and error-catalog reconciliation (111 periphery rows still need execution review), missing x.20 definition, complete density applicability, final timing/equivalence and combined application/delivery gate. 117 implant/well/diffusion/gate/contact/interconnect requirements now have explicit execution bindings; final native geometry, selected antenna, diode-inclusive LVS and nominal circuit invariance pass.",
+      "remaining": "Complete required-rule and error-catalog reconciliation (70 periphery rows still need execution review), missing x.20 definition, complete density applicability, final timing/equivalence and combined application/delivery gate. 125 implant/well/diffusion/gate/contact/interconnect/wide-metal requirements now have explicit execution bindings; final native geometry, selected antenna, diode-inclusive LVS and nominal circuit invariance pass.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16733,7 +16733,10 @@
         "sky130-manual-progress-2026-10-11",
         "sky130-rule-execution-2026-10-11",
         "sky130-low-voltage-2026-10-11",
-        "sky130-interconnect-2026-10-11"
+        "sky130-interconnect-2026-10-11",
+        "sky130-context-review-2026-10-11",
+        "sky130-wide-metal-2026-10-11",
+        "sky130-butting-review-2026-10-11"
       ]
     },
     "sky130A:source-completeness": {
@@ -20066,6 +20069,21 @@
       "path": "docs/validation/sky130-interconnect-2026-10-11.json",
       "sha256": "8792ab24624d236290f89240967f8a870884bee884cd25f2128ea81c945ea1ff",
       "scope_limit": "Fifty-six additional selected aluminium interconnect/contact requirements executed on all three final layouts with all companion implant/geometry checks and profile guards passing. 117 requirements now have reviewed execution bindings; full chunk 6 remains open."
+    },
+    "sky130-context-review-2026-10-11": {
+      "path": "docs/validation/sky130-context-review-2026-10-11.json",
+      "sha256": "98c509b20be0ee7bf57e4aaada0a6fbbb023803e606f3cd09d20d4c03f7ff2a1",
+      "scope_limit": "Twenty-eight additional measured absent-operand decisions and one explicitly advisory source requirement, with strengthened ultra-high-voltage and gate-direction guards. All 117 previously bound requirements rerun on each final layout; chunk 6 remains open."
+    },
+    "sky130-wide-metal-2026-10-11": {
+      "path": "docs/validation/sky130-wide-metal-2026-10-11.json",
+      "sha256": "edfcca39c7d59fb691d4e8d8b05a5e9d007e94cfc5155f6fe53dc7ed1c0cf7fa",
+      "scope_limit": "Eight selected Manhattan huge-metal and attached-feature requirements are explicitly executed alongside all companion checks. 125 requirements have execution bindings; full chunk 6 remains open."
+    },
+    "sky130-butting-review-2026-10-11": {
+      "path": "docs/validation/sky130-butting-review-2026-10-11.json",
+      "sha256": "7f3abb11085a984536c7b962d1ca76e8b0502af74fc2ed550600b7886e5e4c9c",
+      "scope_limit": "Four additional diffusion/tap butting requirements have measured absent operands on all three final layouts. The complete current set of 125 executable requirements is rerun with every companion check and guard. Chunk 6 remains open."
     }
   },
   "execution_acceptance": {

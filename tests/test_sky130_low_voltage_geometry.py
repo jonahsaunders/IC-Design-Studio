@@ -98,6 +98,11 @@ class LowVoltageGeometryTests(unittest.TestCase):
         self.assertGreater(counts(masks)['profile.rectangular_gate'],0)
         self.assertGreater(counts(masks)['poly.11'],0)
 
+    def test_two_adjacent_ends_do_not_make_a_crossing_gate(self):
+        masks={(65,20):region((0,0,1000,1000)),(66,20):region((500,500,1500,1500))}
+        self.assertGreater(counts(masks)['profile.crossing_gate'],0)
+        self.assertGreater(counts(masks)['poly.11'],0)
+
     def test_field_poly_checks_only_original_parallel_edges(self):
         for gap in (70,75,80):
             masks={(65,20):region((0,0,1000,1000)),(66,20):region((1000+gap,0,1500,1000))}
@@ -202,6 +207,7 @@ class LowVoltageGeometryTests(unittest.TestCase):
 
     def test_unsupported_process_and_non_manhattan_fail(self):
         self.assertGreater(counts({(75,20):region((0,0,1000,1000))})['profile.absent.(75, 20)'],0)
+        self.assertGreater(counts({(74,22):region((0,0,1000,1000))})['profile.absent.(74, 22)'],0)
         triangle=k.Region(k.Polygon([k.Point(0,0),k.Point(1000,0),k.Point(0,1000)]))
         self.assertGreater(counts({(66,20):triangle})['profile.manhattan.poly'],0)
 

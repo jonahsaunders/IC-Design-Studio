@@ -23,7 +23,7 @@ def check(regions):
     # are not implemented in this checker. Standard-cell and diode identifiers
     # are permitted; this profile does not infer absent masks from cell names.
     for pair in ((64,18),(19,44),(124,20),(124,21),(18,20),(11,44),(75,20),
-                 (80,20),(125,44),(125,20),(86,20),(79,20),(81,2)):
+                 (80,20),(125,44),(125,20),(86,20),(79,20),(81,2),(74,22),(81,57),(81,63)):
         add('profile.'+str(pair), get(pair).count(), 'Outside the selected low-voltage HD implant profile.')
     diff, tap, poly, well = (get(p) for p in ((65,20),(65,44),(66,20),(64,20)))
     nsdm, psdm, hvtp = (get(p) for p in ((93,44),(94,20),(78,44)))

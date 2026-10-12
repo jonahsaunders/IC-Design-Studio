@@ -1,8 +1,9 @@
 from copy import deepcopy
 import unittest
-from scripts.sky130_rule_execution import bind, bind_geometry, bind_interconnect
+from scripts.sky130_rule_execution import bind, bind_geometry, bind_interconnect, bind_wide
 from scripts.sky130_low_voltage_geometry import check as geometry_check
 from scripts.sky130_interconnect_geometry import check as interconnect_check
+from scripts.sky130_wide_metal import check as wide_check
 
 
 def reports():
@@ -12,7 +13,7 @@ def reports():
     checks=['n/psd.'+s+'.'+t for s in ('1','2','5a','5b','6','7','8','9','11') for t in ('n','p')]
     checks+=['n/psd.10a','n/psd.10b']+['hvtp.'+str(i) for i in range(1,7)]
     checks+=['profile.'+str(pair) for pair in ((64,18),(19,44),(124,20),(124,21),(18,20),(11,44),
-             (75,20),(80,20),(125,44),(125,20),(86,20),(79,20),(81,2))]
+             (75,20),(80,20),(125,44),(125,20),(86,20),(79,20),(81,2),(74,22),(81,57),(81,63))]
     checks+=['profile.active_overlap','profile.active_well_straddle']
     review=dict(gds_sha256='a'*64,checker_sha256='b'*64,rows=[dict(rule=r,disposition='execution-review-required') for r in rules+['poly.1a']])
     raw=dict(gds_sha256='a'*64,checker_sha256='c'*64,status='PASS',violations=0,checks=[dict(rule=r,violations=0) for r in checks])
@@ -148,6 +149,42 @@ class InterconnectExecutionTests(unittest.TestCase):
             elif mode=='duplicate':review['rows'].append(deepcopy(row))
             else:row['disposition']='absent-operand'
             with self.subTest(mode=mode),self.assertRaises(ValueError):bind_interconnect(review,g)
+
+
+def wide_reports():
+    review,g=interconnect_reports();review=bind_interconnect(review,g)
+    rules=['m1.3a','m1.3b','m2.3a','m2.3b','m3.3c','m3.3d','m4.5a','m4.5b']
+    review['rows'] += [dict(rule=r,disposition='execution-review-required') for r in rules]
+    wide=wide_check({});wide.update(gds_sha256='a'*64,checker_sha256='9'*64)
+    return review,wide
+
+
+class WideExecutionTests(unittest.TestCase):
+    def test_extends_complete_companion_ledger(self):
+        review,w=wide_reports();old=deepcopy(review);result=bind_wide(review,w)
+        self.assertEqual(review,old)
+        self.assertEqual(result['counts'],{'executed-reviewed':125,'execution-review-required':1})
+        self.assertEqual(result['interconnect_geometry'],old['interconnect_geometry'])
+        self.assertFalse(result['qualified']);self.assertFalse(result['chunk_complete'])
+
+    def test_failed_missing_duplicate_and_mismatched_reports_rejected(self):
+        for which in ('raw_geometry','low_voltage_geometry','interconnect_geometry','wide'):
+            for mode in ('marker','boolean','missing','duplicate','layout'):
+                review,w=wide_reports();target=w if which=='wide' else review[which]
+                if mode=='marker':target['checks'][-1]['violations']=1
+                elif mode=='boolean':target['checks'][-1]['violations']=True
+                elif mode=='missing':target['checks'].pop()
+                elif mode=='duplicate':target['checks'].append(deepcopy(target['checks'][-1]))
+                else:target['gds_sha256']='0'*64
+                with self.subTest(which=which,mode=mode),self.assertRaises(ValueError):bind_wide(review,w)
+
+    def test_changed_manual_inventory_requires_review(self):
+        for mode in ('missing','duplicate','disposition'):
+            review,w=wide_reports();row=next(r for r in review['rows'] if r['rule']=='m3.3c')
+            if mode=='missing':review['rows'].remove(row)
+            elif mode=='duplicate':review['rows'].append(deepcopy(row))
+            else:row['disposition']='absent-operand'
+            with self.subTest(mode=mode),self.assertRaises(ValueError):bind_wide(review,w)
 
 
 if __name__=='__main__':unittest.main()

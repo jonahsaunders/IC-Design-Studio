@@ -65,6 +65,13 @@ with identical ledgers and 62 combined geometry/binding tests passing without
 skips. The periphery ledger retains all 601 rows: 117 executed requirements,
 207 measured absent operands, 77 upstream NA, 27 advisory, 61 other backend,
 111 requiring execution review and one missing a published definition.
+The later [wide-metal batch](validation/sky130-wide-metal-2026-10-11.json) and
+[context](validation/sky130-context-review-2026-10-11.json)/
+[butting](validation/sky130-butting-review-2026-10-11.json) reviews reduce the
+open periphery count to 70. The current ledger has 125 execution bindings,
+239 measured absent operands, 77 upstream NA, 28 advisory, 61 other backend
+and one missing source definition. All 92 combined tests pass per OS without
+skips; both operating systems reproduce the same final-layout ledger.
 Neither these checks nor the earlier native passes complete chunk 6.
 
 The IHP reference acceptance retains its original source in an explicit

@@ -12,7 +12,7 @@ import klayout.db as k
 
 PROFILE_ABSENT = ((64,18),(19,44),(124,20),(124,21),(18,20),(11,44),
     (75,20),(80,20),(125,44),(125,20),(86,20),(79,20),(81,2),(81,10),
-    (81,12),(81,57),(81,63),(74,21),(65,13),(66,13))
+    (81,12),(81,57),(81,63),(74,21),(74,22),(65,13),(66,13))
 
 
 def check(regions):
@@ -52,7 +52,9 @@ def check(regions):
     malformed=0
     for p in gate.each():
         edges={key(e) for e in p.each_edge()};pe=edges&end_keys;ps=edges&side_keys
-        malformed += (len(pe)!=2 or len(ps)!=2 or bool(pe&ps) or edges!=(pe|ps))
+        parallel=lambda keys:len({x1==x2 for x1,y1,x2,y2 in keys})==1
+        malformed += (len(pe)!=2 or len(ps)!=2 or bool(pe&ps) or edges!=(pe|ps) or
+                      not parallel(pe) or not parallel(ps))
     add('profile.crossing_gate',malformed,'Every gate has two diffusion ends and two distinct poly sides.')
 
     add('nwell.1',well.width_check(840).count(),'N-well width is at least 0.840 um.')

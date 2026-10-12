@@ -290,16 +290,43 @@ reference deck algorithm. The APB library's T-shaped `nor4b_2` contact passes;
 an injected five-nanometre corner fault fails in every orientation. The first
 checker promoted partial deficiencies to whole sides and incorrectly rejected
 that contact. Its source and report are retained as a rejected checker.
-The correction changes no layout or physical threshold. Huge-metal spacing
-and other unbound requirements remain open.
+The correction changes no layout or physical threshold.
+
+The [wide-metal batch](validation/sky130-wide-metal-2026-10-11.json) adds
+the eight large-metal and nearby attached-feature requirements for the
+selected Manhattan profile. All three layouts pass the complete companion
+checks and produce identical Windows/Linux ledgers; 91 combined tests pass
+per OS without skips. The final blocks contain no m1–m4 regions both wider
+and longer than 3 micrometres. Separate non-empty controls exercise the strict
+3 micrometre boundary, notches, drawn/fill proximity and near/far portions of
+attached wires. Clipped error edges prevent a short wide section from
+reclassifying an entire long wire. Other geometry profiles remain separate.
+
+The [additional context review](validation/sky130-context-review-2026-10-11.json)
+establishes 28 further absence decisions using exact photo-device operands,
+module-only via options, named-cell exceptions and other explicit selectors.
+The published floating-label rule `x.17` is retained as advisory because its
+description explicitly excludes it from the tapeout gate; required floating
+connectivity `x.22` remains open. Both low-voltage checkers now reject the
+published UHVI selector 74/22, and gate classification explicitly requires
+opposite diffusion ends. These are additional guards, not new exceptions.
+
+The [butting-operand audit](validation/sky130-butting-review-2026-10-11.json)
+finds no diffusion/tap interaction in any final block and records four further
+requirements as absent operands. The proof rejects full/partial shared edges,
+corner touches and invalid overlaps; it does not claim non-empty butting
+device qualification. All 92 current applicability/geometry/binding tests
+pass per OS without skips, and both final ledgers match. Six additional
+published diagrams are captured at the same pinned revision for continued
+definition review; the diagrams alone do not close a requirement.
 
 The [applicability review](../scripts/sky130_block_applicability.py)
 retains all 601 periphery source rows. The
 [additional applicability batch](validation/sky130-manual-progress-2026-10-11.json)
 establishes 101 further explicit absence proofs per final design:
-207 rows now have measured absent operands,
-77 explicitly say NA, 27 are advisory, 61 belong to the other backend,
-117 have reviewed execution bindings, 111 still require execution review and
+239 rows now have measured absent operands,
+77 explicitly say NA, 28 are advisory, 61 belong to the other backend,
+125 have reviewed execution bindings, 70 still require execution review and
 one needs a source definition.
 An absent operand is a block-specific finding, not a passing device test.
 Both operating systems produce the same updated review and pass all 12

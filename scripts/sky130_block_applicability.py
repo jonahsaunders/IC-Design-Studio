@@ -14,6 +14,29 @@ import re
 import klayout.db as k
 from scripts.sky130_rule_inventory import SOURCE_LOCK_SHA256, REVISION, manual_rows
 
+NAMED_CELL_GROUPS={
+    'li_vpp_exception_cells':('s8rf2_xcmvpp_hd5_*',),
+    'm1_contact_exception_cells':('s8cell_ee_plus_sseln_a','s8cell_ee_plus_sseln_b',
+        's8cell_ee_plus_sselp_a','s8cell_ee_plus_sselp_b','s8fpls_pl8','s8fs_cmux4_fm'),
+    'phv_contact_exception_cells':('s8fs_gwdlvx4','s8fs_gwdlvx8','s8fs_hvrsw_x4',
+        's8fs_hvrsw8','s8fs_hvrsw264','s8fs_hvrsw520'),
+    'nshort_contact_exception_cells':('s8fs_rdecdrv','s8fs_rdec8','s8fs_rdec32','s8fs_rdec264','s8fs_rdec520'),
+}
+
+
+def named_cell_counts(names):
+    # Only the one explicitly published trailing wildcard is expanded. All
+    # other exception cell names must match literally, including underscores.
+    return {key:sum(any(name.startswith(pattern[:-1]) if pattern.endswith('*') else name==pattern
+                       for pattern in patterns) for name in names)
+            for key,patterns in NAMED_CELL_GROUPS.items()}
+
+
+def tap_interactions(diff,tap):
+    # Include corner touches and even invalid overlaps. Such cases must never
+    # be called absent merely because they have no positive-length butt edge.
+    return tap.merged().interacting(diff.merged()).count()
+
 
 def selector_for(row):
     """Explicit review map; a new/renamed rule receives no inherited exemption."""
@@ -32,6 +55,10 @@ def selector_for(row):
         ('x.21',):((84,44),),
         ('x.25',):((82,44),),
         ('x.10',):((65,13),(66,13)),
+        ('x.2a',):((81,79),),
+        ('x.2c',):((74,22),),
+        ('poly.1b',):((125,44),),
+        ('difftap.4','difftap.5','difftap.6','difftap.7'):('tap_interacting_diff',),
         ('poly.3','poly.9'):((66,13),),
         ('poly.15',):((65,13),),
         ('li.7.-',):((67,13),),
@@ -59,6 +86,19 @@ def selector_for(row):
         ('vhvi.1.-','vhvi.2.-','vhvi.5.-','vhvi.6.-','vhvi.7.-','vhvi.8.-'):((74,21),),
         ('npc.5','licon.2b','licon.2c','licon.2d'):('slotted_licon',),
         ('licon.1b','licon.1c'):('prec_resistor',),
+        ('licon.10',):('Var_channel',),
+        ('licon.11c',):('phv_contact_exception_cells',),
+        ('licon.11d',):('nshort_contact_exception_cells',),
+        ('li.1a.-','li.3a.-'):('li_vpp_exception_cells',),
+        ('m1.4a',):('m1_contact_exception_cells',),
+        # These exact rows constrain larger via options only inside areaid.mt.
+        # Ordinary outside-module square size/enclosure is checked separately.
+        ('via.1b','via.4b','via.4c','via.5b','via.5c',
+         'via2.1d','via2.4a','via3.1a'):((81,10),),
+        # C3 defines photoDiode as deep nwell overlapping areaid.po. Requiring
+        # both drawn inputs absent avoids hiding an incomplete marked device.
+        ('photo.1','photo.2','photo.3','photo.4','photo.5','photo.6',
+         'photo.7','photo.8','photo.9','photo.10','photo.11'):((64,18),(81,81)),
         ('poly.X.1a',):('dummy_poly_labels',),
         ('m1.-',):((62,24),),('m2.-',):((105,52),),
         ('m3.-',):((107,24),),('m4.-',):((112,4),),
@@ -92,6 +132,8 @@ def review_row(row, counts):
         witnesses={str(pair):counts[str(pair)] for pair in ((81,10),(81,12))}
     elif row['rule']=='x.20':
         state='definition-required';reason='IP_block pin-centre spacing is described, but the pinned table supplies no value or unit.'
+    elif row['rule']=='x.17':
+        state='advisory';reason='The pinned description explicitly says the floating-label warning is not a gate for tapeout. It is retained, not claimed executed.'
     else:
         selectors=selector_for(row)
         if selectors is not None:
@@ -130,6 +172,8 @@ def audit(path,source):
     counts['prec_resistor']=(region((86,20))&region((66,20)).interacting(region((66,13)))&region((94,20))).count()
     counts['nwell_holes']=sum(p.holes() for p in region((64,20)).each())
     counts['advSeal_6um_cells']=sum(c.name.startswith('advSeal_6um') for c in layout.each_cell())
+    counts['tap_interacting_diff']=tap_interactions(region((65,20)),region((65,44)))
+    counts.update(named_cell_counts([c.name for c in layout.each_cell()]))
     counts['slotted_licon']=sum(p.is_box() and sorted((p.bbox().width(),p.bbox().height()))==[190,2000] for p in region((66,44)).each())
     texts=[];it=top.begin_shapes_rec(layout.layer(83,44))
     while not it.at_end():

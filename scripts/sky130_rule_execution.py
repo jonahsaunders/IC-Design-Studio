@@ -14,6 +14,8 @@ from scripts.sky130_low_voltage_geometry import audit as low_voltage_geometry
 from scripts.sky130_low_voltage_geometry import check as geometry_checks
 from scripts.sky130_interconnect_geometry import audit as interconnect_geometry
 from scripts.sky130_interconnect_geometry import check as interconnect_checks
+from scripts.sky130_wide_metal import audit as wide_metal
+from scripts.sky130_wide_metal import check as wide_checks
 
 
 RAW_BINDINGS={
@@ -64,6 +66,42 @@ INTERCONNECT_BINDINGS={
     'via4.1':('via4.size',),'via4.2':('via4.2',),'via4.3':('via4.size',),'via4.4':('via4.4',),
     **{'licon.'+s:('licon.'+s,) for s in ('5b','5c','7','8a')},
 }
+
+WIDE_BINDINGS={
+    'm1.3a':('m1.wide_spacing',),'m1.3b':('m1.wide_spacing',),
+    'm2.3a':('m2.wide_spacing',),'m2.3b':('m2.wide_spacing',),
+    'm3.3c':('m3.wide_spacing',),'m3.3d':('m3.wide_spacing',),
+    'm4.5a':('m4.wide_spacing',),'m4.5b':('m4.wide_spacing',),
+}
+
+
+def bind_wide(review,wide):
+    for report,inventory_fn in ((review['raw_geometry'],raw_checks),
+            (review['low_voltage_geometry'],geometry_checks),
+            (review['interconnect_geometry'],interconnect_checks),(wide,wide_checks)):
+        inventory={r['rule'] for r in inventory_fn({})['checks']}
+        if report['gds_sha256']!=review['gds_sha256']:
+            raise ValueError('Wide-metal/companion reports refer to different submitted layouts.')
+        if (len(report['checks'])!=len(inventory) or
+                {r['rule'] for r in report['checks']}!=inventory or
+                report['status']!='PASS' or report['violations']!=0 or
+                any(type(r['violations']) is not int or r['violations']!=0 for r in report['checks'])):
+            raise ValueError('A failed, duplicate or incomplete wide-metal/companion profile cannot establish execution.')
+    result=deepcopy(review);seen=[]
+    for row in result['rows']:
+        if row['rule'] not in WIDE_BINDINGS:continue
+        if row['disposition']!='execution-review-required':
+            raise ValueError('A wide-metal binding would overwrite a different disposition.')
+        seen.append(row['rule'])
+        row.update(disposition='executed-reviewed',
+            reason='Reviewed Manhattan huge-metal and nearby attached-feature spacing executed with all companion checks and guards passing.',
+            execution=dict(checker_sha256=wide['checker_sha256'],checks=list(WIDE_BINDINGS[row['rule']])))
+    if Counter(seen)!=Counter(WIDE_BINDINGS.keys()):
+        raise ValueError('The source inventory does not contain each reviewed wide-metal rule exactly once.')
+    result.update(counts=dict(Counter(r['disposition'] for r in result['rows'])),
+        wide_metal_geometry=wide,qualified=False,chunk_complete=False,
+        scope='Reviewed low-voltage and selected aluminium interconnect/wide-metal requirements plus explicit block applicability. Unbound periphery/error-catalog, density, electrical and application requirements remain open.')
+    return result
 
 
 def bind_interconnect(review,interconnect):
@@ -176,5 +214,8 @@ def audit(path,source):
     result=bind_interconnect(result,interconnect_geometry(path))
     if hashlib.sha256(path.read_bytes()).hexdigest()!=result['interconnect_geometry']['gds_sha256']:
         raise ValueError('Submitted layout changed during interconnect execution.')
+    result=bind_wide(result,wide_metal(path))
+    if hashlib.sha256(path.read_bytes()).hexdigest()!=result['wide_metal_geometry']['gds_sha256']:
+        raise ValueError('Submitted layout changed during wide-metal execution.')
     result['checker_sha256']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
     return result

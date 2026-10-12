@@ -1,5 +1,6 @@
 import unittest
-from scripts.sky130_block_applicability import review_row, selector_for
+from scripts.sky130_block_applicability import review_row, selector_for, named_cell_counts, tap_interactions
+import klayout.db as k
 
 
 def row(rule,flags=(),value='',source='p018-x_dotdash.csv'):
@@ -82,6 +83,56 @@ class ApplicabilityTests(unittest.TestCase):
             with self.subTest(rule=name):
                 self.assertEqual(review_row(row(name),{str(pair):0})['disposition'],'absent-operand')
                 self.assertEqual(review_row(row(name),{str(pair):1})['disposition'],'execution-review-required')
+                self.assertEqual(review_row(row(name),{})['disposition'],'execution-review-required')
+
+    def test_photodiode_review_requires_both_drawn_inputs_absent(self):
+        for i in range(1,12):
+            r=row('photo.'+str(i));good={'(64, 18)':0,'(81, 81)':0}
+            self.assertEqual(review_row(r,good)['disposition'],'absent-operand')
+            for key in good:
+                self.assertEqual(review_row(r,{**good,key:1})['disposition'],'execution-review-required')
+                self.assertEqual(review_row(r,{k:v for k,v in good.items() if k!=key})['disposition'],'execution-review-required')
+
+    def test_named_cell_exceptions_use_published_names(self):
+        cases=(('li.1a.-','li_vpp_exception_cells','s8rf2_xcmvpp_hd5_test'),
+               ('m1.4a','m1_contact_exception_cells','s8fs_cmux4_fm'),
+               ('licon.11c','phv_contact_exception_cells','s8fs_hvrsw_x4'),
+               ('licon.11d','nshort_contact_exception_cells','s8fs_rdec32'))
+        for rule,key,name in cases:
+            self.assertEqual(review_row(row(rule),named_cell_counts(['sky130_fd_sc_hd__inv_1']))['disposition'],'absent-operand')
+            self.assertEqual(review_row(row(rule),named_cell_counts([name]))['disposition'],'execution-review-required')
+            self.assertEqual(named_cell_counts([name])[key],1)
+            self.assertEqual(review_row(row(rule),{})['disposition'],'execution-review-required')
+        self.assertEqual(named_cell_counts(['s8fs_cmux4_fm_unlisted'])['m1_contact_exception_cells'],0)
+
+    def test_module_via_options_are_not_blanket_via_exemptions(self):
+        for rule in ('via.1b','via.4b','via.4c','via.5b','via.5c','via2.1d','via2.4a','via3.1a'):
+            self.assertEqual(review_row(row(rule),{'(81, 10)':0})['disposition'],'absent-operand')
+            self.assertEqual(review_row(row(rule),{'(81, 10)':1})['disposition'],'execution-review-required')
+            self.assertEqual(review_row(row(rule),{})['disposition'],'execution-review-required')
+        for rule in ('via.1a','via.4a','via2.1a','via3.1'):
+            self.assertEqual(review_row(row(rule),{'(81, 10)':0})['disposition'],'execution-review-required')
+
+    def test_optional_targets_use_their_actual_identifiers(self):
+        for rule,key in (('x.2a','(81, 79)'),('x.2c','(74, 22)'),('poly.1b','(125, 44)'),('licon.10','Var_channel')):
+            self.assertEqual(review_row(row(rule),{key:0})['disposition'],'absent-operand')
+            self.assertEqual(review_row(row(rule),{key:1})['disposition'],'execution-review-required')
+            self.assertEqual(review_row(row(rule),{})['disposition'],'execution-review-required')
+
+    def test_non_gate_label_warning_does_not_exempt_floating_connectivity(self):
+        self.assertEqual(review_row(row('x.17'),{})['disposition'],'advisory')
+        self.assertEqual(review_row(row('x.22',['RC']),{})['disposition'],'execution-review-required')
+
+    def test_butting_rule_absence_refuses_touching_and_overlapping_active(self):
+        diff=k.Region(k.Box(0,0,1000,1000))
+        for box,expected in (((1000,0,1500,1000),1),((1000,250,1500,750),1),
+                             ((1000,1000,1500,1500),1),((995,0,1500,1000),1),
+                             ((1270,0,1500,1000),0)):
+            count=tap_interactions(diff,k.Region(k.Box(*box)))
+            self.assertEqual(count,expected)
+            for name in ('difftap.4','difftap.5','difftap.6','difftap.7'):
+                self.assertEqual(review_row(row(name),{'tap_interacting_diff':count})['disposition'],
+                                 'execution-review-required' if expected else 'absent-operand')
                 self.assertEqual(review_row(row(name),{})['disposition'],'execution-review-required')
 
 

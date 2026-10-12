@@ -78,6 +78,8 @@ class RawFeolTests(unittest.TestCase):
         masks={(65,20):region((0,0,1000,1000)),(64,20):region((500,-100,2000,2000))}
         self.assertGreater(counts(masks)['profile.active_well_straddle'],0)
         self.assertGreater(counts({**masks,(65,44):masks[(65,20)]})['profile.active_overlap'],0)
+        for pair in ((74,22),(81,57),(81,63)):
+            self.assertGreater(counts({pair:region((0,0,500,500))})['profile.'+str(pair)],0)
 
     def test_diffusion_and_tap_enclosure_boundaries(self):
         for active in ((65,20),(65,44)):
