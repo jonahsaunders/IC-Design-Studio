@@ -1,9 +1,11 @@
 from copy import deepcopy
 import unittest
-from scripts.sky130_rule_execution import bind, bind_geometry, bind_interconnect, bind_wide
+from scripts.sky130_rule_execution import bind, bind_geometry, bind_interconnect, bind_wide, bind_global, bind_connectivity
 from scripts.sky130_low_voltage_geometry import check as geometry_check
 from scripts.sky130_interconnect_geometry import check as interconnect_check
 from scripts.sky130_wide_metal import check as wide_check
+from scripts.sky130_global_geometry import check as global_check
+from scripts.sky130_floating_connectivity import check as connectivity_check
 
 
 def reports():
@@ -185,6 +187,90 @@ class WideExecutionTests(unittest.TestCase):
             elif mode=='duplicate':review['rows'].append(deepcopy(row))
             else:row['disposition']='absent-operand'
             with self.subTest(mode=mode),self.assertRaises(ValueError):bind_wide(review,w)
+
+
+def global_reports():
+    review,wide=wide_reports();review=bind_wide(review,wide)
+    source='docs/rules/periphery/p018-x_dotdash.csv'
+    for index,rule in ((3,'x.2'),(4,'x.2'),(5,'x.2'),(6,'x.2'),(9,'x.3'),(10,'x.3a'),(12,'x.5'),(16,'x.9'),(29,'x.15a')):
+        review['rows'].append(dict(id=source+'#'+str(index),source=source,record=index,rule=rule,
+            source_sha256='0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567',
+            disposition='upstream-na' if index==3 else 'execution-review-required'))
+    geometry=global_check({});geometry.update(gds_sha256='a'*64,checker_sha256='1'*64)
+    return review,geometry
+
+
+class GlobalExecutionTests(unittest.TestCase):
+    def test_duplicate_rule_names_bind_only_exact_required_records(self):
+        review,g=global_reports();original=deepcopy(review);result=bind_global(review,g)
+        self.assertEqual(review,original)
+        self.assertEqual(result['counts']['executed-reviewed'],132)
+        rows={r['id']:r for r in result['rows'] if 'id' in r}
+        prefix='docs/rules/periphery/p018-x_dotdash.csv#'
+        self.assertEqual(rows[prefix+'3']['disposition'],'upstream-na')
+        self.assertEqual(rows[prefix+'9']['disposition'],'execution-review-required')
+        for index in (4,5,6,10,12,16,29):self.assertEqual(rows[prefix+str(index)]['disposition'],'executed-reviewed')
+        self.assertFalse(result['qualified']);self.assertFalse(result['chunk_complete'])
+
+    def test_every_companion_and_global_guard_remains_mandatory(self):
+        for key in ('raw_geometry','low_voltage_geometry','interconnect_geometry','wide_metal_geometry','global'):
+            for mode in ('marker','boolean','missing','duplicate','layout'):
+                review,g=global_reports();target=g if key=='global' else review[key]
+                if mode=='marker':target['checks'][-1]['violations']=1
+                elif mode=='boolean':target['checks'][-1]['violations']=True
+                elif mode=='missing':target['checks'].pop()
+                elif mode=='duplicate':target['checks'].append(deepcopy(target['checks'][-1]))
+                else:target['gds_sha256']='0'*64
+                with self.subTest(key=key,mode=mode),self.assertRaises(ValueError):bind_global(review,g)
+
+    def test_manual_record_identity_cannot_be_replaced_by_rule_name(self):
+        for mode in ('missing','duplicate','id','source','source_sha256','record','rule','disposition'):
+            review,g=global_reports();row=next(r for r in review['rows'] if r.get('record')==5)
+            if mode=='missing':review['rows'].remove(row)
+            elif mode=='duplicate':review['rows'].append(deepcopy(row))
+            elif mode=='record':row[mode]=4
+            else:row[mode]='changed'
+            with self.subTest(mode=mode),self.assertRaises(ValueError):bind_global(review,g)
+
+
+def connectivity_reports():
+    review,g=global_reports();review=bind_global(review,g)
+    source='docs/rules/periphery/p018-x_dotdash.csv'
+    review['rows'].append(dict(id=source+'#37',source=source,record=37,rule='x.22',
+        source_sha256='0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567',
+        disposition='execution-review-required'))
+    c=connectivity_check({});c.update(gds_sha256='a'*64,checker_sha256='2'*64)
+    return review,c
+
+
+class ConnectivityExecutionTests(unittest.TestCase):
+    def test_complete_graph_requirement_is_bound_without_promoting_chunk(self):
+        review,c=connectivity_reports();original=deepcopy(review);result=bind_connectivity(review,c)
+        self.assertEqual(review,original);self.assertEqual(result['counts']['executed-reviewed'],133)
+        self.assertFalse(result['qualified']);self.assertFalse(result['chunk_complete'])
+
+    def test_companions_exceptions_and_complete_extraction_are_mandatory(self):
+        for key in ('raw_geometry','low_voltage_geometry','interconnect_geometry','wide_metal_geometry','global_geometry','connectivity'):
+            for mode in ('marker','boolean','missing','duplicate','layout'):
+                review,c=connectivity_reports();target=c if key=='connectivity' else review[key]
+                if mode=='marker':target['checks'][-1]['violations']=1
+                elif mode=='boolean':target['checks'][-1]['violations']=True
+                elif mode=='missing':target['checks'].pop()
+                elif mode=='duplicate':target['checks'].append(deepcopy(target['checks'][-1]))
+                else:target['gds_sha256']='0'*64
+                with self.subTest(key=key,mode=mode),self.assertRaises(ValueError):bind_connectivity(review,c)
+        for check in ('profile.complete_extraction','profile.exception_labels','profile.absent.(89, 44)'):
+            review,c=connectivity_reports();next(r for r in c['checks'] if r['rule']==check)['violations']=1
+            with self.subTest(check=check),self.assertRaises(ValueError):bind_connectivity(review,c)
+
+    def test_changed_or_missing_connectivity_requirement_is_rejected(self):
+        for mode in ('missing','duplicate','source_sha256','rule','record','disposition'):
+            review,c=connectivity_reports();row=review['rows'][-1]
+            if mode=='missing':review['rows'].pop()
+            elif mode=='duplicate':review['rows'].append(deepcopy(row))
+            elif mode=='record':row[mode]=38
+            else:row[mode]='changed'
+            with self.subTest(mode=mode),self.assertRaises(ValueError):bind_connectivity(review,c)
 
 
 if __name__=='__main__':unittest.main()

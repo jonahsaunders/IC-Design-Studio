@@ -307,7 +307,7 @@ establishes 28 further absence decisions using exact photo-device operands,
 module-only via options, named-cell exceptions and other explicit selectors.
 The published floating-label rule `x.17` is retained as advisory because its
 description explicitly excludes it from the tapeout gate; required floating
-connectivity `x.22` remains open. Both low-voltage checkers now reject the
+connectivity `x.22` stayed open at that checkpoint. Both low-voltage checkers now reject the
 published UHVI selector 74/22, and gate classification explicitly requires
 opposite diffusion ends. These are additional guards, not new exceptions.
 
@@ -320,17 +320,59 @@ pass per OS without skips, and both final ledgers match. Six additional
 published diagrams are captured at the same pinned revision for continued
 definition review; the diagrams alone do not close a requirement.
 
+The [global geometry review](validation/sky130-global-review-2026-10-11.json)
+adds the three distinct orthogonal-angle records, the remaining-layer
+45-degree requirement and complete pin-polygon containment. Exact source
+record identities prevent the repeated `x.2` names from absorbing an NA row.
+Every unmerged polygon edge is checked, including holes, hidden internal
+edges, hierarchy and fill. The 442-purpose map combines the published GDS
+table, installed layer map and explicitly documented native fill/outline
+purposes. Unknown polygon purposes fail. Pwell and isolated pwell use the
+published C3 definitions; fill cannot establish pin containment.
+
+That review also establishes 27 measured absent-operand decisions for TUNM
+and specifically marked HV/VHV targets. The published GDS table supplies
+TUNM 80/20 and diff.hv 65/8. Independent operating-voltage tagging obligations
+remain open; the absence of a drawn marker does not establish those obligations.
+
+The [mask/context review](validation/sky130-mask-review-2026-10-11.json)
+adds executable maskAdd/maskDrop core containment and restricted mask-data
+placement checks, with no special placement exemptions invoked. Native fill
+and waffleDrop overrides remain distinct purposes. Eleven further absence
+decisions measure pad/RDL operands, cpmm exception context, condiode labels
+and gates outside standard-cell identifiers. The explicit `poly.X.1` standard-cell
+exception applies only because every gate is wholly contained; a straddling
+gate is refused. This does not qualify analog-device W/Ls.
+
+The [complete connectivity review](validation/sky130-floating-review-2026-10-11.json)
+now executes `x.22` through all contact levels. All 106 counter, 1,304 UART and
+1,204 APB components reach a gate, diffusion/tap or top-level metal pin.
+No floating/tie labels or standard-cell exemptions are used. The controls
+reject a disconnected metal/via stack that passes a mere neighbor-contact
+test, removal of any contact level, wrong-layer pins and annotation bridges.
+All submitted conductor/root area must appear in the extracted components.
+Two APB poly-short annotations are wholly inside already continuous poly;
+they add neither conductor nor roots. An annotation extending outside poly
+or bridging a gap fails. The first unsupported-annotation profile and its
+rejected results remain preserved. All 123 combined tests pass per OS without
+skips and the final ledgers match exactly.
+
+The new archives passed complete readback and remain outside dated folders.
+The global/mask records also reference a verified supplement containing their
+exact execution and layer-map construction drivers. These checks use KLayout
+0.30.5's polygon library on both operating systems; they do not assert fresh
+Windows standalone-engine or installer qualification.
+
 The [applicability review](../scripts/sky130_block_applicability.py)
 retains all 601 periphery source rows. The
 [additional applicability batch](validation/sky130-manual-progress-2026-10-11.json)
 establishes 101 further explicit absence proofs per final design:
-239 rows now have measured absent operands,
+277 rows now have measured absent operands,
 77 explicitly say NA, 28 are advisory, 61 belong to the other backend,
-125 have reviewed execution bindings, 70 still require execution review and
+133 have reviewed execution bindings, 24 still require execution review and
 one needs a source definition.
 An absent operand is a block-specific finding, not a passing device test.
-Both operating systems produce the same updated review and pass all 12
-applicability rejection tests without skips. The high-voltage well checks
+Both operating systems produce the same updated review. The high-voltage well checks
 include both HVI and the separate thin-oxide high-voltage well identifier;
 rules requiring voltage declarations or ambiguous enclosure targets stay open.
 

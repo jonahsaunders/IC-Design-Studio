@@ -1,5 +1,5 @@
 import unittest
-from scripts.sky130_block_applicability import review_row, selector_for, named_cell_counts, tap_interactions
+from scripts.sky130_block_applicability import review_row, selector_for, named_cell_counts, tap_interactions, gates_outside_standard_cells, special_label_counts
 import klayout.db as k
 
 
@@ -64,10 +64,38 @@ class ApplicabilityTests(unittest.TestCase):
                     self.assertEqual(review_row(rule,{k:v for k,v in both.items() if k!=marker})['disposition'],'execution-review-required')
 
     def test_missing_device_or_voltage_tag_is_not_an_absence_proof(self):
-        for name in ('lvtn.4b','ncm.3','ncm.4','hvnwell.11','hv.X.1','hv.X.4','vhvi.3.-','vhvi.4.-','vhvi.vhv.5'):
+        for name in ('lvtn.4b','ncm.3','ncm.4','hvnwell.11','hv.X.1','hv.X.4'):
             with self.subTest(rule=name):
                 self.assertIsNone(selector_for(row(name)))
                 self.assertEqual(review_row(row(name),{'(75, 20)':0,'(125, 44)':0,'(92, 44)':0,'(74, 21)':0})['disposition'],'execution-review-required')
+
+    def test_tunnel_and_marked_hv_targets_require_explicit_measurements(self):
+        groups={
+            '(80, 20)':['tunm.'+s for s in ('1','2','3','4','5','6a','7','8')],
+            '(65, 8)':['hv.diff.'+s for s in ('1a','1b','2','3a','3b')]+
+                       ['hv.poly.'+s for s in ('1','2','3','4','6a','6b','7','8')],
+            '(74, 21)':['vhvi.3.-','vhvi.4.-','vhvi.vhv.5'],
+            'shv_nwell_labels':['hv.nwell.1'],
+        }
+        for key,names in groups.items():
+            for name in names:
+                with self.subTest(rule=name):
+                    self.assertEqual(review_row(row(name),{key:0})['disposition'],'absent-operand')
+                    for counts in ({},{key:None},{key:1}):
+                        self.assertEqual(review_row(row(name),counts)['disposition'],'execution-review-required')
+
+    def test_hv_exception_labels_cannot_hide_unsupported_voltage_features(self):
+        for name,label in (('hv.X.3','hv_bb_labels'),('hv.X.5','hv_lv_labels')):
+            counts={'(65, 8)':0,label:0}
+            self.assertEqual(review_row(row(name),counts)['disposition'],'absent-operand')
+            for key in counts:
+                self.assertEqual(review_row(row(name),{**counts,key:1})['disposition'],'execution-review-required')
+                self.assertEqual(review_row(row(name),{k:v for k,v in counts.items() if k!=key})['disposition'],'execution-review-required')
+        # No absent marked target supplies the missing independent operating
+        # voltage contract or changes the published terminal-tagging advisory.
+        for name in ('hv.X.1','hv.X.4','hvnwell.11'):
+            self.assertEqual(review_row(row(name),{'(65, 8)':0,'(74, 21)':0})['disposition'],'execution-review-required')
+        self.assertEqual(review_row(row('vhvi.vhv.1',['NC']),{'(74, 21)':0})['disposition'],'advisory')
 
     def test_precision_resistor_requirements_use_device_operand(self):
         for name in ('rpm.1b','rpm.1g','rpm.3','rpm.4','rpm.5','rpm.9'):
@@ -134,6 +162,40 @@ class ApplicabilityTests(unittest.TestCase):
                 self.assertEqual(review_row(row(name),{'tap_interacting_diff':count})['disposition'],
                                  'execution-review-required' if expected else 'absent-operand')
                 self.assertEqual(review_row(row(name),{})['disposition'],'execution-review-required')
+
+    def test_pad_and_rdl_absence_do_not_hide_missing_enclosure_or_copper_mask(self):
+        for rule,key in (('pad.2','(76, 20)'),('pad.3','(76, 20)'),
+                         ('rdl.1','(74, 20)'),('rdl.2','(74, 20)'),('rdl.4','(74, 20)'),('rdl.6','(74, 20)')):
+            self.assertEqual(review_row(row(rule),{key:0})['disposition'],'absent-operand')
+            self.assertEqual(review_row(row(rule),{key:1})['disposition'],'execution-review-required')
+        for name,other in (('rdl.3','(76, 20)'),('rdl.5','(93, 0)')):
+            counts={'(74, 20)':0,other:0}
+            self.assertEqual(review_row(row(name),counts)['disposition'],'absent-operand')
+            for key in counts:
+                self.assertEqual(review_row(row(name),{**counts,key:1})['disposition'],'execution-review-required')
+                self.assertEqual(review_row(row(name),{k:v for k,v in counts.items() if k!=key})['disposition'],'execution-review-required')
+
+    def test_standard_cell_wl_exception_cannot_hide_a_straddling_gate(self):
+        diff=k.Region(k.Box(0,0,500,500));poly=k.Region(k.Box(100,-100,200,600))
+        for standard,expected in ((k.Region(k.Box(0,0,500,500)),0),
+                                  (k.Region(k.Box(0,1,500,500)),1),(k.Region(),1)):
+            actual=gates_outside_standard_cells(diff,poly,standard)
+            self.assertEqual(actual,expected)
+            self.assertEqual(review_row(row('poly.X.1'),{'gates_outside_sc':actual})['disposition'],
+                             'execution-review-required' if expected else 'absent-operand')
+        self.assertEqual(review_row(row('poly.X.1'),{})['disposition'],'execution-review-required')
+        self.assertEqual(review_row(row('licon.19'),{'(75, 20)':0})['disposition'],'execution-review-required')
+
+    def test_condiode_and_cpmm_exceptions_require_measured_absence(self):
+        self.assertEqual(review_row(row('x.24'),special_label_counts([]))['disposition'],'absent-operand')
+        for label in ('condiode','condiodeHvPsub',' CONDIODE '):
+            self.assertEqual(review_row(row('x.24'),special_label_counts([label]))['disposition'],'execution-review-required')
+        self.assertEqual(review_row(row('x.24'),{})['disposition'],'execution-review-required')
+        counts={**named_cell_counts(['sky130_fd_sc_hd__inv_1']),'(91, 44)':0}
+        self.assertEqual(review_row(row('x.15b'),counts)['disposition'],'absent-operand')
+        self.assertEqual(review_row(row('x.15b'),{**counts,'(91, 44)':1})['disposition'],'execution-review-required')
+        for name in ('PadPLfp','padPLhp','padPLstg','padPLwlbi'):
+            self.assertEqual(review_row(row('x.15b'),{**named_cell_counts([name]),'(91, 44)':0})['disposition'],'execution-review-required')
 
 
 if __name__=='__main__':unittest.main()

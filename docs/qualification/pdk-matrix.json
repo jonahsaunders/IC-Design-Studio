@@ -16722,7 +16722,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Complete required-rule and error-catalog reconciliation (70 periphery rows still need execution review), missing x.20 definition, complete density applicability, final timing/equivalence and combined application/delivery gate. 125 implant/well/diffusion/gate/contact/interconnect/wide-metal requirements now have explicit execution bindings; final native geometry, selected antenna, diode-inclusive LVS and nominal circuit invariance pass.",
+      "remaining": "Complete required-rule and error-catalog reconciliation (24 periphery rows still need execution review), missing x.20 definition, complete density applicability, final timing/equivalence and combined application/delivery gate. 133 implant/well/diffusion/gate/contact/interconnect/wide-metal/global requirements now have explicit execution bindings; final native geometry, selected antenna, diode-inclusive LVS and nominal circuit invariance pass.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16736,7 +16736,10 @@
         "sky130-interconnect-2026-10-11",
         "sky130-context-review-2026-10-11",
         "sky130-wide-metal-2026-10-11",
-        "sky130-butting-review-2026-10-11"
+        "sky130-butting-review-2026-10-11",
+        "sky130-global-review-2026-10-11",
+        "sky130-mask-review-2026-10-11",
+        "sky130-floating-review-2026-10-11"
       ]
     },
     "sky130A:source-completeness": {
@@ -20084,6 +20087,21 @@
       "path": "docs/validation/sky130-butting-review-2026-10-11.json",
       "sha256": "7f3abb11085a984536c7b962d1ca76e8b0502af74fc2ed550600b7886e5e4c9c",
       "scope_limit": "Four additional diffusion/tap butting requirements have measured absent operands on all three final layouts. The complete current set of 125 executable requirements is rerun with every companion check and guard. Chunk 6 remains open."
+    },
+    "sky130-global-review-2026-10-11": {
+      "path": "docs/validation/sky130-global-review-2026-10-11.json",
+      "sha256": "1a85b49e73c05729047dc8216d741c6c237add64154253b7ea8cd68887d53101",
+      "scope_limit": "Five layout-wide angle/pin requirements execute on all three final layouts, and 27 tunnel/marked-HV requirements have measured absent operands. All 130 executable requirements and every companion guard pass. Chunk 6 remains open."
+    },
+    "sky130-mask-review-2026-10-11": {
+      "path": "docs/validation/sky130-mask-review-2026-10-11.json",
+      "sha256": "0c61d63457dd19a1ddd1760e14c6af5172a2ffda207d70ceed7737b70aa71745",
+      "scope_limit": "Two further layout-wide mask restrictions execute on every final layout; eleven pad/RDL/context requirements have measured absent operands. All 132 executable requirements and every companion guard pass. Chunk 6 remains open."
+    },
+    "sky130-floating-review-2026-10-11": {
+      "path": "docs/validation/sky130-floating-review-2026-10-11.json",
+      "sha256": "2a07fef720a4938d83a71a0a7bd6d8d6547499b756d5306b0c02804e4e8ef929",
+      "scope_limit": "Complete drawn-conductor connectivity executes through every contact level on all three final layouts. All 133 executable requirements and every companion guard pass. Chunk 6 remains open."
     }
   },
   "execution_acceptance": {

@@ -16,6 +16,10 @@ from scripts.sky130_interconnect_geometry import audit as interconnect_geometry
 from scripts.sky130_interconnect_geometry import check as interconnect_checks
 from scripts.sky130_wide_metal import audit as wide_metal
 from scripts.sky130_wide_metal import check as wide_checks
+from scripts.sky130_global_geometry import audit as global_geometry
+from scripts.sky130_global_geometry import check as global_checks
+from scripts.sky130_floating_connectivity import audit as floating_connectivity
+from scripts.sky130_floating_connectivity import check as connectivity_checks
 
 
 RAW_BINDINGS={
@@ -73,6 +77,80 @@ WIDE_BINDINGS={
     'm3.3c':('m3.wide_spacing',),'m3.3d':('m3.wide_spacing',),
     'm4.5a':('m4.wide_spacing',),'m4.5b':('m4.wide_spacing',),
 }
+
+GLOBAL_SOURCE='docs/rules/periphery/p018-x_dotdash.csv'
+GLOBAL_SOURCE_SHA256='0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567'
+# x.2 has three distinct required source records and a fourth NA row. Rule
+# names alone cannot bind these requirements without hiding that distinction.
+GLOBAL_BINDINGS={
+    4:('x.2','x.2.diff'),5:('x.2','x.2.active_interconnect'),
+    6:('x.2','x.2.upper_via'),10:('x.3a','x.3a'),12:('x.5','x.5'),
+    16:('x.9','x.9'),29:('x.15a','x.15a'),
+}
+
+
+def bind_global(review,geometry):
+    for report,inventory_fn in ((review['raw_geometry'],raw_checks),
+            (review['low_voltage_geometry'],geometry_checks),
+            (review['interconnect_geometry'],interconnect_checks),
+            (review['wide_metal_geometry'],wide_checks),(geometry,global_checks)):
+        inventory={r['rule'] for r in inventory_fn({})['checks']}
+        if report['gds_sha256']!=review['gds_sha256']:
+            raise ValueError('Global/companion reports refer to different submitted layouts.')
+        if (len(report['checks'])!=len(inventory) or
+                {r['rule'] for r in report['checks']}!=inventory or
+                report['status']!='PASS' or type(report['violations']) is not int or report['violations']!=0 or
+                any(type(r['violations']) is not int or r['violations']!=0 for r in report['checks'])):
+            raise ValueError('A failed, duplicate or incomplete global/companion profile cannot establish execution.')
+    targets={GLOBAL_SOURCE+'#'+str(index):(index,*binding) for index,binding in GLOBAL_BINDINGS.items()}
+    result=deepcopy(review);seen=[]
+    for row in result['rows']:
+        if row.get('id') not in targets:continue
+        index,name,check=targets[row['id']]
+        if (row['source']!=GLOBAL_SOURCE or row['source_sha256']!=GLOBAL_SOURCE_SHA256 or
+                row['record']!=index or row['rule']!=name or row['disposition']!='execution-review-required'):
+            raise ValueError('Changed global source record or disposition requires a new semantic review.')
+        seen.append(row['id'])
+        row.update(disposition='executed-reviewed',
+            reason='Reviewed layout-wide requirement executed with the strict angle/pin profile and all companion checks passing.',
+            execution=dict(checker_sha256=geometry['checker_sha256'],checks=[check],
+                           layer_map_sha256=geometry['layer_map_sha256']))
+    if Counter(seen)!=Counter(targets.keys()):
+        raise ValueError('The source inventory does not contain each reviewed global record exactly once.')
+    result.update(counts=dict(Counter(r['disposition'] for r in result['rows'])),global_geometry=geometry,
+        qualified=False,chunk_complete=False,
+        scope='Reviewed low-voltage, interconnect and selected layout-wide requirements plus measured block applicability. Unbound periphery/error-catalog, density, electrical and application requirements remain open.')
+    return result
+
+
+def bind_connectivity(review,connectivity):
+    for report,inventory_fn in ((review['raw_geometry'],raw_checks),
+            (review['low_voltage_geometry'],geometry_checks),
+            (review['interconnect_geometry'],interconnect_checks),
+            (review['wide_metal_geometry'],wide_checks),
+            (review['global_geometry'],global_checks),(connectivity,connectivity_checks)):
+        inventory={r['rule'] for r in inventory_fn({})['checks']}
+        if report['gds_sha256']!=review['gds_sha256']:
+            raise ValueError('Connectivity/companion reports refer to different submitted layouts.')
+        if (len(report['checks'])!=len(inventory) or
+                {r['rule'] for r in report['checks']}!=inventory or
+                report['status']!='PASS' or type(report['violations']) is not int or report['violations']!=0 or
+                any(type(r['violations']) is not int or r['violations']!=0 for r in report['checks'])):
+            raise ValueError('A failed, duplicate or incomplete connectivity/companion profile cannot establish execution.')
+    result=deepcopy(review)
+    rows=[r for r in result['rows'] if r.get('id')==GLOBAL_SOURCE+'#37']
+    if len(rows)!=1:raise ValueError('The source inventory must contain the reviewed x.22 record exactly once.')
+    row=rows[0]
+    if (row['source']!=GLOBAL_SOURCE or row['source_sha256']!=GLOBAL_SOURCE_SHA256 or
+            row['record']!=37 or row['rule']!='x.22' or row['disposition']!='execution-review-required'):
+        raise ValueError('Changed x.22 source record or disposition requires a new semantic review.')
+    row.update(disposition='executed-reviewed',
+        reason='Complete conductor components reach a gate, diffusion/tap or top-level metal pin. No floating/tie labels or standard-cell exemptions are used; all mandatory companion checks pass.',
+        execution=dict(checker_sha256=connectivity['checker_sha256'],checks=['x.22','profile.complete_extraction']))
+    result.update(counts=dict(Counter(r['disposition'] for r in result['rows'])),floating_connectivity=connectivity,
+        qualified=False,chunk_complete=False,
+        scope='Reviewed geometry, selected global rules and complete drawn-conductor connectivity plus measured block applicability. Unbound periphery/error-catalog, density, electrical and application requirements remain open.')
+    return result
 
 
 def bind_wide(review,wide):
@@ -217,5 +295,11 @@ def audit(path,source):
     result=bind_wide(result,wide_metal(path))
     if hashlib.sha256(path.read_bytes()).hexdigest()!=result['wide_metal_geometry']['gds_sha256']:
         raise ValueError('Submitted layout changed during wide-metal execution.')
+    result=bind_global(result,global_geometry(path))
+    if hashlib.sha256(path.read_bytes()).hexdigest()!=result['global_geometry']['gds_sha256']:
+        raise ValueError('Submitted layout changed during global geometry execution.')
+    result=bind_connectivity(result,floating_connectivity(path))
+    if hashlib.sha256(path.read_bytes()).hexdigest()!=result['floating_connectivity']['gds_sha256']:
+        raise ValueError('Submitted layout changed during connectivity execution.')
     result['checker_sha256']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
     return result

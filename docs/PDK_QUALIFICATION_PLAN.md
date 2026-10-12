@@ -68,10 +68,20 @@ skips. The periphery ledger retains all 601 rows: 117 executed requirements,
 The later [wide-metal batch](validation/sky130-wide-metal-2026-10-11.json) and
 [context](validation/sky130-context-review-2026-10-11.json)/
 [butting](validation/sky130-butting-review-2026-10-11.json) reviews reduce the
-open periphery count to 70. The current ledger has 125 execution bindings,
+open periphery count to 70. That checkpoint has 125 execution bindings,
 239 measured absent operands, 77 upstream NA, 28 advisory, 61 other backend
 and one missing source definition. All 92 combined tests pass per OS without
 skips; both operating systems reproduce the same final-layout ledger.
+The subsequent [global](validation/sky130-global-review-2026-10-11.json),
+[mask](validation/sky130-mask-review-2026-10-11.json) and
+[complete connectivity](validation/sky130-floating-review-2026-10-11.json)
+batches reduce the open periphery review count to 24. The current ledger has
+133 execution bindings, 277 measured absent operands, 77 upstream NA,
+28 advisory, 61 other backend and one missing source definition. All 123
+combined tests pass per OS without skips, with identical final-layout ledgers.
+The complete graph detects floating networks that the bundled local
+contact-neighbor check can miss. Exact source records preserve duplicate
+rule-name distinctions, and independent voltage-tagging obligations stay open.
 Neither these checks nor the earlier native passes complete chunk 6.
 
 The IHP reference acceptance retains its original source in an explicit

@@ -21,6 +21,7 @@ NAMED_CELL_GROUPS={
     'phv_contact_exception_cells':('s8fs_gwdlvx4','s8fs_gwdlvx8','s8fs_hvrsw_x4',
         's8fs_hvrsw8','s8fs_hvrsw264','s8fs_hvrsw520'),
     'nshort_contact_exception_cells':('s8fs_rdecdrv','s8fs_rdec8','s8fs_rdec32','s8fs_rdec264','s8fs_rdec520'),
+    'cpmm_exception_cells':('PadPLfp','padPLhp','padPLstg','padPLwlbi'),
 }
 
 
@@ -36,6 +37,19 @@ def tap_interactions(diff,tap):
     # Include corner touches and even invalid overlaps. Such cases must never
     # be called absent merely because they have no positive-length butt edge.
     return tap.merged().interacting(diff.merged()).count()
+
+
+def gates_outside_standard_cells(diff,poly,standard_cells):
+    return ((diff&poly)-standard_cells).count()
+
+
+def special_label_counts(labels):
+    counts=Counter(labels)
+    result={label+'_labels':counts[label] for label in ('hv_bb','hv_lv','shv_nwell')}
+    # Conservatively include the related condiode variants/capitalizations:
+    # a label requiring review cannot disappear through exact-case matching.
+    result['condiode_labels']=sum(n for label,n in counts.items() if label.strip().casefold().startswith('condiode'))
+    return result
 
 
 def selector_for(row):
@@ -57,7 +71,16 @@ def selector_for(row):
         ('x.10',):((65,13),(66,13)),
         ('x.2a',):((81,79),),
         ('x.2c',):((74,22),),
+        ('x.15b',):((91,44),'cpmm_exception_cells'),
+        ('x.24',):('condiode_labels',),
         ('poly.1b',):((125,44),),
+        # poly.X.1 expressly exempts W/L checks inside areaid.sc. A gate
+        # crossing that boundary is still counted as an unreviewed operand.
+        ('poly.X.1',):('gates_outside_sc',),
+        # Published gds_layers.csv maps TUNM to 80:20. These eight rows all
+        # constrain TUNM itself or gates selected by it; they do not require
+        # a tunnel implant on an otherwise ordinary low-voltage transistor.
+        ('tunm.1','tunm.2','tunm.3','tunm.4','tunm.5','tunm.6a','tunm.7','tunm.8'):((80,20),),
         ('difftap.4','difftap.5','difftap.6','difftap.7'):('tap_interacting_diff',),
         ('poly.3','poly.9'):((66,13),),
         ('poly.15',):((65,13),),
@@ -75,6 +98,17 @@ def selector_for(row):
          'hvdifftap.16','hvdifftap.19','hvdifftap.21','hvdifftap.22','hvdifftap.23','hvdifftap.24',
          'hvpoly.13','hvpoly.14','hvntm.3','hvntm.7'):((75,20),),
         ('hvntm.X.1','hvntm.1','hvntm.2','hvntm.4','hvntm.5','hvntm.6a','hvntm.6b','hvntm.9','hvntm.10'):((125,20),),
+        # C3 defines hv_source/drain through diff.hv (65:8), and hvPoly /
+        # hvFET_gate through connection / butting to that marked operand.
+        # This discharges only the listed marked-geometry constraints. The
+        # independent obligation to identify operating voltages and propagate
+        # their tags (hv.X.1, hv.X.4, hvnwell.11) deliberately stays unresolved.
+        ('hv.diff.1a','hv.diff.1b','hv.diff.2','hv.diff.3a','hv.diff.3b',
+         'hv.poly.1','hv.poly.2','hv.poly.3','hv.poly.4','hv.poly.6a','hv.poly.6b',
+         'hv.poly.7','hv.poly.8'):((65,8),),
+        ('hv.X.3',):((65,8),'hv_bb_labels'),
+        ('hv.X.5',):((65,8),'hv_lv_labels'),
+        ('hv.nwell.1',):('shv_nwell_labels',),
         # Every denmos/depmos gate, source and drain definition in C3
         # includes areaid.en. This is a geometric absence proof, not evidence
         # that an electrically high-voltage device has been tagged correctly.
@@ -83,7 +117,11 @@ def selector_for(row):
          'depmos.1','depmos.2','depmos.3','depmos.4','depmos.5','depmos.6','depmos.7','depmos.8',
          'depmos.10','depmos.11','depmos.12','extd.1','extd.2','extd.3'):((81,57),),
         ('rfdiode.1.-','rfdiode.2.-','rfdiode.3.-'):((81,125),),
-        ('vhvi.1.-','vhvi.2.-','vhvi.5.-','vhvi.6.-','vhvi.7.-','vhvi.8.-'):((74,21),),
+        # VHVGate and VHVSourceDrain explicitly include VHVI in C3. Its
+        # absence proves these selected targets absent, not correct voltage
+        # tagging of terminals under the separate vhvi.vhv.1 requirement.
+        ('vhvi.1.-','vhvi.2.-','vhvi.3.-','vhvi.4.-','vhvi.5.-','vhvi.6.-',
+         'vhvi.7.-','vhvi.8.-','vhvi.vhv.5'):((74,21),),
         ('npc.5','licon.2b','licon.2c','licon.2d'):('slotted_licon',),
         ('licon.1b','licon.1c'):('prec_resistor',),
         ('licon.10',):('Var_channel',),
@@ -102,6 +140,13 @@ def selector_for(row):
         ('poly.X.1a',):('dummy_poly_labels',),
         ('m1.-',):((62,24),),('m2.-',):((105,52),),
         ('m3.-',):((107,24),),('m4.-',):((112,4),),
+        ('pad.2','pad.3'):((76,20),),
+        # RDL/CCU1M purposes are explicit in the hash-locked installed map
+        # checked by the mandatory global profile. Enclosure rdl.3 requires
+        # PAD absent as well; absent RDL alone would conceal a missing layer.
+        ('rdl.1','rdl.2','rdl.4','rdl.6'):((74,20),),
+        ('rdl.3',):((74,20),(76,20)),
+        ('rdl.5',):((74,20),(93,0)),
     }
     for names,selectors in groups.items():
         if rule in names:return selectors
@@ -173,6 +218,7 @@ def audit(path,source):
     counts['nwell_holes']=sum(p.holes() for p in region((64,20)).each())
     counts['advSeal_6um_cells']=sum(c.name.startswith('advSeal_6um') for c in layout.each_cell())
     counts['tap_interacting_diff']=tap_interactions(region((65,20)),region((65,44)))
+    counts['gates_outside_sc']=gates_outside_standard_cells(region((65,20)),region((66,20)),region((81,4)))
     counts.update(named_cell_counts([c.name for c in layout.each_cell()]))
     counts['slotted_licon']=sum(p.is_box() and sorted((p.bbox().width(),p.bbox().height()))==[190,2000] for p in region((66,44)).each())
     texts=[];it=top.begin_shapes_rec(layout.layer(83,44))
@@ -180,6 +226,15 @@ def audit(path,source):
         if it.shape().is_text():texts.append(it.shape().text.string)
         it.next()
     counts['dummy_poly_labels']=sum(text=='dummy_poly' for text in texts)
+    # These special-purpose labels can be placed on different drawing/text
+    # purposes. Search every layer, recursively, rather than assuming 83:44.
+    label_counts=Counter()
+    for layer in layout.layer_indexes():
+        it=top.begin_shapes_rec(layer);it.shape_flags=k.Shapes.STexts
+        while not it.at_end():
+            label_counts[it.shape().text.string]+=1
+            it.next()
+    counts.update(special_label_counts(label_counts.elements()))
     reviewed=[review_row(row,counts) for row in rows]
     return dict(schema=1,status='partial-applicability-review',qualified=False,chunk_complete=False,
         gds_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),top=top.name,
