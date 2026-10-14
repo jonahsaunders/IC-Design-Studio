@@ -75,7 +75,7 @@ skips; both operating systems reproduce the same final-layout ledger.
 The subsequent [global](validation/sky130-global-review-2026-10-11.json),
 [mask](validation/sky130-mask-review-2026-10-11.json) and
 [complete connectivity](validation/sky130-floating-review-2026-10-11.json)
-batches reduce the open periphery review count to 24. The current ledger has
+batches reduce the open periphery review count to 24. That checkpoint has
 133 execution bindings, 277 measured absent operands, 77 upstream NA,
 28 advisory, 61 other backend and one missing source definition. All 123
 combined tests pass per OS without skips, with identical final-layout ledgers.
@@ -84,10 +84,10 @@ contact-neighbor check can miss. Exact source records preserve duplicate
 rule-name distinctions, and independent voltage-tagging obligations stay open.
 Neither these checks nor the earlier native passes complete chunk 6.
 
-The [error-catalog reconciliation](validation/sky130-error-reconciliation-2026-10-14.json)
-now binds 82 of the 1,556 published error records for each retained final
+The initial [error-catalog reconciliation](validation/sky130-error-reconciliation-2026-10-14.json)
+binds 82 of the 1,556 published error records for each retained final
 layout: 61 to executed geometry/connectivity checks and 21 to measured absence
-of floating/tie exception labels. All 1,474 other records remain unreviewed,
+of floating/tie exception labels. Its other 1,474 records remain unreviewed,
 including chip-level records with the same rule names. This is a new audit of
 the committed evidence, not a fresh final-GDS or Windows execution. The 24
 open periphery execution rows and the missing `x.20` definition are unchanged.
@@ -106,6 +106,26 @@ are asserted to pass the published oxide-density requirements. The existing
 timing/equivalence and combined application gate remain open. The
 [reproduction instructions](SKY130_PHYSICAL_QUALIFICATION.md#grid-and-density-window-diagnostics)
 identify the exact missing filled-reference archive needed to continue.
+
+The subsequent [geometry reconciliation](validation/sky130-geometry-reconciliation-2026-10-14.json)
+adds 313 explicit error-record bindings and closes two periphery execution
+reviews: the general angle obligation and intra-polygon notches. Each retained
+filled layout now has 356 executed error bindings, 39 measured absent operands
+and 1,161 unreviewed error records. The periphery ledger now has 135 executed
+requirements and 22 execution reviews still open, alongside the missing
+`x.20` definition. All other periphery dispositions are unchanged. Its 408
+fresh notch controls cover 34 operands, three boundary gaps and four rotations.
+All 74 `s`-series records and ambiguous device-dependent entries stay open.
+
+The [reference replay](validation/sky130-reference-replay-2026-10-14.json)
+establishes that the recovered CI GDS files and independent OpenDB inventories
+match the original **pin-corrected, unfilled** checkpoint exactly. Fresh calls
+to the application's pin exporter reproduce all three reference GDS files byte
+for byte, followed by 18 passing geometry/connectivity profile runs on Linux.
+These runs do not replace the later filled-layout, native-engine, timing,
+Windows or combined application acceptance. The
+[updated reproduction instructions](SKY130_PHYSICAL_QUALIFICATION.md#geometry-catalog-and-notch-reconciliation)
+separate retained filled-layout reconciliation from fresh unfilled execution.
 
 The IHP reference acceptance retains its original source in an explicit
 historical snapshot of shared files changed by the SKY130 export hooks. It

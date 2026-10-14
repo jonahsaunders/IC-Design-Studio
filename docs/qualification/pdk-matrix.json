@@ -16207,7 +16207,9 @@
         "scripts/sky130_error_reconciliation.py",
         "scripts/sky130_grid_geometry.py",
         "scripts/sky130_density_windows.py",
-        "scripts/check_sky130_grid_density.py"
+        "scripts/check_sky130_grid_density.py",
+        "scripts/sky130_geometry_reconciliation.py",
+        "scripts/check_sky130_reference_replay.py"
       ],
       "automation_gap": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement."
     },
@@ -16726,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Complete required-rule and error-catalog reconciliation (24 periphery rows still need execution review; 1,474 error records remain unreviewed), missing x.20 definition, complete density applicability, final timing/equivalence and combined application/delivery gate. 133 periphery requirements retain explicit execution bindings. The new retained-evidence reconciliation binds 61 error records to executed checks and 21 to measured absent label operands per reference, without asserting fresh final-GDS or Windows execution. New CI-export grid/window diagnostics use different GDS identities: physical boundaries pass the conservative grid profile, seven text anchors are off grid, and there are no full 700 um windows. The locked filled-reference archive must be restored; metal occupancy is not oxide-density acceptance.",
+      "remaining": "Complete required-rule and error-catalog reconciliation (22 periphery rows still need execution review; 1,161 error records remain unreviewed), missing x.20 definition, complete density applicability, final filled-layout timing/equivalence and combined application/delivery gate. 135 periphery requirements retain explicit execution bindings. The latest retained-evidence reconciliation binds 356 error records to executed checks and 39 to absent operands per reference, with 408 fresh notch controls. Fresh Linux replay reproduces all three earlier pin-corrected GDS files byte for byte through the application exporter and passes all 18 supplemental profile runs. Those exact unfilled references differ from the locked filled references; their grid/window diagnostics show seven off-grid text anchors and no full 700 um windows. The filled-reference archive and native runtime remain unavailable here; metal occupancy is not oxide-density acceptance.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16745,7 +16747,9 @@
         "sky130-mask-review-2026-10-11",
         "sky130-floating-review-2026-10-11",
         "sky130-error-reconciliation-2026-10-14",
-        "sky130-grid-density-2026-10-14"
+        "sky130-grid-density-2026-10-14",
+        "sky130-geometry-reconciliation-2026-10-14",
+        "sky130-reference-replay-2026-10-14"
       ]
     },
     "sky130A:source-completeness": {
@@ -20118,6 +20122,16 @@
       "path": "docs/validation/sky130-grid-density-2026-10-14.json",
       "sha256": "674a50cb0a61ca7ef00ed124dd96d606f33360bbee810aab2132259f7e2d44b8",
       "scope_limit": "Fresh Linux grid and exact Manhattan metal-occupancy diagnostics on three checksum-locked CI exports, distinct from the filled references. No original final-GDS, oxide-density, Windows, application or chunk 6 acceptance."
+    },
+    "sky130-geometry-reconciliation-2026-10-14": {
+      "path": "docs/validation/sky130-geometry-reconciliation-2026-10-14.json",
+      "sha256": "7084187add0087198b78fa835c9e629ab40936ea2d237fcdf51953bf73f9c9bf",
+      "scope_limit": "313 additional explicit error-record bindings per retained filled layout (356 total executed, 39 absent, 1,161 unreviewed), 135 executed periphery requirements, and 408 fresh notch controls. Filled GDS is not re-executed; 22 periphery execution reviews and the x.20 definition remain open. No new Windows, native or chunk 6 acceptance."
+    },
+    "sky130-reference-replay-2026-10-14": {
+      "path": "docs/validation/sky130-reference-replay-2026-10-14.json",
+      "sha256": "8774f15d08caf5879cb07cf8b8855865eda576178e44e533d212150f94e0ea59",
+      "scope_limit": "Fresh Linux application pin export reproduces all three exact original pin-corrected GDS files byte for byte; all six supplemental profiles pass per design. This replays the earlier unfilled references, not later filled layouts, native engines, timing, Windows or the combined application gate."
     }
   },
   "execution_acceptance": {

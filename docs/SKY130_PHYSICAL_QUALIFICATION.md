@@ -388,7 +388,7 @@ The retained standalone checks do not yet provide the complete gate.
 
 ## Explicit error-catalog reconciliation
 
-The [2026-10-14 reconciliation](validation/sky130-error-reconciliation-2026-10-14.json)
+The initial [2026-10-14 reconciliation](validation/sky130-error-reconciliation-2026-10-14.json)
 retains all 1,556 error IDs in source order for counter, UART and APB. It binds
 82 records to the existing final-layout evidence: 46 angle checks, eight pin
 containment checks, seven complete-conductor connectivity checks and 21 absent
@@ -505,7 +505,102 @@ SHA-256: ccef87b3fdbd89009e33449fc1be84eb4e3899ada61163ae99007eef3b6307e0
 Bytes: 920448744
 ```
 
-Its identity comes from the retained checkpoint; this turn did not recover or
-read that archive. Restoring it enables checks on the correct final geometry,
+Its identity comes from the retained checkpoint; the archive has not been
+recovered here. Restoring it enables checks on the correct final geometry,
 but does not itself resolve the missing `x.20` limit, oxide-density definition,
 remaining rule reviews or unexecuted combined acceptance gate.
+
+## Geometry catalog and notch reconciliation
+
+The subsequent [geometry reconciliation](validation/sky130-geometry-reconciliation-2026-10-14.json)
+extends the initial catalog audit with 313 literal error-ID bindings. The
+[reconciler](../scripts/sky130_geometry_reconciliation.py) binds each record
+to its exact periphery parent, checker identity and actual check. The source
+catalog's canonical content hash protects every reviewed description and
+threshold. Existing checker sources and historical reports remain unchanged.
+
+| Coverage per retained filled reference | Previous | Current |
+| --- | ---: | ---: |
+| Executed error records | 61 | 356 |
+| Absent error operands | 21 | 39 |
+| Unreviewed error records | 1,474 | 1,161 |
+| Executed periphery requirements | 133 | 135 |
+| Periphery execution reviews still open | 24 | 22 |
+| Missing periphery definitions | 1 | 1 |
+
+The 184 geometry bindings cover selected well, implant, diffusion, gate,
+local-interconnect, metal and contact records. Eighteen of these establish
+**absent ring operands** under the exact-square contact guards; they do not
+claim execution of non-empty ring rules. Another 129 records bind documented
+mask and mask-edit purposes to the actual angle/containment checks. Explicit
+aliases distinguish mask from drawing purposes. Ambiguous FOM wording,
+unmapped metop aliases, RF/device-dependent records and all 74 `s`-series
+records remain unreviewed.
+
+Two global periphery obligations gain execution bindings. The general
+`x.3` angle heading is covered by its numeric child `x.3a` and the stronger
+orthogonal subset checks, including the conservative seal treatment. For
+`x.6`, 408 fresh controls prove that all same-layer spacing operations in the
+selected profiles include intra-polygon notches: 34 operands, gaps one
+nanometre below/at/above the limit, and four rotations. Each coupon is a
+single connected U polygon. All 136 undersized gaps are detected and all
+272 at/above-limit gaps pass their target spacing check. Contact-shaped U
+coupons intentionally violate the exact-square profile and establish only
+the individual spacing operation, not legal contact layouts.
+
+The [regressions](../tests/test_sky130_geometry_reconciliation.py) reject
+failure of every newly bound check, missing parent evidence, stale identities,
+duplicate or incomplete checks and changed source thresholds. They also
+exercise all 65 mask-purpose angle mappings, actual allowed-area containment,
+the 17 mask-edit core restrictions, all six ring-absence guards, and disabled
+or incomplete notch controls. With KLayout 0.30.5:
+
+```sh
+python -m scripts.sky130_geometry_reconciliation --check
+python -m unittest tests.test_sky130_geometry_reconciliation -v
+```
+
+The new catalog counts audit the retained filled-layout evidence; only the
+controls execute fresh geometry here. The 22 remaining periphery reviews
+cover unresolved grid units, metal-fuse operands, special device and voltage
+semantics, and oxide-density windows. The absent `x.20` numeric definition
+remains a separate blocker. No native summary count supplies missing coverage.
+
+## Exact pin-corrected reference replay
+
+The [replay record](validation/sky130-reference-replay-2026-10-14.json)
+identifies the recovered CI exports more precisely: all three GDS hashes and
+all three independent OpenDB inventory hashes match the
+[original pin checkpoint](validation/sky130-pin-progress-2026-10-11.json).
+They are the earlier unfilled outputs, not the later filled references.
+
+The [replay runner](../scripts/check_sky130_reference_replay.py) verifies the
+complete CI archive hash, the original checkpoint/source identities and each
+inventory/GDS binding. It calls the actual application pin exporter and its
+independent mask/text readback. Each regenerated GDS must match the original
+reference **byte for byte**. The CI source-GDS hashes differ from the earlier
+capture and are retained separately; no source-byte equivalence is asserted.
+
+All six supplemental profiles then execute on each regenerated GDS: raw
+implant, low-voltage geometry, interconnect, wide-metal, global geometry and
+complete conductor connectivity. All 18 runs pass with every expected check
+present and zero violations. These are fresh Linux/KLayout 0.30.5 runs. The
+[replay regressions](../tests/test_sky130_reference_replay.py) reject stale or
+incomplete profiles, invalid count types, missing conductor area and ambiguous
+archive members.
+
+The combined inventory, applicability, geometry, connectivity, reconciliation,
+grid/window, replay and pin-export test batch passes all 215 tests without
+skips. The release documentation/matrix check also passes; its process
+qualification status remains `unqualified`.
+
+```sh
+python -m scripts.check_sky130_reference_replay --artifact /path/to/digital-implementation-evidence.zip --check
+python -m unittest tests.test_sky130_reference_replay -v
+```
+
+The runner does not execute place/route or recapture OpenDB intent. Native
+Magic/Netgen/OpenROAD are unavailable in this workspace; the available CI
+runtime payload exceeds the connector's 512 MiB download limit. Final
+filled-layout timing/equivalence, native replay, delivered Windows execution
+and the combined application gate remain open. Chunk 6 is still incomplete.
