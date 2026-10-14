@@ -105,6 +105,8 @@ def evaluate(report, gds_sha256, checkpoint_sha256, top, fingerprint, policy):
             'SKY130 ledger counts differ from its rows.')
     require(report.get('coverage') == dict(rows=len(rows), counts=counts, complete=False),
             'SKY130 partial coverage changed.')
+    from .digital_sky130_scope import validate as validate_scope
+    validate_scope(ledger)
     return report
 
 

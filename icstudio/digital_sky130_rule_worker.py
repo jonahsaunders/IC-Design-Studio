@@ -51,6 +51,8 @@ def execute(request):
                           (execution.bind_connectivity, 'floating_connectivity')]:
             review = bind(review, profiles[key])
         review['checker_sha256'] = FILES['helpers/scripts/sky130_rule_execution.py']
+        from .digital_sky130_scope import correct
+        review = correct(review)
         report.update(status='reviewed-profiles-pass', ledger=review,
                       coverage=dict(rows=len(review['rows']), counts=review['counts'], complete=False))
         unchanged(); resources(base, policy['preparation_sha256'])

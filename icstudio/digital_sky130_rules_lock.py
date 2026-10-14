@@ -4,7 +4,7 @@ Generated from the reviewed 2026-10-14 replay; changing a lock requires review.
 This inventory is not complete SKY130 signoff coverage.
 """
 
-RECIPE = 'sky130-reviewed-geometry-v1'
+RECIPE = 'sky130-reviewed-geometry-v2'
 
 REVISION = '7198cf647113f56041e02abf3eb623692820c5e1'
 

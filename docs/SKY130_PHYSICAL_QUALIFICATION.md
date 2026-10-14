@@ -669,11 +669,12 @@ The blank step unit, undefined oxide construction and edge policy remain
 explicit; the density diagnostic is still `BLOCKED`, not a pass. Five focused
 source/tamper controls pass on each OS, and both reproduce the same review.
 
-The latest periphery ledger has 135 executed requirements, 277 absent operands,
+At this stage the periphery ledger had 135 executed requirements, 277 absent operands,
 77 upstream NA, 36 advisory rows, 61 other-backend rows, **14 execution reviews**
 and one missing definition (`x.20`). The 1,161 unreviewed error-catalog records
 are unchanged. This source review follows the filled replay's earlier 22-review
 baseline; it does not rewrite the recorded measurements.
+The subsequent source corrections below reopen three of these absence decisions.
 
 ```sh
 python -m scripts.sky130_density_rule_scope --check
@@ -688,7 +689,7 @@ acceptance still prevent completion of chunk 6.
 
 ## Application integration of reviewed geometry
 
-The digital runtime builder now attaches `sky130-reviewed-geometry-v1` to its
+The digital runtime builder now attaches `sky130-reviewed-geometry-v2` to its
 SKY130 HD platform. Physical Finish runs the six reviewed drawn-mask profiles
 after boundary-pin export. The platform captures 177 authenticated helper/manual
 resources; no reference GDS is included in those runtime resources. A changed or
@@ -719,4 +720,44 @@ acceptance still prevent completion of chunk 6.
 ```sh
 python -m scripts.prepare_sky130_rule_checks --platform platform.json --output platform/sky130hd/verification --manifest reviewed-platform.json
 python -m unittest tests.test_sky130_application_rules -v
+```
+
+## Corrected enclosure and boundary applicability
+
+The [source correction](validation/sky130-scope-corrections-2026-10-14.json)
+reopens three unsupported absence decisions. The published `hvtr.3` wording
+requires enclosure of PFETs by HVTR without explicitly defining the selected
+PFET subset. An absent HVTR layer cannot prove that the required target is
+absent. Its device-selection interpretation remains open.
+
+The `nsm.3a` and `nsm.3b` descriptions require frame enclosure and die-cut
+spacing for drawn/mask geometry. Neither requirement depends on NSM being
+present. Empty NSM measurements therefore cannot establish compliance. The
+complete boundary geometry and stated exceptions still require review.
+
+The corrected qualification ledger has **135 executed requirements, 274 absent
+operands, 77 upstream NA, 36 advisory rows, 61 other-backend rows, 17 execution
+reviews and one missing definition**. Error-catalog coverage is unchanged:
+356 executed, 39 absent and 1,161 unreviewed. Earlier measurements and reports
+are preserved; these three historical exclusions are superseded.
+
+The application applies the same corrections after executing its six profiles.
+Its separate baseline still has 133 executed bindings, with 27 execution reviews.
+Version 2 of the policy rejects reports missing the correction or restoring the
+old exclusions. A platform prepared with version 1 must be prepared and checked
+again under the current policy before current-policy export; editing an old
+report cannot substitute for that run.
+
+The [correction audit](validation/sky130-scope-correction-audit-2026-10-14.json)
+records 22 passing tests on each operating system, fresh application finish/export
+checks on the original counter/UART/APB checkpoints, and filled-reference worker
+replay on Windows and Linux. The three filled reports and rejected synthetic
+layout report match byte for byte across systems. All six profiles remain
+present, and the invalid layout retains diagnostics without an accepted ledger.
+These runs do not establish full-rule coverage, final filled-layout timing,
+a rebuilt delivery package or completion of chunk 6.
+
+```sh
+python -m scripts.sky130_scope_corrections --check
+python -m unittest tests.test_sky130_scope_corrections tests.test_sky130_application_rules -v
 ```

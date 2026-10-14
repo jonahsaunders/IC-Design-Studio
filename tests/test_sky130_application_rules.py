@@ -37,6 +37,8 @@ def fixture(root):
         (root/'filled.gds').write_bytes(archive.read('counter/filled.gds'))
     data['artifacts']['gds'] = artifact(root, root/'filled.gds')
     ledger = json.loads((ROOT/'docs/validation/sky130-filled-replay-2026-10-14.json').read_bytes())['cases'][0]['execution']
+    from icstudio.digital_sky130_scope import correct
+    ledger = correct(ledger)
     report = dict(schema=1, recipe=rules.RECIPE, status='reviewed-profiles-pass', qualified=False,
                   chunk_complete=False, scope=rules.SCOPE, policy=platform['sky130_rules'],
                   top=ledger['top'], gds_sha256=ledger['gds_sha256'],

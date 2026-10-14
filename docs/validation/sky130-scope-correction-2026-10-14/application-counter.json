@@ -1,0 +1,1050 @@
+{
+  "schema": 1,
+  "status": "application-partial-rules-and-export-pass",
+  "qualified": false,
+  "chunk_complete": false,
+  "case": "counter",
+  "platform": "linux",
+  "elapsed_seconds": 56.627459308,
+  "source_result_sha256": "27344b2f4261f4c16751ff2bb04b0210e241329d44b4a67f07d6e4087a9b581a",
+  "source_job_sha256": "5b4a8fd3732b8c6a8822a654361ce1ae0e52bdb3cbc5a40afc461fa50b2b2b59",
+  "script_sha256": "723a3058e5914be14215f59609cff3c6ff54b016386f7a9cac296af0addd1139",
+  "artifacts": {
+    "gds": {
+      "path": "sky130-pin-export/final.gds",
+      "sha256": "4832c2d52e14ec217bbf3dd14c34288d781a8b9edf252afa350136140daee872",
+      "bytes": 454358
+    },
+    "spef": {
+      "path": "original/6_final.spef",
+      "sha256": "8bd03ee65a29c70c1f6e0d99765883be67c290f3468244a223ba28cf604fa7fe",
+      "bytes": 79121
+    },
+    "checkpoint": {
+      "path": "original/6_final.odb",
+      "sha256": "b1ecef2acc34c7810ac61e2775e1a35dc69e38fa46009b3271ab1ee0b3ed3625",
+      "bytes": 2932885
+    },
+    "def": {
+      "path": "original/snapshot.def",
+      "sha256": "7bca397500c01f6420ef9637e531ea2311d025adad246548516e372f778e078f",
+      "bytes": 447520
+    },
+    "netlist": {
+      "path": "original/netlist.v",
+      "sha256": "7ed56cc35e87eb566bc5138a083838495042fbb30e72bda6aabd06f01ee2080f",
+      "bytes": 2023
+    },
+    "lef": {
+      "path": "original/macro.lef",
+      "sha256": "dcd96418069fc4ffe3a229bf6c7ba85251657e8e15a9bec948b9ba3066d50a83",
+      "bytes": 134637
+    },
+    "layout_preview": {
+      "path": "original/layout_preview.json",
+      "sha256": "4afc8ed30ec18560f69a26de626ea45c20e51f26a881bf9e5eddae2b34c4c258",
+      "bytes": 2419112
+    },
+    "database": {
+      "path": "original/database.json",
+      "sha256": "cd62ff53f0c164ef8c8ba8fcbbaff063641538537280fb6059ee9d0d71757261",
+      "bytes": 1099662
+    },
+    "sky130_pin_source": {
+      "path": "original/6_final.gds",
+      "sha256": "b4d9cd5b6889e9461fcd275a5422019302fd8b9ff1fd6087d22803d0098ea69c",
+      "bytes": 453974
+    },
+    "sky130_pin_inventory": {
+      "path": "sky130-pin-export/inventory.json",
+      "sha256": "31199f81d9a79015fe2689a937bd539e6950dc776adb83e9d1fbf5a651e1590d",
+      "bytes": 3719
+    },
+    "sky130_pin_worker": {
+      "path": "sky130-pin-export/inventory.py",
+      "sha256": "3b2b236c02444d5084104621e93b5632dbf7681d81f691eab0f407022e495249",
+      "bytes": 2129
+    },
+    "sky130_pin_export": {
+      "path": "sky130-pin-export/report.json",
+      "sha256": "e9f6ec2cdf31cc7b1ea6b148d045c71b431996da5419145f137f5aba03353cd1",
+      "bytes": 1196
+    },
+    "sky130_rule_file_0": {
+      "path": "sky130-rule-checks/request.json",
+      "sha256": "f4eb140c64f9ca8cdd5515ee56eafaf3d5c135bf8aeb5b59daf1e0264751cecd",
+      "bytes": 1059
+    },
+    "sky130_rule_file_1": {
+      "path": "sky130-rule-checks/run.py",
+      "sha256": "f90532d246fea69be12509db54544a7f09ca645d17ffe8ad9686cf1867c0c1c4",
+      "bytes": 277
+    },
+    "sky130_rule_file_2": {
+      "path": "sky130-rule-checks/verified/applicability.json",
+      "sha256": "86ac4222c87668f4e750ffca16587ea0d92064bada29da531c4c2839babb5d3a",
+      "bytes": 279746
+    },
+    "sky130_rule_file_3": {
+      "path": "sky130-rule-checks/verified/floating_connectivity.json",
+      "sha256": "87dbc58cd0900cccc50099e30c6344aa0835952f5b3269ff1b470832d06f662b",
+      "bytes": 6566
+    },
+    "sky130_rule_file_4": {
+      "path": "sky130-rule-checks/verified/global_geometry.json",
+      "sha256": "42b0c44c369a77f90391de905dc8f771119f51309bea37d7f118a7d4e56d908c",
+      "bytes": 15026
+    },
+    "sky130_rule_file_5": {
+      "path": "sky130-rule-checks/verified/interconnect_geometry.json",
+      "sha256": "1c80fb0963c63ce1cc2ccb7c2d20573215bd9bd45fe2252a461245e5de458b49",
+      "bytes": 9237
+    },
+    "sky130_rule_file_6": {
+      "path": "sky130-rule-checks/verified/low_voltage_geometry.json",
+      "sha256": "3381f624acd2466c0a4e30b91106a638802a09e5f36ac85ddafd3087207a7c55",
+      "bytes": 10625
+    },
+    "sky130_rule_file_7": {
+      "path": "sky130-rule-checks/verified/raw_geometry.json",
+      "sha256": "e041f4cef9b5c1dcf81513e0a48a56fbcf25e9e79917b945a739ef6cd7a72de7",
+      "bytes": 6904
+    },
+    "sky130_rule_file_8": {
+      "path": "sky130-rule-checks/verified/report.json",
+      "sha256": "e96d7401af550048ececb903012fd341cb65ffc80a39d7313beb613155c202f2",
+      "bytes": 448071
+    },
+    "sky130_rule_file_9": {
+      "path": "sky130-rule-checks/verified/wide_metal_geometry.json",
+      "sha256": "bf24f13a19bf67eeb220bea3a019568298cdb254d4eec74366d18d2e730d844e",
+      "bytes": 2042
+    },
+    "sky130_rule_resource_0": {
+      "path": "platform/sky130hd/verification/helpers/docs/qualification/sky130-layer-purposes.json",
+      "sha256": "3ccb42d63e7bbbe0c793c4541cc51c979c914588089793ab144c36fff3d673fb",
+      "bytes": 129870
+    },
+    "sky130_rule_resource_1": {
+      "path": "platform/sky130hd/verification/helpers/scripts/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "sky130_rule_resource_2": {
+      "path": "platform/sky130hd/verification/helpers/scripts/sky130_block_applicability.py",
+      "sha256": "fcafea17b84219eb19d26bc325911b931d35030067408f23377db8c988abf009",
+      "bytes": 15056
+    },
+    "sky130_rule_resource_3": {
+      "path": "platform/sky130hd/verification/helpers/scripts/sky130_floating_connectivity.py",
+      "sha256": "58c4b7ceeb809959d9ff8532838f774e4e4c5dcc404cea8d3e70942302d68896",
+      "bytes": 6121
+    },
+    "sky130_rule_resource_4": {
+      "path": "platform/sky130hd/verification/helpers/scripts/sky130_global_geometry.py",
+      "sha256": "e02e3ad28b50009f99682bf57641bf7d3100f45e43e9b84adecef9f785032343",
+      "bytes": 6735
+    },
+    "sky130_rule_resource_5": {
+      "path": "platform/sky130hd/verification/helpers/scripts/sky130_interconnect_geometry.py",
+      "sha256": "95c6bb9a5d5dafd6e54248349595310e501ac1c5d5ab5f42164fab5bd0713b34",
+      "bytes": 6301
+    },
+    "sky130_rule_resource_6": {
+      "path": "platform/sky130hd/verification/helpers/scripts/sky130_low_voltage_geometry.py",
+      "sha256": "7751ceb802aafcfbb2e18b1068c2c641d422992c78ce6fc522c0915c62de3690",
+      "bytes": 9722
+    },
+    "sky130_rule_resource_7": {
+      "path": "platform/sky130hd/verification/helpers/scripts/sky130_raw_feol.py",
+      "sha256": "6a33521ce2ab76ca36a7eeda95d4b1018213e06eb9cd4ff2a895f05bf82d007c",
+      "bytes": 6383
+    },
+    "sky130_rule_resource_8": {
+      "path": "platform/sky130hd/verification/helpers/scripts/sky130_rule_execution.py",
+      "sha256": "c923d365f8eb5ad77e802230a1c29187829496f4e74e6969e06d9b17baa27d26",
+      "bytes": 20255
+    },
+    "sky130_rule_resource_9": {
+      "path": "platform/sky130hd/verification/helpers/scripts/sky130_rule_inventory.py",
+      "sha256": "3dddcf66e44ec7a2eb6301c509a6551ed432dc0a5a417735f961caea73922fae",
+      "bytes": 7031
+    },
+    "sky130_rule_resource_10": {
+      "path": "platform/sky130hd/verification/helpers/scripts/sky130_wide_metal.py",
+      "sha256": "e804ee01d9516e58575f9a97be2bb012fae3b09331ee5385d5d0481389a3749a",
+      "bytes": 2653
+    },
+    "sky130_rule_resource_11": {
+      "path": "platform/sky130hd/verification/preparation.json",
+      "sha256": "7cdf589bbb008d7cce31149a06579e521b15f4c22743680157bb797c3e7645bd",
+      "bytes": 33215
+    },
+    "sky130_rule_resource_12": {
+      "path": "platform/sky130hd/verification/sources/LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    "sky130_rule_resource_13": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/antenna.rst",
+      "sha256": "3b8a5445da67e7ffa3d5b77f0edb4af90524e29b85d8dd58dac5499c3abf9af8",
+      "bytes": 2599
+    },
+    "sky130_rule_resource_14": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/antenna/definitions.csv",
+      "sha256": "dc330237ed7e4ce0c35a4957a8e20344895bdc81ae04d44448f8acdf41a1f3d7",
+      "bytes": 323
+    },
+    "sky130_rule_resource_15": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/antenna/table-Ia-antenna-rules-s8d.csv",
+      "sha256": "4feda1624bf428b6841cbfcf639e2b6b74d30d0293a3ebcbec52a8a1fda77c77",
+      "bytes": 1288
+    },
+    "sky130_rule_resource_16": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/antenna/table-Ib-antenna-rules-s8tnv-5r.csv",
+      "sha256": "448ae50f0201a35d6c5d5af8c795892d4fcb10ba9ba4f562bd711456c529adbe",
+      "bytes": 1332
+    },
+    "sky130_rule_resource_17": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/antenna/table-Ic-antenna-rules-s8tm.csv",
+      "sha256": "e89b99305f65df656cbc298510af9309c0504e85f394a57ed9f946f5dc9217b2",
+      "bytes": 1348
+    },
+    "sky130_rule_resource_18": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/antenna/table-Ie-antenna-rules-s8p.csv",
+      "sha256": "cd48d27c71345d7b958211778521ffa0fd8647e8a6832e7276d145187f12d05f",
+      "bytes": 1790
+    },
+    "sky130_rule_resource_19": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/antenna/table-Ig-antenna-rules-s8p12.csv",
+      "sha256": "fb84ff4f7c8e6d848b693508a412587b5fcc7f4c1724424c9b7fa2ea9e1a2c7d",
+      "bytes": 1794
+    },
+    "sky130_rule_resource_20": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/assumptions.rst",
+      "sha256": "99981cebb004a90f7947abc9461f03cdacc4b1906c94f340359c7aeb13f62edc",
+      "bytes": 4714
+    },
+    "sky130_rule_resource_21": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/assumptions/01-general.csv",
+      "sha256": "d7aa8e330a67171b3799c754c9f188b6960b29f416bcfdbdd8897a3892d6a69e",
+      "bytes": 145
+    },
+    "sky130_rule_resource_22": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/assumptions/02-mins.csv",
+      "sha256": "03cfc1cb734e1aac7f582a4c8b283c3abdbc62c76528aff57dd21f58d54ca477",
+      "bytes": 2351
+    },
+    "sky130_rule_resource_23": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/assumptions/04-physical.csv",
+      "sha256": "341c4deb581b9b46ca918f0920fdeb4836c6dbce9cb4ddfc29f2b407d4bef59c",
+      "bytes": 4662
+    },
+    "sky130_rule_resource_24": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/assumptions/05-laser-fuse.csv",
+      "sha256": "f482292b2d588be56da5c0befd7ad2f870cfb9634fd2b9d822077de80b1de69c",
+      "bytes": 895
+    },
+    "sky130_rule_resource_25": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/assumptions/07-other.csv",
+      "sha256": "de26eb3cfb8e4cc9255bfcdd2ffbc95bcbd6d172ae285377bfa5a8a80ef874b0",
+      "bytes": 2424
+    },
+    "sky130_rule_resource_26": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/assumptions/08-hv.csv",
+      "sha256": "eb4adb9ce68d0bbed03b131626b9838569ef584ca31cbc4a3ca7bf97ed4a1acd",
+      "bytes": 865
+    },
+    "sky130_rule_resource_27": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/assumptions/09-polyimide.csv",
+      "sha256": "bf4583a703a78ec3e066f0853cdc5a08ce47739fe3c5ac00b5c4608c3ac86a33",
+      "bytes": 810
+    },
+    "sky130_rule_resource_28": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/assumptions/10-vpp-capacitor.csv",
+      "sha256": "8ffa4c728819035e778498886129f14de1b390b81a5b16c912a9e84b4d061eef",
+      "bytes": 390
+    },
+    "sky130_rule_resource_29": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/background.rst",
+      "sha256": "42c0bee84f17104c35065864b743589d9d0978f027fc489f12151eae3f471e15",
+      "bytes": 505
+    },
+    "sky130_rule_resource_30": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details.rst",
+      "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+      "bytes": 45543
+    },
+    "sky130_rule_resource_31": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/cap_mim/cap_mim-table0.rst",
+      "sha256": "4dcab6b9d0fc9c843828d7c9363603de497edd82589d1a8297e0ea24a32bf37f",
+      "bytes": 750
+    },
+    "sky130_rule_resource_32": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/cap_mim/index.rst",
+      "sha256": "6f35ff7baa7d788ff2dc145f795610e627e2d7261942887e70f33b9d09575884",
+      "bytes": 1230
+    },
+    "sky130_rule_resource_33": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/cap_var/cap_var-table0.rst",
+      "sha256": "88a17467cbaf061177d1403b9d47a1294e219d6960a4057ce3103b3db8727a30",
+      "bytes": 1110
+    },
+    "sky130_rule_resource_34": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/cap_var/index.rst",
+      "sha256": "f1ddf91ce1c712efba29f61fb0b7e11b47e09d4167f337b02a13ca2dfa1fe3e5",
+      "bytes": 1361
+    },
+    "sky130_rule_resource_35": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/cap_vpp/cap_vpp-table0.rst",
+      "sha256": "f9e66a54dc6ea093db51b51c5d58a9c70230d1ef4538d80008dc39fa1f8716ad",
+      "bytes": 2780
+    },
+    "sky130_rule_resource_36": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/cap_vpp/index.rst",
+      "sha256": "2dfd8816663aa70e365e65e9e9c38cd3475d8b0efd1c087e19d474c784398ca7",
+      "bytes": 4434
+    },
+    "sky130_rule_resource_37": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/diodes/diodes-table0.rst",
+      "sha256": "3f16c7dd4f2d9a24c6db99e7750ae588b12664e8c0d350e1a180f49bb8dc0b06",
+      "bytes": 876
+    },
+    "sky130_rule_resource_38": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/diodes/index.rst",
+      "sha256": "37d04fd3ecebde9f4b5796c894abd3bffcbe05080435732ee05f21c8b9520fde",
+      "bytes": 2766
+    },
+    "sky130_rule_resource_39": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/esd_nfet/esd_nfet-table0.rst",
+      "sha256": "4cbd50dda051d3b9d51080a434f9e7f46bfb72ce36adc78eb4a471fe3f31f48e",
+      "bytes": 1176
+    },
+    "sky130_rule_resource_40": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/esd_nfet/index.rst",
+      "sha256": "bf3d15435a51a00235ee8122a7b80c7b11c6b6e56a4e1d727145aaebfc9d4486",
+      "bytes": 1614
+    },
+    "sky130_rule_resource_41": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_01v8/index.rst",
+      "sha256": "81bbe5cbcf8b2ccb479461f31b4b155cd7a7ecf627e2df05a09cb04989d80c32",
+      "bytes": 887
+    },
+    "sky130_rule_resource_42": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_01v8/nfet_01v8-table0.rst",
+      "sha256": "6e55cfb827824bbf23e76ed6b751da15074eace6f34d7179fae73fe5ae2da392",
+      "bytes": 1127
+    },
+    "sky130_rule_resource_43": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_01v8_lvt/index.rst",
+      "sha256": "0000623ce5eb6572585382a4e9adca4e1bab3131f0fa865ee2969e3a2d6ff35d",
+      "bytes": 1120
+    },
+    "sky130_rule_resource_44": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_01v8_lvt/nfet_01v8_lvt-table0.rst",
+      "sha256": "5174e950f7f9db0add2a4cbe12bac38fcf2e061f8ce8d229e1374d30e0d3a5ff",
+      "bytes": 1130
+    },
+    "sky130_rule_resource_45": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_01v8_lvt/nfet_01v8_lvt-table1.rst",
+      "sha256": "15870c2020f546ecec6fa382cef9e1bdc42bdf047cfb84773cf522f01aa3fa3b",
+      "bytes": 345
+    },
+    "sky130_rule_resource_46": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_03v3_nvt-and-nfet_05v0_nvt/nfet_03v3_nvt-and-nfet_05v0_nvt-table0.rst",
+      "sha256": "24b94fa78cda3462d288d47cd6023b0c7fe9ab01ec099d9b7e12c521cccc1712",
+      "bytes": 1571
+    },
+    "sky130_rule_resource_47": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_03v3_nvt/index.rst",
+      "sha256": "11819a96f983b6aa3b7970a539dbb3d6d667bb64b8b8b2ef68d2bc774fcacff7",
+      "bytes": 1241
+    },
+    "sky130_rule_resource_48": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_05v0_nvt/index.rst",
+      "sha256": "d4f242bbfdad39622070eed2e4f1348148c8faa5b1bb22e87fd985dd390dfc4c",
+      "bytes": 1233
+    },
+    "sky130_rule_resource_49": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_20v0/index.rst",
+      "sha256": "8c711761ebae9dee939592a594ca105e29d9c93a9e377e473ab52e5a3a801d8a",
+      "bytes": 1013
+    },
+    "sky130_rule_resource_50": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_20v0/nfet_20v0-table0.rst",
+      "sha256": "1c392032265b721b2a1c552cf933aa19aa55c899a095bfced0d6358c8a0c79d3",
+      "bytes": 1723
+    },
+    "sky130_rule_resource_51": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_20v0_iso/index.rst",
+      "sha256": "f91d94b9a727709cadadcb91481657521720e43c6567cfc1cbd1f9f30ed24c67",
+      "bytes": 1108
+    },
+    "sky130_rule_resource_52": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_20v0_iso/nfet_20v0_iso-table0.rst",
+      "sha256": "1a050c138b737fe3f20b59d0a18716b19b7b37c63ca02747d1cb045c4e329cc0",
+      "bytes": 1764
+    },
+    "sky130_rule_resource_53": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_20v0_nvt/index.rst",
+      "sha256": "d4400085dca8435aea4d97ab6d17788dac155b5fc8a3b444eda62360a72c094f",
+      "bytes": 981
+    },
+    "sky130_rule_resource_54": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_20v0_nvt/nfet_20v0_nvt-table0.rst",
+      "sha256": "3eaaab59cca08b3422f6b71979563457a6d94a16c3680445f750bf9c1f293b41",
+      "bytes": 1739
+    },
+    "sky130_rule_resource_55": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_20v0_zvt/index.rst",
+      "sha256": "6484bed8b2fa2646a951bab235773649bfb70b0abff62f57613405b02965b2bb",
+      "bytes": 880
+    },
+    "sky130_rule_resource_56": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_20v0_zvt/nfet_20v0_zvt-table0.rst",
+      "sha256": "4aeaef6ede088453c4b76cbcfb48b068955a2070c0749d0b5185bbcffa12ef9e",
+      "bytes": 2199
+    },
+    "sky130_rule_resource_57": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_g11v0d16v0/index.rst",
+      "sha256": "72353d508ed60549bf9bd518a2fb062b51a3a6f1d2df62d0a7de44177e3d314d",
+      "bytes": 945
+    },
+    "sky130_rule_resource_58": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_g11v0d16v0/nfet_g11v0d16v0-table0.rst",
+      "sha256": "947520e67413d99db87bfc3829165070b02fa7f6e071e95ccc3932d17dda5b6b",
+      "bytes": 1479
+    },
+    "sky130_rule_resource_59": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_g5v0d10v5/index.rst",
+      "sha256": "829c2d3424abd02025cf5a23ce5ce91c30ba2615f87aae17aeb33592534bf803",
+      "bytes": 835
+    },
+    "sky130_rule_resource_60": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/nfet_g5v0d10v5/nfet_g5v0d10v5-table0.rst",
+      "sha256": "02b09108883fe13be9e0e104dbdceae78e5b795dce196a528f006a89e48e60af",
+      "bytes": 1119
+    },
+    "sky130_rule_resource_61": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/npn_05v0/index.rst",
+      "sha256": "e67a6f0b40543408f32eb13c7ed598a8d99a4652fdc758fef685b454da6fc897",
+      "bytes": 2011
+    },
+    "sky130_rule_resource_62": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/npn_05v0/npn_05v0-table0.rst",
+      "sha256": "70f622f92d98f62bcd55f00ce93f90fa8c073d38d5c127e317629a8c37626b4f",
+      "bytes": 1838
+    },
+    "sky130_rule_resource_63": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/pfet_01v8/index.rst",
+      "sha256": "247a1e889c575337ca058f6b0e35c93750a2d1d7f94ceb50d0260e0fc9dbea5f",
+      "bytes": 912
+    },
+    "sky130_rule_resource_64": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/pfet_01v8/pfet_01v8-table0.rst",
+      "sha256": "4519ed42053e9114cc76a9a0322cb7eeadfa295d44ad32a8f0ce73fe482e9fa7",
+      "bytes": 1163
+    },
+    "sky130_rule_resource_65": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/pfet_01v8/pfet_01v8-table1.rst",
+      "sha256": "ef10a471281cb917400561514b3844ebdf0450c42806336043211168e8e2e281",
+      "bytes": 342
+    },
+    "sky130_rule_resource_66": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/pfet_01v8_hvt/index.rst",
+      "sha256": "9cd5f917db136e8ed585919fa523ae33c805a4559b83dd3a15eca0aa17d5ff5b",
+      "bytes": 1117
+    },
+    "sky130_rule_resource_67": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/pfet_01v8_hvt/pfet_01v8_hvt-table0.rst",
+      "sha256": "189e6d34f6b29fe0b6448d9f647b647c69972933a823ecca033730a366a73ee0",
+      "bytes": 1156
+    },
+    "sky130_rule_resource_68": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/pfet_01v8_hvt/pfet_01v8_hvt-table1.rst",
+      "sha256": "ae086cb8df92a331b6556fd5f3bd45ba7b9ce5f0a625d1250dc9d4698a7a63ad",
+      "bytes": 340
+    },
+    "sky130_rule_resource_69": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/pfet_01v8_lvt/index.rst",
+      "sha256": "2625789fa4878f95019a2989d585a47f1afb12201d89ed37abc8e7cf4fe06dc5",
+      "bytes": 1116
+    },
+    "sky130_rule_resource_70": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/pfet_01v8_lvt/pfet_01v8_lvt-table0.rst",
+      "sha256": "0efa50699fce047acc851aec6840fa66ef95ee60a983db150fcb86bdc86103be",
+      "bytes": 1156
+    },
+    "sky130_rule_resource_71": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/pfet_01v8_lvt/pfet_01v8_lvt-table1.rst",
+      "sha256": "508e26e956e1f3fa228fadf4cddc6092cc71ad7e00ed26028059f30dd8a38bdd",
+      "bytes": 341
+    },
+    "sky130_rule_resource_72": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/pfet_20v0/index.rst",
+      "sha256": "f76c71c27843cdb7bb05342dd3aec4ed109e905d5864461f5892be02c4a5fd97",
+      "bytes": 1014
+    },
+    "sky130_rule_resource_73": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/pfet_20v0/pfet_20v0-table0.rst",
+      "sha256": "2a3106217c382c8855e825d7afc7548245a436754b2bfd120ebf1fad7879f4a5",
+      "bytes": 1614
+    },
+    "sky130_rule_resource_74": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/pfet_g5v0d10v5/index.rst",
+      "sha256": "4e45ed8eaeec8bc5aa3742a952dccd4c1d26a75a3c33a4881412771cbe73745f",
+      "bytes": 1100
+    },
+    "sky130_rule_resource_75": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/pfet_g5v0d10v5/pfet_g5v0d10v5-table0.rst",
+      "sha256": "bc915d74392f60293692f93eface2a274f62cdf2046724d982b4ca91663e496c",
+      "bytes": 1147
+    },
+    "sky130_rule_resource_76": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/pfet_g5v0d10v5/pfet_g5v0d10v5-table1.rst",
+      "sha256": "d79580435283115214db98a89237e9cfde311228f3d5839f8b608f80e1a77c13",
+      "bytes": 344
+    },
+    "sky130_rule_resource_77": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/pfet_g5v0d16v0/index.rst",
+      "sha256": "05bc7241bf3f3541ac8834d5085d6d4d238f94be80ead3319df6a5310acc44f3",
+      "bytes": 938
+    },
+    "sky130_rule_resource_78": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/pfet_g5v0d16v0/pfet_g5v0d16v0-table0.rst",
+      "sha256": "222b04bf05b4bf494caf245b3b6d3f8940ddcf9832ac2362f2e22c5a7ff21a51",
+      "bytes": 1482
+    },
+    "sky130_rule_resource_79": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/pnp_05v0/index.rst",
+      "sha256": "66dcc7680b38772a189fa62c05e6af532e4c2868e800657bde5a3ca64f3465ef",
+      "bytes": 1518
+    },
+    "sky130_rule_resource_80": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/pnp_05v0/pnp_05v0-table0.rst",
+      "sha256": "a15cb3188a07c1e140223557c42333af54ca1cb8ebfa27fcd7381dd3de1538bc",
+      "bytes": 1234
+    },
+    "sky130_rule_resource_81": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/res_generic/index.rst",
+      "sha256": "bf149e77a9ff017748d0b5301b2c5b458cbd3843758b92f704697b89465f734d",
+      "bytes": 2473
+    },
+    "sky130_rule_resource_82": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/res_generic/res_generic-table0.rst",
+      "sha256": "97341fdc15c209037fb441ba083a3198bc12f4f5e9cbfe44cf5c27ed42d354d6",
+      "bytes": 1859
+    },
+    "sky130_rule_resource_83": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/res_high/index.rst",
+      "sha256": "17246e62dae0e9d6ff634f8a68724d305632ccc00cd471f23ec86f20b0477196",
+      "bytes": 2563
+    },
+    "sky130_rule_resource_84": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/res_high/res_high-table0.rst",
+      "sha256": "c3193705e51606ef1e3b9850608342d4dbcf673f42a49838da17c27348bf9932",
+      "bytes": 3063
+    },
+    "sky130_rule_resource_85": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/res_xhigh/index.rst",
+      "sha256": "806988ad790131ce92ca43851bfea29b9fafb288f04b6a5ea4294dc8a0a40388",
+      "bytes": 2424
+    },
+    "sky130_rule_resource_86": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/special_sonosfet/index.rst",
+      "sha256": "e95abc059be9f2908330efb3a3d02f5915ee7ebd26a049f2be5d8c8cedfb6fa4",
+      "bytes": 1426
+    },
+    "sky130_rule_resource_87": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/special_sonosfet/special_sonosfet-table0.rst",
+      "sha256": "cde65cdb1018c093373a1b6af2914a19db9fba8a93b290dbb672c5651ce147cc",
+      "bytes": 250
+    },
+    "sky130_rule_resource_88": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/special_sonosfet/special_sonosfet-table1.rst",
+      "sha256": "5cf7a25869d81a46be19aa45c6debc7d915a60bc643073695b64f27b44986aba",
+      "bytes": 536
+    },
+    "sky130_rule_resource_89": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/special_sonosfet/special_sonosfet-table2.rst",
+      "sha256": "aa46fa4219bc572016ac6392f83768f18f9a21b64a2fcaf93f71861d6b3f4198",
+      "bytes": 2946
+    },
+    "sky130_rule_resource_90": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/special_sram/index.rst",
+      "sha256": "73c79ed2f9c8d96958b89cd19d083ee4f1cade360d87ab2448d2d0206454a627",
+      "bytes": 1785
+    },
+    "sky130_rule_resource_91": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/special_sram/special_sram-table0.rst",
+      "sha256": "f98f43ffe045b3b584896c42e5a1bbbf86ed858bdce001f89eace5a549ea447f",
+      "bytes": 708
+    },
+    "sky130_rule_resource_92": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/special_sram/special_sram-table1.rst",
+      "sha256": "9c7a57a52c05b7fcfbd169819cd560843b84fa73e3c79d87304c6b4de9bb53e8",
+      "bytes": 711
+    },
+    "sky130_rule_resource_93": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/device-details/special_sram/special_sram-table2.rst",
+      "sha256": "30f69ca41aa7df576a8553e8c18a0f33313184afcf5d1e5e3a5750e07104bec4",
+      "bytes": 721
+    },
+    "sky130_rule_resource_94": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/errors.csv",
+      "sha256": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+      "bytes": 94785
+    },
+    "sky130_rule_resource_95": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/errors.rst",
+      "sha256": "93764543381773777ff9f610207e7c0484ed2f44d49b40db12a9d57cef87ee45",
+      "bytes": 343
+    },
+    "sky130_rule_resource_96": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/gds_layers.csv",
+      "sha256": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+      "bytes": 9190
+    },
+    "sky130_rule_resource_97": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/hv.rst",
+      "sha256": "f355ddf478c129661e96b44d4c4509a124e85e2e44d51bd3b072b43aee7e1f98",
+      "bytes": 13445
+    },
+    "sky130_rule_resource_98": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/hv/table-1-key.rst",
+      "sha256": "4449c351b70aebd270d488971bec03d48318c0ebfa1b5b6e70b7cab54d9d91a8",
+      "bytes": 632
+    },
+    "sky130_rule_resource_99": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/hv/table-1.csv",
+      "sha256": "af03067b4e65a74ef0953e545b0a906c66d32f065dcbaab6d83cdc647602f9af",
+      "bytes": 663
+    },
+    "sky130_rule_resource_100": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/hv/table-2-key.rst",
+      "sha256": "79be6ded82707a0c782a8124e9550e744a4be94f6efc932613f38d2f747bd044",
+      "bytes": 342
+    },
+    "sky130_rule_resource_101": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/hv/table-2.csv",
+      "sha256": "e41a96641dfe00041bc8e48e7e1387ee90980aafb0ab0474365382e8fd50296e",
+      "bytes": 618
+    },
+    "sky130_rule_resource_102": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/layers.rst",
+      "sha256": "add2a54a3c9f5f2600365dd390f3d093a9128166edaaa185df40785847a2b161",
+      "bytes": 1659
+    },
+    "sky130_rule_resource_103": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/layers/table-c3-device-lvs-other.csv",
+      "sha256": "e56b7c0570f4ce5e4c0a002ddd0cc82f4c0e0d12d98a7634d419e0abd6a1fd98",
+      "bytes": 9394
+    },
+    "sky130_rule_resource_104": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/layers/table-c4a-layer-description.csv",
+      "sha256": "d458537d34c88f142d588dd6b718f8c4ed56fadac6deb07eeca4448e7412c8d4",
+      "bytes": 683
+    },
+    "sky130_rule_resource_105": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/layers/table-c4b-layer-description.csv",
+      "sha256": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f",
+      "bytes": 9010
+    },
+    "sky130_rule_resource_106": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/layers/table-f2a-lvs-key.rst",
+      "sha256": "0eec9055cef67032ddfc197a5c2cc754098956174340dcc1e82c82275a3dc760",
+      "bytes": 1948
+    },
+    "sky130_rule_resource_107": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/layers/table-f2b-mask-key.rst",
+      "sha256": "75c4d12e68b6a0ad3fad4d1968d5fdb9d97fc088cb738a66ec705f6efac218a6",
+      "bytes": 200
+    },
+    "sky130_rule_resource_108": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/masks.csv",
+      "sha256": "85948e753aeb125337f3238e9479a58eafeb4c0050bdc888930f1401ec513ae1",
+      "bytes": 1086
+    },
+    "sky130_rule_resource_109": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/masks.rst",
+      "sha256": "3d393b0d7eb51fac519f043059165bf35be0509f6296bbf15489641243b450b3",
+      "bytes": 386
+    },
+    "sky130_rule_resource_110": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery-rules.rst",
+      "sha256": "a4fec57aa417caa1b52d67b684a6b17dfc1ed0b69724ffe121de421bd938d44e",
+      "bytes": 109085
+    },
+    "sky130_rule_resource_111": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery.rst",
+      "sha256": "488a5ada7498d1af8e4067da7cb7349848b10cb7096f9435bf91da81d7999673",
+      "bytes": 66
+    },
+    "sky130_rule_resource_112": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p018-x_dotdash.csv",
+      "sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+      "bytes": 6623
+    },
+    "sky130_rule_resource_113": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p020-dnwell_dotdash.csv",
+      "sha256": "79367014b4c65e56864124f506390a43eace955a8a38fc11ac523868c864da27",
+      "bytes": 810
+    },
+    "sky130_rule_resource_114": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p021-nwell_dotdash.csv",
+      "sha256": "15d7db99269a7861d4c0919874ed34cf19094e48f77e0143f42331d488b5223c",
+      "bytes": 1253
+    },
+    "sky130_rule_resource_115": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p022-pwbm_dotdash.csv",
+      "sha256": "783146a0a77fd96e198d31c1ff5775f093a264510ae03e609d40934fe0416aa2",
+      "bytes": 394
+    },
+    "sky130_rule_resource_116": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p022-pwdem_dotdash.csv",
+      "sha256": "463bfebfd5b9cf00cc02776b9e73f29e5507b83621c0c78ef3b302ca4b97ae13",
+      "bytes": 414
+    },
+    "sky130_rule_resource_117": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p023-hvtp_dotdash.csv",
+      "sha256": "2c433641b364769fc59739fbab24ca1aadcad311c64c61ff36afbe6b8260330c",
+      "bytes": 315
+    },
+    "sky130_rule_resource_118": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p024-hvtr_dotdash.csv",
+      "sha256": "ba7813ea0f6f272dbf0db6e4d7b1ddfd6c8e49b775311823094c6cad86b1776e",
+      "bytes": 176
+    },
+    "sky130_rule_resource_119": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p024-lvtn_dotdash.csv",
+      "sha256": "5b4f203b21b0a0fad3a3da072a194e3f7c3b223e0b104522ff327b2c7f4a8176",
+      "bytes": 698
+    },
+    "sky130_rule_resource_120": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p025-ncm_dotdash.csv",
+      "sha256": "85e1a27682cf3826fd5861b79cf38066f462e23f26418814e9aab7f0426934f8",
+      "bytes": 687
+    },
+    "sky130_rule_resource_121": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p026-difftap_dotdash.csv",
+      "sha256": "fb1596a118010cbeb998f15411e701a70aed16b78b1522289a4a950e2130c155",
+      "bytes": 1506
+    },
+    "sky130_rule_resource_122": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p027-tunm_dotdash.csv",
+      "sha256": "2688b772386cbcbbadab4cfee5d63dc3332f5a8cb1db3f5ce34c4f8ddc9791e1",
+      "bytes": 449
+    },
+    "sky130_rule_resource_123": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p028-poly_dotdash.csv",
+      "sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+      "bytes": 1566
+    },
+    "sky130_rule_resource_124": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p029-rpm_dotdash.csv",
+      "sha256": "96f394adf42b2f023ab2a4448783b0372c97d9a05072aa41ad3a5f6b7b38491a",
+      "bytes": 1473
+    },
+    "sky130_rule_resource_125": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p030-varac_dotdash.csv",
+      "sha256": "09e9ab262c9a2481118efa21f6be708824ea2dd08506eb29ca1659821c9dc830",
+      "bytes": 557
+    },
+    "sky130_rule_resource_126": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p031-photo_dotdash.csv",
+      "sha256": "4a0ef30a53f89d58a4615fc9b090b4991926fd22ab0778d960dd97fcb0a9e6f2",
+      "bytes": 716
+    },
+    "sky130_rule_resource_127": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p032-n_psd_dotdash.csv",
+      "sha256": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58",
+      "bytes": 1063
+    },
+    "sky130_rule_resource_128": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p032-npc_dotdash.csv",
+      "sha256": "d069c6c7e9713725724d44164f05ce7cf7f50c1ad7b23c3297710f5f73ea7ff9",
+      "bytes": 364
+    },
+    "sky130_rule_resource_129": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p034-licon_dotdash.csv",
+      "sha256": "00c36280ef8dc17de0c58baab5bb1be1ab3e8c0b44b7c50eef1baa8cdd45e9fe",
+      "bytes": 3178
+    },
+    "sky130_rule_resource_130": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p035-ct_dotdash.csv",
+      "sha256": "7d6c33e6ede8b998221418c63198f6bab005aeeb6140b95098d4ec21f4481b20",
+      "bytes": 727
+    },
+    "sky130_rule_resource_131": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p035-li_dotdash_dotdash.csv",
+      "sha256": "2a70ccb00ed7dbcaa0b636c99df6edf683b714437b4570808ab48743236ccf69",
+      "bytes": 675
+    },
+    "sky130_rule_resource_132": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p036-capm_dotdash.csv",
+      "sha256": "6e1e63169077897244b981e24d0be858efd221800fcbd94a895e3af9ba77444d",
+      "bytes": 783
+    },
+    "sky130_rule_resource_133": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p037-vpp_dotdash.csv",
+      "sha256": "1836055617d1b99c5d84028dfa6ff43555aaf7b9249c6747415ef5e6c0be9ef6",
+      "bytes": 2611
+    },
+    "sky130_rule_resource_134": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p038-m1_dotdash.csv",
+      "sha256": "3cd3bb93c13b72f75113ac4fa78e344ae185cf758c489858323fddc0273a5675",
+      "bytes": 2298
+    },
+    "sky130_rule_resource_135": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p039-via_dotdash.csv",
+      "sha256": "98d9a074c37e71c227a26dbc37f0c991eb666cc6be97a26fab48678ae68ebf44",
+      "bytes": 1952
+    },
+    "sky130_rule_resource_136": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p040-m2_dotdash.csv",
+      "sha256": "edd28e2d9e3740575bf9e44df7dd31ab6443b376ff6e8978c2b9210647a5d24e",
+      "bytes": 2096
+    },
+    "sky130_rule_resource_137": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p041-via2_dotdash.csv",
+      "sha256": "f2c33560d93a55c36aa7a51556fb4cdb4f19072f635ccd289076af455ce9516d",
+      "bytes": 1959
+    },
+    "sky130_rule_resource_138": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p042-m3_dotdash.csv",
+      "sha256": "6dc78a855fd347f0c9c0625316cbbadd7c2923a14b5552ce505b62df12639f55",
+      "bytes": 2366
+    },
+    "sky130_rule_resource_139": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p042-via3_dotdash.csv",
+      "sha256": "92756b2b3ae0c3f685b92b442a2bc5f3160ea5565afe85a39914dd8f1881be87",
+      "bytes": 1332
+    },
+    "sky130_rule_resource_140": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p043-indm_dotdash.csv",
+      "sha256": "872c15088ae540281b0300d985d73f0170ff88a59f1c70a8f4c77057130c64a5",
+      "bytes": 254
+    },
+    "sky130_rule_resource_141": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p043-nsm_dotdash.csv",
+      "sha256": "232fb1afb91d400f6bbaea0ee52b39a22e831e0668b87b439edef759d1c6942c",
+      "bytes": 1044
+    },
+    "sky130_rule_resource_142": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p044-m4_dotdash.csv",
+      "sha256": "f25981fd9accb2426482320aa5c648c718f418c7a17546de0265c122565cef06",
+      "bytes": 2059
+    },
+    "sky130_rule_resource_143": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p044-m5_dotdash.csv",
+      "sha256": "5c3e8b3010b3c6df57bedfcc5b48960de931f3a497c29f17db8925fa8aec54e6",
+      "bytes": 332
+    },
+    "sky130_rule_resource_144": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p044-via4_dotdash.csv",
+      "sha256": "c747dadc7114ca33dd0e7cd10b81549fc9a747b3111ef6e9001bb0105ba3ca42",
+      "bytes": 885
+    },
+    "sky130_rule_resource_145": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p045-pad_dotdash.csv",
+      "sha256": "e01d6f79b2aaaee9f7422170c60f4cccdba989bfba67fefd06c7f6cf34c1a395",
+      "bytes": 140
+    },
+    "sky130_rule_resource_146": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p045-rdl_dotdash.csv",
+      "sha256": "690f33468c5950c9e0b90ce70ba797008c472eecf5d735e3486854456bbfd29c",
+      "bytes": 533
+    },
+    "sky130_rule_resource_147": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p046-mf_dotdash.csv",
+      "sha256": "28ef6cbb2cb057025e50984b335ca7983d9880e6188fb2d3f96ef2a12ee91364",
+      "bytes": 1820
+    },
+    "sky130_rule_resource_148": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p047-hvi_dotdash.csv",
+      "sha256": "7bfbc72f95634d4a32056d8e59997d3c4195d709b7b50245dfc38d152338402a",
+      "bytes": 284
+    },
+    "sky130_rule_resource_149": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p047-hvnwell_dotdash.csv",
+      "sha256": "a59bb54abd43f109129db77f2fdd9135657da880d2b71b3d0192722d4305f895",
+      "bytes": 887
+    },
+    "sky130_rule_resource_150": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p048-hvdifftap_dotdash.csv",
+      "sha256": "48e770ebb18bece5b7165f1661953537707a3475d3e9eebb61996b34cff11f6a",
+      "bytes": 1394
+    },
+    "sky130_rule_resource_151": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p049-hvntm_dotdash.csv",
+      "sha256": "90cf8049337b0f707283e37dfd83fe6c0e9918d561f2ae6b04389cf037bdd6f6",
+      "bytes": 863
+    },
+    "sky130_rule_resource_152": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p049-hvpoly_dotdash.csv",
+      "sha256": "657a4c1ad9b2535f505ad590027f04583bad85ae0afe2a0f123fa1c048702a43",
+      "bytes": 148
+    },
+    "sky130_rule_resource_153": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p050-denmos_dotdash.csv",
+      "sha256": "b9193ec7ba88bec32605d6da67983326ce8bb6d0eb43f40c87acd88ceb32b7f3",
+      "bytes": 1091
+    },
+    "sky130_rule_resource_154": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p051-depmos_dotdash.csv",
+      "sha256": "5bd0eee503fee3700223eeb079d92c8b94066fd4f9f172cf2395ec1fce3ed1fc",
+      "bytes": 1070
+    },
+    "sky130_rule_resource_155": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p052-extd_dotdash.csv",
+      "sha256": "a539147e8938bacb318bcf2fccfa67c5a81ac95650d50847433c574d212887c9",
+      "bytes": 902
+    },
+    "sky130_rule_resource_156": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p054-hv_dotdash_dotdash.csv",
+      "sha256": "e5c8e5d757f2ac8634f0c880415847ae0743981853a2fde0a56660bd5a7e9e5b",
+      "bytes": 3209
+    },
+    "sky130_rule_resource_157": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p055-uhvi_dotdash_dotdash.csv",
+      "sha256": "415c36c520c98089eb62a548cd04eecbc21338206bd85da2c0d416df9a90332f",
+      "bytes": 603
+    },
+    "sky130_rule_resource_158": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p055-ulvt-_dotdash.csv",
+      "sha256": "0ea62d9009cbe454ea9fc6fee57de4fb32bd26bc5bf4a5d3e492f7c2e4ee8bf5",
+      "bytes": 324
+    },
+    "sky130_rule_resource_159": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv",
+      "sha256": "cb65108c65ffb093ac459b03f162a2ea437c8ce63d53ee7865a46f898606259a",
+      "bytes": 1490
+    },
+    "sky130_rule_resource_160": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p056-pwres_dotdash_dotdash.csv",
+      "sha256": "271003a67977988edf7ae5939f4f3edda643c881e3bb68fe5e46c6ace7555639",
+      "bytes": 928
+    },
+    "sky130_rule_resource_161": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/p057-rfdiode_dotdash_dotdash.csv",
+      "sha256": "6c04146a0e10faac512a3667ce49a43598479f7474c8af5575fb8fd23d3b5c30",
+      "bytes": 390
+    },
+    "sky130_rule_resource_162": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/periphery/periphery.csv",
+      "sha256": "432c56b98213cb308c21a23f939f51f87539cf081b7dbd476f5dc837f61d6311",
+      "bytes": 64052
+    },
+    "sky130_rule_resource_163": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/rcx.rst",
+      "sha256": "6d764017610cb181b2b59d2a676497b8d28262fc20fdd2c09221ddf44516a197",
+      "bytes": 4514
+    },
+    "sky130_rule_resource_164": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/rcx/capacitance-rules.csv",
+      "sha256": "cf3b36577f6fe0b41ce629a2ebe03a34476519dbb69ff0aecdf02189780b90c4",
+      "bytes": 3161
+    },
+    "sky130_rule_resource_165": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/rcx/resistance-rules.csv",
+      "sha256": "8a321702bad1a732e15f1decfd75a61935478693442411c511d65aa039e187dc",
+      "bytes": 2592
+    },
+    "sky130_rule_resource_166": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/summary.rst",
+      "sha256": "c490427712a0c367e517d123e433c120c0b8a906c1551cd6953bb3d5e7cb2926",
+      "bytes": 1116
+    },
+    "sky130_rule_resource_167": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/summary/table-f3a-font-end-low-voltage.csv",
+      "sha256": "111ffd4ed6d1585df8175eaf62d52d28419d1061829bb1c59d1cd66892382351",
+      "bytes": 676
+    },
+    "sky130_rule_resource_168": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/summary/table-f3b-font-end-high-voltage.csv",
+      "sha256": "7f1002408d56874de996814b138020e88e95ec760c48e3087c74cc8d7028a2eb",
+      "bytes": 382
+    },
+    "sky130_rule_resource_169": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/summary/table-f3c-back-end-high-S8Dx.csv",
+      "sha256": "b7a1840408c45c4c1a4a2589afeb44fe705b27fac75ef39d5d11d9e704441328",
+      "bytes": 639
+    },
+    "sky130_rule_resource_170": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/summary/table-f3d-back-end-high-S8Tx.csv",
+      "sha256": "6e4b89a749aa4bf5f5c444686980c4a98a711f71da06e0810dd58dfa33f05cb0",
+      "bytes": 624
+    },
+    "sky130_rule_resource_171": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/summary/table-f4-connectivity-of-drawn-and-mask.csv",
+      "sha256": "3c3bcb9fbf2d67fa08285ab923ca0127d8b9d9247fc12e30b0616552af9cf742",
+      "bytes": 622
+    },
+    "sky130_rule_resource_172": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/summary/table-f4-key.rst",
+      "sha256": "bbb5758a3f5a060b6a84b1996ebbd51de975d247d3ac57b47b42d4b35dca0e8a",
+      "bytes": 610
+    },
+    "sky130_rule_resource_173": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/summary/table-f5-device-connectivity.csv",
+      "sha256": "959ea89084fea8e25b774ee72031864d9eeb953e31376c719c2bbb9e2edb2ffd",
+      "bytes": 266
+    },
+    "sky130_rule_resource_174": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/wlcsp.rst",
+      "sha256": "a4d254224635991b03599187131ada92738909cda5e3f10cc1a2f34a444c39b9",
+      "bytes": 285
+    },
+    "sky130_rule_resource_175": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/wlcsp/amkor.csv",
+      "sha256": "b8ecb6e2a3db98e87d66055633cf154cf27a2a63c106dfd55691f13e9f97db01",
+      "bytes": 1959
+    },
+    "sky130_rule_resource_176": {
+      "path": "platform/sky130hd/verification/sources/docs/rules/wlcsp/deca.csv",
+      "sha256": "d2b2ae606623b0467fe94dab7a996fb812cead4d9ab3e2a1d53b66ea8ea74341",
+      "bytes": 2644
+    },
+    "sky130_rule_resource_177": {
+      "path": "platform/sky130hd/verification/sources/source-lock.json",
+      "sha256": "8025621eeab07f39b23c80e74096ff56281a883b299b1141ab6431ec98b2fab7",
+      "bytes": 64693
+    },
+    "sky130_rules": {
+      "path": "sky130-rule-checks/accepted.json",
+      "sha256": "ef9a207e74d5d08d7e6ede746675ecfd2d8b809dbcd5d529a71131ddb3028bd3",
+      "bytes": 463630
+    },
+    "physical_check_check": {
+      "path": "physical-checks/check.py",
+      "sha256": "85139341cc00a59742d33e213327ac3be51b53d3caf1f1bbff7f94886d4590d2",
+      "bytes": 327
+    },
+    "physical_check_engine-checks": {
+      "path": "physical-checks/engine-checks.json",
+      "sha256": "b0ca4bbaae0e76df1b1236042d6282e72814a02715fc0a292525c26b851f1fde",
+      "bytes": 1039
+    },
+    "physical_check_physical_engine": {
+      "path": "physical-checks/physical_engine.py",
+      "sha256": "f71d5d2b8d5c87ddb94761b6e27025b7db7235be3c20a6377cfc16cff87d7489",
+      "bytes": 4951
+    },
+    "physical_check_request": {
+      "path": "physical-checks/request.json",
+      "sha256": "30b4712a5ad1aa0478568a010b38a847549a04d0a8fb8007d78bd6d7fdad08fe",
+      "bytes": 381
+    },
+    "physical_checks": {
+      "path": "physical_checks.json",
+      "sha256": "d14acd1fb64889fb18e6f9e2bda552687677bd0924603eb6da36bf6db7c225fd",
+      "bytes": 1841
+    },
+    "log": {
+      "path": "engine.log",
+      "sha256": "3d93dd9201d34bc2430d8adfc7a53db5990b1c378a599e415f34f1dda2434283",
+      "bytes": 978
+    }
+  },
+  "scope": "Actual Runner commands and pin export, reviewed-rule checks, default OpenDB physical checks and macro export on retained original routed reference checkpoints. No new place/route, density fill, timing, full native-deck execution or installer qualification."
+}
