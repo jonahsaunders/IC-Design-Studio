@@ -604,3 +604,84 @@ Magic/Netgen/OpenROAD are unavailable in this workspace; the available CI
 runtime payload exceeds the connector's 512 MiB download limit. Final
 filled-layout timing/equivalence, native replay, delivered Windows execution
 and the combined application gate remain open. Chunk 6 is still incomplete.
+
+## Portable final-filled replay on Windows and Linux
+
+The [final-filled replay](validation/sky130-filled-replay-2026-10-14.json)
+now executes on the actual counter v20, UART v20 and APB v22 GDS files on
+Windows and Linux. All three hashes match the original fill checkpoint.
+Fresh applicability and all six supplemental geometry/connectivity profiles
+reproduce their retained reports exactly. Reconciliation of the fresh reports
+reproduces 135 executed periphery requirements, 356 executed error records
+and 39 absent error operands per design. All 408 notch controls also reproduce.
+The two operating systems produce identical complete replay JSON.
+
+The [runner](../scripts/check_sky130_filled_replay.py) uses the committed
+[13 MB fixture](../tests/fixtures/sky130-filled-references-v1.zip): three exact
+filled GDS files, independent original OpenDB pin/die inventories and all 165
+pinned source files plus their lock. Its 172 inputs are authenticated before
+writing to a new temporary directory. Archive, manifest, individual file and
+independent checkpoint hashes are checked. Missing, duplicate, changed or
+unsafe members are rejected. The full 920 MB native evidence archive remains
+preserved separately; it is no longer needed for this polygon replay.
+
+Fresh final-filled diagnostics find zero off-grid physical vertices and seven
+off-grid text anchors: two counter port labels, four labels in the UART's
+`sky130_fd_sc_hd__a222oi_1` master and one APB port label. They are retained as
+findings, without moving labels or changing geometry. The density report still
+measures raw metal occupancy, has no full 700 µm windows on these block dies,
+and remains `BLOCKED`. Neither the grid-unit discrepancy nor oxide-density
+semantics is resolved by rerunning the correct inputs.
+
+All 215 incoming tests passed on each OS. The Windows reproduction then exposed
+a source-path separator defect in the geometry reconciliation report. Canonical
+forward-slash paths fix that defect; only source identities changed in the
+reproduced report, not its rule findings. All 28 focused portability, fixture
+and reconciliation tests pass on each OS. The initial Windows failure, original
+incoming source/report, passing Linux run and corrected runs are retained in the
+[audit record](validation/sky130-filled-replay-audit-2026-10-14.json).
+
+```sh
+python -m scripts.check_sky130_filled_replay --check
+python -m unittest tests.test_sky130_filled_replay tests.test_sky130_geometry_reconciliation -v
+```
+
+The replay deliberately exits **2** after saving/checking the report because
+chunk 6 remains blocked. A successful reproduction is not a passing process
+gate. These runs use the KLayout 0.30.5 Python library on Windows/Linux; they
+do not assert fresh native Magic/Netgen/OpenROAD, installed-engine or installer
+acceptance. The earlier native evidence retains its original scope.
+
+## Recommended oxide-density window scope
+
+The [source-dependency review](validation/sky130-density-scope-2026-10-14.json)
+resolves eight periphery reviews without claiming new density execution.
+Each `m1`–`m4.pd.2a/2b` row explicitly names its corresponding `.pd.1` parent;
+each parent carries the published **RR** recommendation flag. The child rows
+specify the measurement window and step of that recommendation. Their exact
+CSV records, descriptions, flags, values and units are checked against captured
+source bytes, together with the published RR definition.
+
+The eight children now retain **advisory** status alongside their parents.
+An `A` flag by itself never establishes advisory status. The separate required
+`m1`–`m4.-` RC metal/waffle-drop algorithms and every other row are unchanged.
+The blank step unit, undefined oxide construction and edge policy remain
+explicit; the density diagnostic is still `BLOCKED`, not a pass. Five focused
+source/tamper controls pass on each OS, and both reproduce the same review.
+
+The latest periphery ledger has 135 executed requirements, 277 absent operands,
+77 upstream NA, 36 advisory rows, 61 other-backend rows, **14 execution reviews**
+and one missing definition (`x.20`). The 1,161 unreviewed error-catalog records
+are unchanged. This source review follows the filled replay's earlier 22-review
+baseline; it does not rewrite the recorded measurements.
+
+```sh
+python -m scripts.sky130_density_rule_scope --check
+python -m unittest tests.test_sky130_density_rule_scope -v
+```
+
+Remaining execution reviews cover grid units, metal-fuse applicability, optional
+DNW configuration, RF/special-device selectors, NCM construction and independent
+voltage intent. The missing numerical pin-spacing definition, remaining catalog
+reconciliation, required density coverage and final timing/equivalence/application
+acceptance still prevent completion of chunk 6.

@@ -131,6 +131,26 @@ The IHP reference acceptance retains its original source in an explicit
 historical snapshot of shared files changed by the SKY130 export hooks. It
 does not assert a new IHP native run with those hooks.
 
+The subsequent [portable filled replay](validation/sky130-filled-replay-audit-2026-10-14.json)
+recovers the exact final counter/UART/APB inputs in a committed 13 MB fixture.
+Fresh applicability and all six supplemental profiles reproduce their original
+results on Windows and Linux; both systems produce identical complete replay
+JSON. The incoming 215-test batch passes on each OS, followed by 28 focused
+fixture/reconciliation checks. A Windows path-spelling defect is fixed and its
+failed attempt retained. Physical vertices pass the grid diagnostic, while
+seven text anchors remain off grid. Raw metal-window measurements remain blocked
+for oxide-density acceptance. This is fresh polygon execution, not a new native
+runtime or installer qualification.
+
+The [density scope review](validation/sky130-density-scope-2026-10-14.json)
+then resolves eight window/step rows as parameters of their explicitly named
+RR recommendations. Five focused controls pass per OS. Required RC metal-fill
+algorithms are unchanged, and no unexecuted density recommendation becomes a
+pass. The latest periphery ledger retains 135 executed requirements and now has
+14 execution reviews, 36 advisory rows and the separate missing `x.20` definition.
+The 1,161 open error records and remaining source, density, timing/equivalence
+and combined application gates still leave chunk 6 incomplete.
+
 The chunk 4 GF180 record retains its original source and scope. The eight shared
 modules changed for IHP have exact historical source snapshots; this preserves
 past acceptance without asserting a new GF180 production run on the new source.

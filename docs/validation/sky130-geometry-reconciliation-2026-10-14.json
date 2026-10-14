@@ -13,9 +13,9 @@
     "docs/validation/sky130-floating-review-2026-10-11/data.json": "cbad4d8388453d9fbd55330a2fad21e88c6fdc688420557584fd2f91efad671e"
   },
   "source_files": {
-    "scripts/sky130_geometry_reconciliation.py": "5305348d0230b23da268c145836fe67726a28c40a8dfd4321a4a34a0528b668e",
+    "scripts/sky130_geometry_reconciliation.py": "dc0efc97952152c99a1d872aec21f42258c91234e71c6370175b3d5e41945110",
     "scripts/sky130_error_reconciliation.py": "2d3bf1af1ab8a2df1d46421f655f36cc9259c4974c729e7413f68f95bbb5385e",
-    "tests/test_sky130_geometry_reconciliation.py": "f44fc20fdaddc185fea212f39c9d293558da3853afb2d04230bd59bda114d0d1"
+    "tests/test_sky130_geometry_reconciliation.py": "4b04267d3c46040d549aac512f7dce3188128f24b27223fefb5c07b7a08026fb"
   },
   "new_error_bindings": {
     "r398": {

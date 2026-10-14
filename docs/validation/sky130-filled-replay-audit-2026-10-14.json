@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "qualified": false,
+  "chunk_complete": false,
+  "incoming_commit": "39af3849485a5614a157e930c3e043c8bbd6fc10",
+  "data": {
+    "path": "docs/validation/sky130-filled-replay-2026-10-14.json",
+    "sha256": "2d268e0e652ba53f77667f09109034981ee4453cab9beca56655ef59b3921fa0"
+  },
+  "audits": {
+    "win32": {
+      "path": "docs/validation/sky130-filled-replay-2026-10-14/win32.json",
+      "sha256": "87c44e85444493d00bd01ba17eee8507c7043554d36f7740d1b112eaf6da8750"
+    },
+    "linux": {
+      "path": "docs/validation/sky130-filled-replay-2026-10-14/linux.json",
+      "sha256": "aa244e6c9079dfbc93bc353c5eb3aa644c9321f388636c06cb60791927b233dc"
+    }
+  },
+  "source_scope": {
+    "path": "docs/validation/sky130-density-scope-2026-10-14.json",
+    "sha256": "d9b3e58476565723318fa0fa128d3dfe60d0051d7d89af846507cfa4b69e6b9a"
+  },
+  "scope_audits": {
+    "win32": {
+      "path": "docs/validation/sky130-filled-replay-2026-10-14/scope-win32.json",
+      "sha256": "7e86398553f3948e08f8234052b07a77e16096f8c8892295937eee0c548e4987"
+    },
+    "linux": {
+      "path": "docs/validation/sky130-filled-replay-2026-10-14/scope-linux.json",
+      "sha256": "ab76167b9bab11442fedb0bbb8d3159eff9df395176c57e7f4656e7ea53eb1a2"
+    }
+  },
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-filled-replay-2026-10-14-v1\\evidence.tar.gz",
+    "sha256": "2ee65ea1db92adb818fd61aceea90d09e784060b35d8894bb04e1985e6517027",
+    "bytes": 11919296,
+    "files": 79,
+    "unique_blobs": 69,
+    "manifest_sha256": "2ad5d974ed5c9c3a860495dd1b9704090735e0c68d6905e365cf7ebfb23584d7"
+  },
+  "scope": "Fresh Windows/Linux polygon replay of all three exact final filled references, byte-identical complete reports, portable authenticated inputs and source-backed advisory parameter review. No fresh native, timing, combined application, delivered-runtime or chunk 6 acceptance.",
+  "source_files": {
+    "scripts/check_sky130_filled_replay.py": "3b70b41abdff2032b0f7c41716466995d673a3cb43847e90200d21d9b16fe15a",
+    "scripts/sky130_density_windows.py": "abd286d12d149e453cbef2bd160a9394eb1b19a99a797ec4df0d41fda590b2b7",
+    "scripts/sky130_error_reconciliation.py": "2d3bf1af1ab8a2df1d46421f655f36cc9259c4974c729e7413f68f95bbb5385e",
+    "scripts/sky130_geometry_reconciliation.py": "dc0efc97952152c99a1d872aec21f42258c91234e71c6370175b3d5e41945110",
+    "scripts/sky130_grid_geometry.py": "0e24c568f582725ad034cf5fd4346a04756e69e0d34c00d47c959d1d5dcff28a",
+    "scripts/sky130_rule_execution.py": "c923d365f8eb5ad77e802230a1c29187829496f4e74e6969e06d9b17baa27d26",
+    "tests/test_sky130_filled_replay.py": "8bdb5621c4171fe8e10008dc7bc19f9a8093f853b52fb2328ffb2a4654a11ba7",
+    "tests/test_sky130_geometry_reconciliation.py": "4b04267d3c46040d549aac512f7dce3188128f24b27223fefb5c07b7a08026fb",
+    "scripts/sky130_density_rule_scope.py": "ebcc069d036c841a8bb06712700b4d85853fc902e1240696ee4e05833059e2d7",
+    "tests/test_sky130_density_rule_scope.py": "f643fe490b06a3344b406ae2ad49b01350aaf66ffabe0cfbe3c5284c5733b14b",
+    "docs/qualification/sky130-grid-density-sources.json": "ce775cb418c5086bb11fe3eb7196fbc1043042397f2151dc122f0722a6e5f5f7"
+  },
+  "tests": {
+    "incoming_per_os": 215,
+    "focused_replay_and_portability_per_os": 28,
+    "source_scope_per_os": 5,
+    "skipped": 0
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "counts": {
+        "execution-review-required": 14,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 277,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "error_counts": {
+        "unreviewed": 1161,
+        "executed-reviewed": 356,
+        "absent-operand": 39
+      }
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "counts": {
+        "execution-review-required": 14,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 277,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "error_counts": {
+        "unreviewed": 1161,
+        "executed-reviewed": 356,
+        "absent-operand": 39
+      }
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "counts": {
+        "execution-review-required": 14,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 277,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "error_counts": {
+        "unreviewed": 1161,
+        "executed-reviewed": 356,
+        "absent-operand": 39
+      }
+    }
+  ],
+  "notes": [
+    "The incoming Windows geometry report failed byte-exact reproduction solely because source keys used backslashes. Original inputs, reproduction and passing 215-test logs are preserved. Canonical forward slashes fix the discrepancy without changing rule findings.",
+    "All six final geometry/connectivity profiles and fresh measured applicability exactly reproduce historical reports on Windows and Linux; the current rule reconciliation runs against those fresh reports.",
+    "Physical vertices have zero off-grid findings. Seven text anchors remain off grid: counter 2, UART 4, APB 1. Labels and all GDS bytes remain unchanged.",
+    "The 13,284,879-byte committed ZIP contains 172 authenticated inputs. It preserves the exact filled GDS, independent pin/die inventory and all locked public manual sources without requiring the 920 MB native archive for polygon replay.",
+    "Eight window/step rows are reviewed as parameters of their explicitly named RR recommendation. This is advisory scope, not density execution; required RC fill algorithms and all measured results are unchanged.",
+    "Per design, 14 periphery execution reviews and the x.20 numerical definition remain open. The 1161 unreviewed error records, remaining source/density interpretations and final timing/equivalence/application acceptance still prevent chunk 6 completion."
+  ]
+}

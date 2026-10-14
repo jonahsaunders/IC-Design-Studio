@@ -47,6 +47,15 @@ the generated physical-view adapter; ORFS notices and license requirements here
 continue to apply. Full PDK trees and generated platforms are not committed to the
 application source package.
 
+The test fixture `tests/fixtures/sky130-filled-references-v1.zip` contains three
+generated counter/UART/APB layouts incorporating the SKY130 HD standard cells,
+independent pin/die inventories and the pinned public SKY130 rule sources.
+SkyWater content retains its Apache-2.0 license in `sources/LICENSE`, original
+source notices and source-lock identities. It is reference verification data,
+not a complete PDK or native runtime. The application/design sources and their
+existing notices remain in this repository. The fixture is not distributed as
+foundry-qualified signoff data.
+
 ## Included Xschem and GF180 simulation assets
 
 Standard Xschem symbols: Ubuntu 3.4.4-1build1, GPL-2.0-or-later. Original copyright and license headers are retained under icstudio/assets/exchange/xschem; the GPL text is in licenses/GPL-2.0.txt. Corresponding source: https://archive.ubuntu.com/ubuntu/pool/universe/x/xschem/ and https://github.com/StefanSchippers/xschem/tree/3.4.4.

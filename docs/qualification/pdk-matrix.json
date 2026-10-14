@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Complete required-rule and error-catalog reconciliation (22 periphery rows still need execution review; 1,161 error records remain unreviewed), missing x.20 definition, complete density applicability, final filled-layout timing/equivalence and combined application/delivery gate. 135 periphery requirements retain explicit execution bindings. The latest retained-evidence reconciliation binds 356 error records to executed checks and 39 to absent operands per reference, with 408 fresh notch controls. Fresh Linux replay reproduces all three earlier pin-corrected GDS files byte for byte through the application exporter and passes all 18 supplemental profile runs. Those exact unfilled references differ from the locked filled references; their grid/window diagnostics show seven off-grid text anchors and no full 700 um windows. The filled-reference archive and native runtime remain unavailable here; metal occupancy is not oxide-density acceptance.",
+      "remaining": "Complete remaining required-rule and error-catalog reconciliation (14 periphery execution reviews, one missing x.20 numerical definition, and 1161 unreviewed error records), remaining grid/device/voltage and required-density semantics, final filled-layout timing/equivalence and combined application/delivery acceptance. All three exact filled references now replay on Windows and Linux with identical full reports; six geometry/connectivity profiles and measured applicability match the retained evidence. A committed 13 MB fixture removes the former filled-input availability blocker. The latest source review has 135 executed periphery requirements, 277 absent operands, 77 upstream NA, 36 advisory rows and 61 other-backend rows. Eight advisory window parameters do not establish oxide-density acceptance. Seven off-grid text anchors remain visible; native-runtime and installer evidence retains its original scope.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16749,7 +16749,8 @@
         "sky130-error-reconciliation-2026-10-14",
         "sky130-grid-density-2026-10-14",
         "sky130-geometry-reconciliation-2026-10-14",
-        "sky130-reference-replay-2026-10-14"
+        "sky130-reference-replay-2026-10-14",
+        "sky130-filled-replay-audit-2026-10-14"
       ]
     },
     "sky130A:source-completeness": {
@@ -20125,13 +20126,18 @@
     },
     "sky130-geometry-reconciliation-2026-10-14": {
       "path": "docs/validation/sky130-geometry-reconciliation-2026-10-14.json",
-      "sha256": "7084187add0087198b78fa835c9e629ab40936ea2d237fcdf51953bf73f9c9bf",
+      "sha256": "6a61be0415cc68efd4e591428c1ac7e2531cac731e6396da953f4485104608d3",
       "scope_limit": "313 additional explicit error-record bindings per retained filled layout (356 total executed, 39 absent, 1,161 unreviewed), 135 executed periphery requirements, and 408 fresh notch controls. Filled GDS is not re-executed; 22 periphery execution reviews and the x.20 definition remain open. No new Windows, native or chunk 6 acceptance."
     },
     "sky130-reference-replay-2026-10-14": {
       "path": "docs/validation/sky130-reference-replay-2026-10-14.json",
       "sha256": "8774f15d08caf5879cb07cf8b8855865eda576178e44e533d212150f94e0ea59",
       "scope_limit": "Fresh Linux application pin export reproduces all three exact original pin-corrected GDS files byte for byte; all six supplemental profiles pass per design. This replays the earlier unfilled references, not later filled layouts, native engines, timing, Windows or the combined application gate."
+    },
+    "sky130-filled-replay-audit-2026-10-14": {
+      "path": "docs/validation/sky130-filled-replay-audit-2026-10-14.json",
+      "sha256": "9a89317d4824f831de7e7d41930e9296ebb76b6129b504c0c6bc010a5cc45c56",
+      "scope_limit": "Fresh Windows/Linux polygon replay of all three exact final filled references, byte-identical complete reports, portable authenticated inputs and source-backed advisory parameter review. No fresh native, timing, combined application, delivered-runtime or chunk 6 acceptance."
     }
   },
   "execution_acceptance": {

@@ -227,6 +227,14 @@ class GeometryReconciliationTests(unittest.TestCase):
             with patch('sys.argv', ['reconcile', '--output', str(output), '--check']), self.assertRaisesRegex(ValueError, 'differs'):
                 review.main()
 
+    def test_evidence_paths_use_the_same_spelling_on_every_host(self):
+        report = review.build()
+        self.assertEqual(set(report['source_files']), {
+            'scripts/sky130_geometry_reconciliation.py',
+            'scripts/sky130_error_reconciliation.py',
+            'tests/test_sky130_geometry_reconciliation.py',
+        })
+
 
 if __name__ == '__main__':
     unittest.main()

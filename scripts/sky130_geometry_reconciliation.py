@@ -371,7 +371,7 @@ def build():
                 execution_mode='retained-final-layout-evidence-and-fresh-notching-controls',
                 source_revision=baseline['source_revision'], source_lock_sha256=baseline['source_lock_sha256'],
                 inputs=baseline['inputs'],
-                source_files={str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
+                source_files={path.relative_to(ROOT).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
                               for path in (Path(__file__), Path(previous.__file__), ROOT / 'tests/test_sky130_geometry_reconciliation.py')},
                 new_error_bindings=bindings, notch_controls=controls, cases=cases,
                 scope='Explicit FEOL/BEOL/mask error records and two global periphery obligations. '
