@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Complete remaining required-rule and error-catalog reconciliation (17 periphery execution reviews, one missing x.20 numerical definition, and 1025 unreviewed error records), grid/device/voltage and required-density semantics, final filled-layout timing/equivalence and combined application/delivery acceptance. The current corrected qualification ledger has 135 executed periphery requirements, 274 absent operands, 77 upstream NA, 36 advisory rows and 61 other-backend rows. Three earlier unsupported exclusions (hvtr.3, nsm.3a, nsm.3b) are reopened; historical measurements remain preserved. Eight advisory window parameters do not establish oxide-density acceptance. Seven off-grid text anchors remain visible. All three exact filled references replay on Windows/Linux with identical reports using the portable fixture. Prepared-platform policy version 2 enforces the six-profile 133-binding application baseline and the three scope corrections; current exports reject stale or reversed exclusions. Fresh original routed counter/UART/APB application finish/export checks pass, and filled worker replay plus rejected synthetic layout match across systems. Runtime rebuilding and full rule/density/final electrical acceptance remain open; prior native and installer evidence retains its original scope. Fresh Windows/Linux measurements of both source-defined NSM operands discharge exactly 38 catalog records by absence; that preceding catalog coverage was 356 executed, 77 absent and 1123 unreviewed. Frame/die-cut requirements remain open, and no non-empty seal-rule execution is claimed. The subsequent 98-record marker review uses fresh raw-purpose and merged-well-hole measurements; current catalog coverage is 356 executed, 175 absent and 1025 unreviewed. Present targets with empty enclosing layers are rejected. The lvtn.3b catalog/periphery threshold disagreement remains unresolved for non-empty devices; no voltage-intent or numeric acceptance is inferred. Prepared bundled HD platforms now execute and retain the unchanged 13-stage antenna supplement in Finish/export; exact filled references and 178 independent controls pass the integration audit. This closes that application wiring gap only. Required geometry/density, final electrical and rebuilt delivery acceptance remain open; catalog counts are unchanged.",
+      "remaining": "Chunk 6 remains incomplete. The exact final filled counter, UART and APB now pass application partial physical checks/export, nominal routed extracted timing and RTL equivalence, with native faults rejected and cross-OS readback. Error-catalog coverage is 356 executed, 223 absent and 977 unreviewed; periphery coverage retains 17 execution reviews and the undefined x.20 pin-spacing threshold. Required rule/error reconciliation, grid/device/voltage/boundary semantics, unfinished VPP density selection and rebuilt delivered-runtime acceptance remain open. GDS-only floating fill relies separately on nominal native circuit invariance under ideal supplies; no calibrated extraction, process-wide or foundry acceptance is claimed.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16755,7 +16755,9 @@
         "sky130-scope-correction-2026-10-14",
         "sky130-nsm-review-2026-10-14",
         "sky130-marker-review-2026-10-14",
-        "sky130-application-antenna-2026-10-14"
+        "sky130-application-antenna-2026-10-14",
+        "sky130-filled-electrical-2026-10-14",
+        "sky130-waffle-density-audit-2026-10-14"
       ]
     },
     "sky130A:source-completeness": {
@@ -20168,6 +20170,16 @@
       "path": "docs/validation/sky130-application-antenna-2026-10-14.json",
       "sha256": "675c50fdb06f37cdd1c2a1c480b83d418ebe3170c66173b1335d8bf1d1baea49",
       "scope_limit": "Native 13-stage supplemental antenna checks integrated into prepared-platform Finish and macro export. Three retained routed references pass the actual Runner checks and export; three exact filled references pass the gate; all 178 controls agree with the independent oracle and the 90-fault fixture is refused. Both OS validate saved and relocated evidence. No new routing, required density, complete rule/LVS, final electrical, rebuilt installer or foundry qualification."
+    },
+    "sky130-filled-electrical-2026-10-14": {
+      "path": "docs/validation/sky130-filled-electrical-2026-10-14.json",
+      "sha256": "7425fc329525069e3080d4eef7567c67bc354f20128005b90c063f4343b232df",
+      "scope_limit": "Actual application physical checks/export, freshly captured final netlists/nominal routed parasitics, extracted timing and RTL equivalence on all three unchanged filled references. Native fault controls and cross-OS evidence readback pass. Full physical rules and delivered-runtime/foundry qualification remain open."
+    },
+    "sky130-waffle-density-audit-2026-10-14": {
+      "path": "docs/validation/sky130-waffle-density-audit-2026-10-14.json",
+      "sha256": "55d664fc20222055e254313618d61bbc0de7a61986acc36b2acfe34c2d9a02e5",
+      "scope_limit": "Forty-eight explicit catalog density records have measured empty waffle-drop antecedents on all three exact filled references. Both OS reproduce identical reports; seven tests pass per OS. Nonempty density rules, the unfinished VPP selector and all other decisions remain unqualified."
     }
   },
   "execution_acceptance": {

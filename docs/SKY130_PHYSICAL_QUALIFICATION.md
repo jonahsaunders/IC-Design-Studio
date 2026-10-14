@@ -4,17 +4,93 @@ The [execution record](validation/sky130-physical-progress-2026-10-11.json)
 captures the original counter, UART and APB final layouts. Chunk 6 remains open.
 Zero geometry markers alone do not establish complete physical coverage.
 
-The latest [marker review](#selected-marker-and-well-hole-records) records
-356 executed error records, 175 verified absent subjects and 1,025 unreviewed
+The latest [density-selector review](#waffle-drop-density-conditions) records
+356 executed error records, 223 verified absent subjects and 977 unreviewed
 records. Seventeen periphery execution reviews, the missing pin-spacing
-definition, required density and final electrical/delivery acceptance remain
-open. The [grid/window diagnostics](#grid-and-density-window-diagnostics) retain
-their separate measurements and unresolved source semantics.
+definition, remaining density/device interpretation and delivered-runtime
+acceptance remain open. The [final electrical checks](#final-filled-reference-electrical-checks)
+now pass nominal extracted timing and sequential equivalence on all three exact
+filled references. The [grid/window diagnostics](#grid-and-density-window-diagnostics)
+retain their separate measurements and unresolved source semantics.
 
 The [application antenna gate](#application-antenna-gate) now requires all 13
 reviewed stages for newly prepared bundled HD platforms. This closes the gap
 between the supplemental checker and Finish/export; it does not close the
-remaining rule, density or electrical requirements.
+remaining rule, density or delivered-runtime requirements.
+
+## Final filled-reference electrical checks
+
+The [electrical audit](validation/sky130-filled-electrical-2026-10-14.json)
+uses the unchanged filled counter/UART v20 and APB v22 GDS and decap checkpoints.
+Fresh application entry-point executions pass all six reviewed geometry profiles,
+all 13 antenna stages, OpenDB antenna/power checks and macro export. The actual
+checkpoint supplies a new netlist, DEF, LEF, database view and nominal OpenRCX
+extraction. The exported bundles retain these exact inputs and check results.
+
+The application then consumes each final finish result for timing and formal
+equivalence. Timing uses the implementation's final SDC, the captured typical
+library and the freshly extracted SPEF. Every connected driver has parasitics;
+there are no setup, hold or electrical violations.
+
+| Final filled reference | Setup margin (ns) | Hold margin (ns) | Sequential equivalence |
+|---|---:|---:|---|
+| Counter | 47.654427 | 0.291230 | Pass |
+| UART | 3.353671 | 0.454787 | Pass |
+| APB FIFO | 15.705125 | 0.280405 | Pass |
+
+All original and final routed SPEFs match exactly after removing only the
+timestamp line. The final netlists include the added decaps, and formal proofs
+establish the original RTL behavior without adding reset assumptions. UART's
+frame partition needs PDR after an inconclusive induction attempt. Both the
+completed proof and the intermediate induction trace remain available.
+
+Deliberate controls fail as required: a 1 ps clock produces negative setup
+margin; removing a connected net's parasitics produces INCOMPLETE despite
+positive timing margins; a mapped output inverter produces a formal failure
+and trace. An earlier unmapped inverter control was rejected before proof and
+is retained separately. Windows and Linux independently reparse the raw timing
+and proof files, verify every exported artifact and reproduce all three passes
+and three expected failures. All 14 new binding/report tests pass on both.
+
+OpenRCX describes checkpoint routing; it does not extract the GDS-only floating
+fill. The earlier exact native circuit-invariance result remains the separate
+nominal evidence for that fill under ideal supplies. These checks establish
+the bounded nominal electrical gate, not calibrated extraction, process/RC
+corners, power integrity, automatic fill generation, a rebuilt installer or
+complete chunk 6 acceptance. Existing production engine code is unchanged.
+
+```sh
+python -m scripts.check_sky130_filled_electrical --directory path/to/counter --case counter
+python -m unittest tests.test_sky130_filled_electrical -v
+```
+
+## Waffle-drop density conditions
+
+The [source-bound review](validation/sky130-waffle-density-2026-10-14.json)
+resolves exactly `r1210`–`r1233` and `s44`–`s67`. Every listed metal-density
+requirement first needs at least 30% waffle-drop coverage in a 700 µm window.
+Fresh recursive measurements find all four relevant raw waffle-drop layers
+empty on each exact filled reference. Their coverage is therefore zero in
+every possible window, independently of origin or edge clipping. The required
+IP conditions are retained and evaluated through this absence proof.
+
+This does not substitute ordinary drawn-metal density for oxide density, execute
+nonempty waffle-drop rules, or establish a complete-chip boundary. Seven tests
+per operating system cover exact source/parent bindings, every inserted operand,
+raw shape types in rotated arrays, malformed measurements and stale inputs.
+Both complete reports match byte for byte. These 48 decisions extend the earlier
+marker ledger; every other catalog record and all periphery states are preserved.
+
+The `vpp_over_MOSCAP` density record remains unreviewed: its published C3 selector
+contains unfinished cell-name definitions. That record is not included in the
+empty waffle-drop proof. The [density audit](validation/sky130-waffle-density-audit-2026-10-14.json)
+retains the tests and source identities. No nonempty density or process-wide
+acceptance is claimed.
+
+```sh
+python -m scripts.sky130_waffle_density_review --check
+python -m unittest tests.test_sky130_waffle_density -v
+```
 
 | Check on the original final GDS | Counter | UART | APB |
 |---|---|---|---|

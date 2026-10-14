@@ -1,0 +1,187 @@
+{
+  "status": "PASS",
+  "partitions": [
+    {
+      "partition": "apb_fifo.fifo.count",
+      "status": "PASS",
+      "strategies": [
+        {
+          "strategy": "pdr",
+          "status": "PASS",
+          "cached": true
+        },
+        {
+          "strategy": "smtbmc",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "partition": "apb_fifo.fifo.mem.0",
+      "status": "PASS",
+      "strategies": [
+        {
+          "strategy": "pdr",
+          "status": "PASS",
+          "cached": true
+        },
+        {
+          "strategy": "smtbmc",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "partition": "apb_fifo.fifo.mem.1",
+      "status": "PASS",
+      "strategies": [
+        {
+          "strategy": "pdr",
+          "status": "PASS",
+          "cached": true
+        },
+        {
+          "strategy": "smtbmc",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "partition": "apb_fifo.fifo.mem.2",
+      "status": "PASS",
+      "strategies": [
+        {
+          "strategy": "pdr",
+          "status": "PASS",
+          "cached": true
+        },
+        {
+          "strategy": "smtbmc",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "partition": "apb_fifo.fifo.mem.3",
+      "status": "PASS",
+      "strategies": [
+        {
+          "strategy": "pdr",
+          "status": "PASS",
+          "cached": true
+        },
+        {
+          "strategy": "smtbmc",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "partition": "apb_fifo.fifo.rd",
+      "status": "PASS",
+      "strategies": [
+        {
+          "strategy": "pdr",
+          "status": "PASS",
+          "cached": true
+        },
+        {
+          "strategy": "smtbmc",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "partition": "apb_fifo.fifo.wr",
+      "status": "PASS",
+      "strategies": [
+        {
+          "strategy": "pdr",
+          "status": "PASS",
+          "cached": true
+        },
+        {
+          "strategy": "smtbmc",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "partition": "apb_fifo.irq",
+      "status": "PASS",
+      "strategies": [
+        {
+          "strategy": "pdr",
+          "status": "PASS",
+          "cached": true
+        },
+        {
+          "strategy": "smtbmc",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "partition": "apb_fifo.irq_enable",
+      "status": "PASS",
+      "strategies": [
+        {
+          "strategy": "pdr",
+          "status": "PASS",
+          "cached": true
+        },
+        {
+          "strategy": "smtbmc",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "partition": "apb_fifo.prdata",
+      "status": "PASS",
+      "strategies": [
+        {
+          "strategy": "pdr",
+          "status": "PASS",
+          "cached": true
+        },
+        {
+          "strategy": "smtbmc",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "partition": "apb_fifo.pready",
+      "status": "PASS",
+      "strategies": [
+        {
+          "strategy": "pdr",
+          "status": "PASS",
+          "cached": true
+        },
+        {
+          "strategy": "smtbmc",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "partition": "apb_fifo.pslverr",
+      "status": "PASS",
+      "strategies": [
+        {
+          "strategy": "pdr",
+          "status": "PASS",
+          "cached": true
+        },
+        {
+          "strategy": "smtbmc",
+          "status": "PASS"
+        }
+      ]
+    }
+  ],
+  "counterexamples": [],
+  "scope": "Sequential equivalence under the captured EQY strategy and initialization assumptions."
+}
