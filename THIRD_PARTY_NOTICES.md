@@ -56,6 +56,11 @@ not a complete PDK or native runtime. The application/design sources and their
 existing notices remain in this repository. The fixture is not distributed as
 foundry-qualified signoff data.
 
+The digital runtime build also copies the fixture's pinned public rule sources
+and `sources/LICENSE` into the SKY130 HD verification resources. The reference
+layouts are not copied into those resources. The retained Apache-2.0 terms and
+original file notices apply to these manual sources as well.
+
 ## Included Xschem and GF180 simulation assets
 
 Standard Xschem symbols: Ubuntu 3.4.4-1build1, GPL-2.0-or-later. Original copyright and license headers are retained under icstudio/assets/exchange/xschem; the GPL text is in licenses/GPL-2.0.txt. Corresponding source: https://archive.ubuntu.com/ubuntu/pool/universe/x/xschem/ and https://github.com/StefanSchippers/xschem/tree/3.4.4.

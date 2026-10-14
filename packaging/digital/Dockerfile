@@ -39,6 +39,8 @@ RUN curl -fL --retry 3 -o /tmp/openvaf.tgz https://fides.fe.uni-lj.si/openvaf/do
     && rm -rf /tmp/openvaf /tmp/openvaf.tgz /tmp/ihp-pdk /tmp/compile_ihp_osdi.py
 COPY licenses /opt/icstudio/licenses
 COPY scripts /tmp/studio/scripts
+COPY docs/qualification/sky130-layer-purposes.json /tmp/studio/docs/qualification/sky130-layer-purposes.json
+COPY tests/fixtures/sky130-filled-references-v1.zip /tmp/studio/tests/fixtures/sky130-filled-references-v1.zip
 COPY examples/sky130-reference-assets.json /tmp/studio/examples/sky130-reference-assets.json
 COPY examples/gf180-connectivity-library-lock.json examples/gf180-lvs-source-lock.json /tmp/studio/examples/
 COPY examples/ihp-fill-source-lock.json examples/ihp-active-fill-source-lock.json /tmp/studio/examples/

@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Complete remaining required-rule and error-catalog reconciliation (14 periphery execution reviews, one missing x.20 numerical definition, and 1161 unreviewed error records), remaining grid/device/voltage and required-density semantics, final filled-layout timing/equivalence and combined application/delivery acceptance. All three exact filled references now replay on Windows and Linux with identical full reports; six geometry/connectivity profiles and measured applicability match the retained evidence. A committed 13 MB fixture removes the former filled-input availability blocker. The latest source review has 135 executed periphery requirements, 277 absent operands, 77 upstream NA, 36 advisory rows and 61 other-backend rows. Eight advisory window parameters do not establish oxide-density acceptance. Seven off-grid text anchors remain visible; native-runtime and installer evidence retains its original scope.",
+      "remaining": "Complete remaining required-rule and error-catalog reconciliation (14 periphery execution reviews, one missing x.20 numerical definition, and 1161 unreviewed error records), remaining grid/device/voltage and required-density semantics, final filled-layout timing/equivalence and combined application/delivery acceptance. All three exact filled references now replay on Windows and Linux with identical full reports; six geometry/connectivity profiles and measured applicability match the retained evidence. A committed 13 MB fixture removes the former filled-input availability blocker. The latest source review has 135 executed periphery requirements, 277 absent operands, 77 upstream NA, 36 advisory rows and 61 other-backend rows. Eight advisory window parameters do not establish oxide-density acceptance. Seven off-grid text anchors remain visible; native-runtime and installer evidence retains its original scope. The prepared-platform application gate now enforces the six-profile 133-binding baseline and retains/verifies its 601-row ledger in finished results and macro export. Actual original routed counter/UART/APB entry-point runs pass, and filled worker replay plus a rejected synthetic layout match across Windows/Linux. Full runtime rebuilding and the more advanced rule/density/final electrical acceptance remain open.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16750,7 +16750,8 @@
         "sky130-grid-density-2026-10-14",
         "sky130-geometry-reconciliation-2026-10-14",
         "sky130-reference-replay-2026-10-14",
-        "sky130-filled-replay-audit-2026-10-14"
+        "sky130-filled-replay-audit-2026-10-14",
+        "sky130-application-rules-2026-10-14"
       ]
     },
     "sky130A:source-completeness": {
@@ -20138,6 +20139,11 @@
       "path": "docs/validation/sky130-filled-replay-audit-2026-10-14.json",
       "sha256": "9a89317d4824f831de7e7d41930e9296ebb76b6129b504c0c6bc010a5cc45c56",
       "scope_limit": "Fresh Windows/Linux polygon replay of all three exact final filled references, byte-identical complete reports, portable authenticated inputs and source-backed advisory parameter review. No fresh native, timing, combined application, delivered-runtime or chunk 6 acceptance."
+    },
+    "sky130-application-rules-2026-10-14": {
+      "path": "docs/validation/sky130-application-rules-2026-10-14.json",
+      "sha256": "58dac07e3f0c61bb9600fb79e8711cb41fef39ab72b329ce5a7c6bb91114325d",
+      "scope_limit": "Production pin/rule/default physical-check/export entry points on original routed references, plus exact filled candidate worker replay on Windows/Linux. Complete required-rule, filled timing/equivalence and rebuilt delivered-runtime acceptance remain open."
     }
   },
   "execution_acceptance": {
@@ -20161,8 +20167,8 @@
       "path": "docs/validation/ihp-fill-closure-2026-10-11.json",
       "sha256": "4255cce72f604e38874eb3dfad97758557d6cd1b56c60dae4f710459220b0004",
       "historical_source_snapshot": {
-        "path": "docs/validation/ihp-fill-tested-source-2026-10-11/manifest.json",
-        "sha256": "c6e0041e26764b5dc62f0284293c34fb5c60cb6c5a48f402705e9ed0d7893bbf"
+        "path": "docs/validation/ihp-fill-tested-source-2026-10-14/manifest.json",
+        "sha256": "0e7dabefab1f45bca37a6d8bd75b13d44ccb4b7591e7f8fe2cc0c2e9b52bc489"
       }
     }
   }

@@ -306,6 +306,8 @@ def execute(r):
         fill(r,settings)
         from .digital_ihp_fill import execute as ihp_fill
         ihp_fill(r,settings)
+        from .digital_sky130_rules import execute as sky130_rules
+        sky130_review=sky130_rules(r)
         from .digital_physical_checks import execute as physical_checks
         checks=physical_checks(r)
         from .digital_lvs_reference import execute as reference_export
@@ -327,6 +329,7 @@ def execute(r):
             'flow_fingerprint':flow['fingerprint'],'settings':settings,
             'timing_corners':r.config.get('timing_corners',[r.platform['corner']]),
             **({'checks':checks} if stage=='finish' else {}),
+            **({'sky130_rules':sky130_review} if stage=='finish' and sky130_review is not None else {}),
             **({'reference':reference} if stage=='finish' and reference is not None else {}),
             **({'gf180_connectivity':connectivity} if stage=='finish' and connectivity is not None else {}),
             'scope':'Engine implementation; timing, equivalence and physical rule qualification remain explicit checks.'},

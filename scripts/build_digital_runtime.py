@@ -24,6 +24,21 @@ PLATFORM_LOCKS = ('physical-engine-lock.json', 'sky130-reference-assets.json',
                   'ihp-fill-source-lock.json', 'ihp-active-fill-source-lock.json')
 
 
+def sky130_rule_context(context):
+    """Include the exact helper/source inputs used by the platform preparer."""
+    from icstudio.digital_sky130_rules_lock import FILES
+    context = Path(context)
+    for name in FILES:
+        if not name.startswith('helpers/') or name.endswith('/__init__.py'):
+            continue
+        relative = name.removeprefix('helpers/')
+        target = context/relative; target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(ROOT/relative, target)
+    for relative in ('scripts/prepare_sky130_rule_checks.py', 'tests/fixtures/sky130-filled-references-v1.zip'):
+        target = context/relative; target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(ROOT/relative, target)
+
+
 def pack_filesystem(source, destination):
     # Docker recreates system links such as /etc/mtab when a container is
     # created. Normalize the exported filesystem as well as the image itself.
@@ -55,6 +70,7 @@ def build(output):
         (context/'scripts').mkdir()
         for name in PLATFORM_SCRIPTS:
             shutil.copy2(ROOT/'scripts'/name,context/'scripts'/name)
+        sky130_rule_context(context)
         shutil.copytree(ROOT/'icstudio/assets/pdks/ihp-sg13g2/libs.tech/verilog-a',context/'ihp-pdk/libs.tech/verilog-a')
         (context/'examples').mkdir()
         for name in PLATFORM_LOCKS:

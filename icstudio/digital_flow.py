@@ -48,6 +48,8 @@ def environment(job):
             out['lvs_reference']=clone(config['platform']['lvs_reference'])
         if job['settings']['stage']=='finish' and config['platform'].get('gf180_connectivity') is not None:
             out['gf180_connectivity']=clone(config['platform']['gf180_connectivity'])
+        if job['settings']['stage']=='finish' and config['platform'].get('sky130_rules') is not None:
+            out['sky130_rules']=clone(config['platform']['sky130_rules'])
     if 'flow' in job['settings']:
         from .digital_platform import verify_flow
         out['flow']=verify_flow(job['settings']['flow'])
@@ -203,6 +205,8 @@ def validate_result(result, directory):
         validate_saved(data,root)
         from .digital_sky130_pins import validate_saved as validate_sky130_pins
         validate_sky130_pins(data,root)
+        from .digital_sky130_rules import validate_saved as validate_sky130_rules
+        validate_sky130_rules(data,root)
         from .digital_lvs_reference import validate_saved as validate_reference
         validate_reference(data,root)
         from .digital_gf180_checks import validate_saved as validate_connectivity

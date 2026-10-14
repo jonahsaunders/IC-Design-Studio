@@ -11,6 +11,7 @@ from scripts.fetch_gf180_connectivity import fetch as fetch_gf180
 from scripts.prepare_gf180_lvs import prepare as prepare_gf180_rules
 from scripts.prepare_gf180_connectivity import prepare as prepare_gf180_inputs, attach as attach_gf180
 from scripts.prepare_ihp_fill import prepare as prepare_ihp_fill
+from scripts.prepare_sky130_rule_checks import prepare as prepare_sky130_rules
 
 
 def gf180_profiles(platforms, staging, *, cache=None):
@@ -54,6 +55,7 @@ def bundle(root, *, sky130_cache=None, gf180_cache=None):
         shutil.copytree(Path(sky130['root'])/'sky130hd',platform_root/'sky130hd',dirs_exist_ok=True)
         sky130['root']=str(platform_root);verify(sky130)
         platforms['sky130hd']=sky130
+    platforms['sky130hd']=prepare_sky130_rules(platforms['sky130hd'],platform_root/'sky130hd/verification')
     with tempfile.TemporaryDirectory(prefix='.gf180-connectivity-',dir=root) as temporary:
         platforms=gf180_profiles(platforms,Path(temporary),cache=gf180_cache)
     platforms['ihp-sg13g2']=prepare_ihp_fill(platforms['ihp-sg13g2'],platform_root/'ihp-sg13g2/fill')

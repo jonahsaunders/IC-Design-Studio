@@ -151,6 +151,18 @@ pass. The latest periphery ledger retains 135 executed requirements and now has
 The 1,161 open error records and remaining source, density, timing/equivalence
 and combined application gates still leave chunk 6 incomplete.
 
+The [application rule integration](validation/sky130-application-rules-2026-10-14.json)
+adds the six reviewed geometry profiles to prepared SKY130 HD Finish jobs and
+macro export. The exact helper/manual inputs, all checks and the 601-row ledger
+are retained and validated; missing reports or removed policies cannot pass
+export. Production entry points are exercised on the original counter/UART/APB
+routed checkpoints, with separate replay of the exact filled candidates and an
+invalid-layout control. This closes a bounded integration gap, not the complete
+chunk: the runtime policy has 133 executed periphery bindings, while the later
+135-binding qualification review remains separate. Complete rule coverage,
+required density, final filled-layout timing/equivalence and a rebuilt delivered
+runtime still require acceptance.
+
 The chunk 4 GF180 record retains its original source and scope. The eight shared
 modules changed for IHP have exact historical source snapshots; this preserves
 past acceptance without asserting a new GF180 production run on the new source.

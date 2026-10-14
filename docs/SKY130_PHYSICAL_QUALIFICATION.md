@@ -685,3 +685,38 @@ DNW configuration, RF/special-device selectors, NCM construction and independent
 voltage intent. The missing numerical pin-spacing definition, remaining catalog
 reconciliation, required density coverage and final timing/equivalence/application
 acceptance still prevent completion of chunk 6.
+
+## Application integration of reviewed geometry
+
+The digital runtime builder now attaches `sky130-reviewed-geometry-v1` to its
+SKY130 HD platform. Physical Finish runs the six reviewed drawn-mask profiles
+after boundary-pin export. The platform captures 177 authenticated helper/manual
+resources; no reference GDS is included in those runtime resources. A changed or
+missing resource is rejected before helper code can execute. Failed checks keep
+their diagnostics and cannot produce an accepted report.
+
+The saved result and macro export retain the exact GDS/checkpoint identities,
+all mandatory checks, the 601-row manual ledger and the captured source resources.
+Missing profiles, altered check counts, changed execution bindings, incomplete
+ledgers and removed policies are rejected. Exported artifacts remain verifiable
+after relocation. The export explicitly says that SKY130 signoff is unqualified.
+Historical platforms without the new policy retain their original limited scope.
+
+The [application audit](validation/sky130-application-rules-2026-10-14.json)
+distinguishes production entry-point runs on retained original routed checkpoints
+from replay of the three exact filled candidates. It also retains a deliberately
+invalid metal layout and unsuccessful test/comparison attempts. These checks do
+not claim new synthesis/place/route, fill generation, complete native-deck
+execution, extracted timing or a rebuilt desktop/runtime installer.
+
+This first production policy retains the six-profile baseline: 133 executed
+periphery requirements. The subsequent two geometry bindings and eight advisory
+source reviews remain in the separate, more advanced qualification ledger above;
+they are not silently promoted into runtime coverage. Full rule reconciliation,
+required density, final filled-layout timing/equivalence and delivered application
+acceptance still prevent completion of chunk 6.
+
+```sh
+python -m scripts.prepare_sky130_rule_checks --platform platform.json --output platform/sky130hd/verification --manifest reviewed-platform.json
+python -m unittest tests.test_sky130_application_rules -v
+```
