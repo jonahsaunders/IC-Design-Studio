@@ -94,6 +94,19 @@ open periphery execution rows and the missing `x.20` definition are unchanged.
 The [reproduction command and fault controls](SKY130_PHYSICAL_QUALIFICATION.md#explicit-error-catalog-reconciliation)
 make the distinction between catalog coverage and periphery coverage explicit.
 
+The [grid/window diagnostic batch](validation/sky130-grid-density-2026-10-14.json)
+adds raw grid checks and exact Manhattan metal-occupancy measurements on
+700 micrometre windows with 70 micrometre steps. The recovered CI exports
+have different hashes from all three locked filled references. Their physical
+boundaries pass the grid profile, while seven text anchors are off grid.
+Their 200/400 micrometre dies have no full 700 micrometre windows. Clipped
+measurements are retained, but neither those measurements nor metal occupancy
+are asserted to pass the published oxide-density requirements. The existing
+24 open execution rows, missing pin-spacing definition, final filled-layout
+timing/equivalence and combined application gate remain open. The
+[reproduction instructions](SKY130_PHYSICAL_QUALIFICATION.md#grid-and-density-window-diagnostics)
+identify the exact missing filled-reference archive needed to continue.
+
 The IHP reference acceptance retains its original source in an explicit
 historical snapshot of shared files changed by the SKY130 export hooks. It
 does not assert a new IHP native run with those hooks.

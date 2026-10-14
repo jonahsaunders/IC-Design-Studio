@@ -4,6 +4,9 @@ The [execution record](validation/sky130-physical-progress-2026-10-11.json)
 captures the original counter, UART and APB final layouts. Chunk 6 remains open.
 Zero geometry markers alone do not establish complete physical coverage.
 
+The latest [grid/window diagnostics](#grid-and-density-window-diagnostics)
+preserve fresh CI-layout measurements and the remaining completion blockers.
+
 | Check on the original final GDS | Counter | UART | APB |
 |---|---|---|---|
 | ORFS KLayout, FEOL/BEOL/off-grid enabled | 0 markers | 0 markers | 0 markers |
@@ -433,3 +436,76 @@ unaccepted native fill pilot, also with complete readback.
 Their identities are recorded in the respective execution records. Chunk 5's
 original acceptance record remains unchanged; its historical source binding
 is now explicit as described above.
+
+## Grid and density-window diagnostics
+
+The [2026-10-14 record](validation/sky130-grid-density-2026-10-14.json) executes
+new diagnostics on the counter, UART and APB exports recovered from CI run
+`38190866879`, artifact `11722609690` (`digital-implementation-evidence`). The
+archive SHA-256 is
+`4ec0edefcd132a2373c52a3030a58462788a0deabf386a4bece5238026186492`.
+Every GDS differs from its locked filled-reference identity. These results
+cannot be substituted for final filled-layout execution.
+
+| CI layout | Physical grid errors | Off-grid text anchors | Full 700 µm windows | Additional clipped windows |
+|---|---:|---:|---:|---:|
+| Counter | 0 | 2 | 0 | 9 |
+| UART | 0 | 4 | 0 | 36 |
+| APB | 0 | 1 | 0 | 36 |
+
+The [grid checker](../scripts/sky130_grid_geometry.py) checks unmerged polygon
+vertices, holes, exact orthogonal path outlines, hierarchy/array placement and
+text anchors. It rejects unknown purposes, empty geometry, non-unit or
+non-orthogonal instance transforms, odd-width/diagonal/round paths and unsupported
+shapes before integer rounding can conceal an error. It uses the assumptions
+table's 0.005 µm drawn grid and explicit 1 nm mask/package purposes. It does
+not silently correct the periphery table's inconsistent `mm` units, infer
+unreviewed mask aliases or invoke seal exceptions. Text findings retain their
+cell names and coordinates separately from physical boundaries; no geometry
+or annotations were changed.
+
+The [window checker](../scripts/sky130_density_windows.py) unions drawn metal
+with its own fill purpose before measuring area. It requires explicit die
+bounds, preserves metal outside those bounds as a finding, and keeps every
+full and clipped window distinct. The diagnostic lattice starts at the die's
+lower-left; that origin and the 70 µm step are explicit conventions because
+the `.pd.2b` source leaves its unit blank. Non-Manhattan metal is refused before
+window clipping can round an intersection. Raw metal occupancy is not the
+published MM1–MM4 oxide-pattern-density metric. The source does not establish
+the full oxide operand construction or edge policy needed for acceptance.
+Every density report therefore remains `BLOCKED`; a small block cannot pass
+because it contains no full windows. The standalone density CLI exits 2.
+
+The [captured source bundle](qualification/sky130-grid-density-sources.json)
+retains eight exact upstream files, including their license, URLs and hashes.
+Each run verifies them against the existing pinned manual inventory. The
+[regression controls](../tests/test_sky130_grid_density.py) cover every known
+ordinary purpose and explicit fine-grid purpose, hidden/holed polygons,
+hierarchy and arrays, path-edge rounding, changed source bytes, 700/70 µm
+boundary conditions, overlap accounting, clipped denominators and the refusal
+to return density acceptance. These controls ran on Linux with KLayout 0.30.5;
+no new Windows qualification is asserted.
+
+Download the named CI artifact and reproduce the saved record:
+
+```sh
+python -m scripts.check_sky130_grid_density --artifact /path/to/digital-implementation-evidence.zip --check
+python -m unittest tests.test_sky130_grid_density -v
+```
+
+The first command's successful exit means exact diagnostic reproduction, not
+chunk acceptance. The record retains all 25 open periphery rows for each
+reference, the 1,474 unreviewed error records, density interpretation gaps and
+the final timing/equivalence/application gates. The required filled-reference
+archive remains:
+
+```text
+C:\Users\jonah\Documents\Codex\IC-Design-Studio-evidence\sky130-fill-progress-2026-10-11-v1\evidence.tar.gz
+SHA-256: ccef87b3fdbd89009e33449fc1be84eb4e3899ada61163ae99007eef3b6307e0
+Bytes: 920448744
+```
+
+Its identity comes from the retained checkpoint; this turn did not recover or
+read that archive. Restoring it enables checks on the correct final geometry,
+but does not itself resolve the missing `x.20` limit, oxide-density definition,
+remaining rule reviews or unexecuted combined acceptance gate.
