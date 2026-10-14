@@ -4,8 +4,12 @@ The [execution record](validation/sky130-physical-progress-2026-10-11.json)
 captures the original counter, UART and APB final layouts. Chunk 6 remains open.
 Zero geometry markers alone do not establish complete physical coverage.
 
-The latest [grid/window diagnostics](#grid-and-density-window-diagnostics)
-preserve fresh CI-layout measurements and the remaining completion blockers.
+The latest [marker review](#selected-marker-and-well-hole-records) records
+356 executed error records, 175 verified absent subjects and 1,025 unreviewed
+records. Seventeen periphery execution reviews, the missing pin-spacing
+definition, required density and final electrical/delivery acceptance remain
+open. The [grid/window diagnostics](#grid-and-density-window-diagnostics) retain
+their separate measurements and unresolved source semantics.
 
 | Check on the original final GDS | Counter | UART | APB |
 |---|---|---|---|
@@ -794,4 +798,47 @@ runtime policy. Chunk 6 remains incomplete.
 ```sh
 python -m scripts.sky130_nsm_reconciliation --check
 python -m unittest tests.test_sky130_nsm_reconciliation -v
+```
+
+## Selected marker and well-hole records
+
+The [marker review](validation/sky130-marker-reconciliation-2026-10-14.json)
+adds 98 explicit absent-subject decisions on each unchanged filled reference.
+The source-bound groups cover selected deep-well, LVTN, HVTR, HVI, RDL, RPM,
+TUNM, HVNTM, VHVI, drain-extended and NCM records. Every ID has an exact parent
+and an explicit empty-subject condition; names and table membership do not
+automatically extend coverage.
+
+The enclosed targets are checked independently of their enclosing layers.
+The nwell-hole requirement uses holes of the merged nwell polygon union;
+all three layouts have nwell geometry but no such holes. PAD must be absent
+for its RDL enclosure decision. Both HVI and HVNTM must be empty for the
+selected high-voltage implant decisions. The captured C3 definitions establish
+which resistor and drain-extended/VHV subjects require their markers.
+Operating-voltage intent is not inferred from missing voltage markers.
+
+The RDL and CCU1M mask aliases come from the pinned installed layer map;
+their provenance remains distinct from the published aliases. Unsupported
+nwell paths and non-unit/non-orthogonal instance transforms are rejected before
+hole measurement. Raw marker counts include every referenced shape, including
+texts and paths.
+
+One source disagreement remains explicit: error record `r415` gives 0.19 µm
+for `lvtn.3b`, while its periphery table gives 0.235 µm. Empty LVTN has no spacing
+subject under either value; no threshold is selected or claimed implemented.
+Ambiguous gate-enclosure/extension and drain-extended catalog targets, neighboring
+frame/die-cut records and all chip-level records retain their previous states.
+
+The [audit](validation/sky130-marker-review-2026-10-14.json) records 12 passing
+tests on Windows and Linux and identical complete reports. Controls cover every
+required operand, raw shapes in rotated arrays, merged well holes, present
+targets with empty enclosing layers, stale identities and altered sources.
+Current error coverage is **356 executed, 175 absent and 1,025 unreviewed**.
+The 17 periphery execution reviews and missing `x.20` definition remain open.
+This does not establish non-empty device qualification, new native/full-profile
+execution, final electrical acceptance or completion of chunk 6.
+
+```sh
+python -m scripts.sky130_marker_reconciliation --check
+python -m unittest tests.test_sky130_marker_reconciliation -v
 ```

@@ -1,0 +1,124 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "qualified": false,
+  "chunk_complete": false,
+  "data": {
+    "path": "docs/validation/sky130-marker-reconciliation-2026-10-14.json",
+    "sha256": "c88d19aa1893d6a4c7fd1f7031c105e81c2e7a3c0f7c69fac1467b262654d91e"
+  },
+  "audits": {
+    "win32": {
+      "record.json": {
+        "path": "docs/validation/sky130-marker-review-2026-10-14/audit-win32.json",
+        "sha256": "a90508be50331a250afdd940e026717cd128a19dd276440ec302d2e412cfb19b"
+      },
+      "tests.log": {
+        "path": "docs/validation/sky130-marker-review-2026-10-14/tests-win32.log",
+        "sha256": "6e68284a83d50a68f64a6860dbac8733d611e6f28ce6d6b8f7b0c952093da7b8"
+      }
+    },
+    "linux": {
+      "record.json": {
+        "path": "docs/validation/sky130-marker-review-2026-10-14/audit-linux.json",
+        "sha256": "56b21b20a5abff2f32dcb12c21af4e2c5aa8fe510208eb03bc312e2b74c53f52"
+      },
+      "tests.log": {
+        "path": "docs/validation/sky130-marker-review-2026-10-14/tests-linux.log",
+        "sha256": "92acf991707579d097f7b3471af606538ccb755ae28dddc153959ba4d3f6bf90"
+      }
+    }
+  },
+  "source_files": {
+    "scripts/sky130_marker_reconciliation.py": "9b03452253070cfa773c51c5579794317016d7ff7fd4d27412c3dc578ff78622",
+    "tests/test_sky130_marker_reconciliation.py": "2cb1393e1ad84650eb0701267c5ac88793cf6cafaed53f7c8a2620b3d8d3498b"
+  },
+  "tests": {
+    "win32": {
+      "run": 12,
+      "passed": 12,
+      "skipped": 0
+    },
+    "linux": {
+      "run": 12,
+      "passed": 12,
+      "skipped": 0
+    }
+  },
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-with-committed-inputs-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-marker-review-2026-10-14-v1\\evidence.tar.gz",
+    "sha256": "fe14dbf9be28511ee71432ff8cd14d15bd11ae455f6f46e4484a60dff001a946",
+    "bytes": 48878,
+    "files": 16,
+    "unique_blobs": 10,
+    "manifest_sha256": "2f6deea018065c40722bbe4b2f3895ef3fd911061176fe10d9266bb74435d06b",
+    "input_reference": {
+      "repository": "https://github.com/jonahsaunders/IC-Design-Studio",
+      "commit": "48bec0da62909323c78d8dc621cf733d65a317bf",
+      "path": "tests/fixtures/sky130-filled-references-v1.zip",
+      "sha256": "8db9401bc73e117db9d72dcccb03ac7700016b5a5c61e518c14cb5a0ec3542fa",
+      "note": "The committed portable fixture contains all three unchanged measured GDS files and the exact published sources. This archive contains new measurements and audit sources; recover its immutable inputs from that commit."
+    }
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "counts": {
+        "unreviewed": 1025,
+        "executed-reviewed": 356,
+        "absent-operand": 175
+      },
+      "periphery_counts": {
+        "execution-review-required": 17,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 274,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      }
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "counts": {
+        "unreviewed": 1025,
+        "executed-reviewed": 356,
+        "absent-operand": 175
+      },
+      "periphery_counts": {
+        "execution-review-required": 17,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 274,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      }
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "counts": {
+        "unreviewed": 1025,
+        "executed-reviewed": 356,
+        "absent-operand": 175
+      },
+      "periphery_counts": {
+        "execution-review-required": 17,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 274,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      }
+    }
+  ],
+  "scope": "Fresh Windows/Linux measurements of 14 raw purposes and merged nwell holes on all three unchanged filled references. Exactly 98 explicit catalog records gain absent-subject decisions. Present enclosure targets prevent exclusions; source numeric disagreement and ambiguous targets remain open. No non-empty device, voltage-intent, native/full-profile, application or chunk acceptance is claimed."
+}

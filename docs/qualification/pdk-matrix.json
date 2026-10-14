@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Complete remaining required-rule and error-catalog reconciliation (17 periphery execution reviews, one missing x.20 numerical definition, and 1123 unreviewed error records), grid/device/voltage and required-density semantics, final filled-layout timing/equivalence and combined application/delivery acceptance. The current corrected qualification ledger has 135 executed periphery requirements, 274 absent operands, 77 upstream NA, 36 advisory rows and 61 other-backend rows. Three earlier unsupported exclusions (hvtr.3, nsm.3a, nsm.3b) are reopened; historical measurements remain preserved. Eight advisory window parameters do not establish oxide-density acceptance. Seven off-grid text anchors remain visible. All three exact filled references replay on Windows/Linux with identical reports using the portable fixture. Prepared-platform policy version 2 enforces the six-profile 133-binding application baseline and the three scope corrections; current exports reject stale or reversed exclusions. Fresh original routed counter/UART/APB application finish/export checks pass, and filled worker replay plus rejected synthetic layout match across systems. Runtime rebuilding and full rule/density/final electrical acceptance remain open; prior native and installer evidence retains its original scope. Fresh Windows/Linux measurements of both source-defined NSM operands discharge exactly 38 catalog records by absence; catalog coverage is now 356 executed, 77 absent and 1123 unreviewed. Frame/die-cut requirements remain open, and no non-empty seal-rule execution is claimed.",
+      "remaining": "Complete remaining required-rule and error-catalog reconciliation (17 periphery execution reviews, one missing x.20 numerical definition, and 1025 unreviewed error records), grid/device/voltage and required-density semantics, final filled-layout timing/equivalence and combined application/delivery acceptance. The current corrected qualification ledger has 135 executed periphery requirements, 274 absent operands, 77 upstream NA, 36 advisory rows and 61 other-backend rows. Three earlier unsupported exclusions (hvtr.3, nsm.3a, nsm.3b) are reopened; historical measurements remain preserved. Eight advisory window parameters do not establish oxide-density acceptance. Seven off-grid text anchors remain visible. All three exact filled references replay on Windows/Linux with identical reports using the portable fixture. Prepared-platform policy version 2 enforces the six-profile 133-binding application baseline and the three scope corrections; current exports reject stale or reversed exclusions. Fresh original routed counter/UART/APB application finish/export checks pass, and filled worker replay plus rejected synthetic layout match across systems. Runtime rebuilding and full rule/density/final electrical acceptance remain open; prior native and installer evidence retains its original scope. Fresh Windows/Linux measurements of both source-defined NSM operands discharge exactly 38 catalog records by absence; that preceding catalog coverage was 356 executed, 77 absent and 1123 unreviewed. Frame/die-cut requirements remain open, and no non-empty seal-rule execution is claimed. The subsequent 98-record marker review uses fresh raw-purpose and merged-well-hole measurements; current catalog coverage is 356 executed, 175 absent and 1025 unreviewed. Present targets with empty enclosing layers are rejected. The lvtn.3b catalog/periphery threshold disagreement remains unresolved for non-empty devices; no voltage-intent or numeric acceptance is inferred.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16753,7 +16753,8 @@
         "sky130-filled-replay-audit-2026-10-14",
         "sky130-application-rules-2026-10-14",
         "sky130-scope-correction-2026-10-14",
-        "sky130-nsm-review-2026-10-14"
+        "sky130-nsm-review-2026-10-14",
+        "sky130-marker-review-2026-10-14"
       ]
     },
     "sky130A:source-completeness": {
@@ -20156,6 +20157,11 @@
       "path": "docs/validation/sky130-nsm-review-2026-10-14.json",
       "sha256": "050d1c8faa8dc007dd42ad0d708596715e71239d0d3ca3fcffd61b9a8c5248e8",
       "scope_limit": "Fresh Windows/Linux recursive measurement of both source-defined nitride-seal operands on all three unchanged filled references. Exactly 38 catalog records gain absent-operand decisions. No non-empty seal rules, boundary rules, native/full-profile rerun, application change or chunk completion is claimed."
+    },
+    "sky130-marker-review-2026-10-14": {
+      "path": "docs/validation/sky130-marker-review-2026-10-14.json",
+      "sha256": "226974482cf2324466946eca10471983f2eff8e13643dcd055cad3050c09c6a6",
+      "scope_limit": "Fresh Windows/Linux measurements of 14 raw purposes and merged nwell holes on all three unchanged filled references. Exactly 98 explicit catalog records gain absent-subject decisions. Present enclosure targets prevent exclusions; source numeric disagreement and ambiguous targets remain open. No non-empty device, voltage-intent, native/full-profile, application or chunk acceptance is claimed."
     }
   },
   "execution_acceptance": {
