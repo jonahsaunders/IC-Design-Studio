@@ -203,6 +203,8 @@ def validate(platform):
     validate_ihp_fill(platform)
     from .digital_sky130_rules import validate as validate_sky130_rules
     validate_sky130_rules(platform)
+    from .digital_sky130_antenna import validate as validate_sky130_antenna
+    validate_sky130_antenna(platform)
     if platform.get('fingerprint') != digest(records):raise ValueError('Digital platform manifest checksum changed. Import the platform again.')
     return platform
 

@@ -11,6 +11,11 @@ definition, required density and final electrical/delivery acceptance remain
 open. The [grid/window diagnostics](#grid-and-density-window-diagnostics) retain
 their separate measurements and unresolved source semantics.
 
+The [application antenna gate](#application-antenna-gate) now requires all 13
+reviewed stages for newly prepared bundled HD platforms. This closes the gap
+between the supplemental checker and Finish/export; it does not close the
+remaining rule, density or electrical requirements.
+
 | Check on the original final GDS | Counter | UART | APB |
 |---|---|---|---|
 | ORFS KLayout, FEOL/BEOL/off-grid enabled | 0 markers | 0 markers | 0 markers |
@@ -24,6 +29,44 @@ their separate measurements and unresolved source semantics.
 Both complete geometry engines reject injected poly-width and Metal1-width
 faults on a copy of the original counter. These controls prove the selected
 rules execute; they do not prove every published rule is implemented.
+
+## Application antenna gate
+
+The [application gate](../icstudio/digital_sky130_antenna.py) runs the unchanged,
+checksum-locked [13-stage deck](../scripts/sky130_staged_antenna.drc) after the
+reviewed geometry profiles. The [platform preparer](../scripts/prepare_sky130_antenna.py)
+captures its policy and deck. The bundled-platform builder now attaches that
+policy; a rebuilt runtime and installer still need delivery acceptance.
+
+Finish requires the reviewed native KLayout version, every stage and its exact
+numeric settings, matching raw report counts, and zero violations. Inputs,
+checkpoint, engine, platform, top and deck are bound to the saved evidence.
+Failures retain diagnostics. Exports retain the native report, metrics, deck,
+invocation and checkpoint, and reject missing, changed or stripped evidence.
+Historical platforms without this policy retain their earlier limited scope.
+
+The [application audit](validation/sky130-application-antenna-2026-10-14.json)
+records fresh native executions on the exact filled counter, UART and APB
+references: all 39 stage executions pass. The independent 178-control fixture
+produces all 90 expected faults and accepts all 88 passing controls; the
+application correctly refuses that deliberately faulty fixture. Separate actual
+Runner executions pass boundary-pin export, six geometry profiles, staged
+antenna, default OpenDB antenna/power checks and macro export on the three
+retained original routed designs. Both Windows and Linux validate the saved
+native evidence and relocated export contents. These runs do not perform new
+place/route, regenerate fill, or establish final filled timing or full-rule LVS.
+
+The related 97-test suite passes on both operating systems: 95 run and two
+Windows-specific tests skip on Linux; 90 run and seven Linux/symlink tests skip
+on Windows. All 11 new antenna integration tests run on each system. Initial
+Windows sandbox access and an overly long temporary fixture path caused test
+harness failures; the retained successful rerun uses a shorter writable path.
+The original failure logs remain available with the audit.
+
+This is the captured five-metal HD MOS supplement. Other device/process options
+and the published met5 description discrepancy remain explicit limitations.
+The periphery and error-catalog coverage counts above are unchanged, and
+`chunk_complete` and `qualified` remain false.
 
 ## Antenna coverage and the resolved contact discrepancy
 

@@ -34,7 +34,8 @@ def sky130_rule_context(context):
         relative = name.removeprefix('helpers/')
         target = context/relative; target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT/relative, target)
-    for relative in ('scripts/prepare_sky130_rule_checks.py', 'tests/fixtures/sky130-filled-references-v1.zip'):
+    for relative in ('scripts/prepare_sky130_rule_checks.py', 'scripts/prepare_sky130_antenna.py',
+                     'scripts/sky130_staged_antenna.drc', 'tests/fixtures/sky130-filled-references-v1.zip'):
         target = context/relative; target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT/relative, target)
 

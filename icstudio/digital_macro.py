@@ -50,7 +50,7 @@ def export(result, directory, destination):
     if data['stage']!='finish' or not {'gds','lef','netlist','layout_preview'}<=artifacts.keys():
         raise ValueError('Finish the physical flow before exporting a macro bundle.')
     preview=json.loads((directory/artifacts['layout_preview']['path']).read_text())
-    selected={k:v for k,v in artifacts.items() if k in ('gds','lef','netlist','spef','sdc','layout_preview','database','timing','equivalence','def','extraction','physical_checks','gf180_connectivity','fill','ihp_fill','sky130_rules') or k.startswith(('spef_','extraction_script_','physical_check_','lvs_reference','gf180_check_','fill_','ihp_fill_','sky130_pin_','sky130_rule_'))}
+    selected={k:v for k,v in artifacts.items() if k in ('gds','lef','netlist','spef','sdc','layout_preview','database','timing','equivalence','def','extraction','physical_checks','gf180_connectivity','fill','ihp_fill','sky130_rules','sky130_antenna') or k.startswith(('spef_','extraction_script_','physical_check_','lvs_reference','gf180_check_','fill_','ihp_fill_','sky130_pin_','sky130_rule_','sky130_antenna_'))}
     job=json.loads((directory/'input.json').read_text())
     value=verify_inputs(result,job)
     from .digital_sky130_rules import validate_saved as validate_sky130_rules
@@ -59,6 +59,12 @@ def export(result, directory, destination):
         raise ValueError('SKY130 rule policy differs from the captured macro inputs.')
     if sky130_review is not None and sky130_review.get('top') != value['top']:
         raise ValueError('SKY130 rule evidence belongs to another top-level design.')
+    from .digital_sky130_antenna import validate_saved as validate_sky130_antenna
+    antenna=validate_sky130_antenna(data,directory)
+    if value.get('platform',{}).get('sky130_antenna') != data.get('environment',{}).get('sky130_antenna'):
+        raise ValueError('SKY130 antenna policy differs from the captured macro inputs.')
+    if antenna is not None and antenna.get('top') != value['top']:
+        raise ValueError('SKY130 antenna evidence belongs to another top-level design.')
     from .digital_gf180_fill import verify as verify_fill
     verify_fill({'root':str(directory),'artifacts':artifacts},value)
     from .digital_ihp_fill import verify as verify_ihp_fill
@@ -78,7 +84,7 @@ def export(result, directory, destination):
     if connectivity is not None and (connectivity.get('top')!=value['top'] or
             value.get('platform',{}).get('gf180_connectivity')!=data.get('environment',{}).get('gf180_connectivity')):
         raise ValueError('Combined connectivity differs from the captured macro inputs.')
-    if reference is not None or connectivity is not None or sky130_review is not None or 'sky130_pin_export' in artifacts:
+    if reference is not None or connectivity is not None or sky130_review is not None or antenna is not None or 'sky130_pin_export' in artifacts:
         selected['checkpoint']=artifacts['checkpoint']
     notices=captured_notices(job,directory)
     manifest={'version':1,'top':value['top'],'source_hash':data['source_hash'],'input_key':data.get('input_key'),
@@ -103,6 +109,10 @@ def export(result, directory, destination):
     if connectivity is not None:
         manifest['qualification']['gf180_connectivity']={
             'status':connectivity['status'],'scope':connectivity['scope'],'artifact':'gf180_connectivity'}
+    if antenna is not None:
+        manifest['qualification']['sky130_antenna']={
+            'status':antenna['status'],'scope':antenna['scope'],'artifact':'sky130_antenna',
+            'qualified':False,'stages':len(antenna['stages'])}
     if 'extraction' in selected:
         extraction=json.loads((directory/selected['extraction']['path']).read_text())
         if extraction.get('schema')!=1 or extraction.get('status')!='complete' or extraction.get('def')!=selected.get('def') or extraction.get('netlist')!=selected['netlist']:
