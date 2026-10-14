@@ -761,3 +761,37 @@ a rebuilt delivery package or completion of chunk 6.
 python -m scripts.sky130_scope_corrections --check
 python -m unittest tests.test_sky130_scope_corrections tests.test_sky130_application_rules -v
 ```
+
+## Nitride-seal error-record reconciliation
+
+The [NSM reconciliation](validation/sky130-nsm-reconciliation-2026-10-14.json)
+resolves the explicit block records `r950`–`r987` as **absent operands** on each
+of the three exact filled references. The published C3 definition makes
+`NSM_keepout` the union of `nsm.dg` and `nsm.mk`; the captured layer map binds
+these to the drawn nitride seal at 61:20 and its mask at 22:0. Fresh recursive
+measurements find both empty. Width, self-spacing, and spacing/no-overlap to
+that empty union have no subject geometry. No non-empty seal is claimed tested.
+
+The 38 exact IDs, descriptions and parent records are checked against source
+bytes. The neighboring `nsm.3a`/`nsm.3b` frame/die-cut records and all chip-level
+records retain their prior state. A shared name never extends this exclusion.
+The report stores only the 38 decisions per design and references the full
+preceding ledger by checksum, preserving all other records without duplicating
+the historical report.
+
+The [Windows/Linux audit](validation/sky130-nsm-review-2026-10-14.json) records
+ten passing tests per OS, with identical complete reconciliation reports.
+Controls insert boxes, polygons, paths, zero-width paths and texts in rotated
+array instances on either operand; every inserted shape prevents absence.
+Missing or invalid counts, stale input identities and changed sources also fail.
+
+Current error-catalog coverage is **356 executed, 77 absent and 1,123 unreviewed**.
+Periphery coverage is unchanged, including its 17 execution reviews and missing
+`x.20` definition. This review does not rerun the six geometry profiles, full
+native checks or final electrical acceptance, and does not change the application
+runtime policy. Chunk 6 remains incomplete.
+
+```sh
+python -m scripts.sky130_nsm_reconciliation --check
+python -m unittest tests.test_sky130_nsm_reconciliation -v
+```
