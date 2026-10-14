@@ -4,11 +4,11 @@ The [execution record](validation/sky130-physical-progress-2026-10-11.json)
 captures the original counter, UART and APB final layouts. Chunk 6 remains open.
 Zero geometry markers alone do not establish complete physical coverage.
 
-The latest [density-selector review](#waffle-drop-density-conditions) records
-356 executed error records, 223 verified absent subjects and 977 unreviewed
-records. Seventeen periphery execution reviews, the missing pin-spacing
-definition, remaining density/device interpretation and delivered-runtime
-acceptance remain open. The [final electrical checks](#final-filled-reference-electrical-checks)
+The latest [ESD/fuse target review](#esd-and-fuse-target-review) records
+356 executed error records, 255 verified absent subjects and 945 unreviewed
+records. Fifteen periphery execution reviews, the missing pin-spacing
+definition and remaining required catalog/density interpretation remain open.
+The [final electrical checks](#final-filled-reference-electrical-checks)
 now pass nominal extracted timing and sequential equivalence on all three exact
 filled references. The [grid/window diagnostics](#grid-and-density-window-diagnostics)
 retain their separate measurements and unresolved source semantics.
@@ -16,7 +16,65 @@ retain their separate measurements and unresolved source semantics.
 The [application antenna gate](#application-antenna-gate) now requires all 13
 reviewed stages for newly prepared bundled HD platforms. This closes the gap
 between the supplemental checker and Finish/export; it does not close the
-remaining rule, density or delivered-runtime requirements.
+remaining rule or density requirements. Exact desktop-package installation and
+foundry delivery acceptance belong to original chunk 12; they are not additional
+chunk 6 completion gates.
+
+## ESD and fuse target review
+
+The [fresh Windows/Linux audit](validation/sky130-esd-fuse-audit-2026-10-14.json)
+measures the unchanged filled counter, UART and APB layouts using the committed,
+authenticated fixture. Both platforms reproduce identical
+[source-bound decisions](validation/sky130-esd-fuse-2026-10-14.json). The 13 tests
+pass on each platform without skips. They include nonempty marker/target controls,
+text and zero-width paths in transformed arrays, altered evidence identities,
+invalid counts, changed sources and removal of unrelated ledger requirements.
+
+`ncm.4` specifically selects P+ diffusion within `areaid.ed AND NOT areaid.de`.
+The raw `areaid.ed` layer is empty in all three layouts, so its required target is
+empty. This proof does not depend on missing NCM and does not discharge `ncm.3`.
+`x.11` and exactly 32 fuse catalog records have no fuse/target subjects under
+the captured C3 definitions. The published metal4 fuse purpose, independent
+target, other installed fuse purposes and a conservative metal2 guard are all
+empty. Adding any of them reopens every fuse decision. Catalog/manual numeric
+discrepancies are retained: no nonempty fuse dimension is claimed verified.
+
+All 601 periphery rows remain present: 135 executed, 276 absent, 77 upstream NA,
+36 advisory, 61 other backend, 15 execution reviews and one missing definition.
+All 1,556 catalog records remain present: 356 executed, 255 absent and 945
+unreviewed. Catalog records include multiple manifestations of one rule and
+chip-specific entries; 945 is not a count of independent active block rules.
+The actual application's narrower six-profile policy is unchanged by this
+qualification review.
+
+Reproduce the target review with:
+
+```sh
+python -m unittest tests.test_sky130_esd_fuse -v
+python -m scripts.sky130_esd_fuse_review --check
+```
+
+These commands verify this bounded review, not complete physical signoff.
+The small durable archive retains both platform logs, source, drivers and
+byte-checked reports. Its input GDS/manual fixture is already committed; the
+archive does not duplicate the large native evidence bundles.
+
+The remaining periphery obligations are explicit:
+
+| Obligation | Remaining work |
+|---|---|
+| `x.1a`, `x.1b` | Resolve published grid units/purpose interpretation and seven text-anchor diagnostic findings. Physical polygon vertices already pass the 5 nm diagnostic. |
+| `dnwell.6`, `difftap.13`, `poly.16` | Establish the referenced RF fixed-layout model map and Table H5 selections. |
+| `hvtr.3`, `lvtn.4b`, `ncm.3` | Resolve device selection and generated-mask enclosure semantics. Missing enclosing layers are insufficient evidence. |
+| `licon.19` | Establish the HV-varactor target and its poly/contact interaction semantics. |
+| `hvnwell.11`, `hv.X.1`, `hv.X.4` | Validate voltage intent and propagation; absent tags do not prove correct tagging. |
+| `nsm.3a`, `nsm.3b` | Establish frame/die-cut context and applicable boundary geometry. |
+| `x.29` | Establish and retain the `nfet_in_dnwell` switch policy and its corresponding device checks. |
+| `x.20` | Obtain the omitted numeric same-layer pin-spacing definition for the `IP_block` mode. |
+
+The remaining catalog entries also need explicit execution, applicability or
+source-definition review, including the unfinished VPP density selector. None
+of these obligations is converted to a pass by the absence proofs above.
 
 ## Final filled-reference electrical checks
 

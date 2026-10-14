@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "win32",
+  "tests": 13,
+  "qualified": false,
+  "chunk_complete": false,
+  "data_sha256": "c1a05882f3f48607a245ae3d0d3812503bc67663d2fc641e06fbbfaae248f880",
+  "tests_sha256": "d2f734cce33b8ea51a60c00ba7fa92b946f32d99f82ef6b3150c6733cc6df423",
+  "driver_sha256": "eeab4d295cd147f32f6d0cad35cdf8c9123416905e6e8c691f6e918bb1a74074",
+  "source_files": {
+    "scripts/sky130_esd_fuse_review.py": "0efa3ca2964d59342fbd857c4a06bbe513f0be42926c2acb40cc9ab60c10257a",
+    "tests/test_sky130_esd_fuse.py": "96477190b73b3806eb288e138004cc64a86cc87e50d0db1de68a14ef4ace9ed5"
+  }
+}

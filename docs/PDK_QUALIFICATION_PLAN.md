@@ -17,7 +17,22 @@ options and current digital operating points. It does **not** equate this bundle
 subset with the complete upstream PDK. Upstream completeness and the remaining
 device-specific operating envelopes are explicit open requirements.
 
-## Current checkpoint: chunk 5 reference gate complete
+## Current checkpoint: chunks 1–5 complete; chunk 6 partial
+
+The latest [SKY130 target audit](validation/sky130-esd-fuse-audit-2026-10-14.json)
+closes two periphery reviews and 32 fuse catalog records through fresh, explicit
+absence proofs on all three unchanged filled layouts. Thirteen tests pass on
+each OS and the complete reports agree. The periphery ledger has 15 execution
+reviews plus the undefined `x.20` threshold remaining; the error catalog has
+356 executed, 255 absent and 945 unreviewed records. The full list of remaining
+periphery obligations is in the [SKY130 guide](SKY130_PHYSICAL_QUALIFICATION.md#esd-and-fuse-target-review).
+These are separate ledgers, not independent counts to add together.
+
+The final filled references already pass the recorded application physical
+checks/export, nominal routed extracted timing and RTL equivalence. Chunk 6
+still requires complete required physical coverage. Exact installer and foundry
+delivery acceptance remain in original chunk 12; no delivery prerequisite has
+been added to chunk 6. The checkpoints below retain their historical scope.
 
 Chunks 1–5 now have their defined planning/reference acceptance. The final
 [IHP fill gate](IHP_FILL_QUALIFICATION.md) binds counter, UART and APB to zero

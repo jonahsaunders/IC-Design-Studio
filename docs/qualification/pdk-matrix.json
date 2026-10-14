@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. The exact final filled counter, UART and APB now pass application partial physical checks/export, nominal routed extracted timing and RTL equivalence, with native faults rejected and cross-OS readback. Error-catalog coverage is 356 executed, 223 absent and 977 unreviewed; periphery coverage retains 17 execution reviews and the undefined x.20 pin-spacing threshold. Required rule/error reconciliation, grid/device/voltage/boundary semantics, unfinished VPP density selection and rebuilt delivered-runtime acceptance remain open. GDS-only floating fill relies separately on nominal native circuit invariance under ideal supplies; no calibrated extraction, process-wide or foundry acceptance is claimed.",
+      "remaining": "Chunk 6 remains incomplete. The unchanged filled counter, UART and APB pass the recorded application partial physical checks/export, nominal routed extracted timing and RTL equivalence. The latest source-bound target review has 356 executed, 255 absent and 945 unreviewed error-catalog records; all 601 periphery rows remain present, with 135 executed, 276 absent, 77 upstream NA, 36 advisory, 61 other-backend, 15 execution reviews and the undefined x.20 threshold. Grid/device/voltage/boundary semantics and remaining required catalog/density interpretation stay open. Installer and foundry delivery acceptance remain original chunk 12 requirements. GDS-only floating fill relies separately on nominal native circuit invariance under ideal supplies; no calibrated extraction or process-wide qualification is claimed.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16757,7 +16757,8 @@
         "sky130-marker-review-2026-10-14",
         "sky130-application-antenna-2026-10-14",
         "sky130-filled-electrical-2026-10-14",
-        "sky130-waffle-density-audit-2026-10-14"
+        "sky130-waffle-density-audit-2026-10-14",
+        "sky130-esd-fuse-audit-2026-10-14"
       ]
     },
     "sky130A:source-completeness": {
@@ -20180,6 +20181,11 @@
       "path": "docs/validation/sky130-waffle-density-audit-2026-10-14.json",
       "sha256": "55d664fc20222055e254313618d61bbc0de7a61986acc36b2acfe34c2d9a02e5",
       "scope_limit": "Forty-eight explicit catalog density records have measured empty waffle-drop antecedents on all three exact filled references. Both OS reproduce identical reports; seven tests pass per OS. Nonempty density rules, the unfinished VPP selector and all other decisions remain unqualified."
+    },
+    "sky130-esd-fuse-audit-2026-10-14": {
+      "path": "docs/validation/sky130-esd-fuse-audit-2026-10-14.json",
+      "sha256": "9b4be9e59d18bbd9f27b2fd27ace2043f68b4caa609cfb30356550856936555c",
+      "scope_limit": "Two explicit periphery targets and 32 fuse catalog records gain measured absence decisions on all three unchanged filled GDS files. Thirteen tests per OS pass with no skips and identical data. No numeric fuse execution, new native/application run or full chunk acceptance."
     }
   },
   "execution_acceptance": {
