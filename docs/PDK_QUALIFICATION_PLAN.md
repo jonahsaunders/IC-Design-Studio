@@ -84,6 +84,16 @@ contact-neighbor check can miss. Exact source records preserve duplicate
 rule-name distinctions, and independent voltage-tagging obligations stay open.
 Neither these checks nor the earlier native passes complete chunk 6.
 
+The [error-catalog reconciliation](validation/sky130-error-reconciliation-2026-10-14.json)
+now binds 82 of the 1,556 published error records for each retained final
+layout: 61 to executed geometry/connectivity checks and 21 to measured absence
+of floating/tie exception labels. All 1,474 other records remain unreviewed,
+including chip-level records with the same rule names. This is a new audit of
+the committed evidence, not a fresh final-GDS or Windows execution. The 24
+open periphery execution rows and the missing `x.20` definition are unchanged.
+The [reproduction command and fault controls](SKY130_PHYSICAL_QUALIFICATION.md#explicit-error-catalog-reconciliation)
+make the distinction between catalog coverage and periphery coverage explicit.
+
 The IHP reference acceptance retains its original source in an explicit
 historical snapshot of shared files changed by the SKY130 export hooks. It
 does not assert a new IHP native run with those hooks.

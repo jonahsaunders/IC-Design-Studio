@@ -383,6 +383,48 @@ value or unit; no threshold is invented. Final bound timing and equivalence,
 application integration and delivered Windows/Linux execution also remain.
 The retained standalone checks do not yet provide the complete gate.
 
+## Explicit error-catalog reconciliation
+
+The [2026-10-14 reconciliation](validation/sky130-error-reconciliation-2026-10-14.json)
+retains all 1,556 error IDs in source order for counter, UART and APB. It binds
+82 records to the existing final-layout evidence: 46 angle checks, eight pin
+containment checks, seven complete-conductor connectivity checks and 21 absent
+floating/tie label operands. The remaining 1,474 records are explicitly
+unreviewed. Error IDs and periphery rows are separate counts; this does not
+reduce the 24 remaining periphery execution reviews.
+
+The [reconciler](../scripts/sky130_error_reconciliation.py) uses literal error
+IDs, descriptions, layer purposes and source-record identities. It checks
+all six companion profiles, every mandatory guard, their source hashes,
+the exact GDS/top identities and extraction-area accounting. A same-name match
+cannot establish coverage. The `s`-series chip records do not inherit the
+`r`-series block results. Label absence is recorded as absence, not a passing
+test of non-empty exception handling. Octagonal subset checks on diffusion,
+tap, poly and contacts cite the actual stronger orthogonal checks; the general
+`x.3a` check alone excludes those layers.
+
+Reproduce the committed report with the pinned `klayout==0.30.5` dependency:
+
+```sh
+python -m scripts.sky130_error_reconciliation --check
+python -m unittest tests.test_sky130_error_reconciliation -v
+```
+
+The [regressions](../tests/test_sky130_error_reconciliation.py) inject a
+one-nanometre slope error for every selected angle record, uncovered and
+wrong-layer pins, a disconnected metal/via stack and every supported
+floating/tie exception label. They also reject missing or duplicate checks,
+boolean/float violation counts, changed source records, stale layouts,
+inconsistent extraction areas and unsupported coverage promotion.
+
+This batch audits the hash-bound reports already committed in the
+[connectivity checkpoint](validation/sky130-floating-review-2026-10-11.json).
+It verifies the retained Linux and Windows audit identities without claiming
+to execute either historical run again. New fault controls run locally on
+Linux. The original final GDS archive is not present in this workspace; fresh
+final-layout and delivered Windows execution remain separate work. No prior
+checker, native result or acceptance snapshot was changed.
+
 The durable evidence archive contains 707 files, including rejected attempts,
 and was read back completely against its manifest. A second 527-file archive
 preserves the antenna diagnosis and stage controls with complete readback.

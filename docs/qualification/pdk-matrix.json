@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "as_of": "2026-10-11",
+  "as_of": "2026-10-14",
   "source_baseline": "5b33a68f3a8e225002c3b4ac38d63fc97cf25420",
   "claim": "Qualification plan and coverage inventory only. No process is tapeout qualified. Historical passes retain their original design/source/PDK scope.",
   "chunks": {
@@ -16203,7 +16203,8 @@
         "scripts/check_sky130_lvs.py",
         "scripts/sky130_pin_coverage.py",
         "scripts/sky130_rule_errors.py",
-        "scripts/sky130_fill_geometry.py"
+        "scripts/sky130_fill_geometry.py",
+        "scripts/sky130_error_reconciliation.py"
       ],
       "automation_gap": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement."
     },
@@ -16722,7 +16723,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Complete required-rule and error-catalog reconciliation (24 periphery rows still need execution review), missing x.20 definition, complete density applicability, final timing/equivalence and combined application/delivery gate. 133 implant/well/diffusion/gate/contact/interconnect/wide-metal/global requirements now have explicit execution bindings; final native geometry, selected antenna, diode-inclusive LVS and nominal circuit invariance pass.",
+      "remaining": "Complete required-rule and error-catalog reconciliation (24 periphery rows still need execution review; 1,474 error records remain unreviewed), missing x.20 definition, complete density applicability, final timing/equivalence and combined application/delivery gate. 133 periphery requirements retain explicit execution bindings. The new retained-evidence reconciliation binds 61 error records to executed checks and 21 to measured absent label operands per reference, without asserting fresh final-GDS or Windows execution.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16739,7 +16740,8 @@
         "sky130-butting-review-2026-10-11",
         "sky130-global-review-2026-10-11",
         "sky130-mask-review-2026-10-11",
-        "sky130-floating-review-2026-10-11"
+        "sky130-floating-review-2026-10-11",
+        "sky130-error-reconciliation-2026-10-14"
       ]
     },
     "sky130A:source-completeness": {
@@ -20102,6 +20104,11 @@
       "path": "docs/validation/sky130-floating-review-2026-10-11.json",
       "sha256": "2a07fef720a4938d83a71a0a7bd6d8d6547499b756d5306b0c02804e4e8ef929",
       "scope_limit": "Complete drawn-conductor connectivity executes through every contact level on all three final layouts. All 133 executable requirements and every companion guard pass. Chunk 6 remains open."
+    },
+    "sky130-error-reconciliation-2026-10-14": {
+      "path": "docs/validation/sky130-error-reconciliation-2026-10-14.json",
+      "sha256": "bccd54ed4c07384eeaea6cdd58bd771a451ccb717a6b4cfd6e2345187e20006d",
+      "scope_limit": "Explicit reconciliation of 82 published block error records per retained final layout: 61 executed checks and 21 absent label operands. All 1,474 other records remain unreviewed. Historical reports are audited, not re-executed; chunk 6 remains open."
     }
   },
   "execution_acceptance": {
