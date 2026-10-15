@@ -119,6 +119,8 @@ def evaluate(report, gds_sha256, checkpoint_sha256, top, fingerprint, policy):
     evaluate_boundary_interactions(report.get('boundary_interactions'), gds_sha256, top)
     from .digital_sky130_selected_devices import evaluate as evaluate_selected_devices
     evaluate_selected_devices(report.get('selected_devices'), gds_sha256, top)
+    from .digital_sky130_conservative_bounds import evaluate as evaluate_conservative_bounds
+    evaluate_conservative_bounds(report.get('conservative_bounds'), gds_sha256, top)
     return report
 
 
@@ -194,6 +196,8 @@ def validate_saved(data, root):
     validate_boundary_interactions(report['boundary_interactions'], read('gds'))
     from .digital_sky130_selected_devices import validate_saved as validate_selected_devices
     validate_selected_devices(report['selected_devices'], read('gds'))
+    from .digital_sky130_conservative_bounds import validate_saved as validate_conservative_bounds
+    validate_conservative_bounds(report['conservative_bounds'], read('gds'))
     bindings = report.get('resources', {})
     expected = FILES | {'preparation.json': policy['preparation_sha256']}
     require(bindings.keys() == expected.keys() and len(set(bindings.values())) == len(expected),

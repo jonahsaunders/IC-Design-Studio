@@ -10,9 +10,9 @@ geometry. Actual application checks and macro exports pass on the corrected
 streams, and Windows reproduces identical GDS bytes. This is a separate correction;
 the earlier catalog is not silently rebound to the new file identities.
 
-The [selected-device review](#selected-devices-and-recommended-rules) records, on the original GDS files,
-405 executed error records, 568 verified absent subjects, 90 explicit standard-cell
-W/L exemptions, eight advisory records and 485 unreviewed records. The preceding
+The [conservative-bound review](#conservative-geometry-bounds-and-ip-blockages) records, on the original GDS files,
+409 executed error records, 586 verified absent subjects, 90 explicit standard-cell
+W/L exemptions, eight advisory records and 463 unreviewed records. The preceding
 [local/HV review](#local-geometry-marked-hv-and-hugepad-correction) reopens the
 unsupported hugePad exemption, leaving ten periphery execution reviews and one declared optional rule not required by the
 ordinary bulk references. Those ten reviews, the missing pin-spacing
@@ -28,6 +28,57 @@ between the supplemental checker and Finish/export; it does not close the
 remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
+
+## Conservative geometry bounds and IP blockages
+
+The [audit](validation/sky130-conservative-bound-audit-2026-10-15.json) and
+[reference measurements](validation/sky130-conservative-bounds-2026-10-15.json)
+add a required `conservative_bounds` report to Finish and saved-result/export
+validation. Four catalog limits follow from passing broader checks: every merged
+drawn NSDM/PSDM width is at least 380 nm (`r471`, `r487`), and every merged poly
+spacing/notch is at least 210 nm, which also satisfies the 175/160 nm limits
+(`r520`, `r521`). No opposite-parallel or core-gap exception is used.
+
+These are sufficient conditions. A failed broad check keeps the narrower rule
+**unreviewed**, rather than claiming a foundry-rule violation. In particular,
+poly at 175 or 160 nm can require a valid exception that this report does not
+establish. The existing application profile restrictions remain separate.
+Holes, notches, touching fragments and hierarchical transforms are checked;
+unsupported geometry fails explicitly. The generated-mask requirements remain
+open: a bound on drawn geometry does not construct a compatible mask.
+
+Eighteen IP blockage messages (`r1234`–`r1251`) are absent on these references.
+The census counts every raw shape, including text and paths, on the published
+block purposes 67:10 through 72:10. These are the IP integration blockage layers
+identified by table C4b. Magic fill-exclusion layers are not substituted for them.
+Present blockage data remains unreviewed because the derived routing operands
+and hierarchy semantics are not implemented here.
+
+All 128 focused tests pass without skips on each OS. Sixteen retained controls
+and the original/corrected measurements match byte for byte across systems.
+Controls include exact bounds, 1 nm failures, narrower candidate spacings,
+holes, merged fragments, reflected arrays, all six blockage purposes and text.
+Missing/altered reports and rehashed layouts with stale measurements fail current
+validation. All three actual application runs and Windows export replays pass.
+Manufacturing geometry, checkpoints, netlists and SPEF are unchanged.
+
+Original-stream totals become 409 executed, 586 absent, 90 W/L exemptions,
+eight advisory and 463 unreviewed. The core/generated-mask queue falls from 40
+to 36, and the routing/boundary queue from 26 to eight. Corrected streams retain
+188 explicit current catalog messages, separate from the unchanged six-profile
+ledger. Historical full-catalog decisions retain their original GDS identities.
+No new extraction, electrical qualification or complete physical signoff is
+claimed. Chunk 6 remains incomplete.
+
+```sh
+python -m scripts.sky130_conservative_bound_review --check
+python -m unittest tests.test_sky130_conservative_bounds tests.test_sky130_application_rules -v
+```
+
+The review requires the retained corrected streams under workspace outputs.
+The preceding selected-device checkpoint is source-bound to commit `3100a18`;
+use that commit or its archived sources for its exact report. The current audit
+preserves application outputs, controls, tests and reproduction drivers.
 
 ## Selected devices and recommended rules
 
@@ -452,7 +503,7 @@ count, and rejects missing, overlapping or changed source records. It imports
 no geometry engines and does not repeat extraction or historical geometry runs.
 Six focused tests cover reconstruction, stale inputs, ambiguous assignments,
 changed source identities and attempts to queue already resolved records.
-The selected-device review above advances this baseline; its `remaining_original_batches`
+The conservative-bound review above advances this baseline; its `remaining_original_batches`
 retains every open record for the original streams. Current original-stream counts are:
 
 | Work batch | Open catalog records |
@@ -461,14 +512,14 @@ retains every open record for the original streams. Current original-stream coun
 | Marked high-voltage geometry | 0 |
 | Coordinate grids and layer aliases | 16 |
 | Device identification and RF geometry | 77 |
-| Core context and generated implant masks | 40 |
+| Core context and generated implant masks | 36 |
 | Module cut and selected boundary rules | 69 |
 | Frame, seal, scribe and alignment marks | 156 |
 | Pads, package geometry and ViaTop | 76 |
 | VPP, dummy diffusion and density | 17 |
 | Connectivity, redundancy and chip labels | 7 |
-| Routing blockages and boundary purposes | 26 |
-| **Total** | **485** |
+| Routing blockages and boundary purposes | 8 |
+| **Total** | **463** |
 
 These are scheduling groups, not equally sized engineering tasks or completion
 percentages. Every currently queued record remains `unreviewed`; grouping itself

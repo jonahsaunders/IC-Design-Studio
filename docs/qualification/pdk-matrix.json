@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. The current selected-device audit resolves 36 absent subjects and eight explicitly recommended catalog records. Original catalog: 405 executed, 568 absent, 90 W/L exemptions, 8 advisory, 485 unreviewed. Corrected streams retain 166 explicit current catalog messages. Two implant checks execute numerically; present VPP, pwell-resistor and PNP candidates remain unreviewed. All three application runs and Windows exports pass, 115 tests pass per OS, and 17 controls match exactly. No full density, generated-mask, RF, grid/purpose, frame/pad or pin-spacing qualification is claimed.",
+      "remaining": "Chunk 6 remains incomplete. Four limits are proved by conservative all-geometry bounds, and eighteen explicit IP blockage subjects are absent. Failed sufficient bounds and present blockage data stay unreviewed. Original catalog: 409 executed, 586 absent, 90 W/L exemptions, 8 advisory, 463 unreviewed. Corrected streams retain 188 explicit current catalog messages. All three application runs and Windows exports pass, 128 tests pass per OS, and sixteen controls match exactly. Generated masks, RF selection, grid/purpose, frame/pad, pin-spacing and remaining density/catalog coverage stay open.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16772,7 +16772,8 @@
         "sky130-label-subject-audit-2026-10-15",
         "sky130-vpp-geometry-audit-2026-10-15",
         "sky130-boundary-interaction-audit-2026-10-15",
-        "sky130-selected-device-audit-2026-10-15"
+        "sky130-selected-device-audit-2026-10-15",
+        "sky130-conservative-bound-audit-2026-10-15"
       ]
     },
     "sky130A:source-completeness": {
@@ -20270,6 +20271,11 @@
       "path": "docs/validation/sky130-selected-device-audit-2026-10-15.json",
       "sha256": "28770f855d126249d25fc13f12fb20186ef9895865aac09a128b79e4cfdc6c31",
       "scope_limit": "Finish and saved-result validation require 36 selected device/implant records: 34 absence-only VPP, pwell-resistor and PNP subjects, 95 nm tunm enclosure of overlapping gates, and drawn hvntm containment in hvi. Mandatory drawn-purpose absence is checked alongside all reachable cell names and labels; present candidates remain unreviewed. Missing SONOS intent markers cannot establish absence. Eight source-published RR entries are advisory, never executed passes. All 115 focused tests pass per OS, 17 retained controls match exactly, and all three application runs plus Windows export replays pass. The original reference catalog has 405 executed, 568 absent, 90 W/L exemptions, 8 advisory and 485 unreviewed records. Corrected streams retain 166 explicit current catalog messages. Full required geometry, density and chip-context coverage remains incomplete."
+    },
+    "sky130-conservative-bound-audit-2026-10-15": {
+      "path": "docs/validation/sky130-conservative-bound-audit-2026-10-15.json",
+      "sha256": "a7b2c8543580c7946b3b6b568a0c8103497f47d20806adbf6489177c5496164b",
+      "scope_limit": "Finish and saved-result validation require a 22-record conservative-bound report. Four limits are proved by stronger all-geometry bounds: 380 nm drawn NSDM/PSDM widths and 210 nm poly spacing/notches. A failed sufficient bound leaves the narrower catalog rule unreviewed; no foundry violation is inferred. Eighteen IP blockage subjects are absent on their explicit published block purposes; present raw geometry or text keeps their requirements unreviewed. All 128 focused tests pass per OS, sixteen controls match exactly, and all three application runs plus Windows export replays pass. Original catalog counts are 409 executed, 586 absent, 90 W/L exemptions, 8 advisory and 463 unreviewed. Corrected streams retain 188 explicit current catalog messages. Generated-mask, density and complete physical qualification remain open."
     }
   },
   "execution_acceptance": {

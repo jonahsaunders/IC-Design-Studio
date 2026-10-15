@@ -19,7 +19,19 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [selected-device audit](validation/sky130-selected-device-audit-2026-10-15.json)
+The latest [conservative-bound audit](validation/sky130-conservative-bound-audit-2026-10-15.json)
+proves four catalog limits with stronger all-geometry width/spacing checks and
+verifies eighteen explicit IP blockage subjects are absent. Failed sufficient
+bounds and present blockages stay unreviewed. The new report is mandatory in
+Finish and saved-result/export validation. All 128 focused tests pass per OS;
+sixteen controls and fresh reference measurements agree exactly. All three
+application runs and Windows export replays pass. Original counts are 409
+executed, 586 absent, 90 W/L exemptions, eight advisory and 463 unreviewed.
+Corrected streams retain 188 explicit catalog messages. Generated-mask, RF,
+grid/purpose, frame/pad, pin-spacing and remaining density coverage stays open.
+Chunk 6 is incomplete.
+
+The preceding [selected-device audit](validation/sky130-selected-device-audit-2026-10-15.json)
 adds 36 required device/implant records to Finish and saved-result validation.
 Two checks execute numerical implant geometry; 34 family obligations require
 both empty mandatory drawn purposes and no device-name/label hints to establish
@@ -117,7 +129,7 @@ reference results; chunk 6 is incomplete.
 
 The [batched SKY130 work queue](SKY130_PHYSICAL_QUALIFICATION.md#batched-remaining-work)
 originally grouped 880 records into eleven shared work batches; the latest
-review retains the remaining 485 original-stream IDs by batch. Its inexpensive reconstruction
+review retains the remaining 463 original-stream IDs by batch. Its inexpensive reconstruction
 authenticates existing results without repeating old geometry/extraction work.
 Grouping alone never accepts a rule or assigns it to a later chunk.
 
