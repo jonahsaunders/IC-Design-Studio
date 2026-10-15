@@ -19,6 +19,13 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
+The [batched SKY130 work queue](SKY130_PHYSICAL_QUALIFICATION.md#batched-remaining-work)
+groups all 880 unreviewed catalog records into eleven shared work batches.
+Its inexpensive reconstruction authenticates the existing results once for all
+three references, avoiding repeated geometry/extraction work during catalog
+review. This is a scheduling improvement: coverage counts are unchanged and no
+rule is accepted or assigned to a later chunk by grouping it.
+
 The latest [application isolation audit](validation/sky130-application-isolation-2026-10-14.json)
 integrates explicit `x.29` selection into physical settings, Finish and macro
 export. Bulk results retain noncontained gate measurements as `NOT_REQUESTED`;

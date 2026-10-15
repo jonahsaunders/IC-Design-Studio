@@ -23,6 +23,50 @@ remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
 
+## Batched remaining work
+
+The [catalog work queue](validation/sky130-catalog-work-queue-2026-10-15.json)
+reconstructs the retained decisions for all three exact reference layouts and
+assigns every one of the 880 open records to one work batch. It authenticates
+the retained checkpoints and their direct inputs, checks each intermediate
+count, and rejects missing, overlapping or changed source records. It imports
+no geometry engines and does not repeat extraction or historical geometry runs.
+Six focused tests cover reconstruction, stale inputs, ambiguous assignments,
+changed source identities and attempts to queue already resolved records.
+
+| Work batch | Open catalog records |
+| --- | ---: |
+| Local geometry and resistor/pad selectors | 14 |
+| Marked high-voltage geometry | 16 |
+| Coordinate grids and layer aliases | 121 |
+| Device identification and RF geometry | 190 |
+| Core context and generated implant masks | 77 |
+| Module cut and selected boundary rules | 73 |
+| Frame, seal, scribe and alignment marks | 201 |
+| Pads, package geometry and ViaTop | 76 |
+| VPP, dummy diffusion and density | 40 |
+| Connectivity, redundancy and chip labels | 46 |
+| Routing blockages and boundary purposes | 26 |
+| **Total** | **880** |
+
+These are scheduling groups, not equally sized engineering tasks or completion
+percentages. Every queued record remains `unreviewed`; this change adds no
+coverage decisions. The separate nine periphery reviews, missing `x.20` value,
+and wider density/application obligations remain. No record moves to another
+chunk merely because its batch mentions chip, pad or scribe context.
+
+Work proceeds through each batch's shared definitions and applicability,
+implementation or exact evidence binding, passing and deliberately failing
+controls, and checks on the three filled references. Source gaps are recorded
+once and revisited when new information arrives. Existing results can be reused
+only with matching inputs and scope. New checks still need integration into
+Finish/export and consolidated Windows/Linux validation; a planning queue cannot
+replace those gates. Run the inexpensive reconstruction with:
+
+```text
+python -m scripts.sky130_catalog_queue --check
+```
+
 ## Application isolation gate
 
 The [application isolation audit](validation/sky130-application-isolation-2026-10-14.json)
