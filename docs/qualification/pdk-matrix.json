@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. The local/HV batch resolves 29 catalog subjects as absent on the exact three nominal filled references: 356 executed, 349 absent and 851 unreviewed records remain. The unsupported mask-derived hugePad exemption is reopened and current Finish/export rejects reports missing that correction. Supplemental periphery coverage is 135 executed, 280 absent, 77 upstream NA, 36 advisory, 61 other-backend, one optional rule not required, 10 execution reviews and one missing definition. The application six-profile ledger retains its separate 133 executed/28 review scope. Grid/purpose semantics, RF selection, generated masks, frame boundaries, hugePad semantics, x.20 and remaining required catalog/density interpretation stay open. Full required-rule coverage and foundry acceptance are not established.",
+      "remaining": "Chunk 6 remains incomplete. Exact HD-library provenance and fresh gate geometry establish 90 explicit standard-cell W/L exemptions and five absent dummy-poly subjects on the three filled references. The catalog retains 356 executed, 354 absent, 90 standard-cell W/L exemptions and 756 unreviewed entries. These exceptions do not establish missing MRGA numeric limits, RF recognition or RF fixed-layout qualification. The supplemental periphery ledger remains at 135 executed, 280 absent, 77 upstream NA, 36 advisory, 61 other-backend, one optional rule not required, ten execution reviews and one missing definition. The application six-profile ledger retains its separate 133 executed/28 review scope. Grid/purpose semantics, RF selection, generated masks, frame boundaries, hugePad semantics, x.20 and remaining required catalog/density interpretation stay open. Full required-rule coverage and foundry acceptance are not established.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16764,7 +16764,8 @@
         "sky130-voltage-intent-audit-2026-10-14",
         "sky130-isolation-options-audit-2026-10-14",
         "sky130-application-isolation-2026-10-14",
-        "sky130-local-hv-audit-2026-10-15"
+        "sky130-local-hv-audit-2026-10-15",
+        "sky130-standard-cell-wl-audit-2026-10-15"
       ]
     },
     "sky130A:source-completeness": {
@@ -20222,6 +20223,11 @@
       "path": "docs/validation/sky130-local-hv-audit-2026-10-15.json",
       "sha256": "2582e27d8307ca756ca9a07f9aae5eb89eab97b5eb70529373cf8f72ecbeca73",
       "scope_limit": "Two batched exact-reference reviews resolve 29 literal error-catalog subjects as absent and reopen the unsupported pad.3 exemption. Windows/Linux results agree; the current application and exports retain the hugePad mask requirement and reject stale or restored absence claims. Nonempty resistor/pad/HV geometry, broader device support and complete required physical coverage are not qualified."
+    },
+    "sky130-standard-cell-wl-audit-2026-10-15": {
+      "path": "docs/validation/sky130-standard-cell-wl-audit-2026-10-15.json",
+      "sha256": "3c962d5098cd74271c247d5688f22654a4f3f313d751dfa31738664a2a099173",
+      "scope_limit": "Exact captured HD-library provenance and fresh instance-level gate measurements establish the published standard-cell W/L exception for 90 literal catalog entries on counter, UART and APB. Five dummy-poly subjects are absent. These explicit exemptions do not execute missing MRGA numeric limits or establish RF/device recognition, arbitrary cell support or foundry acceptance."
     }
   },
   "execution_acceptance": {

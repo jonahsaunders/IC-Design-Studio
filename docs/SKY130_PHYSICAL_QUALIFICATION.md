@@ -4,10 +4,11 @@ The [execution record](validation/sky130-physical-progress-2026-10-11.json)
 captures the original counter, UART and APB final layouts. Chunk 6 remains open.
 Zero geometry markers alone do not establish complete physical coverage.
 
-The [local/HV review](#local-geometry-marked-hv-and-hugepad-correction) records
-356 executed error records, 349 verified absent subjects and 851 unreviewed
-records. It also reopens the unsupported hugePad exemption, leaving ten
-periphery execution reviews and one declared optional rule not required by the
+The [standard-cell review](#standard-cell-widthlength-and-dummy-poly-review) records
+356 executed error records, 354 verified absent subjects, 90 explicit standard-cell
+W/L exemptions and 756 unreviewed records. The preceding
+[local/HV review](#local-geometry-marked-hv-and-hugepad-correction) reopens the
+unsupported hugePad exemption, leaving ten periphery execution reviews and one declared optional rule not required by the
 ordinary bulk references. Those ten reviews, the missing pin-spacing
 definition and remaining required catalog/density interpretation remain open.
 The [final electrical checks](#final-filled-reference-electrical-checks)
@@ -21,6 +22,52 @@ between the supplemental checker and Finish/export; it does not close the
 remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
+
+## Standard-cell width/length and dummy-poly review
+
+The [audit](validation/sky130-standard-cell-wl-audit-2026-10-15.json) and
+[measurements](validation/sky130-standard-cell-wl-2026-10-15.json) resolve 95
+explicit catalog entries together on the unchanged filled references. Ninety
+messages explicitly concern invalid device W/L under `poly.x.1`; these use the
+published `poly.X.1` standard-cell exception and are recorded as
+`standard-cell-wl-exempt`, separately from executed numerical checks. Five
+`poly.x.1a` subjects are absent because no normalized `dummy_poly` text occurs
+on any purpose. No Table H3 dummy-cell exception is used.
+
+The captured job inputs authenticate the exact HD library. Every reachable cell
+containing diffusion, poly or `areaid.sc` must be an unchanged library leaf;
+all nonempty layer shapes and texts are compared, including device markers.
+Each gate must lie within its own trusted cell marker. The transformed instance
+gate union must equal the fresh final-layout gate union, and the weighted gate
+count must match both that geometry and the retained native NFET/PFET census.
+Counter has 2,240 gates in 17 distinct masters, UART 17,002 in 43, and APB 17,143
+in 40. This does not trust a cell name or a user-added marker by itself.
+
+This review interprets the `areaid.sc` W/L exception separately from the named
+`scs8*decap*`/MRGA clause. It uses neither that named-cell exception nor pruned
+devices, and establishes no missing MRGA numerical limits. All 60 RF fixed-layout
+dimension records, invalid NFET/PFET recognition and the FGR-only restriction
+remain unreviewed. Standard-cell W/L acceptance does not establish those distinct
+requirements or qualify arbitrary user-created cells.
+
+Twenty focused tests pass without skips on Windows and Linux. Controls reject
+changed cells/markers, missing marker coverage, cross-instance gates, overlapping
+instances, changed library bytes, stale native counts and unsupported geometry.
+Nested rotations, mirrors and arrays preserve the correct counts. A dummy label
+on any purpose reopens the five dummy records. The complete reports agree byte
+for byte. The review reuses the authenticated native census and does not rerun
+placement, extraction or the application checks, whose source and inputs are
+unchanged. The audit retains the new evidence in a small archive referencing its
+verified parent. Periphery and application ledger counts remain unchanged.
+
+```sh
+python -m scripts.sky130_standard_cell_wl_review --check
+python -m unittest tests.test_sky130_standard_cell_wl tests.test_sky130_catalog_queue -v
+```
+
+Reproduction requires the retained `sky130-filled-electrical-v1` job inputs and
+captured platform GDS in the workspace outputs directory; their identities and
+archive entries are recorded by the audit. Missing or changed inputs fail closed.
 
 ## Local geometry, marked HV and hugePad correction
 
@@ -78,7 +125,7 @@ count, and rejects missing, overlapping or changed source records. It imports
 no geometry engines and does not repeat extraction or historical geometry runs.
 Six focused tests cover reconstruction, stale inputs, ambiguous assignments,
 changed source identities and attempts to queue already resolved records.
-The local/HV review above advances this baseline; its `remaining_batches`
+The standard-cell review above advances this baseline; its `remaining_batches`
 retains every current open record. Current counts are:
 
 | Work batch | Open catalog records |
@@ -86,7 +133,7 @@ retains every current open record. Current counts are:
 | Local geometry and resistor/pad selectors | 1 |
 | Marked high-voltage geometry | 0 |
 | Coordinate grids and layer aliases | 121 |
-| Device identification and RF geometry | 190 |
+| Device identification and RF geometry | 95 |
 | Core context and generated implant masks | 77 |
 | Module cut and selected boundary rules | 73 |
 | Frame, seal, scribe and alignment marks | 201 |
@@ -94,7 +141,7 @@ retains every current open record. Current counts are:
 | VPP, dummy diffusion and density | 40 |
 | Connectivity, redundancy and chip labels | 46 |
 | Routing blockages and boundary purposes | 26 |
-| **Total** | **851** |
+| **Total** | **756** |
 
 These are scheduling groups, not equally sized engineering tasks or completion
 percentages. Every currently queued record remains `unreviewed`; grouping itself

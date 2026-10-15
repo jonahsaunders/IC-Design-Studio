@@ -19,9 +19,20 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [local/HV audit](validation/sky130-local-hv-audit-2026-10-15.json)
+The latest [standard-cell audit](validation/sky130-standard-cell-wl-audit-2026-10-15.json)
+binds 90 explicit W/L exceptions to the authenticated HD library and fresh
+instance-level geometry on the three filled references. Five dummy-poly subjects
+are absent. The catalog now contains 356 executed bindings, 354 absent subjects,
+90 explicit standard-cell W/L exemptions and 756 unreviewed entries. Twenty
+focused tests pass on each OS without skips, and the complete reports agree.
+RF recognition and all 60 RF fixed-layout dimension records remain open; the
+exception does not establish their requirements or missing MRGA numeric limits.
+The supplemental and application periphery ledgers remain unchanged. Chunk 6
+is incomplete.
+
+The preceding [local/HV audit](validation/sky130-local-hv-audit-2026-10-15.json)
 resolves 29 explicit catalog subjects as absent on the exact three nominal
-filled references. Coverage is now 356 executed, 349 absent and 851 unreviewed
+filled references. Coverage at that checkpoint was 356 executed, 349 absent and 851 unreviewed
 catalog records. It also reopens the unsupported `pad.3` exemption: C3 uses a
 mask-derived hugePad subject, while the earlier witness measured drawn pads.
 The supplemental periphery ledger has ten execution reviews plus the undefined
@@ -33,7 +44,7 @@ reference results; chunk 6 is incomplete.
 
 The [batched SKY130 work queue](SKY130_PHYSICAL_QUALIFICATION.md#batched-remaining-work)
 originally grouped 880 records into eleven shared work batches; the latest
-review retains the remaining 851 IDs by batch. Its inexpensive reconstruction
+review retains the remaining 756 IDs by batch. Its inexpensive reconstruction
 authenticates existing results without repeating old geometry/extraction work.
 Grouping alone never accepts a rule or assigns it to a later chunk.
 
