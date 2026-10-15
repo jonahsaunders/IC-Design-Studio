@@ -91,6 +91,9 @@ def execute(request):
         from .digital_sky130_scribe_bounds import audit as scribe_bounds
         report['scribe_bounds'] = scribe_bounds(gds)
         save('scribe_bounds.json', report['scribe_bounds'])
+        from .digital_sky130_seal_geometry import audit as seal_geometry
+        report['seal_geometry'] = seal_geometry(gds)
+        save('seal_geometry.json', report['seal_geometry'])
         report.update(status='reviewed-profiles-pass', ledger=review,
                       coverage=dict(rows=len(review['rows']), counts=review['counts'], complete=False))
         unchanged(); resources(base, policy['preparation_sha256'])

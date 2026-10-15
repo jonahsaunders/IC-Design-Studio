@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. Fourteen drawn-layer scribe restrictions have global sufficient size bounds executed on nonempty reference geometry. Fresh full catalog: 438 executed, 612 absent, 90 W/L exemptions, eight advisory, 408 unreviewed. All six catalog replays, 248 tests per OS, 27 controls, three application runs and Windows exports pass. Large candidate features still need junction context. Mask companion records, other generated masks, RF, grid/purpose, module/frame/pad context, pin spacing and required density remain open.",
+      "remaining": "Chunk 6 remains incomplete. Seal origin and 6 um width are mandatory in Finish/export and tested with nonempty controls; reference seal targets are absent. Fresh full catalog: 438 executed, 614 absent, 90 W/L exemptions, eight advisory, 406 unreviewed. All six catalog replays, 265 tests per OS, 19 controls, three application runs and Windows exports pass. Generated masks, RF, grid/purpose, module/frame/pad context, pin spacing and required density remain open.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16780,7 +16780,8 @@
         "sky130-selected-target-audit-2026-10-15",
         "sky130-frame-bound-audit-2026-10-15",
         "sky130-well-bound-audit-2026-10-15",
-        "sky130-scribe-bound-audit-2026-10-15"
+        "sky130-scribe-bound-audit-2026-10-15",
+        "sky130-seal-geometry-audit-2026-10-15"
       ]
     },
     "sky130A:source-completeness": {
@@ -20318,6 +20319,11 @@
       "path": "docs/validation/sky130-scribe-bound-audit-2026-10-15.json",
       "sha256": "e82415806ea570663fc2218380d9aae38ce239b9b09570e56519173251825085",
       "scope_limit": "Finish and saved-result/export validation require fourteen global drawn-layer scribe size bounds. Every merged connected feature has a bounding-box side below 10 um, proving no 10-by-10 um feature exists anywhere on those layers and therefore near any scribe junction. Exact-threshold or larger candidates remain unreviewed, including thin L shapes and rings; no junction is inferred. All fourteen bounds execute on nonempty reference geometry. Fresh complete corrected-reference catalogs contain 438 executed, 612 absent, 90 W/L exemptions, eight advisories and 408 unreviewed records. All six catalog replays and 27 controls agree across systems; 248 tests pass per OS; three application runs and Windows saved-result/export replays pass. Fourteen mask companion records remain unreviewed, as do the eighteen frame bounds requiring missing boundary context. No new extraction, timing, equivalence, complete-chip qualification or foundry acceptance is claimed."
+    },
+    "sky130-seal-geometry-audit-2026-10-15": {
+      "path": "docs/validation/sky130-seal-geometry-audit-2026-10-15.json",
+      "sha256": "8d480830fad09f27ce4c528c9631f51205733aa3753e20d74cda57bf7a9073f0",
+      "scope_limit": "Finish and saved-result/export validation require explicit drawn seal origin and minimum-width checks. The single connected marker lower-left corner must be at the origin; disconnected markers leave origin unresolved. All merged seal geometry, including ring walls, must have minimum width 6 um. The seal purpose is 81:1, not the similarly named signal-pad identifier on 81:7. Nineteen retained positive/negative controls agree across systems; all 265 tests pass per OS without skips. All six complete catalog replays agree, and three actual application runs plus Windows exports pass. The reference seal targets are absent: 438 executed, 614 absent, 90 W/L exemptions, eight advisory and 406 unreviewed records per reference. Seal completeness, disconnected-origin interpretation, advanced-seal diffusion overlap and remaining chip-boundary semantics are not inferred. No new extraction or electrical run is claimed."
     }
   },
   "execution_acceptance": {

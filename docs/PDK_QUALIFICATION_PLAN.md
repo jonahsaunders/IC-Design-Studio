@@ -19,7 +19,17 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [scribe-size audit](validation/sky130-scribe-bound-audit-2026-10-15.json)
+The latest [seal geometry audit](validation/sky130-seal-geometry-audit-2026-10-15.json)
+requires the drawn seal's lower-left corner at the origin and its minimum width
+of 6 µm. Nonempty rings, 1 nm failures, hierarchy and ambiguous markers are
+tested. All 265 tests per OS, 19 cross-system examples, six full-catalog replays,
+three application runs and Windows exports pass. Reference seal targets are
+absent; no complete-chip seal qualification is claimed. Current counts are
+**438 executed, 614 absent, 90 explicit W/L exemptions, eight advisory and 406
+unresolved records**. The [remaining-work table](SKY130_PHYSICAL_QUALIFICATION.md#remaining-chunk-6-work-at-this-checkpoint)
+keeps source and boundary dependencies explicit. Chunk 6 remains incomplete.
+
+The preceding [scribe-size audit](validation/sky130-scribe-bound-audit-2026-10-15.json)
 executes fourteen global size bounds on nonempty drawn-layer geometry. Every
 merged feature has a bounding-box side below 10 µm, excluding the restricted
 10-by-10 µm feature anywhere without inventing junction locations. Larger

@@ -29,6 +29,63 @@ remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
 
+## Seal origin and minimum width
+
+The [seal audit](validation/sky130-seal-geometry-audit-2026-10-15.json) and
+[complete corrected-reference replay](validation/sky130-seal-geometry-2026-10-15.json)
+add mandatory `r379` / `x.19` and `r392` / `x.28` reports to Finish and
+saved-result/export validation. The single connected seal marker must have its
+lower-left corner at `(0,0)`. Every merged seal feature, including ring walls,
+must satisfy the error catalog's **6 µm minimum width**. Exact equality passes;
+a 1 nm deficiency fails. The manual's N/A value does not waive that finite limit.
+
+The marker is `81:1`, established by both the published GDS table and C4
+description. The other `areaid.sl` entry on `81:7` is a signal-pad well identifier,
+not a seal. Geometry is merged across reachable cells before checking. A ring
+centered at the origin fails: the source specifies its lower-left corner.
+Disconnected and corner-touching markers leave origin interpretation unreviewed;
+width still executes on every component. These checks do not infer complete
+seal construction or the unresolved advanced-seal diffusion selector (`r390`).
+
+All **265 focused tests pass per OS without skips**. Nineteen retained examples
+agree byte for byte on Windows and Linux: threshold widths, one narrow wall,
+positive/negative origin shifts, a centered ring, duplicate/fractured rings,
+translated/reflected hierarchy, arrays, exact paths and the signal-pad alias.
+Changed, missing, failed or stale rehashed evidence is rejected.
+
+Counter, UART and APB have **no seal marker**, so these two reference decisions
+are absent subjects, not passing complete-chip seals. All six complete-catalog
+replays agree: **438 executed, 614 absent, 90 explicit W/L exemptions, eight
+advisories and 406 unreviewed records** per reference. Three actual Linux
+application runs and Windows saved-result/export replays pass. Manufacturing
+geometry, checkpoints, netlists and SPEF are unchanged. This batch does not
+rerun native extraction, timing or equivalence.
+
+The new evidence archive has the independent delivery archive as its only
+parent, with intermediate catalogs, current code, controls and reproduction
+drivers stored directly. Chunk 6 remains incomplete.
+
+### Remaining chunk 6 work at this checkpoint
+
+These are unresolved coverage records, not 406 measured layout violations.
+The separate missing `x.20` pin-spacing limit and wider required density work
+also remain in chunk 6. Counts do not measure engineering effort.
+
+| Records | Group | Definition or context still needed |
+| ---: | --- | --- |
+| 1 | Local geometry | Resolve the generated hugePad selector and conflicting area wording. |
+| 16 | Grid | Establish the eight `metop` purposes before binding their grid/angle rules. |
+| 67 | Device recognition | Resolve RF fixed-layout model mapping, Table H5 and remaining selected-device geometry. |
+| 34 | Core and implants | Establish generated-mask construction and exact enclosure targets. |
+| 69 | Module boundaries | Establish `q0`/`q1` subjects and module enclosure/spacing context. |
+| 140 | Frame, seal and scribe | Supply frame/alignment construction, generated-mask companions and remaining chip-boundary definitions. |
+| 62 | Pads and vias | Establish ViaTop, pad-family and package-layer selectors. |
+| 17 | Dummy diffusion | Establish the `fomDummyDRC` operand and its density/fill constraints. |
+
+The pinned public source bundle names several of these inputs without providing
+their construction. New numerical checks must be bound to verified definitions;
+absence of a guessed raw layer cannot establish a generated target is absent.
+
 ## Global drawn-feature bounds for scribe restrictions
 
 The [scribe-size audit](validation/sky130-scribe-bound-audit-2026-10-15.json) and
