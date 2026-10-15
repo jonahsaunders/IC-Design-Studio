@@ -61,6 +61,12 @@ and `sources/LICENSE` into the SKY130 HD verification resources. The reference
 layouts are not copied into those resources. The retained Apache-2.0 terms and
 original file notices apply to these manual sources as well.
 
+The verbatim F2a device and F2b mask tables in
+`docs/qualification/sky130-device-tables` come from SkyWater open PDK revision
+`7198cf647113f56041e02abf3eb623692820c5e1`. Their Apache-2.0 license is retained
+alongside the tables. The device-intent audit records the original source URLs,
+Git blob identities and SHA-256 hashes.
+
 ## Included Xschem and GF180 simulation assets
 
 Standard Xschem symbols: Ubuntu 3.4.4-1build1, GPL-2.0-or-later. Original copyright and license headers are retained under icstudio/assets/exchange/xschem; the GPL text is in licenses/GPL-2.0.txt. Corresponding source: https://archive.ubuntu.com/ubuntu/pool/universe/x/xschem/ and https://github.com/StefanSchippers/xschem/tree/3.4.4.

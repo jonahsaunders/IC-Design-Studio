@@ -19,13 +19,14 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [SKY130 target audit](validation/sky130-esd-fuse-audit-2026-10-14.json)
-closes two periphery reviews and 32 fuse catalog records through fresh, explicit
-absence proofs on all three unchanged filled layouts. Thirteen tests pass on
-each OS and the complete reports agree. The periphery ledger has 15 execution
-reviews plus the undefined `x.20` threshold remaining; the error catalog has
-356 executed, 255 absent and 945 unreviewed records. The full list of remaining
-periphery obligations is in the [SKY130 guide](SKY130_PHYSICAL_QUALIFICATION.md#esd-and-fuse-target-review).
+The latest [SKY130 device-intent audit](validation/sky130-device-intent-audit-2026-10-14.json)
+matches all 36,385 drawn MOS gates to the native census of the unchanged filled
+layouts. Published device tables supply the missing context for the HVTR and
+HV-varactor target decisions while preserving generated LVTNM/NCM obligations.
+Fourteen tests pass on each OS and complete reports agree. The periphery ledger
+has 13 execution reviews plus the undefined `x.20` threshold remaining; the error
+catalog has 356 executed, 257 absent and 943 unreviewed records. The full list of
+remaining periphery obligations is in the [SKY130 guide](SKY130_PHYSICAL_QUALIFICATION.md#device-intent-and-created-implant-masks).
 These are separate ledgers, not independent counts to add together.
 
 The final filled references already pass the recorded application physical

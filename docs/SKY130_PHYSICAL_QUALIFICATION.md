@@ -4,9 +4,9 @@ The [execution record](validation/sky130-physical-progress-2026-10-11.json)
 captures the original counter, UART and APB final layouts. Chunk 6 remains open.
 Zero geometry markers alone do not establish complete physical coverage.
 
-The latest [ESD/fuse target review](#esd-and-fuse-target-review) records
-356 executed error records, 255 verified absent subjects and 945 unreviewed
-records. Fifteen periphery execution reviews, the missing pin-spacing
+The latest [device-intent review](#device-intent-and-created-implant-masks) records
+356 executed error records, 257 verified absent subjects and 943 unreviewed
+records. Thirteen periphery execution reviews, the missing pin-spacing
 definition and remaining required catalog/density interpretation remain open.
 The [final electrical checks](#final-filled-reference-electrical-checks)
 now pass nominal extracted timing and sequential equivalence on all three exact
@@ -19,6 +19,62 @@ between the supplemental checker and Finish/export; it does not close the
 remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
+
+## Device intent and created implant masks
+
+The [device-intent audit](validation/sky130-device-intent-audit-2026-10-14.json)
+checks every drawn MOS gate against the complete native device census from the
+retained exact filled captures. It authenticates those native files against both
+their capture manifests and the previously accepted circuit readback. No fresh
+native extraction or geometry modification is claimed.
+
+| Reference | Standard 1.8 V NMOS gates | High-Vt 1.8 V PMOS gates | Total matched gates |
+|---|---:|---:|---:|
+| Counter | 1,120 | 1,120 | 2,240 |
+| UART | 8,500 | 8,502 | 17,002 |
+| APB FIFO | 8,571 | 8,572 | 17,143 |
+
+All 36,385 MOS gates are accounted for. Every PMOS gate is contained in HVTP,
+no NMOS gate overlaps HVTP, and no gate straddles a well boundary. The APB native
+census additionally retains its three diodes and two poly resistors. Unknown
+device models or mismatched MOS counts prevent the review from passing.
+
+The locked [F2a drawn-device table](qualification/sky130-device-tables/table-f2a-lvs.tsv)
+marks HVTR illegal for both HD MOS types. The periphery table explicitly names
+the low-Vt RF device in its HVTR section. This combination of device identity,
+complete drawn-gate accounting and absent HVTR supplies the missing target
+context for `hvtr.3` and catalog record `r426`. The F2a floating-gate HV varactor
+requires drawn LVTN, HVI, tap and poly. No such model, either drawn selector, or
+poly/tap intersection exists in these references, closing `licon.19`/`r759` for
+these exact layouts. These are absence decisions, not numeric execution on
+nonempty RF or varactor devices.
+
+The same tables prevent a broader exemption: F2a marks the HD high-Vt PMOS LVTN
+as CAD-created, and the [F2b mask table](qualification/sky130-device-tables/table-f2b-mask.tsv)
+requires generated LVTNM and NCM. Consequently, `lvtn.4b` and `ncm.3` remain open
+for their generated-mask construction and enclosure semantics. Empty drawn
+layers cannot discharge those obligations. The tables are retained verbatim
+with their license from upstream revision
+`7198cf647113f56041e02abf3eb623692820c5e1`; the audit binds the exact relevant rows,
+column meanings, legends and source hashes.
+
+Windows and Linux produce identical complete reports, with 14 tests passing per
+OS without skips. Controls cover substituted device models, missing/extra native
+MOS counts, missing/misplaced HVTP, straddling gates, nonempty selectors, text in
+hierarchy, changed sources, changed capture hashes and unsupported geometry.
+
+```sh
+python -m unittest tests.test_sky130_device_intent -v
+python -m scripts.sky130_device_intent_review --captures-root /path/to/retained/outputs --check
+```
+
+The second command requires the original native captures, not fabricated census
+summaries. The capture paths and hashes remain recorded in the report. This
+review has 135 executed periphery requirements, 278 absent, 77 upstream NA,
+36 advisory, 61 other backend, 13 execution reviews and one missing definition.
+The application policy remains unchanged. In the preceding obligation table
+below, `hvtr.3` and `licon.19` are now resolved only under this stronger review;
+all other listed obligations remain open.
 
 ## ESD and fuse target review
 

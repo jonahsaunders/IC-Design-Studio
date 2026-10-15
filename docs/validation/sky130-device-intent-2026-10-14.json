@@ -1,0 +1,603 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "partial-device-intent-review",
+  "qualified": false,
+  "chunk_complete": false,
+  "source_files": {
+    "scripts/sky130_device_intent_review.py": "bc7fed0d2544f1eac7fe4091c211af2518cd360aa4805734b22e193bd201c19b",
+    "tests/test_sky130_device_intent.py": "595487347f692b899bbce5129c9a2413a4bef2b47ed35d35ae50389186e94672",
+    "docs/qualification/sky130-device-tables/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "docs/qualification/sky130-device-tables/table-f2a-lvs.tsv": "c19398018c0f45674c7162077af48c57f5113617691cb985b7985f7e362de3e3",
+    "docs/qualification/sky130-device-tables/table-f2b-mask.tsv": "7db89f09785ab8508ec0cef35cb0ce2a97a18241a3e54294a49c489c2cbaf47a"
+  },
+  "predecessor": {
+    "path": "docs/validation/sky130-esd-fuse-2026-10-14.json",
+    "sha256": "c1a05882f3f48607a245ae3d0d3812503bc67663d2fc641e06fbbfaae248f880"
+  },
+  "proof": {
+    "source_revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "table_hashes": {
+      "table-f2a-lvs.tsv": "c19398018c0f45674c7162077af48c57f5113617691cb985b7985f7e362de3e3",
+      "table-f2b-mask.tsv": "7db89f09785ab8508ec0cef35cb0ce2a97a18241a3e54294a49c489c2cbaf47a"
+    },
+    "files": {
+      "docs/rules/layers/table-f2a-lvs-key.rst": "0eec9055cef67032ddfc197a5c2cc754098956174340dcc1e82c82275a3dc760",
+      "docs/rules/layers/table-f2b-mask-key.rst": "75c4d12e68b6a0ad3fad4d1968d5fdb9d97fc088cb738a66ec705f6efac218a6",
+      "docs/rules/periphery-rules.rst": "a4fec57aa417caa1b52d67b684a6b17dfc1ed0b69724ffe121de421bd938d44e",
+      "docs/rules/periphery/p024-hvtr_dotdash.csv": "ba7813ea0f6f272dbf0db6e4d7b1ddfd6c8e49b775311823094c6cad86b1776e",
+      "docs/rules/periphery/p034-licon_dotdash.csv": "00c36280ef8dc17de0c58baab5bb1be1ab3e8c0b44b7c50eef1baa8cdd45e9fe"
+    },
+    "device_rows": {
+      "nmos": {
+        "record": 11,
+        "Category": "32 A CMOS",
+        "Name": "nmos 1.8V",
+        "Used?": "X",
+        "Required schematic elements": "nfet",
+        "diff.dg": "D",
+        "diff.rs": "-",
+        "diff.ct": "-",
+        "cfom.wp": "+",
+        "tap.dg": "-",
+        "dnwell:dg": "+",
+        "pwbm.dg": "-",
+        "pwdem:dg": "-",
+        "hvtr.dg": "-",
+        "nwell.dg": "-",
+        "hvtp:dg": "-",
+        "lvtn:dg": "-",
+        "pwell.rs": "+",
+        "pwell.ct": "+",
+        "ncm.dg [#f2]_": "-",
+        "tunm:dg": "-",
+        "hvi:dg": "-",
+        "rpm:dg": "-",
+        "poly.dg": "D",
+        "poly.rs": "-",
+        "poly.ct": "-",
+        "poly:ml": "+",
+        "ldntm:dg": "-",
+        "npc:dg": "-",
+        "nsdm.dg": "D",
+        "psdm.dg": "-",
+        "licon.dg": "+",
+        "li1.dg": "+",
+        "li.rs": "-",
+        "li.ct": "-",
+        "capm:dg": "+",
+        "capm_2t.dg": "+",
+        "metX.dg": "+",
+        "metX.fe": "-",
+        "met1:dg": "+",
+        "met2:dg": "+",
+        "met3:dg": "+",
+        "met4.dg": "+",
+        "met5.dg": "+",
+        "rdl.dg": "+",
+        "inductor:dg": "+",
+        "capacitor.dg": "-",
+        "areaid.le": "-",
+        "areaid.en": "-",
+        "pnp.dg": "-",
+        "npn.dg": "-",
+        "areaid.st": "+",
+        "areaid.de": "-",
+        "areaid.re": "+",
+        "areaid.po": "-",
+        "areaid:ce": "+",
+        "areaid.ed": "+",
+        "areaid.ext": "",
+        "UHVI": "-",
+        "areaid.low_vt": "-",
+        "Drawn Route / Comments": "",
+        "Layout Model": "nshort"
+      },
+      "pmos": {
+        "record": 14,
+        "Category": "32 A CMOS",
+        "Name": "High Vt pmos 1.8V 32A [#f10]_",
+        "Used?": "X",
+        "Required schematic elements": "pfet",
+        "diff.dg": "D",
+        "diff.rs": "-",
+        "diff.ct": "-",
+        "cfom.wp": "+",
+        "tap.dg": "-",
+        "dnwell:dg": "+",
+        "pwbm.dg": "-",
+        "pwdem:dg": "-",
+        "hvtr.dg": "-",
+        "nwell.dg": "D",
+        "hvtp:dg": "D",
+        "lvtn:dg": "C",
+        "pwell.rs": "+",
+        "pwell.ct": "+",
+        "ncm.dg [#f2]_": "+",
+        "tunm:dg": "-",
+        "hvi:dg": "-",
+        "rpm:dg": "-",
+        "poly.dg": "D",
+        "poly.rs": "-",
+        "poly.ct": "-",
+        "poly:ml": "+",
+        "ldntm:dg": "-",
+        "npc:dg": "-",
+        "nsdm.dg": "-",
+        "psdm.dg": "D",
+        "licon.dg": "+",
+        "li1.dg": "+",
+        "li.rs": "-",
+        "li.ct": "-",
+        "capm:dg": "+",
+        "capm_2t.dg": "+",
+        "metX.dg": "+",
+        "metX.fe": "-",
+        "met1:dg": "+",
+        "met2:dg": "+",
+        "met3:dg": "+",
+        "met4.dg": "+",
+        "met5.dg": "+",
+        "rdl.dg": "+",
+        "inductor:dg": "+",
+        "capacitor.dg": "+",
+        "areaid.le": "-",
+        "areaid.en": "-",
+        "pnp.dg": "-",
+        "npn.dg": "-",
+        "areaid.st": "+",
+        "areaid.de": "-",
+        "areaid.re": "+",
+        "areaid.po": "-",
+        "areaid:ce": "+",
+        "areaid.ed": "-",
+        "areaid.ext": "",
+        "UHVI": "-",
+        "areaid.low_vt": "-",
+        "Drawn Route / Comments": "",
+        "Layout Model": "phighvt"
+      },
+      "hv_varactor": {
+        "record": 23,
+        "Category": "32 A CMOS",
+        "Name": "HV varactor (floating gate)",
+        "Used?": "X",
+        "Required schematic elements": "capbn_b",
+        "diff.dg": "-",
+        "diff.rs": "-",
+        "diff.ct": "-",
+        "cfom.wp": "+",
+        "tap.dg": "D",
+        "dnwell:dg": "+",
+        "pwbm.dg": "-",
+        "pwdem:dg": "-",
+        "hvtr.dg": "-",
+        "nwell.dg": "D",
+        "hvtp:dg": "-",
+        "lvtn:dg": "D",
+        "pwell.rs": "+",
+        "pwell.ct": "+",
+        "ncm.dg [#f2]_": "-",
+        "tunm:dg": "-",
+        "hvi:dg": "D",
+        "rpm:dg": "-",
+        "poly.dg": "D",
+        "poly.rs": "-",
+        "poly.ct": "-",
+        "poly:ml": "+",
+        "ldntm:dg": "-",
+        "npc:dg": "-",
+        "nsdm.dg": "D",
+        "psdm.dg": "-",
+        "licon.dg": "-",
+        "li1.dg": "+",
+        "li.rs": "-",
+        "li.ct": "-",
+        "capm:dg": "+",
+        "capm_2t.dg": "+",
+        "metX.dg": "+",
+        "metX.fe": "-",
+        "met1:dg": "+",
+        "met2:dg": "+",
+        "met3:dg": "+",
+        "met4.dg": "+",
+        "met5.dg": "+",
+        "rdl.dg": "+",
+        "inductor:dg": "+",
+        "capacitor.dg": "-",
+        "areaid.le": "-",
+        "areaid.en": "-",
+        "pnp.dg": "-",
+        "npn.dg": "-",
+        "areaid.st": "+",
+        "areaid.de": "-",
+        "areaid.re": "+",
+        "areaid.po": "-",
+        "areaid:ce": "-",
+        "areaid.ed": "-",
+        "areaid.ext": "",
+        "UHVI": "-",
+        "areaid.low_vt": "-",
+        "Drawn Route / Comments": "",
+        "Layout Model": "xchvnwc"
+      }
+    },
+    "mask_rows": {
+      "nmos": {
+        "record": 12,
+        "Category": "32 A CMOS",
+        "Name": "nmos 1.8V",
+        "Used?": "nfet",
+        "Layout Model and required schematic element": "sky130_fd_pr__nfet_01v8",
+        "FOM": "C",
+        "DNM": "+",
+        "PWBM": "-",
+        "PWDEM": "-",
+        "NWM": "-",
+        "HVTPM": "-",
+        "LVTNM": "-",
+        "NCM": "-",
+        "TUNM": "-",
+        "ONOM": "-",
+        "LVOM": "-",
+        "RPM": "-",
+        "P1M": "C",
+        "HVNTM": "-",
+        "NTM": "-",
+        "LDNTM": "-",
+        "NPC": "-",
+        "NSDM": "C",
+        "PSDM": "-",
+        "LICM1": "+",
+        "LI1M": "+",
+        "CAPM": "+",
+        "MM1": "+",
+        "MM2": "+",
+        "MM3": "+",
+        "MM5": "+",
+        "CU1M": "+",
+        "INDM": "+",
+        "Drawn Route / Comments": ""
+      },
+      "pmos": {
+        "record": 16,
+        "Category": "32 A CMOS",
+        "Name": "High Vt pmos 1.8V 32A",
+        "Used?": "pfet",
+        "Layout Model and required schematic element": "sky130_fd_pr__pfet_01v8_hvt",
+        "FOM": "C",
+        "DNM": "+",
+        "PWBM": "-",
+        "PWDEM": "-",
+        "NWM": "C",
+        "HVTPM": "C",
+        "LVTNM": "C",
+        "NCM": "C",
+        "TUNM": "-",
+        "ONOM": "-",
+        "LVOM": "-",
+        "RPM": "-",
+        "P1M": "C",
+        "HVNTM": "-",
+        "NTM": "C",
+        "LDNTM": "-",
+        "NPC": "-",
+        "NSDM": "-",
+        "PSDM": "C",
+        "LICM1": "+",
+        "LI1M": "+",
+        "CAPM": "+",
+        "MM1": "+",
+        "MM2": "+",
+        "MM3": "+",
+        "MM5": "+",
+        "CU1M": "+",
+        "INDM": "+",
+        "Drawn Route / Comments": ""
+      }
+    },
+    "interpretation": "F2a marks HVTR illegal for both permitted HD MOS types; the HVTR table names the low-Vt RF device. The floating-gate HV varactor requires drawn tap, poly, LVTN and HVI. F2b still requires generated LVTNM/NCM for the HD high-Vt PMOS."
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "execution": {
+        "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+        "native_ext_sha256": "35e15e2cbbae8c186cdd40feb37bfe824016c640acfe27877a003a431a2c9a29",
+        "native_models": {
+          "sky130_fd_pr__nfet_01v8": 1120,
+          "sky130_fd_pr__pfet_01v8_hvt": 1120
+        },
+        "measurement": {
+          "top": "counter",
+          "gates": 2240,
+          "nfet_gates": 1120,
+          "pfet_gates": 1120,
+          "straddling_gates": 0,
+          "pfet_outside_hvtp": 0,
+          "hvtp_over_nfet": 0,
+          "poly_tap_intersections": 0,
+          "raw": {
+            "hvtr": 0,
+            "hvi": 0,
+            "lvtn": 0,
+            "tap": 660
+          }
+        },
+        "decisions": {
+          "hvtr_3": {
+            "disposition": "absent-operand",
+            "reason": "Every physical MOS gate is accounted for by the native HD census. Both source-defined HD types prohibit HVTR; the named low-Vt RF subject is absent."
+          },
+          "licon_19": {
+            "disposition": "absent-operand",
+            "reason": "The native device census contains no varactor; both required drawn selectors and all poly/tap intersections are absent."
+          },
+          "retained_generated_mask_obligations": [
+            "lvtn.4b",
+            "ncm.3"
+          ]
+        },
+        "checker_sha256": "bc7fed0d2544f1eac7fe4091c211af2518cd360aa4805734b22e193bd201c19b",
+        "native_reader_sha256": "893682f0d08f1b85521d91cd94dde4d118c55c756c0ba856d6ef36f9b6e38706"
+      },
+      "new_decisions": [
+        {
+          "parent": {
+            "disposition": "execution-review-required",
+            "id": "docs/rules/periphery/p024-hvtr_dotdash.csv#3",
+            "reason": "The source requires enclosure of pfet by HVTR without explicitly restricting the target to an HVTR-selected device. Absent HVTR alone cannot prove that target absent; device-selection semantics require review.",
+            "record": 3,
+            "rule": "hvtr.3",
+            "source": "docs/rules/periphery/p024-hvtr_dotdash.csv",
+            "source_sha256": "ba7813ea0f6f272dbf0db6e4d7b1ddfd6c8e49b775311823094c6cad86b1776e",
+            "witnesses": {
+              "(18, 20)": 0
+            }
+          },
+          "error_id": "r426",
+          "decision": {
+            "disposition": "absent-operand",
+            "reason": "Every physical MOS gate is accounted for by the native HD census. Both source-defined HD types prohibit HVTR; the named low-Vt RF subject is absent."
+          }
+        },
+        {
+          "parent": {
+            "disposition": "execution-review-required",
+            "id": "docs/rules/periphery/p034-licon_dotdash.csv#31",
+            "reason": "No executable per-rule semantic binding has been established.",
+            "record": 31,
+            "rule": "licon.19",
+            "source": "docs/rules/periphery/p034-licon_dotdash.csv",
+            "source_sha256": "00c36280ef8dc17de0c58baab5bb1be1ab3e8c0b44b7c50eef1baa8cdd45e9fe",
+            "witnesses": {}
+          },
+          "error_id": "r759",
+          "decision": {
+            "disposition": "absent-operand",
+            "reason": "The native device census contains no varactor; both required drawn selectors and all poly/tap intersections are absent."
+          }
+        }
+      ],
+      "periphery_counts": {
+        "execution-review-required": 13,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 278,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "error_counts": {
+        "unreviewed": 943,
+        "executed-reviewed": 356,
+        "absent-operand": 257
+      },
+      "capture_record": {
+        "path": "docs/validation/sky130-fill-progress-2026-10-11/counter-circuit-capture.json",
+        "sha256": "4c4d19ec96f7ab4d92a87fd21ebabafd950d1869fe03e6b86881668fb3857532"
+      }
+    },
+    {
+      "case": "uart",
+      "execution": {
+        "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+        "native_ext_sha256": "25ccff62790fd74f81157019dc57204bf592435e49275d1e1c00f2047f4e4092",
+        "native_models": {
+          "sky130_fd_pr__nfet_01v8": 8500,
+          "sky130_fd_pr__pfet_01v8_hvt": 8502
+        },
+        "measurement": {
+          "top": "uart_tx",
+          "gates": 17002,
+          "nfet_gates": 8500,
+          "pfet_gates": 8502,
+          "straddling_gates": 0,
+          "pfet_outside_hvtp": 0,
+          "hvtp_over_nfet": 0,
+          "poly_tap_intersections": 0,
+          "raw": {
+            "hvtr": 0,
+            "hvi": 0,
+            "lvtn": 0,
+            "tap": 3458
+          }
+        },
+        "decisions": {
+          "hvtr_3": {
+            "disposition": "absent-operand",
+            "reason": "Every physical MOS gate is accounted for by the native HD census. Both source-defined HD types prohibit HVTR; the named low-Vt RF subject is absent."
+          },
+          "licon_19": {
+            "disposition": "absent-operand",
+            "reason": "The native device census contains no varactor; both required drawn selectors and all poly/tap intersections are absent."
+          },
+          "retained_generated_mask_obligations": [
+            "lvtn.4b",
+            "ncm.3"
+          ]
+        },
+        "checker_sha256": "bc7fed0d2544f1eac7fe4091c211af2518cd360aa4805734b22e193bd201c19b",
+        "native_reader_sha256": "893682f0d08f1b85521d91cd94dde4d118c55c756c0ba856d6ef36f9b6e38706"
+      },
+      "new_decisions": [
+        {
+          "parent": {
+            "disposition": "execution-review-required",
+            "id": "docs/rules/periphery/p024-hvtr_dotdash.csv#3",
+            "reason": "The source requires enclosure of pfet by HVTR without explicitly restricting the target to an HVTR-selected device. Absent HVTR alone cannot prove that target absent; device-selection semantics require review.",
+            "record": 3,
+            "rule": "hvtr.3",
+            "source": "docs/rules/periphery/p024-hvtr_dotdash.csv",
+            "source_sha256": "ba7813ea0f6f272dbf0db6e4d7b1ddfd6c8e49b775311823094c6cad86b1776e",
+            "witnesses": {
+              "(18, 20)": 0
+            }
+          },
+          "error_id": "r426",
+          "decision": {
+            "disposition": "absent-operand",
+            "reason": "Every physical MOS gate is accounted for by the native HD census. Both source-defined HD types prohibit HVTR; the named low-Vt RF subject is absent."
+          }
+        },
+        {
+          "parent": {
+            "disposition": "execution-review-required",
+            "id": "docs/rules/periphery/p034-licon_dotdash.csv#31",
+            "reason": "No executable per-rule semantic binding has been established.",
+            "record": 31,
+            "rule": "licon.19",
+            "source": "docs/rules/periphery/p034-licon_dotdash.csv",
+            "source_sha256": "00c36280ef8dc17de0c58baab5bb1be1ab3e8c0b44b7c50eef1baa8cdd45e9fe",
+            "witnesses": {}
+          },
+          "error_id": "r759",
+          "decision": {
+            "disposition": "absent-operand",
+            "reason": "The native device census contains no varactor; both required drawn selectors and all poly/tap intersections are absent."
+          }
+        }
+      ],
+      "periphery_counts": {
+        "execution-review-required": 13,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 278,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "error_counts": {
+        "unreviewed": 943,
+        "executed-reviewed": 356,
+        "absent-operand": 257
+      },
+      "capture_record": {
+        "path": "docs/validation/sky130-fill-progress-2026-10-11/uart-circuit-capture.json",
+        "sha256": "e39ea76bef79e71bf83be270f8b09239cf33a15601994a75e8e13b60da50f68b"
+      }
+    },
+    {
+      "case": "apb",
+      "execution": {
+        "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+        "native_ext_sha256": "b8c22ed88744377ccfd8e3d90aafc55fb75490de603b06d22b89fd400547d188",
+        "native_models": {
+          "sky130_fd_pr__diode_pw2nd_05v5": 3,
+          "sky130_fd_pr__nfet_01v8": 8571,
+          "sky130_fd_pr__pfet_01v8_hvt": 8572,
+          "sky130_fd_pr__res_generic_po": 2
+        },
+        "measurement": {
+          "top": "apb_fifo",
+          "gates": 17143,
+          "nfet_gates": 8571,
+          "pfet_gates": 8572,
+          "straddling_gates": 0,
+          "pfet_outside_hvtp": 0,
+          "hvtp_over_nfet": 0,
+          "poly_tap_intersections": 0,
+          "raw": {
+            "hvtr": 0,
+            "hvi": 0,
+            "lvtn": 0,
+            "tap": 3458
+          }
+        },
+        "decisions": {
+          "hvtr_3": {
+            "disposition": "absent-operand",
+            "reason": "Every physical MOS gate is accounted for by the native HD census. Both source-defined HD types prohibit HVTR; the named low-Vt RF subject is absent."
+          },
+          "licon_19": {
+            "disposition": "absent-operand",
+            "reason": "The native device census contains no varactor; both required drawn selectors and all poly/tap intersections are absent."
+          },
+          "retained_generated_mask_obligations": [
+            "lvtn.4b",
+            "ncm.3"
+          ]
+        },
+        "checker_sha256": "bc7fed0d2544f1eac7fe4091c211af2518cd360aa4805734b22e193bd201c19b",
+        "native_reader_sha256": "893682f0d08f1b85521d91cd94dde4d118c55c756c0ba856d6ef36f9b6e38706"
+      },
+      "new_decisions": [
+        {
+          "parent": {
+            "disposition": "execution-review-required",
+            "id": "docs/rules/periphery/p024-hvtr_dotdash.csv#3",
+            "reason": "The source requires enclosure of pfet by HVTR without explicitly restricting the target to an HVTR-selected device. Absent HVTR alone cannot prove that target absent; device-selection semantics require review.",
+            "record": 3,
+            "rule": "hvtr.3",
+            "source": "docs/rules/periphery/p024-hvtr_dotdash.csv",
+            "source_sha256": "ba7813ea0f6f272dbf0db6e4d7b1ddfd6c8e49b775311823094c6cad86b1776e",
+            "witnesses": {
+              "(18, 20)": 0
+            }
+          },
+          "error_id": "r426",
+          "decision": {
+            "disposition": "absent-operand",
+            "reason": "Every physical MOS gate is accounted for by the native HD census. Both source-defined HD types prohibit HVTR; the named low-Vt RF subject is absent."
+          }
+        },
+        {
+          "parent": {
+            "disposition": "execution-review-required",
+            "id": "docs/rules/periphery/p034-licon_dotdash.csv#31",
+            "reason": "No executable per-rule semantic binding has been established.",
+            "record": 31,
+            "rule": "licon.19",
+            "source": "docs/rules/periphery/p034-licon_dotdash.csv",
+            "source_sha256": "00c36280ef8dc17de0c58baab5bb1be1ab3e8c0b44b7c50eef1baa8cdd45e9fe",
+            "witnesses": {}
+          },
+          "error_id": "r759",
+          "decision": {
+            "disposition": "absent-operand",
+            "reason": "The native device census contains no varactor; both required drawn selectors and all poly/tap intersections are absent."
+          }
+        }
+      ],
+      "periphery_counts": {
+        "execution-review-required": 13,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 278,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "error_counts": {
+        "unreviewed": 943,
+        "executed-reviewed": 356,
+        "absent-operand": 257
+      },
+      "capture_record": {
+        "path": "docs/validation/sky130-fill-progress-2026-10-11/apb-circuit-capture.json",
+        "sha256": "e4b30c7e2c004da2d1d04675d79c7ec88ed19b4d70ecc878787edc31a25dea31"
+      }
+    }
+  ],
+  "scope": "Fresh drawn-gate census matched to every native MOS device in the retained exact filled captures. Two selected target decisions gain device/source context. Generated implant masks, RF selection, voltage intent, grid, boundary and numeric pin spacing remain open; no new native extraction or application-policy change."
+}

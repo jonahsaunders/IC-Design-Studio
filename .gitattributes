@@ -10,6 +10,7 @@ docs/validation/analog_extensions/floating-fill/** -whitespace
 docs/validation/gf180-fill-reference-2026-10-09/*/pattern.json whitespace=cr-at-eol
 docs/validation/student-physical/** -whitespace
 # Locked upstream PDK text retains its original whitespace.
+docs/qualification/sky130-device-tables/** -whitespace
 icstudio/assets/pdks/gf180mcuC/** -whitespace
 icstudio/assets/pdks/gf180mcuD/libs.tech/magic/** -whitespace
 icstudio/assets/pdks/gf180mcuD/libs.tech/netgen/** -whitespace
