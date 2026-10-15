@@ -29,6 +29,49 @@ remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
 
+## Global drawn-feature bounds for scribe restrictions
+
+The [scribe-size audit](validation/sky130-scribe-bound-audit-2026-10-15.json) and
+[complete corrected-reference replay](validation/sky130-scribe-bounds-2026-10-15.json)
+add fourteen required numerical bounds to Finish and saved-result/export
+validation. They bind `r1376`–`r1389`, the drawn-layer `scribe.5` restrictions on
+10-by-10 µm features within 150 µm of a scribe junction.
+
+All reachable geometry is flattened and touching/overlapping fragments are
+merged across cell boundaries. Every resulting connected feature must have
+at least one bounding-box side **strictly below 10 µm**. This stronger global
+condition excludes a 10-by-10 µm feature at any position or orientation, so it
+also excludes one near any junction. The fourteen layers are diffusion, poly,
+local interconnect, metal1–metal5, local/metal contacts and via1–via4.
+
+A box with both sides exactly 10 µm or larger is a candidate and remains
+**unreviewed**. The checker does not claim that a large box proves a wide region:
+thin L shapes and hollow rings also remain candidates. It does not infer a
+junction from the block outline, frame markers or cell names. Fourteen companion
+mask records `r1390`–`r1403` remain unresolved because their generated-mask inputs
+are not established. Unsupported geometry fails closed.
+
+All **248 focused tests** pass on Windows and Linux without skips. The **27
+retained examples** agree byte for byte, including a 1 nm threshold boundary,
+exact-threshold candidates on every layer, merged/overlapping/corner-touching
+fragments, cross-cell features, reflected arrays, disconnected geometry, holes,
+thin shapes, exact paths and permitted text. Missing, altered and stale rehashed
+reports cannot bypass saved-result/export validation.
+
+All fourteen bounds execute on **nonempty geometry** in counter, UART and APB.
+The complete catalogs are replayed on both systems with identical reports:
+**438 executed bindings, 612 absent subjects, 90 explicit standard-cell W/L
+exemptions, eight advisories and 408 unreviewed records** per design. Eighteen
+frame bounds still lack boundary context. Three fresh Linux application runs and
+Windows saved-result/export replays pass; manufacturing geometry and electrical
+artifacts are unchanged. Native extraction, nominal voltage, timing and
+equivalence remain authenticated retained dependencies, not new electrical runs.
+
+The archive uses the independent delivery archive as its only parent and stores
+required intermediate catalogs and current source files directly. Remaining
+generated-mask, RF, grid/purpose, module/frame/pad, pin-spacing and density work
+stays in chunk 6. **Chunk 6 and complete process qualification remain incomplete.**
+
 ## Drawn-well enclosure and hole-spacing bounds
 
 The [well-bound audit](validation/sky130-well-bound-audit-2026-10-15.json) and

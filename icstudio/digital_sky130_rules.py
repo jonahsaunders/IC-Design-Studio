@@ -131,6 +131,8 @@ def evaluate(report, gds_sha256, checkpoint_sha256, top, fingerprint, policy):
     evaluate_frame_bounds(report.get('frame_bounds'), gds_sha256, top)
     from .digital_sky130_well_bounds import evaluate as evaluate_well_bounds
     evaluate_well_bounds(report.get('well_bounds'), gds_sha256, top)
+    from .digital_sky130_scribe_bounds import evaluate as evaluate_scribe_bounds
+    evaluate_scribe_bounds(report.get('scribe_bounds'), gds_sha256, top)
     return report
 
 
@@ -218,6 +220,8 @@ def validate_saved(data, root):
     validate_frame_bounds(report['frame_bounds'], read('gds'))
     from .digital_sky130_well_bounds import validate_saved as validate_well_bounds
     validate_well_bounds(report['well_bounds'], read('gds'))
+    from .digital_sky130_scribe_bounds import validate_saved as validate_scribe_bounds
+    validate_scribe_bounds(report['scribe_bounds'], read('gds'))
     bindings = report.get('resources', {})
     expected = FILES | {'preparation.json': policy['preparation_sha256']}
     require(bindings.keys() == expected.keys() and len(set(bindings.values())) == len(expected),

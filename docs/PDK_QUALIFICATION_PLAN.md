@@ -19,7 +19,19 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [well-bound audit](validation/sky130-well-bound-audit-2026-10-15.json)
+The latest [scribe-size audit](validation/sky130-scribe-bound-audit-2026-10-15.json)
+executes fourteen global size bounds on nonempty drawn-layer geometry. Every
+merged feature has a bounding-box side below 10 µm, excluding the restricted
+10-by-10 µm feature anywhere without inventing junction locations. Larger
+candidates remain unresolved. All 248 tests per OS, 27 cross-system examples,
+six full catalog replays, three application runs and Windows exports pass.
+Complete corrected catalogs now have **438 executed, 612 absent, 90 explicit
+W/L exemptions, eight advisory and 408 unresolved records** per reference.
+The fourteen mask companions and missing frame/junction context stay open,
+alongside the other generated-mask, RF, grid, pad, pin-spacing and density work.
+Chunk 6 remains incomplete; no PDK is qualified for complete-chip tapeout.
+
+The preceding [well-bound audit](validation/sky130-well-bound-audit-2026-10-15.json)
 implements three numerical checks for drawn PWDE enclosure, PWBM hole spacing
 and PWBM enclosure. Exact limits, 1 nm failures, nested holes, missing enclosures
 and hierarchy are tested. All 230 tests per OS, 23 cross-system geometry examples,

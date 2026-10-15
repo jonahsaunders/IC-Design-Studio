@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. Three numerical drawn-well bounds now run in Finish/export, with nonempty exact and failing controls. Their targets are absent on the references. Fresh full catalog: 424 executed, 612 absent, 90 W/L exemptions, eight advisory, 422 unreviewed. All six catalog replays, 230 tests per OS, 23 controls, three application runs and Windows exports pass. Eighteen frame bounds stay unreviewed for missing context. Generated masks, RF, grid/purpose, module/frame/pad context, pin spacing and required density remain open.",
+      "remaining": "Chunk 6 remains incomplete. Fourteen drawn-layer scribe restrictions have global sufficient size bounds executed on nonempty reference geometry. Fresh full catalog: 438 executed, 612 absent, 90 W/L exemptions, eight advisory, 408 unreviewed. All six catalog replays, 248 tests per OS, 27 controls, three application runs and Windows exports pass. Large candidate features still need junction context. Mask companion records, other generated masks, RF, grid/purpose, module/frame/pad context, pin spacing and required density remain open.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16779,7 +16779,8 @@
         "sky130-delivery-catalog-audit-2026-10-15",
         "sky130-selected-target-audit-2026-10-15",
         "sky130-frame-bound-audit-2026-10-15",
-        "sky130-well-bound-audit-2026-10-15"
+        "sky130-well-bound-audit-2026-10-15",
+        "sky130-scribe-bound-audit-2026-10-15"
       ]
     },
     "sky130A:source-completeness": {
@@ -20312,6 +20313,11 @@
       "path": "docs/validation/sky130-well-bound-audit-2026-10-15.json",
       "sha256": "b66716900f539a6f878cc86ca8c6a6af1e0fff850ec1c6b53ba17816df19c688",
       "scope_limit": "Finish and saved-result/export validation require three drawn-well sufficient bounds: 1 um PWDE enclosure by both DNWELL and UHVI, 0.84 um spacing of all merged PWBM hole pairs, and whole PWBM containment in UHVI without LOWVTID exemptions. Failed stronger bounds remain unreviewed. All three targets are absent in the reference blocks. Complete corrected-reference catalog replays contain 424 executed, 612 absent, 90 W/L exemptions, eight advisories and 422 unreviewed records. All six catalog replays and 23 controls agree across systems; 230 tests pass per OS; three application runs and Windows saved-result/export replays pass. Eighteen frame bounds also execute but remain unreviewed for missing boundary context. Generated masks, RF, grid/purpose, module/frame/pad context, pin spacing and required density remain open. No new extraction, timing, equivalence or foundry acceptance is claimed."
+    },
+    "sky130-scribe-bound-audit-2026-10-15": {
+      "path": "docs/validation/sky130-scribe-bound-audit-2026-10-15.json",
+      "sha256": "e82415806ea570663fc2218380d9aae38ce239b9b09570e56519173251825085",
+      "scope_limit": "Finish and saved-result/export validation require fourteen global drawn-layer scribe size bounds. Every merged connected feature has a bounding-box side below 10 um, proving no 10-by-10 um feature exists anywhere on those layers and therefore near any scribe junction. Exact-threshold or larger candidates remain unreviewed, including thin L shapes and rings; no junction is inferred. All fourteen bounds execute on nonempty reference geometry. Fresh complete corrected-reference catalogs contain 438 executed, 612 absent, 90 W/L exemptions, eight advisories and 408 unreviewed records. All six catalog replays and 27 controls agree across systems; 248 tests pass per OS; three application runs and Windows saved-result/export replays pass. Fourteen mask companion records remain unreviewed, as do the eighteen frame bounds requiring missing boundary context. No new extraction, timing, equivalence, complete-chip qualification or foundry acceptance is claimed."
     }
   },
   "execution_acceptance": {
