@@ -11,6 +11,8 @@ docs/validation/gf180-fill-reference-2026-10-09/*/pattern.json whitespace=cr-at-
 docs/validation/student-physical/** -whitespace
 # Locked upstream PDK text retains its original whitespace.
 tests/fixtures/sky130-metal-width-native.tech -whitespace
+tests/fixtures/sky130-public-seal-v1/** -whitespace
+tests/fixtures/sky130-public-seal-oracles-v1/*.log -whitespace
 docs/qualification/sky130-device-tables/** -whitespace
 icstudio/assets/pdks/gf180mcuC/** -whitespace
 icstudio/assets/pdks/gf180mcuD/libs.tech/magic/** -whitespace

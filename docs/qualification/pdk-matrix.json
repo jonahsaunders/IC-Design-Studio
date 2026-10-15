@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. Five known seal/fuse/die-cut partner absences reduce 307 to 302 unresolved. Catalog: 441 executed, 715 absent, 90 W/L exemptions, eight advisory. All 378 tests per OS, 19 controls, six incremental catalogs, three application runs and Windows exports pass. Exact source dependencies cover all 302 records in 17 groups; the user has no private package. Required density, RF/generated operands, remaining boundary/pad selectors and pin spacing still need definitions and verification. Missing definitions are not waived.",
+      "remaining": "Chunk 6 remains incomplete with 302 unresolved catalog records, plus required density and pin spacing. Public Nikon integrity checks now cover 31 mask purposes in four exact source-template domains, with 394 tests per OS and 146 identical cross-system controls. All 56 related catalog rows stay unresolved pending final-mask and placement policy; their public shape template is now retained. Three current application runs and Windows exports pass. No private package is available and no requirement is waived.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16786,7 +16786,8 @@
         "sky130-metal-width-audit-2026-10-15",
         "sky130-module-operand-audit-2026-10-15",
         "sky130-diecut-density-audit-2026-10-15",
-        "sky130-dummy-partner-audit-2026-10-15"
+        "sky130-dummy-partner-audit-2026-10-15",
+        "sky130-alignment-audit-2026-10-15"
       ]
     },
     "sky130A:source-completeness": {
@@ -20354,6 +20355,11 @@
       "path": "docs/validation/sky130-dummy-partner-audit-2026-10-15.json",
       "sha256": "67fe719d806b0e5b60ae5622271d13475afac9a5ca3dad455b96906bee8e10c2",
       "scope_limit": "Five dummy-FOM spacing/overlap records resolve through independently defined empty seal, fuse or die-cut partners. No fomDummyDRC construction, numerical nonempty dummy-fill pass, enclosure waiver or required density acceptance is inferred. Finish and saved-result/export validation require and recompute the census. All 378 tests pass on each OS without failures, errors or skips. Nineteen controls and six incremental catalogs agree across systems. Three fresh Linux application runs and Windows saved-result/export replays pass. The references retain 441 executed, 715 absent, 90 explicit W/L exemptions, eight advisory and 302 unresolved records. A separate source-dependency review enumerates all 302 open records in 17 groups plus pin-spacing and required-density obligations. The user has no private foundry package. Earlier catalog decisions and native electrical results retain their authenticated historical scope."
+    },
+    "sky130-alignment-audit-2026-10-15": {
+      "path": "docs/validation/sky130-alignment-audit-2026-10-15.json",
+      "sha256": "a93644484c41a58a51b5e0409c26815a252e1f21a71c6358149e36ae34c68888",
+      "scope_limit": "Public Open PDKs Nikon geometry is transcribed and compared against independent Magic exports. The complete 6 um seal must match before four mark domains are selected. All 31 mask purposes are checked for missing, reversed or damaged geometry. The 56 related catalog rows remain unreviewed: this does not establish foundry mask generation or complete-chip/scribe placement policy. All 394 tests per OS pass; 146 controls and all three reference reports agree byte for byte. Three Linux application runs and Windows saved-result/export replays pass. The original public generator produces four 5 nm seal gaps for the retained 100.005 by 150.005 um chip-area control. Reference catalog counts remain 441 executed, 715 absent, 90 W/L exemptions, eight advisory and 302 unresolved. No new electrical extraction, timing, equivalence or tapeout acceptance is claimed."
     }
   },
   "execution_acceptance": {

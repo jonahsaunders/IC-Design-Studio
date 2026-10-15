@@ -78,6 +78,7 @@ def fixture(root):
     from icstudio.digital_sky130_diecut_absence import audit as diecut_absence
     from icstudio.digital_sky130_waffle_windows import audit as waffle_windows
     from icstudio.digital_sky130_dummy_partners import audit as dummy_partners
+    from icstudio.digital_sky130_alignment import audit as alignment
     report = dict(schema=1, recipe=rules.RECIPE, status='reviewed-profiles-pass', qualified=False,
                   chunk_complete=False, scope=rules.SCOPE, policy=platform['sky130_rules'],
                   top=ledger['top'], gds_sha256=ledger['gds_sha256'],
@@ -95,7 +96,7 @@ def fixture(root):
                   family_targets=family_targets(root/'filled.gds'),package_boundaries=package_boundaries(root/'filled.gds'),
                   metal_width_bounds=metal_width_bounds(root/'filled.gds'),module_absence=module_absence(root/'filled.gds'),
                   diecut_absence=diecut_absence(root/'filled.gds'),waffle_windows=waffle_windows(root/'filled.gds'),
-                  dummy_partners=dummy_partners(root/'filled.gds'))
+                  dummy_partners=dummy_partners(root/'filled.gds'),alignment=alignment(root/'filled.gds'))
     paths = rules.resources(root/'platform/verification', platform['sky130_rules']['preparation_sha256'])
     for index, (name, path) in enumerate(sorted(paths.items())):
         key='sky130_rule_resource_'+str(index)
@@ -181,6 +182,8 @@ class Sky130ApplicationRuleTests(unittest.TestCase):
             self.assertEqual(evaluated(report),report)
             changes={
                 'missing-dummy-partners':lambda r:r.pop('dummy_partners'),
+                'missing-alignment':lambda r:r.pop('alignment'),
+                'changed-alignment':lambda r:r['alignment']['rows'][0].update(disposition='executed-reviewed'),
                 'changed-dummy-partners':lambda r:r['dummy_partners']['rows'][0].update(disposition='executed-reviewed'),
                 'missing-profile':lambda r:r['profiles'].pop('raw_geometry'),
                 'missing-catalog-context':lambda r:r.pop('catalog_context'),

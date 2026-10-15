@@ -149,6 +149,8 @@ def evaluate(report, gds_sha256, checkpoint_sha256, top, fingerprint, policy):
     evaluate_waffle_windows(report.get('waffle_windows'), gds_sha256, top)
     from .digital_sky130_dummy_partners import evaluate as evaluate_dummy_partners
     evaluate_dummy_partners(report.get('dummy_partners'), gds_sha256, top)
+    from .digital_sky130_alignment import evaluate as evaluate_alignment
+    evaluate_alignment(report.get('alignment'), gds_sha256, top)
     return report
 
 
@@ -254,6 +256,8 @@ def validate_saved(data, root):
     validate_waffle_windows(report['waffle_windows'], read('gds'))
     from .digital_sky130_dummy_partners import validate_saved as validate_dummy_partners
     validate_dummy_partners(report['dummy_partners'], read('gds'))
+    from .digital_sky130_alignment import validate_saved as validate_alignment
+    validate_alignment(report['alignment'], read('gds'))
     bindings = report.get('resources', {})
     expected = FILES | {'preparation.json': policy['preparation_sha256']}
     require(bindings.keys() == expected.keys() and len(set(bindings.values())) == len(expected),

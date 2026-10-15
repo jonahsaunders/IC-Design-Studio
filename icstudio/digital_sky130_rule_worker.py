@@ -115,6 +115,9 @@ def execute(request):
         from .digital_sky130_dummy_partners import audit as dummy_partners
         report['dummy_partners'] = dummy_partners(gds)
         save('dummy_partners.json', report['dummy_partners'])
+        from .digital_sky130_alignment import audit as alignment
+        report['alignment'] = alignment(gds)
+        save('alignment.json', report['alignment'])
         report.update(status='reviewed-profiles-pass', ledger=review,
                       coverage=dict(rows=len(review['rows']), counts=review['counts'], complete=False))
         unchanged(); resources(base, policy['preparation_sha256'])

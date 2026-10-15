@@ -29,9 +29,46 @@ remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
 
+## Public Nikon alignment template
+
+The [alignment audit](validation/sky130-alignment-audit-2026-10-15.json) adds
+actual nonempty geometry checks for **31 mask purposes at four corners** of
+the exact public Open PDKs seal template. It authenticates 32 upstream source
+and license files and binds the 56 associated error records to the published
+mask purposes. Independent Magic exports establish the 4 um octagonal mark
+domain, positive/negative shapes and full seal geometry.
+
+The entire 81:1 seal region must match before comparison windows are selected;
+a plausible bounding box or a cell named `nikon` is insufficient. Each mask
+is checked for missing, reversed or damaged geometry. The surrounding PDM seal
+fills corners outside the mark octagon, which are correctly excluded from
+the comparison domain. Renaming, hierarchy, reflection, rotation and duplicate
+geometry preserve the result. Unsupported data remains explicit.
+
+All **394 tests pass on Windows and Linux with no failures, errors or skips**.
+The **146 control layouts and reports are byte-identical across systems**:
+124 single-mask faults, four original Magic exports and 18 context/transform
+controls. The original public generator leaves four 5 nm seal gaps for the
+100.005 by 150.005 um chip-area example; that exact failing output is retained.
+Two ordinary-size seals match all 124 mask windows. Three fresh Linux
+application runs and Windows saved-result/export replays also pass.
+
+Finish and saved-result/export validation now require and recompute alignment
+evidence. Template mismatch is a recorded observation requiring review, not
+a foundry rule disposition. The diagnostic CLI always exits with unqualified
+status, including when the public template matches.
+
+**The unresolved catalog count remains 302.** The three reference blocks have
+no complete seal context, and all 56 alignment records remain unresolved.
+Their public shape template is now available; authoritative generated-mask
+binding and complete-chip/scribe placement policy are still needed. A template
+match cannot supply these missing requirements. Existing catalog decisions and
+electrical results retain their historical scope; this batch does not rerun
+extraction, timing or equivalence. Chunk 6 and tapeout signoff remain incomplete.
+
 ## Dummy-FOM partner proofs and source dependencies
 
-The [latest audit](validation/sky130-dummy-partner-audit-2026-10-15.json) and
+The [preceding partner audit](validation/sky130-dummy-partner-audit-2026-10-15.json) and
 [reference catalog](validation/sky130-dummy-partners-2026-10-15.json) resolve
 **five additional records: 307 to 302 unresolved**. The two seal relations,
 two fuse relations and one die-cut relation have an independently defined
