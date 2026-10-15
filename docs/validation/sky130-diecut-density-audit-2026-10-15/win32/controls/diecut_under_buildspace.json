@@ -1,0 +1,188 @@
+{
+  "schema": 1,
+  "recipe": "sky130-empty-diecut-spacing-operand-v1",
+  "source": {
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "files": {
+      "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+      "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+      "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f",
+      "docs/rules/periphery/p043-nsm_dotdash.csv": "232fb1afb91d400f6bbaea0ee52b39a22e831e0668b87b439edef759d1c6942c"
+    }
+  },
+  "scope": "Eighteen nsm.3b spacing records name dieCut; the manual specifies areaid.dt and the published GDS and C4 tables identify 81:11 as areaid die cut. Empty raw data on that purpose throughout the reachable hierarchy proves no spacing pairs exist, independent of the unknown other operand. Any raw shape, including text, paths or unsupported geometry, prevents this absence proof. No blanking exemption, generated-mask recipe, die outline or chip scope is inferred. Missing die-cut data never proves that omission is valid, that frame enclosure is satisfied, or that complete-chip rules pass. Present die-cut cases remain unreviewed here; the separate numeric frame-bound checker retains its own drawn-layer results.",
+  "qualified": false,
+  "chunk_complete": false,
+  "top": "control",
+  "gds_sha256": "59bc413f958fdb12c51311f058c16ebf067251a59fe54a758315191fdcb7a073",
+  "measurements": {
+    "raw_diecut_shapes": 1,
+    "diecut_texts": 0
+  },
+  "rows": [
+    {
+      "id": "r1006",
+      "rule": "nsm.3b",
+      "operation": "spacing",
+      "limit_nm": 3000,
+      "other_operand": "diff_not_NSM3b_exempt",
+      "disposition": "unreviewed",
+      "reason": "present-diecut-needs-other-operand"
+    },
+    {
+      "id": "r1007",
+      "rule": "nsm.3b",
+      "operation": "spacing",
+      "limit_nm": 3000,
+      "other_operand": "tap_not_NSM3b_exempt",
+      "disposition": "unreviewed",
+      "reason": "present-diecut-needs-other-operand"
+    },
+    {
+      "id": "r1008",
+      "rule": "nsm.3b",
+      "operation": "spacing",
+      "limit_nm": 3000,
+      "other_operand": "fomDummyDRC_not_NSM3b_exempt",
+      "disposition": "unreviewed",
+      "reason": "present-diecut-needs-other-operand"
+    },
+    {
+      "id": "r1009",
+      "rule": "nsm.3b",
+      "operation": "spacing",
+      "limit_nm": 3000,
+      "other_operand": "FOMmk_not_NSM3b_exempt",
+      "disposition": "unreviewed",
+      "reason": "present-diecut-needs-other-operand"
+    },
+    {
+      "id": "r1010",
+      "rule": "nsm.3b",
+      "operation": "spacing",
+      "limit_nm": 3000,
+      "other_operand": "poly_not_NSM3b_exempt",
+      "disposition": "unreviewed",
+      "reason": "present-diecut-needs-other-operand"
+    },
+    {
+      "id": "r1011",
+      "rule": "nsm.3b",
+      "operation": "spacing",
+      "limit_nm": 3000,
+      "other_operand": "P1Mmk_not_NSM3b_exempt",
+      "disposition": "unreviewed",
+      "reason": "present-diecut-needs-other-operand"
+    },
+    {
+      "id": "r1012",
+      "rule": "nsm.3b",
+      "operation": "spacing",
+      "limit_nm": 3000,
+      "other_operand": "li1_not_NSM3b_exempt",
+      "disposition": "unreviewed",
+      "reason": "present-diecut-needs-other-operand"
+    },
+    {
+      "id": "r1013",
+      "rule": "nsm.3b",
+      "operation": "spacing",
+      "limit_nm": 3000,
+      "other_operand": "LI1Mmk_not_NSM3b_exempt",
+      "disposition": "unreviewed",
+      "reason": "present-diecut-needs-other-operand"
+    },
+    {
+      "id": "r1014",
+      "rule": "nsm.3b",
+      "operation": "spacing",
+      "limit_nm": 3000,
+      "other_operand": "met1_not_NSM3b_exempt",
+      "disposition": "unreviewed",
+      "reason": "present-diecut-needs-other-operand"
+    },
+    {
+      "id": "r1015",
+      "rule": "nsm.3b",
+      "operation": "spacing",
+      "limit_nm": 3000,
+      "other_operand": "MM1mk_not_NSM3b_exempt",
+      "disposition": "unreviewed",
+      "reason": "present-diecut-needs-other-operand"
+    },
+    {
+      "id": "r1016",
+      "rule": "nsm.3b",
+      "operation": "spacing",
+      "limit_nm": 3000,
+      "other_operand": "met2_not_NSM3b_exempt",
+      "disposition": "unreviewed",
+      "reason": "present-diecut-needs-other-operand"
+    },
+    {
+      "id": "r1017",
+      "rule": "nsm.3b",
+      "operation": "spacing",
+      "limit_nm": 3000,
+      "other_operand": "MM2Mk_not_NSM3b_exempt",
+      "disposition": "unreviewed",
+      "reason": "present-diecut-needs-other-operand"
+    },
+    {
+      "id": "r1018",
+      "rule": "nsm.3b",
+      "operation": "spacing",
+      "limit_nm": 3000,
+      "other_operand": "met3_not_NSM3b_exempt",
+      "disposition": "unreviewed",
+      "reason": "present-diecut-needs-other-operand"
+    },
+    {
+      "id": "r1019",
+      "rule": "nsm.3b",
+      "operation": "spacing",
+      "limit_nm": 3000,
+      "other_operand": "MM3mk_not_NSM3b_exempt",
+      "disposition": "unreviewed",
+      "reason": "present-diecut-needs-other-operand"
+    },
+    {
+      "id": "r1020",
+      "rule": "nsm.3b",
+      "operation": "spacing",
+      "limit_nm": 3000,
+      "other_operand": "met4_not_NSM3b_exempt",
+      "disposition": "unreviewed",
+      "reason": "present-diecut-needs-other-operand"
+    },
+    {
+      "id": "r1021",
+      "rule": "nsm.3b",
+      "operation": "spacing",
+      "limit_nm": 3000,
+      "other_operand": "MM4mk_not_NSM3b_exempt",
+      "disposition": "unreviewed",
+      "reason": "present-diecut-needs-other-operand"
+    },
+    {
+      "id": "r1022",
+      "rule": "nsm.3b",
+      "operation": "spacing",
+      "limit_nm": 3000,
+      "other_operand": "met5_not_NSM3b_exempt",
+      "disposition": "unreviewed",
+      "reason": "present-diecut-needs-other-operand"
+    },
+    {
+      "id": "r1023",
+      "rule": "nsm.3b",
+      "operation": "spacing",
+      "limit_nm": 3000,
+      "other_operand": "MM5mk_not_NSM3b_exempt",
+      "disposition": "unreviewed",
+      "reason": "present-diecut-needs-other-operand"
+    }
+  ],
+  "unreviewed": 18,
+  "status": "review-required"
+}

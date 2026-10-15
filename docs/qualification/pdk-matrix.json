@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. 35 module spacing/overlap records have a verified empty known operand; enclosure companions stay unresolved. Catalog: 441 executed, 692 absent, 90 W/L exemptions, eight advisory, 325 unresolved. All six incremental catalogs, 330 tests per OS, 14 controls, three application runs and Windows exports pass. Remaining RF, generated masks, grid/purpose, module/frame/pad context, pin spacing and required density remain open.",
+      "remaining": "Chunk 6 remains incomplete. The die-cut proof resolves 18 spacing records, reducing 325 to 307 unresolved. Catalog: 441 executed, 710 absent, 90 W/L exemptions, eight advisory. New numerical density observations are verified by 72 nonempty controls but do not qualify a window/cell policy or final-mask construction. All 365 tests per OS, 86 total controls, six incremental catalogs, three application runs and Windows exports pass. Required density, RF/generated operands, remaining boundaries and pin spacing remain open.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16784,7 +16784,8 @@
         "sky130-seal-geometry-audit-2026-10-15",
         "sky130-family-package-audit-2026-10-15",
         "sky130-metal-width-audit-2026-10-15",
-        "sky130-module-operand-audit-2026-10-15"
+        "sky130-module-operand-audit-2026-10-15",
+        "sky130-diecut-density-audit-2026-10-15"
       ]
     },
     "sky130A:source-completeness": {
@@ -20342,6 +20343,11 @@
       "path": "docs/validation/sky130-module-operand-audit-2026-10-15.json",
       "sha256": "9f6652f13698a0692218101de3943e7f21b850c410a051ce8153a9f0feaff1c1",
       "scope_limit": "Finish and saved-result/export validation require a raw module-operand census for 35 binary records. The manual x.12a/x.12d spacing and x.16 overlap operands explicitly use areaid.mt; GDS and C4 identify 81:10. With no raw module shapes, there are no spacing pairs or overlap intersections regardless of the unknown other operand. Present module data, including text or unusual geometry, remains unresolved. No enclosure record is promoted. All 330 tests pass per OS without skips and 14 new controls agree across systems. Six incremental catalogs authenticate 1193 prior family/package decisions, then freshly execute three metal-width checks and the module census. Three actual application runs and Windows saved-result/export replays pass current integration. Counts are 441 executed, 692 absent, 90 W/L exemptions, eight advisory and 325 unresolved records. Missing boundaries do not establish complete-chip context or validate an omitted required marker. Native extraction and electrical results retain their authenticated historical scope."
+    },
+    "sky130-diecut-density-audit-2026-10-15": {
+      "path": "docs/validation/sky130-diecut-density-audit-2026-10-15.json",
+      "sha256": "7a44e02ceb1ed7bf34c31d93e6e6607a3ff7a06c561980b92b7f706d7d6094ee",
+      "scope_limit": "Finish and saved-result/export validation require die-cut and waffle-drop censuses. Eighteen nsm.3b spacing records have an empty known die-cut operand bound by manual/GDS/C4 to areaid.dt 81:11. No enclosure or present-target construction is inferred. The density kernel evaluates all six independent required waffle-drop predicates per metal on caller-selected full 700 um windows, with exact integer union/intersection areas and threshold comparisons. Nonempty density operands remain unreviewed for acceptance: no foundry window/cell-exclusion policy, final-mask construction or oxide metric is inferred. All 365 tests pass per OS, and 86 controls (14 die-cut presence cases and 72 nonempty density threshold cases) agree across systems. Six incremental catalogs authenticate 1193 prior family/package decisions and freshly run width/module/die-cut checks and the waffle census. Three actual Linux application runs and Windows saved-result/export replays pass. Counts are 441 executed, 710 absent, 90 explicit W/L exemptions, eight advisory and 307 unresolved. The 48 earlier waffle absences are confirmed without relabeling them as numerical execution. Native extraction and electrical results retain their authenticated historical scope."
     }
   },
   "execution_acceptance": {

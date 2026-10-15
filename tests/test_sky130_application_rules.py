@@ -75,6 +75,8 @@ def fixture(root):
     from icstudio.digital_sky130_package_boundaries import audit as package_boundaries
     from icstudio.digital_sky130_metal_width_bounds import audit as metal_width_bounds
     from icstudio.digital_sky130_module_absence import audit as module_absence
+    from icstudio.digital_sky130_diecut_absence import audit as diecut_absence
+    from icstudio.digital_sky130_waffle_windows import audit as waffle_windows
     report = dict(schema=1, recipe=rules.RECIPE, status='reviewed-profiles-pass', qualified=False,
                   chunk_complete=False, scope=rules.SCOPE, policy=platform['sky130_rules'],
                   top=ledger['top'], gds_sha256=ledger['gds_sha256'],
@@ -90,7 +92,8 @@ def fixture(root):
                   frame_bounds=frame_bounds(root/'filled.gds'),well_bounds=well_bounds(root/'filled.gds'),
                   scribe_bounds=scribe_bounds(root/'filled.gds'),seal_geometry=seal_geometry(root/'filled.gds'),
                   family_targets=family_targets(root/'filled.gds'),package_boundaries=package_boundaries(root/'filled.gds'),
-                  metal_width_bounds=metal_width_bounds(root/'filled.gds'),module_absence=module_absence(root/'filled.gds'))
+                  metal_width_bounds=metal_width_bounds(root/'filled.gds'),module_absence=module_absence(root/'filled.gds'),
+                  diecut_absence=diecut_absence(root/'filled.gds'),waffle_windows=waffle_windows(root/'filled.gds'))
     paths = rules.resources(root/'platform/verification', platform['sky130_rules']['preparation_sha256'])
     for index, (name, path) in enumerate(sorted(paths.items())):
         key='sky130_rule_resource_'+str(index)
@@ -206,6 +209,10 @@ class Sky130ApplicationRuleTests(unittest.TestCase):
                 'changed-package-boundaries':lambda r:r['package_boundaries']['rows'].pop(),
                 'missing-metal-width-bounds':lambda r:r.pop('metal_width_bounds'),
                 'changed-metal-width-bounds':lambda r:r['metal_width_bounds']['rows'].pop(),
+                'missing-diecut-absence':lambda r:r.pop('diecut_absence'),
+                'changed-diecut-absence':lambda r:r['diecut_absence']['rows'].pop(),
+                'missing-waffle-windows':lambda r:r.pop('waffle_windows'),
+                'changed-waffle-windows':lambda r:r['waffle_windows']['rows'].pop(),
                 'missing-module-absence':lambda r:r.pop('module_absence'),
                 'changed-module-absence':lambda r:r['module_absence']['rows'].pop(),
                 'changed-scribe-bounds':lambda r:r['scribe_bounds']['rows'].pop(),

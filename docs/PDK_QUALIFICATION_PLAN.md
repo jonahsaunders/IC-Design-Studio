@@ -19,12 +19,23 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [module-operand audit](validation/sky130-module-operand-audit-2026-10-15.json)
+The latest [die-cut and density audit](validation/sky130-diecut-density-audit-2026-10-15.json)
+resolves **18 additional spacing records: 325 to 307 unresolved**, through an
+empty published die-cut operand. Enclosure remains open. The new density kernel
+evaluates all six required waffle-drop predicates per metal on explicit full
+windows, with 72 nonempty threshold controls. It does not qualify window/cell
+policy or generated final-mask operands; required density remains incomplete.
+All 365 tests per OS, 86 controls, six incremental catalogs, three application
+runs and Windows exports pass. Current counts are **441 executed, 710 absent,
+90 explicit W/L exemptions, eight advisory and 307 unresolved**. Test cases and
+numerical observations do not count as additional completed reference records.
+
+The preceding [module-operand audit](validation/sky130-module-operand-audit-2026-10-15.json)
 resolves **35 additional records: 360 to 325 unresolved**. Thirty-four spacing
 and one overlap requirement have an independently bound, empty module operand.
 The unknown other operands are not inferred, and enclosure companions remain
 open. All 330 tests per OS, 14 new cross-system controls, six incremental
-catalogs, three application runs and Windows exports pass. Current counts are
+catalogs, three application runs and Windows exports pass. Counts at that checkpoint were
 **441 executed, 692 absent, 90 explicit W/L exemptions, eight advisory and 325
 unresolved**. Together with the preceding three numerical width bounds, this
 resolves 38 records from the 363-record checkpoint. Required density, pin spacing,

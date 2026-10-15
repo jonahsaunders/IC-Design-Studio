@@ -29,6 +29,86 @@ remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
 
+## Die-cut spacing and numerical waffle-density predicates
+
+The [die-cut and density audit](validation/sky130-diecut-density-audit-2026-10-15.json)
+and [reconciled catalog](validation/sky130-diecut-density-2026-10-15.json) resolve
+**18 additional records: 325 to 307 unresolved**. The manual's `nsm.3b` spacing
+operation uses `areaid.dt`, and the published GDS/C4 definitions identify
+`81:11` as the die-cut operand. All three references have no raw data on that
+purpose. The empty operand proves there are no spacing pairs, regardless of
+the unknown other operands. Text, paths, slivers and complex hierarchy cannot
+disappear from this census. No frame-enclosure requirement is promoted, and
+missing die-cut data does not establish that a complete chip may omit it.
+
+The new numerical density kernel evaluates the six published waffle-drop
+conditions for each of metals 1–4 on explicitly supplied **700 by 700 µm**
+windows. Areas use integer arithmetic; overlapping drawing and native fill are
+unioned before clipping, and holes and hierarchy are preserved. Conditions are
+independent, as the source says ANY: both adjacent bands apply at their shared
+endpoint, and full drop coverage also requires the 70% metal threshold.
+
+**This does not close required density acceptance.** Window origin/step, edge
+handling, the below-40,000-µm² cell exclusion and final generated-mask operands
+still need a verified policy. The tool does not infer one from the layout size.
+A present drop layer remains unreviewed with no supplied windows, with passing
+samples, or when it lies outside the sampled region. Drawing-plus-fill occupancy
+is not oxide density. Numerical predicate findings are observations, not a
+foundry violation or waiver. The 48 earlier reference absence decisions are
+confirmed without relabeling them as numerical execution.
+
+For explicit numerical investigation, run `python -m scripts.check_sky130_waffle_windows`
+with a GDS path, `--windows windows.json` and `--output observations.json`.
+The windows file is a JSON list such as `[[0, 0, 700000, 700000]]` in integer
+nanometres. Duplicate, clipped and non-square windows are rejected. Exit code 2
+always preserves the unqualified status, including when sampled predicates pass.
+Finish and saved-result/export validation require the raw census and recompute
+it against actual GDS bytes; this does not invent windows for the application.
+
+All **365 tests pass on each OS with no failures, errors or skips**. The
+**86 retained controls** comprise 14 die-cut cases and 72 nonempty density
+examples covering four metals, six thresholds, and exact/below/above limits.
+Additional tests compare predicates against a rational-arithmetic oracle,
+exercise one-square-nanometre changes, overlapping fill, holes, arrays, invalid
+geometry, unsampled regions and altered evidence. Control GDS/report bytes
+and all three catalog results agree across Windows and Linux. Three fresh
+Linux application runs and Windows saved-result/export replays pass. The
+standalone command also reproduces passing/failing observations and rejects
+clipped windows on both systems. Initial Linux command-launch attempts omitted
+a bundled dependency path; those records are retained alongside the corrected
+launcher results.
+
+The current reference catalog contains **441 executed, 710 absent, 90 explicit
+W/L exemptions, eight advisory and 307 unresolved records**. Earlier results
+remain authenticated retained dependencies; current width checks, module and
+die-cut censuses and the waffle census execute freshly. No new extraction,
+timing or equivalence run is claimed. The archive retains current evidence and
+the verified module, metal-width, family/package and delivery archive chain.
+
+### Remaining chunk 6 work at this checkpoint
+
+These are unresolved coverage records, not 307 measured layout violations.
+The separate missing `x.20` pin-spacing limit and wider required density work
+also remain in chunk 6. Counts do not measure engineering effort.
+
+| Records | Group | Definition or context still needed |
+| ---: | --- | --- |
+| 1 | Local geometry | Resolve the generated hugePad selector and conflicting area wording. |
+| 16 | Grid | Establish the eight `metop` purposes before binding their grid/angle rules. |
+| 32 | Device recognition | Resolve remaining RF fixed-layout model mapping, Table H5 and selected-device geometry. |
+| 34 | Core and implants | Establish generated-mask construction and exact enclosure targets. |
+| 34 | Module boundaries | Establish `q0`/`q1` subjects for enclosure and present-module spacing context. |
+| 117 | Frame, seal and scribe | Supply frame/alignment construction, generated-mask companions and remaining chip-boundary definitions. |
+| 56 | Pads and vias | Establish ViaTop and remaining pad-family selectors. |
+| 17 | Dummy diffusion | Establish the `fomDummyDRC` operand and its density/fill constraints. |
+
+The pinned public source bundle names several of these inputs without providing
+their construction. New numerical checks must be bound to verified definitions;
+absence of a guessed raw layer cannot establish a generated target is absent.
+The GDS table does publish dummy FOM on `22:23`; the unresolved issue is its
+relationship to the generated `fomDummyDRC` target and native waffle data, not
+the absence of a raw dummy-purpose number.
+
 ## Empty module operands for spacing and overlap
 
 The [module-operand audit](validation/sky130-module-operand-audit-2026-10-15.json)
@@ -66,30 +146,6 @@ W/L exemptions, eight advisory and 325 unresolved records**. They authenticate
 the module census. Earlier catalog geometry and native electrical results remain
 explicitly retained. The readback-verified archive preserves current evidence and
 the metal-width, family/package and independent delivery archive chain.
-
-### Remaining chunk 6 work at this checkpoint
-
-These are unresolved coverage records, not 325 measured layout violations.
-The separate missing `x.20` pin-spacing limit and wider required density work
-also remain in chunk 6. Counts do not measure engineering effort.
-
-| Records | Group | Definition or context still needed |
-| ---: | --- | --- |
-| 1 | Local geometry | Resolve the generated hugePad selector and conflicting area wording. |
-| 16 | Grid | Establish the eight `metop` purposes before binding their grid/angle rules. |
-| 32 | Device recognition | Resolve remaining RF fixed-layout model mapping, Table H5 and selected-device geometry. |
-| 34 | Core and implants | Establish generated-mask construction and exact enclosure targets. |
-| 34 | Module boundaries | Establish `q0`/`q1` subjects for enclosure and present-module spacing context. |
-| 135 | Frame, seal and scribe | Supply frame/alignment construction, generated-mask companions and remaining chip-boundary definitions. |
-| 56 | Pads and vias | Establish ViaTop and remaining pad-family selectors. |
-| 17 | Dummy diffusion | Establish the `fomDummyDRC` operand and its density/fill constraints. |
-
-The pinned public source bundle names several of these inputs without providing
-their construction. New numerical checks must be bound to verified definitions;
-absence of a guessed raw layer cannot establish a generated target is absent.
-The GDS table does publish dummy FOM on `22:23`; the unresolved issue is its
-relationship to the generated `fomDummyDRC` target and native waffle data, not
-the absence of a raw dummy-purpose number.
 
 ## Global metal maximum-width bounds
 

@@ -106,6 +106,12 @@ def execute(request):
         from .digital_sky130_module_absence import audit as module_absence
         report['module_absence'] = module_absence(gds)
         save('module_absence.json', report['module_absence'])
+        from .digital_sky130_diecut_absence import audit as diecut_absence
+        report['diecut_absence'] = diecut_absence(gds)
+        save('diecut_absence.json', report['diecut_absence'])
+        from .digital_sky130_waffle_windows import audit as waffle_windows
+        report['waffle_windows'] = waffle_windows(gds)
+        save('waffle_windows.json', report['waffle_windows'])
         report.update(status='reviewed-profiles-pass', ledger=review,
                       coverage=dict(rows=len(review['rows']), counts=review['counts'], complete=False))
         unchanged(); resources(base, policy['preparation_sha256'])
