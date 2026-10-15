@@ -19,13 +19,19 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [SKY130 device-intent audit](validation/sky130-device-intent-audit-2026-10-14.json)
+The latest [SKY130 selected-subject audit](validation/sky130-selected-subjects-audit-2026-10-14.json)
+resolves 63 explicit catalog records with fresh raw/derived measurements. Eleven
+tests pass on each OS, complete reports agree, and the preceding evidence is
+reconstructed. The catalog now has 356 executed, 320 absent and 880 unreviewed
+records. No voltage-tagging, generated-mask or complete-chip obligation is waived.
+
+The preceding [device-intent audit](validation/sky130-device-intent-audit-2026-10-14.json)
 matches all 36,385 drawn MOS gates to the native census of the unchanged filled
 layouts. Published device tables supply the missing context for the HVTR and
 HV-varactor target decisions while preserving generated LVTNM/NCM obligations.
 Fourteen tests pass on each OS and complete reports agree. The periphery ledger
 has 13 execution reviews plus the undefined `x.20` threshold remaining; the error
-catalog has 356 executed, 257 absent and 943 unreviewed records. The full list of
+catalog at that checkpoint had 356 executed, 257 absent and 943 unreviewed records. The full list of
 remaining periphery obligations is in the [SKY130 guide](SKY130_PHYSICAL_QUALIFICATION.md#device-intent-and-created-implant-masks).
 These are separate ledgers, not independent counts to add together.
 

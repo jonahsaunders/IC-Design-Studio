@@ -4,8 +4,8 @@ The [execution record](validation/sky130-physical-progress-2026-10-11.json)
 captures the original counter, UART and APB final layouts. Chunk 6 remains open.
 Zero geometry markers alone do not establish complete physical coverage.
 
-The latest [device-intent review](#device-intent-and-created-implant-masks) records
-356 executed error records, 257 verified absent subjects and 943 unreviewed
+The latest [selected-subject review](#selected-catalog-subjects) records
+356 executed error records, 320 verified absent subjects and 880 unreviewed
 records. Thirteen periphery execution reviews, the missing pin-spacing
 definition and remaining required catalog/density interpretation remain open.
 The [final electrical checks](#final-filled-reference-electrical-checks)
@@ -19,6 +19,43 @@ between the supplemental checker and Finish/export; it does not close the
 remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
+
+## Selected catalog subjects
+
+The [selected-subject audit](validation/sky130-selected-subjects-audit-2026-10-14.json)
+resolves 63 explicit catalog records on each unchanged filled reference. It
+reconstructs the preceding catalog evidence, checks its device-review link and
+performs fresh raw-layer and Boolean measurements. No source row is removed and
+no same-name rule inherits coverage automatically.
+
+The selected records cover HVI/HL-derived geometry, varactor channels, optional
+module-cut via sizes, slotted contacts, exact named-cell contact/LI variants,
+photodiodes, RF-diode identifiers and three general selector checks. The entire
+raw HVI and HL selectors are empty; this establishes absence of those geometric
+subjects, while the separate obligation to identify and propagate operating
+voltages remains open. The varactor decision proves that all poly/tap
+intersection is empty. Slotted-contact decisions require both no exact merged
+0.19 by 2.0 micrometre contacts and no raw RPM. Named-cell decisions use the
+published exact names and the single explicitly published trailing wildcard.
+
+Both systems pass 11 tests without skips and produce identical complete data.
+Controls cover every nonempty operand, raw text in transformed arrays, rejected
+zero-width paths, hierarchical varactor intersections, merged slotted contacts,
+all named-cell selectors, unsupported geometry, altered sources, invalid counts,
+failed parents and removal of an unrelated catalog record.
+
+```sh
+python -m unittest tests.test_sky130_selected_subjects -v
+python -m scripts.sky130_selected_subject_review --check
+```
+
+The catalog now contains 356 executed, 320 absent and 880 unreviewed records.
+These entries are not 880 independent active block rules. All 601 periphery
+rows and their dispositions remain unchanged: 13 execution reviews and the
+undefined `x.20` numeric value are still open. No numeric execution on nonempty
+special devices, fresh native extraction or application-policy change is
+claimed. The archive preserves exact sources, drivers, reports and logs without
+duplicating the committed reference-layout fixture.
 
 ## Device intent and created implant masks
 
