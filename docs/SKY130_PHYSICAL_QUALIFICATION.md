@@ -10,9 +10,9 @@ geometry. Actual application checks and macro exports pass on the corrected
 streams, and Windows reproduces identical GDS bytes. This is a separate correction;
 the earlier catalog is not silently rebound to the new file identities.
 
-The [boundary interaction review](#module-and-seal-interactions) records, on the original GDS files,
-405 executed error records, 532 verified absent subjects, 90 explicit standard-cell
-W/L exemptions and 529 unreviewed records. The preceding
+The [selected-device review](#selected-devices-and-recommended-rules) records, on the original GDS files,
+405 executed error records, 568 verified absent subjects, 90 explicit standard-cell
+W/L exemptions, eight advisory records and 485 unreviewed records. The preceding
 [local/HV review](#local-geometry-marked-hv-and-hugepad-correction) reopens the
 unsupported hugePad exemption, leaving ten periphery execution reviews and one declared optional rule not required by the
 ordinary bulk references. Those ten reviews, the missing pin-spacing
@@ -28,6 +28,52 @@ between the supplemental checker and Finish/export; it does not close the
 remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
+
+## Selected devices and recommended rules
+
+The [audit](validation/sky130-selected-device-audit-2026-10-15.json) and
+[reference measurements](validation/sky130-selected-devices-2026-10-15.json)
+add a required `selected_devices` report to Finish and saved-result/export
+validation. Thirty-four VPP, pwell-resistor and PNP messages are absent only when
+their published mandatory drawn purpose is empty and no reachable cell name or
+label suggests that device. Present geometry, text or a candidate name keeps
+the family requirements unreviewed. Renaming a marked device cannot hide it.
+
+Two implant checks execute numerically: gates overlapping drawn tunm require
+95 nm enclosure (`r453`), and every drawn hvntm region must be inside hvi
+(`r1061`). Gates use the intersection of poly and diffusion. Partial overlaps,
+holes and connected fragments are preserved. A SONOS name or label with missing
+or incomplete gate selection remains unreviewed. Missing HVI with present HVNTM
+fails. These checks do not qualify complete SONOS or high-voltage devices.
+
+Eight catalog entries have an explicitly published `RR` (recommended) parent:
+`s0`–`s6` and `s8`. They are recorded as advisory with execution not claimed.
+They do not become numerical passes or waive required rules. Together with the
+36 verified device/implant absences on both reference streams, this reduces the
+original queue from 529 to 485. Current totals are 405 executed, 568 absent,
+90 W/L exemptions, eight advisory and 485 unreviewed. Corrected streams retain
+166 explicit current catalog messages, separate from the unchanged six-profile
+ledger. Historical full-catalog decisions remain bound to the original GDS files.
+
+All 115 focused tests pass without skips on each OS. Seventeen retained controls
+agree byte for byte across Windows and Linux, including valid nonempty implants,
+1 nm failures, holes, reflected arrays, missing marker context, all three device
+families and Unicode labels. Missing or altered reports, implant failures and
+rehashed layouts carrying stale measurements fail validation. All three actual
+application runs and Windows export replays pass. Manufacturing geometry,
+checkpoints, netlists and SPEF are unchanged; no new extraction or electrical
+qualification is claimed. Required density and complete physical coverage remain
+open, so chunk 6 is incomplete.
+
+```sh
+python -m scripts.sky130_selected_device_review --check
+python -m unittest tests.test_sky130_selected_devices tests.test_sky130_application_rules -v
+```
+
+The review uses the retained corrected streams under workspace outputs. The
+preceding boundary checkpoint is source-bound to commit `895a4f2`; use that
+commit or its archived sources to reproduce its exact report. The current audit
+retains application outputs, controls, tests and reproduction drivers.
 
 ## Module and seal interactions
 
@@ -406,7 +452,7 @@ count, and rejects missing, overlapping or changed source records. It imports
 no geometry engines and does not repeat extraction or historical geometry runs.
 Six focused tests cover reconstruction, stale inputs, ambiguous assignments,
 changed source identities and attempts to queue already resolved records.
-The boundary interaction review above advances this baseline; its `remaining_original_batches`
+The selected-device review above advances this baseline; its `remaining_original_batches`
 retains every open record for the original streams. Current original-stream counts are:
 
 | Work batch | Open catalog records |
@@ -414,15 +460,15 @@ retains every open record for the original streams. Current original-stream coun
 | Local geometry and resistor/pad selectors | 1 |
 | Marked high-voltage geometry | 0 |
 | Coordinate grids and layer aliases | 16 |
-| Device identification and RF geometry | 95 |
+| Device identification and RF geometry | 77 |
 | Core context and generated implant masks | 40 |
 | Module cut and selected boundary rules | 69 |
 | Frame, seal, scribe and alignment marks | 156 |
 | Pads, package geometry and ViaTop | 76 |
-| VPP, dummy diffusion and density | 36 |
-| Connectivity, redundancy and chip labels | 14 |
+| VPP, dummy diffusion and density | 17 |
+| Connectivity, redundancy and chip labels | 7 |
 | Routing blockages and boundary purposes | 26 |
-| **Total** | **529** |
+| **Total** | **485** |
 
 These are scheduling groups, not equally sized engineering tasks or completion
 percentages. Every currently queued record remains `unreviewed`; grouping itself

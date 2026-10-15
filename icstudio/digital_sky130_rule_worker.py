@@ -67,6 +67,9 @@ def execute(request):
         from .digital_sky130_boundary_interactions import audit as boundary_interactions
         report['boundary_interactions'] = boundary_interactions(gds)
         save('boundary_interactions.json', report['boundary_interactions'])
+        from .digital_sky130_selected_devices import audit as selected_devices
+        report['selected_devices'] = selected_devices(gds)
+        save('selected_devices.json', report['selected_devices'])
         report.update(status='reviewed-profiles-pass', ledger=review,
                       coverage=dict(rows=len(review['rows']), counts=review['counts'], complete=False))
         unchanged(); resources(base, policy['preparation_sha256'])

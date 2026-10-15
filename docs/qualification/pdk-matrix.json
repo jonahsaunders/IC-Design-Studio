@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. Forty-four new module/seal interaction checks are mandatory in Finish and export validation. Original catalog counts: 405 executed, 532 absent, 90 standard-cell W/L exemptions, 529 unreviewed. Frame/scribe records fall from 200 to 156. Corrected streams retain 130 explicit current catalog messages; the six-profile periphery ledger is unchanged. The reference blocks have no module or seal markers: passing interaction checks does not establish complete chip boundaries or waive enclosure/spacing. All three application runs and Windows exports pass, 98 focused tests pass per OS, and eleven nonempty controls match exactly across systems. Generated masks, RF selectors, grid/purpose semantics, frame/pad context, x.20 and remaining density/catalog coverage stay open.",
+      "remaining": "Chunk 6 remains incomplete. The current selected-device audit resolves 36 absent subjects and eight explicitly recommended catalog records. Original catalog: 405 executed, 568 absent, 90 W/L exemptions, 8 advisory, 485 unreviewed. Corrected streams retain 166 explicit current catalog messages. Two implant checks execute numerically; present VPP, pwell-resistor and PNP candidates remain unreviewed. All three application runs and Windows exports pass, 115 tests pass per OS, and 17 controls match exactly. No full density, generated-mask, RF, grid/purpose, frame/pad or pin-spacing qualification is claimed.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16771,7 +16771,8 @@
         "sky130-core-context-audit-2026-10-15",
         "sky130-label-subject-audit-2026-10-15",
         "sky130-vpp-geometry-audit-2026-10-15",
-        "sky130-boundary-interaction-audit-2026-10-15"
+        "sky130-boundary-interaction-audit-2026-10-15",
+        "sky130-selected-device-audit-2026-10-15"
       ]
     },
     "sky130A:source-completeness": {
@@ -20264,6 +20265,11 @@
       "path": "docs/validation/sky130-boundary-interaction-audit-2026-10-15.json",
       "sha256": "03c7a781b9b6178fe5279fd27e2e2c0b09912b46af585cf661564b42c1a0501e",
       "scope_limit": "Finish and saved-result validation require 44 numerical module/seal interaction checks. Thirty-five published drawn purposes cannot straddle each supplied module-cut polygon. Diffusion cannot straddle seal geometry; tap, poly, local interconnect and metal1-metal5 cannot overlap it. Ninety-eight focused tests pass per OS, eleven retained nonempty controls match exactly, and all three application runs plus Windows export replays pass. The original reference catalog has 405 executed, 532 absent, 90 W/L exemptions and 529 unreviewed records. Reference blocks have no module or seal markers: these interaction results do not establish chip/frame completeness or exempt enclosure/spacing rules. Corrected streams have 130 explicit current catalog messages, separate from the six-profile ledger."
+    },
+    "sky130-selected-device-audit-2026-10-15": {
+      "path": "docs/validation/sky130-selected-device-audit-2026-10-15.json",
+      "sha256": "28770f855d126249d25fc13f12fb20186ef9895865aac09a128b79e4cfdc6c31",
+      "scope_limit": "Finish and saved-result validation require 36 selected device/implant records: 34 absence-only VPP, pwell-resistor and PNP subjects, 95 nm tunm enclosure of overlapping gates, and drawn hvntm containment in hvi. Mandatory drawn-purpose absence is checked alongside all reachable cell names and labels; present candidates remain unreviewed. Missing SONOS intent markers cannot establish absence. Eight source-published RR entries are advisory, never executed passes. All 115 focused tests pass per OS, 17 retained controls match exactly, and all three application runs plus Windows export replays pass. The original reference catalog has 405 executed, 568 absent, 90 W/L exemptions, 8 advisory and 485 unreviewed records. Corrected streams retain 166 explicit current catalog messages. Full required geometry, density and chip-context coverage remains incomplete."
     }
   },
   "execution_acceptance": {

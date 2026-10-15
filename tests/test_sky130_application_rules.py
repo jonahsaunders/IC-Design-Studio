@@ -62,6 +62,7 @@ def fixture(root):
     from icstudio.digital_sky130_catalog_labels import audit as catalog_labels
     from icstudio.digital_sky130_vpp import audit as vpp_geometry
     from icstudio.digital_sky130_boundary_interactions import audit as boundary_interactions
+    from icstudio.digital_sky130_selected_devices import audit as selected_devices
     report = dict(schema=1, recipe=rules.RECIPE, status='reviewed-profiles-pass', qualified=False,
                   chunk_complete=False, scope=rules.SCOPE, policy=platform['sky130_rules'],
                   top=ledger['top'], gds_sha256=ledger['gds_sha256'],
@@ -70,7 +71,8 @@ def fixture(root):
                   profiles={key: clone(ledger[key]) for key in rules.PROFILES},
                   coverage=dict(rows=len(ledger['rows']), counts=ledger['counts'], complete=False), resources={},
                   catalog_context=catalog_context(root/'filled.gds'),catalog_labels=catalog_labels(root/'filled.gds'),
-                  vpp_geometry=vpp_geometry(root/'filled.gds'),boundary_interactions=boundary_interactions(root/'filled.gds'))
+                  vpp_geometry=vpp_geometry(root/'filled.gds'),boundary_interactions=boundary_interactions(root/'filled.gds'),
+                  selected_devices=selected_devices(root/'filled.gds'))
     paths = rules.resources(root/'platform/verification', platform['sky130_rules']['preparation_sha256'])
     for index, (name, path) in enumerate(sorted(paths.items())):
         key='sky130_rule_resource_'+str(index)
@@ -163,6 +165,8 @@ class Sky130ApplicationRuleTests(unittest.TestCase):
                 'changed-vpp-geometry':lambda r:r['vpp_geometry']['rows'].pop(),
                 'missing-boundary-interactions':lambda r:r.pop('boundary_interactions'),
                 'changed-boundary-interactions':lambda r:r['boundary_interactions']['rows'].pop(),
+                'missing-selected-devices':lambda r:r.pop('selected_devices'),
+                'changed-selected-devices':lambda r:r['selected_devices']['rows'].pop(),
                 'changed-catalog-context':lambda r:r['catalog_context']['rows'].pop(),
                 'duplicate-check':lambda r:r['profiles']['raw_geometry']['checks'].__setitem__(0,r['profiles']['raw_geometry']['checks'][1]),
                 'bool-count':lambda r:r['profiles']['raw_geometry'].update(violations=False),
