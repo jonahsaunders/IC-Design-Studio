@@ -53,6 +53,8 @@ def execute(request):
         review['checker_sha256'] = FILES['helpers/scripts/sky130_rule_execution.py']
         from .digital_sky130_scope import correct
         review = correct(review)
+        from .digital_sky130_pad_scope import correct as correct_pad_scope
+        review = correct_pad_scope(review)
         report.update(status='reviewed-profiles-pass', ledger=review,
                       coverage=dict(rows=len(review['rows']), counts=review['counts'], complete=False))
         unchanged(); resources(base, policy['preparation_sha256'])

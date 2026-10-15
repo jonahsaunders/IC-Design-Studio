@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. The application now captures explicit x.29 isolation selection in physical settings, Finish and export, rejects incomplete evidence and retains bulk measurements as NOT_REQUESTED. All three filled references pass the existing application geometry, antenna and power checks/export; enabling isolation fails each unchanged bulk layout. Nine periphery execution reviews, the undefined x.20 threshold and outstanding required catalog/density interpretation remain. Coverage stays 135 executed periphery rows, 281 absent, 77 upstream NA, 36 advisory, 61 other-backend, one declared optional rule not required, nine reviews and one missing definition. Catalog counts stay 356 executed, 320 absent and 880 unreviewed. Full required-rule coverage and foundry acceptance are not established.",
+      "remaining": "Chunk 6 remains incomplete. The local/HV batch resolves 29 catalog subjects as absent on the exact three nominal filled references: 356 executed, 349 absent and 851 unreviewed records remain. The unsupported mask-derived hugePad exemption is reopened and current Finish/export rejects reports missing that correction. Supplemental periphery coverage is 135 executed, 280 absent, 77 upstream NA, 36 advisory, 61 other-backend, one optional rule not required, 10 execution reviews and one missing definition. The application six-profile ledger retains its separate 133 executed/28 review scope. Grid/purpose semantics, RF selection, generated masks, frame boundaries, hugePad semantics, x.20 and remaining required catalog/density interpretation stay open. Full required-rule coverage and foundry acceptance are not established.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16763,7 +16763,8 @@
         "sky130-selected-subjects-audit-2026-10-14",
         "sky130-voltage-intent-audit-2026-10-14",
         "sky130-isolation-options-audit-2026-10-14",
-        "sky130-application-isolation-2026-10-14"
+        "sky130-application-isolation-2026-10-14",
+        "sky130-local-hv-audit-2026-10-15"
       ]
     },
     "sky130A:source-completeness": {
@@ -20216,6 +20217,11 @@
       "path": "docs/validation/sky130-application-isolation-2026-10-14.json",
       "sha256": "12d6aee43a88ab8bad89b541eb4d41dd4c0a737d568da636d94e711173e0dfc0",
       "scope_limit": "Explicit x.29 policy in prepared SKY130 platforms, physical settings, Finish and export. Actual application entry points on unchanged filled counter/UART/APB plus Windows/Linux worker, failure, export and compatibility tests. Bulk mode is NOT_REQUESTED, never a passing isolation check."
+    },
+    "sky130-local-hv-audit-2026-10-15": {
+      "path": "docs/validation/sky130-local-hv-audit-2026-10-15.json",
+      "sha256": "2582e27d8307ca756ca9a07f9aae5eb89eab97b5eb70529373cf8f72ecbeca73",
+      "scope_limit": "Two batched exact-reference reviews resolve 29 literal error-catalog subjects as absent and reopen the unsupported pad.3 exemption. Windows/Linux results agree; the current application and exports retain the hugePad mask requirement and reject stale or restored absence claims. Nonempty resistor/pad/HV geometry, broader device support and complete required physical coverage are not qualified."
     }
   },
   "execution_acceptance": {

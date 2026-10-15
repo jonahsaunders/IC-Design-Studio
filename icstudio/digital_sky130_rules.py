@@ -107,6 +107,8 @@ def evaluate(report, gds_sha256, checkpoint_sha256, top, fingerprint, policy):
             'SKY130 partial coverage changed.')
     from .digital_sky130_scope import validate as validate_scope
     validate_scope(ledger)
+    from .digital_sky130_pad_scope import validate as validate_pad_scope
+    validate_pad_scope(ledger)
     return report
 
 

@@ -4,12 +4,11 @@ The [execution record](validation/sky130-physical-progress-2026-10-11.json)
 captures the original counter, UART and APB final layouts. Chunk 6 remains open.
 Zero geometry markers alone do not establish complete physical coverage.
 
-The [selected-subject review](#selected-catalog-subjects) records
-356 executed error records, 320 verified absent subjects and 880 unreviewed
-records. The [nominal voltage review](#nominal-reference-voltage-contract)
-and [explicit isolation option](#explicit-reference-isolation-option) leave nine
+The [local/HV review](#local-geometry-marked-hv-and-hugepad-correction) records
+356 executed error records, 349 verified absent subjects and 851 unreviewed
+records. It also reopens the unsupported hugePad exemption, leaving ten
 periphery execution reviews and one declared optional rule not required by the
-ordinary bulk references. Those nine reviews, the missing pin-spacing
+ordinary bulk references. Those ten reviews, the missing pin-spacing
 definition and remaining required catalog/density interpretation remain open.
 The [final electrical checks](#final-filled-reference-electrical-checks)
 now pass nominal extracted timing and sequential equivalence on all three exact
@@ -23,21 +22,69 @@ remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
 
+## Local geometry, marked HV and hugePad correction
+
+The [batched audit](validation/sky130-local-hv-audit-2026-10-15.json) and
+[measurements](validation/sky130-local-hv-2026-10-15.json) resolve 29 literal
+catalog records as absent on the unchanged counter, UART and APB layouts.
+Thirteen concern local selected geometry; sixteen concern marked HV subjects
+under the authenticated nominal reference voltage contract. This does not
+qualify nonempty resistor, pad or HV circuits.
+
+Fresh recursive measurements cover touching/overlapping diffusion and taps,
+diffusion/poly/local-interconnect resistor purposes, both RPM and the separate
+URPM layer, drawn pads, all five retained HV selectors and normalized HV labels.
+An empty poly-resistor purpose alone is insufficient: both resistor implants
+must also be absent. URPM records bind directly to their catalog text and
+published layer purpose, without substituting the similarly named RPM rules.
+Retained decisions are authenticated once rather than rerunning old extraction.
+
+This review also finds an unsupported earlier `pad.3` exemption. C3 defines
+`hugePad` using `pad.mk`, while the earlier witness measured only drawn `pad:dg`.
+The manual describes maximum area, but catalog `r900` describes an invalid
+minimum area. The mask construction and this wording conflict remain open.
+The zero drawn-pad measurement is preserved; the periphery rule is reopened
+as `execution-review-required`, and `r900` stays unreviewed.
+
+Current Finish workers apply this correction. Saved-result validation and
+macro export reject a missing correction or a restored absence claim. Older
+results carrying the former exemption require rechecking under the current
+policy; their historical source records remain intact. The actual application
+checks and exports pass on all three unchanged references, retaining the pending
+rule, with both invalid-claim controls rejected for each design.
+
+Thirty-six focused tests pass without skips on each operating system, including
+operand-presence controls, corner/edge contacts, hierarchy and arrays, raw text,
+unsupported paths/transforms, incomplete voltage context, stale sources and
+export tampering. Complete measurement reports are byte-identical across
+Windows/Linux. Evidence is retained in the audit's readback-verified archive.
+Earlier nominal timing/equivalence results keep their original scope; no new
+placement, extraction, timing, installer or foundry acceptance is claimed.
+
+The supplemental periphery ledger now has 135 executed rows, 280 absent,
+77 upstream NA, 36 advisory, 61 other-backend, ten execution reviews, one
+missing definition and one declared optional rule not required. The application's
+six-profile ledger retains its separate scope of 133 executed rows and 28
+execution reviews. Supplemental catalog decisions are not automatically promoted
+into the application ledger. Full required physical coverage remains incomplete.
+
 ## Batched remaining work
 
 The [catalog work queue](validation/sky130-catalog-work-queue-2026-10-15.json)
 reconstructs the retained decisions for all three exact reference layouts and
-assigns every one of the 880 open records to one work batch. It authenticates
+assigned all 880 then-open records to one work batch. It authenticates
 the retained checkpoints and their direct inputs, checks each intermediate
 count, and rejects missing, overlapping or changed source records. It imports
 no geometry engines and does not repeat extraction or historical geometry runs.
 Six focused tests cover reconstruction, stale inputs, ambiguous assignments,
 changed source identities and attempts to queue already resolved records.
+The local/HV review above advances this baseline; its `remaining_batches`
+retains every current open record. Current counts are:
 
 | Work batch | Open catalog records |
 | --- | ---: |
-| Local geometry and resistor/pad selectors | 14 |
-| Marked high-voltage geometry | 16 |
+| Local geometry and resistor/pad selectors | 1 |
+| Marked high-voltage geometry | 0 |
 | Coordinate grids and layer aliases | 121 |
 | Device identification and RF geometry | 190 |
 | Core context and generated implant masks | 77 |
@@ -47,11 +94,11 @@ changed source identities and attempts to queue already resolved records.
 | VPP, dummy diffusion and density | 40 |
 | Connectivity, redundancy and chip labels | 46 |
 | Routing blockages and boundary purposes | 26 |
-| **Total** | **880** |
+| **Total** | **851** |
 
 These are scheduling groups, not equally sized engineering tasks or completion
-percentages. Every queued record remains `unreviewed`; this change adds no
-coverage decisions. The separate nine periphery reviews, missing `x.20` value,
+percentages. Every currently queued record remains `unreviewed`; grouping itself
+adds no coverage decisions. The separate ten periphery reviews, missing `x.20` value,
 and wider density/application obligations remain. No record moves to another
 chunk merely because its batch mentions chip, pad or scribe context.
 

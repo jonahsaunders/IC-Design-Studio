@@ -19,14 +19,25 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The [batched SKY130 work queue](SKY130_PHYSICAL_QUALIFICATION.md#batched-remaining-work)
-groups all 880 unreviewed catalog records into eleven shared work batches.
-Its inexpensive reconstruction authenticates the existing results once for all
-three references, avoiding repeated geometry/extraction work during catalog
-review. This is a scheduling improvement: coverage counts are unchanged and no
-rule is accepted or assigned to a later chunk by grouping it.
+The latest [local/HV audit](validation/sky130-local-hv-audit-2026-10-15.json)
+resolves 29 explicit catalog subjects as absent on the exact three nominal
+filled references. Coverage is now 356 executed, 349 absent and 851 unreviewed
+catalog records. It also reopens the unsupported `pad.3` exemption: C3 uses a
+mask-derived hugePad subject, while the earlier witness measured drawn pads.
+The supplemental periphery ledger has ten execution reviews plus the undefined
+`x.20` threshold. Current Finish/export retain that pending rule and reject
+missing corrections or restored absence claims. All three application checks
+and exports succeed, 36 focused tests pass without skips on each OS, and
+Windows/Linux measurement reports agree exactly. These remain bounded
+reference results; chunk 6 is incomplete.
 
-The latest [application isolation audit](validation/sky130-application-isolation-2026-10-14.json)
+The [batched SKY130 work queue](SKY130_PHYSICAL_QUALIFICATION.md#batched-remaining-work)
+originally grouped 880 records into eleven shared work batches; the latest
+review retains the remaining 851 IDs by batch. Its inexpensive reconstruction
+authenticates existing results without repeating old geometry/extraction work.
+Grouping alone never accepts a rule or assigns it to a later chunk.
+
+The preceding [application isolation audit](validation/sky130-application-isolation-2026-10-14.json)
 integrates explicit `x.29` selection into physical settings, Finish and macro
 export. Bulk results retain noncontained gate measurements as `NOT_REQUESTED`;
 required mode blocks acceptance when containment fails. Missing or changed
