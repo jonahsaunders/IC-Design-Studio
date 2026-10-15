@@ -29,6 +29,56 @@ remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
 
+## Drawn-layer frame-margin bounds
+
+The [frame-bound audit](validation/sky130-frame-bound-audit-2026-10-15.json)
+and [fresh reference measurements](validation/sky130-frame-bounds-2026-10-15.json)
+add eighteen numerical sufficient-bound checks to Finish and saved-result/export
+validation. They cover `nsm.3a` enclosure and `nsm.3b` spacing for diffusion, tap,
+poly, local interconnect and metal1 through metal5. Published source bytes bind
+each exact catalog record, its 3 µm margin and its drawn-layer purpose.
+
+For enclosure, the complete target region expanded by a 3 µm square must fit
+within the explicitly supplied frame marker on 81:12. For spacing, that expanded
+region must have no positive-area intersection with the supplied die-cut marker
+on 81:11. Exact equality passes. Holes, merged target fragments, reflected arrays
+and exact Manhattan paths are preserved. Touching/overlapping boundary markers
+and unsupported geometry are rejected, so merging cannot hide a boundary.
+
+This is a conservative proof: the square expansion is at least as strict as a
+Euclidean 3 µm margin, and no named-cell or blanking exception is applied. Failure
+therefore means **unreviewed**, not an established foundry violation. A present
+target with missing boundary context also remains unreviewed. The checker never
+substitutes a block bounding box for the frame or die-cut geometry. Supplied
+markers alone do not prove complete-chip context or a valid frame construction.
+
+All **212 focused tests** pass without skips on Windows and Linux. The **36
+retained controls** agree byte for byte across systems, including nonempty
+positives for all eighteen checks, 1 nm margin failures for every drawn layer,
+holes, disconnected frames, interior/overlapping die targets, conservative corner
+cases and missing context. Stale rehashed layouts and missing/altered reports
+are rejected. Three fresh application runs and Windows saved-result/export
+replays pass; manufacturing geometry and retained electrical artifacts are unchanged.
+
+The counter, UART and APB blocks have no frame or die-cut markers. **All eighteen
+reference requirements remain unreviewed**, and this batch promotes no catalog
+record. Retained complete-catalog counts stay at 424 executed, 609 absent, 90 W/L
+exemptions, eight advisory and 425 unreviewed. This batch reruns the frame bounds
+and application checks; the complete catalog remains the preceding source-bound
+checkpoint at `327dfac`. Generated-mask and dummy-diffusion frame records, frame
+completeness, other unresolved physical rules and chunk 6 remain open.
+
+```sh
+python -m scripts.sky130_frame_bound_review --check
+python -m unittest tests.test_sky130_frame_bounds tests.test_sky130_application_rules -v
+```
+
+The reference command requires the retained corrected streams under workspace
+outputs. The readback-verified evidence archive retains current sources, reports,
+controls and application outputs; its only parent is the selected-target archive,
+which in turn references the independent delivery archive. Use the preceding
+checkpoint's source commit or archived files to reproduce its exact full report.
+
 ## Selected pad, inductor and implant targets
 
 The [selected-target audit](validation/sky130-selected-target-audit-2026-10-15.json)

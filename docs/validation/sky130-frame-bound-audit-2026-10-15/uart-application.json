@@ -1,0 +1,3401 @@
+{
+  "schema": 1,
+  "status": "application-checks-and-export-pass",
+  "qualified": false,
+  "chunk_complete": false,
+  "case": "uart",
+  "platform": "linux",
+  "driver_sha256": "1349c8ba9aad4d8b535a44e4b8f2d8380bad1c5a82a7778a2a7d726985911ca8",
+  "source_result_sha256": "d85812ac451b2ef0a2b639b4647572df8f7e351ba60e8d789f903809b50fe8ab",
+  "source_input_sha256": "ecdf75aa48f65ad8ca837703cdadc93b51d1503ea522f6e4bc0d3893bf3be660",
+  "source_gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+  "scope": "Actual Runner export removes only the top-level prBoundary box matching the independent OpenDB die. Manufacturing masks and text are compared in full. Six partial geometry profiles, antenna, isolation, OpenDB checks and macro export rerun on the corrected GDS. Original timing/equivalence remains separate; no new extraction, full physical signoff or installer qualification. The retained 45-record core context is supplemented by 37 explicitly absent label, named-cell and raw-layer subjects; present subjects require further review. Four new VPP geometry checks execute, with absent capacitor targets on these references. Density observations do not establish density acceptance. Forty-four new module/seal interaction checks execute. Missing module or seal geometry does not establish complete-chip context. Thirty-six selected device requirements are measured: VPP, pwell resistor and PNP absence requires no drawn markers or candidate names/labels; two implant geometry checks execute with absent targets in these references. Four conservative bounds and eighteen raw IP blockage subjects are freshly checked; failed sufficient bounds and present blockages remain unreviewed. Seven floating-net records are freshly checked against physical device roots, without pin endpoints or exception labels. Seven special-device subject absences require empty relevant drawn/mask operands, merged nwell holes and conservative intent guards; present candidates stay unreviewed. The full corrected reference catalog remains retained separately; this run does not rerun the complete catalog. Eighteen new sufficient frame bounds stay unreviewed because the reference blocks lack frame and die-cut markers. Sixteen selected pad, inductor and implant targets are conservatively checked for absence; nonempty targets remain unreviewed.",
+  "boundary_export": {
+    "recipe": "sky130-declared-die-outline-v1",
+    "source": {
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "path": "docs/rules/errors.csv",
+      "sha256": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed"
+    },
+    "top": "uart_tx",
+    "die_nm": [
+      0,
+      0,
+      400000,
+      400000
+    ],
+    "removed_top_die_outlines": 1,
+    "rules": [
+      {
+        "pair": [
+          235,
+          4
+        ],
+        "records": [
+          "r1252",
+          "s68"
+        ]
+      },
+      {
+        "pair": [
+          66,
+          4
+        ],
+        "records": [
+          "r1253",
+          "s69"
+        ]
+      },
+      {
+        "pair": [
+          65,
+          4
+        ],
+        "records": [
+          "r1254",
+          "s70"
+        ]
+      },
+      {
+        "pair": [
+          65,
+          60
+        ],
+        "records": [
+          "r1255",
+          "s71"
+        ]
+      }
+    ],
+    "scope": "Remove only the single top-level prBoundary box equal to the OpenDB die, if present. All other forbidden boundary-purpose input is rejected; manufacturing shapes and annotations are preserved."
+  },
+  "frame_bounds": {
+    "schema": 1,
+    "recipe": "sky130-drawn-frame-bounds-v1",
+    "source": {
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "files": {
+        "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+        "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+        "docs/rules/periphery/p043-nsm_dotdash.csv": "232fb1afb91d400f6bbaea0ee52b39a22e831e0668b87b439edef759d1c6942c",
+        "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f"
+      }
+    },
+    "scope": "Eighteen exact drawn-layer frame records use a sufficient 3000 nm square-margin proof. The complete target union expanded by [-3000,3000] in both coordinates must fit within supplied areaid.ft for enclosure, or have zero positive-area overlap with supplied areaid.dt for spacing. Equality passes. No blanking or named-cell exception is applied. A failed square bound is unreviewed, not a foundry violation. Missing boundary context leaves a nonempty target unreviewed. Empty targets are recorded separately. Supplied markers do not establish complete-chip context. Generated masks, dummy diffusion, frame completeness and all other requirements remain separate.",
+    "qualified": false,
+    "chunk_complete": false,
+    "top": "uart_tx",
+    "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+    "measurements": {
+      "layers": {
+        "diff": {
+          "raw_shapes": 15030,
+          "texts": 0,
+          "components": 15030,
+          "area_nm2": 34989929100
+        },
+        "tap": {
+          "raw_shapes": 3458,
+          "texts": 0,
+          "components": 3458,
+          "area_nm2": 411502000
+        },
+        "poly": {
+          "raw_shapes": 15574,
+          "texts": 0,
+          "components": 15545,
+          "area_nm2": 46677604525
+        },
+        "li1": {
+          "raw_shapes": 40759,
+          "texts": 0,
+          "components": 1780,
+          "area_nm2": 68047048975
+        },
+        "met1": {
+          "raw_shapes": 39453,
+          "texts": 0,
+          "components": 981,
+          "area_nm2": 23222705700
+        },
+        "met2": {
+          "raw_shapes": 6498,
+          "texts": 0,
+          "components": 2043,
+          "area_nm2": 1263777800
+        },
+        "met3": {
+          "raw_shapes": 5223,
+          "texts": 0,
+          "components": 1737,
+          "area_nm2": 1193817600
+        },
+        "met4": {
+          "raw_shapes": 2080,
+          "texts": 0,
+          "components": 26,
+          "area_nm2": 14729728000
+        },
+        "met5": {
+          "raw_shapes": 364,
+          "texts": 0,
+          "components": 26,
+          "area_nm2": 14964352000
+        },
+        "frame": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0,
+          "area_nm2": 0
+        },
+        "die": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0,
+          "area_nm2": 0
+        }
+      },
+      "bounds": {
+        "r988": {
+          "evaluated": false,
+          "witness_area_nm2": null
+        },
+        "r1006": {
+          "evaluated": false,
+          "witness_area_nm2": null
+        },
+        "r989": {
+          "evaluated": false,
+          "witness_area_nm2": null
+        },
+        "r1007": {
+          "evaluated": false,
+          "witness_area_nm2": null
+        },
+        "r992": {
+          "evaluated": false,
+          "witness_area_nm2": null
+        },
+        "r1010": {
+          "evaluated": false,
+          "witness_area_nm2": null
+        },
+        "r994": {
+          "evaluated": false,
+          "witness_area_nm2": null
+        },
+        "r1012": {
+          "evaluated": false,
+          "witness_area_nm2": null
+        },
+        "r996": {
+          "evaluated": false,
+          "witness_area_nm2": null
+        },
+        "r1014": {
+          "evaluated": false,
+          "witness_area_nm2": null
+        },
+        "r998": {
+          "evaluated": false,
+          "witness_area_nm2": null
+        },
+        "r1016": {
+          "evaluated": false,
+          "witness_area_nm2": null
+        },
+        "r1000": {
+          "evaluated": false,
+          "witness_area_nm2": null
+        },
+        "r1018": {
+          "evaluated": false,
+          "witness_area_nm2": null
+        },
+        "r1002": {
+          "evaluated": false,
+          "witness_area_nm2": null
+        },
+        "r1020": {
+          "evaluated": false,
+          "witness_area_nm2": null
+        },
+        "r1004": {
+          "evaluated": false,
+          "witness_area_nm2": null
+        },
+        "r1022": {
+          "evaluated": false,
+          "witness_area_nm2": null
+        }
+      }
+    },
+    "rows": [
+      {
+        "id": "r988",
+        "rule": "nsm.3a",
+        "target": "diff",
+        "boundary": "frame",
+        "operation": "enclosure",
+        "limit_nm": 3000,
+        "target_components": 15030,
+        "boundary_components": 0,
+        "evaluated": false,
+        "witness_area_nm2": null,
+        "disposition": "unreviewed",
+        "reason": "missing-boundary-context"
+      },
+      {
+        "id": "r1006",
+        "rule": "nsm.3b",
+        "target": "diff",
+        "boundary": "die",
+        "operation": "spacing",
+        "limit_nm": 3000,
+        "target_components": 15030,
+        "boundary_components": 0,
+        "evaluated": false,
+        "witness_area_nm2": null,
+        "disposition": "unreviewed",
+        "reason": "missing-boundary-context"
+      },
+      {
+        "id": "r989",
+        "rule": "nsm.3a",
+        "target": "tap",
+        "boundary": "frame",
+        "operation": "enclosure",
+        "limit_nm": 3000,
+        "target_components": 3458,
+        "boundary_components": 0,
+        "evaluated": false,
+        "witness_area_nm2": null,
+        "disposition": "unreviewed",
+        "reason": "missing-boundary-context"
+      },
+      {
+        "id": "r1007",
+        "rule": "nsm.3b",
+        "target": "tap",
+        "boundary": "die",
+        "operation": "spacing",
+        "limit_nm": 3000,
+        "target_components": 3458,
+        "boundary_components": 0,
+        "evaluated": false,
+        "witness_area_nm2": null,
+        "disposition": "unreviewed",
+        "reason": "missing-boundary-context"
+      },
+      {
+        "id": "r992",
+        "rule": "nsm.3a",
+        "target": "poly",
+        "boundary": "frame",
+        "operation": "enclosure",
+        "limit_nm": 3000,
+        "target_components": 15545,
+        "boundary_components": 0,
+        "evaluated": false,
+        "witness_area_nm2": null,
+        "disposition": "unreviewed",
+        "reason": "missing-boundary-context"
+      },
+      {
+        "id": "r1010",
+        "rule": "nsm.3b",
+        "target": "poly",
+        "boundary": "die",
+        "operation": "spacing",
+        "limit_nm": 3000,
+        "target_components": 15545,
+        "boundary_components": 0,
+        "evaluated": false,
+        "witness_area_nm2": null,
+        "disposition": "unreviewed",
+        "reason": "missing-boundary-context"
+      },
+      {
+        "id": "r994",
+        "rule": "nsm.3a",
+        "target": "li1",
+        "boundary": "frame",
+        "operation": "enclosure",
+        "limit_nm": 3000,
+        "target_components": 1780,
+        "boundary_components": 0,
+        "evaluated": false,
+        "witness_area_nm2": null,
+        "disposition": "unreviewed",
+        "reason": "missing-boundary-context"
+      },
+      {
+        "id": "r1012",
+        "rule": "nsm.3b",
+        "target": "li1",
+        "boundary": "die",
+        "operation": "spacing",
+        "limit_nm": 3000,
+        "target_components": 1780,
+        "boundary_components": 0,
+        "evaluated": false,
+        "witness_area_nm2": null,
+        "disposition": "unreviewed",
+        "reason": "missing-boundary-context"
+      },
+      {
+        "id": "r996",
+        "rule": "nsm.3a",
+        "target": "met1",
+        "boundary": "frame",
+        "operation": "enclosure",
+        "limit_nm": 3000,
+        "target_components": 981,
+        "boundary_components": 0,
+        "evaluated": false,
+        "witness_area_nm2": null,
+        "disposition": "unreviewed",
+        "reason": "missing-boundary-context"
+      },
+      {
+        "id": "r1014",
+        "rule": "nsm.3b",
+        "target": "met1",
+        "boundary": "die",
+        "operation": "spacing",
+        "limit_nm": 3000,
+        "target_components": 981,
+        "boundary_components": 0,
+        "evaluated": false,
+        "witness_area_nm2": null,
+        "disposition": "unreviewed",
+        "reason": "missing-boundary-context"
+      },
+      {
+        "id": "r998",
+        "rule": "nsm.3a",
+        "target": "met2",
+        "boundary": "frame",
+        "operation": "enclosure",
+        "limit_nm": 3000,
+        "target_components": 2043,
+        "boundary_components": 0,
+        "evaluated": false,
+        "witness_area_nm2": null,
+        "disposition": "unreviewed",
+        "reason": "missing-boundary-context"
+      },
+      {
+        "id": "r1016",
+        "rule": "nsm.3b",
+        "target": "met2",
+        "boundary": "die",
+        "operation": "spacing",
+        "limit_nm": 3000,
+        "target_components": 2043,
+        "boundary_components": 0,
+        "evaluated": false,
+        "witness_area_nm2": null,
+        "disposition": "unreviewed",
+        "reason": "missing-boundary-context"
+      },
+      {
+        "id": "r1000",
+        "rule": "nsm.3a",
+        "target": "met3",
+        "boundary": "frame",
+        "operation": "enclosure",
+        "limit_nm": 3000,
+        "target_components": 1737,
+        "boundary_components": 0,
+        "evaluated": false,
+        "witness_area_nm2": null,
+        "disposition": "unreviewed",
+        "reason": "missing-boundary-context"
+      },
+      {
+        "id": "r1018",
+        "rule": "nsm.3b",
+        "target": "met3",
+        "boundary": "die",
+        "operation": "spacing",
+        "limit_nm": 3000,
+        "target_components": 1737,
+        "boundary_components": 0,
+        "evaluated": false,
+        "witness_area_nm2": null,
+        "disposition": "unreviewed",
+        "reason": "missing-boundary-context"
+      },
+      {
+        "id": "r1002",
+        "rule": "nsm.3a",
+        "target": "met4",
+        "boundary": "frame",
+        "operation": "enclosure",
+        "limit_nm": 3000,
+        "target_components": 26,
+        "boundary_components": 0,
+        "evaluated": false,
+        "witness_area_nm2": null,
+        "disposition": "unreviewed",
+        "reason": "missing-boundary-context"
+      },
+      {
+        "id": "r1020",
+        "rule": "nsm.3b",
+        "target": "met4",
+        "boundary": "die",
+        "operation": "spacing",
+        "limit_nm": 3000,
+        "target_components": 26,
+        "boundary_components": 0,
+        "evaluated": false,
+        "witness_area_nm2": null,
+        "disposition": "unreviewed",
+        "reason": "missing-boundary-context"
+      },
+      {
+        "id": "r1004",
+        "rule": "nsm.3a",
+        "target": "met5",
+        "boundary": "frame",
+        "operation": "enclosure",
+        "limit_nm": 3000,
+        "target_components": 26,
+        "boundary_components": 0,
+        "evaluated": false,
+        "witness_area_nm2": null,
+        "disposition": "unreviewed",
+        "reason": "missing-boundary-context"
+      },
+      {
+        "id": "r1022",
+        "rule": "nsm.3b",
+        "target": "met5",
+        "boundary": "die",
+        "operation": "spacing",
+        "limit_nm": 3000,
+        "target_components": 26,
+        "boundary_components": 0,
+        "evaluated": false,
+        "witness_area_nm2": null,
+        "disposition": "unreviewed",
+        "reason": "missing-boundary-context"
+      }
+    ],
+    "unreviewed": 18,
+    "status": "review-required"
+  },
+  "selected_targets": {
+    "schema": 1,
+    "recipe": "sky130-selected-empty-targets-v2",
+    "source": {
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "files": {
+        "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+        "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+        "docs/rules/layers/table-c3-device-lvs-other.csv": "e56b7c0570f4ce5e4c0a002ddd0cc82f4c0e0d12d98a7634d419e0abd6a1fd98",
+        "docs/rules/layers/table-f2a-lvs-key.rst": "0eec9055cef67032ddfc197a5c2cc754098956174340dcc1e82c82275a3dc760"
+      },
+      "device_table": {
+        "path": "docs/qualification/sky130-device-tables/table-f2a-lvs.tsv",
+        "sha256": "c19398018c0f45674c7162077af48c57f5113617691cb985b7985f7e362de3e3"
+      }
+    },
+    "scope": "Sixteen exact catalog targets have conservative absence proofs. BondPad is a subset of pad:drawing under the published C3 definition; the complete drawing and additional pad/mask/intent guards must be empty. The generic pad name must end before another ASCII letter; explicit pad compounds and bond names retain substring matching. These name hints supplement the mandatory raw drawing checks and do not recognize devices by name alone. Every captured inductor family requires the inductor drawing identifier; all identifier/terminal/label data and candidate names must be absent. For r1476, empty poly AND tap implies empty Var_channel and therefore an empty selected well target. For r1493, an absent HVI region makes ndiff inside HVI empty, with additional voltage/mask/intent guards. Missing enclosing metal or implant is never an absence proof. Nonempty or ambiguous targets remain unreviewed. ViaTop, hugePad, other pad variants, generated-mask recipes and device qualification remain separate; no nonempty numerical rule execution is claimed.",
+    "qualified": false,
+    "chunk_complete": false,
+    "top": "uart_tx",
+    "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+    "measurements": {
+      "raw": {
+        "pad": 0,
+        "pad_pin": 0,
+        "pad_label": 0,
+        "pad_legacy_pin": 0,
+        "cpdm": 0,
+        "pad_center": 0,
+        "pad_frame": 0,
+        "inductor": 0,
+        "inductor_label": 0,
+        "inductor_terminal1": 0,
+        "inductor_terminal2": 0,
+        "inductor_terminal3": 0,
+        "cp1m": 0,
+        "cfom": 0,
+        "cfom_drawing": 0,
+        "hvi": 0,
+        "hvntm": 0,
+        "chvntm": 0,
+        "chvntm_drawing": 0,
+        "clvom": 0,
+        "clvom_drawing": 0,
+        "uhvi": 0,
+        "vhvi": 0,
+        "areaid_hl": 0,
+        "diff_hv": 0
+      },
+      "hints": {
+        "bond_pad": {
+          "cells": 0,
+          "labels": 0
+        },
+        "inductor": {
+          "cells": 0,
+          "labels": 0
+        },
+        "varactor": {
+          "cells": 0,
+          "labels": 0
+        },
+        "high_voltage": {
+          "cells": 0,
+          "labels": 0
+        }
+      },
+      "poly_tap": {
+        "poly": {
+          "raw_shapes": 15574,
+          "texts": 0,
+          "components": 15545,
+          "area_nm2": 46677604525
+        },
+        "tap": {
+          "raw_shapes": 3458,
+          "texts": 0,
+          "components": 3458,
+          "area_nm2": 411502000
+        },
+        "intersection_components": 0,
+        "intersection_area_nm2": 0
+      }
+    },
+    "rows": [
+      {
+        "id": "r1326",
+        "subject": "bond_pad",
+        "witnesses": {
+          "pad": 0,
+          "pad_pin": 0,
+          "pad_label": 0,
+          "pad_legacy_pin": 0,
+          "cpdm": 0,
+          "pad_center": 0,
+          "pad_frame": 0,
+          "bond_pad_cells": 0,
+          "bond_pad_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1327",
+        "subject": "bond_pad",
+        "witnesses": {
+          "pad": 0,
+          "pad_pin": 0,
+          "pad_label": 0,
+          "pad_legacy_pin": 0,
+          "cpdm": 0,
+          "pad_center": 0,
+          "pad_frame": 0,
+          "bond_pad_cells": 0,
+          "bond_pad_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1328",
+        "subject": "bond_pad",
+        "witnesses": {
+          "pad": 0,
+          "pad_pin": 0,
+          "pad_label": 0,
+          "pad_legacy_pin": 0,
+          "cpdm": 0,
+          "pad_center": 0,
+          "pad_frame": 0,
+          "bond_pad_cells": 0,
+          "bond_pad_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1329",
+        "subject": "bond_pad",
+        "witnesses": {
+          "pad": 0,
+          "pad_pin": 0,
+          "pad_label": 0,
+          "pad_legacy_pin": 0,
+          "cpdm": 0,
+          "pad_center": 0,
+          "pad_frame": 0,
+          "bond_pad_cells": 0,
+          "bond_pad_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1330",
+        "subject": "bond_pad",
+        "witnesses": {
+          "pad": 0,
+          "pad_pin": 0,
+          "pad_label": 0,
+          "pad_legacy_pin": 0,
+          "cpdm": 0,
+          "pad_center": 0,
+          "pad_frame": 0,
+          "bond_pad_cells": 0,
+          "bond_pad_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1331",
+        "subject": "bond_pad",
+        "witnesses": {
+          "pad": 0,
+          "pad_pin": 0,
+          "pad_label": 0,
+          "pad_legacy_pin": 0,
+          "cpdm": 0,
+          "pad_center": 0,
+          "pad_frame": 0,
+          "bond_pad_cells": 0,
+          "bond_pad_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1362",
+        "subject": "bond_pad",
+        "witnesses": {
+          "pad": 0,
+          "pad_pin": 0,
+          "pad_label": 0,
+          "pad_legacy_pin": 0,
+          "cpdm": 0,
+          "pad_center": 0,
+          "pad_frame": 0,
+          "bond_pad_cells": 0,
+          "bond_pad_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1369",
+        "subject": "inductor",
+        "witnesses": {
+          "inductor": 0,
+          "inductor_label": 0,
+          "inductor_terminal1": 0,
+          "inductor_terminal2": 0,
+          "inductor_terminal3": 0,
+          "inductor_cells": 0,
+          "inductor_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1370",
+        "subject": "inductor",
+        "witnesses": {
+          "inductor": 0,
+          "inductor_label": 0,
+          "inductor_terminal1": 0,
+          "inductor_terminal2": 0,
+          "inductor_terminal3": 0,
+          "inductor_cells": 0,
+          "inductor_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1371",
+        "subject": "inductor",
+        "witnesses": {
+          "inductor": 0,
+          "inductor_label": 0,
+          "inductor_terminal1": 0,
+          "inductor_terminal2": 0,
+          "inductor_terminal3": 0,
+          "inductor_cells": 0,
+          "inductor_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1372",
+        "subject": "inductor",
+        "witnesses": {
+          "inductor": 0,
+          "inductor_label": 0,
+          "inductor_terminal1": 0,
+          "inductor_terminal2": 0,
+          "inductor_terminal3": 0,
+          "inductor_cells": 0,
+          "inductor_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1373",
+        "subject": "inductor",
+        "witnesses": {
+          "inductor": 0,
+          "inductor_label": 0,
+          "inductor_terminal1": 0,
+          "inductor_terminal2": 0,
+          "inductor_terminal3": 0,
+          "inductor_cells": 0,
+          "inductor_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1374",
+        "subject": "inductor",
+        "witnesses": {
+          "inductor": 0,
+          "inductor_label": 0,
+          "inductor_terminal1": 0,
+          "inductor_terminal2": 0,
+          "inductor_terminal3": 0,
+          "inductor_cells": 0,
+          "inductor_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1375",
+        "subject": "inductor",
+        "witnesses": {
+          "inductor": 0,
+          "inductor_label": 0,
+          "inductor_terminal1": 0,
+          "inductor_terminal2": 0,
+          "inductor_terminal3": 0,
+          "inductor_cells": 0,
+          "inductor_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1476",
+        "subject": "varactor_well",
+        "witnesses": {
+          "cp1m": 0,
+          "cfom": 0,
+          "cfom_drawing": 0,
+          "varactor_cells": 0,
+          "varactor_labels": 0,
+          "poly_tap_area_nm2": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1493",
+        "subject": "high_voltage_diff",
+        "witnesses": {
+          "hvi": 0,
+          "hvntm": 0,
+          "chvntm": 0,
+          "chvntm_drawing": 0,
+          "clvom": 0,
+          "clvom_drawing": 0,
+          "uhvi": 0,
+          "vhvi": 0,
+          "areaid_hl": 0,
+          "diff_hv": 0,
+          "high_voltage_cells": 0,
+          "high_voltage_labels": 0
+        },
+        "disposition": "absent-operand"
+      }
+    ],
+    "unreviewed": 0,
+    "status": "selected-target-absence-reviewed"
+  },
+  "special_subjects": {
+    "schema": 1,
+    "recipe": "sky130-special-empty-subjects-v1",
+    "source": {
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "files": {
+        "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+        "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+        "docs/rules/layers/table-c3-device-lvs-other.csv": "e56b7c0570f4ce5e4c0a002ddd0cc82f4c0e0d12d98a7634d419e0abd6a1fd98",
+        "docs/rules/periphery/p055-uhvi_dotdash_dotdash.csv": "415c36c520c98089eb62a548cd04eecbc21338206bd85da2c0d416df9a90332f",
+        "docs/rules/periphery/p055-ulvt-_dotdash.csv": "0ea62d9009cbe454ea9fc6fee57de4fb32bd26bc5bf4a5d3e492f7c2e4ee8bf5",
+        "docs/rules/periphery/p029-rpm_dotdash.csv": "96f394adf42b2f023ab2a4448783b0372c97d9a05072aa41ad3a5f6b7b38491a",
+        "docs/rules/periphery/p051-depmos_dotdash.csv": "5bd0eee503fee3700223eeb079d92c8b94066fd4f9f172cf2395ec1fce3ed1fc"
+      }
+    },
+    "scope": "Seven catalog obligations have conservative empty-subject proofs only. An entirely absent UHVI region cannot be straddled by any selected geometry. Deep-well enclosure requires the deep-well target itself absent, including explicit mask data. Precision-resistor and RPM-selected subjects require empty RPM, URPM, CRPM and poly-resistor purposes. The nwell-hole angle subject requires no holes in the merged nwell and no explicit nwell mask or extended-drain markers. Candidate cell names or labels prevent the associated proof. Nonempty subjects stay unreviewed; source N/A values are not used as waivers. Nonempty rule meanings and complete device qualification remain separate, including the catalog/manual depmos.8 and urpm.3 naming differences.",
+    "qualified": false,
+    "chunk_complete": false,
+    "top": "uart_tx",
+    "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+    "measurements": {
+      "raw": {
+        "uhvi": 0,
+        "dnwell": 0,
+        "cdnm": 0,
+        "rpm": 0,
+        "urpm": 0,
+        "crpm": 0,
+        "poly_resistor": 0,
+        "areaid_en": 0,
+        "areaid_en20": 0,
+        "cnwm": 0
+      },
+      "hints": {
+        "uhvi": {
+          "cells": 0,
+          "labels": 0
+        },
+        "dnwell": {
+          "cells": 0,
+          "labels": 0
+        },
+        "resistor": {
+          "cells": 0,
+          "labels": 0
+        },
+        "extended_drain": {
+          "cells": 0,
+          "labels": 0
+        }
+      },
+      "nwell": {
+        "raw_shapes": 17357,
+        "components": 66,
+        "area_nm2": 66818355500,
+        "holes": 0
+      }
+    },
+    "rows": [
+      {
+        "id": "r396",
+        "subject": "uhvi",
+        "witnesses": {
+          "uhvi": 0,
+          "uhvi_cells": 0,
+          "uhvi_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r929",
+        "subject": "uhvi",
+        "witnesses": {
+          "uhvi": 0,
+          "uhvi_cells": 0,
+          "uhvi_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r928",
+        "subject": "deep_well",
+        "witnesses": {
+          "dnwell": 0,
+          "cdnm": 0,
+          "dnwell_cells": 0,
+          "dnwell_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1047",
+        "subject": "resistor",
+        "witnesses": {
+          "rpm": 0,
+          "urpm": 0,
+          "crpm": 0,
+          "poly_resistor": 0,
+          "resistor_cells": 0,
+          "resistor_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1059",
+        "subject": "resistor",
+        "witnesses": {
+          "rpm": 0,
+          "urpm": 0,
+          "crpm": 0,
+          "poly_resistor": 0,
+          "resistor_cells": 0,
+          "resistor_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1060",
+        "subject": "resistor",
+        "witnesses": {
+          "rpm": 0,
+          "urpm": 0,
+          "crpm": 0,
+          "poly_resistor": 0,
+          "resistor_cells": 0,
+          "resistor_labels": 0
+        },
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r922",
+        "subject": "nwell_hole",
+        "witnesses": {
+          "cnwm": 0,
+          "areaid_en": 0,
+          "areaid_en20": 0,
+          "extended_drain_cells": 0,
+          "extended_drain_labels": 0,
+          "nwell_holes": 0
+        },
+        "disposition": "absent-operand"
+      }
+    ],
+    "unreviewed": 0,
+    "status": "special-subject-absence-reviewed"
+  },
+  "device_roots": {
+    "schema": 1,
+    "recipe": "sky130-physical-device-roots-v1",
+    "source": {
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "files": {
+        "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+        "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+        "docs/rules/periphery/p018-x_dotdash.csv": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+        "docs/rules/layers/table-c3-device-lvs-other.csv": "e56b7c0570f4ce5e4c0a002ddd0cc82f4c0e0d12d98a7634d419e0abd6a1fd98"
+      }
+    },
+    "scope": "Every merged routed poly/LI/metal component is traced through every contact level to gate (poly AND diff) or diffusion/tap outside poly. Pin shapes, text, standard-cell markers and exception labels cannot supply endpoints or connectivity. Every submitted conductor/root area must be accounted for. Unrooted components leave the selected catalog messages unreviewed; a legal IP feedthrough is not automatically a foundry violation. Capacitor/RDL/cut/short edits and float/tie declarations prevent this proof. Dummy-fill purposes, device/body correctness, electrical behavior and complete physical qualification remain separate.",
+    "qualified": false,
+    "chunk_complete": false,
+    "top": "uart_tx",
+    "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+    "pin_roots_used": false,
+    "measurements": {
+      "layers": {
+        "poly": {
+          "raw_shapes": 15574,
+          "texts": 0,
+          "components": 15545,
+          "area_nm2": 46677604525
+        },
+        "licon": {
+          "raw_shapes": 96106,
+          "texts": 0,
+          "components": 96106,
+          "area_nm2": 2777463400
+        },
+        "li1": {
+          "raw_shapes": 40759,
+          "texts": 0,
+          "components": 1780,
+          "area_nm2": 68047048975
+        },
+        "mcon": {
+          "raw_shapes": 206105,
+          "texts": 0,
+          "components": 104445,
+          "area_nm2": 3018460500
+        },
+        "m1": {
+          "raw_shapes": 39453,
+          "texts": 0,
+          "components": 981,
+          "area_nm2": 23222705700
+        },
+        "via": {
+          "raw_shapes": 9360,
+          "texts": 0,
+          "components": 9360,
+          "area_nm2": 210600000
+        },
+        "m2": {
+          "raw_shapes": 6498,
+          "texts": 0,
+          "components": 2043,
+          "area_nm2": 1263777800
+        },
+        "via2": {
+          "raw_shapes": 6897,
+          "texts": 0,
+          "components": 6897,
+          "area_nm2": 275880000
+        },
+        "m3": {
+          "raw_shapes": 5223,
+          "texts": 0,
+          "components": 1737,
+          "area_nm2": 1193817600
+        },
+        "via3": {
+          "raw_shapes": 6864,
+          "texts": 0,
+          "components": 6864,
+          "area_nm2": 274560000
+        },
+        "m4": {
+          "raw_shapes": 2080,
+          "texts": 0,
+          "components": 26,
+          "area_nm2": 14729728000
+        },
+        "via4": {
+          "raw_shapes": 338,
+          "texts": 0,
+          "components": 338,
+          "area_nm2": 216320000
+        },
+        "m5": {
+          "raw_shapes": 364,
+          "texts": 0,
+          "components": 26,
+          "area_nm2": 14964352000
+        },
+        "diff": {
+          "raw_shapes": 15030,
+          "texts": 0,
+          "components": 15030,
+          "area_nm2": 34989929100
+        },
+        "tap": {
+          "raw_shapes": 3458,
+          "texts": 0,
+          "components": 3458,
+          "area_nm2": 411502000
+        },
+        "poly_short": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0,
+          "area_nm2": 0
+        }
+      },
+      "unsupported": {
+        "89:44": 0,
+        "97:44": 0,
+        "74:20": 0,
+        "65:14": 0,
+        "66:14": 0,
+        "67:14": 0,
+        "68:14": 0,
+        "69:14": 0,
+        "70:14": 0,
+        "71:14": 0,
+        "72:14": 0,
+        "67:15": 0,
+        "68:15": 0,
+        "69:15": 0,
+        "70:15": 0,
+        "71:15": 0,
+        "72:15": 0
+      },
+      "exception_labels": 0,
+      "poly_short_outside": 0,
+      "graph": {
+        "nets": 1304,
+        "rooted_nets": 1304,
+        "contact_only_nets": 0,
+        "area_nm2": {
+          "poly": 46677604525,
+          "licon": 2777463400,
+          "li1": 68047048975,
+          "mcon": 3018460500,
+          "m1": 23222705700,
+          "via": 210600000,
+          "m2": 1263777800,
+          "via2": 275880000,
+          "m3": 1193817600,
+          "via3": 274560000,
+          "m4": 14729728000,
+          "via4": 216320000,
+          "m5": 14964352000,
+          "sd_root": 6379922600,
+          "gate_root": 29021508500
+        },
+        "covered_area_nm2": {
+          "poly": 46677604525,
+          "licon": 2777463400,
+          "li1": 68047048975,
+          "mcon": 3018460500,
+          "m1": 23222705700,
+          "via": 210600000,
+          "m2": 1263777800,
+          "via2": 275880000,
+          "m3": 1193817600,
+          "via3": 274560000,
+          "m4": 14729728000,
+          "via4": 216320000,
+          "m5": 14964352000,
+          "sd_root": 6379922600,
+          "gate_root": 29021508500
+        },
+        "unrooted": []
+      }
+    },
+    "rows": [
+      {
+        "id": "s11",
+        "rule": "x.22",
+        "layer": "poly",
+        "area_nm2": 46677604525,
+        "unrooted_components": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "s16",
+        "rule": "x.22",
+        "layer": "li1",
+        "area_nm2": 68047048975,
+        "unrooted_components": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "s21",
+        "rule": "x.22",
+        "layer": "m1",
+        "area_nm2": 23222705700,
+        "unrooted_components": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "s26",
+        "rule": "x.22",
+        "layer": "m2",
+        "area_nm2": 1263777800,
+        "unrooted_components": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "s31",
+        "rule": "x.22",
+        "layer": "m3",
+        "area_nm2": 1193817600,
+        "unrooted_components": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "s36",
+        "rule": "x.22",
+        "layer": "m4",
+        "area_nm2": 14729728000,
+        "unrooted_components": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "s41",
+        "rule": "x.22",
+        "layer": "m5",
+        "area_nm2": 14964352000,
+        "unrooted_components": 0,
+        "disposition": "executed-reviewed"
+      }
+    ],
+    "unreviewed": 0,
+    "status": "physical-device-roots-pass"
+  },
+  "conservative_bounds": {
+    "schema": 1,
+    "recipe": "sky130-conservative-catalog-bounds-v1",
+    "source": {
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "files": {
+        "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+        "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+        "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f",
+        "docs/rules/periphery/p028-poly_dotdash.csv": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "docs/rules/periphery/p032-n_psd_dotdash.csv": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58"
+      }
+    },
+    "scope": "Four catalog limits are satisfied only when broader drawn-geometry checks pass: all merged NSDM and PSDM widths at least 380 nm, and all merged poly spacing/notches at least 210 nm. No core-gap or opposite-parallel exception is used. A failed sufficient bound is unreviewed, not a claimed violation of the narrower foundry rule. Eighteen IP blockage obligations are absent only when their exact published block purposes contain no raw data. Present blockages remain unreviewed; generated routing operands and hierarchy semantics are not implemented. Generated masks, global grid/density and complete physical coverage remain separate.",
+    "qualified": false,
+    "chunk_complete": false,
+    "top": "uart_tx",
+    "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+    "measurements": {
+      "layers": {
+        "nsdm": {
+          "raw_shapes": 19086,
+          "texts": 0,
+          "components": 1795
+        },
+        "psdm": {
+          "raw_shapes": 19086,
+          "texts": 0,
+          "components": 1795
+        },
+        "poly": {
+          "raw_shapes": 15574,
+          "texts": 0,
+          "components": 15545
+        }
+      },
+      "bound_findings": {
+        "nsdm": 0,
+        "psdm": 0,
+        "poly": 0
+      },
+      "blockages": {
+        "met1": 0,
+        "met2": 0,
+        "met3": 0,
+        "met4": 0,
+        "met5": 0,
+        "li1": 0
+      }
+    },
+    "rows": [
+      {
+        "id": "r471",
+        "rule": "nsd.c1a",
+        "layer": "nsdm",
+        "required_nm": 380,
+        "bound": {
+          "operation": "width",
+          "nm": 380
+        },
+        "bound_findings": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r487",
+        "rule": "psd.c1a",
+        "layer": "psdm",
+        "required_nm": 380,
+        "bound": {
+          "operation": "width",
+          "nm": 380
+        },
+        "bound_findings": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r520",
+        "rule": "poly.c3",
+        "layer": "poly",
+        "required_nm": 175,
+        "bound": {
+          "operation": "space",
+          "nm": 210
+        },
+        "bound_findings": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r521",
+        "rule": "poly.c2",
+        "layer": "poly",
+        "required_nm": 160,
+        "bound": {
+          "operation": "space",
+          "nm": 210
+        },
+        "bound_findings": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1234",
+        "subject": "met1_block",
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1235",
+        "subject": "met1_block",
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1236",
+        "subject": "met1_block",
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1237",
+        "subject": "met2_block",
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1238",
+        "subject": "met2_block",
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1239",
+        "subject": "met2_block",
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1240",
+        "subject": "met3_block",
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1241",
+        "subject": "met3_block",
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1242",
+        "subject": "met3_block",
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1243",
+        "subject": "met4_block",
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1244",
+        "subject": "met4_block",
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1245",
+        "subject": "met4_block",
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1246",
+        "subject": "met5_block",
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1247",
+        "subject": "met5_block",
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1248",
+        "subject": "met5_block",
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1249",
+        "subject": "li1_block",
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1250",
+        "subject": "li1_block",
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1251",
+        "subject": "li1_block",
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      }
+    ],
+    "unreviewed": 0,
+    "status": "conservative-bounds-and-absence-pass"
+  },
+  "selected_devices": {
+    "schema": 1,
+    "recipe": "sky130-selected-device-requirements-v1",
+    "source": {
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "files": {
+        "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+        "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+        "docs/rules/layers/table-f2a-lvs-key.rst": "0eec9055cef67032ddfc197a5c2cc754098956174340dcc1e82c82275a3dc760",
+        "docs/rules/periphery/p018-x_dotdash.csv": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+        "docs/rules/periphery/p027-tunm_dotdash.csv": "2688b772386cbcbbadab4cfee5d63dc3332f5a8cb1db3f5ce34c4f8ddc9791e1",
+        "docs/rules/periphery/p037-vpp_dotdash.csv": "1836055617d1b99c5d84028dfa6ff43555aaf7b9249c6747415ef5e6c0be9ef6",
+        "docs/rules/periphery/p049-hvntm_dotdash.csv": "90cf8049337b0f707283e37dfd83fe6c0e9918d561f2ae6b04389cf037bdd6f6",
+        "docs/rules/periphery/p056-pwres_dotdash_dotdash.csv": "271003a67977988edf7ae5939f4f3edda643c881e3bb68fe5e46c6ace7555639"
+      },
+      "device_table": {
+        "path": "docs/qualification/sky130-device-tables/table-f2a-lvs.tsv",
+        "sha256": "c19398018c0f45674c7162077af48c57f5113617691cb985b7985f7e362de3e3"
+      }
+    },
+    "scope": "Thirty-four VPP, pwell-resistor and PNP catalog records are absent only when their mandatory drawn purpose has no raw shapes and no reachable cell name or label suggests the device. Present candidates remain unreviewed. Separately, each gate (poly AND diff) overlapping tunm must be enclosed by tunm by 95 nm, and every drawn hvntm region must be inside hvi. Gates outside tunm are not selected by this enclosure check; their spacing and device intent remain separate. A SONOS name or label with no gate or with unselected gates keeps r453 unreviewed. Generated implants and complete device/density qualification are not established.",
+    "qualified": false,
+    "chunk_complete": false,
+    "top": "uart_tx",
+    "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+    "measurements": {
+      "subjects": {
+        "vpp": {
+          "raw_shapes": 0,
+          "candidate_cells": 0,
+          "candidate_labels": 0
+        },
+        "pwell_resistor": {
+          "raw_shapes": 0,
+          "candidate_cells": 0,
+          "candidate_labels": 0
+        },
+        "pnp": {
+          "raw_shapes": 0,
+          "candidate_cells": 0,
+          "candidate_labels": 0
+        }
+      },
+      "layers": {
+        "poly": {
+          "raw_shapes": 15574,
+          "texts": 0,
+          "components": 15545
+        },
+        "diff": {
+          "raw_shapes": 15030,
+          "texts": 0,
+          "components": 15030
+        },
+        "tunm": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        },
+        "hvntm": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        },
+        "hvi": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        }
+      },
+      "gates": 17002,
+      "selected_gates": 0,
+      "violations": {
+        "r453": 0,
+        "r1061": 0
+      },
+      "sonos_intent": {
+        "candidate_cells": 0,
+        "candidate_labels": 0
+      }
+    },
+    "rows": [
+      {
+        "id": "r1133",
+        "subject": "vpp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1134",
+        "subject": "vpp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1135",
+        "subject": "vpp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1136",
+        "subject": "vpp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1137",
+        "subject": "vpp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1138",
+        "subject": "vpp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1139",
+        "subject": "vpp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1140",
+        "subject": "vpp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1141",
+        "subject": "vpp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1142",
+        "subject": "vpp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1143",
+        "subject": "vpp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1144",
+        "subject": "vpp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1146",
+        "subject": "vpp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1147",
+        "subject": "vpp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1148",
+        "subject": "vpp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1149",
+        "subject": "vpp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1150",
+        "subject": "vpp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1154",
+        "subject": "vpp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r932",
+        "subject": "pwell_resistor",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r933",
+        "subject": "pwell_resistor",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r934",
+        "subject": "pwell_resistor",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r935",
+        "subject": "pwell_resistor",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r936",
+        "subject": "pwell_resistor",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r937",
+        "subject": "pwell_resistor",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r938",
+        "subject": "pwell_resistor",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r939",
+        "subject": "pwell_resistor",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r940",
+        "subject": "pwell_resistor",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r941",
+        "subject": "pwell_resistor",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r942",
+        "subject": "pwell_resistor",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r943",
+        "subject": "pwell_resistor",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r944",
+        "subject": "pwell_resistor",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r945",
+        "subject": "pwell_resistor",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r946",
+        "subject": "pwell_resistor",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r391",
+        "subject": "pnp",
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r453",
+        "rule": "tunm.3",
+        "targets": 0,
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1061",
+        "rule": "hvntm.x.1",
+        "targets": 0,
+        "violations": 0,
+        "disposition": "absent-operand"
+      }
+    ],
+    "violations": 0,
+    "status": "selected-device-requirements-pass"
+  },
+  "boundary_interactions": {
+    "schema": 1,
+    "recipe": "sky130-boundary-interactions-v1",
+    "source": {
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "files": {
+        "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+        "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+        "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f",
+        "docs/rules/periphery/p018-x_dotdash.csv": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567"
+      }
+    },
+    "scope": "Thirty-five published drawn-layer purposes are checked for straddling each supplied module-cut polygon on 81:10. Diffusion is checked for straddling seal 81:1; tap, poly, li1 and met1-met5 are checked for positive-area seal overlap. Targets are merged connected regions. Boundary polygons must be disjoint and non-touching so merging cannot hide an internal boundary. Manhattan polygons and exact orthogonal paths are supported. Missing boundary geometry does not establish chip/frame completeness or waive any enclosure or spacing requirement. Five package-layer scribe records remain separate.",
+    "qualified": false,
+    "chunk_complete": false,
+    "top": "uart_tx",
+    "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+    "measurements": {
+      "layers": {
+        "nwell": {
+          "raw_shapes": 17357,
+          "texts": 0,
+          "components": 66
+        },
+        "diff": {
+          "raw_shapes": 15030,
+          "texts": 0,
+          "components": 15030
+        },
+        "dnwell": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        },
+        "tap": {
+          "raw_shapes": 3458,
+          "texts": 0,
+          "components": 3458
+        },
+        "lvtn": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        },
+        "hvtp": {
+          "raw_shapes": 17357,
+          "texts": 0,
+          "components": 66
+        },
+        "hvi": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        },
+        "tunm": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        },
+        "poly": {
+          "raw_shapes": 15574,
+          "texts": 0,
+          "components": 15545
+        },
+        "npc": {
+          "raw_shapes": 7366,
+          "texts": 0,
+          "components": 1979
+        },
+        "nsdm": {
+          "raw_shapes": 19086,
+          "texts": 0,
+          "components": 1795
+        },
+        "psdm": {
+          "raw_shapes": 19086,
+          "texts": 0,
+          "components": 1795
+        },
+        "licon1": {
+          "raw_shapes": 96106,
+          "texts": 0,
+          "components": 96106
+        },
+        "li1": {
+          "raw_shapes": 40759,
+          "texts": 0,
+          "components": 1780
+        },
+        "mcon": {
+          "raw_shapes": 206105,
+          "texts": 0,
+          "components": 104445
+        },
+        "met1": {
+          "raw_shapes": 39453,
+          "texts": 0,
+          "components": 981
+        },
+        "via": {
+          "raw_shapes": 9360,
+          "texts": 0,
+          "components": 9360
+        },
+        "met2": {
+          "raw_shapes": 6498,
+          "texts": 0,
+          "components": 2043
+        },
+        "vhvi": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        },
+        "via2": {
+          "raw_shapes": 6897,
+          "texts": 0,
+          "components": 6897
+        },
+        "met3": {
+          "raw_shapes": 5223,
+          "texts": 0,
+          "components": 1737
+        },
+        "via3": {
+          "raw_shapes": 6864,
+          "texts": 0,
+          "components": 6864
+        },
+        "met4": {
+          "raw_shapes": 2080,
+          "texts": 0,
+          "components": 26
+        },
+        "via4": {
+          "raw_shapes": 338,
+          "texts": 0,
+          "components": 338
+        },
+        "met5": {
+          "raw_shapes": 364,
+          "texts": 0,
+          "components": 26
+        },
+        "nsm": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        },
+        "pad": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        },
+        "ldntm": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        },
+        "hvntm": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        },
+        "pnp": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        },
+        "capacitor": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        },
+        "ncm": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        },
+        "inductor": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        },
+        "rpm": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        },
+        "hvtr": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        },
+        "module": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        },
+        "seal": {
+          "raw_shapes": 0,
+          "texts": 0,
+          "components": 0
+        }
+      },
+      "violations": {
+        "r1407": 0,
+        "r1408": 0,
+        "r1409": 0,
+        "r1410": 0,
+        "r1411": 0,
+        "r1412": 0,
+        "r1413": 0,
+        "r1414": 0,
+        "r1415": 0,
+        "r1416": 0,
+        "r1417": 0,
+        "r1418": 0,
+        "r1419": 0,
+        "r1420": 0,
+        "r1421": 0,
+        "r1422": 0,
+        "r1423": 0,
+        "r1424": 0,
+        "r1425": 0,
+        "r1426": 0,
+        "r1427": 0,
+        "r1428": 0,
+        "r1429": 0,
+        "r1430": 0,
+        "r1431": 0,
+        "r1432": 0,
+        "r1433": 0,
+        "r1434": 0,
+        "r1435": 0,
+        "r1437": 0,
+        "r1438": 0,
+        "r1439": 0,
+        "r1441": 0,
+        "r1443": 0,
+        "r1444": 0,
+        "r381": 0,
+        "r382": 0,
+        "r383": 0,
+        "r384": 0,
+        "r385": 0,
+        "r386": 0,
+        "r387": 0,
+        "r388": 0,
+        "r389": 0
+      }
+    },
+    "rows": [
+      {
+        "id": "r1407",
+        "rule": "scribe.7",
+        "target": "nwell",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 66,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1408",
+        "rule": "scribe.7",
+        "target": "diff",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 15030,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1409",
+        "rule": "scribe.7",
+        "target": "dnwell",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 0,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1410",
+        "rule": "scribe.7",
+        "target": "tap",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 3458,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1411",
+        "rule": "scribe.7",
+        "target": "lvtn",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 0,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1412",
+        "rule": "scribe.7",
+        "target": "hvtp",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 66,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1413",
+        "rule": "scribe.7",
+        "target": "hvi",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 0,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1414",
+        "rule": "scribe.7",
+        "target": "tunm",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 0,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1415",
+        "rule": "scribe.7",
+        "target": "poly",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 15545,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1416",
+        "rule": "scribe.7",
+        "target": "npc",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 1979,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1417",
+        "rule": "scribe.7",
+        "target": "nsdm",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 1795,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1418",
+        "rule": "scribe.7",
+        "target": "psdm",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 1795,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1419",
+        "rule": "scribe.7",
+        "target": "licon1",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 96106,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1420",
+        "rule": "scribe.7",
+        "target": "li1",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 1780,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1421",
+        "rule": "scribe.7",
+        "target": "mcon",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 104445,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1422",
+        "rule": "scribe.7",
+        "target": "met1",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 981,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1423",
+        "rule": "scribe.7",
+        "target": "via",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 9360,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1424",
+        "rule": "scribe.7",
+        "target": "met2",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 2043,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1425",
+        "rule": "scribe.7",
+        "target": "vhvi",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 0,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1426",
+        "rule": "scribe.7",
+        "target": "via2",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 6897,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1427",
+        "rule": "scribe.7",
+        "target": "met3",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 1737,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1428",
+        "rule": "scribe.7",
+        "target": "via3",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 6864,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1429",
+        "rule": "scribe.7",
+        "target": "met4",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 26,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1430",
+        "rule": "scribe.7",
+        "target": "via4",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 338,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1431",
+        "rule": "scribe.7",
+        "target": "met5",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 26,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1432",
+        "rule": "scribe.7",
+        "target": "nsm",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 0,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1433",
+        "rule": "scribe.7",
+        "target": "pad",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 0,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1434",
+        "rule": "scribe.7",
+        "target": "ldntm",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 0,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1435",
+        "rule": "scribe.7",
+        "target": "hvntm",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 0,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1437",
+        "rule": "scribe.7",
+        "target": "pnp",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 0,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1438",
+        "rule": "scribe.7",
+        "target": "capacitor",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 0,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1439",
+        "rule": "scribe.7",
+        "target": "ncm",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 0,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1441",
+        "rule": "scribe.7",
+        "target": "inductor",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 0,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1443",
+        "rule": "scribe.7",
+        "target": "rpm",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 0,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1444",
+        "rule": "scribe.7",
+        "target": "hvtr",
+        "boundary": "module",
+        "operation": "straddle",
+        "target_components": 0,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r381",
+        "rule": "x.23b",
+        "target": "diff",
+        "boundary": "seal",
+        "operation": "straddle",
+        "target_components": 15030,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r382",
+        "rule": "x.23c",
+        "target": "tap",
+        "boundary": "seal",
+        "operation": "overlap",
+        "target_components": 3458,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r383",
+        "rule": "x.23c",
+        "target": "poly",
+        "boundary": "seal",
+        "operation": "overlap",
+        "target_components": 15545,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r384",
+        "rule": "x.23c",
+        "target": "li1",
+        "boundary": "seal",
+        "operation": "overlap",
+        "target_components": 1780,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r385",
+        "rule": "x.23c",
+        "target": "met1",
+        "boundary": "seal",
+        "operation": "overlap",
+        "target_components": 981,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r386",
+        "rule": "x.23c",
+        "target": "met2",
+        "boundary": "seal",
+        "operation": "overlap",
+        "target_components": 2043,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r387",
+        "rule": "x.23c",
+        "target": "met3",
+        "boundary": "seal",
+        "operation": "overlap",
+        "target_components": 1737,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r388",
+        "rule": "x.23c",
+        "target": "met4",
+        "boundary": "seal",
+        "operation": "overlap",
+        "target_components": 26,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r389",
+        "rule": "x.23c",
+        "target": "met5",
+        "boundary": "seal",
+        "operation": "overlap",
+        "target_components": 26,
+        "boundary_components": 0,
+        "violations": 0,
+        "disposition": "executed-reviewed"
+      }
+    ],
+    "violations": 0,
+    "status": "selected-boundary-interactions-pass"
+  },
+  "catalog_context": {
+    "schema": 1,
+    "recipe": "sky130-explicit-catalog-context-v1",
+    "qualified": false,
+    "chunk_complete": false,
+    "source": {
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "files": {
+        "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+        "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+        "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f",
+        "docs/rules/periphery/p018-x_dotdash.csv": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567"
+      }
+    },
+    "scope": "Thirty-three explicitly core-selected geometry messages and one core-approval message require absence of all raw areaid.ce data; three LDNTM messages require absence of the actual implant subject. Present subjects stay unreviewed. Eight boundary prohibitions are checked directly. This is not complete catalog coverage or memory-device qualification.",
+    "top": "uart_tx",
+    "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+    "raw_counts": {
+      "memory_core": 0,
+      "ldntm": 0,
+      "boundary_235_4": 0,
+      "boundary_66_4": 0,
+      "boundary_65_4": 0,
+      "boundary_65_60": 0
+    },
+    "rows": [
+      {
+        "id": "r429",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r432",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r444",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r445",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r446",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r447",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r448",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r449",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r450",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r461",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r472",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r473",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r474",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r477",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r488",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r489",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r490",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r513",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r535",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r536",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r753",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r754",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r760",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r761",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r762",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r765",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r775",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r776",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r785",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r786",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r799",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r827",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r828",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1132",
+        "subject": "memory_core",
+        "pair": [
+          81,
+          2
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1037",
+        "subject": "ldntm",
+        "pair": [
+          11,
+          44
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1485",
+        "subject": "ldntm",
+        "pair": [
+          11,
+          44
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1486",
+        "subject": "ldntm",
+        "pair": [
+          11,
+          44
+        ],
+        "raw_shapes": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1252",
+        "subject": "boundary_235_4",
+        "pair": [
+          235,
+          4
+        ],
+        "raw_shapes": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "s68",
+        "subject": "boundary_235_4",
+        "pair": [
+          235,
+          4
+        ],
+        "raw_shapes": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1253",
+        "subject": "boundary_66_4",
+        "pair": [
+          66,
+          4
+        ],
+        "raw_shapes": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "s69",
+        "subject": "boundary_66_4",
+        "pair": [
+          66,
+          4
+        ],
+        "raw_shapes": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1254",
+        "subject": "boundary_65_4",
+        "pair": [
+          65,
+          4
+        ],
+        "raw_shapes": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "s70",
+        "subject": "boundary_65_4",
+        "pair": [
+          65,
+          4
+        ],
+        "raw_shapes": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "r1255",
+        "subject": "boundary_65_60",
+        "pair": [
+          65,
+          60
+        ],
+        "raw_shapes": 0,
+        "disposition": "executed-reviewed"
+      },
+      {
+        "id": "s71",
+        "subject": "boundary_65_60",
+        "pair": [
+          65,
+          60
+        ],
+        "raw_shapes": 0,
+        "disposition": "executed-reviewed"
+      }
+    ],
+    "counts": {
+      "absent-operand": 37,
+      "executed-reviewed": 8
+    },
+    "status": "selected-subjects-reviewed"
+  },
+  "catalog_labels": {
+    "schema": 1,
+    "recipe": "sky130-explicit-label-subjects-v1",
+    "qualified": false,
+    "chunk_complete": false,
+    "source": {
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "files": {
+        "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+        "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+        "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f",
+        "docs/rules/periphery/p018-x_dotdash.csv": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567"
+      }
+    },
+    "scope": "Thirty-seven literal catalog messages are resolved only by complete absence of their selected label, named-cell or raw-layer subject. Labels are searched on every purpose and through the hierarchy; case, Unicode compatibility, whitespace and embedded-token variants conservatively prevent absence. Present subjects stay unreviewed. Unmarked floating nets, redundant vias, chip part-number requirements and the construction of module/frame regions remain separate.",
+    "top": "uart_tx",
+    "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+    "census": {
+      "raw": {
+        "low_tap_density": 0,
+        "injection": 0,
+        "prune": 0,
+        "capm": 0,
+        "cap2m": 0,
+        "pad": 0
+      },
+      "labels": {
+        "poly": 0,
+        "li1": 0,
+        "m1": 0,
+        "m2": 0,
+        "m3": 0,
+        "m4": 0,
+        "m5": 0,
+        "condiode": 0
+      },
+      "cells": {
+        "partnum": 0
+      }
+    },
+    "rows": [
+      {
+        "id": "s72",
+        "kind": "raw",
+        "subject": "low_tap_density",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s73",
+        "kind": "raw",
+        "subject": "injection",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r380",
+        "kind": "raw",
+        "subject": "prune",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r326",
+        "kind": "raw",
+        "subject": "capm",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r327",
+        "kind": "raw",
+        "subject": "cap2m",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r328",
+        "kind": "raw",
+        "subject": "cap2m",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1404",
+        "kind": "raw",
+        "subject": "pad",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s9",
+        "kind": "labels",
+        "subject": "poly",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s10",
+        "kind": "labels",
+        "subject": "poly",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s12",
+        "kind": "labels",
+        "subject": "poly",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s13",
+        "kind": "labels",
+        "subject": "poly",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s14",
+        "kind": "labels",
+        "subject": "li1",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s15",
+        "kind": "labels",
+        "subject": "li1",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s17",
+        "kind": "labels",
+        "subject": "li1",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s18",
+        "kind": "labels",
+        "subject": "li1",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s19",
+        "kind": "labels",
+        "subject": "m1",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s20",
+        "kind": "labels",
+        "subject": "m1",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s22",
+        "kind": "labels",
+        "subject": "m1",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s23",
+        "kind": "labels",
+        "subject": "m1",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s24",
+        "kind": "labels",
+        "subject": "m2",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s25",
+        "kind": "labels",
+        "subject": "m2",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s27",
+        "kind": "labels",
+        "subject": "m2",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s28",
+        "kind": "labels",
+        "subject": "m2",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s29",
+        "kind": "labels",
+        "subject": "m3",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s30",
+        "kind": "labels",
+        "subject": "m3",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s32",
+        "kind": "labels",
+        "subject": "m3",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s33",
+        "kind": "labels",
+        "subject": "m3",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s34",
+        "kind": "labels",
+        "subject": "m4",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s35",
+        "kind": "labels",
+        "subject": "m4",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s37",
+        "kind": "labels",
+        "subject": "m4",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s38",
+        "kind": "labels",
+        "subject": "m4",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s39",
+        "kind": "labels",
+        "subject": "m5",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s40",
+        "kind": "labels",
+        "subject": "m5",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s42",
+        "kind": "labels",
+        "subject": "m5",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s43",
+        "kind": "labels",
+        "subject": "m5",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1207",
+        "kind": "labels",
+        "subject": "condiode",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "s7",
+        "kind": "cells",
+        "subject": "partnum",
+        "occurrences": 0,
+        "disposition": "absent-operand"
+      }
+    ],
+    "counts": {
+      "absent-operand": 37
+    },
+    "status": "selected-subjects-reviewed"
+  },
+  "vpp_geometry": {
+    "schema": 1,
+    "recipe": "sky130-vpp-selected-geometry-v1",
+    "source": {
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "files": {
+        "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+        "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+        "docs/rules/periphery/p037-vpp_dotdash.csv": "1836055617d1b99c5d84028dfa6ff43555aaf7b9249c6747415ef5e6c0be9ef6"
+      }
+    },
+    "scope": "Selected rules on merged capacitor drawing 82:64: 1.43 um minimum width, no straddling nwell or dnwell, and 1.5 um enclosure for capacitors overlapping nwell. An outside-nwell capacitor leaves the enclosure requirement unreviewed; missing nwell never proves exemption. Manhattan polygons and exact orthogonal paths. Density operands are measured per connected capacitor region without selecting device exceptions or claiming density acceptance. Other VPP rules remain separate.",
+    "qualified": false,
+    "chunk_complete": false,
+    "top": "uart_tx",
+    "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+    "measurements": {
+      "raw_shapes": {
+        "capacitor": 0,
+        "nwell": 17357,
+        "dnwell": 0,
+        "poly": 15574,
+        "diff": 15030,
+        "met3": 5223,
+        "met4": 2080,
+        "met5": 364
+      },
+      "components": 0,
+      "violations": {
+        "r1145": 0,
+        "r1151": 0,
+        "r1152": 0,
+        "r1153": 0
+      },
+      "density": [],
+      "nwell_context": {
+        "contained": 0,
+        "outside": 0,
+        "straddling": 0
+      }
+    },
+    "violations": 0,
+    "status": "selected-vpp-geometry-pass",
+    "rows": [
+      {
+        "id": "r1145",
+        "rule": "vpp.1",
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1151",
+        "rule": "vpp.4",
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1152",
+        "rule": "vpp.4",
+        "violations": 0,
+        "disposition": "absent-operand"
+      },
+      {
+        "id": "r1153",
+        "rule": "vpp.8",
+        "violations": 0,
+        "disposition": "absent-operand"
+      }
+    ],
+    "density": {
+      "status": "measurement-only",
+      "acceptance_established": false,
+      "observations": [],
+      "unresolved_rules": [
+        "vpp.5a",
+        "vpp.5b",
+        "vpp.5c",
+        "vpp.11"
+      ]
+    }
+  },
+  "pin_layers": [
+    {
+      "layer": 67,
+      "pin_polygons": 0,
+      "added_polygons": 0,
+      "added_area_nm2": 0
+    },
+    {
+      "layer": 68,
+      "pin_polygons": 0,
+      "added_polygons": 0,
+      "added_area_nm2": 0
+    },
+    {
+      "layer": 69,
+      "pin_polygons": 0,
+      "added_polygons": 0,
+      "added_area_nm2": 0
+    },
+    {
+      "layer": 70,
+      "pin_polygons": 13,
+      "added_polygons": 0,
+      "added_area_nm2": 0
+    },
+    {
+      "layer": 71,
+      "pin_polygons": 0,
+      "added_polygons": 0,
+      "added_area_nm2": 0
+    },
+    {
+      "layer": 72,
+      "pin_polygons": 26,
+      "added_polygons": 0,
+      "added_area_nm2": 0
+    }
+  ],
+  "clean_output": [
+    {
+      "pair": [
+        235,
+        4
+      ],
+      "records": [
+        "r1252",
+        "s68"
+      ],
+      "raw_shapes": 0
+    },
+    {
+      "pair": [
+        66,
+        4
+      ],
+      "records": [
+        "r1253",
+        "s69"
+      ],
+      "raw_shapes": 0
+    },
+    {
+      "pair": [
+        65,
+        4
+      ],
+      "records": [
+        "r1254",
+        "s70"
+      ],
+      "raw_shapes": 0
+    },
+    {
+      "pair": [
+        65,
+        60
+      ],
+      "records": [
+        "r1255",
+        "s71"
+      ],
+      "raw_shapes": 0
+    }
+  ],
+  "isolation": "NOT_REQUESTED",
+  "periphery_counts": {
+    "execution-review-required": 28,
+    "upstream-na": 77,
+    "executed-reviewed": 133,
+    "absent-operand": 273,
+    "advisory": 28,
+    "definition-required": 1,
+    "other-backend": 61
+  },
+  "restored_boundary_rejected": "Forbidden SKY130 boundary-purpose data remains in the delivered GDS. Recheck Finish/export.",
+  "result_sha256": "8807df3e9e1ad4c7f0284b6c04f7192b9a48a4177cc75c31f695509594e46d85",
+  "macro_sha256": "4c9c86dd3030fb7ec5fe95cca70aa014ad93c6a0d70e7409feac168717f57f86",
+  "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+  "checkpoint_sha256": "27ec03d13a0264feea11df78633ca56d7f068ed74b1f06478f3fe9db058d2d32",
+  "spef_sha256": "0a422acf5dd7362de9d47fa793fe0df126e021024a95a3142b769e599c3b0e6b",
+  "inventory_sha256": "dc781ac94a231e78af37669f6b1a97ff0970515ffb59858b4f0877a21ee5f262",
+  "elapsed_seconds": 214.376735951
+}

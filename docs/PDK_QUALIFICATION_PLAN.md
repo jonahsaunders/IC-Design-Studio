@@ -19,7 +19,18 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [selected-target audit](validation/sky130-selected-target-audit-2026-10-15.json)
+The latest [frame-bound audit](validation/sky130-frame-bound-audit-2026-10-15.json)
+implements eighteen numerical sufficient bounds for drawn-layer frame enclosure
+and die-cut spacing. Exact 3 µm margins and 1 nm failures are tested on all nine
+layers. Missing context and failed conservative bounds remain unreviewed; no
+blanking or named-cell exemption is inferred. All 212 tests per OS, 36 cross-system
+controls, fresh frame measurements, three application runs and Windows exports
+pass. The reference blocks lack frame/die-cut markers, so all eighteen requirements
+stay unreviewed and the retained full catalog remains at 425 unresolved records.
+This advances nonempty checker implementation without promoting unsupported
+reference coverage. Chunk 6 remains incomplete.
+
+The preceding [selected-target audit](validation/sky130-selected-target-audit-2026-10-15.json)
 adds a required report for sixteen pad, inductor and implant targets to Finish
 and saved-result/export validation. All sixteen are conservatively absent in
 the references; nonempty requirements remain unreviewed. The corrected complete
