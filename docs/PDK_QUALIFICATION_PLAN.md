@@ -19,14 +19,25 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [metal-width audit](validation/sky130-metal-width-audit-2026-10-15.json)
+The latest [module-operand audit](validation/sky130-module-operand-audit-2026-10-15.json)
+resolves **35 additional records: 360 to 325 unresolved**. Thirty-four spacing
+and one overlap requirement have an independently bound, empty module operand.
+The unknown other operands are not inferred, and enclosure companions remain
+open. All 330 tests per OS, 14 new cross-system controls, six incremental
+catalogs, three application runs and Windows exports pass. Current counts are
+**441 executed, 692 absent, 90 explicit W/L exemptions, eight advisory and 325
+unresolved**. Together with the preceding three numerical width bounds, this
+resolves 38 records from the 363-record checkpoint. Required density, pin spacing,
+generated operands and remaining device/chip context keep chunk 6 incomplete.
+
+The preceding [metal-width audit](validation/sky130-metal-width-audit-2026-10-15.json)
 resolves **three additional numerical records: 363 to 360 unresolved**. Stronger
 global bounds on merged drawn-plus-fill metal prove the three under-pad maximum
 widths. Failed sufficient bounds and alternate purposes remain unresolved.
 All 316 tests per OS, 32 cross-system controls, three application runs and Windows
 exports pass. Six incremental catalogs authenticate unchanged prior evidence and
 freshly execute the new checks; they do not rerun every previous catalog checker.
-Current counts are **441 executed, 657 absent, 90 explicit W/L exemptions, eight
+Counts at that checkpoint were **441 executed, 657 absent, 90 explicit W/L exemptions, eight
 advisory and 360 unresolved**. The [remaining-work table](SKY130_PHYSICAL_QUALIFICATION.md#remaining-chunk-6-work-at-this-checkpoint)
 keeps required definitions, context, pin spacing and density work in chunk 6.
 

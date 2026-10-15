@@ -103,6 +103,9 @@ def execute(request):
         from .digital_sky130_metal_width_bounds import audit as metal_width_bounds
         report['metal_width_bounds'] = metal_width_bounds(gds)
         save('metal_width_bounds.json', report['metal_width_bounds'])
+        from .digital_sky130_module_absence import audit as module_absence
+        report['module_absence'] = module_absence(gds)
+        save('module_absence.json', report['module_absence'])
         report.update(status='reviewed-profiles-pass', ledger=review,
                       coverage=dict(rows=len(review['rows']), counts=review['counts'], complete=False))
         unchanged(); resources(base, policy['preparation_sha256'])

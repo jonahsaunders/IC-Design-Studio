@@ -29,6 +29,68 @@ remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
 
+## Empty module operands for spacing and overlap
+
+The [module-operand audit](validation/sky130-module-operand-audit-2026-10-15.json)
+and [reconciled catalog](validation/sky130-module-operand-2026-10-15.json) resolve
+**35 additional records: 360 to 325 unresolved**. These are absence proofs for
+34 spacing records and one overlap record, not numerical passes for present
+modules. Together with the preceding three metal-width bounds, the two batches
+resolve 38 records from the 363-record checkpoint.
+
+The manual's x.12a/x.12d spacing operations and x.16 overlap operation explicitly
+use `areaid.mt`. The published GDS table and C4 identify that module-cut marker
+as `81:10`; the corresponding error messages name it `moduleCutAREA`. All three
+reference layouts contain no raw data on that purpose throughout their reachable
+hierarchy. An empty known operand yields no spacing pairs and no overlap
+intersections, regardless of how the other operand is constructed. This proof
+does not invent the `q0`/`q1`, `huge_metX` or `extentDie` definitions.
+
+**Enclosure records remain open.** An absent enclosing region cannot establish
+that a required target is enclosed. Any module data, including text, slivers,
+non-Manhattan shapes or complex hierarchy, also leaves all 35 binary decisions
+unresolved. Names suggesting buildspace or test-chip exemptions cannot waive
+present markers. This does not validate missing required markers or establish
+complete-chip context. Finish and saved-result/export validation require the
+census and independently recompute it against the actual GDS.
+
+All **330 tests pass on each OS without skips**, and **14 new retained controls**
+agree byte for byte across Windows and Linux. Three fresh Linux application
+runs and Windows saved-result/export replays pass. The first test-capture attempt
+passed all tests but failed while recording a misnamed native fixture; its logs
+are preserved and the corrected recorder was rerun in a new output directory.
+
+The six incremental catalogs agree at **441 executed, 692 absent, 90 explicit
+W/L exemptions, eight advisory and 325 unresolved records**. They authenticate
+1,193 prior family/package decisions and freshly run the three width bounds and
+the module census. Earlier catalog geometry and native electrical results remain
+explicitly retained. The readback-verified archive preserves current evidence and
+the metal-width, family/package and independent delivery archive chain.
+
+### Remaining chunk 6 work at this checkpoint
+
+These are unresolved coverage records, not 325 measured layout violations.
+The separate missing `x.20` pin-spacing limit and wider required density work
+also remain in chunk 6. Counts do not measure engineering effort.
+
+| Records | Group | Definition or context still needed |
+| ---: | --- | --- |
+| 1 | Local geometry | Resolve the generated hugePad selector and conflicting area wording. |
+| 16 | Grid | Establish the eight `metop` purposes before binding their grid/angle rules. |
+| 32 | Device recognition | Resolve remaining RF fixed-layout model mapping, Table H5 and selected-device geometry. |
+| 34 | Core and implants | Establish generated-mask construction and exact enclosure targets. |
+| 34 | Module boundaries | Establish `q0`/`q1` subjects for enclosure and present-module spacing context. |
+| 135 | Frame, seal and scribe | Supply frame/alignment construction, generated-mask companions and remaining chip-boundary definitions. |
+| 56 | Pads and vias | Establish ViaTop and remaining pad-family selectors. |
+| 17 | Dummy diffusion | Establish the `fomDummyDRC` operand and its density/fill constraints. |
+
+The pinned public source bundle names several of these inputs without providing
+their construction. New numerical checks must be bound to verified definitions;
+absence of a guessed raw layer cannot establish a generated target is absent.
+The GDS table does publish dummy FOM on `22:23`; the unresolved issue is its
+relationship to the generated `fomDummyDRC` target and native waffle data, not
+the absence of a raw dummy-purpose number.
+
 ## Global metal maximum-width bounds
 
 The [metal-width audit](validation/sky130-metal-width-audit-2026-10-15.json) and
@@ -68,30 +130,6 @@ The evidence archive preserves new sources, controls, application artifacts and
 reproduction drivers. Its parent is the family/package archive, whose parent is
 the independent delivery archive; hashes for both retained archives are checked.
 Chunk 6 remains incomplete.
-
-### Remaining chunk 6 work at this checkpoint
-
-These are unresolved coverage records, not 360 measured layout violations.
-The separate missing `x.20` pin-spacing limit and wider required density work
-also remain in chunk 6. Counts do not measure engineering effort.
-
-| Records | Group | Definition or context still needed |
-| ---: | --- | --- |
-| 1 | Local geometry | Resolve the generated hugePad selector and conflicting area wording. |
-| 16 | Grid | Establish the eight `metop` purposes before binding their grid/angle rules. |
-| 32 | Device recognition | Resolve remaining RF fixed-layout model mapping, Table H5 and selected-device geometry. |
-| 34 | Core and implants | Establish generated-mask construction and exact enclosure targets. |
-| 69 | Module boundaries | Establish `q0`/`q1` subjects and module enclosure/spacing context. |
-| 135 | Frame, seal and scribe | Supply frame/alignment construction, generated-mask companions and remaining chip-boundary definitions. |
-| 56 | Pads and vias | Establish ViaTop and remaining pad-family selectors. |
-| 17 | Dummy diffusion | Establish the `fomDummyDRC` operand and its density/fill constraints. |
-
-The pinned public source bundle names several of these inputs without providing
-their construction. New numerical checks must be bound to verified definitions;
-absence of a guessed raw layer cannot establish a generated target is absent.
-The GDS table does publish dummy FOM on `22:23`; the unresolved issue is its
-relationship to the generated `fomDummyDRC` target and native waffle data, not
-the absence of a raw dummy-purpose number.
 
 ## Low-Vt RF family absence and package boundaries
 
