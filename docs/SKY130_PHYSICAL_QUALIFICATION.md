@@ -29,6 +29,21 @@ remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
 
+## License scope for further qualification work
+
+The project remains GPL-3.0-or-later. New implementations and incorporated
+reference material must satisfy the [contribution license policy](../CONTRIBUTING.md).
+Compatible upstream material retains its required license and attribution.
+The user has confirmed that no private rule package is available and requires
+resources suitable for distribution with the project's existing license.
+
+The public Cadence SKY130 package found during additional source research has
+not been incorporated. Its Cadence Public License 1.0 has not been established
+as GPL-compatible in this review; permissive redistribution language or public
+hosting alone is not treated as that determination. No rule disposition or
+implementation is derived from that package in the current checkpoint. This
+licensing boundary does not waive any unresolved physical requirement.
+
 ## Public Nikon alignment template
 
 The [alignment audit](validation/sky130-alignment-audit-2026-10-15.json) adds

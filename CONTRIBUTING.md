@@ -57,4 +57,14 @@ Do not claim external engine or platform qualification from parser fixtures or p
 
 Use the pull-request template to explain why the change is needed, its behavior and tests. Include a screenshot for material interface changes. Keep product text focused on open-source tools and this project's own design. Preserve all required third-party notices and use only assets you can redistribute under their stated terms.
 
+New application contributions use the project's GPL-3.0-or-later license. Before
+incorporating third-party code, rule decks, models, layouts, documentation or test
+fixtures, verify that their actual license permits the intended use and
+distribution with this GPL project. Public availability alone is insufficient.
+Record the source revision and license, retain required upstream notices and
+source access, and document adaptations. Compatible third-party material keeps
+its original notices; do not replace them with a GPL header or claim ownership
+of upstream work. Leave material with unresolved compatibility out of the
+project and release artifacts until that compatibility is established.
+
 The [roadmap](docs/ROADMAP.md) describes larger priorities. For a broad feature, start with an issue and a concrete acceptance example so its scope can be reviewed.
