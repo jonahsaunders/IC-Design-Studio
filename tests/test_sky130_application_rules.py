@@ -35,19 +35,38 @@ def fixture(root):
     data['environment'] = {'sky130_rules': clone(platform['sky130_rules'])}
     with zipfile.ZipFile(ROOT/'tests/fixtures/sky130-filled-references-v1.zip') as archive:
         (root/'filled.gds').write_bytes(archive.read('counter/filled.gds'))
+        inventory=json.loads(archive.read('counter/inventory.json'))
+    # This unit fixture uses a placeholder checkpoint and retained profile data.
+    # Apply the independently bounded stream-only correction so current delivery
+    # validation sees valid GDS; actual engine execution is tested separately.
+    import klayout.db as k
+    from icstudio.digital_sky130_boundaries import remove_outline
+    layout=k.Layout();layout.read(str(root/'filled.gds'));remove_outline(layout,inventory)
+    options=k.SaveLayoutOptions();options.gds2_write_timestamps=False
+    layout.write(str(root/'filled.gds'),options)
     data['artifacts']['gds'] = artifact(root, root/'filled.gds')
     ledger = json.loads((ROOT/'docs/validation/sky130-filled-replay-2026-10-14.json').read_bytes())['cases'][0]['execution']
     from icstudio.digital_sky130_scope import correct
     ledger = correct(ledger)
     from icstudio.digital_sky130_pad_scope import correct as correct_pad_scope
     ledger = correct_pad_scope(ledger)
+    def bind_fixture(value):
+        if isinstance(value,dict):
+            for key,item in value.items():
+                if key=='gds_sha256':value[key]=data['artifacts']['gds']['sha256']
+                else:bind_fixture(item)
+        elif isinstance(value,list):
+            for item in value:bind_fixture(item)
+    bind_fixture(ledger)
+    from icstudio.digital_sky130_catalog_context import audit as catalog_context
     report = dict(schema=1, recipe=rules.RECIPE, status='reviewed-profiles-pass', qualified=False,
                   chunk_complete=False, scope=rules.SCOPE, policy=platform['sky130_rules'],
                   top=ledger['top'], gds_sha256=ledger['gds_sha256'],
                   checkpoint_sha256=data['artifacts']['checkpoint']['sha256'],
                   platform_fingerprint=platform['fingerprint'], ledger=ledger,
                   profiles={key: clone(ledger[key]) for key in rules.PROFILES},
-                  coverage=dict(rows=len(ledger['rows']), counts=ledger['counts'], complete=False), resources={})
+                  coverage=dict(rows=len(ledger['rows']), counts=ledger['counts'], complete=False), resources={},
+                  catalog_context=catalog_context(root/'filled.gds'))
     paths = rules.resources(root/'platform/verification', platform['sky130_rules']['preparation_sha256'])
     for index, (name, path) in enumerate(sorted(paths.items())):
         key='sky130_rule_resource_'+str(index)
@@ -133,6 +152,8 @@ class Sky130ApplicationRuleTests(unittest.TestCase):
             self.assertEqual(evaluated(report),report)
             changes={
                 'missing-profile':lambda r:r['profiles'].pop('raw_geometry'),
+                'missing-catalog-context':lambda r:r.pop('catalog_context'),
+                'changed-catalog-context':lambda r:r['catalog_context']['rows'].pop(),
                 'duplicate-check':lambda r:r['profiles']['raw_geometry']['checks'].__setitem__(0,r['profiles']['raw_geometry']['checks'][1]),
                 'bool-count':lambda r:r['profiles']['raw_geometry'].update(violations=False),
                 'real-violation':lambda r:r['profiles']['raw_geometry']['checks'][0].update(violations=1),

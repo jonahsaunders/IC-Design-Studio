@@ -19,7 +19,17 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [boundary export audit](validation/sky130-boundary-export-2026-10-15.json)
+The latest [core-context audit](validation/sky130-core-context-audit-2026-10-15.json)
+resolves 37 explicit selected subjects on both original and corrected SKY130
+references. The original-stream catalog now has 376 executed bindings, 476 absent
+subjects, 90 W/L exemptions and 614 unreviewed entries. Current Finish/export
+separately validates a 45-message catalog context: those 37 subjects plus eight
+boundary prohibitions. Present core/implant data stays unreviewed; numerical
+memory-device checks and approval are not implied. All three actual application
+checks and Windows export replays pass. Fifty-five tests pass on each OS, and
+fresh measurement reports agree exactly. Chunk 6 remains incomplete.
+
+The preceding [boundary export audit](validation/sky130-boundary-export-2026-10-15.json)
 fixes a prohibited die-outline annotation in all three SKY130 output streams.
 Only the single top-level box matching independent OpenDB die geometry is removed;
 unexpected boundary data is rejected and all manufacturing geometry is preserved.
@@ -64,7 +74,7 @@ reference results; chunk 6 is incomplete.
 
 The [batched SKY130 work queue](SKY130_PHYSICAL_QUALIFICATION.md#batched-remaining-work)
 originally grouped 880 records into eleven shared work batches; the latest
-review retains the remaining 651 IDs by batch. Its inexpensive reconstruction
+review retains the remaining 614 original-stream IDs by batch. Its inexpensive reconstruction
 authenticates existing results without repeating old geometry/extraction work.
 Grouping alone never accepts a rule or assigns it to a later chunk.
 

@@ -10,9 +10,9 @@ geometry. Actual application checks and macro exports pass on the corrected
 streams, and Windows reproduces identical GDS bytes. This is a separate correction;
 the earlier catalog is not silently rebound to the new file identities.
 
-The [grid catalog review](#explicit-grid-catalog-subjects) records, on its original GDS files,
-376 executed error records, 439 verified absent subjects, 90 explicit standard-cell
-W/L exemptions and 651 unreviewed records. The preceding
+The [core-context review](#explicit-core-and-implant-context) records, on the original GDS files,
+376 executed error records, 476 verified absent subjects, 90 explicit standard-cell
+W/L exemptions and 614 unreviewed records. The preceding
 [local/HV review](#local-geometry-marked-hv-and-hugepad-correction) reopens the
 unsupported hugePad exemption, leaving ten periphery execution reviews and one declared optional rule not required by the
 ordinary bulk references. Those ten reviews, the missing pin-spacing
@@ -28,6 +28,55 @@ between the supplemental checker and Finish/export; it does not close the
 remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
+
+## Explicit core and implant context
+
+The [audit](validation/sky130-core-context-audit-2026-10-15.json) and
+[fresh measurements](validation/sky130-core-context-2026-10-15.json) resolve 37
+literal catalog subjects on both the original and corrected reference streams.
+Thirty-three messages explicitly select geometry inside `core` or `COREID`,
+and one concerns unapproved cells containing the core marker. The published
+`areaid.ce` purpose is the memory-core identifier at 81:2; ordinary digital
+floorplans and standard-cell markers do not establish that selection. Complete
+absence of raw geometry and text on 81:2 resolves these selected subjects only.
+
+Three further messages concern the actual LDNTM implant at 11:44: its outside-core
+prohibition and two requirements to enclose LDNTM in CLNTM. That target is absent.
+Requirements to enclose other targets in core or a generated mask remain open;
+neither a `.c` suffix nor an empty enclosing mask proves them inapplicable.
+
+Finish now records these 37 subject decisions alongside the eight boundary
+prohibitions in a separate 45-message `catalog_context` report. Present core or
+LDNTM data stays `unreviewed`, with status `review-required`; this implements no
+numerical memory-device rules or approval. Saved-result and export validation
+require the report and freshly recount the actual layout. Missing context,
+changed source bindings, omitted rows, altered counts and false absence claims
+are rejected. Older rule reports need current Finish rechecking.
+
+All three actual application runs pass their existing geometry profiles, thirteen
+antenna stages, OpenDB checks and macro exports. Windows revalidates the saved
+results and exports, reproducing identical corrected GDS. Fifty-five focused tests
+pass without skips on each OS. Controls cover marker geometry and text, nested
+arrays, distinct standard-cell/floorplan purposes, forbidden boundaries, stale
+reports and rehashed layouts carrying false absence claims. Fresh measurement
+reports agree byte for byte across systems.
+
+The original-stream catalog advances to 376 executed, 476 absent, 90 explicit
+W/L exemptions and 614 unreviewed entries. Its core/generated-mask batch falls
+from 77 to 40. The corrected streams retain separate current evidence for the
+45 explicit messages; the other historical catalog decisions are not silently
+rebound. The application periphery ledger remains at 133 executed and 28 reviews.
+Manufacturing geometry and electrical artifacts are unchanged from the preceding
+boundary correction. No new extraction, timing or foundry acceptance is claimed.
+
+```sh
+python -m scripts.sky130_core_context_review --check
+python -m unittest tests.test_sky130_catalog_context tests.test_sky130_application_rules -v
+```
+
+The full review uses the retained corrected reference streams under the workspace
+outputs directory. Their identities and archive entries are recorded in the audit;
+missing or changed streams fail rather than falling back to older layouts.
 
 ## Boundary export correction
 
@@ -213,8 +262,8 @@ count, and rejects missing, overlapping or changed source records. It imports
 no geometry engines and does not repeat extraction or historical geometry runs.
 Six focused tests cover reconstruction, stale inputs, ambiguous assignments,
 changed source identities and attempts to queue already resolved records.
-The grid catalog review above advances this baseline; its `remaining_batches`
-retains every current open record. Current counts are:
+The core-context review above advances this baseline; its `remaining_original_batches`
+retains every open record for the original streams. Current original-stream counts are:
 
 | Work batch | Open catalog records |
 | --- | ---: |
@@ -222,20 +271,23 @@ retains every current open record. Current counts are:
 | Marked high-voltage geometry | 0 |
 | Coordinate grids and layer aliases | 16 |
 | Device identification and RF geometry | 95 |
-| Core context and generated implant masks | 77 |
+| Core context and generated implant masks | 40 |
 | Module cut and selected boundary rules | 73 |
 | Frame, seal, scribe and alignment marks | 201 |
 | Pads, package geometry and ViaTop | 76 |
 | VPP, dummy diffusion and density | 40 |
 | Connectivity, redundancy and chip labels | 46 |
 | Routing blockages and boundary purposes | 26 |
-| **Total** | **651** |
+| **Total** | **614** |
 
 These are scheduling groups, not equally sized engineering tasks or completion
 percentages. Every currently queued record remains `unreviewed`; grouping itself
 adds no coverage decisions. The separate ten periphery reviews, missing `x.20` value,
 and wider density/application obligations remain. No record moves to another
 chunk merely because its batch mentions chip, pad or scribe context.
+The eight boundary prohibitions have separate passing checks on the corrected
+streams; they remain in this original-stream queue, whose outline-bearing inputs
+are preserved. This distinction prevents acceptance from following only a renamed file.
 
 Work proceeds through each batch's shared definitions and applicability,
 implementation or exact evidence binding, passing and deliberately failing

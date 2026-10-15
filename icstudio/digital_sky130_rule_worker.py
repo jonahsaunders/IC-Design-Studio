@@ -55,6 +55,9 @@ def execute(request):
         review = correct(review)
         from .digital_sky130_pad_scope import correct as correct_pad_scope
         review = correct_pad_scope(review)
+        from .digital_sky130_catalog_context import audit as catalog_context
+        report['catalog_context'] = catalog_context(gds)
+        save('catalog_context.json', report['catalog_context'])
         report.update(status='reviewed-profiles-pass', ledger=review,
                       coverage=dict(rows=len(review['rows']), counts=review['counts'], complete=False))
         unchanged(); resources(base, policy['preparation_sha256'])
