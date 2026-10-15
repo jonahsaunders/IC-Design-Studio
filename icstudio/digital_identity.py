@@ -49,6 +49,10 @@ def stage_key(config, stage, simulator='icarus'):
         selected['lvs_reference'] = config['platform']['lvs_reference']
     if stage == 'finish' and config.get('platform', {}).get('gf180_connectivity') is not None:
         selected['gf180_connectivity'] = config['platform']['gf180_connectivity']
+    if stage == 'finish':
+        from .digital_sky130_isolation import selected as isolation_policy
+        policy = isolation_policy(config)
+        if policy is not None:selected['sky130_isolation'] = policy
     if stage in ('finish','timing') and config.get('platform',{}).get('ihp_fill') is not None:
         selected['ihp_fill'] = config['platform']['ihp_fill']
     if stage in ('simulate', 'lint'):

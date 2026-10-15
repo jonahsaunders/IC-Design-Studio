@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. The reference nfet_in_dnwell option is now explicitly false for the ordinary bulk HD designs; x.29 is NOT_REQUESTED, not passed or absent. Fresh measurements retain 18,191 noncontained NFET gates and enabling the switch fails all three references. Periphery coverage is 135 executed, 281 absent, 77 upstream NA, 36 advisory, 61 other-backend, one declared optional rule not required, nine execution reviews and the undefined x.20 threshold. Catalog counts remain 356 executed, 320 absent and 880 unreviewed. Generated masks, RF selection, grid, boundaries and catalog/density interpretation remain open. The standalone checker does not update the application policy or qualify arbitrary designs or foundry acceptance.",
+      "remaining": "Chunk 6 remains incomplete. The application now captures explicit x.29 isolation selection in physical settings, Finish and export, rejects incomplete evidence and retains bulk measurements as NOT_REQUESTED. All three filled references pass the existing application geometry, antenna and power checks/export; enabling isolation fails each unchanged bulk layout. Nine periphery execution reviews, the undefined x.20 threshold and outstanding required catalog/density interpretation remain. Coverage stays 135 executed periphery rows, 281 absent, 77 upstream NA, 36 advisory, 61 other-backend, one declared optional rule not required, nine reviews and one missing definition. Catalog counts stay 356 executed, 320 absent and 880 unreviewed. Full required-rule coverage and foundry acceptance are not established.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16762,7 +16762,8 @@
         "sky130-device-intent-audit-2026-10-14",
         "sky130-selected-subjects-audit-2026-10-14",
         "sky130-voltage-intent-audit-2026-10-14",
-        "sky130-isolation-options-audit-2026-10-14"
+        "sky130-isolation-options-audit-2026-10-14",
+        "sky130-application-isolation-2026-10-14"
       ]
     },
     "sky130A:source-completeness": {
@@ -20210,6 +20211,11 @@
       "path": "docs/validation/sky130-isolation-options-audit-2026-10-14.json",
       "sha256": "9ea642496131e8a0d2a6fe905089a8d2b6d8fdfb68f5c9113fb17a50c90592ca",
       "scope_limit": "Explicit ordinary-bulk reference choice for optional x.29; NOT_REQUESTED is retained separately from passing rule execution and absent operands. Every noncontained NFET is measured, and requesting isolation on these same layouts fails. Other physical requirements remain open."
+    },
+    "sky130-application-isolation-2026-10-14": {
+      "path": "docs/validation/sky130-application-isolation-2026-10-14.json",
+      "sha256": "12d6aee43a88ab8bad89b541eb4d41dd4c0a737d568da636d94e711173e0dfc0",
+      "scope_limit": "Explicit x.29 policy in prepared SKY130 platforms, physical settings, Finish and export. Actual application entry points on unchanged filled counter/UART/APB plus Windows/Linux worker, failure, export and compatibility tests. Bulk mode is NOT_REQUESTED, never a passing isolation check."
     }
   },
   "execution_acceptance": {
@@ -20233,8 +20239,8 @@
       "path": "docs/validation/ihp-fill-closure-2026-10-11.json",
       "sha256": "4255cce72f604e38874eb3dfad97758557d6cd1b56c60dae4f710459220b0004",
       "historical_source_snapshot": {
-        "path": "docs/validation/ihp-fill-tested-source-2026-10-14/manifest.json",
-        "sha256": "0e7dabefab1f45bca37a6d8bd75b13d44ccb4b7591e7f8fe2cc0c2e9b52bc489"
+        "path": "docs/validation/ihp-fill-tested-source-2026-10-14-isolation/manifest.json",
+        "sha256": "c67a9221db18863d74b6a8cc033c17542f183eeb8ddb9638f24b526ff7ef19a0"
       }
     }
   }

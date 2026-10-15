@@ -19,14 +19,23 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [SKY130 isolation audit](validation/sky130-isolation-options-audit-2026-10-14.json)
+The latest [application isolation audit](validation/sky130-application-isolation-2026-10-14.json)
+integrates explicit `x.29` selection into physical settings, Finish and macro
+export. Bulk results retain noncontained gate measurements as `NOT_REQUESTED`;
+required mode blocks acceptance when containment fails. Missing or changed
+evidence blocks export. This closes an application integration gap, while the
+nine periphery reviews, undefined `x.20` threshold and outstanding required
+catalog/density interpretations keep chunk 6 open.
+
+The preceding [SKY130 isolation audit](validation/sky130-isolation-options-audit-2026-10-14.json)
 records an explicit ordinary-bulk choice for optional `x.29`. It retains all
 18,191 NFET gates outside deep nwell as measurements and shows that enabling
 isolation fails all three reference layouts. The declared result is
 `NOT_REQUESTED`, never a passing check or absent-target claim. Eighteen tests
 and actual passing/failing/missing-mode command controls succeed on both systems;
 complete reference reports agree. Nine periphery execution reviews and the
-undefined `x.20` value remain. The application policy is unchanged.
+undefined `x.20` value remain. The six-profile application ledger is unchanged;
+the new isolation gate preserves its separate scope.
 
 The preceding [SKY130 voltage-intent audit](validation/sky130-voltage-intent-audit-2026-10-14.json)
 checks explicit nominal 0–1.8 V reference contracts against every physical port,

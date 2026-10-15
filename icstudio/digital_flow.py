@@ -52,6 +52,10 @@ def environment(job):
             out['sky130_rules']=clone(config['platform']['sky130_rules'])
         if job['settings']['stage']=='finish' and config['platform'].get('sky130_antenna') is not None:
             out['sky130_antenna']=clone(config['platform']['sky130_antenna'])
+        if job['settings']['stage']=='finish':
+            from .digital_sky130_isolation import selected as isolation_policy
+            policy=isolation_policy(config)
+            if policy is not None:out['sky130_isolation']=policy
     if 'flow' in job['settings']:
         from .digital_platform import verify_flow
         out['flow']=verify_flow(job['settings']['flow'])
@@ -211,6 +215,8 @@ def validate_result(result, directory):
         validate_sky130_rules(data,root)
         from .digital_sky130_antenna import validate_saved as validate_sky130_antenna
         validate_sky130_antenna(data,root)
+        from .digital_sky130_isolation import validate_saved as validate_sky130_isolation
+        validate_sky130_isolation(data,root)
         from .digital_lvs_reference import validate_saved as validate_reference
         validate_reference(data,root)
         from .digital_gf180_checks import validate_saved as validate_connectivity

@@ -23,6 +23,35 @@ remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
 
+## Application isolation gate
+
+The [application isolation audit](validation/sky130-application-isolation-2026-10-14.json)
+connects the reviewed `x.29` checker to Finish, saved-result validation and macro
+export. Newly prepared bundled SKY130 HD platforms declare ordinary bulk mode.
+The physical editor offers the platform setting, an explicit bulk override, or
+required NMOS isolation. Changing the mode invalidates the saved Finish result.
+An explicit override requires a platform carrying the authenticated checker.
+
+Bulk mode retains the number and locations of NFET gates outside deep nwell as
+`NOT_REQUESTED`; it does not claim a passing isolation check. Required mode
+accepts only complete gate containment. Failed workers retain their measurements
+and diagnostics. Export rejects missing policies, reports, raw worker results,
+requests or captured checker resources, including removal of the entire claim.
+The macro manifest retains the selected mode, result and measurements.
+
+The audit exercises the actual application checker/export entry points on the
+unchanged filled counter, UART and APB references, together with the six existing
+geometry profiles, all thirteen antenna stages and OpenDB power connectivity.
+The required-isolation control fails each bulk reference. Windows/Linux tests
+also exercise a contained positive control, failed exports, resource changes,
+relocation, setting persistence and the three reference geometries.
+
+This closes the isolation integration gap. It does not discharge the nine
+remaining periphery reviews, missing `x.20` definition, or outstanding required
+catalog/density interpretation. Earlier nominal electrical evidence retains its
+original scope; no new placement, extraction, timing or foundry acceptance is
+claimed by this integration audit.
+
 ## Explicit reference isolation option
 
 The [isolation audit](validation/sky130-isolation-options-audit-2026-10-14.json)
@@ -70,8 +99,9 @@ successful command exit records a configuration, not a passing isolation rule.
 The current ledger has 135 executed, 281 absent, 77 upstream NA, 36 advisory,
 61 other-backend, one declared optional rule not required, nine execution
 reviews and one missing definition. All catalog counts remain unchanged.
-This standalone qualification checker does not yet change the six-profile
-application policy. Full physical coverage and chunk 6 remain incomplete.
+This historical standalone review leaves the six-profile ledger unchanged.
+The [application isolation gate](#application-isolation-gate) now enforces the
+selected option separately. Full physical coverage and chunk 6 remain incomplete.
 
 ## Nominal reference voltage contract
 

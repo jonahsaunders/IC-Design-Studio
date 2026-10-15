@@ -50,9 +50,13 @@ def export(result, directory, destination):
     if data['stage']!='finish' or not {'gds','lef','netlist','layout_preview'}<=artifacts.keys():
         raise ValueError('Finish the physical flow before exporting a macro bundle.')
     preview=json.loads((directory/artifacts['layout_preview']['path']).read_text())
-    selected={k:v for k,v in artifacts.items() if k in ('gds','lef','netlist','spef','sdc','layout_preview','database','timing','equivalence','def','extraction','physical_checks','gf180_connectivity','fill','ihp_fill','sky130_rules','sky130_antenna') or k.startswith(('spef_','extraction_script_','physical_check_','lvs_reference','gf180_check_','fill_','ihp_fill_','sky130_pin_','sky130_rule_','sky130_antenna_'))}
+    selected={k:v for k,v in artifacts.items() if k in ('gds','lef','netlist','spef','sdc','layout_preview','database','timing','equivalence','def','extraction','physical_checks','gf180_connectivity','fill','ihp_fill','sky130_rules','sky130_antenna','sky130_isolation') or k.startswith(('spef_','extraction_script_','physical_check_','lvs_reference','gf180_check_','fill_','ihp_fill_','sky130_pin_','sky130_rule_','sky130_antenna_','sky130_isolation_'))}
     job=json.loads((directory/'input.json').read_text())
     value=verify_inputs(result,job)
+    from .digital_sky130_isolation import validate_saved as validate_isolation, selected as isolation_policy
+    isolation=validate_isolation(data,directory)
+    if isolation_policy(value) != data.get('environment',{}).get('sky130_isolation'):
+        raise ValueError('SKY130 isolation policy differs from the captured macro inputs.')
     from .digital_sky130_rules import validate_saved as validate_sky130_rules
     sky130_review=validate_sky130_rules(data,directory)
     if value.get('platform',{}).get('sky130_rules') != data.get('environment',{}).get('sky130_rules'):
@@ -84,7 +88,7 @@ def export(result, directory, destination):
     if connectivity is not None and (connectivity.get('top')!=value['top'] or
             value.get('platform',{}).get('gf180_connectivity')!=data.get('environment',{}).get('gf180_connectivity')):
         raise ValueError('Combined connectivity differs from the captured macro inputs.')
-    if reference is not None or connectivity is not None or sky130_review is not None or antenna is not None or 'sky130_pin_export' in artifacts:
+    if reference is not None or connectivity is not None or sky130_review is not None or antenna is not None or isolation is not None or 'sky130_pin_export' in artifacts:
         selected['checkpoint']=artifacts['checkpoint']
     notices=captured_notices(job,directory)
     manifest={'version':1,'top':value['top'],'source_hash':data['source_hash'],'input_key':data.get('input_key'),
@@ -113,6 +117,10 @@ def export(result, directory, destination):
         manifest['qualification']['sky130_antenna']={
             'status':antenna['status'],'scope':antenna['scope'],'artifact':'sky130_antenna',
             'qualified':False,'stages':len(antenna['stages'])}
+    if isolation is not None:
+        manifest['qualification']['sky130_isolation']={
+            'status':isolation['status'],'scope':isolation['scope'],'artifact':'sky130_isolation',
+            'qualified':False,'enforced':isolation['enforced'],'measurement':isolation['measurement']}
     if 'extraction' in selected:
         extraction=json.loads((directory/selected['extraction']['path']).read_text())
         if extraction.get('schema')!=1 or extraction.get('status')!='complete' or extraction.get('def')!=selected.get('def') or extraction.get('netlist')!=selected['netlist']:

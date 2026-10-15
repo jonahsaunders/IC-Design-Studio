@@ -27,14 +27,15 @@ PLATFORM_LOCKS = ('physical-engine-lock.json', 'sky130-reference-assets.json',
 def sky130_rule_context(context):
     """Include the exact helper/source inputs used by the platform preparer."""
     from icstudio.digital_sky130_rules_lock import FILES
+    from icstudio.digital_sky130_isolation_lock import FILES as ISOLATION_FILES
     context = Path(context)
-    for name in FILES:
+    for name in FILES | ISOLATION_FILES:
         if not name.startswith('helpers/') or name.endswith('/__init__.py'):
             continue
         relative = name.removeprefix('helpers/')
         target = context/relative; target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT/relative, target)
-    for relative in ('scripts/prepare_sky130_rule_checks.py', 'scripts/prepare_sky130_antenna.py',
+    for relative in ('scripts/prepare_sky130_rule_checks.py', 'scripts/prepare_sky130_antenna.py', 'scripts/prepare_sky130_isolation.py',
                      'scripts/sky130_staged_antenna.drc', 'tests/fixtures/sky130-filled-references-v1.zip'):
         target = context/relative; target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT/relative, target)
