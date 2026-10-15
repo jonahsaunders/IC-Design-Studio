@@ -10,9 +10,9 @@ geometry. Actual application checks and macro exports pass on the corrected
 streams, and Windows reproduces identical GDS bytes. This is a separate correction;
 the earlier catalog is not silently rebound to the new file identities.
 
-The [conservative-bound review](#conservative-geometry-bounds-and-ip-blockages) records, on the original GDS files,
-409 executed error records, 586 verified absent subjects, 90 explicit standard-cell
-W/L exemptions, eight advisory records and 463 unreviewed records. The preceding
+The [physical-device-root review](#physical-device-root-connectivity) records, on the original GDS files,
+416 executed error records, 586 verified absent subjects, 90 explicit standard-cell
+W/L exemptions, eight advisory records and 456 unreviewed records. The preceding
 [local/HV review](#local-geometry-marked-hv-and-hugepad-correction) reopens the
 unsupported hugePad exemption, leaving ten periphery execution reviews and one declared optional rule not required by the
 ordinary bulk references. Those ten reviews, the missing pin-spacing
@@ -28,6 +28,51 @@ between the supplemental checker and Finish/export; it does not close the
 remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
+
+## Physical device-root connectivity
+
+The [audit](validation/sky130-device-root-audit-2026-10-15.json) and
+[reference measurements](validation/sky130-device-roots-2026-10-15.json) add a
+required `device_roots` report to Finish and saved-result/export validation.
+Seven floating-net records (`s11`, `s16`, `s21`, `s26`, `s31`, `s36`, `s41`)
+pass complete paths through every contact level to actual gate or diffusion/tap
+geometry. Gate geometry is poly intersecting diffusion; source/drain/tap roots
+exclude poly. Pin annotations, labels and standard-cell markers supply neither
+endpoints nor connections. Every submitted conductor and root area is accounted
+for in the extracted graph, including isolated contact-only components.
+
+All 106 counter, 1,304 UART and 1,204 APB nets reach physical roots. The original
+and corrected streams produce identical measurements, and Windows and Linux
+produce identical reports. This is a stronger sufficient condition for these
+reference blocks. A legal pin-only IP feedthrough can remain unreviewed here;
+it is not automatically a foundry-rule violation. Unsupported capacitor, RDL,
+cut/short edits and float/tie declarations also leave these records unreviewed.
+The existing block connectivity profile remains required separately.
+
+All 147 focused tests pass without skips on each OS. Sixteen retained controls
+exercise real gate/diffusion/tap endpoints, each missing contact level, a 1 nm
+gap, pin-only feedthroughs, pin annotations spanning separate wires or layers,
+exception labels, unsupported capacitor markers and poly-short bridges. Controls
+match byte for byte across systems. Missing/altered reports and rehashed layouts
+with stale connectivity evidence fail validation. All three application runs and
+Windows export replays pass; the delivered manufacturing geometry is unchanged.
+
+Original-stream totals become 416 executed, 586 absent, 90 W/L exemptions,
+eight advisory and 456 unreviewed. The connectivity queue falls from seven to
+zero. Corrected streams retain 195 explicit current catalog messages, separate
+from the unchanged six-profile ledger. Historical full-catalog decisions retain
+their original GDS identities. This does not establish device/body LVS, chip I/O,
+ESD, new extracted performance or complete physical signoff. Chunk 6 remains open.
+
+```sh
+python -m scripts.sky130_device_root_review --check
+python -m unittest tests.test_sky130_device_roots tests.test_sky130_application_rules -v
+```
+
+The review requires retained corrected streams under workspace outputs. The
+preceding conservative-bound checkpoint is source-bound to commit `fc30087`;
+use that commit or its archived sources for its exact report. The current audit
+preserves application outputs, controls, tests and reproduction drivers.
 
 ## Conservative geometry bounds and IP blockages
 

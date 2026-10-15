@@ -121,6 +121,8 @@ def evaluate(report, gds_sha256, checkpoint_sha256, top, fingerprint, policy):
     evaluate_selected_devices(report.get('selected_devices'), gds_sha256, top)
     from .digital_sky130_conservative_bounds import evaluate as evaluate_conservative_bounds
     evaluate_conservative_bounds(report.get('conservative_bounds'), gds_sha256, top)
+    from .digital_sky130_device_roots import evaluate as evaluate_device_roots
+    evaluate_device_roots(report.get('device_roots'), gds_sha256, top)
     return report
 
 
@@ -198,6 +200,8 @@ def validate_saved(data, root):
     validate_selected_devices(report['selected_devices'], read('gds'))
     from .digital_sky130_conservative_bounds import validate_saved as validate_conservative_bounds
     validate_conservative_bounds(report['conservative_bounds'], read('gds'))
+    from .digital_sky130_device_roots import validate_saved as validate_device_roots
+    validate_device_roots(report['device_roots'], read('gds'))
     bindings = report.get('resources', {})
     expected = FILES | {'preparation.json': policy['preparation_sha256']}
     require(bindings.keys() == expected.keys() and len(set(bindings.values())) == len(expected),

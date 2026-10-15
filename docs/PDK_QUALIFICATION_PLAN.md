@@ -19,7 +19,20 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [conservative-bound audit](validation/sky130-conservative-bound-audit-2026-10-15.json)
+The latest [physical-device-root audit](validation/sky130-device-root-audit-2026-10-15.json)
+closes seven floating-net records. All 2,614 reference nets reach actual gate or
+diffusion/tap geometry through the complete contact graph, without pin endpoints,
+labels or standard-cell exemptions. Unrooted wires and unsupported selectors
+stay unreviewed; a legal IP feedthrough is not automatically a foundry violation.
+The new report is mandatory in Finish and saved-result/export validation.
+All 147 focused tests pass per OS; sixteen controls and fresh reference
+measurements agree exactly. All three application runs and Windows exports pass.
+Original counts are 416 executed, 586 absent, 90 W/L exemptions, eight advisory
+and 456 unreviewed. Corrected streams retain 195 explicit catalog messages.
+Generated-mask, RF, grid/purpose, frame/pad, pin-spacing and remaining density
+coverage stays open. Chunk 6 is incomplete.
+
+The preceding [conservative-bound audit](validation/sky130-conservative-bound-audit-2026-10-15.json)
 proves four catalog limits with stronger all-geometry width/spacing checks and
 verifies eighteen explicit IP blockage subjects are absent. Failed sufficient
 bounds and present blockages stay unreviewed. The new report is mandatory in

@@ -73,6 +73,9 @@ def execute(request):
         from .digital_sky130_conservative_bounds import audit as conservative_bounds
         report['conservative_bounds'] = conservative_bounds(gds)
         save('conservative_bounds.json', report['conservative_bounds'])
+        from .digital_sky130_device_roots import audit as device_roots
+        report['device_roots'] = device_roots(gds)
+        save('device_roots.json', report['device_roots'])
         report.update(status='reviewed-profiles-pass', ledger=review,
                       coverage=dict(rows=len(review['rows']), counts=review['counts'], complete=False))
         unchanged(); resources(base, policy['preparation_sha256'])
