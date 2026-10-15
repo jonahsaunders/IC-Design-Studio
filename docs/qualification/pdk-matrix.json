@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. Four selected VPP geometry checks are integrated and verified with nonempty numerical controls. The references contain no capacitor targets; their original catalog has 376 executed, 517 absent, 90 W/L exemptions and 573 unreviewed records. The density/fill batch falls from 40 to 36 records. Corrected layouts retain 86 explicit current catalog messages; historical full-catalog decisions stay bound to original GDS. All three actual application runs and Windows exports pass, 84 focused tests pass per OS, and eight numerical controls agree exactly across systems. Density ratios are measurements only: special-cell selection and density acceptance remain unqualified. The application periphery ledger remains 133 executed/28 reviews. Generated-mask, RF, grid/purpose, frame/pad, x.20 and remaining density/catalog requirements stay open.",
+      "remaining": "Chunk 6 remains incomplete. Forty-four new module/seal interaction checks are mandatory in Finish and export validation. Original catalog counts: 405 executed, 532 absent, 90 standard-cell W/L exemptions, 529 unreviewed. Frame/scribe records fall from 200 to 156. Corrected streams retain 130 explicit current catalog messages; the six-profile periphery ledger is unchanged. The reference blocks have no module or seal markers: passing interaction checks does not establish complete chip boundaries or waive enclosure/spacing. All three application runs and Windows exports pass, 98 focused tests pass per OS, and eleven nonempty controls match exactly across systems. Generated masks, RF selectors, grid/purpose semantics, frame/pad context, x.20 and remaining density/catalog coverage stay open.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16770,7 +16770,8 @@
         "sky130-boundary-export-2026-10-15",
         "sky130-core-context-audit-2026-10-15",
         "sky130-label-subject-audit-2026-10-15",
-        "sky130-vpp-geometry-audit-2026-10-15"
+        "sky130-vpp-geometry-audit-2026-10-15",
+        "sky130-boundary-interaction-audit-2026-10-15"
       ]
     },
     "sky130A:source-completeness": {
@@ -20258,6 +20259,11 @@
       "path": "docs/validation/sky130-vpp-geometry-audit-2026-10-15.json",
       "sha256": "1d4d8e7339d3d06e7e8a7b2e7668c7f8434b9b890032b47c7b04e602c8f0ff1f",
       "scope_limit": "Finish and saved-result validation now execute four selected VPP checks: minimum capacitor width, no nwell/dnwell straddling and minimum enclosure where nwell overlaps; outside-nwell capacitor context remains unreviewed. Eight retained nonempty numerical controls agree across OSes, including 1 nm failures, well crossings and exact density ratios. Density remains measurement-only because the special-cell selectors are unresolved. All three real application runs and Windows export replays pass. Eighty-four focused tests pass on each OS. Capacitor targets are absent in the references; their original catalog advances to 376 executed, 517 absent, 90 W/L exemptions and 573 unreviewed. Corrected streams carry 86 explicit catalog messages separately from the unchanged six-profile ledger; full historical decisions retain original GDS identities."
+    },
+    "sky130-boundary-interaction-audit-2026-10-15": {
+      "path": "docs/validation/sky130-boundary-interaction-audit-2026-10-15.json",
+      "sha256": "03c7a781b9b6178fe5279fd27e2e2c0b09912b46af585cf661564b42c1a0501e",
+      "scope_limit": "Finish and saved-result validation require 44 numerical module/seal interaction checks. Thirty-five published drawn purposes cannot straddle each supplied module-cut polygon. Diffusion cannot straddle seal geometry; tap, poly, local interconnect and metal1-metal5 cannot overlap it. Ninety-eight focused tests pass per OS, eleven retained nonempty controls match exactly, and all three application runs plus Windows export replays pass. The original reference catalog has 405 executed, 532 absent, 90 W/L exemptions and 529 unreviewed records. Reference blocks have no module or seal markers: these interaction results do not establish chip/frame completeness or exempt enclosure/spacing rules. Corrected streams have 130 explicit current catalog messages, separate from the six-profile ledger."
     }
   },
   "execution_acceptance": {

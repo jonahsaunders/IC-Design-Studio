@@ -10,9 +10,9 @@ geometry. Actual application checks and macro exports pass on the corrected
 streams, and Windows reproduces identical GDS bytes. This is a separate correction;
 the earlier catalog is not silently rebound to the new file identities.
 
-The [VPP geometry review](#selected-vpp-geometry-and-density-measurements) records, on the original GDS files,
-376 executed error records, 517 verified absent subjects, 90 explicit standard-cell
-W/L exemptions and 573 unreviewed records. The preceding
+The [boundary interaction review](#module-and-seal-interactions) records, on the original GDS files,
+405 executed error records, 532 verified absent subjects, 90 explicit standard-cell
+W/L exemptions and 529 unreviewed records. The preceding
 [local/HV review](#local-geometry-marked-hv-and-hugepad-correction) reopens the
 unsupported hugePad exemption, leaving ten periphery execution reviews and one declared optional rule not required by the
 ordinary bulk references. Those ten reviews, the missing pin-spacing
@@ -28,6 +28,53 @@ between the supplemental checker and Finish/export; it does not close the
 remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
+
+## Module and seal interactions
+
+The [audit](validation/sky130-boundary-interaction-audit-2026-10-15.json) and
+[reference measurements](validation/sky130-boundary-interactions-2026-10-15.json)
+add 44 numerical checks to Finish and saved-result/export validation. Thirty-five
+published drawn-layer purposes are checked against each supplied module-cut
+polygon on 81:10 (`scribe.7`). Diffusion must not straddle seal geometry on 81:1
+(`x.23b`); tap, poly, local interconnect and metal1-metal5 must not overlap it
+(`x.23c`). Five package-purpose scribe records remain unresolved.
+
+Targets are merged connected regions; touching fragments cannot hide a crossing.
+Boundary polygons preserve their holes and are checked independently. Duplicate,
+touching or overlapping boundary markers are rejected rather than merged across
+a possible module seam. Manhattan polygons and exact orthogonal paths are
+supported. Unsupported transforms, fractional path outlines and unexpected
+boundary data fail explicitly. Drawing/text purposes retain text without
+counting it as geometry. Missing/changed reports, selected-rule failures and
+rehashed layouts carrying stale measurements fail validation.
+
+The three reference blocks have **no module-cut or seal markers**. Passing these
+interaction checks proves no crossing or overlap with supplied boundaries; it
+does not establish complete-chip boundaries, seal origin/width, enclosure or
+spacing. Those obligations remain open. Of the 44 new records, 29 have nonempty
+target geometry and 15 have absent targets. Original-stream totals become
+405 executed, 532 absent, 90 W/L exemptions and 529 unreviewed. Corrected streams
+retain 130 explicit current catalog messages, separately from the unchanged
+six-profile periphery ledger. Historical full-catalog decisions stay bound to
+their original GDS identities.
+
+Ninety-eight focused tests pass without skips on each OS. Eleven retained controls
+match byte for byte across Windows and Linux and include nonempty failures for
+all 44 checks, 1 nm crossings/overlaps, exact touches, containment, holes, multiple
+modules, reflected arrays and rejection of an ambiguous module seam. All three
+actual application runs and Windows export replays pass. Manufacturing geometry,
+checkpoints, netlists and SPEF are unchanged; this batch adds no extraction or
+electrical qualification. Chunk 6 remains incomplete.
+
+```sh
+python -m scripts.sky130_boundary_interaction_review --check
+python -m unittest tests.test_sky130_boundary_interactions tests.test_sky130_application_rules -v
+```
+
+The review uses the retained corrected streams under workspace outputs. The
+preceding VPP checkpoint is source-bound to commit `f59d259`; reproduce its exact
+report using that commit or archived sources. The current audit preserves all
+new application outputs, controls, tests and reproduction drivers.
 
 ## Selected VPP geometry and density measurements
 
@@ -359,7 +406,7 @@ count, and rejects missing, overlapping or changed source records. It imports
 no geometry engines and does not repeat extraction or historical geometry runs.
 Six focused tests cover reconstruction, stale inputs, ambiguous assignments,
 changed source identities and attempts to queue already resolved records.
-The VPP geometry review above advances this baseline; its `remaining_original_batches`
+The boundary interaction review above advances this baseline; its `remaining_original_batches`
 retains every open record for the original streams. Current original-stream counts are:
 
 | Work batch | Open catalog records |
@@ -370,12 +417,12 @@ retains every open record for the original streams. Current original-stream coun
 | Device identification and RF geometry | 95 |
 | Core context and generated implant masks | 40 |
 | Module cut and selected boundary rules | 69 |
-| Frame, seal, scribe and alignment marks | 200 |
+| Frame, seal, scribe and alignment marks | 156 |
 | Pads, package geometry and ViaTop | 76 |
 | VPP, dummy diffusion and density | 36 |
 | Connectivity, redundancy and chip labels | 14 |
 | Routing blockages and boundary purposes | 26 |
-| **Total** | **573** |
+| **Total** | **529** |
 
 These are scheduling groups, not equally sized engineering tasks or completion
 percentages. Every currently queued record remains `unreviewed`; grouping itself

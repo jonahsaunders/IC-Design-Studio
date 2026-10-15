@@ -19,13 +19,23 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [VPP geometry audit](validation/sky130-vpp-geometry-audit-2026-10-15.json)
+The latest [boundary interaction audit](validation/sky130-boundary-interaction-audit-2026-10-15.json)
+integrates 44 module-crossing and seal-overlap checks into Finish and saved-result
+validation. Ninety-eight focused tests pass per OS; eleven retained controls
+exercise nonempty failures for every selected check and match exactly across
+systems. All three application runs and Windows export replays pass. The original
+catalog has 405 executed, 532 absent, 90 W/L exemptions and 529 unreviewed records;
+corrected streams retain 130 explicit catalog messages. The reference blocks have
+no module-cut or seal markers. These interaction checks do not establish complete
+chip boundaries or waive enclosure/spacing. Chunk 6 remains incomplete.
+
+The preceding [VPP geometry audit](validation/sky130-vpp-geometry-audit-2026-10-15.json)
 integrates numerical capacitor width, well-straddling and selected nwell-enclosure
 checks into Finish and saved-result validation. Outside-nwell enclosure context
 stays unreviewed. Eight nonempty controls, including 1 nm failures and exact density
 boundaries, agree across both OSes; 84 focused tests pass on each system. All three
 actual application runs and Windows exports pass. The references have no capacitor
-targets; their original catalog now has 376 executed, 517 absent, 90 W/L exemptions
+targets; that original catalog checkpoint has 376 executed, 517 absent, 90 W/L exemptions
 and 573 unreviewed records. Corrected streams retain 86 explicit catalog messages.
 Density ratios remain measurements only, and chunk 6 remains incomplete.
 
@@ -94,7 +104,7 @@ reference results; chunk 6 is incomplete.
 
 The [batched SKY130 work queue](SKY130_PHYSICAL_QUALIFICATION.md#batched-remaining-work)
 originally grouped 880 records into eleven shared work batches; the latest
-review retains the remaining 573 original-stream IDs by batch. Its inexpensive reconstruction
+review retains the remaining 529 original-stream IDs by batch. Its inexpensive reconstruction
 authenticates existing results without repeating old geometry/extraction work.
 Grouping alone never accepts a rule or assigns it to a later chunk.
 

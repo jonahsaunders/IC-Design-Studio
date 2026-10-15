@@ -1,0 +1,5 @@
+{
+  "status": "rejected-unsupported-boundary",
+  "error": "Touching or overlapping SKY130 boundary polygons require review: module",
+  "gds_sha256": "fd4317691f441841a9adfb9dc6609765502103f21c5f8252bf1506161b4bf202"
+}

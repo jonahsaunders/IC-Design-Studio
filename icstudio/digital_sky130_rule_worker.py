@@ -64,6 +64,9 @@ def execute(request):
         from .digital_sky130_vpp import audit as vpp_geometry
         report['vpp_geometry'] = vpp_geometry(gds)
         save('vpp_geometry.json', report['vpp_geometry'])
+        from .digital_sky130_boundary_interactions import audit as boundary_interactions
+        report['boundary_interactions'] = boundary_interactions(gds)
+        save('boundary_interactions.json', report['boundary_interactions'])
         report.update(status='reviewed-profiles-pass', ledger=review,
                       coverage=dict(rows=len(review['rows']), counts=review['counts'], complete=False))
         unchanged(); resources(base, policy['preparation_sha256'])

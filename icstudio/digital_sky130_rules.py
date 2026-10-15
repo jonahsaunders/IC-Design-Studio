@@ -115,6 +115,8 @@ def evaluate(report, gds_sha256, checkpoint_sha256, top, fingerprint, policy):
     evaluate_catalog_labels(report.get('catalog_labels'), gds_sha256, top)
     from .digital_sky130_vpp import evaluate as evaluate_vpp
     evaluate_vpp(report.get('vpp_geometry'), gds_sha256, top)
+    from .digital_sky130_boundary_interactions import evaluate as evaluate_boundary_interactions
+    evaluate_boundary_interactions(report.get('boundary_interactions'), gds_sha256, top)
     return report
 
 
@@ -186,6 +188,8 @@ def validate_saved(data, root):
     validate_catalog_labels(report['catalog_labels'], read('gds'))
     from .digital_sky130_vpp import validate_saved as validate_vpp
     validate_vpp(report['vpp_geometry'], read('gds'))
+    from .digital_sky130_boundary_interactions import validate_saved as validate_boundary_interactions
+    validate_boundary_interactions(report['boundary_interactions'], read('gds'))
     bindings = report.get('resources', {})
     expected = FILES | {'preparation.json': policy['preparation_sha256']}
     require(bindings.keys() == expected.keys() and len(set(bindings.values())) == len(expected),
