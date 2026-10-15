@@ -2,8 +2,9 @@
 
 The upstream DEF reader writes boundary pins as nonconductive pin annotations.
 Routes can stop at the inside edge of these pins. Copy the separately captured
-OpenDB shapes to the drawing purpose, retaining every original annotation and
-polygon. This is an export correction, not permission to repair arbitrary GDS.
+OpenDB shapes to the drawing purpose. Also remove the sole permitted stream
+annotation: a top-level prBoundary box matching the independent OpenDB die.
+Retain other annotations and geometry; reject other forbidden boundary data.
 """
 import json
 from pathlib import Path
@@ -78,24 +79,30 @@ def write(source, target, inventory):
     require(source.resolve() != target.resolve(), 'Preserve the original SKY130 stream.')
     digest = file_digest(source)
     layout, changes = prepare(source, inventory)
+    from .digital_sky130_boundaries import remove_outline
+    boundary_export = remove_outline(layout, inventory)
     require(file_digest(source) == digest, 'The SKY130 input stream changed.')
     options = k.SaveLayoutOptions(); options.gds2_write_timestamps = False
     layout.write(str(target), options)
-    result = dict(schema=1, status='pin-metal-exported', top=layout.top_cell().name,
+    result = dict(schema=2, status='pin-metal-exported', top=layout.top_cell().name,
                   source_gds_sha256=digest, gds_sha256=file_digest(target),
-                  checkpoint_sha256=inventory['checkpoint_sha256'], ports=len(inventory['ports']), layers=changes)
+                  checkpoint_sha256=inventory['checkpoint_sha256'], ports=len(inventory['ports']), layers=changes,
+                  boundary_export=boundary_export)
     verify(source, target, inventory)
     return result
 
 
 def verify(source, target, inventory):
-    """Independent readback: the sole permitted change is missing OpenDB pin metal."""
+    """Read back only the allowed pin-metal addition and declared outline removal."""
     import klayout.db as k
     before, after = k.Layout(), k.Layout(); before.read(str(source)); after.read(str(target))
     require(len(before.top_cells()) == len(after.top_cells()) == 1 and
             before.top_cell().name == after.top_cell().name == inventory['top'] and
             before.dbu == after.dbu, 'The SKY130 export hierarchy or grid changed.')
     original, written = before.top_cell(), after.top_cell()
+    from .digital_sky130_boundaries import OUTLINE, review, require_clean
+    boundary_export = review(before, inventory)
+    require_clean(after)
     pairs = {(ly.get_info(i).layer, ly.get_info(i).datatype) for ly in (before, after) for i in ly.layer_indexes()}
     expected = {layer: k.Region() for layer in LAYERS.values()}
     for port in inventory['ports']:
@@ -105,6 +112,8 @@ def verify(source, target, inventory):
         left = k.Region(original.begin_shapes_rec(before.layer(*pair))).merged()
         right = k.Region(written.begin_shapes_rec(after.layer(*pair))).merged()
         wanted = left | expected[pair[0]] if pair[0] in expected and pair[1] == 20 else left
+        if pair == OUTLINE:
+            wanted = k.Region()
         require((wanted ^ right).is_empty(), 'Unexpected SKY130 mask change: '+str(pair))
         def texts(layout, cell):
             iterator = cell.begin_shapes_rec(layout.layer(*pair)); values = []
@@ -114,7 +123,8 @@ def verify(source, target, inventory):
                 iterator.next()
             return sorted(values)
         require(texts(before, original) == texts(after, written), 'A SKY130 annotation changed.')
-    return dict(status='verified', masks_preserved_except_declared_pin_metal=True)
+    return dict(status='verified', masks_preserved_except_declared_pin_metal=True,
+                boundary_export=boundary_export)
 
 
 def execute(r):
@@ -145,20 +155,25 @@ def validate_saved(data, root):
     artifacts = data['artifacts']
     keys = {'sky130_pin_export', 'sky130_pin_inventory', 'sky130_pin_worker', 'sky130_pin_source'}
     present = keys & artifacts.keys()
-    if not present:
-        return None  # Historical jobs remain readable without an export-correction claim.
-    require(present == keys, 'Incomplete SKY130 pin-export evidence.')
     root = Path(root)
     def read(key):
         record = artifacts[key]; path = (root/record['path']).resolve()
         require(path.is_relative_to(root.resolve()) and path.is_file() and file_digest(path) == record['sha256'],
                 'Missing or changed SKY130 pin-export artifact: '+key)
         return path
+    if not present:
+        # Historical jobs without pin correction cannot bypass the explicit
+        # boundary prohibition when revalidated for current SKY130 delivery.
+        if data.get('platform', {}).get('name') == 'sky130hd' and 'gds' in artifacts:
+            from .digital_sky130_boundaries import validate_delivery
+            validate_delivery(read('gds'))
+        return None
+    require(present == keys, 'Incomplete SKY130 pin-export evidence.')
     for key in keys | {'gds', 'checkpoint'}:
         read(key)
     report = json.loads(read('sky130_pin_export').read_text())
     inventory = json.loads(read('sky130_pin_inventory').read_text())
-    require(report.get('schema') == 1 and report.get('status') == 'pin-metal-exported' and
+    require(report.get('schema') == 2 and report.get('status') == 'pin-metal-exported' and
             report.get('source') == artifacts['sky130_pin_source'] and
             report.get('source_gds_sha256') == artifacts['sky130_pin_source']['sha256'] and
             report.get('gds_sha256') == artifacts['gds']['sha256'] and
@@ -167,5 +182,7 @@ def validate_saved(data, root):
             'SKY130 pin-export bindings differ from the saved job.')
     _, changes = prepare(read('sky130_pin_source'), inventory)
     require(report.get('layers') == changes, 'SKY130 pin-export geometry report differs from independent readback.')
-    verify(read('sky130_pin_source'), read('gds'), inventory)
+    verified = verify(read('sky130_pin_source'), read('gds'), inventory)
+    require(report.get('boundary_export') == verified['boundary_export'],
+            'SKY130 boundary-export evidence differs from independent readback. Recheck Finish/export.')
     return report

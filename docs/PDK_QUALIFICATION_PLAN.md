@@ -19,7 +19,17 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [grid catalog audit](validation/sky130-grid-catalog-audit-2026-10-15.json)
+The latest [boundary export audit](validation/sky130-boundary-export-2026-10-15.json)
+fixes a prohibited die-outline annotation in all three SKY130 output streams.
+Only the single top-level box matching independent OpenDB die geometry is removed;
+unexpected boundary data is rejected and all manufacturing geometry is preserved.
+The six partial geometry profiles, thirteen antenna stages, OpenDB checks and
+macro export pass on each corrected design. Thirty-five tests pass on each OS;
+Windows reproduces identical corrected GDS and validates the exported bundles.
+Eight literal boundary prohibitions are checked on those new streams. Earlier
+catalog decisions retain their original file identities, and chunk 6 stays open.
+
+The preceding [grid catalog audit](validation/sky130-grid-catalog-audit-2026-10-15.json)
 resolves 105 exact vertex subjects: 20 nonempty drawn-layer checks pass the
 published 5 nm drawn grid, and 85 subjects contain no raw shapes or texts.
 The catalog now retains 376 executed bindings, 439 absent subjects, 90 explicit

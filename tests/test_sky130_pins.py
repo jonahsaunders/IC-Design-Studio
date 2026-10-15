@@ -132,5 +132,15 @@ class PinExportTests(unittest.TestCase):
         data=self.saved_fixture();data['artifacts']['gds']=data['artifacts']['sky130_pin_source']
         with self.assertRaisesRegex(ValueError,'bindings differ'):validate_saved(data,self.root)
 
+    def test_missing_or_changed_boundary_export_evidence_is_rejected(self):
+        data=self.saved_fixture();path=self.root/data['artifacts']['sky130_pin_export']['path']
+        original=json.loads(path.read_text())
+        for change in ('missing','count'):
+            report=copy.deepcopy(original)
+            if change=='missing':del report['boundary_export']
+            else:report['boundary_export']['removed_top_die_outlines']=1
+            path.write_text(json.dumps(report));data['artifacts']['sky130_pin_export']=artifact(self.root,path)
+            with self.assertRaisesRegex(ValueError,'boundary-export evidence'):validate_saved(data,self.root)
+
 
 if __name__=='__main__':unittest.main()

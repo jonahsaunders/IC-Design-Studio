@@ -31,6 +31,14 @@ class DigitalMacroTests(unittest.TestCase):
         files={}
         for key in ('gds','lef','netlist','checkpoint','spef','log'):
             path=root/(key+'.txt');path.write_text('unit '+key);files[key]=artifact(root,path)
+        if name=='sky130hd':
+            # Current SKY130 delivery validates the stream even for historical
+            # jobs without pin-export evidence, so this fixture needs real GDS.
+            import klayout.db as k
+            layout=k.Layout();layout.dbu=.001
+            top=layout.create_cell(value['top'])
+            top.shapes(layout.layer(68,20)).insert(k.Box(0,0,1000,1000))
+            path=root/'layout.gds';layout.write(str(path));files['gds']=artifact(root,path)
         path=root/'preview.json';path.write_text(json.dumps({'die':[0,0,2,2],'pins':[]}))
         files['layout_preview']=artifact(root,path)
         job={'project':project,'cell':cid};(root/'input.json').write_text(json.dumps(job))

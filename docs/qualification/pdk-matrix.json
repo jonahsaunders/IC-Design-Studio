@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. The latest exact catalog vertex review adds 20 executed 5 nm drawn-layer checks and 85 absent raw subjects on the three filled references: 376 executed, 439 absent, 90 standard-cell W/L exemptions and 651 unreviewed entries. Sixteen metop grid/angle aliases, broader x.1 unit/purpose semantics and all seven off-grid text anchors remain open; the complete diagnostic retains FAIL. The supplemental periphery ledger remains at 135 executed, 280 absent, 77 upstream NA, 36 advisory, 61 other-backend, one optional rule not required, ten execution reviews and one missing definition. The application six-profile ledger retains its separate 133 executed/28 review scope. RF selection, generated masks, frame boundaries, hugePad semantics, x.20 and remaining required catalog/density interpretation stay open. Full required-rule coverage and foundry acceptance are not established.",
+      "remaining": "Chunk 6 remains incomplete. The latest exact catalog vertex review adds 20 executed 5 nm drawn-layer checks and 85 absent raw subjects on the three filled references: 376 executed, 439 absent, 90 standard-cell W/L exemptions and 651 unreviewed entries. Sixteen metop grid/angle aliases, broader x.1 unit/purpose semantics and all seven off-grid text anchors remain open; the complete diagnostic retains FAIL. The supplemental periphery ledger remains at 135 executed, 280 absent, 77 upstream NA, 36 advisory, 61 other-backend, one optional rule not required, ten execution reviews and one missing definition. The application six-profile ledger retains its separate 133 executed/28 review scope. RF selection, generated masks, frame boundaries, hugePad semantics, x.20 and remaining required catalog/density interpretation stay open. Full required-rule coverage and foundry acceptance are not established. Current boundary export additionally removes the independently captured die outline and checks eight literal prohibitions on corrected GDS. All three application checks/exports pass, and Windows reproduces the same GDS bytes. This does not rebase or close the earlier 651 open catalog entries; their original-stream identities remain explicit.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16766,7 +16766,8 @@
         "sky130-application-isolation-2026-10-14",
         "sky130-local-hv-audit-2026-10-15",
         "sky130-standard-cell-wl-audit-2026-10-15",
-        "sky130-grid-catalog-audit-2026-10-15"
+        "sky130-grid-catalog-audit-2026-10-15",
+        "sky130-boundary-export-2026-10-15"
       ]
     },
     "sky130A:source-completeness": {
@@ -20234,6 +20235,11 @@
       "path": "docs/validation/sky130-grid-catalog-audit-2026-10-15.json",
       "sha256": "5fc7980806cb6aeef134226e9aef9d93a10680d549330b97b68ae958741eb40c",
       "scope_limit": "Fresh final-layout measurements resolve 105 explicit catalog vertex subjects: 20 nonempty drawn-layer checks pass the published 5 nm drawn grid and 85 subjects have no raw shape or text. Windows/Linux results agree. Sixteen metop grid/angle records, the broader x.1 unit/purpose semantics and all seven text-anchor findings remain open. The complete diagnostic retains FAIL; no periphery parent, application, density or foundry acceptance is promoted."
+    },
+    "sky130-boundary-export-2026-10-15": {
+      "path": "docs/validation/sky130-boundary-export-2026-10-15.json",
+      "sha256": "f4dde4c80783eb58a044ae24d9bda3034f44b71201937da42ad420414042b17b",
+      "scope_limit": "Current Finish/export removes only one top-level prBoundary box equal to the independent OpenDB die and rejects other forbidden boundary purposes. All three real corrected GDS files preserve manufacturing geometry and text, pass the six existing partial geometry profiles, thirteen antenna stages, OpenDB checks and macro export. Windows reproduces identical GDS and validates exports. Thirty-five focused tests pass on each OS. Eight literal catalog prohibitions are checked separately on these new GDS identities; the earlier 651-open catalog ledger remains tied to its original GDS files."
     }
   },
   "execution_acceptance": {

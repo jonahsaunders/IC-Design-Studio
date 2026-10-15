@@ -4,7 +4,13 @@ The [execution record](validation/sky130-physical-progress-2026-10-11.json)
 captures the original counter, UART and APB final layouts. Chunk 6 remains open.
 Zero geometry markers alone do not establish complete physical coverage.
 
-The [grid catalog review](#explicit-grid-catalog-subjects) records
+The [boundary export correction](#boundary-export-correction) removes a prohibited
+die-outline annotation from all three final streams without changing manufacturing
+geometry. Actual application checks and macro exports pass on the corrected
+streams, and Windows reproduces identical GDS bytes. This is a separate correction;
+the earlier catalog is not silently rebound to the new file identities.
+
+The [grid catalog review](#explicit-grid-catalog-subjects) records, on its original GDS files,
 376 executed error records, 439 verified absent subjects, 90 explicit standard-cell
 W/L exemptions and 651 unreviewed records. The preceding
 [local/HV review](#local-geometry-marked-hv-and-hugepad-correction) reopens the
@@ -22,6 +28,49 @@ between the supplemental checker and Finish/export; it does not close the
 remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
+
+## Boundary export correction
+
+The [consolidated audit](validation/sky130-boundary-export-2026-10-15.json)
+records a real export defect: the captured DEF-reader configuration adds a
+`prBoundary.boundary` box at the die outline, while catalog records `r1252` and
+`s68` prohibit that purpose in delivered layouts. The other six literal records
+`r1253`–`r1255` and `s69`–`s71` prohibit poly, diffusion and tap boundary purposes.
+
+Current Finish removes only a single top-level rectangular outline exactly equal
+to the die captured independently from OpenDB. Multiple, nested, mismatched,
+nonrectangular or textual outline data is rejected. Other prohibited boundary
+purposes are rejected, including text. The original stream is retained, and the
+schema-2 pin-export report binds the correction to the source GDS, final GDS and
+checkpoint. Saved-result validation and macro export independently repeat the
+geometry comparison and reject missing or altered correction evidence. Historical
+boundary-bearing streams and older pin reports need current Finish rechecking.
+
+On counter, UART and APB, exactly one outline is removed and zero pin-metal area
+is added. Every other manufacturing region and text annotation is preserved;
+checkpoint, netlist, DEF and SPEF bytes are unchanged. All six existing partial
+geometry profiles, thirteen antenna stages, OpenDB antenna/power-connectivity
+checks and macro exports pass on the corrected streams. Optional isolation stays
+`NOT_REQUESTED`. The application periphery ledger still has 133 executed rows and
+28 execution reviews; this batch does not promote full physical coverage.
+
+Thirty-five focused tests pass without skips on Windows and Linux. Windows also
+reproduces all three corrected GDS files byte for byte from the original streams
+and Linux-captured inventories, revalidates the saved results and exports their
+macro bundles. Restoring the prohibited outline cannot bypass delivery checks by
+removing the correction report. Unexpected manufacturing changes are rejected.
+
+The earlier 1,556-record ledger remains bound to the original streams, at 376
+executed, 439 absent, 90 explicit W/L exemptions and 651 unreviewed entries. These
+eight boundary prohibitions are independently checked on the corrected streams;
+no blanket transfer of prior decisions or reduction of that historical count is
+claimed. Earlier nominal extraction/timing/equivalence evidence retains its
+original scope. No new electrical rerun, installer or foundry acceptance is
+claimed. The audit archive retains the real outputs and reproduction drivers.
+
+```sh
+python -m unittest tests.test_sky130_boundaries tests.test_sky130_pins tests.test_digital_macro -v
+```
 
 ## Explicit grid catalog subjects
 
