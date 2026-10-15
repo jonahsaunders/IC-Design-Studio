@@ -19,10 +19,20 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [standard-cell audit](validation/sky130-standard-cell-wl-audit-2026-10-15.json)
+The latest [grid catalog audit](validation/sky130-grid-catalog-audit-2026-10-15.json)
+resolves 105 exact vertex subjects: 20 nonempty drawn-layer checks pass the
+published 5 nm drawn grid, and 85 subjects contain no raw shapes or texts.
+The catalog now retains 376 executed bindings, 439 absent subjects, 90 explicit
+standard-cell W/L exemptions and 651 unreviewed records. Twenty-two focused tests
+pass on each OS without skips; the complete reports agree byte for byte.
+Sixteen metop grid/angle aliases, the broader periphery unit/purpose semantics
+and all seven text-anchor findings remain open. The complete grid diagnostic
+retains FAIL; the periphery and application ledgers are unchanged.
+
+The preceding [standard-cell audit](validation/sky130-standard-cell-wl-audit-2026-10-15.json)
 binds 90 explicit W/L exceptions to the authenticated HD library and fresh
 instance-level geometry on the three filled references. Five dummy-poly subjects
-are absent. The catalog now contains 356 executed bindings, 354 absent subjects,
+are absent. That checkpoint contains 356 executed bindings, 354 absent subjects,
 90 explicit standard-cell W/L exemptions and 756 unreviewed entries. Twenty
 focused tests pass on each OS without skips, and the complete reports agree.
 RF recognition and all 60 RF fixed-layout dimension records remain open; the
@@ -44,7 +54,7 @@ reference results; chunk 6 is incomplete.
 
 The [batched SKY130 work queue](SKY130_PHYSICAL_QUALIFICATION.md#batched-remaining-work)
 originally grouped 880 records into eleven shared work batches; the latest
-review retains the remaining 756 IDs by batch. Its inexpensive reconstruction
+review retains the remaining 651 IDs by batch. Its inexpensive reconstruction
 authenticates existing results without repeating old geometry/extraction work.
 Grouping alone never accepts a rule or assigns it to a later chunk.
 

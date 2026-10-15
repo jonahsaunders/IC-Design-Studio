@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "win32",
+  "qualified": false,
+  "chunk_complete": false,
+  "driver_sha256": "c3cfe1da8961fa7dd41a38a4aab9686c892edaa580f535238e428d233dbbfa5d",
+  "tests": 22,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "log_sha256": "e3136ea4cd675ff7bfb6d0794a05df3458bd460fe5615618ec1d55583b612122",
+  "data_sha256": "fd51a2cb9cc93c26399b95ed6c5a11b916dc95ced93fdd1d257ec5fd71e63c94",
+  "cases": {
+    "counter": {
+      "catalog": {
+        "executed-reviewed": 376,
+        "absent-operand": 439,
+        "unreviewed": 651,
+        "standard-cell-wl-exempt": 90
+      },
+      "diagnostic_status": "FAIL",
+      "diagnostics": {
+        "grid.boundaries": 0,
+        "grid.text_anchors": 2,
+        "profile.known_purposes": 0,
+        "profile.nonempty": 0,
+        "profile.path_semantics": 0,
+        "profile.shape_semantics": 0,
+        "profile.transforms": 0
+      }
+    },
+    "uart": {
+      "catalog": {
+        "executed-reviewed": 376,
+        "absent-operand": 439,
+        "unreviewed": 651,
+        "standard-cell-wl-exempt": 90
+      },
+      "diagnostic_status": "FAIL",
+      "diagnostics": {
+        "grid.boundaries": 0,
+        "grid.text_anchors": 4,
+        "profile.known_purposes": 0,
+        "profile.nonempty": 0,
+        "profile.path_semantics": 0,
+        "profile.shape_semantics": 0,
+        "profile.transforms": 0
+      }
+    },
+    "apb": {
+      "catalog": {
+        "executed-reviewed": 376,
+        "absent-operand": 439,
+        "unreviewed": 651,
+        "standard-cell-wl-exempt": 90
+      },
+      "diagnostic_status": "FAIL",
+      "diagnostics": {
+        "grid.boundaries": 0,
+        "grid.text_anchors": 1,
+        "profile.known_purposes": 0,
+        "profile.nonempty": 0,
+        "profile.path_semantics": 0,
+        "profile.shape_semantics": 0,
+        "profile.transforms": 0
+      }
+    }
+  },
+  "elapsed_seconds": 31.34400000000096
+}

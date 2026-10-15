@@ -1,0 +1,362 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "explicit-grid-catalog-review-verified",
+  "qualified": false,
+  "chunk_complete": false,
+  "source_baseline": "39c1bbf22ea1f9a209fe92f58b6ebe3d08a23a13",
+  "scope": "Fresh final-layout measurements resolve 105 explicit catalog vertex subjects: 20 nonempty drawn-layer checks pass the published 5 nm drawn grid and 85 subjects have no raw shape or text. Windows/Linux results agree. Sixteen metop grid/angle records, the broader x.1 unit/purpose semantics and all seven text-anchor findings remain open. The complete diagnostic retains FAIL; no periphery parent, application, density or foundry acceptance is promoted.",
+  "source_files": {
+    "scripts/sky130_grid_catalog_review.py": "e3d0517f493f971ef1906feefd55ea58ceca57989f6791aa16025cd6ed477e6f",
+    "scripts/sky130_grid_geometry.py": "0e24c568f582725ad034cf5fd4346a04756e69e0d34c00d47c959d1d5dcff28a",
+    "scripts/sky130_catalog_queue.py": "a7e67cac3ff2c4957e9a998ac11c40e9ef0444c1bc1224bcd36b049ba40dde23",
+    "scripts/sky130_standard_cell_wl_review.py": "3280d25d7e7b3b993f0a6a26cac28ea9471e5a6e627b072ba6f36566246b1989",
+    "scripts/check_sky130_filled_replay.py": "3b70b41abdff2032b0f7c41716466995d673a3cb43847e90200d21d9b16fe15a",
+    "tests/test_sky130_grid_catalog.py": "fbbed8db54f39ec20c6c438b292f180fc1fb0e631f6d75ac65a12081a53e84c9",
+    "tests/test_sky130_grid_density.py": "d16b660de1e73e349f3f75f9eac92e00ccee95d4775a32f012e1b411f185e302"
+  },
+  "data": {
+    "path": "docs/validation/sky130-grid-catalog-2026-10-15.json",
+    "sha256": "fd51a2cb9cc93c26399b95ed6c5a11b916dc95ced93fdd1d257ec5fd71e63c94"
+  },
+  "systems": {
+    "win32": {
+      "result": {
+        "schema": 1,
+        "status": "PASS",
+        "platform": "win32",
+        "qualified": false,
+        "chunk_complete": false,
+        "driver_sha256": "c3cfe1da8961fa7dd41a38a4aab9686c892edaa580f535238e428d233dbbfa5d",
+        "tests": 22,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "log_sha256": "e3136ea4cd675ff7bfb6d0794a05df3458bd460fe5615618ec1d55583b612122",
+        "data_sha256": "fd51a2cb9cc93c26399b95ed6c5a11b916dc95ced93fdd1d257ec5fd71e63c94",
+        "cases": {
+          "counter": {
+            "catalog": {
+              "executed-reviewed": 376,
+              "absent-operand": 439,
+              "unreviewed": 651,
+              "standard-cell-wl-exempt": 90
+            },
+            "diagnostic_status": "FAIL",
+            "diagnostics": {
+              "grid.boundaries": 0,
+              "grid.text_anchors": 2,
+              "profile.known_purposes": 0,
+              "profile.nonempty": 0,
+              "profile.path_semantics": 0,
+              "profile.shape_semantics": 0,
+              "profile.transforms": 0
+            }
+          },
+          "uart": {
+            "catalog": {
+              "executed-reviewed": 376,
+              "absent-operand": 439,
+              "unreviewed": 651,
+              "standard-cell-wl-exempt": 90
+            },
+            "diagnostic_status": "FAIL",
+            "diagnostics": {
+              "grid.boundaries": 0,
+              "grid.text_anchors": 4,
+              "profile.known_purposes": 0,
+              "profile.nonempty": 0,
+              "profile.path_semantics": 0,
+              "profile.shape_semantics": 0,
+              "profile.transforms": 0
+            }
+          },
+          "apb": {
+            "catalog": {
+              "executed-reviewed": 376,
+              "absent-operand": 439,
+              "unreviewed": 651,
+              "standard-cell-wl-exempt": 90
+            },
+            "diagnostic_status": "FAIL",
+            "diagnostics": {
+              "grid.boundaries": 0,
+              "grid.text_anchors": 1,
+              "profile.known_purposes": 0,
+              "profile.nonempty": 0,
+              "profile.path_semantics": 0,
+              "profile.shape_semantics": 0,
+              "profile.transforms": 0
+            }
+          }
+        },
+        "elapsed_seconds": 31.34400000000096
+      },
+      "evidence": {
+        "record.json": {
+          "path": "docs/validation/sky130-grid-catalog-2026-10-15/win32/record.json",
+          "sha256": "22a0a3170f17076495823b5089333e6035678c3df7b24a6cd514482bc4bd16f1"
+        },
+        "tests.log": {
+          "path": "docs/validation/sky130-grid-catalog-2026-10-15/win32/tests.log",
+          "sha256": "e3136ea4cd675ff7bfb6d0794a05df3458bd460fe5615618ec1d55583b612122"
+        }
+      }
+    },
+    "linux": {
+      "result": {
+        "schema": 1,
+        "status": "PASS",
+        "platform": "linux",
+        "qualified": false,
+        "chunk_complete": false,
+        "driver_sha256": "c3cfe1da8961fa7dd41a38a4aab9686c892edaa580f535238e428d233dbbfa5d",
+        "tests": 22,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "log_sha256": "96c2cfdbcd71fef9bdc70e4c599b1075bc1270aac53fb4a0eb1402f1c05a92d5",
+        "data_sha256": "fd51a2cb9cc93c26399b95ed6c5a11b916dc95ced93fdd1d257ec5fd71e63c94",
+        "cases": {
+          "counter": {
+            "catalog": {
+              "executed-reviewed": 376,
+              "absent-operand": 439,
+              "unreviewed": 651,
+              "standard-cell-wl-exempt": 90
+            },
+            "diagnostic_status": "FAIL",
+            "diagnostics": {
+              "grid.boundaries": 0,
+              "grid.text_anchors": 2,
+              "profile.known_purposes": 0,
+              "profile.nonempty": 0,
+              "profile.path_semantics": 0,
+              "profile.shape_semantics": 0,
+              "profile.transforms": 0
+            }
+          },
+          "uart": {
+            "catalog": {
+              "executed-reviewed": 376,
+              "absent-operand": 439,
+              "unreviewed": 651,
+              "standard-cell-wl-exempt": 90
+            },
+            "diagnostic_status": "FAIL",
+            "diagnostics": {
+              "grid.boundaries": 0,
+              "grid.text_anchors": 4,
+              "profile.known_purposes": 0,
+              "profile.nonempty": 0,
+              "profile.path_semantics": 0,
+              "profile.shape_semantics": 0,
+              "profile.transforms": 0
+            }
+          },
+          "apb": {
+            "catalog": {
+              "executed-reviewed": 376,
+              "absent-operand": 439,
+              "unreviewed": 651,
+              "standard-cell-wl-exempt": 90
+            },
+            "diagnostic_status": "FAIL",
+            "diagnostics": {
+              "grid.boundaries": 0,
+              "grid.text_anchors": 1,
+              "profile.known_purposes": 0,
+              "profile.nonempty": 0,
+              "profile.path_semantics": 0,
+              "profile.shape_semantics": 0,
+              "profile.transforms": 0
+            }
+          }
+        },
+        "elapsed_seconds": 32.035015902000005
+      },
+      "evidence": {
+        "record.json": {
+          "path": "docs/validation/sky130-grid-catalog-2026-10-15/linux/record.json",
+          "sha256": "08f47dfac85f5fe49e43af27dc535427fe96b7f5f6fffbf8cb2b75faaaef9c3f"
+        },
+        "tests.log": {
+          "path": "docs/validation/sky130-grid-catalog-2026-10-15/linux/tests.log",
+          "sha256": "96c2cfdbcd71fef9bdc70e4c599b1075bc1270aac53fb4a0eb1402f1c05a92d5"
+        }
+      }
+    }
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "diagnostic_status": "FAIL",
+      "diagnostic_counts": {
+        "grid.boundaries": 0,
+        "grid.text_anchors": 2,
+        "profile.known_purposes": 0,
+        "profile.nonempty": 0,
+        "profile.path_semantics": 0,
+        "profile.shape_semantics": 0,
+        "profile.transforms": 0
+      },
+      "error_counts": {
+        "executed-reviewed": 376,
+        "absent-operand": 439,
+        "unreviewed": 651,
+        "standard-cell-wl-exempt": 90
+      },
+      "periphery_counts": {
+        "execution-review-required": 10,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 280,
+        "advisory": 36,
+        "definition-required": 1,
+        "declared-option-not-required": 1,
+        "other-backend": 61
+      }
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "diagnostic_status": "FAIL",
+      "diagnostic_counts": {
+        "grid.boundaries": 0,
+        "grid.text_anchors": 4,
+        "profile.known_purposes": 0,
+        "profile.nonempty": 0,
+        "profile.path_semantics": 0,
+        "profile.shape_semantics": 0,
+        "profile.transforms": 0
+      },
+      "error_counts": {
+        "executed-reviewed": 376,
+        "absent-operand": 439,
+        "unreviewed": 651,
+        "standard-cell-wl-exempt": 90
+      },
+      "periphery_counts": {
+        "execution-review-required": 10,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 280,
+        "advisory": 36,
+        "definition-required": 1,
+        "declared-option-not-required": 1,
+        "other-backend": 61
+      }
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "diagnostic_status": "FAIL",
+      "diagnostic_counts": {
+        "grid.boundaries": 0,
+        "grid.text_anchors": 1,
+        "profile.known_purposes": 0,
+        "profile.nonempty": 0,
+        "profile.path_semantics": 0,
+        "profile.shape_semantics": 0,
+        "profile.transforms": 0
+      },
+      "error_counts": {
+        "executed-reviewed": 376,
+        "absent-operand": 439,
+        "unreviewed": 651,
+        "standard-cell-wl-exempt": 90
+      },
+      "periphery_counts": {
+        "execution-review-required": 10,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 280,
+        "advisory": 36,
+        "definition-required": 1,
+        "declared-option-not-required": 1,
+        "other-backend": 61
+      }
+    }
+  ],
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-with-parent-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-grid-catalog-2026-10-15-v1\\evidence.tar.gz",
+    "sha256": "7bf0f7adad93a10d97ad20a0dc07e908c5f4bc6144127d0497514ac82669a1f8",
+    "bytes": 85592,
+    "files": 932,
+    "unique_local_blobs": 10,
+    "reused_parent_files": 916,
+    "manifest_sha256": "56456ab45b727af26e9754bfc58eaf83074940c5bcc3c09d913a0caedb1fbfe4",
+    "parent": {
+      "schema": 1,
+      "status": "readback-verified",
+      "layout": "sha256-addressed-blobs-with-parent-v1",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-standard-cell-wl-2026-10-15-v1\\evidence.tar.gz",
+      "sha256": "2f4cce1c00d0d0a43301973d72ee564d31d59a9c0f130baa21f65207a7e24f14",
+      "bytes": 138665,
+      "files": 916,
+      "unique_local_blobs": 12,
+      "reused_parent_files": 898,
+      "manifest_sha256": "ec53f54ad37eb0558c670fd8e8fa5138aa2ef5dcb56b96411a5d7b6b102cac6b",
+      "parent": {
+        "schema": 1,
+        "status": "readback-verified",
+        "layout": "sha256-addressed-blobs-with-parent-v1",
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-local-hv-2026-10-15-v1\\evidence.tar.gz",
+        "sha256": "af80985dcd6f1a35d95797482fafa41b9e1a1e7bc60444bf6af7fb190d04ba21",
+        "bytes": 28772307,
+        "files": 895,
+        "unique_local_blobs": 80,
+        "reused_parent_files": 806,
+        "manifest_sha256": "f6e4c3ac7d25f3596c20eee369ec78b995a541b131a1bf010dd66cbce26e4006",
+        "parent": {
+          "schema": 1,
+          "status": "readback-verified",
+          "layout": "sha256-addressed-blobs-with-parent-v1",
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-application-isolation-2026-10-14-v1\\evidence.tar.gz",
+          "sha256": "521e6aa0401a22453e307143504788f6e6abb9322a03e0292b8ee16253c47818",
+          "bytes": 17483870,
+          "files": 895,
+          "unique_local_blobs": 163,
+          "reused_parent_files": 704,
+          "manifest_sha256": "0b40d7ed2e9a44d500bfc2927c03de3fadf13b72acec5221550de76cd68f6596",
+          "parent": {
+            "schema": 1,
+            "status": "readback-verified",
+            "layout": "sha256-addressed-blobs-with-parent-v1",
+            "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-filled-electrical-2026-10-14-v1\\evidence.tar.gz",
+            "sha256": "e473b4d289a92a2dd196512ce20cc2a23ac5a5607715bfcbdeaf83e15e49983d",
+            "bytes": 22598988,
+            "files": 4465,
+            "unique_local_blobs": 727,
+            "reused_parent_files": 3382,
+            "manifest_sha256": "13f0993a6a28af4b28ba242ed45f5cb64bb6a31173243f9291c3d1f9a35f3b11",
+            "parent": {
+              "schema": 1,
+              "status": "readback-verified",
+              "layout": "sha256-addressed-blobs-v1",
+              "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-scope-correction-2026-10-14-v1\\evidence.tar.gz",
+              "sha256": "c91887fe6ca5b3492baed7e461f300ac14cbb16945bf5aff11fd792fc930fedc",
+              "bytes": 44401516,
+              "files": 842,
+              "unique_blobs": 386,
+              "manifest_sha256": "1f62a0248c6486b6b9f8358477016ef8e15ec4b515d6023860294ec0a89c2465"
+            }
+          }
+        }
+      }
+    }
+  },
+  "limitations": [
+    "376 executed catalog bindings, 439 absent subjects, 90 explicit standard-cell W/L exemptions and 651 unreviewed records.",
+    "The source assumptions table specifies 0.005 um for drawn data, while the periphery table prints mm. Only the 35 explicitly named drawn-vertex subjects use that assumptions value.",
+    "Non-drawn mask/edit/package subjects are resolved only through complete raw shape/text absence; present data still needs review of the conflicting unit/purpose definitions.",
+    "The r35-r42 and r150-r157 metop aliases remain unreviewed; cell-name or empty matching-name heuristics do not establish their absence.",
+    "Seven off-grid text anchors remain in the complete diagnostic (counter 2, UART 4, APB 1). The literal catalog vertex checks do not resolve that broader requirement.",
+    "The supplemental periphery ledger remains at 135 executed and ten execution reviews plus one missing definition. The application ledger remains separate at 133 executed and 28 execution reviews.",
+    "No placement, extraction, application run, electrical rerun, installer or foundry acceptance is asserted by this subject review."
+  ]
+}

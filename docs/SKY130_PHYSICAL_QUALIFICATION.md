@@ -4,9 +4,9 @@ The [execution record](validation/sky130-physical-progress-2026-10-11.json)
 captures the original counter, UART and APB final layouts. Chunk 6 remains open.
 Zero geometry markers alone do not establish complete physical coverage.
 
-The [standard-cell review](#standard-cell-widthlength-and-dummy-poly-review) records
-356 executed error records, 354 verified absent subjects, 90 explicit standard-cell
-W/L exemptions and 756 unreviewed records. The preceding
+The [grid catalog review](#explicit-grid-catalog-subjects) records
+376 executed error records, 439 verified absent subjects, 90 explicit standard-cell
+W/L exemptions and 651 unreviewed records. The preceding
 [local/HV review](#local-geometry-marked-hv-and-hugepad-correction) reopens the
 unsupported hugePad exemption, leaving ten periphery execution reviews and one declared optional rule not required by the
 ordinary bulk references. Those ten reviews, the missing pin-spacing
@@ -22,6 +22,45 @@ between the supplemental checker and Finish/export; it does not close the
 remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
+
+## Explicit grid catalog subjects
+
+The [audit](validation/sky130-grid-catalog-audit-2026-10-15.json) and
+[measurements](validation/sky130-grid-catalog-2026-10-15.json) resolve 105 exact
+catalog subjects on the three unchanged filled layouts: 20 nonempty drawn-layer
+vertex checks pass, and 85 subjects have no raw geometry or text. The 35 named
+drawn-layer bindings use the explicit 0.005 µm grid in the captured assumptions
+table. The public [assumptions](https://skywater-pdk.readthedocs.io/en/main/rules/assumptions.html)
+and [periphery table](https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html)
+still disagree on units; this review records that discrepancy and does not
+promote the broader `x.1a` or `x.1b` requirements.
+
+The 70 mask/edit/package bindings reuse exact retained purpose mappings and
+preserve whether each alias came from the published table or installed layer map.
+They are resolved only by complete raw shape/text absence. Present data requires
+further review even if it passes the diagnostic grid; no disputed mask/package
+grid is selected for acceptance. Sixteen `metop1`–`metop8` grid/angle records
+remain unreviewed because their operands are not established.
+
+The raw diagnostic still reports **FAIL**: seven text anchors are off the
+diagnostic grid, with two in counter, four in UART and one in APB. Those findings
+retain their coordinates and cell names. All physical vertices pass. Accepting
+the literal catalog vertex checks does not resolve the separate annotation scope
+or change any GDS geometry or label position. Periphery and application ledger
+counts remain unchanged; chunk 6 remains incomplete.
+
+Twenty-two focused tests pass without skips on each OS, and the complete reports
+are byte-identical. Controls exercise all 35 drawn bindings, all 70 absence-only
+bindings, hidden/holed polygons, hierarchy/arrays, fractional transforms, path
+outlines, text-only subjects and incomplete measurements. Every drawn binding
+rejects a 1 nm shift; every present mask/edit/package operand prevents absence.
+This review reuses unchanged application and electrical evidence and retains
+its new results in a small archive referencing the preceding verified archive.
+
+```sh
+python -m scripts.sky130_grid_catalog_review --check
+python -m unittest tests.test_sky130_grid_catalog tests.test_sky130_grid_density.GridTests -v
+```
 
 ## Standard-cell width/length and dummy-poly review
 
@@ -125,14 +164,14 @@ count, and rejects missing, overlapping or changed source records. It imports
 no geometry engines and does not repeat extraction or historical geometry runs.
 Six focused tests cover reconstruction, stale inputs, ambiguous assignments,
 changed source identities and attempts to queue already resolved records.
-The standard-cell review above advances this baseline; its `remaining_batches`
+The grid catalog review above advances this baseline; its `remaining_batches`
 retains every current open record. Current counts are:
 
 | Work batch | Open catalog records |
 | --- | ---: |
 | Local geometry and resistor/pad selectors | 1 |
 | Marked high-voltage geometry | 0 |
-| Coordinate grids and layer aliases | 121 |
+| Coordinate grids and layer aliases | 16 |
 | Device identification and RF geometry | 95 |
 | Core context and generated implant masks | 77 |
 | Module cut and selected boundary rules | 73 |
@@ -141,7 +180,7 @@ retains every current open record. Current counts are:
 | VPP, dummy diffusion and density | 40 |
 | Connectivity, redundancy and chip labels | 46 |
 | Routing blockages and boundary purposes | 26 |
-| **Total** | **756** |
+| **Total** | **651** |
 
 These are scheduling groups, not equally sized engineering tasks or completion
 percentages. Every currently queued record remains `unreviewed`; grouping itself
