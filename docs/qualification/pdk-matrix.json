@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. The complete catalog has now been replayed on all three corrected exports: 424 executed, 593 absent, 90 W/L exemptions, 8 advisory, 441 unreviewed. All six Windows/Linux case replays pass with byte-identical reports, and 74 tests pass per OS. This standalone reference replay retains authenticated native/nominal-voltage inputs; it does not add arbitrary-job full-catalog coverage. Generated masks, RF selection, grid/purpose, frame/pad, pin-spacing and remaining density/catalog coverage stay open.",
+      "remaining": "Chunk 6 remains incomplete. Sixteen additional pad/inductor and implant targets have conservative absence proofs in Finish and export validation. Corrected full catalog: 424 executed, 609 absent, 90 W/L exemptions, eight advisory, 425 unreviewed. All six catalog replays, 194 tests per OS, 57 controls, three application runs and Windows exports pass. Nonempty target rules, generated masks, RF, grid/purpose, module/frame/pad context, pin-spacing and required density remain open.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16776,7 +16776,8 @@
         "sky130-conservative-bound-audit-2026-10-15",
         "sky130-device-root-audit-2026-10-15",
         "sky130-special-subject-audit-2026-10-15",
-        "sky130-delivery-catalog-audit-2026-10-15"
+        "sky130-delivery-catalog-audit-2026-10-15",
+        "sky130-selected-target-audit-2026-10-15"
       ]
     },
     "sky130A:source-completeness": {
@@ -20294,6 +20295,11 @@
       "path": "docs/validation/sky130-delivery-catalog-audit-2026-10-15.json",
       "sha256": "1e3e0bd5a07c727b6cbb4163f97f22b2a2b041e403a56184db28aeaeb8d15c87",
       "scope_limit": "The complete 1556-record catalog is replayed on each exact corrected reference export, with every reviewed decision rebuilt from fresh geometry and authenticated source bindings. Counts are 424 executed, 593 absent, 90 explicit W/L exemptions, eight advisories and 441 unreviewed. Windows/Linux reports agree byte for byte; 74 tests pass per OS. Native extraction and nominal voltage inputs are explicitly retained and authenticated, not reexecuted. The standalone reference replay does not change general application policy or qualify chunk 6."
+    },
+    "sky130-selected-target-audit-2026-10-15": {
+      "path": "docs/validation/sky130-selected-target-audit-2026-10-15.json",
+      "sha256": "b0c3a919071a1b629f43836bf7876cbe783be2788d614b2ebe5230effd777bf9",
+      "scope_limit": "Finish and saved-result/export validation require a report for sixteen selected targets: seven bond-pad, seven inductor-pad and two implant-enclosure records. The references satisfy conservative absence proofs. Raw purposes, masks and candidate names/labels guard the absence claims; missing enclosures cannot waive present targets. Complete corrected-reference catalog replays now contain 424 executed, 609 absent, 90 W/L exemptions, eight advisories and 425 unreviewed records. All six catalog replays and 57 controls agree across systems; 194 tests pass per OS; three application runs and Windows saved-result/export replays pass. Nonempty target rules, ViaTop, hugePad, generated masks, RF, grid, chip context, pin spacing and density remain unresolved."
     }
   },
   "execution_acceptance": {

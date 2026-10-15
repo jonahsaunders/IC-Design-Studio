@@ -29,6 +29,72 @@ remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
 
+## Selected pad, inductor and implant targets
+
+The [selected-target audit](validation/sky130-selected-target-audit-2026-10-15.json)
+and [complete corrected catalog](validation/sky130-selected-targets-2026-10-15.json)
+add a mandatory report covering sixteen selected targets to Finish and saved-result
+and macro-export validation. All sixteen targets are absent on the three reference
+layouts. These are explicit absence decisions, not numerical passes on nonempty
+pad or implant geometry.
+
+- Seven bond-pad records use the published C3 definition of `bondPad` as a subset
+  of `pad:drawing`. The complete drawing, additional pad/pin/label/mask purposes
+  and candidate cell names and labels must be empty.
+- Seven inductor-pad records require empty inductor drawing, label and terminal
+  purposes and no candidate names or labels. All three captured F2a inductor
+  families require the drawn inductor identifier, including the row without a
+  populated Used field; that field is not a waiver.
+- `r1476` requires an empty intersection of all drawn poly and tap. This stronger
+  condition proves that the published `Var_channel` and the selected well target
+  are empty. Explicit masks and varactor-name/label hints also prevent absence.
+- `r1493` requires empty HVI and additional voltage/mask/intent guards. An empty
+  HVI region has no selected diffusion inside it. Missing enclosing implants or
+  metal never waives a present target.
+
+All raw shape types count on guard purposes. Poly/tap measurement preserves
+holes and exact Manhattan paths and rejects unsupported geometry or transforms.
+Saved-result validation independently recomputes the report from actual GDS;
+editing the recorded GDS hash cannot rescue stale measurements.
+
+The first APB replay exposed a false pad-name hint in the address labels
+`paddr[0]` through `paddr[3]`. The generic `pad` token now requires a following
+non-letter or the end of the name. Explicit pad compounds and `bond` retain
+substring matching, with Unicode/whitespace normalization. Raw drawing and mask
+guards are unchanged. The failed attempt, its checker and reports are retained;
+new controls cover ordinary bus names, explicit pads and actual pad geometry
+under an ordinary bus name.
+
+All **194 focused tests** pass without skips on each OS. All **57 retained
+controls** and all three complete catalog reports agree byte for byte across
+Windows and Linux. Fresh application runs pass the six partial profiles, thirteen
+antenna stages, OpenDB antenna/power checks and macro export. Windows reproduces
+the corrected GDS and validates saved results and exported artifacts.
+Manufacturing geometry, netlists, checkpoints and SPEF remain unchanged.
+
+Each corrected full catalog now contains **424 executed bindings, 609 absent
+subjects, 90 explicit standard-cell W/L exemptions, eight advisory records and
+425 unreviewed records**. The pad/stack queue falls from 76 to 62 and the
+core/implant queue from 36 to 34. Finish retains 218 explicitly bound current
+catalog messages alongside its partial periphery ledger; the full reference
+catalog command does not establish arbitrary-job signoff.
+
+Nonempty target checks, ViaTop and other pad variants, hugePad and generated-mask
+recipes, RF selection, grid/purpose interpretation, complete module/frame context,
+pin spacing and required density remain open. Chunk 6 remains incomplete.
+
+```sh
+python -m scripts.sky130_selected_target_review --check
+python -m unittest tests.test_sky130_selected_targets tests.test_sky130_application_rules -v
+```
+
+The command uses the retained corrected exports and native/voltage/library
+dependencies under workspace outputs. Its archive includes current sources,
+reports, controls, drivers and current application inputs, with an authenticated
+reference to the preceding independent delivery archive. It does not require the
+older application archive chain. The preceding complete replay below is bound
+to commit `480b647`; use that commit or its archived sources for its exact report.
+
 ## Complete catalog replay on corrected exports
 
 The [delivery replay audit](validation/sky130-delivery-catalog-audit-2026-10-15.json)

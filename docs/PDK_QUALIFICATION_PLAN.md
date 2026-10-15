@@ -19,7 +19,19 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [corrected-export catalog replay](validation/sky130-delivery-catalog-audit-2026-10-15.json)
+The latest [selected-target audit](validation/sky130-selected-target-audit-2026-10-15.json)
+adds a required report for sixteen pad, inductor and implant targets to Finish
+and saved-result/export validation. All sixteen are conservatively absent in
+the references; nonempty requirements remain unreviewed. The corrected complete
+catalog contains 424 executed bindings, 609 absent subjects, 90 W/L exemptions,
+eight advisory and 425 unreviewed records. All six catalog replays, 194 tests
+per OS, 57 cross-system controls, three application runs and Windows exports
+pass. A pad-name false positive on APB address labels was fixed with retained
+positive/negative controls; raw geometry guards are unchanged. Nonempty pad,
+generated-mask, RF, grid/purpose, module/frame, pin-spacing and required density
+coverage remains open. Chunk 6 is incomplete.
+
+The preceding [corrected-export catalog replay](validation/sky130-delivery-catalog-audit-2026-10-15.json)
 rebuilds every reviewed decision on the actual delivered counter, UART and APB
 layouts. Each complete 1,556-record catalog contains 424 executed bindings, 593
 absent subjects, 90 W/L exemptions, eight advisories and 441 unreviewed records.

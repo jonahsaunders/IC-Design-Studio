@@ -125,6 +125,8 @@ def evaluate(report, gds_sha256, checkpoint_sha256, top, fingerprint, policy):
     evaluate_device_roots(report.get('device_roots'), gds_sha256, top)
     from .digital_sky130_special_subjects import evaluate as evaluate_special_subjects
     evaluate_special_subjects(report.get('special_subjects'), gds_sha256, top)
+    from .digital_sky130_selected_targets import evaluate as evaluate_selected_targets
+    evaluate_selected_targets(report.get('selected_targets'), gds_sha256, top)
     return report
 
 
@@ -206,6 +208,8 @@ def validate_saved(data, root):
     validate_device_roots(report['device_roots'], read('gds'))
     from .digital_sky130_special_subjects import validate_saved as validate_special_subjects
     validate_special_subjects(report['special_subjects'], read('gds'))
+    from .digital_sky130_selected_targets import validate_saved as validate_selected_targets
+    validate_selected_targets(report['selected_targets'], read('gds'))
     bindings = report.get('resources', {})
     expected = FILES | {'preparation.json': policy['preparation_sha256']}
     require(bindings.keys() == expected.keys() and len(set(bindings.values())) == len(expected),

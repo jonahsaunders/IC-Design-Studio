@@ -79,6 +79,9 @@ def execute(request):
         from .digital_sky130_special_subjects import audit as special_subjects
         report['special_subjects'] = special_subjects(gds)
         save('special_subjects.json', report['special_subjects'])
+        from .digital_sky130_selected_targets import audit as selected_targets
+        report['selected_targets'] = selected_targets(gds)
+        save('selected_targets.json', report['selected_targets'])
         report.update(status='reviewed-profiles-pass', ledger=review,
                       coverage=dict(rows=len(review['rows']), counts=review['counts'], complete=False))
         unchanged(); resources(base, policy['preparation_sha256'])
