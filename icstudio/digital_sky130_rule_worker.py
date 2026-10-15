@@ -112,6 +112,9 @@ def execute(request):
         from .digital_sky130_waffle_windows import audit as waffle_windows
         report['waffle_windows'] = waffle_windows(gds)
         save('waffle_windows.json', report['waffle_windows'])
+        from .digital_sky130_dummy_partners import audit as dummy_partners
+        report['dummy_partners'] = dummy_partners(gds)
+        save('dummy_partners.json', report['dummy_partners'])
         report.update(status='reviewed-profiles-pass', ledger=review,
                       coverage=dict(rows=len(review['rows']), counts=review['counts'], complete=False))
         unchanged(); resources(base, policy['preparation_sha256'])

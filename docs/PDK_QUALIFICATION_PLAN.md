@@ -19,14 +19,26 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [die-cut and density audit](validation/sky130-diecut-density-audit-2026-10-15.json)
+The latest [dummy-FOM partner audit](validation/sky130-dummy-partner-audit-2026-10-15.json)
+resolves **five additional binary records: 307 to 302 unresolved** through
+independently defined empty seal, fuse and die-cut operands. It does not
+construct dummy FOM or waive enclosure. All 378 tests per OS, 19 controls, six
+incremental catalogs, three Linux application runs and Windows exports pass.
+Current counts are **441 executed, 715 absent, 90 W/L exemptions, eight advisory
+and 302 unresolved**. The [source dependencies](validation/sky130-source-dependencies-2026-10-15.json)
+map every remaining record into 17 groups and retain pin-spacing and density
+as independent obligations. No private foundry package is available. Missing
+definitions remain open; full chunk 6 completion cannot be claimed from the
+current source set.
+
+The preceding [die-cut and density audit](validation/sky130-diecut-density-audit-2026-10-15.json)
 resolves **18 additional spacing records: 325 to 307 unresolved**, through an
 empty published die-cut operand. Enclosure remains open. The new density kernel
 evaluates all six required waffle-drop predicates per metal on explicit full
 windows, with 72 nonempty threshold controls. It does not qualify window/cell
 policy or generated final-mask operands; required density remains incomplete.
 All 365 tests per OS, 86 controls, six incremental catalogs, three application
-runs and Windows exports pass. Current counts are **441 executed, 710 absent,
+runs and Windows exports pass. Counts at that checkpoint were **441 executed, 710 absent,
 90 explicit W/L exemptions, eight advisory and 307 unresolved**. Test cases and
 numerical observations do not count as additional completed reference records.
 

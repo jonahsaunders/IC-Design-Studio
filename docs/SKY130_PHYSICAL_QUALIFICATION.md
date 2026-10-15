@@ -29,6 +29,78 @@ remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
 
+## Dummy-FOM partner proofs and source dependencies
+
+The [latest audit](validation/sky130-dummy-partner-audit-2026-10-15.json) and
+[reference catalog](validation/sky130-dummy-partners-2026-10-15.json) resolve
+**five additional records: 307 to 302 unresolved**. The two seal relations,
+two fuse relations and one die-cut relation have an independently defined
+operand that is empty on all three references. This proves there are no spacing
+pairs or overlap intersections without inventing the other operand,
+`fomDummyDRC`. These are absence decisions, not numerical passes on dummy fill.
+
+The seal and die-cut aliases are bound through matching manual/catalog
+operations and the published GDS/C4 tables. Fuse absence requires the published
+metal4 fuse and target, both additional installed fuse purposes and a
+conservative metal2 guard to be empty. Any raw data, including text, paths,
+slivers and transformed nested arrays, prevents the associated absence proof.
+All enclosure obligations and the other 12 dummy-FOM records remain open.
+Finish and saved-result/export validation require and recompute this evidence.
+
+All **378 tests pass on each OS, with no failures, errors or skips**.
+The 19 retained controls and six incremental catalogs agree across Windows
+and Linux. Three fresh Linux application runs and Windows saved-result/export
+replays pass. The three Linux designs were checked concurrently. Earlier
+catalog decisions and native electrical evidence remain authenticated retained
+dependencies; this work does not rerun extraction, timing or equivalence.
+
+The current reference counts are **441 executed, 715 absent, 90 explicit W/L
+exemptions, eight advisory and 302 unresolved**. The
+[source-dependency review](validation/sky130-source-dependencies-2026-10-15.json)
+assigns every unresolved record to one of 17 specific dependency groups,
+without changing any disposition. The separate pin-spacing and required-density
+obligations are also recorded. It authenticates all 165 inspected source files
+and retains the [public repository searches](validation/sky130-public-source-search-2026-10-15.json).
+
+The user confirmed that no private foundry package is available. In the inspected
+sources, `fomDummyDRC`, `CLNTM`, `metop8` and `ViaTop` occur only in the error
+catalog; the RF fixed-layout map is referenced but its contents are not supplied.
+This is a bounded source search, not proof that no public definition can exist.
+The published raw dummy purpose **22:23** is known; its relationship to the
+generated target and native **23:28** waffle data remains unresolved.
+
+Full chunk 6 completion still needs authoritative definitions or independently
+validated equivalents for the remaining operands, selectors and scan policies,
+followed by implementation and valid/failing nonempty controls. Pin-spacing
+rule `x.20` also lacks its numerical limit. More runtime alone cannot establish
+these definitions. Stronger public bounds may resolve further individual
+records, but neither this source review nor the absence of a private package
+waives any requirement. **Chunk 6 and full tapeout signoff remain incomplete.**
+
+### Remaining chunk 6 work at this checkpoint
+
+These are unresolved coverage records, not 302 measured layout violations.
+The separate missing `x.20` pin-spacing limit and wider required density work
+also remain in chunk 6. Counts do not measure engineering effort.
+
+| Records | Group | Definition or context still needed |
+| ---: | --- | --- |
+| 1 | Local geometry | Resolve the generated hugePad selector and conflicting area wording. |
+| 16 | Grid | Establish the eight `metop` purposes before binding their grid/angle rules. |
+| 32 | Device recognition | Resolve remaining RF fixed-layout model mapping, Table H5 and selected-device geometry. |
+| 34 | Core and implants | Establish generated-mask construction and exact enclosure targets. |
+| 34 | Module boundaries | Establish `q0`/`q1` subjects for enclosure and present-module spacing context. |
+| 117 | Frame, seal and scribe | Supply frame/alignment construction, generated-mask companions and remaining chip-boundary definitions. |
+| 56 | Pads and vias | Establish ViaTop and remaining pad-family selectors. |
+| 12 | Dummy diffusion | Establish the `fomDummyDRC` operand and its density/fill constraints. |
+
+The pinned public source bundle names several of these inputs without providing
+their construction. New numerical checks must be bound to verified definitions;
+absence of a guessed raw layer cannot establish a generated target is absent.
+The GDS table does publish dummy FOM on `22:23`; the unresolved issue is its
+relationship to the generated `fomDummyDRC` target and native waffle data, not
+the absence of a raw dummy-purpose number.
+
 ## Die-cut spacing and numerical waffle-density predicates
 
 The [die-cut and density audit](validation/sky130-diecut-density-audit-2026-10-15.json)
@@ -78,36 +150,12 @@ clipped windows on both systems. Initial Linux command-launch attempts omitted
 a bundled dependency path; those records are retained alongside the corrected
 launcher results.
 
-The current reference catalog contains **441 executed, 710 absent, 90 explicit
+At that checkpoint the reference catalog contained **441 executed, 710 absent, 90 explicit
 W/L exemptions, eight advisory and 307 unresolved records**. Earlier results
 remain authenticated retained dependencies; current width checks, module and
 die-cut censuses and the waffle census execute freshly. No new extraction,
 timing or equivalence run is claimed. The archive retains current evidence and
 the verified module, metal-width, family/package and delivery archive chain.
-
-### Remaining chunk 6 work at this checkpoint
-
-These are unresolved coverage records, not 307 measured layout violations.
-The separate missing `x.20` pin-spacing limit and wider required density work
-also remain in chunk 6. Counts do not measure engineering effort.
-
-| Records | Group | Definition or context still needed |
-| ---: | --- | --- |
-| 1 | Local geometry | Resolve the generated hugePad selector and conflicting area wording. |
-| 16 | Grid | Establish the eight `metop` purposes before binding their grid/angle rules. |
-| 32 | Device recognition | Resolve remaining RF fixed-layout model mapping, Table H5 and selected-device geometry. |
-| 34 | Core and implants | Establish generated-mask construction and exact enclosure targets. |
-| 34 | Module boundaries | Establish `q0`/`q1` subjects for enclosure and present-module spacing context. |
-| 117 | Frame, seal and scribe | Supply frame/alignment construction, generated-mask companions and remaining chip-boundary definitions. |
-| 56 | Pads and vias | Establish ViaTop and remaining pad-family selectors. |
-| 17 | Dummy diffusion | Establish the `fomDummyDRC` operand and its density/fill constraints. |
-
-The pinned public source bundle names several of these inputs without providing
-their construction. New numerical checks must be bound to verified definitions;
-absence of a guessed raw layer cannot establish a generated target is absent.
-The GDS table does publish dummy FOM on `22:23`; the unresolved issue is its
-relationship to the generated `fomDummyDRC` target and native waffle data, not
-the absence of a raw dummy-purpose number.
 
 ## Empty module operands for spacing and overlap
 

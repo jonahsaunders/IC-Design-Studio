@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "linux",
+  "case": "apb",
+  "driver_sha256": "4b0d3d9c97a8690d2b5eb802c499aceca2bf170b736e3683a65e00cc4a3ad654",
+  "qualified": false,
+  "chunk_complete": false,
+  "verification_mode": "authenticated-baseline-plus-fresh-width-module-diecut-density-dummy-partners",
+  "data_sha256": "008075c4554d24f9044532bfc38ec8ed5a105741c491089bd7c4c1c2e1ac4a07",
+  "counts": {
+    "executed-reviewed": 441,
+    "absent-operand": 715,
+    "unreviewed": 302,
+    "standard-cell-wl-exempt": 90,
+    "advisory": 8
+  },
+  "gds_sha256": "55eb17e58330b23b3d1f437232ab1cc942540c7916ec3ff31ec6dbc088c3f8b2",
+  "elapsed_seconds": 10.271634716000001
+}

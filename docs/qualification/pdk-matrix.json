@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. The die-cut proof resolves 18 spacing records, reducing 325 to 307 unresolved. Catalog: 441 executed, 710 absent, 90 W/L exemptions, eight advisory. New numerical density observations are verified by 72 nonempty controls but do not qualify a window/cell policy or final-mask construction. All 365 tests per OS, 86 total controls, six incremental catalogs, three application runs and Windows exports pass. Required density, RF/generated operands, remaining boundaries and pin spacing remain open.",
+      "remaining": "Chunk 6 remains incomplete. Five known seal/fuse/die-cut partner absences reduce 307 to 302 unresolved. Catalog: 441 executed, 715 absent, 90 W/L exemptions, eight advisory. All 378 tests per OS, 19 controls, six incremental catalogs, three application runs and Windows exports pass. Exact source dependencies cover all 302 records in 17 groups; the user has no private package. Required density, RF/generated operands, remaining boundary/pad selectors and pin spacing still need definitions and verification. Missing definitions are not waived.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16785,7 +16785,8 @@
         "sky130-family-package-audit-2026-10-15",
         "sky130-metal-width-audit-2026-10-15",
         "sky130-module-operand-audit-2026-10-15",
-        "sky130-diecut-density-audit-2026-10-15"
+        "sky130-diecut-density-audit-2026-10-15",
+        "sky130-dummy-partner-audit-2026-10-15"
       ]
     },
     "sky130A:source-completeness": {
@@ -20348,6 +20349,11 @@
       "path": "docs/validation/sky130-diecut-density-audit-2026-10-15.json",
       "sha256": "7a44e02ceb1ed7bf34c31d93e6e6607a3ff7a06c561980b92b7f706d7d6094ee",
       "scope_limit": "Finish and saved-result/export validation require die-cut and waffle-drop censuses. Eighteen nsm.3b spacing records have an empty known die-cut operand bound by manual/GDS/C4 to areaid.dt 81:11. No enclosure or present-target construction is inferred. The density kernel evaluates all six independent required waffle-drop predicates per metal on caller-selected full 700 um windows, with exact integer union/intersection areas and threshold comparisons. Nonempty density operands remain unreviewed for acceptance: no foundry window/cell-exclusion policy, final-mask construction or oxide metric is inferred. All 365 tests pass per OS, and 86 controls (14 die-cut presence cases and 72 nonempty density threshold cases) agree across systems. Six incremental catalogs authenticate 1193 prior family/package decisions and freshly run width/module/die-cut checks and the waffle census. Three actual Linux application runs and Windows saved-result/export replays pass. Counts are 441 executed, 710 absent, 90 explicit W/L exemptions, eight advisory and 307 unresolved. The 48 earlier waffle absences are confirmed without relabeling them as numerical execution. Native extraction and electrical results retain their authenticated historical scope."
+    },
+    "sky130-dummy-partner-audit-2026-10-15": {
+      "path": "docs/validation/sky130-dummy-partner-audit-2026-10-15.json",
+      "sha256": "67fe719d806b0e5b60ae5622271d13475afac9a5ca3dad455b96906bee8e10c2",
+      "scope_limit": "Five dummy-FOM spacing/overlap records resolve through independently defined empty seal, fuse or die-cut partners. No fomDummyDRC construction, numerical nonempty dummy-fill pass, enclosure waiver or required density acceptance is inferred. Finish and saved-result/export validation require and recompute the census. All 378 tests pass on each OS without failures, errors or skips. Nineteen controls and six incremental catalogs agree across systems. Three fresh Linux application runs and Windows saved-result/export replays pass. The references retain 441 executed, 715 absent, 90 explicit W/L exemptions, eight advisory and 302 unresolved records. A separate source-dependency review enumerates all 302 open records in 17 groups plus pin-spacing and required-density obligations. The user has no private foundry package. Earlier catalog decisions and native electrical results retain their authenticated historical scope."
     }
   },
   "execution_acceptance": {
