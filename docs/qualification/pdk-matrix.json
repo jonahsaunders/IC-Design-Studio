@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. The latest selected-subject audit resolves 63 explicit catalog records using fresh raw/derived operands on all three unchanged filled layouts. Error coverage is 356 executed, 320 absent and 880 unreviewed; periphery coverage stays 135 executed, 278 absent, 77 upstream NA, 36 advisory, 61 other-backend, 13 execution reviews and the undefined x.20 threshold. Earlier device-intent evidence accounts for all 36,385 MOS gates. Generated LVTNM/NCM, voltage tagging, RF map, grid, boundary and remaining catalog/density interpretation stay open. The references retain passing partial application physical checks/export, nominal extracted timing and RTL equivalence. Delivery remains chunk 12; no full PDK or tapeout qualification is claimed.",
+      "remaining": "Chunk 6 remains incomplete. The explicit nominal 0\u20131.8 V reference contract is checked against every port, captured HD library domain, complete cell power/bias wiring, every native MOS body and fresh raw HV selectors. It conditionally discharges hvnwell.11, hv.X.1 and hv.X.4 for the three exact references only. Periphery coverage is 135 executed, 281 absent, 77 upstream NA, 36 advisory, 61 other-backend, 10 execution reviews and the undefined x.20 threshold. Catalog counts remain 356 executed, 320 absent and 880 unreviewed. Generated masks, RF selection, grid, boundaries, nfet_in_dnwell policy and remaining catalog/density interpretation stay open. No transient, reliability, nonempty HV propagation, arbitrary design or foundry qualification is claimed.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16760,7 +16760,8 @@
         "sky130-waffle-density-audit-2026-10-14",
         "sky130-esd-fuse-audit-2026-10-14",
         "sky130-device-intent-audit-2026-10-14",
-        "sky130-selected-subjects-audit-2026-10-14"
+        "sky130-selected-subjects-audit-2026-10-14",
+        "sky130-voltage-intent-audit-2026-10-14"
       ]
     },
     "sky130A:source-completeness": {
@@ -20198,6 +20199,11 @@
       "path": "docs/validation/sky130-selected-subjects-audit-2026-10-14.json",
       "sha256": "344d54c2c95c120c32acec0dd49df18b128d7a46b479196b66e465e0d0feb262",
       "scope_limit": "Fresh raw/derived measurements resolve 63 literal catalog subjects on the unchanged filled counter, UART and APB. All 11 tests pass per OS without skips and complete reports agree. Earlier catalog evidence is independently reconstructed before applying new decisions."
+    },
+    "sky130-voltage-intent-audit-2026-10-14": {
+      "path": "docs/validation/sky130-voltage-intent-audit-2026-10-14.json",
+      "sha256": "f3aa296d1291b40a9b96054ca414732365408b261bbd38149148cb4bd2e2b776",
+      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0\u20131.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
     }
   },
   "execution_acceptance": {

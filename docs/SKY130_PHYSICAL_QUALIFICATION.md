@@ -4,9 +4,11 @@ The [execution record](validation/sky130-physical-progress-2026-10-11.json)
 captures the original counter, UART and APB final layouts. Chunk 6 remains open.
 Zero geometry markers alone do not establish complete physical coverage.
 
-The latest [selected-subject review](#selected-catalog-subjects) records
+The [selected-subject review](#selected-catalog-subjects) records
 356 executed error records, 320 verified absent subjects and 880 unreviewed
-records. Thirteen periphery execution reviews, the missing pin-spacing
+records. The latest [nominal voltage review](#nominal-reference-voltage-contract)
+reduces the periphery execution reviews from thirteen to ten for the explicitly
+declared reference conditions. Those ten reviews, the missing pin-spacing
 definition and remaining required catalog/density interpretation remain open.
 The [final electrical checks](#final-filled-reference-electrical-checks)
 now pass nominal extracted timing and sequential equivalence on all three exact
@@ -20,6 +22,58 @@ remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
 
+## Nominal reference voltage contract
+
+The [voltage-intent audit](validation/sky130-voltage-intent-audit-2026-10-14.json)
+checks a new, explicit [reference contract](qualification/sky130-reference-voltage-contract.json):
+ideal 1.8 V VDD, 0 V VSS, every external signal within those rails, and no declared
+high-voltage supply nets. These are declared operating requirements for the
+three fixed reference designs, not measured internal analog voltages.
+
+The checker authenticates the final implementation, captured library and database
+snapshot, native extraction and port inventory. Every physical port needs an
+explicit range and matching net, direction and signal type. Every cell needs
+captured library metadata or one of the five exact electrically empty fill/tap
+masters from the locked CDL. Signal-pin domains and every supply/bias connection
+must agree. The native MOS bodies must connect to their declared rails; unknown
+models or missing extracted terminals fail the check.
+
+| Reference | Physical ports | Cell instances | Supply/bias pins | Native MOS bodies |
+|---|---:|---:|---:|---:|
+| Counter | 8 | 3,330 | 12,660 | 2,240 |
+| UART | 15 | 17,357 | 65,970 | 17,002 |
+| APB FIFO | 30 | 17,189 | 65,298 | 17,143 |
+
+Fresh recursive measurements find no raw HVI, HL, diffusion-HV, VHVI or UHVI
+shapes and no `hv_bb`, `hv_lv` or `shv_nwell` labels. The published HV methodology
+starts propagation from tagged diffusion. Together with the checked nominal
+contract and the earlier complete drawn/native device census, this establishes
+conditional absence for `hvnwell.11`, `hv.X.1` and `hv.X.4`. Any HV selector,
+exception label, unsupported voltage range or changed source prevents that
+decision. The checker does not implement propagation for a nonempty HV circuit.
+
+Windows and Linux produce identical complete reports and pass all 21 tests
+without skips. Controls cover incorrect supply/bias wiring, unsupported library
+domains, missing or invalid port ranges, unknown native models/terminals,
+different checkpoint identities, raw text in transformed arrays, nonempty HV
+selectors, changed sources and unsupported geometry. The small verified archive
+retains final sources, drivers, reports and earlier failed attempts; the original
+large electrical/native captures are authenticated and reused.
+
+```sh
+python -m unittest tests.test_sky130_voltage_contract tests.test_sky130_voltage_intent -v
+python -m scripts.sky130_voltage_intent_review --outputs /path/to/retained/outputs --electrical-manifest /path/to/retained/electrical/manifest.json --check
+```
+
+The current periphery ledger has 135 executed, 281 absent, 77 upstream NA,
+36 advisory, 61 other-backend, ten execution-review and one definition-required
+record. All 1,556 catalog dispositions remain unchanged. Generated implants,
+RF selection, grid, frame/die geometry, `nfet_in_dnwell` policy, `x.20` and the
+remaining catalog/density interpretation remain open. This evidence establishes
+neither transient overvoltage limits nor rail integrity, foundry latch-up/ERC,
+general user-design coverage or full chunk 6 acceptance. Application policy is
+unchanged.
+
 ## Selected catalog subjects
 
 The [selected-subject audit](validation/sky130-selected-subjects-audit-2026-10-14.json)
@@ -32,8 +86,8 @@ The selected records cover HVI/HL-derived geometry, varactor channels, optional
 module-cut via sizes, slotted contacts, exact named-cell contact/LI variants,
 photodiodes, RF-diode identifiers and three general selector checks. The entire
 raw HVI and HL selectors are empty; this establishes absence of those geometric
-subjects, while the separate obligation to identify and propagate operating
-voltages remains open. The varactor decision proves that all poly/tap
+subjects. Voltage intent is addressed separately by the conditional nominal
+contract above. The varactor decision proves that all poly/tap
 intersection is empty. Slotted-contact decisions require both no exact merged
 0.19 by 2.0 micrometre contacts and no raw RPM. Named-cell decisions use the
 published exact names and the single explicitly published trailing wildcard.
@@ -152,15 +206,15 @@ The small durable archive retains both platform logs, source, drivers and
 byte-checked reports. Its input GDS/manual fixture is already committed; the
 archive does not duplicate the large native evidence bundles.
 
-The remaining periphery obligations are explicit:
+The current remaining periphery obligations are explicit. The device-intent
+review resolves the earlier `hvtr.3`/`licon.19` rows, and the nominal voltage
+contract conditionally resolves the three voltage rows for these references:
 
 | Obligation | Remaining work |
 |---|---|
 | `x.1a`, `x.1b` | Resolve published grid units/purpose interpretation and seven text-anchor diagnostic findings. Physical polygon vertices already pass the 5 nm diagnostic. |
 | `dnwell.6`, `difftap.13`, `poly.16` | Establish the referenced RF fixed-layout model map and Table H5 selections. |
-| `hvtr.3`, `lvtn.4b`, `ncm.3` | Resolve device selection and generated-mask enclosure semantics. Missing enclosing layers are insufficient evidence. |
-| `licon.19` | Establish the HV-varactor target and its poly/contact interaction semantics. |
-| `hvnwell.11`, `hv.X.1`, `hv.X.4` | Validate voltage intent and propagation; absent tags do not prove correct tagging. |
+| `lvtn.4b`, `ncm.3` | Resolve generated-mask construction and enclosure semantics. Missing drawn enclosing layers are insufficient evidence. |
 | `nsm.3a`, `nsm.3b` | Establish frame/die-cut context and applicable boundary geometry. |
 | `x.29` | Establish and retain the `nfet_in_dnwell` switch policy and its corresponding device checks. |
 | `x.20` | Obtain the omitted numeric same-layer pin-spacing definition for the `IP_block` mode. |
