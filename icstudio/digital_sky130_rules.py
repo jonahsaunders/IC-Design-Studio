@@ -111,6 +111,8 @@ def evaluate(report, gds_sha256, checkpoint_sha256, top, fingerprint, policy):
     validate_pad_scope(ledger)
     from .digital_sky130_catalog_context import evaluate as evaluate_catalog_context
     evaluate_catalog_context(report.get('catalog_context'), gds_sha256, top)
+    from .digital_sky130_catalog_labels import evaluate as evaluate_catalog_labels
+    evaluate_catalog_labels(report.get('catalog_labels'), gds_sha256, top)
     return report
 
 
@@ -178,6 +180,8 @@ def validate_saved(data, root):
              data['platform']['fingerprint'], policy)
     from .digital_sky130_catalog_context import validate_saved as validate_catalog_context
     validate_catalog_context(report['catalog_context'], read('gds'))
+    from .digital_sky130_catalog_labels import validate_saved as validate_catalog_labels
+    validate_catalog_labels(report['catalog_labels'], read('gds'))
     bindings = report.get('resources', {})
     expected = FILES | {'preparation.json': policy['preparation_sha256']}
     require(bindings.keys() == expected.keys() and len(set(bindings.values())) == len(expected),

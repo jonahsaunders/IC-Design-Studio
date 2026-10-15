@@ -10,9 +10,9 @@ geometry. Actual application checks and macro exports pass on the corrected
 streams, and Windows reproduces identical GDS bytes. This is a separate correction;
 the earlier catalog is not silently rebound to the new file identities.
 
-The [core-context review](#explicit-core-and-implant-context) records, on the original GDS files,
-376 executed error records, 476 verified absent subjects, 90 explicit standard-cell
-W/L exemptions and 614 unreviewed records. The preceding
+The [label-subject review](#explicit-label-and-raw-target-subjects) records, on the original GDS files,
+376 executed error records, 513 verified absent subjects, 90 explicit standard-cell
+W/L exemptions and 577 unreviewed records. The preceding
 [local/HV review](#local-geometry-marked-hv-and-hugepad-correction) reopens the
 unsupported hugePad exemption, leaving ten periphery execution reviews and one declared optional rule not required by the
 ordinary bulk references. Those ten reviews, the missing pin-spacing
@@ -28,6 +28,54 @@ between the supplemental checker and Finish/export; it does not close the
 remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
+
+## Explicit label and raw-target subjects
+
+The [audit](validation/sky130-label-subject-audit-2026-10-15.json) and
+[fresh measurements](validation/sky130-label-subjects-2026-10-15.json) resolve 37
+literal catalog messages whose targets are absent on both original and corrected
+reference streams. These include 28 floating/tied-label messages, the conditional
+diode label, the selected part-number-cell naming message, and seven messages
+selecting actual low-tap-density, injection, prune, capacitor or pad purposes.
+
+Finish records `catalog_labels` alongside the preceding 45-message
+`catalog_context`. Label searches traverse all purposes and reachable hierarchy;
+Unicode compatibility, case, whitespace and embedded-token variants conservatively
+prevent false absence. Cell-name searches include the top and reachable cells.
+Raw targets use their exact pinned published purposes, including pad drawing
+76:20. No missing enclosing frame or module region is used as an exemption.
+Present targets remain `unreviewed`, and their report says `review-required`.
+This batch does not implement floating-net detection or the whole-chip part-number
+requirement. Saved-result validation freshly measures the layout, rejecting
+missing or altered reports and rehashed layouts carrying false absence claims.
+
+All three actual application runs pass the existing six partial geometry profiles,
+thirteen antenna stages, OpenDB checks and macro export. Windows revalidates the
+saved results and exports and reproduces identical corrected GDS. Sixty-seven
+focused tests pass without skips on each OS, including deliberately added labels,
+raw targets, hierarchy, source changes and false absence claims. Fresh measurement
+reports agree byte for byte across systems.
+
+The original-stream catalog advances to 376 executed, 513 absent, 90 explicit
+W/L exemptions and 577 unreviewed entries. Connectivity/label records fall from
+46 to 14, module records from 73 to 69, and frame records from 201 to 200.
+Corrected streams carry 82 explicit current catalog messages: 74 absent subjects
+and eight executed boundary prohibitions. Full historical catalog decisions
+remain bound to the original streams. The application periphery ledger remains
+133 executed and 28 reviews. Manufacturing geometry and electrical artifacts are
+unchanged; this batch claims no new extraction, timing or full signoff.
+
+```sh
+python -m scripts.sky130_label_subject_review --check
+python -m unittest tests.test_sky130_catalog_labels tests.test_sky130_application_rules -v
+```
+
+The measurement review requires the retained corrected references under the
+workspace outputs directory; the audit records their identities and archive.
+Older rule reports missing `catalog_labels` require current Finish rechecking.
+The following core-context checkpoint is historical: reproduce its source-bound
+report with commit `c085aa4` or its archived sources. Current source-bound reports
+include the additional label validation and therefore have different source hashes.
 
 ## Explicit core and implant context
 
@@ -262,7 +310,7 @@ count, and rejects missing, overlapping or changed source records. It imports
 no geometry engines and does not repeat extraction or historical geometry runs.
 Six focused tests cover reconstruction, stale inputs, ambiguous assignments,
 changed source identities and attempts to queue already resolved records.
-The core-context review above advances this baseline; its `remaining_original_batches`
+The label-subject review above advances this baseline; its `remaining_original_batches`
 retains every open record for the original streams. Current original-stream counts are:
 
 | Work batch | Open catalog records |
@@ -272,13 +320,13 @@ retains every open record for the original streams. Current original-stream coun
 | Coordinate grids and layer aliases | 16 |
 | Device identification and RF geometry | 95 |
 | Core context and generated implant masks | 40 |
-| Module cut and selected boundary rules | 73 |
-| Frame, seal, scribe and alignment marks | 201 |
+| Module cut and selected boundary rules | 69 |
+| Frame, seal, scribe and alignment marks | 200 |
 | Pads, package geometry and ViaTop | 76 |
 | VPP, dummy diffusion and density | 40 |
-| Connectivity, redundancy and chip labels | 46 |
+| Connectivity, redundancy and chip labels | 14 |
 | Routing blockages and boundary purposes | 26 |
-| **Total** | **614** |
+| **Total** | **577** |
 
 These are scheduling groups, not equally sized engineering tasks or completion
 percentages. Every currently queued record remains `unreviewed`; grouping itself

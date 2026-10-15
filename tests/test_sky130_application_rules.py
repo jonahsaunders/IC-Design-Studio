@@ -59,6 +59,7 @@ def fixture(root):
             for item in value:bind_fixture(item)
     bind_fixture(ledger)
     from icstudio.digital_sky130_catalog_context import audit as catalog_context
+    from icstudio.digital_sky130_catalog_labels import audit as catalog_labels
     report = dict(schema=1, recipe=rules.RECIPE, status='reviewed-profiles-pass', qualified=False,
                   chunk_complete=False, scope=rules.SCOPE, policy=platform['sky130_rules'],
                   top=ledger['top'], gds_sha256=ledger['gds_sha256'],
@@ -66,7 +67,7 @@ def fixture(root):
                   platform_fingerprint=platform['fingerprint'], ledger=ledger,
                   profiles={key: clone(ledger[key]) for key in rules.PROFILES},
                   coverage=dict(rows=len(ledger['rows']), counts=ledger['counts'], complete=False), resources={},
-                  catalog_context=catalog_context(root/'filled.gds'))
+                  catalog_context=catalog_context(root/'filled.gds'),catalog_labels=catalog_labels(root/'filled.gds'))
     paths = rules.resources(root/'platform/verification', platform['sky130_rules']['preparation_sha256'])
     for index, (name, path) in enumerate(sorted(paths.items())):
         key='sky130_rule_resource_'+str(index)
@@ -153,6 +154,8 @@ class Sky130ApplicationRuleTests(unittest.TestCase):
             changes={
                 'missing-profile':lambda r:r['profiles'].pop('raw_geometry'),
                 'missing-catalog-context':lambda r:r.pop('catalog_context'),
+                'missing-label-subjects':lambda r:r.pop('catalog_labels'),
+                'changed-label-subjects':lambda r:r['catalog_labels']['rows'].pop(),
                 'changed-catalog-context':lambda r:r['catalog_context']['rows'].pop(),
                 'duplicate-check':lambda r:r['profiles']['raw_geometry']['checks'].__setitem__(0,r['profiles']['raw_geometry']['checks'][1]),
                 'bool-count':lambda r:r['profiles']['raw_geometry'].update(violations=False),

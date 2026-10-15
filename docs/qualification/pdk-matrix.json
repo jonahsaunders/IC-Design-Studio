@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. Fresh explicit-core and LDNTM measurements advance the original-stream catalog to 376 executed, 476 absent, 90 standard-cell W/L exemptions and 614 unreviewed records. Core/generated-mask records fall from 77 to 40. Current corrected layouts carry a separately integrated 45-message catalog context (37 absent subjects and eight boundary prohibitions); earlier full-catalog decisions remain bound to original GDS. All three actual application checks and Windows exports pass, and 55 focused tests pass per OS. Present core or LDNTM data stays unreviewed, and missing or altered context is rejected. The application periphery ledger remains 133 executed/28 reviews. Grid/purpose semantics, seven text findings, RF selection, generated masks, frame context, hugePad, x.20 and required density/catalog reconciliation remain open. Full required-rule coverage and foundry acceptance are not established.",
+      "remaining": "Chunk 6 remains incomplete. Fresh explicit label, named-cell and raw-target measurements advance the original-stream catalog to 376 executed, 513 absent, 90 standard-cell W/L exemptions and 577 unreviewed records. Connectivity/labels records fall from 46 to 14, module records from 73 to 69 and frame records from 201 to 200. Current corrected layouts carry 82 separately integrated catalog messages (74 absent subjects and eight boundary prohibitions); full historical catalog decisions remain bound to original GDS. All three actual application checks and Windows exports pass, and 67 focused tests pass per OS. Present targets remain unreviewed; missing or altered evidence and false absence claims are rejected. The application periphery ledger remains 133 executed/28 reviews. Grid/purpose semantics, seven text findings, RF selection, generated masks, frame context, hugePad, x.20 and required density/catalog reconciliation remain open. Full required-rule coverage and foundry acceptance are not established.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16768,7 +16768,8 @@
         "sky130-standard-cell-wl-audit-2026-10-15",
         "sky130-grid-catalog-audit-2026-10-15",
         "sky130-boundary-export-2026-10-15",
-        "sky130-core-context-audit-2026-10-15"
+        "sky130-core-context-audit-2026-10-15",
+        "sky130-label-subject-audit-2026-10-15"
       ]
     },
     "sky130A:source-completeness": {
@@ -20246,6 +20247,11 @@
       "path": "docs/validation/sky130-core-context-audit-2026-10-15.json",
       "sha256": "417c9a159aac121cd71665d9d545b5d5773299c7941f661eb55e7a2bc608ba9e",
       "scope_limit": "Current Finish and saved-result validation retain a 45-message catalog context: 33 explicit memory-core geometry subjects, one marker-approval subject, three LDNTM subjects, and eight boundary prohibitions. Present core or implant data stays unreviewed; missing or altered context and false absence claims fail validation. All three actual application runs and Windows export replays pass. Fifty-five focused tests pass on each OS. Fresh measurements agree on both systems and reduce the original-stream catalog to 376 executed, 476 absent, 90 W/L exemptions and 614 unreviewed; those full historical decisions are not transferred to corrected GDS."
+    },
+    "sky130-label-subject-audit-2026-10-15": {
+      "path": "docs/validation/sky130-label-subject-audit-2026-10-15.json",
+      "sha256": "10afc2b840170c5576046a6c408c4c0663aafeb5a4ffc0fcb2db02c1762fd3d9",
+      "scope_limit": "Current Finish and saved-result validation retain 37 explicit label, named-cell and raw-target catalog decisions alongside the preceding 45-message core/boundary context. Present targets stay unreviewed; absence is measured on all GDS purposes and through the hierarchy. Missing or altered evidence and false absence claims fail validation. All three actual application runs and Windows export replays pass. Sixty-seven focused tests pass on each OS. Fresh measurements agree on both systems and advance the original-stream catalog to 376 executed, 513 absent, 90 W/L exemptions and 577 unreviewed. Full historical catalog decisions remain bound to the original GDS; corrected streams carry the separate 82-message context."
     }
   },
   "execution_acceptance": {

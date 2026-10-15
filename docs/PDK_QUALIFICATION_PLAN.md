@@ -19,9 +19,19 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [core-context audit](validation/sky130-core-context-audit-2026-10-15.json)
+The latest [label-subject audit](validation/sky130-label-subject-audit-2026-10-15.json)
+resolves 37 explicit label, named-cell and raw-target messages on both original
+and corrected SKY130 references. The original-stream catalog now has 376 executed
+bindings, 513 absent subjects, 90 W/L exemptions and 577 unreviewed entries.
+Current Finish/export retains these 37 messages alongside the preceding 45-message
+core/boundary context. Present targets stay unreviewed; this census does not
+implement their numerical or connectivity checks. All three actual application
+runs and Windows exports pass, 67 focused tests pass on each OS, and fresh
+measurement reports agree exactly. Chunk 6 remains incomplete.
+
+The preceding [core-context audit](validation/sky130-core-context-audit-2026-10-15.json)
 resolves 37 explicit selected subjects on both original and corrected SKY130
-references. The original-stream catalog now has 376 executed bindings, 476 absent
+references. That original-stream checkpoint has 376 executed bindings, 476 absent
 subjects, 90 W/L exemptions and 614 unreviewed entries. Current Finish/export
 separately validates a 45-message catalog context: those 37 subjects plus eight
 boundary prohibitions. Present core/implant data stays unreviewed; numerical
@@ -74,7 +84,7 @@ reference results; chunk 6 is incomplete.
 
 The [batched SKY130 work queue](SKY130_PHYSICAL_QUALIFICATION.md#batched-remaining-work)
 originally grouped 880 records into eleven shared work batches; the latest
-review retains the remaining 614 original-stream IDs by batch. Its inexpensive reconstruction
+review retains the remaining 577 original-stream IDs by batch. Its inexpensive reconstruction
 authenticates existing results without repeating old geometry/extraction work.
 Grouping alone never accepts a rule or assigns it to a later chunk.
 
