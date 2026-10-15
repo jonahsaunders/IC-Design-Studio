@@ -10,9 +10,9 @@ geometry. Actual application checks and macro exports pass on the corrected
 streams, and Windows reproduces identical GDS bytes. This is a separate correction;
 the earlier catalog is not silently rebound to the new file identities.
 
-The [label-subject review](#explicit-label-and-raw-target-subjects) records, on the original GDS files,
-376 executed error records, 513 verified absent subjects, 90 explicit standard-cell
-W/L exemptions and 577 unreviewed records. The preceding
+The [VPP geometry review](#selected-vpp-geometry-and-density-measurements) records, on the original GDS files,
+376 executed error records, 517 verified absent subjects, 90 explicit standard-cell
+W/L exemptions and 573 unreviewed records. The preceding
 [local/HV review](#local-geometry-marked-hv-and-hugepad-correction) reopens the
 unsupported hugePad exemption, leaving ten periphery execution reviews and one declared optional rule not required by the
 ordinary bulk references. Those ten reviews, the missing pin-spacing
@@ -28,6 +28,55 @@ between the supplemental checker and Finish/export; it does not close the
 remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
+
+## Selected VPP geometry and density measurements
+
+The [audit](validation/sky130-vpp-geometry-audit-2026-10-15.json) and
+[reference measurements](validation/sky130-vpp-geometry-2026-10-15.json) integrate
+four selected catalog checks into Finish and saved-result validation. The new
+`vpp_geometry` report measures actual capacitor drawing 82:64: minimum width
+1.43 µm (`r1145`), no straddling nwell or dnwell (`r1151`/`r1152`), and minimum
+nwell enclosure 1.5 µm where capacitor overlaps nwell (`r1153`). A capacitor
+outside nwell leaves the enclosure requirement `unreviewed`, rather than
+forcing placement or inferring an exemption from a missing enclosing layer.
+Unsupported transforms, non-Manhattan polygons, fractional path boundaries and
+unexpected raw target data are rejected before conversion can conceal an error.
+Drawing/text purposes retain labels without treating their text as conductor area.
+
+The same report records clipped, unioned metal3/4/5 area and poly-intersect-diffusion
+area per connected capacitor region. Integer comparisons preserve exact ordinary
+limits of 0.25, 0.30, 0.40 and 0.87. These are **measurements only**. Unfinished
+special-device selectors, their exceptions and full VPP density acceptance remain
+unreviewed; ratios within ordinary limits cannot change that status. Other VPP
+geometry and connectivity requirements remain separate.
+
+Eighty-four focused tests pass on each OS. Eight retained nonempty controls agree
+byte for byte across systems: a valid geometry example, 1 nm width and enclosure
+failures, both well crossings, an unresolved outside-nwell example, exact density
+limits, and ratios just outside those limits. Holes, hierarchical arrays, reflected
+instances, multiple capacitor regions, path conversion, stale reports and altered
+layout identities are also tested. These controls qualify the selected checks,
+not a complete capacitor device or its electrical behavior.
+
+All three actual application runs and Windows export replays pass. Missing VPP
+reports, changed measurements and selected-rule failures are rejected. The exact
+reference layouts contain no capacitor drawing, so their four new catalog entries
+are recorded as absent subjects. Their original-stream counts are 376 executed,
+517 absent, 90 W/L exemptions and 573 unreviewed; density/fill records fall from
+40 to 36. Corrected streams retain 86 explicit current catalog messages, separate
+from the unchanged six-profile periphery ledger. Full historical decisions remain
+bound to original GDS identities. No layout geometry, extraction or timing changes
+are claimed, and chunk 6 remains incomplete.
+
+```sh
+python -m scripts.sky130_vpp_review --check
+python -m unittest tests.test_sky130_vpp tests.test_sky130_application_rules -v
+```
+
+The review requires the retained corrected reference streams under workspace
+outputs; their hashes and evidence archive are recorded in the audit. The preceding
+label checkpoint is source-bound to commit `eecbabf`; use that commit or archived
+sources to reproduce its exact report. New runtime validation changes source hashes.
 
 ## Explicit label and raw-target subjects
 
@@ -310,7 +359,7 @@ count, and rejects missing, overlapping or changed source records. It imports
 no geometry engines and does not repeat extraction or historical geometry runs.
 Six focused tests cover reconstruction, stale inputs, ambiguous assignments,
 changed source identities and attempts to queue already resolved records.
-The label-subject review above advances this baseline; its `remaining_original_batches`
+The VPP geometry review above advances this baseline; its `remaining_original_batches`
 retains every open record for the original streams. Current original-stream counts are:
 
 | Work batch | Open catalog records |
@@ -323,10 +372,10 @@ retains every open record for the original streams. Current original-stream coun
 | Module cut and selected boundary rules | 69 |
 | Frame, seal, scribe and alignment marks | 200 |
 | Pads, package geometry and ViaTop | 76 |
-| VPP, dummy diffusion and density | 40 |
+| VPP, dummy diffusion and density | 36 |
 | Connectivity, redundancy and chip labels | 14 |
 | Routing blockages and boundary purposes | 26 |
-| **Total** | **577** |
+| **Total** | **573** |
 
 These are scheduling groups, not equally sized engineering tasks or completion
 percentages. Every currently queued record remains `unreviewed`; grouping itself

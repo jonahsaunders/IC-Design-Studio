@@ -61,6 +61,9 @@ def execute(request):
         from .digital_sky130_catalog_labels import audit as catalog_labels
         report['catalog_labels'] = catalog_labels(gds)
         save('catalog_labels.json', report['catalog_labels'])
+        from .digital_sky130_vpp import audit as vpp_geometry
+        report['vpp_geometry'] = vpp_geometry(gds)
+        save('vpp_geometry.json', report['vpp_geometry'])
         report.update(status='reviewed-profiles-pass', ledger=review,
                       coverage=dict(rows=len(review['rows']), counts=review['counts'], complete=False))
         unchanged(); resources(base, policy['preparation_sha256'])

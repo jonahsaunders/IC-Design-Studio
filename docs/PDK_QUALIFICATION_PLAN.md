@@ -19,7 +19,17 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [label-subject audit](validation/sky130-label-subject-audit-2026-10-15.json)
+The latest [VPP geometry audit](validation/sky130-vpp-geometry-audit-2026-10-15.json)
+integrates numerical capacitor width, well-straddling and selected nwell-enclosure
+checks into Finish and saved-result validation. Outside-nwell enclosure context
+stays unreviewed. Eight nonempty controls, including 1 nm failures and exact density
+boundaries, agree across both OSes; 84 focused tests pass on each system. All three
+actual application runs and Windows exports pass. The references have no capacitor
+targets; their original catalog now has 376 executed, 517 absent, 90 W/L exemptions
+and 573 unreviewed records. Corrected streams retain 86 explicit catalog messages.
+Density ratios remain measurements only, and chunk 6 remains incomplete.
+
+The preceding [label-subject audit](validation/sky130-label-subject-audit-2026-10-15.json)
 resolves 37 explicit label, named-cell and raw-target messages on both original
 and corrected SKY130 references. The original-stream catalog now has 376 executed
 bindings, 513 absent subjects, 90 W/L exemptions and 577 unreviewed entries.
@@ -84,7 +94,7 @@ reference results; chunk 6 is incomplete.
 
 The [batched SKY130 work queue](SKY130_PHYSICAL_QUALIFICATION.md#batched-remaining-work)
 originally grouped 880 records into eleven shared work batches; the latest
-review retains the remaining 577 original-stream IDs by batch. Its inexpensive reconstruction
+review retains the remaining 573 original-stream IDs by batch. Its inexpensive reconstruction
 authenticates existing results without repeating old geometry/extraction work.
 Grouping alone never accepts a rule or assigns it to a later chunk.
 

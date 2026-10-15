@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "win32",
+  "qualified": false,
+  "chunk_complete": false,
+  "driver_sha256": "8a80b9324c62776a267a3ba9508c9a264e070922b7f49e65709c114600cf6bf2",
+  "checker_sha256": "290bd4855d64c8732075757ed4d9b8b2209554c99a9e849e96d35f649b24ffc6",
+  "cases": [
+    {
+      "case": "valid",
+      "gds_sha256": "9b06e60e731c7b6debe350c30f44af91134afdb01d34aaa72fddd9593f36f985",
+      "report_sha256": "dbd62b4afbc466103799ddcf11fd24e89c41485fbb871605f8f2cfbfc1644b7d",
+      "failed_checks": []
+    },
+    {
+      "case": "width_1nm",
+      "gds_sha256": "1a3858baaba8c408a420b1e2e55196b8448600a6e93916bc9ce30785004aafa6",
+      "report_sha256": "b206cfbda1427966c81eeb1808d378ae95e483111f0d5333e65eb8ff0a15cb15",
+      "failed_checks": [
+        "r1145"
+      ]
+    },
+    {
+      "case": "enclosure_1nm",
+      "gds_sha256": "0f24d2330612af751a33811d77a1fe567ad54c9f3056b0dfc28f21e5ed3e1c5d",
+      "report_sha256": "1d6751934bd5ded45ed2cc3d76f227e799f63ff0cd804bfe23d9cb337669e47a",
+      "failed_checks": [
+        "r1153"
+      ]
+    },
+    {
+      "case": "nwell_cross",
+      "gds_sha256": "202988e9df0ec5e1cf37a85342e87d073c3e436d81dc599a6f4a89c5b3b7034c",
+      "report_sha256": "3857442bfeb032badffbb5111ae8aec4c2148d46754d9cbd6bbea10fa37be628",
+      "failed_checks": [
+        "r1151",
+        "r1153"
+      ]
+    },
+    {
+      "case": "dnwell_cross",
+      "gds_sha256": "d0618d8240adfeb45ec2c9252d650bbf12bd8854ca118b1f5e4b010ec2f1b32d",
+      "report_sha256": "ba59755265330a6a685755b52ee360da55b3d5f39a74312f14f87dd6c9ca97c3",
+      "failed_checks": [
+        "r1152"
+      ]
+    },
+    {
+      "case": "outside_nwell",
+      "gds_sha256": "18dbeb131cfb7cbcf39d4b03b4ae6f347bca277d27b3009baf95b16cb2f67fe5",
+      "report_sha256": "84a9ae44c16c8d1c7d36d8d2f1fcbf2ccd765c757741e0d1d637655b1ab4e3e1",
+      "failed_checks": []
+    },
+    {
+      "case": "density_limits",
+      "gds_sha256": "fe39802381a59b56df1fa59888c66e3c12b9712f75e9271b229b6af0a196fc63",
+      "report_sha256": "34c4734e3b8a9f0ca41029d0ac4b1671e9646bdfc57d9ea965fb52a858d2fceb",
+      "failed_checks": []
+    },
+    {
+      "case": "density_outside_limits",
+      "gds_sha256": "890b1562edc127f821b17b10d93632d0e1f36d19693760db172bf240d1cd0175",
+      "report_sha256": "4814e9e031beb389a3e9347424e87aeb0f29824198e885f82e50d027b2052bca",
+      "failed_checks": []
+    }
+  ],
+  "elapsed_seconds": 0.11000000000058208
+}

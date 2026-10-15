@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. Fresh explicit label, named-cell and raw-target measurements advance the original-stream catalog to 376 executed, 513 absent, 90 standard-cell W/L exemptions and 577 unreviewed records. Connectivity/labels records fall from 46 to 14, module records from 73 to 69 and frame records from 201 to 200. Current corrected layouts carry 82 separately integrated catalog messages (74 absent subjects and eight boundary prohibitions); full historical catalog decisions remain bound to original GDS. All three actual application checks and Windows exports pass, and 67 focused tests pass per OS. Present targets remain unreviewed; missing or altered evidence and false absence claims are rejected. The application periphery ledger remains 133 executed/28 reviews. Grid/purpose semantics, seven text findings, RF selection, generated masks, frame context, hugePad, x.20 and required density/catalog reconciliation remain open. Full required-rule coverage and foundry acceptance are not established.",
+      "remaining": "Chunk 6 remains incomplete. Four selected VPP geometry checks are integrated and verified with nonempty numerical controls. The references contain no capacitor targets; their original catalog has 376 executed, 517 absent, 90 W/L exemptions and 573 unreviewed records. The density/fill batch falls from 40 to 36 records. Corrected layouts retain 86 explicit current catalog messages; historical full-catalog decisions stay bound to original GDS. All three actual application runs and Windows exports pass, 84 focused tests pass per OS, and eight numerical controls agree exactly across systems. Density ratios are measurements only: special-cell selection and density acceptance remain unqualified. The application periphery ledger remains 133 executed/28 reviews. Generated-mask, RF, grid/purpose, frame/pad, x.20 and remaining density/catalog requirements stay open.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16769,7 +16769,8 @@
         "sky130-grid-catalog-audit-2026-10-15",
         "sky130-boundary-export-2026-10-15",
         "sky130-core-context-audit-2026-10-15",
-        "sky130-label-subject-audit-2026-10-15"
+        "sky130-label-subject-audit-2026-10-15",
+        "sky130-vpp-geometry-audit-2026-10-15"
       ]
     },
     "sky130A:source-completeness": {
@@ -20252,6 +20253,11 @@
       "path": "docs/validation/sky130-label-subject-audit-2026-10-15.json",
       "sha256": "10afc2b840170c5576046a6c408c4c0663aafeb5a4ffc0fcb2db02c1762fd3d9",
       "scope_limit": "Current Finish and saved-result validation retain 37 explicit label, named-cell and raw-target catalog decisions alongside the preceding 45-message core/boundary context. Present targets stay unreviewed; absence is measured on all GDS purposes and through the hierarchy. Missing or altered evidence and false absence claims fail validation. All three actual application runs and Windows export replays pass. Sixty-seven focused tests pass on each OS. Fresh measurements agree on both systems and advance the original-stream catalog to 376 executed, 513 absent, 90 W/L exemptions and 577 unreviewed. Full historical catalog decisions remain bound to the original GDS; corrected streams carry the separate 82-message context."
+    },
+    "sky130-vpp-geometry-audit-2026-10-15": {
+      "path": "docs/validation/sky130-vpp-geometry-audit-2026-10-15.json",
+      "sha256": "1d4d8e7339d3d06e7e8a7b2e7668c7f8434b9b890032b47c7b04e602c8f0ff1f",
+      "scope_limit": "Finish and saved-result validation now execute four selected VPP checks: minimum capacitor width, no nwell/dnwell straddling and minimum enclosure where nwell overlaps; outside-nwell capacitor context remains unreviewed. Eight retained nonempty numerical controls agree across OSes, including 1 nm failures, well crossings and exact density ratios. Density remains measurement-only because the special-cell selectors are unresolved. All three real application runs and Windows export replays pass. Eighty-four focused tests pass on each OS. Capacitor targets are absent in the references; their original catalog advances to 376 executed, 517 absent, 90 W/L exemptions and 573 unreviewed. Corrected streams carry 86 explicit catalog messages separately from the unchanged six-profile ledger; full historical decisions retain original GDS identities."
     }
   },
   "execution_acceptance": {
