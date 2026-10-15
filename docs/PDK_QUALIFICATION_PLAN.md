@@ -19,7 +19,19 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [seal geometry audit](validation/sky130-seal-geometry-audit-2026-10-15.json)
+The latest [family and package audit](validation/sky130-family-package-audit-2026-10-15.json)
+resolves **43 additional records per corrected reference: 406 to 363 unresolved**.
+Thirty-five low-Vt RF and three explicit bondpad targets are absent under required
+drawing, mask/edit and intent guards. Five package-layer module-crossing checks
+are implemented from the authenticated installed layer map; their reference
+targets are also absent. These are 43 absence decisions, not 43 numerical passes
+on present devices. All 286 tests per OS, 29 retained examples, six complete
+catalog replays, three application runs and Windows exports pass. Current counts
+are **438 executed, 657 absent, 90 explicit W/L exemptions, eight advisory and
+363 unresolved**. Remaining RF selectors, generated masks, grid purposes,
+module/frame/pad context, pin spacing and required density keep chunk 6 open.
+
+The preceding [seal geometry audit](validation/sky130-seal-geometry-audit-2026-10-15.json)
 requires the drawn seal's lower-left corner at the origin and its minimum width
 of 6 µm. Nonempty rings, 1 nm failures, hierarchy and ambiguous markers are
 tested. All 265 tests per OS, 19 cross-system examples, six full-catalog replays,

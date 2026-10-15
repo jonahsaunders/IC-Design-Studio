@@ -94,6 +94,12 @@ def execute(request):
         from .digital_sky130_seal_geometry import audit as seal_geometry
         report['seal_geometry'] = seal_geometry(gds)
         save('seal_geometry.json', report['seal_geometry'])
+        from .digital_sky130_family_targets import audit as family_targets
+        report['family_targets'] = family_targets(gds)
+        save('family_targets.json', report['family_targets'])
+        from .digital_sky130_package_boundaries import audit as package_boundaries
+        report['package_boundaries'] = package_boundaries(gds)
+        save('package_boundaries.json', report['package_boundaries'])
         report.update(status='reviewed-profiles-pass', ledger=review,
                       coverage=dict(rows=len(review['rows']), counts=review['counts'], complete=False))
         unchanged(); resources(base, policy['preparation_sha256'])

@@ -135,6 +135,10 @@ def evaluate(report, gds_sha256, checkpoint_sha256, top, fingerprint, policy):
     evaluate_scribe_bounds(report.get('scribe_bounds'), gds_sha256, top)
     from .digital_sky130_seal_geometry import evaluate as evaluate_seal_geometry
     evaluate_seal_geometry(report.get('seal_geometry'), gds_sha256, top)
+    from .digital_sky130_family_targets import evaluate as evaluate_family_targets
+    evaluate_family_targets(report.get('family_targets'), gds_sha256, top)
+    from .digital_sky130_package_boundaries import evaluate as evaluate_package_boundaries
+    evaluate_package_boundaries(report.get('package_boundaries'), gds_sha256, top)
     return report
 
 
@@ -226,6 +230,10 @@ def validate_saved(data, root):
     validate_scribe_bounds(report['scribe_bounds'], read('gds'))
     from .digital_sky130_seal_geometry import validate_saved as validate_seal_geometry
     validate_seal_geometry(report['seal_geometry'], read('gds'))
+    from .digital_sky130_family_targets import validate_saved as validate_family_targets
+    validate_family_targets(report['family_targets'], read('gds'))
+    from .digital_sky130_package_boundaries import validate_saved as validate_package_boundaries
+    validate_package_boundaries(report['package_boundaries'], read('gds'))
     bindings = report.get('resources', {})
     expected = FILES | {'preparation.json': policy['preparation_sha256']}
     require(bindings.keys() == expected.keys() and len(set(bindings.values())) == len(expected),

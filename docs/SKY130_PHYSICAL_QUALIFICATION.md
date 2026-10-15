@@ -29,6 +29,78 @@ remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
 
+## Low-Vt RF family absence and package boundaries
+
+The [family and package audit](validation/sky130-family-package-audit-2026-10-15.json)
+and [complete corrected catalog](validation/sky130-family-package-2026-10-15.json)
+resolve **43 additional records per reference**, reducing the unresolved count
+from **406 to 363**. Finish and saved-result/export validation require both new
+reports; missing, altered or stale reports are rejected.
+
+The 35 `r645`–`r679` messages explicitly name `sky130rf_nlowvt` devices. F2a
+requires drawn `lvtn` for the `nlowvt` transistor family, and the published GDS
+table identifies `125:44` as the low-Vt NMOS device purpose. The absence proof
+requires that drawing, every published CLVTNM mask/edit purpose and the low-Vt
+identifier to be empty. Low-Vt or RF names in reachable cells or text on any
+purpose also prevent an absence claim. A named RF cell missing its implant
+therefore stays unresolved. This does not recognize or check numerical geometry
+for present RF devices, replace the missing fixed-layout model map or Table H5,
+or cover the remaining `pshort` RF records.
+
+Three further records (`r1312`, `r1313`, `r1333`) explicitly target bondpads or
+their openings. C3 defines bondPad from `pad:dg OUTSIDE areaid:ft`. All drawing,
+mask, pin, label, center and pad-frame purposes and candidate intent must be
+absent. Missing enclosing metal or seal geometry cannot waive a present pad.
+Other pad-family predicates remain unresolved.
+
+The five remaining drawn package crossings (`r1436`, `r1440`, `r1442`, `r1445`,
+`r1446`) now have numerical implementations. The authenticated installed KLayout
+map binds PMM `85:44`, PMM2 `77:20`, RDL `74:20`, UBM `127:21` and bump `127:22`.
+The original map is retained with its existing source hash; these purposes are
+not newly attributed to the published GDS table. Each merged target is checked
+against each supplied module-cut polygon on `81:10`. Holes, hierarchy and
+connected fragments are preserved; touching or overlapping module markers are
+rejected. Full containment and edge contact pass; a 1 nm crossing fails. Missing
+module markers do not establish complete-chip boundaries or package availability.
+
+All **286 tests pass on each OS without skips**, and **29 retained examples**
+agree byte for byte across Windows and Linux. Six full catalog replays agree
+at **438 executed, 657 absent, 90 explicit W/L exemptions, eight advisory and
+363 unresolved records**. All 43 new reference decisions are absences, not
+numerical passes on present RF devices or package structures. Three actual
+Linux application runs and Windows saved-result/export replays pass.
+Manufacturing geometry, checkpoints, netlists and SPEF are unchanged. Native
+extraction, timing and equivalence retain their previously authenticated scope.
+
+The source-bound evidence archive has the independent delivery archive as its
+only parent. Required intermediate catalogs, source files, the installed layer
+map, tests, examples and reproduction drivers are preserved directly.
+Chunk 6 remains incomplete.
+
+### Remaining chunk 6 work at this checkpoint
+
+These are unresolved coverage records, not 363 measured layout violations.
+The separate missing `x.20` pin-spacing limit and wider required density work
+also remain in chunk 6. Counts do not measure engineering effort.
+
+| Records | Group | Definition or context still needed |
+| ---: | --- | --- |
+| 1 | Local geometry | Resolve the generated hugePad selector and conflicting area wording. |
+| 16 | Grid | Establish the eight `metop` purposes before binding their grid/angle rules. |
+| 32 | Device recognition | Resolve remaining RF fixed-layout model mapping, Table H5 and selected-device geometry. |
+| 34 | Core and implants | Establish generated-mask construction and exact enclosure targets. |
+| 69 | Module boundaries | Establish `q0`/`q1` subjects and module enclosure/spacing context. |
+| 135 | Frame, seal and scribe | Supply frame/alignment construction, generated-mask companions and remaining chip-boundary definitions. |
+| 59 | Pads and vias | Establish ViaTop and remaining pad-family selectors. |
+| 17 | Dummy diffusion | Establish the `fomDummyDRC` operand and its density/fill constraints. |
+
+The pinned public source bundle names several of these inputs without providing
+their construction. New numerical checks must be bound to verified definitions;
+absence of a guessed raw layer cannot establish a generated target is absent.
+The GDS table does publish dummy FOM on `22:23`; the unresolved issue is its
+relationship to the generated `fomDummyDRC` target and native waffle data, not
+the absence of a raw dummy-purpose number.
+
 ## Seal origin and minimum width
 
 The [seal audit](validation/sky130-seal-geometry-audit-2026-10-15.json) and
@@ -64,27 +136,6 @@ rerun native extraction, timing or equivalence.
 The new evidence archive has the independent delivery archive as its only
 parent, with intermediate catalogs, current code, controls and reproduction
 drivers stored directly. Chunk 6 remains incomplete.
-
-### Remaining chunk 6 work at this checkpoint
-
-These are unresolved coverage records, not 406 measured layout violations.
-The separate missing `x.20` pin-spacing limit and wider required density work
-also remain in chunk 6. Counts do not measure engineering effort.
-
-| Records | Group | Definition or context still needed |
-| ---: | --- | --- |
-| 1 | Local geometry | Resolve the generated hugePad selector and conflicting area wording. |
-| 16 | Grid | Establish the eight `metop` purposes before binding their grid/angle rules. |
-| 67 | Device recognition | Resolve RF fixed-layout model mapping, Table H5 and remaining selected-device geometry. |
-| 34 | Core and implants | Establish generated-mask construction and exact enclosure targets. |
-| 69 | Module boundaries | Establish `q0`/`q1` subjects and module enclosure/spacing context. |
-| 140 | Frame, seal and scribe | Supply frame/alignment construction, generated-mask companions and remaining chip-boundary definitions. |
-| 62 | Pads and vias | Establish ViaTop, pad-family and package-layer selectors. |
-| 17 | Dummy diffusion | Establish the `fomDummyDRC` operand and its density/fill constraints. |
-
-The pinned public source bundle names several of these inputs without providing
-their construction. New numerical checks must be bound to verified definitions;
-absence of a guessed raw layer cannot establish a generated target is absent.
 
 ## Global drawn-feature bounds for scribe restrictions
 

@@ -67,7 +67,7 @@ def expected(measurements, top, digest):
                 status='FAIL' if total else 'selected-boundary-interactions-pass')
 
 
-def measure(layout):
+def measure(layout, layers=LAYERS, boundaries=BOUNDARIES, checks=CHECKS, text_allowed=TEXT_ALLOWED):
     import klayout.db as k
     require(len(layout.top_cells()) == 1 and abs(layout.dbu-.001) < 1e-12,
             'SKY130 boundary interactions require one top and a 1 nm database unit.')
@@ -77,12 +77,12 @@ def measure(layout):
             t = instance.cplx_trans
             require(t.mag == 1 and t.angle % 90 == 0, 'Unsupported SKY130 boundary-interaction transform.')
     regions, census = {}, {}
-    for name, pair in (LAYERS | BOUNDARIES).items():
+    for name, pair in (layers | boundaries).items():
         polygons = []; raw = texts = 0
         iterator = top.begin_shapes_rec(layout.layer(*pair))
         while not iterator.at_end():
             shape = iterator.shape(); raw += 1
-            if shape.is_text() and name in TEXT_ALLOWED:
+            if shape.is_text() and name in text_allowed:
                 texts += 1; iterator.next(); continue
             if shape.is_path():
                 path = shape.path; points = list(path.each_point())
@@ -98,7 +98,7 @@ def measure(layout):
                     'SKY130 boundary interactions require nonempty Manhattan polygons: '+name)
             polygons.append(polygon.transformed(iterator.trans())); iterator.next()
         region = k.Region(polygons)
-        if name in BOUNDARIES:
+        if name in boundaries:
             # Keep each marker, including its holes. Reject duplicate, touching or
             # overlapping markers instead of dissolving a meaningful module seam.
             prior = k.Region()
@@ -111,7 +111,7 @@ def measure(layout):
             regions[name] = list(region.merged().each())
         census[name] = dict(raw_shapes=raw, texts=texts, components=len(regions[name]))
     counts = {}
-    for key, check in CHECKS.items():
+    for key, check in checks.items():
         count = 0
         for boundary in regions[check['boundary']]:
             area = k.Region(boundary)
