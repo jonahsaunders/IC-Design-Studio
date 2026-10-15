@@ -19,7 +19,20 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [physical-device-root audit](validation/sky130-device-root-audit-2026-10-15.json)
+The latest [special-subject audit](validation/sky130-special-subject-audit-2026-10-15.json)
+resolves seven explicit UHV, deep-well, precision-resistor and nwell-hole records
+through conservative subject absence. Raw masks/markers and device-name/label
+hints prevent unsupported absence claims. A missing enclosing UHVI never waives
+a present deep well. Nonempty selector differences and N/A values stay unresolved.
+The new report is mandatory in Finish and saved-result/export validation.
+All 163 focused tests pass per OS; twenty controls and fresh measurements agree
+exactly. All three application runs and Windows exports pass. Original counts
+are 416 executed, 593 absent, 90 W/L exemptions, eight advisory and 449 unreviewed.
+Corrected streams retain 202 explicit catalog messages. Generated-mask, RF,
+grid/purpose, frame/pad, pin-spacing and remaining density coverage stays open.
+Chunk 6 is incomplete.
+
+The preceding [physical-device-root audit](validation/sky130-device-root-audit-2026-10-15.json)
 closes seven floating-net records. All 2,614 reference nets reach actual gate or
 diffusion/tap geometry through the complete contact graph, without pin endpoints,
 labels or standard-cell exemptions. Unrooted wires and unsupported selectors

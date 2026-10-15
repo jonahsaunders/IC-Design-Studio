@@ -76,6 +76,9 @@ def execute(request):
         from .digital_sky130_device_roots import audit as device_roots
         report['device_roots'] = device_roots(gds)
         save('device_roots.json', report['device_roots'])
+        from .digital_sky130_special_subjects import audit as special_subjects
+        report['special_subjects'] = special_subjects(gds)
+        save('special_subjects.json', report['special_subjects'])
         report.update(status='reviewed-profiles-pass', ledger=review,
                       coverage=dict(rows=len(review['rows']), counts=review['counts'], complete=False))
         unchanged(); resources(base, policy['preparation_sha256'])

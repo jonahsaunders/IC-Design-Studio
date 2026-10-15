@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. Seven floating-net records now pass complete paths to actual gate or diffusion/tap geometry without pin endpoints. All 2614 reference nets are rooted. Original catalog: 416 executed, 586 absent, 90 W/L exemptions, 8 advisory, 456 unreviewed. Corrected streams retain 195 explicit current catalog messages. All three application runs and Windows exports pass, 147 tests pass per OS, and sixteen controls match exactly. Generated masks, RF selection, grid/purpose, frame/pad, pin-spacing and remaining density/catalog coverage stay open.",
+      "remaining": "Chunk 6 remains incomplete. Seven special-device records have conservative empty-subject proofs with explicit mask and intent guards. Present deep wells cannot pass through absent enclosing UHVI. Nonempty selector/naming differences and N/A source values are not waived. Original catalog: 416 executed, 593 absent, 90 W/L exemptions, 8 advisory, 449 unreviewed. Corrected streams retain 202 explicit current catalog messages. All three application runs and Windows exports pass, 163 tests pass per OS, and twenty controls match exactly. Generated masks, RF selection, grid/purpose, frame/pad, pin-spacing and remaining density/catalog coverage stay open.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16774,7 +16774,8 @@
         "sky130-boundary-interaction-audit-2026-10-15",
         "sky130-selected-device-audit-2026-10-15",
         "sky130-conservative-bound-audit-2026-10-15",
-        "sky130-device-root-audit-2026-10-15"
+        "sky130-device-root-audit-2026-10-15",
+        "sky130-special-subject-audit-2026-10-15"
       ]
     },
     "sky130A:source-completeness": {
@@ -20282,6 +20283,11 @@
       "path": "docs/validation/sky130-device-root-audit-2026-10-15.json",
       "sha256": "8f4c744de8d13e37c2bbc4194f33a0dbd35b66a58c3d139b0f216486ba6016f5",
       "scope_limit": "Finish and saved-result validation require a seven-record physical-device-root report. All drawn poly, LI and metal components in these references reach gate or diffusion/tap geometry through the full contact graph, without pin endpoints, labels or standard-cell exemptions. All submitted conductor and root area is accounted for. Unrooted wires and unsupported profile operands keep the selected records unreviewed; a legal IP feedthrough is not labelled a foundry violation. All 147 focused tests pass per OS, sixteen controls match exactly, and all three application runs plus Windows export replays pass. Original catalog counts are 416 executed, 586 absent, 90 W/L exemptions, 8 advisory and 456 unreviewed. Corrected streams retain 195 explicit current catalog messages. Device/body LVS, generated-mask, density and complete physical qualification remain separate."
+    },
+    "sky130-special-subject-audit-2026-10-15": {
+      "path": "docs/validation/sky130-special-subject-audit-2026-10-15.json",
+      "sha256": "f0e14971addfe253a2776b1bfd45935daa7a42f2b5c6935fa0699b39c16ea153",
+      "scope_limit": "Finish and saved-result validation require a seven-record special-subject absence report. Empty UHVI, deep-well, precision-resistor and merged nwell-hole subjects are verified with raw mask/marker and normalized candidate-name/label guards. Present or ambiguous subjects stay unreviewed. An absent enclosing UHVI cannot waive a present deep-well target. Source N/A values and catalog/manual wording differences do not establish nonempty acceptance. All 163 focused tests pass per OS, twenty controls match exactly, and all three application runs plus Windows export replays pass. Original catalog counts are 416 executed, 593 absent, 90 W/L exemptions, 8 advisory and 449 unreviewed. Corrected streams retain 202 explicit current catalog messages. Complete device, generated-mask, density and physical qualification remain open."
     }
   },
   "execution_acceptance": {

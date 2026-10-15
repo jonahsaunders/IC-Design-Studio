@@ -10,9 +10,9 @@ geometry. Actual application checks and macro exports pass on the corrected
 streams, and Windows reproduces identical GDS bytes. This is a separate correction;
 the earlier catalog is not silently rebound to the new file identities.
 
-The [physical-device-root review](#physical-device-root-connectivity) records, on the original GDS files,
-416 executed error records, 586 verified absent subjects, 90 explicit standard-cell
-W/L exemptions, eight advisory records and 456 unreviewed records. The preceding
+The [special-subject review](#special-device-subject-absence) records, on the original GDS files,
+416 executed error records, 593 verified absent subjects, 90 explicit standard-cell
+W/L exemptions, eight advisory records and 449 unreviewed records. The preceding
 [local/HV review](#local-geometry-marked-hv-and-hugepad-correction) reopens the
 unsupported hugePad exemption, leaving ten periphery execution reviews and one declared optional rule not required by the
 ordinary bulk references. Those ten reviews, the missing pin-spacing
@@ -28,6 +28,56 @@ between the supplemental checker and Finish/export; it does not close the
 remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
+
+## Special device-subject absence
+
+The [audit](validation/sky130-special-subject-audit-2026-10-15.json) and
+[reference measurements](validation/sky130-special-subjects-2026-10-15.json)
+add a required `special_subjects` report to Finish and saved-result/export
+validation. Seven records have conservative empty-subject proofs. Present
+subjects or device-name/label hints keep their requirements unreviewed.
+
+- `r396` and `r929`: an entirely empty UHVI region cannot be straddled by any
+  selected geometry. Present UHVI requires a separate nonempty review.
+- `r928`: the deep-well target is absent in both drawn and explicit mask data.
+  Missing enclosing UHVI never waives a present deep well.
+- `r1047`, `r1059` and `r1060`: RPM, URPM, CRPM and poly-resistor purposes are
+  all empty, and no candidate precision-resistor names or labels are present.
+- `r922`: the fully merged nwell has no holes; explicit nwell masks, extended-
+  drain markers and candidate names/labels are also absent. This discharges the
+  empty target under both published selector wordings.
+
+All raw shape kinds count on guard purposes. Hole detection preserves touching
+fragments and a 1 nm opening. Unsupported nwell geometry or transforms fail
+explicitly. N/A source values are not used as waivers. The catalog calls the
+precision-resistor enclosure `urpm.3` while the matching manual description uses
+`rpm.3`; the catalog/manual `depmos.8` hole selectors also differ. These reports
+do not resolve nonempty rule meanings or qualify UHV/resistor devices.
+
+All 163 focused tests pass without skips on each OS. Twenty retained controls
+and original/corrected reference measurements agree byte for byte across Windows
+and Linux. Controls exercise every raw guard purpose, normalized labels, solid
+nwell, explicit/fragmented holes and 1 nm open/closed rings. Missing/altered
+reports and rehashed layouts with added subjects reject stale absence claims.
+All three application runs and Windows export replays pass. Manufacturing
+geometry, checkpoints, netlists and SPEF remain unchanged.
+
+Original-stream totals become 416 executed, 593 absent, 90 W/L exemptions,
+eight advisory and 449 unreviewed. The device-selection queue falls from 77 to
+70. Corrected streams retain 202 explicit current catalog messages, separate
+from the unchanged six-profile ledger. Historical full-catalog decisions retain
+their original GDS identities. Required generated-mask, RF, grid/purpose,
+frame/pad, pin-spacing and remaining density coverage stays open.
+
+```sh
+python -m scripts.sky130_special_subject_review --check
+python -m unittest tests.test_sky130_special_subjects tests.test_sky130_application_rules -v
+```
+
+The review requires retained corrected streams under workspace outputs. The
+preceding physical-device-root checkpoint is source-bound to commit `32b6d4b`;
+use that commit or its archived sources for its exact report. The current audit
+preserves application outputs, controls, tests and reproduction drivers.
 
 ## Physical device-root connectivity
 

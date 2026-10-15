@@ -65,6 +65,7 @@ def fixture(root):
     from icstudio.digital_sky130_selected_devices import audit as selected_devices
     from icstudio.digital_sky130_conservative_bounds import audit as conservative_bounds
     from icstudio.digital_sky130_device_roots import audit as device_roots
+    from icstudio.digital_sky130_special_subjects import audit as special_subjects
     report = dict(schema=1, recipe=rules.RECIPE, status='reviewed-profiles-pass', qualified=False,
                   chunk_complete=False, scope=rules.SCOPE, policy=platform['sky130_rules'],
                   top=ledger['top'], gds_sha256=ledger['gds_sha256'],
@@ -75,7 +76,8 @@ def fixture(root):
                   catalog_context=catalog_context(root/'filled.gds'),catalog_labels=catalog_labels(root/'filled.gds'),
                   vpp_geometry=vpp_geometry(root/'filled.gds'),boundary_interactions=boundary_interactions(root/'filled.gds'),
                   selected_devices=selected_devices(root/'filled.gds'),
-                  conservative_bounds=conservative_bounds(root/'filled.gds'),device_roots=device_roots(root/'filled.gds'))
+                  conservative_bounds=conservative_bounds(root/'filled.gds'),device_roots=device_roots(root/'filled.gds'),
+                  special_subjects=special_subjects(root/'filled.gds'))
     paths = rules.resources(root/'platform/verification', platform['sky130_rules']['preparation_sha256'])
     for index, (name, path) in enumerate(sorted(paths.items())):
         key='sky130_rule_resource_'+str(index)
@@ -174,6 +176,8 @@ class Sky130ApplicationRuleTests(unittest.TestCase):
                 'changed-conservative-bounds':lambda r:r['conservative_bounds']['rows'].pop(),
                 'missing-device-roots':lambda r:r.pop('device_roots'),
                 'changed-device-roots':lambda r:r['device_roots']['rows'].pop(),
+                'missing-special-subjects':lambda r:r.pop('special_subjects'),
+                'changed-special-subjects':lambda r:r['special_subjects']['rows'].pop(),
                 'changed-catalog-context':lambda r:r['catalog_context']['rows'].pop(),
                 'duplicate-check':lambda r:r['profiles']['raw_geometry']['checks'].__setitem__(0,r['profiles']['raw_geometry']['checks'][1]),
                 'bool-count':lambda r:r['profiles']['raw_geometry'].update(violations=False),
