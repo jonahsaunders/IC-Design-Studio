@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. The explicit nominal 0\u20131.8 V reference contract is checked against every port, captured HD library domain, complete cell power/bias wiring, every native MOS body and fresh raw HV selectors. It conditionally discharges hvnwell.11, hv.X.1 and hv.X.4 for the three exact references only. Periphery coverage is 135 executed, 281 absent, 77 upstream NA, 36 advisory, 61 other-backend, 10 execution reviews and the undefined x.20 threshold. Catalog counts remain 356 executed, 320 absent and 880 unreviewed. Generated masks, RF selection, grid, boundaries, nfet_in_dnwell policy and remaining catalog/density interpretation stay open. No transient, reliability, nonempty HV propagation, arbitrary design or foundry qualification is claimed.",
+      "remaining": "Chunk 6 remains incomplete. The reference nfet_in_dnwell option is now explicitly false for the ordinary bulk HD designs; x.29 is NOT_REQUESTED, not passed or absent. Fresh measurements retain 18,191 noncontained NFET gates and enabling the switch fails all three references. Periphery coverage is 135 executed, 281 absent, 77 upstream NA, 36 advisory, 61 other-backend, one declared optional rule not required, nine execution reviews and the undefined x.20 threshold. Catalog counts remain 356 executed, 320 absent and 880 unreviewed. Generated masks, RF selection, grid, boundaries and catalog/density interpretation remain open. The standalone checker does not update the application policy or qualify arbitrary designs or foundry acceptance.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16761,7 +16761,8 @@
         "sky130-esd-fuse-audit-2026-10-14",
         "sky130-device-intent-audit-2026-10-14",
         "sky130-selected-subjects-audit-2026-10-14",
-        "sky130-voltage-intent-audit-2026-10-14"
+        "sky130-voltage-intent-audit-2026-10-14",
+        "sky130-isolation-options-audit-2026-10-14"
       ]
     },
     "sky130A:source-completeness": {
@@ -20204,6 +20205,11 @@
       "path": "docs/validation/sky130-voltage-intent-audit-2026-10-14.json",
       "sha256": "f3aa296d1291b40a9b96054ca414732365408b261bbd38149148cb4bd2e2b776",
       "scope_limit": "Conditional absence of HV targets in the three exact nominal 0\u20131.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
+    },
+    "sky130-isolation-options-audit-2026-10-14": {
+      "path": "docs/validation/sky130-isolation-options-audit-2026-10-14.json",
+      "sha256": "9ea642496131e8a0d2a6fe905089a8d2b6d8fdfb68f5c9113fb17a50c90592ca",
+      "scope_limit": "Explicit ordinary-bulk reference choice for optional x.29; NOT_REQUESTED is retained separately from passing rule execution and absent operands. Every noncontained NFET is measured, and requesting isolation on these same layouts fails. Other physical requirements remain open."
     }
   },
   "execution_acceptance": {

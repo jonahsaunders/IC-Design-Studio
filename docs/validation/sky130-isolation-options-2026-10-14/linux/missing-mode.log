@@ -1,0 +1,3 @@
+usage: sky130_isolation_policy.py [-h] --gds GDS --mode {bulk,isolated}
+                                  --output OUTPUT
+sky130_isolation_policy.py: error: the following arguments are required: --mode

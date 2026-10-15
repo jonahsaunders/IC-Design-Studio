@@ -19,13 +19,22 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [SKY130 voltage-intent audit](validation/sky130-voltage-intent-audit-2026-10-14.json)
+The latest [SKY130 isolation audit](validation/sky130-isolation-options-audit-2026-10-14.json)
+records an explicit ordinary-bulk choice for optional `x.29`. It retains all
+18,191 NFET gates outside deep nwell as measurements and shows that enabling
+isolation fails all three reference layouts. The declared result is
+`NOT_REQUESTED`, never a passing check or absent-target claim. Eighteen tests
+and actual passing/failing/missing-mode command controls succeed on both systems;
+complete reference reports agree. Nine periphery execution reviews and the
+undefined `x.20` value remain. The application policy is unchanged.
+
+The preceding [SKY130 voltage-intent audit](validation/sky130-voltage-intent-audit-2026-10-14.json)
 checks explicit nominal 0–1.8 V reference contracts against every physical port,
 captured library domain, 143,928 cell supply/bias pins and all 36,385 native MOS
 bodies. Fresh HV-selector/label measurements and the pinned source methodology
 conditionally discharge `hvnwell.11`, `hv.X.1` and `hv.X.4` for these exact
 references. Both systems pass 21 tests without skips and reproduce identical
-reports. Ten periphery execution reviews and the undefined `x.20` value remain;
+reports. That checkpoint left ten periphery execution reviews and the undefined `x.20` value;
 the catalog counts below are unchanged. Transient reliability, arbitrary HV
 circuits and foundry ERC are outside this nominal contract.
 
@@ -42,7 +51,7 @@ HV-varactor target decisions while preserving generated LVTNM/NCM obligations.
 Fourteen tests pass on each OS and complete reports agree. The periphery ledger
 at that checkpoint had 13 execution reviews plus the undefined `x.20` threshold; the error
 catalog at that checkpoint had 356 executed, 257 absent and 943 unreviewed records. The full list of
-remaining periphery obligations is in the [SKY130 guide](SKY130_PHYSICAL_QUALIFICATION.md#nominal-reference-voltage-contract).
+remaining periphery obligations is in the [SKY130 guide](SKY130_PHYSICAL_QUALIFICATION.md#explicit-reference-isolation-option).
 These are separate ledgers, not independent counts to add together.
 
 The final filled references already pass the recorded application physical

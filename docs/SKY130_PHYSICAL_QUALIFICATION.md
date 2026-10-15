@@ -6,9 +6,10 @@ Zero geometry markers alone do not establish complete physical coverage.
 
 The [selected-subject review](#selected-catalog-subjects) records
 356 executed error records, 320 verified absent subjects and 880 unreviewed
-records. The latest [nominal voltage review](#nominal-reference-voltage-contract)
-reduces the periphery execution reviews from thirteen to ten for the explicitly
-declared reference conditions. Those ten reviews, the missing pin-spacing
+records. The [nominal voltage review](#nominal-reference-voltage-contract)
+and [explicit isolation option](#explicit-reference-isolation-option) leave nine
+periphery execution reviews and one declared optional rule not required by the
+ordinary bulk references. Those nine reviews, the missing pin-spacing
 definition and remaining required catalog/density interpretation remain open.
 The [final electrical checks](#final-filled-reference-electrical-checks)
 now pass nominal extracted timing and sequential equivalence on all three exact
@@ -21,6 +22,56 @@ between the supplemental checker and Finish/export; it does not close the
 remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
+
+## Explicit reference isolation option
+
+The [isolation audit](validation/sky130-isolation-options-audit-2026-10-14.json)
+records `nfet_in_dnwell: false` in the new, explicit
+[reference options](qualification/sky130-reference-rule-options.json). The three
+existing HD references use ordinary bulk NMOS bodies tied to VSS; they do not
+request a separate isolated-well domain. This choice applies to these exact
+layout/checkpoint identities. It is not a default for arbitrary designs.
+
+The published `x.29` requirement is conditional on this switch. Its C3 target is
+`(poly AND diff) NOT nwell`. The checker measures complete target containment
+in the merged drawn deep-nwell polygons in **both** modes. It invents no numeric
+enclosure margin and does not substitute this check for well spacing, RF device
+selection or electrical body connectivity.
+
+| Reference | Measured NFET gates outside deep nwell | Declared bulk mode | Enabled isolation control |
+|---|---:|---|---|
+| Counter | 1,120 | NOT_REQUESTED | FAIL |
+| UART | 8,500 | NOT_REQUESTED | FAIL |
+| APB FIFO | 8,571 | NOT_REQUESTED | FAIL |
+
+All 18,191 noncontained gates remain in the measurements. `NOT_REQUESTED` is
+stored as `declared-option-not-required`, never as executed or absent. A missing
+option, non-Boolean value or unsupported geometry fails validation. Explicitly
+requesting isolation on these unchanged layouts fails; a synthetic contained
+control passes. The command returns failure for an isolation violation and
+rejects a missing mode without creating a report.
+
+Both operating systems pass 18 tests without skips and reproduce identical
+complete reference data. Actual command checks cover bulk, failing isolated,
+passing isolated and missing-mode cases. Controls also cover partial enclosure,
+well holes, joined well polygons, PMOS exclusion, transformed arrays, raw text,
+straddling gates, invalid counts and altered source records. Reconstructing the
+preceding 601-row ledger verifies every source identity and preserves every row
+other than the explicit `x.29` decision.
+
+```sh
+python -m unittest tests.test_sky130_isolation_policy tests.test_sky130_isolation_review -v
+python -m scripts.sky130_isolation_review --check
+python -m scripts.sky130_isolation_policy --gds design.gds --mode isolated --output isolation.json
+```
+
+Use `--mode bulk` only for an explicitly declared ordinary-bulk design; its
+successful command exit records a configuration, not a passing isolation rule.
+The current ledger has 135 executed, 281 absent, 77 upstream NA, 36 advisory,
+61 other-backend, one declared optional rule not required, nine execution
+reviews and one missing definition. All catalog counts remain unchanged.
+This standalone qualification checker does not yet change the six-profile
+application policy. Full physical coverage and chunk 6 remain incomplete.
 
 ## Nominal reference voltage contract
 
@@ -65,10 +116,10 @@ python -m unittest tests.test_sky130_voltage_contract tests.test_sky130_voltage_
 python -m scripts.sky130_voltage_intent_review --outputs /path/to/retained/outputs --electrical-manifest /path/to/retained/electrical/manifest.json --check
 ```
 
-The current periphery ledger has 135 executed, 281 absent, 77 upstream NA,
+At this voltage-review checkpoint, the periphery ledger had 135 executed, 281 absent, 77 upstream NA,
 36 advisory, 61 other-backend, ten execution-review and one definition-required
 record. All 1,556 catalog dispositions remain unchanged. Generated implants,
-RF selection, grid, frame/die geometry, `nfet_in_dnwell` policy, `x.20` and the
+RF selection, grid, frame/die geometry, `x.20` and the
 remaining catalog/density interpretation remain open. This evidence establishes
 neither transient overvoltage limits nor rail integrity, foundry latch-up/ERC,
 general user-design coverage or full chunk 6 acceptance. Application policy is
@@ -208,7 +259,9 @@ archive does not duplicate the large native evidence bundles.
 
 The current remaining periphery obligations are explicit. The device-intent
 review resolves the earlier `hvtr.3`/`licon.19` rows, and the nominal voltage
-contract conditionally resolves the three voltage rows for these references:
+contract conditionally resolves the three voltage rows for these references.
+The explicit bulk option above resolves the `x.29` mode selection without
+claiming that its nonempty NFET targets pass isolation:
 
 | Obligation | Remaining work |
 |---|---|
@@ -216,7 +269,6 @@ contract conditionally resolves the three voltage rows for these references:
 | `dnwell.6`, `difftap.13`, `poly.16` | Establish the referenced RF fixed-layout model map and Table H5 selections. |
 | `lvtn.4b`, `ncm.3` | Resolve generated-mask construction and enclosure semantics. Missing drawn enclosing layers are insufficient evidence. |
 | `nsm.3a`, `nsm.3b` | Establish frame/die-cut context and applicable boundary geometry. |
-| `x.29` | Establish and retain the `nfet_in_dnwell` switch policy and its corresponding device checks. |
 | `x.20` | Obtain the omitted numeric same-layer pin-spacing definition for the `IP_block` mode. |
 
 The remaining catalog entries also need explicit execution, applicability or
