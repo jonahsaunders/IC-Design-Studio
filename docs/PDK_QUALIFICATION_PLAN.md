@@ -19,7 +19,19 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [frame-bound audit](validation/sky130-frame-bound-audit-2026-10-15.json)
+The latest [well-bound audit](validation/sky130-well-bound-audit-2026-10-15.json)
+implements three numerical checks for drawn PWDE enclosure, PWBM hole spacing
+and PWBM enclosure. Exact limits, 1 nm failures, nested holes, missing enclosures
+and hierarchy are tested. All 230 tests per OS, 23 cross-system geometry examples,
+six full catalog replays, three application runs and Windows exports pass.
+The three reference targets are absent, reducing the complete corrected catalog
+from 425 to **422 unresolved records**. Its other counts are 424 executed, 612
+absent, 90 explicit W/L exemptions and eight advisory records. The eighteen frame
+bounds still require missing chip-boundary context. Generated-mask, RF, grid,
+module/frame/pad, pin-spacing and required density work remains; chunk 6 is
+incomplete and no PDK is qualified for complete-chip tapeout.
+
+The preceding [frame-bound audit](validation/sky130-frame-bound-audit-2026-10-15.json)
 implements eighteen numerical sufficient bounds for drawn-layer frame enclosure
 and die-cut spacing. Exact 3 µm margins and 1 nm failures are tested on all nine
 layers. Missing context and failed conservative bounds remain unreviewed; no

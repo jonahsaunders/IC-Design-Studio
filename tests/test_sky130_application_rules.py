@@ -68,6 +68,7 @@ def fixture(root):
     from icstudio.digital_sky130_special_subjects import audit as special_subjects
     from icstudio.digital_sky130_selected_targets import audit as selected_targets
     from icstudio.digital_sky130_frame_bounds import audit as frame_bounds
+    from icstudio.digital_sky130_well_bounds import audit as well_bounds
     report = dict(schema=1, recipe=rules.RECIPE, status='reviewed-profiles-pass', qualified=False,
                   chunk_complete=False, scope=rules.SCOPE, policy=platform['sky130_rules'],
                   top=ledger['top'], gds_sha256=ledger['gds_sha256'],
@@ -80,7 +81,7 @@ def fixture(root):
                   selected_devices=selected_devices(root/'filled.gds'),
                   conservative_bounds=conservative_bounds(root/'filled.gds'),device_roots=device_roots(root/'filled.gds'),
                   special_subjects=special_subjects(root/'filled.gds'),selected_targets=selected_targets(root/'filled.gds'),
-                  frame_bounds=frame_bounds(root/'filled.gds'))
+                  frame_bounds=frame_bounds(root/'filled.gds'),well_bounds=well_bounds(root/'filled.gds'))
     paths = rules.resources(root/'platform/verification', platform['sky130_rules']['preparation_sha256'])
     for index, (name, path) in enumerate(sorted(paths.items())):
         key='sky130_rule_resource_'+str(index)
@@ -185,6 +186,8 @@ class Sky130ApplicationRuleTests(unittest.TestCase):
                 'changed-selected-targets':lambda r:r['selected_targets']['rows'].pop(),
                 'missing-frame-bounds':lambda r:r.pop('frame_bounds'),
                 'changed-frame-bounds':lambda r:r['frame_bounds']['rows'].pop(),
+                'missing-well-bounds':lambda r:r.pop('well_bounds'),
+                'changed-well-bounds':lambda r:r['well_bounds']['rows'].pop(),
                 'changed-catalog-context':lambda r:r['catalog_context']['rows'].pop(),
                 'duplicate-check':lambda r:r['profiles']['raw_geometry']['checks'].__setitem__(0,r['profiles']['raw_geometry']['checks'][1]),
                 'bool-count':lambda r:r['profiles']['raw_geometry'].update(violations=False),

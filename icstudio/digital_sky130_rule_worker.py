@@ -85,6 +85,9 @@ def execute(request):
         from .digital_sky130_frame_bounds import audit as frame_bounds
         report['frame_bounds'] = frame_bounds(gds)
         save('frame_bounds.json', report['frame_bounds'])
+        from .digital_sky130_well_bounds import audit as well_bounds
+        report['well_bounds'] = well_bounds(gds)
+        save('well_bounds.json', report['well_bounds'])
         report.update(status='reviewed-profiles-pass', ledger=review,
                       coverage=dict(rows=len(review['rows']), counts=review['counts'], complete=False))
         unchanged(); resources(base, policy['preparation_sha256'])

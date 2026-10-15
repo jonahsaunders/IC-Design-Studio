@@ -29,6 +29,49 @@ remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
 
+## Drawn-well enclosure and hole-spacing bounds
+
+The [well-bound audit](validation/sky130-well-bound-audit-2026-10-15.json) and
+[complete corrected-reference replay](validation/sky130-well-bounds-2026-10-15.json)
+add three required numerical checks to Finish and saved-result/export validation:
+
+- `r923` / `pwde.6`: expand all drawn PWDE by a 1 µm square and require the result
+  inside both DNWELL and UHVI.
+- `r924` / `pwbm.5`: require every pair of holes in the fully merged drawn PWBM
+  to have at least 0.84 µm square-metric spacing. Find holes before UHVI selection;
+  filling nested islands enlarges the checked hole conservatively.
+- `r931` / `uhvi.3`: require all drawn PWBM inside UHVI without subtracting a
+  LOWVTID exemption.
+
+The pinned error catalog supplies the finite limits and GDS layer names. The
+manual calls the drain-extended implant `pwdem`, supplies UHV selection context,
+and lists N/A values; those values are not treated as waivers. Whole drawn
+operands and square margins provide stronger, sufficient bounds. Exact equality
+passes. Failure of a stronger bound stays **unreviewed**, not a claimed foundry
+violation. Missing enclosing geometry never discharges a present target. These
+checks do not establish missing device geometry or generated-mask equivalence.
+
+All **230 focused tests** pass on Windows and Linux without skips. The **23
+retained geometry examples** agree byte for byte, including all three nonempty
+exact-limit checks, 1 nm enclosure/spacing failures, missing layers, holes,
+nested islands, merged/open rings, arrays and exact paths. Changed-layout,
+missing-report and altered-report controls reject unsupported acceptance.
+
+Fresh complete catalog replays for counter, UART and APB agree byte for byte on
+both systems. Each contains **424 executed bindings, 612 absent subjects, 90
+explicit standard-cell W/L exemptions, eight advisories and 422 unreviewed
+records**. The three new reference decisions are absent-operand; their nonempty
+control results are separate. Eighteen frame bounds also execute and stay
+unreviewed because these blocks have no frame/die-cut context.
+
+Three fresh Linux application runs and Windows saved-result/export replays pass.
+Every exported artifact is read back and authenticated. Manufacturing geometry,
+checkpoints, netlists and SPEF remain unchanged; native extraction, nominal
+voltage, timing and equivalence are authenticated retained dependencies, not new
+electrical runs. Missing generated-mask recipes, RF selection, grid/purpose,
+module/frame/pad context, pin-spacing and required density coverage remain open.
+**Chunk 6 remains incomplete.**
+
 ## Drawn-layer frame-margin bounds
 
 The [frame-bound audit](validation/sky130-frame-bound-audit-2026-10-15.json)

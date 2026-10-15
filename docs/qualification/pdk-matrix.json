@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. Eighteen drawn-layer frame-margin bounds now run in Finish/export; exact and failing nonempty controls pass, but all eighteen reference decisions stay unreviewed because frame/die-cut context is missing. Retained corrected catalog: 424 executed, 609 absent, 90 W/L exemptions, eight advisory, 425 unreviewed. All 212 tests per OS, 36 controls, fresh frame reports, three application runs and Windows exports pass. Nonempty target rules, generated masks, RF, grid/purpose, module/frame/pad context, pin spacing and required density remain open.",
+      "remaining": "Chunk 6 remains incomplete. Three numerical drawn-well bounds now run in Finish/export, with nonempty exact and failing controls. Their targets are absent on the references. Fresh full catalog: 424 executed, 612 absent, 90 W/L exemptions, eight advisory, 422 unreviewed. All six catalog replays, 230 tests per OS, 23 controls, three application runs and Windows exports pass. Eighteen frame bounds stay unreviewed for missing context. Generated masks, RF, grid/purpose, module/frame/pad context, pin spacing and required density remain open.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16778,7 +16778,8 @@
         "sky130-special-subject-audit-2026-10-15",
         "sky130-delivery-catalog-audit-2026-10-15",
         "sky130-selected-target-audit-2026-10-15",
-        "sky130-frame-bound-audit-2026-10-15"
+        "sky130-frame-bound-audit-2026-10-15",
+        "sky130-well-bound-audit-2026-10-15"
       ]
     },
     "sky130A:source-completeness": {
@@ -20306,6 +20307,11 @@
       "path": "docs/validation/sky130-frame-bound-audit-2026-10-15.json",
       "sha256": "1e8251733f47dbe0631dc440382170919dda73a060541423028969b24a39d1ac",
       "scope_limit": "Finish and saved-result/export validation require eighteen drawn-layer frame-margin bounds. Nonempty controls prove exact 3um margins and reject unsupported promotions at 1nm, holes and missing context. The square metric and absence of exemptions make failures unresolved rather than foundry violations. All eighteen stay unreviewed on the reference blocks, which lack frame and die-cut markers; retained catalog totals remain 425 unreviewed. 212 tests pass per OS; 36 controls and three-reference frame reports agree byte for byte; three application runs and Windows saved-result/export replays pass. No new complete catalog, native extraction, timing or equivalence run is claimed."
+    },
+    "sky130-well-bound-audit-2026-10-15": {
+      "path": "docs/validation/sky130-well-bound-audit-2026-10-15.json",
+      "sha256": "b66716900f539a6f878cc86ca8c6a6af1e0fff850ec1c6b53ba17816df19c688",
+      "scope_limit": "Finish and saved-result/export validation require three drawn-well sufficient bounds: 1 um PWDE enclosure by both DNWELL and UHVI, 0.84 um spacing of all merged PWBM hole pairs, and whole PWBM containment in UHVI without LOWVTID exemptions. Failed stronger bounds remain unreviewed. All three targets are absent in the reference blocks. Complete corrected-reference catalog replays contain 424 executed, 612 absent, 90 W/L exemptions, eight advisories and 422 unreviewed records. All six catalog replays and 23 controls agree across systems; 230 tests pass per OS; three application runs and Windows saved-result/export replays pass. Eighteen frame bounds also execute but remain unreviewed for missing boundary context. Generated masks, RF, grid/purpose, module/frame/pad context, pin spacing and required density remain open. No new extraction, timing, equivalence or foundry acceptance is claimed."
     }
   },
   "execution_acceptance": {
