@@ -139,6 +139,8 @@ def evaluate(report, gds_sha256, checkpoint_sha256, top, fingerprint, policy):
     evaluate_family_targets(report.get('family_targets'), gds_sha256, top)
     from .digital_sky130_package_boundaries import evaluate as evaluate_package_boundaries
     evaluate_package_boundaries(report.get('package_boundaries'), gds_sha256, top)
+    from .digital_sky130_metal_width_bounds import evaluate as evaluate_metal_width_bounds
+    evaluate_metal_width_bounds(report.get('metal_width_bounds'), gds_sha256, top)
     return report
 
 
@@ -234,6 +236,8 @@ def validate_saved(data, root):
     validate_family_targets(report['family_targets'], read('gds'))
     from .digital_sky130_package_boundaries import validate_saved as validate_package_boundaries
     validate_package_boundaries(report['package_boundaries'], read('gds'))
+    from .digital_sky130_metal_width_bounds import validate_saved as validate_metal_width_bounds
+    validate_metal_width_bounds(report['metal_width_bounds'], read('gds'))
     bindings = report.get('resources', {})
     expected = FILES | {'preparation.json': policy['preparation_sha256']}
     require(bindings.keys() == expected.keys() and len(set(bindings.values())) == len(expected),

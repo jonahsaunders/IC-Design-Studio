@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete. 38 family absence proofs and five package crossing checks are mandatory in Finish/export. Fresh full catalog: 438 executed, 657 absent, 90 W/L exemptions, eight advisory, 363 unresolved. All six catalog replays, 286 tests per OS, 29 controls, three application runs and Windows exports pass. Remaining RF, generated masks, grid/purpose, module/frame/pad context, pin spacing and required density remain open.",
+      "remaining": "Chunk 6 remains incomplete. Three additional global metal maximum-width bounds are mandatory in Finish/export. Authenticated prior catalog plus fresh width checks: 441 executed, 657 absent, 90 W/L exemptions, eight advisory, 360 unresolved. All six incremental catalog reconciliations, 316 tests per OS, 32 controls, three application runs and Windows exports pass. Remaining RF, generated masks, grid/purpose, module/frame/pad context, pin spacing and required density remain open.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16782,7 +16782,8 @@
         "sky130-well-bound-audit-2026-10-15",
         "sky130-scribe-bound-audit-2026-10-15",
         "sky130-seal-geometry-audit-2026-10-15",
-        "sky130-family-package-audit-2026-10-15"
+        "sky130-family-package-audit-2026-10-15",
+        "sky130-metal-width-audit-2026-10-15"
       ]
     },
     "sky130A:source-completeness": {
@@ -20330,6 +20331,11 @@
       "path": "docs/validation/sky130-family-package-audit-2026-10-15.json",
       "sha256": "a4f1f4c957bbd95316dabc4005e0dcf18b476a28427123e7f6b1807e809936b7",
       "scope_limit": "Finish and saved-result/export validation require 38 family-target absence proofs and five package-boundary checks. The 35 explicitly named low-Vt RF records require no mandatory lvtn drawing, published CLVTNM mask/edit purposes, low-Vt identifier or candidate names/texts. Three bondpad records require absent pad drawing/mask/pin/label/intent. Five installed package drawing purposes are checked against each explicit module-cut polygon. All 286 tests pass per OS without skips; 29 retained controls agree across systems. All six complete-catalog replays agree, and three actual application runs plus Windows exports pass. Reference targets are absent: 438 executed, 657 absent, 90 W/L exemptions, eight advisory and 363 unresolved records. No present RF-device geometry, other pad-family selector, complete-chip boundary, required density or foundry acceptance is inferred. Native extraction and electrical results retain their original authenticated scope."
+    },
+    "sky130-metal-width-audit-2026-10-15": {
+      "path": "docs/validation/sky130-metal-width-audit-2026-10-15.json",
+      "sha256": "3abe1259e3b5c85c24088477407dbc4a330ade058d0231a6be031234175f849a",
+      "scope_limit": "Finish and saved-result/export validation require three new under-pad metal maximum-width sufficient bounds. Complete connected drawn-plus-native-fill unions fit within strips at most 25 um wide for met1/met2 or 6 um for met3. The reference maximum is 2.1 um; no pad selector is inferred. Alternate metal purposes or a larger bounding box remain unresolved. All 316 tests pass per OS without skips; 32 retained controls agree across systems. Six incremental catalogs authenticate the unchanged prior catalog, its exact GDS and 85 source dependencies, then freshly execute only these three checks. Earlier 1193 decisions are retained, not claimed as freshly rerun. Three actual Linux application runs and Windows result/export replays freshly validate current integration. Counts are 441 executed, 657 absent, 90 W/L exemptions, eight advisory and 360 unresolved records. No full physical qualification, new native extraction or foundry acceptance is inferred."
     }
   },
   "execution_acceptance": {

@@ -100,6 +100,9 @@ def execute(request):
         from .digital_sky130_package_boundaries import audit as package_boundaries
         report['package_boundaries'] = package_boundaries(gds)
         save('package_boundaries.json', report['package_boundaries'])
+        from .digital_sky130_metal_width_bounds import audit as metal_width_bounds
+        report['metal_width_bounds'] = metal_width_bounds(gds)
+        save('metal_width_bounds.json', report['metal_width_bounds'])
         report.update(status='reviewed-profiles-pass', ledger=review,
                       coverage=dict(rows=len(review['rows']), counts=review['counts'], complete=False))
         unchanged(); resources(base, policy['preparation_sha256'])

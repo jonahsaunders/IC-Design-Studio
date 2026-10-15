@@ -73,6 +73,7 @@ def fixture(root):
     from icstudio.digital_sky130_seal_geometry import audit as seal_geometry
     from icstudio.digital_sky130_family_targets import audit as family_targets
     from icstudio.digital_sky130_package_boundaries import audit as package_boundaries
+    from icstudio.digital_sky130_metal_width_bounds import audit as metal_width_bounds
     report = dict(schema=1, recipe=rules.RECIPE, status='reviewed-profiles-pass', qualified=False,
                   chunk_complete=False, scope=rules.SCOPE, policy=platform['sky130_rules'],
                   top=ledger['top'], gds_sha256=ledger['gds_sha256'],
@@ -87,7 +88,8 @@ def fixture(root):
                   special_subjects=special_subjects(root/'filled.gds'),selected_targets=selected_targets(root/'filled.gds'),
                   frame_bounds=frame_bounds(root/'filled.gds'),well_bounds=well_bounds(root/'filled.gds'),
                   scribe_bounds=scribe_bounds(root/'filled.gds'),seal_geometry=seal_geometry(root/'filled.gds'),
-                  family_targets=family_targets(root/'filled.gds'),package_boundaries=package_boundaries(root/'filled.gds'))
+                  family_targets=family_targets(root/'filled.gds'),package_boundaries=package_boundaries(root/'filled.gds'),
+                  metal_width_bounds=metal_width_bounds(root/'filled.gds'))
     paths = rules.resources(root/'platform/verification', platform['sky130_rules']['preparation_sha256'])
     for index, (name, path) in enumerate(sorted(paths.items())):
         key='sky130_rule_resource_'+str(index)
@@ -201,6 +203,8 @@ class Sky130ApplicationRuleTests(unittest.TestCase):
                 'changed-family-targets':lambda r:r['family_targets']['rows'].pop(),
                 'missing-package-boundaries':lambda r:r.pop('package_boundaries'),
                 'changed-package-boundaries':lambda r:r['package_boundaries']['rows'].pop(),
+                'missing-metal-width-bounds':lambda r:r.pop('metal_width_bounds'),
+                'changed-metal-width-bounds':lambda r:r['metal_width_bounds']['rows'].pop(),
                 'changed-scribe-bounds':lambda r:r['scribe_bounds']['rows'].pop(),
                 'changed-catalog-context':lambda r:r['catalog_context']['rows'].pop(),
                 'duplicate-check':lambda r:r['profiles']['raw_geometry']['checks'].__setitem__(0,r['profiles']['raw_geometry']['checks'][1]),

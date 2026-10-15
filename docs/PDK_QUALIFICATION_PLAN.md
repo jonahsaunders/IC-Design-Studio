@@ -19,15 +19,26 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [family and package audit](validation/sky130-family-package-audit-2026-10-15.json)
+The latest [metal-width audit](validation/sky130-metal-width-audit-2026-10-15.json)
+resolves **three additional numerical records: 363 to 360 unresolved**. Stronger
+global bounds on merged drawn-plus-fill metal prove the three under-pad maximum
+widths. Failed sufficient bounds and alternate purposes remain unresolved.
+All 316 tests per OS, 32 cross-system controls, three application runs and Windows
+exports pass. Six incremental catalogs authenticate unchanged prior evidence and
+freshly execute the new checks; they do not rerun every previous catalog checker.
+Current counts are **441 executed, 657 absent, 90 explicit W/L exemptions, eight
+advisory and 360 unresolved**. The [remaining-work table](SKY130_PHYSICAL_QUALIFICATION.md#remaining-chunk-6-work-at-this-checkpoint)
+keeps required definitions, context, pin spacing and density work in chunk 6.
+
+The preceding [family and package audit](validation/sky130-family-package-audit-2026-10-15.json)
 resolves **43 additional records per corrected reference: 406 to 363 unresolved**.
 Thirty-five low-Vt RF and three explicit bondpad targets are absent under required
 drawing, mask/edit and intent guards. Five package-layer module-crossing checks
 are implemented from the authenticated installed layer map; their reference
 targets are also absent. These are 43 absence decisions, not 43 numerical passes
 on present devices. All 286 tests per OS, 29 retained examples, six complete
-catalog replays, three application runs and Windows exports pass. Current counts
-are **438 executed, 657 absent, 90 explicit W/L exemptions, eight advisory and
+catalog replays, three application runs and Windows exports pass. Counts at that checkpoint
+were **438 executed, 657 absent, 90 explicit W/L exemptions, eight advisory and
 363 unresolved**. Remaining RF selectors, generated masks, grid purposes,
 module/frame/pad context, pin spacing and required density keep chunk 6 open.
 
