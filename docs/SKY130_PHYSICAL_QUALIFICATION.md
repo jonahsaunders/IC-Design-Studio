@@ -29,6 +29,51 @@ remaining rule or density requirements. Exact desktop-package installation and
 foundry delivery acceptance belong to original chunk 12; they are not additional
 chunk 6 completion gates.
 
+## Complete catalog replay on corrected exports
+
+The [delivery replay audit](validation/sky130-delivery-catalog-audit-2026-10-15.json)
+and [complete catalog](validation/sky130-delivery-catalog-2026-10-15.json) now
+bind all 1,556 catalog records to the exact corrected counter, UART and APB
+exports. Geometry, recursive subject measurements, physical connectivity,
+standard-cell comparisons and source bindings are freshly executed. Earlier
+catalog decisions are not transferred merely by replacing their GDS hashes.
+
+Each corrected design has **424 executed bindings, 593 absent subjects, 90
+explicit standard-cell W/L exemptions, eight advisory records and 441 unreviewed
+records**. All eight forbidden-boundary records are executed on the corrected
+streams. The original streams and their 449-unreviewed catalog remain preserved.
+This supersedes the earlier separation between 202 current catalog messages and
+the historical full catalog for these three reference exports.
+
+Every export is reproduced byte for byte from its original GDS and independent
+OpenDB pin/die inventory. Native extraction and nominal-voltage contracts are
+explicitly retained dependencies: their files are authenticated, and fresh gate
+censuses, trusted library geometry and voltage selectors must agree. No new
+extraction, timing or electrical acceptance is claimed. The complete six-profile
+application ledger and its unresolved requirements remain separate.
+
+All six case/OS replays pass, and Windows/Linux report bytes match for each case.
+Seventy-four focused tests pass without skips on each OS. Fault controls reject
+missing or duplicated catalog records, changed source/evidence bytes, overlapping
+decision stages, a missing boundary check, and promotion or waiver of an unresolved
+requirement. The evidence archive retains the replay inputs, reports, tests and
+drivers without depending on the preceding archive chain.
+
+This is a reference qualification command; it does not install full-catalog
+verification for arbitrary application jobs. A complete inventory is not complete
+required-rule coverage. Generated masks, RF selection, grid/purpose semantics,
+frame/pad and module context, pin spacing and required density remain open.
+Chunk 6 remains incomplete.
+
+```sh
+python -m scripts.check_sky130_delivery_catalog --check
+python -m unittest tests.test_sky130_delivery_catalog -v
+```
+
+The replay uses retained reference exports and native/voltage/library dependencies
+under the workspace outputs directory. `--case counter`, `--case uart` and
+`--case apb` support independent runs; give each run its own `--output` file.
+
 ## Special device-subject absence
 
 The [audit](validation/sky130-special-subject-audit-2026-10-15.json) and

@@ -19,7 +19,18 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [special-subject audit](validation/sky130-special-subject-audit-2026-10-15.json)
+The latest [corrected-export catalog replay](validation/sky130-delivery-catalog-audit-2026-10-15.json)
+rebuilds every reviewed decision on the actual delivered counter, UART and APB
+layouts. Each complete 1,556-record catalog contains 424 executed bindings, 593
+absent subjects, 90 W/L exemptions, eight advisories and 441 unreviewed records.
+All six Windows/Linux case replays pass with identical report bytes, and 74 tests
+pass per OS. Export bytes are independently reproduced; retained native extraction
+and nominal-voltage dependencies are authenticated and explicitly identified.
+This reference command does not add full-catalog acceptance for arbitrary jobs.
+Generated masks, RF selectors, grid/purpose, module/frame/pad context, pin spacing
+and density remain unresolved. Chunk 6 is incomplete.
+
+The preceding [special-subject audit](validation/sky130-special-subject-audit-2026-10-15.json)
 resolves seven explicit UHV, deep-well, precision-resistor and nwell-hole records
 through conservative subject absence. Raw masks/markers and device-name/label
 hints prevent unsupported absence claims. A missing enclosing UHVI never waives
