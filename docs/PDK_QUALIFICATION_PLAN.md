@@ -57,6 +57,35 @@ mask coverage, complete-chip boundaries and electrical/installer qualification
 remain unresolved. This is the narrower completion standard approved by the
 user, not a claim that those requirements have been solved.
 
+## Chunk 7: initial device execution is in progress
+
+The [initial MOS and catalog record](validation/standard-mos-initial-2026-10-16.json)
+retains fresh local execution without completing the device-family gate. All
+255 bundled entries are exercised independently on Windows and Linux: the 234
+placeable entries preserve model identity, terminals and parameters through
+save/reopen and Studio Xschem exchange at two orientations. The 21 unavailable
+entries reject placement with their recorded reasons. Malformed parameters and
+missing/wrong-revision models are rejected. These tests compare with the locked
+catalog; independent upstream interface reconciliation is still required.
+
+The eight standard NMOS/PMOS entries across SKY130, GF180 C/D and IHP pass
+32 independent nominal DC, AC, transient and noise comparisons, including AC
+phase, plus eight deliberately wrong-width simulations. Forty generated legal
+layouts pass native full DRC and strict LVS against independently written
+device calls. All 120 wrong-length, drain-open and gate/drain-short controls
+fail native connectivity or size checks. The corrected length control measures
+poly/diffusion overlap; the initial SKY130 contact-pad selection failure is
+preserved in the archive. Thirteen focused fault/comparison tests pass on each
+host. No application or upstream PDK source was changed for this checkpoint.
+
+The [test-envelope review](qualification/standard-mos-test-envelope-v1.json)
+separates published model facts from selected test points and application layout
+bounds. Complete bias, temperature, reliability, geometry and process-corner
+coverage remains open, as do the other device families. SKY130 simulation and
+physical adapters retain their distinct source revisions. A separate 432-case
+electrical sweep is not counted in this initial checkpoint. Chunks 8–12 remain
+pending and retain their original gates.
+
 ## Earlier checkpoints under the previous completion standard
 
 The following entries retain the status and scope of their original executions.

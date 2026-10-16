@@ -1,0 +1,241 @@
+{
+  "schema": 1,
+  "as_of": "2026-10-16",
+  "status": "partial-source-review",
+  "qualified": false,
+  "scope": "Source facts and declared test points for the initial standard MOS batch. This is not an approved full operating envelope or a silicon accuracy claim.",
+  "test_points": {
+    "temperature_c": [
+      0,
+      27,
+      85
+    ],
+    "dc_gate_fraction_of_supply": [
+      0,
+      1
+    ],
+    "transient_gate_fraction_of_supply": [
+      0.1,
+      0.9
+    ],
+    "body_bias_v": 0,
+    "load_ohm": 10000,
+    "load_f": 1e-14,
+    "ac_noise_frequency_hz": [
+      1000,
+      1000000000.0
+    ],
+    "geometry_um": {
+      "width": [
+        1,
+        4,
+        10
+      ],
+      "length": [
+        "target minimum",
+        0.5,
+        2
+      ]
+    },
+    "fingers": [
+      1,
+      2
+    ],
+    "multiplicity": [
+      1,
+      3
+    ]
+  },
+  "remaining": [
+    "Independent drain and body bias sweeps, including source-backed boundaries.",
+    "Temperature validity and reliability limits for each model; 0/85 C are test points only.",
+    "SKY130 geometry outside the shared 1–10 um width and minimum–2 um length test rectangle.",
+    "Other corner combinations, device variants, physical finger/multiplicity classes and missing-model/changed-pin electrical faults.",
+    "Upstream inventory reconciliation and independently calibrated silicon/model accuracy."
+  ],
+  "targets": {
+    "sky130A": {
+      "models": [
+        "sky130_fd_pr__nfet_01v8",
+        "sky130_fd_pr__pfet_01v8"
+      ],
+      "selected_supply_v": 1.8,
+      "minimum_test_length_um": 0.15,
+      "corners": [
+        "nominal",
+        "ss",
+        "ff"
+      ],
+      "application_layout_bounds_um": {
+        "w": [
+          0.42,
+          30
+        ],
+        "l": [
+          0.15,
+          10
+        ]
+      },
+      "reviewed_source_facts": {
+        "nmos_model_bias_v": {
+          "vds": [
+            0,
+            1.95
+          ],
+          "vgs": [
+            0,
+            1.95
+          ],
+          "vbs": [
+            -1.95,
+            0.3
+          ]
+        },
+        "pmos_model_bias_v": {
+          "vds": [
+            -1.95,
+            0
+          ],
+          "vgs": [
+            -1.95,
+            0
+          ],
+          "vbs": [
+            -0.1,
+            1.95
+          ]
+        }
+      },
+      "source_urls": [
+        "https://github.com/google/skywater-pdk/blob/main/docs/rules/device-details/nfet_01v8/index.rst",
+        "https://github.com/google/skywater-pdk/blob/main/docs/rules/device-details/pfet_01v8/index.rst"
+      ],
+      "bundle_revision": "24bc6d0bfd6a0224",
+      "bundle_manifest_sha256": "189ec230833fb9cfc6a5c70d1b66c0e06278bcd114462b3c8d4d58637d2ab9c2",
+      "physical_layout_grid_nm": 5,
+      "operating_envelope_qualified": false
+    },
+    "gf180mcuC": {
+      "models": [
+        "nfet_03v3",
+        "pfet_03v3"
+      ],
+      "selected_supply_v": 3.3,
+      "minimum_test_length_um": 0.28,
+      "corners": [
+        "nominal",
+        "ss",
+        "ff"
+      ],
+      "application_layout_bounds_um": {
+        "w": [
+          1,
+          10
+        ],
+        "l": [
+          0.28,
+          2
+        ]
+      },
+      "reviewed_source_facts": {
+        "instance_length_width_unit": "metre",
+        "diffusion_area_unit": "square metre",
+        "diffusion_perimeter_unit": "metre",
+        "nf_meaning": "gate finger count"
+      },
+      "source_urls": [
+        "https://gf180mcu-pdk.readthedocs.io/en/latest/analog/model_parameters/LV/LV_1_5_1.html"
+      ],
+      "bundle_revision": "627ca682d68e1e92",
+      "bundle_manifest_sha256": "7b9aea112d1d66e2761168c7a0487f13dfe574a49a8db6e1e36fbb099a055ee5",
+      "physical_layout_grid_nm": 5,
+      "operating_envelope_qualified": false
+    },
+    "gf180mcuD": {
+      "models": [
+        "nfet_03v3",
+        "pfet_03v3"
+      ],
+      "selected_supply_v": 3.3,
+      "minimum_test_length_um": 0.28,
+      "corners": [
+        "nominal",
+        "ss",
+        "ff"
+      ],
+      "application_layout_bounds_um": {
+        "w": [
+          1,
+          10
+        ],
+        "l": [
+          0.28,
+          2
+        ]
+      },
+      "reviewed_source_facts": {
+        "instance_length_width_unit": "metre",
+        "diffusion_area_unit": "square metre",
+        "diffusion_perimeter_unit": "metre",
+        "nf_meaning": "gate finger count"
+      },
+      "source_urls": [
+        "https://gf180mcu-pdk.readthedocs.io/en/latest/analog/model_parameters/LV/LV_1_5_1.html"
+      ],
+      "bundle_revision": "7dd87219f1333dbb",
+      "bundle_manifest_sha256": "357035faaa856379a674b0aa010f132ae0de2d629cf3b25f8bb41b16457e8d51",
+      "physical_layout_grid_nm": 5,
+      "operating_envelope_qualified": false
+    },
+    "ihp-sg13g2": {
+      "models": [
+        "sg13_lv_nmos",
+        "sg13_lv_pmos"
+      ],
+      "selected_supply_v": 1.2,
+      "minimum_test_length_um": 0.13,
+      "corners": [
+        "nominal",
+        "slow",
+        "fast"
+      ],
+      "application_layout_bounds_um": {
+        "w": [
+          1,
+          10
+        ],
+        "l": [
+          0.13,
+          2
+        ]
+      },
+      "reviewed_source_facts": {
+        "model_geometry_um": {
+          "w": [
+            0.15,
+            10
+          ],
+          "l": [
+            0.13,
+            10
+          ]
+        },
+        "maximum_drain_source_voltage_v": 1.5,
+        "nominal_and_measured_temperature_c": 27,
+        "model": "PSP 103.6",
+        "model_date": "2020-03-10"
+      },
+      "source_urls": [
+        "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib"
+      ],
+      "bundle_revision": "3abac20fcb57e184",
+      "bundle_manifest_sha256": "7540b8ac3241f339361bc83d5d154025dd0db6b374ebb1092dbe4db137b59de3",
+      "physical_layout_grid_nm": 5,
+      "operating_envelope_qualified": false,
+      "locked_model_source": {
+        "path": "icstudio/assets/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib",
+        "sha256": "03d505847c880d233b341be115a1e5460edf4d8e9b3e8a7df791a52fa4455d67"
+      }
+    }
+  }
+}

@@ -33,7 +33,8 @@
     },
     "7": {
       "name": "Qualify device families",
-      "status": "pending"
+      "status": "in_progress",
+      "scope": "All 255 catalog entries exercised on Windows and Linux; eight standard MOS entries pass the initial independent electrical comparison and forty legal layouts with 120 physical faults. Operating envelopes, broader electrical sweeps, upstream completeness and the other device families remain open."
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -16231,9 +16232,11 @@
       "conditions": "Every catalog entry independently; utilities require explicit no-electrical-netlist behavior.",
       "existing_runners": [
         "scripts/verify_release_pdks.py",
-        "scripts/qualify_reference_exchange.py"
+        "scripts/qualify_reference_exchange.py",
+        "scripts/qualify_catalog_interfaces.py",
+        "scripts/qualify_standard_mos.py"
       ],
-      "automation_gap": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement."
+      "automation_gap": "The initial standard MOS/catalog runners now execute the bounded checkpoint. Complete upstream interface reconciliation, operating envelopes, full device/condition/fault coverage and other families remain required."
     },
     "device-simulation": {
       "chunk": 7,
@@ -16244,9 +16247,10 @@
       "existing_runners": [
         "scripts/verify_release_pdks.py",
         "scripts/qualify_sky130_devices.py",
-        "scripts/qualify_sky130_bipolar.py"
+        "scripts/qualify_sky130_bipolar.py",
+        "scripts/qualify_standard_mos.py"
       ],
-      "automation_gap": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement."
+      "automation_gap": "The initial standard MOS/catalog runners now execute the bounded checkpoint. Complete upstream interface reconciliation, operating envelopes, full device/condition/fault coverage and other families remain required."
     },
     "device-physical": {
       "chunk": 7,
@@ -16257,9 +16261,10 @@
       "existing_runners": [
         "scripts/qualify_student_geometry.py",
         "scripts/qualify_sky130_devices.py",
-        "scripts/qualify_sky130_bipolar.py"
+        "scripts/qualify_sky130_bipolar.py",
+        "scripts/qualify_standard_mos_layout.py"
       ],
-      "automation_gap": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement."
+      "automation_gap": "The initial standard MOS/catalog runners now execute the bounded checkpoint. Complete upstream interface reconciliation, operating envelopes, full device/condition/fault coverage and other families remain required."
     },
     "rc-reference": {
       "chunk": 8,
@@ -16628,25 +16633,29 @@
       "target": "sky130A",
       "test": "device-interface",
       "status": "partial",
-      "remaining": "Reconcile historical scanned package identities and extend beyond the selected smoke devices to every required catalog/upstream device and operating point.",
+      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
       "historical_evidence": [
-        "analog-smoke"
+        "analog-smoke",
+        "standard-mos-initial-2026-10-16"
       ]
     },
     "sky130A:device-physical": {
       "target": "sky130A",
       "test": "device-physical",
-      "status": "not_run",
-      "remaining": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement.",
-      "historical_evidence": []
+      "status": "partial",
+      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
+      "historical_evidence": [
+        "standard-mos-initial-2026-10-16"
+      ]
     },
     "sky130A:device-simulation": {
       "target": "sky130A",
       "test": "device-simulation",
       "status": "partial",
-      "remaining": "Reconcile historical scanned package identities and extend beyond the selected smoke devices to every required catalog/upstream device and operating point.",
+      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
       "historical_evidence": [
-        "analog-smoke"
+        "analog-smoke",
+        "standard-mos-initial-2026-10-16"
       ]
     },
     "sky130A:digital-controller": {
@@ -16929,25 +16938,29 @@
       "target": "gf180mcuC",
       "test": "device-interface",
       "status": "partial",
-      "remaining": "Reconcile historical scanned package identities and extend beyond the selected smoke devices to every required catalog/upstream device and operating point.",
+      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
       "historical_evidence": [
-        "analog-smoke"
+        "analog-smoke",
+        "standard-mos-initial-2026-10-16"
       ]
     },
     "gf180mcuC:device-physical": {
       "target": "gf180mcuC",
       "test": "device-physical",
-      "status": "not_run",
-      "remaining": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement.",
-      "historical_evidence": []
+      "status": "partial",
+      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
+      "historical_evidence": [
+        "standard-mos-initial-2026-10-16"
+      ]
     },
     "gf180mcuC:device-simulation": {
       "target": "gf180mcuC",
       "test": "device-simulation",
       "status": "partial",
-      "remaining": "Reconcile historical scanned package identities and extend beyond the selected smoke devices to every required catalog/upstream device and operating point.",
+      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
       "historical_evidence": [
-        "analog-smoke"
+        "analog-smoke",
+        "standard-mos-initial-2026-10-16"
       ]
     },
     "gf180mcuC:digital-controller": {
@@ -17184,23 +17197,29 @@
     "gf180mcuD:device-interface": {
       "target": "gf180mcuD",
       "test": "device-interface",
-      "status": "not_run",
-      "remaining": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement.",
-      "historical_evidence": []
+      "status": "partial",
+      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
+      "historical_evidence": [
+        "standard-mos-initial-2026-10-16"
+      ]
     },
     "gf180mcuD:device-physical": {
       "target": "gf180mcuD",
       "test": "device-physical",
-      "status": "not_run",
-      "remaining": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement.",
-      "historical_evidence": []
+      "status": "partial",
+      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
+      "historical_evidence": [
+        "standard-mos-initial-2026-10-16"
+      ]
     },
     "gf180mcuD:device-simulation": {
       "target": "gf180mcuD",
       "test": "device-simulation",
-      "status": "not_run",
-      "remaining": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement.",
-      "historical_evidence": []
+      "status": "partial",
+      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
+      "historical_evidence": [
+        "standard-mos-initial-2026-10-16"
+      ]
     },
     "gf180mcuD:digital-controller": {
       "target": "gf180mcuD",
@@ -17434,25 +17453,29 @@
       "target": "ihp-sg13g2",
       "test": "device-interface",
       "status": "partial",
-      "remaining": "Reconcile historical scanned package identities and extend beyond the selected smoke devices to every required catalog/upstream device and operating point.",
+      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
       "historical_evidence": [
-        "analog-smoke"
+        "analog-smoke",
+        "standard-mos-initial-2026-10-16"
       ]
     },
     "ihp-sg13g2:device-physical": {
       "target": "ihp-sg13g2",
       "test": "device-physical",
-      "status": "not_run",
-      "remaining": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement.",
-      "historical_evidence": []
+      "status": "partial",
+      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
+      "historical_evidence": [
+        "standard-mos-initial-2026-10-16"
+      ]
     },
     "ihp-sg13g2:device-simulation": {
       "target": "ihp-sg13g2",
       "test": "device-simulation",
       "status": "partial",
-      "remaining": "Reconcile historical scanned package identities and extend beyond the selected smoke devices to every required catalog/upstream device and operating point.",
+      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
       "historical_evidence": [
-        "analog-smoke"
+        "analog-smoke",
+        "standard-mos-initial-2026-10-16"
       ]
     },
     "ihp-sg13g2:digital-controller": {
@@ -17595,8 +17618,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/cap_mim_m3_2.sym": {
         "tests": [
@@ -17604,8 +17630,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/cap_var_hvt.sym": {
         "tests": [
@@ -17613,8 +17642,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/cap_var_lvt.sym": {
         "tests": [
@@ -17622,8 +17654,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/corner.sym": {
         "tests": [
@@ -17640,8 +17675,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/lvsdiode.sym": {
         "tests": [
@@ -17649,8 +17687,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet3_01v8.sym": {
         "tests": [
@@ -17658,8 +17699,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet3_01v8_lvt.sym": {
         "tests": [
@@ -17667,8 +17711,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet3_03v3_nvt.sym": {
         "tests": [
@@ -17676,8 +17723,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet3_05v0_nvt.sym": {
         "tests": [
@@ -17685,8 +17735,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet3_20v0.sym": {
         "tests": [
@@ -17694,8 +17747,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet3_g5v0d10v5.sym": {
         "tests": [
@@ -17703,8 +17759,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet3_g5v0d16v0.sym": {
         "tests": [
@@ -17712,8 +17771,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet_01v8.sym": {
         "tests": [
@@ -17721,8 +17783,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries. The initial MOS numerical and native layout/fault batches pass at their recorded points; full geometry, bias, corners and device qualification remain open.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet_01v8_esd.sym": {
         "tests": [
@@ -17730,8 +17795,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet_01v8_lvt.sym": {
         "tests": [
@@ -17739,8 +17807,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet_01v8_lvt_nf.sym": {
         "tests": [
@@ -17748,8 +17819,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet_01v8_nf.sym": {
         "tests": [
@@ -17757,8 +17831,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet_03v3_nvt.sym": {
         "tests": [
@@ -17766,8 +17843,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet_03v3_nvt_nf.sym": {
         "tests": [
@@ -17775,8 +17855,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet_05v0_nvt.sym": {
         "tests": [
@@ -17784,8 +17867,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet_05v0_nvt_nf.sym": {
         "tests": [
@@ -17793,8 +17879,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet_20v0.sym": {
         "tests": [
@@ -17802,8 +17891,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet_20v0_iso.sym": {
         "tests": [
@@ -17811,8 +17903,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet_20v0_nvt.sym": {
         "tests": [
@@ -17820,8 +17915,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet_20v0_zvt.sym": {
         "tests": [
@@ -17829,8 +17927,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet_g5v0d10v5.sym": {
         "tests": [
@@ -17838,8 +17939,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet_g5v0d10v5_esd.sym": {
         "tests": [
@@ -17847,8 +17951,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet_g5v0d10v5_nf.sym": {
         "tests": [
@@ -17856,8 +17963,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym": {
         "tests": [
@@ -17874,8 +17984,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/nfet_g5v0d16v0_nf.sym": {
         "tests": [
@@ -17883,8 +17996,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/npn_05v5.sym": {
         "tests": [
@@ -17892,8 +18008,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/pfet3_01v8.sym": {
         "tests": [
@@ -17901,8 +18020,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/pfet3_01v8_hvt.sym": {
         "tests": [
@@ -17910,8 +18032,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/pfet3_01v8_lvt.sym": {
         "tests": [
@@ -17919,8 +18044,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/pfet3_20v0.sym": {
         "tests": [
@@ -17928,8 +18056,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/pfet3_g5v0d10v5.sym": {
         "tests": [
@@ -17937,8 +18068,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/pfet3_g5v0d16v0.sym": {
         "tests": [
@@ -17946,8 +18080,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/pfet_01v8.sym": {
         "tests": [
@@ -17955,8 +18092,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries. The initial MOS numerical and native layout/fault batches pass at their recorded points; full geometry, bias, corners and device qualification remain open.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/pfet_01v8_hvt.sym": {
         "tests": [
@@ -17964,8 +18104,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/pfet_01v8_hvt_nf.sym": {
         "tests": [
@@ -17973,8 +18116,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/pfet_01v8_lvt.sym": {
         "tests": [
@@ -17982,8 +18128,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/pfet_01v8_lvt_nf.sym": {
         "tests": [
@@ -17991,8 +18140,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/pfet_01v8_nf.sym": {
         "tests": [
@@ -18000,8 +18152,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/pfet_20v0.sym": {
         "tests": [
@@ -18009,8 +18164,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/pfet_g5v0d10v5.sym": {
         "tests": [
@@ -18018,8 +18176,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/pfet_g5v0d10v5_nf.sym": {
         "tests": [
@@ -18027,8 +18188,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/pfet_g5v0d16v0.sym": {
         "tests": [
@@ -18036,8 +18200,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/pfet_g5v0d16v0_nf.sym": {
         "tests": [
@@ -18045,8 +18212,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/pnp_05v5.sym": {
         "tests": [
@@ -18054,8 +18224,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_generic_li.sym": {
         "tests": [
@@ -18072,8 +18245,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_generic_m2.sym": {
         "tests": [
@@ -18081,8 +18257,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_generic_m3.sym": {
         "tests": [
@@ -18090,8 +18269,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_generic_m4.sym": {
         "tests": [
@@ -18099,8 +18281,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_generic_nd.sym": {
         "tests": [
@@ -18108,8 +18293,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_generic_pd.sym": {
         "tests": [
@@ -18117,8 +18305,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_generic_po.sym": {
         "tests": [
@@ -18126,8 +18317,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_high_po.sym": {
         "tests": [
@@ -18135,8 +18329,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_high_po_0p35.sym": {
         "tests": [
@@ -18144,8 +18341,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_high_po_0p69.sym": {
         "tests": [
@@ -18153,8 +18353,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_high_po_1p41.sym": {
         "tests": [
@@ -18162,8 +18365,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_high_po_2p85.sym": {
         "tests": [
@@ -18171,8 +18377,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_high_po_5p73.sym": {
         "tests": [
@@ -18180,8 +18389,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_iso_pw.sym": {
         "tests": [
@@ -18189,8 +18401,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_xhigh_po.sym": {
         "tests": [
@@ -18198,8 +18413,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_xhigh_po_0p35.sym": {
         "tests": [
@@ -18207,8 +18425,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_xhigh_po_0p69.sym": {
         "tests": [
@@ -18216,8 +18437,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_xhigh_po_1p41.sym": {
         "tests": [
@@ -18225,8 +18449,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_xhigh_po_2p85.sym": {
         "tests": [
@@ -18234,8 +18461,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/res_xhigh_po_5p73.sym": {
         "tests": [
@@ -18243,8 +18473,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sky130_fd_pr/vpp_cap.sym": {
         "tests": [
@@ -18252,8 +18485,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       }
     },
     "gf180mcuC": {
@@ -18281,8 +18517,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_mim_1f5fF.sym": {
         "tests": [
@@ -18290,8 +18529,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_mim_2f0fF.sym": {
         "tests": [
@@ -18299,8 +18541,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_mim_2p0fF.sym": {
         "tests": [
@@ -18308,8 +18553,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_mim_analog.sym": {
         "tests": [
@@ -18317,8 +18565,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_nmos_03v3.sym": {
         "tests": [
@@ -18326,8 +18577,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_nmos_03v3_b.sym": {
         "tests": [
@@ -18335,8 +18589,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_nmos_06v0.sym": {
         "tests": [
@@ -18344,8 +18601,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_nmos_06v0_b.sym": {
         "tests": [
@@ -18353,8 +18613,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_pmos_03v3.sym": {
         "tests": [
@@ -18362,8 +18625,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_pmos_03v3_b.sym": {
         "tests": [
@@ -18371,8 +18637,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_pmos_06v0.sym": {
         "tests": [
@@ -18380,8 +18649,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_pmos_06v0_b.sym": {
         "tests": [
@@ -18389,8 +18661,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/diode_dw2ps.sym": {
         "tests": [
@@ -18398,8 +18673,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/diode_nd2ps_03v3.sym": {
         "tests": [
@@ -18407,8 +18685,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/diode_nd2ps_06v0.sym": {
         "tests": [
@@ -18416,8 +18697,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/diode_nw2ps_03v3.sym": {
         "tests": [
@@ -18425,8 +18709,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/diode_nw2ps_06v0.sym": {
         "tests": [
@@ -18434,8 +18721,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/diode_pd2nw_03v3.sym": {
         "tests": [
@@ -18443,8 +18733,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/diode_pd2nw_06v0.sym": {
         "tests": [
@@ -18452,8 +18745,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/diode_pw2dw.sym": {
         "tests": [
@@ -18461,8 +18757,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet3_03v3.sym": {
         "tests": [
@@ -18470,8 +18769,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet3_05v0.sym": {
         "tests": [
@@ -18479,8 +18781,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet3_06v0.sym": {
         "tests": [
@@ -18488,8 +18793,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet_03v3.sym": {
         "tests": [
@@ -18497,8 +18805,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries. The initial MOS numerical and native layout/fault batches pass at their recorded points; full geometry, bias, corners and device qualification remain open.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet_03v3_dss.sym": {
         "tests": [
@@ -18506,8 +18817,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet_05v0.sym": {
         "tests": [
@@ -18515,8 +18829,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet_06v0.sym": {
         "tests": [
@@ -18524,8 +18841,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet_06v0_dss.sym": {
         "tests": [
@@ -18533,8 +18853,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet_06v0_nvt.sym": {
         "tests": [
@@ -18542,8 +18865,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet_10v0_asym.sym": {
         "tests": [
@@ -18560,8 +18886,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/npn_00p54x02p00.sym": {
         "tests": [
@@ -18569,8 +18898,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/npn_00p54x04p00.sym": {
         "tests": [
@@ -18578,8 +18910,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/npn_00p54x08p00.sym": {
         "tests": [
@@ -18587,8 +18922,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/npn_00p54x16p00.sym": {
         "tests": [
@@ -18596,8 +18934,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/npn_05p00x05p00.sym": {
         "tests": [
@@ -18605,8 +18946,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/npn_10p00x10p00.sym": {
         "tests": [
@@ -18614,8 +18958,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/npolyf_s.sym": {
         "tests": [
@@ -18623,8 +18970,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/npolyf_u.sym": {
         "tests": [
@@ -18632,8 +18982,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nwell.sym": {
         "tests": [
@@ -18641,8 +18994,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pfet3_03v3.sym": {
         "tests": [
@@ -18650,8 +19006,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pfet3_05v0.sym": {
         "tests": [
@@ -18659,8 +19018,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pfet3_06v0.sym": {
         "tests": [
@@ -18668,8 +19030,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pfet_03v3.sym": {
         "tests": [
@@ -18677,8 +19042,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries. The initial MOS numerical and native layout/fault batches pass at their recorded points; full geometry, bias, corners and device qualification remain open.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pfet_03v3_dss.sym": {
         "tests": [
@@ -18686,8 +19054,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pfet_05v0.sym": {
         "tests": [
@@ -18695,8 +19066,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pfet_06v0.sym": {
         "tests": [
@@ -18704,8 +19078,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pfet_06v0_dss.sym": {
         "tests": [
@@ -18713,8 +19090,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pfet_10v0_asym.sym": {
         "tests": [
@@ -18731,8 +19111,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pnp_05p00x05p00.sym": {
         "tests": [
@@ -18740,8 +19123,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pnp_10p00x00p42.sym": {
         "tests": [
@@ -18749,8 +19135,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pnp_10p00x10p00.sym": {
         "tests": [
@@ -18758,8 +19147,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pplus_u.sym": {
         "tests": [
@@ -18767,8 +19159,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/ppolyf_s.sym": {
         "tests": [
@@ -18776,8 +19171,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/ppolyf_u.sym": {
         "tests": [
@@ -18785,8 +19183,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/ppolyf_u_1k.sym": {
         "tests": [
@@ -18794,8 +19195,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/ppolyf_u_1k_6p0.sym": {
         "tests": [
@@ -18803,8 +19207,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/ppolyf_u_2k.sym": {
         "tests": [
@@ -18812,8 +19219,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/ppolyf_u_2k_6p0.sym": {
         "tests": [
@@ -18821,8 +19231,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/ppolyf_u_3k.sym": {
         "tests": [
@@ -18830,8 +19243,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/rm1.sym": {
         "tests": [
@@ -18839,8 +19255,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/rm2.sym": {
         "tests": [
@@ -18848,8 +19267,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/rm3.sym": {
         "tests": [
@@ -18857,8 +19279,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/sc_diode.sym": {
         "tests": [
@@ -18866,8 +19291,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       }
     },
     "gf180mcuD": {
@@ -18895,8 +19323,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_mim_1f5fF.sym": {
         "tests": [
@@ -18904,8 +19335,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_mim_2f0fF.sym": {
         "tests": [
@@ -18913,8 +19347,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_mim_2p0fF.sym": {
         "tests": [
@@ -18922,8 +19359,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_mim_analog.sym": {
         "tests": [
@@ -18931,8 +19371,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_nmos_03v3.sym": {
         "tests": [
@@ -18940,8 +19383,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_nmos_03v3_b.sym": {
         "tests": [
@@ -18949,8 +19395,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_nmos_06v0.sym": {
         "tests": [
@@ -18958,8 +19407,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_nmos_06v0_b.sym": {
         "tests": [
@@ -18967,8 +19419,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_pmos_03v3.sym": {
         "tests": [
@@ -18976,8 +19431,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_pmos_03v3_b.sym": {
         "tests": [
@@ -18985,8 +19443,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_pmos_06v0.sym": {
         "tests": [
@@ -18994,8 +19455,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/cap_pmos_06v0_b.sym": {
         "tests": [
@@ -19003,8 +19467,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/diode_dw2ps.sym": {
         "tests": [
@@ -19012,8 +19479,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/diode_nd2ps_03v3.sym": {
         "tests": [
@@ -19021,8 +19491,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/diode_nd2ps_06v0.sym": {
         "tests": [
@@ -19030,8 +19503,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/diode_nw2ps_03v3.sym": {
         "tests": [
@@ -19039,8 +19515,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/diode_nw2ps_06v0.sym": {
         "tests": [
@@ -19048,8 +19527,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/diode_pd2nw_03v3.sym": {
         "tests": [
@@ -19057,8 +19539,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/diode_pd2nw_06v0.sym": {
         "tests": [
@@ -19066,8 +19551,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/diode_pw2dw.sym": {
         "tests": [
@@ -19075,8 +19563,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet3_03v3.sym": {
         "tests": [
@@ -19084,8 +19575,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet3_05v0.sym": {
         "tests": [
@@ -19093,8 +19587,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet3_06v0.sym": {
         "tests": [
@@ -19102,8 +19599,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet_03v3.sym": {
         "tests": [
@@ -19111,8 +19611,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries. The initial MOS numerical and native layout/fault batches pass at their recorded points; full geometry, bias, corners and device qualification remain open.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet_03v3_dss.sym": {
         "tests": [
@@ -19120,8 +19623,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet_05v0.sym": {
         "tests": [
@@ -19129,8 +19635,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet_06v0.sym": {
         "tests": [
@@ -19138,8 +19647,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet_06v0_dss.sym": {
         "tests": [
@@ -19147,8 +19659,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet_06v0_nvt.sym": {
         "tests": [
@@ -19156,8 +19671,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nfet_10v0_asym.sym": {
         "tests": [
@@ -19174,8 +19692,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/npn_00p54x02p00.sym": {
         "tests": [
@@ -19183,8 +19704,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/npn_00p54x04p00.sym": {
         "tests": [
@@ -19192,8 +19716,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/npn_00p54x08p00.sym": {
         "tests": [
@@ -19201,8 +19728,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/npn_00p54x16p00.sym": {
         "tests": [
@@ -19210,8 +19740,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/npn_05p00x05p00.sym": {
         "tests": [
@@ -19219,8 +19752,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/npn_10p00x10p00.sym": {
         "tests": [
@@ -19228,8 +19764,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/npolyf_s.sym": {
         "tests": [
@@ -19237,8 +19776,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/npolyf_u.sym": {
         "tests": [
@@ -19246,8 +19788,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/nwell.sym": {
         "tests": [
@@ -19255,8 +19800,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pfet3_03v3.sym": {
         "tests": [
@@ -19264,8 +19812,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pfet3_05v0.sym": {
         "tests": [
@@ -19273,8 +19824,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pfet3_06v0.sym": {
         "tests": [
@@ -19282,8 +19836,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pfet_03v3.sym": {
         "tests": [
@@ -19291,8 +19848,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries. The initial MOS numerical and native layout/fault batches pass at their recorded points; full geometry, bias, corners and device qualification remain open.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pfet_03v3_dss.sym": {
         "tests": [
@@ -19300,8 +19860,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pfet_05v0.sym": {
         "tests": [
@@ -19309,8 +19872,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pfet_06v0.sym": {
         "tests": [
@@ -19318,8 +19884,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pfet_06v0_dss.sym": {
         "tests": [
@@ -19327,8 +19896,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pfet_10v0_asym.sym": {
         "tests": [
@@ -19345,8 +19917,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pnp_05p00x05p00.sym": {
         "tests": [
@@ -19354,8 +19929,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pnp_10p00x00p42.sym": {
         "tests": [
@@ -19363,8 +19941,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pnp_10p00x10p00.sym": {
         "tests": [
@@ -19372,8 +19953,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/pplus_u.sym": {
         "tests": [
@@ -19381,8 +19965,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/ppolyf_s.sym": {
         "tests": [
@@ -19390,8 +19977,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/ppolyf_u.sym": {
         "tests": [
@@ -19399,8 +19989,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/ppolyf_u_1k.sym": {
         "tests": [
@@ -19408,8 +20001,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/ppolyf_u_1k_6p0.sym": {
         "tests": [
@@ -19417,8 +20013,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/ppolyf_u_2k.sym": {
         "tests": [
@@ -19426,8 +20025,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/ppolyf_u_2k_6p0.sym": {
         "tests": [
@@ -19435,8 +20037,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/ppolyf_u_3k.sym": {
         "tests": [
@@ -19444,8 +20049,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/rm1.sym": {
         "tests": [
@@ -19453,8 +20061,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/rm2.sym": {
         "tests": [
@@ -19462,8 +20073,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/rm3.sym": {
         "tests": [
@@ -19471,8 +20085,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "symbols/sc_diode.sym": {
         "tests": [
@@ -19480,8 +20097,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       }
     },
     "ihp-sg13g2": {
@@ -19518,8 +20138,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/cap_cmomf.sym": {
         "tests": [
@@ -19527,8 +20150,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/cap_cmomi.sym": {
         "tests": [
@@ -19536,8 +20162,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/cap_cpara.sym": {
         "tests": [
@@ -19545,8 +20174,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/cap_rfcmim.sym": {
         "tests": [
@@ -19554,8 +20186,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/dantenna.sym": {
         "tests": [
@@ -19563,8 +20198,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/diodevdd_2kv.sym": {
         "tests": [
@@ -19572,8 +20210,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/diodevdd_4kv.sym": {
         "tests": [
@@ -19581,8 +20222,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/diodevss_2kv.sym": {
         "tests": [
@@ -19590,8 +20234,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/diodevss_4kv.sym": {
         "tests": [
@@ -19599,8 +20246,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/dpantenna.sym": {
         "tests": [
@@ -19608,8 +20258,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/gallery.sym": {
         "tests": [
@@ -19653,8 +20306,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/moscap_p.sym": {
         "tests": [
@@ -19662,8 +20318,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/nmoscl_2.sym": {
         "tests": [
@@ -19671,8 +20330,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/nmoscl_4.sym": {
         "tests": [
@@ -19680,8 +20342,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/npn13G2.sym": {
         "tests": [
@@ -19689,8 +20354,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/npn13G2_5t.sym": {
         "tests": [
@@ -19698,8 +20366,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/npn13G2l.sym": {
         "tests": [
@@ -19707,8 +20378,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/npn13G2l_5t.sym": {
         "tests": [
@@ -19716,8 +20390,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/npn13G2v.sym": {
         "tests": [
@@ -19725,8 +20402,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/npn13G2v_5t.sym": {
         "tests": [
@@ -19734,8 +20414,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/ntap1.sym": {
         "tests": [
@@ -19752,8 +20435,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/ptap1.sym": {
         "tests": [
@@ -19770,8 +20456,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/rppd.sym": {
         "tests": [
@@ -19779,8 +20468,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/rsil.sym": {
         "tests": [
@@ -19788,8 +20480,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/schottky_nbl1.sym": {
         "tests": [
@@ -19797,8 +20492,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/sg13_hv_nmos.sym": {
         "tests": [
@@ -19806,8 +20504,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/sg13_hv_pmos.sym": {
         "tests": [
@@ -19815,8 +20516,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/sg13_hv_rf_nmos.sym": {
         "tests": [
@@ -19824,8 +20528,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/sg13_hv_rf_pmos.sym": {
         "tests": [
@@ -19833,8 +20540,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/sg13_lv_nmos.sym": {
         "tests": [
@@ -19842,8 +20552,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries. The initial MOS numerical and native layout/fault batches pass at their recorded points; full geometry, bias, corners and device qualification remain open.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/sg13_lv_pmos.sym": {
         "tests": [
@@ -19851,8 +20564,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries. The initial MOS numerical and native layout/fault batches pass at their recorded points; full geometry, bias, corners and device qualification remain open.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/sg13_lv_rf_nmos.sym": {
         "tests": [
@@ -19860,8 +20576,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/sg13_lv_rf_pmos.sym": {
         "tests": [
@@ -19869,8 +20588,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/sg13_svaricap.sym": {
         "tests": [
@@ -19878,8 +20600,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "not_run",
-        "remaining": "Full per-device qualification on this exact bundle, operating envelope and physical view has not been established. Historical subset results are tracked at requirement level."
+        "status": "partial",
+        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "historical_evidence": [
+          "standard-mos-initial-2026-10-16"
+        ]
       },
       "sg13g2_pr/sub.sym": {
         "tests": [
@@ -20397,6 +21122,11 @@
       "path": "docs/validation/sky130-public-baseline-2026-10-16.json",
       "sha256": "5a15be0b65082faebdc847fd68f9d4df6140ead86200e8225549e600e7bc6175",
       "scope_limit": "User-approved generic SKY130A HD public-check baseline. Fresh counter/UART/APB execution, native geometry, supplemental geometry, 13 antenna stages, strict device/body/port LVS, public density, fill checks and portable export. Full process and foundry qualification remain excluded."
+    },
+    "standard-mos-initial-2026-10-16": {
+      "path": "docs/validation/standard-mos-initial-2026-10-16.json",
+      "sha256": "b441c8e964db3ae7f4e6843d0751f41162dfef41dad44a4040be6b2c85db14ef",
+      "scope_limit": "Initial standard MOS and catalog-interface evidence only: 32 nominal independent comparisons, eight width faults, 40 native legal layouts, 120 physical faults; all 255 catalog entries on each host. No full operating envelope, device-family, upstream completeness, PDK-wide or chunk-7 acceptance."
     }
   },
   "execution_acceptance": {
