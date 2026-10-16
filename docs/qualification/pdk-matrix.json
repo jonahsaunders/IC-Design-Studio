@@ -34,7 +34,7 @@
     "7": {
       "name": "Qualify device families",
       "status": "in_progress",
-      "scope": "All 255 catalog entries exercised on Windows and Linux; eight standard MOS entries pass the initial independent electrical comparison and forty legal layouts with 120 physical faults. Operating envelopes, broader electrical sweeps, upstream completeness and the other device families remain open."
+      "scope": "Standard MOS: 432 geometry/corner/temperature cases and 36 drain/body-bias cases pass independent electrical comparisons and injected faults. SKY130 bounded device recipes pass 20 layouts, five physical faults and 30 passive admittance conditions. Catalog interface evidence covers 255 entries on both hosts. Complete operating envelopes, upstream completeness and remaining device families stay open; historical evidence retains its exact package revisions. Sixteen resistor/MIM entries now pass the selected electrical sweep; GF180 legacy MIM model selection is repaired. IHP MIM physical spacing findings remain unresolved."
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -5675,8 +5675,8 @@
       }
     },
     "gf180mcuC": {
-      "revision": "627ca682d68e1e92",
-      "manifest_sha256": "7b9aea112d1d66e2761168c7a0487f13dfe574a49a8db6e1e36fbb099a055ee5",
+      "revision": "a6aa4319ebe9cbc9",
+      "manifest_sha256": "92ed3a348c93cde49bf48f2edf37a4f41bee6a0d3741b04f7c5ebfbdbc23ac7f",
       "asset_count": 79,
       "indexed_count": 68,
       "placeable_count": 64,
@@ -5775,6 +5775,10 @@
             "fs": "moscap_typical",
             "sf": "moscap_typical"
           }
+        },
+        {
+          "path": "libs.tech/ngspice/sm141064.ngspice",
+          "section": "cap_mim"
         }
       ],
       "requires_osdi": false,
@@ -9803,8 +9807,8 @@
       }
     },
     "gf180mcuD": {
-      "revision": "7dd87219f1333dbb",
-      "manifest_sha256": "357035faaa856379a674b0aa010f132ae0de2d629cf3b25f8bb41b16457e8d51",
+      "revision": "b2daff2da0a120b4",
+      "manifest_sha256": "b4200b48f3fe59e961a4f514cdcb7166d21c231bccef586f01a7fa6b5f2ed738",
       "asset_count": 79,
       "indexed_count": 68,
       "placeable_count": 64,
@@ -9903,6 +9907,10 @@
             "fs": "moscap_typical",
             "sf": "moscap_typical"
           }
+        },
+        {
+          "path": "libs.tech/ngspice/sm141064.ngspice",
+          "section": "cap_mim"
         }
       ],
       "requires_osdi": false,
@@ -16248,9 +16256,12 @@
         "scripts/verify_release_pdks.py",
         "scripts/qualify_sky130_devices.py",
         "scripts/qualify_sky130_bipolar.py",
-        "scripts/qualify_standard_mos.py"
+        "scripts/qualify_standard_mos.py",
+        "scripts/qualify_standard_mos_bias.py",
+        "scripts/qualify_standard_passives.py",
+        "scripts/check_passive_multiplicity.py"
       ],
-      "automation_gap": "The initial standard MOS/catalog runners now execute the bounded checkpoint. Complete upstream interface reconciliation, operating envelopes, full device/condition/fault coverage and other families remain required."
+      "automation_gap": "Standard MOS selected geometry/corner/bias sweeps and bounded SKY130 physical recipes now execute; complete upstream interfaces, model-validity envelopes, other device variants/families, measured model accuracy and full parameter-boundary coverage remain open."
     },
     "device-physical": {
       "chunk": 7,
@@ -16264,7 +16275,7 @@
         "scripts/qualify_sky130_bipolar.py",
         "scripts/qualify_standard_mos_layout.py"
       ],
-      "automation_gap": "The initial standard MOS/catalog runners now execute the bounded checkpoint. Complete upstream interface reconciliation, operating envelopes, full device/condition/fault coverage and other families remain required."
+      "automation_gap": "Standard MOS selected geometry/corner/bias sweeps and bounded SKY130 physical recipes now execute; complete upstream interfaces, model-validity envelopes, other device variants/families, measured model accuracy and full parameter-boundary coverage remain open."
     },
     "rc-reference": {
       "chunk": 8,
@@ -16633,29 +16644,33 @@
       "target": "sky130A",
       "test": "device-interface",
       "status": "partial",
-      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
+      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate.",
       "historical_evidence": [
         "analog-smoke",
-        "standard-mos-initial-2026-10-16"
+        "standard-mos-initial-2026-10-16",
+        "standard-mos-sweeps-2026-10-16"
       ]
     },
     "sky130A:device-physical": {
       "target": "sky130A",
       "test": "device-physical",
       "status": "partial",
-      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
+      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate.",
       "historical_evidence": [
-        "standard-mos-initial-2026-10-16"
+        "standard-mos-initial-2026-10-16",
+        "standard-mos-sweeps-2026-10-16"
       ]
     },
     "sky130A:device-simulation": {
       "target": "sky130A",
       "test": "device-simulation",
       "status": "partial",
-      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
+      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate. Selected resistor/MIM AC, multiplicity and electrical fault tests now pass; full DC/transient/noise, supported operating ranges, other families and measured accuracy remain required.",
       "historical_evidence": [
         "analog-smoke",
-        "standard-mos-initial-2026-10-16"
+        "standard-mos-initial-2026-10-16",
+        "standard-mos-sweeps-2026-10-16",
+        "standard-passives-2026-10-16"
       ]
     },
     "sky130A:digital-controller": {
@@ -16938,29 +16953,33 @@
       "target": "gf180mcuC",
       "test": "device-interface",
       "status": "partial",
-      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
+      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate.",
       "historical_evidence": [
         "analog-smoke",
-        "standard-mos-initial-2026-10-16"
+        "standard-mos-initial-2026-10-16",
+        "standard-mos-sweeps-2026-10-16"
       ]
     },
     "gf180mcuC:device-physical": {
       "target": "gf180mcuC",
       "test": "device-physical",
       "status": "partial",
-      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
+      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate.",
       "historical_evidence": [
-        "standard-mos-initial-2026-10-16"
+        "standard-mos-initial-2026-10-16",
+        "standard-mos-sweeps-2026-10-16"
       ]
     },
     "gf180mcuC:device-simulation": {
       "target": "gf180mcuC",
       "test": "device-simulation",
       "status": "partial",
-      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
+      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate. Selected resistor/MIM AC, multiplicity and electrical fault tests now pass; full DC/transient/noise, supported operating ranges, other families and measured accuracy remain required.",
       "historical_evidence": [
         "analog-smoke",
-        "standard-mos-initial-2026-10-16"
+        "standard-mos-initial-2026-10-16",
+        "standard-mos-sweeps-2026-10-16",
+        "standard-passives-2026-10-16"
       ]
     },
     "gf180mcuC:digital-controller": {
@@ -17198,27 +17217,31 @@
       "target": "gf180mcuD",
       "test": "device-interface",
       "status": "partial",
-      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
+      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate.",
       "historical_evidence": [
-        "standard-mos-initial-2026-10-16"
+        "standard-mos-initial-2026-10-16",
+        "standard-mos-sweeps-2026-10-16"
       ]
     },
     "gf180mcuD:device-physical": {
       "target": "gf180mcuD",
       "test": "device-physical",
       "status": "partial",
-      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
+      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate.",
       "historical_evidence": [
-        "standard-mos-initial-2026-10-16"
+        "standard-mos-initial-2026-10-16",
+        "standard-mos-sweeps-2026-10-16"
       ]
     },
     "gf180mcuD:device-simulation": {
       "target": "gf180mcuD",
       "test": "device-simulation",
       "status": "partial",
-      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
+      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate. Selected resistor/MIM AC, multiplicity and electrical fault tests now pass; full DC/transient/noise, supported operating ranges, other families and measured accuracy remain required.",
       "historical_evidence": [
-        "standard-mos-initial-2026-10-16"
+        "standard-mos-initial-2026-10-16",
+        "standard-mos-sweeps-2026-10-16",
+        "standard-passives-2026-10-16"
       ]
     },
     "gf180mcuD:digital-controller": {
@@ -17453,29 +17476,34 @@
       "target": "ihp-sg13g2",
       "test": "device-interface",
       "status": "partial",
-      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
+      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate.",
       "historical_evidence": [
         "analog-smoke",
-        "standard-mos-initial-2026-10-16"
+        "standard-mos-initial-2026-10-16",
+        "standard-mos-sweeps-2026-10-16"
       ]
     },
     "ihp-sg13g2:device-physical": {
       "target": "ihp-sg13g2",
       "test": "device-physical",
       "status": "partial",
-      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
+      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate.",
       "historical_evidence": [
-        "standard-mos-initial-2026-10-16"
+        "standard-mos-initial-2026-10-16",
+        "standard-mos-sweeps-2026-10-16",
+        "standard-passives-2026-10-16"
       ]
     },
     "ihp-sg13g2:device-simulation": {
       "target": "ihp-sg13g2",
       "test": "device-simulation",
       "status": "partial",
-      "remaining": "The initial standard MOS/catalog checkpoint is partial. Full upstream interface and per-device operating-envelope review, all required bias/geometry/model conditions, further faults, and remaining physical/electrical device families are open. SKY130 physical and simulation revisions are explicitly separate.",
+      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate. Selected resistor/MIM AC, multiplicity and electrical fault tests now pass; full DC/transient/noise, supported operating ranges, other families and measured accuracy remain required.",
       "historical_evidence": [
         "analog-smoke",
-        "standard-mos-initial-2026-10-16"
+        "standard-mos-initial-2026-10-16",
+        "standard-mos-sweeps-2026-10-16",
+        "standard-passives-2026-10-16"
       ]
     },
     "ihp-sg13g2:digital-controller": {
@@ -17619,9 +17647,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-mos-sweeps-2026-10-16",
+          "standard-passives-2026-10-16"
         ]
       },
       "sky130_fd_pr/cap_mim_m3_2.sym": {
@@ -17784,9 +17814,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries. The initial MOS numerical and native layout/fault batches pass at their recorded points; full geometry, bias, corners and device qualification remain open.",
+        "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-mos-sweeps-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_01v8_esd.sym": {
@@ -18093,9 +18124,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries. The initial MOS numerical and native layout/fault batches pass at their recorded points; full geometry, bias, corners and device qualification remain open.",
+        "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-mos-sweeps-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet_01v8_hvt.sym": {
@@ -18318,9 +18350,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-mos-sweeps-2026-10-16",
+          "standard-passives-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_high_po.sym": {
@@ -18518,9 +18552,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-passives-2026-10-16"
         ]
       },
       "symbols/cap_mim_1f5fF.sym": {
@@ -18530,9 +18565,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-passives-2026-10-16"
         ]
       },
       "symbols/cap_mim_2f0fF.sym": {
@@ -18542,9 +18578,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-passives-2026-10-16"
         ]
       },
       "symbols/cap_mim_2p0fF.sym": {
@@ -18554,9 +18591,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-passives-2026-10-16"
         ]
       },
       "symbols/cap_mim_analog.sym": {
@@ -18566,9 +18604,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-passives-2026-10-16"
         ]
       },
       "symbols/cap_nmos_03v3.sym": {
@@ -18806,9 +18845,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries. The initial MOS numerical and native layout/fault batches pass at their recorded points; full geometry, bias, corners and device qualification remain open.",
+        "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-mos-sweeps-2026-10-16"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -19043,9 +19083,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries. The initial MOS numerical and native layout/fault batches pass at their recorded points; full geometry, bias, corners and device qualification remain open.",
+        "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-mos-sweeps-2026-10-16"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -19196,9 +19237,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-passives-2026-10-16"
         ]
       },
       "symbols/ppolyf_u_1k_6p0.sym": {
@@ -19324,9 +19366,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-passives-2026-10-16"
         ]
       },
       "symbols/cap_mim_1f5fF.sym": {
@@ -19336,9 +19379,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-passives-2026-10-16"
         ]
       },
       "symbols/cap_mim_2f0fF.sym": {
@@ -19348,9 +19392,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-passives-2026-10-16"
         ]
       },
       "symbols/cap_mim_2p0fF.sym": {
@@ -19360,9 +19405,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-passives-2026-10-16"
         ]
       },
       "symbols/cap_mim_analog.sym": {
@@ -19372,9 +19418,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-passives-2026-10-16"
         ]
       },
       "symbols/cap_nmos_03v3.sym": {
@@ -19612,9 +19659,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries. The initial MOS numerical and native layout/fault batches pass at their recorded points; full geometry, bias, corners and device qualification remain open.",
+        "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-mos-sweeps-2026-10-16"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -19849,9 +19897,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries. The initial MOS numerical and native layout/fault batches pass at their recorded points; full geometry, bias, corners and device qualification remain open.",
+        "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-mos-sweeps-2026-10-16"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -20002,9 +20051,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-passives-2026-10-16"
         ]
       },
       "symbols/ppolyf_u_1k_6p0.sym": {
@@ -20139,9 +20189,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open. The 7-by-7 um imported layout passes extraction/LVS but fails four MIM.e spacing checks; no physical pass is claimed.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-passives-2026-10-16"
         ]
       },
       "sg13g2_pr/cap_cmomf.sym": {
@@ -20469,9 +20520,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open. One 1-by-10 um imported layout passes full DRC and strict LVS after explicit port assignment; broader physical coverage remains required.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-passives-2026-10-16"
         ]
       },
       "sg13g2_pr/rsil.sym": {
@@ -20553,9 +20605,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries. The initial MOS numerical and native layout/fault batches pass at their recorded points; full geometry, bias, corners and device qualification remain open.",
+        "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-mos-sweeps-2026-10-16"
         ]
       },
       "sg13g2_pr/sg13_lv_pmos.sym": {
@@ -20565,9 +20618,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries. The initial MOS numerical and native layout/fault batches pass at their recorded points; full geometry, bias, corners and device qualification remain open.",
+        "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "standard-mos-sweeps-2026-10-16"
         ]
       },
       "sg13g2_pr/sg13_lv_rf_nmos.sym": {
@@ -21127,6 +21181,21 @@
       "path": "docs/validation/standard-mos-initial-2026-10-16.json",
       "sha256": "b441c8e964db3ae7f4e6843d0751f41162dfef41dad44a4040be6b2c85db14ef",
       "scope_limit": "Initial standard MOS and catalog-interface evidence only: 32 nominal independent comparisons, eight width faults, 40 native legal layouts, 120 physical faults; all 255 catalog entries on each host. No full operating envelope, device-family, upstream completeness, PDK-wide or chunk-7 acceptance."
+    },
+    "standard-mos-sweeps-2026-10-16": {
+      "path": "docs/validation/standard-mos-sweeps-2026-10-16.json",
+      "sha256": "b2dacc779551cf82ef14ebddc786e845c37bb8fda23d2a719be5b37db71d0fa1",
+      "scope_limit": "Selected standard MOS geometry/corner/temperature/bias tests and bounded SKY130 recipes only. 1728 waveform comparisons, 432 width faults, 2592 terminal-current vectors and 108 pin/body/model faults. No full device-family, model-accuracy, operating-envelope or tapeout qualification. Earlier GF180 metadata revisions retained in the immutable record."
+    },
+    "gf180-mim-historical-source": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16-mim/manifest.json",
+      "sha256": "2212c4f26a46488f4d986fc4e9188dd68337749d0e297b7bdfb835d9bf8f42e0",
+      "scope_limit": "Exact source bytes for historical GF180 fill acceptance, retained through the later MIM model-selection fix. No claim that current source executed the old physical gate."
+    },
+    "standard-passives-2026-10-16": {
+      "path": "docs/validation/standard-passives-2026-10-16.json",
+      "sha256": "f5ba881e9351bd60373fddd510aaac7f445de9ff0ddf9824ebbf14a845d9f1d8",
+      "scope_limit": "Selected 16 resistor/MIM catalog entries at 72 corner/temperature/bias cases: 1728 independent complex admittance vectors, 3456 device faults within 144 fault simulations, and 1728 parallel-scaling pairs. GF180 legacy MIM model loading repaired without upstream asset changes. IHP resistor layout passes one point; IHP capacitor remains DRC-failed. No complete operating-envelope, device-family or tapeout qualification."
     }
   },
   "execution_acceptance": {
@@ -21142,8 +21211,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/gf180-tested-source-2026-10-16/manifest.json",
-        "sha256": "abb10dca78614b524edcde65390c5b7b646efe4eef2580842c1615772c26eb58"
+        "path": "docs/validation/gf180-tested-source-2026-10-16-mim/manifest.json",
+        "sha256": "2212c4f26a46488f4d986fc4e9188dd68337749d0e297b7bdfb835d9bf8f42e0"
       }
     },
     "5": {

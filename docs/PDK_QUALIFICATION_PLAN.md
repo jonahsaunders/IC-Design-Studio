@@ -57,7 +57,53 @@ mask coverage, complete-chip boundaries and electrical/installer qualification
 remain unresolved. This is the narrower completion standard approved by the
 user, not a claim that those requirements have been solved.
 
-## Chunk 7: initial device execution is in progress
+## Chunk 7: device execution is in progress
+
+The [completed MOS sweeps](validation/standard-mos-sweeps-2026-10-16.json)
+add 432 cases across six selected geometries, three process corners and
+0/27/85 C for the eight standard NMOS/PMOS entries. All 1,728 independent
+DC/AC/transient/noise comparisons pass, as do 432 Xschem round trips; all
+432 deliberately wrong-width simulations are detected. Another 36 corner
+and temperature cases exercise separate drain and body biases: 2,592 terminal
+current vectors agree with independently written decks, and all 108 pin-swap,
+body-connection and wrong-model controls are detected. Four new comparator
+fault tests pass on Windows and Linux.
+
+Fresh execution of the bounded SKY130 recipes passes 20 legal layouts and
+five deliberate physical faults, including finger/multiplicity cases. Ten
+resistor/capacitor layouts pass schematic/extracted/independent admittance
+comparisons under three selected conditions each. Every raw run, model input
+and source identity is retained in a verified 176 MB content-addressed archive.
+These results validate application integration using the same public models;
+they do not establish accuracy against measured silicon or a complete model
+operating envelope. Results retain their original package revisions.
+
+The [passive-device record](validation/standard-passives-2026-10-16.json)
+adds 16 resistor/MIM catalog entries across the four process variants. All
+72 selected corner/temperature/bias cases pass: 1,728 complex admittance
+vectors over 100 Hz–10 MHz, with 3,456 deliberately faulted device instances
+detected in 144 isolated fault simulations. A separate audit proves three-copy
+parallel scaling for 1,728 application/reference pairs. These are selected
+AC integration tests, not complete device operating ranges or measured-silicon
+validation.
+
+The pilot exposed a GF180 catalog integration defect: legacy MIM symbols called
+models absent from the active corner selection. Newly registered and bundled
+C/D packages now also select the existing `cap_mim` section. All upstream
+asset bytes and catalog mappings remain unchanged. The new package revisions
+are `a6aa4319ebe9cbc9` (C) and `b2daff2da0a120b4` (D); fresh MOS regression
+comparisons pass under those revisions. Historical GF180 fill evidence retains
+its exact earlier importer source and does not become a new physical acceptance
+run. All 53 focused regression tests pass on Windows and native Linux.
+
+An imported IHP `rppd` layout at 1-by-10 µm passes full DRC and strict LVS after
+explicit terminal assignment. The 7-by-7 µm `cap_cmim` layout passes fresh
+extraction and strict LVS but fails four `MIM.e` spacing checks. Both the
+incomplete initial extraction and the later findings are retained. Resolving
+that layout failure, extending passive/device-family coverage and reviewing
+complete operating envelopes remain chunk-7 work.
+
+### Earlier initial checkpoint
 
 The [initial MOS and catalog record](validation/standard-mos-initial-2026-10-16.json)
 retains fresh local execution without completing the device-family gate. All
@@ -82,9 +128,9 @@ The [test-envelope review](qualification/standard-mos-test-envelope-v1.json)
 separates published model facts from selected test points and application layout
 bounds. Complete bias, temperature, reliability, geometry and process-corner
 coverage remains open, as do the other device families. SKY130 simulation and
-physical adapters retain their distinct source revisions. A separate 432-case
-electrical sweep is not counted in this initial checkpoint. Chunks 8–12 remain
-pending and retain their original gates.
+physical adapters retain their distinct source revisions. The 432-case sweep
+is now recorded separately above; the initial record remains unchanged.
+Chunks 8–12 remain pending and retain their original gates.
 
 ## Earlier checkpoints under the previous completion standard
 

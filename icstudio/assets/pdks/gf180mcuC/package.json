@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "id": "gf180mcuC",
-  "revision": "627ca682d68e1e92",
+  "revision": "a6aa4319ebe9cbc9",
   "family": "gf180mcu",
   "files": {
     "libs.tech/ngspice/sm141064.ngspice": "c08ee93073665b6c1f43a3523bb38d5b561bcee2b7e056a927175f5da8e96ba9",
@@ -85,9 +85,9 @@
     "PHYSICAL-SOURCE-LOCK.json": "b5e62d2402079e8745c71c73c669987818fdf0ed04035d62d56773eae9a6cca4"
   },
   "technology": {
-    "name": "GlobalFoundries GF180MCU \u00b7 gf180mcuC",
-    "revision": "627ca682d68e1e92",
-    "status": "local assets indexed \u00b7 device simulation unverified",
+    "name": "GlobalFoundries GF180MCU · gf180mcuC",
+    "revision": "a6aa4319ebe9cbc9",
+    "status": "local assets indexed · device simulation unverified",
     "dbu_um": 0.001,
     "grid": 5,
     "layers": [
@@ -204,6 +204,10 @@
             "fs": "moscap_typical",
             "sf": "moscap_typical"
           }
+        },
+        {
+          "path": "libs.tech/ngspice/sm141064.ngspice",
+          "section": "cap_mim"
         }
       ],
       "devices": {},

@@ -103,6 +103,12 @@ def scan_local(path, progress=lambda message: None):
             sections={k:group+'_'+(v if v in ('ff','ss') else 'typical') for k,v in master['sections'].items()}
             if any(v not in available for v in sections.values()):raise ValueError('Missing GF180 '+group+' corner section.')
             includes.append({'path':master['path'],'sections':sections})
+        # Current MIM corner sections select the metal-stack-specific models
+        # from sm141064_mim.spice. The retained legacy symbols instead call
+        # cap_mim_1f0ff/1f5ff/2f0ff, defined only in this separate section.
+        # Keep both sets; the corner section above supplies their parameters.
+        if 'cap_mim' in available:
+            includes.append({'path':master['path'],'section':'cap_mim'})
     if family=='ihp-sg13g2':
         for item in includes:
             sections=item.get('sections',{})
