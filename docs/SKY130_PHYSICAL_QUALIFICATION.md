@@ -130,6 +130,29 @@ separate pin-spacing definition and required density acceptance. The next
 source work should prioritize Tiny Tapeout and its cited upstreams where
 their per-file licenses and actual coverage support reuse.
 
+### Latest shuttle review and remaining blocker
+
+The [current-shuttle review](validation/sky130-tinytapeout-route-2026-10-15.json)
+traces Tiny Tapeout SKY 26d revision
+`ce46b6d44c1b0bf3cdf2d7d7b5bcdf034c543092` through its exact support-tools and
+multiplexer dependencies. Its support-tools commit differs from main, but
+the precheck and complete technology-file tree match the already reviewed
+version. Its entire chip-density script tree also matches Tiny Tapeout 10.
+Neither path supplies a new implementation that resolves the missing definitions.
+
+The workflow records process-specific rule changes and skipped checks, uses
+different PDK revisions, and does not pin its `cf-precheck` package or Caravel
+checkout. These facts limit what that workflow alone can prove; they are not
+adopted as Studio waivers or evidence that Tiny Tapeout's designs are invalid.
+The current public SkyWater manual still leaves `x.20` without a numeric limit.
+
+The same missing-definition condition persists after the compatible-source
+review, native-deck comparison and current-shuttle review. Further work on
+the original completion gate needs authoritative, version-applicable public
+definitions or a documented acceptance/equivalence basis for those predicates.
+No private package is available. No threshold is guessed, requirement waived,
+license changed or later chunk started to bypass this blocker.
+
 ## Public metal-growth density measurements
 
 The [oxide-density audit](validation/sky130-oxide-audit-2026-10-15.json) adds
