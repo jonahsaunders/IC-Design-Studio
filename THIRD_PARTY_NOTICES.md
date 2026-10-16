@@ -316,3 +316,9 @@ batch initializer and Netgen Tcl initializer are changed by
 `packaging/digital/assemble.py`, with their resulting source and file hashes
 included in the runtime. The separate experimental GF180 extractor patch is
 in `packaging/physical/magic-gf180-rc.patch`; it is not the default desktop engine.
+
+The default SKY130 device package retains the above public NPN inputs and adds
+their t/s/f selections only inside the existing tt/ss/ff library sections. The
+modified library identifies this change. Original source deltas and license
+copies under `icstudio/assets/qualification/sky130-base-v1` reproduce the prior
+package; the IHP MIM fixture likewise retains its Apache notice and license.

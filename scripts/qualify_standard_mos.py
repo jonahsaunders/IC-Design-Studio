@@ -5,7 +5,7 @@ The complete operating envelope, physical verification and other device families
 remain separate requirements. No expected numeric waveform is fitted to a run.
 """
 import argparse
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ProcessPoolExecutor, as_completed
 import json
 import math
 from pathlib import Path
@@ -203,7 +203,7 @@ def main():
     parser.add_argument('--targets',nargs='+',choices=PROFILES,default=list(PROFILES))
     parser.add_argument('--geometries',nargs='+',choices=GEOMETRIES,default=list(GEOMETRIES))
     parser.add_argument('--temperatures',nargs='+',type=int,default=[0,27,85]);parser.add_argument('--nominal-only',action='store_true')
-    parser.add_argument('--workers',type=int,choices=range(1,5),default=2);a=parser.parse_args()
+    parser.add_argument('--workers',type=int,choices=range(1,17),default=2);a=parser.parse_args()
     out=a.output.resolve();out.mkdir(parents=True,exist_ok=False);osdi=configure(sorted(a.osdi.glob('*.osdi')))
     sources=[Path(__file__),*sorted((ROOT/'icstudio').rglob('*.py'))]
     before={p.relative_to(ROOT).as_posix():file_digest(p) for p in sources}
@@ -213,7 +213,9 @@ def main():
         source_sha256=file_digest(__file__),source_files_sha256=file_digest(out/'source-files.json'),
         engine_sha256=file_digest(a.ngspice),osdi=osdi,processes={},cases=[],
         temperatures=a.temperatures,geometries=a.geometries,nominal_only=a.nominal_only)
-    with ThreadPoolExecutor(max_workers=a.workers) as pool:
+    # Each case owns its project and output directory. Processes also parallelize
+    # Python netlisting/model staging instead of serializing that work on the GIL.
+    with ProcessPoolExecutor(max_workers=a.workers) as pool:
         jobs=[]
         for target in a.targets:
             tech,identity=load_technology(target);report['processes'][target]=identity

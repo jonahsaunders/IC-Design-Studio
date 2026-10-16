@@ -42,13 +42,13 @@ options and current digital operating points. It does **not** equate this bundle
 subset with the complete upstream PDK. Upstream completeness and the remaining
 device-specific operating envelopes are explicit open requirements.
 
-## Current checkpoint: chunks 1–6 have completed their declared reference gates
+## Current checkpoint: chunks 1â€“6 have completed their declared reference gates
 
 Chunk 6 is complete as `sky130a-hd-public-checks-v1`: public native DRC,
 supplemental geometry, thirteen antenna stages, strict device/body/port LVS,
 public density windows, independent fill checks and generic portable export.
 Fresh counter/UART/APB runs and Windows revalidation exercise the application.
-The filled 840 µm counter passes nine full windows; smaller UART/APB blocks
+The filled 840 Âµm counter passes nine full windows; smaller UART/APB blocks
 explicitly require surrounding layout. Missing checks never inherit a pass.
 
 The versioned export carries its exact source identities and exclusions. The
@@ -81,7 +81,7 @@ operating envelope. Results retain their original package revisions.
 The [passive-device record](validation/standard-passives-2026-10-16.json)
 adds 16 resistor/MIM catalog entries across the four process variants. All
 72 selected corner/temperature/bias cases pass: 1,728 complex admittance
-vectors over 100 Hz–10 MHz, with 3,456 deliberately faulted device instances
+vectors over 100 Hzâ€“10 MHz, with 3,456 deliberately faulted device instances
 detected in 144 isolated fault simulations. A separate audit proves three-copy
 parallel scaling for 1,728 application/reference pairs. These are selected
 AC integration tests, not complete device operating ranges or measured-silicon
@@ -133,11 +133,21 @@ cross-version audit retains numerical differences in 12 other cases. These are
 engine-specific integration results, not interchangeable-runtime or complete
 device qualification. Five additional focused tests pass on both hosts.
 
-The [adapter instructions](DEVICE_ADAPTER_QUALIFICATION.md) reproduce and install
-the corrections without replacing existing project revisions. Default release
-integration, remaining MOS/passive/diode/bipolar/RF families, upstream inventory
-reconciliation, full operating envelopes and physical coverage remain chunk-7
-work. The GF180 bandgap reference CI also has an unresolved top-level VSS
+The [default-package integration](validation/default-device-packages-2026-10-16.json)
+now includes the tested corrections in fresh SKY130 and IHP projects. The new
+SKY130 package retains all original corner selections and adds NPN t/s/f only
+inside tt/ss/ff. Its 36 bipolar and 18 resistor cases pass. The exact previously
+tested IHP package passes 12 full-DRC/strict-LVS layouts, six physical controls
+and 36 candidate-runtime bipolar cases. All 255 Linux catalog checks and 25
+focused tests per host pass; two Windows MOS cases pass eight analyses and
+two deliberate width faults. Original package reconstruction and saved-project
+revision retention are tested. The initial missing-library source snapshot and
+missing Windows engine invocation remain recorded failures.
+
+The [adapter instructions](DEVICE_ADAPTER_QUALIFICATION.md) reproduce the current
+and earlier packages. Simulator release integration, remaining device families,
+upstream inventory reconciliation, full operating envelopes and physical
+coverage remain chunk-7 work. The GF180 bandgap reference CI also has an unresolved top-level VSS
 must-connect warning; strict LVS correctly rejects it. Chunk 7 remains open.
 
 ### Earlier initial checkpoint
@@ -167,7 +177,7 @@ bounds. Complete bias, temperature, reliability, geometry and process-corner
 coverage remains open, as do the other device families. SKY130 simulation and
 physical adapters retain their distinct source revisions. The 432-case sweep
 is now recorded separately above; the initial record remains unchanged.
-Chunks 8–12 remain pending and retain their original gates.
+Chunks 8â€“12 remain pending and retain their original gates.
 
 ## Earlier checkpoints under the previous completion standard
 
@@ -191,7 +201,7 @@ a complete chunk-6 claim.
 
 The [generic fill and connectivity execution](validation/sky130-generic-density-2026-10-16.json)
 adds local metal fill to normal Finish, independent database/GDS agreement,
-fill-aware LEF obstructions and portable evidence. A fresh 840 µm reference with
+fill-aware LEF obstructions and portable evidence. A fresh 840 Âµm reference with
 381,362 fill rectangles passes nine full windows under each public oxide-density
 profile. Its unfilled control fails both profiles. Strict MOS/diode/body/port LVS
 passes on the exact filled large layout and rejects a removed-diode fault;
@@ -288,7 +298,7 @@ module/frame/pad context, pin spacing and required density keep chunk 6 open.
 
 The preceding [seal geometry audit](validation/sky130-seal-geometry-audit-2026-10-15.json)
 requires the drawn seal's lower-left corner at the origin and its minimum width
-of 6 µm. Nonempty rings, 1 nm failures, hierarchy and ambiguous markers are
+of 6 Âµm. Nonempty rings, 1 nm failures, hierarchy and ambiguous markers are
 tested. All 265 tests per OS, 19 cross-system examples, six full-catalog replays,
 three application runs and Windows exports pass. Reference seal targets are
 absent; no complete-chip seal qualification is claimed. Current counts are
@@ -298,8 +308,8 @@ keeps source and boundary dependencies explicit. Chunk 6 remains incomplete.
 
 The preceding [scribe-size audit](validation/sky130-scribe-bound-audit-2026-10-15.json)
 executes fourteen global size bounds on nonempty drawn-layer geometry. Every
-merged feature has a bounding-box side below 10 µm, excluding the restricted
-10-by-10 µm feature anywhere without inventing junction locations. Larger
+merged feature has a bounding-box side below 10 Âµm, excluding the restricted
+10-by-10 Âµm feature anywhere without inventing junction locations. Larger
 candidates remain unresolved. All 248 tests per OS, 27 cross-system examples,
 six full catalog replays, three application runs and Windows exports pass.
 Complete corrected catalogs now have **438 executed, 612 absent, 90 explicit
@@ -322,7 +332,7 @@ incomplete and no PDK is qualified for complete-chip tapeout.
 
 The preceding [frame-bound audit](validation/sky130-frame-bound-audit-2026-10-15.json)
 implements eighteen numerical sufficient bounds for drawn-layer frame enclosure
-and die-cut spacing. Exact 3 µm margins and 1 nm failures are tested on all nine
+and die-cut spacing. Exact 3 Âµm margins and 1 nm failures are tested on all nine
 layers. Missing context and failed conservative bounds remain unreviewed; no
 blanking or named-cell exemption is inferred. All 212 tests per OS, 36 cross-system
 controls, fresh frame measurements, three application runs and Windows exports
@@ -513,7 +523,7 @@ undefined `x.20` value remain. The six-profile application ledger is unchanged;
 the new isolation gate preserves its separate scope.
 
 The preceding [SKY130 voltage-intent audit](validation/sky130-voltage-intent-audit-2026-10-14.json)
-checks explicit nominal 0–1.8 V reference contracts against every physical port,
+checks explicit nominal 0â€“1.8 V reference contracts against every physical port,
 captured library domain, 143,928 cell supply/bias pins and all 36,385 native MOS
 bodies. Fresh HV-selector/label measurements and the pinned source methodology
 conditionally discharge `hvnwell.11`, `hv.X.1` and `hv.X.4` for these exact
@@ -544,7 +554,7 @@ still requires complete required physical coverage. Exact installer and foundry
 delivery acceptance remain in original chunk 12; no delivery prerequisite has
 been added to chunk 6. The checkpoints below retain their historical scope.
 
-Chunks 1–5 now have their defined planning/reference acceptance. The final
+Chunks 1â€“5 now have their defined planning/reference acceptance. The final
 [IHP fill gate](IHP_FILL_QUALIFICATION.md) binds counter, UART and APB to zero
 native markers, passing supplemental block rules, strict device/port LVS,
 unchanged nominal circuit capacitance and local fields, final-netlist formal
@@ -694,7 +704,7 @@ past acceptance without asserting a new GF180 production run on the new source.
 
 ## Completed chunk 4 reference gate
 
-Chunks 1–4 now have their defined planning/reference acceptance. The
+Chunks 1â€“4 now have their defined planning/reference acceptance. The
 [full density closure](validation/gf180-fill-closure-2026-10-09.json) binds the
 original six GF180 C/D counter, UART and APB production exports to both native
 and supplemental checks. All native main, antenna and density counts are zero.
@@ -703,14 +713,14 @@ formal equivalence and three library-condition timing/electrical checks after
 fill. Windows and Linux reproduce the same fill and boundary reports.
 
 The user authorized selection of a reference floorplan. It keeps each original
-die/core footprint and declares 40 µm streets immediately outside all four die
-edges. The manual's stricter 26 µm scribe clearance removes the margin COMP
-candidates; a continuous geometric proof finds no legal 5 µm COMP square in
+die/core footprint and declares 40 Âµm streets immediately outside all four die
+edges. The manual's stricter 26 Âµm scribe clearance removes the margin COMP
+candidates; a continuous geometric proof finds no legal 5 Âµm COMP square in
 the remaining interior. Six deliberately added margin arrays fail that boundary
 rule. Exclusion-edge rows and vendor-memory rules have no operands in these
 six layouts. Density denominators, RTL and constraints remain unchanged.
 
-The pinned metal-fill procedure requires 200 µm windows at 100 µm steps and
+The pinned metal-fill procedure requires 200 Âµm windows at 100 Âµm steps and
 a total-die density threshold. All full windows and additional clipped windows
 are retained. It supplies no separate numeric local-window acceptance limit;
 unknown foundry limits are not asserted passed. The new record resolves the
@@ -744,10 +754,10 @@ remain in their original later chunks. No complete PDK is tapeout qualified.
 
 | Analog target | Bundle revision | Indexed / placeable | Physical option and present digital coverage |
 |---|---|---|---|
-| SKY130 A | `24bc6d0bfd6a0224` | 74 / 71 | Local interconnect plus five metals; HD digital library; 3 library by 3 RC conditions. |
+| SKY130 A | `2a8a8a7048ac324d` | 74 / 71 | Local interconnect plus five metals; HD digital library; 3 library by 3 RC conditions. |
 | GF180 C | `627ca682d68e1e92` | 68 / 64 | Five metals, 0.9 micrometre top metal, MIM, HRPOLY1K; digital 9-track 5 V, 5LM_1TM/9K; 3 library by 1 RC condition. |
 | GF180 D | `7dd87219f1333dbb` | 68 / 64 | Five metals, 1.1 micrometre top metal, MIM, HRPOLY1K; separate `gf180d` 9-track 5 V / 5LM / 11K production references; both installed-runtime reference gates passed. |
-| IHP SG13G2 | `3abac20fcb57e184` | 45 / 35 | Five ordinary and two top metals; SG13G2 digital cells; 3 library by 1 RC condition. MOS, bipolar and RF qualification remain distinct. |
+| IHP SG13G2 | `d03f47cdf46a85a0` | 45 / 35 | Five ordinary and two top metals; SG13G2 digital cells; 3 library by 1 RC condition. MOS, bipolar and RF qualification remain distinct. |
 
 All digital profiles start from ORFS
 `eaba6576441bf7c1743ea56ecdb1904210ec02c2`. SKY130's prepared digital profile
@@ -794,7 +804,7 @@ to current production evidence, both operating systems, actual rule/fault contro
 all required timing conditions and the captured C/D technologies. Device rows,
 density and later chunks cannot inherit either pass. Schema 4 independently binds
 the six-reference density record, two OS audits, exact source/runtime identities,
-installed acceptance and preserved evidence. Chunks 5–12 need their own reviewed
+installed acceptance and preserved evidence. Chunks 5â€“12 need their own reviewed
 acceptance schema and records;
 preserve previous failures rather than merely changing a status string.
 

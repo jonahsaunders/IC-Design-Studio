@@ -1,28 +1,34 @@
-# Local device corrections under qualification
+# Bundled device corrections and reproducible qualification
 
-Chunk 7 includes separately installable corrections. They retain upstream
-licenses, identify modified files, and create new checksummed revisions. They
-do not silently replace the included PDKs or revisions used by saved projects.
-Their selected passing tests do not complete device-family qualification.
+New projects use bundled SKY130 revision `2a8a8a7048ac324d` and IHP revision
+`d03f47cdf46a85a0`, including the tested resistor/NPN and MIM corrections. Saved
+projects retain their registered revisions; migration remains explicit. Original
+licenses, modification notices and source hashes are retained. These changes
+and their selected tests do not complete device-family qualification.
 
 ## Prepare and install
 
 From this repository, with Python and the project dependencies installed:
 
 ```sh
+python scripts/prepare_sky130_device_package.py --output /path/to/new-sky130-default
 python scripts/prepare_ihp_mim_qualification.py --output /path/to/new-ihp-adapter
 python scripts/prepare_sky130_resistor_qualification.py --output /path/to/new-sky130-adapter
 python scripts/prepare_sky130_bipolar_qualification.py --output /path/to/new-sky130-bipolar-adapter
 ```
 
 Each output directory must be new. The preparers verify every input asset and
-the exact source package revision before writing an output. In the app's PDK
-revision manager, choose **Install package…**, select the generated
+the exact source package revision before writing an output. The SKY130 builders
+can reconstruct the original package from retained, hashed source deltas; this
+preserves the earlier comparison packages. The IHP builder also copies and
+verifies the already corrected bundled package without applying the fix twice. In the app's PDK
+revision manager, choose **Install packageâ€¦**, select the generated
 `package.json`, and select the new revision for a project. Review revision
 migration before changing an existing project.
 
-| Correction | Input revision | Output revision |
+| Correction | Original revision | Output revision |
 |---|---|---|
+| SKY130 default package; existing corner selections retained | `b1f441fabee1ed85` | `2a8a8a7048ac324d` |
 | IHP standard MIM physical checking | `3abac20fcb57e184` | `d03f47cdf46a85a0` |
 | SKY130 resistor parallel factor | `b1f441fabee1ed85` | `b897a1bb4cffa3bc` |
 | SKY130 resistor correction plus NPN corners | `b1f441fabee1ed85` | `23527d231481aae4` |
@@ -94,7 +100,9 @@ collector/emitter swaps. Five-terminal IHP HBT thermal ports are clamped to zero
 temperature rise; their thermal behavior is not qualified by these tests.
 
 The original SKY130 NPN failed because its active library never loaded required
-corner parameters. The bipolar preparer includes the original public Apache
+corner parameters. The current default package loads the reviewed t/s/f inputs
+inside its tt/ss/ff sections. Every other existing corner section retains its
+original content; no additional NPN corner mapping is inferred or qualified. For reproducing the earlier narrower test, the bipolar preparer includes the original public Apache
 sources and their exact parameters, without changing NPN model equations. It
 also includes the resistor correction. This package explicitly maps NPN t/s/f
 to nominal/ss/ff and supports the tt alias. Other corner selections are rejected;

@@ -4,6 +4,7 @@ from copy import deepcopy
 from icstudio.sky130_resistor_models import BASE_SHA256,NOTICE,corrected,relative
 from icstudio.pdks import PDKRegistry
 from scripts.prepare_sky130_resistor_qualification import prepare
+from scripts.sky130_qualification_source import original_package,BASE
 from scripts.check_resistor_unit_reference import check
 from tests import test_resistor_family_qualification as families
 ROOT=Path(__file__).resolve().parents[1]
@@ -12,15 +13,15 @@ ROOT=Path(__file__).resolve().parents[1]
 class SKY130ResistorCorrectionTests(unittest.TestCase):
     def test_only_parallel_arguments_and_modification_notice_are_added(self):
         for name in BASE_SHA256:
-            original=(ROOT/'icstudio/assets/pdks/sky130A'/relative(name)).read_bytes();fixed=corrected(name,original)
+            original=(BASE/relative(name)).read_bytes();fixed=corrected(name,original)
             self.assertEqual(fixed.replace(NOTICE.encode(),b'').replace(b' m=1\n',b'\n').replace(b' m={m}\n',b'\n'),original)
             self.assertIn(b'Licensed under the Apache License, Version 2.0',fixed)
             for bad in (original+b'\n',fixed):
                 with self.assertRaises(ValueError):corrected(name,bad)
 
     def test_package_preserves_all_other_assets_and_installs(self):
-        source=ROOT/'icstudio/assets/pdks/sky130A';old=json.loads((source/'package.json').read_bytes())
-        with tempfile.TemporaryDirectory() as tmp:
+        with original_package(ROOT/'icstudio/assets/pdks/sky130A') as source,tempfile.TemporaryDirectory() as tmp:
+            old=json.loads((source/'package.json').read_bytes())
             out=Path(tmp)/'adapter';result=prepare(source,out);p=json.loads((out/'package.json').read_bytes())
             expected=deepcopy(old['technology']);expected['revision']=result['revision'];self.assertEqual(p['technology'],expected)
             self.assertEqual({k for k,v in old['files'].items() if p['files'][k]!=v},{relative(n) for n in BASE_SHA256})

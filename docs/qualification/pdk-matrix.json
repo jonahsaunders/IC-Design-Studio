@@ -34,7 +34,7 @@
     "7": {
       "name": "Qualify device families",
       "status": "in_progress",
-      "scope": "Standard MOS, catalog interfaces and selected passive/diode execution are recorded. Fifty-three resistor entries pass selected AC conditions with a separate corrected SKY130 package; two default SKY130 diode bindings pass selected DC sweeps. A separate corrected IHP package passes 12 standard MIM full-DRC/strict-LVS layouts. Complete upstream coverage, operating envelopes, remaining MOS/capacitor/diode/bipolar/RF devices and physical coverage remain open. Existing revisions remain unchanged; default correction-package distribution is not qualified. All 29 bipolar symbols now pass selected DC comparisons and pin faults with explicitly identified package/runtime combinations; IHP ngspice 42 hot-case failures and cross-version numerical differences remain retained."
+      "scope": "Selected standard MOS, catalog, passive, diode and bipolar execution is recorded. Fifty-three resistor entries and all 29 bipolar symbols pass their declared cases with explicitly identified packages and engines. The default bundle includes tested SKY130 resistor/NPN and IHP standard-MIM corrections, preserving original corner selections and saved-project revisions. Twelve IHP MIM layouts pass full DRC/strict LVS. Complete source inventory, operating envelopes, remaining families and physical coverage remain open. IHP ngspice 42 hot-case failures and cross-version numerical differences are retained; candidate-runtime release integration is still pending."
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -59,9 +59,9 @@
   },
   "inventory": {
     "sky130A": {
-      "revision": "b1f441fabee1ed85",
-      "manifest_sha256": "6bbaae721ea855822a993017174bafbf272a22d696c58fe393bee81b2ff19d5c",
-      "asset_count": 396,
+      "revision": "2a8a8a7048ac324d",
+      "manifest_sha256": "177e57626c06cb5d103aab04c4bc82983bc4ba96f2e08e4bc04006ade6cd8e2d",
+      "asset_count": 406,
       "indexed_count": 74,
       "placeable_count": 71,
       "source_locks": {
@@ -13939,9 +13939,9 @@
       }
     },
     "ihp-sg13g2": {
-      "revision": "3abac20fcb57e184",
-      "manifest_sha256": "7540b8ac3241f339361bc83d5d154025dd0db6b374ebb1092dbe4db137b59de3",
-      "asset_count": 156,
+      "revision": "d03f47cdf46a85a0",
+      "manifest_sha256": "63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c",
+      "asset_count": 157,
       "indexed_count": 45,
       "placeable_count": 35,
       "source_locks": {
@@ -21278,7 +21278,7 @@
     "sky130-voltage-intent-audit-2026-10-14": {
       "path": "docs/validation/sky130-voltage-intent-audit-2026-10-14.json",
       "sha256": "f3aa296d1291b40a9b96054ca414732365408b261bbd38149148cb4bd2e2b776",
-      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0–1.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
+      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0\u20131.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
     },
     "sky130-isolation-options-audit-2026-10-14": {
       "path": "docs/validation/sky130-isolation-options-audit-2026-10-14.json",
@@ -21469,6 +21469,11 @@
       "path": "docs/validation/bipolar-families-2026-10-16.json",
       "sha256": "d288cab4801b3ea6bc16df5663a22407a1c9e027497e7069948cff153b75045a",
       "scope_limit": "29 bipolar symbols at 144 selected DC conditions with terminal-current/KCL and pin-fault tests. SKY130 requires a separate public-corner package; IHP requires the diagnostic ngspice 47 binary. No full operating envelope, RF/thermal, physical, default distribution or engine-interchangeability qualification."
+    },
+    "default-device-packages-2026-10-16": {
+      "path": "docs/validation/default-device-packages-2026-10-16.json",
+      "sha256": "df3982365a341880167985fced847af0f19378a494e1fa5048635a37810f9338",
+      "scope_limit": "New-project default SKY130/IHP corrections, exact original-package reconstruction, installation and selected native regressions. Candidate simulator integration, full operating envelopes and remaining device/physical coverage remain open."
     }
   },
   "execution_acceptance": {

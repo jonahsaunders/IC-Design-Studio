@@ -3,12 +3,12 @@
   "packages": [
     {
       "variant": "sky130A",
-      "revision": "b1f441fabee1ed85",
+      "revision": "2a8a8a7048ac324d",
       "family": "sky130",
-      "assets": 396,
+      "assets": 406,
       "indexed_symbols": 74,
       "placeable_symbols": 71,
-      "manifest_sha256": "6bbaae721ea855822a993017174bafbf272a22d696c58fe393bee81b2ff19d5c"
+      "manifest_sha256": "177e57626c06cb5d103aab04c4bc82983bc4ba96f2e08e4bc04006ade6cd8e2d"
     },
     {
       "variant": "gf180mcuC",
@@ -30,12 +30,12 @@
     },
     {
       "variant": "ihp-sg13g2",
-      "revision": "3abac20fcb57e184",
+      "revision": "d03f47cdf46a85a0",
       "family": "ihp-sg13g2",
-      "assets": 156,
+      "assets": 157,
       "indexed_symbols": 45,
       "placeable_symbols": 35,
-      "manifest_sha256": "7540b8ac3241f339361bc83d5d154025dd0db6b374ebb1092dbe4db137b59de3"
+      "manifest_sha256": "63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c"
     }
   ]
 }

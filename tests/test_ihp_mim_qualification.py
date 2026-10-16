@@ -1,4 +1,4 @@
-import hashlib,json,tempfile,unittest
+import hashlib,json,shutil,tempfile,unittest
 from pathlib import Path
 from icstudio.ihp_mim_rules import RELATIVE_PATH,BASE_SHA256,CORRECTED_SHA256,ORIGINAL,REPLACEMENT,corrected
 from icstudio.layout import rect
@@ -9,6 +9,7 @@ from scripts.prepare_ihp_mim_qualification import prepare
 from icstudio.pdks import PDKRegistry
 
 ROOT=Path(__file__).resolve().parents[1]
+ORIGINAL_PACKAGE=ROOT/'tests/fixtures/ihp-mim-original-v1'
 
 
 class IHPMimQualificationTests(unittest.TestCase):
@@ -37,7 +38,7 @@ class IHPMimQualificationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'Missing'):spacing_oracle(p)
 
     def test_exact_correction_preserves_the_rule_and_limit(self):
-        source=(ROOT/'icstudio/assets/pdks/ihp-sg13g2'/RELATIVE_PATH).read_bytes();fixed=corrected(source)
+        source=(ORIGINAL_PACKAGE/RELATIVE_PATH).read_bytes();fixed=corrected(source)
         self.assertEqual(hashlib.sha256(source).hexdigest(),BASE_SHA256)
         self.assertEqual(hashlib.sha256(fixed).hexdigest(),CORRECTED_SHA256)
         self.assertEqual(fixed.replace(REPLACEMENT,ORIGINAL),source)
@@ -46,8 +47,13 @@ class IHPMimQualificationTests(unittest.TestCase):
             with self.assertRaises(ValueError):corrected(bad)
 
     def test_package_installs_without_changing_original_models_or_licenses(self):
-        source=ROOT/'icstudio/assets/pdks/ihp-sg13g2';original=json.loads((source/'package.json').read_bytes())
+        bundled=ROOT/'icstudio/assets/pdks/ihp-sg13g2';original=json.loads((ORIGINAL_PACKAGE/'package.json').read_bytes())
         with tempfile.TemporaryDirectory() as tmp:
+            source=Path(tmp)/'original';source.mkdir()
+            for rel in ['package.json',*original['files']]:
+                src=ORIGINAL_PACKAGE/rel
+                if not src.is_file():src=bundled/rel
+                dst=source/rel;dst.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(src,dst)
             out=Path(tmp)/'adapter';result=prepare(source,out);p=json.loads((out/'package.json').read_bytes())
             self.assertNotEqual(result['revision'],original['revision'])
             self.assertEqual(p['technology']['simulation'],original['technology']['simulation'])
@@ -59,6 +65,28 @@ class IHPMimQualificationTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'new'):prepare(source,out)
             (out/RELATIVE_PATH).write_bytes((out/RELATIVE_PATH).read_bytes()+b'\n')
             with self.assertRaisesRegex(ValueError,'checksum'):registry.install(out/'package.json')
+
+    def test_default_discovery_installs_the_exact_tested_correction(self):
+        from icstudio.bundled_pdks import packages
+        from icstudio.project_hub import inventory,build_project
+        from icstudio.model import file_digest,save_project,load_project
+        source=ROOT/'icstudio/assets/pdks/ihp-sg13g2'
+        manifest=json.loads((source/'package.json').read_bytes())
+        with tempfile.TemporaryDirectory() as tmp:
+            registry=PDKRegistry(Path(tmp)/'registry')
+            rows,notes=inventory(registry);self.assertEqual(notes,[])
+            row=next(r for r in rows if r['id']=='ihp-sg13g2')
+            self.assertEqual(row['revision'],'d03f47cdf46a85a0')
+            p=build_project(registry,row,'Fresh IHP','empty')['project']
+            save_project(p,Path(tmp)/'project.icproj');loaded=load_project(Path(tmp)/'project.icproj')
+            self.assertEqual(loaded['pdk']['revision'],row['revision'])
+            installed=Path(p['pdk']['package_root'])
+            self.assertEqual(file_digest(installed/RELATIVE_PATH),CORRECTED_SHA256)
+            out=Path(tmp)/'copy';result=prepare(source,out)
+            self.assertEqual(result['revision'],row['revision'])
+            self.assertEqual((out/'package.json').read_bytes(),(source/'package.json').read_bytes())
+            self.assertEqual(registry.install(out/'package.json'),row['key'])
+            self.assertEqual(manifest,json.loads((source/'package.json').read_bytes()))
 
 
 if __name__=='__main__':unittest.main()

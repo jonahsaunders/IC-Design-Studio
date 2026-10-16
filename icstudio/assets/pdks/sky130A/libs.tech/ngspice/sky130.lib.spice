@@ -16,6 +16,8 @@
 
 * Typical corner (tt)
 .lib tt
+* IC Design Studio: load the public NPN t corner parameters.
+.lib "icstudio-npn-corners.lib" t
 .param mc_mm_switch=0
 .param mc_pr_switch=0
 * MOSFET
@@ -42,6 +44,8 @@
 
 * Fast-Fast corner (ff)
 .lib ff
+* IC Design Studio: load the public NPN f corner parameters.
+.lib "icstudio-npn-corners.lib" f
 .param mc_mm_switch=0
 .param mc_pr_switch=0
 * MOSFET
@@ -55,6 +59,8 @@
 
 * Slow-Slow corner (ss)
 .lib ss
+* IC Design Studio: load the public NPN s corner parameters.
+.lib "icstudio-npn-corners.lib" s
 .param mc_mm_switch=0
 .param mc_pr_switch=0
 * MOSFET

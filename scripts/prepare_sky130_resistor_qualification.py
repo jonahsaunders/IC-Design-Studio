@@ -7,6 +7,12 @@ from icstudio.sky130_resistor_models import BASE_SHA256,relative,corrected
 
 
 def prepare(source,output):
+    from scripts.sky130_qualification_source import original_package
+    with original_package(source) as original:
+        return prepare_original(original,output)
+
+
+def prepare_original(source,output):
     source=Path(source).resolve();output=Path(output).resolve()
     if output.exists():raise ValueError('Choose a new SKY130 adapter directory.')
     package=json.loads((source/'package.json').read_bytes())
