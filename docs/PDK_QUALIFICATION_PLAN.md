@@ -4,6 +4,18 @@ The target is analog and digital design on SKY130, GF180MCU C/D and IHP SG13G2.
 No target is currently qualified for complete-chip tapeout. Work proceeds in the
 order below; a passing small reference design keeps its original scope.
 
+All qualification checks must execute locally. A shuttle or foundry service
+running the missing checks does not satisfy this requirement. Public technical
+clarifications can inform local implementations; the project's GPL license and
+third-party attribution requirements remain unchanged.
+
+The [local unblocking review](validation/sky130-local-unblock-2026-10-15.json)
+identifies 33 unresolved records linked to explicitly frame-only rules. Their
+applicability needs a verified layout context before any disposition can change.
+The review also prepares an unsent request for public pin-spacing, context and
+operand definitions. All 302 records remain unresolved; this is a concrete source
+and applicability route, not a new acceptance result or a reduced completion gate.
+
 The [machine-readable matrix](qualification/pdk-matrix.json) is the coverage
 record. It includes 125 process/workflow requirements and all 255 bundled catalog
 entries, including utilities and unavailable devices. Every requirement points to

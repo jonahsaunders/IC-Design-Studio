@@ -4,6 +4,36 @@ The [execution record](validation/sky130-physical-progress-2026-10-11.json)
 captures the original counter, UART and APB final layouts. Chunk 6 remains open.
 Zero geometry markers alone do not establish complete physical coverage.
 
+## Local-only route to removing the source blockers
+
+The user requires every check to execute locally. Provider-run signoff is not an
+accepted replacement. The [local unblocking review](validation/sky130-local-unblock-2026-10-15.json)
+records the next concrete route: establish each rule's process and layout scope,
+obtain missing public definitions, implement and fault-test them locally, then
+rerun the complete applicable set. The original completion gate stays in force.
+
+The published manual now links to `fossi-foundation/skywater-pdk`. Its reviewed
+head is five commits ahead of the retained Google revision, with changes only to
+documentation build configuration; `x.20` still has no numeric limit. The manual's
+`F` flag supplies a useful scope distinction for 33 open `x.12b`/`x.12e` records:
+frame-only rules are not checked inside the die. This does not itself prove that
+an arbitrary block has valid die-interior context, and it does not apply to the
+separate `depmos.13` record. All 33 retain their current unresolved disposition.
+
+A bounded inspection of a public Cadence-licensed local checker found explicit
+frame-only omissions and no `x.20` or `IP_block` token in the four inspected rule
+files. No code from that checker is incorporated or used to derive an
+implementation, and no GPL compatibility conclusion is made. Merely arranging
+its license or running it locally would not establish complete coverage.
+
+The review contains an exact, unsent public clarification request for the PDK
+maintainers. It asks for version-applicable pin-spacing limits, die/frame context
+and public operand definitions. It requests no confidential material, remote
+verification, payment or fabrication. Public posting requires separate user
+authorization. No rule count or qualification status changes at this checkpoint.
+
+## Retained definition and execution evidence
+
 The [latest definition review](validation/sky130-definition-review-2026-10-15.json)
 confirms that the current public upstream still omits the numeric `x.20`
 pin-spacing limit. Additional public mask reconstructions and a separate PDK
