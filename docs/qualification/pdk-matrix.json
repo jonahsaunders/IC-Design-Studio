@@ -34,7 +34,7 @@
     "7": {
       "name": "Qualify device families",
       "status": "in_progress",
-      "scope": "Standard MOS: 432 geometry/corner/temperature cases and 36 drain/body-bias cases pass independent electrical comparisons and injected faults. SKY130 bounded device recipes pass 20 layouts, five physical faults and 30 passive admittance conditions. Catalog interface evidence covers 255 entries on both hosts. Complete operating envelopes, upstream completeness and remaining device families stay open; historical evidence retains its exact package revisions. Sixteen resistor/MIM entries now pass the selected electrical sweep; GF180 legacy MIM model selection is repaired. IHP MIM physical spacing findings remain unresolved."
+      "scope": "Standard MOS, catalog interfaces and selected passive/diode execution are recorded. Fifty-three resistor entries pass selected AC conditions with a separate corrected SKY130 package; two default SKY130 diode bindings pass selected DC sweeps. A separate corrected IHP package passes 12 standard MIM full-DRC/strict-LVS layouts. Complete upstream coverage, operating envelopes, remaining MOS/capacitor/diode/bipolar/RF devices and physical coverage remain open. Existing revisions remain unchanged; default correction-package distribution is not qualified."
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -59,8 +59,8 @@
   },
   "inventory": {
     "sky130A": {
-      "revision": "24bc6d0bfd6a0224",
-      "manifest_sha256": "189ec230833fb9cfc6a5c70d1b66c0e06278bcd114462b3c8d4d58637d2ab9c2",
+      "revision": "b1f441fabee1ed85",
+      "manifest_sha256": "6bbaae721ea855822a993017174bafbf272a22d696c58fe393bee81b2ff19d5c",
       "asset_count": 396,
       "indexed_count": 74,
       "placeable_count": 71,
@@ -299,7 +299,7 @@
         "sky130_fd_pr/diode.sym": {
           "category": "Diodes",
           "model": "sky130_fd_pr__diode_pw2nd_05v5",
-          "model_source": "libs.tech/ngspice/sky130_fd_pr__model__r+c.model.spice",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pw2nd_05v5.model.spice",
           "source": "libs.tech/xschem/sky130_fd_pr/diode.sym",
           "pin_order": [
             "d0",
@@ -327,7 +327,7 @@
         "sky130_fd_pr/lvsdiode.sym": {
           "category": "Diodes",
           "model": "sky130_fd_pr__diode_pw2nd_05v5",
-          "model_source": "libs.tech/ngspice/sky130_fd_pr__model__r+c.model.spice",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pw2nd_05v5.model.spice",
           "source": "libs.tech/xschem/sky130_fd_pr/lvsdiode.sym",
           "pin_order": [
             "d0",
@@ -17651,7 +17651,8 @@
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
-          "standard-passives-2026-10-16"
+          "standard-passives-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/cap_mim_m3_2.sym": {
@@ -17663,7 +17664,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/cap_var_hvt.sym": {
@@ -17675,7 +17677,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/cap_var_lvt.sym": {
@@ -17687,7 +17690,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/corner.sym": {
@@ -17706,9 +17710,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Corrected primitive D prefix and exact source model binding; two default area inputs pass nine selected DC corner/temperature cases and polarity/area controls on ngspice 42. Other listed diode models, engine-dependent geometry conventions, full envelopes and physical coverage remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/lvsdiode.sym": {
@@ -17718,9 +17723,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Corrected primitive D prefix and exact source model binding; two default area inputs pass nine selected DC corner/temperature cases and polarity/area controls on ngspice 42. Other listed diode models, engine-dependent geometry conventions, full envelopes and physical coverage remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet3_01v8.sym": {
@@ -17732,7 +17738,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet3_01v8_lvt.sym": {
@@ -17744,7 +17751,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet3_03v3_nvt.sym": {
@@ -17756,7 +17764,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet3_05v0_nvt.sym": {
@@ -17768,7 +17777,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet3_20v0.sym": {
@@ -17780,7 +17790,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet3_g5v0d10v5.sym": {
@@ -17792,7 +17803,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet3_g5v0d16v0.sym": {
@@ -17804,7 +17816,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_01v8.sym": {
@@ -17817,7 +17830,8 @@
         "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-mos-sweeps-2026-10-16"
+          "standard-mos-sweeps-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_01v8_esd.sym": {
@@ -17829,7 +17843,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_01v8_lvt.sym": {
@@ -17841,7 +17856,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_01v8_lvt_nf.sym": {
@@ -17853,7 +17869,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_01v8_nf.sym": {
@@ -17865,7 +17882,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_03v3_nvt.sym": {
@@ -17877,7 +17895,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_03v3_nvt_nf.sym": {
@@ -17889,7 +17908,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_05v0_nvt.sym": {
@@ -17901,7 +17921,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_05v0_nvt_nf.sym": {
@@ -17913,7 +17934,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_20v0.sym": {
@@ -17925,7 +17947,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_20v0_iso.sym": {
@@ -17937,7 +17960,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_20v0_nvt.sym": {
@@ -17949,7 +17973,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_20v0_zvt.sym": {
@@ -17961,7 +17986,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_g5v0d10v5.sym": {
@@ -17973,7 +17999,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_g5v0d10v5_esd.sym": {
@@ -17985,7 +18012,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_g5v0d10v5_nf.sym": {
@@ -17997,7 +18025,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym": {
@@ -18018,7 +18047,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/nfet_g5v0d16v0_nf.sym": {
@@ -18030,7 +18060,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/npn_05v5.sym": {
@@ -18042,7 +18073,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet3_01v8.sym": {
@@ -18054,7 +18086,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet3_01v8_hvt.sym": {
@@ -18066,7 +18099,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet3_01v8_lvt.sym": {
@@ -18078,7 +18112,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet3_20v0.sym": {
@@ -18090,7 +18125,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet3_g5v0d10v5.sym": {
@@ -18102,7 +18138,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet3_g5v0d16v0.sym": {
@@ -18114,7 +18151,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet_01v8.sym": {
@@ -18127,7 +18165,8 @@
         "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-mos-sweeps-2026-10-16"
+          "standard-mos-sweeps-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet_01v8_hvt.sym": {
@@ -18139,7 +18178,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet_01v8_hvt_nf.sym": {
@@ -18151,7 +18191,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet_01v8_lvt.sym": {
@@ -18163,7 +18204,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet_01v8_lvt_nf.sym": {
@@ -18175,7 +18217,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet_01v8_nf.sym": {
@@ -18187,7 +18230,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet_20v0.sym": {
@@ -18199,7 +18243,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet_g5v0d10v5.sym": {
@@ -18211,7 +18256,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet_g5v0d10v5_nf.sym": {
@@ -18223,7 +18269,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet_g5v0d16v0.sym": {
@@ -18235,7 +18282,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet_g5v0d16v0_nf.sym": {
@@ -18247,7 +18295,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/pnp_05v5.sym": {
@@ -18259,7 +18308,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_generic_li.sym": {
@@ -18278,9 +18328,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_generic_m2.sym": {
@@ -18290,9 +18341,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_generic_m3.sym": {
@@ -18302,9 +18354,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_generic_m4.sym": {
@@ -18314,9 +18367,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_generic_nd.sym": {
@@ -18326,9 +18380,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_generic_pd.sym": {
@@ -18338,9 +18393,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_generic_po.sym": {
@@ -18350,11 +18406,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
-          "standard-passives-2026-10-16"
+          "standard-passives-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_high_po.sym": {
@@ -18364,9 +18421,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_high_po_0p35.sym": {
@@ -18376,9 +18434,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_high_po_0p69.sym": {
@@ -18388,9 +18447,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_high_po_1p41.sym": {
@@ -18400,9 +18460,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_high_po_2p85.sym": {
@@ -18412,9 +18473,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_high_po_5p73.sym": {
@@ -18424,9 +18486,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_iso_pw.sym": {
@@ -18436,9 +18499,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_xhigh_po.sym": {
@@ -18448,9 +18512,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_xhigh_po_0p35.sym": {
@@ -18460,9 +18525,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_xhigh_po_0p69.sym": {
@@ -18472,9 +18538,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_xhigh_po_1p41.sym": {
@@ -18484,9 +18551,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_xhigh_po_2p85.sym": {
@@ -18496,9 +18564,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_xhigh_po_5p73.sym": {
@@ -18508,9 +18577,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. SKY130 requires the separately installable b897a1bb4cffa3bc correction package; its single/parallel responses also match untouched unit models. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sky130_fd_pr/vpp_cap.sym": {
@@ -18522,7 +18592,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       }
     },
@@ -18555,7 +18626,8 @@
         "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-passives-2026-10-16"
+          "standard-passives-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_mim_1f5fF.sym": {
@@ -18568,7 +18640,8 @@
         "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-passives-2026-10-16"
+          "standard-passives-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_mim_2f0fF.sym": {
@@ -18581,7 +18654,8 @@
         "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-passives-2026-10-16"
+          "standard-passives-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_mim_2p0fF.sym": {
@@ -18594,7 +18668,8 @@
         "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-passives-2026-10-16"
+          "standard-passives-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_mim_analog.sym": {
@@ -18607,7 +18682,8 @@
         "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-passives-2026-10-16"
+          "standard-passives-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_nmos_03v3.sym": {
@@ -18619,7 +18695,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_nmos_03v3_b.sym": {
@@ -18631,7 +18708,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_nmos_06v0.sym": {
@@ -18643,7 +18721,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_nmos_06v0_b.sym": {
@@ -18655,7 +18734,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_pmos_03v3.sym": {
@@ -18667,7 +18747,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_pmos_03v3_b.sym": {
@@ -18679,7 +18760,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_pmos_06v0.sym": {
@@ -18691,7 +18773,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_pmos_06v0_b.sym": {
@@ -18703,7 +18786,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/diode_dw2ps.sym": {
@@ -18715,7 +18799,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/diode_nd2ps_03v3.sym": {
@@ -18727,7 +18812,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/diode_nd2ps_06v0.sym": {
@@ -18739,7 +18825,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/diode_nw2ps_03v3.sym": {
@@ -18751,7 +18838,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/diode_nw2ps_06v0.sym": {
@@ -18763,7 +18851,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/diode_pd2nw_03v3.sym": {
@@ -18775,7 +18864,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/diode_pd2nw_06v0.sym": {
@@ -18787,7 +18877,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/diode_pw2dw.sym": {
@@ -18799,7 +18890,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet3_03v3.sym": {
@@ -18811,7 +18903,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet3_05v0.sym": {
@@ -18823,7 +18916,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet3_06v0.sym": {
@@ -18835,7 +18929,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet_03v3.sym": {
@@ -18848,7 +18943,8 @@
         "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-mos-sweeps-2026-10-16"
+          "standard-mos-sweeps-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -18860,7 +18956,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet_05v0.sym": {
@@ -18872,7 +18969,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet_06v0.sym": {
@@ -18884,7 +18982,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet_06v0_dss.sym": {
@@ -18896,7 +18995,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet_06v0_nvt.sym": {
@@ -18908,7 +19008,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet_10v0_asym.sym": {
@@ -18927,9 +19028,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/npn_00p54x02p00.sym": {
@@ -18941,7 +19043,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/npn_00p54x04p00.sym": {
@@ -18953,7 +19056,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/npn_00p54x08p00.sym": {
@@ -18965,7 +19069,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/npn_00p54x16p00.sym": {
@@ -18977,7 +19082,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/npn_05p00x05p00.sym": {
@@ -18989,7 +19095,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/npn_10p00x10p00.sym": {
@@ -19001,7 +19108,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/npolyf_s.sym": {
@@ -19011,9 +19119,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/npolyf_u.sym": {
@@ -19023,9 +19132,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nwell.sym": {
@@ -19035,9 +19145,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pfet3_03v3.sym": {
@@ -19049,7 +19160,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pfet3_05v0.sym": {
@@ -19061,7 +19173,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pfet3_06v0.sym": {
@@ -19073,7 +19186,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pfet_03v3.sym": {
@@ -19086,7 +19200,8 @@
         "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-mos-sweeps-2026-10-16"
+          "standard-mos-sweeps-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -19098,7 +19213,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pfet_05v0.sym": {
@@ -19110,7 +19226,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pfet_06v0.sym": {
@@ -19122,7 +19239,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pfet_06v0_dss.sym": {
@@ -19134,7 +19252,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pfet_10v0_asym.sym": {
@@ -19155,7 +19274,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pnp_05p00x05p00.sym": {
@@ -19167,7 +19287,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pnp_10p00x00p42.sym": {
@@ -19179,7 +19300,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pnp_10p00x10p00.sym": {
@@ -19191,7 +19313,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pplus_u.sym": {
@@ -19201,9 +19324,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/ppolyf_s.sym": {
@@ -19213,9 +19337,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/ppolyf_u.sym": {
@@ -19225,9 +19350,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/ppolyf_u_1k.sym": {
@@ -19237,10 +19363,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-passives-2026-10-16"
+          "standard-passives-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/ppolyf_u_1k_6p0.sym": {
@@ -19250,9 +19377,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/ppolyf_u_2k.sym": {
@@ -19262,9 +19390,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/ppolyf_u_2k_6p0.sym": {
@@ -19274,9 +19403,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/ppolyf_u_3k.sym": {
@@ -19286,9 +19416,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/rm1.sym": {
@@ -19298,9 +19429,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/rm2.sym": {
@@ -19310,9 +19442,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/rm3.sym": {
@@ -19322,9 +19455,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/sc_diode.sym": {
@@ -19336,7 +19470,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       }
     },
@@ -19369,7 +19504,8 @@
         "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-passives-2026-10-16"
+          "standard-passives-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_mim_1f5fF.sym": {
@@ -19382,7 +19518,8 @@
         "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-passives-2026-10-16"
+          "standard-passives-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_mim_2f0fF.sym": {
@@ -19395,7 +19532,8 @@
         "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-passives-2026-10-16"
+          "standard-passives-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_mim_2p0fF.sym": {
@@ -19408,7 +19546,8 @@
         "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-passives-2026-10-16"
+          "standard-passives-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_mim_analog.sym": {
@@ -19421,7 +19560,8 @@
         "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-passives-2026-10-16"
+          "standard-passives-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_nmos_03v3.sym": {
@@ -19433,7 +19573,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_nmos_03v3_b.sym": {
@@ -19445,7 +19586,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_nmos_06v0.sym": {
@@ -19457,7 +19599,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_nmos_06v0_b.sym": {
@@ -19469,7 +19612,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_pmos_03v3.sym": {
@@ -19481,7 +19625,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_pmos_03v3_b.sym": {
@@ -19493,7 +19638,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_pmos_06v0.sym": {
@@ -19505,7 +19651,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/cap_pmos_06v0_b.sym": {
@@ -19517,7 +19664,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/diode_dw2ps.sym": {
@@ -19529,7 +19677,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/diode_nd2ps_03v3.sym": {
@@ -19541,7 +19690,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/diode_nd2ps_06v0.sym": {
@@ -19553,7 +19703,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/diode_nw2ps_03v3.sym": {
@@ -19565,7 +19716,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/diode_nw2ps_06v0.sym": {
@@ -19577,7 +19729,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/diode_pd2nw_03v3.sym": {
@@ -19589,7 +19742,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/diode_pd2nw_06v0.sym": {
@@ -19601,7 +19755,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/diode_pw2dw.sym": {
@@ -19613,7 +19768,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet3_03v3.sym": {
@@ -19625,7 +19781,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet3_05v0.sym": {
@@ -19637,7 +19794,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet3_06v0.sym": {
@@ -19649,7 +19807,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet_03v3.sym": {
@@ -19662,7 +19821,8 @@
         "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-mos-sweeps-2026-10-16"
+          "standard-mos-sweeps-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -19674,7 +19834,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet_05v0.sym": {
@@ -19686,7 +19847,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet_06v0.sym": {
@@ -19698,7 +19860,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet_06v0_dss.sym": {
@@ -19710,7 +19873,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet_06v0_nvt.sym": {
@@ -19722,7 +19886,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nfet_10v0_asym.sym": {
@@ -19741,9 +19906,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/npn_00p54x02p00.sym": {
@@ -19755,7 +19921,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/npn_00p54x04p00.sym": {
@@ -19767,7 +19934,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/npn_00p54x08p00.sym": {
@@ -19779,7 +19947,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/npn_00p54x16p00.sym": {
@@ -19791,7 +19960,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/npn_05p00x05p00.sym": {
@@ -19803,7 +19973,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/npn_10p00x10p00.sym": {
@@ -19815,7 +19986,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/npolyf_s.sym": {
@@ -19825,9 +19997,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/npolyf_u.sym": {
@@ -19837,9 +20010,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/nwell.sym": {
@@ -19849,9 +20023,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pfet3_03v3.sym": {
@@ -19863,7 +20038,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pfet3_05v0.sym": {
@@ -19875,7 +20051,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pfet3_06v0.sym": {
@@ -19887,7 +20064,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pfet_03v3.sym": {
@@ -19900,7 +20078,8 @@
         "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-mos-sweeps-2026-10-16"
+          "standard-mos-sweeps-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -19912,7 +20091,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pfet_05v0.sym": {
@@ -19924,7 +20104,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pfet_06v0.sym": {
@@ -19936,7 +20117,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pfet_06v0_dss.sym": {
@@ -19948,7 +20130,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pfet_10v0_asym.sym": {
@@ -19969,7 +20152,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pnp_05p00x05p00.sym": {
@@ -19981,7 +20165,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pnp_10p00x00p42.sym": {
@@ -19993,7 +20178,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pnp_10p00x10p00.sym": {
@@ -20005,7 +20191,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/pplus_u.sym": {
@@ -20015,9 +20202,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/ppolyf_s.sym": {
@@ -20027,9 +20215,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/ppolyf_u.sym": {
@@ -20039,9 +20228,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/ppolyf_u_1k.sym": {
@@ -20051,10 +20241,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-passives-2026-10-16"
+          "standard-passives-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/ppolyf_u_1k_6p0.sym": {
@@ -20064,9 +20255,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/ppolyf_u_2k.sym": {
@@ -20076,9 +20268,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/ppolyf_u_2k_6p0.sym": {
@@ -20088,9 +20281,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/ppolyf_u_3k.sym": {
@@ -20100,9 +20294,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/rm1.sym": {
@@ -20112,9 +20307,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/rm2.sym": {
@@ -20124,9 +20320,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/rm3.sym": {
@@ -20136,9 +20333,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "symbols/sc_diode.sym": {
@@ -20150,7 +20348,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       }
     },
@@ -20189,10 +20388,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open. The 7-by-7 um imported layout passes extraction/LVS but fails four MIM.e spacing checks; no physical pass is claimed.",
+        "remaining": "Selected electrical tests and 12 full native DRC/strict-LVS layouts pass using separate corrected IHP revision d03f47cdf46a85a0. Three physical faults and MIM.e boundary controls pass their declared detection contracts. Complete dimensions, bias/reliability ranges and default distribution integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-passives-2026-10-16"
+          "standard-passives-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/cap_cmomf.sym": {
@@ -20204,7 +20404,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/cap_cmomi.sym": {
@@ -20216,7 +20417,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/cap_cpara.sym": {
@@ -20228,7 +20430,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/cap_rfcmim.sym": {
@@ -20240,7 +20443,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/dantenna.sym": {
@@ -20252,7 +20456,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/diodevdd_2kv.sym": {
@@ -20264,7 +20469,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/diodevdd_4kv.sym": {
@@ -20276,7 +20482,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/diodevss_2kv.sym": {
@@ -20288,7 +20495,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/diodevss_4kv.sym": {
@@ -20300,7 +20508,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/dpantenna.sym": {
@@ -20312,7 +20521,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/gallery.sym": {
@@ -20360,7 +20570,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/moscap_p.sym": {
@@ -20372,7 +20583,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/nmoscl_2.sym": {
@@ -20384,7 +20596,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/nmoscl_4.sym": {
@@ -20396,7 +20609,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/npn13G2.sym": {
@@ -20408,7 +20622,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/npn13G2_5t.sym": {
@@ -20420,7 +20635,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/npn13G2l.sym": {
@@ -20432,7 +20648,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/npn13G2l_5t.sym": {
@@ -20444,7 +20661,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/npn13G2v.sym": {
@@ -20456,7 +20674,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/npn13G2v_5t.sym": {
@@ -20468,7 +20687,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/ntap1.sym": {
@@ -20489,7 +20709,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/ptap1.sym": {
@@ -20508,9 +20729,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/rppd.sym": {
@@ -20520,10 +20742,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open. One 1-by-10 um imported layout passes full DRC and strict LVS after explicit port assignment; broader physical coverage remains required.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-passives-2026-10-16"
+          "standard-passives-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/rsil.sym": {
@@ -20533,9 +20756,10 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent AC conductance, length and multiplicity points, three corner/temperature values, two biases and per-device electrical faults pass. Complete operating envelopes, noise/mismatch and time-domain behavior, physical layouts and extracted connectivity remain open.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/schottky_nbl1.sym": {
@@ -20547,7 +20771,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/sg13_hv_nmos.sym": {
@@ -20559,7 +20784,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/sg13_hv_pmos.sym": {
@@ -20571,7 +20797,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/sg13_hv_rf_nmos.sym": {
@@ -20583,7 +20810,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/sg13_hv_rf_pmos.sym": {
@@ -20595,7 +20823,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/sg13_lv_nmos.sym": {
@@ -20608,7 +20837,8 @@
         "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-mos-sweeps-2026-10-16"
+          "standard-mos-sweeps-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/sg13_lv_pmos.sym": {
@@ -20621,7 +20851,8 @@
         "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "standard-mos-sweeps-2026-10-16"
+          "standard-mos-sweeps-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/sg13_lv_rf_nmos.sym": {
@@ -20633,7 +20864,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/sg13_lv_rf_pmos.sym": {
@@ -20645,7 +20877,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/sg13_svaricap.sym": {
@@ -20657,7 +20890,8 @@
         "status": "partial",
         "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
-          "standard-mos-initial-2026-10-16"
+          "standard-mos-initial-2026-10-16",
+          "device-corrections-2026-10-16"
         ]
       },
       "sg13g2_pr/sub.sym": {
@@ -21196,6 +21430,11 @@
       "path": "docs/validation/standard-passives-2026-10-16.json",
       "sha256": "f5ba881e9351bd60373fddd510aaac7f445de9ff0ddf9824ebbf14a845d9f1d8",
       "scope_limit": "Selected 16 resistor/MIM catalog entries at 72 corner/temperature/bias cases: 1728 independent complex admittance vectors, 3456 device faults within 144 fault simulations, and 1728 parallel-scaling pairs. GF180 legacy MIM model loading repaired without upstream asset changes. IHP resistor layout passes one point; IHP capacitor remains DRC-failed. No complete operating-envelope, device-family or tapeout qualification."
+    },
+    "device-corrections-2026-10-16": {
+      "path": "docs/validation/device-corrections-2026-10-16.json",
+      "sha256": "3af5aa221ca1097ddc9585da0cd76c0c9674116eaf77ce6bc74096c0b58c7ce7",
+      "scope_limit": "53 resistor entries at selected AC conditions, two default SKY130 primitive diode bindings, and 12 standard IHP MIM layouts. Separate installable corrections; full operating envelopes, additional families, physical coverage and default release integration remain open."
     }
   },
   "execution_acceptance": {

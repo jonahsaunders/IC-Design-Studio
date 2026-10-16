@@ -20,7 +20,19 @@ class PassiveMultiplicityTests(unittest.TestCase):
             wrong=deepcopy(data)
             for key in wrong['currents']:
                 if key.endswith('m3'):wrong['currents'][key]=[v*factor for v in wrong['currents'][key]]
-            with self.subTest(factor=factor),self.assertRaisesRegex(ValueError,'does not scale'):check(wrong,'sky130A')
+            with self.subTest(factor=factor),self.assertRaises(ValueError):check(wrong,'sky130A')
+
+    def test_all_zero_and_wrong_physics_cannot_pass_parallel_scaling(self):
+        for mode in ('zero','negative-conductance','constant-capacitor'):
+            wrong=deepcopy(self.response())
+            if mode=='zero':wrong['currents']={k:[0.]*26 for k in wrong['currents']}
+            elif mode=='negative-conductance':
+                for key in wrong['current_phase']:
+                    if key.startswith('vres'):wrong['current_phase'][key]=[0.]*26
+            else:
+                for key in wrong['currents']:
+                    if key.startswith('vcap'):wrong['currents'][key]=[1e-9*(3 if key.endswith('m3') else 1)]*26
+            with self.subTest(mode=mode),self.assertRaises(ValueError):check(wrong,'sky130A')
 
 
 if __name__=='__main__':unittest.main()

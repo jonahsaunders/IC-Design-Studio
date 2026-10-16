@@ -96,12 +96,39 @@ comparisons pass under those revisions. Historical GF180 fill evidence retains
 its exact earlier importer source and does not become a new physical acceptance
 run. All 53 focused regression tests pass on Windows and native Linux.
 
-An imported IHP `rppd` layout at 1-by-10 µm passes full DRC and strict LVS after
-explicit terminal assignment. The 7-by-7 µm `cap_cmim` layout passes fresh
-extraction and strict LVS but fails four `MIM.e` spacing checks. Both the
-incomplete initial extraction and the later findings are retained. Resolving
-that layout failure, extending passive/device-family coverage and reviewing
-complete operating envelopes remain chunk-7 work.
+The [device-correction record](validation/device-corrections-2026-10-16.json)
+extends resistor execution to 53 catalog entries. Combining the passing GF180
+C/D and IHP runs with a separately versioned SKY130 correction gives 72 passing
+condition cases, 3,816 complex response vectors and 7,632 detected device faults.
+Seven SKY130 polysilicon models needed explicit propagation of their parallel
+factor through nested calls. A separate 2,880-vector audit proves corrected
+results agree with the untouched single-device models and their three-copy
+responses. A corrected ngspice 47 pilot also passes; the complete sweep uses
+the pinned ngspice 42 runtime. Noise, mismatch and full operating envelopes
+remain open.
+
+The included SKY130 metadata now correctly emits four metal resistors as `R`
+devices and two default primitive diodes as `D` devices, retaining every upstream
+asset byte. Nine diode corner/temperature cases pass independent DC comparison
+and polarity/area fault detection. All 255 catalog interface checks pass on
+Windows and Linux, with 21 explicitly unavailable entries still unavailable.
+Seventy-eight focused regression tests pass on each host, and fresh standard
+SKY130 NMOS/PMOS regressions pass under the new metadata revision.
+
+The IHP `cap_cmim` failure is resolved for the tested layouts with a separate
+versioned correction to the public Magic deck. Fresh temporary CIF planes avoid
+the observed connectivity-traversal interference; the rule and 600 nm limit are
+unchanged. Twelve layouts pass full native DRC and strict LVS, three physical
+faults are detected, and native/independent spacing checks agree at 595/600/605
+nm. The boundary controls retain unrelated DRC findings and are not declared
+fully clean. The initial failures and diagnostic variants remain archived.
+
+The [adapter instructions](DEVICE_ADAPTER_QUALIFICATION.md) reproduce and install
+both corrections without replacing existing project revisions. Default release
+integration, remaining MOS/passive/diode/bipolar/RF families, upstream inventory
+reconciliation, full operating envelopes and physical coverage remain chunk-7
+work. The GF180 bandgap reference CI also has an unresolved top-level VSS
+must-connect warning; strict LVS correctly rejects it. Chunk 7 remains open.
 
 ### Earlier initial checkpoint
 

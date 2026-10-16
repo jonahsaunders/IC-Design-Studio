@@ -3,12 +3,12 @@ import argparse,json,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from icstudio.model import file_digest
-from scripts.qualify_standard_passives import currents,points
+from scripts.qualify_standard_passives import reference_values,points
 from scripts.qualify_standard_mos import write
 
 
 def check(data,target):
-    vectors=currents(data,target);errors={}
+    vectors,_=reference_values(data,target);errors={}
     for row in points(target):
         if row['copies']!=3:continue
         key='v'+row['tag'];single=key[:-1]+'1'

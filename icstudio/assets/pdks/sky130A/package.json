@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "id": "sky130A",
-  "revision": "24bc6d0bfd6a0224",
+  "revision": "b1f441fabee1ed85",
   "family": "sky130",
   "files": {
     "libs.tech/ngspice/sky130.lib.spice": "5efa041a988893c1a3580d0ecd57870ea3146b27741c7d42b56baaa336b9549e",
@@ -402,9 +402,9 @@
     "UPSTREAM-LOCK.json": "35b2b6c4da999f41ebafb8a4f414cff9911bf168c388d8ba70aae360a982fd2c"
   },
   "technology": {
-    "name": "SkyWater SKY130 \u00b7 sky130A",
-    "revision": "24bc6d0bfd6a0224",
-    "status": "local assets indexed \u00b7 device simulation unverified",
+    "name": "SkyWater SKY130 · sky130A",
+    "revision": "b1f441fabee1ed85",
+    "status": "local assets indexed · device simulation unverified",
     "dbu_um": 0.001,
     "grid": 5,
     "layers": [
@@ -4717,7 +4717,7 @@
             "d0",
             "d1"
           ],
-          "prefix": "X",
+          "prefix": "D",
           "parameters": {
             "area": {
               "default": "1e12",
@@ -4877,7 +4877,7 @@
               "available_models": "\nsky130_fd_pr__diode_pw2nd_05v5\nsky130_fd_pr__diode_pw2nd_11v0\nsky130_fd_pr__diode_pw2nd_05v5_nvt\nsky130_fd_pr__diode_pw2nd_05v5_lvt\nsky130_fd_pr__diode_pd2nw_05v5\nsky130_fd_pr__diode_pd2nw_11v0\nsky130_fd_pr__diode_pd2nw_05v5_hvt\nsky130_fd_pr__diode_pd2nw_05v5_lvt\nsky130_fd_pr__model__parasitic__rf_diode_ps2nw\nsky130_fd_pr__model__parasitic__rf_diode_pw2dn\nsky130_fd_pr__model__parasitic__diode_pw2dn\nsky130_fd_pr__model__parasitic__diode_ps2dn\nsky130_fd_pr__model__parasitic__diode_ps2nw\n"
             }
           },
-          "model_source": "libs.tech/ngspice/sky130_fd_pr__model__r+c.model.spice",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pw2nd_05v5.model.spice",
           "notes": []
         },
         "sky130_fd_pr/lvsdiode.sym": {
@@ -4891,7 +4891,7 @@
             "d0",
             "d1"
           ],
-          "prefix": "X",
+          "prefix": "D",
           "parameters": {
             "area": {
               "default": "1e12",
@@ -5051,7 +5051,7 @@
               "available_models": "\nsky130_fd_pr__diode_pw2nd_05v5\nsky130_fd_pr__diode_pw2nd_11v0\nsky130_fd_pr__diode_pd2nw_05v5\nsky130_fd_pr__diode_pd2nw_11v0\nsky130_fd_pr__model__parasitic__diode_ps2dn\n"
             }
           },
-          "model_source": "libs.tech/ngspice/sky130_fd_pr__model__r+c.model.spice",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pw2nd_05v5.model.spice",
           "notes": []
         },
         "sky130_fd_pr/nfet3_01v8.sym": {
@@ -23144,7 +23144,7 @@
             "m",
             "p"
           ],
-          "prefix": "M",
+          "prefix": "R",
           "parameters": {
             "l": {
               "default": "1",
@@ -23418,7 +23418,7 @@
             "m",
             "p"
           ],
-          "prefix": "M",
+          "prefix": "R",
           "parameters": {
             "l": {
               "default": "1",
@@ -23692,7 +23692,7 @@
             "m",
             "p"
           ],
-          "prefix": "M",
+          "prefix": "R",
           "parameters": {
             "l": {
               "default": "1",
@@ -23966,7 +23966,7 @@
             "m",
             "p"
           ],
-          "prefix": "M",
+          "prefix": "R",
           "parameters": {
             "l": {
               "default": "1",
