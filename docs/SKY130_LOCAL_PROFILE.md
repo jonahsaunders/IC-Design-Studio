@@ -1,18 +1,38 @@
-# SKY130 local qualification profile
+# SKY130 public-check baseline v1
 
-Chunk 6 targets a generic SKY130 workflow with local verification and export.
+Chunk 6 qualifies a generic SKY130 workflow against an explicit, versioned suite
+of public checks, with local verification and export.
 Tiny Tapeout is inspiration and a public reference; its shuttle interface is
 not an export requirement. This 2026-10-16 profile replaces the previous
 catalog-wide interpretation of chunk 6. It does not qualify every SKY130 device,
 the complete chip, manufacturing masks, or foundry signoff.
 
-## Completion gate
+## Approved completion gate
 
-Every applicable physical requirement for the declared profile must be accounted
-for. Valid reference layouts must pass locally, deliberate physical faults must
-be detected, and Studio must retain and export the exact checked artifacts.
-Missing or failed required checks prevent a verified result. Source revisions,
-tool versions, upstream exclusions and unsupported features remain explicit.
+On 2026-10-16 the user approved completion against the public-check baseline,
+with unresolved process requirements explicitly excluded from its qualification
+claim. This replaces the earlier requirement to resolve every applicable rule
+before completing chunk 6. It does not change those rules into passes.
+
+The baseline is `sky130a-hd-public-checks-v1`. Valid reference layouts must pass
+the included local checks, deliberate faults must be detected, and Studio must
+export the exact checked artifacts and source identities. Missing or failed
+included checks cannot produce a baseline pass. The
+[completion record](validation/sky130-public-baseline-2026-10-16.json) binds the
+implementation, reference runs, controls and cross-platform exports.
+
+The export manifest reports `public-checks-passed` when every included check
+passes with full density windows. It reports `surrounding-layout-required` for
+a checked small block with no full windows, and `incomplete` when checks are
+missing. Historical jobs do not automatically acquire a baseline pass.
+`foundry_signoff` and `complete_rule_coverage` remain false in every case.
+
+Excluded from this baseline are the unresolved x.20 pin-spacing limit and
+periphery applicability, generated-mask definitions, the historical 302 open
+catalog records, final-mask/metal-5 density and clipped-window acceptance,
+seal/frame/scribe and complete-chip checks, other device families, electrical
+qualification and installer/release acceptance. These remain visible obligations
+for broader support. The native deck's built-in cell filters remain explicit.
 
 Initial target: SKY130A HD digital blocks and 1.8 V NMOS/PMOS layout controls.
 Top names, dimensions and interfaces are design inputs. The process's permitted
@@ -27,11 +47,18 @@ remain in chunks 7–9. Exact PDK/tool identities must accompany each execution.
 
 | Batch | Required outcome | Status |
 | --- | --- | --- |
-| Scope | Pinned sources and an applicability record for every required profile check | Native source/options pinned; complete applicability record remains open |
-| Local verification | Generic SKY130 native DRC, transistor geometry, antenna and connectivity; separate density and LVS evidence | Strict device/body/port LVS is mandatory in new SKY130 HD Finish jobs; counter/UART/APB pass on both retained and matched newer libraries; full profile acceptance remains open |
+| Scope | Versioned included checks, source identities and explicit exclusions | Complete for the public-check baseline; complete process-rule applicability remains excluded |
+| Local verification | Public native DRC, supplemental transistor geometry, 13 antenna stages, power connectivity, strict LVS and public density checks | Complete for the retained reference scope; both captured HD libraries have separate reference/fault evidence |
 | References and faults | Counter/UART/APB and nonempty transistor controls; deliberate faults rejected | Native, implant, fill-mapping, spacing, density and LVS fault controls pass their expected outcomes; native implant gap remains explicit |
-| Density | Declared surrounding geometry and boundary policy; meaningful full-window checks on final fill | Local fill generation and independent stream checks implemented; 840 µm reference passes nine full windows under both public profiles; complete density applicability remains open |
-| Application | Normal application execution and export, repeatable on Windows/Linux, with no missing-check success | Normal filled Finish, mandatory LVS and portable export are exercised on both captured libraries; installer requalification remains separate |
+| Density | Meaningful full windows on final fill, with explicit treatment of small blocks | Filled 840 µm reference passes nine windows under both public profiles; smaller blocks retain their surrounding-layout obligation |
+| Application | Normal execution and portable export with no missing-check baseline success | Complete for the public-check reference gate; installer requalification remains separate |
+
+The completion review also corrects two older manual-ledger exclusions:
+missing frame/module identifiers cannot discharge enclosure requirements.
+New Finish reports keep those rows unresolved, and export rejects a restored
+false exemption even if its report hash is recomputed. Older reports without
+this review need a new Finish before export. Original measured geometry and
+historical evidence files are preserved.
 
 ## Generic integration evidence
 
@@ -158,10 +185,10 @@ changed fill inventory. Native OpenROAD LEF readback preserves every fill
 obstruction and the expected pins in all four fresh application references.
 
 This work establishes the stated public-window and reference connectivity results.
-It does not close complete profile applicability, final-mask density or all
-boundary policies. Routed OpenRCX SPEF is retained; floating-fill coupling has
-not been qualified. Broader device and electrical qualification keep their
-separate gates. Chunk 6 remains open while an applicable requirement lacks proof.
+Complete process applicability, final-mask density and complete-chip boundary
+policies are excluded from baseline v1. Routed OpenRCX SPEF is retained;
+floating-fill coupling has not been qualified. Broader device and electrical
+qualification keep their separate gates.
 
 Public Tiny Tapeout and ChipFoundry decks already retained by the project are
 reference implementations. Their original licenses remain in force. Reuse is
@@ -173,8 +200,8 @@ including the contact-coverage regression, remain in force.
 
 The historical 302 unresolved catalog records remain unchanged. They are not
 automatically waived, relabeled absent, or counted as passing. Applicability
-decisions need evidence. Any unresolved requirement that applies to the supported
-profile still blocks that profile's qualification. Frame/scribe and complete-chip
+decisions need evidence. They are excluded from the bounded public-check
+qualification rather than discharged. Frame/scribe and complete-chip
 obligations remain recorded for chunk 11; unrestricted signoff remains unqualified.
 
 Native DRC alone does not cover density, antenna, LVS, or electrical

@@ -48,6 +48,8 @@ def fixture(root):
     ledger = json.loads((ROOT/'docs/validation/sky130-filled-replay-2026-10-14.json').read_bytes())['cases'][0]['execution']
     from icstudio.digital_sky130_scope import correct
     ledger = correct(ledger)
+    from icstudio.digital_sky130_frame_scope import correct as correct_frame_scope
+    ledger = correct_frame_scope(ledger)
     from icstudio.digital_sky130_pad_scope import correct as correct_pad_scope
     ledger = correct_pad_scope(ledger)
     def bind_fixture(value):

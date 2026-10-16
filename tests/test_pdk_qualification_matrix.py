@@ -85,6 +85,8 @@ class QualificationMatrixTests(unittest.TestCase):
     def test_geometry_and_later_chunks_cannot_be_promoted_without_bound_evidence(self):
         matrix = copy.deepcopy(self.matrix)
         matrix['schema'] = 3
+        matrix.get('execution_acceptance', {}).pop('6', None)
+        matrix['chunks']['6']['status']='in_progress'
         matrix.get('execution_acceptance', {}).pop('5', None)
         matrix['chunks']['5']['status']='in_progress'
         matrix['requirements']['ihp-sg13g2:ihp-fill']['status']='partial'
@@ -104,6 +106,8 @@ class QualificationMatrixTests(unittest.TestCase):
             validate(matrix)
         matrix = copy.deepcopy(self.matrix)
         matrix['schema'] = 3
+        matrix.get('execution_acceptance', {}).pop('6', None)
+        matrix['chunks']['6']['status']='in_progress'
         matrix.get('execution_acceptance', {}).pop('5', None)
         matrix['chunks']['5']['status']='in_progress'
         matrix['requirements']['ihp-sg13g2:ihp-fill']['status']='partial'

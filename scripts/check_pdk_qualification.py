@@ -187,7 +187,7 @@ def validate(matrix, root=ROOT):
     def require(condition, message):
         if not condition:
             raise ValueError(message)
-    require(matrix['schema'] in (1, 2, 3, 4, 5), 'Unsupported matrix schema.')
+    require(matrix['schema'] in (1, 2, 3, 4, 5, 6), 'Unsupported matrix schema.')
     require(matrix['inventory'] == inventory(root), 'Matrix inventory is stale or incomplete.')
     require(set(matrix['targets']) == set(TARGETS), 'Missing or extra qualification target.')
     tests = matrix['tests']
@@ -202,12 +202,12 @@ def validate(matrix, root=ROOT):
     requirements = matrix['requirements']
     chunk2 = matrix.get('execution_acceptance', {}).get('2')
     if chunk2:
-        require(matrix['schema'] in (2, 3, 4, 5), 'Execution acceptance needs schema 2 or later.')
+        require(matrix['schema'] in (2, 3, 4, 5, 6), 'Execution acceptance needs schema 2 or later.')
         require(sha(root / chunk2['path']) == chunk2['sha256'], 'Toolchain acceptance record changed.')
         validate_toolchain_record(read(root / chunk2['path']))
     chunk3 = matrix.get('execution_acceptance', {}).get('3')
     if chunk3:
-        require(matrix['schema'] in (3, 4, 5) and bool(chunk2), 'Geometry acceptance needs schema 3 or later and the preceding toolchain gate.')
+        require(matrix['schema'] in (3, 4, 5, 6) and bool(chunk2), 'Geometry acceptance needs schema 3 or later and the preceding toolchain gate.')
         require(sha(root / chunk3['path']) == chunk3['sha256'], 'Geometry acceptance record changed.')
         # Keep script invocation and package imports working without importing
         # application code into this evidence-only validator.
@@ -220,7 +220,7 @@ def validate(matrix, root=ROOT):
     chunk4 = matrix.get('execution_acceptance', {}).get('4')
     fill_complete = False
     if chunk4:
-        require(matrix['schema'] in (4, 5) and bool(chunk3), 'Density acceptance needs schema 4 or later and the preceding geometry gate.')
+        require(matrix['schema'] in (4, 5, 6) and bool(chunk3), 'Density acceptance needs schema 4 or later and the preceding geometry gate.')
         require(sha(root / chunk4['path']) == chunk4['sha256'], 'Density acceptance record changed.')
         if __package__:
             from .check_gf180_density_acceptance import validate as validate_density
@@ -233,14 +233,14 @@ def validate(matrix, root=ROOT):
             else:
                 from check_gf180_fill_closure import validate as validate_fill_closure
             snapshot=chunk4.get('historical_source_snapshot')
-            require(not snapshot or matrix['schema']==5, 'Historical source capture needs schema 5.')
+            require(not snapshot or matrix['schema'] in (5,6), 'Historical source capture needs schema 5 or later.')
             fill_complete = validate_fill_closure(density_record, root, snapshot)['chunk_complete']
         else:
             validate_density(density_record, root)
     chunk5=matrix.get('execution_acceptance',{}).get('5')
     ihp_complete=False
     if chunk5:
-        require(matrix['schema']==5 and bool(chunk2), 'IHP acceptance needs schema 5 and the toolchain gate.')
+        require(matrix['schema'] in (5,6) and bool(chunk2), 'IHP acceptance needs schema 5 or later and the toolchain gate.')
         require(sha(root/chunk5['path'])==chunk5['sha256'], 'IHP acceptance record changed.')
         if __package__:
             from .check_ihp_fill_closure import validate as validate_ihp
@@ -296,7 +296,20 @@ def validate(matrix, root=ROOT):
     require(matrix['chunks']['5']['status'] in ('pending','in_progress') or
             (ihp_complete and matrix['chunks']['5']['status']=='reference_gate_complete'),
             'IHP execution gate requires complete bound reference evidence.')
-    require(all(matrix['chunks'][str(n)]['status'] in ('pending', 'in_progress') for n in range(6, 13)),
+    chunk6=matrix.get('execution_acceptance',{}).get('6')
+    sky130_complete=False
+    if chunk6:
+        require(matrix['schema']==6 and bool(chunk2),'SKY130 public baseline needs schema 6 and the toolchain gate.')
+        require(sha(root/chunk6['path'])==chunk6['sha256'],'SKY130 public baseline acceptance record changed.')
+        if __package__:
+            from .check_sky130_public_baseline import validate as validate_public_baseline
+        else:
+            from check_sky130_public_baseline import validate as validate_public_baseline
+        sky130_complete=validate_public_baseline(read(root/chunk6['path']),root)['chunk_complete']
+    require(matrix['chunks']['6']['status'] in ('pending','in_progress') or
+        (sky130_complete and matrix['chunks']['6']['status']=='public_reference_gate_complete'),
+        'SKY130 public baseline requires its bounded acceptance record.')
+    require(all(matrix['chunks'][str(n)]['status'] in ('pending', 'in_progress') for n in range(7, 13)),
             'Completed execution requires a new, reviewed evidence schema.')
     return {'status': 'matrix_consistent', 'process_qualification': 'unqualified',
             'targets': len(TARGETS), 'requirements': len(requirements),

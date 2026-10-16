@@ -1,6 +1,6 @@
 # PDK qualification in twelve chunks
 
-**2026-10-16 scope update:** chunk 6 follows the
+**2026-10-16 approved completion boundary:** chunk 6 follows the
 [SKY130 local qualification profile](SKY130_LOCAL_PROFILE.md).
 Exports and verification are generic SKY130; Tiny Tapeout is a source of
 inspiration, not the required target.
@@ -8,7 +8,10 @@ Work now prioritizes a complete local design workflow,
 physical fault detection, meaningful density context and application export.
 The catalog-wide source reviews below are historical evidence; the 302 unresolved
 records remain visible and do not become passes through this scope change.
-Chunk 6 remains in progress until the new profile's evidence is complete.
+The user approved qualifying the explicit public-check baseline while excluding
+unresolved process requirements from that claim. The
+[bounded completion record](validation/sky130-public-baseline-2026-10-16.json)
+completes chunk 6 on that basis; it does not establish full foundry signoff.
 
 The target is analog and digital design on SKY130, GF180MCU C/D and IHP SG13G2.
 No target is currently qualified for complete-chip tapeout. Work proceeds in the
@@ -39,7 +42,24 @@ options and current digital operating points. It does **not** equate this bundle
 subset with the complete upstream PDK. Upstream completeness and the remaining
 device-specific operating envelopes are explicit open requirements.
 
-## Current checkpoint: chunks 1–5 complete; chunk 6 partial
+## Current checkpoint: chunks 1–6 have completed their declared reference gates
+
+Chunk 6 is complete as `sky130a-hd-public-checks-v1`: public native DRC,
+supplemental geometry, thirteen antenna stages, strict device/body/port LVS,
+public density windows, independent fill checks and generic portable export.
+Fresh counter/UART/APB runs and Windows revalidation exercise the application.
+The filled 840 µm counter passes nine full windows; smaller UART/APB blocks
+explicitly require surrounding layout. Missing checks never inherit a pass.
+
+The versioned export carries its exact source identities and exclusions. The
+302 unresolved historical catalog records, missing x.20 definition, generated
+mask coverage, complete-chip boundaries and electrical/installer qualification
+remain unresolved. This is the narrower completion standard approved by the
+user, not a claim that those requirements have been solved.
+
+## Earlier checkpoints under the previous completion standard
+
+The following entries retain the status and scope of their original executions.
 
 The [mandatory density gate](validation/sky130-density-gate-2026-10-16.json)
 checks every new SKY130 HD Finish independently of the fill-generation setting.
@@ -600,7 +620,7 @@ remain in their original later chunks. No complete PDK is tapeout qualified.
 | 3. GF180 geometry | Integrate via pitch; integrate tap spacing; counter; UART; APB. Establish a separate matched D platform. | Production-flow geometry, antenna, extracted timing and equivalence pass without changing the original design constraints. |
 | 4. GF180 density | Resolve active/poly fill; resolve each metal layer; check exclusions; rerun all post-fill checks. | Filled production references pass required density/geometry, connectivity, extraction, timing and equivalence. Experimental counter results retain their narrower scope. |
 | 5. IHP geometry/fill | Resolve the twelve observed findings, grouped by rule; recheck counter; UART; APB. | Complete final-layout rules, connectivity and extracted performance pass. |
-| 6. SKY130 rules | Reconcile rule inventory; enable FEOL; check density/antenna; final-GDS LVS; negative controls. | Every required rule group executes; no silently disabled coverage or unexplained violations. |
+| 6. SKY130 public checks | Version the public baseline and exclusions; execute local native/supplemental geometry, antenna, strict final-GDS LVS, density, fill checks, fault controls and generic export. | The approved `sky130a-hd-public-checks-v1` reference gate passes; full-window and small-block outcomes remain distinct. Unresolved process rules and foundry signoff are explicitly excluded. |
 | 7. Devices | Reconcile upstream inventory; MOS; resistors; capacitors; diodes; bipolar; remaining devices. Treat IHP RF separately. | Every supported device passes terminal/parameter/model, operating-envelope, layout and extracted-connectivity tests. Unsupported required devices remain blockers. |
 | 8. Extraction/corners | Wire coupons; vias; device parasitics; coupling/fill; independent RC corners; complete required PVT/RC pairs. | Independent references agree within frozen, source-backed tolerances and injected faults fail. |
 | 9. Analog blocks | Mirror; differential pair; amplifier; reference; oscillator; noise/statistics; separate IHP bipolar and RF batches. | Schematic and extracted results meet numerical specifications fixed before execution, across declared conditions. |

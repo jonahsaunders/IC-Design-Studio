@@ -1,13 +1,15 @@
-# SKY130 physical coverage: chunk 6 in progress
+# SKY130 physical coverage and public-check qualification
 
 **Current scope (2026-10-16):** chunk 6 follows the
-[local qualification profile](SKY130_LOCAL_PROFILE.md). Its executable gates
-supersede the catalog-wide completion interpretation in the historical reviews
-below. All earlier results retain their original scope; 302 catalog records
-remain unresolved. No complete-chip or foundry qualification is inferred.
+[public-check baseline](SKY130_LOCAL_PROFILE.md). The user approved its explicit
+public-check completion boundary. The
+[completion record](validation/sky130-public-baseline-2026-10-16.json) qualifies
+that baseline and completes chunk 6. All earlier results retain their original
+scope; 302 catalog records remain unresolved. No complete-chip or foundry
+qualification is inferred.
 
 The [execution record](validation/sky130-physical-progress-2026-10-11.json)
-captures the original counter, UART and APB final layouts. Chunk 6 remains open.
+captures the original counter, UART and APB final layouts under the earlier gate.
 Zero geometry markers alone do not establish complete physical coverage.
 
 ## Mandatory public density policy (2026-10-16)

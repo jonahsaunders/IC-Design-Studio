@@ -1,8 +1,8 @@
 {
-  "schema": 5,
+  "schema": 6,
   "as_of": "2026-10-16",
   "source_baseline": "5b33a68f3a8e225002c3b4ac38d63fc97cf25420",
-  "claim": "Qualification plan and coverage inventory only. No process is tapeout qualified. Historical passes retain their original design/source/PDK scope.",
+  "claim": "Qualification matrix and bounded reference evidence. No process is tapeout qualified. Chunk 6 qualifies the user-approved public-check baseline only; historical passes retain their original design/source/PDK scope.",
   "chunks": {
     "1": {
       "name": "Define qualification matrix",
@@ -27,8 +27,9 @@
       "scope": "Three original-footprint IHP SG13G2 standard-cell blocks: complete required block rules, strict device/port LVS, unchanged nominal circuit capacitance and local fields, final-netlist formal proof, three-library-condition extracted timing, actual fill/timing/export application execution and native LEF readback. No complete-PDK or foundry qualification."
     },
     "6": {
-      "name": "Complete SKY130 physical coverage",
-      "status": "in_progress"
+      "name": "Qualify SKY130 public physical checks",
+      "status": "public_reference_gate_complete",
+      "scope": "User-approved sky130a-hd-public-checks-v1: local geometry, antenna, strict LVS, public density and generic export. Counter passes nine full windows; smaller UART/APB require surrounding layout. The 302 unresolved catalog records, other devices, electrical/complete-chip and foundry signoff remain excluded."
     },
     "7": {
       "name": "Qualify device families",
@@ -16792,7 +16793,8 @@
         "sky130-generic-native-2026-10-16",
         "sky130-generic-density-2026-10-16",
         "sky130-application-lvs-2026-10-16",
-        "sky130-density-gate-2026-10-16"
+        "sky130-density-gate-2026-10-16",
+        "sky130-public-baseline-2026-10-16"
       ]
     },
     "sky130A:source-completeness": {
@@ -20390,6 +20392,11 @@
       "path": "docs/validation/sky130-density-gate-2026-10-16.json",
       "sha256": "4438b6478966e17b11f7cc64557610af1cdb2b79a30103ae1d684c1f85837544",
       "scope_limit": "Project acceptance of the two named public growth profiles is mandatory independently of fill generation. No new foundry rule applicability, final-mask definition, complete-chip density policy, installer or electrical qualification."
+    },
+    "sky130-public-baseline-2026-10-16": {
+      "path": "docs/validation/sky130-public-baseline-2026-10-16.json",
+      "sha256": "5a15be0b65082faebdc847fd68f9d4df6140ead86200e8225549e600e7bc6175",
+      "scope_limit": "User-approved generic SKY130A HD public-check baseline. Fresh counter/UART/APB execution, native geometry, supplemental geometry, 13 antenna stages, strict device/body/port LVS, public density, fill checks and portable export. Full process and foundry qualification remain excluded."
     }
   },
   "execution_acceptance": {
@@ -20416,6 +20423,10 @@
         "path": "docs/validation/ihp-fill-tested-source-2026-10-14-isolation/manifest.json",
         "sha256": "c67a9221db18863d74b6a8cc033c17542f183eeb8ddb9638f24b526ff7ef19a0"
       }
+    },
+    "6": {
+      "path": "docs/validation/sky130-public-baseline-2026-10-16.json",
+      "sha256": "5a15be0b65082faebdc847fd68f9d4df6140ead86200e8225549e600e7bc6175"
     }
   }
 }

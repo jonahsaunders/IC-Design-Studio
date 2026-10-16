@@ -53,6 +53,8 @@ def execute(request):
         review['checker_sha256'] = FILES['helpers/scripts/sky130_rule_execution.py']
         from .digital_sky130_scope import correct
         review = correct(review)
+        from .digital_sky130_frame_scope import correct as correct_frame_scope
+        review = correct_frame_scope(review)
         from .digital_sky130_pad_scope import correct as correct_pad_scope
         review = correct_pad_scope(review)
         from .digital_sky130_catalog_context import audit as catalog_context

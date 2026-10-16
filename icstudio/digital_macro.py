@@ -151,6 +151,10 @@ def export(result, directory, destination):
         manifest['qualification']['sky130_isolation']={
             'status':isolation['status'],'scope':isolation['scope'],'artifact':'sky130_isolation',
             'qualified':False,'enforced':isolation['enforced'],'measurement':isolation['measurement']}
+    from .digital_sky130_public_baseline import summarize as public_baseline
+    baseline=public_baseline(data,verified,value)
+    if baseline is not None:
+        manifest['qualification']['sky130_public_baseline']=baseline
     if 'extraction' in selected:
         extraction=json.loads((directory/selected['extraction']['path']).read_text())
         if extraction.get('schema')!=1 or extraction.get('status')!='complete' or extraction.get('def')!=selected.get('def') or extraction.get('netlist')!=selected['netlist']:
