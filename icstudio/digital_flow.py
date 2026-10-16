@@ -57,6 +57,9 @@ def environment(job):
                 from .digital_sky130_native import POLICY, resources
                 resources()
                 out['sky130_native'] = clone(POLICY)
+                from .digital_sky130_lvs import POLICY as LVS_POLICY, resources as lvs_resources
+                lvs_resources()
+                out['sky130_lvs'] = clone(LVS_POLICY)
             from .digital_sky130_isolation import selected as isolation_policy
             policy=isolation_policy(config)
             if policy is not None:out['sky130_isolation']=policy
@@ -222,6 +225,8 @@ def validate_result(result, directory, *, return_verified=False):
         verified['sky130_rules'] = validate_sky130_rules(data,root)
         from .digital_sky130_fill import validate_saved as validate_sky130_fill
         verified['sky130_fill'] = validate_sky130_fill(data,root)
+        from .digital_sky130_lvs import validate_saved as validate_sky130_lvs
+        verified['sky130_lvs'] = validate_sky130_lvs(data,root)
         from .digital_sky130_antenna import validate_saved as validate_sky130_antenna
         verified['sky130_antenna'] = validate_sky130_antenna(data,root)
         from .digital_sky130_isolation import validate_saved as validate_sky130_isolation

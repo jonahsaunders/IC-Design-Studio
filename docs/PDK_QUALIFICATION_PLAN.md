@@ -41,6 +41,15 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
+The [application connectivity integration](validation/sky130-application-lvs-2026-10-16.json)
+makes strict transistor, diode, body and port LVS mandatory for newly prepared
+SKY130 HD Finish jobs and binds the evidence to portable exports. Both reviewed
+library revisions are tested independently. Physical fault and altered-evidence
+controls prevent missing or failed connectivity from becoming a success. The
+extraction source and diode resources retain their BSD and Apache terms.
+The remaining applicability, pin-spacing and density definitions still prevent
+a complete chunk-6 claim.
+
 The [generic fill and connectivity execution](validation/sky130-generic-density-2026-10-16.json)
 adds local metal fill to normal Finish, independent database/GDS agreement,
 fill-aware LEF obstructions and portable evidence. A fresh 840 µm reference with

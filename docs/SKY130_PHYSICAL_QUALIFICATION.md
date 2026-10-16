@@ -10,6 +10,23 @@ The [execution record](validation/sky130-physical-progress-2026-10-11.json)
 captures the original counter, UART and APB final layouts. Chunk 6 remains open.
 Zero geometry markers alone do not establish complete physical coverage.
 
+## Mandatory device and port comparison (2026-10-16)
+
+The [application LVS record](validation/sky130-application-lvs-2026-10-16.json)
+adds strict device, body, diode and boundary-port comparison to every new
+SKY130 HD Finish job. The reference is captured independently from final OpenDB
+and reviewed CDL. Native extraction uses a mask-identical labelled GDS copy;
+pin annotations cannot create conductors and no blanket supply ties or pin
+equivalences are added. Failed comparison blocks Finish. Missing, altered or
+inconsistent evidence blocks export, including rehashed native failure reports.
+
+Both the retained original and newer matched PVT physical libraries are tested
+with fresh counter/UART/APB flows. Real removed-gate/diode faults run through the
+production checker. Export carries its native report, reference, settings,
+tool identity, BSD-licensed extraction source and Apache-licensed diode views.
+This closes the reference-only LVS integration gap. Complete profile
+applicability, pin-spacing definitions and final-mask density remain open.
+
 ## Generic fill, density and connectivity (2026-10-16)
 
 The [execution record](validation/sky130-generic-density-2026-10-16.json) records

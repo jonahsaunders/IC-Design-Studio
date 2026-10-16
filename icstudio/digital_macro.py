@@ -53,9 +53,13 @@ def export(result, directory, destination):
     selected={k:v for k,v in artifacts.items() if k in ('gds','lef','netlist','spef','sdc','layout_preview','database','timing','equivalence','def','extraction','physical_checks','gf180_connectivity','fill','ihp_fill','sky130_rules','sky130_antenna','sky130_isolation') or k.startswith(('spef_','extraction_script_','physical_check_','lvs_reference','gf180_check_','fill_','ihp_fill_','sky130_pin_','sky130_rule_','sky130_antenna_','sky130_isolation_'))}
     selected.update({k:v for k,v in artifacts.items() if k == 'sky130_native' or k.startswith('sky130_native_')})
     selected.update({k:v for k,v in artifacts.items() if k == 'sky130_fill' or k.startswith('sky130_fill_')})
+    selected.update({k:v for k,v in artifacts.items() if k == 'sky130_lvs' or k.startswith('sky130_lvs_')})
     job=json.loads((directory/'input.json').read_text())
     value=verify_inputs(result,job)
     native_geometry=verified['sky130_native']
+    sky130_lvs=verified['sky130_lvs']
+    if sky130_lvs is not None and sky130_lvs.get('top') != value['top']:
+        raise ValueError('SKY130 connectivity evidence belongs to another top-level design.')
     if native_geometry is not None and native_geometry.get('top') != value['top']:
         raise ValueError('SKY130 native geometry evidence belongs to another top-level design.')
     from .digital_sky130_isolation import selected as isolation_policy
@@ -89,7 +93,7 @@ def export(result, directory, destination):
     if connectivity is not None and (connectivity.get('top')!=value['top'] or
             value.get('platform',{}).get('gf180_connectivity')!=data.get('environment',{}).get('gf180_connectivity')):
         raise ValueError('Combined connectivity differs from the captured macro inputs.')
-    if reference is not None or connectivity is not None or sky130_review is not None or antenna is not None or isolation is not None or native_geometry is not None or 'sky130_pin_export' in artifacts:
+    if reference is not None or connectivity is not None or sky130_review is not None or antenna is not None or isolation is not None or native_geometry is not None or sky130_lvs is not None or 'sky130_pin_export' in artifacts:
         selected['checkpoint']=artifacts['checkpoint']
     notices=captured_notices(job,directory)
     manifest={'version':1,'top':value['top'],'source_hash':data['source_hash'],'input_key':data.get('input_key'),
@@ -122,6 +126,12 @@ def export(result, directory, destination):
             'status':sky130_fill['status'], 'scope':sky130_fill['scope'], 'artifact':'sky130_fill',
             'qualified':False, 'density_status':sky130_fill['density_status'],
             'full_windows':sky130_fill['full_windows']}
+    if sky130_lvs is not None:
+        manifest['qualification']['lvs']='Strict captured SKY130 HD device/body/port comparison passed; see sky130_lvs scope.'
+        manifest['qualification']['sky130_lvs'] = {
+            'status':sky130_lvs['status'], 'scope':sky130_lvs['scope'], 'artifact':'sky130_lvs',
+            'qualified':False, 'matched':sky130_lvs['audit']['matched'],
+            'inventory':sky130_lvs['audit']['inventory']}
     if connectivity is not None:
         manifest['qualification']['gf180_connectivity']={
             'status':connectivity['status'],'scope':connectivity['scope'],'artifact':'gf180_connectivity'}

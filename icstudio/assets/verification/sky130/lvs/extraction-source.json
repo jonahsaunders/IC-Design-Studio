@@ -1,0 +1,21 @@
+{
+  "repository": "laurentc2/SKY130_for_KLayout",
+  "revision": "8f94c07178fbeef8630353add86f717746b1e3ab",
+  "license": "BSD-2-Clause",
+  "copyright": "Copyright (c) 2020, laurentc2",
+  "files": {
+    "BSD-2-Clause.txt": {
+      "path": "LICENSE",
+      "sha256": "879a976a181ce1e98b90b0c674b4ef55d72b7f90410b7d558f29c1e2d119e485",
+      "url": "https://github.com/laurentc2/SKY130_for_KLayout/blob/8f94c07178fbeef8630353add86f717746b1e3ab/LICENSE"
+    },
+    "original.lylvs": {
+      "path": "lvs/lvs_sky130.lylvs",
+      "sha256": "bcc7b27c6f118d9dbfa5db9fad01656cab2255673d18c50fe5002de6c1e41c61",
+      "url": "https://github.com/laurentc2/SKY130_for_KLayout/blob/8f94c07178fbeef8630353add86f717746b1e3ab/lvs/lvs_sky130.lylvs"
+    }
+  },
+  "captured_orfs_revision": "eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+  "captured_orfs_path": "flow/platforms/sky130hd/lvs/sky130hd.lylvs",
+  "review": "The parsed Ruby differs only in three runtime variable names, the batch usage comment, and the default schematic filename. The production adapter verifies that exact relationship. Studio changes impose strict body/port/device checks and an independently sourced antenna diode."
+}

@@ -198,6 +198,26 @@ notices and equivalent source access when redistributing dependencies.
 
 ## Included digital tools
 
+The strict SKY130 HD connectivity adapter retains the BSD-2-Clause extraction
+source by laurentc2 at revision `8f94c07178fbeef8630353add86f717746b1e3ab`:
+https://github.com/laurentc2/SKY130_for_KLayout/tree/8f94c07178fbeef8630353add86f717746b1e3ab.
+Its original source, copyright, license and pinned provenance are in
+`icstudio/assets/verification/sky130/lvs`. The captured ORFS extraction file
+differs only in runtime argument names, its usage comment and default schematic
+filename; the adapter verifies that relationship before applying Studio's
+strict device/body/port comparison changes. Every new LVS result and macro
+export retains the original license and source alongside the generated checker.
+This does not apply ORFS's build-script license to third-party platform files.
+
+The independent `sky130_fd_sc_hd__diode_2` GDS/SPICE references are Apache-2.0,
+Copyright 2020 The SkyWater PDK Authors, from
+https://github.com/fossi-foundation/skywater-pdk-libs-sky130_fd_sc_hd/tree/9cb2d7cb8ed4619094263614039a61b6b2d22a88.
+Their original headers, license and source lock accompany the adapter and the
+`tests/fixtures/sky130-diode-reference` controls. The application LVS regression
+fixture incorporates these cells and retains both the Apache and BSD terms.
+Studio's adapters, test drivers and generated reference design remain under
+this project's GPL-3.0-or-later license; third-party files keep their own terms.
+
 Desktop release packaging includes a private Linux runtime (also used by the
 Windows app's private WSL distribution). The original OSS CAD Suite licenses are
 under `opt/icstudio/oss-cad-suite/license`; Ubuntu package copyright files are

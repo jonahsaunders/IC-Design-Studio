@@ -150,6 +150,15 @@ The deck supplements Studio's drawn-mask, antenna and connectivity checks.
 Its zero-marker result does not establish complete DRC/LVS or density acceptance;
 see the [local SKY130 qualification profile](SKY130_LOCAL_PROFILE.md).
 
+New SKY130 HD Finish jobs also require strict device, body, antenna-diode and
+boundary-port LVS against an independently captured implementation/CDL
+reference. The final layout must match before Finish succeeds. Macro export
+retains and revalidates the native comparison, reference, exact checked layout,
+tool identities and source licenses. Both reviewed original and matched newer
+HD libraries are supported; an unknown library/extraction revision needs a
+reviewed adapter. Historical runs keep their original evidence. This local
+connectivity result does not qualify every device family or complete tapeout.
+
 For the reviewed SKY130 HD platform, Physical settings also offers **Generate
 SKY130 metal density fill** (`physical.sky130_fill: true`). Finish generates fill
 on all five metals, checks every streamed fill rectangle against the implementation

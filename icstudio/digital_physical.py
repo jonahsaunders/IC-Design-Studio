@@ -323,6 +323,8 @@ def execute(r):
         sky130_isolation_review=sky130_isolation(r)
         from .digital_physical_checks import execute as physical_checks
         checks=physical_checks(r)
+        from .digital_sky130_lvs import execute as sky130_lvs
+        sky130_lvs_review=sky130_lvs(r)
         from .digital_lvs_reference import execute as reference_export
         reference=reference_export(r)
         from .digital_gf180_checks import execute as gf180_connectivity
@@ -345,6 +347,7 @@ def execute(r):
             **({'sky130_native':sky130_native_review} if stage=='finish' and sky130_native_review is not None else {}),
             **({'sky130_rules':sky130_review} if stage=='finish' and sky130_review is not None else {}),
             **({'sky130_fill':sky130_fill_review} if stage=='finish' and sky130_fill_review is not None else {}),
+            **({'sky130_lvs':sky130_lvs_review} if stage=='finish' and sky130_lvs_review is not None else {}),
             **({'sky130_antenna':sky130_antenna_review} if stage=='finish' and sky130_antenna_review is not None else {}),
             **({'sky130_isolation':sky130_isolation_review} if stage=='finish' and sky130_isolation_review is not None else {}),
             **({'reference':reference} if stage=='finish' and reference is not None else {}),

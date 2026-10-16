@@ -28,10 +28,10 @@ remain in chunks 7–9. Exact PDK/tool identities must accompany each execution.
 | Batch | Required outcome | Status |
 | --- | --- | --- |
 | Scope | Pinned sources and an applicability record for every required profile check | Native source/options pinned; complete applicability record remains open |
-| Local verification | Generic SKY130 native DRC, transistor geometry, antenna and connectivity; separate density and LVS evidence | Fresh filled counter/UART/APB Finish passes; strict reference LVS and custom MOS controls pass; full profile acceptance remains open |
+| Local verification | Generic SKY130 native DRC, transistor geometry, antenna and connectivity; separate density and LVS evidence | Strict device/body/port LVS is mandatory in new SKY130 HD Finish jobs; counter/UART/APB pass on both retained and matched newer libraries; full profile acceptance remains open |
 | References and faults | Counter/UART/APB and nonempty transistor controls; deliberate faults rejected | Native, implant, fill-mapping, spacing, density and LVS fault controls pass their expected outcomes; native implant gap remains explicit |
 | Density | Declared surrounding geometry and boundary policy; meaningful full-window checks on final fill | Local fill generation and independent stream checks implemented; 840 µm reference passes nine full windows under both public profiles; complete density applicability remains open |
-| Application | Normal application execution and export, repeatable on Windows/Linux, with no missing-check success | Four filled Linux Finish runs and three Windows export/readback runs pass; installer requalification remains separate |
+| Application | Normal application execution and export, repeatable on Windows/Linux, with no missing-check success | Normal filled Finish, mandatory LVS and portable export are exercised on both captured libraries; installer requalification remains separate |
 
 ## Generic integration evidence
 
@@ -99,7 +99,41 @@ polysilicon from UART makes comparison fail. Separate custom
 reference widths is rejected. These are retained qualification runs, not an
 automatic LVS pass conferred on every application export.
 
-The final focused suite collects 162 tests per OS: Windows passes 154 with eight
+## Mandatory application connectivity
+
+The [application LVS execution record](validation/sky130-application-lvs-2026-10-16.json)
+extends those reference controls into normal Finish. Every newly prepared
+SKY130 HD Finish job now captures a fresh independent OpenDB/CDL reference and
+compares it with the final GDS. Device dimensions, body connections, antenna
+diodes and every boundary port must agree. Unknown CDL or extraction revisions
+fail explicitly. The two supported captured library revisions are tested
+separately; this does not qualify every cell or device family.
+
+Port-name encoding operates on a mask-identical copy, with labels placed on
+existing metal. Pin annotations cannot create conductors. The comparison adds
+no global supply ties, port equivalences or device blackboxes. A missing or
+failed comparison prevents Finish from succeeding. Export requires the exact
+checked GDS, database, independent reference, native comparison database,
+comparison settings, tool identities and source licenses. Saved-result replay
+reconstructs the reference and label adaptation and reads the native comparison
+graph instead of trusting a saved PASS field. Historical jobs retain their
+original evidence and gain no automatic connectivity claim.
+
+The source review identifies the extraction rules as the BSD-2-Clause
+`laurentc2/SKY130_for_KLayout` source with mechanical interface substitutions in
+ORFS. The adapter verifies that relationship and retains the original source
+and license. Independent diode GDS/SPICE views retain their Apache-2.0 terms.
+No private or Cadence-licensed checker is incorporated.
+
+The final connectivity-focused suite collects 220 tests on each OS: Windows
+passes 212 with eight OS-specific skips, and Linux passes 215 with five. The
+platform-specific skipped cases execute on the other OS. Six fresh Linux
+Finish runs cover counter, UART and APB on both captured library revisions;
+all six deliberate physical faults are rejected. Six Windows exports reopen
+relocated native evidence, verify every exported artifact/notice hash and
+reject a changed native comparison database.
+
+The earlier fill-focused suite collects 162 tests per OS: Windows passes 154 with eight
 OS-specific skips, and Linux passes 157 with five OS-specific skips. The skipped
 platform-specific cases execute on the other OS. Three Windows exports reopen
 relocated evidence, verify every exported artifact/notice hash and reject a

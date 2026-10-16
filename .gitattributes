@@ -30,3 +30,7 @@ docs/validation/ihp-fill-closure-2026-10-11.json whitespace=cr-at-eol
 docs/validation/gf180-tested-source-2026-10-09.json whitespace=cr-at-eol
 docs/validation/sky130-connectivity-2026-10-11/audit-win32.json whitespace=cr-at-eol
 docs/validation/sky130-oxide-audit-2026-10-15/win32/tests.log whitespace=cr-at-eol
+# Preserve the source and license bytes locked into native LVS evidence.
+icstudio/assets/verification/sky130/lvs/** -whitespace
+icstudio/digital_sky130_lvs.py whitespace=cr-at-eol
+icstudio/digital_sky130_lvs_core.py whitespace=cr-at-eol

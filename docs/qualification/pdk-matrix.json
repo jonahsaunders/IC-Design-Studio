@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete with 302 unresolved catalog records, pin spacing and full required density acceptance. Public oxide-density measurements now execute under two separately identified profiles, with 411 tests per OS and 27 identical controls. All three blocks are smaller than a full 700 um window; APB has 21/10 clipped observations below the public thresholds. Chip context, profile applicability and final-mask construction remain unresolved. Only GPL-compatible source material is incorporated.",
+      "remaining": "Chunk 6 follows the generic block/transistor profile and remains incomplete. Normal SKY130 HD Finish now requires strict device/body/diode/port LVS on both reviewed libraries, with real faults and portable exports tested. Optional local fill and full windows under two named public oxide profiles are verified. Complete applicability, published x.20 pin-spacing limit, final-mask density and boundary policy remain open; the historical 302 unresolved catalog records retain their status. No full foundry or fill-coupling qualification is claimed.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16788,7 +16788,10 @@
         "sky130-diecut-density-audit-2026-10-15",
         "sky130-dummy-partner-audit-2026-10-15",
         "sky130-alignment-audit-2026-10-15",
-        "sky130-oxide-audit-2026-10-15"
+        "sky130-oxide-audit-2026-10-15",
+        "sky130-generic-native-2026-10-16",
+        "sky130-generic-density-2026-10-16",
+        "sky130-application-lvs-2026-10-16"
       ]
     },
     "sky130A:source-completeness": {
@@ -20376,6 +20379,11 @@
       "path": "docs/validation/sky130-generic-density-2026-10-16.json",
       "sha256": "68af6868a1ed0a9550a45e4931a30d40ab3078e87d4cc16414afcc24c5e0f393",
       "scope_limit": "Optional generic SKY130 metal fill in normal Finish; independent five-layer database/GDS geometry checks; fill-bearing macro abstracts and bound export evidence. Four fresh application runs, full public windows on one 840 um reference, strict reference LVS and native custom NMOS/PMOS controls. No Tiny Tapeout interface or tile restriction. Complete profile applicability and foundry signoff remain open."
+    },
+    "sky130-application-lvs-2026-10-16": {
+      "path": "docs/validation/sky130-application-lvs-2026-10-16.json",
+      "sha256": "acac20aeebc180be37900790b181166d4e316dbd10b169995a22197c76b3645e",
+      "scope_limit": "Mandatory generic SKY130 HD device/body/diode/port LVS in normal Finish and portable macro export. Six fresh filled application runs across the original and newer matched libraries; six real physical faults rejected by the production checker; six Windows exports and relocated readbacks. Every comparison runs locally. Complete profile applicability, density policy and foundry signoff remain open."
     }
   },
   "execution_acceptance": {
