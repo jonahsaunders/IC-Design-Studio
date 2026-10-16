@@ -34,7 +34,7 @@
     "7": {
       "name": "Qualify device families",
       "status": "in_progress",
-      "scope": "Selected MOS, resistor, capacitor, diode and bipolar execution is recorded. The source-built ngspice 47 runtime passes relocation and selected regressions; all 432 standard-MOS cases pass its diagnostic build. Twenty-five additional diode interfaces pass 36 conditions and 900 device faults. A separate IHP isolbox package and fresh imports pass terminal/geometry-domain checks and nine DC cases; the bundled historical entry remains unavailable. Full release-image acceptance, upstream inventory, operating envelopes, additional families and physical coverage remain open. The twelve required GF180 B bandgap exchange/physical controls pass; C/D analog qualification and distributed RC/fill coupling are not inferred."
+      "scope": "Selected MOS, resistor, capacitor, diode and bipolar execution is recorded. The source-built ngspice 47 runtime passes relocation and selected regressions; all 432 standard-MOS cases pass its diagnostic build. Twenty-five additional diode interfaces pass 36 conditions and 900 device faults. A separate IHP isolbox package and fresh imports pass terminal/geometry-domain checks and nine DC cases; the bundled historical entry remains unavailable. Full release-image acceptance, upstream inventory, operating envelopes, additional families and physical coverage remain open. The twelve required GF180 B bandgap exchange/physical controls pass; C/D analog qualification and distributed RC/fill coupling are not inferred. All 255 primitive symbol sources now reconcile with the complete pinned source views on both hosts; model-only and other tool inventories remain separate."
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -16702,8 +16702,10 @@
       "target": "sky130A",
       "test": "inventory",
       "status": "partial",
-      "remaining": "Bundled identity and catalog inventory captured; full upstream inventory and operating envelopes remain separate open tests.",
-      "historical_evidence": []
+      "remaining": "Primitive Xschem symbol source inventory is reconciled without missing, extra or changed entries. Full model-only/device-library/process-option reconciliation, other tool views and operating envelopes remain open.",
+      "historical_evidence": [
+        "primitive-symbol-inventory-2026-10-16"
+      ]
     },
     "sky130A:mixed-signal": {
       "target": "sky130A",
@@ -17042,8 +17044,10 @@
       "target": "gf180mcuC",
       "test": "inventory",
       "status": "partial",
-      "remaining": "Bundled identity and catalog inventory captured; full upstream inventory and operating envelopes remain separate open tests.",
-      "historical_evidence": []
+      "remaining": "Primitive Xschem symbol source inventory is reconciled without missing, extra or changed entries. Full model-only/device-library/process-option reconciliation, other tool views and operating envelopes remain open.",
+      "historical_evidence": [
+        "primitive-symbol-inventory-2026-10-16"
+      ]
     },
     "gf180mcuC:mixed-signal": {
       "target": "gf180mcuC",
@@ -17309,8 +17313,10 @@
       "target": "gf180mcuD",
       "test": "inventory",
       "status": "partial",
-      "remaining": "Bundled identity and catalog inventory captured; full upstream inventory and operating envelopes remain separate open tests.",
-      "historical_evidence": []
+      "remaining": "Primitive Xschem symbol source inventory is reconciled without missing, extra or changed entries. Full model-only/device-library/process-option reconciliation, other tool views and operating envelopes remain open.",
+      "historical_evidence": [
+        "primitive-symbol-inventory-2026-10-16"
+      ]
     },
     "gf180mcuD:mixed-signal": {
       "target": "gf180mcuD",
@@ -17573,8 +17579,10 @@
       "target": "ihp-sg13g2",
       "test": "inventory",
       "status": "partial",
-      "remaining": "Bundled identity and catalog inventory captured; full upstream inventory and operating envelopes remain separate open tests.",
-      "historical_evidence": []
+      "remaining": "Primitive Xschem symbol source inventory is reconciled without missing, extra or changed entries. Full model-only/device-library/process-option reconciliation, other tool views and operating envelopes remain open.",
+      "historical_evidence": [
+        "primitive-symbol-inventory-2026-10-16"
+      ]
     },
     "ihp-sg13g2:mixed-signal": {
       "target": "ihp-sg13g2",
@@ -21547,6 +21555,11 @@
       "path": "docs/validation/chunk7-final-regressions-2026-10-16.json",
       "sha256": "3e9dbee3cf616004519b7339f373cae92de4559282eac1fc155590c84c2aacd6",
       "scope_limit": "Final combined regression of current runtime/diode compatibility, bandgap failure reporting, physical anchors and IHP isolation interface. This does not complete all device families or the full installed runtime."
+    },
+    "primitive-symbol-inventory-2026-10-16": {
+      "path": "docs/validation/primitive-symbol-inventory-2026-10-16.json",
+      "sha256": "c17af682823167afa644e5ad75e8ec787d59e3b013cbe23688644164165e4acc",
+      "scope_limit": "Complete source-view reconciliation for all 255 primitive symbols: 74 SKY130A, 68 each GF180 C/D and 45 IHP. Identical Windows/Linux reports; Git trees and archive identities verified. Model-only devices, other interfaces and operating/physical qualification remain open."
     }
   },
   "execution_acceptance": {

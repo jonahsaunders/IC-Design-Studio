@@ -172,3 +172,24 @@ Nine corner/temperature cases pass independent terminal-current comparisons and
 including fresh import, save/reopen, Xschem exchange and invalid-dimension rejection.
 Physical extraction, full bias and geometry envelopes and default promotion
 remain separate open requirements.
+
+## Primitive source inventory
+
+`scripts/reconcile_primitive_inventory.py` verifies the complete primitive
+Xschem source views, including unavailable entries. It reconstructs every Git
+tree object so a truncated or omitted directory entry cannot silently pass.
+It streams the pinned SKY130 `common.tar.zst` without extracting its contents.
+
+Use `zstandard==0.23.0` in the qualification Python environment. The input GitHub
+recursive-tree JSON responses must use the exact tree identities in the runner's
+`LOCKS` table, with `recursive=1`. The existing SKY130 archive must match the
+bundled `UPSTREAM-LOCK.json` checksum.
+
+```sh
+python scripts/reconcile_primitive_inventory.py --ihp-tree /path/to/ihp-tree.json --gf180-tree /path/to/gf180-tree.json --sky130-common /path/to/common.tar.zst --output /path/to/new-inventory.json
+```
+
+The [record](validation/primitive-symbol-inventory-2026-10-16.json) retains identical
+Windows/Linux reports for all 255 entries and enumerates other symbol-view
+directories. Source identity does not establish model terminal semantics,
+model-only device completeness, operating ranges or physical qualification.

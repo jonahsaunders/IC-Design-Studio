@@ -171,6 +171,15 @@ removed vias, individual ground/contact opens and a power short are rejected.
 Distributed RC, fill coupling, other physical stacks and full device coverage
 remain unqualified.
 
+The [primitive source inventory](validation/primitive-symbol-inventory-2026-10-16.json)
+reconciles all 255 catalog entries with their complete pinned primitive-symbol
+views: 74 SKY130A, 68 each GF180 C/D and 45 IHP. No symbols are missing, added or
+changed. Every Git directory object is reconstructed against the pinned root
+identity; the complete SKY130 source archive is hash-verified and streamed.
+Windows and Linux produce identical reports and pass four omission/tampering
+regression tests each. This closes primitive-symbol source coverage only;
+model-only devices, other tool views and process options remain separate work.
+
 The [adapter instructions](DEVICE_ADAPTER_QUALIFICATION.md) reproduce current and
 earlier packages. Full simulator release integration, upstream completeness,
 operating envelopes, remaining device families and physical coverage remain

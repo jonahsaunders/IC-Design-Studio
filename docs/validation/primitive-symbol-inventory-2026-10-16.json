@@ -1,0 +1,2172 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "status": "partial",
+  "chunk_complete": false,
+  "qualified": false,
+  "scope": "Reconcile bundled primitive symbols with complete, pinned public source views.\n\nThis verifies file coverage and source identity, not model terminal semantics,\ndevice operating envelopes, other tool views or electrical/physical behavior.\nGitHub recursive tree responses must reconstruct the pinned Git tree object.\nThe SKY130 archive is streamed without extracting files. Requires zstandard.\n",
+  "sources": {
+    "ihp-sg13g2": {
+      "repository": "https://github.com/IHP-GmbH/IHP-Open-PDK",
+      "commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "tree": "beb3a89679354eb0753f8f825c31265d924fc388",
+      "prefix": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/",
+      "response_sha256": "dd00df670f0643bbd7ad3fef907e43762d6a2a5ff2f5b3221073b84589318e12",
+      "git_tree_verified": true,
+      "all_symbol_views": {
+        "ihp-sg13g2/libs.ref/sg13g2_stdcell/sym/qucs-s": 45,
+        "ihp-sg13g2/libs.ref/sg13g2_stdcell/sym/xschem": 84,
+        "ihp-sg13g2/libs.tech/qucs-s/symbols": 25,
+        "ihp-sg13g2/libs.tech/xschem/sg13g2_pr": 45,
+        "ihp-sg13g2/libs.tech/xschem/sg13g2_test_stdcells": 1,
+        "ihp-sg13g2/libs.tech/xschem/sg13g2_tests": 50,
+        "ihp-sg13g2/libs.tech/xschem/sg13g2_tests_xyce": 41
+      }
+    },
+    "gf180mcu": {
+      "repository": "https://github.com/fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr",
+      "commit": "4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c",
+      "tree": "97d931bbcd862069285d20b3b73613233b8842f9",
+      "prefix": "cells/xschem/gf180mcu_fd_pr/",
+      "response_sha256": "175534dda382295adc4fb3b53385830b395d95b60fd9d4b69dca1d3a90897417",
+      "git_tree_verified": true,
+      "all_symbol_views": {
+        "cells/xschem/gf180mcu_fd_pr": 68,
+        "cells/xschem/tests": 58
+      }
+    },
+    "sky130A": {
+      "release": "sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "archive_sha256": "c7c155596a1fd1fcf6d5414dfcffcbbcf4e35b2b33160af97f4340e763c97406",
+      "all_symbol_views": {
+        "sky130A/libs.tech/xschem/stdcells": 76,
+        "sky130A/libs.tech/xschem/decred_hash_macro": 3,
+        "sky130A/libs.tech/xschem/mips_cpu": 12,
+        "sky130A/libs.tech/xschem/sky130_fd_pr": 74,
+        "sky130A/libs.tech/xschem/sky130_tests": 52,
+        "sky130A/libs.tech/xschem/xschem_verilog_import": 4,
+        "sky130A/libs.tech/xschem/sky130_stdcells": 437,
+        "sky130B/libs.tech/xschem/stdcells": 76,
+        "sky130B/libs.tech/xschem/decred_hash_macro": 3,
+        "sky130B/libs.tech/xschem/mips_cpu": 12,
+        "sky130B/libs.tech/xschem/sky130_fd_pr": 75,
+        "sky130B/libs.tech/xschem/sky130_tests": 53,
+        "sky130B/libs.tech/xschem/xschem_verilog_import": 4,
+        "sky130B/libs.tech/xschem/sky130_stdcells": 437
+      }
+    }
+  },
+  "targets": {
+    "ihp-sg13g2": {
+      "status": "PASS",
+      "revision": "d03f47cdf46a85a0",
+      "manifest_sha256": "63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c",
+      "upstream_symbols": 45,
+      "catalog_entries": 45,
+      "missing": [],
+      "extra": [],
+      "changed": [],
+      "devices": [
+        {
+          "device": "sg13g2_pr/annotate_bip_params.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/annotate_bip_params.sym",
+          "source_identity": "40264e12c905def8e9cf6b79ae37ea58dae9f32c",
+          "bundled_sha256": "767d26d544a52af270ff605810e17c68498c32e5f45eaf64f57d3b301c463094",
+          "model": "annotate_bip_params",
+          "unavailable": "No electrical pins in this symbol."
+        },
+        {
+          "device": "sg13g2_pr/annotate_fet_params.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/annotate_fet_params.sym",
+          "source_identity": "37c11371e9fcd24ad762bc2ce56dd83dd156d86a",
+          "bundled_sha256": "abcebfdd0ffda54f9e1ef4d8b1f50a4523975cb6da64bf48b37a046c73f930aa",
+          "model": "annotate_fet_params",
+          "unavailable": "No electrical pins in this symbol."
+        },
+        {
+          "device": "sg13g2_pr/bondpad.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/bondpad.sym",
+          "source_identity": "b148e65ac25d6ad9c6e8812609be71c2246ec567",
+          "bundled_sha256": "140eeaf6c2d10eaa099616f6b547b5d178d6932b4e11c50d925763310bf5ce7f",
+          "model": "bondpad",
+          "unavailable": "Model is absent from the selected ngspice library closure."
+        },
+        {
+          "device": "sg13g2_pr/cap_cmim.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/cap_cmim.sym",
+          "source_identity": "18897f1957da7ec43222694121faf7445fc9ff94",
+          "bundled_sha256": "b11c811ee178d260c4b7afcaa8c123f8a6c8c108dde1a119c91aa4386d24e20b",
+          "model": "cap_cmim",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/cap_cmomf.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/cap_cmomf.sym",
+          "source_identity": "bb025365e1f5e89e4861405bdfa6cc2782f5f6d1",
+          "bundled_sha256": "0ac816baba28bbfc33821d8f9e49d5cbaed9ee91c2ef13a05ca429f13d3825f2",
+          "model": "cap_cmomf",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/cap_cmomi.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/cap_cmomi.sym",
+          "source_identity": "f8f8220a0996e90b561429fc58df5c604a9168db",
+          "bundled_sha256": "f6049ad0f27273b6b84b2927207ca81cb5119d24d0421515bc51107790e79cac",
+          "model": "cap_cmomi",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/cap_cpara.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/cap_cpara.sym",
+          "source_identity": "5bf316f7f817de0640a9e9f5a11277e71eb12a74",
+          "bundled_sha256": "97f0a42bb37759826fc603f0eccfd55c2a24dd67c047ba67e544d9297e877fa3",
+          "model": "cparasitic",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/cap_rfcmim.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/cap_rfcmim.sym",
+          "source_identity": "0a5d7bd7be19a1ddfc8176b728f8b4a8f125910a",
+          "bundled_sha256": "5a23de620eb880df75562555bdd276992f0e8e7fe9874c0af202651b54705c2f",
+          "model": "cap_rfcmim",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/dantenna.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/dantenna.sym",
+          "source_identity": "6afbd03e73660718a90baa06a3de4ce06776792a",
+          "bundled_sha256": "a552d4e6de3f0b31f3af41bd2fc67d8c52c196a4292c7f2b0595647ae01ce1f0",
+          "model": "dantenna",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/diodevdd_2kv.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/diodevdd_2kv.sym",
+          "source_identity": "4f458fb99f26eecf0c789ab40517d63230ae046c",
+          "bundled_sha256": "b572c0e9db75ecde9b0d6e8080a67e31dfe94dbfed0bbd31096a8f4579cecc2a",
+          "model": "diodevdd_2kv",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/diodevdd_4kv.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/diodevdd_4kv.sym",
+          "source_identity": "7a015d689b5def93963f6fd623a4ecedc05c136b",
+          "bundled_sha256": "5686423ad94e7d5809ab57c638cd6b229631fdb369fa819b3b1e172f569fd6a4",
+          "model": "diodevdd_4kv",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/diodevss_2kv.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/diodevss_2kv.sym",
+          "source_identity": "f113c7d4e83a291630677615b775fd7ec87c3247",
+          "bundled_sha256": "306762ad12d25e3a3e866282c18fcae55c4fa86dd9c06900048a6dbf8154e842",
+          "model": "diodevss_2kv",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/diodevss_4kv.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/diodevss_4kv.sym",
+          "source_identity": "39f0a666ed505abe81c1b659fe98731cd23828eb",
+          "bundled_sha256": "c8fa67a0182511ee5a3e0dfa64e20eaf8881f356e713210bc8d406330b48410a",
+          "model": "diodevss_4kv",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/dpantenna.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/dpantenna.sym",
+          "source_identity": "c9f04c02967242f5662ea7d7443b7a2f088c6915",
+          "bundled_sha256": "fb46fe927d6a08930cf765124f38a38d5e69d02d0728823d25a23cbccdbe8c2b",
+          "model": "dpantenna",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/gallery.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/gallery.sym",
+          "source_identity": "ebe27c1d1ef9f8f06a59db4c7f2aae77f291bd81",
+          "bundled_sha256": "7b62a01b107f47c4c3c1427d6dfe8ebd4fddd9205968699468b646b8675793d6",
+          "model": "gallery",
+          "unavailable": "No electrical pins in this symbol."
+        },
+        {
+          "device": "sg13g2_pr/inductor.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/inductor.sym",
+          "source_identity": "8e942ec3ad0ac827678fb05f82d77c7ad573ff40",
+          "bundled_sha256": "7b4542146a127904be4ddb5069d3cd414936470593499abd9c204e3b90621b4e",
+          "model": "inductor",
+          "unavailable": "Model is absent from the selected ngspice library closure."
+        },
+        {
+          "device": "sg13g2_pr/inductor3.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/inductor3.sym",
+          "source_identity": "68f4c219505b971404310c9aefae67ace35b8bb5",
+          "bundled_sha256": "56c6db7b7fbeae03d3162cc9eeb41e99ee15f7ad4d826f465072e86bbf7cbad7",
+          "model": "inductor3",
+          "unavailable": "Model is absent from the selected ngspice library closure."
+        },
+        {
+          "device": "sg13g2_pr/isolbox.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/isolbox.sym",
+          "source_identity": "a44e02326f03b88b659918e4f20b8043770fd660",
+          "bundled_sha256": "dc0022e383a72e138f5c3708589b5da78573b98800d2c140515fc39b5327cb09",
+          "model": "isolbox",
+          "unavailable": "Invalid model terminals."
+        },
+        {
+          "device": "sg13g2_pr/moscap_n.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/moscap_n.sym",
+          "source_identity": "3daef9882e5f67c94d3e749bd984451a2aeafa91",
+          "bundled_sha256": "6a82c8d060ed92286d7fa783d1976adfd92bd02441c9ee9f725f76d9341891b5",
+          "model": "sg13_moscap_n",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/moscap_p.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/moscap_p.sym",
+          "source_identity": "ead74fccda413caa9d24e013206378f78173b72b",
+          "bundled_sha256": "cd0a277247876340c490808d927756e4750e361d68639fa017cec0e416bce6e2",
+          "model": "sg13_moscap_p",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/nmoscl_2.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/nmoscl_2.sym",
+          "source_identity": "c75580e3e5ed5c29340e8816bb8a55c7d0241a00",
+          "bundled_sha256": "f132a6a8314844f9d63d8b9bb2704511220e190fc89995f41b6209c4e29e2596",
+          "model": "nmoscl_2",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/nmoscl_4.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/nmoscl_4.sym",
+          "source_identity": "191fae006bef8539b1456fb8953eee9bedacf631",
+          "bundled_sha256": "f5d805eb1dc3d0adcc224c94ff59756d22ef5d2cb66f24dd442b3f80bef3a0d6",
+          "model": "nmoscl_4",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/npn13G2.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/npn13G2.sym",
+          "source_identity": "e563ff0a21f93792440bd66729ce5487727284f1",
+          "bundled_sha256": "9b2c1998f402c78f4088f8ba1f1088706fe7794ee7d477cd7e5c74a4c87cd83e",
+          "model": "npn13G2",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/npn13G2_5t.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/npn13G2_5t.sym",
+          "source_identity": "c2fd777931b3c6df7168e82da3335ee568f99930",
+          "bundled_sha256": "a5699e3a7c9e886fd7dff0865b387ef42882ddad60223d7f80a661e9e60e80d4",
+          "model": "npn13G2_5t",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/npn13G2l.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/npn13G2l.sym",
+          "source_identity": "9283d941b5783b5fd6e3a06e374ce8880f7b010b",
+          "bundled_sha256": "6459397b37a0535e2cb2a93ae84dbabbfec105a993e93525f6f10fa89267dd52",
+          "model": "npn13G2l",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/npn13G2l_5t.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/npn13G2l_5t.sym",
+          "source_identity": "39df80c18ab916590e0dcb3f7862e1b8824d7a5c",
+          "bundled_sha256": "25085c7d0a7767a63693e8982a87ddb68e9a6845d4ae594762857a7f34678abc",
+          "model": "npn13G2l_5t",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/npn13G2v.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/npn13G2v.sym",
+          "source_identity": "ac9e57701aff2344b6dbb4467ab04e0f3b46a60b",
+          "bundled_sha256": "e44d1f17b3d0b65432465b928bc29654fc3d771b20bd9ebca06413800a90740b",
+          "model": "npn13G2v",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/npn13G2v_5t.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/npn13G2v_5t.sym",
+          "source_identity": "45be763edc210cb11f44e5660716a3f0d2eb641d",
+          "bundled_sha256": "e4cdbd7c17c23a9c39e930692561dc428f9b47b008ee0e9d5b6d70e08aa6c12a",
+          "model": "npn13G2v_5t",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/ntap1.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/ntap1.sym",
+          "source_identity": "341766c67997eb1dff5c6bcbe329f8fb207f8209",
+          "bundled_sha256": "4793bb1189cb3a44307745c35d7ff8b6fdae3c7b9a36fb62fc549041eb307281",
+          "model": "ntap1",
+          "unavailable": "Invalid declarative symbol attributes."
+        },
+        {
+          "device": "sg13g2_pr/pnpMPA.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/pnpMPA.sym",
+          "source_identity": "40af976b4e9feb87b12f07533e98c902c3aeaec5",
+          "bundled_sha256": "75578bca8df867f8d71a1e2c171fbf12ff0eb6b16c690586e9fc39005773bfd9",
+          "model": "pnpMPA",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/ptap1.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/ptap1.sym",
+          "source_identity": "ecf22d7b13a7608ef28d3235ee94a1308ad220e0",
+          "bundled_sha256": "ca93ba7e1aefc330edfa3735186977289b77594f8f137b000e8f432634a8ecb9",
+          "model": "ptap1",
+          "unavailable": "Invalid declarative symbol attributes."
+        },
+        {
+          "device": "sg13g2_pr/rhigh.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/rhigh.sym",
+          "source_identity": "39159e35893ac67ac2bb9fa609d00e1ed7e68ae5",
+          "bundled_sha256": "7b044c54505075c8a63cca66c2aea199ea8146d06d47859d70db2904ac0e5065",
+          "model": "rhigh",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/rppd.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/rppd.sym",
+          "source_identity": "500cfaf80773e1c47eda843da0d9ac2de754162e",
+          "bundled_sha256": "8f2cb46afa2a1be1e445b05ab22cb5f42473a43a49d3d1d08f181f683daf640b",
+          "model": "rppd",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/rsil.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/rsil.sym",
+          "source_identity": "6ea29ec32837638160c469b54e6567305007c7d4",
+          "bundled_sha256": "cef488f0a8c699a28c28d68ee616d385692f21bedf7dcc0962730ba3ba8f44df",
+          "model": "rsil",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/schottky_nbl1.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/schottky_nbl1.sym",
+          "source_identity": "4841893f7251c8f6f996bc85b4dfb661859acfb9",
+          "bundled_sha256": "71a0e3eb5da4d03998e0435c61fd5d238c10e73bc4e78adfabb34186295479af",
+          "model": "schottky_nbl1",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/sg13_hv_nmos.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/sg13_hv_nmos.sym",
+          "source_identity": "e177e10da37bf2ff78ccbf647fa316a10ff22be4",
+          "bundled_sha256": "2dfd35ab773e7fb76dc266b990871e69a6f123117c6ab479e724ef668ae62dba",
+          "model": "sg13_hv_nmos",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/sg13_hv_pmos.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/sg13_hv_pmos.sym",
+          "source_identity": "0d66c45a1f0f37c3a9bbea3d21453430a36524f0",
+          "bundled_sha256": "0a6591bffe4ff5aafb386d74b801b63a073e7144f3ff78c0e4b598611bc2adcc",
+          "model": "sg13_hv_pmos",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/sg13_hv_rf_nmos.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/sg13_hv_rf_nmos.sym",
+          "source_identity": "51e56937cb9b59c4616b6a0c5f2810b496fbafa6",
+          "bundled_sha256": "9c27558ab26d08041a6fb2e787bcb638f356607dc6ab7430b96bd5a9fa1b0df9",
+          "model": "sg13_hv_nmos",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/sg13_hv_rf_pmos.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/sg13_hv_rf_pmos.sym",
+          "source_identity": "4e2cf716f8cf35af86d3a7857af315b4547b928c",
+          "bundled_sha256": "e5d22e7aeb92812ef258c9f3a87b890fe3f9d15afa2dd32766115857eb865c73",
+          "model": "sg13_hv_pmos",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/sg13_lv_nmos.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/sg13_lv_nmos.sym",
+          "source_identity": "dd13ad934b274ea4d842a327dd55998899e3e3c7",
+          "bundled_sha256": "4c65869259c7aea7ff30d8612c5017419423d55e27dbb0aea28323e7da49ba7d",
+          "model": "sg13_lv_nmos",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/sg13_lv_pmos.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/sg13_lv_pmos.sym",
+          "source_identity": "5a553937031a2a41351b3b46b7072753a739f01d",
+          "bundled_sha256": "bc03331b71de250641ba1eb34c3b13bd3bb21a53ed7c329ecf6b0b1a7c53a6c1",
+          "model": "sg13_lv_pmos",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/sg13_lv_rf_nmos.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/sg13_lv_rf_nmos.sym",
+          "source_identity": "d492e5e4b4ed540ce9aaea8e2f2b6ff3c98ca8be",
+          "bundled_sha256": "2e5f68ec9c1e9dab2009012d8651f845edcca57d314f79ed75813647d570e4b1",
+          "model": "sg13_lv_nmos",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/sg13_lv_rf_pmos.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/sg13_lv_rf_pmos.sym",
+          "source_identity": "073744b063731a0b1adb40fc68b1f3fe5b838561",
+          "bundled_sha256": "5faa13b9f22fcb5bfaeedb36da7e28fe7d788ae7215145d3cabbbf658ffadfc5",
+          "model": "sg13_lv_pmos",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/sg13_svaricap.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/sg13_svaricap.sym",
+          "source_identity": "484c00e7c5169a12addd63f3354c90e65ee383bc",
+          "bundled_sha256": "3999f7161db388704ccb32e1488d3d60dd0328fb712fb2172d46da38f3462e27",
+          "model": "sg13_hv_svaricap",
+          "unavailable": ""
+        },
+        {
+          "device": "sg13g2_pr/sub.sym",
+          "source": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/sub.sym",
+          "source_identity": "3e3d0a8560dda4360abd63621e01ff3ff381236c",
+          "bundled_sha256": "775c05bb3d205f41661312d5ebf83d3d03c006c1cfbce6b98dc0a12abcc4bf02",
+          "model": "sub",
+          "unavailable": "Symbol requires an unsupported netlist format or script."
+        }
+      ]
+    },
+    "gf180mcuC": {
+      "status": "PASS",
+      "revision": "a6aa4319ebe9cbc9",
+      "manifest_sha256": "92ed3a348c93cde49bf48f2edf37a4f41bee6a0d3741b04f7c5ebfbdbc23ac7f",
+      "upstream_symbols": 68,
+      "catalog_entries": 68,
+      "missing": [],
+      "extra": [],
+      "changed": [],
+      "devices": [
+        {
+          "device": "symbols/annotate_fet_params.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/annotate_fet_params.sym",
+          "source_identity": "37c11371e9fcd24ad762bc2ce56dd83dd156d86a",
+          "bundled_sha256": "abcebfdd0ffda54f9e1ef4d8b1f50a4523975cb6da64bf48b37a046c73f930aa",
+          "model": "annotate_fet_params",
+          "unavailable": "No electrical pins in this symbol."
+        },
+        {
+          "device": "symbols/annotate_op.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/annotate_op.sym",
+          "source_identity": "60513c2b55c7b2f6de2e53460c2e1388d3159169",
+          "bundled_sha256": "1bdbdfdc725bb41fd37fd9e89d4aa94737d1fb8b71a6fbdb16dc707b36f850a3",
+          "model": "annotate_op",
+          "unavailable": "Invalid declarative symbol attributes."
+        },
+        {
+          "device": "symbols/cap_mim_1f0fF.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_mim_1f0fF.sym",
+          "source_identity": "ffbd379143e75baec7bc40204da8d4afc2237e4a",
+          "bundled_sha256": "91b2ac5f48f2263faa4d1e84062bc1786c90986f3528128d663f465ebac508dc",
+          "model": "cap_mim_1f0fF",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_mim_1f5fF.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_mim_1f5fF.sym",
+          "source_identity": "72262af39b23527843ff277e7b11384751d01f0a",
+          "bundled_sha256": "e0d19a29107dfdc26ce85d30b5907f33deb06f51cd46969f714790787cab6bfe",
+          "model": "cap_mim_1f5fF",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_mim_2f0fF.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_mim_2f0fF.sym",
+          "source_identity": "98e16e4667b82ab5cbaf10ae1af518b6de32e518",
+          "bundled_sha256": "92b17e147decfc1db183bd19bf8765f10d138fc4e569bbfe5748a73f925a9a18",
+          "model": "cap_mim_2f0fF",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_mim_2p0fF.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_mim_2p0fF.sym",
+          "source_identity": "70e102c814d573082146f0db9b88b584611645ea",
+          "bundled_sha256": "4a781b7b3e6927c3ca85c289dfd74a8ad1a48124407054b24d1f7723e9eeea01",
+          "model": "cap_mim_2f0fF",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_mim_analog.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_mim_analog.sym",
+          "source_identity": "743819c5bf038eb48882d2dbdab67cde12336eeb",
+          "bundled_sha256": "d477dc1f714113229780207da84357e4d4f81b4b6299f83a1888fd9014fd2a48",
+          "model": "cap_mim_2f0_m3m4_noshield",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_nmos_03v3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_nmos_03v3.sym",
+          "source_identity": "8d376bf19c08b380d8276e7d7026e2c245e7edc9",
+          "bundled_sha256": "d945b6bc9612c7a2b0cc5512d73bd846db0d1289def61da2e16f767a1514e429",
+          "model": "cap_nmos_03v3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_nmos_03v3_b.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_nmos_03v3_b.sym",
+          "source_identity": "4d4c9d308f94ef262f2256a04975bcdab32642c1",
+          "bundled_sha256": "5254c8fb620cb0620a7266ee1b2f3284b69fea8d395051be43b9b39b7e532cbe",
+          "model": "cap_nmos_03v3_b",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_nmos_06v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_nmos_06v0.sym",
+          "source_identity": "df75f5ea1216922a73cb3f191f9a35458fffd813",
+          "bundled_sha256": "3f88a8067186dac14c159803b970babd40c0f4899c97ff5bac0165656140a69a",
+          "model": "cap_nmos_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_nmos_06v0_b.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_nmos_06v0_b.sym",
+          "source_identity": "2f1ea12b27b612774f5162ac6fa65808864bc247",
+          "bundled_sha256": "118604219fcefd9d00c52a638a74254f7b3115574f6d9c915a8be5ecb5dddb59",
+          "model": "cap_nmos_06v0_b",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_pmos_03v3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_pmos_03v3.sym",
+          "source_identity": "6c496c33093d6b91025ff4fd74999494866e266b",
+          "bundled_sha256": "c5f8643f865aac7aa9a3b31a874fb039d929bb5d8e049393144d9221eb609dcb",
+          "model": "cap_pmos_03v3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_pmos_03v3_b.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_pmos_03v3_b.sym",
+          "source_identity": "c0d94415f5e00f7c3b3a6c0683a0db98395aa7de",
+          "bundled_sha256": "e02b7a5921d2cf23399e1a08bf4585fbff6510611a4e51fdc8727577d0f1b768",
+          "model": "cap_pmos_03v3_b",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_pmos_06v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_pmos_06v0.sym",
+          "source_identity": "6315b7271275839a4808ac4a85a037e118edcf15",
+          "bundled_sha256": "33877b420814deada4ff8c64fdfabb84c13b9eef39ac1c80d86515e56ce6a92d",
+          "model": "cap_pmos_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_pmos_06v0_b.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_pmos_06v0_b.sym",
+          "source_identity": "d44433734cb8f7471646838b47945d741d1e3b88",
+          "bundled_sha256": "c78ea4dd8e6ec69c6f930068f8cef22db1f87e7eadcf0a053f2f217dd695df50",
+          "model": "cap_pmos_06v0_b",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/diode_dw2ps.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_dw2ps.sym",
+          "source_identity": "974aa639d4dcbd008880ed8c72abb0c19488aa93",
+          "bundled_sha256": "0b3f2f2160f59de701381114465dac353a2650f018774948f6b8e1867e6ff93d",
+          "model": "diode_dw2ps",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/diode_nd2ps_03v3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_nd2ps_03v3.sym",
+          "source_identity": "a513b18e9831a1a215dfc8f1b878c5d7044d93ea",
+          "bundled_sha256": "33798148a5bd1e00b27a95d0754ccad6de7f553b3d4c5cb425c5a8c056a651e2",
+          "model": "diode_nd2ps_03v3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/diode_nd2ps_06v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_nd2ps_06v0.sym",
+          "source_identity": "647ebbfd8109e89a88521b83947a874bb4da2abc",
+          "bundled_sha256": "0874e52601322b6cf0445c6b3df733050193a582d5b9ff05f5498aad6f040e6b",
+          "model": "diode_nd2ps_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/diode_nw2ps_03v3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_nw2ps_03v3.sym",
+          "source_identity": "7061e8016d55c0a34f016a27573397c9e23b32af",
+          "bundled_sha256": "30402ff33e2785b99c87882d597a43aa36827c4bb47e4cc861bc8cf2f8f219c6",
+          "model": "diode_nw2ps_03v3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/diode_nw2ps_06v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_nw2ps_06v0.sym",
+          "source_identity": "e7582a7603dfad36ca032129efb77e952c40d0e7",
+          "bundled_sha256": "08c9947c55bf067ea7ec290b02a4cbcd6152073d1b5244344fcd88555342264f",
+          "model": "diode_nw2ps_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/diode_pd2nw_03v3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_pd2nw_03v3.sym",
+          "source_identity": "53210ac4c95ab22d962be0f22584bc117309c34b",
+          "bundled_sha256": "10d38f1624180b3947cff4d2133c3bb39c419ac0e2fcb741dee351f88af1dcb4",
+          "model": "diode_pd2nw_03v3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/diode_pd2nw_06v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_pd2nw_06v0.sym",
+          "source_identity": "cdd4ae3372e096c20e619a95be9970f05a76be95",
+          "bundled_sha256": "c230190bfee2ed14199cc53aa1cd4988b6b3be9dbb9a37e62003b8e19188011c",
+          "model": "diode_pd2nw_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/diode_pw2dw.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_pw2dw.sym",
+          "source_identity": "4c04623a4ba2afc46ada364a2f1b60a06b066fd2",
+          "bundled_sha256": "4d678c297dc28490e599f3b14279477a25d05aaf085f3a121cdc9032668a2a52",
+          "model": "diode_pw2dw",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet3_03v3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet3_03v3.sym",
+          "source_identity": "f50bc58046708aa90359a7120024697dc9ab3df1",
+          "bundled_sha256": "79d48461d42df91fa452af61d58ba215c01e7bc0dd4fcf9853479b0bd2d2b7e8",
+          "model": "nfet_03v3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet3_05v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet3_05v0.sym",
+          "source_identity": "e1e53fcf049f9b048dc93a6461db700d9e04d508",
+          "bundled_sha256": "4aa5f6d65cc5d0d56e9c04c1d60c9e0a104ca2365102d6bc991137682f752323",
+          "model": "nfet_05v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet3_06v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet3_06v0.sym",
+          "source_identity": "df41dd88cf4ddf45fbfe599ac271997a92ed5170",
+          "bundled_sha256": "15591604f2888d549fee04ea30b0709c3a7723362dd8c82a949fc52be32d6518",
+          "model": "nfet_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet_03v3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_03v3.sym",
+          "source_identity": "dd8607ae876b8d15af9edf293a6c9d471ab4fb06",
+          "bundled_sha256": "f451747f63e5a586d5adc36c4fd4b9e6c1695532233565503d4c88a26a188476",
+          "model": "nfet_03v3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet_03v3_dss.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_03v3_dss.sym",
+          "source_identity": "628fc2fbd3c4b45437b6a4b6e1dfb26b4920d28c",
+          "bundled_sha256": "23a18c9c51a4ebd3de0f71755041e86ff07fcb926e89c8886db61b63eb2aabb8",
+          "model": "nfet_03v3_dss",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet_05v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_05v0.sym",
+          "source_identity": "0ac0bcaf0ea3fb6c8b089e63e38d16bb21aae03b",
+          "bundled_sha256": "4f60de1d8802ebb943c769511494f25f8caf6f9677802beda774fdd8515a80a8",
+          "model": "nfet_05v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet_06v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_06v0.sym",
+          "source_identity": "b6227e8bbb76eb7fa7775224d2516144f4665ccf",
+          "bundled_sha256": "b41c6837912cf10234506a744fd0416ba6c8bc4923a44d9839c69d44d9e351b9",
+          "model": "nfet_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet_06v0_dss.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_06v0_dss.sym",
+          "source_identity": "29f1ce074e37d1252bbd7b3494bbc31e914f6fbd",
+          "bundled_sha256": "0061fd15596846d8a64c54fcf2b12c31ccd930af8a085cf196acb34c871344fc",
+          "model": "nfet_06v0_dss",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet_06v0_nvt.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_06v0_nvt.sym",
+          "source_identity": "e2b191e3f292905e1f1e32709173007b3ecd0ffe",
+          "bundled_sha256": "ab5c69d892be9acba70cbcbf2788dc5a8601be90a11565c9507bae6c74e91fad",
+          "model": "nfet_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet_10v0_asym.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_10v0_asym.sym",
+          "source_identity": "2933e49657cbb843d47fd8df8107ea7c30fe3976",
+          "bundled_sha256": "50eb0c2af2e78feeaabb21f7c434aa935ed2237c788d4267d67d847a4c2d11c2",
+          "model": "nfet_10v0_asym",
+          "unavailable": "Model is absent from the selected ngspice library closure."
+        },
+        {
+          "device": "symbols/nplus_u.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nplus_u.sym",
+          "source_identity": "bcfe2224232d5eeaed936cb39260d65c67d0673e",
+          "bundled_sha256": "418db297f4dc800a576803a443b60b779ff40c7d51306ffe9a18e106a9538e98",
+          "model": "nplus_u",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/npn_00p54x02p00.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/npn_00p54x02p00.sym",
+          "source_identity": "691c6ac071375632d1e248b4df9f07ad7abd5e47",
+          "bundled_sha256": "7b7fa4eac2ce12e7054d43388035e03f2ca27b94cd0cf457526b9714bb1c487a",
+          "model": "npn_00p54x02p00",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/npn_00p54x04p00.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/npn_00p54x04p00.sym",
+          "source_identity": "02f66a9ce8e35bca4592241f72b4c9633eb34eb6",
+          "bundled_sha256": "bc6ade3973feaf14e94008e3143f202e18465d2d62c152602adf29bd14846352",
+          "model": "npn_00p54x04p00",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/npn_00p54x08p00.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/npn_00p54x08p00.sym",
+          "source_identity": "43bee0da8209a492d838f5eee9e9716cbb372d56",
+          "bundled_sha256": "92b39f46ba170ef51ce06e65f324b7670d4a37c8f51f1ca4d9a6f836aad57da2",
+          "model": "npn_00p54x08p00",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/npn_00p54x16p00.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/npn_00p54x16p00.sym",
+          "source_identity": "9dca162ea4c4802a04aca8119de1b8c6e2663baf",
+          "bundled_sha256": "67676d10bd92f1f85d20fea3e4872b3e0d534bf67d442017b91102ba324fcc19",
+          "model": "npn_00p54x16p00",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/npn_05p00x05p00.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/npn_05p00x05p00.sym",
+          "source_identity": "564cc9a399b21c02bf8714bfefe749b745d5b079",
+          "bundled_sha256": "abf3b54c5377fef9040dca7c7babfc945d36f27038553d366f4f68d85af6ab48",
+          "model": "npn_05p00x05p00",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/npn_10p00x10p00.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/npn_10p00x10p00.sym",
+          "source_identity": "b430e296c83edf218911a32cc9f487ca99b738ff",
+          "bundled_sha256": "e16571e7bdc23f85372c6efcfccfd54e0e4f5ba033847da7841fda11c1ee8a61",
+          "model": "npn_10p00x10p00",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/npolyf_s.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/npolyf_s.sym",
+          "source_identity": "20557cfbf62db583c6bbefe44f1337a35014a3ba",
+          "bundled_sha256": "2b6b157ee2877a56b7e354499dc7d2a472f615b7767d66b1aba79e7a3ae9d5d9",
+          "model": "npolyf_s",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/npolyf_u.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/npolyf_u.sym",
+          "source_identity": "944939eec2e5ddecdfe4aaa87f4ced4122782dae",
+          "bundled_sha256": "dd6695b7e5b5aa81382a5e77efd82bef48a2a87dea1894304d309daa7d0febc5",
+          "model": "npolyf_u",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nwell.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nwell.sym",
+          "source_identity": "66d77043dbe87b6cc6c344905d37bc84b445a5a6",
+          "bundled_sha256": "f9b5203c4b48c9f75b3b3a1456e13c9aedf45e5add63a8ef2d7f8ae762310f0a",
+          "model": "nwell",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pfet3_03v3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet3_03v3.sym",
+          "source_identity": "61d560590256127017ebcd196be5cb1830ca7420",
+          "bundled_sha256": "2fe62d55e5b0a73b5d586bee01ce4bf86ff7a88d66a3a0ba7fad103484785577",
+          "model": "pfet_03v3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pfet3_05v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet3_05v0.sym",
+          "source_identity": "32854d55e0c6841b0c7b0f752fab48e67081c12c",
+          "bundled_sha256": "dd5efd003683b16d34d0485d2fc18f99da6eff73826660f6583cea86203ac789",
+          "model": "pfet_05v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pfet3_06v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet3_06v0.sym",
+          "source_identity": "c6f98ea9ab075f03110e6edc20ff3642039da7ff",
+          "bundled_sha256": "5f3ba1c77bc90c18457eacd9d8dc7b26dc9e5f578d281dc775ea3fe9f1f567f7",
+          "model": "pfet_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pfet_03v3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet_03v3.sym",
+          "source_identity": "b104f663b812edf1dbcd5b7834f2939c3ca0124d",
+          "bundled_sha256": "e5569acb216eeec3007832221538dc26d66f957ad96cd2fbaafa81db96bfd7a6",
+          "model": "pfet_03v3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pfet_03v3_dss.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet_03v3_dss.sym",
+          "source_identity": "24e0e02c553162ec869ebc383612b7c51d373c84",
+          "bundled_sha256": "a89c1c9e641917dcde57a479157462997345ceeb8eaeacf62d2a8bf18fe7a72d",
+          "model": "pfet_03v3_dss",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pfet_05v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet_05v0.sym",
+          "source_identity": "2ee4e5c1e9ccc3c2b5733c14176f8805e5f3b5e3",
+          "bundled_sha256": "7302798474269bc0e6c591508564034378f68bb8072cdcfc32e29229baa2b325",
+          "model": "pfet_05v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pfet_06v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet_06v0.sym",
+          "source_identity": "614a844dd05caed95787d7342b114f14b0f30314",
+          "bundled_sha256": "9a47ccf2735e8fa9c4080e6e72f365dbadcf51168e460aa5c9c7dc58139107e7",
+          "model": "pfet_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pfet_06v0_dss.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet_06v0_dss.sym",
+          "source_identity": "07ecfe214c890b70c017159549abb6225b3be6c6",
+          "bundled_sha256": "3fcadbb041fe3d2c955ff85e423eec5475c202b878dfef2ce18ca3f95bb4c810",
+          "model": "pfet_06v0_dss",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pfet_10v0_asym.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet_10v0_asym.sym",
+          "source_identity": "de13af08289e8602808135aec9a23d60fde051c9",
+          "bundled_sha256": "4106436c8730a72bad1651c2580f669f8154ae3b4fa43b6672df6baecb3c2504",
+          "model": "pfet_10v0_asym",
+          "unavailable": "Model is absent from the selected ngspice library closure."
+        },
+        {
+          "device": "symbols/pnp_05p00x00p42.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pnp_05p00x00p42.sym",
+          "source_identity": "eb59861c23f49cc5c5bd822603d2ebdaf2e2a7c7",
+          "bundled_sha256": "579e110ec4db7257b02688de343150119f5814fb7410b1cd36f8c8ec59e45545",
+          "model": "pnp_05p00x00p42",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pnp_05p00x05p00.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pnp_05p00x05p00.sym",
+          "source_identity": "7d329d6a91c4391b18b0929e428d0a7f6c272410",
+          "bundled_sha256": "e24e0713a809a283ad05bca31ec2a47ea42bda9aec2e864c87a2cf75ac4e8379",
+          "model": "pnp_05p00x05p00",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pnp_10p00x00p42.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pnp_10p00x00p42.sym",
+          "source_identity": "1d56084dd495b626b0ae6dc0c0308c3e767e9d78",
+          "bundled_sha256": "b0322b2007463ecfdb0881557ff9f9dbb782066448fd77c34af94507001f886f",
+          "model": "pnp_10p00x00p42",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pnp_10p00x10p00.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pnp_10p00x10p00.sym",
+          "source_identity": "099dc2f42eec653ba57bbc59da6d8a95c9e52a44",
+          "bundled_sha256": "b2a0711d4c53515ef803ef48d560451613209c87aa7d1e9d7c98805d673ac763",
+          "model": "pnp_10p00x10p00",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pplus_u.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pplus_u.sym",
+          "source_identity": "a64a108a009376b2947483796a31060aea1e9781",
+          "bundled_sha256": "5b4eb89f1fd52fd3a6315e4643afe7afef996482cc04c535d7ef14b8510daeb8",
+          "model": "pplus_u",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/ppolyf_s.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_s.sym",
+          "source_identity": "4849e3a66bb6f0c2409cc1c66f9c7ad7847263d5",
+          "bundled_sha256": "8b8377ff17ee37f525d7e09b98614db4225d74abd6a6713c382ee01635340b83",
+          "model": "ppolyf_s",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/ppolyf_u.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_u.sym",
+          "source_identity": "cc2e5cf4caaa6b52230d0bf53e73a6edaecb38b2",
+          "bundled_sha256": "fc2ba2fc483f39d47770844dedfd95133eee206ce0c232ae870637572dff0378",
+          "model": "ppolyf_u",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/ppolyf_u_1k.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_u_1k.sym",
+          "source_identity": "a91ab4d0df36a820f18eaf2b0c4b8d2920c06e8e",
+          "bundled_sha256": "d3adf767c0a8d8fa81b552680f09c241bbbc58616acf32c505a92e41877d8ac1",
+          "model": "ppolyf_u_1k",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/ppolyf_u_1k_6p0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_u_1k_6p0.sym",
+          "source_identity": "6440084a58b3e3901f78957d63811b78721cde06",
+          "bundled_sha256": "d99c514898616655727e338d883669153862c2315ab22cd0fec6c879cc20398b",
+          "model": "ppolyf_u_1k_6p0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/ppolyf_u_2k.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_u_2k.sym",
+          "source_identity": "40d0f058c85b2d3f96f20e48bda1f3a8c918dc49",
+          "bundled_sha256": "ae29f6cf661b1ae3086988c03d253a7ef108036fab08eb01442c338b9e34c7fa",
+          "model": "ppolyf_u_2k",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/ppolyf_u_2k_6p0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_u_2k_6p0.sym",
+          "source_identity": "a352d6ca8a45f7fc3bb82e24118b181988db5359",
+          "bundled_sha256": "bd70e0484cf3c6fc4bd24b438c581ad09802eb345d439520a203c3136025a902",
+          "model": "ppolyf_u_2k_6p0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/ppolyf_u_3k.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_u_3k.sym",
+          "source_identity": "8dd61249b4bd38b89ade473e325ccc1f5645af3c",
+          "bundled_sha256": "65373d3b5ddada0031d1a006927dc68dd5c26ac71c7ec504a148dba5ba5388c9",
+          "model": "ppolyf_u_3k",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/rm1.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/rm1.sym",
+          "source_identity": "29e8e8849fc47ef29e22943e165159569eaaf717",
+          "bundled_sha256": "aa0e916697128cde72d40738fc1501462ae9866b897b585b9e662d5a448f6f7e",
+          "model": "rm1",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/rm2.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/rm2.sym",
+          "source_identity": "53942bccd504e2d0b94338f3777606e705e0dd5c",
+          "bundled_sha256": "0a7288b32d05449f0027690774625c375aca9266eb5a1c152350408e0503d9f2",
+          "model": "rm2",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/rm3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/rm3.sym",
+          "source_identity": "3212a14979685a7a6c67505a94e14ac5e5939fab",
+          "bundled_sha256": "8af576380a2c0fe6e1296716860e3f77562e0086788a5b5f4b1284dd7bc60eab",
+          "model": "rm3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/sc_diode.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/sc_diode.sym",
+          "source_identity": "96b20455e00630e5fe1e5a9965367e555c44fe84",
+          "bundled_sha256": "1b03a2fd966c24ff302d22ca646005ec1e325f89fd8b9541b30e9615490f9b66",
+          "model": "sc_diode",
+          "unavailable": ""
+        }
+      ]
+    },
+    "gf180mcuD": {
+      "status": "PASS",
+      "revision": "b2daff2da0a120b4",
+      "manifest_sha256": "b4200b48f3fe59e961a4f514cdcb7166d21c231bccef586f01a7fa6b5f2ed738",
+      "upstream_symbols": 68,
+      "catalog_entries": 68,
+      "missing": [],
+      "extra": [],
+      "changed": [],
+      "devices": [
+        {
+          "device": "symbols/annotate_fet_params.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/annotate_fet_params.sym",
+          "source_identity": "37c11371e9fcd24ad762bc2ce56dd83dd156d86a",
+          "bundled_sha256": "abcebfdd0ffda54f9e1ef4d8b1f50a4523975cb6da64bf48b37a046c73f930aa",
+          "model": "annotate_fet_params",
+          "unavailable": "No electrical pins in this symbol."
+        },
+        {
+          "device": "symbols/annotate_op.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/annotate_op.sym",
+          "source_identity": "60513c2b55c7b2f6de2e53460c2e1388d3159169",
+          "bundled_sha256": "1bdbdfdc725bb41fd37fd9e89d4aa94737d1fb8b71a6fbdb16dc707b36f850a3",
+          "model": "annotate_op",
+          "unavailable": "Invalid declarative symbol attributes."
+        },
+        {
+          "device": "symbols/cap_mim_1f0fF.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_mim_1f0fF.sym",
+          "source_identity": "ffbd379143e75baec7bc40204da8d4afc2237e4a",
+          "bundled_sha256": "91b2ac5f48f2263faa4d1e84062bc1786c90986f3528128d663f465ebac508dc",
+          "model": "cap_mim_1f0fF",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_mim_1f5fF.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_mim_1f5fF.sym",
+          "source_identity": "72262af39b23527843ff277e7b11384751d01f0a",
+          "bundled_sha256": "e0d19a29107dfdc26ce85d30b5907f33deb06f51cd46969f714790787cab6bfe",
+          "model": "cap_mim_1f5fF",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_mim_2f0fF.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_mim_2f0fF.sym",
+          "source_identity": "98e16e4667b82ab5cbaf10ae1af518b6de32e518",
+          "bundled_sha256": "92b17e147decfc1db183bd19bf8765f10d138fc4e569bbfe5748a73f925a9a18",
+          "model": "cap_mim_2f0fF",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_mim_2p0fF.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_mim_2p0fF.sym",
+          "source_identity": "70e102c814d573082146f0db9b88b584611645ea",
+          "bundled_sha256": "4a781b7b3e6927c3ca85c289dfd74a8ad1a48124407054b24d1f7723e9eeea01",
+          "model": "cap_mim_2f0fF",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_mim_analog.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_mim_analog.sym",
+          "source_identity": "743819c5bf038eb48882d2dbdab67cde12336eeb",
+          "bundled_sha256": "d477dc1f714113229780207da84357e4d4f81b4b6299f83a1888fd9014fd2a48",
+          "model": "cap_mim_2f0_m3m4_noshield",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_nmos_03v3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_nmos_03v3.sym",
+          "source_identity": "8d376bf19c08b380d8276e7d7026e2c245e7edc9",
+          "bundled_sha256": "d945b6bc9612c7a2b0cc5512d73bd846db0d1289def61da2e16f767a1514e429",
+          "model": "cap_nmos_03v3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_nmos_03v3_b.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_nmos_03v3_b.sym",
+          "source_identity": "4d4c9d308f94ef262f2256a04975bcdab32642c1",
+          "bundled_sha256": "5254c8fb620cb0620a7266ee1b2f3284b69fea8d395051be43b9b39b7e532cbe",
+          "model": "cap_nmos_03v3_b",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_nmos_06v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_nmos_06v0.sym",
+          "source_identity": "df75f5ea1216922a73cb3f191f9a35458fffd813",
+          "bundled_sha256": "3f88a8067186dac14c159803b970babd40c0f4899c97ff5bac0165656140a69a",
+          "model": "cap_nmos_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_nmos_06v0_b.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_nmos_06v0_b.sym",
+          "source_identity": "2f1ea12b27b612774f5162ac6fa65808864bc247",
+          "bundled_sha256": "118604219fcefd9d00c52a638a74254f7b3115574f6d9c915a8be5ecb5dddb59",
+          "model": "cap_nmos_06v0_b",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_pmos_03v3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_pmos_03v3.sym",
+          "source_identity": "6c496c33093d6b91025ff4fd74999494866e266b",
+          "bundled_sha256": "c5f8643f865aac7aa9a3b31a874fb039d929bb5d8e049393144d9221eb609dcb",
+          "model": "cap_pmos_03v3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_pmos_03v3_b.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_pmos_03v3_b.sym",
+          "source_identity": "c0d94415f5e00f7c3b3a6c0683a0db98395aa7de",
+          "bundled_sha256": "e02b7a5921d2cf23399e1a08bf4585fbff6510611a4e51fdc8727577d0f1b768",
+          "model": "cap_pmos_03v3_b",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_pmos_06v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_pmos_06v0.sym",
+          "source_identity": "6315b7271275839a4808ac4a85a037e118edcf15",
+          "bundled_sha256": "33877b420814deada4ff8c64fdfabb84c13b9eef39ac1c80d86515e56ce6a92d",
+          "model": "cap_pmos_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/cap_pmos_06v0_b.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/cap_pmos_06v0_b.sym",
+          "source_identity": "d44433734cb8f7471646838b47945d741d1e3b88",
+          "bundled_sha256": "c78ea4dd8e6ec69c6f930068f8cef22db1f87e7eadcf0a053f2f217dd695df50",
+          "model": "cap_pmos_06v0_b",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/diode_dw2ps.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_dw2ps.sym",
+          "source_identity": "974aa639d4dcbd008880ed8c72abb0c19488aa93",
+          "bundled_sha256": "0b3f2f2160f59de701381114465dac353a2650f018774948f6b8e1867e6ff93d",
+          "model": "diode_dw2ps",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/diode_nd2ps_03v3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_nd2ps_03v3.sym",
+          "source_identity": "a513b18e9831a1a215dfc8f1b878c5d7044d93ea",
+          "bundled_sha256": "33798148a5bd1e00b27a95d0754ccad6de7f553b3d4c5cb425c5a8c056a651e2",
+          "model": "diode_nd2ps_03v3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/diode_nd2ps_06v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_nd2ps_06v0.sym",
+          "source_identity": "647ebbfd8109e89a88521b83947a874bb4da2abc",
+          "bundled_sha256": "0874e52601322b6cf0445c6b3df733050193a582d5b9ff05f5498aad6f040e6b",
+          "model": "diode_nd2ps_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/diode_nw2ps_03v3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_nw2ps_03v3.sym",
+          "source_identity": "7061e8016d55c0a34f016a27573397c9e23b32af",
+          "bundled_sha256": "30402ff33e2785b99c87882d597a43aa36827c4bb47e4cc861bc8cf2f8f219c6",
+          "model": "diode_nw2ps_03v3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/diode_nw2ps_06v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_nw2ps_06v0.sym",
+          "source_identity": "e7582a7603dfad36ca032129efb77e952c40d0e7",
+          "bundled_sha256": "08c9947c55bf067ea7ec290b02a4cbcd6152073d1b5244344fcd88555342264f",
+          "model": "diode_nw2ps_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/diode_pd2nw_03v3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_pd2nw_03v3.sym",
+          "source_identity": "53210ac4c95ab22d962be0f22584bc117309c34b",
+          "bundled_sha256": "10d38f1624180b3947cff4d2133c3bb39c419ac0e2fcb741dee351f88af1dcb4",
+          "model": "diode_pd2nw_03v3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/diode_pd2nw_06v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_pd2nw_06v0.sym",
+          "source_identity": "cdd4ae3372e096c20e619a95be9970f05a76be95",
+          "bundled_sha256": "c230190bfee2ed14199cc53aa1cd4988b6b3be9dbb9a37e62003b8e19188011c",
+          "model": "diode_pd2nw_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/diode_pw2dw.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/diode_pw2dw.sym",
+          "source_identity": "4c04623a4ba2afc46ada364a2f1b60a06b066fd2",
+          "bundled_sha256": "4d678c297dc28490e599f3b14279477a25d05aaf085f3a121cdc9032668a2a52",
+          "model": "diode_pw2dw",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet3_03v3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet3_03v3.sym",
+          "source_identity": "f50bc58046708aa90359a7120024697dc9ab3df1",
+          "bundled_sha256": "79d48461d42df91fa452af61d58ba215c01e7bc0dd4fcf9853479b0bd2d2b7e8",
+          "model": "nfet_03v3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet3_05v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet3_05v0.sym",
+          "source_identity": "e1e53fcf049f9b048dc93a6461db700d9e04d508",
+          "bundled_sha256": "4aa5f6d65cc5d0d56e9c04c1d60c9e0a104ca2365102d6bc991137682f752323",
+          "model": "nfet_05v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet3_06v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet3_06v0.sym",
+          "source_identity": "df41dd88cf4ddf45fbfe599ac271997a92ed5170",
+          "bundled_sha256": "15591604f2888d549fee04ea30b0709c3a7723362dd8c82a949fc52be32d6518",
+          "model": "nfet_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet_03v3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_03v3.sym",
+          "source_identity": "dd8607ae876b8d15af9edf293a6c9d471ab4fb06",
+          "bundled_sha256": "f451747f63e5a586d5adc36c4fd4b9e6c1695532233565503d4c88a26a188476",
+          "model": "nfet_03v3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet_03v3_dss.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_03v3_dss.sym",
+          "source_identity": "628fc2fbd3c4b45437b6a4b6e1dfb26b4920d28c",
+          "bundled_sha256": "23a18c9c51a4ebd3de0f71755041e86ff07fcb926e89c8886db61b63eb2aabb8",
+          "model": "nfet_03v3_dss",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet_05v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_05v0.sym",
+          "source_identity": "0ac0bcaf0ea3fb6c8b089e63e38d16bb21aae03b",
+          "bundled_sha256": "4f60de1d8802ebb943c769511494f25f8caf6f9677802beda774fdd8515a80a8",
+          "model": "nfet_05v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet_06v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_06v0.sym",
+          "source_identity": "b6227e8bbb76eb7fa7775224d2516144f4665ccf",
+          "bundled_sha256": "b41c6837912cf10234506a744fd0416ba6c8bc4923a44d9839c69d44d9e351b9",
+          "model": "nfet_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet_06v0_dss.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_06v0_dss.sym",
+          "source_identity": "29f1ce074e37d1252bbd7b3494bbc31e914f6fbd",
+          "bundled_sha256": "0061fd15596846d8a64c54fcf2b12c31ccd930af8a085cf196acb34c871344fc",
+          "model": "nfet_06v0_dss",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet_06v0_nvt.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_06v0_nvt.sym",
+          "source_identity": "e2b191e3f292905e1f1e32709173007b3ecd0ffe",
+          "bundled_sha256": "ab5c69d892be9acba70cbcbf2788dc5a8601be90a11565c9507bae6c74e91fad",
+          "model": "nfet_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nfet_10v0_asym.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nfet_10v0_asym.sym",
+          "source_identity": "2933e49657cbb843d47fd8df8107ea7c30fe3976",
+          "bundled_sha256": "50eb0c2af2e78feeaabb21f7c434aa935ed2237c788d4267d67d847a4c2d11c2",
+          "model": "nfet_10v0_asym",
+          "unavailable": "Model is absent from the selected ngspice library closure."
+        },
+        {
+          "device": "symbols/nplus_u.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nplus_u.sym",
+          "source_identity": "bcfe2224232d5eeaed936cb39260d65c67d0673e",
+          "bundled_sha256": "418db297f4dc800a576803a443b60b779ff40c7d51306ffe9a18e106a9538e98",
+          "model": "nplus_u",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/npn_00p54x02p00.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/npn_00p54x02p00.sym",
+          "source_identity": "691c6ac071375632d1e248b4df9f07ad7abd5e47",
+          "bundled_sha256": "7b7fa4eac2ce12e7054d43388035e03f2ca27b94cd0cf457526b9714bb1c487a",
+          "model": "npn_00p54x02p00",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/npn_00p54x04p00.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/npn_00p54x04p00.sym",
+          "source_identity": "02f66a9ce8e35bca4592241f72b4c9633eb34eb6",
+          "bundled_sha256": "bc6ade3973feaf14e94008e3143f202e18465d2d62c152602adf29bd14846352",
+          "model": "npn_00p54x04p00",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/npn_00p54x08p00.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/npn_00p54x08p00.sym",
+          "source_identity": "43bee0da8209a492d838f5eee9e9716cbb372d56",
+          "bundled_sha256": "92b39f46ba170ef51ce06e65f324b7670d4a37c8f51f1ca4d9a6f836aad57da2",
+          "model": "npn_00p54x08p00",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/npn_00p54x16p00.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/npn_00p54x16p00.sym",
+          "source_identity": "9dca162ea4c4802a04aca8119de1b8c6e2663baf",
+          "bundled_sha256": "67676d10bd92f1f85d20fea3e4872b3e0d534bf67d442017b91102ba324fcc19",
+          "model": "npn_00p54x16p00",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/npn_05p00x05p00.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/npn_05p00x05p00.sym",
+          "source_identity": "564cc9a399b21c02bf8714bfefe749b745d5b079",
+          "bundled_sha256": "abf3b54c5377fef9040dca7c7babfc945d36f27038553d366f4f68d85af6ab48",
+          "model": "npn_05p00x05p00",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/npn_10p00x10p00.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/npn_10p00x10p00.sym",
+          "source_identity": "b430e296c83edf218911a32cc9f487ca99b738ff",
+          "bundled_sha256": "e16571e7bdc23f85372c6efcfccfd54e0e4f5ba033847da7841fda11c1ee8a61",
+          "model": "npn_10p00x10p00",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/npolyf_s.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/npolyf_s.sym",
+          "source_identity": "20557cfbf62db583c6bbefe44f1337a35014a3ba",
+          "bundled_sha256": "2b6b157ee2877a56b7e354499dc7d2a472f615b7767d66b1aba79e7a3ae9d5d9",
+          "model": "npolyf_s",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/npolyf_u.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/npolyf_u.sym",
+          "source_identity": "944939eec2e5ddecdfe4aaa87f4ced4122782dae",
+          "bundled_sha256": "dd6695b7e5b5aa81382a5e77efd82bef48a2a87dea1894304d309daa7d0febc5",
+          "model": "npolyf_u",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/nwell.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/nwell.sym",
+          "source_identity": "66d77043dbe87b6cc6c344905d37bc84b445a5a6",
+          "bundled_sha256": "f9b5203c4b48c9f75b3b3a1456e13c9aedf45e5add63a8ef2d7f8ae762310f0a",
+          "model": "nwell",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pfet3_03v3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet3_03v3.sym",
+          "source_identity": "61d560590256127017ebcd196be5cb1830ca7420",
+          "bundled_sha256": "2fe62d55e5b0a73b5d586bee01ce4bf86ff7a88d66a3a0ba7fad103484785577",
+          "model": "pfet_03v3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pfet3_05v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet3_05v0.sym",
+          "source_identity": "32854d55e0c6841b0c7b0f752fab48e67081c12c",
+          "bundled_sha256": "dd5efd003683b16d34d0485d2fc18f99da6eff73826660f6583cea86203ac789",
+          "model": "pfet_05v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pfet3_06v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet3_06v0.sym",
+          "source_identity": "c6f98ea9ab075f03110e6edc20ff3642039da7ff",
+          "bundled_sha256": "5f3ba1c77bc90c18457eacd9d8dc7b26dc9e5f578d281dc775ea3fe9f1f567f7",
+          "model": "pfet_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pfet_03v3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet_03v3.sym",
+          "source_identity": "b104f663b812edf1dbcd5b7834f2939c3ca0124d",
+          "bundled_sha256": "e5569acb216eeec3007832221538dc26d66f957ad96cd2fbaafa81db96bfd7a6",
+          "model": "pfet_03v3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pfet_03v3_dss.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet_03v3_dss.sym",
+          "source_identity": "24e0e02c553162ec869ebc383612b7c51d373c84",
+          "bundled_sha256": "a89c1c9e641917dcde57a479157462997345ceeb8eaeacf62d2a8bf18fe7a72d",
+          "model": "pfet_03v3_dss",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pfet_05v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet_05v0.sym",
+          "source_identity": "2ee4e5c1e9ccc3c2b5733c14176f8805e5f3b5e3",
+          "bundled_sha256": "7302798474269bc0e6c591508564034378f68bb8072cdcfc32e29229baa2b325",
+          "model": "pfet_05v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pfet_06v0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet_06v0.sym",
+          "source_identity": "614a844dd05caed95787d7342b114f14b0f30314",
+          "bundled_sha256": "9a47ccf2735e8fa9c4080e6e72f365dbadcf51168e460aa5c9c7dc58139107e7",
+          "model": "pfet_06v0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pfet_06v0_dss.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet_06v0_dss.sym",
+          "source_identity": "07ecfe214c890b70c017159549abb6225b3be6c6",
+          "bundled_sha256": "3fcadbb041fe3d2c955ff85e423eec5475c202b878dfef2ce18ca3f95bb4c810",
+          "model": "pfet_06v0_dss",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pfet_10v0_asym.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pfet_10v0_asym.sym",
+          "source_identity": "de13af08289e8602808135aec9a23d60fde051c9",
+          "bundled_sha256": "4106436c8730a72bad1651c2580f669f8154ae3b4fa43b6672df6baecb3c2504",
+          "model": "pfet_10v0_asym",
+          "unavailable": "Model is absent from the selected ngspice library closure."
+        },
+        {
+          "device": "symbols/pnp_05p00x00p42.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pnp_05p00x00p42.sym",
+          "source_identity": "eb59861c23f49cc5c5bd822603d2ebdaf2e2a7c7",
+          "bundled_sha256": "579e110ec4db7257b02688de343150119f5814fb7410b1cd36f8c8ec59e45545",
+          "model": "pnp_05p00x00p42",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pnp_05p00x05p00.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pnp_05p00x05p00.sym",
+          "source_identity": "7d329d6a91c4391b18b0929e428d0a7f6c272410",
+          "bundled_sha256": "e24e0713a809a283ad05bca31ec2a47ea42bda9aec2e864c87a2cf75ac4e8379",
+          "model": "pnp_05p00x05p00",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pnp_10p00x00p42.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pnp_10p00x00p42.sym",
+          "source_identity": "1d56084dd495b626b0ae6dc0c0308c3e767e9d78",
+          "bundled_sha256": "b0322b2007463ecfdb0881557ff9f9dbb782066448fd77c34af94507001f886f",
+          "model": "pnp_10p00x00p42",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pnp_10p00x10p00.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pnp_10p00x10p00.sym",
+          "source_identity": "099dc2f42eec653ba57bbc59da6d8a95c9e52a44",
+          "bundled_sha256": "b2a0711d4c53515ef803ef48d560451613209c87aa7d1e9d7c98805d673ac763",
+          "model": "pnp_10p00x10p00",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/pplus_u.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/pplus_u.sym",
+          "source_identity": "a64a108a009376b2947483796a31060aea1e9781",
+          "bundled_sha256": "5b4eb89f1fd52fd3a6315e4643afe7afef996482cc04c535d7ef14b8510daeb8",
+          "model": "pplus_u",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/ppolyf_s.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_s.sym",
+          "source_identity": "4849e3a66bb6f0c2409cc1c66f9c7ad7847263d5",
+          "bundled_sha256": "8b8377ff17ee37f525d7e09b98614db4225d74abd6a6713c382ee01635340b83",
+          "model": "ppolyf_s",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/ppolyf_u.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_u.sym",
+          "source_identity": "cc2e5cf4caaa6b52230d0bf53e73a6edaecb38b2",
+          "bundled_sha256": "fc2ba2fc483f39d47770844dedfd95133eee206ce0c232ae870637572dff0378",
+          "model": "ppolyf_u",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/ppolyf_u_1k.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_u_1k.sym",
+          "source_identity": "a91ab4d0df36a820f18eaf2b0c4b8d2920c06e8e",
+          "bundled_sha256": "d3adf767c0a8d8fa81b552680f09c241bbbc58616acf32c505a92e41877d8ac1",
+          "model": "ppolyf_u_1k",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/ppolyf_u_1k_6p0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_u_1k_6p0.sym",
+          "source_identity": "6440084a58b3e3901f78957d63811b78721cde06",
+          "bundled_sha256": "d99c514898616655727e338d883669153862c2315ab22cd0fec6c879cc20398b",
+          "model": "ppolyf_u_1k_6p0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/ppolyf_u_2k.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_u_2k.sym",
+          "source_identity": "40d0f058c85b2d3f96f20e48bda1f3a8c918dc49",
+          "bundled_sha256": "ae29f6cf661b1ae3086988c03d253a7ef108036fab08eb01442c338b9e34c7fa",
+          "model": "ppolyf_u_2k",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/ppolyf_u_2k_6p0.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_u_2k_6p0.sym",
+          "source_identity": "a352d6ca8a45f7fc3bb82e24118b181988db5359",
+          "bundled_sha256": "bd70e0484cf3c6fc4bd24b438c581ad09802eb345d439520a203c3136025a902",
+          "model": "ppolyf_u_2k_6p0",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/ppolyf_u_3k.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/ppolyf_u_3k.sym",
+          "source_identity": "8dd61249b4bd38b89ade473e325ccc1f5645af3c",
+          "bundled_sha256": "65373d3b5ddada0031d1a006927dc68dd5c26ac71c7ec504a148dba5ba5388c9",
+          "model": "ppolyf_u_3k",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/rm1.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/rm1.sym",
+          "source_identity": "29e8e8849fc47ef29e22943e165159569eaaf717",
+          "bundled_sha256": "aa0e916697128cde72d40738fc1501462ae9866b897b585b9e662d5a448f6f7e",
+          "model": "rm1",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/rm2.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/rm2.sym",
+          "source_identity": "53942bccd504e2d0b94338f3777606e705e0dd5c",
+          "bundled_sha256": "0a7288b32d05449f0027690774625c375aca9266eb5a1c152350408e0503d9f2",
+          "model": "rm2",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/rm3.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/rm3.sym",
+          "source_identity": "3212a14979685a7a6c67505a94e14ac5e5939fab",
+          "bundled_sha256": "8af576380a2c0fe6e1296716860e3f77562e0086788a5b5f4b1284dd7bc60eab",
+          "model": "rm3",
+          "unavailable": ""
+        },
+        {
+          "device": "symbols/sc_diode.sym",
+          "source": "cells/xschem/gf180mcu_fd_pr/sc_diode.sym",
+          "source_identity": "96b20455e00630e5fe1e5a9965367e555c44fe84",
+          "bundled_sha256": "1b03a2fd966c24ff302d22ca646005ec1e325f89fd8b9541b30e9615490f9b66",
+          "model": "sc_diode",
+          "unavailable": ""
+        }
+      ]
+    },
+    "sky130A": {
+      "status": "PASS",
+      "revision": "2a8a8a7048ac324d",
+      "manifest_sha256": "177e57626c06cb5d103aab04c4bc82983bc4ba96f2e08e4bc04006ade6cd8e2d",
+      "upstream_symbols": 74,
+      "catalog_entries": 74,
+      "missing": [],
+      "extra": [],
+      "changed": [],
+      "devices": [
+        {
+          "device": "sky130_fd_pr/cap_mim_m3_1.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/cap_mim_m3_1.sym",
+          "source_identity": "da40e6b6461fe88068dbb412e1e5d56115b744ee50a4d60e86d6af6b507ab617",
+          "bundled_sha256": "da40e6b6461fe88068dbb412e1e5d56115b744ee50a4d60e86d6af6b507ab617",
+          "model": "sky130_fd_pr__cap_mim_m3_1",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/cap_mim_m3_2.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/cap_mim_m3_2.sym",
+          "source_identity": "b20c6884dcacecd897b81276a7dc220beb0c760815f0fde2da241456557fec2e",
+          "bundled_sha256": "b20c6884dcacecd897b81276a7dc220beb0c760815f0fde2da241456557fec2e",
+          "model": "sky130_fd_pr__cap_mim_m3_2",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/cap_var_hvt.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/cap_var_hvt.sym",
+          "source_identity": "388003987be97ec2afc3a78ab5cf06b01f7e91d80b09f255707a4c9b91a03f1d",
+          "bundled_sha256": "388003987be97ec2afc3a78ab5cf06b01f7e91d80b09f255707a4c9b91a03f1d",
+          "model": "sky130_fd_pr__cap_var_hvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/cap_var_lvt.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/cap_var_lvt.sym",
+          "source_identity": "1f7c197638e61e346535f6acfaa890836bd2df4f42b4d73896a6f65e2c36b4c0",
+          "bundled_sha256": "1f7c197638e61e346535f6acfaa890836bd2df4f42b4d73896a6f65e2c36b4c0",
+          "model": "sky130_fd_pr__cap_var_lvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/corner.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/corner.sym",
+          "source_identity": "80650398a232bfff273b8acf90f1057795162106f75819feff9b35cee2f29013",
+          "bundled_sha256": "80650398a232bfff273b8acf90f1057795162106f75819feff9b35cee2f29013",
+          "model": "corner",
+          "unavailable": "No electrical pins in this symbol."
+        },
+        {
+          "device": "sky130_fd_pr/diode.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/diode.sym",
+          "source_identity": "700b3d49fe57f4b92ba990764b7e984444011170717d7c73fc68e401dfab0c2e",
+          "bundled_sha256": "700b3d49fe57f4b92ba990764b7e984444011170717d7c73fc68e401dfab0c2e",
+          "model": "sky130_fd_pr__diode_pw2nd_05v5",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/lvsdiode.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/lvsdiode.sym",
+          "source_identity": "87f6c533c1c63849ee93e8d58d468ba7612770ba18374a38d19c6d4b28fa6755",
+          "bundled_sha256": "87f6c533c1c63849ee93e8d58d468ba7612770ba18374a38d19c6d4b28fa6755",
+          "model": "sky130_fd_pr__diode_pw2nd_05v5",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet3_01v8.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet3_01v8.sym",
+          "source_identity": "60e6d35cff6a2dc00e75ea55ba2b93bb5e5d98738581f63de55163e4042022d0",
+          "bundled_sha256": "60e6d35cff6a2dc00e75ea55ba2b93bb5e5d98738581f63de55163e4042022d0",
+          "model": "sky130_fd_pr__nfet_01v8",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet3_01v8_lvt.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet3_01v8_lvt.sym",
+          "source_identity": "1a8a9b28a29a2d6eb597dd6bb48e2f6ed8f4c7956b1e608d0e3e02f37b6965a5",
+          "bundled_sha256": "1a8a9b28a29a2d6eb597dd6bb48e2f6ed8f4c7956b1e608d0e3e02f37b6965a5",
+          "model": "sky130_fd_pr__nfet_01v8_lvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet3_03v3_nvt.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet3_03v3_nvt.sym",
+          "source_identity": "f61f5e571a328ef4aa18f84de25e11df388dcf815637e14246d14c8ef99f219e",
+          "bundled_sha256": "f61f5e571a328ef4aa18f84de25e11df388dcf815637e14246d14c8ef99f219e",
+          "model": "sky130_fd_pr__nfet_03v3_nvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet3_05v0_nvt.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet3_05v0_nvt.sym",
+          "source_identity": "a059deec8a913c61a76b6a7778411cf12c71dbd2a5232999e4ede11afcaf79d2",
+          "bundled_sha256": "a059deec8a913c61a76b6a7778411cf12c71dbd2a5232999e4ede11afcaf79d2",
+          "model": "sky130_fd_pr__nfet_05v0_nvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet3_20v0.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet3_20v0.sym",
+          "source_identity": "14795ae34294dd7705675fab5dfcbd9939e5caf09d62c7ab7cab353494ea5bac",
+          "bundled_sha256": "14795ae34294dd7705675fab5dfcbd9939e5caf09d62c7ab7cab353494ea5bac",
+          "model": "sky130_fd_pr__nfet_20v0",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet3_g5v0d10v5.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet3_g5v0d10v5.sym",
+          "source_identity": "3c6d39ccd699535148423e16a1a209f3cd5ba2de420bdfca5559684a2a88b8c9",
+          "bundled_sha256": "3c6d39ccd699535148423e16a1a209f3cd5ba2de420bdfca5559684a2a88b8c9",
+          "model": "sky130_fd_pr__nfet_g5v0d10v5",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet3_g5v0d16v0.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet3_g5v0d16v0.sym",
+          "source_identity": "b8f42b472250e8f79da6a8a91574f680930962df7d353b2e4d71d1889c93dd93",
+          "bundled_sha256": "b8f42b472250e8f79da6a8a91574f680930962df7d353b2e4d71d1889c93dd93",
+          "model": "sky130_fd_pr__nfet_g5v0d16v0",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet_01v8.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_01v8.sym",
+          "source_identity": "f5674efea6314a6db2c123530af9850dfcfc5b02b78d3c69f5ecf45541a179ca",
+          "bundled_sha256": "f5674efea6314a6db2c123530af9850dfcfc5b02b78d3c69f5ecf45541a179ca",
+          "model": "sky130_fd_pr__nfet_01v8",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet_01v8_esd.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_01v8_esd.sym",
+          "source_identity": "001bac07f9605ce9ccbb26c6509f05f54742bc2835e8007627d2d2c12ee068bc",
+          "bundled_sha256": "001bac07f9605ce9ccbb26c6509f05f54742bc2835e8007627d2d2c12ee068bc",
+          "model": "sky130_fd_pr__esd_nfet_01v8",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet_01v8_lvt.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_01v8_lvt.sym",
+          "source_identity": "742a5ec65d7b92fbd7cd37f9452ab84a08d9ff12a249428ed01b73133519bdc8",
+          "bundled_sha256": "742a5ec65d7b92fbd7cd37f9452ab84a08d9ff12a249428ed01b73133519bdc8",
+          "model": "sky130_fd_pr__nfet_01v8_lvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet_01v8_lvt_nf.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_01v8_lvt_nf.sym",
+          "source_identity": "7901d0a1197ca76224c0a6409c9000f5cc9d4e532f3bf80d255a680efe275a39",
+          "bundled_sha256": "7901d0a1197ca76224c0a6409c9000f5cc9d4e532f3bf80d255a680efe275a39",
+          "model": "sky130_fd_pr__nfet_01v8_lvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet_01v8_nf.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_01v8_nf.sym",
+          "source_identity": "4f773926b98354fb4839f093aa520687bd509d214795eb3c47cf3d4b184346c0",
+          "bundled_sha256": "4f773926b98354fb4839f093aa520687bd509d214795eb3c47cf3d4b184346c0",
+          "model": "sky130_fd_pr__nfet_01v8",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet_03v3_nvt.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_03v3_nvt.sym",
+          "source_identity": "7096f28bc53b3a052e34d828bf11d48d28b50745074842ebb1d4cf4635450471",
+          "bundled_sha256": "7096f28bc53b3a052e34d828bf11d48d28b50745074842ebb1d4cf4635450471",
+          "model": "sky130_fd_pr__nfet_03v3_nvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet_03v3_nvt_nf.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_03v3_nvt_nf.sym",
+          "source_identity": "2eb7f356df9563b2b55a9753ad792a749ee3217ac42d1318df6856ef17b828bb",
+          "bundled_sha256": "2eb7f356df9563b2b55a9753ad792a749ee3217ac42d1318df6856ef17b828bb",
+          "model": "sky130_fd_pr__nfet_03v3_nvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet_05v0_nvt.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_05v0_nvt.sym",
+          "source_identity": "bbd24024fbfcae20dec3995a1015c849421a65acba164a193c53c519de686d02",
+          "bundled_sha256": "bbd24024fbfcae20dec3995a1015c849421a65acba164a193c53c519de686d02",
+          "model": "sky130_fd_pr__nfet_05v0_nvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet_05v0_nvt_nf.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_05v0_nvt_nf.sym",
+          "source_identity": "0380d0884fe69a3482e66546a5e45ef3b8731b7ffaa29224ab96fa13b0dccd41",
+          "bundled_sha256": "0380d0884fe69a3482e66546a5e45ef3b8731b7ffaa29224ab96fa13b0dccd41",
+          "model": "sky130_fd_pr__nfet_05v0_nvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet_20v0.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_20v0.sym",
+          "source_identity": "a810b85befd507edd6354be5aa8e034e0e5658ceddb08a6cb9c38602133e229e",
+          "bundled_sha256": "a810b85befd507edd6354be5aa8e034e0e5658ceddb08a6cb9c38602133e229e",
+          "model": "sky130_fd_pr__nfet_20v0",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet_20v0_iso.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_20v0_iso.sym",
+          "source_identity": "ad67b6f25b3cab3e01b4d96859462562cd0870d9f18190c0cd72cf5835c52c11",
+          "bundled_sha256": "ad67b6f25b3cab3e01b4d96859462562cd0870d9f18190c0cd72cf5835c52c11",
+          "model": "sky130_fd_pr__nfet_20v0_iso",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet_20v0_nvt.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_20v0_nvt.sym",
+          "source_identity": "db610b0ce8a0e1a51b829708c419d99ca9a43e2b524486eb8c57b29d1b01a9a7",
+          "bundled_sha256": "db610b0ce8a0e1a51b829708c419d99ca9a43e2b524486eb8c57b29d1b01a9a7",
+          "model": "sky130_fd_pr__nfet_20v0_nvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet_20v0_zvt.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_20v0_zvt.sym",
+          "source_identity": "f9a3a241f3d0227825b4f95713319b6f3c59d4da6913b3cd5f2e70def36bcf36",
+          "bundled_sha256": "f9a3a241f3d0227825b4f95713319b6f3c59d4da6913b3cd5f2e70def36bcf36",
+          "model": "sky130_fd_pr__nfet_20v0_zvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet_g5v0d10v5.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_g5v0d10v5.sym",
+          "source_identity": "63af67e853a09174db71fdaa685ff69fdb68552802222ffea0ac1f24680370aa",
+          "bundled_sha256": "63af67e853a09174db71fdaa685ff69fdb68552802222ffea0ac1f24680370aa",
+          "model": "sky130_fd_pr__nfet_g5v0d10v5",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet_g5v0d10v5_esd.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_g5v0d10v5_esd.sym",
+          "source_identity": "65fbd86e2f14ad382e0d752158df4b7d7076ea5e6fe4c35a060c3b17eb6a15bc",
+          "bundled_sha256": "65fbd86e2f14ad382e0d752158df4b7d7076ea5e6fe4c35a060c3b17eb6a15bc",
+          "model": "sky130_fd_pr__esd_nfet_g5v0d10v5",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet_g5v0d10v5_nf.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_g5v0d10v5_nf.sym",
+          "source_identity": "ece33ed2859c12c5cd697b5174b23b6bc4e628f5256609a212e1f7856da45886",
+          "bundled_sha256": "ece33ed2859c12c5cd697b5174b23b6bc4e628f5256609a212e1f7856da45886",
+          "model": "sky130_fd_pr__nfet_g5v0d10v5",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym",
+          "source_identity": "04dfb1468ad24d52fd5e03a795c8843038366f14d89c7a1916b41a7cbc22f042",
+          "bundled_sha256": "04dfb1468ad24d52fd5e03a795c8843038366f14d89c7a1916b41a7cbc22f042",
+          "model": "sky130_fd_pr__esd_nfet_g5v0d10v5_nvt",
+          "unavailable": "Model is absent from the selected ngspice library closure."
+        },
+        {
+          "device": "sky130_fd_pr/nfet_g5v0d16v0.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_g5v0d16v0.sym",
+          "source_identity": "2b142a521b3904d35da08b945398a3a189975518c17508b80d3fd417d17617ee",
+          "bundled_sha256": "2b142a521b3904d35da08b945398a3a189975518c17508b80d3fd417d17617ee",
+          "model": "sky130_fd_pr__nfet_g5v0d16v0",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/nfet_g5v0d16v0_nf.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/nfet_g5v0d16v0_nf.sym",
+          "source_identity": "7134f5b0a4e73344693f1c9a99d7485e92da0bf934407b81bbf5601ab2343807",
+          "bundled_sha256": "7134f5b0a4e73344693f1c9a99d7485e92da0bf934407b81bbf5601ab2343807",
+          "model": "sky130_fd_pr__nfet_g5v0d16v0",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/npn_05v5.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/npn_05v5.sym",
+          "source_identity": "e2ecd7a2c6b09e2a80517fe69e66915be06d04136d889ec5a37ef4e1740666e0",
+          "bundled_sha256": "e2ecd7a2c6b09e2a80517fe69e66915be06d04136d889ec5a37ef4e1740666e0",
+          "model": "sky130_fd_pr__npn_05v5_w1p00l2p00",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/pfet3_01v8.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/pfet3_01v8.sym",
+          "source_identity": "1064d04aa40bc5deab12bd42e1a6f08290a88a301126992bebd59ebb5b00acb9",
+          "bundled_sha256": "1064d04aa40bc5deab12bd42e1a6f08290a88a301126992bebd59ebb5b00acb9",
+          "model": "sky130_fd_pr__pfet_01v8",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/pfet3_01v8_hvt.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/pfet3_01v8_hvt.sym",
+          "source_identity": "38f71752bf8d5e76149074500d46bed20fc9d18aa9b48f01678d60d1343019e8",
+          "bundled_sha256": "38f71752bf8d5e76149074500d46bed20fc9d18aa9b48f01678d60d1343019e8",
+          "model": "sky130_fd_pr__pfet_01v8_hvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/pfet3_01v8_lvt.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/pfet3_01v8_lvt.sym",
+          "source_identity": "612ea873e9ebee165e39ced707af6ae8fe16f266870b961875c16a9b19fd233b",
+          "bundled_sha256": "612ea873e9ebee165e39ced707af6ae8fe16f266870b961875c16a9b19fd233b",
+          "model": "sky130_fd_pr__pfet_01v8_lvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/pfet3_20v0.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/pfet3_20v0.sym",
+          "source_identity": "4fbe379d8e58b15301814876f1fba80bedcaf718e7a328e239e1f93e4abb36d8",
+          "bundled_sha256": "4fbe379d8e58b15301814876f1fba80bedcaf718e7a328e239e1f93e4abb36d8",
+          "model": "sky130_fd_pr__pfet_20v0",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/pfet3_g5v0d10v5.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/pfet3_g5v0d10v5.sym",
+          "source_identity": "658de76e72c30270c6f3c617ea08dcdcff5e48d25bbfb15d206a442e6156b123",
+          "bundled_sha256": "658de76e72c30270c6f3c617ea08dcdcff5e48d25bbfb15d206a442e6156b123",
+          "model": "sky130_fd_pr__pfet_g5v0d10v5",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/pfet3_g5v0d16v0.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/pfet3_g5v0d16v0.sym",
+          "source_identity": "b47f61f094f2d93dd7e9d659f9a0529c9f23dd7699712424d9369ab8e55cd71e",
+          "bundled_sha256": "b47f61f094f2d93dd7e9d659f9a0529c9f23dd7699712424d9369ab8e55cd71e",
+          "model": "sky130_fd_pr__pfet_g5v0d16v0",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/pfet_01v8.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/pfet_01v8.sym",
+          "source_identity": "d170f20e224b5b2530b986cb07b6a16101d3e07981eae1eb45a190da7ca4498b",
+          "bundled_sha256": "d170f20e224b5b2530b986cb07b6a16101d3e07981eae1eb45a190da7ca4498b",
+          "model": "sky130_fd_pr__pfet_01v8",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/pfet_01v8_hvt.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/pfet_01v8_hvt.sym",
+          "source_identity": "5c67e2b4a4893067035f0ae24b5af969646a08b97af5068b17c08694a3ae8d28",
+          "bundled_sha256": "5c67e2b4a4893067035f0ae24b5af969646a08b97af5068b17c08694a3ae8d28",
+          "model": "sky130_fd_pr__pfet_01v8_hvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/pfet_01v8_hvt_nf.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/pfet_01v8_hvt_nf.sym",
+          "source_identity": "6f6b3ced4cfb8a72c699e5acd55e9b3118c6751cd0f49e5d111690efbd950fe6",
+          "bundled_sha256": "6f6b3ced4cfb8a72c699e5acd55e9b3118c6751cd0f49e5d111690efbd950fe6",
+          "model": "sky130_fd_pr__pfet_01v8_hvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/pfet_01v8_lvt.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/pfet_01v8_lvt.sym",
+          "source_identity": "926f35222e53f1c21ce149262fa2011975b9074fe58da505cad8f1eccf9605a8",
+          "bundled_sha256": "926f35222e53f1c21ce149262fa2011975b9074fe58da505cad8f1eccf9605a8",
+          "model": "sky130_fd_pr__pfet_01v8_lvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/pfet_01v8_lvt_nf.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/pfet_01v8_lvt_nf.sym",
+          "source_identity": "192fbb9d4a9d8cbab1e52e06c508ec25661c728974ee9050825f6130e2ab4a87",
+          "bundled_sha256": "192fbb9d4a9d8cbab1e52e06c508ec25661c728974ee9050825f6130e2ab4a87",
+          "model": "sky130_fd_pr__pfet_01v8_lvt",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/pfet_01v8_nf.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/pfet_01v8_nf.sym",
+          "source_identity": "152fb11a0480cd979015092827826e525bf81c55eebe064cf3ce091b589a7c57",
+          "bundled_sha256": "152fb11a0480cd979015092827826e525bf81c55eebe064cf3ce091b589a7c57",
+          "model": "sky130_fd_pr__pfet_01v8",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/pfet_20v0.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/pfet_20v0.sym",
+          "source_identity": "05f55216df7f483337aace55b0bf1cffeff4d9fabaec29f924bbd64406c1a5c2",
+          "bundled_sha256": "05f55216df7f483337aace55b0bf1cffeff4d9fabaec29f924bbd64406c1a5c2",
+          "model": "sky130_fd_pr__pfet_20v0",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/pfet_g5v0d10v5.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/pfet_g5v0d10v5.sym",
+          "source_identity": "68605e1a388175e9cbf74b72df6ea2fe2c100bb7bd4b8f333e7785be9d693739",
+          "bundled_sha256": "68605e1a388175e9cbf74b72df6ea2fe2c100bb7bd4b8f333e7785be9d693739",
+          "model": "sky130_fd_pr__pfet_g5v0d10v5",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/pfet_g5v0d10v5_nf.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/pfet_g5v0d10v5_nf.sym",
+          "source_identity": "284dde062a4ca647934fd889c59a0e8ed3a48556b32a73d200629d3341c82670",
+          "bundled_sha256": "284dde062a4ca647934fd889c59a0e8ed3a48556b32a73d200629d3341c82670",
+          "model": "sky130_fd_pr__pfet_g5v0d10v5",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/pfet_g5v0d16v0.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/pfet_g5v0d16v0.sym",
+          "source_identity": "d7c8a6b208717d5a7fcc9406c6e96ea9a91266d86d3937659a284d9fe5827c8e",
+          "bundled_sha256": "d7c8a6b208717d5a7fcc9406c6e96ea9a91266d86d3937659a284d9fe5827c8e",
+          "model": "sky130_fd_pr__pfet_g5v0d16v0",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/pfet_g5v0d16v0_nf.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/pfet_g5v0d16v0_nf.sym",
+          "source_identity": "579729773395996e85a8da37dc008f9faa54e2489079c28108ffbb930696e30c",
+          "bundled_sha256": "579729773395996e85a8da37dc008f9faa54e2489079c28108ffbb930696e30c",
+          "model": "sky130_fd_pr__pfet_g5v0d16v0",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/pnp_05v5.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/pnp_05v5.sym",
+          "source_identity": "6f70220c69cb0c6417ec83b2fa877fb3b715c2ff68efe32d4dcaa70351e0d54b",
+          "bundled_sha256": "6f70220c69cb0c6417ec83b2fa877fb3b715c2ff68efe32d4dcaa70351e0d54b",
+          "model": "sky130_fd_pr__pnp_05v5_W3p40L3p40",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_generic_li.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_generic_li.sym",
+          "source_identity": "0074841d358fc35f443b6ed79181e6ccd424365836b6130c7f35cbf283ce354e",
+          "bundled_sha256": "0074841d358fc35f443b6ed79181e6ccd424365836b6130c7f35cbf283ce354e",
+          "model": "sky130_fd_pr__res_generic_li",
+          "unavailable": "Model is absent from the selected ngspice library closure."
+        },
+        {
+          "device": "sky130_fd_pr/res_generic_m1.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_generic_m1.sym",
+          "source_identity": "516e3094275f90b8663a4a24c1870ddccf561cd5ab4403ed1679d4d9b661e66b",
+          "bundled_sha256": "516e3094275f90b8663a4a24c1870ddccf561cd5ab4403ed1679d4d9b661e66b",
+          "model": "sky130_fd_pr__res_generic_m1",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_generic_m2.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_generic_m2.sym",
+          "source_identity": "439e062c3461967dacaf30c5cc4ef3129cf25a0d53e6ae1df1d9d8d9644f8ba7",
+          "bundled_sha256": "439e062c3461967dacaf30c5cc4ef3129cf25a0d53e6ae1df1d9d8d9644f8ba7",
+          "model": "sky130_fd_pr__res_generic_m2",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_generic_m3.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_generic_m3.sym",
+          "source_identity": "1ba3e7e225bd52474357f043410cd7e7e36e44833c50c9f800f13988d0ff6030",
+          "bundled_sha256": "1ba3e7e225bd52474357f043410cd7e7e36e44833c50c9f800f13988d0ff6030",
+          "model": "sky130_fd_pr__res_generic_m3",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_generic_m4.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_generic_m4.sym",
+          "source_identity": "08666ecbfec802fc34e68a63efb3dbac981688343aee2b2ad43b7a58ee78a905",
+          "bundled_sha256": "08666ecbfec802fc34e68a63efb3dbac981688343aee2b2ad43b7a58ee78a905",
+          "model": "sky130_fd_pr__res_generic_m4",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_generic_nd.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_generic_nd.sym",
+          "source_identity": "85c1a11c400085e689654e4501d25d31b31bd8b7cc2b3c430fae17e9ab1063d5",
+          "bundled_sha256": "85c1a11c400085e689654e4501d25d31b31bd8b7cc2b3c430fae17e9ab1063d5",
+          "model": "sky130_fd_pr__res_generic_nd",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_generic_pd.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_generic_pd.sym",
+          "source_identity": "1ed9c111d54d9accf8cb68b8619416fc94a38b48818b82f41a37e066079533ce",
+          "bundled_sha256": "1ed9c111d54d9accf8cb68b8619416fc94a38b48818b82f41a37e066079533ce",
+          "model": "sky130_fd_pr__res_generic_pd",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_generic_po.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_generic_po.sym",
+          "source_identity": "d79e2be1ce6dbf839616735be663c5dd01049f2966821303f0239a103061ebdf",
+          "bundled_sha256": "d79e2be1ce6dbf839616735be663c5dd01049f2966821303f0239a103061ebdf",
+          "model": "sky130_fd_pr__res_generic_po",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_high_po.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_high_po.sym",
+          "source_identity": "2e5ad879f4d8eb46483f3036e67135b796a7d843668cca538800782e63cfea5d",
+          "bundled_sha256": "2e5ad879f4d8eb46483f3036e67135b796a7d843668cca538800782e63cfea5d",
+          "model": "sky130_fd_pr__res_high_po",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_high_po_0p35.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_high_po_0p35.sym",
+          "source_identity": "c941c16b9349b6414a9ff5a2e9aea6647cec55ece3ea884e88e9bd0fec3e134a",
+          "bundled_sha256": "c941c16b9349b6414a9ff5a2e9aea6647cec55ece3ea884e88e9bd0fec3e134a",
+          "model": "sky130_fd_pr__res_high_po_0p35",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_high_po_0p69.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_high_po_0p69.sym",
+          "source_identity": "c651490f29ade84747b89ceb54e59f4c02e957761da12c429b2c775caf78c005",
+          "bundled_sha256": "c651490f29ade84747b89ceb54e59f4c02e957761da12c429b2c775caf78c005",
+          "model": "sky130_fd_pr__res_high_po_0p69",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_high_po_1p41.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_high_po_1p41.sym",
+          "source_identity": "2fe9a78b38b770edc12bcaf5382c401685b5e28bef4a727c01a4099934ffe0b2",
+          "bundled_sha256": "2fe9a78b38b770edc12bcaf5382c401685b5e28bef4a727c01a4099934ffe0b2",
+          "model": "sky130_fd_pr__res_high_po_1p41",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_high_po_2p85.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_high_po_2p85.sym",
+          "source_identity": "cab40d1f748ec2f842acd87341876389aa93d1936bd2ddf2d730d244dc64cf58",
+          "bundled_sha256": "cab40d1f748ec2f842acd87341876389aa93d1936bd2ddf2d730d244dc64cf58",
+          "model": "sky130_fd_pr__res_high_po_2p85",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_high_po_5p73.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_high_po_5p73.sym",
+          "source_identity": "4f3b5f6ffe6edfb5c0476264e6c98701c8d2e376d199cc836d882afba5b57a34",
+          "bundled_sha256": "4f3b5f6ffe6edfb5c0476264e6c98701c8d2e376d199cc836d882afba5b57a34",
+          "model": "sky130_fd_pr__res_high_po_5p73",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_iso_pw.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_iso_pw.sym",
+          "source_identity": "d9940630f6b5529934f17074f868ec1a590e7156cc521379ebc5b03e98e8639c",
+          "bundled_sha256": "d9940630f6b5529934f17074f868ec1a590e7156cc521379ebc5b03e98e8639c",
+          "model": "sky130_fd_pr__res_iso_pw",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_xhigh_po.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_xhigh_po.sym",
+          "source_identity": "19ac49dcf3e6f0e6d5c464484a29f104419f1a4cc5dae404c2182092cf1f6047",
+          "bundled_sha256": "19ac49dcf3e6f0e6d5c464484a29f104419f1a4cc5dae404c2182092cf1f6047",
+          "model": "sky130_fd_pr__res_xhigh_po",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_xhigh_po_0p35.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_xhigh_po_0p35.sym",
+          "source_identity": "0e940c78bed90e3916b315245402f75dcbf62031ddbfbfb1b312859478df6248",
+          "bundled_sha256": "0e940c78bed90e3916b315245402f75dcbf62031ddbfbfb1b312859478df6248",
+          "model": "sky130_fd_pr__res_xhigh_po_0p35",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_xhigh_po_0p69.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_xhigh_po_0p69.sym",
+          "source_identity": "382eb033a9207052cef3837172b9554a16b7bd122942ec8afed6b9475fb29c6b",
+          "bundled_sha256": "382eb033a9207052cef3837172b9554a16b7bd122942ec8afed6b9475fb29c6b",
+          "model": "sky130_fd_pr__res_xhigh_po_0p69",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_xhigh_po_1p41.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_xhigh_po_1p41.sym",
+          "source_identity": "32d69ee01785a7175363622a517e77d855c16c84c8471314d675d59d02f80238",
+          "bundled_sha256": "32d69ee01785a7175363622a517e77d855c16c84c8471314d675d59d02f80238",
+          "model": "sky130_fd_pr__res_xhigh_po_1p41",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_xhigh_po_2p85.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_xhigh_po_2p85.sym",
+          "source_identity": "cf5779e3daf14f7e353af07f21644ae78a900f76f166374aeb9873ff5a839e4b",
+          "bundled_sha256": "cf5779e3daf14f7e353af07f21644ae78a900f76f166374aeb9873ff5a839e4b",
+          "model": "sky130_fd_pr__res_xhigh_po_2p85",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/res_xhigh_po_5p73.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/res_xhigh_po_5p73.sym",
+          "source_identity": "ee6eb5314848269002e8fba2ce91471fc03856e8dfd80ed572c20d4368129473",
+          "bundled_sha256": "ee6eb5314848269002e8fba2ce91471fc03856e8dfd80ed572c20d4368129473",
+          "model": "sky130_fd_pr__res_xhigh_po_5p73",
+          "unavailable": ""
+        },
+        {
+          "device": "sky130_fd_pr/vpp_cap.sym",
+          "source": "sky130A/libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+          "source_identity": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e",
+          "bundled_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e",
+          "model": "sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5",
+          "unavailable": ""
+        }
+      ]
+    }
+  },
+  "runner_sha256": "dbed6d25b2836f4914186caf91911d6cdc8621fc5a9998e932e3e5958198e661",
+  "inventory_status": "PASS",
+  "source_baseline": "456796eea638ae9ae27910ad05d65e6fcd93030a",
+  "focused_tests": {
+    "Windows": 4,
+    "Linux": 4
+  },
+  "cross_platform_reports_identical": true,
+  "raw_report_sha256": "ff1c85f685858223a00c3edc0f72ae6cdda2c353a055c2e06bb6933be018ae28",
+  "archive": {
+    "path": "IC-Design-Studio-evidence/primitive-symbol-inventory-2026-10-16/evidence.zip",
+    "sha256": "5a12681ec8566ea8968cda0f243cb6c4d5325152e308107b6d541242195aa745",
+    "bytes": 29868942,
+    "file_paths": 751,
+    "unique_contents": 669,
+    "verified_objects": true
+  },
+  "limits": [
+    "All 255 bundled primitive symbol entries match their exact upstream source view; 21 historical unavailable entries remain unavailable. This is source coverage, not electrical qualification.",
+    "Other symbol views are enumerated by directory, not qualified. Model-only devices, other tool interfaces, complete process options and device operating envelopes remain open.",
+    "The first API requests used commit identifiers; the final responses use actual root tree identifiers and every directory object is reconstructed and verified.",
+    "The first Linux replay could not import its isolated dependency because the runtime wrapper overrides PYTHONPATH. Its failure is retained; the native interpreter replay passes."
+  ]
+}
