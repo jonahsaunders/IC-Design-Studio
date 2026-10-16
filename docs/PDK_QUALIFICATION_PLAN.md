@@ -19,7 +19,18 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [public alignment audit](validation/sky130-alignment-audit-2026-10-15.json)
+The latest [public oxide-density audit](validation/sky130-oxide-audit-2026-10-15.json)
+adds two explicitly identified Apache-licensed public density profiles, exact
+integer-area measurements and inclusive 700/70 um windows. All 411 tests per OS,
+27 identical control layouts/reports, three fresh application runs and Windows
+exports pass. Independent upstream runs expose endpoint omissions and boundary
+area discrepancies, retained and explained by rectangle arithmetic. APB has
+21/10 clipped-window findings under the two profiles; counter/UART have zero.
+All three blocks are smaller than 700 um, so none obtains full-window acceptance.
+**The catalog remains at 302 unresolved records and chunk 6 remains open.**
+Only resources compatible with the project's GPL license are incorporated.
+
+The preceding [public alignment audit](validation/sky130-alignment-audit-2026-10-15.json)
 adds nonempty integrity checks for all 31 mask purposes at the four corners of
 the exact public seal template. All 394 tests per OS, 146 identical control
 layouts/reports, three Linux application runs and Windows export replays pass.

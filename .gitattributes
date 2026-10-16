@@ -12,6 +12,7 @@ docs/validation/student-physical/** -whitespace
 # Locked upstream PDK text retains its original whitespace.
 tests/fixtures/sky130-metal-width-native.tech -whitespace
 tests/fixtures/sky130-public-seal-v1/** -whitespace
+tests/fixtures/sky130-tt-density-v1/met_density_tiled.drc -whitespace
 tests/fixtures/sky130-public-seal-oracles-v1/*.log -whitespace
 docs/qualification/sky130-device-tables/** -whitespace
 icstudio/assets/pdks/gf180mcuC/** -whitespace
@@ -26,3 +27,4 @@ docs/validation/ihp-fill-reference-2026-10-11/** whitespace=cr-at-eol
 docs/validation/ihp-fill-closure-2026-10-11.json whitespace=cr-at-eol
 docs/validation/gf180-tested-source-2026-10-09.json whitespace=cr-at-eol
 docs/validation/sky130-connectivity-2026-10-11/audit-win32.json whitespace=cr-at-eol
+docs/validation/sky130-oxide-audit-2026-10-15/win32/tests.log whitespace=cr-at-eol

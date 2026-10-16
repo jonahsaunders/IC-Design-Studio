@@ -16728,7 +16728,7 @@
       "target": "sky130A",
       "test": "sky130-full-rules",
       "status": "partial",
-      "remaining": "Chunk 6 remains incomplete with 302 unresolved catalog records, plus required density and pin spacing. Public Nikon integrity checks now cover 31 mask purposes in four exact source-template domains, with 394 tests per OS and 146 identical cross-system controls. All 56 related catalog rows stay unresolved pending final-mask and placement policy; their public shape template is now retained. Three current application runs and Windows exports pass. No private package is available and no requirement is waived.",
+      "remaining": "Chunk 6 remains incomplete with 302 unresolved catalog records, pin spacing and full required density acceptance. Public oxide-density measurements now execute under two separately identified profiles, with 411 tests per OS and 27 identical controls. All three blocks are smaller than a full 700 um window; APB has 21/10 clipped observations below the public thresholds. Chip context, profile applicability and final-mask construction remain unresolved. Only GPL-compatible source material is incorporated.",
       "historical_evidence": [
         "gds-diagnostics",
         "sky130-physical-progress-2026-10-11",
@@ -16787,7 +16787,8 @@
         "sky130-module-operand-audit-2026-10-15",
         "sky130-diecut-density-audit-2026-10-15",
         "sky130-dummy-partner-audit-2026-10-15",
-        "sky130-alignment-audit-2026-10-15"
+        "sky130-alignment-audit-2026-10-15",
+        "sky130-oxide-audit-2026-10-15"
       ]
     },
     "sky130A:source-completeness": {
@@ -20360,6 +20361,11 @@
       "path": "docs/validation/sky130-alignment-audit-2026-10-15.json",
       "sha256": "a93644484c41a58a51b5e0409c26815a252e1f21a71c6358149e36ae34c68888",
       "scope_limit": "Public Open PDKs Nikon geometry is transcribed and compared against independent Magic exports. The complete 6 um seal must match before four mark domains are selected. All 31 mask purposes are checked for missing, reversed or damaged geometry. The 56 related catalog rows remain unreviewed: this does not establish foundry mask generation or complete-chip/scribe placement policy. All 394 tests per OS pass; 146 controls and all three reference reports agree byte for byte. Three Linux application runs and Windows saved-result/export replays pass. The original public generator produces four 5 nm seal gaps for the retained 100.005 by 150.005 um chip-area control. Reference catalog counts remain 441 executed, 715 absent, 90 W/L exemptions, eight advisory and 302 unresolved. No new electrical extraction, timing, equivalence or tapeout acceptance is claimed."
+    },
+    "sky130-oxide-audit-2026-10-15": {
+      "path": "docs/validation/sky130-oxide-audit-2026-10-15.json",
+      "sha256": "6a97a275e05376fb48ddd6a403c88575db7dcdf49ade44abe0eedf5bf89e442c",
+      "scope_limit": "Two explicitly identified public metal-growth density profiles execute with exact integer areas, independently declared bounds and inclusive 700/70 um windows. Clipped windows remain diagnostic. All 411 tests per OS pass; 27 control layouts and reports and three reference measurements agree byte for byte. Unmodified upstream runs expose omitted endpoint windows and asymmetric boundary clipping, explained independently by rectangle arithmetic. Three Linux application runs and Windows saved-result/export replays pass. APB has 21/10 clipped-window findings under the two profiles; counter/UART have zero. All references are smaller than 700 um, so none obtains full-window acceptance. The 302 unresolved catalog records, pin-spacing definition, final-mask/density applicability and foundry signoff remain open. No new extraction, timing or equivalence is claimed."
     }
   },
   "execution_acceptance": {

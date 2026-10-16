@@ -44,6 +44,51 @@ hosting alone is not treated as that determination. No rule disposition or
 implementation is derived from that package in the current checkpoint. This
 licensing boundary does not waive any unresolved physical requirement.
 
+## Public metal-growth density measurements
+
+The [oxide-density audit](validation/sky130-oxide-audit-2026-10-15.json) adds
+measurements derived from the Apache-2.0 Tiny Tapeout checker. Its conservative
+growth settings and the distinct SkyWater settings reported in its comments
+remain separate profiles. Both use an 80% comparison; this newer public screen
+does not silently replace the pinned manual's rules or establish final-mask
+equivalence. Only the Tiny Tapeout source and license are incorporated.
+
+Finish uses independently captured OpenDB bounds. It grows drawn metal and
+native fill, unions overlaps, and measures exact integer areas in 700 um windows
+on a 70 um lattice. Endpoint windows are included and clipped observations are
+labelled separately. Saved-result/export validation recomputes the geometry and
+checks the declared bounds. Missing bounds or blocks smaller than 700 um cannot
+obtain full-window acceptance.
+
+All **411 tests pass on each OS, with no failures, errors or skips**. The 27
+retained control layouts and reports and three reference measurements agree
+byte for byte. Controls cover 24 one-nm threshold cases, boundaries, hierarchy,
+holes, outside contributors, overlapping fill, unsupported shapes and forged
+evidence. Three fresh Linux application runs and Windows export replays pass.
+
+The unmodified upstream checker was independently run on 700, 770 and 800 um
+controls. It misses the exact endpoint windows, including every window on the
+700 um case. On the 800 um case its centered tile grid and differently clipped
+numerator/denominator produce a different density; independent rectangle
+arithmetic reproduces that difference. The original files, logs and failing
+comparison attempts are retained. Studio uses the declared window area for
+both numerator and denominator and does not reproduce those behaviors.
+
+The real counter and UART have no below-80% clipped observations. APB has
+**21 clipped observations under Tiny Tapeout's margin settings and 10 under
+the SkyWater growth values it reports**, on metal2 through metal4. These are
+window/layer observations, not 31 distinct manufacturing defects. All three
+blocks are smaller than a full window. These results require chip context;
+neither zero observations nor a clipped finding determines foundry acceptance.
+
+**Chunk 6 remains incomplete, with the same 302 unresolved catalog records.**
+The application now exposes a previously unavailable density metric and its
+limitations. PDK-version applicability, complete-chip density context, generated
+mask and selector definitions, and the missing pin-spacing limit remain open.
+This batch does not rerun extraction, timing or equivalence. The research
+repository's bundled proprietary foundry manuals and the Cadence package with
+unresolved GPL compatibility are excluded from the implementation and evidence.
+
 ## Public Nikon alignment template
 
 The [alignment audit](validation/sky130-alignment-audit-2026-10-15.json) adds

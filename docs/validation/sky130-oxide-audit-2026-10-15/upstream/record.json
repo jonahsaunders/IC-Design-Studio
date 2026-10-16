@@ -1,0 +1,160 @@
+{
+  "status": "PASS",
+  "qualified": false,
+  "chunk_complete": false,
+  "driver_sha256": "bc161498d658c9bff451f6e0edbb36bb649e07e00b91a904643602744adfc244",
+  "source_sha256": "89a82a47299d668511d0af8a16bd3f7c5da35375eaf4bca6224637446d4786f1",
+  "cases": [
+    {
+      "size_nm": 700000,
+      "command": [
+        "/opt/icstudio/bin/klayout",
+        "-b",
+        "-r",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/IC-Design-Studio/tests/fixtures/sky130-tt-density-v1/met_density_tiled.drc",
+        "-rd",
+        "gds_input=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/sky130-oxide-controls-v1/linux/upstream-700000.gds",
+        "-rd",
+        "top_cell=density_control",
+        "-rd",
+        "report_file=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/sky130-oxide-upstream-v3/700000/report.lyrdb",
+        "-rd",
+        "thr=1"
+      ],
+      "gds_sha256": "abe9858abdc3bf59f986efb13fa9727a4a61178124e5912b2367b88a12042407",
+      "log_sha256": "2a873038367c7c25deb44c7f89d5d1fcbfc4a6ef5923a65f9225ef252948ed3d",
+      "report_sha256": "964f26b437f80938a2958c661d2953152553c8397f4161c2dd98646eac454cdd",
+      "native": {
+        "m1": {
+          "minimum": 1.0,
+          "maximum": 0.0,
+          "studio_minimum": 0.5720357142857143,
+          "studio_maximum": 0.5720357142857143
+        },
+        "m2": {
+          "minimum": 1.0,
+          "maximum": 0.0,
+          "studio_minimum": 0.5719642857142857,
+          "studio_maximum": 0.5719642857142857
+        },
+        "m3": {
+          "minimum": 1.0,
+          "maximum": 0.0,
+          "studio_minimum": 0.5722857142857143,
+          "studio_maximum": 0.5722857142857143
+        },
+        "m4": {
+          "minimum": 1.0,
+          "maximum": 0.0,
+          "studio_minimum": 0.5722142857142857,
+          "studio_maximum": 0.5722142857142857
+        }
+      },
+      "studio_full_windows": 1
+    },
+    {
+      "size_nm": 770000,
+      "command": [
+        "/opt/icstudio/bin/klayout",
+        "-b",
+        "-r",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/IC-Design-Studio/tests/fixtures/sky130-tt-density-v1/met_density_tiled.drc",
+        "-rd",
+        "gds_input=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/sky130-oxide-controls-v1/linux/upstream-770000.gds",
+        "-rd",
+        "top_cell=density_control",
+        "-rd",
+        "report_file=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/sky130-oxide-upstream-v3/770000/report.lyrdb",
+        "-rd",
+        "thr=1"
+      ],
+      "gds_sha256": "e66811e3dc9cd94bdb8b6f62b1c5143df6be595e5118bcd363713808231df0c8",
+      "log_sha256": "b3847c63e77d6c4ed0c20a0042c43e4f7c4ae943ba97bb5d2e6d69dbd24bbc6d",
+      "report_sha256": "463e05298f5b8ccd74750a7ddfc9952a156f6b4d74c3301f9557c1fb92239cfc",
+      "native": {
+        "m1": {
+          "minimum": 0.572,
+          "maximum": 0.572,
+          "studio_minimum": 0.4720357142857143,
+          "studio_maximum": 0.5720357142857143
+        },
+        "m2": {
+          "minimum": 0.572,
+          "maximum": 0.572,
+          "studio_minimum": 0.4719642857142857,
+          "studio_maximum": 0.5719642857142857
+        },
+        "m3": {
+          "minimum": 0.5723,
+          "maximum": 0.5723,
+          "studio_minimum": 0.4722857142857143,
+          "studio_maximum": 0.5722857142857143
+        },
+        "m4": {
+          "minimum": 0.5722,
+          "maximum": 0.5722,
+          "studio_minimum": 0.4722142857142857,
+          "studio_maximum": 0.5722142857142857
+        }
+      },
+      "studio_full_windows": 4
+    },
+    {
+      "size_nm": 800000,
+      "command": [
+        "/opt/icstudio/bin/klayout",
+        "-b",
+        "-r",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/IC-Design-Studio/tests/fixtures/sky130-tt-density-v1/met_density_tiled.drc",
+        "-rd",
+        "gds_input=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/sky130-oxide-controls-v1/linux/upstream-800000.gds",
+        "-rd",
+        "top_cell=density_control",
+        "-rd",
+        "report_file=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/sky130-oxide-upstream-v3/800000/report.lyrdb",
+        "-rd",
+        "thr=1"
+      ],
+      "gds_sha256": "bb5d29c62ff8cce6b9b7ee4e345b293fbc94242b1091bef907743affc9deaf51",
+      "log_sha256": "51e6e0ef9335edb9ffd400805b227103c62aa09a4225c907cc62dce425756edd",
+      "report_sha256": "16f0b9bfd6864afc010e1b735cc70e6715d7f415a9f479c13603a205b1479cb1",
+      "native": {
+        "m1": {
+          "minimum": 0.5006,
+          "maximum": 0.5945,
+          "studio_minimum": 0.4720357142857143,
+          "studio_maximum": 0.5720357142857143,
+          "upstream_centered_grid_analytic_minimum": 0.5006071428571428,
+          "upstream_centered_grid_analytic_maximum": 0.5945391679282007
+        },
+        "m2": {
+          "minimum": 0.5005,
+          "maximum": 0.5943,
+          "studio_minimum": 0.4719642857142857,
+          "studio_maximum": 0.5719642857142857,
+          "upstream_centered_grid_analytic_minimum": 0.5005357142857143,
+          "upstream_centered_grid_analytic_maximum": 0.5943480347102076
+        },
+        "m3": {
+          "minimum": 0.5009,
+          "maximum": 0.5952,
+          "studio_minimum": 0.4722857142857143,
+          "studio_maximum": 0.5722857142857143,
+          "upstream_centered_grid_analytic_minimum": 0.5008571428571429,
+          "upstream_centered_grid_analytic_maximum": 0.5952083044982699
+        },
+        "m4": {
+          "minimum": 0.5008,
+          "maximum": 0.595,
+          "studio_minimum": 0.4722142857142857,
+          "studio_maximum": 0.5722142857142857,
+          "upstream_centered_grid_analytic_minimum": 0.5007857142857143,
+          "upstream_centered_grid_analytic_maximum": 0.5950170955882353
+        }
+      },
+      "studio_full_windows": 4
+    }
+  ],
+  "findings": "700um: original omits all full windows. 770um: original omits endpoint windows. 800um: original uses a centered 840um tile grid and clips denominator to the frame but not numerator; the recorded difference is explained by independent rectangle arithmetic.",
+  "comparison_precision": "Upstream KLayout log emits density to four decimal places; compare at that precision. Exact integer-area controls are independent."
+}

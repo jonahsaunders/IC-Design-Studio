@@ -67,6 +67,19 @@ The verbatim F2a device and F2b mask tables in
 alongside the tables. The device-intent audit records the original source URLs,
 Git blob identities and SHA-256 hashes.
 
+## Public SKY130 metal-density reference
+
+The public SKY130 oxide-density measurements are adapted from Tiny Tapeout 10's
+`sky130_tapeout_drc/met_density_tiled.drc` at revision
+`46f0a2f45c3b1fcc27aac7acb7faa054631d9955`, under Apache-2.0. The original source
+includes DLindley's July and September 2024 attribution. Source:
+https://github.com/TinyTapeout/tinytapeout-10/blob/46f0a2f45c3b1fcc27aac7acb7faa054631d9955/sky130_tapeout_drc/met_density_tiled.drc.
+The exact upstream source, license and hashes are retained in
+`tests/fixtures/sky130-tt-density-v1`; the distribution's Apache-2.0 text is
+`licenses/Apache-2.0.txt`. Studio's 2026-10-15 adaptation uses integer areas,
+explicit physical units and declared bounds, includes endpoint windows, and
+separates clipped diagnostics. These changes do not claim foundry equivalence.
+
 ## Included Xschem and GF180 simulation assets
 
 Standard Xschem symbols: Ubuntu 3.4.4-1build1, GPL-2.0-or-later. Original copyright and license headers are retained under icstudio/assets/exchange/xschem; the GPL text is in licenses/GPL-2.0.txt. Corresponding source: https://archive.ubuntu.com/ubuntu/pool/universe/x/xschem/ and https://github.com/StefanSchippers/xschem/tree/3.4.4.

@@ -118,6 +118,9 @@ def execute(request):
         from .digital_sky130_alignment import audit as alignment
         report['alignment'] = alignment(gds)
         save('alignment.json', report['alignment'])
+        from .digital_sky130_oxide_density import audit as oxide_density
+        report['oxide_density'] = oxide_density(gds, request.get('density_bounds_nm'))
+        save('oxide_density.json', report['oxide_density'])
         report.update(status='reviewed-profiles-pass', ledger=review,
                       coverage=dict(rows=len(review['rows']), counts=review['counts'], complete=False))
         unchanged(); resources(base, policy['preparation_sha256'])

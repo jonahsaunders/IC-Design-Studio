@@ -151,7 +151,28 @@ def evaluate(report, gds_sha256, checkpoint_sha256, top, fingerprint, policy):
     evaluate_dummy_partners(report.get('dummy_partners'), gds_sha256, top)
     from .digital_sky130_alignment import evaluate as evaluate_alignment
     evaluate_alignment(report.get('alignment'), gds_sha256, top)
+    from .digital_sky130_oxide_density import evaluate as evaluate_oxide_density
+    evaluate_oxide_density(report.get('oxide_density'), gds_sha256, top)
     return report
+
+
+def density_bounds(artifacts, root, top, checkpoint_sha256):
+    """Use the independently captured OpenDB bounds, never metal or GDS bounds."""
+    item = artifacts.get('sky130_pin_inventory')
+    if item is None:
+        return None
+    root = Path(root).resolve(); path = (root/item['path']).resolve()
+    require(path.is_relative_to(root) and path.is_file() and file_digest(path) == item['sha256'],
+            'Missing or changed density boundary inventory.')
+    inventory = json.loads(path.read_bytes())
+    require(inventory.get('schema') == 1 and inventory.get('top') == top and
+            inventory.get('checkpoint_sha256') == checkpoint_sha256,
+            'Density boundary inventory belongs to a different checkpoint or top.')
+    from .digital_sky130_oxide_density import windows
+    bounds = inventory.get('die_nm')
+    require(bounds is not None, 'Density inventory has no declared bounds.')
+    windows(bounds)
+    return bounds
 
 
 def execute(r):
@@ -168,6 +189,7 @@ def execute(r):
                    gds=str(r.root/original['gds']['path']), gds_sha256=original['gds']['sha256'],
                    checkpoint=str(r.root/original['checkpoint']['path']), checkpoint_sha256=original['checkpoint']['sha256'],
                    top=r.config['top'], platform_fingerprint=r.platform['fingerprint'], output=str(folder/'verified'))
+    request['density_bounds_nm'] = density_bounds(r.artifacts, r.root, r.config['top'], original['checkpoint']['sha256'])
     atomic_write(folder/'request.json', json.dumps(request, indent=2)+'\n')
     bootstrap = 'import sys\nsys.dont_write_bytecode=True\nsys.path.insert(0,'+repr(str(Path(__file__).resolve().parents[1]))+')\n'
     bootstrap += 'import json\nfrom pathlib import Path\nfrom icstudio.digital_sky130_rule_worker import execute\nexecute(json.loads(Path(sys.argv[1]).read_bytes()))\n'
@@ -185,6 +207,8 @@ def execute(r):
     resources(request['resources'], policy['preparation_sha256'])
     evaluate(report, original['gds']['sha256'], original['checkpoint']['sha256'], r.config['top'],
              r.platform['fingerprint'], policy)
+    require(report['oxide_density']['measurements']['bounds_nm'] == request['density_bounds_nm'],
+            'Density report changed the independently captured bounds.')
     report['resources'] = {}
     for index, (name, path) in enumerate(sorted(paths.items())):
         key = 'sky130_rule_resource_'+str(index); r.add_artifact(key, path, allow_empty=True)
@@ -258,6 +282,9 @@ def validate_saved(data, root):
     validate_dummy_partners(report['dummy_partners'], read('gds'))
     from .digital_sky130_alignment import validate_saved as validate_alignment
     validate_alignment(report['alignment'], read('gds'))
+    from .digital_sky130_oxide_density import validate_saved as validate_oxide_density
+    bounds = density_bounds(files, root, report.get('top'), files['checkpoint']['sha256'])
+    validate_oxide_density(report['oxide_density'], read('gds'), bounds)
     bindings = report.get('resources', {})
     expected = FILES | {'preparation.json': policy['preparation_sha256']}
     require(bindings.keys() == expected.keys() and len(set(bindings.values())) == len(expected),

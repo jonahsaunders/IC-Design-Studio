@@ -79,6 +79,7 @@ def fixture(root):
     from icstudio.digital_sky130_waffle_windows import audit as waffle_windows
     from icstudio.digital_sky130_dummy_partners import audit as dummy_partners
     from icstudio.digital_sky130_alignment import audit as alignment
+    from icstudio.digital_sky130_oxide_density import audit as oxide_density
     report = dict(schema=1, recipe=rules.RECIPE, status='reviewed-profiles-pass', qualified=False,
                   chunk_complete=False, scope=rules.SCOPE, policy=platform['sky130_rules'],
                   top=ledger['top'], gds_sha256=ledger['gds_sha256'],
@@ -96,7 +97,8 @@ def fixture(root):
                   family_targets=family_targets(root/'filled.gds'),package_boundaries=package_boundaries(root/'filled.gds'),
                   metal_width_bounds=metal_width_bounds(root/'filled.gds'),module_absence=module_absence(root/'filled.gds'),
                   diecut_absence=diecut_absence(root/'filled.gds'),waffle_windows=waffle_windows(root/'filled.gds'),
-                  dummy_partners=dummy_partners(root/'filled.gds'),alignment=alignment(root/'filled.gds'))
+                  dummy_partners=dummy_partners(root/'filled.gds'),alignment=alignment(root/'filled.gds'),
+                  oxide_density=oxide_density(root/'filled.gds'))
     paths = rules.resources(root/'platform/verification', platform['sky130_rules']['preparation_sha256'])
     for index, (name, path) in enumerate(sorted(paths.items())):
         key='sky130_rule_resource_'+str(index)
@@ -183,6 +185,8 @@ class Sky130ApplicationRuleTests(unittest.TestCase):
             changes={
                 'missing-dummy-partners':lambda r:r.pop('dummy_partners'),
                 'missing-alignment':lambda r:r.pop('alignment'),
+                'missing-oxide-density':lambda r:r.pop('oxide_density'),
+                'forged-oxide-density':lambda r:r['oxide_density'].update(acceptance_established=True),
                 'changed-alignment':lambda r:r['alignment']['rows'][0].update(disposition='executed-reviewed'),
                 'changed-dummy-partners':lambda r:r['dummy_partners']['rows'][0].update(disposition='executed-reviewed'),
                 'missing-profile':lambda r:r['profiles'].pop('raw_geometry'),
