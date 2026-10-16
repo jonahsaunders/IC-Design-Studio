@@ -4,6 +4,20 @@ The [execution record](validation/sky130-physical-progress-2026-10-11.json)
 captures the original counter, UART and APB final layouts. Chunk 6 remains open.
 Zero geometry markers alone do not establish complete physical coverage.
 
+The [latest definition review](validation/sky130-definition-review-2026-10-15.json)
+confirms that the current public upstream still omits the numeric `x.20`
+pin-spacing limit. Additional public mask reconstructions and a separate PDK
+integration do not supply verified replacements for the missing definitions.
+This research closes **zero additional rules**; the catalog remains at **302
+unresolved records**, with the separate pin-spacing and density obligations
+still open. The last implementation evidence remains the 411-test oxide-density
+checkpoint below. No new execution or physical acceptance is claimed here.
+
+Completing chunk 6 now requires version-applicable definitions or independently
+validated equivalents that can be used under the project's license policy.
+Repeating the current checks, selecting an arbitrary missing limit or treating
+an explanatory mask formula as a manufacturing recipe cannot meet its gate.
+
 The [boundary export correction](#boundary-export-correction) removes a prohibited
 die-outline annotation from all three final streams without changing manufacturing
 geometry. Actual application checks and macro exports pass on the corrected
