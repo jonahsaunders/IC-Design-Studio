@@ -315,6 +315,8 @@ def execute(r):
         ihp_fill(r,settings)
         from .digital_sky130_rules import execute as sky130_rules
         sky130_review=sky130_rules(r)
+        from .digital_sky130_density import execute as sky130_density
+        sky130_density_review=sky130_density(r)
         from .digital_sky130_fill import execute as sky130_fill
         sky130_fill_review=sky130_fill(r,settings,sky130_review)
         from .digital_sky130_antenna import execute as sky130_antenna
@@ -346,6 +348,7 @@ def execute(r):
             **({'checks':checks} if stage=='finish' else {}),
             **({'sky130_native':sky130_native_review} if stage=='finish' and sky130_native_review is not None else {}),
             **({'sky130_rules':sky130_review} if stage=='finish' and sky130_review is not None else {}),
+            **({'sky130_density':sky130_density_review} if stage=='finish' and sky130_density_review is not None else {}),
             **({'sky130_fill':sky130_fill_review} if stage=='finish' and sky130_fill_review is not None else {}),
             **({'sky130_lvs':sky130_lvs_review} if stage=='finish' and sky130_lvs_review is not None else {}),
             **({'sky130_antenna':sky130_antenna_review} if stage=='finish' and sky130_antenna_review is not None else {}),

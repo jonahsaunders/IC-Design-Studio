@@ -16791,7 +16791,8 @@
         "sky130-oxide-audit-2026-10-15",
         "sky130-generic-native-2026-10-16",
         "sky130-generic-density-2026-10-16",
-        "sky130-application-lvs-2026-10-16"
+        "sky130-application-lvs-2026-10-16",
+        "sky130-density-gate-2026-10-16"
       ]
     },
     "sky130A:source-completeness": {
@@ -20233,7 +20234,7 @@
     "sky130-voltage-intent-audit-2026-10-14": {
       "path": "docs/validation/sky130-voltage-intent-audit-2026-10-14.json",
       "sha256": "f3aa296d1291b40a9b96054ca414732365408b261bbd38149148cb4bd2e2b776",
-      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0\u20131.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
+      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0–1.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
     },
     "sky130-isolation-options-audit-2026-10-14": {
       "path": "docs/validation/sky130-isolation-options-audit-2026-10-14.json",
@@ -20384,6 +20385,11 @@
       "path": "docs/validation/sky130-application-lvs-2026-10-16.json",
       "sha256": "acac20aeebc180be37900790b181166d4e316dbd10b169995a22197c76b3645e",
       "scope_limit": "Mandatory generic SKY130 HD device/body/diode/port LVS in normal Finish and portable macro export. Six fresh filled application runs across the original and newer matched libraries; six real physical faults rejected by the production checker; six Windows exports and relocated readbacks. Every comparison runs locally. Complete profile applicability, density policy and foundry signoff remain open."
+    },
+    "sky130-density-gate-2026-10-16": {
+      "path": "docs/validation/sky130-density-gate-2026-10-16.json",
+      "sha256": "4438b6478966e17b11f7cc64557610af1cdb2b79a30103ae1d684c1f85837544",
+      "scope_limit": "Project acceptance of the two named public growth profiles is mandatory independently of fill generation. No new foundry rule applicability, final-mask definition, complete-chip density policy, installer or electrical qualification."
     }
   },
   "execution_acceptance": {

@@ -10,6 +10,16 @@ The [execution record](validation/sky130-physical-progress-2026-10-11.json)
 captures the original counter, UART and APB final layouts. Chunk 6 remains open.
 Zero geometry markers alone do not establish complete physical coverage.
 
+## Mandatory public density policy (2026-10-16)
+
+The [density gate record](validation/sky130-density-gate-2026-10-16.json)
+records the application check independently of fill generation. Every new
+SKY130 HD Finish must retain both public growth-profile measurements. A failed
+full window blocks Finish; export rereads the actual layout and declared bounds.
+Source, license and provenance are included. Small blocks remain explicitly
+dependent on surrounding layout, and this policy does not qualify the missing
+process-density definitions or complete-chip context.
+
 ## Mandatory device and port comparison (2026-10-16)
 
 The [application LVS record](validation/sky130-application-lvs-2026-10-16.json)

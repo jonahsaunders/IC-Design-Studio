@@ -99,6 +99,23 @@ polysilicon from UART makes comparison fail. Separate custom
 reference widths is rejected. These are retained qualification runs, not an
 automatic LVS pass conferred on every application export.
 
+## Mandatory density gate
+
+The [application density execution record](validation/sky130-density-gate-2026-10-16.json)
+closes a fill-setting bypass: every newly prepared SKY130 HD Finish job checks
+both retained public growth profiles, whether metal fill is enabled or disabled.
+A failed full window saves the measurements and stops Finish. Export recomputes
+the measurements from the actual final GDS and independently captured bounds;
+missing evidence, changed source files and altered passing reports are rejected.
+The original Tiny Tapeout checker, Apache license and source lock accompany
+every new result and export.
+
+This is a mandatory project policy for the named public profiles. It does not
+supply the remaining foundry applicability or final-mask definitions. A small
+block still reports `surrounding-layout-required`; completing implementation
+does not confer density acceptance on a block without full windows. Historical
+jobs retain their original evidence and are not silently upgraded.
+
 ## Mandatory application connectivity
 
 The [application LVS execution record](validation/sky130-application-lvs-2026-10-16.json)

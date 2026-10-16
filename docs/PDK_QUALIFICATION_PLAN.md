@@ -41,6 +41,13 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
+The [mandatory density gate](validation/sky130-density-gate-2026-10-16.json)
+checks every new SKY130 HD Finish independently of the fill-generation setting.
+Failed full windows stop Finish and retain their measurements. Export remeasures
+the final layout and refuses missing or altered evidence. Small blocks remain
+explicitly dependent on surrounding layout. This closes an application bypass;
+it does not resolve missing process definitions or complete chunk 6.
+
 The [application connectivity integration](validation/sky130-application-lvs-2026-10-16.json)
 makes strict transistor, diode, body and port LVS mandatory for newly prepared
 SKY130 HD Finish jobs and binds the evidence to portable exports. Both reviewed

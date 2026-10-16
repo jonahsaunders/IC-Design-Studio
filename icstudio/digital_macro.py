@@ -54,10 +54,14 @@ def export(result, directory, destination):
     selected.update({k:v for k,v in artifacts.items() if k == 'sky130_native' or k.startswith('sky130_native_')})
     selected.update({k:v for k,v in artifacts.items() if k == 'sky130_fill' or k.startswith('sky130_fill_')})
     selected.update({k:v for k,v in artifacts.items() if k == 'sky130_lvs' or k.startswith('sky130_lvs_')})
+    selected.update({k:v for k,v in artifacts.items() if k == 'sky130_density' or k.startswith('sky130_density_')})
     job=json.loads((directory/'input.json').read_text())
     value=verify_inputs(result,job)
     native_geometry=verified['sky130_native']
     sky130_lvs=verified['sky130_lvs']
+    sky130_density=verified['sky130_density']
+    if sky130_density is not None and sky130_density.get('top') != value['top']:
+        raise ValueError('SKY130 density evidence belongs to another top-level design.')
     if sky130_lvs is not None and sky130_lvs.get('top') != value['top']:
         raise ValueError('SKY130 connectivity evidence belongs to another top-level design.')
     if native_geometry is not None and native_geometry.get('top') != value['top']:
@@ -93,7 +97,7 @@ def export(result, directory, destination):
     if connectivity is not None and (connectivity.get('top')!=value['top'] or
             value.get('platform',{}).get('gf180_connectivity')!=data.get('environment',{}).get('gf180_connectivity')):
         raise ValueError('Combined connectivity differs from the captured macro inputs.')
-    if reference is not None or connectivity is not None or sky130_review is not None or antenna is not None or isolation is not None or native_geometry is not None or sky130_lvs is not None or 'sky130_pin_export' in artifacts:
+    if reference is not None or connectivity is not None or sky130_review is not None or antenna is not None or isolation is not None or native_geometry is not None or sky130_lvs is not None or sky130_density is not None or 'sky130_pin_export' in artifacts:
         selected['checkpoint']=artifacts['checkpoint']
     notices=captured_notices(job,directory)
     manifest={'version':1,'top':value['top'],'source_hash':data['source_hash'],'input_key':data.get('input_key'),
@@ -121,6 +125,10 @@ def export(result, directory, destination):
         manifest['qualification']['sky130_rules']={
             'status':sky130_review['status'],'scope':sky130_review['scope'],'artifact':'sky130_rules',
             'qualified':False,'coverage':sky130_review['coverage']}
+    if sky130_density is not None:
+        manifest['qualification']['sky130_density'] = {
+            'status':sky130_density['status'], 'scope':sky130_density['scope'], 'artifact':'sky130_density',
+            'qualified':False, 'acceptance_established':False, 'full_windows':sky130_density['full_windows']}
     if sky130_fill is not None:
         manifest['qualification']['sky130_fill'] = {
             'status':sky130_fill['status'], 'scope':sky130_fill['scope'], 'artifact':'sky130_fill',

@@ -1,0 +1,21 @@
+{
+  "repository": "https://github.com/TinyTapeout/tinytapeout-10",
+  "revision": "46f0a2f45c3b1fcc27aac7acb7faa054631d9955",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "met_density_tiled.drc",
+      "upstream_path": "sky130_tapeout_drc/met_density_tiled.drc",
+      "blob": "989c2500b08b3a5a11fcf28f4dfb6cbb92cc795a",
+      "sha256": "89a82a47299d668511d0af8a16bd3f7c5da35375eaf4bca6224637446d4786f1",
+      "bytes": 9348
+    },
+    {
+      "path": "LICENSE",
+      "upstream_path": "LICENSE",
+      "blob": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "bytes": 11357
+    }
+  ]
+}

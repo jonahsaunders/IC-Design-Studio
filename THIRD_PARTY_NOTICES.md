@@ -75,7 +75,9 @@ The public SKY130 oxide-density measurements are adapted from Tiny Tapeout 10's
 includes DLindley's July and September 2024 attribution. Source:
 https://github.com/TinyTapeout/tinytapeout-10/blob/46f0a2f45c3b1fcc27aac7acb7faa054631d9955/sky130_tapeout_drc/met_density_tiled.drc.
 The exact upstream source, license and hashes are retained in
-`tests/fixtures/sky130-tt-density-v1`; the distribution's Apache-2.0 text is
+`tests/fixtures/sky130-tt-density-v1` and, for the mandatory application gate,
+`icstudio/assets/verification/sky130/density`. Each new density result and macro
+export retains the original source, license and source lock. The distribution's Apache-2.0 text is
 `licenses/Apache-2.0.txt`. Studio's 2026-10-15 adaptation uses integer areas,
 explicit physical units and declared bounds, includes endpoint windows, and
 separates clipped diagnostics. These changes do not claim foundry equivalence.
