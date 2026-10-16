@@ -80,6 +80,27 @@ The exact upstream source, license and hashes are retained in
 explicit physical units and declared bounds, includes endpoint windows, and
 separates clipped diagnostics. These changes do not claim foundry equivalence.
 
+## Public SKY130 seal and alignment reference
+
+The public seal/Nikon template used by `icstudio/digital_sky130_alignment.py`
+comes from Open PDKs revision `0ec4fa67eade28cd0a4352c04df981840809427b`,
+`sky130/custom/scripts/seal_ring_generator`, under Apache-2.0. Upstream:
+https://github.com/fossi-foundation/open-pdks/tree/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator.
+The upstream documentation credits SkyWater with the example seal geometry
+subsequently imported and edited for the public Magic generator.
+
+The unmodified source files, original notices, license and source identities
+are retained in `tests/fixtures/sky130-public-seal-v1`. The distribution's
+Apache-2.0 text is [licenses/Apache-2.0.txt](licenses/Apache-2.0.txt).
+Studio's 2026-10-15 adaptation transcribes the public geometry into integrity
+checks and requires the complete seal boundary before selecting alignment
+windows. The independent Magic exports in
+`tests/fixtures/sky130-public-seal-oracles-v1` and the derived layouts in
+`docs/validation/sky130-alignment-audit-2026-10-15/controls.zip` retain this
+upstream attribution and Apache-2.0 provenance. Studio's added checker and
+test code are GPL-3.0-or-later. These template checks do not establish
+foundry mask-generation equivalence or complete physical qualification.
+
 ## Included Xschem and GF180 simulation assets
 
 Standard Xschem symbols: Ubuntu 3.4.4-1build1, GPL-2.0-or-later. Original copyright and license headers are retained under icstudio/assets/exchange/xschem; the GPL text is in licenses/GPL-2.0.txt. Corresponding source: https://archive.ubuntu.com/ubuntu/pool/universe/x/xschem/ and https://github.com/StefanSchippers/xschem/tree/3.4.4.

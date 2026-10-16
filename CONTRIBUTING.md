@@ -67,4 +67,12 @@ its original notices; do not replace them with a GPL header or claim ownership
 of upstream work. Leave material with unresolved compatibility out of the
 project and release artifacts until that compatibility is established.
 
+Compatibility does not require every file to use the same license.
+[Apache-2.0 material can be included in GPLv3 projects](https://www.apache.org/licenses/GPL-compatibility)
+while retaining its original license and notices. Check individual file headers
+and subdirectory terms as well as the repository license. A wrapper's license
+does not replace the license of a bundled rule deck or model. Licensing review
+and physical qualification are separate: permission to redistribute a checker
+does not establish complete rule coverage or foundry acceptance.
+
 The [roadmap](docs/ROADMAP.md) describes larger priorities. For a broad feature, start with an issue and a concrete acceptance example so its scope can be reviewed.

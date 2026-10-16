@@ -58,6 +58,32 @@ hosting alone is not treated as that determination. No rule disposition or
 implementation is derived from that package in the current checkpoint. This
 licensing boundary does not waive any unresolved physical requirement.
 
+### Compatible public alternatives
+
+The [alternative-workflow review](validation/sky130-license-alternatives-2026-10-15.json)
+identifies ChipFoundry's public `cf-precheck` at revision
+`6c401ed5134a6466c7eed3e5524ebaacad4cea2a` as a compatible candidate for a
+separate shuttle acceptance milestone. Its root license is Apache-2.0; the
+bundled main SKY130 rule deck explicitly uses GPLv3 and retains that license.
+Neither file's license is replaced by the other's. The app's own code can
+continue to use GPL-3.0-or-later.
+
+This is a source review, not a completed integration or execution. The
+precheck requires a particular harness, makes Magic DRC optional by default
+and measures whole-boundary clear-area density in the inspected density deck.
+It does not supply the missing pin-spacing limit or establish complete
+coverage of the outstanding catalog. Passing that precheck cannot silently
+replace the original chunk 6 gate. Public operator requirements and validated
+reference results may provide an additional route to proving applicability;
+those proofs must precede any changed rule disposition.
+
+The source package retains the public seal template's Apache-2.0 license;
+the central [third-party notices](../THIRD_PARTY_NOTICES.md) now also identify
+its checker adaptation and derived layout controls. A bounded review found
+no named excluded package files or restrictive-notice matches beyond the
+documented exclusions. This is not a comprehensive legal clearance. No new
+external deck is incorporated, and all 302 unresolved records remain open.
+
 ## Public metal-growth density measurements
 
 The [oxide-density audit](validation/sky130-oxide-audit-2026-10-15.json) adds
