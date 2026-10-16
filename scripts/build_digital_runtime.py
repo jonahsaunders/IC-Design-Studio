@@ -69,6 +69,7 @@ def build(output):
         ihp_license.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT/'icstudio/assets/pdks/ihp-sg13g2/LICENSE',ihp_license)
         shutil.copy2(ROOT/'scripts/build_physical_engines.py',context/'build_physical_engines.py')
+        shutil.copy2(ROOT/'scripts/build_ngspice_runtime.py',context/'build_ngspice_runtime.py')
         shutil.copy2(ROOT/'scripts/compile_ihp_osdi.py',context/'compile_ihp_osdi.py')
         (context/'scripts').mkdir()
         for name in PLATFORM_SCRIPTS:

@@ -322,3 +322,13 @@ their t/s/f selections only inside the existing tt/ss/ff library sections. The
 modified library identifies this change. Original source deltas and license
 copies under `icstudio/assets/qualification/sky130-base-v1` reproduce the prior
 package; the IHP MIM fixture likewise retains its Apache notice and license.
+
+The Linux/WSL simulation runtime builds the unmodified ngspice 47 release with
+OSDI, XSPICE, KLU and predictor support. Its SHA-256-pinned original source
+archive, COPYING terms, build logs and binary identity are retained under
+`opt/icstudio/simulation`. The Windows console runtime retains its separately
+pinned ngspice 42 distribution. Numerical qualification identifies each engine.
+The generated Linux initializer is modified to resolve code models relative to
+the installed launcher and to default to one simulation thread. Its original
+bytes and an explicit modification notice are retained; users may select another
+thread count in their control program. Simulator/model source is unchanged.

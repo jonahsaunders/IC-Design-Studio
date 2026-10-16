@@ -39,6 +39,11 @@ def compare(actual,expected):
 def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--ngspice',required=True);a=ap.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
     tech,identity=load_technology('sky130A');sources=[Path(__file__),ROOT/'scripts/qualify_standard_mos.py',*sorted((ROOT/'icstudio').rglob('*.py'))];before={p.relative_to(ROOT).as_posix():file_digest(p) for p in sources};write(out/'source-files.json',before)
+    # The reference uses explicit primitive AREA in this engine's convention.
+    # It never calls the application's marker/conversion path.
+    from icstudio.ngspice_compat import behavior
+    convention=behavior(a.ngspice,out)
+    area_scale=1e-12 if convention['mode']=='unscaled-explicit-area' else 1
     report=dict(schema=1,chunk=7,status='RUNNING',qualified=False,chunk_complete=False,process=identity,cases=[],probes=PROBES,engine_sha256=file_digest(a.ngspice),source_files_sha256=file_digest(out/'source-files.json'),scope='Two default SKY130 primitive diode bindings, two area inputs, three process and temperature points, independent DC calls and polarity/area faults. No complete diode inventory, geometry, operating envelope or measured-silicon qualification.')
     for corner in ('nominal','ss','ff'):
         for temp in (0,27,85):
@@ -48,7 +53,7 @@ def main():
                 for side in ('application','independent'):(folder/side).mkdir()
                 actual=run_ngspice(p,p['top'],settings,a.ngspice,folder/'application');write(folder/'application/response.json',actual)
                 lines=['* Independent primitive diode calls',*model_lines(tech,corner),'VG drive 0 0']
-                for r in PROBES:lines += [f'V{r["tag"]} {r["tag"]} drive 0',f'D{r["tag"]} {r["tag"]} 0 sky130_fd_pr__diode_pw2nd_05v5 area={r["area"]:.12g}']
+                for r in PROBES:lines += [f'V{r["tag"]} {r["tag"]} drive 0',f'D{r["tag"]} {r["tag"]} 0 sky130_fd_pr__diode_pw2nd_05v5 area={r["area"]*area_scale:.12g}']
                 lines += [f'.temp {temp}','.dc VG -.2 .8 .025','.end',''];ref=folder/'independent';(ref/'reference.cir').write_bytes(stage_model_deck(tech,'\n'.join(lines),ref).encode())
                 expected=run_deck(p,p['top'],dict(deck=str(ref/'reference.cir'),analysis=settings),a.ngspice,ref);write(ref/'response.json',expected);row['comparison']=compare(actual,expected)
                 if row['comparison']['status']!='PASS':raise ValueError('Primitive diode currents differ.')
@@ -64,6 +69,7 @@ def main():
                 row['status']='PASS'
             except Exception as error:row.update(status='FAIL',error=repr(error),traceback=traceback.format_exc())
             report['cases'].append(row);write(folder/'record.json',row);write(out/'qualification.json',report);print(name,row['status'],row.get('error',''),flush=True)
+    report['geometry_convention']=convention
     report['implementation_unchanged']=before=={p.relative_to(ROOT).as_posix():file_digest(p) for p in sources};report['status']='PASS' if report['implementation_unchanged'] and all(r['status']=='PASS' for r in report['cases']) else 'FAIL';write(out/'qualification.json',report);return 0 if report['status']=='PASS' else 1
 
 

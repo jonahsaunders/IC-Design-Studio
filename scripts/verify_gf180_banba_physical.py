@@ -27,6 +27,8 @@ from icstudio.klayout_lvs import read_database
 from icstudio.pdks import stage_model_deck
 from icstudio.testbenches import create, deck, native_subcircuit
 from scripts.verify_gf180_banba_pass2 import cell, transient_metrics
+from scripts.prepare_gf180_lvs import prepare as prepare_lvs
+from scripts.check_gf180_banba_connectivity import inspect as inspect_metal
 
 PV_COMMIT = '05e7b6adf19edf942969c1c9625f02fd87874f06'
 OPEN_PDKS_COMMIT = 'aa3fc215a80d32437b8cca1cb3fdee819d18c4c9'
@@ -179,6 +181,33 @@ def drc_remaining(result):
     if result['exit_code'] and not rules:
         remaining.append('DRC engine failed despite empty reports; inspect drc.log.')
     return remaining
+
+
+def lvs_results(database, log, exit_code, device_count, metal):
+    """Keep extraction failures distinct from a completed comparison mismatch."""
+    database, log = Path(database), Path(log)
+    result = dict(exit_code=exit_code, passed=False, native_passed=False,
+                  comparison_completed=False, pairs={}, circuits=[],
+                  extraction_log=[], written_metal=metal,
+                  engine_log_sha256=file_digest(log))
+    if database.is_file():
+        comparison = read_database(database)
+        counts = Counter(row['kind'] for row in comparison['rows'])
+        native = (exit_code == 0 and comparison['matched']
+                  and all(row['status'] == 'Match' for row in comparison['rows'])
+                  and counts['device'] == device_count)
+        result.update(comparison_completed=True, pairs=dict(counts),
+                      circuits=comparison['circuits'], extraction_log=comparison['extraction_log'],
+                      native_passed=native, passed=native and metal['passed'])
+    else:
+        result['failure'] = 'LVS did not produce a comparison database.'
+        # Diagnostic only: this never converts an extraction failure into a
+        # completed comparison or a passing LVS result.
+        result['incomplete_wiring_reported'] = bool(exit_code and re.search(
+            r'^\[soft-connection-check\] In cell banba_layout: Net with incomplete wiring '
+            r'\(soft-connected partial nets\) in LayoutToNetlist::check_extraction_errors',
+            log.read_text(errors='replace'), re.M))
+    return result
 
 
 def include_dummy_poly(text):
@@ -348,16 +377,19 @@ def verify(a):
         not re.search(r'Traceback|Segmentation fault|ERROR:|Killed|command not found', drc_log))
     report['remaining'] = drc_remaining(report['drc']) + ['Strict LVS has not completed.']
     (output/'physical-verification.json').write_text(json.dumps(report, indent=2)+'\n')
-    rc = command([sys.executable, a.pv/'klayout/lvs/run_lvs.py', '--layout='+str(gds),
+    # The public bulk layer is empty: substrate taps need the existing soft
+    # global correction. Remove virtual label joins and require a separate
+    # written-metal check so global substrate connectivity cannot hide opens.
+    report['lvs_recipe'] = prepare_lvs(a.pv, output/'lvs-deck')
+    rc = command([sys.executable, output/'lvs-deck/klayout/lvs/run_lvs.py', '--layout='+str(gds),
         '--netlist='+str(output/'schematic.cdl'), '--variant=B', '--topcell=banba_layout',
         '--run_dir='+str(output/'lvs'), '--lvs_sub=VSS', '--run_mode=flat', '--thr=2',
         '--net_only', '--top_lvl_pins'], output, 'lvs', env)
-    comparison = read_database(output/'lvs'/f'{gds.stem}.lvsdb')
-    counts = Counter(row['kind'] for row in comparison['rows'])
-    passed = (rc == 0 and comparison['matched'] and all(row['status'] == 'Match' for row in comparison['rows'])
-              and counts['device'] == len(devices(reference)))
-    report['lvs'] = dict(exit_code=rc, passed=passed, pairs=dict(counts), circuits=comparison['circuits'],
-                        extraction_log=comparison['extraction_log'])
+    metal = inspect_metal(gds, EXAMPLE/'banba-layout.icproj')
+    (output/'written-metal.json').write_text(json.dumps(metal, indent=2)+'\n')
+    report['lvs'] = lvs_results(output/'lvs'/f'{gds.stem}.lvsdb', output/'lvs.log',
+                                rc, len(devices(reference)), metal)
+    passed = report['lvs']['passed']
     report['remaining'] = drc_remaining(report['drc']) + ([] if passed else ['Strict LVS failed.'])
     if a.drc_lvs_only:
         report['passed'] = report['drc']['passed'] and passed

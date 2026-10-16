@@ -10,6 +10,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 COPY build_physical_engines.py /tmp/physical-build/scripts/build_physical_engines.py
 COPY examples/physical-engine-lock.json /tmp/physical-build/examples/physical-engine-lock.json
+COPY build_ngspice_runtime.py /tmp/build_ngspice_runtime.py
+RUN python3 /tmp/build_ngspice_runtime.py --output /opt/icstudio/simulation --jobs 2 \
+    && rm /tmp/build_ngspice_runtime.py
 RUN python3 /tmp/physical-build/scripts/build_physical_engines.py --output /opt/icstudio/physical --jobs 2 \
     && python3 -m venv /opt/icstudio/python \
     && /opt/icstudio/python/bin/pip install --no-cache-dir klayout==0.30.5

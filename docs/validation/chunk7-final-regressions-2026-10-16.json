@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "status": "partial",
+  "chunk_complete": false,
+  "qualified": false,
+  "scope": "Final combined regression of current runtime/diode compatibility, bandgap failure reporting, physical anchors and IHP isolation interface. This does not complete all device families or the full installed runtime.",
+  "tests": {
+    "Windows": {
+      "passed": 44,
+      "skipped": 0
+    },
+    "Linux": {
+      "passed": 44,
+      "skipped": 0
+    }
+  },
+  "source_unchanged": true,
+  "release_check": "PASS",
+  "archive": {
+    "path": "IC-Design-Studio-evidence/chunk7-final-regressions-2026-10-16/evidence.zip",
+    "sha256": "9c7d521d1139c627aaac9ad848c805666a80d8f955f482402184178014e62699",
+    "bytes": 3195015,
+    "verified_objects": true
+  },
+  "source_zip_sha256": "ef49fefb6d7a4be44eb931bff903cd8e1ebc692e2f1ef7d0ec4c017e8ed90605"
+}

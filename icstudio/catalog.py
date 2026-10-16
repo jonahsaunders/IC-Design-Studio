@@ -9,6 +9,7 @@ from functools import lru_cache
 from .model import clone, device, scalar, PINS
 
 IDENT = re.compile(r'^[A-Za-z_][A-Za-z0-9_.$-]{0,127}$')
+PIN_IDENT = re.compile(r'^[A-Za-z_][A-Za-z0-9_.$!-]{0,127}$')
 
 
 def binding_for(technology, instance):
@@ -70,7 +71,7 @@ def _check_parameter(key, val, rule):
     if rule.get('choices') and val not in rule['choices'].values():raise ValueError(key+' must be one of '+', '.join(rule['choices']))
     if rule.get('positive') and val<=0:raise ValueError(key+' must be positive.')
     if rule.get('integer') and val!=int(val):raise ValueError(key+' must be a whole number.')
-    for bound,op in (('minimum',operator.lt),('maximum',operator.gt)):
+    for bound,op in (('minimum',operator.lt),('maximum',operator.gt),('exclusive_minimum',operator.le)):
         if bound in rule and op(val,scalar(rule[bound])):raise ValueError(key+' is outside its PDK '+bound+' of '+str(rule[bound])+'.')
     return val
 
@@ -156,14 +157,15 @@ def validate_catalog(tech):
         if not IDENT.fullmatch(entry.get('model', '')): raise ValueError('Invalid PDK model name.')
         if entry.get('prefix') not in ('X', 'M', 'R', 'C', 'L', 'D', 'Q'): raise ValueError('Invalid model prefix.')
         pins = entry.get('pin_order', [])
-        if not pins or len(pins) > 128 or len(set(pins)) != len(pins) or any(not IDENT.fullmatch(p) for p in pins): raise ValueError('Invalid model terminals.')
+        if not pins or len(pins) > 128 or len(set(pins)) != len(pins) or any(not PIN_IDENT.fullmatch(p) for p in pins): raise ValueError('Invalid model terminals.')
         if entry['kind'] in PINS and set(pins) != set(PINS[entry['kind']]): raise ValueError('Model terminal mismatch.')
         for k in entry.get('parameters', {}):
             if not IDENT.fullmatch(k): raise ValueError('Invalid model parameter.')
             rule=entry['parameters'][k]
-            for bound in ('minimum','maximum'):
+            for bound in ('minimum','maximum','exclusive_minimum'):
                 if bound in rule:scalar(rule[bound])
             if 'minimum' in rule and 'maximum' in rule and scalar(rule['minimum'])>scalar(rule['maximum']):raise ValueError('PDK parameter minimum exceeds maximum: '+k)
+            if 'exclusive_minimum' in rule and 'maximum' in rule and scalar(rule['exclusive_minimum'])>=scalar(rule['maximum']):raise ValueError('Empty PDK parameter interval: '+k)
         for key, source in entry.get('emit_parameters', {}).items():
             if not IDENT.fullmatch(key) or source not in entry.get('parameters', {}): raise ValueError('Invalid netlist parameter mapping.')
 

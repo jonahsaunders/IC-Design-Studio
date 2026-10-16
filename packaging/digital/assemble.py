@@ -31,7 +31,8 @@ for folder in (Path('/usr/lib/x86_64-linux-gnu'), Path('/usr/lib/klayout'), Path
 # PulseAudio's private library used by KLayout's Qt multimedia dependency).
 # Follow the actual loader closure, including Qt plugins, before relocation.
 queue=[Path('/usr/bin/openroad'),Path('/usr/bin/sta'),Path('/usr/bin/klayout'),
-       Path('/usr/bin/python3'),Path('/usr/bin/perl'),Path('/usr/bin/make')]
+       Path('/usr/bin/python3'),Path('/usr/bin/perl'),Path('/usr/bin/make'),
+       ROOT/'simulation/installed/bin/ngspice']
 queue+=list((ROOT/'physical/installed/lib').rglob('*.so'))
 queue+=list((ROOT/'python/lib').rglob('*.so'))
 queue+=list(Path('/usr/lib/x86_64-linux-gnu/qt5/plugins').rglob('*.so'))
@@ -89,6 +90,8 @@ for name in suite + system:
         text += 'export CAD_ROOT="$runtime/physical/installed/lib"\n'
         if name=='netgen':text += 'exec "$root/usr/bin/tclsh8.6" "$CAD_ROOT/netgen/tcl/netgen.tcl" "$@"\n'
         else:text += 'exec "$runtime/physical/installed/bin/'+name+'" "$@"\n'
+    elif name=='ngspice':
+        text += 'exec "$runtime/simulation/installed/bin/icstudio-ngspice" "$@"\n'
     else:
         if name in ('python3','klayout','openroad'): text += 'export PYTHONHOME="$root/usr"\n'
         if name=='python3':text += 'export PYTHONPATH="$runtime/python/lib/python3.12/site-packages"\n'
@@ -121,8 +124,10 @@ for base in ('usr','opt'):
     'platforms':list(catalog['platforms']), 'default_platform':catalog['default'],
     'platform_corners':{name:corner_coverage(value) for name,value in catalog['platforms'].items()},
     'licenses':['usr/share/doc/*/copyright','opt/icstudio/oss-cad-suite/license',
-                'opt/icstudio/orfs/LICENSE_BUILD_RUN_SCRIPTS','opt/icstudio/licenses','opt/icstudio/physical/licenses'],
+                'opt/icstudio/orfs/LICENSE_BUILD_RUN_SCRIPTS','opt/icstudio/licenses','opt/icstudio/physical/licenses',
+                'opt/icstudio/simulation/sources'],
     'physical_source_lock':json.loads((ROOT/'physical/source-lock.json').read_text()),
+    'simulation_source_lock':json.loads((ROOT/'simulation/source-lock.json').read_text()),
     'osdi':{'ihp-sg13g2':json.loads((ROOT/'osdi/ihp-sg13g2/build.json').read_text())},
     'sources':['https://github.com/YosysHQ/oss-cad-suite-build/releases/tag/2026-09-13',
                'https://www.klayout.org/downloads/Ubuntu-24/klayout_0.30.5-1_amd64.deb',
@@ -130,4 +135,5 @@ for base in ('usr','opt'):
                'https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/tree/eaba6576441bf7c1743ea56ecdb1904210ec02c2',
                'https://github.com/chipfoundry/volare/releases/tag/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392',
                'https://github.com/RTimothyEdwards/magic','https://github.com/RTimothyEdwards/netgen',
-               'https://archive.ubuntu.com/ubuntu/']}, indent=2))
+               'https://archive.ubuntu.com/ubuntu/',
+               'https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/47/ngspice-47.tar.gz']}, indent=2))

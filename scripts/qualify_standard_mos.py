@@ -15,7 +15,7 @@ import traceback
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
-from icstudio.model import clone,device,example,file_digest,save_project
+from icstudio.model import atomic_write,clone,device,example,file_digest,save_project
 from icstudio.catalog import create_device,parameter_values
 from icstudio.engines import run_ngspice,run_deck
 from icstudio.interchange import export_xschem
@@ -40,7 +40,9 @@ TOLERANCES={'dc':(1e-6,1e-9),'ac':(1e-6,1e-9),'tran':(2e-4,1e-7),'noise':(1e-6,1
 
 
 def write(path,value):
-    Path(path).write_bytes((json.dumps(value,indent=2,allow_nan=False)+'\n').encode())
+    # A cancelled session must not replace completed evidence with a truncated
+    # progress file. Publish the synchronized new file in one replacement.
+    atomic_write(path,json.dumps(value,indent=2,allow_nan=False)+'\n')
 
 
 def geometry(target,name):

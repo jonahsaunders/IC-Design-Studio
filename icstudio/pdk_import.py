@@ -218,6 +218,9 @@ def scan_local(path, progress=lambda message: None):
             if family=='ihp-sg13g2' and model=='cap_cmomi' and 'feed' in params:
                 if not re.search(r'(?im)^\.param\s+none=0\s+same=1\s+double=2\s*$',texts[definition['file']]):raise ValueError('Unrecognized capacitor feed encoding.')
                 params['feed']['choices']={'none':0,'same':1,'double':2}
+            if family=='ihp-sg13g2' and model=='isolbox':
+                from .ihp_isolation import constrain
+                constrain(params,(root/definition['file']).read_bytes())
             scale={k:1e6 if family=='sky130' else 1 for k in ('w','l')}
             entry.update(kind=kind,category=category,pin_order=list(symbol['pins']),prefix=prefix,parameters=params,emit_parameters=emitted,parameter_scale=scale,symbol=symbol,model_source=definition['file'],notes=notes)
             if kind in ('NMOS','PMOS') and not {'w','l'}<=params.keys():raise ValueError('MOS symbol does not declare width and length.')

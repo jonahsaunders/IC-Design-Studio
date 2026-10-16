@@ -34,7 +34,7 @@
     "7": {
       "name": "Qualify device families",
       "status": "in_progress",
-      "scope": "Selected standard MOS, catalog, passive, diode and bipolar execution is recorded. Fifty-three resistor entries and all 29 bipolar symbols pass their declared cases with explicitly identified packages and engines. The default bundle includes tested SKY130 resistor/NPN and IHP standard-MIM corrections, preserving original corner selections and saved-project revisions. Twelve IHP MIM layouts pass full DRC/strict LVS. Complete source inventory, operating envelopes, remaining families and physical coverage remain open. IHP ngspice 42 hot-case failures and cross-version numerical differences are retained; candidate-runtime release integration is still pending."
+      "scope": "Selected MOS, resistor, capacitor, diode and bipolar execution is recorded. The source-built ngspice 47 runtime passes relocation and selected regressions; all 432 standard-MOS cases pass its diagnostic build. Twenty-five additional diode interfaces pass 36 conditions and 900 device faults. A separate IHP isolbox package and fresh imports pass terminal/geometry-domain checks and nine DC cases; the bundled historical entry remains unavailable. Full release-image acceptance, upstream inventory, operating envelopes, additional families and physical coverage remain open. The twelve required GF180 B bandgap exchange/physical controls pass; C/D analog qualification and distributed RC/fill coupling are not inferred."
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -18799,10 +18799,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "symbols/diode_nd2ps_03v3.sym": {
@@ -18812,10 +18814,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "symbols/diode_nd2ps_06v0.sym": {
@@ -18825,10 +18829,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "symbols/diode_nw2ps_03v3.sym": {
@@ -18838,10 +18844,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "symbols/diode_nw2ps_06v0.sym": {
@@ -18851,10 +18859,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "symbols/diode_pd2nw_03v3.sym": {
@@ -18864,10 +18874,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "symbols/diode_pd2nw_06v0.sym": {
@@ -18877,10 +18889,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "symbols/diode_pw2dw.sym": {
@@ -18890,10 +18904,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "symbols/nfet3_03v3.sym": {
@@ -19480,10 +19496,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       }
     },
@@ -19687,10 +19705,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "symbols/diode_nd2ps_03v3.sym": {
@@ -19700,10 +19720,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "symbols/diode_nd2ps_06v0.sym": {
@@ -19713,10 +19735,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "symbols/diode_nw2ps_03v3.sym": {
@@ -19726,10 +19750,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "symbols/diode_nw2ps_06v0.sym": {
@@ -19739,10 +19765,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "symbols/diode_pd2nw_03v3.sym": {
@@ -19752,10 +19780,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "symbols/diode_pd2nw_06v0.sym": {
@@ -19765,10 +19795,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "symbols/diode_pw2dw.sym": {
@@ -19778,10 +19810,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "symbols/nfet3_03v3.sym": {
@@ -20368,10 +20402,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       }
     },
@@ -20476,10 +20512,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "sg13g2_pr/diodevdd_2kv.sym": {
@@ -20489,10 +20527,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "sg13g2_pr/diodevdd_4kv.sym": {
@@ -20502,10 +20542,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "sg13g2_pr/diodevss_2kv.sym": {
@@ -20515,10 +20557,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "sg13g2_pr/diodevss_4kv.sym": {
@@ -20528,10 +20572,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "sg13g2_pr/dpantenna.sym": {
@@ -20541,10 +20587,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "sg13g2_pr/gallery.sym": {
@@ -20581,7 +20629,10 @@
           "device-physical"
         ],
         "status": "unsupported",
-        "remaining": "Invalid model terminals."
+        "remaining": "The bundled historical entry remains unavailable. A separately versioned package and fresh stock imports now support sub! and positive inner dimensions; nine selected DC cases and 36 faults pass. Default promotion, full operating envelopes and physical/extracted connectivity remain open.",
+        "historical_evidence": [
+          "ihp-isolation-interface-2026-10-16"
+        ]
       },
       "sg13g2_pr/moscap_n.sym": {
         "tests": [
@@ -20798,10 +20849,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC terminal-current, KCL and per-device pin/geometry faults pass at two size/multiplicity inputs and three corner/temperature values. Full operating envelopes, AC/transient/noise, breakdown/ESD ratings and physical/extracted connectivity remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "runtime-device-regression-2026-10-16",
+          "ihp-isolation-interface-2026-10-16"
         ]
       },
       "sg13g2_pr/sg13_hv_nmos.sym": {
@@ -21474,6 +21527,26 @@
       "path": "docs/validation/default-device-packages-2026-10-16.json",
       "sha256": "df3982365a341880167985fced847af0f19378a494e1fa5048635a37810f9338",
       "scope_limit": "New-project default SKY130/IHP corrections, exact original-package reconstruction, installation and selected native regressions. Candidate simulator integration, full operating envelopes and remaining device/physical coverage remain open."
+    },
+    "runtime-device-regression-2026-10-16": {
+      "path": "docs/validation/runtime-device-regression-2026-10-16.json",
+      "sha256": "9a290fd4758bb2c42fa244ed97503f12b4ff9f6d64322a6c37fb7cc5b0261541",
+      "scope_limit": "Public ngspice 47 source build, relocated model loading, selected cross-PDK numerical regressions and 25 additional GF180/IHP diode interfaces. Complete process/device qualification and installed release-image acceptance remain open."
+    },
+    "ihp-isolation-interface-2026-10-16": {
+      "path": "docs/validation/ihp-isolation-interface-2026-10-16.json",
+      "sha256": "29f2e9e5118ba04c30384db9eb74115dd6cc1a1d68a2004e4f9dbc26776c885a",
+      "scope_limit": "Exact public IHP isolbox terminal binding, mathematical geometry domain and selected DC integration. Separate installable package and fresh stock imports; saved or bundled revisions are not rewritten."
+    },
+    "gf180-bandgap-connectivity-2026-10-16": {
+      "path": "docs/validation/gf180-bandgap-connectivity-2026-10-16.json",
+      "sha256": "6a40083b4ea8aa5cd62c118e297cdee0450496b2b87076f01979356a96f6c4e5",
+      "scope_limit": "Bounded GF180 B four-metal/MIM-B bandgap reference: physical stream exchange, full public DRC/antenna/density and strict device plus written-metal connectivity. This does not qualify C/D analog stacks, complete device families or extracted parasitic accuracy."
+    },
+    "chunk7-final-regressions-2026-10-16": {
+      "path": "docs/validation/chunk7-final-regressions-2026-10-16.json",
+      "sha256": "3e9dbee3cf616004519b7339f373cae92de4559282eac1fc155590c84c2aacd6",
+      "scope_limit": "Final combined regression of current runtime/diode compatibility, bandgap failure reporting, physical anchors and IHP isolation interface. This does not complete all device families or the full installed runtime."
     }
   },
   "execution_acceptance": {
@@ -21489,8 +21562,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/gf180-tested-source-2026-10-16-mim/manifest.json",
-        "sha256": "2212c4f26a46488f4d986fc4e9188dd68337749d0e297b7bdfb835d9bf8f42e0"
+        "path": "docs/validation/gf180-tested-source-2026-10-16-runtime/manifest.json",
+        "sha256": "8d62b70037fb6a6608e5d01d7a0b20a3e7df8e6ab53c0e0194020519043d67a0"
       }
     },
     "5": {

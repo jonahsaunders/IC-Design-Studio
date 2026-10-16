@@ -154,8 +154,10 @@ def netlist(project, directory, mode='simulation'):
             d = original; definition = d.get('native_spice')
             if d.get('model_ref'):
                 line=emit(d,p['pdk'],mode)
-                if mode=='simulation' and d['model_ref'].get('diode_geometry')=='pre46-scale-1e-6':
-                    from .ngspice_compat import declare
+                from .ngspice_compat import legacy_catalog,declare
+                from .catalog import binding_for
+                if mode=='simulation' and (d['model_ref'].get('diode_geometry')=='pre46-scale-1e-6'
+                        or legacy_catalog(p['pdk'],binding_for(p['pdk'],d))):
                     line=declare(line)
                 lines.append(line);continue
             if definition:

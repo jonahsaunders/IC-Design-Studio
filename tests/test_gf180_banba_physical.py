@@ -92,6 +92,34 @@ class PhysicalGateTests(unittest.TestCase):
             (directory/f'banba-layout_{deck}.lyrdb').write_text(
                 '<report-database><categories/><items>'+item+'</items></report-database>')
 
+    def test_missing_comparison_never_passes_even_with_clean_metal_or_zero_exit(self):
+        log = self.root/'lvs.log'
+        log.write_text('[soft-connection-check] In cell banba_layout: Net with incomplete wiring '
+                       '(soft-connected partial nets) in LayoutToNetlist::check_extraction_errors\n')
+        for code in (0, 1, 137):
+            result = physical.lvs_results(self.root/'missing.lvsdb', log, code, 103, {'passed': True})
+            self.assertFalse(result['passed'])
+            self.assertFalse(result['comparison_completed'])
+            self.assertFalse(result['native_passed'])
+            self.assertEqual(result['exit_code'], code)
+
+    def test_missing_via_control_requires_both_specific_native_and_physical_findings(self):
+        from scripts.qualify_gf180_exchange import rejected_vias
+        good = dict(passed=False, native_passed=False, comparison_completed=False,
+                    exit_code=1, incomplete_wiring_reported=True,
+                    written_metal={'passed': False, 'failure_counts': {'open': 3}})
+        self.assertEqual(rejected_vias({'lvs':good}), 'extraction-rejected-incomplete-wiring')
+        for changed in ({'exit_code':137}, {'exit_code':0}, {'incomplete_wiring_reported':False},
+                        {'written_metal':{'passed':True}},
+                        {'written_metal':{'passed':False, 'failure_counts':{'short':1}}}):
+            with self.subTest(changed=changed), self.assertRaises(ValueError):
+                rejected_vias({'lvs':dict(good, **changed)})
+
+    def test_unrelated_engine_error_is_not_a_wiring_diagnostic(self):
+        log = self.root/'lvs.log'; log.write_text('Killed\n')
+        result = physical.lvs_results(self.root/'missing.lvsdb', log, 1, 103, {'passed':False})
+        self.assertFalse(result['incomplete_wiring_reported'])
+
     def test_engine_failure_cannot_pass_with_empty_reports(self):
         self.reports(self.root)
         result = drc_results(self.root, 'banba-layout', 1)
@@ -141,6 +169,8 @@ class PhysicalGateTests(unittest.TestCase):
                 return 0
             with self.subTest(density=density, lvs_exit=lvs_exit), \
                     patch.object(physical, 'locked_checkout') as lock, \
+                    patch.object(physical, 'prepare_lvs', return_value={'recipe':'test fixture'}), \
+                    patch.object(physical, 'inspect_metal', return_value={'passed':True}), \
                     patch.object(physical, 'command', side_effect=command), \
                     redirect_stdout(io.StringIO()):
                 code = physical.main(['--drc-lvs-only', '--pv', str(self.root),
@@ -184,6 +214,8 @@ class PhysicalGateTests(unittest.TestCase):
                                 output/'lvs/finished.lvsdb')
             return 0
         with patch.object(physical, 'locked_checkout'), patch.object(physical, 'command', side_effect=command), \
+                patch.object(physical, 'prepare_lvs', return_value={'recipe':'test fixture'}), \
+                patch.object(physical, 'inspect_metal', return_value={'passed':True}), \
                 redirect_stdout(io.StringIO()):
             code = physical.main(['--drc-lvs-only', '--include-dummy-poly', '--gds', str(gds),
                 '--pv', str(pv), '--klayout', sys.executable, '--out', str(output)])

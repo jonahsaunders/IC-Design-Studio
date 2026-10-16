@@ -151,7 +151,9 @@ jobs:
       - name: Install KLayout and the locked Python dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y klayout libegl1 libopengl0
+          curl -fL --retry 3 -o /tmp/klayout.deb https://www.klayout.org/downloads/Ubuntu-24/klayout_0.30.5-1_amd64.deb
+          echo '9f88fe45d1992fc9bd0ce986bbbe150ad198c6a59a86fc13343db822a5790e49  /tmp/klayout.deb' | sha256sum -c
+          sudo apt-get install -y /tmp/klayout.deb libegl1 libopengl0
           python -m pip install -r requirements.txt docopt jinja2
       - name: Qualify exchange, full DRC/LVS and deliberate physical faults
         env:

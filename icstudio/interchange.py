@@ -59,7 +59,10 @@ def spice(p,cid=None,settings=None,hierarchical=True):
             else:
                 pa=d['params'];m='model_'+d['id']+'_'+digest(pa)[:10];suffix=f'{m} W={scalar(pa["w"]):.12g} L={scalar(pa["l"]):.12g}';pol=-1 if k=='PMOS' else 1
                 models.append(f'.model {m} {k} (LEVEL=1 VTO={pol*scalar(pa["vto"]):.12g} KP={scalar(pa["kp"]):.12g} LAMBDA={scalar(pa["lambda"]):.12g})')
-            lines.append(f'{name} {nets} {suffix}')
+            line=f'{name} {nets} {suffix}'
+            from .ngspice_compat import legacy_catalog,declare
+            if legacy_catalog(p['pdk'],binding):line=declare(line)
+            lines.append(line)
     if hierarchical:
         # Dependency definitions first, top-level instances last.
         reached=set()

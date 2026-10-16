@@ -144,11 +144,37 @@ two deliberate width faults. Original package reconstruction and saved-project
 revision retention are tested. The initial missing-library source snapshot and
 missing Windows engine invocation remain recorded failures.
 
-The [adapter instructions](DEVICE_ADAPTER_QUALIFICATION.md) reproduce the current
-and earlier packages. Simulator release integration, remaining device families,
-upstream inventory reconciliation, full operating envelopes and physical
-coverage remain chunk-7 work. The GF180 bandgap reference CI also has an unresolved top-level VSS
-must-connect warning; strict LVS correctly rejects it. Chunk 7 remains open.
+The [runtime regression](validation/runtime-device-regression-2026-10-16.json)
+adds a public ngspice 47 build recipe, relocated model-loading tests and selected
+production-binary MOS, diode and bipolar regressions. All 432 standard-MOS cases
+pass the diagnostic build, as do 72 passive cases. Twenty-five additional diode
+entries pass 36 corner/temperature cases, 990 terminal-current vectors and 900
+deliberate device faults. The complete runtime image and installed release
+acceptance remain open; the local Docker startup failure is recorded.
+
+The [IHP isolation-box record](validation/ihp-isolation-interface-2026-10-16.json)
+adds a separate package and fresh-import support for the public `sub!` terminal.
+Mathematical domain guards reject nonpositive inner model dimensions without
+claiming foundry geometry limits. Nine DC cases pass 54 terminal-current vectors,
+5,454 samples and 36 deliberate faults. The existing 25-entry diode suite still
+passes, and eleven focused tests pass on each host. The default bundled isolation
+entry remains unavailable pending promotion and broader qualification.
+
+The [GF180 bandgap connectivity record](validation/gf180-bandgap-connectivity-2026-10-16.json)
+passes all twelve required physical exchange and fault-control checks for the
+declared four-metal/MIM-B reference. Strict native LVS is paired with an
+independent written-metal graph covering 293 device terminals, three ports and
+64 body contacts. This detects opens that substrate joins alone can hide.
+The filled candidate passes full public DRC/antenna/density and connectivity;
+the original unfilled core retains its expected density failures. Missing fills,
+removed vias, individual ground/contact opens and a power short are rejected.
+Distributed RC, fill coupling, other physical stacks and full device coverage
+remain unqualified.
+
+The [adapter instructions](DEVICE_ADAPTER_QUALIFICATION.md) reproduce current and
+earlier packages. Full simulator release integration, upstream completeness,
+operating envelopes, remaining device families and physical coverage remain
+chunk-7 work. Chunk 7 remains open.
 
 ### Earlier initial checkpoint
 

@@ -125,3 +125,50 @@ RF, mismatch, physical layouts and extracted connectivity remain open.
 
 See the [qualification plan](PDK_QUALIFICATION_PLAN.md) for the complete gate and
 the [PDK guide](PDK_GUIDE.md) for revision management.
+
+## Public simulator and diode regression
+
+The Linux/WSL runtime recipe builds the SHA-256-locked public ngspice 47 source
+and retains its source archive, copying terms, build logs and binary identity.
+Its launcher locates code models relative to the installed directory, including
+paths containing spaces. The generated startup defaults to one simulation thread;
+users may override that setting. Simulator equations are unchanged. The complete
+runtime image and installed release workflows still require acceptance.
+
+The [runtime record](validation/runtime-device-regression-2026-10-16.json)
+retains the 432-case diagnostic-engine MOS sweep, 72 passive cases, primitive
+diode compatibility and selected tests of the production-source binary. The
+36-case GF180/IHP diode sweep adds 25 catalog entries, 990 terminal-current
+vectors and 900 detected device faults. These are selected DC integration
+conditions, not ESD ratings, full operating envelopes or measured-silicon accuracy.
+
+```sh
+python scripts/build_ngspice_runtime.py --output /path/to/new-runtime --jobs 4
+python scripts/qualify_diode_families.py --output /path/to/new-diode-results --ngspice /path/to/new-runtime/installed/bin/icstudio-ngspice --osdi /path/to/ihp-osdi --workers 4
+```
+
+## IHP isolation-box interface
+
+The public `isolbox` symbol uses the terminal name `sub!`. Catalog terminal
+validation now accepts this punctuation while keeping model and parameter names
+restricted. Fresh stock imports recognize the binding; saved projects and the
+older bundled catalog keep their exact revisions.
+
+The [isolation-box record](validation/ihp-isolation-interface-2026-10-16.json)
+tests a separate package with unchanged upstream assets and defaults. Its width
+and length must each be strictly greater than 2.1 µm, because the public equations
+subtract 2.1 µm from each inner dimension. This is a mathematical domain guard,
+not a foundry minimum or complete geometry qualification. Changed model bytes
+require a fresh review before the importer applies that guard.
+
+```sh
+python scripts/prepare_ihp_isolation_qualification.py --output /path/to/new-isolation-package
+python scripts/qualify_diode_families.py --output /path/to/new-isolation-results --ngspice /path/to/new-runtime/installed/bin/icstudio-ngspice --osdi /path/to/ihp-osdi --isolation-only --workers 4
+```
+
+Install the prepared package using **Install package…** to use this explicit revision.
+Nine corner/temperature cases pass independent terminal-current comparisons and
+36 detected pin/geometry faults. Eleven focused tests pass on Windows and Linux,
+including fresh import, save/reopen, Xschem exchange and invalid-dimension rejection.
+Physical extraction, full bias and geometry envelopes and default promotion
+remain separate open requirements.
