@@ -1,16 +1,36 @@
 # SKY130 physical coverage: chunk 6 in progress
 
+**Current scope (2026-10-16):** chunk 6 follows the
+[local qualification profile](SKY130_LOCAL_PROFILE.md). Its executable gates
+supersede the catalog-wide completion interpretation in the historical reviews
+below. All earlier results retain their original scope; 302 catalog records
+remain unresolved. No complete-chip or foundry qualification is inferred.
+
 The [execution record](validation/sky130-physical-progress-2026-10-11.json)
 captures the original counter, UART and APB final layouts. Chunk 6 remains open.
 Zero geometry markers alone do not establish complete physical coverage.
 
-## Local-only route to removing the source blockers
+## Generic local integration (2026-10-16)
+
+Normal `sky130hd` Finish now runs the pinned public native geometry deck on the
+final GDS. Export retains its source, license, complete category inventory,
+options, tool identity and report; missing or altered evidence blocks export.
+The [execution record](validation/sky130-generic-native-2026-10-16.json) covers
+counter/UART/APB, a fresh counter Finish, and 12 native/implant controls. Names,
+dimensions, pins and process routing layers remain generic design inputs.
+
+The new controls expose two removed-implant faults that the native deck misses
+and the existing Studio raw-implant profile catches. Both results remain visible.
+No density acceptance, additional catalog disposition or full signoff is inferred.
+
+## Earlier local-only route to removing the source blockers
 
 The user requires every check to execute locally. Provider-run signoff is not an
 accepted replacement. The [local unblocking review](validation/sky130-local-unblock-2026-10-15.json)
 records the next concrete route: establish each rule's process and layout scope,
 obtain missing public definitions, implement and fault-test them locally, then
-rerun the complete applicable set. The original completion gate stays in force.
+rerun the complete applicable set. That review used the earlier catalog-wide
+gate; the current executable profile is linked above.
 
 The published manual now links to `fossi-foundation/skywater-pdk`. Its reviewed
 head is five commits ahead of the retained Google revision, with changes only to

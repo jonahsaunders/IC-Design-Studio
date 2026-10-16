@@ -63,9 +63,10 @@ def build(output):
         (context/'licenses').mkdir()
         shutil.copy2(ROOT/'licenses/Apache-2.0.txt',context/'licenses/Apache-2.0.txt')
         shutil.copy2(ROOT/'THIRD_PARTY_NOTICES.md',context/'licenses/THIRD_PARTY_NOTICES.md')
-        shutil.copytree(ROOT/'icstudio', context/'icstudio', ignore=shutil.ignore_patterns('assets','__pycache__','*.so','*.dll'))
+        from icstudio.digital_backend import stage_backend
+        stage_backend(ROOT/'icstudio', context/'icstudio')
         ihp_license=context/'icstudio/assets/pdks/ihp-sg13g2/LICENSE'
-        ihp_license.parent.mkdir(parents=True)
+        ihp_license.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT/'icstudio/assets/pdks/ihp-sg13g2/LICENSE',ihp_license)
         shutil.copy2(ROOT/'scripts/build_physical_engines.py',context/'build_physical_engines.py')
         shutil.copy2(ROOT/'scripts/compile_ihp_osdi.py',context/'compile_ihp_osdi.py')

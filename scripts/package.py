@@ -67,8 +67,8 @@ verify_openems(solver_target)
 digital_target=root/'dist/ICDesignStudio/_internal/icstudio/assets/runtime/digital'
 shutil.copytree(digital_payload(),digital_target,dirs_exist_ok=True)
 # The independent Linux interpreter runs this exact release's backend sources.
-shutil.copytree(root/'icstudio',digital_target/'backend/icstudio',
- ignore=shutil.ignore_patterns('assets','__pycache__','*.pyc','*.so','*.dll','*.pyd'))
+from icstudio.digital_backend import stage_backend
+stage_backend(root/'icstudio', digital_target/'backend/icstudio')
 
 from stage_linux_runtime import stage
 stage(root)

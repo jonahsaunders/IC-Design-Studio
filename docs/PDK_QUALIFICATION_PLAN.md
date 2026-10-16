@@ -1,5 +1,15 @@
 # PDK qualification in twelve chunks
 
+**2026-10-16 scope update:** chunk 6 follows the
+[SKY130 local qualification profile](SKY130_LOCAL_PROFILE.md).
+Exports and verification are generic SKY130; Tiny Tapeout is a source of
+inspiration, not the required target.
+Work now prioritizes a complete local design workflow,
+physical fault detection, meaningful density context and application export.
+The catalog-wide source reviews below are historical evidence; the 302 unresolved
+records remain visible and do not become passes through this scope change.
+Chunk 6 remains in progress until the new profile's evidence is complete.
+
 The target is analog and digital design on SKY130, GF180MCU C/D and IHP SG13G2.
 No target is currently qualified for complete-chip tapeout. Work proceeds in the
 order below; a passing small reference design keeps its original scope.
@@ -31,7 +41,15 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
-The latest [public oxide-density audit](validation/sky130-oxide-audit-2026-10-15.json)
+The [generic native integration](validation/sky130-generic-native-2026-10-16.json)
+adds the pinned public geometry deck to normal Finish and preserves its exact
+evidence in macro export. Three reference layouts and a fresh counter Finish
+pass. Twelve controls cover process metal, contacts, grid, width and nonempty
+NMOS/PMOS geometry; Studio's independent implant checks detect two faults missed
+by the public native deck. Density context and full profile applicability still
+need qualification. The 302 unresolved historical catalog records are unchanged.
+
+The preceding [public oxide-density audit](validation/sky130-oxide-audit-2026-10-15.json)
 adds two explicitly identified Apache-licensed public density profiles, exact
 integer-area measurements and inclusive 700/70 um windows. All 411 tests per OS,
 27 identical control layouts/reports, three fresh application runs and Windows

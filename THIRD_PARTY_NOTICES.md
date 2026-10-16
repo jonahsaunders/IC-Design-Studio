@@ -90,8 +90,13 @@ Their explicit GNU GPLv3 file headers apply; their repositories' Apache-2.0
 root licenses do not relicense these decks. No later-version grant is
 inferred. Original headers, exact source locations and hashes, provenance
 links, and the full GPLv3 license accompany the files in the fixture directory.
-The source files are comparison fixtures, not a claim of full foundry signoff.
-Studio's added comparison runner and regression test remain GPL-3.0-or-later.
+The same unmodified ChipFoundry deck and its GPLv3 text are also retained in
+`icstudio/assets/verification/sky130` for the generic local Finish check and
+included in exported evidence. Its upstream filters and selected options are
+recorded explicitly; this check does not establish full foundry signoff.
+Studio's added runners, rule-name inventory and regression tests remain
+GPL-3.0-or-later. The GPLv3-only deck retains that license rather than acquiring
+the application's later-version grant.
 
 The associated validation archive retains the same GPLv3 sources and license,
 new control layouts and driver source, and the counter/UART/APB layouts with

@@ -301,6 +301,8 @@ def execute(r):
         for key,suffix in (('gds','.gds'),('spef','.spef')):r.add_artifact(key,result_dir/('6_final'+suffix))
         from .digital_sky130_pins import execute as sky130_pins
         sky130_pins(r)
+        from .digital_sky130_native import execute as sky130_native
+        sky130_native_review=sky130_native(r)
         from .digital_rc import extract
         extract(r)
         from .digital_gf180_fill import execute as fill
@@ -334,6 +336,7 @@ def execute(r):
             'flow_fingerprint':flow['fingerprint'],'settings':settings,
             'timing_corners':r.config.get('timing_corners',[r.platform['corner']]),
             **({'checks':checks} if stage=='finish' else {}),
+            **({'sky130_native':sky130_native_review} if stage=='finish' and sky130_native_review is not None else {}),
             **({'sky130_rules':sky130_review} if stage=='finish' and sky130_review is not None else {}),
             **({'sky130_antenna':sky130_antenna_review} if stage=='finish' and sky130_antenna_review is not None else {}),
             **({'sky130_isolation':sky130_isolation_review} if stage=='finish' and sky130_isolation_review is not None else {}),

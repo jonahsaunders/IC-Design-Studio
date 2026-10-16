@@ -51,8 +51,13 @@ def export(result, directory, destination):
         raise ValueError('Finish the physical flow before exporting a macro bundle.')
     preview=json.loads((directory/artifacts['layout_preview']['path']).read_text())
     selected={k:v for k,v in artifacts.items() if k in ('gds','lef','netlist','spef','sdc','layout_preview','database','timing','equivalence','def','extraction','physical_checks','gf180_connectivity','fill','ihp_fill','sky130_rules','sky130_antenna','sky130_isolation') or k.startswith(('spef_','extraction_script_','physical_check_','lvs_reference','gf180_check_','fill_','ihp_fill_','sky130_pin_','sky130_rule_','sky130_antenna_','sky130_isolation_'))}
+    selected.update({k:v for k,v in artifacts.items() if k == 'sky130_native' or k.startswith('sky130_native_')})
     job=json.loads((directory/'input.json').read_text())
     value=verify_inputs(result,job)
+    from .digital_sky130_native import validate_saved as validate_native
+    native_geometry=validate_native(data,directory)
+    if native_geometry is not None and native_geometry.get('top') != value['top']:
+        raise ValueError('SKY130 native geometry evidence belongs to another top-level design.')
     from .digital_sky130_isolation import validate_saved as validate_isolation, selected as isolation_policy
     isolation=validate_isolation(data,directory)
     if isolation_policy(value) != data.get('environment',{}).get('sky130_isolation'):
@@ -88,7 +93,7 @@ def export(result, directory, destination):
     if connectivity is not None and (connectivity.get('top')!=value['top'] or
             value.get('platform',{}).get('gf180_connectivity')!=data.get('environment',{}).get('gf180_connectivity')):
         raise ValueError('Combined connectivity differs from the captured macro inputs.')
-    if reference is not None or connectivity is not None or sky130_review is not None or antenna is not None or isolation is not None or 'sky130_pin_export' in artifacts:
+    if reference is not None or connectivity is not None or sky130_review is not None or antenna is not None or isolation is not None or native_geometry is not None or 'sky130_pin_export' in artifacts:
         selected['checkpoint']=artifacts['checkpoint']
     notices=captured_notices(job,directory)
     manifest={'version':1,'top':value['top'],'source_hash':data['source_hash'],'input_key':data.get('input_key'),
@@ -106,6 +111,12 @@ def export(result, directory, destination):
         manifest['qualification']['generated_reference']={
             'status':reference['status'],'scope':reference['scope'],'artifact':'lvs_reference',
             'report_artifact':'lvs_reference_report'}
+    if native_geometry is not None:
+        manifest['qualification']['sky130_native'] = {
+            'status':native_geometry['status'], 'scope':native_geometry['scope'],
+            'artifact':'sky130_native', 'qualified':False,
+            'categories':native_geometry['categories'], 'markers':native_geometry['markers'],
+            'deck_sha256':native_geometry['policy']['deck_sha256']}
     if sky130_review is not None:
         manifest['qualification']['sky130_rules']={
             'status':sky130_review['status'],'scope':sky130_review['scope'],'artifact':'sky130_rules',

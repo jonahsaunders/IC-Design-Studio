@@ -53,6 +53,10 @@ def environment(job):
         if job['settings']['stage']=='finish' and config['platform'].get('sky130_antenna') is not None:
             out['sky130_antenna']=clone(config['platform']['sky130_antenna'])
         if job['settings']['stage']=='finish':
+            if config['platform'].get('name') == 'sky130hd':
+                from .digital_sky130_native import POLICY, resources
+                resources()
+                out['sky130_native'] = clone(POLICY)
             from .digital_sky130_isolation import selected as isolation_policy
             policy=isolation_policy(config)
             if policy is not None:out['sky130_isolation']=policy
@@ -211,6 +215,8 @@ def validate_result(result, directory):
         validate_saved(data,root)
         from .digital_sky130_pins import validate_saved as validate_sky130_pins
         validate_sky130_pins(data,root)
+        from .digital_sky130_native import validate_saved as validate_sky130_native
+        validate_sky130_native(data,root)
         from .digital_sky130_rules import validate_saved as validate_sky130_rules
         validate_sky130_rules(data,root)
         from .digital_sky130_antenna import validate_saved as validate_sky130_antenna

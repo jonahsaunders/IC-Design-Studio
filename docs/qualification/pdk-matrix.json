@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "as_of": "2026-10-14",
+  "as_of": "2026-10-16",
   "source_baseline": "5b33a68f3a8e225002c3b4ac38d63fc97cf25420",
   "claim": "Qualification plan and coverage inventory only. No process is tapeout qualified. Historical passes retain their original design/source/PDK scope.",
   "chunks": {
@@ -20366,6 +20366,11 @@
       "path": "docs/validation/sky130-oxide-audit-2026-10-15.json",
       "sha256": "6a97a275e05376fb48ddd6a403c88575db7dcdf49ade44abe0eedf5bf89e442c",
       "scope_limit": "Two explicitly identified public metal-growth density profiles execute with exact integer areas, independently declared bounds and inclusive 700/70 um windows. Clipped windows remain diagnostic. All 411 tests per OS pass; 27 control layouts and reports and three reference measurements agree byte for byte. Unmodified upstream runs expose omitted endpoint windows and asymmetric boundary clipping, explained independently by rectangle arithmetic. Three Linux application runs and Windows saved-result/export replays pass. APB has 21/10 clipped-window findings under the two profiles; counter/UART have zero. All references are smaller than 700 um, so none obtains full-window acceptance. The 302 unresolved catalog records, pin-spacing definition, final-mask/density applicability and foundry signoff remain open. No new extraction, timing or equivalence is claimed."
+    },
+    "sky130-generic-native-2026-10-16": {
+      "path": "docs/validation/sky130-generic-native-2026-10-16.json",
+      "sha256": "b007f29c5b35a98f935790c996c6c23fab5cce0af24e44ef2552e3141c453c71",
+      "scope_limit": "Generic SKY130A HD native geometry verification integrated into normal Finish and portable macro export. No Tiny Tapeout dimensions, naming, pins or reserved-layer restrictions. Three retained designs have fresh native checks; one counter has fresh synthesis through Finish, extraction, supplemental checks and export. All twelve controls match their expected native and independent implant outcomes. Missing evidence cannot overwrite an existing export. Density/context and complete profile applicability remain open; historical catalog counts are unchanged."
     }
   },
   "execution_acceptance": {
@@ -20381,8 +20386,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/gf180-tested-source-2026-10-09.json",
-        "sha256": "8716814f36f17acf3edb824407cf084a1f88b8e0891d01167020b7553730df4b"
+        "path": "docs/validation/gf180-tested-source-2026-10-16/manifest.json",
+        "sha256": "abb10dca78614b524edcde65390c5b7b646efe4eef2580842c1615772c26eb58"
       }
     },
     "5": {

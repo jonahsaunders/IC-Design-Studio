@@ -141,6 +141,15 @@ restart; the digital engines and advertised platforms themselves are already bun
    SPEF and terminal/provenance metadata. The bundle does not contain a
    characterized macro Liberty model. DRC/LVS are separate checks.
 
+Current source builds also run the pinned public SKY130 native geometry deck
+during **Finish** for `sky130hd`. A violation or incomplete report stops the run.
+The generic macro bundle retains the checked GDS, native report, exact options,
+tool/source identities and original deck license. Names, die/core dimensions,
+pins and routing layers remain design inputs; no Tiny Tapeout template is imposed.
+The deck supplements Studio's drawn-mask, antenna and connectivity checks.
+Its zero-marker result does not establish complete DRC/LVS or density acceptance;
+see the [local SKY130 qualification profile](SKY130_LOCAL_PROFILE.md).
+
 The view table links RTL, symbol, schematic, layout and explicitly attached
 netlist/physical/extracted views. Saved views show when their sources are stale.
 Compiling a symbol with changed ports on an already wired block requires interface
