@@ -67,6 +67,24 @@ The verbatim F2a device and F2b mask tables in
 alongside the tables. The device-intent audit records the original source URLs,
 Git blob identities and SHA-256 hashes.
 
+## Public device-qualification sources
+
+The unmodified NPN corner sources and model in
+`icstudio/assets/qualification/sky130-npn` come from
+`google/skywater-pdk-libs-sky130_fd_pr` revision
+`f62031a1be9aefe902d6d54cddd6f59b57627436`, under Apache-2.0.
+Copyright 2020 The SkyWater PDK Authors. Their full license, original headers
+and source hashes accompany the files. The bipolar qualification preparer
+retains these sources and notices in its output and identifies its adaptation:
+copying corner parameters into named sections while omitting redundant model
+include lines. Existing bundled NPN model bytes are unchanged.
+
+The separate SKY130 resistor and IHP MIM qualification preparers modify the
+already bundled Apache-2.0 sources. Their output files identify the local
+modifications, retain original notices and license files, and record original
+and resulting identities. These generated packages are separately versioned;
+they do not replace the source provenance or relicense upstream content.
+
 ## Public SKY130 metal-density reference
 
 The public SKY130 oxide-density measurements are adapted from Tiny Tapeout 10's

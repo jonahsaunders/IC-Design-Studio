@@ -35,3 +35,6 @@ icstudio/assets/verification/sky130/lvs/** -whitespace
 icstudio/assets/verification/sky130/density/** -whitespace
 icstudio/digital_sky130_lvs.py whitespace=cr-at-eol
 icstudio/digital_sky130_lvs_core.py whitespace=cr-at-eol
+
+# Locked public NPN sources retain upstream bytes.
+icstudio/assets/qualification/sky130-npn/** -whitespace

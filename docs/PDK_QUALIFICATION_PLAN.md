@@ -123,8 +123,18 @@ faults are detected, and native/independent spacing checks agree at 595/600/605
 nm. The boundary controls retain unrelated DRC findings and are not declared
 fully clean. The initial failures and diagnostic variants remain archived.
 
+The [bipolar record](validation/bipolar-families-2026-10-16.json) adds all 29
+bundled bipolar symbols at 144 selected DC condition cases, with 3,744 terminal
+current vectors, current-conservation checks and 2,052 detected device faults.
+The SKY130 package requires exact public NPN corner definitions missing from
+its original include closure. The IHP sweep uses a separately built ngspice 47
+binary; three hot NPN cases fail with the default ngspice 42 runtime. A strict
+cross-version audit retains numerical differences in 12 other cases. These are
+engine-specific integration results, not interchangeable-runtime or complete
+device qualification. Five additional focused tests pass on both hosts.
+
 The [adapter instructions](DEVICE_ADAPTER_QUALIFICATION.md) reproduce and install
-both corrections without replacing existing project revisions. Default release
+the corrections without replacing existing project revisions. Default release
 integration, remaining MOS/passive/diode/bipolar/RF families, upstream inventory
 reconciliation, full operating envelopes and physical coverage remain chunk-7
 work. The GF180 bandgap reference CI also has an unresolved top-level VSS

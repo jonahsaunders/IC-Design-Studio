@@ -1,6 +1,6 @@
 # Local device corrections under qualification
 
-Chunk 7 includes two separately installable corrections. They retain upstream
+Chunk 7 includes separately installable corrections. They retain upstream
 licenses, identify modified files, and create new checksummed revisions. They
 do not silently replace the included PDKs or revisions used by saved projects.
 Their selected passing tests do not complete device-family qualification.
@@ -12,6 +12,7 @@ From this repository, with Python and the project dependencies installed:
 ```sh
 python scripts/prepare_ihp_mim_qualification.py --output /path/to/new-ihp-adapter
 python scripts/prepare_sky130_resistor_qualification.py --output /path/to/new-sky130-adapter
+python scripts/prepare_sky130_bipolar_qualification.py --output /path/to/new-sky130-bipolar-adapter
 ```
 
 Each output directory must be new. The preparers verify every input asset and
@@ -24,6 +25,7 @@ migration before changing an existing project.
 |---|---|---|
 | IHP standard MIM physical checking | `3abac20fcb57e184` | `d03f47cdf46a85a0` |
 | SKY130 resistor parallel factor | `b1f441fabee1ed85` | `b897a1bb4cffa3bc` |
+| SKY130 resistor correction plus NPN corners | `b1f441fabee1ed85` | `23527d231481aae4` |
 
 ## IHP capacitor checking
 
@@ -81,6 +83,37 @@ connectivity and layouts for these resistor families remain open. The included
 SKY130 package separately fixes four metal-resistor SPICE prefixes and the two
 default primitive diode bindings; those metadata fixes preserve all upstream
 asset bytes.
+
+## Bipolar device execution
+
+The [bipolar record](validation/bipolar-families-2026-10-16.json) exercises all
+29 bundled bipolar symbols at selected DC points. It compares collector, base,
+emitter and substrate currents with independent model calls, checks turn-on and
+electrical current conservation, and detects base/emitter shorts and
+collector/emitter swaps. Five-terminal IHP HBT thermal ports are clamped to zero
+temperature rise; their thermal behavior is not qualified by these tests.
+
+The original SKY130 NPN failed because its active library never loaded required
+corner parameters. The bipolar preparer includes the original public Apache
+sources and their exact parameters, without changing NPN model equations. It
+also includes the resistor correction. This package explicitly maps NPN t/s/f
+to nominal/ss/ff and supports the tt alias. Other corner selections are rejected;
+mixed, mismatch and Monte Carlo mappings are not guessed.
+
+```sh
+python scripts/qualify_bipolar_families.py --output /path/to/new-results --ngspice /path/to/ngspice --osdi /path/to/ihp-osdi --targets sky130A --sky130-adapter /path/to/new-sky130-bipolar-adapter/package.json --workers 4
+```
+
+GF180 C/D uses the included packages and ngspice 42. The IHP sweep passes with a
+separately built public ngspice 47 binary; three hot NPN cases fail with the
+default ngspice 42 runtime. This is not a default-runtime upgrade. A strict
+cross-version comparison also finds numerical differences in 12 of the 33
+cases that completed in both versions. Those findings remain visible; engine
+interchangeability and release integration are not claimed.
+
+The tested 144 cases cover selected corners, temperatures, collector biases,
+base sweeps and multiplicity/emitter-geometry inputs. Full envelopes, AC/noise,
+RF, mismatch, physical layouts and extracted connectivity remain open.
 
 See the [qualification plan](PDK_QUALIFICATION_PLAN.md) for the complete gate and
 the [PDK guide](PDK_GUIDE.md) for revision management.

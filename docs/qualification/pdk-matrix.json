@@ -34,7 +34,7 @@
     "7": {
       "name": "Qualify device families",
       "status": "in_progress",
-      "scope": "Standard MOS, catalog interfaces and selected passive/diode execution are recorded. Fifty-three resistor entries pass selected AC conditions with a separate corrected SKY130 package; two default SKY130 diode bindings pass selected DC sweeps. A separate corrected IHP package passes 12 standard MIM full-DRC/strict-LVS layouts. Complete upstream coverage, operating envelopes, remaining MOS/capacitor/diode/bipolar/RF devices and physical coverage remain open. Existing revisions remain unchanged; default correction-package distribution is not qualified."
+      "scope": "Standard MOS, catalog interfaces and selected passive/diode execution are recorded. Fifty-three resistor entries pass selected AC conditions with a separate corrected SKY130 package; two default SKY130 diode bindings pass selected DC sweeps. A separate corrected IHP package passes 12 standard MIM full-DRC/strict-LVS layouts. Complete upstream coverage, operating envelopes, remaining MOS/capacitor/diode/bipolar/RF devices and physical coverage remain open. Existing revisions remain unchanged; default correction-package distribution is not qualified. All 29 bipolar symbols now pass selected DC comparisons and pin faults with explicitly identified package/runtime combinations; IHP ngspice 42 hot-case failures and cross-version numerical differences remain retained."
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -18071,10 +18071,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "sky130_fd_pr/pfet3_01v8.sym": {
@@ -18306,10 +18307,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "sky130_fd_pr/res_generic_li.sym": {
@@ -19041,10 +19043,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/npn_00p54x04p00.sym": {
@@ -19054,10 +19057,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/npn_00p54x08p00.sym": {
@@ -19067,10 +19071,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/npn_00p54x16p00.sym": {
@@ -19080,10 +19085,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/npn_05p00x05p00.sym": {
@@ -19093,10 +19099,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/npn_10p00x10p00.sym": {
@@ -19106,10 +19113,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/npolyf_s.sym": {
@@ -19272,10 +19280,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/pnp_05p00x05p00.sym": {
@@ -19285,10 +19294,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/pnp_10p00x00p42.sym": {
@@ -19298,10 +19308,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/pnp_10p00x10p00.sym": {
@@ -19311,10 +19322,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/pplus_u.sym": {
@@ -19919,10 +19931,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/npn_00p54x04p00.sym": {
@@ -19932,10 +19945,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/npn_00p54x08p00.sym": {
@@ -19945,10 +19959,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/npn_00p54x16p00.sym": {
@@ -19958,10 +19973,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/npn_05p00x05p00.sym": {
@@ -19971,10 +19987,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/npn_10p00x10p00.sym": {
@@ -19984,10 +20001,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/npolyf_s.sym": {
@@ -20150,10 +20168,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/pnp_05p00x05p00.sym": {
@@ -20163,10 +20182,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/pnp_10p00x00p42.sym": {
@@ -20176,10 +20196,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/pnp_10p00x10p00.sym": {
@@ -20189,10 +20210,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "symbols/pplus_u.sym": {
@@ -20620,10 +20642,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "sg13g2_pr/npn13G2_5t.sym": {
@@ -20633,10 +20656,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "sg13g2_pr/npn13G2l.sym": {
@@ -20646,10 +20670,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "sg13g2_pr/npn13G2l_5t.sym": {
@@ -20659,10 +20684,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "sg13g2_pr/npn13G2v.sym": {
@@ -20672,10 +20698,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "sg13g2_pr/npn13G2v_5t.sym": {
@@ -20685,10 +20712,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "sg13g2_pr/ntap1.sym": {
@@ -20707,10 +20735,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "bipolar-families-2026-10-16"
         ]
       },
       "sg13g2_pr/ptap1.sym": {
@@ -21435,6 +21464,11 @@
       "path": "docs/validation/device-corrections-2026-10-16.json",
       "sha256": "3af5aa221ca1097ddc9585da0cd76c0c9674116eaf77ce6bc74096c0b58c7ce7",
       "scope_limit": "53 resistor entries at selected AC conditions, two default SKY130 primitive diode bindings, and 12 standard IHP MIM layouts. Separate installable corrections; full operating envelopes, additional families, physical coverage and default release integration remain open."
+    },
+    "bipolar-families-2026-10-16": {
+      "path": "docs/validation/bipolar-families-2026-10-16.json",
+      "sha256": "d288cab4801b3ea6bc16df5663a22407a1c9e027497e7069948cff153b75045a",
+      "scope_limit": "29 bipolar symbols at 144 selected DC conditions with terminal-current/KCL and pin-fault tests. SKY130 requires a separate public-corner package; IHP requires the diagnostic ngspice 47 binary. No full operating envelope, RF/thermal, physical, default distribution or engine-interchangeability qualification."
     }
   },
   "execution_acceptance": {
