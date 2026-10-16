@@ -150,6 +150,18 @@ The deck supplements Studio's drawn-mask, antenna and connectivity checks.
 Its zero-marker result does not establish complete DRC/LVS or density acceptance;
 see the [local SKY130 qualification profile](SKY130_LOCAL_PROFILE.md).
 
+For the reviewed SKY130 HD platform, Physical settings also offers **Generate
+SKY130 metal density fill** (`physical.sky130_fill: true`). Finish generates fill
+on all five metals, checks every streamed fill rectangle against the implementation
+database, and includes it in the exported LEF obstructions. The bundle retains
+the source and generated stream maps, fill recipe, inventory and measurements.
+A failed full public density window prevents Finish. Blocks smaller than the
+700 µm window report **surrounding layout required**; export preserves that limit.
+Clipped windows are diagnostic, and the two retained metal-growth profiles do
+not establish complete foundry density or metal-5 density policy. Routed SPEF
+remains available, but floating-fill coupling is not qualified. This option
+does not turn a macro export into complete DRC/LVS or tapeout acceptance.
+
 The view table links RTL, symbol, schematic, layout and explicitly attached
 netlist/physical/extracted views. Saved views show when their sources are stale.
 Compiling a symbol with changed ports on an already wired block requires interface

@@ -97,6 +97,33 @@ class DigitalMacroTests(unittest.TestCase):
                     export(bad,root,root/'bad.zip')
                 self.assertFalse((root/'bad.zip').exists())
 
+    def test_file_changed_after_validation_cannot_replace_existing_export(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);_,result=self.fixture(root);destination=root/'macro.zip'
+            export(result,root,destination);original=destination.read_bytes()
+            native_open=zipfile.ZipFile.open
+            def changed(archive,name,mode='r',*args,**kwargs):
+                if name=='artifacts/gds.txt' and mode=='w':
+                    (root/result['digital_result']['artifacts']['gds']['path']).write_text('changed after validation')
+                return native_open(archive,name,mode,*args,**kwargs)
+            with patch.object(zipfile.ZipFile,'open',changed),self.assertRaisesRegex(ValueError,'changed during macro export'):
+                export(result,root,destination)
+            self.assertEqual(destination.read_bytes(),original)
+            self.assertFalse((root/'macro.zip.partial').exists())
+
+    def test_streamed_artifacts_support_zip64(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);_,result=self.fixture(root)
+            # Exercise the same path as a large GDS without allocating gigabytes.
+            with patch.object(zipfile,'ZIP64_LIMIT',2):
+                manifest=export(result,root,root/'macro.zip')
+            with zipfile.ZipFile(root/'macro.zip') as archive:
+                for key,item in manifest['artifacts'].items():
+                    self.assertEqual(archive.read(item['path']),
+                        (root/result['digital_result']['artifacts'][key]['path']).read_bytes())
+
     def test_legacy_result_without_stage_key_still_requires_matching_source_and_design(self):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td);job,result=self.fixture(root);result['digital_result'].pop('input_key')

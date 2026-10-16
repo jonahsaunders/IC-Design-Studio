@@ -28,10 +28,10 @@ remain in chunks 7–9. Exact PDK/tool identities must accompany each execution.
 | Batch | Required outcome | Status |
 | --- | --- | --- |
 | Scope | Pinned sources and an applicability record for every required profile check | Native source/options pinned; complete applicability record remains open |
-| Local verification | Generic SKY130 native DRC, transistor geometry, antenna and connectivity; separate density and LVS evidence | Native stage integrated; fresh counter Finish passes the combined existing checks; full profile acceptance remains open |
-| References and faults | Counter/UART/APB and nonempty transistor controls; deliberate faults rejected | Three native reference runs and 12 controls pass their expected outcomes; native implant gap detected by Studio's independent checks |
-| Density | Declared surrounding geometry and boundary policy; meaningful full-window checks on final fill | Pending |
-| Application | Normal application execution and export, repeatable on Windows/Linux, with no missing-check success | Finish/export integration implemented; see execution evidence below; installer requalification remains separate |
+| Local verification | Generic SKY130 native DRC, transistor geometry, antenna and connectivity; separate density and LVS evidence | Fresh filled counter/UART/APB Finish passes; strict reference LVS and custom MOS controls pass; full profile acceptance remains open |
+| References and faults | Counter/UART/APB and nonempty transistor controls; deliberate faults rejected | Native, implant, fill-mapping, spacing, density and LVS fault controls pass their expected outcomes; native implant gap remains explicit |
+| Density | Declared surrounding geometry and boundary policy; meaningful full-window checks on final fill | Local fill generation and independent stream checks implemented; 840 µm reference passes nine full windows under both public profiles; complete density applicability remains open |
+| Application | Normal application execution and export, repeatable on Windows/Linux, with no missing-check success | Four filled Linux Finish runs and three Windows export/readback runs pass; installer requalification remains separate |
 
 ## Generic integration evidence
 
@@ -60,9 +60,57 @@ python scripts/qualify_sky130_native.py --klayout /path/to/klayout --output /new
 The script preserves expected native misses and the independent implant results;
 it does not treat those controls as full device or electrical qualification.
 
-This integration does not close the remaining density/context or applicability
-work. Small blocks still have no full 700 um density windows. Broader analog
-device/body LVS and full-chip qualification retain their separate gates.
+## Filled layouts and connectivity evidence
+
+The [generic fill execution record](validation/sky130-generic-density-2026-10-16.json)
+adds optional local metal fill to normal Finish. Select **Generate SKY130 metal
+density fill** in Physical settings, or set `physical.sky130_fill` to `true`.
+The selected SKY130 HD platform must contain the reviewed physical checkers and
+the captured stream technology. Other technology revisions fail explicitly until
+their mapping is reviewed.
+
+OpenROAD generates the fill. An independent reader compares every final GDS fill
+rectangle against the implementation database and checks its size, grid, bounds,
+spacing and clearance from circuit metal on all five layers. The generated
+technology retains the original drawing maps and supplies explicit fill maps;
+the original technology and both recipes are retained. The macro LEF includes
+the fill as routing obstructions, and export binds the checked GDS, database,
+LEF, rules and reports. Missing or changed evidence prevents export.
+
+The 840 by 840 µm counter contains 381,362 fill rectangles. All nine full
+700 by 700 µm windows, sampled every 70 µm, pass both retained public 80% metal
+growth profiles on metals 1–4. The unfilled reference fails 36 full-window
+measurements per profile despite a clean native geometry report. A wrong stream
+mapping also escapes native DRC but is rejected by the new database/stream check.
+These controls establish why neither native DRC nor the presence of a fill option
+is sufficient density evidence. Metal 5 is checked for fill geometry; the public
+oxide profiles do not establish a metal-5 density requirement.
+
+Clipped edge observations remain diagnostics and are retained, including their
+findings. A smaller macro has zero full windows and is exported with
+`surrounding-layout-required`, never a density acceptance claim. Its eventual
+assembly needs new checks on the combined layout and declared context.
+
+The exact filled counter, UART and APB references also pass fresh strict
+transistor, diode, body and port LVS comparisons against independently captured
+database/CDL references. Removing diode diffusion from counter/APB or flip-flop
+polysilicon from UART makes comparison fail. Separate custom
+1.8 V NMOS/PMOS controls pass native full DRC and extraction/LVS; changing their
+reference widths is rejected. These are retained qualification runs, not an
+automatic LVS pass conferred on every application export.
+
+The final focused suite collects 162 tests per OS: Windows passes 154 with eight
+OS-specific skips, and Linux passes 157 with five OS-specific skips. The skipped
+platform-specific cases execute on the other OS. Three Windows exports reopen
+relocated evidence, verify every exported artifact/notice hash and reject a
+changed fill inventory. Native OpenROAD LEF readback preserves every fill
+obstruction and the expected pins in all four fresh application references.
+
+This work establishes the stated public-window and reference connectivity results.
+It does not close complete profile applicability, final-mask density or all
+boundary policies. Routed OpenRCX SPEF is retained; floating-fill coupling has
+not been qualified. Broader device and electrical qualification keep their
+separate gates. Chunk 6 remains open while an applicable requirement lacks proof.
 
 Public Tiny Tapeout and ChipFoundry decks already retained by the project are
 reference implementations. Their original licenses remain in force. Reuse is

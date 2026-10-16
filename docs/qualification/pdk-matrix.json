@@ -20230,7 +20230,7 @@
     "sky130-voltage-intent-audit-2026-10-14": {
       "path": "docs/validation/sky130-voltage-intent-audit-2026-10-14.json",
       "sha256": "f3aa296d1291b40a9b96054ca414732365408b261bbd38149148cb4bd2e2b776",
-      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0–1.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
+      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0\u20131.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
     },
     "sky130-isolation-options-audit-2026-10-14": {
       "path": "docs/validation/sky130-isolation-options-audit-2026-10-14.json",
@@ -20371,6 +20371,11 @@
       "path": "docs/validation/sky130-generic-native-2026-10-16.json",
       "sha256": "b007f29c5b35a98f935790c996c6c23fab5cce0af24e44ef2552e3141c453c71",
       "scope_limit": "Generic SKY130A HD native geometry verification integrated into normal Finish and portable macro export. No Tiny Tapeout dimensions, naming, pins or reserved-layer restrictions. Three retained designs have fresh native checks; one counter has fresh synthesis through Finish, extraction, supplemental checks and export. All twelve controls match their expected native and independent implant outcomes. Missing evidence cannot overwrite an existing export. Density/context and complete profile applicability remain open; historical catalog counts are unchanged."
+    },
+    "sky130-generic-density-2026-10-16": {
+      "path": "docs/validation/sky130-generic-density-2026-10-16.json",
+      "sha256": "68af6868a1ed0a9550a45e4931a30d40ab3078e87d4cc16414afcc24c5e0f393",
+      "scope_limit": "Optional generic SKY130 metal fill in normal Finish; independent five-layer database/GDS geometry checks; fill-bearing macro abstracts and bound export evidence. Four fresh application runs, full public windows on one 840 um reference, strict reference LVS and native custom NMOS/PMOS controls. No Tiny Tapeout interface or tile restriction. Complete profile applicability and foundry signoff remain open."
     }
   },
   "execution_acceptance": {

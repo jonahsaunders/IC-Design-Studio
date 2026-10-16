@@ -190,7 +190,7 @@ def artifact_path(value):
     return value
 
 
-def validate_result(result, directory):
+def validate_result(result, directory, *, return_verified=False):
     data = result.get('digital_result')
     if (result.get('result_type') != 'digital' or not isinstance(data, dict)
             or data.get('stage') not in STAGES or not isinstance(data.get('artifacts'), dict)
@@ -210,23 +210,27 @@ def validate_result(result, directory):
         path = (root / relative).resolve()
         if not path.is_relative_to(root) or not path.is_file() or file_digest(path) != record.get('sha256'):
             raise ValueError('A captured digital artifact is missing or changed: '+relative)
+    verified = {}
     if data['stage']=='finish':
         from .digital_physical_checks import validate_saved
-        validate_saved(data,root)
+        verified['physical_checks'] = validate_saved(data,root)
         from .digital_sky130_pins import validate_saved as validate_sky130_pins
         validate_sky130_pins(data,root)
         from .digital_sky130_native import validate_saved as validate_sky130_native
-        validate_sky130_native(data,root)
+        verified['sky130_native'] = validate_sky130_native(data,root)
         from .digital_sky130_rules import validate_saved as validate_sky130_rules
-        validate_sky130_rules(data,root)
+        verified['sky130_rules'] = validate_sky130_rules(data,root)
+        from .digital_sky130_fill import validate_saved as validate_sky130_fill
+        verified['sky130_fill'] = validate_sky130_fill(data,root)
         from .digital_sky130_antenna import validate_saved as validate_sky130_antenna
-        validate_sky130_antenna(data,root)
+        verified['sky130_antenna'] = validate_sky130_antenna(data,root)
         from .digital_sky130_isolation import validate_saved as validate_sky130_isolation
-        validate_sky130_isolation(data,root)
+        verified['sky130_isolation'] = validate_sky130_isolation(data,root)
         from .digital_lvs_reference import validate_saved as validate_reference
-        validate_reference(data,root)
+        verified['lvs_reference'] = validate_reference(data,root)
         from .digital_gf180_checks import validate_saved as validate_connectivity
-        validate_connectivity(data,root)
+        verified['gf180_connectivity'] = validate_connectivity(data,root)
+    if return_verified: return verified
 
 
 def run(job, directory, progress=lambda *_: None):

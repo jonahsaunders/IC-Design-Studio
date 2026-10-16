@@ -87,6 +87,15 @@ class NativeSky130Tests(unittest.TestCase):
             data=clone(result['digital_result']);data['artifacts']=contract['artifacts']
             self.assertEqual(native.validate_saved(data,moved),report)
 
+    def test_export_executes_the_native_validator_once(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td);_,result,r=fixture(root)
+            report=native.execute(r);result['digital_result']['physical']={'sky130_native':report}
+            with patch.object(native,'validate_saved',wraps=native.validate_saved) as checked:
+                export(result,root,root/'macro.zip')
+                self.assertEqual(checked.call_count,1)
+
     def test_violation_blocks_execution_and_retains_diagnostic(self):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td);_,_,r=fixture(root,True)

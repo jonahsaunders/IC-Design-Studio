@@ -13,7 +13,7 @@ STAGES = ('floorplan','place','cts','route','finish')
 CHECKPOINTS = {'floorplan':'2_floorplan','place':'3_place','cts':'4_cts','route':'5_route','finish':'6_final'}
 DEFAULTS = {'die_area':[0,0,100,100],'core_area':[10,10,90,90],'place_density':0.6,'threads':2}
 OPTIONS = {'min_routing_layer','max_routing_layer','macro_halo_um','pin_constraints','macro_placements',
-           'io_constraints_tcl','macro_placement_tcl','pdn_tcl','gf180_fill','ihp_fill','ihp_fill_pattern','nfet_in_dnwell'}
+           'io_constraints_tcl','macro_placement_tcl','pdn_tcl','gf180_fill','ihp_fill','ihp_fill_pattern','nfet_in_dnwell','sky130_fill'}
 
 
 def library_options(r):
@@ -61,6 +61,8 @@ def validate_settings(settings):
     if not isinstance(settings,dict) or set(settings)-set(DEFAULTS)-OPTIONS:raise ValueError('Unknown physical implementation setting.')
     if type(settings.get('gf180_fill',False)) is not bool:raise ValueError('GF180 block fill must be enabled or disabled.')
     if type(settings.get('ihp_fill',False)) is not bool:raise ValueError('IHP block fill must be enabled or disabled.')
+    if type(settings.get('sky130_fill',False)) is not bool:raise ValueError('SKY130 metal fill must be enabled or disabled.')
+    if sum(bool(settings.get(name)) for name in ('gf180_fill','ihp_fill','sky130_fill')) > 1:raise ValueError('Choose fill for one process.')
     if type(settings.get('nfet_in_dnwell',False)) is not bool:raise ValueError('SKY130 isolation must be enabled or disabled.')
     from .digital_ihp_geometry import PATTERNS
     if 'ihp_fill_pattern' in settings and (not settings.get('ihp_fill') or not isinstance(settings['ihp_fill_pattern'],str) or settings['ihp_fill_pattern'] not in PATTERNS):
@@ -248,6 +250,8 @@ def execute(r):
     command += fill_options(r,settings)
     from .digital_ihp_fill import implementation_options as ihp_fill_options
     command += ihp_fill_options(r,settings)
+    from .digital_sky130_fill import implementation_options as sky130_fill_options
+    command += sky130_fill_options(r,settings)
     command += [key+'='+value for key,value in implementation_options(r.platform).items()]
     if 'klayout' in r.tools:command.append('KLAYOUT_CMD='+r.tools['klayout'])
     if resume:
@@ -311,6 +315,8 @@ def execute(r):
         ihp_fill(r,settings)
         from .digital_sky130_rules import execute as sky130_rules
         sky130_review=sky130_rules(r)
+        from .digital_sky130_fill import execute as sky130_fill
+        sky130_fill_review=sky130_fill(r,settings,sky130_review)
         from .digital_sky130_antenna import execute as sky130_antenna
         sky130_antenna_review=sky130_antenna(r)
         from .digital_sky130_isolation import execute as sky130_isolation
@@ -338,6 +344,7 @@ def execute(r):
             **({'checks':checks} if stage=='finish' else {}),
             **({'sky130_native':sky130_native_review} if stage=='finish' and sky130_native_review is not None else {}),
             **({'sky130_rules':sky130_review} if stage=='finish' and sky130_review is not None else {}),
+            **({'sky130_fill':sky130_fill_review} if stage=='finish' and sky130_fill_review is not None else {}),
             **({'sky130_antenna':sky130_antenna_review} if stage=='finish' and sky130_antenna_review is not None else {}),
             **({'sky130_isolation':sky130_isolation_review} if stage=='finish' and sky130_isolation_review is not None else {}),
             **({'reference':reference} if stage=='finish' and reference is not None else {}),

@@ -10,6 +10,32 @@ The [execution record](validation/sky130-physical-progress-2026-10-11.json)
 captures the original counter, UART and APB final layouts. Chunk 6 remains open.
 Zero geometry markers alone do not establish complete physical coverage.
 
+## Generic fill, density and connectivity (2026-10-16)
+
+The [execution record](validation/sky130-generic-density-2026-10-16.json) records
+local OpenROAD metal fill through normal application Finish and export. All five
+GDS fill layers are compared rectangle by rectangle with the independent OpenDB
+inventory. Size, grid, bounds, fill spacing and circuit-metal clearance are checked;
+the macro LEF preserves every fill obstruction and passes native reader checks.
+
+A fresh 840 by 840 µm counter has 381,362 fill rectangles and nine full 700 µm
+windows. Both retained public 80% grown-metal profiles pass all full-window
+measurements. The unfilled control fails 36 per profile; a wrong stream mapping
+also fails density while native DRC reports zero markers. The independent fill
+check rejects that mismatch. Clipped-window findings remain diagnostic and visible.
+Small blocks retain `surrounding-layout-required` and do not receive a vacuous pass.
+
+Strict final-layout MOS, diode, body and port LVS passes on the filled large
+reference. A missing-diode-diffusion control fails comparison. Nonempty custom
+1.8 V NMOS/PMOS controls pass native full DRC and extraction/LVS; incorrect width
+references fail. Evidence binds the actual layouts, implementation databases,
+sources, tools and reports. These runs do not make LVS automatic for every export.
+
+No complete density, fill-coupling or foundry qualification is inferred. The
+remaining profile applicability and source-definition gates stay open; the
+historical catalog remains at 302 unresolved. The following checkpoints retain
+their earlier results and limitations.
+
 ## Generic local integration (2026-10-16)
 
 Normal `sky130hd` Finish now runs the pinned public native geometry deck on the

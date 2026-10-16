@@ -22,6 +22,8 @@ class PhysicalEditor(QDialog):
         self.ihp_fill=QCheckBox('Generate IHP block density fill');self.ihp_fill.setChecked(self.settings.get('ihp_fill',False));form.addRow(self.ihp_fill)
         self.ihp_pattern=QComboBox();self.ihp_pattern.addItems(['balanced','compact','dense']);self.ihp_pattern.setCurrentText(self.settings.get('ihp_fill_pattern','balanced'));form.addRow('IHP fill pattern',self.ihp_pattern)
         ihp_note=QLabel('Keeps fill clear of circuit routes and verifies the filled layout. Use compact for small blocks or dense where larger patterns leave too little fill. Timing and connectivity checks remain required.');ihp_note.setWordWrap(True);form.addRow(ihp_note)
+        self.sky130_fill=QCheckBox('Generate SKY130 metal density fill');self.sky130_fill.setChecked(self.settings.get('sky130_fill',False));form.addRow(self.sky130_fill)
+        sky130_note=QLabel('Checks exported fill against the implementation database and measures full density windows. Small blocks need surrounding layout for density acceptance. Fill coupling and complete signoff remain unqualified.');sky130_note.setWordWrap(True);form.addRow(sky130_note)
         self.isolation=QComboBox();self.isolation.addItems(['Use platform setting','Bulk: isolation not requested','Require isolated NMOS wells'])
         self.isolation.setCurrentIndex(0 if 'nfet_in_dnwell' not in self.settings else (2 if self.settings['nfet_in_dnwell'] else 1));form.addRow('SKY130 NMOS isolation',self.isolation)
         isolation_note=QLabel('Requires a platform with the SKY130 isolation checker. Bulk mode records uncovered NMOS gates as not requested; requiring isolation blocks Finish when a gate is outside deep nwell.');isolation_note.setWordWrap(True);form.addRow(isolation_note)
@@ -48,6 +50,7 @@ class PhysicalEditor(QDialog):
             value.update(place_density=self.density.value(),threads=self.threads.value(),macro_halo_um=self.halo.value())
             if self.fill.isChecked():value['gf180_fill']=True
             if self.ihp_fill.isChecked():value.update(ihp_fill=True,ihp_fill_pattern=self.ihp_pattern.currentText())
+            if self.sky130_fill.isChecked():value['sky130_fill']=True
             if self.isolation.currentIndex():value['nfet_in_dnwell']=self.isolation.currentIndex()==2
             value['pin_constraints']=[{'pins':self.pins.item(i,0).text().strip(),'edge':self.pins.item(i,1).text().strip()} for i in range(self.pins.rowCount())]
             value['macro_placements']=[{'name':self.macros.item(i,0).text().strip(),'x':float(self.macros.item(i,1).text()),'y':float(self.macros.item(i,2).text()),'orientation':self.macros.item(i,3).text().strip() or 'R0'} for i in range(self.macros.rowCount())]

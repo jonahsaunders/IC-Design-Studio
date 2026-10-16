@@ -41,6 +41,17 @@ device-specific operating envelopes are explicit open requirements.
 
 ## Current checkpoint: chunks 1–5 complete; chunk 6 partial
 
+The [generic fill and connectivity execution](validation/sky130-generic-density-2026-10-16.json)
+adds local metal fill to normal Finish, independent database/GDS agreement,
+fill-aware LEF obstructions and portable evidence. A fresh 840 µm reference with
+381,362 fill rectangles passes nine full windows under each public oxide-density
+profile. Its unfilled control fails both profiles. Strict MOS/diode/body/port LVS
+passes on the exact filled large layout and rejects a removed-diode fault;
+custom NMOS/PMOS controls also pass native full DRC/LVS and reject width faults.
+Small macros retain an explicit surrounding-layout requirement. Complete profile
+applicability, final-mask/boundary density and fill coupling are not qualified;
+the historical 302 catalog records retain their status. Chunk 6 is still partial.
+
 The [generic native integration](validation/sky130-generic-native-2026-10-16.json)
 adds the pinned public geometry deck to normal Finish and preserves its exact
 evidence in macro export. Three reference layouts and a fresh counter Finish
