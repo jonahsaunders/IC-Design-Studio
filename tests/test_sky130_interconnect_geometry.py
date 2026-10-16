@@ -73,6 +73,17 @@ class InterconnectGeometryTests(unittest.TestCase):
         self.assertGreater(counts({(67,44):ct,(67,20):region((5,0,170,170))})['ct.4'],0)
         self.assertGreater(counts({(67,44):ct,(56,28):ct})['ct.4'],0)
 
+    def test_core_marker_cannot_hide_an_uncovered_contact(self):
+        # The public 2025 Tiny Tapeout deck excludes areaid:core from its
+        # contact-coverage check. Studio must still detect missing drawn LI.
+        # Test absent, enclosing and crossing core markers and a one-nm gap.
+        ct=region((0,0,170,170))
+        for core in (region(),region((-1000,-1000,1000,1000)),region((85,-1000,1000,1000))):
+            for li,expected in ((ct,False),(region((1,0,170,170)),True),(region(),True)):
+                with self.subTest(core=str(core),li=str(li)):
+                    masks={(67,44):ct,(67,20):li,(81,2):core,(56,28):ct}
+                    self.assertEqual(counts(masks)['ct.4']>0,expected)
+
     def test_fill_cannot_replace_missing_contact_conductor(self):
         for inner,fill,size,rule in (((68,44),(36,28),150,'via.4a'),
                                     ((69,44),(34,28),200,'m3.4'),((71,44),(59,28),800,'m5.3')):

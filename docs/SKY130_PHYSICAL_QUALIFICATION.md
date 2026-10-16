@@ -10,8 +10,11 @@ pin-spacing limit. Additional public mask reconstructions and a separate PDK
 integration do not supply verified replacements for the missing definitions.
 This research closes **zero additional rules**; the catalog remains at **302
 unresolved records**, with the separate pin-spacing and density obligations
-still open. The last implementation evidence remains the 411-test oxide-density
-checkpoint below. No new execution or physical acceptance is claimed here.
+still open. The last application implementation evidence remains the 411-test
+oxide-density checkpoint below. The subsequent
+[Tiny Tapeout comparison](#tiny-tapeout-public-deck-comparison) executes newer
+public native decks and adds a contact regression; it establishes no new
+catalog disposition or physical acceptance.
 
 Completing chunk 6 now requires version-applicable definitions or independently
 validated equivalents that can be used under the project's license policy.
@@ -82,7 +85,50 @@ the central [third-party notices](../THIRD_PARTY_NOTICES.md) now also identify
 its checker adaptation and derived layout controls. A bounded review found
 no named excluded package files or restrictive-notice matches beyond the
 documented exclusions. This is not a comprehensive legal clearance. No new
-external deck is incorporated, and all 302 unresolved records remain open.
+external deck was incorporated at that review checkpoint. The later comparison
+below retains two explicitly GPLv3 decks. All 302 unresolved records remain open.
+
+### Tiny Tapeout public-deck comparison
+
+The [execution audit](validation/sky130-public-decks-2026-10-15.json) prioritizes
+Tiny Tapeout's public resources as requested. Its pinned `tt-support-tools`
+SKY130 deck is newer than the 2022 native reference in the existing toolchain.
+It passes FEOL, BEOL and off-grid checks on all three corrected, filled
+counter/UART/APB layouts. The newer ChipFoundry deck passes the same checks.
+These are six native executions on KLayout 0.30.5, not a full Tiny Tapeout
+project/harness precheck. The two decks share upstream code and are not
+independent specifications.
+
+Four positive/negative contact layouts produce eight additional native runs.
+They reproduce a real difference: the Tiny Tapeout version fails to flag
+missing drawn LI coverage for a contact inside `areaid:core` (`81:2`), while
+the newer upstream deck and Studio's existing `ct.4` check detect it. A new
+regression also tests a crossing core marker and a one-nm uncovered strip;
+fill cannot replace the missing drawn conductor. All **14 targeted tests pass
+on Windows and Linux**, with no failures, errors or skips. The preceding
+411-test checkpoint remains historical; no new full-suite run is claimed.
+
+The unmodified sources, full GPLv3 license, original headers and source locks
+are retained in [the comparison fixture](../tests/fixtures/sky130-public-decks-v1/README.md).
+The reproducible runner and portable archive retain the exact GDS inputs,
+commands, logs, marker reports and control results. An earlier failed trial
+used `81:10` instead of the required `81:2` core marker; it is preserved as
+failed evidence and excluded from the accepted control findings.
+
+Seal and floating-metal options are explicitly false in these native runs;
+the existing application connectivity/antenna gates remain separate. SRAM
+exclusion is false, but built-in upstream cell filters still exist. Tiny
+Tapeout's project-specific pin rules and separate chip-density scripts cannot
+establish the missing catalog definitions. The additional public FOM/poly
+density sources use the same endpoint-window pattern already investigated in
+the oxide audit; they were inspected but not incorporated or executed in this
+batch. No new runtime deck or weaker acceptance policy is installed.
+
+This adds useful public regression evidence while preserving the original
+chunk 6 gate: **302 catalog records remain unresolved**, along with the
+separate pin-spacing definition and required density acceptance. The next
+source work should prioritize Tiny Tapeout and its cited upstreams where
+their per-file licenses and actual coverage support reuse.
 
 ## Public metal-growth density measurements
 

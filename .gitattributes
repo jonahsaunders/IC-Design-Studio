@@ -13,6 +13,7 @@ docs/validation/student-physical/** -whitespace
 tests/fixtures/sky130-metal-width-native.tech -whitespace
 tests/fixtures/sky130-public-seal-v1/** -whitespace
 tests/fixtures/sky130-tt-density-v1/met_density_tiled.drc -whitespace
+tests/fixtures/sky130-public-decks-v1/*/sky130A_mr.drc -whitespace
 tests/fixtures/sky130-public-seal-oracles-v1/*.log -whitespace
 docs/qualification/sky130-device-tables/** -whitespace
 icstudio/assets/pdks/gf180mcuC/** -whitespace

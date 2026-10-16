@@ -80,6 +80,24 @@ The exact upstream source, license and hashes are retained in
 explicit physical units and declared bounds, includes endpoint windows, and
 separates clipped diagnostics. These changes do not claim foundry equivalence.
 
+## Public SKY130 deck comparison sources
+
+`tests/fixtures/sky130-public-decks-v1` retains unmodified `sky130A_mr.drc`
+sources from Tiny Tapeout `tt-support-tools` revision
+`01d5d2814fa9dd61e9d211e0b235a4a592a9316a` and ChipFoundry `cf-precheck`
+revision `6c401ed5134a6466c7eed3e5524ebaacad4cea2a`.
+Their explicit GNU GPLv3 file headers apply; their repositories' Apache-2.0
+root licenses do not relicense these decks. No later-version grant is
+inferred. Original headers, exact source locations and hashes, provenance
+links, and the full GPLv3 license accompany the files in the fixture directory.
+The source files are comparison fixtures, not a claim of full foundry signoff.
+Studio's added comparison runner and regression test remain GPL-3.0-or-later.
+
+The associated validation archive retains the same GPLv3 sources and license,
+new control layouts and driver source, and the counter/UART/APB layouts with
+their SKY130 HD standard-cell Apache-2.0 provenance and license. Refer to the
+archive's notices and the fixture's [source record](tests/fixtures/sky130-public-decks-v1/README.md).
+
 ## Public SKY130 seal and alignment reference
 
 The public seal/Nikon template used by `icstudio/digital_sky130_alignment.py`
