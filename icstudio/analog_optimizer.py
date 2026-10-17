@@ -28,7 +28,7 @@ def targets(project, cid):
             # MOS width/length already have geometry targets; PDK passives
             # expose these dimensions only through their model parameters.
             duplicate_geometry = d['kind'] in ('NMOS', 'PMOS') and key in ('w', 'l')
-            if not duplicate_geometry and not rule.get('derived') and not rule.get('choices') and key in values:
+            if not duplicate_geometry and 'fixed' not in rule and not rule.get('derived') and not rule.get('choices') and key in values:
                 out.append(d['name']+'.model_params.'+key)
     return out
 

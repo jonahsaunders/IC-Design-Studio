@@ -180,11 +180,15 @@ def yosys_script(config, elaborate=False):
 
 
 def artifact(root, path, allow_empty=False):
-    path = Path(path)
+    # Windows may spell the same job directory with an 8.3 alias in TEMP
+    # and a full path in prepared PDK resources. Store one portable identity.
+    root = Path(root).resolve()
+    path = Path(path).resolve()
+    relative = path.relative_to(root).as_posix()
     local = io_path(path)
     if not local.is_file() or local.stat().st_size == 0 and not allow_empty:
         raise ValueError('The digital tool did not produce '+path.name+'. Inspect its log.')
-    return {'path': path.relative_to(root).as_posix(), 'sha256': file_digest(local), 'bytes': local.stat().st_size}
+    return {'path': relative, 'sha256': file_digest(local), 'bytes': local.stat().st_size}
 
 
 def artifact_path(value):

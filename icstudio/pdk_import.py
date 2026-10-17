@@ -228,6 +228,11 @@ def scan_local(path, progress=lambda message: None):
             if family=='ihp-sg13g2' and model=='isolbox':
                 from .ihp_isolation import constrain
                 constrain(params,(root/definition['file']).read_bytes())
+            if family=='sky130':
+                from .sky130_fixed_geometry import CONTRACTS,NOTE,constrain
+                if model in CONTRACTS:
+                    constrain(model,params,(root/definition['file']).read_bytes())
+                    notes.append(NOTE)
             scale={k:1e6 if family=='sky130' else 1 for k in ('w','l')}
             entry.update(kind=kind,category=category,pin_order=list(symbol['pin_order']),prefix=prefix,parameters=params,emit_parameters=emitted,parameter_scale=scale,symbol=symbol,model_source=definition['file'],notes=notes)
             if kind in ('NMOS','PMOS') and not {'w','l'}<=params.keys():raise ValueError('MOS symbol does not declare width and length.')

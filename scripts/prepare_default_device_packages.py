@@ -3,15 +3,15 @@ import argparse,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from icstudio.model import file_digest
-from scripts.device_qualification_source import PROMOTED,PREVIOUS,previous_devices
+from scripts.device_qualification_source import PROMOTED,PREVIOUS,INTERMEDIATE,previous_devices
 
 
 def prepare(source,output,target):
     if target not in PROMOTED:raise ValueError('Unknown device package target.')
-    if file_digest(Path(source)/'package.json') not in (PROMOTED[target],PREVIOUS[target]):
+    if file_digest(Path(source)/'package.json') not in (PROMOTED[target],PREVIOUS[target],INTERMEDIATE.get(target)):
         raise ValueError('Input is not an exact reviewed package for '+target+'.')
     if target=='sky130A':
-        from scripts.prepare_sky130_vpp_binding import prepare as build
+        from scripts.prepare_sky130_fixed_geometry import prepare as build
     else:
         from scripts.prepare_mos_variant_bindings import prepare as build
     with previous_devices(source) as original:record=build(original,output)

@@ -2,6 +2,7 @@
   "family": "sky130",
   "files": {
     "ICSTUDIO-DEVICE-PACKAGE.json": "0cf702db83fe3e2b6a571a3dff04a9a650d36027c303931f58b868b92c13d8ec",
+    "ICSTUDIO-FIXED-GEOMETRY.json": "880f6995a317c1b3e11331974b6cb4030388aab3d3e5433dc4d0bfcd25189a86",
     "ICSTUDIO-NPN-PROVENANCE.json": "4fb792ae70d5b4030a1e7e42e2d6841671160b61b3bb5f30a40021e1a21130bd",
     "ICSTUDIO-PARALLEL-VARACTORS.json": "21230bfb2d6c27c9607421cd2acbd13516ccccca18a5c64d82e1f3885b28a507",
     "ICSTUDIO-RESISTOR-CORRECTION.json": "9854229dbcc793b644a10f3612445204248cce94bbe9fcaf56c443b870fb6c7b",
@@ -412,7 +413,7 @@
     "qualification-sources/bipolar/sky130_fd_pr__npn_05v5__t.corner.spice": "69583cf1827826ed0f91f9e775e17dc3d23d70caa6e4a4c766bb433f47d6d8e0"
   },
   "id": "sky130A",
-  "revision": "8c3913de70b7e4b1",
+  "revision": "293106f92f3e1dc5",
   "schema": 1,
   "technology": {
     "dbu_um": 0.001,
@@ -3734,7 +3735,7 @@
       ],
       "netgen_setup": ""
     },
-    "revision": "8c3913de70b7e4b1",
+    "revision": "293106f92f3e1dc5",
     "simulation": {
       "catalog": {
         "sky130_fd_pr/cap_mim_m3_1.sym": {
@@ -6551,7 +6552,8 @@
           "model": "sky130_fd_pr__nfet_20v0",
           "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0__subcircuit.pm3.spice",
           "notes": [
-            "Hidden body net exposed as terminal b; connect it explicitly."
+            "Hidden body net exposed as terminal b; connect it explicitly.",
+            "Fixed internal model geometry: W/L inputs do not scale the public 20 V subcircuit and out-of-bin values can fail model selection. Only the recorded W/L values are accepted; use mult for parallel copies. These values do not establish drawn-mask dimensions or reliability limits."
           ],
           "parameter_scale": {
             "l": 1000000.0,
@@ -6561,8 +6563,10 @@
             "l": {
               "default": "2.95",
               "derived": false,
+              "fixed": "2.95",
               "integer": false,
-              "positive": true
+              "positive": true,
+              "unit": "um (fixed internal model geometry)"
             },
             "mult": {
               "default": "1",
@@ -6573,8 +6577,10 @@
             "w": {
               "default": "29.41",
               "derived": false,
+              "fixed": "29.41",
               "integer": false,
-              "positive": true
+              "positive": true,
+              "unit": "um (fixed internal model geometry)"
             }
           },
           "pin_order": [
@@ -11581,7 +11587,9 @@
           "label": "nfet_20v0",
           "model": "sky130_fd_pr__nfet_20v0",
           "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0__subcircuit.pm3.spice",
-          "notes": [],
+          "notes": [
+            "Fixed internal model geometry: W/L inputs do not scale the public 20 V subcircuit and out-of-bin values can fail model selection. Only the recorded W/L values are accepted; use mult for parallel copies. These values do not establish drawn-mask dimensions or reliability limits."
+          ],
           "parameter_scale": {
             "l": 1000000.0,
             "w": 1000000.0
@@ -11590,8 +11598,10 @@
             "l": {
               "default": "2.95",
               "derived": false,
+              "fixed": "2.95",
               "integer": false,
-              "positive": true
+              "positive": true,
+              "unit": "um (fixed internal model geometry)"
             },
             "mult": {
               "default": "1",
@@ -11602,8 +11612,10 @@
             "w": {
               "default": "29.41",
               "derived": false,
+              "fixed": "29.41",
               "integer": false,
-              "positive": true
+              "positive": true,
+              "unit": "um (fixed internal model geometry)"
             }
           },
           "pin_order": [
@@ -12027,7 +12039,9 @@
           "label": "nfet_20v0_iso",
           "model": "sky130_fd_pr__nfet_20v0_iso",
           "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_iso__subcircuit.pm3.spice",
-          "notes": [],
+          "notes": [
+            "Fixed internal model geometry: W/L inputs do not scale the public 20 V subcircuit and out-of-bin values can fail model selection. Only the recorded W/L values are accepted; use mult for parallel copies. These values do not establish drawn-mask dimensions or reliability limits."
+          ],
           "parameter_scale": {
             "l": 1000000.0,
             "w": 1000000.0
@@ -12036,8 +12050,10 @@
             "l": {
               "default": "1.5",
               "derived": false,
+              "fixed": "1.5",
               "integer": false,
-              "positive": true
+              "positive": true,
+              "unit": "um (fixed internal model geometry)"
             },
             "mult": {
               "default": "1",
@@ -12048,8 +12064,10 @@
             "w": {
               "default": "30",
               "derived": false,
+              "fixed": "30",
               "integer": false,
-              "positive": true
+              "positive": true,
+              "unit": "um (fixed internal model geometry)"
             }
           },
           "pin_order": [
@@ -12486,7 +12504,9 @@
           "label": "nfet_20v0_nvt",
           "model": "sky130_fd_pr__nfet_20v0_nvt",
           "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_nvt__subcircuit.pm3.spice",
-          "notes": [],
+          "notes": [
+            "Fixed internal model geometry: W/L inputs do not scale the public 20 V subcircuit and out-of-bin values can fail model selection. Only the recorded W/L values are accepted; use mult for parallel copies. These values do not establish drawn-mask dimensions or reliability limits."
+          ],
           "parameter_scale": {
             "l": 1000000.0,
             "w": 1000000.0
@@ -12495,8 +12515,10 @@
             "l": {
               "default": "1.5",
               "derived": false,
+              "fixed": "1.5",
               "integer": false,
-              "positive": true
+              "positive": true,
+              "unit": "um (fixed internal model geometry)"
             },
             "mult": {
               "default": "1",
@@ -12507,8 +12529,10 @@
             "w": {
               "default": "30",
               "derived": false,
+              "fixed": "30",
               "integer": false,
-              "positive": true
+              "positive": true,
+              "unit": "um (fixed internal model geometry)"
             }
           },
           "pin_order": [
@@ -12932,7 +12956,9 @@
           "label": "nfet_20v0_zvt",
           "model": "sky130_fd_pr__nfet_20v0_zvt",
           "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_zvt__subcircuit.pm3.spice",
-          "notes": [],
+          "notes": [
+            "Fixed internal model geometry: W/L inputs do not scale the public 20 V subcircuit and out-of-bin values can fail model selection. Only the recorded W/L values are accepted; use mult for parallel copies. These values do not establish drawn-mask dimensions or reliability limits."
+          ],
           "parameter_scale": {
             "l": 1000000.0,
             "w": 1000000.0
@@ -12941,8 +12967,10 @@
             "l": {
               "default": "5",
               "derived": false,
+              "fixed": "5",
               "integer": false,
-              "positive": true
+              "positive": true,
+              "unit": "um (fixed internal model geometry)"
             },
             "mult": {
               "default": "1",
@@ -12953,8 +12981,10 @@
             "w": {
               "default": "30",
               "derived": false,
+              "fixed": "30",
               "integer": false,
-              "positive": true
+              "positive": true,
+              "unit": "um (fixed internal model geometry)"
             }
           },
           "pin_order": [
@@ -16813,7 +16843,8 @@
           "model": "sky130_fd_pr__pfet_20v0",
           "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_20v0__subcircuit.pm3.spice",
           "notes": [
-            "Hidden body net exposed as terminal b; connect it explicitly."
+            "Hidden body net exposed as terminal b; connect it explicitly.",
+            "Fixed internal model geometry: W/L inputs do not scale the public 20 V subcircuit and out-of-bin values can fail model selection. Only the recorded W/L values are accepted; use mult for parallel copies. These values do not establish drawn-mask dimensions or reliability limits."
           ],
           "parameter_scale": {
             "l": 1000000.0,
@@ -16823,8 +16854,10 @@
             "l": {
               "default": "0.5",
               "derived": false,
+              "fixed": "0.5",
               "integer": false,
-              "positive": true
+              "positive": true,
+              "unit": "um (fixed internal model geometry)"
             },
             "mult": {
               "default": "1",
@@ -16835,8 +16868,10 @@
             "w": {
               "default": "30",
               "derived": false,
+              "fixed": "30",
               "integer": false,
-              "positive": true
+              "positive": true,
+              "unit": "um (fixed internal model geometry)"
             }
           },
           "pin_order": [
@@ -20637,7 +20672,9 @@
           "label": "pfet_20v0",
           "model": "sky130_fd_pr__pfet_20v0",
           "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_20v0__subcircuit.pm3.spice",
-          "notes": [],
+          "notes": [
+            "Fixed internal model geometry: W/L inputs do not scale the public 20 V subcircuit and out-of-bin values can fail model selection. Only the recorded W/L values are accepted; use mult for parallel copies. These values do not establish drawn-mask dimensions or reliability limits."
+          ],
           "parameter_scale": {
             "l": 1000000.0,
             "w": 1000000.0
@@ -20646,8 +20683,10 @@
             "l": {
               "default": "0.5",
               "derived": false,
+              "fixed": "0.5",
               "integer": false,
-              "positive": true
+              "positive": true,
+              "unit": "um (fixed internal model geometry)"
             },
             "mult": {
               "default": "1",
@@ -20658,8 +20697,10 @@
             "w": {
               "default": "30",
               "derived": false,
+              "fixed": "30",
               "integer": false,
-              "positive": true
+              "positive": true,
+              "unit": "um (fixed internal model geometry)"
             }
           },
           "pin_order": [

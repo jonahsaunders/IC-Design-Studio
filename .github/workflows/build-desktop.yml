@@ -448,6 +448,20 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_catalog_migration.py
+      - name: Verify fixed model geometry in the property editor
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_fixed_geometry.py
+      - name: Reconcile the complete bundled SPICE definition inventory
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        run: python scripts/inventory_device_models.py --output build/device-model-inventory.json
+      - name: Reconcile referenced IHP Verilog-A model types
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        run: python scripts/inventory_veriloga_models.py --output build/veriloga-model-inventory.json
       - name: Run six-case native testbench through the desktop interface
         if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
         timeout-minutes: 5
@@ -699,4 +713,6 @@ jobs:
             build/openems-native-evidence/*.log
             build/digital-frozen-evidence
             build/distribution-evidence
+            build/device-model-inventory.json
+            build/veriloga-model-inventory.json
             build/verification-0.8.0

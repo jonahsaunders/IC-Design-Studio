@@ -1,15 +1,15 @@
 # Bundled device corrections and reproducible qualification
 
-New projects use bundled SKY130 revision `8c3913de70b7e4b1`, GF180 C revision
+New projects use bundled SKY130 revision `293106f92f3e1dc5`, GF180 C revision
 `5f3017f16df69dbe`, GF180 D revision `836ecc491786bd41` and IHP revision
 `1e24ec25b491028b`. These include the tested resistor/NPN and MIM corrections,
 parallel-unit SKY130 varactors, capacitor terminal mappings, GF180 native-model
-selection and IHP isolation/clamp bindings. Saved projects retain their
+selection, IHP isolation/clamp bindings and fixed SKY130 20 V geometry. Saved projects retain their
 registered revisions; migration remains explicit. Original
 licenses, modification notices and source hashes are retained. These changes
 and their selected tests do not complete device-family qualification.
 
-The [current default integration record](validation/default-device-packages-2026-10-17.json)
+The earlier [default integration record](validation/default-device-packages-2026-10-17.json)
 passes 62 fresh electrical cases through normal project creation, plus nine
 IHP isolation cases. Independent raw readback verifies 4,590 terminal vectors,
 32 standard-MOS analyses and 740 deliberately faulted device instances. Both
@@ -23,11 +23,66 @@ layouts also pass; three physical faults and three spacing boundaries retain
 their separate expected outcomes. These are specific device fixtures, not
 qualification of every layout or operating condition.
 
-The 2,963-test regression runs each exposed one assertion requiring adjacent
+The earlier 2,963-test regression runs each exposed one assertion requiring adjacent
 width/length text even though named SPICE parameters are order-independent.
 The corrected assertion and related default-package/migration tests pass all
 18 focused checks on each host. Original failed full-run logs and explicit
 skips remain recorded. Complete installed-runtime acceptance is still separate.
+
+## Fixed geometry and bundled model inventory
+
+The [fixed-geometry and inventory record](validation/fixed-geometry-and-model-inventory-2026-10-17.json)
+adds a source-locked contract for all seven SKY130 20 V symbol views. Their
+internal transistor/parasitic dimensions are constant. W/L arguments do not
+scale that geometry, and out-of-bin values can prevent model selection.
+The app accepts only the recorded values, makes those fields read-only and
+excludes them from parameter searches. Parallel multiplicity remains editable.
+Generic MOS kp/vto/lambda fields are also excluded from searches when a PDK
+model makes them inactive. Saved projects retain their existing revisions.
+These internal model values do not establish drawn-mask dimensions or reliability limits.
+
+Both native Windows ngspice 42 and corrected Linux/WSL ngspice 47 pass 54
+selected DC/AC cases: three corners and 0/27/85 C, with the previously declared
+0–1.2 V gate sweep and independent terminal drives. Each host passes 3,132
+terminal vectors, 36 within-bin dimension controls and 252 deliberately faulted
+instances. Independent raw readback checks all 324 output files across both
+hosts. Wider dimension controls retain their original model-selection failures.
+This is interface qualification at those points, not the full 20 V operating envelope.
+
+The complete bundled SPICE include closure contains 6,402 definition occurrences
+and 52 alternate declarations in source symbols. The inventory preserves source
+lines, library sections, internal scope, conditional branches and naming diagnostics.
+Every usable catalog model is present in each selectable corner. Three named
+SKY130 alternatives lack definitions in this closure; alternatives are not
+enabled or qualified by inventory alone. The separate IHP Verilog-A inventory
+finds nine declarations and accounts for all six referenced external types.
+Both inventory reports are identical on Windows and Linux. Other upstream views
+and process options remain outside this source-coverage claim.
+
+```sh
+python scripts/qualify_sky130_fixed_geometry.py --package icstudio/assets/pdks/sky130A --output /path/to/new-results --ngspice /path/to/ngspice
+python scripts/inventory_device_models.py --output /path/to/new-model-inventory.json
+python scripts/inventory_veriloga_models.py --output /path/to/new-veriloga-inventory.json
+```
+
+The latest Linux full regression discovers 2,979 tests and passes with 15 explicit
+skips. The Windows full run discovers 2,976 tests: 2,903 pass, 36 skip and 37
+encounter sandbox socket/junction restrictions. All 37 pass when rerun with
+the required local access; three subsequently added Verilog-A inventory tests
+also pass. Original failed runs remain failures in the evidence record.
+The editor checks all 14 fixed fields and seven editable multipliers on each
+host. All 235 usable catalog entries pass save/reopen/netlist/export checks;
+20 unavailable entries retain their expected rejections. Desktop CI now runs
+the fixed-field editor check and both model inventory checks.
+
+The later [artifact-path correction](validation/artifact-path-portability-2026-10-17.json)
+fixes the short/full Windows directory aliases that caused 15 failures in an
+earlier Windows release build. Both hosts pass all 15 original failing cases.
+The focused digital/export run discovers 45 tests per host: Windows passes 40
+and skips five unavailable-engine checks; Linux passes 42 and skips three
+Windows-only checks. Seven additional Windows alias/long-path checks pass.
+The full regression runs above predate this path correction. Final-head CI and
+installed desktop acceptance remain pending.
 
 ## Prepare and install
 
@@ -368,7 +423,7 @@ body and isolated-substrate connections. AC tests drive every terminal
 independently from 1 kHz to 1 GHz. Several SKY130 models provide discrete size
 bins; the retained initial generic-size failures are not passes. The 20 V
 models use fixed internal geometry, so their two tested instances vary
-multiplicity rather than effective W/L. Their editable default geometry
-contract still needs correction. Named corner selections also do not imply
+multiplicity rather than effective W/L. The newer fixed-geometry contract
+described above now enforces that limitation. Named corner selections also do not imply
 distinct corner models for every device. Full operating limits, statistical
 behavior, physical layout/extraction and other selectable models remain open.

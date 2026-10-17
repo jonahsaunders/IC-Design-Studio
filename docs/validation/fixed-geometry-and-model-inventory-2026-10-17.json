@@ -1,0 +1,493 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "status": "partial",
+  "chunk_complete": false,
+  "qualified": false,
+  "source_baseline": "fea15368b43a92e7a93d896428ef080b6b9d2cad",
+  "scope": "Source-locked fixed internal geometry for seven SKY130 20 V symbol views, enforced by parameter validation, editor and study/optimizer controls. Full bundled SPICE definition/alternate inventory and IHP Verilog-A declaration reconciliation. Selected DC/AC integration, not full device, operating-envelope, physical, RF, reliability or foundry qualification.",
+  "default_package": {
+    "target": "sky130A",
+    "revision": "293106f92f3e1dc5",
+    "manifest_sha256": "ac79988e7ccf06ef550966de9ffc7ab394d934c5ddda861d1fb01e0813337f4b",
+    "changed_symbol_views": 7,
+    "upstream_asset_bytes_unchanged": true,
+    "saved_projects_unchanged": true
+  },
+  "electrical": {
+    "Linux": {
+      "report_sha256": "af6ce6e457539847d4fc1cd7cbc1ce1b959f3206e6357601fd50640a9173db5f",
+      "engine_launcher_or_executable_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9",
+      "source_files_sha256": "41627d4bf93cbca53201b1b684c0623a04b4f2c137882bdc2fffec1ed1b02f13",
+      "audit_sha256": "0a741f139a4c144dd658b2a8355de9e5bc2f5426430df60f429773d37276b81d",
+      "cases": 54,
+      "independent_vectors": 3132,
+      "independent_samples": 102312,
+      "fault_simulations": 18,
+      "faulted_instances": 252,
+      "invariance_controls": 36,
+      "invariance_vectors": 2088,
+      "invariance_samples": 75168
+    },
+    "Windows": {
+      "report_sha256": "c5d3d5edd5b5c1a86fa0a38102484eb96190b95b03b4238a1370528a9fe7b254",
+      "engine_launcher_or_executable_sha256": "f86062f3bb1016dcf1552a57f38954891b4e71aee6defbebde6de589ee55682f",
+      "source_files_sha256": "fe2bea0b0d482abf60333072593f9967086d39f7bb0e85ed11d5c7d1fae810c5",
+      "audit_sha256": "1da0e4d34687d97fd6441493799a1395042fd25e56afc7dfa104854bacdaed07",
+      "cases": 54,
+      "independent_vectors": 3132,
+      "independent_samples": 102312,
+      "fault_simulations": 18,
+      "faulted_instances": 252,
+      "invariance_controls": 36,
+      "invariance_vectors": 2088,
+      "invariance_samples": 75168
+    }
+  },
+  "independent_raw_readback": {
+    "status": "PASS",
+    "files": 324
+  },
+  "catalog": {
+    "Linux": {
+      "report_sha256": "c4c074f0013f94bba9b2a2701478560577028b5f44ed54070bdf537339a7472d",
+      "usable_passes": 235,
+      "expected_unsupported": 20
+    },
+    "Windows": {
+      "report_sha256": "cdfd37f7dc047018dc2b8c7f6276054ac5a5b01a4e7b59acb6134350be6bcf99",
+      "usable_passes": 235,
+      "expected_unsupported": 20
+    }
+  },
+  "regressions": {
+    "Linux": {
+      "status": "PASS",
+      "discovered": 2979,
+      "initial_passed": 2964,
+      "initial_errors": 0,
+      "resolved_passes": 2964,
+      "skipped": 15,
+      "seconds": 590.485,
+      "log_sha256": "b903852b19f3c6450448e9abd94a48a83e4cdec6da2d2599ace077f112e50b86",
+      "followup": null,
+      "skip_reasons": [
+        "Actual linked SKY130 and ngspice required",
+        "Directory junctions are Windows-specific",
+        "Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests",
+        "Set ICSTUDIO_TEST_XSCHEM or install Xschem for destination-tool tests.",
+        "Windows extended-length filesystem paths",
+        "Windows inherited pipe test",
+        "Windows open handles deny atomic replacement"
+      ],
+      "additional_veriloga_tests": 0,
+      "additional_tests_scope": "The Verilog-A companion passed three tests separately on each host; the final Linux full run also includes them. The Windows full suite was discovered before this companion was added."
+    },
+    "Windows": {
+      "status": "PASS_AFTER_ENVIRONMENT_RETRY",
+      "discovered": 2976,
+      "initial_passed": 2903,
+      "initial_errors": 37,
+      "resolved_passes": 2940,
+      "skipped": 36,
+      "seconds": 1146.897,
+      "log_sha256": "55ad1b2addd76ba20d19d7c8fa13a75b2000c4a326038d76342d1d856c74e05e",
+      "followup": {
+        "passed": 37,
+        "skipped": 0,
+        "log_sha256": "6e5175851472327165344044d2d3ba0aee58428c10feefbd0ac9fc7149241220",
+        "reason": "Run outside the socket/junction sandbox with the same test-discovery sibling import path. No application changes or waived assertions."
+      },
+      "skip_reasons": [
+        "Actual linked SKY130 and ngspice required",
+        "Install Icarus and Verilator with coverage",
+        "Install Icarus for peripheral acceptance",
+        "Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP",
+        "Install Verilator or set ICSTUDIO_TEST_VERILATOR",
+        "Install Yosys or set ICSTUDIO_TEST_YOSYS",
+        "Install ngspice/Icarus or set ICSTUDIO_TEST engine paths",
+        "Native Icarus required",
+        "Native Linux unpacking lifecycle",
+        "Native tar symlink extraction is tested on Linux",
+        "POSIX process-group regression; Windows uses taskkill /T",
+        "Process-tree supervision requires Linux procfs",
+        "Real symlinks are verified by the native Linux build",
+        "Requires local ngspice, iverilog and vvp",
+        "Set ICSTUDIO_TEST_MAGIC or install Magic for destination-tool tests.",
+        "Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests",
+        "Set ICSTUDIO_TEST_XSCHEM or install Xschem for destination-tool tests.",
+        "Symlink creation may require Windows administrator permission",
+        "Unix executable permissions are restored inside Linux",
+        "Windows requires Developer Mode or symlink privilege for this fixture."
+      ],
+      "additional_veriloga_tests": 3,
+      "additional_tests_scope": "The Verilog-A companion passed three tests separately on each host; the final Linux full run also includes them. The Windows full suite was discovered before this companion was added."
+    }
+  },
+  "editor": {
+    "Windows": "PASS",
+    "Linux": "PASS",
+    "fixed_dimension_fields_per_host": 14,
+    "editable_parallel_factors_per_host": 7
+  },
+  "inventory": {
+    "status": "PASS",
+    "platform_reports_identical": true,
+    "report_sha256": "05bd6cbddad992186fa1c0d62bfa671feaa78fea4ea2f6169db565f88a465338",
+    "definitions": 6402,
+    "targets": {
+      "sky130A": {
+        "manifest_sha256": "ac79988e7ccf06ef550966de9ffc7ab394d934c5ddda861d1fb01e0813337f4b",
+        "files": 319,
+        "definitions": 4811,
+        "roles": {
+          "catalog": 81,
+          "unmapped-top-level": 203,
+          "symbol-alternative": 18,
+          "internal": 4509
+        },
+        "catalog_entries": 74,
+        "corner_selections": 20,
+        "alternate_declarations": 28,
+        "missing_active_catalog_models": [],
+        "missing_alternate_definitions": [
+          {
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "declared_name": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "literal_format_expansion": "sky130_fd_pr__sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "requires_namespace_adapter": true,
+            "device": "sky130_fd_pr/diode.sym",
+            "prefix": "D",
+            "current_default": false,
+            "definitions": [],
+            "absent_in_corners": [
+              "ff",
+              "ff_mm",
+              "fs",
+              "fs_mm",
+              "hh",
+              "hh_mm",
+              "hl",
+              "hl_mm",
+              "lh",
+              "lh_mm",
+              "ll",
+              "ll_mm",
+              "mc",
+              "nominal",
+              "sf",
+              "sf_mm",
+              "ss",
+              "ss_mm",
+              "tt",
+              "tt_mm"
+            ],
+            "exposed_catalog_entries": []
+          },
+          {
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_pw2dn",
+            "declared_name": "sky130_fd_pr__model__parasitic__rf_diode_pw2dn",
+            "literal_format_expansion": "sky130_fd_pr__sky130_fd_pr__model__parasitic__rf_diode_pw2dn",
+            "requires_namespace_adapter": true,
+            "device": "sky130_fd_pr/diode.sym",
+            "prefix": "D",
+            "current_default": false,
+            "definitions": [],
+            "absent_in_corners": [
+              "ff",
+              "ff_mm",
+              "fs",
+              "fs_mm",
+              "hh",
+              "hh_mm",
+              "hl",
+              "hl_mm",
+              "lh",
+              "lh_mm",
+              "ll",
+              "ll_mm",
+              "mc",
+              "nominal",
+              "sf",
+              "sf_mm",
+              "ss",
+              "ss_mm",
+              "tt",
+              "tt_mm"
+            ],
+            "exposed_catalog_entries": []
+          },
+          {
+            "model": "sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5",
+            "declared_name": "cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5",
+            "literal_format_expansion": "sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5",
+            "requires_namespace_adapter": false,
+            "device": "sky130_fd_pr/vpp_cap.sym",
+            "prefix": "X",
+            "current_default": false,
+            "definitions": [],
+            "absent_in_corners": [
+              "ff",
+              "ff_mm",
+              "fs",
+              "fs_mm",
+              "hh",
+              "hh_mm",
+              "hl",
+              "hl_mm",
+              "lh",
+              "lh_mm",
+              "ll",
+              "ll_mm",
+              "mc",
+              "nominal",
+              "sf",
+              "sf_mm",
+              "ss",
+              "ss_mm",
+              "tt",
+              "tt_mm"
+            ],
+            "exposed_catalog_entries": []
+          }
+        ]
+      },
+      "gf180mcuC": {
+        "manifest_sha256": "408fa5e9d94e5e91d482988c26938bfb3b2a47dbfef68d8e5077144ba6eae1f0",
+        "files": 4,
+        "definitions": 732,
+        "roles": {
+          "catalog": 137,
+          "unmapped-top-level": 442,
+          "internal": 142,
+          "symbol-alternative": 11
+        },
+        "catalog_entries": 68,
+        "corner_selections": 6,
+        "alternate_declarations": 12,
+        "missing_active_catalog_models": [],
+        "missing_alternate_definitions": []
+      },
+      "gf180mcuD": {
+        "manifest_sha256": "ec95eefadaade5459b0bae8ac6d3d01d23927507ec10b86801fa4f2cf9f14bc2",
+        "files": 4,
+        "definitions": 732,
+        "roles": {
+          "catalog": 137,
+          "unmapped-top-level": 442,
+          "internal": 142,
+          "symbol-alternative": 11
+        },
+        "catalog_entries": 68,
+        "corner_selections": 6,
+        "alternate_declarations": 12,
+        "missing_active_catalog_models": [],
+        "missing_alternate_definitions": []
+      },
+      "ihp-sg13g2": {
+        "manifest_sha256": "ba1fbda134f02ad703126527993fa5d01c5d3afcc71161afc35c065d3df227ab",
+        "files": 39,
+        "definitions": 127,
+        "roles": {
+          "catalog": 54,
+          "internal": 37,
+          "unmapped-top-level": 36
+        },
+        "catalog_entries": 45,
+        "corner_selections": 3,
+        "alternate_declarations": 0,
+        "missing_active_catalog_models": [],
+        "missing_alternate_definitions": []
+      }
+    },
+    "scope": "All definitions reachable through the bundled SPICE include closure, with source line, library, internal/global scope, and conditional branches. The alternative lists are inventoried, not enabled or electrically qualified. This does not establish completeness of other upstream tool views or process variants."
+  },
+  "veriloga": {
+    "status": "PASS",
+    "platform_reports_identical": true,
+    "report_sha256": "19d637cd5e44fc4b9629fdc9f53625cb649e02926d9bb417b2ab2d5fb51761ab",
+    "locked_files": 32,
+    "declarations": [
+      {
+        "source": "libs.tech/verilog-a/cap_cmomf/cap_cmomf.va",
+        "line": 89,
+        "module": "cap_cmomf",
+        "terminals": [
+          "PLUS",
+          "MINUS"
+        ],
+        "conditions": []
+      },
+      {
+        "source": "libs.tech/verilog-a/cap_cmomi/cap_cmomi.va",
+        "line": 122,
+        "module": "cap_cmomi",
+        "terminals": [
+          "PLUS",
+          "MINUS",
+          "SUB"
+        ],
+        "conditions": []
+      },
+      {
+        "source": "libs.tech/verilog-a/mosvar/mosvar.va",
+        "line": 172,
+        "module": "mosvar",
+        "terminals": [
+          "g",
+          "bi",
+          "b"
+        ],
+        "conditions": []
+      },
+      {
+        "source": "libs.tech/verilog-a/psp103/juncap200.va",
+        "line": 46,
+        "module": "JUNCAP200",
+        "terminals": [
+          "A",
+          "K"
+        ],
+        "conditions": []
+      },
+      {
+        "source": "libs.tech/verilog-a/psp103/psp103.va",
+        "line": 47,
+        "module": "PSP103_VA",
+        "terminals": [
+          "D",
+          "G",
+          "S",
+          "B"
+        ],
+        "conditions": [
+          [
+            "`ifdef __XYCE__"
+          ]
+        ]
+      },
+      {
+        "source": "libs.tech/verilog-a/psp103/psp103.va",
+        "line": 49,
+        "module": "PSP103VA",
+        "terminals": [
+          "D",
+          "G",
+          "S",
+          "B"
+        ],
+        "conditions": [
+          [
+            "`ifdef __XYCE__",
+            "`else"
+          ]
+        ]
+      },
+      {
+        "source": "libs.tech/verilog-a/psp103/psp103_nqs.va",
+        "line": 50,
+        "module": "PSPNQS103VA",
+        "terminals": [
+          "D",
+          "G",
+          "S",
+          "B"
+        ],
+        "conditions": []
+      },
+      {
+        "source": "libs.tech/verilog-a/psp103/psp103t.va",
+        "line": 48,
+        "module": "PSP103TVA",
+        "terminals": [
+          "D",
+          "G",
+          "S",
+          "B",
+          "DT"
+        ],
+        "conditions": []
+      },
+      {
+        "source": "libs.tech/verilog-a/r3_cmc/r3_cmc.va",
+        "line": 64,
+        "module": "r3_cmc",
+        "terminals": [
+          "n1",
+          "nc",
+          "n2",
+          "dt"
+        ],
+        "conditions": []
+      }
+    ],
+    "referenced_types": [
+      "cap_cmomf",
+      "cap_cmomi",
+      "mosvar",
+      "psp103va",
+      "pspnqs103va",
+      "r3_cmc"
+    ],
+    "additional_declarations": [
+      "JUNCAP200",
+      "PSP103TVA",
+      "PSP103_VA"
+    ],
+    "missing": [],
+    "scope": "Reconcile IHP external model types with locked Verilog-A declarations.\n\nAll preprocessor branches remain explicit. This is source coverage, not a\ncompiler, ABI, parameter-range or electrical qualification. In particular the\nXYCE and thermal PSP declarations are not added to the six-library OSDI runtime.\n"
+  },
+  "failures_preserved": [
+    {
+      "experiment": "Original doubled-W/tripled-L independent controls",
+      "status": "FAIL",
+      "passed_cases": 36,
+      "failed_cases": 18,
+      "reason": "Changing W outside the public PFET model bin prevented simulator model selection. Internal geometry is fixed, but header inputs can still affect model selection. No general arbitrary-W/L invariance is claimed. Subsequent controls stay within all explicit public model bins: W times 0.9 and L times 0.999."
+    },
+    {
+      "experiment": "Initial search-target assertion",
+      "status": "FAIL",
+      "reason": "The assertion exposed inactive generic MOS kp/vto/lambda search targets on PDK devices. These and fixed dimensions are now excluded; direct saved-study edits of inactive parameters are rejected."
+    },
+    {
+      "experiment": "Initial source inventory parser",
+      "status": "FAIL",
+      "reason": "GF180 has mismatched .ends labels. The inventory now retains those diagnostics while preserving balanced scopes. Literal double-prefix expansion of qualified SKY130 diode alternatives remains explicitly recorded instead of becoming a guessed runtime binding."
+    },
+    {
+      "experiment": "First Linux full-suite test copy",
+      "status": "FAIL",
+      "tests": 2976,
+      "errors": 1,
+      "skipped": 15,
+      "reason": "The snapshot copy excluded .log files, omitting a required authenticated oracle fixture. The repository fixture was intact. The complete fixtures were restored from the frozen source archive and the full suite rerun; original failed logs are preserved."
+    },
+    {
+      "experiment": "Cross-host exact floating-point raw readback",
+      "status": "FAIL",
+      "reason": "Reconstructing Windows complex magnitudes on Linux failed exact float equality. The observed vector differs by one ULP on seven samples. The same-host Windows audit independently re-read all 162 raw files and passed exact sample equality and every comparison, without changing tolerances or simulator data."
+    },
+    {
+      "experiment": "Sandboxed Windows full suite and first focused retry",
+      "status": "FAIL",
+      "reason": "The full run records 37 errors from restricted loopback sockets and directory junctions, plus 36 explicit skips. The first retry resolves 23 tests but lacks a sibling test import for 14. With the original discovery import path restored and local test access available, all 37 pass. Original full and first-retry failures remain unchanged."
+    }
+  ],
+  "historical_source_preservation": "The exact analog_optimizer.py, project_ui.py and studies.py bytes used by the earlier GF180 physical gate are retained under a new linked historical snapshot. This preserves that earlier claim only; no current-source physical acceptance is inferred.",
+  "archive": {
+    "path": "IC-Design-Studio-evidence/fixed-geometry-and-model-inventory-2026-10-17/evidence.zip",
+    "sha256": "cb1cf615422974097857a4babbb7ce90b46c8281b6a2e40302ac81efd9533b0f",
+    "bytes": 197006310,
+    "file_paths": 190640,
+    "unique_contents": 11288,
+    "all_objects_and_copy_verified": true
+  },
+  "remaining": [
+    "Complete published device operating envelopes, geometry/bias/temperature, noise, statistical/reliability and RF behavior.",
+    "Broader physical generation and extracted connectivity for resistor, capacitor, diode, bipolar, high-voltage and RF families across the required process options.",
+    "Explicit adapters and execution/physical qualification for alternate model choices; three declared SKY130 alternate names lack definitions in the bundled closure.",
+    "Complete upstream model/tool-view/process-option reconciliation beyond the locked bundled sources.",
+    "Desktop packaging and installed-runtime acceptance for the final experimental revision. The native Windows ngspice 42 and corrected Linux/WSL ngspice 47 tests are separate results."
+  ]
+}

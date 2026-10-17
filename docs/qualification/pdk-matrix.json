@@ -34,7 +34,7 @@
     "7": {
       "name": "Qualify device families",
       "status": "in_progress",
-      "scope": "All 255 primitive symbol sources reconcile with pinned public views. Selected electrical evidence covers MOS/clamp, resistor, capacitor, diode, bipolar and isolation entries with independent references and deliberate faults. The reviewed capacitor/MOS/isolation corrections are now the default packages; saved projects retain their exact revisions. Fresh default checks pass 62 electrical cases and nine isolation cases, 235 usable catalog entries on each host, 30 standard GF180 C/D/IHP transistor layouts and 12 IHP MIM layouts, with 93 deliberate physical faults detected. Full device operating envelopes, broader physical/extracted connectivity, model-only and alternate-model inventory, SKY130 fixed-geometry contracts and complete installed-runtime acceptance remain open. Historical results retain their original source and package scope."
+      "scope": "All 255 primitive symbol sources reconcile with pinned public views. The bundled include closure now inventories 6,402 SPICE definitions and 52 source-symbol alternate declarations; nine IHP Verilog-A declarations cover all six referenced external model types. All 235 usable defaults pass catalog interfaces on Windows and Linux. Seven SKY130 20 V symbol views now enforce fixed internal model geometry, passing 54 selected cases and 252 deliberate device faults on each host; original assets and saved revisions are preserved. Earlier device sweeps and physical fixtures retain their exact source/PDK scope. Complete device operating envelopes, alternate-model adapters/execution, broader physical/extracted connectivity, full upstream process/tool-view completeness and final installed-runtime acceptance remain open."
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -59,9 +59,9 @@
   },
   "inventory": {
     "sky130A": {
-      "revision": "8c3913de70b7e4b1",
-      "manifest_sha256": "7f07476f0bdd530ec3060e3f7e74103e8d3f7b70ff61298af7295cb21a096ae5",
-      "asset_count": 409,
+      "revision": "293106f92f3e1dc5",
+      "manifest_sha256": "ac79988e7ccf06ef550966de9ffc7ab394d934c5ddda861d1fb01e0813337f4b",
+      "asset_count": 410,
       "indexed_count": 74,
       "placeable_count": 71,
       "source_locks": {
@@ -830,7 +830,9 @@
               "default": "2.95",
               "positive": true,
               "integer": false,
-              "derived": false
+              "derived": false,
+              "fixed": "2.95",
+              "unit": "um (fixed internal model geometry)"
             },
             "mult": {
               "default": "1",
@@ -842,7 +844,9 @@
               "default": "29.41",
               "positive": true,
               "integer": false,
-              "derived": false
+              "derived": false,
+              "fixed": "29.41",
+              "unit": "um (fixed internal model geometry)"
             }
           },
           "emit_parameters": {
@@ -2163,7 +2167,9 @@
               "default": "2.95",
               "positive": true,
               "integer": false,
-              "derived": false
+              "derived": false,
+              "fixed": "2.95",
+              "unit": "um (fixed internal model geometry)"
             },
             "mult": {
               "default": "1",
@@ -2175,7 +2181,9 @@
               "default": "29.41",
               "positive": true,
               "integer": false,
-              "derived": false
+              "derived": false,
+              "fixed": "29.41",
+              "unit": "um (fixed internal model geometry)"
             }
           },
           "emit_parameters": {
@@ -2208,7 +2216,9 @@
               "default": "1.5",
               "positive": true,
               "integer": false,
-              "derived": false
+              "derived": false,
+              "fixed": "1.5",
+              "unit": "um (fixed internal model geometry)"
             },
             "mult": {
               "default": "1",
@@ -2220,7 +2230,9 @@
               "default": "30",
               "positive": true,
               "integer": false,
-              "derived": false
+              "derived": false,
+              "fixed": "30",
+              "unit": "um (fixed internal model geometry)"
             }
           },
           "emit_parameters": {
@@ -2252,7 +2264,9 @@
               "default": "1.5",
               "positive": true,
               "integer": false,
-              "derived": false
+              "derived": false,
+              "fixed": "1.5",
+              "unit": "um (fixed internal model geometry)"
             },
             "mult": {
               "default": "1",
@@ -2264,7 +2278,9 @@
               "default": "30",
               "positive": true,
               "integer": false,
-              "derived": false
+              "derived": false,
+              "fixed": "30",
+              "unit": "um (fixed internal model geometry)"
             }
           },
           "emit_parameters": {
@@ -2296,7 +2312,9 @@
               "default": "5",
               "positive": true,
               "integer": false,
-              "derived": false
+              "derived": false,
+              "fixed": "5",
+              "unit": "um (fixed internal model geometry)"
             },
             "mult": {
               "default": "1",
@@ -2308,7 +2326,9 @@
               "default": "30",
               "positive": true,
               "integer": false,
-              "derived": false
+              "derived": false,
+              "fixed": "30",
+              "unit": "um (fixed internal model geometry)"
             }
           },
           "emit_parameters": {
@@ -3306,7 +3326,9 @@
               "default": "0.5",
               "positive": true,
               "integer": false,
-              "derived": false
+              "derived": false,
+              "fixed": "0.5",
+              "unit": "um (fixed internal model geometry)"
             },
             "mult": {
               "default": "1",
@@ -3318,7 +3340,9 @@
               "default": "30",
               "positive": true,
               "integer": false,
-              "derived": false
+              "derived": false,
+              "fixed": "30",
+              "unit": "um (fixed internal model geometry)"
             }
           },
           "emit_parameters": {
@@ -4288,7 +4312,9 @@
               "default": "0.5",
               "positive": true,
               "integer": false,
-              "derived": false
+              "derived": false,
+              "fixed": "0.5",
+              "unit": "um (fixed internal model geometry)"
             },
             "mult": {
               "default": "1",
@@ -4300,7 +4326,9 @@
               "default": "30",
               "positive": true,
               "integer": false,
-              "derived": false
+              "derived": false,
+              "fixed": "30",
+              "unit": "um (fixed internal model geometry)"
             }
           },
           "emit_parameters": {
@@ -16109,7 +16137,8 @@
       "expected_result": "No omitted bundled entries or changed hashes. Each upstream omission is a named gap; indexing never implies electrical or physical qualification.",
       "conditions": "Four analog variants; three current digital profiles; GF180-D digital profile absent.",
       "existing_runners": [
-        "scripts/check_pdk_qualification.py"
+        "scripts/check_pdk_qualification.py",
+        "scripts/inventory_device_models.py"
       ],
       "automation_gap": "Existing runners cover bounded references only; extend and bind results to the exact target, device and conditions before closing this requirement."
     },
@@ -16222,7 +16251,10 @@
       "procedure": "Enumerate upstream symbols, models, PCells, extracted-device mappings, libraries and process options; map every item to supported, unimplemented or inapplicable with a reason and source.",
       "expected_result": "No device/option silently omitted. Unsupported required devices remain release blockers, including IHP inductors and unavailable model closures.",
       "conditions": "All four variants; inventory must include upstream-only devices absent from the bundled catalog.",
-      "existing_runners": [],
+      "existing_runners": [
+        "scripts/inventory_device_models.py",
+        "scripts/inventory_veriloga_models.py"
+      ],
       "automation_gap": "Complete upstream inventory comparison still needs implementation; the bundled inventory is not the full PDK."
     },
     "device-interface": {
@@ -16252,7 +16284,8 @@
         "scripts/qualify_standard_mos.py",
         "scripts/qualify_standard_mos_bias.py",
         "scripts/qualify_standard_passives.py",
-        "scripts/check_passive_multiplicity.py"
+        "scripts/check_passive_multiplicity.py",
+        "scripts/qualify_sky130_fixed_geometry.py"
       ],
       "automation_gap": "Standard MOS selected geometry/corner/bias sweeps and bounded SKY130 physical recipes now execute; complete upstream interfaces, model-validity envelopes, other device variants/families, measured model accuracy and full parameter-boundary coverage remain open."
     },
@@ -16642,7 +16675,8 @@
         "analog-smoke",
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
-        "default-device-packages-2026-10-17"
+        "default-device-packages-2026-10-17",
+        "fixed-geometry-and-model-inventory-2026-10-17"
       ]
     },
     "sky130A:device-physical": {
@@ -16690,7 +16724,8 @@
       "status": "partial",
       "remaining": "Existing macro integrity controls are narrower than independently reproduced complete-chip handoff.",
       "historical_evidence": [
-        "macro-integrity"
+        "macro-integrity",
+        "artifact-path-portability-2026-10-17"
       ]
     },
     "sky130A:inventory": {
@@ -16699,7 +16734,8 @@
       "status": "partial",
       "remaining": "Primitive Xschem symbol source inventory is reconciled without missing, extra or changed entries. Full model-only/device-library/process-option reconciliation, other tool views and operating envelopes remain open.",
       "historical_evidence": [
-        "primitive-symbol-inventory-2026-10-16"
+        "primitive-symbol-inventory-2026-10-16",
+        "fixed-geometry-and-model-inventory-2026-10-17"
       ]
     },
     "sky130A:mixed-signal": {
@@ -16823,7 +16859,9 @@
       "test": "source-completeness",
       "status": "needs_definition",
       "remaining": "Complete upstream inventory comparison still needs implementation; the bundled inventory is not the full PDK.",
-      "historical_evidence": []
+      "historical_evidence": [
+        "fixed-geometry-and-model-inventory-2026-10-17"
+      ]
     },
     "sky130A:tool-install": {
       "target": "sky130A",
@@ -16955,7 +16993,8 @@
         "analog-smoke",
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
-        "default-device-packages-2026-10-17"
+        "default-device-packages-2026-10-17",
+        "fixed-geometry-and-model-inventory-2026-10-17"
       ]
     },
     "gf180mcuC:device-physical": {
@@ -17035,7 +17074,8 @@
       "status": "partial",
       "remaining": "Existing macro integrity controls are narrower than independently reproduced complete-chip handoff.",
       "historical_evidence": [
-        "macro-integrity"
+        "macro-integrity",
+        "artifact-path-portability-2026-10-17"
       ]
     },
     "gf180mcuC:inventory": {
@@ -17044,7 +17084,8 @@
       "status": "partial",
       "remaining": "Primitive Xschem symbol source inventory is reconciled without missing, extra or changed entries. Full model-only/device-library/process-option reconciliation, other tool views and operating envelopes remain open.",
       "historical_evidence": [
-        "primitive-symbol-inventory-2026-10-16"
+        "primitive-symbol-inventory-2026-10-16",
+        "fixed-geometry-and-model-inventory-2026-10-17"
       ]
     },
     "gf180mcuC:mixed-signal": {
@@ -17094,7 +17135,9 @@
       "test": "source-completeness",
       "status": "needs_definition",
       "remaining": "Complete upstream inventory comparison still needs implementation; the bundled inventory is not the full PDK.",
-      "historical_evidence": []
+      "historical_evidence": [
+        "fixed-geometry-and-model-inventory-2026-10-17"
+      ]
     },
     "gf180mcuC:tool-install": {
       "target": "gf180mcuC",
@@ -17223,7 +17266,8 @@
       "historical_evidence": [
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
-        "default-device-packages-2026-10-17"
+        "default-device-packages-2026-10-17",
+        "fixed-geometry-and-model-inventory-2026-10-17"
       ]
     },
     "gf180mcuD:device-physical": {
@@ -17307,7 +17351,8 @@
       "status": "partial",
       "remaining": "Existing macro integrity controls are narrower than independently reproduced complete-chip handoff.",
       "historical_evidence": [
-        "macro-integrity"
+        "macro-integrity",
+        "artifact-path-portability-2026-10-17"
       ]
     },
     "gf180mcuD:inventory": {
@@ -17316,7 +17361,8 @@
       "status": "partial",
       "remaining": "Primitive Xschem symbol source inventory is reconciled without missing, extra or changed entries. Full model-only/device-library/process-option reconciliation, other tool views and operating envelopes remain open.",
       "historical_evidence": [
-        "primitive-symbol-inventory-2026-10-16"
+        "primitive-symbol-inventory-2026-10-16",
+        "fixed-geometry-and-model-inventory-2026-10-17"
       ]
     },
     "gf180mcuD:mixed-signal": {
@@ -17360,7 +17406,9 @@
       "test": "source-completeness",
       "status": "needs_definition",
       "remaining": "Complete upstream inventory comparison still needs implementation; the bundled inventory is not the full PDK.",
-      "historical_evidence": []
+      "historical_evidence": [
+        "fixed-geometry-and-model-inventory-2026-10-17"
+      ]
     },
     "gf180mcuD:tool-install": {
       "target": "gf180mcuD",
@@ -17488,7 +17536,8 @@
         "analog-smoke",
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
-        "default-device-packages-2026-10-17"
+        "default-device-packages-2026-10-17",
+        "fixed-geometry-and-model-inventory-2026-10-17"
       ]
     },
     "ihp-sg13g2:device-physical": {
@@ -17576,7 +17625,8 @@
       "status": "partial",
       "remaining": "Existing macro integrity controls are narrower than independently reproduced complete-chip handoff.",
       "historical_evidence": [
-        "macro-integrity"
+        "macro-integrity",
+        "artifact-path-portability-2026-10-17"
       ]
     },
     "ihp-sg13g2:inventory": {
@@ -17585,7 +17635,8 @@
       "status": "partial",
       "remaining": "Primitive Xschem symbol source inventory is reconciled without missing, extra or changed entries. Full model-only/device-library/process-option reconciliation, other tool views and operating envelopes remain open.",
       "historical_evidence": [
-        "primitive-symbol-inventory-2026-10-16"
+        "primitive-symbol-inventory-2026-10-16",
+        "fixed-geometry-and-model-inventory-2026-10-17"
       ]
     },
     "ihp-sg13g2:mixed-signal": {
@@ -17635,7 +17686,9 @@
       "test": "source-completeness",
       "status": "needs_definition",
       "remaining": "Complete upstream inventory comparison still needs implementation; the bundled inventory is not the full PDK.",
-      "historical_evidence": []
+      "historical_evidence": [
+        "fixed-geometry-and-model-inventory-2026-10-17"
+      ]
     },
     "ihp-sg13g2:tool-install": {
       "target": "ihp-sg13g2",
@@ -17816,12 +17869,13 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected electrical/interface checks pass on the corrected default package. Complete device-specific geometry, bias, temperature, statistical/reliability and physical/extracted connectivity coverage remain open; earlier evidence retains its exact tested conditions and sources.",
+        "remaining": "Fixed internal model geometry is enforced and selected electrical/interface controls pass on Windows and Linux. Full high-voltage/bias/temperature, statistical/reliability, physical layout and extracted-connectivity qualification remain open; internal model dimensions do not establish drawn-mask geometry.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "fixed-geometry-and-model-inventory-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet3_g5v0d10v5.sym": {
@@ -17997,12 +18051,13 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected electrical/interface checks pass on the corrected default package. Complete device-specific geometry, bias, temperature, statistical/reliability and physical/extracted connectivity coverage remain open; earlier evidence retains its exact tested conditions and sources.",
+        "remaining": "Fixed internal model geometry is enforced and selected electrical/interface controls pass on Windows and Linux. Full high-voltage/bias/temperature, statistical/reliability, physical layout and extracted-connectivity qualification remain open; internal model dimensions do not establish drawn-mask geometry.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "fixed-geometry-and-model-inventory-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_20v0_iso.sym": {
@@ -18012,12 +18067,13 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected electrical/interface checks pass on the corrected default package. Complete device-specific geometry, bias, temperature, statistical/reliability and physical/extracted connectivity coverage remain open; earlier evidence retains its exact tested conditions and sources.",
+        "remaining": "Fixed internal model geometry is enforced and selected electrical/interface controls pass on Windows and Linux. Full high-voltage/bias/temperature, statistical/reliability, physical layout and extracted-connectivity qualification remain open; internal model dimensions do not establish drawn-mask geometry.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "fixed-geometry-and-model-inventory-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_20v0_nvt.sym": {
@@ -18027,12 +18083,13 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected electrical/interface checks pass on the corrected default package. Complete device-specific geometry, bias, temperature, statistical/reliability and physical/extracted connectivity coverage remain open; earlier evidence retains its exact tested conditions and sources.",
+        "remaining": "Fixed internal model geometry is enforced and selected electrical/interface controls pass on Windows and Linux. Full high-voltage/bias/temperature, statistical/reliability, physical layout and extracted-connectivity qualification remain open; internal model dimensions do not establish drawn-mask geometry.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "fixed-geometry-and-model-inventory-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_20v0_zvt.sym": {
@@ -18042,12 +18099,13 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected electrical/interface checks pass on the corrected default package. Complete device-specific geometry, bias, temperature, statistical/reliability and physical/extracted connectivity coverage remain open; earlier evidence retains its exact tested conditions and sources.",
+        "remaining": "Fixed internal model geometry is enforced and selected electrical/interface controls pass on Windows and Linux. Full high-voltage/bias/temperature, statistical/reliability, physical layout and extracted-connectivity qualification remain open; internal model dimensions do not establish drawn-mask geometry.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "fixed-geometry-and-model-inventory-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_g5v0d10v5.sym": {
@@ -18200,12 +18258,13 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected electrical/interface checks pass on the corrected default package. Complete device-specific geometry, bias, temperature, statistical/reliability and physical/extracted connectivity coverage remain open; earlier evidence retains its exact tested conditions and sources.",
+        "remaining": "Fixed internal model geometry is enforced and selected electrical/interface controls pass on Windows and Linux. Full high-voltage/bias/temperature, statistical/reliability, physical layout and extracted-connectivity qualification remain open; internal model dimensions do not establish drawn-mask geometry.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "fixed-geometry-and-model-inventory-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet3_g5v0d10v5.sym": {
@@ -18336,12 +18395,13 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected electrical/interface checks pass on the corrected default package. Complete device-specific geometry, bias, temperature, statistical/reliability and physical/extracted connectivity coverage remain open; earlier evidence retains its exact tested conditions and sources.",
+        "remaining": "Fixed internal model geometry is enforced and selected electrical/interface controls pass on Windows and Linux. Full high-voltage/bias/temperature, statistical/reliability, physical layout and extracted-connectivity qualification remain open; internal model dimensions do not establish drawn-mask geometry.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "fixed-geometry-and-model-inventory-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet_g5v0d10v5.sym": {
@@ -21840,6 +21900,16 @@
       "path": "docs/validation/default-device-packages-2026-10-17.json",
       "sha256": "fcbc33a435a90f8fe5e8b3a22500a0ce448aeba4a00e8713fbb8f2ef6369853f",
       "scope_limit": "Exact tested corrections promoted to all four defaults. 62 fresh electrical cases plus nine IHP isolation cases; 30 GF180/IHP MOS and 12 IHP MIM layouts with 93 physical faults. All 255 catalog outcomes checked on both hosts (235 usable, 20 expected unsupported). Full ranges, other devices/models and installed-image acceptance remain open. Full-suite ordering-assertion failure retained, corrected targeted tests pass."
+    },
+    "fixed-geometry-and-model-inventory-2026-10-17": {
+      "path": "docs/validation/fixed-geometry-and-model-inventory-2026-10-17.json",
+      "sha256": "0323f02a58a8de466995edec436c4fc2c92553d4a214203cc29ae7605ad0ef3a",
+      "scope_limit": "Seven fixed SKY130 20 V interfaces: 54 selected cases per host, 36 within-bin invariance controls and 252 faulted instances per host. 6,402 SPICE definitions, 52 alternate declarations and nine IHP Verilog-A declarations inventoried. Defaults pass all usable catalog interfaces. Full ranges, alternate adapters, broader physical and installed release acceptance remain open; failed environment/test-copy runs are retained."
+    },
+    "artifact-path-portability-2026-10-17": {
+      "path": "docs/validation/artifact-path-portability-2026-10-17.json",
+      "sha256": "72415fd8a91387852b6de4c4cfe127f43791c452d4c42cefad7bc761fc4d7731",
+      "scope_limit": "Canonical job-artifact paths, with all 15 previous Windows CI failures passing on both hosts. Focused workflow/export tests pass with explicit engine/platform skips. No new device, physical or final installer qualification is inferred."
     }
   },
   "execution_acceptance": {
@@ -21855,8 +21925,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/gf180-tested-source-2026-10-16-runtime/manifest.json",
-        "sha256": "8d62b70037fb6a6608e5d01d7a0b20a3e7df8e6ab53c0e0194020519043d67a0"
+        "path": "docs/validation/gf180-tested-source-2026-10-17-fixed/manifest.json",
+        "sha256": "ecdfa28e37bb6efdededc5ab7f04159e943685353f00e6ffc019e73579a0047d"
       }
     },
     "5": {

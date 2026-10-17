@@ -59,7 +59,29 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
-The [current default-package integration](validation/default-device-packages-2026-10-17.json)
+The [latest fixed-geometry and model inventory record](validation/fixed-geometry-and-model-inventory-2026-10-17.json)
+closes the editable SKY130 20 V geometry defect for all seven views. Both hosts
+pass 54 selected electrical cases and 252 deliberate device faults, and the
+editor prevents ineffective geometry edits. The bundled source inventory now
+accounts for 6,402 SPICE definition occurrences, 52 alternate declarations and
+nine IHP Verilog-A declarations covering all six referenced external types.
+All 235 usable catalog interfaces pass on both hosts. The final Linux full
+suite discovers 2,979 tests and passes with 15 skips; the Windows run's 37 sandbox-blocked
+tests all pass with local access restored, while its original failed outcome
+and 36 skips remain recorded. Three additional inventory tests pass separately.
+Complete operating envelopes, alternate-model adapters and execution, broader
+physical/extracted connectivity, full upstream coverage and exact installed
+release acceptance still prevent completion of chunk 7.
+
+The subsequent [artifact-path correction](validation/artifact-path-portability-2026-10-17.json)
+resolves inconsistent Windows short/full directory names in verification-file
+capture. All 15 failures from the earlier Windows release build pass on both
+hosts. Focused workflow/export regressions pass 40 tests on Windows (five
+unavailable-engine skips) and 42 on Linux (three Windows-only skips), with
+seven additional Windows alias/long-path checks passing. The full-suite results
+above predate this correction; final-head CI and installer acceptance remain open.
+
+The earlier [default-package integration](validation/default-device-packages-2026-10-17.json)
 puts the reviewed capacitor, MOS and isolation corrections into new SKY130,
 GF180 C/D and IHP projects while preserving saved revisions. All 62 fresh
 electrical cases and nine isolation cases pass, with 740 deliberately faulted
@@ -82,8 +104,8 @@ detect disabled RF mode in 72 instances. Source-backed corrections fix the
 GF180 native-model selection and IHP clamp supply order; new registrations
 apply those fixes, and explicit packages preserve the original asset bytes.
 Twenty-six focused tests pass on each host. The broader operating envelopes,
-physical coverage, model-only inventory and default package/runtime integration
-are still required before chunk 7 can be declared complete.
+physical coverage, complete operating envelopes and installed-runtime acceptance
+remain required. The newer source inventory and defaults are recorded above.
 
 The [completed MOS sweeps](validation/standard-mos-sweeps-2026-10-16.json)
 add 432 cases across six selected geometries, three process corners and
@@ -183,8 +205,8 @@ adds a separate package and fresh-import support for the public `sub!` terminal.
 Mathematical domain guards reject nonpositive inner model dimensions without
 claiming foundry geometry limits. Nine DC cases pass 54 terminal-current vectors,
 5,454 samples and 36 deliberate faults. The existing 25-entry diode suite still
-passes, and eleven focused tests pass on each host. The default bundled isolation
-entry remains unavailable pending promotion and broader qualification.
+passes, and eleven focused tests pass on each host. This record predates promotion of the isolation
+entry into the current defaults; its wider qualification limits remain open.
 
 The [GF180 bandgap connectivity record](validation/gf180-bandgap-connectivity-2026-10-16.json)
 passes all twelve required physical exchange and fault-control checks for the
