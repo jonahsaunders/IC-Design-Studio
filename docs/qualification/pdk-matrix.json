@@ -34,7 +34,7 @@
     "7": {
       "name": "Qualify device families",
       "status": "in_progress",
-      "scope": "Selected MOS, resistor, capacitor, diode and bipolar execution is recorded. The source-built ngspice 47 runtime passes relocation and selected regressions; all 432 standard-MOS cases pass its diagnostic build. Twenty-five additional diode interfaces pass 36 conditions and 900 device faults. A separate IHP isolbox package and fresh imports pass terminal/geometry-domain checks and nine DC cases; the bundled historical entry remains unavailable. Full release-image acceptance, upstream inventory, operating envelopes, additional families and physical coverage remain open. The twelve required GF180 B bandgap exchange/physical controls pass; C/D analog qualification and distributed RC/fill coupling are not inferred. All 255 primitive symbol sources now reconcile with the complete pinned source views on both hosts; model-only and other tool inventories remain separate. Thirty-seven capacitor entries pass 180 selected cases with an authenticated simulator-parser correction and separate SKY130 parallel-unit contract; full operating ranges and physical/runtime gates remain open. The default fixed VPP and IHP SVaricap add 144 cases with corrected terminal order. All 39 placeable capacitor catalog entries have selected electrical checks; full envelope and physical qualification remain open."
+      "scope": "Selected MOS, resistor, capacitor, diode and bipolar execution is recorded. The source-built ngspice 47 runtime passes relocation and selected regressions; all 432 standard-MOS cases pass its diagnostic build. Twenty-five additional diode interfaces pass 36 conditions and 900 device faults. A separate IHP isolbox package and fresh imports pass terminal/geometry-domain checks and nine DC cases; the bundled historical entry remains unavailable. Full release-image acceptance, upstream inventory, operating envelopes, additional families and physical coverage remain open. The twelve required GF180 B bandgap exchange/physical controls pass; C/D analog qualification and distributed RC/fill coupling are not inferred. All 255 primitive symbol sources now reconcile with the complete pinned source views on both hosts; model-only and other tool inventories remain separate. Thirty-seven capacitor entries pass 180 selected cases with an authenticated simulator-parser correction and separate SKY130 parallel-unit contract; full operating ranges and physical/runtime gates remain open. The default fixed VPP and IHP SVaricap add 144 cases with corrected terminal order. All 39 placeable capacitor catalog entries have selected electrical checks; full envelope and physical qualification remain open. All 86 placeable MOS/clamp views now pass 324 selected cases, with GF180 native-model and IHP clamp-order corrections; nine extra RF controls detect mode changes. Full operating envelopes, physical coverage and default package integration remain open."
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -17748,10 +17748,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet3_01v8_lvt.sym": {
@@ -17761,10 +17762,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet3_03v3_nvt.sym": {
@@ -17774,10 +17776,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet3_05v0_nvt.sym": {
@@ -17787,10 +17790,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet3_20v0.sym": {
@@ -17800,10 +17804,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet3_g5v0d10v5.sym": {
@@ -17813,10 +17818,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet3_g5v0d16v0.sym": {
@@ -17826,10 +17832,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_01v8.sym": {
@@ -17839,11 +17846,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_01v8_esd.sym": {
@@ -17853,10 +17861,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_01v8_lvt.sym": {
@@ -17866,10 +17875,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_01v8_lvt_nf.sym": {
@@ -17879,10 +17889,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_01v8_nf.sym": {
@@ -17892,10 +17903,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_03v3_nvt.sym": {
@@ -17905,10 +17917,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_03v3_nvt_nf.sym": {
@@ -17918,10 +17931,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_05v0_nvt.sym": {
@@ -17931,10 +17945,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_05v0_nvt_nf.sym": {
@@ -17944,10 +17959,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_20v0.sym": {
@@ -17957,10 +17973,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_20v0_iso.sym": {
@@ -17970,10 +17987,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_20v0_nvt.sym": {
@@ -17983,10 +18001,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_20v0_zvt.sym": {
@@ -17996,10 +18015,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_g5v0d10v5.sym": {
@@ -18009,10 +18029,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_g5v0d10v5_esd.sym": {
@@ -18022,10 +18043,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_g5v0d10v5_nf.sym": {
@@ -18035,10 +18057,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym": {
@@ -18057,10 +18080,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_g5v0d16v0_nf.sym": {
@@ -18070,10 +18094,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/npn_05v5.sym": {
@@ -18097,10 +18122,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet3_01v8_hvt.sym": {
@@ -18110,10 +18136,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet3_01v8_lvt.sym": {
@@ -18123,10 +18150,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet3_20v0.sym": {
@@ -18136,10 +18164,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet3_g5v0d10v5.sym": {
@@ -18149,10 +18178,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet3_g5v0d16v0.sym": {
@@ -18162,10 +18192,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet_01v8.sym": {
@@ -18175,11 +18206,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet_01v8_hvt.sym": {
@@ -18189,10 +18221,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet_01v8_hvt_nf.sym": {
@@ -18202,10 +18235,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet_01v8_lvt.sym": {
@@ -18215,10 +18249,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet_01v8_lvt_nf.sym": {
@@ -18228,10 +18263,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet_01v8_nf.sym": {
@@ -18241,10 +18277,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet_20v0.sym": {
@@ -18254,10 +18291,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet_g5v0d10v5.sym": {
@@ -18267,10 +18305,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet_g5v0d10v5_nf.sym": {
@@ -18280,10 +18319,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet_g5v0d16v0.sym": {
@@ -18293,10 +18333,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet_g5v0d16v0_nf.sym": {
@@ -18306,10 +18347,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sky130_fd_pr/pnp_05v5.sym": {
@@ -18945,10 +18987,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/nfet3_05v0.sym": {
@@ -18958,10 +19001,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/nfet3_06v0.sym": {
@@ -18971,10 +19015,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/nfet_03v3.sym": {
@@ -18984,11 +19029,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -18998,10 +19044,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/nfet_05v0.sym": {
@@ -19011,10 +19058,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/nfet_06v0.sym": {
@@ -19024,10 +19072,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/nfet_06v0_dss.sym": {
@@ -19037,10 +19086,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/nfet_06v0_nvt.sym": {
@@ -19050,10 +19100,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/nfet_10v0_asym.sym": {
@@ -19208,10 +19259,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/pfet3_05v0.sym": {
@@ -19221,10 +19273,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/pfet3_06v0.sym": {
@@ -19234,10 +19287,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/pfet_03v3.sym": {
@@ -19247,11 +19301,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -19261,10 +19316,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/pfet_05v0.sym": {
@@ -19274,10 +19330,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/pfet_06v0.sym": {
@@ -19287,10 +19344,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/pfet_06v0_dss.sym": {
@@ -19300,10 +19358,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/pfet_10v0_asym.sym": {
@@ -19864,10 +19923,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/nfet3_05v0.sym": {
@@ -19877,10 +19937,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/nfet3_06v0.sym": {
@@ -19890,10 +19951,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/nfet_03v3.sym": {
@@ -19903,11 +19965,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -19917,10 +19980,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/nfet_05v0.sym": {
@@ -19930,10 +19994,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/nfet_06v0.sym": {
@@ -19943,10 +20008,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/nfet_06v0_dss.sym": {
@@ -19956,10 +20022,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/nfet_06v0_nvt.sym": {
@@ -19969,10 +20036,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/nfet_10v0_asym.sym": {
@@ -20127,10 +20195,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/pfet3_05v0.sym": {
@@ -20140,10 +20209,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/pfet3_06v0.sym": {
@@ -20153,10 +20223,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/pfet_03v3.sym": {
@@ -20166,11 +20237,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -20180,10 +20252,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/pfet_05v0.sym": {
@@ -20193,10 +20266,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/pfet_06v0.sym": {
@@ -20206,10 +20280,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/pfet_06v0_dss.sym": {
@@ -20219,10 +20294,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "symbols/pfet_10v0_asym.sym": {
@@ -20713,10 +20789,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sg13g2_pr/nmoscl_4.sym": {
@@ -20726,10 +20803,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sg13g2_pr/npn13G2.sym": {
@@ -20910,10 +20988,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sg13g2_pr/sg13_hv_pmos.sym": {
@@ -20923,10 +21002,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sg13g2_pr/sg13_hv_rf_nmos.sym": {
@@ -20936,10 +21016,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sg13g2_pr/sg13_hv_rf_pmos.sym": {
@@ -20949,10 +21030,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sg13g2_pr/sg13_lv_nmos.sym": {
@@ -20962,11 +21044,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sg13g2_pr/sg13_lv_pmos.sym": {
@@ -20976,11 +21059,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Recorded selected MOS electrical sweeps or SKY130 passive physical/admittance recipes pass, with native fault controls. This is partial device evidence, not a complete upstream interface, valid operating envelope, measured-model validation or complete electrical/physical parameter coverage. Historical results retain their exact package revisions.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sg13g2_pr/sg13_lv_rf_nmos.sym": {
@@ -20990,10 +21074,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sg13g2_pr/sg13_lv_rf_pmos.sym": {
@@ -21003,10 +21088,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Selected independent DC and complex terminal-current comparisons pass with two declared geometry/multiplicity inputs, three requested process selections and 0/27/85 C; wrong-multiplicity and terminal faults are detected for each instance. RF views also detect disabled RF mode. Complete geometry/bias/reliability/statistical envelopes, physical coverage and default promotion remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "mos-variants-2026-10-17"
         ]
       },
       "sg13g2_pr/sg13_svaricap.sym": {
@@ -21378,7 +21464,7 @@
     "sky130-voltage-intent-audit-2026-10-14": {
       "path": "docs/validation/sky130-voltage-intent-audit-2026-10-14.json",
       "sha256": "f3aa296d1291b40a9b96054ca414732365408b261bbd38149148cb4bd2e2b776",
-      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0\u20131.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
+      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0–1.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
     },
     "sky130-isolation-options-audit-2026-10-14": {
       "path": "docs/validation/sky130-isolation-options-audit-2026-10-14.json",
@@ -21614,6 +21700,11 @@
       "path": "docs/validation/chunk7-release-regressions-2026-10-17.json",
       "sha256": "84d5f6b28399f0bf3d156e14647221ac264dc60f895d2fc0dac1c9d3476e667a",
       "scope_limit": "Passing 2954-test Windows/Linux suites with 36/31 explicit skips, plus 8 patched-runtime MOS cases with 32 analyses and 8 detected width faults. Source regression only; complete image, installed-runtime and optional-engine acceptance remain separate."
+    },
+    "mos-variants-2026-10-17": {
+      "path": "docs/validation/mos-variants-2026-10-17.json",
+      "sha256": "fb6848bd0fd046282afaef2107edf2b787629258701b222c2262c7656f4aee3b",
+      "scope_limit": "86 placeable MOS/clamp views at 324 selected cases, 33516 independently re-read terminal vectors and 3096 detected device faults. Nine additional RF-mode controls detect 72 changed instances. Exact-source GF180 native-model and IHP clamp-terminal corrections; full envelopes, physical/silicon/RF accuracy and default promotion remain open."
     }
   },
   "execution_acceptance": {

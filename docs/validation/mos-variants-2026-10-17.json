@@ -1,0 +1,3919 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "status": "partial",
+  "chunk_complete": false,
+  "qualified": false,
+  "source_baseline": "d444dbe525ffb65de75d9e95ccecb2e2b40b2e2b",
+  "scope": "Selected independent DC and complex terminal integration for placeable MOS symbol variants. No full bias/geometry/temperature envelope, ESD rating, silicon, RF-accuracy or physical qualification.",
+  "processes": {
+    "sky130A": {
+      "target": "sky130A",
+      "revision": "2a8a8a7048ac324d",
+      "manifest_sha256": "177e57626c06cb5d103aab04c4bc82983bc4ba96f2e08e4bc04006ade6cd8e2d"
+    },
+    "gf180mcuC": {
+      "target": "gf180mcuC",
+      "revision": "5f3017f16df69dbe",
+      "manifest_sha256": "408fa5e9d94e5e91d482988c26938bfb3b2a47dbfef68d8e5077144ba6eae1f0",
+      "original_manifest_sha256": "92ed3a348c93cde49bf48f2edf37a4f41bee6a0d3741b04f7c5ebfbdbc23ac7f",
+      "changed_bindings": [
+        "symbols/nfet_06v0_nvt.sym"
+      ],
+      "parent": null
+    },
+    "gf180mcuD": {
+      "target": "gf180mcuD",
+      "revision": "836ecc491786bd41",
+      "manifest_sha256": "ec95eefadaade5459b0bae8ac6d3d01d23927507ec10b86801fa4f2cf9f14bc2",
+      "original_manifest_sha256": "b4200b48f3fe59e961a4f514cdcb7166d21c231bccef586f01a7fa6b5f2ed738",
+      "changed_bindings": [
+        "symbols/nfet_06v0_nvt.sym"
+      ],
+      "parent": null
+    },
+    "ihp-sg13g2": {
+      "target": "ihp-sg13g2",
+      "revision": "1e24ec25b491028b",
+      "manifest_sha256": "ba1fbda134f02ad703126527993fa5d01c5d3afcc71161afc35c065d3df227ab",
+      "original_manifest_sha256": "63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c",
+      "changed_bindings": [
+        "sg13g2_pr/nmoscl_2.sym",
+        "sg13g2_pr/nmoscl_4.sym"
+      ],
+      "parent": {
+        "revision": "8e17db1147e872f2",
+        "manifest_sha256": "5556879dfa009986bad2949d4dd53e4ab08e27d200788a15130bbd8e9fa1cc2a",
+        "original_manifest_sha256": "63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c",
+        "model_sha256": "b6ae39c7334c75c222ecdee9d6b04c9be48657e91351429aebac47d1192a9abb"
+      }
+    }
+  },
+  "probes": {
+    "sky-core": [
+      {
+        "tag": "q0s0",
+        "key": "sky130_fd_pr/nfet3_01v8.sym",
+        "name": "nfet3_01v8",
+        "model": "sky130_fd_pr__nfet_01v8",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q0s1",
+        "key": "sky130_fd_pr/nfet3_01v8.sym",
+        "name": "nfet3_01v8",
+        "model": "sky130_fd_pr__nfet_01v8",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q1s0",
+        "key": "sky130_fd_pr/nfet3_01v8_lvt.sym",
+        "name": "nfet3_01v8_lvt",
+        "model": "sky130_fd_pr__nfet_01v8_lvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q1s1",
+        "key": "sky130_fd_pr/nfet3_01v8_lvt.sym",
+        "name": "nfet3_01v8_lvt",
+        "model": "sky130_fd_pr__nfet_01v8_lvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q2s0",
+        "key": "sky130_fd_pr/nfet3_03v3_nvt.sym",
+        "name": "nfet3_03v3_nvt",
+        "model": "sky130_fd_pr__nfet_03v3_nvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 1,
+        "l": 0.5,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q2s1",
+        "key": "sky130_fd_pr/nfet3_03v3_nvt.sym",
+        "name": "nfet3_03v3_nvt",
+        "model": "sky130_fd_pr__nfet_03v3_nvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 4,
+        "l": 0.5,
+        "nf": 1,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q3s0",
+        "key": "sky130_fd_pr/nfet3_05v0_nvt.sym",
+        "name": "nfet3_05v0_nvt",
+        "model": "sky130_fd_pr__nfet_05v0_nvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 1,
+        "l": 0.9,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q3s1",
+        "key": "sky130_fd_pr/nfet3_05v0_nvt.sym",
+        "name": "nfet3_05v0_nvt",
+        "model": "sky130_fd_pr__nfet_05v0_nvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 10,
+        "l": 2,
+        "nf": 1,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q4s0",
+        "key": "sky130_fd_pr/nfet3_g5v0d10v5.sym",
+        "name": "nfet3_g5v0d10v5",
+        "model": "sky130_fd_pr__nfet_g5v0d10v5",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q4s1",
+        "key": "sky130_fd_pr/nfet3_g5v0d10v5.sym",
+        "name": "nfet3_g5v0d10v5",
+        "model": "sky130_fd_pr__nfet_g5v0d10v5",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q5s0",
+        "key": "sky130_fd_pr/nfet3_g5v0d16v0.sym",
+        "name": "nfet3_g5v0d16v0",
+        "model": "sky130_fd_pr__nfet_g5v0d16v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 5,
+        "l": 0.7,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q5s1",
+        "key": "sky130_fd_pr/nfet3_g5v0d16v0.sym",
+        "name": "nfet3_g5v0d16v0",
+        "model": "sky130_fd_pr__nfet_g5v0d16v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 20,
+        "l": 0.7,
+        "nf": 1,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q6s0",
+        "key": "sky130_fd_pr/nfet_01v8.sym",
+        "name": "nfet_01v8",
+        "model": "sky130_fd_pr__nfet_01v8",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q6s1",
+        "key": "sky130_fd_pr/nfet_01v8.sym",
+        "name": "nfet_01v8",
+        "model": "sky130_fd_pr__nfet_01v8",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q7s0",
+        "key": "sky130_fd_pr/nfet_01v8_lvt.sym",
+        "name": "nfet_01v8_lvt",
+        "model": "sky130_fd_pr__nfet_01v8_lvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q7s1",
+        "key": "sky130_fd_pr/nfet_01v8_lvt.sym",
+        "name": "nfet_01v8_lvt",
+        "model": "sky130_fd_pr__nfet_01v8_lvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q8s0",
+        "key": "sky130_fd_pr/nfet_01v8_lvt_nf.sym",
+        "name": "nfet_01v8_lvt_nf",
+        "model": "sky130_fd_pr__nfet_01v8_lvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q8s1",
+        "key": "sky130_fd_pr/nfet_01v8_lvt_nf.sym",
+        "name": "nfet_01v8_lvt_nf",
+        "model": "sky130_fd_pr__nfet_01v8_lvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q9s0",
+        "key": "sky130_fd_pr/nfet_01v8_nf.sym",
+        "name": "nfet_01v8_nf",
+        "model": "sky130_fd_pr__nfet_01v8",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q9s1",
+        "key": "sky130_fd_pr/nfet_01v8_nf.sym",
+        "name": "nfet_01v8_nf",
+        "model": "sky130_fd_pr__nfet_01v8",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q10s0",
+        "key": "sky130_fd_pr/nfet_03v3_nvt.sym",
+        "name": "nfet_03v3_nvt",
+        "model": "sky130_fd_pr__nfet_03v3_nvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 1,
+        "l": 0.5,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q10s1",
+        "key": "sky130_fd_pr/nfet_03v3_nvt.sym",
+        "name": "nfet_03v3_nvt",
+        "model": "sky130_fd_pr__nfet_03v3_nvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 4,
+        "l": 0.5,
+        "nf": 1,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q11s0",
+        "key": "sky130_fd_pr/nfet_03v3_nvt_nf.sym",
+        "name": "nfet_03v3_nvt_nf",
+        "model": "sky130_fd_pr__nfet_03v3_nvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 1,
+        "l": 0.5,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q11s1",
+        "key": "sky130_fd_pr/nfet_03v3_nvt_nf.sym",
+        "name": "nfet_03v3_nvt_nf",
+        "model": "sky130_fd_pr__nfet_03v3_nvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 4,
+        "l": 0.5,
+        "nf": 1,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q12s0",
+        "key": "sky130_fd_pr/nfet_05v0_nvt.sym",
+        "name": "nfet_05v0_nvt",
+        "model": "sky130_fd_pr__nfet_05v0_nvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 1,
+        "l": 0.9,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q12s1",
+        "key": "sky130_fd_pr/nfet_05v0_nvt.sym",
+        "name": "nfet_05v0_nvt",
+        "model": "sky130_fd_pr__nfet_05v0_nvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 10,
+        "l": 2,
+        "nf": 1,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q13s0",
+        "key": "sky130_fd_pr/nfet_05v0_nvt_nf.sym",
+        "name": "nfet_05v0_nvt_nf",
+        "model": "sky130_fd_pr__nfet_05v0_nvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 1,
+        "l": 0.9,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q13s1",
+        "key": "sky130_fd_pr/nfet_05v0_nvt_nf.sym",
+        "name": "nfet_05v0_nvt_nf",
+        "model": "sky130_fd_pr__nfet_05v0_nvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 10,
+        "l": 2,
+        "nf": 1,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q14s0",
+        "key": "sky130_fd_pr/nfet_g5v0d10v5.sym",
+        "name": "nfet_g5v0d10v5",
+        "model": "sky130_fd_pr__nfet_g5v0d10v5",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q14s1",
+        "key": "sky130_fd_pr/nfet_g5v0d10v5.sym",
+        "name": "nfet_g5v0d10v5",
+        "model": "sky130_fd_pr__nfet_g5v0d10v5",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q15s0",
+        "key": "sky130_fd_pr/nfet_g5v0d10v5_nf.sym",
+        "name": "nfet_g5v0d10v5_nf",
+        "model": "sky130_fd_pr__nfet_g5v0d10v5",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q15s1",
+        "key": "sky130_fd_pr/nfet_g5v0d10v5_nf.sym",
+        "name": "nfet_g5v0d10v5_nf",
+        "model": "sky130_fd_pr__nfet_g5v0d10v5",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q16s0",
+        "key": "sky130_fd_pr/nfet_g5v0d16v0.sym",
+        "name": "nfet_g5v0d16v0",
+        "model": "sky130_fd_pr__nfet_g5v0d16v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 5,
+        "l": 0.7,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q16s1",
+        "key": "sky130_fd_pr/nfet_g5v0d16v0.sym",
+        "name": "nfet_g5v0d16v0",
+        "model": "sky130_fd_pr__nfet_g5v0d16v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 20,
+        "l": 0.7,
+        "nf": 1,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q17s0",
+        "key": "sky130_fd_pr/nfet_g5v0d16v0_nf.sym",
+        "name": "nfet_g5v0d16v0_nf",
+        "model": "sky130_fd_pr__nfet_g5v0d16v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 5,
+        "l": 0.7,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q17s1",
+        "key": "sky130_fd_pr/nfet_g5v0d16v0_nf.sym",
+        "name": "nfet_g5v0d16v0_nf",
+        "model": "sky130_fd_pr__nfet_g5v0d16v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 20,
+        "l": 0.7,
+        "nf": 1,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q18s0",
+        "key": "sky130_fd_pr/pfet3_01v8.sym",
+        "name": "pfet3_01v8",
+        "model": "sky130_fd_pr__pfet_01v8",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q18s1",
+        "key": "sky130_fd_pr/pfet3_01v8.sym",
+        "name": "pfet3_01v8",
+        "model": "sky130_fd_pr__pfet_01v8",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q19s0",
+        "key": "sky130_fd_pr/pfet3_01v8_hvt.sym",
+        "name": "pfet3_01v8_hvt",
+        "model": "sky130_fd_pr__pfet_01v8_hvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q19s1",
+        "key": "sky130_fd_pr/pfet3_01v8_hvt.sym",
+        "name": "pfet3_01v8_hvt",
+        "model": "sky130_fd_pr__pfet_01v8_hvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q20s0",
+        "key": "sky130_fd_pr/pfet3_01v8_lvt.sym",
+        "name": "pfet3_01v8_lvt",
+        "model": "sky130_fd_pr__pfet_01v8_lvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q20s1",
+        "key": "sky130_fd_pr/pfet3_01v8_lvt.sym",
+        "name": "pfet3_01v8_lvt",
+        "model": "sky130_fd_pr__pfet_01v8_lvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q21s0",
+        "key": "sky130_fd_pr/pfet3_g5v0d10v5.sym",
+        "name": "pfet3_g5v0d10v5",
+        "model": "sky130_fd_pr__pfet_g5v0d10v5",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q21s1",
+        "key": "sky130_fd_pr/pfet3_g5v0d10v5.sym",
+        "name": "pfet3_g5v0d10v5",
+        "model": "sky130_fd_pr__pfet_g5v0d10v5",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q22s0",
+        "key": "sky130_fd_pr/pfet3_g5v0d16v0.sym",
+        "name": "pfet3_g5v0d16v0",
+        "model": "sky130_fd_pr__pfet_g5v0d16v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 5,
+        "l": 0.66,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q22s1",
+        "key": "sky130_fd_pr/pfet3_g5v0d16v0.sym",
+        "name": "pfet3_g5v0d16v0",
+        "model": "sky130_fd_pr__pfet_g5v0d16v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 20,
+        "l": 0.66,
+        "nf": 1,
+        "copies": 3,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q23s0",
+        "key": "sky130_fd_pr/pfet_01v8.sym",
+        "name": "pfet_01v8",
+        "model": "sky130_fd_pr__pfet_01v8",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q23s1",
+        "key": "sky130_fd_pr/pfet_01v8.sym",
+        "name": "pfet_01v8",
+        "model": "sky130_fd_pr__pfet_01v8",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q24s0",
+        "key": "sky130_fd_pr/pfet_01v8_hvt.sym",
+        "name": "pfet_01v8_hvt",
+        "model": "sky130_fd_pr__pfet_01v8_hvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q24s1",
+        "key": "sky130_fd_pr/pfet_01v8_hvt.sym",
+        "name": "pfet_01v8_hvt",
+        "model": "sky130_fd_pr__pfet_01v8_hvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q25s0",
+        "key": "sky130_fd_pr/pfet_01v8_hvt_nf.sym",
+        "name": "pfet_01v8_hvt_nf",
+        "model": "sky130_fd_pr__pfet_01v8_hvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q25s1",
+        "key": "sky130_fd_pr/pfet_01v8_hvt_nf.sym",
+        "name": "pfet_01v8_hvt_nf",
+        "model": "sky130_fd_pr__pfet_01v8_hvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q26s0",
+        "key": "sky130_fd_pr/pfet_01v8_lvt.sym",
+        "name": "pfet_01v8_lvt",
+        "model": "sky130_fd_pr__pfet_01v8_lvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q26s1",
+        "key": "sky130_fd_pr/pfet_01v8_lvt.sym",
+        "name": "pfet_01v8_lvt",
+        "model": "sky130_fd_pr__pfet_01v8_lvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q27s0",
+        "key": "sky130_fd_pr/pfet_01v8_lvt_nf.sym",
+        "name": "pfet_01v8_lvt_nf",
+        "model": "sky130_fd_pr__pfet_01v8_lvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q27s1",
+        "key": "sky130_fd_pr/pfet_01v8_lvt_nf.sym",
+        "name": "pfet_01v8_lvt_nf",
+        "model": "sky130_fd_pr__pfet_01v8_lvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q28s0",
+        "key": "sky130_fd_pr/pfet_01v8_nf.sym",
+        "name": "pfet_01v8_nf",
+        "model": "sky130_fd_pr__pfet_01v8",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q28s1",
+        "key": "sky130_fd_pr/pfet_01v8_nf.sym",
+        "name": "pfet_01v8_nf",
+        "model": "sky130_fd_pr__pfet_01v8",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q29s0",
+        "key": "sky130_fd_pr/pfet_g5v0d10v5.sym",
+        "name": "pfet_g5v0d10v5",
+        "model": "sky130_fd_pr__pfet_g5v0d10v5",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q29s1",
+        "key": "sky130_fd_pr/pfet_g5v0d10v5.sym",
+        "name": "pfet_g5v0d10v5",
+        "model": "sky130_fd_pr__pfet_g5v0d10v5",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q30s0",
+        "key": "sky130_fd_pr/pfet_g5v0d10v5_nf.sym",
+        "name": "pfet_g5v0d10v5_nf",
+        "model": "sky130_fd_pr__pfet_g5v0d10v5",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q30s1",
+        "key": "sky130_fd_pr/pfet_g5v0d10v5_nf.sym",
+        "name": "pfet_g5v0d10v5_nf",
+        "model": "sky130_fd_pr__pfet_g5v0d10v5",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q31s0",
+        "key": "sky130_fd_pr/pfet_g5v0d16v0.sym",
+        "name": "pfet_g5v0d16v0",
+        "model": "sky130_fd_pr__pfet_g5v0d16v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 5,
+        "l": 0.66,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q31s1",
+        "key": "sky130_fd_pr/pfet_g5v0d16v0.sym",
+        "name": "pfet_g5v0d16v0",
+        "model": "sky130_fd_pr__pfet_g5v0d16v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 20,
+        "l": 0.66,
+        "nf": 1,
+        "copies": 3,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q32s0",
+        "key": "sky130_fd_pr/pfet_g5v0d16v0_nf.sym",
+        "name": "pfet_g5v0d16v0_nf",
+        "model": "sky130_fd_pr__pfet_g5v0d16v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 5,
+        "l": 0.66,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q32s1",
+        "key": "sky130_fd_pr/pfet_g5v0d16v0_nf.sym",
+        "name": "pfet_g5v0d16v0_nf",
+        "model": "sky130_fd_pr__pfet_g5v0d16v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 20,
+        "l": 0.66,
+        "nf": 1,
+        "copies": 3,
+        "pm": true,
+        "target": "sky130A"
+      }
+    ],
+    "sky-hv": [
+      {
+        "tag": "q0s0",
+        "key": "sky130_fd_pr/nfet3_20v0.sym",
+        "name": "nfet3_20v0",
+        "model": "sky130_fd_pr__nfet_20v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 29.41,
+        "l": 2.95,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q0s1",
+        "key": "sky130_fd_pr/nfet3_20v0.sym",
+        "name": "nfet3_20v0",
+        "model": "sky130_fd_pr__nfet_20v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 29.41,
+        "l": 2.95,
+        "nf": 1,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q1s0",
+        "key": "sky130_fd_pr/nfet_20v0.sym",
+        "name": "nfet_20v0",
+        "model": "sky130_fd_pr__nfet_20v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 29.41,
+        "l": 2.95,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q1s1",
+        "key": "sky130_fd_pr/nfet_20v0.sym",
+        "name": "nfet_20v0",
+        "model": "sky130_fd_pr__nfet_20v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 29.41,
+        "l": 2.95,
+        "nf": 1,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q2s0",
+        "key": "sky130_fd_pr/nfet_20v0_iso.sym",
+        "name": "nfet_20v0_iso",
+        "model": "sky130_fd_pr__nfet_20v0_iso",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b",
+          "sub"
+        ],
+        "shape": 0,
+        "w": 30,
+        "l": 1.5,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q2s1",
+        "key": "sky130_fd_pr/nfet_20v0_iso.sym",
+        "name": "nfet_20v0_iso",
+        "model": "sky130_fd_pr__nfet_20v0_iso",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b",
+          "sub"
+        ],
+        "shape": 1,
+        "w": 30,
+        "l": 1.5,
+        "nf": 1,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q3s0",
+        "key": "sky130_fd_pr/nfet_20v0_nvt.sym",
+        "name": "nfet_20v0_nvt",
+        "model": "sky130_fd_pr__nfet_20v0_nvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 30,
+        "l": 1.5,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q3s1",
+        "key": "sky130_fd_pr/nfet_20v0_nvt.sym",
+        "name": "nfet_20v0_nvt",
+        "model": "sky130_fd_pr__nfet_20v0_nvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 30,
+        "l": 1.5,
+        "nf": 1,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q4s0",
+        "key": "sky130_fd_pr/nfet_20v0_zvt.sym",
+        "name": "nfet_20v0_zvt",
+        "model": "sky130_fd_pr__nfet_20v0_zvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 30,
+        "l": 5,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q4s1",
+        "key": "sky130_fd_pr/nfet_20v0_zvt.sym",
+        "name": "nfet_20v0_zvt",
+        "model": "sky130_fd_pr__nfet_20v0_zvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 30,
+        "l": 5,
+        "nf": 1,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q5s0",
+        "key": "sky130_fd_pr/pfet3_20v0.sym",
+        "name": "pfet3_20v0",
+        "model": "sky130_fd_pr__pfet_20v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 30,
+        "l": 0.5,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q5s1",
+        "key": "sky130_fd_pr/pfet3_20v0.sym",
+        "name": "pfet3_20v0",
+        "model": "sky130_fd_pr__pfet_20v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 30,
+        "l": 0.5,
+        "nf": 1,
+        "copies": 3,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q6s0",
+        "key": "sky130_fd_pr/pfet_20v0.sym",
+        "name": "pfet_20v0",
+        "model": "sky130_fd_pr__pfet_20v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 30,
+        "l": 0.5,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q6s1",
+        "key": "sky130_fd_pr/pfet_20v0.sym",
+        "name": "pfet_20v0",
+        "model": "sky130_fd_pr__pfet_20v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 30,
+        "l": 0.5,
+        "nf": 1,
+        "copies": 3,
+        "pm": true,
+        "target": "sky130A"
+      }
+    ],
+    "sky-esd": [
+      {
+        "tag": "q0s0",
+        "key": "sky130_fd_pr/nfet_01v8_esd.sym",
+        "name": "nfet_01v8_esd",
+        "model": "sky130_fd_pr__esd_nfet_01v8",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 20.35,
+        "l": 0.165,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q0s1",
+        "key": "sky130_fd_pr/nfet_01v8_esd.sym",
+        "name": "nfet_01v8_esd",
+        "model": "sky130_fd_pr__esd_nfet_01v8",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 40.31,
+        "l": 0.165,
+        "nf": 1,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q1s0",
+        "key": "sky130_fd_pr/nfet_g5v0d10v5_esd.sym",
+        "name": "nfet_g5v0d10v5_esd",
+        "model": "sky130_fd_pr__esd_nfet_g5v0d10v5",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 21.5,
+        "l": 0.55,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "sky130A"
+      },
+      {
+        "tag": "q1s1",
+        "key": "sky130_fd_pr/nfet_g5v0d10v5_esd.sym",
+        "name": "nfet_g5v0d10v5_esd",
+        "model": "sky130_fd_pr__esd_nfet_g5v0d10v5",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 30.25,
+        "l": 1,
+        "nf": 1,
+        "copies": 3,
+        "pm": false,
+        "target": "sky130A"
+      }
+    ],
+    "gf-c": [
+      {
+        "tag": "q0s0",
+        "key": "symbols/nfet3_03v3.sym",
+        "name": "nfet3_03v3",
+        "model": "nfet_03v3",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q0s1",
+        "key": "symbols/nfet3_03v3.sym",
+        "name": "nfet3_03v3",
+        "model": "nfet_03v3",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q1s0",
+        "key": "symbols/nfet3_05v0.sym",
+        "name": "nfet3_05v0",
+        "model": "nfet_05v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q1s1",
+        "key": "symbols/nfet3_05v0.sym",
+        "name": "nfet3_05v0",
+        "model": "nfet_05v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q2s0",
+        "key": "symbols/nfet3_06v0.sym",
+        "name": "nfet3_06v0",
+        "model": "nfet_06v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q2s1",
+        "key": "symbols/nfet3_06v0.sym",
+        "name": "nfet3_06v0",
+        "model": "nfet_06v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q3s0",
+        "key": "symbols/nfet_03v3.sym",
+        "name": "nfet_03v3",
+        "model": "nfet_03v3",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q3s1",
+        "key": "symbols/nfet_03v3.sym",
+        "name": "nfet_03v3",
+        "model": "nfet_03v3",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q4s0",
+        "key": "symbols/nfet_03v3_dss.sym",
+        "name": "nfet_03v3_dss",
+        "model": "nfet_03v3_dss",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q4s1",
+        "key": "symbols/nfet_03v3_dss.sym",
+        "name": "nfet_03v3_dss",
+        "model": "nfet_03v3_dss",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q5s0",
+        "key": "symbols/nfet_05v0.sym",
+        "name": "nfet_05v0",
+        "model": "nfet_05v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q5s1",
+        "key": "symbols/nfet_05v0.sym",
+        "name": "nfet_05v0",
+        "model": "nfet_05v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q6s0",
+        "key": "symbols/nfet_06v0.sym",
+        "name": "nfet_06v0",
+        "model": "nfet_06v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q6s1",
+        "key": "symbols/nfet_06v0.sym",
+        "name": "nfet_06v0",
+        "model": "nfet_06v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q7s0",
+        "key": "symbols/nfet_06v0_dss.sym",
+        "name": "nfet_06v0_dss",
+        "model": "nfet_06v0_dss",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q7s1",
+        "key": "symbols/nfet_06v0_dss.sym",
+        "name": "nfet_06v0_dss",
+        "model": "nfet_06v0_dss",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q8s0",
+        "key": "symbols/nfet_06v0_nvt.sym",
+        "name": "nfet_06v0_nvt",
+        "model": "nfet_06v0_nvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.8,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q8s1",
+        "key": "symbols/nfet_06v0_nvt.sym",
+        "name": "nfet_06v0_nvt",
+        "model": "nfet_06v0_nvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q9s0",
+        "key": "symbols/pfet3_03v3.sym",
+        "name": "pfet3_03v3",
+        "model": "pfet_03v3",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q9s1",
+        "key": "symbols/pfet3_03v3.sym",
+        "name": "pfet3_03v3",
+        "model": "pfet_03v3",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q10s0",
+        "key": "symbols/pfet3_05v0.sym",
+        "name": "pfet3_05v0",
+        "model": "pfet_05v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q10s1",
+        "key": "symbols/pfet3_05v0.sym",
+        "name": "pfet3_05v0",
+        "model": "pfet_05v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q11s0",
+        "key": "symbols/pfet3_06v0.sym",
+        "name": "pfet3_06v0",
+        "model": "pfet_06v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q11s1",
+        "key": "symbols/pfet3_06v0.sym",
+        "name": "pfet3_06v0",
+        "model": "pfet_06v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q12s0",
+        "key": "symbols/pfet_03v3.sym",
+        "name": "pfet_03v3",
+        "model": "pfet_03v3",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q12s1",
+        "key": "symbols/pfet_03v3.sym",
+        "name": "pfet_03v3",
+        "model": "pfet_03v3",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q13s0",
+        "key": "symbols/pfet_03v3_dss.sym",
+        "name": "pfet_03v3_dss",
+        "model": "pfet_03v3_dss",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q13s1",
+        "key": "symbols/pfet_03v3_dss.sym",
+        "name": "pfet_03v3_dss",
+        "model": "pfet_03v3_dss",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q14s0",
+        "key": "symbols/pfet_05v0.sym",
+        "name": "pfet_05v0",
+        "model": "pfet_05v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q14s1",
+        "key": "symbols/pfet_05v0.sym",
+        "name": "pfet_05v0",
+        "model": "pfet_05v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q15s0",
+        "key": "symbols/pfet_06v0.sym",
+        "name": "pfet_06v0",
+        "model": "pfet_06v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q15s1",
+        "key": "symbols/pfet_06v0.sym",
+        "name": "pfet_06v0",
+        "model": "pfet_06v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q16s0",
+        "key": "symbols/pfet_06v0_dss.sym",
+        "name": "pfet_06v0_dss",
+        "model": "pfet_06v0_dss",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "gf180mcuC"
+      },
+      {
+        "tag": "q16s1",
+        "key": "symbols/pfet_06v0_dss.sym",
+        "name": "pfet_06v0_dss",
+        "model": "pfet_06v0_dss",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "gf180mcuC"
+      }
+    ],
+    "gf-d": [
+      {
+        "tag": "q0s0",
+        "key": "symbols/nfet3_03v3.sym",
+        "name": "nfet3_03v3",
+        "model": "nfet_03v3",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q0s1",
+        "key": "symbols/nfet3_03v3.sym",
+        "name": "nfet3_03v3",
+        "model": "nfet_03v3",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q1s0",
+        "key": "symbols/nfet3_05v0.sym",
+        "name": "nfet3_05v0",
+        "model": "nfet_05v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q1s1",
+        "key": "symbols/nfet3_05v0.sym",
+        "name": "nfet3_05v0",
+        "model": "nfet_05v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q2s0",
+        "key": "symbols/nfet3_06v0.sym",
+        "name": "nfet3_06v0",
+        "model": "nfet_06v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q2s1",
+        "key": "symbols/nfet3_06v0.sym",
+        "name": "nfet3_06v0",
+        "model": "nfet_06v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q3s0",
+        "key": "symbols/nfet_03v3.sym",
+        "name": "nfet_03v3",
+        "model": "nfet_03v3",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q3s1",
+        "key": "symbols/nfet_03v3.sym",
+        "name": "nfet_03v3",
+        "model": "nfet_03v3",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q4s0",
+        "key": "symbols/nfet_03v3_dss.sym",
+        "name": "nfet_03v3_dss",
+        "model": "nfet_03v3_dss",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q4s1",
+        "key": "symbols/nfet_03v3_dss.sym",
+        "name": "nfet_03v3_dss",
+        "model": "nfet_03v3_dss",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q5s0",
+        "key": "symbols/nfet_05v0.sym",
+        "name": "nfet_05v0",
+        "model": "nfet_05v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q5s1",
+        "key": "symbols/nfet_05v0.sym",
+        "name": "nfet_05v0",
+        "model": "nfet_05v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q6s0",
+        "key": "symbols/nfet_06v0.sym",
+        "name": "nfet_06v0",
+        "model": "nfet_06v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q6s1",
+        "key": "symbols/nfet_06v0.sym",
+        "name": "nfet_06v0",
+        "model": "nfet_06v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q7s0",
+        "key": "symbols/nfet_06v0_dss.sym",
+        "name": "nfet_06v0_dss",
+        "model": "nfet_06v0_dss",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q7s1",
+        "key": "symbols/nfet_06v0_dss.sym",
+        "name": "nfet_06v0_dss",
+        "model": "nfet_06v0_dss",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q8s0",
+        "key": "symbols/nfet_06v0_nvt.sym",
+        "name": "nfet_06v0_nvt",
+        "model": "nfet_06v0_nvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.8,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q8s1",
+        "key": "symbols/nfet_06v0_nvt.sym",
+        "name": "nfet_06v0_nvt",
+        "model": "nfet_06v0_nvt",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q9s0",
+        "key": "symbols/pfet3_03v3.sym",
+        "name": "pfet3_03v3",
+        "model": "pfet_03v3",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q9s1",
+        "key": "symbols/pfet3_03v3.sym",
+        "name": "pfet3_03v3",
+        "model": "pfet_03v3",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q10s0",
+        "key": "symbols/pfet3_05v0.sym",
+        "name": "pfet3_05v0",
+        "model": "pfet_05v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q10s1",
+        "key": "symbols/pfet3_05v0.sym",
+        "name": "pfet3_05v0",
+        "model": "pfet_05v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q11s0",
+        "key": "symbols/pfet3_06v0.sym",
+        "name": "pfet3_06v0",
+        "model": "pfet_06v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q11s1",
+        "key": "symbols/pfet3_06v0.sym",
+        "name": "pfet3_06v0",
+        "model": "pfet_06v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "body"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q12s0",
+        "key": "symbols/pfet_03v3.sym",
+        "name": "pfet_03v3",
+        "model": "pfet_03v3",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q12s1",
+        "key": "symbols/pfet_03v3.sym",
+        "name": "pfet_03v3",
+        "model": "pfet_03v3",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q13s0",
+        "key": "symbols/pfet_03v3_dss.sym",
+        "name": "pfet_03v3_dss",
+        "model": "pfet_03v3_dss",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q13s1",
+        "key": "symbols/pfet_03v3_dss.sym",
+        "name": "pfet_03v3_dss",
+        "model": "pfet_03v3_dss",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q14s0",
+        "key": "symbols/pfet_05v0.sym",
+        "name": "pfet_05v0",
+        "model": "pfet_05v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q14s1",
+        "key": "symbols/pfet_05v0.sym",
+        "name": "pfet_05v0",
+        "model": "pfet_05v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q15s0",
+        "key": "symbols/pfet_06v0.sym",
+        "name": "pfet_06v0",
+        "model": "pfet_06v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q15s1",
+        "key": "symbols/pfet_06v0.sym",
+        "name": "pfet_06v0",
+        "model": "pfet_06v0",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q16s0",
+        "key": "symbols/pfet_06v0_dss.sym",
+        "name": "pfet_06v0_dss",
+        "model": "pfet_06v0_dss",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "gf180mcuD"
+      },
+      {
+        "tag": "q16s1",
+        "key": "symbols/pfet_06v0_dss.sym",
+        "name": "pfet_06v0_dss",
+        "model": "pfet_06v0_dss",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "gf180mcuD"
+      }
+    ],
+    "ihp-mos": [
+      {
+        "tag": "q0s0",
+        "key": "sg13g2_pr/sg13_hv_nmos.sym",
+        "name": "sg13_hv_nmos",
+        "model": "sg13_hv_nmos",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "ihp-sg13g2"
+      },
+      {
+        "tag": "q0s1",
+        "key": "sg13g2_pr/sg13_hv_nmos.sym",
+        "name": "sg13_hv_nmos",
+        "model": "sg13_hv_nmos",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "ihp-sg13g2"
+      },
+      {
+        "tag": "q1s0",
+        "key": "sg13g2_pr/sg13_hv_pmos.sym",
+        "name": "sg13_hv_pmos",
+        "model": "sg13_hv_pmos",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "ihp-sg13g2"
+      },
+      {
+        "tag": "q1s1",
+        "key": "sg13g2_pr/sg13_hv_pmos.sym",
+        "name": "sg13_hv_pmos",
+        "model": "sg13_hv_pmos",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "ihp-sg13g2"
+      },
+      {
+        "tag": "q2s0",
+        "key": "sg13g2_pr/sg13_hv_rf_nmos.sym",
+        "name": "sg13_hv_rf_nmos",
+        "model": "sg13_hv_nmos",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "ihp-sg13g2"
+      },
+      {
+        "tag": "q2s1",
+        "key": "sg13g2_pr/sg13_hv_rf_nmos.sym",
+        "name": "sg13_hv_rf_nmos",
+        "model": "sg13_hv_nmos",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "ihp-sg13g2"
+      },
+      {
+        "tag": "q3s0",
+        "key": "sg13g2_pr/sg13_hv_rf_pmos.sym",
+        "name": "sg13_hv_rf_pmos",
+        "model": "sg13_hv_pmos",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "ihp-sg13g2"
+      },
+      {
+        "tag": "q3s1",
+        "key": "sg13g2_pr/sg13_hv_rf_pmos.sym",
+        "name": "sg13_hv_rf_pmos",
+        "model": "sg13_hv_pmos",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "ihp-sg13g2"
+      },
+      {
+        "tag": "q4s0",
+        "key": "sg13g2_pr/sg13_lv_nmos.sym",
+        "name": "sg13_lv_nmos",
+        "model": "sg13_lv_nmos",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "ihp-sg13g2"
+      },
+      {
+        "tag": "q4s1",
+        "key": "sg13g2_pr/sg13_lv_nmos.sym",
+        "name": "sg13_lv_nmos",
+        "model": "sg13_lv_nmos",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "ihp-sg13g2"
+      },
+      {
+        "tag": "q5s0",
+        "key": "sg13g2_pr/sg13_lv_pmos.sym",
+        "name": "sg13_lv_pmos",
+        "model": "sg13_lv_pmos",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "ihp-sg13g2"
+      },
+      {
+        "tag": "q5s1",
+        "key": "sg13g2_pr/sg13_lv_pmos.sym",
+        "name": "sg13_lv_pmos",
+        "model": "sg13_lv_pmos",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "ihp-sg13g2"
+      },
+      {
+        "tag": "q6s0",
+        "key": "sg13g2_pr/sg13_lv_rf_nmos.sym",
+        "name": "sg13_lv_rf_nmos",
+        "model": "sg13_lv_nmos",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "ihp-sg13g2"
+      },
+      {
+        "tag": "q6s1",
+        "key": "sg13g2_pr/sg13_lv_rf_nmos.sym",
+        "name": "sg13_lv_rf_nmos",
+        "model": "sg13_lv_nmos",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": false,
+        "target": "ihp-sg13g2"
+      },
+      {
+        "tag": "q7s0",
+        "key": "sg13g2_pr/sg13_lv_rf_pmos.sym",
+        "name": "sg13_lv_rf_pmos",
+        "model": "sg13_lv_pmos",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 0,
+        "w": 4.0,
+        "l": 1.0,
+        "nf": 1,
+        "copies": 1,
+        "pm": true,
+        "target": "ihp-sg13g2"
+      },
+      {
+        "tag": "q7s1",
+        "key": "sg13g2_pr/sg13_lv_rf_pmos.sym",
+        "name": "sg13_lv_rf_pmos",
+        "model": "sg13_lv_pmos",
+        "pins": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "shape": 1,
+        "w": 8.0,
+        "l": 2.0,
+        "nf": 2,
+        "copies": 3,
+        "pm": true,
+        "target": "ihp-sg13g2"
+      }
+    ],
+    "ihp-clamp": [
+      {
+        "tag": "q0s0",
+        "key": "sg13g2_pr/nmoscl_2.sym",
+        "name": "nmoscl_2",
+        "model": "nmoscl_2",
+        "pins": [
+          "vdd",
+          "vss"
+        ],
+        "shape": 0,
+        "w": 0,
+        "l": 0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "ihp-sg13g2"
+      },
+      {
+        "tag": "q0s1",
+        "key": "sg13g2_pr/nmoscl_2.sym",
+        "name": "nmoscl_2",
+        "model": "nmoscl_2",
+        "pins": [
+          "vdd",
+          "vss"
+        ],
+        "shape": 1,
+        "w": 0,
+        "l": 0,
+        "nf": 1,
+        "copies": 3,
+        "pm": false,
+        "target": "ihp-sg13g2"
+      },
+      {
+        "tag": "q1s0",
+        "key": "sg13g2_pr/nmoscl_4.sym",
+        "name": "nmoscl_4",
+        "model": "nmoscl_4",
+        "pins": [
+          "vdd",
+          "vss"
+        ],
+        "shape": 0,
+        "w": 0,
+        "l": 0,
+        "nf": 1,
+        "copies": 1,
+        "pm": false,
+        "target": "ihp-sg13g2"
+      },
+      {
+        "tag": "q1s1",
+        "key": "sg13g2_pr/nmoscl_4.sym",
+        "name": "nmoscl_4",
+        "model": "nmoscl_4",
+        "pins": [
+          "vdd",
+          "vss"
+        ],
+        "shape": 1,
+        "w": 0,
+        "l": 0,
+        "nf": 1,
+        "copies": 3,
+        "pm": false,
+        "target": "ihp-sg13g2"
+      }
+    ]
+  },
+  "totals": {
+    "cases": 324,
+    "catalog_entries": 86,
+    "vectors": 33516,
+    "samples": 1100376,
+    "faulted_device_instances": 3096,
+    "fault_simulations": 126
+  },
+  "rf_mode_controls": {
+    "cases": 9,
+    "vectors": 576,
+    "samples": 17856,
+    "faulted_device_instances": 72
+  },
+  "conditions": {
+    "gate_sweep_v": [
+      0,
+      1.2
+    ],
+    "gate_step_v": 0.03,
+    "drain_v": 0.6,
+    "source_v": {
+      "nmos": 0,
+      "pmos": 1.2
+    },
+    "body_v": {
+      "nmos": -0.15,
+      "pmos": 1.35
+    },
+    "isolated_substrate_v": -0.3,
+    "ac_gate_bias_v": 0.8,
+    "clamp_supply_sweep_v": [
+      0,
+      1.2
+    ],
+    "temperature_c": [
+      0,
+      27,
+      85
+    ],
+    "frequency_hz": [
+      1000,
+      1000000000.0
+    ],
+    "frequency_samples": 31,
+    "corners": {
+      "sky130A": [
+        "ff",
+        "nominal",
+        "ss"
+      ],
+      "gf180mcuC": [
+        "ff",
+        "nominal",
+        "ss"
+      ],
+      "gf180mcuD": [
+        "ff",
+        "nominal",
+        "ss"
+      ],
+      "ihp-sg13g2": [
+        "fast",
+        "nominal",
+        "slow"
+      ]
+    }
+  },
+  "reports": [
+    {
+      "sha256": "1cde33d9832fc844b9bb490644a4517ba661fcdaf301d87b9330e8f2d3eebcaa",
+      "source_files_sha256": "b0d809c03268c92e26a69fc74aded8f565cd4628806a90dc25bd0b45c767662d"
+    },
+    {
+      "sha256": "114f88849dbd2cd4006ce816b048e2dd700fab03e992caf8d7bf6dd86bbb1522",
+      "source_files_sha256": "1c785529115d4361fc0d9de77ac05f5b83f5eddaa5e16220caddfff6a3d64887"
+    }
+  ],
+  "raw_audit": {
+    "status": "PASS",
+    "responses": 801,
+    "sha256": "4cf01e7be4753a0529d723a23aa191f4765086fc2b6b4a2c7663e413aa4c2391"
+  },
+  "runtime": {
+    "binary_sha256": "67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25",
+    "retained_build": "docs/validation/capacitor-families-2026-10-17.json"
+  },
+  "corrections": [
+    "GF180 C/D nfet_06v0_nvt selects the existing native-threshold model rather than the ordinary nfet_06v0 accidentally selected in the public symbol. Every upstream model and symbol asset byte is retained.",
+    "IHP nmoscl_2/4 follow model order VDD VSS and the public symbol sim_pinnumber attributes, retaining terminal positions and labels.",
+    "Fresh registration preserves the already-parsed simulation terminal order and applies the exact-source-guarded GF180 native model correction. Existing projects and bundled package revisions remain unchanged."
+  ],
+  "focused_tests": {
+    "Windows": {
+      "passed": 26,
+      "skipped": 0
+    },
+    "Linux": {
+      "passed": 26,
+      "skipped": 0
+    }
+  },
+  "current_implementation": {
+    "icstudio/pdk_import.py": "527743de94c69bfb980b68c6977d246ce72fcf93d6314c44e0ff194f877a3eb3",
+    "icstudio/gf180_native_binding.py": "ec7c6fed7d9c738608aea953e797d705f08ad88daaff0a1be60ee7d7210b1340",
+    "tests/test_mos_variants.py": "ae7c84292562b48114c19a0332024e5abfe65676923a77d211fff8ffc82bf3ab",
+    "scripts/qualify_mos_variants.py": "24ced20f5d9fa88bcedf196ac646ffe1257fcefb509452a7b37e0eebdbece34a",
+    "scripts/prepare_mos_variant_bindings.py": "e5da215a8ed18b925f237f8d7ee7eb863c6f6089a2193d4a5df3dd84b5eb7508"
+  },
+  "original_failures": [
+    {
+      "name": "gf-c-nominal-27-b",
+      "error": "ValueError('Independent MOS variant currents differ.')",
+      "device_errors": {
+        "q0s0": 0.0,
+        "q0s1": 0.0,
+        "q1s0": 0.0,
+        "q1s1": 0.0,
+        "q2s0": 0.0,
+        "q2s1": 0.0,
+        "q3s0": 0.0,
+        "q3s1": 0.0,
+        "q4s0": 0.0,
+        "q4s1": 0.0,
+        "q5s0": 0.0,
+        "q5s1": 0.0,
+        "q6s0": 0.0,
+        "q6s1": 0.0,
+        "q7s0": 0.0,
+        "q7s1": 0.0,
+        "q8s0": 10849897.906611437,
+        "q8s1": 23148515.24131024,
+        "q9s0": 0.0,
+        "q9s1": 0.0,
+        "q10s0": 0.0,
+        "q10s1": 0.0,
+        "q11s0": 0.0,
+        "q11s1": 0.0,
+        "q12s0": 0.0,
+        "q12s1": 0.0,
+        "q13s0": 197301.43990812232,
+        "q13s1": 164709.25630555628,
+        "q14s0": 0.0,
+        "q14s1": 0.0,
+        "q15s0": 0.0,
+        "q15s1": 0.0,
+        "q16s0": 8.335047989824334e-09,
+        "q16s1": 5.916785961773023e-08
+      }
+    },
+    {
+      "name": "gf-c-nominal-27-d",
+      "error": "ValueError('Independent MOS variant currents differ.')",
+      "device_errors": {
+        "q0s0": 0.0007687037180332823,
+        "q0s1": 0.0,
+        "q1s0": 0.0,
+        "q1s1": 0.0,
+        "q2s0": 0.0,
+        "q2s1": 0.0,
+        "q3s0": 0.0,
+        "q3s1": 0.0,
+        "q4s0": 0.0,
+        "q4s1": 0.0,
+        "q5s0": 0.0,
+        "q5s1": 0.0,
+        "q6s0": 0.0,
+        "q6s1": 0.0,
+        "q7s0": 0.0,
+        "q7s1": 0.0,
+        "q8s0": 989039.5608232268,
+        "q8s1": 997584.3147953388,
+        "q9s0": 0.0,
+        "q9s1": 0.0,
+        "q10s0": 0.0,
+        "q10s1": 0.0,
+        "q11s0": 0.0,
+        "q11s1": 0.0,
+        "q12s0": 0.0,
+        "q12s1": 0.0,
+        "q13s0": 198066.8703839018,
+        "q13s1": 165915.73816608297,
+        "q14s0": 0.0,
+        "q14s1": 0.0,
+        "q15s0": 0.0,
+        "q15s1": 0.0,
+        "q16s0": 0.0005164422192614484,
+        "q16s1": 0.0021010197899342144
+      }
+    },
+    {
+      "name": "gf-c-nominal-27-dc",
+      "error": "ValueError('Independent MOS variant currents differ.')",
+      "device_errors": {
+        "q0s0": 0.00043451789195390005,
+        "q0s1": 0.0,
+        "q1s0": 0.0,
+        "q1s1": 0.0,
+        "q2s0": 0.0,
+        "q2s1": 0.0,
+        "q3s0": 0.0,
+        "q3s1": 0.0,
+        "q4s0": 0.0,
+        "q4s1": 0.0,
+        "q5s0": 0.0,
+        "q5s1": 0.0,
+        "q6s0": 0.0,
+        "q6s1": 0.0,
+        "q7s0": 0.0,
+        "q7s1": 0.0,
+        "q8s0": 990158.0486997282,
+        "q8s1": 997826.2216346216,
+        "q9s0": 0.0,
+        "q9s1": 0.0,
+        "q10s0": 0.0,
+        "q10s1": 0.0,
+        "q11s0": 0.0,
+        "q11s1": 0.0,
+        "q12s0": 0.0,
+        "q12s1": 0.0,
+        "q13s0": 13.450218049746306,
+        "q13s1": 11.023074216989341,
+        "q14s0": 0.0,
+        "q14s1": 0.0,
+        "q15s0": 0.0,
+        "q15s1": 0.0,
+        "q16s0": 0.0003533441761151751,
+        "q16s1": 0.0012964846907509025
+      }
+    },
+    {
+      "name": "gf-c-nominal-27-g",
+      "error": "ValueError('Independent MOS variant currents differ.')",
+      "device_errors": {
+        "q0s0": 4.630115760938e-10,
+        "q0s1": 0.0,
+        "q1s0": 0.0,
+        "q1s1": 0.0,
+        "q2s0": 0.0,
+        "q2s1": 0.0,
+        "q3s0": 0.0,
+        "q3s1": 0.0,
+        "q4s0": 0.0,
+        "q4s1": 0.0,
+        "q5s0": 0.0,
+        "q5s1": 0.0,
+        "q6s0": 0.0,
+        "q6s1": 0.0,
+        "q7s0": 0.0,
+        "q7s1": 0.0,
+        "q8s0": 6223671.1304446785,
+        "q8s1": 9664594.1080116,
+        "q9s0": 0.0,
+        "q9s1": 0.0,
+        "q10s0": 0.0,
+        "q10s1": 0.0,
+        "q11s0": 0.0,
+        "q11s1": 0.0,
+        "q12s0": 0.0,
+        "q12s1": 0.0,
+        "q13s0": 827.2211315706339,
+        "q13s1": 2141.761994867121,
+        "q14s0": 0.0,
+        "q14s1": 0.0,
+        "q15s0": 0.0,
+        "q15s1": 0.0,
+        "q16s0": 3.9267878199608746e-08,
+        "q16s1": 2.0013604398653253e-07
+      }
+    },
+    {
+      "name": "gf-c-nominal-27-s",
+      "error": "ValueError('Independent MOS variant currents differ.')",
+      "device_errors": {
+        "q0s0": 1.4905404376408163e-05,
+        "q0s1": 0.0,
+        "q1s0": 0.0,
+        "q1s1": 0.0,
+        "q2s0": 0.0,
+        "q2s1": 0.0,
+        "q3s0": 0.0,
+        "q3s1": 0.0,
+        "q4s0": 0.0,
+        "q4s1": 0.0,
+        "q5s0": 0.0,
+        "q5s1": 0.0,
+        "q6s0": 0.0,
+        "q6s1": 0.0,
+        "q7s0": 0.0,
+        "q7s1": 0.0,
+        "q8s0": 951822.6714372518,
+        "q8s1": 952464.2634437338,
+        "q9s0": 0.0,
+        "q9s1": 0.0,
+        "q10s0": 0.0,
+        "q10s1": 0.0,
+        "q11s0": 0.0,
+        "q11s1": 0.0,
+        "q12s0": 0.0,
+        "q12s1": 0.0,
+        "q13s0": 549.4361393282777,
+        "q13s1": 1856.7088590484418,
+        "q14s0": 0.0,
+        "q14s1": 0.0,
+        "q15s0": 0.0,
+        "q15s1": 0.0,
+        "q16s0": 6.056797480778453e-11,
+        "q16s1": 7.118530526737529e-11
+      }
+    },
+    {
+      "name": "gf-d-nominal-27-b",
+      "error": "ValueError('Independent MOS variant currents differ.')",
+      "device_errors": {
+        "q0s0": 0.0,
+        "q0s1": 0.0,
+        "q1s0": 0.0,
+        "q1s1": 0.0,
+        "q2s0": 0.0,
+        "q2s1": 0.0,
+        "q3s0": 0.0,
+        "q3s1": 0.0,
+        "q4s0": 0.0,
+        "q4s1": 0.0,
+        "q5s0": 0.0,
+        "q5s1": 0.0,
+        "q6s0": 0.0,
+        "q6s1": 0.0,
+        "q7s0": 0.0,
+        "q7s1": 0.0,
+        "q8s0": 10849897.906611437,
+        "q8s1": 23148515.24131024,
+        "q9s0": 0.0,
+        "q9s1": 0.0,
+        "q10s0": 0.0,
+        "q10s1": 0.0,
+        "q11s0": 0.0,
+        "q11s1": 0.0,
+        "q12s0": 0.0,
+        "q12s1": 0.0,
+        "q13s0": 197301.43990812232,
+        "q13s1": 164709.25630555628,
+        "q14s0": 0.0,
+        "q14s1": 0.0,
+        "q15s0": 0.0,
+        "q15s1": 0.0,
+        "q16s0": 8.335047989824334e-09,
+        "q16s1": 5.916785961773023e-08
+      }
+    },
+    {
+      "name": "gf-d-nominal-27-d",
+      "error": "ValueError('Independent MOS variant currents differ.')",
+      "device_errors": {
+        "q0s0": 0.0007687037180332823,
+        "q0s1": 0.0,
+        "q1s0": 0.0,
+        "q1s1": 0.0,
+        "q2s0": 0.0,
+        "q2s1": 0.0,
+        "q3s0": 0.0,
+        "q3s1": 0.0,
+        "q4s0": 0.0,
+        "q4s1": 0.0,
+        "q5s0": 0.0,
+        "q5s1": 0.0,
+        "q6s0": 0.0,
+        "q6s1": 0.0,
+        "q7s0": 0.0,
+        "q7s1": 0.0,
+        "q8s0": 989039.5608232268,
+        "q8s1": 997584.3147953388,
+        "q9s0": 0.0,
+        "q9s1": 0.0,
+        "q10s0": 0.0,
+        "q10s1": 0.0,
+        "q11s0": 0.0,
+        "q11s1": 0.0,
+        "q12s0": 0.0,
+        "q12s1": 0.0,
+        "q13s0": 198066.8703839018,
+        "q13s1": 165915.73816608297,
+        "q14s0": 0.0,
+        "q14s1": 0.0,
+        "q15s0": 0.0,
+        "q15s1": 0.0,
+        "q16s0": 0.0005164422192614484,
+        "q16s1": 0.0021010197899342144
+      }
+    },
+    {
+      "name": "gf-d-nominal-27-dc",
+      "error": "ValueError('Independent MOS variant currents differ.')",
+      "device_errors": {
+        "q0s0": 0.00043451789195390005,
+        "q0s1": 0.0,
+        "q1s0": 0.0,
+        "q1s1": 0.0,
+        "q2s0": 0.0,
+        "q2s1": 0.0,
+        "q3s0": 0.0,
+        "q3s1": 0.0,
+        "q4s0": 0.0,
+        "q4s1": 0.0,
+        "q5s0": 0.0,
+        "q5s1": 0.0,
+        "q6s0": 0.0,
+        "q6s1": 0.0,
+        "q7s0": 0.0,
+        "q7s1": 0.0,
+        "q8s0": 990158.0486997282,
+        "q8s1": 997826.2216346216,
+        "q9s0": 0.0,
+        "q9s1": 0.0,
+        "q10s0": 0.0,
+        "q10s1": 0.0,
+        "q11s0": 0.0,
+        "q11s1": 0.0,
+        "q12s0": 0.0,
+        "q12s1": 0.0,
+        "q13s0": 13.450218049746306,
+        "q13s1": 11.023074216989341,
+        "q14s0": 0.0,
+        "q14s1": 0.0,
+        "q15s0": 0.0,
+        "q15s1": 0.0,
+        "q16s0": 0.0003533441761151751,
+        "q16s1": 0.0012964846907509025
+      }
+    },
+    {
+      "name": "gf-d-nominal-27-g",
+      "error": "ValueError('Independent MOS variant currents differ.')",
+      "device_errors": {
+        "q0s0": 4.630115760938e-10,
+        "q0s1": 0.0,
+        "q1s0": 0.0,
+        "q1s1": 0.0,
+        "q2s0": 0.0,
+        "q2s1": 0.0,
+        "q3s0": 0.0,
+        "q3s1": 0.0,
+        "q4s0": 0.0,
+        "q4s1": 0.0,
+        "q5s0": 0.0,
+        "q5s1": 0.0,
+        "q6s0": 0.0,
+        "q6s1": 0.0,
+        "q7s0": 0.0,
+        "q7s1": 0.0,
+        "q8s0": 6223671.1304446785,
+        "q8s1": 9664594.1080116,
+        "q9s0": 0.0,
+        "q9s1": 0.0,
+        "q10s0": 0.0,
+        "q10s1": 0.0,
+        "q11s0": 0.0,
+        "q11s1": 0.0,
+        "q12s0": 0.0,
+        "q12s1": 0.0,
+        "q13s0": 827.2211315706339,
+        "q13s1": 2141.761994867121,
+        "q14s0": 0.0,
+        "q14s1": 0.0,
+        "q15s0": 0.0,
+        "q15s1": 0.0,
+        "q16s0": 3.9267878199608746e-08,
+        "q16s1": 2.0013604398653253e-07
+      }
+    },
+    {
+      "name": "gf-d-nominal-27-s",
+      "error": "ValueError('Independent MOS variant currents differ.')",
+      "device_errors": {
+        "q0s0": 1.4905404376408163e-05,
+        "q0s1": 0.0,
+        "q1s0": 0.0,
+        "q1s1": 0.0,
+        "q2s0": 0.0,
+        "q2s1": 0.0,
+        "q3s0": 0.0,
+        "q3s1": 0.0,
+        "q4s0": 0.0,
+        "q4s1": 0.0,
+        "q5s0": 0.0,
+        "q5s1": 0.0,
+        "q6s0": 0.0,
+        "q6s1": 0.0,
+        "q7s0": 0.0,
+        "q7s1": 0.0,
+        "q8s0": 951822.6714372518,
+        "q8s1": 952464.2634437338,
+        "q9s0": 0.0,
+        "q9s1": 0.0,
+        "q10s0": 0.0,
+        "q10s1": 0.0,
+        "q11s0": 0.0,
+        "q11s1": 0.0,
+        "q12s0": 0.0,
+        "q12s1": 0.0,
+        "q13s0": 549.4361393282777,
+        "q13s1": 1856.7088590484418,
+        "q14s0": 0.0,
+        "q14s1": 0.0,
+        "q15s0": 0.0,
+        "q15s1": 0.0,
+        "q16s0": 6.056797480778453e-11,
+        "q16s1": 7.118530526737529e-11
+      }
+    },
+    {
+      "name": "ihp-clamp-nominal-27-dc",
+      "error": "ValueError('Independent MOS variant currents differ.')",
+      "device_errors": {
+        "q0s0": 70763510426.09172,
+        "q0s1": 132553609345.75772,
+        "q1s0": 72520626138.90823,
+        "q1s1": 135845021443.50485
+      }
+    },
+    {
+      "name": "ihp-clamp-nominal-27-vdd",
+      "error": "ValueError('Independent MOS variant currents differ.')",
+      "device_errors": {
+        "q0s0": 95317447387.2253,
+        "q0s1": 211337973416.7416,
+        "q1s0": 105143289030.2373,
+        "q1s1": 233123467566.59927
+      }
+    },
+    {
+      "name": "ihp-clamp-nominal-27-vss",
+      "error": "ValueError('Independent MOS variant currents differ.')",
+      "device_errors": {
+        "q0s0": 95317447387.2251,
+        "q0s1": 211337973550.4042,
+        "q1s0": 105143289030.23705,
+        "q1s1": 233123467733.87906
+      }
+    },
+    {
+      "name": "sky-core-nominal-27-b",
+      "error": "RuntimeError(\"icstudio-ngspice exited with code 1.\\nWarning: m=xx on .subckt line will override multiplier m hierarchy!\\n\\n\\nNote: Compatibility modes selected: hs a\\n\\n\\nCircuit: * ic design studio / untitled circuit / revision 0\\n\\noption SCALE: Scale is set to 1e-06 for instance and model parameters\\nError on line 841 or its substitute:\\n  m.x_dq2s0.msky130_fd_pr__nfet_03v3_nvt q2s0d q2s0g q2s0s q2s0b sky130_fd_pr__nfet_03v3_nvt__model l=    1.000000000000000e+00     w=    4.000000000000000e+00     nf=    1.000000000000000e+00     ad=    1.160000000000000e+00     as=    1.160000000000000e+00     pd=    8.580000000000000e+00     ps=    8.580000000000000e+00     nrd=    7.250000000000000e-02     nrs=    7.250000000000000e-02     sa=    0.000000000000000e+00     sb=    0.000000000000000e+00     sd=    0.000000000000000e+00     m=    1.000000000000000e+00   \\ncould not find a valid modelname\\n    Simulation interrupted due to error!\\n\\nError: circuit not parsed.\\nNote: no resource usage information for 'time',\\n\\tor no active circuit available\\n\\n\\nTotal elapsed time (seconds) = 3.661 \\n\\nTotal DRAM available = 15716.152 MB.\\nDRAM currently available = 13936.020 MB.\\nMaximum ngspice program size =  143.254 MB.\\nCurrent ngspice program size =  137.379 MB.\\n\\nShared ngspice pages =    9.000 MB.\\nText (code) pages =    5.848 MB.\\nStack = 0 bytes.\\nLibrary pages =  128.656 MB.\\n\\n\")",
+      "device_errors": {}
+    },
+    {
+      "name": "sky-core-nominal-27-d",
+      "error": "RuntimeError(\"icstudio-ngspice exited with code 1.\\nWarning: m=xx on .subckt line will override multiplier m hierarchy!\\n\\n\\nNote: Compatibility modes selected: hs a\\n\\n\\nCircuit: * ic design studio / untitled circuit / revision 0\\n\\noption SCALE: Scale is set to 1e-06 for instance and model parameters\\nError on line 841 or its substitute:\\n  m.x_dq2s0.msky130_fd_pr__nfet_03v3_nvt q2s0d q2s0g q2s0s q2s0b sky130_fd_pr__nfet_03v3_nvt__model l=    1.000000000000000e+00     w=    4.000000000000000e+00     nf=    1.000000000000000e+00     ad=    1.160000000000000e+00     as=    1.160000000000000e+00     pd=    8.580000000000000e+00     ps=    8.580000000000000e+00     nrd=    7.250000000000000e-02     nrs=    7.250000000000000e-02     sa=    0.000000000000000e+00     sb=    0.000000000000000e+00     sd=    0.000000000000000e+00     m=    1.000000000000000e+00   \\ncould not find a valid modelname\\n    Simulation interrupted due to error!\\n\\nError: circuit not parsed.\\nNote: no resource usage information for 'time',\\n\\tor no active circuit available\\n\\n\\nTotal elapsed time (seconds) = 3.667 \\n\\nTotal DRAM available = 15716.152 MB.\\nDRAM currently available = 14115.355 MB.\\nMaximum ngspice program size =  143.258 MB.\\nCurrent ngspice program size =  137.012 MB.\\n\\nShared ngspice pages =    8.625 MB.\\nText (code) pages =    5.848 MB.\\nStack = 0 bytes.\\nLibrary pages =  128.660 MB.\\n\\n\")",
+      "device_errors": {}
+    },
+    {
+      "name": "sky-core-nominal-27-dc",
+      "error": "RuntimeError(\"icstudio-ngspice exited with code 1.\\nWarning: m=xx on .subckt line will override multiplier m hierarchy!\\n\\n\\nNote: Compatibility modes selected: hs a\\n\\n\\nCircuit: * ic design studio / untitled circuit / revision 0\\n\\noption SCALE: Scale is set to 1e-06 for instance and model parameters\\nError on line 841 or its substitute:\\n  m.x_dq2s0.msky130_fd_pr__nfet_03v3_nvt q2s0d q2s0g q2s0s q2s0b sky130_fd_pr__nfet_03v3_nvt__model l=    1.000000000000000e+00     w=    4.000000000000000e+00     nf=    1.000000000000000e+00     ad=    1.160000000000000e+00     as=    1.160000000000000e+00     pd=    8.580000000000000e+00     ps=    8.580000000000000e+00     nrd=    7.250000000000000e-02     nrs=    7.250000000000000e-02     sa=    0.000000000000000e+00     sb=    0.000000000000000e+00     sd=    0.000000000000000e+00     m=    1.000000000000000e+00   \\ncould not find a valid modelname\\n    Simulation interrupted due to error!\\n\\nError: circuit not parsed.\\nNote: no resource usage information for 'time',\\n\\tor no active circuit available\\n\\n\\nTotal elapsed time (seconds) = 3.692 \\n\\nTotal DRAM available = 15716.152 MB.\\nDRAM currently available = 14324.012 MB.\\nMaximum ngspice program size =  143.254 MB.\\nCurrent ngspice program size =  137.012 MB.\\n\\nShared ngspice pages =    8.625 MB.\\nText (code) pages =    5.848 MB.\\nStack = 0 bytes.\\nLibrary pages =  128.656 MB.\\n\\n\")",
+      "device_errors": {}
+    },
+    {
+      "name": "sky-core-nominal-27-g",
+      "error": "RuntimeError(\"icstudio-ngspice exited with code 1.\\nWarning: m=xx on .subckt line will override multiplier m hierarchy!\\n\\n\\nNote: Compatibility modes selected: hs a\\n\\n\\nCircuit: * ic design studio / untitled circuit / revision 0\\n\\noption SCALE: Scale is set to 1e-06 for instance and model parameters\\nError on line 841 or its substitute:\\n  m.x_dq2s0.msky130_fd_pr__nfet_03v3_nvt q2s0d q2s0g q2s0s q2s0b sky130_fd_pr__nfet_03v3_nvt__model l=    1.000000000000000e+00     w=    4.000000000000000e+00     nf=    1.000000000000000e+00     ad=    1.160000000000000e+00     as=    1.160000000000000e+00     pd=    8.580000000000000e+00     ps=    8.580000000000000e+00     nrd=    7.250000000000000e-02     nrs=    7.250000000000000e-02     sa=    0.000000000000000e+00     sb=    0.000000000000000e+00     sd=    0.000000000000000e+00     m=    1.000000000000000e+00   \\ncould not find a valid modelname\\n    Simulation interrupted due to error!\\n\\nError: circuit not parsed.\\nNote: no resource usage information for 'time',\\n\\tor no active circuit available\\n\\n\\nTotal elapsed time (seconds) = 3.647 \\n\\nTotal DRAM available = 15716.152 MB.\\nDRAM currently available = 13811.633 MB.\\nMaximum ngspice program size =  143.254 MB.\\nCurrent ngspice program size =  137.195 MB.\\n\\nShared ngspice pages =    8.812 MB.\\nText (code) pages =    5.848 MB.\\nStack = 0 bytes.\\nLibrary pages =  128.656 MB.\\n\\n\")",
+      "device_errors": {}
+    },
+    {
+      "name": "sky-core-nominal-27-s",
+      "error": "RuntimeError(\"icstudio-ngspice exited with code 1.\\nWarning: m=xx on .subckt line will override multiplier m hierarchy!\\n\\n\\nNote: Compatibility modes selected: hs a\\n\\n\\nCircuit: * ic design studio / untitled circuit / revision 0\\n\\noption SCALE: Scale is set to 1e-06 for instance and model parameters\\nError on line 841 or its substitute:\\n  m.x_dq2s0.msky130_fd_pr__nfet_03v3_nvt q2s0d q2s0g q2s0s q2s0b sky130_fd_pr__nfet_03v3_nvt__model l=    1.000000000000000e+00     w=    4.000000000000000e+00     nf=    1.000000000000000e+00     ad=    1.160000000000000e+00     as=    1.160000000000000e+00     pd=    8.580000000000000e+00     ps=    8.580000000000000e+00     nrd=    7.250000000000000e-02     nrs=    7.250000000000000e-02     sa=    0.000000000000000e+00     sb=    0.000000000000000e+00     sd=    0.000000000000000e+00     m=    1.000000000000000e+00   \\ncould not find a valid modelname\\n    Simulation interrupted due to error!\\n\\nError: circuit not parsed.\\nNote: no resource usage information for 'time',\\n\\tor no active circuit available\\n\\n\\nTotal elapsed time (seconds) = 3.668 \\n\\nTotal DRAM available = 15716.152 MB.\\nDRAM currently available = 14063.602 MB.\\nMaximum ngspice program size =  143.254 MB.\\nCurrent ngspice program size =  137.195 MB.\\n\\nShared ngspice pages =    8.812 MB.\\nText (code) pages =    5.848 MB.\\nStack = 0 bytes.\\nLibrary pages =  128.656 MB.\\n\\n\")",
+      "device_errors": {}
+    }
+  ],
+  "archive": {
+    "path": "IC-Design-Studio-evidence/mos-variants-2026-10-17/evidence.zip",
+    "sha256": "648e03e56cdb249f75b0d7c1fe2853e000e2ef06a18eaebb73bbf822ea616d3f",
+    "bytes": 206144869,
+    "file_paths": 161215,
+    "unique_contents": 6845,
+    "verified_objects": true
+  },
+  "remaining": [
+    "Complete device-specific geometry, voltage, temperature, reliability and statistical operating envelopes; physical generation/extraction, ESD rating, silicon and RF accuracy remain unqualified.",
+    "These 86 entries are catalog symbol views, not 86 distinct independent transistor models. Model-only definitions and alternate selectable models remain separate inventory work.",
+    "Named process selections do not imply every device has independent corner data. The public GF180 native model and some SKY130 discrete models reuse fixed source definitions across selections.",
+    "SKY130 20 V models contain fixed internal geometry; the two tested instances vary multiplicity, not effective model W/L. Defaults still expose W/L and need an explicit fixed-geometry contract.",
+    "Promote the verified explicit capacitor/MOS/isolation packages to new default projects with reproducibility and physical/runtime regression checks.",
+    "The 324-case frozen source predates schematic positioning and RF fault additions. The later nine RF cases and 26 focused tests use the updated implementation; earlier raw evidence is not relabelled."
+  ],
+  "diagnostics": [
+    "Initial SKY130 core probe sizes lay outside discrete model bins; subsequent test points use explicit supported bins. Original failures are retained.",
+    "Initial GF180 reference incorrectly used NMOS drain-silicide spacing for pfet_03v3_dss; corrected from the source symbol before the full sweep.",
+    "A helper initially named a nonexistent Python environment; no qualification ran in that attempt.",
+    "Initial handoff fixtures overlapped at the same location, then compared binary float spellings exactly. Fixtures now have distinct locations and use the existing 12-significant-digit export precision contract.",
+    "Linux focused tests initially lacked two repository example directories. Including the actual fixtures resolves the failure; no production assertion is skipped."
+  ]
+}

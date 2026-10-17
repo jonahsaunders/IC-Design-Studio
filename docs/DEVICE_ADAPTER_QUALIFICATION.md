@@ -291,3 +291,46 @@ entries have selected electrical integration evidence. Other fixed VPP variants,
 complete operating ranges, statistical/RF accuracy, physical extraction and
 default-package promotion remain open. In particular, SVaricap `Nx` changes
 model geometry and is not assumed to equal parallel independent devices.
+
+## MOS variants and clamp connections
+
+The [MOS variant record](validation/mos-variants-2026-10-17.json) covers all
+86 currently placeable MOS/clamp catalog entries: 42 SKY130, 17 each GF180 C/D,
+and 10 IHP. These are symbol views; several share the same model. All 324
+selected cases pass independent DC and complex terminal-current comparisons
+under three requested process selections and 0/27/85 C. Raw-file readback
+reproduces 33,516 vectors and 1,100,376 samples. All 3,096 deliberately faulted
+device instances are detected in 126 simulations. Nine additional IHP cases
+detect disabled RF mode in every tested RF view, covering 72 device instances.
+This establishes model selection and terminal integration through 1 GHz, not
+RF model accuracy or ESD robustness.
+
+The original GF180 native-threshold symbol incorrectly selects `nfet_06v0`.
+The corrected package selects the existing `nfet_06v0_nvt` model. The IHP
+`nmoscl_2` and `nmoscl_4` bindings now follow model order `VDD VSS`, also
+declared by the symbols' simulation pin numbers. Both original defects fail
+the independent reference. All upstream asset bytes are retained. Fresh
+registration applies the exact-source-guarded GF180 correction and preserves
+the symbol's parsed simulation pin order. Saved and bundled revisions retain
+their existing identities.
+
+```sh
+python scripts/qualify_mos_variants.py --output /path/to/new-mos-results --ngspice /path/to/new-runtime/installed/bin/icstudio-ngspice --osdi /path/to/ihp-osdi --correct-bindings --workers 4
+```
+
+Use `--pilot` for the nominal 27 C run. Corrected packages are written below
+the output directory; select them through **Install package…**. The IHP
+package also retains the previously tested isolation-box and SVaricap bindings.
+Twenty-six focused tests pass on both Windows and Linux, including source
+preservation, corrected fresh imports, saved revisions and Xschem handoff.
+
+The selected gate range is 0–1.2 V with 0.6 V drain bias and separate source,
+body and isolated-substrate connections. AC tests drive every terminal
+independently from 1 kHz to 1 GHz. Several SKY130 models provide discrete size
+bins; the retained initial generic-size failures are not passes. The 20 V
+models use fixed internal geometry, so their two tested instances vary
+multiplicity rather than effective W/L. Their editable default geometry
+contract still needs correction. Named corner selections also do not imply
+distinct corner models for every device. Full operating limits, statistical
+behavior, physical layout/extraction, other selectable models and default
+package promotion remain open.

@@ -59,6 +59,18 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The latest [MOS variant batch](validation/mos-variants-2026-10-17.json) covers
+all 86 placeable MOS/clamp catalog views, including hidden-body, native-threshold,
+high-voltage, isolated and RF variants. Its 324 selected condition cases pass
+33,516 independently re-read terminal vectors (1,100,376 samples), with all
+3,096 deliberately faulted instances detected. Nine additional IHP RF cases
+detect disabled RF mode in 72 instances. Source-backed corrections fix the
+GF180 native-model selection and IHP clamp supply order; new registrations
+apply those fixes, and explicit packages preserve the original asset bytes.
+Twenty-six focused tests pass on each host. The broader operating envelopes,
+physical coverage, model-only inventory and default package/runtime integration
+are still required before chunk 7 can be declared complete.
+
 The [completed MOS sweeps](validation/standard-mos-sweeps-2026-10-16.json)
 add 432 cases across six selected geometries, three process corners and
 0/27/85 C for the eight standard NMOS/PMOS entries. All 1,728 independent

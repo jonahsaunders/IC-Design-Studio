@@ -175,6 +175,13 @@ def scan_local(path, progress=lambda message: None):
             model=match[2]
             for param in re.findall(r'@(\w+)',model):model=model.replace('@'+param,defaults.get(param.lower(),''))
             if not re.fullmatch('[A-Za-z_][A-Za-z0-9_.$-]*',model):raise ValueError('Dynamic model selection requires an explicit adapter.')
+            if family=='gf180mcu' and key=='symbols/nfet_06v0_nvt.sym' and model=='nfet_06v0':
+                from .gf180_native_binding import reviewed_model
+                native=models.get('nfet_06v0_nvt')
+                if native is None:raise ValueError('Native-threshold model is absent from the selected library closure.')
+                model=reviewed_model(sym.read_bytes(),(root/native['file']).read_bytes())
+                symbol['attributes']['template']=symbol['attributes']['template'].replace('model=nfet_06v0\n','model=nfet_06v0_nvt\n')
+                notes.append('Reviewed public native-threshold symbol correction: select nfet_06v0_nvt; upstream model equations are unchanged.')
             entry['model']=model
             definition=models.get(model.lower())
             if definition is None:raise ValueError('Model is absent from the selected ngspice library closure.')
@@ -222,7 +229,7 @@ def scan_local(path, progress=lambda message: None):
                 from .ihp_isolation import constrain
                 constrain(params,(root/definition['file']).read_bytes())
             scale={k:1e6 if family=='sky130' else 1 for k in ('w','l')}
-            entry.update(kind=kind,category=category,pin_order=list(symbol['pins']),prefix=prefix,parameters=params,emit_parameters=emitted,parameter_scale=scale,symbol=symbol,model_source=definition['file'],notes=notes)
+            entry.update(kind=kind,category=category,pin_order=list(symbol['pin_order']),prefix=prefix,parameters=params,emit_parameters=emitted,parameter_scale=scale,symbol=symbol,model_source=definition['file'],notes=notes)
             if kind in ('NMOS','PMOS') and not {'w','l'}<=params.keys():raise ValueError('MOS symbol does not declare width and length.')
             # Includes formula evaluation and catches unsupported parameter defaults.
             catalog[key]=entry;tech['package_lock']={'id':root.name,'revision':'scan'}
