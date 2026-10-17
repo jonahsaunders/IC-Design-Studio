@@ -59,6 +59,17 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [SKY130 resistor record](validation/sky130-li-metal-resistors-2026-10-17.json)
+resolves the unavailable LI binding using the existing documented model. The new
+default retains all original assets and saved-project revisions. Both hosts pass
+72 electrical analysis comparisons and detect 864 faulted instances; independent
+raw readback also verifies analytical RC and noise behavior. Five LI/metal families
+pass 60 native layouts and all 150 faults, with 210 extracted netlists audited.
+Source-desktop checks, 31 focused and 29 package/matrix tests per host pass. The
+[resistor guide](SKY130_METAL_RESISTOR_QUALIFICATION.md) separates electrical test
+points from legal physical geometry and records the retained failures. Complete
+operating ranges, other required devices and installed acceptance remain open.
+
 The [IHP NPN-layout record](validation/ihp-npn-layouts-2026-10-17.json) adds
 36 layouts across all three four-terminal NPN families, with all 99 deliberate
 faults detected. Exact emitter/count audits, 54 independent rule-geometry checks,

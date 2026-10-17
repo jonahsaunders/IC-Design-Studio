@@ -4,6 +4,7 @@
     "ICSTUDIO-ALTERNATE-MODELS.json": "effa235389dc83c5fd46c670bf7ce18a8b99f50ba1e238cc7c87f10a0068cbcc",
     "ICSTUDIO-DEVICE-PACKAGE.json": "0cf702db83fe3e2b6a571a3dff04a9a650d36027c303931f58b868b92c13d8ec",
     "ICSTUDIO-FIXED-GEOMETRY.json": "880f6995a317c1b3e11331974b6cb4030388aab3d3e5433dc4d0bfcd25189a86",
+    "ICSTUDIO-LI-BINDING.json": "a1636b45fc53aae078298fe591c68e68d3738fc8fe79542cd5fe3bf1944582fe",
     "ICSTUDIO-NPN-PROVENANCE.json": "4fb792ae70d5b4030a1e7e42e2d6841671160b61b3bb5f30a40021e1a21130bd",
     "ICSTUDIO-PARALLEL-VARACTORS.json": "21230bfb2d6c27c9607421cd2acbd13516ccccca18a5c64d82e1f3885b28a507",
     "ICSTUDIO-RESISTOR-CORRECTION.json": "9854229dbcc793b644a10f3612445204248cce94bbe9fcaf56c443b870fb6c7b",
@@ -414,7 +415,7 @@
     "qualification-sources/bipolar/sky130_fd_pr__npn_05v5__t.corner.spice": "69583cf1827826ed0f91f9e775e17dc3d23d70caa6e4a4c766bb433f47d6d8e0"
   },
   "id": "sky130A",
-  "revision": "3e3cdb6aecf49063",
+  "revision": "1901822ae8f81ae1",
   "schema": 1,
   "technology": {
     "dbu_um": 0.001,
@@ -3736,7 +3737,7 @@
       ],
       "netgen_setup": ""
     },
-    "revision": "3e3cdb6aecf49063",
+    "revision": "1901822ae8f81ae1",
     "simulation": {
       "catalog": {
         "sky130_fd_pr/cap_mim_m3_1.sym": {
@@ -25975,12 +25976,298 @@
           "unavailable": ""
         },
         "sky130_fd_pr/res_generic_li.sym": {
-          "category": "Other",
+          "category": "Resistors",
+          "emit_parameters": {
+            "l": "l",
+            "m": "mult",
+            "w": "w"
+          },
           "kind": "PDK",
           "label": "res_generic_li",
-          "model": "sky130_fd_pr__res_generic_li",
+          "model": "sky130_fd_pr__res_generic_l1",
+          "model_source": "libs.tech/ngspice/sky130_fd_pr__model__r+c.model.spice",
+          "notes": [
+            "Reviewed public local-interconnect spelling correction: res_generic_li symbol selects res_generic_l1. Original model equations retained."
+          ],
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "parameters": {
+            "l": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "mult": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "w": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "m",
+            "p"
+          ],
+          "prefix": "R",
           "source": "libs.tech/xschem/sky130_fd_pr/res_generic_li.sym",
-          "unavailable": "Model is absent from the selected ngspice library closure."
+          "symbol": {
+            "attributes": {
+              "format": "@name @pinlist sky130_fd_pr__@model W=@W L=@L m=@mult",
+              "template": "name=R1\nW=1\nL=1\nmodel=res_generic_l1\nmult=1",
+              "type": "poly_resistor"
+            },
+            "pin_meta": {
+              "m": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "p": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "m",
+              "p"
+            ],
+            "pins": {
+              "m": [
+                0.0,
+                30.0
+              ],
+              "p": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    20.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    20.0
+                  ],
+                  [
+                    7.5,
+                    17.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    12.5
+                  ],
+                  [
+                    7.5,
+                    17.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    12.5
+                  ],
+                  [
+                    7.5,
+                    7.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    2.5
+                  ],
+                  [
+                    7.5,
+                    7.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    2.5
+                  ],
+                  [
+                    7.5,
+                    -2.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    -7.5
+                  ],
+                  [
+                    7.5,
+                    -2.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    -7.5
+                  ],
+                  [
+                    7.5,
+                    -12.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    -17.5
+                  ],
+                  [
+                    7.5,
+                    -12.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    -17.5
+                  ],
+                  [
+                    0.0,
+                    -20.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -20.0
+                  ]
+                ]
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    15.0,
+                    -28.75
+                  ],
+                  [
+                    35.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@name",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    15.0,
+                    6.25
+                  ],
+                  [
+                    35.0,
+                    16.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@mult * @W / @L",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    15.0,
+                    -11.25
+                  ],
+                  [
+                    35.0,
+                    -1.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model",
+                "text_anchor": "corner",
+                "vcenter": false
+              }
+            ]
+          },
+          "unavailable": ""
         },
         "sky130_fd_pr/res_generic_m1.sym": {
           "category": "Resistors",

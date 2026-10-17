@@ -182,6 +182,13 @@ def scan_local(path, progress=lambda message: None):
                 model=reviewed_model(sym.read_bytes(),(root/native['file']).read_bytes())
                 symbol['attributes']['template']=symbol['attributes']['template'].replace('model=nfet_06v0\n','model=nfet_06v0_nvt\n')
                 notes.append('Reviewed public native-threshold symbol correction: select nfet_06v0_nvt; upstream model equations are unchanged.')
+            if family=='sky130' and key=='sky130_fd_pr/res_generic_li.sym' and model=='sky130_fd_pr__res_generic_li':
+                from .sky130_li_binding import MODEL,reviewed_model
+                canonical=primitives.get((MODEL,'R'))
+                if canonical is None:raise ValueError('Local-interconnect resistor model is absent from the selected library closure.')
+                model=reviewed_model(sym.read_bytes(),(root/canonical['file']).read_bytes())
+                symbol['attributes']['template']=symbol['attributes']['template'].replace('model=res_generic_li\n','model=res_generic_l1\n')
+                notes.append('Reviewed public local-interconnect spelling correction: res_generic_li symbol selects res_generic_l1. Original model equations retained.')
             entry['model']=model
             definition=models.get(model.lower())
             if definition is None:raise ValueError('Model is absent from the selected ngspice library closure.')

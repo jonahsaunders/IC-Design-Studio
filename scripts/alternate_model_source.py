@@ -14,6 +14,13 @@ PROMOTED={
 
 @contextmanager
 def base_models(source):
+    from scripts.sky130_li_source import previous_li
+    with previous_li(source) as old:
+        with _base_models(old) as base:yield base
+
+
+@contextmanager
+def _base_models(source):
     from scripts.prepare_alternate_models import BASE
     source=Path(source).resolve();h=file_digest(source/'package.json')
     target=next((t for t,v in PROMOTED.items() if h==v),None)
