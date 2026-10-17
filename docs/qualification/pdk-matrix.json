@@ -34,7 +34,7 @@
     "7": {
       "name": "Qualify device families",
       "status": "in_progress",
-      "scope": "All 255 primitive symbol sources reconcile with pinned public views. The bundled include closure now inventories 6,402 SPICE definitions and 52 source-symbol alternate declarations; nine IHP Verilog-A declarations cover all six referenced external model types. All 235 usable defaults pass catalog interfaces on Windows and Linux. Seven SKY130 20 V symbol views now enforce fixed internal model geometry, passing 54 selected cases and 252 deliberate device faults on each host; original assets and saved revisions are preserved. Earlier device sweeps and physical fixtures retain their exact source/PDK scope. Complete device operating envelopes, alternate-model adapters/execution, broader physical/extracted connectivity, full upstream process/tool-view completeness and final installed-runtime acceptance remain open. Eight standard MOS views pass 378 Windows/Linux condition cases, 67,392 four-terminal current vectors and 33,696 per-device fault controls. Published boundary/characterization points and selected axes are distinguished. No continuous operating envelope, reliability, statistical/RF, physical or installed-release qualification is inferred. Six GF180 C/D and IHP standard single-finger MOS views pass 72 sampled native full-DRC/strict-LVS layouts and 504 physical fault controls. Extracted model, ports and W/L independently re-read. Narrow contact landings and 10 um lengths supported; body-tap identity survives regeneration/save/reopen. Seventy-two focused tests pass on each host. No complete geometry-domain, other-family, antenna/density or installed-release qualification is inferred. All 52 source-listed declarations accounted for: five defaults, 44 added usable views, three explicitly absent models. 170 selected local cases compare 5064 instances, 12560 terminal vectors and 341680 samples; 10128 faulted instances detected and 680 raw files audited. 48 focused tests pass on each host. Defaults reproduce exactly and preserve saved revisions. Full upstream inventory, operating envelopes, physical/extracted and metal-option coverage, statistical/RF accuracy and installed-executable acceptance remain open. 190 sampled straight resistor layouts pass native full DRC/strict LVS, exact model/body/terminal/W/L readback and independent GDS/OASIS exchange. All 285 physical faults and 190 reference faults are detected. Three IHP and eight GF180 families on each C/D variant; five W/L pairs and two rotations. No continuous geometry, all-family, operating-envelope, statistical/RF, installed-release, chip or foundry qualification. 100 sampled junction diode layouts pass native full DRC/strict LVS, exact extracted polarity/model/geometry and independent exchange. All 300 physical/reference fault controls are detected. Magic writer correction preserves GF180 perimeter units; 14 representative layouts and 29 focused tests per host pass. No continuous geometry/bias, all-family, ESD/statistical/RF, installed or foundry qualification. Ten sampled IHP pnpMPA layouts pass full Magic DRC, unfiltered public KLayout extraction and strict Netgen LVS; all 35 physical/reference faults detected. Independent readback checks 45 native and 45 comparison netlists and every mask. Source desktop action passes on both hosts, actual staged backend receipt passes, 40 focused tests per host and 14 default-route layouts pass. NPN/HBT, continuous geometry/bias, other families, statistical/RF and installed-release qualification remain open. 36 sampled four-terminal IHP NPN layouts across npn13G2/l/v pass full DRC and strict unfiltered LVS; all 99 faults detected. Independent emitter/count and 54 rule-geometry audits, 31 focused tests per host, PNP regressions and staged source backend pass. Thermal models, continuous envelopes, other families and installed release remain open. Source-checked SKY130 LI spelling correction promoted to a new default, with saved revisions and source bytes retained. Both hosts pass 18 condition cases / 72 independent analysis comparisons, 666 output vectors and 864 faulted instances; 216 raw files independently audited with analytical RC/noise controls. Five metal/LI resistor families pass 60 sampled layouts and 150 physical/reference faults, with 210 native netlists audited. Source desktops, 31 focused and 29 package/matrix checks per host pass. Continuous ranges, other devices, statistical/RF/thermal and installed-release acceptance remain open."
+      "scope": "All 255 primitive symbol sources reconcile with pinned public views. The bundled include closure now inventories 6,402 SPICE definitions and 52 source-symbol alternate declarations; nine IHP Verilog-A declarations cover all six referenced external model types. All 235 usable defaults pass catalog interfaces on Windows and Linux. Seven SKY130 20 V symbol views now enforce fixed internal model geometry, passing 54 selected cases and 252 deliberate device faults on each host; original assets and saved revisions are preserved. Earlier device sweeps and physical fixtures retain their exact source/PDK scope. Complete device operating envelopes, alternate-model adapters/execution, broader physical/extracted connectivity, full upstream process/tool-view completeness and final installed-runtime acceptance remain open. Eight standard MOS views pass 378 Windows/Linux condition cases, 67,392 four-terminal current vectors and 33,696 per-device fault controls. Published boundary/characterization points and selected axes are distinguished. No continuous operating envelope, reliability, statistical/RF, physical or installed-release qualification is inferred. Six GF180 C/D and IHP standard single-finger MOS views pass 72 sampled native full-DRC/strict-LVS layouts and 504 physical fault controls. Extracted model, ports and W/L independently re-read. Narrow contact landings and 10 um lengths supported; body-tap identity survives regeneration/save/reopen. Seventy-two focused tests pass on each host. No complete geometry-domain, other-family, antenna/density or installed-release qualification is inferred. All 52 source-listed declarations accounted for: five defaults, 44 added usable views, three explicitly absent models. 170 selected local cases compare 5064 instances, 12560 terminal vectors and 341680 samples; 10128 faulted instances detected and 680 raw files audited. 48 focused tests pass on each host. Defaults reproduce exactly and preserve saved revisions. Full upstream inventory, operating envelopes, physical/extracted and metal-option coverage, statistical/RF accuracy and installed-executable acceptance remain open. 190 sampled straight resistor layouts pass native full DRC/strict LVS, exact model/body/terminal/W/L readback and independent GDS/OASIS exchange. All 285 physical faults and 190 reference faults are detected. Three IHP and eight GF180 families on each C/D variant; five W/L pairs and two rotations. No continuous geometry, all-family, operating-envelope, statistical/RF, installed-release, chip or foundry qualification. 100 sampled junction diode layouts pass native full DRC/strict LVS, exact extracted polarity/model/geometry and independent exchange. All 300 physical/reference fault controls are detected. Magic writer correction preserves GF180 perimeter units; 14 representative layouts and 29 focused tests per host pass. No continuous geometry/bias, all-family, ESD/statistical/RF, installed or foundry qualification. Ten sampled IHP pnpMPA layouts pass full Magic DRC, unfiltered public KLayout extraction and strict Netgen LVS; all 35 physical/reference faults detected. Independent readback checks 45 native and 45 comparison netlists and every mask. Source desktop action passes on both hosts, actual staged backend receipt passes, 40 focused tests per host and 14 default-route layouts pass. NPN/HBT, continuous geometry/bias, other families, statistical/RF and installed-release qualification remain open. 36 sampled four-terminal IHP NPN layouts across npn13G2/l/v pass full DRC and strict unfiltered LVS; all 99 faults detected. Independent emitter/count and 54 rule-geometry audits, 31 focused tests per host, PNP regressions and staged source backend pass. Thermal models, continuous envelopes, other families and installed release remain open. Source-checked SKY130 LI spelling correction promoted to a new default, with saved revisions and source bytes retained. Both hosts pass 18 condition cases / 72 independent analysis comparisons, 666 output vectors and 864 faulted instances; 216 raw files independently audited with analytical RC/noise controls. Five metal/LI resistor families pass 60 sampled layouts and 150 physical/reference faults, with 210 native netlists audited. Source desktops, 31 focused and 29 package/matrix checks per host pass. Continuous ranges, other devices, statistical/RF/thermal and installed-release acceptance remain open. Three IHP five-terminal NPN families pass nine selected thermal conditions plus final-source and managed-engine nominal regressions: 66 independent comparisons, 2970 vectors, 656370 values, 220 detected faulted instances and 121 raw files audited. Windows source staging passes DC/AC/transient with 153 received files verified. Both source desktops and 16 focused tests per host pass; bipolar terminal labels and mixed-case parameter artwork corrected. Sharp-edge and cross-engine equivalence failures retained; continuous ranges, calibrated thermal networks, other devices and installed-release acceptance remain open."
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -17944,7 +17944,8 @@
         "scripts/qualify_sky130_fixed_geometry.py",
         "scripts/qualify_mos_boundaries.py",
         "scripts/qualify_alternate_models.py",
-        "scripts/qualify_sky130_li.py"
+        "scripts/qualify_sky130_li.py",
+        "scripts/qualify_ihp_thermal.py"
       ],
       "automation_gap": "Standard MOS selected geometry/corner/bias sweeps and bounded SKY130 physical recipes now execute; complete upstream interfaces, model-validity envelopes, other device variants/families, measured model accuracy and full parameter-boundary coverage remain open."
     },
@@ -19233,7 +19234,8 @@
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
         "default-device-packages-2026-10-17",
-        "fixed-geometry-and-model-inventory-2026-10-17"
+        "fixed-geometry-and-model-inventory-2026-10-17",
+        "ihp-thermal-2026-10-17"
       ]
     },
     "ihp-sg13g2:device-physical": {
@@ -19264,7 +19266,8 @@
         "standard-mos-sweeps-2026-10-16",
         "standard-passives-2026-10-16",
         "default-device-packages-2026-10-17",
-        "mos-boundaries-2026-10-17"
+        "mos-boundaries-2026-10-17",
+        "ihp-thermal-2026-10-17"
       ]
     },
     "ihp-sg13g2:digital-controller": {
@@ -23329,11 +23332,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
+        "remaining": "Finite five-terminal DC/AC/smooth-cycle self-heating, current balance, corresponding four-terminal equivalence and thermal/count faults pass. Exact source desktops and Windows backend staged execution pass. Sharp edges, full bias/geometry, thermal calibration/external networks, mutual heating, statistical/noise/RF and installed-release acceptance remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
-          "bipolar-families-2026-10-16"
+          "bipolar-families-2026-10-16",
+          "ihp-thermal-2026-10-17"
         ]
       },
       "sg13g2_pr/npn13G2l.sym": {
@@ -23358,11 +23362,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
+        "remaining": "Finite five-terminal DC/AC/smooth-cycle self-heating, current balance, corresponding four-terminal equivalence and thermal/count faults pass. Exact source desktops and Windows backend staged execution pass. Sharp edges, full bias/geometry, thermal calibration/external networks, mutual heating, statistical/noise/RF and installed-release acceptance remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
-          "bipolar-families-2026-10-16"
+          "bipolar-families-2026-10-16",
+          "ihp-thermal-2026-10-17"
         ]
       },
       "sg13g2_pr/npn13G2v.sym": {
@@ -23387,11 +23392,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected DC terminal currents, turn-on, KCL and pin controls pass under the recorded package/runtime. SKY130 needs the NPN-corner adapter and IHP needs diagnostic ngspice 47. Full envelopes, AC/transient/noise/RF/thermal, physical connectivity and default runtime integration remain open.",
+        "remaining": "Finite five-terminal DC/AC/smooth-cycle self-heating, current balance, corresponding four-terminal equivalence and thermal/count faults pass. Exact source desktops and Windows backend staged execution pass. Sharp edges, full bias/geometry, thermal calibration/external networks, mutual heating, statistical/noise/RF and installed-release acceptance remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
-          "bipolar-families-2026-10-16"
+          "bipolar-families-2026-10-16",
+          "ihp-thermal-2026-10-17"
         ]
       },
       "sg13g2_pr/ntap1.sym": {
@@ -24277,6 +24283,11 @@
       "path": "docs/validation/sky130-li-metal-resistors-2026-10-17.json",
       "sha256": "b5266982513869ba5cafa11cb914ba0b7799023507726292958c1dbdb199829b",
       "scope_limit": "Source-checked SKY130 LI spelling correction promoted to a new default, with saved revisions and source bytes retained. Both hosts pass 18 condition cases / 72 independent analysis comparisons, 666 output vectors and 864 faulted instances; 216 raw files independently audited with analytical RC/noise controls. Five metal/LI resistor families pass 60 sampled layouts and 150 physical/reference faults, with 210 native netlists audited. Source desktops, 31 focused and 29 package/matrix checks per host pass. Continuous ranges, other devices, statistical/RF/thermal and installed-release acceptance remain open."
+    },
+    "ihp-thermal-2026-10-17": {
+      "path": "docs/validation/ihp-thermal-2026-10-17.json",
+      "sha256": "c737b1599518ac4021eb6dd63c334482ffa4c469bbcdc287776e953826c5196a",
+      "scope_limit": "Three IHP five-terminal NPN families pass nine selected thermal conditions plus final-source and managed-engine nominal regressions: 66 independent comparisons, 2970 vectors, 656370 values, 220 detected faulted instances and 121 raw files audited. Windows source staging passes DC/AC/transient with 153 received files verified. Both source desktops and 16 focused tests per host pass; bipolar terminal labels and mixed-case parameter artwork corrected. Sharp-edge and cross-engine equivalence failures retained; continuous ranges, calibrated thermal networks, other devices and installed-release acceptance remain open."
     }
   },
   "execution_acceptance": {
@@ -24292,8 +24303,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/gf180-tested-source-2026-10-17-bipolar-layouts/manifest.json",
-        "sha256": "7c33886647b1dea7b946aab71d65c4fcb263efb0a5be9c3dcbe7fbcf7c64f498"
+        "path": "docs/validation/gf180-tested-source-2026-10-17-thermal-ui/manifest.json",
+        "sha256": "c02b1839286964d0f7053ca9caddc455a12e748bda684d02b7bd30100545d8fa"
       }
     },
     "5": {

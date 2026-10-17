@@ -59,6 +59,16 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [IHP thermal record](validation/ihp-thermal-2026-10-17.json) adds nine
+selected conditions for all three five-terminal NPN families, with separate
+final-source and managed-engine nominal regressions. All 66 independent
+comparisons and 220 fault controls pass; 121 raw outputs are audited. Windows
+source staging verifies 153 returned files, and both source desktops and 16
+focused tests per host pass. The [thermal guide](IHP_THERMAL_QUALIFICATION.md)
+records the corrected terminal labels and live symbol parameters, along with
+retained sharp-edge and cross-engine comparison failures. Complete operating
+ranges, remaining devices and final installed acceptance remain open.
+
 The [SKY130 resistor record](validation/sky130-li-metal-resistors-2026-10-17.json)
 resolves the unavailable LI binding using the existing documented model. The new
 default retains all original assets and saved-project revisions. Both hosts pass

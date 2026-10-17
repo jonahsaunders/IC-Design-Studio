@@ -428,8 +428,9 @@ class WorkspaceMixin:
             if obj['kind'] in ('NMOS','PMOS'):
                 self.field('Width',obj['params']['w'],'param:w',f);self.field('Length',obj['params']['l'],'param:l',f)
             f=self.section('Connections')
+            from .terminal_labels import connection_label
             for pin,computed in obj['nets'].items():
-                n=obj.get('net_labels',obj['nets'] if 'wires' not in self.cell else {}).get(pin,'');self.field({'p':'Positive (+)','n':'Negative (−)','d':'Drain','g':'Gate','s':'Source','b':'Bulk'}.get(pin,pin),n,'net:'+pin,f,placeholder='Connected: '+computed if not computed.startswith('N_') else 'Unlabelled · draw a wire')
+                n=obj.get('net_labels',obj['nets'] if 'wires' not in self.cell else {}).get(pin,'');self.field(connection_label(self.project['pdk'],obj,pin),n,'net:'+pin,f,placeholder='Connected: '+computed if not computed.startswith('N_') else 'Unlabelled · draw a wire')
             if obj['kind'] in ('V','I'):
                 f=self.section('Source waveform');combo=QComboBox();combo.addItems(['dc','pulse','sine']);combo.setCurrentText(obj['source']['type']);f.addRow('Waveform',combo);self.form_fields['source:type']=combo;combo.currentIndexChanged.connect(self.inspector_changed)
                 for k,title in [('low','Low level'),('high','High level'),('period','Period'),('delay','Delay'),('duty','Duty cycle'),('ac','AC magnitude')]:self.field(title,obj['source'][k],'source:'+k,f)
