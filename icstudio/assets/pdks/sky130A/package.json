@@ -1,6 +1,7 @@
 {
   "family": "sky130",
   "files": {
+    "ICSTUDIO-ALTERNATE-MODELS.json": "effa235389dc83c5fd46c670bf7ce18a8b99f50ba1e238cc7c87f10a0068cbcc",
     "ICSTUDIO-DEVICE-PACKAGE.json": "0cf702db83fe3e2b6a571a3dff04a9a650d36027c303931f58b868b92c13d8ec",
     "ICSTUDIO-FIXED-GEOMETRY.json": "880f6995a317c1b3e11331974b6cb4030388aab3d3e5433dc4d0bfcd25189a86",
     "ICSTUDIO-NPN-PROVENANCE.json": "4fb792ae70d5b4030a1e7e42e2d6841671160b61b3bb5f30a40021e1a21130bd",
@@ -413,7 +414,7 @@
     "qualification-sources/bipolar/sky130_fd_pr__npn_05v5__t.corner.spice": "69583cf1827826ed0f91f9e775e17dc3d23d70caa6e4a4c766bb433f47d6d8e0"
   },
   "id": "sky130A",
-  "revision": "293106f92f3e1dc5",
+  "revision": "3e3cdb6aecf49063",
   "schema": 1,
   "technology": {
     "dbu_um": 0.001,
@@ -3735,7 +3736,7 @@
       ],
       "netgen_setup": ""
     },
-    "revision": "293106f92f3e1dc5",
+    "revision": "3e3cdb6aecf49063",
     "simulation": {
       "catalog": {
         "sky130_fd_pr/cap_mim_m3_1.sym": {
@@ -4874,6 +4875,2116 @@
           },
           "unavailable": ""
         },
+        "sky130_fd_pr/diode__sky130_fd_pr__diode_pd2nw_05v5.sym": {
+          "alternate_of": "sky130_fd_pr/diode.sym",
+          "category": "Diodes",
+          "emit_parameters": {
+            "area": "area"
+          },
+          "kind": "PDK",
+          "label": "diode_pd2nw_05v5 (diode)",
+          "model": "sky130_fd_pr__diode_pd2nw_05v5",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pd2nw_05v5.model.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "parameters": {
+            "area": {
+              "default": "1e12",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            }
+          },
+          "pin_order": [
+            "d0",
+            "d1"
+          ],
+          "prefix": "D",
+          "source": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@name @pinlist sky130_fd_pr__@model area=@area",
+              "template": "name=D1\nmodel=diode_pw2nd_05v5\narea=1e12\n",
+              "type": "diode"
+            },
+            "pin_meta": {
+              "d0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d0",
+              "d1"
+            ],
+            "pins": {
+              "d0": [
+                0.0,
+                30.0
+              ],
+              "d1": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    0.0,
+                    -5.0
+                  ],
+                  [
+                    -10.0,
+                    5.0
+                  ],
+                  [
+                    10.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    25.0
+                  ],
+                  [
+                    35.0,
+                    35.0
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    -12.5
+                  ],
+                  [
+                    35.0,
+                    -2.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    7.5
+                  ],
+                  [
+                    35.0,
+                    17.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@symname"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/diode__sky130_fd_pr__diode_pd2nw_05v5_hvt.sym": {
+          "alternate_of": "sky130_fd_pr/diode.sym",
+          "category": "Diodes",
+          "emit_parameters": {
+            "area": "area"
+          },
+          "kind": "PDK",
+          "label": "diode_pd2nw_05v5_hvt (diode)",
+          "model": "sky130_fd_pr__diode_pd2nw_05v5_hvt",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pd2nw_05v5_hvt.model.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "parameters": {
+            "area": {
+              "default": "1e12",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            }
+          },
+          "pin_order": [
+            "d0",
+            "d1"
+          ],
+          "prefix": "D",
+          "source": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@name @pinlist sky130_fd_pr__@model area=@area",
+              "template": "name=D1\nmodel=diode_pw2nd_05v5\narea=1e12\n",
+              "type": "diode"
+            },
+            "pin_meta": {
+              "d0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d0",
+              "d1"
+            ],
+            "pins": {
+              "d0": [
+                0.0,
+                30.0
+              ],
+              "d1": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    0.0,
+                    -5.0
+                  ],
+                  [
+                    -10.0,
+                    5.0
+                  ],
+                  [
+                    10.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    25.0
+                  ],
+                  [
+                    35.0,
+                    35.0
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    -12.5
+                  ],
+                  [
+                    35.0,
+                    -2.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    7.5
+                  ],
+                  [
+                    35.0,
+                    17.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@symname"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/diode__sky130_fd_pr__diode_pd2nw_05v5_lvt.sym": {
+          "alternate_of": "sky130_fd_pr/diode.sym",
+          "category": "Diodes",
+          "emit_parameters": {
+            "area": "area"
+          },
+          "kind": "PDK",
+          "label": "diode_pd2nw_05v5_lvt (diode)",
+          "model": "sky130_fd_pr__diode_pd2nw_05v5_lvt",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pd2nw_05v5_lvt.model.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "parameters": {
+            "area": {
+              "default": "1e12",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            }
+          },
+          "pin_order": [
+            "d0",
+            "d1"
+          ],
+          "prefix": "D",
+          "source": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@name @pinlist sky130_fd_pr__@model area=@area",
+              "template": "name=D1\nmodel=diode_pw2nd_05v5\narea=1e12\n",
+              "type": "diode"
+            },
+            "pin_meta": {
+              "d0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d0",
+              "d1"
+            ],
+            "pins": {
+              "d0": [
+                0.0,
+                30.0
+              ],
+              "d1": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    0.0,
+                    -5.0
+                  ],
+                  [
+                    -10.0,
+                    5.0
+                  ],
+                  [
+                    10.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    25.0
+                  ],
+                  [
+                    35.0,
+                    35.0
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    -12.5
+                  ],
+                  [
+                    35.0,
+                    -2.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    7.5
+                  ],
+                  [
+                    35.0,
+                    17.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@symname"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/diode__sky130_fd_pr__diode_pd2nw_11v0.sym": {
+          "alternate_of": "sky130_fd_pr/diode.sym",
+          "category": "Diodes",
+          "emit_parameters": {
+            "area": "area"
+          },
+          "kind": "PDK",
+          "label": "diode_pd2nw_11v0 (diode)",
+          "model": "sky130_fd_pr__diode_pd2nw_11v0",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pd2nw_11v0.model.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "parameters": {
+            "area": {
+              "default": "1e12",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            }
+          },
+          "pin_order": [
+            "d0",
+            "d1"
+          ],
+          "prefix": "D",
+          "source": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@name @pinlist sky130_fd_pr__@model area=@area",
+              "template": "name=D1\nmodel=diode_pw2nd_05v5\narea=1e12\n",
+              "type": "diode"
+            },
+            "pin_meta": {
+              "d0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d0",
+              "d1"
+            ],
+            "pins": {
+              "d0": [
+                0.0,
+                30.0
+              ],
+              "d1": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    0.0,
+                    -5.0
+                  ],
+                  [
+                    -10.0,
+                    5.0
+                  ],
+                  [
+                    10.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    25.0
+                  ],
+                  [
+                    35.0,
+                    35.0
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    -12.5
+                  ],
+                  [
+                    35.0,
+                    -2.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    7.5
+                  ],
+                  [
+                    35.0,
+                    17.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@symname"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/diode__sky130_fd_pr__diode_pw2nd_05v5_lvt.sym": {
+          "alternate_of": "sky130_fd_pr/diode.sym",
+          "category": "Diodes",
+          "emit_parameters": {
+            "area": "area"
+          },
+          "kind": "PDK",
+          "label": "diode_pw2nd_05v5_lvt (diode)",
+          "model": "sky130_fd_pr__diode_pw2nd_05v5_lvt",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pw2nd_05v5_lvt.model.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "parameters": {
+            "area": {
+              "default": "1e12",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            }
+          },
+          "pin_order": [
+            "d0",
+            "d1"
+          ],
+          "prefix": "D",
+          "source": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@name @pinlist sky130_fd_pr__@model area=@area",
+              "template": "name=D1\nmodel=diode_pw2nd_05v5\narea=1e12\n",
+              "type": "diode"
+            },
+            "pin_meta": {
+              "d0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d0",
+              "d1"
+            ],
+            "pins": {
+              "d0": [
+                0.0,
+                30.0
+              ],
+              "d1": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    0.0,
+                    -5.0
+                  ],
+                  [
+                    -10.0,
+                    5.0
+                  ],
+                  [
+                    10.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    25.0
+                  ],
+                  [
+                    35.0,
+                    35.0
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    -12.5
+                  ],
+                  [
+                    35.0,
+                    -2.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    7.5
+                  ],
+                  [
+                    35.0,
+                    17.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@symname"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/diode__sky130_fd_pr__diode_pw2nd_05v5_nvt.sym": {
+          "alternate_of": "sky130_fd_pr/diode.sym",
+          "category": "Diodes",
+          "emit_parameters": {
+            "area": "area"
+          },
+          "kind": "PDK",
+          "label": "diode_pw2nd_05v5_nvt (diode)",
+          "model": "sky130_fd_pr__diode_pw2nd_05v5_nvt",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pw2nd_05v5_nvt.model.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "parameters": {
+            "area": {
+              "default": "1e12",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            }
+          },
+          "pin_order": [
+            "d0",
+            "d1"
+          ],
+          "prefix": "D",
+          "source": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@name @pinlist sky130_fd_pr__@model area=@area",
+              "template": "name=D1\nmodel=diode_pw2nd_05v5\narea=1e12\n",
+              "type": "diode"
+            },
+            "pin_meta": {
+              "d0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d0",
+              "d1"
+            ],
+            "pins": {
+              "d0": [
+                0.0,
+                30.0
+              ],
+              "d1": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    0.0,
+                    -5.0
+                  ],
+                  [
+                    -10.0,
+                    5.0
+                  ],
+                  [
+                    10.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    25.0
+                  ],
+                  [
+                    35.0,
+                    35.0
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    -12.5
+                  ],
+                  [
+                    35.0,
+                    -2.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    7.5
+                  ],
+                  [
+                    35.0,
+                    17.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@symname"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/diode__sky130_fd_pr__diode_pw2nd_11v0.sym": {
+          "alternate_of": "sky130_fd_pr/diode.sym",
+          "category": "Diodes",
+          "emit_parameters": {
+            "area": "area"
+          },
+          "kind": "PDK",
+          "label": "diode_pw2nd_11v0 (diode)",
+          "model": "sky130_fd_pr__diode_pw2nd_11v0",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pw2nd_11v0.model.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "parameters": {
+            "area": {
+              "default": "1e12",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            }
+          },
+          "pin_order": [
+            "d0",
+            "d1"
+          ],
+          "prefix": "D",
+          "source": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@name @pinlist sky130_fd_pr__@model area=@area",
+              "template": "name=D1\nmodel=diode_pw2nd_05v5\narea=1e12\n",
+              "type": "diode"
+            },
+            "pin_meta": {
+              "d0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d0",
+              "d1"
+            ],
+            "pins": {
+              "d0": [
+                0.0,
+                30.0
+              ],
+              "d1": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    0.0,
+                    -5.0
+                  ],
+                  [
+                    -10.0,
+                    5.0
+                  ],
+                  [
+                    10.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    25.0
+                  ],
+                  [
+                    35.0,
+                    35.0
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    -12.5
+                  ],
+                  [
+                    35.0,
+                    -2.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    7.5
+                  ],
+                  [
+                    35.0,
+                    17.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@symname"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/diode__sky130_fd_pr__model__parasitic__diode_ps2dn.sym": {
+          "alternate_of": "sky130_fd_pr/diode.sym",
+          "category": "Diodes",
+          "emit_parameters": {
+            "area": "area"
+          },
+          "kind": "PDK",
+          "label": "model__parasitic__diode_ps2dn (diode)",
+          "model": "sky130_fd_pr__model__parasitic__diode_ps2dn",
+          "model_source": "libs.tech/ngspice/parasitics/sky130_fd_pr__model__parasitic__diode_ps2dn.model.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "parameters": {
+            "area": {
+              "default": "1e12",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            }
+          },
+          "pin_order": [
+            "d0",
+            "d1"
+          ],
+          "prefix": "D",
+          "source": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@name @pinlist sky130_fd_pr__@model area=@area",
+              "template": "name=D1\nmodel=diode_pw2nd_05v5\narea=1e12\n",
+              "type": "diode"
+            },
+            "pin_meta": {
+              "d0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d0",
+              "d1"
+            ],
+            "pins": {
+              "d0": [
+                0.0,
+                30.0
+              ],
+              "d1": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    0.0,
+                    -5.0
+                  ],
+                  [
+                    -10.0,
+                    5.0
+                  ],
+                  [
+                    10.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    25.0
+                  ],
+                  [
+                    35.0,
+                    35.0
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    -12.5
+                  ],
+                  [
+                    35.0,
+                    -2.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    7.5
+                  ],
+                  [
+                    35.0,
+                    17.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@symname"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/diode__sky130_fd_pr__model__parasitic__diode_ps2nw.sym": {
+          "alternate_of": "sky130_fd_pr/diode.sym",
+          "category": "Diodes",
+          "emit_parameters": {
+            "area": "area"
+          },
+          "kind": "PDK",
+          "label": "model__parasitic__diode_ps2nw (diode)",
+          "model": "sky130_fd_pr__model__parasitic__diode_ps2nw",
+          "model_source": "libs.tech/ngspice/parasitics/sky130_fd_pr__model__parasitic__diode_ps2nw.model.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "parameters": {
+            "area": {
+              "default": "1e12",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            }
+          },
+          "pin_order": [
+            "d0",
+            "d1"
+          ],
+          "prefix": "D",
+          "source": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@name @pinlist sky130_fd_pr__@model area=@area",
+              "template": "name=D1\nmodel=diode_pw2nd_05v5\narea=1e12\n",
+              "type": "diode"
+            },
+            "pin_meta": {
+              "d0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d0",
+              "d1"
+            ],
+            "pins": {
+              "d0": [
+                0.0,
+                30.0
+              ],
+              "d1": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    0.0,
+                    -5.0
+                  ],
+                  [
+                    -10.0,
+                    5.0
+                  ],
+                  [
+                    10.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    25.0
+                  ],
+                  [
+                    35.0,
+                    35.0
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    -12.5
+                  ],
+                  [
+                    35.0,
+                    -2.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    7.5
+                  ],
+                  [
+                    35.0,
+                    17.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@symname"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/diode__sky130_fd_pr__model__parasitic__diode_pw2dn.sym": {
+          "alternate_of": "sky130_fd_pr/diode.sym",
+          "category": "Diodes",
+          "emit_parameters": {
+            "area": "area"
+          },
+          "kind": "PDK",
+          "label": "model__parasitic__diode_pw2dn (diode)",
+          "model": "sky130_fd_pr__model__parasitic__diode_pw2dn",
+          "model_source": "libs.tech/ngspice/parasitics/sky130_fd_pr__model__parasitic__diode_pw2dn.model.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "parameters": {
+            "area": {
+              "default": "1e12",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            }
+          },
+          "pin_order": [
+            "d0",
+            "d1"
+          ],
+          "prefix": "D",
+          "source": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@name @pinlist sky130_fd_pr__@model area=@area",
+              "template": "name=D1\nmodel=diode_pw2nd_05v5\narea=1e12\n",
+              "type": "diode"
+            },
+            "pin_meta": {
+              "d0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d0",
+              "d1"
+            ],
+            "pins": {
+              "d0": [
+                0.0,
+                30.0
+              ],
+              "d1": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    0.0,
+                    -5.0
+                  ],
+                  [
+                    -10.0,
+                    5.0
+                  ],
+                  [
+                    10.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    25.0
+                  ],
+                  [
+                    35.0,
+                    35.0
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    -12.5
+                  ],
+                  [
+                    35.0,
+                    -2.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    7.5
+                  ],
+                  [
+                    35.0,
+                    17.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@symname"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/diode__sky130_fd_pr__model__parasitic__rf_diode_ps2nw.sym": {
+          "alternate_of": "sky130_fd_pr/diode.sym",
+          "category": "Diodes",
+          "emit_parameters": {
+            "area": "area"
+          },
+          "kind": "PDK",
+          "label": "model__parasitic__rf_diode_ps2nw (diode)",
+          "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "parameters": {
+            "area": {
+              "default": "1e12",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            }
+          },
+          "pin_order": [
+            "d0",
+            "d1"
+          ],
+          "prefix": "D",
+          "source": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@name @pinlist sky130_fd_pr__@model area=@area",
+              "template": "name=D1\nmodel=diode_pw2nd_05v5\narea=1e12\n",
+              "type": "diode"
+            },
+            "pin_meta": {
+              "d0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d0",
+              "d1"
+            ],
+            "pins": {
+              "d0": [
+                0.0,
+                30.0
+              ],
+              "d1": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    0.0,
+                    -5.0
+                  ],
+                  [
+                    -10.0,
+                    5.0
+                  ],
+                  [
+                    10.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    25.0
+                  ],
+                  [
+                    35.0,
+                    35.0
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    -12.5
+                  ],
+                  [
+                    35.0,
+                    -2.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    7.5
+                  ],
+                  [
+                    35.0,
+                    17.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@symname"
+              }
+            ]
+          },
+          "unavailable": "The source symbol lists this model, but its definition is absent from the locked simulation libraries. No substitute is selected."
+        },
+        "sky130_fd_pr/diode__sky130_fd_pr__model__parasitic__rf_diode_pw2dn.sym": {
+          "alternate_of": "sky130_fd_pr/diode.sym",
+          "category": "Diodes",
+          "emit_parameters": {
+            "area": "area"
+          },
+          "kind": "PDK",
+          "label": "model__parasitic__rf_diode_pw2dn (diode)",
+          "model": "sky130_fd_pr__model__parasitic__rf_diode_pw2dn",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "parameters": {
+            "area": {
+              "default": "1e12",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            }
+          },
+          "pin_order": [
+            "d0",
+            "d1"
+          ],
+          "prefix": "D",
+          "source": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@name @pinlist sky130_fd_pr__@model area=@area",
+              "template": "name=D1\nmodel=diode_pw2nd_05v5\narea=1e12\n",
+              "type": "diode"
+            },
+            "pin_meta": {
+              "d0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d0",
+              "d1"
+            ],
+            "pins": {
+              "d0": [
+                0.0,
+                30.0
+              ],
+              "d1": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    0.0,
+                    -5.0
+                  ],
+                  [
+                    -10.0,
+                    5.0
+                  ],
+                  [
+                    10.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    25.0
+                  ],
+                  [
+                    35.0,
+                    35.0
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    -12.5
+                  ],
+                  [
+                    35.0,
+                    -2.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    7.5
+                  ],
+                  [
+                    35.0,
+                    17.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@symname"
+              }
+            ]
+          },
+          "unavailable": "The source symbol lists this model, but its definition is absent from the locked simulation libraries. No substitute is selected."
+        },
         "sky130_fd_pr/lvsdiode.sym": {
           "category": "Diodes",
           "emit_parameters": {
@@ -4905,6 +7016,710 @@
           "symbol": {
             "attributes": {
               "available_models": "\nsky130_fd_pr__diode_pw2nd_05v5\nsky130_fd_pr__diode_pw2nd_11v0\nsky130_fd_pr__diode_pd2nw_05v5\nsky130_fd_pr__diode_pd2nw_11v0\nsky130_fd_pr__model__parasitic__diode_ps2dn\n",
+              "format": "@name @pinlist sky130_fd_pr__@model area=@area",
+              "template": "name=D1\nmodel=diode_pw2nd_05v5\narea=1e12\n",
+              "type": "diode"
+            },
+            "pin_meta": {
+              "d0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d0",
+              "d1"
+            ],
+            "pins": {
+              "d0": [
+                0.0,
+                30.0
+              ],
+              "d1": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    0.0,
+                    -5.0
+                  ],
+                  [
+                    -10.0,
+                    5.0
+                  ],
+                  [
+                    10.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    25.0
+                  ],
+                  [
+                    35.0,
+                    35.0
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    -12.5
+                  ],
+                  [
+                    35.0,
+                    -2.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    7.5
+                  ],
+                  [
+                    35.0,
+                    17.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@symname"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/lvsdiode__sky130_fd_pr__diode_pd2nw_05v5.sym": {
+          "alternate_of": "sky130_fd_pr/lvsdiode.sym",
+          "category": "Diodes",
+          "emit_parameters": {
+            "area": "area"
+          },
+          "kind": "PDK",
+          "label": "diode_pd2nw_05v5 (lvsdiode)",
+          "model": "sky130_fd_pr__diode_pd2nw_05v5",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pd2nw_05v5.model.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "parameters": {
+            "area": {
+              "default": "1e12",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            }
+          },
+          "pin_order": [
+            "d0",
+            "d1"
+          ],
+          "prefix": "D",
+          "source": "libs.tech/xschem/sky130_fd_pr/lvsdiode.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@name @pinlist sky130_fd_pr__@model area=@area",
+              "template": "name=D1\nmodel=diode_pw2nd_05v5\narea=1e12\n",
+              "type": "diode"
+            },
+            "pin_meta": {
+              "d0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d0",
+              "d1"
+            ],
+            "pins": {
+              "d0": [
+                0.0,
+                30.0
+              ],
+              "d1": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    0.0,
+                    -5.0
+                  ],
+                  [
+                    -10.0,
+                    5.0
+                  ],
+                  [
+                    10.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    25.0
+                  ],
+                  [
+                    35.0,
+                    35.0
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    -12.5
+                  ],
+                  [
+                    35.0,
+                    -2.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    7.5
+                  ],
+                  [
+                    35.0,
+                    17.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@symname"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/lvsdiode__sky130_fd_pr__diode_pd2nw_11v0.sym": {
+          "alternate_of": "sky130_fd_pr/lvsdiode.sym",
+          "category": "Diodes",
+          "emit_parameters": {
+            "area": "area"
+          },
+          "kind": "PDK",
+          "label": "diode_pd2nw_11v0 (lvsdiode)",
+          "model": "sky130_fd_pr__diode_pd2nw_11v0",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pd2nw_11v0.model.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "parameters": {
+            "area": {
+              "default": "1e12",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            }
+          },
+          "pin_order": [
+            "d0",
+            "d1"
+          ],
+          "prefix": "D",
+          "source": "libs.tech/xschem/sky130_fd_pr/lvsdiode.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@name @pinlist sky130_fd_pr__@model area=@area",
+              "template": "name=D1\nmodel=diode_pw2nd_05v5\narea=1e12\n",
+              "type": "diode"
+            },
+            "pin_meta": {
+              "d0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d0",
+              "d1"
+            ],
+            "pins": {
+              "d0": [
+                0.0,
+                30.0
+              ],
+              "d1": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    0.0,
+                    -5.0
+                  ],
+                  [
+                    -10.0,
+                    5.0
+                  ],
+                  [
+                    10.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    25.0
+                  ],
+                  [
+                    35.0,
+                    35.0
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    -12.5
+                  ],
+                  [
+                    35.0,
+                    -2.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    7.5
+                  ],
+                  [
+                    35.0,
+                    17.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@symname"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/lvsdiode__sky130_fd_pr__diode_pw2nd_11v0.sym": {
+          "alternate_of": "sky130_fd_pr/lvsdiode.sym",
+          "category": "Diodes",
+          "emit_parameters": {
+            "area": "area"
+          },
+          "kind": "PDK",
+          "label": "diode_pw2nd_11v0 (lvsdiode)",
+          "model": "sky130_fd_pr__diode_pw2nd_11v0",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pw2nd_11v0.model.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "parameters": {
+            "area": {
+              "default": "1e12",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            }
+          },
+          "pin_order": [
+            "d0",
+            "d1"
+          ],
+          "prefix": "D",
+          "source": "libs.tech/xschem/sky130_fd_pr/lvsdiode.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@name @pinlist sky130_fd_pr__@model area=@area",
+              "template": "name=D1\nmodel=diode_pw2nd_05v5\narea=1e12\n",
+              "type": "diode"
+            },
+            "pin_meta": {
+              "d0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d0",
+              "d1"
+            ],
+            "pins": {
+              "d0": [
+                0.0,
+                30.0
+              ],
+              "d1": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    0.0,
+                    -5.0
+                  ],
+                  [
+                    -10.0,
+                    5.0
+                  ],
+                  [
+                    10.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    25.0
+                  ],
+                  [
+                    35.0,
+                    35.0
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    -12.5
+                  ],
+                  [
+                    35.0,
+                    -2.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    15.0,
+                    7.5
+                  ],
+                  [
+                    35.0,
+                    17.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@symname"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/lvsdiode__sky130_fd_pr__model__parasitic__diode_ps2dn.sym": {
+          "alternate_of": "sky130_fd_pr/lvsdiode.sym",
+          "category": "Diodes",
+          "emit_parameters": {
+            "area": "area"
+          },
+          "kind": "PDK",
+          "label": "model__parasitic__diode_ps2dn (lvsdiode)",
+          "model": "sky130_fd_pr__model__parasitic__diode_ps2dn",
+          "model_source": "libs.tech/ngspice/parasitics/sky130_fd_pr__model__parasitic__diode_ps2dn.model.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "parameters": {
+            "area": {
+              "default": "1e12",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            }
+          },
+          "pin_order": [
+            "d0",
+            "d1"
+          ],
+          "prefix": "D",
+          "source": "libs.tech/xschem/sky130_fd_pr/lvsdiode.sym",
+          "symbol": {
+            "attributes": {
               "format": "@name @pinlist sky130_fd_pr__@model area=@area",
               "template": "name=D1\nmodel=diode_pw2nd_05v5\narea=1e12\n",
               "type": "diode"
@@ -29160,6 +31975,1813 @@
           "symbol": {
             "attributes": {
               "available_models": "\ncap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5\ncap_vpp_11p5x11p7_l1m1m2m3m4_shieldpom5\ncap_vpp_11p5x11p7_m1m2m3m4_shieldl1m5\ncap_vpp_04p4x04p6_m1m2m3_shieldl1m5_floatm4\ncap_vpp_08p6x07p8_m1m2m3_shieldl1m5_floatm4\ncap_vpp_11p5x11p7_m1m2m3_shieldl1m5_floatm4\ncap_vpp_11p5x11p7_l1m1m2m3_shieldm4\ncap_vpp_06p8x06p1_l1m1m2m3_shieldpom4\ncap_vpp_06p8x06p1_m1m2m3_shieldl1m4\ncap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5\n",
+              "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L mult=@mult m=@mult",
+              "template": "name=C1\nmodel=cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5\nW=1\nL=1 \nmult=1 \nspiceprefix=X",
+              "type": "capacitor"
+            },
+            "pin_meta": {
+              "c0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "c1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "sub": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "top": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "c0",
+              "c1",
+              "sub",
+              "top"
+            ],
+            "pins": {
+              "c0": [
+                0.0,
+                -30.0
+              ],
+              "c1": [
+                0.0,
+                30.0
+              ],
+              "sub": [
+                -20.0,
+                10.0
+              ],
+              "top": [
+                -20.0,
+                -10.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    2.5
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "arc",
+                "points": [
+                  [
+                    -21.25,
+                    2.5
+                  ],
+                  [
+                    21.25,
+                    45.0
+                  ]
+                ],
+                "start": -61.92751306414704,
+                "sweep": -56.14497387170592
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    16.25
+                  ],
+                  [
+                    40.0,
+                    26.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "mult=@mult"
+              },
+              {
+                "font_size": 4.0,
+                "kind": "text",
+                "points": [
+                  [
+                    5.0,
+                    -13.75
+                  ],
+                  [
+                    25.0,
+                    -3.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_04p4x04p6_m1m2m3_shieldl1m5_floatm4.sym": {
+          "alternate_of": "sky130_fd_pr/vpp_cap.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "m": "mult",
+            "mult": "mult"
+          },
+          "kind": "PDK",
+          "label": "cap_vpp_04p4x04p6_m1m2m3_shieldl1m5_floatm4 (vpp_cap)",
+          "model": "sky130_fd_pr__cap_vpp_04p4x04p6_m1m2m3_shieldl1m5_floatm4",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_04p4x04p6_m1m2m3_shieldl1m5_floatm4.model.spice",
+          "notes": [
+            "Executable text retained as metadata only.",
+            "Fixed 11.5 x 11.7 um VPP model: c0, c1, substrate b, M5 shield. W/L are not model geometry inputs; use the fixed layout and positive mult.",
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding.",
+            "Fixed source geometry; top is the M5 shield, sub is substrate b. W/L are not adjustable."
+          ],
+          "parameter_scale": {},
+          "parameters": {
+            "mult": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "c0",
+            "c1",
+            "sub",
+            "top"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L mult=@mult m=@mult",
+              "template": "name=C1\nmodel=cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5\nW=1\nL=1 \nmult=1 \nspiceprefix=X",
+              "type": "capacitor"
+            },
+            "pin_meta": {
+              "c0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "c1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "sub": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "top": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "c0",
+              "c1",
+              "sub",
+              "top"
+            ],
+            "pins": {
+              "c0": [
+                0.0,
+                -30.0
+              ],
+              "c1": [
+                0.0,
+                30.0
+              ],
+              "sub": [
+                -20.0,
+                10.0
+              ],
+              "top": [
+                -20.0,
+                -10.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    2.5
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "arc",
+                "points": [
+                  [
+                    -21.25,
+                    2.5
+                  ],
+                  [
+                    21.25,
+                    45.0
+                  ]
+                ],
+                "start": -61.92751306414704,
+                "sweep": -56.14497387170592
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    16.25
+                  ],
+                  [
+                    40.0,
+                    26.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "mult=@mult"
+              },
+              {
+                "font_size": 4.0,
+                "kind": "text",
+                "points": [
+                  [
+                    5.0,
+                    -13.75
+                  ],
+                  [
+                    25.0,
+                    -3.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_06p8x06p1_l1m1m2m3_shieldpom4.sym": {
+          "alternate_of": "sky130_fd_pr/vpp_cap.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "m": "mult",
+            "mult": "mult"
+          },
+          "kind": "PDK",
+          "label": "cap_vpp_06p8x06p1_l1m1m2m3_shieldpom4 (vpp_cap)",
+          "model": "sky130_fd_pr__cap_vpp_06p8x06p1_l1m1m2m3_shieldpom4",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_06p8x06p1_l1m1m2m3_shieldpom4.model.spice",
+          "notes": [
+            "Executable text retained as metadata only.",
+            "Fixed 11.5 x 11.7 um VPP model: c0, c1, substrate b, M5 shield. W/L are not model geometry inputs; use the fixed layout and positive mult.",
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding.",
+            "Fixed source geometry; top is the M4 shield, sub is substrate b. W/L are not adjustable."
+          ],
+          "parameter_scale": {},
+          "parameters": {
+            "mult": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "c0",
+            "c1",
+            "sub",
+            "top"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L mult=@mult m=@mult",
+              "template": "name=C1\nmodel=cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5\nW=1\nL=1 \nmult=1 \nspiceprefix=X",
+              "type": "capacitor"
+            },
+            "pin_meta": {
+              "c0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "c1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "sub": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "top": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "c0",
+              "c1",
+              "sub",
+              "top"
+            ],
+            "pins": {
+              "c0": [
+                0.0,
+                -30.0
+              ],
+              "c1": [
+                0.0,
+                30.0
+              ],
+              "sub": [
+                -20.0,
+                10.0
+              ],
+              "top": [
+                -20.0,
+                -10.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    2.5
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "arc",
+                "points": [
+                  [
+                    -21.25,
+                    2.5
+                  ],
+                  [
+                    21.25,
+                    45.0
+                  ]
+                ],
+                "start": -61.92751306414704,
+                "sweep": -56.14497387170592
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    16.25
+                  ],
+                  [
+                    40.0,
+                    26.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "mult=@mult"
+              },
+              {
+                "font_size": 4.0,
+                "kind": "text",
+                "points": [
+                  [
+                    5.0,
+                    -13.75
+                  ],
+                  [
+                    25.0,
+                    -3.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_06p8x06p1_m1m2m3_shieldl1m4.sym": {
+          "alternate_of": "sky130_fd_pr/vpp_cap.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "m": "mult",
+            "mult": "mult"
+          },
+          "kind": "PDK",
+          "label": "cap_vpp_06p8x06p1_m1m2m3_shieldl1m4 (vpp_cap)",
+          "model": "sky130_fd_pr__cap_vpp_06p8x06p1_m1m2m3_shieldl1m4",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_06p8x06p1_m1m2m3_shieldl1m4.model.spice",
+          "notes": [
+            "Executable text retained as metadata only.",
+            "Fixed 11.5 x 11.7 um VPP model: c0, c1, substrate b, M5 shield. W/L are not model geometry inputs; use the fixed layout and positive mult.",
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding.",
+            "Fixed source geometry; top is the M4 shield, sub is substrate b. W/L are not adjustable."
+          ],
+          "parameter_scale": {},
+          "parameters": {
+            "mult": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "c0",
+            "c1",
+            "sub",
+            "top"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L mult=@mult m=@mult",
+              "template": "name=C1\nmodel=cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5\nW=1\nL=1 \nmult=1 \nspiceprefix=X",
+              "type": "capacitor"
+            },
+            "pin_meta": {
+              "c0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "c1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "sub": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "top": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "c0",
+              "c1",
+              "sub",
+              "top"
+            ],
+            "pins": {
+              "c0": [
+                0.0,
+                -30.0
+              ],
+              "c1": [
+                0.0,
+                30.0
+              ],
+              "sub": [
+                -20.0,
+                10.0
+              ],
+              "top": [
+                -20.0,
+                -10.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    2.5
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "arc",
+                "points": [
+                  [
+                    -21.25,
+                    2.5
+                  ],
+                  [
+                    21.25,
+                    45.0
+                  ]
+                ],
+                "start": -61.92751306414704,
+                "sweep": -56.14497387170592
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    16.25
+                  ],
+                  [
+                    40.0,
+                    26.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "mult=@mult"
+              },
+              {
+                "font_size": 4.0,
+                "kind": "text",
+                "points": [
+                  [
+                    5.0,
+                    -13.75
+                  ],
+                  [
+                    25.0,
+                    -3.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_08p6x07p8_m1m2m3_shieldl1m5_floatm4.sym": {
+          "alternate_of": "sky130_fd_pr/vpp_cap.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "m": "mult",
+            "mult": "mult"
+          },
+          "kind": "PDK",
+          "label": "cap_vpp_08p6x07p8_m1m2m3_shieldl1m5_floatm4 (vpp_cap)",
+          "model": "sky130_fd_pr__cap_vpp_08p6x07p8_m1m2m3_shieldl1m5_floatm4",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_08p6x07p8_m1m2m3_shieldl1m5_floatm4.model.spice",
+          "notes": [
+            "Executable text retained as metadata only.",
+            "Fixed 11.5 x 11.7 um VPP model: c0, c1, substrate b, M5 shield. W/L are not model geometry inputs; use the fixed layout and positive mult.",
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding.",
+            "Fixed source geometry; top is the M5 shield, sub is substrate b. W/L are not adjustable."
+          ],
+          "parameter_scale": {},
+          "parameters": {
+            "mult": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "c0",
+            "c1",
+            "sub",
+            "top"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L mult=@mult m=@mult",
+              "template": "name=C1\nmodel=cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5\nW=1\nL=1 \nmult=1 \nspiceprefix=X",
+              "type": "capacitor"
+            },
+            "pin_meta": {
+              "c0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "c1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "sub": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "top": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "c0",
+              "c1",
+              "sub",
+              "top"
+            ],
+            "pins": {
+              "c0": [
+                0.0,
+                -30.0
+              ],
+              "c1": [
+                0.0,
+                30.0
+              ],
+              "sub": [
+                -20.0,
+                10.0
+              ],
+              "top": [
+                -20.0,
+                -10.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    2.5
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "arc",
+                "points": [
+                  [
+                    -21.25,
+                    2.5
+                  ],
+                  [
+                    21.25,
+                    45.0
+                  ]
+                ],
+                "start": -61.92751306414704,
+                "sweep": -56.14497387170592
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    16.25
+                  ],
+                  [
+                    40.0,
+                    26.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "mult=@mult"
+              },
+              {
+                "font_size": 4.0,
+                "kind": "text",
+                "points": [
+                  [
+                    5.0,
+                    -13.75
+                  ],
+                  [
+                    25.0,
+                    -3.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5.sym": {
+          "alternate_of": "sky130_fd_pr/vpp_cap.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "m": "mult",
+            "mult": "mult"
+          },
+          "kind": "PDK",
+          "label": "cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5 (vpp_cap)",
+          "model": "sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5",
+          "notes": [
+            "Executable text retained as metadata only.",
+            "Fixed 11.5 x 11.7 um VPP model: c0, c1, substrate b, M5 shield. W/L are not model geometry inputs; use the fixed layout and positive mult.",
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {},
+          "parameters": {
+            "mult": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "c0",
+            "c1",
+            "sub",
+            "top"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L mult=@mult m=@mult",
+              "template": "name=C1\nmodel=cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5\nW=1\nL=1 \nmult=1 \nspiceprefix=X",
+              "type": "capacitor"
+            },
+            "pin_meta": {
+              "c0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "c1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "sub": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "top": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "c0",
+              "c1",
+              "sub",
+              "top"
+            ],
+            "pins": {
+              "c0": [
+                0.0,
+                -30.0
+              ],
+              "c1": [
+                0.0,
+                30.0
+              ],
+              "sub": [
+                -20.0,
+                10.0
+              ],
+              "top": [
+                -20.0,
+                -10.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    2.5
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "arc",
+                "points": [
+                  [
+                    -21.25,
+                    2.5
+                  ],
+                  [
+                    21.25,
+                    45.0
+                  ]
+                ],
+                "start": -61.92751306414704,
+                "sweep": -56.14497387170592
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    16.25
+                  ],
+                  [
+                    40.0,
+                    26.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "mult=@mult"
+              },
+              {
+                "font_size": 4.0,
+                "kind": "text",
+                "points": [
+                  [
+                    5.0,
+                    -13.75
+                  ],
+                  [
+                    25.0,
+                    -3.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": "The source symbol lists this model, but its definition is absent from the locked simulation libraries. No substitute is selected."
+        },
+        "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3_shieldm4.sym": {
+          "alternate_of": "sky130_fd_pr/vpp_cap.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "m": "mult",
+            "mult": "mult"
+          },
+          "kind": "PDK",
+          "label": "cap_vpp_11p5x11p7_l1m1m2m3_shieldm4 (vpp_cap)",
+          "model": "sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3_shieldm4",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3_shieldm4.model.spice",
+          "notes": [
+            "Executable text retained as metadata only.",
+            "Fixed 11.5 x 11.7 um VPP model: c0, c1, substrate b, M5 shield. W/L are not model geometry inputs; use the fixed layout and positive mult.",
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding.",
+            "Fixed source geometry; top is the M4 shield, sub is substrate b. W/L are not adjustable."
+          ],
+          "parameter_scale": {},
+          "parameters": {
+            "mult": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "c0",
+            "c1",
+            "sub",
+            "top"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L mult=@mult m=@mult",
+              "template": "name=C1\nmodel=cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5\nW=1\nL=1 \nmult=1 \nspiceprefix=X",
+              "type": "capacitor"
+            },
+            "pin_meta": {
+              "c0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "c1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "sub": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "top": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "c0",
+              "c1",
+              "sub",
+              "top"
+            ],
+            "pins": {
+              "c0": [
+                0.0,
+                -30.0
+              ],
+              "c1": [
+                0.0,
+                30.0
+              ],
+              "sub": [
+                -20.0,
+                10.0
+              ],
+              "top": [
+                -20.0,
+                -10.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    2.5
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "arc",
+                "points": [
+                  [
+                    -21.25,
+                    2.5
+                  ],
+                  [
+                    21.25,
+                    45.0
+                  ]
+                ],
+                "start": -61.92751306414704,
+                "sweep": -56.14497387170592
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    16.25
+                  ],
+                  [
+                    40.0,
+                    26.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "mult=@mult"
+              },
+              {
+                "font_size": 4.0,
+                "kind": "text",
+                "points": [
+                  [
+                    5.0,
+                    -13.75
+                  ],
+                  [
+                    25.0,
+                    -3.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldpom5.sym": {
+          "alternate_of": "sky130_fd_pr/vpp_cap.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "m": "mult",
+            "mult": "mult"
+          },
+          "kind": "PDK",
+          "label": "cap_vpp_11p5x11p7_l1m1m2m3m4_shieldpom5 (vpp_cap)",
+          "model": "sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldpom5",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldpom5.model.spice",
+          "notes": [
+            "Executable text retained as metadata only.",
+            "Fixed 11.5 x 11.7 um VPP model: c0, c1, substrate b, M5 shield. W/L are not model geometry inputs; use the fixed layout and positive mult.",
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding.",
+            "Fixed source geometry; top is the M5 shield, sub is substrate b. W/L are not adjustable."
+          ],
+          "parameter_scale": {},
+          "parameters": {
+            "mult": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "c0",
+            "c1",
+            "sub",
+            "top"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L mult=@mult m=@mult",
+              "template": "name=C1\nmodel=cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5\nW=1\nL=1 \nmult=1 \nspiceprefix=X",
+              "type": "capacitor"
+            },
+            "pin_meta": {
+              "c0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "c1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "sub": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "top": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "c0",
+              "c1",
+              "sub",
+              "top"
+            ],
+            "pins": {
+              "c0": [
+                0.0,
+                -30.0
+              ],
+              "c1": [
+                0.0,
+                30.0
+              ],
+              "sub": [
+                -20.0,
+                10.0
+              ],
+              "top": [
+                -20.0,
+                -10.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    2.5
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "arc",
+                "points": [
+                  [
+                    -21.25,
+                    2.5
+                  ],
+                  [
+                    21.25,
+                    45.0
+                  ]
+                ],
+                "start": -61.92751306414704,
+                "sweep": -56.14497387170592
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    16.25
+                  ],
+                  [
+                    40.0,
+                    26.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "mult=@mult"
+              },
+              {
+                "font_size": 4.0,
+                "kind": "text",
+                "points": [
+                  [
+                    5.0,
+                    -13.75
+                  ],
+                  [
+                    25.0,
+                    -3.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3_shieldl1m5_floatm4.sym": {
+          "alternate_of": "sky130_fd_pr/vpp_cap.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "m": "mult",
+            "mult": "mult"
+          },
+          "kind": "PDK",
+          "label": "cap_vpp_11p5x11p7_m1m2m3_shieldl1m5_floatm4 (vpp_cap)",
+          "model": "sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3_shieldl1m5_floatm4",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3_shieldl1m5_floatm4.model.spice",
+          "notes": [
+            "Executable text retained as metadata only.",
+            "Fixed 11.5 x 11.7 um VPP model: c0, c1, substrate b, M5 shield. W/L are not model geometry inputs; use the fixed layout and positive mult.",
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding.",
+            "Fixed source geometry; top is the M5 shield, sub is substrate b. W/L are not adjustable."
+          ],
+          "parameter_scale": {},
+          "parameters": {
+            "mult": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "c0",
+            "c1",
+            "sub",
+            "top"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L mult=@mult m=@mult",
+              "template": "name=C1\nmodel=cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5\nW=1\nL=1 \nmult=1 \nspiceprefix=X",
+              "type": "capacitor"
+            },
+            "pin_meta": {
+              "c0": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "c1": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "sub": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "top": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "c0",
+              "c1",
+              "sub",
+              "top"
+            ],
+            "pins": {
+              "c0": [
+                0.0,
+                -30.0
+              ],
+              "c1": [
+                0.0,
+                30.0
+              ],
+              "sub": [
+                -20.0,
+                10.0
+              ],
+              "top": [
+                -20.0,
+                -10.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    2.5
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    -5.0
+                  ],
+                  [
+                    10.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "arc",
+                "points": [
+                  [
+                    -21.25,
+                    2.5
+                  ],
+                  [
+                    21.25,
+                    45.0
+                  ]
+                ],
+                "start": -61.92751306414704,
+                "sweep": -56.14497387170592
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    16.25
+                  ],
+                  [
+                    40.0,
+                    26.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "mult=@mult"
+              },
+              {
+                "font_size": 4.0,
+                "kind": "text",
+                "points": [
+                  [
+                    5.0,
+                    -13.75
+                  ],
+                  [
+                    25.0,
+                    -3.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3m4_shieldl1m5.sym": {
+          "alternate_of": "sky130_fd_pr/vpp_cap.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "m": "mult",
+            "mult": "mult"
+          },
+          "kind": "PDK",
+          "label": "cap_vpp_11p5x11p7_m1m2m3m4_shieldl1m5 (vpp_cap)",
+          "model": "sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3m4_shieldl1m5",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_m1m2m3m4_shieldl1m5.model.spice",
+          "notes": [
+            "Executable text retained as metadata only.",
+            "Fixed 11.5 x 11.7 um VPP model: c0, c1, substrate b, M5 shield. W/L are not model geometry inputs; use the fixed layout and positive mult.",
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding.",
+            "Fixed source geometry; top is the M5 shield, sub is substrate b. W/L are not adjustable."
+          ],
+          "parameter_scale": {},
+          "parameters": {
+            "mult": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "c0",
+            "c1",
+            "sub",
+            "top"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+          "symbol": {
+            "attributes": {
               "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L mult=@mult m=@mult",
               "template": "name=C1\nmodel=cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5\nW=1\nL=1 \nmult=1 \nspiceprefix=X",
               "type": "capacitor"

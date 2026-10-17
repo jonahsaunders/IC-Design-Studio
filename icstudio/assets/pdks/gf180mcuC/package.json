@@ -1,6 +1,7 @@
 {
   "family": "gf180mcu",
   "files": {
+    "ICSTUDIO-ALTERNATE-MODELS.json": "4884a3d1acc6be7e95b82ec42ff560967aaf7fccd4b2db5e945653960a2c1343",
     "ICSTUDIO-MOS-BINDINGS.json": "2a8f047a5d39f58b2c32b506c273e88a5bd7e9d0a8933c32d3558f50d7870af5",
     "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "OPEN_PDKS_LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
@@ -83,7 +84,7 @@
     "libs.tech/xschem/symbols/sc_diode.sym": "1b03a2fd966c24ff302d22ca646005ec1e325f89fd8b9541b30e9615490f9b66"
   },
   "id": "gf180mcuC",
-  "revision": "5f3017f16df69dbe",
+  "revision": "bcc631ec5c59d6b6",
   "schema": 1,
   "technology": {
     "dbu_um": 0.001,
@@ -138,7 +139,7 @@
       "native_generators": [],
       "netgen_setup": "libs.tech/netgen/gf180mcuC_setup.tcl"
     },
-    "revision": "5f3017f16df69dbe",
+    "revision": "bcc631ec5c59d6b6",
     "simulation": {
       "catalog": {
         "symbols/annotate_fet_params.sym": {
@@ -950,6 +951,2052 @@
           "symbol": {
             "attributes": {
               "available_models": "\n cap_mim_1f5_m2m3_noshield\n cap_mim_1f0_m2m3_noshield\n cap_mim_2f0_m2m3_noshield\n cap_mim_1f5_m3m4_noshield\n cap_mim_1f0_m3m4_noshield\n cap_mim_2f0_m3m4_noshield\n cap_mim_1f5_m4m5_noshield\n cap_mim_1f0_m4m5_noshield\n cap_mim_2f0_m4m5_noshield\n cap_mim_1f5_m5m6_noshield\n cap_mim_1f0_m5m6_noshield\n cap_mim_2f0_m5m6_noshield\n",
+              "format": "@spiceprefix@name @pinlist @model c_width=@W c_length=@L m=@m",
+              "template": "name=C1\nW=1e-6\nL=1e-6\nmodel=cap_mim_2f0_m3m4_noshield\nspiceprefix=X\nm=1",
+              "type": "moscap"
+            },
+            "pin_meta": {
+              "b": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "g": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "g",
+              "b"
+            ],
+            "pins": {
+              "b": [
+                0.0,
+                30.0
+              ],
+              "g": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    -5.0
+                  ],
+                  [
+                    15.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    5.0
+                  ],
+                  [
+                    15.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@spiceprefix@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    6.25
+                  ],
+                  [
+                    40.0,
+                    16.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@m * @W / @L"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -11.25
+                  ],
+                  [
+                    40.0,
+                    -1.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "symbols/cap_mim_analog__cap_mim_1f0_m2m3_noshield.sym": {
+          "alternate_of": "symbols/cap_mim_analog.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "c_length": "l",
+            "c_width": "w",
+            "m": "m"
+          },
+          "kind": "PDK",
+          "label": "cap_mim_1f0_m2m3_noshield (cap_mim_analog)",
+          "model": "cap_mim_1f0_m2m3_noshield",
+          "model_source": "libs.tech/ngspice/sm141064_mim.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "m": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "w": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "g",
+            "b"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist @model c_width=@W c_length=@L m=@m",
+              "template": "name=C1\nW=1e-6\nL=1e-6\nmodel=cap_mim_2f0_m3m4_noshield\nspiceprefix=X\nm=1",
+              "type": "moscap"
+            },
+            "pin_meta": {
+              "b": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "g": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "g",
+              "b"
+            ],
+            "pins": {
+              "b": [
+                0.0,
+                30.0
+              ],
+              "g": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    -5.0
+                  ],
+                  [
+                    15.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    5.0
+                  ],
+                  [
+                    15.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@spiceprefix@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    6.25
+                  ],
+                  [
+                    40.0,
+                    16.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@m * @W / @L"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -11.25
+                  ],
+                  [
+                    40.0,
+                    -1.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "symbols/cap_mim_analog__cap_mim_1f0_m3m4_noshield.sym": {
+          "alternate_of": "symbols/cap_mim_analog.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "c_length": "l",
+            "c_width": "w",
+            "m": "m"
+          },
+          "kind": "PDK",
+          "label": "cap_mim_1f0_m3m4_noshield (cap_mim_analog)",
+          "model": "cap_mim_1f0_m3m4_noshield",
+          "model_source": "libs.tech/ngspice/sm141064_mim.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "m": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "w": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "g",
+            "b"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist @model c_width=@W c_length=@L m=@m",
+              "template": "name=C1\nW=1e-6\nL=1e-6\nmodel=cap_mim_2f0_m3m4_noshield\nspiceprefix=X\nm=1",
+              "type": "moscap"
+            },
+            "pin_meta": {
+              "b": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "g": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "g",
+              "b"
+            ],
+            "pins": {
+              "b": [
+                0.0,
+                30.0
+              ],
+              "g": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    -5.0
+                  ],
+                  [
+                    15.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    5.0
+                  ],
+                  [
+                    15.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@spiceprefix@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    6.25
+                  ],
+                  [
+                    40.0,
+                    16.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@m * @W / @L"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -11.25
+                  ],
+                  [
+                    40.0,
+                    -1.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "symbols/cap_mim_analog__cap_mim_1f0_m4m5_noshield.sym": {
+          "alternate_of": "symbols/cap_mim_analog.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "c_length": "l",
+            "c_width": "w",
+            "m": "m"
+          },
+          "kind": "PDK",
+          "label": "cap_mim_1f0_m4m5_noshield (cap_mim_analog)",
+          "model": "cap_mim_1f0_m4m5_noshield",
+          "model_source": "libs.tech/ngspice/sm141064_mim.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "m": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "w": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "g",
+            "b"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist @model c_width=@W c_length=@L m=@m",
+              "template": "name=C1\nW=1e-6\nL=1e-6\nmodel=cap_mim_2f0_m3m4_noshield\nspiceprefix=X\nm=1",
+              "type": "moscap"
+            },
+            "pin_meta": {
+              "b": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "g": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "g",
+              "b"
+            ],
+            "pins": {
+              "b": [
+                0.0,
+                30.0
+              ],
+              "g": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    -5.0
+                  ],
+                  [
+                    15.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    5.0
+                  ],
+                  [
+                    15.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@spiceprefix@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    6.25
+                  ],
+                  [
+                    40.0,
+                    16.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@m * @W / @L"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -11.25
+                  ],
+                  [
+                    40.0,
+                    -1.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "symbols/cap_mim_analog__cap_mim_1f0_m5m6_noshield.sym": {
+          "alternate_of": "symbols/cap_mim_analog.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "c_length": "l",
+            "c_width": "w",
+            "m": "m"
+          },
+          "kind": "PDK",
+          "label": "cap_mim_1f0_m5m6_noshield (cap_mim_analog)",
+          "model": "cap_mim_1f0_m5m6_noshield",
+          "model_source": "libs.tech/ngspice/sm141064_mim.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "m": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "w": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "g",
+            "b"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist @model c_width=@W c_length=@L m=@m",
+              "template": "name=C1\nW=1e-6\nL=1e-6\nmodel=cap_mim_2f0_m3m4_noshield\nspiceprefix=X\nm=1",
+              "type": "moscap"
+            },
+            "pin_meta": {
+              "b": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "g": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "g",
+              "b"
+            ],
+            "pins": {
+              "b": [
+                0.0,
+                30.0
+              ],
+              "g": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    -5.0
+                  ],
+                  [
+                    15.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    5.0
+                  ],
+                  [
+                    15.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@spiceprefix@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    6.25
+                  ],
+                  [
+                    40.0,
+                    16.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@m * @W / @L"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -11.25
+                  ],
+                  [
+                    40.0,
+                    -1.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "symbols/cap_mim_analog__cap_mim_1f5_m2m3_noshield.sym": {
+          "alternate_of": "symbols/cap_mim_analog.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "c_length": "l",
+            "c_width": "w",
+            "m": "m"
+          },
+          "kind": "PDK",
+          "label": "cap_mim_1f5_m2m3_noshield (cap_mim_analog)",
+          "model": "cap_mim_1f5_m2m3_noshield",
+          "model_source": "libs.tech/ngspice/sm141064_mim.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "m": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "w": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "g",
+            "b"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist @model c_width=@W c_length=@L m=@m",
+              "template": "name=C1\nW=1e-6\nL=1e-6\nmodel=cap_mim_2f0_m3m4_noshield\nspiceprefix=X\nm=1",
+              "type": "moscap"
+            },
+            "pin_meta": {
+              "b": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "g": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "g",
+              "b"
+            ],
+            "pins": {
+              "b": [
+                0.0,
+                30.0
+              ],
+              "g": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    -5.0
+                  ],
+                  [
+                    15.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    5.0
+                  ],
+                  [
+                    15.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@spiceprefix@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    6.25
+                  ],
+                  [
+                    40.0,
+                    16.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@m * @W / @L"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -11.25
+                  ],
+                  [
+                    40.0,
+                    -1.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "symbols/cap_mim_analog__cap_mim_1f5_m3m4_noshield.sym": {
+          "alternate_of": "symbols/cap_mim_analog.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "c_length": "l",
+            "c_width": "w",
+            "m": "m"
+          },
+          "kind": "PDK",
+          "label": "cap_mim_1f5_m3m4_noshield (cap_mim_analog)",
+          "model": "cap_mim_1f5_m3m4_noshield",
+          "model_source": "libs.tech/ngspice/sm141064_mim.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "m": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "w": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "g",
+            "b"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist @model c_width=@W c_length=@L m=@m",
+              "template": "name=C1\nW=1e-6\nL=1e-6\nmodel=cap_mim_2f0_m3m4_noshield\nspiceprefix=X\nm=1",
+              "type": "moscap"
+            },
+            "pin_meta": {
+              "b": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "g": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "g",
+              "b"
+            ],
+            "pins": {
+              "b": [
+                0.0,
+                30.0
+              ],
+              "g": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    -5.0
+                  ],
+                  [
+                    15.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    5.0
+                  ],
+                  [
+                    15.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@spiceprefix@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    6.25
+                  ],
+                  [
+                    40.0,
+                    16.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@m * @W / @L"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -11.25
+                  ],
+                  [
+                    40.0,
+                    -1.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "symbols/cap_mim_analog__cap_mim_1f5_m4m5_noshield.sym": {
+          "alternate_of": "symbols/cap_mim_analog.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "c_length": "l",
+            "c_width": "w",
+            "m": "m"
+          },
+          "kind": "PDK",
+          "label": "cap_mim_1f5_m4m5_noshield (cap_mim_analog)",
+          "model": "cap_mim_1f5_m4m5_noshield",
+          "model_source": "libs.tech/ngspice/sm141064_mim.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "m": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "w": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "g",
+            "b"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist @model c_width=@W c_length=@L m=@m",
+              "template": "name=C1\nW=1e-6\nL=1e-6\nmodel=cap_mim_2f0_m3m4_noshield\nspiceprefix=X\nm=1",
+              "type": "moscap"
+            },
+            "pin_meta": {
+              "b": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "g": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "g",
+              "b"
+            ],
+            "pins": {
+              "b": [
+                0.0,
+                30.0
+              ],
+              "g": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    -5.0
+                  ],
+                  [
+                    15.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    5.0
+                  ],
+                  [
+                    15.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@spiceprefix@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    6.25
+                  ],
+                  [
+                    40.0,
+                    16.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@m * @W / @L"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -11.25
+                  ],
+                  [
+                    40.0,
+                    -1.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "symbols/cap_mim_analog__cap_mim_1f5_m5m6_noshield.sym": {
+          "alternate_of": "symbols/cap_mim_analog.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "c_length": "l",
+            "c_width": "w",
+            "m": "m"
+          },
+          "kind": "PDK",
+          "label": "cap_mim_1f5_m5m6_noshield (cap_mim_analog)",
+          "model": "cap_mim_1f5_m5m6_noshield",
+          "model_source": "libs.tech/ngspice/sm141064_mim.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "m": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "w": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "g",
+            "b"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist @model c_width=@W c_length=@L m=@m",
+              "template": "name=C1\nW=1e-6\nL=1e-6\nmodel=cap_mim_2f0_m3m4_noshield\nspiceprefix=X\nm=1",
+              "type": "moscap"
+            },
+            "pin_meta": {
+              "b": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "g": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "g",
+              "b"
+            ],
+            "pins": {
+              "b": [
+                0.0,
+                30.0
+              ],
+              "g": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    -5.0
+                  ],
+                  [
+                    15.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    5.0
+                  ],
+                  [
+                    15.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@spiceprefix@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    6.25
+                  ],
+                  [
+                    40.0,
+                    16.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@m * @W / @L"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -11.25
+                  ],
+                  [
+                    40.0,
+                    -1.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "symbols/cap_mim_analog__cap_mim_2f0_m2m3_noshield.sym": {
+          "alternate_of": "symbols/cap_mim_analog.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "c_length": "l",
+            "c_width": "w",
+            "m": "m"
+          },
+          "kind": "PDK",
+          "label": "cap_mim_2f0_m2m3_noshield (cap_mim_analog)",
+          "model": "cap_mim_2f0_m2m3_noshield",
+          "model_source": "libs.tech/ngspice/sm141064_mim.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "m": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "w": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "g",
+            "b"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist @model c_width=@W c_length=@L m=@m",
+              "template": "name=C1\nW=1e-6\nL=1e-6\nmodel=cap_mim_2f0_m3m4_noshield\nspiceprefix=X\nm=1",
+              "type": "moscap"
+            },
+            "pin_meta": {
+              "b": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "g": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "g",
+              "b"
+            ],
+            "pins": {
+              "b": [
+                0.0,
+                30.0
+              ],
+              "g": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    -5.0
+                  ],
+                  [
+                    15.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    5.0
+                  ],
+                  [
+                    15.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@spiceprefix@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    6.25
+                  ],
+                  [
+                    40.0,
+                    16.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@m * @W / @L"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -11.25
+                  ],
+                  [
+                    40.0,
+                    -1.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "symbols/cap_mim_analog__cap_mim_2f0_m4m5_noshield.sym": {
+          "alternate_of": "symbols/cap_mim_analog.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "c_length": "l",
+            "c_width": "w",
+            "m": "m"
+          },
+          "kind": "PDK",
+          "label": "cap_mim_2f0_m4m5_noshield (cap_mim_analog)",
+          "model": "cap_mim_2f0_m4m5_noshield",
+          "model_source": "libs.tech/ngspice/sm141064_mim.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "m": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "w": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "g",
+            "b"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist @model c_width=@W c_length=@L m=@m",
+              "template": "name=C1\nW=1e-6\nL=1e-6\nmodel=cap_mim_2f0_m3m4_noshield\nspiceprefix=X\nm=1",
+              "type": "moscap"
+            },
+            "pin_meta": {
+              "b": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "g": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "g",
+              "b"
+            ],
+            "pins": {
+              "b": [
+                0.0,
+                30.0
+              ],
+              "g": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    5.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    -5.0
+                  ],
+                  [
+                    15.0,
+                    -5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -15.0,
+                    5.0
+                  ],
+                  [
+                    15.0,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -28.75
+                  ],
+                  [
+                    40.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@spiceprefix@name"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    6.25
+                  ],
+                  [
+                    40.0,
+                    16.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@m * @W / @L"
+              },
+              {
+                "font_size": 8.0,
+                "kind": "text",
+                "points": [
+                  [
+                    20.0,
+                    -11.25
+                  ],
+                  [
+                    40.0,
+                    -1.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model"
+              }
+            ]
+          },
+          "unavailable": ""
+        },
+        "symbols/cap_mim_analog__cap_mim_2f0_m5m6_noshield.sym": {
+          "alternate_of": "symbols/cap_mim_analog.sym",
+          "category": "Capacitors",
+          "emit_parameters": {
+            "c_length": "l",
+            "c_width": "w",
+            "m": "m"
+          },
+          "kind": "PDK",
+          "label": "cap_mim_2f0_m5m6_noshield (cap_mim_analog)",
+          "model": "cap_mim_2f0_m5m6_noshield",
+          "model_source": "libs.tech/ngspice/sm141064_mim.spice",
+          "notes": [
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+          ],
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "parameters": {
+            "l": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "m": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "w": {
+              "default": "1e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            }
+          },
+          "pin_order": [
+            "g",
+            "b"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+          "symbol": {
+            "attributes": {
               "format": "@spiceprefix@name @pinlist @model c_width=@W c_length=@L m=@m",
               "template": "name=C1\nW=1e-6\nL=1e-6\nmodel=cap_mim_2f0_m3m4_noshield\nspiceprefix=X\nm=1",
               "type": "moscap"

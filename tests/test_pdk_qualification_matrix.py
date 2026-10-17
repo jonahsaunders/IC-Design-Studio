@@ -16,7 +16,7 @@ class QualificationMatrixTests(unittest.TestCase):
         report = validate(self.matrix)
         self.assertEqual(report['status'], 'matrix_consistent')
         self.assertEqual(report['process_qualification'], 'unqualified')
-        self.assertEqual(report['device_entries'], 255)
+        self.assertEqual(report['device_entries'], 302)
 
     def test_density_reference_record_cannot_complete_missing_fill_coverage(self):
         matrix = copy.deepcopy(self.matrix)

@@ -30,7 +30,7 @@ operand definitions. All 302 records remain unresolved; this is a concrete sourc
 and applicability route, not a new acceptance result or a reduced completion gate.
 
 The [machine-readable matrix](qualification/pdk-matrix.json) is the coverage
-record. It includes 125 process/workflow requirements and all 255 bundled catalog
+record. It includes 125 process/workflow requirements and all 302 bundled catalog
 entries, including utilities and unavailable devices. Every requirement points to
 a defined fixture, procedure, expected result, operating conditions, remaining
 automation work and status. Each device has separate interface, simulation and
@@ -58,6 +58,17 @@ remain unresolved. This is the narrower completion standard approved by the
 user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
+
+The [alternate-model record](validation/alternate-models-2026-10-17.json)
+accounts for all 52 choices declared by bundled source symbols: five existing
+defaults, 44 added usable views and three explicit missing-model entries. The
+accepted 170 cases pass independent terminal comparisons and detect all 10,128
+faulted instances. All 680 raw files are independently re-read; 48 focused tests
+pass on each host. New defaults reproduce exactly and preserve saved revisions.
+The [model-choice guide](ALTERNATE_MODEL_QUALIFICATION.md) records the selected
+conditions and the corrected simulator-dependent diode area behavior. Broader
+upstream models, operating envelopes, physical/extracted connectivity,
+statistical/RF behavior and installed-release acceptance remain open.
 
 The latest [physical MOS boundary record](validation/mos-physical-boundaries-2026-10-17.json)
 adds 72 layouts across GF180 C/D and IHP, each passing native full DRC and strict

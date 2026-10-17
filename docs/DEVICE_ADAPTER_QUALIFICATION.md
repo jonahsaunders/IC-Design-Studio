@@ -1,13 +1,21 @@
 # Bundled device corrections and reproducible qualification
 
-New projects use bundled SKY130 revision `293106f92f3e1dc5`, GF180 C revision
-`5f3017f16df69dbe`, GF180 D revision `836ecc491786bd41` and IHP revision
+New projects use bundled SKY130 revision `3e3cdb6aecf49063`, GF180 C revision
+`bcc631ec5c59d6b6`, GF180 D revision `ab8d6cd6e79d2f4b` and IHP revision
 `1e24ec25b491028b`. These include the tested resistor/NPN and MIM corrections,
 parallel-unit SKY130 varactors, capacitor terminal mappings, GF180 native-model
 selection, IHP isolation/clamp bindings and fixed SKY130 20 V geometry. Saved projects retain their
 registered revisions; migration remains explicit. Original
 licenses, modification notices and source hashes are retained. These changes
 and their selected tests do not complete device-family qualification.
+
+The [alternate-model guide](ALTERNATE_MODEL_QUALIFICATION.md) adds 44 usable
+source-listed views and three explicitly unavailable choices, accounting for
+all 52 source-symbol declarations. All 170 accepted condition cases pass,
+including 10,128 deliberately faulted device instances and independent readback
+of 680 raw files. The defaults reproduce exactly and preserve saved revisions;
+48 focused tests pass on each host. Physical and full operating-range coverage
+remain separate requirements.
 
 The earlier [default integration record](validation/default-device-packages-2026-10-17.json)
 passes 62 fresh electrical cases through normal project creation, plus nine

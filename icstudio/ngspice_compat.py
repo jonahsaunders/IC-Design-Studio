@@ -13,7 +13,13 @@ import re
 from .model import atomic_write
 
 MARKER='* ICSTUDIO_DIODE_GEOMETRY_V1 scale=1e-6'
-MODELS={'sky130_fd_pr__diode_pw2nd_05v5','sky130_fd_pr__diode_pd2nw_05v5'}
+# Reviewed public level-3 models sharing the source template's legacy AREA
+# convention. Keep this explicit: RF names without definitions are not aliases.
+MODELS={'sky130_fd_pr__'+name for name in (
+    'diode_pw2nd_05v5','diode_pd2nw_05v5','diode_pd2nw_05v5_hvt',
+    'diode_pd2nw_05v5_lvt','diode_pd2nw_11v0','diode_pw2nd_05v5_lvt',
+    'diode_pw2nd_05v5_nvt','diode_pw2nd_11v0','model__parasitic__diode_ps2dn',
+    'model__parasitic__diode_ps2nw','model__parasitic__diode_pw2dn')}
 CATALOG_SYMBOLS={
     'libs.tech/xschem/sky130_fd_pr/diode.sym':'700b3d49fe57f4b92ba990764b7e984444011170717d7c73fc68e401dfab0c2e',
     'libs.tech/xschem/sky130_fd_pr/lvsdiode.sym':'87f6c533c1c63849ee93e8d58d468ba7612770ba18374a38d19c6d4b28fa6755'}

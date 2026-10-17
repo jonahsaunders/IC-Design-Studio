@@ -3,30 +3,30 @@
   "packages": [
     {
       "variant": "sky130A",
-      "revision": "293106f92f3e1dc5",
+      "revision": "3e3cdb6aecf49063",
       "family": "sky130",
-      "assets": 410,
-      "indexed_symbols": 74,
-      "placeable_symbols": 71,
-      "manifest_sha256": "ac79988e7ccf06ef550966de9ffc7ab394d934c5ddda861d1fb01e0813337f4b"
+      "assets": 411,
+      "indexed_symbols": 99,
+      "placeable_symbols": 93,
+      "manifest_sha256": "44b2626b09d983b06e65bfb620ec372633811643ebdb71f1e3319dca2656f9d0"
     },
     {
       "variant": "gf180mcuC",
-      "revision": "5f3017f16df69dbe",
+      "revision": "bcc631ec5c59d6b6",
       "family": "gf180mcu",
-      "assets": 80,
-      "indexed_symbols": 68,
-      "placeable_symbols": 64,
-      "manifest_sha256": "408fa5e9d94e5e91d482988c26938bfb3b2a47dbfef68d8e5077144ba6eae1f0"
+      "assets": 81,
+      "indexed_symbols": 79,
+      "placeable_symbols": 75,
+      "manifest_sha256": "6a3261b805a335644279b0e4e38e84166eb0840a0771dff8aff2f162c7f65f9f"
     },
     {
       "variant": "gf180mcuD",
-      "revision": "836ecc491786bd41",
+      "revision": "ab8d6cd6e79d2f4b",
       "family": "gf180mcu",
-      "assets": 80,
-      "indexed_symbols": 68,
-      "placeable_symbols": 64,
-      "manifest_sha256": "ec95eefadaade5459b0bae8ac6d3d01d23927507ec10b86801fa4f2cf9f14bc2"
+      "assets": 81,
+      "indexed_symbols": 79,
+      "placeable_symbols": 75,
+      "manifest_sha256": "a0a6fea3d56d49b318c415b12928297900f66c34acbd1aa9d8d0746f6f4fc444"
     },
     {
       "variant": "ihp-sg13g2",

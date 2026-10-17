@@ -9,6 +9,8 @@ from functools import wraps
 import json, shutil, tempfile
 from pathlib import Path
 from icstudio.model import file_digest
+from scripts.prepare_alternate_models import BASE as ALTERNATE_BASE
+from scripts.alternate_model_source import PROMOTED as ALTERNATE_DEFAULTS
 ROOT=Path(__file__).resolve().parents[1]
 RETAINED=ROOT/'icstudio/assets/qualification/device-base-v2'
 PREVIOUS={
@@ -18,20 +20,18 @@ PREVIOUS={
     'ihp-sg13g2':'63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c',
 }
 PROMOTED={
-    'sky130A':'ac79988e7ccf06ef550966de9ffc7ab394d934c5ddda861d1fb01e0813337f4b',
-    'gf180mcuC':'408fa5e9d94e5e91d482988c26938bfb3b2a47dbfef68d8e5077144ba6eae1f0',
-    'gf180mcuD':'ec95eefadaade5459b0bae8ac6d3d01d23927507ec10b86801fa4f2cf9f14bc2',
+    **ALTERNATE_DEFAULTS,
     'ihp-sg13g2':'ba1fbda134f02ad703126527993fa5d01c5d3afcc71161afc35c065d3df227ab',
 }
 INTERMEDIATE={'sky130A':'7f07476f0bdd530ec3060e3f7e74103e8d3f7b70ff61298af7295cb21a096ae5'}
-REVISIONS={'sky130A':'293106f92f3e1dc5','gf180mcuC':'5f3017f16df69dbe',
-           'gf180mcuD':'836ecc491786bd41','ihp-sg13g2':'1e24ec25b491028b'}
+REVISIONS={'sky130A':'3e3cdb6aecf49063','gf180mcuC':'bcc631ec5c59d6b6',
+           'gf180mcuD':'ab8d6cd6e79d2f4b','ihp-sg13g2':'1e24ec25b491028b'}
 
 
 @contextmanager
 def previous_devices(source):
     source=Path(source).resolve();h=file_digest(source/'package.json')
-    target=next((t for t,expected in [*PROMOTED.items(),*INTERMEDIATE.items()] if h==expected),None)
+    target=next((t for t,expected in [*PROMOTED.items(),*INTERMEDIATE.items(),*ALTERNATE_BASE.items()] if h==expected),None)
     if target is None:
         # The original recipe still applies its own strict input/hash checks.
         yield source
