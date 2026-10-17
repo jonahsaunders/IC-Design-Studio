@@ -84,6 +84,16 @@ Windows-only checks. Seven additional Windows alias/long-path checks pass.
 The full regression runs above predate this path correction. Final-head CI and
 installed desktop acceptance remain pending.
 
+The subsequent [standard MOS boundary checks](MOS_BOUNDARY_QUALIFICATION.md)
+extend the eight standard MOS views to published small/large geometry and
+voltage points, with independently swept gate, drain and body terminals.
+The [record](validation/mos-boundaries-2026-10-17.json) contains 216 passing
+Linux/WSL cases across all four packages and 162 passing native Windows cases
+for SKY130/GF180 C/D. All 67,392 terminal-current vectors agree with independent
+decks, and all 33,696 deliberately faulted instances are detected. Each host
+passes 17 focused tests. These results do not expand physical layout dimensions;
+selected undocumented axes and the native Windows IHP OSDI gap remain explicit.
+
 ## Prepare and install
 
 From this repository, with Python and the project dependencies installed:

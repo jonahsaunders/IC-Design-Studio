@@ -59,7 +59,19 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
-The [latest fixed-geometry and model inventory record](validation/fixed-geometry-and-model-inventory-2026-10-17.json)
+The latest [standard MOS boundary record](validation/mos-boundaries-2026-10-17.json)
+adds 378 passing condition cases across Windows and Linux/WSL for eight standard
+MOS views in SKY130A, GF180 C/D and IHP. It checks 67,392 terminal-current vectors
+and detects all 33,696 deliberately faulted device instances. Independent raw
+readback verifies all 1,512 simulator output files. Seventeen focused regression
+tests pass on each host. The [boundary guide](MOS_BOUNDARY_QUALIFICATION.md)
+distinguishes published limits and characterization points from selected biases
+and temperatures. The exact sources, decks and raw outputs are retained in a
+verified 159 MB archive. This expands sampled electrical coverage; complete
+operating envelopes, other variants, statistical/RF behavior, broader physical
+connectivity and final installed-runtime acceptance remain open.
+
+The earlier [fixed-geometry and model inventory record](validation/fixed-geometry-and-model-inventory-2026-10-17.json)
 closes the editable SKY130 20 V geometry defect for all seven views. Both hosts
 pass 54 selected electrical cases and 252 deliberate device faults, and the
 editor prevents ineffective geometry edits. The bundled source inventory now

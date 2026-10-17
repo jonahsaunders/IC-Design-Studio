@@ -34,7 +34,7 @@
     "7": {
       "name": "Qualify device families",
       "status": "in_progress",
-      "scope": "All 255 primitive symbol sources reconcile with pinned public views. The bundled include closure now inventories 6,402 SPICE definitions and 52 source-symbol alternate declarations; nine IHP Verilog-A declarations cover all six referenced external model types. All 235 usable defaults pass catalog interfaces on Windows and Linux. Seven SKY130 20 V symbol views now enforce fixed internal model geometry, passing 54 selected cases and 252 deliberate device faults on each host; original assets and saved revisions are preserved. Earlier device sweeps and physical fixtures retain their exact source/PDK scope. Complete device operating envelopes, alternate-model adapters/execution, broader physical/extracted connectivity, full upstream process/tool-view completeness and final installed-runtime acceptance remain open."
+      "scope": "All 255 primitive symbol sources reconcile with pinned public views. The bundled include closure now inventories 6,402 SPICE definitions and 52 source-symbol alternate declarations; nine IHP Verilog-A declarations cover all six referenced external model types. All 235 usable defaults pass catalog interfaces on Windows and Linux. Seven SKY130 20 V symbol views now enforce fixed internal model geometry, passing 54 selected cases and 252 deliberate device faults on each host; original assets and saved revisions are preserved. Earlier device sweeps and physical fixtures retain their exact source/PDK scope. Complete device operating envelopes, alternate-model adapters/execution, broader physical/extracted connectivity, full upstream process/tool-view completeness and final installed-runtime acceptance remain open. Eight standard MOS views pass 378 Windows/Linux condition cases, 67,392 four-terminal current vectors and 33,696 per-device fault controls. Published boundary/characterization points and selected axes are distinguished. No continuous operating envelope, reliability, statistical/RF, physical or installed-release qualification is inferred."
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -16147,9 +16147,11 @@
       "fixture": "One reviewed operating-envelope record per device and block",
       "procedure": "Extract documented geometry, bias, temperature, model sections and reliability limits from the locked PDK. Select valid boundary/interior points and invalid-input controls. Freeze block specifications before execution.",
       "expected_result": "Every numerical limit has a source and units; every test point maps to an actual model section. Missing device limits or unchosen block specifications block qualification.",
-      "conditions": "Current digital PVT points are listed per target; analog operating limits and RF frequency ranges remain to be established.",
-      "existing_runners": [],
-      "automation_gap": "Operating-envelope records for the complete upstream device sets do not exist yet."
+      "conditions": "Digital PVT points are listed per target. Standard MOS boundary sources and exact selected conditions are in docs/MOS_BOUNDARY_QUALIFICATION.md; complete analog limits and RF frequency ranges remain open.",
+      "existing_runners": [
+        "scripts/qualify_mos_boundaries.py"
+      ],
+      "automation_gap": "Eight standard MOS views have executable, source-locked boundary/characterization checks with explicit selected axes. Complete operating-envelope records for the other upstream devices, undocumented limits and statistical/RF conditions remain open."
     },
     "tool-install": {
       "chunk": 2,
@@ -16285,7 +16287,8 @@
         "scripts/qualify_standard_mos_bias.py",
         "scripts/qualify_standard_passives.py",
         "scripts/check_passive_multiplicity.py",
-        "scripts/qualify_sky130_fixed_geometry.py"
+        "scripts/qualify_sky130_fixed_geometry.py",
+        "scripts/qualify_mos_boundaries.py"
       ],
       "automation_gap": "Standard MOS selected geometry/corner/bias sweeps and bounded SKY130 physical recipes now execute; complete upstream interfaces, model-validity envelopes, other device variants/families, measured model accuracy and full parameter-boundary coverage remain open."
     },
@@ -16693,13 +16696,14 @@
       "target": "sky130A",
       "test": "device-simulation",
       "status": "partial",
-      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate. Selected resistor/MIM AC, multiplicity and electrical fault tests now pass; full DC/transient/noise, supported operating ranges, other families and measured accuracy remain required.",
+      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate. Selected resistor/MIM AC, multiplicity and electrical fault tests now pass; full DC/transient/noise, supported operating ranges, other families and measured accuracy remain required. Standard MOS gate/drain/body boundary sweeps now pass with all four terminal currents and per-device multiplicity/terminal-swap faults; remaining scope is unchanged.",
       "historical_evidence": [
         "analog-smoke",
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
         "standard-passives-2026-10-16",
-        "default-device-packages-2026-10-17"
+        "default-device-packages-2026-10-17",
+        "mos-boundaries-2026-10-17"
       ]
     },
     "sky130A:digital-controller": {
@@ -16750,9 +16754,11 @@
     "sky130A:operating-envelope": {
       "target": "sky130A",
       "test": "operating-envelope",
-      "status": "needs_definition",
-      "remaining": "Operating-envelope records for the complete upstream device sets do not exist yet.",
-      "historical_evidence": []
+      "status": "partial",
+      "remaining": "Source-locked standard MOS boundary/characterization points and explicitly selected axes now execute. Complete per-device geometry, bias, temperature, reliability and RF limits, mixed/statistical corners, and operating-envelope records for the remaining upstream device families remain open.",
+      "historical_evidence": [
+        "mos-boundaries-2026-10-17"
+      ]
     },
     "sky130A:rc-corners": {
       "target": "sky130A",
@@ -17012,13 +17018,14 @@
       "target": "gf180mcuC",
       "test": "device-simulation",
       "status": "partial",
-      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate. Selected resistor/MIM AC, multiplicity and electrical fault tests now pass; full DC/transient/noise, supported operating ranges, other families and measured accuracy remain required.",
+      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate. Selected resistor/MIM AC, multiplicity and electrical fault tests now pass; full DC/transient/noise, supported operating ranges, other families and measured accuracy remain required. Standard MOS gate/drain/body boundary sweeps now pass with all four terminal currents and per-device multiplicity/terminal-swap faults; remaining scope is unchanged.",
       "historical_evidence": [
         "analog-smoke",
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
         "standard-passives-2026-10-16",
-        "default-device-packages-2026-10-17"
+        "default-device-packages-2026-10-17",
+        "mos-boundaries-2026-10-17"
       ]
     },
     "gf180mcuC:digital-controller": {
@@ -17100,9 +17107,11 @@
     "gf180mcuC:operating-envelope": {
       "target": "gf180mcuC",
       "test": "operating-envelope",
-      "status": "needs_definition",
-      "remaining": "Operating-envelope records for the complete upstream device sets do not exist yet.",
-      "historical_evidence": []
+      "status": "partial",
+      "remaining": "Source-locked standard MOS boundary/characterization points and explicitly selected axes now execute. Complete per-device geometry, bias, temperature, reliability and RF limits, mixed/statistical corners, and operating-envelope records for the remaining upstream device families remain open.",
+      "historical_evidence": [
+        "mos-boundaries-2026-10-17"
+      ]
     },
     "gf180mcuC:rc-corners": {
       "target": "gf180mcuC",
@@ -17285,12 +17294,13 @@
       "target": "gf180mcuD",
       "test": "device-simulation",
       "status": "partial",
-      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate. Selected resistor/MIM AC, multiplicity and electrical fault tests now pass; full DC/transient/noise, supported operating ranges, other families and measured accuracy remain required.",
+      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate. Selected resistor/MIM AC, multiplicity and electrical fault tests now pass; full DC/transient/noise, supported operating ranges, other families and measured accuracy remain required. Standard MOS gate/drain/body boundary sweeps now pass with all four terminal currents and per-device multiplicity/terminal-swap faults; remaining scope is unchanged.",
       "historical_evidence": [
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
         "standard-passives-2026-10-16",
-        "default-device-packages-2026-10-17"
+        "default-device-packages-2026-10-17",
+        "mos-boundaries-2026-10-17"
       ]
     },
     "gf180mcuD:digital-controller": {
@@ -17375,9 +17385,11 @@
     "gf180mcuD:operating-envelope": {
       "target": "gf180mcuD",
       "test": "operating-envelope",
-      "status": "needs_definition",
-      "remaining": "Operating-envelope records for the complete upstream device sets do not exist yet.",
-      "historical_evidence": []
+      "status": "partial",
+      "remaining": "Source-locked standard MOS boundary/characterization points and explicitly selected axes now execute. Complete per-device geometry, bias, temperature, reliability and RF limits, mixed/statistical corners, and operating-envelope records for the remaining upstream device families remain open.",
+      "historical_evidence": [
+        "mos-boundaries-2026-10-17"
+      ]
     },
     "gf180mcuD:rc-corners": {
       "target": "gf180mcuD",
@@ -17556,13 +17568,14 @@
       "target": "ihp-sg13g2",
       "test": "device-simulation",
       "status": "partial",
-      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate. Selected resistor/MIM AC, multiplicity and electrical fault tests now pass; full DC/transient/noise, supported operating ranges, other families and measured accuracy remain required.",
+      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate. Selected resistor/MIM AC, multiplicity and electrical fault tests now pass; full DC/transient/noise, supported operating ranges, other families and measured accuracy remain required. Standard MOS gate/drain/body boundary sweeps now pass with all four terminal currents and per-device multiplicity/terminal-swap faults; remaining scope is unchanged.",
       "historical_evidence": [
         "analog-smoke",
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
         "standard-passives-2026-10-16",
-        "default-device-packages-2026-10-17"
+        "default-device-packages-2026-10-17",
+        "mos-boundaries-2026-10-17"
       ]
     },
     "ihp-sg13g2:digital-controller": {
@@ -17651,9 +17664,11 @@
     "ihp-sg13g2:operating-envelope": {
       "target": "ihp-sg13g2",
       "test": "operating-envelope",
-      "status": "needs_definition",
-      "remaining": "Operating-envelope records for the complete upstream device sets do not exist yet.",
-      "historical_evidence": []
+      "status": "partial",
+      "remaining": "Source-locked standard MOS boundary/characterization points and explicitly selected axes now execute. Complete per-device geometry, bias, temperature, reliability and RF limits, mixed/statistical corners, and operating-envelope records for the remaining upstream device families remain open.",
+      "historical_evidence": [
+        "mos-boundaries-2026-10-17"
+      ]
     },
     "ihp-sg13g2:rc-corners": {
       "target": "ihp-sg13g2",
@@ -17915,13 +17930,14 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected electrical/interface checks pass on the corrected default package. Complete device-specific geometry, bias, temperature, statistical/reliability and physical/extracted connectivity coverage remain open; earlier evidence retains its exact tested conditions and sources.",
+        "remaining": "Selected electrical/interface checks pass on the corrected default package. Complete device-specific geometry, bias, temperature, statistical/reliability and physical/extracted connectivity coverage remain open; earlier evidence retains its exact tested conditions and sources. Source-locked sampled gate/drain/body boundary checks now pass, including small/large geometries, three generic process corners and three recorded temperatures. The new electrical geometry points do not expand physical layout acceptance.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "mos-boundaries-2026-10-17"
         ]
       },
       "sky130_fd_pr/nfet_01v8_esd.sym": {
@@ -18304,13 +18320,14 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected electrical/interface checks pass on the corrected default package. Complete device-specific geometry, bias, temperature, statistical/reliability and physical/extracted connectivity coverage remain open; earlier evidence retains its exact tested conditions and sources.",
+        "remaining": "Selected electrical/interface checks pass on the corrected default package. Complete device-specific geometry, bias, temperature, statistical/reliability and physical/extracted connectivity coverage remain open; earlier evidence retains its exact tested conditions and sources. Source-locked sampled gate/drain/body boundary checks now pass, including small/large geometries, three generic process corners and three recorded temperatures. The new electrical geometry points do not expand physical layout acceptance.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "mos-boundaries-2026-10-17"
         ]
       },
       "sky130_fd_pr/pfet_01v8_hvt.sym": {
@@ -19156,13 +19173,14 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Five selected single-finger geometries pass native full DRC and strict LVS on the current default, with wrong length, drain-contact open and gate/drain-short controls detected. Complete operating envelopes, additional geometries and broader extracted electrical behavior remain open.",
+        "remaining": "Five selected single-finger geometries pass native full DRC and strict LVS on the current default, with wrong length, drain-contact open and gate/drain-short controls detected. Complete operating envelopes, additional geometries and broader extracted electrical behavior remain open. Source-locked sampled gate/drain/body boundary checks now pass, including small/large geometries, three generic process corners and three recorded temperatures. The new electrical geometry points do not expand physical layout acceptance.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "mos-boundaries-2026-10-17"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -19437,13 +19455,14 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Five selected single-finger geometries pass native full DRC and strict LVS on the current default, with wrong length, drain-contact open and gate/drain-short controls detected. Complete operating envelopes, additional geometries and broader extracted electrical behavior remain open.",
+        "remaining": "Five selected single-finger geometries pass native full DRC and strict LVS on the current default, with wrong length, drain-contact open and gate/drain-short controls detected. Complete operating envelopes, additional geometries and broader extracted electrical behavior remain open. Source-locked sampled gate/drain/body boundary checks now pass, including small/large geometries, three generic process corners and three recorded temperatures. The new electrical geometry points do not expand physical layout acceptance.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "mos-boundaries-2026-10-17"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -20122,13 +20141,14 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Five selected single-finger geometries pass native full DRC and strict LVS on the current default, with wrong length, drain-contact open and gate/drain-short controls detected. Complete operating envelopes, additional geometries and broader extracted electrical behavior remain open.",
+        "remaining": "Five selected single-finger geometries pass native full DRC and strict LVS on the current default, with wrong length, drain-contact open and gate/drain-short controls detected. Complete operating envelopes, additional geometries and broader extracted electrical behavior remain open. Source-locked sampled gate/drain/body boundary checks now pass, including small/large geometries, three generic process corners and three recorded temperatures. The new electrical geometry points do not expand physical layout acceptance.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "mos-boundaries-2026-10-17"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -20403,13 +20423,14 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Five selected single-finger geometries pass native full DRC and strict LVS on the current default, with wrong length, drain-contact open and gate/drain-short controls detected. Complete operating envelopes, additional geometries and broader extracted electrical behavior remain open.",
+        "remaining": "Five selected single-finger geometries pass native full DRC and strict LVS on the current default, with wrong length, drain-contact open and gate/drain-short controls detected. Complete operating envelopes, additional geometries and broader extracted electrical behavior remain open. Source-locked sampled gate/drain/body boundary checks now pass, including small/large geometries, three generic process corners and three recorded temperatures. The new electrical geometry points do not expand physical layout acceptance.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "mos-boundaries-2026-10-17"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -21229,13 +21250,14 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Five selected single-finger geometries pass native full DRC and strict LVS on the current default, with wrong length, drain-contact open and gate/drain-short controls detected. Complete operating envelopes, additional geometries and broader extracted electrical behavior remain open.",
+        "remaining": "Five selected single-finger geometries pass native full DRC and strict LVS on the current default, with wrong length, drain-contact open and gate/drain-short controls detected. Complete operating envelopes, additional geometries and broader extracted electrical behavior remain open. Source-locked sampled gate/drain/body boundary checks now pass, including small/large geometries, three generic process corners and three recorded temperatures. The new electrical geometry points do not expand physical layout acceptance.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "mos-boundaries-2026-10-17"
         ]
       },
       "sg13g2_pr/sg13_lv_pmos.sym": {
@@ -21245,13 +21267,14 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Five selected single-finger geometries pass native full DRC and strict LVS on the current default, with wrong length, drain-contact open and gate/drain-short controls detected. Complete operating envelopes, additional geometries and broader extracted electrical behavior remain open.",
+        "remaining": "Five selected single-finger geometries pass native full DRC and strict LVS on the current default, with wrong length, drain-contact open and gate/drain-short controls detected. Complete operating envelopes, additional geometries and broader extracted electrical behavior remain open. Source-locked sampled gate/drain/body boundary checks now pass, including small/large geometries, three generic process corners and three recorded temperatures. The new electrical geometry points do not expand physical layout acceptance.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "mos-boundaries-2026-10-17"
         ]
       },
       "sg13g2_pr/sg13_lv_rf_nmos.sym": {
@@ -21910,6 +21933,11 @@
       "path": "docs/validation/artifact-path-portability-2026-10-17.json",
       "sha256": "72415fd8a91387852b6de4c4cfe127f43791c452d4c42cefad7bc761fc4d7731",
       "scope_limit": "Canonical job-artifact paths, with all 15 previous Windows CI failures passing on both hosts. Focused workflow/export tests pass with explicit engine/platform skips. No new device, physical or final installer qualification is inferred."
+    },
+    "mos-boundaries-2026-10-17": {
+      "path": "docs/validation/mos-boundaries-2026-10-17.json",
+      "sha256": "141a5d0a6d128c0c99173b134295ff55766fde8b87ca0d07fb1130126650cbe1",
+      "scope_limit": "Eight standard MOS views pass 378 Windows/Linux condition cases, 67,392 four-terminal current vectors and 33,696 per-device fault controls. Published boundary/characterization points and selected axes are distinguished. No continuous operating envelope, reliability, statistical/RF, physical or installed-release qualification is inferred."
     }
   },
   "execution_acceptance": {

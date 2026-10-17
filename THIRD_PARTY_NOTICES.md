@@ -323,7 +323,7 @@ modified library identifies this change. Original source deltas and license
 copies under `icstudio/assets/qualification/sky130-base-v1` reproduce the prior
 package; the IHP MIM fixture likewise retains its Apache notice and license.
 
-The Linux/WSL simulation runtime builds the unmodified ngspice 47 release with
+The Linux/WSL simulation runtime builds from the ngspice 47 release with
 OSDI, XSPICE, KLU and predictor support. Its SHA-256-pinned original source
 archive, COPYING terms, build logs and binary identity are retained under
 `opt/icstudio/simulation`. The Windows console runtime retains its separately
@@ -331,4 +331,18 @@ pinned ngspice 42 distribution. Numerical qualification identifies each engine.
 The generated Linux initializer is modified to resolve code models relative to
 the installed launcher and to default to one simulation thread. Its original
 bytes and an explicit modification notice are retained; users may select another
-thread count in their control program. Simulator/model source is unchanged.
+thread count in their control program. The corrected runtime also applies the
+documented capacitor-multiplicity parser fix in `src/frontend/inpcom.c` through
+`scripts/build_ngspice_runtime.py`. It retains the original source file,
+`capacitor-multiplier.patch` and a modification notice with the source archive.
+PDK model equations are unchanged. Qualification records distinguish this
+corrected engine from the earlier build.
+
+The MOS boundary qualification sources in
+`docs/qualification/mos-boundary-sources-v1` are unmodified excerpts from the
+public SkyWater and GlobalFoundries PDK documentation. Their Apache-2.0 license
+copies, exact upstream revisions, original paths and SHA-256 checksums accompany
+them. Local filenames are shortened; their contents and third-party licensing
+are unchanged. The IHP boundary checks use the already bundled Apache-2.0 model
+header identified in the qualification record. The new test runner is separate
+project code under this project's GPL-3.0 license.
