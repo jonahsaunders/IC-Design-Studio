@@ -1,7 +1,7 @@
 """Bounded IHP SG13G2 1.2 V MOS geometry, using each variant's locked decks.
 
 Native GDS drawing datatype 0 and port datatype 2 are process-specific.
-W=1..10 um, L=.13..2 um, 5 nm grid, nf=m=mult=1. All four terminals are contacted.
+W=.15..10 um, L=.13..10 um, 5 nm grid, nf=m=mult=1. All four terminals are contacted.
 """
 from .model import clone, uid, scalar, validate, digest, file_digest
 from .catalog import binding_for, parameter_values, create_device, link_technology
@@ -50,7 +50,7 @@ def specification(tech, d):
             or any(b.get('emit_parameters',{}).get(k)!=k for k in ('w','l','ng','m'))):
         raise ValueError('Use the standard IHP model binding with W/L in metres and ng=m=1.')
     size = {}
-    for k,minimum,maximum in (('w',1000,10000),('l',130,2000)):
+    for k,minimum,maximum in (('w',150,10000),('l',130,10000)):
         raw = values[k]*1e9; n = round(raw)
         if abs(raw-n)>1e-6 or n%5 or not minimum<=n<=maximum:
             raise ValueError(f'{d["name"]}: {k.upper()} must be {minimum/1000:g} to {maximum/1000:g} micrometres on the 5 nm grid.')
@@ -65,13 +65,18 @@ def mos(tech,d,x=0,y=0):
     shapes=[]; pins=[]
     def box(key,a,b,c,e,net=''):
         s=rect(ls[key],x+a,y+b,c-a,e-b,d['id'],net);s['generated_device']=d['id'];shapes.append(s)
-    box('diff',-800,0,l+800,w)
-    box('psdm' if d['kind']=='PMOS' else 'nsdm',-1100,-300,l+1100,w+300)
     gate=5*round(l/10);cy=5*round(w/10)
+    bottom,top=min(0,cy-350),max(w,cy+350)
+    box('diff',-800,0,l+800,w)
+    box('psdm' if d['kind']=='PMOS' else 'nsdm',-1100,bottom-300,l+1100,top+300)
     box('poly',0,-1000,l,w+300);box('poly',gate-250,-1050,gate+250,-550)
     box('diff',-2850,cy-350,-2150,cy+350)
     box('nsdm' if d['kind']=='PMOS' else 'psdm',-3150,cy-650,-1850,cy+650)
-    if d['kind']=='PMOS':box('nwell',-3450,-1500,l+1400,w+700)
+    if w<700:
+        # Append after the body tap so its regeneration role remains stable.
+        box('diff',-800,cy-350,-300,cy+350)
+        box('diff',l+300,cy-350,l+800,cy+350)
+    if d['kind']=='PMOS':box('nwell',-3450,-1500,l+1400,top+700)
     for pin,px,py in (('s',-500,cy),('d',l+500,cy),('g',gate,-800),('b',-2500,cy)):
         # Exact 0.16 um contact cut; enclosure is provided by active/poly and M1.
         box('contact',px-80,py-80,px+80,py+80)

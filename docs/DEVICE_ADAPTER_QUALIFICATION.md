@@ -91,8 +91,17 @@ The [record](validation/mos-boundaries-2026-10-17.json) contains 216 passing
 Linux/WSL cases across all four packages and 162 passing native Windows cases
 for SKY130/GF180 C/D. All 67,392 terminal-current vectors agree with independent
 decks, and all 33,696 deliberately faulted instances are detected. Each host
-passes 17 focused tests. These results do not expand physical layout dimensions;
+passes 17 focused tests. The electrical results alone do not expand physical layout dimensions;
 selected undocumented axes and the native Windows IHP OSDI gap remain explicit.
+
+The later [physical boundary batch](validation/mos-physical-boundaries-2026-10-17.json)
+extends the GF180 and IHP standard single-finger generators to the ranges in the
+[boundary guide](MOS_BOUNDARY_QUALIFICATION.md). All 72 recorded geometry layouts
+pass full native DRC and strict LVS, with all 504 deliberate physical faults
+detected. Re-read extraction verifies model identity, four terminals and W/L.
+The body-tap identity survives narrow/wide regeneration and save/reopen; all
+72 focused tests pass on each host. Broader device-family and operating coverage
+remains open, and each edited design requires its own verification.
 
 ## Prepare and install
 

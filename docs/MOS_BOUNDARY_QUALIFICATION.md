@@ -56,3 +56,33 @@ source identities and per-case fault results. Completed evidence can be stored
 in a verified content-addressed archive to avoid retaining repeated model
 copies. A source, model, executable or operating-condition change requires
 review of the affected checks.
+
+## GF180 and IHP physical geometry
+
+The [physical boundary record](validation/mos-physical-boundaries-2026-10-17.json)
+adds 72 standard single-finger NMOS/PMOS layouts: all 16 measured GF180 W/L
+pairs for each polarity and C/D package, and the four IHP model-geometry corner
+pairs for each polarity. Every layout passes the locked native full DRC and
+strict LVS. Re-reading the extracted netlists verifies the model, four named
+terminals, width and length. All 504 deliberately changed layouts produce
+native size or connectivity failures: wrong width/length, each of four open
+contacts, and a gate-to-drain short. Tool setup failures cannot satisfy these
+negative controls.
+
+The generators now accept GF180 widths of 0.22–10 micrometres and lengths of
+0.28–10 micrometres, and IHP widths of 0.15–10 micrometres and lengths of
+0.13–10 micrometres, on the existing 5 nm grid. Narrow devices use wider contact
+landings outside the channel. The body-tap shape and terminal identifiers remain
+stable when resizing across that transition and saving/reopening a project.
+Seventy-two focused tests pass on each host, including real simulator checks.
+
+```sh
+python scripts/qualify_mos_physical_boundaries.py --output /path/to/new-physical-results --magic /path/to/magic --netgen /path/to/netgen --workers 4
+```
+
+These physical checks run locally through Linux/WSL. Windows separately checks
+geometry, regeneration, serialization and simulation. The accepted samples do
+not prove every geometry on the supported grid; each edited design still needs
+verification. Multiple fingers/copies, other device families and antenna/density
+checks remain outside this physical batch. Earlier complete-flow evidence retains
+its exact previous generator source rather than inheriting this device-level pass.

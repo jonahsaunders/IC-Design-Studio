@@ -34,7 +34,7 @@
     "7": {
       "name": "Qualify device families",
       "status": "in_progress",
-      "scope": "All 255 primitive symbol sources reconcile with pinned public views. The bundled include closure now inventories 6,402 SPICE definitions and 52 source-symbol alternate declarations; nine IHP Verilog-A declarations cover all six referenced external model types. All 235 usable defaults pass catalog interfaces on Windows and Linux. Seven SKY130 20 V symbol views now enforce fixed internal model geometry, passing 54 selected cases and 252 deliberate device faults on each host; original assets and saved revisions are preserved. Earlier device sweeps and physical fixtures retain their exact source/PDK scope. Complete device operating envelopes, alternate-model adapters/execution, broader physical/extracted connectivity, full upstream process/tool-view completeness and final installed-runtime acceptance remain open. Eight standard MOS views pass 378 Windows/Linux condition cases, 67,392 four-terminal current vectors and 33,696 per-device fault controls. Published boundary/characterization points and selected axes are distinguished. No continuous operating envelope, reliability, statistical/RF, physical or installed-release qualification is inferred."
+      "scope": "All 255 primitive symbol sources reconcile with pinned public views. The bundled include closure now inventories 6,402 SPICE definitions and 52 source-symbol alternate declarations; nine IHP Verilog-A declarations cover all six referenced external model types. All 235 usable defaults pass catalog interfaces on Windows and Linux. Seven SKY130 20 V symbol views now enforce fixed internal model geometry, passing 54 selected cases and 252 deliberate device faults on each host; original assets and saved revisions are preserved. Earlier device sweeps and physical fixtures retain their exact source/PDK scope. Complete device operating envelopes, alternate-model adapters/execution, broader physical/extracted connectivity, full upstream process/tool-view completeness and final installed-runtime acceptance remain open. Eight standard MOS views pass 378 Windows/Linux condition cases, 67,392 four-terminal current vectors and 33,696 per-device fault controls. Published boundary/characterization points and selected axes are distinguished. No continuous operating envelope, reliability, statistical/RF, physical or installed-release qualification is inferred. Six GF180 C/D and IHP standard single-finger MOS views pass 72 sampled native full-DRC/strict-LVS layouts and 504 physical fault controls. Extracted model, ports and W/L independently re-read. Narrow contact landings and 10 um lengths supported; body-tap identity survives regeneration/save/reopen. Seventy-two focused tests pass on each host. No complete geometry-domain, other-family, antenna/density or installed-release qualification is inferred."
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -16302,7 +16302,8 @@
         "scripts/qualify_student_geometry.py",
         "scripts/qualify_sky130_devices.py",
         "scripts/qualify_sky130_bipolar.py",
-        "scripts/qualify_standard_mos_layout.py"
+        "scripts/qualify_standard_mos_layout.py",
+        "scripts/qualify_mos_physical_boundaries.py"
       ],
       "automation_gap": "Standard MOS selected geometry/corner/bias sweeps and bounded SKY130 physical recipes now execute; complete upstream interfaces, model-validity envelopes, other device variants/families, measured model accuracy and full parameter-boundary coverage remain open."
     },
@@ -17007,11 +17008,12 @@
       "target": "gf180mcuC",
       "test": "device-physical",
       "status": "partial",
-      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate.",
+      "remaining": "Standard single-finger NMOS/PMOS native DRC/LVS now passes the published geometry samples in the physical MOS boundary record, including narrow contact landings and 10 um lengths. Multiple fingers/copies, remaining device-family layouts, broader geometry and extracted electrical behavior remain open; each edited layout needs verification.",
       "historical_evidence": [
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
-        "default-device-packages-2026-10-17"
+        "default-device-packages-2026-10-17",
+        "mos-physical-boundaries-2026-10-17"
       ]
     },
     "gf180mcuC:device-simulation": {
@@ -17283,11 +17285,12 @@
       "target": "gf180mcuD",
       "test": "device-physical",
       "status": "partial",
-      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate.",
+      "remaining": "Standard single-finger NMOS/PMOS native DRC/LVS now passes the published geometry samples in the physical MOS boundary record, including narrow contact landings and 10 um lengths. Multiple fingers/copies, remaining device-family layouts, broader geometry and extracted electrical behavior remain open; each edited layout needs verification.",
       "historical_evidence": [
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
-        "default-device-packages-2026-10-17"
+        "default-device-packages-2026-10-17",
+        "mos-physical-boundaries-2026-10-17"
       ]
     },
     "gf180mcuD:device-simulation": {
@@ -17556,12 +17559,13 @@
       "target": "ihp-sg13g2",
       "test": "device-physical",
       "status": "partial",
-      "remaining": "Selected standard MOS geometry/corner/temperature/bias tests pass at their recorded package revisions. Full upstream interface and per-device model-validity/reliability review, all required parameter limits, measured model accuracy and remaining families are open. SKY130 physical and simulation revisions remain explicitly separate.",
+      "remaining": "Standard single-finger NMOS/PMOS native DRC/LVS now passes the published geometry samples in the physical MOS boundary record, including narrow contact landings and 10 um lengths. Multiple fingers/copies, remaining device-family layouts, broader geometry and extracted electrical behavior remain open; each edited layout needs verification.",
       "historical_evidence": [
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
         "standard-passives-2026-10-16",
-        "default-device-packages-2026-10-17"
+        "default-device-packages-2026-10-17",
+        "mos-physical-boundaries-2026-10-17"
       ]
     },
     "ihp-sg13g2:device-simulation": {
@@ -19173,14 +19177,15 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Five selected single-finger geometries pass native full DRC and strict LVS on the current default, with wrong length, drain-contact open and gate/drain-short controls detected. Complete operating envelopes, additional geometries and broader extracted electrical behavior remain open. Source-locked sampled gate/drain/body boundary checks now pass, including small/large geometries, three generic process corners and three recorded temperatures. The new electrical geometry points do not expand physical layout acceptance.",
+        "remaining": "Recorded electrical boundary sweeps and physical geometry samples pass on the current default package. Seven native size/connectivity fault types are detected at each physical sample. Complete operating envelopes, mixed/statistical corners, multiple fingers/copies, unsampled geometry and extracted electrical behavior remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
-          "mos-boundaries-2026-10-17"
+          "mos-boundaries-2026-10-17",
+          "mos-physical-boundaries-2026-10-17"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -19455,14 +19460,15 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Five selected single-finger geometries pass native full DRC and strict LVS on the current default, with wrong length, drain-contact open and gate/drain-short controls detected. Complete operating envelopes, additional geometries and broader extracted electrical behavior remain open. Source-locked sampled gate/drain/body boundary checks now pass, including small/large geometries, three generic process corners and three recorded temperatures. The new electrical geometry points do not expand physical layout acceptance.",
+        "remaining": "Recorded electrical boundary sweeps and physical geometry samples pass on the current default package. Seven native size/connectivity fault types are detected at each physical sample. Complete operating envelopes, mixed/statistical corners, multiple fingers/copies, unsampled geometry and extracted electrical behavior remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
-          "mos-boundaries-2026-10-17"
+          "mos-boundaries-2026-10-17",
+          "mos-physical-boundaries-2026-10-17"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -20141,14 +20147,15 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Five selected single-finger geometries pass native full DRC and strict LVS on the current default, with wrong length, drain-contact open and gate/drain-short controls detected. Complete operating envelopes, additional geometries and broader extracted electrical behavior remain open. Source-locked sampled gate/drain/body boundary checks now pass, including small/large geometries, three generic process corners and three recorded temperatures. The new electrical geometry points do not expand physical layout acceptance.",
+        "remaining": "Recorded electrical boundary sweeps and physical geometry samples pass on the current default package. Seven native size/connectivity fault types are detected at each physical sample. Complete operating envelopes, mixed/statistical corners, multiple fingers/copies, unsampled geometry and extracted electrical behavior remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
-          "mos-boundaries-2026-10-17"
+          "mos-boundaries-2026-10-17",
+          "mos-physical-boundaries-2026-10-17"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -20423,14 +20430,15 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Five selected single-finger geometries pass native full DRC and strict LVS on the current default, with wrong length, drain-contact open and gate/drain-short controls detected. Complete operating envelopes, additional geometries and broader extracted electrical behavior remain open. Source-locked sampled gate/drain/body boundary checks now pass, including small/large geometries, three generic process corners and three recorded temperatures. The new electrical geometry points do not expand physical layout acceptance.",
+        "remaining": "Recorded electrical boundary sweeps and physical geometry samples pass on the current default package. Seven native size/connectivity fault types are detected at each physical sample. Complete operating envelopes, mixed/statistical corners, multiple fingers/copies, unsampled geometry and extracted electrical behavior remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
-          "mos-boundaries-2026-10-17"
+          "mos-boundaries-2026-10-17",
+          "mos-physical-boundaries-2026-10-17"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -21250,14 +21258,15 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Five selected single-finger geometries pass native full DRC and strict LVS on the current default, with wrong length, drain-contact open and gate/drain-short controls detected. Complete operating envelopes, additional geometries and broader extracted electrical behavior remain open. Source-locked sampled gate/drain/body boundary checks now pass, including small/large geometries, three generic process corners and three recorded temperatures. The new electrical geometry points do not expand physical layout acceptance.",
+        "remaining": "Recorded electrical boundary sweeps and physical geometry samples pass on the current default package. Seven native size/connectivity fault types are detected at each physical sample. Complete operating envelopes, mixed/statistical corners, multiple fingers/copies, unsampled geometry and extracted electrical behavior remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
-          "mos-boundaries-2026-10-17"
+          "mos-boundaries-2026-10-17",
+          "mos-physical-boundaries-2026-10-17"
         ]
       },
       "sg13g2_pr/sg13_lv_pmos.sym": {
@@ -21267,14 +21276,15 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Five selected single-finger geometries pass native full DRC and strict LVS on the current default, with wrong length, drain-contact open and gate/drain-short controls detected. Complete operating envelopes, additional geometries and broader extracted electrical behavior remain open. Source-locked sampled gate/drain/body boundary checks now pass, including small/large geometries, three generic process corners and three recorded temperatures. The new electrical geometry points do not expand physical layout acceptance.",
+        "remaining": "Recorded electrical boundary sweeps and physical geometry samples pass on the current default package. Seven native size/connectivity fault types are detected at each physical sample. Complete operating envelopes, mixed/statistical corners, multiple fingers/copies, unsampled geometry and extracted electrical behavior remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
-          "mos-boundaries-2026-10-17"
+          "mos-boundaries-2026-10-17",
+          "mos-physical-boundaries-2026-10-17"
         ]
       },
       "sg13g2_pr/sg13_lv_rf_nmos.sym": {
@@ -21938,6 +21948,11 @@
       "path": "docs/validation/mos-boundaries-2026-10-17.json",
       "sha256": "141a5d0a6d128c0c99173b134295ff55766fde8b87ca0d07fb1130126650cbe1",
       "scope_limit": "Eight standard MOS views pass 378 Windows/Linux condition cases, 67,392 four-terminal current vectors and 33,696 per-device fault controls. Published boundary/characterization points and selected axes are distinguished. No continuous operating envelope, reliability, statistical/RF, physical or installed-release qualification is inferred."
+    },
+    "mos-physical-boundaries-2026-10-17": {
+      "path": "docs/validation/mos-physical-boundaries-2026-10-17.json",
+      "sha256": "6538d6fa4ce7209ef8f28827c94d82c410fcfb8c90d036d27448d155bb6e802f",
+      "scope_limit": "Six GF180 C/D and IHP standard single-finger MOS views pass 72 sampled native full-DRC/strict-LVS layouts and 504 physical fault controls. Extracted model, ports and W/L independently re-read. Narrow contact landings and 10 um lengths supported; body-tap identity survives regeneration/save/reopen. Seventy-two focused tests pass on each host. No complete geometry-domain, other-family, antenna/density or installed-release qualification is inferred."
     }
   },
   "execution_acceptance": {
@@ -21953,8 +21968,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/gf180-tested-source-2026-10-17-fixed/manifest.json",
-        "sha256": "ecdfa28e37bb6efdededc5ab7f04159e943685353f00e6ffc019e73579a0047d"
+        "path": "docs/validation/gf180-tested-source-2026-10-17-mos-boundaries/manifest.json",
+        "sha256": "391ae5aa963f0e0cff21facc60f77a0e2e5f0f612652d3906872b231cef96006"
       }
     },
     "5": {

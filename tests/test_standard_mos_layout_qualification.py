@@ -61,8 +61,8 @@ class StandardMosLayoutQualificationTests(unittest.TestCase):
 
     def test_generator_rejects_outside_dimensions_and_off_grid_values(self):
         from icstudio.process_adapters import ADAPTERS
-        bounds={'sky130A':(.42,30,.15,10),'gf180mcuC':(1,10,.28,2),
-            'gf180mcuD':(1,10,.28,2),'ihp-sg13g2':(1,10,.13,2)}
+        bounds={'sky130A':(.42,30,.15,10),'gf180mcuC':(.22,10,.28,10),
+            'gf180mcuD':(.22,10,.28,10),'ihp-sg13g2':(.15,10,.13,10)}
         for target,tech in self.technologies.items():
             p,c,_=fixture(tech,target,'n','interior');d=c['devices'][0]
             wmin,wmax,lmin,lmax=bounds[target]

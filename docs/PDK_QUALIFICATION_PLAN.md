@@ -59,7 +59,18 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
-The latest [standard MOS boundary record](validation/mos-boundaries-2026-10-17.json)
+The latest [physical MOS boundary record](validation/mos-physical-boundaries-2026-10-17.json)
+adds 72 layouts across GF180 C/D and IHP, each passing native full DRC and strict
+LVS at the recorded published geometry points. All 504 deliberate size, contact
+and short faults are detected. The generators now support narrow contact
+landings and lengths through 10 micrometres. A regression correction preserves
+body-tap shape identity when resizing between narrow and wide devices; save/reopen
+checks cover that transition. All 72 focused tests pass on both hosts. The
+[boundary guide](MOS_BOUNDARY_QUALIFICATION.md) records the exact scope; other
+device-family layouts, alternate models, full operating envelopes, statistical/RF
+coverage and installed-runtime acceptance still prevent chunk 7 completion.
+
+The earlier [standard MOS boundary record](validation/mos-boundaries-2026-10-17.json)
 adds 378 passing condition cases across Windows and Linux/WSL for eight standard
 MOS views in SKY130A, GF180 C/D and IHP. It checks 67,392 terminal-current vectors
 and detects all 33,696 deliberately faulted device instances. Independent raw
