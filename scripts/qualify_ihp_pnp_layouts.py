@@ -18,6 +18,7 @@ from icstudio.stream_contract import compare
 from scripts.qualify_standard_mos import load_technology,write
 from scripts.qualify_ihp_resistor_layouts import regions,same_masks,rotated
 from scripts.qualify_diode_layouts import detected_fault
+from scripts.qualify_ihp_npn_layouts import detected as ihp_fault_detected
 SIZES=((2,.7),(2,5),(10,.7),(2,7),(7,2))
 FAULTS=('collector-open','base-open','emitter-open','collector-emitter-short','reference-reversed','reference-area','reference-perimeter')
 
@@ -105,7 +106,7 @@ def case(tech,w,l,out,tools):
             row['layouts'].append(dict(rotation=angle,native_status=result['status'],drc_count=result['drc_count'],exchange=exchange,report_sha256=file_digest(dest/'report.json'),extracted=audit_extracted(dest/'lvs-extraction/extracted.spice',w,l)))
         for fault in FAULTS:
             q=p if fault.startswith('reference-') else altered(p,fault);selected=selected_reference(w,l,fault) if fault.startswith('reference-') else ref
-            dest=folder/fault;result=run(q,q['top'],dest,tools,selected,lvs_extractor='ihp-klayout');detected=detected_fault(result,dest)
+            dest=folder/fault;result=run(q,q['top'],dest,tools,selected,lvs_extractor='ihp-klayout');detected=ihp_fault_detected(result,dest,('C','B','E'))
             row['faults'].append(dict(name=fault,detected=detected,status=result['status'],report_sha256=file_digest(dest/'report.json'),error=result.get('error')))
             if not detected:raise ValueError('Native PNP checks missed '+fault)
         row['status']='PASS'

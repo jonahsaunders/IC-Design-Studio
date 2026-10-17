@@ -51,6 +51,30 @@ class IhpKLayoutLvsTests(unittest.TestCase):
                 path.write_text(faulty)
                 with self.subTest(faulty=faulty),self.assertRaises(ValueError):audit_extracted(path,2,.7)
 
+    def test_pinned_npn_writer_fallback_retains_every_node_and_parameter(self):
+        for model in ('npn13G2l','npn13G2v'):
+            text=f'.SUBCKT coupon S B C E\n1$1 C B E S {model} we=70n le=1000n Nx=3 m=1\n.ENDS coupon\n'
+            converted,changes=ihp.bipolar_subcircuits(text)
+            self.assertEqual(converted,text.replace('1$1','X1$1'))
+            ordered,record=ihp.order_top_ports(converted,'coupon',['C','B','E','S'])
+            self.assertEqual(ordered,converted.replace('.SUBCKT coupon S B C E','.SUBCKT coupon C B E S'))
+            self.assertEqual(record,dict(before=['S','B','C','E'],after=['C','B','E','S']))
+            self.assertEqual(changes[0]['terminal_count'],4)
+        for text in ('1$1 C B E S unknown we=70n le=1000n Nx=1 m=1',
+                     '1$1 C B E pnpMPA A=1p P=4u',
+                     '1$1 C B E S npn13G2L we=70n le=1000n Nx=1 m=1',
+                     '1 C B E S npn13G2l we=70n le=1000n Nx=1 m=1',
+                     '1$1 C B E S npn13G2l we=70n le=1000n Nx=1 m=1\nX1$1 C B E S npn13G2l we=70n le=1000n Nx=1 m=1'):
+            with self.subTest(text=text),self.assertRaises(ValueError):ihp.bipolar_subcircuits(text)
+
+    def test_top_order_requires_identical_unique_names_and_flat_circuit(self):
+        for header in ('.SUBCKT coupon C B E', '.SUBCKT coupon S C B E GND',
+                       '.SUBCKT coupon S C B B', '.SUBCKT wrong S C B E',
+                       '.SUBCKT coupon S C B E\n.SUBCKT child C B E'):
+            with self.subTest(header=header),self.assertRaises(ValueError):
+                ihp.order_top_ports(header+'\n.ENDS\n','coupon',['C','B','E','S'])
+        with self.assertRaises(ValueError):ihp.order_top_ports('.SUBCKT coupon C B E S\n.ENDS','coupon',['C','B','E','E'])
+
     def test_unfiltered_extraction_never_calls_alignment_or_comparison(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp);source=self.layout(root)

@@ -59,6 +59,15 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [IHP NPN-layout record](validation/ihp-npn-layouts-2026-10-17.json) adds
+36 layouts across all three four-terminal NPN families, with all 99 deliberate
+faults detected. Exact emitter/count audits, 54 independent rule-geometry checks,
+31 focused tests per host, PNP regressions and staged-backend receipt pass.
+The separately versioned package corrects disconnected-component traversal;
+the optional extractor preserves orientation and emitter count. Five-terminal
+thermal behavior, continuous operating envelopes, other device-family coverage,
+unavailable required models and installed acceptance remain open.
+
 The [IHP bipolar-layout record](validation/ihp-bipolar-layouts-2026-10-17.json)
 adds ten sampled PNP layouts and 35 detected physical/reference faults. An
 explicit public KLayout extraction option resolves the larger-PNP recognition

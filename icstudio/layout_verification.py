@@ -171,7 +171,7 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
             if lvs_extractor=='ihp-klayout':
                 from .ihp_klayout_lvs import extract as ihp_extract
                 result=ihp_extract(resolved['klayout']['path'],out/'layout.gds',c['name'],ref['ports'],p['pdk'],out/'lvs-extraction')
-                for path in (out/'lvs-extraction').iterdir():
+                for path in (out/'lvs-extraction').rglob('*'):
                     if path.is_file():files[path.relative_to(out).as_posix()]=file_digest(path)
                 return result
             # verification_stream already flattened the private geometry. Use
@@ -186,7 +186,12 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
             return dict(deck='lvs-extraction/extracted.spice',sha256=files['lvs-extraction/extracted.spice'],settings=settings)
         stage('lvs_extraction',extract)
         def lvs():
-            log=netgen_lvs(resolved['netgen']['path'],out/'schematic-lvs.spice',ref['top'],out/'lvs-extraction/extracted.spice',c['name'],assets['setup'],out/'lvs')
+            setup=assets['setup']
+            if lvs_extractor=='ihp-klayout':
+                from .ihp_klayout_lvs import comparison_setup
+                setup,record=comparison_setup(setup,out/'ihp-strict-lvs.tcl')
+                report['comparison_setup']=record;files['ihp-strict-lvs.tcl']=file_digest(setup)
+            log=netgen_lvs(resolved['netgen']['path'],out/'schematic-lvs.spice',ref['top'],out/'lvs-extraction/extracted.spice',c['name'],setup,out/'lvs')
             files['lvs/lvs.log']=file_digest(out/'lvs/lvs.log')
             require_lvs_match(log);return dict(unique_match=True,log='lvs/lvs.log')
         try:stage('lvs',lvs)

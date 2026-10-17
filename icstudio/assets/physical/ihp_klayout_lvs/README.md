@@ -10,10 +10,13 @@ Studio runs this deck in extraction-only mode with simplification, combining,
 purging and implicit connections disabled. It never treats the upstream
 comparison's success message as acceptance. Strict Netgen comparison uses the
 actual unfiltered circuit, with explicit nonempty/interface checks. The original
-Magic DRC deck remains required. The source checkout and PDK revision are
+full Magic DRC remains required. The source checkout and PDK revision are
 recorded separately; this is an explicitly selected additional verifier.
 
-The current qualification samples cover PNP layouts only. Other device classes,
-broader geometry ranges, parasitics, operating conditions and foundry signoff
-are not qualified by this bundle. See the
+Each private run copy explicitly records the local NPN orientation and unequal
+emitter correction. The stored files here remain byte-identical to upstream.
+The private Netgen setup retains emitter count, and the NPN fixtures use a
+separately versioned Magic correction with unchanged rule operands/distances.
+Finite PNP and NPN layout samples do not qualify other device classes, continuous
+geometry ranges, parasitics, operating conditions or foundry signoff. See the
 [IHP bipolar qualification guide](../../../../docs/IHP_BIPOLAR_LAYOUT_QUALIFICATION.md).

@@ -366,3 +366,14 @@ upstream files keep their separate license. Studio's GPL-3.0 adapter executes
 extraction without alignment, simplification, purging or implicit connections;
 it retains native results and records the pin-text and BJT instance-prefix
 interoperability conversions separately. Netgen compares the unfiltered circuit.
+
+The same pinned Apache-2.0 IHP repository supplies the unmodified NPN GDS/CDL
+reference inputs in `icstudio/assets/physical/ihp_bipolars`, with their source
+inventory and license. Local qualification adds explicitly recorded substrate
+contacts inside the original guard. The optional extractor creates a private
+run copy with an identified NPN orientation/unequal-emitter correction and a
+private comparison setup retaining emitter count. A separate, versioned IHP
+package can correct the NPN connected-region DRC search. Original upstream
+headers and licenses remain in all copies; the correction recipes and test
+runners are project code under GPL-3.0. These are local modifications, not
+upstream or foundry-approved signoff decks.
