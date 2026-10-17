@@ -159,12 +159,16 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None)
         try:stage('drc',drc)
         except (ValueError,OSError) as exc:failures.append(str(exc))
         def extract():
-            commands,_=extraction_commands('lvs',{'hierarchy':False})
+            # verification_stream already flattened the private geometry. Use
+            # Magic's hierarchical writer: its flat writer emits device
+            # perimeter with area units (1e-12 instead of 1e-6 in 8.3.684).
+            # This changes no geometry and avoids rewriting extracted values.
+            commands,settings=extraction_commands('lvs')
             magic('lvs-extraction',commands+'ext2spice -o extracted.spice')
             path=out/'lvs-extraction/extracted.spice'
             check_extracted_interface(path,c['name'],ref['ports'],p['pdk'])
             files['lvs-extraction/extracted.spice']=file_digest(path)
-            return dict(deck='lvs-extraction/extracted.spice',sha256=files['lvs-extraction/extracted.spice'])
+            return dict(deck='lvs-extraction/extracted.spice',sha256=files['lvs-extraction/extracted.spice'],settings=settings)
         stage('lvs_extraction',extract)
         def lvs():
             log=netgen_lvs(resolved['netgen']['path'],out/'schematic-lvs.spice',ref['top'],out/'lvs-extraction/extracted.spice',c['name'],assets['setup'],out/'lvs')

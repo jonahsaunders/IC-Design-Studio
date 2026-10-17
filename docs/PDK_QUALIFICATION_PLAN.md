@@ -59,6 +59,16 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [diode-layout record](validation/diode-layouts-2026-10-17.json) adds 100
+native full-DRC/strict-LVS layouts for two IHP and four GF180 diode families on
+each C/D variant. All 300 intentional faults are detected, and an independent
+audit checks 400 extracted netlists and all mask changes. The application now
+uses the native writer that preserves correct diode perimeter units. Fourteen
+representative MOS/resistor/MIM layouts and 29 focused tests per host pass after
+that change. The [diode guide](DIODE_LAYOUT_QUALIFICATION.md) records exact
+settings and retained failures. Wider operating ranges, other device families,
+statistical/RF behavior and installed acceptance still prevent chunk 7 completion.
+
 The [resistor-layout record](validation/resistor-layouts-2026-10-17.json)
 adds 190 selected native full-DRC/strict-LVS layouts: three IHP resistor families
 and eight families on each GF180 C/D variant, at five W/L pairs and two rotations.
