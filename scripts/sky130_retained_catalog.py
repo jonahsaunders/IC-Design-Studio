@@ -1,6 +1,6 @@
 """Authenticate a complete prior catalog without describing it as fresh execution.
 
-The three historical application-integration sources are retained verbatim;
+The historical application-integration sources are retained verbatim;
 they did not calculate the catalog decisions. All prior geometry helpers and
 other source dependencies must still match. Current application validation is
 a separate, mandatory part of the batch audit.
@@ -17,6 +17,9 @@ AUDIT='docs/validation/sky130-family-package-audit-2026-10-15.json'
 AUDIT_SHA='a4f1f4c957bbd95316dabc4005e0dcf18b476a28427123e7f6b1807e809936b7'
 SNAPSHOTS={name:'docs/validation/sky130-metal-width-baseline-source-2026-10-15/'+Path(name).name+'.txt'
            for name in ('icstudio/digital_sky130_rule_worker.py','icstudio/digital_sky130_rules.py','tests/test_sky130_application_rules.py')}
+
+SNAPSHOTS.update({name:'docs/validation/sky130-retained-integration-source-2026-10-17/'+Path(name).name+'.txt'
+    for name in ('icstudio/digital_flow.py','icstudio/digital_macro.py','icstudio/interchange.py')})
 
 
 def require(condition,message):

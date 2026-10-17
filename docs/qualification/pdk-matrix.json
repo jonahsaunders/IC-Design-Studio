@@ -1,6 +1,6 @@
 {
   "schema": 6,
-  "as_of": "2026-10-16",
+  "as_of": "2026-10-17",
   "source_baseline": "5b33a68f3a8e225002c3b4ac38d63fc97cf25420",
   "claim": "Qualification matrix and bounded reference evidence. No process is tapeout qualified. Chunk 6 qualifies the user-approved public-check baseline only; historical passes retain their original design/source/PDK scope.",
   "chunks": {
@@ -34,7 +34,7 @@
     "7": {
       "name": "Qualify device families",
       "status": "in_progress",
-      "scope": "Selected MOS, resistor, capacitor, diode and bipolar execution is recorded. The source-built ngspice 47 runtime passes relocation and selected regressions; all 432 standard-MOS cases pass its diagnostic build. Twenty-five additional diode interfaces pass 36 conditions and 900 device faults. A separate IHP isolbox package and fresh imports pass terminal/geometry-domain checks and nine DC cases; the bundled historical entry remains unavailable. Full release-image acceptance, upstream inventory, operating envelopes, additional families and physical coverage remain open. The twelve required GF180 B bandgap exchange/physical controls pass; C/D analog qualification and distributed RC/fill coupling are not inferred. All 255 primitive symbol sources now reconcile with the complete pinned source views on both hosts; model-only and other tool inventories remain separate."
+      "scope": "Selected MOS, resistor, capacitor, diode and bipolar execution is recorded. The source-built ngspice 47 runtime passes relocation and selected regressions; all 432 standard-MOS cases pass its diagnostic build. Twenty-five additional diode interfaces pass 36 conditions and 900 device faults. A separate IHP isolbox package and fresh imports pass terminal/geometry-domain checks and nine DC cases; the bundled historical entry remains unavailable. Full release-image acceptance, upstream inventory, operating envelopes, additional families and physical coverage remain open. The twelve required GF180 B bandgap exchange/physical controls pass; C/D analog qualification and distributed RC/fill coupling are not inferred. All 255 primitive symbol sources now reconcile with the complete pinned source views on both hosts; model-only and other tool inventories remain separate. Thirty-seven capacitor entries pass 180 selected cases with an authenticated simulator-parser correction and separate SKY130 parallel-unit contract; full operating ranges and physical/runtime gates remain open."
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -17655,12 +17655,13 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
           "standard-passives-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "sky130_fd_pr/cap_mim_m3_2.sym": {
@@ -17670,10 +17671,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "sky130_fd_pr/cap_var_hvt.sym": {
@@ -17683,10 +17685,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. This uses separate revision 32afdde0c2e14085 with explicit parallel VM=1 units; bundled default semantics are not promoted. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "sky130_fd_pr/cap_var_lvt.sym": {
@@ -17696,10 +17699,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. This uses separate revision 32afdde0c2e14085 with explicit parallel VM=1 units; bundled default semantics are not promoted. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "sky130_fd_pr/corner.sym": {
@@ -18633,11 +18637,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-passives-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_mim_1f5fF.sym": {
@@ -18647,11 +18652,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-passives-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_mim_2f0fF.sym": {
@@ -18661,11 +18667,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-passives-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_mim_2p0fF.sym": {
@@ -18675,11 +18682,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-passives-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_mim_analog.sym": {
@@ -18689,11 +18697,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-passives-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_nmos_03v3.sym": {
@@ -18703,10 +18712,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_nmos_03v3_b.sym": {
@@ -18716,10 +18726,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_nmos_06v0.sym": {
@@ -18729,10 +18740,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_nmos_06v0_b.sym": {
@@ -18742,10 +18754,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_pmos_03v3.sym": {
@@ -18755,10 +18768,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_pmos_03v3_b.sym": {
@@ -18768,10 +18782,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_pmos_06v0.sym": {
@@ -18781,10 +18796,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_pmos_06v0_b.sym": {
@@ -18794,10 +18810,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/diode_dw2ps.sym": {
@@ -19539,11 +19556,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-passives-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_mim_1f5fF.sym": {
@@ -19553,11 +19571,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-passives-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_mim_2f0fF.sym": {
@@ -19567,11 +19586,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-passives-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_mim_2p0fF.sym": {
@@ -19581,11 +19601,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-passives-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_mim_analog.sym": {
@@ -19595,11 +19616,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Selected complex admittance, three geometries, multiplicity 1/3, two biases and three corner/temperature values pass independent manual-model comparisons, physical parallel scaling and electrical faults. Complete DC/transient/noise, upstream interface/model validity, parameter-boundary and physical layout coverage remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-passives-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_nmos_03v3.sym": {
@@ -19609,10 +19631,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_nmos_03v3_b.sym": {
@@ -19622,10 +19645,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_nmos_06v0.sym": {
@@ -19635,10 +19659,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_nmos_06v0_b.sym": {
@@ -19648,10 +19673,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_pmos_03v3.sym": {
@@ -19661,10 +19687,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_pmos_03v3_b.sym": {
@@ -19674,10 +19701,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_pmos_06v0.sym": {
@@ -19687,10 +19715,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/cap_pmos_06v0_b.sym": {
@@ -19700,10 +19729,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "symbols/diode_dw2ps.sym": {
@@ -20454,11 +20484,12 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected electrical tests and 12 full native DRC/strict-LVS layouts pass using separate corrected IHP revision d03f47cdf46a85a0. Three physical faults and MIM.e boundary controls pass their declared detection contracts. Complete dimensions, bias/reliability ranges and default distribution integration remain open.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Selected electrical tests and 12 full native DRC/strict-LVS layouts pass using separate corrected IHP revision d03f47cdf46a85a0. Three physical faults and MIM.e boundary controls pass their declared detection contracts. Complete dimensions, bias/reliability ranges and default distribution integration remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-passives-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "sg13g2_pr/cap_cmomf.sym": {
@@ -20468,10 +20499,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "sg13g2_pr/cap_cmomi.sym": {
@@ -20481,10 +20513,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "sg13g2_pr/cap_cpara.sym": {
@@ -20494,10 +20527,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "sg13g2_pr/cap_rfcmim.sym": {
@@ -20507,10 +20541,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "sg13g2_pr/dantenna.sym": {
@@ -20649,10 +20684,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "sg13g2_pr/moscap_p.sym": {
@@ -20662,10 +20698,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Independent selected capacitor terminal admittances, two size and parallel inputs, two biases, requested corners and 0/27/85 C pass with the corrected ngspice 47 build. Wrong-size and disconnected-terminal faults are detected per device. Complete geometry/bias/reliability/statistical envelopes, applicable RF behavior, remaining physical layouts/extraction and installed-runtime acceptance remain open. Earlier evidence boundary: Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "capacitor-families-2026-10-17"
         ]
       },
       "sg13g2_pr/nmoscl_2.sym": {
@@ -21560,6 +21597,11 @@
       "path": "docs/validation/primitive-symbol-inventory-2026-10-16.json",
       "sha256": "c17af682823167afa644e5ad75e8ec787d59e3b013cbe23688644164165e4acc",
       "scope_limit": "Complete source-view reconciliation for all 255 primitive symbols: 74 SKY130A, 68 each GF180 C/D and 45 IHP. Identical Windows/Linux reports; Git trees and archive identities verified. Model-only devices, other interfaces and operating/physical qualification remain open."
+    },
+    "capacitor-families-2026-10-17": {
+      "path": "docs/validation/capacitor-families-2026-10-17.json",
+      "sha256": "2edf2da917d3bd37d799d9530b1b885d5d1ac9bbe6c8f9745ce6b57a78f39e48",
+      "scope_limit": "37 capacitor catalog entries at 180 selected cases, 12888 independently re-read complex vectors, 1332 parallel comparisons and 5328 detected device faults. Corrected public ngspice parser and explicit opt-in SKY130 parallel-unit varactors; full ranges, physical/RF/silicon accuracy and installed-runtime acceptance remain open."
     }
   },
   "execution_acceptance": {

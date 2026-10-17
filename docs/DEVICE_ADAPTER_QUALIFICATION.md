@@ -132,7 +132,9 @@ The Linux/WSL runtime recipe builds the SHA-256-locked public ngspice 47 source
 and retains its source archive, copying terms, build logs and binary identity.
 Its launcher locates code models relative to the installed directory, including
 paths containing spaces. The generated startup defaults to one simulation thread;
-users may override that setting. Simulator equations are unchanged. The complete
+users may override that setting. The original 2026-10-16 build leaves simulator
+equations unchanged; the subsequent capacitor parser correction is described
+below. The complete
 runtime image and installed release workflows still require acceptance.
 
 The [runtime record](validation/runtime-device-regression-2026-10-16.json)
@@ -193,3 +195,58 @@ The [record](validation/primitive-symbol-inventory-2026-10-16.json) retains iden
 Windows/Linux reports for all 255 entries and enumerates other symbol-view
 directories. Source identity does not establish model terminal semantics,
 model-only device completeness, operating ranges or physical qualification.
+
+## Capacitor families and explicit parallel varactors
+
+The [capacitor record](validation/capacitor-families-2026-10-17.json) adds 37
+catalog entries: four SKY130, thirteen each GF180 C/D and seven IHP. All 180
+selected cases pass independent complex terminal-current comparisons at two
+geometries, two biases, three corners and 0/27/85 C, over 100 Hz–10 MHz. Every
+available terminal is driven separately. An independent raw-file readback
+reproduces 12,888 vectors (335,088 samples), 1,332 parallel-device comparisons
+and 5,328 detected wrong-size or disconnected-terminal instances.
+
+These tests exposed a public ngspice 47 parser defect: nonlinear capacitor
+multipliers were concatenated with `e9`, producing invalid scientific literals
+and parameter expressions. The runtime builder now applies a source-hash-checked
+formatting correction expressing the intended `m*1e9` gain. It retains the
+original source, patch, upstream archive, copying terms and modification notice.
+The corrected binary passes 21 analytical response vectors at three biases;
+the original binary's failures are retained. PDK equations are unchanged.
+
+The public SKY130 varactor `VM>1` behavior does not equal parallel copies of the
+unit device. A separate, opt-in package defines positive `VM` as parallel
+upstream `VM=1` devices, including their substrate parasitics. Its explicit
+wrapper models and revision `32afdde0c2e14085` preserve all original upstream
+files. The bundled default and existing saved projects retain their original
+contract. The independent reference instantiates literal unit devices and does
+not call the new wrapper.
+
+```sh
+python scripts/build_ngspice_runtime.py --output /path/to/new-runtime --jobs 4
+python scripts/verify_ngspice_capacitors.py --ngspice /path/to/new-runtime/installed/bin/icstudio-ngspice --output /path/to/new-analytical-results
+python scripts/qualify_capacitor_families.py --output /path/to/new-capacitor-results --ngspice /path/to/new-runtime/installed/bin/icstudio-ngspice --osdi /path/to/ihp-osdi --parallel-varactors --workers 4
+```
+
+The last command creates the explicit SKY130 package under its output directory;
+use **Install package…** to select that revision. To prepare it separately, run
+`python scripts/prepare_sky130_parallel_varactors.py --output /path/to/new-package`.
+
+Application/reference matching uses 1e-6 relative and 1e-15 A absolute limits.
+Parallel and analytical checks use the same relative limit with a 1e-14 A
+floor for the simulator's unscaled numerical shunt and internal-conductance
+cancellation. Earlier stricter failures and precision experiments are retained;
+conductance below 1e-14 S is not resolved. Fault detection keeps the original
+application/reference limits. The source models' individual corner and
+frequency limitations still apply; a requested corner is not proof that a model
+provides distinct corner equations. In particular, IHP `cap_cmomf` is a
+low-frequency engineering estimate without silicon validation or characterized
+corner/mismatch spread; `cap_cmomi` also uses nominal-only corner/mismatch
+behavior. Their original model notices remain in the package and evidence.
+
+Nine focused tests pass on each OS, including package immutability, save/reopen,
+Xschem exchange and rejected parameter/response faults. Full operating ranges,
+noise, statistical independence, physical extraction, RF-band and silicon
+accuracy, default varactor promotion and installed-runtime acceptance remain
+separate requirements. The complete passing and failed experiments are in a
+verified 112 MB archive outside dated working folders.

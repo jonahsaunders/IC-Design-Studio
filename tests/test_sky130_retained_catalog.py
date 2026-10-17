@@ -22,7 +22,7 @@ class RetainedCatalogTests(unittest.TestCase):
 
     def test_complete_baseline_is_authenticated_with_verbatim_integration_snapshots(self):
         self.assertEqual(len(self.authentication['authenticated_sources']),85)
-        self.assertEqual(len(self.authentication['historical_application_sources']),3)
+        self.assertEqual(len(self.authentication['historical_application_sources']),6)
         for name,row in self.authentication['historical_application_sources'].items():
             self.assertEqual(row['sha256'],self.base['source_files'][name])
             self.assertNotIn(name,self.authentication['authenticated_sources'])

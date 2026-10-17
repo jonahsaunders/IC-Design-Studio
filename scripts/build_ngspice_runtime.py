@@ -10,6 +10,34 @@ VERSION='47'
 URL='https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/47/ngspice-47.tar.gz'
 SOURCE_SHA256='894e649651f1838a14095e5a5439e7d3aa63e87ede14d283173fda4fcdef675f'
 OPTIONS=['--with-x=no','--enable-osdi','--enable-xspice','--enable-klu','--enable-predictor','--disable-debug','CFLAGS=-O2']
+CAPACITOR_SOURCE_SHA256='5ee51218fb36937ba55ee5e395ef837b34b65133914090db78d4930dae8f5e68'
+
+
+def correct_capacitor_multiplier(source,retained):
+    """Preserve m * 1e9 as an expression instead of concatenating exponents.
+
+    eval_mvalue can return a scientific literal or a parameter expression.
+    Appending 'e9' to either produces invalid syntax (e.g. 1.00000000e+00e9).
+    Keep the original source and a unified patch beside the upstream archive.
+    """
+    import difflib
+    path=Path(source)/'src/frontend/inpcom.c';original=path.read_bytes()
+    if hashlib.sha256(original).hexdigest()!=CAPACITOR_SOURCE_SHA256:
+        raise ValueError('Unexpected ngspice capacitor parser source.')
+    old=b'ckt_array[0] = tprintf("g%s %s_int1 0 %s %s %se9", title_tok,'
+    new=b'''for (char *mp = mstr; *mp; mp++) {
+                    if (*mp == '{') *mp = '(';
+                    else if (*mp == '}') *mp = ')';
+                }
+                ckt_array[0] = tprintf("g%s %s_int1 0 %s %s {(%s)*1e9}", title_tok,'''
+    if original.count(old)!=1:raise ValueError('Unexpected capacitor multiplier expansion.')
+    changed=original.replace(old,new);retained=Path(retained)
+    (retained/'inpcom.c.original').write_bytes(original)
+    patch=''.join(difflib.unified_diff(original.decode().splitlines(True),changed.decode().splitlines(True),
+        fromfile='a/src/frontend/inpcom.c',tofile='b/src/frontend/inpcom.c'))
+    (retained/'capacitor-multiplier.patch').write_bytes(patch.encode());path.write_bytes(changed)
+    return dict(path='src/frontend/inpcom.c',original_sha256=CAPACITOR_SOURCE_SHA256,
+                modified_sha256=sha(path),patch_sha256=sha(retained/'capacitor-multiplier.patch'))
 
 
 def sha(path):
@@ -62,7 +90,10 @@ exec "$installed/bin/ngspice" "$@"
     (output/'sources/ICSTUDIO-MODIFICATIONS.txt').write_text(
         'IC Design Studio changes generated spinit paths to the launcher-controlled '
         'ICSTUDIO_SPICE_MODELS directory and defaults to one simulation thread. Original initializer, complete unmodified source archive '
-        'and upstream COPYING are retained. Simulator and model equations are unchanged.\n')
+        'and upstream COPYING are retained. The source build also corrects nonlinear '
+        'capacitor multiplier formatting from concatenated exponents to m*1e9; '
+        'inpcom.c.original and capacitor-multiplier.patch retain that exact change. '
+        'PDK model equations are unchanged.\n')
     return dict(original_sha256=sha(retained),initializer_sha256=sha(initializer),
         launcher='installed/bin/icstudio-ngspice',launcher_sha256=sha(launcher),
         code_models={name:sha(installed/'lib/ngspice'/name) for kind,name in names if kind=='codemodel'})
@@ -87,6 +118,7 @@ def build(output,archive=None,jobs=2):
             with tarfile.open(locked) as source:source.extractall(tmp,filter='data')
             source=tmp/'ngspice-47';working=tmp/'build';working.mkdir()
             shutil.copyfile(source/'COPYING',sources/'COPYING')
+            record['source_corrections']=[correct_capacitor_multiplier(source,sources)]
             commands=[[str(source/'configure'),'--prefix='+str(output/'installed'),*OPTIONS],['make','-j'+str(jobs)],['make','install']]
             for i,command in enumerate(commands):
                 print('ngspice build stage',i+1,flush=True)

@@ -180,6 +180,16 @@ Windows and Linux produce identical reports and pass four omission/tampering
 regression tests each. This closes primitive-symbol source coverage only;
 model-only devices, other tool views and process options remain separate work.
 
+The [capacitor-family record](validation/capacitor-families-2026-10-17.json)
+adds 37 catalog entries at 180 selected terminal-drive, bias, corner and
+temperature cases. Independent raw readback verifies 12,888 complex response
+vectors, 1,332 parallel-device comparisons and 5,328 detected device faults.
+A source-authenticated ngspice capacitor-parser correction passes analytical
+checks; a separate SKY130 package defines parallel unit varactors explicitly.
+Original models, default packages and failed experiments remain preserved.
+These results do not qualify full operating envelopes, RF or silicon accuracy,
+remaining physical layouts, or the complete installed runtime.
+
 The [adapter instructions](DEVICE_ADAPTER_QUALIFICATION.md) reproduce current and
 earlier packages. Full simulator release integration, upstream completeness,
 operating envelopes, remaining device families and physical coverage remain
