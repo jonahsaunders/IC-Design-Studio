@@ -8,13 +8,14 @@ from icstudio.xschem_io import import_package
 from scripts.prepare_sky130_vpp_binding import prepare as vpp,correct as correct_vpp
 from scripts.prepare_ihp_svaricap_binding import prepare as svaricap,correct as correct_svaricap
 from scripts.qualify_four_terminal_capacitors import fixture
+from scripts.device_qualification_source import previous_devices
 ROOT=Path(__file__).resolve().parents[1]
 
 
 class FourTerminalTests(unittest.TestCase):
     def test_revised_packages_retain_assets_and_terminal_identity_through_handoff(self):
         for target,prepare,key in [('sky130A',vpp,'sky130_fd_pr/vpp_cap.sym'),('ihp-sg13g2',svaricap,'sg13g2_pr/sg13_svaricap.sym')]:
-            source=ROOT/'icstudio/assets/pdks'/target;original=json.loads((source/'package.json').read_bytes())
+            source=self.enterContext(previous_devices(ROOT/'icstudio/assets/pdks'/target));original=json.loads((source/'package.json').read_bytes())
             with self.subTest(target=target),tempfile.TemporaryDirectory() as tmp:
                 root=Path(tmp);record=prepare(source,root/'package');package=json.loads((root/'package/package.json').read_bytes())
                 self.assertNotEqual(record['revision'],original['revision'])

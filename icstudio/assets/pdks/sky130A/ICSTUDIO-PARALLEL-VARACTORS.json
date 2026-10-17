@@ -1,0 +1,553 @@
+{
+  "schema": 1,
+  "original_manifest_sha256": "177e57626c06cb5d103aab04c4bc82983bc4ba96f2e08e4bc04006ade6cd8e2d",
+  "original_bindings": {
+    "sky130_fd_pr/cap_var_hvt.sym": {
+      "category": "Other",
+      "emit_parameters": {
+        "l": "l",
+        "vm": "vm",
+        "w": "w"
+      },
+      "kind": "PDK",
+      "label": "cap_var_hvt",
+      "model": "sky130_fd_pr__cap_var_hvt",
+      "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_var_hvt.model.spice",
+      "notes": [
+        "Executable text retained as metadata only."
+      ],
+      "parameter_scale": {
+        "l": 1000000.0,
+        "w": 1000000.0
+      },
+      "parameters": {
+        "l": {
+          "default": "0.5",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        },
+        "vm": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": false
+        },
+        "w": {
+          "default": "0.5",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "pin_order": [
+        "c0",
+        "c1",
+        "b"
+      ],
+      "prefix": "X",
+      "source": "libs.tech/xschem/sky130_fd_pr/cap_var_hvt.sym",
+      "symbol": {
+        "attributes": {
+          "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L VM=@VM",
+          "template": "name=C1 model=cap_var_hvt W=0.5 L=0.5 VM=1 spiceprefix=X",
+          "type": "varactor"
+        },
+        "pin_meta": {
+          "b": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "c0": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "c1": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          }
+        },
+        "pin_order": [
+          "c0",
+          "c1",
+          "b"
+        ],
+        "pins": {
+          "b": [
+            -40.0,
+            20.0
+          ],
+          "c0": [
+            0.0,
+            -30.0
+          ],
+          "c1": [
+            0.0,
+            30.0
+          ]
+        },
+        "primitives": [
+          {
+            "kind": "line",
+            "points": [
+              [
+                0.0,
+                2.5
+              ],
+              [
+                0.0,
+                30.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                0.0,
+                -30.0
+              ],
+              [
+                0.0,
+                -5.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -10.0,
+                -5.0
+              ],
+              [
+                10.0,
+                -5.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -15.0,
+                20.0
+              ],
+              [
+                0.0,
+                20.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -40.0,
+                20.0
+              ],
+              [
+                -25.0,
+                20.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -15.0,
+                10.0
+              ],
+              [
+                -15.0,
+                30.0
+              ]
+            ]
+          },
+          {
+            "kind": "arc",
+            "points": [
+              [
+                -21.25,
+                2.5
+              ],
+              [
+                21.25,
+                45.0
+              ]
+            ],
+            "start": -61.92751306414704,
+            "sweep": -56.14497387170592
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                -15.0,
+                20.0
+              ],
+              [
+                -25.0,
+                10.0
+              ],
+              [
+                -25.0,
+                30.0
+              ]
+            ]
+          },
+          {
+            "font_size": 6.0,
+            "kind": "text",
+            "points": [
+              [
+                -10.0,
+                10.0
+              ],
+              [
+                10.0,
+                20.0
+              ]
+            ],
+            "rotation": 0,
+            "text": "n+"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                15.0,
+                -28.75
+              ],
+              [
+                35.0,
+                -18.75
+              ]
+            ],
+            "rotation": 0,
+            "text": "@name"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                15.0,
+                6.25
+              ],
+              [
+                35.0,
+                16.25
+              ]
+            ],
+            "rotation": 0,
+            "text": "@W / @L * @VM"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                15.0,
+                -11.25
+              ],
+              [
+                35.0,
+                -1.25
+              ]
+            ],
+            "rotation": 0,
+            "text": "@model"
+          }
+        ]
+      },
+      "unavailable": ""
+    },
+    "sky130_fd_pr/cap_var_lvt.sym": {
+      "category": "Other",
+      "emit_parameters": {
+        "l": "l",
+        "m": "vm",
+        "vm": "vm",
+        "w": "w"
+      },
+      "kind": "PDK",
+      "label": "cap_var_lvt",
+      "model": "sky130_fd_pr__cap_var_lvt",
+      "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_var_lvt.model.spice",
+      "notes": [
+        "Executable text retained as metadata only."
+      ],
+      "parameter_scale": {
+        "l": 1000000.0,
+        "w": 1000000.0
+      },
+      "parameters": {
+        "l": {
+          "default": "0.5",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        },
+        "vm": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": false
+        },
+        "w": {
+          "default": "0.5",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "pin_order": [
+        "c0",
+        "c1",
+        "b"
+      ],
+      "prefix": "X",
+      "source": "libs.tech/xschem/sky130_fd_pr/cap_var_lvt.sym",
+      "symbol": {
+        "attributes": {
+          "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L VM=@VM m=@VM",
+          "template": "name=C1 model=cap_var_lvt W=0.5 L=0.5 VM=1 spiceprefix=X",
+          "type": "varactor"
+        },
+        "pin_meta": {
+          "b": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "c0": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "c1": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          }
+        },
+        "pin_order": [
+          "c0",
+          "c1",
+          "b"
+        ],
+        "pins": {
+          "b": [
+            -40.0,
+            20.0
+          ],
+          "c0": [
+            0.0,
+            -30.0
+          ],
+          "c1": [
+            0.0,
+            30.0
+          ]
+        },
+        "primitives": [
+          {
+            "kind": "line",
+            "points": [
+              [
+                0.0,
+                2.5
+              ],
+              [
+                0.0,
+                30.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                0.0,
+                -30.0
+              ],
+              [
+                0.0,
+                -5.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -10.0,
+                -5.0
+              ],
+              [
+                10.0,
+                -5.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -15.0,
+                20.0
+              ],
+              [
+                0.0,
+                20.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -40.0,
+                20.0
+              ],
+              [
+                -25.0,
+                20.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -15.0,
+                10.0
+              ],
+              [
+                -15.0,
+                30.0
+              ]
+            ]
+          },
+          {
+            "kind": "arc",
+            "points": [
+              [
+                -21.25,
+                2.5
+              ],
+              [
+                21.25,
+                45.0
+              ]
+            ],
+            "start": -61.92751306414704,
+            "sweep": -56.14497387170592
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                -15.0,
+                20.0
+              ],
+              [
+                -25.0,
+                10.0
+              ],
+              [
+                -25.0,
+                30.0
+              ]
+            ]
+          },
+          {
+            "font_size": 6.0,
+            "kind": "text",
+            "points": [
+              [
+                -10.0,
+                10.0
+              ],
+              [
+                10.0,
+                20.0
+              ]
+            ],
+            "rotation": 0,
+            "text": "n+"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                15.0,
+                -28.75
+              ],
+              [
+                35.0,
+                -18.75
+              ]
+            ],
+            "rotation": 0,
+            "text": "@name"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                15.0,
+                6.25
+              ],
+              [
+                35.0,
+                16.25
+              ]
+            ],
+            "rotation": 0,
+            "text": "@W / @L * @VM"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                15.0,
+                -11.25
+              ],
+              [
+                35.0,
+                -1.25
+              ]
+            ],
+            "rotation": 0,
+            "text": "@model"
+          }
+        ]
+      },
+      "unavailable": ""
+    }
+  },
+  "contract": "Positive VM is the parallel multiplier of the untouched upstream VM=1 subcircuit, including both substrate capacitors.",
+  "limits": "Selected local integration must be qualified separately. Statistical independence, complete operating ranges and layout extraction remain unqualified."
+}

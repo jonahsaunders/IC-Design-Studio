@@ -9,11 +9,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]; sys.path.insert(0, str(ROOT))
 from icstudio.model import clone, digest, file_digest
 from icstudio.catalog import validate_catalog
+from scripts.device_qualification_source import historical_input
 
 BASE_MANIFEST = '177e57626c06cb5d103aab04c4bc82983bc4ba96f2e08e4bc04006ade6cd8e2d'
 WRAPPER = 'libs.tech/ngspice/icstudio-parallel-varactors.spice'
 
 
+@historical_input
 def prepare(source, output):
     source, output = Path(source).resolve(), Path(output).resolve()
     if output.exists(): raise ValueError('Choose a new parallel-varactor package directory.')

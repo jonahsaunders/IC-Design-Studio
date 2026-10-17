@@ -2,8 +2,9 @@
 
 Independent calls use explicit terminal/geometry contracts below. This does not
 qualify ESD pulse ratings, breakdown, complete geometry/bias ranges or layouts.
-IHP isolbox uses a separate explicitly prepared package with --isolation-only;
-the bundled catalog's older unavailable entry is never silently rewritten.
+IHP isolbox uses the current default with --isolation-only. The earlier explicit
+package remains reproducible with --historical-isolation; saved projects retain
+their revisions.
 """
 import argparse,json,math,os,sys,traceback
 from concurrent.futures import ProcessPoolExecutor,as_completed
@@ -116,7 +117,8 @@ def case(tech,target,group,corner,temp,out,engine,osdi):
 
 
 def main():
-    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--ngspice',required=True);ap.add_argument('--osdi',type=Path,required=True);ap.add_argument('--pilot',action='store_true');ap.add_argument('--isolation-only',action='store_true');ap.add_argument('--workers',type=int,choices=range(1,9),default=4);a=ap.parse_args()
+    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--ngspice',required=True);ap.add_argument('--osdi',type=Path,required=True);ap.add_argument('--pilot',action='store_true');ap.add_argument('--isolation-only',action='store_true');ap.add_argument('--historical-isolation',action='store_true');ap.add_argument('--workers',type=int,choices=range(1,9),default=4);a=ap.parse_args()
+    if a.historical_isolation and not a.isolation_only:ap.error('--historical-isolation requires --isolation-only')
     os.environ['OMP_THREAD_LIMIT']='1';out=a.output.resolve();out.mkdir(parents=True,exist_ok=False);osdi=configure(sorted(a.osdi.glob('*.osdi')))
     sources=[Path(__file__),ROOT/'scripts/qualify_standard_mos.py',ROOT/'scripts/prepare_ihp_isolation_qualification.py',ROOT/'scripts/prepare_ihp_mim_qualification.py',*sorted((ROOT/'icstudio').rglob('*.py'))];before={p.relative_to(ROOT).as_posix():file_digest(p) for p in sources};write(out/'source-files.json',before)
     report=dict(schema=1,chunk=7,status='RUNNING',chunk_complete=False,qualified=False,scope=__doc__,cases=[],processes={},source_files_sha256=file_digest(out/'source-files.json'),engine_sha256=file_digest(a.ngspice),osdi=osdi,environment={'OMP_THREAD_LIMIT':'1'})
@@ -124,7 +126,7 @@ def main():
         jobs=[]
         for target in (('ihp-sg13g2',) if a.isolation_only else ('gf180mcuC','gf180mcuD','ihp-sg13g2')):
             tech,identity=load_technology(target)
-            if a.isolation_only:
+            if a.historical_isolation:
                 from scripts.prepare_ihp_isolation_qualification import prepare
                 folder=out/'isolation-package';identity=prepare(ROOT/'icstudio/assets/pdks/ihp-sg13g2',folder)
                 package=json.loads((folder/'package.json').read_bytes());tech=clone(package['technology'])

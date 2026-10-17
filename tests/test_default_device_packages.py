@@ -4,13 +4,71 @@ from pathlib import Path
 from icstudio.model import clone,file_digest,save_project,load_project
 from icstudio.pdks import PDKRegistry,model_lines
 from icstudio.project_hub import inventory,build_project
-from scripts.prepare_sky130_device_package import prepare
+from scripts.prepare_default_device_packages import prepare
+from scripts.device_qualification_source import PROMOTED,PREVIOUS,REVISIONS,previous_devices
 from scripts.sky130_qualification_source import original_package,BASE,BASE_MANIFEST,DEFAULT_MANIFEST
 
 ROOT=Path(__file__).resolve().parents[1]
 
 
 class DefaultDevicePackageTests(unittest.TestCase):
+    def test_wrong_target_or_unknown_manifest_cannot_publish_a_default(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);out=root/'result';unknown=root/'unknown';unknown.mkdir()
+            (unknown/'package.json').write_bytes(b'{}')
+            for source,target in [(unknown,'sky130A'),(ROOT/'icstudio/assets/pdks/gf180mcuD','gf180mcuC')]:
+                with self.subTest(target=target),self.assertRaisesRegex(ValueError,'exact reviewed package'):
+                    prepare(source,out,target)
+                self.assertFalse(out.exists())
+
+    def test_all_defaults_rebuild_exactly_and_do_not_rebind_saved_projects(self):
+        for target in PROMOTED:
+            with self.subTest(target=target),tempfile.TemporaryDirectory() as tmp:
+                root=Path(tmp);source=ROOT/'icstudio/assets/pdks'/target
+                registry=PDKRegistry(root/'registry')
+                with previous_devices(source) as previous:
+                    self.assertEqual(file_digest(previous/'package.json'),PREVIOUS[target])
+                    old_key=registry.install(previous/'package.json')
+                    old_manifest=json.loads((previous/'package.json').read_bytes())
+                rows,notes=inventory(registry);self.assertEqual(notes,[])
+                old_row=next(r for r in rows if r['key']==old_key)
+                old=build_project(registry,old_row,'Saved '+target,'empty')['project']
+                save_project(old,root/'saved.icproj')
+                row=next(r for r in rows if r['id']==target and r['status']=='Available offline')
+                new=build_project(registry,row,'Fresh '+target,'empty')['project']
+                installed=Path(new['pdk']['package_root'])
+                self.assertEqual(new['pdk']['revision'],REVISIONS[target])
+                self.assertEqual(json.loads((installed/'package.json').read_bytes()),json.loads((source/'package.json').read_bytes()))
+                result=prepare(source,root/'rebuilt',target)
+                self.assertEqual(result['manifest_sha256'],PROMOTED[target])
+                self.assertEqual((root/'rebuilt/package.json').read_bytes(),(source/'package.json').read_bytes())
+                package=json.loads((source/'package.json').read_bytes())
+                for rel,h in package['files'].items():
+                    self.assertEqual(file_digest(installed/rel),h)
+                    self.assertEqual(file_digest(root/'rebuilt'/rel),h)
+                for rel,h in old_manifest['files'].items():self.assertEqual(file_digest(installed/rel),h)
+                reopened=load_project(root/'saved.icproj')
+                self.assertEqual(reopened['pdk']['package_lock'],old['pdk']['package_lock'])
+                self.assertEqual(registry.verify(old_key)['revision'],old_manifest['revision'])
+
+    def test_default_catalogs_expose_the_reviewed_semantic_bindings(self):
+        catalogs={t:json.loads((ROOT/'icstudio/assets/pdks'/t/'package.json').read_bytes())['technology']['simulation']['catalog'] for t in PROMOTED}
+        sky=catalogs['sky130A']
+        for kind in ('hvt','lvt'):
+            e=sky['sky130_fd_pr/cap_var_'+kind+'.sym']
+            self.assertEqual(e['model'],'icstudio_cap_var_'+kind+'_parallel')
+            self.assertEqual(e['emit_parameters']['copies'],'vm')
+        self.assertEqual(sky['sky130_fd_pr/vpp_cap.sym']['pin_order'],['c0','c1','sub','top'])
+        self.assertNotIn('w',sky['sky130_fd_pr/vpp_cap.sym']['parameters'])
+        for target in ('gf180mcuC','gf180mcuD'):
+            self.assertEqual(catalogs[target]['symbols/nfet_06v0_nvt.sym']['model'],'nfet_06v0_nvt')
+        ihp=catalogs['ihp-sg13g2']
+        for name in ('nmoscl_2','nmoscl_4'):
+            self.assertEqual(ihp['sg13g2_pr/'+name+'.sym']['pin_order'],['vdd','vss'])
+        self.assertEqual(ihp['sg13g2_pr/sg13_svaricap.sym']['pin_order'],['g1','nw','g2','body'])
+        self.assertFalse(ihp['sg13g2_pr/isolbox.sym']['unavailable'])
+        self.assertEqual(ihp['sg13g2_pr/isolbox.sym']['parameters']['w']['exclusive_minimum'],'2.1u')
+
     def test_new_sky130_projects_use_tested_fixes_and_saved_projects_keep_their_revision(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp);registry=PDKRegistry(root/'registry')
@@ -21,7 +79,7 @@ class DefaultDevicePackageTests(unittest.TestCase):
             save_project(original,root/'old.icproj')
             rows,notes=inventory(registry);self.assertEqual(notes,[])
             new_row=next(r for r in rows if r['id']=='sky130A' and r['status']=='Available offline')
-            self.assertEqual(new_row['revision'],'2a8a8a7048ac324d')
+            self.assertEqual(new_row['revision'],REVISIONS['sky130A'])
             new=build_project(registry,new_row,'New project','empty')['project']
             self.assertNotEqual(new['pdk']['revision'],original['pdk']['revision'])
             reopened=load_project(root/'old.icproj')
@@ -32,21 +90,21 @@ class DefaultDevicePackageTests(unittest.TestCase):
 
     def test_rebuild_matches_the_bundled_package_and_original_assets_remain_recoverable(self):
         source=ROOT/'icstudio/assets/pdks/sky130A'
-        self.assertEqual(file_digest(source/'package.json'),DEFAULT_MANIFEST)
+        self.assertEqual(file_digest(source/'package.json'),PROMOTED['sky130A'])
         with original_package(source) as original,tempfile.TemporaryDirectory() as tmp:
             self.assertEqual(file_digest(original/'package.json'),BASE_MANIFEST)
-            out=Path(tmp)/'package';result=prepare(source,out)
-            self.assertEqual(result['manifest_sha256'],DEFAULT_MANIFEST)
+            out=Path(tmp)/'package';result=prepare(source,out,'sky130A')
+            self.assertEqual(result['manifest_sha256'],PROMOTED['sky130A'])
             self.assertEqual((out/'package.json').read_bytes(),(source/'package.json').read_bytes())
             package=json.loads((out/'package.json').read_bytes())
             for rel,h in package['files'].items():self.assertEqual(file_digest(out/rel),h,rel)
-            with self.assertRaisesRegex(ValueError,'new'):prepare(source,out)
+            with self.assertRaisesRegex(ValueError,'new'):prepare(source,out,'sky130A')
             (out/'libs.tech/ngspice/sky130.lib.spice').write_bytes(b'changed')
             with self.assertRaisesRegex(ValueError,'Changed current'):
                 with original_package(out):pass
 
     def test_only_three_reviewed_npn_sections_change_and_other_selections_are_preserved(self):
-        source=ROOT/'icstudio/assets/pdks/sky130A';original=json.loads((BASE/'package.json').read_bytes());current=json.loads((source/'package.json').read_bytes())
+        source=self.enterContext(previous_devices(ROOT/'icstudio/assets/pdks/sky130A'));original=json.loads((BASE/'package.json').read_bytes());current=json.loads((source/'package.json').read_bytes())
         self.assertEqual(current['technology']['simulation'],original['technology']['simulation'])
         rel='libs.tech/ngspice/sky130.lib.spice';old=(BASE/rel).read_bytes();new=(source/rel).read_bytes()
         additions=[]

@@ -1,0 +1,361 @@
+{
+  "schema": 1,
+  "original_manifest_sha256": "63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c",
+  "parent": {
+    "revision": "8e17db1147e872f2",
+    "manifest_sha256": "5556879dfa009986bad2949d4dd53e4ab08e27d200788a15130bbd8e9fa1cc2a",
+    "original_manifest_sha256": "63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c",
+    "model_sha256": "b6ae39c7334c75c222ecdee9d6b04c9be48657e91351429aebac47d1192a9abb"
+  },
+  "original_bindings": {
+    "sg13g2_pr/nmoscl_2.sym": {
+      "category": "Other",
+      "emit_parameters": {
+        "m": "m"
+      },
+      "kind": "PDK",
+      "label": "nmoscl_2",
+      "model": "nmoscl_2",
+      "model_source": "libs.tech/ngspice/models/sg13g2_moslv_mod.lib",
+      "notes": [],
+      "parameter_scale": {
+        "l": 1,
+        "w": 1
+      },
+      "parameters": {
+        "m": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "pin_order": [
+        "vss",
+        "vdd"
+      ],
+      "prefix": "X",
+      "source": "libs.tech/xschem/sg13g2_pr/nmoscl_2.sym",
+      "symbol": {
+        "attributes": {
+          "format": "@spiceprefix@name @pinlist @model m=@m",
+          "lvs_format": "D@name @pinlist @model m=@m",
+          "template": "name=D1\nmodel=nmoscl_2\nm=1\nspiceprefix=X\n",
+          "type": "esd"
+        },
+        "pin_meta": {
+          "vdd": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "vss": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          }
+        },
+        "pin_order": [
+          "vdd",
+          "vss"
+        ],
+        "pins": {
+          "vdd": [
+            0.0,
+            -30.0
+          ],
+          "vss": [
+            0.0,
+            30.0
+          ]
+        },
+        "primitives": [
+          {
+            "kind": "line",
+            "points": [
+              [
+                0.0,
+                -30.0
+              ],
+              [
+                0.0,
+                -5.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                0.0,
+                5.0
+              ],
+              [
+                0.0,
+                30.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -10.0,
+                -5.0
+              ],
+              [
+                10.0,
+                -5.0
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                0.0,
+                -5.0
+              ],
+              [
+                -10.0,
+                5.0
+              ],
+              [
+                10.0,
+                5.0
+              ]
+            ]
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                10.0,
+                -7.5
+              ],
+              [
+                30.0,
+                2.5
+              ]
+            ],
+            "rotation": 180,
+            "text": "@name"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                10.0,
+                2.5
+              ],
+              [
+                30.0,
+                12.5
+              ]
+            ],
+            "rotation": 180,
+            "text": "@model"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                10.0,
+                22.5
+              ],
+              [
+                30.0,
+                32.5
+              ]
+            ],
+            "rotation": 180,
+            "text": "m=@m"
+          }
+        ]
+      },
+      "unavailable": ""
+    },
+    "sg13g2_pr/nmoscl_4.sym": {
+      "category": "Other",
+      "emit_parameters": {
+        "m": "m"
+      },
+      "kind": "PDK",
+      "label": "nmoscl_4",
+      "model": "nmoscl_4",
+      "model_source": "libs.tech/ngspice/models/sg13g2_moslv_mod.lib",
+      "notes": [],
+      "parameter_scale": {
+        "l": 1,
+        "w": 1
+      },
+      "parameters": {
+        "m": {
+          "default": "1",
+          "derived": false,
+          "integer": false,
+          "positive": true
+        }
+      },
+      "pin_order": [
+        "vss",
+        "vdd"
+      ],
+      "prefix": "X",
+      "source": "libs.tech/xschem/sg13g2_pr/nmoscl_4.sym",
+      "symbol": {
+        "attributes": {
+          "format": "@spiceprefix@name @pinlist @model m=@m",
+          "lvs_format": "D@name @pinlist @model m=@m",
+          "template": "name=D1\nmodel=nmoscl_4\nm=1\nspiceprefix=X\n",
+          "type": "esd"
+        },
+        "pin_meta": {
+          "vdd": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          },
+          "vss": {
+            "bus": "",
+            "direction": "inout",
+            "label_visible": true,
+            "required": true,
+            "role": "signal"
+          }
+        },
+        "pin_order": [
+          "vdd",
+          "vss"
+        ],
+        "pins": {
+          "vdd": [
+            0.0,
+            -30.0
+          ],
+          "vss": [
+            0.0,
+            30.0
+          ]
+        },
+        "primitives": [
+          {
+            "kind": "line",
+            "points": [
+              [
+                0.0,
+                -30.0
+              ],
+              [
+                0.0,
+                -5.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                0.0,
+                5.0
+              ],
+              [
+                0.0,
+                30.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -10.0,
+                -5.0
+              ],
+              [
+                10.0,
+                -5.0
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                0.0,
+                -5.0
+              ],
+              [
+                -10.0,
+                5.0
+              ],
+              [
+                10.0,
+                5.0
+              ]
+            ]
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                10.0,
+                -7.5
+              ],
+              [
+                30.0,
+                2.5
+              ]
+            ],
+            "rotation": 180,
+            "text": "@name"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                10.0,
+                2.5
+              ],
+              [
+                30.0,
+                12.5
+              ]
+            ],
+            "rotation": 180,
+            "text": "@model"
+          },
+          {
+            "font_size": 8.0,
+            "kind": "text",
+            "points": [
+              [
+                10.0,
+                22.5
+              ],
+              [
+                30.0,
+                32.5
+              ]
+            ],
+            "rotation": 180,
+            "text": "m=@m"
+          }
+        ]
+      },
+      "unavailable": ""
+    }
+  },
+  "scope": "Explicit source-backed model/terminal corrections only. Upstream asset bytes retained. No complete operating envelope, physical, RF accuracy or ESD qualification."
+}

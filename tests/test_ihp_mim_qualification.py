@@ -76,13 +76,14 @@ class IHPMimQualificationTests(unittest.TestCase):
             registry=PDKRegistry(Path(tmp)/'registry')
             rows,notes=inventory(registry);self.assertEqual(notes,[])
             row=next(r for r in rows if r['id']=='ihp-sg13g2')
-            self.assertEqual(row['revision'],'d03f47cdf46a85a0')
+            self.assertEqual(row['revision'],'1e24ec25b491028b')
             p=build_project(registry,row,'Fresh IHP','empty')['project']
             save_project(p,Path(tmp)/'project.icproj');loaded=load_project(Path(tmp)/'project.icproj')
             self.assertEqual(loaded['pdk']['revision'],row['revision'])
             installed=Path(p['pdk']['package_root'])
             self.assertEqual(file_digest(installed/RELATIVE_PATH),CORRECTED_SHA256)
-            out=Path(tmp)/'copy';result=prepare(source,out)
+            from scripts.prepare_default_device_packages import prepare as prepare_default
+            out=Path(tmp)/'copy';result=prepare_default(source,out,'ihp-sg13g2')
             self.assertEqual(result['revision'],row['revision'])
             self.assertEqual((out/'package.json').read_bytes(),(source/'package.json').read_bytes())
             self.assertEqual(registry.install(out/'package.json'),row['key'])

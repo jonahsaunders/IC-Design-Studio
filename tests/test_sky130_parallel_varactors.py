@@ -7,13 +7,14 @@ from icstudio.interchange import export_xschem
 from icstudio.xschem_io import import_package
 from scripts.prepare_sky130_parallel_varactors import prepare, BASE_MANIFEST, WRAPPER
 from scripts.qualify_capacitor_families import fixture
+from scripts.device_qualification_source import previous_devices
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 class ParallelVaractorTests(unittest.TestCase):
     def test_original_assets_and_save_export_terminal_contracts_are_preserved(self):
-        source = ROOT/'icstudio/assets/pdks/sky130A'; original = json.loads((source/'package.json').read_bytes())
+        source = self.enterContext(previous_devices(ROOT/'icstudio/assets/pdks/sky130A')); original = json.loads((source/'package.json').read_bytes())
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp); out = root/'package'; record = prepare(source, out)
             self.assertNotEqual(record['revision'], original['revision'])
@@ -48,7 +49,7 @@ class ParallelVaractorTests(unittest.TestCase):
             root = Path(tmp); source = root/'source'; source.mkdir(); (source/'package.json').write_bytes(b'{}')
             with self.assertRaisesRegex(ValueError, 'exact reviewed'): prepare(source, root/'result')
             self.assertFalse((root/'result').exists())
-            with self.assertRaisesRegex(ValueError, 'new parallel'): prepare(source, source)
+            with self.assertRaisesRegex(ValueError, 'new package'): prepare(source, source)
 
 
 if __name__ == '__main__': unittest.main()

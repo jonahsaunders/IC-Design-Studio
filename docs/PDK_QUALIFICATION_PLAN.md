@@ -59,6 +59,20 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [current default-package integration](validation/default-device-packages-2026-10-17.json)
+puts the reviewed capacitor, MOS and isolation corrections into new SKY130,
+GF180 C/D and IHP projects while preserving saved revisions. All 62 fresh
+electrical cases and nine isolation cases pass, with 740 deliberately faulted
+device instances detected. All 235 usable catalog entries pass save/reopen,
+netlist and export checks on both hosts; the 20 unavailable entries are
+separately checked for expected rejection. Thirty standard GF180/IHP transistor
+layouts and twelve IHP MIM layouts pass native full DRC and strict LVS, with
+93 physical faults detected. Both 2,963-test regression runs exposed one
+ordering-sensitive test assertion; the corrected test and related cases pass
+18 focused checks per host. Original full-run failures and skips remain recorded.
+Complete operating envelopes, broader physical coverage, alternate models and
+installed-runtime acceptance still prevent completion of chunk 7.
+
 The latest [MOS variant batch](validation/mos-variants-2026-10-17.json) covers
 all 86 placeable MOS/clamp catalog views, including hidden-body, native-threshold,
 high-voltage, isolated and RF variants. Its 324 selected condition cases pass

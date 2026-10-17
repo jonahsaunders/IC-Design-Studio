@@ -6,17 +6,19 @@ from icstudio.catalog import validate_catalog,create_device,parameter_values
 from icstudio.ihp_isolation import constrain
 from scripts.prepare_ihp_isolation_qualification import prepare,ROOT
 from scripts.qualify_catalog_interfaces import one
+from scripts.device_qualification_source import previous_devices
 
 
 class IsolationInterfaceTests(unittest.TestCase):
     def test_reviewed_binding_preserves_all_sources_and_roundtrips(self):
+        source=self.enterContext(previous_devices(ROOT/'icstudio/assets/pdks/ihp-sg13g2'))
         with tempfile.TemporaryDirectory() as tmp:
-            out=Path(tmp)/'package';record=prepare(ROOT/'icstudio/assets/pdks/ihp-sg13g2',out)
+            out=Path(tmp)/'package';record=prepare(source,out)
             p=json.loads((out/'package.json').read_bytes());tech=clone(p['technology'])
             tech.update(package_root=str(out),package_lock={k:p[k] for k in ('id','revision','files')})
             row=one(tech,'sg13g2_pr/isolbox.sym',Path(tmp)/'exchange')
             self.assertEqual(row['status'],'PASS',row)
-            old=json.loads((ROOT/'icstudio/assets/pdks/ihp-sg13g2/package.json').read_bytes())
+            old=json.loads((source/'package.json').read_bytes())
             self.assertEqual(p['files'],old['files'])
             self.assertNotEqual(p['revision'],old['revision'])
             self.assertEqual(record['files'],157)

@@ -2,6 +2,8 @@
   "family": "ihp-sg13g2",
   "files": {
     "ICSTUDIO-MIM-CORRECTION.json": "e5497d6ed3731f38b3daecec4ab9ff14f88b0e3a4a181372a9e12484f6a29e40",
+    "ICSTUDIO-MOS-BINDINGS.json": "c26b435f5654f0f50b5056d637ebdc668e06fb01001aed84ae722a295a957a66",
+    "ICSTUDIO-SVARICAP-BINDING.json": "9e12429d3286dc8fccba248f51fcc8287e1ed59c2ee9bf42a99f83fe8fe22751",
     "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
     "UPSTREAM-LOCK.json": "a4fb9307f96eb812864be404f4c4ca72b64a592847ac6835ad30e712450bd220",
     "libs.tech/klayout/tech/sg13g2.lyp": "c9fd698498f3f798c2d3dc40f1aa0e0fcf646bd0a6e9e7522a008200487d5222",
@@ -160,7 +162,7 @@
     "libs.tech/xschem/sg13g2_pr/sub.sym": "775c05bb3d205f41661312d5ebf83d3d03c006c1cfbce6b98dc0a12abcc4bf02"
   },
   "id": "ihp-sg13g2",
-  "revision": "d03f47cdf46a85a0",
+  "revision": "1e24ec25b491028b",
   "schema": 1,
   "technology": {
     "dbu_um": 0.001,
@@ -3199,7 +3201,7 @@
       "native_generators": [],
       "netgen_setup": "libs.tech/netgen/ihp-sg13g2_setup.tcl"
     },
-    "revision": "d03f47cdf46a85a0",
+    "revision": "1e24ec25b491028b",
     "simulation": {
       "catalog": {
         "sg13g2_pr/annotate_bip_params.sym": {
@@ -5668,12 +5670,14 @@
             "l": {
               "default": "3.0u",
               "derived": false,
+              "exclusive_minimum": "2.1u",
               "integer": false,
               "positive": true
             },
             "w": {
               "default": "3.0u",
               "derived": false,
+              "exclusive_minimum": "2.1u",
               "integer": false,
               "positive": true
             }
@@ -5913,7 +5917,7 @@
               }
             ]
           },
-          "unavailable": "Invalid model terminals."
+          "unavailable": ""
         },
         "sg13g2_pr/moscap_n.sym": {
           "category": "Capacitors",
@@ -6517,7 +6521,9 @@
           "label": "nmoscl_2",
           "model": "nmoscl_2",
           "model_source": "libs.tech/ngspice/models/sg13g2_moslv_mod.lib",
-          "notes": [],
+          "notes": [
+            "Model order VDD VSS agrees with explicit symbol sim_pinnumber 1/2. Terminal locations and labels are unchanged. This is a connection correction, not an ESD robustness rating."
+          ],
           "parameter_scale": {
             "l": 1,
             "w": 1
@@ -6531,8 +6537,8 @@
             }
           },
           "pin_order": [
-            "vss",
-            "vdd"
+            "vdd",
+            "vss"
           ],
           "prefix": "X",
           "source": "libs.tech/xschem/sg13g2_pr/nmoscl_2.sym",
@@ -6691,7 +6697,9 @@
           "label": "nmoscl_4",
           "model": "nmoscl_4",
           "model_source": "libs.tech/ngspice/models/sg13g2_moslv_mod.lib",
-          "notes": [],
+          "notes": [
+            "Model order VDD VSS agrees with explicit symbol sim_pinnumber 1/2. Terminal locations and labels are unchanged. This is a connection correction, not an ESD robustness rating."
+          ],
           "parameter_scale": {
             "l": 1,
             "w": 1
@@ -6705,8 +6713,8 @@
             }
           },
           "pin_order": [
-            "vss",
-            "vdd"
+            "vdd",
+            "vss"
           ],
           "prefix": "X",
           "source": "libs.tech/xschem/sg13g2_pr/nmoscl_4.sym",
@@ -13008,7 +13016,8 @@
           "model": "sg13_hv_svaricap",
           "model_source": "libs.tech/ngspice/models/sg13g2_svaricaphv_mod.lib",
           "notes": [
-            "Hidden body net exposed as terminal body; connect it explicitly."
+            "Hidden body net exposed as terminal body; connect it explicitly.",
+            "Model order G1, W, G2, bn is mapped explicitly. W/L/Nx bounds follow the locked model parameter checks; full bias, RF, physical and reliability qualification remains separate."
           ],
           "parameter_scale": {
             "l": 1,
@@ -13019,6 +13028,8 @@
               "default": "0.3u",
               "derived": false,
               "integer": false,
+              "maximum": 8e-07,
+              "minimum": 3e-07,
               "positive": true
             },
             "mm_ok": {
@@ -13030,20 +13041,24 @@
             "nx": {
               "default": "1",
               "derived": false,
-              "integer": false,
+              "integer": true,
+              "maximum": 10,
+              "minimum": 1,
               "positive": false
             },
             "w": {
               "default": "3.74u",
               "derived": false,
               "integer": false,
+              "maximum": 9.74e-06,
+              "minimum": 3.74e-06,
               "positive": true
             }
           },
           "pin_order": [
-            "g2",
-            "nw",
             "g1",
+            "nw",
+            "g2",
             "body"
           ],
           "prefix": "X",
@@ -13080,9 +13095,9 @@
               }
             },
             "pin_order": [
-              "g2",
-              "nw",
               "g1",
+              "nw",
+              "g2",
               "body"
             ],
             "pins": {

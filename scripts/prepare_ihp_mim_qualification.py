@@ -4,11 +4,13 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from icstudio.model import digest,file_digest
 from icstudio.ihp_mim_rules import RELATIVE_PATH,BASE_SHA256,CORRECTED_SHA256,SOURCE_URL,corrected
+from scripts.device_qualification_source import historical_input
 
 BASE_REVISION='3abac20fcb57e184'
 CORRECTED_REVISION='d03f47cdf46a85a0'
 CORRECTED_MANIFEST='63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c'
 
+@historical_input
 def prepare(source,output):
     source=Path(source).resolve();output=Path(output).resolve()
     if output.exists():raise ValueError('Choose a new IHP adapter directory.')

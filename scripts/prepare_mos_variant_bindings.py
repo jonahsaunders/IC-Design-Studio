@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from icstudio.model import clone, digest, file_digest
 from icstudio.catalog import validate_catalog
+from scripts.device_qualification_source import historical_input
 MANIFESTS={'gf180mcuC':'92ed3a348c93cde49bf48f2edf37a4f41bee6a0d3741b04f7c5ebfbdbc23ac7f',
            'gf180mcuD':'b4200b48f3fe59e961a4f514cdcb7166d21c231bccef586f01a7fa6b5f2ed738',
            'ihp-sg13g2':'63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c'}
@@ -37,6 +38,7 @@ def correct_clamp(entry, symbol, model):
     entry['notes'].append('Model order VDD VSS agrees with explicit symbol sim_pinnumber 1/2. Terminal locations and labels are unchanged. This is a connection correction, not an ESD robustness rating.')
 
 
+@historical_input
 def prepare(source, output):
     source,output=Path(source).resolve(),Path(output).resolve()
     if output.exists():raise ValueError('Choose a new MOS correction directory.')

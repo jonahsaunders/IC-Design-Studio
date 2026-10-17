@@ -11,8 +11,10 @@ from icstudio.model import digest,file_digest
 from icstudio.catalog import validate_catalog
 from icstudio.ihp_isolation import constrain
 from scripts.prepare_ihp_mim_qualification import CORRECTED_MANIFEST
+from scripts.device_qualification_source import historical_input
 
 
+@historical_input
 def prepare(source,output):
     source=Path(source).resolve();output=Path(output).resolve()
     if output.exists():raise ValueError('Choose a new isolation-box package directory.')

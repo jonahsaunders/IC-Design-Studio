@@ -3,7 +3,9 @@
   "files": {
     "ICSTUDIO-DEVICE-PACKAGE.json": "0cf702db83fe3e2b6a571a3dff04a9a650d36027c303931f58b868b92c13d8ec",
     "ICSTUDIO-NPN-PROVENANCE.json": "4fb792ae70d5b4030a1e7e42e2d6841671160b61b3bb5f30a40021e1a21130bd",
+    "ICSTUDIO-PARALLEL-VARACTORS.json": "21230bfb2d6c27c9607421cd2acbd13516ccccca18a5c64d82e1f3885b28a507",
     "ICSTUDIO-RESISTOR-CORRECTION.json": "9854229dbcc793b644a10f3612445204248cce94bbe9fcaf56c443b870fb6c7b",
+    "ICSTUDIO-VPP-BINDING.json": "ec8fcdc12e19dac30389ae1dd72fef434451c9eb8ffb4552baeb71547fc89561",
     "LICENSE-models.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "LICENSE-symbols.txt": "cce5dea3ff2bf1730e2dfb96c2170f7ec25ec15ef4b51ddfb691acf556072141",
     "SOURCES": "6c1547aacc0cc62da6027853db2c7b0bcd7f380578163b94b0f349f30cffbab4",
@@ -294,6 +296,7 @@
     "libs.tech/ngspice/corners/tt/specialized_cells.spice": "d05daea0ab4040860de53628efdfae191fb156dea60fa28c36ed75153a3931ac",
     "libs.tech/ngspice/head.spice": "0c2499173f578cf0084df58a03872072e76f34c25a085cfbd24cca8c23bcb1ef",
     "libs.tech/ngspice/icstudio-npn-corners.lib": "2854e72fe39e98041ed95fe248dc351adbbf6c4107edd0d0f6aa34811e2ddaf0",
+    "libs.tech/ngspice/icstudio-parallel-varactors.spice": "661303a3bee98e9aab0e6e5928ca46d8b0ad9607d3c0fe7bd0af497f42c3a34a",
     "libs.tech/ngspice/parameters/critical.spice": "94ba392849ae3466798d7cfd29d53a31336204730e895dabfbc0c39ade8d6a28",
     "libs.tech/ngspice/parameters/fast.spice": "283dd86a353fc872c3bbfe7c276d959faa11f91450103185af7407d1017f93c9",
     "libs.tech/ngspice/parameters/fast_70p.spice": "6eb7f5e84f7d0676e2a4b35decd2ce27fa98bb54e5ee71544a4992a5068ada5c",
@@ -409,7 +412,7 @@
     "qualification-sources/bipolar/sky130_fd_pr__npn_05v5__t.corner.spice": "69583cf1827826ed0f91f9e775e17dc3d23d70caa6e4a4c766bb433f47d6d8e0"
   },
   "id": "sky130A",
-  "revision": "2a8a8a7048ac324d",
+  "revision": "8c3913de70b7e4b1",
   "schema": 1,
   "technology": {
     "dbu_um": 0.001,
@@ -3731,7 +3734,7 @@
       ],
       "netgen_setup": ""
     },
-    "revision": "2a8a8a7048ac324d",
+    "revision": "8c3913de70b7e4b1",
     "simulation": {
       "catalog": {
         "sky130_fd_pr/cap_mim_m3_1.sym": {
@@ -4145,16 +4148,17 @@
         "sky130_fd_pr/cap_var_hvt.sym": {
           "category": "Other",
           "emit_parameters": {
+            "copies": "vm",
             "l": "l",
-            "vm": "vm",
             "w": "w"
           },
           "kind": "PDK",
           "label": "cap_var_hvt",
-          "model": "sky130_fd_pr__cap_var_hvt",
-          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_var_hvt.model.spice",
+          "model": "icstudio_cap_var_hvt_parallel",
+          "model_source": "libs.tech/ngspice/icstudio-parallel-varactors.spice",
           "notes": [
-            "Executable text retained as metadata only."
+            "Executable text retained as metadata only.",
+            "VM uses the explicit IC Design Studio parallel-single-device wrapper; upstream VM=1 model unchanged."
           ],
           "parameter_scale": {
             "l": 1000000.0,
@@ -4171,7 +4175,7 @@
               "default": "1",
               "derived": false,
               "integer": false,
-              "positive": false
+              "positive": true
             },
             "w": {
               "default": "0.5",
@@ -4417,17 +4421,17 @@
         "sky130_fd_pr/cap_var_lvt.sym": {
           "category": "Other",
           "emit_parameters": {
+            "copies": "vm",
             "l": "l",
-            "m": "vm",
-            "vm": "vm",
             "w": "w"
           },
           "kind": "PDK",
           "label": "cap_var_lvt",
-          "model": "sky130_fd_pr__cap_var_lvt",
-          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_var_lvt.model.spice",
+          "model": "icstudio_cap_var_lvt_parallel",
+          "model_source": "libs.tech/ngspice/icstudio-parallel-varactors.spice",
           "notes": [
-            "Executable text retained as metadata only."
+            "Executable text retained as metadata only.",
+            "VM uses the explicit IC Design Studio parallel-single-device wrapper; upstream VM=1 model unchanged."
           ],
           "parameter_scale": {
             "l": 1000000.0,
@@ -4444,7 +4448,7 @@
               "default": "1",
               "derived": false,
               "integer": false,
-              "positive": false
+              "positive": true
             },
             "w": {
               "default": "0.5",
@@ -29084,36 +29088,20 @@
         "sky130_fd_pr/vpp_cap.sym": {
           "category": "Capacitors",
           "emit_parameters": {
-            "l": "l",
             "m": "mult",
-            "mult": "mult",
-            "w": "w"
+            "mult": "mult"
           },
           "kind": "PDK",
           "label": "vpp_cap",
           "model": "sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5",
           "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5.model.spice",
           "notes": [
-            "Executable text retained as metadata only."
+            "Executable text retained as metadata only.",
+            "Fixed 11.5 x 11.7 um VPP model: c0, c1, substrate b, M5 shield. W/L are not model geometry inputs; use the fixed layout and positive mult."
           ],
-          "parameter_scale": {
-            "l": 1000000.0,
-            "w": 1000000.0
-          },
+          "parameter_scale": {},
           "parameters": {
-            "l": {
-              "default": "1",
-              "derived": false,
-              "integer": false,
-              "positive": true
-            },
             "mult": {
-              "default": "1",
-              "derived": false,
-              "integer": false,
-              "positive": true
-            },
-            "w": {
               "default": "1",
               "derived": false,
               "integer": false,
@@ -29123,8 +29111,8 @@
           "pin_order": [
             "c0",
             "c1",
-            "top",
-            "sub"
+            "sub",
+            "top"
           ],
           "prefix": "X",
           "source": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
@@ -29168,8 +29156,8 @@
             "pin_order": [
               "c0",
               "c1",
-              "top",
-              "sub"
+              "sub",
+              "top"
             ],
             "pins": {
               "c0": [
@@ -29323,6 +29311,9 @@
             "tt": "tt",
             "tt_mm": "tt_mm"
           }
+        },
+        {
+          "path": "libs.tech/ngspice/icstudio-parallel-varactors.spice"
         }
       ],
       "ngspice_compatibility": "hsa"

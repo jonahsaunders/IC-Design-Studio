@@ -208,12 +208,19 @@ def main():
                 identity.update(prepare(ROOT/'icstudio/assets/pdks/sky130A', folder))
                 package = json.loads((folder/'package.json').read_bytes()); tech = clone(package['technology'])
                 tech.update(package_root=str(folder), package_lock={k: package[k] for k in ('id', 'revision', 'files')})
+            # The promoted default already declares the parallel-unit contract.
+            # Historical --parallel-varactors still rebuilds its exact older
+            # adapter; neither path compares a wrapper against upstream VM>1.
+            parallel = a.parallel_varactors or (target == 'sky130A' and all(
+                tech['simulation']['catalog']['sky130_fd_pr/cap_var_'+k+'.sym']['model']
+                == 'icstudio_cap_var_'+k+'_parallel' for k in ('hvt', 'lvt')))
+            identity['parallel_varactor_reference'] = parallel
             report['processes'][target] = identity
             for drive in range(max(len(r['pins']) for r in probes(target))):
                 for bias in ((.5,) if a.pilot else (-.5, .5)):
                     for corner in (('nominal',) if a.pilot else PROFILES[target]['corners']):
                         for temp in ((27,) if a.pilot else (0, 27, 85)):
-                            jobs.append(pool.submit(case, tech, target, drive, bias, corner, temp, out, a.ngspice, osdi, a.parallel_varactors))
+                            jobs.append(pool.submit(case, tech, target, drive, bias, corner, temp, out, a.ngspice, osdi, parallel))
         for job in as_completed(jobs):
             row = job.result(); report['cases'].append(row); write(out/'qualification.json', report)
             print(row['name'], row['status'], row.get('error', ''), flush=True)

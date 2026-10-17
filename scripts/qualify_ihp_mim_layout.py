@@ -113,7 +113,8 @@ def main():
         scope='Selected standard IHP cap_cmim geometries, import/port assignment, local MIM DRC correction, native full DRC/LVS and physical faults. No RF, complete operating-envelope, chip, or foundry qualification.',
         source_files_sha256=file_digest(out/'source-files.json'))
     try:
-        report['adapter']=prepare(ROOT/'icstudio/assets/pdks/ihp-sg13g2',out/'adapter')
+        from scripts.prepare_default_device_packages import prepare as prepare_default
+        report['adapter']=prepare_default(ROOT/'icstudio/assets/pdks/ihp-sg13g2',out/'adapter','ihp-sg13g2')
         registry=PDKRegistry(out/'registry');key=registry.install(out/'adapter/package.json');tech=registry.technology(key)
         tools={'magic':a.magic,'netgen':a.netgen}
         baseline=None

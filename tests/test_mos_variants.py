@@ -7,6 +7,7 @@ from icstudio.interchange import export_xschem
 from icstudio.xschem_io import import_package
 from scripts.qualify_mos_variants import GROUPS, compare, fixture, probes
 from scripts.prepare_mos_variant_bindings import prepare, correct_native, correct_clamp
+from scripts.device_qualification_source import previous_devices
 ROOT=Path(__file__).resolve().parents[1]
 
 
@@ -38,7 +39,7 @@ class MOSVariantTests(unittest.TestCase):
 
     def test_corrected_packages_preserve_sources_and_handoff_identity(self):
         for target,group in [('gf180mcuC','gf-c'),('gf180mcuD','gf-d'),('ihp-sg13g2','ihp-clamp')]:
-            source=ROOT/'icstudio/assets/pdks'/target;original=json.loads((source/'package.json').read_bytes())
+            source=self.enterContext(previous_devices(ROOT/'icstudio/assets/pdks'/target));original=json.loads((source/'package.json').read_bytes())
             with self.subTest(target=target),tempfile.TemporaryDirectory() as tmp:
                 root=Path(tmp);record=prepare(source,root/'package');package=json.loads((root/'package/package.json').read_bytes())
                 self.assertNotEqual(record['revision'],original['revision'])

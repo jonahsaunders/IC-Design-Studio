@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]; sys.path.insert(0,str(ROOT))
 from icstudio.model import clone, digest, file_digest
 from icstudio.catalog import validate_catalog
+from scripts.device_qualification_source import historical_input
 from scripts.prepare_sky130_parallel_varactors import prepare as parallel_package
 
 KEY='sky130_fd_pr/vpp_cap.sym'
@@ -27,6 +28,7 @@ def correct(entry, model):
     entry['notes'].append('Fixed 11.5 x 11.7 um VPP model: c0, c1, substrate b, M5 shield. W/L are not model geometry inputs; use the fixed layout and positive mult.')
 
 
+@historical_input
 def prepare(source, output):
     source,output=Path(source).resolve(),Path(output).resolve()
     original=json.loads((source/'package.json').read_bytes())

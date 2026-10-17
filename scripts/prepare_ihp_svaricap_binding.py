@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from icstudio.model import clone,digest,file_digest
 from icstudio.catalog import validate_catalog
+from scripts.device_qualification_source import historical_input
 from scripts.prepare_ihp_isolation_qualification import prepare as isolation_package
 KEY='sg13g2_pr/sg13_svaricap.sym'
 MODEL_SHA256='b6ae39c7334c75c222ecdee9d6b04c9be48657e91351429aebac47d1192a9abb'
@@ -24,6 +25,7 @@ def correct(entry,model):
     entry['notes'].append('Model order G1, W, G2, bn is mapped explicitly. W/L/Nx bounds follow the locked model parameter checks; full bias, RF, physical and reliability qualification remains separate.')
 
 
+@historical_input
 def prepare(source,output):
     source,output=Path(source).resolve(),Path(output).resolve();original=json.loads((source/'package.json').read_bytes())
     entry=clone(original['technology']['simulation']['catalog'][KEY]);correct(entry,(source/entry['model_source']).read_bytes())

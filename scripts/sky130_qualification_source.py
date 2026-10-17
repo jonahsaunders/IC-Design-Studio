@@ -7,6 +7,7 @@ from contextlib import contextmanager
 import json,shutil,tempfile
 from pathlib import Path
 from icstudio.model import file_digest
+from scripts.device_qualification_source import previous_devices
 
 ROOT=Path(__file__).resolve().parents[1]
 BASE=ROOT/'icstudio/assets/qualification/sky130-base-v1'
@@ -17,6 +18,12 @@ DEFAULT_MANIFEST='177e57626c06cb5d103aab04c4bc82983bc4ba96f2e08e4bc04006ade6cd8e
 
 @contextmanager
 def original_package(source):
+    with previous_devices(source) as previous:
+        with _original_package(previous) as original:yield original
+
+
+@contextmanager
+def _original_package(source):
     source=Path(source).resolve()
     manifest=json.loads((source/'package.json').read_bytes())
     if manifest.get('revision')==BASE_REVISION:
