@@ -59,6 +59,15 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [IHP bipolar-layout record](validation/ihp-bipolar-layouts-2026-10-17.json)
+adds ten sampled PNP layouts and 35 detected physical/reference faults. An
+explicit public KLayout extraction option resolves the larger-PNP recognition
+gap while retaining full Magic DRC and strict Netgen comparison. Unfiltered
+native output, exact geometry, every mask and the desktop/backend route are
+checked; empty circuits cannot pass. The [bipolar guide](IHP_BIPOLAR_LAYOUT_QUALIFICATION.md)
+records the separate source license, retained failures and remaining NPN/HBT,
+operating-envelope, other-family and installed-release requirements.
+
 The [diode-layout record](validation/diode-layouts-2026-10-17.json) adds 100
 native full-DRC/strict-LVS layouts for two IHP and four GF180 diode families on
 each C/D variant. All 300 intentional faults are detected, and an independent

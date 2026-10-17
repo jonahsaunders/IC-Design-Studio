@@ -356,3 +356,13 @@ license and exact path/checksum lock accompany them. The local invocation in
 guard clearance and contact coverage; it does not modify the retained source or
 the process verification decks. IHP resistor checks use the already bundled
 Apache-2.0 generators with their optional via stacks disabled.
+
+The optional IHP KLayout extraction route retains the unmodified public LVS
+runset and dependencies from IHP-Open-PDK commit
+`5e6d592e4002946a4616f798c357f0f3c06cf3b6` under
+`icstudio/assets/physical/ihp_klayout_lvs`. Original copyright headers and the
+Apache-2.0 license accompany an exact source and checksum inventory. These
+upstream files keep their separate license. Studio's GPL-3.0 adapter executes
+extraction without alignment, simplification, purging or implicit connections;
+it retains native results and records the pin-text and BJT instance-prefix
+interoperability conversions separately. Netgen compares the unfiltered circuit.

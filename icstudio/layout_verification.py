@@ -73,7 +73,7 @@ def verification_stream(source, top, ports, target, *, pin_layers):
                 hierarchy='Flattened only in private verification input; original project and stream retained.')
 
 
-def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None):
+def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,lvs_extractor='magic'):
     from .interchange import export_layout
     from .interoperability import tool_asset
     from .process_adapters import ADAPTERS
@@ -90,6 +90,11 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None)
     def stage(name,fn):return record_stage(report,name,fn,publish,progress)
     def preflight():
         if blocked_reason:raise ValueError(blocked_reason)
+        if lvs_extractor not in ('magic','ihp-klayout'):
+            raise ValueError('Unknown layout LVS extractor.')
+        if lvs_extractor=='ihp-klayout' and p['pdk'].get('package_lock',{}).get('id')!='ihp-sg13g2':
+            raise ValueError('The IHP KLayout extractor requires an IHP SG13G2 package.')
+        report['lvs_extractor']=lvs_extractor
         validate(p);ref.update(reference(selected['text'],selected['top']))
         if ref!=selected:raise ValueError('The captured schematic reference changed before verification.')
         report['reference']={k:v for k,v in ref.items() if k!='text'}
@@ -109,11 +114,15 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None)
                 if not path.is_relative_to(pdk_root) or not path.is_file() or file_digest(path)!=sha:
                     raise ValueError('Physical rule dependency is missing or changed: '+relative)
                 assets[relative]=path
-        for name in ('magic','netgen'):
+        if lvs_extractor=='ihp-klayout':
+            from .ihp_klayout_lvs import assets as extraction_assets
+            assets.update({'ihp-klayout/'+name:path for name,path in extraction_assets().items()})
+        for name in (('magic','netgen','klayout') if lvs_extractor=='ihp-klayout' else ('magic','netgen')):
             path=Path(shutil.which(tools.get(name,'') or name) or tools.get(name,'') or name)
             if not path.is_file():raise ValueError('Configure the '+name+' physical engine.')
             path=path.resolve();resolved[name]=dict(path=str(path),sha256=file_digest(path))
-            atomic_write(out/(name+'-version.log'),execute([str(path),'-batch' if name=='netgen' else '--version'],out,timeout=20))
+            flag={'netgen':'-batch','magic':'--version','klayout':'-v'}[name]
+            atomic_write(out/(name+'-version.log'),execute([str(path),flag],out,timeout=20))
         required=re.search(r'(?m)^\s*requires\s+magic-([0-9]+\.[0-9]+\.[0-9]+)',assets['technology'].read_text(encoding='utf-8'))
         actual=re.search(r'\b([0-9]+\.[0-9]+\.[0-9]+)\b',(out/'magic-version.log').read_text())
         if required and (not actual or tuple(map(int,actual[1].split('.')))<tuple(map(int,required[1].split('.')))):
@@ -159,6 +168,12 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None)
         try:stage('drc',drc)
         except (ValueError,OSError) as exc:failures.append(str(exc))
         def extract():
+            if lvs_extractor=='ihp-klayout':
+                from .ihp_klayout_lvs import extract as ihp_extract
+                result=ihp_extract(resolved['klayout']['path'],out/'layout.gds',c['name'],ref['ports'],p['pdk'],out/'lvs-extraction')
+                for path in (out/'lvs-extraction').iterdir():
+                    if path.is_file():files[path.relative_to(out).as_posix()]=file_digest(path)
+                return result
             # verification_stream already flattened the private geometry. Use
             # Magic's hierarchical writer: its flat writer emits device
             # perimeter with area units (1e-12 instead of 1e-6 in 8.3.684).

@@ -18,7 +18,9 @@ class SiliconMixin:
             'File':[('New PDK inverter…',self.new_silicon_example)],
             'Design':[('Generate PDK device layout…',self.mos_layout_dialog),('Generate inverter layout…',self.inverter_layout_dialog),
                       ('Generate contacted SKY130 guard…',self.process_guard_dialog),('Add tied SKY130 MOS dummy…',self.process_dummy_dialog)],
-            'Analysis':[('Verify custom inverter through silicon',self.run_silicon),('Run layout DRC / LVS only…',self.run_layout_verification),('Check linked layout and show connections',self.check_linked_layout)],
+            'Analysis':[('Verify custom inverter through silicon',self.run_silicon),('Run layout DRC / LVS only…',self.run_layout_verification),
+                        ('Verify IHP layout with KLayout extraction…',lambda:self.run_layout_verification(lvs_extractor='ihp-klayout')),
+                        ('Check linked layout and show connections',self.check_linked_layout)],
             'View':[('Physical workflow',self.open_silicon)]}.items():
             for title,fn in entries:self.action(menus[menu],title,fn)
 
@@ -38,7 +40,9 @@ class SiliconMixin:
     def open_silicon(self):
         self.results_dock.show();self.results_tabs.setCurrentIndex(self.silicon_tab);self.resizeDocks([self.results_dock],[330],Qt.Vertical);self.refresh_silicon()
 
-    def run_layout_verification(self):
+    def run_layout_verification(self,*,lvs_extractor='magic'):
+        if lvs_extractor=='ihp-klayout' and self.project['pdk'].get('package_lock',{}).get('id')!='ihp-sg13g2':
+            raise ValueError('Link an IHP SG13G2 physical PDK before selecting its KLayout extraction.')
         values=self.simple_form('Layout DRC / LVS',{'Schematic SPICE file':'','Schematic cell':self.cell['name']},
             'Check the active layout against a self-contained schematic netlist using the linked physical PDK. The reference is captured with the run. Legacy layout labels use the named schematic terminals; no simulation testbench is required.')
         if not values:return
@@ -46,7 +50,7 @@ class SiliconMixin:
         path=Path(values['Schematic SPICE file']).expanduser()
         if not path.is_file() or path.stat().st_size>10_000_000:raise ValueError('Choose a schematic SPICE file under 10 MB.')
         captured=reference(path.read_text(encoding='utf-8'),values['Schematic cell'].strip())
-        self.start_job({'type':'silicon','verification_mode':'drc_lvs','reference':captured});self.open_silicon()
+        self.start_job({'type':'silicon','verification_mode':'drc_lvs','reference':captured,'lvs_extractor':lvs_extractor});self.open_silicon()
 
     def new_silicon_example(self):
         if not self.maybe_save():return
