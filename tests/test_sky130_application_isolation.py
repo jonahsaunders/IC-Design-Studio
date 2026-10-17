@@ -195,16 +195,13 @@ class Sky130ApplicationIsolationTests(unittest.TestCase):
         self.assertIsNone(isolation.validate_saved({'artifacts':{}},Path('/unused-sky130-isolation-fixture')))
 
     def test_ui_retains_inherit_bulk_and_required_modes(self):
-        os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
-        from PySide6.QtWidgets import QApplication
-        from icstudio.digital_physical_ui import PhysicalEditor
-        app=QApplication.instance() or QApplication([])
-        for settings,index in (({},0),({'nfet_in_dnwell':False},1),({'nfet_in_dnwell':True},2)):
-            editor=PhysicalEditor(None,settings);self.assertEqual(editor.isolation.currentIndex(),index)
-            editor.apply();self.assertIsNotNone(editor.value)
-            self.assertEqual(editor.value.get('nfet_in_dnwell'),settings.get('nfet_in_dnwell'))
-            editor.isolation.setCurrentIndex(0);editor.apply();self.assertNotIn('nfet_in_dnwell',editor.value)
-            editor.close()
+        # A QCoreApplication from earlier worker tests cannot host widgets.
+        process=subprocess.run([sys.executable,'-m','tests.gui_physical_settings',
+                                'PhysicalSettingsTests.test_isolation_modes','-v'],
+            cwd=ROOT,env=dict(os.environ,QT_QPA_PLATFORM='offscreen'),
+            capture_output=True,text=True,timeout=60)
+        self.assertEqual(process.returncode,0,process.stdout+process.stderr)
+
 
 
 if __name__=='__main__':unittest.main()

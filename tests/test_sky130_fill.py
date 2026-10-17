@@ -182,16 +182,14 @@ class Sky130FillTests(unittest.TestCase):
         self.assertFalse((self.root/'sky130-fill/filled.lef').exists())
 
     def test_editor_saves_and_removes_fill_choice(self):
-        import os
-        os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
-        from PySide6.QtWidgets import QApplication
-        from icstudio.digital_physical_ui import PhysicalEditor
-        app=QApplication.instance() or QApplication([])
-        dialog=PhysicalEditor(None,{});dialog.sky130_fill.setChecked(True);dialog.apply()
-        self.assertTrue(dialog.value['sky130_fill'])
-        second=PhysicalEditor(None,dialog.value);self.assertTrue(second.sky130_fill.isChecked())
-        second.sky130_fill.setChecked(False);second.apply();self.assertNotIn('sky130_fill',second.value)
-        dialog.close();second.close();app.processEvents()
+        import os,subprocess,sys
+        root=Path(__file__).resolve().parents[1]
+        process=subprocess.run([sys.executable,'-m','tests.gui_physical_settings',
+                                'PhysicalSettingsTests.test_fill_choice','-v'],
+            cwd=root,env=dict(os.environ,QT_QPA_PLATFORM='offscreen'),
+            capture_output=True,text=True,timeout=60)
+        self.assertEqual(process.returncode,0,process.stdout+process.stderr)
+
 
 
 if __name__=='__main__':unittest.main()
